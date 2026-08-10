@@ -1,0 +1,48 @@
+{
+  "taskId": "TASK-002",
+  "verifiedAt": "2026-08-10T20:05:42.965Z",
+  "baseCommit": "d7554b0467b0d34e711fa3d0e1a676a4c0db3eee",
+  "headCommit": "d7554b0467b0d34e711fa3d0e1a676a4c0db3eee",
+  "changedFiles": [
+    "docs/examples/harness-handoff.md"
+  ],
+  "taskHash": "ecd4cd69f92890cabd32abc0648795e98977168d47707e7951cd718c44046074",
+  "packHash": "928eb9e405c0a2a72cc78e1eb247bdf8e0cd9a0fb4febb9085dfaa10b182d5be",
+  "changeFingerprint": "39db6f0ab5bf7d2233b6c9170e11e8c57ae8fc1d09ab68b4646410f837910ba8",
+  "commands": [
+    {
+      "command": "npm run test:unit",
+      "status": "passed"
+    },
+    {
+      "command": "npm run check:tasks",
+      "status": "passed"
+    },
+    {
+      "command": "npm run check:architecture",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-002",
+    "branch": "task/002-prove-the-bounded-local-harness-handoff",
+    "baseBranch": "main",
+    "baseCommit": "d7554b0467b0d34e711fa3d0e1a676a4c0db3eee",
+    "remote": "origin",
+    "createdAt": "2026-08-10T19:59:26.593Z",
+    "commit": "15d9e7f866699354a898e33dc7828b91ffd42c24",
+    "verifiedFingerprint": "39db6f0ab5bf7d2233b6c9170e11e8c57ae8fc1d09ab68b4646410f837910ba8",
+    "committedAt": "2026-08-10T20:08:34.098Z",
+    "pushed": true,
+    "pushedAt": "2026-08-10T20:08:45.026Z",
+    "pullRequest": {
+      "number": 6,
+      "url": "https://github.com/delmacy/system-builder/pull/6",
+      "state": "MERGED",
+      "openedAt": "2026-08-10T20:08:52.968Z",
+      "mergeCommit": "b39b11130bcef841a5e7ec1b07c1138fd3e4a8e6"
+    }
+  }
+}
