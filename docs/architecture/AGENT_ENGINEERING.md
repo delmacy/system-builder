@@ -11,8 +11,9 @@ Roadmap / decisions
  -> executor (normally OpenCode free/cheap model)
  -> local validation
  -> architecture/contract gates
- -> review
- -> commit/push
+ -> controlled commit/push/PR
+ -> deterministic CI and human review
+ -> merge
  -> project-state update
  -> next task
 ```
@@ -61,3 +62,5 @@ Autonomy grows gradually:
 5. `task:close` records evidence/state;
 6. safe local automation runs the next task;
 7. only later consider remote agents/Actions and auto-merge for low-risk tasks.
+
+GitHub Actions may run deterministic confirmation CI without executing an agent. The local Git workflow and merge policy are documented in `docs/engineering/GIT_WORKFLOW.md`.

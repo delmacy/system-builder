@@ -12,6 +12,7 @@ import { dirname, join, relative, resolve } from "node:path";
 import YAML from "yaml";
 import { analyzeArchitecture } from "./architecture.js";
 import { changedPaths, git } from "./git.js";
+import { assertGitManagedCloseReady, fingerprintChanges, readGitRecord } from "./git-workflow.js";
 import { matchesAny } from "./glob.js";
 import { loadTasks, readyTasks, repoPath, type Task, validateTaskCatalog } from "./task.js";
 
@@ -21,6 +22,9 @@ type PackManifest = {
   baseCommit: string;
   preparedAt: string;
   contextFiles: string[];
+  branch: string;
+  taskHash: string;
+  packHash: string;
 };
 
 type VerificationReceipt = {
@@ -30,6 +34,8 @@ type VerificationReceipt = {
   headCommit: string;
   changedFiles: string[];
   taskHash: string;
+  packHash: string;
+  changeFingerprint: string;
   commands: Array<{ command: string; status: "passed" }>;
   status: "passed";
 };
@@ -58,15 +64,6 @@ export function prepareTask(taskId: string, root = process.cwd()): string {
     throw new Error(`${taskId} is already prepared; remove its ignored context directory only to restart intentionally`);
   }
   mkdirSync(contextDirectory, { recursive: true });
-  const manifest: PackManifest = {
-    taskId,
-    taskFile: repoPath(root, task.file),
-    baseCommit: git(["rev-parse", "HEAD"], root),
-    preparedAt: new Date().toISOString(),
-    contextFiles: files,
-  };
-  writeFileSync(join(contextDirectory, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
-
   const sections = files.map((file) => {
     const contents = readFileSync(resolve(root, file), "utf8");
     return `## ${file}\n\n<context-file path="${file}">\n${contents.trimEnd()}\n</context-file>`;
@@ -74,7 +71,7 @@ export function prepareTask(taskId: string, root = process.cwd()): string {
   const pack = [
     `# Task Pack — ${taskId}`,
     "",
-    `Prepared from commit \`${manifest.baseCommit}\`.`,
+    `Prepared from commit \`${git(["rev-parse", "HEAD"], root)}\`.`,
     "This pack is bounded by the task contract. The repository remains authoritative.",
     "",
     "## Execution metadata",
@@ -88,12 +85,27 @@ export function prepareTask(taskId: string, root = process.cwd()): string {
   ].join("\n");
   const output = join(contextDirectory, "TASK_PACK.md");
   writeFileSync(output, pack);
+  const manifest: PackManifest = {
+    taskId,
+    taskFile: repoPath(root, task.file),
+    baseCommit: git(["rev-parse", "HEAD"], root),
+    preparedAt: new Date().toISOString(),
+    contextFiles: files,
+    branch: git(["branch", "--show-current"], root) || "DETACHED",
+    taskHash: hash(task.source),
+    packHash: hash(pack),
+  };
+  writeFileSync(join(contextDirectory, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
   return output;
 }
 
 export function verifyTask(taskId: string, root = process.cwd()): VerificationReceipt {
   const task = findTask(taskId, root);
   const manifest = readManifest(taskId, root);
+  const packPath = resolve(root, ".agent/context", taskId, "TASK_PACK.md");
+  if (manifest.taskHash !== hash(task.source) || !existsSync(packPath) || manifest.packHash !== hash(readFileSync(packPath, "utf8"))) {
+    throw new Error(`${taskId} Task Pack or task specification changed after preparation`);
+  }
   const changed = changedPaths(manifest.baseCommit, root);
   const taskFile = repoPath(root, task.file);
   const relevant = changed.filter((file) => file !== taskFile);
@@ -115,6 +127,10 @@ export function verifyTask(taskId: string, root = process.cwd()): VerificationRe
     execSync(command, { cwd: root, stdio: "inherit", shell: process.platform === "win32" ? "powershell.exe" : "/bin/sh" });
     commands.push({ command, status: "passed" });
   }
+  const afterValidation = changedPaths(manifest.baseCommit, root).filter((file) => file !== taskFile);
+  if (JSON.stringify(afterValidation) !== JSON.stringify(relevant)) {
+    throw new Error(`${taskId} validations changed the task file set; inspect and verify again`);
+  }
   const receipt: VerificationReceipt = {
     taskId,
     verifiedAt: new Date().toISOString(),
@@ -122,6 +138,8 @@ export function verifyTask(taskId: string, root = process.cwd()): VerificationRe
     headCommit: git(["rev-parse", "HEAD"], root),
     changedFiles: relevant,
     taskHash: hash(task.source),
+    packHash: manifest.packHash,
+    changeFingerprint: fingerprintChanges(relevant, root),
     commands,
     status: "passed",
   };
@@ -137,20 +155,25 @@ export function closeTask(taskId: string, root = process.cwd()): string {
   if (!existsSync(receiptPath)) throw new Error(`Run task:verify for ${taskId} before closing`);
   const receipt = JSON.parse(readFileSync(receiptPath, "utf8")) as VerificationReceipt;
   if (receipt.status !== "passed") throw new Error(`${taskId} has no passing verification receipt`);
-  if (receipt.taskHash !== hash(task.source)) throw new Error(`${taskId} changed after verification; verify again`);
-  if (receipt.headCommit !== git(["rev-parse", "HEAD"], root)) {
-    throw new Error(`HEAD changed after ${taskId} verification; verify again`);
-  }
-  const currentChanges = changedPaths(receipt.baseCommit, root).filter((file) => file !== repoPath(root, task.file));
-  if (JSON.stringify(currentChanges) !== JSON.stringify(receipt.changedFiles)) {
-    throw new Error(`${taskId} working tree changed after verification; verify again`);
+  let gitRecord = readGitRecord(taskId, root);
+  if (gitRecord) {
+    gitRecord = assertGitManagedCloseReady(task, receipt, root);
+  } else {
+    if (receipt.taskHash !== hash(task.source)) throw new Error(`${taskId} changed after verification; verify again`);
+    if (receipt.headCommit !== git(["rev-parse", "HEAD"], root)) {
+      throw new Error(`HEAD changed after ${taskId} verification; verify again`);
+    }
+    const currentChanges = changedPaths(receipt.baseCommit, root).filter((file) => file !== repoPath(root, task.file));
+    if (JSON.stringify(currentChanges) !== JSON.stringify(receipt.changedFiles)) {
+      throw new Error(`${taskId} working tree changed after verification; verify again`);
+    }
   }
 
   const updated = task.source.replace(/^(status:\s*).+$/m, "$1completed");
   writeFileSync(task.file, updated);
   const evidencePath = resolve(root, "docs/evidence/tasks", `${taskId}.json`);
   mkdirSync(dirname(evidencePath), { recursive: true });
-  writeFileSync(evidencePath, `${JSON.stringify(receipt, null, 2)}\n`);
+  writeFileSync(evidencePath, `${JSON.stringify(gitRecord ? { ...receipt, git: gitRecord } : receipt, null, 2)}\n`);
 
   const tasks = loadTasks(root);
   validateTaskCatalog(tasks);

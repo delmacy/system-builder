@@ -2,3 +2,5 @@ node_modules/
 dist/
 .agent/context/
 .agent/evidence/
+.agent/git/
+.agent/archive/

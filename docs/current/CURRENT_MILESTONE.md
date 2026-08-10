@@ -14,6 +14,7 @@ Prove a portable, versioned and traceable contract chain from ProcessMirror thro
 - [x] architecture import gates and self-tests;
 - [x] lint, typecheck, unit-test and build harness;
 - [x] ordered M1 queue.
+- [x] deterministic Git branch/commit/push/PR evidence layer and PR-only CI.
 
 ## M1 queue
 

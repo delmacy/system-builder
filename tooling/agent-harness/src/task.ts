@@ -111,6 +111,12 @@ export function repoPath(root: string, file: string): string {
   return relative(root, file).replaceAll("\\", "/");
 }
 
+export function getTask(tasks: Task[], taskId: string): Task {
+  const task = tasks.find((candidate) => candidate.metadata.id === taskId);
+  if (!task) throw new Error(`Unknown task: ${taskId}`);
+  return task;
+}
+
 function detectCycles(tasks: Task[]): void {
   const graph = new Map(tasks.map((task) => [task.metadata.id, task.metadata.depends_on]));
   const visiting = new Set<string>();

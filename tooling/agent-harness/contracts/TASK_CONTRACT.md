@@ -45,4 +45,6 @@ Rules:
 - A ready task is selectable only when every dependency is completed.
 - Context paths are repository-relative, bounded to 300 KB and cannot contain `..`.
 - Verification checks forbidden paths, allowed paths, untracked files and `max_files` before running task commands.
+- Git-managed verification binds the task spec, generated Task Pack and changed-file contents to SHA-256 evidence.
+- Branch, commit, push and PR metadata are delivery evidence; they do not add provider-specific task states.
 - A `free` task must not require an unresolved L3/L4 decision.

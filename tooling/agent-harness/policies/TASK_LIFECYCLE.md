@@ -31,6 +31,12 @@ Verification is deterministic whenever possible and includes scope diff, task-sp
 
 Closure records evidence, updates task state, project/milestone state and backlog findings. New adjacent findings become new tasks rather than expanding the completed task.
 
+Task states describe repository work, not Git transport. Git-managed tasks additionally record `prepared`, `verified`, `committed`, `pushed`, `PR opened` and `merged` as delivery evidence without adding provider-specific task states.
+
+For a task associated through `task:branch`, closure occurs only from clean, synchronized `main` after the recorded PR is confirmed merged and its commit is an ancestor of `main`. Legacy tasks without an association keep the original local closure behavior for compatibility.
+
+Closure itself updates versioned state files. Those changes must be reviewed and integrated as a separate state update; the harness does not commit directly on `main`.
+
 ## Autonomy
 
 Serial autonomous execution may be introduced only after next-task selection, context preparation, verification and recovery are reliable locally.

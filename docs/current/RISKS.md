@@ -39,3 +39,11 @@ The M0 gate scans static imports and known package aliases; it is not yet a full
 ## R10 — Platform-specific bootstrap evidence
 
 Initial verification targets Windows with Node 24/npm 11. Mitigation: add Linux/macOS CI only after local-first M1 is stable; do not claim unverified portability meanwhile.
+
+## R11 — Local Git delivery metadata
+
+Task/branch association and pre-closure Git metadata live under ignored `.agent/git/` so credentials and transient state are never committed. A lost workstation may require reconstructing the association from the deterministic branch name and GitHub PR. Durable metadata is written at task closure.
+
+## R12 — Post-merge state update
+
+Git-managed closure occurs after the implementation PR is merged, so `task:close` produces a small second set of versioned state changes. Mitigation: integrate it through a reviewed state-update commit/PR; no direct protected-main commit or hidden automatic merge is performed.

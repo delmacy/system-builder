@@ -8,6 +8,7 @@ import {
   validateTasks,
   verifyTask,
 } from "./harness.js";
+import { branchTask, commitTask, openTaskPullRequest, pushTask, taskGitStatus } from "./git-workflow.js";
 
 const [command, taskId] = process.argv.slice(2);
 
@@ -40,6 +41,31 @@ try {
       console.log(`Closed ${taskId}; evidence: ${relative(process.cwd(), evidence)}`);
       break;
     }
+    case "branch": {
+      requireTaskId(taskId, command);
+      console.log(JSON.stringify(branchTask(taskId), null, 2));
+      break;
+    }
+    case "status": {
+      requireTaskId(taskId, command);
+      console.log(JSON.stringify(taskGitStatus(taskId), null, 2));
+      break;
+    }
+    case "commit": {
+      requireTaskId(taskId, command);
+      console.log(`Committed ${taskId}: ${commitTask(taskId)}`);
+      break;
+    }
+    case "push": {
+      requireTaskId(taskId, command);
+      console.log(`Pushed ${taskId}: ${pushTask(taskId)}`);
+      break;
+    }
+    case "pr": {
+      requireTaskId(taskId, command);
+      console.log(JSON.stringify(openTaskPullRequest(taskId), null, 2));
+      break;
+    }
     case "validate-tasks": {
       console.log(`Validated ${validateTasks()} task specifications.`);
       break;
@@ -50,7 +76,7 @@ try {
       break;
     }
     default:
-      throw new Error("Usage: cli.ts <next|prepare|verify|close|validate-tasks|architecture> [TASK_ID]");
+      throw new Error("Usage: cli.ts <next|prepare|verify|close|branch|status|commit|push|pr|validate-tasks|architecture> [TASK_ID]");
   }
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);

@@ -42,6 +42,7 @@ git clone https://github.com/delmacy/system-builder.git
 cd system-builder
 npm install
 npm run task:next
+npm run task:branch -- TASK-002
 npm run task:prepare -- TASK-002
 ```
 
@@ -49,10 +50,13 @@ Give only `.agent/context/TASK-002/TASK_PACK.md` to the normal OpenCode executor
 
 ```text
 npm run task:verify -- TASK-002
+npm run task:commit -- TASK-002
+npm run task:push -- TASK-002
+npm run task:pr -- TASK-002
 npm run task:close -- TASK-002
 ```
 
-Review and commit the closure changes deliberately; the harness never pushes or auto-merges.
+Merge only after deterministic CI and review. Then update local `main` and close the task. Review and integrate closure-state changes deliberately; the harness never auto-merges.
 
 ## Current phase
 
