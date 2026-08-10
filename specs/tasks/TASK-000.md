@@ -3,40 +3,69 @@ id: TASK-000
 title: Establish durable System Builder foundation and handoff
 status: completed
 priority: 0
+milestone: M0
 model_tier: architecture
 risk: medium
 architecture_impact: true
+executor_preference: codex
+depends_on: []
+context_paths:
+  - AGENTS.md
+  - ARCHITECTURE.md
+allowed_paths:
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - docs/**
+  - specs/**
+  - tooling/**
+forbidden_paths:
+  - apps/**
+  - packages/**
+max_files: 40
+validation:
+  - npm run check:tasks
 ---
 
 # TASK-000 — Foundation Documentation
 
 ## Objective
 
-Transfer the approved System Builder product vision, architecture, anti-lock-in philosophy, suite model, development strategy and bootstrap requirements from conversational context into the canonical repository.
+Transfer the approved product vision, architecture and bootstrap requirements into the canonical repository.
 
-## Required outputs
+## Context
 
-- root agent/architecture entrypoints;
-- Master Blueprint;
-- suite and contract map;
-- compatibility/anti-lock-in rules;
-- repository/client separation strategy;
-- local-first agent-development policy;
-- context/project-memory strategy;
-- quality-gate intent;
-- accepted foundational ADRs;
-- current state/milestone/risk docs;
-- legacy `gestaotecnica` audit baseline and reuse map;
-- benchmark research program;
-- Codex TASK-001 kickoff specification.
+This was the repository foundation task completed before the engineering harness existed.
+
+## Current behavior
+
+The repository now contains the durable product, architecture, ADR and current-state baseline.
+
+## Required change
+
+Create the root entrypoints, architecture documents, accepted ADRs, migration baseline and TASK-001 handoff.
+
+## Inputs / contracts
+
+The initial product and architecture decisions supplied for repository bootstrap.
+
+## Outputs / contracts
+
+Versioned documentation, ADRs, current-state files and bootstrap specifications.
 
 ## Acceptance criteria
 
-- A fresh Codex/OpenCode session can understand why the project exists, its non-negotiable boundaries, current state and next task without reading prior chats.
-- Legacy repository is clearly marked as reference, not authority.
-- Real development is explicitly targeted at free/cheap OpenCode models after bootstrap.
+- A fresh session can understand the project without prior chats.
+- Legacy code is reference material rather than authority.
 - No product implementation is falsely claimed complete.
 
-## Evidence
+## Non-goals
 
-The files committed with TASK-000 are the evidence.
+Product implementation and engineering-harness code.
+
+## Evidence expected
+
+The files committed with TASK-000.
+
+## Escalation
+
+Any unresolved architecture decision must be recorded as a proposed ADR.

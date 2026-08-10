@@ -1,0 +1,52 @@
+{
+  "updatedAt": "2026-08-10T17:30:39.454Z",
+  "completed": [
+    "TASK-000",
+    "TASK-001"
+  ],
+  "ready": [
+    "TASK-002"
+  ],
+  "milestones": {
+    "M0": [
+      {
+        "id": "TASK-000",
+        "status": "completed"
+      },
+      {
+        "id": "TASK-001",
+        "status": "completed"
+      }
+    ],
+    "M1": [
+      {
+        "id": "TASK-002",
+        "status": "ready"
+      },
+      {
+        "id": "TASK-003",
+        "status": "ready"
+      },
+      {
+        "id": "TASK-004",
+        "status": "ready"
+      },
+      {
+        "id": "TASK-005",
+        "status": "ready"
+      },
+      {
+        "id": "TASK-006",
+        "status": "ready"
+      },
+      {
+        "id": "TASK-007",
+        "status": "ready"
+      },
+      {
+        "id": "TASK-008",
+        "status": "ready"
+      }
+    ]
+  }
+}

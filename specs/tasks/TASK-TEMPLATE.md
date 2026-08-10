@@ -7,12 +7,16 @@ milestone: M?
 model_tier: free
 risk: low
 architecture_impact: false
+executor_preference: opencode
 depends_on: []
-context_paths: []
-allowed_paths: []
+context_paths:
+  - specs/tasks/TASK-ID.md
+allowed_paths:
+  - docs/example/**
 forbidden_paths: []
 max_files: 4
-validation: []
+validation:
+  - npm run verify
 ---
 
 # Objective

@@ -4,38 +4,29 @@ Date: 2026-08-10
 
 ## Repository
 
-`delmacy/system-builder` is the new canonical factory repository.
+`delmacy/system-builder` is the canonical factory repository. TASK-001 bootstrap is implemented on `codex/task-001-bootstrap`; its committed/remote integration remains a maintainer review boundary.
 
 ## Current maturity
 
-- Product/architecture blueprint: established at conceptual baseline.
-- Legacy implementation: exists in `delmacy/gestaotecnica` and requires inventory/extraction.
-- New product code in this repository: not started.
-- New agent harness code: not started.
-- Durable bootstrap documentation: TASK-000.
+- Product/architecture blueprint: established conceptual baseline.
+- Legacy inventory: evidence-backed against `delmacy/gestaotecnica@2fb3691cbfd0ba19c4a64ce054fc99e90d5e4200`.
+- Product code: not started.
+- Agent harness: local TypeScript implementation with task selection, bounded context, scope verification, validation receipts and deterministic closure ledger.
+- Architecture gates: runnable import-boundary scanner plus self-tests; rules become active as `apps/` and `packages/` appear.
+- Roadmap: M1 contract spine decomposed into ordered TASK-002 through TASK-008.
+
+## Verified operating model
+
+The expected local flow is `npm install`, `task:next`, `task:prepare`, OpenCode execution from the Task Pack, `task:verify`, review and `task:close`. The harness is provider-agnostic and requires no database or cloud service.
 
 ## Accepted foundational decisions
 
-- process-first;
-- BusinessRecipe separated from SystemDefinition;
-- Control Plane separated from autonomous Runtime;
-- compatibility-first/Strangler modernization;
-- modular replaceable suite;
-- monorepo-first for factory;
-- client systems in separate repositories;
-- repository as durable memory;
-- local-first OpenCode/free-cheap execution after bootstrap;
-- Codex/strong models focused on bootstrap, architecture and critical review;
-- release/environment/deployment separation.
-
-## Legacy status
-
-Gestão Técnica contains reusable architecture/code/harness ideas but also platform/client coupling. No bulk migration is authorized before TASK-001 inventory.
+The accepted decisions in ADR-0001 through ADR-0007 remain unchanged. No new architecture policy was silently introduced by TASK-001.
 
 ## Active milestone
 
-M0 — Engineering Bootstrap and Legacy Rebaseline.
+M1 — Vertical Contract Spine, after TASK-001 closure.
 
 ## Immediate next task
 
-`TASK-001-CODEX-BOOTSTRAP`.
+`TASK-002` — synthetic harness handoff proof (`free`, low risk, OpenCode preferred).

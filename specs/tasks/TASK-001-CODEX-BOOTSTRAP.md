@@ -1,26 +1,46 @@
 ---
 id: TASK-001
 title: Bootstrap the agent-first System Builder engineering harness
-status: ready
+status: completed
 priority: 10
+milestone: M0
 model_tier: architecture
 risk: medium
 architecture_impact: true
 executor_preference: codex
+depends_on:
+  - TASK-000
+context_paths:
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - docs/product/**
+  - docs/architecture/**
+  - docs/adr/**
+  - docs/current/**
+  - docs/migration/**
+  - tooling/agent-harness/contracts/TASK_CONTRACT.md
+  - tooling/agent-harness/policies/**
+  - specs/milestones/M0-BOOTSTRAP.md
+  - specs/tasks/TASK-001-CODEX-BOOTSTRAP.md
 allowed_paths:
   - AGENTS.md
   - ARCHITECTURE.md
+  - README.md
   - docs/**
   - specs/**
   - tooling/**
   - apps/**
   - packages/**
   - package.json
-  - workspace configuration files
-  - test configuration files
+  - package-lock.json
+  - tsconfig*.json
+  - eslint.config.mjs
+  - .gitignore
 forbidden_paths:
-  - product/client repositories outside system-builder
-max_scope: bootstrap
+  - clients/**
+max_files: 50
+validation:
+  - npm run verify
 ---
 
 # TASK-001 — Codex Engineering Bootstrap
@@ -28,6 +48,26 @@ max_scope: bootstrap
 ## Objective
 
 Prepare `delmacy/system-builder` for reliable local-first development where routine implementation is executed through OpenCode using free/cheap models and architectural intelligence is consumed only when justified.
+
+## Context
+
+TASK-000 established the repository-backed architecture baseline. No product implementation exists yet.
+
+## Current behavior
+
+The repository contains documentation and policies, but no executable task loader, context packer, verifier, closure helper or mechanical architecture gate.
+
+## Required change
+
+Complete Phases A-E below without implementing product behavior.
+
+## Inputs / contracts
+
+The accepted ADRs, Master Blueprint, Task Contract v0, model routing policy, task lifecycle and evidence from the legacy repository.
+
+## Outputs / contracts
+
+A minimal Node/TypeScript harness, executable roadmap, architecture gates, evidence-backed migration map and updated current state.
 
 ## Phase A — Read and audit
 
@@ -88,6 +128,20 @@ Codex remains appropriate for architecture/bootstrap/review exceptions, not defa
 - docs/current state reflects actual result;
 - no real product feature is implemented outside bootstrap need;
 - no architectural decision is silently changed; proposed changes use ADRs.
+
+## Non-goals
+
+- System Builder product features;
+- bulk legacy code migration;
+- dashboards, RAG, databases, cloud workers or autonomous GitHub execution.
+
+## Evidence expected
+
+Command receipts for install, task preparation, synthetic verification, lint, typecheck, tests, task validation, architecture gates and build.
+
+## Escalation
+
+If a required public contract or boundary is unresolved, record a proposed ADR and defer implementation of that decision.
 
 ## Required final report
 
