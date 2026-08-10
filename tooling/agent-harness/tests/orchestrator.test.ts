@@ -102,7 +102,7 @@ describe("Local Task Orchestrator", () => {
     assert.deepEqual(harness.actions, ["sync:state"]);
   });
 
-  it("blocks automatic execution for architecture, high-risk and architecture-impact tasks", () => {
+  it("keeps prepared architecture and high-risk tasks at the human gate when no implementation exists", () => {
     for (const metadata of [
       { model_tier: "architecture" as const },
       { risk: "high" as const },
@@ -113,6 +113,26 @@ describe("Local Task Orchestrator", () => {
       const result = new LocalTaskOrchestrator(harness, [new FakeExecutor()]).advance(task.metadata.id);
       assert.equal(result.state, "ARCHITECTURE_REVIEW_REQUIRED");
       assert.deepEqual(harness.actions, []);
+    }
+  });
+
+  it("resumes prepared architecture and high-risk tasks at verification when implementation exists", () => {
+    for (const metadata of [
+      { model_tier: "architecture" as const },
+      { risk: "high" as const },
+    ]) {
+      const task = makeTask(metadata);
+      const harness = new FakeHarness(snapshot({
+        task,
+        branchExists: true,
+        prepared: true,
+        implementationChanges: true,
+      }));
+      assert.equal(deriveOrchestratorState(harness.value), "EXECUTING");
+      const result = new LocalTaskOrchestrator(harness, [new FakeExecutor()]).advance(task.metadata.id);
+      assert.equal(result.previousState, "EXECUTING");
+      assert.equal(result.state, "VERIFIED");
+      assert.deepEqual(harness.actions, ["verify"]);
     }
   });
 

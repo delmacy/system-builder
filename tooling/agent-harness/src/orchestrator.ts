@@ -258,7 +258,9 @@ export function deriveOrchestratorState(
   if (snapshot.commit) return "COMMITTED";
   if (snapshot.verificationPassed) return "VERIFIED";
   if (snapshot.prepared) {
-    if (requiresArchitectureExecutor(snapshot.task)) return "ARCHITECTURE_REVIEW_REQUIRED";
+    if (requiresArchitectureExecutor(snapshot.task)) {
+      return snapshot.implementationChanges ? "EXECUTING" : "ARCHITECTURE_REVIEW_REQUIRED";
+    }
     if (snapshot.execution.attempts >= maxExecutionAttempts
       && (snapshot.execution.lastExecutorFailure
         || snapshot.execution.lastVerificationFailure
