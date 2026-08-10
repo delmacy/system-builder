@@ -1,11 +1,12 @@
 # Next Work
 
-1. Execute `specs/tasks/TASK-001-CODEX-BOOTSTRAP.md` with Codex.
-2. Codex reads this repository and audits selected material in `delmacy/gestaotecnica`.
-3. Produce evidence-backed legacy inventory and proposed monorepo scaffold.
-4. Implement minimal local agent harness: task loader, context builder, scope validator, verification runner, state update helpers.
-5. Add structural architecture tests before migrating product modules.
-6. Convert the Master Blueprint into executable milestones/tasks.
-7. Start product rebaseline with contracts before implementation-heavy work.
+The task catalog is authoritative for status/dependencies; `npm run task:next` selects the first executable task.
 
-Normal implementation after M0 should default to OpenCode with free/cheap models according to task risk/tier.
+1. Merge the Git workflow bootstrap PR after deterministic CI and review.
+2. Configure the recommended `main` ruleset in GitHub and require the `validate` check.
+3. Configure OpenCode locally; no OpenCode configuration belongs in this repository task.
+4. Run TASK-002 with the free model using only its generated Task Pack and the documented Git workflow.
+5. Review, merge and close the synthetic handoff proof.
+6. Continue TASK-003 through TASK-008 serially.
+
+No product module, legacy source extraction or parallel workstream is ready before these dependencies complete.

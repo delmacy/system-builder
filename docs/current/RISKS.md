@@ -27,3 +27,23 @@ Suite vision could encourage building all twelve products before proving value. 
 ## R7 — Lock-in accidentally reintroduced
 
 Convenient internal coupling can contradict product philosophy. Mitigation: public contracts, autonomy tests, legacy coexistence tests and replaceability reviews.
+
+## R8 — Lightweight import scanner blind spots
+
+The M0 gate scans static imports and known package aliases; it is not yet a full workspace dependency graph. Mitigation: self-tests now, then replace/augment it with package-manager-aware graph analysis when real packages exist.
+
+## R9 — Narrative state drift
+
+`task:close` updates task status, durable evidence and `TASK_LEDGER.json`, but intentionally does not rewrite narrative project documents. Mitigation: state-doc updates remain explicit acceptance criteria at milestone transitions and reviews compare prose to the ledger.
+
+## R10 — Platform-specific bootstrap evidence
+
+Initial verification targets Windows with Node 24/npm 11. Mitigation: add Linux/macOS CI only after local-first M1 is stable; do not claim unverified portability meanwhile.
+
+## R11 — Local Git delivery metadata
+
+Task/branch association and pre-closure Git metadata live under ignored `.agent/git/` so credentials and transient state are never committed. A lost workstation may require reconstructing the association from the deterministic branch name and GitHub PR. Durable metadata is written at task closure.
+
+## R12 — Post-merge state update
+
+Git-managed closure occurs after the implementation PR is merged, so `task:close` produces a small second set of versioned state changes. Mitigation: integrate it through a reviewed state-update commit/PR; no direct protected-main commit or hidden automatic merge is performed.

@@ -1,29 +1,31 @@
-# Current Milestone — M0 Engineering Bootstrap
+# Current Milestone — M1 Vertical Contract Spine
 
 ## Goal
 
-Create a reliable local-first, agent-agnostic, spec-driven development harness and evidence-backed legacy inventory before real System Builder product implementation.
+Prove a portable, versioned and traceable contract chain from ProcessMirror through the release/deployment boundary before implementing product modules.
 
-## Completed
+## M0 exit evidence
 
-- [x] TASK-000: durable architecture/product/bootstrap documentation baseline.
-- [x] initial legacy architectural inspection.
-- [x] accepted foundational ADRs recorded.
+- [x] canonical product/architecture/ADR baseline;
+- [x] remote-SHA-backed legacy inventory and migration classification;
+- [x] local task selection, preparation, verification and closure commands;
+- [x] machine-validatable task metadata and dependency graph;
+- [x] scope/max-files checks covering committed, staged, unstaged and untracked paths;
+- [x] architecture import gates and self-tests;
+- [x] lint, typecheck, unit-test and build harness;
+- [x] ordered M1 queue.
+- [x] deterministic Git branch/commit/push/PR evidence layer and PR-only CI.
 
-## Next
+## M1 queue
 
-- [ ] TASK-001: Codex engineering bootstrap.
-- [ ] audit legacy code into REUSE/ADAPT/CLIENT_ONLY/RETIRE map.
-- [ ] scaffold monorepo only after audit confirms target mapping.
-- [ ] implement task/context/validation harness.
-- [ ] establish architecture tests and local verification commands.
-- [ ] generate executable roadmap/milestones for R0+.
+- [ ] TASK-002: bounded OpenCode handoff smoke proof.
+- [ ] TASK-003: public artifact envelope/versioning ADR.
+- [ ] TASK-004: ProcessMirror contract.
+- [ ] TASK-005: BusinessRecipe contract.
+- [ ] TASK-006: SystemAnalysis contract.
+- [ ] TASK-007: SystemDefinition contract.
+- [ ] TASK-008: AssemblyPlan through deployment-boundary contracts.
 
 ## Do not start yet
 
-- Compiler product implementation.
-- broad client migration.
-- GitHub Actions autonomous agent factory.
-- marketplace/plugin ecosystem.
-- Kubernetes/distributed deployment.
-- AI agent product layer.
+Product UIs, persistence, compiler/runtime implementation, broad legacy migration or parallel development of all suite modules.

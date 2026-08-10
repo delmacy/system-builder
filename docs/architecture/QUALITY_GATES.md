@@ -13,6 +13,7 @@ scope check
  -> architecture dependency tests
  -> integration tests when applicable
  -> build
+ -> Git receipt consistency
  -> evidence
 ```
 
@@ -34,3 +35,5 @@ Simple/low-risk tasks may eventually be highly automated after deterministic val
 ## Evidence
 
 Completion should record commands/results and artifacts necessary to reproduce the claim. A prose statement such as 'tests passed' is insufficient when the command can be run or output captured.
+
+For Git-managed tasks, the verified file/content fingerprint, branch, base/head commits, push state and PR are part of delivery evidence. Pull Requests run deterministic CI only; CI does not execute agents.

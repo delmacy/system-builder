@@ -1,0 +1,41 @@
+{
+  "name": "@system-builder/repository",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Local-first engineering harness for the System Builder factory.",
+  "engines": {
+    "node": ">=24 <25",
+    "npm": ">=11"
+  },
+  "scripts": {
+    "task:next": "tsx tooling/agent-harness/src/cli.ts next",
+    "task:prepare": "tsx tooling/agent-harness/src/cli.ts prepare",
+    "task:verify": "tsx tooling/agent-harness/src/cli.ts verify",
+    "task:close": "tsx tooling/agent-harness/src/cli.ts close",
+    "task:branch": "tsx tooling/agent-harness/src/cli.ts branch",
+    "task:status": "tsx tooling/agent-harness/src/cli.ts status",
+    "task:commit": "tsx tooling/agent-harness/src/cli.ts commit",
+    "task:push": "tsx tooling/agent-harness/src/cli.ts push",
+    "task:pr": "tsx tooling/agent-harness/src/cli.ts pr",
+    "check:tasks": "tsx tooling/agent-harness/src/cli.ts validate-tasks",
+    "check:architecture": "tsx tooling/agent-harness/src/cli.ts architecture",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "tsx --test tooling/agent-harness/tests/*.test.ts",
+    "test": "npm run test:unit",
+    "build": "tsc -p tsconfig.build.json",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run check:tasks && npm run check:architecture && npm run build"
+  },
+  "dependencies": {
+    "yaml": "^2.8.1",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^24.0.0",
+    "eslint": "^9.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "8.66.0"
+  }
+}

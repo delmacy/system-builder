@@ -1,11 +1,13 @@
-# Task Contract v0
+# Task Contract v1
 
-A machine-validatable schema will be created in TASK-001. Until then every task should declare the following metadata:
+Every `specs/tasks/TASK-*.md` file is parsed as Markdown with YAML frontmatter and validated by both the Zod runtime schema in `src/task.ts` and `task-contract.schema.json`.
+
+Required metadata:
 
 ```yaml
-id: SB-XX-000
+id: TASK-123-DESCRIPTIVE-SUFFIX
 title: Short imperative title
-status: ready
+status: draft | ready | running | verification | completed | blocked | failed | superseded
 priority: 100
 milestone: M1
 model_tier: free | cheap | architecture
@@ -13,23 +15,36 @@ risk: low | medium | high
 architecture_impact: false
 executor_preference: opencode | codex | any
 depends_on: []
-context_paths: []
-allowed_paths: []
-forbidden_paths: []
+context_paths:
+  - specs/tasks/TASK-123-DESCRIPTIVE-SUFFIX.md
+allowed_paths:
+  - packages/example/**
+forbidden_paths:
+  - packages/other/**
 max_files: 4
-validation: []
+validation:
+  - npm run test:unit
 ```
 
 Required body sections:
 
 1. Objective
-2. Context/current behavior
-3. Required change
-4. Inputs/contracts
-5. Outputs/contracts
-6. Acceptance criteria
-7. Non-goals
-8. Evidence expected
-9. Escalation condition
+2. Context
+3. Current behavior
+4. Required change
+5. Inputs / contracts
+6. Outputs / contracts
+7. Acceptance criteria
+8. Non-goals
+9. Evidence expected
+10. Escalation
 
-A routine cheap/free task must not require the executor to invent architecture.
+Rules:
+
+- Every dependency ID must exist and the graph must be acyclic.
+- A ready task is selectable only when every dependency is completed.
+- Context paths are repository-relative, bounded to 300 KB and cannot contain `..`.
+- Verification checks forbidden paths, allowed paths, untracked files and `max_files` before running task commands.
+- Git-managed verification binds the task spec, generated Task Pack and changed-file contents to SHA-256 evidence.
+- Branch, commit, push and PR metadata are delivery evidence; they do not add provider-specific task states.
+- A `free` task must not require an unresolved L3/L4 decision.
