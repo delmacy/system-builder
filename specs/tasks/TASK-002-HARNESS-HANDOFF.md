@@ -1,7 +1,7 @@
 ---
 id: TASK-002
 title: Prove the bounded local harness handoff
-status: ready
+status: completed
 priority: 20
 milestone: M1
 model_tier: free
