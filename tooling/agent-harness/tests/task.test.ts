@@ -22,4 +22,11 @@ describe("task catalog", () => {
       ready.map((task) => task.metadata.priority).toSorted((a, b) => a - b),
     );
   });
+
+  it("gives TASK-009 its architecture ADR and the complete repository gate", () => {
+    const task = loadTasks().find((candidate) => candidate.metadata.id === "TASK-009");
+    assert.ok(task);
+    assert.ok(task.metadata.context_paths.includes("docs/adr/ADR-0008-local-task-orchestrator.md"));
+    assert.deepEqual(task.metadata.validation, ["npm run verify"]);
+  });
 });

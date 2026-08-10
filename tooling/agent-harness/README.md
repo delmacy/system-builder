@@ -21,6 +21,12 @@ task:next -> task:branch -> task:prepare -> executor -> task:verify
 
 No command merges, force-pushes, rebases, resets or overwrites branches. See `docs/engineering/GIT_WORKFLOW.md` for the complete sequence and post-merge state-update step.
 
+## Resumable orchestration
+
+`npm run task:advance -- TASK-ID` performs one safe lifecycle transition. `npm run task:run -- TASK-ID` continues through immediately safe mechanical transitions and stops at CI, review, failure, architecture/executor authority or completion. With no ID, `task:run` uses `task:next` selection.
+
+The orchestrator derives progress from task/Git/receipt/GitHub facts and calls the manual commands above as its authorities. OpenCode is the first replaceable local executor adapter; architecture/high-risk work and all merges remain human/strong-model gates. See `docs/engineering/LOCAL_TASK_ORCHESTRATOR.md` and ADR-0008.
+
 ## Determinism and safety
 
 - Context comes only from declared repository-relative paths and is capped at 300 KB.

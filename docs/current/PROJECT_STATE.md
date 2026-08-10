@@ -19,7 +19,9 @@ The Pull Request CI for the Git workflow completed successfully. Repository bran
 
 ## Verified operating model
 
-The expected local flow is `task:next`, `task:branch`, `task:prepare`, executor work from the Task Pack, `task:verify`, `task:commit`, `task:push`, `task:pr`, deterministic CI/review/merge and `task:close`. The harness is executor/provider-agnostic and requires no database or cloud service.
+The manual local flow (`task:next` through reviewed implementation/state PRs) was proven end to end by TASK-002 using bounded OpenCode execution, deterministic verification, PR #6 and state PR #7.
+
+TASK-009 now specifies the Local Task Orchestrator v1 as the next priority before TASK-003. Its implementation must preserve the manual commands as authorities, remain resumable and stop at architecture, CI, review and merge gates.
 
 GitHub Actions runs confirmation CI only (`npm ci` and `npm run verify`); it does not execute agents or AI.
 
@@ -33,4 +35,4 @@ M1 — Vertical Contract Spine.
 
 ## Immediate next task
 
-After enabling the recommended `main` ruleset and configuring OpenCode locally, execute `TASK-002` — synthetic harness handoff proof (`free`, low risk, OpenCode preferred).
+Review and integrate `TASK-009` — Local Task Orchestrator v1 (`architecture`, high risk, Codex preferred). After its implementation and state PRs are human-merged, resume the M1 contract spine at TASK-003.

@@ -92,3 +92,5 @@ The repository does not configure branch protection through an API in this phase
 ## Recovery
 
 The harness does not run `reset --hard`, `clean -fd`, automatic rebase, branch overwrite/delete or force push. When status reports divergence or a dirty tree, inspect it and recover manually; do not delete work merely to satisfy the command.
+
+The optional `task:advance`/`task:run` layer composes this workflow and stops at CI/review/merge gates. After implementation merge it invokes `task:close` on fast-forwarded `main`, then delivers exactly the closure task spec, evidence and ledger through `state/TASK-ID-close`. State PRs also require human merge. See `docs/engineering/LOCAL_TASK_ORCHESTRATOR.md`.
