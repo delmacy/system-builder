@@ -10,8 +10,12 @@ import {
   branchTask,
   buildPullRequestBody,
   buildPushArgs,
+  commitStateTask,
   commitTask,
+  createStateTaskBranch,
+  pushStateTask,
   readGitRecord,
+  readStateRecord,
   taskBranchName,
   taskGitStatus,
 } from "../src/git-workflow.js";
@@ -143,6 +147,38 @@ describe("Git task workflow", () => {
     for (const args of [buildPushArgs("task/010-example", false), buildPushArgs("task/010-example", true)]) {
       assert.equal(args.some((arg) => arg === "--force" || arg === "-f" || arg === "--force-with-lease"), false);
     }
+  });
+
+  it("keeps executor output inside the declared task scope", () => {
+    const fixture = createRepository();
+    branchTask("TASK-010", fixture.root);
+    prepareTask("TASK-010", fixture.root);
+    mkdirSync(join(fixture.root, "docs"), { recursive: true });
+    writeFileSync(join(fixture.root, "docs/out.md"), "allowed\n");
+    writeFileSync(join(fixture.root, "outside.txt"), "not allowed\n");
+    assert.throws(() => verifyTask("TASK-010", fixture.root), /Outside allowed paths.*outside\.txt/s);
+  });
+
+  it("delivers exactly the durable closure files on a dedicated state branch", () => {
+    const fixture = createRepository();
+    const taskPath = join(fixture.root, "specs/tasks/TASK-010.md");
+    writeFileSync(taskPath, taskSource("TASK-010", "Create Example Output", "completed", 10, ["TASK-000"], ["specs/tasks/TASK-010.md"]));
+    mkdirSync(join(fixture.root, "docs/evidence/tasks"), { recursive: true });
+    mkdirSync(join(fixture.root, "docs/current"), { recursive: true });
+    writeFileSync(join(fixture.root, "docs/evidence/tasks/TASK-010.json"), "{}\n");
+    writeFileSync(join(fixture.root, "docs/current/TASK_LEDGER.json"), "{}\n");
+
+    const state = createStateTaskBranch("TASK-010", fixture.root);
+    assert.equal(state.branch, "state/task-010-close");
+    const commit = commitStateTask("TASK-010", fixture.root);
+    assert.equal(commit, git(fixture.root, ["rev-parse", "HEAD"]));
+    assert.deepEqual(git(fixture.root, ["show", "--format=", "--name-only", "HEAD"]).split(/\r?\n/).sort(), [
+      "docs/current/TASK_LEDGER.json",
+      "docs/evidence/tasks/TASK-010.json",
+      "specs/tasks/TASK-010.md",
+    ]);
+    assert.equal(pushStateTask("TASK-010", fixture.root), commit);
+    assert.equal(readStateRecord("TASK-010", fixture.root)?.pushed, true);
   });
 
   it("rejects Git-managed closure from the task branch", () => {

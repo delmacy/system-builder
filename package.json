@@ -17,6 +17,8 @@
     "task:commit": "tsx tooling/agent-harness/src/cli.ts commit",
     "task:push": "tsx tooling/agent-harness/src/cli.ts push",
     "task:pr": "tsx tooling/agent-harness/src/cli.ts pr",
+    "task:advance": "tsx tooling/agent-harness/src/cli.ts advance",
+    "task:run": "tsx tooling/agent-harness/src/cli.ts run",
     "check:tasks": "tsx tooling/agent-harness/src/cli.ts validate-tasks",
     "check:architecture": "tsx tooling/agent-harness/src/cli.ts architecture",
     "lint": "eslint .",

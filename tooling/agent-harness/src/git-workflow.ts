@@ -46,6 +46,16 @@ export type GitTaskStatus = {
   pullRequest: GitTaskRecord["pullRequest"] | null;
 };
 
+export type StateTaskRecord = {
+  version: 1;
+  taskId: string;
+  branch: string;
+  createdAt: string;
+  commit?: string;
+  pushed?: boolean;
+  pullRequest?: GitTaskRecord["pullRequest"];
+};
+
 type VerificationReceiptLike = {
   taskId: string;
   baseCommit: string;
@@ -84,6 +94,10 @@ export function taskBranchName(task: Task): string {
     .replace(/-+$/g, "");
   if (!slug) throw new Error(`${task.metadata.id} title does not produce a safe branch slug`);
   return `task/${number}-${slug}`;
+}
+
+export function stateBranchName(taskId: string): string {
+  return `state/${taskId.toLowerCase()}-close`;
 }
 
 export function branchTask(taskId: string, root = process.cwd()): GitTaskRecord {
@@ -222,6 +236,93 @@ export function openTaskPullRequest(taskId: string, root = process.cwd(), ghExec
   return record.pullRequest;
 }
 
+export function createStateTaskBranch(taskId: string, root = process.cwd()): StateTaskRecord {
+  const task = loadAndValidateTask(taskId, root);
+  if (task.metadata.status !== "completed") throw new Error(`${taskId} must be closed before creating its state branch`);
+  const currentBranch = git(["branch", "--show-current"], root);
+  if (currentBranch !== "main") throw new Error(`State branch creation must run from main; current branch is ${currentBranch || "detached HEAD"}`);
+  const expectedFiles = stateClosureFiles(task, root);
+  const changed = changedPaths("HEAD", root);
+  if (JSON.stringify(changed) !== JSON.stringify(expectedFiles)) {
+    throw new Error(`State closure changes must be exactly: ${expectedFiles.join(", ")}; found: ${changed.join(", ") || "none"}`);
+  }
+  const branch = stateBranchName(taskId);
+  const existsOnRemote = tryGit(["ls-remote", "--exit-code", "--heads", "origin", branch], root).ok;
+  if (refExists(`refs/heads/${branch}`, root) || refExists(`refs/remotes/origin/${branch}`, root) || existsOnRemote) {
+    throw new Error(`Refusing to overwrite existing state branch ${branch}`);
+  }
+  git(["switch", "-c", branch], root);
+  const record: StateTaskRecord = { version: 1, taskId, branch, createdAt: new Date().toISOString() };
+  writeStateRecord(record, root);
+  return record;
+}
+
+export function commitStateTask(taskId: string, root = process.cwd()): string {
+  const task = loadAndValidateTask(taskId, root);
+  const record = requireStateRecord(taskId, root);
+  assertStateBranch(record, root);
+  if (record.commit) throw new Error(`${taskId} state closure already records commit ${record.commit}`);
+  const expectedFiles = stateClosureFiles(task, root);
+  const changed = changedPaths("HEAD", root);
+  if (JSON.stringify(changed) !== JSON.stringify(expectedFiles)) {
+    throw new Error(`State closure changed files do not match the expected durable evidence set`);
+  }
+  scanCommitCandidates(expectedFiles, root);
+  git(["add", "--", ...expectedFiles], root);
+  if (JSON.stringify(lines(git(["diff", "--cached", "--name-only"], root))) !== JSON.stringify(expectedFiles)) {
+    throw new Error(`Staged state files differ from the closure evidence set`);
+  }
+  git(["commit", "-m", `chore: close ${taskId}`], root);
+  record.commit = git(["rev-parse", "HEAD"], root);
+  writeStateRecord(record, root);
+  return record.commit;
+}
+
+export function pushStateTask(taskId: string, root = process.cwd()): string {
+  const record = requireStateRecord(taskId, root);
+  assertStateBranch(record, root);
+  assertClean(root);
+  const head = git(["rev-parse", "HEAD"], root);
+  if (!record.commit || record.commit !== head) throw new Error(`${taskId} state HEAD is not its recorded commit`);
+  const hasUpstream = tryGit(["rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"], root).ok;
+  git(buildPushArgs(record.branch, hasUpstream), root);
+  const remoteHead = git(["rev-parse", `refs/remotes/origin/${record.branch}`], root);
+  if (remoteHead !== head) throw new Error(`Remote state branch does not match ${taskId} closure commit`);
+  record.pushed = true;
+  writeStateRecord(record, root);
+  return remoteHead;
+}
+
+export function openStateTaskPullRequest(
+  taskId: string,
+  root = process.cwd(),
+  ghExecutable = "gh",
+): GitTaskRecord["pullRequest"] {
+  const record = requireStateRecord(taskId, root);
+  assertStateBranch(record, root);
+  assertClean(root);
+  if (record.pullRequest) return record.pullRequest;
+  if (!record.commit || !record.pushed) throw new Error(`${taskId} state closure must be committed and pushed before PR creation`);
+  assertGitHubCli(ghExecutable, root, record.branch);
+  const bodyFile = resolve(root, ".agent/state", `${taskId}-pr-body.md`);
+  mkdirSync(dirname(bodyFile), { recursive: true });
+  writeFileSync(bodyFile, [
+    `## State closure`, "", `- Task: \`${taskId}\``, `- Commit: \`${record.commit}\``,
+    "- Durable task evidence and ledger update produced by `task:close`.", "",
+    "Automatic merge is disabled. Human review is required.", "",
+  ].join("\n"));
+  const output = runExecutable(ghExecutable, [
+    "pr", "create", "--base", "main", "--head", record.branch,
+    "--title", `chore: close ${taskId}`, "--body-file", bodyFile,
+  ], root);
+  const url = output.split(/\r?\n/).find((line) => /^https:\/\//.test(line.trim()))?.trim();
+  const number = Number(url?.match(/\/pull\/(\d+)$/)?.[1]);
+  if (!url || !Number.isInteger(number)) throw new Error(`State PR was created but its URL could not be parsed: ${output}`);
+  record.pullRequest = { number, url, state: "OPEN", openedAt: new Date().toISOString() };
+  writeStateRecord(record, root);
+  return record.pullRequest;
+}
+
 export function buildPullRequestBody(
   task: Task,
   record: GitTaskRecord,
@@ -278,6 +379,17 @@ export function assertGitHubCli(executable = "gh", root = process.cwd(), branch 
 export function readGitRecord(taskId: string, root = process.cwd()): GitTaskRecord | undefined {
   const path = gitRecordPath(taskId, root);
   return existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) as GitTaskRecord : undefined;
+}
+
+export function readStateRecord(taskId: string, root = process.cwd()): StateTaskRecord | undefined {
+  const path = stateRecordPath(taskId, root);
+  return existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) as StateTaskRecord : undefined;
+}
+
+export function writeStateRecord(record: StateTaskRecord, root = process.cwd()): void {
+  const path = stateRecordPath(record.taskId, root);
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, `${JSON.stringify(record, null, 2)}\n`);
 }
 
 export function writeGitRecord(record: GitTaskRecord, root = process.cwd()): void {
@@ -406,6 +518,12 @@ function assertTaskBranch(record: GitTaskRecord, root: string): void {
   if (current !== record.branch) throw new Error(`Expected branch ${record.branch}; current branch is ${current || "detached HEAD"}`);
 }
 
+function assertStateBranch(record: StateTaskRecord, root: string): void {
+  const current = git(["branch", "--show-current"], root);
+  if (current === "main") throw new Error(`State delivery commits are forbidden on main`);
+  if (current !== record.branch) throw new Error(`Expected state branch ${record.branch}; current branch is ${current || "detached HEAD"}`);
+}
+
 function assertClean(root: string): void {
   if (!isClean(root)) throw new Error(`Working tree must be clean`);
 }
@@ -448,6 +566,12 @@ function requireGitRecord(taskId: string, root: string): GitTaskRecord {
   return record;
 }
 
+function requireStateRecord(taskId: string, root: string): StateTaskRecord {
+  const record = readStateRecord(taskId, root);
+  if (!record) throw new Error(`Create the state branch for ${taskId} first`);
+  return record;
+}
+
 function readVerificationReceipt(taskId: string, root: string): VerificationReceiptLike {
   const path = verificationReceiptPath(taskId, root);
   if (!existsSync(path)) throw new Error(`Run task:verify for ${taskId} first`);
@@ -462,6 +586,18 @@ function readContextManifest(taskId: string, root: string): { packHash?: string 
 
 function gitRecordPath(taskId: string, root: string): string {
   return resolve(root, ".agent/git", `${taskId}.json`);
+}
+
+function stateRecordPath(taskId: string, root: string): string {
+  return resolve(root, ".agent/state", `${taskId}.json`);
+}
+
+function stateClosureFiles(task: Task, root: string): string[] {
+  return [
+    repoPath(root, task.file),
+    `docs/evidence/tasks/${task.metadata.id}.json`,
+    "docs/current/TASK_LEDGER.json",
+  ].sort();
 }
 
 function contextManifestPath(taskId: string, root: string): string {

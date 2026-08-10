@@ -1,11 +1,12 @@
 {
-  "updatedAt": "2026-08-10T20:18:09.941Z",
+  "updatedAt": "2026-08-10T20:44:32.113Z",
   "completed": [
     "TASK-000",
     "TASK-001",
     "TASK-002"
   ],
   "ready": [
+    "TASK-009",
     "TASK-003"
   ],
   "milestones": {
@@ -46,6 +47,10 @@
       },
       {
         "id": "TASK-008",
+        "status": "ready"
+      },
+      {
+        "id": "TASK-009",
         "status": "ready"
       }
     ]

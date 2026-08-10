@@ -18,7 +18,8 @@ Prove a portable, versioned and traceable contract chain from ProcessMirror thro
 
 ## M1 queue
 
-- [ ] TASK-002: bounded OpenCode handoff smoke proof.
+- [x] TASK-002: bounded OpenCode handoff smoke proof.
+- [ ] TASK-009: Local Task Orchestrator v1 (priority 25; depends on completed TASK-002).
 - [ ] TASK-003: public artifact envelope/versioning ADR.
 - [ ] TASK-004: ProcessMirror contract.
 - [ ] TASK-005: BusinessRecipe contract.
