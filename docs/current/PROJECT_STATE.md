@@ -4,7 +4,9 @@ Date: 2026-08-10
 
 ## Repository
 
-`delmacy/system-builder` is the canonical factory repository. TASK-001 plus the Git workflow bootstrap are implemented on `codex/task-git-workflow-bootstrap`; integration into `main` remains a maintainer review boundary.
+`delmacy/system-builder` is the canonical factory repository. TASK-001 and the deterministic Git/GitHub workflow bootstrap are integrated into `main` at merge commit `c5f75bcba1848ba39ca023af2e98a083a416e718`.
+
+The Pull Request CI for the Git workflow completed successfully. Repository branch protection/ruleset for `main` is still a maintainer configuration boundary and must be enabled before routine executor work begins.
 
 ## Current maturity
 
@@ -23,12 +25,12 @@ GitHub Actions runs confirmation CI only (`npm ci` and `npm run verify`); it doe
 
 ## Accepted foundational decisions
 
-The accepted decisions in ADR-0001 through ADR-0007 remain unchanged. No new architecture policy was silently introduced by TASK-001.
+The accepted decisions in ADR-0001 through ADR-0007 remain unchanged. No new architecture policy was silently introduced by TASK-001 or the Git workflow bootstrap.
 
 ## Active milestone
 
-M1 — Vertical Contract Spine, after TASK-001 closure.
+M1 — Vertical Contract Spine.
 
 ## Immediate next task
 
-`TASK-002` — synthetic harness handoff proof (`free`, low risk, OpenCode preferred).
+After enabling the recommended `main` ruleset and configuring OpenCode locally, execute `TASK-002` — synthetic harness handoff proof (`free`, low risk, OpenCode preferred).
