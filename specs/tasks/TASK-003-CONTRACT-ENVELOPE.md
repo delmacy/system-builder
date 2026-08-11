@@ -1,7 +1,7 @@
 ---
 id: TASK-003
 title: Decide the public artifact envelope and versioning policy
-status: ready
+status: completed
 priority: 30
 milestone: M1
 model_tier: architecture
