@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-003",
+  "verifiedAt": "2026-08-11T01:07:17.880Z",
+  "baseCommit": "dfe7d1d26ce926454e0876e4cdde105c934a27ed",
+  "headCommit": "dfe7d1d26ce926454e0876e4cdde105c934a27ed",
+  "changedFiles": [
+    "docs/adr/ADR-0009-public-artifact-envelope.md",
+    "docs/architecture/PIPELINE_AND_CONTRACTS.md",
+    "specs/tasks/TASK-010-ARTIFACT-ENVELOPE-SCHEMA.md"
+  ],
+  "taskHash": "a6107f9fe7c1c743234702d2ade69e893ebb16b4c089c18ddead8aa47d64f286",
+  "packHash": "2e6cc73b38c58609708e4aebf9f2c72a7058795660cb146d332586e57bf13d2e",
+  "changeFingerprint": "aa144edf01494e92a50f2aa834894902687e9afa8108de5528b21e48b91b6f1c",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-003",
+    "branch": "task/003-decide-the-public-artifact-envelope-and-versioning-polic",
+    "baseBranch": "main",
+    "baseCommit": "dfe7d1d26ce926454e0876e4cdde105c934a27ed",
+    "remote": "origin",
+    "createdAt": "2026-08-10T22:45:21.536Z",
+    "commit": "28acfa1df0437eb8daead8d9ce9fd544194f00cf",
+    "verifiedFingerprint": "aa144edf01494e92a50f2aa834894902687e9afa8108de5528b21e48b91b6f1c",
+    "committedAt": "2026-08-11T01:07:19.788Z",
+    "pushed": true,
+    "pushedAt": "2026-08-11T01:07:23.290Z",
+    "pullRequest": {
+      "number": 11,
+      "url": "https://github.com/delmacy/system-builder/pull/11",
+      "state": "MERGED",
+      "openedAt": "2026-08-11T01:07:28.964Z",
+      "mergeCommit": "8b6f5b2cb7e3d5cf889aa78fdfd6d9cbe5107444"
+    }
+  }
+}
