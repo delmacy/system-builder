@@ -6,29 +6,41 @@ The target pipeline is artifact-driven:
 
 | Producer | Contract | Consumer |
 |---|---|---|
-| Mirror | ProcessMirror | Recipe |
-| Recipe | BusinessRecipe | Analysis |
-| Analysis | SystemAnalysis | Design |
-| Design | SystemDefinition | Assembly |
-| Assembly | AssemblyPlan | Validation/Compiler |
-| Validation | ValidationEvidence | Release gate |
-| Compiler | ReleaseArtifact | Release |
-| Release | PublishedRelease | Deploy |
-| Deploy | DeploymentRecord | Observe/operations |
+| Mirror | ArtifactEnvelope&lt;ProcessMirror&gt; | Recipe |
+| Recipe | ArtifactEnvelope&lt;BusinessRecipe&gt; | Analysis |
+| Analysis | ArtifactEnvelope&lt;SystemAnalysis&gt; | Design |
+| Design | ArtifactEnvelope&lt;SystemDefinition&gt; | Assembly |
+| Assembly | ArtifactEnvelope&lt;AssemblyPlan&gt; | Validation/Compiler |
+| Validation | ArtifactEnvelope&lt;ValidationEvidence&gt; | Release gate |
+| Compiler | ArtifactEnvelope&lt;ReleaseArtifact&gt; | Release |
+| Release | ArtifactEnvelope&lt;PublishedRelease&gt; | Deploy |
+| Deploy | ArtifactEnvelope&lt;DeploymentRecord&gt; | Observe/operations |
+
+`ArtifactEnvelope<T>` is the public boundary shape accepted in ADR-0009. The
+existing names in angle brackets remain the logical payload contracts.
 
 ## Contract requirements
 
-Each public contract should eventually declare:
+Each public contract must use the ADR-0009 envelope and declare:
 
-- stable identifier;
-- semantic version;
-- schema/version migration policy;
+- a stable namespaced artifact type and payload-schema identifier;
+- independent SemVer versions for the envelope, payload schema and logical
+  artifact;
+- a schema/version migration policy that creates a new artifact version instead
+  of overwriting a published revision;
 - producer/consumer expectations;
 - validation schema;
-- compatibility rules;
-- provenance metadata;
-- extension points;
+- backward and forward compatibility rules within a supported major version;
+- required provider-neutral provenance metadata and input artifact references;
+- namespaced optional and required extension points, including safe handling of
+  unknown extensions;
 - examples/fixtures.
+
+Consumers must reject unsupported major versions and unknown required extension
+semantics. They may accept a newer compatible minor/patch only when unknown
+information is ignored for behavior and preserved losslessly. No contract may
+require a provider, registry, database or storage-engine identifier in its core
+envelope.
 
 ## Dependency rule
 
