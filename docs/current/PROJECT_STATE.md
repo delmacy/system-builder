@@ -13,9 +13,9 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 - Product/architecture blueprint: established and decomposed into controlled scope/WBS/DAG artifacts.
 - Product implementation: M1 Vertical Contract Spine remains ready to resume at TASK-010/TASK-004, but is intentionally not the current execution focus while AgentFactory ignition is completed.
 - Agent harness: local TypeScript implementation with bounded task context, task validation, Git/PR controls, deterministic verification and closure mechanisms.
-- OpenCode adapter: confirmed argument-order defect fixed by TASK-011; further I1 hardening remains TASK-013.
+- OpenCode adapter: TASK-011 argument ordering and TASK-013 structured request/result, timeout and failure hardening are integrated.
 - AgentFactory planning: complete through I1 Work Packages, DAG, governance, task-generation policy and exit gate.
-- AgentFactory implementation queue: TASK-012 is the first executable implementation task; TASK-013 and TASK-014 depend on accepted predecessor outputs.
+- AgentFactory implementation queue: TASK-012 execution contracts, TASK-013 OpenCode hardening and TASK-014 DAG/READY evaluation are completed. TASK-015 Task Pack builder and TASK-016 Model Router are the next rolling-wave tasks.
 - GitHub Actions: confirmation CI remains deterministic; AI execution is local unless a later approved task changes that architecture.
 
 ## Active execution focus
@@ -30,9 +30,9 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Execute TASK-012 — AgentFactory execution contracts — with Codex on a dedicated task branch.
-2. Verify with `npm run verify`, review and merge/close the task using repository workflow.
-3. Refine/generate downstream I1 implementation tasks only against accepted predecessor outputs according to `project_docs/agentfactory_i1/IMPLEMENTATION_GENERATION_RULE.md`.
+1. Execute TASK-015 — AgentFactory Task Pack builder — from the integrated TASK-012/TASK-014 contracts.
+2. Execute TASK-016 — AgentFactory Model Router — from the integrated TASK-012 route vocabulary.
+3. After accepted outputs, generate the next eligible bounded task(s) for WP-I1-06 according to `project_docs/agentfactory_i1/IMPLEMENTATION_GENERATION_RULE.md`.
 4. Continue through the I1 exit gate, then I2/I3 as defined by AgentFactory ignition milestones before resuming product-first throughput.
 
 ## Selection warning

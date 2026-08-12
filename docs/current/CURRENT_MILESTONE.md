@@ -15,9 +15,11 @@ Prove the smallest end-to-end delivery slice in which one approved READY task ca
 
 ## I1 near-horizon queue
 
-- [ ] TASK-012: implement AgentFactory execution contracts — **execute first**.
-- [ ] TASK-014: implement deterministic DAG/READY evaluator — requires completed TASK-012.
-- [ ] TASK-013: harden OpenCode adapter — requires completed TASK-011 and TASK-012.
+- [x] TASK-012: AgentFactory execution contracts.
+- [x] TASK-013: hardened OpenCode adapter.
+- [x] TASK-014: deterministic DAG/READY evaluator.
+- [ ] TASK-015: deterministic bounded Task Pack builder — requires completed TASK-012 and TASK-014.
+- [ ] TASK-016: deterministic model router — requires completed TASK-012.
 - [ ] Generate the next bounded I1 task(s) from accepted predecessor outputs and `project_docs/agentfactory_i1/WORK_PACKAGES.md`.
 - [ ] Continue through task-pack builder, model routing, harness enforcement, independent validation, evidence, GitHub lifecycle, ledger/readiness recomputation and end-to-end I1 proof.
 
