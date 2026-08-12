@@ -1,7 +1,7 @@
 ---
 id: TASK-012
 title: Implement AgentFactory execution contracts
-status: ready
+status: completed
 priority: 36
 milestone: I1
 model_tier: cheap
