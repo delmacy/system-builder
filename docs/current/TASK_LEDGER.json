@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-12T23:25:43.094Z",
+  "updatedAt": "2026-08-12T23:43:38.942Z",
   "completed": [
     "TASK-000",
     "TASK-001",
@@ -7,11 +7,11 @@
     "TASK-009",
     "TASK-003",
     "TASK-011",
-    "TASK-012"
+    "TASK-012",
+    "TASK-013"
   ],
   "ready": [
     "TASK-010",
-    "TASK-013",
     "TASK-014",
     "TASK-004"
   ],
@@ -75,7 +75,7 @@
       },
       {
         "id": "TASK-013",
-        "status": "ready"
+        "status": "completed"
       },
       {
         "id": "TASK-014",
