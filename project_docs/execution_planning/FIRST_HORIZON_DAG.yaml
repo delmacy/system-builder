@@ -1,14 +1,19 @@
-version: 0.1
+version: 0.2
 horizon: M1-contract-spine
 nodes:
   - id: WP-FH-01
     source_task: TASK-010
-    status: READY
+    status: READY_WITH_TOOLING_GATE
     output: ArtifactEnvelopeSchema
     predecessors:
       - id: TASK-003
         type: REQUIRES
         gate: ADR-0009 accepted
+    execution_tool_gates:
+      - id: TASK-011
+        applies_when: executor == opencode
+        type: TOOLING_REQUIRES
+        gate: OpenCode argument-order hotfix merged and validated
   - id: WP-FH-02
     source_task: TASK-004
     status: READY
@@ -53,7 +58,8 @@ nodes:
         type: REQUIRES
         gate: SystemDefinition contract and boundary tests pass
 rules:
-  - TASK-010 and TASK-004 may execute concurrently if capacity exists.
+  - Product dependencies and execution-tool dependencies are separate dimensions.
+  - TASK-010 and TASK-004 may progress concurrently when executor/tooling capacity permits.
   - WP-FH-02 cannot close until WP-FH-01 validation gate is satisfied.
   - No sprint numbering creates an edge.
   - Later runtime/identity/capability implementation is outside this horizon unless an accepted contract proves it is required.
