@@ -1,0 +1,41 @@
+{
+  "taskId": "TASK-013",
+  "verifiedAt": "2026-08-12T23:40:03.579Z",
+  "baseCommit": "6582afe794b6f7e9d97661b2051493a16905bc21",
+  "headCommit": "6582afe794b6f7e9d97661b2051493a16905bc21",
+  "changedFiles": [
+    "tooling/agent-harness/src/executor.ts",
+    "tooling/agent-harness/tests/orchestrator.test.ts"
+  ],
+  "taskHash": "9a11c5304ad0b656e14a2f98bf28680746bb346dedd3ef8cf8d39f1bc752cf12",
+  "packHash": "6658d0465059e9c711f1d2c803d90a455211516169ec3ebb7148fb6894a000cb",
+  "changeFingerprint": "175ebad477f20a255d99b846261168aa07de41a14f350a6792553ee6c3f7cd94",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-013",
+    "branch": "task/013-harden-the-agentfactory-opencode-adapter",
+    "baseBranch": "main",
+    "baseCommit": "6582afe794b6f7e9d97661b2051493a16905bc21",
+    "remote": "origin",
+    "createdAt": "2026-08-12T23:36:28.260Z",
+    "commit": "e01623a5bbd8cdfd8bdcde75d2b349605318dd35",
+    "verifiedFingerprint": "175ebad477f20a255d99b846261168aa07de41a14f350a6792553ee6c3f7cd94",
+    "committedAt": "2026-08-12T23:40:19.357Z",
+    "pushed": true,
+    "pushedAt": "2026-08-12T23:40:22.986Z",
+    "pullRequest": {
+      "number": 25,
+      "url": "https://github.com/delmacy/system-builder/pull/25",
+      "state": "MERGED",
+      "openedAt": "2026-08-12T23:40:28.035Z",
+      "mergeCommit": "ff40024d76370cd9ed8a2c71ebbaffb5f966e0bd"
+    }
+  }
+}

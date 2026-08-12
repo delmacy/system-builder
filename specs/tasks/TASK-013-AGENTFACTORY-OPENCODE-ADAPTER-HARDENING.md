@@ -1,7 +1,7 @@
 ---
 id: TASK-013
 title: Harden the AgentFactory OpenCode adapter
-status: ready
+status: completed
 priority: 37
 milestone: I1
 model_tier: cheap
