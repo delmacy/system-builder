@@ -1,7 +1,7 @@
 ---
 id: TASK-014
 title: Implement the AgentFactory DAG READY evaluator
-status: ready
+status: completed
 priority: 38
 milestone: I1
 model_tier: cheap

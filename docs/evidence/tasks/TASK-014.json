@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-014",
+  "verifiedAt": "2026-08-12T23:48:44.368Z",
+  "baseCommit": "389c23546007e02cbc453d28a3d0ecb3abcebd82",
+  "headCommit": "389c23546007e02cbc453d28a3d0ecb3abcebd82",
+  "changedFiles": [
+    "tooling/agent-harness/src/dag.ts",
+    "tooling/agent-harness/tests/dag.test.ts",
+    "tooling/agent-harness/tests/fixtures/dag.ts"
+  ],
+  "taskHash": "2337c617e15bc5c1ba223d3a37a0e5d095e312de9f987b683734409e6e7706d6",
+  "packHash": "71c2e904bd9f0c3bd0334b8c6f843af574097457dd0e9d9d73f3738939d81376",
+  "changeFingerprint": "70760fdeb59130dcdc8e759788003e1f19f5f8a29e6c5f33f7020278fa3b83cd",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-014",
+    "branch": "task/014-implement-the-agentfactory-dag-ready-evaluator",
+    "baseBranch": "main",
+    "baseCommit": "389c23546007e02cbc453d28a3d0ecb3abcebd82",
+    "remote": "origin",
+    "createdAt": "2026-08-12T23:45:39.095Z",
+    "commit": "2bb6c9c93e9aee2781b794ef1e0feed57886094b",
+    "verifiedFingerprint": "70760fdeb59130dcdc8e759788003e1f19f5f8a29e6c5f33f7020278fa3b83cd",
+    "committedAt": "2026-08-12T23:48:55.865Z",
+    "pushed": true,
+    "pushedAt": "2026-08-12T23:48:59.347Z",
+    "pullRequest": {
+      "number": 27,
+      "url": "https://github.com/delmacy/system-builder/pull/27",
+      "state": "MERGED",
+      "openedAt": "2026-08-12T23:49:03.465Z",
+      "mergeCommit": "1af714c4c7628b45b23b3a5e8da1b33a4fde9ae1"
+    }
+  }
+}
