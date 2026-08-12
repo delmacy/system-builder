@@ -1,0 +1,59 @@
+version: 0.1
+horizon: M1-contract-spine
+nodes:
+  - id: WP-FH-01
+    source_task: TASK-010
+    status: READY
+    output: ArtifactEnvelopeSchema
+    predecessors:
+      - id: TASK-003
+        type: REQUIRES
+        gate: ADR-0009 accepted
+  - id: WP-FH-02
+    source_task: TASK-004
+    status: READY
+    output: ProcessMirrorContract
+    predecessors:
+      - id: TASK-003
+        type: CONTRACT_REQUIRES
+        gate: ArtifactEnvelope semantics accepted
+      - id: WP-FH-01
+        type: VALIDATION_REQUIRES
+        gate: ArtifactEnvelope executable schema/fixture validation passes before WP-FH-02 final closure
+  - id: WP-FH-03
+    source_task: TASK-005
+    status: BLOCKED
+    output: BusinessRecipeContract
+    predecessors:
+      - id: WP-FH-02
+        type: REQUIRES
+        gate: ProcessMirror contract and traceability semantics pass
+  - id: WP-FH-04
+    source_task: TASK-006
+    status: BLOCKED
+    output: SystemAnalysisContract
+    predecessors:
+      - id: WP-FH-03
+        type: REQUIRES
+        gate: BusinessRecipe contract passes
+  - id: WP-FH-05
+    source_task: TASK-007
+    status: BLOCKED
+    output: SystemDefinitionContract
+    predecessors:
+      - id: WP-FH-04
+        type: REQUIRES
+        gate: SystemAnalysis contract passes
+  - id: WP-FH-06
+    source_task: TASK-008
+    status: BLOCKED
+    output: AssemblyReleaseContractChain
+    predecessors:
+      - id: WP-FH-05
+        type: REQUIRES
+        gate: SystemDefinition contract and boundary tests pass
+rules:
+  - TASK-010 and TASK-004 may execute concurrently if capacity exists.
+  - WP-FH-02 cannot close until WP-FH-01 validation gate is satisfied.
+  - No sprint numbering creates an edge.
+  - Later runtime/identity/capability implementation is outside this horizon unless an accepted contract proves it is required.
