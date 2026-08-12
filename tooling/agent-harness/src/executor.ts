@@ -212,12 +212,11 @@ export class OpenCodeExecutor implements ExecutorAdapter {
       );
     }
     const args = [
-      "run", "--pure", "--format", "json", "--agent", boundedOpenCodeAgent,
+      "run", this.buildPrompt(context, repair), "--pure", "--format", "json", "--agent", boundedOpenCodeAgent,
       "--title", `${context.task.metadata.id}-attempt-${context.attempt}`,
     ];
-    args.push("--file", context.taskPackPath);
     if (this.model) args.push("--model", this.model);
-    args.push(this.buildPrompt(context, repair));
+    args.push("--file", context.taskPackPath);
     const result = this.runCommand(this.executable, args, this.root, {
       OPENCODE_CONFIG_CONTENT: JSON.stringify(buildOpenCodeRuntimeConfig(context.task)),
     });
