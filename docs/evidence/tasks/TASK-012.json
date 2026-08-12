@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-012",
+  "verifiedAt": "2026-08-12T23:21:42.488Z",
+  "baseCommit": "9e031d4920b977a739d33cb863458328734f18fe",
+  "headCommit": "9e031d4920b977a739d33cb863458328734f18fe",
+  "changedFiles": [
+    "tooling/agent-harness/src/execution-contracts.ts",
+    "tooling/agent-harness/tests/execution-contracts.test.ts",
+    "tooling/agent-harness/tests/fixtures/execution-contracts.ts"
+  ],
+  "taskHash": "6e2a70477865f455d80959b75a1eb2f1150905a9acf4c4ced8d481d73df6766b",
+  "packHash": "60f94e78d599f526030481d8097f67b6d303dc6390410047ff0f2d7628e80995",
+  "changeFingerprint": "a473a864d45098e20a6a929b7153eeb170b9087d87d9e12e44b2c457d7d025c8",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-012",
+    "branch": "task/012-implement-agentfactory-execution-contracts",
+    "baseBranch": "main",
+    "baseCommit": "9e031d4920b977a739d33cb863458328734f18fe",
+    "remote": "origin",
+    "createdAt": "2026-08-12T23:17:25.908Z",
+    "commit": "6d6231b167be43e6a48055503272089e2aaf2f2c",
+    "verifiedFingerprint": "a473a864d45098e20a6a929b7153eeb170b9087d87d9e12e44b2c457d7d025c8",
+    "committedAt": "2026-08-12T23:22:10.878Z",
+    "pushed": true,
+    "pushedAt": "2026-08-12T23:22:14.398Z",
+    "pullRequest": {
+      "number": 23,
+      "url": "https://github.com/delmacy/system-builder/pull/23",
+      "state": "MERGED",
+      "openedAt": "2026-08-12T23:22:18.363Z",
+      "mergeCommit": "4a86881ae8fa09b239b0bf2ed22775df6f3e7040"
+    }
+  }
+}
