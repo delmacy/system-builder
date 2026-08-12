@@ -1,29 +1,38 @@
 # System Builder — Project Docs / WBS Master
 
-Esta árvore é **separada** da documentação constitucional/arquitetural original em `docs/`. Ela existe para decompor o escopo total do projeto antes de criar fases, milestones, sprints e tasks.
+Esta árvore é separada da documentação constitucional/arquitetural original em `docs/`. Ela existe para decompor e controlar o escopo total antes de fases, milestones, releases, sprints e tasks.
 
-## Método
-A decomposição segue WBS orientada a entregáveis:
+## Estrutura de planejamento
+`Project Scope → WBS → Work/Planning Packages → WBS Dictionary → Dependency/Interface Graph → Scope Baseline → Milestones/Releases → Backlog → Tasks → Sprints`.
 
-- **L1** — capítulo/módulo;
-- **L2** — pacote de trabalho/capability;
-- **L3** — entregável verificável;
-- **L4+** — criado no refinamento quando a complexidade exigir.
+## Níveis
+- L1 — capítulo/módulo;
+- L2 — pacote/capability;
+- L3 — entregável verificável;
+- L4+ — refinamento quando necessário;
+- Work Package — unidade controlável de escopo;
+- Task — unidade executável derivada de Work Package;
+- Sprint — janela temporal que agenda tasks.
 
-Cada capítulo contém:
-
-- `README.md` — objetivo e índice;
-- `scope/README.md` — inclui, exclui, entradas, saídas e critério de conclusão;
-- `WBS.md` — decomposição mínima de três níveis.
-
-Leia também `WBS_METHOD.md`.
+## Documentos mestres
+- `SCOPE_BASELINE.md`
+- `WBS_METHOD.md`
+- `WBS_DICTIONARY.md`
+- `WORK_PACKAGE_METHOD.md`
+- `DEPENDENCY_MODEL.md`
+- `DEPENDENCY_GRAPH.md`
+- `INTERFACE_MAP.md`
+- `PLANNING_PACKAGES.md`
+- `PRE_SCHEDULE_GATE.md`
 
 ## Regras
-1. WBS define **escopo**, não cronograma.
-2. Fases/sprints serão criados depois, usando dependências e maturidade.
-3. Um item L3 ainda pode ser quebrado em épicos/histórias/tasks.
-4. IAs executoras não devem inferir arquitetura fora do pacote recebido.
-5. `docs/`, ADRs, contracts e specs continuam autoridades superiores quando houver conflito.
+1. WBS define escopo, não cronograma.
+2. Dependências são modeladas antes das sprints.
+3. Predecessor obrigatório deve estar pronto, ou contrato explicitamente aceito quando a relação permitir, antes do sucessor.
+4. Sprint não altera parentage da WBS.
+5. IAs executoras não inferem arquitetura ausente.
+6. `docs/`, ADRs, contracts e specs continuam autoridades superiores em caso de conflito.
+7. O projeto evolui por fatias verticais integráveis, numa espiral incremental.
 
 ## Estado
-Os 59 capítulos possuem baseline de escopo e WBS L1→L2→L3. Próximo trabalho: revisão capítulo a capítulo, identificação de dependências/overlaps e aprofundamento seletivo para L4/L5 antes do roadmap de execução.
+Os 59 capítulos possuem baseline WBS L1→L2→L3. A camada intermediária pré-cronograma agora está definida. Próximo refinamento: materializar Work Packages/Dictionaries dos ramos `NOW`, validar dependências e então derivar milestones/releases antes de qualquer sprint.
