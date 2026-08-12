@@ -9,11 +9,11 @@ import {
   writeFileSync,
 } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
-import YAML from "yaml";
 import { analyzeArchitecture } from "./architecture.js";
 import { changedPaths, git } from "./git.js";
 import { assertGitManagedCloseReady, fingerprintChanges, readGitRecord } from "./git-workflow.js";
 import { matchesAny } from "./glob.js";
+import { buildLegacyTaskPackContent } from "./task-pack.js";
 import { loadTasks, readyTasks, repoPath, type Task, validateTaskCatalog } from "./task.js";
 
 type PackManifest = {
@@ -64,31 +64,17 @@ export function prepareTask(taskId: string, root = process.cwd()): string {
     throw new Error(`${taskId} is already prepared; remove its ignored context directory only to restart intentionally`);
   }
   mkdirSync(contextDirectory, { recursive: true });
-  const sections = files.map((file) => {
-    const contents = readFileSync(resolve(root, file), "utf8");
-    return `## ${file}\n\n<context-file path="${file}">\n${contents.trimEnd()}\n</context-file>`;
-  });
-  const pack = [
-    `# Task Pack — ${taskId}`,
-    "",
-    `Prepared from commit \`${git(["rev-parse", "HEAD"], root)}\`.`,
-    "This pack is bounded by the task contract. The repository remains authoritative.",
-    "",
-    "## Execution metadata",
-    "",
-    "```yaml",
-    YAML.stringify(task.metadata).trimEnd(),
-    "```",
-    "",
-    ...sections,
-    "",
-  ].join("\n");
+  const baseCommit = git(["rev-parse", "HEAD"], root);
+  const pack = buildLegacyTaskPackContent(task, baseCommit, files.map((file) => ({
+    path: file,
+    contents: readFileSync(resolve(root, file), "utf8"),
+  })));
   const output = join(contextDirectory, "TASK_PACK.md");
   writeFileSync(output, pack);
   const manifest: PackManifest = {
     taskId,
     taskFile: repoPath(root, task.file),
-    baseCommit: git(["rev-parse", "HEAD"], root),
+    baseCommit,
     preparedAt: new Date().toISOString(),
     contextFiles: files,
     branch: git(["branch", "--show-current"], root) || "DETACHED",
