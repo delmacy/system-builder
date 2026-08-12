@@ -1,0 +1,64 @@
+version: 0.1
+milestone: I1-single-task-autonomous
+nodes:
+  - id: WP-I1-01
+    status: READY
+    predecessors: []
+  - id: WP-I1-02
+    status: BLOCKED
+    predecessors:
+      - { id: WP-I1-01, type: REQUIRES }
+  - id: WP-I1-03
+    status: BLOCKED
+    predecessors:
+      - { id: WP-I1-01, type: REQUIRES }
+      - { id: WP-I1-02, type: REQUIRES }
+  - id: WP-I1-04
+    status: BLOCKED
+    predecessors:
+      - { id: WP-I1-01, type: REQUIRES }
+  - id: WP-I1-05
+    status: READY
+    predecessors:
+      - { id: TASK-011, type: TOOL_REQUIRES, gate: opencode adapter argument-order correction available }
+  - id: WP-I1-06
+    status: BLOCKED
+    predecessors:
+      - { id: WP-I1-03, type: REQUIRES }
+      - { id: WP-I1-05, type: REQUIRES }
+  - id: WP-I1-07
+    status: BLOCKED
+    predecessors:
+      - { id: WP-I1-06, type: REQUIRES }
+  - id: WP-I1-08
+    status: BLOCKED
+    predecessors:
+      - { id: WP-I1-01, type: CONTRACT_REQUIRES }
+      - { id: WP-I1-07, type: REQUIRES }
+  - id: WP-I1-09
+    status: BLOCKED
+    predecessors:
+      - { id: WP-I1-06, type: REQUIRES }
+      - { id: WP-I1-07, type: VALIDATION_REQUIRES }
+  - id: WP-I1-10
+    status: BLOCKED
+    predecessors:
+      - { id: WP-I1-01, type: REQUIRES }
+      - { id: WP-I1-08, type: REQUIRES }
+  - id: WP-I1-11
+    status: BLOCKED
+    predecessors:
+      - { id: WP-I1-02, type: REQUIRES }
+      - { id: WP-I1-10, type: REQUIRES }
+  - id: WP-I1-12
+    status: BLOCKED
+    predecessors:
+      - { id: WP-I1-03, type: REQUIRES }
+      - { id: WP-I1-04, type: REQUIRES }
+      - { id: WP-I1-05, type: REQUIRES }
+      - { id: WP-I1-06, type: REQUIRES }
+      - { id: WP-I1-07, type: REQUIRES }
+      - { id: WP-I1-08, type: REQUIRES }
+      - { id: WP-I1-09, type: REQUIRES }
+      - { id: WP-I1-10, type: REQUIRES }
+      - { id: WP-I1-11, type: REQUIRES }
