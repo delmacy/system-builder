@@ -7,12 +7,14 @@ import {
   OpenCodeExecutor,
   boundedOpenCodeAgent,
   buildOpenCodeRuntimeConfig,
+  maxOpenCodeAttempts,
   resolveOpenCodeBashPermission,
   type CommandResult,
   type ExecutorAdapter,
   type ExecutorContext,
   type ExecutorReport,
 } from "../src/executor.js";
+import { executorAdapterResultSchema, executorRequestSchema } from "../src/execution-contracts.js";
 import {
   LocalTaskOrchestrator,
   deriveOrchestratorState,
@@ -207,6 +209,9 @@ describe("OpenCode executor", () => {
     const args = calls[1]?.args ?? [];
     const prompt = args.find((argument) => argument.startsWith("# Bounded executor instruction")) ?? "";
     assert.equal(report.status, "completed");
+    assert.equal(executorAdapterResultSchema.safeParse(report.result).success, true);
+    assert.ok(report.result);
+    assert.equal(report.result.status, "SUCCEEDED");
     assert.equal(args[0], "run");
     assert.match(prompt, /allowed_paths/);
     assert.match(prompt, /Do not run git commit, git push, gh/);
@@ -269,7 +274,7 @@ describe("OpenCode executor", () => {
     }
   });
 
-  it("fails clearly when OpenCode is not installed or configured", () => {
+  it("returns a structured blocked result when OpenCode is not installed or configured", () => {
     const root = mkdtempSync(join(tmpdir(), "sb-opencode-"));
     const pack = join(root, "TASK_PACK.md");
     writeFileSync(pack, "bounded pack\n");
@@ -279,7 +284,114 @@ describe("OpenCode executor", () => {
       stderr: "",
       error: new Error("ENOENT"),
     }));
-    assert.throws(() => executor.execute({ task: makeTask(), taskPackPath: pack, attempt: 1 }), /OpenCode is unavailable.*OPENCODE_EXECUTABLE/s);
+    const report = executor.execute({ task: makeTask(), taskPackPath: pack, attempt: 1 });
+    assert.equal(report.status, "failed");
+    assert.ok(report.result);
+    assert.equal(report.result.status, "BLOCKED");
+    assert.equal(report.result.failure?.code, "ADAPTER_UNAVAILABLE");
+    assert.match(report.summary, /OpenCode is unavailable.*OPENCODE_EXECUTABLE/s);
+  });
+
+  it("consumes a versioned executor request and preserves deterministic argument order", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-opencode-request-"));
+    const pack = join(root, "TASK_PACK.md");
+    writeFileSync(pack, "bounded pack\n");
+    const calls: Array<{ args: string[]; timeoutMs?: number }> = [];
+    const runner = (
+      _executable: string,
+      args: string[],
+      _cwd: string,
+      _environment?: Record<string, string>,
+      timeoutMs?: number,
+    ): CommandResult => {
+      calls.push({ args, ...(timeoutMs === undefined ? {} : { timeoutMs }) });
+      return { status: 0, stdout: "ok", stderr: "" };
+    };
+    const task = makeTask();
+    const request = executorRequestSchema.parse({
+      schema_version: 1,
+      task_id: task.metadata.id,
+      work_package_id: "WP-I1-05",
+      source_commit: "6582afe794b6f7e9d97661b2051493a16905bc21",
+      attempt: 1,
+      task_pack_path: "TASK_PACK.md",
+      route: {
+        risk: "LOW",
+        model_tier: "T1",
+        executor: "opencode",
+        model: "provider/request-model",
+        architecture_impact: false,
+        decision: "SELECTED",
+        rationale_code: "BOUNDED_LOW_RISK",
+      },
+      scope: {
+        allowed_paths: task.metadata.allowed_paths,
+        forbidden_paths: task.metadata.forbidden_paths,
+        max_files: task.metadata.max_files,
+      },
+      validation_commands: task.metadata.validation,
+    });
+    const report = new OpenCodeExecutor(root, "opencode-test", undefined, runner, 12_345).execute({
+      task,
+      taskPackPath: pack,
+      attempt: 1,
+      request,
+    });
+    assert.deepEqual(report.request, request);
+    assert.ok(report.result);
+    assert.equal(report.result.status, "SUCCEEDED");
+    const args = calls[1]?.args ?? [];
+    assert.equal(args[0], "run");
+    assert.ok(args.indexOf("--model") < args.indexOf("--file"));
+    assert.deepEqual(args.slice(args.indexOf("--file") + 1), [pack]);
+    assert.deepEqual(calls.map((call) => call.timeoutMs), [12_345, 12_345]);
+  });
+
+  it("propagates nonzero exit and timeout as structured failures without false success", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-opencode-failure-"));
+    const pack = join(root, "TASK_PACK.md");
+    writeFileSync(pack, "bounded pack\n");
+    const task = makeTask();
+    const nonzero = new OpenCodeExecutor(root, "opencode-test", undefined, (_exe, args) => (
+      args[0] === "--version"
+        ? { status: 0, stdout: "1.0", stderr: "" }
+        : { status: 7, stdout: "partial", stderr: "provider failed" }
+    )).execute({ task, taskPackPath: pack, attempt: 1 });
+    assert.equal(nonzero.status, "failed");
+    assert.ok(nonzero.result);
+    assert.equal(nonzero.result.status, "FAILED");
+    assert.equal(nonzero.result.exit_code, 7);
+    assert.equal(nonzero.result.failure?.code, "NONZERO_EXIT");
+    assert.equal(nonzero.result.failure?.retryable, true);
+
+    const timeout = new OpenCodeExecutor(root, "opencode-test", undefined, (_exe, args) => (
+      args[0] === "--version"
+        ? { status: 0, stdout: "1.0", stderr: "" }
+        : { status: null, stdout: "", stderr: "", timedOut: true }
+    )).execute({ task, taskPackPath: pack, attempt: maxOpenCodeAttempts });
+    assert.equal(timeout.status, "failed");
+    assert.ok(timeout.result);
+    assert.equal(timeout.result.status, "TIMED_OUT");
+    assert.equal(timeout.result.failure?.code, "EXECUTION_TIMEOUT");
+    assert.equal(timeout.result.failure?.retryable, false);
+  });
+
+  it("blocks attempts and timeout settings beyond their configured bounds", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-opencode-bounds-"));
+    const pack = join(root, "TASK_PACK.md");
+    writeFileSync(pack, "bounded pack\n");
+    const task = makeTask();
+    let calls = 0;
+    const executor = new OpenCodeExecutor(root, "opencode-test", undefined, () => {
+      calls += 1;
+      return { status: 0, stdout: "ok", stderr: "" };
+    });
+    const report = executor.execute({ task, taskPackPath: pack, attempt: maxOpenCodeAttempts + 1 });
+    assert.ok(report.result);
+    assert.equal(report.result.status, "BLOCKED");
+    assert.equal(report.result.failure?.code, "ATTEMPT_LIMIT_EXCEEDED");
+    assert.equal(calls, 0);
+    assert.throws(() => new OpenCodeExecutor(root, "opencode-test", undefined, undefined, 0), /timeout/);
   });
 });
 
@@ -293,7 +405,23 @@ class FakeExecutor implements ExecutorAdapter {
   repair(context: ExecutorContext): ExecutorReport { this.repairs += 1; return this.complete(context); }
   report(): ExecutorReport | undefined { return this.last; }
   private complete(context: ExecutorContext): ExecutorReport {
-    this.last = { executor: this.name, attempt: context.attempt, status: "completed", summary: "done" };
+    this.last = {
+      executor: this.name,
+      attempt: context.attempt,
+      status: "completed",
+      summary: "done",
+      result: executorAdapterResultSchema.parse({
+        schema_version: 1,
+        task_id: context.task.metadata.id,
+        attempt: context.attempt,
+        adapter: "opencode",
+        status: "SUCCEEDED",
+        exit_code: 0,
+        stdout: "done",
+        stderr: "",
+        failure: null,
+      }),
+    };
     return this.last;
   }
 }

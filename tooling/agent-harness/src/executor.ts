@@ -1,5 +1,12 @@
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
+import { resolve } from "node:path";
+import {
+  executorAdapterResultSchema,
+  executorRequestSchema,
+  type ExecutorAdapterResult,
+  type ExecutorRequest,
+} from "./execution-contracts.js";
 import type { Task } from "./task.js";
 
 export type ExecutorContext = {
@@ -7,6 +14,7 @@ export type ExecutorContext = {
   taskPackPath: string;
   attempt: number;
   verificationFailure?: string;
+  request?: ExecutorRequest;
 };
 
 export type ExecutorReport = {
@@ -14,6 +22,8 @@ export type ExecutorReport = {
   attempt: number;
   status: "completed" | "failed";
   summary: string;
+  result?: ExecutorAdapterResult;
+  request?: ExecutorRequest;
 };
 
 export interface ExecutorAdapter {
@@ -29,6 +39,7 @@ export type CommandResult = {
   stdout: string;
   stderr: string;
   error?: Error;
+  timedOut?: boolean;
 };
 
 export type CommandRunner = (
@@ -36,6 +47,7 @@ export type CommandRunner = (
   args: string[],
   cwd: string,
   environment?: Record<string, string>,
+  timeoutMs?: number,
 ) => CommandResult;
 
 export type OpenCodePermissionAction = "allow" | "ask" | "deny";
@@ -59,6 +71,9 @@ export type OpenCodePermission = {
 };
 
 export const boundedOpenCodeAgent = "system-builder-bounded";
+export const defaultOpenCodeTimeoutMs = 15 * 60 * 1000;
+export const maxOpenCodeTimeoutMs = 30 * 60 * 1000;
+export const maxOpenCodeAttempts = 3;
 
 const forbiddenGitDelivery = [
   "git add*",
@@ -158,7 +173,12 @@ export class OpenCodeExecutor implements ExecutorAdapter {
     private readonly executable = process.env.OPENCODE_EXECUTABLE || "opencode",
     private readonly model = process.env.OPENCODE_MODEL,
     private readonly runCommand: CommandRunner = defaultCommandRunner,
-  ) {}
+    private readonly timeoutMs = defaultOpenCodeTimeoutMs,
+  ) {
+    if (!Number.isInteger(timeoutMs) || timeoutMs <= 0 || timeoutMs > maxOpenCodeTimeoutMs) {
+      throw new Error(`OpenCode timeout must be an integer between 1 and ${maxOpenCodeTimeoutMs} ms`);
+    }
+  }
 
   canHandle(task: Task): boolean {
     return ["free", "cheap"].includes(task.metadata.model_tier)
@@ -204,28 +224,140 @@ export class OpenCodeExecutor implements ExecutorAdapter {
   }
 
   private invoke(context: ExecutorContext, repair: boolean): ExecutorReport {
-    const version = this.runCommand(this.executable, ["--version"], this.root);
+    const request = context.request ? this.validateRequest(context) : undefined;
+    if (context.attempt > maxOpenCodeAttempts) {
+      return this.reportFailure(context, request, "BLOCKED", null, "ATTEMPT_LIMIT_EXCEEDED", "OpenCode attempt limit exceeded", false);
+    }
+    const version = this.runCommand(this.executable, ["--version"], this.root, undefined, this.timeoutMs);
     if (version.error || version.status !== 0) {
-      throw new Error(
+      return this.reportFailure(
+        context,
+        request,
+        "BLOCKED",
+        version.status,
+        "ADAPTER_UNAVAILABLE",
         `OpenCode is unavailable or not executable (${version.error?.message || version.stderr || `exit ${version.status}`}). `
-        + "Install/configure it locally or set OPENCODE_EXECUTABLE; no repository credential is required.",
+          + "Install/configure it locally or set OPENCODE_EXECUTABLE; no repository credential is required.",
+        false,
+      );
+    }
+    const selectedModel = request?.route.model ?? this.model;
+    if (request?.route.model && this.model && request.route.model !== this.model) {
+      return this.reportFailure(
+        context,
+        request,
+        "BLOCKED",
+        null,
+        "MODEL_CONFIGURATION_CONFLICT",
+        `Executor request model ${request.route.model} does not match configured model ${this.model}`,
+        false,
       );
     }
     const args = [
       "run", this.buildPrompt(context, repair), "--pure", "--format", "json", "--agent", boundedOpenCodeAgent,
       "--title", `${context.task.metadata.id}-attempt-${context.attempt}`,
     ];
-    if (this.model) args.push("--model", this.model);
+    if (selectedModel) args.push("--model", selectedModel);
     args.push("--file", context.taskPackPath);
     const result = this.runCommand(this.executable, args, this.root, {
       OPENCODE_CONFIG_CONTENT: JSON.stringify(buildOpenCodeRuntimeConfig(context.task)),
-    });
+    }, this.timeoutMs);
+    if (result.timedOut || (result.error as NodeJS.ErrnoException | undefined)?.code === "ETIMEDOUT") {
+      return this.reportFailure(
+        context,
+        request,
+        "TIMED_OUT",
+        result.status,
+        "EXECUTION_TIMEOUT",
+        `OpenCode exceeded the ${this.timeoutMs} ms execution timeout`,
+        context.attempt < maxOpenCodeAttempts,
+        result,
+      );
+    }
+    if (result.error || result.status !== 0) {
+      return this.reportFailure(
+        context,
+        request,
+        "FAILED",
+        result.status,
+        result.error ? "PROCESS_ERROR" : "NONZERO_EXIT",
+        result.error?.message || result.stderr || `OpenCode exited with ${result.status}`,
+        context.attempt < maxOpenCodeAttempts,
+        result,
+      );
+    }
     const summary = [result.stdout, result.stderr].filter(Boolean).join("\n").trim();
+    const adapterResult = executorAdapterResultSchema.parse({
+      schema_version: 1,
+      task_id: context.task.metadata.id,
+      attempt: context.attempt,
+      adapter: "opencode",
+      status: "SUCCEEDED",
+      exit_code: result.status,
+      stdout: result.stdout,
+      stderr: result.stderr,
+      failure: null,
+    });
     this.lastReport = {
       executor: this.name,
       attempt: context.attempt,
-      status: result.status === 0 && !result.error ? "completed" : "failed",
-      summary: summary || result.error?.message || `OpenCode exited with ${result.status}`,
+      status: "completed",
+      summary: summary || "OpenCode completed successfully",
+      result: adapterResult,
+      ...(request ? { request } : {}),
+    };
+    return this.lastReport;
+  }
+
+  private validateRequest(context: ExecutorContext): ExecutorRequest {
+    const request = executorRequestSchema.parse(context.request);
+    if (request.task_id !== context.task.metadata.id || request.attempt !== context.attempt) {
+      throw new Error("Executor request task/attempt does not match executor context");
+    }
+    if (resolve(this.root, request.task_pack_path) !== resolve(context.taskPackPath)) {
+      throw new Error("Executor request Task Pack path does not match executor context");
+    }
+    if (request.route.executor !== "opencode" || request.route.decision !== "SELECTED") {
+      throw new Error("OpenCode requires an explicitly selected opencode route");
+    }
+    if (JSON.stringify(request.scope.allowed_paths) !== JSON.stringify(context.task.metadata.allowed_paths)
+      || JSON.stringify(request.scope.forbidden_paths) !== JSON.stringify(context.task.metadata.forbidden_paths)
+      || request.scope.max_files !== context.task.metadata.max_files
+      || JSON.stringify(request.validation_commands) !== JSON.stringify(context.task.metadata.validation)) {
+      throw new Error("Executor request scope/validation does not match the task contract");
+    }
+    return request;
+  }
+
+  private reportFailure(
+    context: ExecutorContext,
+    request: ExecutorRequest | undefined,
+    status: "FAILED" | "TIMED_OUT" | "BLOCKED",
+    exitCode: number | null,
+    code: string,
+    message: string,
+    retryable: boolean,
+    command: CommandResult = { status: exitCode, stdout: "", stderr: "" },
+  ): ExecutorReport {
+    const result = executorAdapterResultSchema.parse({
+      schema_version: 1,
+      task_id: context.task.metadata.id,
+      attempt: context.attempt,
+      adapter: "opencode",
+      status,
+      exit_code: exitCode,
+      stdout: command.stdout,
+      stderr: command.stderr,
+      failure: { code, message, retryable },
+    });
+    const summary = [command.stdout, command.stderr, message].filter(Boolean).join("\n").trim();
+    this.lastReport = {
+      executor: this.name,
+      attempt: context.attempt,
+      status: "failed",
+      summary,
+      result,
+      ...(request ? { request } : {}),
     };
     return this.lastReport;
   }
@@ -236,6 +368,7 @@ function defaultCommandRunner(
   args: string[],
   cwd: string,
   environment: Record<string, string> = {},
+  timeoutMs = defaultOpenCodeTimeoutMs,
 ): CommandResult {
   const invocation = process.platform === "win32" ? windowsInvocation(executable, args, cwd) : { executable, args };
   const result = spawnSync(invocation.executable, invocation.args, {
@@ -243,12 +376,15 @@ function defaultCommandRunner(
     encoding: "utf8",
     shell: false,
     env: { ...process.env, ...environment },
+    timeout: timeoutMs,
   });
+  const error = result.error as NodeJS.ErrnoException | undefined;
   return {
     status: result.status,
     stdout: result.stdout?.trim() ?? "",
     stderr: result.stderr?.trim() ?? "",
     ...(result.error ? { error: result.error } : {}),
+    ...(error?.code === "ETIMEDOUT" ? { timedOut: true } : {}),
   };
 }
 
