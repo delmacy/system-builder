@@ -1,3 +1,5 @@
 # 22 — Workflow Engine
 
-Breakdown pendente.
+**Objetivo:** executar fluxos materializados de forma determinística, auditável e independente do authoring do Builder.
+
+Documentos: [escopo](scope/README.md) · [WBS](WBS.md).

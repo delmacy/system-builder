@@ -1,3 +1,5 @@
 # 46 — Migration & Legacy Transition Engine
 
-Breakdown pendente.
+**Objetivo:** tornar modernização incremental um processo formal, testável e reversível desde discovery até cutover/retirement.
+
+Documentos: [escopo](scope/README.md) · [WBS](WBS.md).
