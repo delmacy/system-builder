@@ -1,64 +1,39 @@
 {
-  "updatedAt": "2026-08-11T01:09:39.317Z",
+  "updatedAt": "2026-08-12T23:05:00.000Z",
   "completed": [
     "TASK-000",
     "TASK-001",
     "TASK-002",
+    "TASK-003",
     "TASK-009",
-    "TASK-003"
+    "TASK-011"
   ],
   "ready": [
     "TASK-010",
-    "TASK-004"
+    "TASK-004",
+    "TASK-012"
   ],
   "milestones": {
     "M0": [
-      {
-        "id": "TASK-000",
-        "status": "completed"
-      },
-      {
-        "id": "TASK-001",
-        "status": "completed"
-      }
+      { "id": "TASK-000", "status": "completed" },
+      { "id": "TASK-001", "status": "completed" }
     ],
     "M1": [
-      {
-        "id": "TASK-002",
-        "status": "completed"
-      },
-      {
-        "id": "TASK-009",
-        "status": "completed"
-      },
-      {
-        "id": "TASK-003",
-        "status": "completed"
-      },
-      {
-        "id": "TASK-010",
-        "status": "ready"
-      },
-      {
-        "id": "TASK-004",
-        "status": "ready"
-      },
-      {
-        "id": "TASK-005",
-        "status": "ready"
-      },
-      {
-        "id": "TASK-006",
-        "status": "ready"
-      },
-      {
-        "id": "TASK-007",
-        "status": "ready"
-      },
-      {
-        "id": "TASK-008",
-        "status": "ready"
-      }
+      { "id": "TASK-002", "status": "completed" },
+      { "id": "TASK-003", "status": "completed" },
+      { "id": "TASK-004", "status": "ready" },
+      { "id": "TASK-005", "status": "ready" },
+      { "id": "TASK-006", "status": "ready" },
+      { "id": "TASK-007", "status": "ready" },
+      { "id": "TASK-008", "status": "ready" },
+      { "id": "TASK-009", "status": "completed" },
+      { "id": "TASK-010", "status": "ready" },
+      { "id": "TASK-011", "status": "completed" }
+    ],
+    "I1": [
+      { "id": "TASK-012", "status": "ready" },
+      { "id": "TASK-013", "status": "ready" },
+      { "id": "TASK-014", "status": "ready" }
     ]
   }
 }
