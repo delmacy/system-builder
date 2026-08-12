@@ -1,52 +1,77 @@
-# TASK-014 — AgentFactory DAG / READY evaluator
+---
+id: TASK-014
+title: Implement the AgentFactory DAG READY evaluator
+status: ready
+priority: 38
+milestone: I1
+model_tier: cheap
+risk: medium
+architecture_impact: false
+executor_preference: codex
+depends_on:
+  - TASK-012
+context_paths:
+  - AGENTS.md
+  - project_docs/agentfactory_i1/README.md
+  - project_docs/agentfactory_i1/TASK_DAG.yaml
+  - project_docs/schedule/DAG_MACHINE_SCHEMA.md
+  - project_docs/schedule/DAG_VALIDATION_RULES.md
+  - specs/tasks/TASK-014-AGENTFACTORY-DAG-READY-EVALUATOR.md
+  - tooling/agent-harness/src/task.ts
+allowed_paths:
+  - tooling/agent-harness/**
+  - specs/tasks/TASK-014-AGENTFACTORY-DAG-READY-EVALUATOR.md
+forbidden_paths:
+  - packages/**
+  - apps/**
+  - docs/adr/**
+max_files: 12
+validation:
+  - npm run verify
+---
 
-## Objective
+# Objective
+
 Implement deterministic evaluation of the near-horizon AgentFactory task DAG and compute which nodes are READY without using an LLM.
 
-## Parent
-- Ignition milestone: I1
-- Work Package: WP-I1-02
+# Context
 
-## Dependencies
-- REQUIRES: TASK-012 execution contracts.
+TASK-012 provides the execution/gate vocabulary. I1 needs a deterministic scheduler foundation that can reject malformed/cyclic graphs and explain why work is READY or BLOCKED.
 
-## In scope
-- load/receive task nodes and typed predecessor gates;
-- validate missing predecessor references;
-- detect dependency cycles;
-- topological ordering;
-- evaluate blocking gate statuses;
-- produce READY/BLOCKED results with machine-readable reasons;
-- tests covering independent branches, chains, cycles and contract-style gates supported by I1 contracts.
+# Current behavior
 
-## Out of scope
-- sprint loading;
-- task decomposition using AI;
-- critical-path duration calculations;
-- database persistence;
-- parallel job execution.
+The repository can validate the existing task catalog and basic completed dependencies, but it does not implement the richer I1 dependency-gate evaluator specified by the machine DAG planning model.
 
-## Acceptance criteria
-1. Same input graph always yields same readiness result.
-2. Cycles fail closed with explicit diagnostics.
-3. A blocked predecessor never produces a READY successor.
-4. Independent nodes remain READY when unrelated paths are blocked.
-5. Readiness reasons identify the unsatisfied gate/predecessor.
-6. `npm run verify` passes.
+# Required change
 
-## Allowed paths
-- `tooling/agent-harness/**`
-- task-DAG fixtures/tests.
+Implement deterministic graph validation, missing-reference detection, cycle detection, topological ordering and typed blocking-gate evaluation with machine-readable readiness reasons.
 
-## Forbidden
-- LLM calls in readiness logic;
-- sprint-number based dependencies;
-- product-domain imports.
+# Inputs / contracts
 
-## Evidence
-Provide representative DAG fixtures, readiness output and cycle-detection proof.
+TASK-012 execution contracts, the AgentFactory I1 task DAG, machine DAG schema/validation policies and existing task catalog conventions.
 
-## Model routing
-- Tier: T1/T2
-- Risk: medium
-- Architecture impact: bounded AgentFactory core.
+# Outputs / contracts
+
+A deterministic DAG/READY evaluator and representative fixtures/tests for chains, independent branches, missing predecessors, cycles and supported gate states.
+
+# Acceptance criteria
+
+- Same input graph always yields the same readiness result.
+- Missing predecessor references and cycles fail closed with explicit diagnostics.
+- A blocked mandatory predecessor/gate never produces a READY successor.
+- Independent nodes remain READY when unrelated paths are blocked.
+- Results identify the exact unsatisfied predecessor/gate.
+- No LLM is called by readiness logic.
+- `npm run verify` passes.
+
+# Non-goals
+
+Sprint loading, AI task decomposition, critical-path duration calculation, database persistence, parallel execution or product-domain behavior.
+
+# Evidence expected
+
+Representative graph fixtures, deterministic readiness outputs, cycle/missing-reference proof and passing `npm run verify`.
+
+# Escalation
+
+Stop if implementation requires changing approved dependency semantics, introducing product-domain coupling or weakening deterministic validation.
