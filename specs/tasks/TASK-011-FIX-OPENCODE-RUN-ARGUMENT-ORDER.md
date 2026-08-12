@@ -1,7 +1,7 @@
 ---
 id: TASK-011
 title: Fix OpenCode run argument ordering
-status: ready
+status: completed
 priority: 34
 milestone: M1
 model_tier: cheap
