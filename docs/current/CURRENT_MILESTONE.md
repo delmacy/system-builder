@@ -55,7 +55,8 @@ Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autono
 - [x] Re-run the I1 happy/failure proof and decide GO/NO-GO for I2 without executing the I2 chain.
 - [x] TASK-027 post-hardening proof integrated; I1 remains GO.
 - [x] Post-I1 review completed; I2 readiness decision is GO.
-- [ ] Materialize and implement the bounded I2 sequential coordinator.
+- [x] Materialize TASK-028 for the bounded I2 sequential coordinator.
+- [ ] Implement and close TASK-028.
 - [ ] Execute the candidate chain only after coordinator integration and reassess the I2 Exit Gate.
 
 ## Product M1
