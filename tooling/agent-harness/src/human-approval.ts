@@ -63,8 +63,8 @@ export function humanApprovalId(receipt: Omit<HumanApprovalReceipt, "approval_id
 export function evaluateHumanApproval(policyInput: unknown, receiptInput: unknown, expected: HumanApprovalExpected): HumanApprovalEvaluation {
   const policy = humanApprovalPolicySchema.safeParse(policyInput);
   if (!policy.success) return evaluation("INVALID", null, ["POLICY_INVALID"]);
-  if (policy.data.mode !== "SOLO_DURABLE") return evaluation("INVALID", null, ["POLICY_DISALLOWS_DURABLE"]);
   if (receiptInput === undefined || receiptInput === null) return evaluation("MISSING", null, ["APPROVAL_MISSING"]);
+  if (policy.data.mode !== "SOLO_DURABLE") return evaluation("INVALID", null, ["POLICY_DISALLOWS_DURABLE"]);
   const receipt = humanApprovalReceiptSchema.safeParse(receiptInput);
   if (!receipt.success) return evaluation("INVALID", null, ["APPROVAL_INVALID"]);
   const value = receipt.data;
