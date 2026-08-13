@@ -29,7 +29,7 @@ export {
   writeAgentFactoryAttemptEvidence,
   writeAgentFactoryEvidence,
 } from "./evidence-writer.js";
-export { applyLedgerTransition } from "./ledger-engine.js";
+export { applyLedgerTransition, buildLedgerTransitionEvent } from "./ledger-engine.js";
 export { recomputeSuccessorReadiness } from "./readiness-recompute.js";
 export { buildRepresentativeI1Proof, writeI1Proof } from "./i1-proof.js";
 

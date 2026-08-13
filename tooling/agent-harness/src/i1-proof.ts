@@ -3,11 +3,16 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { z } from "zod";
 import { evaluateDagReadiness, type DagGraph } from "./dag.js";
-import { buildAgentFactoryEvidence, type AgentFactoryEvidenceEnvelope } from "./evidence-writer.js";
+import {
+  buildAgentFactoryAttemptEvidence,
+  buildAgentFactoryEvidence,
+  type AgentFactoryAttemptEvidenceEnvelope,
+  type AgentFactoryEvidenceEnvelope,
+} from "./evidence-writer.js";
 import { beginExecutionBoundary, enforceExecutionDelta } from "./execution-harness.js";
 import { OpenCodeExecutor, type CommandResult } from "./executor.js";
 import { evaluateGitHubLifecycle } from "./github-lifecycle.js";
-import { applyLedgerTransition, type LedgerApplicationReceipt } from "./ledger-engine.js";
+import { applyLedgerTransition, buildLedgerTransitionEvent, type LedgerApplicationReceipt } from "./ledger-engine.js";
 import { routeTask } from "./model-router.js";
 import { recomputeSuccessorReadiness } from "./readiness-recompute.js";
 import { buildTaskPack } from "./task-pack.js";
@@ -110,6 +115,18 @@ export function buildRepresentativeI1Proof(): I1ProofReceipt {
     blockedGates: [],
     metrics: { attempts: 1, execution_duration_seconds: 1, review_duration_seconds: 1, token_or_provider_cost: 0 },
   });
+  const attemptEvidence = buildAgentFactoryAttemptEvidence({
+    completion,
+    validation,
+    headCommit,
+    changeFingerprint,
+    acceptance: [{ id: acceptanceId, status: "PASS", evidence: "end-to-end assertions" }],
+    satisfiedGates: [successorGateId],
+    blockedGates: [],
+    attemptStartedAt,
+    attemptFinishedAt,
+    metrics: { attempts: 1, review_duration_seconds: 1, token_or_provider_cost: 0 },
+  });
   const lifecycle = evaluateGitHubLifecycle({
     prNumber: 900,
     state: "OPEN",
@@ -125,7 +142,7 @@ export function buildRepresentativeI1Proof(): I1ProofReceipt {
     review: "APPROVED",
     reviewRequired: true,
   });
-  const ledger = advanceToDone(taskRecord, evidence);
+  const ledger = advanceToDone(taskRecord, attemptEvidence, evidence);
   const recomputed = recomputeSuccessorReadiness({ graph: initialGraph, ledgerReceipt: ledger, evidence, evidenceRef });
   const failure = controlledFailure(task, taskRecord, start, rawReport, evidence, initialGraph);
   const runArgs = invocations[1] ?? [];
@@ -172,24 +189,37 @@ export function writeI1Proof(receipt: I1ProofReceipt, root = process.cwd()): str
   return path;
 }
 
-function advanceToDone(initial: TaskRecord, evidence: AgentFactoryEvidenceEnvelope): Extract<LedgerApplicationReceipt, { accepted: true }> {
-  const steps: Array<[TaskRecord["state"], StateTransition["reason_code"]]> = [
-    ["RUNNING", "EXECUTION_STARTED"],
-    ["VERIFICATION", "EXECUTOR_COMPLETED"],
-    ["EVIDENCED", "VALIDATION_PASSED"],
-    ["INTEGRATING", "INTEGRATION_STARTED"],
-    ["DONE", "INTEGRATION_ACCEPTED"],
+function advanceToDone(
+  initial: TaskRecord,
+  attemptEvidence: AgentFactoryAttemptEvidenceEnvelope,
+  evidence: AgentFactoryEvidenceEnvelope,
+): Extract<LedgerApplicationReceipt, { accepted: true }> {
+  const steps: Array<[TaskRecord["state"], StateTransition["reason_code"], string, unknown]> = [
+    ["RUNNING", "EXECUTION_STARTED", "event:execution-started", transitionEvent("EXECUTION_STARTED", attemptStartedAt)],
+    ["VERIFICATION", "EXECUTOR_COMPLETED", "event:executor-completed", transitionEvent("EXECUTOR_COMPLETED", attemptFinishedAt)],
+    ["EVIDENCED", "VALIDATION_PASSED", `attempt:${attemptEvidence.receipt_id}`, attemptEvidence],
+    ["INTEGRATING", "INTEGRATION_STARTED", "event:integration-started", transitionEvent("INTEGRATION_STARTED", attemptFinishedAt)],
+    ["DONE", "INTEGRATION_ACCEPTED", evidenceRef, evidence],
   ];
   let task = initial;
   let attempts: LedgerApplicationReceipt["attempts"] = [];
   let accepted: LedgerApplicationReceipt | undefined;
-  for (const [to, reasonCode] of steps) {
-    accepted = applyLedgerTransition({ task, to, reasonCode, occurredAt, evidenceRef, evidence, priorAttempts: attempts });
+  for (const [to, reasonCode, stepEvidenceRef, stepEvidence] of steps) {
+    accepted = applyLedgerTransition({ task, to, reasonCode, occurredAt, evidenceRef: stepEvidenceRef, evidence: stepEvidence, priorAttempts: attempts });
     if (!accepted.accepted) throw new Error(`I1 proof transition rejected: ${accepted.reason_codes.join(", ")}`);
     task = accepted.authoritative_task;
     attempts = accepted.attempts;
   }
   return accepted as Extract<LedgerApplicationReceipt, { accepted: true }>;
+}
+
+function transitionEvent(reasonCode: StateTransition["reason_code"], observedAt: string) {
+  return buildLedgerTransitionEvent({
+    task_id: "TASK-900",
+    work_package_id: "WP-I1-12",
+    reason_code: reasonCode,
+    observed_at: observedAt,
+  });
 }
 
 function controlledFailure(
@@ -268,3 +298,5 @@ const acceptanceId = "AC-I1-PROOF";
 const successorGateId = "GATE-I1-PROOF-SUCCESSOR";
 const evidenceRef = "docs/evidence/agentfactory/TASK-900/attempt.json";
 const occurredAt = "2026-08-13T01:00:00.000Z";
+const attemptStartedAt = "2026-08-13T00:59:58.000Z";
+const attemptFinishedAt = "2026-08-13T00:59:59.000Z";
