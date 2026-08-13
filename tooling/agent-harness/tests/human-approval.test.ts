@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
 import { generateKeyPairSync, sign } from "node:crypto";
+import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { describe, it } from "node:test";
 import * as approvalModule from "../src/human-approval.js";
-import { evaluateHumanApproval, humanApprovalId, humanApprovalSigningPayload } from "../src/human-approval.js";
+import { evaluateHumanApproval, evaluateStoredHumanApproval, humanApprovalId, humanApprovalSigningPayload } from "../src/human-approval.js";
 
 const { privateKey, publicKey } = generateKeyPairSync("ed25519");
 const publicKeyPem = publicKey.export({ type: "spki", format: "pem" }).toString();
@@ -15,7 +18,7 @@ const semantic = {
   governance_policy_version: "1.0.0",
 };
 const policy = { schema_version: 1 as const, policy_version: "1.0.0", mode: "SOLO_DURABLE" as const,
-  repository: "delmacy/system-builder", max_age_seconds: 7200,
+  repository: "delmacy/system-builder", max_age_seconds: 7200, receipt_directory_env: "SYSTEM_BUILDER_HUMAN_APPROVAL_DIR",
   authorized_approvers: [{ approver_identity: semantic.approver_identity, key_id: semantic.key_id, public_key_pem: publicKeyPem }] };
 const expected = { repository: semantic.repository, taskId: semantic.task_id, risk: semantic.risk, architectureImpact: true,
   prNumber: semantic.pr_number, baseRef: semantic.base_ref, headRef: semantic.head_ref, headSha: semantic.head_sha, observedAt };
@@ -40,4 +43,22 @@ describe("durable human approval", () => {
   it("fails closed on an unknown policy", () => assert.deepEqual(evaluateHumanApproval({ ...policy, mode: "UNKNOWN" }, receipt(), expected).reason_codes, ["POLICY_INVALID"]));
   it("is deterministic for equivalent evaluations", () => assert.deepEqual(evaluateHumanApproval(policy, receipt(), expected), evaluateHumanApproval(policy, receipt(), expected)));
   it("exposes no production signing capability", () => assert.equal("signHumanApproval" in approvalModule, false));
+  it("fails closed for a missing or relative external store", () => {
+    const previous = process.env.SYSTEM_BUILDER_HUMAN_APPROVAL_DIR;
+    try {
+      delete process.env.SYSTEM_BUILDER_HUMAN_APPROVAL_DIR;
+      assert.equal(evaluateStoredHumanApproval(process.cwd(), expected).decision, "MISSING");
+      process.env.SYSTEM_BUILDER_HUMAN_APPROVAL_DIR = "relative";
+      assert.equal(evaluateStoredHumanApproval(process.cwd(), expected).decision, "MISSING");
+    } finally { if (previous === undefined) delete process.env.SYSTEM_BUILDER_HUMAN_APPROVAL_DIR; else process.env.SYSTEM_BUILDER_HUMAN_APPROVAL_DIR = previous; }
+  });
+  it("reads the exact signed receipt from an absolute external store", () => {
+    const root = mkdtempSync(join(tmpdir(), "approval-root-")); const store = mkdtempSync(join(tmpdir(), "approval-store-"));
+    const policyDirectory = join(root, "tooling/agent-harness/policies"); mkdirSync(policyDirectory, { recursive: true });
+    writeFileSync(join(policyDirectory, "HUMAN_APPROVAL.json"), JSON.stringify(policy));
+    writeFileSync(join(store, `${expected.taskId}-PR-${expected.prNumber}-${expected.headSha}.json`), JSON.stringify(receipt()));
+    const previous = process.env.SYSTEM_BUILDER_HUMAN_APPROVAL_DIR;
+    try { process.env.SYSTEM_BUILDER_HUMAN_APPROVAL_DIR = store; assert.equal(evaluateStoredHumanApproval(root, expected).decision, "VALID"); }
+    finally { if (previous === undefined) delete process.env.SYSTEM_BUILDER_HUMAN_APPROVAL_DIR; else process.env.SYSTEM_BUILDER_HUMAN_APPROVAL_DIR = previous; }
+  });
 });
