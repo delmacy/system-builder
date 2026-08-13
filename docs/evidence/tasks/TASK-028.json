@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-028",
+  "verifiedAt": "2026-08-13T03:08:59.209Z",
+  "baseCommit": "ca0ce5b5ec115af183ee6efcf5db0f4fa52a2ffe",
+  "headCommit": "ca0ce5b5ec115af183ee6efcf5db0f4fa52a2ffe",
+  "changedFiles": [
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/sequential-pipeline.ts",
+    "tooling/agent-harness/tests/sequential-pipeline.test.ts"
+  ],
+  "taskHash": "233c7b05cd08b601be4126a45fc06cc0019354ffe7216fd53ac6f76122253452",
+  "packHash": "a400d32baf61f1f56cb5ebe2573ba4a91fe70c98c11737cd59ebb95930bb4aef",
+  "changeFingerprint": "0cc1d9e15efc1fd96005762d8aac9e9a561880f527e67ffe749e841c933b63bf",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-028",
+    "branch": "task/028-implement-the-agentfactory-i2-sequential-coordinator",
+    "baseBranch": "main",
+    "baseCommit": "ca0ce5b5ec115af183ee6efcf5db0f4fa52a2ffe",
+    "remote": "origin",
+    "createdAt": "2026-08-13T03:04:11.189Z",
+    "commit": "f014275de0a79f8e3a86c0c987fc1cd850dfb4a8",
+    "verifiedFingerprint": "0cc1d9e15efc1fd96005762d8aac9e9a561880f527e67ffe749e841c933b63bf",
+    "committedAt": "2026-08-13T03:09:00.000Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T03:09:01.000Z",
+    "pullRequest": {
+      "number": 71,
+      "url": "https://github.com/delmacy/system-builder/pull/71",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T03:09:02.000Z",
+      "mergeCommit": "c03dea256cc47a38fab49645acceca0dd893923b"
+    }
+  }
+}
