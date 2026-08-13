@@ -1,7 +1,7 @@
 ---
 id: TASK-024
 title: Persist durable AgentFactory attempt evidence
-status: ready
+status: completed
 priority: 48
 milestone: I2-READINESS
 model_tier: cheap

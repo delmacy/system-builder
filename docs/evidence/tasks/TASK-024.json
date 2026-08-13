@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-024",
+  "verifiedAt": "2026-08-13T01:59:15.814Z",
+  "baseCommit": "59b0066e4a717d34265ea6e6dde7877f663ed90c",
+  "headCommit": "59b0066e4a717d34265ea6e6dde7877f663ed90c",
+  "changedFiles": [
+    "tooling/agent-harness/src/evidence-writer.ts",
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/tests/evidence-writer.test.ts"
+  ],
+  "taskHash": "ddc9b590e5acd2735c25582316755762fee27642f0038f508c98c38c925ad4cf",
+  "packHash": "6c9f699da90f81665687cf8f0f2b3b2042329acde3bfb5d7a792da79c351e9be",
+  "changeFingerprint": "85d6b8c7a7bdaaecc66b5b5977f6f6055b14c9b5e752617fc7157d8ee61a6d46",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-024",
+    "branch": "task/024-persist-durable-agentfactory-attempt-evidence",
+    "baseBranch": "main",
+    "baseCommit": "59b0066e4a717d34265ea6e6dde7877f663ed90c",
+    "remote": "origin",
+    "createdAt": "2026-08-13T01:54:41.307Z",
+    "commit": "af488081333e84a9cbfe8cf2bdbed33efeb097e9",
+    "verifiedFingerprint": "85d6b8c7a7bdaaecc66b5b5977f6f6055b14c9b5e752617fc7157d8ee61a6d46",
+    "committedAt": "2026-08-13T01:59:24.692Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T01:59:28.494Z",
+    "pullRequest": {
+      "number": 56,
+      "url": "https://github.com/delmacy/system-builder/pull/56",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T01:59:34.242Z",
+      "mergeCommit": "0aa5f528f8feca4e4753412efc3e9e74aea569a0"
+    }
+  }
+}
