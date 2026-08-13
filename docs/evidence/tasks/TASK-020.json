@@ -1,0 +1,43 @@
+{
+  "taskId": "TASK-020",
+  "verifiedAt": "2026-08-13T01:05:25.004Z",
+  "baseCommit": "2455f322bc9c88d036a416fb708721db19565647",
+  "headCommit": "2455f322bc9c88d036a416fb708721db19565647",
+  "changedFiles": [
+    "tooling/agent-harness/src/github-lifecycle.ts",
+    "tooling/agent-harness/src/orchestrator-runtime.ts",
+    "tooling/agent-harness/src/orchestrator.ts",
+    "tooling/agent-harness/tests/github-lifecycle.test.ts"
+  ],
+  "taskHash": "3d811c40b6ade99eb6a3dfd9c7928b92d9df75d85491848c03afe739e016375c",
+  "packHash": "5b70e9a31300f38d1b3487b2adc6c73ed1e1ecd87f3e3e702e91c37c11956907",
+  "changeFingerprint": "b963d7c63e850177a80112ccc31fcbca6d5d5b859e49c04e786eb9990970936e",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-020",
+    "branch": "task/020-harden-the-agentfactory-github-lifecycle-adapter",
+    "baseBranch": "main",
+    "baseCommit": "2455f322bc9c88d036a416fb708721db19565647",
+    "remote": "origin",
+    "createdAt": "2026-08-13T00:42:52.945Z",
+    "commit": "f55a4af4afc502085edff0d9517cd4628dbcb035",
+    "verifiedFingerprint": "b963d7c63e850177a80112ccc31fcbca6d5d5b859e49c04e786eb9990970936e",
+    "committedAt": "2026-08-13T01:05:33.947Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T01:05:37.545Z",
+    "pullRequest": {
+      "number": 43,
+      "url": "https://github.com/delmacy/system-builder/pull/43",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T01:05:42.040Z",
+      "mergeCommit": "272f7daf2bf8bbd254f72969a72c6d709dbb2865"
+    }
+  }
+}

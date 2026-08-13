@@ -1,7 +1,7 @@
 ---
 id: TASK-020
 title: Harden the AgentFactory GitHub lifecycle adapter
-status: ready
+status: completed
 priority: 44
 milestone: I1
 model_tier: cheap
