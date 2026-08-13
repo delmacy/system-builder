@@ -1,0 +1,43 @@
+{
+  "taskId": "TASK-018",
+  "verifiedAt": "2026-08-13T00:30:11.597Z",
+  "baseCommit": "41a0b435b30d25b81a8ddc8804db7d98960eb521",
+  "headCommit": "41a0b435b30d25b81a8ddc8804db7d98960eb521",
+  "changedFiles": [
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/orchestrator-runtime.ts",
+    "tooling/agent-harness/src/validation-engine.ts",
+    "tooling/agent-harness/tests/validation-engine.test.ts"
+  ],
+  "taskHash": "221ca2c0602294e3441af8c28b722a1aae62cf808157ccc81447305f3aaa8588",
+  "packHash": "5b7e01b0d70255fbc46effb756c176f0372d6a648944a35ed9bc496f27d1fd72",
+  "changeFingerprint": "917896d7890d56b860c56b398395562de044142464f55bf46cf4473632a82710",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-018",
+    "branch": "task/018-implement-the-agentfactory-independent-validation-gate",
+    "baseBranch": "main",
+    "baseCommit": "41a0b435b30d25b81a8ddc8804db7d98960eb521",
+    "remote": "origin",
+    "createdAt": "2026-08-13T00:24:16.823Z",
+    "commit": "6d4494b537368f3777d17a12356ca0bea000338c",
+    "verifiedFingerprint": "917896d7890d56b860c56b398395562de044142464f55bf46cf4473632a82710",
+    "committedAt": "2026-08-13T00:30:23.465Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T00:30:26.949Z",
+    "pullRequest": {
+      "number": 38,
+      "url": "https://github.com/delmacy/system-builder/pull/38",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T00:30:31.725Z",
+      "mergeCommit": "1607c038662189302fba5401550241f8ae78f9b8"
+    }
+  }
+}

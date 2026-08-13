@@ -1,7 +1,7 @@
 ---
 id: TASK-018
 title: Implement the AgentFactory independent validation gate
-status: ready
+status: completed
 priority: 42
 milestone: I1
 model_tier: cheap
