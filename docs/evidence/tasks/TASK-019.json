@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-019",
+  "verifiedAt": "2026-08-13T00:40:23.130Z",
+  "baseCommit": "d9bb47ba71f74699b3b8d2be166ffdd364acab8e",
+  "headCommit": "d9bb47ba71f74699b3b8d2be166ffdd364acab8e",
+  "changedFiles": [
+    "tooling/agent-harness/src/evidence-writer.ts",
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/tests/evidence-writer.test.ts"
+  ],
+  "taskHash": "3b3836e4289fc0bb26233911ce9673e7a6b820a5ffa9d84fddaaaf230fd4702c",
+  "packHash": "968b296c6656109f1e99801a6104ee1d88844b0e9088a80af5f3863c64009e09",
+  "changeFingerprint": "e2b4dc21d2f0fdb16224d59cc6d7e0a3a12e8317014ad70ae9311668be337a39",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-019",
+    "branch": "task/019-implement-the-agentfactory-evidence-writer",
+    "baseBranch": "main",
+    "baseCommit": "d9bb47ba71f74699b3b8d2be166ffdd364acab8e",
+    "remote": "origin",
+    "createdAt": "2026-08-13T00:37:28.442Z",
+    "commit": "674fa97754635eaf7d431dcbdddea0e0462b93dd",
+    "verifiedFingerprint": "e2b4dc21d2f0fdb16224d59cc6d7e0a3a12e8317014ad70ae9311668be337a39",
+    "committedAt": "2026-08-13T00:40:34.390Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T00:40:39.950Z",
+    "pullRequest": {
+      "number": 41,
+      "url": "https://github.com/delmacy/system-builder/pull/41",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T00:40:44.116Z",
+      "mergeCommit": "a805822d868a74564efe30572fea214234004346"
+    }
+  }
+}
