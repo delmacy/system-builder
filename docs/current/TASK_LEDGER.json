@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-13T01:06:40.176Z",
+  "updatedAt": "2026-08-13T01:08:40.040Z",
   "completed": [
     "TASK-000",
     "TASK-001",
@@ -110,6 +110,10 @@
       {
         "id": "TASK-020",
         "status": "completed"
+      },
+      {
+        "id": "TASK-021",
+        "status": "ready"
       }
     ]
   }

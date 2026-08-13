@@ -27,10 +27,13 @@ Status: **COMPLETED**. It binds the accepted TASK-013/015/016 outputs around one
 Status: **COMPLETED**. It consumes the TASK-017 boundary and independently evaluates scope, required commands, evaluator changes and validation-time repository mutation.
 
 ### TASK-019 — Evidence writer
-Status: **READY**. It composes TASK-017 execution and TASK-018 validation into deterministic append-only TASK-012 evidence.
+Status: **COMPLETED**. It composes TASK-017 execution and TASK-018 validation into deterministic append-only TASK-012 evidence.
 
 ### TASK-020 — GitHub lifecycle adapter
-Status: **READY**. It independently hardens PR/check/review eligibility against the TASK-017/018 identity and validation outputs.
+Status: **COMPLETED**. It independently hardens PR/check/review eligibility against the TASK-017/018 identity and validation outputs.
+
+### TASK-021 — Ledger/state transition engine
+Status: **READY**. It consumes the TASK-012 state contracts and actual TASK-019 append-only evidence envelope to accept only legal, evidence-backed state changes while preserving authoritative state on rejected attempts.
 
 ## Initial dependency view
 
@@ -50,15 +53,17 @@ Task Pack                    │
                  ↓
        TASK-018 completed
        WP-I1-07 Independent Validation
-              ├────────────→ TASK-019 READY (WP-I1-08 Evidence)
-              └────────────→ TASK-020 READY (WP-I1-09 GitHub)
+              ├────────────→ TASK-019 completed (WP-I1-08 Evidence)
+              │                       ↓
+              │              TASK-021 READY (WP-I1-10 Ledger)
+              └────────────→ TASK-020 completed (WP-I1-09 GitHub)
 
 TASK-012 completed -> TASK-016 Model Router — completed
                               └───────────────→ TASK-017 completed
 ```
 
 ## Selection rule
-Sequential-first operation selects TASK-019, then independent TASK-020. WP-I1-10 remains blocked until TASK-019 is accepted. Product M1 tasks remain outside the active execution focus.
+Sequential-first operation selects TASK-021. WP-I1-11 remains blocked until TASK-021 is accepted. Product M1 tasks remain outside the active execution focus.
 
 ## Rolling-wave rule
 Further I1 implementation tasks must be generated after accepted predecessor outputs clarify the concrete interfaces. Use the approved Work Package DAG and actual merged contracts; avoid speculative downstream interfaces.
