@@ -15,12 +15,12 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 - Agent harness: local TypeScript implementation with bounded task context, task validation, Git/PR controls, deterministic verification and closure mechanisms.
 - OpenCode adapter: TASK-011 argument ordering and TASK-013 structured request/result, timeout and failure hardening are integrated.
 - AgentFactory planning: complete through I1 Work Packages, DAG, governance, task-generation policy and exit gate.
-- AgentFactory I1 implementation and post-I1 hardening: TASK-012 through TASK-027 are completed. The hardened I1 proof is integrated and the post-I1 review is GO for bounded I2 implementation planning.
+- AgentFactory I1 implementation and post-I1 hardening: TASK-012 through TASK-027 are completed. TASK-028's I2 coordinator and bootstrap closure are integrated, but hardened lifecycle reconciliation is blocked by missing GitHub approvals.
 - GitHub Actions: confirmation CI remains deterministic; AI execution is local unless a later approved task changes that architecture.
 
 ## Active execution focus
 
-**I2 readiness — Sequential Pipeline definition accepted; execution not started.**
+**I2 pre-run gate — NO-GO; execution not started.**
 
 Goal: prove one bounded READY task can move through task pack, model/executor selection, OpenCode execution, independent validation, evidence/state update and successor readiness without manually reconstructing context.
 
@@ -30,9 +30,9 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Post-I1 review and hardened proof are complete; decision is GO for bounded I2 implementation planning.
-2. Execute TASK-028, the rolling-wave I2 sequential coordinator task materialized from the accepted definition.
-3. Do not execute the documented TASK-004 -> TASK-005 -> TASK-006 chain until the coordinator and gates are integrated.
+1. Preserve TASK-028 implementation and bootstrap closure as integrated evidence.
+2. Resolve the high-risk PR review/lifecycle reconciliation blocker recorded in `project_docs/agentfactory_i2/I2_PRE_RUN_GATE.md`.
+3. Do not execute TASK-010 or the documented TASK-004 -> TASK-005 -> TASK-006 chain until a reassessed pre-run gate is GO.
 4. Do not advance to I3 or parallel execution before the I2 Exit Gate.
 
 ## Selection warning
