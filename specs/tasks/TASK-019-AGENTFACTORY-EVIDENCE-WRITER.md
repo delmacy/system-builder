@@ -1,7 +1,7 @@
 ---
 id: TASK-019
 title: Implement the AgentFactory evidence writer
-status: ready
+status: completed
 priority: 43
 milestone: I1
 model_tier: cheap
