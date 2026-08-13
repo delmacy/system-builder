@@ -1,7 +1,7 @@
 ---
 id: TASK-026
 title: Bind AgentFactory state-closure PR identity
-status: ready
+status: completed
 priority: 50
 milestone: I2-READINESS
 model_tier: cheap
