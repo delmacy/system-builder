@@ -1,7 +1,7 @@
 ---
 id: TASK-031
 title: Bootstrap external durable approval store
-status: ready
+status: completed
 priority: 55
 milestone: I2
 model_tier: architecture

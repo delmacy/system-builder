@@ -1,0 +1,43 @@
+{
+  "taskId": "TASK-031",
+  "verifiedAt": "2026-08-13T23:45:40.731Z",
+  "baseCommit": "781247c81ea333739284a7f725a744d5f3e582eb",
+  "headCommit": "781247c81ea333739284a7f725a744d5f3e582eb",
+  "changedFiles": [
+    "project_docs/execution_governance/HUMAN_APPROVAL.md",
+    "tooling/agent-harness/policies/HUMAN_APPROVAL.json",
+    "tooling/agent-harness/src/human-approval.ts",
+    "tooling/agent-harness/tests/human-approval.test.ts"
+  ],
+  "taskHash": "b26e37d93913535d5bc16d66f96b262ed58b42ab0e4f0fa75d5cfd1d1816530f",
+  "packHash": "a48ce1cc8caa13616382313ddf5cf2bc6510a4d37c55cb1b8904497c7d8e94ae",
+  "changeFingerprint": "a5cda4afb46abb93cff2db74ae8411bc77f1f435f419e9fe1e9da3f6bbb84cfe",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-031",
+    "branch": "task/031-bootstrap-external-durable-approval-store",
+    "baseBranch": "main",
+    "baseCommit": "781247c81ea333739284a7f725a744d5f3e582eb",
+    "remote": "origin",
+    "createdAt": "2026-08-13T23:43:16.238Z",
+    "commit": "65c0e1027edba042c74961008fdb9e6965120053",
+    "verifiedFingerprint": "a5cda4afb46abb93cff2db74ae8411bc77f1f435f419e9fe1e9da3f6bbb84cfe",
+    "committedAt": "2026-08-13T23:45:51.038Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T23:45:55.431Z",
+    "pullRequest": {
+      "number": 81,
+      "url": "https://github.com/delmacy/system-builder/pull/81",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T23:46:00.586Z",
+      "mergeCommit": "8d30ca887eeba29c8f27ce3a05cb8a6ca5e2d39d"
+    }
+  }
+}
