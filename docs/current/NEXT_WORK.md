@@ -5,11 +5,11 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 ## Immediate sequence
 
 1. Synchronize local `main` and run `npm ci` plus `npm run verify`.
-2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory/`, `project_docs/agentfactory_i1/` and execution-governance docs.
-3. TASK-024 implementation and state closure are integrated.
-4. TASK-025 implementation and state closure are integrated.
-5. TASK-026 implementation and state closure are integrated; execute TASK-027, then publish `POST_I1_REVIEW.md` with the I2 readiness decision.
-6. If I2 is GO, stop before executing the documented A -> B -> C chain.
+2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory_ignition/`, `project_docs/agentfactory_i1/`, `project_docs/agentfactory_i2/` and execution-governance docs.
+3. Treat TASK-024 through TASK-027 and `POST_I1_REVIEW.md` as the integrated hardened I1 baseline.
+4. Materialize the first bounded I2 coordinator task from `project_docs/agentfactory_i2/SEQUENTIAL_PIPELINE.md`.
+5. Preserve the candidate precondition TASK-010 accepted, then A/B/C = TASK-004 -> TASK-005 -> TASK-006.
+6. Stop before executing A -> B -> C until the I2 coordinator implementation and its governance gates are integrated.
 
 ## Per-task loop
 
