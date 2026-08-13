@@ -171,7 +171,28 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
       return { failure: boundaryFailureReport(task, attempt, executor, error) };
     }
   }
-  verify(taskId: string): void { verifyTask(taskId, this.root); }
+  verify(taskId: string): void {
+    const execution = this.readJournal(taskId).executions.at(-1);
+    if (!execution?.boundary || !execution.changedFiles || !execution.rawResult) {
+      verifyTask(taskId, this.root);
+      return;
+    }
+    const rawReport: ExecutorReport = {
+      executor: execution.executor,
+      attempt: execution.attempt,
+      status: execution.rawResult.status === "SUCCEEDED" ? "completed" : "failed",
+      summary: execution.summary,
+      result: execution.rawResult,
+      ...(execution.request ? { request: execution.request } : {}),
+    };
+    verifyTask(taskId, this.root, {
+      boundary: execution.boundary,
+      changedFiles: execution.changedFiles,
+      violations: execution.violations ?? [],
+      rawReport,
+      report: execution,
+    });
+  }
   commit(taskId: string): void { commitTask(taskId, this.root); }
   push(taskId: string): void { pushTask(taskId, this.root); }
   openImplementationPr(taskId: string): void { openTaskPullRequest(taskId, this.root, this.ghExecutable); }
