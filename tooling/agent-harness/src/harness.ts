@@ -23,7 +23,12 @@ import {
   type ValidationSnapshot,
 } from "./validation-engine.js";
 import type { ExecutionBoundaryCompletion } from "./execution-harness.js";
-export { buildAgentFactoryEvidence, writeAgentFactoryEvidence } from "./evidence-writer.js";
+export {
+  buildAgentFactoryAttemptEvidence,
+  buildAgentFactoryEvidence,
+  writeAgentFactoryAttemptEvidence,
+  writeAgentFactoryEvidence,
+} from "./evidence-writer.js";
 export { applyLedgerTransition } from "./ledger-engine.js";
 export { recomputeSuccessorReadiness } from "./readiness-recompute.js";
 export { buildRepresentativeI1Proof, writeI1Proof } from "./i1-proof.js";

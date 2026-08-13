@@ -7,6 +7,11 @@ import type { ExecutionBoundaryCompletion } from "./execution-harness.js";
 import { validationGateReceiptSchema, type ValidationGateReceipt } from "./validation-engine.js";
 
 const acceptanceSchema = z.object({ id: z.string().regex(/^AC-[A-Z0-9-]+$/), status: z.literal("PASS"), evidence: z.string().min(1) }).strict();
+const attemptAcceptanceSchema = z.object({
+  id: z.string().regex(/^AC-[A-Z0-9-]+$/),
+  status: z.enum(["PASS", "FAIL"]),
+  evidence: z.string().min(1),
+}).strict();
 const metricsSchema = z.object({
   attempts: z.number().int().positive(),
   execution_duration_seconds: z.number().nonnegative().nullable(),
@@ -25,6 +30,31 @@ export const agentFactoryEvidenceEnvelopeSchema = z.object({
 }).strict();
 
 export type AgentFactoryEvidenceEnvelope = z.infer<typeof agentFactoryEvidenceEnvelopeSchema>;
+export const agentFactoryAttemptEvidenceEnvelopeSchema = z.object({
+  schema_version: z.literal(1),
+  receipt_id: z.string().regex(/^AFATT-[0-9a-f]{64}$/),
+  content_sha256: z.string().regex(/^[0-9a-f]{64}$/),
+  head_commit: z.string().regex(/^[0-9a-f]{40}$/),
+  change_fingerprint: z.string().regex(/^[0-9a-f]{64}$/),
+  attempt_started_at: z.iso.datetime({ offset: true }),
+  attempt_finished_at: z.iso.datetime({ offset: true }),
+  duration_seconds: z.number().nonnegative(),
+  failure_category: z.string().min(1).nullable(),
+  validation: validationGateReceiptSchema,
+  result: executionResultSchema,
+}).strict().superRefine((receipt, context) => {
+  if (Date.parse(receipt.attempt_finished_at) < Date.parse(receipt.attempt_started_at)) {
+    context.addIssue({ code: "custom", path: ["attempt_finished_at"], message: "attempt finish must not precede start" });
+  }
+  if (receipt.result.status === "DONE" && receipt.failure_category !== null) {
+    context.addIssue({ code: "custom", path: ["failure_category"], message: "DONE cannot retain a failure category" });
+  }
+  if (receipt.result.status !== "DONE" && receipt.failure_category === null) {
+    context.addIssue({ code: "custom", path: ["failure_category"], message: "non-DONE attempt requires a failure category" });
+  }
+});
+
+export type AgentFactoryAttemptEvidenceEnvelope = z.infer<typeof agentFactoryAttemptEvidenceEnvelopeSchema>;
 export type EvidenceWriterInput = {
   completion: ExecutionBoundaryCompletion;
   validation: ValidationGateReceipt;
@@ -42,6 +72,13 @@ export type EvidenceWriterInput = {
   dagEffects?: string[];
   metrics: z.infer<typeof metricsSchema>;
   notes?: string;
+};
+
+export type AttemptEvidenceWriterInput = Omit<EvidenceWriterInput, "acceptance" | "metrics"> & {
+  acceptance: Array<z.infer<typeof attemptAcceptanceSchema>>;
+  attemptStartedAt: string;
+  attemptFinishedAt: string;
+  metrics: Omit<z.infer<typeof metricsSchema>, "execution_duration_seconds">;
 };
 
 export function buildAgentFactoryEvidence(input: EvidenceWriterInput): AgentFactoryEvidenceEnvelope {
@@ -107,10 +144,123 @@ export function buildAgentFactoryEvidence(input: EvidenceWriterInput): AgentFact
   });
 }
 
+export function buildAgentFactoryAttemptEvidence(input: AttemptEvidenceWriterInput): AgentFactoryAttemptEvidenceEnvelope {
+  const validation = validationGateReceiptSchema.parse(input.validation);
+  const acceptance = z.array(attemptAcceptanceSchema).parse(input.acceptance);
+  const startedAt = z.iso.datetime({ offset: true }).parse(input.attemptStartedAt);
+  const finishedAt = z.iso.datetime({ offset: true }).parse(input.attemptFinishedAt);
+  const startedMs = Date.parse(startedAt);
+  const finishedMs = Date.parse(finishedAt);
+  if (finishedMs < startedMs) throw new Error("EVIDENCE_TIMING_INVALID: attempt finish must not precede start");
+  const { boundary, report, rawReport, changedFiles } = input.completion;
+  const request = rawReport.request ?? report.request;
+  if (!request) throw new Error("EVIDENCE_REQUEST_MISSING: structured executor request is required");
+  if (request.task_id !== boundary.taskId || request.work_package_id !== boundary.workPackageId
+    || request.source_commit !== boundary.sourceCommit || request.attempt !== boundary.attempt
+    || validation.task_id !== boundary.taskId || validation.work_package_id !== boundary.workPackageId
+    || validation.source_commit !== boundary.sourceCommit
+    || JSON.stringify(validation.changed_files) !== JSON.stringify(changedFiles)) {
+    throw new Error("EVIDENCE_IDENTITY_MISMATCH: execution and validation identities diverge");
+  }
+  if (!/^[0-9a-f]{40}$/.test(input.headCommit) || !/^[0-9a-f]{64}$/.test(input.changeFingerprint)) {
+    throw new Error("EVIDENCE_GIT_IDENTITY_INVALID: head commit and fingerprint are required");
+  }
+  const status = attemptStatus(input.completion, validation);
+  const failureCategory = attemptFailureCategory(input.completion, validation, status);
+  const metrics = metricsSchema.parse({
+    ...input.metrics,
+    execution_duration_seconds: (finishedMs - startedMs) / 1_000,
+  });
+  const result: ExecutionResult = executionResultSchema.parse({
+    schema_version: 1,
+    task_id: boundary.taskId,
+    work_package_id: boundary.workPackageId,
+    source_commit: boundary.sourceCommit,
+    executor: { adapter: request.route.executor, model: request.route.model },
+    status,
+    changed_files: changedFiles,
+    tests: validation.commands.map((command) => ({
+      command: command.command,
+      status: command.status === "TIMED_OUT" ? "FAIL" : command.status,
+      evidence: evidenceFor(command),
+    })),
+    acceptance,
+    contracts_changed: input.contractsChanged ?? [],
+    migrations_changed: input.migrationsChanged ?? [],
+    risks_discovered: input.risksDiscovered ?? [],
+    issues_discovered: input.issuesDiscovered ?? [],
+    change_requests: input.changeRequests ?? [],
+    follow_up_candidates: input.followUpCandidates ?? [],
+    dependency_gates_satisfied: status === "DONE" ? input.satisfiedGates : [],
+    dependency_gates_blocked: status === "DONE" ? input.blockedGates : [...new Set(input.blockedGates)],
+    dag_effects: input.dagEffects ?? [],
+    metrics,
+    notes: input.notes ?? "",
+  });
+  const semantic = {
+    schema_version: 1 as const,
+    head_commit: input.headCommit,
+    change_fingerprint: input.changeFingerprint,
+    attempt_started_at: startedAt,
+    attempt_finished_at: finishedAt,
+    duration_seconds: metrics.execution_duration_seconds!,
+    failure_category: failureCategory,
+    validation,
+    result,
+  };
+  const contentHash = hash(stableJson(semantic));
+  return agentFactoryAttemptEvidenceEnvelopeSchema.parse({
+    ...semantic,
+    receipt_id: `AFATT-${contentHash}`,
+    content_sha256: contentHash,
+  });
+}
+
 export function writeAgentFactoryEvidence(envelope: AgentFactoryEvidenceEnvelope, root = process.cwd()): string {
   const receipt = agentFactoryEvidenceEnvelopeSchema.parse(envelope);
   const path = resolve(root, "docs/evidence/agentfactory", receipt.result.task_id, `attempt-${receipt.result.metrics.attempts}-${receipt.content_sha256}.json`);
   const content = `${stableJson(receipt)}\n`;
+  if (existsSync(path)) {
+    if (readFileSync(path, "utf8") !== content) throw new Error(`EVIDENCE_OVERWRITE_REFUSED: ${path}`);
+    return path;
+  }
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, content, { flag: "wx" });
+  return path;
+}
+
+export function writeAgentFactoryAttemptEvidence(envelope: AgentFactoryAttemptEvidenceEnvelope, root = process.cwd()): string {
+  const receipt = agentFactoryAttemptEvidenceEnvelopeSchema.parse(envelope);
+  const path = resolve(root, "docs/evidence/agentfactory", receipt.result.task_id, `attempt-${receipt.result.metrics.attempts}-${receipt.content_sha256}.json`);
+  return writeAppendOnly(path, `${stableJson(receipt)}\n`);
+}
+
+function attemptStatus(
+  completion: ExecutionBoundaryCompletion,
+  validation: ValidationGateReceipt,
+): ExecutionResult["status"] {
+  if (completion.violations.length > 0 || completion.report.result?.status === "BLOCKED") return "BLOCKED";
+  if (completion.report.status !== "completed"
+    || ["FAILED", "TIMED_OUT"].includes(completion.report.result?.status ?? "")) return "FAILED";
+  if (validation.decision === "FAIL" || validation.commands.some((command) => command.status !== "PASS")) return "FAILED";
+  if (validation.decision === "REVIEW_REQUIRED") return "NEEDS_DECISION";
+  return "DONE";
+}
+
+function attemptFailureCategory(
+  completion: ExecutionBoundaryCompletion,
+  validation: ValidationGateReceipt,
+  status: ExecutionResult["status"],
+): string | null {
+  if (status === "DONE") return null;
+  if (completion.violations.length > 0) return "EXECUTION_SCOPE_VIOLATION";
+  if (completion.report.result?.failure?.code) return completion.report.result.failure.code;
+  if (validation.reason_codes[0]) return validation.reason_codes[0];
+  if (status === "NEEDS_DECISION") return "GOVERNANCE_DECISION_REQUIRED";
+  return "EXECUTION_FAILED";
+}
+
+function writeAppendOnly(path: string, content: string): string {
   if (existsSync(path)) {
     if (readFileSync(path, "utf8") !== content) throw new Error(`EVIDENCE_OVERWRITE_REFUSED: ${path}`);
     return path;

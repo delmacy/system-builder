@@ -4,7 +4,14 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, it } from "node:test";
 import { executorAdapterResultSchema, executorRequestSchema } from "../src/execution-contracts.js";
-import { buildAgentFactoryEvidence, writeAgentFactoryEvidence, type EvidenceWriterInput } from "../src/evidence-writer.js";
+import {
+  buildAgentFactoryAttemptEvidence,
+  buildAgentFactoryEvidence,
+  writeAgentFactoryAttemptEvidence,
+  writeAgentFactoryEvidence,
+  type AttemptEvidenceWriterInput,
+  type EvidenceWriterInput,
+} from "../src/evidence-writer.js";
 import type { ExecutionBoundaryCompletion } from "../src/execution-harness.js";
 import type { ExecutorReport } from "../src/executor.js";
 import { validationGateReceiptSchema } from "../src/validation-engine.js";
@@ -40,6 +47,45 @@ describe("AgentFactory evidence writer", () => {
     assert.throws(() => writeAgentFactoryEvidence(evidence, root), /OVERWRITE_REFUSED/);
     assert.equal(readFileSync(path, "utf8"), "tampered\n");
   });
+
+  it("persists successful attempt timing and derives duration without estimates", () => {
+    const receipt = buildAgentFactoryAttemptEvidence(attemptInput());
+    assert.equal(receipt.result.status, "DONE");
+    assert.equal(receipt.failure_category, null);
+    assert.equal(receipt.duration_seconds, 2.5);
+    assert.equal(receipt.result.metrics.execution_duration_seconds, 2.5);
+    assert.equal(receipt.result.executor.model, "provider/model");
+  });
+
+  it("records scope-blocked and validation-failed attempts without claiming DONE", () => {
+    const blockedCompletion: ExecutionBoundaryCompletion = {
+      ...completion,
+      violations: ["outside allowed paths: packages/escape.ts"],
+      report: { ...report, status: "failed" },
+    };
+    const blocked = buildAgentFactoryAttemptEvidence(attemptInput({ completion: blockedCompletion }));
+    assert.equal(blocked.result.status, "BLOCKED");
+    assert.equal(blocked.failure_category, "EXECUTION_SCOPE_VIOLATION");
+    const failedValidation = validation({ decision: "FAIL", reason_codes: ["COMMAND_FAILED"], commands: [{ command: "npm run verify", status: "FAIL", exit_code: 1, stdout: "", stderr: "failed" }] });
+    const failed = buildAgentFactoryAttemptEvidence(attemptInput({ validation: failedValidation }));
+    assert.equal(failed.result.status, "FAILED");
+    assert.equal(failed.failure_category, "COMMAND_FAILED");
+    assert.equal(failed.result.tests[0]?.status, "FAIL");
+  });
+
+  it("rejects invalid timing and divergent identity for attempt evidence", () => {
+    assert.throws(() => buildAgentFactoryAttemptEvidence(attemptInput({ attemptFinishedAt: "2026-08-13T00:00:00.000Z" })), /TIMING_INVALID/);
+    assert.throws(() => buildAgentFactoryAttemptEvidence(attemptInput({ validation: validation({ task_id: "TASK-999" }) })), /IDENTITY_MISMATCH/);
+  });
+
+  it("writes attempt evidence append-only", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-attempt-evidence-"));
+    const receipt = buildAgentFactoryAttemptEvidence(attemptInput());
+    const path = writeAgentFactoryAttemptEvidence(receipt, root);
+    assert.equal(writeAgentFactoryAttemptEvidence(receipt, root), path);
+    writeFileSync(path, "tampered\n");
+    assert.throws(() => writeAgentFactoryAttemptEvidence(receipt, root), /OVERWRITE_REFUSED/);
+  });
 });
 
 const commit = "a".repeat(40);
@@ -62,4 +108,19 @@ function validation(overrides: Record<string, unknown> = {}) {
 }
 function input(overrides: Partial<EvidenceWriterInput> = {}): EvidenceWriterInput {
   return { completion, validation: validation(), headCommit: "c".repeat(40), changeFingerprint: "d".repeat(64), acceptance: [{ id: "AC-I1-001", status: "PASS", evidence: "verified" }], satisfiedGates: ["GATE-I1-001"], blockedGates: [], metrics: { attempts: 1, execution_duration_seconds: null, review_duration_seconds: null, token_or_provider_cost: null }, ...overrides };
+}
+function attemptInput(overrides: Partial<AttemptEvidenceWriterInput> = {}): AttemptEvidenceWriterInput {
+  return {
+    completion,
+    validation: validation(),
+    headCommit: "c".repeat(40),
+    changeFingerprint: "d".repeat(64),
+    acceptance: [{ id: "AC-I1-001", status: "PASS", evidence: "verified" }],
+    satisfiedGates: ["GATE-I1-001"],
+    blockedGates: [],
+    attemptStartedAt: "2026-08-13T01:00:00.000Z",
+    attemptFinishedAt: "2026-08-13T01:00:02.500Z",
+    metrics: { attempts: 1, review_duration_seconds: null, token_or_provider_cost: null },
+    ...overrides,
+  };
 }
