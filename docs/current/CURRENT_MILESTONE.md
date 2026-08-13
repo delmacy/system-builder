@@ -21,7 +21,9 @@ Prove the smallest end-to-end delivery slice in which one approved READY task ca
 - [x] TASK-015: deterministic bounded Task Pack builder.
 - [x] TASK-016: deterministic model router.
 - [x] Generate TASK-017 from accepted predecessor outputs and WP-I1-06.
-- [ ] TASK-017: execution harness enforcement — requires completed TASK-013, TASK-015 and TASK-016.
+- [x] TASK-017: execution harness enforcement.
+- [x] Generate TASK-018 from the accepted TASK-017 output and WP-I1-07.
+- [ ] TASK-018: independent validation gate — requires completed TASK-017.
 - [ ] Continue through task-pack builder, model routing, harness enforcement, independent validation, evidence, GitHub lifecycle, ledger/readiness recomputation and end-to-end I1 proof.
 
 ## I1 exit condition

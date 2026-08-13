@@ -21,7 +21,10 @@ Status: **COMPLETED**. It materializes reproducible bounded executor context fro
 Status: **COMPLETED**. It deterministically selects or blocks/escalates an explicit TASK-012 execution route.
 
 ### TASK-017 — Execution harness enforcement
-Status: **READY**. It binds the accepted TASK-013/015/016 outputs around one executor invocation and fails closed on workspace, identity, pack, route or repository-delta violations.
+Status: **COMPLETED**. It binds the accepted TASK-013/015/016 outputs around one executor invocation and fails closed on workspace, identity, pack, route or repository-delta violations.
+
+### TASK-018 — Independent validation gate
+Status: **READY**. It consumes the TASK-017 boundary and independently evaluates scope, required commands, evaluator changes and validation-time repository mutation.
 
 ## Initial dependency view
 
@@ -36,15 +39,18 @@ TASK-015 completed           │
 Task Pack                    │
       └──────────┬───────────┘
                  ↓
-       TASK-017 READY
+       TASK-017 completed
        WP-I1-06 Harness Enforcement
+                 ↓
+       TASK-018 READY
+       WP-I1-07 Independent Validation
 
 TASK-012 completed -> TASK-016 Model Router — completed
-                              └───────────────→ TASK-017 READY
+                              └───────────────→ TASK-017 completed
 ```
 
 ## Selection rule
-Sequential-first operation selects TASK-017. WP-I1-07 remains blocked until TASK-017 implementation and state evidence are accepted. Product M1 tasks remain outside the active execution focus.
+Sequential-first operation selects TASK-018. WP-I1-08 and WP-I1-09 remain blocked until TASK-018 implementation and state evidence are accepted. Product M1 tasks remain outside the active execution focus.
 
 ## Rolling-wave rule
 Further I1 implementation tasks must be generated after accepted predecessor outputs clarify the concrete interfaces. Use the approved Work Package DAG and actual merged contracts; avoid speculative downstream interfaces.
