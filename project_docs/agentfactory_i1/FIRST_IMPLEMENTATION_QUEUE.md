@@ -24,7 +24,13 @@ Status: **COMPLETED**. It deterministically selects or blocks/escalates an expli
 Status: **COMPLETED**. It binds the accepted TASK-013/015/016 outputs around one executor invocation and fails closed on workspace, identity, pack, route or repository-delta violations.
 
 ### TASK-018 — Independent validation gate
-Status: **READY**. It consumes the TASK-017 boundary and independently evaluates scope, required commands, evaluator changes and validation-time repository mutation.
+Status: **COMPLETED**. It consumes the TASK-017 boundary and independently evaluates scope, required commands, evaluator changes and validation-time repository mutation.
+
+### TASK-019 — Evidence writer
+Status: **READY**. It composes TASK-017 execution and TASK-018 validation into deterministic append-only TASK-012 evidence.
+
+### TASK-020 — GitHub lifecycle adapter
+Status: **READY**. It independently hardens PR/check/review eligibility against the TASK-017/018 identity and validation outputs.
 
 ## Initial dependency view
 
@@ -42,15 +48,17 @@ Task Pack                    │
        TASK-017 completed
        WP-I1-06 Harness Enforcement
                  ↓
-       TASK-018 READY
+       TASK-018 completed
        WP-I1-07 Independent Validation
+              ├────────────→ TASK-019 READY (WP-I1-08 Evidence)
+              └────────────→ TASK-020 READY (WP-I1-09 GitHub)
 
 TASK-012 completed -> TASK-016 Model Router — completed
                               └───────────────→ TASK-017 completed
 ```
 
 ## Selection rule
-Sequential-first operation selects TASK-018. WP-I1-08 and WP-I1-09 remain blocked until TASK-018 implementation and state evidence are accepted. Product M1 tasks remain outside the active execution focus.
+Sequential-first operation selects TASK-019, then independent TASK-020. WP-I1-10 remains blocked until TASK-019 is accepted. Product M1 tasks remain outside the active execution focus.
 
 ## Rolling-wave rule
 Further I1 implementation tasks must be generated after accepted predecessor outputs clarify the concrete interfaces. Use the approved Work Package DAG and actual merged contracts; avoid speculative downstream interfaces.
