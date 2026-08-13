@@ -1,0 +1,43 @@
+{
+  "taskId": "TASK-026",
+  "verifiedAt": "2026-08-13T02:25:35.150Z",
+  "baseCommit": "ea708b289d5677dc68f1eae5cde4e5530618dc8f",
+  "headCommit": "ea708b289d5677dc68f1eae5cde4e5530618dc8f",
+  "changedFiles": [
+    "tooling/agent-harness/src/orchestrator-runtime.ts",
+    "tooling/agent-harness/src/orchestrator.ts",
+    "tooling/agent-harness/tests/github-lifecycle.test.ts",
+    "tooling/agent-harness/tests/orchestrator.test.ts"
+  ],
+  "taskHash": "08c6abd994bcaebc9241f573f082d1cdbed44422dd638067c2c59383d0e2204e",
+  "packHash": "45fee652bbffeec7cceff4be059b8bb9cab05ab234caa7099a1c33af036db3a3",
+  "changeFingerprint": "b0368c807cb8fdc80a539c814ed8c6f50bdfccec0c21a621b1da831fb51ac9ae",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-026",
+    "branch": "task/026-bind-agentfactory-state-closure-pr-identity",
+    "baseBranch": "main",
+    "baseCommit": "ea708b289d5677dc68f1eae5cde4e5530618dc8f",
+    "remote": "origin",
+    "createdAt": "2026-08-13T02:20:05.941Z",
+    "commit": "4d3a4fe769649af84ede651842b9f72c1547786a",
+    "verifiedFingerprint": "b0368c807cb8fdc80a539c814ed8c6f50bdfccec0c21a621b1da831fb51ac9ae",
+    "committedAt": "2026-08-13T02:25:56.197Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T02:26:00.583Z",
+    "pullRequest": {
+      "number": 64,
+      "url": "https://github.com/delmacy/system-builder/pull/64",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T02:26:06.385Z",
+      "mergeCommit": "f84d43e85c523f22e5a0797ca652483e65d422d3"
+    }
+  }
+}
