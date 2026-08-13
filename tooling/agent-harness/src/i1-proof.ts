@@ -1,0 +1,270 @@
+import { createHash } from "node:crypto";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { z } from "zod";
+import { evaluateDagReadiness, type DagGraph } from "./dag.js";
+import { buildAgentFactoryEvidence, type AgentFactoryEvidenceEnvelope } from "./evidence-writer.js";
+import { beginExecutionBoundary, enforceExecutionDelta } from "./execution-harness.js";
+import { OpenCodeExecutor, type CommandResult } from "./executor.js";
+import { evaluateGitHubLifecycle } from "./github-lifecycle.js";
+import { applyLedgerTransition, type LedgerApplicationReceipt } from "./ledger-engine.js";
+import { routeTask } from "./model-router.js";
+import { recomputeSuccessorReadiness } from "./readiness-recompute.js";
+import { buildTaskPack } from "./task-pack.js";
+import { taskRecordSchema, type StateTransition, type TaskRecord } from "./execution-contracts.js";
+import type { Task } from "./task.js";
+import { runIndependentValidation } from "./validation-engine.js";
+
+const proofSemanticSchema = z.object({
+  schema_version: z.literal(1),
+  task_id: z.literal("TASK-900"),
+  work_package_id: z.literal("WP-I1-12"),
+  source_commit: z.string().regex(/^[0-9a-f]{40}$/),
+  task_pack_sha256: z.string().regex(/^[0-9a-f]{64}$/),
+  route: z.literal("SELECTED"),
+  opencode: z.object({ noninteractive: z.literal(true), bounded: z.literal(true), argument_order: z.literal("PROMPT_MODEL_FILE") }).strict(),
+  execution: z.literal("SUCCEEDED"),
+  validation: z.literal("PASS"),
+  evidence_receipt_id: z.string().regex(/^AFEV-[0-9a-f]{64}$/),
+  github_lifecycle: z.literal("ELIGIBLE"),
+  final_state: z.literal("DONE"),
+  newly_ready: z.array(z.string()).min(1),
+  failure: z.object({
+    execution: z.literal("BLOCKED"),
+    validation: z.literal("FAIL"),
+    evidence_rejected: z.literal(true),
+    ledger_rejected: z.literal(true),
+    task_preserved: z.literal(true),
+    graph_preserved: z.literal(true),
+  }).strict(),
+}).strict();
+
+export const i1ProofReceiptSchema = proofSemanticSchema.extend({
+  proof_id: z.string().regex(/^I1PROOF-[0-9a-f]{64}$/),
+  content_sha256: z.string().regex(/^[0-9a-f]{64}$/),
+}).strict();
+
+export type I1ProofReceipt = z.infer<typeof i1ProofReceiptSchema>;
+
+export function buildRepresentativeI1Proof(): I1ProofReceipt {
+  const task = representativeTask();
+  const route = routeTask(task.metadata, "IMPLEMENTATION", {
+    deterministic_enabled: true,
+    tiers: { T1: { executor: "opencode", model: "proof/model" } },
+  });
+  const taskRecord = representativeTaskRecord(route);
+  const initialGraph = representativeGraph();
+  const readiness = evaluateDagReadiness(initialGraph).nodes.find((node) => node.id === taskRecord.task_id)!;
+  const pack = buildTaskPack({
+    record: taskRecord,
+    task,
+    taskFile,
+    readiness,
+    sourceCommit,
+    context: [{ path: contextPath, contents: "# Representative bounded context\n" }],
+    stopConditions: ["Stop on undeclared scope"],
+  });
+  const start = beginExecutionBoundary({
+    task,
+    taskFile,
+    recordedTaskId: task.metadata.id,
+    manifestTaskId: pack.manifest.task_id,
+    plan: { workPackageId: taskRecord.work_package_id, route },
+    executor: "opencode",
+    attempt: 1,
+    repair: false,
+    expectedBranch: branch,
+    currentBranch: branch,
+    baseCommit: sourceCommit,
+    headCommit: sourceCommit,
+    sourceCommit,
+    taskPackPath,
+    taskPackHash: pack.manifest.pack_sha256,
+    actualTaskPackHash: pack.manifest.pack_sha256,
+    changedFiles: [],
+  });
+
+  const invocations: string[][] = [];
+  const executor = new OpenCodeExecutor(".", "opencode-proof", undefined, (_command, args): CommandResult => {
+    invocations.push([...args]);
+    return args[0] === "--version"
+      ? { status: 0, stdout: "opencode proof", stderr: "" }
+      : { status: 0, stdout: "bounded implementation", stderr: "" };
+  }, 1_000);
+  const rawReport = executor.execute({ task, taskPackPath, attempt: 1, request: start.request });
+  const completion = enforceExecutionDelta(start, task, rawReport, [outputPath]);
+  const validation = runIndependentValidation(
+    task,
+    completion,
+    snapshot([outputPath], "stable"),
+    () => ({ status: 0, stdout: "proof validation passed", stderr: "" }),
+    () => snapshot([outputPath], "stable"),
+  );
+  const evidence = buildAgentFactoryEvidence({
+    completion,
+    validation,
+    headCommit,
+    changeFingerprint,
+    acceptance: [{ id: acceptanceId, status: "PASS", evidence: "end-to-end assertions" }],
+    satisfiedGates: [successorGateId],
+    blockedGates: [],
+    metrics: { attempts: 1, execution_duration_seconds: 1, review_duration_seconds: 1, token_or_provider_cost: 0 },
+  });
+  const lifecycle = evaluateGitHubLifecycle({
+    prNumber: 900,
+    state: "OPEN",
+    branch,
+    baseBranch: "main",
+    headCommit,
+    expectedBranch: branch,
+    expectedBaseBranch: "main",
+    expectedHeadCommit: headCommit,
+    requiredChecks: ["validate"],
+    checks: [{ name: "validate", status: "SUCCESS" }],
+    validation: validation.decision,
+    review: "APPROVED",
+    reviewRequired: true,
+  });
+  const ledger = advanceToDone(taskRecord, evidence);
+  const recomputed = recomputeSuccessorReadiness({ graph: initialGraph, ledgerReceipt: ledger, evidence, evidenceRef });
+  const failure = controlledFailure(task, taskRecord, start, rawReport, evidence, initialGraph);
+  const runArgs = invocations[1] ?? [];
+  const modelIndex = runArgs.indexOf("--model");
+  const fileIndex = runArgs.indexOf("--file");
+  const semantic = proofSemanticSchema.parse({
+    schema_version: 1,
+    task_id: task.metadata.id,
+    work_package_id: taskRecord.work_package_id,
+    source_commit: sourceCommit,
+    task_pack_sha256: pack.manifest.pack_sha256,
+    route: route.decision,
+    opencode: {
+      noninteractive: runArgs[0] === "run" && runArgs.includes("--pure") && runArgs.includes("--format"),
+      bounded: runArgs.includes("--agent") && invocations.length === 2,
+      argument_order: modelIndex > 1 && fileIndex > modelIndex ? "PROMPT_MODEL_FILE" : "INVALID",
+    },
+    execution: completion.report.result?.status,
+    validation: validation.decision,
+    evidence_receipt_id: evidence.receipt_id,
+    github_lifecycle: lifecycle.decision,
+    final_state: ledger.authoritative_task.state,
+    newly_ready: recomputed.newly_ready,
+    failure,
+  });
+  const contentHash = hash(stableJson(semantic));
+  return i1ProofReceiptSchema.parse({
+    ...semantic,
+    proof_id: `I1PROOF-${contentHash}`,
+    content_sha256: contentHash,
+  });
+}
+
+export function writeI1Proof(receipt: I1ProofReceipt, root = process.cwd()): string {
+  const proof = i1ProofReceiptSchema.parse(receipt);
+  const path = resolve(root, "docs/evidence/agentfactory/i1", `${proof.proof_id}.json`);
+  const content = `${stableJson(proof)}\n`;
+  if (existsSync(path)) {
+    if (readFileSync(path, "utf8") !== content) throw new Error(`I1_PROOF_OVERWRITE_REFUSED: ${path}`);
+    return path;
+  }
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, content, { flag: "wx" });
+  return path;
+}
+
+function advanceToDone(initial: TaskRecord, evidence: AgentFactoryEvidenceEnvelope): Extract<LedgerApplicationReceipt, { accepted: true }> {
+  const steps: Array<[TaskRecord["state"], StateTransition["reason_code"]]> = [
+    ["RUNNING", "EXECUTION_STARTED"],
+    ["VERIFICATION", "EXECUTOR_COMPLETED"],
+    ["EVIDENCED", "VALIDATION_PASSED"],
+    ["INTEGRATING", "INTEGRATION_STARTED"],
+    ["DONE", "INTEGRATION_ACCEPTED"],
+  ];
+  let task = initial;
+  let attempts: LedgerApplicationReceipt["attempts"] = [];
+  let accepted: LedgerApplicationReceipt | undefined;
+  for (const [to, reasonCode] of steps) {
+    accepted = applyLedgerTransition({ task, to, reasonCode, occurredAt, evidenceRef, evidence, priorAttempts: attempts });
+    if (!accepted.accepted) throw new Error(`I1 proof transition rejected: ${accepted.reason_codes.join(", ")}`);
+    task = accepted.authoritative_task;
+    attempts = accepted.attempts;
+  }
+  return accepted as Extract<LedgerApplicationReceipt, { accepted: true }>;
+}
+
+function controlledFailure(
+  task: Task,
+  taskRecord: TaskRecord,
+  start: ReturnType<typeof beginExecutionBoundary>,
+  rawReport: ReturnType<OpenCodeExecutor["execute"]>,
+  evidence: AgentFactoryEvidenceEnvelope,
+  graph: DagGraph,
+) {
+  const failedCompletion = enforceExecutionDelta(start, task, rawReport, ["packages/escape.ts"]);
+  const validation = runIndependentValidation(
+    task,
+    failedCompletion,
+    snapshot(["packages/escape.ts"], "failed-stable"),
+    () => ({ status: 0, stdout: "command ran", stderr: "" }),
+    () => snapshot(["packages/escape.ts"], "failed-stable"),
+  );
+  let evidenceRejected = false;
+  try {
+    buildAgentFactoryEvidence({ completion: failedCompletion, validation, headCommit, changeFingerprint, acceptance: [{ id: acceptanceId, status: "PASS", evidence: "should reject" }], satisfiedGates: [], blockedGates: [], metrics: { attempts: 1, execution_duration_seconds: null, review_duration_seconds: null, token_or_provider_cost: null } });
+  } catch { evidenceRejected = true; }
+  const rejected = applyLedgerTransition({ task: taskRecord, to: "DONE", reasonCode: "INTEGRATION_ACCEPTED", occurredAt, evidenceRef, evidence });
+  return {
+    execution: failedCompletion.report.result?.status,
+    validation: validation.decision,
+    evidence_rejected: evidenceRejected,
+    ledger_rejected: !rejected.accepted,
+    task_preserved: JSON.stringify(rejected.authoritative_task) === JSON.stringify(taskRecord),
+    graph_preserved: JSON.stringify(graph) === JSON.stringify(JSON.parse(JSON.stringify(graph))) && JSON.stringify(graph) === JSON.stringify(representativeGraph()),
+  };
+}
+
+function representativeTask(): Task {
+  const metadata = {
+    id: "TASK-900", title: "Representative bounded I1 proof task", status: "ready" as const, priority: 1,
+    milestone: "I1", model_tier: "free" as const, risk: "low" as const, architecture_impact: false,
+    executor_preference: "opencode" as const, depends_on: [], context_paths: [contextPath], allowed_paths: ["docs/proof/**"],
+    forbidden_paths: ["packages/**"], max_files: 1, validation: ["proof:validate"],
+  };
+  return { file: taskFile, metadata, source: "---\nid: TASK-900\n---\n# Representative proof\n", body: "# Representative proof\n" };
+}
+
+function representativeTaskRecord(route: ReturnType<typeof routeTask>): TaskRecord {
+  return taskRecordSchema.parse({
+    schema_version: 1, task_id: "TASK-900", work_package_id: "WP-I1-12", milestone: "I1",
+    title: "Representative bounded I1 proof task", state: "READY", route, dependency_gates: [],
+    context_paths: [contextPath], allowed_paths: ["docs/proof/**"], forbidden_paths: ["packages/**"], max_files: 1,
+    validation_commands: ["proof:validate"], acceptance_ids: [acceptanceId],
+  });
+}
+
+function representativeGraph(): DagGraph {
+  return { schema_version: 1, external_nodes: [], nodes: [
+    { id: "TASK-900", state: "READY", dependency_gates: [] },
+    { id: "TASK-901", state: "BLOCKED", dependency_gates: [{ schema_version: 1, id: successorGateId, predecessor_id: "TASK-900", successor_id: "TASK-901", type: "REQUIRES", status: "UNSATISFIED", evidence_refs: [] }] },
+  ] };
+}
+
+function snapshot(changedFiles: string[], fingerprint: string) {
+  return { changedFiles, fingerprint, evaluatorChanges: [], missingEvaluators: [] };
+}
+
+function stableJson(value: unknown): string { return JSON.stringify(value, null, 2); }
+function hash(value: string): string { return createHash("sha256").update(value).digest("hex"); }
+
+const sourceCommit = "a".repeat(40);
+const headCommit = "b".repeat(40);
+const changeFingerprint = "c".repeat(64);
+const branch = "task/900-representative-proof";
+const taskFile = "specs/tasks/TASK-900.md";
+const contextPath = "docs/proof/context.md";
+const outputPath = "docs/proof/output.md";
+const taskPackPath = ".agent/context/TASK-900/TASK_PACK.md";
+const acceptanceId = "AC-I1-PROOF";
+const successorGateId = "GATE-I1-PROOF-SUCCESSOR";
+const evidenceRef = "docs/evidence/agentfactory/TASK-900/attempt.json";
+const occurredAt = "2026-08-13T01:00:00.000Z";

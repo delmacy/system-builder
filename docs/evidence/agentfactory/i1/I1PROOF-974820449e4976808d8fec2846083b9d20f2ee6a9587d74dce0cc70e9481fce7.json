@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "task_id": "TASK-900",
+  "work_package_id": "WP-I1-12",
+  "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "task_pack_sha256": "d8384b278b355a293c8fbcb9eb6b4ace4bfa0caf40b27679005d1786f39a6303",
+  "route": "SELECTED",
+  "opencode": {
+    "noninteractive": true,
+    "bounded": true,
+    "argument_order": "PROMPT_MODEL_FILE"
+  },
+  "execution": "SUCCEEDED",
+  "validation": "PASS",
+  "evidence_receipt_id": "AFEV-daaa42632ff7e23dda85eb78033b75d3e57e77fc22d72d4e625dc4fea9ebd621",
+  "github_lifecycle": "ELIGIBLE",
+  "final_state": "DONE",
+  "newly_ready": [
+    "TASK-901"
+  ],
+  "failure": {
+    "execution": "BLOCKED",
+    "validation": "FAIL",
+    "evidence_rejected": true,
+    "ledger_rejected": true,
+    "task_preserved": true,
+    "graph_preserved": true
+  },
+  "proof_id": "I1PROOF-974820449e4976808d8fec2846083b9d20f2ee6a9587d74dce0cc70e9481fce7",
+  "content_sha256": "974820449e4976808d8fec2846083b9d20f2ee6a9587d74dce0cc70e9481fce7"
+}
