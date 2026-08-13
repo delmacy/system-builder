@@ -15,12 +15,12 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 - Agent harness: local TypeScript implementation with bounded task context, task validation, Git/PR controls, deterministic verification and closure mechanisms.
 - OpenCode adapter: TASK-011 argument ordering and TASK-013 structured request/result, timeout and failure hardening are integrated.
 - AgentFactory planning: complete through I1 Work Packages, DAG, governance, task-generation policy and exit gate.
-- AgentFactory I1 implementation: TASK-012 through TASK-023 are completed, including the deterministic end-to-end happy/failure proof. The I1 Exit Gate is GO on integrated baseline `21674b34c55fa024cdc360802065e76ab97fa08d`.
+- AgentFactory I1 implementation and post-I1 hardening: TASK-012 through TASK-027 are completed. The hardened I1 proof is integrated and the post-I1 review is GO for bounded I2 implementation planning.
 - GitHub Actions: confirmation CI remains deterministic; AI execution is local unless a later approved task changes that architecture.
 
 ## Active execution focus
 
-**I1 — AgentFactory Single Task Autonomous — exit gate accepted.**
+**I2 readiness — Sequential Pipeline definition accepted; execution not started.**
 
 Goal: prove one bounded READY task can move through task pack, model/executor selection, OpenCode execution, independent validation, evidence/state update and successor readiness without manually reconstructing context.
 
@@ -30,11 +30,10 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. TASK-024 is completed: durable failure-attempt evidence and observed timing are integrated.
-2. TASK-025 is completed: ledger transitions are bound to contemporaneous causal evidence.
-3. TASK-026 is completed: state-closure PRs are bound to branch/base/head/check/review identity.
-4. Execute TASK-027 to re-prove I1 against the integrated hardening, then decide GO/NO-GO for I2 and document a real candidate chain.
-5. Do not execute the I2 chain or resume unrelated product work during this readiness review.
+1. Post-I1 review and hardened proof are complete; decision is GO for bounded I2 implementation planning.
+2. Materialize the first I2 coordinator task by rolling wave from `project_docs/agentfactory_i2/SEQUENTIAL_PIPELINE.md`.
+3. Do not execute the documented TASK-004 -> TASK-005 -> TASK-006 chain until the coordinator and gates are integrated.
+4. Do not advance to I3 or parallel execution before the I2 Exit Gate.
 
 ## Selection warning
 

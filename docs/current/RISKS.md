@@ -47,3 +47,11 @@ Task/branch association and pre-closure Git metadata live under ignored `.agent/
 ## R12 — Post-merge state update
 
 Git-managed closure occurs after the implementation PR is merged, so `task:close` produces a small second set of versioned state changes. Mitigation: integrate it through a reviewed state-update commit/PR; no direct protected-main commit or hidden automatic merge is performed.
+
+## R13 — Dual state authority during I2 transition
+
+The bootstrap task catalog/ledger and pure AgentFactory ledger receipts are separate representations. Mitigation: the I2 coordinator must reconcile them after every state-closure merge and stop on divergence; no silent source-of-truth replacement is allowed.
+
+## R14 — Incomplete provider economics
+
+Token/provider cost is nullable because current adapters do not expose trustworthy usage observations. Mitigation: retain null rather than estimate; add accounting only from authoritative provider output.

@@ -1,8 +1,8 @@
-# Current Execution Milestone — I1 AgentFactory Single Task Autonomous
+# Current Execution Milestone — I2 Sequential Pipeline Readiness
 
 ## Goal
 
-Prove the smallest end-to-end delivery slice in which one approved READY task can be prepared, executed through the bounded OpenCode adapter, independently validated, evidenced, integrated and used to recompute successor readiness.
+Implement and then prove a deterministic one-at-a-time pipeline of dependent tasks, closing and reconciling state before deriving the next successor READY. The candidate chain is defined but has not been executed.
 
 ## Ignition baseline already complete
 
@@ -50,9 +50,13 @@ Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autono
 - [x] TASK-024: persist durable success/failure attempt evidence with observed timing (P1/P2).
 - [x] TASK-025: bind ledger transitions to contemporaneous causal evidence (P1).
 - [x] TASK-026: bind state-closure PR identity to branch/base/head/check/review (P1).
-- [ ] TASK-027: re-prove I1 with durable failure, causal ledger and hardened state lifecycle.
-- [ ] Correct remaining confirmed P1/P2 findings by rolling-wave.
-- [ ] Re-run the I1 happy/failure proof and decide GO/NO-GO for I2 without executing the I2 chain.
+- [x] TASK-027: re-prove I1 with durable failure, causal ledger and hardened state lifecycle.
+- [x] Correct confirmed P1/P2 findings by rolling-wave.
+- [x] Re-run the I1 happy/failure proof and decide GO/NO-GO for I2 without executing the I2 chain.
+- [x] TASK-027 post-hardening proof integrated; I1 remains GO.
+- [x] Post-I1 review completed; I2 readiness decision is GO.
+- [ ] Materialize and implement the bounded I2 sequential coordinator.
+- [ ] Execute the candidate chain only after coordinator integration and reassess the I2 Exit Gate.
 
 ## Product M1
 

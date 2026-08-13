@@ -24,12 +24,12 @@ The working tree must be clean before starting a task.
 2. `docs/current/PROJECT_STATE.md`
 3. `docs/current/CURRENT_MILESTONE.md`
 4. `docs/current/NEXT_WORK.md`
-5. `project_docs/agentfactory/MASTER_SCOPE.md`
-6. `project_docs/agentfactory/WBS_MASTER.md`
-7. `project_docs/agentfactory/WORK_PACKAGES.md`
-8. `project_docs/agentfactory/DAG.md`
-9. `project_docs/agentfactory/IGNITION_MILESTONES.md`
-10. `project_docs/agentfactory/EXIT_CRITERIA.md`
+5. `project_docs/agentfactory_ignition/MASTER_SCOPE.md`
+6. `project_docs/agentfactory_ignition/WBS_MASTER.md`
+7. `project_docs/agentfactory_ignition/WORK_PACKAGES.md`
+8. `project_docs/agentfactory_ignition/DAG.md`
+9. `project_docs/agentfactory_ignition/IGNITION_MILESTONES.md`
+10. `project_docs/agentfactory_ignition/EXIT_CRITERIA.md`
 11. `project_docs/agentfactory_i1/`
 12. `project_docs/execution_governance/`
 13. the exact `specs/tasks/TASK-*.md` being executed
@@ -38,11 +38,10 @@ Read deeper architecture/ADR files only when the task context or `AGENTS.md` req
 
 ## Current starting point
 
-- TASK-011 OpenCode argument-order fix is integrated.
-- TASK-012 AgentFactory execution contracts is the first implementation task for the active I1 track.
-- TASK-014 DAG/READY evaluator requires completed TASK-012.
-- TASK-013 OpenCode adapter hardening requires completed TASK-011 and TASK-012.
-- Product tasks TASK-010 and TASK-004 remain valid READY work but are intentionally deferred while AgentFactory ignition is the active execution focus.
+- TASK-012 through TASK-027, including post-I1 hardening and re-proof, are integrated.
+- `project_docs/agentfactory_i1/POST_I1_REVIEW.md` is GO for bounded I2 implementation planning.
+- `project_docs/agentfactory_i2/SEQUENTIAL_PIPELINE.md` defines I2 and candidate TASK-004 -> TASK-005 -> TASK-006, with TASK-010 accepted as a precondition.
+- The candidate chain has not been executed. Materialize the I2 coordinator task first and do not advance to I3 before the I2 Exit Gate.
 
 Do not use global `task:next` alone to decide the workstream while product and AgentFactory tasks coexist. Select the active AgentFactory milestone explicitly until milestone-aware scheduling is implemented.
 
@@ -136,4 +135,4 @@ Unrelated READY branches need not be blocked by a local issue.
 
 ## Definition of AgentFactory completion
 
-Completion is evidence-based, not a task-count target. The implementation must satisfy the applicable `project_docs/agentfactory/EXIT_CRITERIA.md`, milestone exit gates, deterministic CI/validation and execution-governance controls. At completion, repository state/documentation must make the operating procedure reproducible on a clean checkout without this handoff conversation.
+Completion is evidence-based, not a task-count target. The implementation must satisfy the applicable `project_docs/agentfactory_ignition/EXIT_CRITERIA.md`, milestone exit gates, deterministic CI/validation and execution-governance controls. At completion, repository state/documentation must make the operating procedure reproducible on a clean checkout without this handoff conversation.
