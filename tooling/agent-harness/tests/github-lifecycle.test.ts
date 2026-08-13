@@ -153,4 +153,10 @@ describe("AgentFactory GitHub lifecycle", () => {
     assert.equal(receipt.decision, "REVIEW_REQUIRED");
     assert.equal(receipt.approval_channel, "NONE");
   });
+
+  it("preserves review-only semantics when the alternate channel is unused", () => {
+    const receipt = evaluateGitHubLifecycle({ ...base, review: "NONE", humanApproval: { decision: "MISSING", approval_id: null, reason_codes: ["APPROVAL_MISSING"] } });
+    assert.equal(receipt.decision, "REVIEW_REQUIRED");
+    assert.deepEqual(receipt.reason_codes, ["REVIEW_MISSING"]);
+  });
 });

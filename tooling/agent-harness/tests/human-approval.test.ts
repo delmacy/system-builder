@@ -36,6 +36,7 @@ describe("durable human approval", () => {
   it("blocks a future approval", () => assert.ok(evaluateHumanApproval(policy, receipt({ approved_at: "2026-08-14T11:00:00.000Z" }), expected).reason_codes.includes("APPROVAL_FUTURE")));
   it("blocks an invalid signature", () => assert.ok(evaluateHumanApproval(policy, { ...receipt(), signature: Buffer.from("invalid").toString("base64") }, expected).reason_codes.includes("SIGNATURE_INVALID")));
   it("keeps team mode independent", () => assert.deepEqual(evaluateHumanApproval({ ...policy, mode: "TEAM_INDEPENDENT" }, receipt(), expected).reason_codes, ["POLICY_DISALLOWS_DURABLE"]));
+  it("treats an unused team-mode alternate channel as neutral", () => assert.deepEqual(evaluateHumanApproval({ ...policy, mode: "TEAM_INDEPENDENT" }, undefined, expected), { decision: "MISSING", approval_id: null, reason_codes: ["APPROVAL_MISSING"] }));
   it("fails closed on an unknown policy", () => assert.deepEqual(evaluateHumanApproval({ ...policy, mode: "UNKNOWN" }, receipt(), expected).reason_codes, ["POLICY_INVALID"]));
   it("is deterministic for equivalent evaluations", () => assert.deepEqual(evaluateHumanApproval(policy, receipt(), expected), evaluateHumanApproval(policy, receipt(), expected)));
   it("exposes no production signing capability", () => assert.equal("signHumanApproval" in approvalModule, false));
