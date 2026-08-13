@@ -1,6 +1,6 @@
 # Project State
 
-Date: 2026-08-12
+Date: 2026-08-13
 
 ## Repository
 
@@ -15,7 +15,7 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 - Agent harness: local TypeScript implementation with bounded task context, task validation, Git/PR controls, deterministic verification and closure mechanisms.
 - OpenCode adapter: TASK-011 argument ordering and TASK-013 structured request/result, timeout and failure hardening are integrated.
 - AgentFactory planning: complete through I1 Work Packages, DAG, governance, task-generation policy and exit gate.
-- AgentFactory implementation queue: TASK-012 execution contracts, TASK-013 OpenCode hardening and TASK-014 DAG/READY evaluation are completed. TASK-015 Task Pack builder and TASK-016 Model Router are the next rolling-wave tasks.
+- AgentFactory implementation queue: TASK-012 through TASK-016 are completed. Their integrated contracts make WP-I1-06 executable as TASK-017, which is the current rolling-wave task.
 - GitHub Actions: confirmation CI remains deterministic; AI execution is local unless a later approved task changes that architecture.
 
 ## Active execution focus
@@ -30,10 +30,9 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Execute TASK-015 — AgentFactory Task Pack builder — from the integrated TASK-012/TASK-014 contracts.
-2. Execute TASK-016 — AgentFactory Model Router — from the integrated TASK-012 route vocabulary.
-3. After accepted outputs, generate the next eligible bounded task(s) for WP-I1-06 according to `project_docs/agentfactory_i1/IMPLEMENTATION_GENERATION_RULE.md`.
-4. Continue through the I1 exit gate, then I2/I3 as defined by AgentFactory ignition milestones before resuming product-first throughput.
+1. Execute TASK-017 — AgentFactory Execution Harness Enforcement — from the integrated TASK-013/015/016 outputs.
+2. After TASK-017 state closure, generate the next eligible bounded task for WP-I1-07 from its actual enforcement interface.
+3. Continue through the I1 exit gate, then I2/I3 as defined by AgentFactory ignition milestones before resuming product-first throughput.
 
 ## Selection warning
 
