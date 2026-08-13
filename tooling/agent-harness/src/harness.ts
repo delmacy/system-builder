@@ -15,6 +15,14 @@ import { assertGitManagedCloseReady, fingerprintChanges, readGitRecord } from ".
 import { matchesAny } from "./glob.js";
 import { buildLegacyTaskPackContent } from "./task-pack.js";
 import { loadTasks, readyTasks, repoPath, type Task, validateTaskCatalog } from "./task.js";
+import {
+  classifyEvaluatorChanges,
+  runIndependentValidation,
+  runValidationCommand,
+  type ValidationGateReceipt,
+  type ValidationSnapshot,
+} from "./validation-engine.js";
+import type { ExecutionBoundaryCompletion } from "./execution-harness.js";
 
 type PackManifest = {
   taskId: string;
@@ -38,6 +46,7 @@ type VerificationReceipt = {
   changeFingerprint: string;
   commands: Array<{ command: string; status: "passed" }>;
   status: "passed";
+  validationGate?: ValidationGateReceipt;
 };
 
 export function nextTask(root = process.cwd()): Task | undefined {
@@ -85,7 +94,11 @@ export function prepareTask(taskId: string, root = process.cwd()): string {
   return output;
 }
 
-export function verifyTask(taskId: string, root = process.cwd()): VerificationReceipt {
+export function verifyTask(
+  taskId: string,
+  root = process.cwd(),
+  completion?: ExecutionBoundaryCompletion,
+): VerificationReceipt {
   const task = findTask(taskId, root);
   const manifest = readManifest(taskId, root);
   const packPath = resolve(root, ".agent/context", taskId, "TASK_PACK.md");
@@ -109,13 +122,36 @@ export function verifyTask(taskId: string, root = process.cwd()): VerificationRe
   }
 
   const commands: VerificationReceipt["commands"] = [];
-  for (const command of task.metadata.validation) {
-    execSync(command, { cwd: root, stdio: "inherit", shell: process.platform === "win32" ? "powershell.exe" : "/bin/sh" });
-    commands.push({ command, status: "passed" });
+  const beforeFingerprint = fingerprintChanges(relevant, root);
+  let validationGate: ValidationGateReceipt | undefined;
+  if (completion) {
+    const before = validationSnapshot(relevant, beforeFingerprint, root);
+    validationGate = runIndependentValidation(
+      task,
+      completion,
+      before,
+      (command) => runValidationCommand(command, root),
+      () => {
+        const afterFiles = changedPaths(manifest.baseCommit, root).filter((file) => file !== taskFile);
+        return validationSnapshot(afterFiles, fingerprintChanges(afterFiles, root), root);
+      },
+    );
+    if (validationGate.decision === "FAIL") {
+      throw new Error(`${taskId} independent validation failed: ${validationGate.reason_codes.join(", ")}`);
+    }
+    commands.push(...validationGate.commands.map((result) => ({ command: result.command, status: "passed" as const })));
+  } else {
+    for (const command of task.metadata.validation) {
+      execSync(command, { cwd: root, stdio: "inherit", shell: process.platform === "win32" ? "powershell.exe" : "/bin/sh" });
+      commands.push({ command, status: "passed" });
+    }
   }
   const afterValidation = changedPaths(manifest.baseCommit, root).filter((file) => file !== taskFile);
   if (JSON.stringify(afterValidation) !== JSON.stringify(relevant)) {
     throw new Error(`${taskId} validations changed the task file set; inspect and verify again`);
+  }
+  if (fingerprintChanges(afterValidation, root) !== beforeFingerprint) {
+    throw new Error(`${taskId} validations changed repository content; inspect and verify again`);
   }
   const receipt: VerificationReceipt = {
     taskId,
@@ -128,6 +164,7 @@ export function verifyTask(taskId: string, root = process.cwd()): VerificationRe
     changeFingerprint: fingerprintChanges(relevant, root),
     commands,
     status: "passed",
+    ...(validationGate ? { validationGate } : {}),
   };
   const receiptPath = resolve(root, ".agent/evidence", `${taskId}.json`);
   mkdirSync(dirname(receiptPath), { recursive: true });
@@ -229,4 +266,9 @@ function readManifest(taskId: string, root: string): PackManifest {
 
 function hash(value: string): string {
   return createHash("sha256").update(value).digest("hex");
+}
+
+function validationSnapshot(files: string[], fingerprint: string, root: string): ValidationSnapshot {
+  const evaluator = classifyEvaluatorChanges(files, (path) => existsSync(resolve(root, path)));
+  return { changedFiles: files, fingerprint, ...evaluator };
 }
