@@ -1,7 +1,7 @@
 ---
 id: TASK-025
 title: Bind AgentFactory ledger transitions to causal evidence
-status: ready
+status: completed
 priority: 49
 milestone: I2-READINESS
 model_tier: cheap
