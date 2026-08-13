@@ -31,9 +31,10 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 ## Immediate next work
 
 1. TASK-024 is completed: durable failure-attempt evidence and observed timing are integrated.
-2. Execute TASK-025 to bind ledger transitions to contemporaneous causal evidence; do not reimplement accepted components broadly.
-3. Re-run the I1 proof after required corrections, then decide GO/NO-GO for I2 and document a real candidate chain.
-4. Do not execute the I2 chain or resume unrelated product work during this readiness review.
+2. TASK-025 is completed: ledger transitions are bound to contemporaneous causal evidence.
+3. Execute TASK-026 to bind state-closure PRs to branch/base/head/check/review identity.
+4. Re-run the I1 proof after required corrections, then decide GO/NO-GO for I2 and document a real candidate chain.
+5. Do not execute the I2 chain or resume unrelated product work during this readiness review.
 
 ## Selection warning
 
