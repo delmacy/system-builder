@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { evaluateGitHubLifecycle, type GitHubLifecycleInput } from "../src/github-lifecycle.js";
-import { deriveGitHubLifecycleObservation } from "../src/orchestrator-runtime.js";
+import { deriveGitHubLifecycleObservation, deriveStateGitHubLifecycleObservation } from "../src/orchestrator-runtime.js";
 
 const commit = "a".repeat(40);
 const base: GitHubLifecycleInput = {
@@ -85,5 +85,53 @@ describe("AgentFactory GitHub lifecycle", () => {
     });
     assert.equal(observation.ci, "SUCCESS");
     assert.equal(observation.lifecycle?.decision, "ELIGIBLE");
+  });
+
+  it("binds state-closure observations to the recorded branch, main and commit", () => {
+    const pr = {
+      number: 21,
+      url: "https://example.test/pull/21",
+      state: "OPEN",
+      headRefName: "state/task-020-close",
+      baseRefName: "main",
+      headRefOid: commit,
+      reviewDecision: "APPROVED",
+      mergeCommit: null,
+      statusCheckRollup: [{ name: "validate", status: "COMPLETED", conclusion: "SUCCESS" }],
+    };
+    const expected = { branch: "state/task-020-close", headCommit: commit, requiredChecks: ["validate"], reviewRequired: true };
+    const accepted = deriveStateGitHubLifecycleObservation(pr, expected);
+    assert.equal(accepted.lifecycle?.decision, "ELIGIBLE");
+    assert.equal(accepted.ci, "SUCCESS");
+
+    for (const mismatch of [
+      { headRefName: "state/task-999-close" },
+      { baseRefName: "develop" },
+      { headRefOid: "b".repeat(40) },
+    ]) {
+      const rejected = deriveStateGitHubLifecycleObservation({ ...pr, ...mismatch }, expected);
+      assert.equal(rejected.lifecycle?.decision, "BLOCKED");
+      assert.deepEqual(rejected.lifecycle?.reason_codes, ["IDENTITY_MISMATCH"]);
+      assert.equal(rejected.ci, "FAILURE");
+    }
+  });
+
+  it("keeps state-closure named checks and review fail closed", () => {
+    const pr = {
+      number: 21,
+      url: "https://example.test/pull/21",
+      state: "OPEN",
+      headRefName: "state/task-020-close",
+      baseRefName: "main",
+      headRefOid: commit,
+      reviewDecision: "",
+      mergeCommit: null,
+      statusCheckRollup: [],
+    };
+    const observation = deriveStateGitHubLifecycleObservation(pr, {
+      branch: "state/task-020-close", headCommit: commit, requiredChecks: ["validate"], reviewRequired: true,
+    });
+    assert.equal(observation.lifecycle?.decision, "BLOCKED");
+    assert.deepEqual(observation.lifecycle?.reason_codes, ["CHECK_MISSING", "REVIEW_MISSING"]);
   });
 });

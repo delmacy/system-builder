@@ -15,6 +15,7 @@ import {
   type ExecutorReport,
 } from "../src/executor.js";
 import { executorAdapterResultSchema, executorRequestSchema } from "../src/execution-contracts.js";
+import { evaluateGitHubLifecycle } from "../src/github-lifecycle.js";
 import {
   LocalTaskOrchestrator,
   deriveOrchestratorState,
@@ -131,11 +132,18 @@ describe("Local Task Orchestrator", () => {
       stateBranchExists: true,
       stateCommit: "s",
       statePushed: true,
-      statePr: { ...pr("SUCCESS"), state: "MERGED" },
+      statePr: { ...pr("SUCCESS"), state: "MERGED", lifecycle: stateLifecycle() },
     }));
     const result = new LocalTaskOrchestrator(harness, []).advance("TASK-010");
     assert.equal(result.state, "DONE");
     assert.deepEqual(harness.actions, ["sync:state"]);
+  });
+
+  it("blocks a raw merged state PR when hardened identity is not eligible", () => {
+    const statePr = { ...pr("FAILURE"), state: "MERGED" as const, lifecycle: stateLifecycle(true) };
+    assert.equal(deriveOrchestratorState(snapshot({
+      closed: true, stateBranchExists: true, stateCommit: "s", statePushed: true, statePr,
+    })), "BLOCKED");
   });
 
   it("keeps prepared architecture and high-risk tasks at the human gate when no implementation exists", () => {
@@ -532,6 +540,25 @@ function snapshot(overrides: Partial<OrchestratorSnapshot> = {}): OrchestratorSn
 
 function pr(ci: PullRequestObservation["ci"]): PullRequestObservation {
   return { number: 1, url: "https://example.invalid/pr/1", state: "OPEN", ci, review: "NONE" };
+}
+
+function stateLifecycle(identityMismatch = false) {
+  const commit = "a".repeat(40);
+  return evaluateGitHubLifecycle({
+    prNumber: 1,
+    state: "MERGED",
+    branch: identityMismatch ? "state/task-999-close" : "state/task-010-close",
+    baseBranch: "main",
+    headCommit: commit,
+    expectedBranch: "state/task-010-close",
+    expectedBaseBranch: "main",
+    expectedHeadCommit: commit,
+    requiredChecks: ["validate"],
+    checks: [{ name: "validate", status: "SUCCESS" }],
+    validation: "PASS",
+    review: "APPROVED",
+    reviewRequired: true,
+  });
 }
 
 function makeTask(overrides: Partial<Task["metadata"]> = {}): Task {

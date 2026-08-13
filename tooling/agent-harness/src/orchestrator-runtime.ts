@@ -28,6 +28,7 @@ import {
   writeGitRecord,
   writeStateRecord,
   type GitTaskRecord,
+  type StateTaskRecord,
 } from "./git-workflow.js";
 import { changedPaths, git } from "./git.js";
 import { closeTask, prepareTask, verifyTask } from "./harness.js";
@@ -118,11 +119,11 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
         reviewRequired: this.reviewRequired,
       })) : undefined;
     const statePr = stateRecord?.pullRequest
-      ? this.observePullRequest(stateRecord.pullRequest)
+      ? this.observeStatePullRequest(stateRecord)
       : stateRecord?.pushed ? this.discoverPullRequest(stateRecord.branch, (pullRequest) => {
         stateRecord.pullRequest = pullRequest;
         writeStateRecord(stateRecord, this.root);
-      }) : undefined;
+      }, (pr) => this.deriveStatePullRequest(pr, stateRecord)) : undefined;
     return {
       task,
       dependenciesCompleted: task.metadata.depends_on.every((id) => completed.has(id)),
@@ -279,21 +280,32 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
     });
   }
 
-  private observePullRequest(record: NonNullable<GitTaskRecord["pullRequest"]>): PullRequestObservation {
+  private observeStatePullRequest(record: StateTaskRecord): PullRequestObservation {
+    if (!record.pullRequest) throw new Error(`Cannot observe state PR without a recorded PR for ${record.taskId}`);
     const result = spawnSync(this.ghExecutable, [
-      "pr", "view", String(record.number),
-      "--json", "number,url,state,reviewDecision,mergeCommit,statusCheckRollup",
+      "pr", "view", String(record.pullRequest.number),
+      "--json", "number,url,state,headRefName,baseRefName,headRefOid,reviewDecision,mergeCommit,statusCheckRollup",
     ], { cwd: this.root, encoding: "utf8", shell: false });
     if (result.error || result.status !== 0) {
-      throw new Error(`Cannot observe PR #${record.number}: ${result.error?.message || result.stderr || `exit ${result.status}`}`);
+      throw new Error(`Cannot observe PR #${record.pullRequest.number}: ${result.error?.message || result.stderr || `exit ${result.status}`}`);
     }
-    return pullRequestObservation(JSON.parse(result.stdout) as GitHubPullRequest);
+    return this.deriveStatePullRequest(JSON.parse(result.stdout) as GitHubPullRequest, record);
+  }
+
+  private deriveStatePullRequest(pr: GitHubPullRequest, record: StateTaskRecord): PullRequestObservation {
+    if (!record.commit) throw new Error(`Cannot observe state PR without a recorded commit for ${record.taskId}`);
+    return deriveStateGitHubLifecycleObservation(pr, {
+      branch: record.branch,
+      headCommit: record.commit,
+      requiredChecks: this.requiredChecks,
+      reviewRequired: this.reviewRequired,
+    });
   }
 
   private discoverPullRequest(
     branch: string,
     persist: (record: NonNullable<GitTaskRecord["pullRequest"]>) => void,
-    observe: (pr: GitHubPullRequest) => PullRequestObservation = pullRequestObservation,
+    observe: (pr: GitHubPullRequest) => PullRequestObservation,
   ): PullRequestObservation | undefined {
     const result = spawnSync(this.ghExecutable, [
       "pr", "list", "--head", branch, "--state", "all", "--limit", "1",
@@ -369,15 +381,6 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
   private journalPath(taskId: string): string { return resolve(this.root, ".agent/orchestrator", `${taskId}.json`); }
 }
 
-function checkState(checks: GitHubPullRequest["statusCheckRollup"]): CheckState {
-  if (checks.length === 0) return "UNKNOWN";
-  if (checks.some((check) => ["FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED"].includes(check.conclusion || ""))) {
-    return "FAILURE";
-  }
-  if (checks.some((check) => check.status !== "COMPLETED" || !check.conclusion)) return "PENDING";
-  return checks.every((check) => ["SUCCESS", "NEUTRAL", "SKIPPED"].includes(check.conclusion || "")) ? "SUCCESS" : "FAILURE";
-}
-
 function reviewState(value: string): ReviewState {
   if (value === "CHANGES_REQUESTED") return "CHANGES_REQUESTED";
   if (value === "APPROVED") return "APPROVED";
@@ -422,6 +425,22 @@ export function deriveGitHubLifecycleObservation(
   };
 }
 
+export function deriveStateGitHubLifecycleObservation(
+  pr: GitHubPullRequest,
+  expected: {
+    branch: string;
+    headCommit: string;
+    requiredChecks: readonly string[];
+    reviewRequired: boolean;
+  },
+): PullRequestObservation {
+  return deriveGitHubLifecycleObservation(pr, {
+    ...expected,
+    baseBranch: "main",
+    validation: "PASS",
+  });
+}
+
 function lifecycleChecks(checks: GitHubPullRequest["statusCheckRollup"]): GitHubLifecycleCheck[] {
   return checks.flatMap((check) => {
     const name = check.name || check.context;
@@ -459,17 +478,6 @@ function pullRequestState(value: string): PullRequestObservation["state"] {
   return ["OPEN", "CLOSED", "MERGED"].includes(value)
     ? value as PullRequestObservation["state"]
     : "CLOSED";
-}
-
-function pullRequestObservation(pr: GitHubPullRequest): PullRequestObservation {
-  return {
-    number: pr.number,
-    url: pr.url,
-    state: pullRequestState(pr.state),
-    ci: checkState(pr.statusCheckRollup),
-    review: reviewState(pr.reviewDecision),
-    ...(pr.mergeCommit?.oid ? { mergeCommit: pr.mergeCommit.oid } : {}),
-  };
 }
 
 function readJson<T>(path: string): T | undefined {
