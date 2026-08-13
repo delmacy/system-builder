@@ -1,0 +1,44 @@
+{
+  "taskId": "TASK-017",
+  "verifiedAt": "2026-08-13T00:17:35.745Z",
+  "baseCommit": "65b6d41c93d27a19ed698d5c19bee86217ea3369",
+  "headCommit": "65b6d41c93d27a19ed698d5c19bee86217ea3369",
+  "changedFiles": [
+    "tooling/agent-harness/src/execution-harness.ts",
+    "tooling/agent-harness/src/orchestrator-runtime.ts",
+    "tooling/agent-harness/src/orchestrator.ts",
+    "tooling/agent-harness/tests/execution-harness.test.ts",
+    "tooling/agent-harness/tests/orchestrator.test.ts"
+  ],
+  "taskHash": "f286a673cbad51701e92ec432c0ae76f3c9dd34ab94cbcf16fd969a251f23c2f",
+  "packHash": "7207eb52eec84658e85890edf437cc698a540907c31ae51a77ee74a022f24791",
+  "changeFingerprint": "a7041c1badd83af8341c0d97ed3d655a3df0820c2be2ce793b19837d0f2b0014",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-017",
+    "branch": "task/017-enforce-the-agentfactory-execution-boundary",
+    "baseBranch": "main",
+    "baseCommit": "65b6d41c93d27a19ed698d5c19bee86217ea3369",
+    "remote": "origin",
+    "createdAt": "2026-08-13T00:11:23.831Z",
+    "commit": "dd88492483727072ab6058bba1b8c09b87f1d234",
+    "verifiedFingerprint": "a7041c1badd83af8341c0d97ed3d655a3df0820c2be2ce793b19837d0f2b0014",
+    "committedAt": "2026-08-13T00:17:46.146Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T00:17:49.688Z",
+    "pullRequest": {
+      "number": 35,
+      "url": "https://github.com/delmacy/system-builder/pull/35",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T00:17:55.792Z",
+      "mergeCommit": "91c30ed203920dbcf5bb11ef8c8ae9a8719591f9"
+    }
+  }
+}
