@@ -22,9 +22,11 @@ context_paths:
   - tooling/agent-harness/src/execution-contracts.ts
   - tooling/agent-harness/src/evidence-writer.ts
   - tooling/agent-harness/src/ledger-engine.ts
+  - tooling/agent-harness/src/i1-proof.ts
 allowed_paths:
   - tooling/agent-harness/src/ledger-engine.ts
   - tooling/agent-harness/src/harness.ts
+  - tooling/agent-harness/src/i1-proof.ts
   - tooling/agent-harness/tests/ledger-engine.test.ts
   - specs/tasks/TASK-025-AGENTFACTORY-CAUSAL-LEDGER-EVIDENCE.md
 forbidden_paths:
@@ -40,7 +42,6 @@ forbidden_paths:
   - tooling/agent-harness/src/orchestrator-runtime.ts
   - tooling/agent-harness/src/git-workflow.ts
   - tooling/agent-harness/src/github-lifecycle.ts
-  - tooling/agent-harness/src/i1-proof.ts
 max_files: 4
 validation:
   - npm run verify
@@ -62,6 +63,8 @@ WP-I1-10 requires legal transitions from verified events. The integrated TASK-02
 
 Add a small content-addressed transition-event receipt for lifecycle facts that precede a completed attempt. Validate evidence by transition reason: lifecycle start/completion events for their matching early transition; TASK-024 `AFATT` receipts for validation/failure/review/blocked outcomes; and the accepted TASK-019 `AFEV` envelope for final `INTEGRATION_ACCEPTED`. Bind task/WP/reason identity, semantic integrity and observed time. Reject evidence completed or observed after the requested transition time. Preserve append-only attempts and the exact prior authoritative task on rejection.
 
+Migrate the existing I1 proof's happy-path ledger calls to the causal evidence interface so the repository remains green. Preserve its public proof schema, committed artifact and controlled-failure semantics; the post-hardening reproof remains a later task.
+
 # Inputs / contracts
 
 TASK-012 task/state-transition contracts; TASK-019 accepted envelope; TASK-024 durable attempt envelope; requested transition timestamp; prior transition attempts.
@@ -79,11 +82,12 @@ Runtime-validated causal transition event plus a ledger receipt whose evidence r
 - A mismatched reason, task/WP, tampered hash, future timestamp or incompatible attempt outcome fails closed with a stable rejection reason.
 - Rejection preserves the prior task and appends the rejected attempt without rewriting history.
 - Tests demonstrate causal happy-path evidence and reject the former future-envelope shortcut on early transitions.
+- The existing I1 proof uses causal transition inputs without changing its public receipt or committed artifact.
 - `npm run verify` passes.
 
 # Non-goals
 
-Changing TASK-012 or TASK-024 schemas, wiring the orchestrator, changing PR lifecycle, recomputing readiness, rewriting the I1 proof, executing I2 or modifying product code.
+Changing TASK-012 or TASK-024 schemas, wiring the orchestrator, changing PR lifecycle, changing the I1 proof schema/artifact/failure assertions, executing I2 or modifying product code.
 
 # Evidence expected
 
