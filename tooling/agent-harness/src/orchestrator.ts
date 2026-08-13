@@ -290,7 +290,10 @@ export function deriveOrchestratorState(
 
 function deriveStateDelivery(snapshot: OrchestratorSnapshot): OrchestratorState {
   const statePr = snapshot.statePr;
-  if (statePr?.state === "MERGED") return snapshot.mainSynchronized ? "DONE" : "STATE_MERGED";
+  if (statePr?.state === "MERGED") {
+    if (statePr.lifecycle?.decision !== "ELIGIBLE") return "BLOCKED";
+    return snapshot.mainSynchronized ? "DONE" : "STATE_MERGED";
+  }
   if (!snapshot.stateBranchExists || !snapshot.stateCommit || !snapshot.statePushed || !statePr) {
     return snapshot.stateBranchExists ? "STATE_PR_PENDING" : "CLOSED";
   }
