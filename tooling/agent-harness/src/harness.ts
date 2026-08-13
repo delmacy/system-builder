@@ -25,6 +25,7 @@ import {
 import type { ExecutionBoundaryCompletion } from "./execution-harness.js";
 export { buildAgentFactoryEvidence, writeAgentFactoryEvidence } from "./evidence-writer.js";
 export { applyLedgerTransition } from "./ledger-engine.js";
+export { recomputeSuccessorReadiness } from "./readiness-recompute.js";
 
 type PackManifest = {
   taskId: string;
