@@ -8,7 +8,7 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory_ignition/`, `project_docs/agentfactory_i1/`, `project_docs/agentfactory_i2/` and execution-governance docs.
 3. Treat TASK-024 through TASK-027 and `POST_I1_REVIEW.md` as the integrated hardened I1 baseline.
 4. Treat TASK-028 implementation and bootstrap closure as integrated, but its hardened lifecycle reconciliation as blocked by missing required GitHub approvals.
-5. Resolve that governance blocker and reassess `project_docs/agentfactory_i2/I2_PRE_RUN_GATE.md`.
+5. Execute TASK-029 under ADR-0010, then obtain human-signed approval evidence and reassess `project_docs/agentfactory_i2/I2_PRE_RUN_GATE.md`.
 6. Do not execute TASK-010 or A/B/C = TASK-004 -> TASK-005 -> TASK-006 before an explicit GO.
 
 ## Per-task loop
