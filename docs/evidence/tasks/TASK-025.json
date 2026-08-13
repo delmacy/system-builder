@@ -1,0 +1,43 @@
+{
+  "taskId": "TASK-025",
+  "verifiedAt": "2026-08-13T02:13:17.361Z",
+  "baseCommit": "c1351488176bf920e442e417a84522dc80c9a497",
+  "headCommit": "c1351488176bf920e442e417a84522dc80c9a497",
+  "changedFiles": [
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/i1-proof.ts",
+    "tooling/agent-harness/src/ledger-engine.ts",
+    "tooling/agent-harness/tests/ledger-engine.test.ts"
+  ],
+  "taskHash": "e4357bd62bd306bd8a853099d150cccbb5170580f30bf23fc40956e1e7a503ad",
+  "packHash": "3f6e4badf8589c8410a8077da2f0af3b921735d56a22ce432d32c35ebc1b4b54",
+  "changeFingerprint": "aac33912cf039862f20bf7515f1f4d817ac050422ae42124f31fb2361a8dd399",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-025",
+    "branch": "task/025-bind-agentfactory-ledger-transitions-to-causal-evidence",
+    "baseBranch": "main",
+    "baseCommit": "c1351488176bf920e442e417a84522dc80c9a497",
+    "remote": "origin",
+    "createdAt": "2026-08-13T02:05:56.581Z",
+    "commit": "1f6b51c4c43bd25dbaa2c91c3f61cf61e5b1dcbe",
+    "verifiedFingerprint": "aac33912cf039862f20bf7515f1f4d817ac050422ae42124f31fb2361a8dd399",
+    "committedAt": "2026-08-13T02:13:49.007Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T02:13:53.084Z",
+    "pullRequest": {
+      "number": 60,
+      "url": "https://github.com/delmacy/system-builder/pull/60",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T02:13:57.980Z",
+      "mergeCommit": "fa0e6904287065e739dcf5e8898c3ace49b76d00"
+    }
+  }
+}
