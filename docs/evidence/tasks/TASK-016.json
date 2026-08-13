@@ -1,0 +1,41 @@
+{
+  "taskId": "TASK-016",
+  "verifiedAt": "2026-08-13T00:03:54.569Z",
+  "baseCommit": "fa8019b3a1f84d8113132f9c07ae4cdc9ed9a8f4",
+  "headCommit": "fa8019b3a1f84d8113132f9c07ae4cdc9ed9a8f4",
+  "changedFiles": [
+    "tooling/agent-harness/src/model-router.ts",
+    "tooling/agent-harness/tests/model-router.test.ts"
+  ],
+  "taskHash": "c7e53091f9ef1e4c3e288ab11f012a05b10b00da52a8da0540ac2cfaec613c24",
+  "packHash": "d379c086d718a2c235551843d190af9cf9d9ab13eecc8c91b2dc8a6f3f369744",
+  "changeFingerprint": "e2c3e83bb874cc8c5f584b259918ed41525174c4057a9147ecebf2cb947d6de0",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-016",
+    "branch": "task/016-implement-the-agentfactory-model-router",
+    "baseBranch": "main",
+    "baseCommit": "fa8019b3a1f84d8113132f9c07ae4cdc9ed9a8f4",
+    "remote": "origin",
+    "createdAt": "2026-08-13T00:00:47.076Z",
+    "commit": "855608051329e73149feb78317624518c5e0478b",
+    "verifiedFingerprint": "e2c3e83bb874cc8c5f584b259918ed41525174c4057a9147ecebf2cb947d6de0",
+    "committedAt": "2026-08-13T00:04:20.421Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T00:04:27.291Z",
+    "pullRequest": {
+      "number": 32,
+      "url": "https://github.com/delmacy/system-builder/pull/32",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T00:04:31.867Z",
+      "mergeCommit": "8587a0a843d4950e9f14e07fe6380c360131f59f"
+    }
+  }
+}
