@@ -1,6 +1,7 @@
 import type { ExecutorAdapter, ExecutorReport } from "./executor.js";
 import type { ExecutorRequest } from "./execution-contracts.js";
 import type { Task } from "./task.js";
+import type { GitHubLifecycleReceipt } from "./github-lifecycle.js";
 
 export type CheckState = "UNKNOWN" | "PENDING" | "SUCCESS" | "FAILURE";
 export type ReviewState = "NONE" | "APPROVED" | "CHANGES_REQUESTED";
@@ -12,6 +13,7 @@ export type PullRequestObservation = {
   ci: CheckState;
   review: ReviewState;
   mergeCommit?: string;
+  lifecycle?: GitHubLifecycleReceipt;
 };
 
 export type ExecutionObservation = {
