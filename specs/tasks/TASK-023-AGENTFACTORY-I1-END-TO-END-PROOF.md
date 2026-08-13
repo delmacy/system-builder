@@ -1,7 +1,7 @@
 ---
 id: TASK-023
 title: Prove the AgentFactory I1 end-to-end slice
-status: ready
+status: completed
 priority: 47
 milestone: I1
 model_tier: architecture
