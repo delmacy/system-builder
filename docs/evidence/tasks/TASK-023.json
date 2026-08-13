@@ -1,0 +1,43 @@
+{
+  "taskId": "TASK-023",
+  "verifiedAt": "2026-08-13T01:34:54.305Z",
+  "baseCommit": "46ee7dedfffb1daaa479854efe7db194b546cbd1",
+  "headCommit": "46ee7dedfffb1daaa479854efe7db194b546cbd1",
+  "changedFiles": [
+    "docs/evidence/agentfactory/i1/I1PROOF-974820449e4976808d8fec2846083b9d20f2ee6a9587d74dce0cc70e9481fce7.json",
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/i1-proof.ts",
+    "tooling/agent-harness/tests/i1-proof.test.ts"
+  ],
+  "taskHash": "795ed9cef22c3f2cb1f00ca3d020c09e17b401ab7232ca550e73e712d1e3b5c5",
+  "packHash": "cfcbf58deb2fcb6d5ec65d384f0822fcedd823d13b42ece6029ce999f65d77ce",
+  "changeFingerprint": "30166867b71b2199b394ec726208be602b0539d1b1b166513c1c27706885f0fe",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-023",
+    "branch": "task/023-prove-the-agentfactory-i1-end-to-end-slice",
+    "baseBranch": "main",
+    "baseCommit": "46ee7dedfffb1daaa479854efe7db194b546cbd1",
+    "remote": "origin",
+    "createdAt": "2026-08-13T01:30:16.231Z",
+    "commit": "4fb5c5dc0366cf543439ef2bff78a3015d89482e",
+    "verifiedFingerprint": "30166867b71b2199b394ec726208be602b0539d1b1b166513c1c27706885f0fe",
+    "committedAt": "2026-08-13T01:35:04.447Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T01:35:08.421Z",
+    "pullRequest": {
+      "number": 52,
+      "url": "https://github.com/delmacy/system-builder/pull/52",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T01:35:13.853Z",
+      "mergeCommit": "e2668be5ed9a98284cd9079555d0d67216262bad"
+    }
+  }
+}
