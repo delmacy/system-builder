@@ -1,7 +1,7 @@
 ---
 id: TASK-027
 title: Re-prove AgentFactory I1 after hardening
-status: ready
+status: completed
 priority: 51
 milestone: I2-READINESS
 model_tier: architecture
