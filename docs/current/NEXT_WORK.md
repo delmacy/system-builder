@@ -6,9 +6,9 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 
 1. Synchronize local `main` and run `npm ci` plus `npm run verify`.
 2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory/`, `project_docs/agentfactory_i1/` and execution-governance docs.
-3. Create a dedicated branch for TASK-017 and execute only `specs/tasks/TASK-017-AGENTFACTORY-EXECUTION-HARNESS-ENFORCEMENT.md`.
-4. Run declared verification, create/review/merge the task PR and close/reconcile task state/evidence before treating WP-I1-07 as unblocked.
-5. Generate the WP-I1-07 task contract only after TASK-017's enforcement output is accepted. Continue to use actual merged interfaces rather than speculative downstream contracts.
+3. Create a dedicated branch for TASK-018 and execute only `specs/tasks/TASK-018-AGENTFACTORY-INDEPENDENT-VALIDATION-GATE.md`.
+4. Run declared verification, create/review/merge the task PR and close/reconcile task state/evidence before treating WP-I1-08/WP-I1-09 as unblocked.
+5. Generate downstream contracts only after TASK-018's validation receipt is accepted. Continue to use actual merged interfaces rather than speculative downstream contracts.
 6. Generate further I1 implementation task contracts progressively from accepted outputs and the approved WP DAG. Do not pre-invent downstream public interfaces.
 7. Continue through the I1 exit gate, then I2 Sequential Pipeline and I3 Sprint Autonomous.
 8. Return majority development capacity to System Builder after I2/I3; only continue I4–I7 when maturity/dependency evidence justifies it.
