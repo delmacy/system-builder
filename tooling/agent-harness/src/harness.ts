@@ -23,6 +23,7 @@ import {
   type ValidationSnapshot,
 } from "./validation-engine.js";
 import type { ExecutionBoundaryCompletion } from "./execution-harness.js";
+export { buildAgentFactoryEvidence, writeAgentFactoryEvidence } from "./evidence-writer.js";
 
 type PackManifest = {
   taskId: string;
