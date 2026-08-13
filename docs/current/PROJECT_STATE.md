@@ -31,7 +31,7 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 ## Immediate next work
 
 1. Post-I1 review and hardened proof are complete; decision is GO for bounded I2 implementation planning.
-2. Materialize the first I2 coordinator task by rolling wave from `project_docs/agentfactory_i2/SEQUENTIAL_PIPELINE.md`.
+2. Execute TASK-028, the rolling-wave I2 sequential coordinator task materialized from the accepted definition.
 3. Do not execute the documented TASK-004 -> TASK-005 -> TASK-006 chain until the coordinator and gates are integrated.
 4. Do not advance to I3 or parallel execution before the I2 Exit Gate.
 
