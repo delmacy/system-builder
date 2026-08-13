@@ -30,7 +30,9 @@ Prove the smallest end-to-end delivery slice in which one approved READY task ca
 - [x] Generate TASK-021 from the accepted TASK-019 evidence interface and WP-I1-10.
 - [x] TASK-021: ledger/state transition engine.
 - [x] Generate TASK-022 from the accepted TASK-021 ledger receipt and WP-I1-11.
-- [ ] TASK-022: successor readiness recomputation — requires completed TASK-014 and TASK-021.
+- [x] TASK-022: successor readiness recomputation.
+- [x] Generate TASK-023 from the accepted TASK-022 readiness receipt and WP-I1-12.
+- [ ] TASK-023: end-to-end I1 proof — requires all applicable I1 components through TASK-022.
 - [ ] Continue through task-pack builder, model routing, harness enforcement, independent validation, evidence, GitHub lifecycle, ledger/readiness recomputation and end-to-end I1 proof.
 
 ## I1 exit condition

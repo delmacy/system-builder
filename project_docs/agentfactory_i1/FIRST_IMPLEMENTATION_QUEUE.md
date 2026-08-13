@@ -36,7 +36,10 @@ Status: **COMPLETED**. It independently hardens PR/check/review eligibility agai
 Status: **COMPLETED**. It consumes the TASK-012 state contracts and actual TASK-019 append-only evidence envelope to accept only legal, evidence-backed state changes while preserving authoritative state on rejected attempts.
 
 ### TASK-022 — Successor readiness recomputation
-Status: **READY**. It composes the TASK-014 evaluator with accepted TASK-021 ledger receipts and matching TASK-019 gate evidence, changing only affected graph paths and exposing the deterministic READY delta.
+Status: **COMPLETED**. It composes the TASK-014 evaluator with accepted TASK-021 ledger receipts and matching TASK-019 gate evidence, changing only affected graph paths and exposing the deterministic READY delta.
+
+### TASK-023 — I1 end-to-end proof
+Status: **READY**. It composes all actual integrated I1 interfaces in a representative happy path and controlled failure path, producing deterministic proof before the separate I1 Exit Gate assessment.
 
 ## Initial dependency view
 
@@ -60,7 +63,9 @@ Task Pack                    │
               │                       ↓
               │              TASK-021 completed (WP-I1-10 Ledger)
               │                       ↓
-              │              TASK-022 READY (WP-I1-11 Readiness)
+              │              TASK-022 completed (WP-I1-11 Readiness)
+              │                       ↓
+              └────────────→ TASK-023 READY (WP-I1-12 Proof) ← TASK-020 completed
               └────────────→ TASK-020 completed (WP-I1-09 GitHub)
 
 TASK-012 completed -> TASK-016 Model Router — completed
@@ -68,7 +73,7 @@ TASK-012 completed -> TASK-016 Model Router — completed
 ```
 
 ## Selection rule
-Sequential-first operation selects TASK-022. WP-I1-12 remains blocked until TASK-022 is accepted. Product M1 tasks remain outside the active execution focus.
+Sequential-first operation selects TASK-023. I2 and product M1 remain blocked by execution focus until TASK-023 closes and the I1 Exit Gate is explicitly assessed GO.
 
 ## Rolling-wave rule
 Further I1 implementation tasks must be generated after accepted predecessor outputs clarify the concrete interfaces. Use the approved Work Package DAG and actual merged contracts; avoid speculative downstream interfaces.
