@@ -39,7 +39,7 @@ Status: **COMPLETED**. It consumes the TASK-012 state contracts and actual TASK-
 Status: **COMPLETED**. It composes the TASK-014 evaluator with accepted TASK-021 ledger receipts and matching TASK-019 gate evidence, changing only affected graph paths and exposing the deterministic READY delta.
 
 ### TASK-023 — I1 end-to-end proof
-Status: **READY**. It composes all actual integrated I1 interfaces in a representative happy path and controlled failure path, producing deterministic proof before the separate I1 Exit Gate assessment.
+Status: **COMPLETED**. It composes all actual integrated I1 interfaces in a representative happy path and controlled failure path and produced the evidence used by the accepted I1 Exit Gate.
 
 ## Initial dependency view
 
@@ -73,7 +73,7 @@ TASK-012 completed -> TASK-016 Model Router — completed
 ```
 
 ## Selection rule
-Sequential-first operation selects TASK-023. I2 and product M1 remain blocked by execution focus until TASK-023 closes and the I1 Exit Gate is explicitly assessed GO.
+I1 implementation is complete and its Exit Gate is GO. Any I2 work requires a new rolling-wave task contract from the approved I2 plan; product M1 remains outside the active execution focus until explicitly changed.
 
 ## Rolling-wave rule
 Further I1 implementation tasks must be generated after accepted predecessor outputs clarify the concrete interfaces. Use the approved Work Package DAG and actual merged contracts; avoid speculative downstream interfaces.
