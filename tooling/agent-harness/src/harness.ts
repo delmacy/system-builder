@@ -24,6 +24,7 @@ import {
 } from "./validation-engine.js";
 import type { ExecutionBoundaryCompletion } from "./execution-harness.js";
 export { buildAgentFactoryEvidence, writeAgentFactoryEvidence } from "./evidence-writer.js";
+export { applyLedgerTransition } from "./ledger-engine.js";
 
 type PackManifest = {
   taskId: string;
