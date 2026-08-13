@@ -1,0 +1,43 @@
+{
+  "taskId": "TASK-027",
+  "verifiedAt": "2026-08-13T02:33:24.047Z",
+  "baseCommit": "d66831523576badc024f0b23889a36fe3ebfb5d2",
+  "headCommit": "d66831523576badc024f0b23889a36fe3ebfb5d2",
+  "changedFiles": [
+    "docs/evidence/agentfactory/i1/I1PROOF2-d54db8d48d1bcde14ea357875c9184b7dec6b2524d39fa37c76fe05f4664bd9f.json",
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/i1-proof.ts",
+    "tooling/agent-harness/tests/i1-proof.test.ts"
+  ],
+  "taskHash": "3304feb64b2cf86c57727c4be8e2fa7bf80f5c6fc31f464cae547f308ec8063b",
+  "packHash": "cd469ff7f5dd8825a8f747b0eab03a32078563bb674dc02c4bd9c2871a651bee",
+  "changeFingerprint": "975ba1af2e304db92a818ed7e6e203082de46f614fbc3d295b86fd4799bb92a2",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-027",
+    "branch": "task/027-re-prove-agentfactory-i1-after-hardening",
+    "baseBranch": "main",
+    "baseCommit": "d66831523576badc024f0b23889a36fe3ebfb5d2",
+    "remote": "origin",
+    "createdAt": "2026-08-13T02:30:40.027Z",
+    "commit": "f16f304b66fc5d937911f4b3c12a1c9d7e31b7a2",
+    "verifiedFingerprint": "975ba1af2e304db92a818ed7e6e203082de46f614fbc3d295b86fd4799bb92a2",
+    "committedAt": "2026-08-13T02:33:36.238Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T02:33:40.765Z",
+    "pullRequest": {
+      "number": 67,
+      "url": "https://github.com/delmacy/system-builder/pull/67",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T02:33:46.920Z",
+      "mergeCommit": "d164770a206fb4eaceee35ee1c443f866f83fd41"
+    }
+  }
+}
