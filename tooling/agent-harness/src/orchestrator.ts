@@ -1,4 +1,5 @@
 import type { ExecutorAdapter, ExecutorReport } from "./executor.js";
+import type { ExecutorRequest } from "./execution-contracts.js";
 import type { Task } from "./task.js";
 
 export type CheckState = "UNKNOWN" | "PENDING" | "SUCCESS" | "FAILURE";
@@ -70,6 +71,10 @@ export interface OrchestratorHarnessAdapter {
   branch(taskId: string): void;
   prepare(taskId: string): string;
   taskPackPath(taskId: string): string;
+  prepareExecution(taskId: string, attempt: number, executor: string, repair: boolean): {
+    request?: ExecutorRequest;
+    failure?: ExecutorReport;
+  };
   verify(taskId: string): void;
   commit(taskId: string): void;
   push(taskId: string): void;
@@ -227,10 +232,16 @@ export class LocalTaskOrchestrator {
     if (attempt > this.maxExecutionAttempts) return "stop at BLOCKED";
     const executor = this.executors.find((candidate) => candidate.canHandle(snapshot.task));
     if (!executor) return "stop at EXECUTOR_REQUIRED";
+    const preparation = this.harness.prepareExecution(taskId, attempt, executor.name, repair);
+    if (preparation.failure) {
+      this.harness.recordExecution(taskId, preparation.failure);
+      return "execution boundary rejected";
+    }
     const context = {
       task: snapshot.task,
       taskPackPath: this.harness.taskPackPath(taskId),
       attempt,
+      ...(preparation.request ? { request: preparation.request } : {}),
       ...(repair && snapshot.execution.lastVerificationFailure
         ? { verificationFailure: snapshot.execution.lastVerificationFailure }
         : {}),

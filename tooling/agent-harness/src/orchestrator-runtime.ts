@@ -4,6 +4,15 @@ import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import type { ExecutorReport } from "./executor.js";
 import {
+  beginExecutionBoundary,
+  boundaryFailureReport,
+  enforceExecutionDelta,
+  type ExecutionBoundaryCompletion,
+  type ExecutionBoundaryStart,
+  type ExecutionPlan,
+} from "./execution-harness.js";
+import type { ExecutorRequest } from "./execution-contracts.js";
+import {
   branchTask,
   commitStateTask,
   commitTask,
@@ -35,7 +44,13 @@ import { getTask, loadTasks, repoPath, validateTaskCatalog } from "./task.js";
 type Journal = {
   version: 1;
   taskId: string;
-  executions: Array<ExecutorReport & { recordedAt: string }>;
+  executions: Array<ExecutorReport & {
+    recordedAt: string;
+    boundary?: ExecutionBoundaryCompletion["boundary"];
+    changedFiles?: string[];
+    violations?: string[];
+    rawResult?: ExecutorReport["result"];
+  }>;
   lastVerificationFailure?: string;
 };
 
@@ -50,9 +65,12 @@ type GitHubPullRequest = {
 };
 
 export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
+  private readonly activeBoundaries = new Map<string, ExecutionBoundaryStart>();
+
   constructor(
     private readonly root = process.cwd(),
     private readonly ghExecutable = "gh",
+    private readonly executionPlans: Readonly<Record<string, ExecutionPlan>> = {},
   ) {}
 
   inspect(taskId: string): OrchestratorSnapshot {
@@ -110,6 +128,49 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
   branch(taskId: string): void { branchTask(taskId, this.root); }
   prepare(taskId: string): string { return prepareTask(taskId, this.root); }
   taskPackPath(taskId: string): string { return resolve(this.root, ".agent/context", taskId, "TASK_PACK.md"); }
+  prepareExecution(taskId: string, attempt: number, executor: string, repair: boolean): {
+    request?: ExecutorRequest;
+    failure?: ExecutorReport;
+  } {
+    const tasks = loadTasks(this.root);
+    validateTaskCatalog(tasks);
+    const task = getTask(tasks, taskId);
+    try {
+      const plan = this.executionPlans[taskId];
+      if (!plan) throw new Error(`EXECUTION_PLAN_MISSING: no explicit work package/route plan for ${taskId}`);
+      const record = readGitRecord(taskId, this.root);
+      if (!record) throw new Error(`EXECUTION_GIT_IDENTITY_MISSING: no Git task record for ${taskId}`);
+      const manifest = readJson<{ taskId?: string; baseCommit?: string; taskFile?: string; packHash?: string }>(this.contextManifestPath(taskId));
+      if (!manifest?.taskId || !manifest.baseCommit || !manifest.taskFile || !manifest.packHash) {
+        throw new Error(`EXECUTION_PACK_MANIFEST_INVALID: incomplete prepared manifest for ${taskId}`);
+      }
+      const packPath = this.taskPackPath(taskId);
+      if (!existsSync(packPath)) throw new Error(`EXECUTION_PACK_MISSING: no prepared Task Pack for ${taskId}`);
+      const start = beginExecutionBoundary({
+        task,
+        taskFile: manifest.taskFile,
+        recordedTaskId: record.taskId,
+        manifestTaskId: manifest.taskId,
+        plan,
+        executor,
+        attempt,
+        repair,
+        expectedBranch: record.branch,
+        currentBranch: git(["branch", "--show-current"], this.root) || "DETACHED",
+        baseCommit: record.baseCommit,
+        headCommit: git(["rev-parse", "HEAD"], this.root),
+        sourceCommit: manifest.baseCommit,
+        taskPackPath: repoPath(this.root, packPath),
+        taskPackHash: manifest.packHash,
+        actualTaskPackHash: hash(readFileSync(packPath, "utf8")),
+        changedFiles: changedPaths(record.baseCommit, this.root),
+      });
+      this.activeBoundaries.set(taskId, start);
+      return { request: start.request };
+    } catch (error) {
+      return { failure: boundaryFailureReport(task, attempt, executor, error) };
+    }
+  }
   verify(taskId: string): void { verifyTask(taskId, this.root); }
   commit(taskId: string): void { commitTask(taskId, this.root); }
   push(taskId: string): void { pushTask(taskId, this.root); }
@@ -128,8 +189,24 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
 
   recordExecution(taskId: string, report: ExecutorReport): void {
     const journal = this.readJournal(taskId);
-    journal.executions.push({ ...report, recordedAt: new Date().toISOString() });
-    if (report.status === "completed") delete journal.lastVerificationFailure;
+    const start = this.activeBoundaries.get(taskId);
+    const task = getTask(loadTasks(this.root), taskId);
+    const completion = start
+      ? enforceExecutionDelta(start, task, report, changedPaths(start.identity.baseCommit, this.root))
+      : undefined;
+    const enforced = completion?.report ?? report;
+    journal.executions.push({
+      ...enforced,
+      recordedAt: new Date().toISOString(),
+      ...(completion ? {
+        boundary: completion.boundary,
+        changedFiles: completion.changedFiles,
+        violations: completion.violations,
+        ...(completion.rawReport.result ? { rawResult: completion.rawReport.result } : {}),
+      } : {}),
+    });
+    this.activeBoundaries.delete(taskId);
+    if (enforced.status === "completed") delete journal.lastVerificationFailure;
     this.writeJournal(journal);
   }
 

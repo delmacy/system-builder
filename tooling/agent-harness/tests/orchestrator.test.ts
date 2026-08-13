@@ -40,6 +40,40 @@ describe("Local Task Orchestrator", () => {
     assert.deepEqual(harness.actions, ["execute:completed"]);
   });
 
+  it("passes the harness-validated request to the executor and stops on boundary rejection", () => {
+    const request = executorRequestSchema.parse({
+      schema_version: 1,
+      task_id: "TASK-010",
+      work_package_id: "WP-I1-06",
+      source_commit: "a".repeat(40),
+      attempt: 1,
+      task_pack_path: "TASK_PACK.md",
+      route: {
+        risk: "LOW",
+        model_tier: "T1",
+        executor: "opencode",
+        model: "provider/model",
+        architecture_impact: false,
+        decision: "SELECTED",
+        rationale_code: "BOUNDED_LOW_RISK",
+      },
+      scope: { allowed_paths: ["docs/out.md"], forbidden_paths: ["tooling/**"], max_files: 1 },
+      validation_commands: ["npm run test"],
+    });
+    const harness = new FakeHarness(snapshot({ branchExists: true, prepared: true }), false, true, { request });
+    const executor = new FakeExecutor();
+    new LocalTaskOrchestrator(harness, [executor]).advance("TASK-010");
+    assert.deepEqual(executor.contexts[0]?.request, request);
+
+    const failure: ExecutorReport = { executor: "opencode", attempt: 1, status: "failed", summary: "boundary rejected" };
+    const blockedHarness = new FakeHarness(snapshot({ branchExists: true, prepared: true }), false, true, { failure });
+    const blockedExecutor = new FakeExecutor();
+    const result = new LocalTaskOrchestrator(blockedHarness, [blockedExecutor]).advance("TASK-010");
+    assert.equal(result.state, "EXECUTOR_FAILED");
+    assert.equal(blockedExecutor.contexts.length, 0);
+    assert.deepEqual(blockedHarness.actions, ["execute:failed"]);
+  });
+
   it("resumes after commit and push without repeating earlier actions", () => {
     const committed = new FakeHarness(snapshot({ branchExists: true, prepared: true, verificationPassed: true, commit: "abc" }));
     new LocalTaskOrchestrator(committed, []).advance("TASK-010");
@@ -398,6 +432,7 @@ describe("OpenCode executor", () => {
 class FakeExecutor implements ExecutorAdapter {
   readonly name = "opencode";
   repairs = 0;
+  contexts: ExecutorContext[] = [];
   private last?: ExecutorReport;
 
   canHandle(task: Task): boolean { return task.metadata.executor_preference !== "codex"; }
@@ -405,6 +440,7 @@ class FakeExecutor implements ExecutorAdapter {
   repair(context: ExecutorContext): ExecutorReport { this.repairs += 1; return this.complete(context); }
   report(): ExecutorReport | undefined { return this.last; }
   private complete(context: ExecutorContext): ExecutorReport {
+    this.contexts.push(context);
     this.last = {
       executor: this.name,
       attempt: context.attempt,
@@ -432,11 +468,15 @@ class FakeHarness implements OrchestratorHarnessAdapter {
     public value: OrchestratorSnapshot,
     private readonly alwaysFailVerify = false,
     private readonly executorProducesChanges = true,
+    private readonly preparation: { request?: ReturnType<typeof executorRequestSchema.parse>; failure?: ExecutorReport } = {},
   ) {}
   inspect(): OrchestratorSnapshot { return this.value; }
   branch(): void { this.actions.push("branch"); this.value.branchExists = true; }
   prepare(): string { this.actions.push("prepare"); this.value.prepared = true; return "TASK_PACK.md"; }
   taskPackPath(): string { return "TASK_PACK.md"; }
+  prepareExecution(): { request?: ReturnType<typeof executorRequestSchema.parse>; failure?: ExecutorReport } {
+    return this.preparation;
+  }
   verify(): void {
     this.actions.push("verify");
     if (this.alwaysFailVerify) throw new Error("correctable verification error");
