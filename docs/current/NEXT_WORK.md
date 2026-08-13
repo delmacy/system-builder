@@ -6,9 +6,9 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 
 1. Synchronize local `main` and run `npm ci` plus `npm run verify`.
 2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory/`, `project_docs/agentfactory_i1/` and execution-governance docs.
-3. Execute TASK-023 in its dedicated branch and complete implementation plus state closure.
-4. Assess and record every I1 Exit Gate item only from the integrated proof/component/PR evidence.
-5. Advance to I2 only on an explicit I1 GO decision; do not infer GO from task count alone.
+3. Treat I1 as accepted only at integrated baseline `21674b34c55fa024cdc360802065e76ab97fa08d` plus the exit-gate decision PR.
+4. If continuing AgentFactory, materialize the first bounded I2 task by rolling-wave from accepted I1 outputs and the approved I2 Work Packages/DAG.
+5. Do not begin I2 implementation in the I1 gate branch and do not resume product M1 while AgentFactory remains the declared execution focus.
 6. Pass the I1 exit gate before advancing to I2; do not resume product M1 while AgentFactory remains the active focus.
 7. Continue through the I1 exit gate, then I2 Sequential Pipeline and I3 Sprint Autonomous.
 8. Return majority development capacity to System Builder after I2/I3; only continue I4–I7 when maturity/dependency evidence justifies it.

@@ -15,12 +15,12 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 - Agent harness: local TypeScript implementation with bounded task context, task validation, Git/PR controls, deterministic verification and closure mechanisms.
 - OpenCode adapter: TASK-011 argument ordering and TASK-013 structured request/result, timeout and failure hardening are integrated.
 - AgentFactory planning: complete through I1 Work Packages, DAG, governance, task-generation policy and exit gate.
-- AgentFactory implementation queue: TASK-012 through TASK-022 are completed. Their integrated Task Pack, routing, execution, validation, evidence, lifecycle, ledger and readiness interfaces make WP-I1-12 executable as TASK-023.
+- AgentFactory I1 implementation: TASK-012 through TASK-023 are completed, including the deterministic end-to-end happy/failure proof. The I1 Exit Gate is GO on integrated baseline `21674b34c55fa024cdc360802065e76ab97fa08d`.
 - GitHub Actions: confirmation CI remains deterministic; AI execution is local unless a later approved task changes that architecture.
 
 ## Active execution focus
 
-**I1 — AgentFactory Single Task Autonomous.**
+**I1 — AgentFactory Single Task Autonomous — exit gate accepted.**
 
 Goal: prove one bounded READY task can move through task pack, model/executor selection, OpenCode execution, independent validation, evidence/state update and successor readiness without manually reconstructing context.
 
@@ -30,9 +30,9 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Execute TASK-023 — AgentFactory I1 End-to-End Proof — using all actual integrated I1 component interfaces.
-2. Integrate TASK-023 implementation and state closure, then assess every I1 Exit Gate item from repository evidence.
-3. Do not start I2 or resume product M1 unless the I1 Exit Gate is explicitly GO.
+1. Preserve the accepted I1 evidence and do not reopen completed I1 tasks for later discoveries.
+2. Materialize I2 only as separate rolling-wave work from the accepted I1 interfaces and I2 Work Packages when explicitly continuing the AgentFactory focus.
+3. Product M1 remains paused until execution focus is deliberately changed; this gate update does not start either I2 or product work.
 4. Pass the I1 exit gate before any I2 work or return to product M1.
 
 ## Selection warning

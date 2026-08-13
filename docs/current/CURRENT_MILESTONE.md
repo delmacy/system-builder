@@ -32,12 +32,13 @@ Prove the smallest end-to-end delivery slice in which one approved READY task ca
 - [x] Generate TASK-022 from the accepted TASK-021 ledger receipt and WP-I1-11.
 - [x] TASK-022: successor readiness recomputation.
 - [x] Generate TASK-023 from the accepted TASK-022 readiness receipt and WP-I1-12.
-- [ ] TASK-023: end-to-end I1 proof — requires all applicable I1 components through TASK-022.
+- [x] TASK-023: end-to-end I1 proof.
+- [x] I1 Exit Gate assessed GO from integrated proof, task evidence and real PR/check/state-closure evidence.
 - [ ] Continue through task-pack builder, model routing, harness enforcement, independent validation, evidence, GitHub lifecycle, ledger/readiness recomputation and end-to-end I1 proof.
 
 ## I1 exit condition
 
-A pre-approved low-risk task moves from READY to DONE through the full pipeline without manual reconstruction of project context; a controlled failure stops safely without corrupting task/DAG state.
+**Passed.** The TASK-023 representative low-risk proof traverses the actual I1 component chain to DONE and successor readiness; its controlled failure stops with task/DAG preservation. Evidence is indexed in `project_docs/agentfactory_i1/I1_EXIT_GATE.md`.
 
 ## After I1
 
