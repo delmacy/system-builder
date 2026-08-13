@@ -30,8 +30,8 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Execute the bounded post-I1 hardening TASK-024 for durable failure-attempt evidence and observed timing.
-2. Continue the post-I1 review by rolling-wave only for confirmed P1/P2 findings; do not reimplement accepted components broadly.
+1. TASK-024 is completed: durable failure-attempt evidence and observed timing are integrated.
+2. Execute TASK-025 to bind ledger transitions to contemporaneous causal evidence; do not reimplement accepted components broadly.
 3. Re-run the I1 proof after required corrections, then decide GO/NO-GO for I2 and document a real candidate chain.
 4. Do not execute the I2 chain or resume unrelated product work during this readiness review.
 

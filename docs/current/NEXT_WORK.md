@@ -6,8 +6,8 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 
 1. Synchronize local `main` and run `npm ci` plus `npm run verify`.
 2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory/`, `project_docs/agentfactory_i1/` and execution-governance docs.
-3. Execute TASK-024 in its dedicated branch and complete implementation plus state closure.
-4. Materialize the next confirmed hardening task only from the integrated correction interface and post-I1 findings.
+3. TASK-024 implementation and state closure are integrated.
+4. Execute TASK-025 in its dedicated branch, then materialize the next confirmed hardening task only from its integrated interface.
 5. Re-run the complete I1 proof after hardening and publish `POST_I1_REVIEW.md` with the I2 readiness decision.
 6. If I2 is GO, stop before executing the documented A -> B -> C chain.
 
