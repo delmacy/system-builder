@@ -1,7 +1,7 @@
 ---
 id: TASK-015
 title: Implement the AgentFactory Task Pack builder
-status: ready
+status: completed
 priority: 39
 milestone: I1
 model_tier: cheap

@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-015",
+  "verifiedAt": "2026-08-12T23:58:25.364Z",
+  "baseCommit": "fd6c058fed1eee0a71d009e0b81098d34f5a9a28",
+  "headCommit": "fd6c058fed1eee0a71d009e0b81098d34f5a9a28",
+  "changedFiles": [
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/task-pack.ts",
+    "tooling/agent-harness/tests/task-pack.test.ts"
+  ],
+  "taskHash": "80675a80ed042a336671fcda3a73646c3a4475edcbb66ee745a356f4857c5a05",
+  "packHash": "558d2cbea92d3f7e3764a19fc0787fe99ab6eadf7644c31888507f0e8b951157",
+  "changeFingerprint": "ffbf192efc02af6b1ac089603b6a61a3c83f446d5b0d5ba2680ea3e97b82d9c8",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-015",
+    "branch": "task/015-implement-the-agentfactory-task-pack-builder",
+    "baseBranch": "main",
+    "baseCommit": "fd6c058fed1eee0a71d009e0b81098d34f5a9a28",
+    "remote": "origin",
+    "createdAt": "2026-08-12T23:55:07.698Z",
+    "commit": "0961e1c470e29513e07e2e03ad7af8fc4013639b",
+    "verifiedFingerprint": "ffbf192efc02af6b1ac089603b6a61a3c83f446d5b0d5ba2680ea3e97b82d9c8",
+    "committedAt": "2026-08-12T23:58:32.974Z",
+    "pushed": true,
+    "pushedAt": "2026-08-12T23:58:36.813Z",
+    "pullRequest": {
+      "number": 30,
+      "url": "https://github.com/delmacy/system-builder/pull/30",
+      "state": "MERGED",
+      "openedAt": "2026-08-12T23:58:41.660Z",
+      "mergeCommit": "db77f630c29a9d5c5a2b070a094113586e6f0d16"
+    }
+  }
+}
