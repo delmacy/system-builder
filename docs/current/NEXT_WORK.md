@@ -8,7 +8,7 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory/`, `project_docs/agentfactory_i1/` and execution-governance docs.
 3. TASK-024 implementation and state closure are integrated.
 4. TASK-025 implementation and state closure are integrated.
-5. Execute TASK-026 in its dedicated branch, then re-run the complete I1 proof after hardening and publish `POST_I1_REVIEW.md` with the I2 readiness decision.
+5. TASK-026 implementation and state closure are integrated; execute TASK-027, then publish `POST_I1_REVIEW.md` with the I2 readiness decision.
 6. If I2 is GO, stop before executing the documented A -> B -> C chain.
 
 ## Per-task loop
