@@ -1,0 +1,27 @@
+{
+  "schema_version": 2,
+  "predecessor_proof_id": "I1PROOF-974820449e4976808d8fec2846083b9d20f2ee6a9587d74dce0cc70e9481fce7",
+  "happy_path": {
+    "final_state": "DONE",
+    "newly_ready": [
+      "TASK-901"
+    ],
+    "causal_attempt_receipt": "AFATT-d09a083319360258ae30db35c535d62f2efd22590f3b166643b34fa0675d096f"
+  },
+  "failure": {
+    "status": "BLOCKED",
+    "receipt_id": "AFATT-4e2269abc8f5ecc144cf561d3f1fd1f5ce889d98cc445360772343f28b1718e9",
+    "failure_category": "EXECUTION_SCOPE_VIOLATION",
+    "ledger_transition_accepted": true,
+    "done_rejected": true,
+    "task_preserved": true,
+    "graph_preserved": true
+  },
+  "state_lifecycle": {
+    "raw_state": "MERGED",
+    "decision": "BLOCKED",
+    "identity_mismatch": true
+  },
+  "proof_id": "I1PROOF2-d54db8d48d1bcde14ea357875c9184b7dec6b2524d39fa37c76fe05f4664bd9f",
+  "content_sha256": "d54db8d48d1bcde14ea357875c9184b7dec6b2524d39fa37c76fe05f4664bd9f"
+}
