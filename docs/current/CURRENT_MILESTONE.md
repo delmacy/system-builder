@@ -47,7 +47,8 @@ Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autono
 ## Post-I1 readiness review
 
 - [x] Audit found no known P0.
-- [ ] TASK-024: persist durable success/failure attempt evidence with observed timing (P1/P2).
+- [x] TASK-024: persist durable success/failure attempt evidence with observed timing (P1/P2).
+- [ ] TASK-025: bind ledger transitions to contemporaneous causal evidence (P1).
 - [ ] Correct remaining confirmed P1/P2 findings by rolling-wave.
 - [ ] Re-run the I1 happy/failure proof and decide GO/NO-GO for I2 without executing the I2 chain.
 
