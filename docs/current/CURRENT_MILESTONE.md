@@ -28,7 +28,9 @@ Prove the smallest end-to-end delivery slice in which one approved READY task ca
 - [x] TASK-019: append-only evidence writer.
 - [x] TASK-020: hardened GitHub lifecycle adapter.
 - [x] Generate TASK-021 from the accepted TASK-019 evidence interface and WP-I1-10.
-- [ ] TASK-021: ledger/state transition engine — requires completed TASK-012 and TASK-019.
+- [x] TASK-021: ledger/state transition engine.
+- [x] Generate TASK-022 from the accepted TASK-021 ledger receipt and WP-I1-11.
+- [ ] TASK-022: successor readiness recomputation — requires completed TASK-014 and TASK-021.
 - [ ] Continue through task-pack builder, model routing, harness enforcement, independent validation, evidence, GitHub lifecycle, ledger/readiness recomputation and end-to-end I1 proof.
 
 ## I1 exit condition

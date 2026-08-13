@@ -33,7 +33,10 @@ Status: **COMPLETED**. It composes TASK-017 execution and TASK-018 validation in
 Status: **COMPLETED**. It independently hardens PR/check/review eligibility against the TASK-017/018 identity and validation outputs.
 
 ### TASK-021 — Ledger/state transition engine
-Status: **READY**. It consumes the TASK-012 state contracts and actual TASK-019 append-only evidence envelope to accept only legal, evidence-backed state changes while preserving authoritative state on rejected attempts.
+Status: **COMPLETED**. It consumes the TASK-012 state contracts and actual TASK-019 append-only evidence envelope to accept only legal, evidence-backed state changes while preserving authoritative state on rejected attempts.
+
+### TASK-022 — Successor readiness recomputation
+Status: **READY**. It composes the TASK-014 evaluator with accepted TASK-021 ledger receipts and matching TASK-019 gate evidence, changing only affected graph paths and exposing the deterministic READY delta.
 
 ## Initial dependency view
 
@@ -55,7 +58,9 @@ Task Pack                    │
        WP-I1-07 Independent Validation
               ├────────────→ TASK-019 completed (WP-I1-08 Evidence)
               │                       ↓
-              │              TASK-021 READY (WP-I1-10 Ledger)
+              │              TASK-021 completed (WP-I1-10 Ledger)
+              │                       ↓
+              │              TASK-022 READY (WP-I1-11 Readiness)
               └────────────→ TASK-020 completed (WP-I1-09 GitHub)
 
 TASK-012 completed -> TASK-016 Model Router — completed
@@ -63,7 +68,7 @@ TASK-012 completed -> TASK-016 Model Router — completed
 ```
 
 ## Selection rule
-Sequential-first operation selects TASK-021. WP-I1-11 remains blocked until TASK-021 is accepted. Product M1 tasks remain outside the active execution focus.
+Sequential-first operation selects TASK-022. WP-I1-12 remains blocked until TASK-022 is accepted. Product M1 tasks remain outside the active execution focus.
 
 ## Rolling-wave rule
 Further I1 implementation tasks must be generated after accepted predecessor outputs clarify the concrete interfaces. Use the approved Work Package DAG and actual merged contracts; avoid speculative downstream interfaces.
