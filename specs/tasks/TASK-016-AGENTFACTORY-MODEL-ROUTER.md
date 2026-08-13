@@ -1,7 +1,7 @@
 ---
 id: TASK-016
 title: Implement the AgentFactory model router
-status: ready
+status: completed
 priority: 40
 milestone: I1
 model_tier: cheap
