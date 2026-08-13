@@ -23,7 +23,10 @@ Prove the smallest end-to-end delivery slice in which one approved READY task ca
 - [x] Generate TASK-017 from accepted predecessor outputs and WP-I1-06.
 - [x] TASK-017: execution harness enforcement.
 - [x] Generate TASK-018 from the accepted TASK-017 output and WP-I1-07.
-- [ ] TASK-018: independent validation gate — requires completed TASK-017.
+- [x] TASK-018: independent validation gate.
+- [x] Generate TASK-019/TASK-020 from the accepted TASK-018 output and WP-I1-08/WP-I1-09.
+- [ ] TASK-019: append-only evidence writer — requires completed TASK-012 and TASK-018.
+- [ ] TASK-020: hardened GitHub lifecycle adapter — requires completed TASK-017 and TASK-018.
 - [ ] Continue through task-pack builder, model routing, harness enforcement, independent validation, evidence, GitHub lifecycle, ledger/readiness recomputation and end-to-end I1 proof.
 
 ## I1 exit condition
