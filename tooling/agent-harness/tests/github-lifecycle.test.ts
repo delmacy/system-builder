@@ -134,4 +134,23 @@ describe("AgentFactory GitHub lifecycle", () => {
     assert.equal(observation.lifecycle?.decision, "BLOCKED");
     assert.deepEqual(observation.lifecycle?.reason_codes, ["CHECK_MISSING", "REVIEW_MISSING"]);
   });
+
+  it("accepts valid durable approval in lieu of a missing GitHub review", () => {
+    const receipt = evaluateGitHubLifecycle({ ...base, review: "NONE", humanApproval: { decision: "VALID", approval_id: `HAPR-${"b".repeat(64)}`, reason_codes: [] } });
+    assert.equal(receipt.decision, "ELIGIBLE");
+    assert.equal(receipt.review, "NONE");
+    assert.equal(receipt.approval_channel, "DURABLE_HUMAN_APPROVAL");
+  });
+
+  it("never lets durable approval override required CI", () => {
+    const receipt = evaluateGitHubLifecycle({ ...base, review: "NONE", checks: [], humanApproval: { decision: "VALID", approval_id: `HAPR-${"b".repeat(64)}`, reason_codes: [] } });
+    assert.equal(receipt.decision, "BLOCKED");
+    assert.ok(receipt.reason_codes.includes("CHECK_MISSING"));
+  });
+
+  it("does not infer approval for a historical merge", () => {
+    const receipt = evaluateGitHubLifecycle({ ...base, state: "MERGED", review: "NONE" });
+    assert.equal(receipt.decision, "REVIEW_REQUIRED");
+    assert.equal(receipt.approval_channel, "NONE");
+  });
 });

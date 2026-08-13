@@ -37,6 +37,7 @@ import {
   type GitHubLifecycleCheck,
   type GitHubLifecycleReceipt,
 } from "./github-lifecycle.js";
+import { evaluateStoredHumanApproval, type HumanApprovalEvaluation } from "./human-approval.js";
 import type {
   CheckState,
   ExecutionObservation,
@@ -45,7 +46,7 @@ import type {
   PullRequestObservation,
   ReviewState,
 } from "./orchestrator.js";
-import { getTask, loadTasks, repoPath, validateTaskCatalog } from "./task.js";
+import { getTask, loadTasks, repoPath, validateTaskCatalog, type Task } from "./task.js";
 
 type Journal = {
   version: 1;
@@ -106,7 +107,7 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
       ? safely(() => changedPaths(manifest.baseCommit!, this.root).filter((file) => file !== repoPath(this.root, task.file)).length > 0) ?? false
       : false;
     const implementationPr = gitRecord?.pullRequest
-      ? this.observeImplementationPullRequest(gitRecord, receipt?.validationGate?.decision ?? (receipt?.status === "passed" ? "PASS" : "FAIL"))
+      ? this.observeImplementationPullRequest(task, gitRecord, receipt?.validationGate?.decision ?? (receipt?.status === "passed" ? "PASS" : "FAIL"))
       : gitRecord?.pushed ? this.discoverPullRequest(gitRecord.branch, (pullRequest) => {
         gitRecord.pullRequest = pullRequest;
         writeGitRecord(gitRecord, this.root);
@@ -117,13 +118,14 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
         requiredChecks: this.requiredChecks,
         validation: receipt?.validationGate?.decision ?? (receipt?.status === "passed" ? "PASS" : "FAIL"),
         reviewRequired: this.reviewRequired,
+        humanApproval: this.approvalFor(task, pr, gitRecord.branch, gitRecord.baseBranch, gitRecord.commit ?? "f".repeat(40)),
       })) : undefined;
     const statePr = stateRecord?.pullRequest
-      ? this.observeStatePullRequest(stateRecord)
+      ? this.observeStatePullRequest(task, stateRecord)
       : stateRecord?.pushed ? this.discoverPullRequest(stateRecord.branch, (pullRequest) => {
         stateRecord.pullRequest = pullRequest;
         writeStateRecord(stateRecord, this.root);
-      }, (pr) => this.deriveStatePullRequest(pr, stateRecord)) : undefined;
+      }, (pr) => this.deriveStatePullRequest(task, pr, stateRecord)) : undefined;
     return {
       task,
       dependenciesCompleted: task.metadata.depends_on.every((id) => completed.has(id)),
@@ -257,6 +259,7 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
   }
 
   private observeImplementationPullRequest(
+    task: Task,
     gitRecord: GitTaskRecord,
     validation: "PASS" | "FAIL" | "REVIEW_REQUIRED",
   ): PullRequestObservation {
@@ -277,10 +280,11 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
       requiredChecks: this.requiredChecks,
       validation,
       reviewRequired: this.reviewRequired,
+      humanApproval: this.approvalFor(task, pr, gitRecord.branch, gitRecord.baseBranch, gitRecord.commit ?? "f".repeat(40)),
     });
   }
 
-  private observeStatePullRequest(record: StateTaskRecord): PullRequestObservation {
+  private observeStatePullRequest(task: Task, record: StateTaskRecord): PullRequestObservation {
     if (!record.pullRequest) throw new Error(`Cannot observe state PR without a recorded PR for ${record.taskId}`);
     const result = spawnSync(this.ghExecutable, [
       "pr", "view", String(record.pullRequest.number),
@@ -289,17 +293,32 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
     if (result.error || result.status !== 0) {
       throw new Error(`Cannot observe PR #${record.pullRequest.number}: ${result.error?.message || result.stderr || `exit ${result.status}`}`);
     }
-    return this.deriveStatePullRequest(JSON.parse(result.stdout) as GitHubPullRequest, record);
+    return this.deriveStatePullRequest(task, JSON.parse(result.stdout) as GitHubPullRequest, record);
   }
 
-  private deriveStatePullRequest(pr: GitHubPullRequest, record: StateTaskRecord): PullRequestObservation {
+  private deriveStatePullRequest(task: Task, pr: GitHubPullRequest, record: StateTaskRecord): PullRequestObservation {
     if (!record.commit) throw new Error(`Cannot observe state PR without a recorded commit for ${record.taskId}`);
     return deriveStateGitHubLifecycleObservation(pr, {
       branch: record.branch,
       headCommit: record.commit,
       requiredChecks: this.requiredChecks,
       reviewRequired: this.reviewRequired,
+      humanApproval: this.approvalFor(task, pr, record.branch, "main", record.commit),
     });
+  }
+
+  private approvalFor(task: Task, pr: GitHubPullRequest, headRef: string, baseRef: string, headSha: string): HumanApprovalEvaluation {
+    return evaluateStoredHumanApproval(this.root, {
+      repository: this.repositoryIdentity(), taskId: task.metadata.id, risk: task.metadata.risk,
+      architectureImpact: task.metadata.architecture_impact, prNumber: pr.number,
+      baseRef, headRef, headSha, observedAt: new Date().toISOString(),
+    });
+  }
+
+  private repositoryIdentity(): string {
+    const remote = git(["config", "--get", "remote.origin.url"], this.root);
+    const match = remote.replace(/\\/g, "/").match(/(?:github\.com[:/])([^/]+\/[^/]+?)(?:\.git)?$/i);
+    return match?.[1] ?? remote;
   }
 
   private discoverPullRequest(
@@ -396,6 +415,7 @@ export function deriveGitHubLifecycleObservation(
     requiredChecks: readonly string[];
     validation: "PASS" | "FAIL" | "REVIEW_REQUIRED";
     reviewRequired: boolean;
+    humanApproval?: HumanApprovalEvaluation;
   },
 ): PullRequestObservation {
   const state = pullRequestState(pr.state);
@@ -413,6 +433,7 @@ export function deriveGitHubLifecycleObservation(
     validation: expected.validation,
     review: lifecycleReviewState(pr.reviewDecision),
     reviewRequired: expected.reviewRequired,
+    ...(expected.humanApproval ? { humanApproval: expected.humanApproval } : {}),
   });
   return {
     number: pr.number,
@@ -432,6 +453,7 @@ export function deriveStateGitHubLifecycleObservation(
     headCommit: string;
     requiredChecks: readonly string[];
     reviewRequired: boolean;
+    humanApproval?: HumanApprovalEvaluation;
   },
 ): PullRequestObservation {
   return deriveGitHubLifecycleObservation(pr, {
