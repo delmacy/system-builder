@@ -1,7 +1,7 @@
 ---
 id: TASK-021
 title: Implement the AgentFactory ledger state transition engine
-status: ready
+status: completed
 priority: 45
 milestone: I1
 model_tier: cheap
