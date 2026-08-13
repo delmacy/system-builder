@@ -30,10 +30,10 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Preserve the accepted I1 evidence and do not reopen completed I1 tasks for later discoveries.
-2. Materialize I2 only as separate rolling-wave work from the accepted I1 interfaces and I2 Work Packages when explicitly continuing the AgentFactory focus.
-3. Product M1 remains paused until execution focus is deliberately changed; this gate update does not start either I2 or product work.
-4. Pass the I1 exit gate before any I2 work or return to product M1.
+1. Execute the bounded post-I1 hardening TASK-024 for durable failure-attempt evidence and observed timing.
+2. Continue the post-I1 review by rolling-wave only for confirmed P1/P2 findings; do not reimplement accepted components broadly.
+3. Re-run the I1 proof after required corrections, then decide GO/NO-GO for I2 and document a real candidate chain.
+4. Do not execute the I2 chain or resume unrelated product work during this readiness review.
 
 ## Selection warning
 

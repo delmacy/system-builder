@@ -44,6 +44,13 @@ Prove the smallest end-to-end delivery slice in which one approved READY task ca
 
 Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autonomous. I2/I3 are the intended point at which AgentFactory becomes useful enough to return the majority of development capacity to System Builder product work. I4–I7 remain maturity-gated and should not delay product work unless their capabilities are required.
 
+## Post-I1 readiness review
+
+- [x] Audit found no known P0.
+- [ ] TASK-024: persist durable success/failure attempt evidence with observed timing (P1/P2).
+- [ ] Correct remaining confirmed P1/P2 findings by rolling-wave.
+- [ ] Re-run the I1 happy/failure proof and decide GO/NO-GO for I2 without executing the I2 chain.
+
 ## Product M1
 
 M1 Vertical Contract Spine remains a valid ready product milestone. TASK-010 and TASK-004 are not cancelled; they are temporarily outside the current execution focus while AgentFactory ignition is built.
