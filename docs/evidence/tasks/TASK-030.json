@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-030",
+  "verifiedAt": "2026-08-13T03:39:10.445Z",
+  "baseCommit": "9d8236d3b89980c3055fb769ac0fb0fcd2745b23",
+  "headCommit": "9d8236d3b89980c3055fb769ac0fb0fcd2745b23",
+  "changedFiles": [
+    "tooling/agent-harness/src/human-approval.ts",
+    "tooling/agent-harness/tests/github-lifecycle.test.ts",
+    "tooling/agent-harness/tests/human-approval.test.ts"
+  ],
+  "taskHash": "ab6e068f657d8fdd451a0c5e5e188e63dae38cfa53d024dc577e26c5fc042e31",
+  "packHash": "2e8daf9159f1c59a0ce1df864620632dacb52d682dd5617d6a76cd14733f2b6e",
+  "changeFingerprint": "f6e3248af69ec8f2711cdb028f98f04aa9b1e128dc0c0b64d39a2b5a0b905ed6",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-030",
+    "branch": "task/030-correct-agentfactory-approval-policy-channel-semantics",
+    "baseBranch": "main",
+    "baseCommit": "9d8236d3b89980c3055fb769ac0fb0fcd2745b23",
+    "remote": "origin",
+    "createdAt": "2026-08-13T03:37:55.903Z",
+    "commit": "d61bc3c81385864e767a58cad202601f64592ce2",
+    "verifiedFingerprint": "f6e3248af69ec8f2711cdb028f98f04aa9b1e128dc0c0b64d39a2b5a0b905ed6",
+    "committedAt": "2026-08-13T03:39:17.206Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T03:39:21.462Z",
+    "pullRequest": {
+      "number": 78,
+      "url": "https://github.com/delmacy/system-builder/pull/78",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T03:39:27.368Z",
+      "mergeCommit": "770d30f0acf5d15082466f8cd5b3e128bfcf5fc1"
+    }
+  }
+}
