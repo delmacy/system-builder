@@ -15,10 +15,13 @@ Status: **COMPLETED**. The adapter now consumes versioned requests when supplied
 Status: **COMPLETED**. Deterministic graph validation, ordering and READY/BLOCKED explanations are integrated.
 
 ### TASK-015 — Task Pack builder
-Status: **READY**. It consumes the actual TASK-012 contracts and TASK-014 readiness output to materialize reproducible bounded executor context.
+Status: **COMPLETED**. It materializes reproducible bounded executor context from the actual TASK-012/TASK-014 outputs.
 
 ### TASK-016 — Model Router v1
-Status: **READY**. It consumes the actual TASK-012 route vocabulary and approved routing policy without runtime LLM decisions.
+Status: **COMPLETED**. It deterministically selects or blocks/escalates an explicit TASK-012 execution route.
+
+### TASK-017 — Execution harness enforcement
+Status: **READY**. It binds the accepted TASK-013/015/016 outputs around one executor invocation and fails closed on workspace, identity, pack, route or repository-delta violations.
 
 ## Initial dependency view
 
@@ -29,17 +32,19 @@ TASK-012 Execution Contracts — completed
 TASK-014 completed       TASK-013 completed
 DAG/READY                OpenCode Hardening
       ↓                      │
-TASK-015 READY               │
+TASK-015 completed           │
 Task Pack                    │
       └──────────┬───────────┘
                  ↓
+       TASK-017 READY
        WP-I1-06 Harness Enforcement
 
-TASK-012 completed -> TASK-016 Model Router — READY
+TASK-012 completed -> TASK-016 Model Router — completed
+                              └───────────────→ TASK-017 READY
 ```
 
 ## Selection rule
-Sequential-first operation selects TASK-015 next because it is on the I1 critical chain. TASK-016 is independently READY and must be accepted before the later WP-I1-06 harness-enforcement integration task is generated/executed. Parallel work remains optional, never inferred from numbering.
+Sequential-first operation selects TASK-017. WP-I1-07 remains blocked until TASK-017 implementation and state evidence are accepted. Product M1 tasks remain outside the active execution focus.
 
 ## Rolling-wave rule
 Further I1 implementation tasks must be generated after accepted predecessor outputs clarify the concrete interfaces. Use the approved Work Package DAG and actual merged contracts; avoid speculative downstream interfaces.
