@@ -32,6 +32,7 @@ export {
 export { applyLedgerTransition, buildLedgerTransitionEvent } from "./ledger-engine.js";
 export { recomputeSuccessorReadiness } from "./readiness-recompute.js";
 export { buildPostHardeningI1Proof, buildRepresentativeI1Proof, writeI1Proof, writePostHardeningI1Proof } from "./i1-proof.js";
+export { SequentialPipelineCoordinator, sequentialObservationSchema, sequentialPlanSchema, sequentialReceiptSchema } from "./sequential-pipeline.js";
 
 type PackManifest = {
   taskId: string;
