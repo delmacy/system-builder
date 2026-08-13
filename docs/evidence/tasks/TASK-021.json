@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-021",
+  "verifiedAt": "2026-08-13T01:15:08.899Z",
+  "baseCommit": "65be05df87a4c4fc8a3253960d29009af15850b8",
+  "headCommit": "65be05df87a4c4fc8a3253960d29009af15850b8",
+  "changedFiles": [
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/ledger-engine.ts",
+    "tooling/agent-harness/tests/ledger-engine.test.ts"
+  ],
+  "taskHash": "6e95fbe89adde6280143faf9295263cc6df5e44fc164c320aa3d78acf68f4a90",
+  "packHash": "d43dfbe3cd1f2e8c7f9ab34296de49dc1e5a32d67df2096f5aeaf57211947996",
+  "changeFingerprint": "bfb255148ae062ed7f0d152d7f8c6257af27413687dc1c6e04f49006740dea30",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-021",
+    "branch": "task/021-implement-the-agentfactory-ledger-state-transition-engin",
+    "baseBranch": "main",
+    "baseCommit": "65be05df87a4c4fc8a3253960d29009af15850b8",
+    "remote": "origin",
+    "createdAt": "2026-08-13T01:11:52.712Z",
+    "commit": "4074e2d30fe32e856274ba817c1507407ed76db6",
+    "verifiedFingerprint": "bfb255148ae062ed7f0d152d7f8c6257af27413687dc1c6e04f49006740dea30",
+    "committedAt": "2026-08-13T01:15:19.131Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T01:15:22.877Z",
+    "pullRequest": {
+      "number": 46,
+      "url": "https://github.com/delmacy/system-builder/pull/46",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T01:15:27.726Z",
+      "mergeCommit": "e57c05abb9ab9168daee23f9b8e3416badffb574"
+    }
+  }
+}
