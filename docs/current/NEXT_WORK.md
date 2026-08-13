@@ -6,10 +6,10 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 
 1. Synchronize local `main` and run `npm ci` plus `npm run verify`.
 2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory/`, `project_docs/agentfactory_i1/` and execution-governance docs.
-3. Execute TASK-019 in its dedicated branch and complete implementation plus state closure.
-4. Execute independent TASK-020 in its own branch after synchronizing `main`.
-5. Materialize WP-I1-10 only from the accepted TASK-019 evidence interface; do not speculate on later state/readiness contracts.
-6. Generate further I1 implementation task contracts progressively from accepted outputs and the approved WP DAG. Do not pre-invent downstream public interfaces.
+3. Execute TASK-021 in its dedicated branch and complete implementation plus state closure.
+4. Materialize WP-I1-11 only from the accepted TASK-021 ledger receipt; do not speculate on its readiness interface.
+5. Materialize WP-I1-12 only after WP-I1-11 is integrated, using all actual I1 interfaces including TASK-020.
+6. Pass the I1 exit gate before advancing to I2; do not resume product M1 while AgentFactory remains the active focus.
 7. Continue through the I1 exit gate, then I2 Sequential Pipeline and I3 Sprint Autonomous.
 8. Return majority development capacity to System Builder after I2/I3; only continue I4–I7 when maturity/dependency evidence justifies it.
 
