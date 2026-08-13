@@ -1,7 +1,7 @@
 ---
 id: TASK-017
 title: Enforce the AgentFactory execution boundary
-status: ready
+status: completed
 priority: 41
 milestone: I1
 model_tier: cheap
