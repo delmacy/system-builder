@@ -24,7 +24,9 @@ context_paths:
   - tooling/agent-harness/src/orchestrator-runtime.ts
 allowed_paths:
   - tooling/agent-harness/src/orchestrator-runtime.ts
+  - tooling/agent-harness/src/orchestrator.ts
   - tooling/agent-harness/tests/github-lifecycle.test.ts
+  - tooling/agent-harness/tests/orchestrator.test.ts
   - specs/tasks/TASK-026-AGENTFACTORY-STATE-PR-IDENTITY.md
 forbidden_paths:
   - packages/**
@@ -36,9 +38,8 @@ forbidden_paths:
   - tooling/agent-harness/src/ledger-engine.ts
   - tooling/agent-harness/src/github-lifecycle.ts
   - tooling/agent-harness/src/git-workflow.ts
-  - tooling/agent-harness/src/orchestrator.ts
   - tooling/agent-harness/src/i1-proof.ts
-max_files: 2
+max_files: 4
 validation:
   - npm run verify
 ---
@@ -57,7 +58,7 @@ TASK-020 integrated a hardened GitHub lifecycle receipt and the runtime uses it 
 
 # Required change
 
-Route both recorded and newly discovered state-closure PRs through `deriveGitHubLifecycleObservation`, using the state record's exact branch and commit, base `main`, configured required checks, PASS closure validation and configured review requirement. Request the complete GitHub identity fields when observing an existing state PR. Remove the now-unused legacy observation path if no caller remains. Preserve fail-closed lifecycle mapping.
+Route both recorded and newly discovered state-closure PRs through `deriveGitHubLifecycleObservation`, using the state record's exact branch and commit, base `main`, configured required checks, PASS closure validation and configured review requirement. Request the complete GitHub identity fields when observing an existing state PR. Remove the now-unused legacy observation path if no caller remains. Make state delivery require an eligible hardened lifecycle receipt before a raw `MERGED` observation can lead to synchronization or DONE. Preserve fail-closed lifecycle mapping.
 
 # Inputs / contracts
 
@@ -74,6 +75,7 @@ A hardened `PullRequestObservation` with TASK-020 lifecycle receipt for every re
 - Required review is applied consistently to state and implementation PRs.
 - Recorded and discovered state PRs use the same hardened derivation path.
 - Wrong branch, base or head produces `IDENTITY_MISMATCH` and cannot lead to DONE/state synchronization.
+- A raw merged state with a blocked or missing lifecycle receipt remains blocked rather than bypassing identity gates.
 - Tests cover matching state identity and each mismatch class through the state-specific adapter path.
 - `npm run verify` passes.
 
