@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-022",
+  "verifiedAt": "2026-08-13T01:23:36.379Z",
+  "baseCommit": "cff0554d80d2d1e17c876fdcecaee8a819175c67",
+  "headCommit": "cff0554d80d2d1e17c876fdcecaee8a819175c67",
+  "changedFiles": [
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/readiness-recompute.ts",
+    "tooling/agent-harness/tests/readiness-recompute.test.ts"
+  ],
+  "taskHash": "2c66f4b4e28c6bb3850881066d7a62388a161fba63e192784513c077fa5a8361",
+  "packHash": "f33afc3f522482a90179ac5daccf3d6fe967e4178df5923d83582a7b46a13fd7",
+  "changeFingerprint": "a4c9e917d21b483ba1fe4cb2779fbb104262ca79b8cc52fac4cd74752edc93a9",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-022",
+    "branch": "task/022-implement-agentfactory-successor-readiness-recomputation",
+    "baseBranch": "main",
+    "baseCommit": "cff0554d80d2d1e17c876fdcecaee8a819175c67",
+    "remote": "origin",
+    "createdAt": "2026-08-13T01:20:47.739Z",
+    "commit": "988805c785b53b1e2b5d985615ebeacf6d2f5c4c",
+    "verifiedFingerprint": "a4c9e917d21b483ba1fe4cb2779fbb104262ca79b8cc52fac4cd74752edc93a9",
+    "committedAt": "2026-08-13T01:23:43.476Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T01:23:47.336Z",
+    "pullRequest": {
+      "number": 49,
+      "url": "https://github.com/delmacy/system-builder/pull/49",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T01:23:52.786Z",
+      "mergeCommit": "00ee9b97754500f31f2b4d5ddd868a9c7d4f2a78"
+    }
+  }
+}

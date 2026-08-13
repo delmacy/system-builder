@@ -1,7 +1,7 @@
 ---
 id: TASK-022
 title: Implement AgentFactory successor readiness recomputation
-status: ready
+status: completed
 priority: 46
 milestone: I1
 model_tier: cheap
