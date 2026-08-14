@@ -6,6 +6,7 @@ import { z } from "zod";
 import { matchesAny } from "./glob.js";
 import { humanApprovalPolicySchema } from "./human-approval.js";
 import type { TaskMetadata } from "./task.js";
+import type { ValidationGateReceipt } from "./validation-engine.js";
 
 const sha = z.string().regex(/^[0-9a-f]{40}$/);
 const hash = z.string().regex(/^[0-9a-f]{64}$/);
@@ -142,7 +143,7 @@ export const packageRevocationReceiptSchema = revocationSemanticSchema.extend({
   signature: z.string().min(1),
 }).strict();
 
-export const packageUseReceiptSchema = z.object({
+const packageUseReceiptV1Schema = z.object({
   schema_version: z.literal(1),
   use_id: z.string().regex(/^PUSE-[0-9a-f]{64}$/),
   package_id: packageId,
@@ -163,6 +164,48 @@ export const packageUseReceiptSchema = z.object({
   decision: z.literal("VALID"),
 }).strict();
 
+export const packageAdditiveTestEvidenceSchema = z.object({
+  path: relativePattern,
+  mode: z.enum(["NEW_FILE", "PREFIX_APPEND"]),
+  baseline_blob_oid: sha.nullable(),
+  baseline_sha256: hash.nullable(),
+  head_blob_oid: sha,
+  head_sha256: hash,
+}).strict();
+
+export const packageAdditiveTestAuthorizationSchema = z.object({
+  schema_version: z.literal(1),
+  classification: z.literal("ADDITIVE_TEST"),
+  baseline_commit: sha,
+  head_commit: sha,
+  evaluator_paths: z.array(packageAdditiveTestEvidenceSchema).min(1),
+}).strict();
+
+const packageUseReceiptV2Schema = z.object({
+  schema_version: z.literal(2),
+  use_id: z.string().regex(/^PUSE-[0-9a-f]{64}$/),
+  package_id: packageId,
+  package_version: semver,
+  plan_hash: hash,
+  descriptor_id: descriptorId,
+  task_id: taskId,
+  action: z.literal("IMPLEMENTATION_PR"),
+  source_commit: sha,
+  pr_number: z.number().int().positive(),
+  base_ref: z.string().min(1),
+  head_ref: z.string().min(1),
+  head_sha: sha,
+  validation: z.literal("REVIEW_REQUIRED"),
+  validation_reason_codes: z.tuple([z.literal("EVALUATOR_CHANGED")]),
+  additive_test_authorization: packageAdditiveTestAuthorizationSchema,
+  checks: z.array(check).min(1),
+  previous_use_id: z.string().regex(/^PUSE-[0-9a-f]{64}$/).nullable(),
+  evaluated_at: timestamp,
+  decision: z.literal("VALID"),
+}).strict();
+
+export const packageUseReceiptSchema = z.discriminatedUnion("schema_version", [packageUseReceiptV1Schema, packageUseReceiptV2Schema]);
+
 const reasonCode = z.enum([
   "POLICY_INVALID", "PACKAGE_BINDING_MISSING", "PACKAGE_STORE_MISSING", "PLAN_INVALID", "APPROVAL_MISSING",
   "APPROVAL_INVALID", "IDENTITY_MISMATCH", "APPROVER_UNAUTHORIZED", "DECISION_REJECTED", "APPROVAL_FUTURE",
@@ -172,6 +215,7 @@ const reasonCode = z.enum([
   "MODEL_TIER_MISMATCH", "VALIDATION_DRIFT", "GOVERNANCE_DRIFT", "BASELINE_DIVERGED", "PROTECTED_BASELINE_CHANGED",
   "USE_CHAIN_INVALID", "DESCRIPTOR_ALREADY_USED", "STATE_WITHOUT_IMPLEMENTATION", "ACTION_BUDGET_EXHAUSTED",
   "ATTEMPT_BUDGET_EXHAUSTED", "PACKAGE_SUSPENDED", "VALIDATION_FAILED", "CHECK_MISSING", "CHECK_FAILED",
+  "ADDITIVE_TEST_INVALID",
 ]);
 
 export const packageTaskConformanceSchema = z.object({
@@ -225,6 +269,7 @@ export type PackageAuthorizationPlan = z.infer<typeof packageAuthorizationPlanSc
 export type PackageAuthorizationReceipt = z.infer<typeof packageAuthorizationReceiptSchema>;
 export type PackageRevocationReceipt = z.infer<typeof packageRevocationReceiptSchema>;
 export type PackageUseReceipt = z.infer<typeof packageUseReceiptSchema>;
+export type PackageAdditiveTestAuthorization = z.infer<typeof packageAdditiveTestAuthorizationSchema>;
 export type PackageTaskConformance = z.infer<typeof packageTaskConformanceSchema>;
 export type PackageAuthorizationEvaluation = z.infer<typeof packageAuthorizationEvaluationSchema>;
 export type PackageTaskSpecAuthorization = z.infer<typeof packageTaskSpecAuthorizationSchema>;
@@ -258,6 +303,8 @@ export type PackageAuthorizationExpected = {
   headSha: string;
   observedAt: string;
   validation: "PASS" | "FAIL" | "REVIEW_REQUIRED";
+  validationReceipt?: ValidationGateReceipt;
+  additiveTestAuthorization?: PackageAdditiveTestAuthorization;
   checks: Array<z.infer<typeof check>>;
   changedProtectedPaths?: string[];
   baselineIsAncestor?: boolean;
@@ -359,7 +406,10 @@ export function evaluatePackageAuthorization(
   }
   if ((expected.totalAttempts ?? 0) >= plan.data.total_attempt_budget || (descriptor && (expected.totalAttempts ?? 0) >= descriptor.max_attempts)) reasons.push("ATTEMPT_BUDGET_EXHAUSTED");
   if ((expected.consecutiveFailures ?? 0) >= plan.data.max_consecutive_failures) reasons.push("PACKAGE_SUSPENDED");
-  if (expected.validation !== "PASS") reasons.push("VALIDATION_FAILED");
+  const additiveTestAuthorized = descriptor ? validatesAdditiveTestAuthorization(plan.data, descriptor, expected) : false;
+  if (expected.validation !== "PASS" && !additiveTestAuthorized) {
+    reasons.push(expected.validation === "REVIEW_REQUIRED" ? "ADDITIVE_TEST_INVALID" : "VALIDATION_FAILED");
+  }
   for (const required of [...new Set([...plan.data.required_checks, ...(descriptor?.required_checks ?? [])])]) {
     const observedCheck = expected.checks.find((item) => item.name === required);
     if (!observedCheck) reasons.push("CHECK_MISSING");
@@ -401,11 +451,65 @@ export function evaluateStoredPackageAuthorization(root: string, expected: Packa
       changedProtectedPaths = changed.split(/\r?\n/).filter(Boolean).filter((path) => matchesAny(path, parsedPlan.data.protected_paths));
     } catch { baselineIsAncestor = false; }
   }
+  const additiveTestAuthorization = parsedPlan.success
+    ? buildStoredAdditiveTestAuthorization(root, parsedPlan.data, expected)
+    : undefined;
   return evaluatePackageAuthorization(policy, plan, approval, revocations, uses, {
     ...expected,
     baselineIsAncestor: expected.baselineIsAncestor ?? baselineIsAncestor,
     changedProtectedPaths: expected.changedProtectedPaths ?? changedProtectedPaths,
+    ...(additiveTestAuthorization ? { additiveTestAuthorization } : {}),
   });
+}
+
+export function buildStoredAdditiveTestAuthorization(
+  root: string,
+  plan: PackageAuthorizationPlan,
+  expected: PackageAuthorizationExpected,
+): PackageAdditiveTestAuthorization | undefined {
+  const validation = expected.validationReceipt;
+  const binding = expected.taskMetadata.package_authorization;
+  const descriptor = binding ? plan.descriptors.find((item) => item.descriptor_id === binding.descriptor_id) : undefined;
+  if (!validation || !descriptor || expected.action !== "IMPLEMENTATION_PR" || expected.validation !== "REVIEW_REQUIRED") return undefined;
+  try {
+    const actualChanged = gitText(root, ["diff", "--name-only", `${expected.sourceCommit}..${expected.headSha}`]).split(/\r?\n/).filter(Boolean).sort();
+    if (JSON.stringify(actualChanged) !== JSON.stringify([...new Set(validation.changed_files)].sort())) return undefined;
+    const headPaths = gitText(root, ["ls-tree", "-r", "--name-only", expected.headSha]).split(/\r?\n/).filter(Boolean);
+    const folded = new Map<string, string[]>();
+    for (const path of headPaths) folded.set(path.toLowerCase(), [...(folded.get(path.toLowerCase()) ?? []), path]);
+    const status = gitText(root, ["diff", "--name-status", "-M", "-C", `${plan.baseline_commit}..${expected.headSha}`]);
+    const evaluatorPaths = [...new Set(validation.evaluator_changes)].sort().map((path) => {
+      if (!isLiteralPath(path) || !descriptor.allowed_paths.includes(path) || !expected.taskMetadata.allowed_paths.includes(path)
+        || !isTestEvaluatorPath(path) || matchesAny(path, plan.protected_paths)
+        || (folded.get(path.toLowerCase()) ?? []).length !== 1 || folded.get(path.toLowerCase())?.[0] !== path
+        || status.split(/\r?\n/).some((line) => /^[RC]\d*\t/.test(line) && line.split("\t").slice(1).includes(path))) throw new Error("unsafe evaluator path");
+      if (gitText(root, ["cat-file", "-t", `${expected.headSha}:${path}`]).trim() !== "blob") throw new Error("head is not a blob");
+      const head = gitBytes(root, ["show", `${expected.headSha}:${path}`]);
+      const headOid = gitText(root, ["rev-parse", `${expected.headSha}:${path}`]).trim();
+      let baselineBytes: Buffer | undefined;
+      let baselineOid: string | null = null;
+      if (gitObjectExists(root, `${plan.baseline_commit}:${path}`)) {
+        if (gitText(root, ["cat-file", "-t", `${plan.baseline_commit}:${path}`]).trim() !== "blob") throw new Error("baseline is not a blob");
+        baselineBytes = gitBytes(root, ["show", `${plan.baseline_commit}:${path}`]);
+        baselineOid = gitText(root, ["rev-parse", `${plan.baseline_commit}:${path}`]).trim();
+      }
+      if (!baselineBytes) return {
+        path, mode: "NEW_FILE" as const, baseline_blob_oid: null, baseline_sha256: null,
+        head_blob_oid: sha.parse(headOid), head_sha256: digest(head),
+      };
+      if (head.length <= baselineBytes.length || !head.subarray(0, baselineBytes.length).equals(baselineBytes)) throw new Error("not prefix append");
+      return {
+        path, mode: "PREFIX_APPEND" as const, baseline_blob_oid: sha.parse(baselineOid), baseline_sha256: digest(baselineBytes),
+        head_blob_oid: sha.parse(headOid), head_sha256: digest(head),
+      };
+    });
+    return packageAdditiveTestAuthorizationSchema.parse({
+      schema_version: 1, classification: "ADDITIVE_TEST", baseline_commit: plan.baseline_commit,
+      head_commit: expected.headSha, evaluator_paths: evaluatorPaths,
+    });
+  } catch {
+    return undefined;
+  }
 }
 
 export function evaluateStoredPackageTaskSpecAuthorization(
@@ -561,6 +665,19 @@ function conformanceReasons(
 
 function buildPackageUseReceipt(input: { plan: PackageAuthorizationPlan; expected: PackageAuthorizationExpected; previousUseId: string | null }): PackageUseReceipt {
   const binding = input.expected.taskMetadata.package_authorization!;
+  if (input.expected.validation === "REVIEW_REQUIRED") {
+    const semantic = {
+      schema_version: 2 as const, package_id: binding.package_id, package_version: binding.package_version,
+      plan_hash: binding.plan_hash, descriptor_id: binding.descriptor_id, task_id: input.expected.taskId,
+      action: "IMPLEMENTATION_PR" as const, source_commit: sha.parse(input.expected.sourceCommit), pr_number: input.expected.prNumber,
+      base_ref: input.expected.baseRef, head_ref: input.expected.headRef, head_sha: sha.parse(input.expected.headSha),
+      validation: "REVIEW_REQUIRED" as const, validation_reason_codes: ["EVALUATOR_CHANGED"] as ["EVALUATOR_CHANGED"],
+      additive_test_authorization: packageAdditiveTestAuthorizationSchema.parse(input.expected.additiveTestAuthorization),
+      checks: normalizeChecks(input.expected.checks), previous_use_id: input.previousUseId,
+      evaluated_at: timestamp.parse(input.expected.observedAt), decision: "VALID" as const,
+    };
+    return packageUseReceiptSchema.parse({ ...semantic, use_id: `PUSE-${createHash("sha256").update(canonicalJson(semantic)).digest("hex")}` });
+  }
   const semantic = {
     schema_version: 1 as const, package_id: binding.package_id, package_version: binding.package_version,
     plan_hash: binding.plan_hash, descriptor_id: binding.descriptor_id, task_id: input.expected.taskId,
@@ -570,6 +687,31 @@ function buildPackageUseReceipt(input: { plan: PackageAuthorizationPlan; expecte
     evaluated_at: timestamp.parse(input.expected.observedAt), decision: "VALID" as const,
   };
   return packageUseReceiptSchema.parse({ ...semantic, use_id: `PUSE-${createHash("sha256").update(canonicalJson(semantic)).digest("hex")}` });
+}
+
+function validatesAdditiveTestAuthorization(
+  plan: PackageAuthorizationPlan,
+  descriptor: PackageAuthorizationPlan["descriptors"][number],
+  expected: PackageAuthorizationExpected,
+): boolean {
+  if (expected.action !== "IMPLEMENTATION_PR" || expected.validation !== "REVIEW_REQUIRED") return false;
+  const validation = expected.validationReceipt;
+  const authorization = packageAdditiveTestAuthorizationSchema.safeParse(expected.additiveTestAuthorization);
+  if (!validation || !authorization.success || validation.decision !== "REVIEW_REQUIRED"
+    || validation.reason_codes.length !== 1 || validation.reason_codes[0] !== "EVALUATOR_CHANGED"
+    || validation.missing_evaluators.length > 0 || !validation.content_stable
+    || validation.commands.some((command) => command.status !== "PASS" || command.exit_code !== 0)
+    || validation.task_id !== expected.taskId || validation.source_commit !== expected.sourceCommit
+    || authorization.data.baseline_commit !== plan.baseline_commit || authorization.data.head_commit !== expected.headSha) return false;
+  const paths = [...new Set(validation.evaluator_changes)].sort();
+  const evidencePaths = authorization.data.evaluator_paths.map((item) => item.path).sort();
+  if (paths.length === 0 || JSON.stringify(paths) !== JSON.stringify(evidencePaths)) return false;
+  return authorization.data.evaluator_paths.every((item) => isLiteralPath(item.path)
+    && descriptor.allowed_paths.includes(item.path) && expected.taskMetadata.allowed_paths.includes(item.path)
+    && isTestEvaluatorPath(item.path) && !matchesAny(item.path, plan.protected_paths)
+    && (item.mode === "NEW_FILE"
+      ? item.baseline_blob_oid === null && item.baseline_sha256 === null
+      : item.baseline_blob_oid !== null && item.baseline_sha256 !== null));
 }
 
 function packageUseId(receipt: PackageUseReceipt): string {
@@ -614,6 +756,24 @@ function normalizeChecks(checks: Array<z.infer<typeof check>>): Array<z.infer<ty
 
 function riskRank(value: z.infer<typeof risk>): number { return { low: 0, medium: 1, high: 2 }[value]; }
 function sameSet(left: string[], right: string[]): boolean { return JSON.stringify([...new Set(left)].sort()) === JSON.stringify([...new Set(right)].sort()); }
+function isLiteralPath(path: string): boolean { return !/[?*[\]{}]/.test(path); }
+function isTestEvaluatorPath(path: string): boolean {
+  return matchesAny(path, ["**/tests/**", "**/*.test.*", "**/*.spec.*"])
+    && !matchesAny(path, [
+      ".github/**", "project_docs/execution_governance/**", "package.json", "package-lock.json",
+      "tsconfig*.json", "eslint.config.*", "tooling/agent-harness/src/**", "tooling/agent-harness/policies/**",
+    ]);
+}
+function gitText(root: string, args: string[]): string {
+  return execFileSync("git", args, { cwd: root, encoding: "utf8", maxBuffer: 10 * 1024 * 1024 });
+}
+function gitBytes(root: string, args: string[]): Buffer {
+  return execFileSync("git", args, { cwd: root, encoding: null, maxBuffer: 10 * 1024 * 1024 });
+}
+function gitObjectExists(root: string, object: string): boolean {
+  try { execFileSync("git", ["cat-file", "-e", object], { cwd: root, stdio: "ignore" }); return true; } catch { return false; }
+}
+function digest(value: Buffer): string { return createHash("sha256").update(value).digest("hex"); }
 function readJson(path: string): unknown { try { return existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : undefined; } catch { return undefined; } }
 function readJsonFiles(directory: string): unknown[] {
   if (!existsSync(directory)) return [];

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { generateKeyPairSync, sign } from "node:crypto";
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -10,6 +11,7 @@ import {
   evaluatePackageAuthorization,
   evaluatePackageTaskConformance,
   evaluateStoredPackageAuthorization,
+  buildStoredAdditiveTestAuthorization,
   packageApprovalId,
   packageAuthorizationPlanSchema,
   packageAuthorizationSigningPayload,
@@ -22,6 +24,7 @@ import {
   type PackageRevocationReceipt,
   type PackageUseReceipt,
 } from "../src/package-authorization.js";
+import type { ValidationGateReceipt } from "../src/validation-engine.js";
 
 const { publicKey, privateKey } = generateKeyPairSync("ed25519");
 const publicKeyPem = publicKey.export({ type: "spki", format: "pem" }).toString();
@@ -117,6 +120,15 @@ function expected(planValue = plan(), metadataValue = metadata(planValue), overr
     headRef: "task/100", headSha: head, observedAt, validation: "PASS" as const,
     checks: [{ name: "validate", status: "SUCCESS" as const }], baselineIsAncestor: true,
     changedProtectedPaths: [], totalAttempts: 0, consecutiveFailures: 0, ...overrides,
+  };
+}
+
+function reviewValidation(paths: string[], overrides: Partial<ValidationGateReceipt> = {}): ValidationGateReceipt {
+  return {
+    schema_version: 1, task_id: "TASK-100", work_package_id: "WP-I2-07", source_commit: baseline,
+    changed_files: paths, commands: [{ command: "npm run verify", status: "PASS", exit_code: 0, stdout: "ok", stderr: "" }],
+    evaluator_changes: paths, missing_evaluators: [], content_stable: true,
+    decision: "REVIEW_REQUIRED", reason_codes: ["EVALUATOR_CHANGED"], ...overrides,
   };
 }
 
@@ -269,5 +281,103 @@ describe("bounded package work authorization", () => {
 
   it("exposes payload construction but no production signing capability", () => {
     assert.equal("signPackageAuthorization" in packageModule, false);
+  });
+
+  it("authorizes exact additive test evidence without falsifying REVIEW_REQUIRED", () => {
+    const testPath = "tooling/agent-harness/tests/new-proof.test.ts";
+    const basePlan = plan();
+    const descriptors = [...basePlan.descriptors];
+    descriptors[0] = { ...descriptors[0]!, allowed_paths: [testPath, "docs/out.md"] };
+    const planValue = plan({ descriptors });
+    const metadataValue = metadata(planValue, { allowed_paths: [testPath, "docs/out.md"] });
+    const validationReceipt = reviewValidation([testPath]);
+    const additiveTestAuthorization = {
+      schema_version: 1 as const, classification: "ADDITIVE_TEST" as const,
+      baseline_commit: baseline, head_commit: head,
+      evaluator_paths: [{ path: testPath, mode: "NEW_FILE" as const, baseline_blob_oid: null, baseline_sha256: null,
+        head_blob_oid: "c".repeat(40), head_sha256: "d".repeat(64) }],
+    };
+    const input = expected(planValue, metadataValue, {
+      validation: "REVIEW_REQUIRED", validationReceipt, additiveTestAuthorization,
+    });
+    const result = evaluatePackageAuthorization(policy, planValue, approval(planValue), [], [], input);
+    assert.equal(result.decision, "VALID");
+    assert.equal(result.use_receipt?.schema_version, 2);
+    assert.equal(result.use_receipt?.validation, "REVIEW_REQUIRED");
+    assert.deepEqual(evaluatePackageAuthorization(policy, planValue, approval(planValue), [], [], input), result);
+    const state = evaluatePackageAuthorization(policy, planValue, approval(planValue), [], [result.use_receipt!], expected(planValue, metadataValue, {
+      action: "STATE_PR", prNumber: 201, headRef: "state/task-100-close", headSha: "e".repeat(40),
+    }));
+    assert.equal(state.decision, "VALID");
+    assert.equal(state.use_receipt?.schema_version, 1);
+    assert.equal(state.use_receipt?.previous_use_id, result.use_receipt?.use_id);
+
+    for (const changed of [
+      { validationReceipt: reviewValidation([testPath], { content_stable: false }) },
+      { validationReceipt: reviewValidation([testPath], { missing_evaluators: [testPath] }) },
+      { additiveTestAuthorization: { ...additiveTestAuthorization, head_commit: "e".repeat(40) } },
+      { additiveTestAuthorization: { ...additiveTestAuthorization, evaluator_paths: [{ ...additiveTestAuthorization.evaluator_paths[0]!, mode: "PREFIX_APPEND", baseline_blob_oid: null }] } },
+    ]) {
+      const rejected = evaluatePackageAuthorization(policy, planValue, approval(planValue), [], [], { ...input, ...changed } as never);
+      assert.equal(rejected.decision, "INVALID");
+      assert.ok(rejected.reason_codes.includes("ADDITIVE_TEST_INVALID"));
+    }
+  });
+
+  it("derives new-file and strict prefix-append evidence only from exact Git blobs", () => {
+    const root = mkdtempSync(join(tmpdir(), "package-additive-git-"));
+    execFileSync("git", ["init", "-b", "main"], { cwd: root });
+    execFileSync("git", ["config", "user.email", "test@example.invalid"], { cwd: root });
+    execFileSync("git", ["config", "user.name", "Test"], { cwd: root });
+    mkdirSync(join(root, "tooling/agent-harness/tests"), { recursive: true });
+    const existingPath = "tooling/agent-harness/tests/existing.test.ts";
+    const newPath = "tooling/agent-harness/tests/new.test.ts";
+    writeFileSync(join(root, existingPath), "baseline\n");
+    execFileSync("git", ["add", "."], { cwd: root });
+    execFileSync("git", ["commit", "-m", "baseline"], { cwd: root });
+    const baseCommit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
+    writeFileSync(join(root, existingPath), "baseline\nappended\n");
+    writeFileSync(join(root, newPath), "new test\n");
+    execFileSync("git", ["add", "."], { cwd: root });
+    execFileSync("git", ["commit", "-m", "tests"], { cwd: root });
+    const headCommit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
+    const basePlan = plan({ baseline_commit: baseCommit });
+    const descriptors = [...basePlan.descriptors];
+    descriptors[0] = { ...descriptors[0]!, allowed_paths: [existingPath, newPath] };
+    const planValue = plan({ baseline_commit: baseCommit, descriptors });
+    const metadataValue = metadata(planValue, { allowed_paths: [existingPath, newPath] });
+    const validationReceipt = reviewValidation([existingPath, newPath], { source_commit: baseCommit });
+    const derived = buildStoredAdditiveTestAuthorization(root, planValue, expected(planValue, metadataValue, {
+      sourceCommit: baseCommit, headSha: headCommit, validation: "REVIEW_REQUIRED", validationReceipt,
+    }));
+    assert.deepEqual(derived?.evaluator_paths.map((item) => [item.path, item.mode]), [
+      [existingPath, "PREFIX_APPEND"], [newPath, "NEW_FILE"],
+    ]);
+    writeFileSync(join(root, existingPath), "mutated working tree\n");
+    assert.deepEqual(buildStoredAdditiveTestAuthorization(root, planValue, expected(planValue, metadataValue, {
+      sourceCommit: baseCommit, headSha: headCommit, validation: "REVIEW_REQUIRED", validationReceipt,
+    })), derived);
+    execFileSync("git", ["add", existingPath], { cwd: root });
+    execFileSync("git", ["commit", "-m", "mutate baseline bytes"], { cwd: root });
+    const mutatedHead = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
+    assert.equal(buildStoredAdditiveTestAuthorization(root, planValue, expected(planValue, metadataValue, {
+      sourceCommit: baseCommit, headSha: mutatedHead, validation: "REVIEW_REQUIRED",
+      validationReceipt: reviewValidation([existingPath], { source_commit: baseCommit, changed_files: [existingPath] }),
+    })), undefined);
+
+    const renamedPath = "tooling/agent-harness/tests/renamed.test.ts";
+    execFileSync("git", ["mv", existingPath, renamedPath], { cwd: root });
+    execFileSync("git", ["commit", "-m", "rename evaluator"], { cwd: root });
+    const renamedHead = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
+    const renameDescriptors = [...planValue.descriptors];
+    renameDescriptors[0] = { ...renameDescriptors[0]!, allowed_paths: [existingPath, renamedPath] };
+    const renamePlan = plan({ baseline_commit: baseCommit, descriptors: renameDescriptors });
+    const renameMetadata = metadata(renamePlan, { allowed_paths: [existingPath, renamedPath] });
+    assert.equal(buildStoredAdditiveTestAuthorization(root, renamePlan, expected(renamePlan, renameMetadata, {
+      sourceCommit: baseCommit, headSha: renamedHead, validation: "REVIEW_REQUIRED",
+      validationReceipt: reviewValidation([existingPath, renamedPath], {
+        source_commit: baseCommit, changed_files: [existingPath, renamedPath], missing_evaluators: [existingPath],
+      }),
+    })), undefined);
   });
 });
