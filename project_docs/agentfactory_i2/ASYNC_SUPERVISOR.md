@@ -89,7 +89,7 @@ notes:
 work_package: WP-I2-03
 parent_wbs: 16.2
 name: Local supervisor runtime bridge and commands
-status: READY as TASK-033
+status: COMPLETED as TASK-033
 objective: Bind the accepted supervisor kernel to the real sequential coordinator/orchestrator and expose finite start, callback, heartbeat, resume and status commands on Windows.
 in_scope:
   - concrete repository/GitHub observation bridge
@@ -139,6 +139,7 @@ notes:
   - Materialized as TASK-033 after TASK-032 implementation and state closure integrated on main.
   - TASK-033 binds the kernel through a strict external runtime plan, task-spec-derived DAG, repository/GitHub observation adapter and finite local callback process.
   - Windows commands and the recovery-only Task Scheduler heartbeat are defined in `SUPERVISOR_OPERATIONS_WINDOWS.md`.
+  - TASK-033 implementation/state closure and the supplemental Supervisor readiness GO are integrated prerequisites for the TASK-010 candidate.
 ```
 
 ## Supplemental DAG
