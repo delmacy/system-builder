@@ -199,13 +199,52 @@ export const packageAuthorizationEvaluationSchema = z.object({
   use_receipt: packageUseReceiptSchema.nullable(),
 }).strict();
 
+export const packageTaskSpecAuthorizationSchema = z.object({
+  schema_version: z.literal(1),
+  authorization_id: z.string().regex(/^PSPEC-[0-9a-f]{64}$/),
+  package_id: packageId,
+  package_version: semver,
+  plan_hash: hash,
+  descriptor_id: descriptorId,
+  task_id: taskId,
+  candidate_sha256: hash,
+  source_commit: sha,
+  phase: z.enum(["PREPARE", "PR"]),
+  pr_number: z.number().int().positive().nullable(),
+  base_ref: z.string().min(1),
+  head_ref: z.string().min(1).nullable(),
+  head_sha: sha.nullable(),
+  approval_id: z.string().regex(/^PAPR-[0-9a-f]{64}$/),
+  conformance_id: z.string().regex(/^PCONF-[0-9a-f]{64}$/),
+  checks: z.array(check),
+  observed_at: timestamp,
+  decision: z.literal("VALID"),
+}).strict();
+
 export type PackageAuthorizationPlan = z.infer<typeof packageAuthorizationPlanSchema>;
 export type PackageAuthorizationReceipt = z.infer<typeof packageAuthorizationReceiptSchema>;
 export type PackageRevocationReceipt = z.infer<typeof packageRevocationReceiptSchema>;
 export type PackageUseReceipt = z.infer<typeof packageUseReceiptSchema>;
 export type PackageTaskConformance = z.infer<typeof packageTaskConformanceSchema>;
 export type PackageAuthorizationEvaluation = z.infer<typeof packageAuthorizationEvaluationSchema>;
+export type PackageTaskSpecAuthorization = z.infer<typeof packageTaskSpecAuthorizationSchema>;
 export type PackageAction = z.infer<typeof action>;
+
+export type PackageTaskSpecExpected = {
+  repository: string;
+  taskId: string;
+  taskMetadata: TaskMetadata;
+  candidateSource: string;
+  sourceCommit: string;
+  observedAt: string;
+  phase: "PREPARE" | "PR";
+  prNumber?: number;
+  baseRef?: string;
+  headRef?: string;
+  headSha?: string;
+  validation?: "PASS" | "FAIL" | "REVIEW_REQUIRED";
+  checks?: Array<z.infer<typeof check>>;
+};
 
 export type PackageAuthorizationExpected = {
   repository: string;
@@ -366,6 +405,88 @@ export function evaluateStoredPackageAuthorization(root: string, expected: Packa
     ...expected,
     baselineIsAncestor: expected.baselineIsAncestor ?? baselineIsAncestor,
     changedProtectedPaths: expected.changedProtectedPaths ?? changedProtectedPaths,
+  });
+}
+
+export function evaluateStoredPackageTaskSpecAuthorization(
+  root: string,
+  expected: PackageTaskSpecExpected,
+): PackageTaskSpecAuthorization {
+  const binding = expected.taskMetadata.package_authorization;
+  if (!binding) throw new Error("PACKAGE_BINDING_MISSING");
+  const policyPath = resolve(root, "tooling/agent-harness/policies/HUMAN_APPROVAL.json");
+  const policy = humanApprovalPolicySchema.parse(readJson(policyPath));
+  const directory = process.env[policy.receipt_directory_env];
+  if (!directory || !isAbsolute(directory)) throw new Error("PACKAGE_STORE_MISSING");
+  const packageDirectory = resolve(directory, "packages", binding.package_id, binding.plan_hash);
+  const plan = packageAuthorizationPlanSchema.parse(readJson(resolve(packageDirectory, "plan.json")));
+  const descriptor = plan.descriptors.find((item) => item.descriptor_id === binding.descriptor_id);
+  if (!descriptor) throw new Error("DESCRIPTOR_MISSING");
+  const phase = expected.phase;
+  if (phase === "PR" && (!expected.prNumber || !expected.headRef || !expected.headSha)) {
+    throw new Error("TASK_SPEC_PR_IDENTITY_MISSING");
+  }
+  const checks = phase === "PR"
+    ? (expected.checks ?? [])
+    : [...new Set([...plan.required_checks, ...descriptor.required_checks])].map((name) => ({ name, status: "SUCCESS" as const }));
+  const evaluation = evaluateStoredPackageAuthorization(root, {
+    repository: expected.repository,
+    taskId: expected.taskId,
+    taskMetadata: expected.taskMetadata,
+    action: "IMPLEMENTATION_PR",
+    sourceCommit: expected.sourceCommit,
+    prNumber: expected.prNumber ?? 1,
+    baseRef: expected.baseRef ?? plan.base_ref,
+    headRef: expected.headRef ?? `task-spec/${expected.taskId.toLowerCase()}`,
+    headSha: expected.headSha ?? expected.sourceCommit,
+    observedAt: expected.observedAt,
+    validation: phase === "PR" ? (expected.validation ?? "FAIL") : "PASS",
+    checks,
+  });
+  if (evaluation.decision !== "VALID" || !evaluation.approval_id) {
+    throw new Error(`PACKAGE_TASK_SPEC_NOT_AUTHORIZED:${evaluation.reason_codes.join(",")}`);
+  }
+  const conformance = evaluatePackageTaskConformance(plan, descriptor, {
+    repository: expected.repository,
+    taskId: expected.taskId,
+    taskMetadata: expected.taskMetadata,
+    action: "IMPLEMENTATION_PR",
+    sourceCommit: expected.sourceCommit,
+    prNumber: expected.prNumber ?? 1,
+    baseRef: expected.baseRef ?? plan.base_ref,
+    headRef: expected.headRef ?? `task-spec/${expected.taskId.toLowerCase()}`,
+    headSha: expected.headSha ?? expected.sourceCommit,
+    observedAt: expected.observedAt,
+    validation: phase === "PR" ? (expected.validation ?? "FAIL") : "PASS",
+    checks,
+    baselineIsAncestor: true,
+    changedProtectedPaths: [],
+  }, readJsonFiles(resolve(root, ".agent/package-uses", binding.package_id))
+    .flatMap((value) => packageUseReceiptSchema.safeParse(value).success ? [packageUseReceiptSchema.parse(value)] : []));
+  if (conformance.decision !== "CONFORMING") throw new Error(`PACKAGE_TASK_SPEC_NOT_CONFORMING:${conformance.reason_codes.join(",")}`);
+  const semantic = {
+    schema_version: 1 as const,
+    package_id: binding.package_id,
+    package_version: binding.package_version,
+    plan_hash: binding.plan_hash,
+    descriptor_id: binding.descriptor_id,
+    task_id: expected.taskId,
+    candidate_sha256: createHash("sha256").update(expected.candidateSource).digest("hex"),
+    source_commit: sha.parse(expected.sourceCommit),
+    phase,
+    pr_number: expected.prNumber ?? null,
+    base_ref: expected.baseRef ?? plan.base_ref,
+    head_ref: expected.headRef ?? null,
+    head_sha: expected.headSha ? sha.parse(expected.headSha) : null,
+    approval_id: evaluation.approval_id,
+    conformance_id: conformance.conformance_id,
+    checks: normalizeChecks(checks),
+    observed_at: timestamp.parse(expected.observedAt),
+    decision: "VALID" as const,
+  };
+  return packageTaskSpecAuthorizationSchema.parse({
+    ...semantic,
+    authorization_id: `PSPEC-${createHash("sha256").update(canonicalJson(semantic)).digest("hex")}`,
   });
 }
 

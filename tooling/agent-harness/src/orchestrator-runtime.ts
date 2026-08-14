@@ -24,6 +24,7 @@ import {
   readGitRecord,
   readStateRecord,
   taskGitStatus,
+  stateBranchName,
   fingerprintChanges,
   writeGitRecord,
   writeStateRecord,
@@ -53,12 +54,17 @@ import type {
   ReviewState,
 } from "./orchestrator.js";
 import { getTask, loadTasks, repoPath, validateTaskCatalog, type Task } from "./task.js";
+import { buildAuthorityClosureBundle, writeAuthorityClosureBundle } from "./authority-closure.js";
+import { buildGovernanceResolution } from "./evidence-writer.js";
+import { dagGraphSchema } from "./dag.js";
 
 type Journal = {
   version: 1;
   taskId: string;
   executions: Array<ExecutorReport & {
     recordedAt: string;
+    startedAt?: string;
+    finishedAt?: string;
     boundary?: ExecutionBoundaryCompletion["boundary"];
     changedFiles?: string[];
     violations?: string[];
@@ -81,7 +87,7 @@ export type GitHubPullRequest = {
 };
 
 export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
-  private readonly activeBoundaries = new Map<string, ExecutionBoundaryStart>();
+  private readonly activeBoundaries = new Map<string, { start: ExecutionBoundaryStart; startedAt: string }>();
 
   constructor(
     private readonly root = process.cwd(),
@@ -184,7 +190,7 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
         actualTaskPackHash: hash(readFileSync(packPath, "utf8")),
         changedFiles: changedPaths(record.baseCommit, this.root),
       });
-      this.activeBoundaries.set(taskId, start);
+      this.activeBoundaries.set(taskId, { start, startedAt: new Date().toISOString() });
       return { request: start.request };
     } catch (error) {
       return { failure: boundaryFailureReport(task, attempt, executor, error) };
@@ -215,7 +221,11 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
   commit(taskId: string): void { commitTask(taskId, this.root); }
   push(taskId: string): void { pushTask(taskId, this.root); }
   openImplementationPr(taskId: string): void { openTaskPullRequest(taskId, this.root, this.ghExecutable); }
-  close(taskId: string): void { closeTask(taskId, this.root); }
+  close(taskId: string): void {
+    const bundle = this.buildProspectiveAuthorityClosure(taskId);
+    closeTask(taskId, this.root);
+    if (bundle) writeAuthorityClosureBundle(bundle, this.root);
+  }
   createStateBranch(taskId: string): void { createStateTaskBranch(taskId, this.root); }
   commitState(taskId: string): void { commitStateTask(taskId, this.root); }
   pushState(taskId: string): void { pushStateTask(taskId, this.root); }
@@ -229,15 +239,18 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
 
   recordExecution(taskId: string, report: ExecutorReport): void {
     const journal = this.readJournal(taskId);
-    const start = this.activeBoundaries.get(taskId);
+    const active = this.activeBoundaries.get(taskId);
+    const start = active?.start;
     const task = getTask(loadTasks(this.root), taskId);
     const completion = start
       ? enforceExecutionDelta(start, task, report, changedPaths(start.identity.baseCommit, this.root))
       : undefined;
     const enforced = completion?.report ?? report;
+    const finishedAt = new Date().toISOString();
     journal.executions.push({
       ...enforced,
-      recordedAt: new Date().toISOString(),
+      recordedAt: finishedAt,
+      ...(active ? { startedAt: active.startedAt, finishedAt } : {}),
       ...(completion?.rawReport.result
         ? { rawResult: completion.rawReport.result }
         : enforced.result ? { rawResult: enforced.result } : {}),
@@ -428,6 +441,78 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
     return readJson<Journal>(this.journalPath(taskId)) ?? { version: 1, taskId, executions: [] };
   }
 
+  private buildProspectiveAuthorityClosure(taskId: string) {
+    const journal = this.readJournal(taskId);
+    const execution = journal.executions.at(-1);
+    if (!execution?.boundary || !execution.changedFiles || !execution.rawResult) return undefined;
+    const receipt = readJson<{
+      verifiedAt: string;
+      changeFingerprint: string;
+      validationGate?: import("./validation-engine.js").ValidationGateReceipt;
+    }>(this.receiptPath(taskId));
+    if (!receipt?.validationGate || !receipt.changeFingerprint || !receipt.verifiedAt) {
+      throw new Error(`AUTHORITY_CLOSURE_VALIDATION_RECEIPT_MISSING:${taskId}`);
+    }
+    const tasks = loadTasks(this.root);
+    validateTaskCatalog(tasks);
+    const task = getTask(tasks, taskId);
+    const snapshot = this.inspect(taskId);
+    const lifecycle = snapshot.implementationPr?.lifecycle;
+    if (!lifecycle || lifecycle.decision !== "ELIGIBLE") throw new Error(`AUTHORITY_CLOSURE_IMPLEMENTATION_NOT_ELIGIBLE:${taskId}`);
+    const rawReport: ExecutorReport = {
+      executor: execution.executor,
+      attempt: execution.attempt,
+      status: execution.rawResult.status === "SUCCEEDED" ? "completed" : "failed",
+      summary: execution.summary,
+      result: execution.rawResult,
+      ...(execution.request ? { request: execution.request } : {}),
+    };
+    const completion: ExecutionBoundaryCompletion = {
+      boundary: execution.boundary,
+      changedFiles: execution.changedFiles,
+      violations: execution.violations ?? [],
+      rawReport,
+      report: execution,
+    };
+    const graph = dagGraphSchema.parse({
+      schema_version: 1,
+      external_nodes: [],
+      nodes: tasks.map((candidate) => ({
+        id: candidate.metadata.id,
+        state: taskState(candidate),
+        dependency_gates: candidate.metadata.depends_on.map((predecessor) => {
+          const predecessorTask = getTask(tasks, predecessor);
+          const evidenceRef = `docs/evidence/tasks/${predecessor}.json`;
+          const satisfied = predecessorTask.metadata.status === "completed" && existsSync(resolve(this.root, evidenceRef));
+          return {
+            schema_version: 1,
+            id: `GATE-${predecessor.replace("TASK-", "")}-${candidate.metadata.id.replace("TASK-", "")}`,
+            predecessor_id: predecessor,
+            successor_id: candidate.metadata.id,
+            type: "REQUIRES",
+            status: satisfied ? "SATISFIED" : "UNSATISFIED",
+            evidence_refs: satisfied ? [evidenceRef] : [],
+          };
+        }),
+      })),
+    });
+    const acceptanceIds = (task.metadata.package_authorization?.dod_ids ?? ["TASK-CLOSURE"])
+      .map((id) => `AC-${id.replace(/[^A-Z0-9-]/gi, "-").toUpperCase()}`);
+    const satisfiedGates = graph.nodes.flatMap((node) => node.dependency_gates)
+      .filter((gate) => gate.predecessor_id === taskId)
+      .map((gate) => gate.id);
+    const governanceResolution = receipt.validationGate.decision === "REVIEW_REQUIRED"
+      ? buildGovernanceResolution({ validation: receipt.validationGate, changeFingerprint: receipt.changeFingerprint, implementationLifecycle: lifecycle })
+      : undefined;
+    return buildAuthorityClosureBundle({
+      task, completion, validation: receipt.validationGate, changeFingerprint: receipt.changeFingerprint,
+      implementationLifecycle: lifecycle, ...(governanceResolution ? { governanceResolution } : {}), graph,
+      acceptanceIds, satisfiedGates, attemptStartedAt: execution.startedAt ?? execution.recordedAt,
+      attemptFinishedAt: execution.finishedAt ?? execution.recordedAt,
+      integratedAt: receipt.verifiedAt, stateBranch: stateBranchName(taskId),
+    });
+  }
+
   private writeJournal(journal: Journal): void {
     const path = this.journalPath(journal.taskId);
     mkdirSync(dirname(path), { recursive: true });
@@ -554,4 +639,11 @@ function safely<T>(operation: () => T): T | undefined {
 
 function hash(value: string): string {
   return createHash("sha256").update(value).digest("hex");
+}
+
+function taskState(task: Task): "DRAFT" | "READY" | "RUNNING" | "VERIFICATION" | "DONE" | "FAILED" | "BLOCKED" | "SUPERSEDED" {
+  return {
+    draft: "DRAFT", ready: "READY", running: "RUNNING", verification: "VERIFICATION", completed: "DONE",
+    failed: "FAILED", blocked: "BLOCKED", superseded: "SUPERSEDED",
+  }[task.metadata.status] as "DRAFT" | "READY" | "RUNNING" | "VERIFICATION" | "DONE" | "FAILED" | "BLOCKED" | "SUPERSEDED";
 }

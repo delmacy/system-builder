@@ -102,6 +102,26 @@ describe("AgentFactory I2 sequential pipeline", () => {
     assert.equal(run.coordinator.advance().stop_reason, "EVIDENCE_MISSING");
   });
 
+  it("delegates exactly one selected-task closure action after bootstrap completion", () => {
+    const authority = doneAuthority({ agent_state: "DONE", orchestrator_state: "STATE_PR_PENDING", evidence: null, ledger: null,
+      state_pr: null, state_closure_integrated: false, readiness: null });
+    const run = coordinator({ obs: observation([authority], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true), adapterState: "STATE_PR_PENDING" });
+    assert.equal(run.coordinator.advance().stop_reason, "DELEGATED");
+    assert.equal(run.calls(), 1);
+  });
+
+  it("preserves state CI/review as external gates while closure is pending", () => {
+    for (const orchestratorState of ["STATE_CI_PENDING", "STATE_REVIEW_REQUIRED"]) {
+      const authority = doneAuthority({ agent_state: "DONE", orchestrator_state: orchestratorState, evidence: null, ledger: null,
+        state_closure_integrated: false, readiness: null });
+      const run = coordinator({ obs: observation([authority], ["TASK-101"], ["TASK-999"]),
+        tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+      assert.equal(run.coordinator.advance().stop_reason, "EXTERNAL_GATE");
+      assert.equal(run.calls(), 0);
+    }
+  });
+
   it("stops on tampered evidence identity", () => {
     const run = coordinator({ obs: observation([doneAuthority({ evidence: { receipt_id: evidenceId, task_id: "TASK-102", head_commit: commit, status: "DONE" } })], ["TASK-101"], ["TASK-999"]), tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
     assert.equal(run.coordinator.advance().stop_reason, "EVIDENCE_DIVERGENCE");
