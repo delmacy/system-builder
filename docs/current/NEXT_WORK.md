@@ -8,8 +8,10 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory_ignition/`, `project_docs/agentfactory_i1/`, `project_docs/agentfactory_i2/` and execution-governance docs.
 3. Treat TASK-012 through TASK-031 as the integrated I1/I2 pre-run baseline; TASK-028 through TASK-031 reconcile as DONE through exact durable approval.
 4. Treat TASK-032 as the integrated and state-closed WP-I2-02 kernel baseline.
-5. Treat TASK-033/WP-I2-03 and TASK-034/WP-I2-04 as integrated and state-closed, but the first real TASK-010 attempt supersedes their GO with the provider-qualified CLI blocker.
-6. Execute and close TASK-035, then wake only the preserved TASK-010 Supervisor pipeline. Do not select TASK-004 or authorize A/B/C = TASK-004 -> TASK-005 -> TASK-006 before TASK-010 is accepted and the I2 gate is reassessed.
+5. Treat TASK-033/WP-I2-03, TASK-034/WP-I2-04 and TASK-035/WP-I2-05 as integrated and state-closed.
+6. Treat TASK-010 implementation/state PRs #99/#100 as accepted bootstrap `DONE`, while preserving its terminal Supervisor `EVIDENCE_MISSING` run as a failed I2 proof.
+7. Execute and state-close TASK-036 to accept ADR-0012, then materialize the smallest WP-I2-06 implementation task from that accepted decision.
+8. Do not select TASK-004 or authorize A/B/C = TASK-004 -> TASK-005 -> TASK-006 until a fresh proof integrates real AFEV, causal ledger, state reconciliation and readiness authority.
 
 ## Per-task loop
 

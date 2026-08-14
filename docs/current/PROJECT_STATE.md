@@ -15,14 +15,14 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 - Agent harness: local TypeScript implementation with bounded task context, task validation, Git/PR controls, deterministic verification and closure mechanisms.
 - OpenCode adapter: TASK-011 argument ordering and TASK-013 structured request/result, timeout and failure hardening are integrated.
 - AgentFactory planning: complete through I1 Work Packages, DAG, governance, task-generation policy and exit gate.
-- AgentFactory I1 implementation, post-I1 hardening and I2 pre-run control plane: TASK-012 through TASK-034 are completed. The durable event-driven Supervisor, its real local Windows runtime bridge and dynamic free-model resolution are integrated and state-closed.
+- AgentFactory I1 implementation, post-I1 hardening and I2 pre-run control plane: TASK-012 through TASK-035 are completed. The durable event-driven Supervisor, its real local Windows runtime bridge and dynamic free-model/CLI qualification are integrated and state-closed.
 - GitHub Actions: confirmation CI remains deterministic; AI execution is local unless a later approved task changes that architecture.
 
 ## Active execution focus
 
-**I2 real-run CLI qualification corrective gate — NO-GO; TASK-010 retry paused.**
+**I2 real-run authority integration gate — NO-GO; WP-I2-06/TASK-036 next.**
 
-Goal: integrate WP-I2-05/TASK-035 so the raw Zen catalog model is qualified as `opencode/<id>` only at the OpenCode CLI boundary, then wake the preserved TASK-010 pipeline. I3 and parallel scheduling remain prohibited.
+TASK-010 completed implementation PR #99 and bootstrap state PR #100 with exact durable approvals, but its preserved Supervisor run terminated `EVIDENCE_MISSING`: no real AFEV, causal AgentFactory ledger or readiness receipt was integrated. TASK-036 must accept the missing L4 integration decision before any corrective runtime code is materialized. I3, TASK-004 and parallel scheduling remain prohibited.
 
 ## Product track held ready
 
@@ -30,11 +30,11 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Implement and state-close TASK-035 without executing TASK-010 during the correction.
-2. Reassess the exact CLI-boundary proof, then wake the preserved TASK-010 pipeline through its durable callback.
-3. Convert any missing durable-authority finding into a separately governed corrective task rather than weakening reconciliation.
-4. Preserve one-task-at-a-time I2 semantics and reassess the I2 Exit Gate from real TASK-010 evidence; do not advance to I3, task parallelism, database, public webhook or UI work.
+1. Integrate the TASK-010 bootstrap state closure and preserve the terminal Supervisor event history as failed I2 proof evidence.
+2. Execute and state-close TASK-036 to accept ADR-0012 for the real-run AgentFactory authority integration point.
+3. Materialize the smallest downstream implementation task only from the accepted ADR and actual TASK-010 outputs.
+4. Run a fresh bounded authority proof before authorizing TASK-004 -> TASK-005; do not advance to I3, task parallelism, database, public webhook or UI work.
 
 ## Selection warning
 
-The first real candidate attempt exposed a provider-qualification blocker after correct dynamic selection. No further TASK-010 execution is authorized until TASK-035 integrates; unrelated globally READY work, broad M1 execution, I3 and parallel scheduling remain prohibited.
+Bootstrap `DONE` is not AgentFactory reconciliation. Do not backfill fabricated TASK-010 AFEV, rewrite the terminal pipeline, select globally READY TASK-004, or weaken `EVIDENCE_MISSING`. The ADR and a fresh proof must precede product-chain authorization.
