@@ -1,0 +1,48 @@
+{
+  "taskId": "TASK-038",
+  "verifiedAt": "2026-08-14T19:23:15.383Z",
+  "baseCommit": "367f5c979c269b0a70003e3497d5023064fc2a82",
+  "headCommit": "367f5c979c269b0a70003e3497d5023064fc2a82",
+  "changedFiles": [
+    "project_docs/execution_governance/HUMAN_APPROVAL.md",
+    "tooling/agent-harness/src/github-lifecycle.ts",
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/orchestrator-runtime.ts",
+    "tooling/agent-harness/src/package-authorization.ts",
+    "tooling/agent-harness/src/task.ts",
+    "tooling/agent-harness/tests/github-lifecycle.test.ts",
+    "tooling/agent-harness/tests/package-authorization.test.ts",
+    "tooling/agent-harness/tests/task.test.ts"
+  ],
+  "taskHash": "2668ee295005e05aa60b9713cd6144923b70046c780a3259e066b09234d41013",
+  "packHash": "36c94cc7069e285fe916fce2e2162617c2ac260b3e1c8def15bd54986f453b98",
+  "changeFingerprint": "ddfc361f3ab396efef03a8c185ce7c4a0c3b88372a62aae313fe5bb4fbcfcb15",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-038",
+    "branch": "task/038-implement-and-prove-bounded-package-work-authorization",
+    "baseBranch": "main",
+    "baseCommit": "367f5c979c269b0a70003e3497d5023064fc2a82",
+    "remote": "origin",
+    "createdAt": "2026-08-14T19:03:24.345Z",
+    "commit": "365e7bf0a65207b4948253476a0771b514c09076",
+    "verifiedFingerprint": "ddfc361f3ab396efef03a8c185ce7c4a0c3b88372a62aae313fe5bb4fbcfcb15",
+    "committedAt": "2026-08-14T19:23:24.032Z",
+    "pushed": true,
+    "pushedAt": "2026-08-14T19:23:32.404Z",
+    "pullRequest": {
+      "number": 109,
+      "url": "https://github.com/delmacy/system-builder/pull/109",
+      "state": "MERGED",
+      "openedAt": "2026-08-14T19:23:37.410Z",
+      "mergeCommit": "dd3fd71e97f9575346d0d1f3ddf6785c57b83e03"
+    }
+  }
+}
