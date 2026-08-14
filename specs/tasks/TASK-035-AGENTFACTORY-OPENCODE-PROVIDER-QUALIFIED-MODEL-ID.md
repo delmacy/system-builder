@@ -1,7 +1,7 @@
 ---
 id: TASK-035
 title: Pass provider-qualified Zen model IDs to the OpenCode CLI
-status: ready
+status: completed
 priority: 58
 milestone: I2
 model_tier: architecture
