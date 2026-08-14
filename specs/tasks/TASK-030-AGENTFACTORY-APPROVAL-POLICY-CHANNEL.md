@@ -1,7 +1,7 @@
 ---
 id: TASK-030
 title: Correct AgentFactory approval policy channel semantics
-status: ready
+status: completed
 priority: 54
 milestone: I2
 model_tier: architecture
