@@ -37,6 +37,16 @@ export { evaluateHumanApproval, evaluateStoredHumanApproval, humanApprovalId, hu
 export { AgentFactorySupervisor, isRetryableFailure, retryDelaySeconds } from "./pipeline-supervisor.js";
 export { DurableSupervisorStore } from "./supervisor-store.js";
 export {
+  buildTaskCatalogDag,
+  createSupervisorRuntime,
+  loadSupervisorRuntimePlan,
+  LocalProcessCallbackTransport,
+  mapSequentialReceipt,
+  RepositorySequentialAdapter,
+  SequentialSupervisorIterationAdapter,
+  supervisorRuntimePlanSchema,
+} from "./supervisor-runtime.js";
+export {
   agentFactoryEventSchema, buildSupervisorEvent, supervisorCallbackSchema, supervisorConfigSchema,
   supervisorEventRecordSchema, supervisorLeaseSchema, supervisorProjectionSchema,
 } from "./supervisor-contracts.js";

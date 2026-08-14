@@ -137,6 +137,8 @@ risks:
 notes:
   - Materialize its task only from the actual integrated WP-I2-02 interface.
   - Materialized as TASK-033 after TASK-032 implementation and state closure integrated on main.
+  - TASK-033 binds the kernel through a strict external runtime plan, task-spec-derived DAG, repository/GitHub observation adapter and finite local callback process.
+  - Windows commands and the recovery-only Task Scheduler heartbeat are defined in `SUPERVISOR_OPERATIONS_WINDOWS.md`.
 ```
 
 ## Supplemental DAG
