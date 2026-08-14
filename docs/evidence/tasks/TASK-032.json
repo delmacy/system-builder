@@ -1,0 +1,46 @@
+{
+  "taskId": "TASK-032",
+  "verifiedAt": "2026-08-14T00:58:19.069Z",
+  "baseCommit": "75d257baede426b60a1f8a5aaad11247994f7599",
+  "headCommit": "75d257baede426b60a1f8a5aaad11247994f7599",
+  "changedFiles": [
+    ".gitignore",
+    "tooling/agent-harness/policies/SUPERVISOR.json",
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/pipeline-supervisor.ts",
+    "tooling/agent-harness/src/supervisor-contracts.ts",
+    "tooling/agent-harness/src/supervisor-store.ts",
+    "tooling/agent-harness/tests/pipeline-supervisor.test.ts"
+  ],
+  "taskHash": "40f8891e1108f2f85fc99808c616023afa7ccf2a58b79bfee12e9b12d89be9c3",
+  "packHash": "4cfd0a513a9e5af49347bf9f87b0bfc3863132ed829e8d8263329b01adee5b87",
+  "changeFingerprint": "d2dc61f601572786b121306b1be86aa2dd586ce2568ff857437c3e9fe51ee383",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-032",
+    "branch": "task/032-implement-the-durable-event-driven-supervisor-kernel",
+    "baseBranch": "main",
+    "baseCommit": "75d257baede426b60a1f8a5aaad11247994f7599",
+    "remote": "origin",
+    "createdAt": "2026-08-14T00:51:00.219Z",
+    "commit": "342bf5b55b7c453b49a9c2654c50404aeeb63b79",
+    "verifiedFingerprint": "d2dc61f601572786b121306b1be86aa2dd586ce2568ff857437c3e9fe51ee383",
+    "committedAt": "2026-08-14T00:58:47.506Z",
+    "pushed": true,
+    "pushedAt": "2026-08-14T00:58:51.329Z",
+    "pullRequest": {
+      "number": 86,
+      "url": "https://github.com/delmacy/system-builder/pull/86",
+      "state": "MERGED",
+      "openedAt": "2026-08-14T00:58:55.616Z",
+      "mergeCommit": "e9d5b30a22b433ba7842882e4d5714cee7f0eefb"
+    }
+  }
+}

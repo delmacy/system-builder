@@ -1,7 +1,7 @@
 ---
 id: TASK-032
 title: Implement the durable event-driven supervisor kernel
-status: ready
+status: completed
 priority: 54
 milestone: I2
 model_tier: architecture
