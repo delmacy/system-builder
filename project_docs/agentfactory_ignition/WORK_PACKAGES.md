@@ -6,6 +6,8 @@ WP-AF-01 execution policy schema; WP-AF-02 task/state data model; WP-AF-03 DAG p
 ## I2/I3
 WP-AF-04 decomposition/task pack; WP-AF-05 sprint candidate/commitment; WP-AF-13 successor unlock/replanning; WP-AF-14 review cycle.
 
+The owner-approved I2 supplemental operations refinement is defined in `project_docs/agentfactory_i2/ASYNC_SUPERVISOR.md`: WP-I2-02 provides the durable event/outbox/lease/retry kernel and WP-I2-03 provides the concrete local runtime bridge/Windows commands. This is a bounded slice of WP-AF-16 and does not declare the full operations WP complete.
+
 ## Later
 WP-AF-15 economics/calibration; WP-AF-16 operator controls/observability; parallel scheduling extensions.
 

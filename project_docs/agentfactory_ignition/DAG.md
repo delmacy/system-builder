@@ -29,3 +29,9 @@
 01 -> 02 -> 03 -> 06 -> 07 -> 08 -> 09 -> 10 -> 11 -> 12 -> I1.
 
 Task Decomposer/Sprint Planner become mandatory for I3, not for first single-task proof.
+
+## I2 supplemental operations gate
+
+`TASK-028 + TASK-031 -> WP-I2-02 -> WP-I2-03 -> supervisor readiness reassessment -> I2 candidate run`.
+
+This refines only the local reliability/operator slice needed before the authorized candidate. It does not satisfy the full `03/08/11/12/14/15 -> 16 Operations` dependency, enable I3 or authorize parallel scheduling.

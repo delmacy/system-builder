@@ -6,6 +6,10 @@ Date: 2026-08-13
 
 **GO.** The bounded I2 candidate may start with TASK-010. This assessment did not start TASK-010 and does not authorize parallel or broad M1 execution.
 
+## Supplemental gate notice
+
+CHG-AF-2026-08-13-01 and ADR-0011 were accepted after this decision. They preserve the evidence behind this GO but add WP-I2-02/WP-I2-03 as explicit operational preconditions. TASK-010 remains prohibited until the event-driven Supervisor is implemented, integrated, state-closed and a new readiness assessment restores authorization.
+
 ## Accepted evidence
 
 - `main` and `origin/main` were identical at `d6c35ddf14e11d8e9ffcfdb623275f2ef72574ab`; the working tree was clean and no PR remained open.
