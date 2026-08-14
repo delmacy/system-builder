@@ -1,7 +1,7 @@
 ---
 id: TASK-029
 title: Add governed durable human approval
-status: ready
+status: completed
 priority: 53
 milestone: I2
 model_tier: architecture
