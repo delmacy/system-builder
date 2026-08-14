@@ -12,9 +12,10 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 6. Treat TASK-010 implementation/state PRs #99/#100 as accepted bootstrap `DONE`, while preserving its terminal Supervisor `EVIDENCE_MISSING` run as a failed I2 proof.
 7. Treat TASK-036/ADR-0012 as integrated and state-closed.
 8. Treat TASK-037/ADR-0013 as integrated and state-closed.
-9. Execute and state-close TASK-038 to implement/prove package authorization without activating a real package.
-10. Sign the first real 20–50 descriptor package only after TASK-038 integrates, then materialize the WP-I2-06 authority implementation inside that governed boundary.
-11. Do not select TASK-004 or authorize A/B/C = TASK-004 -> TASK-005 -> TASK-006 until a fresh proof integrates real AFEV, causal ledger, state reconciliation and readiness authority.
+9. Treat TASK-038 as integrated/state-closed and `PKG-AF-I2-I5-001` as the active signed 23-descriptor routine package.
+10. Execute/state-close TASK-039 through exact evaluator approval to bootstrap rolling-wave spec delivery and implement ADR-0012 authority closure.
+11. Materialize PWD-AF-003 then PWD-AF-004 from the signed package and actual TASK-039 outputs.
+12. Do not select TASK-004 or authorize A/B/C = TASK-004 -> TASK-005 -> TASK-006 until the fresh proof integrates real AFEV, causal ledger, state reconciliation and readiness authority and the I2 Exit Gate receives an exact GO.
 
 ## Per-task loop
 

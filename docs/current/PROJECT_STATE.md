@@ -20,14 +20,16 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 
 ## Active execution focus
 
-**I2 package-authorization implementation gate — TASK-038 next.**
+**I2 authority-closure bootstrap exception — TASK-039 next.**
 
 TASK-010 completed implementation PR #99 and bootstrap state PR #100 with exact durable approvals, but its preserved Supervisor run terminated `EVIDENCE_MISSING`: no real AFEV, causal AgentFactory ledger or readiness receipt was integrated. TASK-036 accepted the missing L4 integration decision; its corrective runtime implementation remains unmaterialized. I3, TASK-004 and parallel scheduling remain prohibited.
 
-TASK-036/ADR-0012 and TASK-037/ADR-0013 are integrated and state-closed. Before
-the bounded WP-I2-06 implementation is materialized, TASK-038 must implement
-and prove the package authorization evaluator/lifecycle boundary. ADR-0010
-remains active and no real package exists yet.
+TASK-036/ADR-0012, TASK-037/ADR-0013 and TASK-038 are integrated and
+state-closed. The owner-signed `PKG-AF-I2-I5-001` now contains 23 routine
+AgentFactory descriptors. TASK-039 is the exact evaluator exception that must
+bootstrap package-authorized rolling-wave spec delivery and implement the
+bounded WP-I2-06 authority closure. Package authority cannot authorize this
+exception or any later evaluator/exit-gate decision.
 
 ## Product track held ready
 
@@ -35,10 +37,10 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Execute and state-close TASK-038 to implement and prove the WP-I2-07 package authorization policy.
-2. Materialize/sign the first real 20–50 descriptor package only after the TASK-038 proof integrates.
-3. Materialize the bounded WP-I2-06 authority implementation task from ADR-0012 and the integrated package-governance boundary.
-4. Run a fresh bounded authority proof before authorizing TASK-004 -> TASK-005; do not advance to I3, task parallelism, database, public webhook or UI work.
+1. Execute and state-close TASK-039 through exact evaluator approval.
+2. Materialize PWD-AF-003 as the first routine package task only after TASK-039 integrates.
+3. Run PWD-AF-003/PWD-AF-004 as the bounded WP-I2-06 regression and fresh authority proof.
+4. Obtain an exact I2 Exit Gate decision before authorizing TASK-004 -> TASK-005 or entering I3; do not enable task parallelism, database, public webhook or UI work.
 
 ## Selection warning
 
