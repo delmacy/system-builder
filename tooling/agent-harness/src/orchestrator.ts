@@ -1,5 +1,5 @@
 import type { ExecutorAdapter, ExecutorReport } from "./executor.js";
-import type { ExecutorRequest } from "./execution-contracts.js";
+import type { ExecutorAdapterResult, ExecutorRequest } from "./execution-contracts.js";
 import type { Task } from "./task.js";
 import type { GitHubLifecycleReceipt } from "./github-lifecycle.js";
 
@@ -20,6 +20,7 @@ export type ExecutionObservation = {
   attempts: number;
   lastExecutor?: string;
   lastExecutorFailure?: string;
+  lastExecutorResult?: ExecutorAdapterResult;
   lastVerificationFailure?: string;
 };
 

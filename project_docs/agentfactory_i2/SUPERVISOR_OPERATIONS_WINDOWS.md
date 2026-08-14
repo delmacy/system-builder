@@ -16,21 +16,20 @@ $plan = 'C:\secure\system-builder-i2-task-010.plan.json'
 $pipeline = 'system-builder-i2-task-010'
 $correlation = "i2-task-010-$([DateTimeOffset]::UtcNow.ToUnixTimeSeconds())"
 $env:SYSTEM_BUILDER_HUMAN_APPROVAL_DIR = 'C:\secure\approvals'
-$env:OPENCODE_EXECUTABLE = 'opencode'
 Set-Location -LiteralPath $repo
 npm ci
 npm run verify
 ```
 
-`OPENCODE_MODEL` may be set when the authorized plan route names the same model. OpenCode remains the only automatic implementation executor. Architecture/high-risk tasks retain their human/strong-model gate.
+`OPENCODE_EXECUTABLE` is optional and defaults to `opencode`. `OPENCODE_MODEL` is not a normal prerequisite. When present it is an explicit operator override and must exist in the current catalog and satisfy the declared selector; it cannot silently replace a different concrete planned model. OpenCode remains the only automatic implementation executor. Architecture/high-risk tasks retain their human/strong-model gate.
+
+The versioned catalog policy is `tooling/agent-harness/policies/OPENCODE_MODELS.json`. The default public endpoint is `https://opencode.ai/zen/v1/models`, with a ten-second timeout and a 300-second atomic cache under `.agent/runtime/opencode-models`. A valid cache avoids a request; an expired cache is never used when refresh fails.
 
 ## Explicit plan
 
 The Supervisor never selects the global READY queue. It requires a strict external JSON plan whose ordered membership, work package and route were separately authorized. Do not create or use the following TASK-010 plan until the supplemental readiness gate records GO:
 
 ```powershell
-$model = $env:OPENCODE_MODEL
-if ([string]::IsNullOrWhiteSpace($model)) { throw 'Set OPENCODE_MODEL to the authorized OpenCode model first.' }
 $planDocument = [ordered]@{
   schema_version = 1
   pipeline = [ordered]@{
@@ -46,10 +45,15 @@ $planDocument = [ordered]@{
         risk = 'MEDIUM'
         model_tier = 'T2'
         executor = 'opencode'
-        model = $model
+        model = $null
         architecture_impact = $false
         decision = 'SELECTED'
         rationale_code = 'BOUNDED_MODERATE_RISK'
+      }
+      model_selector = [ordered]@{
+        free = $true
+        name_contains = $null
+        preference = @('deepseek', 'mimo', 'nemotron')
       }
     }
   }
@@ -58,6 +62,10 @@ $planDocument = [ordered]@{
 ```
 
 The later I2 proof plan is `TASK-004 -> TASK-005 -> TASK-006`, only after TASK-010 is integrated and accepted. Architecture tasks are not silently routed to OpenCode.
+
+`model_selector` belongs to the Supervisor execution entry rather than the stable provider-neutral `ExecutionRoute`. Matching is a case-insensitive literal substring. Preference order is applied first and lexical model ID breaks ties; any remaining free model is the final fallback. The provider's explicit boolean `free`, when present, takes priority; otherwise this version classifies only IDs ending in `-free` as free.
+
+Catalog timeout, rate limit, 5xx and network unavailability enter the existing Supervisor retry/backoff path. Invalid responses/selectors, absent models and policy conflicts block without retry. The concrete selected ID, selector, source (`api`, `cache` or `explicit_override`) and timestamp are recorded in the local attempt journal.
 
 ## Finite commands
 

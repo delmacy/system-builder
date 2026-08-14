@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, it } from "node:test";
@@ -24,6 +24,8 @@ import {
   type PullRequestObservation,
 } from "../src/orchestrator.js";
 import type { Task } from "../src/task.js";
+import { normalizeOpenCodeModels, OpenCodeModelResolver } from "../src/opencode-models.js";
+import { LocalHarnessAdapter } from "../src/orchestrator-runtime.js";
 
 describe("Local Task Orchestrator", () => {
   it("advances READY by exactly one task:branch transition", () => {
@@ -387,6 +389,116 @@ describe("OpenCode executor", () => {
     assert.ok(args.indexOf("--model") < args.indexOf("--file"));
     assert.deepEqual(args.slice(args.indexOf("--file") + 1), [pack]);
     assert.deepEqual(calls.map((call) => call.timeoutMs), [12_345, 12_345]);
+  });
+
+  it("passes exactly the dynamically resolved model and records its resolution", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-opencode-resolved-"));
+    const pack = join(root, "TASK_PACK.md");
+    writeFileSync(pack, "bounded pack\n");
+    const calls: string[][] = [];
+    const runner = (_executable: string, args: string[]): CommandResult => { calls.push(args); return { status: 0, stdout: "ok", stderr: "" }; };
+    const task = makeTask();
+    const request = executorRequestSchema.parse({
+      schema_version: 1, task_id: task.metadata.id, work_package_id: "WP-I1-05",
+      source_commit: "6582afe794b6f7e9d97661b2051493a16905bc21", attempt: 1, task_pack_path: "TASK_PACK.md",
+      route: { risk: "LOW", model_tier: "T1", executor: "opencode", model: null, architecture_impact: false, decision: "SELECTED", rationale_code: "BOUNDED_LOW_RISK" },
+      scope: { allowed_paths: task.metadata.allowed_paths, forbidden_paths: task.metadata.forbidden_paths, max_files: task.metadata.max_files },
+      validation_commands: task.metadata.validation,
+    });
+    const modelResolver = new OpenCodeModelResolver({ listModels: () => normalizeOpenCodeModels({ object: "list", data: [
+      { id: "mimo-v2.5-free", object: "model", owned_by: "opencode" },
+      { id: "deepseek-v4-flash-free", object: "model", owned_by: "opencode" },
+    ] }) }, { cachePath: join(root, ".agent/runtime/models.json"), cacheTtlSeconds: 300, now: () => "2026-08-14T12:00:00.000Z" });
+    const report = new OpenCodeExecutor(root, "opencode-test", undefined, runner, 12_345, {
+      resolver: modelResolver,
+      selectors: { [task.metadata.id]: { free: true, preference: ["deepseek", "mimo"] } },
+    }).execute({ task, taskPackPath: pack, attempt: 1, request });
+    const args = calls[1] ?? [];
+    assert.equal(args[args.indexOf("--model") + 1], "deepseek-v4-flash-free");
+    assert.equal(report.result?.model_resolution?.selected_model, "deepseek-v4-flash-free");
+    assert.equal(report.result?.model_resolution?.source, "api");
+  });
+
+  it("does not read ambient OPENCODE_MODEL or OPENCODE_EXECUTABLE in default construction", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-opencode-hermetic-"));
+    const pack = join(root, "TASK_PACK.md");
+    writeFileSync(pack, "bounded pack\n");
+    const previousModel = process.env.OPENCODE_MODEL;
+    const previousExecutable = process.env.OPENCODE_EXECUTABLE;
+    const calls: Array<{ executable: string; args: string[] }> = [];
+    try {
+      process.env.OPENCODE_MODEL = "ambient-paid-model";
+      process.env.OPENCODE_EXECUTABLE = "ambient-executable";
+      const executor = new OpenCodeExecutor(root, undefined, undefined, (executable, args) => {
+        calls.push({ executable, args }); return { status: 0, stdout: "ok", stderr: "" };
+      });
+      executor.execute({ task: makeTask(), taskPackPath: pack, attempt: 1 });
+      assert.equal(calls[0]?.executable, "opencode");
+      assert.equal((calls[1]?.args ?? []).includes("--model"), false);
+    } finally {
+      if (previousModel === undefined) delete process.env.OPENCODE_MODEL; else process.env.OPENCODE_MODEL = previousModel;
+      if (previousExecutable === undefined) delete process.env.OPENCODE_EXECUTABLE; else process.env.OPENCODE_EXECUTABLE = previousExecutable;
+    }
+  });
+
+  it("persists model resolution in the durable local execution journal", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-model-journal-"));
+    mkdirSync(join(root, "specs/tasks"), { recursive: true });
+    writeFileSync(join(root, "specs/tasks/TASK-100.md"), `---
+id: TASK-100
+title: Journal fixture
+status: ready
+priority: 100
+milestone: M-TEST
+model_tier: free
+risk: low
+architecture_impact: false
+executor_preference: opencode
+depends_on: []
+context_paths:
+  - AGENTS.md
+allowed_paths:
+  - docs/**
+forbidden_paths: []
+max_files: 1
+validation:
+  - npm test
+---
+
+fixture
+
+# Objective
+fixture
+# Context
+fixture
+# Current behavior
+fixture
+# Required change
+fixture
+# Inputs / contracts
+fixture
+# Outputs / contracts
+fixture
+# Acceptance criteria
+fixture
+# Non-goals
+fixture
+# Evidence expected
+fixture
+# Escalation
+fixture
+`);
+    const result = executorAdapterResultSchema.parse({
+      schema_version: 1, task_id: "TASK-100", attempt: 1, adapter: "opencode", status: "SUCCEEDED",
+      exit_code: 0, stdout: "done", stderr: "", failure: null,
+      model_resolution: {
+        requested_selector: { free: true, preference: ["deepseek"] },
+        selected_model: "deepseek-v4-flash-free", source: "api", resolved_at: "2026-08-14T12:00:00.000Z",
+      },
+    });
+    new LocalHarnessAdapter(root).recordExecution("TASK-100", { executor: "opencode", attempt: 1, status: "completed", summary: "done", result });
+    const journal = JSON.parse(readFileSync(join(root, ".agent/orchestrator/TASK-100.json"), "utf8")) as { executions: Array<{ rawResult: typeof result }> };
+    assert.equal(journal.executions[0]?.rawResult.model_resolution?.selected_model, "deepseek-v4-flash-free");
   });
 
   it("propagates nonzero exit and timeout as structured failures without false success", () => {

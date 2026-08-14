@@ -86,9 +86,10 @@ describe("AgentFactory I2 sequential pipeline", () => {
     assert.equal(run.coordinator.advance().stop_reason, "DOR_NOT_MET"); assert.equal(run.calls(), 0);
   });
 
-  it("stops on executor failure", () => {
-    const run = coordinator({ obs: observation([activeAuthority({ orchestrator_state: "EXECUTOR_FAILED" })]) });
-    assert.equal(run.coordinator.advance().stop_reason, "EXECUTION_FAILED");
+  it("delegates an observed executor failure so the Supervisor can govern a classified retry", () => {
+    const run = coordinator({ obs: observation([activeAuthority({ orchestrator_state: "EXECUTOR_FAILED" })]), adapterState: "EXECUTOR_FAILED" });
+    assert.equal(run.coordinator.advance().stop_reason, "DELEGATED");
+    assert.equal(run.calls(), 1);
   });
 
   it("stops on independent validation failure", () => {

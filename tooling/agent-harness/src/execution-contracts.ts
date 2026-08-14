@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { openCodeModelResolutionSchema } from "./opencode-models.js";
 
 export const executionContractVersion = 1 as const;
 
@@ -159,6 +160,7 @@ export const executorAdapterResultSchema = z.object({
   exit_code: z.number().int().nullable(),
   stdout: z.string(),
   stderr: z.string(),
+  model_resolution: openCodeModelResolutionSchema.nullable().optional(),
   failure: z.object({
     code: nonEmptyString,
     message: nonEmptyString,
