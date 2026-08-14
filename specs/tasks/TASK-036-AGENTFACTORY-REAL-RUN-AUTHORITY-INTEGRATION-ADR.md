@@ -16,7 +16,7 @@ context_paths:
   - docs/current/PROJECT_STATE.md
   - docs/current/CURRENT_MILESTONE.md
   - docs/adr/ADR-0008-local-task-orchestrator.md
-  - docs/adr/ADR-0011-event-driven-agentfactory-supervisor.md
+  - docs/adr/ADR-0011-event-driven-local-pipeline-supervisor.md
   - docs/engineering/LOCAL_TASK_ORCHESTRATOR.md
   - docs/engineering/GIT_WORKFLOW.md
   - project_docs/agentfactory_i2/SEQUENTIAL_PIPELINE.md
