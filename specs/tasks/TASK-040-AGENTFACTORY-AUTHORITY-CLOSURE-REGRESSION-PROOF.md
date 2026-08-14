@@ -1,7 +1,7 @@
 ---
 id: TASK-040
 title: Prove prospective authority closure regressions
-status: ready
+status: completed
 priority: 1
 milestone: I2
 model_tier: free

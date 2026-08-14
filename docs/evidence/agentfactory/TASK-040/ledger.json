@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "authoritative_task": {
+    "schema_version": 1,
+    "task_id": "TASK-040",
+    "work_package_id": "WP-I2-06",
+    "milestone": "I2",
+    "title": "Prove prospective authority closure regressions",
+    "state": "DONE",
+    "route": {
+      "risk": "MEDIUM",
+      "model_tier": "T2",
+      "executor": "opencode",
+      "model": "opencode/deepseek-v4-flash-free",
+      "architecture_impact": false,
+      "decision": "SELECTED",
+      "rationale_code": "BOUNDED_MODERATE_RISK"
+    },
+    "dependency_gates": [
+      {
+        "schema_version": 1,
+        "id": "GATE-039-040",
+        "predecessor_id": "TASK-039",
+        "successor_id": "TASK-040",
+        "type": "REQUIRES",
+        "status": "SATISFIED",
+        "evidence_refs": [
+          "docs/evidence/tasks/TASK-039.json"
+        ]
+      }
+    ],
+    "context_paths": [
+      "AGENTS.md",
+      "docs/current/PROJECT_STATE.md",
+      "docs/current/CURRENT_MILESTONE.md",
+      "docs/adr/ADR-0012-agentfactory-real-run-authority-integration.md",
+      "docs/adr/ADR-0013-bounded-package-work-authorization.md",
+      "specs/tasks/TASK-039-AGENTFACTORY-PACKAGE-SPEC-AND-AUTHORITY-CLOSURE-BOOTSTRAP.md",
+      "tooling/agent-harness/src/authority-closure.ts",
+      "tooling/agent-harness/src/orchestrator-runtime.ts",
+      "tooling/agent-harness/src/sequential-pipeline.ts",
+      "tooling/agent-harness/tests/authority-closure.test.ts",
+      "tooling/agent-harness/tests/orchestrator.test.ts",
+      "tooling/agent-harness/tests/sequential-pipeline.test.ts"
+    ],
+    "allowed_paths": [
+      "tooling/agent-harness/tests/authority-closure.test.ts",
+      "tooling/agent-harness/tests/orchestrator.test.ts",
+      "tooling/agent-harness/tests/sequential-pipeline.test.ts",
+      "project_docs/agentfactory_i2/AUTHORITY_CLOSURE_PROOF.md"
+    ],
+    "forbidden_paths": [
+      "apps/**",
+      "packages/**",
+      ".github/**",
+      "tooling/agent-harness/policies/**",
+      "specs/contracts/**",
+      "docs/adr/**"
+    ],
+    "max_files": 4,
+    "validation_commands": [
+      "npm run verify"
+    ],
+    "acceptance_ids": [
+      "AC-DOD-IMPLEMENTATION-AND-STATE-CLOSED",
+      "AC-DOD-VERIFY-PASS"
+    ]
+  },
+  "attempts": [
+    {
+      "sequence": 1,
+      "task_id": "TASK-040",
+      "from": "INTEGRATING",
+      "to": "DONE",
+      "reason_code": "INTEGRATION_ACCEPTED",
+      "occurred_at": "2026-08-14T20:59:41.335Z",
+      "evidence_ref": "docs/evidence/agentfactory/TASK-040/attempt-2-61371a1d2ff4b8b6849231d3d911fd4eb47d4fa9b95655b7567bb16413273abb.json",
+      "evidence_receipt_id": "AFEV-61371a1d2ff4b8b6849231d3d911fd4eb47d4fa9b95655b7567bb16413273abb",
+      "status": "ACCEPTED",
+      "rejection_reasons": []
+    }
+  ],
+  "accepted": true,
+  "transition": {
+    "schema_version": 1,
+    "task_id": "TASK-040",
+    "from": "INTEGRATING",
+    "to": "DONE",
+    "reason_code": "INTEGRATION_ACCEPTED",
+    "occurred_at": "2026-08-14T20:59:41.335Z",
+    "evidence_refs": [
+      "docs/evidence/agentfactory/TASK-040/attempt-2-61371a1d2ff4b8b6849231d3d911fd4eb47d4fa9b95655b7567bb16413273abb.json"
+    ]
+  },
+  "reason_codes": []
+}
