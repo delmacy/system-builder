@@ -166,7 +166,7 @@ notes:
 work_package: WP-I2-07
 parent_wbs: 01.1
 name: Bounded package work authorization
-status: ADR-0013 accepted by TASK-037; implementation not materialized
+status: ADR-0013 accepted by TASK-037; implementation READY as TASK-038
 objective: Replace repetitive exact-PR owner interaction for routine AgentFactory work with one signed, bounded and auditable authorization for 20-50 planned task descriptors.
 in_scope:
   - immutable package plan identity and signature boundary
@@ -206,7 +206,7 @@ notes:
   - TASK-037 is architecture-only and does not activate package authority.
   - ADR-0013 selects a signed immutable 20-50 descriptor manifest with deterministic rolling-wave conformance and append-only package-use receipts.
   - Routine conforming implementation/state PRs may use package authority only after implementation; architecture/security/contract/evaluator decisions and deviations remain exact exceptions.
-  - The smallest downstream task implements schemas, evaluator, external loading, lifecycle integration and proof without signing a real package.
+  - TASK-038 implements schemas, evaluator, external loading, lifecycle integration and proof without signing a real package.
   - ADR-0010 remains authoritative until the downstream implementation and proof integrate.
 ```
 
