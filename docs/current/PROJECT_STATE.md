@@ -20,9 +20,9 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 
 ## Active execution focus
 
-**I2 pre-run gate — GO; candidate execution not started.**
+**I2 supplemental supervisor gate — implementation pending; candidate execution prohibited.**
 
-Goal: prove one bounded READY task can move through task pack, model/executor selection, OpenCode execution, independent validation, evidence/state update and successor readiness without manually reconstructing context.
+Goal: add the ADR-0011 event-driven local Supervisor so the accepted sequential pipeline can release resources at external waits and resume from durable callback/heartbeat evidence without process memory or continuous polling.
 
 ## Product track held ready
 
@@ -30,11 +30,11 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Start the bounded I2 proof with TASK-010 from a fresh branch and Task Pack based on current `main`; the stale pre-I2 local preparation was removed without product changes.
-2. Require TASK-010 to reach integrated `DONE` before the coordinator may release the documented TASK-004 -> TASK-005 -> TASK-006 sequence.
-3. Execute one task at a time with independent validation, signed approval where required, state closure and successor recomputation between tasks.
-4. Reassess the I2 Exit Gate from the real integrated chain; do not advance to I3 or parallel execution before it passes.
+1. Execute and close TASK-032 for WP-I2-02, the durable event/outbox/lease/retry Supervisor kernel.
+2. Materialize WP-I2-03 only from the actual integrated TASK-032 interfaces, then implement its real coordinator/orchestrator bridge and finite Windows commands.
+3. Reassess Supervisor readiness after both slices integrate; do not create or execute the TASK-010 branch before that decision.
+4. Preserve one-task-at-a-time I2 semantics; do not advance to I3, task parallelism, database, public webhook or UI work.
 
 ## Selection warning
 
-The global catalog still exposes independent READY product work. The I2 GO authorizes only the controlled candidate beginning with TASK-010 and then the evidence-released TASK-004 -> TASK-005 -> TASK-006 chain. It is not permission for a broad M1 restart or parallel product execution.
+The previous I2 pre-run GO remains historical evidence, but CHG-AF-2026-08-13-01 adds a new explicit precondition. Global READY product work is not authorized until the Supervisor slices are integrated, state-closed and reassessed.
