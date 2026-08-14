@@ -116,7 +116,7 @@ required_evidence:
 work_package: WP-I2-06
 parent_wbs: 16.2
 name: Real-run AgentFactory authority integration
-status: READY as TASK-036 architecture decision
+status: TASK-036 architecture decision proposed as ADR-0012
 objective: Integrate real AFEV/AFATT, causal ledger and readiness authority into the existing governed Git lifecycle so the sequential coordinator can reconcile actual repository tasks.
 in_scope:
   - architecture decision for the versioned authority integration point
@@ -153,6 +153,11 @@ required_evidence:
   - focused implementation proof after ADR integration
   - npm run verify
   - fresh I2 gate reassessment
+notes:
+  - ADR-0012 selects one exact authority closure bundle inside the existing state PR.
+  - It also governs a narrow validation-governance resolution and closure-pending coordinator ordering amendment.
+  - The downstream implementation task is materialized only after TASK-036 implementation and state closure integrate.
+  - Package-level work authorization is a separate owner-requested governance change and is not implemented by WP-I2-06.
 ```
 
 ## WP-I2-02 — Durable supervisor kernel

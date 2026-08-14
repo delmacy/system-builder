@@ -58,7 +58,22 @@ materialize the bounded implementation task. The correction must preserve all
 accepted coordinator, evidence, ledger, readiness, GitHub lifecycle, approval
 and Supervisor contracts and may not rewrite the terminal candidate history.
 
+TASK-036 selects an exact authority closure bundle in the existing state PR,
+plus narrowly governed validation-resolution and closure-pending ordering
+amendments. This selection has no implementation authority until ADR-0012 and
+TASK-036 state closure are integrated.
+
 After the implementation is integrated and state-closed, a fresh proof plan
 must demonstrate exact authority materialization and reconciliation before the
 TASK-004 -> TASK-005 chain can be authorized. I3 and parallel scheduling remain
 prohibited until this gate is reassessed GO from integrated real evidence.
+
+## Governance follow-up
+
+The owner requested future work authorization by bounded package, normally
+20–50 frozen task contracts, instead of per-task interaction/signature. This is
+a separate approval-policy change: it must distinguish authorization to execute
+the package from exception/acceptance gates and define immutable package scope,
+risk ceiling, expiry, revocation and audit evidence. ADR-0010 remains in force
+until that change receives its own governed contract; package intent is not
+treated as an approval receipt.
