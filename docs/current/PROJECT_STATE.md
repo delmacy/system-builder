@@ -15,12 +15,12 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 - Agent harness: local TypeScript implementation with bounded task context, task validation, Git/PR controls, deterministic verification and closure mechanisms.
 - OpenCode adapter: TASK-011 argument ordering and TASK-013 structured request/result, timeout and failure hardening are integrated.
 - AgentFactory planning: complete through I1 Work Packages, DAG, governance, task-generation policy and exit gate.
-- AgentFactory I1 implementation and post-I1 hardening: TASK-012 through TASK-027 are completed. TASK-028's I2 coordinator and bootstrap closure are integrated, but hardened lifecycle reconciliation is blocked by missing GitHub approvals.
+- AgentFactory I1 implementation, post-I1 hardening and I2 pre-run control plane: TASK-012 through TASK-031 are completed. TASK-028's coordinator and every implementation/state PR from TASK-028 through TASK-031 reconcile as `DONE` through signed durable human approval, green required checks and integrated state evidence.
 - GitHub Actions: confirmation CI remains deterministic; AI execution is local unless a later approved task changes that architecture.
 
 ## Active execution focus
 
-**I2 pre-run gate — NO-GO; execution not started.**
+**I2 pre-run gate — GO; candidate execution not started.**
 
 Goal: prove one bounded READY task can move through task pack, model/executor selection, OpenCode execution, independent validation, evidence/state update and successor readiness without manually reconstructing context.
 
@@ -30,11 +30,11 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Preserve TASK-028 implementation and bootstrap closure as integrated evidence.
-2. Correct TASK-029's post-integration approval-channel classification through TASK-030 before retrying state closure.
-3. Do not execute TASK-010 or the documented TASK-004 -> TASK-005 -> TASK-006 chain until a reassessed pre-run gate is GO.
-4. Do not advance to I3 or parallel execution before the I2 Exit Gate.
+1. Start the bounded I2 proof with TASK-010 from a fresh branch and Task Pack based on current `main`; the stale pre-I2 local preparation was removed without product changes.
+2. Require TASK-010 to reach integrated `DONE` before the coordinator may release the documented TASK-004 -> TASK-005 -> TASK-006 sequence.
+3. Execute one task at a time with independent validation, signed approval where required, state closure and successor recomputation between tasks.
+4. Reassess the I2 Exit Gate from the real integrated chain; do not advance to I3 or parallel execution before it passes.
 
 ## Selection warning
 
-The global task catalog also contains READY product tasks. During AgentFactory ignition, do not treat global `task:next` ordering as permission to switch back to product M1. Select the approved AgentFactory milestone/task explicitly until the handoff focus changes or milestone-aware scheduling is implemented.
+The global catalog still exposes independent READY product work. The I2 GO authorizes only the controlled candidate beginning with TASK-010 and then the evidence-released TASK-004 -> TASK-005 -> TASK-006 chain. It is not permission for a broad M1 restart or parallel product execution.
