@@ -27,6 +27,50 @@ change:
   approval_evidence: owner instruction plus ADR-0011; implementation still requires normal signed PR/SHA governance
 ```
 
+## WP-I2-04 — Dynamic OpenCode model discovery and selection
+
+```yaml
+work_package: WP-I2-04
+parent_wbs: 16.2
+name: Dynamic OpenCode model discovery and selection
+status: READY as TASK-034
+objective: Replace the manual exact OPENCODE_MODEL prerequisite with validated, deterministic free-model discovery from the OpenCode Zen catalog.
+in_scope:
+  - normalized catalog, selector and resolution contracts
+  - injectable Zen catalog client
+  - deterministic free-only selector and validated explicit override
+  - atomic runtime TTL cache
+  - existing Supervisor retry classification bridge
+  - hermetic executor/runtime tests and Windows plan update
+out_of_scope:
+  - paid-model price inference or fallback
+  - router/executor rewrite
+  - secrets, database, dashboard, I3 or task parallelism
+inputs:
+  - integrated WP-I2-03 runtime bridge
+  - OpenCode executor and execution attempt receipt
+  - existing Supervisor retry policy
+outputs:
+  - OpenCodeModelResolver and catalog client
+  - selector-capable strict runtime plan
+  - recorded concrete model resolution
+predecessors:
+  - WP-I2-03
+downstream_consumers:
+  - supplemental Supervisor readiness reassessment
+  - TASK-010 candidate plan
+acceptance_criteria:
+  - no normal OPENCODE_MODEL prerequisite remains
+  - free-only policy never selects paid/unknown models
+  - selection and tests are deterministic and environment-hermetic
+  - transient catalog failures use the existing retry engine
+  - TASK-010 remains unstarted
+required_evidence:
+  - twenty focused hermetic tests
+  - npm run verify with OPENCODE_MODEL absent and present
+  - post-integration readiness reassessment
+```
+
 ## WP-I2-02 — Durable supervisor kernel
 
 ```yaml
@@ -144,6 +188,6 @@ notes:
 
 ## Supplemental DAG
 
-`TASK-028 + TASK-031 -> WP-I2-02/TASK-032 -> WP-I2-03/rolling-wave task -> supervisor readiness reassessment -> TASK-010 candidate`
+`TASK-028 + TASK-031 -> WP-I2-02/TASK-032 -> WP-I2-03/TASK-033 -> WP-I2-04/TASK-034 -> supervisor readiness reassessment -> TASK-010 candidate`
 
-The prior I2 pre-run GO remains historical evidence, but the owner-approved supplemental gate prohibits the real candidate until both WPs are integrated, state-closed and reassessed.
+The earlier supplemental GO is superseded by the owner-directed dynamic-model corrective gate. TASK-010 remains prohibited until TASK-034 is integrated, state-closed and readiness is reassessed.

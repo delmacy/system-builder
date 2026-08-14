@@ -8,8 +8,8 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory_ignition/`, `project_docs/agentfactory_i1/`, `project_docs/agentfactory_i2/` and execution-governance docs.
 3. Treat TASK-012 through TASK-031 as the integrated I1/I2 pre-run baseline; TASK-028 through TASK-031 reconcile as DONE through exact durable approval.
 4. Treat TASK-032 as the integrated and state-closed WP-I2-02 kernel baseline.
-5. Treat TASK-033/WP-I2-03 as integrated and state-closed; the supplemental Supervisor readiness gate is GO.
-6. Start only the strict TASK-010 candidate plan through the finite Supervisor. Do not authorize A/B/C = TASK-004 -> TASK-005 -> TASK-006 until TASK-010 is integrated and accepted.
+5. Treat TASK-033/WP-I2-03 as integrated and state-closed, but its recorded GO is superseded by the dynamic-model corrective gate.
+6. Execute and close TASK-034, then reassess readiness. Do not create or execute TASK-010 or authorize A/B/C = TASK-004 -> TASK-005 -> TASK-006 before that decision.
 
 ## Per-task loop
 

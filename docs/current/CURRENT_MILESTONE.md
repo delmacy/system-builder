@@ -68,6 +68,9 @@ Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autono
 - [x] Materialize TASK-033 for WP-I2-03 from integrated TASK-032 outputs.
 - [x] TASK-033: implement and state-close the local runtime bridge and finite Windows commands.
 - [x] Integrate/state-close WP-I2-03 and reassess Supervisor readiness as GO without starting TASK-010.
+- [x] Record the owner-directed dynamic-model operational finding and materialize WP-I2-04 as TASK-034.
+- [ ] TASK-034: implement dynamic OpenCode Zen model discovery, deterministic selector, cache and retry bridge.
+- [ ] Integrate/state-close TASK-034 and reassess Supervisor readiness without starting TASK-010.
 - [ ] Execute the candidate chain only after coordinator integration and reassess the I2 Exit Gate.
 
 ## Product M1
