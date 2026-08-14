@@ -1,8 +1,15 @@
 {
   "schema_version": 1,
   "policy_version": "1.0.0",
-  "mode": "TEAM_INDEPENDENT",
+  "mode": "SOLO_DURABLE",
   "repository": "delmacy/system-builder",
   "max_age_seconds": 604800,
-  "authorized_approvers": []
+  "receipt_directory_env": "SYSTEM_BUILDER_HUMAN_APPROVAL_DIR",
+  "authorized_approvers": [
+    {
+      "approver_identity": "delmacy",
+      "key_id": "delmacy-owner-2026-01",
+      "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA52n6piwE0I1yXTknUpe7aXrf0tdpleWQJ2MszwVZB+M=\n-----END PUBLIC KEY-----\n"
+    }
+  ]
 }

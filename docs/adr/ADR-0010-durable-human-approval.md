@@ -28,6 +28,8 @@ Required validation and named CI checks remain mandatory in every mode. Merge is
 
 Receipts are append-only evidence. Corrections produce a new linked decision; history is not rewritten. Multi-reviewer policies may later require multiple signatures through another accepted contract revision, but `TEAM_INDEPENDENT` remains available and conservative.
 
+The active receipt store is an adapter concern and must be outside the repository delivery graph during solo bootstrap. A configured environment variable identifies a read-only filesystem directory containing signed receipts. This avoids the circular requirement that a receipt be merged by the PR it authorizes. Receipts may later be copied into repository history as archival evidence, but archival location is not the source used to authorize its own delivery. Missing configuration or files fail closed.
+
 ## Consequences
 
 - Solo operation gains a legitimate observable approval authority without fabricating GitHub review state.
