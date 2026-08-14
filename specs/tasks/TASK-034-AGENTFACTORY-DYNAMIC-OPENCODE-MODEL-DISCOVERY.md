@@ -1,7 +1,7 @@
 ---
 id: TASK-034
 title: Resolve OpenCode models dynamically from the Zen catalog
-status: ready
+status: completed
 priority: 57
 milestone: I2
 model_tier: architecture

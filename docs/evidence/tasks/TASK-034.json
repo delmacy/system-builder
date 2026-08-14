@@ -1,0 +1,53 @@
+{
+  "taskId": "TASK-034",
+  "verifiedAt": "2026-08-14T16:56:35.903Z",
+  "baseCommit": "07ee9634817262339467f2f38ac673bce501f37f",
+  "headCommit": "07ee9634817262339467f2f38ac673bce501f37f",
+  "changedFiles": [
+    "project_docs/agentfactory_i2/ASYNC_SUPERVISOR.md",
+    "project_docs/agentfactory_i2/SUPERVISOR_OPERATIONS_WINDOWS.md",
+    "tooling/agent-harness/policies/OPENCODE_MODELS.json",
+    "tooling/agent-harness/src/execution-contracts.ts",
+    "tooling/agent-harness/src/executor.ts",
+    "tooling/agent-harness/src/opencode-models.ts",
+    "tooling/agent-harness/src/orchestrator-runtime.ts",
+    "tooling/agent-harness/src/orchestrator.ts",
+    "tooling/agent-harness/src/sequential-pipeline.ts",
+    "tooling/agent-harness/src/supervisor-runtime.ts",
+    "tooling/agent-harness/tests/opencode-models.test.ts",
+    "tooling/agent-harness/tests/orchestrator.test.ts",
+    "tooling/agent-harness/tests/sequential-pipeline.test.ts",
+    "tooling/agent-harness/tests/supervisor-runtime.test.ts"
+  ],
+  "taskHash": "382da0c76f5f730a08ced480279b0992f34796fcd78b04ecb9f0450f03971bfb",
+  "packHash": "975683cf99af64ceb8d34a1c20f9460e73997702fbcbd6fc37b6f2147c070919",
+  "changeFingerprint": "cd394d1f6f663387329ee6152716493ebe4fe87b51ebef92e17b969b80cf14b6",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-034",
+    "branch": "task/034-resolve-opencode-models-dynamically-from-the-zen-catalog",
+    "baseBranch": "main",
+    "baseCommit": "07ee9634817262339467f2f38ac673bce501f37f",
+    "remote": "origin",
+    "createdAt": "2026-08-14T16:40:45.445Z",
+    "commit": "194dcd4fa4a0c386490549c09892ea1ce4fa8684",
+    "verifiedFingerprint": "cd394d1f6f663387329ee6152716493ebe4fe87b51ebef92e17b969b80cf14b6",
+    "committedAt": "2026-08-14T16:56:47.938Z",
+    "pushed": true,
+    "pushedAt": "2026-08-14T16:56:54.740Z",
+    "pullRequest": {
+      "number": 93,
+      "url": "https://github.com/delmacy/system-builder/pull/93",
+      "state": "MERGED",
+      "openedAt": "2026-08-14T16:57:02.506Z",
+      "mergeCommit": "ad739c589ce66e3d7bc9bfa628bc1929368868db"
+    }
+  }
+}
