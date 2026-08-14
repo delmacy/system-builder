@@ -240,11 +240,13 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
     journal.executions.push({
       ...enforced,
       recordedAt: new Date().toISOString(),
+      ...(completion?.rawReport.result
+        ? { rawResult: completion.rawReport.result }
+        : enforced.result ? { rawResult: enforced.result } : {}),
       ...(completion ? {
         boundary: completion.boundary,
         changedFiles: completion.changedFiles,
         violations: completion.violations,
-        ...(completion.rawReport.result ? { rawResult: completion.rawReport.result } : {}),
       } : {}),
     });
     this.activeBoundaries.delete(taskId);
@@ -355,6 +357,7 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
       attempts: journal.executions.length,
       ...(last ? { lastExecutor: last.executor } : {}),
       ...(last?.status === "failed" ? { lastExecutorFailure: last.summary } : {}),
+      ...(last?.rawResult ? { lastExecutorResult: last.rawResult } : {}),
       ...(journal.lastVerificationFailure ? { lastVerificationFailure: journal.lastVerificationFailure } : {}),
     };
   }

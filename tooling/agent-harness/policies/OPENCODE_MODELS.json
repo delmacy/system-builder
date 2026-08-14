@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "endpoint": "https://opencode.ai/zen/v1/models",
+  "timeout_seconds": 10,
+  "cache_ttl_seconds": 300
+}

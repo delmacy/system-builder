@@ -8,6 +8,12 @@ import {
   type ExecutorRequest,
 } from "./execution-contracts.js";
 import type { Task } from "./task.js";
+import {
+  OpenCodeModelError,
+  type OpenCodeModelResolution,
+  type OpenCodeModelResolver,
+  type OpenCodeModelSelector,
+} from "./opencode-models.js";
 
 export type ExecutorContext = {
   task: Task;
@@ -68,6 +74,12 @@ export type OpenCodePermission = {
   websearch: OpenCodePermissionAction;
   external_directory: OpenCodePermissionAction;
   doom_loop: OpenCodePermissionAction;
+};
+
+export type OpenCodeModelExecutionPolicy = {
+  resolver: OpenCodeModelResolver;
+  selectors: Readonly<Record<string, OpenCodeModelSelector>>;
+  overrideModel?: string;
 };
 
 export const boundedOpenCodeAgent = "system-builder-bounded";
@@ -170,10 +182,11 @@ export class OpenCodeExecutor implements ExecutorAdapter {
 
   constructor(
     private readonly root = process.cwd(),
-    private readonly executable = process.env.OPENCODE_EXECUTABLE || "opencode",
-    private readonly model = process.env.OPENCODE_MODEL,
+    private readonly executable = "opencode",
+    private readonly model?: string,
     private readonly runCommand: CommandRunner = defaultCommandRunner,
     private readonly timeoutMs = defaultOpenCodeTimeoutMs,
+    private readonly modelPolicy?: OpenCodeModelExecutionPolicy,
   ) {
     if (!Number.isInteger(timeoutMs) || timeoutMs <= 0 || timeoutMs > maxOpenCodeTimeoutMs) {
       throw new Error(`OpenCode timeout must be an integer between 1 and ${maxOpenCodeTimeoutMs} ms`);
@@ -241,8 +254,26 @@ export class OpenCodeExecutor implements ExecutorAdapter {
         false,
       );
     }
-    const selectedModel = request?.route.model ?? this.model;
-    if (request?.route.model && this.model && request.route.model !== this.model) {
+    let selectedModel = request?.route.model ?? this.model;
+    let modelResolution: OpenCodeModelResolution | null = null;
+    const selector = this.modelPolicy?.selectors[context.task.metadata.id];
+    if (selector) {
+      try {
+        const explicitModel = request?.route.model ?? this.model;
+        const overrideModel = this.modelPolicy!.overrideModel;
+        modelResolution = this.modelPolicy!.resolver.resolve({
+          selector,
+          ...(explicitModel ? { explicitModel } : {}),
+          ...(overrideModel ? { overrideModel } : {}),
+        });
+        selectedModel = modelResolution.selected_model;
+      } catch (error) {
+        if (error instanceof OpenCodeModelError) {
+          return this.reportFailure(context, request, error.retryable ? "FAILED" : "BLOCKED", null, error.code, error.message, error.retryable);
+        }
+        throw error;
+      }
+    } else if (request?.route.model && this.model && request.route.model !== this.model) {
       return this.reportFailure(
         context,
         request,
@@ -272,6 +303,7 @@ export class OpenCodeExecutor implements ExecutorAdapter {
         `OpenCode exceeded the ${this.timeoutMs} ms execution timeout`,
         context.attempt < maxOpenCodeAttempts,
         result,
+        modelResolution,
       );
     }
     if (result.error || result.status !== 0) {
@@ -284,6 +316,7 @@ export class OpenCodeExecutor implements ExecutorAdapter {
         result.error?.message || result.stderr || `OpenCode exited with ${result.status}`,
         context.attempt < maxOpenCodeAttempts,
         result,
+        modelResolution,
       );
     }
     const summary = [result.stdout, result.stderr].filter(Boolean).join("\n").trim();
@@ -296,6 +329,7 @@ export class OpenCodeExecutor implements ExecutorAdapter {
       exit_code: result.status,
       stdout: result.stdout,
       stderr: result.stderr,
+      model_resolution: modelResolution,
       failure: null,
     });
     this.lastReport = {
@@ -338,6 +372,7 @@ export class OpenCodeExecutor implements ExecutorAdapter {
     message: string,
     retryable: boolean,
     command: CommandResult = { status: exitCode, stdout: "", stderr: "" },
+    modelResolution: OpenCodeModelResolution | null = null,
   ): ExecutorReport {
     const result = executorAdapterResultSchema.parse({
       schema_version: 1,
@@ -348,6 +383,7 @@ export class OpenCodeExecutor implements ExecutorAdapter {
       exit_code: exitCode,
       stdout: command.stdout,
       stderr: command.stderr,
+      model_resolution: modelResolution,
       failure: { code, message, retryable },
     });
     const summary = [command.stdout, command.stderr, message].filter(Boolean).join("\n").trim();

@@ -69,6 +69,10 @@ required_evidence:
   - twenty focused hermetic tests
   - npm run verify with OPENCODE_MODEL absent and present
   - post-integration readiness reassessment
+notes:
+  - The final selector is stored beside the stable ExecutionRoute in each Supervisor execution entry.
+  - Free detection prefers an official boolean when present and otherwise uses only the tested -free suffix heuristic.
+  - The runtime uses the existing Supervisor retry engine and persists the selected concrete ID in the execution attempt journal.
 ```
 
 ## WP-I2-02 — Durable supervisor kernel

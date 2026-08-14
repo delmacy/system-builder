@@ -60,7 +60,12 @@ export const sequentialReceiptSchema = z.object({
   selected_task_id: taskId.nullable(),
   selection_reason: z.string().min(1),
   predecessor_gates: z.array(z.object({ task_id: taskId, reconciled: z.boolean() }).strict()),
-  delegated: z.object({ previous_state: z.string(), state: z.string(), action: z.string() }).strict().nullable(),
+  delegated: z.object({
+    previous_state: z.string(),
+    state: z.string(),
+    action: z.string(),
+    failure: z.object({ code: z.string().min(1), retryable: z.boolean() }).strict().nullable().optional(),
+  }).strict().nullable(),
   route: authoritySchema.shape.route,
   validation: authoritySchema.shape.validation,
   evidence_refs: z.array(z.string()),
@@ -131,9 +136,6 @@ export class SequentialPipelineCoordinator {
       if (authority && externalStops.has(authority.orchestrator_state as OrchestratorState)) {
         return this.receipt(started, observation, id, gates, authority, null, "EXTERNAL_GATE", false);
       }
-      if (authority?.orchestrator_state === "EXECUTOR_FAILED") {
-        return this.receipt(started, observation, id, gates, authority, null, "EXECUTION_FAILED", false);
-      }
       if (authority?.orchestrator_state === "VERIFY_FAILED" || authority?.validation === "FAIL") {
         return this.receipt(started, observation, id, gates, authority, null, "VALIDATION_FAILED", false);
       }
@@ -183,7 +185,14 @@ export class SequentialPipelineCoordinator {
     return sequentialReceiptSchema.parse({
       schema_version: 1, focus: this.plan.focus, selected_task_id: id,
       selection_reason: id ? `first unreconciled task in authorized order: ${id}` : "all authorized tasks reconciled",
-      predecessor_gates: gates, delegated: delegated ? { previous_state: delegated.previousState, state: delegated.state, action: delegated.action } : null,
+      predecessor_gates: gates, delegated: delegated ? {
+        previous_state: delegated.previousState,
+        state: delegated.state,
+        action: delegated.action,
+        failure: delegated.snapshot?.execution?.lastExecutorResult?.failure
+          ? { code: delegated.snapshot.execution.lastExecutorResult.failure.code, retryable: delegated.snapshot.execution.lastExecutorResult.failure.retryable }
+          : null,
+      } : null,
       route: authority?.route ?? null, validation: authority?.validation ?? null, evidence_refs: authority?.evidence_refs ?? [],
       implementation_pr: authority?.implementation_pr ?? null, state_pr: authority?.state_pr ?? null,
       state_closure_integrated: authority?.state_closure_integrated ?? false, reconciled,

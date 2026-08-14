@@ -29,6 +29,13 @@ import {
 import { DurableSupervisorStore } from "./supervisor-store.js";
 import { supervisorCallbackSchema, supervisorConfigSchema, type SupervisorCallback } from "./supervisor-contracts.js";
 import { loadTasks, type Task } from "./task.js";
+import {
+  loadOpenCodeModelCatalogConfig,
+  OpenCodeModelResolver,
+  openCodeModelSelectorSchema,
+  ZenOpenCodeModelCatalogClient,
+  type OpenCodeModelCatalogClient,
+} from "./opencode-models.js";
 
 const taskIdSchema = z.string().regex(/^TASK-[0-9]{3}(?:-[A-Z0-9-]+)?$/);
 const workPackageIdSchema = z.string().regex(/^WP-[A-Z0-9-]+$/);
@@ -39,12 +46,21 @@ export const supervisorRuntimePlanSchema = z.object({
   execution: z.record(taskIdSchema, z.object({
     work_package_id: workPackageIdSchema,
     route: executionRouteSchema,
+    model_selector: openCodeModelSelectorSchema.optional(),
   }).strict()),
 }).strict().superRefine((value, context) => {
   const ordered = new Set(value.pipeline.ordered_task_ids);
   const configured = Object.keys(value.execution);
   for (const id of ordered) if (!configured.includes(id)) context.addIssue({ code: "custom", path: ["execution", id], message: "ordered task requires an execution plan" });
   for (const id of configured) if (!ordered.has(id)) context.addIssue({ code: "custom", path: ["execution", id], message: "execution plan task must belong to the ordered pipeline" });
+  for (const [id, execution] of Object.entries(value.execution)) {
+    if (execution.route.executor === "opencode" && execution.route.decision === "SELECTED" && !execution.model_selector) {
+      context.addIssue({ code: "custom", path: ["execution", id, "model_selector"], message: "selected opencode route requires a model selector" });
+    }
+    if (execution.route.executor !== "opencode" && execution.model_selector) {
+      context.addIssue({ code: "custom", path: ["execution", id, "model_selector"], message: "model selector is only valid for opencode" });
+    }
+  }
 });
 
 export type SupervisorRuntimePlan = z.infer<typeof supervisorRuntimePlanSchema>;
@@ -70,6 +86,9 @@ export type SupervisorRuntimeOptions = {
   harness?: LocalHarnessAdapter;
   executors?: ExecutorAdapter[];
   cliPath?: string;
+  environment?: Readonly<Record<string, string | undefined>>;
+  modelCatalogClient?: OpenCodeModelCatalogClient;
+  modelCachePath?: string;
 };
 
 export function loadSupervisorRuntimePlan(path: string): SupervisorRuntimePlan {
@@ -216,7 +235,25 @@ export function createSupervisorRuntime(options: SupervisorRuntimeOptions): Supe
     route: value.route,
   }]));
   const harness = options.harness ?? new LocalHarnessAdapter(root, "gh", executionPlans);
-  const orchestrator = new LocalTaskOrchestrator(harness, options.executors ?? [new OpenCodeExecutor(root)]);
+  const environment = options.environment ?? process.env;
+  const modelConfig = loadOpenCodeModelCatalogConfig(root);
+  const modelResolver = new OpenCodeModelResolver(
+    options.modelCatalogClient ?? new ZenOpenCodeModelCatalogClient(modelConfig),
+    {
+      cachePath: resolve(options.modelCachePath ?? resolve(root, ".agent/runtime/opencode-models/catalog.json")),
+      cacheTtlSeconds: modelConfig.cache_ttl_seconds,
+      now,
+    },
+  );
+  const selectors = Object.fromEntries(Object.entries(plan.execution).flatMap(([id, value]) => value.model_selector ? [[id, value.model_selector]] : []));
+  const executable = environment.OPENCODE_EXECUTABLE?.trim() || "opencode";
+  const overrideModel = environment.OPENCODE_MODEL?.trim();
+  const defaultExecutors = [new OpenCodeExecutor(root, executable, undefined, undefined, undefined, {
+    resolver: modelResolver,
+    selectors,
+    ...(overrideModel ? { overrideModel } : {}),
+  })];
+  const orchestrator = new LocalTaskOrchestrator(harness, options.executors ?? defaultExecutors);
   const sequentialAdapter = new RepositorySequentialAdapter(root, plan, tasks, orchestrator, now, options.authorityReader);
   const coordinator = new SequentialPipelineCoordinator(plan.pipeline, tasks, graph, sequentialAdapter, now);
   const runtimeRoot = resolve(options.runtimeRoot ?? resolve(root, ".agent/runtime/supervisor"));
@@ -236,7 +273,20 @@ export function mapSequentialReceipt(receipt: SequentialReceipt, payloadRef: str
   const base = { taskId: receipt.selected_task_id, payloadRef };
   if (receipt.stop_reason === "PIPELINE_COMPLETE") return { ...base, eventType: "PIPELINE_COMPLETE", state: "COMPLETE", terminalStatus: "COMPLETE" };
   if (receipt.stop_reason === "DELEGATED" && receipt.delegated) {
-    if (receipt.delegated.state === "EXECUTOR_FAILED") return { ...base, eventType: "EXECUTOR_FAILED", state: "EXECUTOR_FAILED" };
+    if (receipt.delegated.state === "EXECUTOR_FAILED") {
+      const failure = receipt.delegated.failure;
+      if (failure?.retryable && failure.code.startsWith("OPENCODE_MODEL_API_")) return {
+        ...base,
+        eventType: "EXECUTOR_FAILED",
+        state: "RETRY_WAIT",
+        failureClass: modelFailureClass(failure.code),
+        provider: "opencode",
+      };
+      if (failure && ["MODEL_NOT_AVAILABLE", "MODEL_POLICY_CONFLICT", "INVALID_MODEL_SELECTOR", "INVALID_MODEL_API_RESPONSE"].includes(failure.code)) {
+        return { ...base, eventType: "PIPELINE_BLOCKED", state: "BLOCKED", failureClass: "DETERMINISTIC_FAILURE", terminalStatus: "BLOCKED" };
+      }
+      return { ...base, eventType: "EXECUTOR_FAILED", state: "EXECUTOR_FAILED" };
+    }
     if (receipt.delegated.state === "VERIFY_FAILED") return { ...base, eventType: "VALIDATION_FAILED", state: "VERIFY_FAILED" };
     return { ...base, eventType: eventForAction(receipt.delegated.action), state: receipt.delegated.state, currentOperation: null };
   }
@@ -251,6 +301,13 @@ export function mapSequentialReceipt(receipt: SequentialReceipt, payloadRef: str
     : receipt.stop_reason === "EVIDENCE_MISSING" || receipt.stop_reason === "EVIDENCE_DIVERGENCE" ? "INVALID_EVIDENCE"
       : receipt.stop_reason === "DOR_NOT_MET" ? "INVALID_TASK_CONTRACT" : "DETERMINISTIC_FAILURE";
   return { ...base, eventType: "PIPELINE_BLOCKED", state: "BLOCKED", failureClass, terminalStatus: "BLOCKED" };
+}
+
+function modelFailureClass(code: string): "OPENCODE_TIMEOUT" | "RATE_LIMIT" | "PROVIDER_5XX" | "PROVIDER_UNAVAILABLE" {
+  if (code === "OPENCODE_MODEL_API_TIMEOUT") return "OPENCODE_TIMEOUT";
+  if (code === "OPENCODE_MODEL_API_RATE_LIMIT") return "RATE_LIMIT";
+  if (code === "OPENCODE_MODEL_API_5XX") return "PROVIDER_5XX";
+  return "PROVIDER_UNAVAILABLE";
 }
 
 function eventForAction(action: string): SupervisorIterationResult["eventType"] {

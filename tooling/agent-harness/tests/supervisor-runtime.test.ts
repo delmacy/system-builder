@@ -35,7 +35,8 @@ function plan(ids = ["TASK-100", "TASK-101"]): SupervisorRuntimePlan {
     pipeline: { schema_version: 1, focus: "non-product proof", milestones: ["I2-RUN"], ordered_task_ids: ids },
     execution: Object.fromEntries(ids.map((id) => [id, {
       work_package_id: `WP-I2-${id.slice(5)}`,
-      route: { risk: "LOW", model_tier: "T1", executor: "opencode", model: "test/model", architecture_impact: false, decision: "SELECTED", rationale_code: "BOUNDED_LOW_RISK" },
+      route: { risk: "LOW", model_tier: "T1", executor: "opencode", model: null, architecture_impact: false, decision: "SELECTED", rationale_code: "BOUNDED_LOW_RISK" },
+      model_selector: { free: true, name_contains: null, preference: ["deepseek", "mimo", "nemotron"] },
     }])),
   });
 }
@@ -97,6 +98,9 @@ describe("AgentFactory local supervisor runtime bridge", () => {
     assert.deepEqual(Object.keys(value.execution), ["TASK-100", "TASK-101"]);
     assert.throws(() => supervisorRuntimePlanSchema.parse({ ...value, execution: { "TASK-100": value.execution["TASK-100"] } }), /execution plan/);
     assert.throws(() => supervisorRuntimePlanSchema.parse({ ...value, execution: { ...value.execution, "TASK-999": value.execution["TASK-100"] } }), /must belong/);
+    const withoutSelector = structuredClone(value);
+    delete withoutSelector.execution["TASK-100"]!.model_selector;
+    assert.throws(() => supervisorRuntimePlanSchema.parse(withoutSelector), /requires a model selector/);
   });
 
   it("derives the real dependency DAG and satisfies a gate only with completed repository evidence", () => {
@@ -142,6 +146,8 @@ describe("AgentFactory local supervisor runtime bridge", () => {
   it("maps progress, external waits, completion and deterministic failures without changing authority", () => {
     assert.equal(mapSequentialReceipt(receipt(), "payload").eventType, "TASK_SELECTED");
     assert.equal(mapSequentialReceipt(receipt({ delegated: { previous_state: "PREPARED", state: "EXECUTOR_FAILED", action: "execution boundary rejected" } }), "payload").eventType, "EXECUTOR_FAILED");
+    assert.equal(mapSequentialReceipt(receipt({ delegated: { previous_state: "PREPARED", state: "EXECUTOR_FAILED", action: "opencode:execute", failure: { code: "OPENCODE_MODEL_API_5XX", retryable: true } } }), "payload").failureClass, "PROVIDER_5XX");
+    assert.equal(mapSequentialReceipt(receipt({ delegated: { previous_state: "PREPARED", state: "EXECUTOR_FAILED", action: "opencode:execute", failure: { code: "MODEL_NOT_AVAILABLE", retryable: false } } }), "payload").terminalStatus, "BLOCKED");
     assert.equal(mapSequentialReceipt(receipt({ delegated: { previous_state: "EXECUTING", state: "VERIFY_FAILED", action: "task:verify failed" } }), "payload").eventType, "VALIDATION_FAILED");
     assert.deepEqual(mapSequentialReceipt(receipt({ stop_reason: "EXTERNAL_GATE", delegated: null }), "payload"), {
       taskId: "TASK-100", payloadRef: "payload", eventType: "APPROVAL_REQUIRED", state: "EXTERNAL_WAIT",
