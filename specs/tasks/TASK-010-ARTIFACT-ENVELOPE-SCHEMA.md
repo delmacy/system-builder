@@ -1,7 +1,7 @@
 ---
 id: TASK-010
 title: Implement the deterministic public artifact envelope schema
-status: ready
+status: completed
 priority: 35
 milestone: M1
 model_tier: cheap
