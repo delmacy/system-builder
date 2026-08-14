@@ -1,7 +1,7 @@
 ---
 id: TASK-041
 title: Decide package-scoped test evaluator authorization
-status: ready
+status: completed
 priority: 1
 milestone: I2
 model_tier: architecture

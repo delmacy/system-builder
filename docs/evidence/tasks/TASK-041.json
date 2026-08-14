@@ -1,0 +1,41 @@
+{
+  "taskId": "TASK-041",
+  "verifiedAt": "2026-08-14T22:36:44.729Z",
+  "baseCommit": "e72a14d7c594365c43ed227fa2d623078336c585",
+  "headCommit": "e72a14d7c594365c43ed227fa2d623078336c585",
+  "changedFiles": [
+    "docs/adr/ADR-0014-package-scoped-test-evaluator-authorization.md",
+    "project_docs/agentfactory_i2/PACKAGE_AUTHORIZATION_OPERATIONAL_FINDING.md"
+  ],
+  "taskHash": "e4c1bdbba47da56cbf046973e77017d60ef514751d0a487b853b3389b69c726e",
+  "packHash": "c0e71f2321540c4d6a8daf3ec3aa7cab475281009d0168751d13b08fb5433240",
+  "changeFingerprint": "d2771f27aa6c518b82f2d36425f3a07da34a5305f9170398f63ced54a679dc64",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-041",
+    "branch": "task/041-decide-package-scoped-test-evaluator-authorization",
+    "baseBranch": "main",
+    "baseCommit": "e72a14d7c594365c43ed227fa2d623078336c585",
+    "remote": "origin",
+    "createdAt": "2026-08-14T22:32:26.484Z",
+    "commit": "5329e20f970a668ddf549d67da0a0bda94afa51a",
+    "verifiedFingerprint": "d2771f27aa6c518b82f2d36425f3a07da34a5305f9170398f63ced54a679dc64",
+    "committedAt": "2026-08-14T22:37:06.641Z",
+    "pushed": true,
+    "pushedAt": "2026-08-14T22:37:11.064Z",
+    "pullRequest": {
+      "number": 119,
+      "url": "https://github.com/delmacy/system-builder/pull/119",
+      "state": "MERGED",
+      "openedAt": "2026-08-14T22:37:16.056Z",
+      "mergeCommit": "1e462e3f6b433e8f0e464322573c8c8cddf4f487"
+    }
+  }
+}
