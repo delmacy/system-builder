@@ -1,0 +1,47 @@
+{
+  "taskId": "TASK-029",
+  "verifiedAt": "2026-08-13T03:33:00.086Z",
+  "baseCommit": "ea13d358d0c90491116b19d1734f36add90cf667",
+  "headCommit": "ea13d358d0c90491116b19d1734f36add90cf667",
+  "changedFiles": [
+    "project_docs/execution_governance/HUMAN_APPROVAL.md",
+    "tooling/agent-harness/policies/HUMAN_APPROVAL.json",
+    "tooling/agent-harness/src/github-lifecycle.ts",
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/human-approval.ts",
+    "tooling/agent-harness/src/orchestrator-runtime.ts",
+    "tooling/agent-harness/tests/github-lifecycle.test.ts",
+    "tooling/agent-harness/tests/human-approval.test.ts"
+  ],
+  "taskHash": "dc3cd2a1c3dc38be4b2c4e29b44fdd6f787d633b7113d9d4bc05d58ca2d024f5",
+  "packHash": "45a159828d071492aea7a6ab060a4b178d6feb1a9e0fe085627213b4e4149eb0",
+  "changeFingerprint": "1952c07fbf7f6f1afc04ef3eaa51d2a440136b626413ee007b63eebc78539a84",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-029",
+    "branch": "task/029-add-governed-durable-human-approval",
+    "baseBranch": "main",
+    "baseCommit": "ea13d358d0c90491116b19d1734f36add90cf667",
+    "remote": "origin",
+    "createdAt": "2026-08-13T03:27:08.369Z",
+    "commit": "85fcde474ba6a1a9a768ad1d75982acca4e5287e",
+    "verifiedFingerprint": "1952c07fbf7f6f1afc04ef3eaa51d2a440136b626413ee007b63eebc78539a84",
+    "committedAt": "2026-08-13T03:33:07.471Z",
+    "pushed": true,
+    "pushedAt": "2026-08-13T03:33:12.744Z",
+    "pullRequest": {
+      "number": 75,
+      "url": "https://github.com/delmacy/system-builder/pull/75",
+      "state": "MERGED",
+      "openedAt": "2026-08-13T03:33:20.093Z",
+      "mergeCommit": "a74e45669f23e70d94599670a703c117076c4863"
+    }
+  }
+}
