@@ -110,6 +110,51 @@ required_evidence:
   - real candidate retry after integration
 ```
 
+## WP-I2-06 — Real-run AgentFactory authority integration
+
+```yaml
+work_package: WP-I2-06
+parent_wbs: 16.2
+name: Real-run AgentFactory authority integration
+status: READY as TASK-036 architecture decision
+objective: Integrate real AFEV/AFATT, causal ledger and readiness authority into the existing governed Git lifecycle so the sequential coordinator can reconcile actual repository tasks.
+in_scope:
+  - architecture decision for the versioned authority integration point
+  - exact binding to persisted execution, validation, Git and PR facts
+  - append-only and restart-safe authority materialization
+  - bounded continuation through bootstrap state closure
+  - fresh post-correction proof and terminal-run disposition
+out_of_scope:
+  - fabricated TASK-010 authority or rewritten terminal events
+  - weakened coordinator/evidence/ledger/readiness/approval contracts
+  - TASK-004 execution before a fresh proof authorization
+  - I3, parallelism, database, UI or public webhook
+inputs:
+  - integrated TASK-035 CLI-boundary correction
+  - accepted TASK-010 implementation and bootstrap state closure
+  - preserved TASK-010 Supervisor EVIDENCE_MISSING terminal run
+  - integrated I1 evidence, causal ledger and readiness interfaces
+outputs:
+  - ADR-0012 authority integration decision
+  - bounded downstream implementation task contract
+predecessors:
+  - WP-I2-05
+  - WP-FH-01/TASK-010 accepted bootstrap lifecycle
+downstream_consumers:
+  - fresh I2 authority reconciliation proof
+  - authorization decision for TASK-004 -> TASK-005
+acceptance_criteria:
+  - one deterministic versioned integration point is accepted
+  - no bootstrap receipt is treated as AgentFactory evidence
+  - one-action restart/resume semantics are preserved
+  - terminal history remains immutable
+required_evidence:
+  - accepted ADR and alternatives
+  - focused implementation proof after ADR integration
+  - npm run verify
+  - fresh I2 gate reassessment
+```
+
 ## WP-I2-02 — Durable supervisor kernel
 
 ```yaml
@@ -227,6 +272,6 @@ notes:
 
 ## Supplemental DAG
 
-`TASK-028 + TASK-031 -> WP-I2-02/TASK-032 -> WP-I2-03/TASK-033 -> WP-I2-04/TASK-034 -> TASK-010 runtime finding -> WP-I2-05/TASK-035 -> preserved TASK-010 candidate retry`
+`TASK-028 + TASK-031 -> WP-I2-02/TASK-032 -> WP-I2-03/TASK-033 -> WP-I2-04/TASK-034 -> TASK-010 CLI finding -> WP-I2-05/TASK-035 -> TASK-010 real candidate -> WP-I2-06/TASK-036 ADR -> bounded authority integration implementation -> fresh I2 proof`
 
-TASK-034 is integrated and state-closed. The post-correction Supervisor readiness reassessment is GO for only the explicit TASK-010 candidate plan; TASK-010 remained unstarted during the correction and gate assessment.
+TASK-034 and TASK-035 are integrated and state-closed. TASK-010 subsequently completed its bootstrap implementation and state lifecycle, but the preserved Supervisor run stopped `EVIDENCE_MISSING` because the real AFEV/ledger/readiness integration point is not defined. The I2 Exit Gate is NO-GO pending WP-I2-06; TASK-004 and I3 remain prohibited.
