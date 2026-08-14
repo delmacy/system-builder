@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "heartbeat": {
+    "interval_seconds": 300,
+    "stale_after_seconds": 900
+  },
+  "retry": {
+    "max_attempts": 4,
+    "initial_delay_seconds": 30,
+    "max_delay_seconds": 900,
+    "multiplier": 2,
+    "jitter_ratio": 0,
+    "max_elapsed_seconds": 3600
+  },
+  "callbacks": {
+    "mode": "local",
+    "timeout_seconds": 30
+  },
+  "lease": {
+    "ttl_seconds": 120
+  },
+  "circuit_breaker": {
+    "failure_threshold": 3,
+    "cooldown_seconds": 300
+  }
+}
