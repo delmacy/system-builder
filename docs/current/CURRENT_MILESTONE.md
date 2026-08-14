@@ -71,6 +71,8 @@ Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autono
 - [x] Record the owner-directed dynamic-model operational finding and materialize WP-I2-04 as TASK-034.
 - [x] TASK-034: implement dynamic OpenCode Zen model discovery, deterministic selector, cache and retry bridge.
 - [x] Integrate/state-close TASK-034 and reassess Supervisor readiness as GO without starting TASK-010.
+- [ ] TASK-035: qualify dynamically resolved Zen IDs at the OpenCode CLI boundary.
+- [ ] Integrate/state-close TASK-035, then wake the preserved TASK-010 pipeline without discarding its attempt evidence.
 - [ ] Execute the candidate chain only after coordinator integration and reassess the I2 Exit Gate.
 
 ## Product M1

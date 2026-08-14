@@ -67,6 +67,14 @@ This decision authorizes candidate entry, not I2 completion or automatic executi
 - TASK-010 is `ready` and has no branch, Task Pack, verification, commit, push or PR. Its obsolete pre-I2 local branch was 263 commits behind with zero unique commits/delta and was removed before this decision.
 - TASK-004 remains independently `ready`; TASK-005 and TASK-006 remain metadata-ready but dependency-gated by TASK-004 and TASK-005 respectively.
 
+## Real-run provider qualification corrective gate
+
+Date: 2026-08-14
+
+**NO-GO for further TASK-010 execution.** The first real candidate invocation proved dynamic discovery and evidence recording, but OpenCode CLI 1.18.16 rejected the raw catalog ID `deepseek-v4-flash-free`. Its local help requires `provider/model`, and its provider list exposes `opencode/deepseek-v4-flash-free`.
+
+WP-I2-05/TASK-035 must qualify dynamically resolved IDs only at the CLI boundary while preserving the raw catalog ID in the accepted resolution contract. The TASK-010 branch, runtime events and failed attempt receipt remain preserved. After TASK-035 integrates and state-closes, the same nonterminal recovery pipeline may be awakened through a durable callback; do not discard or manufacture product evidence.
+
 ## Resolved findings
 
 1. GitHub cannot represent owner self-review in the solo repository. ADR-0010 and TASK-029 introduced cryptographically separated durable human approval without treating merge, comments or executor output as approval.
