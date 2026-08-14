@@ -1,7 +1,7 @@
 ---
 id: TASK-037
 title: Accept bounded package work authorization for AgentFactory
-status: ready
+status: completed
 priority: 1
 milestone: I2
 model_tier: architecture

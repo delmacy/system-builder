@@ -1,0 +1,43 @@
+{
+  "taskId": "TASK-037",
+  "verifiedAt": "2026-08-14T18:48:25.436Z",
+  "baseCommit": "81e2b4ddcb3f18602f3729e86deaf1a712a7dbe3",
+  "headCommit": "81e2b4ddcb3f18602f3729e86deaf1a712a7dbe3",
+  "changedFiles": [
+    "docs/adr/ADR-0013-bounded-package-work-authorization.md",
+    "project_docs/agentfactory_i2/ASYNC_SUPERVISOR.md",
+    "project_docs/agentfactory_i2/I2_EXIT_GATE.md",
+    "project_docs/execution_governance/HUMAN_APPROVAL.md"
+  ],
+  "taskHash": "5f3052d24fdb4cbc2ecd4bad0370c81352df03d3fa94a4540fed6e4e965aefff",
+  "packHash": "c1601d0fbbef1325b9e5b62be83990a4bdfa4a4f30504b5a068169c77cc22df1",
+  "changeFingerprint": "a13ce7963ac1b9aaebebbe1c1aa34003e7fa9cf25de6008d0178184d92bac343",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-037",
+    "branch": "task/037-accept-bounded-package-work-authorization-for-agentfacto",
+    "baseBranch": "main",
+    "baseCommit": "81e2b4ddcb3f18602f3729e86deaf1a712a7dbe3",
+    "remote": "origin",
+    "createdAt": "2026-08-14T18:44:36.911Z",
+    "commit": "d14c9c17e97d97f21a0b1e6027955ebec35ccbb0",
+    "verifiedFingerprint": "a13ce7963ac1b9aaebebbe1c1aa34003e7fa9cf25de6008d0178184d92bac343",
+    "committedAt": "2026-08-14T18:48:47.110Z",
+    "pushed": true,
+    "pushedAt": "2026-08-14T18:48:51.690Z",
+    "pullRequest": {
+      "number": 106,
+      "url": "https://github.com/delmacy/system-builder/pull/106",
+      "state": "MERGED",
+      "openedAt": "2026-08-14T18:48:57.593Z",
+      "mergeCommit": "f943f9d66ea5b95b1ecf7e340c8106a9250db1d2"
+    }
+  }
+}
