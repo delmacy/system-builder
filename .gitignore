@@ -6,3 +6,4 @@ dist/
 .agent/archive/
 .agent/orchestrator/
 .agent/state/
+.agent/runtime/
