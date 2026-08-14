@@ -64,8 +64,9 @@ Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autono
 - [x] Implement and close TASK-031 so approval receipts are loaded fail-closed from an external read-only store without executor access to private keys.
 - [x] Reassess the I2 pre-run gate as GO from synchronized `main`, clean task state, signed lifecycle evidence and 157/157 passing tests.
 - [x] Accept ADR-0011 and refine the bounded WP-AF-16 slice into WP-I2-02/WP-I2-03 without entering I3.
-- [ ] TASK-032: implement and close the durable Supervisor kernel (WP-I2-02).
-- [ ] Materialize the WP-I2-03 runtime bridge task from integrated TASK-032 outputs.
+- [x] TASK-032: implement and close the durable Supervisor kernel (WP-I2-02).
+- [x] Materialize TASK-033 for WP-I2-03 from integrated TASK-032 outputs.
+- [ ] TASK-033: implement and state-close the local runtime bridge and finite Windows commands.
 - [ ] Integrate/state-close WP-I2-03 and reassess Supervisor readiness without starting TASK-010.
 - [ ] Execute the candidate chain only after coordinator integration and reassess the I2 Exit Gate.
 

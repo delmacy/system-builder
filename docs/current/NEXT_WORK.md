@@ -7,9 +7,9 @@ The repository is authoritative. During the AgentFactory ignition track, use the
 1. Synchronize local `main` and run `npm ci` plus `npm run verify`.
 2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory_ignition/`, `project_docs/agentfactory_i1/`, `project_docs/agentfactory_i2/` and execution-governance docs.
 3. Treat TASK-012 through TASK-031 as the integrated I1/I2 pre-run baseline; TASK-028 through TASK-031 reconcile as DONE through exact durable approval.
-4. Execute TASK-032 for WP-I2-02 from ADR-0011 and `project_docs/agentfactory_i2/ASYNC_SUPERVISOR.md`.
-5. After TASK-032 is integrated and state-closed, materialize WP-I2-03 from its actual contracts and implement the local runtime/Windows command bridge.
-6. Do not execute TASK-010 or A/B/C = TASK-004 -> TASK-005 -> TASK-006 before the supplemental Supervisor readiness reassessment.
+4. Treat TASK-032 as the integrated and state-closed WP-I2-02 kernel baseline.
+5. Execute TASK-033 for WP-I2-03, binding the actual supervisor interfaces to the local sequential runtime and finite Windows commands.
+6. Do not execute TASK-010 or A/B/C = TASK-004 -> TASK-005 -> TASK-006 before TASK-033 is integrated/state-closed and the supplemental Supervisor readiness reassessment is recorded.
 
 ## Per-task loop
 
