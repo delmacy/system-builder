@@ -75,6 +75,41 @@ notes:
   - The runtime uses the existing Supervisor retry engine and persists the selected concrete ID in the execution attempt journal.
 ```
 
+## WP-I2-05 — OpenCode provider-qualified CLI model identity
+
+```yaml
+work_package: WP-I2-05
+parent_wbs: 16.2
+name: OpenCode provider-qualified CLI model identity
+status: READY as TASK-035
+objective: Translate a validated raw Zen catalog ID to the provider-qualified model identity required by the OpenCode CLI, only at the invocation boundary.
+in_scope:
+  - provider qualification at the OpenCode CLI argument boundary
+  - regression proof for CLI arguments and unchanged resolution receipt
+  - preservation of legacy explicit non-resolver behavior
+out_of_scope:
+  - catalog, selector, cache, retry, routing or Supervisor contract changes
+  - TASK-010 product implementation
+inputs:
+  - integrated TASK-034 model resolution
+  - first real TASK-010 executor failure receipt
+outputs:
+  - exact `opencode/<catalog-id>` dynamic CLI argument
+  - unchanged raw catalog ID in model-resolution evidence
+predecessors:
+  - WP-I2-04
+downstream_consumers:
+  - preserved TASK-010 candidate pipeline
+acceptance_criteria:
+  - OpenCode CLI accepts the provider-qualified selected model
+  - qualification occurs once at the CLI boundary
+  - TASK-010 is not executed during the correction
+required_evidence:
+  - focused regression tests
+  - npm run verify
+  - real candidate retry after integration
+```
+
 ## WP-I2-02 — Durable supervisor kernel
 
 ```yaml
@@ -192,6 +227,6 @@ notes:
 
 ## Supplemental DAG
 
-`TASK-028 + TASK-031 -> WP-I2-02/TASK-032 -> WP-I2-03/TASK-033 -> WP-I2-04/TASK-034 -> supervisor readiness reassessment -> TASK-010 candidate`
+`TASK-028 + TASK-031 -> WP-I2-02/TASK-032 -> WP-I2-03/TASK-033 -> WP-I2-04/TASK-034 -> TASK-010 runtime finding -> WP-I2-05/TASK-035 -> preserved TASK-010 candidate retry`
 
 TASK-034 is integrated and state-closed. The post-correction Supervisor readiness reassessment is GO for only the explicit TASK-010 candidate plan; TASK-010 remained unstarted during the correction and gate assessment.

@@ -20,9 +20,9 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 
 ## Active execution focus
 
-**I2 sequential candidate entry — GO for the explicit TASK-010-only Supervisor plan; not yet started.**
+**I2 real-run CLI qualification corrective gate — NO-GO; TASK-010 retry paused.**
 
-Goal: run the single bounded TASK-010 candidate through the finite Supervisor, then reassess the I2 Exit Gate from its real integrated evidence. I3 and parallel scheduling remain prohibited.
+Goal: integrate WP-I2-05/TASK-035 so the raw Zen catalog model is qualified as `opencode/<id>` only at the OpenCode CLI boundary, then wake the preserved TASK-010 pipeline. I3 and parallel scheduling remain prohibited.
 
 ## Product track held ready
 
@@ -30,11 +30,11 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Create the strict external TASK-010-only runtime plan with a free-only selector and no fixed model ID or required `OPENCODE_MODEL`.
-2. Start only that plan through the finite Supervisor when explicitly invoked by the operator.
+1. Implement and state-close TASK-035 without executing TASK-010 during the correction.
+2. Reassess the exact CLI-boundary proof, then wake the preserved TASK-010 pipeline through its durable callback.
 3. Convert any missing durable-authority finding into a separately governed corrective task rather than weakening reconciliation.
 4. Preserve one-task-at-a-time I2 semantics and reassess the I2 Exit Gate from real TASK-010 evidence; do not advance to I3, task parallelism, database, public webhook or UI work.
 
 ## Selection warning
 
-The post-correction readiness decision authorizes only the explicit TASK-010 candidate plan through the finite Supervisor. It does not authorize unrelated globally READY work, broad M1 execution, I3 or parallel scheduling.
+The first real candidate attempt exposed a provider-qualification blocker after correct dynamic selection. No further TASK-010 execution is authorized until TASK-035 integrates; unrelated globally READY work, broad M1 execution, I3 and parallel scheduling remain prohibited.
