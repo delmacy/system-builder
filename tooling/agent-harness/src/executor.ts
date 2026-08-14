@@ -288,7 +288,7 @@ export class OpenCodeExecutor implements ExecutorAdapter {
       "run", this.buildPrompt(context, repair), "--pure", "--format", "json", "--agent", boundedOpenCodeAgent,
       "--title", `${context.task.metadata.id}-attempt-${context.attempt}`,
     ];
-    if (selectedModel) args.push("--model", selectedModel);
+    if (selectedModel) args.push("--model", modelResolution ? qualifyOpenCodeModel(selectedModel) : selectedModel);
     args.push("--file", context.taskPackPath);
     const result = this.runCommand(this.executable, args, this.root, {
       OPENCODE_CONFIG_CONTENT: JSON.stringify(buildOpenCodeRuntimeConfig(context.task)),
@@ -397,6 +397,11 @@ export class OpenCodeExecutor implements ExecutorAdapter {
     };
     return this.lastReport;
   }
+}
+
+function qualifyOpenCodeModel(model: string): string {
+  const providerPrefix = "opencode/";
+  return model.startsWith(providerPrefix) ? model : `${providerPrefix}${model}`;
 }
 
 function defaultCommandRunner(
