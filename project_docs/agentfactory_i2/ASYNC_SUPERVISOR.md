@@ -116,7 +116,7 @@ required_evidence:
 work_package: WP-I2-06
 parent_wbs: 16.2
 name: Real-run AgentFactory authority integration
-status: TASK-036 architecture decision proposed as ADR-0012
+status: ADR-0012 accepted; bounded implementation materialized as TASK-039 after package activation
 objective: Integrate real AFEV/AFATT, causal ledger and readiness authority into the existing governed Git lifecycle so the sequential coordinator can reconcile actual repository tasks.
 in_scope:
   - architecture decision for the versioned authority integration point
@@ -166,7 +166,7 @@ notes:
 work_package: WP-I2-07
 parent_wbs: 01.1
 name: Bounded package work authorization
-status: ADR-0013 accepted by TASK-037; implementation READY as TASK-038
+status: ADR-0013 accepted; TASK-038 integrated/state-closed; PKG-AF-I2-I5-001 signed with 23 routine descriptors
 objective: Replace repetitive exact-PR owner interaction for routine AgentFactory work with one signed, bounded and auditable authorization for 20-50 planned task descriptors.
 in_scope:
   - immutable package plan identity and signature boundary
@@ -329,9 +329,9 @@ notes:
 
 `TASK-028 + TASK-031 -> WP-I2-02/TASK-032 -> WP-I2-03/TASK-033 -> WP-I2-04/TASK-034 -> TASK-010 CLI finding -> WP-I2-05/TASK-035 -> TASK-010 real candidate -> WP-I2-06/TASK-036 ADR -> WP-I2-07/TASK-037 package authorization ADR -> package policy implementation/proof -> bounded authority integration implementation -> fresh I2 proof`
 
-TASK-034 through TASK-036 are integrated and state-closed. TASK-010 completed
+TASK-034 through TASK-038 are integrated and state-closed. TASK-010 completed
 its bootstrap implementation and state lifecycle, but the preserved Supervisor
-run stopped `EVIDENCE_MISSING`. ADR-0012 now defines the authority integration
-point. Owner-directed WP-I2-07 is the next governance boundary; ADR-0010 remains
-active until its implementation/proof integrates. TASK-004 and I3 remain
-prohibited.
+run stopped `EVIDENCE_MISSING`. `PKG-AF-I2-I5-001` is signed for 23 routine
+descriptors. TASK-039 is the exact evaluator exception for non-consuming package
+task-spec delivery plus ADR-0012 authority closure. TASK-004 and I3 remain
+prohibited pending its integration, the fresh proof and exact I2 gate decision.

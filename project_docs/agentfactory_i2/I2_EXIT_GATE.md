@@ -81,9 +81,10 @@ audit evidence. ADR-0010 remains in force until ADR-0013 and its downstream
 implementation/proof integrate; package intent is not an approval receipt.
 
 TASK-037 accepts a signed immutable 20–50 descriptor manifest, deterministic
-rolling-wave task conformance and append-only per-use audit receipts. Package
-authority may eventually satisfy routine conforming implementation/state work,
-but not ADR/public-contract/security/evaluator acceptance, waivers, scope drift
-or failed technical gates. TASK-038 is materialized as the bounded package
-policy implementation/proof; WP-I2-06 remains unexecuted until that boundary is
-integrated and the first real package is signed.
+rolling-wave task conformance and append-only per-use audit receipts. TASK-038
+implemented that boundary and is integrated/state-closed. The owner-signed
+`PKG-AF-I2-I5-001` contains 23 routine descriptors; evaluator and exit-gate
+decisions remain exact exceptions. TASK-039 is the next exact exception: it
+bootstraps non-consuming package task-spec delivery and implements WP-I2-06's
+prospective authority closure. TASK-004 remains prohibited until its fresh proof
+and this gate's exact reassessment integrate.
