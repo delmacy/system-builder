@@ -37,6 +37,25 @@ Date: 2026-08-14
 
 The corrective task must preserve free-only fail-closed selection, validate any explicit environment override, keep tests independent of shell state and real network calls, and reuse the accepted Supervisor retry engine. TASK-010 remains unstarted.
 
+## Post-correction Supervisor readiness decision
+
+Date: 2026-08-14
+
+**GO.** TASK-034/WP-I2-04 is integrated and state-closed. The finite local Supervisor may now start only a strict external TASK-010-only plan whose OpenCode route has no fixed model ID and uses the free-only ordered preferences `deepseek`, `mimo`, `nemotron`, then deterministic lexical fallback among any remaining free models. `OPENCODE_MODEL` is not a normal prerequisite.
+
+This decision authorizes candidate entry, not I2 completion or automatic execution. The operator must explicitly invoke `pipeline:start`; this reassessment did not create a TASK-010 branch, Task Pack, evidence record or PR and did not execute TASK-010. I3, task parallelism, unrelated READY work and broad M1 execution remain prohibited.
+
+### Post-correction evidence
+
+- `main` and `origin/main` were synchronized at `10b9d1c442a8ab46513850a47c91aed3e34ba42b`; the working tree was clean and no PR remained open before this gate record.
+- TASK-034 implementation PR #93 and state PR #94 are merged with successful required `validate` checks. Their exact PR/SHA identities have authorized Ed25519 receipts in the external approval store, and `task:advance` returned stable `DONE` with both lifecycle decisions `ELIGIBLE` and no reason codes.
+- The versioned catalog policy has the single default endpoint `https://opencode.ai/zen/v1/models`, a ten-second timeout and a 300-second cache TTL. A live unauthenticated observation returned HTTP 200 with 62 models and six IDs ending in `-free`; unit tests remain hermetic and never call the endpoint.
+- Free classification gives an explicit provider boolean priority and otherwise uses only the case-insensitive `-free` suffix. Free-only selection never falls back to paid or unknown models, and selectors use case-insensitive literal substrings plus stable lexical tie-breaking independent of API order.
+- A valid atomic cache may satisfy an invocation; an expired cache must refresh and is never used as authority after refresh failure. Timeout, rate-limit, network and provider 5xx failures enter only the existing Supervisor retry engine; invalid response/selector, unavailable model and policy conflict remain fail-closed and non-retryable.
+- The executor receives exactly the resolved concrete ID. The attempt journal records the requested selector, selected model, source and resolution timestamp without secrets. Ambient `OPENCODE_MODEL` and `OPENCODE_EXECUTABLE` do not affect default unit construction.
+- Full repository validation passed twice from integrated `main`, once with `OPENCODE_MODEL` absent and once set to an arbitrary paid-looking value: 214/214 tests in 23 suites, 35 valid task specifications, lint, typecheck, architecture gates and build.
+- TASK-010 remained `ready`; no repository branch, Task Pack, evidence or PR side effect was created during TASK-034 or this reassessment.
+
 ## Accepted evidence
 
 - `main` and `origin/main` were identical at `d6c35ddf14e11d8e9ffcfdb623275f2ef72574ab`; the working tree was clean and no PR remained open.

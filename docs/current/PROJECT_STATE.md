@@ -15,14 +15,14 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 - Agent harness: local TypeScript implementation with bounded task context, task validation, Git/PR controls, deterministic verification and closure mechanisms.
 - OpenCode adapter: TASK-011 argument ordering and TASK-013 structured request/result, timeout and failure hardening are integrated.
 - AgentFactory planning: complete through I1 Work Packages, DAG, governance, task-generation policy and exit gate.
-- AgentFactory I1 implementation, post-I1 hardening and I2 pre-run control plane: TASK-012 through TASK-033 are completed. The durable event-driven Supervisor kernel and its real local Windows runtime bridge are integrated and state-closed.
+- AgentFactory I1 implementation, post-I1 hardening and I2 pre-run control plane: TASK-012 through TASK-034 are completed. The durable event-driven Supervisor, its real local Windows runtime bridge and dynamic free-model resolution are integrated and state-closed.
 - GitHub Actions: confirmation CI remains deterministic; AI execution is local unless a later approved task changes that architecture.
 
 ## Active execution focus
 
-**I2 dynamic-model corrective gate — NO-GO; candidate execution prohibited.**
+**I2 sequential candidate entry — GO for the explicit TASK-010-only Supervisor plan; not yet started.**
 
-Goal: remove the manual exact `OPENCODE_MODEL` prerequisite through WP-I2-04/TASK-034, then reassess Supervisor readiness before any TASK-010 candidate execution.
+Goal: run the single bounded TASK-010 candidate through the finite Supervisor, then reassess the I2 Exit Gate from its real integrated evidence. I3 and parallel scheduling remain prohibited.
 
 ## Product track held ready
 
@@ -30,11 +30,11 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Execute and state-close TASK-034 for dynamic OpenCode Zen model discovery and deterministic free-only selection.
-2. Reassess Supervisor readiness from the integrated correction; do not create or execute a TASK-010 plan before that decision.
+1. Create the strict external TASK-010-only runtime plan with a free-only selector and no fixed model ID or required `OPENCODE_MODEL`.
+2. Start only that plan through the finite Supervisor when explicitly invoked by the operator.
 3. Convert any missing durable-authority finding into a separately governed corrective task rather than weakening reconciliation.
-4. Preserve one-task-at-a-time I2 semantics; do not advance to I3, task parallelism, database, public webhook or UI work.
+4. Preserve one-task-at-a-time I2 semantics and reassess the I2 Exit Gate from real TASK-010 evidence; do not advance to I3, task parallelism, database, public webhook or UI work.
 
 ## Selection warning
 
-The recorded supplemental GO is superseded by the dynamic-model corrective gate. No product candidate, unrelated globally READY work, I3 or parallel scheduling is authorized until the correction integrates and readiness is reassessed.
+The post-correction readiness decision authorizes only the explicit TASK-010 candidate plan through the finite Supervisor. It does not authorize unrelated globally READY work, broad M1 execution, I3 or parallel scheduling.

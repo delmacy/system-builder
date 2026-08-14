@@ -33,7 +33,7 @@ change:
 work_package: WP-I2-04
 parent_wbs: 16.2
 name: Dynamic OpenCode model discovery and selection
-status: READY as TASK-034
+status: COMPLETED as TASK-034
 objective: Replace the manual exact OPENCODE_MODEL prerequisite with validated, deterministic free-model discovery from the OpenCode Zen catalog.
 in_scope:
   - normalized catalog, selector and resolution contracts
@@ -194,4 +194,4 @@ notes:
 
 `TASK-028 + TASK-031 -> WP-I2-02/TASK-032 -> WP-I2-03/TASK-033 -> WP-I2-04/TASK-034 -> supervisor readiness reassessment -> TASK-010 candidate`
 
-The earlier supplemental GO is superseded by the owner-directed dynamic-model corrective gate. TASK-010 remains prohibited until TASK-034 is integrated, state-closed and readiness is reassessed.
+TASK-034 is integrated and state-closed. The post-correction Supervisor readiness reassessment is GO for only the explicit TASK-010 candidate plan; TASK-010 remained unstarted during the correction and gate assessment.
