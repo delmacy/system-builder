@@ -79,3 +79,11 @@ exception/architecture acceptance gates and define immutable scope,
 rolling-wave conformance, risk ceiling, expiry, revocation, exhaustion and
 audit evidence. ADR-0010 remains in force until ADR-0013 and its downstream
 implementation/proof integrate; package intent is not an approval receipt.
+
+TASK-037 accepts a signed immutable 20–50 descriptor manifest, deterministic
+rolling-wave task conformance and append-only per-use audit receipts. Package
+authority may eventually satisfy routine conforming implementation/state work,
+but not ADR/public-contract/security/evaluator acceptance, waivers, scope drift
+or failed technical gates. The next rolling-wave task is the bounded package
+policy implementation/proof; WP-I2-06 remains unexecuted until that boundary is
+integrated.
