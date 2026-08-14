@@ -57,6 +57,7 @@ import { getTask, loadTasks, repoPath, validateTaskCatalog, type Task } from "./
 import { buildAuthorityClosureBundle, writeAuthorityClosureBundle } from "./authority-closure.js";
 import { buildGovernanceResolution } from "./evidence-writer.js";
 import { dagGraphSchema } from "./dag.js";
+import { validationGateReceiptSchema, type ValidationGateReceipt } from "./validation-engine.js";
 
 type Journal = {
   version: 1;
@@ -351,11 +352,15 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
       architectureImpact: task.metadata.architecture_impact, prNumber: pr.number,
       baseRef, headRef, headSha, observedAt: new Date().toISOString(),
     });
+    const validationReceipt = packageAction === "IMPLEMENTATION_PR"
+      ? readStoredValidationReceipt(this.root, task.metadata.id)
+      : undefined;
     const packageAuthorization = evaluateStoredPackageAuthorization(this.root, {
       repository: this.repositoryIdentity(), taskId: task.metadata.id, taskMetadata: task.metadata,
       action: packageAction, sourceCommit, prNumber: pr.number, baseRef, headRef, headSha,
       observedAt: new Date().toISOString(), validation, checks: lifecycleChecks(pr.statusCheckRollup),
       totalAttempts: executions.length, consecutiveFailures,
+      ...(validationReceipt ? { validationReceipt } : {}),
     });
     return { humanApproval, packageAuthorization };
   }
@@ -522,6 +527,12 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
   private contextManifestPath(taskId: string): string { return resolve(this.root, ".agent/context", taskId, "manifest.json"); }
   private receiptPath(taskId: string): string { return resolve(this.root, ".agent/evidence", `${taskId}.json`); }
   private journalPath(taskId: string): string { return resolve(this.root, ".agent/orchestrator", `${taskId}.json`); }
+}
+
+export function readStoredValidationReceipt(root: string, taskId: string): ValidationGateReceipt | undefined {
+  const value = readJson<{ validationGate?: unknown }>(resolve(root, ".agent/evidence", `${taskId}.json`))?.validationGate;
+  const parsed = validationGateReceiptSchema.safeParse(value);
+  return parsed.success ? parsed.data : undefined;
 }
 
 function reviewState(value: string): ReviewState {

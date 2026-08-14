@@ -25,9 +25,25 @@ import {
 } from "../src/orchestrator.js";
 import type { Task } from "../src/task.js";
 import { normalizeOpenCodeModels, OpenCodeModelResolver } from "../src/opencode-models.js";
-import { LocalHarnessAdapter } from "../src/orchestrator-runtime.js";
+import { LocalHarnessAdapter, readStoredValidationReceipt } from "../src/orchestrator-runtime.js";
 
 describe("Local Task Orchestrator", () => {
+  it("loads the immutable independent validation receipt for package evaluation", () => {
+    const root = mkdtempSync(join(tmpdir(), "orchestrator-validation-receipt-"));
+    mkdirSync(join(root, ".agent/evidence"), { recursive: true });
+    const validationGate = {
+      schema_version: 1, task_id: "TASK-100", work_package_id: "WP-I2-07", source_commit: "a".repeat(40),
+      changed_files: ["tooling/agent-harness/tests/new.test.ts"],
+      commands: [{ command: "npm run verify", status: "PASS", exit_code: 0, stdout: "ok", stderr: "" }],
+      evaluator_changes: ["tooling/agent-harness/tests/new.test.ts"], missing_evaluators: [], content_stable: true,
+      decision: "REVIEW_REQUIRED", reason_codes: ["EVALUATOR_CHANGED"],
+    };
+    writeFileSync(join(root, ".agent/evidence/TASK-100.json"), JSON.stringify({ validationGate }));
+    assert.deepEqual(readStoredValidationReceipt(root, "TASK-100"), validationGate);
+    writeFileSync(join(root, ".agent/evidence/TASK-100.json"), JSON.stringify({ validationGate: { ...validationGate, decision: "PASS" } }));
+    assert.equal(readStoredValidationReceipt(root, "TASK-100"), undefined);
+  });
+
   it("advances READY by exactly one task:branch transition", () => {
     const harness = new FakeHarness(snapshot());
     const result = new LocalTaskOrchestrator(harness, [new FakeExecutor()]).advance("TASK-010");
