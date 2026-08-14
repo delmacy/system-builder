@@ -29,6 +29,14 @@ This GO authorizes candidate entry, not I2 completion. Missing or divergent AFEV
 - Full validation passed with 189/189 tests, 34 valid task specifications, lint, typecheck, architecture gates and build.
 - Runtime bridge tests use non-product fixtures and prove no TASK-010 branch, context, evidence or PR side effect.
 
+## Dynamic-model corrective gate
+
+Date: 2026-08-14
+
+**NO-GO.** The owner identified the manual exact `OPENCODE_MODEL` prerequisite as an operational readiness defect after the supplemental GO was recorded. That GO remains historical evidence but no longer authorizes candidate entry. WP-I2-04/TASK-034 must implement dynamic, policy-driven OpenCode Zen catalog resolution, integrate, state-close and pass a fresh readiness reassessment before TASK-010 may start.
+
+The corrective task must preserve free-only fail-closed selection, validate any explicit environment override, keep tests independent of shell state and real network calls, and reuse the accepted Supervisor retry engine. TASK-010 remains unstarted.
+
 ## Accepted evidence
 
 - `main` and `origin/main` were identical at `d6c35ddf14e11d8e9ffcfdb623275f2ef72574ab`; the working tree was clean and no PR remained open.

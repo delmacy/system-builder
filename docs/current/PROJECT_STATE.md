@@ -20,9 +20,9 @@ The planning baseline, WBS/Work Packages, dependency-driven roadmap, execution g
 
 ## Active execution focus
 
-**I2 candidate run — supplemental Supervisor readiness is GO; candidate remains unstarted.**
+**I2 dynamic-model corrective gate — NO-GO; candidate execution prohibited.**
 
-Goal: execute the bounded TASK-010 candidate through the finite Supervisor, then run the declared sequential proof and reassess the I2 Exit Gate from integrated evidence.
+Goal: remove the manual exact `OPENCODE_MODEL` prerequisite through WP-I2-04/TASK-034, then reassess Supervisor readiness before any TASK-010 candidate execution.
 
 ## Product track held ready
 
@@ -30,11 +30,11 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 
 ## Immediate next work
 
-1. Create the strict external TASK-010-only plan defined by the accepted Windows operations guide and start one finite Supervisor iteration.
-2. Integrate and state-close TASK-010 before authorizing the TASK-004 -> TASK-005 -> TASK-006 proof plan.
+1. Execute and state-close TASK-034 for dynamic OpenCode Zen model discovery and deterministic free-only selection.
+2. Reassess Supervisor readiness from the integrated correction; do not create or execute a TASK-010 plan before that decision.
 3. Convert any missing durable-authority finding into a separately governed corrective task rather than weakening reconciliation.
 4. Preserve one-task-at-a-time I2 semantics; do not advance to I3, task parallelism, database, public webhook or UI work.
 
 ## Selection warning
 
-The supplemental Supervisor readiness decision is GO. It authorizes only the explicit TASK-010 candidate entry; unrelated globally READY product work, I3 and parallel scheduling remain unauthorized.
+The recorded supplemental GO is superseded by the dynamic-model corrective gate. No product candidate, unrelated globally READY work, I3 or parallel scheduling is authorized until the correction integrates and readiness is reassessed.
