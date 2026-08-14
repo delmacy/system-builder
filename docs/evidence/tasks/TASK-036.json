@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-036",
+  "verifiedAt": "2026-08-14T18:23:27.269Z",
+  "baseCommit": "177169fec13803f44884506ccbd83623b64972d1",
+  "headCommit": "177169fec13803f44884506ccbd83623b64972d1",
+  "changedFiles": [
+    "docs/adr/ADR-0012-agentfactory-real-run-authority-integration.md",
+    "project_docs/agentfactory_i2/ASYNC_SUPERVISOR.md",
+    "project_docs/agentfactory_i2/I2_EXIT_GATE.md"
+  ],
+  "taskHash": "d0d540c40dde22a1fe9d014491d5a02ce7a2953847b23d645cbf7569380a0190",
+  "packHash": "265b9cbcf78025b9dddb0e59f3a4a71e8cd1d54761671d1b27081e53eeae4b15",
+  "changeFingerprint": "8ab5fd4ac8db17846ed1ceb5e89957164a59e09659d24b2eb7cb70c712498b3b",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-036",
+    "branch": "task/036-accept-the-real-run-agentfactory-authority-integration-d",
+    "baseBranch": "main",
+    "baseCommit": "177169fec13803f44884506ccbd83623b64972d1",
+    "remote": "origin",
+    "createdAt": "2026-08-14T18:19:50.014Z",
+    "commit": "833666c223e0cc9b8f0259ce1f6d9bcd9e76cab1",
+    "verifiedFingerprint": "8ab5fd4ac8db17846ed1ceb5e89957164a59e09659d24b2eb7cb70c712498b3b",
+    "committedAt": "2026-08-14T18:23:38.587Z",
+    "pushed": true,
+    "pushedAt": "2026-08-14T18:24:49.472Z",
+    "pullRequest": {
+      "number": 102,
+      "url": "https://github.com/delmacy/system-builder/pull/102",
+      "state": "MERGED",
+      "openedAt": "2026-08-14T18:24:55.895Z",
+      "mergeCommit": "29393d5de6421bd0ef42f3963344fa2a2fcab9ce"
+    }
+  }
+}

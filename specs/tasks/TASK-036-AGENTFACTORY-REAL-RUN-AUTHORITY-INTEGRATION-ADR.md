@@ -1,7 +1,7 @@
 ---
 id: TASK-036
 title: Accept the real-run AgentFactory authority integration design
-status: ready
+status: completed
 priority: 1
 milestone: I2
 model_tier: architecture
