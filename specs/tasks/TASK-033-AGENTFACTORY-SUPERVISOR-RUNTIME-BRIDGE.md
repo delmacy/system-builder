@@ -1,7 +1,7 @@
 ---
 id: TASK-033
 title: Bind the supervisor to the local sequential runtime
-status: ready
+status: completed
 priority: 56
 milestone: I2
 model_tier: architecture
