@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "bundle_id": "AFCLOSE-2f4d08641b2aa6951fd12132349dfae21a35300586d04198cc8f2b894edec623",
+  "task_id": "TASK-040",
+  "work_package_id": "WP-I2-06",
+  "source_commit": "8fd6f7f019c6e1c063e9f734baf9c04fa9c54818",
+  "implementation_head": "97c2c8fd53b010078e46494a13b6c3f39647e48e",
+  "implementation_pr": {
+    "schema_version": 1,
+    "pr_number": 115,
+    "branch": "task/040-prove-prospective-authority-closure-regressions",
+    "head_commit": "97c2c8fd53b010078e46494a13b6c3f39647e48e",
+    "base_branch": "main",
+    "validation": "REVIEW_REQUIRED",
+    "required_checks": [
+      "validate"
+    ],
+    "checks": [
+      {
+        "name": "validate",
+        "status": "SUCCESS"
+      }
+    ],
+    "review": "NONE",
+    "approval_channel": "DURABLE_HUMAN_APPROVAL",
+    "human_approval": {
+      "decision": "VALID",
+      "approval_id": "HAPR-1808ae02991a847d5210ba877d72b55dfe1deed992c29c578d2737cdcc4d4202",
+      "reason_codes": []
+    },
+    "package_authorization": {
+      "decision": "INVALID",
+      "approval_id": "PAPR-54b65c2277f939c68fb54863950e1da00323fd4b38715300855ecc773e9f3623",
+      "package_id": "PKG-AF-I2-I5-001",
+      "plan_hash": "bc4057ba2ae0e7453a194d4182bf9ee6fe468094711906dc68b25eda68cc8c60",
+      "descriptor_id": "PWD-AF-003",
+      "reason_codes": [
+        "VALIDATION_FAILED"
+      ],
+      "use_receipt": null
+    },
+    "decision": "ELIGIBLE",
+    "reason_codes": []
+  },
+  "state_branch": "state/task-040-close",
+  "final_evidence_id": "AFEV-61371a1d2ff4b8b6849231d3d911fd4eb47d4fa9b95655b7567bb16413273abb",
+  "files": [
+    {
+      "path": "docs/evidence/agentfactory/TASK-040/attempt-2-61371a1d2ff4b8b6849231d3d911fd4eb47d4fa9b95655b7567bb16413273abb.json",
+      "sha256": "32ee2c7a2fe2f457effaf17fd0c2a71bb3120f9912e3635c34fcf8edf46bb171"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-040/attempt-2-f9128af638de659fb20dfa71c0722efbe09da2281e9e434d18bb9ed6a0b73a10.json",
+      "sha256": "1d07f30ec0ad8bd0c9396dbe52ef217b4e83da79ecf77debc9a28e1aae8c62f6"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-040/governance-resolution.json",
+      "sha256": "5c065a0a0acf4cea7dea66aaf5b219ee511ae07218c182dbb245a65c8a1fd02e"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-040/ledger.json",
+      "sha256": "4e1ccc7dbe521c50dcffe2636a33017976ee9b9accde1deee90c402986d26312"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-040/readiness.json",
+      "sha256": "b3b04fffc949f7b37a7b83e17a365045cb9bced80721e13ba1e7bf7872eba5a8"
+    }
+  ]
+}

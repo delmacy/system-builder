@@ -1,0 +1,1534 @@
+{
+  "schema_version": 1,
+  "graph": {
+    "schema_version": 1,
+    "nodes": [
+      {
+        "id": "TASK-000",
+        "state": "DONE",
+        "dependency_gates": []
+      },
+      {
+        "id": "TASK-036",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-010-036",
+            "predecessor_id": "TASK-010",
+            "successor_id": "TASK-036",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-010.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-035-036",
+            "predecessor_id": "TASK-035",
+            "successor_id": "TASK-036",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-035.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-037",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-036-037",
+            "predecessor_id": "TASK-036",
+            "successor_id": "TASK-037",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-036.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-038",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-037-038",
+            "predecessor_id": "TASK-037",
+            "successor_id": "TASK-038",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-037.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-039",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-010-039",
+            "predecessor_id": "TASK-010",
+            "successor_id": "TASK-039",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-010.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-036-039",
+            "predecessor_id": "TASK-036",
+            "successor_id": "TASK-039",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-036.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-038-039",
+            "predecessor_id": "TASK-038",
+            "successor_id": "TASK-039",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-038.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-040",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-039-040",
+            "predecessor_id": "TASK-039",
+            "successor_id": "TASK-040",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-039.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-001",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-000-001",
+            "predecessor_id": "TASK-000",
+            "successor_id": "TASK-001",
+            "type": "REQUIRES",
+            "status": "UNSATISFIED",
+            "evidence_refs": []
+          }
+        ]
+      },
+      {
+        "id": "TASK-002",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-001-002",
+            "predecessor_id": "TASK-001",
+            "successor_id": "TASK-002",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-001.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-009",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-002-009",
+            "predecessor_id": "TASK-002",
+            "successor_id": "TASK-009",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-002.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-003",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-002-003",
+            "predecessor_id": "TASK-002",
+            "successor_id": "TASK-003",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-002.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-011",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-009-011",
+            "predecessor_id": "TASK-009",
+            "successor_id": "TASK-011",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-009.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-010",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-003-010",
+            "predecessor_id": "TASK-003",
+            "successor_id": "TASK-010",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-003.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-012",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-009-012",
+            "predecessor_id": "TASK-009",
+            "successor_id": "TASK-012",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-009.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-013",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-011-013",
+            "predecessor_id": "TASK-011",
+            "successor_id": "TASK-013",
+            "type": "REQUIRES",
+            "status": "UNSATISFIED",
+            "evidence_refs": []
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-012-013",
+            "predecessor_id": "TASK-012",
+            "successor_id": "TASK-013",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-012.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-014",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-012-014",
+            "predecessor_id": "TASK-012",
+            "successor_id": "TASK-014",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-012.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-015",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-012-015",
+            "predecessor_id": "TASK-012",
+            "successor_id": "TASK-015",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-012.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-014-015",
+            "predecessor_id": "TASK-014",
+            "successor_id": "TASK-015",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-014.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-004",
+        "state": "READY",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-003-004",
+            "predecessor_id": "TASK-003",
+            "successor_id": "TASK-004",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-003.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-016",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-012-016",
+            "predecessor_id": "TASK-012",
+            "successor_id": "TASK-016",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-012.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-017",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-013-017",
+            "predecessor_id": "TASK-013",
+            "successor_id": "TASK-017",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-013.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-015-017",
+            "predecessor_id": "TASK-015",
+            "successor_id": "TASK-017",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-015.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-016-017",
+            "predecessor_id": "TASK-016",
+            "successor_id": "TASK-017",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-016.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-018",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-017-018",
+            "predecessor_id": "TASK-017",
+            "successor_id": "TASK-018",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-017.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-019",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-012-019",
+            "predecessor_id": "TASK-012",
+            "successor_id": "TASK-019",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-012.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-018-019",
+            "predecessor_id": "TASK-018",
+            "successor_id": "TASK-019",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-018.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-020",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-017-020",
+            "predecessor_id": "TASK-017",
+            "successor_id": "TASK-020",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-017.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-018-020",
+            "predecessor_id": "TASK-018",
+            "successor_id": "TASK-020",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-018.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-021",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-012-021",
+            "predecessor_id": "TASK-012",
+            "successor_id": "TASK-021",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-012.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-019-021",
+            "predecessor_id": "TASK-019",
+            "successor_id": "TASK-021",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-019.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-022",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-014-022",
+            "predecessor_id": "TASK-014",
+            "successor_id": "TASK-022",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-014.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-021-022",
+            "predecessor_id": "TASK-021",
+            "successor_id": "TASK-022",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-021.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-023",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-013-023",
+            "predecessor_id": "TASK-013",
+            "successor_id": "TASK-023",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-013.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-015-023",
+            "predecessor_id": "TASK-015",
+            "successor_id": "TASK-023",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-015.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-016-023",
+            "predecessor_id": "TASK-016",
+            "successor_id": "TASK-023",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-016.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-017-023",
+            "predecessor_id": "TASK-017",
+            "successor_id": "TASK-023",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-017.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-018-023",
+            "predecessor_id": "TASK-018",
+            "successor_id": "TASK-023",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-018.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-019-023",
+            "predecessor_id": "TASK-019",
+            "successor_id": "TASK-023",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-019.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-020-023",
+            "predecessor_id": "TASK-020",
+            "successor_id": "TASK-023",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-020.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-021-023",
+            "predecessor_id": "TASK-021",
+            "successor_id": "TASK-023",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-021.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-022-023",
+            "predecessor_id": "TASK-022",
+            "successor_id": "TASK-023",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-022.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-024",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-019-024",
+            "predecessor_id": "TASK-019",
+            "successor_id": "TASK-024",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-019.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-025",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-021-025",
+            "predecessor_id": "TASK-021",
+            "successor_id": "TASK-025",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-021.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-024-025",
+            "predecessor_id": "TASK-024",
+            "successor_id": "TASK-025",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-024.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-005",
+        "state": "READY",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-004-005",
+            "predecessor_id": "TASK-004",
+            "successor_id": "TASK-005",
+            "type": "REQUIRES",
+            "status": "UNSATISFIED",
+            "evidence_refs": []
+          }
+        ]
+      },
+      {
+        "id": "TASK-026",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-020-026",
+            "predecessor_id": "TASK-020",
+            "successor_id": "TASK-026",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-020.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-025-026",
+            "predecessor_id": "TASK-025",
+            "successor_id": "TASK-026",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-025.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-027",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-024-027",
+            "predecessor_id": "TASK-024",
+            "successor_id": "TASK-027",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-024.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-025-027",
+            "predecessor_id": "TASK-025",
+            "successor_id": "TASK-027",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-025.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-026-027",
+            "predecessor_id": "TASK-026",
+            "successor_id": "TASK-027",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-026.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-028",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-027-028",
+            "predecessor_id": "TASK-027",
+            "successor_id": "TASK-028",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-027.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-029",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-028-029",
+            "predecessor_id": "TASK-028",
+            "successor_id": "TASK-029",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-028.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-030",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-028-030",
+            "predecessor_id": "TASK-028",
+            "successor_id": "TASK-030",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-028.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-032",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-028-032",
+            "predecessor_id": "TASK-028",
+            "successor_id": "TASK-032",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-028.json"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "id": "GATE-031-032",
+            "predecessor_id": "TASK-031",
+            "successor_id": "TASK-032",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-031.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-031",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-028-031",
+            "predecessor_id": "TASK-028",
+            "successor_id": "TASK-031",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-028.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-033",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-032-033",
+            "predecessor_id": "TASK-032",
+            "successor_id": "TASK-033",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-032.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-034",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-033-034",
+            "predecessor_id": "TASK-033",
+            "successor_id": "TASK-034",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-033.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-035",
+        "state": "DONE",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-034-035",
+            "predecessor_id": "TASK-034",
+            "successor_id": "TASK-035",
+            "type": "REQUIRES",
+            "status": "SATISFIED",
+            "evidence_refs": [
+              "docs/evidence/tasks/TASK-034.json"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "TASK-006",
+        "state": "READY",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-005-006",
+            "predecessor_id": "TASK-005",
+            "successor_id": "TASK-006",
+            "type": "REQUIRES",
+            "status": "UNSATISFIED",
+            "evidence_refs": []
+          }
+        ]
+      },
+      {
+        "id": "TASK-007",
+        "state": "READY",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-006-007",
+            "predecessor_id": "TASK-006",
+            "successor_id": "TASK-007",
+            "type": "REQUIRES",
+            "status": "UNSATISFIED",
+            "evidence_refs": []
+          }
+        ]
+      },
+      {
+        "id": "TASK-008",
+        "state": "READY",
+        "dependency_gates": [
+          {
+            "schema_version": 1,
+            "id": "GATE-007-008",
+            "predecessor_id": "TASK-007",
+            "successor_id": "TASK-008",
+            "type": "REQUIRES",
+            "status": "UNSATISFIED",
+            "evidence_refs": []
+          }
+        ]
+      }
+    ],
+    "external_nodes": []
+  },
+  "evaluation": {
+    "schema_version": 1,
+    "topological_order": [
+      "TASK-000",
+      "TASK-001",
+      "TASK-002",
+      "TASK-003",
+      "TASK-004",
+      "TASK-005",
+      "TASK-006",
+      "TASK-007",
+      "TASK-008",
+      "TASK-009",
+      "TASK-010",
+      "TASK-011",
+      "TASK-012",
+      "TASK-013",
+      "TASK-014",
+      "TASK-015",
+      "TASK-016",
+      "TASK-017",
+      "TASK-018",
+      "TASK-019",
+      "TASK-020",
+      "TASK-021",
+      "TASK-022",
+      "TASK-023",
+      "TASK-024",
+      "TASK-025",
+      "TASK-026",
+      "TASK-027",
+      "TASK-028",
+      "TASK-029",
+      "TASK-030",
+      "TASK-031",
+      "TASK-032",
+      "TASK-033",
+      "TASK-034",
+      "TASK-035",
+      "TASK-036",
+      "TASK-037",
+      "TASK-038",
+      "TASK-039",
+      "TASK-040"
+    ],
+    "ready": [
+      "TASK-004"
+    ],
+    "nodes": [
+      {
+        "id": "TASK-000",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-000 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-001",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-001 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-002",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-002 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-003",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-003 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-004",
+        "readiness": "READY",
+        "blockers": []
+      },
+      {
+        "id": "TASK-005",
+        "readiness": "BLOCKED",
+        "blockers": [
+          {
+            "code": "GATE_UNSATISFIED",
+            "gate_id": "GATE-004-005",
+            "predecessor_id": "TASK-004",
+            "gate_type": "REQUIRES",
+            "message": "TASK-005: gate GATE-004-005 from TASK-004 is UNSATISFIED"
+          }
+        ]
+      },
+      {
+        "id": "TASK-006",
+        "readiness": "BLOCKED",
+        "blockers": [
+          {
+            "code": "GATE_UNSATISFIED",
+            "gate_id": "GATE-005-006",
+            "predecessor_id": "TASK-005",
+            "gate_type": "REQUIRES",
+            "message": "TASK-006: gate GATE-005-006 from TASK-005 is UNSATISFIED"
+          }
+        ]
+      },
+      {
+        "id": "TASK-007",
+        "readiness": "BLOCKED",
+        "blockers": [
+          {
+            "code": "GATE_UNSATISFIED",
+            "gate_id": "GATE-006-007",
+            "predecessor_id": "TASK-006",
+            "gate_type": "REQUIRES",
+            "message": "TASK-007: gate GATE-006-007 from TASK-006 is UNSATISFIED"
+          }
+        ]
+      },
+      {
+        "id": "TASK-008",
+        "readiness": "BLOCKED",
+        "blockers": [
+          {
+            "code": "GATE_UNSATISFIED",
+            "gate_id": "GATE-007-008",
+            "predecessor_id": "TASK-007",
+            "gate_type": "REQUIRES",
+            "message": "TASK-008: gate GATE-007-008 from TASK-007 is UNSATISFIED"
+          }
+        ]
+      },
+      {
+        "id": "TASK-009",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-009 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-010",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-010 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-011",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-011 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-012",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-012 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-013",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-013 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-014",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-014 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-015",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-015 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-016",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-016 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-017",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-017 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-018",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-018 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-019",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-019 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-020",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-020 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-021",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-021 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-022",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-022 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-023",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-023 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-024",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-024 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-025",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-025 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-026",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-026 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-027",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-027 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-028",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-028 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-029",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-029 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-030",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-030 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-031",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-031 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-032",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-032 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-033",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-033 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-034",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-034 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-035",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-035 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-036",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-036 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-037",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-037 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-038",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-038 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-039",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-039 is DONE, not a schedulable state"
+          }
+        ]
+      },
+      {
+        "id": "TASK-040",
+        "readiness": "TERMINAL",
+        "blockers": [
+          {
+            "code": "NODE_STATE_NOT_SCHEDULABLE",
+            "gate_id": null,
+            "predecessor_id": null,
+            "gate_type": null,
+            "message": "TASK-040 is DONE, not a schedulable state"
+          }
+        ]
+      }
+    ]
+  },
+  "previous_ready": [
+    "TASK-004",
+    "TASK-040"
+  ],
+  "current_ready": [
+    "TASK-004"
+  ],
+  "newly_ready": [],
+  "changed_nodes": [
+    "TASK-040"
+  ],
+  "changed_gates": []
+}
