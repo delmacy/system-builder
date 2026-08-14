@@ -52,9 +52,10 @@ exit claim is permitted.
 
 ## Required correction
 
-WP-I2-06/TASK-036 must first accept an ADR for the real-run authority
-integration point. Only after that ADR is integrated may rolling-wave planning
-materialize the bounded implementation task. The correction must preserve all
+WP-I2-06/TASK-036 has accepted ADR-0012 for the real-run authority integration
+point. Rolling-wave planning may materialize the bounded implementation task
+only after the newly required WP-I2-07 package-governance boundary integrates.
+The correction must preserve all
 accepted coordinator, evidence, ledger, readiness, GitHub lifecycle, approval
 and Supervisor contracts and may not rewrite the terminal candidate history.
 
@@ -70,10 +71,11 @@ prohibited until this gate is reassessed GO from integrated real evidence.
 
 ## Governance follow-up
 
-The owner requested future work authorization by bounded package, normally
-20–50 frozen task contracts, instead of per-task interaction/signature. This is
-a separate approval-policy change: it must distinguish authorization to execute
-the package from exception/acceptance gates and define immutable package scope,
-risk ceiling, expiry, revocation and audit evidence. ADR-0010 remains in force
-until that change receives its own governed contract; package intent is not
-treated as an approval receipt.
+The owner requested future work authorization by bounded package of 20–50 task
+descriptors instead of per-task interaction/signature. WP-I2-07/TASK-037 is now
+materialized as the architecture slice for that separate approval-policy
+change. It must distinguish routine package execution from
+exception/architecture acceptance gates and define immutable scope,
+rolling-wave conformance, risk ceiling, expiry, revocation, exhaustion and
+audit evidence. ADR-0010 remains in force until ADR-0013 and its downstream
+implementation/proof integrate; package intent is not an approval receipt.
