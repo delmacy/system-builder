@@ -15,7 +15,7 @@ context_paths:
   - docs/current/PROJECT_STATE.md
   - docs/current/CURRENT_MILESTONE.md
   - docs/architecture/MASTER_BLUEPRINT.md
-  - docs/adr/ADR-0010-solo-maintainer-durable-human-approval.md
+  - docs/adr/ADR-0010-durable-human-approval.md
   - docs/adr/ADR-0012-agentfactory-real-run-authority-integration.md
   - docs/adr/ADR-0013-bounded-package-work-authorization.md
   - specs/tasks/TASK-038-AGENTFACTORY-PACKAGE-WORK-AUTHORIZATION-RUNTIME.md
