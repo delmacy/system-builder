@@ -1,0 +1,42 @@
+{
+  "taskId": "TASK-035",
+  "verifiedAt": "2026-08-14T17:26:12.184Z",
+  "baseCommit": "9326d3417abda9ff0d0cf207058fc19af66d3b06",
+  "headCommit": "9326d3417abda9ff0d0cf207058fc19af66d3b06",
+  "changedFiles": [
+    "project_docs/agentfactory_i2/SUPERVISOR_OPERATIONS_WINDOWS.md",
+    "tooling/agent-harness/src/executor.ts",
+    "tooling/agent-harness/tests/orchestrator.test.ts"
+  ],
+  "taskHash": "3f6a759530ab77e983a8052781d40b961f890d311ab1ee33c76506b9352d8ca5",
+  "packHash": "f88bb08ded6ef453d1691e0b6a8b9528c1a14edb28d7c98f1cf19430978416fb",
+  "changeFingerprint": "2e5019b31ad61c7be6673b08fa482e77654986b4aea098c3d3b570c4c7627794",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-035",
+    "branch": "task/035-pass-provider-qualified-zen-model-ids-to-the-opencode-cl",
+    "baseBranch": "main",
+    "baseCommit": "9326d3417abda9ff0d0cf207058fc19af66d3b06",
+    "remote": "origin",
+    "createdAt": "2026-08-14T17:24:15.941Z",
+    "commit": "3adca5239deb0bb47d72ff99849220de0bb41efd",
+    "verifiedFingerprint": "2e5019b31ad61c7be6673b08fa482e77654986b4aea098c3d3b570c4c7627794",
+    "committedAt": "2026-08-14T17:26:23.500Z",
+    "pushed": true,
+    "pushedAt": "2026-08-14T17:26:27.893Z",
+    "pullRequest": {
+      "number": 97,
+      "url": "https://github.com/delmacy/system-builder/pull/97",
+      "state": "MERGED",
+      "openedAt": "2026-08-14T17:26:33.685Z",
+      "mergeCommit": "9bc63a37e738d95096da9bcf52e7a59c6ba32d1e"
+    }
+  }
+}
