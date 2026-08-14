@@ -1,7 +1,7 @@
 ---
 id: TASK-042
 title: Implement package-scoped additive test authorization
-status: ready
+status: completed
 priority: 1
 milestone: I2
 model_tier: architecture

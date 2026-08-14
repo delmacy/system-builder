@@ -1,0 +1,44 @@
+{
+  "taskId": "TASK-042",
+  "verifiedAt": "2026-08-14T22:57:00.430Z",
+  "baseCommit": "275a19d7a7ac937efd388ff4acdb4e2f5bc6788f",
+  "headCommit": "275a19d7a7ac937efd388ff4acdb4e2f5bc6788f",
+  "changedFiles": [
+    "project_docs/agentfactory_i2/PACKAGE_SCOPED_TEST_AUTHORIZATION_PROOF.md",
+    "tooling/agent-harness/src/orchestrator-runtime.ts",
+    "tooling/agent-harness/src/package-authorization.ts",
+    "tooling/agent-harness/tests/orchestrator.test.ts",
+    "tooling/agent-harness/tests/package-authorization.test.ts"
+  ],
+  "taskHash": "735347a3e3da06c5837247fb7f7809ebdb64bbda99f178049c9244888e602fe8",
+  "packHash": "1cfe187b5fdb900288e32baa409841ee195895a78b464c101687fec5b1b44b7c",
+  "changeFingerprint": "9d52e30f1f7dda381c1334b65dbdc6205ba7fe5a5c76d05f26cc49bba01ac4db",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-042",
+    "branch": "task/042-implement-package-scoped-additive-test-authorization",
+    "baseBranch": "main",
+    "baseCommit": "275a19d7a7ac937efd388ff4acdb4e2f5bc6788f",
+    "remote": "origin",
+    "createdAt": "2026-08-14T22:47:17.318Z",
+    "commit": "85a66d74a4fd40854479f1ebf5482e9bf53e4eea",
+    "verifiedFingerprint": "9d52e30f1f7dda381c1334b65dbdc6205ba7fe5a5c76d05f26cc49bba01ac4db",
+    "committedAt": "2026-08-14T22:57:15.788Z",
+    "pushed": true,
+    "pushedAt": "2026-08-14T22:57:20.077Z",
+    "pullRequest": {
+      "number": 122,
+      "url": "https://github.com/delmacy/system-builder/pull/122",
+      "state": "MERGED",
+      "openedAt": "2026-08-14T22:57:25.966Z",
+      "mergeCommit": "e3248ac1aefdc4268166ce6c7a6744b0f78b9fe0"
+    }
+  }
+}
