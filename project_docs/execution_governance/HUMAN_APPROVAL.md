@@ -13,3 +13,21 @@ The external store avoids circular self-authorization. The decision may occur af
 ## Mandatory properties
 
 The receipt must bind repository, task/risk, architecture flag, PR, base/head refs, head SHA, approver/key, policy version, decision, rationale and timestamp. Invalid/missing/stale/future signatures fail closed. CI and validation remain mandatory. Rotation changes policy version and authorized public keys; historical receipts remain immutable.
+
+## Bounded package authorization
+
+ADR-0013 accepts a future package channel for 20–50 immutable task descriptors.
+One owner signature binds the canonical package plan; deterministic conformance
+then binds each rolling-wave task and exact PR/state identity to one unused
+descriptor. Package-use receipts are audit evidence, not signatures.
+
+The package channel is not active until its downstream schemas, evaluator,
+external-store adapter, lifecycle integration and proof are integrated. Until
+then, ADR-0010 exact `SOLO_DURABLE` or independent GitHub approval remains
+mandatory.
+
+Even after activation, a package never overrides failed CI/validation,
+identity/evidence mismatch or scope/DAG drift. ADR/public-contract acceptance,
+security/evaluator policy, destructive data/release actions and waivers require
+an exact exception or independent review. Expired, revoked, suspended or
+exhausted packages fail closed.
