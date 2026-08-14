@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://system-builder.local/contracts/artifact-envelope/1.0.0/artifact-envelope.schema.json",
+  "title": "System Builder public artifact envelope",
+  "description": "Provider-neutral public envelope for durable pipeline artifacts (ADR-0009). Provider, registry, database and storage identifiers are not part of the core contract.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelopeVersion",
+    "artifactType",
+    "artifactId",
+    "artifactVersion",
+    "schema",
+    "provenance",
+    "payload"
+  ],
+  "properties": {
+    "envelopeVersion": {
+      "$comment": "SemVer 2.0.0 version of this envelope contract.",
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-((?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+    },
+    "artifactType": {
+      "$comment": "Stable, namespaced type identifier for the payload contract.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^\\S+$"
+    },
+    "artifactId": {
+      "$comment": "Globally unique, immutable URI identifying the logical artifact across versions. A UUID URN is the recommended form.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+    },
+    "artifactVersion": {
+      "$comment": "SemVer version of the logical artifact.",
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-((?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+    },
+    "schema": {
+      "$comment": "Stable URI and SemVer version of the schema that validates payload.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-((?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+        }
+      }
+    },
+    "provenance": {
+      "$comment": "Evidence and traceability, not execution authority. Portable actor, operation, correlation or integrity metadata is allowed; the core requires no provider/database/storage identifiers.",
+      "type": "object",
+      "required": ["createdAt", "producer", "inputs"],
+      "properties": {
+        "createdAt": {
+          "$comment": "RFC 3339 timestamp in UTC.",
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+        },
+        "producer": {
+          "type": "object",
+          "required": ["id", "version"],
+          "properties": {
+            "id": {
+              "$comment": "Stable provider-neutral identifier.",
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\S+$"
+            },
+            "version": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-((?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+            }
+          },
+          "additionalProperties": true
+        },
+        "inputs": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$comment": "Input artifact identity tuple with an optional algorithm-qualified digest.",
+            "type": "object",
+            "required": ["artifactType", "artifactId", "artifactVersion"],
+            "properties": {
+              "artifactType": { "type": "string", "minLength": 1, "pattern": "^\\S+$" },
+              "artifactId": { "type": "string", "minLength": 1, "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$" },
+              "artifactVersion": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-((?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+              },
+              "digest": {
+                "type": "object",
+                "required": ["algorithm", "value"],
+                "properties": {
+                  "algorithm": {
+                    "$comment": "Algorithm carried explicitly; no storage system is assumed.",
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^[A-Za-z0-9._-]+$"
+                  },
+                  "value": { "type": "string", "minLength": 1 }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "requiredExtensions": {
+      "type": "array",
+      "default": [],
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "pattern": "^\\S+$" }
+    },
+    "extensions": {
+      "type": "object",
+      "default": {},
+      "additionalProperties": true
+    },
+    "payload": {
+      "$comment": "Contract-specific artifact content; any JSON-compatible value. See schema.id and schema.version."
+    }
+  }
+}
