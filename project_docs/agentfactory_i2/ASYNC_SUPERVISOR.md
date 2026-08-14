@@ -160,6 +160,53 @@ notes:
   - Package-level work authorization is a separate owner-requested governance change and is not implemented by WP-I2-06.
 ```
 
+## WP-I2-07 — Bounded package work authorization
+
+```yaml
+work_package: WP-I2-07
+parent_wbs: 01.1
+name: Bounded package work authorization
+status: READY as TASK-037 architecture slice
+objective: Replace repetitive exact-PR owner interaction for routine AgentFactory work with one signed, bounded and auditable authorization for 20-50 planned task descriptors.
+in_scope:
+  - immutable package plan identity and signature boundary
+  - rolling-wave descriptor-to-task conformance
+  - risk, path, DAG, executor, time, action and budget limits
+  - explicit exception, expiry, revocation, suspension and exhaustion gates
+  - per-task and per-PR audit linkage to package authority
+out_of_scope:
+  - implicit approval of future ADR decisions
+  - executor access to signing keys or self-expanded scope
+  - weakened CI, validation, evidence, state closure or governance gates
+  - WP-I2-06 implementation, TASK-004, I3 or parallel scheduling
+inputs:
+  - ADR-0010 durable exact-PR approval
+  - ADR-0012 package-authorization separation
+  - owner instruction for 20-50 task packages
+  - Work Package, DAG and rolling-wave task semantics
+outputs:
+  - ADR-0013 package authorization decision
+  - bounded downstream policy implementation/proof task
+predecessors:
+  - TASK-036
+downstream_consumers:
+  - WP-I2-06 authority integration implementation
+  - future bounded AgentFactory execution packages
+acceptance_criteria:
+  - package authority cannot escape an immutable 20-50 descriptor manifest
+  - rolling-wave task specs prove deterministic conformance to one descriptor
+  - routine conforming PRs do not require a new signature
+  - exception gates stop for scope, risk, architecture acceptance or failed evidence
+  - revocation, expiry, exhaustion and audit are fail-closed
+required_evidence:
+  - accepted ADR and threat model
+  - focused implementation/proof after ADR integration
+  - npm run verify
+notes:
+  - TASK-037 is architecture-only and does not activate package authority.
+  - ADR-0010 remains authoritative until the downstream implementation and proof integrate.
+```
+
 ## WP-I2-02 — Durable supervisor kernel
 
 ```yaml
@@ -277,6 +324,11 @@ notes:
 
 ## Supplemental DAG
 
-`TASK-028 + TASK-031 -> WP-I2-02/TASK-032 -> WP-I2-03/TASK-033 -> WP-I2-04/TASK-034 -> TASK-010 CLI finding -> WP-I2-05/TASK-035 -> TASK-010 real candidate -> WP-I2-06/TASK-036 ADR -> bounded authority integration implementation -> fresh I2 proof`
+`TASK-028 + TASK-031 -> WP-I2-02/TASK-032 -> WP-I2-03/TASK-033 -> WP-I2-04/TASK-034 -> TASK-010 CLI finding -> WP-I2-05/TASK-035 -> TASK-010 real candidate -> WP-I2-06/TASK-036 ADR -> WP-I2-07/TASK-037 package authorization ADR -> package policy implementation/proof -> bounded authority integration implementation -> fresh I2 proof`
 
-TASK-034 and TASK-035 are integrated and state-closed. TASK-010 subsequently completed its bootstrap implementation and state lifecycle, but the preserved Supervisor run stopped `EVIDENCE_MISSING` because the real AFEV/ledger/readiness integration point is not defined. The I2 Exit Gate is NO-GO pending WP-I2-06; TASK-004 and I3 remain prohibited.
+TASK-034 through TASK-036 are integrated and state-closed. TASK-010 completed
+its bootstrap implementation and state lifecycle, but the preserved Supervisor
+run stopped `EVIDENCE_MISSING`. ADR-0012 now defines the authority integration
+point. Owner-directed WP-I2-07 is the next governance boundary; ADR-0010 remains
+active until its implementation/proof integrates. TASK-004 and I3 remain
+prohibited.

@@ -75,8 +75,10 @@ Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autono
 - [x] Integrate/state-close TASK-035, then wake the preserved TASK-010 pipeline without discarding its attempt evidence.
 - [x] Execute and bootstrap-close TASK-010 through exact implementation/state identities and durable approvals.
 - [x] Reassess the real candidate evidence: I2 Exit Gate is NO-GO because AFEV, causal AgentFactory ledger and readiness authority were not materialized.
-- [ ] TASK-036: accept ADR-0012 for the real-run authority integration point (WP-I2-06).
-- [ ] Materialize the bounded WP-I2-06 implementation task only after TASK-036 is integrated and state-closed.
+- [x] TASK-036: accept ADR-0012 for the real-run authority integration point (WP-I2-06).
+- [ ] TASK-037: accept ADR-0013 for bounded package work authorization (WP-I2-07).
+- [ ] Materialize and prove the bounded WP-I2-07 implementation only after TASK-037 is integrated and state-closed.
+- [ ] Materialize the bounded WP-I2-06 implementation task from ADR-0012 after the package-governance boundary is integrated.
 - [ ] Pass a fresh authority reconciliation proof before authorizing TASK-004 -> TASK-005 or reassessing the I2 Exit Gate GO.
 
 ## Product M1
