@@ -5,6 +5,18 @@ import { z } from "zod";
 
 const nonEmptyList = z.array(z.string().min(1)).min(1);
 
+export const taskPackageAuthorizationSchema = z.object({
+  package_id: z.string().regex(/^PKG-[A-Z0-9-]+$/),
+  package_version: z.string().regex(/^\d+\.\d+\.\d+$/),
+  plan_hash: z.string().regex(/^[0-9a-f]{64}$/),
+  descriptor_id: z.string().regex(/^PWD-[A-Z0-9-]+$/),
+  objective_id: z.string().min(1),
+  output_ids: nonEmptyList,
+  governance_classes: nonEmptyList,
+  dor_ids: nonEmptyList,
+  dod_ids: nonEmptyList,
+}).strict();
+
 export const taskStatusSchema = z.enum([
   "draft",
   "ready",
@@ -32,6 +44,7 @@ export const taskMetadataSchema = z.object({
   forbidden_paths: z.array(z.string()),
   max_files: z.number().int().positive().max(50),
   validation: nonEmptyList,
+  package_authorization: taskPackageAuthorizationSchema.optional(),
 });
 
 export type TaskMetadata = z.infer<typeof taskMetadataSchema>;
