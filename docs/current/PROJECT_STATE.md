@@ -31,7 +31,7 @@ M1 — Vertical Contract Spine remains valid and its READY work is not cancelled
 ## Immediate next work
 
 1. Preserve TASK-028 implementation and bootstrap closure as integrated evidence.
-2. Execute TASK-029 to implement ADR-0010's signed durable human approval without weakening GitHub review, CI or validation.
+2. Correct TASK-029's post-integration approval-channel classification through TASK-030 before retrying state closure.
 3. Do not execute TASK-010 or the documented TASK-004 -> TASK-005 -> TASK-006 chain until a reassessed pre-run gate is GO.
 4. Do not advance to I3 or parallel execution before the I2 Exit Gate.
 

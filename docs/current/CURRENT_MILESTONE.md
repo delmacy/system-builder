@@ -60,6 +60,7 @@ Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autono
 - [x] Assess the I2 pre-run gate: NO-GO because hardened PR lifecycle reconciliation remains `REVIEW_MISSING`/`BLOCKED`.
 - [ ] Resolve TASK-028 lifecycle reconciliation and reassess the pre-run gate.
 - [ ] Implement and close TASK-029, then require a separate human-signed decision before TASK-028 reconciliation.
+- [ ] Correct the TEAM_INDEPENDENT channel classification through TASK-030; TASK-029 state closure PR #76 is closed/unmerged.
 - [ ] Execute the candidate chain only after coordinator integration and reassess the I2 Exit Gate.
 
 ## Product M1

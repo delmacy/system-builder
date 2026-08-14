@@ -1,6 +1,6 @@
 import { createHash, verify } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { isAbsolute, resolve } from "node:path";
 import { z } from "zod";
 
 const taskId = z.string().regex(/^TASK-[0-9]{3}(?:-[A-Z0-9-]+)?$/);
@@ -13,6 +13,7 @@ export const humanApprovalPolicySchema = z.object({
   mode: z.enum(["TEAM_INDEPENDENT", "SOLO_DURABLE"]),
   repository: z.string().min(1),
   max_age_seconds: z.number().int().positive(),
+  receipt_directory_env: z.string().regex(/^[A-Z][A-Z0-9_]+$/),
   authorized_approvers: z.array(z.object({
     approver_identity: z.string().min(1),
     key_id: z.string().min(1),
@@ -63,8 +64,8 @@ export function humanApprovalId(receipt: Omit<HumanApprovalReceipt, "approval_id
 export function evaluateHumanApproval(policyInput: unknown, receiptInput: unknown, expected: HumanApprovalExpected): HumanApprovalEvaluation {
   const policy = humanApprovalPolicySchema.safeParse(policyInput);
   if (!policy.success) return evaluation("INVALID", null, ["POLICY_INVALID"]);
-  if (policy.data.mode !== "SOLO_DURABLE") return evaluation("INVALID", null, ["POLICY_DISALLOWS_DURABLE"]);
   if (receiptInput === undefined || receiptInput === null) return evaluation("MISSING", null, ["APPROVAL_MISSING"]);
+  if (policy.data.mode !== "SOLO_DURABLE") return evaluation("INVALID", null, ["POLICY_DISALLOWS_DURABLE"]);
   const receipt = humanApprovalReceiptSchema.safeParse(receiptInput);
   if (!receipt.success) return evaluation("INVALID", null, ["APPROVAL_INVALID"]);
   const value = receipt.data;
@@ -93,10 +94,14 @@ export function evaluateHumanApproval(policyInput: unknown, receiptInput: unknow
 
 export function evaluateStoredHumanApproval(root: string, expected: HumanApprovalExpected): HumanApprovalEvaluation {
   const policyPath = resolve(root, "tooling/agent-harness/policies/HUMAN_APPROVAL.json");
-  const receiptPath = resolve(root, "docs/evidence/approvals", `${expected.taskId}-PR-${expected.prNumber}-${expected.headSha}.json`);
   const policy = existsSync(policyPath) ? JSON.parse(readFileSync(policyPath, "utf8")) : undefined;
+  const parsedPolicy = humanApprovalPolicySchema.safeParse(policy);
+  if (!parsedPolicy.success) return evaluation("INVALID", null, ["POLICY_INVALID"]);
+  const directory = process.env[parsedPolicy.data.receipt_directory_env];
+  if (!directory || !isAbsolute(directory)) return evaluation("MISSING", null, ["APPROVAL_MISSING"]);
+  const receiptPath = resolve(directory, `${expected.taskId}-PR-${expected.prNumber}-${expected.headSha}.json`);
   const receipt = existsSync(receiptPath) ? JSON.parse(readFileSync(receiptPath, "utf8")) : undefined;
-  return evaluateHumanApproval(policy, receipt, expected);
+  return evaluateHumanApproval(parsedPolicy.data, receipt, expected);
 }
 
 function evaluation(decision: HumanApprovalEvaluation["decision"], approvalId: string | null, reasonCodes: HumanApprovalEvaluation["reason_codes"]): HumanApprovalEvaluation {
