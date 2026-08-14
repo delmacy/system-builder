@@ -8,7 +8,26 @@ Date: 2026-08-13
 
 ## Supplemental gate notice
 
-CHG-AF-2026-08-13-01 and ADR-0011 were accepted after this decision. They preserve the evidence behind this GO but add WP-I2-02/WP-I2-03 as explicit operational preconditions. TASK-010 remains prohibited until the event-driven Supervisor is implemented, integrated, state-closed and a new readiness assessment restores authorization.
+CHG-AF-2026-08-13-01 and ADR-0011 were accepted after the original decision. They preserved its evidence but added WP-I2-02/WP-I2-03 as explicit operational preconditions.
+
+## Supplemental Supervisor readiness decision
+
+Date: 2026-08-14
+
+**GO.** TASK-032/WP-I2-02 and TASK-033/WP-I2-03 are integrated and state-closed. The finite local Supervisor is authorized to start only the explicit TASK-010 candidate plan. This assessment did not create a TASK-010 plan, branch, Task Pack, evidence record or PR and did not execute TASK-010.
+
+This GO authorizes candidate entry, not I2 completion. Missing or divergent AFEV, causal ledger, readiness, CI, approval or state-closure authority remains a mandatory fail-closed stop. The I2 Exit Gate still requires the real sequential proof after TASK-010 is accepted.
+
+### Supplemental evidence
+
+- `main` and `origin/main` were synchronized at `7b1756acc49fb071f2dd6cdeeef26b6234773cfc`; the working tree was clean and no PR remained open before this gate record.
+- TASK-033 implementation PR #89 and state PR #90 are merged with successful required `validate` checks.
+- Both exact PR/SHA identities have authorized Ed25519 receipts in the external approval store; `task:advance` returned stable `DONE` and both lifecycle decisions were `ELIGIBLE` with no reason codes.
+- The runtime loads a strict external plan, derives the DAG from the real task catalog, binds `SequentialPipelineCoordinator` to `LocalTaskOrchestrator`/`LocalHarnessAdapter`, and retains OpenCode as the implementation executor.
+- Start, status, callback, heartbeat and resume are finite; each mutating invocation delegates at most one safe action. Callback data is only a wake hint and heartbeat is recovery-only.
+- Restart, replay, duplicate callback, lease, retry, external-wait and healthy-heartbeat behavior is deterministic and covered by the integrated tests.
+- Full validation passed with 189/189 tests, 34 valid task specifications, lint, typecheck, architecture gates and build.
+- Runtime bridge tests use non-product fixtures and prove no TASK-010 branch, context, evidence or PR side effect.
 
 ## Accepted evidence
 
@@ -30,7 +49,7 @@ CHG-AF-2026-08-13-01 and ADR-0011 were accepted after this decision. They preser
 
 ## Authorized run boundary
 
-- Begin with a fresh TASK-010 branch and Task Pack from the current synchronized `main`.
+- Begin through the finite Supervisor with a separately created strict TASK-010-only plan from the current synchronized `main`.
 - Do not select TASK-004 merely because it is globally READY. The I2 run must first integrate and close TASK-010, then allow the coordinator to release the declared chain one task at a time from actual evidence.
 - Stop at any DoR, scope, executor, validation, CI, approval, state-identity or ledger divergence gate. Do not infer success or approval.
 - After the representative chain is integrated, reassess the I2 Exit Gate. I3 and parallel scheduling remain prohibited until that gate passes.

@@ -66,8 +66,8 @@ Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autono
 - [x] Accept ADR-0011 and refine the bounded WP-AF-16 slice into WP-I2-02/WP-I2-03 without entering I3.
 - [x] TASK-032: implement and close the durable Supervisor kernel (WP-I2-02).
 - [x] Materialize TASK-033 for WP-I2-03 from integrated TASK-032 outputs.
-- [ ] TASK-033: implement and state-close the local runtime bridge and finite Windows commands.
-- [ ] Integrate/state-close WP-I2-03 and reassess Supervisor readiness without starting TASK-010.
+- [x] TASK-033: implement and state-close the local runtime bridge and finite Windows commands.
+- [x] Integrate/state-close WP-I2-03 and reassess Supervisor readiness as GO without starting TASK-010.
 - [ ] Execute the candidate chain only after coordinator integration and reassess the I2 Exit Gate.
 
 ## Product M1
