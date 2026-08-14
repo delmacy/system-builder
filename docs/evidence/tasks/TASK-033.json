@@ -1,0 +1,46 @@
+{
+  "taskId": "TASK-033",
+  "verifiedAt": "2026-08-14T15:37:58.325Z",
+  "baseCommit": "0c5260a40f73d457b4728d75708295979e87ac33",
+  "headCommit": "0c5260a40f73d457b4728d75708295979e87ac33",
+  "changedFiles": [
+    "package.json",
+    "project_docs/agentfactory_i2/ASYNC_SUPERVISOR.md",
+    "project_docs/agentfactory_i2/SUPERVISOR_OPERATIONS_WINDOWS.md",
+    "tooling/agent-harness/src/harness.ts",
+    "tooling/agent-harness/src/supervisor-cli.ts",
+    "tooling/agent-harness/src/supervisor-runtime.ts",
+    "tooling/agent-harness/tests/supervisor-runtime.test.ts"
+  ],
+  "taskHash": "956fdf797d3439ed97143132a4cf60d766bac5d28392caa11a64710603d54272",
+  "packHash": "5f87d662bb23f59076f3726a8a9a0732430efad64c56d936f8ca0d538a3521ca",
+  "changeFingerprint": "0a3385b33b15932b57cc14f4953baf0d0e42c206c2342bb52064e9b21d8c8d6e",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-033",
+    "branch": "task/033-bind-the-supervisor-to-the-local-sequential-runtime",
+    "baseBranch": "main",
+    "baseCommit": "0c5260a40f73d457b4728d75708295979e87ac33",
+    "remote": "origin",
+    "createdAt": "2026-08-14T15:23:58.835Z",
+    "commit": "9446d2e2287e831afb2db56a39a919924df18b69",
+    "verifiedFingerprint": "0a3385b33b15932b57cc14f4953baf0d0e42c206c2342bb52064e9b21d8c8d6e",
+    "committedAt": "2026-08-14T15:38:06.017Z",
+    "pushed": true,
+    "pushedAt": "2026-08-14T15:38:10.613Z",
+    "pullRequest": {
+      "number": 89,
+      "url": "https://github.com/delmacy/system-builder/pull/89",
+      "state": "MERGED",
+      "openedAt": "2026-08-14T15:38:16.508Z",
+      "mergeCommit": "78ba818d8ef709aa79d8797cb8b49cb4fb4e7d5b"
+    }
+  }
+}
