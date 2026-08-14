@@ -120,6 +120,17 @@ export class SequentialPipelineCoordinator {
     for (const [index, id] of this.plan.ordered_task_ids.entries()) {
       const task = this.tasks.find((candidate) => candidate.metadata.id === id)!;
       const authority = authorities.get(id);
+      if (observation.bootstrap.completed.includes(id) && this.closurePending(authority)) {
+        gates.push({ task_id: id, reconciled: false });
+        if (!authority?.implementation_pr || authority.implementation_pr.decision !== "ELIGIBLE") {
+          return this.receipt(started, observation, id, gates, authority, null, "PR_NOT_ELIGIBLE", false);
+        }
+        if (externalStops.has(authority.orchestrator_state as OrchestratorState)) {
+          return this.receipt(started, observation, id, gates, authority, null, "EXTERNAL_GATE", false);
+        }
+        const delegated = this.adapter.advanceTask(id);
+        return this.receipt(started, observation, id, gates, authority, delegated, "DELEGATED", false);
+      }
       const reconciliation = this.reconcile(id, index, observation, authority);
       gates.push({ task_id: id, reconciled: reconciliation.ok });
       if (reconciliation.ok) continue;
@@ -147,6 +158,11 @@ export class SequentialPipelineCoordinator {
       return this.receipt(started, observation, id, gates, authority, delegated, "DELEGATED", false);
     }
     return this.receipt(started, observation, null, gates, undefined, null, "PIPELINE_COMPLETE", true);
+  }
+
+  private closurePending(authority: SequentialObservation["authorities"][number] | undefined): boolean {
+    return Boolean(authority && ["CLOSED", "STATE_PR_PENDING", "STATE_CI_PENDING", "STATE_REVIEW_REQUIRED", "STATE_MERGED"]
+      .includes(authority.orchestrator_state));
   }
 
   private validatePlan(): void {

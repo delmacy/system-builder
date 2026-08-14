@@ -5,6 +5,7 @@ import { dirname, resolve } from "node:path";
 import { getTask, loadTasks, repoPath, type Task, validateTaskCatalog } from "./task.js";
 import { changedPaths, git } from "./git.js";
 import { matchesAny } from "./glob.js";
+import { authorityClosureFiles } from "./authority-closure.js";
 
 export type GitTaskRecord = {
   version: 1;
@@ -597,6 +598,7 @@ function stateClosureFiles(task: Task, root: string): string[] {
     repoPath(root, task.file),
     `docs/evidence/tasks/${task.metadata.id}.json`,
     "docs/current/TASK_LEDGER.json",
+    ...authorityClosureFiles(task.metadata.id, root),
   ].sort();
 }
 

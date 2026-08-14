@@ -12,6 +12,7 @@ import { branchTask, commitTask, openTaskPullRequest, pushTask, taskGitStatus } 
 import { OpenCodeExecutor } from "./executor.js";
 import { LocalTaskOrchestrator } from "./orchestrator.js";
 import { LocalHarnessAdapter } from "./orchestrator-runtime.js";
+import { advancePackageTaskMaterialization } from "./package-task-materializer.js";
 
 const [command, taskId] = process.argv.slice(2);
 
@@ -80,6 +81,11 @@ try {
       console.log(JSON.stringify(orchestrator().run(selectedTaskId), null, 2));
       break;
     }
+    case "package-task": {
+      if (!taskId) throw new Error("task:package-task requires a candidate task-spec path");
+      console.log(JSON.stringify(advancePackageTaskMaterialization({ candidatePath: taskId }), null, 2));
+      break;
+    }
     case "validate-tasks": {
       console.log(`Validated ${validateTasks()} task specifications.`);
       break;
@@ -90,7 +96,7 @@ try {
       break;
     }
     default:
-      throw new Error("Usage: cli.ts <next|prepare|verify|close|branch|status|commit|push|pr|advance|run|validate-tasks|architecture> [TASK_ID]");
+      throw new Error("Usage: cli.ts <next|prepare|verify|close|branch|status|commit|push|pr|advance|run|package-task|validate-tasks|architecture> [TASK_ID|CANDIDATE_PATH]");
   }
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);

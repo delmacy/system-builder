@@ -5,6 +5,7 @@ import { z } from "zod";
 import { executionResultSchema, type ExecutionResult } from "./execution-contracts.js";
 import type { ExecutionBoundaryCompletion } from "./execution-harness.js";
 import { validationGateReceiptSchema, type ValidationGateReceipt } from "./validation-engine.js";
+import { githubLifecycleReceiptSchema, type GitHubLifecycleReceipt } from "./github-lifecycle.js";
 
 const acceptanceSchema = z.object({ id: z.string().regex(/^AC-[A-Z0-9-]+$/), status: z.literal("PASS"), evidence: z.string().min(1) }).strict();
 const attemptAcceptanceSchema = z.object({
@@ -18,6 +19,18 @@ const metricsSchema = z.object({
   review_duration_seconds: z.number().nonnegative().nullable(),
   token_or_provider_cost: z.number().nonnegative().nullable(),
 }).strict();
+
+export const governanceResolutionSchema = z.object({
+  schema_version: z.literal(1),
+  resolution_id: z.string().regex(/^AFGOV-[0-9a-f]{64}$/),
+  validation_sha256: z.string().regex(/^[0-9a-f]{64}$/),
+  original_validation: validationGateReceiptSchema,
+  change_fingerprint: z.string().regex(/^[0-9a-f]{64}$/),
+  implementation_lifecycle: githubLifecycleReceiptSchema,
+  decision: z.literal("RESOLVED"),
+}).strict();
+
+export type GovernanceResolution = z.infer<typeof governanceResolutionSchema>;
 
 export const agentFactoryEvidenceEnvelopeSchema = z.object({
   schema_version: z.literal(1),
@@ -72,6 +85,7 @@ export type EvidenceWriterInput = {
   dagEffects?: string[];
   metrics: z.infer<typeof metricsSchema>;
   notes?: string;
+  governanceResolution?: GovernanceResolution;
 };
 
 export type AttemptEvidenceWriterInput = Omit<EvidenceWriterInput, "acceptance" | "metrics"> & {
@@ -103,15 +117,21 @@ export function buildAgentFactoryEvidence(input: EvidenceWriterInput): AgentFact
   if (!/^[0-9a-f]{40}$/.test(input.headCommit) || !/^[0-9a-f]{64}$/.test(input.changeFingerprint)) {
     throw new Error("EVIDENCE_GIT_IDENTITY_INVALID: head commit and fingerprint are required");
   }
+  const governanceResolution = input.governanceResolution
+    ? validateGovernanceResolution(input.governanceResolution, validation, input.headCommit, input.changeFingerprint)
+    : null;
+  const effectiveValidation: ValidationGateReceipt = governanceResolution
+    ? validationGateReceiptSchema.parse({ ...validation, decision: "PASS", reason_codes: [] })
+    : validation;
   const result: ExecutionResult = executionResultSchema.parse({
     schema_version: 1,
     task_id: boundary.taskId,
     work_package_id: boundary.workPackageId,
     source_commit: boundary.sourceCommit,
     executor: { adapter: request.route.executor, model: request.route.model },
-    status: validation.decision === "PASS" ? "DONE" : "NEEDS_DECISION",
+    status: validation.decision === "PASS" || governanceResolution ? "DONE" : "NEEDS_DECISION",
     changed_files: changedFiles,
-    tests: validation.commands.map((command) => ({
+    tests: effectiveValidation.commands.map((command) => ({
       command: command.command,
       status: command.status,
       evidence: evidenceFor(command),
@@ -127,13 +147,15 @@ export function buildAgentFactoryEvidence(input: EvidenceWriterInput): AgentFact
     dependency_gates_blocked: input.blockedGates,
     dag_effects: input.dagEffects ?? [],
     metrics,
-    notes: input.notes ?? "",
+    notes: governanceResolution
+      ? [input.notes ?? "", `Governance resolution: ${governanceResolution.resolution_id}`].filter(Boolean).join("\n")
+      : input.notes ?? "",
   });
   const semantic = {
     schema_version: 1 as const,
     head_commit: input.headCommit,
     change_fingerprint: input.changeFingerprint,
-    validation,
+    validation: effectiveValidation,
     result,
   };
   const contentHash = hash(stableJson(semantic));
@@ -142,6 +164,53 @@ export function buildAgentFactoryEvidence(input: EvidenceWriterInput): AgentFact
     receipt_id: `AFEV-${contentHash}`,
     content_sha256: contentHash,
   });
+}
+
+export function buildGovernanceResolution(input: {
+  validation: ValidationGateReceipt;
+  changeFingerprint: string;
+  implementationLifecycle: GitHubLifecycleReceipt;
+}): GovernanceResolution {
+  const validation = validationGateReceiptSchema.parse(input.validation);
+  const lifecycle = githubLifecycleReceiptSchema.parse(input.implementationLifecycle);
+  const semantic = {
+    schema_version: 1 as const,
+    validation_sha256: hash(stableJson(validation)),
+    original_validation: validation,
+    change_fingerprint: z.string().regex(/^[0-9a-f]{64}$/).parse(input.changeFingerprint),
+    implementation_lifecycle: lifecycle,
+    decision: "RESOLVED" as const,
+  };
+  return governanceResolutionSchema.parse({
+    ...semantic,
+    resolution_id: `AFGOV-${hash(stableJson(semantic))}`,
+  });
+}
+
+function validateGovernanceResolution(
+  input: GovernanceResolution,
+  validation: ValidationGateReceipt,
+  headCommit: string,
+  changeFingerprint: string,
+): GovernanceResolution {
+  const resolution = governanceResolutionSchema.parse(input);
+  const { resolution_id: recordedId, ...semantic } = resolution;
+  if (recordedId !== `AFGOV-${hash(stableJson(semantic))}`
+    || validation.decision !== "REVIEW_REQUIRED"
+    || validation.commands.some((command) => command.status !== "PASS")
+    || validation.missing_evaluators.length > 0
+    || !validation.content_stable
+    || resolution.validation_sha256 !== hash(stableJson(validation))
+    || stableJson(resolution.original_validation) !== stableJson(validation)
+    || resolution.change_fingerprint !== changeFingerprint
+    || resolution.implementation_lifecycle.validation !== "REVIEW_REQUIRED"
+    || resolution.implementation_lifecycle.head_commit !== headCommit
+    || resolution.implementation_lifecycle.decision !== "ELIGIBLE"
+    || !["GITHUB_REVIEW", "DURABLE_HUMAN_APPROVAL", "PACKAGE_AUTHORIZATION"].includes(resolution.implementation_lifecycle.approval_channel)
+    || resolution.implementation_lifecycle.required_checks.some((name) => !resolution.implementation_lifecycle.checks.some((check) => check.name === name && check.status === "SUCCESS"))) {
+    throw new Error("EVIDENCE_GOVERNANCE_RESOLUTION_INVALID: immutable validation and eligible lifecycle must match");
+  }
+  return resolution;
 }
 
 export function buildAgentFactoryAttemptEvidence(input: AttemptEvidenceWriterInput): AgentFactoryAttemptEvidenceEnvelope {
