@@ -387,6 +387,7 @@ describe("OpenCode executor", () => {
     const args = calls[1]?.args ?? [];
     assert.equal(args[0], "run");
     assert.ok(args.indexOf("--model") < args.indexOf("--file"));
+    assert.equal(args[args.indexOf("--model") + 1], "provider/request-model");
     assert.deepEqual(args.slice(args.indexOf("--file") + 1), [pack]);
     assert.deepEqual(calls.map((call) => call.timeoutMs), [12_345, 12_345]);
   });
@@ -414,7 +415,7 @@ describe("OpenCode executor", () => {
       selectors: { [task.metadata.id]: { free: true, preference: ["deepseek", "mimo"] } },
     }).execute({ task, taskPackPath: pack, attempt: 1, request });
     const args = calls[1] ?? [];
-    assert.equal(args[args.indexOf("--model") + 1], "deepseek-v4-flash-free");
+    assert.equal(args[args.indexOf("--model") + 1], "opencode/deepseek-v4-flash-free");
     assert.equal(report.result?.model_resolution?.selected_model, "deepseek-v4-flash-free");
     assert.equal(report.result?.model_resolution?.source, "api");
   });

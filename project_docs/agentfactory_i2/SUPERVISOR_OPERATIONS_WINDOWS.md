@@ -67,6 +67,8 @@ The later I2 proof plan is `TASK-004 -> TASK-005 -> TASK-006`, only after TASK-0
 
 Catalog timeout, rate limit, 5xx and network unavailability enter the existing Supervisor retry/backoff path. Invalid responses/selectors, absent models and policy conflicts block without retry. The concrete selected ID, selector, source (`api`, `cache` or `explicit_override`) and timestamp are recorded in the local attempt journal.
 
+The resolution receipt preserves the raw Zen catalog ID (for example, `deepseek-v4-flash-free`). Only at the OpenCode process boundary does the adapter pass the provider-qualified CLI identity (`opencode/deepseek-v4-flash-free`) required by `opencode run --model`; legacy explicit non-resolver model values are passed unchanged.
+
 ## Finite commands
 
 Start performs one safe iteration and returns immediately after durable event/callback handling:
