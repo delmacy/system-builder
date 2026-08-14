@@ -122,6 +122,45 @@ describe("AgentFactory I2 sequential pipeline", () => {
     }
   });
 
+  it("stops PR_NOT_ELIGIBLE while closure is pending with no eligible implementation identity", () => {
+    const authority = doneAuthority({ agent_state: "DONE", orchestrator_state: "STATE_PR_PENDING", evidence: null, ledger: null,
+      implementation_pr: null, state_pr: null, state_closure_integrated: false, readiness: null });
+    const run = coordinator({ obs: observation([authority], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true), adapterState: "STATE_PR_PENDING" });
+    assert.equal(run.coordinator.advance().stop_reason, "PR_NOT_ELIGIBLE");
+    assert.equal(run.calls(), 0);
+  });
+
+  it("stops STATE_CLOSURE_MISSING when agent authority closes without integrated state closure", () => {
+    const run = coordinator({ obs: observation([doneAuthority({ state_closure_integrated: false })], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+    assert.equal(run.coordinator.advance().stop_reason, "STATE_CLOSURE_MISSING");
+    assert.equal(run.calls(), 0);
+  });
+
+  it("stops READINESS_MISSING until the successor is derived from integrated evidence", () => {
+    const authority = doneAuthority({ readiness: { previous_ready: ["TASK-999"], current_ready: ["TASK-999"], newly_ready: [] } });
+    const run = coordinator({ obs: observation([authority], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+    assert.equal(run.coordinator.advance().stop_reason, "READINESS_MISSING");
+    assert.equal(run.calls(), 0);
+  });
+
+  it("stops EVIDENCE_DIVERGENCE when final evidence has not reached DONE", () => {
+    const authority = doneAuthority({ evidence: { receipt_id: evidenceId, task_id: "TASK-101", head_commit: commit, status: "NEEDS_DECISION" } });
+    const run = coordinator({ obs: observation([authority], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+    assert.equal(run.coordinator.advance().stop_reason, "EVIDENCE_DIVERGENCE");
+    assert.equal(run.calls(), 0);
+  });
+
+  it("stops AUTHORITY_DIVERGENCE when bootstrap completion lacks final agent authority", () => {
+    const run = coordinator({ obs: observation([doneAuthority({ agent_state: "NEEDS_DECISION", orchestrator_state: "DONE" })], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+    assert.equal(run.coordinator.advance().stop_reason, "AUTHORITY_DIVERGENCE");
+    assert.equal(run.calls(), 0);
+  });
+
   it("stops on tampered evidence identity", () => {
     const run = coordinator({ obs: observation([doneAuthority({ evidence: { receipt_id: evidenceId, task_id: "TASK-102", head_commit: commit, status: "DONE" } })], ["TASK-101"], ["TASK-999"]), tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
     assert.equal(run.coordinator.advance().stop_reason, "EVIDENCE_DIVERGENCE");

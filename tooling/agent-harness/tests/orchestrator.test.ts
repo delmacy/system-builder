@@ -148,6 +148,36 @@ describe("Local Task Orchestrator", () => {
     })), "BLOCKED");
   });
 
+  it("is idempotent at the state review external gate and repeats no state action", () => {
+    const harness = new FakeHarness(snapshot({ closed: true, stateBranchExists: true, stateCommit: "s", statePushed: true, statePr: pr("SUCCESS") }));
+    const orchestrator = new LocalTaskOrchestrator(harness, []);
+    const first = orchestrator.advance("TASK-010");
+    assert.equal(first.state, "STATE_REVIEW_REQUIRED");
+    orchestrator.advance("TASK-010");
+    assert.deepEqual(harness.actions, []);
+  });
+
+  it("syncs main exactly once for an eligible merged state PR and then stops DONE", () => {
+    const harness = new FakeHarness(snapshot({ closed: true, stateBranchExists: true, stateCommit: "s", statePushed: true,
+      statePr: { ...pr("SUCCESS"), state: "MERGED", lifecycle: stateLifecycle() } }));
+    assert.equal(deriveOrchestratorState(harness.value), "STATE_MERGED");
+    const orchestrator = new LocalTaskOrchestrator(harness, []);
+    assert.equal(orchestrator.advance("TASK-010").state, "DONE");
+    assert.deepEqual(harness.actions, ["sync:state"]);
+    assert.equal(orchestrator.advance("TASK-010").state, "DONE");
+    assert.deepEqual(harness.actions, ["sync:state"]);
+  });
+
+  it("blocks a merged state PR whose lifecycle has an unsuccessful required check", () => {
+    const blocked = evaluateGitHubLifecycle({ prNumber: 1, state: "MERGED", branch: "state/task-010-close", baseBranch: "main",
+      headCommit: "a".repeat(40), expectedBranch: "state/task-010-close", expectedBaseBranch: "main", expectedHeadCommit: "a".repeat(40),
+      requiredChecks: ["validate"], checks: [{ name: "validate", status: "FAILURE" }], validation: "PASS", review: "APPROVED", reviewRequired: true });
+    assert.equal(deriveOrchestratorState(snapshot({
+      closed: true, stateBranchExists: true, stateCommit: "s", statePushed: true,
+      statePr: { ...pr("FAILURE"), state: "MERGED", lifecycle: blocked },
+    })), "BLOCKED");
+  });
+
   it("keeps prepared architecture and high-risk tasks at the human gate when no implementation exists", () => {
     for (const metadata of [
       { model_tier: "architecture" as const },
