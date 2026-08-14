@@ -34,6 +34,24 @@ export { recomputeSuccessorReadiness } from "./readiness-recompute.js";
 export { buildPostHardeningI1Proof, buildRepresentativeI1Proof, writeI1Proof, writePostHardeningI1Proof } from "./i1-proof.js";
 export { SequentialPipelineCoordinator, sequentialObservationSchema, sequentialPlanSchema, sequentialReceiptSchema } from "./sequential-pipeline.js";
 export { evaluateHumanApproval, evaluateStoredHumanApproval, humanApprovalId, humanApprovalSigningPayload } from "./human-approval.js";
+export {
+  evaluatePackageAuthorization,
+  evaluatePackageTaskConformance,
+  evaluateStoredPackageAuthorization,
+  packageApprovalId,
+  packageAuthorizationEvaluationSchema,
+  packageAuthorizationPlanSchema,
+  packageAuthorizationReceiptSchema,
+  packageAuthorizationSigningPayload,
+  packagePlanHash,
+  packageRevocationId,
+  packageRevocationReceiptSchema,
+  packageRevocationSigningPayload,
+  packageTaskDescriptorSchema,
+  packageTaskConformanceSchema,
+  packageUseReceiptSchema,
+  writePackageUseReceipt,
+} from "./package-authorization.js";
 export { AgentFactorySupervisor, isRetryableFailure, retryDelaySeconds } from "./pipeline-supervisor.js";
 export { DurableSupervisorStore } from "./supervisor-store.js";
 export {

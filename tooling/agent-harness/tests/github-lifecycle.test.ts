@@ -148,6 +148,36 @@ describe("AgentFactory GitHub lifecycle", () => {
     assert.ok(receipt.reason_codes.includes("CHECK_MISSING"));
   });
 
+  it("accepts valid package authority as a distinct routine channel", () => {
+    const packageAuthorization = {
+      decision: "VALID" as const, approval_id: `PAPR-${"c".repeat(64)}`, package_id: "PKG-I2-001",
+      plan_hash: "d".repeat(64), descriptor_id: "PWD-001", reason_codes: [] as [], use_receipt: null,
+    };
+    const receipt = evaluateGitHubLifecycle({ ...base, review: "NONE", packageAuthorization });
+    assert.equal(receipt.decision, "ELIGIBLE");
+    assert.equal(receipt.approval_channel, "PACKAGE_AUTHORIZATION");
+    assert.equal(receipt.package_authorization?.package_id, "PKG-I2-001");
+  });
+
+  it("never lets package authority override CI or requested changes", () => {
+    const packageAuthorization = {
+      decision: "VALID" as const, approval_id: `PAPR-${"c".repeat(64)}`, package_id: "PKG-I2-001",
+      plan_hash: "d".repeat(64), descriptor_id: "PWD-001", reason_codes: [] as [], use_receipt: null,
+    };
+    assert.equal(evaluateGitHubLifecycle({ ...base, review: "NONE", checks: [], packageAuthorization }).decision, "BLOCKED");
+    assert.equal(evaluateGitHubLifecycle({ ...base, review: "CHANGES_REQUESTED", packageAuthorization }).decision, "BLOCKED");
+  });
+
+  it("keeps a package exception at the review gate", () => {
+    const packageAuthorization = {
+      decision: "EXCEPTION_REQUIRED" as const, approval_id: `PAPR-${"c".repeat(64)}`, package_id: "PKG-I2-001",
+      plan_hash: "d".repeat(64), descriptor_id: "PWD-001", reason_codes: ["EXCEPTION_REQUIRED" as const], use_receipt: null,
+    };
+    const receipt = evaluateGitHubLifecycle({ ...base, review: "NONE", packageAuthorization });
+    assert.equal(receipt.decision, "REVIEW_REQUIRED");
+    assert.ok(receipt.reason_codes.includes("PACKAGE_EXCEPTION_REQUIRED"));
+  });
+
   it("does not infer approval for a historical merge", () => {
     const receipt = evaluateGitHubLifecycle({ ...base, state: "MERGED", review: "NONE" });
     assert.equal(receipt.decision, "REVIEW_REQUIRED");

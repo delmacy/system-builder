@@ -31,3 +31,28 @@ identity/evidence mismatch or scope/DAG drift. ADR/public-contract acceptance,
 security/evaluator policy, destructive data/release actions and waivers require
 an exact exception or independent review. Expired, revoked, suspended or
 exhausted packages fail closed.
+
+### Implemented external layout
+
+TASK-038 implements package evaluation without activating a real package. A
+future task opts in through strict `package_authorization` metadata. Its signed
+artifacts use the existing external store:
+
+```text
+packages/<PACKAGE-ID>/<PLAN-HASH>/plan.json
+packages/<PACKAGE-ID>/<PLAN-HASH>/approval.json
+packages/<PACKAGE-ID>/<PLAN-HASH>/revocations/*.json
+```
+
+Content-derived `PackageUseReceipt` audit records are written append-only under
+ignored `.agent/package-uses/<PACKAGE-ID>/`; they are evidence, not signing
+authority. Reobservation of the same exact PR/action is idempotent. A different
+PR cannot reuse that descriptor action, and state use requires the accepted
+implementation use in its causal chain.
+
+Lifecycle authority order is independent GitHub review, exact ADR-0010 durable
+approval, then valid package authority for an explicitly bound routine task.
+Every channel still requires exact PR identity, validation and named checks.
+Unbound tasks behave exactly as before. The committed `HUMAN_APPROVAL.json`
+remains unchanged and no first real package is present; activation requires a
+later signed 20–50 descriptor plan.

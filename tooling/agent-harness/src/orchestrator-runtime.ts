@@ -38,6 +38,12 @@ import {
   type GitHubLifecycleReceipt,
 } from "./github-lifecycle.js";
 import { evaluateStoredHumanApproval, type HumanApprovalEvaluation } from "./human-approval.js";
+import {
+  evaluateStoredPackageAuthorization,
+  writePackageUseReceipt,
+  type PackageAction,
+  type PackageAuthorizationEvaluation,
+} from "./package-authorization.js";
 import type {
   CheckState,
   ExecutionObservation,
@@ -111,15 +117,7 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
       : gitRecord?.pushed ? this.discoverPullRequest(gitRecord.branch, (pullRequest) => {
         gitRecord.pullRequest = pullRequest;
         writeGitRecord(gitRecord, this.root);
-      }, (pr) => deriveGitHubLifecycleObservation(pr, {
-        branch: gitRecord.branch,
-        baseBranch: gitRecord.baseBranch,
-        headCommit: gitRecord.commit ?? "f".repeat(40),
-        requiredChecks: this.requiredChecks,
-        validation: receipt?.validationGate?.decision ?? (receipt?.status === "passed" ? "PASS" : "FAIL"),
-        reviewRequired: this.reviewRequired,
-        humanApproval: this.approvalFor(task, pr, gitRecord.branch, gitRecord.baseBranch, gitRecord.commit ?? "f".repeat(40)),
-      })) : undefined;
+      }, (pr) => this.deriveImplementationPullRequest(task, pr, gitRecord, receipt?.validationGate?.decision ?? (receipt?.status === "passed" ? "PASS" : "FAIL"))) : undefined;
     const statePr = stateRecord?.pullRequest
       ? this.observeStatePullRequest(task, stateRecord)
       : stateRecord?.pushed ? this.discoverPullRequest(stateRecord.branch, (pullRequest) => {
@@ -274,16 +272,22 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
     if (result.error || result.status !== 0) {
       throw new Error(`Cannot observe PR #${record.number}: ${result.error?.message || result.stderr || `exit ${result.status}`}`);
     }
-    const pr = JSON.parse(result.stdout) as GitHubPullRequest;
-    return deriveGitHubLifecycleObservation(pr, {
+    return this.deriveImplementationPullRequest(task, JSON.parse(result.stdout) as GitHubPullRequest, gitRecord, validation);
+  }
+
+  private deriveImplementationPullRequest(task: Task, pr: GitHubPullRequest, gitRecord: GitTaskRecord, validation: "PASS" | "FAIL" | "REVIEW_REQUIRED"): PullRequestObservation {
+    const authorizations = this.authorizationsFor(task, pr, gitRecord.branch, gitRecord.baseBranch, gitRecord.commit ?? "f".repeat(40), gitRecord.baseCommit, "IMPLEMENTATION_PR", validation);
+    const observation = deriveGitHubLifecycleObservation(pr, {
       branch: gitRecord.branch,
       baseBranch: gitRecord.baseBranch,
       headCommit: gitRecord.commit ?? "f".repeat(40),
       requiredChecks: this.requiredChecks,
       validation,
       reviewRequired: this.reviewRequired,
-      humanApproval: this.approvalFor(task, pr, gitRecord.branch, gitRecord.baseBranch, gitRecord.commit ?? "f".repeat(40)),
+      ...authorizations,
     });
+    this.recordPackageUseIfEligible(observation, authorizations.packageAuthorization);
+    return observation;
   }
 
   private observeStatePullRequest(task: Task, record: StateTaskRecord): PullRequestObservation {
@@ -300,21 +304,53 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
 
   private deriveStatePullRequest(task: Task, pr: GitHubPullRequest, record: StateTaskRecord): PullRequestObservation {
     if (!record.commit) throw new Error(`Cannot observe state PR without a recorded commit for ${record.taskId}`);
-    return deriveStateGitHubLifecycleObservation(pr, {
+    const implementation = readGitRecord(task.metadata.id, this.root);
+    const authorizations = this.authorizationsFor(task, pr, record.branch, "main", record.commit, implementation?.baseCommit ?? record.commit, "STATE_PR", "PASS");
+    const observation = deriveStateGitHubLifecycleObservation(pr, {
       branch: record.branch,
       headCommit: record.commit,
       requiredChecks: this.requiredChecks,
       reviewRequired: this.reviewRequired,
-      humanApproval: this.approvalFor(task, pr, record.branch, "main", record.commit),
+      ...authorizations,
     });
+    this.recordPackageUseIfEligible(observation, authorizations.packageAuthorization);
+    return observation;
   }
 
-  private approvalFor(task: Task, pr: GitHubPullRequest, headRef: string, baseRef: string, headSha: string): HumanApprovalEvaluation {
-    return evaluateStoredHumanApproval(this.root, {
+  private authorizationsFor(
+    task: Task,
+    pr: GitHubPullRequest,
+    headRef: string,
+    baseRef: string,
+    headSha: string,
+    sourceCommit: string,
+    packageAction: PackageAction,
+    validation: "PASS" | "FAIL" | "REVIEW_REQUIRED",
+  ): { humanApproval: HumanApprovalEvaluation; packageAuthorization: PackageAuthorizationEvaluation } {
+    const executions = this.readJournal(task.metadata.id).executions;
+    let consecutiveFailures = 0;
+    for (const execution of [...executions].reverse()) {
+      if (execution.status !== "failed") break;
+      consecutiveFailures += 1;
+    }
+    const humanApproval = evaluateStoredHumanApproval(this.root, {
       repository: this.repositoryIdentity(), taskId: task.metadata.id, risk: task.metadata.risk,
       architectureImpact: task.metadata.architecture_impact, prNumber: pr.number,
       baseRef, headRef, headSha, observedAt: new Date().toISOString(),
     });
+    const packageAuthorization = evaluateStoredPackageAuthorization(this.root, {
+      repository: this.repositoryIdentity(), taskId: task.metadata.id, taskMetadata: task.metadata,
+      action: packageAction, sourceCommit, prNumber: pr.number, baseRef, headRef, headSha,
+      observedAt: new Date().toISOString(), validation, checks: lifecycleChecks(pr.statusCheckRollup),
+      totalAttempts: executions.length, consecutiveFailures,
+    });
+    return { humanApproval, packageAuthorization };
+  }
+
+  private recordPackageUseIfEligible(observation: PullRequestObservation, evaluation?: PackageAuthorizationEvaluation): void {
+    if (observation.lifecycle?.decision === "ELIGIBLE" && observation.lifecycle.approval_channel === "PACKAGE_AUTHORIZATION" && evaluation?.use_receipt) {
+      writePackageUseReceipt(this.root, evaluation.use_receipt);
+    }
   }
 
   private repositoryIdentity(): string {
@@ -419,6 +455,7 @@ export function deriveGitHubLifecycleObservation(
     validation: "PASS" | "FAIL" | "REVIEW_REQUIRED";
     reviewRequired: boolean;
     humanApproval?: HumanApprovalEvaluation;
+    packageAuthorization?: PackageAuthorizationEvaluation;
   },
 ): PullRequestObservation {
   const state = pullRequestState(pr.state);
@@ -437,6 +474,7 @@ export function deriveGitHubLifecycleObservation(
     review: lifecycleReviewState(pr.reviewDecision),
     reviewRequired: expected.reviewRequired,
     ...(expected.humanApproval ? { humanApproval: expected.humanApproval } : {}),
+    ...(expected.packageAuthorization ? { packageAuthorization: expected.packageAuthorization } : {}),
   });
   return {
     number: pr.number,
@@ -457,6 +495,7 @@ export function deriveStateGitHubLifecycleObservation(
     requiredChecks: readonly string[];
     reviewRequired: boolean;
     humanApproval?: HumanApprovalEvaluation;
+    packageAuthorization?: PackageAuthorizationEvaluation;
   },
 ): PullRequestObservation {
   return deriveGitHubLifecycleObservation(pr, {
