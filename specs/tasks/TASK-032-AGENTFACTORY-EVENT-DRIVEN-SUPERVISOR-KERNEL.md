@@ -24,6 +24,7 @@ context_paths:
   - tooling/agent-harness/src/sequential-pipeline.ts
   - tooling/agent-harness/src/orchestrator.ts
 allowed_paths:
+  - .gitignore
   - tooling/agent-harness/src/supervisor-contracts.ts
   - tooling/agent-harness/src/supervisor-store.ts
   - tooling/agent-harness/src/pipeline-supervisor.ts
@@ -46,7 +47,7 @@ forbidden_paths:
   - tooling/agent-harness/src/executor.ts
   - tooling/agent-harness/src/github-lifecycle.ts
   - tooling/agent-harness/src/human-approval.ts
-max_files: 7
+max_files: 8
 validation:
   - npm run verify
 ---
