@@ -2,7 +2,7 @@
 
 ## Goal
 
-Implement and then prove a deterministic one-at-a-time pipeline of dependent tasks, closing and reconciling state before deriving the next successor READY. The candidate chain is defined but has not been executed.
+Prove the integrated deterministic one-at-a-time pipeline on the approved candidate chain, closing and reconciling state before deriving the next successor READY. The pre-run gate is GO; candidate execution has not started.
 
 ## Ignition baseline already complete
 
@@ -34,7 +34,7 @@ Implement and then prove a deterministic one-at-a-time pipeline of dependent tas
 - [x] Generate TASK-023 from the accepted TASK-022 readiness receipt and WP-I1-12.
 - [x] TASK-023: end-to-end I1 proof.
 - [x] I1 Exit Gate assessed GO from integrated proof, task evidence and real PR/check/state-closure evidence.
-- [ ] Continue through task-pack builder, model routing, harness enforcement, independent validation, evidence, GitHub lifecycle, ledger/readiness recomputation and end-to-end I1 proof.
+- [x] Complete task-pack builder, model routing, harness enforcement, independent validation, evidence, GitHub lifecycle, ledger/readiness recomputation and end-to-end I1 proof.
 
 ## I1 exit condition
 
@@ -58,9 +58,11 @@ Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autono
 - [x] Materialize TASK-028 for the bounded I2 sequential coordinator.
 - [x] Implement and close TASK-028 in the bootstrap task authority.
 - [x] Assess the I2 pre-run gate: NO-GO because hardened PR lifecycle reconciliation remains `REVIEW_MISSING`/`BLOCKED`.
-- [ ] Resolve TASK-028 lifecycle reconciliation and reassess the pre-run gate.
-- [ ] Implement and close TASK-029, then require a separate human-signed decision before TASK-028 reconciliation.
-- [ ] Correct the TEAM_INDEPENDENT channel classification through TASK-030; TASK-029 state closure PR #76 is closed/unmerged.
+- [x] Resolve TASK-028 lifecycle reconciliation through exact signed implementation/state approvals; the orchestrator now returns `DONE`.
+- [x] Implement and close TASK-029 with a separate human-signed durable decision for implementation and state closure.
+- [x] Correct the TEAM_INDEPENDENT channel classification through TASK-030 and integrate its signed state closure.
+- [x] Implement and close TASK-031 so approval receipts are loaded fail-closed from an external read-only store without executor access to private keys.
+- [x] Reassess the I2 pre-run gate as GO from synchronized `main`, clean task state, signed lifecycle evidence and 157/157 passing tests.
 - [ ] Execute the candidate chain only after coordinator integration and reassess the I2 Exit Gate.
 
 ## Product M1
