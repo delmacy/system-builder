@@ -84,6 +84,6 @@ TASK-037 accepts a signed immutable 20–50 descriptor manifest, deterministic
 rolling-wave task conformance and append-only per-use audit receipts. Package
 authority may eventually satisfy routine conforming implementation/state work,
 but not ADR/public-contract/security/evaluator acceptance, waivers, scope drift
-or failed technical gates. The next rolling-wave task is the bounded package
+or failed technical gates. TASK-038 is materialized as the bounded package
 policy implementation/proof; WP-I2-06 remains unexecuted until that boundary is
-integrated.
+integrated and the first real package is signed.
