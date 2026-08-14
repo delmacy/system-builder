@@ -1,0 +1,50 @@
+{
+  "taskId": "TASK-039",
+  "verifiedAt": "2026-08-14T20:28:07.873Z",
+  "baseCommit": "fab8591c3918be32c1dc73c95f24e24da4f7cd41",
+  "headCommit": "fab8591c3918be32c1dc73c95f24e24da4f7cd41",
+  "changedFiles": [
+    "tooling/agent-harness/src/authority-closure.ts",
+    "tooling/agent-harness/src/cli.ts",
+    "tooling/agent-harness/src/evidence-writer.ts",
+    "tooling/agent-harness/src/git-workflow.ts",
+    "tooling/agent-harness/src/orchestrator-runtime.ts",
+    "tooling/agent-harness/src/package-authorization.ts",
+    "tooling/agent-harness/src/package-task-materializer.ts",
+    "tooling/agent-harness/src/sequential-pipeline.ts",
+    "tooling/agent-harness/tests/authority-closure.test.ts",
+    "tooling/agent-harness/tests/package-task-materializer.test.ts",
+    "tooling/agent-harness/tests/sequential-pipeline.test.ts"
+  ],
+  "taskHash": "3d1fcec81bef80edd6874f64dbb179dbdd545c6ba933da090736d935d4860d5f",
+  "packHash": "ffff0094997ad33e11bd781689de5b5014d0b0e43363389c52e018aba667885d",
+  "changeFingerprint": "a32241c200a7abcdfad6698f43bc9f1ce4bb1915935e24251f188dea67675042",
+  "commands": [
+    {
+      "command": "npm run verify",
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "git": {
+    "version": 1,
+    "taskId": "TASK-039",
+    "branch": "task/039-bootstrap-package-task-spec-delivery-and-real-run-author",
+    "baseBranch": "main",
+    "baseCommit": "fab8591c3918be32c1dc73c95f24e24da4f7cd41",
+    "remote": "origin",
+    "createdAt": "2026-08-14T20:09:38.690Z",
+    "commit": "232a3437b86bca8d6c49cf19f3ea6033020da48e",
+    "verifiedFingerprint": "a32241c200a7abcdfad6698f43bc9f1ce4bb1915935e24251f188dea67675042",
+    "committedAt": "2026-08-14T20:28:23.487Z",
+    "pushed": true,
+    "pushedAt": "2026-08-14T20:28:29.422Z",
+    "pullRequest": {
+      "number": 112,
+      "url": "https://github.com/delmacy/system-builder/pull/112",
+      "state": "MERGED",
+      "openedAt": "2026-08-14T20:28:34.950Z",
+      "mergeCommit": "62080d8ed3c8cb41067b89e8544550430a1674a8"
+    }
+  }
+}

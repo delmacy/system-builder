@@ -1,7 +1,7 @@
 ---
 id: TASK-039
 title: Bootstrap package task-spec delivery and real-run authority closure
-status: ready
+status: completed
 priority: 1
 milestone: I2
 model_tier: architecture
