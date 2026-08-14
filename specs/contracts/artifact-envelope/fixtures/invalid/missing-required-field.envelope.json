@@ -1,0 +1,18 @@
+{
+  "envelopeVersion": "1.0.0",
+  "artifactType": "system-builder/validation-evidence",
+  "artifactId": "urn:uuid:914de1f6-ac9d-4e8f-b2c4-4d5e6f7a8b9c",
+  "artifactVersion": "1.0.0",
+  "schema": {
+    "id": "urn:example:schemas:validation-evidence",
+    "version": "1.0.0"
+  },
+  "provenance": {
+    "createdAt": "2026-08-14T12:00:00Z",
+    "producer": {
+      "id": "system-builder/validation",
+      "version": "1.0.0"
+    },
+    "inputs": []
+  }
+}

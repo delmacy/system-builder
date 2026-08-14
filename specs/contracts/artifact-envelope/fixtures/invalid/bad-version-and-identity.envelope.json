@@ -1,0 +1,19 @@
+{
+  "envelopeVersion": "1.0.0",
+  "artifactType": "system-builder/process-mirror",
+  "artifactId": "54321-database-primary-key",
+  "artifactVersion": "2.0",
+  "schema": {
+    "id": "urn:example:schemas:process-mirror",
+    "version": "1.0.0"
+  },
+  "provenance": {
+    "createdAt": "2026-08-14T10:00:00Z",
+    "producer": {
+      "id": "system-builder/mirror",
+      "version": "1.0.0"
+    },
+    "inputs": []
+  },
+  "payload": {}
+}

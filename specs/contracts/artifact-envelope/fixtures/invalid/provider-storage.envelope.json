@@ -1,0 +1,20 @@
+{
+  "envelopeVersion": "1.0.0",
+  "artifactType": "system-builder/deployment-record",
+  "artifactId": "urn:uuid:81c3d0e5-9b8c-4d7e-af1b-3c4d5e6f7a8b",
+  "artifactVersion": "1.0.0",
+  "schema": {
+    "id": "urn:example:schemas:deployment-record",
+    "version": "1.0.0"
+  },
+  "provenance": {
+    "createdAt": "2026-08-14T10:00:00+02:00",
+    "producer": {
+      "id": "system-builder/deploy",
+      "version": "1.0.0"
+    },
+    "inputs": []
+  },
+  "storageLocator": "s3://bucket/artifact",
+  "payload": {}
+}
