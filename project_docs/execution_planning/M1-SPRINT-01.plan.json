@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "pipeline": {
+    "schema_version": 1,
+    "focus": "M1 vertical contract spine — ProcessMirror to SystemAnalysis",
+    "milestones": [
+      "M1"
+    ],
+    "ordered_task_ids": [
+      "TASK-004",
+      "TASK-005",
+      "TASK-006"
+    ]
+  },
+  "execution": {
+    "TASK-004": {
+      "work_package_id": "WP-FH-02",
+      "route": {
+        "risk": "MEDIUM",
+        "model_tier": "T3",
+        "executor": "opencode",
+        "model": null,
+        "architecture_impact": true,
+        "authority_ref": "DEVSCOPE:M1-SPRINT-01",
+        "decision": "SELECTED",
+        "rationale_code": "PREAUTHORIZED_ARCHITECTURE"
+      },
+      "model_selector": {
+        "free": true,
+        "name_contains": null,
+        "preference": [
+          "deepseek",
+          "mimo",
+          "nemotron"
+        ]
+      }
+    },
+    "TASK-005": {
+      "work_package_id": "WP-FH-03",
+      "route": {
+        "risk": "MEDIUM",
+        "model_tier": "T3",
+        "executor": "opencode",
+        "model": null,
+        "architecture_impact": true,
+        "authority_ref": "DEVSCOPE:M1-SPRINT-01",
+        "decision": "SELECTED",
+        "rationale_code": "PREAUTHORIZED_ARCHITECTURE"
+      },
+      "model_selector": {
+        "free": true,
+        "name_contains": null,
+        "preference": [
+          "deepseek",
+          "mimo",
+          "nemotron"
+        ]
+      }
+    },
+    "TASK-006": {
+      "work_package_id": "WP-FH-04",
+      "route": {
+        "risk": "MEDIUM",
+        "model_tier": "T3",
+        "executor": "opencode",
+        "model": null,
+        "architecture_impact": true,
+        "authority_ref": "DEVSCOPE:M1-SPRINT-01",
+        "decision": "SELECTED",
+        "rationale_code": "PREAUTHORIZED_ARCHITECTURE"
+      },
+      "model_selector": {
+        "free": true,
+        "name_contains": null,
+        "preference": [
+          "deepseek",
+          "mimo",
+          "nemotron"
+        ]
+      }
+    }
+  }
+}
