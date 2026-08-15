@@ -10,7 +10,7 @@ const timestamp = z.iso.datetime({ offset: true });
 export const humanApprovalPolicySchema = z.object({
   schema_version: z.literal(1),
   policy_version: z.string().min(1),
-  mode: z.enum(["TEAM_INDEPENDENT", "SOLO_DURABLE"]),
+  mode: z.enum(["TEAM_INDEPENDENT", "SOLO_DURABLE", "DEVELOPMENT_TRUSTED"]),
   repository: z.string().min(1),
   max_age_seconds: z.number().int().positive(),
   receipt_directory_env: z.string().regex(/^[A-Z][A-Z0-9_]+$/),
@@ -36,7 +36,7 @@ export const humanApprovalReceiptSchema = approvalSemanticSchema.extend({
 }).strict();
 
 export const humanApprovalEvaluationSchema = z.object({
-  decision: z.enum(["VALID", "INVALID", "MISSING"]),
+  decision: z.enum(["VALID", "INVALID", "MISSING", "DEVELOPMENT_TRUSTED"]),
   approval_id: z.string().nullable(),
   reason_codes: z.array(z.enum([
     "POLICY_INVALID", "POLICY_DISALLOWS_DURABLE", "APPROVAL_MISSING", "APPROVAL_INVALID",
@@ -97,6 +97,11 @@ export function evaluateStoredHumanApproval(root: string, expected: HumanApprova
   const policy = existsSync(policyPath) ? JSON.parse(readFileSync(policyPath, "utf8")) : undefined;
   const parsedPolicy = humanApprovalPolicySchema.safeParse(policy);
   if (!parsedPolicy.success) return evaluation("INVALID", null, ["POLICY_INVALID"]);
+  if (parsedPolicy.data.mode === "DEVELOPMENT_TRUSTED") {
+    return expected.risk !== "high" && !expected.architectureImpact
+      ? evaluation("DEVELOPMENT_TRUSTED", null, [])
+      : evaluation("MISSING", null, ["APPROVAL_MISSING"]);
+  }
   const directory = process.env[parsedPolicy.data.receipt_directory_env];
   if (!directory || !isAbsolute(directory)) return evaluation("MISSING", null, ["APPROVAL_MISSING"]);
   const receiptPath = resolve(directory, `${expected.taskId}-PR-${expected.prNumber}-${expected.headSha}.json`);
