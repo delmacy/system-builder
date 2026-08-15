@@ -8,9 +8,9 @@ Read, in order:
 
 1. `docs/current/PROJECT_STATE.md`
 2. `docs/current/CURRENT_MILESTONE.md`
-3. `project_docs/schedule/SPRINT_MODE.md` when executing product work
-4. the active Sprint definition
-5. the task specification being executed
+3. `project_docs/schedule/SPRINT_MODE.md` for product Sprint execution
+4. `project_docs/execution_planning/PRODUCT_10_SPRINT_PLAN.md` when the work belongs to the first product horizon
+5. the committed task specification
 6. the affected module/package documentation
 7. relevant contracts
 8. applicable accepted ADRs
@@ -28,36 +28,31 @@ Read, in order:
 8. **Explicit contracts between bounded contexts.** Do not depend on another module's internals.
 9. **No silent architecture changes.** Public contracts, module boundaries, Builder/Runtime relations or constitutional principles require an ADR.
 10. **Repository is memory.** Every durable decision must end as docs, contract, ADR, spec, test or code.
-11. **Local-first development.** The normal product executor is OpenCode CLI on the maintainer desktop using free/cheap models; GitHub backs source/history and deterministic CI.
-12. **Premium intelligence is exceptional.** Use Codex/strong models primarily for bootstrap, architecture, critical review, security-sensitive changes and exceptions.
+11. **Local-first development.** OpenCode CLI is the default local coding executor; connected agents may orchestrate repository work through GitHub when they can objectively observe the required evidence.
+12. **Premium intelligence is exceptional.** Use stronger models primarily for architecture, critical review, security-sensitive changes and exceptions.
 
-## Sprint Mode
+## Product Sprint behavior
 
-Product development executes in Sprint Mode by default.
-
-- One Sprint uses one branch: `sprint/<SPRINT-ID>`.
-- All committed TASKs execute on that branch in dependency order.
-- Keep one distinct commit per TASK.
-- Run each TASK's declared validations before advancing.
-- Run repository-wide final verification at Sprint completion.
-- Open one PR from the Sprint branch to `main`.
-- Human review is normally at the Sprint boundary, not after every TASK.
-- Do not start the next Sprint automatically.
-- Do not write directly to `main`.
-
-The AgentFactory Supervisor/runtime is preserved but is not a prerequisite or completion gate for product Sprints unless explicitly reactivated by repository authority.
+- The Sprint is the default product execution/review unit.
+- Default branch naming: `sprint/<SPRINT-ID>`.
+- The first product horizon is `project_docs/execution_planning/PRODUCT_10_SPRINT_PLAN.md`.
+- Default Sprint scope is one primary product TASK so module boundaries remain independently testable.
+- The accepted TASK remains the implementation authority; Sprint Mode does not broaden it.
+- Run the TASK-declared validation, then final repository validation.
+- Produce the compact Sprint Report before review.
+- Open one PR to `main` and stop for Sprint Review.
+- Do not begin the next Sprint before the current Sprint integration/review boundary.
 
 ## Agent behavior
 
-- Execute only the declared Sprint and TASK scope.
-- Do not broaden a running TASK because you noticed adjacent work; record a backlog finding instead.
-- Continue autonomously through routine implementation, bounded fixes and declared validation failures while they remain inside scope.
+- Execute only the declared Sprint/TASK scope.
+- Do not broaden running work because you noticed adjacent work; create a backlog finding instead.
 - Prefer deterministic evidence over prose claims.
-- Run declared validations before reporting completion.
+- Run or objectively observe declared validations before reporting completion.
+- Never claim a local test/CLI execution occurred unless it was actually observed.
 - Never hide failing tests, architecture violations or unresolved ambiguities.
 - If documentation is incomplete for an architecture decision, stop implementation and propose an ADR instead of inventing policy.
 - Do not modify unrelated paths.
-- Stop the Sprint for a human decision only when an explicit escalation condition in `project_docs/schedule/SPRINT_MODE.md` is reached.
 
 ## Change levels
 
@@ -66,11 +61,11 @@ The AgentFactory Supervisor/runtime is preserved but is not a prerequisite or co
 - **L3 Contract:** shared schemas, public APIs, capability contracts.
 - **L4 Architecture:** boundaries, pipeline, suite topology, Builder/Runtime, release model.
 
-L3/L4 work requires explicit Sprint authority/review; L4 always requires an ADR.
+L3/L4 work requires explicit review; L4 always requires an ADR.
 
-## Model policy
+## AgentFactory status
 
-Task metadata chooses the minimum execution tier. Existing AgentFactory model-routing policy remains useful guidance, but Sprint Mode may invoke OpenCode CLI directly rather than through the Supervisor runtime.
+AgentFactory design/specs/tests remain repository history and reusable infrastructure. The Supervisor/runtime/heartbeat/callback path is frozen and is not a prerequisite for product Sprint execution unless a future explicitly authorized Sprint reactivates it.
 
 ## Legacy repository
 
