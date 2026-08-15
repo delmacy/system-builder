@@ -1,7 +1,7 @@
 ---
 id: TASK-043-CI
 title: Preserve historical Git authority in deterministic CI
-status: ready
+status: completed
 priority: 1
 milestone: I2
 model_tier: free

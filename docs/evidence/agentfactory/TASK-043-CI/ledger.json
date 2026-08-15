@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "authoritative_task": {
+    "schema_version": 1,
+    "task_id": "TASK-043-CI",
+    "work_package_id": "WP-I2-06",
+    "milestone": "I2",
+    "title": "Preserve historical Git authority in deterministic CI",
+    "state": "DONE",
+    "route": {
+      "risk": "MEDIUM",
+      "model_tier": "T2",
+      "executor": "opencode",
+      "model": null,
+      "architecture_impact": false,
+      "decision": "SELECTED",
+      "rationale_code": "BOUNDED_MODERATE_RISK"
+    },
+    "dependency_gates": [
+      {
+        "schema_version": 1,
+        "id": "GATE-042-043-CI",
+        "predecessor_id": "TASK-042",
+        "successor_id": "TASK-043-CI",
+        "type": "REQUIRES",
+        "status": "SATISFIED",
+        "evidence_refs": [
+          "docs/evidence/tasks/TASK-042.json"
+        ]
+      }
+    ],
+    "context_paths": [
+      "AGENTS.md",
+      "docs/current/PROJECT_STATE.md",
+      "docs/current/CURRENT_MILESTONE.md",
+      "project_docs/execution_governance/CONFIGURATION_MANAGEMENT.md",
+      "project_docs/execution_governance/QUALITY_MANAGEMENT_PLAN.md",
+      "project_docs/execution_governance/READINESS_AND_DONE.md",
+      "specs/tasks/TASK-043-AGENTFACTORY-FRESH-I2-AUTHORITY-RECONCILIATION-PROOF.md",
+      ".github/workflows/ci.yml"
+    ],
+    "allowed_paths": [
+      ".github/workflows/ci.yml",
+      "specs/tasks/TASK-043-AGENTFACTORY-FRESH-I2-AUTHORITY-RECONCILIATION-PROOF.md"
+    ],
+    "forbidden_paths": [
+      "apps/**",
+      "packages/**",
+      "tooling/agent-harness/src/**",
+      "tooling/agent-harness/tests/**",
+      "tooling/agent-harness/policies/**",
+      "specs/contracts/**",
+      "docs/adr/**"
+    ],
+    "max_files": 2,
+    "validation_commands": [
+      "npm run verify"
+    ],
+    "acceptance_ids": [
+      "AC-TASK-CLOSURE"
+    ]
+  },
+  "attempts": [
+    {
+      "sequence": 1,
+      "task_id": "TASK-043-CI",
+      "from": "INTEGRATING",
+      "to": "DONE",
+      "reason_code": "INTEGRATION_ACCEPTED",
+      "occurred_at": "2026-08-15T02:18:57.057Z",
+      "evidence_ref": "docs/evidence/agentfactory/TASK-043-CI/attempt-1-d94f3e406540840ff28b846b949e8dc70ce2ca5cf583e18120b38f1360dbe8d9.json",
+      "evidence_receipt_id": "AFEV-d94f3e406540840ff28b846b949e8dc70ce2ca5cf583e18120b38f1360dbe8d9",
+      "status": "ACCEPTED",
+      "rejection_reasons": []
+    }
+  ],
+  "accepted": true,
+  "transition": {
+    "schema_version": 1,
+    "task_id": "TASK-043-CI",
+    "from": "INTEGRATING",
+    "to": "DONE",
+    "reason_code": "INTEGRATION_ACCEPTED",
+    "occurred_at": "2026-08-15T02:18:57.057Z",
+    "evidence_refs": [
+      "docs/evidence/agentfactory/TASK-043-CI/attempt-1-d94f3e406540840ff28b846b949e8dc70ce2ca5cf583e18120b38f1360dbe8d9.json"
+    ]
+  },
+  "reason_codes": []
+}
