@@ -1,30 +1,33 @@
-# Next Work — AgentFactory Ignition
+# Next Work — Product Sprint Mode
 
-The repository is authoritative. During the AgentFactory ignition track, use the I1 milestone/WP DAG and explicit task IDs rather than blindly selecting the first globally READY product task.
+The repository is authoritative. Product execution now uses Sprint Mode: one Sprint branch, sequential TASK execution, one commit per TASK, final full verification and one Sprint PR/review before merging to `main`.
+
+Read `project_docs/schedule/SPRINT_MODE.md` before execution.
 
 ## Immediate sequence
 
-1. Synchronize local `main` and run `npm ci` plus `npm run verify`.
-2. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/agentfactory_ignition/`, `project_docs/agentfactory_i1/`, `project_docs/agentfactory_i2/` and execution-governance docs.
-3. Treat TASK-012 through TASK-031 as the integrated I1/I2 pre-run baseline; TASK-028 through TASK-031 reconcile as DONE through exact durable approval.
-4. Treat TASK-032 as the integrated and state-closed WP-I2-02 kernel baseline.
-5. Treat TASK-033/WP-I2-03, TASK-034/WP-I2-04 and TASK-035/WP-I2-05 as integrated and state-closed.
-6. Treat TASK-010 implementation/state PRs #99/#100 as accepted bootstrap `DONE`, while preserving its terminal Supervisor `EVIDENCE_MISSING` run as a failed I2 proof.
-7. Treat TASK-036/ADR-0012 as integrated and state-closed.
-8. Treat TASK-037/ADR-0013 as integrated and state-closed.
-9. Treat TASK-038 as integrated/state-closed and `PKG-AF-I2-I5-001` as the active signed 23-descriptor routine package.
-10. Execute/state-close TASK-039 through exact evaluator approval to bootstrap rolling-wave spec delivery and implement ADR-0012 authority closure.
-11. Materialize PWD-AF-003 then PWD-AF-004 from the signed package and actual TASK-039 outputs.
-12. Do not select TASK-004 or authorize A/B/C = TASK-004 -> TASK-005 -> TASK-006 until the fresh proof integrates real AFEV, causal ledger, state reconciliation and readiness authority and the I2 Exit Gate receives an exact GO.
+1. Synchronize local `main` and confirm `npm run verify` passes.
+2. Create or reset the active product Sprint branch from the intended `main` base: `sprint/M1-SPRINT-01`.
+3. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/execution_planning/M1-SPRINT-01.md` and the committed TASK specs.
+4. Treat TASK-004 as completed and integrated.
+5. Execute TASK-005 on the Sprint branch, run its declared validation and create a dedicated TASK commit.
+6. Execute TASK-006 only after TASK-005 is satisfied, then run its declared validation and create a dedicated TASK commit.
+7. Run final repository-wide `npm run verify`.
+8. Produce the Sprint Report, push `sprint/M1-SPRINT-01` and open one PR to `main`.
+9. Stop for Sprint Review. Do not begin the next Sprint automatically.
 
-## Per-task loop
+## Per-task loop inside the Sprint
 
-`approved task -> branch -> bounded implementation -> verify -> PR -> review/merge -> evidence/state -> recompute DAG/readiness -> refine next task`.
+`read TASK -> confirm dependency -> implement bounded scope -> validate -> autonomously fix bounded failures -> TASK commit -> next eligible TASK`
+
+No per-TASK PR or per-TASK merge is required in the default Sprint Mode.
 
 ## Stop/escalate
 
-Stop the current implementation and surface a decision when work requires an undeclared architecture/public contract change, scope expansion, destructive migration, weakened evaluator/security control or files outside the task contract.
+Stop the Sprint and surface a decision when work requires an undeclared architecture/public contract change, scope expansion, destructive migration, weakened evaluator/security control, a forbidden path, conflicting repository authorities or an ambiguity that cannot be resolved from the repository.
 
-## Product track
+## AgentFactory track
 
-TASK-010 and TASK-004 remain valid READY product work, but are intentionally deferred by execution focus while AgentFactory ignition is underway.
+The AgentFactory design, specs, tests and implementation remain preserved in the repository. Its Supervisor/runtime/heartbeat/callback execution path is frozen and is no longer a prerequisite for product progress.
+
+Do not spend product Sprint capacity repairing AgentFactory runtime unless a future explicitly authorized Sprint reactivates that work.
