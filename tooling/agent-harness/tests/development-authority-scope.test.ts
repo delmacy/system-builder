@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, it } from "node:test";
-import { OpenCodeExecutor, type ExecutorAdapter } from "../src/executor.js";
+import { OpenCodeExecutor } from "../src/executor.js";
 import { evaluateStoredHumanApproval } from "../src/human-approval.js";
 import { LocalTaskOrchestrator, type OrchestratorHarnessAdapter, type OrchestratorSnapshot } from "../src/orchestrator.js";
 import type { Task } from "../src/task.js";
@@ -132,14 +132,6 @@ function harness(snapshot: OrchestratorSnapshot): OrchestratorHarnessAdapter {
   };
 }
 
-const acceptingExecutor: ExecutorAdapter = {
-  name: "opencode",
-  canHandle: () => true,
-  execute: () => ({ executor: "opencode", attempt: 1, status: "completed", summary: "ok" }),
-  repair: () => ({ executor: "opencode", attempt: 1, status: "completed", summary: "ok" }),
-  report: () => undefined,
-};
-
 describe("development sprint/work-package authority", () => {
   it("keeps architecture work gated when no development scope is selected", () => {
     const root = rootWithScope();
@@ -189,9 +181,11 @@ describe("development sprint/work-package authority", () => {
     });
   });
 
-  it("turns the architecture start gate into PREPARED only when an executor is explicitly available", () => {
+  it("bypasses the architecture start gate only through the real OpenCode executor under the selected scope", () => {
+    const root = rootWithScope();
     const snapshot = preparedSnapshot(architectureTask());
-    assert.equal(new LocalTaskOrchestrator(harness(snapshot), []).inspect("TASK-004").state, "EXECUTOR_REQUIRED");
-    assert.equal(new LocalTaskOrchestrator(harness(snapshot), [acceptingExecutor]).inspect("TASK-004").state, "PREPARED");
+    const executor = new OpenCodeExecutor(root);
+    assert.equal(withScope(undefined, () => new LocalTaskOrchestrator(harness(snapshot), [executor]).inspect("TASK-004").state), "ARCHITECTURE_REVIEW_REQUIRED");
+    assert.equal(withScope("M1-SPRINT-01", () => new LocalTaskOrchestrator(harness(snapshot), [executor]).inspect("TASK-004").state), "PREPARED");
   });
 });
