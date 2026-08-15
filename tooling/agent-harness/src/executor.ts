@@ -7,6 +7,7 @@ import {
   type ExecutorAdapterResult,
   type ExecutorRequest,
 } from "./execution-contracts.js";
+import { developmentScopeAllowsTask } from "./human-approval.js";
 import type { Task } from "./task.js";
 import {
   OpenCodeModelError,
@@ -194,10 +195,11 @@ export class OpenCodeExecutor implements ExecutorAdapter {
   }
 
   canHandle(task: Task): boolean {
-    return ["free", "cheap"].includes(task.metadata.model_tier)
+    const routine = ["free", "cheap"].includes(task.metadata.model_tier)
       && task.metadata.risk !== "high"
       && !task.metadata.architecture_impact
       && ["opencode", "any"].includes(task.metadata.executor_preference);
+    return routine || developmentScopeAllowsTask(this.root, task, this.name);
   }
 
   execute(context: ExecutorContext): ExecutorReport {
