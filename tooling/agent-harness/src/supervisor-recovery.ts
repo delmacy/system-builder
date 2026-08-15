@@ -31,9 +31,17 @@ export function recoverRecordedStateWorkspace(
     throw new Error(`SUPERVISOR_STATE_BRANCH_MISMATCH:${candidate.taskId}:${current}:${candidate.record.branch}`);
   }
 
+  git(["show-ref", "--verify", `refs/heads/${candidate.record.branch}`], root);
+  if (!candidate.record.commit) {
+    const uniqueStateCommits = Number(git(["rev-list", "--count", `main..${candidate.record.branch}`], root));
+    if (!Number.isInteger(uniqueStateCommits) || uniqueStateCommits !== 0) {
+      throw new Error(`SUPERVISOR_STATE_RECOVERY_DIVERGED:${candidate.taskId}:${candidate.record.branch}`);
+    }
+    git(["branch", "-f", candidate.record.branch, "main"], root);
+  }
+
   // Switching is recovery only. commitStateTask remains responsible for validating
   // the exact durable closure file set before any state-delivery commit is allowed.
-  git(["show-ref", "--verify", `refs/heads/${candidate.record.branch}`], root);
   git(["switch", candidate.record.branch], root);
   return { action: "SWITCHED", task_id: candidate.taskId, branch: candidate.record.branch };
 }
