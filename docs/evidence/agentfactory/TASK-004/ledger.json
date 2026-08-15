@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "authoritative_task": {
+    "schema_version": 1,
+    "task_id": "TASK-004",
+    "work_package_id": "WP-FH-02",
+    "milestone": "M1",
+    "title": "Specify the ProcessMirror contract",
+    "state": "DONE",
+    "route": {
+      "risk": "MEDIUM",
+      "model_tier": "T3",
+      "executor": "opencode",
+      "model": null,
+      "architecture_impact": true,
+      "authority_ref": "DEVSCOPE:M1-SPRINT-01",
+      "decision": "SELECTED",
+      "rationale_code": "PREAUTHORIZED_ARCHITECTURE"
+    },
+    "dependency_gates": [
+      {
+        "schema_version": 1,
+        "id": "GATE-003-004",
+        "predecessor_id": "TASK-003",
+        "successor_id": "TASK-004",
+        "type": "REQUIRES",
+        "status": "SATISFIED",
+        "evidence_refs": [
+          "docs/evidence/tasks/TASK-003.json"
+        ]
+      }
+    ],
+    "context_paths": [
+      "AGENTS.md",
+      "docs/architecture/MASTER_BLUEPRINT.md",
+      "docs/architecture/PIPELINE_AND_CONTRACTS.md",
+      "docs/adr/**",
+      "specs/milestones/M1-VERTICAL-CONTRACTS.md",
+      "specs/tasks/TASK-004-PROCESS-MIRROR-CONTRACT.md"
+    ],
+    "allowed_paths": [
+      "packages/contracts/**",
+      "docs/architecture/**",
+      "specs/tasks/**"
+    ],
+    "forbidden_paths": [
+      "apps/**"
+    ],
+    "max_files": 8,
+    "validation_commands": [
+      "npm run verify"
+    ],
+    "acceptance_ids": [
+      "AC-TASK-CLOSURE"
+    ]
+  },
+  "attempts": [
+    {
+      "sequence": 1,
+      "task_id": "TASK-004",
+      "from": "READY",
+      "to": "RUNNING",
+      "reason_code": "EXECUTION_STARTED",
+      "occurred_at": "2026-08-15T08:08:32.589Z",
+      "evidence_ref": "event:execution-started",
+      "evidence_receipt_id": "AFEVT-bf6c72e32ec3d1793fb81dde779984e1656a685db9ee1d46811c65868ae5ff17",
+      "status": "ACCEPTED",
+      "rejection_reasons": []
+    },
+    {
+      "sequence": 2,
+      "task_id": "TASK-004",
+      "from": "RUNNING",
+      "to": "VERIFICATION",
+      "reason_code": "EXECUTOR_COMPLETED",
+      "occurred_at": "2026-08-15T08:20:12.611Z",
+      "evidence_ref": "event:executor-completed",
+      "evidence_receipt_id": "AFEVT-e1a67e846eea11040cecbaddd120b9b3516312f721c795ca68cd31e2f4d7b201",
+      "status": "ACCEPTED",
+      "rejection_reasons": []
+    },
+    {
+      "sequence": 3,
+      "task_id": "TASK-004",
+      "from": "VERIFICATION",
+      "to": "EVIDENCED",
+      "reason_code": "VALIDATION_PASSED",
+      "occurred_at": "2026-08-15T08:20:12.611Z",
+      "evidence_ref": "attempt:AFATT-fbf6e2102e00e6425ceaf90f6cb8d8538aa1ddc83d98827ede040a2313af20be",
+      "evidence_receipt_id": "AFATT-fbf6e2102e00e6425ceaf90f6cb8d8538aa1ddc83d98827ede040a2313af20be",
+      "status": "ACCEPTED",
+      "rejection_reasons": []
+    },
+    {
+      "sequence": 4,
+      "task_id": "TASK-004",
+      "from": "EVIDENCED",
+      "to": "INTEGRATING",
+      "reason_code": "INTEGRATION_STARTED",
+      "occurred_at": "2026-08-15T08:21:03.209Z",
+      "evidence_ref": "event:integration-started",
+      "evidence_receipt_id": "AFEVT-f9b9866be7b8d2b37467e3137128611d8a02fe82170b6535d3cc25ba4dc95420",
+      "status": "ACCEPTED",
+      "rejection_reasons": []
+    },
+    {
+      "sequence": 5,
+      "task_id": "TASK-004",
+      "from": "INTEGRATING",
+      "to": "DONE",
+      "reason_code": "INTEGRATION_ACCEPTED",
+      "occurred_at": "2026-08-15T08:21:03.209Z",
+      "evidence_ref": "docs/evidence/agentfactory/TASK-004/attempt-1-aa6ae096c554460964223878378325b335ddc07b11994455e6bde58f90bf47a5.json",
+      "evidence_receipt_id": "AFEV-aa6ae096c554460964223878378325b335ddc07b11994455e6bde58f90bf47a5",
+      "status": "ACCEPTED",
+      "rejection_reasons": []
+    }
+  ],
+  "accepted": true,
+  "transition": {
+    "schema_version": 1,
+    "task_id": "TASK-004",
+    "from": "INTEGRATING",
+    "to": "DONE",
+    "reason_code": "INTEGRATION_ACCEPTED",
+    "occurred_at": "2026-08-15T08:21:03.209Z",
+    "evidence_refs": [
+      "docs/evidence/agentfactory/TASK-004/attempt-1-aa6ae096c554460964223878378325b335ddc07b11994455e6bde58f90bf47a5.json"
+    ]
+  },
+  "reason_codes": []
+}
