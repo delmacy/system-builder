@@ -418,6 +418,7 @@ function defaultCommandRunner(
     cwd,
     encoding: "utf8",
     shell: false,
+    windowsHide: true,
     env: { ...process.env, ...environment },
     timeout: timeoutMs,
   });
@@ -443,7 +444,7 @@ function globMatches(value: string, pattern: string): boolean {
 function windowsInvocation(executable: string, args: string[], cwd: string): { executable: string; args: string[] } {
   let resolved = executable;
   if (!/[\\/]/.test(executable)) {
-    const lookup = spawnSync("where.exe", [executable], { cwd, encoding: "utf8", shell: false });
+    const lookup = spawnSync("where.exe", [executable], { cwd, encoding: "utf8", shell: false, windowsHide: true });
     resolved = lookup.stdout?.split(/\r?\n/).find(Boolean)?.trim() || executable;
   }
   const powershellWrapper = resolved.toLowerCase().endsWith(".cmd")

@@ -355,7 +355,7 @@ function mergeExactPullRequest(root: string, prNumber: number, expectedHead: str
   const result = spawnSync("gh", [
     "api", "--method", "PUT", `repos/${repository}/pulls/${prNumber}/merge`,
     "-f", `sha=${expectedHead}`, "-f", "merge_method=merge",
-  ], { cwd: root, encoding: "utf8", shell: false });
+  ], { cwd: root, encoding: "utf8", shell: false, windowsHide: true });
   if (result.error || result.status !== 0) {
     throw new Error(`Cannot merge PR #${prNumber} via api.github.com: ${result.error?.message || result.stderr || `exit ${result.status}`}`);
   }

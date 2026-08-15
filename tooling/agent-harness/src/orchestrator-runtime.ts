@@ -282,7 +282,7 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
     const result = spawnSync(this.ghExecutable, [
       "pr", "view", String(record.number),
       "--json", "number,url,state,headRefName,baseRefName,headRefOid,reviewDecision,mergeCommit,statusCheckRollup",
-    ], { cwd: this.root, encoding: "utf8", shell: false });
+    ], { cwd: this.root, encoding: "utf8", shell: false, windowsHide: true });
     if (result.error || result.status !== 0) {
       throw new Error(`Cannot observe PR #${record.number}: ${result.error?.message || result.stderr || `exit ${result.status}`}`);
     }
@@ -309,7 +309,7 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
     const result = spawnSync(this.ghExecutable, [
       "pr", "view", String(record.pullRequest.number),
       "--json", "number,url,state,headRefName,baseRefName,headRefOid,reviewDecision,mergeCommit,statusCheckRollup",
-    ], { cwd: this.root, encoding: "utf8", shell: false });
+    ], { cwd: this.root, encoding: "utf8", shell: false, windowsHide: true });
     if (result.error || result.status !== 0) {
       throw new Error(`Cannot observe PR #${record.pullRequest.number}: ${result.error?.message || result.stderr || `exit ${result.status}`}`);
     }
@@ -385,7 +385,7 @@ export class LocalHarnessAdapter implements OrchestratorHarnessAdapter {
     const result = spawnSync(this.ghExecutable, [
       "pr", "list", "--head", branch, "--state", "all", "--limit", "1",
       "--json", "number,url,state,createdAt,headRefName,baseRefName,headRefOid,reviewDecision,mergeCommit,statusCheckRollup",
-    ], { cwd: this.root, encoding: "utf8", shell: false });
+    ], { cwd: this.root, encoding: "utf8", shell: false, windowsHide: true });
     if (result.error || result.status !== 0) {
       throw new Error(`Cannot discover a PR for ${branch}: ${result.error?.message || result.stderr || `exit ${result.status}`}`);
     }

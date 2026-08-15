@@ -181,9 +181,9 @@ function assertBranch(branch: string, root: string): void {
 }
 function assertClean(root: string): void { if (git(["status", "--porcelain"], root)) throw new Error("PACKAGE_TASK_SPEC_WORKTREE_DIRTY"); }
 function refExists(ref: string, root: string): boolean { return tryGit(["show-ref", "--verify", "--quiet", ref], root); }
-function tryGit(args: string[], root: string): boolean { return spawnSync("git", args, { cwd: root, encoding: "utf8", shell: false }).status === 0; }
-function git(args: string[], root: string): string { return execFileSync("git", args, { cwd: root, encoding: "utf8" }).trim(); }
-function run(executable: string, args: string[], root: string): string { return execFileSync(executable, args, { cwd: root, encoding: "utf8" }).trim(); }
+function tryGit(args: string[], root: string): boolean { return spawnSync("git", args, { cwd: root, encoding: "utf8", shell: false, windowsHide: true }).status === 0; }
+function git(args: string[], root: string): string { return execFileSync("git", args, { cwd: root, encoding: "utf8", windowsHide: true }).trim(); }
+function run(executable: string, args: string[], root: string): string { return execFileSync(executable, args, { cwd: root, encoding: "utf8", windowsHide: true }).trim(); }
 function digest(value: string): string { return createHash("sha256").update(value).digest("hex"); }
 function lines(value: string): string[] { return value.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).sort(); }
 function writeRecord(path: string, record: PackageTaskMaterializationRecord): void { mkdirSync(dirname(path), { recursive: true }); writeFileSync(path, `${JSON.stringify(record, null, 2)}\n`); }
