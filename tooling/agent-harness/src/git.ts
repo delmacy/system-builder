@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process";
 
 export function git(args: string[], root = process.cwd()): string {
-  return execFileSync("git", args, { cwd: root, encoding: "utf8" }).trim();
+  return execFileSync("git", args, { cwd: root, encoding: "utf8", windowsHide: true }).trim();
 }
 export function changedPaths(baseCommit: string, root = process.cwd()): string[] {
   const groups = [
