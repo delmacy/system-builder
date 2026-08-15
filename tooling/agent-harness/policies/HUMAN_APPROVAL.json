@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "policy_version": "1.1.0",
+  "policy_version": "1.2.0",
   "mode": "DEVELOPMENT_TRUSTED",
   "repository": "delmacy/system-builder",
   "max_age_seconds": 604800,
@@ -11,5 +11,6 @@
       "key_id": "delmacy-owner-2026-01",
       "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA52n6piwE0I1yXTknUpe7aXrf0tdpleWQJ2MszwVZB+M=\n-----END PUBLIC KEY-----\n"
     }
-  ]
+  ],
+  "development_authority_scopes": []
 }
