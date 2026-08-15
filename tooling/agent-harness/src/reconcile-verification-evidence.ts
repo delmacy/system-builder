@@ -218,7 +218,7 @@ function hashMatchesGitText(expected: string, source: string): boolean {
 }
 
 function normalizeBody(value: string): string {
-  return value.replace(/\r\n/g, "\n");
+  return value.replace(/\r\n/g, "\n").replace(/\n+$/, "");
 }
 
 function gitExitOk(args: string[], root: string): boolean {
