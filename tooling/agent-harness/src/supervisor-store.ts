@@ -5,18 +5,27 @@ import {
   type SupervisorEventRecord, type SupervisorLease, type SupervisorProjection,
 } from "./supervisor-contracts.js";
 
+const eventFilePattern = /^\d{12}-AFEVT-[0-9a-f]{64}\.json$/;
+
 export class DurableSupervisorStore {
   constructor(private readonly root: string) {}
 
   listPipelineIds(): string[] {
     if (!existsSync(this.root)) return [];
-    return readdirSync(this.root, { withFileTypes: true }).filter((item) => item.isDirectory() && !item.name.startsWith(".")).map((item) => item.name).sort();
+    return readdirSync(this.root, { withFileTypes: true })
+      .filter((item) => item.isDirectory() && !item.name.startsWith("."))
+      .map((item) => item.name)
+      .filter((pipelineId) => {
+        const directory = this.eventsDirectory(pipelineId);
+        return existsSync(directory) && readdirSync(directory).some((name) => eventFilePattern.test(name));
+      })
+      .sort();
   }
 
   readEvents(pipelineId: string): SupervisorEventRecord[] {
     const directory = this.eventsDirectory(pipelineId);
     if (!existsSync(directory)) return [];
-    return readdirSync(directory).filter((name) => /^\d{12}-AFEVT-[0-9a-f]{64}\.json$/.test(name)).sort()
+    return readdirSync(directory).filter((name) => eventFilePattern.test(name)).sort()
       .map((name) => supervisorEventRecordSchema.parse(JSON.parse(readFileSync(resolve(directory, name), "utf8"))));
   }
 
