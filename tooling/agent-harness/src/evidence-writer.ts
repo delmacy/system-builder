@@ -206,7 +206,7 @@ function validateGovernanceResolution(
     || resolution.implementation_lifecycle.validation !== "REVIEW_REQUIRED"
     || resolution.implementation_lifecycle.head_commit !== headCommit
     || resolution.implementation_lifecycle.decision !== "ELIGIBLE"
-    || !["GITHUB_REVIEW", "DURABLE_HUMAN_APPROVAL", "PACKAGE_AUTHORIZATION"].includes(resolution.implementation_lifecycle.approval_channel)
+    || !["GITHUB_REVIEW", "DURABLE_HUMAN_APPROVAL", "PACKAGE_AUTHORIZATION", "DEVELOPMENT_TRUSTED"].includes(resolution.implementation_lifecycle.approval_channel)
     || resolution.implementation_lifecycle.required_checks.some((name) => !resolution.implementation_lifecycle.checks.some((check) => check.name === name && check.status === "SUCCESS"))) {
     throw new Error("EVIDENCE_GOVERNANCE_RESOLUTION_INVALID: immutable validation and eligible lifecycle must match");
   }
