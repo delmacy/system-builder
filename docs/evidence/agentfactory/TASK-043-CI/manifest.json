@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "bundle_id": "AFCLOSE-3dced08d394a572ce4a5212126564f5e35aabc8aed2982b037dcf322ff8f75cb",
+  "task_id": "TASK-043-CI",
+  "work_package_id": "WP-I2-06",
+  "source_commit": "487bcc95937e8b6cd5ba8fcc54e0ef982e099103",
+  "implementation_head": "40cfcb2e4dfaeaf040ab347a208caa9b7a2484c4",
+  "implementation_pr": {
+    "schema_version": 1,
+    "pr_number": 128,
+    "branch": "task/043-preserve-historical-git-authority-in-deterministic-ci",
+    "head_commit": "40cfcb2e4dfaeaf040ab347a208caa9b7a2484c4",
+    "base_branch": "main",
+    "validation": "REVIEW_REQUIRED",
+    "required_checks": [
+      "validate"
+    ],
+    "checks": [
+      {
+        "name": "validate",
+        "status": "SUCCESS"
+      }
+    ],
+    "review": "NONE",
+    "approval_channel": "DEVELOPMENT_TRUSTED",
+    "human_approval": {
+      "decision": "DEVELOPMENT_TRUSTED",
+      "approval_id": null,
+      "reason_codes": []
+    },
+    "package_authorization": {
+      "decision": "MISSING",
+      "approval_id": null,
+      "package_id": null,
+      "plan_hash": null,
+      "descriptor_id": null,
+      "reason_codes": [
+        "PACKAGE_BINDING_MISSING"
+      ],
+      "use_receipt": null
+    },
+    "decision": "ELIGIBLE",
+    "reason_codes": []
+  },
+  "state_branch": "state/task-043-ci-close",
+  "final_evidence_id": "AFEV-d94f3e406540840ff28b846b949e8dc70ce2ca5cf583e18120b38f1360dbe8d9",
+  "files": [
+    {
+      "path": "docs/evidence/agentfactory/TASK-043-CI/attempt-1-099fc981d10121a9146a3868414dc15a1cce42b82d437a8d8ec71d15ebd2908c.json",
+      "sha256": "3fead08506d36b83715e324f75559adf685c1d2191f3d8d7c76c65561f3c0ea2"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-043-CI/attempt-1-d94f3e406540840ff28b846b949e8dc70ce2ca5cf583e18120b38f1360dbe8d9.json",
+      "sha256": "acd1a73f8ac7c551f00a038ed429d607850a892a153b06a74ed4a4a8505c90f0"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-043-CI/governance-resolution.json",
+      "sha256": "8eaa1a3eb719395cba1c22084053b2bbe40b715bcad492124ad3f8ea100264fc"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-043-CI/ledger.json",
+      "sha256": "3f18a71e0d8e37dffefd7a40f28649707fda29d90e58daa3915007f7eb6ec417"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-043-CI/readiness.json",
+      "sha256": "32091e9ccb21a72cdb5e44c89cd00b47df53ef7bc87a73fac692d0f7f4f71ee6"
+    }
+  ]
+}
