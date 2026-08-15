@@ -369,11 +369,11 @@ export function fingerprintChanges(files: string[], root = process.cwd()): strin
 }
 
 export function assertGitHubCli(executable = "gh", root = process.cwd(), branch = "task/branch"): void {
-  const version = spawnSync(executable, ["--version"], { cwd: root, encoding: "utf8", shell: false });
+  const version = spawnSync(executable, ["--version"], { cwd: root, encoding: "utf8", shell: false, windowsHide: true });
   if (version.error || version.status !== 0) {
     throw new Error(`GitHub CLI is unavailable. Install/authenticate gh, or open manually: https://github.com/delmacy/system-builder/compare/main...${branch}?expand=1`);
   }
-  const auth = spawnSync(executable, ["auth", "status"], { cwd: root, encoding: "utf8", shell: false });
+  const auth = spawnSync(executable, ["auth", "status"], { cwd: root, encoding: "utf8", shell: false, windowsHide: true });
   if (auth.status !== 0) throw new Error(`GitHub CLI is not authenticated. Run: gh auth login`);
 }
 
@@ -548,13 +548,13 @@ function refExists(ref: string, root: string): boolean {
 }
 
 function tryGit(args: string[], root: string): { ok: boolean; output: string } {
-  const result = spawnSync("git", args, { cwd: root, encoding: "utf8", shell: false });
+  const result = spawnSync("git", args, { cwd: root, encoding: "utf8", shell: false, windowsHide: true });
   return { ok: result.status === 0, output: result.stdout?.trim() ?? "" };
 }
 
 function runExecutable(executable: string, args: string[], root: string): string {
   try {
-    return execFileSync(executable, args, { cwd: root, encoding: "utf8" }).trim();
+    return execFileSync(executable, args, { cwd: root, encoding: "utf8", shell: false, windowsHide: true }).trim();
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error);
     throw new Error(`${executable} ${args.slice(0, 2).join(" ")} failed: ${detail}`);
