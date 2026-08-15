@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "policy_version": "1.2.0",
+  "policy_version": "1.1.0",
   "mode": "DEVELOPMENT_TRUSTED",
   "repository": "delmacy/system-builder",
   "max_age_seconds": 604800,
