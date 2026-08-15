@@ -1,7 +1,7 @@
 ---
 id: TASK-004
 title: Specify the ProcessMirror contract
-status: ready
+status: completed
 priority: 40
 milestone: M1
 model_tier: architecture

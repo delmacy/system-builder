@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "bundle_id": "AFCLOSE-133d5750f4aeaf165b882dfd8f3aef1ce51296aaa5da2bdade8ebcbe87c4f08d",
+  "task_id": "TASK-004",
+  "work_package_id": "WP-FH-02",
+  "source_commit": "f1413ec49a4b344cc2e967acfbc49896a97a806e",
+  "implementation_head": "43d0c701b12a006989f6dabcb9c708878054c35a",
+  "implementation_pr": {
+    "schema_version": 1,
+    "pr_number": 138,
+    "branch": "task/004-specify-the-processmirror-contract",
+    "head_commit": "43d0c701b12a006989f6dabcb9c708878054c35a",
+    "base_branch": "main",
+    "validation": "PASS",
+    "required_checks": [
+      "validate"
+    ],
+    "checks": [
+      {
+        "name": "validate",
+        "status": "SUCCESS"
+      }
+    ],
+    "review": "NONE",
+    "approval_channel": "DEVELOPMENT_TRUSTED",
+    "human_approval": {
+      "decision": "DEVELOPMENT_TRUSTED",
+      "approval_id": "DEVSCOPE:M1-SPRINT-01",
+      "reason_codes": []
+    },
+    "package_authorization": {
+      "decision": "MISSING",
+      "approval_id": null,
+      "package_id": null,
+      "plan_hash": null,
+      "descriptor_id": null,
+      "reason_codes": [
+        "PACKAGE_BINDING_MISSING"
+      ],
+      "use_receipt": null
+    },
+    "decision": "ELIGIBLE",
+    "reason_codes": []
+  },
+  "state_branch": "state/task-004-close",
+  "final_evidence_id": "AFEV-aa6ae096c554460964223878378325b335ddc07b11994455e6bde58f90bf47a5",
+  "files": [
+    {
+      "path": "docs/evidence/agentfactory/TASK-004/attempt-1-aa6ae096c554460964223878378325b335ddc07b11994455e6bde58f90bf47a5.json",
+      "sha256": "bfd7a31b876edde2d95cf88f7158106ffb298b0c3521e50a8b0b658ee040cbe0"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-004/attempt-1-fbf6e2102e00e6425ceaf90f6cb8d8538aa1ddc83d98827ede040a2313af20be.json",
+      "sha256": "ec2cc831f36298661006b4dde14ae66c14fff123508beae12b7e98412d426c2d"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-004/ledger.json",
+      "sha256": "2f8530fa698c2589b61ecbad0521a97e099b16efcfd7d84c8c952e1371183470"
+    },
+    {
+      "path": "docs/evidence/agentfactory/TASK-004/readiness.json",
+      "sha256": "86f6d67f160cfd2f36b5e8cb6a0d23cc99d638bce92b5c86c864c3d3edce31d7"
+    }
+  ]
+}
