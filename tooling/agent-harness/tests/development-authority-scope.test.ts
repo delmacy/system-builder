@@ -116,7 +116,7 @@ function harness(snapshot: OrchestratorSnapshot): OrchestratorHarnessAdapter {
     branch: () => undefined,
     prepare: () => "pack",
     taskPackPath: () => "TASK_PACK.md",
-    prepareExecution: () => ({ request: undefined }),
+    prepareExecution: () => ({}),
     verify: () => undefined,
     commit: () => undefined,
     push: () => undefined,
