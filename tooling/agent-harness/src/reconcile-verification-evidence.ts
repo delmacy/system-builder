@@ -106,7 +106,7 @@ export function reconcileVerificationEvidence(
   const pr = JSON.parse(execFileSync(ghExecutable, [
     "pr", "view", String(record.pullRequest.number),
     "--json", "state,mergedAt,mergeCommit,headRefOid,headRefName,baseRefName",
-  ], { cwd: root, encoding: "utf8" })) as PullRequestIdentity;
+  ], { cwd: root, encoding: "utf8", windowsHide: true })) as PullRequestIdentity;
   if (pr.state !== "MERGED" || !pr.mergedAt || pr.headRefName !== record.branch || pr.baseRefName !== "main") {
     throw new Error(`PR #${record.pullRequest.number} is not the merged implementation PR for ${taskId}`);
   }
@@ -117,6 +117,7 @@ export function reconcileVerificationEvidence(
   const prFiles = execFileSync(ghExecutable, ["pr", "diff", String(record.pullRequest.number), "--name-only"], {
     cwd: root,
     encoding: "utf8",
+    windowsHide: true,
   }).split(/\r?\n/).filter(Boolean).sort();
   const verifiedFiles = [...receipt.changedFiles].sort();
   if (JSON.stringify(prFiles) !== JSON.stringify(verifiedFiles)) {
@@ -223,7 +224,7 @@ function normalizeBody(value: string): string {
 
 function gitExitOk(args: string[], root: string): boolean {
   try {
-    execFileSync("git", args, { cwd: root, stdio: "ignore" });
+    execFileSync("git", args, { cwd: root, stdio: "ignore", windowsHide: true });
     return true;
   } catch {
     return false;
