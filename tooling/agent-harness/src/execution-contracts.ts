@@ -12,6 +12,7 @@ const commitSchema = z.string().regex(/^[0-9a-f]{40}$/);
 const evidenceRefSchema = nonEmptyString;
 const gateIdSchema = z.string().regex(/^GATE-[A-Z0-9-]+$/);
 const acceptanceIdSchema = z.string().regex(/^AC-[A-Z0-9-]+$/);
+const developmentAuthorityRefSchema = z.string().regex(/^DEVSCOPE:[A-Z0-9][A-Z0-9._-]{2,127}$/i);
 const relativePathSchema = nonEmptyString.refine(
   (path) => !path.startsWith("/") && !/^[A-Za-z]:[\\/]/.test(path) && !path.split(/[\\/]/).includes(".."),
   "path must be repository-relative and cannot contain '..'",
@@ -82,23 +83,38 @@ export const executionRouteSchema = z.object({
   executor: executorAdapterSchema,
   model: nonEmptyString.nullable(),
   architecture_impact: z.boolean(),
+  authority_ref: developmentAuthorityRefSchema.nullable().optional(),
   decision: z.enum(["SELECTED", "ESCALATION_REQUIRED", "BLOCKED"]),
   rationale_code: z.enum([
     "DETERMINISTIC_OPERATION",
     "BOUNDED_LOW_RISK",
     "BOUNDED_MODERATE_RISK",
+    "PREAUTHORIZED_ARCHITECTURE",
     "ARCHITECTURE_REVIEW",
     "HIGH_RISK_REVIEW",
     "UNSUPPORTED_ROUTE",
   ]),
 }).strict().superRefine((route, context) => {
-  const requiresGate = route.risk === "CRITICAL" || route.architecture_impact;
-  if (requiresGate && route.model_tier !== "HUMAN_GATE" && route.decision === "SELECTED") {
+  const scopedArchitecture = route.architecture_impact
+    && route.decision === "SELECTED"
+    && route.rationale_code === "PREAUTHORIZED_ARCHITECTURE"
+    && route.authority_ref !== undefined
+    && route.authority_ref !== null
+    && route.model_tier === "T3"
+    && ["opencode", "codex"].includes(route.executor)
+    && ["LOW", "MEDIUM"].includes(route.risk);
+  if (route.risk === "CRITICAL" && route.decision === "SELECTED") {
+    context.addIssue({ code: "custom", path: ["decision"], message: "critical risk cannot select an automatic route" });
+  }
+  if (route.architecture_impact && route.decision === "SELECTED" && !scopedArchitecture) {
     context.addIssue({
       code: "custom",
-      path: ["decision"],
-      message: "critical risk or architecture impact cannot select an ungated route",
+      path: ["authority_ref"],
+      message: "architecture impact requires HUMAN_GATE or an exact preauthorized development scope",
     });
+  }
+  if (route.authority_ref && !scopedArchitecture) {
+    context.addIssue({ code: "custom", path: ["authority_ref"], message: "development scope authority is valid only for selected T3 architecture routes" });
   }
   if (route.model_tier === "HUMAN_GATE" && route.executor !== "human") {
     context.addIssue({ code: "custom", path: ["executor"], message: "HUMAN_GATE requires the human executor" });

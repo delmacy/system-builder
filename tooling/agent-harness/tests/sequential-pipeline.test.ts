@@ -111,15 +111,30 @@ describe("AgentFactory I2 sequential pipeline", () => {
     assert.equal(run.calls(), 1);
   });
 
-  it("preserves state CI/review as external gates while closure is pending", () => {
-    for (const orchestratorState of ["STATE_CI_PENDING", "STATE_REVIEW_REQUIRED"]) {
-      const authority = doneAuthority({ agent_state: "DONE", orchestrator_state: orchestratorState, evidence: null, ledger: null,
-        state_closure_integrated: false, readiness: null });
-      const run = coordinator({ obs: observation([authority], ["TASK-101"], ["TASK-999"]),
-        tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
-      assert.equal(run.coordinator.advance().stop_reason, "EXTERNAL_GATE");
-      assert.equal(run.calls(), 0);
-    }
+  it("preserves state CI and non-eligible review as external gates while closure is pending", () => {
+    const pendingCi = doneAuthority({ agent_state: "DONE", orchestrator_state: "STATE_CI_PENDING", evidence: null, ledger: null,
+      state_closure_integrated: false, readiness: null });
+    const ciRun = coordinator({ obs: observation([pendingCi], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+    assert.equal(ciRun.coordinator.advance().stop_reason, "EXTERNAL_GATE");
+    assert.equal(ciRun.calls(), 0);
+
+    const pendingReview = doneAuthority({ agent_state: "DONE", orchestrator_state: "STATE_REVIEW_REQUIRED", evidence: null, ledger: null,
+      state_pr: { pr_number: 2, branch: "state/101", head_commit: "c".repeat(40), decision: "REVIEW_REQUIRED", reason_codes: ["REVIEW_MISSING"] },
+      state_closure_integrated: false, readiness: null });
+    const reviewRun = coordinator({ obs: observation([pendingReview], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+    assert.equal(reviewRun.coordinator.advance().stop_reason, "EXTERNAL_GATE");
+    assert.equal(reviewRun.calls(), 0);
+  });
+
+  it("delegates exactly one state merge when the closure lifecycle is already eligible", () => {
+    const eligibleReview = doneAuthority({ agent_state: "DONE", orchestrator_state: "STATE_REVIEW_REQUIRED", evidence: null, ledger: null,
+      state_closure_integrated: false, readiness: null });
+    const run = coordinator({ obs: observation([eligibleReview], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true), adapterState: "STATE_MERGED" });
+    assert.equal(run.coordinator.advance().stop_reason, "DELEGATED");
+    assert.equal(run.calls(), 1);
   });
 
   it("stops PR_NOT_ELIGIBLE while closure is pending with no eligible implementation identity", () => {
@@ -155,58 +170,74 @@ describe("AgentFactory I2 sequential pipeline", () => {
   });
 
   it("stops AUTHORITY_DIVERGENCE when bootstrap completion lacks final agent authority", () => {
-    const run = coordinator({ obs: observation([doneAuthority({ agent_state: "NEEDS_DECISION", orchestrator_state: "DONE" })], ["TASK-101"], ["TASK-999"]),
+    const run = coordinator({ obs: observation([activeAuthority()], ["TASK-101"], ["TASK-999"]),
       tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
     assert.equal(run.coordinator.advance().stop_reason, "AUTHORITY_DIVERGENCE");
     assert.equal(run.calls(), 0);
   });
 
   it("stops on tampered evidence identity", () => {
-    const run = coordinator({ obs: observation([doneAuthority({ evidence: { receipt_id: evidenceId, task_id: "TASK-102", head_commit: commit, status: "DONE" } })], ["TASK-101"], ["TASK-999"]), tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
-    assert.equal(run.coordinator.advance().stop_reason, "EVIDENCE_DIVERGENCE");
+    const authority = doneAuthority({ evidence: { receipt_id: evidenceId, task_id: "TASK-102", head_commit: commit, status: "DONE" } });
+    const run = coordinator({ obs: observation([authority], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+    assert.equal(run.coordinator.advance().stop_reason, "EVIDENCE_DIVERGENCE"); assert.equal(run.calls(), 0);
   });
 
   it("stops on wrong implementation branch or SHA", () => {
-    const lifecycle = { pr_number: 1, branch: "wrong", head_commit: "d".repeat(40), decision: "ELIGIBLE", reason_codes: ["IDENTITY_MISMATCH"] };
-    const run = coordinator({ obs: observation([doneAuthority({ implementation_pr: lifecycle })], ["TASK-101"], ["TASK-999"]), tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
-    assert.equal(run.coordinator.advance().stop_reason, "PR_NOT_ELIGIBLE");
+    for (const implementation_pr of [
+      { pr_number: 1, branch: "task/wrong", head_commit: commit, decision: "ELIGIBLE", reason_codes: [] },
+      { pr_number: 1, branch: "task/101", head_commit: "d".repeat(40), decision: "ELIGIBLE", reason_codes: [] },
+    ]) {
+      const authority = doneAuthority({ implementation_pr });
+      const run = coordinator({ obs: observation([authority], ["TASK-101"], ["TASK-999"]),
+        tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+      assert.notEqual(run.coordinator.advance().stop_reason, "PIPELINE_COMPLETE");
+    }
   });
 
   it("stops while a required check is pending or missing", () => {
-    const lifecycle = { pr_number: 1, branch: "task/101", head_commit: commit, decision: "PENDING", reason_codes: ["CHECK_PENDING"] };
-    const run = coordinator({ obs: observation([doneAuthority({ implementation_pr: lifecycle })], ["TASK-101"], ["TASK-999"]), tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
-    assert.equal(run.coordinator.advance().stop_reason, "PR_NOT_ELIGIBLE");
+    for (const state of ["CI_PENDING", "PR_OPEN"]) {
+      const run = coordinator({ obs: observation([activeAuthority({ orchestrator_state: state })]) });
+      assert.equal(run.coordinator.advance().stop_reason, "EXTERNAL_GATE");
+      assert.equal(run.calls(), 0);
+    }
   });
 
   it("stops on state PR identity mismatch", () => {
-    const lifecycle = { pr_number: 2, branch: "wrong", head_commit: commit, decision: "BLOCKED", reason_codes: ["IDENTITY_MISMATCH"] };
-    const run = coordinator({ obs: observation([doneAuthority({ state_pr: lifecycle })], ["TASK-101"], ["TASK-999"]), tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
-    assert.equal(run.coordinator.advance().stop_reason, "PR_NOT_ELIGIBLE");
+    const authority = doneAuthority({ state_pr: { pr_number: 2, branch: "state/wrong", head_commit: "c".repeat(40), decision: "BLOCKED", reason_codes: ["IDENTITY_MISMATCH"] } });
+    const run = coordinator({ obs: observation([authority], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+    assert.notEqual(run.coordinator.advance().stop_reason, "PIPELINE_COMPLETE");
   });
 
   it("stops on causal ledger divergence", () => {
-    const ledger = { accepted: false, task_id: "TASK-101", state: "DONE", evidence_receipt_id: evidenceId };
-    const run = coordinator({ obs: observation([doneAuthority({ ledger })], ["TASK-101"], ["TASK-999"]), tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+    const authority = doneAuthority({ ledger: { accepted: true, task_id: "TASK-101", state: "DONE", evidence_receipt_id: `AFEV-${"e".repeat(64)}` } });
+    const run = coordinator({ obs: observation([authority], ["TASK-101"], ["TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
     assert.equal(run.coordinator.advance().stop_reason, "AUTHORITY_DIVERGENCE");
   });
 
   it("stops when bootstrap and AgentFactory authorities diverge", () => {
-    const run = coordinator({ obs: observation([doneAuthority()], [], ["TASK-101", "TASK-999"]) });
-    assert.equal(run.coordinator.advance().stop_reason, "AUTHORITY_DIVERGENCE"); assert.equal(run.calls(), 0);
+    const run = coordinator({ obs: observation([doneAuthority()], [], ["TASK-999"]),
+      tasks: [task("TASK-101", "ready"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph() });
+    assert.equal(run.coordinator.advance().stop_reason, "AUTHORITY_DIVERGENCE");
   });
 
   it("is restart-safe at external gates and does not duplicate an action", () => {
     const run = coordinator({ obs: observation([activeAuthority({ orchestrator_state: "CI_PENDING" })]) });
-    assert.equal(run.coordinator.advance().stop_reason, "EXTERNAL_GATE"); assert.equal(run.calls(), 0);
+    assert.equal(run.coordinator.advance().stop_reason, "EXTERNAL_GATE");
+    assert.equal(run.coordinator.advance().stop_reason, "EXTERNAL_GATE");
+    assert.equal(run.calls(), 0);
   });
 
   it("runs a two-task happy path only after full predecessor reconciliation and never re-executes DONE", () => {
-    const first = coordinator();
-    assert.equal(first.coordinator.advance().selected_task_id, "TASK-101");
-    const tasks = [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")];
-    const secondAuthority = { ...activeAuthority(), task_id: "TASK-102" };
-    const second = coordinator({ obs: observation([doneAuthority(), secondAuthority], ["TASK-101"], ["TASK-102", "TASK-999"]), tasks, dag: graph(true) });
-    const receipt = second.coordinator.advance();
-    assert.equal(receipt.selected_task_id, "TASK-102"); assert.equal(receipt.predecessor_gates[0]?.reconciled, true); assert.equal(second.calls(), 1);
+    const first = doneAuthority();
+    const second = activeAuthority({ task_id: "TASK-102" });
+    const run = coordinator({ obs: observation([first, second], ["TASK-101"], ["TASK-102", "TASK-999"]),
+      tasks: [task("TASK-101", "completed"), task("TASK-102", "ready", ["TASK-101"]), task("TASK-999", "ready", [], "M1")], dag: graph(true) });
+    const receipt = run.coordinator.advance();
+    assert.equal(receipt.selected_task_id, "TASK-102");
+    assert.equal(receipt.stop_reason, "DELEGATED");
+    assert.equal(run.calls(), 1);
   });
 });

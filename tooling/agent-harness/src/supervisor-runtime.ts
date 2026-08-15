@@ -2,15 +2,16 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { hostname } from "node:os";
 import { dirname, relative, resolve } from "node:path";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { z } from "zod";
 import { dagGraphSchema, type DagGraph } from "./dag.js";
 import { agentFactoryEvidenceEnvelopeSchema } from "./evidence-writer.js";
 import { executionRouteSchema, executionStateSchema } from "./execution-contracts.js";
 import { OpenCodeExecutor, type ExecutorAdapter } from "./executor.js";
+import { git } from "./git.js";
 import { ledgerApplicationReceiptSchema } from "./ledger-engine.js";
 import { LocalHarnessAdapter } from "./orchestrator-runtime.js";
-import { LocalTaskOrchestrator, type OrchestratorState } from "./orchestrator.js";
+import { LocalTaskOrchestrator, type AdvanceResult, type OrchestratorState } from "./orchestrator.js";
 import {
   AgentFactorySupervisor,
   type SupervisorCallbackTransport,
@@ -168,7 +169,20 @@ export class RepositorySequentialAdapter implements SequentialPipelineAdapter {
     });
   }
 
-  advanceTask(taskId: string) { return this.orchestrator.advance(taskId); }
+  advanceTask(taskId: string): AdvanceResult {
+    const before = this.orchestrator.inspect(taskId);
+    if (before.state === "REVIEW_REQUIRED"
+      && before.snapshot.implementationPr?.lifecycle?.decision === "ELIGIBLE") {
+      mergeExactPullRequest(this.root, before.snapshot.implementationPr.number, before.snapshot.implementationPr.lifecycle.head_commit);
+      return { taskId, previousState: before.state, state: "MERGED", action: "merge implementation PR", stop: false, snapshot: before.snapshot };
+    }
+    if (before.state === "STATE_REVIEW_REQUIRED"
+      && before.snapshot.statePr?.lifecycle?.decision === "ELIGIBLE") {
+      mergeExactPullRequest(this.root, before.snapshot.statePr.number, before.snapshot.statePr.lifecycle.head_commit);
+      return { taskId, previousState: before.state, state: "STATE_MERGED", action: "merge state PR", stop: false, snapshot: before.snapshot };
+    }
+    return this.orchestrator.advance(taskId);
+  }
 }
 
 export class SequentialSupervisorIterationAdapter implements SupervisorIterationAdapter {
@@ -184,7 +198,7 @@ export class SequentialSupervisorIterationAdapter implements SupervisorIteration
       return mapSequentialReceipt(receipt, payloadRef);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      if (/Cannot observe PR|api\.github\.com|connect|timed?\s*out/i.test(message)) {
+      if (/Cannot (?:observe|merge) PR|api\.github\.com|connect|timed?\s*out/i.test(message)) {
         return { eventType: "EXECUTOR_FAILED", state: "RETRY_WAIT", failureClass: "GITHUB_TRANSIENT", provider: "github", payloadRef: message };
       }
       if (/cycle/i.test(message)) return { eventType: "PIPELINE_BLOCKED", state: "BLOCKED", failureClass: "DAG_CYCLE", terminalStatus: "BLOCKED", payloadRef: message };
@@ -229,13 +243,14 @@ export function createSupervisorRuntime(options: SupervisorRuntimeOptions): Supe
   const plan = loadSupervisorRuntimePlan(planPath);
   const now = options.now ?? (() => new Date().toISOString());
   const tasks = loadTasks(root);
+  const environment = options.environment ?? process.env;
+  validateDevelopmentAuthorityBinding(plan, environment);
   const graph = buildTaskCatalogDag(tasks, root);
   const executionPlans = Object.fromEntries(Object.entries(plan.execution).map(([id, value]) => [id, {
     workPackageId: value.work_package_id,
     route: value.route,
   }]));
   const harness = options.harness ?? new LocalHarnessAdapter(root, "gh", executionPlans);
-  const environment = options.environment ?? process.env;
   const modelConfig = loadOpenCodeModelCatalogConfig(root);
   const modelResolver = new OpenCodeModelResolver(
     options.modelCatalogClient ?? new ZenOpenCodeModelCatalogClient(modelConfig),
@@ -316,12 +331,47 @@ function eventForAction(action: string): SupervisorIterationResult["eventType"] 
   if (action === "task:verify") return "VALIDATION_PASSED";
   if (action === "task:commit") return "EVIDENCE_WRITTEN";
   if (action === "task:pr") return "PR_CREATED";
-  if (/sync main after implementation merge/.test(action)) return "PR_MERGED";
+  if (action === "merge implementation PR" || /sync main after implementation merge/.test(action)) return "PR_MERGED";
   if (/create state branch|commit state closure|push state branch|open state PR/.test(action)) return "STATE_CLOSURE_STARTED";
-  if (/sync main after state merge/.test(action)) return "STATE_CLOSURE_MERGED";
+  if (action === "merge state PR" || /sync main after state merge/.test(action)) return "STATE_CLOSURE_MERGED";
   if (action === "task:close") return "LEDGER_UPDATED";
   if (/execution|executor/i.test(action)) return "EXECUTOR_COMPLETED";
   return "TASK_DISPATCHED";
+}
+
+function validateDevelopmentAuthorityBinding(plan: SupervisorRuntimePlan, environment: Readonly<Record<string, string | undefined>>): void {
+  const selectedScope = environment.SYSTEM_BUILDER_DEVELOPMENT_AUTHORITY_SCOPE?.trim();
+  for (const [taskId, execution] of Object.entries(plan.execution)) {
+    const authorityRef = execution.route.authority_ref;
+    if (!authorityRef) continue;
+    if (!selectedScope || authorityRef !== `DEVSCOPE:${selectedScope}`) {
+      throw new Error(`SUPERVISOR_DEVELOPMENT_AUTHORITY_MISMATCH:${taskId}`);
+    }
+  }
+}
+
+function mergeExactPullRequest(root: string, prNumber: number, expectedHead: string): void {
+  const repository = repositoryIdentity(root);
+  const result = spawnSync("gh", [
+    "api", "--method", "PUT", `repos/${repository}/pulls/${prNumber}/merge`,
+    "-f", `sha=${expectedHead}`, "-f", "merge_method=merge",
+  ], { cwd: root, encoding: "utf8", shell: false });
+  if (result.error || result.status !== 0) {
+    throw new Error(`Cannot merge PR #${prNumber} via api.github.com: ${result.error?.message || result.stderr || `exit ${result.status}`}`);
+  }
+  let response: unknown;
+  try { response = JSON.parse(result.stdout); } catch { response = undefined; }
+  const parsed = z.object({ merged: z.boolean(), message: z.string().optional() }).passthrough().safeParse(response);
+  if (!parsed.success || !parsed.data.merged) {
+    throw new Error(`Cannot merge PR #${prNumber} via api.github.com: ${parsed.success ? parsed.data.message ?? "merge rejected" : "invalid response"}`);
+  }
+}
+
+function repositoryIdentity(root: string): string {
+  const remote = git(["config", "--get", "remote.origin.url"], root);
+  const match = remote.replace(/\\/g, "/").match(/(?:github\.com[:/])([^/]+\/[^/]+?)(?:\.git)?$/i);
+  if (!match?.[1]) throw new Error("SUPERVISOR_REPOSITORY_IDENTITY_INVALID");
+  return match[1];
 }
 
 function readBootstrapLedger(root: string): { completed: string[]; ready: string[] } {

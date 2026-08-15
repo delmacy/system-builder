@@ -125,7 +125,7 @@ export class SequentialPipelineCoordinator {
         if (!authority?.implementation_pr || authority.implementation_pr.decision !== "ELIGIBLE") {
           return this.receipt(started, observation, id, gates, authority, null, "PR_NOT_ELIGIBLE", false);
         }
-        if (externalStops.has(authority.orchestrator_state as OrchestratorState)) {
+        if (externalStops.has(authority.orchestrator_state as OrchestratorState) && !this.eligibleMergeGate(authority)) {
           return this.receipt(started, observation, id, gates, authority, null, "EXTERNAL_GATE", false);
         }
         const delegated = this.adapter.advanceTask(id);
@@ -144,7 +144,7 @@ export class SequentialPipelineCoordinator {
       if (index > 0 && !gates[index - 1]?.reconciled) {
         return this.receipt(started, observation, id, gates, authority, null, "DEPENDENCY_BLOCKED", false);
       }
-      if (authority && externalStops.has(authority.orchestrator_state as OrchestratorState)) {
+      if (authority && externalStops.has(authority.orchestrator_state as OrchestratorState) && !this.eligibleMergeGate(authority)) {
         return this.receipt(started, observation, id, gates, authority, null, "EXTERNAL_GATE", false);
       }
       if (authority?.orchestrator_state === "VERIFY_FAILED" || authority?.validation === "FAIL") {
@@ -163,6 +163,13 @@ export class SequentialPipelineCoordinator {
   private closurePending(authority: SequentialObservation["authorities"][number] | undefined): boolean {
     return Boolean(authority && ["CLOSED", "STATE_PR_PENDING", "STATE_CI_PENDING", "STATE_REVIEW_REQUIRED", "STATE_MERGED"]
       .includes(authority.orchestrator_state));
+  }
+
+  private eligibleMergeGate(authority: SequentialObservation["authorities"][number] | undefined): boolean {
+    if (!authority) return false;
+    if (authority.orchestrator_state === "REVIEW_REQUIRED") return authority.implementation_pr?.decision === "ELIGIBLE";
+    if (authority.orchestrator_state === "STATE_REVIEW_REQUIRED") return authority.state_pr?.decision === "ELIGIBLE";
+    return false;
   }
 
   private validatePlan(): void {
