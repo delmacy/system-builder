@@ -19,8 +19,6 @@ context_paths:
   - project_docs/execution_governance/READINESS_AND_DONE.md
   - specs/tasks/TASK-043-AGENTFACTORY-FRESH-I2-AUTHORITY-RECONCILIATION-PROOF.md
   - .github/workflows/ci.yml
-  - tooling/agent-harness/src/i2-authority-proof.ts
-  - tooling/agent-harness/tests/i2-authority-proof.test.ts
 allowed_paths:
   - .github/workflows/ci.yml
   - specs/tasks/TASK-043-AGENTFACTORY-FRESH-I2-AUTHORITY-RECONCILIATION-PROOF.md
