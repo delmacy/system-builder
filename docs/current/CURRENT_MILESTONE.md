@@ -1,88 +1,50 @@
-# Current Execution Milestone — I2 Sequential Pipeline Readiness
+# Current Execution Milestone — M1 Vertical Contract Spine
 
 ## Goal
 
-Add the bounded event-driven/recoverable local Supervisor required by CHG-AF-2026-08-13-01, then reauthorize the deterministic one-at-a-time candidate. The product chain remains unstarted.
+Deliver the smallest integrated public contract spine for ProcessMirror -> BusinessRecipe -> SystemAnalysis and return product development to a predictable Sprint cadence.
 
-## Ignition baseline already complete
+## Execution mode
 
-- [x] System Builder scope/WBS and dependency planning baseline.
-- [x] AgentFactory ignitive project WBS and Work Packages.
-- [x] Execution governance, DoR/DoD, risk, quality, RACI and evidence policies.
-- [x] I1 Work Package DAG and exit gate.
-- [x] TASK-011 OpenCode argument-order correction merged with green CI.
-- [x] TASK-012/013/014 executable task contracts integrated.
+This milestone executes under `project_docs/schedule/SPRINT_MODE.md`.
 
-## I1 near-horizon queue
+Default delivery path:
 
-- [x] TASK-012: AgentFactory execution contracts.
-- [x] TASK-013: hardened OpenCode adapter.
-- [x] TASK-014: deterministic DAG/READY evaluator.
-- [x] TASK-015: deterministic bounded Task Pack builder.
-- [x] TASK-016: deterministic model router.
-- [x] Generate TASK-017 from accepted predecessor outputs and WP-I1-06.
-- [x] TASK-017: execution harness enforcement.
-- [x] Generate TASK-018 from the accepted TASK-017 output and WP-I1-07.
-- [x] TASK-018: independent validation gate.
-- [x] Generate TASK-019/TASK-020 from the accepted TASK-018 output and WP-I1-08/WP-I1-09.
-- [x] TASK-019: append-only evidence writer.
-- [x] TASK-020: hardened GitHub lifecycle adapter.
-- [x] Generate TASK-021 from the accepted TASK-019 evidence interface and WP-I1-10.
-- [x] TASK-021: ledger/state transition engine.
-- [x] Generate TASK-022 from the accepted TASK-021 ledger receipt and WP-I1-11.
-- [x] TASK-022: successor readiness recomputation.
-- [x] Generate TASK-023 from the accepted TASK-022 readiness receipt and WP-I1-12.
-- [x] TASK-023: end-to-end I1 proof.
-- [x] I1 Exit Gate assessed GO from integrated proof, task evidence and real PR/check/state-closure evidence.
-- [x] Complete task-pack builder, model routing, harness enforcement, independent validation, evidence, GitHub lifecycle, ledger/readiness recomputation and end-to-end I1 proof.
+`main -> sprint/M1-SPRINT-01 -> committed TASKs -> full verify -> Sprint Report -> Sprint Review -> one PR -> main`
 
-## I1 exit condition
+The Sprint branch is the shared integration branch for the committed TASKs. TASK boundaries are preserved through separate commits and declared validation gates.
 
-**Passed.** The TASK-023 representative low-risk proof traverses the actual I1 component chain to DONE and successor readiness; its controlled failure stops with task/DAG preservation. Evidence is indexed in `project_docs/agentfactory_i1/I1_EXIT_GATE.md`.
+## M1-SPRINT-01 committed work
 
-## After I1
+- [x] TASK-004 / WP-FH-02 — ProcessMirror public contract.
+- [ ] TASK-005 / WP-FH-03 — BusinessRecipe public contract.
+- [ ] TASK-006 / WP-FH-04 — SystemAnalysis public contract.
 
-Proceed incrementally to I2 — Sequential Pipeline — and I3 — Sprint Autonomous. I2/I3 are the intended point at which AgentFactory becomes useful enough to return the majority of development capacity to System Builder product work. I4–I7 remain maturity-gated and should not delay product work unless their capabilities are required.
+Execution order is dependency-driven:
 
-## Post-I1 readiness review
+`TASK-004 -> TASK-005 -> TASK-006`
 
-- [x] Audit found no known P0.
-- [x] TASK-024: persist durable success/failure attempt evidence with observed timing (P1/P2).
-- [x] TASK-025: bind ledger transitions to contemporaneous causal evidence (P1).
-- [x] TASK-026: bind state-closure PR identity to branch/base/head/check/review (P1).
-- [x] TASK-027: re-prove I1 with durable failure, causal ledger and hardened state lifecycle.
-- [x] Correct confirmed P1/P2 findings by rolling-wave.
-- [x] Re-run the I1 happy/failure proof and decide GO/NO-GO for I2 without executing the I2 chain.
-- [x] TASK-027 post-hardening proof integrated; I1 remains GO.
-- [x] Post-I1 review completed; I2 readiness decision is GO.
-- [x] Materialize TASK-028 for the bounded I2 sequential coordinator.
-- [x] Implement and close TASK-028 in the bootstrap task authority.
-- [x] Assess the I2 pre-run gate: NO-GO because hardened PR lifecycle reconciliation remains `REVIEW_MISSING`/`BLOCKED`.
-- [x] Resolve TASK-028 lifecycle reconciliation through exact signed implementation/state approvals; the orchestrator now returns `DONE`.
-- [x] Implement and close TASK-029 with a separate human-signed durable decision for implementation and state closure.
-- [x] Correct the TEAM_INDEPENDENT channel classification through TASK-030 and integrate its signed state closure.
-- [x] Implement and close TASK-031 so approval receipts are loaded fail-closed from an external read-only store without executor access to private keys.
-- [x] Reassess the I2 pre-run gate as GO from synchronized `main`, clean task state, signed lifecycle evidence and 157/157 passing tests.
-- [x] Accept ADR-0011 and refine the bounded WP-AF-16 slice into WP-I2-02/WP-I2-03 without entering I3.
-- [x] TASK-032: implement and close the durable Supervisor kernel (WP-I2-02).
-- [x] Materialize TASK-033 for WP-I2-03 from integrated TASK-032 outputs.
-- [x] TASK-033: implement and state-close the local runtime bridge and finite Windows commands.
-- [x] Integrate/state-close WP-I2-03 and reassess Supervisor readiness as GO without starting TASK-010.
-- [x] Record the owner-directed dynamic-model operational finding and materialize WP-I2-04 as TASK-034.
-- [x] TASK-034: implement dynamic OpenCode Zen model discovery, deterministic selector, cache and retry bridge.
-- [x] Integrate/state-close TASK-034 and reassess Supervisor readiness as GO without starting TASK-010.
-- [x] TASK-035: qualify dynamically resolved Zen IDs at the OpenCode CLI boundary.
-- [x] Integrate/state-close TASK-035, then wake the preserved TASK-010 pipeline without discarding its attempt evidence.
-- [x] Execute and bootstrap-close TASK-010 through exact implementation/state identities and durable approvals.
-- [x] Reassess the real candidate evidence: I2 Exit Gate is NO-GO because AFEV, causal AgentFactory ledger and readiness authority were not materialized.
-- [x] TASK-036: accept ADR-0012 for the real-run authority integration point (WP-I2-06).
-- [x] TASK-037: accept ADR-0013 for bounded package work authorization (WP-I2-07).
-- [x] TASK-038: implement and prove the bounded WP-I2-07 package authorization runtime.
-- [x] Sign/activate `PKG-AF-I2-I5-001` with 23 routine descriptors after TASK-038 state closure.
-- [ ] TASK-039: bootstrap non-consuming package task-spec delivery and implement the bounded WP-I2-06 authority closure as an exact evaluator exception.
-- [ ] Materialize PWD-AF-003/PWD-AF-004 by rolling-wave after TASK-039 integration.
-- [ ] Pass a fresh authority reconciliation proof before authorizing TASK-004 -> TASK-005 or reassessing the I2 Exit Gate GO.
+TASK-004 is already integrated in `main`, so the resumed Sprint executes TASK-005 then TASK-006 from the current synchronized base.
 
-## Product M1
+## Sprint Definition of Done
 
-M1 Vertical Contract Spine remains a valid ready product milestone. TASK-010 and TASK-004 are not cancelled; they are temporarily outside the current execution focus while AgentFactory ignition is built.
+- TASK-005 acceptance criteria pass.
+- TASK-006 acceptance criteria pass.
+- Each TASK has a distinct commit on the Sprint branch.
+- Declared per-TASK validations pass before advancing.
+- Final `npm run verify` passes on the integrated Sprint branch.
+- Required docs/contracts/spec status are updated.
+- Sprint Report records commits, validation, deviations, discoveries and residual work.
+- One PR from `sprint/M1-SPRINT-01` to `main` is ready for Sprint Review.
+
+## Review boundary
+
+Routine implementation does not require per-TASK human approval. Stop immediately for undeclared L3/L4 scope, architectural ambiguity, forbidden paths, destructive changes, security/governance weakening or conflicting repository authority.
+
+The Sprint does not authorize the next Sprint automatically.
+
+## AgentFactory infrastructure track
+
+The AgentFactory I1/I2 work remains preserved as infrastructure history and may be resumed later. The Supervisor/runtime/heartbeat/callback path is frozen and is not a prerequisite for this product milestone.
+
+No M1 capacity should be spent repairing AgentFactory runtime unless an explicit future infrastructure Sprint authorizes it.
