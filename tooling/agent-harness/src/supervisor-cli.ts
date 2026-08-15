@@ -2,6 +2,7 @@
 import { resolve } from "node:path";
 import { createSupervisorRuntime, type SupervisorRuntimeOptions } from "./supervisor-runtime.js";
 import { heartbeatStateNeedsResume, recoverRecordedStateWorkspace } from "./supervisor-recovery.js";
+import { recoverExistingStatePullRequests } from "./supervisor-state-pr-recovery.js";
 
 type RuntimeFactory = (options: SupervisorRuntimeOptions) => ReturnType<typeof createSupervisorRuntime>;
 
@@ -14,6 +15,7 @@ export function runSupervisorCommand(argv: string[], factory: RuntimeFactory = c
   const runtime = factory({ root, planPath });
 
   if (command !== "status") {
+    recoverExistingStatePullRequests(root, runtime.plan.pipeline.ordered_task_ids);
     recoverRecordedStateWorkspace(root, runtime.plan.pipeline.ordered_task_ids);
   }
 
@@ -36,6 +38,32 @@ export function runSupervisorCommand(argv: string[], factory: RuntimeFactory = c
       });
     case "heartbeat":
       {
+        const scopedPipelineId = flags.pipeline;
+        if (scopedPipelineId) {
+          const projection = runtime.supervisor.status(scopedPipelineId);
+          if (!projection) throw new Error("SUPERVISOR_PIPELINE_NOT_FOUND");
+          if (projection.terminal_status) return [runtime.supervisor.resume(scopedPipelineId)];
+
+          const pending = projection.pending_callback_event_ids[0];
+          if (pending) {
+            const event = runtime.store.readEvents(scopedPipelineId).find((record) => record.event.event_id === pending)?.event;
+            if (event) {
+              return [runtime.supervisor.callback({
+                schema_version: 1,
+                pipeline_id: scopedPipelineId,
+                event_id: event.event_id,
+                correlation_id: projection.correlation_id,
+                reason: event.event_type,
+              })];
+            }
+          }
+
+          if (heartbeatStateNeedsResume(projection.state)) {
+            recoverRecordedStateWorkspace(root, runtime.plan.pipeline.ordered_task_ids);
+          }
+          return [runtime.supervisor.resume(scopedPipelineId)];
+        }
+
         const outcomes = runtime.supervisor.heartbeat();
         return outcomes.map((outcome) => {
           if (outcome.action !== "NO_OP" || outcome.reason !== "HEALTHY" || !heartbeatStateNeedsResume(outcome.state)) return outcome;
