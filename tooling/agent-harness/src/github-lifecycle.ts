@@ -38,7 +38,7 @@ export const githubLifecycleReceiptSchema = z.object({
   required_checks: z.array(z.string().min(1)).min(1),
   checks: z.array(githubLifecycleCheckSchema),
   review: reviewSchema,
-  approval_channel: z.enum(["NONE", "GITHUB_REVIEW", "DURABLE_HUMAN_APPROVAL", "PACKAGE_AUTHORIZATION"]),
+  approval_channel: z.enum(["NONE", "GITHUB_REVIEW", "DURABLE_HUMAN_APPROVAL", "PACKAGE_AUTHORIZATION", "DEVELOPMENT_TRUSTED"]),
   human_approval: humanApprovalEvaluationSchema.nullable(),
   package_authorization: packageAuthorizationEvaluationSchema.nullable(),
   decision: z.enum(["PENDING", "BLOCKED", "REVIEW_REQUIRED", "ELIGIBLE"]),
@@ -87,15 +87,16 @@ export function evaluateGitHubLifecycle(input: GitHubLifecycleInput): GitHubLife
 
   if (input.validation === "FAIL") reasons.push("VALIDATION_FAILED");
   const durableApproved = input.humanApproval?.decision === "VALID";
+  const developmentTrusted = input.humanApproval?.decision === "DEVELOPMENT_TRUSTED";
   const packageApproved = input.packageAuthorization?.decision === "VALID";
-  const alternateApproved = durableApproved || packageApproved;
+  const alternateApproved = durableApproved || developmentTrusted || packageApproved;
   if (input.validation === "REVIEW_REQUIRED" && input.review !== "APPROVED" && !alternateApproved) reasons.push("VALIDATION_REVIEW_REQUIRED");
   if (input.review === "CHANGES_REQUESTED") reasons.push("CHANGES_REQUESTED");
   if (input.review === "UNKNOWN") reasons.push("REVIEW_UNKNOWN");
   if (input.humanApproval?.decision === "INVALID" && input.humanApproval.reason_codes.includes("POLICY_INVALID") && input.review !== "APPROVED") reasons.push("APPROVAL_POLICY_INVALID");
   else if (input.humanApproval?.decision === "INVALID" && input.review !== "APPROVED" && !packageApproved) reasons.push("HUMAN_APPROVAL_INVALID");
-  if (input.packageAuthorization?.decision === "INVALID" && input.review !== "APPROVED" && !durableApproved) reasons.push("PACKAGE_AUTHORIZATION_INVALID");
-  if (input.packageAuthorization?.decision === "EXCEPTION_REQUIRED" && input.review !== "APPROVED" && !durableApproved) reasons.push("PACKAGE_EXCEPTION_REQUIRED");
+  if (input.packageAuthorization?.decision === "INVALID" && input.review !== "APPROVED" && !durableApproved && !developmentTrusted) reasons.push("PACKAGE_AUTHORIZATION_INVALID");
+  if (input.packageAuthorization?.decision === "EXCEPTION_REQUIRED" && input.review !== "APPROVED" && !durableApproved && !developmentTrusted) reasons.push("PACKAGE_EXCEPTION_REQUIRED");
   if (input.reviewRequired && input.review !== "APPROVED" && input.review !== "UNKNOWN" && !alternateApproved) reasons.push("REVIEW_MISSING");
 
   const pending = reasons.includes("CHECK_PENDING");
@@ -113,7 +114,15 @@ export function evaluateGitHubLifecycle(input: GitHubLifecycleInput): GitHubLife
     required_checks: requiredChecks,
     checks,
     review: input.review,
-    approval_channel: input.review === "APPROVED" ? "GITHUB_REVIEW" : durableApproved ? "DURABLE_HUMAN_APPROVAL" : packageApproved ? "PACKAGE_AUTHORIZATION" : "NONE",
+    approval_channel: input.review === "APPROVED"
+      ? "GITHUB_REVIEW"
+      : durableApproved
+        ? "DURABLE_HUMAN_APPROVAL"
+        : developmentTrusted
+          ? "DEVELOPMENT_TRUSTED"
+          : packageApproved
+            ? "PACKAGE_AUTHORIZATION"
+            : "NONE",
     human_approval: input.humanApproval ?? null,
     package_authorization: input.packageAuthorization ?? null,
     decision,
