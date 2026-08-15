@@ -39,6 +39,20 @@ describe("Supervisor recovery", () => {
     assert.equal(run(root, "rev-parse", "HEAD"), run(root, "rev-parse", "main"));
   });
 
+  it("reanchors an uncommitted recorded state branch to a newer main before switching", () => {
+    const root = repository();
+    writeFileSync(join(root, "HOTFIX.md"), "corrected runtime\n");
+    run(root, "add", "HOTFIX.md");
+    run(root, "commit", "-m", "hotfix");
+    const mainHead = run(root, "rev-parse", "main");
+    assert.notEqual(run(root, "rev-parse", "state/task-004-close"), mainHead);
+
+    recoverRecordedStateWorkspace(root, ["TASK-004"]);
+
+    assert.equal(run(root, "branch", "--show-current"), "state/task-004-close");
+    assert.equal(run(root, "rev-parse", "HEAD"), mainHead);
+  });
+
   it("is idempotent when the recorded state branch is already active", () => {
     const root = repository();
     run(root, "switch", "state/task-004-close");
@@ -53,6 +67,19 @@ describe("Supervisor recovery", () => {
     assert.throws(
       () => recoverRecordedStateWorkspace(root, ["TASK-004"]),
       /SUPERVISOR_STATE_BRANCH_MISMATCH:TASK-004:work\/unrelated:state\/task-004-close/,
+    );
+  });
+
+  it("fails closed when an unrecorded commit exists only on the state branch", () => {
+    const root = repository();
+    run(root, "switch", "state/task-004-close");
+    writeFileSync(join(root, "UNRECORDED.md"), "must not be rewritten\n");
+    run(root, "add", "UNRECORDED.md");
+    run(root, "commit", "-m", "unrecorded state commit");
+    run(root, "switch", "main");
+    assert.throws(
+      () => recoverRecordedStateWorkspace(root, ["TASK-004"]),
+      /SUPERVISOR_STATE_RECOVERY_DIVERGED:TASK-004:state\/task-004-close/,
     );
   });
 
