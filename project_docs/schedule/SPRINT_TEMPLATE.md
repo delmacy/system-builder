@@ -1,66 +1,50 @@
 # Sprint Template
 
-Sprint identifiers/numbers are assigned only when instantiated.
+Sprint identifiers are assigned when a Sprint is instantiated.
 
 ## Sprint Goal
+One integrated, demonstrable and independently testable outcome.
 
-One integrated, demonstrable outcome.
+## Primary task
+Default: one primary product TASK per Sprint.
 
-## Sprint branch
+The TASK must reference Requirement, WBS/Work Package, predecessor gate, allowed/forbidden paths, expected evidence and validation.
 
-Default branch: `sprint/<SPRINT-ID>` created from a known synchronized `main` commit.
-
-All committed TASKs execute on this branch unless an explicitly approved exception requires isolation.
-
-## Candidate tasks
-
-Each TASK must reference Requirement, WBS, Work Package, predecessor gate and expected evidence.
+A bounded cross-module contract-enabler Sprint is allowed when an already-accepted TASK intentionally establishes several linked boundaries.
 
 ## Entry gate
-
-- parent WP READY;
+- parent WP/requirement ready enough for the declared slice;
 - blockers satisfied;
-- contract versions pinned;
+- relevant contract versions pinned;
 - acceptance/test strategy known;
-- environment and executor capacity available;
-- Sprint base commit known;
-- Sprint branch available/clean;
-- committed TASK order consistent with the DAG.
+- Sprint branch can be created from a known synchronized `main` base;
+- execution evidence can be objectively observed locally or through CI.
 
 ## Commitment
+Freeze the primary TASK and Sprint Goal at start except corrections required to achieve that Goal or explicitly approved emergency/change-control work.
 
-Freeze the committed set at Sprint start except corrections required to achieve the Sprint Goal or explicitly approved emergency/change-control work.
+## Execution branch
 
-## Per-TASK execution
+`sprint/<SPRINT-ID>`
 
-For each committed TASK in dependency order:
+Default flow:
 
-- read TASK contract/context;
-- implement bounded scope;
-- run declared validation;
-- autonomously correct bounded failures;
-- create a distinct TASK commit;
-- advance only when predecessor/acceptance gates are satisfied.
-
-No per-TASK PR is required by default.
+`main -> Sprint branch -> primary TASK -> task validation -> npm run verify -> Sprint Report -> PR -> Sprint Review -> main`
 
 ## Exit gate
-
 - Sprint Goal demonstrated;
-- committed acceptance criteria pass;
-- final repository-wide verification passes;
-- TASK commits are distinct and traceable;
-- evidence/documentation/contracts updated;
-- Sprint Report produced;
-- residual work returned explicitly to backlog rather than hidden in an open Sprint;
-- one Sprint PR from `sprint/<SPRINT-ID>` to `main` is ready for human review.
+- primary TASK acceptance criteria pass;
+- declared TASK validation passes or is objectively observed;
+- final repository validation passes;
+- evidence/report stored;
+- required documentation/contracts updated;
+- one Sprint PR is ready for review;
+- residual work returned explicitly to backlog rather than hidden.
 
-## Review and merge
-
-Human review normally occurs once, at the Sprint PR boundary. Merge to `main` only after the Sprint exit gate and review are satisfied.
+## Report
+Use `project_docs/schedule/SPRINT_REPORT_TEMPLATE.md`.
 
 ## Post-sprint
-
-Recalculate readiness of successors and update forecast. Do not automatically start a successor merely because it was previously predicted; it must pass its current readiness gate and receive explicit Sprint authorization.
+Recalculate readiness of successors and update forecast. Do not automatically start a successor merely because it was predicted; it must pass its current readiness gate and the previous Sprint must cross the review/integration boundary.
 
 See `SPRINT_MODE.md` for the full execution contract.
