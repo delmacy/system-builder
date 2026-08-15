@@ -11,5 +11,6 @@
       "key_id": "delmacy-owner-2026-01",
       "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA52n6piwE0I1yXTknUpe7aXrf0tdpleWQJ2MszwVZB+M=\n-----END PUBLIC KEY-----\n"
     }
-  ]
+  ],
+  "development_authority_scopes": []
 }
