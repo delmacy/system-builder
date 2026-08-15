@@ -40,7 +40,15 @@ validation:
 
 Allow the pre-V1 System Builder factory to execute and state-close routine low/medium-risk, non-architecture tasks without GitHub review, durable owner signatures or package authorization while preserving deterministic CI, validation, task scope, Git identity, evidence, ledger and readiness controls.
 
-## Required behavior
+## Context
+
+The current repository policy is `SOLO_DURABLE`, which makes every lifecycle closure depend on an external signed receipt even during early product/factory development. The owner has explicitly chosen to defer that ceremony until the System Builder approaches V1 while keeping the already-built durable and team approval mechanisms available for later reactivation.
+
+## Current behavior
+
+A PR with matching identity, green required checks and passing validation still becomes `REVIEW_REQUIRED` when GitHub review, durable approval and package authorization are absent. This currently prevents state closure for routine development work such as TASK-043-CI even after successful CI and merge.
+
+## Required change
 
 - Add an explicit `DEVELOPMENT_TRUSTED` policy mode; do not fake a human approval.
 - A low/medium-risk task with `architecture_impact: false` may use `approval_channel: DEVELOPMENT_TRUSTED` when identity, required checks and validation pass.
@@ -48,7 +56,15 @@ Allow the pre-V1 System Builder factory to execute and state-close routine low/m
 - Development trust must never override failed/missing CI, identity mismatch, requested changes, failed validation or unknown PR observations.
 - Keep `SOLO_DURABLE` and `TEAM_INDEPENDENT` behavior available for later activation.
 - Keep package authorization code intact but do not require it for eligible development-trusted work.
-- The committed policy should activate `DEVELOPMENT_TRUSTED` for the current pre-V1 phase.
+- Activate `DEVELOPMENT_TRUSTED` in the committed policy for the current pre-V1 phase.
+
+## Inputs / contracts
+
+Existing human approval policy/evaluation schemas, GitHub lifecycle receipt/evaluator, task risk and `architecture_impact` metadata, required CI checks and independent validation result.
+
+## Outputs / contracts
+
+A lifecycle receipt that can record `approval_channel: DEVELOPMENT_TRUSTED` with `human_approval.decision: DEVELOPMENT_TRUSTED` and no approval ID/signature, while preserving all other lifecycle identity/check/validation fields.
 
 ## Acceptance criteria
 
@@ -64,3 +80,11 @@ Allow the pre-V1 System Builder factory to execute and state-close routine low/m
 ## Non-goals
 
 Remove approval infrastructure, weaken scope/DAG/evidence controls, enable I3/parallelism, bypass destructive/release safeguards, or reinterpret historical receipts as human approvals.
+
+## Evidence expected
+
+A bounded six-file diff, focused tests for eligible/ineligible development trust, green deterministic CI, unchanged durable/team semantics and an exact lifecycle receipt showing the new authority channel without a synthetic `HAPR`.
+
+## Escalation
+
+Stop if the change requires weakening CI/validation, removing existing approval modes, changing product files, modifying public product contracts/ADRs, enabling high-risk or architecture-impact work without explicit authority, or broadening execution beyond the current pre-V1 development phase.
