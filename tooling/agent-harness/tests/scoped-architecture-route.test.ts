@@ -19,7 +19,15 @@ describe("scoped architecture execution route", () => {
   });
 
   it("rejects architecture automation without its exact scope authority", () => {
-    const { authority_ref: _authority, ...withoutAuthority } = valid;
+    const withoutAuthority = {
+      risk: valid.risk,
+      model_tier: valid.model_tier,
+      executor: valid.executor,
+      model: valid.model,
+      architecture_impact: valid.architecture_impact,
+      decision: valid.decision,
+      rationale_code: valid.rationale_code,
+    };
     assert.equal(executionRouteSchema.safeParse(withoutAuthority).success, false);
     assert.equal(executionRouteSchema.safeParse({ ...valid, authority_ref: "not-a-scope" }).success, false);
   });
