@@ -10,6 +10,7 @@ architecture_impact: false
 executor_preference: opencode
 depends_on:
   - TASK-042
+  - TASK-043-CI
 context_paths:
   - AGENTS.md
   - docs/current/PROJECT_STATE.md
