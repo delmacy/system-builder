@@ -1,0 +1,351 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://system-builder.local/contracts/process-mirror/1.0.0/process-mirror.schema.json",
+  "title": "System Builder ProcessMirror",
+  "description": "Observed operational reality captured by the Mirror stage (SB-01, ADR-0001). A ProcessMirror records what was observed and is never approval: approved operational rules belong to BusinessRecipe. Identity, version, provenance and extensions are carried by the public artifact envelope (ADR-0009).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mirror",
+    "observedAt",
+    "actors",
+    "activities",
+    "decisions",
+    "exceptions",
+    "evidence"
+  ],
+  "properties": {
+    "mirror": {
+      "const": "ProcessMirror",
+      "$comment": "Discriminator. Only the literal value ProcessMirror is accepted so an observation document can never be confused with approved BusinessRecipe knowledge."
+    },
+    "observedAt": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "confidence", "evidenceRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "role": { "type": "string" },
+          "description": { "type": "string" },
+          "confidence": {
+            "$comment": "Classification of the observation source: observed fact, reported account, documentation or inference.",
+            "enum": ["observed", "reported", "documented", "inferred", "unknown"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "activities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "performedBy", "confidence", "evidenceRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" },
+          "performedBy": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "inputs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "outputs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "decisions": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "exceptions": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "handoffs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["from", "to"],
+              "properties": {
+                "from": { "type": "string", "minLength": 1 },
+                "to": { "type": "string", "minLength": 1 },
+                "via": { "type": "string" }
+              }
+            }
+          },
+          "confidence": {
+            "enum": ["observed", "reported", "documented", "inferred", "unknown"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "confidence", "evidenceRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "kind": { "type": "string" },
+          "confidence": {
+            "enum": ["observed", "reported", "documented", "inferred", "unknown"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "confidence", "evidenceRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "kind": { "type": "string" },
+          "confidence": {
+            "enum": ["observed", "reported", "documented", "inferred", "unknown"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "outcome", "confidence", "evidenceRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" },
+          "madeBy": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "outcome": { "type": "string", "minLength": 1 },
+          "confidence": {
+            "enum": ["observed", "reported", "documented", "inferred", "unknown"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "exceptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "confidence", "evidenceRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" },
+          "handledBy": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "confidence": {
+            "enum": ["observed", "reported", "documented", "inferred", "unknown"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "responsibilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "actorId", "responsibility", "confidence", "evidenceRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "actorId": { "type": "string", "minLength": 1 },
+          "activityId": { "type": "string" },
+          "responsibility": { "type": "string", "minLength": 1 },
+          "confidence": {
+            "enum": ["observed", "reported", "documented", "inferred", "unknown"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "kind": { "type": "string" },
+          "description": { "type": "string" },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "informationFlows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "source", "target", "confidence", "evidenceRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "minLength": 1 },
+          "target": { "type": "string", "minLength": 1 },
+          "carried": { "type": "string" },
+          "confidence": {
+            "enum": ["observed", "reported", "documented", "inferred", "unknown"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "systems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "confidence", "evidenceRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "kind": { "type": "string" },
+          "role": { "type": "string" },
+          "confidence": {
+            "enum": ["observed", "reported", "documented", "inferred", "unknown"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "$comment": "Every relevant claim links back to at least one evidence record so the mirror can be audited to its sources.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "sourceType", "sourceRef", "capturedAt"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "sourceType": {
+            "enum": ["interview", "document", "spreadsheet", "api", "legacySystem", "log", "observation", "other"]
+          },
+          "sourceRef": { "type": "string", "minLength": 1 },
+          "capturedAt": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+          },
+          "author": { "type": "string" },
+          "location": { "type": "string" },
+          "digest": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["algorithm", "value"],
+            "properties": {
+              "algorithm": { "type": "string", "minLength": 1 },
+              "value": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "confidence", "evidenceRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "statement": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string" },
+          "confidence": {
+            "enum": ["observed", "reported", "documented", "inferred", "unknown"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "pendingPoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "statement": { "type": "string", "minLength": 1 },
+          "owner": { "type": "string" },
+          "raisedAt": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+          }
+        }
+      }
+    },
+    "extensions": {
+      "$comment": "Namespaced, JSON-compatible extension values following ADR-0009. Unknown optional extensions are ignored for behavior and preserved losslessly.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}
