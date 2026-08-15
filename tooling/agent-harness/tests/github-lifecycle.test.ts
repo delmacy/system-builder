@@ -28,12 +28,19 @@ describe("AgentFactory GitHub lifecycle", () => {
     assert.deepEqual(repeated, first);
   });
 
-  it("blocks a missing or failed required check with stable reasons", () => {
-    assert.deepEqual(evaluateGitHubLifecycle({ ...base, checks: [] }).reason_codes, ["CHECK_MISSING"]);
+  it("treats a missing required check on an open PR as pending while materialization races", () => {
+    const receipt = evaluateGitHubLifecycle({ ...base, checks: [] });
+    assert.equal(receipt.decision, "PENDING");
+    assert.deepEqual(receipt.reason_codes, ["CHECK_MISSING"]);
+  });
+
+  it("still blocks a failed required check and a missing check after the PR is no longer open", () => {
     assert.deepEqual(
       evaluateGitHubLifecycle({ ...base, checks: [{ name: "validate", status: "FAILURE" }] }).reason_codes,
       ["CHECK_FAILED"],
     );
+    assert.equal(evaluateGitHubLifecycle({ ...base, state: "MERGED", checks: [] }).decision, "BLOCKED");
+    assert.deepEqual(evaluateGitHubLifecycle({ ...base, state: "MERGED", checks: [] }).reason_codes, ["CHECK_MISSING"]);
   });
 
   it("keeps a pending required check pending", () => {
@@ -116,7 +123,7 @@ describe("AgentFactory GitHub lifecycle", () => {
     }
   });
 
-  it("keeps state-closure named checks and review fail closed", () => {
+  it("keeps state-closure missing checks pending while preserving the review gate", () => {
     const pr = {
       number: 21,
       url: "https://example.test/pull/21",
@@ -131,8 +138,9 @@ describe("AgentFactory GitHub lifecycle", () => {
     const observation = deriveStateGitHubLifecycleObservation(pr, {
       branch: "state/task-020-close", headCommit: commit, requiredChecks: ["validate"], reviewRequired: true,
     });
-    assert.equal(observation.lifecycle?.decision, "BLOCKED");
+    assert.equal(observation.lifecycle?.decision, "PENDING");
     assert.deepEqual(observation.lifecycle?.reason_codes, ["CHECK_MISSING", "REVIEW_MISSING"]);
+    assert.equal(observation.ci, "PENDING");
   });
 
   it("accepts valid durable approval in lieu of a missing GitHub review", () => {
@@ -142,10 +150,12 @@ describe("AgentFactory GitHub lifecycle", () => {
     assert.equal(receipt.approval_channel, "DURABLE_HUMAN_APPROVAL");
   });
 
-  it("never lets durable approval override required CI", () => {
-    const receipt = evaluateGitHubLifecycle({ ...base, review: "NONE", checks: [], humanApproval: { decision: "VALID", approval_id: `HAPR-${"b".repeat(64)}`, reason_codes: [] } });
-    assert.equal(receipt.decision, "BLOCKED");
-    assert.ok(receipt.reason_codes.includes("CHECK_MISSING"));
+  it("never lets durable approval override failed CI and keeps an absent open check pending", () => {
+    const pending = evaluateGitHubLifecycle({ ...base, review: "NONE", checks: [], humanApproval: { decision: "VALID", approval_id: `HAPR-${"b".repeat(64)}`, reason_codes: [] } });
+    assert.equal(pending.decision, "PENDING");
+    const failed = evaluateGitHubLifecycle({ ...base, review: "NONE", checks: [{ name: "validate", status: "FAILURE" }], humanApproval: { decision: "VALID", approval_id: `HAPR-${"b".repeat(64)}`, reason_codes: [] } });
+    assert.equal(failed.decision, "BLOCKED");
+    assert.ok(failed.reason_codes.includes("CHECK_FAILED"));
   });
 
   it("accepts valid package authority as a distinct routine channel", () => {
@@ -159,12 +169,12 @@ describe("AgentFactory GitHub lifecycle", () => {
     assert.equal(receipt.package_authorization?.package_id, "PKG-I2-001");
   });
 
-  it("never lets package authority override CI or requested changes", () => {
+  it("never lets package authority override failed CI or requested changes", () => {
     const packageAuthorization = {
       decision: "VALID" as const, approval_id: `PAPR-${"c".repeat(64)}`, package_id: "PKG-I2-001",
       plan_hash: "d".repeat(64), descriptor_id: "PWD-001", reason_codes: [] as [], use_receipt: null,
     };
-    assert.equal(evaluateGitHubLifecycle({ ...base, review: "NONE", checks: [], packageAuthorization }).decision, "BLOCKED");
+    assert.equal(evaluateGitHubLifecycle({ ...base, review: "NONE", checks: [{ name: "validate", status: "FAILURE" }], packageAuthorization }).decision, "BLOCKED");
     assert.equal(evaluateGitHubLifecycle({ ...base, review: "CHANGES_REQUESTED", packageAuthorization }).decision, "BLOCKED");
   });
 
