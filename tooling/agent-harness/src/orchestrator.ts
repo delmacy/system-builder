@@ -126,6 +126,10 @@ export class LocalTaskOrchestrator {
   inspect(taskId: string): { state: OrchestratorState; snapshot: OrchestratorSnapshot } {
     const snapshot = this.harness.inspect(taskId);
     let state = deriveOrchestratorState(snapshot, this.maxExecutionAttempts);
+    if (state === "ARCHITECTURE_REVIEW_REQUIRED"
+      && this.executors.some((executor) => executor.canHandle(snapshot.task))) {
+      state = "PREPARED";
+    }
     if (["PREPARED", "EXECUTOR_FAILED", "VERIFY_FAILED"].includes(state)
       && !this.executors.some((executor) => executor.canHandle(snapshot.task))) {
       state = "EXECUTOR_REQUIRED";
