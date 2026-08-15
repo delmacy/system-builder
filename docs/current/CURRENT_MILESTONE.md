@@ -1,50 +1,50 @@
-# Current Execution Milestone — M1 Vertical Contract Spine
+# Current Execution Milestone — Product Sprint Mode
 
 ## Goal
 
-Deliver the smallest integrated public contract spine for ProcessMirror -> BusinessRecipe -> SystemAnalysis and return product development to a predictable Sprint cadence.
+Return development capacity to the System Builder product and build the first synthetic, deterministic vertical slice through Deploy using small independently testable Sprints.
 
-## Execution mode
+## Execution model
 
-This milestone executes under `project_docs/schedule/SPRINT_MODE.md`.
+The active model is `project_docs/schedule/SPRINT_MODE.md`.
 
-Default delivery path:
+The first committed horizon is `project_docs/execution_planning/PRODUCT_10_SPRINT_PLAN.md`.
 
-`main -> sprint/M1-SPRINT-01 -> committed TASKs -> full verify -> Sprint Report -> Sprint Review -> one PR -> main`
+Default execution shape:
 
-The Sprint branch is the shared integration branch for the committed TASKs. TASK boundaries are preserved through separate commits and declared validation gates.
+`main -> sprint/<SPRINT-ID> -> one primary TASK -> tests -> npm run verify -> Sprint Report -> one PR -> Sprint Review -> main`
 
-## M1-SPRINT-01 committed work
+## Baseline
 
-- [x] TASK-004 / WP-FH-02 — ProcessMirror public contract.
-- [ ] TASK-005 / WP-FH-03 — BusinessRecipe public contract.
-- [ ] TASK-006 / WP-FH-04 — SystemAnalysis public contract.
+- Product/architecture blueprint: established.
+- ProcessMirror first contract slice: TASK-004 completed.
+- BusinessRecipe: TASK-005 ready.
+- SystemAnalysis: TASK-006 ready after TASK-005.
+- SystemDefinition: TASK-007 ready after TASK-006.
+- Downstream contract spine: TASK-008 ready after TASK-007.
+- AgentFactory runtime history remains preserved but its Supervisor/heartbeat/callback path is frozen and non-blocking.
 
-Execution order is dependency-driven:
+## First ten Sprint horizon
 
-`TASK-004 -> TASK-005 -> TASK-006`
+1. `P1-SPRINT-01` — SB-02 Recipe — TASK-005.
+2. `P1-SPRINT-02` — SB-03 Analysis — TASK-006.
+3. `P1-SPRINT-03` — SB-04 Design — TASK-007.
+4. `P1-SPRINT-04` — downstream Assembly→Deploy contract spine — TASK-008.
+5. `P1-SPRINT-05` — SB-05 Catalog — minimal registry/lookup task to materialize.
+6. `P1-SPRINT-06` — SB-06 Assembly — minimal deterministic resolver task to materialize.
+7. `P1-SPRINT-07` — SB-07 Validation — traceability/quality gate task to materialize.
+8. `P1-SPRINT-08` — SB-08 Compiler — synthetic deterministic artifact task to materialize.
+9. `P1-SPRINT-09` — SB-09 Release — immutable release lifecycle task to materialize.
+10. `P1-SPRINT-10` — SB-10 Deploy — local/dry-run deployment proof task to materialize.
 
-TASK-004 is already integrated in `main`, so the resumed Sprint executes TASK-005 then TASK-006 from the current synchronized base.
+## Exit target
 
-## Sprint Definition of Done
+Demonstrate and test:
 
-- TASK-005 acceptance criteria pass.
-- TASK-006 acceptance criteria pass.
-- Each TASK has a distinct commit on the Sprint branch.
-- Declared per-TASK validations pass before advancing.
-- Final `npm run verify` passes on the integrated Sprint branch.
-- Required docs/contracts/spec status are updated.
-- Sprint Report records commits, validation, deviations, discoveries and residual work.
-- One PR from `sprint/M1-SPRINT-01` to `main` is ready for Sprint Review.
+`ProcessMirror -> BusinessRecipe -> SystemAnalysis -> SystemDefinition -> Catalog resolution -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
 
-## Review boundary
+## Review cadence
 
-Routine implementation does not require per-TASK human approval. Stop immediately for undeclared L3/L4 scope, architectural ambiguity, forbidden paths, destructive changes, security/governance weakening or conflicting repository authority.
+Normal human review occurs once at the end of each Sprint. A Sprint stops early only for an escalation condition defined by Sprint Mode or its TASK contract.
 
-The Sprint does not authorize the next Sprint automatically.
-
-## AgentFactory infrastructure track
-
-The AgentFactory I1/I2 work remains preserved as infrastructure history and may be resumed later. The Supervisor/runtime/heartbeat/callback path is frozen and is not a prerequisite for this product milestone.
-
-No M1 capacity should be spent repairing AgentFactory runtime unless an explicit future infrastructure Sprint authorizes it.
+Observe and Support follow after this first deployable synthetic proof instead of delaying it.
