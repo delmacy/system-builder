@@ -1,52 +1,46 @@
 # Sprint Report — <SPRINT-ID>
 
-## Sprint Goal
+## Goal
 
-<integrated outcome>
+<one sentence>
 
-## Base and branch
+## Primary task
 
-- base commit: `<sha>`
+- TASK: `<TASK-ID>`
+- Module: `<SB-XX / name>`
+- Final status: `READY_FOR_REVIEW | BLOCKED | FAILED`
 - Sprint branch: `sprint/<SPRINT-ID>`
-- final head: `<sha>`
+- Base commit: `<sha>`
+- Task commit: `<sha>`
 
-## TASK results
+## Delivered
 
-| TASK | Result | Commit | Validation |
-| --- | --- | --- | --- |
-| TASK-XXX | DONE/BLOCKED | `<sha>` | PASS/FAIL |
+- <bounded outcome 1>
+- <bounded outcome 2>
 
-## Final verification
+## Tests and validation
 
-- command: `npm run verify`
-- result: PASS/FAIL
-- timestamp/evidence: <reference>
+- TASK-declared validation: `<command>` — `PASS | FAIL | NOT_OBSERVED`
+- Repository final validation: `npm run verify` — `PASS | FAIL | NOT_OBSERVED`
+- CI: `<workflow/check>` — `PASS | FAIL | NOT_RUN`
+- Test cases added/changed: <short summary>
 
-## Contract / architecture changes
+Do not report local validation as PASS unless it was actually observed. CI results may serve as objective execution evidence when they exercise the required commands.
 
-- ADRs created/updated: none or list
-- public contracts changed: none or list
-- deviations from Sprint plan: none or list
+## Deviations
+
+- Architecture/contract deviation: `none | <description>`
+- Scope deviation: `none | <description>`
+- Synchronization from main during Sprint: `none | <commit>`
 
 ## Discoveries / backlog
 
-- <finding>
+- <finding or `none`>
 
-## Residual work
+## Review decision requested
 
-- <explicit residual item or none>
+`MERGE | CHANGES_REQUIRED | BLOCKED_DECISION`
 
-## Integration readiness
+### Reviewer note
 
-- Sprint Goal satisfied: YES/NO
-- all committed TASKs satisfied: YES/NO
-- final verification passing: YES/NO
-- ready for Sprint Review: YES/NO
-
-## Review outcome
-
-Complete during Sprint Review:
-
-- decision: APPROVE / CHANGES_REQUIRED / BLOCKED
-- reviewer notes: <notes>
-- merge PR: <number/url or pending>
+<very short explanation of what matters for the Sprint review>
