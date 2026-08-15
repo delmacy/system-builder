@@ -99,9 +99,14 @@ export function evaluateGitHubLifecycle(input: GitHubLifecycleInput): GitHubLife
   if (input.packageAuthorization?.decision === "EXCEPTION_REQUIRED" && input.review !== "APPROVED" && !durableApproved && !developmentTrusted) reasons.push("PACKAGE_EXCEPTION_REQUIRED");
   if (input.reviewRequired && input.review !== "APPROVED" && input.review !== "UNKNOWN" && !alternateApproved) reasons.push("REVIEW_MISSING");
 
-  const pending = reasons.includes("CHECK_PENDING");
+  const openMissingCheck = input.state === "OPEN" && reasons.includes("CHECK_MISSING");
+  const pending = reasons.includes("CHECK_PENDING") || openMissingCheck;
   const reviewRequired = reasons.some((reason) => ["VALIDATION_REVIEW_REQUIRED", "REVIEW_MISSING", "PACKAGE_EXCEPTION_REQUIRED"].includes(reason));
-  const blocking = reasons.some((reason) => !["CHECK_PENDING", "VALIDATION_REVIEW_REQUIRED", "REVIEW_MISSING", "PACKAGE_EXCEPTION_REQUIRED"].includes(reason));
+  const blocking = reasons.some((reason) => {
+    if (["CHECK_PENDING", "VALIDATION_REVIEW_REQUIRED", "REVIEW_MISSING", "PACKAGE_EXCEPTION_REQUIRED"].includes(reason)) return false;
+    if (reason === "CHECK_MISSING" && input.state === "OPEN") return false;
+    return true;
+  });
   const decision = blocking ? "BLOCKED" : pending ? "PENDING" : reviewRequired ? "REVIEW_REQUIRED" : "ELIGIBLE";
 
   return githubLifecycleReceiptSchema.parse({
