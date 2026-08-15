@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { resolve } from "node:path";
 import { createSupervisorRuntime, type SupervisorRuntimeOptions } from "./supervisor-runtime.js";
+import { heartbeatStateNeedsResume, recoverRecordedStateWorkspace } from "./supervisor-recovery.js";
 
 type RuntimeFactory = (options: SupervisorRuntimeOptions) => ReturnType<typeof createSupervisorRuntime>;
 
@@ -11,6 +12,10 @@ export function runSupervisorCommand(argv: string[], factory: RuntimeFactory = c
   const root = resolve(flags.root ?? process.cwd());
   const planPath = required(flags, "plan");
   const runtime = factory({ root, planPath });
+
+  if (command !== "status") {
+    recoverRecordedStateWorkspace(root, runtime.plan.pipeline.ordered_task_ids);
+  }
 
   switch (command) {
     case "start":
@@ -30,7 +35,14 @@ export function runSupervisorCommand(argv: string[], factory: RuntimeFactory = c
         reason: required(flags, "reason"),
       });
     case "heartbeat":
-      return runtime.supervisor.heartbeat();
+      {
+        const outcomes = runtime.supervisor.heartbeat();
+        return outcomes.map((outcome) => {
+          if (outcome.action !== "NO_OP" || outcome.reason !== "HEALTHY" || !heartbeatStateNeedsResume(outcome.state)) return outcome;
+          recoverRecordedStateWorkspace(root, runtime.plan.pipeline.ordered_task_ids);
+          return runtime.supervisor.resume(outcome.pipelineId);
+        });
+      }
     case "resume":
       return runtime.supervisor.resume(required(flags, "pipeline"));
     default:
