@@ -375,7 +375,7 @@ function repositoryIdentity(root: string): string {
 }
 
 function readBootstrapLedger(root: string): { completed: string[]; ready: string[] } {
-  const parsed = z.object({ completed: z.array(taskIdSchema), ready: z.array(taskIdSchema) }).pashrough()
+  const parsed = z.object({ completed: z.array(taskIdSchema), ready: z.array(taskIdSchema) }).passthrough()
     .parse(JSON.parse(readFileSync(resolve(root, "docs/current/TASK_LEDGER.json"), "utf8")));
   return { completed: parsed.completed, ready: parsed.ready };
 }
