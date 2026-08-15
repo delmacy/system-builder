@@ -1,7 +1,7 @@
 ---
 id: TASK-043
 title: Prove fresh real I2 authority reconciliation
-status: ready
+status: completed
 priority: 1
 milestone: I2
 model_tier: free
