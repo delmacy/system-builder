@@ -1,0 +1,17 @@
+{
+  "analysis": "SystemAnalysis",
+  "analyzedAt": "2026-08-15T21:10:00Z",
+  "recipeRef": {
+    "artifactId": "recipe:sample-order-intake",
+    "version": "1.0.0"
+  },
+  "findings": [
+    {
+      "id": "finding:invalid-concrete-selection",
+      "kind": "match",
+      "statement": "Invalid fixture because it embeds a concrete selected package inside analysis.",
+      "recipeRequirementRefs": ["REQ-ORDER-001"],
+      "selectedPackage": "vendor/runtime-package@1.0.0"
+    }
+  ]
+}

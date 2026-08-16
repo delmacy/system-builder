@@ -1,0 +1,51 @@
+{
+  "recipe": "BusinessRecipe",
+  "approvedAt": "2026-08-15T21:00:00Z",
+  "sourceMirror": {
+    "artifactId": "mirror:sample-order-intake",
+    "version": "1.0.0"
+  },
+  "modules": [
+    {
+      "id": "recipe-module:order-intake",
+      "name": "Order intake",
+      "description": "Approved business handling for incoming service requests.",
+      "requirementIds": ["REQ-ORDER-001"],
+      "evidenceRefs": ["evidence:mirror:activity:receive-request"]
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule:required-identification",
+      "statement": "Every request must contain enough information to identify the requester and requested service.",
+      "requirementIds": ["REQ-ORDER-001"],
+      "evidenceRefs": ["evidence:mirror:decision:identify-request"]
+    }
+  ],
+  "responsibilities": [
+    {
+      "id": "responsibility:service-desk",
+      "actor": "service-desk",
+      "responsibility": "Validate that the request contains the approved minimum information.",
+      "requirementIds": ["REQ-ORDER-001"],
+      "evidenceRefs": ["evidence:mirror:actor:service-desk"]
+    }
+  ],
+  "exceptions": [
+    {
+      "id": "exception:missing-data",
+      "condition": "Required request information is missing.",
+      "expectedHandling": "Return the request for completion before approval.",
+      "requirementIds": ["REQ-ORDER-001"],
+      "evidenceRefs": ["evidence:mirror:exception:missing-data"]
+    }
+  ],
+  "approvals": [
+    {
+      "id": "approval:recipe:1",
+      "approvedBy": "process-owner",
+      "approvedAt": "2026-08-15T21:00:00Z",
+      "scope": "recipe-module:order-intake"
+    }
+  ]
+}

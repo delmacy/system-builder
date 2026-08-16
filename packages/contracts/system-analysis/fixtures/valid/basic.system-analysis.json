@@ -1,0 +1,35 @@
+{
+  "analysis": "SystemAnalysis",
+  "analyzedAt": "2026-08-15T21:10:00Z",
+  "recipeRef": {
+    "artifactId": "recipe:sample-order-intake",
+    "version": "1.0.0"
+  },
+  "findings": [
+    {
+      "id": "finding:request-identification",
+      "kind": "match",
+      "statement": "A generic request-intake capability can satisfy the approved identification requirement.",
+      "recipeRequirementRefs": ["REQ-ORDER-001"],
+      "candidateCapabilityRefs": ["capability:request-intake"],
+      "severity": "info",
+      "evidenceRefs": ["recipe-rule:required-identification"]
+    },
+    {
+      "id": "finding:legacy-bridge",
+      "kind": "integration",
+      "statement": "The first implementation must preserve compatibility with the existing request source.",
+      "recipeRequirementRefs": ["REQ-ORDER-001"],
+      "constraints": ["Do not require a replacement of the source system."],
+      "severity": "medium"
+    }
+  ],
+  "summary": {
+    "matched": 1,
+    "gaps": 0,
+    "adaptations": 0,
+    "integrations": 1,
+    "security": 0,
+    "sizing": 0
+  }
+}
