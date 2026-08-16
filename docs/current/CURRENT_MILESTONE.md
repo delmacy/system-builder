@@ -2,47 +2,49 @@
 
 ## Goal
 
-Extend verified artifact delivery into a persistent externally configured Runtime capable of one bounded stateful operation, while preserving portability and accepted architecture boundaries.
+Extend the autonomous local-runtime proof through verified artifact delivery, persistent Runtime service, external secret resolution and one bounded stateful operation while preserving portability and accepted architecture boundaries.
 
 ## Integrated baseline
 
-P2-PACKAGE-01 and review are merged through PR #161. P3-PACKAGE-01 is merged through PR #162. P3-ARTIFACT-01 is merged through PR #163.
+P3-ARTIFACT-01 is merged through PR #163 and P3-RUNTIME-SERVICE-01 through PR #164.
 
 Integrated `main` proof:
 
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> verified ArtifactPayload -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile -> local Deploy -> persistent Runtime -> HTTP RuntimeHealth -> DeploymentRecord`
 
 ## Sprint under review preparation
 
-### P3-RUNTIME-SERVICE-01 — Persistent Autonomous Runtime
+### P3-SECRET-STATE-01 — External Secret Resolution and First Stateful Runtime Slice
 
 Status: TASK_CI_PASS / FINAL_CI_PENDING
-Base: `7cdb6dd3ae9ac75317d5ebfa3c878cba632a4425`
-Branch: `sprint/P3-RUNTIME-SERVICE-01`
-PR: #164
+Base: `a59d5333b6cfcb1c186845b808f75f2198be25c1`
+Branch: `sprint/P3-SECRET-STATE-01`
+PR: #165
 
 Committed results:
 
-1. TASK-067 — persistent-capable Runtime lifecycle and HTTP health;
-2. TASK-068 — actual Compiler emits persistent-capable generated Runtime;
-3. TASK-069 — Deploy requests service mode, probes health while alive and performs clean shutdown.
+1. TASK-070 — provider-neutral external SecretResolver;
+2. TASK-071 — runtime-only secret injection and bounded counter action;
+3. TASK-072 — full autonomous E2E and non-leakage/unresolved-secret proof.
 
 Sprint-branch proof:
 
-`verified ArtifactPayload -> EnvironmentProfile -> local Deploy -> persistent generated Runtime -> RuntimeStarted -> HTTP RuntimeHealth -> SIGTERM -> DeploymentRecord`
+`verified ArtifactPayload -> EnvironmentProfile secret refs -> external SecretResolver -> local Deploy -> persistent Runtime -> HTTP RuntimeHealth -> counter.increment (1 -> 2) -> clean shutdown -> DeploymentRecord`
+
+Resolved values are ephemeral process-only data. Unresolved symbolic secrets fail before activation. Health-only predecessor behavior remains valid without a resolver.
 
 ## Architecture constraints
 
-- ADR-0002 Builder/Runtime separation remains mandatory and unchanged;
-- ADR-0007 Release/Environment/Deployment separation remains mandatory and unchanged;
-- immutable evidence contains no resolved secret values;
-- Runtime ordinary startup/health requires neither Builder nor Observe;
-- provider/platform-specific production supervision remains deferred;
-- L4 discoveries still require ADR.
+- ADR-0002 Builder/Runtime separation remains mandatory;
+- ADR-0007 Release/Environment/Deployment separation remains mandatory;
+- immutable release/artifact/deployment evidence must not contain resolved secret values;
+- Runtime ordinary operation must not require Builder or Observe;
+- provider-specific infrastructure must remain behind replaceable boundaries;
+- L4 discoveries require ADR rather than silent architecture change.
 
 ## Successor gate
 
-After closure-head CI PASS and PR #164 merge, re-read repository authority and revalidate/materialize only `P3-SECRET-STATE-01`. Do not execute TASK-070 or later before the predecessor merge exists in `main`.
+After closure-head CI PASS, stop at Sprint Review for PR #165. Do not start the P3 package Integration & Technical Debt Review until PR #165 is reviewed/merged and a new explicit instruction is received.
 
 ## AgentFactory infrastructure track
 
