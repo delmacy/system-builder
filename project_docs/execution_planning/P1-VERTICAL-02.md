@@ -1,16 +1,25 @@
 # P1-VERTICAL-02 — Validation and Compiler
 
-Status: FORECAST — do not commit before P1-VERTICAL-01 merge gate
+Status: IMPLEMENTED_ON_SPRINT_BRANCH — closure CI/review pending
 
 ## Sprint Goal
 
 Turn a deterministic AssemblyPlan into reproducible validation evidence and a synthetic ReleaseArtifact without introducing free-form AI into deterministic factory steps.
 
-## Planned branch
+## Base and branch
 
-`sprint/P1-VERTICAL-02`
+- base: `c7359fbd3f89e70f8418a47abf59c2a1fd88574b`
+- branch: `sprint/P1-VERTICAL-02`
 
-## Candidate TASK order
+## Predecessor gate
+
+P1-VERTICAL-01 is merged into `main`. The integrated predecessor chain is:
+
+`SystemDefinition -> Software Catalog -> deterministic resolution -> AssemblyPlan`
+
+TASK-048 emits the existing AssemblyPlan contract shape with deterministic component ordering, source references and content hash. The current ValidationEvidence and ReleaseArtifact contracts are sufficient for the bounded Sprint scope; no public-contract change is required.
+
+## Committed TASK order
 
 1. TASK-049 — traceability ValidationEvidence engine.
 2. TASK-050 — deterministic synthetic Compiler.
@@ -26,8 +35,24 @@ Extend the vertical chain to:
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact`
 
-Required failure proofs include broken traceability, failed declared tests, invalid AssemblyPlan input and non-reproducible artifact identity detection where applicable.
+Required failure proofs include broken traceability, failed declared checks, invalid/failing validation input and controlled capability/traceability failure before artifact emission.
 
-## Commitment gate
+## Final validation
 
-Re-read repository authority after P1-VERTICAL-01 merges. Revalidate TASK scope, predecessor output and contracts before converting this forecast into a committed Sprint.
+`npm run verify`
+
+GitHub Actions is the objective connected execution evidence. Do not claim local execution.
+
+## Stop / escalation
+
+Stop for human review before implementation completion if:
+
+- ValidationEvidence or ReleaseArtifact cannot express the bounded output without changing a public contract;
+- a new L3/L4 contract/architecture decision is required;
+- a required edit falls outside a TASK's allowed paths or into forbidden paths;
+- scope must expand beyond TASK-049..051;
+- deterministic behavior would require secret values in immutable artifacts.
+
+## Sprint review boundary
+
+TASK-049..051 are implemented. Final closure-head CI and PR #154 are the review gate. Do not start P1-VERTICAL-03.
