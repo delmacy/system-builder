@@ -1,32 +1,28 @@
-# Next Work — Review P5-PACKAGE-01
+# Next Work — Review P5-CATALOG-CONSTRAINTS-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-Review the proposed rolling-wave `P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling` on `plan/P5-PACKAGE-01`.
+Review Sprint PR #174 from `sprint/P5-CATALOG-CONSTRAINTS-01` after closure-head Deterministic CI passes.
 
-## Direction selected
+TASK evidence:
+1. TASK-082 — commit `210af0a4d8241d264a4291a0111d66b68ca0d438`, CI #253 PASS;
+2. TASK-083 — commit `1ea98f091f28110080b971f00ea3a1b6de136402`, CI #254 PASS;
+3. TASK-084 — commit `3e73f5e1a8306553e1074ef2f33eb1925b6d40b9`, CI #255 PASS.
 
-Factory composition hardening is selected ahead of durable provider infrastructure.
-
-Forecast sequence:
-1. `P5-CATALOG-CONSTRAINTS-01`;
-2. `P5-ASSEMBLY-GRAPH-01`;
-3. `P5-MATERIALIZER-REGISTRY-01`;
-4. Integration & Technical Debt Review.
-
-Candidate TASKs TASK-082..090 are forecast only; no TASK specifications are materialized.
+Sprint Report:
+`project_docs/execution_planning/P5-CATALOG-CONSTRAINTS-01.report.md`
 
 ## Review checklist
 
-1. require Deterministic CI `npm run verify` PASS on the package-plan head;
-2. confirm the plan maps to WBS 5.2.2/5.2.3, 6.1.2, 6.2.1-6.2.3, 6.3 and 8.1.2;
-3. confirm ADR-0002/ADR-0007 and canonical public contracts are not changed;
-4. confirm durable Catalog/Release/Artifact providers remain explicitly deferred, not forgotten;
-5. confirm P4 PostgreSQL/autonomous-runtime proof remains a required predecessor regression;
-6. merge the package plan only if the forecast is accepted.
+- require final closure-head `npm run verify` PASS through Deterministic CI;
+- confirm structured dependency requirements and exact/minimum constraints remain Catalog-side bounded L3 behavior;
+- confirm legacy exact resolution and real Catalog->Assembly predecessor compatibility remain green;
+- confirm P4 PostgreSQL autonomous-runtime regressions remain green;
+- confirm no Assembly graph solving, Compiler materializer registry, durable provider or canonical/L4 change entered the Sprint;
+- merge only after human Sprint Review accepts the PR.
 
-## After package-plan merge
+## Successor boundary
 
-Do not automatically start P5 construction. Await a new explicit instruction, re-read `AGENTS.md` and current repository authority, then revalidate/materialize only `P5-CATALOG-CONSTRAINTS-01` if it remains the correct first committed Sprint.
+Do not automatically materialize or execute `P5-ASSEMBLY-GRAPH-01` after this Sprint. After PR #174 merges, require a new explicit instruction and reconstruct `main` from `AGENTS.md` before deciding whether that forecast Sprint should be promoted.

@@ -1,44 +1,41 @@
-# Current Execution Milestone — M6 P5 Factory Composition Package Planning
+# Current Execution Milestone — M6 P5 Catalog Constraints Sprint Review
 
 ## Goal
 
-Create the next rolling-wave Sprint Package from the merged P4 Integration & Technical Debt Review, prioritizing deterministic Factory composition hardening before durable provider infrastructure or broader Runtime capability expansion.
+Close `P5-CATALOG-CONSTRAINTS-01` after proving deterministic structured dependency requirements and bounded version constraints in Catalog while preserving predecessor Assembly and P4 runtime behavior.
 
 ## Integrated baseline
 
-P4 construction and package review are merged through PR #172 at `be4f38d8573a4767112ea1b8a5d7feab8afea528`.
+P5 package planning is merged through PR #173 at `e1a1cfa00ae64180746c07a8b2e304f4d2990db9`.
 
-Integrated proof:
+## Active Sprint
 
-`SystemDefinition state.counter -> Catalog -> AssemblyPlan -> ValidationEvidence -> Compiler-derived migration/runtime assets -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> SecretResolver -> PostgreSQL migration apply -> autonomous Runtime -> state 1 -> 2 -> clean redeploy -> migration skip -> state 3 -> 4`
+`P5-CATALOG-CONSTRAINTS-01 — Structured Dependency and Version Constraints`
 
-## Proposed package
+Branch: `sprint/P5-CATALOG-CONSTRAINTS-01`
 
-`P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling`
+PR: #174
 
-Forecast sequence:
+TASK results:
+1. TASK-082 — CI #253 PASS;
+2. TASK-083 — CI #254 PASS;
+3. TASK-084 — CI #255 PASS.
 
-1. `P5-CATALOG-CONSTRAINTS-01` — structured dependency/version constraints;
-2. `P5-ASSEMBLY-GRAPH-01` — transitive graph resolution, conflicts and cycles;
-3. `P5-MATERIALIZER-REGISTRY-01` — deterministic provider/materializer registration in Compiler;
-4. Integration & Technical Debt Review.
+Achieved branch proof:
 
-Candidate TASKs TASK-082..090 are forecast only and are not materialized by this planning step.
-
-## Direction decision
-
-Factory composition hardening is selected before durable Catalog/Release/Artifact providers because the current dependency graph and materializer semantics are upstream domain rules. Persisting or scaling them before resolving transitive dependencies/conflicts would harden an incomplete model.
-
-Durable providers remain HIGH priority and must be reconsidered at the P5 package review.
+`Catalog records -> structured dependency requirements -> deterministic constrained candidates / explicit unsatisfied diagnostic`
 
 ## Architecture constraints
 
+- bounded L3 Catalog API work only;
+- no canonical `packages/contracts/**` change;
+- Assembly implementation remains unchanged;
+- no transitive graph solving or materializer registry;
 - ADR-0002 and ADR-0007 remain controlling;
-- no canonical contract or L4 architecture change is authorized by package planning;
-- Catalog/Assembly/Compiler remain deterministic Factory-plane stages;
-- provider-specific materialization must remain replaceable;
-- P4 runtime/autonomy/secret guarantees remain predecessor regression gates.
+- P4 PostgreSQL/autonomous-runtime proof remains a required regression.
 
-## Package-plan gate
+## Sprint Review gate
 
-Review and CI-validate the package plan only. No construction Sprint, TASK spec or `sprint/*` branch is authorized until this package plan merges and a new explicit instruction revalidates current `main`.
+Run final repository-wide verification on the closure head, require Deterministic CI PASS, then mark PR #174 ready for human Sprint Review and stop.
+
+`P5-ASSEMBLY-GRAPH-01` remains FORECAST and must not be materialized or executed.
