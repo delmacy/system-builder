@@ -8,13 +8,18 @@ Read, in order:
 
 1. `docs/current/PROJECT_STATE.md`
 2. `docs/current/CURRENT_MILESTONE.md`
-3. `project_docs/schedule/SPRINT_MODE.md` when executing product work
-4. the active Sprint definition
-5. the task specification being executed
-6. the affected module/package documentation
-7. relevant contracts
-8. applicable accepted ADRs
-9. `docs/architecture/MASTER_BLUEPRINT.md` when architecture is involved
+3. `project_docs/schedule/SPRINT_GENERATION_POLICY.md` when planning/selecting product Sprints
+4. `project_docs/schedule/SPRINT_MODE.md` when executing product work
+5. the active Sprint Package when one exists
+6. the active Sprint definition
+7. the task specification being executed
+8. every applicable path declared in that TASK's `context_paths`
+9. the affected module/package documentation and WBS
+10. relevant contracts
+11. applicable accepted ADRs
+12. `docs/architecture/MASTER_BLUEPRINT.md` when architecture is involved
+
+Before editing, explicitly confirm the TASK's `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validation commands.
 
 ## Constitutional invariants
 
@@ -35,14 +40,18 @@ Read, in order:
 
 Product development executes in Sprint Mode by default.
 
+- Rolling-wave planning uses a short Sprint Package, normally 3 construction Sprints plus an integration/technical-debt review.
+- Only the active Sprint is committed; later Sprints remain forecast until predecessor gates pass.
 - One Sprint uses one branch: `sprint/<SPRINT-ID>`.
 - All committed TASKs execute on that branch in dependency order.
 - Keep one distinct commit per TASK.
+- Implementation TASKs include positive, negative and predecessor-integration tests where applicable.
+- Every construction Sprint extends the growing integration/E2E proof.
 - Run each TASK's declared validations before advancing.
 - Run repository-wide final verification at Sprint completion.
 - Open one PR from the Sprint branch to `main`.
 - Human review is normally at the Sprint boundary, not after every TASK.
-- Do not start the next Sprint automatically.
+- Do not start the next Sprint automatically without explicit authorization.
 - Do not write directly to `main`.
 
 The AgentFactory Supervisor/runtime is preserved but is not a prerequisite or completion gate for product Sprints unless explicitly reactivated by repository authority.
@@ -57,6 +66,7 @@ The AgentFactory Supervisor/runtime is preserved but is not a prerequisite or co
 - Never hide failing tests, architecture violations or unresolved ambiguities.
 - If documentation is incomplete for an architecture decision, stop implementation and propose an ADR instead of inventing policy.
 - Do not modify unrelated paths.
+- Do not claim local test execution unless it was actually observed; connected execution may rely on GitHub Actions as objective CI evidence.
 - Stop the Sprint for a human decision only when an explicit escalation condition in `project_docs/schedule/SPRINT_MODE.md` is reached.
 
 ## Change levels
