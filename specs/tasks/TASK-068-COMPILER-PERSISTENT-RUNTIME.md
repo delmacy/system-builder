@@ -1,7 +1,7 @@
 ---
 id: TASK-068
 title: Compile persistent autonomous Runtime entrypoint
-status: ready
+status: completed
 priority: 384
 milestone: M4
 model_tier: cheap
@@ -52,15 +52,15 @@ Make actual Compiler output emit the persistent Runtime entrypoint defined by TA
 
 # Context
 
-TASK-067 provides a persistent-capable renderer with predecessor-compatible one-shot behavior until Deploy explicitly requests service mode. Revalidation found two predecessor Compiler evidence files that encode the former one-shot implementation: the autonomy E2E assumes synchronous exit, and `runtime-compiler.test.ts` defines self-contained as containing no import at all. Persistent Runtime legitimately imports only the Node builtin `node:http`.
+TASK-067 provides a persistent-capable renderer with predecessor-compatible one-shot behavior until Deploy explicitly requests service mode. Revalidation found two predecessor Compiler evidence files that encoded the former implementation: the autonomy E2E assumed synchronous exit, and runtime materialization equated self-contained with having no import at all. Persistent Runtime legitimately imports only the Node builtin `node:http`.
 
 # Current behavior
 
-`compileSyntheticRelease` emits four deterministic generated files and computes ReleaseArtifact identity from canonical metadata plus ordered file hashes. Predecessor tests assume either `spawnSync` one-shot execution or an import-free generated entrypoint.
+`compileSyntheticRelease` emits four deterministic generated files and computes ReleaseArtifact identity from canonical metadata plus ordered file hashes. Predecessor evidence assumed one-shot execution and an import-free entrypoint.
 
 # Required change
 
-Switch Compiler generation of `runtime-entry.mjs` to the TASK-067 renderer without changing generated-file ordering, manifest, environment schema or aggregate artifact hashing. Update actual-Compiler autonomy evidence to explicitly request port `0`, observe RuntimeStarted, probe HTTP `/health` while alive and terminate cleanly. Update compiler materialization evidence to allow the deterministic Node builtin `node:http` import while continuing to reject external/Builder/Observe dependencies.
+Switch Compiler generation of `runtime-entry.mjs` to the TASK-067 renderer without changing generated-file ordering, manifest, environment schema or aggregate artifact hashing. Update actual-Compiler autonomy evidence to explicitly request port `0`, observe RuntimeStarted, probe HTTP `/health` while alive and terminate cleanly. Update materialization evidence to permit only the deterministic Node builtin `node:http` dependency while continuing to reject application/external/Builder/Observe dependencies.
 
 # Inputs / contracts
 
@@ -68,14 +68,14 @@ TASK-067 renderer and existing Compiler ReleaseArtifact/hash semantics.
 
 # Outputs / contracts
 
-Actual Compiler ReleaseArtifact containing deterministic persistent-capable Runtime source with unchanged artifact schema and updated predecessor integration evidence.
+Actual Compiler ReleaseArtifact containing deterministic persistent-capable Runtime source with unchanged artifact schema and updated integration evidence.
 
 # Acceptance criteria
 
 - actual Compiler output uses the TASK-067 renderer;
 - equivalent inputs preserve byte-identical output and artifact identity;
-- generated Runtime imports only the required Node builtin health-server dependency, not application/external packages;
-- persistent source has no Builder/Observe dependency;
+- generated Runtime imports only `node:http` for the health server and no application/external package;
+- source contains no Builder/Observe hard dependency;
 - actual-Compiler autonomy E2E requests persistent mode, observes health while alive and shuts down cleanly;
 - missing required binding fails before listening;
 - ReleaseArtifact schema/file list remain unchanged;
@@ -94,3 +94,7 @@ Compiler materialization/determinism tests and actual-Compiler persistent autono
 # Escalation
 
 Stop if persistence requires a public contract or architecture change.
+
+# Result
+
+Compiler emits TASK-067 persistent-capable Runtime source without changing ReleaseArtifact schema, generated-file list or deterministic identity semantics. Predecessor evidence now accepts only the Node builtin HTTP dependency and explicitly proves persistent autonomy through RuntimeStarted, HTTP health while alive, clean shutdown, failure and secret separation. Deploy compatibility is preserved until TASK-069 opts into service mode.

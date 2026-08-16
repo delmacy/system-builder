@@ -19,7 +19,7 @@ const validationEvidence = Object.freeze({
   evidenceHash: `sha256:${"e".repeat(64)}`,
 });
 
-test("compiler materializes a deterministic self-contained runtime file set", () => {
+test("compiler materializes a deterministic self-contained persistent-capable runtime file set", () => {
   const compile = () => compileSyntheticRelease({
     assemblyPlan,
     validationEvidence,
@@ -37,10 +37,14 @@ test("compiler materializes a deterministic self-contained runtime file set", ()
 
   const entrypoint = first.files.find((file) => file.path === "runtime-entry.mjs");
   assert.ok(entrypoint);
-  assert.equal(/^\s*import\s/m.test(entrypoint.content), false);
-  assert.equal(entrypoint.content.includes("fetch("), false);
+  const imports = [...entrypoint.content.matchAll(/^\s*import\s+.*?from\s+["']([^"']+)["'];?/gm)]
+    .map((match) => match[1]);
+  assert.deepEqual(imports, ["node:http"]);
+  assert.equal(entrypoint.content.includes("@system-builder/"), false);
   assert.equal(entrypoint.content.includes("SYSTEM_BUILDER_URL"), false);
   assert.equal(entrypoint.content.includes("OBSERVE_URL"), false);
+  assert.match(entrypoint.content, /RuntimeStarted/);
+  assert.match(entrypoint.content, /\/health/);
 
   const runtimeManifest = first.files.find((file) => file.path === "runtime-manifest.json");
   assert.ok(runtimeManifest);

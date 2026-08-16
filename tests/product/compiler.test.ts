@@ -20,7 +20,7 @@ const validationEvidence = {
   evidenceHash: `sha256:${"b".repeat(64)}`,
 };
 
-test("compiler emits reproducible synthetic ReleaseArtifact with runnable runtime entrypoint", () => {
+test("compiler emits reproducible ReleaseArtifact with persistent runtime entrypoint", () => {
   const input = {
     assemblyPlan,
     validationEvidence,
@@ -59,6 +59,12 @@ test("compiler emits reproducible synthetic ReleaseArtifact with runnable runtim
   assert.ok(runtimeManifest);
   assert.match(runtimeEntry.contentHash, /^sha256:[a-f0-9]{64}$/);
   assert.match(runtimeEntry.content, /RuntimeHealth/);
+  assert.match(runtimeEntry.content, /RuntimeStarted/);
+  assert.match(runtimeEntry.content, /createServer/);
+  assert.match(runtimeEntry.content, /\/health/);
+  assert.match(runtimeEntry.content, /SIGTERM/);
+  assert.equal(runtimeEntry.content.includes("SYSTEM_BUILDER_URL"), false);
+  assert.equal(runtimeEntry.content.includes("OBSERVE_URL"), false);
   assert.deepEqual(JSON.parse(runtimeManifest.content), {
     runtimeVersion: "0.1.0",
     entrypoint: "runtime-entry.mjs",

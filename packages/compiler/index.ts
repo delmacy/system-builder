@@ -1,5 +1,5 @@
 import { canonicalJson, sha256Canonical, sha256Text } from "@system-builder/deterministic";
-import { renderAutonomousRuntimeEntrypoint } from "@system-builder/runtime-core";
+import { renderPersistentAutonomousRuntimeEntrypoint } from "@system-builder/runtime-core";
 
 export type CompilerAssemblyPlan = Readonly<{
   kind: "AssemblyPlan";
@@ -133,7 +133,7 @@ export function compileSyntheticRelease(input: CompileSyntheticInput): Synthetic
   const runtimeVersion = requireToken(input.runtimeVersion, "runtime_version");
   const environmentSchema = normalizeEnvironment(input.environmentSchema);
   const components = normalizeComponents(input.assemblyPlan);
-  const runtimeEntrypoint = renderAutonomousRuntimeEntrypoint({
+  const runtimeEntrypoint = renderPersistentAutonomousRuntimeEntrypoint({
     runtimeVersion,
     requirements: environmentSchema,
   });
