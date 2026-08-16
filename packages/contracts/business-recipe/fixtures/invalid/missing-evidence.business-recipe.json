@@ -1,0 +1,20 @@
+{
+  "recipe": "BusinessRecipe",
+  "approvedAt": "2026-08-15T21:00:00Z",
+  "sourceMirror": {
+    "artifactId": "mirror:sample-order-intake",
+    "version": "1.0.0"
+  },
+  "modules": [
+    {
+      "id": "recipe-module:order-intake",
+      "name": "Order intake",
+      "requirementIds": ["REQ-ORDER-001"],
+      "evidenceRefs": []
+    }
+  ],
+  "rules": [],
+  "responsibilities": [],
+  "exceptions": [],
+  "approvals": []
+}
