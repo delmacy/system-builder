@@ -12,6 +12,13 @@ function catalogResolver() {
     provider: "provider-auth",
     version: "1.0.0",
     dependencies: ["storage.session"],
+    dependencyRequirements: [
+      {
+        capability: "storage.session",
+        versionConstraint: { kind: "minimum", version: "1.0.0" },
+        compatibility: { runtime: "node24" },
+      },
+    ],
   });
   return (request: Readonly<{ capability: string }>) => resolveCatalogCandidates(catalog, request);
 }
@@ -52,6 +59,20 @@ test("assembly resolves SystemDefinition capabilities into deterministic Assembl
       version: "1.0.0",
     },
   ]);
+});
+
+test("assembly predecessor path ignores structured requirements until graph Sprint", () => {
+  const result = assembleSystemDefinition(definition, "system-definition:fixture:structured-dependency", catalogResolver());
+  assert.equal(result.ok, true);
+  if (!result.ok) return;
+  const auth = result.plan.components.find((component) => component.capability === "auth.basic");
+  assert.deepEqual(auth, {
+    capability: "auth.basic",
+    provider: "provider-auth",
+    version: "1.0.0",
+    dependencies: ["storage.session"],
+  });
+  assert.equal(result.plan.components.some((component) => component.capability === "storage.session"), false);
 });
 
 test("assembly returns explicit diagnostic and no plan when a capability is missing", () => {
