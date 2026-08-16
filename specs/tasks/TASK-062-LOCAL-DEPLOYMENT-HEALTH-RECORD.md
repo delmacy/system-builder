@@ -1,7 +1,7 @@
 ---
 id: TASK-062
 title: Emit operational DeploymentRecord from local runtime health and failure
-status: ready
+status: completed
 priority: 380
 milestone: M3
 model_tier: cheap
