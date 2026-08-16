@@ -1,6 +1,6 @@
 # P2-PACKAGE-01 — First Autonomous Local Runtime
 
-Status: ACTIVE / THIRD SPRINT READY_FOR_REVIEW
+Status: CONSTRUCTION_COMPLETE / INTEGRATION_REVIEW_READY_FOR_REVIEW
 
 ## Package Goal
 
@@ -16,8 +16,8 @@ The Runtime must start and operate for the bounded proof without calling System 
 
 - `P2-BOUNDARY-01` — MERGED through PR #158.
 - `P2-RUNTIME-01` — MERGED through PR #159.
-- `P2-LOCAL-DEPLOY-01` — CI_PASS / READY_FOR_REVIEW on PR #160; closure head `483adcbd233dbd13f30d1a29929652b6a72e4058` passed CI #202.
-- Integration & Technical Debt Review — required after PR #160 Sprint Review/merge; not started.
+- `P2-LOCAL-DEPLOY-01` — MERGED through PR #160.
+- Integration & Technical Debt Review — CI_PASS / READY_FOR_REVIEW on PR #161; CI #204 PASS on `ca6a14b4de40834cf42998b3a196485c1fab314f`.
 
 ## Construction results
 
@@ -31,29 +31,29 @@ Compiler emits deterministic `runtime-entry.mjs`; actual Compiler output starts 
 
 ### P2-LOCAL-DEPLOY-01
 
-Committed TASKs:
+Deploy materializes actual Compiler-generated files, starts the Runtime locally, observes RuntimeHealth/failure and emits deterministic DeploymentRecord evidence through actual factory/release/deploy APIs.
 
-- TASK-061 — local-process Deploy adapter using actual Compiler generated files;
-- TASK-062 — actual runtime health/failure to deterministic DeploymentRecord;
-- TASK-063 — full autonomous local E2E through actual Catalog/Assembly/Validation/Compiler/Release/Deploy APIs.
-
-Sprint-branch exit proof:
+Integrated exit proof:
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
 
-## Integration & Technical Debt Review gate
+## Integration & Technical Debt Review result
 
-After the third construction Sprint is merged:
+Construction result: PASS.
 
-- run/review repository-wide regression;
-- execute the autonomous local vertical at least twice and compare deterministic artifact/deployment identities;
-- prove runtime startup/health without Builder availability;
-- verify resolved secret values are absent from immutable ReleaseArtifact/PublishedRelease/DeploymentRecord content;
-- revalidate Runtime/Builder and Release/Environment/Deployment boundaries;
-- assess the newly exposed artifact payload retrieval/materialization boundary;
-- assess the one-shot Runtime lifecycle versus the next persistent-runtime increment;
-- reassess Catalog/Assembly dependency solving and persistence readiness;
-- classify debt and choose the successor package from integrated evidence.
+Architecture/boundaries: PASS WITH DEBT.
+
+Rollback blocker: none found.
+
+Highest-priority findings:
+
+1. provider-neutral artifact payload retrieval/materialization boundary is missing;
+2. Deploy needs independent generated-payload integrity verification before activation;
+3. generated Runtime is still a one-shot startup/health program rather than a persistent service;
+4. external secret-resolution boundary is not yet defined;
+5. Catalog/Assembly dependency solving remains insufficient for production-grade component graphs.
+
+The detailed register is in `project_docs/execution_planning/P2-PACKAGE-01.integration-debt-review.md`.
 
 ## Dependency order
 
@@ -63,6 +63,16 @@ TASK order:
 
 `TASK-055 -> TASK-056 -> TASK-057 -> TASK-058 -> TASK-059 -> TASK-060 -> TASK-061 -> TASK-062 -> TASK-063`
 
+## Successor direction
+
+No successor package is committed by this review. After PR #161 merges, re-read `main` and create the next package from integrated evidence.
+
+Recommended direction:
+
+- artifact retrieval/materialization + integrity verification;
+- persistent Runtime lifecycle/health surface;
+- external secret resolution + first small stateful/business-runtime proof.
+
 ## Package rules
 
 - each implementation TASK has positive, negative/failure and predecessor-integration evidence where applicable;
@@ -70,4 +80,5 @@ TASK order:
 - every construction Sprint extends the real integration proof rather than hand-authoring outputs with executable producers;
 - L3 shared-contract work requires explicit Sprint authority/review; any L4 discovery stops for ADR;
 - `main` remains published truth after merge;
+- no successor package is committed until this Integration & Technical Debt Review is merged;
 - AgentFactory Supervisor/runtime remains frozen and is not a package gate.
