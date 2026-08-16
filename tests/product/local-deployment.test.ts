@@ -57,22 +57,10 @@ const times = {
   completedAt: "2026-08-16T03:10:02Z",
 };
 
-test("local deployment records observed RuntimeHealth as deterministic success from verified payload", async () => {
+test("local deployment records persistent HTTP RuntimeHealth as deterministic success", async () => {
   const { compilation, artifacts, publishedRelease, environment } = fixture();
-  const first = await executeLocalDeployment({
-    publishedRelease,
-    releaseArtifact: compilation.artifact,
-    artifactPayloadReader: artifacts,
-    environment,
-    ...times,
-  });
-  const second = await executeLocalDeployment({
-    publishedRelease,
-    releaseArtifact: compilation.artifact,
-    artifactPayloadReader: artifacts,
-    environment,
-    ...times,
-  });
+  const first = await executeLocalDeployment({ publishedRelease, releaseArtifact: compilation.artifact, artifactPayloadReader: artifacts, environment, ...times });
+  const second = await executeLocalDeployment({ publishedRelease, releaseArtifact: compilation.artifact, artifactPayloadReader: artifacts, environment, ...times });
 
   assert.equal(first.ok, true);
   assert.equal(second.ok, true);
@@ -82,20 +70,21 @@ test("local deployment records observed RuntimeHealth as deterministic success f
   assert.deepEqual(first.record, second.record);
   assert.match(first.record.deploymentId, /^sha256:[a-f0-9]{64}$/);
   assert.equal(first.execution.ok, true);
-  if (first.execution.ok) await assert.rejects(access(first.execution.workingDirectory));
+  if (first.execution.ok) {
+    assert.match(first.execution.stdout, /"kind":"RuntimeStarted"/);
+    assert.equal(first.execution.exitCode, 0);
+    await assert.rejects(access(first.execution.workingDirectory));
+  }
   assert.equal(JSON.stringify(first.record).includes("secret://database-url"), false);
 });
 
-test("local deployment records activated runtime failure and cleanup", async () => {
+test("local deployment records activated persistent runtime failure and cleanup", async () => {
   const { compilation, artifacts, publishedRelease, environment } = fixture();
   const result = await executeLocalDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
     artifactPayloadReader: artifacts,
-    environment: {
-      ...environment,
-      bindings: environment.bindings.filter((binding) => binding.name !== "DATABASE_URL"),
-    },
+    environment: { ...environment, bindings: environment.bindings.filter((binding) => binding.name !== "DATABASE_URL") },
     ...times,
   });
 

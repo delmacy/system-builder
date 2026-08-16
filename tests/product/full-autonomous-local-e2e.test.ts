@@ -18,12 +18,7 @@ import {
 async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseBinding?: boolean }>) {
   const catalog = new SoftwareCatalogRegistry();
   for (const record of factoryCatalogRecords) catalog.register(record);
-
-  const assembly = assembleSystemDefinition(
-    factorySystemDefinition,
-    "system-definition:autonomous-local:1",
-    (request) => resolveCatalogCandidates(catalog, request),
-  );
+  const assembly = assembleSystemDefinition(factorySystemDefinition, "system-definition:autonomous-local:1", (request) => resolveCatalogCandidates(catalog, request));
   if (!assembly.ok) return { stage: "assembly" as const, assembly };
 
   const validation = validateTraceability({
@@ -36,27 +31,10 @@ async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseB
   });
   if (validation.decision !== "PASS") return { stage: "validation" as const, assembly, validation };
 
-  const compilation = compileSyntheticRelease({
-    assemblyPlan: assembly.plan,
-    validationEvidence: validation,
-    compilerVersion: "0.2.0",
-    runtimeVersion: "0.2.0",
-    environmentSchema: factoryEnvironmentSchema,
-  });
-
+  const compilation = compileSyntheticRelease({ assemblyPlan: assembly.plan, validationEvidence: validation, compilerVersion: "0.2.0", runtimeVersion: "0.2.0", environmentSchema: factoryEnvironmentSchema });
   const artifacts = new InMemoryArtifactPayloadRepository();
-  const artifactPayload = artifacts.publish({
-    artifactHash: compilation.artifact.artifactHash,
-    files: compilation.files,
-  });
-  const releases = new ReleaseRegistry();
-  const publishedRelease = releases.publish({
-    releaseId: "autonomous-local-system",
-    version: "1.0.0",
-    artifact: compilation.artifact,
-    publishedAt: "2026-08-16T03:20:00Z",
-  });
-
+  const artifactPayload = artifacts.publish({ artifactHash: compilation.artifact.artifactHash, files: compilation.files });
+  const publishedRelease = new ReleaseRegistry().publish({ releaseId: "autonomous-local-system", version: "1.0.0", artifact: compilation.artifact, publishedAt: "2026-08-16T03:20:00Z" });
   const bindings = [
     { name: "DATABASE_URL", kind: "secret-reference" as const, reference: "secret://database-url" },
     { name: "LOG_LEVEL", kind: "config" as const, reference: "config://log-level" },
@@ -66,12 +44,7 @@ async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseB
     publishedRelease,
     releaseArtifact: compilation.artifact,
     artifactPayloadReader: artifacts,
-    environment: {
-      kind: "EnvironmentProfile",
-      environmentRef: "environment:autonomous-local",
-      runtimeVersions: ["0.2.0"],
-      bindings,
-    },
+    environment: { kind: "EnvironmentProfile", environmentRef: "environment:autonomous-local", runtimeVersions: ["0.2.0"], bindings },
     processEnvironment: {
       SYSTEM_BUILDER_BUILDER_URL: "http://127.0.0.1:1",
       SYSTEM_BUILDER_OBSERVE_URL: "http://127.0.0.1:1",
@@ -81,21 +54,12 @@ async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseB
     completedAt: "2026-08-16T03:20:02Z",
   });
 
-  return {
-    stage: "deployment" as const,
-    assembly,
-    validation,
-    compilation,
-    artifactPayload,
-    publishedRelease,
-    deployment,
-  };
+  return { stage: "deployment" as const, assembly, validation, compilation, artifactPayload, publishedRelease, deployment };
 }
 
-test("full autonomous local vertical reaches verified artifact retrieval, RuntimeHealth and deterministic DeploymentRecord twice", async () => {
+test("full autonomous local vertical reaches persistent HTTP RuntimeHealth and deterministic DeploymentRecord twice", async () => {
   const first = await executeAutonomousLocalVertical();
   const second = await executeAutonomousLocalVertical();
-
   assert.equal(first.stage, "deployment");
   assert.equal(second.stage, "deployment");
   if (first.stage !== "deployment" || second.stage !== "deployment") return;
@@ -113,6 +77,8 @@ test("full autonomous local vertical reaches verified artifact retrieval, Runtim
   assert.deepEqual(first.deployment.record.healthChecks, [{ name: "runtime-health", status: "PASS" }]);
   assert.equal(first.deployment.execution.ok, true);
   if (!first.deployment.execution.ok) return;
+  assert.match(first.deployment.execution.stdout, /"kind":"RuntimeStarted"/);
+  assert.equal(first.deployment.execution.exitCode, 0);
   assert.equal(first.deployment.execution.health.status, "UP");
   assert.equal(first.deployment.execution.health.runtimeVersion, "0.2.0");
   assert.equal(first.deployment.execution.health.environmentRef, "environment:autonomous-local");
@@ -124,24 +90,17 @@ test("full autonomous local vertical keeps runtime-only secret value outside imm
   if (result.stage !== "deployment") return;
   assert.equal(result.deployment.ok, true);
   if (!result.deployment.ok) return;
-
-  const durableContent = JSON.stringify({
-    payload: result.artifactPayload,
-    artifact: result.compilation.artifact,
-    release: result.publishedRelease,
-    record: result.deployment.record,
-  });
+  const durableContent = JSON.stringify({ payload: result.artifactPayload, artifact: result.compilation.artifact, release: result.publishedRelease, record: result.deployment.record });
   assert.equal(durableContent.includes("postgres://runtime-only-secret"), false);
   assert.equal(durableContent.includes("secret://database-url"), false);
 });
 
-test("full autonomous local vertical records required-binding runtime failure without false success", async () => {
+test("full autonomous local vertical records required-binding persistent runtime failure without false success", async () => {
   const result = await executeAutonomousLocalVertical({ omitDatabaseBinding: true });
   assert.equal(result.stage, "deployment");
   if (result.stage !== "deployment") return;
   assert.equal(result.deployment.ok, true);
   if (!result.deployment.ok) return;
-
   assert.equal(result.deployment.record.status, "failed");
   assert.deepEqual(result.deployment.record.healthChecks, [{ name: "runtime-health", status: "FAIL" }]);
   assert.equal(result.deployment.execution.ok, false);

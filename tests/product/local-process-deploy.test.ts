@@ -52,7 +52,7 @@ function fixture() {
   return { compilation, artifacts, publishedRelease, environment };
 }
 
-test("local-process Deploy retrieves verified Compiler artifact payload and cleans materialization", async () => {
+test("local-process Deploy retrieves verified payload, observes persistent HTTP health and cleans materialization", async () => {
   const { compilation, artifacts, publishedRelease, environment } = fixture();
   const releaseBefore = JSON.stringify(publishedRelease);
   const artifactBefore = JSON.stringify(compilation.artifact);
@@ -75,6 +75,8 @@ test("local-process Deploy retrieves verified Compiler artifact payload and clea
   assert.equal(result.health.runtimeVersion, "0.2.0");
   assert.equal(result.health.environmentRef, "environment:local-test");
   assert.deepEqual(result.health.bindingNames, ["DATABASE_URL", "LOG_LEVEL"]);
+  assert.match(result.stdout, /"kind":"RuntimeStarted"/);
+  assert.equal(result.exitCode, 0);
   assert.equal(JSON.stringify(publishedRelease), releaseBefore);
   assert.equal(JSON.stringify(compilation.artifact), artifactBefore);
   assert.equal(JSON.stringify(compilation.files), filesBefore);
@@ -126,4 +128,57 @@ test("local-process Deploy rejects corrupted artifact payload before activation 
   assert.equal(result.diagnostic.code, "ARTIFACT_PAYLOAD_INVALID");
   assert.match(result.diagnostic.detail, /ARTIFACT_PAYLOAD_FILE_HASH_MISMATCH/);
   assert.equal("workingDirectory" in result, false);
+});
+
+test("local-process Deploy reports startup timeout and cleans a non-reporting persistent process", async () => {
+  const { compilation, publishedRelease, environment } = fixture();
+  const hangingReader = {
+    getVerified: () => ({
+      artifactHash: compilation.artifact.artifactHash,
+      verified: true as const,
+      files: compilation.files.map((file) => file.path === "runtime-entry.mjs"
+        ? { ...file, content: "setInterval(() => {}, 1000);" }
+        : file),
+    }),
+  };
+  const result = await runLocalProcessDeployment({
+    publishedRelease,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: hangingReader,
+    environment,
+    timeoutMs: 50,
+  });
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.equal(result.activated, true);
+  assert.equal(result.diagnostic.code, "RUNTIME_PROCESS_TIMEOUT");
+  if (result.workingDirectory) await assert.rejects(access(result.workingDirectory));
+});
+
+test("local-process Deploy reports health failure after bounded startup and cleans the process", async () => {
+  const { compilation, publishedRelease, environment } = fixture();
+  const noHealthReader = {
+    getVerified: () => ({
+      artifactHash: compilation.artifact.artifactHash,
+      verified: true as const,
+      files: compilation.files.map((file) => file.path === "runtime-entry.mjs"
+        ? {
+            ...file,
+            content: "process.stdout.write(JSON.stringify({kind:'RuntimeStarted',status:'UP',port:1,runtimeVersion:'0.2.0',environmentRef:'environment:local-test'})+'\\n'); setInterval(() => {}, 1000);",
+          }
+        : file),
+    }),
+  };
+  const result = await runLocalProcessDeployment({
+    publishedRelease,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: noHealthReader,
+    environment,
+    timeoutMs: 250,
+  });
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.equal(result.activated, true);
+  assert.equal(result.diagnostic.code, "RUNTIME_HEALTH_INVALID");
+  if (result.workingDirectory) await assert.rejects(access(result.workingDirectory));
 });
