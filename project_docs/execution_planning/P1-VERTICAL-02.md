@@ -1,6 +1,6 @@
 # P1-VERTICAL-02 — Validation and Compiler
 
-Status: COMMITTED
+Status: IMPLEMENTED_ON_SPRINT_BRANCH — closure CI/review pending
 
 ## Sprint Goal
 
@@ -55,4 +55,4 @@ Stop for human review before implementation completion if:
 
 ## Sprint review boundary
 
-After TASK-051, run final CI, commit a Sprint Report, open one PR to `main`, and stop. Do not start P1-VERTICAL-03.
+TASK-049..051 are implemented. Final closure-head CI and PR #154 are the review gate. Do not start P1-VERTICAL-03.
