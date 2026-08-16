@@ -7,6 +7,11 @@ import type { EnvironmentProfile } from "@system-builder/contracts/environment-p
 import type { DeployPublishedRelease, DeployReleaseArtifact } from "./index.js";
 import { preflightVerifiedMigrations, type LocalMigrationPreflight } from "./migration-preflight.js";
 import {
+  applyVerifiedPostgresMigrations,
+  type LocalMigrationApplication,
+  type LocalMigrationApplier,
+} from "./postgres-migrations.js";
+import {
   resolveRuntimeSecretEnvironment,
   type RuntimeSecretEnvironment,
   type SecretResolver,
@@ -67,6 +72,7 @@ export type LocalProcessDeploymentDiagnostic = Readonly<{
     | "GENERATED_PATH_INVALID"
     | "MIGRATION_PREFLIGHT_INVALID"
     | "SECRET_RESOLUTION_FAILED"
+    | "MIGRATION_APPLICATION_FAILED"
     | "RUNTIME_PROCESS_FAILED"
     | "RUNTIME_STARTUP_INVALID"
     | "RUNTIME_HEALTH_INVALID"
@@ -81,6 +87,7 @@ export type LocalProcessDeploymentResult =
       activated: true;
       health: LocalRuntimeHealth;
       migrationPreflight: LocalMigrationPreflight;
+      migrationApplication: LocalMigrationApplication;
       state?: LocalRuntimeState;
       stdout: string;
       stderr: string;
@@ -172,6 +179,24 @@ function errorDetail(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
+function redactResolvedSecrets(detail: string, runtimeSecrets: RuntimeSecretEnvironment): string {
+  let redacted = detail;
+  for (const secret of Object.values(runtimeSecrets)) {
+    if (secret.length > 0) redacted = redacted.replaceAll(secret, "[REDACTED]");
+  }
+  return redacted;
+}
+
+function assertMigrationEvidenceSafe(
+  application: LocalMigrationApplication,
+  runtimeSecrets: RuntimeSecretEnvironment,
+): void {
+  const serialized = JSON.stringify(application);
+  for (const secret of Object.values(runtimeSecrets)) {
+    if (secret.length > 0 && serialized.includes(secret)) throw new Error("MIGRATION_APPLICATION_SECRET_LEAK");
+  }
+}
+
 function waitForStartup(child: RuntimeChild, timeoutMs: number): Promise<StartupOutcome> {
   return new Promise((resolve) => {
     let settled = false;
@@ -243,6 +268,7 @@ export async function runLocalProcessDeployment(input: Readonly<{
   artifactPayloadReader: LocalVerifiedArtifactPayloadReader;
   environment: EnvironmentProfile;
   secretResolver?: SecretResolver;
+  migrationApplier?: LocalMigrationApplier;
   processEnvironment?: Readonly<Record<string, string>>;
   timeoutMs?: number;
 }>): Promise<LocalProcessDeploymentResult> {
@@ -345,6 +371,28 @@ export async function runLocalProcessDeployment(input: Readonly<{
         exitCode: null,
       });
     }
+  }
+
+  let migrationApplication: LocalMigrationApplication;
+  try {
+    migrationApplication = await (input.migrationApplier ?? applyVerifiedPostgresMigrations)({
+      preflight: migrationPreflight,
+      generatedFiles,
+      runtimeSecrets,
+    });
+    assertMigrationEvidenceSafe(migrationApplication, runtimeSecrets);
+  } catch (error) {
+    return Object.freeze({
+      ok: false,
+      activated: false,
+      diagnostic: Object.freeze({
+        code: "MIGRATION_APPLICATION_FAILED",
+        detail: redactResolvedSecrets(errorDetail(error), runtimeSecrets),
+      }),
+      stdout: "",
+      stderr: "",
+      exitCode: null,
+    });
   }
 
   const workingDirectory = await mkdtemp(join(tmpdir(), "system-builder-local-deploy-"));
@@ -473,7 +521,7 @@ export async function runLocalProcessDeployment(input: Readonly<{
       try {
         const first = await invokeCounter(startup.started.port, timeoutMs);
         const second = await invokeCounter(startup.started.port, timeoutMs);
-        if (first.value !== 1 || second.value !== 2) throw new Error(`RUNTIME_STATE_SEQUENCE_INVALID:${first.value}:${second.value}`);
+        if (second.value !== first.value + 1) throw new Error(`RUNTIME_STATE_SEQUENCE_INVALID:${first.value}:${second.value}`);
         state = second;
       } catch (error) {
         const stopped = await terminateChild(child, timeoutMs);
@@ -524,6 +572,7 @@ export async function runLocalProcessDeployment(input: Readonly<{
       activated: true,
       health,
       migrationPreflight,
+      migrationApplication,
       ...(state === undefined ? {} : { state }),
       stdout,
       stderr,

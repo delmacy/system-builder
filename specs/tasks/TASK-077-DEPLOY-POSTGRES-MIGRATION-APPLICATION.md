@@ -1,7 +1,7 @@
 ---
 id: TASK-077
 title: Apply verified PostgreSQL migrations before Runtime activation
-status: ready
+status: completed
 priority: 389
 milestone: M5
 model_tier: cheap
@@ -94,3 +94,7 @@ Deploy product tests covering no-op, ordering, pre-activation application, idemp
 # Escalation
 
 Stop for destructive migration policy, canonical DeploymentRecord changes, resolved-secret persistence or any L4 architecture change.
+
+# Result
+
+Deploy now applies the verified/preflighted migration payload after runtime-only secret resolution and before working-directory creation or Runtime activation. The bounded PostgreSQL applier records capability/migration identity plus content hash, skips matching previously applied migrations, rejects hash drift, emits non-secret application evidence and sanitizes connection/query failures. Empty migration plans remain no-op compatible, and the Runtime state assertion now accepts any two consecutive increments so durable restart progression can be proven by TASK-078.

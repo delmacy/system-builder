@@ -5,6 +5,7 @@ import { InMemoryArtifactPayloadRepository } from "../../packages/artifact-store
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
 import { runLocalProcessDeployment } from "../../packages/deploy/local-process.js";
 import { preflightVerifiedMigrations } from "../../packages/deploy/migration-preflight.js";
+import type { LocalMigrationApplier } from "../../packages/deploy/postgres-migrations.js";
 import { InMemorySecretResolver } from "../../packages/deploy/secret-resolver.js";
 import { ReleaseRegistry } from "../../packages/release/index.js";
 import type { RuntimeStateRequirement } from "../../packages/runtime-core/index.js";
@@ -83,6 +84,20 @@ function fixture(withMigrations = false) {
   return { compilation, artifacts, publishedRelease, environment };
 }
 
+function fakeMigrationApplier(status: "applied" | "skipped" = "applied"): LocalMigrationApplier {
+  return async ({ preflight }) => Object.freeze({
+    kind: "LocalMigrationApplication",
+    migrations: Object.freeze(preflight.migrations.map((migration) => Object.freeze({
+      capability: migration.capability,
+      id: migration.id,
+      order: migration.order,
+      path: migration.path,
+      contentHash: migration.contentHash,
+      status,
+    }))),
+  });
+}
+
 test("local-process Deploy retrieves verified payload, observes persistent HTTP health and cleans materialization", async () => {
   const { compilation, artifacts, publishedRelease, environment } = fixture();
   const releaseBefore = JSON.stringify(publishedRelease);
@@ -107,6 +122,7 @@ test("local-process Deploy retrieves verified payload, observes persistent HTTP 
   assert.equal(result.health.environmentRef, "environment:local-test");
   assert.deepEqual(result.health.bindingNames, ["DATABASE_URL", "LOG_LEVEL"]);
   assert.deepEqual(result.migrationPreflight, { kind: "LocalMigrationPreflight", migrations: [] });
+  assert.deepEqual(result.migrationApplication, { kind: "LocalMigrationApplication", migrations: [] });
   assert.equal(result.state, undefined);
   assert.match(result.stdout, /"kind":"RuntimeStarted"/);
   assert.equal(result.exitCode, 0);
@@ -116,13 +132,14 @@ test("local-process Deploy retrieves verified payload, observes persistent HTTP 
   await assert.rejects(access(result.workingDirectory));
 });
 
-test("local-process Deploy preflights actual Compiler migration assets in deterministic order without executing them", async () => {
+test("local-process Deploy preserves ordered migration preflight and invokes bounded application before activation", async () => {
   const { compilation, artifacts, publishedRelease, environment } = fixture(true);
   const result = await runLocalProcessDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
     artifactPayloadReader: artifacts,
     environment,
+    migrationApplier: fakeMigrationApplier(),
   });
 
   assert.equal(result.ok, true);
@@ -131,9 +148,61 @@ test("local-process Deploy preflights actual Compiler migration assets in determ
     { id: "counter-v1", order: 10, path: "migrations/001-counter.sql" },
     { id: "counter-v2", order: 20, path: "migrations/002-counter-index.sql" },
   ]);
+  assert.deepEqual(result.migrationApplication.migrations.map((migration) => ({ id: migration.id, status: migration.status })), [
+    { id: "counter-v1", status: "applied" },
+    { id: "counter-v2", status: "applied" },
+  ]);
   assert.equal(result.state, undefined);
   assert.equal(result.stderr.includes("INTENTIONALLY NOT EXECUTABLE SQL"), false);
   await assert.rejects(access(result.workingDirectory));
+});
+
+test("local-process Deploy requires resolved connection material before applying non-empty migrations", async () => {
+  const { compilation, artifacts, publishedRelease, environment } = fixture(true);
+  const result = await runLocalProcessDeployment({
+    publishedRelease,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: artifacts,
+    environment,
+  });
+
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.equal(result.activated, false);
+  assert.equal(result.diagnostic.code, "MIGRATION_APPLICATION_FAILED");
+  assert.match(result.diagnostic.detail, /MIGRATION_CONNECTION_SECRET_MISSING:DATABASE_URL/);
+  assert.equal("workingDirectory" in result, false);
+});
+
+test("local-process Deploy resolves secrets before migration application and redacts application failures", async () => {
+  const { compilation, artifacts, publishedRelease, environment } = fixture(true);
+  const secretValue = "postgres://runtime-user:runtime-password@localhost/runtime";
+  let resolved = false;
+  const result = await runLocalProcessDeployment({
+    publishedRelease,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: artifacts,
+    environment,
+    secretResolver: {
+      resolve: () => {
+        resolved = true;
+        return secretValue;
+      },
+    },
+    migrationApplier: async ({ runtimeSecrets }) => {
+      assert.equal(resolved, true);
+      assert.equal(runtimeSecrets.DATABASE_URL, secretValue);
+      throw new Error(`MIGRATION_TEST_FAILURE:${secretValue}`);
+    },
+  });
+
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.equal(result.activated, false);
+  assert.equal(result.diagnostic.code, "MIGRATION_APPLICATION_FAILED");
+  assert.equal(result.diagnostic.detail.includes(secretValue), false);
+  assert.match(result.diagnostic.detail, /MIGRATION_TEST_FAILURE:\[REDACTED\]/);
+  assert.equal("workingDirectory" in result, false);
 });
 
 test("migration preflight rejects missing, unlisted, duplicate and hash-mismatched migration evidence", () => {
@@ -236,10 +305,12 @@ test("secret-aware Deploy verifies artifact before resolution, injects runtime-o
   assert.equal(result.ok, true);
   if (!result.ok) return;
   assert.deepEqual(result.state, { kind: "RuntimeState", action: "counter.increment", value: 2 });
+  assert.deepEqual(result.migrationApplication, { kind: "LocalMigrationApplication", migrations: [] });
   assert.equal(result.stdout.includes(secretValue), false);
   assert.equal(result.stderr.includes(secretValue), false);
   assert.equal(JSON.stringify(result.health).includes(secretValue), false);
   assert.equal(JSON.stringify(result.state).includes(secretValue), false);
+  assert.equal(JSON.stringify(result.migrationApplication).includes(secretValue), false);
   await assert.rejects(access(result.workingDirectory));
 });
 
