@@ -1,7 +1,7 @@
 ---
 id: TASK-075
 title: Verify and order migration assets during Deploy preflight
-status: ready
+status: completed
 priority: 391
 milestone: M5
 model_tier: cheap
@@ -90,3 +90,7 @@ Focused local Deploy tests using actual Compiler + ArtifactStore producer output
 # Escalation
 
 Stop if preflight requires mutation/application of migration content or any canonical public schema change.
+
+# Result
+
+Deploy now runs a bounded migration preflight only after verified ArtifactPayload retrieval/path validation and before secret resolution/materialization. It validates manifest shape, symbolic connection metadata, exact migration-file coverage, duplicate metadata, descriptor/file hashes and deterministic ordering; predecessor artifacts return an empty preflight. SQL content is never executed and malformed evidence fails closed before activation.

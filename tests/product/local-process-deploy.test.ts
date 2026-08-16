@@ -4,8 +4,10 @@ import test from "node:test";
 import { InMemoryArtifactPayloadRepository } from "../../packages/artifact-store/index.js";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
 import { runLocalProcessDeployment } from "../../packages/deploy/local-process.js";
+import { preflightVerifiedMigrations } from "../../packages/deploy/migration-preflight.js";
 import { InMemorySecretResolver } from "../../packages/deploy/secret-resolver.js";
 import { ReleaseRegistry } from "../../packages/release/index.js";
+import type { RuntimeStateRequirement } from "../../packages/runtime-core/index.js";
 
 const assemblyPlan = {
   kind: "AssemblyPlan" as const,
@@ -22,21 +24,49 @@ const validationEvidence = {
   evidenceHash: `sha256:${"b".repeat(64)}`,
 };
 
-function fixture() {
+const environmentSchema = [
+  { name: "DATABASE_URL", kind: "secret-reference" as const, required: true },
+  { name: "LOG_LEVEL", kind: "config" as const, required: false },
+];
+
+function stateRequirement(): RuntimeStateRequirement {
+  return {
+    kind: "RuntimeStateRequirement",
+    capability: "state.counter",
+    storeKind: "sql",
+    connectionBinding: { name: "DATABASE_URL", kind: "secret-reference" },
+    migrations: [
+      {
+        id: "counter-v2",
+        capability: "state.counter",
+        order: 20,
+        path: "migrations/002-counter-index.sql",
+        content: "THIS IS INTENTIONALLY NOT EXECUTABLE SQL FOR PREFLIGHT PROOF;",
+      },
+      {
+        id: "counter-v1",
+        capability: "state.counter",
+        order: 10,
+        path: "migrations/001-counter.sql",
+        content: "CREATE TABLE runtime_counter (id INTEGER PRIMARY KEY, value INTEGER NOT NULL);",
+      },
+    ],
+  };
+}
+
+function fixture(withMigrations = false) {
   const compilation = compileSyntheticRelease({
     assemblyPlan,
     validationEvidence,
     compilerVersion: "0.2.0",
     runtimeVersion: "0.2.0",
-    environmentSchema: [
-      { name: "DATABASE_URL", kind: "secret-reference", required: true },
-      { name: "LOG_LEVEL", kind: "config", required: false },
-    ],
+    environmentSchema,
+    ...(withMigrations ? { stateRequirements: [stateRequirement()] } : {}),
   });
   const artifacts = new InMemoryArtifactPayloadRepository();
   artifacts.publish({ artifactHash: compilation.artifact.artifactHash, files: compilation.files });
   const publishedRelease = new ReleaseRegistry().publish({
-    releaseId: "local-runtime",
+    releaseId: withMigrations ? "local-runtime-migrations" : "local-runtime",
     version: "1.0.0",
     artifact: compilation.artifact,
     publishedAt: "2026-08-16T03:00:00Z",
@@ -76,6 +106,7 @@ test("local-process Deploy retrieves verified payload, observes persistent HTTP 
   assert.equal(result.health.runtimeVersion, "0.2.0");
   assert.equal(result.health.environmentRef, "environment:local-test");
   assert.deepEqual(result.health.bindingNames, ["DATABASE_URL", "LOG_LEVEL"]);
+  assert.deepEqual(result.migrationPreflight, { kind: "LocalMigrationPreflight", migrations: [] });
   assert.equal(result.state, undefined);
   assert.match(result.stdout, /"kind":"RuntimeStarted"/);
   assert.equal(result.exitCode, 0);
@@ -83,6 +114,96 @@ test("local-process Deploy retrieves verified payload, observes persistent HTTP 
   assert.equal(JSON.stringify(compilation.artifact), artifactBefore);
   assert.equal(JSON.stringify(compilation.files), filesBefore);
   await assert.rejects(access(result.workingDirectory));
+});
+
+test("local-process Deploy preflights actual Compiler migration assets in deterministic order without executing them", async () => {
+  const { compilation, artifacts, publishedRelease, environment } = fixture(true);
+  const result = await runLocalProcessDeployment({
+    publishedRelease,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: artifacts,
+    environment,
+  });
+
+  assert.equal(result.ok, true);
+  if (!result.ok) return;
+  assert.deepEqual(result.migrationPreflight.migrations.map((migration) => ({ id: migration.id, order: migration.order, path: migration.path })), [
+    { id: "counter-v1", order: 10, path: "migrations/001-counter.sql" },
+    { id: "counter-v2", order: 20, path: "migrations/002-counter-index.sql" },
+  ]);
+  assert.equal(result.state, undefined);
+  assert.equal(result.stderr.includes("INTENTIONALLY NOT EXECUTABLE SQL"), false);
+  await assert.rejects(access(result.workingDirectory));
+});
+
+test("migration preflight rejects missing, unlisted, duplicate and hash-mismatched migration evidence", () => {
+  const { compilation, artifacts } = fixture(true);
+  const verified = artifacts.getVerified(compilation.artifact);
+  const manifest = verified.files.find((file) => file.path === "migration-manifest.json");
+  assert.ok(manifest);
+
+  assert.throws(
+    () => preflightVerifiedMigrations(verified.files.filter((file) => file.path !== "migration-manifest.json")),
+    /MIGRATION_MANIFEST_MISSING/,
+  );
+  assert.throws(
+    () => preflightVerifiedMigrations(verified.files.filter((file) => file.path !== "migrations/001-counter.sql")),
+    /MIGRATION_PREFLIGHT_FILE_MISSING:migrations\/001-counter.sql/,
+  );
+  assert.throws(
+    () => preflightVerifiedMigrations([...verified.files, { ...verified.files.find((file) => file.path === "migrations/001-counter.sql")!, path: "migrations/unlisted.sql" }]),
+    /MIGRATION_PREFLIGHT_FILE_UNLISTED:migrations\/unlisted.sql/,
+  );
+  const parsed = JSON.parse(manifest.content) as { requirements: Array<{ migrations: Array<Record<string, unknown>> }> };
+  parsed.requirements[0]!.migrations[1] = { ...parsed.requirements[0]!.migrations[0] };
+  assert.throws(
+    () => preflightVerifiedMigrations(verified.files.map((file) => file.path === "migration-manifest.json" ? { ...file, content: JSON.stringify(parsed) } : file)),
+    /MIGRATION_PREFLIGHT_DUPLICATE_ID|MIGRATION_PREFLIGHT_DUPLICATE_ORDER|MIGRATION_PREFLIGHT_DUPLICATE_PATH/,
+  );
+
+  const mismatch = JSON.parse(manifest.content) as { requirements: Array<{ migrations: Array<{ contentHash: string }> }> };
+  mismatch.requirements[0]!.migrations[0]!.contentHash = `sha256:${"c".repeat(64)}`;
+  assert.throws(
+    () => preflightVerifiedMigrations(verified.files.map((file) => file.path === "migration-manifest.json" ? { ...file, content: JSON.stringify(mismatch) } : file)),
+    /MIGRATION_PREFLIGHT_HASH_MISMATCH:migrations\/001-counter.sql/,
+  );
+});
+
+test("local-process Deploy fails malformed verified migration evidence before secrets or materialization", async () => {
+  const { compilation, artifacts, publishedRelease, environment } = fixture(true);
+  const verified = artifacts.getVerified(compilation.artifact);
+  const manifest = verified.files.find((file) => file.path === "migration-manifest.json");
+  assert.ok(manifest);
+  const parsed = JSON.parse(manifest.content) as { requirements: Array<{ migrations: Array<{ contentHash: string }> }> };
+  parsed.requirements[0]!.migrations[0]!.contentHash = `sha256:${"d".repeat(64)}`;
+  let secretResolutionAttempted = false;
+  const result = await runLocalProcessDeployment({
+    publishedRelease,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: {
+      getVerified: () => ({
+        artifactHash: compilation.artifact.artifactHash,
+        verified: true as const,
+        files: verified.files.map((file) => file.path === "migration-manifest.json" ? { ...file, content: JSON.stringify(parsed) } : file),
+      }),
+    },
+    environment,
+    secretResolver: {
+      resolve: () => {
+        secretResolutionAttempted = true;
+        return "runtime-secret-must-not-be-used";
+      },
+    },
+  });
+
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.equal(result.activated, false);
+  assert.equal(result.diagnostic.code, "MIGRATION_PREFLIGHT_INVALID");
+  assert.match(result.diagnostic.detail, /MIGRATION_PREFLIGHT_HASH_MISMATCH:migrations\/001-counter.sql/);
+  assert.equal(secretResolutionAttempted, false);
+  assert.equal("workingDirectory" in result, false);
+  assert.equal(result.diagnostic.detail.includes("runtime-secret-must-not-be-used"), false);
 });
 
 test("secret-aware Deploy verifies artifact before resolution, injects runtime-only secret and observes state 1 then 2", async () => {
