@@ -1,7 +1,7 @@
 ---
 id: TASK-050
 title: Implement deterministic synthetic Compiler
-status: ready
+status: completed
 priority: 250
 milestone: M2
 model_tier: cheap
