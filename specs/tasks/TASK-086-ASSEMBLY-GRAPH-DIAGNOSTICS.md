@@ -49,6 +49,14 @@ validation:
 
 Make Assembly graph failure behavior deterministic and fail-closed for cycles, unresolved transitive dependencies and incompatible multi-path requirements.
 
+# Context
+
+TASK-085 establishes successful bounded transitive closure using Catalog structured dependency requirements. This TASK owns the negative graph semantics required by WBS 6.2.1-6.2.3.
+
+# Current behavior
+
+After TASK-085, satisfiable acyclic dependency requirements can be traversed and coalesced, but cycle/conflict semantics are not yet authoritative and must not rely on arbitrary traversal order.
+
 # Required change
 
 Using TASK-085 closure as predecessor, add reproducible graph diagnostics for:
@@ -59,6 +67,14 @@ Using TASK-085 closure as predecessor, add reproducible graph diagnostics for:
 - divergent provider/version selections for one coalesced capability.
 
 Diagnostics must be stable across equivalent root, dependency and Catalog registration orderings. Do not broaden Catalog range semantics or add Compiler/materializer behavior.
+
+# Inputs / contracts
+
+TASK-085 internal Assembly graph behavior, integrated Catalog exact/minimum/compatibility resolver semantics, WBS 05/06 and the committed P5 Sprint boundary.
+
+# Outputs / contracts
+
+Deterministic Assembly graph failure diagnostics with no AssemblyPlan on invalid graphs. No canonical contract change.
 
 # Acceptance criteria
 
