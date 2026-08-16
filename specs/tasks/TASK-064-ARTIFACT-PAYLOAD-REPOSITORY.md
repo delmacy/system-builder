@@ -47,9 +47,25 @@ validation:
 
 Define a provider-neutral artifact payload publication/retrieval boundary and an in-memory reference implementation keyed by immutable ReleaseArtifact identity.
 
+# Context
+
+The merged P2 review records TD-P2-01: Deploy currently receives Compiler-generated files directly and no durable/provider-neutral boundary resolves immutable artifact identity to payload bytes. Release WBS 9.3 requires artifact publication through abstract registry/storage while ADR-0007 keeps Release separate from Environment and Deployment.
+
+# Current behavior
+
+Compiler returns a ReleaseArtifact plus generated files in memory. Release publishes immutable artifact metadata, but there is no artifact payload reader/writer abstraction between that output and Deploy.
+
 # Required change
 
 Add `packages/artifact-store/index.ts` with immutable public TypeScript types for generated artifact files/payloads, a minimal reader/writer abstraction, and an in-memory implementation. Publication accepts a ReleaseArtifact identity plus generated files, snapshots/freezes content, prevents conflicting overwrite of an existing artifact identity, and retrieval returns immutable copies without exposing mutable internal state.
+
+# Inputs / contracts
+
+Actual Compiler `GeneratedFile`/ReleaseArtifact shape, Release WBS 9.3, merged TD-P2-01, ADR-0007.
+
+# Outputs / contracts
+
+Provider-neutral TypeScript artifact payload reader/writer boundary plus in-memory reference implementation. This is authorized L3 shared-contract work within the Sprint; it does not alter Release/Environment/Deployment architecture.
 
 # Acceptance criteria
 
@@ -62,17 +78,13 @@ Add `packages/artifact-store/index.ts` with immutable public TypeScript types fo
 - tests cover positive publication/retrieval and negative duplicate/missing behavior;
 - declared validations pass.
 
-# Inputs / contracts
-
-Actual Compiler `GeneratedFile`/ReleaseArtifact shape, Release WBS 9.3, merged TD-P2-01, ADR-0007.
-
-# Outputs / contracts
-
-Provider-neutral TypeScript artifact payload reader/writer boundary plus in-memory reference implementation. This is authorized L3 shared-contract work within the Sprint; it does not alter Release/Environment/Deployment architecture.
-
 # Non-goals
 
 Integrity verification beyond structural publication rules (TASK-065), Deploy integration (TASK-066), object storage, filesystem persistence, network registry, secrets, Runtime lifecycle or production adapters.
+
+# Evidence expected
+
+Focused artifact-store positive/negative tests plus repository-wide GitHub Deterministic CI evidence.
 
 # Escalation
 
@@ -80,4 +92,4 @@ Stop if the boundary requires a change to canonical ReleaseArtifact/PublishedRel
 
 # Result
 
-Implemented immutable provider-neutral reader/writer types and in-memory reference repository with deterministic ordering, idempotent identical publication, conflict rejection and explicit missing-artifact failure. The first CI attempt exposed a bounded lint-format issue and was corrected within the same TASK paths before advancing.
+Implemented immutable provider-neutral reader/writer types and in-memory reference repository with deterministic ordering, idempotent identical publication, conflict rejection and explicit missing-artifact failure. Initial CI attempts exposed only bounded task-contract formatting defects; product code passed lint and typecheck before the catalog parser gate.

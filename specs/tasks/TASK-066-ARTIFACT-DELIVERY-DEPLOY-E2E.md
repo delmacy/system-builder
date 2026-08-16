@@ -56,11 +56,27 @@ validation:
 
 Replace direct Compiler `generatedFiles` input at local Deploy with retrieval of a previously published, independently verified artifact payload and extend the existing full autonomous local E2E through that boundary.
 
+# Context
+
+P2 proved the full local vertical through actual Compiler, Release and Deploy APIs, but the Deploy adapter still accepts the Compiler file bundle directly. TASK-064 introduces the provider-neutral payload boundary and TASK-065 makes retrieval independently verifiable before activation.
+
+# Current behavior
+
+`runLocalProcessDeployment` and `executeLocalDeployment` accept a raw `generatedFiles` array from the caller, validate only release/runtime/path preflight, materialize those files directly and then start Node.
+
 # Required change
 
 Update local Deploy APIs to consume an artifact payload reader rather than caller-supplied generated files. Before creating a temporary directory or starting Node, retrieve by PublishedRelease/ReleaseArtifact identity and require TASK-065 verified payload success. Preserve existing release/environment compatibility checks, runtime execution, cleanup and DeploymentRecord behavior.
 
 Update existing local Deploy and full autonomous E2E tests so actual Compiler output is first published through the artifact repository, then Release is published, then Deploy retrieves/verifies/materializes it. Add corruption evidence proving a substituted payload is rejected before activation.
+
+# Inputs / contracts
+
+TASK-065 verified artifact reader semantics, actual Compiler output, PublishedRelease/ReleaseArtifact, EnvironmentProfile, ADR-0002 and ADR-0007.
+
+# Outputs / contracts
+
+Local Deploy activation path sourced only from independently verified artifact payload retrieval, plus extended integrated E2E evidence.
 
 # Acceptance criteria
 
@@ -76,6 +92,10 @@ Update existing local Deploy and full autonomous E2E tests so actual Compiler ou
 # Non-goals
 
 Persistent Runtime, HTTP health, SecretResolver, production storage/adapters, database provisioning, traffic switching, Catalog/Assembly solving or public schema changes.
+
+# Evidence expected
+
+Focused local Deploy tests and the full autonomous local E2E using actual artifact publication/retrieval, including pre-activation corruption rejection, plus GitHub Deterministic CI.
 
 # Escalation
 

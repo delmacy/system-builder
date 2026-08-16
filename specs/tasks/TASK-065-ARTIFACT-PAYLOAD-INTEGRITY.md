@@ -48,9 +48,25 @@ validation:
 
 Close TD-P2-02 by independently verifying retrieved generated-file bytes and recomputing the aggregate ReleaseArtifact identity before any payload can be considered activatable.
 
+# Context
+
+Compiler already hashes each generated file and derives the immutable ReleaseArtifact identity from canonical artifact metadata plus the ordered file-hash list. The P2 review identified that Deploy trusted caller-supplied generated files without independently reproducing those checks.
+
+# Current behavior
+
+TASK-064 provides publication/retrieval by artifact hash and immutable snapshots, but stored payload content is not yet independently checked against per-file hashes, manifest coverage or the canonical aggregate ReleaseArtifact identity.
+
 # Required change
 
 Extend the artifact payload boundary so retrieval for activation requires the canonical ReleaseArtifact metadata. Recompute every generated file `contentHash` from file content, require exact manifest path coverage with no duplicate/extra/missing paths, then recompute the aggregate artifact identity using the same canonical payload semantics as Compiler. Return a verified immutable payload only when all checks pass.
+
+# Inputs / contracts
+
+Shared deterministic hashing utilities, actual Compiler ReleaseArtifact semantics, TASK-064 repository boundary.
+
+# Outputs / contracts
+
+Verified artifact payload result suitable for pre-activation Deploy consumption.
 
 # Acceptance criteria
 
@@ -62,17 +78,13 @@ Extend the artifact payload boundary so retrieval for activation requires the ca
 - tests use actual Compiler output for positive and corruption cases;
 - declared validations pass.
 
-# Inputs / contracts
-
-Shared deterministic hashing utilities, actual Compiler ReleaseArtifact semantics, TASK-064 repository boundary.
-
-# Outputs / contracts
-
-Verified artifact payload result suitable for pre-activation Deploy consumption.
-
 # Non-goals
 
 Changing Compiler artifact semantics, signing/PKI, remote transport security, production object storage, Deploy activation or Runtime changes.
+
+# Evidence expected
+
+Focused tests using actual Compiler output for successful verification and corrupted/substituted payload rejection, plus GitHub Deterministic CI.
 
 # Escalation
 
