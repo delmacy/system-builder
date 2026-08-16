@@ -1,48 +1,50 @@
-# Current Execution Milestone — M2 First Executable Vertical Slice
+# Current Execution Milestone — M3 First Autonomous Local Runtime
 
 ## Goal
 
-Prove deterministic executable behavior from SystemDefinition through Catalog, Assembly, Validation, Compiler, Release and Deploy dry-run using the accepted public contract spine.
+Extend the deterministic P1 factory chain into the first locally runnable autonomous client-runtime proof while hardening the public boundaries required by Runtime and Deploy.
 
 ## Integrated baseline
 
-- P1-VERTICAL-01 — Catalog + Assembly — MERGED.
-- P1-VERTICAL-02 — Validation + Compiler + ReleaseArtifact — MERGED.
-- P1-VERTICAL-03 — Release + Deploy + DeploymentRecord — MERGED by PR #155.
+P1-PACKAGE-01 is merged and reviewed.
 
-## Integrated proof
+Current integrated proof:
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
 
-The product regression includes a full vertical test that executes the successful chain twice through actual module APIs and compares deterministic identities, plus controlled failure and secret-separation evidence.
+P1 regression executes the successful chain twice through actual module APIs and retains controlled failure and secret-separation evidence.
 
-## Active gate
+## Active planning gate
 
-### P1-PACKAGE-01 — Integration & Technical Debt Review
+### P2-PACKAGE-01 — First Autonomous Local Runtime
 
-Status: IN PROGRESS.
+Status: PROPOSED / READY_FOR_REVIEW until its planning PR merges.
 
-Review artifact:
+Package target:
 
-`project_docs/execution_planning/P1-PACKAGE-01.integration-debt-review.md`
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> canonical EnvironmentProfile -> local Deploy -> autonomous Runtime health -> DeploymentRecord`
 
-Required closure evidence:
+## Forecast construction sequence
 
-- full `npm run verify` on the integrated review head via GitHub CI;
-- repeatability proof retained green;
-- technical debt classified;
-- contracts, WBS/DAG and module boundaries revalidated;
-- persistence/UI/runtime gaps recorded;
-- no next package started implicitly.
+1. `P2-BOUNDARY-01` — schema conformance, canonical EnvironmentProfile and shared deterministic hashing;
+2. `P2-RUNTIME-01` — runnable artifact and autonomous Runtime bootstrap;
+3. `P2-LOCAL-DEPLOY-01` — local-process deployment adapter and full autonomous runtime E2E;
+4. Integration & Technical Debt Review.
 
-## Preliminary disposition
+## Commitment rule
 
-M2 package construction goal is satisfied. No architecture rollback blocker has been identified. The review records high-priority boundary hardening before the next expansion: contract/schema conformance tests, canonical EnvironmentProfile definition and maturation of Catalog/Assembly resolution before production-grade graphs.
+The package is rolling-wave planning. No construction Sprint is committed by package creation alone.
 
-## Successor planning
+After package merge and explicit execution authorization, re-read the repository, materialize/revalidate the first Sprint TASKs, confirm L3 authority where required, freeze the Sprint manifest and create `sprint/P2-BOUNDARY-01` from synchronized `main`.
 
-Do not name or commit a successor milestone/Sprint Package until this review is merged and successor planning is explicitly authorized. The next package should be derived from the review evidence rather than chat history.
+## Architecture constraints
+
+- ADR-0002 Builder/Runtime separation remains mandatory.
+- Runtime ordinary operation must not require System Builder or Observe.
+- Release artifacts contain no secret values.
+- Environment/configuration is bound outside immutable release content.
+- Any L4 discovery requires ADR rather than silent architecture change.
 
 ## AgentFactory infrastructure track
 
-AgentFactory remains frozen and is not an M2 product gate.
+AgentFactory remains frozen and is not an M3 product gate.
