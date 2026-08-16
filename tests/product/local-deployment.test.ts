@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { access } from "node:fs/promises";
 import test from "node:test";
+import { InMemoryArtifactPayloadRepository } from "../../packages/artifact-store/index.js";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
 import { executeLocalDeployment } from "../../packages/deploy/local-deployment.js";
 import { ReleaseRegistry } from "../../packages/release/index.js";
@@ -31,6 +32,8 @@ function fixture() {
       { name: "LOG_LEVEL", kind: "config", required: false },
     ],
   });
+  const artifacts = new InMemoryArtifactPayloadRepository();
+  artifacts.publish({ artifactHash: compilation.artifact.artifactHash, files: compilation.files });
   const publishedRelease = new ReleaseRegistry().publish({
     releaseId: "local-deployment",
     version: "1.0.0",
@@ -46,7 +49,7 @@ function fixture() {
       { name: "LOG_LEVEL", kind: "config" as const, reference: "config://log-level" },
     ],
   };
-  return { compilation, publishedRelease, environment };
+  return { compilation, artifacts, publishedRelease, environment };
 }
 
 const times = {
@@ -54,19 +57,19 @@ const times = {
   completedAt: "2026-08-16T03:10:02Z",
 };
 
-test("local deployment records observed RuntimeHealth as deterministic success", async () => {
-  const { compilation, publishedRelease, environment } = fixture();
+test("local deployment records observed RuntimeHealth as deterministic success from verified payload", async () => {
+  const { compilation, artifacts, publishedRelease, environment } = fixture();
   const first = await executeLocalDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
-    generatedFiles: compilation.files,
+    artifactPayloadReader: artifacts,
     environment,
     ...times,
   });
   const second = await executeLocalDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
-    generatedFiles: compilation.files,
+    artifactPayloadReader: artifacts,
     environment,
     ...times,
   });
@@ -84,11 +87,11 @@ test("local deployment records observed RuntimeHealth as deterministic success",
 });
 
 test("local deployment records activated runtime failure and cleanup", async () => {
-  const { compilation, publishedRelease, environment } = fixture();
+  const { compilation, artifacts, publishedRelease, environment } = fixture();
   const result = await executeLocalDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
-    generatedFiles: compilation.files,
+    artifactPayloadReader: artifacts,
     environment: {
       ...environment,
       bindings: environment.bindings.filter((binding) => binding.name !== "DATABASE_URL"),
@@ -109,11 +112,11 @@ test("local deployment records activated runtime failure and cleanup", async () 
 });
 
 test("local deployment preserves preflight failure as diagnostic without false record", async () => {
-  const { compilation, publishedRelease, environment } = fixture();
+  const { compilation, artifacts, publishedRelease, environment } = fixture();
   const result = await executeLocalDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
-    generatedFiles: compilation.files,
+    artifactPayloadReader: artifacts,
     environment: { ...environment, runtimeVersions: ["9.9.9"] },
     ...times,
   });

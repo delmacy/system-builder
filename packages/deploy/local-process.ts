@@ -11,6 +11,24 @@ export type LocalGeneratedFile = Readonly<{
   contentHash: string;
 }>;
 
+export type LocalVerifiableReleaseArtifact = DeployReleaseArtifact & Readonly<{
+  assemblyPlanRef: string;
+  validationEvidenceRef: string;
+  manifest: Readonly<{
+    compilerVersion: string;
+    runtimeVersion: string;
+    files: readonly string[];
+  }>;
+}>;
+
+export type LocalVerifiedArtifactPayloadReader = Readonly<{
+  getVerified(artifact: LocalVerifiableReleaseArtifact): Readonly<{
+    artifactHash: string;
+    files: readonly LocalGeneratedFile[];
+    verified: true;
+  }>;
+}>;
+
 export type LocalRuntimeHealth = Readonly<{
   kind: "RuntimeHealth";
   status: "UP";
@@ -22,6 +40,7 @@ export type LocalRuntimeHealth = Readonly<{
 export type LocalProcessDeploymentDiagnostic = Readonly<{
   code:
     | "ARTIFACT_MISMATCH"
+    | "ARTIFACT_PAYLOAD_INVALID"
     | "RUNTIME_INCOMPATIBLE"
     | "RUNTIME_ENTRYPOINT_MISSING"
     | "GENERATED_PATH_INVALID"
@@ -82,17 +101,20 @@ function parseHealth(stdout: string): LocalRuntimeHealth | null {
   }
 }
 
+function errorDetail(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
+}
+
 export async function runLocalProcessDeployment(input: Readonly<{
   publishedRelease: DeployPublishedRelease;
-  releaseArtifact: DeployReleaseArtifact;
-  generatedFiles: readonly LocalGeneratedFile[];
+  releaseArtifact: LocalVerifiableReleaseArtifact;
+  artifactPayloadReader: LocalVerifiedArtifactPayloadReader;
   environment: EnvironmentProfile;
   processEnvironment?: Readonly<Record<string, string>>;
   timeoutMs?: number;
 }>): Promise<LocalProcessDeploymentResult> {
   const releaseSnapshot = JSON.stringify(input.publishedRelease);
   const artifactSnapshot = JSON.stringify(input.releaseArtifact);
-  const filesSnapshot = JSON.stringify(input.generatedFiles);
 
   if (
     input.publishedRelease.artifactHash !== input.releaseArtifact.artifactHash ||
@@ -117,7 +139,27 @@ export async function runLocalProcessDeployment(input: Readonly<{
       exitCode: null,
     });
   }
-  for (const file of input.generatedFiles) {
+
+  let generatedFiles: readonly LocalGeneratedFile[];
+  try {
+    const verifiedPayload = input.artifactPayloadReader.getVerified(input.releaseArtifact);
+    if (verifiedPayload.artifactHash !== input.releaseArtifact.artifactHash || verifiedPayload.verified !== true) {
+      throw new Error("ARTIFACT_PAYLOAD_VERIFICATION_REQUIRED");
+    }
+    generatedFiles = verifiedPayload.files;
+  } catch (error) {
+    return Object.freeze({
+      ok: false,
+      activated: false,
+      diagnostic: Object.freeze({ code: "ARTIFACT_PAYLOAD_INVALID", detail: errorDetail(error) }),
+      stdout: "",
+      stderr: "",
+      exitCode: null,
+    });
+  }
+  const filesSnapshot = JSON.stringify(generatedFiles);
+
+  for (const file of generatedFiles) {
     if (!validGeneratedPath(file.path)) {
       return Object.freeze({
         ok: false,
@@ -129,12 +171,12 @@ export async function runLocalProcessDeployment(input: Readonly<{
       });
     }
   }
-  const runtimeEntry = input.generatedFiles.find((file) => file.path === "runtime-entry.mjs");
+  const runtimeEntry = generatedFiles.find((file) => file.path === "runtime-entry.mjs");
   if (!runtimeEntry) {
     return Object.freeze({
       ok: false,
       activated: false,
-      diagnostic: Object.freeze({ code: "RUNTIME_ENTRYPOINT_MISSING", detail: "generated-files" }),
+      diagnostic: Object.freeze({ code: "RUNTIME_ENTRYPOINT_MISSING", detail: "verified-artifact-payload" }),
       stdout: "",
       stderr: "",
       exitCode: null,
@@ -147,7 +189,7 @@ export async function runLocalProcessDeployment(input: Readonly<{
   let exitCode: number | null = null;
   let timedOut = false;
   try {
-    for (const file of input.generatedFiles) {
+    for (const file of generatedFiles) {
       const target = join(workingDirectory, file.path);
       await mkdir(dirname(target), { recursive: true });
       await writeFile(target, file.content, "utf8");
@@ -214,7 +256,7 @@ export async function runLocalProcessDeployment(input: Readonly<{
     if (
       JSON.stringify(input.publishedRelease) !== releaseSnapshot ||
       JSON.stringify(input.releaseArtifact) !== artifactSnapshot ||
-      JSON.stringify(input.generatedFiles) !== filesSnapshot
+      JSON.stringify(generatedFiles) !== filesSnapshot
     ) throw new Error("LOCAL_DEPLOY_MUTATED_IMMUTABLE_INPUT");
 
     return Object.freeze({

@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { InMemoryArtifactPayloadRepository } from "../../packages/artifact-store/index.js";
 import { assembleSystemDefinition } from "../../packages/assembly/index.js";
 import { SoftwareCatalogRegistry, resolveCatalogCandidates } from "../../packages/catalog/index.js";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
@@ -43,6 +44,11 @@ async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseB
     environmentSchema: factoryEnvironmentSchema,
   });
 
+  const artifacts = new InMemoryArtifactPayloadRepository();
+  const artifactPayload = artifacts.publish({
+    artifactHash: compilation.artifact.artifactHash,
+    files: compilation.files,
+  });
   const releases = new ReleaseRegistry();
   const publishedRelease = releases.publish({
     releaseId: "autonomous-local-system",
@@ -59,7 +65,7 @@ async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseB
   const deployment = await executeLocalDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
-    generatedFiles: compilation.files,
+    artifactPayloadReader: artifacts,
     environment: {
       kind: "EnvironmentProfile",
       environmentRef: "environment:autonomous-local",
@@ -80,12 +86,13 @@ async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseB
     assembly,
     validation,
     compilation,
+    artifactPayload,
     publishedRelease,
     deployment,
   };
 }
 
-test("full autonomous local vertical reaches RuntimeHealth and deterministic DeploymentRecord twice", async () => {
+test("full autonomous local vertical reaches verified artifact retrieval, RuntimeHealth and deterministic DeploymentRecord twice", async () => {
   const first = await executeAutonomousLocalVertical();
   const second = await executeAutonomousLocalVertical();
 
@@ -99,6 +106,7 @@ test("full autonomous local vertical reaches RuntimeHealth and deterministic Dep
   assert.equal(first.assembly.plan.contentHash, second.assembly.plan.contentHash);
   assert.equal(first.validation.evidenceHash, second.validation.evidenceHash);
   assert.equal(first.compilation.artifact.artifactHash, second.compilation.artifact.artifactHash);
+  assert.deepEqual(first.artifactPayload, second.artifactPayload);
   assert.deepEqual(first.publishedRelease, second.publishedRelease);
   assert.deepEqual(first.deployment.record, second.deployment.record);
   assert.equal(first.deployment.record.status, "succeeded");
@@ -118,7 +126,7 @@ test("full autonomous local vertical keeps runtime-only secret value outside imm
   if (!result.deployment.ok) return;
 
   const durableContent = JSON.stringify({
-    files: result.compilation.files,
+    payload: result.artifactPayload,
     artifact: result.compilation.artifact,
     release: result.publishedRelease,
     record: result.deployment.record,

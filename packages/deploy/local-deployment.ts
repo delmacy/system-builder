@@ -1,11 +1,12 @@
 import type { EnvironmentProfile } from "@system-builder/contracts/environment-profile";
 import { sha256Canonical } from "@system-builder/deterministic";
-import type { DeployPublishedRelease, DeployReleaseArtifact, DeploymentRecord } from "./index.js";
+import type { DeployPublishedRelease, DeploymentRecord } from "./index.js";
 import {
   runLocalProcessDeployment,
-  type LocalGeneratedFile,
   type LocalProcessDeploymentDiagnostic,
   type LocalProcessDeploymentResult,
+  type LocalVerifiableReleaseArtifact,
+  type LocalVerifiedArtifactPayloadReader,
 } from "./local-process.js";
 
 export type LocalDeploymentResult =
@@ -26,8 +27,8 @@ function releaseRef(release: DeployPublishedRelease): string {
 
 export async function executeLocalDeployment(input: Readonly<{
   publishedRelease: DeployPublishedRelease;
-  releaseArtifact: DeployReleaseArtifact;
-  generatedFiles: readonly LocalGeneratedFile[];
+  releaseArtifact: LocalVerifiableReleaseArtifact;
+  artifactPayloadReader: LocalVerifiedArtifactPayloadReader;
   environment: EnvironmentProfile;
   startedAt: string;
   completedAt: string;
@@ -37,7 +38,7 @@ export async function executeLocalDeployment(input: Readonly<{
   const execution = await runLocalProcessDeployment({
     publishedRelease: input.publishedRelease,
     releaseArtifact: input.releaseArtifact,
-    generatedFiles: input.generatedFiles,
+    artifactPayloadReader: input.artifactPayloadReader,
     environment: input.environment,
     ...(input.processEnvironment === undefined ? {} : { processEnvironment: input.processEnvironment }),
     ...(input.timeoutMs === undefined ? {} : { timeoutMs: input.timeoutMs }),
