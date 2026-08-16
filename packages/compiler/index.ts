@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { canonicalJson, sha256Canonical, sha256Text } from "@system-builder/deterministic";
 
 export type CompilerAssemblyPlan = Readonly<{
   kind: "AssemblyPlan";
@@ -57,30 +57,6 @@ export type SyntheticCompilation = Readonly<{
   files: readonly GeneratedFile[];
   artifact: ReleaseArtifact;
 }>;
-
-function stableValue(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(stableValue);
-  if (value !== null && typeof value === "object") {
-    return Object.fromEntries(
-      Object.entries(value as Record<string, unknown>)
-        .sort(([left], [right]) => left.localeCompare(right))
-        .map(([key, nested]) => [key, stableValue(nested)]),
-    );
-  }
-  return value;
-}
-
-function canonicalJson(value: unknown): string {
-  return JSON.stringify(stableValue(value));
-}
-
-function sha256Text(value: string): string {
-  return `sha256:${createHash("sha256").update(value).digest("hex")}`;
-}
-
-function sha256(value: unknown): string {
-  return sha256Text(canonicalJson(value));
-}
 
 function requireToken(value: string, field: string): string {
   const normalized = value.trim();
@@ -187,7 +163,7 @@ export function compileSyntheticRelease(input: CompileSyntheticInput): Synthetic
     kind: "ReleaseArtifact",
     assemblyPlanRef: artifactPayload.assemblyPlanRef,
     validationEvidenceRef: artifactPayload.validationEvidenceRef,
-    artifactHash: sha256(artifactPayload),
+    artifactHash: sha256Canonical(artifactPayload),
     manifest,
     environmentSchema,
   });

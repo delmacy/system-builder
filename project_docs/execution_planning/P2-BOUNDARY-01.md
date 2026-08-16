@@ -1,57 +1,53 @@
 # P2-BOUNDARY-01 — Executable Boundary Hardening
 
-Status: FORECAST
-Package: `P2-PACKAGE-01`
+Status: COMMITTED
 
-## Goal
+## Sprint Goal
 
-Harden the public executable boundaries inherited from P1 before a real Runtime or external Deploy adapter depends on them.
+Harden the executable P1 factory boundaries before Runtime work by proving canonical schema conformance, establishing the canonical EnvironmentProfile contract consumed by Deploy, and consolidating deterministic canonicalization/hash behavior without changing existing artifact identities.
 
-## Candidate TASKs
+## Base and branch
 
-### TASK-055 — Canonical schema-conformance harness
+- base: `main` at `4bd5df639329f29d71d8cfcf3e2a6c0833cb4f63` (P2-PACKAGE-01 planning merged by PR #157)
+- branch: `sprint/P2-BOUNDARY-01`
 
-Intent: validate actual `AssemblyPlan`, `ValidationEvidence`, `ReleaseArtifact`, `PublishedRelease` and `DeploymentRecord` outputs against their canonical JSON schemas inside product tests.
+## Predecessor gate
 
-Expected tests:
-- positive conformance for the real P1 vertical outputs;
-- negative mutation for each boundary class;
-- predecessor integration through actual module producers.
+PASS. P1-PACKAGE-01 and its Integration & Technical Debt Review are merged; P2-PACKAGE-01 is merged; explicit execution authorization was received for the next Sprint.
 
-### TASK-056 — Canonical EnvironmentProfile contract
+## Committed TASKs
 
-Intent: define the shared Environment/Profile + binding boundary required by Deploy without embedding secret values in immutable release content.
+1. TASK-055 — canonical schema-conformance harness for executable factory outputs.
+2. TASK-056 — canonical EnvironmentProfile / environment-binding contract and Deploy consumption.
+3. TASK-057 — shared deterministic canonicalization/hash utility with regression vectors.
 
-Change level: L3 contract. Must be explicitly authorized when this Sprint is committed.
+Dependency order: `TASK-054 -> TASK-055 -> TASK-056 -> TASK-057`.
 
-Expected tests:
-- valid config/secret-reference bindings;
-- reject inline secret values and malformed references;
-- Deploy consumes the canonical shape rather than inventing an internal competing structure.
+## Explicit contract authority
 
-### TASK-057 — Shared deterministic canonicalization/hash utility
+This Sprint explicitly authorizes bounded L3 contract work only for TASK-056: defining the canonical EnvironmentProfile/environment-binding contract required by ADR-0007 and updating Deploy/tests to consume it.
 
-Intent: remove duplicated stable-object/hash logic from executable modules while preserving deterministic identities.
+This authority does not permit changing Release/Environment/Deployment separation, Builder/Runtime topology, public factory artifact semantics, or any other L4 architecture decision. Any L4 discovery stops the Sprint for ADR/human review.
 
-Expected tests:
-- regression vectors for object-key ordering/nesting/arrays;
-- equivalent inputs hash identically;
-- actual P1 full-vertical identities remain reproducible after migration.
+## Growing integration proof
 
-## Dependency order
+Retain the actual-module P1 vertical and extend it so emitted AssemblyPlan, ValidationEvidence, ReleaseArtifact, PublishedRelease and DeploymentRecord are independently checked against canonical JSON schemas. Add canonical EnvironmentProfile conformance and prove Deploy consumes that boundary. After TASK-057, repeated vertical executions must preserve deterministic identities using the shared utility.
 
-`TASK-055 -> TASK-056 -> TASK-057`
+## Final validation
 
-## Exit proof
+`npm run verify`
 
-The real full-vertical outputs conform to canonical contracts, Deploy uses the canonical EnvironmentProfile boundary, and deterministic identity generation remains reproducible with one shared canonicalization primitive.
+GitHub Deterministic CI is the objective remote validation. Local command execution is not claimed unless separately observed.
 
-## Commitment gate
+## Stop / escalation conditions
 
-Before changing status to COMMITTED:
+Stop before implementation or continuation if:
 
-1. re-read `AGENTS.md`, state/milestone, Sprint Generation Policy, Sprint Mode and `P2-PACKAGE-01.md`;
-2. materialize/revalidate TASK-055..057 with `context_paths`, `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validation commands;
-3. inspect the current canonical schemas and module outputs;
-4. confirm L3 authority for TASK-056;
-5. create `sprint/P2-BOUNDARY-01` from synchronized `main` and freeze the manifest before implementation.
+- TASK-056 requires an L4 change instead of the bounded L3 contract authorized here;
+- a required edit falls outside a TASK's allowed_paths or into forbidden_paths;
+- schema conformance reveals that satisfying the canonical contract requires semantic redesign rather than a bounded defect correction;
+- shared canonicalization would intentionally change published identity semantics instead of preserving current canonical hashes;
+- security/governance would be weakened;
+- repository authorities conflict and cannot be resolved from repository memory.
+
+Routine test/type/lint fixes within a TASK's declared scope may be corrected autonomously.

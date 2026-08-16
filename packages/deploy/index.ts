@@ -1,4 +1,7 @@
-import { createHash } from "node:crypto";
+import type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
+import { sha256Canonical } from "@system-builder/deterministic";
+
+export type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
 
 export type DeployPublishedRelease = Readonly<{
   kind: "PublishedRelease";
@@ -20,18 +23,6 @@ export type DeployReleaseArtifact = Readonly<{
     kind: "config" | "secret-reference";
     required: boolean;
   }>[];
-}>;
-
-export type EnvironmentBinding = Readonly<{
-  name: string;
-  kind: "config" | "secret-reference";
-  reference: string;
-}>;
-
-export type EnvironmentProfile = Readonly<{
-  environmentRef: string;
-  runtimeVersions: readonly string[];
-  bindings: readonly EnvironmentBinding[];
 }>;
 
 export type AcceptanceCheck = Readonly<{ name: string; pass: boolean }>;
@@ -57,20 +48,6 @@ export type DryRunDeploymentResult =
         detail: string;
       }>;
     }>;
-
-function stableValue(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(stableValue);
-  if (value !== null && typeof value === "object") {
-    return Object.fromEntries(Object.entries(value as Record<string, unknown>)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([key, nested]) => [key, stableValue(nested)]));
-  }
-  return value;
-}
-
-function sha256(value: unknown): string {
-  return `sha256:${createHash("sha256").update(JSON.stringify(stableValue(value))).digest("hex")}`;
-}
 
 function releaseRef(release: DeployPublishedRelease): string {
   return `${release.releaseId}@${release.version}`;
@@ -119,7 +96,7 @@ export function dryRunDeploy(input: Readonly<{
   };
   const record: DeploymentRecord = Object.freeze({
     kind: "DeploymentRecord",
-    deploymentId: sha256(payload),
+    deploymentId: sha256Canonical(payload),
     publishedReleaseRef: payload.publishedReleaseRef,
     environmentRef: payload.environmentRef,
     releaseHash: payload.releaseHash,

@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { sha256Canonical } from "@system-builder/deterministic";
 
 export type AssemblyCapability = Readonly<{
   id: string;
@@ -56,23 +56,6 @@ export type AssemblyDiagnostic = Readonly<{
 export type AssemblyResult =
   | Readonly<{ ok: true; plan: AssemblyPlan }>
   | Readonly<{ ok: false; diagnostics: readonly AssemblyDiagnostic[] }>;
-
-function stableValue(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(stableValue);
-  if (value !== null && typeof value === "object") {
-    return Object.fromEntries(
-      Object.entries(value as Record<string, unknown>)
-        .sort(([left], [right]) => left.localeCompare(right))
-        .map(([key, nested]) => [key, stableValue(nested)]),
-    );
-  }
-  return value;
-}
-
-function sha256(value: unknown): string {
-  const canonical = JSON.stringify(stableValue(value));
-  return `sha256:${createHash("sha256").update(canonical).digest("hex")}`;
-}
 
 function compareCapability(left: AssemblyCapability, right: AssemblyCapability): number {
   return left.capability.localeCompare(right.capability) || left.id.localeCompare(right.id);
@@ -160,6 +143,6 @@ export function assembleSystemDefinition(
     components: orderedComponents,
     sourceRefs,
   };
-  const plan: AssemblyPlan = Object.freeze({ ...payload, contentHash: sha256(payload) });
+  const plan: AssemblyPlan = Object.freeze({ ...payload, contentHash: sha256Canonical(payload) });
   return Object.freeze({ ok: true, plan });
 }

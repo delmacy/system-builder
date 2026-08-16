@@ -55,6 +55,7 @@ function executeFullVertical(acceptancePass = true) {
     publishedRelease,
     releaseArtifact: compilation.artifact,
     environment: {
+      kind: "EnvironmentProfile",
       environmentRef: "environment:test",
       runtimeVersions: ["0.1.0"],
       bindings: [
