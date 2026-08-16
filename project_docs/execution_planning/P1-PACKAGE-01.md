@@ -1,6 +1,6 @@
 # P1-PACKAGE-01 — First Executable Vertical Slice
 
-Status: ACTIVE PACKAGE
+Status: INTEGRATION_AND_DEBT_REVIEW
 
 ## Package Goal
 
@@ -18,7 +18,7 @@ The package follows `project_docs/schedule/SPRINT_GENERATION_POLICY.md` and cont
 
 ### P1-VERTICAL-01 — Catalog and Assembly
 
-Committed when started.
+Status: MERGED.
 
 TASKs:
 - TASK-045 — Product test harness baseline;
@@ -30,7 +30,7 @@ Exit proof: a SystemDefinition capability set resolves against a synthetic Softw
 
 ### P1-VERTICAL-02 — Validation and Compiler
 
-Forecast until P1-VERTICAL-01 is merged.
+Status: MERGED.
 
 TASKs:
 - TASK-049 — traceability ValidationEvidence engine;
@@ -41,7 +41,7 @@ Exit proof: a resolved AssemblyPlan receives deterministic validation evidence a
 
 ### P1-VERTICAL-03 — Release and Deploy
 
-Forecast until P1-VERTICAL-02 is merged.
+Status: MERGED by PR #155.
 
 TASKs:
 - TASK-052 — immutable Release registry/lifecycle;
@@ -52,14 +52,20 @@ Exit proof: the synthetic chain reaches PublishedRelease and DeploymentRecord wi
 
 ## Integration & Technical Debt Review
 
-After P1-VERTICAL-03:
+Status: IN PROGRESS on `review/P1-PACKAGE-01-integration-debt`.
+
+Canonical review artifact:
+
+`project_docs/execution_planning/P1-PACKAGE-01.integration-debt-review.md`
+
+The review must:
 
 - run full repository regression;
 - run the complete synthetic chain at least twice and compare deterministic identities;
 - classify technical debt;
 - revalidate contracts, WBS/DAG and module boundaries;
 - record missing persistence/UI/runtime work;
-- decide the next package from actual integrated evidence.
+- decide next-package readiness from actual integrated evidence.
 
 ## Package rules
 
@@ -69,3 +75,5 @@ After P1-VERTICAL-03:
 - every Sprint extends the growing E2E proof;
 - `main` is the only published truth after merge;
 - Sprint reports distinguish `IMPLEMENTED_ON_SPRINT_BRANCH`, `CI_PASS` and `MERGED`.
+
+No successor Sprint Package is authorized until this review is merged and successor planning is explicitly authorized.

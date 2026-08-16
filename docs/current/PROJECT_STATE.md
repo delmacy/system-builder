@@ -9,24 +9,37 @@ Date: 2026-08-15
 ## Current maturity
 
 - Public contract spine: integrated through TASK-008.
-- Executable factory chain in `main`: through ReleaseArtifact after P1-VERTICAL-02.
-- P1-VERTICAL-03 branch: Release registry, Deploy dry-run and full DeploymentRecord proof implemented with green task CI; awaiting Sprint Review/merge.
+- P1-PACKAGE-01 construction Sprints: all merged into `main`.
+- Executable reference chain in `main`: Catalog -> Assembly -> Validation -> Compiler -> Release -> Deploy dry-run through DeploymentRecord.
+- Full-vertical product proof invokes actual module APIs and repeats the successful chain to compare deterministic identities.
 - GitHub Actions: deterministic integration gate.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
-## Current branch proof
+## Integrated executable chain
 
 `SystemDefinition -> Software Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
+
+The current package does not yet generate/start an autonomous Runtime. Mirror/Recipe/Analysis/Design authoring remain contract/fixture inputs to this first executable factory slice.
 
 ## Package status
 
 **P1-PACKAGE-01 — First Executable Vertical Slice**
 
-- P1-VERTICAL-01 — merged.
-- P1-VERTICAL-02 — merged.
-- P1-VERTICAL-03 — `CI_PASS / READY_FOR_REVIEW` on its Sprint branch.
-- Integration & Technical Debt Review — next only after P1-VERTICAL-03 merge and explicit authorization.
+- P1-VERTICAL-01 — MERGED.
+- P1-VERTICAL-02 — MERGED.
+- P1-VERTICAL-03 — MERGED by PR #155.
+- Integration & Technical Debt Review — IN PROGRESS on `review/P1-PACKAGE-01-integration-debt`.
+
+Review artifact:
+
+`project_docs/execution_planning/P1-PACKAGE-01.integration-debt-review.md`
+
+## Current review findings
+
+No P1 rollback blocker has been found. Highest-priority successor concerns are contract/schema conformance between executable outputs and public JSON schemas, a canonical EnvironmentProfile boundary before real deploy adapters, and maturation of Catalog/Assembly dependency resolution before real component graphs.
+
+Other recorded debt includes duplicated canonical hash logic, in-memory registries, bounded release lifecycle and simplified validation semantics.
 
 ## Truth
 
-Only work merged into `main` is published repository truth. P1-VERTICAL-03 remains branch-only until review/merge.
+Only merged work in `main` is published product truth. The review findings remain proposed repository memory until the review PR is itself merged.
