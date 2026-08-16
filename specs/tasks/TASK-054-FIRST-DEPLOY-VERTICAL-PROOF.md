@@ -1,7 +1,7 @@
 ---
 id: TASK-054
 title: Prove first full deploy vertical slice
-status: draft
+status: ready
 priority: 290
 milestone: M2
 model_tier: cheap
