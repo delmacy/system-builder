@@ -10,10 +10,9 @@ Date: 2026-08-16
 
 - Public contract spine: integrated through TASK-008.
 - P1-PACKAGE-01 construction and Integration & Technical Debt Review: merged.
-- P2-PACKAGE-01 construction: all 3 Sprints merged.
-- P2-PACKAGE-01 Integration & Technical Debt Review: merged through PR #161.
-- Integrated P2 result: PASS / architecture PASS WITH DEBT / no rollback blocker.
-- P3-PACKAGE-01 successor plan: READY_FOR_PACKAGE_REVIEW on `plan/P3-PACKAGE-01`.
+- P2-PACKAGE-01 construction and Integration & Technical Debt Review: merged through PR #161.
+- P3-PACKAGE-01: merged through PR #162.
+- P3-ARTIFACT-01: implemented on `sprint/P3-ARTIFACT-01`; TASK CI green through TASK-066; closure-head CI pending on PR #163.
 - GitHub Actions: deterministic integration gate.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
@@ -21,27 +20,25 @@ Date: 2026-08-16
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> canonical EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
 
-The integrated proof starts actual Compiler-generated `runtime-entry.mjs` through Deploy, supplies EnvironmentProfile externally, succeeds without Builder/Observe availability and preserves deterministic artifact/deployment identities across repeated successful runs.
+Only merged work in `main` is published product truth.
 
-## Merged P2 review priorities
+## Sprint-branch extension
 
-1. provider-neutral artifact payload retrieval/materialization;
-2. independent artifact payload integrity verification before activation;
-3. persistent Runtime lifecycle and health surface;
-4. external secret-resolution boundary;
-5. Catalog/Assembly dependency solving before production-grade graphs.
+`P3-ARTIFACT-01` adds:
 
-## Successor package proposal
+`ReleaseArtifact -> artifact publication -> retrieval -> independent payload integrity verification -> PublishedRelease -> local Deploy -> RuntimeHealth -> DeploymentRecord`
 
-`P3-PACKAGE-01` forecasts:
+Actual Compiler output is published through a provider-neutral payload repository. Verification independently recomputes generated-file hashes, exact manifest coverage and aggregate artifact identity before Deploy materialization. Local Deploy no longer accepts caller-supplied generated files as its activation source.
 
-1. `P3-ARTIFACT-01` — verified artifact payload boundary;
-2. `P3-RUNTIME-SERVICE-01` — persistent autonomous Runtime;
-3. `P3-SECRET-STATE-01` — external secret resolution and first bounded stateful Runtime slice;
-4. Integration & Technical Debt Review.
+Controlled corruption is rejected before runtime activation, while Builder/Observe independence and external secret separation remain intact.
 
-No P3 construction Sprint is committed by the package-plan branch.
+## P3 package progress
+
+1. `P3-ARTIFACT-01` — TASK_CI_PASS / FINAL_CI_PENDING / PR #163;
+2. `P3-RUNTIME-SERVICE-01` — forecast; blocked until Sprint Review/merge plus new instruction;
+3. `P3-SECRET-STATE-01` — forecast;
+4. Integration & Technical Debt Review — after all three construction Sprints.
 
 ## Truth
 
-Only merged work in `main` is published product truth. P3 scope remains proposed until the package plan is reviewed and merged.
+The artifact-delivery behavior above remains branch-only until PR #163 is reviewed and merged. Do not advance to another Sprint from this branch.

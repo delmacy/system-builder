@@ -1,9 +1,10 @@
 # P3-ARTIFACT-01 — Verified Artifact Payload Boundary
 
-Status: COMMITTED / EXECUTING
+Status: IMPLEMENTED_ON_SPRINT_BRANCH / TASK_CI_PASS / FINAL_CI_PENDING
 Package: `P3-PACKAGE-01`
 Base SHA: `6802c0a04e372d535cb7e3a405668df5734dfb39` (PR #162 merged)
 Branch: `sprint/P3-ARTIFACT-01`
+PR: #163
 
 ## Goal
 
@@ -15,40 +16,35 @@ Replace the direct in-memory Compiler `generatedFiles` handoff at local Deploy w
 
 ## Committed TASKs
 
-1. `TASK-064` — artifact payload repository/retrieval contract and in-memory reference implementation;
-2. `TASK-065` — independent per-file and aggregate artifact integrity verification;
-3. `TASK-066` — integrate Release publication/retrieval into local Deploy and extend the real E2E.
+1. `TASK-064` — artifact payload repository/retrieval contract and in-memory reference implementation — `66266d861e7f5aad54d2a4d43dbe1eb7aed1536b`;
+2. `TASK-065` — independent per-file and aggregate artifact integrity verification — `5b13744378c793d30c9857162366cb99f8104ecd`;
+3. `TASK-066` — integrate Release publication/retrieval into local Deploy and extend the real E2E — `cff3ef3572c3be5dc393758cec09b8cc15207338`.
 
 Dependency order:
 
 `TASK-063 -> TASK-064 -> TASK-065 -> TASK-066`
 
-## Predecessor gate
+A bounded materialization-format correction was recorded separately as `ea85fafda1272571d94748b4f6888efe67a03e26`; it changed only TASK document structure required by the repository parser and did not broaden product scope.
 
-PR #162 merged `P3-PACKAGE-01` into `main`. The merged P2 proof already reaches `PublishedRelease -> EnvironmentProfile -> local Deploy -> RuntimeHealth -> DeploymentRecord` using actual Compiler output.
+## Delivered proof
 
-## Expected exit proof
+`ReleaseArtifact -> artifact publication -> retrieval -> independent integrity verification -> PublishedRelease -> Deploy materialization -> autonomous RuntimeHealth -> DeploymentRecord`
 
-`ReleaseArtifact -> PublishedRelease -> artifact publication -> retrieval -> independent integrity verification -> Deploy materialization -> RuntimeHealth/DeploymentRecord`
+The proof uses actual Compiler output and actual Release/Deploy APIs. Deploy no longer accepts caller-supplied `generatedFiles` as its activation source. Corrupted payload content is rejected before materialization/runtime activation.
 
-The proof must use actual Compiler output and the actual Release/Deploy APIs. Corrupted or substituted payload must be rejected before runtime activation.
+## Validation
 
-## Final validation
-
-`npm run verify`
+- CI #209 PASS — TASK-064 plus normalized TASK contract catalog;
+- CI #210 PASS — TASK-065;
+- CI #211 PASS — TASK-066;
+- closure-head `npm run verify` through GitHub Deterministic CI is the remaining final automated gate.
 
 GitHub Deterministic CI is objective remote validation; no local execution is claimed unless directly observed.
 
-## Stop / escalation conditions
+## Scope result
 
-Stop for human/ADR if implementation requires:
-
-- changing ADR-0002 or ADR-0007 architecture;
-- embedding resolved secrets in immutable artifact/release/deployment evidence;
-- provider-specific production storage semantics;
-- touching a TASK forbidden path;
-- broadening scope into persistent Runtime, SecretResolver, production adapters or Catalog/Assembly solving.
+No accepted ADR, Release/Environment/Deployment public contract, Compiler contract, Runtime architecture or forbidden TASK path was changed. Secret values remain external to immutable artifact/release/deployment evidence.
 
 ## Review boundary
 
-After TASK-066 and final repository verification, produce a short Sprint Report, open one PR to `main`, and stop for Sprint Review. Do not start `P3-RUNTIME-SERVICE-01`.
+After the closure-head CI passes, P3-ARTIFACT-01 is ready for Sprint Review in PR #163. Do not start `P3-RUNTIME-SERVICE-01` before review/merge and a new explicit instruction.

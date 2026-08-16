@@ -6,30 +6,32 @@ Extend the merged P2 autonomous local-runtime proof through verified artifact de
 
 ## Integrated baseline
 
-P2-PACKAGE-01 and its Integration & Technical Debt Review are merged through PR #161.
+P2-PACKAGE-01 and its Integration & Technical Debt Review are merged through PR #161. P3-PACKAGE-01 is merged through PR #162.
 
 Integrated `main` proof:
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
 
-## Active gate
+## Sprint under review preparation
 
-### P3-PACKAGE-01 — Artifact Delivery and Persistent Runtime
+### P3-ARTIFACT-01 — Verified Artifact Payload Boundary
 
-Status: READY_FOR_PACKAGE_REVIEW
-Branch: `plan/P3-PACKAGE-01`
-Base: `82841fba853a1b68602ba0c28dc2d0ddfbf9f8b1`
+Status: TASK_CI_PASS / FINAL_CI_PENDING
+Base: `6802c0a04e372d535cb7e3a405668df5734dfb39`
+Branch: `sprint/P3-ARTIFACT-01`
+PR: #163
 
-Forecast order:
+Committed results:
 
-1. `P3-ARTIFACT-01` — provider-neutral artifact payload publication/retrieval and integrity verification;
-2. `P3-RUNTIME-SERVICE-01` — persistent generated Runtime lifecycle and HTTP health;
-3. `P3-SECRET-STATE-01` — external secret resolution plus first bounded stateful Runtime action;
-4. Integration & Technical Debt Review.
+1. TASK-064 — provider-neutral artifact publication/retrieval boundary;
+2. TASK-065 — independent file/manifest/aggregate artifact integrity verification;
+3. TASK-066 — verified retrieval integrated into local Deploy and full autonomous local E2E.
 
-Target package proof:
+Sprint-branch proof:
 
-`PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile -> external secret resolution -> local Deploy -> persistent autonomous Runtime -> HTTP health -> bounded stateful action -> DeploymentRecord`
+`ReleaseArtifact -> verified ArtifactPayload -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
+
+Corrupted payloads are rejected before materialization/runtime activation. No resolved secret value enters immutable artifact/release/deployment evidence.
 
 ## Architecture constraints
 
@@ -42,7 +44,7 @@ Target package proof:
 
 ## Successor gate
 
-Do not create or execute `P3-ARTIFACT-01` until this package plan is reviewed and merged. After merge, re-read repository authority and materialize/revalidate only the first Sprint's candidate TASKs.
+After closure-head CI PASS, stop at Sprint Review for PR #163. `P3-RUNTIME-SERVICE-01` remains forecast and must not start before PR #163 review/merge plus a new explicit instruction.
 
 ## AgentFactory infrastructure track
 
