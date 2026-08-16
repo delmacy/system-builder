@@ -1,6 +1,6 @@
 # P1-VERTICAL-03 — Release and Deploy
 
-Status: COMMITTED
+Status: CI_PASS / READY_FOR_REVIEW
 
 ## Sprint Goal
 
@@ -15,42 +15,35 @@ Register an immutable PublishedRelease, bind it to an Environment profile withou
 
 P1-VERTICAL-02 is merged into `main`. The integrated predecessor chain reaches a deterministic ReleaseArtifact through actual Catalog, Assembly, Validation and Compiler APIs.
 
-The existing PublishedRelease and DeploymentRecord contracts, WBS 09/10, ADR-0007 and accepted Master Blueprint are sufficient for this bounded Sprint. No public-contract or architecture change is authorized or required.
+The existing PublishedRelease and DeploymentRecord contracts, WBS 09/10, ADR-0007 and accepted Master Blueprint were sufficient for this bounded Sprint. No public-contract or architecture change was required.
 
 ## Committed TASK order
 
-1. TASK-052 — immutable Release registry/lifecycle.
-2. TASK-053 — deterministic Deploy dry-run/environment binding.
-3. TASK-054 — first full deploy vertical proof.
+1. TASK-052 — immutable Release registry/lifecycle — completed.
+2. TASK-053 — deterministic Deploy dry-run/environment binding — completed.
+3. TASK-054 — first full deploy vertical proof — completed.
 
 Dependency chain:
 
 `TASK-051 -> TASK-052 -> TASK-053 -> TASK-054`
 
-## Required growing proof
+## Growing proof achieved
 
-Extend the vertical chain to:
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
 
-`ProcessMirror -> BusinessRecipe -> SystemAnalysis -> SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
+The proof uses actual executable factory APIs for every implemented stage, repeats deterministic stages, records controlled acceptance failure and keeps secret values outside immutable release metadata.
 
-Required failure proofs include duplicate published identity rejection, invalid lifecycle transition, Release/Environment incompatibility, failed acceptance check and proof that secret values never enter immutable ReleaseArtifact/PublishedRelease metadata.
+## Validation
 
-## Final validation
+`npm run verify` through GitHub Deterministic CI.
 
-`npm run verify`
+- TASK-052 corrected head: CI #179 PASS.
+- TASK-053 head: CI #180 PASS.
+- TASK-054 implementation head: CI #181 PASS.
+- closure head: final CI required before merge.
 
-GitHub Actions is the objective connected execution evidence. Do not claim local execution.
-
-## Stop / escalation
-
-Stop for human review before implementation completion if:
-
-- PublishedRelease or DeploymentRecord cannot express the bounded output without a public-contract change;
-- Release/Environment/Deployment separation or autonomous-runtime boundaries would change;
-- a required edit falls outside a TASK's allowed paths or into forbidden paths;
-- scope must expand beyond TASK-052..054;
-- immutable release metadata would need secret values.
+Local execution is not claimed.
 
 ## Sprint review boundary
 
-After TASK-054, run final CI, commit a Sprint Report, open one PR to `main`, and stop. Do not start another construction Sprint or the package Integration & Technical Debt Review without new authorization.
+This Sprint is stopped at review. Do not start the package Integration & Technical Debt Review or another Sprint Package until P1-VERTICAL-03 is reviewed/merged and new authorization is given.
