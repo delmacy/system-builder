@@ -1,7 +1,8 @@
 # P4-PACKAGE-01 — Durable Stateful Runtime and Capability Materialization
 
-Status: ACTIVE / SPRINT_3_COMMITTED
+Status: ACTIVE / INTEGRATION_REVIEW_READY_FOR_FINAL_CI
 Base: `5f628b7c72f9e9fc0db799e0bd97b2d1997b1572` (package plan merged through PR #167)
+Construction merged through: `0f0cc70511dbb1510bbc37c31ecb6f7b9998c8f9` (PR #171)
 
 ## Package Goal
 
@@ -17,23 +18,30 @@ Target package proof:
 Status: MERGED through PR #168.
 
 ### 2. P4-POSTGRES-STATE-01
-Status: MERGED through PR #169 at `349231aa982048f2ce4507432032e3d32c160339`.
+Status: MERGED through PR #169.
 
-Integrated proof:
-`verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> autonomous generated Runtime -> persisted state 1 -> 2 -> clean shutdown -> redeploy -> migration skip -> persisted state 3 -> 4`
+### 3. P4-CAPABILITY-RUNTIME-01
+Status: MERGED through PR #170 + completion/recovery PR #171.
 
-### 3. P4-CAPABILITY-RUNTIME-01 — Capability-Driven Durable Runtime Slice
-Status: COMMITTED / ACTIVE.
-
-Goal: replace the bounded hard-coded/caller-driven counter proof with one narrow action selected/materialized from actual SystemDefinition/Catalog/Assembly inputs and execute it against the durable Runtime state path.
-
-Committed TASKs: TASK-079 -> TASK-080 -> TASK-081.
-
-Exit proof:
+Merged exit proof:
 `SystemDefinition state.counter -> Catalog selected reference provider -> AssemblyPlan -> ValidationEvidence -> Compiler-derived state implementation -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration apply -> PostgreSQL Runtime -> durable action -> clean redeploy -> persisted result`
 
 ### 4. Integration & Technical Debt Review
-Status: FORECAST / NOT AUTHORIZED IN THIS SPRINT.
+Status: REVIEW_HEAD_CI_PASS / FINAL_CI_PENDING.
+
+Branch: `review/P4-PACKAGE-01-integration-debt`.
+
+PR: #172.
+
+Review document: `project_docs/execution_planning/P4-PACKAGE-01.integration-debt-review.md`.
+
+Review-head Deterministic CI #249: PASS.
+
+Provisional disposition:
+- construction: PASS;
+- architecture/boundaries: PASS WITH DEBT;
+- rollback blocker: none found;
+- successor readiness: ready to plan only after review merge and fresh repository revalidation.
 
 ## Architecture constraints
 
@@ -44,15 +52,26 @@ Status: FORECAST / NOT AUTHORIZED IN THIS SPRINT.
 - PostgreSQL is an initial target provider, not shared-contract policy;
 - canonical contract or L4 discoveries require explicit authority/ADR.
 
-## Deferred package debt
+## Review debt priorities
 
-- production PostgreSQL auth/TLS/provisioning/HA/backup and concurrent migration coordination;
+High:
+- Catalog/Assembly dependency graph/range/conflict solving;
 - durable Catalog/Release/Artifact provider adapters;
-- general Catalog/Assembly dependency graph/range/conflict solving;
+- production PostgreSQL auth/TLS and migration coordination;
 - production SecretResolver providers/lifecycle;
-- production Runtime supervision/traffic/TLS/rollback;
-- broad generated entities/workflows/auth/UI.
+- production Runtime supervision/traffic/TLS/rollback.
+
+Medium-High:
+- scalable deterministic capability materializer registration before capability breadth grows.
+
+Low-Medium:
+- operational DeploymentRecord timing/executor/active-version semantics.
+
+Governance:
+- prevent Sprint PR merge before closure-head CI and final Sprint Report after the PR #170/#171 recovery.
 
 ## Package gate
 
-Execute only P4-CAPABILITY-RUNTIME-01. After its Sprint Review/merge, the mandatory Integration & Technical Debt Review requires a new explicit instruction and repository revalidation.
+Require final Deterministic CI PASS on PR #172, then stop at the human P4 package Review Gate.
+
+No successor Sprint Package or construction Sprint may be created by this review. Successor planning requires the review to merge plus a new explicit instruction and repository revalidation.
