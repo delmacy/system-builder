@@ -1,9 +1,10 @@
 # P5-CATALOG-CONSTRAINTS-01 — Structured Dependency and Version Constraints
 
-Status: COMMITTED
+Status: REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS
 Package: `P5-PACKAGE-01`
 Base SHA: `e1a1cfa00ae64180746c07a8b2e304f4d2990db9` (PR #173 merged)
 Branch: `sprint/P5-CATALOG-CONSTRAINTS-01`
+PR: #174
 
 ## Goal
 
@@ -15,53 +16,43 @@ Evolve Catalog dependency metadata and candidate-resolution semantics so depende
 
 ADR-0002 and ADR-0007 remain controlling and unchanged.
 
-## Committed TASKs
+## TASK results
 
-1. `TASK-082` — structured dependency requirement and deterministic normalization;
-2. `TASK-083` — bounded version-constraint candidate resolution and diagnostics;
-3. `TASK-084` — positive/negative/order-independent evidence plus predecessor Catalog/Assembly compatibility.
+1. `TASK-082` — PASS at `210af0a4d8241d264a4291a0111d66b68ca0d438`; CI #253 PASS.
+2. `TASK-083` — PASS at `1ea98f091f28110080b971f00ea3a1b6de136402`; CI #254 PASS.
+3. `TASK-084` — PASS at `3e73f5e1a8306553e1074ef2f33eb1925b6d40b9`; CI #255 PASS.
 
-Dependency order:
+Dependency order preserved:
 
 `TASK-082 -> TASK-083 -> TASK-084`
 
-## Predecessor gate
-
-- P4 construction + Integration & Technical Debt Review merged through PR #172;
-- P5 package plan merged through PR #173 at `e1a1cfa00ae64180746c07a8b2e304f4d2990db9`;
-- Deterministic CI #252 passed on the P5 package-plan head;
-- current Catalog exact-resolution and Assembly predecessor tests are the compatibility baseline.
-
-## Expected exit proof
+## Achieved proof
 
 `Catalog records -> structured dependency requirements -> deterministic constrained candidates / explicit unsatisfied diagnostic`
 
-Required evidence:
+Evidence:
 
-- normalized structured dependency identity independent of input ordering;
-- bounded exact/minimum version-constraint matching with deterministic diagnostics;
-- existing exact `version` request behavior remains valid;
-- compatibility filtering remains valid;
-- registration order cannot change candidate ordering/result;
-- current Assembly integration through `resolveCatalogCandidates` remains valid;
-- no transitive closure, cycle/conflict graph solving or Compiler materializer work is introduced.
+- structured dependency requirements normalize capability, bounded version constraint and compatibility metadata deterministically;
+- current legacy `dependencies` remains intact for Assembly predecessor compatibility;
+- `exact` and `minimum` constraints use bounded `major.minor.patch` matching;
+- malformed constraint/candidate versions fail explicitly when constraint matching is exercised;
+- unsatisfied constraints return reproducible diagnostics;
+- registration order does not alter candidate results;
+- current Assembly implementation remains unchanged and does not traverse structured requirements.
 
-## Final validation
+## Validation
 
-- each TASK declares focused product validation plus repository-wide verification;
-- final Sprint validation: `npm run verify`;
-- GitHub Deterministic CI is objective completion evidence;
-- local execution is not claimed unless actually observed.
+- TASK-082: Deterministic CI #253 PASS.
+- TASK-083: Deterministic CI #254 PASS.
+- TASK-084: Deterministic CI #255 PASS.
+- CI #255 repository verification: 309 unit PASS / 0 skipped; 101 product PASS / 0 skipped; P4 PostgreSQL predecessor proofs PASS; task catalog/architecture/build PASS.
+- final closure-head Deterministic CI is required before Sprint Review readiness.
+- local execution is not claimed.
 
-## Stop / escalation conditions
+## Architecture disposition
 
-Stop if implementation requires:
+No new ADR required. No canonical contract, Assembly implementation, Compiler/materializer, Release/Environment/Deployment or Builder/Runtime boundary was changed.
 
-- a canonical `packages/contracts/**` change;
-- a Builder/Runtime, Release/Environment/Deployment or suite-topology change;
-- transitive Assembly graph resolution belonging to `P5-ASSEMBLY-GRAPH-01`;
-- durable Catalog/Release/Artifact persistence;
-- a required path forbidden by the active TASK;
-- an unresolved shared-contract ambiguity not settled by repository authority.
+## Review boundary
 
-`P5-ASSEMBLY-GRAPH-01` remains FORECAST and must not be materialized or executed in this Sprint.
+After closure-head Deterministic CI PASS, mark PR #174 ready for Sprint Review and stop. `P5-ASSEMBLY-GRAPH-01` remains FORECAST and must not be materialized or executed without a new explicit instruction after this Sprint merges and `main` is reconstructed.
