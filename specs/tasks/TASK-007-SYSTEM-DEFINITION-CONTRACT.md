@@ -1,7 +1,7 @@
 ---
 id: TASK-007
 title: Specify the SystemDefinition contract
-status: ready
+status: completed
 priority: 70
 milestone: M1
 model_tier: architecture

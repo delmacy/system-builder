@@ -1,0 +1,45 @@
+{
+  "definition": "SystemDefinition",
+  "analysisRef": "analysis:order-intake:1.0.0",
+  "recipeRef": "recipe:order-intake:1.0.0",
+  "entities": [
+    {
+      "id": "order",
+      "name": "Order",
+      "requirementRefs": ["REQ-ORDER-01"],
+      "fields": [
+        { "name": "id", "type": "string", "required": true },
+        { "name": "status", "type": "string", "required": true }
+      ]
+    }
+  ],
+  "processes": [
+    {
+      "id": "order-intake",
+      "name": "Order intake",
+      "requirementRefs": ["REQ-ORDER-01"],
+      "states": ["draft", "submitted", "approved"]
+    }
+  ],
+  "actions": [
+    { "id": "submit-order", "name": "Submit order", "requirementRefs": ["REQ-ORDER-01"] }
+  ],
+  "capabilities": [
+    { "id": "cap-order-workflow", "capability": "workflow.order-approval", "requirementRefs": ["REQ-ORDER-01"] }
+  ],
+  "views": [
+    { "id": "order-form", "kind": "form", "requirementRefs": ["REQ-ORDER-01"] }
+  ],
+  "permissions": [
+    { "role": "operator", "resource": "order", "actions": ["read", "create", "submit"] }
+  ],
+  "policies": [
+    { "id": "order-approval-policy", "statement": "Submitted orders require approval.", "requirementRefs": ["REQ-ORDER-01"] }
+  ],
+  "integrations": [
+    { "id": "legacy-order-export", "contract": "urn:example:order-export:v1", "direction": "outbound", "requirementRefs": ["REQ-ORDER-02"] }
+  ],
+  "environmentRequirements": [
+    { "name": "DATABASE_URL", "kind": "secret-reference", "required": true, "description": "Reference resolved only at deployment/runtime." }
+  ]
+}

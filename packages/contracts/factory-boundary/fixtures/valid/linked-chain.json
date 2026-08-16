@@ -1,0 +1,56 @@
+{
+  "systemDefinitionRef": "definition:order-intake:1.0.0",
+  "assemblyPlan": {
+    "kind": "AssemblyPlan",
+    "systemDefinitionRef": "definition:order-intake:1.0.0",
+    "components": [
+      { "capability": "workflow.order-approval", "provider": "system-builder.reference", "version": "1.0.0", "dependencies": [] }
+    ],
+    "sourceRefs": ["analysis:order-intake:1.0.0", "recipe:order-intake:1.0.0"],
+    "contentHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "validationEvidence": {
+    "kind": "ValidationEvidence",
+    "assemblyPlanRef": "assembly:order-intake:1.0.0",
+    "decision": "PASS",
+    "checks": [
+      { "id": "traceability", "status": "PASS", "evidenceRefs": ["definition:order-intake:1.0.0"] }
+    ],
+    "evidenceHash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "releaseArtifact": {
+    "kind": "ReleaseArtifact",
+    "assemblyPlanRef": "assembly:order-intake:1.0.0",
+    "validationEvidenceRef": "validation:order-intake:1.0.0",
+    "artifactHash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "manifest": {
+      "compilerVersion": "0.1.0",
+      "runtimeVersion": "0.1.0",
+      "files": ["manifest.json", "runtime/index.js"]
+    },
+    "environmentSchema": [
+      { "name": "DATABASE_URL", "kind": "secret-reference", "required": true }
+    ]
+  },
+  "publishedRelease": {
+    "kind": "PublishedRelease",
+    "releaseId": "release:order-intake:1.0.0",
+    "version": "1.0.0",
+    "artifactRef": "artifact:order-intake:1.0.0",
+    "artifactHash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "validationEvidenceRef": "validation:order-intake:1.0.0",
+    "publishedAt": "2026-08-16T00:00:00Z",
+    "status": "published"
+  },
+  "deploymentRecord": {
+    "kind": "DeploymentRecord",
+    "deploymentId": "deployment:order-intake:dev:1",
+    "publishedReleaseRef": "release:order-intake:1.0.0",
+    "environmentRef": "environment:dev",
+    "releaseHash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "startedAt": "2026-08-16T00:01:00Z",
+    "completedAt": "2026-08-16T00:01:10Z",
+    "status": "succeeded",
+    "healthChecks": [{ "name": "synthetic", "status": "PASS" }]
+  }
+}

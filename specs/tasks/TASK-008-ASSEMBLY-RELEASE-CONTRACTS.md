@@ -1,7 +1,7 @@
 ---
 id: TASK-008
 title: Specify AssemblyPlan and release boundary contracts
-status: ready
+status: completed
 priority: 80
 milestone: M1
 model_tier: architecture
