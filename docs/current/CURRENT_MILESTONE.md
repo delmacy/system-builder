@@ -1,41 +1,39 @@
-# Current Execution Milestone — M4 P3 Integration & Technical Debt Review
+# Current Execution Milestone — M5 Durable Stateful Runtime Package Planning
 
 ## Goal
 
-Review the fully merged P3 package against its integrated proof, architecture boundaries, residual debt and WBS/DAG readiness before authorizing any successor package.
+Create the next rolling-wave Sprint Package from the merged P3 Integration & Technical Debt Review, prioritizing durable Runtime state/database + migrations and the first capability-driven generated Runtime slice.
 
 ## Integrated baseline
 
-P3 construction is merged through PR #165 at `444362bad81582932414c348a6da9c5751235bdd`.
+P3 construction and package review are merged through PR #166 at `18b9617f15c5a0329977c5470ba0c8bd054ef5e1`.
 
 Integrated proof:
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile secret refs -> external SecretResolver -> local Deploy -> persistent Runtime -> HTTP RuntimeHealth -> counter.increment (1 -> 2) -> clean shutdown -> DeploymentRecord`
 
-## Review state
+## Proposed package
 
-Branch: `review/P3-PACKAGE-01-integration-debt`
+`P4-PACKAGE-01 — Durable Stateful Runtime and Capability Materialization`
 
-PR: #166
+Forecast sequence:
 
-Review document: `project_docs/execution_planning/P3-PACKAGE-01.integration-debt-review.md`
+1. `P4-MIGRATION-STATE-01` — deterministic state/migration materialization;
+2. `P4-POSTGRES-STATE-01` — PostgreSQL durable Runtime state and restart persistence;
+3. `P4-CAPABILITY-RUNTIME-01` — capability-driven durable Runtime action;
+4. Integration & Technical Debt Review.
 
-Disposition:
-
-- package construction: PASS;
-- architecture/boundaries: PASS WITH DEBT;
-- critical rollback blocker: none;
-- review-head CI #226: PASS;
-- final review CI: pending.
+Candidate TASKs: TASK-073..081, forecast only.
 
 ## Architecture constraints
 
 - ADR-0002 Builder/Runtime separation remains mandatory;
 - ADR-0007 Release/Environment/Deployment separation remains mandatory;
-- no resolved secret value may enter immutable artifact/release/deployment evidence;
-- Runtime ordinary operation must remain independent of Builder/Observe;
+- resolved secret values must remain outside immutable artifact/release/deployment evidence;
+- migrations/runtime behavior must be deterministic products of accepted inputs;
+- PostgreSQL is the initial target topology, not a reason to embed provider-specific policy into shared contracts;
 - L4 discoveries require ADR rather than silent architecture change.
 
 ## Successor gate
 
-Stop at PR #166 after final Deterministic CI. A successor package requires this review to merge plus a new explicit instruction and repository revalidation.
+Stop at the P4 package-plan PR after Deterministic CI. No P4 construction Sprint is authorized until the package plan merges and a new explicit instruction re-reads repository authority.

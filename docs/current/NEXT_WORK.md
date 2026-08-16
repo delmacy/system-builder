@@ -1,18 +1,31 @@
-# Next Work — Review P3 Integration & Technical Debt
+# Next Work — Review P4-PACKAGE-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-The P3 package review is implemented on `review/P3-PACKAGE-01-integration-debt` under PR #166. Review-head Deterministic CI #226 is green.
+Review the proposed rolling-wave `P4-PACKAGE-01 — Durable Stateful Runtime and Capability Materialization` on `plan/P4-PACKAGE-01`.
 
-## Remaining review action
+## Derivation
 
-1. require Deterministic CI PASS on the review-finalization head;
-2. confirm PR #166 remains documentation-only and preserves accepted architecture boundaries;
-3. review the classified debt register and successor-direction recommendations;
-4. merge PR #166 only if the package review is accepted.
+The package is derived from the merged P3 Integration & Technical Debt Review and current WBS/ADRs. It prioritizes durable Runtime state/database + migrations and a capability-driven generated action before production supervision/provider work.
 
-## After PR #166 merges
+Forecast construction sequence:
 
-Do not automatically create a successor package. Await a new explicit instruction, then re-read `AGENTS.md` and repository authority and derive the next Sprint Package from merged review findings and current WBS/DAG state.
+1. `P4-MIGRATION-STATE-01` — TASK-073..075 candidates;
+2. `P4-POSTGRES-STATE-01` — TASK-076..078 candidates;
+3. `P4-CAPABILITY-RUNTIME-01` — TASK-079..081 candidates;
+4. Integration & Technical Debt Review.
+
+## Review checklist
+
+1. require Deterministic CI `npm run verify` PASS on the package-plan head;
+2. verify the package remains rolling-wave forecast only and materializes no TASK specs;
+3. verify WBS 8.1, 10.2 and 13.1 support the proposed sequence;
+4. verify ADR-0002 and ADR-0007 remain unchanged;
+5. verify durable Catalog/Release/Artifact providers, general dependency solving and production supervision remain explicitly deferred;
+6. merge the package plan only if the forecast is accepted.
+
+## After package-plan merge
+
+Do not automatically execute P4. Await a new explicit instruction, then re-read `AGENTS.md` and merged repository authority before revalidating/materializing `P4-MIGRATION-STATE-01` and TASK-073..075.
