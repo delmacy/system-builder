@@ -1,7 +1,7 @@
 ---
 id: TASK-048
 title: Implement minimal deterministic Assembly resolver
-status: ready
+status: completed
 priority: 230
 milestone: M2
 model_tier: cheap

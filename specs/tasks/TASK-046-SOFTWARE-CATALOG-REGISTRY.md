@@ -1,7 +1,7 @@
 ---
 id: TASK-046
 title: Implement minimal Software Catalog registry
-status: ready
+status: completed
 priority: 210
 milestone: M2
 model_tier: cheap

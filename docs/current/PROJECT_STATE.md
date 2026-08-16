@@ -4,72 +4,41 @@ Date: 2026-08-15
 
 ## Repository
 
-`delmacy/system-builder` is the canonical source of truth for the System Builder product and its bounded development infrastructure.
-
-Do not use chat history as technical authority; agents must reconstruct execution context from repository state.
+`delmacy/system-builder` is the canonical source of truth. Agents reconstruct technical context from repository files rather than chat history.
 
 ## Current maturity
 
 - Product/architecture blueprint: established.
-- Public contract spine: completed through TASK-008 and integrated in `main`.
-- Product executable engines: beginning under M2 / P1-PACKAGE-01.
-- GitHub Actions: deterministic CI/integration gate.
-- OpenCode CLI: available local executor; connected agents may also execute through GitHub while obeying repository contracts.
+- Public contract spine: integrated through TASK-008.
+- First executable factory slice: Catalog + Assembly delivered by P1-VERTICAL-01.
+- Product verification: product TypeScript/tests now participate in default `npm run verify`.
+- GitHub Actions: deterministic integration gate.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
-## Completed contract chain
+## Integrated executable chain
 
-`ProcessMirror -> BusinessRecipe -> SystemAnalysis -> SystemDefinition -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
+`SystemDefinition -> Software Catalog -> deterministic Catalog resolution -> AssemblyPlan`
 
-These are contract boundaries; most downstream executable engines still need implementation.
+The Catalog reference implementation has deterministic identity/duplicate rejection and provider-neutral lookup. Assembly consumes a structural resolver dependency rather than another module's internals and emits deterministic AssemblyPlan content hashes.
 
-## Active execution focus
+## Package status
 
 **P1-PACKAGE-01 — First Executable Vertical Slice**
 
-Active/next committed Sprint after planning integration:
+- P1-VERTICAL-01 — Catalog + Assembly — completed by this integration.
+- P1-VERTICAL-02 — Validation + Compiler — next forecast Sprint; must be revalidated before commitment.
+- P1-VERTICAL-03 — Release + Deploy — forecast.
+- Integration & Technical Debt Review follows the third construction Sprint.
 
-**P1-VERTICAL-01 — Catalog and Assembly**
+## Next commitment gate
 
-TASK order:
+Before starting P1-VERTICAL-02:
 
-`TASK-045 -> TASK-046 -> TASK-047 -> TASK-048`
+1. re-read `AGENTS.md`, current state/milestone, Sprint Generation Policy and Sprint Mode;
+2. revalidate TASK-049..051 against the actual integrated Catalog/Assembly outputs;
+3. promote only the eligible TASKs from `draft` to `ready`;
+4. commit the Sprint manifest before code changes.
 
-Expected exit proof:
+## Truth
 
-`SystemDefinition -> Software Catalog -> deterministic resolution -> AssemblyPlan`
-
-## Forecast
-
-- P1-VERTICAL-02 — Validation + Compiler — TASK-049..051.
-- P1-VERTICAL-03 — Release + Deploy — TASK-052..054.
-- Integration & Technical Debt Review after the third construction Sprint.
-
-Forecast Sprints are revalidated after predecessor merge gates.
-
-## Execution policy
-
-Read in this order before product work:
-
-1. `AGENTS.md`;
-2. current state/milestone;
-3. Sprint Generation Policy;
-4. Sprint Mode;
-5. active Sprint Package;
-6. active Sprint manifest;
-7. TASK spec and all applicable `context_paths`;
-8. module WBS/contracts/ADRs.
-
-One Sprint branch carries multiple TASK commits. Each implementation TASK includes bounded tests, and each Sprint extends the growing E2E proof.
-
-## Truth states
-
-- branch-only implementation: `IMPLEMENTED_ON_SPRINT_BRANCH`;
-- current head with objective green CI: `CI_PASS`;
-- accepted into `main`: `MERGED`.
-
-Only `MERGED` work is published repository truth.
-
-## AgentFactory status
-
-AgentFactory architecture/specs/tests/history remain available, but its Supervisor/heartbeat/callback runtime is not a product completion gate. Product Sprints must not spend capacity repairing it unless explicitly reactivated by a dedicated infrastructure Sprint.
+Only work merged into `main` is published repository truth. Branch-only and CI-pass states remain explicit in Sprint Reports.

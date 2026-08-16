@@ -1,7 +1,7 @@
 ---
 id: TASK-045
 title: Establish product test harness baseline
-status: ready
+status: completed
 priority: 200
 milestone: M2
 model_tier: cheap
@@ -22,6 +22,7 @@ allowed_paths:
   - tsconfig.json
   - tsconfig.build.json
   - tests/product/**
+  - specs/tasks/TASK-045-PRODUCT-TEST-HARNESS.md
 forbidden_paths:
   - apps/**
   - tooling/agent-harness/src/**

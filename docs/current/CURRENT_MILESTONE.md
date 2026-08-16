@@ -2,51 +2,57 @@
 
 ## Goal
 
-Move beyond the completed M1 public contract spine and prove deterministic executable behavior from SystemDefinition through Catalog, Assembly, Validation, Compiler, Release and Deploy dry-run.
+Prove deterministic executable behavior from SystemDefinition through Catalog, Assembly, Validation, Compiler, Release and Deploy dry-run using the accepted public contract spine.
 
-## Baseline completed in main
+## Baseline integrated
 
-- [x] TASK-004 — ProcessMirror contract.
-- [x] TASK-005 — BusinessRecipe contract.
-- [x] TASK-006 — SystemAnalysis contract.
-- [x] TASK-007 — SystemDefinition contract.
-- [x] TASK-008 — Assembly/Validation/Release/Deployment boundary contracts.
-
-The contract spine is now sufficient to begin reference engine implementation without changing the accepted suite topology.
+- TASK-004 — ProcessMirror contract.
+- TASK-005 — BusinessRecipe contract.
+- TASK-006 — SystemAnalysis contract.
+- TASK-007 — SystemDefinition contract.
+- TASK-008 — Assembly/Validation/Release/Deployment boundary contracts.
+- P1-VERTICAL-01 — product test harness, Catalog registry/resolution and Assembly resolver — ready for integration through PR #153.
 
 ## Execution mode
 
-M2 follows:
+M2 follows `project_docs/schedule/SPRINT_MODE.md`, `project_docs/schedule/SPRINT_GENERATION_POLICY.md` and `project_docs/execution_planning/P1-PACKAGE-01.md`.
 
-- `project_docs/schedule/SPRINT_MODE.md`;
-- `project_docs/schedule/SPRINT_GENERATION_POLICY.md`;
-- `project_docs/execution_planning/P1-PACKAGE-01.md`.
+## Package state
 
-The package contains three construction Sprints and one integration/technical-debt review.
+### P1-VERTICAL-01 — Catalog and Assembly
 
-## Active Sprint
+Status: `CI_PASS / READY_FOR_REVIEW` on its Sprint branch.
 
-**P1-VERTICAL-01 — Catalog and Assembly**
-
-Committed TASK order after package planning merges:
-
-`TASK-045 -> TASK-046 -> TASK-047 -> TASK-048`
-
-Goal:
+Delivered chain:
 
 `SystemDefinition -> Software Catalog -> deterministic resolution -> AssemblyPlan`
 
-## Forecast Sprints
+### P1-VERTICAL-02 — Validation and Compiler
 
-- P1-VERTICAL-02 — Validation + Compiler (`TASK-049..051`) — FORECAST.
-- P1-VERTICAL-03 — Release + Deploy (`TASK-052..054`) — FORECAST.
+Status: `FORECAST` until P1-VERTICAL-01 merges.
 
-Forecast Sprints are revalidated after their predecessor merges; they are not silently committed early.
+Candidate TASKs:
 
-## M2 package exit
+`TASK-049 -> TASK-050 -> TASK-051`
 
-The package is successful when actual executable module APIs can drive the synthetic chain through DeploymentRecord with deterministic identities, explicit failure evidence and no secret values embedded in immutable release artifacts.
+Before commitment, revalidate those TASKs against the actual integrated Catalog/Assembly APIs and promote only eligible tasks from `draft` to `ready`.
+
+### P1-VERTICAL-03 — Release and Deploy
+
+Status: `FORECAST`.
+
+Candidate TASKs:
+
+`TASK-052 -> TASK-053 -> TASK-054`
+
+## Package exit
+
+Actual executable module APIs must drive the synthetic chain through DeploymentRecord with deterministic identities, explicit failure evidence and no secret values embedded in immutable release artifacts.
+
+## Review cadence
+
+Each construction Sprint closes with objective CI, a Sprint Report and human Sprint Review. After the third construction Sprint, perform the package Integration & Technical Debt Review before creating the next package.
 
 ## AgentFactory infrastructure track
 
-AgentFactory implementation/history remains preserved but its Supervisor/runtime/heartbeat/callback track stays frozen and is not an M2 product gate.
+AgentFactory implementation/history remains preserved, but its Supervisor/runtime/heartbeat/callback path is frozen and is not an M2 product gate.

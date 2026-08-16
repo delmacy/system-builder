@@ -1,7 +1,7 @@
 ---
 id: TASK-047
 title: Implement provider-neutral Catalog resolution
-status: ready
+status: completed
 priority: 220
 milestone: M2
 model_tier: cheap
