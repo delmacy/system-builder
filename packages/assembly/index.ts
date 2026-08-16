@@ -13,11 +13,29 @@ export type AssemblySystemDefinition = Readonly<{
   capabilities: readonly AssemblyCapability[];
 }>;
 
+export type AssemblyVersionConstraint = Readonly<{
+  kind: "exact" | "minimum";
+  version: string;
+}>;
+
+export type AssemblyDependencyRequirement = Readonly<{
+  capability: string;
+  versionConstraint?: AssemblyVersionConstraint;
+  compatibility: Readonly<Record<string, string>>;
+}>;
+
 export type AssemblyCandidate = Readonly<{
   capability: string;
   provider: string;
   version: string;
   dependencies: readonly string[];
+  dependencyRequirements?: readonly AssemblyDependencyRequirement[];
+}>;
+
+export type AssemblyResolutionRequest = Readonly<{
+  capability: string;
+  versionConstraint?: AssemblyVersionConstraint;
+  compatibility?: Readonly<Record<string, string>>;
 }>;
 
 export type AssemblyResolutionResult =
@@ -30,7 +48,7 @@ export type AssemblyResolutionResult =
       }>;
     }>;
 
-export type AssemblyCandidateResolver = (request: Readonly<{ capability: string }>) => AssemblyResolutionResult;
+export type AssemblyCandidateResolver = (request: AssemblyResolutionRequest) => AssemblyResolutionResult;
 
 export type AssemblyPlanComponent = Readonly<{
   capability: string;
@@ -69,6 +87,15 @@ function compareComponent(left: AssemblyPlanComponent, right: AssemblyPlanCompon
   );
 }
 
+function compareDependencyRequirement(left: AssemblyDependencyRequirement, right: AssemblyDependencyRequirement): number {
+  return (
+    left.capability.localeCompare(right.capability) ||
+    (left.versionConstraint?.kind ?? "").localeCompare(right.versionConstraint?.kind ?? "") ||
+    (left.versionConstraint?.version ?? "").localeCompare(right.versionConstraint?.version ?? "") ||
+    JSON.stringify(left.compatibility).localeCompare(JSON.stringify(right.compatibility))
+  );
+}
+
 function selectCandidate(candidates: readonly AssemblyCandidate[]): AssemblyCandidate {
   const ordered = [...candidates].sort(
     (left, right) =>
@@ -81,6 +108,14 @@ function selectCandidate(candidates: readonly AssemblyCandidate[]): AssemblyCand
   return selected;
 }
 
+function resolverRequest(requirement: AssemblyDependencyRequirement): AssemblyResolutionRequest {
+  return Object.freeze({
+    capability: requirement.capability,
+    ...(requirement.versionConstraint === undefined ? {} : { versionConstraint: requirement.versionConstraint }),
+    ...(Object.keys(requirement.compatibility).length === 0 ? {} : { compatibility: requirement.compatibility }),
+  });
+}
+
 export function assembleSystemDefinition(
   definition: AssemblySystemDefinition,
   systemDefinitionRef: string,
@@ -89,15 +124,21 @@ export function assembleSystemDefinition(
   const reference = systemDefinitionRef.trim();
   if (reference.length === 0) throw new Error("ASSEMBLY_INVALID_SYSTEM_DEFINITION_REF");
 
-  const requirements = [...definition.capabilities].sort(compareCapability);
-  const components: AssemblyPlanComponent[] = [];
+  const rootRequirements = [...definition.capabilities]
+    .sort(compareCapability)
+    .map((requirement): AssemblyDependencyRequirement =>
+      Object.freeze({ capability: requirement.capability, compatibility: Object.freeze({}) }),
+    );
+  const components = new Map<string, AssemblyPlanComponent>();
   const diagnostics: AssemblyDiagnostic[] = [];
-  const seenCapabilities = new Set<string>();
+  const resolving = new Set<string>();
 
-  for (const requirement of requirements) {
-    if (seenCapabilities.has(requirement.capability)) continue;
-    seenCapabilities.add(requirement.capability);
-    const resolution = resolveCandidate({ capability: requirement.capability });
+  const resolveRequirement = (requirement: AssemblyDependencyRequirement): void => {
+    if (components.has(requirement.capability)) return;
+    if (resolving.has(requirement.capability)) return;
+
+    resolving.add(requirement.capability);
+    const resolution = resolveCandidate(resolverRequest(requirement));
     if (!resolution.ok || resolution.candidates.length === 0) {
       diagnostics.push(
         Object.freeze({
@@ -106,31 +147,41 @@ export function assembleSystemDefinition(
           reason: resolution.ok ? "EMPTY_CANDIDATE_SET" : resolution.diagnostic.code,
         }),
       );
-      continue;
+      resolving.delete(requirement.capability);
+      return;
     }
 
     const selected = selectCandidate(resolution.candidates);
-    const dependencies = Object.freeze([...selected.dependencies].sort());
-    components.push(
+    const structuredRequirements = [...(selected.dependencyRequirements ?? [])].sort(compareDependencyRequirement);
+    const dependencyNames = Object.freeze(
+      [...new Set([...selected.dependencies, ...structuredRequirements.map((dependency) => dependency.capability)])].sort(),
+    );
+    components.set(
+      requirement.capability,
       Object.freeze({
         capability: requirement.capability,
         provider: selected.provider,
         version: selected.version,
-        ...(dependencies.length === 0 ? {} : { dependencies }),
+        ...(dependencyNames.length === 0 ? {} : { dependencies: dependencyNames }),
       }),
     );
-  }
+
+    for (const dependency of structuredRequirements) resolveRequirement(dependency);
+    resolving.delete(requirement.capability);
+  };
+
+  for (const requirement of rootRequirements) resolveRequirement(requirement);
 
   if (diagnostics.length > 0) {
     return Object.freeze({
       ok: false,
       diagnostics: Object.freeze(
-        [...diagnostics].sort((left, right) => left.capability.localeCompare(right.capability)),
+        [...diagnostics].sort((left, right) => left.capability.localeCompare(right.capability) || left.reason.localeCompare(right.reason)),
       ),
     });
   }
 
-  const orderedComponents = Object.freeze([...components].sort(compareComponent));
+  const orderedComponents = Object.freeze([...components.values()].sort(compareComponent));
   const sourceRefs = Object.freeze([
     reference,
     ...orderedComponents.map(
