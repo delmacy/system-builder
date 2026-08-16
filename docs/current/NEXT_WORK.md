@@ -1,33 +1,35 @@
-# Next Work — Product Sprint Mode
+# Next Work — P1-PACKAGE-01
 
-The repository is authoritative. Product execution now uses Sprint Mode: one Sprint branch, sequential TASK execution, one commit per TASK, final full verification and one Sprint PR/review before merging to `main`.
-
-Read `project_docs/schedule/SPRINT_MODE.md` before execution.
+The repository is authoritative. Reconstruct context from repository files; do not use chat history as technical authority.
 
 ## Immediate sequence
 
-1. Synchronize local `main` and confirm `npm run verify` passes.
-2. Create or reset the active product Sprint branch from the intended `main` base: `sprint/M1-SPRINT-01`.
-3. Read `AGENTS.md`, `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `project_docs/execution_planning/M1-SPRINT-01.md` and the committed TASK specs.
-4. Treat TASK-004 as completed and integrated.
-5. Execute TASK-005 on the Sprint branch, run its declared validation and create a dedicated TASK commit.
-6. Execute TASK-006 only after TASK-005 is satisfied, then run its declared validation and create a dedicated TASK commit.
-7. Run final repository-wide `npm run verify`.
-8. Produce the Sprint Report, push `sprint/M1-SPRINT-01` and open one PR to `main`.
-9. Stop for Sprint Review. Do not begin the next Sprint automatically.
+1. Integrate the P1-PACKAGE-01 planning/task materialization with green CI.
+2. Create `sprint/P1-VERTICAL-01` from synchronized `main`.
+3. Read `AGENTS.md`, current state/milestone, Sprint Generation Policy, Sprint Mode, `P1-PACKAGE-01.md`, `P1-VERTICAL-01.md` and each TASK's `context_paths`.
+4. Execute TASK-045 — product test harness baseline; validate; commit.
+5. Execute TASK-046 — Software Catalog registry; validate; commit.
+6. Execute TASK-047 — deterministic provider-neutral Catalog resolution; validate; commit.
+7. Execute TASK-048 — minimal deterministic Assembly resolver; validate; commit.
+8. Run the growing proof `SystemDefinition -> Catalog -> AssemblyPlan` through actual module APIs.
+9. Run final repository-wide `npm run verify` and GitHub CI.
+10. Produce the Sprint Report and stop for Sprint Review.
 
-## Per-task loop inside the Sprint
+## Forecast after merge
 
-`read TASK -> confirm dependency -> implement bounded scope -> validate -> autonomously fix bounded failures -> TASK commit -> next eligible TASK`
+- P1-VERTICAL-02: TASK-049..051 — Validation + Compiler + integrated ReleaseArtifact proof.
+- P1-VERTICAL-03: TASK-052..054 — Release + Deploy + full DeploymentRecord proof.
 
-No per-TASK PR or per-TASK merge is required in the default Sprint Mode.
+Before committing either forecast Sprint, re-read repository authority and revalidate predecessor outputs/dependencies.
+
+## Per-TASK loop
+
+`read authority -> confirm dependency/scope/paths -> implement -> positive/negative/integration tests -> validate -> bounded fixes -> TASK commit -> next eligible TASK`
 
 ## Stop/escalate
 
-Stop the Sprint and surface a decision when work requires an undeclared architecture/public contract change, scope expansion, destructive migration, weakened evaluator/security control, a forbidden path, conflicting repository authorities or an ambiguity that cannot be resolved from the repository.
+Stop for an undeclared public-contract/architecture change, forbidden path, destructive change, security/governance weakening, unresolved authority conflict or a predecessor output that does not satisfy the forecast assumptions.
 
 ## AgentFactory track
 
-The AgentFactory design, specs, tests and implementation remain preserved in the repository. Its Supervisor/runtime/heartbeat/callback execution path is frozen and is no longer a prerequisite for product progress.
-
-Do not spend product Sprint capacity repairing AgentFactory runtime unless a future explicitly authorized Sprint reactivates that work.
+AgentFactory Supervisor/runtime remains frozen and non-blocking. Do not consume product Sprint capacity repairing it unless a dedicated infrastructure Sprint explicitly reactivates that track.
