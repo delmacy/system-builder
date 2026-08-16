@@ -2,48 +2,44 @@
 
 ## Goal
 
-Extend the deterministic P1 factory chain into the first locally runnable autonomous client-runtime proof while hardening the public boundaries required by Runtime and Deploy.
+Extend the deterministic factory chain into the first locally runnable autonomous client-runtime proof while preserving public boundaries required by Runtime and Deploy.
 
 ## Integrated baseline
 
-P1-PACKAGE-01 is merged and reviewed. P2-BOUNDARY-01 is merged through PR #158.
+P2-BOUNDARY-01 is merged through PR #158. `main` contains canonical schema conformance, EnvironmentProfile and shared deterministic hashing.
 
-Current integrated proof:
-
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> DeploymentRecord`
-
-Boundary hardening now includes canonical output schema-conformance checks, canonical EnvironmentProfile and shared deterministic hashing.
-
-## Active Sprint
+## Sprint under review
 
 ### P2-RUNTIME-01 — Runnable Artifact and Autonomous Runtime Bootstrap
 
-Status: COMMITTED
+Status: IMPLEMENTED_ON_SPRINT_BRANCH / CI_PASS / READY_FOR_REVIEW after final closure CI
 Base: `7062ef1a42811875b7543bbaca04a19cd3fe8ed8`
 Branch: `sprint/P2-RUNTIME-01`
+PR: #159
 
-Committed order:
+Committed results:
 
 1. TASK-058 — autonomous Runtime bootstrap boundary;
 2. TASK-059 — Compiler runnable Runtime package;
-3. TASK-060 — autonomous process startup/health proof.
+3. TASK-060 — autonomous process startup/health proof from actual Compiler output.
 
-Target:
+Branch proof:
 
-`ReleaseArtifact -> generated runtime package -> external EnvironmentProfile -> autonomous process startup -> RuntimeHealth PASS`
+`ReleaseArtifact -> generated runtime-entry.mjs -> external EnvironmentProfile -> autonomous Node process -> RuntimeHealth PASS`
+
+The generated Runtime proof starts and reports health without requiring System Builder or Observe connectivity.
 
 ## Successor forecast
 
-`P2-LOCAL-DEPLOY-01` remains FORECAST until this Sprint passes CI, review and merge.
+`P2-LOCAL-DEPLOY-01` remains FORECAST and must not start before P2-RUNTIME-01 review/merge plus repository revalidation.
 
 ## Architecture constraints
 
-- ADR-0002 Builder/Runtime separation remains mandatory.
-- Runtime ordinary operation must not require System Builder or Observe.
+- ADR-0002 Builder/Runtime separation remains unchanged.
 - Release artifacts contain no secret values.
-- Environment/configuration is supplied externally.
-- No public contract change is authorized by the active Sprint unless a TASK explicitly says so.
-- Any L4 discovery requires ADR rather than silent architecture change.
+- Runtime configuration is supplied externally.
+- no public factory contract was changed by P2-RUNTIME-01.
+- any future L4 discovery requires ADR rather than silent architecture change.
 
 ## AgentFactory infrastructure track
 

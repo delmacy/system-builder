@@ -1,35 +1,35 @@
-# Next Work — Execute P2-RUNTIME-01
+# Next Work — Review P2-RUNTIME-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-P2-PACKAGE-01 is active and P2-BOUNDARY-01 is merged through PR #158.
+`P2-RUNTIME-01` is implemented on `sprint/P2-RUNTIME-01` under PR #159.
 
-The active committed Sprint is `P2-RUNTIME-01` on `sprint/P2-RUNTIME-01`, based on `7062ef1a42811875b7543bbaca04a19cd3fe8ed8`.
+Before merge, require final Sprint closure CI PASS and Sprint Review.
 
-## Execute in order
+## Delivered branch proof
 
-1. TASK-058 — minimal autonomous Runtime bootstrap/package boundary;
-2. TASK-059 — Compiler emits deterministic runnable Runtime package;
-3. TASK-060 — autonomous startup/health proof from actual Compiler output.
+`ReleaseArtifact -> generated runtime-entry.mjs -> external EnvironmentProfile -> autonomous Node process -> RuntimeHealth PASS`
 
-For each TASK, re-read its complete `context_paths`, confirm dependencies, `allowed_paths`, `forbidden_paths`, `max_files` and validation before editing. Keep one distinct implementation commit per TASK.
+The proof uses actual Compiler output, validates controlled missing-binding failure, and succeeds with Builder/Observe deliberately unavailable.
 
-## Sprint exit
+## After PR #159 merges
 
-Prove:
+Do not execute forecast TASK names directly from package planning without revalidation.
 
-`ReleaseArtifact -> generated runtime package -> external EnvironmentProfile -> autonomous process startup -> RuntimeHealth PASS`
+For `P2-LOCAL-DEPLOY-01`:
 
-Use the actual Compiler output for the process proof. Do not hand-author the downstream runtime package. Ordinary startup/health must not require Builder/Observe connectivity, and immutable generated/release content must not contain secret values.
+1. re-read repository authorities and integrated runtime outputs;
+2. revalidate/materialize TASK-061..063 with complete scope and validation metadata;
+3. freeze the next Sprint manifest from synchronized main;
+4. execute local-process Deploy adapter, operational health/failure cleanup and full autonomous local E2E;
+5. stop for Sprint Review.
 
-After TASK-060, run final `npm run verify`, write the Sprint Report, complete one Sprint PR and stop for Sprint Review.
+## Successor remains forecast
 
-## Successor
+No P2-LOCAL-DEPLOY-01 branch or implementation should start before explicit next-Sprint authorization.
 
-`P2-LOCAL-DEPLOY-01` remains FORECAST and must not start automatically.
+## Deferred work
 
-## Deferred debt
-
-Catalog/Assembly production-grade dependency solving remains high-priority backlog unless actual evidence makes it necessary for the active Sprint. Production Deploy adapters, secret resolution, database connectivity and full business runtime behavior are outside this Sprint.
+Full business runtime behavior, secret resolution, database connectivity, Docker/Vercel/PostgreSQL provisioning and production traffic switching remain outside the current Sprint.
