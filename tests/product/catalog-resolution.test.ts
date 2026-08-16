@@ -22,6 +22,96 @@ function makeCatalog(order: "ab" | "ba"): SoftwareCatalogRegistry {
   return catalog;
 }
 
+test("catalog normalizes structured dependency requirements deterministically", () => {
+  const first = new SoftwareCatalogRegistry().register({
+    capability: "auth.basic",
+    provider: "provider-auth",
+    version: "1.0.0",
+    dependencies: ["storage.session"],
+    dependencyRequirements: [
+      {
+        capability: "storage.session",
+        versionConstraint: { kind: "minimum", version: "1.2.0" },
+        compatibility: { runtime: "node24", region: "any" },
+      },
+      {
+        capability: "auth.token",
+        versionConstraint: { kind: "exact", version: "2.0.0" },
+      },
+    ],
+  });
+  const second = new SoftwareCatalogRegistry().register({
+    capability: "auth.basic",
+    provider: "provider-auth",
+    version: "1.0.0",
+    dependencies: ["storage.session"],
+    dependencyRequirements: [
+      {
+        capability: "auth.token",
+        versionConstraint: { kind: "exact", version: "2.0.0" },
+      },
+      {
+        capability: "storage.session",
+        compatibility: { region: "any", runtime: "node24" },
+        versionConstraint: { kind: "minimum", version: "1.2.0" },
+      },
+    ],
+  });
+
+  assert.deepEqual(first, second);
+  assert.deepEqual(first.dependencies, ["storage.session"]);
+  assert.deepEqual(first.dependencyRequirements, [
+    {
+      capability: "auth.token",
+      versionConstraint: { kind: "exact", version: "2.0.0" },
+      compatibility: {},
+    },
+    {
+      capability: "storage.session",
+      versionConstraint: { kind: "minimum", version: "1.2.0" },
+      compatibility: { region: "any", runtime: "node24" },
+    },
+  ]);
+  assert.equal(Object.isFrozen(first.dependencyRequirements), true);
+  assert.equal(Object.isFrozen(first.dependencyRequirements[0]), true);
+  assert.equal(Object.isFrozen(first.dependencyRequirements[1]?.compatibility), true);
+});
+
+test("catalog rejects invalid structured dependency tokens explicitly", () => {
+  assert.throws(
+    () =>
+      new SoftwareCatalogRegistry().register({
+        capability: "auth.basic",
+        provider: "provider-auth",
+        version: "1.0.0",
+        dependencyRequirements: [{ capability: "   " }],
+      }),
+    /CATALOG_INVALID_DEPENDENCY_CAPABILITY/,
+  );
+  assert.throws(
+    () =>
+      new SoftwareCatalogRegistry().register({
+        capability: "auth.basic",
+        provider: "provider-auth",
+        version: "1.0.0",
+        dependencyRequirements: [
+          { capability: "storage.session", versionConstraint: { kind: "minimum", version: " " } },
+        ],
+      }),
+    /CATALOG_INVALID_DEPENDENCY_VERSION/,
+  );
+  assert.throws(
+    () =>
+      new SoftwareCatalogRegistry().register({
+        capability: "auth.basic",
+        provider: "provider-auth",
+        version: "1.0.0",
+        dependencyRequirements: [{ capability: "storage.session", compatibility: { " ": "node24" } }],
+      }),
+    /CATALOG_INVALID_COMPATIBILITY_KEY/,
+  );
+});
+
 test("catalog resolution is provider-neutral and deterministic across registration order", () => {
   const first = resolveCatalogCandidates(makeCatalog("ab"), {
     capability: "workflow.engine",

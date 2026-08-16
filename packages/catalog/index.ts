@@ -1,8 +1,26 @@
+export type CatalogVersionConstraint = Readonly<{
+  kind: "exact" | "minimum";
+  version: string;
+}>;
+
+export type SoftwareDependencyRequirementInput = Readonly<{
+  capability: string;
+  versionConstraint?: CatalogVersionConstraint;
+  compatibility?: Readonly<Record<string, string>>;
+}>;
+
+export type SoftwareDependencyRequirement = Readonly<{
+  capability: string;
+  versionConstraint?: CatalogVersionConstraint;
+  compatibility: Readonly<Record<string, string>>;
+}>;
+
 export type SoftwareCatalogRecordInput = Readonly<{
   capability: string;
   provider: string;
   version: string;
   dependencies?: readonly string[];
+  dependencyRequirements?: readonly SoftwareDependencyRequirementInput[];
   compatibility?: Readonly<Record<string, string>>;
 }>;
 
@@ -11,6 +29,7 @@ export type SoftwareCatalogRecord = Readonly<{
   provider: string;
   version: string;
   dependencies: readonly string[];
+  dependencyRequirements: readonly SoftwareDependencyRequirement[];
   compatibility: Readonly<Record<string, string>>;
 }>;
 
@@ -45,7 +64,41 @@ function normalizeCompatibility(
   return Object.freeze(Object.fromEntries(entries));
 }
 
+function normalizeVersionConstraint(
+  constraint: CatalogVersionConstraint | undefined,
+): CatalogVersionConstraint | undefined {
+  if (constraint === undefined) return undefined;
+  return Object.freeze({
+    kind: constraint.kind,
+    version: requireToken(constraint.version, "dependency_version"),
+  });
+}
+
+function compareDependencyRequirements(
+  left: SoftwareDependencyRequirement,
+  right: SoftwareDependencyRequirement,
+): number {
+  return (
+    left.capability.localeCompare(right.capability) ||
+    (left.versionConstraint?.kind ?? "").localeCompare(right.versionConstraint?.kind ?? "") ||
+    (left.versionConstraint?.version ?? "").localeCompare(right.versionConstraint?.version ?? "") ||
+    JSON.stringify(left.compatibility).localeCompare(JSON.stringify(right.compatibility))
+  );
+}
+
+function normalizeDependencyRequirement(input: SoftwareDependencyRequirementInput): SoftwareDependencyRequirement {
+  const versionConstraint = normalizeVersionConstraint(input.versionConstraint);
+  return Object.freeze({
+    capability: requireToken(input.capability, "dependency_capability"),
+    ...(versionConstraint === undefined ? {} : { versionConstraint }),
+    compatibility: normalizeCompatibility(input.compatibility),
+  });
+}
+
 function normalizeRecord(input: SoftwareCatalogRecordInput): SoftwareCatalogRecord {
+  const dependencyRequirements = [...(input.dependencyRequirements ?? [])]
+    .map(normalizeDependencyRequirement)
+    .sort(compareDependencyRequirements);
   return Object.freeze({
     capability: requireToken(input.capability, "capability"),
     provider: requireToken(input.provider, "provider"),
@@ -53,6 +106,7 @@ function normalizeRecord(input: SoftwareCatalogRecordInput): SoftwareCatalogReco
     dependencies: Object.freeze(
       [...(input.dependencies ?? [])].map((dependency) => requireToken(dependency, "dependency")).sort(),
     ),
+    dependencyRequirements: Object.freeze(dependencyRequirements),
     compatibility: normalizeCompatibility(input.compatibility),
   });
 }
