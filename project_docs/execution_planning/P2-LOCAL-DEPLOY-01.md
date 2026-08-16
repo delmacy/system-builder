@@ -1,63 +1,52 @@
 # P2-LOCAL-DEPLOY-01 — Local Deployment Adapter and Runtime E2E
 
-Status: FORECAST
+Status: CI_PASS / READY_FOR_REVIEW
 Package: `P2-PACKAGE-01`
+Base SHA: `e1f3d82317a8176691309159f36e95f90c096c87`
+Branch: `sprint/P2-LOCAL-DEPLOY-01`
+PR: #160
 
 ## Goal
 
-Use the runnable ReleaseArtifact and canonical EnvironmentProfile to perform the first real local-process deployment proof and extend the package E2E through a running autonomous Runtime.
+Use the runnable ReleaseArtifact and canonical EnvironmentProfile to perform the first real local-process deployment proof and extend the package E2E through a running autonomous Runtime and canonical DeploymentRecord evidence.
 
-## Candidate TASKs
+## Predecessor gate
 
-### TASK-061 — Local-process Deploy adapter
+`P2-RUNTIME-01` merged through PR #159. Its integrated outputs establish deterministic `runtime-entry.mjs`, external EnvironmentProfile startup and Builder/Observe-independent RuntimeHealth.
 
-Intent: implement a test/local adapter that materializes and starts the published runnable runtime without changing immutable release content.
+## Committed TASKs and results
 
-Expected tests:
-- valid PublishedRelease + EnvironmentProfile starts the expected runtime;
-- incompatible runtime/environment fails before activation;
-- secret/config bindings are supplied externally;
-- adapter does not mutate PublishedRelease/ReleaseArtifact.
+1. `TASK-061` — Local-process Deploy adapter — `780b5b5e86c98ec915848f74422c29accef20659` — CI #199 PASS;
+2. `TASK-062` — operational DeploymentRecord from observed health/failure — `006d75d10ccb9b5ccfd8501c9c0e3d407e657faf` — CI #200 PASS;
+3. `TASK-063` — full autonomous local E2E — `933159a609f1fa28655b9addc519714ce0baeac1` — CI #201 PASS.
 
-### TASK-062 — Health/acceptance/failure cleanup and operational record
+Closure head `483adcbd233dbd13f30d1a29929652b6a72e4058` passed Deterministic CI #202.
 
-Intent: extend local deployment execution to observable health/acceptance behavior and deterministic DeploymentRecord evidence.
-
-Expected tests:
-- successful startup produces succeeded DeploymentRecord;
-- health/acceptance failure produces explicit failed evidence and cleans up the failed process;
-- missing/invalid binding fails deterministically;
-- no secret value is copied into immutable release metadata or DeploymentRecord evidence beyond permitted references.
-
-### TASK-063 — Full autonomous local E2E
-
-Intent: connect actual module APIs from SystemDefinition through local deployment and Runtime health.
-
-Expected proof:
-- execute the full successful vertical at least twice;
-- compare deterministic factory/release identities across runs;
-- start the generated client Runtime through the local Deploy adapter;
-- prove Runtime startup/health while Builder is unavailable/not consulted;
-- retain controlled negative paths.
-
-## Dependency order
+Dependency order:
 
 `TASK-060 -> TASK-061 -> TASK-062 -> TASK-063`
 
-## Exit proof
+## Exit proof achieved on Sprint branch
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous Runtime health -> DeploymentRecord`
 
-## Explicit non-goals
+The E2E invokes actual module producers. Deploy, not the test, materializes and starts the generated runtime process.
+
+## Explicit non-goals retained
 
 - Docker/Vercel/on-prem production adapters;
 - PostgreSQL provisioning or production migration orchestration;
 - traffic switching/load balancing;
 - full generated domain UI/workflow behavior;
-- Observe/Support implementation.
+- Observe/Support implementation;
+- production-grade Catalog/Assembly dependency solving.
 
-These remain successor candidates unless required to satisfy the bounded Sprint goal.
+## Discoveries for package review
 
-## Commitment gate
+- production Deploy will need an artifact payload retrieval/materialization boundary; current local proof receives Compiler generated files directly alongside ReleaseArtifact metadata;
+- generated Runtime remains a bounded one-shot startup/health proof rather than a persistent service;
+- secret resolution remains external to immutable release content and canonical EnvironmentProfile references.
 
-This Sprint remains FORECAST until `P2-RUNTIME-01` is merged. Before commitment, inspect the actual runtime artifact/startup contract, materialize TASK-061..063 with complete path/validation metadata, and freeze `sprint/P2-LOCAL-DEPLOY-01` from synchronized `main`.
+## Review boundary
+
+Stop for Sprint Review. Do not begin the P2 Integration & Technical Debt Review until this Sprint is merged and the user explicitly authorizes that review.
