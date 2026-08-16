@@ -1,6 +1,6 @@
 # P2-RUNTIME-01 — Runnable Artifact and Autonomous Runtime Bootstrap
 
-Status: IMPLEMENTED_ON_SPRINT_BRANCH / CI_PASS / READY_FOR_REVIEW after final closure CI
+Status: IMPLEMENTED_ON_SPRINT_BRANCH / CI_PASS / READY_FOR_REVIEW
 Package: `P2-PACKAGE-01`
 Base: `7062ef1a42811875b7543bbaca04a19cd3fe8ed8`
 Branch: `sprint/P2-RUNTIME-01`
@@ -46,8 +46,8 @@ This Sprint proves runtime-bearing artifact packaging and autonomy, not full gen
 - TASK-058 implementation validated after task-contract format correction: CI #193 PASS;
 - TASK-059: CI #194 PASS;
 - TASK-060: CI #195 PASS;
-- Sprint final gate: final closure `npm run verify` via GitHub Deterministic CI must PASS before review readiness is final.
+- Sprint closure: CI #196 PASS on `260a653b0fbf0e08dba446733b55968d79570ffe`.
 
 ## Stop / escalation
 
-The Sprint is complete. Do not start `P2-LOCAL-DEPLOY-01` automatically. Review and merge PR #159 first, then re-read integrated repository truth before committing the successor.
+The Sprint is complete and ready for Sprint Review. Do not start `P2-LOCAL-DEPLOY-01` automatically. Review and merge PR #159 first, then re-read integrated repository truth before committing the successor.
