@@ -1,7 +1,7 @@
 ---
 id: TASK-063
 title: Prove the full autonomous local deployment vertical
-status: ready
+status: completed
 priority: 390
 milestone: M3
 model_tier: cheap
