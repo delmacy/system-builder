@@ -1,54 +1,53 @@
 # P2-RUNTIME-01 — Runnable Artifact and Autonomous Runtime Bootstrap
 
-Status: FORECAST
+Status: IMPLEMENTED_ON_SPRINT_BRANCH / CI_PASS / READY_FOR_REVIEW
 Package: `P2-PACKAGE-01`
+Base: `7062ef1a42811875b7543bbaca04a19cd3fe8ed8`
+Branch: `sprint/P2-RUNTIME-01`
+PR: #159
 
 ## Goal
 
-Turn the synthetic ReleaseArtifact into the first reproducible runnable client-runtime package and prove startup/health with configuration supplied externally and System Builder unavailable.
+Turn the deterministic Compiler output into the first reproducible runnable Node client-runtime package and prove startup/health from external configuration with System Builder unavailable.
 
-## Candidate TASKs
+## Predecessor gate
 
-### TASK-058 — Minimal autonomous Runtime bootstrap/package boundary
+- `P2-BOUNDARY-01` is merged through PR #158.
+- Canonical `EnvironmentProfile`, factory schema-conformance checks and shared deterministic hashing are integrated in `main`.
+- TASK-057 predecessor is merged.
 
-Intent: establish the bounded Runtime bootstrap required by ADR-0002 and Autonomous Runtime WBS without coupling ordinary operation to Builder/Observe.
+## Committed TASKs and results
 
-Expected proof:
-- runtime entrypoint starts independently;
-- external configuration is loaded through the canonical EnvironmentProfile/binding boundary;
-- a minimal health surface is available;
-- no Builder call is required for startup or health.
+1. `TASK-058` — minimal autonomous Runtime bootstrap/package boundary — DONE;
+2. `TASK-059` — Compiler emits a deterministic runnable Runtime package — DONE;
+3. `TASK-060` — autonomous startup/health proof from actual Compiler output — DONE.
 
-### TASK-059 — Compiler emits runnable Runtime package
+Dependency order: `TASK-057 -> TASK-058 -> TASK-059 -> TASK-060`.
 
-Intent: extend Compiler materialization from a synthetic artifact to a deterministic Node runtime package suitable for the bounded autonomous proof.
+## Growing integration proof
 
-Expected tests:
-- same inputs produce byte/content-equivalent runtime package manifest and hashes;
-- artifact contains no secret values;
-- runtime/toolchain versions remain recorded in ReleaseArtifact evidence;
-- generated runtime package starts using the TASK-058 bootstrap.
+`... -> ValidationEvidence -> ReleaseArtifact -> generated runtime package -> external EnvironmentProfile -> autonomous process startup -> RuntimeHealth PASS`
 
-### TASK-060 — Autonomous startup/health proof
-
-Intent: execute the generated Runtime from the emitted ReleaseArtifact plus external environment/configuration and prove Builder independence.
-
-Expected tests:
-- successful startup and health;
-- missing required environment binding fails explicitly;
-- runtime health remains independent of Builder/Observe availability;
-- predecessor integration uses the actual Compiler output rather than a hand-authored runtime package.
-
-## Dependency order
-
-`TASK-057 -> TASK-058 -> TASK-059 -> TASK-060`
+TASK-060 uses actual Catalog/Assembly/Validation/Compiler APIs and materializes the Compiler-produced files into a temporary test directory. The runtime package is not hand-authored in the E2E proof.
 
 ## Exit proof
 
-`ReleaseArtifact -> runnable Runtime package -> external configuration -> autonomous startup -> health PASS`
+- generated runtime entrypoint is deterministic and runnable under Node 24;
+- required external bindings are checked against emitted environment requirements;
+- missing binding fails explicitly;
+- startup/health succeeds while Builder/Observe endpoints are unusable;
+- ReleaseArtifact/generated immutable content contains no supplied secret values;
+- existing factory regressions remain green.
 
-The Sprint proves Runtime packaging and autonomy, not full generated business functionality.
+This Sprint proves runtime-bearing artifact packaging and autonomy, not full generated business functionality.
 
-## Commitment gate
+## Validation
 
-This Sprint remains FORECAST until `P2-BOUNDARY-01` is merged. Before commitment, revalidate the canonical EnvironmentProfile and hash/conformance outputs, materialize TASK-058..060 with complete path/validation metadata, and freeze `sprint/P2-RUNTIME-01` from synchronized `main`.
+- TASK-058 implementation validated after task-contract format correction: CI #193 PASS;
+- TASK-059: CI #194 PASS;
+- TASK-060: CI #195 PASS;
+- Sprint closure: CI #196 PASS on `260a653b0fbf0e08dba446733b55968d79570ffe`.
+
+## Stop / escalation
+
+The Sprint is complete and ready for Sprint Review. Do not start `P2-LOCAL-DEPLOY-01` automatically. Review and merge PR #159 first, then re-read integrated repository truth before committing the successor.

@@ -20,7 +20,7 @@ const validationEvidence = {
   evidenceHash: `sha256:${"b".repeat(64)}`,
 };
 
-test("compiler emits reproducible synthetic ReleaseArtifact", () => {
+test("compiler emits reproducible synthetic ReleaseArtifact with runnable runtime entrypoint", () => {
   const input = {
     assemblyPlan,
     validationEvidence,
@@ -49,8 +49,24 @@ test("compiler emits reproducible synthetic ReleaseArtifact", () => {
   assert.deepEqual(first.artifact.manifest.files, [
     "assembly-plan.json",
     "environment-schema.json",
+    "runtime-entry.mjs",
     "runtime-manifest.json",
   ]);
+
+  const runtimeEntry = first.files.find((file) => file.path === "runtime-entry.mjs");
+  const runtimeManifest = first.files.find((file) => file.path === "runtime-manifest.json");
+  assert.ok(runtimeEntry);
+  assert.ok(runtimeManifest);
+  assert.match(runtimeEntry.contentHash, /^sha256:[a-f0-9]{64}$/);
+  assert.match(runtimeEntry.content, /RuntimeHealth/);
+  assert.deepEqual(JSON.parse(runtimeManifest.content), {
+    runtimeVersion: "0.1.0",
+    entrypoint: "runtime-entry.mjs",
+    components: [
+      { capability: "auth.basic", provider: "provider-auth", version: "1.0.0" },
+      { capability: "workflow.engine", provider: "provider-a", version: "1.0.0" },
+    ],
+  });
 });
 
 test("compiler rejects failing or mismatched validation evidence", () => {
@@ -88,6 +104,17 @@ test("compiler rejects embedded environment values and never emits secret values
     }),
     /COMPILER_SECRET_VALUE_NOT_ALLOWED/,
   );
+
+  const compilation = compileSyntheticRelease({
+    assemblyPlan,
+    validationEvidence,
+    compilerVersion: "0.1.0",
+    runtimeVersion: "0.1.0",
+    environmentSchema: [{ name: "DATABASE_URL", kind: "secret-reference", required: true }],
+  });
+  const immutableContent = JSON.stringify(compilation);
+  assert.equal(immutableContent.includes("postgres://secret"), false);
+  assert.equal(immutableContent.includes("secret://database-url"), false);
 });
 
 test("compiler rejects invalid AssemblyPlan identity", () => {

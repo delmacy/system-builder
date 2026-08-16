@@ -1,48 +1,35 @@
-# Next Work — P2 package review and first Sprint commitment
+# Next Work — Review P2-RUNTIME-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-P1-PACKAGE-01 and its Integration & Technical Debt Review are merged. Successor planning has been explicitly authorized.
+`P2-RUNTIME-01` is implemented on `sprint/P2-RUNTIME-01` under PR #159.
 
-`P2-PACKAGE-01 — First Autonomous Local Runtime` is the proposed next Sprint Package.
+Before merge, require final Sprint closure CI PASS and Sprint Review.
 
-## Package forecast
+## Delivered branch proof
 
-1. `P2-BOUNDARY-01` — executable boundary hardening;
-2. `P2-RUNTIME-01` — runnable artifact and autonomous Runtime bootstrap;
-3. `P2-LOCAL-DEPLOY-01` — local-process deployment and autonomous Runtime E2E;
-4. Integration & Technical Debt Review.
+`ReleaseArtifact -> generated runtime-entry.mjs -> external EnvironmentProfile -> autonomous Node process -> RuntimeHealth PASS`
 
-## After P2 package merges
+The proof uses actual Compiler output, validates controlled missing-binding failure, and succeeds with Builder/Observe deliberately unavailable.
 
-Do not execute forecast TASK names directly from this planning document.
+## After PR #159 merges
 
-For `P2-BOUNDARY-01`:
+Do not execute forecast TASK names directly from package planning without revalidation.
 
-1. re-read `AGENTS.md`, state/milestone, Sprint Generation Policy, Sprint Mode and `P2-PACKAGE-01.md`;
-2. inspect current canonical schemas and executable outputs;
-3. materialize/revalidate TASK-055..057 with complete `context_paths`, `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validations;
-4. confirm explicit L3 contract authority for the EnvironmentProfile work;
-5. freeze the committed `P2-BOUNDARY-01` Sprint manifest;
-6. create `sprint/P2-BOUNDARY-01` from synchronized `main`;
-7. execute TASKs in dependency order, one distinct commit per TASK;
-8. run declared validation and final repository CI;
-9. produce Sprint Report and stop for Sprint Review.
+For `P2-LOCAL-DEPLOY-01`:
 
-## P2 package target
+1. re-read repository authorities and integrated runtime outputs;
+2. revalidate/materialize TASK-061..063 with complete scope and validation metadata;
+3. freeze the next Sprint manifest from synchronized main;
+4. execute local-process Deploy adapter, operational health/failure cleanup and full autonomous local E2E;
+5. stop for Sprint Review.
 
-Reach the first bounded autonomous local Runtime proof:
+## Successor remains forecast
 
-`SystemDefinition -> Catalog -> Assembly -> Validation -> Compiler -> Release -> Environment -> local Deploy -> autonomous Runtime`
+No P2-LOCAL-DEPLOY-01 branch or implementation should start before explicit next-Sprint authorization.
 
-The Runtime proof must not require Builder availability during ordinary startup/health operation, and secret values must remain outside immutable ReleaseArtifact/PublishedRelease content.
+## Deferred work
 
-## Deferred debt
-
-Catalog/Assembly production-grade dependency solving remains HIGH-priority debt but is not silently included in the first P2 Sprint unless actual runtime work requires it. Persistence and production deployment adapters remain forecast/backlog concerns until evidence promotes them.
-
-## AgentFactory track
-
-AgentFactory Supervisor/runtime remains frozen and non-blocking.
+Full business runtime behavior, secret resolution, database connectivity, Docker/Vercel/PostgreSQL provisioning and production traffic switching remain outside the current Sprint.
