@@ -1,7 +1,7 @@
 ---
 id: TASK-067
 title: Define persistent autonomous Runtime lifecycle and HTTP health entrypoint
-status: ready
+status: completed
 priority: 383
 milestone: M4
 model_tier: architecture
@@ -48,7 +48,7 @@ Define the bounded persistent Runtime lifecycle semantics and render a determini
 
 # Context
 
-The merged predecessor Runtime is a one-shot process that validates external EnvironmentProfile input, writes one RuntimeHealth JSON line and exits. WBS 13.3 requires autonomous operation and a health surface without making Observe mandatory.
+The merged predecessor Runtime is a one-shot process that validates external EnvironmentProfile input, writes one RuntimeHealth JSON line and exits. WBS 13.3 requires autonomous operation and a health surface without making Observe mandatory. Because Deploy persistence is committed separately as TASK-069, this Runtime increment must preserve the predecessor one-shot activation path until Deploy explicitly requests persistent service mode.
 
 # Current behavior
 
@@ -56,7 +56,7 @@ The merged predecessor Runtime is a one-shot process that validates external Env
 
 # Required change
 
-Add a persistent Runtime entrypoint renderer in `runtime-core` that reuses the existing environment-validation semantics, binds an HTTP server to loopback on an externally supplied port (supporting port `0` for ephemeral test allocation), exposes a bounded `/health` endpoint returning canonical RuntimeHealth JSON, reports the selected listening port through a deterministic startup event on stdout, and remains alive until `SIGTERM`/`SIGINT`, on which it closes cleanly. Invalid environment input must fail before listening.
+Add a persistent Runtime entrypoint renderer in `runtime-core` that reuses the existing environment-validation semantics. When `SYSTEM_BUILDER_RUNTIME_PORT` is explicitly supplied, bind an HTTP server to loopback (supporting port `0` for ephemeral test allocation), expose `/health`, emit the selected port in a RuntimeStarted event and remain alive until `SIGTERM`/`SIGINT`. When no persistent-port request is supplied, preserve the predecessor one-shot RuntimeHealth output so TASK-068 can integrate Compiler output without prematurely changing Deploy lifecycle. Invalid environment input must fail before either output mode.
 
 # Inputs / contracts
 
@@ -64,15 +64,16 @@ Existing RuntimeEnvironmentRequirement, EnvironmentProfile semantics, ADR-0002 a
 
 # Outputs / contracts
 
-Deterministic persistent Runtime entrypoint text and focused lifecycle/health behavior tests. No cross-context public schema is changed.
+Deterministic persistent-capable Runtime entrypoint text and focused lifecycle/health behavior tests. No cross-context public schema is changed.
 
 # Acceptance criteria
 
 - renderer output is deterministic for equivalent requirement order;
-- valid external EnvironmentProfile starts an HTTP server and `/health` returns RuntimeHealth `UP`;
+- explicit port request starts an HTTP server and `/health` returns RuntimeHealth `UP`;
 - startup reports the actual selected port so Deploy can discover an ephemeral port;
-- process remains alive until explicit termination;
+- process remains alive until explicit termination in persistent mode;
 - `SIGTERM` causes clean process exit;
+- absent port request preserves predecessor one-shot health behavior until TASK-069 opts Deploy into persistence;
 - missing required binding or incompatible runtime fails before the server listens;
 - generated source contains no Builder/Observe call requirement and no resolved secret value;
 - existing one-shot bootstrap behavior remains regression-safe;
@@ -84,8 +85,12 @@ Compiler wiring, Deploy probing/supervision, SecretResolver, stateful actions, p
 
 # Evidence expected
 
-Focused product tests spawning the rendered persistent entrypoint, probing `/health`, proving liveness/autonomy and controlled shutdown/failure, plus GitHub Deterministic CI.
+Focused product tests covering compatibility mode and explicit persistent mode with `/health`, liveness/autonomy and controlled shutdown/failure, plus GitHub Deterministic CI.
 
 # Escalation
 
 Stop if persistence/health requires a new cross-context public contract, Builder/Observe dependency, resolved-secret persistence or an ADR change.
+
+# Result
+
+Added a deterministic persistent-capable Node Runtime renderer. Explicit `SYSTEM_BUILDER_RUNTIME_PORT` activates loopback HTTP `/health`, RuntimeStarted discovery and controlled SIGTERM/SIGINT shutdown; absence of the port request preserves predecessor one-shot RuntimeHealth behavior until Deploy is upgraded in TASK-069. Environment validation, autonomy and secret-separation rules remain unchanged.
