@@ -1,7 +1,7 @@
 ---
 id: TASK-061
 title: Implement local-process Deploy adapter for runnable release artifacts
-status: ready
+status: completed
 priority: 370
 milestone: M3
 model_tier: cheap
