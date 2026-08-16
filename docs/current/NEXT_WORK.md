@@ -1,20 +1,25 @@
-# Next Work — Execute P4-CAPABILITY-RUNTIME-01
+# Next Work — Review P4 Integration & Technical Debt
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-Execute only `P4-CAPABILITY-RUNTIME-01` on `sprint/P4-CAPABILITY-RUNTIME-01`.
+Execute only the mandatory `P4-PACKAGE-01` Integration & Technical Debt Review on `review/P4-PACKAGE-01-integration-debt`.
 
-Dependency order:
-1. TASK-079;
-2. TASK-080 after TASK-079 validation;
-3. TASK-081 after TASK-080 validation.
+Review document:
+`project_docs/execution_planning/P4-PACKAGE-01.integration-debt-review.md`
 
-For every TASK, read its full `context_paths`, confirm allowed/forbidden paths, max_files, dependency and validation commands before editing.
+## Required review actions
 
-## Exit
+1. run the repository-wide deterministic regression with the actual PostgreSQL CI service;
+2. classify P3 debt closed/carried by P4 and new P4 debt;
+3. revalidate ADR-0002, ADR-0007, canonical contracts, WBS and dependency/readiness conclusions;
+4. reconcile stale post-merge state from P4-CAPABILITY-RUNTIME-01;
+5. produce successor readiness recommendations only;
+6. require final Deterministic CI PASS and stop at the package Review Gate.
 
-Run final `npm run verify`, produce `P4-CAPABILITY-RUNTIME-01.report.md`, open one PR to main and stop at Sprint Review.
+## Successor boundary
 
-Do not begin P4 Integration & Technical Debt Review without a new explicit instruction after this Sprint merges.
+Do not create a next Sprint Package, Sprint manifest, TASK or construction branch during this review.
+
+After the review PR merges, await a new explicit instruction, then reconstruct `main` from `AGENTS.md` and derive the next package from merged review findings and then-current WBS/contracts/ADRs.

@@ -1,33 +1,41 @@
-# Current Execution Milestone — M5 P4 Capability-Driven Runtime Sprint
+# Current Execution Milestone — M5 P4 Integration & Technical Debt Review
 
 ## Goal
 
-Execute `P4-CAPABILITY-RUNTIME-01` after P4-POSTGRES-STATE-01 merged and prove one durable generated Runtime action is selected/materialized from the actual SystemDefinition/Catalog/Assembly capability chain.
+Review the fully merged P4 package against its integrated capability-driven PostgreSQL proof, architecture boundaries, technical debt and WBS/DAG readiness before any successor package is planned.
 
 ## Integrated baseline
 
-P4-POSTGRES-STATE-01 is merged through PR #169 at `349231aa982048f2ce4507432032e3d32c160339`.
+P4 construction is merged through PR #171 at `0f0cc70511dbb1510bbc37c31ecb6f7b9998c8f9`.
 
-## Active Sprint
+Integrated proof:
 
-`P4-CAPABILITY-RUNTIME-01 — Capability-Driven Durable Runtime Slice`
+`SystemDefinition state.counter -> Catalog -> AssemblyPlan -> ValidationEvidence -> Compiler-derived migration/runtime assets -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> SecretResolver -> PostgreSQL migration apply -> autonomous Runtime -> state 1 -> 2 -> clean redeploy -> migration skip -> state 3 -> 4`
 
-Branch: `sprint/P4-CAPABILITY-RUNTIME-01`
+## Active review
 
-Committed order:
-1. TASK-079 — bounded AssemblyPlan capability materialization input;
-2. TASK-080 — capability-driven Compiler/Runtime integration;
-3. TASK-081 — full durable capability PostgreSQL E2E.
+Branch: `review/P4-PACKAGE-01-integration-debt`
+
+Review document: `project_docs/execution_planning/P4-PACKAGE-01.integration-debt-review.md`
+
+Review scope:
+1. reconcile post-merge repository state;
+2. run package-wide deterministic regression with PostgreSQL;
+3. classify carried/closed/new debt;
+4. revalidate contracts, ADR-0002, ADR-0007, WBS and dependency readiness;
+5. recommend successor-package readiness without materializing successor work.
 
 ## Architecture constraints
 
-- ADR-0002 and ADR-0007 remain controlling;
-- no canonical contract expansion is authorized;
-- PostgreSQL/provider details remain bounded implementation behavior;
-- unsupported selected implementation fails explicitly;
-- unrelated SystemDefinitions must not gain the state action surface;
-- L4 discovery requires stop + ADR.
+- Builder/Runtime autonomy remains mandatory;
+- Release/Environment/Deployment separation remains mandatory;
+- resolved secrets remain runtime-only and non-durable;
+- PostgreSQL remains a bounded provider implementation;
+- no silent canonical contract or L4 architecture changes;
+- successor planning cannot rewrite historical completed Sprint scope.
 
-## Sprint gate
+## Review gate
 
-Complete TASK-079..081 with declared validations and final repository-wide CI, produce Sprint Report, open one PR and stop at Sprint Review. The package Integration & Technical Debt Review remains out of scope.
+Require review-head and final review Deterministic CI PASS. Then stop for human Review Gate on the package review PR.
+
+No successor Sprint Package or construction Sprint is authorized in this review.

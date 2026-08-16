@@ -10,27 +10,23 @@ Date: 2026-08-16
 
 - Public contract spine: integrated through TASK-008.
 - P1/P2/P3 construction packages and mandatory package reviews: merged through PR #166.
-- P4-PACKAGE-01 package plan: merged through PR #167.
-- P4-MIGRATION-STATE-01: merged through PR #168.
-- P4-POSTGRES-STATE-01: merged through PR #169 at `349231aa982048f2ce4507432032e3d32c160339`.
-- P4-CAPABILITY-RUNTIME-01: COMMITTED on `sprint/P4-CAPABILITY-RUNTIME-01` with TASK-079 -> TASK-080 -> TASK-081.
+- P4-PACKAGE-01 construction is fully merged through PR #171 at `0f0cc70511dbb1510bbc37c31ecb6f7b9998c8f9`.
+- P4 Integration & Technical Debt Review: AUTHORIZED / materialized on `review/P4-PACKAGE-01-integration-debt`; review-head CI pending.
 - GitHub Actions: deterministic integration gate with actual PostgreSQL service execution.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
 ## Integrated main proof
 
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> autonomous generated Runtime -> persisted state 1 -> 2 -> clean redeploy -> migration skip -> persisted state 3 -> 4`
+`SystemDefinition state.counter -> Catalog selected reference provider -> AssemblyPlan -> ValidationEvidence -> Compiler-derived migration/runtime assets -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile secret ref -> SecretResolver -> Deploy migration apply -> PostgreSQL-backed autonomous Runtime -> persisted state 1 -> 2 -> clean redeploy -> migration skip -> persisted state 3 -> 4`
 
-PR #169 preserved ADR-0002/ADR-0007, canonical contracts and secret non-leakage while proving PostgreSQL-backed state persistence.
+Merged P4 preserves ADR-0002/ADR-0007, canonical contract boundaries and secret non-leakage while proving capability-driven durable state.
 
-## Active Sprint target
+## Review result in progress
 
-P4-CAPABILITY-RUNTIME-01 must extend the integrated proof to:
-
-`SystemDefinition state.counter capability -> Catalog selected provider -> AssemblyPlan -> ValidationEvidence -> Compiler-derived capability implementation -> generated migration/runtime assets -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> Deploy -> PostgreSQL Runtime -> durable action -> clean redeploy -> persisted result`
-
-The selected capability, not caller/hard-coded proof behavior, must determine whether the state action exists.
+P4 construction currently evaluates as PASS with no rollback blocker. The package review is classifying residual technical debt, revalidating WBS/DAG/contracts/ADRs and running the integrated PostgreSQL-backed regression before recommending successor readiness.
 
 ## Current gate
 
-Execute only TASK-079..081 in dependency order under `project_docs/execution_planning/P4-CAPABILITY-RUNTIME-01.md`, validate each TASK and the final Sprint head, open one PR and stop at Sprint Review. Do not start the package Integration & Technical Debt Review without a new instruction.
+Execute only `P4-PACKAGE-01` Integration & Technical Debt Review on `review/P4-PACKAGE-01-integration-debt`.
+
+Do not create or materialize a successor Sprint Package or construction Sprint before this review passes CI, reaches Review Gate, is human-reviewed/merged, and a new explicit instruction revalidates current `main`.

@@ -1,7 +1,8 @@
 # P4-PACKAGE-01 — Durable Stateful Runtime and Capability Materialization
 
-Status: ACTIVE / SPRINT_3_COMMITTED
+Status: ACTIVE / INTEGRATION_REVIEW
 Base: `5f628b7c72f9e9fc0db799e0bd97b2d1997b1572` (package plan merged through PR #167)
+Construction merged through: `0f0cc70511dbb1510bbc37c31ecb6f7b9998c8f9` (PR #171)
 
 ## Package Goal
 
@@ -19,21 +20,27 @@ Status: MERGED through PR #168.
 ### 2. P4-POSTGRES-STATE-01
 Status: MERGED through PR #169 at `349231aa982048f2ce4507432032e3d32c160339`.
 
-Integrated proof:
-`verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> autonomous generated Runtime -> persisted state 1 -> 2 -> clean shutdown -> redeploy -> migration skip -> persisted state 3 -> 4`
-
 ### 3. P4-CAPABILITY-RUNTIME-01 — Capability-Driven Durable Runtime Slice
-Status: COMMITTED / ACTIVE.
+Status: MERGED through PR #170 + completion/recovery PR #171.
 
-Goal: replace the bounded hard-coded/caller-driven counter proof with one narrow action selected/materialized from actual SystemDefinition/Catalog/Assembly inputs and execute it against the durable Runtime state path.
-
-Committed TASKs: TASK-079 -> TASK-080 -> TASK-081.
-
-Exit proof:
+Merged exit proof:
 `SystemDefinition state.counter -> Catalog selected reference provider -> AssemblyPlan -> ValidationEvidence -> Compiler-derived state implementation -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration apply -> PostgreSQL Runtime -> durable action -> clean redeploy -> persisted result`
 
+The PR #170/#171 boundary deviation is recorded in the Sprint Report and package review.
+
 ### 4. Integration & Technical Debt Review
-Status: FORECAST / NOT AUTHORIZED IN THIS SPRINT.
+Status: AUTHORIZED / ACTIVE.
+
+Branch: `review/P4-PACKAGE-01-integration-debt`.
+
+Review document: `project_docs/execution_planning/P4-PACKAGE-01.integration-debt-review.md`.
+
+Required outputs:
+- package regression;
+- technical-debt classification;
+- contract/ADR/WBS/DAG revalidation;
+- risk/readiness update;
+- successor-package recommendation only.
 
 ## Architecture constraints
 
@@ -44,7 +51,7 @@ Status: FORECAST / NOT AUTHORIZED IN THIS SPRINT.
 - PostgreSQL is an initial target provider, not shared-contract policy;
 - canonical contract or L4 discoveries require explicit authority/ADR.
 
-## Deferred package debt
+## Deferred package debt entering review
 
 - production PostgreSQL auth/TLS/provisioning/HA/backup and concurrent migration coordination;
 - durable Catalog/Release/Artifact provider adapters;
@@ -55,4 +62,6 @@ Status: FORECAST / NOT AUTHORIZED IN THIS SPRINT.
 
 ## Package gate
 
-Execute only P4-CAPABILITY-RUNTIME-01. After its Sprint Review/merge, the mandatory Integration & Technical Debt Review requires a new explicit instruction and repository revalidation.
+Run only the P4 Integration & Technical Debt Review. Stop at its human Review Gate after final CI.
+
+No successor Sprint Package or construction Sprint may be created by this review. Successor planning requires the review to merge plus a new explicit instruction and repository revalidation.
