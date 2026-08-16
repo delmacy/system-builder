@@ -1,88 +1,73 @@
 # P2-PACKAGE-01 — First Autonomous Local Runtime
 
-Status: ACTIVE
+Status: ACTIVE / THIRD SPRINT AT REVIEW GATE
 
 ## Package Goal
 
-Move from the deterministic dry-run factory chain proven by P1 into the first locally runnable autonomous client-system slice, while hardening the public boundaries that the runtime/deploy path will depend on.
+Move from the deterministic dry-run factory chain proven by P1 into the first locally runnable autonomous client-system slice, while hardening the public boundaries that the runtime/deploy path depends on.
 
 Target package proof:
 
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> canonical EnvironmentProfile -> local DeploymentRecord -> autonomous Runtime health`
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> canonical EnvironmentProfile -> local Deploy -> autonomous Runtime health -> DeploymentRecord`
 
-The Runtime must start and operate for the bounded proof without calling System Builder during ordinary operation.
+The Runtime must start and operate for the bounded proof without calling System Builder during ordinary startup/health.
 
 ## Integrated progress
 
-- `P2-BOUNDARY-01` — MERGED through PR #158. Canonical schema conformance, EnvironmentProfile and shared deterministic hashing are integrated.
-- `P2-RUNTIME-01` — COMMITTED on `sprint/P2-RUNTIME-01` from `7062ef1a42811875b7543bbaca04a19cd3fe8ed8`.
-- `P2-LOCAL-DEPLOY-01` — FORECAST until P2-RUNTIME-01 merges.
-- Integration & Technical Debt Review — required after the third construction Sprint.
+- `P2-BOUNDARY-01` — MERGED through PR #158.
+- `P2-RUNTIME-01` — MERGED through PR #159.
+- `P2-LOCAL-DEPLOY-01` — TASK_CI_PASS / FINAL_CI_PENDING on PR #160.
+- Integration & Technical Debt Review — required after PR #160 Sprint Review/merge; not started.
 
-## Authority and source
+## Construction results
 
-This package is derived from the merged P1-PACKAGE-01 Integration & Technical Debt Review and existing WBS/ADRs.
+### P2-BOUNDARY-01
 
-Primary drivers:
+Canonical executable-output conformance, EnvironmentProfile and shared deterministic hashing are integrated.
 
-- output/schema conformance — addressed by P2-BOUNDARY-01;
-- canonical EnvironmentProfile — addressed by P2-BOUNDARY-01;
-- shared deterministic hashing — addressed by P2-BOUNDARY-01;
-- planned gap — Compiler output must become runnable;
-- planned gap — autonomous Runtime startup/health must be proven before real local Deploy automation.
+### P2-RUNTIME-01
 
-Catalog/Assembly production-grade dependency solving remains backlog unless required by a bounded runtime proof; it must not silently expand an active Sprint.
+Compiler emits deterministic `runtime-entry.mjs`; actual Compiler output starts from external EnvironmentProfile and reports RuntimeHealth without Builder/Observe availability.
 
-## Current Sprint — P2-RUNTIME-01
+### P2-LOCAL-DEPLOY-01
 
 Committed TASKs:
 
-- TASK-058 — minimal autonomous Runtime bootstrap/package boundary;
-- TASK-059 — Compiler materializes a deterministic runnable Node runtime package;
-- TASK-060 — actual Compiler-output startup/health proof with Builder unavailable.
+- TASK-061 — local-process Deploy adapter using actual Compiler generated files;
+- TASK-062 — actual runtime health/failure to deterministic DeploymentRecord;
+- TASK-063 — full autonomous local E2E through actual Catalog/Assembly/Validation/Compiler/Release/Deploy APIs.
 
-Exit proof:
+Sprint-branch exit proof:
 
-`ReleaseArtifact -> runtime materialization -> external EnvironmentProfile -> autonomous process startup -> health PASS`
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
 
-This Sprint proves Runtime packaging and autonomy, not full generated business functionality.
+## Integration & Technical Debt Review gate
 
-## Forecast Sprint — P2-LOCAL-DEPLOY-01
+After the third construction Sprint is merged:
 
-Candidate TASKs remain:
-
-- TASK-061 — local-process Deploy adapter using PublishedRelease + canonical EnvironmentProfile;
-- TASK-062 — local deployment health/acceptance/failure cleanup and operational record;
-- TASK-063 — full autonomous local E2E from SystemDefinition through running Runtime.
-
-The first adapter is intentionally local-process/test-oriented. Docker, Vercel, PostgreSQL provisioning and production traffic switching remain follow-up work unless later evidence makes one necessary.
-
-## Integration & Technical Debt Review
-
-After the third construction Sprint:
-
-- run repository-wide regression;
-- execute the autonomous local vertical at least twice and compare deterministic artifact identities;
+- run/review repository-wide regression;
+- execute the autonomous local vertical at least twice and compare deterministic artifact/deployment identities;
 - prove runtime startup/health without Builder availability;
-- verify secret values are absent from immutable ReleaseArtifact/PublishedRelease content;
-- revalidate Runtime/Builder separation, Environment contract and Deploy boundaries;
+- verify resolved secret values are absent from immutable ReleaseArtifact/PublishedRelease/DeploymentRecord content;
+- revalidate Runtime/Builder and Release/Environment/Deployment boundaries;
+- assess the newly exposed artifact payload retrieval/materialization boundary;
+- assess the one-shot Runtime lifecycle versus the next persistent-runtime increment;
 - reassess Catalog/Assembly dependency solving and persistence readiness;
-- classify new runtime/deploy debt and choose the successor package from integrated evidence.
+- classify debt and choose the successor package from integrated evidence.
 
 ## Dependency order
 
 `P2-BOUNDARY-01 -> P2-RUNTIME-01 -> P2-LOCAL-DEPLOY-01 -> Integration & Technical Debt Review`
 
-Candidate TASK order:
+TASK order:
 
 `TASK-055 -> TASK-056 -> TASK-057 -> TASK-058 -> TASK-059 -> TASK-060 -> TASK-061 -> TASK-062 -> TASK-063`
 
 ## Package rules
 
-- Only an explicitly started Sprint becomes COMMITTED.
-- Each implementation TASK includes positive, negative/failure and predecessor-integration tests when applicable.
-- One distinct commit per TASK inside the Sprint branch.
-- Every construction Sprint extends the real integration proof rather than hand-authoring outputs with executable producers.
-- L3 shared-contract work requires explicit Sprint authority/review; any L4 discovery stops for ADR.
-- `main` remains published truth after merge.
+- each implementation TASK has positive, negative/failure and predecessor-integration evidence where applicable;
+- one distinct implementation commit per TASK inside the Sprint branch;
+- every construction Sprint extends the real integration proof rather than hand-authoring outputs with executable producers;
+- L3 shared-contract work requires explicit Sprint authority/review; any L4 discovery stops for ADR;
+- `main` remains published truth after merge;
 - AgentFactory Supervisor/runtime remains frozen and is not a package gate.
