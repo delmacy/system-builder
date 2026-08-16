@@ -14,6 +14,22 @@ export type SoftwareCatalogRecord = Readonly<{
   compatibility: Readonly<Record<string, string>>;
 }>;
 
+export type CatalogResolutionRequest = Readonly<{
+  capability: string;
+  version?: string;
+  compatibility?: Readonly<Record<string, string>>;
+}>;
+
+export type CatalogResolutionDiagnostic = Readonly<{
+  code: "CAPABILITY_NOT_FOUND" | "NO_COMPATIBLE_PROVIDER";
+  capability: string;
+  requestedVersion?: string;
+}>;
+
+export type CatalogResolutionResult =
+  | Readonly<{ ok: true; candidates: readonly SoftwareCatalogRecord[] }>
+  | Readonly<{ ok: false; diagnostic: CatalogResolutionDiagnostic }>;
+
 function requireToken(value: string, field: string): string {
   const normalized = value.trim();
   if (normalized.length === 0) throw new Error(`CATALOG_INVALID_${field.toUpperCase()}`);
@@ -69,4 +85,45 @@ export class SoftwareCatalogRegistry {
   list(): readonly SoftwareCatalogRecord[] {
     return Object.freeze([...this.#records.values()].sort(compareRecords));
   }
+}
+
+function satisfiesCompatibility(
+  record: SoftwareCatalogRecord,
+  requested: Readonly<Record<string, string>>,
+): boolean {
+  return Object.entries(requested).every(([key, value]) => record.compatibility[key] === value);
+}
+
+export function resolveCatalogCandidates(
+  registry: SoftwareCatalogRegistry,
+  input: CatalogResolutionRequest,
+): CatalogResolutionResult {
+  const capability = requireToken(input.capability, "capability");
+  const requestedVersion = input.version === undefined ? undefined : requireToken(input.version, "version");
+  const requestedCompatibility = normalizeCompatibility(input.compatibility);
+  const capabilityCandidates = registry.list().filter((record) => record.capability === capability);
+
+  if (capabilityCandidates.length === 0) {
+    return Object.freeze({
+      ok: false,
+      diagnostic: Object.freeze({ code: "CAPABILITY_NOT_FOUND", capability }),
+    });
+  }
+
+  const candidates = capabilityCandidates.filter(
+    (record) =>
+      (requestedVersion === undefined || record.version === requestedVersion) &&
+      satisfiesCompatibility(record, requestedCompatibility),
+  );
+
+  if (candidates.length === 0) {
+    const diagnostic: CatalogResolutionDiagnostic = Object.freeze({
+      code: "NO_COMPATIBLE_PROVIDER",
+      capability,
+      ...(requestedVersion === undefined ? {} : { requestedVersion }),
+    });
+    return Object.freeze({ ok: false, diagnostic });
+  }
+
+  return Object.freeze({ ok: true, candidates: Object.freeze([...candidates].sort(compareRecords)) });
 }
