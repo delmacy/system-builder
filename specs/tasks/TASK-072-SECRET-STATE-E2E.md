@@ -1,7 +1,7 @@
 ---
 id: TASK-072
 title: Prove secret resolution and stateful runtime end to end
-status: blocked
+status: completed
 priority: 388
 milestone: M4
 model_tier: cheap
@@ -67,7 +67,7 @@ Actual package producer APIs, TASK-070 SecretResolver, TASK-071 secret-aware Dep
 
 # Outputs / contracts
 
-End-to-end evidence only; no new product API. Evidence must demonstrate deterministic identities, bounded state transition and absence of resolved secrets from durable/runtime response content.
+End-to-end evidence only; no new product API. Evidence demonstrates deterministic identities, bounded state transition and absence of resolved secrets from durable/runtime response content.
 
 # Acceptance criteria
 
@@ -90,3 +90,7 @@ Updated full autonomous E2E and local deployment tests using actual producers, i
 # Escalation
 
 Stop if E2E completion requires product-code changes beyond TASK-071 or any forbidden path.
+
+# Result
+
+Actual end-to-end producers now prove verified artifact retrieval through external SecretResolver, persistent HTTP health and two in-process `counter.increment` actions ending at value 2. Equivalent runs preserve deterministic contract identities; unresolved symbolic secrets fail before activation; resolved values stay outside immutable evidence, DeploymentRecord and runtime responses. No product code was changed by this TASK.

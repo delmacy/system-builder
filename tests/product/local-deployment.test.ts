@@ -4,6 +4,7 @@ import test from "node:test";
 import { InMemoryArtifactPayloadRepository } from "../../packages/artifact-store/index.js";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
 import { executeLocalDeployment } from "../../packages/deploy/local-deployment.js";
+import { InMemorySecretResolver } from "../../packages/deploy/secret-resolver.js";
 import { ReleaseRegistry } from "../../packages/release/index.js";
 
 const assemblyPlan = {
@@ -57,10 +58,12 @@ const times = {
   completedAt: "2026-08-16T03:10:02Z",
 };
 
-test("local deployment records persistent HTTP RuntimeHealth as deterministic success", async () => {
+test("secret-aware local deployment records deterministic success and bounded state", async () => {
   const { compilation, artifacts, publishedRelease, environment } = fixture();
-  const first = await executeLocalDeployment({ publishedRelease, releaseArtifact: compilation.artifact, artifactPayloadReader: artifacts, environment, ...times });
-  const second = await executeLocalDeployment({ publishedRelease, releaseArtifact: compilation.artifact, artifactPayloadReader: artifacts, environment, ...times });
+  const secretValue = "postgres://runtime-only-local-deployment";
+  const secretResolver = new InMemorySecretResolver({ "secret://database-url": secretValue });
+  const first = await executeLocalDeployment({ publishedRelease, releaseArtifact: compilation.artifact, artifactPayloadReader: artifacts, environment, secretResolver, ...times });
+  const second = await executeLocalDeployment({ publishedRelease, releaseArtifact: compilation.artifact, artifactPayloadReader: artifacts, environment, secretResolver, ...times });
 
   assert.equal(first.ok, true);
   assert.equal(second.ok, true);
@@ -70,12 +73,35 @@ test("local deployment records persistent HTTP RuntimeHealth as deterministic su
   assert.deepEqual(first.record, second.record);
   assert.match(first.record.deploymentId, /^sha256:[a-f0-9]{64}$/);
   assert.equal(first.execution.ok, true);
-  if (first.execution.ok) {
+  assert.equal(second.execution.ok, true);
+  if (first.execution.ok && second.execution.ok) {
     assert.match(first.execution.stdout, /"kind":"RuntimeStarted"/);
     assert.equal(first.execution.exitCode, 0);
+    assert.deepEqual(first.execution.state, { kind: "RuntimeState", action: "counter.increment", value: 2 });
+    assert.deepEqual(first.execution.state, second.execution.state);
+    assert.equal(JSON.stringify(first.execution).includes(secretValue), false);
     await assert.rejects(access(first.execution.workingDirectory));
   }
   assert.equal(JSON.stringify(first.record).includes("secret://database-url"), false);
+  assert.equal(JSON.stringify(first.record).includes(secretValue), false);
+});
+
+test("local deployment fails unresolved symbolic secret before activation and without false record", async () => {
+  const { compilation, artifacts, publishedRelease, environment } = fixture();
+  const result = await executeLocalDeployment({
+    publishedRelease,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: artifacts,
+    environment,
+    secretResolver: new InMemorySecretResolver({}),
+    ...times,
+  });
+
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.equal(result.activated, false);
+  assert.equal(result.diagnostic.code, "SECRET_RESOLUTION_FAILED");
+  assert.match(result.diagnostic.detail, /SECRET_REFERENCE_NOT_FOUND:secret:\/\/database-url/);
 });
 
 test("local deployment records activated persistent runtime failure and cleanup", async () => {
