@@ -344,6 +344,9 @@ export async function runLocalProcessDeployment(input: Readonly<{
       exitCode: null,
     });
   }
+  const shouldProbeState = migrationPreflight.migrations.some(
+    (migration) => migration.capability === "state.counter",
+  );
 
   const runtimeEntry = generatedFiles.find((file) => file.path === "runtime-entry.mjs");
   if (!runtimeEntry) {
@@ -517,7 +520,7 @@ export async function runLocalProcessDeployment(input: Readonly<{
     }
 
     let state: LocalRuntimeState | undefined;
-    if (input.secretResolver) {
+    if (shouldProbeState && input.secretResolver) {
       try {
         const first = await invokeCounter(startup.started.port, timeoutMs);
         const second = await invokeCounter(startup.started.port, timeoutMs);

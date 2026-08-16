@@ -64,7 +64,7 @@ async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseB
   return { stage: "deployment" as const, assembly, validation, compilation, artifactPayload, publishedRelease, environment, deployment };
 }
 
-test("full autonomous local vertical reaches verified secret resolution, persistent state and deterministic DeploymentRecord twice", async () => {
+test("full autonomous local vertical reaches verified secret resolution and deterministic DeploymentRecord without unrelated state", async () => {
   const first = await executeAutonomousLocalVertical();
   const second = await executeAutonomousLocalVertical();
   assert.equal(first.stage, "deployment");
@@ -90,8 +90,8 @@ test("full autonomous local vertical reaches verified secret resolution, persist
   assert.equal(first.deployment.execution.health.status, "UP");
   assert.equal(first.deployment.execution.health.runtimeVersion, "0.2.0");
   assert.equal(first.deployment.execution.health.environmentRef, "environment:autonomous-local");
-  assert.deepEqual(first.deployment.execution.state, { kind: "RuntimeState", action: "counter.increment", value: 2 });
-  assert.deepEqual(first.deployment.execution.state, second.deployment.execution.state);
+  assert.equal(first.deployment.execution.state, undefined);
+  assert.equal(second.deployment.execution.state, undefined);
 });
 
 test("full autonomous local vertical keeps resolved secret outside immutable evidence and runtime responses", async () => {

@@ -58,7 +58,7 @@ const times = {
   completedAt: "2026-08-16T03:10:02Z",
 };
 
-test("secret-aware local deployment records deterministic success and bounded state", async () => {
+test("secret-aware local deployment records deterministic success without unrelated state", async () => {
   const { compilation, artifacts, publishedRelease, environment } = fixture();
   const secretValue = "postgres://runtime-only-local-deployment";
   const secretResolver = new InMemorySecretResolver({ "secret://database-url": secretValue });
@@ -77,8 +77,8 @@ test("secret-aware local deployment records deterministic success and bounded st
   if (first.execution.ok && second.execution.ok) {
     assert.match(first.execution.stdout, /"kind":"RuntimeStarted"/);
     assert.equal(first.execution.exitCode, 0);
-    assert.deepEqual(first.execution.state, { kind: "RuntimeState", action: "counter.increment", value: 2 });
-    assert.deepEqual(first.execution.state, second.execution.state);
+    assert.equal(first.execution.state, undefined);
+    assert.equal(second.execution.state, undefined);
     assert.equal(JSON.stringify(first.execution).includes(secretValue), false);
     await assert.rejects(access(first.execution.workingDirectory));
   }

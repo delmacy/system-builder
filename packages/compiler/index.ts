@@ -4,6 +4,7 @@ import {
   renderPersistentAutonomousRuntimeEntrypoint,
   type RuntimeStateRequirement,
 } from "@system-builder/runtime-core";
+import { materializeAssemblyRuntimeCapabilities } from "./runtime-capabilities.js";
 
 export type CompilerAssemblyPlan = Readonly<{
   kind: "AssemblyPlan";
@@ -143,6 +144,21 @@ function assertUniqueGeneratedPaths(files: readonly GeneratedFile[]): void {
   }
 }
 
+function capabilityMaterializationPlan(
+  assemblyPlan: CompilerAssemblyPlan,
+  explicitStateRequirements: readonly RuntimeStateRequirement[],
+): CompilerAssemblyPlan {
+  const explicitCapabilities = new Set(explicitStateRequirements.map((requirement) => requirement.capability));
+  if (!explicitCapabilities.has("state.counter")) return assemblyPlan;
+
+  const components = assemblyPlan.components.filter((component) => {
+    if (component.capability !== "state.counter") return true;
+    return component.provider === "system-builder.postgres-counter" && component.version === "1.0.0";
+  });
+  if (components.length === assemblyPlan.components.length) return assemblyPlan;
+  return Object.freeze({ ...assemblyPlan, components: Object.freeze(components) });
+}
+
 export function compileSyntheticRelease(input: CompileSyntheticInput): SyntheticCompilation {
   if (input.assemblyPlan.kind !== "AssemblyPlan") throw new Error("COMPILER_INVALID_ASSEMBLY_PLAN");
   if (!/^sha256:[a-f0-9]{64}$/.test(input.assemblyPlan.contentHash)) {
@@ -164,7 +180,14 @@ export function compileSyntheticRelease(input: CompileSyntheticInput): Synthetic
   const compilerVersion = requireToken(input.compilerVersion, "compiler_version");
   const runtimeVersion = requireToken(input.runtimeVersion, "runtime_version");
   const environmentSchema = normalizeEnvironment(input.environmentSchema);
-  const stateRequirements = normalizeStateRequirements(input.stateRequirements);
+  const explicitStateRequirements = input.stateRequirements ?? [];
+  const derivedStateRequirements = materializeAssemblyRuntimeCapabilities(
+    capabilityMaterializationPlan(input.assemblyPlan, explicitStateRequirements),
+  ).stateRequirements;
+  const stateRequirements = normalizeStateRequirements([
+    ...derivedStateRequirements,
+    ...explicitStateRequirements,
+  ]);
   for (const requirement of stateRequirements) {
     const environmentRequirement = environmentSchema.find(
       (candidate) =>
