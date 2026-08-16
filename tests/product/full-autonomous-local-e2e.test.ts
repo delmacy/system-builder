@@ -5,6 +5,7 @@ import { assembleSystemDefinition } from "../../packages/assembly/index.js";
 import { SoftwareCatalogRegistry, resolveCatalogCandidates } from "../../packages/catalog/index.js";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
 import { executeLocalDeployment } from "../../packages/deploy/local-deployment.js";
+import { InMemorySecretResolver } from "../../packages/deploy/secret-resolver.js";
 import { ReleaseRegistry } from "../../packages/release/index.js";
 import { validateTraceability } from "../../packages/validation/index.js";
 import {
@@ -15,7 +16,9 @@ import {
   factorySystemDefinition,
 } from "./fixtures/factory-e2e.js";
 
-async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseBinding?: boolean }>) {
+const resolvedSecretValue = "postgres://runtime-only-secret";
+
+async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseBinding?: boolean; unresolvedSecret?: boolean }>) {
   const catalog = new SoftwareCatalogRegistry();
   for (const record of factoryCatalogRecords) catalog.register(record);
   const assembly = assembleSystemDefinition(factorySystemDefinition, "system-definition:autonomous-local:1", (request) => resolveCatalogCandidates(catalog, request));
@@ -39,25 +42,29 @@ async function executeAutonomousLocalVertical(options?: Readonly<{ omitDatabaseB
     { name: "DATABASE_URL", kind: "secret-reference" as const, reference: "secret://database-url" },
     { name: "LOG_LEVEL", kind: "config" as const, reference: "config://log-level" },
   ].filter((binding) => !(options?.omitDatabaseBinding && binding.name === "DATABASE_URL"));
+  const environment = { kind: "EnvironmentProfile" as const, environmentRef: "environment:autonomous-local", runtimeVersions: ["0.2.0"], bindings };
+  const secretResolver = new InMemorySecretResolver(
+    options?.unresolvedSecret ? {} : { "secret://database-url": resolvedSecretValue },
+  );
 
   const deployment = await executeLocalDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
     artifactPayloadReader: artifacts,
-    environment: { kind: "EnvironmentProfile", environmentRef: "environment:autonomous-local", runtimeVersions: ["0.2.0"], bindings },
+    environment,
+    secretResolver,
     processEnvironment: {
       SYSTEM_BUILDER_BUILDER_URL: "http://127.0.0.1:1",
       SYSTEM_BUILDER_OBSERVE_URL: "http://127.0.0.1:1",
-      DEPLOY_TEST_RESOLVED_SECRET: "postgres://runtime-only-secret",
     },
     startedAt: "2026-08-16T03:20:01Z",
     completedAt: "2026-08-16T03:20:02Z",
   });
 
-  return { stage: "deployment" as const, assembly, validation, compilation, artifactPayload, publishedRelease, deployment };
+  return { stage: "deployment" as const, assembly, validation, compilation, artifactPayload, publishedRelease, environment, deployment };
 }
 
-test("full autonomous local vertical reaches persistent HTTP RuntimeHealth and deterministic DeploymentRecord twice", async () => {
+test("full autonomous local vertical reaches verified secret resolution, persistent state and deterministic DeploymentRecord twice", async () => {
   const first = await executeAutonomousLocalVertical();
   const second = await executeAutonomousLocalVertical();
   assert.equal(first.stage, "deployment");
@@ -76,23 +83,52 @@ test("full autonomous local vertical reaches persistent HTTP RuntimeHealth and d
   assert.equal(first.deployment.record.status, "succeeded");
   assert.deepEqual(first.deployment.record.healthChecks, [{ name: "runtime-health", status: "PASS" }]);
   assert.equal(first.deployment.execution.ok, true);
-  if (!first.deployment.execution.ok) return;
+  assert.equal(second.deployment.execution.ok, true);
+  if (!first.deployment.execution.ok || !second.deployment.execution.ok) return;
   assert.match(first.deployment.execution.stdout, /"kind":"RuntimeStarted"/);
   assert.equal(first.deployment.execution.exitCode, 0);
   assert.equal(first.deployment.execution.health.status, "UP");
   assert.equal(first.deployment.execution.health.runtimeVersion, "0.2.0");
   assert.equal(first.deployment.execution.health.environmentRef, "environment:autonomous-local");
+  assert.deepEqual(first.deployment.execution.state, { kind: "RuntimeState", action: "counter.increment", value: 2 });
+  assert.deepEqual(first.deployment.execution.state, second.deployment.execution.state);
 });
 
-test("full autonomous local vertical keeps runtime-only secret value outside immutable/evidence content", async () => {
+test("full autonomous local vertical keeps resolved secret outside immutable evidence and runtime responses", async () => {
   const result = await executeAutonomousLocalVertical();
   assert.equal(result.stage, "deployment");
   if (result.stage !== "deployment") return;
   assert.equal(result.deployment.ok, true);
-  if (!result.deployment.ok) return;
-  const durableContent = JSON.stringify({ payload: result.artifactPayload, artifact: result.compilation.artifact, release: result.publishedRelease, record: result.deployment.record });
-  assert.equal(durableContent.includes("postgres://runtime-only-secret"), false);
+  if (!result.deployment.ok || !result.deployment.execution.ok) return;
+
+  const durableContent = JSON.stringify({
+    payload: result.artifactPayload,
+    artifact: result.compilation.artifact,
+    release: result.publishedRelease,
+    record: result.deployment.record,
+  });
+  const runtimeResponses = JSON.stringify({
+    health: result.deployment.execution.health,
+    state: result.deployment.execution.state,
+    stdout: result.deployment.execution.stdout,
+    stderr: result.deployment.execution.stderr,
+  });
+  assert.equal(durableContent.includes(resolvedSecretValue), false);
+  assert.equal(runtimeResponses.includes(resolvedSecretValue), false);
   assert.equal(durableContent.includes("secret://database-url"), false);
+  assert.equal(JSON.stringify(result.environment).includes("secret://database-url"), true);
+});
+
+test("full autonomous local vertical fails unresolved symbolic secret before activation", async () => {
+  const result = await executeAutonomousLocalVertical({ unresolvedSecret: true });
+  assert.equal(result.stage, "deployment");
+  if (result.stage !== "deployment") return;
+  assert.equal(result.deployment.ok, false);
+  if (result.deployment.ok) return;
+  assert.equal(result.deployment.activated, false);
+  assert.equal(result.deployment.diagnostic.code, "SECRET_RESOLUTION_FAILED");
+  assert.match(result.deployment.diagnostic.detail, /SECRET_REFERENCE_NOT_FOUND:secret:\/\/database-url/);
+  assert.equal(result.deployment.diagnostic.detail.includes(resolvedSecretValue), false);
 });
 
 test("full autonomous local vertical records required-binding persistent runtime failure without false success", async () => {

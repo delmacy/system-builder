@@ -8,6 +8,7 @@ import {
   type LocalVerifiableReleaseArtifact,
   type LocalVerifiedArtifactPayloadReader,
 } from "./local-process.js";
+import type { SecretResolver } from "./secret-resolver.js";
 
 export type LocalDeploymentResult =
   | Readonly<{
@@ -32,6 +33,7 @@ export async function executeLocalDeployment(input: Readonly<{
   environment: EnvironmentProfile;
   startedAt: string;
   completedAt: string;
+  secretResolver?: SecretResolver;
   processEnvironment?: Readonly<Record<string, string>>;
   timeoutMs?: number;
 }>): Promise<LocalDeploymentResult> {
@@ -40,6 +42,7 @@ export async function executeLocalDeployment(input: Readonly<{
     releaseArtifact: input.releaseArtifact,
     artifactPayloadReader: input.artifactPayloadReader,
     environment: input.environment,
+    ...(input.secretResolver === undefined ? {} : { secretResolver: input.secretResolver }),
     ...(input.processEnvironment === undefined ? {} : { processEnvironment: input.processEnvironment }),
     ...(input.timeoutMs === undefined ? {} : { timeoutMs: input.timeoutMs }),
   });
