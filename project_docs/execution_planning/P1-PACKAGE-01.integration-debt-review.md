@@ -1,6 +1,6 @@
 # P1-PACKAGE-01 — Integration & Technical Debt Review
 
-Status: REVIEW_IN_PROGRESS
+Status: READY_FOR_REVIEW
 
 ## Review authority
 
@@ -20,7 +20,7 @@ The knowledge-side ProcessMirror, BusinessRecipe, SystemAnalysis and SystemDefin
 
 ## Regression and repeatability evidence
 
-The repository-wide regression command remains `npm run verify` through Deterministic CI.
+The repository-wide regression command is `npm run verify` through Deterministic CI.
 
 The integrated full-vertical product test invokes the actual Catalog, Assembly, Validation, Compiler, Release and Deploy APIs. Its success path executes the vertical twice and compares:
 
@@ -32,7 +32,13 @@ The integrated full-vertical product test invokes the actual Catalog, Assembly, 
 
 The same test suite also proves a controlled failed acceptance check produces a failed DeploymentRecord and that deployment secret references do not enter ReleaseArtifact or PublishedRelease metadata.
 
-Final objective review CI will be recorded in this document before review closure.
+Objective post-merge review regression:
+
+- Deterministic CI #183 on review head `a840867624009d1f64aed58378f4ec0d49b8d612`: PASS.
+- `npm run verify`: PASS through the CI validate job.
+- local execution is not claimed.
+
+A final CI run on the report-finalization head must remain green before this review PR is merged.
 
 ## Contract and boundary revalidation
 
@@ -133,5 +139,7 @@ Package construction result: PASS.
 Architecture/boundary review: PASS WITH DEBT.
 
 Critical blocker requiring rollback of P1: NONE FOUND.
+
+Review PR state: READY_FOR_REVIEW after final CI.
 
 Next-package readiness: NOT YET COMMITTED. A successor package may be planned after this review is merged, using the debt priorities and actual integrated evidence above. Do not start a successor Sprint as part of this review.
