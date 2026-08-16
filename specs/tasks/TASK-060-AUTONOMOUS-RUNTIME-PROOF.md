@@ -1,7 +1,7 @@
 ---
 id: TASK-060
 title: Prove autonomous startup and health from actual Compiler output
-status: ready
+status: completed
 priority: 360
 milestone: M3
 model_tier: cheap
