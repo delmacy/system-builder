@@ -1,7 +1,7 @@
 ---
 id: TASK-065
 title: Verify artifact payload integrity independently on retrieval
-status: ready
+status: completed
 priority: 381
 milestone: M4
 model_tier: architecture
@@ -89,3 +89,7 @@ Focused tests using actual Compiler output for successful verification and corru
 # Escalation
 
 Stop if independent verification cannot reproduce the Compiler artifact identity without changing a forbidden Compiler/public schema path.
+
+# Result
+
+Implemented independent activation retrieval that recomputes actual file-content hashes, enforces exact manifest path coverage, rejects duplicate paths, and reproduces the Compiler aggregate ReleaseArtifact identity before returning an immutable verified payload.
