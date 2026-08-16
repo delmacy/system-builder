@@ -1,7 +1,7 @@
 ---
 id: TASK-066
 title: Integrate verified artifact retrieval into local Deploy E2E
-status: ready
+status: completed
 priority: 382
 milestone: M4
 model_tier: cheap
@@ -100,3 +100,7 @@ Focused local Deploy tests and the full autonomous local E2E using actual artifa
 # Escalation
 
 Stop if integration requires modifying ReleaseArtifact/PublishedRelease/EnvironmentProfile public schemas, accepted ADR boundaries, artifact-store implementation from TASK-065, or any forbidden path.
+
+# Result
+
+Local Deploy now consumes a verified artifact payload reader instead of caller-supplied generated files. Actual Compiler output is published before Release/Deploy activation, corruption is rejected before materialization, and the full autonomous local vertical crosses the new artifact boundary while retaining Builder/Observe independence and secret-separation evidence.

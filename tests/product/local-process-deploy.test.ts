@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { access } from "node:fs/promises";
 import test from "node:test";
+import { InMemoryArtifactPayloadRepository } from "../../packages/artifact-store/index.js";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
 import { runLocalProcessDeployment } from "../../packages/deploy/local-process.js";
 import { ReleaseRegistry } from "../../packages/release/index.js";
@@ -31,6 +32,8 @@ function fixture() {
       { name: "LOG_LEVEL", kind: "config", required: false },
     ],
   });
+  const artifacts = new InMemoryArtifactPayloadRepository();
+  artifacts.publish({ artifactHash: compilation.artifact.artifactHash, files: compilation.files });
   const publishedRelease = new ReleaseRegistry().publish({
     releaseId: "local-runtime",
     version: "1.0.0",
@@ -46,11 +49,11 @@ function fixture() {
       { name: "LOG_LEVEL", kind: "config" as const, reference: "config://log-level" },
     ],
   };
-  return { compilation, publishedRelease, environment };
+  return { compilation, artifacts, publishedRelease, environment };
 }
 
-test("local-process Deploy adapter starts actual Compiler-generated runtime and cleans materialization", async () => {
-  const { compilation, publishedRelease, environment } = fixture();
+test("local-process Deploy retrieves verified Compiler artifact payload and cleans materialization", async () => {
+  const { compilation, artifacts, publishedRelease, environment } = fixture();
   const releaseBefore = JSON.stringify(publishedRelease);
   const artifactBefore = JSON.stringify(compilation.artifact);
   const filesBefore = JSON.stringify(compilation.files);
@@ -58,7 +61,7 @@ test("local-process Deploy adapter starts actual Compiler-generated runtime and 
   const result = await runLocalProcessDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
-    generatedFiles: compilation.files,
+    artifactPayloadReader: artifacts,
     environment,
     processEnvironment: {
       SYSTEM_BUILDER_BUILDER_URL: "http://127.0.0.1:1",
@@ -78,12 +81,12 @@ test("local-process Deploy adapter starts actual Compiler-generated runtime and 
   await assert.rejects(access(result.workingDirectory));
 });
 
-test("local-process Deploy adapter rejects artifact/runtime mismatch before activation", async () => {
-  const { compilation, publishedRelease, environment } = fixture();
+test("local-process Deploy rejects artifact/runtime mismatch before payload retrieval", async () => {
+  const { compilation, artifacts, publishedRelease, environment } = fixture();
   const artifactMismatch = await runLocalProcessDeployment({
     publishedRelease: { ...publishedRelease, artifactHash: `sha256:${"c".repeat(64)}` },
     releaseArtifact: compilation.artifact,
-    generatedFiles: compilation.files,
+    artifactPayloadReader: artifacts,
     environment,
   });
   assert.equal(artifactMismatch.ok, false);
@@ -94,7 +97,7 @@ test("local-process Deploy adapter rejects artifact/runtime mismatch before acti
   const runtimeMismatch = await runLocalProcessDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
-    generatedFiles: compilation.files,
+    artifactPayloadReader: artifacts,
     environment: { ...environment, runtimeVersions: ["9.9.9"] },
   });
   assert.equal(runtimeMismatch.ok, false);
@@ -103,16 +106,24 @@ test("local-process Deploy adapter rejects artifact/runtime mismatch before acti
   assert.equal(runtimeMismatch.diagnostic.code, "RUNTIME_INCOMPATIBLE");
 });
 
-test("local-process Deploy adapter rejects missing generated runtime entrypoint", async () => {
+test("local-process Deploy rejects corrupted artifact payload before activation or materialization", async () => {
   const { compilation, publishedRelease, environment } = fixture();
+  const corruptArtifacts = new InMemoryArtifactPayloadRepository();
+  corruptArtifacts.publish({
+    artifactHash: compilation.artifact.artifactHash,
+    files: compilation.files.map((file, index) => index === 0 ? { ...file, content: `${file.content}\ncorrupt` } : file),
+  });
+
   const result = await runLocalProcessDeployment({
     publishedRelease,
     releaseArtifact: compilation.artifact,
-    generatedFiles: compilation.files.filter((file) => file.path !== "runtime-entry.mjs"),
+    artifactPayloadReader: corruptArtifacts,
     environment,
   });
   assert.equal(result.ok, false);
   if (result.ok) return;
   assert.equal(result.activated, false);
-  assert.equal(result.diagnostic.code, "RUNTIME_ENTRYPOINT_MISSING");
+  assert.equal(result.diagnostic.code, "ARTIFACT_PAYLOAD_INVALID");
+  assert.match(result.diagnostic.detail, /ARTIFACT_PAYLOAD_FILE_HASH_MISMATCH/);
+  assert.equal("workingDirectory" in result, false);
 });
