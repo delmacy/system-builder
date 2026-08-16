@@ -1,38 +1,47 @@
-# Next Work — close P1-PACKAGE-01 review
+# Next Work — P2 package review and first Sprint commitment
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-P1-VERTICAL-01, P1-VERTICAL-02 and P1-VERTICAL-03 are merged. P1-PACKAGE-01 is now in its mandatory Integration & Technical Debt Review.
+P1-PACKAGE-01 and its Integration & Technical Debt Review are merged. Successor planning has been explicitly authorized.
 
-Review artifact:
+`P2-PACKAGE-01 — First Autonomous Local Runtime` is the proposed next Sprint Package.
 
-`project_docs/execution_planning/P1-PACKAGE-01.integration-debt-review.md`
+## Package forecast
 
-## Required review closure
+1. `P2-BOUNDARY-01` — executable boundary hardening;
+2. `P2-RUNTIME-01` — runnable artifact and autonomous Runtime bootstrap;
+3. `P2-LOCAL-DEPLOY-01` — local-process deployment and autonomous Runtime E2E;
+4. Integration & Technical Debt Review.
 
-1. Run repository-wide `npm run verify` through GitHub Deterministic CI on the review PR head.
-2. Confirm the existing full-vertical regression still executes the successful actual-module chain twice and compares deterministic identities.
-3. Keep controlled failure and secret-separation proofs green.
-4. Finalize debt priorities and package disposition in the review artifact.
-5. Merge the review PR before successor planning becomes repository truth.
+## After P2 package merges
 
-## After review merge
+Do not execute forecast TASK names directly from this planning document.
 
-Successor planning may be explicitly authorized. It must derive the next Sprint Package from the integrated evidence and debt register, not from chat history.
+For `P2-BOUNDARY-01`:
 
-Highest-priority candidate prerequisites recorded by the review are:
+1. re-read `AGENTS.md`, state/milestone, Sprint Generation Policy, Sprint Mode and `P2-PACKAGE-01.md`;
+2. inspect current canonical schemas and executable outputs;
+3. materialize/revalidate TASK-055..057 with complete `context_paths`, `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validations;
+4. confirm explicit L3 contract authority for the EnvironmentProfile work;
+5. freeze the committed `P2-BOUNDARY-01` Sprint manifest;
+6. create `sprint/P2-BOUNDARY-01` from synchronized `main`;
+7. execute TASKs in dependency order, one distinct commit per TASK;
+8. run declared validation and final repository CI;
+9. produce Sprint Report and stop for Sprint Review.
 
-- contract/schema conformance tests for executable boundary outputs;
-- a canonical EnvironmentProfile boundary before real Deploy adapters;
-- Catalog/Assembly resolution maturation before production-grade dependency graphs.
+## P2 package target
 
-Runtime-bearing Compiler/Deploy work, persistence and real local execution are product gaps to be scheduled by the successor package rather than silently added to this review.
+Reach the first bounded autonomous local Runtime proof:
 
-## Do not start yet
+`SystemDefinition -> Catalog -> Assembly -> Validation -> Compiler -> Release -> Environment -> local Deploy -> autonomous Runtime`
 
-Do not create or execute a successor Sprint Package as part of this review unless explicit authorization is given after review closure.
+The Runtime proof must not require Builder availability during ordinary startup/health operation, and secret values must remain outside immutable ReleaseArtifact/PublishedRelease content.
+
+## Deferred debt
+
+Catalog/Assembly production-grade dependency solving remains HIGH-priority debt but is not silently included in the first P2 Sprint unless actual runtime work requires it. Persistence and production deployment adapters remain forecast/backlog concerns until evidence promotes them.
 
 ## AgentFactory track
 
