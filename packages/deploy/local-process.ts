@@ -5,6 +5,7 @@ import { dirname, isAbsolute, join, normalize } from "node:path";
 import type { Readable } from "node:stream";
 import type { EnvironmentProfile } from "@system-builder/contracts/environment-profile";
 import type { DeployPublishedRelease, DeployReleaseArtifact } from "./index.js";
+import { preflightVerifiedMigrations, type LocalMigrationPreflight } from "./migration-preflight.js";
 import {
   resolveRuntimeSecretEnvironment,
   type RuntimeSecretEnvironment,
@@ -64,6 +65,7 @@ export type LocalProcessDeploymentDiagnostic = Readonly<{
     | "RUNTIME_INCOMPATIBLE"
     | "RUNTIME_ENTRYPOINT_MISSING"
     | "GENERATED_PATH_INVALID"
+    | "MIGRATION_PREFLIGHT_INVALID"
     | "SECRET_RESOLUTION_FAILED"
     | "RUNTIME_PROCESS_FAILED"
     | "RUNTIME_STARTUP_INVALID"
@@ -78,6 +80,7 @@ export type LocalProcessDeploymentResult =
       ok: true;
       activated: true;
       health: LocalRuntimeHealth;
+      migrationPreflight: LocalMigrationPreflight;
       state?: LocalRuntimeState;
       stdout: string;
       stderr: string;
@@ -301,6 +304,21 @@ export async function runLocalProcessDeployment(input: Readonly<{
       });
     }
   }
+
+  let migrationPreflight: LocalMigrationPreflight;
+  try {
+    migrationPreflight = preflightVerifiedMigrations(generatedFiles);
+  } catch (error) {
+    return Object.freeze({
+      ok: false,
+      activated: false,
+      diagnostic: Object.freeze({ code: "MIGRATION_PREFLIGHT_INVALID", detail: errorDetail(error) }),
+      stdout: "",
+      stderr: "",
+      exitCode: null,
+    });
+  }
+
   const runtimeEntry = generatedFiles.find((file) => file.path === "runtime-entry.mjs");
   if (!runtimeEntry) {
     return Object.freeze({
@@ -505,6 +523,7 @@ export async function runLocalProcessDeployment(input: Readonly<{
       ok: true,
       activated: true,
       health,
+      migrationPreflight,
       ...(state === undefined ? {} : { state }),
       stdout,
       stderr,

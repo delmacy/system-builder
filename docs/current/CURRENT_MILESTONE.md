@@ -1,39 +1,41 @@
-# Current Execution Milestone — M5 Durable Stateful Runtime Package Planning
+# Current Execution Milestone — M5 P4 Migration State Sprint Review
 
 ## Goal
 
-Create the next rolling-wave Sprint Package from the merged P3 Integration & Technical Debt Review, prioritizing durable Runtime state/database + migrations and the first capability-driven generated Runtime slice.
+Review `P4-MIGRATION-STATE-01` after completion of TASK-073..075 and objective repository verification.
 
-## Integrated baseline
+## Baseline
 
-P3 construction and package review are merged through PR #166 at `18b9617f15c5a0329977c5470ba0c8bd054ef5e1`.
+P4-PACKAGE-01 is merged through PR #167 at `5f628b7c72f9e9fc0db799e0bd97b2d1997b1572`.
 
-Integrated proof:
+Sprint branch: `sprint/P4-MIGRATION-STATE-01`
+PR: #168
 
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile secret refs -> external SecretResolver -> local Deploy -> persistent Runtime -> HTTP RuntimeHealth -> counter.increment (1 -> 2) -> clean shutdown -> DeploymentRecord`
+## Sprint result
 
-## Proposed package
+TASK sequence:
 
-`P4-PACKAGE-01 — Durable Stateful Runtime and Capability Materialization`
+`TASK-072 -> TASK-073 -> TASK-074 -> TASK-075`
 
-Forecast sequence:
+Implementation commits:
 
-1. `P4-MIGRATION-STATE-01` — deterministic state/migration materialization;
-2. `P4-POSTGRES-STATE-01` — PostgreSQL durable Runtime state and restart persistence;
-3. `P4-CAPABILITY-RUNTIME-01` — capability-driven durable Runtime action;
-4. Integration & Technical Debt Review.
+- TASK-073: `88bc3d4dc38d84ab516c0e08c519bd61768ab55b` — CI #232 PASS;
+- TASK-074: `3cfa5073b2d565e1a517442b435993b0601bdb52` — CI #233 PASS;
+- TASK-075: `c90f755c5def49ce1968b5c7f1ac6d36264b0d55` — CI #235 PASS.
 
-Candidate TASKs: TASK-073..081, forecast only.
+Achieved proof:
 
-## Architecture constraints
+`AssemblyPlan bounded capability -> Compiler -> migration/runtime assets -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration preflight`
 
-- ADR-0002 Builder/Runtime separation remains mandatory;
-- ADR-0007 Release/Environment/Deployment separation remains mandatory;
-- resolved secret values must remain outside immutable artifact/release/deployment evidence;
-- migrations/runtime behavior must be deterministic products of accepted inputs;
-- PostgreSQL is the initial target topology, not a reason to embed provider-specific policy into shared contracts;
-- L4 discoveries require ADR rather than silent architecture change.
+## Architecture constraints preserved
 
-## Successor gate
+- ADR-0002 Builder/Runtime separation;
+- ADR-0007 Release/Environment/Deployment separation;
+- no resolved secret in immutable evidence;
+- no canonical ReleaseArtifact/EnvironmentProfile/DeploymentRecord schema expansion;
+- no SQL migration execution/PostgreSQL connection in this Sprint;
+- no L4 architecture change.
 
-Stop at the P4 package-plan PR after Deterministic CI. No P4 construction Sprint is authorized until the package plan merges and a new explicit instruction re-reads repository authority.
+## Current gate
+
+Run final closure-head Deterministic CI and stop at PR #168 Sprint Review. Do not start `P4-POSTGRES-STATE-01`; it requires this Sprint to merge plus a new explicit instruction and repository revalidation.

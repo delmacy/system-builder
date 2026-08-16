@@ -9,10 +9,9 @@ Date: 2026-08-16
 ## Current maturity
 
 - Public contract spine: integrated through TASK-008.
-- P1-PACKAGE-01 construction and Integration & Technical Debt Review: merged.
-- P2-PACKAGE-01 construction and Integration & Technical Debt Review: merged through PR #161.
-- P3-PACKAGE-01 construction and Integration & Technical Debt Review: merged through PR #166.
-- P4-PACKAGE-01 successor package plan: proposed on `plan/P4-PACKAGE-01`; no construction Sprint committed.
+- P1/P2/P3 construction packages and mandatory package reviews: merged through PR #166.
+- P4-PACKAGE-01 package plan: merged through PR #167 at `5f628b7c72f9e9fc0db799e0bd97b2d1997b1572`.
+- P4-MIGRATION-STATE-01: TASK-073..075 implemented on `sprint/P4-MIGRATION-STATE-01`; implementation-head CI #235 PASS; closure-head CI pending for PR #168 Sprint Review.
 - GitHub Actions: deterministic integration gate.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
@@ -20,22 +19,18 @@ Date: 2026-08-16
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile secret refs -> external SecretResolver -> local Deploy -> persistent Runtime -> HTTP RuntimeHealth -> counter.increment 1 -> 2 -> clean shutdown -> DeploymentRecord`
 
-Only merged work in `main` is published product truth.
+Only merged work in `main` is published product truth. P4-MIGRATION-STATE-01 remains proposed integration until PR #168 merges.
 
-## P3 review result
+## Sprint-branch proof under review
 
-P3 construction: PASS.
+`AssemblyPlan bounded capability -> Compiler -> migration/runtime assets -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration preflight`
 
-Architecture/boundaries: PASS WITH DEBT.
+The Sprint adds deterministic bounded Runtime state/migration metadata, Compiler-generated migration assets covered by existing ReleaseArtifact integrity, and fail-closed Deploy preflight before secret resolution/materialization. It does not execute migrations or connect PostgreSQL.
 
-No rollback blocker was found. Highest-priority residual debt is durable Runtime state/database + migrations, durable provider adapters, production supervision, Catalog/Assembly dependency solving and production secret providers.
+## Architecture state
 
-## P4 planning direction
-
-The proposed next package prioritizes the strongest P3 review direction: move the state proof from process memory to PostgreSQL, give Compiler/Deploy explicit migration responsibilities and materialize one bounded Runtime action from actual capability inputs.
-
-Durable Catalog/Release/Artifact providers, general dependency solving and production supervision remain deferred unless a committed P4 Sprint proves one is a prerequisite.
+ADR-0002 Builder/Runtime autonomy and ADR-0007 Release/Environment/Deployment separation remain preserved. Canonical `packages/contracts/**`, ReleaseArtifact, EnvironmentProfile and DeploymentRecord schemas were not broadened.
 
 ## Current gate
 
-Review and CI-validate `P4-PACKAGE-01`. Do not start `P4-MIGRATION-STATE-01` before package-plan merge plus a new explicit instruction.
+Require closure-head Deterministic CI PASS on PR #168, then stop at Sprint Review. `P4-POSTGRES-STATE-01` is forecast only and must not start without PR #168 merge plus a new explicit instruction and repository revalidation.

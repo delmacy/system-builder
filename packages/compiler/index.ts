@@ -1,5 +1,9 @@
 import { canonicalJson, sha256Canonical, sha256Text } from "@system-builder/deterministic";
-import { renderPersistentAutonomousRuntimeEntrypoint } from "@system-builder/runtime-core";
+import {
+  normalizeRuntimeStateRequirement,
+  renderPersistentAutonomousRuntimeEntrypoint,
+  type RuntimeStateRequirement,
+} from "@system-builder/runtime-core";
 
 export type CompilerAssemblyPlan = Readonly<{
   kind: "AssemblyPlan";
@@ -52,6 +56,7 @@ export type CompileSyntheticInput = Readonly<{
   compilerVersion: string;
   runtimeVersion: string;
   environmentSchema?: readonly CompilerEnvironmentRequirement[];
+  stateRequirements?: readonly RuntimeStateRequirement[];
 }>;
 
 export type SyntheticCompilation = Readonly<{
@@ -84,6 +89,25 @@ function normalizeEnvironment(
   return Object.freeze(normalized);
 }
 
+function normalizeStateRequirements(
+  requirements: readonly RuntimeStateRequirement[] | undefined,
+): readonly RuntimeStateRequirement[] {
+  const normalized = (requirements ?? []).map((requirement) => normalizeRuntimeStateRequirement(requirement));
+  normalized.sort(
+    (left, right) =>
+      left.capability.localeCompare(right.capability) ||
+      left.connectionBinding.name.localeCompare(right.connectionBinding.name),
+  );
+  const capabilities = new Set<string>();
+  for (const requirement of normalized) {
+    if (capabilities.has(requirement.capability)) {
+      throw new Error(`COMPILER_DUPLICATE_STATE_CAPABILITY:${requirement.capability}`);
+    }
+    capabilities.add(requirement.capability);
+  }
+  return Object.freeze(normalized);
+}
+
 function normalizeComponents(assemblyPlan: CompilerAssemblyPlan) {
   return assemblyPlan.components
     .map((component) => ({
@@ -111,6 +135,14 @@ function generatedTextFile(path: string, content: string): GeneratedFile {
   return Object.freeze({ path, content, contentHash: sha256Text(content) });
 }
 
+function assertUniqueGeneratedPaths(files: readonly GeneratedFile[]): void {
+  const paths = new Set<string>();
+  for (const file of files) {
+    if (paths.has(file.path)) throw new Error(`COMPILER_DUPLICATE_GENERATED_PATH:${file.path}`);
+    paths.add(file.path);
+  }
+}
+
 export function compileSyntheticRelease(input: CompileSyntheticInput): SyntheticCompilation {
   if (input.assemblyPlan.kind !== "AssemblyPlan") throw new Error("COMPILER_INVALID_ASSEMBLY_PLAN");
   if (!/^sha256:[a-f0-9]{64}$/.test(input.assemblyPlan.contentHash)) {
@@ -132,30 +164,65 @@ export function compileSyntheticRelease(input: CompileSyntheticInput): Synthetic
   const compilerVersion = requireToken(input.compilerVersion, "compiler_version");
   const runtimeVersion = requireToken(input.runtimeVersion, "runtime_version");
   const environmentSchema = normalizeEnvironment(input.environmentSchema);
+  const stateRequirements = normalizeStateRequirements(input.stateRequirements);
+  for (const requirement of stateRequirements) {
+    const environmentRequirement = environmentSchema.find(
+      (candidate) =>
+        candidate.name === requirement.connectionBinding.name &&
+        candidate.kind === "secret-reference" &&
+        candidate.required,
+    );
+    if (!environmentRequirement) {
+      throw new Error(`COMPILER_STATE_BINDING_MISSING:${requirement.connectionBinding.name}`);
+    }
+  }
+
   const components = normalizeComponents(input.assemblyPlan);
   const runtimeEntrypoint = renderPersistentAutonomousRuntimeEntrypoint({
     runtimeVersion,
     requirements: environmentSchema,
   });
 
-  const files = Object.freeze(
-    [
-      generatedJsonFile("assembly-plan.json", {
-        kind: input.assemblyPlan.kind,
-        systemDefinitionRef: input.assemblyPlan.systemDefinitionRef,
-        components,
-        sourceRefs: [...input.assemblyPlan.sourceRefs].sort((left, right) => left.localeCompare(right)),
-        contentHash: input.assemblyPlan.contentHash,
-      }),
-      generatedJsonFile("environment-schema.json", environmentSchema),
-      generatedTextFile("runtime-entry.mjs", runtimeEntrypoint),
-      generatedJsonFile("runtime-manifest.json", {
-        runtimeVersion,
-        entrypoint: "runtime-entry.mjs",
-        components: components.map(({ capability, provider, version }) => ({ capability, provider, version })),
-      }),
-    ].sort((left, right) => left.path.localeCompare(right.path)),
+  const baseFiles: GeneratedFile[] = [
+    generatedJsonFile("assembly-plan.json", {
+      kind: input.assemblyPlan.kind,
+      systemDefinitionRef: input.assemblyPlan.systemDefinitionRef,
+      components,
+      sourceRefs: [...input.assemblyPlan.sourceRefs].sort((left, right) => left.localeCompare(right)),
+      contentHash: input.assemblyPlan.contentHash,
+    }),
+    generatedJsonFile("environment-schema.json", environmentSchema),
+    generatedTextFile("runtime-entry.mjs", runtimeEntrypoint),
+    generatedJsonFile("runtime-manifest.json", {
+      runtimeVersion,
+      entrypoint: "runtime-entry.mjs",
+      components: components.map(({ capability, provider, version }) => ({ capability, provider, version })),
+    }),
+  ];
+
+  const migrationFiles = stateRequirements.flatMap((requirement) =>
+    requirement.migrations.map((migration) => generatedTextFile(migration.path, migration.content)),
   );
+  const migrationManifestFile = stateRequirements.length === 0
+    ? []
+    : [generatedJsonFile("migration-manifest.json", {
+        kind: "RuntimeMigrationManifest",
+        requirements: stateRequirements.map((requirement) => ({
+          capability: requirement.capability,
+          storeKind: requirement.storeKind,
+          connectionBinding: requirement.connectionBinding,
+          migrations: requirement.migrations.map((migration) => ({
+            id: migration.id,
+            order: migration.order,
+            path: migration.path,
+            contentHash: sha256Text(migration.content),
+          })),
+        })),
+      })];
+
+  const generatedFiles = [...baseFiles, ...migrationFiles, ...migrationManifestFile];
+  assertUniqueGeneratedPaths(generatedFiles);
+  const files = Object.freeze(generatedFiles.sort((left, right) => left.path.localeCompare(right.path)));
 
   const manifest = Object.freeze({
     compilerVersion,

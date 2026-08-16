@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
+import type { RuntimeStateRequirement } from "../../packages/runtime-core/index.js";
 
 const assemblyPlan = {
   kind: "AssemblyPlan" as const,
@@ -20,16 +21,43 @@ const validationEvidence = {
   evidenceHash: `sha256:${"b".repeat(64)}`,
 };
 
+function stateRequirement(content = "CREATE TABLE runtime_counter (id INTEGER PRIMARY KEY, value INTEGER NOT NULL);"): RuntimeStateRequirement {
+  return {
+    kind: "RuntimeStateRequirement",
+    capability: "state.counter",
+    storeKind: "sql",
+    connectionBinding: { name: "DATABASE_URL", kind: "secret-reference" },
+    migrations: [
+      {
+        id: "counter-v2",
+        capability: "state.counter",
+        order: 20,
+        path: "migrations/002-counter-index.sql",
+        content: "CREATE INDEX counter_value_idx ON runtime_counter (value);",
+      },
+      {
+        id: "counter-v1",
+        capability: "state.counter",
+        order: 10,
+        path: "migrations/001-counter.sql",
+        content,
+      },
+    ],
+  };
+}
+
+const stateEnvironmentSchema = [
+  { name: "DATABASE_URL", kind: "secret-reference" as const, required: true },
+  { name: "LOG_LEVEL", kind: "config" as const, required: false },
+];
+
 test("compiler emits reproducible ReleaseArtifact with persistent runtime entrypoint", () => {
   const input = {
     assemblyPlan,
     validationEvidence,
     compilerVersion: "0.1.0",
     runtimeVersion: "0.1.0",
-    environmentSchema: [
-      { name: "DATABASE_URL", kind: "secret-reference" as const, required: true },
-      { name: "LOG_LEVEL", kind: "config" as const, required: false },
-    ],
+    environmentSchema: stateEnvironmentSchema,
   };
   const first = compileSyntheticRelease(input);
   const second = compileSyntheticRelease({
@@ -73,6 +101,99 @@ test("compiler emits reproducible ReleaseArtifact with persistent runtime entryp
       { capability: "workflow.engine", provider: "provider-a", version: "1.0.0" },
     ],
   });
+});
+
+test("compiler materializes deterministic migration assets covered by ReleaseArtifact integrity", () => {
+  const requirement = stateRequirement();
+  const input = {
+    assemblyPlan,
+    validationEvidence,
+    compilerVersion: "0.1.0",
+    runtimeVersion: "0.1.0",
+    environmentSchema: stateEnvironmentSchema,
+    stateRequirements: [requirement],
+  };
+  const first = compileSyntheticRelease(input);
+  const second = compileSyntheticRelease({
+    ...input,
+    stateRequirements: [{ ...requirement, migrations: [...requirement.migrations].reverse() }],
+    environmentSchema: [...stateEnvironmentSchema].reverse(),
+  });
+
+  assert.deepEqual(first, second);
+  assert.deepEqual(first.artifact.manifest.files, [
+    "assembly-plan.json",
+    "environment-schema.json",
+    "migration-manifest.json",
+    "migrations/001-counter.sql",
+    "migrations/002-counter-index.sql",
+    "runtime-entry.mjs",
+    "runtime-manifest.json",
+  ]);
+  const migrationManifest = first.files.find((file) => file.path === "migration-manifest.json");
+  const firstMigration = first.files.find((file) => file.path === "migrations/001-counter.sql");
+  assert.ok(migrationManifest);
+  assert.ok(firstMigration);
+  const parsed = JSON.parse(migrationManifest.content) as {
+    kind: string;
+    requirements: Array<{
+      connectionBinding: Record<string, unknown>;
+      migrations: Array<{ id: string; order: number; path: string; contentHash: string }>;
+    }>;
+  };
+  assert.equal(parsed.kind, "RuntimeMigrationManifest");
+  assert.deepEqual(parsed.requirements[0]?.connectionBinding, { name: "DATABASE_URL", kind: "secret-reference" });
+  assert.equal("value" in (parsed.requirements[0]?.connectionBinding ?? {}), false);
+  assert.equal("reference" in (parsed.requirements[0]?.connectionBinding ?? {}), false);
+  assert.deepEqual(parsed.requirements[0]?.migrations.map(({ id, order, path }) => ({ id, order, path })), [
+    { id: "counter-v1", order: 10, path: "migrations/001-counter.sql" },
+    { id: "counter-v2", order: 20, path: "migrations/002-counter-index.sql" },
+  ]);
+  assert.equal(parsed.requirements[0]?.migrations[0]?.contentHash, firstMigration.contentHash);
+
+  const changed = compileSyntheticRelease({ ...input, stateRequirements: [stateRequirement("CREATE TABLE changed (id INTEGER);")] });
+  assert.notEqual(changed.artifact.artifactHash, first.artifact.artifactHash);
+});
+
+test("compiler rejects invalid state environment binding and generated migration path collisions", () => {
+  const requirement = stateRequirement();
+  assert.throws(
+    () => compileSyntheticRelease({
+      assemblyPlan,
+      validationEvidence,
+      compilerVersion: "0.1.0",
+      runtimeVersion: "0.1.0",
+      environmentSchema: [{ name: "DATABASE_URL", kind: "config", required: true }],
+      stateRequirements: [requirement],
+    }),
+    /COMPILER_STATE_BINDING_MISSING:DATABASE_URL/,
+  );
+  assert.throws(
+    () => compileSyntheticRelease({
+      assemblyPlan,
+      validationEvidence,
+      compilerVersion: "0.1.0",
+      runtimeVersion: "0.1.0",
+      environmentSchema: stateEnvironmentSchema,
+      stateRequirements: [
+        requirement,
+        {
+          kind: "RuntimeStateRequirement",
+          capability: "state.other",
+          storeKind: "sql",
+          connectionBinding: { name: "DATABASE_URL", kind: "secret-reference" },
+          migrations: [{
+            id: "other-v1",
+            capability: "state.other",
+            order: 1,
+            path: "migrations/001-counter.sql",
+            content: "CREATE TABLE other_state (id INTEGER);",
+          }],
+        },
+      ],
+    }),
+    /COMPILER_DUPLICATE_GENERATED_PATH:migrations\/001-counter.sql/,
+  );
 });
 
 test("compiler rejects failing or mismatched validation evidence", () => {
