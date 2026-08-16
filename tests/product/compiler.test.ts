@@ -93,6 +93,8 @@ test("compiler emits reproducible ReleaseArtifact with persistent runtime entryp
   assert.match(runtimeEntry.content, /SIGTERM/);
   assert.equal(runtimeEntry.content.includes("SYSTEM_BUILDER_URL"), false);
   assert.equal(runtimeEntry.content.includes("OBSERVE_URL"), false);
+  assert.equal(runtimeEntry.content.includes("node:net"), false);
+  assert.equal(runtimeEntry.content.includes("INSERT INTO runtime_counter"), false);
   assert.deepEqual(JSON.parse(runtimeManifest.content), {
     runtimeVersion: "0.1.0",
     entrypoint: "runtime-entry.mjs",
@@ -103,7 +105,7 @@ test("compiler emits reproducible ReleaseArtifact with persistent runtime entryp
   });
 });
 
-test("compiler materializes deterministic migration assets covered by ReleaseArtifact integrity", () => {
+test("compiler materializes deterministic migration assets and PostgreSQL-backed state runtime", () => {
   const requirement = stateRequirement();
   const input = {
     assemblyPlan,
@@ -132,8 +134,10 @@ test("compiler materializes deterministic migration assets covered by ReleaseArt
   ]);
   const migrationManifest = first.files.find((file) => file.path === "migration-manifest.json");
   const firstMigration = first.files.find((file) => file.path === "migrations/001-counter.sql");
+  const runtimeEntry = first.files.find((file) => file.path === "runtime-entry.mjs");
   assert.ok(migrationManifest);
   assert.ok(firstMigration);
+  assert.ok(runtimeEntry);
   const parsed = JSON.parse(migrationManifest.content) as {
     kind: string;
     requirements: Array<{
@@ -150,6 +154,14 @@ test("compiler materializes deterministic migration assets covered by ReleaseArt
     { id: "counter-v2", order: 20, path: "migrations/002-counter-index.sql" },
   ]);
   assert.equal(parsed.requirements[0]?.migrations[0]?.contentHash, firstMigration.contentHash);
+  assert.match(runtimeEntry.content, /node:net/);
+  assert.match(runtimeEntry.content, /INSERT INTO runtime_counter/);
+  assert.match(runtimeEntry.content, /DATABASE_URL/);
+  assert.equal(runtimeEntry.content.includes("postgres://secret"), false);
+  assert.equal(runtimeEntry.content.includes('from "pg"'), false);
+  assert.equal(runtimeEntry.content.includes("SYSTEM_BUILDER_URL"), false);
+  assert.equal(runtimeEntry.content.includes("OBSERVE_URL"), false);
+  assert.equal(runtimeEntry.content.includes("CREATE TABLE runtime_counter"), false);
 
   const changed = compileSyntheticRelease({ ...input, stateRequirements: [stateRequirement("CREATE TABLE changed (id INTEGER);")] });
   assert.notEqual(changed.artifact.artifactHash, first.artifact.artifactHash);

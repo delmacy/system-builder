@@ -1,7 +1,7 @@
 ---
 id: TASK-076
 title: Implement bounded PostgreSQL Runtime state adapter
-status: ready
+status: completed
 priority: 390
 milestone: M5
 model_tier: cheap
@@ -96,3 +96,7 @@ Compiler/Runtime product tests proving deterministic generated source, state-req
 # Escalation
 
 Stop if this requires a canonical public schema change, embedding Builder modules in the Runtime, or changing accepted Builder/Runtime or Release/Environment/Deployment architecture.
+
+# Result
+
+Compiler now hands normalized bounded state requirements to the Runtime renderer. Stateful generated Runtime source embeds a self-contained Node-native PostgreSQL adapter that obtains its connection string only from the declared runtime secret binding and performs an atomic persisted counter increment; no-state artifacts retain the prior process-local implementation. Generated source embeds neither migration SQL nor resolved secret values and has no Builder/Observe or external npm runtime dependency.
