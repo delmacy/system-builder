@@ -1,7 +1,7 @@
 ---
 id: TASK-058
 title: Establish minimal autonomous Runtime bootstrap boundary
-status: ready
+status: completed
 priority: 340
 milestone: M3
 model_tier: cheap
