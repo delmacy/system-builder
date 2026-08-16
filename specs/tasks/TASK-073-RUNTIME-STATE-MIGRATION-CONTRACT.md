@@ -1,7 +1,7 @@
 ---
 id: TASK-073
 title: Define bounded Runtime state and migration descriptor contract
-status: ready
+status: completed
 priority: 389
 milestone: M5
 model_tier: cheap
@@ -91,3 +91,7 @@ Focused product tests for positive normalization, input-order determinism and ne
 # Escalation
 
 Stop if this contract requires changing canonical EnvironmentProfile/Release/Deployment contracts or accepted architecture.
+
+# Result
+
+Added immutable provider-neutral Runtime state/migration metadata with deterministic normalization. Connection metadata is limited to a symbolic binding name plus `secret-reference`; inline values/references fail closed. Migration ownership, safe paths, positive ordering, content presence and duplicate id/order/path constraints are validated and normalized deterministically. No canonical contract or downstream module changed.

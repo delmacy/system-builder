@@ -1,5 +1,7 @@
 import type { EnvironmentProfile } from "@system-builder/contracts/environment-profile";
 
+export * from "./state-migrations.js";
+
 export type RuntimeEnvironmentRequirement = Readonly<{
   name: string;
   kind: "config" | "secret-reference";
