@@ -10,8 +10,8 @@ Date: 2026-08-16
 
 - Public contract spine: integrated through TASK-008.
 - P1/P2/P3 construction packages and mandatory package reviews: merged through PR #166.
-- P4-PACKAGE-01 construction is fully merged through PR #171 at `0f0cc70511dbb1510bbc37c31ecb6f7b9998c8f9`.
-- P4 Integration & Technical Debt Review: implemented on `review/P4-PACKAGE-01-integration-debt` under PR #172; review-head Deterministic CI #249 PASS; final review CI pending.
+- P4 construction and mandatory Integration & Technical Debt Review: merged through PR #172 at `be4f38d8573a4767112ea1b8a5d7feab8afea528`.
+- P5-PACKAGE-01 successor package plan: proposed on `plan/P5-PACKAGE-01`; no construction Sprint committed.
 - GitHub Actions: deterministic integration gate with actual PostgreSQL service execution.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
@@ -19,22 +19,28 @@ Date: 2026-08-16
 
 `SystemDefinition state.counter -> Catalog selected reference provider -> AssemblyPlan -> ValidationEvidence -> Compiler-derived migration/runtime assets -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile secret ref -> SecretResolver -> Deploy migration apply -> PostgreSQL-backed autonomous Runtime -> persisted state 1 -> 2 -> clean redeploy -> migration skip -> persisted state 3 -> 4`
 
-Merged P4 preserves ADR-0002/ADR-0007, canonical contract boundaries and secret non-leakage while proving capability-driven durable state.
+P4 review disposition: construction PASS; architecture/boundaries PASS WITH DEBT; critical rollback blocker NONE.
 
-## Package review result
+## P5 planning direction
 
-P4 construction: PASS.
+Selected first direction: **Factory composition hardening**.
 
-Architecture/boundary review: PASS WITH DEBT.
+Reason: current Catalog dependency metadata/resolution and Assembly transitive graph semantics are below WBS 6.1.2/6.2.1, while Compiler capability materialization is still a narrow provider-specific switch. These upstream semantics should be hardened before capability breadth or durable persistence of Factory registries grows.
 
-Critical rollback blocker: NONE FOUND.
+Durable Catalog/Release/Artifact provider infrastructure remains HIGH priority but is deferred to a successor package and must be re-evaluated at the P5 package review.
 
-Review-head regression #249: PASS with PostgreSQL 17.6 healthy, 93 product tests PASS / 0 FAIL / 0 SKIPPED, 309 unit tests PASS, task catalog PASS, architecture gates PASS and build PASS.
+## Proposed package
 
-Highest-leverage successor directions are Factory composition hardening and durable Catalog/Release/Artifact providers; these are recommendations only.
+`P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling`
+
+Forecast only:
+1. `P5-CATALOG-CONSTRAINTS-01`;
+2. `P5-ASSEMBLY-GRAPH-01`;
+3. `P5-MATERIALIZER-REGISTRY-01`;
+4. Integration & Technical Debt Review.
+
+Candidate TASKs TASK-082..090 are forecast identifiers only; no TASK specs exist from this planning step.
 
 ## Current gate
 
-Require final Deterministic CI PASS on PR #172 and stop at the P4 package Review Gate.
-
-No successor Sprint Package, Sprint manifest, TASK or construction branch is committed or authorized by this review.
+Review and CI-validate the P5 package plan. Do not execute or materialize any P5 construction Sprint until the package plan merges and a new explicit instruction reconstructs current `main` and promotes only the first Sprint if still valid.
