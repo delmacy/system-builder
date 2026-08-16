@@ -52,11 +52,27 @@ validation:
 
 Close P5-ASSEMBLY-GRAPH-01 with integrated evidence that the actual Catalog -> Assembly path resolves a deterministic transitive BOM, fails closed for graph defects and preserves downstream Factory/P4 predecessor behavior.
 
+# Context
+
+TASK-085/086 establish positive transitive closure and deterministic graph failure semantics inside Assembly. This final TASK must prove those semantics through the actual Catalog resolver and downstream Factory predecessor path.
+
+# Current behavior
+
+After TASK-086, Assembly can resolve and diagnose the bounded graph internally, while existing Factory E2E coverage still exercises the predecessor root-only composition path.
+
 # Required change
 
 Extend product evidence so a real SoftwareCatalogRegistry + `resolveCatalogCandidates` drives Assembly from a SystemDefinition root through structured transitive dependencies, then continues through the existing Validation/Compiler predecessor path without hand-authoring the AssemblyPlan.
 
 Product code changes are allowed only for bounded Assembly corrections required by TASK-085/086 semantics. Compiler, Catalog and canonical contracts must not change.
+
+# Inputs / contracts
+
+Actual Catalog/Assembly APIs, TASK-085/086 graph semantics, current Validation/Compiler predecessor APIs, P4 regression suite and P5 Sprint authority.
+
+# Outputs / contracts
+
+Integrated product evidence proving graph-derived AssemblyPlan behavior reaches existing downstream Factory stages deterministically. No new public schema or downstream implementation contract.
 
 # Acceptance criteria
 
