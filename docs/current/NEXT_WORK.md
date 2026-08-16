@@ -1,30 +1,18 @@
-# Next Work — Review P3-SECRET-STATE-01
+# Next Work — Review P3 Integration & Technical Debt
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-`P3-SECRET-STATE-01` is implemented on `sprint/P3-SECRET-STATE-01` under PR #165. TASK-level Deterministic CI is green through TASK-072; closure-head CI is the remaining automated gate before Sprint Review.
+The P3 package review is implemented on `review/P3-PACKAGE-01-integration-debt` under PR #166. Review-head Deterministic CI #226 is green.
 
-## Delivered Sprint-branch proof
+## Remaining review action
 
-`PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile secret refs -> external SecretResolver -> local Deploy -> persistent Runtime -> HTTP RuntimeHealth -> counter.increment (1 -> 2) -> clean shutdown -> DeploymentRecord`
+1. require Deterministic CI PASS on the review-finalization head;
+2. confirm PR #166 remains documentation-only and preserves accepted architecture boundaries;
+3. review the classified debt register and successor-direction recommendations;
+4. merge PR #166 only if the package review is accepted.
 
-Artifact verification occurs before secret resolution/materialization. Resolved values are runtime-only and absent from immutable/durable/runtime-response evidence. Unresolved symbolic secrets fail before activation.
+## After PR #166 merges
 
-## Review instructions
-
-1. require closure-head Deterministic CI PASS;
-2. review TASK-070..072 against their `allowed_paths`, `forbidden_paths`, `max_files` and accepted ADRs;
-3. verify no canonical ReleaseArtifact, PublishedRelease, EnvironmentProfile or DeploymentRecord schema changed;
-4. verify secret resolution is provider-neutral and resolved values remain ephemeral process-only data;
-5. review deterministic `counter.increment` state evidence and unresolved-secret pre-activation failure;
-6. merge PR #165 only if Sprint Review accepts the result.
-
-## After PR #165 merges
-
-Do not automatically start the P3 Integration & Technical Debt Review or any successor Sprint. Await a new explicit instruction, then re-read `AGENTS.md` and repository authority before selecting/materializing successor work.
-
-## Deferred work
-
-Production secret-manager adapters, durable state/database persistence, migrations, auth, production deploy adapters/traffic management, restart persistence and Catalog/Assembly dependency solving remain outside P3-SECRET-STATE-01.
+Do not automatically create a successor package. Await a new explicit instruction, then re-read `AGENTS.md` and repository authority and derive the next Sprint Package from merged review findings and current WBS/DAG state.
