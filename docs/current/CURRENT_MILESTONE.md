@@ -1,50 +1,52 @@
-# Current Execution Milestone — M1 Vertical Contract Spine
+# Current Execution Milestone — M2 First Executable Vertical Slice
 
 ## Goal
 
-Deliver the smallest integrated public contract spine for ProcessMirror -> BusinessRecipe -> SystemAnalysis and return product development to a predictable Sprint cadence.
+Move beyond the completed M1 public contract spine and prove deterministic executable behavior from SystemDefinition through Catalog, Assembly, Validation, Compiler, Release and Deploy dry-run.
+
+## Baseline completed in main
+
+- [x] TASK-004 — ProcessMirror contract.
+- [x] TASK-005 — BusinessRecipe contract.
+- [x] TASK-006 — SystemAnalysis contract.
+- [x] TASK-007 — SystemDefinition contract.
+- [x] TASK-008 — Assembly/Validation/Release/Deployment boundary contracts.
+
+The contract spine is now sufficient to begin reference engine implementation without changing the accepted suite topology.
 
 ## Execution mode
 
-This milestone executes under `project_docs/schedule/SPRINT_MODE.md`.
+M2 follows:
 
-Default delivery path:
+- `project_docs/schedule/SPRINT_MODE.md`;
+- `project_docs/schedule/SPRINT_GENERATION_POLICY.md`;
+- `project_docs/execution_planning/P1-PACKAGE-01.md`.
 
-`main -> sprint/M1-SPRINT-01 -> committed TASKs -> full verify -> Sprint Report -> Sprint Review -> one PR -> main`
+The package contains three construction Sprints and one integration/technical-debt review.
 
-The Sprint branch is the shared integration branch for the committed TASKs. TASK boundaries are preserved through separate commits and declared validation gates.
+## Active Sprint
 
-## M1-SPRINT-01 committed work
+**P1-VERTICAL-01 — Catalog and Assembly**
 
-- [x] TASK-004 / WP-FH-02 — ProcessMirror public contract.
-- [ ] TASK-005 / WP-FH-03 — BusinessRecipe public contract.
-- [ ] TASK-006 / WP-FH-04 — SystemAnalysis public contract.
+Committed TASK order after package planning merges:
 
-Execution order is dependency-driven:
+`TASK-045 -> TASK-046 -> TASK-047 -> TASK-048`
 
-`TASK-004 -> TASK-005 -> TASK-006`
+Goal:
 
-TASK-004 is already integrated in `main`, so the resumed Sprint executes TASK-005 then TASK-006 from the current synchronized base.
+`SystemDefinition -> Software Catalog -> deterministic resolution -> AssemblyPlan`
 
-## Sprint Definition of Done
+## Forecast Sprints
 
-- TASK-005 acceptance criteria pass.
-- TASK-006 acceptance criteria pass.
-- Each TASK has a distinct commit on the Sprint branch.
-- Declared per-TASK validations pass before advancing.
-- Final `npm run verify` passes on the integrated Sprint branch.
-- Required docs/contracts/spec status are updated.
-- Sprint Report records commits, validation, deviations, discoveries and residual work.
-- One PR from `sprint/M1-SPRINT-01` to `main` is ready for Sprint Review.
+- P1-VERTICAL-02 — Validation + Compiler (`TASK-049..051`) — FORECAST.
+- P1-VERTICAL-03 — Release + Deploy (`TASK-052..054`) — FORECAST.
 
-## Review boundary
+Forecast Sprints are revalidated after their predecessor merges; they are not silently committed early.
 
-Routine implementation does not require per-TASK human approval. Stop immediately for undeclared L3/L4 scope, architectural ambiguity, forbidden paths, destructive changes, security/governance weakening or conflicting repository authority.
+## M2 package exit
 
-The Sprint does not authorize the next Sprint automatically.
+The package is successful when actual executable module APIs can drive the synthetic chain through DeploymentRecord with deterministic identities, explicit failure evidence and no secret values embedded in immutable release artifacts.
 
 ## AgentFactory infrastructure track
 
-The AgentFactory I1/I2 work remains preserved as infrastructure history and may be resumed later. The Supervisor/runtime/heartbeat/callback path is frozen and is not a prerequisite for this product milestone.
-
-No M1 capacity should be spent repairing AgentFactory runtime unless an explicit future infrastructure Sprint authorizes it.
+AgentFactory implementation/history remains preserved but its Supervisor/runtime/heartbeat/callback track stays frozen and is not an M2 product gate.
