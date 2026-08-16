@@ -1,35 +1,39 @@
-# Next Work — P1-PACKAGE-01
+# Next Work — after P1-VERTICAL-01 review
 
-The repository is authoritative. Reconstruct context from repository files; do not use chat history as technical authority.
+The repository is authoritative. Do not use chat history as technical authority.
 
-## Immediate sequence
+## Current gate
 
-1. Integrate the P1-PACKAGE-01 planning/task materialization with green CI.
-2. Create `sprint/P1-VERTICAL-01` from synchronized `main`.
-3. Read `AGENTS.md`, current state/milestone, Sprint Generation Policy, Sprint Mode, `P1-PACKAGE-01.md`, `P1-VERTICAL-01.md` and each TASK's `context_paths`.
-4. Execute TASK-045 — product test harness baseline; validate; commit.
-5. Execute TASK-046 — Software Catalog registry; validate; commit.
-6. Execute TASK-047 — deterministic provider-neutral Catalog resolution; validate; commit.
-7. Execute TASK-048 — minimal deterministic Assembly resolver; validate; commit.
-8. Run the growing proof `SystemDefinition -> Catalog -> AssemblyPlan` through actual module APIs.
-9. Run final repository-wide `npm run verify` and GitHub CI.
-10. Produce the Sprint Report and stop for Sprint Review.
+P1-VERTICAL-01 has implemented TASK-045..048 and passed objective GitHub CI on the implementation head. Complete Sprint Review/merge before committing the next forecast Sprint.
 
-## Forecast after merge
+## After P1-VERTICAL-01 merges
 
-- P1-VERTICAL-02: TASK-049..051 — Validation + Compiler + integrated ReleaseArtifact proof.
-- P1-VERTICAL-03: TASK-052..054 — Release + Deploy + full DeploymentRecord proof.
+1. Re-read `AGENTS.md`, current state/milestone, Sprint Generation Policy, Sprint Mode and `P1-PACKAGE-01.md`.
+2. Inspect the actual integrated outputs of TASK-048 and the existing ValidationEvidence/ReleaseArtifact contracts.
+3. Revalidate `P1-VERTICAL-02.md` and TASK-049..051 against those outputs.
+4. If still valid, promote TASK-049, TASK-050 and TASK-051 from `draft` to `ready` in dependency order and record the committed Sprint manifest before product code edits.
+5. Create `sprint/P1-VERTICAL-02` from synchronized `main`.
+6. Execute TASK-049 — ValidationEvidence traceability engine; tests; commit.
+7. Execute TASK-050 — deterministic synthetic Compiler; tests; commit.
+8. Execute TASK-051 — integrated factory E2E through ReleaseArtifact; tests; commit.
+9. Run final `npm run verify` through GitHub CI, produce Sprint Report and stop for Sprint Review.
 
-Before committing either forecast Sprint, re-read repository authority and revalidate predecessor outputs/dependencies.
+## Growing proof target
 
-## Per-TASK loop
+Extend:
 
-`read authority -> confirm dependency/scope/paths -> implement -> positive/negative/integration tests -> validate -> bounded fixes -> TASK commit -> next eligible TASK`
+`SystemDefinition -> Catalog -> AssemblyPlan`
 
-## Stop/escalate
+to:
 
-Stop for an undeclared public-contract/architecture change, forbidden path, destructive change, security/governance weakening, unresolved authority conflict or a predecessor output that does not satisfy the forecast assumptions.
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact`
+
+Use actual module APIs. Do not hand-author downstream artifacts that have an executable producer.
+
+## Later forecast
+
+P1-VERTICAL-03 remains forecast and must be revalidated only after P1-VERTICAL-02 merges.
 
 ## AgentFactory track
 
-AgentFactory Supervisor/runtime remains frozen and non-blocking. Do not consume product Sprint capacity repairing it unless a dedicated infrastructure Sprint explicitly reactivates that track.
+AgentFactory Supervisor/runtime remains frozen and non-blocking.

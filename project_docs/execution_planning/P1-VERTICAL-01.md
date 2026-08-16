@@ -1,6 +1,6 @@
 # P1-VERTICAL-01 — Catalog and Assembly
 
-Status: READY TO COMMIT after package planning merges
+Status: CI_PASS — READY FOR SPRINT REVIEW
 
 ## Sprint Goal
 
@@ -10,38 +10,38 @@ Create the first deterministic executable factory behavior after SystemDefinitio
 
 `sprint/P1-VERTICAL-01`
 
-Create from synchronized `main` after this Sprint manifest and TASK specs are integrated.
+Base: `226119978bba52998b6dc96ff1b5b77c9e317388`.
 
 ## Committed TASK order
 
-1. TASK-045 — Product test harness baseline.
-2. TASK-046 — Software Catalog registry.
-3. TASK-047 — provider-neutral deterministic Catalog resolution.
-4. TASK-048 — minimal deterministic Assembly resolver.
+1. TASK-045 — Product test harness baseline — implemented.
+2. TASK-046 — Software Catalog registry — implemented.
+3. TASK-047 — provider-neutral deterministic Catalog resolution — implemented.
+4. TASK-048 — minimal deterministic Assembly resolver — implemented.
 
 Dependency chain:
 
 `TASK-008 -> TASK-045 -> TASK-046 -> TASK-047 -> TASK-048`
 
-## Required growing proof
+## Growing proof achieved
 
 A synthetic SystemDefinition requests capabilities. Catalog entries are registered without provider lock-in. Resolution returns deterministic eligible candidates. Assembly selects deterministically and emits an AssemblyPlan compatible with the existing public contract.
 
-Required failure proofs:
+Failure proofs included:
 
-- duplicate/identity conflict is rejected;
-- unknown capability produces an explicit diagnostic;
-- incompatible version/constraint produces an explicit diagnostic;
-- repeated identical resolution produces equivalent output identity.
+- duplicate Catalog identity rejection;
+- unknown capability diagnostic;
+- incompatible resolution diagnostic;
+- Assembly refuses partial plan on unresolved capability;
+- equivalent capability ordering yields the same AssemblyPlan/contentHash.
 
 ## Sprint exit gate
 
-- every TASK acceptance criterion passes;
-- one commit per TASK;
-- product tests run in repository `npm test` / `npm run verify`;
-- growing vertical test reaches SystemDefinition -> Catalog -> AssemblyPlan;
-- final `npm run verify` passes in GitHub CI;
-- Sprint Report is produced;
-- one PR is ready for Sprint Review.
+- TASK implementation commits: PASS.
+- product tests integrated into default repository verification: PASS.
+- growing vertical proof reaches SystemDefinition -> Catalog -> AssemblyPlan: PASS.
+- GitHub Deterministic CI #170 on implementation head: PASS.
+- Sprint Report: present.
+- final closure-head CI: required before merge.
 
 Do not begin P1-VERTICAL-02 before this Sprint is merged or explicitly reauthorized.
