@@ -2,49 +2,47 @@
 
 ## Goal
 
-Extend the merged P2 autonomous local-runtime proof through verified artifact delivery and into a persistent externally configured Runtime capable of one bounded stateful operation, while preserving portability and accepted architecture boundaries.
+Extend verified artifact delivery into a persistent externally configured Runtime capable of one bounded stateful operation, while preserving portability and accepted architecture boundaries.
 
 ## Integrated baseline
 
-P2-PACKAGE-01 and its Integration & Technical Debt Review are merged through PR #161. P3-PACKAGE-01 is merged through PR #162.
+P2-PACKAGE-01 and review are merged through PR #161. P3-PACKAGE-01 is merged through PR #162. P3-ARTIFACT-01 is merged through PR #163.
 
 Integrated `main` proof:
 
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> verified ArtifactPayload -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
 
 ## Sprint under review preparation
 
-### P3-ARTIFACT-01 — Verified Artifact Payload Boundary
+### P3-RUNTIME-SERVICE-01 — Persistent Autonomous Runtime
 
 Status: TASK_CI_PASS / FINAL_CI_PENDING
-Base: `6802c0a04e372d535cb7e3a405668df5734dfb39`
-Branch: `sprint/P3-ARTIFACT-01`
-PR: #163
+Base: `7cdb6dd3ae9ac75317d5ebfa3c878cba632a4425`
+Branch: `sprint/P3-RUNTIME-SERVICE-01`
+PR: #164
 
 Committed results:
 
-1. TASK-064 — provider-neutral artifact publication/retrieval boundary;
-2. TASK-065 — independent file/manifest/aggregate artifact integrity verification;
-3. TASK-066 — verified retrieval integrated into local Deploy and full autonomous local E2E.
+1. TASK-067 — persistent-capable Runtime lifecycle and HTTP health;
+2. TASK-068 — actual Compiler emits persistent-capable generated Runtime;
+3. TASK-069 — Deploy requests service mode, probes health while alive and performs clean shutdown.
 
 Sprint-branch proof:
 
-`ReleaseArtifact -> verified ArtifactPayload -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
-
-Corrupted payloads are rejected before materialization/runtime activation. No resolved secret value enters immutable artifact/release/deployment evidence.
+`verified ArtifactPayload -> EnvironmentProfile -> local Deploy -> persistent generated Runtime -> RuntimeStarted -> HTTP RuntimeHealth -> SIGTERM -> DeploymentRecord`
 
 ## Architecture constraints
 
-- ADR-0002 Builder/Runtime separation remains mandatory;
-- ADR-0007 Release/Environment/Deployment separation remains mandatory;
-- immutable release/artifact/deployment evidence must not contain resolved secret values;
-- Runtime ordinary operation must not require Builder or Observe;
-- provider-specific infrastructure must remain behind replaceable boundaries;
-- L4 discoveries require ADR rather than silent architecture change.
+- ADR-0002 Builder/Runtime separation remains mandatory and unchanged;
+- ADR-0007 Release/Environment/Deployment separation remains mandatory and unchanged;
+- immutable evidence contains no resolved secret values;
+- Runtime ordinary startup/health requires neither Builder nor Observe;
+- provider/platform-specific production supervision remains deferred;
+- L4 discoveries still require ADR.
 
 ## Successor gate
 
-After closure-head CI PASS, stop at Sprint Review for PR #163. `P3-RUNTIME-SERVICE-01` remains forecast and must not start before PR #163 review/merge plus a new explicit instruction.
+After closure-head CI PASS and PR #164 merge, re-read repository authority and revalidate/materialize only `P3-SECRET-STATE-01`. Do not execute TASK-070 or later before the predecessor merge exists in `main`.
 
 ## AgentFactory infrastructure track
 
