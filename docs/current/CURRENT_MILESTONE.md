@@ -6,43 +6,43 @@ Extend the deterministic P1 factory chain into the first locally runnable autono
 
 ## Integrated baseline
 
-P1-PACKAGE-01 is merged and reviewed.
+P1-PACKAGE-01 is merged and reviewed. P2-BOUNDARY-01 is merged through PR #158.
 
 Current integrated proof:
 
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> DeploymentRecord`
 
-P1 regression executes the successful chain twice through actual module APIs and retains controlled failure and secret-separation evidence.
+Boundary hardening now includes canonical output schema-conformance checks, canonical EnvironmentProfile and shared deterministic hashing.
 
-## Active planning gate
+## Active Sprint
 
-### P2-PACKAGE-01 — First Autonomous Local Runtime
+### P2-RUNTIME-01 — Runnable Artifact and Autonomous Runtime Bootstrap
 
-Status: PROPOSED / READY_FOR_REVIEW until its planning PR merges.
+Status: COMMITTED
+Base: `7062ef1a42811875b7543bbaca04a19cd3fe8ed8`
+Branch: `sprint/P2-RUNTIME-01`
 
-Package target:
+Committed order:
 
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> canonical EnvironmentProfile -> local Deploy -> autonomous Runtime health -> DeploymentRecord`
+1. TASK-058 — autonomous Runtime bootstrap boundary;
+2. TASK-059 — Compiler runnable Runtime package;
+3. TASK-060 — autonomous process startup/health proof.
 
-## Forecast construction sequence
+Target:
 
-1. `P2-BOUNDARY-01` — schema conformance, canonical EnvironmentProfile and shared deterministic hashing;
-2. `P2-RUNTIME-01` — runnable artifact and autonomous Runtime bootstrap;
-3. `P2-LOCAL-DEPLOY-01` — local-process deployment adapter and full autonomous runtime E2E;
-4. Integration & Technical Debt Review.
+`ReleaseArtifact -> generated runtime package -> external EnvironmentProfile -> autonomous process startup -> RuntimeHealth PASS`
 
-## Commitment rule
+## Successor forecast
 
-The package is rolling-wave planning. No construction Sprint is committed by package creation alone.
-
-After package merge and explicit execution authorization, re-read the repository, materialize/revalidate the first Sprint TASKs, confirm L3 authority where required, freeze the Sprint manifest and create `sprint/P2-BOUNDARY-01` from synchronized `main`.
+`P2-LOCAL-DEPLOY-01` remains FORECAST until this Sprint passes CI, review and merge.
 
 ## Architecture constraints
 
 - ADR-0002 Builder/Runtime separation remains mandatory.
 - Runtime ordinary operation must not require System Builder or Observe.
 - Release artifacts contain no secret values.
-- Environment/configuration is bound outside immutable release content.
+- Environment/configuration is supplied externally.
+- No public contract change is authorized by the active Sprint unless a TASK explicitly says so.
 - Any L4 discovery requires ADR rather than silent architecture change.
 
 ## AgentFactory infrastructure track

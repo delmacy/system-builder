@@ -1,6 +1,6 @@
 # Project State
 
-Date: 2026-08-15
+Date: 2026-08-16
 
 ## Repository
 
@@ -9,48 +9,38 @@ Date: 2026-08-15
 ## Current maturity
 
 - Public contract spine: integrated through TASK-008.
-- P1-PACKAGE-01 construction Sprints and Integration & Technical Debt Review: merged.
+- P1-PACKAGE-01 construction and Integration & Technical Debt Review: merged.
+- P2-PACKAGE-01 planning: merged.
+- P2-BOUNDARY-01: merged through PR #158.
 - Executable reference chain in `main`: Catalog -> Assembly -> Validation -> Compiler -> Release -> Deploy dry-run through DeploymentRecord.
-- Full-vertical product proof invokes actual module APIs and repeats the successful chain to compare deterministic identities.
-- No autonomous generated Runtime has yet been started from ReleaseArtifact.
+- Canonical factory outputs are schema-conformance checked; Deploy consumes canonical EnvironmentProfile; Assembly/Validation/Compiler/Deploy share deterministic hashing.
+- No autonomous generated Runtime has yet been started from Compiler output.
 - GitHub Actions: deterministic integration gate.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
 ## Integrated executable chain
 
-`SystemDefinition -> Software Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
+`SystemDefinition -> Software Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> DeploymentRecord`
 
-Mirror/Recipe/Analysis/Design authoring remain contract/fixture inputs to this first executable factory slice.
+Mirror/Recipe/Analysis/Design authoring remain contract/fixture inputs to this executable factory slice.
 
-## Closed package
-
-**P1-PACKAGE-01 — First Executable Vertical Slice**
-
-Result: PASS / PASS WITH DEBT.
-
-Highest-priority successor findings:
-
-- executable output ↔ canonical schema conformance;
-- canonical EnvironmentProfile before real Deploy adapters;
-- duplicated canonicalization/hash logic;
-- Catalog/Assembly dependency solving before production-grade graphs;
-- runnable autonomous Runtime and real local deployment remain planned product gaps.
-
-## Successor package proposal
+## Active package
 
 **P2-PACKAGE-01 — First Autonomous Local Runtime**
 
-Status: PROPOSED / READY_FOR_REVIEW on `planning/P2-PACKAGE-01` until merged.
+Progress:
 
-Forecast sequence:
+1. `P2-BOUNDARY-01` — MERGED;
+2. `P2-RUNTIME-01` — COMMITTED on `sprint/P2-RUNTIME-01` from main `7062ef1a42811875b7543bbaca04a19cd3fe8ed8`;
+3. `P2-LOCAL-DEPLOY-01` — FORECAST;
+4. Integration & Technical Debt Review — pending.
 
-1. `P2-BOUNDARY-01` — executable boundary hardening;
-2. `P2-RUNTIME-01` — runnable artifact and autonomous runtime bootstrap;
-3. `P2-LOCAL-DEPLOY-01` — local deployment adapter and full autonomous E2E;
-4. Integration & Technical Debt Review.
+## Active Sprint target
 
-Only the first Sprint may become COMMITTED after package merge and explicit Sprint execution authorization.
+`ReleaseArtifact -> generated runnable runtime package -> external EnvironmentProfile -> autonomous startup -> RuntimeHealth PASS`
+
+The Runtime proof must not require System Builder or Observe during ordinary startup/health operation.
 
 ## Truth
 
-Only merged work in `main` is published product truth. Package planning remains proposal until its PR is merged.
+Only merged work in `main` is published product truth. `P2-RUNTIME-01` remains branch-only until Sprint Review and merge.
