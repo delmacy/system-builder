@@ -6,28 +6,42 @@ Prove deterministic executable behavior from SystemDefinition through Catalog, A
 
 ## Integrated baseline
 
-- P1-VERTICAL-01 — Catalog + Assembly — merged.
-- P1-VERTICAL-02 — Validation + Compiler + ReleaseArtifact — merged.
+- P1-VERTICAL-01 — Catalog + Assembly — MERGED.
+- P1-VERTICAL-02 — Validation + Compiler + ReleaseArtifact — MERGED.
+- P1-VERTICAL-03 — Release + Deploy + DeploymentRecord — MERGED by PR #155.
 
-## Active Sprint
-
-### P1-VERTICAL-03 — Release and Deploy
-
-Status: `CI_PASS / READY_FOR_REVIEW` on `sprint/P1-VERTICAL-03`.
-
-Delivered branch proof:
+## Integrated proof
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
 
-TASKs:
+The product regression includes a full vertical test that executes the successful chain twice through actual module APIs and compares deterministic identities, plus controlled failure and secret-separation evidence.
 
-`TASK-052 -> TASK-053 -> TASK-054` — completed on the Sprint branch.
+## Active gate
 
-## Package exit
+### P1-PACKAGE-01 — Integration & Technical Debt Review
 
-P1-PACKAGE-01 construction exit is proven on the Sprint branch with deterministic identities, explicit failure evidence and no secret values embedded in immutable release artifacts.
+Status: IN PROGRESS.
 
-After merge, perform the package Integration & Technical Debt Review before creating the next Sprint Package.
+Review artifact:
+
+`project_docs/execution_planning/P1-PACKAGE-01.integration-debt-review.md`
+
+Required closure evidence:
+
+- full `npm run verify` on the integrated review head via GitHub CI;
+- repeatability proof retained green;
+- technical debt classified;
+- contracts, WBS/DAG and module boundaries revalidated;
+- persistence/UI/runtime gaps recorded;
+- no next package started implicitly.
+
+## Preliminary disposition
+
+M2 package construction goal is satisfied. No architecture rollback blocker has been identified. The review records high-priority boundary hardening before the next expansion: contract/schema conformance tests, canonical EnvironmentProfile definition and maturation of Catalog/Assembly resolution before production-grade graphs.
+
+## Successor planning
+
+Do not name or commit a successor milestone/Sprint Package until this review is merged and successor planning is explicitly authorized. The next package should be derived from the review evidence rather than chat history.
 
 ## AgentFactory infrastructure track
 
