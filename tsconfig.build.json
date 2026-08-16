@@ -3,7 +3,14 @@
   "compilerOptions": {
     "noEmit": false,
     "outDir": "dist",
-    "rootDir": "tooling/agent-harness"
+    "rootDir": "."
   },
-  "exclude": ["tooling/agent-harness/tests"]
+  "include": [
+    "tooling/agent-harness/src/**/*.ts",
+    "packages/**/*.ts"
+  ],
+  "exclude": [
+    "tooling/agent-harness/tests",
+    "tests"
+  ]
 }

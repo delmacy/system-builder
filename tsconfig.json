@@ -11,5 +11,9 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["tooling/agent-harness/**/*.ts"]
+  "include": [
+    "tooling/agent-harness/**/*.ts",
+    "packages/**/*.ts",
+    "tests/product/**/*.ts"
+  ]
 }
