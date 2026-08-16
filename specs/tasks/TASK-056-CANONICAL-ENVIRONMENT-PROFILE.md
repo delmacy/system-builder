@@ -1,7 +1,7 @@
 ---
 id: TASK-056
 title: Define canonical EnvironmentProfile contract and bind Deploy to it
-status: ready
+status: completed
 priority: 320
 milestone: M3
 model_tier: architecture

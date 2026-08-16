@@ -1,7 +1,7 @@
 ---
 id: TASK-057
 title: Consolidate deterministic canonicalization and hashing
-status: ready
+status: completed
 priority: 330
 milestone: M3
 model_tier: cheap
