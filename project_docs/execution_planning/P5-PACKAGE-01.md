@@ -1,6 +1,6 @@
 # P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling
 
-Status: ACTIVE_PACKAGE / SECOND_SPRINT_COMMITTED
+Status: ACTIVE_PACKAGE / SECOND_SPRINT_REVIEW
 Base: `9a6f2df82d1ffbc1c9c25f67d819e666e718d832` (P5-CATALOG-CONSTRAINTS-01 merged through PR #174)
 
 ## Package Goal
@@ -27,18 +27,15 @@ Integrated proof:
 
 `Catalog records -> structured dependency requirements -> deterministic constrained candidates / explicit unsatisfied diagnostic`
 
-### 2. P5-ASSEMBLY-GRAPH-01 — COMMITTED
+### 2. P5-ASSEMBLY-GRAPH-01 — SPRINT_REVIEW
 
-Goal: consume integrated structured dependency requirements to resolve bounded transitive closure, diagnose conflicts/cycles/incompatible requirements and produce a deterministic AssemblyPlan BOM while preserving downstream predecessor behavior.
+TASK-085/086/087 are implemented on `sprint/P5-ASSEMBLY-GRAPH-01`; implementation CI #260/#261/#262 PASS. PR #175 is the Sprint review boundary.
 
-Committed TASKs:
-- TASK-085 — deterministic acyclic transitive closure;
-- TASK-086 — cycle/conflict/incompatible-requirement diagnostics;
-- TASK-087 — deterministic Catalog->Assembly->Validation->Compiler integration evidence.
-
-Expected exit proof:
+Achieved branch proof:
 
 `SystemDefinition root capability -> constrained Catalog candidate -> structured dependency requirements -> transitive dependency closure -> deterministic graph diagnostics -> deterministic AssemblyPlan BOM -> ValidationEvidence -> Compiler predecessor path`
+
+The graph implementation combines multi-path exact/minimum/compatibility requirements before candidate selection, coalesces compatible duplicates and fails closed for cycles, unresolved dependencies and incompatible requirements with deterministic evidence.
 
 ### 3. P5-MATERIALIZER-REGISTRY-01 — FORECAST
 
@@ -60,15 +57,15 @@ Re-run package regression, classify debt and decide whether durable provider inf
 - canonical public contract or L4 change requires explicit architecture authority/ADR;
 - historical P4 evidence is preserved.
 
-## P5-ASSEMBLY-GRAPH-01 boundaries
+## P5-ASSEMBLY-GRAPH-01 disposition
 
-In scope:
+Implemented in scope:
 - Assembly consumption of Catalog `dependencyRequirements`;
 - transitive closure over exact/minimum/compatibility requirements;
 - deterministic cycle/conflict/unresolved diagnostics;
 - deterministic AssemblyPlan BOM and Factory E2E evidence.
 
-Out of scope:
+Not introduced:
 - Compiler materializer registry;
 - durable Catalog/Release/Artifact providers;
 - new version-range kinds;
@@ -77,6 +74,6 @@ Out of scope:
 
 ## Package gate
 
-Only `P5-ASSEMBLY-GRAPH-01` is currently COMMITTED on `sprint/P5-ASSEMBLY-GRAPH-01`.
+`P5-ASSEMBLY-GRAPH-01` is at Sprint Review on PR #175. It is not integrated until merged.
 
-`P5-MATERIALIZER-REGISTRY-01` remains FORECAST and must not be materialized or executed until the committed Sprint completes, merges, and a new explicit instruction reconstructs repository authority.
+`P5-MATERIALIZER-REGISTRY-01` remains FORECAST and must not be materialized or executed until the current Sprint completes, merges, and a new explicit instruction reconstructs repository authority.

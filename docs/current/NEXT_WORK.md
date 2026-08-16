@@ -1,30 +1,30 @@
-# Next Work — Execute P5-ASSEMBLY-GRAPH-01
+# Next Work — Review P5-ASSEMBLY-GRAPH-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-`P5-ASSEMBLY-GRAPH-01` is COMMITTED on `sprint/P5-ASSEMBLY-GRAPH-01` but implementation has not started.
+Review Sprint PR #175 from `sprint/P5-ASSEMBLY-GRAPH-01` after closure-head Deterministic CI passes.
 
-Dependency order:
-1. TASK-085;
-2. TASK-086 after TASK-085 validation;
-3. TASK-087 after TASK-086 validation.
+TASK evidence:
+1. TASK-085 — commit `621b6c11f90ae17145ae29ebcd041b6e93453c59`, CI #260 PASS;
+2. TASK-086 — commit `d38352eb4b20ae7d5a10a734a5152256247fbc4c`, CI #261 PASS;
+3. TASK-087 — commit `cc1f1f99fab123a44b2a75f17967282042afb531`, CI #262 PASS.
 
-For every TASK, read its full `context_paths`, confirm allowed/forbidden paths, `max_files`, predecessor dependency and validation commands before editing.
+Sprint Report:
+`project_docs/execution_planning/P5-ASSEMBLY-GRAPH-01.report.md`
 
-## Sprint outcome
+## Review checklist
 
-Prove:
-
-`SystemDefinition root capability -> constrained Catalog candidate -> structured dependency requirements -> transitive dependency closure -> deterministic conflict/cycle validation -> deterministic AssemblyPlan BOM -> ValidationEvidence -> Compiler predecessor path`
-
-Preserve current bounded Catalog exact/minimum semantics, existing root-only compatibility where applicable, and all P4 PostgreSQL/autonomous-runtime regressions.
-
-## Exit
-
-After TASK-087, run final `npm run verify`, produce `P5-ASSEMBLY-GRAPH-01.report.md`, open one PR from the Sprint branch to `main` and stop at Sprint Review.
+- require final closure-head `npm run verify` PASS through Deterministic CI;
+- confirm structured dependencies are resolved transitively through the actual Catalog resolver;
+- confirm exact/minimum/compatibility requirements are combined deterministically across paths;
+- confirm cycle, unresolved and incompatible requirements fail closed with reproducible diagnostics;
+- confirm graph-derived AssemblyPlan continues through actual Validation/Compiler APIs;
+- confirm P4 PostgreSQL autonomous-runtime regressions remain green;
+- confirm no Catalog semantic change, materializer registry, durable provider or canonical/L4 change entered the Sprint;
+- merge only after human Sprint Review accepts the PR.
 
 ## Successor boundary
 
-`P5-MATERIALIZER-REGISTRY-01` remains FORECAST. Do not materialize or execute it without a new explicit instruction after this Sprint merges and current `main` is reconstructed.
+Do not automatically materialize or execute `P5-MATERIALIZER-REGISTRY-01` after this Sprint. After PR #175 merges, require a new explicit instruction and reconstruct `main` from `AGENTS.md` before deciding whether that forecast Sprint should be promoted.

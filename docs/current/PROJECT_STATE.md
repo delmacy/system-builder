@@ -13,7 +13,7 @@ Date: 2026-08-16
 - P4 construction and mandatory Integration & Technical Debt Review: merged through PR #172.
 - P5-PACKAGE-01 package plan: merged through PR #173.
 - P5-CATALOG-CONSTRAINTS-01: merged through PR #174 at `9a6f2df82d1ffbc1c9c25f67d819e666e718d832`.
-- P5-ASSEMBLY-GRAPH-01: promoted to COMMITTED on `sprint/P5-ASSEMBLY-GRAPH-01`; implementation not started.
+- P5-ASSEMBLY-GRAPH-01: TASK-085/086/087 implemented on `sprint/P5-ASSEMBLY-GRAPH-01`; CI #260/#261/#262 PASS; PR #175 in Sprint Review preparation.
 - GitHub Actions: deterministic integration gate with actual PostgreSQL service execution.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
@@ -21,21 +21,18 @@ Date: 2026-08-16
 
 `SystemDefinition root capability -> Catalog structured dependency requirements + bounded constraints -> root-only AssemblyPlan predecessor -> ValidationEvidence -> Compiler-derived migration/runtime assets -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> SecretResolver -> PostgreSQL -> autonomous Runtime -> persisted state across redeploy`
 
-P5 Catalog constraint behavior is now integrated product truth. Transitive Assembly graph behavior is not yet integrated.
+Only merged work in `main` is published product truth. The transitive Assembly graph implementation currently exists only on the Sprint branch.
 
-## Active Sprint
+## Active Sprint result
 
-`P5-ASSEMBLY-GRAPH-01 — Deterministic Transitive Assembly Graph`
-
-Committed TASK order:
-1. TASK-085;
-2. TASK-086 after TASK-085 validation;
-3. TASK-087 after TASK-086 validation.
-
-Expected proof:
+`P5-ASSEMBLY-GRAPH-01` achieved its branch goal:
 
 `SystemDefinition root capability -> constrained Catalog candidate -> structured dependency requirements -> transitive dependency closure -> deterministic conflict/cycle validation -> deterministic AssemblyPlan BOM -> ValidationEvidence -> Compiler predecessor path`
 
+The branch preserves Catalog exact/minimum semantics, actual downstream Validation/Compiler behavior and the complete P4 PostgreSQL/autonomous-runtime regression.
+
 ## Current gate
 
-Execute only `P5-ASSEMBLY-GRAPH-01` when explicitly instructed. Do not materialize or execute `P5-MATERIALIZER-REGISTRY-01`.
+Require final closure-head Deterministic CI PASS on PR #175, then stop at Sprint Review. Do not merge automatically.
+
+`P5-MATERIALIZER-REGISTRY-01` remains FORECAST and is not materialized or authorized for execution.
