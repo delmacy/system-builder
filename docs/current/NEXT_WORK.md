@@ -4,22 +4,24 @@ The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-Execute only the mandatory `P4-PACKAGE-01` Integration & Technical Debt Review on `review/P4-PACKAGE-01-integration-debt`.
+The mandatory P4 package review is implemented on `review/P4-PACKAGE-01-integration-debt` under PR #172.
 
-Review document:
+Review-head Deterministic CI #249 is PASS.
+
+Detailed review:
 `project_docs/execution_planning/P4-PACKAGE-01.integration-debt-review.md`
 
-## Required review actions
+## Remaining review action
 
-1. run the repository-wide deterministic regression with the actual PostgreSQL CI service;
-2. classify P3 debt closed/carried by P4 and new P4 debt;
-3. revalidate ADR-0002, ADR-0007, canonical contracts, WBS and dependency/readiness conclusions;
-4. reconcile stale post-merge state from P4-CAPABILITY-RUNTIME-01;
-5. produce successor readiness recommendations only;
-6. require final Deterministic CI PASS and stop at the package Review Gate.
+1. require final Deterministic CI PASS on the review-finalization head;
+2. confirm PR #172 remains documentation/review-only and preserves ADR-0002/ADR-0007 and canonical contracts;
+3. review the classified debt register, WBS/DAG conclusions and risk priorities;
+4. accept/merge PR #172 only if the package Review Gate agrees with PASS WITH DEBT.
 
-## Successor boundary
+## After PR #172 merges
 
-Do not create a next Sprint Package, Sprint manifest, TASK or construction branch during this review.
+Do not automatically create a successor package.
 
-After the review PR merges, await a new explicit instruction, then reconstruct `main` from `AGENTS.md` and derive the next package from merged review findings and then-current WBS/contracts/ADRs.
+Await a new explicit instruction, then reconstruct `main` from `AGENTS.md` and choose the next Sprint Package from the merged P4 review, then-current WBS/contracts/ADRs and actual dependency readiness.
+
+No successor Sprint Package, Sprint manifest, TASK or construction branch exists as part of this review.

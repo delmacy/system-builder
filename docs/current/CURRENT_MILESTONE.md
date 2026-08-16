@@ -16,14 +16,17 @@ Integrated proof:
 
 Branch: `review/P4-PACKAGE-01-integration-debt`
 
+PR: #172
+
 Review document: `project_docs/execution_planning/P4-PACKAGE-01.integration-debt-review.md`
 
-Review scope:
-1. reconcile post-merge repository state;
-2. run package-wide deterministic regression with PostgreSQL;
-3. classify carried/closed/new debt;
-4. revalidate contracts, ADR-0002, ADR-0007, WBS and dependency readiness;
-5. recommend successor-package readiness without materializing successor work.
+Disposition:
+- package construction: PASS;
+- architecture/boundaries: PASS WITH DEBT;
+- rollback blocker: none;
+- review-head CI #249: PASS;
+- final review CI: pending;
+- successor package: recommendations only / not materialized.
 
 ## Architecture constraints
 
@@ -36,6 +39,6 @@ Review scope:
 
 ## Review gate
 
-Require review-head and final review Deterministic CI PASS. Then stop for human Review Gate on the package review PR.
+Require final review Deterministic CI PASS. Then stop for human Review Gate on PR #172.
 
 No successor Sprint Package or construction Sprint is authorized in this review.

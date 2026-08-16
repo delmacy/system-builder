@@ -1,6 +1,6 @@
 # P4-PACKAGE-01 — Durable Stateful Runtime and Capability Materialization
 
-Status: ACTIVE / INTEGRATION_REVIEW
+Status: ACTIVE / INTEGRATION_REVIEW_READY_FOR_FINAL_CI
 Base: `5f628b7c72f9e9fc0db799e0bd97b2d1997b1572` (package plan merged through PR #167)
 Construction merged through: `0f0cc70511dbb1510bbc37c31ecb6f7b9998c8f9` (PR #171)
 
@@ -18,29 +18,30 @@ Target package proof:
 Status: MERGED through PR #168.
 
 ### 2. P4-POSTGRES-STATE-01
-Status: MERGED through PR #169 at `349231aa982048f2ce4507432032e3d32c160339`.
+Status: MERGED through PR #169.
 
-### 3. P4-CAPABILITY-RUNTIME-01 — Capability-Driven Durable Runtime Slice
+### 3. P4-CAPABILITY-RUNTIME-01
 Status: MERGED through PR #170 + completion/recovery PR #171.
 
 Merged exit proof:
 `SystemDefinition state.counter -> Catalog selected reference provider -> AssemblyPlan -> ValidationEvidence -> Compiler-derived state implementation -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration apply -> PostgreSQL Runtime -> durable action -> clean redeploy -> persisted result`
 
-The PR #170/#171 boundary deviation is recorded in the Sprint Report and package review.
-
 ### 4. Integration & Technical Debt Review
-Status: AUTHORIZED / ACTIVE.
+Status: REVIEW_HEAD_CI_PASS / FINAL_CI_PENDING.
 
 Branch: `review/P4-PACKAGE-01-integration-debt`.
 
+PR: #172.
+
 Review document: `project_docs/execution_planning/P4-PACKAGE-01.integration-debt-review.md`.
 
-Required outputs:
-- package regression;
-- technical-debt classification;
-- contract/ADR/WBS/DAG revalidation;
-- risk/readiness update;
-- successor-package recommendation only.
+Review-head Deterministic CI #249: PASS.
+
+Provisional disposition:
+- construction: PASS;
+- architecture/boundaries: PASS WITH DEBT;
+- rollback blocker: none found;
+- successor readiness: ready to plan only after review merge and fresh repository revalidation.
 
 ## Architecture constraints
 
@@ -51,17 +52,26 @@ Required outputs:
 - PostgreSQL is an initial target provider, not shared-contract policy;
 - canonical contract or L4 discoveries require explicit authority/ADR.
 
-## Deferred package debt entering review
+## Review debt priorities
 
-- production PostgreSQL auth/TLS/provisioning/HA/backup and concurrent migration coordination;
+High:
+- Catalog/Assembly dependency graph/range/conflict solving;
 - durable Catalog/Release/Artifact provider adapters;
-- general Catalog/Assembly dependency graph/range/conflict solving;
+- production PostgreSQL auth/TLS and migration coordination;
 - production SecretResolver providers/lifecycle;
-- production Runtime supervision/traffic/TLS/rollback;
-- broad generated entities/workflows/auth/UI.
+- production Runtime supervision/traffic/TLS/rollback.
+
+Medium-High:
+- scalable deterministic capability materializer registration before capability breadth grows.
+
+Low-Medium:
+- operational DeploymentRecord timing/executor/active-version semantics.
+
+Governance:
+- prevent Sprint PR merge before closure-head CI and final Sprint Report after the PR #170/#171 recovery.
 
 ## Package gate
 
-Run only the P4 Integration & Technical Debt Review. Stop at its human Review Gate after final CI.
+Require final Deterministic CI PASS on PR #172, then stop at the human P4 package Review Gate.
 
 No successor Sprint Package or construction Sprint may be created by this review. Successor planning requires the review to merge plus a new explicit instruction and repository revalidation.
