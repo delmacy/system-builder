@@ -55,6 +55,10 @@ Evolve Assembly from root-only capability selection into bounded deterministic a
 
 P5-CATALOG-CONSTRAINTS-01 added normalized `dependencyRequirements` carrying capability plus optional exact/minimum version constraint and compatibility, while deliberately preserving the root-only Assembly predecessor. WBS 6.1.2 now has the required upstream representation to be consumed.
 
+# Current behavior
+
+Assembly resolves only SystemDefinition root capabilities. It selects one deterministic candidate per root and copies legacy dependency names into the AssemblyPlan without traversing Catalog `dependencyRequirements`.
+
 # Required change
 
 Extend the internal Assembly resolver request/candidate shape only as needed to consume structured dependency requirements and recursively resolve selected candidate dependencies through the provided resolver. Preserve the existing deterministic provider/version selection rule for each eligible candidate set.
@@ -62,6 +66,14 @@ Extend the internal Assembly resolver request/candidate shape only as needed to 
 For an acyclic satisfiable graph, every selected root/dependency capability must appear once in the resulting AssemblyPlan components, independent of root capability order, dependency requirement order or Catalog registration order.
 
 Do not add conflict/cycle policy beyond the minimum behavior needed for a successful acyclic graph; TASK-086 owns negative graph semantics.
+
+# Inputs / contracts
+
+Integrated Catalog structured requirement shape, current internal Assembly resolver/candidate API, WBS 05/06, ADR-0002/0007 and the P5 Sprint manifest.
+
+# Outputs / contracts
+
+A bounded internal Assembly graph-resolution behavior that produces deterministic transitive AssemblyPlan components/BOM while preserving canonical contracts and downstream interfaces.
 
 # Acceptance criteria
 
