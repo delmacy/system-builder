@@ -1,7 +1,7 @@
 ---
 id: TASK-070
 title: Define external SecretResolver boundary
-status: ready
+status: completed
 priority: 386
 milestone: M4
 model_tier: cheap
@@ -87,3 +87,7 @@ Focused product tests proving deterministic resolution, config exclusion, fail-c
 # Escalation
 
 Stop if the boundary requires changing canonical EnvironmentProfile/Release/Deployment contracts or accepted architecture.
+
+# Result
+
+Added a provider-neutral Deploy-bounded `SecretResolver`, deterministic in-memory reference implementation and `resolveRuntimeSecretEnvironment` helper. Resolution is restricted to symbolic secret-reference bindings, preserves EnvironmentProfile immutability, fails closed for missing/empty/duplicate bindings and keeps stored values out of resolver serialization/diagnostics.
