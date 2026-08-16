@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { sha256Canonical } from "@system-builder/deterministic";
 
 export type RequirementCarrier = Readonly<{
   requirementIds: readonly string[];
@@ -62,22 +62,6 @@ export type ValidateTraceabilityInput = Readonly<{
   assemblyPlanRef: string;
   declaredChecks?: readonly DeclaredValidationCheck[];
 }>;
-
-function stableValue(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(stableValue);
-  if (value !== null && typeof value === "object") {
-    return Object.fromEntries(
-      Object.entries(value as Record<string, unknown>)
-        .sort(([left], [right]) => left.localeCompare(right))
-        .map(([key, nested]) => [key, stableValue(nested)]),
-    );
-  }
-  return value;
-}
-
-function sha256(value: unknown): string {
-  return `sha256:${createHash("sha256").update(JSON.stringify(stableValue(value))).digest("hex")}`;
-}
 
 function uniqueSorted(values: readonly string[]): readonly string[] {
   return Object.freeze([...new Set(values)].sort((left, right) => left.localeCompare(right)));
@@ -195,5 +179,5 @@ export function validateTraceability(input: ValidateTraceabilityInput): Validati
     checks: frozenChecks,
   };
 
-  return Object.freeze({ ...payload, evidenceHash: sha256(payload) });
+  return Object.freeze({ ...payload, evidenceHash: sha256Canonical(payload) });
 }
