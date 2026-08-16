@@ -1,7 +1,7 @@
 ---
 id: TASK-052
 title: Implement immutable Release registry lifecycle
-status: ready
+status: completed
 priority: 270
 milestone: M2
 model_tier: cheap
