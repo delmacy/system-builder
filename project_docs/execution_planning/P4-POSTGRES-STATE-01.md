@@ -1,98 +1,58 @@
 # P4-POSTGRES-STATE-01 — PostgreSQL Durable Runtime State
 
-Status: ACTIVE / COMMITTED
+Status: REVIEW_READY / FINAL_CI_REQUIRED
 Package: `P4-PACKAGE-01 — Durable Stateful Runtime and Capability Materialization`
 Base: `b0b3e4c9fcbb21e0fc944a12ca16636b0dd82ae2` (P4-MIGRATION-STATE-01 merged through PR #168)
 Branch: `sprint/P4-POSTGRES-STATE-01`
+PR: #169
 
 ## Sprint Goal
 
 Implement the first bounded PostgreSQL-backed Runtime state path, apply verified Compiler-generated migrations before Runtime activation, and prove state survives a clean Runtime restart/redeploy using actual PostgreSQL in deterministic CI.
 
-Target proof:
+Achieved proof:
 
-`verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> persistent autonomous Runtime -> counter state -> clean shutdown -> redeploy -> prior state retained`
+`verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> persistent autonomous Runtime -> state 1 -> 2 -> clean shutdown -> redeploy -> migration skip -> state 3 -> 4`
 
-## Revalidation result
+## Committed TASK results
 
-The merged predecessor proves deterministic migration assets and fail-closed Deploy preflight but does not execute SQL or open PostgreSQL. WBS 10.2.1/10.2.2 and 13.1.1/13.1.3 support migration preparation/application and externally configured Runtime state. ADR-0002 and ADR-0007 remain sufficient; no L4 change or new ADR is required.
+1. `TASK-076` — bounded PostgreSQL Runtime state adapter — `2507e051b1b9ad19bf04b504c9b304c14c474fe4` — CI #238 PASS;
+2. `TASK-077` — verified/idempotent Deploy migration application — `8ebb798da1770701279f1998d273f412f92b2241` — CI #239 PASS;
+3. `TASK-078` — actual PostgreSQL restart/redeploy persistence E2E — `53464e70f12b91f0419f6567eba7ec0126fd94c2` — CI #240 PASS.
 
-The bounded Runtime implementation must remain self-contained after materialization and may depend only on the declared PostgreSQL Environment binding. It must not import Builder modules or require Builder/Observe availability at ordinary Runtime execution.
-
-## Committed TASK order
-
-1. `TASK-076` — bounded PostgreSQL Runtime state adapter;
-2. `TASK-077` — verified/idempotent Deploy migration application;
-3. `TASK-078` — actual PostgreSQL restart/redeploy persistence E2E in Deterministic CI.
-
-Dependency chain:
+Dependency chain completed:
 
 `TASK-075 -> TASK-076 -> TASK-077 -> TASK-078`
 
-## Scope freeze
+## Evidence
 
-### TASK-076
+- generated Runtime remains autonomous from Builder/Observe and uses external database connectivity only at execution;
+- Deploy migration application occurs after preflight/secret resolution and before materialization/activation;
+- migration identity/hash ledger supports apply/skip and rejects hash drift;
+- actual `postgres:17.6-alpine` service was healthy in CI #240;
+- PostgreSQL E2E executed rather than skipped: 86 product tests PASS / 0 SKIPPED;
+- first deployment reached persisted value 2, second clean deployment reached value 4;
+- same migration identity with changed content hash failed before activation;
+- resolved connection value remained outside immutable/runtime response/deployment evidence asserted by the E2E.
 
-Purpose: make the generated Runtime use a bounded PostgreSQL state adapter when a `RuntimeStateRequirement` is present, while preserving predecessor behavior when no state requirement exists.
+## Architecture constraints preserved
 
-Allowed product areas: Runtime Core renderer + Compiler handoff only. No Deploy, canonical contracts, Release, ArtifactStore or CI changes.
+- ADR-0002 Builder/Runtime separation;
+- ADR-0007 Release/Environment/Deployment separation;
+- no canonical public schema expansion;
+- PostgreSQL remains replaceable bounded provider behavior;
+- no production database provisioning/supervision/traffic/rollback scope entered.
 
-### TASK-077
+## Validation history
 
-Purpose: apply the already verified/preflighted migration payload in deterministic order after secret resolution and before materialization/Runtime activation, with idempotent migration evidence and fail-closed behavior.
+- CI #237 FAIL — TASK-076 lint only; corrected within TASK scope and commit rewritten;
+- CI #238 PASS — TASK-076;
+- CI #239 PASS — TASK-077;
+- CI #240 PASS — TASK-078 implementation head + actual PostgreSQL E2E;
+- closure-head CI: required before final review readiness.
 
-Allowed product area: Deploy only. No Runtime Core, Compiler, canonical contracts, Release or ArtifactStore changes.
-
-### TASK-078
-
-Purpose: prove the actual integrated path against an ephemeral PostgreSQL service in Deterministic CI, including persistence across two clean deployments and negative migration evidence.
-
-Allowed areas: product E2E test + CI service configuration only. No product implementation changes.
-
-## Architecture constraints
-
-- ADR-0002 Builder/Runtime separation remains mandatory;
-- ADR-0007 Release/Environment/Deployment separation remains mandatory;
-- `RuntimeStateRequirement` remains the already accepted bounded state/migration contract;
-- database connection material is supplied externally through the symbolic `secret-reference` binding and resolved only at Deploy/Runtime execution;
-- generated Runtime must remain autonomous from Builder and Observe;
-- no resolved secret may enter ReleaseArtifact, migration manifest, DeploymentRecord, health/state response or logs/evidence;
-- PostgreSQL is a replaceable initial provider, not a new canonical shared-contract policy;
-- no database provisioning, HA, backup/restore, production supervisor or traffic/rollback implementation;
-- any required canonical public schema or L4 architecture change stops the Sprint for ADR.
-
-## Validation strategy
-
-Every TASK must run:
-
-- `npm run test:product`
-- `npm run verify`
-
-TASK-078 additionally requires GitHub Deterministic CI with an actual ephemeral PostgreSQL service and must not claim a PostgreSQL E2E PASS from a skipped local test.
-
-## Exit criteria
-
-- Compiler-generated state requirement results in an autonomous generated Runtime that persists counter state in PostgreSQL rather than process memory;
-- Deploy applies verified migration content before Runtime activation and skips an already-applied migration with the same identity/hash;
-- an applied migration identity with a different hash fails before activation;
-- two clean deployments using the same PostgreSQL database observe monotonic state across restart/redeploy;
-- unresolved/malformed database connectivity fails without resolved-secret leakage;
-- predecessor no-state and health-only paths remain green;
-- repository-wide Deterministic CI passes on the final Sprint head;
-- one distinct implementation commit exists per TASK;
-- Sprint Report is committed and PR stops at Sprint Review.
-
-## Explicit non-goals
-
-- `P4-CAPABILITY-RUNTIME-01` / TASK-079..081;
-- general generated CRUD/entities/workflows/auth/UI;
-- durable Catalog/Release/Artifact provider adapters;
-- dependency graph/semver/conflict solving;
-- production SecretResolver providers/rotation;
-- production PostgreSQL provisioning/HA/backup;
-- Docker/Vercel/on-prem supervisor/traffic/TLS/rollback;
-- Observe/Support implementation.
+Detailed report: `project_docs/execution_planning/P4-POSTGRES-STATE-01.report.md`.
 
 ## Successor gate
 
-Stop after this Sprint reaches `READY_FOR_SPRINT_REVIEW`. `P4-CAPABILITY-RUNTIME-01` remains forecast and must not start without this Sprint merge plus a new explicit instruction and repository revalidation.
+`P4-CAPABILITY-RUNTIME-01` / TASK-079..081 remains FORECAST / NOT AUTHORIZED. Do not start it unless PR #169 merges, repository authority is re-read and a new explicit instruction authorizes the successor.
