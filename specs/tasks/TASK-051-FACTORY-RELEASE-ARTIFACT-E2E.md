@@ -1,7 +1,7 @@
 ---
 id: TASK-051
 title: Prove integrated factory chain through ReleaseArtifact
-status: draft
+status: ready
 priority: 260
 milestone: M2
 model_tier: cheap

@@ -1,7 +1,7 @@
 ---
 id: TASK-049
 title: Implement traceability ValidationEvidence engine
-status: draft
+status: ready
 priority: 240
 milestone: M2
 model_tier: cheap
