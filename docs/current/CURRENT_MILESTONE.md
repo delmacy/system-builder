@@ -4,47 +4,45 @@
 
 Extend the deterministic factory chain into the first locally runnable autonomous client-runtime proof while preserving public boundaries required by Runtime and Deploy.
 
-## Integrated baseline
+## Integrated result
 
-P2-BOUNDARY-01 is merged through PR #158 and P2-RUNTIME-01 is merged through PR #159.
+P2-BOUNDARY-01, P2-RUNTIME-01 and P2-LOCAL-DEPLOY-01 are merged through PRs #158, #159 and #160.
 
 Integrated `main` proof:
 
-`ReleaseArtifact -> generated runtime-entry.mjs -> external EnvironmentProfile -> autonomous Node RuntimeHealth PASS`
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> canonical EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
 
-## Sprint under review
+The Runtime starts from actual Compiler output with configuration supplied externally and does not require Builder or Observe availability for startup/health.
 
-### P2-LOCAL-DEPLOY-01 — Local Deployment Adapter and Runtime E2E
+## Active gate
 
-Status: CI_PASS / READY_FOR_REVIEW
-Base: `e1f3d82317a8176691309159f36e95f90c096c87`
-Branch: `sprint/P2-LOCAL-DEPLOY-01`
-PR: #160
+### P2-PACKAGE-01 — Integration & Technical Debt Review
 
-Committed results:
+Status: IN_PROGRESS
+Branch: `review/P2-PACKAGE-01-integration-debt`
+Base: `7609b97c86eebca168002f2db7c71277ea0e5d55`
 
-1. TASK-061 — local-process Deploy adapter starts actual Compiler-generated runtime;
-2. TASK-062 — observed RuntimeHealth/failure emits deterministic canonical-compatible DeploymentRecord evidence;
-3. TASK-063 — full autonomous local E2E through actual factory/release/deploy APIs.
+Review requirements:
 
-Sprint-branch proof:
-
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
-
-Closure head `483adcbd233dbd13f30d1a29929652b6a72e4058` passed Deterministic CI #202.
-
-## Package completion gate
-
-After Sprint Review/merge, run the required P2-PACKAGE-01 Integration & Technical Debt Review before creating a successor package.
+- repository-wide regression;
+- repeatability of the autonomous local vertical;
+- Builder/Runtime and Release/Environment/Deployment boundary revalidation;
+- artifact payload retrieval/integrity assessment;
+- Runtime lifecycle and secret-resolution assessment;
+- Catalog/Assembly debt reassessment;
+- successor-package recommendation from integrated evidence.
 
 ## Architecture constraints
 
-- ADR-0002 Builder/Runtime separation remains unchanged.
-- ADR-0007 Release/Environment/Deployment separation remains unchanged.
-- release artifacts contain no secret values;
+- ADR-0002 Builder/Runtime separation remains mandatory.
+- ADR-0007 Release/Environment/Deployment separation remains mandatory.
+- release artifacts contain no resolved secret values;
 - runtime configuration is supplied externally;
-- no public factory contract was changed by P2-LOCAL-DEPLOY-01;
-- any future L4 discovery requires ADR rather than silent architecture change.
+- any L4 discovery requires ADR rather than silent architecture change.
+
+## Successor gate
+
+Do not create or execute a successor Sprint Package until this review is merged. A successor package must be re-derived from the then-current repository state.
 
 ## AgentFactory infrastructure track
 

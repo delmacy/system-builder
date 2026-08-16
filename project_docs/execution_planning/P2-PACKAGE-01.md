@@ -1,6 +1,6 @@
 # P2-PACKAGE-01 — First Autonomous Local Runtime
 
-Status: ACTIVE / THIRD SPRINT READY_FOR_REVIEW
+Status: CONSTRUCTION_COMPLETE / INTEGRATION_REVIEW_IN_PROGRESS
 
 ## Package Goal
 
@@ -16,8 +16,8 @@ The Runtime must start and operate for the bounded proof without calling System 
 
 - `P2-BOUNDARY-01` — MERGED through PR #158.
 - `P2-RUNTIME-01` — MERGED through PR #159.
-- `P2-LOCAL-DEPLOY-01` — CI_PASS / READY_FOR_REVIEW on PR #160; closure head `483adcbd233dbd13f30d1a29929652b6a72e4058` passed CI #202.
-- Integration & Technical Debt Review — required after PR #160 Sprint Review/merge; not started.
+- `P2-LOCAL-DEPLOY-01` — MERGED through PR #160.
+- Integration & Technical Debt Review — IN_PROGRESS on `review/P2-PACKAGE-01-integration-debt` from main `7609b97c86eebca168002f2db7c71277ea0e5d55`.
 
 ## Construction results
 
@@ -31,29 +31,26 @@ Compiler emits deterministic `runtime-entry.mjs`; actual Compiler output starts 
 
 ### P2-LOCAL-DEPLOY-01
 
-Committed TASKs:
+Deploy materializes actual Compiler-generated files, starts the Runtime locally, observes RuntimeHealth/failure and emits deterministic DeploymentRecord evidence through actual factory/release/deploy APIs.
 
-- TASK-061 — local-process Deploy adapter using actual Compiler generated files;
-- TASK-062 — actual runtime health/failure to deterministic DeploymentRecord;
-- TASK-063 — full autonomous local E2E through actual Catalog/Assembly/Validation/Compiler/Release/Deploy APIs.
-
-Sprint-branch exit proof:
+Integrated exit proof:
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
 
 ## Integration & Technical Debt Review gate
 
-After the third construction Sprint is merged:
+The mandatory review is now active and must:
 
 - run/review repository-wide regression;
-- execute the autonomous local vertical at least twice and compare deterministic artifact/deployment identities;
+- execute/review the autonomous local vertical at least twice and compare deterministic artifact/deployment identities;
 - prove runtime startup/health without Builder availability;
 - verify resolved secret values are absent from immutable ReleaseArtifact/PublishedRelease/DeploymentRecord content;
 - revalidate Runtime/Builder and Release/Environment/Deployment boundaries;
-- assess the newly exposed artifact payload retrieval/materialization boundary;
+- assess artifact payload retrieval/materialization and integrity verification;
 - assess the one-shot Runtime lifecycle versus the next persistent-runtime increment;
+- assess external secret resolution;
 - reassess Catalog/Assembly dependency solving and persistence readiness;
-- classify debt and choose the successor package from integrated evidence.
+- classify debt and recommend the successor package from integrated evidence.
 
 ## Dependency order
 
@@ -70,4 +67,5 @@ TASK order:
 - every construction Sprint extends the real integration proof rather than hand-authoring outputs with executable producers;
 - L3 shared-contract work requires explicit Sprint authority/review; any L4 discovery stops for ADR;
 - `main` remains published truth after merge;
+- no successor package is committed until this Integration & Technical Debt Review is merged;
 - AgentFactory Supervisor/runtime remains frozen and is not a package gate.
