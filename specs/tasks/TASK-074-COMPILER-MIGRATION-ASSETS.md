@@ -1,7 +1,7 @@
 ---
 id: TASK-074
 title: Materialize deterministic migration assets in Compiler output
-status: ready
+status: completed
 priority: 390
 milestone: M5
 model_tier: cheap
@@ -91,3 +91,7 @@ Compiler product tests for deterministic generation, predecessor compatibility, 
 # Escalation
 
 Stop if deterministic migration delivery requires changing canonical ReleaseArtifact/EnvironmentProfile contracts.
+
+# Result
+
+Compiler now accepts normalized Runtime state requirements, validates their connection binding against a required `secret-reference` environment requirement, emits deterministic migration source files plus `migration-manifest.json`, rejects generated-path collisions and includes all migration content in existing ReleaseArtifact file and aggregate integrity. Compilations without state requirements preserve the predecessor file set and behavior.
