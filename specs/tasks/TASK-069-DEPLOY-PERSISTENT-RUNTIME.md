@@ -1,7 +1,7 @@
 ---
 id: TASK-069
 title: Deploy and observe persistent generated Runtime
-status: ready
+status: completed
 priority: 385
 milestone: M4
 model_tier: cheap
@@ -56,15 +56,15 @@ Make local Deploy start the actual verified persistent Runtime, discover/probe i
 
 # Context
 
-P3-ARTIFACT-01 already forces local Deploy to retrieve independently verified Compiler payload before materialization. TASK-068 changes the actual Compiler runtime entrypoint from one-shot output to a persistent HTTP service.
+P3-ARTIFACT-01 forces local Deploy through independently verified Compiler payload before materialization. TASK-067/068 add an explicit persistent mode requested by `SYSTEM_BUILDER_RUNTIME_PORT` while retaining predecessor compatibility until this Deploy increment opts in.
 
 # Current behavior
 
-Local Deploy starts Node, waits for the generated process to exit, parses RuntimeHealth from the last stdout line and only then builds DeploymentRecord evidence. That lifecycle is incompatible with a healthy persistent process.
+Local Deploy starts Node and waits for process exit, so it consumes the compatibility one-shot path even though the generated Runtime is persistent-capable.
 
 # Required change
 
-Adapt the local process Deploy path so it starts the verified generated Runtime with an ephemeral HTTP port request, reads the bounded startup event to discover the selected loopback port, probes `/health`, validates RuntimeHealth, then sends `SIGTERM` and requires clean shutdown before cleanup. Preserve artifact verification before materialization, release/runtime/environment preflight, timeout/failure diagnostics, immutable-input checks and deterministic DeploymentRecord semantics. Extend the full autonomous local E2E through the persistent process.
+Request ephemeral persistent mode (`SYSTEM_BUILDER_RUNTIME_PORT=0`), parse RuntimeStarted, probe loopback `/health` while the child remains alive, validate RuntimeHealth, then SIGTERM and require clean shutdown before cleanup. Preserve artifact verification/preflight, timeout/failure diagnostics, immutable-input checks and deterministic DeploymentRecord semantics.
 
 # Inputs / contracts
 
@@ -72,30 +72,33 @@ TASK-068 actual Compiler output, TASK-065 verified artifact reader semantics, Pu
 
 # Outputs / contracts
 
-Local Deploy lifecycle that proves persistent Runtime liveness/health and controlled termination without changing canonical Release/Environment/Deployment schemas.
+Local Deploy lifecycle proving persistent Runtime liveness/health and controlled termination without canonical schema changes.
 
 # Acceptance criteria
 
-- verified actual Compiler payload starts a persistent Runtime process;
-- Deploy discovers the selected local health port and successfully probes `/health`;
-- health is observed while the process is still alive;
-- Deploy terminates the process cleanly after successful health observation;
-- Builder/Observe unavailable addresses do not prevent startup/health;
-- invalid/missing runtime binding produces explicit failure without false success;
-- health/startup timeout or malformed health produces failure evidence and process cleanup;
-- full autonomous local E2E preserves deterministic artifact/release/deployment identities across equivalent runs;
-- verified artifact corruption remains rejected before materialization;
+- verified actual Compiler payload starts persistent Runtime mode;
+- Deploy discovers the selected loopback health port and probes `/health` while process is alive;
+- Deploy terminates cleanly after successful health observation;
+- Builder/Observe unavailable addresses do not block health;
+- missing binding produces explicit failure without false success;
+- startup timeout/health failure produce bounded failure and cleanup;
+- full autonomous local E2E preserves deterministic artifact/release/deployment identities;
+- artifact corruption remains rejected before materialization;
 - no resolved secret value enters immutable evidence;
 - declared validations and final Sprint verification pass.
 
 # Non-goals
 
-Long-running external supervisor ownership, restart policy, production traffic routing/TLS, SecretResolver/stateful behavior, Docker/Vercel adapters or public schema changes.
+External supervisor ownership, restart policy, production traffic/TLS, SecretResolver/stateful behavior, platform adapters or public schema changes.
 
 # Evidence expected
 
-Focused Deploy lifecycle tests and full autonomous local E2E using actual Catalog/Assembly/Validation/Compiler/Release/artifact/Deploy producers, plus GitHub Deterministic CI.
+Focused persistent Deploy lifecycle tests plus full autonomous local E2E and GitHub Deterministic CI.
 
 # Escalation
 
-Stop if persistent lifecycle requires changing artifact-store, Compiler/runtime-core implementation from predecessors, public Release/Environment/Deployment schemas or accepted ADR boundaries.
+Stop if persistent lifecycle requires changing artifact-store, Compiler/runtime-core predecessors, public schemas or accepted ADR boundaries.
+
+# Result
+
+Local Deploy now explicitly activates the persistent generated Runtime on an ephemeral loopback port, observes RuntimeStarted, probes HTTP RuntimeHealth while the process is alive, terminates via SIGTERM and requires clean exit before cleanup. Startup timeout/health failure, required-binding failure, artifact corruption, autonomy and secret-separation evidence remain explicit. Canonical Release/Environment/Deployment schemas are unchanged.
