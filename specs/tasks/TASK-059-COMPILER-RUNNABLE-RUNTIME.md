@@ -1,7 +1,7 @@
 ---
 id: TASK-059
 title: Materialize deterministic runnable Runtime package in Compiler output
-status: ready
+status: completed
 priority: 350
 milestone: M3
 model_tier: cheap

@@ -1,4 +1,5 @@
 import { canonicalJson, sha256Canonical, sha256Text } from "@system-builder/deterministic";
+import { renderAutonomousRuntimeEntrypoint } from "@system-builder/runtime-core";
 
 export type CompilerAssemblyPlan = Readonly<{
   kind: "AssemblyPlan";
@@ -101,8 +102,12 @@ function normalizeComponents(assemblyPlan: CompilerAssemblyPlan) {
     );
 }
 
-function generatedFile(path: string, value: unknown): GeneratedFile {
+function generatedJsonFile(path: string, value: unknown): GeneratedFile {
   const content = canonicalJson(value);
+  return Object.freeze({ path, content, contentHash: sha256Text(content) });
+}
+
+function generatedTextFile(path: string, content: string): GeneratedFile {
   return Object.freeze({ path, content, contentHash: sha256Text(content) });
 }
 
@@ -128,19 +133,25 @@ export function compileSyntheticRelease(input: CompileSyntheticInput): Synthetic
   const runtimeVersion = requireToken(input.runtimeVersion, "runtime_version");
   const environmentSchema = normalizeEnvironment(input.environmentSchema);
   const components = normalizeComponents(input.assemblyPlan);
+  const runtimeEntrypoint = renderAutonomousRuntimeEntrypoint({
+    runtimeVersion,
+    requirements: environmentSchema,
+  });
 
   const files = Object.freeze(
     [
-      generatedFile("assembly-plan.json", {
+      generatedJsonFile("assembly-plan.json", {
         kind: input.assemblyPlan.kind,
         systemDefinitionRef: input.assemblyPlan.systemDefinitionRef,
         components,
         sourceRefs: [...input.assemblyPlan.sourceRefs].sort((left, right) => left.localeCompare(right)),
         contentHash: input.assemblyPlan.contentHash,
       }),
-      generatedFile("environment-schema.json", environmentSchema),
-      generatedFile("runtime-manifest.json", {
+      generatedJsonFile("environment-schema.json", environmentSchema),
+      generatedTextFile("runtime-entry.mjs", runtimeEntrypoint),
+      generatedJsonFile("runtime-manifest.json", {
         runtimeVersion,
+        entrypoint: "runtime-entry.mjs",
         components: components.map(({ capability, provider, version }) => ({ capability, provider, version })),
       }),
     ].sort((left, right) => left.path.localeCompare(right.path)),
