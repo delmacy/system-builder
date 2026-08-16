@@ -1,33 +1,49 @@
 # P1-VERTICAL-03 — Release and Deploy
 
-Status: FORECAST — do not commit before P1-VERTICAL-02 merge gate
+Status: CI_PASS / READY_FOR_REVIEW
 
 ## Sprint Goal
 
 Register an immutable PublishedRelease, bind it to an Environment profile without mutating the artifact, execute a deterministic local/dry-run deployment proof and emit DeploymentRecord.
 
-## Planned branch
+## Base and branch
 
-`sprint/P1-VERTICAL-03`
+- base: `2404a3b6b6ea7bd02166e840d45a7e4140005bbc`
+- branch: `sprint/P1-VERTICAL-03`
 
-## Candidate TASK order
+## Predecessor gate
 
-1. TASK-052 — immutable Release registry/lifecycle.
-2. TASK-053 — deterministic Deploy dry-run/environment binding.
-3. TASK-054 — first full deploy vertical proof.
+P1-VERTICAL-02 is merged into `main`. The integrated predecessor chain reaches a deterministic ReleaseArtifact through actual Catalog, Assembly, Validation and Compiler APIs.
+
+The existing PublishedRelease and DeploymentRecord contracts, WBS 09/10, ADR-0007 and accepted Master Blueprint were sufficient for this bounded Sprint. No public-contract or architecture change was required.
+
+## Committed TASK order
+
+1. TASK-052 — immutable Release registry/lifecycle — completed.
+2. TASK-053 — deterministic Deploy dry-run/environment binding — completed.
+3. TASK-054 — first full deploy vertical proof — completed.
 
 Dependency chain:
 
 `TASK-051 -> TASK-052 -> TASK-053 -> TASK-054`
 
-## Required growing proof
+## Growing proof achieved
 
-Extend the vertical chain to:
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
 
-`ProcessMirror -> BusinessRecipe -> SystemAnalysis -> SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
+The proof uses actual executable factory APIs for every implemented stage, repeats deterministic stages, records controlled acceptance failure and keeps secret values outside immutable release metadata.
 
-Required failure proofs include duplicate published revision rejection, invalid lifecycle transition, Release/Environment incompatibility, failed acceptance check and proof that secret values are never persisted into the immutable ReleaseArtifact/PublishedRelease.
+## Validation
 
-## Commitment gate
+`npm run verify` through GitHub Deterministic CI.
 
-Re-read repository authority after P1-VERTICAL-02 merges. Revalidate TASK scope and predecessor outputs before committing this Sprint.
+- TASK-052 corrected head: CI #179 PASS.
+- TASK-053 head: CI #180 PASS.
+- TASK-054 implementation head: CI #181 PASS.
+- closure head: final CI required before merge.
+
+Local execution is not claimed.
+
+## Sprint review boundary
+
+This Sprint is stopped at review. Do not start the package Integration & Technical Debt Review or another Sprint Package until P1-VERTICAL-03 is reviewed/merged and new authorization is given.
