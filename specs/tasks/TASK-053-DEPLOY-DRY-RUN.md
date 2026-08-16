@@ -1,7 +1,7 @@
 ---
 id: TASK-053
 title: Implement deterministic Deploy dry-run binding
-status: ready
+status: completed
 priority: 280
 milestone: M2
 model_tier: cheap
