@@ -1,7 +1,7 @@
 ---
 id: TASK-055
 title: Add canonical factory-boundary schema-conformance harness
-status: ready
+status: completed
 priority: 310
 milestone: M3
 model_tier: cheap
