@@ -1,41 +1,41 @@
-# Current Execution Milestone — M5 P4 Migration State Sprint Review
+# Current Execution Milestone — M5 P4 PostgreSQL Durable State Sprint
 
 ## Goal
 
-Review `P4-MIGRATION-STATE-01` after completion of TASK-073..075 and objective repository verification.
+Execute `P4-POSTGRES-STATE-01` from the actual merged P4 migration/preflight baseline and prove durable PostgreSQL state across clean Runtime redeploy.
 
-## Baseline
+## Integrated baseline
 
-P4-PACKAGE-01 is merged through PR #167 at `5f628b7c72f9e9fc0db799e0bd97b2d1997b1572`.
+P4-MIGRATION-STATE-01 is merged through PR #168 at `b0b3e4c9fcbb21e0fc944a12ca16636b0dd82ae2`.
 
-Sprint branch: `sprint/P4-MIGRATION-STATE-01`
-PR: #168
-
-## Sprint result
-
-TASK sequence:
-
-`TASK-072 -> TASK-073 -> TASK-074 -> TASK-075`
-
-Implementation commits:
-
-- TASK-073: `88bc3d4dc38d84ab516c0e08c519bd61768ab55b` — CI #232 PASS;
-- TASK-074: `3cfa5073b2d565e1a517442b435993b0601bdb52` — CI #233 PASS;
-- TASK-075: `c90f755c5def49ce1968b5c7f1ac6d36264b0d55` — CI #235 PASS.
-
-Achieved proof:
+Merged predecessor proof:
 
 `AssemblyPlan bounded capability -> Compiler -> migration/runtime assets -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration preflight`
 
-## Architecture constraints preserved
+## Active Sprint
 
-- ADR-0002 Builder/Runtime separation;
-- ADR-0007 Release/Environment/Deployment separation;
-- no resolved secret in immutable evidence;
+`P4-POSTGRES-STATE-01 — PostgreSQL Durable Runtime State`
+
+Branch: `sprint/P4-POSTGRES-STATE-01`
+
+Committed dependency order:
+
+1. TASK-076 — bounded PostgreSQL Runtime state adapter;
+2. TASK-077 — verified/idempotent Deploy migration application;
+3. TASK-078 — actual PostgreSQL restart/redeploy persistence E2E.
+
+## Architecture constraints
+
+- ADR-0002 Builder/Runtime separation remains mandatory;
+- ADR-0007 Release/Environment/Deployment separation remains mandatory;
+- generated Runtime remains autonomous and self-contained apart from external Environment/runtime infrastructure;
+- database secrets remain external and runtime/deploy-only;
 - no canonical ReleaseArtifact/EnvironmentProfile/DeploymentRecord schema expansion;
-- no SQL migration execution/PostgreSQL connection in this Sprint;
-- no L4 architecture change.
+- PostgreSQL provider behavior remains bounded, not canonical shared policy;
+- any L4 discovery stops for ADR.
 
-## Current gate
+## Sprint gate
 
-Run final closure-head Deterministic CI and stop at PR #168 Sprint Review. Do not start `P4-POSTGRES-STATE-01`; it requires this Sprint to merge plus a new explicit instruction and repository revalidation.
+Complete TASK-076..078 in order with one distinct implementation commit per TASK, run repository-wide Deterministic CI, commit the Sprint Report and stop at PR Sprint Review.
+
+`P4-CAPABILITY-RUNTIME-01` remains forecast / not authorized.

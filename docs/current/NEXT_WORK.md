@@ -1,22 +1,27 @@
-# Next Work — Review P4-MIGRATION-STATE-01
+# Next Work — Execute P4-POSTGRES-STATE-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-Review PR #168 for `P4-MIGRATION-STATE-01 — Deterministic State and Migration Materialization`.
+Execute only `P4-POSTGRES-STATE-01 — PostgreSQL Durable Runtime State` on `sprint/P4-POSTGRES-STATE-01`.
 
-## Review checklist
+## Committed sequence
 
-1. require final Deterministic CI `npm run verify` PASS on the closure head;
-2. verify TASK-073..075 remain in dependency order with one distinct commit per TASK;
-3. verify Runtime state/migration metadata remains bounded and carries no resolved secret/reference;
-4. verify Compiler migration assets use existing ReleaseArtifact integrity rather than a canonical schema expansion;
-5. verify Deploy preflight runs after verified ArtifactPayload retrieval and before secret resolution/materialization;
-6. verify malformed/missing/hash-mismatched migration evidence fails before activation;
-7. verify migration content is never executed and no PostgreSQL connection is opened;
-8. verify ADR-0002/ADR-0007 and canonical contracts remain unchanged.
+1. `TASK-076` — generated Runtime PostgreSQL state adapter;
+2. `TASK-077` — Deploy migration application before activation;
+3. `TASK-078` — actual PostgreSQL restart/redeploy persistence proof in Deterministic CI.
 
-## After PR #168 merges
+## Required execution discipline
 
-Do not automatically execute the successor. Await a new explicit instruction, then re-read `AGENTS.md`, current repository authority and actual merged Sprint outputs before deciding whether `P4-POSTGRES-STATE-01` / TASK-076..078 are still the next ready unit and materializing them.
+- read each TASK and all `context_paths` before editing;
+- confirm predecessor, `allowed_paths`, `forbidden_paths`, `max_files` and validation commands;
+- one distinct implementation commit per TASK;
+- preserve positive, negative/failure and predecessor-integration evidence;
+- run `npm run test:product` and `npm run verify` through objective CI evidence;
+- after TASK-078, update Sprint evidence/report and run final closure-head CI;
+- stop at Sprint Review.
+
+## Explicit stop
+
+Do not create or execute `P4-CAPABILITY-RUNTIME-01` / TASK-079..081 during this Sprint. It remains forecast until this Sprint merges and a new explicit instruction revalidates repository state.
