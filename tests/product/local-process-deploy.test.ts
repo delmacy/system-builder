@@ -275,7 +275,7 @@ test("local-process Deploy fails malformed verified migration evidence before se
   assert.equal(result.diagnostic.detail.includes("runtime-secret-must-not-be-used"), false);
 });
 
-test("secret-aware Deploy verifies artifact before resolution, injects runtime-only secret and observes state 1 then 2", async () => {
+test("secret-aware Deploy verifies artifact before resolution but does not synthesize state for unrelated capability", async () => {
   const { compilation, artifacts, publishedRelease, environment } = fixture();
   const secretValue = "postgres://runtime-user:runtime-password@localhost/runtime";
   let verified = false;
@@ -304,12 +304,11 @@ test("secret-aware Deploy verifies artifact before resolution, injects runtime-o
 
   assert.equal(result.ok, true);
   if (!result.ok) return;
-  assert.deepEqual(result.state, { kind: "RuntimeState", action: "counter.increment", value: 2 });
+  assert.equal(result.state, undefined);
   assert.deepEqual(result.migrationApplication, { kind: "LocalMigrationApplication", migrations: [] });
   assert.equal(result.stdout.includes(secretValue), false);
   assert.equal(result.stderr.includes(secretValue), false);
   assert.equal(JSON.stringify(result.health).includes(secretValue), false);
-  assert.equal(JSON.stringify(result.state).includes(secretValue), false);
   assert.equal(JSON.stringify(result.migrationApplication).includes(secretValue), false);
   await assert.rejects(access(result.workingDirectory));
 });

@@ -191,8 +191,35 @@ export function renderPersistentAutonomousRuntimeEntrypoint(input: Readonly<{
   const runtimeVersion = requireToken(input.runtimeVersion, "runtime_version");
   const requirements = normalizeRequirements(input.requirements);
   const stateRequirements = executionStateRequirements(input.stateRequirements);
+  const stateRequirement = stateRequirements.find(
+    (requirement) => requirement.capability === "state.counter" && requirement.storeKind === "sql",
+  );
   const spec = JSON.stringify({ runtimeVersion, requirements, stateRequirements });
   const postgresSupport = renderPostgresRuntimeStateSupport(stateRequirements);
+  const stateSetup = stateRequirement === undefined
+    ? []
+    : [`            const stateBindingName = ${JSON.stringify(stateRequirement.connectionBinding.name)};`];
+  const stateRoute = stateRequirement === undefined
+    ? []
+    : [
+        "              if (request.method === \"POST\" && request.url === \"/state/counter/increment\") {",
+        "                const secretValue = process.env[stateBindingName];",
+        "                if (typeof secretValue !== \"string\" || secretValue.length === 0) {",
+        "                  response.writeHead(503, { \"content-type\": \"application/json\" });",
+        "                  response.end(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_SECRET_UNRESOLVED\", detail: stateBindingName }));",
+        "                  return;",
+        "                }",
+        "                try {",
+        "                  const value = await incrementPostgresCounter(secretValue);",
+        "                  response.writeHead(200, { \"content-type\": \"application/json\" });",
+        "                  response.end(JSON.stringify({ kind: \"RuntimeState\", action: \"counter.increment\", value }));",
+        "                } catch (error) {",
+        "                  response.writeHead(503, { \"content-type\": \"application/json\" });",
+        "                  response.end(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_STATE_DATABASE_FAILED\", detail: error instanceof Error ? error.message : \"POSTGRES_STATE_FAILED\" }));",
+        "                }",
+        "                return;",
+        "              }",
+      ];
 
   return [
     'import { createServer } from "node:http";',
@@ -234,37 +261,14 @@ export function renderPersistentAutonomousRuntimeEntrypoint(input: Readonly<{
     "          if (!Number.isInteger(requestedPort) || requestedPort < 0 || requestedPort > 65535) {",
     "            fail(\"RUNTIME_INVALID_HEALTH_PORT\", requestedPortText);",
     "          } else {",
-    "            const stateRequirement = SPEC.stateRequirements.find((requirement) => requirement.capability === \"state.counter\" && requirement.storeKind === \"sql\");",
-    "            const requiredSecret = stateRequirement ? stateRequirement.connectionBinding : SPEC.requirements.find((requirement) => requirement.required && requirement.kind === \"secret-reference\");",
-    "            let counter = 0;",
+    ...stateSetup,
     "            const server = createServer(async (request, response) => {",
     "              if (request.method === \"GET\" && request.url === \"/health\") {",
     "                response.writeHead(200, { \"content-type\": \"application/json\" });",
     "                response.end(JSON.stringify(health));",
     "                return;",
     "              }",
-    "              if (request.method === \"POST\" && request.url === \"/state/counter/increment\") {",
-    "                if (!requiredSecret) {",
-    "                  response.writeHead(503, { \"content-type\": \"application/json\" });",
-    "                  response.end(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_SECRET_REQUIREMENT_MISSING\", detail: \"counter.increment\" }));",
-    "                  return;",
-    "                }",
-    "                const secretValue = process.env[requiredSecret.name];",
-    "                if (typeof secretValue !== \"string\" || secretValue.length === 0) {",
-    "                  response.writeHead(503, { \"content-type\": \"application/json\" });",
-    "                  response.end(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_SECRET_UNRESOLVED\", detail: requiredSecret.name }));",
-    "                  return;",
-    "                }",
-    "                try {",
-    "                  const value = stateRequirement ? await incrementPostgresCounter(secretValue) : (counter += 1);",
-    "                  response.writeHead(200, { \"content-type\": \"application/json\" });",
-    "                  response.end(JSON.stringify({ kind: \"RuntimeState\", action: \"counter.increment\", value }));",
-    "                } catch (error) {",
-    "                  response.writeHead(503, { \"content-type\": \"application/json\" });",
-    "                  response.end(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_STATE_DATABASE_FAILED\", detail: error instanceof Error ? error.message : \"POSTGRES_STATE_FAILED\" }));",
-    "                }",
-    "                return;",
-    "              }",
+    ...stateRoute,
     "              response.writeHead(404, { \"content-type\": \"application/json\" });",
     "              response.end(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_ROUTE_NOT_FOUND\", detail: String(request.url || \"\") }));",
     "            });",

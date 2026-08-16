@@ -51,6 +51,19 @@ const stateEnvironmentSchema = [
   { name: "LOG_LEVEL", kind: "config" as const, required: false },
 ];
 
+const capabilityAssemblyPlan = {
+  ...assemblyPlan,
+  components: [
+    ...assemblyPlan.components,
+    { capability: "state.counter", provider: "system-builder.postgres-counter", version: "1.0.0" },
+  ],
+};
+
+const capabilityValidationEvidence = {
+  ...validationEvidence,
+  assemblyPlanRef: capabilityAssemblyPlan.contentHash,
+};
+
 test("compiler emits reproducible ReleaseArtifact with persistent runtime entrypoint", () => {
   const input = {
     assemblyPlan,
@@ -91,6 +104,7 @@ test("compiler emits reproducible ReleaseArtifact with persistent runtime entryp
   assert.match(runtimeEntry.content, /createServer/);
   assert.match(runtimeEntry.content, /\/health/);
   assert.match(runtimeEntry.content, /SIGTERM/);
+  assert.equal(runtimeEntry.content.includes("/state/counter/increment"), false);
   assert.equal(runtimeEntry.content.includes("SYSTEM_BUILDER_URL"), false);
   assert.equal(runtimeEntry.content.includes("OBSERVE_URL"), false);
   assert.equal(runtimeEntry.content.includes("node:net"), false);
@@ -103,6 +117,63 @@ test("compiler emits reproducible ReleaseArtifact with persistent runtime entryp
       { capability: "workflow.engine", provider: "provider-a", version: "1.0.0" },
     ],
   });
+});
+
+test("compiler derives state.counter implementation from selected AssemblyPlan capability", () => {
+  const compilation = compileSyntheticRelease({
+    assemblyPlan: capabilityAssemblyPlan,
+    validationEvidence: capabilityValidationEvidence,
+    compilerVersion: "0.2.0",
+    runtimeVersion: "0.2.0",
+    environmentSchema: stateEnvironmentSchema,
+  });
+  assert.deepEqual(compilation.artifact.manifest.files, [
+    "assembly-plan.json",
+    "environment-schema.json",
+    "migration-manifest.json",
+    "migrations/001-state-counter.sql",
+    "runtime-entry.mjs",
+    "runtime-manifest.json",
+  ]);
+  const runtimeEntry = compilation.files.find((file) => file.path === "runtime-entry.mjs");
+  const migrationManifest = compilation.files.find((file) => file.path === "migration-manifest.json");
+  assert.ok(runtimeEntry);
+  assert.ok(migrationManifest);
+  assert.match(runtimeEntry.content, /\/state\/counter\/increment/);
+  assert.match(runtimeEntry.content, /node:net/);
+  assert.match(runtimeEntry.content, /INSERT INTO runtime_counter/);
+  assert.equal(runtimeEntry.content.includes("secret://"), false);
+  assert.equal(runtimeEntry.content.includes("postgres://"), false);
+  const manifest = JSON.parse(migrationManifest.content) as { requirements: Array<{ capability: string; connectionBinding: Record<string, unknown> }> };
+  assert.equal(manifest.requirements[0]?.capability, "state.counter");
+  assert.deepEqual(manifest.requirements[0]?.connectionBinding, { name: "DATABASE_URL", kind: "secret-reference" });
+});
+
+test("compiler rejects unsupported selected state implementation and duplicate derived plus explicit capability", () => {
+  assert.throws(
+    () => compileSyntheticRelease({
+      assemblyPlan: {
+        ...assemblyPlan,
+        components: [...assemblyPlan.components, { capability: "state.counter", provider: "unsupported.counter", version: "1.0.0" }],
+      },
+      validationEvidence,
+      compilerVersion: "0.2.0",
+      runtimeVersion: "0.2.0",
+      environmentSchema: stateEnvironmentSchema,
+    }),
+    /COMPILER_RUNTIME_CAPABILITY_UNSUPPORTED:state\.counter:unsupported\.counter:1\.0\.0/,
+  );
+  assert.throws(
+    () => compileSyntheticRelease({
+      assemblyPlan: capabilityAssemblyPlan,
+      validationEvidence: capabilityValidationEvidence,
+      compilerVersion: "0.2.0",
+      runtimeVersion: "0.2.0",
+      environmentSchema: stateEnvironmentSchema,
+      stateRequirements: [stateRequirement()],
+    }),
+    /COMPILER_DUPLICATE_STATE_CAPABILITY:state\.counter/,
+  );
 });
 
 test("compiler materializes deterministic migration assets and PostgreSQL-backed state runtime", () => {
@@ -157,6 +228,7 @@ test("compiler materializes deterministic migration assets and PostgreSQL-backed
   assert.match(runtimeEntry.content, /node:net/);
   assert.match(runtimeEntry.content, /INSERT INTO runtime_counter/);
   assert.match(runtimeEntry.content, /DATABASE_URL/);
+  assert.match(runtimeEntry.content, /\/state\/counter\/increment/);
   assert.equal(runtimeEntry.content.includes("postgres://secret"), false);
   assert.equal(runtimeEntry.content.includes('from "pg"'), false);
   assert.equal(runtimeEntry.content.includes("SYSTEM_BUILDER_URL"), false);
