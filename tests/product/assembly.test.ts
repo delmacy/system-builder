@@ -124,6 +124,9 @@ test("assembly forwards dependency exact/minimum and compatibility requirements 
   assert.deepEqual(requests, [
     { capability: "root.capability" },
     {
+      capability: "root.capability",
+    },
+    {
       capability: "storage.session",
       versionConstraint: { kind: "minimum", version: "1.1.0" },
       compatibility: { runtime: "node24" },
@@ -195,6 +198,7 @@ test("assembly returns explicit diagnostic and no plan when a capability is miss
         code: "ASSEMBLY_CAPABILITY_UNRESOLVED",
         capability: "storage.blob",
         reason: "CAPABILITY_NOT_FOUND",
+        requirements: ["storage.blob|any|*|"],
       },
     ],
   });
@@ -219,4 +223,174 @@ test("assembly propagates incompatible provider diagnostics deterministically", 
       ["workflow.engine", "NO_COMPATIBLE_PROVIDER"],
     ],
   );
+});
+
+function resolveGraph(records: readonly Parameters<SoftwareCatalogRegistry["register"]>[0][], roots: readonly string[]) {
+  const catalog = new SoftwareCatalogRegistry();
+  for (const record of records) catalog.register(record);
+  return assembleSystemDefinition(
+    {
+      ...definition,
+      capabilities: roots.map((capability, index) => ({ id: `root-${index}`, capability, requirementRefs: [] })),
+    },
+    "system-definition:fixture:graph-diagnostic",
+    (request) => resolveCatalogCandidates(catalog, request),
+  );
+}
+
+test("assembly fails closed on a dependency cycle with deterministic cycle path", () => {
+  const records = [
+    {
+      capability: "cycle.a",
+      provider: "a-provider",
+      version: "1.0.0",
+      dependencyRequirements: [{ capability: "cycle.b" }],
+    },
+    {
+      capability: "cycle.b",
+      provider: "b-provider",
+      version: "1.0.0",
+      dependencyRequirements: [{ capability: "cycle.a" }],
+    },
+  ] as const;
+  const first = resolveGraph(records, ["cycle.a"]);
+  const reversed = resolveGraph([...records].reverse(), ["cycle.a"]);
+  assert.deepEqual(first, reversed);
+  assert.deepEqual(first, {
+    ok: false,
+    diagnostics: [
+      {
+        code: "ASSEMBLY_DEPENDENCY_CYCLE",
+        capability: "cycle.a",
+        reason: "DEPENDENCY_CYCLE",
+        path: ["cycle.a", "cycle.b", "cycle.a"],
+      },
+    ],
+  });
+});
+
+test("assembly fails closed when a transitive dependency cannot resolve", () => {
+  const result = resolveGraph(
+    [
+      {
+        capability: "root.capability",
+        provider: "root-provider",
+        version: "1.0.0",
+        dependencyRequirements: [
+          { capability: "missing.dep", versionConstraint: { kind: "minimum", version: "2.0.0" } },
+        ],
+      },
+    ],
+    ["root.capability"],
+  );
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.deepEqual(result.diagnostics, [
+    {
+      code: "ASSEMBLY_CAPABILITY_UNRESOLVED",
+      capability: "missing.dep",
+      reason: "CAPABILITY_NOT_FOUND",
+      requirements: ["missing.dep|minimum|2.0.0|"],
+    },
+  ]);
+});
+
+test("assembly diagnoses incompatible multi-path exact requirements independent of ordering", () => {
+  const records = [
+    {
+      capability: "root.a",
+      provider: "root-a-provider",
+      version: "1.0.0",
+      dependencyRequirements: [
+        { capability: "shared.dep", versionConstraint: { kind: "exact" as const, version: "1.0.0" } },
+      ],
+    },
+    {
+      capability: "root.b",
+      provider: "root-b-provider",
+      version: "1.0.0",
+      dependencyRequirements: [
+        { capability: "shared.dep", versionConstraint: { kind: "exact" as const, version: "2.0.0" } },
+      ],
+    },
+    { capability: "shared.dep", provider: "shared-provider", version: "1.0.0" },
+    { capability: "shared.dep", provider: "shared-provider", version: "2.0.0" },
+  ];
+  const first = resolveGraph(records, ["root.a", "root.b"]);
+  const reversed = resolveGraph([...records].reverse(), ["root.b", "root.a"]);
+  assert.deepEqual(first, reversed);
+  assert.equal(first.ok, false);
+  if (first.ok) return;
+  assert.deepEqual(first.diagnostics, [
+    {
+      code: "ASSEMBLY_REQUIREMENT_CONFLICT",
+      capability: "shared.dep",
+      reason: "INCOMPATIBLE_EXACT_VERSIONS",
+      requirements: ["shared.dep|exact|1.0.0|", "shared.dep|exact|2.0.0|"],
+    },
+  ]);
+});
+
+test("assembly diagnoses incompatible compatibility requirements deterministically", () => {
+  const result = resolveGraph(
+    [
+      {
+        capability: "root.a",
+        provider: "root-a-provider",
+        version: "1.0.0",
+        dependencyRequirements: [{ capability: "shared.dep", compatibility: { runtime: "node22" } }],
+      },
+      {
+        capability: "root.b",
+        provider: "root-b-provider",
+        version: "1.0.0",
+        dependencyRequirements: [{ capability: "shared.dep", compatibility: { runtime: "node24" } }],
+      },
+      { capability: "shared.dep", provider: "shared-provider", version: "1.0.0", compatibility: { runtime: "node24" } },
+    ],
+    ["root.b", "root.a"],
+  );
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.deepEqual(result.diagnostics, [
+    {
+      code: "ASSEMBLY_REQUIREMENT_CONFLICT",
+      capability: "shared.dep",
+      reason: "INCOMPATIBLE_COMPATIBILITY:runtime",
+      requirements: ["shared.dep|any|*|runtime=node22", "shared.dep|any|*|runtime=node24"],
+    },
+  ]);
+});
+
+test("assembly intersects compatible minimum and exact requirements before selection", () => {
+  const result = resolveGraph(
+    [
+      {
+        capability: "root.a",
+        provider: "root-a-provider",
+        version: "1.0.0",
+        dependencyRequirements: [
+          { capability: "shared.dep", versionConstraint: { kind: "minimum", version: "1.0.0" } },
+        ],
+      },
+      {
+        capability: "root.b",
+        provider: "root-b-provider",
+        version: "1.0.0",
+        dependencyRequirements: [
+          { capability: "shared.dep", versionConstraint: { kind: "exact", version: "2.0.0" } },
+        ],
+      },
+      { capability: "shared.dep", provider: "a-provider", version: "1.0.0" },
+      { capability: "shared.dep", provider: "b-provider", version: "2.0.0" },
+    ],
+    ["root.a", "root.b"],
+  );
+  assert.equal(result.ok, true);
+  if (!result.ok) return;
+  assert.deepEqual(result.plan.components.find((item) => item.capability === "shared.dep"), {
+    capability: "shared.dep",
+    provider: "b-provider",
+    version: "2.0.0",
+  });
 });
