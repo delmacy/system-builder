@@ -11,29 +11,26 @@ Date: 2026-08-16
 - Public contract spine: integrated through TASK-008.
 - P1/P2/P3 construction packages and mandatory package reviews: merged through PR #166.
 - P4-PACKAGE-01 package plan: merged through PR #167.
-- P4-MIGRATION-STATE-01: merged through PR #168 at `b0b3e4c9fcbb21e0fc944a12ca16636b0dd82ae2`.
-- P4-POSTGRES-STATE-01: implemented on `sprint/P4-POSTGRES-STATE-01`, PR #169 pending Sprint Review.
-- GitHub Actions: deterministic integration gate; Sprint branch additionally proves actual PostgreSQL service execution.
+- P4-MIGRATION-STATE-01: merged through PR #168.
+- P4-POSTGRES-STATE-01: merged through PR #169 at `349231aa982048f2ce4507432032e3d32c160339`.
+- P4-CAPABILITY-RUNTIME-01: COMMITTED on `sprint/P4-CAPABILITY-RUNTIME-01` with TASK-079 -> TASK-080 -> TASK-081.
+- GitHub Actions: deterministic integration gate with actual PostgreSQL service execution.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
 ## Integrated main proof
 
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile secret refs -> external SecretResolver -> local Deploy -> persistent Runtime -> HTTP RuntimeHealth -> counter.increment 1 -> 2 -> clean shutdown -> DeploymentRecord`
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> autonomous generated Runtime -> persisted state 1 -> 2 -> clean redeploy -> migration skip -> persisted state 3 -> 4`
 
-P4-MIGRATION-STATE-01 integrated extension:
+PR #169 preserved ADR-0002/ADR-0007, canonical contracts and secret non-leakage while proving PostgreSQL-backed state persistence.
 
-`AssemblyPlan bounded capability -> Compiler -> migration/runtime assets -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration preflight`
+## Active Sprint target
 
-Only merged work in `main` is published product truth.
+P4-CAPABILITY-RUNTIME-01 must extend the integrated proof to:
 
-## Sprint branch proof pending review
+`SystemDefinition state.counter capability -> Catalog selected provider -> AssemblyPlan -> ValidationEvidence -> Compiler-derived capability implementation -> generated migration/runtime assets -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> Deploy -> PostgreSQL Runtime -> durable action -> clean redeploy -> persisted result`
 
-PR #169 extends the proof on its branch to:
-
-`verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> autonomous Runtime -> persisted state 1 -> 2 -> clean redeploy -> migration skip -> persisted state 3 -> 4`
-
-CI #240 objectively ran the PostgreSQL E2E with 0 skipped product tests. Canonical contracts were not broadened and ADR-0002/ADR-0007 remain controlling.
+The selected capability, not caller/hard-coded proof behavior, must determine whether the state action exists.
 
 ## Current gate
 
-Run final closure-head Deterministic CI for P4-POSTGRES-STATE-01, then stop at PR #169 Sprint Review. Do not start `P4-CAPABILITY-RUNTIME-01` without PR #169 merge plus a new explicit instruction.
+Execute only TASK-079..081 in dependency order under `project_docs/execution_planning/P4-CAPABILITY-RUNTIME-01.md`, validate each TASK and the final Sprint head, open one PR and stop at Sprint Review. Do not start the package Integration & Technical Debt Review without a new instruction.

@@ -1,41 +1,33 @@
-# Current Execution Milestone — M5 P4 PostgreSQL Durable State Sprint Review
+# Current Execution Milestone — M5 P4 Capability-Driven Runtime Sprint
 
 ## Goal
 
-Review the completed `P4-POSTGRES-STATE-01` construction Sprint after objective PostgreSQL integration proof.
+Execute `P4-CAPABILITY-RUNTIME-01` after P4-POSTGRES-STATE-01 merged and prove one durable generated Runtime action is selected/materialized from the actual SystemDefinition/Catalog/Assembly capability chain.
 
 ## Integrated baseline
 
-P4-MIGRATION-STATE-01 is merged through PR #168 at `b0b3e4c9fcbb21e0fc944a12ca16636b0dd82ae2`.
+P4-POSTGRES-STATE-01 is merged through PR #169 at `349231aa982048f2ce4507432032e3d32c160339`.
 
-## Review candidate
+## Active Sprint
 
-`P4-POSTGRES-STATE-01 — PostgreSQL Durable Runtime State`
+`P4-CAPABILITY-RUNTIME-01 — Capability-Driven Durable Runtime Slice`
 
-Branch: `sprint/P4-POSTGRES-STATE-01`
-PR: #169
+Branch: `sprint/P4-CAPABILITY-RUNTIME-01`
 
-Completed dependency order:
+Committed order:
+1. TASK-079 — bounded AssemblyPlan capability materialization input;
+2. TASK-080 — capability-driven Compiler/Runtime integration;
+3. TASK-081 — full durable capability PostgreSQL E2E.
 
-1. TASK-076 — bounded PostgreSQL Runtime state adapter — CI #238 PASS;
-2. TASK-077 — verified/idempotent Deploy migration application — CI #239 PASS;
-3. TASK-078 — actual PostgreSQL restart/redeploy persistence E2E — CI #240 PASS.
+## Architecture constraints
 
-Achieved branch proof:
-
-`verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> autonomous Runtime -> persisted state 1 -> 2 -> clean shutdown -> redeploy -> migration skip -> persisted state 3 -> 4`
-
-## Architecture result
-
-- ADR-0002 preserved;
-- ADR-0007 preserved;
-- no canonical ReleaseArtifact/EnvironmentProfile/DeploymentRecord schema expansion;
-- PostgreSQL remains bounded provider behavior;
-- resolved database material remains execution-only;
-- no L4 architecture change discovered.
+- ADR-0002 and ADR-0007 remain controlling;
+- no canonical contract expansion is authorized;
+- PostgreSQL/provider details remain bounded implementation behavior;
+- unsupported selected implementation fails explicitly;
+- unrelated SystemDefinitions must not gain the state action surface;
+- L4 discovery requires stop + ADR.
 
 ## Sprint gate
 
-Require final closure-head repository-wide Deterministic CI PASS, then stop at PR #169 Sprint Review.
-
-`P4-CAPABILITY-RUNTIME-01` remains forecast / not authorized.
+Complete TASK-079..081 with declared validations and final repository-wide CI, produce Sprint Report, open one PR and stop at Sprint Review. The package Integration & Technical Debt Review remains out of scope.

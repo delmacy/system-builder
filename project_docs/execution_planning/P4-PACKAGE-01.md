@@ -1,6 +1,6 @@
 # P4-PACKAGE-01 — Durable Stateful Runtime and Capability Materialization
 
-Status: ACTIVE / SPRINT_2_REVIEW
+Status: ACTIVE / SPRINT_3_COMMITTED
 Base: `5f628b7c72f9e9fc0db799e0bd97b2d1997b1572` (package plan merged through PR #167)
 
 ## Package Goal
@@ -13,35 +13,27 @@ Target package proof:
 
 ## Construction status
 
-### 1. P4-MIGRATION-STATE-01 — Deterministic State and Migration Materialization
-
+### 1. P4-MIGRATION-STATE-01
 Status: MERGED through PR #168.
 
+### 2. P4-POSTGRES-STATE-01
+Status: MERGED through PR #169 at `349231aa982048f2ce4507432032e3d32c160339`.
+
 Integrated proof:
-
-`AssemblyPlan bounded capability -> Compiler -> migration/runtime assets -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration preflight`
-
-### 2. P4-POSTGRES-STATE-01 — PostgreSQL Durable Runtime State
-
-Status: IMPLEMENTED / SPRINT REVIEW on PR #169.
-
-Achieved branch proof:
-
 `verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> autonomous generated Runtime -> persisted state 1 -> 2 -> clean shutdown -> redeploy -> migration skip -> persisted state 3 -> 4`
 
-TASK-076..078 are implemented with objective CI through #240 PASS; final closure-head CI remains the Sprint Review gate.
-
 ### 3. P4-CAPABILITY-RUNTIME-01 — Capability-Driven Durable Runtime Slice
+Status: COMMITTED / ACTIVE.
 
-Status: FORECAST / NOT AUTHORIZED.
+Goal: replace the bounded hard-coded/caller-driven counter proof with one narrow action selected/materialized from actual SystemDefinition/Catalog/Assembly inputs and execute it against the durable Runtime state path.
 
-Goal: replace the bounded hard-coded counter proof with one narrow action selected/materialized from actual SystemDefinition/Catalog/Assembly inputs and execute it against the durable Runtime state path.
+Committed TASKs: TASK-079 -> TASK-080 -> TASK-081.
 
-Candidate TASKs TASK-079..081 must be re-derived from merged Sprint-2 outputs. They are not construction authority.
+Exit proof:
+`SystemDefinition state.counter -> Catalog selected reference provider -> AssemblyPlan -> ValidationEvidence -> Compiler-derived state implementation -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration apply -> PostgreSQL Runtime -> durable action -> clean redeploy -> persisted result`
 
 ### 4. Integration & Technical Debt Review
-
-Status: FORECAST.
+Status: FORECAST / NOT AUTHORIZED IN THIS SPRINT.
 
 ## Architecture constraints
 
@@ -63,4 +55,4 @@ Status: FORECAST.
 
 ## Package gate
 
-Stop at P4-POSTGRES-STATE-01 Sprint Review. `P4-CAPABILITY-RUNTIME-01` remains forecast until Sprint-2 merges, repository authority is re-read and a new explicit instruction authorizes successor materialization/execution.
+Execute only P4-CAPABILITY-RUNTIME-01. After its Sprint Review/merge, the mandatory Integration & Technical Debt Review requires a new explicit instruction and repository revalidation.
