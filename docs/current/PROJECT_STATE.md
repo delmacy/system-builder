@@ -9,9 +9,10 @@ Date: 2026-08-15
 ## Current maturity
 
 - Public contract spine: integrated through TASK-008.
-- P1-PACKAGE-01 construction Sprints: all merged into `main`.
+- P1-PACKAGE-01 construction Sprints and Integration & Technical Debt Review: merged.
 - Executable reference chain in `main`: Catalog -> Assembly -> Validation -> Compiler -> Release -> Deploy dry-run through DeploymentRecord.
 - Full-vertical product proof invokes actual module APIs and repeats the successful chain to compare deterministic identities.
+- No autonomous generated Runtime has yet been started from ReleaseArtifact.
 - GitHub Actions: deterministic integration gate.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
@@ -19,27 +20,37 @@ Date: 2026-08-15
 
 `SystemDefinition -> Software Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> DeploymentRecord`
 
-The current package does not yet generate/start an autonomous Runtime. Mirror/Recipe/Analysis/Design authoring remain contract/fixture inputs to this first executable factory slice.
+Mirror/Recipe/Analysis/Design authoring remain contract/fixture inputs to this first executable factory slice.
 
-## Package status
+## Closed package
 
 **P1-PACKAGE-01 — First Executable Vertical Slice**
 
-- P1-VERTICAL-01 — MERGED.
-- P1-VERTICAL-02 — MERGED.
-- P1-VERTICAL-03 — MERGED by PR #155.
-- Integration & Technical Debt Review — IN PROGRESS on `review/P1-PACKAGE-01-integration-debt`.
+Result: PASS / PASS WITH DEBT.
 
-Review artifact:
+Highest-priority successor findings:
 
-`project_docs/execution_planning/P1-PACKAGE-01.integration-debt-review.md`
+- executable output ↔ canonical schema conformance;
+- canonical EnvironmentProfile before real Deploy adapters;
+- duplicated canonicalization/hash logic;
+- Catalog/Assembly dependency solving before production-grade graphs;
+- runnable autonomous Runtime and real local deployment remain planned product gaps.
 
-## Current review findings
+## Successor package proposal
 
-No P1 rollback blocker has been found. Highest-priority successor concerns are contract/schema conformance between executable outputs and public JSON schemas, a canonical EnvironmentProfile boundary before real deploy adapters, and maturation of Catalog/Assembly dependency resolution before real component graphs.
+**P2-PACKAGE-01 — First Autonomous Local Runtime**
 
-Other recorded debt includes duplicated canonical hash logic, in-memory registries, bounded release lifecycle and simplified validation semantics.
+Status: PROPOSED / READY_FOR_REVIEW on `planning/P2-PACKAGE-01` until merged.
+
+Forecast sequence:
+
+1. `P2-BOUNDARY-01` — executable boundary hardening;
+2. `P2-RUNTIME-01` — runnable artifact and autonomous runtime bootstrap;
+3. `P2-LOCAL-DEPLOY-01` — local deployment adapter and full autonomous E2E;
+4. Integration & Technical Debt Review.
+
+Only the first Sprint may become COMMITTED after package merge and explicit Sprint execution authorization.
 
 ## Truth
 
-Only merged work in `main` is published product truth. The review findings remain proposed repository memory until the review PR is itself merged.
+Only merged work in `main` is published product truth. Package planning remains proposal until its PR is merged.
