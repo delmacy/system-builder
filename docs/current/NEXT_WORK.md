@@ -4,7 +4,7 @@ The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-`P2-LOCAL-DEPLOY-01` is implemented on `sprint/P2-LOCAL-DEPLOY-01` under PR #160. TASK-level Deterministic CI is green through TASK-063; final closure-head CI is the remaining automated gate before Sprint Review.
+`P2-LOCAL-DEPLOY-01` is implemented on `sprint/P2-LOCAL-DEPLOY-01` under PR #160 and closure head `483adcbd233dbd13f30d1a29929652b6a72e4058` passed Deterministic CI #202.
 
 ## Delivered Sprint-branch proof
 

@@ -1,6 +1,6 @@
 # P2-PACKAGE-01 — First Autonomous Local Runtime
 
-Status: ACTIVE / THIRD SPRINT AT REVIEW GATE
+Status: ACTIVE / THIRD SPRINT READY_FOR_REVIEW
 
 ## Package Goal
 
@@ -16,7 +16,7 @@ The Runtime must start and operate for the bounded proof without calling System 
 
 - `P2-BOUNDARY-01` — MERGED through PR #158.
 - `P2-RUNTIME-01` — MERGED through PR #159.
-- `P2-LOCAL-DEPLOY-01` — TASK_CI_PASS / FINAL_CI_PENDING on PR #160.
+- `P2-LOCAL-DEPLOY-01` — CI_PASS / READY_FOR_REVIEW on PR #160; closure head `483adcbd233dbd13f30d1a29929652b6a72e4058` passed CI #202.
 - Integration & Technical Debt Review — required after PR #160 Sprint Review/merge; not started.
 
 ## Construction results

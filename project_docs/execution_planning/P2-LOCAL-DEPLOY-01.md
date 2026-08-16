@@ -1,6 +1,6 @@
 # P2-LOCAL-DEPLOY-01 — Local Deployment Adapter and Runtime E2E
 
-Status: TASK_CI_PASS / FINAL_CI_PENDING
+Status: CI_PASS / READY_FOR_REVIEW
 Package: `P2-PACKAGE-01`
 Base SHA: `e1f3d82317a8176691309159f36e95f90c096c87`
 Branch: `sprint/P2-LOCAL-DEPLOY-01`
@@ -20,6 +20,8 @@ Use the runnable ReleaseArtifact and canonical EnvironmentProfile to perform the
 2. `TASK-062` — operational DeploymentRecord from observed health/failure — `006d75d10ccb9b5ccfd8501c9c0e3d407e657faf` — CI #200 PASS;
 3. `TASK-063` — full autonomous local E2E — `933159a609f1fa28655b9addc519714ce0baeac1` — CI #201 PASS.
 
+Closure head `483adcbd233dbd13f30d1a29929652b6a72e4058` passed Deterministic CI #202.
+
 Dependency order:
 
 `TASK-060 -> TASK-061 -> TASK-062 -> TASK-063`
@@ -29,10 +31,6 @@ Dependency order:
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous Runtime health -> DeploymentRecord`
 
 The E2E invokes actual module producers. Deploy, not the test, materializes and starts the generated runtime process.
-
-## Validation
-
-Per-TASK GitHub Deterministic CI is green through TASK-063. Final closure-head `npm run verify` via GitHub CI is pending.
 
 ## Explicit non-goals retained
 
@@ -51,4 +49,4 @@ Per-TASK GitHub Deterministic CI is green through TASK-063. Final closure-head `
 
 ## Review boundary
 
-After final CI, produce final evidence in the Sprint Report and stop for Sprint Review. Do not begin the P2 Integration & Technical Debt Review until this Sprint is merged and the user explicitly authorizes that review.
+Stop for Sprint Review. Do not begin the P2 Integration & Technical Debt Review until this Sprint is merged and the user explicitly authorizes that review.

@@ -12,11 +12,11 @@ Integrated `main` proof:
 
 `ReleaseArtifact -> generated runtime-entry.mjs -> external EnvironmentProfile -> autonomous Node RuntimeHealth PASS`
 
-## Sprint under review preparation
+## Sprint under review
 
 ### P2-LOCAL-DEPLOY-01 — Local Deployment Adapter and Runtime E2E
 
-Status: TASK_CI_PASS / FINAL_CI_PENDING
+Status: CI_PASS / READY_FOR_REVIEW
 Base: `e1f3d82317a8176691309159f36e95f90c096c87`
 Branch: `sprint/P2-LOCAL-DEPLOY-01`
 PR: #160
@@ -31,9 +31,11 @@ Sprint-branch proof:
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
 
+Closure head `483adcbd233dbd13f30d1a29929652b6a72e4058` passed Deterministic CI #202.
+
 ## Package completion gate
 
-After final Sprint CI and Sprint Review/merge, run the required P2-PACKAGE-01 Integration & Technical Debt Review before creating a successor package.
+After Sprint Review/merge, run the required P2-PACKAGE-01 Integration & Technical Debt Review before creating a successor package.
 
 ## Architecture constraints
 
