@@ -1,4 +1,7 @@
 import { createHash } from "node:crypto";
+import type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
+
+export type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
 
 export type DeployPublishedRelease = Readonly<{
   kind: "PublishedRelease";
@@ -20,18 +23,6 @@ export type DeployReleaseArtifact = Readonly<{
     kind: "config" | "secret-reference";
     required: boolean;
   }>[];
-}>;
-
-export type EnvironmentBinding = Readonly<{
-  name: string;
-  kind: "config" | "secret-reference";
-  reference: string;
-}>;
-
-export type EnvironmentProfile = Readonly<{
-  environmentRef: string;
-  runtimeVersions: readonly string[];
-  bindings: readonly EnvironmentBinding[];
 }>;
 
 export type AcceptanceCheck = Readonly<{ name: string; pass: boolean }>;

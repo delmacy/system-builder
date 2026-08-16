@@ -3,6 +3,7 @@ import test from "node:test";
 import { assembleSystemDefinition } from "../../packages/assembly/index.js";
 import { SoftwareCatalogRegistry, resolveCatalogCandidates } from "../../packages/catalog/index.js";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
+import { environmentProfileSchema } from "../../packages/contracts/environment-profile/index.js";
 import {
   assemblyPlanSchema,
   deploymentRecordSchema,
@@ -149,17 +150,20 @@ function executeFactoryBoundaryChain() {
     publishedAt: "2026-08-16T00:00:00Z",
   });
 
+  const environmentProfile = Object.freeze({
+    kind: "EnvironmentProfile" as const,
+    environmentRef: "environment:schema-conformance",
+    runtimeVersions: Object.freeze(["0.1.0"]),
+    bindings: Object.freeze([
+      Object.freeze({ name: "DATABASE_URL", kind: "secret-reference" as const, reference: "secret://database-url" }),
+      Object.freeze({ name: "LOG_LEVEL", kind: "config" as const, reference: "config://log-level" }),
+    ]),
+  });
+
   const deployment = dryRunDeploy({
     publishedRelease,
     releaseArtifact: compilation.artifact,
-    environment: {
-      environmentRef: "environment:schema-conformance",
-      runtimeVersions: ["0.1.0"],
-      bindings: [
-        { name: "DATABASE_URL", kind: "secret-reference", reference: "secret://database-url" },
-        { name: "LOG_LEVEL", kind: "config", reference: "config://log-level" },
-      ],
-    },
+    environment: environmentProfile,
     acceptanceChecks: [{ name: "runtime-health", pass: true }],
     startedAt: "2026-08-16T00:00:01Z",
     completedAt: "2026-08-16T00:00:02Z",
@@ -172,17 +176,19 @@ function executeFactoryBoundaryChain() {
     validationEvidence: validation,
     releaseArtifact: compilation.artifact,
     publishedRelease,
+    environmentProfile,
     deploymentRecord: deployment.record,
   };
 }
 
-test("actual factory outputs conform to canonical public schemas", () => {
+test("actual factory outputs and EnvironmentProfile conform to canonical public schemas", () => {
   const result = executeFactoryBoundaryChain();
   const cases = [
     ["AssemblyPlan", assemblyPlanSchema, result.assemblyPlan],
     ["ValidationEvidence", validationEvidenceSchema, result.validationEvidence],
     ["ReleaseArtifact", releaseArtifactSchema, result.releaseArtifact],
     ["PublishedRelease", publishedReleaseSchema, result.publishedRelease],
+    ["EnvironmentProfile", environmentProfileSchema, result.environmentProfile],
     ["DeploymentRecord", deploymentRecordSchema, result.deploymentRecord],
   ] as const;
 
@@ -196,4 +202,16 @@ test("schema harness rejects drift from a closed canonical boundary", () => {
   const invalidAssemblyPlan = { ...result.assemblyPlan, undeclaredField: "drift" };
   const errors = validateSchema(invalidAssemblyPlan, assemblyPlanSchema as JsonSchema);
   assert.ok(errors.some((error) => error.includes("undeclaredField") && error.includes("additional property")));
+});
+
+test("EnvironmentProfile schema rejects inline secret values as undeclared properties", () => {
+  const result = executeFactoryBoundaryChain();
+  const invalidProfile = {
+    ...result.environmentProfile,
+    bindings: result.environmentProfile.bindings.map((binding) =>
+      binding.kind === "secret-reference" ? { ...binding, value: "postgres://not-allowed" } : binding,
+    ),
+  };
+  const errors = validateSchema(invalidProfile, environmentProfileSchema as JsonSchema);
+  assert.ok(errors.some((error) => error.includes("value") && error.includes("additional property")));
 });
