@@ -1,41 +1,36 @@
-# Next Work — Complete P2 Package Review
+# Next Work — Review P3-PACKAGE-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-P2-PACKAGE-01 construction is fully merged:
+PR #161 merged the mandatory P2 Integration & Technical Debt Review. The next eligible action is review of the successor rolling-wave package plan, not construction.
 
-1. `P2-BOUNDARY-01` — PR #158 MERGED;
-2. `P2-RUNTIME-01` — PR #159 MERGED;
-3. `P2-LOCAL-DEPLOY-01` — PR #160 MERGED.
+`P3-PACKAGE-01` proposes this sequence:
 
-The mandatory `P2-PACKAGE-01` Integration & Technical Debt Review is now the only eligible package gate.
+1. `P3-ARTIFACT-01` — verified artifact payload publication/retrieval and pre-activation integrity verification;
+2. `P3-RUNTIME-SERVICE-01` — persistent generated Runtime lifecycle and HTTP health surface;
+3. `P3-SECRET-STATE-01` — external secret resolution and first bounded stateful Runtime slice;
+4. Integration & Technical Debt Review.
 
-## Integrated proof under review
+## Package rationale
 
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
+The sequence directly addresses merged P2 review debt TD-P2-01 through TD-P2-04 and maps to WBS 9.3, 10.1 and 13.1/13.3.
 
-The proof uses actual module APIs, starts the Compiler-generated Runtime through Deploy, repeats the successful vertical deterministically, proves controlled runtime failure, and keeps resolved secret values outside durable artifact/release/deployment evidence.
+Catalog/Assembly dependency solving remains high-priority debt but is deferred until a real non-trivial component graph requires it or a future package promotes it explicitly.
 
-## Review priorities
+## Package target
 
-- artifact payload retrieval/materialization boundary;
-- payload integrity verification before activation;
-- persistent Runtime lifecycle beyond the one-shot health bootstrap;
-- external secret-resolution boundary;
-- Catalog/Assembly dependency solving;
-- durable Catalog/Release/artifact persistence;
-- internal package-resolution convention.
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile -> external secret resolution -> local Deploy -> persistent autonomous Runtime -> HTTP health -> bounded stateful action -> DeploymentRecord`
 
-## Successor direction
+## Review instructions
 
-Do not create or execute another package until the review PR merges.
+Review the package for sequencing, L3/L4 scope and the bounded stateful proof. Do not execute construction yet.
 
-Current evidence suggests the successor should prioritize:
+After the package plan merges, the next execution should:
 
-1. provider-neutral artifact payload retrieval + integrity verification;
-2. persistent autonomous Runtime lifecycle/health surface;
-3. external secret resolution and the first small stateful/business-runtime proof.
-
-This direction is not committed scope. After the review merges, create the successor package from the integrated repository state and stop for package review before construction.
+1. re-read repository authorities from `AGENTS.md`;
+2. revalidate the merged package against current `main`;
+3. materialize the `P3-ARTIFACT-01` Sprint manifest and TASK-064..066 contracts with explicit `context_paths`, `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validations;
+4. execute TASK-064 -> TASK-065 -> TASK-066 with one commit per TASK;
+5. run final repository verification and stop at Sprint Review.

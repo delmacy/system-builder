@@ -1,55 +1,49 @@
-# Current Execution Milestone — M3 First Autonomous Local Runtime
+# Current Execution Milestone — M4 Verified Persistent Autonomous Runtime
 
 ## Goal
 
-Extend the deterministic factory chain into the first locally runnable autonomous client-runtime proof while preserving public boundaries required by Runtime and Deploy.
+Extend the merged P2 autonomous local-runtime proof through verified artifact delivery and into a persistent externally configured Runtime capable of one bounded stateful operation, while preserving portability and accepted architecture boundaries.
 
-## Integrated result
+## Integrated baseline
 
-P2-BOUNDARY-01, P2-RUNTIME-01 and P2-LOCAL-DEPLOY-01 are merged through PRs #158, #159 and #160.
+P2-PACKAGE-01 and its Integration & Technical Debt Review are merged through PR #161.
 
 Integrated `main` proof:
 
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> runnable ReleaseArtifact -> PublishedRelease -> canonical EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
-
-The Runtime starts from actual Compiler output with configuration supplied externally and does not require Builder or Observe availability for startup/health.
+`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> EnvironmentProfile -> local Deploy -> autonomous RuntimeHealth -> DeploymentRecord`
 
 ## Active gate
 
-### P2-PACKAGE-01 — Integration & Technical Debt Review
+### P3-PACKAGE-01 — Artifact Delivery and Persistent Runtime
 
-Status: CI_PASS / READY_FOR_REVIEW
-Branch: `review/P2-PACKAGE-01-integration-debt`
-PR: #161
-Base: `7609b97c86eebca168002f2db7c71277ea0e5d55`
-Review CI #204: PASS on `ca6a14b4de40834cf42998b3a196485c1fab314f`.
+Status: READY_FOR_PACKAGE_REVIEW
+Branch: `plan/P3-PACKAGE-01`
+Base: `82841fba853a1b68602ba0c28dc2d0ddfbf9f8b1`
 
-Review disposition:
+Forecast order:
 
-- construction: PASS;
-- architecture/boundaries: PASS WITH DEBT;
-- rollback blocker: none found;
-- successor package: not committed.
+1. `P3-ARTIFACT-01` — provider-neutral artifact payload publication/retrieval and integrity verification;
+2. `P3-RUNTIME-SERVICE-01` — persistent generated Runtime lifecycle and HTTP health;
+3. `P3-SECRET-STATE-01` — external secret resolution plus first bounded stateful Runtime action;
+4. Integration & Technical Debt Review.
 
-## Highest-priority successor findings
+Target package proof:
 
-- artifact payload retrieval/materialization + integrity verification;
-- persistent Runtime lifecycle and health surface;
-- external secret resolution before real stateful integrations;
-- Catalog/Assembly dependency solving before production-grade component graphs.
+`PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile -> external secret resolution -> local Deploy -> persistent autonomous Runtime -> HTTP health -> bounded stateful action -> DeploymentRecord`
 
 ## Architecture constraints
 
-- ADR-0002 Builder/Runtime separation remains mandatory.
-- ADR-0007 Release/Environment/Deployment separation remains mandatory.
-- release artifacts contain no resolved secret values;
-- runtime configuration is supplied externally;
-- any L4 discovery requires ADR rather than silent architecture change.
+- ADR-0002 Builder/Runtime separation remains mandatory;
+- ADR-0007 Release/Environment/Deployment separation remains mandatory;
+- immutable release/artifact/deployment evidence must not contain resolved secret values;
+- Runtime ordinary operation must not require Builder or Observe;
+- provider-specific infrastructure must remain behind replaceable boundaries;
+- L4 discoveries require ADR rather than silent architecture change.
 
 ## Successor gate
 
-Do not create or execute a successor Sprint Package until PR #161 merges. A successor package must be re-derived from the then-current repository state.
+Do not create or execute `P3-ARTIFACT-01` until this package plan is reviewed and merged. After merge, re-read repository authority and materialize/revalidate only the first Sprint's candidate TASKs.
 
 ## AgentFactory infrastructure track
 
-AgentFactory remains frozen and is not an M3 product gate.
+AgentFactory remains frozen and is not an M4 product gate.

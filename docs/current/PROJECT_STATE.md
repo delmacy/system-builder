@@ -11,10 +11,9 @@ Date: 2026-08-16
 - Public contract spine: integrated through TASK-008.
 - P1-PACKAGE-01 construction and Integration & Technical Debt Review: merged.
 - P2-PACKAGE-01 construction: all 3 Sprints merged.
-- P2-BOUNDARY-01: merged through PR #158.
-- P2-RUNTIME-01: merged through PR #159.
-- P2-LOCAL-DEPLOY-01: merged through PR #160.
-- P2-PACKAGE-01 Integration & Technical Debt Review: CI_PASS / READY_FOR_REVIEW on PR #161.
+- P2-PACKAGE-01 Integration & Technical Debt Review: merged through PR #161.
+- Integrated P2 result: PASS / architecture PASS WITH DEBT / no rollback blocker.
+- P3-PACKAGE-01 successor plan: READY_FOR_PACKAGE_REVIEW on `plan/P3-PACKAGE-01`.
 - GitHub Actions: deterministic integration gate.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
@@ -24,22 +23,25 @@ Date: 2026-08-16
 
 The integrated proof starts actual Compiler-generated `runtime-entry.mjs` through Deploy, supplies EnvironmentProfile externally, succeeds without Builder/Observe availability and preserves deterministic artifact/deployment identities across repeated successful runs.
 
-## Package review result
+## Merged P2 review priorities
 
-Current review disposition: construction PASS / architecture PASS WITH DEBT / no rollback blocker.
+1. provider-neutral artifact payload retrieval/materialization;
+2. independent artifact payload integrity verification before activation;
+3. persistent Runtime lifecycle and health surface;
+4. external secret-resolution boundary;
+5. Catalog/Assembly dependency solving before production-grade graphs.
 
-Highest-priority successor findings:
+## Successor package proposal
 
-- artifact payload retrieval/materialization and independent integrity verification;
-- persistent Runtime lifecycle beyond the one-shot startup/health bootstrap;
-- external secret-resolution boundary;
-- Catalog/Assembly dependency solving before production-grade graphs;
-- persistence/package-resolution maintainability follow-ups.
+`P3-PACKAGE-01` forecasts:
 
-## Successor gate
+1. `P3-ARTIFACT-01` — verified artifact payload boundary;
+2. `P3-RUNTIME-SERVICE-01` — persistent autonomous Runtime;
+3. `P3-SECRET-STATE-01` — external secret resolution and first bounded stateful Runtime slice;
+4. Integration & Technical Debt Review.
 
-No successor Sprint Package is committed. After PR #161 merges, create the next package from the integrated repository state and the merged P2 review.
+No P3 construction Sprint is committed by the package-plan branch.
 
 ## Truth
 
-Only merged work in `main` is published product truth. Review conclusions remain proposals until PR #161 merges.
+Only merged work in `main` is published product truth. P3 scope remains proposed until the package plan is reviewed and merged.
