@@ -23,10 +23,14 @@ context_paths:
   - packages/runtime-core/index.ts
   - packages/compiler/index.ts
   - tests/product/compiler.test.ts
+  - tests/product/runtime-compiler.test.ts
+  - tests/product/runtime-autonomy-e2e.test.ts
   - specs/tasks/TASK-068-COMPILER-PERSISTENT-RUNTIME.md
 allowed_paths:
   - packages/compiler/index.ts
   - tests/product/compiler.test.ts
+  - tests/product/runtime-compiler.test.ts
+  - tests/product/runtime-autonomy-e2e.test.ts
   - specs/tasks/TASK-068-COMPILER-PERSISTENT-RUNTIME.md
 forbidden_paths:
   - apps/**
@@ -36,7 +40,7 @@ forbidden_paths:
   - packages/deploy/**
   - packages/artifact-store/**
   - tooling/agent-harness/**
-max_files: 3
+max_files: 5
 validation:
   - npm run test:product
   - npm run verify
@@ -48,42 +52,45 @@ Make actual Compiler output emit the persistent Runtime entrypoint defined by TA
 
 # Context
 
-Compiler currently renders `runtime-entry.mjs` through the one-shot runtime-core renderer and includes that file hash in the aggregate ReleaseArtifact identity. TASK-067 adds the persistent renderer without changing Compiler semantics.
+TASK-067 provides a persistent-capable renderer with predecessor-compatible one-shot behavior until Deploy explicitly requests service mode. Revalidation found two predecessor Compiler evidence files that encode the former one-shot implementation: the autonomy E2E assumes synchronous exit, and `runtime-compiler.test.ts` defines self-contained as containing no import at all. Persistent Runtime legitimately imports only the Node builtin `node:http`.
 
 # Current behavior
 
-`compileSyntheticRelease` emits four deterministic generated files, including a one-shot `runtime-entry.mjs`, and computes the ReleaseArtifact hash from canonical metadata plus ordered file hashes.
+`compileSyntheticRelease` emits four deterministic generated files and computes ReleaseArtifact identity from canonical metadata plus ordered file hashes. Predecessor tests assume either `spawnSync` one-shot execution or an import-free generated entrypoint.
 
 # Required change
 
-Switch Compiler generation of `runtime-entry.mjs` to the TASK-067 persistent renderer. Keep generated-file ordering, content hashing, manifest semantics, environment schema handling and aggregate artifact hashing unchanged. Extend Compiler tests to prove deterministic output contains the persistent health/lifecycle surface and remains free of embedded secret values.
+Switch Compiler generation of `runtime-entry.mjs` to the TASK-067 renderer without changing generated-file ordering, manifest, environment schema or aggregate artifact hashing. Update actual-Compiler autonomy evidence to explicitly request port `0`, observe RuntimeStarted, probe HTTP `/health` while alive and terminate cleanly. Update compiler materialization evidence to allow the deterministic Node builtin `node:http` import while continuing to reject external/Builder/Observe dependencies.
 
 # Inputs / contracts
 
-TASK-067 persistent renderer and existing Compiler ReleaseArtifact/hash semantics.
+TASK-067 renderer and existing Compiler ReleaseArtifact/hash semantics.
 
 # Outputs / contracts
 
-Actual Compiler ReleaseArtifact containing a deterministic persistent `runtime-entry.mjs` with unchanged artifact schema.
+Actual Compiler ReleaseArtifact containing deterministic persistent-capable Runtime source with unchanged artifact schema and updated predecessor integration evidence.
 
 # Acceptance criteria
 
-- actual Compiler output uses the persistent renderer;
-- equivalent input order produces byte-identical generated files and artifact identity;
-- runtime entrypoint includes HTTP health/lifecycle behavior and does not include Builder/Observe hard dependency;
-- ReleaseArtifact schema and file list remain unchanged;
-- secret values remain absent from generated immutable content;
-- existing validation/failure behavior remains intact;
+- actual Compiler output uses the TASK-067 renderer;
+- equivalent inputs preserve byte-identical output and artifact identity;
+- generated Runtime imports only the required Node builtin health-server dependency, not application/external packages;
+- persistent source has no Builder/Observe dependency;
+- actual-Compiler autonomy E2E requests persistent mode, observes health while alive and shuts down cleanly;
+- missing required binding fails before listening;
+- ReleaseArtifact schema/file list remain unchanged;
+- secret values remain absent from immutable and health evidence;
+- predecessor Deploy remains compatible until TASK-069 requests persistent mode;
 - declared validations pass.
 
 # Non-goals
 
-Changing ReleaseArtifact schema, adding new generated files, Deploy process management, SecretResolver/stateful actions or production networking configuration.
+Public schema changes, new generated files, Deploy process management, SecretResolver/stateful actions or production networking.
 
 # Evidence expected
 
-Compiler product tests on actual generated Runtime source and deterministic ReleaseArtifact identity, plus GitHub Deterministic CI.
+Compiler materialization/determinism tests and actual-Compiler persistent autonomy E2E plus GitHub Deterministic CI.
 
 # Escalation
 
-Stop if persistence requires changing ReleaseArtifact/public contracts, artifact-store semantics or accepted architecture.
+Stop if persistence requires a public contract or architecture change.
