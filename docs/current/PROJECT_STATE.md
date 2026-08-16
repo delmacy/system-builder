@@ -10,27 +10,30 @@ Date: 2026-08-16
 
 - Public contract spine: integrated through TASK-008.
 - P1/P2/P3 construction packages and mandatory package reviews: merged through PR #166.
-- P4-PACKAGE-01 package plan: merged through PR #167 at `5f628b7c72f9e9fc0db799e0bd97b2d1997b1572`.
-- P4-MIGRATION-STATE-01: TASK-073..075 implemented on `sprint/P4-MIGRATION-STATE-01`; implementation-head CI #235 PASS; closure-head CI pending for PR #168 Sprint Review.
-- GitHub Actions: deterministic integration gate.
+- P4-PACKAGE-01 package plan: merged through PR #167.
+- P4-MIGRATION-STATE-01: merged through PR #168 at `b0b3e4c9fcbb21e0fc944a12ca16636b0dd82ae2`.
+- P4-POSTGRES-STATE-01: implemented on `sprint/P4-POSTGRES-STATE-01`, PR #169 pending Sprint Review.
+- GitHub Actions: deterministic integration gate; Sprint branch additionally proves actual PostgreSQL service execution.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
 ## Integrated main proof
 
 `SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile secret refs -> external SecretResolver -> local Deploy -> persistent Runtime -> HTTP RuntimeHealth -> counter.increment 1 -> 2 -> clean shutdown -> DeploymentRecord`
 
-Only merged work in `main` is published product truth. P4-MIGRATION-STATE-01 remains proposed integration until PR #168 merges.
-
-## Sprint-branch proof under review
+P4-MIGRATION-STATE-01 integrated extension:
 
 `AssemblyPlan bounded capability -> Compiler -> migration/runtime assets -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration preflight`
 
-The Sprint adds deterministic bounded Runtime state/migration metadata, Compiler-generated migration assets covered by existing ReleaseArtifact integrity, and fail-closed Deploy preflight before secret resolution/materialization. It does not execute migrations or connect PostgreSQL.
+Only merged work in `main` is published product truth.
 
-## Architecture state
+## Sprint branch proof pending review
 
-ADR-0002 Builder/Runtime autonomy and ADR-0007 Release/Environment/Deployment separation remain preserved. Canonical `packages/contracts/**`, ReleaseArtifact, EnvironmentProfile and DeploymentRecord schemas were not broadened.
+PR #169 extends the proof on its branch to:
+
+`verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> autonomous Runtime -> persisted state 1 -> 2 -> clean redeploy -> migration skip -> persisted state 3 -> 4`
+
+CI #240 objectively ran the PostgreSQL E2E with 0 skipped product tests. Canonical contracts were not broadened and ADR-0002/ADR-0007 remain controlling.
 
 ## Current gate
 
-Require closure-head Deterministic CI PASS on PR #168, then stop at Sprint Review. `P4-POSTGRES-STATE-01` is forecast only and must not start without PR #168 merge plus a new explicit instruction and repository revalidation.
+Run final closure-head Deterministic CI for P4-POSTGRES-STATE-01, then stop at PR #169 Sprint Review. Do not start `P4-CAPABILITY-RUNTIME-01` without PR #169 merge plus a new explicit instruction.

@@ -181,6 +181,7 @@ export function compileSyntheticRelease(input: CompileSyntheticInput): Synthetic
   const runtimeEntrypoint = renderPersistentAutonomousRuntimeEntrypoint({
     runtimeVersion,
     requirements: environmentSchema,
+    stateRequirements,
   });
 
   const baseFiles: GeneratedFile[] = [

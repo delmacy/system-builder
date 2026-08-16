@@ -1,6 +1,9 @@
 import type { EnvironmentProfile } from "@system-builder/contracts/environment-profile";
+import { renderPostgresRuntimeStateSupport, type RuntimePostgresStateExecutionRequirement } from "./postgres-state.js";
+import type { RuntimeStateRequirement } from "./state-migrations.js";
 
 export * from "./state-migrations.js";
+export * from "./postgres-state.js";
 
 export type RuntimeEnvironmentRequirement = Readonly<{
   name: string;
@@ -56,6 +59,20 @@ function normalizeRequirements(
         }),
       )
       .sort((left, right) => left.name.localeCompare(right.name) || left.kind.localeCompare(right.kind)),
+  );
+}
+
+function executionStateRequirements(
+  requirements: readonly RuntimeStateRequirement[] | undefined,
+): readonly RuntimePostgresStateExecutionRequirement[] {
+  return Object.freeze(
+    (requirements ?? [])
+      .map((requirement) => Object.freeze({
+        capability: requirement.capability,
+        storeKind: requirement.storeKind,
+        connectionBinding: Object.freeze({ ...requirement.connectionBinding }),
+      }))
+      .sort((left, right) => left.capability.localeCompare(right.capability) || left.connectionBinding.name.localeCompare(right.connectionBinding.name)),
   );
 }
 
@@ -169,13 +186,17 @@ export function renderAutonomousRuntimeEntrypoint(input: Readonly<{
 export function renderPersistentAutonomousRuntimeEntrypoint(input: Readonly<{
   runtimeVersion: string;
   requirements: readonly RuntimeEnvironmentRequirement[];
+  stateRequirements?: readonly RuntimeStateRequirement[];
 }>): string {
   const runtimeVersion = requireToken(input.runtimeVersion, "runtime_version");
   const requirements = normalizeRequirements(input.requirements);
-  const spec = JSON.stringify({ runtimeVersion, requirements });
+  const stateRequirements = executionStateRequirements(input.stateRequirements);
+  const spec = JSON.stringify({ runtimeVersion, requirements, stateRequirements });
+  const postgresSupport = renderPostgresRuntimeStateSupport(stateRequirements);
 
   return [
     'import { createServer } from "node:http";',
+    postgresSupport,
     `const SPEC = ${spec};`,
     "function fail(code, detail) {",
     "  process.stderr.write(JSON.stringify({ kind: \"RuntimeDiagnostic\", code, detail }) + \"\\n\");",
@@ -213,9 +234,10 @@ export function renderPersistentAutonomousRuntimeEntrypoint(input: Readonly<{
     "          if (!Number.isInteger(requestedPort) || requestedPort < 0 || requestedPort > 65535) {",
     "            fail(\"RUNTIME_INVALID_HEALTH_PORT\", requestedPortText);",
     "          } else {",
-    "            const requiredSecret = SPEC.requirements.find((requirement) => requirement.required && requirement.kind === \"secret-reference\");",
+    "            const stateRequirement = SPEC.stateRequirements.find((requirement) => requirement.capability === \"state.counter\" && requirement.storeKind === \"sql\");",
+    "            const requiredSecret = stateRequirement ? stateRequirement.connectionBinding : SPEC.requirements.find((requirement) => requirement.required && requirement.kind === \"secret-reference\");",
     "            let counter = 0;",
-    "            const server = createServer((request, response) => {",
+    "            const server = createServer(async (request, response) => {",
     "              if (request.method === \"GET\" && request.url === \"/health\") {",
     "                response.writeHead(200, { \"content-type\": \"application/json\" });",
     "                response.end(JSON.stringify(health));",
@@ -233,9 +255,14 @@ export function renderPersistentAutonomousRuntimeEntrypoint(input: Readonly<{
     "                  response.end(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_SECRET_UNRESOLVED\", detail: requiredSecret.name }));",
     "                  return;",
     "                }",
-    "                counter += 1;",
-    "                response.writeHead(200, { \"content-type\": \"application/json\" });",
-    "                response.end(JSON.stringify({ kind: \"RuntimeState\", action: \"counter.increment\", value: counter }));",
+    "                try {",
+    "                  const value = stateRequirement ? await incrementPostgresCounter(secretValue) : (counter += 1);",
+    "                  response.writeHead(200, { \"content-type\": \"application/json\" });",
+    "                  response.end(JSON.stringify({ kind: \"RuntimeState\", action: \"counter.increment\", value }));",
+    "                } catch (error) {",
+    "                  response.writeHead(503, { \"content-type\": \"application/json\" });",
+    "                  response.end(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_STATE_DATABASE_FAILED\", detail: error instanceof Error ? error.message : \"POSTGRES_STATE_FAILED\" }));",
+    "                }",
     "                return;",
     "              }",
     "              response.writeHead(404, { \"content-type\": \"application/json\" });",
@@ -264,5 +291,5 @@ export function renderPersistentAutonomousRuntimeEntrypoint(input: Readonly<{
     "  }",
     "}",
     "",
-  ].join("\n");
+  ].filter((line) => line.length > 0).join("\n") + "\n";
 }

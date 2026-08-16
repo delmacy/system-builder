@@ -1,41 +1,41 @@
-# Current Execution Milestone — M5 P4 Migration State Sprint Review
+# Current Execution Milestone — M5 P4 PostgreSQL Durable State Sprint Review
 
 ## Goal
 
-Review `P4-MIGRATION-STATE-01` after completion of TASK-073..075 and objective repository verification.
+Review the completed `P4-POSTGRES-STATE-01` construction Sprint after objective PostgreSQL integration proof.
 
-## Baseline
+## Integrated baseline
 
-P4-PACKAGE-01 is merged through PR #167 at `5f628b7c72f9e9fc0db799e0bd97b2d1997b1572`.
+P4-MIGRATION-STATE-01 is merged through PR #168 at `b0b3e4c9fcbb21e0fc944a12ca16636b0dd82ae2`.
 
-Sprint branch: `sprint/P4-MIGRATION-STATE-01`
-PR: #168
+## Review candidate
 
-## Sprint result
+`P4-POSTGRES-STATE-01 — PostgreSQL Durable Runtime State`
 
-TASK sequence:
+Branch: `sprint/P4-POSTGRES-STATE-01`
+PR: #169
 
-`TASK-072 -> TASK-073 -> TASK-074 -> TASK-075`
+Completed dependency order:
 
-Implementation commits:
+1. TASK-076 — bounded PostgreSQL Runtime state adapter — CI #238 PASS;
+2. TASK-077 — verified/idempotent Deploy migration application — CI #239 PASS;
+3. TASK-078 — actual PostgreSQL restart/redeploy persistence E2E — CI #240 PASS.
 
-- TASK-073: `88bc3d4dc38d84ab516c0e08c519bd61768ab55b` — CI #232 PASS;
-- TASK-074: `3cfa5073b2d565e1a517442b435993b0601bdb52` — CI #233 PASS;
-- TASK-075: `c90f755c5def49ce1968b5c7f1ac6d36264b0d55` — CI #235 PASS.
+Achieved branch proof:
 
-Achieved proof:
+`verified ArtifactPayload -> migration preflight -> SecretResolver -> PostgreSQL migration apply -> autonomous Runtime -> persisted state 1 -> 2 -> clean shutdown -> redeploy -> migration skip -> persisted state 3 -> 4`
 
-`AssemblyPlan bounded capability -> Compiler -> migration/runtime assets -> ReleaseArtifact -> verified ArtifactPayload -> Deploy migration preflight`
+## Architecture result
 
-## Architecture constraints preserved
-
-- ADR-0002 Builder/Runtime separation;
-- ADR-0007 Release/Environment/Deployment separation;
-- no resolved secret in immutable evidence;
+- ADR-0002 preserved;
+- ADR-0007 preserved;
 - no canonical ReleaseArtifact/EnvironmentProfile/DeploymentRecord schema expansion;
-- no SQL migration execution/PostgreSQL connection in this Sprint;
-- no L4 architecture change.
+- PostgreSQL remains bounded provider behavior;
+- resolved database material remains execution-only;
+- no L4 architecture change discovered.
 
-## Current gate
+## Sprint gate
 
-Run final closure-head Deterministic CI and stop at PR #168 Sprint Review. Do not start `P4-POSTGRES-STATE-01`; it requires this Sprint to merge plus a new explicit instruction and repository revalidation.
+Require final closure-head repository-wide Deterministic CI PASS, then stop at PR #169 Sprint Review.
+
+`P4-CAPABILITY-RUNTIME-01` remains forecast / not authorized.
