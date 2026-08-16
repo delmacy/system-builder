@@ -1,7 +1,7 @@
 ---
 id: TASK-071
 title: Bind runtime-only secrets to bounded stateful action
-status: blocked
+status: completed
 priority: 387
 milestone: M4
 model_tier: cheap
@@ -96,3 +96,7 @@ Runtime-core tests for state increment and missing-secret failure, local-process
 # Escalation
 
 Stop if implementing the state slice requires canonical contract changes, production persistence architecture or a forbidden path.
+
+# Result
+
+Persistent Runtime now exposes a bounded in-memory `counter.increment` action that requires the first required secret binding to be present only in process environment. Local Deploy optionally resolves symbolic secret references after artifact verification and before materialization, injects values only into the child environment, validates state sequence 1 -> 2, preserves health-only behavior without a resolver and keeps canonical contracts unchanged.

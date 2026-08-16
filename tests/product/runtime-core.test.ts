@@ -199,6 +199,77 @@ test("persistent rendered runtime exposes HTTP health, remains alive and shuts d
   }
 });
 
+test("persistent rendered runtime executes bounded state in memory only when runtime secret is resolved", async () => {
+  const secretValue = "postgres://runtime-only-secret";
+  const source = renderPersistentAutonomousRuntimeEntrypoint({ runtimeVersion: "0.1.0", requirements });
+  const directory = mkdtempSync(join(tmpdir(), "sb-runtime-stateful-"));
+  const entrypoint = join(directory, "runtime-entry.mjs");
+  writeFileSync(entrypoint, source, "utf8");
+  const child = spawn(process.execPath, [entrypoint], {
+    cwd: directory,
+    env: {
+      ...process.env,
+      SYSTEM_BUILDER_ENVIRONMENT_PROFILE: JSON.stringify(environment),
+      SYSTEM_BUILDER_RUNTIME_PORT: "0",
+      DATABASE_URL: secretValue,
+    },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+
+  try {
+    const started = await waitForJsonLine(child.stdout) as RuntimeStarted;
+    const first = await fetch(`http://127.0.0.1:${started.port}/state/counter/increment`, { method: "POST" });
+    const second = await fetch(`http://127.0.0.1:${started.port}/state/counter/increment`, { method: "POST" });
+    assert.equal(first.status, 200);
+    assert.equal(second.status, 200);
+    assert.deepEqual(await first.json(), { kind: "RuntimeState", action: "counter.increment", value: 1 });
+    const secondState = await second.json();
+    assert.deepEqual(secondState, { kind: "RuntimeState", action: "counter.increment", value: 2 });
+    assert.equal(JSON.stringify(secondState).includes(secretValue), false);
+
+    child.kill("SIGTERM");
+    const [exitCode] = await once(child, "close") as [number | null, NodeJS.Signals | null];
+    assert.equal(exitCode, 0);
+  } finally {
+    if (child.exitCode === null) child.kill("SIGKILL");
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("persistent state action fails safely when symbolic secret is not resolved into process environment", async () => {
+  const source = renderPersistentAutonomousRuntimeEntrypoint({ runtimeVersion: "0.1.0", requirements });
+  const directory = mkdtempSync(join(tmpdir(), "sb-runtime-stateful-unresolved-"));
+  const entrypoint = join(directory, "runtime-entry.mjs");
+  writeFileSync(entrypoint, source, "utf8");
+  const child = spawn(process.execPath, [entrypoint], {
+    cwd: directory,
+    env: {
+      ...process.env,
+      SYSTEM_BUILDER_ENVIRONMENT_PROFILE: JSON.stringify(environment),
+      SYSTEM_BUILDER_RUNTIME_PORT: "0",
+      DATABASE_URL: "",
+    },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+
+  try {
+    const started = await waitForJsonLine(child.stdout) as RuntimeStarted;
+    const response = await fetch(`http://127.0.0.1:${started.port}/state/counter/increment`, { method: "POST" });
+    assert.equal(response.status, 503);
+    assert.deepEqual(await response.json(), {
+      kind: "RuntimeDiagnostic",
+      code: "RUNTIME_SECRET_UNRESOLVED",
+      detail: "DATABASE_URL",
+    });
+    child.kill("SIGTERM");
+    const [exitCode] = await once(child, "close") as [number | null, NodeJS.Signals | null];
+    assert.equal(exitCode, 0);
+  } finally {
+    if (child.exitCode === null) child.kill("SIGKILL");
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
 test("persistent rendered runtime rejects missing required binding before listening", async () => {
   const source = renderPersistentAutonomousRuntimeEntrypoint({ runtimeVersion: "0.1.0", requirements });
   const directory = mkdtempSync(join(tmpdir(), "sb-runtime-persistent-fail-"));

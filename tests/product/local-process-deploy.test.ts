@@ -4,6 +4,7 @@ import test from "node:test";
 import { InMemoryArtifactPayloadRepository } from "../../packages/artifact-store/index.js";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
 import { runLocalProcessDeployment } from "../../packages/deploy/local-process.js";
+import { InMemorySecretResolver } from "../../packages/deploy/secret-resolver.js";
 import { ReleaseRegistry } from "../../packages/release/index.js";
 
 const assemblyPlan = {
@@ -75,12 +76,68 @@ test("local-process Deploy retrieves verified payload, observes persistent HTTP 
   assert.equal(result.health.runtimeVersion, "0.2.0");
   assert.equal(result.health.environmentRef, "environment:local-test");
   assert.deepEqual(result.health.bindingNames, ["DATABASE_URL", "LOG_LEVEL"]);
+  assert.equal(result.state, undefined);
   assert.match(result.stdout, /"kind":"RuntimeStarted"/);
   assert.equal(result.exitCode, 0);
   assert.equal(JSON.stringify(publishedRelease), releaseBefore);
   assert.equal(JSON.stringify(compilation.artifact), artifactBefore);
   assert.equal(JSON.stringify(compilation.files), filesBefore);
   await assert.rejects(access(result.workingDirectory));
+});
+
+test("secret-aware Deploy verifies artifact before resolution, injects runtime-only secret and observes state 1 then 2", async () => {
+  const { compilation, artifacts, publishedRelease, environment } = fixture();
+  const secretValue = "postgres://runtime-user:runtime-password@localhost/runtime";
+  let verified = false;
+  const artifactPayloadReader = {
+    getVerified: (artifact: typeof compilation.artifact) => {
+      const payload = artifacts.getVerified(artifact);
+      verified = true;
+      return payload;
+    },
+  };
+  const secretResolver = {
+    resolve: (reference: string) => {
+      assert.equal(verified, true);
+      assert.equal(reference, "secret://database-url");
+      return secretValue;
+    },
+  };
+
+  const result = await runLocalProcessDeployment({
+    publishedRelease,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader,
+    environment,
+    secretResolver,
+  });
+
+  assert.equal(result.ok, true);
+  if (!result.ok) return;
+  assert.deepEqual(result.state, { kind: "RuntimeState", action: "counter.increment", value: 2 });
+  assert.equal(result.stdout.includes(secretValue), false);
+  assert.equal(result.stderr.includes(secretValue), false);
+  assert.equal(JSON.stringify(result.health).includes(secretValue), false);
+  assert.equal(JSON.stringify(result.state).includes(secretValue), false);
+  await assert.rejects(access(result.workingDirectory));
+});
+
+test("secret-aware Deploy fails before materialization when symbolic secret cannot resolve", async () => {
+  const { compilation, artifacts, publishedRelease, environment } = fixture();
+  const result = await runLocalProcessDeployment({
+    publishedRelease,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: artifacts,
+    environment,
+    secretResolver: new InMemorySecretResolver({}),
+  });
+
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.equal(result.activated, false);
+  assert.equal(result.diagnostic.code, "SECRET_RESOLUTION_FAILED");
+  assert.match(result.diagnostic.detail, /SECRET_REFERENCE_NOT_FOUND:secret:\/\/database-url/);
+  assert.equal("workingDirectory" in result, false);
 });
 
 test("local-process Deploy rejects artifact/runtime mismatch before payload retrieval", async () => {
@@ -121,6 +178,7 @@ test("local-process Deploy rejects corrupted artifact payload before activation 
     releaseArtifact: compilation.artifact,
     artifactPayloadReader: corruptArtifacts,
     environment,
+    secretResolver: new InMemorySecretResolver({ "secret://database-url": "runtime-only-secret" }),
   });
   assert.equal(result.ok, false);
   if (result.ok) return;

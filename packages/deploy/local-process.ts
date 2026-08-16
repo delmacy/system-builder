@@ -5,6 +5,11 @@ import { dirname, isAbsolute, join, normalize } from "node:path";
 import type { Readable } from "node:stream";
 import type { EnvironmentProfile } from "@system-builder/contracts/environment-profile";
 import type { DeployPublishedRelease, DeployReleaseArtifact } from "./index.js";
+import {
+  resolveRuntimeSecretEnvironment,
+  type RuntimeSecretEnvironment,
+  type SecretResolver,
+} from "./secret-resolver.js";
 
 export type LocalGeneratedFile = Readonly<{
   path: string;
@@ -46,6 +51,12 @@ export type LocalRuntimeHealth = Readonly<{
   bindingNames: readonly string[];
 }>;
 
+export type LocalRuntimeState = Readonly<{
+  kind: "RuntimeState";
+  action: "counter.increment";
+  value: number;
+}>;
+
 export type LocalProcessDeploymentDiagnostic = Readonly<{
   code:
     | "ARTIFACT_MISMATCH"
@@ -53,9 +64,11 @@ export type LocalProcessDeploymentDiagnostic = Readonly<{
     | "RUNTIME_INCOMPATIBLE"
     | "RUNTIME_ENTRYPOINT_MISSING"
     | "GENERATED_PATH_INVALID"
+    | "SECRET_RESOLUTION_FAILED"
     | "RUNTIME_PROCESS_FAILED"
     | "RUNTIME_STARTUP_INVALID"
     | "RUNTIME_HEALTH_INVALID"
+    | "RUNTIME_STATE_INVALID"
     | "RUNTIME_PROCESS_TIMEOUT";
   detail: string;
 }>;
@@ -65,6 +78,7 @@ export type LocalProcessDeploymentResult =
       ok: true;
       activated: true;
       health: LocalRuntimeHealth;
+      state?: LocalRuntimeState;
       stdout: string;
       stderr: string;
       exitCode: 0;
@@ -138,6 +152,19 @@ function parseHealth(value: unknown): LocalRuntimeHealth | null {
   });
 }
 
+function parseState(value: unknown): LocalRuntimeState | null {
+  if (!value || typeof value !== "object") return null;
+  const state = value as Partial<LocalRuntimeState>;
+  if (
+    state.kind !== "RuntimeState" ||
+    state.action !== "counter.increment" ||
+    typeof state.value !== "number" ||
+    !Number.isInteger(state.value) ||
+    state.value < 1
+  ) return null;
+  return Object.freeze({ kind: "RuntimeState", action: "counter.increment", value: state.value });
+}
+
 function errorDetail(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
@@ -196,11 +223,23 @@ async function terminateChild(child: RuntimeChild, timeoutMs: number): Promise<R
   return { timedOut: true, exitCode: forced.exitCode };
 }
 
+async function invokeCounter(port: number, timeoutMs: number): Promise<LocalRuntimeState> {
+  const response = await fetch(`http://127.0.0.1:${port}/state/counter/increment`, {
+    method: "POST",
+    signal: AbortSignal.timeout(timeoutMs),
+  });
+  const value = await response.json();
+  const state = response.status === 200 ? parseState(value) : null;
+  if (!state) throw new Error(`RUNTIME_STATE_RESPONSE_INVALID:${response.status}`);
+  return state;
+}
+
 export async function runLocalProcessDeployment(input: Readonly<{
   publishedRelease: DeployPublishedRelease;
   releaseArtifact: LocalVerifiableReleaseArtifact;
   artifactPayloadReader: LocalVerifiedArtifactPayloadReader;
   environment: EnvironmentProfile;
+  secretResolver?: SecretResolver;
   processEnvironment?: Readonly<Record<string, string>>;
   timeoutMs?: number;
 }>): Promise<LocalProcessDeploymentResult> {
@@ -274,6 +313,22 @@ export async function runLocalProcessDeployment(input: Readonly<{
     });
   }
 
+  let runtimeSecrets: RuntimeSecretEnvironment = Object.freeze({});
+  if (input.secretResolver) {
+    try {
+      runtimeSecrets = resolveRuntimeSecretEnvironment(input.environment, input.secretResolver);
+    } catch (error) {
+      return Object.freeze({
+        ok: false,
+        activated: false,
+        diagnostic: Object.freeze({ code: "SECRET_RESOLUTION_FAILED", detail: errorDetail(error) }),
+        stdout: "",
+        stderr: "",
+        exitCode: null,
+      });
+    }
+  }
+
   const workingDirectory = await mkdtemp(join(tmpdir(), "system-builder-local-deploy-"));
   const timeoutMs = input.timeoutMs ?? 5_000;
   let stdout = "";
@@ -291,6 +346,7 @@ export async function runLocalProcessDeployment(input: Readonly<{
       env: {
         ...process.env,
         ...(input.processEnvironment ?? {}),
+        ...runtimeSecrets,
         SYSTEM_BUILDER_ENVIRONMENT_PROFILE: JSON.stringify(input.environment),
         SYSTEM_BUILDER_RUNTIME_PORT: "0",
       },
@@ -394,6 +450,27 @@ export async function runLocalProcessDeployment(input: Readonly<{
       });
     }
 
+    let state: LocalRuntimeState | undefined;
+    if (input.secretResolver) {
+      try {
+        const first = await invokeCounter(startup.started.port, timeoutMs);
+        const second = await invokeCounter(startup.started.port, timeoutMs);
+        if (first.value !== 1 || second.value !== 2) throw new Error(`RUNTIME_STATE_SEQUENCE_INVALID:${first.value}:${second.value}`);
+        state = second;
+      } catch (error) {
+        const stopped = await terminateChild(child, timeoutMs);
+        return Object.freeze({
+          ok: false,
+          activated: true,
+          diagnostic: Object.freeze({ code: "RUNTIME_STATE_INVALID", detail: errorDetail(error) }),
+          stdout,
+          stderr,
+          exitCode: stopped.exitCode,
+          workingDirectory,
+        });
+      }
+    }
+
     const stopped = await terminateChild(child, timeoutMs);
     if (stopped.timedOut) {
       return Object.freeze({
@@ -428,6 +505,7 @@ export async function runLocalProcessDeployment(input: Readonly<{
       ok: true,
       activated: true,
       health,
+      ...(state === undefined ? {} : { state }),
       stdout,
       stderr,
       exitCode: 0,
