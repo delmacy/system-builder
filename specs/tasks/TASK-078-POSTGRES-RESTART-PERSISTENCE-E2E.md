@@ -1,7 +1,7 @@
 ---
 id: TASK-078
 title: Prove PostgreSQL state persistence across Runtime redeploy
-status: ready
+status: completed
 priority: 388
 milestone: M5
 model_tier: cheap
@@ -93,3 +93,7 @@ GitHub Deterministic CI job log/test summary showing the PostgreSQL E2E executed
 # Escalation
 
 Stop if the proof requires product-code changes beyond TASK-076/077 outputs or weakens secret/autonomy boundaries.
+
+# Result
+
+Deterministic CI now provisions a bounded PostgreSQL 17.6 service and exposes a test-only connection URL. The new product E2E compiles and publishes the actual stateful artifact, applies the generated migration, executes the autonomous Runtime against PostgreSQL, redeploys against the same database to prove persisted progression from state 2 to 4, and rejects same-identity migration hash drift before activation without leaking the resolved connection value.
