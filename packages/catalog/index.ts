@@ -36,6 +36,7 @@ export type SoftwareCatalogRecord = Readonly<{
 export type CatalogResolutionRequest = Readonly<{
   capability: string;
   version?: string;
+  versionConstraint?: CatalogVersionConstraint;
   compatibility?: Readonly<Record<string, string>>;
 }>;
 
@@ -43,11 +44,14 @@ export type CatalogResolutionDiagnostic = Readonly<{
   code: "CAPABILITY_NOT_FOUND" | "NO_COMPATIBLE_PROVIDER";
   capability: string;
   requestedVersion?: string;
+  requestedConstraint?: string;
 }>;
 
 export type CatalogResolutionResult =
   | Readonly<{ ok: true; candidates: readonly SoftwareCatalogRecord[] }>
   | Readonly<{ ok: false; diagnostic: CatalogResolutionDiagnostic }>;
+
+type ParsedVersion = readonly [major: number, minor: number, patch: number];
 
 function requireToken(value: string, field: string): string {
   const normalized = value.trim();
@@ -148,12 +152,48 @@ function satisfiesCompatibility(
   return Object.entries(requested).every(([key, value]) => record.compatibility[key] === value);
 }
 
+function parseVersion(value: string, field: "constraint_version" | "candidate_version"): ParsedVersion {
+  const normalized = requireToken(value, field);
+  const match = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.exec(normalized);
+  if (!match) throw new Error(`CATALOG_INVALID_${field.toUpperCase()}:${normalized}`);
+  return Object.freeze([Number(match[1]), Number(match[2]), Number(match[3])]) as ParsedVersion;
+}
+
+function compareParsedVersion(left: ParsedVersion, right: ParsedVersion): number {
+  return left[0] - right[0] || left[1] - right[1] || left[2] - right[2];
+}
+
+function normalizeResolutionConstraint(constraint: CatalogVersionConstraint | undefined): CatalogVersionConstraint | undefined {
+  if (constraint === undefined) return undefined;
+  const normalized = Object.freeze({
+    kind: constraint.kind,
+    version: requireToken(constraint.version, "constraint_version"),
+  });
+  parseVersion(normalized.version, "constraint_version");
+  return normalized;
+}
+
+function constraintIdentity(constraint: CatalogVersionConstraint): string {
+  return `${constraint.kind}:${constraint.version}`;
+}
+
+function satisfiesVersionConstraint(record: SoftwareCatalogRecord, constraint: CatalogVersionConstraint): boolean {
+  const candidate = parseVersion(record.version, "candidate_version");
+  const requested = parseVersion(constraint.version, "constraint_version");
+  const comparison = compareParsedVersion(candidate, requested);
+  return constraint.kind === "exact" ? comparison === 0 : comparison >= 0;
+}
+
 export function resolveCatalogCandidates(
   registry: SoftwareCatalogRegistry,
   input: CatalogResolutionRequest,
 ): CatalogResolutionResult {
   const capability = requireToken(input.capability, "capability");
   const requestedVersion = input.version === undefined ? undefined : requireToken(input.version, "version");
+  const requestedConstraint = normalizeResolutionConstraint(input.versionConstraint);
+  if (requestedVersion !== undefined && requestedConstraint !== undefined) {
+    throw new Error("CATALOG_CONFLICTING_VERSION_REQUEST");
+  }
   const requestedCompatibility = normalizeCompatibility(input.compatibility);
   const capabilityCandidates = registry.list().filter((record) => record.capability === capability);
 
@@ -167,6 +207,7 @@ export function resolveCatalogCandidates(
   const candidates = capabilityCandidates.filter(
     (record) =>
       (requestedVersion === undefined || record.version === requestedVersion) &&
+      (requestedConstraint === undefined || satisfiesVersionConstraint(record, requestedConstraint)) &&
       satisfiesCompatibility(record, requestedCompatibility),
   );
 
@@ -175,6 +216,7 @@ export function resolveCatalogCandidates(
       code: "NO_COMPATIBLE_PROVIDER",
       capability,
       ...(requestedVersion === undefined ? {} : { requestedVersion }),
+      ...(requestedConstraint === undefined ? {} : { requestedConstraint: constraintIdentity(requestedConstraint) }),
     });
     return Object.freeze({ ok: false, diagnostic });
   }
