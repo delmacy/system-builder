@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://system-builder.local/contracts/factory-boundary/1.0.0/release-artifact.schema.json",
+  "title": "ReleaseArtifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "assemblyPlanRef", "validationEvidenceRef", "artifactHash", "manifest", "environmentSchema"],
+  "properties": {
+    "kind": { "const": "ReleaseArtifact" },
+    "assemblyPlanRef": { "type": "string", "minLength": 1 },
+    "validationEvidenceRef": { "type": "string", "minLength": 1 },
+    "artifactHash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["compilerVersion", "runtimeVersion", "files"],
+      "properties": {
+        "compilerVersion": { "type": "string", "minLength": 1 },
+        "runtimeVersion": { "type": "string", "minLength": 1 },
+        "files": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "environmentSchema": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "kind", "required"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["config", "secret-reference"] },
+          "required": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

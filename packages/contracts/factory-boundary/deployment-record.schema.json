@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://system-builder.local/contracts/factory-boundary/1.0.0/deployment-record.schema.json",
+  "title": "DeploymentRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "deploymentId", "publishedReleaseRef", "environmentRef", "releaseHash", "startedAt", "status"],
+  "properties": {
+    "kind": { "const": "DeploymentRecord" },
+    "deploymentId": { "type": "string", "minLength": 1 },
+    "publishedReleaseRef": { "type": "string", "minLength": 1 },
+    "environmentRef": { "type": "string", "minLength": 1 },
+    "releaseHash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "status": { "enum": ["planned", "running", "succeeded", "failed", "rolled-back"] },
+    "healthChecks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "status"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["PASS", "FAIL"] }
+        }
+      }
+    }
+  }
+}
