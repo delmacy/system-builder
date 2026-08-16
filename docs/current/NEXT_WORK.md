@@ -1,32 +1,30 @@
-# Next Work — Review P5-PACKAGE-01
+# Next Work — Execute P5-CATALOG-CONSTRAINTS-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-Review the proposed rolling-wave `P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling` on `plan/P5-PACKAGE-01`.
+Execute only `P5-CATALOG-CONSTRAINTS-01` on `sprint/P5-CATALOG-CONSTRAINTS-01`.
 
-## Direction selected
+Dependency order:
+1. TASK-082;
+2. TASK-083 after TASK-082 validation;
+3. TASK-084 after TASK-083 validation.
 
-Factory composition hardening is selected ahead of durable provider infrastructure.
+For every TASK, read its full `context_paths`, confirm allowed/forbidden paths, max_files, dependency and validation commands before editing.
 
-Forecast sequence:
-1. `P5-CATALOG-CONSTRAINTS-01`;
-2. `P5-ASSEMBLY-GRAPH-01`;
-3. `P5-MATERIALIZER-REGISTRY-01`;
-4. Integration & Technical Debt Review.
+## Sprint outcome
 
-Candidate TASKs TASK-082..090 are forecast only; no TASK specifications are materialized.
+Prove:
 
-## Review checklist
+`Catalog records -> structured dependency requirements -> deterministic constrained candidates / explicit unsatisfied diagnostic`
 
-1. require Deterministic CI `npm run verify` PASS on the package-plan head;
-2. confirm the plan maps to WBS 5.2.2/5.2.3, 6.1.2, 6.2.1-6.2.3, 6.3 and 8.1.2;
-3. confirm ADR-0002/ADR-0007 and canonical public contracts are not changed;
-4. confirm durable Catalog/Release/Artifact providers remain explicitly deferred, not forgotten;
-5. confirm P4 PostgreSQL/autonomous-runtime proof remains a required predecessor regression;
-6. merge the package plan only if the forecast is accepted.
+Preserve current exact Catalog resolution, current Catalog->Assembly integration and all repository-wide predecessor regressions.
 
-## After package-plan merge
+## Exit
 
-Do not automatically start P5 construction. Await a new explicit instruction, re-read `AGENTS.md` and current repository authority, then revalidate/materialize only `P5-CATALOG-CONSTRAINTS-01` if it remains the correct first committed Sprint.
+After TASK-084, run final `npm run verify`, produce `P5-CATALOG-CONSTRAINTS-01.report.md`, open one PR from the Sprint branch to `main` and stop at Sprint Review.
+
+## Successor boundary
+
+`P5-ASSEMBLY-GRAPH-01` remains FORECAST. Do not materialize or execute it without a new explicit instruction after this Sprint merges and current `main` is reconstructed.

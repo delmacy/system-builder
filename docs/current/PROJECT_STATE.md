@@ -10,8 +10,10 @@ Date: 2026-08-16
 
 - Public contract spine: integrated through TASK-008.
 - P1/P2/P3 construction packages and mandatory package reviews: merged through PR #166.
-- P4 construction and mandatory Integration & Technical Debt Review: merged through PR #172 at `be4f38d8573a4767112ea1b8a5d7feab8afea528`.
-- P5-PACKAGE-01 successor package plan: proposed on `plan/P5-PACKAGE-01`; no construction Sprint committed.
+- P4 construction and mandatory Integration & Technical Debt Review: merged through PR #172.
+- P5-PACKAGE-01 package plan: merged through PR #173 at `e1a1cfa00ae64180746c07a8b2e304f4d2990db9`.
+- `P5-CATALOG-CONSTRAINTS-01`: COMMITTED on `sprint/P5-CATALOG-CONSTRAINTS-01` with TASK-082 -> TASK-083 -> TASK-084.
+- `P5-ASSEMBLY-GRAPH-01`, `P5-MATERIALIZER-REGISTRY-01` and the package review remain FORECAST.
 - GitHub Actions: deterministic integration gate with actual PostgreSQL service execution.
 - AgentFactory Supervisor/runtime: frozen non-blocking infrastructure track.
 
@@ -21,26 +23,22 @@ Date: 2026-08-16
 
 P4 review disposition: construction PASS; architecture/boundaries PASS WITH DEBT; critical rollback blocker NONE.
 
-## P5 planning direction
+## Active Sprint target
 
-Selected first direction: **Factory composition hardening**.
+`P5-CATALOG-CONSTRAINTS-01 — Structured Dependency and Version Constraints`
 
-Reason: current Catalog dependency metadata/resolution and Assembly transitive graph semantics are below WBS 6.1.2/6.2.1, while Compiler capability materialization is still a narrow provider-specific switch. These upstream semantics should be hardened before capability breadth or durable persistence of Factory registries grows.
+Target proof:
 
-Durable Catalog/Release/Artifact provider infrastructure remains HIGH priority but is deferred to a successor package and must be re-evaluated at the P5 package review.
+`Catalog records -> structured dependency requirements -> deterministic constrained candidates / explicit unsatisfied diagnostic`
 
-## Proposed package
+The Sprint must preserve current exact Catalog resolution, current Catalog->Assembly integration and the complete P4 predecessor regression.
 
-`P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling`
+## Architecture boundary
 
-Forecast only:
-1. `P5-CATALOG-CONSTRAINTS-01`;
-2. `P5-ASSEMBLY-GRAPH-01`;
-3. `P5-MATERIALIZER-REGISTRY-01`;
-4. Integration & Technical Debt Review.
-
-Candidate TASKs TASK-082..090 are forecast identifiers only; no TASK specs exist from this planning step.
+This Sprint authorizes bounded L3 internal Catalog API changes for structured dependency requirements and exact/minimum version constraints. It does not authorize canonical `packages/contracts/**` changes, transitive Assembly graph solving, durable providers or any L4 architecture change.
 
 ## Current gate
 
-Review and CI-validate the P5 package plan. Do not execute or materialize any P5 construction Sprint until the package plan merges and a new explicit instruction reconstructs current `main` and promotes only the first Sprint if still valid.
+Execute only TASK-082..084 in dependency order under `project_docs/execution_planning/P5-CATALOG-CONSTRAINTS-01.md`.
+
+Do not materialize or execute `P5-ASSEMBLY-GRAPH-01` before this Sprint completes, merges and a new explicit instruction revalidates current `main`.
