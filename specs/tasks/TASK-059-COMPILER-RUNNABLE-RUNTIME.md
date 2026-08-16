@@ -49,11 +49,25 @@ validation:
 
 Extend the deterministic Compiler so its generated-file set contains the first runnable Node Runtime package while preserving the existing canonical ReleaseArtifact contract.
 
+# Context
+
+Compiler WBS 8.2 requires runtime builds/bundling, environment schema without secrets and reproducible hashes. TASK-058 establishes the runtime bootstrap renderer. ADR-0002 requires the resulting runtime to be autonomous from Builder during ordinary operation.
+
+# Current behavior
+
+`compileSyntheticRelease` emits deterministic JSON files and a canonical ReleaseArtifact, but no executable runtime entrypoint. ReleaseArtifact already records generated file paths and runtime/compiler versions.
+
 # Required change
 
-Consume the public TASK-058 Runtime bootstrap package from Compiler through `@system-builder/runtime-core`, adding only the minimum TypeScript path resolution needed for that public package import.
+Consume TASK-058 through the public `@system-builder/runtime-core` import, adding only the minimum TypeScript path resolution required. Add deterministic `runtime-entry.mjs` to Compiler generated files and identify it in generated `runtime-manifest.json` content, while keeping the canonical ReleaseArtifact shape unchanged. Runtime source is direct text/bytes and uses direct text hashing; canonical JSON files continue to use canonical JSON serialization/hashing.
 
-Compiler output must add a deterministic `runtime-entry.mjs` and record the entrypoint in generated runtime-manifest content while keeping the canonical ReleaseArtifact shape unchanged. Generated-file content hashes and the artifact hash must continue to be deterministic. Runtime source is text/bytes and therefore uses direct text hashing; canonical JSON files continue to use canonical JSON hashing.
+# Inputs / contracts
+
+TASK-058 runtime-core, Compiler WBS, canonical ReleaseArtifact 1.0.0 schema, canonical EnvironmentProfile requirements and shared deterministic hashing utility.
+
+# Outputs / contracts
+
+Compiler-generated runnable runtime file set referenced by the unchanged canonical ReleaseArtifact manifest file list.
 
 # Acceptance criteria
 
@@ -62,7 +76,7 @@ Compiler output must add a deterministic `runtime-entry.mjs` and record the entr
 - same logical inputs in different ordering produce identical generated files/hashes/artifact identity;
 - public ReleaseArtifact schema/shape is unchanged and continues to conform;
 - no secret value is embedded in generated source, generated JSON, ReleaseArtifact or manifest;
-- `@system-builder/runtime-core` is consumed through minimum public TypeScript resolution rather than a relative cross-package import;
+- `@system-builder/runtime-core` resolves through the minimum public TypeScript mapping rather than relative cross-package import;
 - focused Compiler tests and repository-wide verification pass.
 
 # Non-goals

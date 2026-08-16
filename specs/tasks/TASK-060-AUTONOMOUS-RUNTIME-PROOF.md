@@ -42,17 +42,25 @@ validation:
 
 Prove that the runtime package emitted by the actual Compiler starts from generated ReleaseArtifact output plus external EnvironmentProfile data, reports health, and does not require Builder/Observe availability.
 
-# Required proof
+# Context
 
-Build the real predecessor chain through Compiler using existing executable APIs and fixtures. Materialize the Compiler-generated files into a temporary directory, execute the generated `runtime-entry.mjs` with the repository Node executable, and supply EnvironmentProfile only through the external process environment.
+ADR-0002 requires the generated Execution Plane to keep operating without the Builder. TASK-058 provides a self-contained Runtime bootstrap and TASK-059 makes the Compiler materialize it. This TASK is the Sprint-level integration proof for those predecessor outputs.
 
-The proof must include:
+# Current behavior
 
-- successful autonomous startup and RuntimeHealth PASS;
-- explicit failure for a missing required environment binding;
-- successful health while Builder/Observe endpoint variables are absent or deliberately unusable;
-- repeated compilation/startup proving deterministic runtime-entry content/hash and stable health semantics;
-- assertion that generated immutable content contains no secret value.
+The P1 vertical reaches deterministic DeploymentRecord through dry-run APIs. Before this TASK, no test executes a Compiler-generated runtime process from the emitted file set.
+
+# Required change
+
+Build the real predecessor chain through Compiler using existing executable APIs and fixtures. Materialize the Compiler-generated files into a temporary directory, execute generated `runtime-entry.mjs` with the repository Node executable, and supply EnvironmentProfile only through the external process environment. Prove success, controlled missing-binding failure, Builder/Observe independence, repeatability and absence of secret values from immutable/generated content.
+
+# Inputs / contracts
+
+TASK-059 Compiler output, TASK-058 runtime entrypoint semantics, canonical EnvironmentProfile, existing factory E2E fixtures and ADR-0002 autonomy invariant.
+
+# Outputs / contracts
+
+Executable integration evidence only. No product/public contract change.
 
 # Acceptance criteria
 
@@ -60,6 +68,7 @@ The proof must include:
 - generated process exits successfully for compatible complete external configuration;
 - missing required binding exits non-zero with explicit diagnostic;
 - no network call to Builder/Observe is required for startup/health;
+- repeated compile/start runs preserve deterministic runtime-entry content/hash and stable health semantics;
 - generated source and immutable release metadata contain no supplied secret value;
 - product tests and repository-wide verification pass.
 

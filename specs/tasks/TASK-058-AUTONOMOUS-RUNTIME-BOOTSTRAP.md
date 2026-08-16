@@ -43,23 +43,31 @@ validation:
 
 Create the smallest autonomous Runtime bootstrap boundary needed for the P2 runtime proof without introducing a dependency on Builder or Observe during ordinary startup/health operation.
 
+# Context
+
+ADR-0002 requires generated client systems to operate independently of System Builder. The Autonomous Runtime WBS requires external configuration, startup/operation with Builder unavailable and health without making Observe mandatory. P2-BOUNDARY-01 established the canonical EnvironmentProfile that this Runtime boundary consumes.
+
+# Current behavior
+
+The repository has deterministic Compiler/Release/Deploy dry-run behavior but no Runtime package, entrypoint or RuntimeHealth proof. Compiler output is not yet runnable.
+
 # Required change
 
-Add `packages/runtime-core/` with a deterministic public bootstrap API that:
+Add `packages/runtime-core/` with a deterministic public bootstrap API that consumes canonical EnvironmentProfile, validates runtime compatibility and required symbolic bindings, rejects inline values, exposes RuntimeHealth, and renders a self-contained Node ESM entrypoint. The rendered entrypoint receives EnvironmentProfile externally and performs no Builder/Observe/network call for startup or health.
 
-- consumes the canonical EnvironmentProfile shape through its public contract;
-- validates runtime-version compatibility and required symbolic bindings;
-- rejects missing bindings and attempted inline values explicitly;
-- exposes a minimal deterministic RuntimeHealth result;
-- can render a self-contained Node ESM entrypoint for later Compiler materialization.
+# Inputs / contracts
 
-The rendered entrypoint must receive its EnvironmentProfile externally at process startup and must not call Builder, Observe or any network service for startup/health.
+Accepted ADR-0002, Autonomous Runtime WBS 13.1.3/13.3.1/13.3.2, canonical EnvironmentProfile and repository Node 24 toolchain.
+
+# Outputs / contracts
+
+Internal Runtime bootstrap package and standalone entrypoint renderer. No public domain contract changes.
 
 # Acceptance criteria
 
 - Runtime bootstrap succeeds with compatible runtime version and complete required bindings;
 - missing binding and incompatible runtime fail with explicit diagnostics;
-- inline secret/config values are not accepted as part of canonical binding data;
+- inline secret/config values are not accepted as canonical binding data;
 - rendered entrypoint is self-contained and deterministic for identical inputs;
 - focused test starts the rendered entrypoint as a Node process and observes health PASS;
 - no Builder/Observe dependency is required;
