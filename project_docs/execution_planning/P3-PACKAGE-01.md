@@ -1,16 +1,13 @@
 # P3-PACKAGE-01 — Artifact Delivery and Persistent Runtime
 
-Status: INTEGRATION_DEBT_REVIEW
+Status: REVIEW_READY_FINAL_CI_PENDING
 Base: `82841fba853a1b68602ba0c28dc2d0ddfbf9f8b1` (P2 review merged)
 Review base: `444362bad81582932414c348a6da9c5751235bdd` (PR #165 merged)
+Review PR: #166
 
 ## Package Goal
 
 Harden the post-Compiler artifact delivery path and evolve the bounded one-shot autonomous Runtime into a persistent, externally configured client service without weakening Builder/Runtime or Release/Environment/Deployment separation.
-
-Target package proof:
-
-`SystemDefinition -> Catalog -> AssemblyPlan -> ValidationEvidence -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile -> secret references resolved externally -> local Deploy -> persistent autonomous Runtime -> HTTP health -> bounded stateful runtime action -> DeploymentRecord`
 
 ## Construction result
 
@@ -24,17 +21,19 @@ Integrated package proof:
 
 `ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> EnvironmentProfile secret refs -> external SecretResolver -> local Deploy -> persistent Runtime -> HTTP RuntimeHealth -> counter.increment (1 -> 2) -> clean shutdown -> DeploymentRecord`
 
-## Review gate
+## Integration & Technical Debt Review
 
-The mandatory Integration & Technical Debt Review is active on `review/P3-PACKAGE-01-integration-debt`.
+Review branch: `review/P3-PACKAGE-01-integration-debt`
 
-The review must:
+Review document: `project_docs/execution_planning/P3-PACKAGE-01.integration-debt-review.md`
 
-- run repository-wide deterministic regression;
-- revalidate ADR-0002/ADR-0007 and public boundaries;
-- classify P2 debt closed/carried after P3;
-- register P3 residual/new debt;
-- revalidate WBS/DAG readiness;
-- recommend successor directions without committing a new package.
+Disposition:
 
-No successor Sprint Package is authorized until this review PR is merged and a new explicit instruction re-reads repository state.
+- package construction: PASS;
+- architecture/boundaries: PASS WITH DEBT;
+- rollback blocker: none found;
+- review-head Deterministic CI #226: PASS;
+- final review CI: pending on finalization head;
+- successor package: not created; directions only.
+
+No successor Sprint Package is authorized until PR #166 is reviewed/merged and a new explicit instruction re-reads repository state.
