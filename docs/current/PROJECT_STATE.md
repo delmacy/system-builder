@@ -9,51 +9,53 @@ Date: 2026-08-17
 ## Current maturity
 
 - P1–P7 construction/review history is integrated.
-- P8 package planning merged through PR #188 at `91f5cb23145c901c508e9673ef8cd38b52bbb413`.
-- `P8-DEPLOY-POSTGRES-TRANSPORT-01` merged through PR #189 at `209e192ec56599a05f6972e347f5b70989165c54` after final CI #333 PASS.
-- `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` is implemented on its Sprint branch through TASK-115 and awaits closure-head final CI / Sprint Review.
+- P8 package planning merged through PR #188.
+- `P8-DEPLOY-POSTGRES-TRANSPORT-01` merged through PR #189 at `209e192ec56599a05f6972e347f5b70989165c54`, final CI #333 PASS.
+- `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` merged through PR #190 at `98a8e674d72e1ad00d5eb5850ae4e71ac3f6a56c`, pre-merge final CI #340 PASS.
+- `P8-HARDENED-ACTIVATION-E2E-01` is implemented on Sprint branch through TASK-118; TASK CIs pass and closure-head final CI is pending.
 - GitHub Actions with PostgreSQL 17.6 remains the objective deterministic integration gate.
-- AgentFactory Supervisor/runtime remains frozen non-blocking infrastructure.
 
 ## Integrated main baseline
 
-`authenticated PostgreSQL Deploy state -> durable DeploymentRecord/active authority -> provider/process reconstruction -> equivalent state with no credential leakage`
+`authenticated Deploy transport + atomic expected-active authority + durable reconstruction + predecessor autonomous Runtime proof`
 
-The atomic multi-writer proof described below is branch-only until Sprint Review acceptance and merge.
+The joined hardened package E2E below remains branch-only until human Sprint Review acceptance and merge.
 
 ## Active Sprint
 
-`P8-ATOMIC-DEPLOYMENT-AUTHORITY-01 — Atomic Multi-Writer Deployment Authority`
+`P8-HARDENED-ACTIVATION-E2E-01 — Hardened Activation End-to-End Proof`
 
-Base: `209e192ec56599a05f6972e347f5b70989165c54`
-Branch: `sprint/P8-ATOMIC-DEPLOYMENT-AUTHORITY-01`
-PR: #190
+Base: `98a8e674d72e1ad00d5eb5850ae4e71ac3f6a56c`
+Branch: `sprint/P8-HARDENED-ACTIVATION-E2E-01`
+PR: #191
 Status: `IMPLEMENTED_ON_SPRINT_BRANCH / TASK_CI_PASS / FINAL_CI_PENDING`.
 
 TASK evidence:
-- TASK-113 `470f436318c0ef633f25bd9576051512c8830004` — CI #336 PASS;
-- TASK-114 `9d30185892687ef9b66f771db55d7daa71d7c346` — CI #338 PASS;
-- TASK-115 `ba12bf64631a38c209b208895afa99e6200dec02` — CI #339 PASS.
+- TASK-116 `d7b4f90a27444901b109a6c6a1f63f817940cae5` — CI #342 PASS;
+- TASK-117 `78cce0a39c9f8a3a9bda9174cdfdc24d3e223217` — CI #344 PASS;
+- TASK-118 `eb4575a9c61d5105626ff9354f630d7b5defe7ae` — CI #345 PASS.
+
+Materialization `7f602976fdfccdcbdc22806c54e2cce8826ff760` passed CI #341 before implementation.
 
 ## Sprint proof on branch
 
-`active A -> two independent authenticated PostgreSQL writers from expected A -> one database-serialized authoritative transition -> stale writer rejected -> failed candidate retains winner -> fresh reconstruction -> same authoritative deployment + complete durable history`
+`durable Factory output -> reconstructed Release/Artifact -> authenticated atomic Deploy A -> autonomous Runtime -> B promotion -> stale C cannot replace B -> failed D retains B -> fresh authenticated reconstruction -> B authoritative + A/B/C/D history durable -> Runtime continuity`
 
 ## Architecture boundary
 
-- TASK-113 is an explicitly authorized additive L3 Deploy-module API change;
-- existing synchronous Deploy APIs remain compatible;
-- `packages/contracts/**` unchanged;
-- ADR-0002 and ADR-0007 remain preserved;
-- no L4 decision/ADR or cross-context PostgreSQL ownership was introduced;
-- PostgreSQL remains a Deploy-owned replaceable reference provider.
+- evidence-only Sprint;
+- no `packages/**`, canonical contract, ADR, workflow, app, tooling or dependency changes;
+- ADR-0002 Builder/Runtime autonomy preserved;
+- ADR-0007 Release/Environment/Deployment separation preserved;
+- PostgreSQL remains Deploy-owned and replaceable;
+- no production traffic/process rollback or full production-readiness claim.
 
 ## Residual debt
 
-Atomic authority correctness is now branch-proven for the bounded PostgreSQL reference provider, but the implementation currently uses coarse table-level serialization. Positive TLS certificate policy, pooling/retry/richer cancellation/provider observability, cross-context PostgreSQL duplication and production deployment orchestration remain open/non-goals.
+Coarse table-level serialization, positive TLS verification, pooling/retry/cancellation/observability, duplicated raw PostgreSQL transports, production deployment orchestration, production SecretResolver and Observe publication remain open/non-goals.
 
 ## Current gate
 
-Run repository-wide Deterministic CI on the Sprint closure head. If green, verify PR #190 scope/review gates, mark it Ready for human Sprint Review and stop.
+Run final Deterministic CI on the Sprint closure head. If green, verify PR #191 scope/review gates, mark it Ready for human Sprint Review and stop.
 
-Do not merge PR #190 automatically. Do not materialize `P8-HARDENED-ACTIVATION-E2E-01` or the P8 Integration & Technical Debt Review at this gate.
+Do not merge PR #191 automatically. Do not materialize or execute the P8 Integration & Technical Debt Review until this Sprint passes human review, merges, and `main` is freshly reconstructed.
