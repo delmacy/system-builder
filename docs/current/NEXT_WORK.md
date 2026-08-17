@@ -1,27 +1,26 @@
-# Next Work — Sprint Review P7-DURABLE-DEPLOYMENT-E2E-01
+# Next Work — P7 Integration & Technical Debt Review
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-The third P7 construction Sprint is implemented on:
+All three P7 construction Sprints are integrated through PR #186 merge `e71590625466dac27298852af779063c40d8551b`.
 
-`sprint/P7-DURABLE-DEPLOYMENT-E2E-01`
+The mandatory package review is active on:
 
-PR: #186
-Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+`review/P7-PACKAGE-01-integration-debt`
 
-TASK gates:
-- TASK-107 — `94a21fc6c2068968cfb036f9af91814fee58d58d` — CI #322 PASS;
-- TASK-108 — `f0788f36512dfd398acd7b36214c39348f925c61` — CI #323 PASS;
-- TASK-109 — `9bcd7e88a5e4190cc0935c43e5279437f9a1d679` — CI #324 PASS.
+PR: #187
+Status: `REVIEW_FINALIZATION / MATERIALIZATION_CI_PASS`.
 
-Materialization repair `9e678bc53e376205fa9897bfa311bb254fa6e6bc` — CI #321 PASS.
+Materialization head `cb10b83af8dd5116a730ac50d4b64375c6499db7` passed Deterministic CI #326 with 309 unit tests, 138 product tests, 110 validated TASK specifications, architecture gates and build all PASS.
 
 ## Required action
 
-Require final Deterministic CI on the closure head. If green, mark PR #186 Ready for human Sprint Review and stop.
+1. Run final Deterministic CI on the review-finalization head.
+2. If green, verify the PR remains documentation-only and review gates are clear.
+3. Mark PR #187 Ready for human Review Gate and stop.
 
 ## Boundary
 
-Do not merge automatically at this gate. Do not materialize or execute the mandatory P7 Integration & Technical Debt Review until predecessor review and merge gates pass.
+Do not merge PR #187 at this gate. Do not create P8, a successor Sprint Package, Sprint or TASK. Successor planning becomes eligible only after this review passes human acceptance and merges, followed by a fresh reconstruction of `main`.

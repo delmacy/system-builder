@@ -10,44 +10,49 @@ Date: 2026-08-17
 
 - P1–P6 construction/review history is integrated.
 - P7-PACKAGE-01 planning merged through PR #183.
-- P7-DURABLE-DEPLOYMENT-STATE-01 merged through PR #184.
-- P7-DEPLOYMENT-ROLLBACK-01 merged through PR #185 at `991c6cff2f2e7fc332b4534091ad6afafce14106` after closure CI #319 PASS.
-- P7-DURABLE-DEPLOYMENT-E2E-01 implementation is complete on PR #186 and awaiting closure-head CI / Sprint Review.
+- P7-DURABLE-DEPLOYMENT-STATE-01 merged through PR #184 at `fafc07c0c3a3f8661f50fbad30aa091bbea83731`.
+- P7-DEPLOYMENT-ROLLBACK-01 merged through PR #185 at `991c6cff2f2e7fc332b4534091ad6afafce14106`.
+- P7-DURABLE-DEPLOYMENT-E2E-01 merged through PR #186 at `e71590625466dac27298852af779063c40d8551b` after closure CI #325 PASS.
+- All three P7 construction Sprints are integrated.
+- Mandatory P7 Integration & Technical Debt Review is active on PR #187.
 - GitHub Actions with PostgreSQL 17.6 remains the objective deterministic integration gate.
 - AgentFactory Supervisor/runtime remains frozen non-blocking infrastructure.
 
-## Growing proof
-
-Integrated predecessor:
-
-`durable deployment A -> candidate B -> acceptance failure -> A remains authoritative active version across PostgreSQL reconstruction`
-
-Current Sprint adds package-level proof:
+## Integrated P7 proof
 
 `durable Factory output -> durable Deploy activation A -> autonomous Runtime -> successful B activation -> failed candidate C -> reconstruct deployment authority -> B remains active + Runtime continuity`
 
-## Active Sprint
+## Active review
 
-`P7-DURABLE-DEPLOYMENT-E2E-01 — Durable Deployment Lifecycle E2E`
+`P7-PACKAGE-01 — Integration & Technical Debt Review`
 
-Base: `991c6cff2f2e7fc332b4534091ad6afafce14106`
-Branch: `sprint/P7-DURABLE-DEPLOYMENT-E2E-01`
-PR: #186
-Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+Base: `e71590625466dac27298852af779063c40d8551b`
+Branch: `review/P7-PACKAGE-01-integration-debt`
+PR: #187
+Status: `REVIEW_FINALIZATION / MATERIALIZATION_CI_PASS`.
 
-TASK results:
-1. TASK-107 — PASS at `94a21fc6c2068968cfb036f9af91814fee58d58d`; CI #322 PASS;
-2. TASK-108 — PASS at `f0788f36512dfd398acd7b36214c39348f925c61`; CI #323 PASS;
-3. TASK-109 — PASS at `9bcd7e88a5e4190cc0935c43e5279437f9a1d679`; CI #324 PASS.
+Materialization head `cb10b83af8dd5116a730ac50d4b64375c6499db7` passed Deterministic CI #326:
+- 309 unit tests PASS;
+- 138 product tests PASS;
+- 110 TASK specifications validated;
+- architecture gates PASS;
+- build PASS.
 
-Materialization repair `9e678bc53e376205fa9897bfa311bb254fa6e6bc` passed CI #321 after initial task-catalog-only CI #320 failure.
+No implementation TASKs are authorized by the review. Review scope is documentation-only.
 
-## Architecture boundary
+## Review disposition
 
-ADR-0002 and ADR-0007 remain controlling and preserved. This Sprint is evidence-only: no canonical contract, product/provider schema/interface or L4 change occurred. Production traffic, TLS/auth/pooling, fleet supervision and production rollback orchestration remain outside scope.
+- P7 package construction: PASS;
+- architecture/boundaries: PASS WITH DEBT;
+- ADR-0002 preserved;
+- ADR-0007 preserved;
+- critical rollback blocker: NONE FOUND;
+- production readiness: NOT CLAIMED.
+
+Highest production debts remain PostgreSQL transport/auth hardening, transactional multi-writer active deployment authority, production SecretResolver, migration/fleet coordination and real traffic/process rollback orchestration.
 
 ## Current gate
 
-Require final Deterministic CI on the closure head. If green, PR #186 becomes Ready for human Sprint Review and execution stops there.
+Run final Deterministic CI on the review-finalization head. If green, mark PR #187 Ready for human Review Gate and stop.
 
-The mandatory P7 Integration & Technical Debt Review remains FORECAST / NOT_MATERIALIZED until this Sprint is reviewed and merged.
+Do not merge PR #187 at this gate. Do not create P8, a successor Sprint Package, Sprint or TASKs in this review.
