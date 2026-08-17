@@ -11,10 +11,9 @@ Date: 2026-08-17
 - Public contract spine integrated through TASK-008.
 - P1/P2/P3 construction packages and mandatory package reviews merged through PR #166.
 - P4 construction and mandatory Integration & Technical Debt Review merged through PR #172.
-- P5 construction Sprints merged through PR #176.
-- P5 Integration & Technical Debt Review merged through PR #177 at `97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f`.
-- P6-PACKAGE-01 planning merged through PR #178 at `5806de40087ad36d8b6556d1cd4a7446b9db13c7`; package remains rolling-wave authority.
-- TD-P4-01 and TD-P5-04 remain the active high-leverage durability debt addressed by P6.
+- P5 construction and mandatory Integration & Technical Debt Review merged through PR #177.
+- P6-PACKAGE-01 planning merged through PR #178 at `5806de40087ad36d8b6556d1cd4a7446b9db13c7`.
+- P6 first construction Sprint implementation is complete on its Sprint branch and is preparing for Sprint Review.
 - GitHub Actions remains the objective deterministic integration gate with PostgreSQL 17.6 service evidence.
 - AgentFactory Supervisor/runtime remains frozen non-blocking infrastructure track.
 
@@ -30,21 +29,23 @@ Base: `5806de40087ad36d8b6556d1cd4a7446b9db13c7`
 
 Branch: `sprint/P6-DURABLE-CATALOG-01`
 
-Status: `COMMITTED / NOT_STARTED`.
+PR: #179
 
-Committed TASK set:
-1. TASK-091 — internal Catalog persistence boundary;
-2. TASK-092 — PostgreSQL reference Catalog provider;
-3. TASK-093 — restart-safe Catalog -> Assembly evidence.
+Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
 
-No implementation TASK has been executed by the materialization action.
+TASK results:
+1. TASK-091 — PASS at `9e04c25cf47d3a5afff56a446a96ba6ca78edcbd`; CI #281 PASS;
+2. TASK-092 — PASS at `09019e5f2ed050065a0f7a785f7a3204ba33ec1c`; CI #284 PASS;
+3. TASK-093 — PASS at `dcb19f799db131148593b75ddb893e5f4e149d0b`; CI #285 PASS.
 
-## Architecture boundary
+## Achieved Sprint proof
 
-The Sprint must preserve the current public Catalog record/identity/duplicate/list/resolution semantics and all Assembly semantics. PostgreSQL is a replaceable reference provider internal to Catalog, not a public architecture dependency. Canonical shared-contract or L4 changes are escalation conditions, not implied scope.
+`normalized Catalog registration -> durable PostgreSQL persistence -> provider/process reconstruction -> equivalent deterministic Catalog resolution -> actual transitive AssemblyPlan`
+
+Public Catalog identity/list/resolution semantics and all Assembly source/semantics remain preserved. PostgreSQL is a replaceable reference provider internal to Catalog.
 
 ## Current gate
 
-The Sprint is materialized and ready for execution only after a new explicit instruction. Execute TASK-091 -> TASK-092 -> TASK-093 in dependency order when authorized.
+Run closure-head Deterministic CI after Sprint report/state reconciliation. If green, PR #179 may be marked Ready for human Sprint Review. Do not merge or advance automatically.
 
-`P6-DURABLE-RELEASE-ARTIFACT-01`, `P6-DURABLE-FACTORY-E2E-01` and the P6 Integration & Technical Debt Review remain FORECAST and are not materialized.
+`P6-DURABLE-RELEASE-ARTIFACT-01`, `P6-DURABLE-FACTORY-E2E-01` and the P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.

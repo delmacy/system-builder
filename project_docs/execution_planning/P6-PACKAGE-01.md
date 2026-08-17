@@ -1,6 +1,6 @@
 # P6-PACKAGE-01 — Durable Factory and Release Infrastructure
 
-Status: ACTIVE_PACKAGE / FIRST_SPRINT_COMMITTED
+Status: ACTIVE_PACKAGE / FIRST_SPRINT_REVIEW
 Planning base: `97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f` (P5 Integration & Technical Debt Review merged through PR #177)
 Package plan merged: PR #178 at `5806de40087ad36d8b6556d1cd4a7446b9db13c7`.
 
@@ -22,37 +22,29 @@ The package attacks `TD-P4-01` and `TD-P5-04` directly. It does not authorize pr
 - WBS 05 authorizes durable preservation of Software Catalog registration/query semantics and catalog governance without coupling Catalog to one provider.
 - WBS 09.3.1 remains forecast authority for later durable Release/Artifact work; it is not active Sprint scope.
 - Existing provider-neutral ArtifactPayloadRepository semantics remain untouched in the first Sprint.
-- No L4 architecture change is planned. Any canonical shared-contract extraction or boundary change discovered later requires explicit L3/L4 authority as applicable.
 
 ## Construction sequence
 
-### 1. P6-DURABLE-CATALOG-01 — COMMITTED / NOT_STARTED
+### 1. P6-DURABLE-CATALOG-01 — SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS
 
 Base: `5806de40087ad36d8b6556d1cd4a7446b9db13c7`
 
 Branch: `sprint/P6-DURABLE-CATALOG-01`
 
+PR: #179
+
 Objective: introduce a replaceable durable Software Catalog storage boundary and one reference durable provider while preserving the exact current normalized record, duplicate identity, deterministic list and provider-neutral resolution semantics.
 
-Materialized TASKs:
-- TASK-091 — define internal Catalog repository/provider boundary around current record semantics;
-- TASK-092 — implement reference PostgreSQL-backed durable Catalog provider with deterministic persistence/reload behavior;
-- TASK-093 — prove restart-safe Catalog resolution and P5 Assembly predecessor integration.
+TASK results:
+- TASK-091 — PASS at `9e04c25cf47d3a5afff56a446a96ba6ca78edcbd`; CI #281 PASS;
+- TASK-092 — PASS at `09019e5f2ed050065a0f7a785f7a3204ba33ec1c`; CI #284 PASS;
+- TASK-093 — PASS at `dcb19f799db131148593b75ddb893e5f4e149d0b`; CI #285 PASS.
 
-Dependency order:
+Achieved exit proof:
 
-`TASK-091 -> TASK-092 -> TASK-093`
+`register normalized catalog records -> persist -> reconstruct provider/process -> deterministic list/resolution equivalent -> actual Assembly transitive proof equivalent`
 
-Expected exit proof:
-
-`register normalized catalog records -> persist -> reconstruct provider/process -> deterministic list/resolution identical -> actual Assembly transitive proof remains green`
-
-Constraints:
-- no richer version ranges/provider scoring;
-- no change to Assembly semantics or source;
-- no Runtime, Deploy, Release or ArtifactStore changes;
-- provider-specific transport stays behind Catalog boundary;
-- no canonical shared-contract change.
+The Sprint is not integrated until PR #179 passes closure-head CI, human Sprint Review and merge.
 
 ### 2. P6-DURABLE-RELEASE-ARTIFACT-01 — FORECAST / NOT_MATERIALIZED
 
@@ -82,7 +74,7 @@ P5 predecessor:
 
 `SystemDefinition -> bounded Catalog constraints/dependencies -> transitive AssemblyPlan -> ValidationEvidence -> materializer registry -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> Deploy -> autonomous Runtime`
 
-P6 first Sprint grows this by proving Catalog survives provider/process reconstruction without resolution or Assembly drift. Later package stages remain forecast.
+P6 first Sprint now proves durable Catalog provider/process reconstruction without resolution or Assembly drift. Later package stages remain forecast.
 
 ## Risks and change control
 
@@ -90,18 +82,10 @@ High:
 - restart-safe identity/idempotence and persistence schema evolution without redefining Catalog semantics.
 
 Medium-High:
-- choosing PostgreSQL as a reference implementation without creating public provider lock-in;
-- concurrency semantics beyond the bounded Sprint proof remain debt unless explicitly required by the committed goal.
+- PostgreSQL is a bounded reference implementation; production auth/pooling/TLS/concurrency are not claimed by this Sprint.
 
-Escalate rather than broaden the active Sprint if implementation requires:
-- canonical contract changes across bounded contexts;
-- Assembly semantic/source changes;
-- Builder/Runtime or Release/Environment/Deployment boundary changes;
-- production traffic/supervision/secrets scope;
-- replacement of deterministic identity/resolution semantics.
+Escalate rather than broaden future work if implementation requires canonical contract changes, Assembly semantic/source changes, Builder/Runtime or Release/Environment/Deployment boundary changes, or production traffic/supervision/secrets scope.
 
 ## Commitment gate
 
-Only `P6-DURABLE-CATALOG-01` is COMMITTED. Its TASK-091/092/093 specs are materialized but not executed.
-
-All successor construction Sprints and the Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED and require fresh predecessor revalidation plus explicit authorization before promotion.
+Only `P6-DURABLE-CATALOG-01` is active and is stopping at Sprint Review. All successor construction Sprints and the Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED and require fresh predecessor revalidation plus explicit authorization before promotion.

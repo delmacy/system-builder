@@ -1,9 +1,10 @@
 # P6-DURABLE-CATALOG-01 — Durable Software Catalog Provider
 
-Status: COMMITTED / NOT_STARTED
+Status: SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS
 Package: `P6-PACKAGE-01`
 Base SHA: `5806de40087ad36d8b6556d1cd4a7446b9db13c7` (P6 package plan merged through PR #178)
 Branch: `sprint/P6-DURABLE-CATALOG-01`
+PR: #179
 
 ## Goal
 
@@ -13,87 +14,48 @@ Move the current Software Catalog from process-lifetime storage to a replaceable
 
 PASS:
 
-- P5 Catalog constraints/dependency requirements are merged and regression-proven;
-- P5 Assembly transitive graph/diagnostics are merged and regression-proven;
-- P5 package review closed bounded dependency-solving debt and ranked durable Factory/Release providers first;
+- P5 Catalog constraints/dependency requirements and Assembly transitive graph/diagnostics are integrated and regression-proven;
 - P6-PACKAGE-01 planning merged through PR #178 at `5806de40087ad36d8b6556d1cd4a7446b9db13c7`;
-- Deterministic CI #280 passed on the package-plan head;
-- current CI already provisions PostgreSQL 17.6 through `SYSTEM_BUILDER_TEST_POSTGRES_URL`;
-- no predecessor contract or architecture change is required for the bounded Sprint goal.
+- Deterministic CI #280 passed on package planning;
+- no predecessor contract or architecture change was required for this Sprint.
 
 ## Authority
 
-WBS 05 authorizes Software Catalog registration, contracts/versions/dependencies, provider-neutral resolution and Catalog governance. TD-P4-01 and TD-P5-04 identify process-local Catalog persistence as high-leverage debt.
+WBS 05 authorizes provider-neutral Software Catalog registration, resolution and governance. TD-P4-01 and TD-P5-04 identify process-local persistence as active durability debt.
 
-This Sprint authorizes only a Catalog-internal persistence boundary, a replaceable PostgreSQL reference provider and integration evidence. It does not authorize richer Catalog constraint/provider-selection policy, Assembly semantic changes, canonical shared-contract extraction, Release/ArtifactStore persistence, Deploy/Runtime work or any L4 change.
+This Sprint authorizes only a Catalog-internal persistence boundary, a replaceable PostgreSQL reference provider and integration evidence. ADR-0002 and ADR-0007 remain controlling and unchanged. PostgreSQL is a Factory-side reference implementation detail, not a Runtime dependency or canonical architecture requirement.
 
-ADR-0002 and ADR-0007 remain controlling and unchanged. PostgreSQL is a reference implementation detail of the Factory-side Catalog, not a Runtime dependency or canonical architecture requirement.
+## TASK results
 
-## Committed TASK set
+1. `TASK-091` — PASS at `9e04c25cf47d3a5afff56a446a96ba6ca78edcbd`; CI #281 PASS.
+2. `TASK-092` — PASS at `09019e5f2ed050065a0f7a785f7a3204ba33ec1c`; CI #284 PASS.
+3. `TASK-093` — PASS at `dcb19f799db131148593b75ddb893e5f4e149d0b`; CI #285 PASS.
 
-1. `TASK-091` — establish internal Software Catalog persistence boundary.
-2. `TASK-092` — implement PostgreSQL reference Catalog provider.
-3. `TASK-093` — prove restart-safe Catalog -> Assembly integration.
-
-Dependency order:
+Dependency order preserved:
 
 `TASK-091 -> TASK-092 -> TASK-093`
 
-No TASK has been executed by Sprint materialization.
+## Achieved proof
 
-## Growing integration proof
+`register normalized catalog records -> durable PostgreSQL persistence -> reconstruct provider/process -> deterministic Catalog resolution equivalent -> actual transitive AssemblyPlan equivalent`
 
-Predecessor:
-
-`SystemDefinition -> normalized/constrained SoftwareCatalogRegistry -> deterministic transitive AssemblyPlan`
-
-Sprint exit:
-
-`register normalized catalog records -> durable provider persistence -> reconstruct provider/process -> deterministic list/resolution equivalent -> actual transitive AssemblyPlan equivalent`
-
-Repository-wide final verification must also preserve the existing downstream Compiler/Release/Deploy/PostgreSQL autonomous-Runtime regressions even though those modules are forbidden implementation scope.
-
-## Public semantic invariants
-
-Execution must preserve:
-
-- exported current Catalog record/request/result data semantics;
-- normalization of capability/provider/version/dependency/compatibility tokens;
-- `catalogIdentity` behavior;
-- duplicate identity rejection behavior;
-- deterministic `list()` ordering and snapshots;
-- `resolveCatalogCandidates` exact/minimum/compatibility behavior and deterministic candidate order;
-- current Catalog diagnostics/failure behavior;
-- all current Assembly API, graph, diagnostic and deterministic BOM semantics.
-
-Additive provider implementation details may exist under the Catalog package, but consumers must not need PostgreSQL-specific knowledge to use current Catalog semantics.
+The implementation preserves current Catalog identity, duplicate, ordering, exact/minimum/compatibility and diagnostics semantics; preserves all Assembly source/semantics; keeps the default in-memory path; reconstructs normalized structured dependency records from PostgreSQL; and keeps connection material outside Catalog records and Assembly evidence.
 
 ## Validation
 
-Per TASK, run the validations declared in its spec when execution is authorized.
+- TASK-091: Deterministic CI #281 PASS.
+- TASK-092: initial intermediate CI #282 failed on bounded TypeScript narrowing only; authoritative replacement TASK commit passed Deterministic CI #284.
+- TASK-093: Deterministic CI #285 PASS.
+- CI #285 repository verification: PostgreSQL 17.6 healthy; 309 unit PASS; 117 product PASS; 94 task specs validated; architecture gates/build PASS; durable Catalog reconstruction/Assembly evidence PASS; predecessor PostgreSQL redeploy and Runtime autonomy regressions PASS.
+- final closure-head Deterministic CI is required before Sprint Review readiness.
+- local execution is not claimed.
 
-Sprint final validation:
+## Architecture disposition
 
-- `npm run verify`
-- GitHub Deterministic CI with PostgreSQL 17.6 as objective final evidence.
+No new ADR required. No canonical contract, Assembly source/semantic, Release/ArtifactStore, Deploy, Runtime-core or Builder/Runtime boundary was changed. PostgreSQL remains replaceable/internal to the Catalog reference provider.
 
-Local execution must not be claimed unless actually observed.
+## Review boundary
 
-## Stop / escalation conditions
+After closure-head Deterministic CI PASS, mark PR #179 ready for Sprint Review and stop.
 
-Stop rather than broaden the Sprint if implementation requires:
-
-- modifying `packages/assembly/**`;
-- modifying canonical `packages/contracts/**`;
-- changing existing public Catalog shapes, identity, resolution or diagnostics;
-- making PostgreSQL a required public Catalog/Factory contract;
-- destructive/irreversible migration semantics;
-- Release, ArtifactStore, Deploy, Runtime or SecretResolver product changes;
-- an L3 contract extraction not explicitly authorized by the TASK;
-- any L4 Builder/Runtime, Release/Environment/Deployment or suite-boundary change.
-
-## Successor boundary
-
-`P6-DURABLE-RELEASE-ARTIFACT-01`, `P6-DURABLE-FACTORY-E2E-01` and P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.
-
-Do not materialize or execute a successor automatically.
+`P6-DURABLE-RELEASE-ARTIFACT-01`, `P6-DURABLE-FACTORY-E2E-01` and the mandatory P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED and must not be started without new explicit instruction after this Sprint is reviewed/merged and main is reconstructed.

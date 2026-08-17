@@ -1,43 +1,34 @@
-# Next Work — Execute P6-DURABLE-CATALOG-01
+# Next Work — Review P6-DURABLE-CATALOG-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-`P6-PACKAGE-01` is integrated in main through PR #178 at `5806de40087ad36d8b6556d1cd4a7446b9db13c7`.
-
-The first construction Sprint is materialized on:
+`P6-DURABLE-CATALOG-01` implementation is complete on:
 
 `sprint/P6-DURABLE-CATALOG-01`
 
-Status: `COMMITTED / NOT_STARTED`.
+PR: #179
 
-## Committed TASK order
+Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
 
-1. `TASK-091` — internal Catalog persistence boundary;
-2. `TASK-092` — PostgreSQL reference Catalog provider;
-3. `TASK-093` — restart-safe Catalog -> Assembly integration evidence.
+TASK gates passed in dependency order:
+- TASK-091 — CI #281 PASS;
+- TASK-092 — CI #284 PASS;
+- TASK-093 — CI #285 PASS.
 
-Before executing each TASK, read its full `context_paths` and confirm `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validation commands.
+## Delivered proof
 
-## Non-negotiable boundaries
+`normalized Catalog registration -> durable PostgreSQL persistence -> provider/process reconstruction -> equivalent deterministic Catalog resolution -> actual transitive AssemblyPlan`
 
-- public Catalog record, identity, duplicate, deterministic list and resolution semantics remain unchanged;
-- Assembly source and semantics remain unchanged;
-- PostgreSQL is reference-provider implementation detail, not a canonical dependency;
-- no canonical shared-contract change;
-- no Release, ArtifactStore, Deploy or Runtime product work;
-- no richer version range/provider-selection policy;
-- any required L3/L4 change stops the Sprint for explicit authority.
+Public Catalog semantics, Assembly source/semantics, canonical contracts and downstream Factory modules remain unchanged.
 
-## Sprint exit proof
+## Required next action
 
-`normalized Catalog registration -> durable persistence -> provider/process reconstruction -> equivalent deterministic Catalog resolution -> actual Assembly transitive proof unchanged`
+Run closure-head Deterministic CI after the Sprint report/current-state commit. If green, mark the existing single PR #179 Ready for human Sprint Review and stop.
 
-Final Sprint validation remains `npm run verify` with GitHub Deterministic CI as objective evidence.
+Do not merge before the human Sprint Review gate. Do not materialize or execute any successor Sprint automatically.
 
 ## Successor boundary
 
 `P6-DURABLE-RELEASE-ARTIFACT-01`, `P6-DURABLE-FACTORY-E2E-01` and the P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.
-
-Do not start or materialize any successor automatically.
