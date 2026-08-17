@@ -1,7 +1,7 @@
 ---
 id: TASK-100
 title: Close P6 durable Factory E2E with deterministic failure and autonomy regression proof
-status: ready
+status: completed
 priority: 408
 milestone: M7
 model_tier: cheap

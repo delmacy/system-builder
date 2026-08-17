@@ -44,6 +44,7 @@ async function adminSql(connectionString: string, sql: string): Promise<void> {
   });
 }
 function isolatedUrl(baseUrl: string, databaseName: string): string { const url = new URL(baseUrl); url.pathname = `/${databaseName}`; url.search = ""; url.hash = ""; return url.toString(); }
+function sqlLiteral(value: string): string { return `'${value.replaceAll("'", "''")}'`; }
 
 async function compileFactory(scope: string, reverse = false) {
   assert.ok(postgresUrl);
@@ -57,7 +58,7 @@ async function compileFactory(scope: string, reverse = false) {
   assert.equal(validation.decision, "PASS");
   const compilation = compileSyntheticRelease({ assemblyPlan: assembly.plan, validationEvidence: validation, compilerVersion, runtimeVersion, environmentSchema: factoryEnvironmentSchema });
   await storage.close();
-  return { assemblyPlan: assembly.plan, compilation };
+  return { assemblyPlan: assembly.plan, validation, compilation };
 }
 
 async function compileStateful(scope: string) {
@@ -110,4 +111,37 @@ test("reconstructed durable Factory output reaches autonomous persisted Runtime 
     const second = await executeLocalDeployment({ ...common, startedAt: "2026-08-17T18:11:00Z", completedAt: "2026-08-17T18:11:01Z" }); assert.equal(second.ok, true); if (!second.ok || !second.execution.ok) throw new Error("TASK099_SECOND_RUNTIME_FAILED"); assert.deepEqual(second.execution.state, { kind: "RuntimeState", action: "counter.increment", value: 4 }); assert.deepEqual(second.execution.migrationApplication.migrations.map(({ status }) => status), ["skipped"]); assert.equal(second.record.publishedReleaseRef, first.record.publishedReleaseRef); assert.equal(second.record.releaseHash, first.record.releaseHash);
     const evidence = JSON.stringify({ release: durable.release, payload: durable.verified, first: first.record, second: second.record }); assert.equal(evidence.includes(runtimeDatabaseUrl), false); assert.equal(evidence.includes(postgresUrl), false); assert.equal(evidence.includes("postgres://"), false);
   } finally { await adminSql(postgresUrl, `DROP DATABASE IF EXISTS ${quoted} WITH (FORCE)`); }
+});
+
+test("P6 durable Factory closure preserves deterministic and fail-closed boundaries", { skip: postgresUrl === undefined ? "SYSTEM_BUILDER_TEST_POSTGRES_URL not configured" : false }, async () => {
+  assert.ok(postgresUrl);
+  const first = await compileFactory("task100_catalog_a"); const reversed = await compileFactory("task100_catalog_b", true);
+  assert.deepEqual(reversed.assemblyPlan, first.assemblyPlan); assert.deepEqual(reversed.compilation.artifact, first.compilation.artifact);
+  const durable = await publishAndReconstruct(first.compilation, "task100");
+  const registry = new ReleaseRegistry(durable.reconstructedReleaseStorage);
+  assert.throws(() => registry.publish({ releaseId: "durable-task100", version: "1.0.0", artifact: first.compilation.artifact, publishedAt: "2026-08-17T18:20:00Z" }), /RELEASE_DUPLICATE_IDENTITY:durable-task100@1\.0\.0/);
+  assert.throws(() => durable.reconstructedArtifacts.publish({ artifactHash: first.compilation.artifact.artifactHash, files: first.compilation.files.map((file, index) => index === 0 ? { ...file, content: `${file.content}\nconflict` } : file) }), /ARTIFACT_PAYLOAD_CONFLICT/);
+
+  const deployInput = { publishedRelease: durable.release, releaseArtifact: first.compilation.artifact, environment: deployEnvironment(), acceptanceChecks: [{ name: "artifact-verified", pass: true }], startedAt: "2026-08-17T18:21:00Z", completedAt: "2026-08-17T18:21:01Z" } as const;
+  const deployed = dryRunDeploy(deployInput); assert.equal(deployed.ok, true); if (!deployed.ok) throw new Error("TASK100_DEPLOY_FAILED");
+  const mismatched = dryRunDeploy({ ...deployInput, releaseArtifact: { ...first.compilation.artifact, artifactHash: `sha256:${"e".repeat(64)}` } }); assert.equal(mismatched.ok, false); if (mismatched.ok) throw new Error("TASK100_EXPECTED_ARTIFACT_MISMATCH"); assert.equal(mismatched.diagnostic.code, "ARTIFACT_MISMATCH");
+
+  const emptyCatalog = new SoftwareCatalogRegistry();
+  const missingDefinition = { ...factorySystemDefinition, capabilities: [...factorySystemDefinition.capabilities, { id: "missing", capability: "storage.missing", requirementRefs: ["REQ-2"] }] };
+  const missingAssembly = assembleSystemDefinition(missingDefinition, "system-definition:task100:missing", (request) => resolveCatalogCandidates(emptyCatalog, request));
+  assert.equal(missingAssembly.ok, false); if (missingAssembly.ok) throw new Error("TASK100_EXPECTED_ASSEMBLY_FAILURE"); assert.ok(missingAssembly.diagnostics.some((diagnostic) => diagnostic.code === "ASSEMBLY_CAPABILITY_UNRESOLVED" && diagnostic.capability === "storage.missing"));
+
+  const brokenValidation = validateTraceability({ recipe: factoryRecipe, analysis: { findings: [{ recipeRequirementRefs: ["REQ-1"] }] }, definition: factorySystemDefinition, assemblyPlan: first.assemblyPlan, assemblyPlanRef: first.assemblyPlan.contentHash });
+  assert.equal(brokenValidation.decision, "FAIL"); assert.ok(brokenValidation.checks.some((check) => check.id === "traceability:REQ-2" && check.status === "FAIL"));
+
+  const tamperScope = "task100_tamper";
+  const tamperRepository = await PostgresArtifactPayloadRepository.open(postgresUrl, tamperScope); tamperRepository.publish({ artifactHash: first.compilation.artifact.artifactHash, files: first.compilation.files }); await tamperRepository.close();
+  const tamperedJson = JSON.stringify({ artifactHash: first.compilation.artifact.artifactHash, files: first.compilation.files.map((file, index) => index === 0 ? { ...file, content: `${file.content}\ntampered` } : file) });
+  await adminSql(postgresUrl, `UPDATE system_builder_artifact_${tamperScope} SET payload_json = ${sqlLiteral(tamperedJson)} WHERE artifact_hash = ${sqlLiteral(first.compilation.artifact.artifactHash)}`);
+  const tamperedRepository = await PostgresArtifactPayloadRepository.open(postgresUrl, tamperScope);
+  assert.throws(() => tamperedRepository.getVerified(first.compilation.artifact), /ARTIFACT_PAYLOAD_FILE_HASH_MISMATCH/);
+  await tamperedRepository.close();
+
+  const evidence = JSON.stringify({ release: durable.release, payload: durable.verified, deployment: deployed.record }); assert.equal(evidence.includes(postgresUrl), false); assert.equal(evidence.includes("postgres://"), false); assert.equal(evidence.includes("secret://"), false);
+  await durable.reconstructedArtifacts.close(); await durable.reconstructedReleaseStorage.close();
 });
