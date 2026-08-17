@@ -1,0 +1,62 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { DeploymentRegistry, type DeploymentRecord } from "../../packages/deploy/index.js";
+import { PostgresDeploymentRecordStorage } from "../../packages/deploy/postgres-state.js";
+
+const postgresUrl = process.env.SYSTEM_BUILDER_TEST_POSTGRES_URL;
+
+function record(seed: string, environmentRef: string, status: "succeeded" | "failed", release = "app@1.0.0"): DeploymentRecord {
+  return Object.freeze({
+    kind: "DeploymentRecord",
+    deploymentId: `sha256:${seed.repeat(64).slice(0, 64)}`,
+    publishedReleaseRef: release,
+    environmentRef,
+    releaseHash: `sha256:${"a".repeat(64)}`,
+    startedAt: "2026-08-17T18:00:00Z",
+    completedAt: "2026-08-17T18:00:01Z",
+    status,
+    healthChecks: Object.freeze([Object.freeze({ name: "runtime-health", status: status === "succeeded" ? "PASS" as const : "FAIL" as const })]),
+  });
+}
+
+test("postgres deployment state survives provider reconstruction with active successful version", { skip: postgresUrl === undefined ? "SYSTEM_BUILDER_TEST_POSTGRES_URL not configured" : false }, async () => {
+  assert.ok(postgresUrl);
+  const firstStorage = await PostgresDeploymentRecordStorage.open(postgresUrl, "task102");
+  const firstRegistry = new DeploymentRegistry(firstStorage);
+  const succeeded = firstRegistry.record(record("1", "env:task102", "succeeded"));
+  const failed = firstRegistry.record(record("2", "env:task102", "failed", "app@1.0.1"));
+  await firstStorage.flush();
+
+  const reconstructedStorage = await PostgresDeploymentRecordStorage.open(postgresUrl, "task102");
+  const reconstructedRegistry = new DeploymentRegistry(reconstructedStorage);
+  assert.deepEqual(reconstructedRegistry.get(succeeded.deploymentId), succeeded);
+  assert.deepEqual(reconstructedRegistry.get(failed.deploymentId), failed);
+  assert.deepEqual(reconstructedRegistry.getActive("env:task102"), succeeded);
+  assert.deepEqual(reconstructedRegistry.list().map((item) => item.deploymentId), [succeeded.deploymentId, failed.deploymentId]);
+  assert.equal(Object.isFrozen(reconstructedRegistry.get(succeeded.deploymentId)), true);
+
+  const next = reconstructedRegistry.record(record("3", "env:task102", "succeeded", "app@1.0.2"));
+  await reconstructedStorage.flush();
+  const finalStorage = await PostgresDeploymentRecordStorage.open(postgresUrl, "task102");
+  const finalRegistry = new DeploymentRegistry(finalStorage);
+  assert.deepEqual(finalRegistry.getActive("env:task102"), next);
+  const evidence = JSON.stringify({ history: finalRegistry.list(), active: finalRegistry.getActive("env:task102") });
+  assert.equal(evidence.includes(postgresUrl), false);
+  assert.equal(evidence.includes("postgres://"), false);
+
+  await finalStorage.close();
+  await reconstructedStorage.close();
+  await firstStorage.close();
+});
+
+test("postgres deployment provider rejects invalid connection diagnostics without leaking credentials", async () => {
+  const connectionString = "postgres://secret-user:super-secret@127.0.0.1:0/system_builder";
+  await assert.rejects(() => PostgresDeploymentRecordStorage.open(connectionString, "task102_invalid"), (error: unknown) => {
+    assert.ok(error instanceof Error);
+    assert.equal(error.message, "DEPLOY_POSTGRES_URL_INVALID");
+    assert.equal(error.message.includes("secret-user"), false);
+    assert.equal(error.message.includes("super-secret"), false);
+    assert.equal(error.message.includes(connectionString), false);
+    return true;
+  });
+});

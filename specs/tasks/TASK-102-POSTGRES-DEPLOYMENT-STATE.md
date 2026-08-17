@@ -1,7 +1,7 @@
 ---
 id: TASK-102
 title: Implement PostgreSQL deployment state provider
-status: ready
+status: completed
 priority: 408
 milestone: M8
 model_tier: cheap
