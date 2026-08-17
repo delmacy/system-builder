@@ -1,8 +1,8 @@
-# Current Execution Milestone — M7 P6 Durable Release/Artifact Sprint
+# Current Execution Milestone — M7 P6 Durable Release/Artifact Sprint Review
 
 ## Goal
 
-Materialize and, when explicitly authorized, execute the second P6 construction Sprint that moves PublishedRelease and ArtifactPayload state from process-lifetime storage to replaceable durable providers without changing current Release, ArtifactStore, Deploy or Runtime semantics.
+Close the second P6 construction Sprint after proving restart-safe durable PublishedRelease and ArtifactPayload providers without changing current Release, ArtifactStore, Deploy or Runtime semantics.
 
 ## Integrated baseline
 
@@ -20,24 +20,26 @@ Predecessor proof:
 
 Branch: `sprint/P6-DURABLE-RELEASE-ARTIFACT-01`
 
-Status: `COMMITTED / NOT_STARTED`.
+PR: #180
 
-Committed order:
-1. TASK-094 — establish internal Release persistence boundary;
-2. TASK-095 — implement PostgreSQL reference Release provider;
-3. TASK-096 — implement PostgreSQL reference ArtifactPayloadRepository;
-4. TASK-097 — prove restart-safe durable Release + Artifact integration.
+Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
 
-## Expected growing proof
+Completed order:
+1. TASK-094 — PASS / CI #289;
+2. TASK-095 — PASS / CI #290;
+3. TASK-096 — PASS / CI #291;
+4. TASK-097 — PASS / CI #292.
 
-`durable Catalog predecessor -> deterministic Factory artifact -> publish durable PublishedRelease + ArtifactPayload -> reconstruct provider/process -> equivalent release retrieval/lifecycle + verified artifact retrieval`
+## Achieved growing proof
 
-## Architecture constraints
+`durable Catalog predecessor -> actual Compiler ReleaseArtifact -> durable PublishedRelease + ArtifactPayload -> reconstruct providers/process -> equivalent release retrieval/lifecycle + verified ArtifactPayload retrieval`
 
-- preserve current `PublishedRelease` shape and ReleaseRegistry observable semantics;
-- preserve release identity, duplicate rejection, lifecycle transitions and immutable snapshots;
-- preserve ArtifactPayloadRepository interfaces and publication/idempotence/conflict semantics;
-- preserve per-file, manifest and aggregate hash verification behavior;
+## Architecture constraints preserved
+
+- `PublishedRelease` shape and ReleaseRegistry observable semantics unchanged;
+- release identity, duplicate rejection, lifecycle transitions and immutable snapshots unchanged;
+- ArtifactPayloadRepository interfaces and publication/idempotence/conflict semantics unchanged;
+- per-file, manifest and aggregate hash verification behavior unchanged;
 - secrets and environment values remain outside Release and Artifact payload metadata;
 - PostgreSQL remains replaceable Factory-side implementation detail;
 - no Deploy, Runtime, Compiler, Catalog, Assembly or canonical-contract source change;
@@ -45,6 +47,6 @@ Committed order:
 
 ## Current gate
 
-Materialization only. No TASK is executed by this commit. A new explicit instruction is required to execute TASK-094..097.
+Run final closure-head Deterministic CI after the administrative closure commit. If PASS, mark the existing PR #180 Ready for Sprint Review and stop.
 
-`P6-DURABLE-FACTORY-E2E-01` and the package review remain FORECAST / NOT_MATERIALIZED.
+`P6-DURABLE-FACTORY-E2E-01` and the package Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.

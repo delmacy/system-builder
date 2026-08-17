@@ -1,9 +1,10 @@
 # P6-DURABLE-RELEASE-ARTIFACT-01 — Durable Release and Artifact Providers
 
-Status: COMMITTED / NOT_STARTED
+Status: SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS
 Package: `P6-PACKAGE-01`
 Base SHA: `b6b96120dbb19b00f78b6965cb9590a680f2056f` (P6-DURABLE-CATALOG-01 merged through PR #179)
 Branch: `sprint/P6-DURABLE-RELEASE-ARTIFACT-01`
+PR: #180
 
 ## Goal
 
@@ -15,9 +16,8 @@ PASS:
 
 - P6-DURABLE-CATALOG-01 merged through PR #179 at `b6b96120dbb19b00f78b6965cb9590a680f2056f`;
 - durable Catalog reconstruction and unchanged Assembly integration are integrated;
-- ReleaseRegistry remains process-local and ArtifactPayloadRepository remains provider-neutral with only in-memory concrete implementation;
-- WBS 09.3.1 explicitly requires abstract registry/storage publication;
-- no predecessor contract or architecture change is required for this Sprint.
+- WBS 09.3.1 authorizes abstract registry/storage publication;
+- no predecessor contract or architecture change was required for this Sprint.
 
 ## Authority
 
@@ -25,60 +25,63 @@ WBS 09 authorizes Release identity/provenance/lifecycle plus publication through
 
 This Sprint authorizes only Release-owned persistence seam/provider work, ArtifactStore provider implementation behind existing interfaces, and restart-safe integration evidence. PostgreSQL is a Factory-side reference implementation detail, not Runtime dependency or canonical architecture requirement.
 
-## Committed TASKs
+## TASK results
 
-1. `TASK-094` — internal Release persistence boundary;
-2. `TASK-095` — PostgreSQL reference Release provider;
-3. `TASK-096` — PostgreSQL reference ArtifactPayloadRepository;
-4. `TASK-097` — restart-safe durable Release + Artifact integration evidence.
+1. `TASK-094` — PASS at `e553939c5e07bd69c7307e3167f04a2730f9318d`; Deterministic CI #289 PASS.
+2. `TASK-095` — PASS at `1a43c6541d5925c91295f968301fa186afdb1ec4`; Deterministic CI #290 PASS.
+3. `TASK-096` — PASS at `5b8f11fa4207e9f64f4ddd7bc543f295931d12bf`; Deterministic CI #291 PASS.
+4. `TASK-097` — PASS at `498295188982dbf83e275227646bf2ff9d0e1621`; Deterministic CI #292 PASS.
 
-Dependency order:
+Dependency order preserved:
 
 `TASK-094 -> TASK-095 -> TASK-096 -> TASK-097`
 
-## Frozen predecessor semantics
+## Frozen predecessor semantics preserved
 
 Release:
-- `PublishedRelease` shape remains unchanged;
+- `PublishedRelease` shape unchanged;
 - release identity remains `releaseId@version` behavior;
 - duplicate publication remains fail-closed;
-- `published -> deprecated -> archived` remains the only current lifecycle path;
+- `published -> deprecated -> archived` remains the current lifecycle path;
 - retrieval returns immutable/equivalent snapshots;
 - artifact hash and ValidationEvidence references remain release provenance;
 - no secrets/environment values enter Release.
 
 ArtifactStore:
-- `ArtifactPayloadRepository` Reader/Writer/VerifiedReader interfaces remain unchanged;
-- publish normalizes/sorts file snapshots as currently defined;
+- `ArtifactPayloadRepository` Reader/Writer/VerifiedReader interfaces unchanged;
+- publish normalization/sorting unchanged;
 - identical publication remains idempotent;
 - conflicting overwrite remains explicit/fail-closed;
 - missing artifact behavior remains explicit;
 - per-file content hash, manifest paths and aggregate artifact hash verification remain unchanged;
-- verified retrieval remains derived from the actual ReleaseArtifact identity.
+- verified retrieval remains derived from actual ReleaseArtifact identity.
 
-## Expected growing proof
+## Achieved growing proof
 
-`durable Catalog predecessor -> deterministic Compiler ReleaseArtifact fixture/API -> durable PublishedRelease + ArtifactPayload publication -> reconstruct providers/process -> equivalent release metadata/lifecycle -> verified ArtifactPayload retrieval`
+`durable Catalog predecessor -> actual Compiler ReleaseArtifact -> durable PublishedRelease + ArtifactPayload publication -> reconstruct providers/process -> equivalent release metadata/lifecycle -> verified ArtifactPayload retrieval`
 
-TASK-097 must use actual ReleaseRegistry/ArtifactPayloadRepository behavior and actual Compiler output where corresponding executable APIs already exist; it must not hand-author a parallel verification path.
+TASK-097 uses actual Compiler output, actual ReleaseRegistry behavior and the existing ArtifactPayloadRepository verification path; it does not introduce a parallel verification path or activate Deploy/Runtime.
 
-## Final validation
+## Validation
 
-Every TASK declares `npm run test:product` and `npm run verify`. GitHub Deterministic CI with PostgreSQL 17.6 is the objective integration evidence.
+- TASK-094: Deterministic CI #289 PASS.
+- TASK-095: Deterministic CI #290 PASS.
+- TASK-096: Deterministic CI #291 PASS.
+- TASK-097: Deterministic CI #292 PASS.
+- CI #292 repository verification: PostgreSQL 17.6 healthy; 309 unit PASS; 124 product PASS; 98 task specs validated; architecture gates/build PASS; durable Release/Artifact reconstruction PASS; predecessor Catalog/Assembly/PostgreSQL redeploy/Runtime-autonomy regressions PASS.
+- final closure-head Deterministic CI is required before Sprint Review readiness.
+- local execution is not claimed.
 
-## Stop / escalation conditions
+## Architecture disposition
 
-Stop and escalate if implementation requires:
+No new ADR required. No canonical contract, Compiler, Deploy, Runtime, Catalog, Assembly or Builder/Runtime boundary was changed. PostgreSQL remains replaceable/internal to Factory-side reference providers.
 
-- changing `PublishedRelease`, ArtifactPayload or canonical shared-contract shapes;
-- changing Release identity/lifecycle policy or artifact hash verification semantics;
-- modifying Compiler, Deploy, Runtime, Catalog or Assembly source;
-- embedding secret/environment values into Release/artifact durable state;
-- making PostgreSQL mandatory for ordinary consumers;
-- modifying `.github/**` for provider proof;
-- destructive/irreversible migration;
-- any undeclared L3/L4 boundary change.
+## Technical-debt handling
 
-## Successor boundary
+Production TLS/SCRAM/password lifecycle/pooling/concurrency/observability remain outside this Sprint. Any transport duplication or operational-hardening findings remain candidates for the mandatory P6 Integration & Technical Debt Review; they are not promoted into the closed Sprint and do not alter the forecast sequence.
 
-`P6-DURABLE-FACTORY-E2E-01` and the P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED. This Sprint gives no authority to materialize or execute them.
+## Review boundary
+
+After closure-head Deterministic CI PASS, mark PR #180 ready for Sprint Review and stop.
+
+`P6-DURABLE-FACTORY-E2E-01` and the mandatory P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED and must not be started without the existing predecessor gates and a new explicit instruction.

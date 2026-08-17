@@ -14,13 +14,20 @@ Date: 2026-08-17
 - P5 construction and mandatory Integration & Technical Debt Review merged through PR #177.
 - P6-PACKAGE-01 planning merged through PR #178 at `5806de40087ad36d8b6556d1cd4a7446b9db13c7`.
 - P6-DURABLE-CATALOG-01 merged through PR #179 at `b6b96120dbb19b00f78b6965cb9590a680f2056f`.
-- Durable Catalog PostgreSQL reconstruction now extends the integrated Factory proof without changing Catalog/Assembly semantics.
+- P6-DURABLE-RELEASE-ARTIFACT-01 implementation is complete on PR #180 and awaiting final closure-head CI / Sprint Review.
+- Durable Catalog, PublishedRelease and ArtifactPayload PostgreSQL reconstruction now extend the Factory proof while preserving public Catalog/Assembly/Release/ArtifactStore semantics.
 - GitHub Actions remains the objective deterministic integration gate with PostgreSQL 17.6 service evidence.
 - AgentFactory Supervisor/runtime remains frozen non-blocking infrastructure track.
 
-## Integrated main proof
+## Growing integrated proof
+
+Integrated predecessor on `main`:
 
 `durable Software Catalog -> deterministic transitive AssemblyPlan -> ValidationEvidence -> exact Compiler materializer lookup -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> SecretResolver -> PostgreSQL -> autonomous Runtime -> persisted state across redeploy`
+
+Sprint branch proof awaiting merge:
+
+`durable Catalog predecessor -> actual Compiler ReleaseArtifact -> durable PublishedRelease + ArtifactPayload -> reconstruct providers/process -> equivalent release metadata/lifecycle -> verified ArtifactPayload retrieval`
 
 ## Active Sprint
 
@@ -30,20 +37,22 @@ Base: `b6b96120dbb19b00f78b6965cb9590a680f2056f`
 
 Branch: `sprint/P6-DURABLE-RELEASE-ARTIFACT-01`
 
-Status: `COMMITTED / NOT_STARTED`.
+PR: #180
 
-Committed TASK set:
-1. TASK-094 — internal Release persistence boundary;
-2. TASK-095 — PostgreSQL reference Release provider;
-3. TASK-096 — PostgreSQL reference ArtifactPayloadRepository;
-4. TASK-097 — restart-safe durable Release + Artifact integration evidence.
+Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+
+TASK results:
+1. TASK-094 — PASS at `e553939c5e07bd69c7307e3167f04a2730f9318d`; CI #289 PASS;
+2. TASK-095 — PASS at `1a43c6541d5925c91295f968301fa186afdb1ec4`; CI #290 PASS;
+3. TASK-096 — PASS at `5b8f11fa4207e9f64f4ddd7bc543f295931d12bf`; CI #291 PASS;
+4. TASK-097 — PASS at `498295188982dbf83e275227646bf2ff9d0e1621`; CI #292 PASS.
 
 ## Architecture boundary
 
-The Sprint must preserve current PublishedRelease identity/provenance/lifecycle/duplicate behavior and current ArtifactPayload publication/idempotence/conflict/hash/manifest verification semantics. PostgreSQL is a replaceable Factory-side reference provider, never Release/Artifact public contract material and never a Runtime dependency. Release remains secret-free and Environment/Deployment remain separate.
+PublishedRelease identity/provenance/lifecycle/duplicate behavior and ArtifactPayload publication/idempotence/conflict/hash/manifest verification semantics remain unchanged. PostgreSQL remains a replaceable Factory-side reference provider, never Release/Artifact public contract material and never a Runtime dependency. Release remains secret-free and Environment/Deployment remain separate.
 
 ## Current gate
 
-Materialization only. No implementation TASK has been executed by this materialization action. Execute TASK-094 -> TASK-095 -> TASK-096 -> TASK-097 only after a new explicit instruction.
+Create the Sprint closure commit containing report/state only, require final Deterministic CI PASS on that head, then mark PR #180 Ready for Sprint Review and stop.
 
-`P6-DURABLE-FACTORY-E2E-01` and the P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.
+Do not merge automatically at this gate. Do not materialize or execute `P6-DURABLE-FACTORY-E2E-01`. Do not execute the P6 Integration & Technical Debt Review.
