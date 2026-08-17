@@ -1,7 +1,7 @@
 ---
 id: TASK-104
 title: Implement bounded deployment activation and retention decision
-status: ready
+status: completed
 priority: 406
 milestone: M8
 model_tier: cheap

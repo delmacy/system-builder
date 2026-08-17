@@ -93,3 +93,40 @@ test("deployment registry retains deterministic history and only successful reco
   assert.deepEqual(registry.list().map((record) => record.deploymentId), [...registry.list().map((record) => record.deploymentId)].sort());
   assert.throws(() => registry.record({ ...stored, status: "failed" }), /DEPLOYMENT_RECORD_CONFLICT/);
 });
+
+test("activation decision promotes success and explicitly retains last known good on failed candidate", () => {
+  const registry = new DeploymentRegistry();
+  const active = dryRunDeploy({ publishedRelease: release, releaseArtifact: artifact, environment, acceptanceChecks: [{ name: "health", pass: true }], startedAt: "2026-08-16T00:01:00Z", completedAt: "2026-08-16T00:01:01Z" });
+  assert.equal(active.ok, true);
+  if (!active.ok) return;
+  const activated = registry.activateCandidate(active.record);
+  assert.equal(activated.outcome, "activated");
+  assert.equal(activated.previousActiveDeploymentId, null);
+  assert.equal(activated.resultingActiveDeploymentId, active.record.deploymentId);
+  assert.match(activated.decisionId, /^sha256:[a-f0-9]{64}$/);
+  assert.equal(Object.isFrozen(activated), true);
+
+  const failed = dryRunDeploy({ publishedRelease: { ...release, version: "1.0.1" }, releaseArtifact: artifact, environment, acceptanceChecks: [{ name: "health", pass: false }], startedAt: "2026-08-16T00:01:02Z", completedAt: "2026-08-16T00:01:03Z" });
+  assert.equal(failed.ok, true);
+  if (!failed.ok) return;
+  const retained = registry.activateCandidate(failed.record);
+  assert.equal(retained.outcome, "retained-active");
+  assert.equal(retained.previousActiveDeploymentId, active.record.deploymentId);
+  assert.equal(retained.resultingActiveDeploymentId, active.record.deploymentId);
+  assert.deepEqual(registry.getActive(environment.environmentRef), active.record);
+  assert.deepEqual(registry.get(failed.record.deploymentId), failed.record);
+  assert.deepEqual(registry.activateCandidate(failed.record), retained);
+});
+
+test("activation decision rejects failed candidate without fabricating active state", () => {
+  const registry = new DeploymentRegistry();
+  const failed = dryRunDeploy({ publishedRelease: { ...release, version: "2.0.0" }, releaseArtifact: artifact, environment, acceptanceChecks: [{ name: "health", pass: false }], startedAt: "2026-08-16T00:02:00Z", completedAt: "2026-08-16T00:02:01Z" });
+  assert.equal(failed.ok, true);
+  if (!failed.ok) return;
+  const decision = registry.activateCandidate(failed.record);
+  assert.equal(decision.outcome, "rejected-no-active");
+  assert.equal(decision.previousActiveDeploymentId, null);
+  assert.equal(decision.resultingActiveDeploymentId, null);
+  assert.equal(registry.getActive(environment.environmentRef), undefined);
+  assert.deepEqual(registry.get(failed.record.deploymentId), failed.record);
+});

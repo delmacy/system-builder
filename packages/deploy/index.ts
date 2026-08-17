@@ -41,6 +41,16 @@ export type DeploymentRecord = Readonly<{
   healthChecks: readonly Readonly<{ name: string; status: "PASS" | "FAIL" }>[];
 }>;
 
+export type DeploymentActivationDecision = Readonly<{
+  kind: "DeploymentActivationDecision";
+  decisionId: string;
+  outcome: "activated" | "retained-active" | "rejected-no-active";
+  candidateDeploymentId: string;
+  environmentRef: string;
+  previousActiveDeploymentId: string | null;
+  resultingActiveDeploymentId: string | null;
+}>;
+
 export type DryRunDeploymentResult =
   | Readonly<{ ok: true; record: DeploymentRecord; bindings: readonly EnvironmentBinding[] }>
   | Readonly<{
@@ -83,6 +93,29 @@ export class DeploymentRegistry {
       this.#storage.setActiveDeploymentId(normalized.environmentRef, normalized.deploymentId);
     }
     return normalized;
+  }
+
+  activateCandidate(record: DeploymentRecord): DeploymentActivationDecision {
+    const previousActive = this.getActive(record.environmentRef);
+    const candidate = this.record(record);
+    const resultingActive = this.getActive(record.environmentRef);
+    const outcome = candidate.status === "succeeded"
+      ? "activated" as const
+      : previousActive === undefined
+        ? "rejected-no-active" as const
+        : "retained-active" as const;
+    const payload = Object.freeze({
+      outcome,
+      candidateDeploymentId: candidate.deploymentId,
+      environmentRef: candidate.environmentRef,
+      previousActiveDeploymentId: previousActive?.deploymentId ?? null,
+      resultingActiveDeploymentId: resultingActive?.deploymentId ?? null,
+    });
+    return Object.freeze({
+      kind: "DeploymentActivationDecision",
+      decisionId: sha256Canonical(payload),
+      ...payload,
+    });
   }
 
   get(deploymentId: string): DeploymentRecord | undefined {
