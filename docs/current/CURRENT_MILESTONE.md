@@ -1,48 +1,52 @@
-# Current Execution Milestone — M7 P6 Durable Catalog Sprint Review
+# Current Execution Milestone — M7 P6 Durable Release/Artifact Sprint Review
 
 ## Goal
 
-Complete the first P6 construction Sprint by proving durable Software Catalog persistence/reconstruction without changing public Catalog or Assembly semantics.
+Close the second P6 construction Sprint after proving restart-safe durable PublishedRelease and ArtifactPayload providers without changing current Release, ArtifactStore, Deploy or Runtime semantics.
 
 ## Integrated baseline
 
-P6-PACKAGE-01 planning merged through PR #178 at:
+P6-DURABLE-CATALOG-01 merged through PR #179 at:
 
-`5806de40087ad36d8b6556d1cd4a7446b9db13c7`
+`b6b96120dbb19b00f78b6965cb9590a680f2056f`
+
+Predecessor proof:
+
+`normalized Catalog registration -> durable PostgreSQL persistence -> provider/process reconstruction -> equivalent deterministic Catalog resolution -> actual transitive AssemblyPlan`
 
 ## Active Sprint
 
-`P6-DURABLE-CATALOG-01 — Durable Software Catalog Provider`
+`P6-DURABLE-RELEASE-ARTIFACT-01 — Durable Release and Artifact Providers`
 
-Branch: `sprint/P6-DURABLE-CATALOG-01`
+Branch: `sprint/P6-DURABLE-RELEASE-ARTIFACT-01`
 
-PR: #179
+PR: #180
 
 Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
 
-TASK results:
-1. TASK-091 — Catalog persistence boundary — PASS / CI #281;
-2. TASK-092 — PostgreSQL reference provider — PASS / CI #284;
-3. TASK-093 — restart-safe Catalog -> Assembly evidence — PASS / CI #285.
+Completed order:
+1. TASK-094 — PASS / CI #289;
+2. TASK-095 — PASS / CI #290;
+3. TASK-096 — PASS / CI #291;
+4. TASK-097 — PASS / CI #292.
 
 ## Achieved growing proof
 
-`register normalized catalog records -> persist in PostgreSQL -> reconstruct provider/process -> deterministic list/resolution equivalent -> actual transitive AssemblyPlan equivalent`
-
-CI #285 verified PostgreSQL 17.6 with 309 unit PASS, 117 product PASS, 94 task specs, architecture PASS and build PASS.
+`durable Catalog predecessor -> actual Compiler ReleaseArtifact -> durable PublishedRelease + ArtifactPayload -> reconstruct providers/process -> equivalent release retrieval/lifecycle + verified ArtifactPayload retrieval`
 
 ## Architecture constraints preserved
 
-- current exported Catalog data semantics preserved;
-- `catalogIdentity`, duplicate rejection and deterministic ordering preserved;
-- exact/minimum/compatibility behavior preserved;
-- `packages/assembly/**` unchanged;
-- PostgreSQL remains a reference implementation behind the Catalog boundary;
-- canonical `packages/contracts/**` unchanged;
-- ADR-0002 and ADR-0007 unchanged.
+- `PublishedRelease` shape and ReleaseRegistry observable semantics unchanged;
+- release identity, duplicate rejection, lifecycle transitions and immutable snapshots unchanged;
+- ArtifactPayloadRepository interfaces and publication/idempotence/conflict semantics unchanged;
+- per-file, manifest and aggregate hash verification behavior unchanged;
+- secrets and environment values remain outside Release and Artifact payload metadata;
+- PostgreSQL remains replaceable Factory-side implementation detail;
+- no Deploy, Runtime, Compiler, Catalog, Assembly or canonical-contract source change;
+- ADR-0002 and ADR-0007 remain controlling and unchanged.
 
 ## Current gate
 
-Closure-head Deterministic CI is required after report/state reconciliation. If PASS, PR #179 becomes Ready for human Sprint Review and execution stops there.
+Run final closure-head Deterministic CI after the administrative closure commit. If PASS, mark the existing PR #180 Ready for Sprint Review and stop.
 
-All later P6 construction Sprints and package review remain FORECAST / NOT_MATERIALIZED.
+`P6-DURABLE-FACTORY-E2E-01` and the package Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.

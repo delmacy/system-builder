@@ -1,3 +1,5 @@
+import { InMemoryReleaseRecordStorage, type ReleaseRecordStorage } from "./storage.js";
+
 export type ReleaseArtifactInput = Readonly<{
   kind: "ReleaseArtifact";
   artifactHash: string;
@@ -38,7 +40,11 @@ const transitions: Readonly<Record<PublishedReleaseStatus, readonly PublishedRel
 };
 
 export class ReleaseRegistry {
-  readonly #records = new Map<string, PublishedRelease>();
+  readonly #storage: ReleaseRecordStorage;
+
+  constructor(storage: ReleaseRecordStorage = new InMemoryReleaseRecordStorage()) {
+    this.#storage = storage;
+  }
 
   publish(input: Readonly<{
     releaseId: string;
@@ -51,7 +57,7 @@ export class ReleaseRegistry {
     const releaseId = requireToken(input.releaseId, "release_id");
     const version = requireToken(input.version, "version");
     const key = identity(releaseId, version);
-    if (this.#records.has(key)) throw new Error(`RELEASE_DUPLICATE_IDENTITY:${key}`);
+    if (this.#storage.has(key)) throw new Error(`RELEASE_DUPLICATE_IDENTITY:${key}`);
 
     const record = Object.freeze({
       kind: "PublishedRelease" as const,
@@ -63,24 +69,24 @@ export class ReleaseRegistry {
       publishedAt: requireToken(input.publishedAt, "published_at"),
       status: "published" as const,
     });
-    this.#records.set(key, record);
+    this.#storage.set(key, record);
     return record;
   }
 
   get(releaseId: string, version: string): PublishedRelease | undefined {
-    const record = this.#records.get(identity(releaseId.trim(), version.trim()));
+    const record = this.#storage.get(identity(releaseId.trim(), version.trim()));
     return record === undefined ? undefined : Object.freeze({ ...record });
   }
 
   transition(releaseId: string, version: string, target: PublishedReleaseStatus): PublishedRelease {
     const key = identity(requireToken(releaseId, "release_id"), requireToken(version, "version"));
-    const current = this.#records.get(key);
+    const current = this.#storage.get(key);
     if (!current) throw new Error(`RELEASE_NOT_FOUND:${key}`);
     if (!transitions[current.status].includes(target)) {
       throw new Error(`RELEASE_INVALID_TRANSITION:${current.status}->${target}`);
     }
     const next = Object.freeze({ ...current, status: target });
-    this.#records.set(key, next);
+    this.#storage.set(key, next);
     return next;
   }
 }
