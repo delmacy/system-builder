@@ -31,8 +31,23 @@ jobs:
           --health-interval 2s
           --health-timeout 5s
           --health-retries 10
+      postgres_auth:
+        image: postgres:17.6-alpine
+        env:
+          POSTGRES_USER: deploy_auth
+          POSTGRES_PASSWORD: ci-test-password
+          POSTGRES_DB: system_builder_auth
+          POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U deploy_auth -d system_builder_auth"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 10
     env:
       SYSTEM_BUILDER_TEST_POSTGRES_URL: postgres://system_builder@127.0.0.1:5432/system_builder
+      SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL: postgres://deploy_auth:ci-test-password@127.0.0.1:5433/system_builder_auth
     steps:
       - name: Checkout
         uses: actions/checkout@v4
