@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { DeploymentRegistry, type DeploymentRecord } from "../../packages/deploy/index.js";
-import { PostgresDeploymentRecordStorage } from "../../packages/deploy/postgres-state.js";
+import { executeDeployPostgresTransaction, PostgresDeploymentRecordStorage } from "../../packages/deploy/postgres-state.js";
 
 const postgresUrl = process.env.SYSTEM_BUILDER_TEST_POSTGRES_URL;
 const authenticatedPostgresUrl = process.env.SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL;
@@ -86,6 +86,34 @@ test("postgres deployment provider rejects unsupported sslmode deterministically
     () => PostgresDeploymentRecordStorage.open("postgres://user@127.0.0.1:5432/db?sslmode=verify-full", "task110_sslmode"),
     /DEPLOY_POSTGRES_SSLMODE_INVALID/,
   );
+});
+
+test("deploy postgres transaction commits atomically and rolls back on statement failure", { skip: authenticatedPostgresUrl === undefined ? "SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL not configured" : false }, async () => {
+  assert.ok(authenticatedPostgresUrl);
+  const table = "system_builder_deploy_task111_tx";
+  await executeDeployPostgresTransaction(authenticatedPostgresUrl, [
+    `DROP TABLE IF EXISTS ${table}`,
+    `CREATE TABLE ${table} (value TEXT PRIMARY KEY)`,
+    `INSERT INTO ${table} (value) VALUES ('committed')`,
+  ]);
+  const committed = await executeDeployPostgresTransaction(authenticatedPostgresUrl, [`SELECT value FROM ${table} ORDER BY value`]);
+  assert.deepEqual(committed, [Object.freeze(["committed"])]);
+
+  await assert.rejects(
+    () => executeDeployPostgresTransaction(authenticatedPostgresUrl, [
+      `INSERT INTO ${table} (value) VALUES ('rolled-back')`,
+      "SELECT * FROM system_builder_deploy_task111_missing_table",
+    ]),
+    /DEPLOY_POSTGRES_QUERY_FAILED:42P01/,
+  );
+
+  const afterFailure = await executeDeployPostgresTransaction(authenticatedPostgresUrl, [`SELECT value FROM ${table} ORDER BY value`]);
+  assert.deepEqual(afterFailure, [Object.freeze(["committed"])]);
+  await executeDeployPostgresTransaction(authenticatedPostgresUrl, [`DROP TABLE IF EXISTS ${table}`]);
+});
+
+test("deploy postgres transaction rejects an empty batch before connection", async () => {
+  await assert.rejects(() => executeDeployPostgresTransaction("postgres://user@127.0.0.1:5432/db", []), /DEPLOY_POSTGRES_TRANSACTION_INVALID/);
 });
 
 test("postgres deployment provider rejects invalid connection diagnostics without leaking credentials", async () => {

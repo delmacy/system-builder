@@ -1,7 +1,7 @@
 ---
 id: TASK-111
 title: Add bounded Deploy PostgreSQL transaction lifecycle
-status: ready
+status: completed
 priority: 399
 milestone: M9
 model_tier: cheap
@@ -60,13 +60,13 @@ TASK-110 adds authenticated transport. P8 Sprint 2 will require atomic compare-a
 
 # Current behavior
 
-The provider executes one simple query per connection and relies on separate operations for related storage work. It has a fixed timeout that destroys the socket, but no explicit transaction helper or transaction failure proof.
+Before this TASK, the provider executed one simple query per connection and relied on separate operations for related storage work. It had deterministic timeout/socket teardown but no explicit transaction helper or rollback proof.
 
 # Required change
 
-Refactor the Deploy-local PostgreSQL execution path to support an ordered transaction batch using one connection and PostgreSQL `BEGIN`/`COMMIT`, with failure causing connection teardown/rollback rather than partial success. Keep the reference lifecycle intentionally bounded: no shared pool or cross-context manager is introduced; each operation owns one connection, one timeout and deterministic teardown.
+Add a Deploy-local transaction primitive that sends an ordered `BEGIN ... COMMIT` batch over one authenticated connection. A statement failure must close the operation connection while PostgreSQL rolls back the open transaction. Keep the reference lifecycle intentionally bounded: no shared pool or cross-context manager is introduced; each operation owns one connection, one timeout and deterministic teardown.
 
-Use the transaction path for an existing logically grouped provider operation where safe (for example schema initialization) so transaction capability is exercised by production provider code without changing public storage semantics.
+Use the transaction path for schema initialization so production provider code exercises transaction capability without changing public storage semantics.
 
 # Inputs / contracts
 
@@ -74,14 +74,15 @@ TASK-110 authenticated transport, existing `DeploymentRecordStorage`, PostgreSQL
 
 # Outputs / contracts
 
-Deploy-internal transaction-capable execution and focused commit/rollback evidence. No new public contract.
+Deploy-internal transaction-capable execution and focused commit/rollback evidence. No canonical contract change.
 
 # Acceptance criteria
 
 - transaction helper executes ordered statements on one authenticated connection;
 - successful transaction commits all intended statements;
-- a failing statement cannot leave later statements applied and connection teardown causes rollback of the open transaction;
+- a failing statement leaves earlier writes in the transaction rolled back;
 - timeout/error paths deterministically destroy the operation connection;
+- schema initialization uses the transaction-capable path;
 - reference provider lifecycle remains bounded and leak-free without introducing a shared pool;
 - existing deployment persistence/reconstruction tests remain green;
 - no DeploymentRegistry/DeploymentRecord semantic change;
@@ -94,7 +95,7 @@ CAS/multi-writer activation, retry policy, cross-context connection pooling, pro
 
 # Evidence expected
 
-Product tests proving transaction commit and rollback behavior through the Deploy-local PostgreSQL executor plus repository verification.
+Authenticated PostgreSQL product tests proving transaction commit and rollback behavior plus repository verification.
 
 # Escalation
 
