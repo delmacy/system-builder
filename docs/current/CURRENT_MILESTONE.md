@@ -14,27 +14,30 @@ Complete the third P8 construction Sprint by proving one joined executable path 
 `P8-HARDENED-ACTIVATION-E2E-01`
 
 Branch: `sprint/P8-HARDENED-ACTIVATION-E2E-01`
-Status: `MATERIALIZED / PRE-CODE CI PENDING`.
+PR: #191
+Status: `IMPLEMENTED_ON_SPRINT_BRANCH / TASK_CI_PASS / FINAL_CI_PENDING`.
 
-Committed dependency order:
-1. TASK-116 — Factory -> authenticated atomic A -> autonomous Runtime;
-2. TASK-117 — B promotion -> stale contender rejection -> Runtime continuity;
-3. TASK-118 — failed contender retention -> fresh authority reconstruction -> Runtime continuity.
+Completed dependency order:
+1. TASK-116 — Factory -> authenticated atomic A -> autonomous Runtime — CI #342 PASS;
+2. TASK-117 — B promotion -> stale contender rejection -> Runtime continuity — CI #344 PASS;
+3. TASK-118 — failed contender retention -> fresh authority reconstruction -> Runtime continuity — CI #345 PASS.
 
-## Target proof
+Materialization passed CI #341 before implementation.
 
-`durable Factory output -> authenticated durable Deploy -> activate A -> autonomous Runtime -> promote B -> stale/failed contender cannot replace B -> reconstruct deployment authority -> B remains authoritative + Runtime continuity`
+## Achieved branch proof
+
+`durable Factory output -> reconstructed Release/Artifact -> authenticated atomic Deploy A -> autonomous Runtime -> promote B -> stale successful C cannot replace B -> failed D retains B -> fresh authenticated reconstruction -> B remains authoritative + attempted A/B/C/D history durable -> Runtime continuity`
 
 ## Architecture disposition
 
 - evidence-only construction;
-- existing executable Factory/Release/Artifact/Deploy/Runtime APIs are sufficient;
-- no product/provider source, canonical contract, ADR or workflow modification is authorized;
-- ADR-0002 and ADR-0007 boundaries remain mandatory;
+- no product/provider source, canonical contract, ADR or workflow modification;
+- ADR-0002 and ADR-0007 boundaries preserved;
+- no L4 change/new ADR;
 - no production traffic/process rollback or full production-readiness claim.
 
 ## Current gate
 
-Run Deterministic CI on the pre-code materialization. Start TASK-116 only if that objective gate passes.
+Run final Deterministic CI on the closure head. If PASS, verify complete Sprint scope/review gates, promote PR #191 to human Sprint Review and stop.
 
 The P8 Integration & Technical Debt Review remains mandatory after all three construction Sprints are merged, but is not authorized at this gate.
