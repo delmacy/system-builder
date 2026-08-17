@@ -1,47 +1,47 @@
-# Current Execution Milestone — M6 P5 Integration & Technical Debt Review
+# Current Execution Milestone — M7 P6 Package Planning
 
 ## Goal
 
-Complete the mandatory `P5-PACKAGE-01` Integration & Technical Debt Review from the fully integrated P5 baseline, with objective regression evidence and no successor package creation.
+Plan the next rolling-wave package from the actual post-P5 integrated state, prioritizing durable Factory/Release providers without committing or executing any Sprint.
 
 ## Integrated baseline
 
-PR #176 merged at `ca1e161d4c48454efcee1b8d1c63b32d3c6278bf`.
+P5 Integration & Technical Debt Review merged through PR #177 at `97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f`.
 
-All P5 construction Sprints are integrated:
+P5 disposition:
+- package construction: PASS;
+- architecture/boundaries: PASS WITH DEBT;
+- rollback blocker: NONE;
+- TD-P4-02 and TD-P4-07 closed for bounded P5 targets;
+- TD-P4-01 durable Catalog/Release/Artifact providers: CARRIED / HIGH;
+- TD-P5-04 persistence lag behind composition semantics: HIGH.
 
-1. P5-CATALOG-CONSTRAINTS-01 — PR #174;
-2. P5-ASSEMBLY-GRAPH-01 — PR #175;
-3. P5-MATERIALIZER-REGISTRY-01 — PR #176.
+## Planning conclusion
 
-## Active review
+The durable Factory/Release direction remains the highest-leverage successor.
 
-Branch: `review/P5-PACKAGE-01-integration-debt`
+Why:
+- `SoftwareCatalogRegistry` remains process-local;
+- `ReleaseRegistry` remains process-local;
+- ArtifactStore already exposes provider-neutral repository interfaces but only an in-memory concrete implementation is proven;
+- WBS 9.3.1 requires publication through abstract registry/storage;
+- strengthening durability does not require Runtime dependence on Builder and therefore preserves ADR-0002;
+- durable release publication can preserve Release/Environment/Deployment separation under ADR-0007.
 
-PR: #177
+## Forecast package
 
-Review result prepared:
+`P6-PACKAGE-01 — Durable Factory and Release Infrastructure`
 
-`PASS WITH DEBT`
+Branch: `plan/P6-PACKAGE-01`
 
-Review-head Deterministic CI #276 passed with PostgreSQL 17.6, 309 unit tests, 112 product tests, 91 validated task specs, architecture gates and build all green.
+Status: FORECAST_PACKAGE / NO_COMMITTED_SPRINT.
 
-## Debt disposition summary
-
-- TD-P4-02: CLOSED for the bounded P5 composition slice;
-- TD-P4-07: CLOSED for the internal deterministic registry target;
-- TD-P4-01/03/04/05/06/08 remain carried at their production-oriented priorities;
-- TD-P4-09 remains governance debt despite improved merge discipline;
-- new P5 debt: bounded constraint/provider policy, static materializer registration, duplicated cross-context identity shapes, and durable persistence lagging composition semantics.
-
-## Architecture / WBS
-
-ADR-0002 and ADR-0007 remain preserved. No L4 drift or new ADR is required.
-
-P5 materially satisfies the current bounded slices of WBS 5.2.2/5.2.3, 6.1.2, 6.2.1/6.2.2/6.2.3, 6.3 and advances 8.1.1/8.1.2. WBS 9.3.1, production Deploy/Secret/PostgreSQL lifecycle and broad Runtime behavior remain important gaps.
+Forecast sequence:
+1. `P6-DURABLE-CATALOG-01` — FORECAST;
+2. `P6-DURABLE-RELEASE-ARTIFACT-01` — FORECAST;
+3. `P6-DURABLE-FACTORY-E2E-01` — FORECAST;
+4. P6 Integration & Technical Debt Review — FORECAST / MANDATORY.
 
 ## Current gate
 
-Run final repository-wide Deterministic CI on the review-finalization head. If green, mark PR #177 Ready for human Review Gate and stop.
-
-No successor Sprint Package may be created or materialized by this review.
+Package planning only. No Sprint manifest, TASK spec, implementation branch or product change is authorized by this planning state.
