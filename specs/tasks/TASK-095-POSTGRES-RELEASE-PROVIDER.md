@@ -1,7 +1,7 @@
 ---
 id: TASK-095
 title: Implement PostgreSQL reference Release provider
-status: ready
+status: completed
 priority: 403
 milestone: M7
 model_tier: cheap
