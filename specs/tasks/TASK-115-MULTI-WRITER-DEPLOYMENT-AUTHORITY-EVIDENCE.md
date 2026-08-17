@@ -1,7 +1,7 @@
 ---
 id: TASK-115
 title: Prove multi-writer atomic deployment authority
-status: ready
+status: completed
 priority: 395
 milestone: M9
 model_tier: cheap
@@ -54,11 +54,11 @@ TASK-113 defines the atomic activation API and TASK-114 implements database-enfo
 
 # Current behavior
 
-Predecessor evidence proves authenticated durable reconstruction but not concurrent/stale activation ordering across multiple providers.
+The completed evidence races two independently opened provider/registry instances from the same expected active A and verifies one authoritative winner plus deterministic stale rejection.
 
 # Required change
 
-Add focused PostgreSQL-backed evidence using at least two independently opened provider/registry instances. Establish active A, race or sequence competing B/C attempts from a shared expected authority, prove exactly one admissible authoritative transition, reject stale contender overwrite, and reconstruct from a fresh provider.
+Add focused PostgreSQL-backed evidence using at least two independently opened provider/registry instances. Establish active A, race competing B/C attempts from a shared expected authority, prove exactly one admissible authoritative transition, reject stale contender overwrite, and reconstruct from a fresh provider.
 
 # Inputs / contracts
 
@@ -72,9 +72,9 @@ Test evidence only. No product, contract, ADR or workflow changes.
 
 - active A is established durably;
 - two independent writers contend from the same expected A authority;
-- at most one successful contender becomes authoritative;
+- exactly one successful contender becomes authoritative;
 - stale contender returns deterministic stale evidence and cannot overwrite the winner;
-- no torn record/active state is observable after flush/reconstruction;
+- no torn record/active state is observable after reconstruction;
 - failed candidate cannot replace the winner;
 - fresh provider reconstruction observes the same authoritative deployment and durable history;
 - evidence contains no connection credentials;
