@@ -1,7 +1,7 @@
 ---
 id: TASK-099
 title: Prove durable Factory output reaches autonomous persisted Runtime
-status: ready
+status: completed
 priority: 407
 milestone: M7
 model_tier: cheap
