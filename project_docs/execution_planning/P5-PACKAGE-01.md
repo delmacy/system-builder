@@ -1,7 +1,7 @@
 # P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling
 
-Status: ACTIVE_PACKAGE / SECOND_SPRINT_REVIEW
-Base: `9a6f2df82d1ffbc1c9c25f67d819e666e718d832` (P5-CATALOG-CONSTRAINTS-01 merged through PR #174)
+Status: ACTIVE_PACKAGE / THIRD_SPRINT_REVIEW
+Base: `c6858ed95faa48cc60361a5a86ddcc57d2b56ced` (P5-ASSEMBLY-GRAPH-01 merged through PR #175)
 
 ## Package Goal
 
@@ -27,25 +27,29 @@ Integrated proof:
 
 `Catalog records -> structured dependency requirements -> deterministic constrained candidates / explicit unsatisfied diagnostic`
 
-### 2. P5-ASSEMBLY-GRAPH-01 — SPRINT_REVIEW
+### 2. P5-ASSEMBLY-GRAPH-01 — MERGED
 
-TASK-085/086/087 are implemented on `sprint/P5-ASSEMBLY-GRAPH-01`; implementation CI #260/#261/#262 PASS. PR #175 is the Sprint review boundary.
+Merged through PR #175 at `c6858ed95faa48cc60361a5a86ddcc57d2b56ced`.
 
-Achieved branch proof:
+Integrated proof:
 
 `SystemDefinition root capability -> constrained Catalog candidate -> structured dependency requirements -> transitive dependency closure -> deterministic graph diagnostics -> deterministic AssemblyPlan BOM -> ValidationEvidence -> Compiler predecessor path`
 
-The graph implementation combines multi-path exact/minimum/compatibility requirements before candidate selection, coalesces compatible duplicates and fails closed for cycles, unresolved dependencies and incompatible requirements with deterministic evidence.
+The graph implementation combines multi-path exact/minimum/compatibility requirements before candidate selection, coalesces compatible duplicates and fails closed for cycles, unresolved dependencies and incompatible requirements with deterministic evidence. Terminal CI #263 passed.
 
-### 3. P5-MATERIALIZER-REGISTRY-01 — FORECAST
+### 3. P5-MATERIALIZER-REGISTRY-01 — SPRINT_REVIEW
 
-Goal: deterministic materializer registration/lookup keyed by capability/provider/version while preserving `state.counter` behavior.
+TASK-088/089/090 are implemented on `sprint/P5-MATERIALIZER-REGISTRY-01`; implementation CI #264/#266/#268 PASS. PR #176 is the Sprint Review boundary.
 
-Candidate TASKs: TASK-088..090. No specs are materialized.
+Achieved branch proof:
+
+`SystemDefinition capability -> Catalog constrained provider -> transitive AssemblyPlan BOM -> ValidationEvidence -> exact materializer registry lookup -> existing state.counter materialization -> deterministic migration/runtime assets -> ReleaseArtifact`
+
+The implementation provides deterministic exact-identity materializer registration/lookup, duplicate/no-match behavior, routes the existing reference `state.counter` provider through the registry without generated-output drift, and proves the actual constrained/transitive Factory path plus unsupported-materializer failure.
 
 ### 4. Integration & Technical Debt Review — FORECAST / MANDATORY
 
-Re-run package regression, classify debt and decide whether durable provider infrastructure becomes the highest-leverage successor. Do not create a successor package automatically.
+After the third construction Sprint merges, re-run package regression, classify debt, revalidate contracts/DAG/risks and decide whether durable provider infrastructure becomes the highest-leverage successor. Do not materialize or execute this review automatically.
 
 ## Architecture constraints
 
@@ -57,23 +61,26 @@ Re-run package regression, classify debt and decide whether durable provider inf
 - canonical public contract or L4 change requires explicit architecture authority/ADR;
 - historical P4 evidence is preserved.
 
-## P5-ASSEMBLY-GRAPH-01 disposition
+## P5-MATERIALIZER-REGISTRY-01 disposition
 
 Implemented in scope:
-- Assembly consumption of Catalog `dependencyRequirements`;
-- transitive closure over exact/minimum/compatibility requirements;
-- deterministic cycle/conflict/unresolved diagnostics;
-- deterministic AssemblyPlan BOM and Factory E2E evidence.
+- exact capability/provider/version materializer identity;
+- deterministic registration/lookup and duplicate rejection;
+- migration of existing state.counter reference materializer onto that boundary;
+- preservation of current migration/runtime/secret behavior;
+- actual Factory integration evidence and P4 regression.
 
 Not introduced:
-- Compiler materializer registry;
+- second production Runtime capability;
+- Catalog/Assembly semantic changes;
 - durable Catalog/Release/Artifact providers;
 - new version-range kinds;
 - canonical ReleaseArtifact/EnvironmentProfile/DeploymentRecord changes;
-- production Runtime/deployment work.
+- production Runtime/deployment work;
+- package review execution.
 
 ## Package gate
 
-`P5-ASSEMBLY-GRAPH-01` is at Sprint Review on PR #175. It is not integrated until merged.
+`P5-MATERIALIZER-REGISTRY-01` is at Sprint Review on PR #176. It is not integrated until merged.
 
-`P5-MATERIALIZER-REGISTRY-01` remains FORECAST and must not be materialized or executed until the current Sprint completes, merges, and a new explicit instruction reconstructs repository authority.
+The Integration & Technical Debt Review remains FORECAST / MANDATORY and must not be materialized or executed until this Sprint completes, merges, and a new explicit instruction reconstructs repository authority.

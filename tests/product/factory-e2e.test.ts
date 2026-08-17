@@ -117,6 +117,70 @@ function executeGraphFactory(reverse = false) {
   return { stage: "compiled" as const, assembly, validation, compilation };
 }
 
+const materializerDefinition = {
+  ...factorySystemDefinition,
+  capabilities: [
+    { id: "cap-stateful-feature", capability: "stateful.feature", requirementRefs: ["REQ-1"] },
+    { id: "cap-workflow", capability: "workflow.engine", requirementRefs: ["REQ-2"] },
+  ],
+};
+
+function materializerCatalogRecords(provider = "system-builder.postgres-counter") {
+  return [
+    { capability: "workflow.engine", provider: "provider-workflow", version: "1.0.0" },
+    {
+      capability: "stateful.feature",
+      provider: "provider-stateful-feature",
+      version: "1.0.0",
+      dependencyRequirements: [
+        {
+          capability: "state.counter",
+          versionConstraint: { kind: "exact" as const, version: "1.0.0" },
+        },
+      ],
+    },
+    { capability: "state.counter", provider, version: "1.0.0" },
+  ] as const;
+}
+
+function executeMaterializerFactory(reverse = false, stateProvider = "system-builder.postgres-counter") {
+  const registry = new SoftwareCatalogRegistry();
+  const baseRecords = materializerCatalogRecords(stateProvider);
+  const records = reverse ? [...baseRecords].reverse() : [...baseRecords];
+  for (const record of records) registry.register(record);
+  const definition = reverse
+    ? { ...materializerDefinition, capabilities: [...materializerDefinition.capabilities].reverse() }
+    : materializerDefinition;
+  const assembly = assembleSystemDefinition(
+    definition,
+    "system-definition:e2e:materializer:1",
+    (request) => resolveCatalogCandidates(registry, request),
+  );
+  if (!assembly.ok) return { stage: "assembly" as const, assembly };
+
+  const validation = validateTraceability({
+    recipe: factoryRecipe,
+    analysis: factoryAnalysis,
+    definition,
+    assemblyPlan: assembly.plan,
+    assemblyPlanRef: assembly.plan.contentHash,
+    declaredChecks: [{ id: "factory-materializer-e2e", status: "PASS", evidenceRefs: ["test:factory-materializer-e2e"] }],
+  });
+  if (validation.decision !== "PASS") return { stage: "validation" as const, assembly, validation };
+
+  const compilation = compileSyntheticRelease({
+    assemblyPlan: assembly.plan,
+    validationEvidence: validation,
+    compilerVersion: "0.2.0",
+    runtimeVersion: "0.2.0",
+    environmentSchema: [
+      ...factoryEnvironmentSchema,
+      { name: "DATABASE_URL", kind: "secret-reference" as const, required: true },
+    ],
+  });
+  return { stage: "compiled" as const, assembly, validation, compilation };
+}
+
 test("factory E2E reaches reproducible ReleaseArtifact through actual module APIs", () => {
   const first = executeFactory();
   const second = executeFactory();
@@ -154,6 +218,38 @@ test("factory graph E2E compiles a ReleaseArtifact from the actual transitive Ca
   assert.equal(first.validation.evidenceHash, reversed.validation.evidenceHash);
   assert.equal(first.compilation.artifact.artifactHash, reversed.compilation.artifact.artifactHash);
   assert.deepEqual(first.compilation.artifact, reversed.compilation.artifact);
+});
+
+test("factory transitive graph reaches exact Compiler materializer lookup deterministically", () => {
+  const first = executeMaterializerFactory();
+  const reversed = executeMaterializerFactory(true);
+
+  assert.equal(first.stage, "compiled");
+  assert.equal(reversed.stage, "compiled");
+  if (first.stage !== "compiled" || reversed.stage !== "compiled") return;
+
+  assert.deepEqual(first.assembly.plan, reversed.assembly.plan);
+  assert.equal(first.validation.evidenceHash, reversed.validation.evidenceHash);
+  assert.deepEqual(first.compilation.artifact, reversed.compilation.artifact);
+  assert.equal(first.compilation.artifact.artifactHash, reversed.compilation.artifact.artifactHash);
+  assert.deepEqual(
+    first.assembly.plan.components.find((component) => component.capability === "state.counter"),
+    { capability: "state.counter", provider: "system-builder.postgres-counter", version: "1.0.0" },
+  );
+  const migration = first.compilation.files.find((file) => file.path === "migrations/001-state-counter.sql");
+  const migrationManifest = first.compilation.files.find((file) => file.path === "migration-manifest.json");
+  assert.ok(migration);
+  assert.ok(migrationManifest);
+  assert.equal(migration.content, "CREATE TABLE runtime_counter (id INTEGER PRIMARY KEY, value INTEGER NOT NULL);");
+  assert.equal(JSON.stringify(first.compilation).includes("postgres://"), false);
+  assert.equal(JSON.stringify(first.compilation).includes("secret://"), false);
+});
+
+test("factory transitive graph fails explicitly when selected materializer identity is unsupported", () => {
+  assert.throws(
+    () => executeMaterializerFactory(false, "unsupported.counter"),
+    /COMPILER_RUNTIME_CAPABILITY_UNSUPPORTED:state\.counter:unsupported\.counter:1\.0\.0/,
+  );
 });
 
 test("factory E2E stops at Assembly when a required capability cannot resolve", () => {
