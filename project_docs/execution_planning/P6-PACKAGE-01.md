@@ -1,6 +1,6 @@
 # P6-PACKAGE-01 — Durable Factory and Release Infrastructure
 
-Status: ACTIVE_PACKAGE / SECOND_SPRINT_REVIEW
+Status: ACTIVE_PACKAGE / THIRD_SPRINT_COMMITTED
 Planning base: `97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f` (P5 Integration & Technical Debt Review merged through PR #177)
 Package plan merged: PR #178 at `5806de40087ad36d8b6556d1cd4a7446b9db13c7`.
 
@@ -19,9 +19,9 @@ The package attacks `TD-P4-01` and `TD-P5-04` directly. It does not authorize pr
 - `AGENTS.md`, `SPRINT_GENERATION_POLICY.md` and `SPRINT_MODE.md` remain controlling.
 - ADR-0002 remains controlling: durable Factory state must not introduce Runtime dependence on Builder.
 - ADR-0007 remains controlling: Release remains immutable; Environment/secret material remains outside Release; Deployment remains the binding of Release + Environment.
-- WBS 09.1/09.2/09.3 authorize preserved release identity/lifecycle plus abstract registry/storage distribution.
-- Existing `ArtifactPayloadRepository` interfaces remain the provider-neutral storage contract for artifact payload behavior.
-- No L4 architecture change is planned. Any canonical shared-contract or Release/Environment/Deployment boundary change requires escalation.
+- Existing public Catalog, Assembly, Validation, Compiler, Release, ArtifactStore, Deploy and Runtime semantics are frozen for the third construction Sprint.
+- PostgreSQL remains a replaceable reference implementation detail.
+- No L4 architecture change is planned. Any public contract or Builder/Runtime boundary change requires escalation.
 
 ## Construction sequence
 
@@ -33,76 +33,72 @@ Achieved proof:
 
 `register normalized catalog records -> persist in PostgreSQL -> reconstruct provider/process -> deterministic list/resolution equivalent -> actual Assembly transitive proof equivalent`
 
-Public Catalog and Assembly semantics remained unchanged.
+### 2. P6-DURABLE-RELEASE-ARTIFACT-01 — MERGED
 
-### 2. P6-DURABLE-RELEASE-ARTIFACT-01 — SPRINT REVIEW PREPARATION
-
-Base: `b6b96120dbb19b00f78b6965cb9590a680f2056f`
-
-Branch: `sprint/P6-DURABLE-RELEASE-ARTIFACT-01`
-
-PR: #180
-
-TASK results:
-- TASK-094 — PASS / CI #289;
-- TASK-095 — PASS / CI #290;
-- TASK-096 — PASS / CI #291;
-- TASK-097 — PASS / CI #292.
+Merged through PR #180 at `632a3bb294de442f8b8bdea2bdc96e0d9a84955d`.
 
 Achieved proof:
 
 `actual Compiler ReleaseArtifact -> durable PublishedRelease + ArtifactPayload -> reconstruct providers/process -> equivalent release retrieval/lifecycle -> verified artifact retrieval with unchanged integrity checks`
 
-Constraints preserved:
-- no PublishedRelease public-shape or lifecycle-policy change;
-- no ArtifactPayloadRepository interface/verification semantic change;
-- no Compiler, Deploy, Runtime, Catalog, Assembly or canonical-contract source change;
-- no secrets/environment values embedded into Release or artifact metadata;
-- PostgreSQL remains a bounded Factory-side reference implementation;
-- production database auth/pooling/TLS/concurrency remain non-goals of this construction Sprint.
+### 3. P6-DURABLE-FACTORY-E2E-01 — COMMITTED / NOT_STARTED
 
-Current gate: final closure-head Deterministic CI, then Ready for Sprint Review on the existing PR #180.
+Base: `632a3bb294de442f8b8bdea2bdc96e0d9a84955d`
 
-### 3. P6-DURABLE-FACTORY-E2E-01 — FORECAST / NOT_MATERIALIZED
+Branch: `sprint/P6-DURABLE-FACTORY-E2E-01`
 
-Dependency: P6-DURABLE-RELEASE-ARTIFACT-01 merged and revalidated.
+Objective: combine the two already-integrated durability boundaries with the existing deterministic Factory, Deploy and autonomous Runtime in one restart-safe growing E2E proof without changing product semantics.
 
-Objective remains proving the complete deterministic Factory chain across persistence/restart boundaries without changing product semantics.
+Materialized TASKs:
+- TASK-098 — durable Catalog through Assembly/Validation/Compiler and reconstructed durable Release/Artifact into existing Deploy;
+- TASK-099 — reconstructed durable Factory output through existing local Deployment into autonomous persisted Runtime;
+- TASK-100 — deterministic/failure/autonomy regression closure of the P6 growing proof.
 
-No Sprint manifest or TASK spec is materialized.
+Dependency order:
+
+`TASK-098 -> TASK-099 -> TASK-100`
+
+Expected exit proof:
+
+`durable Catalog -> deterministic Assembly/Validation/Compiler -> durable PublishedRelease + ArtifactPayload -> reconstruct Factory-side providers/process -> verified retrieval -> existing Deploy -> autonomous Runtime -> persisted state across redeploy`
+
+Constraints:
+- no public contract/source semantic redesign;
+- use actual module APIs, not hand-authored downstream artifacts when executable modules exist;
+- Release/Artifact remain secret-free;
+- Environment/secret references remain outside Release;
+- Runtime must keep operating independently of Builder/Factory provider instances;
+- PostgreSQL transport hardening remains technical-debt review scope, not construction expansion.
 
 ### 4. P6 Integration & Technical Debt Review — FORECAST / MANDATORY / NOT_MATERIALIZED
 
 Materialize only after all three construction Sprints merge.
 
-Review scope remains repository-wide regression, TD-P4-01/TD-P5-04 disposition, WBS/ADR revalidation, durability risks and successor readiness from then-current main.
-
-Construction findings that are not required to satisfy the current Sprint Goal remain review candidates until this mandatory package review; they do not alter the committed/forecast sequence automatically.
+Review scope remains repository-wide regression, TD-P4-01/TD-P5-04 disposition, WBS/ADR revalidation, durability/transport risks and successor readiness from then-current main.
 
 ## Growing E2E proof
 
-Integrated predecessor on main:
+Integrated main before Sprint 3:
 
-`durable Catalog -> deterministic Assembly/Validation/Compiler -> ReleaseArtifact -> process-local PublishedRelease + verified ArtifactPayload -> Deploy -> autonomous Runtime`
+`durable Catalog -> deterministic Assembly/Validation/Compiler -> durable PublishedRelease + verified ArtifactPayload -> existing Deploy -> autonomous Runtime`, with Catalog and Release/Artifact restart safety proven separately.
 
-Second-Sprint branch proof:
-
-`durable Catalog predecessor -> deterministic Compiler artifact -> durable PublishedRelease + ArtifactPayload -> provider reconstruction -> equivalent release retrieval/verification`
-
-The full durable Factory-to-Deploy E2E remains the forecast third Sprint.
+Sprint 3 must join those proofs across a common restart/reconstruction boundary and extend them through the existing Deploy/Runtime path.
 
 ## Risks and change control
 
 High:
-- preserving immutable release/artifact identity and integrity across persistence/reconstruction;
-- lifecycle persistence without enabling overwrite or invalid transition.
+- accidentally proving a parallel synthetic path instead of the actual integrated modules;
+- leaking provider/connection/secret details into Release or runtime artifacts;
+- coupling Runtime execution to live Builder/Factory objects.
 
-Medium-High:
-- using PostgreSQL as reference storage without making it part of Release/Artifact consumer contracts;
-- bounded schema/transport implementation without falsely claiming production database lifecycle completeness.
+Medium:
+- test lifecycle complexity across Catalog/Release/Artifact persistence plus Runtime PostgreSQL state;
+- keeping evidence deterministic while processes/providers are reconstructed.
 
-Escalate rather than broaden if implementation requires canonical contract changes, Compiler/Deploy/Runtime source changes, Release/Environment/Deployment boundary changes, secret persistence, destructive migration, or altered public identity/lifecycle/verification semantics.
+Escalate rather than broaden if the proof requires public API changes, canonical contract changes, Deploy/Runtime semantic changes, destructive migrations, secret persistence, CI workflow changes, or a new architecture boundary.
 
 ## Commitment gate
 
-No successor Sprint is committed by this closure. `P6-DURABLE-FACTORY-E2E-01` and the Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED and require the already-defined predecessor gates plus explicit authorization before promotion.
+Only `P6-DURABLE-FACTORY-E2E-01` is COMMITTED. TASK-098/099/100 are materialized but NOT_STARTED.
+
+The P6 Integration & Technical Debt Review remains FORECAST / NOT_MATERIALIZED and requires this Sprint to pass review and merge before promotion.
