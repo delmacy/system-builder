@@ -1,6 +1,6 @@
 # P8-ATOMIC-DEPLOYMENT-AUTHORITY-01 — Atomic Multi-Writer Deployment Authority
 
-Status: COMMITTED / PRE_CODE
+Status: IMPLEMENTED_ON_SPRINT_BRANCH / TASK_CI_PASS / FINAL_CI_PENDING
 Base SHA: `209e192ec56599a05f6972e347f5b70989165c54`
 Branch: `sprint/P8-ATOMIC-DEPLOYMENT-AUTHORITY-01`
 Package: `P8-PACKAGE-01`
@@ -16,11 +16,13 @@ Make DeploymentRecord persistence and active-version promotion concurrency-safe 
 
 ## Committed TASKs
 
-1. `TASK-113` — extend the Deploy storage/API boundary with an explicit async atomic activation operation while preserving existing synchronous APIs.
-2. `TASK-114` — implement PostgreSQL transactional compare-and-set activation behind that boundary using the authenticated transaction-capable substrate from Sprint 1.
-3. `TASK-115` — prove two-writer contention, stale rejection, no torn record/active state and provider/process reconstruction.
+1. `TASK-113` — completed at `470f436318c0ef633f25bd9576051512c8830004`; Deterministic CI #336 PASS.
+2. `TASK-114` — completed at authoritative commit `9d30185892687ef9b66f771db55d7daa71d7c346`; Deterministic CI #338 PASS.
+3. `TASK-115` — completed at `ba12bf64631a38c209b208895afa99e6200dec02`; Deterministic CI #339 PASS.
 
-Dependency order: `TASK-113 -> TASK-114 -> TASK-115`.
+Dependency order preserved: `TASK-113 -> TASK-114 -> TASK-115`.
+
+Materialization required one schema-only correction before product work: initial CI #334 rejected unsupported `model_tier: strong`; commit `005cebfc272317e61c7f20856874f126b86b898a` normalized the task tiers and CI #335 passed. TASK-114 CI #337 then exposed TypeScript narrowing errors; the failed TASK commit was replaced on the Sprint branch so `9d30185892687ef9b66f771db55d7daa71d7c346` remains the single authoritative TASK-114 commit.
 
 ## Growing integration proof
 
@@ -28,34 +30,28 @@ Predecessor proof:
 
 `authenticated PostgreSQL reference connection -> existing Deploy storage boundary -> durable DeploymentRecord/active observation -> provider/process reconstruction -> equivalent state with no credential leakage`
 
-Sprint exit proof:
+Sprint achieved proof:
 
-`active A -> concurrent/stale activation attempts -> one authoritative CAS transition -> stale writer rejected without overwrite -> no torn record/active state -> provider/process reconstruction -> same authoritative active deployment`
+`active A -> two independent writers with expected A -> one database-serialized authoritative transition -> stale writer rejected -> no torn record/active state -> failed candidate retains winner -> fresh provider reconstruction -> same authoritative deployment + durable history`
 
-## Change level / authority
+## Architecture / contract disposition
 
-TASK-113 introduces an additive exported Deploy-module API needed to make multi-writer authority real. This is an explicit L3 module API change authorized by this committed Sprint/package goal. It does not change `packages/contracts/**`, the Builder/Runtime boundary, Release/Environment/Deployment semantics or any L4 architecture decision.
+TASK-113 is the explicitly authorized L3 Deploy-module API addition for this Sprint. It adds an asynchronous atomic activation path and `stale-active` evidence while preserving predecessor synchronous APIs. No canonical `packages/contracts/**` change, no Builder/Runtime boundary change and no L4 ADR was required.
 
-## Scope boundary
+PostgreSQL remains a Deploy-owned replaceable reference provider. The implementation uses database transaction + table-level write serialization for the bounded reference proof; process-local `#pending` is not the concurrency authority for atomic activation.
 
-PostgreSQL remains a Deploy-owned replaceable provider detail. No shared cross-context PostgreSQL transport, production traffic switching, fleet supervision, SecretResolver, Observe publication or Runtime feature expansion is authorized.
+## Residual bounded debt
+
+- the reference implementation uses coarse table-level serialization rather than a finer-grained per-environment lock/CAS primitive; correctness is proven, throughput tuning remains future provider work;
+- positive encrypted TLS/certificate validation, pooling, retry/richer cancellation and provider observability remain outside this Sprint;
+- duplicated raw PostgreSQL transport across bounded contexts remains `TD-P6-01`;
+- production traffic/process rollback, fleet coordination and SecretResolver remain outside P8 Sprint 2;
+- full package E2E with Factory/Runtime is deferred to the forecast Sprint 3.
 
 ## Final validation
 
-`npm run verify`
+`npm run verify` through GitHub Deterministic CI on the closure head.
 
-GitHub Deterministic CI is the objective validation evidence.
+## Stop boundary
 
-## Stop / escalation conditions
-
-Stop if implementation requires:
-- `packages/contracts/**` changes;
-- cross-context PostgreSQL ownership/consolidation;
-- a destructive migration;
-- Builder/Runtime or Release/Environment/Deployment architecture changes;
-- production traffic/fleet/supervisor scope;
-- weakening security/governance or removing predecessor APIs.
-
-## Explicit non-goals
-
-Sprint 3 package E2E, production orchestration, positive TLS certificate policy, pooling/retry/observability hardening, migration-fleet coordination, Observe publication or full production-readiness claims.
+After final CI, open/promote the Sprint PR and stop at human Sprint Review. Do not materialize `P8-HARDENED-ACTIVATION-E2E-01` or the package review without a new instruction after this Sprint is reviewed/merged and `main` is freshly reconstructed.

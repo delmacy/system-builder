@@ -1,52 +1,41 @@
-# Current Execution Milestone — M9 P8 Authenticated Deploy PostgreSQL Sprint Review
+# Current Execution Milestone — M9 P8 Atomic Deployment Authority Sprint
 
 ## Goal
 
-Close the first P8 construction Sprint after proving authenticated, transaction-capable PostgreSQL reference transport behind the existing Deploy-owned state boundary without expanding into cross-context infrastructure or production orchestration.
+Complete the second P8 construction Sprint by proving database-enforced multi-writer active deployment authority without weakening predecessor compatibility or crossing canonical architecture boundaries.
 
 ## Integrated baseline
 
-P8-PACKAGE-01 planning merged through PR #188 at `91f5cb23145c901c508e9673ef8cd38b52bbb413` after Deterministic CI #328 PASS.
+`P8-DEPLOY-POSTGRES-TRANSPORT-01` merged through PR #189 at `209e192ec56599a05f6972e347f5b70989165c54` after final Deterministic CI #333 PASS.
 
 ## Active Sprint
 
-`P8-DEPLOY-POSTGRES-TRANSPORT-01 — Authenticated Deploy PostgreSQL Transport`
+`P8-ATOMIC-DEPLOYMENT-AUTHORITY-01`
 
-Branch: `sprint/P8-DEPLOY-POSTGRES-TRANSPORT-01`
-PR: #189
-Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+Branch: `sprint/P8-ATOMIC-DEPLOYMENT-AUTHORITY-01`
+PR: #190
+Status: `IMPLEMENTED_ON_SPRINT_BRANCH / TASK_CI_PASS / FINAL_CI_PENDING`.
 
-Completed order:
-1. TASK-110 — PASS / CI #330;
-2. TASK-111 — PASS / CI #331;
-3. TASK-112 — PASS / CI #332.
+Committed TASKs completed in dependency order:
+1. TASK-113 — additive atomic Deploy activation boundary — CI #336 PASS;
+2. TASK-114 — PostgreSQL transactional CAS authority — CI #338 PASS;
+3. TASK-115 — concurrent multi-writer reconstruction evidence — CI #339 PASS.
 
-Materialization CI #329 PASS before implementation.
+## Achieved branch proof
 
-## Achieved proof
+`active A -> two independent authenticated PostgreSQL writers from the same expected A -> exactly one authoritative transition -> stale contender rejected without overwrite -> failed candidate retains winner -> fresh provider reconstruction -> same winner + durable attempted history`
 
-`authenticated PostgreSQL reference connection -> existing Deploy storage boundary -> durable DeploymentRecord/active observation -> provider/process reconstruction -> equivalent state with no credential leakage`
+## Architecture disposition
 
-Additional provider substrate proof:
-
-`authenticated connection -> bounded BEGIN/COMMIT batch -> all writes commit; failing statement -> deterministic error + connection teardown -> open transaction rolls back -> no partial write`
-
-## Constraints preserved
-
-- ADR-0002 Runtime autonomy preserved;
-- ADR-0007 Release/Environment/Deployment separation preserved;
-- no canonical contract or public Deploy semantic change;
-- no shared cross-context PostgreSQL ownership;
-- no external npm dependency;
-- no atomic multi-writer activation claim;
-- no full production-readiness claim.
-
-## Residual boundaries
-
-Positive encrypted PostgreSQL TLS/certificate validation is not proven by CI. Pooling, retry/richer cancellation and provider observability remain open. Cross-context raw PostgreSQL duplication remains debt. Multi-writer/CAS active authority remains forecast Sprint 2.
+- additive L3 Deploy-module API change explicitly authorized by this Sprint;
+- predecessor synchronous APIs preserved;
+- PostgreSQL remains provider-local to Deploy;
+- no `packages/contracts/**` change;
+- no ADR-0002 / ADR-0007 violation;
+- no L4 change or new ADR.
 
 ## Current gate
 
-Run final closure-head Deterministic CI. If PASS, verify scope/review gates, mark PR #189 Ready for human Sprint Review and stop.
+Run final Deterministic CI on the closure head. If PASS, verify Sprint scope and review gates, promote PR #190 to human Sprint Review and stop.
 
-`P8-ATOMIC-DEPLOYMENT-AUTHORITY-01`, `P8-HARDENED-ACTIVATION-E2E-01` and the P8 package review remain FORECAST / NOT_MATERIALIZED.
+`P8-HARDENED-ACTIVATION-E2E-01` remains forecast/not materialized. The P8 Integration & Technical Debt Review also remains forecast/mandatory and may not be started at this gate.
