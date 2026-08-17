@@ -1,9 +1,9 @@
 import type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
 import { sha256Canonical } from "@system-builder/deterministic";
-import { InMemoryDeploymentRecordStorage, type DeploymentRecordStorage } from "./storage.js";
+import { InMemoryDeploymentRecordStorage, type AtomicDeploymentActivationResult, type DeploymentRecordStorage } from "./storage.js";
 
 export type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
-export { InMemoryDeploymentRecordStorage, type DeploymentRecordStorage } from "./storage.js";
+export { InMemoryDeploymentRecordStorage, type AtomicDeploymentActivationResult, type DeploymentRecordStorage } from "./storage.js";
 
 export type DeployPublishedRelease = Readonly<{
   kind: "PublishedRelease";
@@ -44,7 +44,7 @@ export type DeploymentRecord = Readonly<{
 export type DeploymentActivationDecision = Readonly<{
   kind: "DeploymentActivationDecision";
   decisionId: string;
-  outcome: "activated" | "retained-active" | "rejected-no-active";
+  outcome: "activated" | "retained-active" | "rejected-no-active" | "stale-active";
   candidateDeploymentId: string;
   environmentRef: string;
   previousActiveDeploymentId: string | null;
@@ -69,6 +69,21 @@ function immutableDeploymentRecord(record: DeploymentRecord): DeploymentRecord {
   return Object.freeze({
     ...record,
     healthChecks: Object.freeze(record.healthChecks.map((check) => Object.freeze({ ...check }))),
+  });
+}
+
+function activationDecision(record: DeploymentRecord, result: AtomicDeploymentActivationResult): DeploymentActivationDecision {
+  const payload = Object.freeze({
+    outcome: result.outcome,
+    candidateDeploymentId: record.deploymentId,
+    environmentRef: record.environmentRef,
+    previousActiveDeploymentId: result.previousActiveDeploymentId,
+    resultingActiveDeploymentId: result.resultingActiveDeploymentId,
+  });
+  return Object.freeze({
+    kind: "DeploymentActivationDecision",
+    decisionId: sha256Canonical(payload),
+    ...payload,
   });
 }
 
@@ -104,18 +119,26 @@ export class DeploymentRegistry {
       : previousActive === undefined
         ? "rejected-no-active" as const
         : "retained-active" as const;
-    const payload = Object.freeze({
+    return activationDecision(candidate, Object.freeze({
       outcome,
-      candidateDeploymentId: candidate.deploymentId,
-      environmentRef: candidate.environmentRef,
       previousActiveDeploymentId: previousActive?.deploymentId ?? null,
       resultingActiveDeploymentId: resultingActive?.deploymentId ?? null,
-    });
-    return Object.freeze({
-      kind: "DeploymentActivationDecision",
-      decisionId: sha256Canonical(payload),
-      ...payload,
-    });
+    }));
+  }
+
+  async activateCandidateAtomically(
+    record: DeploymentRecord,
+    expectedActiveDeploymentId: string | null,
+  ): Promise<DeploymentActivationDecision> {
+    const normalized = immutableDeploymentRecord(record);
+    const existing = this.#storage.get(record.deploymentId);
+    if (existing !== undefined && JSON.stringify(existing) !== JSON.stringify(normalized)) {
+      throw new Error(`DEPLOYMENT_RECORD_CONFLICT:${record.deploymentId}`);
+    }
+    const activate = this.#storage.activateAtomically;
+    if (activate === undefined) throw new Error("DEPLOYMENT_ATOMIC_ACTIVATION_UNSUPPORTED");
+    const result = await activate.call(this.#storage, normalized, expectedActiveDeploymentId);
+    return activationDecision(normalized, result);
   }
 
   get(deploymentId: string): DeploymentRecord | undefined {

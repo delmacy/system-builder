@@ -1,7 +1,7 @@
 ---
 id: TASK-113
 title: Add atomic activation boundary to Deploy storage
-status: ready
+status: completed
 priority: 397
 milestone: M9
 model_tier: architecture
@@ -58,7 +58,7 @@ Sprint 1 provides authenticated transaction-capable PostgreSQL transport. Curren
 
 # Current behavior
 
-A successful `record()` writes history and then changes the active pointer independently. Separate provider instances can observe stale state and overwrite each other.
+The existing synchronous APIs are preserved for predecessor compatibility. This TASK adds a separate atomic path rather than silently changing `record()` or `activateCandidate()` semantics.
 
 # Required change
 
