@@ -1,6 +1,6 @@
 # P8-PACKAGE-01 — Integration & Technical Debt Review
 
-Status: MATERIALIZED / REGRESSION_PENDING
+Status: READY_FOR_FINAL_CI / REVIEW_GATE_PENDING
 
 ## Review authority
 
@@ -8,7 +8,7 @@ Mandatory package review required by `P8-PACKAGE-01` and `SPRINT_GENERATION_POLI
 
 Review base: `c2c0d92b1b76c9dff3134036b70ccd6538763dd3` (`P8-HARDENED-ACTIVATION-E2E-01` merged through PR #191).
 Review branch: `review/P8-PACKAGE-01-integration-debt`.
-Review PR: pending materialization CI.
+Review PR: #192.
 
 This review authorizes no successor Sprint, Sprint Package or construction work by itself.
 
@@ -16,11 +16,11 @@ This review authorizes no successor Sprint, Sprint Package or construction work 
 
 P8 achieved its bounded package goal.
 
-Integrated evidence now proves:
+Integrated evidence proves:
 
 `durable Factory output -> reconstructed Release/Artifact -> authenticated PostgreSQL Deploy -> atomic activate A -> autonomous Runtime with Builder/Observe unavailable -> promote B -> stale successful C cannot replace B -> failed D retains B -> fresh authenticated reconstruction -> B remains authoritative + A/B/C/D history durable -> B Runtime continuity`
 
-Construction history is integrated:
+Construction history is fully integrated:
 
 - `P8-DEPLOY-POSTGRES-TRANSPORT-01` — PR #189 merged at `209e192ec56599a05f6972e347f5b70989165c54`; closure CI #333 PASS.
 - `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` — PR #190 merged at `98a8e674d72e1ad00d5eb5850ae4e71ac3f6a56c`; closure CI #340 PASS.
@@ -30,13 +30,36 @@ Construction history is integrated:
 
 Canonical package regression is repository-wide `npm run verify` through GitHub Deterministic CI with PostgreSQL 17.6 trust and SCRAM-authenticated fixtures.
 
-Review materialization CI: PENDING.
+Review materialization head: `570d82121b578b36b08dc41dc6dc385de940aaff`.
+Deterministic CI #347: PASS.
+
+Observed objective evidence:
+
+- PostgreSQL 17.6-alpine trust fixture: healthy;
+- PostgreSQL 17.6-alpine SCRAM-authenticated fixture: healthy;
+- Node 24.19.0 / npm 11.17.0;
+- `npm ci`: PASS, 116 packages audited, 0 vulnerabilities;
+- `npm run verify`: PASS;
+- unit tests: 309 PASS / 0 FAIL / 0 SKIPPED;
+- product tests: 152 PASS / 0 FAIL / 0 SKIPPED;
+- task catalog: 119 specifications validated;
+- architecture gates: PASS;
+- build: PASS;
+- authenticated SCRAM Deploy reconstruction: PASS;
+- required-TLS fail-closed behavior: PASS;
+- Deploy transaction commit/rollback: PASS;
+- atomic expected-active authority reconstruction: PASS;
+- two authenticated PostgreSQL writers admit one authority transition and reject stale contender: PASS;
+- P7 TASK-107/108/109 predecessor durability/Runtime evidence: PASS;
+- P8 TASK-116/117/118 hardened package E2E: PASS.
 
 No local validation is claimed. GitHub Actions is the objective regression evidence.
 
+Review-finalization changes are documentation-only. A final Deterministic CI run on the review-finalization head is required before human Review Gate readiness.
+
 ## Contract and architecture revalidation
 
-Pre-regression result: PASS WITH DEBT.
+Result: PASS WITH DEBT.
 
 - ADR-0002 remains preserved: package E2E executes Runtime with Builder/Observe unavailable.
 - ADR-0007 remains preserved: Release remains immutable, Environment carries config/secret references, and Deployment binds them without embedding secret values.
@@ -47,6 +70,8 @@ Pre-regression result: PASS WITH DEBT.
 - Master Blueprint order remains intact: deterministic Factory -> Release Artifact -> Deployment -> Autonomous Runtime -> operation/evolution.
 
 ## WBS / DAG revalidation
+
+P8 materially advances the Deploy/Runtime slice:
 
 - WBS 10.2.3: SATISFIED FOR BOUNDED acceptance, stale rejection and last-known-good authority retention. Production traffic/process/infrastructure rollback remains open.
 - WBS 10.3.1: PARTIALLY SATISFIED. Release/environment/timestamps and deployment identity are durable; executor/source operational identity remains narrow.
@@ -133,19 +158,23 @@ Medium:
 - DeploymentRecord executor/source metadata and Observe/operations publication;
 - task-materialization schema discipline.
 
-No critical risk requiring rollback of P8 construction is currently identified. Final disposition is gated on repository-wide regression.
+No critical risk requiring rollback of P8 was found.
 
-## Successor readiness — provisional
+## Successor readiness recommendation
 
-After objective regression passes, candidate directions must be ranked from the integrated repository rather than selected here. Current structural candidates are:
+Package construction result: PASS.
+Architecture/boundary result: PASS WITH DEBT.
+Critical rollback blocker: NONE FOUND.
 
-1. production deployment orchestration / actual process-traffic lifecycle, because durable authenticated authority is now strong enough to serve as a control source but does not yet enact production promotion/rollback;
-2. production secret and verified TLS/provider lifecycle hardening, where security readiness remains high-risk;
-3. cross-context durable PostgreSQL transport ownership/consolidation, only with explicit architecture authority;
-4. DeploymentRecord operational publication/Observe integration, provided Runtime autonomy remains optional;
-5. broader generated Runtime behavior, competing on product leverage against infrastructure hardening.
+Readiness after this review is accepted and merged:
 
-This review does not create or authorize the successor package.
+1. **Production deployment orchestration / actual process-traffic lifecycle** — HIGH structural leverage and READY TO BE CONSIDERED in fresh successor-package planning because authenticated durable authority is now a reliable control source, but P8 still does not enact production promotion/rollback.
+2. **Production secret + verified TLS/provider lifecycle hardening** — HIGH security importance and READY TO BE CONSIDERED; verified server identity/certificate policy and production secret lifecycle remain production blockers.
+3. **Cross-context durable PostgreSQL transport ownership/consolidation** — structurally valuable but ARCHITECTURE-GATED; any shared ownership requires explicit authority/ADR rather than being inferred from duplication debt.
+4. **DeploymentRecord operational publication/Observe integration** — independently plan-able MEDIUM priority if Runtime autonomy remains optional.
+5. **Broader generated Runtime behavior** — remains a product-gap direction and must compete on leverage during fresh successor planning.
+
+Recommendation: after this review passes final CI, receives human Review Gate acceptance and merges, the next Sprint Package becomes `READY_TO_BE_PLANNED`. This review does not create, name, select or materialize that package.
 
 ## Review Gate
 
@@ -153,8 +182,8 @@ This review does not create or authorize the successor package.
 - all three P8 construction Sprints merged: YES;
 - package goal achieved: PASS;
 - architecture revalidation: PASS WITH DEBT;
-- materialization regression: PENDING;
+- materialization-head regression: PASS (CI #347);
 - final review regression: PENDING;
-- rollback blocker: NONE IDENTIFIED PRE-REGRESSION;
+- rollback blocker: NONE;
 - successor Sprint Package materialized: NO;
-- decision: PENDING OBJECTIVE REGRESSION / HUMAN REVIEW GATE.
+- decision: PENDING FINAL CI / HUMAN REVIEW GATE.

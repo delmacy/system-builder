@@ -14,7 +14,7 @@ Date: 2026-08-17
 - `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` merged through PR #190 at `98a8e674d72e1ad00d5eb5850ae4e71ac3f6a56c`, closure CI #340 PASS.
 - `P8-HARDENED-ACTIVATION-E2E-01` merged through PR #191 at `c2c0d92b1b76c9dff3134036b70ccd6538763dd3`, closure CI #346 PASS.
 - All three P8 construction Sprints are integrated.
-- The mandatory `P8 Integration & Technical Debt Review` is materialized and awaiting objective regression.
+- The mandatory `P8 Integration & Technical Debt Review` passed its materialization regression in Deterministic CI #347 and is finalized pending the review-head final CI.
 - GitHub Actions with PostgreSQL 17.6 trust + SCRAM fixtures remains the objective deterministic integration gate.
 
 ## Integrated P8 baseline
@@ -27,22 +27,40 @@ Date: 2026-08-17
 
 Base: `c2c0d92b1b76c9dff3134036b70ccd6538763dd3`
 Branch: `review/P8-PACKAGE-01-integration-debt`
-Status: `MATERIALIZED / REGRESSION_PENDING`.
+PR: #192
+Status: `FINALIZED / MATERIALIZATION_CI_PASS / FINAL_CI_PENDING`.
 
-## Architecture disposition
+Materialization regression CI #347 observed:
+- 309 unit tests PASS;
+- 152 product tests PASS;
+- 119 TASK specifications validated;
+- architecture gates PASS;
+- build PASS;
+- PostgreSQL 17.6 trust and SCRAM fixtures healthy.
 
-- ADR-0002 Builder/Runtime autonomy remains preserved.
-- ADR-0007 Release/Environment/Deployment separation remains preserved.
-- canonical EnvironmentProfile remains unchanged.
-- PostgreSQL remains a Deploy-owned replaceable reference provider.
-- no L4 architecture change/new ADR was introduced by P8.
+## Architecture / WBS result
 
-## Debt direction under review
+- package construction: PASS;
+- architecture/boundaries: PASS WITH DEBT;
+- WBS 10.2.3 bounded acceptance/retention: satisfied; production rollback orchestration open;
+- WBS 10.3.1: partial;
+- WBS 10.3.2 hardened authenticated atomic authority: satisfied for the current reference provider;
+- WBS 10.3.3 Observe/operations publication: open;
+- WBS 13.3.1 autonomy: regression-proven;
+- WBS 13.3.3 bounded upgrade/stale/failed contender continuity: satisfied; production orchestration open.
 
-P8 closes the bounded multi-writer active-authority correctness gap, while production readiness still depends on verified TLS/credential lifecycle, non-Deploy PostgreSQL transport hardening/consolidation decisions, production SecretResolver, migration/fleet coordination and actual process/traffic rollback orchestration.
+## Debt disposition
+
+- TD-P7-01 is closed for the bounded Deploy PostgreSQL reference provider.
+- TD-P4-03 is materially reduced but remains HIGH before production connectivity.
+- TD-P6-01 remains HIGH because PostgreSQL transport remains duplicated across bounded contexts.
+- TD-P7-02 remains HIGH because authority retention is not infrastructure/process rollback.
+- New TD-P8-01 records coarse table-level serialization as MEDIUM scaling debt.
+- New TD-P8-02 records absent positive TLS certificate/server-identity verification as HIGH production security debt.
+- Production SecretResolver, migration/fleet coordination, process/traffic supervision and Observe publication remain open.
 
 ## Current gate
 
-Run repository-wide Deterministic CI on the review materialization head. If green, finalize the review with observed regression evidence, debt/risk/readiness disposition and a final CI, then stop at human Review Gate.
+Run repository-wide Deterministic CI on the finalized review head. If green, verify PR #192 remains documentation-only with valid review gates, mark it Ready for human Review Gate and stop.
 
-Do not create or materialize a successor Sprint Package or construction Sprint during this review.
+Do not merge PR #192 automatically. Do not create or materialize a successor Sprint Package or construction Sprint at this gate.
