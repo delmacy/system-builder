@@ -131,3 +131,72 @@ test("TASK-107 durable Factory output activates as A and reaches autonomous Runt
   await durable.reconstructedArtifactStorage.close();
   await durable.reconstructedReleaseStorage.close();
 });
+
+test("TASK-108 successful durable B replaces A and preserves autonomous Runtime continuity", { skip: postgresUrl === undefined ? "SYSTEM_BUILDER_TEST_POSTGRES_URL not configured" : false }, async () => {
+  assert.ok(postgresUrl);
+  const scope = "p7_task108";
+  const compilation = await compileDurableFactory(scope);
+  const resolver = new InMemorySecretResolver({ "secret://p7/runtime": postgresUrl });
+
+  const durableA = await publishAndReconstruct(scope, compilation, "1.0.0");
+  const deployedA = await executeLocalDeployment({
+    publishedRelease: durableA.release,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: durableA.reconstructedArtifactStorage,
+    environment: environment(),
+    secretResolver: resolver,
+    processEnvironment: unavailableControlPlane,
+    startedAt: "2026-08-17T20:10:01Z",
+    completedAt: "2026-08-17T20:10:02Z",
+    timeoutMs: 10_000,
+  });
+  assert.equal(deployedA.ok, true);
+  if (!deployedA.ok || !deployedA.execution.ok) throw new Error("TASK108_RUNTIME_A_FAILED");
+  const deployStorageA = await PostgresDeploymentRecordStorage.open(postgresUrl, `${scope}_deploy`);
+  const registryA = new DeploymentRegistry(deployStorageA);
+  const decisionA = registryA.activateCandidate(deployedA.record);
+  assert.equal(decisionA.outcome, "activated");
+  await deployStorageA.close();
+  await durableA.reconstructedArtifactStorage.close();
+  await durableA.reconstructedReleaseStorage.close();
+
+  const durableB = await publishAndReconstruct(scope, compilation, "1.1.0");
+  const deployedB = await executeLocalDeployment({
+    publishedRelease: durableB.release,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: durableB.reconstructedArtifactStorage,
+    environment: environment(),
+    secretResolver: resolver,
+    processEnvironment: unavailableControlPlane,
+    startedAt: "2026-08-17T20:11:01Z",
+    completedAt: "2026-08-17T20:11:02Z",
+    timeoutMs: 10_000,
+  });
+  assert.equal(deployedB.ok, true);
+  if (!deployedB.ok || !deployedB.execution.ok) throw new Error("TASK108_RUNTIME_B_FAILED");
+
+  const deployStorageB = await PostgresDeploymentRecordStorage.open(postgresUrl, `${scope}_deploy`);
+  const registryB = new DeploymentRegistry(deployStorageB);
+  assert.equal(registryB.getActive(environment().environmentRef)?.deploymentId, deployedA.record.deploymentId);
+  const decisionB = registryB.activateCandidate(deployedB.record);
+  assert.equal(decisionB.outcome, "activated");
+  assert.equal(decisionB.previousActiveDeploymentId, deployedA.record.deploymentId);
+  assert.equal(decisionB.resultingActiveDeploymentId, deployedB.record.deploymentId);
+  await deployStorageB.close();
+
+  const reconstructedDeployStorage = await PostgresDeploymentRecordStorage.open(postgresUrl, `${scope}_deploy`);
+  const reconstructedRegistry = new DeploymentRegistry(reconstructedDeployStorage);
+  assert.equal(reconstructedRegistry.getActive(environment().environmentRef)?.deploymentId, deployedB.record.deploymentId);
+  assert.deepEqual(
+    new Set(reconstructedRegistry.list().map((record) => record.deploymentId)),
+    new Set([deployedA.record.deploymentId, deployedB.record.deploymentId]),
+  );
+  assert.equal(deployedB.execution.health.status, "UP");
+
+  const evidence = JSON.stringify({ releaseA: durableA.release, releaseB: durableB.release, decisionA, decisionB, active: reconstructedRegistry.getActive(environment().environmentRef), healthB: deployedB.execution.health });
+  assert.equal(evidence.includes(postgresUrl), false);
+  assert.equal(evidence.includes("postgres://"), false);
+  await reconstructedDeployStorage.close();
+  await durableB.reconstructedArtifactStorage.close();
+  await durableB.reconstructedReleaseStorage.close();
+});

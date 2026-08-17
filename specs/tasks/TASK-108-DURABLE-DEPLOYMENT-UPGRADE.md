@@ -1,7 +1,7 @@
 ---
 id: TASK-108
 title: Prove successful durable deployment upgrade and Runtime continuity
-status: ready
+status: completed
 priority: 402
 milestone: M8
 model_tier: cheap
