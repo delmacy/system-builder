@@ -1,49 +1,98 @@
 # P6-PACKAGE-01 — Integration & Technical Debt Review
 
-Status: COMMITTED / REVIEW_IN_PROGRESS
+Status: READY_FOR_FINAL_CI / REVIEW_GATE_PENDING
 
 ## Review authority
 
 Mandatory package review required by `P6-PACKAGE-01` and `SPRINT_GENERATION_POLICY` after all three P6 construction Sprints merged.
 
 Review base: `29feebd810cc04e4d4c5d8a3efe8003cf4acab36` (P6-DURABLE-FACTORY-E2E-01 merged through PR #181).
-
 Review branch: `review/P6-PACKAGE-01-integration-debt`.
+Review PR: #182.
 
 This review authorizes no successor Sprint or Sprint Package by itself.
 
-## Scope
+## Integrated package result
 
-Revalidate the integrated P6 package end-to-end and repository-wide, classify the durable-provider transport caveat, resolve carried `TD-P4-01` and `TD-P5-04`, and determine whether M7/P6 may exit to successor-package planning.
+P6 achieved its bounded package goal.
 
-## Mandatory inputs
+Integrated evidence proves:
 
-- `AGENTS.md`
-- `docs/current/PROJECT_STATE.md`
-- `docs/current/CURRENT_MILESTONE.md`
-- `docs/current/NEXT_WORK.md`
-- `project_docs/schedule/SPRINT_GENERATION_POLICY.md`
-- `project_docs/schedule/SPRINT_MODE.md`
-- `project_docs/execution_planning/P6-PACKAGE-01.md`
-- all three P6 Sprint reports
-- `docs/adr/ADR-0002-autonomous-runtime.md`
-- `docs/adr/ADR-0007-release-environment-deployment.md`
-- `docs/architecture/MASTER_BLUEPRINT.md`
-- relevant P4/P5 integration-debt reviews and current P6 provider source/tests
+`durable Catalog -> deterministic Assembly/Validation/Compiler -> durable PublishedRelease + ArtifactPayload -> provider/process reconstruction -> verified retrieval -> existing Deploy -> autonomous PostgreSQL-backed Runtime -> persisted state across clean redeploy`
 
-## Review questions
+The three construction Sprints are merged: P6-DURABLE-CATALOG-01 through PR #179, P6-DURABLE-RELEASE-ARTIFACT-01 through PR #180, and P6-DURABLE-FACTORY-E2E-01 through PR #181.
 
-1. Does merged P6 preserve deterministic Catalog/Assembly/Validation/Compiler/Release/Artifact/Deploy/Runtime behavior across provider/process reconstruction?
-2. Are ADR-0002 Runtime autonomy and ADR-0007 Release/Environment/Deployment separation still preserved?
-3. Are durable-provider identities, integrity, failure semantics and secret non-leakage preserved?
-4. Do `TD-P4-01` and `TD-P5-04` close now that durable Catalog/Release/Artifact providers are integrated?
-5. What transport/auth/TLS/pooling/concurrency debt remains after the bounded PostgreSQL reference-provider proof?
-6. Is there any rollback blocker, L4 drift or public-contract change requiring escalation?
+## Integrated regression evidence
 
-## Validation plan
+The merged construction evidence records repository-wide `npm run verify` on PostgreSQL 17.6 with 309 unit tests PASS, 127 product tests PASS, 101 TASK specifications validated, architecture gates PASS and build PASS at TASK-100 CI #297; closure-head CI #303 also passed before PR #181 merge.
 
-Canonical evidence is repository `npm run verify` through Deterministic CI with PostgreSQL 17.6. Review finalization must remain docs-only and must not alter `packages/**`, contracts, ADRs or CI configuration.
+P6-specific evidence covers durable Catalog reconstruction into actual transitive Assembly; actual Compiler output persisted/reconstructed through durable Release and Artifact providers; deterministic ReleaseArtifact/Deployment identity for equivalent inputs; duplicate/conflict/tamper/missing-capability/traceability/environment failures remaining fail-closed; autonomous Runtime operation after Factory-side providers are discarded; and state preservation across clean redeploy.
 
-## Successor boundary
+Review-finalization changes are documentation-only. A final Deterministic CI run on the review-finalization head is required before human Review Gate readiness.
 
-No P7 package, successor Sprint or successor TASK may be materialized from this review branch. Successor planning is allowed only after this review passes its own Review Gate and merges, followed by a fresh reconstruction of `main`.
+## Contract and architecture revalidation
+
+Result: PASS WITH DEBT.
+
+- ADR-0002 remains preserved: ordinary Runtime operation does not require live Builder/Factory/Observe availability.
+- ADR-0007 remains preserved: immutable Release material remains separate from Environment bindings and resolved secrets.
+- Catalog/Release/Artifact persistence is owned behind bounded-context provider interfaces; PostgreSQL is a reference implementation, not a canonical public dependency.
+- No P6 E2E evidence required changes to Deploy or Runtime semantics.
+- No canonical `packages/contracts/**` change or new L4 architecture decision is required by P6.
+- Master Blueprint stage order remains intact and increasingly deterministic after SystemDefinition.
+
+## Debt disposition
+
+### TD-P4-01 — Durable Catalog/Release/Artifact provider adapters remain unproven
+Disposition: CLOSED FOR THE BOUNDED P6 DURABLE PROVIDER SLICE.
+
+P6 now proves PostgreSQL-backed Catalog, PublishedRelease and ArtifactPayload persistence across provider/process reconstruction, preserving deterministic identities, ordering, lifecycle, integrity verification and fail-closed behavior.
+
+### TD-P5-04 — Composition evidence strong but provider persistence process-local
+Disposition: CLOSED.
+
+P6 joins durable Catalog reconstruction to deterministic Assembly/Validation/Compiler and durable Release/Artifact reconstruction, then extends the same immutable output through Deploy and autonomous persisted Runtime.
+
+### TD-P4-03 — PostgreSQL transport/auth lifecycle proof-grade
+Disposition: CARRIED / HIGH before production database connectivity.
+
+The P6 providers use bounded raw PostgreSQL wire transport over `node:net`, accept only authentication mode 0 (`AuthenticationOk`), use one-shot simple-query sockets and fixed timeout behavior, and do not establish production TLS, SCRAM/password lifecycle, rotation, pooling, cancellation/retry policy or provider observability. This does not invalidate the durable provider contract proof; it limits production readiness.
+
+### TD-P6-01 — Durable provider transport mechanics duplicated and concurrency lifecycle bounded
+Priority: MEDIUM-HIGH before production Factory operation.
+
+Catalog, Release and Artifact PostgreSQL reference providers repeat low-level connection/query parsing mechanics and maintain process-local caches/pending write queues. The current evidence proves deterministic bounded reconstruction but not concurrent multi-writer/fleet semantics, pooling, transactional coordination or shared hardened transport ownership. Any consolidation must preserve bounded-context provider ownership and must not leak PostgreSQL into public contracts.
+
+Other carried production debts from prior reviews (SecretResolver production adapters, migration/fleet coordination, long-running supervision/rollback/active-version evidence) remain outside P6 scope and are not regressions.
+
+## Risk update
+
+High before production:
+- PostgreSQL TLS/authentication/credential lifecycle/pooling/retry/cancellation/observability;
+- production SecretResolver and deployment supervision/rollback/fleet semantics.
+
+Medium-High:
+- duplicated raw PostgreSQL transport and concurrent multi-writer semantics for durable Factory providers.
+
+No critical risk requiring rollback of P6 was found.
+
+## Exit decision
+
+Package construction result: PASS.
+Architecture/boundary result: PASS WITH DEBT.
+Critical rollback blocker: NONE FOUND.
+`TD-P4-01`: CLOSED FOR BOUNDED P6 SLICE.
+`TD-P5-04`: CLOSED.
+
+Recommendation: M7/P6 is READY TO EXIT after final review-head Deterministic CI and human Review Gate acceptance. Only after this review merges may successor-package planning reconstruct then-current `main` and choose the next highest-leverage work. This review does not create P7, a successor Sprint or successor TASKs.
+
+## Review Gate
+
+- review base integrated: YES (`29feebd810cc04e4d4c5d8a3efe8003cf4acab36`);
+- all three P6 construction Sprints merged: YES;
+- package goal achieved: PASS;
+- architecture revalidation: PASS WITH DEBT;
+- rollback blocker: NONE;
+- review-finalization regression: PENDING;
+- successor package/Sprint materialized: NO;
+- decision: PENDING FINAL CI / HUMAN REVIEW GATE.
