@@ -1,40 +1,41 @@
-# Current Execution Milestone — M8 P7 Durable Deployment E2E Sprint Review
+# Current Execution Milestone — M8 P7 Integration & Technical Debt Review
 
 ## Goal
 
-Close the third P7 construction Sprint after joining durable Factory reconstruction, durable deployment activation/rollback authority and autonomous Runtime in one executable package-level proof.
+Revalidate the fully integrated P7 durable deployment lifecycle, execute package-wide regression, classify debt/risks and determine successor readiness without creating a successor package.
 
 ## Integrated baseline
 
-P7-DEPLOYMENT-ROLLBACK-01 merged through PR #185 at `991c6cff2f2e7fc332b4534091ad6afafce14106` after Deterministic CI #319 PASS.
+All three P7 construction Sprints are merged:
 
-## Active Sprint
+1. P7-DURABLE-DEPLOYMENT-STATE-01 — PR #184;
+2. P7-DEPLOYMENT-ROLLBACK-01 — PR #185;
+3. P7-DURABLE-DEPLOYMENT-E2E-01 — PR #186, merged at `e71590625466dac27298852af779063c40d8551b` after CI #325 PASS.
 
-`P7-DURABLE-DEPLOYMENT-E2E-01 — Durable Deployment Lifecycle E2E`
+## Active review
 
-Branch: `sprint/P7-DURABLE-DEPLOYMENT-E2E-01`
-PR: #186
-Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+`P7-PACKAGE-01 — Integration & Technical Debt Review`
 
-Completed order:
-1. TASK-107 — PASS / CI #322;
-2. TASK-108 — PASS / CI #323;
-3. TASK-109 — PASS / CI #324.
+Branch: `review/P7-PACKAGE-01-integration-debt`
+Status: `MATERIALIZED / REGRESSION_PENDING`.
 
-## Achieved proof
+The review is documentation-only and contains no implementation TASKs.
+
+## Integrated proof under review
 
 `durable Factory output -> durable Deploy activation A -> autonomous Runtime -> successful B activation -> failed candidate C -> reconstruct deployment authority -> B remains active + Runtime continuity`
 
-## Constraints preserved
+## Preliminary disposition
 
-- ADR-0002 Runtime autonomy preserved;
-- ADR-0007 Release/Environment/Deployment separation preserved;
-- no canonical contract, provider schema/interface or L4 change;
-- no production TLS/traffic/fleet/supervision or load-balancer rollback claim;
-- Sprint implementation is evidence-only.
+- package result: PASS subject to review regression;
+- architecture/boundaries: PASS WITH DEBT;
+- ADR-0002 preserved;
+- ADR-0007 preserved;
+- critical rollback blocker: none identified;
+- production readiness: not claimed.
 
 ## Current gate
 
-Run final closure-head Deterministic CI. If PASS, mark PR #186 Ready for Sprint Review and stop.
+Run repository-wide Deterministic CI on the materialized review head. If PASS, finalize debt/risk/readiness state, run final Deterministic CI and stop at human Review Gate.
 
-The mandatory P7 Integration & Technical Debt Review remains FORECAST / NOT_MATERIALIZED.
+No successor Sprint Package, P8 Sprint or successor TASK may be materialized by this review.
