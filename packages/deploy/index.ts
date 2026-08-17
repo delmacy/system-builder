@@ -1,7 +1,9 @@
 import type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
 import { sha256Canonical } from "@system-builder/deterministic";
+import { InMemoryDeploymentRecordStorage, type DeploymentRecordStorage } from "./storage.js";
 
 export type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
+export { InMemoryDeploymentRecordStorage, type DeploymentRecordStorage } from "./storage.js";
 
 export type DeployPublishedRelease = Readonly<{
   kind: "PublishedRelease";
@@ -51,6 +53,50 @@ export type DryRunDeploymentResult =
 
 function releaseRef(release: DeployPublishedRelease): string {
   return `${release.releaseId}@${release.version}`;
+}
+
+function immutableDeploymentRecord(record: DeploymentRecord): DeploymentRecord {
+  return Object.freeze({
+    ...record,
+    healthChecks: Object.freeze(record.healthChecks.map((check) => Object.freeze({ ...check }))),
+  });
+}
+
+export class DeploymentRegistry {
+  readonly #storage: DeploymentRecordStorage;
+
+  constructor(storage: DeploymentRecordStorage = new InMemoryDeploymentRecordStorage()) {
+    this.#storage = storage;
+  }
+
+  record(record: DeploymentRecord): DeploymentRecord {
+    const normalized = immutableDeploymentRecord(record);
+    const existing = this.#storage.get(record.deploymentId);
+    if (existing !== undefined) {
+      if (JSON.stringify(existing) !== JSON.stringify(normalized)) {
+        throw new Error(`DEPLOYMENT_RECORD_CONFLICT:${record.deploymentId}`);
+      }
+      return existing;
+    }
+    this.#storage.set(record.deploymentId, normalized);
+    if (normalized.status === "succeeded") {
+      this.#storage.setActiveDeploymentId(normalized.environmentRef, normalized.deploymentId);
+    }
+    return normalized;
+  }
+
+  get(deploymentId: string): DeploymentRecord | undefined {
+    return this.#storage.get(deploymentId);
+  }
+
+  list(): readonly DeploymentRecord[] {
+    return Object.freeze([...this.#storage.values()].sort((left, right) => left.deploymentId.localeCompare(right.deploymentId)));
+  }
+
+  getActive(environmentRef: string): DeploymentRecord | undefined {
+    const deploymentId = this.#storage.getActiveDeploymentId(environmentRef);
+    return deploymentId === undefined ? undefined : this.#storage.get(deploymentId);
+  }
 }
 
 export function dryRunDeploy(input: Readonly<{

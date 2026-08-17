@@ -1,7 +1,7 @@
 ---
 id: TASK-101
 title: Establish Deploy-owned deployment state boundary
-status: ready
+status: completed
 priority: 409
 milestone: M8
 model_tier: cheap
