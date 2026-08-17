@@ -1,7 +1,7 @@
 ---
 id: TASK-103
 title: Prove durable deployment state reconstruction
-status: ready
+status: completed
 priority: 407
 milestone: M8
 model_tier: cheap
