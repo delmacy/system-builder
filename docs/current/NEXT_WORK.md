@@ -1,17 +1,18 @@
-# Next Work — P7 Package Planning Gate
+# Next Work — P7-DURABLE-DEPLOYMENT-STATE-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
-## Current gate
+## Active Sprint
 
-`P7-PACKAGE-01 — Durable Deployment Lifecycle` is the next rolling-wave package plan derived from the merged P6 baseline and current WBS.
+`P7-DURABLE-DEPLOYMENT-STATE-01`
 
-The first construction Sprint candidate is `P7-DURABLE-DEPLOYMENT-STATE-01`.
+Branch: `sprint/P7-DURABLE-DEPLOYMENT-STATE-01`
+Committed order: `TASK-101 -> TASK-102 -> TASK-103`.
 
 ## Required action
 
-Run deterministic CI for the package-planning head. If green, merge the package plan. Then reread `main`, WBS 10/13, controlling ADRs and Deploy implementation/tests before materializing Sprint 1.
+Execute each TASK only inside its `allowed_paths`, respect `forbidden_paths`/`max_files`, run `npm run test:product` and `npm run verify`, and preserve one authoritative commit per TASK. At closure, generate the Sprint Report, require final Deterministic CI and stop at Sprint Review.
 
 ## Boundary
 
-Do not materialize Sprint 2, Sprint 3 or the P7 Integration & Technical Debt Review. Do not promote production TLS/auth/pooling/supervision work into Sprint 1 unless the committed Sprint contract explicitly requires it.
+Do not materialize or execute P7 Sprint 2, Sprint 3 or the mandatory P7 Integration & Technical Debt Review.

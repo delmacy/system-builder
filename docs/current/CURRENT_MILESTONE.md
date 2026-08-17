@@ -1,32 +1,33 @@
-# Current Execution Milestone — M8 P7 Package Planning
+# Current Execution Milestone — M8 P7 Durable Deployment State
 
 ## Goal
 
-Establish the next rolling-wave package from the fully integrated P6 baseline, selecting the highest-leverage bounded deployment-lifecycle proof without prematurely implementing production infrastructure.
+Execute the first P7 construction Sprint and prove durable DeploymentRecord/active-version authority without expanding into production deployment infrastructure.
 
 ## Integrated baseline
 
-P6 construction and mandatory Integration & Technical Debt Review merged through PR #182 at `3dfe567f4af539819a7ae96b524f0060f85b9825`.
+P7-PACKAGE-01 planning merged through PR #183 at `ee17702742a07e78f70f05f653e60445ddd72167`; planning CI #306 PASS.
 
-## Planned package
+## Active Sprint
 
-`P7-PACKAGE-01 — Durable Deployment Lifecycle`
+`P7-DURABLE-DEPLOYMENT-STATE-01 — Durable Deployment State Authority`
 
-Probable construction order:
-1. `P7-DURABLE-DEPLOYMENT-STATE-01` — durable DeploymentRecord/active-version authority;
-2. `P7-DEPLOYMENT-ROLLBACK-01` — bounded acceptance/rollback semantics;
-3. `P7-DURABLE-DEPLOYMENT-E2E-01` — package-level upgrade/recovery integration proof.
+Branch: `sprint/P7-DURABLE-DEPLOYMENT-STATE-01`
+Status: `COMMITTED / IMPLEMENTATION_PENDING`.
 
-Only Sprint 1 is eligible for commitment after this package plan merges and `main` is reconstructed. Sprints 2/3 remain forecast.
+Committed order:
+1. TASK-101 — Deploy state boundary;
+2. TASK-102 — PostgreSQL provider;
+3. TASK-103 — durable reconstruction evidence.
 
-## Architecture constraints
+## Expected proof
 
-- preserve ADR-0002 Runtime autonomy;
-- preserve ADR-0007 Release/Environment/Deployment separation;
-- keep PostgreSQL provider-specific details internal to Deploy reference providers;
-- do not claim production TLS/traffic/fleet/supervision behavior;
-- no canonical contract or L4 change without explicit escalation.
+`existing successful DeploymentRecord -> Deploy-owned persistence -> PostgreSQL durability -> provider/process reconstruction -> equivalent record + active release/version observation`
+
+## Constraints
+
+Preserve ADR-0002 and ADR-0007. No canonical contract, Release/Environment semantic or L4 change. No production TLS/traffic/fleet/supervision or rollback orchestration.
 
 ## Current gate
 
-Run deterministic CI for package planning, merge the plan if green, reconstruct `main`, then materialize only `P7-DURABLE-DEPLOYMENT-STATE-01` and its committed TASKs.
+Execute only TASK-101..103 with their declared path scopes and validations, then final verification/report and Sprint Review.
