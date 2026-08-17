@@ -1,36 +1,43 @@
-# Next Work — Review P6 Package Forecast
+# Next Work — Execute P6-DURABLE-CATALOG-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-`P6-PACKAGE-01 — Durable Factory and Release Infrastructure` is materialized as a FORECAST package on:
+`P6-PACKAGE-01` is integrated in main through PR #178 at `5806de40087ad36d8b6556d1cd4a7446b9db13c7`.
 
-`plan/P6-PACKAGE-01`
+The first construction Sprint is materialized on:
 
-Base:
+`sprint/P6-DURABLE-CATALOG-01`
 
-`97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f`
+Status: `COMMITTED / NOT_STARTED`.
 
-No construction Sprint is COMMITTED. No Sprint manifest or TASK spec exists for P6 execution.
+## Committed TASK order
 
-## Forecast sequence
+1. `TASK-091` — internal Catalog persistence boundary;
+2. `TASK-092` — PostgreSQL reference Catalog provider;
+3. `TASK-093` — restart-safe Catalog -> Assembly integration evidence.
 
-1. `P6-DURABLE-CATALOG-01` — FORECAST;
-2. `P6-DURABLE-RELEASE-ARTIFACT-01` — FORECAST;
-3. `P6-DURABLE-FACTORY-E2E-01` — FORECAST;
-4. P6 Integration & Technical Debt Review — FORECAST / MANDATORY.
+Before executing each TASK, read its full `context_paths` and confirm `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validation commands.
 
-## Package review checklist
+## Non-negotiable boundaries
 
-- confirm TD-P4-01 and TD-P5-04 justify durability before capability breadth;
-- confirm Catalog and Release provider boundaries remain replaceable rather than PostgreSQL-specific public contracts;
-- confirm ArtifactPayloadRepository semantics are preserved;
-- confirm ADR-0002 Runtime autonomy and ADR-0007 Release/Environment/Deployment separation remain intact;
-- confirm WBS 05 and WBS 09 authority is sufficient and no L4 change is hidden;
-- confirm each forecast Sprint grows restart-safe E2E evidence rather than merely adding storage code;
-- confirm production Deploy/SecretResolver/Runtime breadth and materializer extensibility remain out of scope.
+- public Catalog record, identity, duplicate, deterministic list and resolution semantics remain unchanged;
+- Assembly source and semantics remain unchanged;
+- PostgreSQL is reference-provider implementation detail, not a canonical dependency;
+- no canonical shared-contract change;
+- no Release, ArtifactStore, Deploy or Runtime product work;
+- no richer version range/provider-selection policy;
+- any required L3/L4 change stops the Sprint for explicit authority.
+
+## Sprint exit proof
+
+`normalized Catalog registration -> durable persistence -> provider/process reconstruction -> equivalent deterministic Catalog resolution -> actual Assembly transitive proof unchanged`
+
+Final Sprint validation remains `npm run verify` with GitHub Deterministic CI as objective evidence.
 
 ## Successor boundary
 
-If the package plan is accepted, explicitly revalidate only `P6-DURABLE-CATALOG-01` against the then-current repository before any promotion to COMMITTED. Do not materialize or execute that Sprint automatically.
+`P6-DURABLE-RELEASE-ARTIFACT-01`, `P6-DURABLE-FACTORY-E2E-01` and the P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.
+
+Do not start or materialize any successor automatically.
