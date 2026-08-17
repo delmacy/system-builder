@@ -1,34 +1,42 @@
-# Next Work — Review P6-DURABLE-CATALOG-01
+# Next Work — Execute P6-DURABLE-RELEASE-ARTIFACT-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-`P6-DURABLE-CATALOG-01` implementation is complete on:
+`P6-DURABLE-CATALOG-01` merged through PR #179 at `b6b96120dbb19b00f78b6965cb9590a680f2056f`.
 
-`sprint/P6-DURABLE-CATALOG-01`
+The second P6 construction Sprint is materialized on:
 
-PR: #179
+`sprint/P6-DURABLE-RELEASE-ARTIFACT-01`
 
-Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+Status: `COMMITTED / NOT_STARTED`.
 
-TASK gates passed in dependency order:
-- TASK-091 — CI #281 PASS;
-- TASK-092 — CI #284 PASS;
-- TASK-093 — CI #285 PASS.
+## Committed TASK order
 
-## Delivered proof
+1. `TASK-094` — internal Release persistence boundary;
+2. `TASK-095` — PostgreSQL reference Release provider;
+3. `TASK-096` — PostgreSQL reference ArtifactPayloadRepository;
+4. `TASK-097` — restart-safe durable Release + Artifact integration evidence.
 
-`normalized Catalog registration -> durable PostgreSQL persistence -> provider/process reconstruction -> equivalent deterministic Catalog resolution -> actual transitive AssemblyPlan`
+Before executing each TASK, read its complete `context_paths` and confirm `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validation commands.
 
-Public Catalog semantics, Assembly source/semantics, canonical contracts and downstream Factory modules remain unchanged.
+## Non-negotiable boundaries
 
-## Required next action
+- current PublishedRelease data shape, identity, duplicate and lifecycle semantics remain unchanged;
+- ArtifactPayloadRepository interfaces and verification semantics remain unchanged;
+- no inline secret/environment value enters Release or durable artifact metadata;
+- PostgreSQL is a bounded reference provider, not a public architecture dependency;
+- no Compiler, Deploy, Runtime, Catalog, Assembly or canonical contract source change;
+- production TLS/SCRAM/pooling/concurrency completeness is not claimed;
+- any required L3/L4 change stops the Sprint for explicit authority.
 
-Run closure-head Deterministic CI after the Sprint report/current-state commit. If green, mark the existing single PR #179 Ready for human Sprint Review and stop.
+## Sprint exit proof
 
-Do not merge before the human Sprint Review gate. Do not materialize or execute any successor Sprint automatically.
+`publish release + artifact -> durable persistence -> provider/process reconstruction -> equivalent PublishedRelease retrieval/lifecycle -> verified ArtifactPayload retrieval with unchanged hashes/manifest checks`
+
+Final Sprint validation remains `npm run verify` with GitHub Deterministic CI as objective evidence.
 
 ## Successor boundary
 
-`P6-DURABLE-RELEASE-ARTIFACT-01`, `P6-DURABLE-FACTORY-E2E-01` and the P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.
+`P6-DURABLE-FACTORY-E2E-01` and the P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED. Do not start or materialize them automatically.

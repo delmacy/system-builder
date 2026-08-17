@@ -1,6 +1,6 @@
 # P6-PACKAGE-01 — Durable Factory and Release Infrastructure
 
-Status: ACTIVE_PACKAGE / FIRST_SPRINT_REVIEW
+Status: ACTIVE_PACKAGE / SECOND_SPRINT_COMMITTED
 Planning base: `97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f` (P5 Integration & Technical Debt Review merged through PR #177)
 Package plan merged: PR #178 at `5806de40087ad36d8b6556d1cd4a7446b9db13c7`.
 
@@ -19,40 +19,51 @@ The package attacks `TD-P4-01` and `TD-P5-04` directly. It does not authorize pr
 - `AGENTS.md`, `SPRINT_GENERATION_POLICY.md` and `SPRINT_MODE.md` remain controlling.
 - ADR-0002 remains controlling: durable Factory state must not introduce Runtime dependence on Builder.
 - ADR-0007 remains controlling: Release remains immutable; Environment/secret material remains outside Release; Deployment remains the binding of Release + Environment.
-- WBS 05 authorizes durable preservation of Software Catalog registration/query semantics and catalog governance without coupling Catalog to one provider.
-- WBS 09.3.1 remains forecast authority for later durable Release/Artifact work; it is not active Sprint scope.
-- Existing provider-neutral ArtifactPayloadRepository semantics remain untouched in the first Sprint.
+- WBS 09.1/09.2/09.3 authorize preserved release identity/lifecycle plus abstract registry/storage distribution.
+- Existing `ArtifactPayloadRepository` interfaces remain the provider-neutral storage contract for artifact payload behavior.
+- No L4 architecture change is planned. Any canonical shared-contract or Release/Environment/Deployment boundary change requires escalation.
 
 ## Construction sequence
 
-### 1. P6-DURABLE-CATALOG-01 — SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS
+### 1. P6-DURABLE-CATALOG-01 — MERGED
 
-Base: `5806de40087ad36d8b6556d1cd4a7446b9db13c7`
+Merged through PR #179 at `b6b96120dbb19b00f78b6965cb9590a680f2056f`.
 
-Branch: `sprint/P6-DURABLE-CATALOG-01`
+Achieved proof:
 
-PR: #179
+`register normalized catalog records -> persist in PostgreSQL -> reconstruct provider/process -> deterministic list/resolution equivalent -> actual Assembly transitive proof equivalent`
 
-Objective: introduce a replaceable durable Software Catalog storage boundary and one reference durable provider while preserving the exact current normalized record, duplicate identity, deterministic list and provider-neutral resolution semantics.
+Public Catalog and Assembly semantics remained unchanged.
 
-TASK results:
-- TASK-091 — PASS at `9e04c25cf47d3a5afff56a446a96ba6ca78edcbd`; CI #281 PASS;
-- TASK-092 — PASS at `09019e5f2ed050065a0f7a785f7a3204ba33ec1c`; CI #284 PASS;
-- TASK-093 — PASS at `dcb19f799db131148593b75ddb893e5f4e149d0b`; CI #285 PASS.
+### 2. P6-DURABLE-RELEASE-ARTIFACT-01 — COMMITTED / NOT_STARTED
 
-Achieved exit proof:
+Base: `b6b96120dbb19b00f78b6965cb9590a680f2056f`
 
-`register normalized catalog records -> persist -> reconstruct provider/process -> deterministic list/resolution equivalent -> actual Assembly transitive proof equivalent`
+Branch: `sprint/P6-DURABLE-RELEASE-ARTIFACT-01`
 
-The Sprint is not integrated until PR #179 passes closure-head CI, human Sprint Review and merge.
+Objective: introduce replaceable durable persistence for PublishedRelease and ArtifactPayload while preserving exact current identity, provenance, lifecycle, immutable publication, idempotence/conflict and verification semantics.
 
-### 2. P6-DURABLE-RELEASE-ARTIFACT-01 — FORECAST / NOT_MATERIALIZED
+Materialized TASKs:
+- TASK-094 — define internal Release persistence boundary around current ReleaseRegistry semantics;
+- TASK-095 — implement PostgreSQL reference durable Release provider;
+- TASK-096 — implement PostgreSQL reference durable ArtifactPayloadRepository;
+- TASK-097 — prove restart-safe durable Release + Artifact retrieval/verification integration.
 
-Dependency: P6-DURABLE-CATALOG-01 merged and revalidated.
+Dependency order:
 
-Objective remains durable PublishedRelease storage plus a durable ArtifactPayloadRepository implementation while preserving immutable identity, lifecycle transitions, payload integrity and secret-free Release semantics.
+`TASK-094 -> TASK-095 -> TASK-096 -> TASK-097`
 
-No Sprint manifest or TASK spec is materialized.
+Expected exit proof:
+
+`publish deterministic ReleaseArtifact -> durable PublishedRelease + ArtifactPayload -> reconstruct providers/process -> equivalent release retrieval/lifecycle -> verified artifact retrieval with unchanged integrity checks`
+
+Constraints:
+- no PublishedRelease public-shape or lifecycle-policy change;
+- no ArtifactPayloadRepository interface/verification semantic change;
+- no Compiler, Deploy, Runtime, Catalog, Assembly or canonical-contract source change;
+- no secrets/environment values embedded into Release or artifact metadata;
+- PostgreSQL remains a bounded Factory-side reference implementation;
+- production database auth/pooling/TLS/concurrency are non-goals unless separately authorized.
 
 ### 3. P6-DURABLE-FACTORY-E2E-01 — FORECAST / NOT_MATERIALIZED
 
@@ -70,22 +81,26 @@ Review scope remains repository-wide regression, TD-P4-01/TD-P5-04 disposition, 
 
 ## Growing E2E proof
 
-P5 predecessor:
+Current integrated predecessor:
 
-`SystemDefinition -> bounded Catalog constraints/dependencies -> transitive AssemblyPlan -> ValidationEvidence -> materializer registry -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> Deploy -> autonomous Runtime`
+`durable Catalog -> deterministic Assembly/Validation/Compiler -> ReleaseArtifact -> process-local PublishedRelease + verified ArtifactPayload -> Deploy -> autonomous Runtime`
 
-P6 first Sprint now proves durable Catalog provider/process reconstruction without resolution or Assembly drift. Later package stages remain forecast.
+The active Sprint is committed only to make PublishedRelease and ArtifactPayload durable across provider/process reconstruction. The full durable Factory-to-Deploy E2E remains the forecast third Sprint.
 
 ## Risks and change control
 
 High:
-- restart-safe identity/idempotence and persistence schema evolution without redefining Catalog semantics.
+- preserving immutable release/artifact identity and integrity across persistence/reconstruction;
+- lifecycle persistence without enabling overwrite or invalid transition.
 
 Medium-High:
-- PostgreSQL is a bounded reference implementation; production auth/pooling/TLS/concurrency are not claimed by this Sprint.
+- using PostgreSQL as reference storage without making it part of Release/Artifact consumer contracts;
+- bounded schema/transport implementation without falsely claiming production database lifecycle completeness.
 
-Escalate rather than broaden future work if implementation requires canonical contract changes, Assembly semantic/source changes, Builder/Runtime or Release/Environment/Deployment boundary changes, or production traffic/supervision/secrets scope.
+Escalate rather than broaden if implementation requires canonical contract changes, Compiler/Deploy/Runtime source changes, Release/Environment/Deployment boundary changes, secret persistence, destructive migration, or altered public identity/lifecycle/verification semantics.
 
 ## Commitment gate
 
-Only `P6-DURABLE-CATALOG-01` is active and is stopping at Sprint Review. All successor construction Sprints and the Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED and require fresh predecessor revalidation plus explicit authorization before promotion.
+Only `P6-DURABLE-RELEASE-ARTIFACT-01` is COMMITTED. TASK-094/095/096/097 are materialized but NOT_STARTED.
+
+`P6-DURABLE-FACTORY-E2E-01` and the Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED and require fresh predecessor revalidation plus explicit authorization before promotion.

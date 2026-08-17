@@ -1,48 +1,50 @@
-# Current Execution Milestone — M7 P6 Durable Catalog Sprint Review
+# Current Execution Milestone — M7 P6 Durable Release/Artifact Sprint
 
 ## Goal
 
-Complete the first P6 construction Sprint by proving durable Software Catalog persistence/reconstruction without changing public Catalog or Assembly semantics.
+Materialize and, when explicitly authorized, execute the second P6 construction Sprint that moves PublishedRelease and ArtifactPayload state from process-lifetime storage to replaceable durable providers without changing current Release, ArtifactStore, Deploy or Runtime semantics.
 
 ## Integrated baseline
 
-P6-PACKAGE-01 planning merged through PR #178 at:
+P6-DURABLE-CATALOG-01 merged through PR #179 at:
 
-`5806de40087ad36d8b6556d1cd4a7446b9db13c7`
+`b6b96120dbb19b00f78b6965cb9590a680f2056f`
+
+Predecessor proof:
+
+`normalized Catalog registration -> durable PostgreSQL persistence -> provider/process reconstruction -> equivalent deterministic Catalog resolution -> actual transitive AssemblyPlan`
 
 ## Active Sprint
 
-`P6-DURABLE-CATALOG-01 — Durable Software Catalog Provider`
+`P6-DURABLE-RELEASE-ARTIFACT-01 — Durable Release and Artifact Providers`
 
-Branch: `sprint/P6-DURABLE-CATALOG-01`
+Branch: `sprint/P6-DURABLE-RELEASE-ARTIFACT-01`
 
-PR: #179
+Status: `COMMITTED / NOT_STARTED`.
 
-Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+Committed order:
+1. TASK-094 — establish internal Release persistence boundary;
+2. TASK-095 — implement PostgreSQL reference Release provider;
+3. TASK-096 — implement PostgreSQL reference ArtifactPayloadRepository;
+4. TASK-097 — prove restart-safe durable Release + Artifact integration.
 
-TASK results:
-1. TASK-091 — Catalog persistence boundary — PASS / CI #281;
-2. TASK-092 — PostgreSQL reference provider — PASS / CI #284;
-3. TASK-093 — restart-safe Catalog -> Assembly evidence — PASS / CI #285.
+## Expected growing proof
 
-## Achieved growing proof
+`durable Catalog predecessor -> deterministic Factory artifact -> publish durable PublishedRelease + ArtifactPayload -> reconstruct provider/process -> equivalent release retrieval/lifecycle + verified artifact retrieval`
 
-`register normalized catalog records -> persist in PostgreSQL -> reconstruct provider/process -> deterministic list/resolution equivalent -> actual transitive AssemblyPlan equivalent`
+## Architecture constraints
 
-CI #285 verified PostgreSQL 17.6 with 309 unit PASS, 117 product PASS, 94 task specs, architecture PASS and build PASS.
-
-## Architecture constraints preserved
-
-- current exported Catalog data semantics preserved;
-- `catalogIdentity`, duplicate rejection and deterministic ordering preserved;
-- exact/minimum/compatibility behavior preserved;
-- `packages/assembly/**` unchanged;
-- PostgreSQL remains a reference implementation behind the Catalog boundary;
-- canonical `packages/contracts/**` unchanged;
-- ADR-0002 and ADR-0007 unchanged.
+- preserve current `PublishedRelease` shape and ReleaseRegistry observable semantics;
+- preserve release identity, duplicate rejection, lifecycle transitions and immutable snapshots;
+- preserve ArtifactPayloadRepository interfaces and publication/idempotence/conflict semantics;
+- preserve per-file, manifest and aggregate hash verification behavior;
+- secrets and environment values remain outside Release and Artifact payload metadata;
+- PostgreSQL remains replaceable Factory-side implementation detail;
+- no Deploy, Runtime, Compiler, Catalog, Assembly or canonical-contract source change;
+- ADR-0002 and ADR-0007 remain controlling and unchanged.
 
 ## Current gate
 
-Closure-head Deterministic CI is required after report/state reconciliation. If PASS, PR #179 becomes Ready for human Sprint Review and execution stops there.
+Materialization only. No TASK is executed by this commit. A new explicit instruction is required to execute TASK-094..097.
 
-All later P6 construction Sprints and package review remain FORECAST / NOT_MATERIALIZED.
+`P6-DURABLE-FACTORY-E2E-01` and the package review remain FORECAST / NOT_MATERIALIZED.
