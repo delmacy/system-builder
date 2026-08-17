@@ -1,30 +1,32 @@
-# Next Work — Review P5-ASSEMBLY-GRAPH-01
+# Next Work — Execute P5-MATERIALIZER-REGISTRY-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-Review Sprint PR #175 from `sprint/P5-ASSEMBLY-GRAPH-01` after closure-head Deterministic CI passes.
+`P5-MATERIALIZER-REGISTRY-01` is COMMITTED on `sprint/P5-MATERIALIZER-REGISTRY-01` but implementation has not started.
 
-TASK evidence:
-1. TASK-085 — commit `621b6c11f90ae17145ae29ebcd041b6e93453c59`, CI #260 PASS;
-2. TASK-086 — commit `d38352eb4b20ae7d5a10a734a5152256247fbc4c`, CI #261 PASS;
-3. TASK-087 — commit `cc1f1f99fab123a44b2a75f17967282042afb531`, CI #262 PASS.
+Dependency order:
+1. TASK-088;
+2. TASK-089 after TASK-088 validation;
+3. TASK-090 after TASK-089 validation.
 
-Sprint Report:
-`project_docs/execution_planning/P5-ASSEMBLY-GRAPH-01.report.md`
+For every TASK, read its full `context_paths`, confirm allowed/forbidden paths, `max_files`, predecessor dependency and validation commands before editing.
 
-## Review checklist
+## Sprint outcome
 
-- require final closure-head `npm run verify` PASS through Deterministic CI;
-- confirm structured dependencies are resolved transitively through the actual Catalog resolver;
-- confirm exact/minimum/compatibility requirements are combined deterministically across paths;
-- confirm cycle, unresolved and incompatible requirements fail closed with reproducible diagnostics;
-- confirm graph-derived AssemblyPlan continues through actual Validation/Compiler APIs;
-- confirm P4 PostgreSQL autonomous-runtime regressions remain green;
-- confirm no Catalog semantic change, materializer registry, durable provider or canonical/L4 change entered the Sprint;
-- merge only after human Sprint Review accepts the PR.
+Prove:
+
+`SystemDefinition capability -> Catalog constrained provider -> transitive AssemblyPlan BOM -> ValidationEvidence -> exact materializer registry lookup -> existing state.counter materialization -> deterministic migration/runtime assets -> ReleaseArtifact`
+
+Preserve existing state.counter migration/runtime bytes and symbolic secret boundary where required by current tests/contracts, current unsupported-provider failure behavior, release reproducibility, and all P4 PostgreSQL/autonomous-runtime regressions.
+
+Do not create a second production Runtime capability merely to demonstrate extensibility; use bounded deterministic test evidence if needed.
+
+## Exit
+
+After TASK-090, run final `npm run verify`, produce `P5-MATERIALIZER-REGISTRY-01.report.md`, open one PR from the Sprint branch to `main` and stop at Sprint Review.
 
 ## Successor boundary
 
-Do not automatically materialize or execute `P5-MATERIALIZER-REGISTRY-01` after this Sprint. After PR #175 merges, require a new explicit instruction and reconstruct `main` from `AGENTS.md` before deciding whether that forecast Sprint should be promoted.
+The mandatory `P5-PACKAGE-01` Integration & Technical Debt Review remains FORECAST / MANDATORY. Do not materialize or execute it automatically after this Sprint. It requires a new explicit instruction after the Sprint merges and current `main` is reconstructed.
