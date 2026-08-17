@@ -1,3 +1,5 @@
+import { InMemoryCatalogRecordStorage, type CatalogRecordStorage } from "./storage.js";
+
 export type CatalogVersionConstraint = Readonly<{
   kind: "exact" | "minimum";
   version: string;
@@ -128,20 +130,24 @@ function compareRecords(left: SoftwareCatalogRecord, right: SoftwareCatalogRecor
 }
 
 export class SoftwareCatalogRegistry {
-  readonly #records = new Map<string, SoftwareCatalogRecord>();
+  readonly #storage: CatalogRecordStorage;
+
+  constructor(storage: CatalogRecordStorage = new InMemoryCatalogRecordStorage()) {
+    this.#storage = storage;
+  }
 
   register(input: SoftwareCatalogRecordInput): SoftwareCatalogRecord {
     const record = normalizeRecord(input);
     const identity = catalogIdentity(record);
-    if (this.#records.has(identity)) {
+    if (this.#storage.has(identity)) {
       throw new Error(`CATALOG_DUPLICATE_IDENTITY:${identity}`);
     }
-    this.#records.set(identity, record);
+    this.#storage.set(identity, record);
     return record;
   }
 
   list(): readonly SoftwareCatalogRecord[] {
-    return Object.freeze([...this.#records.values()].sort(compareRecords));
+    return Object.freeze([...this.#storage.values()].sort(compareRecords));
   }
 }
 
