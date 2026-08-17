@@ -1,86 +1,68 @@
 # P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling
 
-Status: ACTIVE_PACKAGE / THIRD_SPRINT_REVIEW
-Base: `c6858ed95faa48cc60361a5a86ddcc57d2b56ced` (P5-ASSEMBLY-GRAPH-01 merged through PR #175)
+Status: ACTIVE_PACKAGE / INTEGRATION_DEBT_REVIEW_READY_FOR_FINAL_CI
+Base: `ca1e161d4c48454efcee1b8d1c63b32d3c6278bf` (P5-MATERIALIZER-REGISTRY-01 merged through PR #176)
 
 ## Package Goal
 
-Harden the Factory composition path before capability breadth grows: make Catalog dependencies/constraints explicit enough for deterministic resolution, make Assembly resolve a bounded transitive dependency graph with reproducible conflict/cycle diagnostics, and replace the current one-provider Compiler materialization switch with a deterministic materializer registration boundary while preserving all P4 runtime, artifact, secret and autonomy guarantees.
+Harden Factory composition before capability breadth grows: explicit Catalog constraints/dependencies, deterministic transitive Assembly composition, and deterministic Compiler materializer registration while preserving P4 runtime/artifact/secret/autonomy guarantees.
 
 Target package proof:
 
 `SystemDefinition root capability -> Catalog constrained provider candidates -> transitive dependency closure -> deterministic AssemblyPlan -> ValidationEvidence -> materializer registry -> Compiler-derived runtime/migration assets -> ReleaseArtifact`
 
-The existing P4 `state.counter` PostgreSQL autonomous-runtime/redeploy E2E remains a required predecessor regression.
-
-## Direction
-
-Factory composition hardening remains selected before durable Catalog/Release/Artifact providers because dependency/selection/materialization semantics are upstream domain rules. Durable providers remain HIGH priority and must be re-evaluated at the P5 package review.
-
 ## Construction sequence
 
 ### 1. P5-CATALOG-CONSTRAINTS-01 — MERGED
 
-Merged through PR #174 at `9a6f2df82d1ffbc1c9c25f67d819e666e718d832`.
-
-Integrated proof:
-
-`Catalog records -> structured dependency requirements -> deterministic constrained candidates / explicit unsatisfied diagnostic`
+PR #174. Bounded exact/minimum constraints and structured dependency requirements integrated.
 
 ### 2. P5-ASSEMBLY-GRAPH-01 — MERGED
 
-Merged through PR #175 at `c6858ed95faa48cc60361a5a86ddcc57d2b56ced`.
+PR #175. Deterministic transitive graph, multi-path requirement combination, cycles/conflicts/unresolved diagnostics and reproducible BOM integrated.
 
-Integrated proof:
+### 3. P5-MATERIALIZER-REGISTRY-01 — MERGED
 
-`SystemDefinition root capability -> constrained Catalog candidate -> structured dependency requirements -> transitive dependency closure -> deterministic graph diagnostics -> deterministic AssemblyPlan BOM -> ValidationEvidence -> Compiler predecessor path`
+PR #176 at `ca1e161d4c48454efcee1b8d1c63b32d3c6278bf`. Deterministic exact-identity materializer registry integrated; closure-head CI #275 passed before merge.
 
-The graph implementation combines multi-path exact/minimum/compatibility requirements before candidate selection, coalesces compatible duplicates and fails closed for cycles, unresolved dependencies and incompatible requirements with deterministic evidence. Terminal CI #263 passed.
+### 4. Integration & Technical Debt Review — READY_FOR_FINAL_CI
 
-### 3. P5-MATERIALIZER-REGISTRY-01 — SPRINT_REVIEW
+Branch: `review/P5-PACKAGE-01-integration-debt`
 
-TASK-088/089/090 are implemented on `sprint/P5-MATERIALIZER-REGISTRY-01`; implementation CI #264/#266/#268 PASS. PR #176 is the Sprint Review boundary.
+PR: #177
 
-Achieved branch proof:
+Review-head CI #276 passed. Review conclusion is prepared in `P5-PACKAGE-01.integration-debt-review.md` and requires final CI on the finalization head before the human Review Gate.
 
-`SystemDefinition capability -> Catalog constrained provider -> transitive AssemblyPlan BOM -> ValidationEvidence -> exact materializer registry lookup -> existing state.counter materialization -> deterministic migration/runtime assets -> ReleaseArtifact`
+## Package review disposition
 
-The implementation provides deterministic exact-identity materializer registration/lookup, duplicate/no-match behavior, routes the existing reference `state.counter` provider through the registry without generated-output drift, and proves the actual constrained/transitive Factory path plus unsupported-materializer failure.
-
-### 4. Integration & Technical Debt Review — FORECAST / MANDATORY
-
-After the third construction Sprint merges, re-run package regression, classify debt, revalidate contracts/DAG/risks and decide whether durable provider infrastructure becomes the highest-leverage successor. Do not materialize or execute this review automatically.
+- construction result: PASS;
+- architecture/boundary result: PASS WITH DEBT;
+- critical rollback blocker: NONE;
+- TD-P4-02 dependency solving: CLOSED for the bounded P5 composition slice;
+- TD-P4-07 materializer hard-coding: CLOSED for the internal deterministic registry target;
+- durable Catalog/Release/Artifact providers and production Secret/PostgreSQL/migration/deploy lifecycle: CARRIED;
+- new P5 debt captures bounded constraint/provider policy, static materializer registration, cross-context identity-shape duplication and persistence lag behind composition semantics.
 
 ## Architecture constraints
 
 - ADR-0002 and ADR-0007 remain controlling;
-- Catalog/Assembly/Compiler remain deterministic Factory-plane stages;
+- Catalog/Assembly/Validation/Compiler remain explicit Factory-plane bounded contexts;
 - no resolved secret values enter immutable release/deployment evidence;
 - provider-specific implementation remains replaceable;
-- L3 internal shared API changes require committed-Sprint authority/review;
-- canonical public contract or L4 change requires explicit architecture authority/ADR;
-- historical P4 evidence is preserved.
+- no L4 drift or new ADR was found;
+- historical P4 evidence remains preserved.
 
-## P5-MATERIALIZER-REGISTRY-01 disposition
+## Successor readiness
 
-Implemented in scope:
-- exact capability/provider/version materializer identity;
-- deterministic registration/lookup and duplicate rejection;
-- migration of existing state.counter reference materializer onto that boundary;
-- preservation of current migration/runtime/secret behavior;
-- actual Factory integration evidence and P4 regression.
+Ranked review recommendation after acceptance/merge:
 
-Not introduced:
-- second production Runtime capability;
-- Catalog/Assembly semantic changes;
-- durable Catalog/Release/Artifact providers;
-- new version-range kinds;
-- canonical ReleaseArtifact/EnvironmentProfile/DeploymentRecord changes;
-- production Runtime/deployment work;
-- package review execution.
+1. durable Factory/Release providers;
+2. materializer/provider extensibility hardening;
+3. production deployment foundation;
+4. broader generated Runtime behavior.
+
+This ranking is review output only. It does not create or authorize a successor Sprint Package.
 
 ## Package gate
 
-`P5-MATERIALIZER-REGISTRY-01` is at Sprint Review on PR #176. It is not integrated until merged.
-
-The Integration & Technical Debt Review remains FORECAST / MANDATORY and must not be materialized or executed until this Sprint completes, merges, and a new explicit instruction reconstructs repository authority.
+Require final Deterministic CI PASS on the review-finalization head, then human Review Gate on PR #177. Do not merge automatically and do not create/materialize a successor Sprint Package.
