@@ -1,35 +1,32 @@
-# Current Execution Milestone — M7 P6 Integration & Technical Debt Review
+# Current Execution Milestone — M8 P7 Package Planning
 
 ## Goal
 
-Close P6 only after package-wide integration, architecture and technical-debt revalidation of the merged durable Factory proof.
+Establish the next rolling-wave package from the fully integrated P6 baseline, selecting the highest-leverage bounded deployment-lifecycle proof without prematurely implementing production infrastructure.
 
 ## Integrated baseline
 
-All P6 construction Sprints are merged through PR #181 at `29feebd810cc04e4d4c5d8a3efe8003cf4acab36`.
+P6 construction and mandatory Integration & Technical Debt Review merged through PR #182 at `3dfe567f4af539819a7ae96b524f0060f85b9825`.
 
-## Active review
+## Planned package
 
-`P6-PACKAGE-01 — Integration & Technical Debt Review`
+`P7-PACKAGE-01 — Durable Deployment Lifecycle`
 
-Branch: `review/P6-PACKAGE-01-integration-debt`
-PR: #182
-Status: `READY_FOR_FINAL_CI / REVIEW_GATE_PENDING`.
+Probable construction order:
+1. `P7-DURABLE-DEPLOYMENT-STATE-01` — durable DeploymentRecord/active-version authority;
+2. `P7-DEPLOYMENT-ROLLBACK-01` — bounded acceptance/rollback semantics;
+3. `P7-DURABLE-DEPLOYMENT-E2E-01` — package-level upgrade/recovery integration proof.
 
-## Review result
+Only Sprint 1 is eligible for commitment after this package plan merges and `main` is reconstructed. Sprints 2/3 remain forecast.
 
-PASS WITH DEBT.
+## Architecture constraints
 
-- full durable Factory-to-Runtime chain remains integrated and deterministic;
-- ADR-0002 Runtime autonomy preserved;
-- ADR-0007 Release/Environment/Deployment separation preserved;
-- `TD-P4-01` closed for the bounded durable-provider slice;
-- `TD-P5-04` closed;
-- production PostgreSQL transport/auth/TLS/pooling/retry/concurrency remains carried;
-- no rollback blocker, canonical contract drift or L4 architecture change found.
+- preserve ADR-0002 Runtime autonomy;
+- preserve ADR-0007 Release/Environment/Deployment separation;
+- keep PostgreSQL provider-specific details internal to Deploy reference providers;
+- do not claim production TLS/traffic/fleet/supervision behavior;
+- no canonical contract or L4 change without explicit escalation.
 
 ## Current gate
 
-Run final review-head Deterministic CI. If PASS, mark PR #182 Ready for human Review and stop.
-
-No successor package, Sprint or TASK may be materialized until this review is accepted and merged and `main` is reconstructed again.
+Run deterministic CI for package planning, merge the plan if green, reconstruct `main`, then materialize only `P7-DURABLE-DEPLOYMENT-STATE-01` and its committed TASKs.
