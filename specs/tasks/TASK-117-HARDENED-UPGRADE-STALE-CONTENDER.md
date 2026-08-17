@@ -1,7 +1,7 @@
 ---
 id: TASK-117
 title: Prove hardened successful B promotion rejects stale contender
-status: ready
+status: completed
 priority: 393
 milestone: M9
 model_tier: cheap
@@ -54,7 +54,7 @@ TASK-116 establishes actual durable Factory output -> authenticated atomic A -> 
 
 # Current behavior
 
-A can be authoritative under authenticated atomic Deploy, but the package E2E does not yet join successful upgrade and stale-writer rejection.
+Completed evidence now promotes B with expected A, submits successful C with stale expected A, receives `stale-active`, reconstructs B as authoritative and preserves B Runtime health.
 
 # Required change
 

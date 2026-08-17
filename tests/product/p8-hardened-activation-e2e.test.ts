@@ -25,14 +25,9 @@ async function compileDurableFactory(scope: string) {
   const firstRegistry = new SoftwareCatalogRegistry(firstStorage);
   for (const record of factoryCatalogRecords) firstRegistry.register(record);
   await firstStorage.close();
-
   const catalogStorage = await PostgresCatalogRecordStorage.open(factoryPostgresUrl, `${scope}_catalog`);
   const catalog = new SoftwareCatalogRegistry(catalogStorage);
-  const assembly = assembleSystemDefinition(
-    factorySystemDefinition,
-    `system-definition:${scope}:1`,
-    (request) => resolveCatalogCandidates(catalog, request),
-  );
+  const assembly = assembleSystemDefinition(factorySystemDefinition, `system-definition:${scope}:1`, (request) => resolveCatalogCandidates(catalog, request));
   assert.equal(assembly.ok, true);
   if (!assembly.ok) throw new Error("P8_E2E_ASSEMBLY_FAILED");
   const validation = validateTraceability({
@@ -44,32 +39,19 @@ async function compileDurableFactory(scope: string) {
     declaredChecks: [{ id: "p8-hardened-e2e", status: "PASS", evidenceRefs: ["test:p8-hardened-e2e"] }],
   });
   assert.equal(validation.decision, "PASS");
-  const compilation = compileSyntheticRelease({
-    assemblyPlan: assembly.plan,
-    validationEvidence: validation,
-    compilerVersion,
-    runtimeVersion,
-    environmentSchema: factoryEnvironmentSchema,
-  });
+  const compilation = compileSyntheticRelease({ assemblyPlan: assembly.plan, validationEvidence: validation, compilerVersion, runtimeVersion, environmentSchema: factoryEnvironmentSchema });
   await catalogStorage.close();
   return compilation;
 }
 
-async function publishAndReconstruct(
-  scope: string,
-  compilation: Awaited<ReturnType<typeof compileDurableFactory>>,
-  version: string,
-  publishedAt: string,
-) {
+async function publishAndReconstruct(scope: string, compilation: Awaited<ReturnType<typeof compileDurableFactory>>, version: string, publishedAt: string) {
   assert.ok(factoryPostgresUrl);
   const releaseStorage = await PostgresReleaseRecordStorage.open(factoryPostgresUrl, `${scope}_release`);
   const artifactStorage = await PostgresArtifactPayloadRepository.open(factoryPostgresUrl, `${scope}_artifact`);
-  const releases = new ReleaseRegistry(releaseStorage);
-  releases.publish({ releaseId: "p8-hardened-e2e", version, artifact: compilation.artifact, publishedAt });
+  new ReleaseRegistry(releaseStorage).publish({ releaseId: "p8-hardened-e2e", version, artifact: compilation.artifact, publishedAt });
   artifactStorage.publish({ artifactHash: compilation.artifact.artifactHash, files: compilation.files });
   await releaseStorage.close();
   await artifactStorage.close();
-
   const reconstructedReleaseStorage = await PostgresReleaseRecordStorage.open(factoryPostgresUrl, `${scope}_release`);
   const reconstructedArtifactStorage = await PostgresArtifactPayloadRepository.open(factoryPostgresUrl, `${scope}_artifact`);
   const release = new ReleaseRegistry(reconstructedReleaseStorage).get("p8-hardened-e2e", version);
@@ -108,55 +90,94 @@ function assertNoCredentialLeak(evidence: string): void {
   assert.equal(evidence.includes(decodeURIComponent(deployUrl.password)), false);
 }
 
-test("TASK-116 durable Factory output atomically activates as A through authenticated Deploy and reaches autonomous Runtime", {
-  skip: factoryPostgresUrl === undefined || deployPostgresUrl === undefined
-    ? "PostgreSQL CI fixtures not configured"
-    : false,
-}, async () => {
+async function executeRelease(scope: string, compilation: Awaited<ReturnType<typeof compileDurableFactory>>, version: string, publishedAt: string, startedAt: string, completedAt: string) {
   assert.ok(factoryPostgresUrl);
+  const durable = await publishAndReconstruct(scope, compilation, version, publishedAt);
+  const deployed = await executeLocalDeployment({
+    publishedRelease: durable.release,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: durable.reconstructedArtifactStorage,
+    environment: environment(),
+    secretResolver: new InMemorySecretResolver({ "secret://p8/runtime": factoryPostgresUrl }),
+    processEnvironment: unavailableControlPlane,
+    startedAt,
+    completedAt,
+    timeoutMs: 10_000,
+  });
+  assert.equal(deployed.ok, true);
+  if (!deployed.ok || !deployed.execution.ok) throw new Error(`P8_RUNTIME_${version}_FAILED`);
+  assert.equal(deployed.execution.health.status, "UP");
+  return { durable, record: deployed.record, health: deployed.execution.health };
+}
+
+test("TASK-116 durable Factory output atomically activates as A through authenticated Deploy and reaches autonomous Runtime", {
+  skip: factoryPostgresUrl === undefined || deployPostgresUrl === undefined ? "PostgreSQL CI fixtures not configured" : false,
+}, async () => {
   assert.ok(deployPostgresUrl);
   const scope = "p8_task116";
   const compilation = await compileDurableFactory(scope);
-  const durableA = await publishAndReconstruct(scope, compilation, "1.0.0", "2026-08-17T21:30:00Z");
-  const resolver = new InMemorySecretResolver({ "secret://p8/runtime": factoryPostgresUrl });
-  const deployedA = await executeLocalDeployment({
-    publishedRelease: durableA.release,
-    releaseArtifact: compilation.artifact,
-    artifactPayloadReader: durableA.reconstructedArtifactStorage,
-    environment: environment(),
-    secretResolver: resolver,
-    processEnvironment: unavailableControlPlane,
-    startedAt: "2026-08-17T21:30:01Z",
-    completedAt: "2026-08-17T21:30:02Z",
-    timeoutMs: 10_000,
-  });
-  assert.equal(deployedA.ok, true);
-  if (!deployedA.ok || !deployedA.execution.ok) throw new Error("TASK116_RUNTIME_A_FAILED");
-  assert.equal(deployedA.execution.health.status, "UP");
-
+  const a = await executeRelease(scope, compilation, "1.0.0", "2026-08-17T21:30:00Z", "2026-08-17T21:30:01Z", "2026-08-17T21:30:02Z");
   const deployStorage = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
   const registry = new DeploymentRegistry(deployStorage);
-  const decisionA = await registry.activateCandidateAtomically(deployedA.record, null);
+  const decisionA = await registry.activateCandidateAtomically(a.record, null);
   assert.equal(decisionA.outcome, "activated");
   assert.equal(decisionA.previousActiveDeploymentId, null);
-  assert.equal(decisionA.resultingActiveDeploymentId, deployedA.record.deploymentId);
+  assert.equal(decisionA.resultingActiveDeploymentId, a.record.deploymentId);
   assert.equal(Object.isFrozen(decisionA), true);
   await deployStorage.close();
+  const reconstructedStorage = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
+  const reconstructedRegistry = new DeploymentRegistry(reconstructedStorage);
+  assert.deepEqual(reconstructedRegistry.getActive(environment().environmentRef), a.record);
+  assertNoCredentialLeak(JSON.stringify({ release: a.durable.release, decisionA, active: reconstructedRegistry.getActive(environment().environmentRef), health: a.health }));
+  await reconstructedStorage.close();
+  await a.durable.reconstructedArtifactStorage.close();
+  await a.durable.reconstructedReleaseStorage.close();
+});
+
+test("TASK-117 atomic B promotion rejects stale successful contender and preserves autonomous Runtime continuity", {
+  skip: factoryPostgresUrl === undefined || deployPostgresUrl === undefined ? "PostgreSQL CI fixtures not configured" : false,
+}, async () => {
+  assert.ok(deployPostgresUrl);
+  const scope = "p8_task117";
+  const compilation = await compileDurableFactory(scope);
+  const a = await executeRelease(scope, compilation, "1.0.0", "2026-08-17T21:31:00Z", "2026-08-17T21:31:01Z", "2026-08-17T21:31:02Z");
+  const storageA = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
+  const registryA = new DeploymentRegistry(storageA);
+  const decisionA = await registryA.activateCandidateAtomically(a.record, null);
+  assert.equal(decisionA.outcome, "activated");
+  await storageA.close();
+  await a.durable.reconstructedArtifactStorage.close();
+  await a.durable.reconstructedReleaseStorage.close();
+
+  const b = await executeRelease(scope, compilation, "1.1.0", "2026-08-17T21:32:00Z", "2026-08-17T21:32:01Z", "2026-08-17T21:32:02Z");
+  const storageB = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
+  const registryB = new DeploymentRegistry(storageB);
+  const decisionB = await registryB.activateCandidateAtomically(b.record, a.record.deploymentId);
+  assert.equal(decisionB.outcome, "activated");
+  assert.equal(decisionB.previousActiveDeploymentId, a.record.deploymentId);
+  assert.equal(decisionB.resultingActiveDeploymentId, b.record.deploymentId);
+  await storageB.close();
+
+  const c = await executeRelease(scope, compilation, "1.2.0", "2026-08-17T21:33:00Z", "2026-08-17T21:33:01Z", "2026-08-17T21:33:02Z");
+  const storageC = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
+  const registryC = new DeploymentRegistry(storageC);
+  assert.equal(registryC.getActive(environment().environmentRef)?.deploymentId, b.record.deploymentId);
+  const decisionC = await registryC.activateCandidateAtomically(c.record, a.record.deploymentId);
+  assert.equal(decisionC.outcome, "stale-active");
+  assert.equal(decisionC.previousActiveDeploymentId, b.record.deploymentId);
+  assert.equal(decisionC.resultingActiveDeploymentId, b.record.deploymentId);
+  await storageC.close();
 
   const reconstructedStorage = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
   const reconstructedRegistry = new DeploymentRegistry(reconstructedStorage);
-  assert.deepEqual(reconstructedRegistry.getActive(environment().environmentRef), deployedA.record);
-  assert.equal(Object.isFrozen(reconstructedRegistry.getActive(environment().environmentRef)), true);
-
-  const evidence = JSON.stringify({
-    release: durableA.release,
-    decisionA,
-    active: reconstructedRegistry.getActive(environment().environmentRef),
-    health: deployedA.execution.health,
-  });
-  assertNoCredentialLeak(evidence);
+  assert.equal(reconstructedRegistry.getActive(environment().environmentRef)?.deploymentId, b.record.deploymentId);
+  assert.deepEqual(new Set(reconstructedRegistry.list().map((record) => record.deploymentId)), new Set([a.record.deploymentId, b.record.deploymentId, c.record.deploymentId]));
+  assert.equal(b.health.status, "UP");
+  assertNoCredentialLeak(JSON.stringify({ decisionA, decisionB, decisionC, active: reconstructedRegistry.getActive(environment().environmentRef), history: reconstructedRegistry.list(), healthB: b.health }));
 
   await reconstructedStorage.close();
-  await durableA.reconstructedArtifactStorage.close();
-  await durableA.reconstructedReleaseStorage.close();
+  await b.durable.reconstructedArtifactStorage.close();
+  await b.durable.reconstructedReleaseStorage.close();
+  await c.durable.reconstructedArtifactStorage.close();
+  await c.durable.reconstructedReleaseStorage.close();
 });
