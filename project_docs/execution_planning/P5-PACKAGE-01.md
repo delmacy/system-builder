@@ -1,7 +1,7 @@
 # P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling
 
-Status: ACTIVE_PACKAGE / FIRST_SPRINT_COMMITTED
-Base: `e1a1cfa00ae64180746c07a8b2e304f4d2990db9` (package plan merged through PR #173)
+Status: ACTIVE_PACKAGE / SECOND_SPRINT_REVIEW
+Base: `9a6f2df82d1ffbc1c9c25f67d819e666e718d832` (P5-CATALOG-CONSTRAINTS-01 merged through PR #174)
 
 ## Package Goal
 
@@ -19,24 +19,23 @@ Factory composition hardening remains selected before durable Catalog/Release/Ar
 
 ## Construction sequence
 
-### 1. P5-CATALOG-CONSTRAINTS-01 — COMMITTED
+### 1. P5-CATALOG-CONSTRAINTS-01 — MERGED
 
-Goal: structured deterministic Catalog dependency metadata plus bounded version/compatibility candidate constraints while preserving exact-resolution and current Assembly compatibility.
+Merged through PR #174 at `9a6f2df82d1ffbc1c9c25f67d819e666e718d832`.
 
-Committed TASKs:
-- TASK-082 — structured dependency requirement and normalization;
-- TASK-083 — bounded exact/minimum version-constraint resolution and diagnostics;
-- TASK-084 — deterministic evidence and predecessor Catalog→Assembly compatibility.
-
-Expected exit proof:
+Integrated proof:
 
 `Catalog records -> structured dependency requirements -> deterministic constrained candidates / explicit unsatisfied diagnostic`
 
-### 2. P5-ASSEMBLY-GRAPH-01 — FORECAST
+### 2. P5-ASSEMBLY-GRAPH-01 — SPRINT_REVIEW
 
-Goal: transitive closure, conflicts/cycles/incompatible requirements and deterministic AssemblyPlan BOM.
+TASK-085/086/087 are implemented on `sprint/P5-ASSEMBLY-GRAPH-01`; implementation CI #260/#261/#262 PASS. PR #175 is the Sprint review boundary.
 
-Candidate TASKs: TASK-085..087. No specs are materialized.
+Achieved branch proof:
+
+`SystemDefinition root capability -> constrained Catalog candidate -> structured dependency requirements -> transitive dependency closure -> deterministic graph diagnostics -> deterministic AssemblyPlan BOM -> ValidationEvidence -> Compiler predecessor path`
+
+The graph implementation combines multi-path exact/minimum/compatibility requirements before candidate selection, coalesces compatible duplicates and fails closed for cycles, unresolved dependencies and incompatible requirements with deterministic evidence.
 
 ### 3. P5-MATERIALIZER-REGISTRY-01 — FORECAST
 
@@ -58,18 +57,23 @@ Re-run package regression, classify debt and decide whether durable provider inf
 - canonical public contract or L4 change requires explicit architecture authority/ADR;
 - historical P4 evidence is preserved.
 
-## Non-goals for P5-CATALOG-CONSTRAINTS-01
+## P5-ASSEMBLY-GRAPH-01 disposition
 
-- transitive Assembly graph resolution;
-- cycle/conflict graph solving;
+Implemented in scope:
+- Assembly consumption of Catalog `dependencyRequirements`;
+- transitive closure over exact/minimum/compatibility requirements;
+- deterministic cycle/conflict/unresolved diagnostics;
+- deterministic AssemblyPlan BOM and Factory E2E evidence.
+
+Not introduced:
 - Compiler materializer registry;
 - durable Catalog/Release/Artifact providers;
-- production SecretResolver/PostgreSQL/supervision work;
-- broad generated entities/workflows/auth/UI;
-- canonical ReleaseArtifact/EnvironmentProfile/DeploymentRecord changes.
+- new version-range kinds;
+- canonical ReleaseArtifact/EnvironmentProfile/DeploymentRecord changes;
+- production Runtime/deployment work.
 
 ## Package gate
 
-Only `P5-CATALOG-CONSTRAINTS-01` is COMMITTED on `sprint/P5-CATALOG-CONSTRAINTS-01`.
+`P5-ASSEMBLY-GRAPH-01` is at Sprint Review on PR #175. It is not integrated until merged.
 
-`P5-ASSEMBLY-GRAPH-01` and later units remain FORECAST and must not be materialized or executed until the committed Sprint completes, merges, and a new explicit instruction reconstructs repository authority.
+`P5-MATERIALIZER-REGISTRY-01` remains FORECAST and must not be materialized or executed until the current Sprint completes, merges, and a new explicit instruction reconstructs repository authority.

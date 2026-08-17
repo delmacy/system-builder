@@ -1,41 +1,42 @@
-# Current Execution Milestone — M6 P5 Catalog Constraints Sprint Review
+# Current Execution Milestone — M6 P5 Assembly Graph Sprint Review
 
 ## Goal
 
-Close `P5-CATALOG-CONSTRAINTS-01` after proving deterministic structured dependency requirements and bounded version constraints in Catalog while preserving predecessor Assembly and P4 runtime behavior.
+Close `P5-ASSEMBLY-GRAPH-01` after proving deterministic transitive Assembly graph composition and reproducible failure diagnostics while preserving downstream Factory and P4 runtime behavior.
 
 ## Integrated baseline
 
-P5 package planning is merged through PR #173 at `e1a1cfa00ae64180746c07a8b2e304f4d2990db9`.
+P5 Catalog constraints are merged through PR #174 at `9a6f2df82d1ffbc1c9c25f67d819e666e718d832`.
 
 ## Active Sprint
 
-`P5-CATALOG-CONSTRAINTS-01 — Structured Dependency and Version Constraints`
+`P5-ASSEMBLY-GRAPH-01 — Deterministic Transitive Assembly Graph`
 
-Branch: `sprint/P5-CATALOG-CONSTRAINTS-01`
+Branch: `sprint/P5-ASSEMBLY-GRAPH-01`
 
-PR: #174
+PR: #175
 
 TASK results:
-1. TASK-082 — CI #253 PASS;
-2. TASK-083 — CI #254 PASS;
-3. TASK-084 — CI #255 PASS.
+1. TASK-085 — CI #260 PASS;
+2. TASK-086 — CI #261 PASS;
+3. TASK-087 — CI #262 PASS.
 
 Achieved branch proof:
 
-`Catalog records -> structured dependency requirements -> deterministic constrained candidates / explicit unsatisfied diagnostic`
+`SystemDefinition root capability -> constrained Catalog candidate -> structured dependency requirements -> transitive dependency closure -> deterministic conflict/cycle validation -> deterministic AssemblyPlan BOM -> ValidationEvidence -> Compiler predecessor path`
 
 ## Architecture constraints
 
-- bounded L3 Catalog API work only;
+- bounded internal Assembly L3 work only;
+- Catalog semantics remain unchanged;
 - no canonical `packages/contracts/**` change;
-- Assembly implementation remains unchanged;
-- no transitive graph solving or materializer registry;
+- no new range kinds beyond exact/minimum;
+- no Compiler materializer registry;
 - ADR-0002 and ADR-0007 remain controlling;
 - P4 PostgreSQL/autonomous-runtime proof remains a required regression.
 
 ## Sprint Review gate
 
-Run final repository-wide verification on the closure head, require Deterministic CI PASS, then mark PR #174 ready for human Sprint Review and stop.
+Run final repository-wide verification on the closure head, require Deterministic CI PASS, then mark PR #175 ready for human Sprint Review and stop.
 
-`P5-ASSEMBLY-GRAPH-01` remains FORECAST and must not be materialized or executed.
+`P5-MATERIALIZER-REGISTRY-01` remains FORECAST and must not be materialized or executed.
