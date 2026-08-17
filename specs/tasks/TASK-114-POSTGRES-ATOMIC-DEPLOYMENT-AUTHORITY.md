@@ -1,7 +1,7 @@
 ---
 id: TASK-114
 title: Implement PostgreSQL atomic activation CAS
-status: ready
+status: completed
 priority: 396
 milestone: M9
 model_tier: cheap
@@ -59,11 +59,11 @@ TASK-113 defines the additive atomic activation API. Sprint 1 already provides a
 
 # Current behavior
 
-The PostgreSQL provider queues record and active-pointer writes independently in process-local state. Multiple provider processes are not serialized by that queue.
+The provider now has an atomic activation path that serializes authority mutation in PostgreSQL. Legacy synchronous setters remain for predecessor compatibility and are not used by the new atomic API.
 
 # Required change
 
-Persist the candidate record and evaluate/update the environment active pointer atomically. Lock or condition the environment authority in PostgreSQL so a stale expected-active value cannot overwrite a newer winner. Failed candidates remain durable history but never replace active authority.
+Persist the candidate record and evaluate/update the environment active pointer atomically. Serialize the environment authority in PostgreSQL so a stale expected-active value cannot overwrite a newer winner. Failed candidates remain durable history but never replace active authority.
 
 # Inputs / contracts
 
@@ -78,7 +78,7 @@ A PostgreSQL implementation that returns the same deterministic atomic activatio
 - record history and active-pointer decision occur in one transaction for atomic activation;
 - concurrent writers are serialized by PostgreSQL rather than a process-local Promise queue alone;
 - expected-active mismatch returns stale evidence and does not update active authority;
-- candidate record history remains durable when outcome semantics require it without producing torn record/pointer state;
+- candidate record history remains durable without producing torn record/pointer state;
 - failed candidates cannot become active;
 - reconstruction observes the authoritative winner;
 - secret-safe diagnostics preserved;

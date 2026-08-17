@@ -127,3 +127,49 @@ test("postgres deployment provider rejects invalid connection diagnostics withou
     return true;
   });
 });
+
+test("postgres atomic activation enforces expected active authority and reconstructs the winner", { skip: authenticatedPostgresUrl === undefined ? "SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL not configured" : false }, async () => {
+  assert.ok(authenticatedPostgresUrl);
+  const scope = "task114_cas";
+  const environmentRef = "env:task114";
+  const firstStorage = await PostgresDeploymentRecordStorage.open(authenticatedPostgresUrl, scope);
+  const secondStorage = await PostgresDeploymentRecordStorage.open(authenticatedPostgresUrl, scope);
+  const firstRegistry = new DeploymentRegistry(firstStorage);
+  const secondRegistry = new DeploymentRegistry(secondStorage);
+
+  const activeA = record("4", environmentRef, "succeeded", "app@4.0.0");
+  const candidateB = record("5", environmentRef, "succeeded", "app@5.0.0");
+  const staleC = record("6", environmentRef, "succeeded", "app@6.0.0");
+  const failedD = record("7", environmentRef, "failed", "app@7.0.0");
+
+  const first = await firstRegistry.activateCandidateAtomically(activeA, null);
+  assert.equal(first.outcome, "activated");
+  assert.equal(first.resultingActiveDeploymentId, activeA.deploymentId);
+
+  const promoted = await secondRegistry.activateCandidateAtomically(candidateB, activeA.deploymentId);
+  assert.equal(promoted.outcome, "activated");
+  assert.equal(promoted.previousActiveDeploymentId, activeA.deploymentId);
+  assert.equal(promoted.resultingActiveDeploymentId, candidateB.deploymentId);
+
+  const stale = await firstRegistry.activateCandidateAtomically(staleC, activeA.deploymentId);
+  assert.equal(stale.outcome, "stale-active");
+  assert.equal(stale.previousActiveDeploymentId, candidateB.deploymentId);
+  assert.equal(stale.resultingActiveDeploymentId, candidateB.deploymentId);
+  assert.deepEqual(firstRegistry.getActive(environmentRef), candidateB);
+
+  const retained = await firstRegistry.activateCandidateAtomically(failedD, candidateB.deploymentId);
+  assert.equal(retained.outcome, "retained-active");
+  assert.equal(retained.resultingActiveDeploymentId, candidateB.deploymentId);
+
+  const reconstructedStorage = await PostgresDeploymentRecordStorage.open(authenticatedPostgresUrl, scope);
+  const reconstructedRegistry = new DeploymentRegistry(reconstructedStorage);
+  assert.deepEqual(reconstructedRegistry.getActive(environmentRef), candidateB);
+  assert.deepEqual(
+    reconstructedRegistry.list().map((item) => item.deploymentId),
+    [activeA, candidateB, staleC, failedD].map((item) => item.deploymentId).sort(),
+  );
+
+  await reconstructedStorage.close();
+  await secondStorage.close();
+  await firstStorage.close();
+});
