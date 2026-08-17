@@ -1,7 +1,7 @@
 ---
 id: TASK-098
 title: Prove durable Factory reconstruction through existing Deploy
-status: ready
+status: completed
 priority: 406
 milestone: M7
 model_tier: cheap
