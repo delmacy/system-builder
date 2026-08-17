@@ -111,6 +111,25 @@ function materializeStateCounter(): RuntimeStateRequirement {
   });
 }
 
+function materializeStateCounterCapability(): RuntimeCapabilityMaterialization {
+  return Object.freeze({
+    stateRequirements: Object.freeze([materializeStateCounter()]),
+  });
+}
+
+function createDefaultMaterializerRegistry(): RuntimeCapabilityMaterializerRegistry {
+  const registry = new RuntimeCapabilityMaterializerRegistry();
+  registry.register(Object.freeze({
+    capability: STATE_COUNTER_CAPABILITY,
+    provider: STATE_COUNTER_PROVIDER,
+    version: STATE_COUNTER_VERSION,
+    materialize: materializeStateCounterCapability,
+  }));
+  return registry;
+}
+
+const DEFAULT_MATERIALIZER_REGISTRY = createDefaultMaterializerRegistry();
+
 export function materializeAssemblyRuntimeCapabilities(
   assemblyPlan: RuntimeCapabilityAssemblyPlan,
 ): RuntimeCapabilityMaterialization {
@@ -129,9 +148,7 @@ export function materializeAssemblyRuntimeCapabilities(
   if (selected.length !== 1) throw new Error(`COMPILER_RUNTIME_CAPABILITY_DUPLICATE:${STATE_COUNTER_CAPABILITY}`);
 
   const component = selected[0]!;
-  if (component.provider !== STATE_COUNTER_PROVIDER || component.version !== STATE_COUNTER_VERSION) unsupported(component);
-
-  return Object.freeze({
-    stateRequirements: Object.freeze([materializeStateCounter()]),
-  });
+  const lookup = DEFAULT_MATERIALIZER_REGISTRY.lookup(component);
+  if (!lookup.ok) unsupported(component);
+  return lookup.materializer.materialize();
 }
