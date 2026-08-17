@@ -1,7 +1,7 @@
 ---
 id: TASK-097
 title: Prove restart-safe durable Release and Artifact integration
-status: ready
+status: completed
 priority: 405
 milestone: M7
 model_tier: cheap

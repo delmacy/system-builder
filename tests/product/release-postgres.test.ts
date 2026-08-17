@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { PostgresArtifactPayloadRepository } from "../../packages/artifact-store/postgres.js";
+import { compileSyntheticRelease } from "../../packages/compiler/index.js";
 import { ReleaseRegistry } from "../../packages/release/index.js";
 import { PostgresReleaseRecordStorage } from "../../packages/release/postgres.js";
 
@@ -48,4 +50,77 @@ test("postgres release provider sanitizes invalid connection diagnostics", async
     assert.equal(error.message.includes(connectionString), false);
     return true;
   });
+});
+
+test("durable release and artifact providers reconstruct actual Compiler output together", { skip: postgresUrl === undefined ? "SYSTEM_BUILDER_TEST_POSTGRES_URL not configured" : false }, async () => {
+  assert.ok(postgresUrl);
+  const assemblyPlan = {
+    kind: "AssemblyPlan" as const,
+    systemDefinitionRef: "system-definition:task097:1",
+    components: [{ capability: "workflow.engine", provider: "provider-a", version: "1.0.0" }],
+    sourceRefs: ["system-definition:task097:1"],
+    contentHash: `sha256:${"3".repeat(64)}`,
+  };
+  const validationEvidence = {
+    kind: "ValidationEvidence" as const,
+    assemblyPlanRef: assemblyPlan.contentHash,
+    decision: "PASS" as const,
+    evidenceHash: `sha256:${"4".repeat(64)}`,
+  };
+  const compilation = compileSyntheticRelease({
+    assemblyPlan,
+    validationEvidence,
+    compilerVersion: "0.1.0",
+    runtimeVersion: "0.1.0",
+    environmentSchema: [{ name: "DATABASE_URL", kind: "secret-reference", required: true }],
+  });
+
+  const releaseStorage = await PostgresReleaseRecordStorage.open(postgresUrl, "task097_release");
+  const artifactRepository = await PostgresArtifactPayloadRepository.open(postgresUrl, "task097_artifact");
+  const releaseRegistry = new ReleaseRegistry(releaseStorage);
+  const publishedRelease = releaseRegistry.publish({
+    releaseId: "factory-task097",
+    version: "1.0.0",
+    artifact: compilation.artifact,
+    publishedAt: "2026-08-17T15:15:00Z",
+  });
+  const publishedPayload = artifactRepository.publish({ artifactHash: compilation.artifact.artifactHash, files: compilation.files });
+  await releaseStorage.flush();
+  await artifactRepository.flush();
+
+  const reconstructedReleaseStorage = await PostgresReleaseRecordStorage.open(postgresUrl, "task097_release");
+  const reconstructedArtifactRepository = await PostgresArtifactPayloadRepository.open(postgresUrl, "task097_artifact");
+  const reconstructedReleaseRegistry = new ReleaseRegistry(reconstructedReleaseStorage);
+  assert.deepEqual(reconstructedReleaseRegistry.get("factory-task097", "1.0.0"), publishedRelease);
+  assert.deepEqual(reconstructedArtifactRepository.get(compilation.artifact.artifactHash), publishedPayload);
+  assert.deepEqual(reconstructedArtifactRepository.getVerified(compilation.artifact).files, compilation.files);
+
+  assert.throws(() => reconstructedReleaseRegistry.publish({
+    releaseId: "factory-task097", version: "1.0.0", artifact: compilation.artifact, publishedAt: "2026-08-17T15:16:00Z",
+  }), /RELEASE_DUPLICATE_IDENTITY:factory-task097@1\.0\.0/);
+  assert.throws(() => reconstructedArtifactRepository.publish({
+    artifactHash: compilation.artifact.artifactHash,
+    files: compilation.files.map((file, index) => index === 0 ? { ...file, content: `${file.content}\nconflict` } : file),
+  }), /ARTIFACT_PAYLOAD_CONFLICT/);
+  assert.throws(() => reconstructedArtifactRepository.get(`sha256:${"e".repeat(64)}`), /ARTIFACT_PAYLOAD_NOT_FOUND/);
+  assert.throws(() => reconstructedArtifactRepository.getVerified({ ...compilation.artifact, assemblyPlanRef: `sha256:${"9".repeat(64)}` }), /ARTIFACT_PAYLOAD_AGGREGATE_HASH_MISMATCH/);
+
+  assert.equal(reconstructedReleaseRegistry.transition("factory-task097", "1.0.0", "deprecated").status, "deprecated");
+  await reconstructedReleaseStorage.flush();
+  const finalReleaseStorage = await PostgresReleaseRecordStorage.open(postgresUrl, "task097_release");
+  assert.equal(new ReleaseRegistry(finalReleaseStorage).get("factory-task097", "1.0.0")?.status, "deprecated");
+
+  const evidenceText = JSON.stringify({
+    release: new ReleaseRegistry(finalReleaseStorage).get("factory-task097", "1.0.0"),
+    payload: reconstructedArtifactRepository.get(compilation.artifact.artifactHash),
+  });
+  assert.equal(evidenceText.includes(postgresUrl), false);
+  assert.equal(evidenceText.includes("postgres://"), false);
+  assert.equal(evidenceText.includes("secret://"), false);
+
+  await finalReleaseStorage.close();
+  await reconstructedArtifactRepository.close();
+  await reconstructedReleaseStorage.close();
+  await artifactRepository.close();
+  await releaseStorage.close();
 });
