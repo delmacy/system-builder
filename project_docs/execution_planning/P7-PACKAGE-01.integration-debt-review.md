@@ -1,6 +1,6 @@
 # P7-PACKAGE-01 — Integration & Technical Debt Review
 
-Status: MATERIALIZED / REGRESSION_PENDING
+Status: READY_FOR_FINAL_CI / REVIEW_GATE_PENDING
 
 ## Review authority
 
@@ -8,7 +8,7 @@ Mandatory package review required by `P7-PACKAGE-01` and `SPRINT_GENERATION_POLI
 
 Review base: `e71590625466dac27298852af779063c40d8551b` (P7-DURABLE-DEPLOYMENT-E2E-01 merged through PR #186).
 Review branch: `review/P7-PACKAGE-01-integration-debt`.
-Review PR: pending materialization delivery.
+Review PR: #187.
 
 This review authorizes no successor Sprint, Sprint Package or P8 work by itself.
 
@@ -16,7 +16,7 @@ This review authorizes no successor Sprint, Sprint Package or P8 work by itself.
 
 P7 achieved its bounded package goal.
 
-Integrated evidence now proves:
+Integrated evidence proves:
 
 `durable Factory output -> durable Deploy activation A -> autonomous Runtime -> successful B activation -> failed candidate C -> reconstruct deployment authority -> B remains active + Runtime continuity`
 
@@ -26,17 +26,38 @@ Construction history is fully integrated:
 - `P7-DEPLOYMENT-ROLLBACK-01` — PR #185 merged at `991c6cff2f2e7fc332b4534091ad6afafce14106`; closure CI #319 PASS.
 - `P7-DURABLE-DEPLOYMENT-E2E-01` — PR #186 merged at `e71590625466dac27298852af779063c40d8551b`; closure CI #325 PASS.
 
-## Integrated regression plan
+## Integrated regression evidence
 
 Canonical package regression is repository-wide `npm run verify` through GitHub Deterministic CI with PostgreSQL 17.6.
 
-This review is documentation-only. The materialization-head regression must prove the integrated product unchanged and green before review finalization. A second Deterministic CI run on the review-finalization head is required before human Review Gate readiness.
+Review materialization head: `cb10b83af8dd5116a730ac50d4b64375c6499db7`.
 
-No local validation is claimed.
+Deterministic CI #326: PASS.
+
+Observed objective evidence:
+
+- PostgreSQL 17.6-alpine service: healthy;
+- Node 24.19.0 / npm 11.17.0;
+- `npm ci`: PASS, 0 vulnerabilities;
+- `npm run verify`: PASS;
+- unit tests: 309 PASS / 0 FAIL / 0 SKIPPED;
+- product tests: 138 PASS / 0 FAIL / 0 SKIPPED;
+- task catalog: 110 specifications validated;
+- architecture gates: PASS;
+- build: PASS;
+- durable Deploy PostgreSQL reconstruction: PASS;
+- failed-candidate retention across reconstruction: PASS;
+- TASK-107 Factory -> A -> autonomous Runtime: PASS;
+- TASK-108 successful A -> B upgrade/Runtime continuity: PASS;
+- TASK-109 failed C -> B retained -> Runtime continuity: PASS.
+
+No local validation is claimed. GitHub Actions is the objective regression evidence.
+
+Review-finalization changes are documentation-only. A final Deterministic CI run on the review-finalization head is required before human Review Gate readiness.
 
 ## Contract and architecture revalidation
 
-Preliminary result: PASS WITH DEBT, subject to review-head regression.
+Result: PASS WITH DEBT.
 
 - ADR-0002 remains preserved: Runtime evidence continues to execute with Builder/Observe endpoints unavailable.
 - ADR-0007 remains preserved: Release remains immutable and separate from Environment bindings/secrets; Deployment binds Release to Environment.
@@ -123,11 +144,11 @@ Medium:
 - DeploymentRecord executor/source metadata and Observe/operations publication;
 - governance task-materialization schema discipline.
 
-No critical risk requiring rollback of P7 has been identified from integrated evidence.
+No critical risk requiring rollback of P7 was found.
 
 ## Successor readiness recommendation
 
-Package construction result: PASS, subject to review regression confirmation.
+Package construction result: PASS.
 Architecture/boundary result: PASS WITH DEBT.
 Critical rollback blocker: NONE FOUND.
 
@@ -138,16 +159,16 @@ Readiness after this review is accepted and merged:
 3. **Deployment operational publication/Observe integration** — independently plan-able medium-priority work, provided Runtime autonomy remains non-negotiable.
 4. **Broader generated Runtime behavior** — remains a product-gap direction outside this review and must compete on leverage during fresh successor-package planning.
 
-Recommendation: after this review passes both CI gates, receives human Review Gate acceptance and merges, the next Sprint Package becomes `READY_TO_BE_PLANNED`. This review does not create P8, select a successor package, materialize a Sprint or create successor TASKs.
+Recommendation: after this review passes final CI, receives human Review Gate acceptance and merges, the next Sprint Package becomes `READY_TO_BE_PLANNED`. This review does not create P8, select a successor package, materialize a Sprint or create successor TASKs.
 
 ## Review Gate
 
 - review base integrated: YES (`e71590625466dac27298852af779063c40d8551b`);
 - all three P7 construction Sprints merged: YES;
-- package goal achieved: PRELIMINARY PASS;
-- architecture revalidation: PRELIMINARY PASS WITH DEBT;
-- materialization-head regression: PENDING;
+- package goal achieved: PASS;
+- architecture revalidation: PASS WITH DEBT;
+- materialization-head regression: PASS (CI #326);
 - final review regression: PENDING;
-- rollback blocker: NONE IDENTIFIED;
+- rollback blocker: NONE;
 - successor Sprint Package materialized: NO;
-- decision: PENDING REGRESSION / HUMAN REVIEW GATE.
+- decision: PENDING FINAL CI / HUMAN REVIEW GATE.

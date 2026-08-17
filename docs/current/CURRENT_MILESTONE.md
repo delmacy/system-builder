@@ -17,7 +17,8 @@ All three P7 construction Sprints are merged:
 `P7-PACKAGE-01 — Integration & Technical Debt Review`
 
 Branch: `review/P7-PACKAGE-01-integration-debt`
-Status: `MATERIALIZED / REGRESSION_PENDING`.
+PR: #187
+Status: `REVIEW_FINALIZATION / MATERIALIZATION_CI_PASS`.
 
 The review is documentation-only and contains no implementation TASKs.
 
@@ -25,17 +26,28 @@ The review is documentation-only and contains no implementation TASKs.
 
 `durable Factory output -> durable Deploy activation A -> autonomous Runtime -> successful B activation -> failed candidate C -> reconstruct deployment authority -> B remains active + Runtime continuity`
 
-## Preliminary disposition
+## Regression
 
-- package result: PASS subject to review regression;
+Materialization head `cb10b83af8dd5116a730ac50d4b64375c6499db7` passed Deterministic CI #326 with PostgreSQL 17.6:
+
+- `npm run verify`: PASS;
+- unit: 309 PASS;
+- product: 138 PASS;
+- task specifications: 110 validated;
+- architecture gates: PASS;
+- build: PASS.
+
+## Disposition
+
+- package construction: PASS;
 - architecture/boundaries: PASS WITH DEBT;
 - ADR-0002 preserved;
 - ADR-0007 preserved;
-- critical rollback blocker: none identified;
-- production readiness: not claimed.
+- critical rollback blocker: NONE FOUND;
+- successor package: not selected or materialized.
 
 ## Current gate
 
-Run repository-wide Deterministic CI on the materialized review head. If PASS, finalize debt/risk/readiness state, run final Deterministic CI and stop at human Review Gate.
+Run final Deterministic CI on the review-finalization head. If PASS, mark PR #187 Ready for human Review Gate and stop.
 
 No successor Sprint Package, P8 Sprint or successor TASK may be materialized by this review.
