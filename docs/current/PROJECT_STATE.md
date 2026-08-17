@@ -8,51 +8,44 @@ Date: 2026-08-17
 
 ## Current maturity
 
-- P1–P6 construction/review history is integrated.
-- P7-PACKAGE-01 planning merged through PR #183.
-- P7-DURABLE-DEPLOYMENT-STATE-01 merged through PR #184 at `fafc07c0c3a3f8661f50fbad30aa091bbea83731`.
-- P7-DEPLOYMENT-ROLLBACK-01 merged through PR #185 at `991c6cff2f2e7fc332b4534091ad6afafce14106`.
-- P7-DURABLE-DEPLOYMENT-E2E-01 merged through PR #186 at `e71590625466dac27298852af779063c40d8551b` after closure CI #325 PASS.
-- All three P7 construction Sprints are integrated.
-- Mandatory P7 Integration & Technical Debt Review is active on PR #187.
+- P1–P7 construction/review history is integrated.
+- P7 Integration & Technical Debt Review merged through PR #187 at `aa79f1fbeefb1f49faddf24db35a9ea35f74df29` after final Deterministic CI #327 PASS.
+- P7 result: package PASS; architecture/boundaries PASS WITH DEBT; no critical rollback blocker.
+- Successor planning is now active on `plan/P8-PACKAGE-01`.
+- No P8 construction Sprint or successor TASK is materialized.
 - GitHub Actions with PostgreSQL 17.6 remains the objective deterministic integration gate.
 - AgentFactory Supervisor/runtime remains frozen non-blocking infrastructure.
 
-## Integrated P7 proof
+## Integrated proof baseline
 
 `durable Factory output -> durable Deploy activation A -> autonomous Runtime -> successful B activation -> failed candidate C -> reconstruct deployment authority -> B remains active + Runtime continuity`
 
-## Active review
+## Successor selection
 
-`P7-PACKAGE-01 — Integration & Technical Debt Review`
+Fresh post-P7 reconstruction selects **durable deployment authority hardening** as the next highest-leverage Sprint Package direction.
 
-Base: `e71590625466dac27298852af779063c40d8551b`
-Branch: `review/P7-PACKAGE-01-integration-debt`
-PR: #187
-Status: `REVIEW_FINALIZATION / MATERIALIZATION_CI_PASS`.
+Reason: the P7 review ranks production durability/activation hardening first and carries directly connected high-priority debt in PostgreSQL transport/auth (`TD-P4-03`), durable-provider transport/concurrency (`TD-P6-01`) and non-transactional active-pointer semantics (`TD-P7-01`). Broader production orchestration, Observe publication and generated Runtime breadth remain valid later directions but should not outrun the durable authority foundation.
 
-Materialization head `cb10b83af8dd5116a730ac50d4b64375c6499db7` passed Deterministic CI #326:
-- 309 unit tests PASS;
-- 138 product tests PASS;
-- 110 TASK specifications validated;
-- architecture gates PASS;
-- build PASS.
+## Active planning
 
-No implementation TASKs are authorized by the review. Review scope is documentation-only.
+`P8-PACKAGE-01 — Durable Deployment Authority Hardening`
 
-## Review disposition
+Base: `aa79f1fbeefb1f49faddf24db35a9ea35f74df29`
+Branch: `plan/P8-PACKAGE-01`
+Status: `PLANNING / CI_PENDING`.
 
-- P7 package construction: PASS;
-- architecture/boundaries: PASS WITH DEBT;
-- ADR-0002 preserved;
-- ADR-0007 preserved;
-- critical rollback blocker: NONE FOUND;
-- production readiness: NOT CLAIMED.
+Forecast:
+1. `P8-DEPLOY-POSTGRES-TRANSPORT-01` — commitment candidate after planning merge;
+2. `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` — forecast only;
+3. `P8-HARDENED-ACTIVATION-E2E-01` — forecast only;
+4. mandatory P8 Integration & Technical Debt Review — forecast only.
 
-Highest production debts remain PostgreSQL transport/auth hardening, transactional multi-writer active deployment authority, production SecretResolver, migration/fleet coordination and real traffic/process rollback orchestration.
+## Architecture boundary
+
+ADR-0002 and ADR-0007 remain controlling. PostgreSQL remains a replaceable reference-provider detail. This planning PR does not authorize a shared cross-context PostgreSQL infrastructure boundary; any such ownership decision must be separately justified and escalated if architectural.
 
 ## Current gate
 
-Run final Deterministic CI on the review-finalization head. If green, mark PR #187 Ready for human Review Gate and stop.
+Run repository-wide Deterministic CI on the planning head. If green, verify the PR remains planning/documentation-only and stop at human planning review.
 
-Do not merge PR #187 at this gate. Do not create P8, a successor Sprint Package, Sprint or TASKs in this review.
+Do not materialize Sprint 1, create TASK specs or modify product code before the package plan is accepted and merged and `main` is freshly reconstructed.
