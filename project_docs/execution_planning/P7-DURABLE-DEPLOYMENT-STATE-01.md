@@ -1,60 +1,41 @@
 # P7-DURABLE-DEPLOYMENT-STATE-01 — Durable Deployment State Authority
 
-Status: COMMITTED / IMPLEMENTATION_PENDING
+Status: SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS
 Package: `P7-PACKAGE-01`
-Base SHA: `ee17702742a07e78f70f05f653e60445ddd72167` (P7 package plan merged through PR #183)
+Base SHA: `ee17702742a07e78f70f05f653e60445ddd72167`
 Branch: `sprint/P7-DURABLE-DEPLOYMENT-STATE-01`
-PR: PENDING
+PR: #184
 
 ## Goal
 
-Move existing `DeploymentRecord` history and active-version observation behind a Deploy-owned replaceable persistence boundary, add a bounded PostgreSQL reference provider, and prove deterministic provider/process reconstruction without changing existing dry-run/local deployment production semantics or canonical contracts.
+Move existing `DeploymentRecord` history and active-version observation behind a Deploy-owned replaceable persistence boundary, add a bounded PostgreSQL reference provider, and prove deterministic provider/process reconstruction without changing existing Deploy production semantics or canonical contracts.
 
-## Predecessor gate
+## Completed TASKs
 
-PASS:
+1. TASK-101 — PASS at `e002f7e1065d39106d4d0b3afc4217686b6d5854`; CI #310 PASS.
+2. TASK-102 — PASS at `18ee73fbb04bfaaf4d3c2b5a83f335fc3860413e`; CI #311 PASS.
+3. TASK-103 — PASS at `f9a7a1de866f241f380aff04e4e2a963222e4d0d`; CI #312 PASS.
 
-- P6 durable Factory-to-Runtime package and mandatory review are integrated;
-- P7-PACKAGE-01 planning merged through PR #183 at `ee17702742a07e78f70f05f653e60445ddd72167`;
-- package-planning Deterministic CI #306 passed;
-- WBS 10.3.1/10.3.2 identifies deployment record history and active-version visibility as the next bounded Deploy gap.
+Dependency order preserved: `TASK-101 -> TASK-102 -> TASK-103`.
 
-## Authority
-
-WBS 10.3.1/10.3.2, ADR-0002, ADR-0007 and P7-PACKAGE-01.
-
-This Sprint authorizes only Deploy-internal state ownership, a PostgreSQL reference provider and focused integration evidence. It does not authorize canonical contract changes, production traffic/TLS/supervision, SecretResolver production providers, migration fleet coordination or broad rollback orchestration.
-
-## Committed TASKs
-
-1. `TASK-101` — establish Deploy-owned DeploymentRecord/active-version storage boundary.
-2. `TASK-102` — implement bounded PostgreSQL deployment-state provider.
-3. `TASK-103` — prove durable DeploymentRecord/active-version reconstruction from existing Deploy output.
-
-Dependency order:
-
-`TASK-101 -> TASK-102 -> TASK-103`
-
-## Exit proof
+## Achieved proof
 
 `existing successful DeploymentRecord -> Deploy-owned persistence -> PostgreSQL durability -> provider/process reconstruction -> equivalent record + active release/version observation`
 
-Negative evidence must show failed deployment evidence does not become active, invalid provider inputs fail closed without leaking credentials, and persisted evidence contains no resolved secret value.
-
-## Validation
-
-Each TASK: `npm run test:product` and `npm run verify` through objective GitHub Deterministic CI. Final Sprint closure requires repository-wide Deterministic CI on the closure head.
+Failed deployment evidence remains durable history and does not replace the active successful deployment.
 
 ## Architecture boundary
 
-- no `packages/contracts/**` change;
-- no Release/Environment semantics change;
-- PostgreSQL remains a replaceable Deploy reference-provider detail;
-- Runtime autonomy from Builder/Factory remains unchanged;
-- no L4 change or new ADR expected.
+- no canonical `packages/contracts/**` change;
+- Release/Environment semantics unchanged;
+- PostgreSQL remains an internal Deploy reference provider;
+- Runtime autonomy unchanged;
+- production TLS/traffic/fleet/supervision and rollback orchestration remain outside this Sprint;
+- ADR-0002 and ADR-0007 preserved;
+- no L4 change.
 
-## Review boundary
+## Current gate
 
-After all TASKs pass, generate the Sprint Report, update current state, require final closure-head Deterministic CI, mark the single Sprint PR Ready for Review and stop.
+Require one final closure-head Deterministic CI. If green, mark PR #184 Ready for human Sprint Review and stop.
 
 `P7-DEPLOYMENT-ROLLBACK-01`, `P7-DURABLE-DEPLOYMENT-E2E-01` and the mandatory P7 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.
