@@ -1,4 +1,4 @@
-# Next Work — P9 Managed Runtime Process Sprint
+# Next Work — P9 Sprint 1 Review Gate
 
 The repository is authoritative. Do not use chat history as technical authority.
 
@@ -6,19 +6,19 @@ The repository is authoritative. Do not use chat history as technical authority.
 
 `P9-MANAGED-RUNTIME-PROCESS-01`
 
-Base: `14cdccbd391d3c337f749bc14e470e5a8bb1742f`
 Branch: `sprint/P9-MANAGED-RUNTIME-PROCESS-01`
-Status: `MATERIALIZED / PRE_CODE_CI_PENDING`.
+PR: #194
+Status: `IMPLEMENTED / TASK_CI_PASS / FINAL_CI_PENDING`.
 
 ## Required action
 
-1. Run Deterministic CI on the materialization head.
-2. If green, execute TASK-119, TASK-120 and TASK-121 in dependency order.
-3. Respect each TASK's `context_paths`, `allowed_paths`, `forbidden_paths`, `max_files` and validations.
-4. Keep one authoritative commit per TASK.
-5. Run repository-wide final verification, produce Sprint Report, open/promote one Sprint PR and stop at Sprint Review.
+1. Run final repository-wide Deterministic CI #356 on the closure head.
+2. If green, confirm PR #194 contains only materialization/governance, TASK-119..121 authorized implementation/evidence and Sprint closure files.
+3. Confirm no unresolved review blockers.
+4. Promote PR #194 to human Sprint Review and stop.
 
 ## Boundary
 
+Do not merge PR #194 automatically at this gate.
 Do not materialize or execute `P9-ACTIVE-RUNTIME-PROMOTION-01`, `P9-RUNTIME-RECONCILIATION-E2E-01` or the P9 Integration & Technical Debt Review.
-Stop/escalate if managed process ownership requires external traffic/fleet/cloud topology, canonical infrastructure contracts or an L4 Builder/Runtime change.
+Those successors may only be revalidated after this Sprint is accepted, merged and `main` is freshly reconstructed.

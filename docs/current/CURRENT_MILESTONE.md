@@ -1,32 +1,33 @@
-# Current Execution Milestone — M10 P9 Sprint 1
+# Current Execution Milestone — M10 P9 Sprint 1 Review Gate
 
 ## Goal
 
-Execute `P9-MANAGED-RUNTIME-PROCESS-01` from the merged P9 package plan, proving a bounded Deploy-owned managed Runtime process lifecycle without introducing external orchestration topology.
+Close `P9-MANAGED-RUNTIME-PROCESS-01` after implementing and verifying the bounded Deploy-owned managed Runtime process lifecycle.
 
-## Integrated predecessor
+## Sprint result
 
-- P8 review merged through PR #192.
-- P9 planning merged through PR #193 at `14cdccbd391d3c337f749bc14e470e5a8bb1742f`, planning CI #349 PASS.
-- Existing Deploy local-process path verifies artifact/environment, applies migrations, resolves runtime-only secrets, starts Runtime, checks health and then terminates/cleans the process.
+Goal: PASS pending final closure-head CI.
 
-## Active Sprint
+TASKs:
+- TASK-119 `521002b28fab412cd03fa385def1075d17d35438` — CI #353 PASS;
+- TASK-120 `718714f9b63efa2a6ac33f0b1c022f1d38c2fa8c` — CI #354 PASS;
+- TASK-121 `42bd42e16417baa7554c8c82aed35ff17f92ef90` — CI #355 PASS.
 
-`P9-MANAGED-RUNTIME-PROCESS-01`
+## Achieved lifecycle
 
-Branch: `sprint/P9-MANAGED-RUNTIME-PROCESS-01`
-Status: `MATERIALIZED / PRE_CODE_CI_PENDING`.
+A generated Runtime can now be started through an additive Deploy-local managed lifecycle, health-accepted, retained/queryable, explicitly/idempotently stopped and deterministically cleaned. Failure evidence covers incompatibility, invalid startup with secret redaction and unexpected process exit. The predecessor one-shot local-process path remains behaviorally compatible and unchanged.
 
-TASK order: TASK-119 -> TASK-120 -> TASK-121.
+## Architecture result
 
-## Exit proof
-
-`verified ReleaseArtifact + Environment -> managed Runtime start -> health PASS -> process remains managed/queryable -> explicit stop -> deterministic cleanup` plus predecessor one-shot compatibility.
-
-## Boundary
-
-Single-host Deploy-owned reference lifecycle only. External traffic switching, fleet/scheduler/cloud topology, canonical contract expansion and L4 Builder/Runtime changes are forbidden without escalation/ADR.
+PASS inside the P9 package boundary:
+- Deploy-owned single-host reference only;
+- no canonical contracts;
+- no Runtime changes;
+- no ADR/L4;
+- no external traffic/fleet/cloud topology.
 
 ## Current gate
 
-Run materialization Deterministic CI. If PASS, begin TASK-119 only.
+Run repository-wide Deterministic CI #356 on the closure head. If green, verify PR #194 scope/reviews, mark Ready for human Sprint Review and stop.
+
+No P9 Sprint 2/3 or package review is authorized at this gate.

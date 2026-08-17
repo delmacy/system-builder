@@ -19,21 +19,33 @@ Date: 2026-08-17
 
 Base: `14cdccbd391d3c337f749bc14e470e5a8bb1742f`
 Branch: `sprint/P9-MANAGED-RUNTIME-PROCESS-01`
-Status: `MATERIALIZED / PRE_CODE_CI_PENDING`.
+PR: #194
+Status: `IMPLEMENTED / TASK_CI_PASS / FINAL_CI_PENDING`.
 
-Committed TASKs:
-1. TASK-119 — managed local Runtime lifecycle;
-2. TASK-120 — managed Runtime failure cleanup;
-3. TASK-121 — predecessor compatibility evidence.
+Authoritative TASKs:
+- TASK-119 `521002b28fab412cd03fa385def1075d17d35438` — CI #353 PASS;
+- TASK-120 `718714f9b63efa2a6ac33f0b1c022f1d38c2fa8c` — CI #354 PASS;
+- TASK-121 `42bd42e16417baa7554c8c82aed35ff17f92ef90` — CI #355 PASS.
 
-## Sprint architecture boundary
+## Achieved proof
 
-Deploy-owned single-host reference lifecycle only. No external load balancer, DNS/reverse proxy, Kubernetes/container scheduler, fleet/cloud topology, canonical infrastructure contract, Builder/Runtime topology change or `packages/contracts/**` expansion is authorized.
+`verified real artifact + Environment -> managed Runtime start -> health UP -> retained/queryable process -> one-shot predecessor independently executes/cleans -> managed Runtime remains UP -> explicit/idempotent managed stop -> cleanup + endpoint unreachable`
 
-## Growing proof target
+Safety evidence includes incompatible-runtime fail-closed behavior, secret-redacted startup failure, no false running state after unexpected process exit and Builder/Observe-independent Runtime operation.
 
-`verified ReleaseArtifact + Environment -> managed Runtime start -> health PASS -> process remains managed/queryable -> explicit stop -> deterministic cleanup`, with existing one-shot Deploy semantics preserved.
+## Architecture boundary
+
+- Deploy-owned single-host reference lifecycle only.
+- Additive `packages/deploy/managed-process.ts`; predecessor `local-process.ts` unchanged.
+- No canonical contracts, Runtime topology, ADR/L4, external load balancer/DNS/reverse proxy/scheduler/Kubernetes/fleet/cloud topology.
+
+## Residual P9 inputs
+
+- lifecycle is not reconstructed after orchestrator restart;
+- process lifecycle is not yet coordinated with durable active Deployment authority;
+- promotion/last-known-good process retention remains forecast;
+- production traffic/fleet/infrastructure rollback is not claimed.
 
 ## Current gate
 
-Run Deterministic CI on this materialization head before product edits. If green, execute TASK-119..121 in dependency order with one authoritative commit per TASK and declared validations. Do not materialize P9 Sprint 2/3 or package review.
+Run closure-head Deterministic CI #356. If PASS, verify PR #194 final diff/review gates, promote to human Sprint Review and stop. Do not merge or materialize P9 Sprint 2/3/package review automatically.

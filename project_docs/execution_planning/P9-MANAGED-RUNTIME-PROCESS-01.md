@@ -1,43 +1,62 @@
 # P9-MANAGED-RUNTIME-PROCESS-01 — Managed Runtime Process Lifecycle
 
-Status: COMMITTED
+Status: READY_FOR_SPRINT_REVIEW
 Base SHA: `14cdccbd391d3c337f749bc14e470e5a8bb1742f`
 Branch: `sprint/P9-MANAGED-RUNTIME-PROCESS-01`
+PR: #194
 Package: `P9-PACKAGE-01`
 
 ## Sprint Goal
 
 Evolve the existing Deploy-owned local-process reference path from one-shot acceptance execution into a bounded managed process lifecycle that can start, health-check, retain, inspect and explicitly stop one accepted Runtime instance while preserving existing one-shot behavior and failure cleanup.
 
-## Committed TASKs
+## Completed TASKs
 
-1. `TASK-119-MANAGED-LOCAL-RUNTIME-LIFECYCLE`
-2. `TASK-120-MANAGED-RUNTIME-FAILURE-CLEANUP`
-3. `TASK-121-MANAGED-RUNTIME-PREDECESSOR-EVIDENCE`
+1. `TASK-119-MANAGED-LOCAL-RUNTIME-LIFECYCLE` — `521002b28fab412cd03fa385def1075d17d35438` — CI #353 PASS.
+2. `TASK-120-MANAGED-RUNTIME-FAILURE-CLEANUP` — `718714f9b63efa2a6ac33f0b1c022f1d38c2fa8c` — CI #354 PASS.
+3. `TASK-121-MANAGED-RUNTIME-PREDECESSOR-EVIDENCE` — `42bd42e16417baa7554c8c82aed35ff17f92ef90` — CI #355 PASS.
 
 Dependency order: TASK-119 -> TASK-120 -> TASK-121.
 
-## Predecessor gate
+## Materialization evidence
 
-- P9 planning merged at `14cdccbd391d3c337f749bc14e470e5a8bb1742f`.
-- Existing `runLocalProcessDeployment` remains the predecessor behavior.
-- No canonical contract or external orchestration topology is required for this Sprint.
+- initial materialization `f04fa1b78890d250cbca7bee4eb5a5f64b1f15dd` reached CI #350 and failed only task-spec schema validation before product edits;
+- governance-only correction `febdf9f4136a8704a972a8895e5a0f2e0c0404ea` completed the required task sections; CI #351 PASS;
+- no product code was changed before the corrected pre-code gate passed.
 
-## Growing exit proof
+## Exit proof
 
-`verified ReleaseArtifact + Environment -> managed Runtime start -> health PASS -> process remains managed/queryable -> explicit stop -> deterministic cleanup`, while predecessor one-shot Deploy behavior remains compatible.
+`actual Compiler/Release/Artifact inputs + Environment -> managed Runtime start -> health PASS -> Runtime remains alive/queryable with Builder/Observe unavailable -> explicit/idempotent stop -> deterministic cleanup`
+
+Additional evidence:
+- incompatible Runtime environment fails before a managed lifecycle exists;
+- unexpected child exit cannot remain falsely `running`;
+- startup diagnostics redact resolved secret values;
+- existing one-shot `runLocalProcessDeployment` still starts, accepts, terminates and cleans its Runtime while the managed path remains independently alive;
+- managed stop removes materialization and makes the local health endpoint unreachable.
 
 ## Architecture boundary
 
-- Deploy-owned single-host reference process lifecycle only.
-- No external load balancer, DNS/reverse proxy, scheduler, Kubernetes, fleet/cloud topology or canonical infrastructure contract.
-- No `packages/contracts/**` or Runtime topology changes.
-- Additive Deploy-module API is permitted; removal/semantic break of predecessor APIs is not.
+- Deploy-owned single-host reference lifecycle only;
+- existing `packages/deploy/local-process.ts` predecessor unchanged;
+- additive implementation is isolated in `packages/deploy/managed-process.ts`;
+- no `packages/contracts/**` changes;
+- no Runtime changes;
+- no ADR/L4 change;
+- no external load balancer, DNS/reverse proxy, scheduler, Kubernetes, fleet/cloud topology or canonical infrastructure contract.
 
-## Final validation
+## Scope / debt observations
 
-`npm run verify` through GitHub Deterministic CI.
+- P9 Sprint 1 advances WBS 10.2.2/10.2.3 and bounded Runtime lifecycle aspects of 13.3.3.
+- Process ownership is in-memory/single-host and intentionally not durable across orchestrator restart; that remains for later P9 forecast work.
+- Managed process state is not yet bound to durable deployment authority/promotion; that remains outside this Sprint.
+- Production service supervision, traffic switching and fleet reconciliation are not claimed.
+- Existing P8 TLS/secret/provider debts remain unchanged.
 
-## Stop / escalation
+## Final verification
 
-Stop if implementation requires an undeclared L3/L4 change, canonical contract expansion, external traffic/fleet ownership, destructive migration, forbidden path, security weakening, or changing existing predecessor semantics rather than adding a bounded Deploy-local API.
+Closure-head repository-wide Deterministic CI #356 is required to PASS before PR #194 may be promoted to human Sprint Review.
+
+## Boundary after review
+
+Do not merge automatically. Do not materialize or execute `P9-ACTIVE-RUNTIME-PROMOTION-01`, `P9-RUNTIME-RECONCILIATION-E2E-01` or the P9 Integration & Technical Debt Review without a new instruction after this Sprint is accepted, merged and `main` is reconstructed.
