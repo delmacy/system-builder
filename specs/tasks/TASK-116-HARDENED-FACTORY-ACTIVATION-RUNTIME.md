@@ -1,7 +1,7 @@
 ---
 id: TASK-116
 title: Prove hardened Factory activation A reaches autonomous Runtime
-status: ready
+status: completed
 priority: 394
 milestone: M9
 model_tier: cheap
@@ -62,7 +62,7 @@ P8 Sprint 1 hardened the Deploy PostgreSQL transport and P8 Sprint 2 integrated 
 
 # Current behavior
 
-Factory reconstruction, authenticated Deploy state, atomic activation and autonomous Runtime are separately proven. The P8 package lacks one proof joining them.
+Completed evidence now joins actual durable Factory reconstruction, authenticated PostgreSQL Deploy, atomic no-prior-active promotion A and autonomous Runtime execution in one test.
 
 # Required change
 
