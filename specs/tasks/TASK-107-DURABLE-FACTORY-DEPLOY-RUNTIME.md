@@ -1,7 +1,7 @@
 ---
 id: TASK-107
 title: Prove durable Factory activation reaches autonomous Runtime
-status: ready
+status: completed
 priority: 403
 milestone: M8
 model_tier: cheap
