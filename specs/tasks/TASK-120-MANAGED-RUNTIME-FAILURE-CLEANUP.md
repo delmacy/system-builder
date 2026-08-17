@@ -49,20 +49,44 @@ validation:
 
 Harden the managed process lifecycle so stop is deterministic/idempotent, startup/health failures leave no retained process/materialization, and secret-bearing runtime material never appears in snapshots or diagnostics.
 
-# Required behavior
+# Context
 
-- idempotent explicit stop;
-- bounded graceful termination with forced cleanup fallback;
-- working directory retained only while the process is managed, then removed;
-- startup/health/process failure cleans the child and directory;
-- secret values remain runtime-only and are redacted from diagnostics/snapshots;
-- no falsely running lifecycle state after process exit.
+TASK-119 introduces a retained Deploy-owned local Runtime process. A retained process becomes operational state, so lifecycle cleanup and secret handling must remain fail-closed before later P9 promotion/reconciliation work can depend on it.
 
-# Tests
+# Current behavior
 
-Positive: repeated stop returns stable stopped state and cleanup remains complete.
-Negative: invalid startup/health or process failure leaves no managed live process/materialization.
-Predecessor integration: TASK-119 happy path remains unchanged.
+After TASK-119, a successful managed Runtime may remain alive until explicit stop. Existing one-shot Deploy already performs bounded termination and cleanup on failure, but the new retained path needs equivalent safety and stable repeated-stop semantics.
+
+# Required change
+
+Make explicit stop idempotent, use bounded graceful termination with forced fallback, remove materialization exactly when management ends, and guarantee all startup/health/process failure paths clean child/directory and expose only redacted secret-free diagnostics/state.
+
+# Inputs / contracts
+
+TASK-119 managed-process API, existing local-process diagnostic conventions, `EnvironmentProfile`, runtime-only resolved secrets and local process execution semantics. No canonical contract changes.
+
+# Outputs / contracts
+
+Stable stopped lifecycle state plus deterministic cleanup/failure behavior for the Deploy-local managed process implementation.
+
+# Acceptance criteria
+
+- repeated stop is safe and returns stable stopped state;
+- graceful stop is bounded and forced cleanup is available when needed;
+- working directory exists only while the process is managed, then is removed;
+- startup/health/process failure leaves no retained live process or directory;
+- lifecycle snapshot reflects unexpected process exit rather than falsely reporting running;
+- resolved secret values do not appear in snapshot, stdout/stderr-derived diagnostics or serialized evidence;
+- TASK-119 happy path remains compatible;
+- declared validations pass.
+
+# Non-goals
+
+Deployment authority promotion, external traffic switching, durable process reconstruction, multi-host supervision, production SecretResolver, canonical contracts.
+
+# Evidence expected
+
+Product tests for repeated stop, deterministic cleanup, failure cleanup and secret redaction, extending TASK-119 positive evidence.
 
 # Escalation
 

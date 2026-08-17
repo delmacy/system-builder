@@ -45,20 +45,46 @@ validation:
 
 # Objective
 
-Close the Sprint with deterministic evidence that the new managed path and the existing one-shot `runLocalProcessDeployment` can consume equivalent real compiler/release/artifact/environment inputs without changing predecessor semantics.
+Close the Sprint with deterministic evidence that the new managed path and existing one-shot `runLocalProcessDeployment` can consume equivalent real compiler/release/artifact/environment inputs while preserving their intentionally different lifecycle semantics.
 
-# Evidence
+# Context
 
-- managed path remains alive and health-queryable until explicit stop;
-- one-shot predecessor still completes and cleans its materialization;
-- both preserve Builder/Observe independence;
-- secret values do not enter evidence;
-- no hand-authored downstream release artifact when executable APIs exist.
+TASK-119/120 add a retained single-host Runtime process lifecycle. The Sprint must prove that this additive path did not silently change or replace the existing one-shot Deploy reference behavior.
 
-# Tests
+# Current behavior
 
-Positive/predecessor: run both paths from equivalent actual compiler/release/artifact inputs and assert their intended distinct lifecycle semantics.
-Negative: after managed stop, health is unreachable and cleanup is deterministic.
+The predecessor one-shot path starts, verifies and cleans a generated Runtime before returning. The new managed path retains an accepted Runtime until explicit stop and then cleans it deterministically.
+
+# Required change
+
+Add evidence-only tests invoking both paths from equivalent actual compiler/release/artifact/environment inputs, proving one-shot cleanup, managed retention/queryability, explicit stop cleanup and Builder/Observe independence.
+
+# Inputs / contracts
+
+Existing compiler output, release registry, artifact payload repository, EnvironmentProfile, `runLocalProcessDeployment`, TASK-120 managed-process API, ADR-0002 and ADR-0007.
+
+# Outputs / contracts
+
+No product output. Deterministic product-test evidence only.
+
+# Acceptance criteria
+
+- both paths use actual executable compiler/release/artifact inputs rather than hand-authored downstream artifacts;
+- managed path remains health-queryable before explicit stop;
+- one-shot predecessor still completes with its historical cleanup semantics;
+- after managed stop, health is unreachable and materialization is removed;
+- Builder/Observe may be unavailable without breaking the generated Runtime proof;
+- serialized evidence contains no secret values;
+- no `packages/**` changes are required;
+- declared validations pass.
+
+# Non-goals
+
+Any product modification, atomic promotion, restart reconciliation, external traffic/fleet topology, canonical contracts or package review work.
+
+# Evidence expected
+
+Focused predecessor-integration tests in `tests/product/managed-runtime-process.test.ts` plus repository-wide verification.
 
 # Escalation
 

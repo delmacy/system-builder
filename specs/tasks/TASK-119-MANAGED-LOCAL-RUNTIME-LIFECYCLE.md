@@ -48,21 +48,46 @@ validation:
 
 Add an additive Deploy-owned single-host managed process API that starts an accepted generated Runtime, verifies health, leaves it alive and queryable, and exposes explicit bounded stop semantics.
 
-# Required behavior
+# Context
 
-- invoke actual verified artifact payload and EnvironmentProfile inputs;
-- preserve Release/Artifact immutability;
-- keep the accepted child process alive after health PASS;
-- expose a secret-free lifecycle snapshot with running/stopped state, Runtime version, environment ref and local port;
-- expose explicit stop without leaking the raw child process;
-- do not change existing `runLocalProcessDeployment` behavior.
+P8 established durable authenticated deployment authority, while the existing Deploy local-process reference path starts a Runtime only long enough to perform acceptance checks before terminating it. P9 Sprint 1 must retain an accepted process without introducing external orchestration topology.
 
-# Tests
+# Current behavior
 
-Positive: compiled verified Runtime starts, health passes, remains queryable, then stops cleanly.
-Negative: incompatible artifact/environment fails before a managed process exists.
-Predecessor: use the same executable compiler/release/artifact inputs as existing local Deploy tests.
+`runLocalProcessDeployment` verifies artifact/environment inputs, applies migrations, resolves runtime-only secrets, starts the generated Runtime, checks health/state as applicable, then terminates the child and removes materialization before returning.
+
+# Required change
+
+Add a separate Deploy-local managed process implementation that can start the same generated Runtime inputs, verify health, retain the accepted process, expose a secret-free lifecycle snapshot and explicitly stop the process. Existing one-shot behavior must remain unchanged.
+
+# Inputs / contracts
+
+Existing `DeployPublishedRelease`, local verifiable ReleaseArtifact shape, verified artifact payload reader, canonical `EnvironmentProfile`, optional `SecretResolver`, optional local migration applier, ADR-0002 and ADR-0007. No canonical contract change.
+
+# Outputs / contracts
+
+An additive Deploy-module managed-process API and lifecycle handle/state that does not expose the raw child process or resolved secret values.
+
+# Acceptance criteria
+
+- actual verified artifact payload and EnvironmentProfile inputs are consumed;
+- accepted child remains alive after health PASS;
+- caller can inspect a deterministic secret-free running snapshot;
+- caller can explicitly stop the process;
+- Release/Artifact inputs remain immutable;
+- incompatible artifact/environment fails before a managed process exists;
+- existing `runLocalProcessDeployment` semantics are untouched;
+- positive, negative and predecessor-integration evidence exists;
+- declared validations pass.
+
+# Non-goals
+
+Atomic deployment promotion, durable active authority binding, restart reconciliation, external traffic switching, fleet/cloud scheduling, canonical contracts, Runtime feature changes.
+
+# Evidence expected
+
+Focused product tests using actual compiler/release/artifact APIs proving start -> health -> retained/queryable -> explicit stop and an incompatible-input failure.
 
 # Escalation
 
-Stop if this requires canonical contracts, Runtime changes, external traffic/fleet topology or modification of predecessor API semantics.
+Stop if this requires canonical contracts, Runtime changes, external traffic/fleet topology, or modification/removal of predecessor API semantics.
