@@ -1,7 +1,7 @@
 ---
 id: TASK-094
 title: Establish internal Release persistence boundary
-status: ready
+status: completed
 priority: 402
 milestone: M7
 model_tier: cheap
@@ -52,6 +52,10 @@ validation:
 # Objective
 
 Introduce a replaceable persistence/storage boundary inside the Release bounded context so `ReleaseRegistry` no longer requires direct ownership of one process-local Map, while preserving all current public Release behavior and the default in-memory path.
+
+# Context
+
+TASK-052 established the current immutable in-memory ReleaseRegistry behavior. P6-DURABLE-RELEASE-ARTIFACT-01 is authorized to move only the storage ownership behind a Release-owned seam while preserving the existing PublishedRelease shape, identity, lifecycle, provenance and diagnostics under WBS 09 and ADR-0007.
 
 # Current behavior
 
