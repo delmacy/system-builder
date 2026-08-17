@@ -1,37 +1,37 @@
-# Next Work — Execute P5 Integration & Technical Debt Review when authorized
+# Next Work — Review Gate for P5-PACKAGE-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-`P5-PACKAGE-01` Integration & Technical Debt Review is MATERIALIZED / NOT_STARTED on:
+`P5-PACKAGE-01` Integration & Technical Debt Review is complete in content on:
 
 `review/P5-PACKAGE-01-integration-debt`
 
-Base:
+PR: #177
 
-`ca1e161d4c48454efcee1b8d1c63b32d3c6278bf` (PR #176 merged)
+Review-head Deterministic CI #276 passed. A final Deterministic CI run on the review-finalization head is required before Ready for Review.
 
-Manifest:
+## Review disposition to verify
 
-`project_docs/execution_planning/P5-PACKAGE-01.integration-debt-review.md`
+- package construction: PASS;
+- architecture/boundaries: PASS WITH DEBT;
+- rollback blocker: NONE;
+- P4 dependency-solving and internal materializer-registry debts closed for the bounded P5 slices;
+- durable provider and production operation debts carried;
+- new P5 debt registered for bounded provider/constraint policy, static materializer assembly, cross-context identity-shape duplication and persistence lag.
 
-Do not execute the review until explicitly instructed.
+## Human Review Gate checklist
 
-## Execution scope when later authorized
-
-The review must:
-
-1. reconstruct repository authority from `AGENTS.md` and the review branch;
-2. run repository-wide deterministic regression with actual PostgreSQL CI;
-3. reclassify P4 debt against integrated P5 evidence and identify new P5 debt;
-4. revalidate contracts/architecture including ADR-0002 and ADR-0007;
-5. revalidate WBS 05/06/08/09/10/13 and the current DAG/baseline relation;
-6. update risks and rank successor directions by structural leverage;
-7. produce one review PR and stop at the human Review Gate.
+- confirm final CI passes on the exact review-finalization head;
+- confirm debt closures do not overclaim beyond bounded P5 semantics;
+- confirm ADR-0002/ADR-0007 and Builder/Runtime + Release/Environment boundaries remain intact;
+- confirm WBS/DAG revalidation is based on current integrated evidence rather than rewriting historical DAG artifacts;
+- confirm ranked successor directions are recommendations only;
+- confirm no successor Sprint Package exists.
 
 ## Successor boundary
 
-The review may recommend that a successor Sprint Package is READY_TO_BE_PLANNED after the review merges. It must not create, materialize or execute that package.
+After PR #177 is reviewed and merged, reconstruct `main` from `AGENTS.md` before planning any successor.
 
-No product feature work, durable provider implementation, production deployment work or new Runtime capability is authorized by the review materialization.
+The review may conclude that a next Sprint Package is `READY_TO_BE_PLANNED`, but no package is created, materialized or executed here.
