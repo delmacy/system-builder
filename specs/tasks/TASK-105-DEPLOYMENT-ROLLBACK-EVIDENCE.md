@@ -1,7 +1,7 @@
 ---
 id: TASK-105
 title: Prove bounded acceptance failure retains last known good deployment
-status: ready
+status: completed
 priority: 405
 milestone: M8
 model_tier: cheap
