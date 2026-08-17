@@ -1,6 +1,6 @@
 # P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling
 
-Status: ACTIVE_PACKAGE / THIRD_SPRINT_COMMITTED
+Status: ACTIVE_PACKAGE / THIRD_SPRINT_REVIEW
 Base: `c6858ed95faa48cc60361a5a86ddcc57d2b56ced` (P5-ASSEMBLY-GRAPH-01 merged through PR #175)
 
 ## Package Goal
@@ -37,18 +37,15 @@ Integrated proof:
 
 The graph implementation combines multi-path exact/minimum/compatibility requirements before candidate selection, coalesces compatible duplicates and fails closed for cycles, unresolved dependencies and incompatible requirements with deterministic evidence. Terminal CI #263 passed.
 
-### 3. P5-MATERIALIZER-REGISTRY-01 — COMMITTED
+### 3. P5-MATERIALIZER-REGISTRY-01 — SPRINT_REVIEW
 
-Goal: replace the narrow Compiler-local state.counter identity switch with deterministic materializer registration/lookup keyed by exact capability/provider/version while preserving existing state.counter output and P4 behavior.
+TASK-088/089/090 are implemented on `sprint/P5-MATERIALIZER-REGISTRY-01`; implementation CI #264/#266/#268 PASS. PR #176 is the Sprint Review boundary.
 
-Committed TASKs:
-- TASK-088 — deterministic exact-identity materializer registry/lookup;
-- TASK-089 — route the existing state.counter reference provider through the registry without behavior drift;
-- TASK-090 — actual transitive Factory->Validation->materializer->Compiler integration evidence and repository-wide regression.
-
-Expected exit proof:
+Achieved branch proof:
 
 `SystemDefinition capability -> Catalog constrained provider -> transitive AssemblyPlan BOM -> ValidationEvidence -> exact materializer registry lookup -> existing state.counter materialization -> deterministic migration/runtime assets -> ReleaseArtifact`
+
+The implementation provides deterministic exact-identity materializer registration/lookup, duplicate/no-match behavior, routes the existing reference `state.counter` provider through the registry without generated-output drift, and proves the actual constrained/transitive Factory path plus unsupported-materializer failure.
 
 ### 4. Integration & Technical Debt Review — FORECAST / MANDATORY
 
@@ -64,16 +61,16 @@ After the third construction Sprint merges, re-run package regression, classify 
 - canonical public contract or L4 change requires explicit architecture authority/ADR;
 - historical P4 evidence is preserved.
 
-## P5-MATERIALIZER-REGISTRY-01 boundaries
+## P5-MATERIALIZER-REGISTRY-01 disposition
 
-In scope:
+Implemented in scope:
 - exact capability/provider/version materializer identity;
 - deterministic registration/lookup and duplicate rejection;
 - migration of existing state.counter reference materializer onto that boundary;
 - preservation of current migration/runtime/secret behavior;
-- Factory integration evidence and P4 regression.
+- actual Factory integration evidence and P4 regression.
 
-Out of scope:
+Not introduced:
 - second production Runtime capability;
 - Catalog/Assembly semantic changes;
 - durable Catalog/Release/Artifact providers;
@@ -84,6 +81,6 @@ Out of scope:
 
 ## Package gate
 
-Only `P5-MATERIALIZER-REGISTRY-01` is currently COMMITTED on `sprint/P5-MATERIALIZER-REGISTRY-01`.
+`P5-MATERIALIZER-REGISTRY-01` is at Sprint Review on PR #176. It is not integrated until merged.
 
 The Integration & Technical Debt Review remains FORECAST / MANDATORY and must not be materialized or executed until this Sprint completes, merges, and a new explicit instruction reconstructs repository authority.
