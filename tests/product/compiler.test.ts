@@ -339,3 +339,33 @@ test("compiler rejects invalid AssemblyPlan identity", () => {
     /COMPILER_INVALID_ASSEMBLY_PLAN_HASH/,
   );
 });
+
+test("Compiler materializer registry resolves exact identities independent of registration order", async () => {
+  const {
+    RuntimeCapabilityMaterializerRegistry,
+  } = await import("../../packages/compiler/runtime-capabilities.js");
+  const empty = () => Object.freeze({ stateRequirements: Object.freeze([]) });
+  const entries = [
+    { capability: "test.beta", provider: "provider-z", version: "2.0.0", materialize: empty },
+    { capability: "test.alpha", provider: "provider-a", version: "1.0.0", materialize: empty },
+  ] as const;
+  const first = new RuntimeCapabilityMaterializerRegistry();
+  const second = new RuntimeCapabilityMaterializerRegistry();
+  for (const entry of entries) first.register(entry);
+  for (const entry of [...entries].reverse()) second.register(entry);
+
+  assert.deepEqual(
+    first.list().map(({ capability, provider, version }) => ({ capability, provider, version })),
+    second.list().map(({ capability, provider, version }) => ({ capability, provider, version })),
+  );
+  assert.equal(first.lookup({ capability: "test.alpha", provider: "provider-a", version: "1.0.0" }).ok, true);
+  assert.deepEqual(
+    first.lookup({ capability: "test.alpha", provider: "missing", version: "1.0.0" }),
+    { ok: false, identity: "test.alpha::missing::1.0.0" },
+  );
+  assert.throws(() => first.register(entries[0]), /COMPILER_MATERIALIZER_DUPLICATE:test\.beta::provider-z::2\.0\.0/);
+  assert.throws(
+    () => first.lookup({ capability: " ", provider: "provider-a", version: "1.0.0" }),
+    /COMPILER_MATERIALIZER_INVALID_CAPABILITY/,
+  );
+});

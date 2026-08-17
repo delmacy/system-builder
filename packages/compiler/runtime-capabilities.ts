@@ -18,6 +18,71 @@ export type RuntimeCapabilityMaterialization = Readonly<{
   stateRequirements: readonly RuntimeStateRequirement[];
 }>;
 
+export type RuntimeCapabilityMaterializer = Readonly<{
+  capability: string;
+  provider: string;
+  version: string;
+  materialize: () => RuntimeCapabilityMaterialization;
+}>;
+
+export type RuntimeCapabilityMaterializerLookup =
+  | Readonly<{ ok: true; materializer: RuntimeCapabilityMaterializer }>
+  | Readonly<{ ok: false; identity: string }>;
+
+function requireMaterializerToken(value: string, field: string): string {
+  const normalized = value.trim();
+  if (normalized.length === 0) throw new Error(`COMPILER_MATERIALIZER_INVALID_${field.toUpperCase()}`);
+  return normalized;
+}
+
+export function runtimeCapabilityMaterializerIdentity(
+  input: Pick<RuntimeCapabilityAssemblyComponent, "capability" | "provider" | "version">,
+): string {
+  return [
+    requireMaterializerToken(input.capability, "capability"),
+    requireMaterializerToken(input.provider, "provider"),
+    requireMaterializerToken(input.version, "version"),
+  ].join("::");
+}
+
+function normalizeMaterializer(input: RuntimeCapabilityMaterializer): RuntimeCapabilityMaterializer {
+  if (typeof input.materialize !== "function") throw new Error("COMPILER_MATERIALIZER_INVALID_HANDLER");
+  return Object.freeze({
+    capability: requireMaterializerToken(input.capability, "capability"),
+    provider: requireMaterializerToken(input.provider, "provider"),
+    version: requireMaterializerToken(input.version, "version"),
+    materialize: input.materialize,
+  });
+}
+
+function compareMaterializer(left: RuntimeCapabilityMaterializer, right: RuntimeCapabilityMaterializer): number {
+  return runtimeCapabilityMaterializerIdentity(left).localeCompare(runtimeCapabilityMaterializerIdentity(right));
+}
+
+export class RuntimeCapabilityMaterializerRegistry {
+  readonly #materializers = new Map<string, RuntimeCapabilityMaterializer>();
+
+  register(input: RuntimeCapabilityMaterializer): RuntimeCapabilityMaterializer {
+    const materializer = normalizeMaterializer(input);
+    const identity = runtimeCapabilityMaterializerIdentity(materializer);
+    if (this.#materializers.has(identity)) throw new Error(`COMPILER_MATERIALIZER_DUPLICATE:${identity}`);
+    this.#materializers.set(identity, materializer);
+    return materializer;
+  }
+
+  list(): readonly RuntimeCapabilityMaterializer[] {
+    return Object.freeze([...this.#materializers.values()].sort(compareMaterializer));
+  }
+
+  lookup(component: RuntimeCapabilityAssemblyComponent): RuntimeCapabilityMaterializerLookup {
+    const identity = runtimeCapabilityMaterializerIdentity(component);
+    const materializer = this.#materializers.get(identity);
+    return materializer
+      ? Object.freeze({ ok: true, materializer })
+      : Object.freeze({ ok: false, identity });
+  }
+}
+
 const STATE_COUNTER_CAPABILITY = "state.counter";
 const STATE_COUNTER_PROVIDER = "system-builder.postgres-counter";
 const STATE_COUNTER_VERSION = "1.0.0";
@@ -60,17 +125,11 @@ export function materializeAssemblyRuntimeCapabilities(
         left.provider.localeCompare(right.provider) || left.version.localeCompare(right.version),
     );
 
-  if (selected.length === 0) {
-    return Object.freeze({ stateRequirements: Object.freeze([]) });
-  }
-  if (selected.length !== 1) {
-    throw new Error(`COMPILER_RUNTIME_CAPABILITY_DUPLICATE:${STATE_COUNTER_CAPABILITY}`);
-  }
+  if (selected.length === 0) return Object.freeze({ stateRequirements: Object.freeze([]) });
+  if (selected.length !== 1) throw new Error(`COMPILER_RUNTIME_CAPABILITY_DUPLICATE:${STATE_COUNTER_CAPABILITY}`);
 
   const component = selected[0]!;
-  if (component.provider !== STATE_COUNTER_PROVIDER || component.version !== STATE_COUNTER_VERSION) {
-    unsupported(component);
-  }
+  if (component.provider !== STATE_COUNTER_PROVIDER || component.version !== STATE_COUNTER_VERSION) unsupported(component);
 
   return Object.freeze({
     stateRequirements: Object.freeze([materializeStateCounter()]),
