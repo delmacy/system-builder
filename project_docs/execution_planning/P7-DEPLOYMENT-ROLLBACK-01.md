@@ -1,6 +1,6 @@
 # P7-DEPLOYMENT-ROLLBACK-01 — Bounded Deployment Acceptance & Rollback
 
-Status: COMMITTED / READY
+Status: READY_FOR_SPRINT_REVIEW
 Base SHA: `fafc07c0c3a3f8661f50fbad30aa091bbea83731`
 Branch: `sprint/P7-DEPLOYMENT-ROLLBACK-01`
 Package: `P7-PACKAGE-01`
@@ -16,38 +16,28 @@ P7-DURABLE-DEPLOYMENT-STATE-01 merged through PR #184 after closure-head Determi
 
 ## Committed TASKs
 
-1. `TASK-104` — implement bounded activation/retention decision semantics.
-2. `TASK-105` — prove actual existing Deploy acceptance failure retains the prior active deployment.
-3. `TASK-106` — prove the failed-attempt/retention decision is deterministic across PostgreSQL provider reconstruction.
+1. `TASK-104` — PASS at `14465edba7a1a8f3e68838305fdca16670306111`, CI #316 PASS.
+2. `TASK-105` — PASS at `25027492eb0c540c759fdbf9d7be7d482d18e506`, CI #317 PASS.
+3. `TASK-106` — PASS at `ec9c971e38fc991db55baa38e4bbb4c3f282f0ba`, CI #318 PASS.
 
 Dependency order: `TASK-104 -> TASK-105 -> TASK-106`.
 
 ## Growing integration proof
 
-Sprint 1 baseline:
-
-`successful DeploymentRecord -> durable Deploy state -> provider/process reconstruction -> equivalent history + active release/version observation`
-
-Sprint exit proof:
+Sprint exit proof achieved:
 
 `active durable deployment A -> candidate B -> acceptance failure -> A remains authoritative active version + deterministic failure/rollback evidence`.
 
 ## Final validation
 
-`npm run verify`
+Final closure-head `npm run verify` remains the last objective gate before human Sprint Review.
 
 GitHub Actions with PostgreSQL 17.6 is the objective remote integration gate.
 
 ## Stop / escalation conditions
 
-Stop and escalate if any TASK requires:
-- `packages/contracts/**` change or another canonical shared contract;
-- ADR/L4 architecture change;
-- production traffic switching/load balancer/fleet supervisor semantics;
-- destructive migration;
-- modifying a path forbidden by the active TASK;
-- weakening secret handling or Runtime autonomy.
+No escalation condition was triggered. The Sprint did not require canonical contracts, ADR/L4 architecture change, production traffic switching, destructive migration, forbidden paths, or weakened secret/Runtime autonomy boundaries.
 
-## Explicit non-goals
+## Explicit non-goals preserved
 
 Production routing, zero-downtime orchestration, process supervisor/fleet coordination, TLS/SCRAM/pooling hardening, production SecretResolver implementation, generated Runtime feature expansion, or P7 Sprint 3 work.

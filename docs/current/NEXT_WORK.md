@@ -1,20 +1,25 @@
-# Next Work — P7-DEPLOYMENT-ROLLBACK-01
+# Next Work — Sprint Review P7-DEPLOYMENT-ROLLBACK-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-`P7-DEPLOYMENT-ROLLBACK-01 — Bounded Deployment Acceptance & Rollback` is committed on `sprint/P7-DEPLOYMENT-ROLLBACK-01` from merged P7 state baseline `fafc07c0c3a3f8661f50fbad30aa091bbea83731`.
+The second P7 construction Sprint is implemented on:
+
+`sprint/P7-DEPLOYMENT-ROLLBACK-01`
+
+PR: #185
+Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+
+TASK gates:
+- TASK-104 — `14465edba7a1a8f3e68838305fdca16670306111` — CI #316 PASS;
+- TASK-105 — `25027492eb0c540c759fdbf9d7be7d482d18e506` — CI #317 PASS;
+- TASK-106 — `ec9c971e38fc991db55baa38e4bbb4c3f282f0ba` — CI #318 PASS.
 
 ## Required action
 
-Execute in dependency order:
-1. TASK-104;
-2. TASK-105 after TASK-104 validation PASS;
-3. TASK-106 after TASK-105 validation PASS.
-
-Run each TASK's declared validation. After TASK-106, run final `npm run verify`, generate the Sprint Report, open/update one Sprint PR and stop at human Sprint Review.
+Require final Deterministic CI on the closure head. If green, mark PR #185 Ready for human Sprint Review and stop.
 
 ## Boundary
 
-Do not materialize or execute `P7-DURABLE-DEPLOYMENT-E2E-01` or the P7 Integration & Technical Debt Review. Do not introduce production traffic switching/load-balancer behavior, TLS/auth transport hardening, fleet supervision, secret-manager providers or canonical public contract changes.
+Do not merge automatically at this gate. Do not materialize or execute `P7-DURABLE-DEPLOYMENT-E2E-01` or the P7 Integration & Technical Debt Review. They remain FORECAST / NOT_MATERIALIZED until predecessor review and merge gates pass.
