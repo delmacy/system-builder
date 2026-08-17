@@ -1,30 +1,29 @@
-# Next Work — P8 Integration & Technical Debt Review Gate
+# Next Work — P9 Planning Review
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Integrated baseline
 
-All three P8 construction Sprints are merged. Current package review base: `c2c0d92b1b76c9dff3134036b70ccd6538763dd3`.
+P8 package review is merged through PR #192 at `78e4e9a8056bf1e9c4bb4f49a798dd080cfd128a`.
 
-## Active review
+## Active planning package
 
-`P8-PACKAGE-01 — Integration & Technical Debt Review`
+`P9-PACKAGE-01 — Managed Runtime Deployment Orchestration`
 
-Branch: `review/P8-PACKAGE-01-integration-debt`
-PR: #192
-Status: `FINALIZED / MATERIALIZATION_CI_PASS / FINAL_CI_PENDING`.
-
-Materialization regression CI #347 passed with 309 unit tests, 152 product tests, 119 TASK specs, architecture gates and build green.
+Branch: `plan/P9-PACKAGE-01`
+Status: `PLANNING / CI_PENDING`.
 
 ## Required action
 
-1. Run repository-wide Deterministic CI on the finalized review head.
-2. If green, confirm PR #192 changes only the four review/governance documents and has no unresolved review blockers.
-3. Mark PR #192 Ready for human Review Gate and stop.
+1. Run repository-wide Deterministic CI on the planning head.
+2. If green, confirm the diff is documentation-only and limited to the P9 package plan plus current-state planning documents.
+3. Open/promote a single planning PR to human Planning Review and stop.
 
-## Boundary
+## Planning boundary
 
-Do not merge PR #192 automatically at this gate.
-Do not create, name, select or materialize a successor Sprint Package.
-Do not start any successor construction Sprint.
-The next package may only be derived after this review is accepted, merged and `main` is freshly reconstructed.
+The package forecasts three construction Sprints plus mandatory integration/debt review, but only planning is authorized here.
+
+Do not materialize TASKs.
+Do not materialize or execute `P9-MANAGED-RUNTIME-PROCESS-01`.
+Do not select external traffic/fleet/cloud orchestration topology inside this planning gate.
+After human Planning Review acceptance and merge, reconstruct `main` before deciding whether Sprint 1 remains the committed successor.

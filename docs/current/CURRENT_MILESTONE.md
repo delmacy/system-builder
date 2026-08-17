@@ -1,54 +1,40 @@
-# Current Execution Milestone — M9 P8 Integration & Technical Debt Review
+# Current Execution Milestone — M10 P9 Package Planning
 
 ## Goal
 
-Close `P8-PACKAGE-01` at the package boundary by revalidating integrated regression, architecture/contracts, WBS/DAG, technical debt, risks and successor readiness from the actual merged three-Sprint state.
+Materialize the next rolling-wave package from the actual integrated post-P8 state, selecting the highest-leverage bounded successor without silently introducing a new infrastructure topology.
 
-## Integrated construction baseline
+## Integrated predecessor
 
-- Sprint 1 `P8-DEPLOY-POSTGRES-TRANSPORT-01` — PR #189 / closure CI #333 PASS.
-- Sprint 2 `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` — PR #190 / closure CI #340 PASS.
-- Sprint 3 `P8-HARDENED-ACTIVATION-E2E-01` — PR #191 / closure CI #346 PASS.
-- Current merged base: `c2c0d92b1b76c9dff3134036b70ccd6538763dd3`.
+P8 Integration & Technical Debt Review merged through PR #192 at `78e4e9a8056bf1e9c4bb4f49a798dd080cfd128a` after final Deterministic CI #348 PASS.
 
-## Active review
+P8 leaves authenticated atomic deployment authority reliable, while process/traffic orchestration remains the highest-leverage open deployment gap.
 
-`P8 Integration & Technical Debt Review`
+## Planning package
 
-Branch: `review/P8-PACKAGE-01-integration-debt`
-PR: #192
-Status: `FINALIZED / MATERIALIZATION_CI_PASS / FINAL_CI_PENDING`.
+`P9-PACKAGE-01 — Managed Runtime Deployment Orchestration`
 
-## Objective regression
+Branch: `plan/P9-PACKAGE-01`
+Status: `PLANNING / CI_PENDING`.
 
-Materialization Deterministic CI #347: PASS.
+Forecast:
+1. `P9-MANAGED-RUNTIME-PROCESS-01` — commitment candidate after planning merge/reconstruction;
+2. `P9-ACTIVE-RUNTIME-PROMOTION-01` — forecast;
+3. `P9-RUNTIME-RECONCILIATION-E2E-01` — forecast;
+4. mandatory P9 Integration & Technical Debt Review.
 
-Observed:
-- PostgreSQL 17.6 trust + SCRAM fixtures healthy;
-- `npm ci` PASS / 0 vulnerabilities;
-- `npm run verify` PASS;
-- 309 unit tests PASS;
-- 152 product tests PASS;
-- 119 TASK specs validated;
-- architecture gates PASS;
-- build PASS.
+## Bounded architecture decision
 
-## Review result
+Planning chooses the existing Deploy-owned local-process adapter as the reference ownership seam for P9. “Active Runtime” means the authoritative managed process inside this single-host reference orchestrator.
 
-Construction: PASS.
-Architecture/contracts: PASS WITH DEBT.
-Critical rollback blocker: NONE FOUND.
+The package does not choose external load-balancer, DNS, reverse-proxy, container scheduler, Kubernetes, fleet or cloud orchestration topology. If implementation requires one, Sprint execution must stop/escalate rather than inventing architecture.
 
-Key disposition:
-- TD-P7-01 closed for the bounded Deploy PostgreSQL reference provider;
-- TD-P4-03 materially reduced but carried HIGH;
-- TD-P6-01 carried HIGH;
-- TD-P7-02 carried HIGH;
-- TD-P8-01 new MEDIUM coarse-lock scaling debt;
-- TD-P8-02 new HIGH positive TLS certificate/server-identity verification debt.
+## Growing proof target
+
+`P8 durable authenticated authority -> managed Runtime A -> accepted B promotion -> stale/failed contender cannot replace/terminate B -> orchestrator restart -> durable authority reconstruction -> B process reconciliation -> autonomous Runtime continuity`
 
 ## Current gate
 
-Run final Deterministic CI on the review-finalization head. If PASS, verify documentation-only scope/review gates, promote PR #192 to human Review Gate and stop.
+Run Deterministic CI on this documentation-only planning head. If PASS, confirm the diff contains only the package plan and current-state planning documents, open/promote one planning PR and stop at human Planning Review.
 
-No successor package or construction Sprint is authorized at this gate.
+No P9 TASK or construction Sprint is authorized by this planning branch.
