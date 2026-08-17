@@ -49,9 +49,25 @@ validation:
 
 Prove the Sprint exit chain using existing Deploy output and the durable state provider without changing product source.
 
-# Required evidence
+# Context
 
-Create focused PostgreSQL integration evidence that starts from an actual existing `dryRunDeploy` DeploymentRecord, records it through the Deploy state boundary, reconstructs the provider/process and observes the equivalent history plus active release/version for the same environment.
+TASK-101 supplies the Deploy-owned state boundary and TASK-102 supplies its PostgreSQL implementation. Sprint closure requires evidence across the existing Deploy API and provider/process reconstruction rather than isolated provider tests.
+
+# Current behavior
+
+The predecessor TASKs can record and reconstruct deployment state, but no focused growing E2E proof yet starts from actual existing `dryRunDeploy` output and verifies active-state observation after reconstruction.
+
+# Required change
+
+Create focused PostgreSQL integration evidence that starts from an actual existing `dryRunDeploy` DeploymentRecord, records it through the Deploy state boundary, reconstructs the provider/process and observes equivalent history plus active release/version for the same environment.
+
+# Inputs / contracts
+
+Existing `dryRunDeploy`, TASK-101 `DeploymentRegistry`/storage boundary, TASK-102 PostgreSQL provider, EnvironmentProfile and unchanged DeploymentRecord semantics.
+
+# Outputs / contracts
+
+Test evidence only. No product or contract source change is permitted.
 
 # Acceptance criteria
 

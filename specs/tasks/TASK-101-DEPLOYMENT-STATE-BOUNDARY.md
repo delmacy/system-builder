@@ -60,9 +60,21 @@ Introduce a replaceable Deploy-owned storage boundary for existing `DeploymentRe
 
 Deploy already emits deterministic `DeploymentRecord` evidence, but history and active-version state have no durable owner. WBS 10.3.1/10.3.2 requires deployment records and active-version visibility.
 
+# Current behavior
+
+`dryRunDeploy` and local deployment return immutable deterministic `DeploymentRecord` values to their caller. Deploy has no owned registry/storage abstraction for historical records or active deployment observation.
+
 # Required change
 
 Add a Deploy-internal storage interface, default in-memory implementation and registry that stores immutable deployment evidence, lists it deterministically and exposes the active successful deployment per environment. Failed records remain history and do not replace active successful state. PostgreSQL is not part of this TASK.
+
+# Inputs / contracts
+
+Existing `DeploymentRecord`, `dryRunDeploy`, EnvironmentProfile compatibility behavior, WBS 10.3.1/10.3.2 and ADR-0007 Release/Environment/Deployment separation.
+
+# Outputs / contracts
+
+Deploy-internal storage/registry API and default in-memory implementation. Existing DeploymentRecord and canonical contract shapes remain unchanged.
 
 # Acceptance criteria
 

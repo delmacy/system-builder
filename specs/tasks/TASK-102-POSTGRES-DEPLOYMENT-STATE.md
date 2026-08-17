@@ -58,9 +58,25 @@ validation:
 
 Implement a bounded PostgreSQL reference provider for the Deploy-owned state boundary from TASK-101.
 
+# Context
+
+TASK-101 establishes the provider-neutral Deploy state seam. P7 requires one restart-safe reference provider to prove WBS 10.3 operational state across process/provider reconstruction.
+
+# Current behavior
+
+After TASK-101, deployment history and active pointers can be owned by an in-memory `DeploymentRecordStorage`, but state still disappears with the process.
+
 # Required change
 
 Persist and reconstruct DeploymentRecord history plus the active deployment pointer per environment using PostgreSQL 17.6 in CI. Keep provider details internal to Deploy and preserve the in-memory path.
+
+# Inputs / contracts
+
+TASK-101 `DeploymentRecordStorage`, existing immutable DeploymentRecord semantics, PostgreSQL 17.6 CI service, and the bounded reference-provider pattern already used by Release persistence.
+
+# Outputs / contracts
+
+A Deploy-owned PostgreSQL storage implementation conforming exactly to the TASK-101 boundary, plus focused provider tests. No cross-context or canonical contract is added.
 
 # Acceptance criteria
 
