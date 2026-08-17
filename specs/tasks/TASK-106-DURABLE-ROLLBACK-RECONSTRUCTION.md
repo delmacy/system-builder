@@ -1,7 +1,7 @@
 ---
 id: TASK-106
 title: Prove durable rollback evidence across PostgreSQL reconstruction
-status: ready
+status: completed
 priority: 404
 milestone: M8
 model_tier: cheap
