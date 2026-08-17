@@ -9,8 +9,9 @@ Date: 2026-08-17
 ## Current maturity
 
 - P1–P6 construction/review history is integrated; P6 review merged through PR #182.
-- P7-PACKAGE-01 planning merged through PR #183 at `ee17702742a07e78f70f05f653e60445ddd72167`; planning CI #306 PASS.
-- P7-DURABLE-DEPLOYMENT-STATE-01 implementation is complete on PR #184 and awaiting closure-head CI / Sprint Review.
+- P7-PACKAGE-01 planning merged through PR #183.
+- P7-DURABLE-DEPLOYMENT-STATE-01 merged through PR #184 at `fafc07c0c3a3f8661f50fbad30aa091bbea83731` after closure CI #313 PASS.
+- P7-DEPLOYMENT-ROLLBACK-01 is the committed second P7 construction Sprint.
 - GitHub Actions with PostgreSQL 17.6 remains the objective deterministic integration gate.
 - AgentFactory Supervisor/runtime remains frozen non-blocking infrastructure.
 
@@ -18,34 +19,31 @@ Date: 2026-08-17
 
 Integrated predecessor:
 
-`durable Catalog -> deterministic Assembly/Validation/Compiler -> durable Release/Artifact -> existing Deploy -> autonomous persisted Runtime`
+`successful DeploymentRecord -> durable Deploy state -> provider/process reconstruction -> equivalent history + active release/version observation`
 
-Current Sprint adds:
+Current Sprint target:
 
-`existing successful DeploymentRecord -> Deploy-owned persistence -> PostgreSQL durability -> provider/process reconstruction -> equivalent immutable history + active release/version observation`
-
-A failed deployment attempt is durable history but does not replace the active successful deployment.
+`active durable deployment A -> candidate B -> acceptance failure -> A remains authoritative active version + deterministic failure/rollback evidence`
 
 ## Active Sprint
 
-`P7-DURABLE-DEPLOYMENT-STATE-01 — Durable Deployment State Authority`
+`P7-DEPLOYMENT-ROLLBACK-01 — Bounded Deployment Acceptance & Rollback`
 
-Base: `ee17702742a07e78f70f05f653e60445ddd72167`
-Branch: `sprint/P7-DURABLE-DEPLOYMENT-STATE-01`
-PR: #184
-Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+Base: `fafc07c0c3a3f8661f50fbad30aa091bbea83731`
+Branch: `sprint/P7-DEPLOYMENT-ROLLBACK-01`
+Status: `COMMITTED / READY_FOR_TASK-104`.
 
-TASK results:
-1. TASK-101 — PASS at `e002f7e1065d39106d4d0b3afc4217686b6d5854`; CI #310 PASS;
-2. TASK-102 — PASS at `18ee73fbb04bfaaf4d3c2b5a83f335fc3860413e`; CI #311 PASS;
-3. TASK-103 — PASS at `f9a7a1de866f241f380aff04e4e2a963222e4d0d`; CI #312 PASS.
+Committed dependency order:
+1. TASK-104 — bounded activation/retention decision;
+2. TASK-105 — acceptance-failure integration evidence;
+3. TASK-106 — PostgreSQL reconstruction of rollback evidence.
 
 ## Architecture boundary
 
-ADR-0002 and ADR-0007 remain controlling and preserved. No canonical contract or L4 change occurred. PostgreSQL remains a replaceable Deploy reference provider. Production TLS/auth/pooling/traffic/supervision and rollback orchestration remain outside this Sprint.
+ADR-0002 and ADR-0007 remain controlling. No canonical contract or L4 change is authorized. Rollback is bounded operational authority: retain the last known-good active deployment when a candidate fails acceptance. Production traffic switching, load balancers, TLS, fleet supervision and secret-manager implementation remain outside scope.
 
 ## Current gate
 
-Require final Deterministic CI on the closure head. If green, PR #184 becomes Ready for human Sprint Review and execution stops there.
+Execute TASK-104 -> TASK-105 -> TASK-106 with one authoritative commit per TASK and declared validation before advancing. After repository-wide final verification, produce the Sprint Report and stop at the PR Sprint Review.
 
-`P7-DEPLOYMENT-ROLLBACK-01`, `P7-DURABLE-DEPLOYMENT-E2E-01` and the mandatory P7 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.
+`P7-DURABLE-DEPLOYMENT-E2E-01` and the mandatory P7 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.

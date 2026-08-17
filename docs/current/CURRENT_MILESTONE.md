@@ -1,42 +1,39 @@
-# Current Execution Milestone — M8 P7 Durable Deployment State Sprint Review
+# Current Execution Milestone — M8 P7 Deployment Rollback Sprint
 
 ## Goal
 
-Close the first P7 construction Sprint after proving durable DeploymentRecord history and active-version observation across provider/process reconstruction without expanding into production deployment infrastructure.
+Execute the second P7 construction Sprint by adding bounded acceptance/activation semantics so a failed candidate deployment cannot replace the last known-good active deployment, while emitting deterministic rollback/retention evidence without claiming production traffic control.
 
 ## Integrated baseline
 
-P7-PACKAGE-01 planning merged through PR #183 at `ee17702742a07e78f70f05f653e60445ddd72167`.
+P7-DURABLE-DEPLOYMENT-STATE-01 merged through PR #184 at `fafc07c0c3a3f8661f50fbad30aa091bbea83731`.
 
 ## Active Sprint
 
-`P7-DURABLE-DEPLOYMENT-STATE-01 — Durable Deployment State Authority`
+`P7-DEPLOYMENT-ROLLBACK-01 — Bounded Deployment Acceptance & Rollback`
 
-Branch: `sprint/P7-DURABLE-DEPLOYMENT-STATE-01`
-PR: #184
-Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+Branch: `sprint/P7-DEPLOYMENT-ROLLBACK-01`
+Status: `COMMITTED / READY_FOR_TASK-104`.
 
-Completed order:
-1. TASK-101 — PASS / CI #310;
-2. TASK-102 — PASS / CI #311;
-3. TASK-103 — PASS / CI #312.
+Committed order:
+1. TASK-104 — activation/retention decision API;
+2. TASK-105 — actual Deploy acceptance-failure proof;
+3. TASK-106 — durable PostgreSQL reconstruction proof.
 
-## Achieved proof
+## Expected proof
 
-`existing successful DeploymentRecord -> Deploy-owned persistence -> PostgreSQL durability -> provider/process reconstruction -> equivalent immutable history + active release/version observation`
+`active durable deployment A -> candidate B -> acceptance failure -> A remains authoritative active version + deterministic failure/rollback evidence`
 
-Failed deployment evidence remains durable history and does not replace the active successful deployment.
+## Constraints
 
-## Constraints preserved
-
-- ADR-0002 Runtime autonomy preserved;
-- ADR-0007 Release/Environment/Deployment separation preserved;
+- preserve ADR-0002 Runtime autonomy;
+- preserve ADR-0007 Release/Environment/Deployment separation;
 - no canonical contract or L4 change;
-- PostgreSQL remains internal reference-provider detail;
-- no production TLS/traffic/fleet/supervision or rollback orchestration claim.
+- no production traffic switching, TLS, fleet/supervision or secret-manager work;
+- PostgreSQL remains a replaceable Deploy reference provider.
 
 ## Current gate
 
-Run final closure-head Deterministic CI. If PASS, mark PR #184 Ready for Sprint Review and stop.
+Execute TASK-104 first and require its declared validations before TASK-105.
 
-Later P7 Sprints and the mandatory package review remain FORECAST / NOT_MATERIALIZED.
+P7-DURABLE-DEPLOYMENT-E2E-01 and the P7 package review remain FORECAST / NOT_MATERIALIZED.
