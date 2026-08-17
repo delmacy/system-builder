@@ -1,36 +1,34 @@
-# Next Work — Review P6 Package Forecast
+# Next Work — Review P6-DURABLE-CATALOG-01
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-`P6-PACKAGE-01 — Durable Factory and Release Infrastructure` is materialized as a FORECAST package on:
+`P6-DURABLE-CATALOG-01` implementation is complete on:
 
-`plan/P6-PACKAGE-01`
+`sprint/P6-DURABLE-CATALOG-01`
 
-Base:
+PR: #179
 
-`97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f`
+Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
 
-No construction Sprint is COMMITTED. No Sprint manifest or TASK spec exists for P6 execution.
+TASK gates passed in dependency order:
+- TASK-091 — CI #281 PASS;
+- TASK-092 — CI #284 PASS;
+- TASK-093 — CI #285 PASS.
 
-## Forecast sequence
+## Delivered proof
 
-1. `P6-DURABLE-CATALOG-01` — FORECAST;
-2. `P6-DURABLE-RELEASE-ARTIFACT-01` — FORECAST;
-3. `P6-DURABLE-FACTORY-E2E-01` — FORECAST;
-4. P6 Integration & Technical Debt Review — FORECAST / MANDATORY.
+`normalized Catalog registration -> durable PostgreSQL persistence -> provider/process reconstruction -> equivalent deterministic Catalog resolution -> actual transitive AssemblyPlan`
 
-## Package review checklist
+Public Catalog semantics, Assembly source/semantics, canonical contracts and downstream Factory modules remain unchanged.
 
-- confirm TD-P4-01 and TD-P5-04 justify durability before capability breadth;
-- confirm Catalog and Release provider boundaries remain replaceable rather than PostgreSQL-specific public contracts;
-- confirm ArtifactPayloadRepository semantics are preserved;
-- confirm ADR-0002 Runtime autonomy and ADR-0007 Release/Environment/Deployment separation remain intact;
-- confirm WBS 05 and WBS 09 authority is sufficient and no L4 change is hidden;
-- confirm each forecast Sprint grows restart-safe E2E evidence rather than merely adding storage code;
-- confirm production Deploy/SecretResolver/Runtime breadth and materializer extensibility remain out of scope.
+## Required next action
+
+Run closure-head Deterministic CI after the Sprint report/current-state commit. If green, mark the existing single PR #179 Ready for human Sprint Review and stop.
+
+Do not merge before the human Sprint Review gate. Do not materialize or execute any successor Sprint automatically.
 
 ## Successor boundary
 
-If the package plan is accepted, explicitly revalidate only `P6-DURABLE-CATALOG-01` against the then-current repository before any promotion to COMMITTED. Do not materialize or execute that Sprint automatically.
+`P6-DURABLE-RELEASE-ARTIFACT-01`, `P6-DURABLE-FACTORY-E2E-01` and the P6 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.

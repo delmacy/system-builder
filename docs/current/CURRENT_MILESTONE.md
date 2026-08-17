@@ -1,47 +1,48 @@
-# Current Execution Milestone — M7 P6 Package Planning
+# Current Execution Milestone — M7 P6 Durable Catalog Sprint Review
 
 ## Goal
 
-Plan the next rolling-wave package from the actual post-P5 integrated state, prioritizing durable Factory/Release providers without committing or executing any Sprint.
+Complete the first P6 construction Sprint by proving durable Software Catalog persistence/reconstruction without changing public Catalog or Assembly semantics.
 
 ## Integrated baseline
 
-P5 Integration & Technical Debt Review merged through PR #177 at `97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f`.
+P6-PACKAGE-01 planning merged through PR #178 at:
 
-P5 disposition:
-- package construction: PASS;
-- architecture/boundaries: PASS WITH DEBT;
-- rollback blocker: NONE;
-- TD-P4-02 and TD-P4-07 closed for bounded P5 targets;
-- TD-P4-01 durable Catalog/Release/Artifact providers: CARRIED / HIGH;
-- TD-P5-04 persistence lag behind composition semantics: HIGH.
+`5806de40087ad36d8b6556d1cd4a7446b9db13c7`
 
-## Planning conclusion
+## Active Sprint
 
-The durable Factory/Release direction remains the highest-leverage successor.
+`P6-DURABLE-CATALOG-01 — Durable Software Catalog Provider`
 
-Why:
-- `SoftwareCatalogRegistry` remains process-local;
-- `ReleaseRegistry` remains process-local;
-- ArtifactStore already exposes provider-neutral repository interfaces but only an in-memory concrete implementation is proven;
-- WBS 9.3.1 requires publication through abstract registry/storage;
-- strengthening durability does not require Runtime dependence on Builder and therefore preserves ADR-0002;
-- durable release publication can preserve Release/Environment/Deployment separation under ADR-0007.
+Branch: `sprint/P6-DURABLE-CATALOG-01`
 
-## Forecast package
+PR: #179
 
-`P6-PACKAGE-01 — Durable Factory and Release Infrastructure`
+Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
 
-Branch: `plan/P6-PACKAGE-01`
+TASK results:
+1. TASK-091 — Catalog persistence boundary — PASS / CI #281;
+2. TASK-092 — PostgreSQL reference provider — PASS / CI #284;
+3. TASK-093 — restart-safe Catalog -> Assembly evidence — PASS / CI #285.
 
-Status: FORECAST_PACKAGE / NO_COMMITTED_SPRINT.
+## Achieved growing proof
 
-Forecast sequence:
-1. `P6-DURABLE-CATALOG-01` — FORECAST;
-2. `P6-DURABLE-RELEASE-ARTIFACT-01` — FORECAST;
-3. `P6-DURABLE-FACTORY-E2E-01` — FORECAST;
-4. P6 Integration & Technical Debt Review — FORECAST / MANDATORY.
+`register normalized catalog records -> persist in PostgreSQL -> reconstruct provider/process -> deterministic list/resolution equivalent -> actual transitive AssemblyPlan equivalent`
+
+CI #285 verified PostgreSQL 17.6 with 309 unit PASS, 117 product PASS, 94 task specs, architecture PASS and build PASS.
+
+## Architecture constraints preserved
+
+- current exported Catalog data semantics preserved;
+- `catalogIdentity`, duplicate rejection and deterministic ordering preserved;
+- exact/minimum/compatibility behavior preserved;
+- `packages/assembly/**` unchanged;
+- PostgreSQL remains a reference implementation behind the Catalog boundary;
+- canonical `packages/contracts/**` unchanged;
+- ADR-0002 and ADR-0007 unchanged.
 
 ## Current gate
 
-Package planning only. No Sprint manifest, TASK spec, implementation branch or product change is authorized by this planning state.
+Closure-head Deterministic CI is required after report/state reconciliation. If PASS, PR #179 becomes Ready for human Sprint Review and execution stops there.
+
+All later P6 construction Sprints and package review remain FORECAST / NOT_MATERIALIZED.
