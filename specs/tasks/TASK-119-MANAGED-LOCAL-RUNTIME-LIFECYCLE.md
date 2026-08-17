@@ -1,7 +1,7 @@
 ---
 id: TASK-119
 title: Add Deploy-owned managed local Runtime lifecycle
-status: ready
+status: completed
 priority: 420
 milestone: M10
 model_tier: cheap
