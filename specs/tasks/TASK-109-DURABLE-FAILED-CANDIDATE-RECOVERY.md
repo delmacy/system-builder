@@ -1,7 +1,7 @@
 ---
 id: TASK-109
 title: Prove failed durable candidate recovery and package closure
-status: ready
+status: completed
 priority: 401
 milestone: M8
 model_tier: cheap

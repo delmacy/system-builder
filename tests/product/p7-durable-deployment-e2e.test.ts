@@ -5,7 +5,7 @@ import { assembleSystemDefinition } from "../../packages/assembly/index.js";
 import { SoftwareCatalogRegistry, resolveCatalogCandidates } from "../../packages/catalog/index.js";
 import { PostgresCatalogRecordStorage } from "../../packages/catalog/postgres.js";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
-import { DeploymentRegistry } from "../../packages/deploy/index.js";
+import { DeploymentRegistry, dryRunDeploy } from "../../packages/deploy/index.js";
 import { executeLocalDeployment } from "../../packages/deploy/local-deployment.js";
 import { PostgresDeploymentRecordStorage } from "../../packages/deploy/postgres-state.js";
 import { InMemorySecretResolver } from "../../packages/deploy/secret-resolver.js";
@@ -199,4 +199,110 @@ test("TASK-108 successful durable B replaces A and preserves autonomous Runtime 
   await reconstructedDeployStorage.close();
   await durableB.reconstructedArtifactStorage.close();
   await durableB.reconstructedReleaseStorage.close();
+});
+
+test("TASK-109 failed durable C retains B across reconstruction and Runtime remains autonomous", { skip: postgresUrl === undefined ? "SYSTEM_BUILDER_TEST_POSTGRES_URL not configured" : false }, async () => {
+  assert.ok(postgresUrl);
+  const scope = "p7_task109";
+  const compilation = await compileDurableFactory(scope);
+  const resolver = new InMemorySecretResolver({ "secret://p7/runtime": postgresUrl });
+
+  const durableA = await publishAndReconstruct(scope, compilation, "1.0.0");
+  const deployedA = await executeLocalDeployment({
+    publishedRelease: durableA.release,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: durableA.reconstructedArtifactStorage,
+    environment: environment(),
+    secretResolver: resolver,
+    processEnvironment: unavailableControlPlane,
+    startedAt: "2026-08-17T20:20:01Z",
+    completedAt: "2026-08-17T20:20:02Z",
+    timeoutMs: 10_000,
+  });
+  assert.equal(deployedA.ok, true);
+  if (!deployedA.ok || !deployedA.execution.ok) throw new Error("TASK109_RUNTIME_A_FAILED");
+  const storageA = await PostgresDeploymentRecordStorage.open(postgresUrl, `${scope}_deploy`);
+  const registryA = new DeploymentRegistry(storageA);
+  assert.equal(registryA.activateCandidate(deployedA.record).outcome, "activated");
+  await storageA.close();
+  await durableA.reconstructedArtifactStorage.close();
+  await durableA.reconstructedReleaseStorage.close();
+
+  const durableB = await publishAndReconstruct(scope, compilation, "1.1.0");
+  const deployedB = await executeLocalDeployment({
+    publishedRelease: durableB.release,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: durableB.reconstructedArtifactStorage,
+    environment: environment(),
+    secretResolver: resolver,
+    processEnvironment: unavailableControlPlane,
+    startedAt: "2026-08-17T20:21:01Z",
+    completedAt: "2026-08-17T20:21:02Z",
+    timeoutMs: 10_000,
+  });
+  assert.equal(deployedB.ok, true);
+  if (!deployedB.ok || !deployedB.execution.ok) throw new Error("TASK109_RUNTIME_B_FAILED");
+  const storageB = await PostgresDeploymentRecordStorage.open(postgresUrl, `${scope}_deploy`);
+  const registryB = new DeploymentRegistry(storageB);
+  const decisionB = registryB.activateCandidate(deployedB.record);
+  assert.equal(decisionB.outcome, "activated");
+  await storageB.close();
+
+  const durableC = await publishAndReconstruct(scope, compilation, "1.2.0");
+  const candidateC = dryRunDeploy({
+    publishedRelease: durableC.release,
+    releaseArtifact: compilation.artifact,
+    environment: environment(),
+    acceptanceChecks: [{ name: "runtime-health", pass: false }],
+    startedAt: "2026-08-17T20:22:01Z",
+    completedAt: "2026-08-17T20:22:02Z",
+  });
+  assert.equal(candidateC.ok, true);
+  if (!candidateC.ok) throw new Error("TASK109_CANDIDATE_C_FAILED_TO_MATERIALIZE");
+  assert.equal(candidateC.record.status, "failed");
+  assert.deepEqual(candidateC.record.healthChecks, [{ name: "runtime-health", status: "FAIL" }]);
+
+  const storageC = await PostgresDeploymentRecordStorage.open(postgresUrl, `${scope}_deploy`);
+  const registryC = new DeploymentRegistry(storageC);
+  const decisionC = registryC.activateCandidate(candidateC.record);
+  assert.equal(decisionC.outcome, "retained-active");
+  assert.equal(decisionC.previousActiveDeploymentId, deployedB.record.deploymentId);
+  assert.equal(decisionC.resultingActiveDeploymentId, deployedB.record.deploymentId);
+  await storageC.close();
+
+  const reconstructedStorage = await PostgresDeploymentRecordStorage.open(postgresUrl, `${scope}_deploy`);
+  const reconstructedRegistry = new DeploymentRegistry(reconstructedStorage);
+  assert.equal(reconstructedRegistry.getActive(environment().environmentRef)?.deploymentId, deployedB.record.deploymentId);
+  assert.deepEqual(
+    new Set(reconstructedRegistry.list().map((record) => record.deploymentId)),
+    new Set([deployedA.record.deploymentId, deployedB.record.deploymentId, candidateC.record.deploymentId]),
+  );
+  const repeatedDecisionC = reconstructedRegistry.activateCandidate(candidateC.record);
+  assert.deepEqual(repeatedDecisionC, decisionC);
+  assert.equal(Object.isFrozen(repeatedDecisionC), true);
+  await reconstructedStorage.close();
+
+  const runtimeAfterFailure = await executeLocalDeployment({
+    publishedRelease: durableB.release,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: durableB.reconstructedArtifactStorage,
+    environment: environment(),
+    secretResolver: resolver,
+    processEnvironment: unavailableControlPlane,
+    startedAt: "2026-08-17T20:23:01Z",
+    completedAt: "2026-08-17T20:23:02Z",
+    timeoutMs: 10_000,
+  });
+  assert.equal(runtimeAfterFailure.ok, true);
+  if (!runtimeAfterFailure.ok || !runtimeAfterFailure.execution.ok) throw new Error("TASK109_POST_FAILURE_RUNTIME_FAILED");
+  assert.equal(runtimeAfterFailure.execution.health.status, "UP");
+
+  const evidence = JSON.stringify({ releaseA: durableA.release, releaseB: durableB.release, releaseC: durableC.release, decisionB, decisionC, repeatedDecisionC, candidateC: candidateC.record, active: deployedB.record, postFailureHealth: runtimeAfterFailure.execution.health });
+  assert.equal(evidence.includes(postgresUrl), false);
+  assert.equal(evidence.includes("postgres://"), false);
+
+  await durableB.reconstructedArtifactStorage.close();
+  await durableB.reconstructedReleaseStorage.close();
+  await durableC.reconstructedArtifactStorage.close();
+  await durableC.reconstructedReleaseStorage.close();
 });
