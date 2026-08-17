@@ -130,3 +130,48 @@ test("activation decision rejects failed candidate without fabricating active st
   assert.equal(registry.getActive(environment.environmentRef), undefined);
   assert.deepEqual(registry.get(failed.record.deploymentId), failed.record);
 });
+
+test("atomic activation promotes only when expected authority matches and rejects a stale writer", async () => {
+  const registry = new DeploymentRegistry();
+  const active = dryRunDeploy({ publishedRelease: { ...release, version: "3.0.0" }, releaseArtifact: artifact, environment, acceptanceChecks: [{ name: "health", pass: true }], startedAt: "2026-08-16T00:03:00Z", completedAt: "2026-08-16T00:03:01Z" });
+  const next = dryRunDeploy({ publishedRelease: { ...release, version: "3.1.0" }, releaseArtifact: artifact, environment, acceptanceChecks: [{ name: "health", pass: true }], startedAt: "2026-08-16T00:03:02Z", completedAt: "2026-08-16T00:03:03Z" });
+  const stale = dryRunDeploy({ publishedRelease: { ...release, version: "3.2.0" }, releaseArtifact: artifact, environment, acceptanceChecks: [{ name: "health", pass: true }], startedAt: "2026-08-16T00:03:04Z", completedAt: "2026-08-16T00:03:05Z" });
+  assert.equal(active.ok, true); assert.equal(next.ok, true); assert.equal(stale.ok, true);
+  if (!active.ok || !next.ok || !stale.ok) return;
+
+  const first = await registry.activateCandidateAtomically(active.record, null);
+  assert.equal(first.outcome, "activated");
+  const promoted = await registry.activateCandidateAtomically(next.record, active.record.deploymentId);
+  assert.equal(promoted.outcome, "activated");
+  assert.equal(promoted.previousActiveDeploymentId, active.record.deploymentId);
+  assert.equal(promoted.resultingActiveDeploymentId, next.record.deploymentId);
+
+  const rejected = await registry.activateCandidateAtomically(stale.record, active.record.deploymentId);
+  assert.equal(rejected.outcome, "stale-active");
+  assert.equal(rejected.previousActiveDeploymentId, next.record.deploymentId);
+  assert.equal(rejected.resultingActiveDeploymentId, next.record.deploymentId);
+  assert.deepEqual(registry.getActive(environment.environmentRef), next.record);
+  assert.deepEqual(registry.get(stale.record.deploymentId), stale.record);
+  assert.match(rejected.decisionId, /^sha256:[a-f0-9]{64}$/);
+});
+
+test("atomic activation durably records failed candidates without replacing authority", async () => {
+  const registry = new DeploymentRegistry();
+  const failedNoActive = dryRunDeploy({ publishedRelease: { ...release, version: "4.0.0" }, releaseArtifact: artifact, environment, acceptanceChecks: [{ name: "health", pass: false }], startedAt: "2026-08-16T00:04:00Z", completedAt: "2026-08-16T00:04:01Z" });
+  assert.equal(failedNoActive.ok, true);
+  if (!failedNoActive.ok) return;
+  const rejected = await registry.activateCandidateAtomically(failedNoActive.record, null);
+  assert.equal(rejected.outcome, "rejected-no-active");
+  assert.equal(registry.getActive(environment.environmentRef), undefined);
+
+  const active = dryRunDeploy({ publishedRelease: { ...release, version: "4.1.0" }, releaseArtifact: artifact, environment, acceptanceChecks: [{ name: "health", pass: true }], startedAt: "2026-08-16T00:04:02Z", completedAt: "2026-08-16T00:04:03Z" });
+  const failed = dryRunDeploy({ publishedRelease: { ...release, version: "4.2.0" }, releaseArtifact: artifact, environment, acceptanceChecks: [{ name: "health", pass: false }], startedAt: "2026-08-16T00:04:04Z", completedAt: "2026-08-16T00:04:05Z" });
+  assert.equal(active.ok, true); assert.equal(failed.ok, true);
+  if (!active.ok || !failed.ok) return;
+  await registry.activateCandidateAtomically(active.record, null);
+  const retained = await registry.activateCandidateAtomically(failed.record, active.record.deploymentId);
+  assert.equal(retained.outcome, "retained-active");
+  assert.equal(retained.resultingActiveDeploymentId, active.record.deploymentId);
+  assert.deepEqual(registry.getActive(environment.environmentRef), active.record);
+  assert.deepEqual(registry.get(failed.record.deploymentId), failed.record);
+});

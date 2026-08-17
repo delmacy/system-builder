@@ -2,7 +2,7 @@ import { createHash, createHmac, pbkdf2Sync, randomBytes } from "node:crypto";
 import { createConnection, type Socket } from "node:net";
 import { connect as createTlsConnection, type TLSSocket } from "node:tls";
 import type { DeploymentRecord } from "./index.js";
-import { InMemoryDeploymentRecordStorage, type DeploymentRecordStorage } from "./storage.js";
+import { InMemoryDeploymentRecordStorage, type AtomicDeploymentActivationResult, type DeploymentRecordStorage } from "./storage.js";
 
 type PostgresSslMode = "disable" | "prefer" | "require";
 type PostgresConfig = Readonly<{ host: string; port: number; user: string; password: string; database: string; sslMode: PostgresSslMode }>;
@@ -211,6 +211,70 @@ export class PostgresDeploymentRecordStorage implements DeploymentRecordStorage 
     this.#cache.setActiveDeploymentId(environmentRef, deploymentId);
     this.#pending = this.#pending.then(() => simpleQuery(this.#connectionString, `INSERT INTO ${this.#activeTable} (environment_ref, deployment_id) VALUES (${literal(environmentRef)}, ${literal(deploymentId)}) ON CONFLICT (environment_ref) DO UPDATE SET deployment_id = EXCLUDED.deployment_id`).then(() => undefined));
   }
+
+  async activateAtomically(record: DeploymentRecord, expectedActiveDeploymentId: string | null): Promise<AtomicDeploymentActivationResult> {
+    await this.flush();
+    const encoded = JSON.stringify(record);
+    const expectedMatches = expectedActiveDeploymentId === null
+      ? "NOT EXISTS (SELECT 1 FROM current_active)"
+      : `(SELECT deployment_id FROM current_active) = ${literal(expectedActiveDeploymentId)}`;
+    const rows = await simpleQuery(this.#connectionString, `
+BEGIN;
+LOCK TABLE ${this.#activeTable} IN SHARE ROW EXCLUSIVE MODE;
+WITH current_active AS (
+  SELECT deployment_id FROM ${this.#activeTable} WHERE environment_ref = ${literal(record.environmentRef)}
+), existing_record AS (
+  SELECT record_json FROM ${this.#recordsTable} WHERE deployment_id = ${literal(record.deploymentId)}
+), record_insert AS (
+  INSERT INTO ${this.#recordsTable} (deployment_id, record_json)
+  VALUES (${literal(record.deploymentId)}, ${literal(encoded)})
+  ON CONFLICT (deployment_id) DO NOTHING
+  RETURNING deployment_id
+), record_conflict AS (
+  SELECT 1 FROM existing_record WHERE record_json <> ${literal(encoded)}
+), activation AS (
+  INSERT INTO ${this.#activeTable} (environment_ref, deployment_id)
+  SELECT ${literal(record.environmentRef)}, ${literal(record.deploymentId)}
+  WHERE ${literal(record.status)} = 'succeeded'
+    AND NOT EXISTS (SELECT 1 FROM record_conflict)
+    AND (${expectedMatches})
+  ON CONFLICT (environment_ref) DO UPDATE SET deployment_id = EXCLUDED.deployment_id
+  RETURNING deployment_id
+)
+SELECT
+  CASE
+    WHEN EXISTS (SELECT 1 FROM record_conflict) THEN 'conflict'
+    WHEN ${literal(record.status)} = 'failed' THEN CASE WHEN EXISTS (SELECT 1 FROM current_active) THEN 'retained-active' ELSE 'rejected-no-active' END
+    WHEN EXISTS (SELECT 1 FROM activation) THEN 'activated'
+    ELSE 'stale-active'
+  END,
+  (SELECT deployment_id FROM current_active),
+  CASE WHEN EXISTS (SELECT 1 FROM activation) THEN ${literal(record.deploymentId)} ELSE (SELECT deployment_id FROM current_active) END;
+COMMIT`);
+    const row = rows[0];
+    if (rows.length !== 1 || row === undefined || row.length !== 3 || typeof row[0] !== "string") throw new Error("DEPLOY_POSTGRES_ATOMIC_RESULT_INVALID");
+    if (row[1] !== null && typeof row[1] !== "string") throw new Error("DEPLOY_POSTGRES_ATOMIC_RESULT_INVALID");
+    if (row[2] !== null && typeof row[2] !== "string") throw new Error("DEPLOY_POSTGRES_ATOMIC_RESULT_INVALID");
+    const outcome = row[0]; const previous = row[1] ?? null; const resulting = row[2] ?? null;
+    if (outcome === "conflict") throw new Error(`DEPLOYMENT_RECORD_CONFLICT:${record.deploymentId}`);
+    if (outcome !== "activated" && outcome !== "retained-active" && outcome !== "rejected-no-active" && outcome !== "stale-active") throw new Error("DEPLOY_POSTGRES_ATOMIC_RESULT_INVALID");
+
+    this.#cache.set(record.deploymentId, record); this.#persisted.add(record.deploymentId);
+    if (resulting !== null) {
+      let activeRecord = this.#cache.get(resulting);
+      if (activeRecord === undefined) {
+        const activeRows = await simpleQuery(this.#connectionString, `SELECT deployment_id, record_json FROM ${this.#recordsTable} WHERE deployment_id = ${literal(resulting)}`);
+        const activeRow = activeRows[0];
+        if (activeRows.length !== 1 || activeRow === undefined || activeRow.length < 2 || typeof activeRow[0] !== "string" || typeof activeRow[1] !== "string") throw new Error(`DEPLOY_POSTGRES_ACTIVE_INVALID:${record.environmentRef}`);
+        activeRecord = normalizeRecord(activeRow[0], activeRow[1]);
+        this.#cache.set(activeRecord.deploymentId, activeRecord); this.#persisted.add(activeRecord.deploymentId);
+      }
+      if (activeRecord.status !== "succeeded" || activeRecord.environmentRef !== record.environmentRef) throw new Error(`DEPLOY_POSTGRES_ACTIVE_INVALID:${record.environmentRef}`);
+      this.#cache.setActiveDeploymentId(record.environmentRef, resulting);
+    }
+    return Object.freeze({ outcome, previousActiveDeploymentId: previous, resultingActiveDeploymentId: resulting });
+  }
+
   async flush(): Promise<void> { await this.#pending; }
   async close(): Promise<void> { await this.flush(); }
 }

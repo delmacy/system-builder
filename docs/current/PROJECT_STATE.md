@@ -9,54 +9,51 @@ Date: 2026-08-17
 ## Current maturity
 
 - P1–P7 construction/review history is integrated.
-- P7 Integration & Technical Debt Review merged through PR #187 at `aa79f1fbeefb1f49faddf24db35a9ea35f74df29` after final Deterministic CI #327 PASS.
-- P8-PACKAGE-01 planning merged through PR #188 at `91f5cb23145c901c508e9673ef8cd38b52bbb413` after planning CI #328 PASS.
-- `P8-DEPLOY-POSTGRES-TRANSPORT-01` implementation is complete on PR #189 and awaiting closure-head CI / Sprint Review.
+- P8 package planning merged through PR #188 at `91f5cb23145c901c508e9673ef8cd38b52bbb413`.
+- `P8-DEPLOY-POSTGRES-TRANSPORT-01` merged through PR #189 at `209e192ec56599a05f6972e347f5b70989165c54` after final CI #333 PASS.
+- `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` is implemented on its Sprint branch through TASK-115 and awaits closure-head final CI / Sprint Review.
 - GitHub Actions with PostgreSQL 17.6 remains the objective deterministic integration gate.
 - AgentFactory Supervisor/runtime remains frozen non-blocking infrastructure.
 
-## Integrated proof baseline
+## Integrated main baseline
 
-P7 integrated baseline:
+`authenticated PostgreSQL Deploy state -> durable DeploymentRecord/active authority -> provider/process reconstruction -> equivalent state with no credential leakage`
 
-`durable Factory output -> durable Deploy activation A -> autonomous Runtime -> successful B activation -> failed candidate C -> reconstruct deployment authority -> B remains active + Runtime continuity`
-
-Current Sprint adds:
-
-`authenticated PostgreSQL reference connection -> existing Deploy storage boundary -> durable DeploymentRecord/active observation -> provider/process reconstruction -> equivalent state with no credential leakage`
-
-The Deploy reference provider now proves actual PostgreSQL 17.6 SCRAM authentication, deterministic TLS-mode boundary behavior and bounded transaction commit/rollback while preserving predecessor trust-auth evidence.
+The atomic multi-writer proof described below is branch-only until Sprint Review acceptance and merge.
 
 ## Active Sprint
 
-`P8-DEPLOY-POSTGRES-TRANSPORT-01 — Authenticated Deploy PostgreSQL Transport`
+`P8-ATOMIC-DEPLOYMENT-AUTHORITY-01 — Atomic Multi-Writer Deployment Authority`
 
-Base: `91f5cb23145c901c508e9673ef8cd38b52bbb413`
-Branch: `sprint/P8-DEPLOY-POSTGRES-TRANSPORT-01`
-PR: #189
-Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+Base: `209e192ec56599a05f6972e347f5b70989165c54`
+Branch: `sprint/P8-ATOMIC-DEPLOYMENT-AUTHORITY-01`
+PR: #190
+Status: `IMPLEMENTED_ON_SPRINT_BRANCH / TASK_CI_PASS / FINAL_CI_PENDING`.
 
-TASK results:
-1. TASK-110 — PASS at `6e0145206f0b2316e19eafebae2444f835189ed9`; CI #330 PASS;
-2. TASK-111 — PASS at `bbe77a77cee88958a8193e1d4143b92685fce900`; CI #331 PASS;
-3. TASK-112 — PASS at `e39f740e4bc605da2ccd6704979ae8be9de1f6f4`; CI #332 PASS.
+TASK evidence:
+- TASK-113 `470f436318c0ef633f25bd9576051512c8830004` — CI #336 PASS;
+- TASK-114 `9d30185892687ef9b66f771db55d7daa71d7c346` — CI #338 PASS;
+- TASK-115 `ba12bf64631a38c209b208895afa99e6200dec02` — CI #339 PASS.
 
-Materialization `7b4979ccd1f43c8d2c2355002059743a49c8e5a8` passed CI #329 before TASK execution.
+## Sprint proof on branch
+
+`active A -> two independent authenticated PostgreSQL writers from expected A -> one database-serialized authoritative transition -> stale writer rejected -> failed candidate retains winner -> fresh reconstruction -> same authoritative deployment + complete durable history`
 
 ## Architecture boundary
 
-ADR-0002 and ADR-0007 remain controlling and preserved. No canonical contract, public Deploy semantic or L4 change occurred. PostgreSQL remains a Deploy-owned replaceable provider detail; no cross-context PostgreSQL ownership was introduced.
-
-No npm dependency was added. The CI keeps the predecessor trust PostgreSQL service and adds a separate authenticated SCRAM reference service for Deploy evidence.
+- TASK-113 is an explicitly authorized additive L3 Deploy-module API change;
+- existing synchronous Deploy APIs remain compatible;
+- `packages/contracts/**` unchanged;
+- ADR-0002 and ADR-0007 remain preserved;
+- no L4 decision/ADR or cross-context PostgreSQL ownership was introduced;
+- PostgreSQL remains a Deploy-owned replaceable reference provider.
 
 ## Residual debt
 
-- `TD-P4-03` is reduced but not closed: SCRAM authentication and deterministic TLS-mode handling are now proven, while positive encrypted TLS/certificate policy, pooling, retry/richer cancellation and provider observability remain open.
-- `TD-P6-01` remains carried: raw PostgreSQL transport remains duplicated across bounded contexts.
-- `TD-P7-01` remains carried: transactional multi-writer/CAS active authority is forecast Sprint 2 work, not part of this Sprint.
+Atomic authority correctness is now branch-proven for the bounded PostgreSQL reference provider, but the implementation currently uses coarse table-level serialization. Positive TLS certificate policy, pooling/retry/richer cancellation/provider observability, cross-context PostgreSQL duplication and production deployment orchestration remain open/non-goals.
 
 ## Current gate
 
-Run final Deterministic CI on the closure head. If green, verify the PR remains within Sprint scope, mark PR #189 Ready for human Sprint Review and stop.
+Run repository-wide Deterministic CI on the Sprint closure head. If green, verify PR #190 scope/review gates, mark it Ready for human Sprint Review and stop.
 
-Do not merge PR #189 automatically. Do not materialize `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` until predecessor review and merge gates pass followed by fresh `main` reconstruction.
+Do not merge PR #190 automatically. Do not materialize `P8-HARDENED-ACTIVATION-E2E-01` or the P8 Integration & Technical Debt Review at this gate.
