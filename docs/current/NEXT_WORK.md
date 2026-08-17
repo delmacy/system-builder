@@ -1,29 +1,24 @@
-# Next Work — P9 Planning Review
+# Next Work — P9 Managed Runtime Process Sprint
 
 The repository is authoritative. Do not use chat history as technical authority.
 
-## Integrated baseline
+## Active Sprint
 
-P8 package review is merged through PR #192 at `78e4e9a8056bf1e9c4bb4f49a798dd080cfd128a`.
+`P9-MANAGED-RUNTIME-PROCESS-01`
 
-## Active planning package
-
-`P9-PACKAGE-01 — Managed Runtime Deployment Orchestration`
-
-Branch: `plan/P9-PACKAGE-01`
-Status: `PLANNING / CI_PENDING`.
+Base: `14cdccbd391d3c337f749bc14e470e5a8bb1742f`
+Branch: `sprint/P9-MANAGED-RUNTIME-PROCESS-01`
+Status: `MATERIALIZED / PRE_CODE_CI_PENDING`.
 
 ## Required action
 
-1. Run repository-wide Deterministic CI on the planning head.
-2. If green, confirm the diff is documentation-only and limited to the P9 package plan plus current-state planning documents.
-3. Open/promote a single planning PR to human Planning Review and stop.
+1. Run Deterministic CI on the materialization head.
+2. If green, execute TASK-119, TASK-120 and TASK-121 in dependency order.
+3. Respect each TASK's `context_paths`, `allowed_paths`, `forbidden_paths`, `max_files` and validations.
+4. Keep one authoritative commit per TASK.
+5. Run repository-wide final verification, produce Sprint Report, open/promote one Sprint PR and stop at Sprint Review.
 
-## Planning boundary
+## Boundary
 
-The package forecasts three construction Sprints plus mandatory integration/debt review, but only planning is authorized here.
-
-Do not materialize TASKs.
-Do not materialize or execute `P9-MANAGED-RUNTIME-PROCESS-01`.
-Do not select external traffic/fleet/cloud orchestration topology inside this planning gate.
-After human Planning Review acceptance and merge, reconstruct `main` before deciding whether Sprint 1 remains the committed successor.
+Do not materialize or execute `P9-ACTIVE-RUNTIME-PROMOTION-01`, `P9-RUNTIME-RECONCILIATION-E2E-01` or the P9 Integration & Technical Debt Review.
+Stop/escalate if managed process ownership requires external traffic/fleet/cloud topology, canonical infrastructure contracts or an L4 Builder/Runtime change.
