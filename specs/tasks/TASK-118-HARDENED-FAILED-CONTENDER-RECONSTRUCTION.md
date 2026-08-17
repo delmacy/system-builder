@@ -1,7 +1,7 @@
 ---
 id: TASK-118
 title: Prove failed contender retention and hardened authority reconstruction
-status: ready
+status: completed
 priority: 392
 milestone: M9
 model_tier: cheap
@@ -55,7 +55,7 @@ TASK-117 proves successful B promotion and stale contender rejection on the hard
 
 # Current behavior
 
-B survives a stale successful contender, but the package E2E is incomplete until failed-candidate retention and final reconstruction/Runtime continuity are proven together.
+Completed evidence now joins A activation, B promotion, stale C rejection, failed D retention, fresh authenticated authority reconstruction and post-reconstruction autonomous Runtime continuity.
 
 # Required change
 

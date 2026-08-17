@@ -5,7 +5,7 @@ import { assembleSystemDefinition } from "../../packages/assembly/index.js";
 import { SoftwareCatalogRegistry, resolveCatalogCandidates } from "../../packages/catalog/index.js";
 import { PostgresCatalogRecordStorage } from "../../packages/catalog/postgres.js";
 import { compileSyntheticRelease } from "../../packages/compiler/index.js";
-import { DeploymentRegistry } from "../../packages/deploy/index.js";
+import { DeploymentRegistry, dryRunDeploy } from "../../packages/deploy/index.js";
 import { executeLocalDeployment } from "../../packages/deploy/local-deployment.js";
 import { PostgresDeploymentRecordStorage } from "../../packages/deploy/postgres-state.js";
 import { InMemorySecretResolver } from "../../packages/deploy/secret-resolver.js";
@@ -110,16 +110,15 @@ async function executeRelease(scope: string, compilation: Awaited<ReturnType<typ
   return { durable, record: deployed.record, health: deployed.execution.health };
 }
 
-test("TASK-116 durable Factory output atomically activates as A through authenticated Deploy and reaches autonomous Runtime", {
-  skip: factoryPostgresUrl === undefined || deployPostgresUrl === undefined ? "PostgreSQL CI fixtures not configured" : false,
-}, async () => {
+const postgresFixturesMissing = factoryPostgresUrl === undefined || deployPostgresUrl === undefined ? "PostgreSQL CI fixtures not configured" : false;
+
+test("TASK-116 durable Factory output atomically activates as A through authenticated Deploy and reaches autonomous Runtime", { skip: postgresFixturesMissing }, async () => {
   assert.ok(deployPostgresUrl);
   const scope = "p8_task116";
   const compilation = await compileDurableFactory(scope);
   const a = await executeRelease(scope, compilation, "1.0.0", "2026-08-17T21:30:00Z", "2026-08-17T21:30:01Z", "2026-08-17T21:30:02Z");
   const deployStorage = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
-  const registry = new DeploymentRegistry(deployStorage);
-  const decisionA = await registry.activateCandidateAtomically(a.record, null);
+  const decisionA = await new DeploymentRegistry(deployStorage).activateCandidateAtomically(a.record, null);
   assert.equal(decisionA.outcome, "activated");
   assert.equal(decisionA.previousActiveDeploymentId, null);
   assert.equal(decisionA.resultingActiveDeploymentId, a.record.deploymentId);
@@ -134,16 +133,13 @@ test("TASK-116 durable Factory output atomically activates as A through authenti
   await a.durable.reconstructedReleaseStorage.close();
 });
 
-test("TASK-117 atomic B promotion rejects stale successful contender and preserves autonomous Runtime continuity", {
-  skip: factoryPostgresUrl === undefined || deployPostgresUrl === undefined ? "PostgreSQL CI fixtures not configured" : false,
-}, async () => {
+test("TASK-117 atomic B promotion rejects stale successful contender and preserves autonomous Runtime continuity", { skip: postgresFixturesMissing }, async () => {
   assert.ok(deployPostgresUrl);
   const scope = "p8_task117";
   const compilation = await compileDurableFactory(scope);
   const a = await executeRelease(scope, compilation, "1.0.0", "2026-08-17T21:31:00Z", "2026-08-17T21:31:01Z", "2026-08-17T21:31:02Z");
   const storageA = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
-  const registryA = new DeploymentRegistry(storageA);
-  const decisionA = await registryA.activateCandidateAtomically(a.record, null);
+  const decisionA = await new DeploymentRegistry(storageA).activateCandidateAtomically(a.record, null);
   assert.equal(decisionA.outcome, "activated");
   await storageA.close();
   await a.durable.reconstructedArtifactStorage.close();
@@ -151,8 +147,7 @@ test("TASK-117 atomic B promotion rejects stale successful contender and preserv
 
   const b = await executeRelease(scope, compilation, "1.1.0", "2026-08-17T21:32:00Z", "2026-08-17T21:32:01Z", "2026-08-17T21:32:02Z");
   const storageB = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
-  const registryB = new DeploymentRegistry(storageB);
-  const decisionB = await registryB.activateCandidateAtomically(b.record, a.record.deploymentId);
+  const decisionB = await new DeploymentRegistry(storageB).activateCandidateAtomically(b.record, a.record.deploymentId);
   assert.equal(decisionB.outcome, "activated");
   assert.equal(decisionB.previousActiveDeploymentId, a.record.deploymentId);
   assert.equal(decisionB.resultingActiveDeploymentId, b.record.deploymentId);
@@ -174,10 +169,101 @@ test("TASK-117 atomic B promotion rejects stale successful contender and preserv
   assert.deepEqual(new Set(reconstructedRegistry.list().map((record) => record.deploymentId)), new Set([a.record.deploymentId, b.record.deploymentId, c.record.deploymentId]));
   assert.equal(b.health.status, "UP");
   assertNoCredentialLeak(JSON.stringify({ decisionA, decisionB, decisionC, active: reconstructedRegistry.getActive(environment().environmentRef), history: reconstructedRegistry.list(), healthB: b.health }));
-
   await reconstructedStorage.close();
   await b.durable.reconstructedArtifactStorage.close();
   await b.durable.reconstructedReleaseStorage.close();
   await c.durable.reconstructedArtifactStorage.close();
   await c.durable.reconstructedReleaseStorage.close();
+});
+
+test("TASK-118 failed contender retains B across fresh authenticated authority reconstruction and Runtime remains autonomous", { skip: postgresFixturesMissing }, async () => {
+  assert.ok(factoryPostgresUrl);
+  assert.ok(deployPostgresUrl);
+  const scope = "p8_task118";
+  const compilation = await compileDurableFactory(scope);
+
+  const a = await executeRelease(scope, compilation, "1.0.0", "2026-08-17T21:34:00Z", "2026-08-17T21:34:01Z", "2026-08-17T21:34:02Z");
+  const storageA = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
+  const decisionA = await new DeploymentRegistry(storageA).activateCandidateAtomically(a.record, null);
+  assert.equal(decisionA.outcome, "activated");
+  await storageA.close();
+  await a.durable.reconstructedArtifactStorage.close();
+  await a.durable.reconstructedReleaseStorage.close();
+
+  const b = await executeRelease(scope, compilation, "1.1.0", "2026-08-17T21:35:00Z", "2026-08-17T21:35:01Z", "2026-08-17T21:35:02Z");
+  const storageB = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
+  const decisionB = await new DeploymentRegistry(storageB).activateCandidateAtomically(b.record, a.record.deploymentId);
+  assert.equal(decisionB.outcome, "activated");
+  await storageB.close();
+
+  const c = await executeRelease(scope, compilation, "1.2.0", "2026-08-17T21:36:00Z", "2026-08-17T21:36:01Z", "2026-08-17T21:36:02Z");
+  const storageC = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
+  const decisionC = await new DeploymentRegistry(storageC).activateCandidateAtomically(c.record, a.record.deploymentId);
+  assert.equal(decisionC.outcome, "stale-active");
+  assert.equal(decisionC.resultingActiveDeploymentId, b.record.deploymentId);
+  await storageC.close();
+  await c.durable.reconstructedArtifactStorage.close();
+  await c.durable.reconstructedReleaseStorage.close();
+
+  const durableD = await publishAndReconstruct(scope, compilation, "1.3.0", "2026-08-17T21:37:00Z");
+  const candidateD = dryRunDeploy({
+    publishedRelease: durableD.release,
+    releaseArtifact: compilation.artifact,
+    environment: environment(),
+    acceptanceChecks: [{ name: "runtime-health", pass: false }],
+    startedAt: "2026-08-17T21:37:01Z",
+    completedAt: "2026-08-17T21:37:02Z",
+  });
+  assert.equal(candidateD.ok, true);
+  if (!candidateD.ok) throw new Error("TASK118_FAILED_CANDIDATE_NOT_MATERIALIZED");
+  assert.equal(candidateD.record.status, "failed");
+  assert.deepEqual(candidateD.record.healthChecks, [{ name: "runtime-health", status: "FAIL" }]);
+
+  const storageD = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
+  const registryD = new DeploymentRegistry(storageD);
+  assert.equal(registryD.getActive(environment().environmentRef)?.deploymentId, b.record.deploymentId);
+  const decisionD = await registryD.activateCandidateAtomically(candidateD.record, b.record.deploymentId);
+  assert.equal(decisionD.outcome, "retained-active");
+  assert.equal(decisionD.previousActiveDeploymentId, b.record.deploymentId);
+  assert.equal(decisionD.resultingActiveDeploymentId, b.record.deploymentId);
+  await storageD.close();
+
+  const reconstructedStorage = await PostgresDeploymentRecordStorage.open(deployPostgresUrl, `${scope}_deploy`);
+  const reconstructedRegistry = new DeploymentRegistry(reconstructedStorage);
+  assert.equal(reconstructedRegistry.getActive(environment().environmentRef)?.deploymentId, b.record.deploymentId);
+  assert.deepEqual(
+    new Set(reconstructedRegistry.list().map((record) => record.deploymentId)),
+    new Set([a.record.deploymentId, b.record.deploymentId, c.record.deploymentId, candidateD.record.deploymentId]),
+  );
+
+  const runtimeAfterReconstruction = await executeLocalDeployment({
+    publishedRelease: b.durable.release,
+    releaseArtifact: compilation.artifact,
+    artifactPayloadReader: b.durable.reconstructedArtifactStorage,
+    environment: environment(),
+    secretResolver: new InMemorySecretResolver({ "secret://p8/runtime": factoryPostgresUrl }),
+    processEnvironment: unavailableControlPlane,
+    startedAt: "2026-08-17T21:38:01Z",
+    completedAt: "2026-08-17T21:38:02Z",
+    timeoutMs: 10_000,
+  });
+  assert.equal(runtimeAfterReconstruction.ok, true);
+  if (!runtimeAfterReconstruction.ok || !runtimeAfterReconstruction.execution.ok) throw new Error("TASK118_RUNTIME_AFTER_RECONSTRUCTION_FAILED");
+  assert.equal(runtimeAfterReconstruction.execution.health.status, "UP");
+
+  assertNoCredentialLeak(JSON.stringify({
+    decisionA,
+    decisionB,
+    decisionC,
+    decisionD,
+    active: reconstructedRegistry.getActive(environment().environmentRef),
+    history: reconstructedRegistry.list(),
+    finalHealth: runtimeAfterReconstruction.execution.health,
+  }));
+
+  await reconstructedStorage.close();
+  await b.durable.reconstructedArtifactStorage.close();
+  await b.durable.reconstructedReleaseStorage.close();
+  await durableD.reconstructedArtifactStorage.close();
+  await durableD.reconstructedReleaseStorage.close();
 });
