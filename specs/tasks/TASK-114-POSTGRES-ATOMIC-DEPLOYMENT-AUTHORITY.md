@@ -4,7 +4,7 @@ title: Implement PostgreSQL atomic activation CAS
 status: ready
 priority: 396
 milestone: M9
-model_tier: strong
+model_tier: cheap
 risk: medium
 architecture_impact: false
 executor_preference: any

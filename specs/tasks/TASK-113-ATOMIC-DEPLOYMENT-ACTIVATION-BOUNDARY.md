@@ -4,7 +4,7 @@ title: Add atomic activation boundary to Deploy storage
 status: ready
 priority: 397
 milestone: M9
-model_tier: strong
+model_tier: architecture
 risk: medium
 architecture_impact: true
 executor_preference: any
