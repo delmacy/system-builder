@@ -1,7 +1,7 @@
 ---
 id: TASK-096
 title: Implement PostgreSQL reference ArtifactPayloadRepository
-status: ready
+status: completed
 priority: 404
 milestone: M7
 model_tier: cheap
