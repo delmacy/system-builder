@@ -47,9 +47,13 @@ validation:
 
 Close the P7 construction package proof with a failed candidate C whose acceptance failure is durable while successful B remains authoritative active state after PostgreSQL reconstruction and its Runtime remains executable autonomously.
 
-# Current behavior
+# Context
 
 TASK-108 proves successful A -> B activation. The package forecast requires the bounded failure branch and reconstruction of the correct active version with Runtime continuity.
+
+# Current behavior
+
+Successful successor activation is durable, but the full package-level chain has not yet demonstrated a later failed candidate against that active successor in the same executable proof.
 
 # Required change
 
@@ -78,6 +82,10 @@ Test evidence only.
 # Non-goals
 
 Persisting a separate rollback log/schema, production traffic switching, fleet supervision, provider hardening or architecture changes.
+
+# Evidence expected
+
+The focused P7 E2E test closed with A -> B -> failed C, PostgreSQL authority reconstruction and post-failure Runtime continuity evidence.
 
 # Escalation
 

@@ -54,9 +54,13 @@ validation:
 
 Prove, using actual executable module APIs and PostgreSQL reference providers, that reconstructed durable Factory output can become durable active deployment A and execute in an autonomous local Runtime while Builder/Observe endpoints are unavailable.
 
-# Current behavior
+# Context
 
 P6 proved durable Factory reconstruction and autonomous Runtime. P7 Sprints 1/2 separately proved durable deployment authority and bounded rollback. There is not yet one package-level proof joining those authorities.
+
+# Current behavior
+
+Durable Factory, durable deployment state, activation decisions and local autonomous Runtime execution exist as separately proven capabilities.
 
 # Required change
 
@@ -84,6 +88,10 @@ Test evidence only. No product or canonical contract source change.
 # Non-goals
 
 Upgrade B, failed candidate recovery C, product changes, traffic switching, supervisor/fleet behavior or schema changes.
+
+# Evidence expected
+
+One focused PostgreSQL-backed product E2E test proving Factory reconstruction -> durable activation A -> autonomous Runtime plus repository verification.
 
 # Escalation
 

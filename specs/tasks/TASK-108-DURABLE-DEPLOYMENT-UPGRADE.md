@@ -47,9 +47,13 @@ validation:
 
 Extend the P7 E2E proof from active deployment A through a successful release/version B activation and autonomous Runtime execution.
 
-# Current behavior
+# Context
 
 TASK-107 proves durable Factory output can become active deployment A and run autonomously. The package still lacks one joined proof of a successful successor activation.
+
+# Current behavior
+
+A durable successful deployment can be reconstructed as active and its verified artifact can run without Builder/Observe availability.
 
 # Required change
 
@@ -77,6 +81,10 @@ Test evidence only.
 # Non-goals
 
 Failed candidate C, production traffic switching, schema/provider changes or product changes.
+
+# Evidence expected
+
+The focused P7 E2E test extended with A -> successful B activation, durable reconstruction and Runtime continuity evidence.
 
 # Escalation
 
