@@ -1,52 +1,48 @@
-# Current Execution Milestone — M7 P6 Durable Release/Artifact Sprint Review
+# Current Execution Milestone — M7 P6 Durable Factory E2E
 
 ## Goal
 
-Close the second P6 construction Sprint after proving restart-safe durable PublishedRelease and ArtifactPayload providers without changing current Release, ArtifactStore, Deploy or Runtime semantics.
+Complete the third P6 construction Sprint by proving the full deterministic Factory chain across durable provider reconstruction into the existing Deploy and autonomous Runtime, without changing product semantics.
 
 ## Integrated baseline
 
-P6-DURABLE-CATALOG-01 merged through PR #179 at:
+P6-DURABLE-RELEASE-ARTIFACT-01 merged through PR #180 at:
 
-`b6b96120dbb19b00f78b6965cb9590a680f2056f`
+`632a3bb294de442f8b8bdea2bdc96e0d9a84955d`
 
-Predecessor proof:
+Integrated predecessor proofs:
 
-`normalized Catalog registration -> durable PostgreSQL persistence -> provider/process reconstruction -> equivalent deterministic Catalog resolution -> actual transitive AssemblyPlan`
+- durable Catalog reconstruction -> equivalent deterministic Catalog resolution -> actual transitive AssemblyPlan;
+- actual Compiler ReleaseArtifact -> durable PublishedRelease + ArtifactPayload -> provider/process reconstruction -> equivalent release metadata/lifecycle + verified payload retrieval.
 
 ## Active Sprint
 
-`P6-DURABLE-RELEASE-ARTIFACT-01 — Durable Release and Artifact Providers`
+`P6-DURABLE-FACTORY-E2E-01 — Durable Factory-to-Runtime Integration`
 
-Branch: `sprint/P6-DURABLE-RELEASE-ARTIFACT-01`
+Branch: `sprint/P6-DURABLE-FACTORY-E2E-01`
 
-PR: #180
+Status: `COMMITTED / NOT_STARTED`.
 
-Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+Committed order:
+1. TASK-098 — durable Catalog -> Assembly/Validation/Compiler -> durable Release/Artifact reconstruction -> existing Deploy;
+2. TASK-099 — reconstructed durable Factory output -> existing local Deployment -> autonomous persisted Runtime;
+3. TASK-100 — deterministic/failure/autonomy regression closure for the P6 growing proof.
 
-Completed order:
-1. TASK-094 — PASS / CI #289;
-2. TASK-095 — PASS / CI #290;
-3. TASK-096 — PASS / CI #291;
-4. TASK-097 — PASS / CI #292.
+## Expected growing proof
 
-## Achieved growing proof
+`durable Catalog -> deterministic Assembly/Validation/Compiler -> durable PublishedRelease + ArtifactPayload -> reconstruct Factory-side providers/process -> verified retrieval -> existing Deploy -> autonomous Runtime -> persisted state across redeploy`
 
-`durable Catalog predecessor -> actual Compiler ReleaseArtifact -> durable PublishedRelease + ArtifactPayload -> reconstruct providers/process -> equivalent release retrieval/lifecycle + verified ArtifactPayload retrieval`
+## Frozen constraints
 
-## Architecture constraints preserved
-
-- `PublishedRelease` shape and ReleaseRegistry observable semantics unchanged;
-- release identity, duplicate rejection, lifecycle transitions and immutable snapshots unchanged;
-- ArtifactPayloadRepository interfaces and publication/idempotence/conflict semantics unchanged;
-- per-file, manifest and aggregate hash verification behavior unchanged;
-- secrets and environment values remain outside Release and Artifact payload metadata;
-- PostgreSQL remains replaceable Factory-side implementation detail;
-- no Deploy, Runtime, Compiler, Catalog, Assembly or canonical-contract source change;
-- ADR-0002 and ADR-0007 remain controlling and unchanged.
+- no new public Catalog/Assembly/Validation/Compiler/Release/ArtifactStore/Deploy/Runtime contract;
+- no production provider redesign;
+- no secrets or environment values embedded into Release/artifact metadata;
+- no Runtime call back to Builder/Factory;
+- PostgreSQL remains reference infrastructure only;
+- any required production-source change outside a bounded defect explicitly allowed by a TASK is escalation.
 
 ## Current gate
 
-Run final closure-head Deterministic CI after the administrative closure commit. If PASS, mark the existing PR #180 Ready for Sprint Review and stop.
+Materialized only. Await explicit instruction before TASK execution.
 
-`P6-DURABLE-FACTORY-E2E-01` and the package Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.
+The mandatory P6 Integration & Technical Debt Review remains FORECAST / NOT_MATERIALIZED.
