@@ -1,47 +1,49 @@
-# Current Execution Milestone — M6 P5 Materializer Registry Sprint Review
+# Current Execution Milestone — M6 P5 Integration & Technical Debt Review Materialized
 
 ## Goal
 
-Close `P5-MATERIALIZER-REGISTRY-01` after proving deterministic exact-identity Compiler materializer registration/lookup through the actual transitive Factory path while preserving existing state.counter generated assets and P4 Runtime behavior.
+Prepare the mandatory `P5-PACKAGE-01` Integration & Technical Debt Review from the fully integrated P5 construction baseline, without executing the review or creating a successor Sprint Package.
 
 ## Integrated baseline
 
-PR #175 merged at `c6858ed95faa48cc60361a5a86ddcc57d2b56ced`.
+PR #176 merged at `ca1e161d4c48454efcee1b8d1c63b32d3c6278bf`.
 
-Integrated predecessor proof:
+All P5 construction Sprints are integrated:
 
-`SystemDefinition root capability -> constrained Catalog candidate -> structured dependency requirements -> deterministic transitive AssemblyPlan BOM / graph diagnostics -> ValidationEvidence -> Compiler predecessor path`
+1. P5-CATALOG-CONSTRAINTS-01 — PR #174;
+2. P5-ASSEMBLY-GRAPH-01 — PR #175;
+3. P5-MATERIALIZER-REGISTRY-01 — PR #176.
 
-## Active Sprint
+Integrated P5 proof to be reviewed:
 
-`P5-MATERIALIZER-REGISTRY-01 — Deterministic Compiler Materializer Registry`
+`SystemDefinition root capability -> Catalog bounded constraints + structured dependency requirements -> deterministic transitive AssemblyPlan BOM / graph diagnostics -> ValidationEvidence -> exact Compiler materializer registry lookup -> deterministic migration/runtime assets -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> SecretResolver -> PostgreSQL -> autonomous Runtime -> persisted state across redeploy`
 
-Branch: `sprint/P5-MATERIALIZER-REGISTRY-01`
+## Active review
 
-PR: #176
+`P5-PACKAGE-01 — Integration & Technical Debt Review`
 
-TASK results:
-1. TASK-088 — commit `22384590bcc0858a0fc63531dc2f00188d86d8e4`; CI #264 PASS;
-2. TASK-089 — commit `1f818bfc10d57ff23f7d6fc03fcb49e650998b81`; CI #266 PASS;
-3. TASK-090 — commit `0222ca0d1c89c865eb591b574ad7764bf878e09d`; CI #268 PASS.
+Branch: `review/P5-PACKAGE-01-integration-debt`
 
-Achieved branch proof:
+Manifest: `project_docs/execution_planning/P5-PACKAGE-01.integration-debt-review.md`
 
-`SystemDefinition capability -> Catalog constrained provider -> transitive AssemblyPlan BOM -> ValidationEvidence -> exact materializer registry lookup -> existing state.counter materialization -> deterministic migration/runtime assets -> ReleaseArtifact`
+Status: MATERIALIZED / NOT_STARTED.
+
+## Review axes
+
+- integrated repository regression with PostgreSQL-backed `npm run verify`;
+- P4 debt disposition after P5 and new P5 debt discovery/classification;
+- Catalog/Assembly/Validation/Compiler/Release/ArtifactStore/Deploy/Runtime contract and architecture revalidation;
+- WBS 05/06/08/09/10/13 and DAG revalidation;
+- updated risks and ranked successor readiness recommendation.
 
 ## Architecture constraints
 
-- internal deterministic Compiler materializer boundary only;
-- exact identity is capability/provider/version already present in AssemblyPlan;
-- no Catalog or Assembly semantic changes;
-- no canonical `packages/contracts/**` change;
-- no second production Runtime capability;
-- no resolved secret values in immutable artifacts;
 - ADR-0002 and ADR-0007 remain controlling;
-- P4 PostgreSQL/autonomous-runtime proof remains mandatory and passed CI #268.
+- Builder/Runtime separation and autonomous release behavior must remain intact;
+- secrets must remain outside immutable Release/Compiler evidence;
+- no successor feature, provider, Runtime capability, canonical contract or L4 change is authorized by review materialization;
+- a discovered product defect must be classified and redirected through proper execution/change control.
 
-## Sprint Review gate
+## Current gate
 
-Run final repository-wide verification on the closure/report head, require Deterministic CI PASS, then mark PR #176 ready for human Sprint Review and stop.
-
-The mandatory `P5-PACKAGE-01` Integration & Technical Debt Review remains FORECAST / MANDATORY and must not be materialized or executed by this Sprint.
+Review is materialized but has not started. Await explicit instruction before running regression, issuing final debt dispositions, opening the review PR or proposing a successor package.

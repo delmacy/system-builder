@@ -1,21 +1,17 @@
 # P5-PACKAGE-01 — Deterministic Factory Composition and Materializer Scaling
 
-Status: ACTIVE_PACKAGE / THIRD_SPRINT_REVIEW
-Base: `c6858ed95faa48cc60361a5a86ddcc57d2b56ced` (P5-ASSEMBLY-GRAPH-01 merged through PR #175)
+Status: ACTIVE_PACKAGE / INTEGRATION_DEBT_REVIEW_MATERIALIZED
+Base: `ca1e161d4c48454efcee1b8d1c63b32d3c6278bf` (P5-MATERIALIZER-REGISTRY-01 merged through PR #176)
 
 ## Package Goal
 
-Harden the Factory composition path before capability breadth grows: make Catalog dependencies/constraints explicit enough for deterministic resolution, make Assembly resolve a bounded transitive dependency graph with reproducible conflict/cycle diagnostics, and replace the current one-provider Compiler materialization switch with a deterministic materializer registration boundary while preserving all P4 runtime, artifact, secret and autonomy guarantees.
+Harden the Factory composition path before capability breadth grows: make Catalog dependencies/constraints explicit enough for deterministic resolution, make Assembly resolve a bounded transitive dependency graph with reproducible conflict/cycle diagnostics, and replace the one-provider Compiler materialization switch with a deterministic materializer registration boundary while preserving all P4 runtime, artifact, secret and autonomy guarantees.
 
 Target package proof:
 
 `SystemDefinition root capability -> Catalog constrained provider candidates -> transitive dependency closure -> deterministic AssemblyPlan -> ValidationEvidence -> materializer registry -> Compiler-derived runtime/migration assets -> ReleaseArtifact`
 
 The existing P4 `state.counter` PostgreSQL autonomous-runtime/redeploy E2E remains a required predecessor regression.
-
-## Direction
-
-Factory composition hardening remains selected before durable Catalog/Release/Artifact providers because dependency/selection/materialization semantics are upstream domain rules. Durable providers remain HIGH priority and must be re-evaluated at the P5 package review.
 
 ## Construction sequence
 
@@ -37,19 +33,29 @@ Integrated proof:
 
 The graph implementation combines multi-path exact/minimum/compatibility requirements before candidate selection, coalesces compatible duplicates and fails closed for cycles, unresolved dependencies and incompatible requirements with deterministic evidence. Terminal CI #263 passed.
 
-### 3. P5-MATERIALIZER-REGISTRY-01 — SPRINT_REVIEW
+### 3. P5-MATERIALIZER-REGISTRY-01 — MERGED
 
-TASK-088/089/090 are implemented on `sprint/P5-MATERIALIZER-REGISTRY-01`; implementation CI #264/#266/#268 PASS. PR #176 is the Sprint Review boundary.
+Merged through PR #176 at `ca1e161d4c48454efcee1b8d1c63b32d3c6278bf`.
 
-Achieved branch proof:
+TASK-088/089/090 implementation CI #264/#266/#268 passed; closure-head CI #275 passed before merge.
+
+Integrated proof:
 
 `SystemDefinition capability -> Catalog constrained provider -> transitive AssemblyPlan BOM -> ValidationEvidence -> exact materializer registry lookup -> existing state.counter materialization -> deterministic migration/runtime assets -> ReleaseArtifact`
 
 The implementation provides deterministic exact-identity materializer registration/lookup, duplicate/no-match behavior, routes the existing reference `state.counter` provider through the registry without generated-output drift, and proves the actual constrained/transitive Factory path plus unsupported-materializer failure.
 
-### 4. Integration & Technical Debt Review — FORECAST / MANDATORY
+### 4. Integration & Technical Debt Review — MATERIALIZED / NOT_STARTED
 
-After the third construction Sprint merges, re-run package regression, classify debt, revalidate contracts/DAG/risks and decide whether durable provider infrastructure becomes the highest-leverage successor. Do not materialize or execute this review automatically.
+Branch:
+
+`review/P5-PACKAGE-01-integration-debt`
+
+Manifest:
+
+`project_docs/execution_planning/P5-PACKAGE-01.integration-debt-review.md`
+
+The review must re-run package regression, classify debt, revalidate contracts/architecture/WBS/DAG/risks and rank successor readiness. It does not authorize a successor Sprint Package by itself.
 
 ## Architecture constraints
 
@@ -57,30 +63,30 @@ After the third construction Sprint merges, re-run package regression, classify 
 - Catalog/Assembly/Compiler remain deterministic Factory-plane stages;
 - no resolved secret values enter immutable release/deployment evidence;
 - provider-specific implementation remains replaceable;
-- L3 internal shared API changes require committed-Sprint authority/review;
 - canonical public contract or L4 change requires explicit architecture authority/ADR;
 - historical P4 evidence is preserved.
 
-## P5-MATERIALIZER-REGISTRY-01 disposition
+## Integrated P5 construction disposition
 
-Implemented in scope:
-- exact capability/provider/version materializer identity;
-- deterministic registration/lookup and duplicate rejection;
-- migration of existing state.counter reference materializer onto that boundary;
-- preservation of current migration/runtime/secret behavior;
-- actual Factory integration evidence and P4 regression.
+Implemented:
+
+- bounded exact/minimum Catalog constraints and structured dependency requirements;
+- deterministic transitive Assembly closure, multi-path requirement combination, conflicts/cycles/unresolved diagnostics and reproducible BOM;
+- exact capability/provider/version Compiler materializer registry;
+- migration of the existing state.counter reference materializer onto that registry;
+- actual Catalog -> Assembly -> Validation -> Compiler integration evidence;
+- preservation of P4 PostgreSQL/redeploy/autonomy/secret boundaries.
 
 Not introduced:
-- second production Runtime capability;
-- Catalog/Assembly semantic changes;
+
 - durable Catalog/Release/Artifact providers;
-- new version-range kinds;
+- production SecretResolver/PostgreSQL transport/migration coordination/supervision;
+- second production Runtime capability;
 - canonical ReleaseArtifact/EnvironmentProfile/DeploymentRecord changes;
-- production Runtime/deployment work;
-- package review execution.
+- package successor work.
 
 ## Package gate
 
-`P5-MATERIALIZER-REGISTRY-01` is at Sprint Review on PR #176. It is not integrated until merged.
+All three construction Sprints are merged. The mandatory Integration & Technical Debt Review is materialized but NOT_STARTED.
 
-The Integration & Technical Debt Review remains FORECAST / MANDATORY and must not be materialized or executed until this Sprint completes, merges, and a new explicit instruction reconstructs repository authority.
+Do not execute the review or create a successor Sprint Package without a new explicit instruction.
