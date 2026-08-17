@@ -1,7 +1,7 @@
 ---
 id: TASK-121
 title: Prove managed Runtime predecessor compatibility
-status: blocked
+status: completed
 priority: 418
 milestone: M10
 model_tier: free
