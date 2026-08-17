@@ -8,31 +8,44 @@ Date: 2026-08-17
 
 ## Current maturity
 
-- Public contract spine integrated through TASK-008.
-- P1/P2/P3 construction packages and mandatory package reviews merged through PR #166.
-- P4 construction/review merged through PR #172.
-- P5 construction/review merged through PR #177.
-- P6 construction and mandatory Integration & Technical Debt Review merged through PR #182 at `3dfe567f4af539819a7ae96b524f0060f85b9825`.
-- P6 result: PASS WITH DEBT; no rollback blocker or L4/public-contract drift.
-- GitHub Actions remains the objective deterministic integration gate with PostgreSQL 17.6 service evidence.
-- AgentFactory Supervisor/runtime remains frozen non-blocking infrastructure track.
+- P1–P6 construction/review history is integrated; P6 review merged through PR #182.
+- P7-PACKAGE-01 planning merged through PR #183 at `ee17702742a07e78f70f05f653e60445ddd72167`; planning CI #306 PASS.
+- P7-DURABLE-DEPLOYMENT-STATE-01 implementation is complete on PR #184 and awaiting closure-head CI / Sprint Review.
+- GitHub Actions with PostgreSQL 17.6 remains the objective deterministic integration gate.
+- AgentFactory Supervisor/runtime remains frozen non-blocking infrastructure.
 
-## Integrated proof
+## Growing proof
 
-`durable Catalog -> deterministic Assembly/Validation/Compiler -> durable PublishedRelease + ArtifactPayload -> provider/process reconstruction -> verified retrieval -> existing Deploy -> autonomous Runtime -> persisted state across clean redeploy`
+Integrated predecessor:
 
-## Successor planning
+`durable Catalog -> deterministic Assembly/Validation/Compiler -> durable Release/Artifact -> existing Deploy -> autonomous persisted Runtime`
 
-`P7-PACKAGE-01 — Durable Deployment Lifecycle` is the rolling-wave successor package plan.
+Current Sprint adds:
 
-Package direction is derived from current WBS 10.3.1/10.3.2 deployment records/active-version visibility, WBS 10.2.3 health/acceptance/rollback and WBS 13.3.3 safe upgrade/rollback.
+`existing successful DeploymentRecord -> Deploy-owned persistence -> PostgreSQL durability -> provider/process reconstruction -> equivalent immutable history + active release/version observation`
 
-The first construction Sprint candidate is `P7-DURABLE-DEPLOYMENT-STATE-01`. Later rollback/E2E Sprints and the mandatory P7 package review remain FORECAST / NOT_MATERIALIZED.
+A failed deployment attempt is durable history but does not replace the active successful deployment.
+
+## Active Sprint
+
+`P7-DURABLE-DEPLOYMENT-STATE-01 — Durable Deployment State Authority`
+
+Base: `ee17702742a07e78f70f05f653e60445ddd72167`
+Branch: `sprint/P7-DURABLE-DEPLOYMENT-STATE-01`
+PR: #184
+Status: `SPRINT_REVIEW_PREPARATION / IMPLEMENTATION_CI_PASS`.
+
+TASK results:
+1. TASK-101 — PASS at `e002f7e1065d39106d4d0b3afc4217686b6d5854`; CI #310 PASS;
+2. TASK-102 — PASS at `18ee73fbb04bfaaf4d3c2b5a83f335fc3860413e`; CI #311 PASS;
+3. TASK-103 — PASS at `f9a7a1de866f241f380aff04e4e2a963222e4d0d`; CI #312 PASS.
 
 ## Architecture boundary
 
-ADR-0002 and ADR-0007 remain controlling. PostgreSQL may be used only as a replaceable reference implementation behind Deploy-owned boundaries. Release material remains secret-free; Environment/secret resolution stays external; Runtime ordinary operation remains independent of Builder/Factory availability.
+ADR-0002 and ADR-0007 remain controlling and preserved. No canonical contract or L4 change occurred. PostgreSQL remains a replaceable Deploy reference provider. Production TLS/auth/pooling/traffic/supervision and rollback orchestration remain outside this Sprint.
 
 ## Current gate
 
-Merge the P7 package plan only after deterministic CI. Then reconstruct `main` before committing/materializing `P7-DURABLE-DEPLOYMENT-STATE-01`.
+Require final Deterministic CI on the closure head. If green, PR #184 becomes Ready for human Sprint Review and execution stops there.
+
+`P7-DEPLOYMENT-ROLLBACK-01`, `P7-DURABLE-DEPLOYMENT-E2E-01` and the mandatory P7 Integration & Technical Debt Review remain FORECAST / NOT_MATERIALIZED.
