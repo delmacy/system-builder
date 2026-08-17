@@ -25,7 +25,6 @@ import {
 } from "./secret-resolver.js";
 
 type RuntimeChild = ChildProcessByStdio<null, Readable, Readable>;
-
 type StartupOutcome =
   | Readonly<{ kind: "started"; started: LocalRuntimeStarted }>
   | Readonly<{ kind: "invalid"; detail: string }>
@@ -34,7 +33,7 @@ type StartupOutcome =
 
 export type ManagedLocalRuntimeSnapshot = Readonly<{
   kind: "ManagedLocalRuntime";
-  state: "running" | "stopped";
+  state: "running" | "stopped" | "failed";
   runtimeVersion: string;
   environmentRef: string;
   port: number;
@@ -73,13 +72,18 @@ export type StartManagedLocalRuntimeResult =
       migrationPreflight: LocalMigrationPreflight;
       migrationApplication: LocalMigrationApplication;
     }>
-  | Readonly<{
-      ok: false;
-      diagnostic: ManagedLocalRuntimeDiagnostic;
-    }>;
+  | Readonly<{ ok: false; diagnostic: ManagedLocalRuntimeDiagnostic }>;
 
 function errorDetail(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
+}
+
+function redactSecrets(detail: string, runtimeSecrets: RuntimeSecretEnvironment): string {
+  let redacted = detail;
+  for (const value of Object.values(runtimeSecrets)) {
+    if (value.length > 0) redacted = redacted.replaceAll(value, "[REDACTED]");
+  }
+  return redacted;
 }
 
 function validGeneratedPath(path: string): boolean {
@@ -91,22 +95,11 @@ function parseStarted(line: string): LocalRuntimeStarted | null {
   try {
     const value = JSON.parse(line) as Partial<LocalRuntimeStarted>;
     if (
-      value.kind !== "RuntimeStarted" ||
-      value.status !== "UP" ||
-      typeof value.port !== "number" ||
-      !Number.isInteger(value.port) ||
-      value.port <= 0 ||
-      value.port > 65535 ||
-      typeof value.runtimeVersion !== "string" ||
-      typeof value.environmentRef !== "string"
+      value.kind !== "RuntimeStarted" || value.status !== "UP" || typeof value.port !== "number" ||
+      !Number.isInteger(value.port) || value.port <= 0 || value.port > 65535 ||
+      typeof value.runtimeVersion !== "string" || typeof value.environmentRef !== "string"
     ) return null;
-    return Object.freeze({
-      kind: "RuntimeStarted",
-      status: "UP",
-      port: value.port,
-      runtimeVersion: value.runtimeVersion,
-      environmentRef: value.environmentRef,
-    });
+    return Object.freeze({ kind: "RuntimeStarted", status: "UP", port: value.port, runtimeVersion: value.runtimeVersion, environmentRef: value.environmentRef });
   } catch {
     return null;
   }
@@ -116,20 +109,11 @@ function parseHealth(value: unknown): LocalRuntimeHealth | null {
   if (!value || typeof value !== "object") return null;
   const health = value as Partial<LocalRuntimeHealth>;
   if (
-    health.kind !== "RuntimeHealth" ||
-    health.status !== "UP" ||
-    typeof health.runtimeVersion !== "string" ||
-    typeof health.environmentRef !== "string" ||
-    !Array.isArray(health.bindingNames) ||
+    health.kind !== "RuntimeHealth" || health.status !== "UP" || typeof health.runtimeVersion !== "string" ||
+    typeof health.environmentRef !== "string" || !Array.isArray(health.bindingNames) ||
     !health.bindingNames.every((name) => typeof name === "string")
   ) return null;
-  return Object.freeze({
-    kind: "RuntimeHealth",
-    status: "UP",
-    runtimeVersion: health.runtimeVersion,
-    environmentRef: health.environmentRef,
-    bindingNames: Object.freeze([...health.bindingNames]),
-  });
+  return Object.freeze({ kind: "RuntimeHealth", status: "UP", runtimeVersion: health.runtimeVersion, environmentRef: health.environmentRef, bindingNames: Object.freeze([...health.bindingNames]) });
 }
 
 function waitForStartup(child: RuntimeChild, timeoutMs: number): Promise<StartupOutcome> {
@@ -182,8 +166,7 @@ async function stopChild(child: RuntimeChild, timeoutMs: number): Promise<number
   const graceful = await waitForClose(child, timeoutMs);
   if (!graceful.timedOut) return graceful.exitCode;
   if (child.exitCode === null) child.kill("SIGKILL");
-  const forced = await waitForClose(child, timeoutMs);
-  return forced.exitCode;
+  return (await waitForClose(child, timeoutMs)).exitCode;
 }
 
 async function readHealth(port: number, timeoutMs: number): Promise<LocalRuntimeHealth> {
@@ -203,10 +186,7 @@ export async function startManagedLocalRuntime(input: Readonly<{
   processEnvironment?: Readonly<Record<string, string>>;
   timeoutMs?: number;
 }>): Promise<StartManagedLocalRuntimeResult> {
-  if (
-    input.publishedRelease.artifactHash !== input.releaseArtifact.artifactHash ||
-    input.publishedRelease.artifactRef !== input.releaseArtifact.artifactHash
-  ) {
+  if (input.publishedRelease.artifactHash !== input.releaseArtifact.artifactHash || input.publishedRelease.artifactRef !== input.releaseArtifact.artifactHash) {
     return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "ARTIFACT_MISMATCH", detail: input.releaseArtifact.artifactHash }) });
   }
   if (!input.environment.runtimeVersions.includes(input.releaseArtifact.manifest.runtimeVersion)) {
@@ -216,50 +196,33 @@ export async function startManagedLocalRuntime(input: Readonly<{
   let generatedFiles: readonly LocalGeneratedFile[];
   try {
     const verified = input.artifactPayloadReader.getVerified(input.releaseArtifact);
-    if (verified.verified !== true || verified.artifactHash !== input.releaseArtifact.artifactHash) {
-      throw new Error("ARTIFACT_PAYLOAD_VERIFICATION_REQUIRED");
-    }
+    if (verified.verified !== true || verified.artifactHash !== input.releaseArtifact.artifactHash) throw new Error("ARTIFACT_PAYLOAD_VERIFICATION_REQUIRED");
     generatedFiles = verified.files;
   } catch (error) {
     return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "ARTIFACT_PAYLOAD_INVALID", detail: errorDetail(error) }) });
   }
-
   for (const file of generatedFiles) {
-    if (!validGeneratedPath(file.path)) {
-      return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "GENERATED_PATH_INVALID", detail: file.path }) });
-    }
+    if (!validGeneratedPath(file.path)) return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "GENERATED_PATH_INVALID", detail: file.path }) });
   }
 
   let migrationPreflight: LocalMigrationPreflight;
-  try {
-    migrationPreflight = preflightVerifiedMigrations(generatedFiles);
-  } catch (error) {
-    return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "MIGRATION_PREFLIGHT_INVALID", detail: errorDetail(error) }) });
-  }
-
-  const runtimeEntry = generatedFiles.find((file) => file.path === "runtime-entry.mjs");
-  if (!runtimeEntry) {
+  try { migrationPreflight = preflightVerifiedMigrations(generatedFiles); }
+  catch (error) { return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "MIGRATION_PREFLIGHT_INVALID", detail: errorDetail(error) }) }); }
+  if (!generatedFiles.some((file) => file.path === "runtime-entry.mjs")) {
     return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_ENTRYPOINT_MISSING", detail: "verified-artifact-payload" }) });
   }
 
   let runtimeSecrets: RuntimeSecretEnvironment = Object.freeze({});
   if (input.secretResolver) {
-    try {
-      runtimeSecrets = resolveRuntimeSecretEnvironment(input.environment, input.secretResolver);
-    } catch (error) {
-      return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "SECRET_RESOLUTION_FAILED", detail: errorDetail(error) }) });
-    }
+    try { runtimeSecrets = resolveRuntimeSecretEnvironment(input.environment, input.secretResolver); }
+    catch (error) { return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "SECRET_RESOLUTION_FAILED", detail: errorDetail(error) }) }); }
   }
 
   let migrationApplication: LocalMigrationApplication;
   try {
-    migrationApplication = await (input.migrationApplier ?? applyVerifiedPostgresMigrations)({
-      preflight: migrationPreflight,
-      generatedFiles,
-      runtimeSecrets,
-    });
+    migrationApplication = await (input.migrationApplier ?? applyVerifiedPostgresMigrations)({ preflight: migrationPreflight, generatedFiles, runtimeSecrets });
   } catch (error) {
-    return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "MIGRATION_APPLICATION_FAILED", detail: errorDetail(error) }) });
+    return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "MIGRATION_APPLICATION_FAILED", detail: redactSecrets(errorDetail(error), runtimeSecrets) }) });
   }
 
   const workingDirectory = await mkdtemp(join(tmpdir(), "system-builder-managed-runtime-"));
@@ -271,16 +234,9 @@ export async function startManagedLocalRuntime(input: Readonly<{
       await mkdir(dirname(target), { recursive: true });
       await writeFile(target, file.content, "utf8");
     }
-
     child = spawn(process.execPath, [join(workingDirectory, "runtime-entry.mjs")], {
       cwd: workingDirectory,
-      env: {
-        ...process.env,
-        ...(input.processEnvironment ?? {}),
-        ...runtimeSecrets,
-        SYSTEM_BUILDER_ENVIRONMENT_PROFILE: JSON.stringify(input.environment),
-        SYSTEM_BUILDER_RUNTIME_PORT: "0",
-      },
+      env: { ...process.env, ...(input.processEnvironment ?? {}), ...runtimeSecrets, SYSTEM_BUILDER_ENVIRONMENT_PROFILE: JSON.stringify(input.environment), SYSTEM_BUILDER_RUNTIME_PORT: "0" },
       stdio: ["ignore", "pipe", "pipe"],
     });
     child.stdout.setEncoding("utf8");
@@ -288,8 +244,7 @@ export async function startManagedLocalRuntime(input: Readonly<{
 
     const startup = await waitForStartup(child, timeoutMs);
     if (startup.kind === "timeout") {
-      await stopChild(child, timeoutMs);
-      await rm(workingDirectory, { recursive: true, force: true });
+      await stopChild(child, timeoutMs); await rm(workingDirectory, { recursive: true, force: true });
       return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_PROCESS_TIMEOUT", detail: String(timeoutMs) }) });
     }
     if (startup.kind === "closed") {
@@ -297,26 +252,19 @@ export async function startManagedLocalRuntime(input: Readonly<{
       return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_PROCESS_FAILED", detail: String(startup.exitCode) }) });
     }
     if (startup.kind === "invalid") {
-      await stopChild(child, timeoutMs);
-      await rm(workingDirectory, { recursive: true, force: true });
-      return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_STARTUP_INVALID", detail: startup.detail }) });
+      await stopChild(child, timeoutMs); await rm(workingDirectory, { recursive: true, force: true });
+      return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_STARTUP_INVALID", detail: redactSecrets(startup.detail, runtimeSecrets) }) });
     }
 
     let health: LocalRuntimeHealth;
-    try {
-      health = await readHealth(startup.started.port, timeoutMs);
-    } catch (error) {
-      await stopChild(child, timeoutMs);
-      await rm(workingDirectory, { recursive: true, force: true });
-      return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_HEALTH_INVALID", detail: errorDetail(error) }) });
+    try { health = await readHealth(startup.started.port, timeoutMs); }
+    catch (error) {
+      await stopChild(child, timeoutMs); await rm(workingDirectory, { recursive: true, force: true });
+      return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_HEALTH_INVALID", detail: redactSecrets(errorDetail(error), runtimeSecrets) }) });
     }
-    if (
-      health.runtimeVersion !== input.releaseArtifact.manifest.runtimeVersion ||
-      health.environmentRef !== input.environment.environmentRef
-    ) {
-      await stopChild(child, timeoutMs);
-      await rm(workingDirectory, { recursive: true, force: true });
-      return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_HEALTH_INVALID", detail: JSON.stringify(health) }) });
+    if (health.runtimeVersion !== input.releaseArtifact.manifest.runtimeVersion || health.environmentRef !== input.environment.environmentRef) {
+      await stopChild(child, timeoutMs); await rm(workingDirectory, { recursive: true, force: true });
+      return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_HEALTH_INVALID", detail: redactSecrets(JSON.stringify(health), runtimeSecrets) }) });
     }
 
     const managedChild = child;
@@ -324,7 +272,7 @@ export async function startManagedLocalRuntime(input: Readonly<{
     let stoppedExitCode: number | null = null;
     const snapshot = (): ManagedLocalRuntimeSnapshot => Object.freeze({
       kind: "ManagedLocalRuntime",
-      state: stopped ? "stopped" : "running",
+      state: stopped ? "stopped" : managedChild.exitCode === null ? "running" : "failed",
       runtimeVersion: startup.started.runtimeVersion,
       environmentRef: startup.started.environmentRef,
       port: startup.started.port,
@@ -343,12 +291,11 @@ export async function startManagedLocalRuntime(input: Readonly<{
         return snapshot();
       },
     });
-
     child = undefined;
     return Object.freeze({ ok: true, managed, health, migrationPreflight, migrationApplication });
   } catch (error) {
     if (child) await stopChild(child, timeoutMs);
     await rm(workingDirectory, { recursive: true, force: true });
-    return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_PROCESS_FAILED", detail: errorDetail(error) }) });
+    return Object.freeze({ ok: false, diagnostic: Object.freeze({ code: "RUNTIME_PROCESS_FAILED", detail: redactSecrets(errorDetail(error), runtimeSecrets) }) });
   }
 }

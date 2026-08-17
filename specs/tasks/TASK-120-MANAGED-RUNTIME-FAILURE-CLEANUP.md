@@ -1,7 +1,7 @@
 ---
 id: TASK-120
 title: Harden managed Runtime cleanup and lifecycle safety
-status: blocked
+status: completed
 priority: 419
 milestone: M10
 model_tier: cheap
