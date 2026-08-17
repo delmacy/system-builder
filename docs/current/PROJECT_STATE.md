@@ -8,59 +8,51 @@ Date: 2026-08-17
 
 ## Current maturity
 
-- P1–P7 construction/review history is integrated.
-- P8 package planning merged through PR #188.
-- `P8-DEPLOY-POSTGRES-TRANSPORT-01` merged through PR #189 at `209e192ec56599a05f6972e347f5b70989165c54`, closure CI #333 PASS.
-- `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` merged through PR #190 at `98a8e674d72e1ad00d5eb5850ae4e71ac3f6a56c`, closure CI #340 PASS.
-- `P8-HARDENED-ACTIVATION-E2E-01` merged through PR #191 at `c2c0d92b1b76c9dff3134036b70ccd6538763dd3`, closure CI #346 PASS.
-- All three P8 construction Sprints are integrated.
-- The mandatory `P8 Integration & Technical Debt Review` passed its materialization regression in Deterministic CI #347 and is finalized pending the review-head final CI.
+- P1–P8 construction/review history is integrated.
+- P8 Integration & Technical Debt Review merged through PR #192 at `78e4e9a8056bf1e9c4bb4f49a798dd080cfd128a`; review final CI #348 PASS before merge.
+- P8 package result: construction PASS / architecture PASS WITH DEBT / no critical rollback blocker.
+- Authenticated atomic Deploy authority is integrated and package-level Runtime continuity is proven.
 - GitHub Actions with PostgreSQL 17.6 trust + SCRAM fixtures remains the objective deterministic integration gate.
 
-## Integrated P8 baseline
+## Integrated baseline
 
-`durable Factory output -> reconstructed Release/Artifact -> authenticated PostgreSQL Deploy -> atomic A activation -> autonomous Runtime -> B promotion -> stale successful C rejected -> failed D retains B -> fresh authenticated reconstruction -> B authoritative + durable attempted history -> Runtime continuity`
+`durable Factory output -> reconstructed Release/Artifact -> authenticated atomic Deploy authority -> A Runtime -> B promotion -> stale/failed contender retention -> fresh authority reconstruction -> B autonomous Runtime continuity`
 
-## Active review
+## Successor planning decision
 
-`P8-PACKAGE-01 — Integration & Technical Debt Review`
+Fresh reconstruction after the merged P8 review ranks deployment process orchestration as the highest-leverage next package direction. Existing Deploy already owns a local-process reference adapter, so the next package can remain bounded to Deploy and advance a single-host managed Runtime lifecycle without inventing an external traffic/fleet topology.
 
-Base: `c2c0d92b1b76c9dff3134036b70ccd6538763dd3`
-Branch: `review/P8-PACKAGE-01-integration-debt`
-PR: #192
-Status: `FINALIZED / MATERIALIZATION_CI_PASS / FINAL_CI_PENDING`.
+Selected planning package:
 
-Materialization regression CI #347 observed:
-- 309 unit tests PASS;
-- 152 product tests PASS;
-- 119 TASK specifications validated;
-- architecture gates PASS;
-- build PASS;
-- PostgreSQL 17.6 trust and SCRAM fixtures healthy.
+`P9-PACKAGE-01 — Managed Runtime Deployment Orchestration`
 
-## Architecture / WBS result
+Planning branch: `plan/P9-PACKAGE-01`
+Status: `PLANNING / CI_PENDING`.
 
-- package construction: PASS;
-- architecture/boundaries: PASS WITH DEBT;
-- WBS 10.2.3 bounded acceptance/retention: satisfied; production rollback orchestration open;
-- WBS 10.3.1: partial;
-- WBS 10.3.2 hardened authenticated atomic authority: satisfied for the current reference provider;
-- WBS 10.3.3 Observe/operations publication: open;
-- WBS 13.3.1 autonomy: regression-proven;
-- WBS 13.3.3 bounded upgrade/stale/failed contender continuity: satisfied; production orchestration open.
+## Package intent
 
-## Debt disposition
+Advance the existing local-process Deploy reference path from bounded acceptance execution to managed authoritative Runtime lifecycle:
+- keep accepted Runtime process managed after health acceptance;
+- bind process promotion/retention to existing atomic deployment authority;
+- reconcile the authoritative managed Runtime after orchestrator restart from durable state;
+- preserve Builder/Observe independence and Release/Environment/Deployment separation.
 
-- TD-P7-01 is closed for the bounded Deploy PostgreSQL reference provider.
-- TD-P4-03 is materially reduced but remains HIGH before production connectivity.
-- TD-P6-01 remains HIGH because PostgreSQL transport remains duplicated across bounded contexts.
-- TD-P7-02 remains HIGH because authority retention is not infrastructure/process rollback.
-- New TD-P8-01 records coarse table-level serialization as MEDIUM scaling debt.
-- New TD-P8-02 records absent positive TLS certificate/server-identity verification as HIGH production security debt.
-- Production SecretResolver, migration/fleet coordination, process/traffic supervision and Observe publication remain open.
+## Architecture boundary
+
+The package is intentionally single-host/reference-provider scoped. It does not select or introduce external load balancer, DNS, reverse proxy, Kubernetes, container scheduler, fleet manager or cloud orchestration ownership. Any need for such a topology is an explicit architecture escalation, not implicit Sprint scope.
+
+## Carried high-priority debt outside/beyond this package
+
+- `TD-P4-03`: verified PostgreSQL TLS/credential lifecycle remains HIGH;
+- `TD-P4-04`: migration/fleet coordination remains HIGH;
+- `TD-P4-05`: production SecretResolver remains HIGH;
+- `TD-P4-06`: process/traffic supervision remains HIGH and is the primary P9 target in bounded form;
+- `TD-P6-01`: cross-context PostgreSQL transport duplication remains HIGH and architecture-gated;
+- `TD-P7-02`: authority retention is not process/infrastructure rollback and is a primary P9 target in bounded form;
+- `TD-P8-02`: positive TLS certificate/server-identity verification remains HIGH.
 
 ## Current gate
 
-Run repository-wide Deterministic CI on the finalized review head. If green, verify PR #192 remains documentation-only with valid review gates, mark it Ready for human Review Gate and stop.
+Run repository-wide Deterministic CI on the P9 planning branch. If green, verify planning diff scope, promote the single planning PR to human Planning Review and stop.
 
-Do not merge PR #192 automatically. Do not create or materialize a successor Sprint Package or construction Sprint at this gate.
+Do not materialize P9 Sprint 1 or TASK specifications until the planning PR is accepted, merged and `main` is freshly reconstructed.
