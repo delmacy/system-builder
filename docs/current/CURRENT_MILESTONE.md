@@ -1,53 +1,46 @@
-# Current Execution Milestone — M8 P7 Integration & Technical Debt Review
+# Current Execution Milestone — M9 P8 Package Planning
 
 ## Goal
 
-Revalidate the fully integrated P7 durable deployment lifecycle, execute package-wide regression, classify debt/risks and determine successor readiness without creating a successor package.
+Select and validate the next rolling-wave Sprint Package from the actual integrated post-P7 repository state without starting construction work.
 
 ## Integrated baseline
 
-All three P7 construction Sprints are merged:
+P7 Integration & Technical Debt Review merged through PR #187 at `aa79f1fbeefb1f49faddf24db35a9ea35f74df29` after final Deterministic CI #327 PASS.
 
-1. P7-DURABLE-DEPLOYMENT-STATE-01 — PR #184;
-2. P7-DEPLOYMENT-ROLLBACK-01 — PR #185;
-3. P7-DURABLE-DEPLOYMENT-E2E-01 — PR #186, merged at `e71590625466dac27298852af779063c40d8551b` after CI #325 PASS.
-
-## Active review
-
-`P7-PACKAGE-01 — Integration & Technical Debt Review`
-
-Branch: `review/P7-PACKAGE-01-integration-debt`
-PR: #187
-Status: `REVIEW_FINALIZATION / MATERIALIZATION_CI_PASS`.
-
-The review is documentation-only and contains no implementation TASKs.
-
-## Integrated proof under review
-
-`durable Factory output -> durable Deploy activation A -> autonomous Runtime -> successful B activation -> failed candidate C -> reconstruct deployment authority -> B remains active + Runtime continuity`
-
-## Regression
-
-Materialization head `cb10b83af8dd5116a730ac50d4b64375c6499db7` passed Deterministic CI #326 with PostgreSQL 17.6:
-
-- `npm run verify`: PASS;
-- unit: 309 PASS;
-- product: 138 PASS;
-- task specifications: 110 validated;
-- architecture gates: PASS;
-- build: PASS.
-
-## Disposition
-
+P7 disposition:
 - package construction: PASS;
 - architecture/boundaries: PASS WITH DEBT;
-- ADR-0002 preserved;
-- ADR-0007 preserved;
 - critical rollback blocker: NONE FOUND;
-- successor package: not selected or materialized.
+- production readiness: NOT CLAIMED.
+
+## Selected successor package
+
+`P8-PACKAGE-01 — Durable Deployment Authority Hardening`
+
+Branch: `plan/P8-PACKAGE-01`
+Status: `PLANNING / CI_PENDING`.
+
+Selection is based on the P7 review's highest-leverage readiness recommendation and current WBS gaps: harden Deploy PostgreSQL transport/auth and transactional multi-writer active authority before broader production orchestration, Observe publication or Runtime breadth.
+
+## Rolling-wave forecast
+
+1. `P8-DEPLOY-POSTGRES-TRANSPORT-01` — commitment candidate only after this planning PR merges and `main` is reconstructed;
+2. `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` — FORECAST / NOT_MATERIALIZED;
+3. `P8-HARDENED-ACTIVATION-E2E-01` — FORECAST / NOT_MATERIALIZED;
+4. P8 Integration & Technical Debt Review — FORECAST / MANDATORY / NOT_MATERIALIZED.
+
+## Architecture constraints
+
+- ADR-0002 Runtime autonomy preserved;
+- ADR-0007 Release/Environment/Deployment separation preserved;
+- PostgreSQL remains replaceable provider detail;
+- no shared cross-context PostgreSQL ownership decision is made by this plan;
+- no canonical contract or L4 change is authorized;
+- no production readiness claim is made by planning.
 
 ## Current gate
 
-Run final Deterministic CI on the review-finalization head. If PASS, mark PR #187 Ready for human Review Gate and stop.
+Run GitHub Deterministic CI on the planning head. If PASS, verify planning-only scope, mark/open the package PR for human planning review and stop.
 
-No successor Sprint Package, P8 Sprint or successor TASK may be materialized by this review.
+Do not materialize or execute Sprint 1 in this planning stage.
