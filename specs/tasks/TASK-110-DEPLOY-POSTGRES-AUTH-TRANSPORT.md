@@ -1,7 +1,7 @@
 ---
 id: TASK-110
 title: Harden Deploy PostgreSQL authentication transport
-status: ready
+status: completed
 priority: 400
 milestone: M9
 model_tier: cheap
@@ -63,11 +63,11 @@ P7 proved durable Deploy reconstruction but `PostgresDeploymentRecordStorage` st
 
 # Current behavior
 
-`postgres-state.ts` parses no password, supports no SCRAM/cleartext password exchange, has no configurable SSL negotiation and fails authenticated PostgreSQL with `DEPLOY_POSTGRES_AUTH_UNSUPPORTED`.
+Before this TASK, `postgres-state.ts` parsed no password, supported no SCRAM/cleartext password exchange, had no configurable SSL negotiation and failed authenticated PostgreSQL with `DEPLOY_POSTGRES_AUTH_UNSUPPORTED`.
 
 # Required change
 
-Within the Deploy-owned provider only, add password-aware PostgreSQL startup/authentication handling sufficient for PostgreSQL 17 SCRAM-SHA-256 and bounded cleartext-password compatibility, plus explicit `sslmode=disable|prefer|require` negotiation. Preserve hard-coded/sanitized error categories so connection strings, usernames and passwords never enter errors or persisted evidence.
+Within the Deploy-owned provider only, add password-aware PostgreSQL startup/authentication handling sufficient for PostgreSQL 17 SCRAM-SHA-256 and bounded cleartext/MD5 password compatibility, plus explicit `sslmode=disable|prefer|require` negotiation. Preserve hard-coded/sanitized error categories so connection strings, usernames and passwords never enter errors or persisted evidence.
 
 Add an independent authenticated PostgreSQL 17.6 CI service on a different host port and expose its test URL only as CI fixture input, leaving the predecessor trust-auth service unchanged for other bounded contexts.
 
@@ -77,7 +77,7 @@ Existing `DeploymentRecordStorage`, `PostgresDeploymentRecordStorage`, PostgreSQ
 
 # Outputs / contracts
 
-Deploy-internal transport capability plus focused product tests. No canonical contract or cross-context provider change.
+Deploy-internal authenticated transport capability plus focused product tests. No canonical contract or cross-context provider change.
 
 # Acceptance criteria
 
@@ -85,7 +85,7 @@ Deploy-internal transport capability plus focused product tests. No canonical co
 - an actual PostgreSQL 17.6 service requiring password/SCRAM authentication is accepted by the Deploy provider;
 - invalid credentials fail closed with a stable sanitized error that contains no connection/user/password material;
 - connection-string parsing accepts password only as runtime transport material and never persists/serializes it;
-- `sslmode=disable`, `prefer` and `require` are parsed deterministically; unsupported TLS negotiation fails closed without credential leakage;
+- `sslmode=disable`, `prefer` and `require` are parsed deterministically; required TLS fails closed when unavailable;
 - no external npm dependency is introduced;
 - existing DeploymentRecord storage semantics remain unchanged;
 - positive, negative and predecessor regression evidence pass;

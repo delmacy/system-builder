@@ -4,6 +4,7 @@ import { DeploymentRegistry, type DeploymentRecord } from "../../packages/deploy
 import { PostgresDeploymentRecordStorage } from "../../packages/deploy/postgres-state.js";
 
 const postgresUrl = process.env.SYSTEM_BUILDER_TEST_POSTGRES_URL;
+const authenticatedPostgresUrl = process.env.SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL;
 
 function record(seed: string, environmentRef: string, status: "succeeded" | "failed", release = "app@1.0.0"): DeploymentRecord {
   return Object.freeze({
@@ -47,6 +48,44 @@ test("postgres deployment state survives provider reconstruction with active suc
   await finalStorage.close();
   await reconstructedStorage.close();
   await firstStorage.close();
+});
+
+test("postgres deployment provider accepts authenticated SCRAM service with TLS prefer fallback", { skip: authenticatedPostgresUrl === undefined ? "SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL not configured" : false }, async () => {
+  assert.ok(authenticatedPostgresUrl);
+  const url = new URL(authenticatedPostgresUrl);
+  url.searchParams.set("sslmode", "prefer");
+  const storage = await PostgresDeploymentRecordStorage.open(url.toString(), "task110_auth");
+  await storage.close();
+});
+
+test("postgres deployment provider rejects invalid authenticated credentials without leaking material", { skip: authenticatedPostgresUrl === undefined ? "SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL not configured" : false }, async () => {
+  assert.ok(authenticatedPostgresUrl);
+  const url = new URL(authenticatedPostgresUrl);
+  const originalPassword = decodeURIComponent(url.password);
+  const originalUser = decodeURIComponent(url.username);
+  url.password = "definitely-wrong-password";
+  await assert.rejects(() => PostgresDeploymentRecordStorage.open(url.toString(), "task110_bad_auth"), (error: unknown) => {
+    assert.ok(error instanceof Error);
+    assert.match(error.message, /^DEPLOY_POSTGRES_AUTH_FAILED:/);
+    assert.equal(error.message.includes(originalPassword), false);
+    assert.equal(error.message.includes(originalUser), false);
+    assert.equal(error.message.includes(url.toString()), false);
+    return true;
+  });
+});
+
+test("postgres deployment provider rejects required TLS when server does not offer it", { skip: postgresUrl === undefined ? "SYSTEM_BUILDER_TEST_POSTGRES_URL not configured" : false }, async () => {
+  assert.ok(postgresUrl);
+  const url = new URL(postgresUrl);
+  url.searchParams.set("sslmode", "require");
+  await assert.rejects(() => PostgresDeploymentRecordStorage.open(url.toString(), "task110_tls_required"), /DEPLOY_POSTGRES_TLS_REQUIRED/);
+});
+
+test("postgres deployment provider rejects unsupported sslmode deterministically", async () => {
+  await assert.rejects(
+    () => PostgresDeploymentRecordStorage.open("postgres://user@127.0.0.1:5432/db?sslmode=verify-full", "task110_sslmode"),
+    /DEPLOY_POSTGRES_SSLMODE_INVALID/,
+  );
 });
 
 test("postgres deployment provider rejects invalid connection diagnostics without leaking credentials", async () => {
