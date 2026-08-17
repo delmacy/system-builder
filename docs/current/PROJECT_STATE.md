@@ -10,52 +10,57 @@ Date: 2026-08-17
 
 - P1–P7 construction/review history is integrated.
 - P8 package planning merged through PR #188.
-- `P8-DEPLOY-POSTGRES-TRANSPORT-01` merged through PR #189 at `209e192ec56599a05f6972e347f5b70989165c54`, final CI #333 PASS.
-- `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` merged through PR #190 at `98a8e674d72e1ad00d5eb5850ae4e71ac3f6a56c`, pre-merge final CI #340 PASS.
-- `P8-HARDENED-ACTIVATION-E2E-01` is implemented on Sprint branch through TASK-118; TASK CIs pass and closure-head final CI is pending.
-- GitHub Actions with PostgreSQL 17.6 remains the objective deterministic integration gate.
+- `P8-DEPLOY-POSTGRES-TRANSPORT-01` merged through PR #189 at `209e192ec56599a05f6972e347f5b70989165c54`, closure CI #333 PASS.
+- `P8-ATOMIC-DEPLOYMENT-AUTHORITY-01` merged through PR #190 at `98a8e674d72e1ad00d5eb5850ae4e71ac3f6a56c`, closure CI #340 PASS.
+- `P8-HARDENED-ACTIVATION-E2E-01` merged through PR #191 at `c2c0d92b1b76c9dff3134036b70ccd6538763dd3`, closure CI #346 PASS.
+- All three P8 construction Sprints are integrated.
+- The mandatory `P8 Integration & Technical Debt Review` passed its materialization regression in Deterministic CI #347 and is finalized pending the review-head final CI.
+- GitHub Actions with PostgreSQL 17.6 trust + SCRAM fixtures remains the objective deterministic integration gate.
 
-## Integrated main baseline
+## Integrated P8 baseline
 
-`authenticated Deploy transport + atomic expected-active authority + durable reconstruction + predecessor autonomous Runtime proof`
+`durable Factory output -> reconstructed Release/Artifact -> authenticated PostgreSQL Deploy -> atomic A activation -> autonomous Runtime -> B promotion -> stale successful C rejected -> failed D retains B -> fresh authenticated reconstruction -> B authoritative + durable attempted history -> Runtime continuity`
 
-The joined hardened package E2E below remains branch-only until human Sprint Review acceptance and merge.
+## Active review
 
-## Active Sprint
+`P8-PACKAGE-01 — Integration & Technical Debt Review`
 
-`P8-HARDENED-ACTIVATION-E2E-01 — Hardened Activation End-to-End Proof`
+Base: `c2c0d92b1b76c9dff3134036b70ccd6538763dd3`
+Branch: `review/P8-PACKAGE-01-integration-debt`
+PR: #192
+Status: `FINALIZED / MATERIALIZATION_CI_PASS / FINAL_CI_PENDING`.
 
-Base: `98a8e674d72e1ad00d5eb5850ae4e71ac3f6a56c`
-Branch: `sprint/P8-HARDENED-ACTIVATION-E2E-01`
-PR: #191
-Status: `IMPLEMENTED_ON_SPRINT_BRANCH / TASK_CI_PASS / FINAL_CI_PENDING`.
+Materialization regression CI #347 observed:
+- 309 unit tests PASS;
+- 152 product tests PASS;
+- 119 TASK specifications validated;
+- architecture gates PASS;
+- build PASS;
+- PostgreSQL 17.6 trust and SCRAM fixtures healthy.
 
-TASK evidence:
-- TASK-116 `d7b4f90a27444901b109a6c6a1f63f817940cae5` — CI #342 PASS;
-- TASK-117 `78cce0a39c9f8a3a9bda9174cdfdc24d3e223217` — CI #344 PASS;
-- TASK-118 `eb4575a9c61d5105626ff9354f630d7b5defe7ae` — CI #345 PASS.
+## Architecture / WBS result
 
-Materialization `7f602976fdfccdcbdc22806c54e2cce8826ff760` passed CI #341 before implementation.
+- package construction: PASS;
+- architecture/boundaries: PASS WITH DEBT;
+- WBS 10.2.3 bounded acceptance/retention: satisfied; production rollback orchestration open;
+- WBS 10.3.1: partial;
+- WBS 10.3.2 hardened authenticated atomic authority: satisfied for the current reference provider;
+- WBS 10.3.3 Observe/operations publication: open;
+- WBS 13.3.1 autonomy: regression-proven;
+- WBS 13.3.3 bounded upgrade/stale/failed contender continuity: satisfied; production orchestration open.
 
-## Sprint proof on branch
+## Debt disposition
 
-`durable Factory output -> reconstructed Release/Artifact -> authenticated atomic Deploy A -> autonomous Runtime -> B promotion -> stale C cannot replace B -> failed D retains B -> fresh authenticated reconstruction -> B authoritative + A/B/C/D history durable -> Runtime continuity`
-
-## Architecture boundary
-
-- evidence-only Sprint;
-- no `packages/**`, canonical contract, ADR, workflow, app, tooling or dependency changes;
-- ADR-0002 Builder/Runtime autonomy preserved;
-- ADR-0007 Release/Environment/Deployment separation preserved;
-- PostgreSQL remains Deploy-owned and replaceable;
-- no production traffic/process rollback or full production-readiness claim.
-
-## Residual debt
-
-Coarse table-level serialization, positive TLS verification, pooling/retry/cancellation/observability, duplicated raw PostgreSQL transports, production deployment orchestration, production SecretResolver and Observe publication remain open/non-goals.
+- TD-P7-01 is closed for the bounded Deploy PostgreSQL reference provider.
+- TD-P4-03 is materially reduced but remains HIGH before production connectivity.
+- TD-P6-01 remains HIGH because PostgreSQL transport remains duplicated across bounded contexts.
+- TD-P7-02 remains HIGH because authority retention is not infrastructure/process rollback.
+- New TD-P8-01 records coarse table-level serialization as MEDIUM scaling debt.
+- New TD-P8-02 records absent positive TLS certificate/server-identity verification as HIGH production security debt.
+- Production SecretResolver, migration/fleet coordination, process/traffic supervision and Observe publication remain open.
 
 ## Current gate
 
-Run final Deterministic CI on the Sprint closure head. If green, verify PR #191 scope/review gates, mark it Ready for human Sprint Review and stop.
+Run repository-wide Deterministic CI on the finalized review head. If green, verify PR #192 remains documentation-only with valid review gates, mark it Ready for human Review Gate and stop.
 
-Do not merge PR #191 automatically. Do not materialize or execute the P8 Integration & Technical Debt Review until this Sprint passes human review, merges, and `main` is freshly reconstructed.
+Do not merge PR #192 automatically. Do not create or materialize a successor Sprint Package or construction Sprint at this gate.
