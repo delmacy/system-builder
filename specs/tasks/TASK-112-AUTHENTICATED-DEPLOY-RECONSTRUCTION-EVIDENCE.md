@@ -1,7 +1,7 @@
 ---
 id: TASK-112
 title: Prove authenticated durable Deploy reconstruction
-status: ready
+status: completed
 priority: 398
 milestone: M9
 model_tier: cheap
@@ -50,11 +50,11 @@ Close the Sprint with package-level evidence that authenticated Deploy PostgreSQ
 
 # Context
 
-TASK-110 hardens authentication transport and TASK-111 adds bounded transaction capability. The Sprint exit proof requires those capabilities to carry the existing durable Deploy state semantics, not just pass isolated protocol tests.
+TASK-110 hardened authentication transport and TASK-111 added bounded transaction capability. The Sprint exit proof requires those capabilities to carry the existing durable Deploy state semantics, not just pass isolated protocol tests.
 
 # Current behavior
 
-P7 proves durable reconstruction only through the trust-auth reference service. There is no focused evidence that the same state boundary reconstructs equivalently through an authenticated PostgreSQL service after transport hardening.
+P7 proved durable reconstruction only through the trust-auth reference service. TASK-110/111 now provide authenticated and transaction-capable transport, but the Sprint still needs focused end-to-end storage-boundary evidence.
 
 # Required change
 
