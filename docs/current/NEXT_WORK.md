@@ -1,37 +1,36 @@
-# Next Work — Review Gate for P5-PACKAGE-01
+# Next Work — Review P6 Package Forecast
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Current gate
 
-`P5-PACKAGE-01` Integration & Technical Debt Review is complete in content on:
+`P6-PACKAGE-01 — Durable Factory and Release Infrastructure` is materialized as a FORECAST package on:
 
-`review/P5-PACKAGE-01-integration-debt`
+`plan/P6-PACKAGE-01`
 
-PR: #177
+Base:
 
-Review-head Deterministic CI #276 passed. A final Deterministic CI run on the review-finalization head is required before Ready for Review.
+`97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f`
 
-## Review disposition to verify
+No construction Sprint is COMMITTED. No Sprint manifest or TASK spec exists for P6 execution.
 
-- package construction: PASS;
-- architecture/boundaries: PASS WITH DEBT;
-- rollback blocker: NONE;
-- P4 dependency-solving and internal materializer-registry debts closed for the bounded P5 slices;
-- durable provider and production operation debts carried;
-- new P5 debt registered for bounded provider/constraint policy, static materializer assembly, cross-context identity-shape duplication and persistence lag.
+## Forecast sequence
 
-## Human Review Gate checklist
+1. `P6-DURABLE-CATALOG-01` — FORECAST;
+2. `P6-DURABLE-RELEASE-ARTIFACT-01` — FORECAST;
+3. `P6-DURABLE-FACTORY-E2E-01` — FORECAST;
+4. P6 Integration & Technical Debt Review — FORECAST / MANDATORY.
 
-- confirm final CI passes on the exact review-finalization head;
-- confirm debt closures do not overclaim beyond bounded P5 semantics;
-- confirm ADR-0002/ADR-0007 and Builder/Runtime + Release/Environment boundaries remain intact;
-- confirm WBS/DAG revalidation is based on current integrated evidence rather than rewriting historical DAG artifacts;
-- confirm ranked successor directions are recommendations only;
-- confirm no successor Sprint Package exists.
+## Package review checklist
+
+- confirm TD-P4-01 and TD-P5-04 justify durability before capability breadth;
+- confirm Catalog and Release provider boundaries remain replaceable rather than PostgreSQL-specific public contracts;
+- confirm ArtifactPayloadRepository semantics are preserved;
+- confirm ADR-0002 Runtime autonomy and ADR-0007 Release/Environment/Deployment separation remain intact;
+- confirm WBS 05 and WBS 09 authority is sufficient and no L4 change is hidden;
+- confirm each forecast Sprint grows restart-safe E2E evidence rather than merely adding storage code;
+- confirm production Deploy/SecretResolver/Runtime breadth and materializer extensibility remain out of scope.
 
 ## Successor boundary
 
-After PR #177 is reviewed and merged, reconstruct `main` from `AGENTS.md` before planning any successor.
-
-The review may conclude that a next Sprint Package is `READY_TO_BE_PLANNED`, but no package is created, materialized or executed here.
+If the package plan is accepted, explicitly revalidate only `P6-DURABLE-CATALOG-01` against the then-current repository before any promotion to COMMITTED. Do not materialize or execute that Sprint automatically.

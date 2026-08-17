@@ -1,6 +1,6 @@
 # Project State
 
-Date: 2026-08-16
+Date: 2026-08-17
 
 ## Repository
 
@@ -8,39 +8,29 @@ Date: 2026-08-16
 
 ## Current maturity
 
-- Public contract spine: integrated through TASK-008.
-- P1/P2/P3 construction packages and mandatory package reviews: merged through PR #166.
-- P4 construction and mandatory Integration & Technical Debt Review: merged through PR #172.
-- P5-PACKAGE-01 construction Sprints are all merged through PR #176 at `ca1e161d4c48454efcee1b8d1c63b32d3c6278bf`.
-- P5-PACKAGE-01 Integration & Technical Debt Review is executing on `review/P5-PACKAGE-01-integration-debt` through PR #177.
-- Review-head Deterministic CI #276 passed repository-wide verification with PostgreSQL 17.6.
+- Public contract spine integrated through TASK-008.
+- P1/P2/P3 construction packages and mandatory package reviews merged through PR #166.
+- P4 construction and mandatory Integration & Technical Debt Review merged through PR #172.
+- P5 construction Sprints merged through PR #176.
+- P5 Integration & Technical Debt Review merged through PR #177 at `97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f`.
+- P5 final disposition: package PASS; architecture/boundaries PASS WITH DEBT; no rollback blocker.
+- TD-P4-02 and TD-P4-07 closed for their bounded P5 targets.
+- TD-P4-01 and TD-P5-04 remain high-leverage durability debt.
 - GitHub Actions remains the objective deterministic integration gate.
 - AgentFactory Supervisor/runtime remains frozen non-blocking infrastructure track.
 
 ## Integrated main proof
 
-`SystemDefinition root capability -> Catalog bounded constraints + structured dependency requirements -> deterministic transitive AssemblyPlan BOM / graph diagnostics -> ValidationEvidence -> exact Compiler materializer registry lookup -> deterministic migration/runtime assets -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> SecretResolver -> PostgreSQL -> autonomous Runtime -> persisted state across redeploy`
+`SystemDefinition -> bounded Software Catalog constraints/dependencies -> deterministic transitive AssemblyPlan -> ValidationEvidence -> exact Compiler materializer lookup -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> SecretResolver -> PostgreSQL -> autonomous Runtime -> persisted state across redeploy`
 
-## Active package review result
+## Planning result
 
-`P5-PACKAGE-01 — Integration & Technical Debt Review`
+`P6-PACKAGE-01 — Durable Factory and Release Infrastructure` is materialized as a FORECAST package on `plan/P6-PACKAGE-01` from main `97e13c5ef66045f5c7d7aa11f20315e7dc02bf7f`.
 
-Branch: `review/P5-PACKAGE-01-integration-debt`
-
-PR: #177
-
-Disposition prepared on the review branch:
-
-- package construction: PASS;
-- architecture/boundaries: PASS WITH DEBT;
-- rollback blocker: NONE FOUND;
-- TD-P4-02 closed for the bounded P5 composition slice;
-- TD-P4-07 closed for the internal deterministic materializer-registry boundary;
-- durable providers, production database/secret/migration/deploy lifecycle remain carried;
-- new P5 debt records bounded constraint/provider-policy breadth, static materializer registration, cross-context identity-shape duplication and persistence lag behind composition semantics.
+The package contains three FORECAST construction Sprints plus one FORECAST/MANDATORY Integration & Technical Debt Review. No Sprint is COMMITTED and no TASK spec is materialized.
 
 ## Current gate
 
-Require final Deterministic CI PASS on the review-finalization head, then mark PR #177 Ready for human Review Gate and stop.
+Review the P6 package plan only. Before promoting any construction Sprint, reconstruct the then-current repository and explicitly revalidate its predecessor outputs, contracts, candidate TASK readiness, risks and scope.
 
-Do not merge automatically and do not create/materialize a successor Sprint Package.
+Do not execute implementation and do not materialize a Sprint without explicit instruction.
