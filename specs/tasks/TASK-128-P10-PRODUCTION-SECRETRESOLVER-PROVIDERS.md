@@ -1,7 +1,7 @@
 ---
 id: TASK-128
 title: Add production SecretResolver providers
-status: ready
+status: verification
 priority: 450
 milestone: M10
 model_tier: cheap

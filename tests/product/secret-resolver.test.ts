@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import type { EnvironmentProfile } from "../../packages/contracts/environment-profile/index.js";
 import {
+  FileBackedSecretResolver,
   InMemorySecretResolver,
+  ProcessEnvironmentSecretResolver,
   resolveRuntimeSecretEnvironment,
   type SecretResolver,
 } from "../../packages/deploy/secret-resolver.js";
@@ -74,4 +76,64 @@ test("secret resolution fails closed for missing, empty and duplicate bindings w
     () => resolveRuntimeSecretEnvironment(duplicateEnvironment, duplicateResolver),
     (error: unknown) => error instanceof Error && error.message === "SECRET_BINDING_DUPLICATE:DATABASE_URL" && !error.message.includes(secretValue),
   );
+});
+
+test("process-environment provider resolves references from the running process environment", () => {
+  const provider = new ProcessEnvironmentSecretResolver({
+    DATABASE_URL: "postgres://process-user:process-password@localhost/runtime",
+    LOG_LEVEL: "debug",
+  });
+
+  const resolved = provider.resolve("secret://DATABASE_URL");
+  assert.equal(resolved, "postgres://process-user:process-password@localhost/runtime");
+  assert.equal(JSON.stringify(provider).includes("postgres://process-user:process-password@localhost/runtime"), false);
+});
+
+test("file-backed provider reads references from a store file without serializing stored values", () => {
+  const secretValue = "postgres://file-user:file-password@localhost/runtime";
+  const content = [
+    "# generated store",
+    "DATABASE_URL=" + secretValue,
+    "API_TOKEN=token-file-value",
+    "",
+  ].join("\n");
+
+  const provider = new FileBackedSecretResolver("secret://store.env", content);
+
+  assert.equal(provider.resolve("secret://DATABASE_URL"), secretValue);
+  assert.equal(provider.resolve("secret://API_TOKEN"), "token-file-value");
+
+  const serialized = JSON.stringify(provider);
+  assert.equal(serialized.includes(secretValue), false);
+  assert.equal(serialized.includes("token-file-value"), false);
+  assert.equal(serialized.includes("DATABASE_URL"), true);
+  assert.equal(serialized.includes("API_TOKEN"), true);
+});
+
+test("file-backed store rejects malformed and duplicate entries without leaking values", () => {
+  assert.throws(() => new FileBackedSecretResolver("secret://bad", "=no-name"), /SECRET_STORE_INVALID_LINE/);
+  assert.throws(
+    () => new FileBackedSecretResolver("secret://bad", "DATABASE_URL=one\nDATABASE_URL=two"),
+    /SECRET_BINDING_DUPLICATE:DATABASE_URL/,
+  );
+});
+
+test("production providers resolve only symbolic secret-reference bindings through resolveRuntimeSecretEnvironment", () => {
+  const provider = new ProcessEnvironmentSecretResolver({
+    RUNTIME_SECRET: "runtime-env-value",
+  });
+  const fileProvider = new FileBackedSecretResolver("secret://store.env", "RUNTIME_SECRET=file-backed-value");
+
+  const profile: EnvironmentProfile = Object.freeze({
+    kind: "EnvironmentProfile",
+    environmentRef: "environment:production-provider-test",
+    runtimeVersions: Object.freeze(["0.1.0"]),
+    bindings: Object.freeze([
+      Object.freeze({ name: "RUNTIME_SECRET", kind: "secret-reference", reference: "secret://RUNTIME_SECRET" }),
+      Object.freeze({ name: "LOG_LEVEL", kind: "config", reference: "config://log-level" }),
+    ]),
+  });
+
+  assert.deepEqual(resolveRuntimeSecretEnvironment(profile, provider), { RUNTIME_SECRET: "runtime-env-value" });
+  assert.deepEqual(resolveRuntimeSecretEnvironment(profile, fileProvider), { RUNTIME_SECRET: "file-backed-value" });
 });
