@@ -1,36 +1,33 @@
-# Current Execution Milestone — M10 P9 Sprint 3 Review Gate
+# Current Execution Milestone — M10 P9 Integration & Technical Debt Review Gate
 
 ## Goal
 
-Close `P9-RUNTIME-RECONCILIATION-E2E-01` after proving bounded durable-authority-to-managed-Runtime reconciliation across a controlled Deploy manager restart.
+Close the mandatory `P9 Integration & Technical Debt Review` after all three P9 construction Sprints merged, reclassify the package's technical debt, verify no external/fleet topology was absorbed, and register the ungoverned Postgres transport corrective as traceable.
 
 ## Integrated predecessor
 
-`P9-ACTIVE-RUNTIME-PROMOTION-01` merged through PR #195 at `34379b744661468d8f3575facdbb6ed7140f8470`; final Sprint CI #362 PASS.
+All P9 construction Sprints merged; `main` freshly reconstructed at `a559d1af5d97562c0537cfb257de7dd2de889c84` (PR #196).
 
-## Sprint result
+## Review result
 
-Goal: PASS. Closure-head Deterministic CI is PASS (PR #196 `validate` SUCCESS).
+The review reclassifies:
 
-TASKs:
-- TASK-125 `e8d19463bf39ab7270d2dc07f6a4e14a3f1412b9` — CI #365 PASS;
-- TASK-126 `56e68c4e4def1645749fe865362eaf06590dc6ff` — CI #366 PASS;
-- TASK-127 `3121e632766a81f1ff3c025b0c09510feae305a6` — CI #367 PASS.
+- `TD-P4-06` — MATERIALLY REDUCED / CARRIED HIGH (single-host managed lifecycle enacted; production traffic/fleet/supervision still absent).
+- `TD-P7-02` — CARRIED HIGH (authority retention, not infrastructure rollback).
+- `TD-P6-01` — REDUCED VIA REGISTERED CORRECTIVE (PR #197 transport consolidation; effective in `main` after human merge).
+- `TD-P8-02` — CARRIED HIGH (positive TLS identity/certificate verification not proven).
+- New `TD-P9-01` (single-host process-local supervision) and `TD-P9-02` (no production process/fleet supervision, cutover or infrastructure reconciliation) — CARRIED HIGH.
 
-## Achieved reconciliation
+External/fleet topology verification: PASS — no load balancer/DNS/proxy/scheduler/Kubernetes/fleet/cloud topology absorbed.
 
-After controlled shutdown of the old Deploy-owned manager, durable Deploy authority, Release and Artifact state are reconstructed by fresh repositories; a fresh reconciliation manager validates that evidence and rematerializes only authoritative B. B returns health UP with Builder/Observe unavailable while stale/failed attempted history remains durable.
+## Corrective traceability
 
-## Architecture result
+PR #197 (`sprint/CORRECTION-INFRA-01`): Postgres overwrite crash + shared SCRAM/TLS transport consolidation. Rebased over new `main` `a559d1a`; head `0f4161a`; Deterministic CI run `32097697770` validate SUCCESS.
 
-PASS inside the P9 package boundary:
-- Deploy-owned single-host reference only;
-- additive reconciliation module only;
-- no canonical contracts or Runtime topology changes;
-- no ADR/L4;
-- no generic process discovery/PID scan or external service manager;
-- no external traffic/fleet/cloud topology.
+## Successor planning
+
+`P10-PACKAGE-01` materialized as a planning skeleton only (candidates: production SecretResolver + TLS hardening / Observe publication / milestone pivot). No construction authorized.
 
 ## Current gate
 
-Closure-head Deterministic CI PASS (PR #196 `validate` SUCCESS). PR #196 scope verified and promoted to human Sprint Review; merge is a human decision. The mandatory P9 Integration & Technical Debt Review is not authorized for materialization until this Sprint is accepted, merged and `main` is freshly reconstructed.
+Review branch `review/P9-PACKAGE-01-integration-debt` (PR #198) is promoted to human Sprint Review after final Deterministic CI PASS. Merge and any successor construction are human decisions; do not merge automatically.
