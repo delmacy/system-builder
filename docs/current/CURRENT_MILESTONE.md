@@ -1,12 +1,12 @@
-# Current Execution Milestone — M10 P10 Direction Selection & First Sprint Materialization
+# Current Execution Milestone — M10 P10 Direction Selection & First Construction Sprint
 
 ## Goal
 
-Select the P10 successor direction from integrated evidence and materialize the first construction Sprint (manifest + committed TASK specs) as a planning package. No product construction is authorized by this milestone step.
+Close the production credentials blocker `TD-P4-05` via a production-grade, replaceable SecretResolver, and register the TLS/server-identity hardening (`TD-P8-02`) as an ADR-gated escalation. The first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is implemented and promoted to human Sprint Review.
 
 ## Integrated predecessor
 
-The P9 Integration & Technical Debt Review merged (PR #198 at `6662c64`, final CI `32097982545` PASS) and the SCRAM/TLS corrective merged (PR #197 at `898a14f`, CI `32097697770` PASS). `main` freshly reconstructed; doc-only PR #199 merged at `6279b98`.
+The P10 materialization merged through PR #200 at `d178445` (direction A selected + 1st construction Sprint manifest + TASK-128/129/130 specs), with `main` freshly reconstructed.
 
 ## Direction selection (from integrated evidence)
 
@@ -20,13 +20,13 @@ Selected: **A — Production SecretResolver + TLS/server-identity hardening** (`
 
 `TD-P8-02` (positive TLS identity/certificate verification; removing `rejectUnauthorized: false`) is an **L3/L4-adjacent security-policy change**. It is escalated to an ADR and must be accepted by a human before any TLS construction. It is NOT built inside a Sprint. Construction Sprint 2 remains FORECAST pending that ADR.
 
-## Materialized first construction Sprint
+## Constructed first construction Sprint
 
-`P10-PRODUCTION-SECRETRESOLVER-01` (committed, not yet constructed):
+`P10-PRODUCTION-SECRETRESOLVER-01` — PASS (head `a1e0ed6`, Deterministic CI run `32136056276`).
 - Goal: production replaceable SecretResolver providers, fail-closed, no value leakage, managed-Runtime integration proof (`TD-P4-05`, L2/L3).
-- Committed TASKs (ready): TASK-128 (providers), TASK-129 (fail-closed/no-leakage), TASK-130 (managed-Runtime E2E).
-- Branch: `sprint/P10-PRODUCTION-SECRETRESOLVER-01`.
+- Committed TASKs: TASK-128 (providers `d39d1fb`), TASK-129 (fail-closed/no-leakage `f153e8d`), TASK-130 (managed-Runtime E2E `a1e0ed6`).
+- Branch: `sprint/P10-PRODUCTION-SECRETRESOLVER-01`; PR #201 promoted to human Sprint Review.
 
 ## Current gate
 
-The P10 materialization (`sprint/P10-PACKAGE-01-materialization`) is promoted to human Sprint Review after final Deterministic CI PASS. Merge and any P10 construction are human decisions; do not merge automatically.
+The 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is promoted to human Sprint Review via PR #201 after Deterministic CI PASS. Merge and any TLS construction are human decisions; do not merge automatically. Construction Sprint 2 (TLS) stays FORECAST pending the `TD-P8-02` ADR.

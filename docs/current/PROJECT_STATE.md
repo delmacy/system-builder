@@ -17,14 +17,20 @@ Date: 2026-08-18
 - P9 Integration & Technical Debt Review merged through PR #198 at `6662c64`; final CI validate PASS (run `32097982545`).
 - P9 corrective SCRAM/TLS merged through PR #197 at `898a14f`; CI validate PASS on rebased head (run `32097697770`).
 - Sprint-starter-prompt update merged through PR #199 at `6279b98` (doc-only).
+- P10 materialization merged through PR #200 at `d178445` (direction A selected + first construction Sprint manifest + TASK-128/129/130 specs).
+- `P10-PRODUCTION-SECRETRESOLVER-01` (1st construction Sprint) built on `sprint/P10-PRODUCTION-SECRETRESOLVER-01`, head `a1e0ed6`; Deterministic CI PASS (run `32136056276`); PR #201 open and promoted to human Sprint Review.
 
 ## Active milestone
 
-M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver + TLS/server-identity hardening)** and the first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (manifest + TASK-128/129/130 specs) is materialized on `sprint/P10-PACKAGE-01-materialization`. No P10 product construction is authorized yet.
+M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver + TLS/server-identity hardening)**. The 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (TASK-128/129/130) is implemented on `sprint/P10-PRODUCTION-SECRETRESOLVER-01` (head `a1e0ed6`, CI PASS), promoted to human Sprint Review via PR #201. Merge is a human decision. Construction Sprint 2 (TLS) stays FORECAST pending the `TD-P8-02` ADR.
 
 ## Achieved P9 construction proof
 
 `durable Catalog -> Assembly -> Validation -> Compiler -> durable Release/Artifact -> managed A -> durable authority A -> accepted B promotion -> durable authority B -> stale C + failed D retention -> controlled old-manager shutdown -> fresh authenticated Deploy/Release/Artifact reconstruction -> fresh manager rematerializes B -> B health UP with Builder/Observe unavailable`
+
+## Achieved P10 Sprint 1 construction proof
+
+`managed A -> durable authority A -> production SecretResolver resolves symbolic secret bindings -> managed Runtime process starts with resolved ephemeral values -> no resolved value in durable Release/Deployment evidence -> Runtime continuity with Builder/Observe unavailable`
 
 ## Corrective traceability
 
@@ -41,9 +47,10 @@ M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver +
 ## Residual P9 inputs (carried debt)
 
 - production traffic/fleet/infrastructure rollback remains unclaimed;
-- carried production SecretResolver (`TD-P4-05`), verified PostgreSQL TLS/server identity (`TD-P8-02`), migration/fleet coordination (`TD-P4-04`) and Observe publication (`WBS 10.3.3`) remain open;
+- verified PostgreSQL TLS/server identity (`TD-P8-02`) — escalated to ADR before any TLS construction — plus migration/fleet coordination (`TD-P4-04`) and Observe publication (`WBS 10.3.3`) remain open;
 - process supervision/reconciliation is single-host and process-local (`TD-P9-01`/`TD-P9-02`).
+- production SecretResolver (`TD-P4-05`) is now constructed (Sprint 1) and promoted to human Sprint Review via PR #201.
 
 ## Current gate
 
-`P10-PACKAGE-01` is materialized as a committed planning package: direction A selected from integrated evidence, first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (manifest + TASK-128/129/130 `ready` specs) materialized, and `TD-P8-02` (positive TLS verification) escalated as an L3/L4-adjacent change requiring an ADR before any TLS construction. This materialization PR is promoted to human Sprint Review after final Deterministic CI PASS. No P10 product construction, and no TLS policy change, may be started until the materialization is accepted, merged, `main` is freshly reconstructed, and the construction Sprint executes on its own branch.
+`P10-PACKAGE-01` direction A (Production SecretResolver + TLS hardening) is selected and the 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is implemented (head `a1e0ed6`, Deterministic CI PASS) and promoted to human Sprint Review via PR #201. `TD-P8-02` (positive TLS verification) is escalated as an L3/L4-adjacent change requiring an ADR accepted by a human before any TLS construction. No TLS policy change may be started until that ADR; Construction Sprint 2 stays FORECAST.
