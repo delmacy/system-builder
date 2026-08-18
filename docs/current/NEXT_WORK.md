@@ -8,11 +8,11 @@ The repository is authoritative. Do not use chat history as technical authority.
 
 Branch: `review/P9-PACKAGE-01-integration-debt`
 PR: #198
-Status: `READY_FOR_FINAL_CI / REVIEW_GATE_PENDING`.
+Status: `FINAL_CI_PASS / PROMOTED_TO_HUMAN_REVIEW_GATE` (final Deterministic CI `32097982545` PASS).
 
 ## Required action
 
-After the final Deterministic CI PASS on the review head, confirm the PR contains only: the P9 integration-debt-review reclassification, corrective traceability, `P10-PACKAGE-01` planning skeleton and closure/docs updates. Promote PR #198 to human Sprint Review. Merge is a human decision.
+Final Deterministic CI PASS (PR #198, run `32097982545`). Review scope verified — only the P9 integration-debt-review reclassification, corrective traceability (PR #197), `P10-PACKAGE-01` planning skeleton and closure/docs updates. No unresolved review blockers. PR #198 is promoted to human Sprint Review. Merge is a human decision; this review stops here.
 
 ## Boundary
 
