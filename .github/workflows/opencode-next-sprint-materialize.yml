@@ -1,0 +1,153 @@
+name: OpenCode Next Sprint Materialization
+
+on:
+  pull_request:
+    types:
+      - closed
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: opencode-next-sprint-${{ github.event.pull_request.merge_commit_sha || github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  materialize-next-sprint:
+    if: >-
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'sprint/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      FACTORY_MODEL: ${{ vars.OPENCODE_FACTORY_MODEL }}
+      GH_TOKEN: ${{ github.token }}
+      DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
+      MERGED_PR: ${{ github.event.pull_request.number }}
+      MERGED_SPRINT_BRANCH: ${{ github.event.pull_request.head.ref }}
+
+    steps:
+      - name: Require configured OpenCode model
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "$FACTORY_MODEL" ]; then
+            echo "Repository variable OPENCODE_FACTORY_MODEL is required for automatic next-Sprint materialization." >&2
+            exit 2
+          fi
+
+      - name: Checkout freshly integrated main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Create isolated planning branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git reset --hard origin/main
+          BRANCH="planning/next-sprint-after-pr-${MERGED_PR}"
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            git fetch origin "$BRANCH"
+            git switch -C "$BRANCH" "origin/$BRANCH"
+          else
+            git switch -c "$BRANCH" origin/main
+          fi
+          echo "PLANNING_BRANCH=$BRANCH" >> "$GITHUB_ENV"
+          echo "BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install repository dependencies
+        run: npm ci
+
+      - name: Install OpenCode 1.18
+        run: npm install --global opencode-ai@1.18
+
+      - name: Materialize only the next Sprint planning state
+        shell: bash
+        run: |
+          set -euo pipefail
+          PROMPT=$(cat <<EOF
+          A reviewed Sprint PR (#${MERGED_PR}, source ${MERGED_SPRINT_BRANCH}) has just been merged into main. Work only from the freshly reconstructed repository state on main.
+
+          Start with AGENTS.md and follow the complete required repository authority chain, including docs/current/PROJECT_STATE.md, docs/current/CURRENT_MILESTONE.md, project_docs/schedule/SPRINT_GENERATION_POLICY.md, project_docs/schedule/SPRINT_MODE.md, the active Sprint Package/WBS, predecessor Sprint report and applicable contracts/ADRs.
+
+          Perform rolling-wave PLANNING ONLY for the next eligible Sprint after the newly integrated predecessor:
+          - revalidate actual predecessor outputs, dependencies, risks, contracts and growing E2E proof;
+          - determine the next eligible Sprint already forecast by repository authority, or materialize the next Sprint/package only when policy requires it;
+          - create/update the next Sprint manifest and committed TASK specifications needed to make that Sprint executable;
+          - update current planning/state documentation only as required by the repository;
+          - preserve human review gates and all L3/L4/ADR escalation requirements.
+
+          Do NOT implement product code. Do NOT execute any newly materialized TASK. Do NOT start the next construction Sprint. Do NOT modify .github/** or tooling/**. Do NOT merge anything. If the next Sprint cannot be materialized without a human architecture/governance decision, record the exact planning blocker within authorized planning artifacts and stop instead of inventing policy.
+
+          Commit the bounded planning/materialization result to the current planning branch. Before returning, leave no uncommitted changes.
+          EOF
+          )
+
+          opencode run \
+            --auto \
+            --model "$FACTORY_MODEL" \
+            --title "next-sprint-after-pr-${MERGED_PR}" \
+            "$PROMPT" | tee /tmp/opencode-next-sprint.log
+
+      - name: Enforce committed planning result
+        id: progress
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "OpenCode left uncommitted changes; refusing to publish planning state." >&2
+            git status --short
+            exit 1
+          fi
+          HEAD_SHA=$(git rev-parse HEAD)
+          if [ "$HEAD_SHA" = "$BASE_SHA" ]; then
+            echo "made_progress=false" >> "$GITHUB_OUTPUT"
+            echo "No planning commit produced; no PR will be opened."
+          else
+            echo "made_progress=true" >> "$GITHUB_OUTPUT"
+            git log --oneline "$BASE_SHA..$HEAD_SHA"
+          fi
+
+      - name: Verify planning state
+        if: steps.progress.outputs.made_progress == 'true'
+        run: npm run verify
+
+      - name: Push planning branch
+        if: steps.progress.outputs.made_progress == 'true'
+        run: git push --set-upstream origin "$PLANNING_BRANCH"
+
+      - name: Open human review PR for next Sprint materialization
+        if: steps.progress.outputs.made_progress == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXISTING=$(gh pr list \
+            --head "$PLANNING_BRANCH" \
+            --base main \
+            --state open \
+            --json number \
+            --jq '.[0].number // empty')
+          if [ -z "$EXISTING" ]; then
+            gh pr create \
+              --base main \
+              --head "$PLANNING_BRANCH" \
+              --title "Materialize next Sprint after PR #${MERGED_PR}" \
+              --body "Rolling-wave planning generated from freshly integrated main after reviewed Sprint PR #${MERGED_PR}. Planning/materialization only: no product construction was executed. Human review/merge remains required before the next Sprint can run."
+          else
+            echo "Planning PR already open: #$EXISTING"
+          fi
