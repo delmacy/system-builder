@@ -1,24 +1,24 @@
-# Next Work — P9 Sprint 1 Review Gate
+# Next Work — P9 Sprint 2
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Active Sprint
 
-`P9-MANAGED-RUNTIME-PROCESS-01`
+`P9-ACTIVE-RUNTIME-PROMOTION-01`
 
-Branch: `sprint/P9-MANAGED-RUNTIME-PROCESS-01`
-PR: #194
-Status: `IMPLEMENTED / TASK_CI_PASS / FINAL_CI_PENDING`.
+Base: `cea8f09ccb99b2bf5bed27e9f01782db1520bb67`
+Branch: `sprint/P9-ACTIVE-RUNTIME-PROMOTION-01`
+Status: `COMMITTED / PRE_CODE`.
 
 ## Required action
 
-1. Run final repository-wide Deterministic CI #356 on the closure head.
-2. If green, confirm PR #194 contains only materialization/governance, TASK-119..121 authorized implementation/evidence and Sprint closure files.
-3. Confirm no unresolved review blockers.
-4. Promote PR #194 to human Sprint Review and stop.
+1. Run pre-code Deterministic CI on the materialized Sprint head.
+2. If green, execute TASK-122, then TASK-123, then TASK-124 in dependency order.
+3. Run each declared validation before advancing.
+4. Run final repository-wide verification, generate Sprint Report, promote one PR and stop at human Sprint Review.
 
 ## Boundary
 
-Do not merge PR #194 automatically at this gate.
-Do not materialize or execute `P9-ACTIVE-RUNTIME-PROMOTION-01`, `P9-RUNTIME-RECONCILIATION-E2E-01` or the P9 Integration & Technical Debt Review.
-Those successors may only be revalidated after this Sprint is accepted, merged and `main` is freshly reconstructed.
+Keep the implementation Deploy-owned and single-host. Do not introduce load balancer, DNS/reverse proxy, Kubernetes/container scheduler, fleet/cloud topology, canonical infrastructure contract or Builder/Runtime L4 changes.
+
+Do not materialize or execute `P9-RUNTIME-RECONCILIATION-E2E-01` or the P9 Integration & Technical Debt Review.
