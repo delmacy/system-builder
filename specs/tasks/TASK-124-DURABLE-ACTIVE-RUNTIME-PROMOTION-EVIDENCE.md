@@ -1,7 +1,7 @@
 ---
 id: TASK-124
 title: Prove durable active Runtime promotion against authenticated authority
-status: blocked
+status: completed
 priority: 428
 milestone: M10
 model_tier: free
@@ -91,3 +91,7 @@ One focused package-growing E2E test using the authenticated CI PostgreSQL fixtu
 # Escalation
 
 Evidence-only TASK. If the proof requires product/contract/topology changes, stop and escalate rather than editing `packages/**`.
+
+# Implementation evidence
+
+Added evidence-only product E2E coverage using real Catalog/Assembly/Validation/Compiler/Release/Artifact APIs, the authenticated PostgreSQL Deploy authority and the TASK-123 orchestrator. The proof covers A activation, B promotion, stale C cleanup, failed contender retention, fresh durable-authority reconstruction and live B health while Builder/Observe are unavailable, with credential-leak assertions.
