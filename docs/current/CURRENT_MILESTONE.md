@@ -1,21 +1,25 @@
-# Current Execution Milestone — M10 P9 Sprint 1 Review Gate
+# Current Execution Milestone — M10 P9 Sprint 2 Review Gate
 
 ## Goal
 
-Close `P9-MANAGED-RUNTIME-PROCESS-01` after implementing and verifying the bounded Deploy-owned managed Runtime process lifecycle.
+Close `P9-ACTIVE-RUNTIME-PROMOTION-01` after implementing and verifying bounded Deploy-owned active Runtime promotion.
+
+## Integrated predecessor
+
+`P9-MANAGED-RUNTIME-PROCESS-01` merged through PR #194 at `cea8f09ccb99b2bf5bed27e9f01782db1520bb67`; final CI #356 PASS.
 
 ## Sprint result
 
 Goal: PASS pending final closure-head CI.
 
 TASKs:
-- TASK-119 `521002b28fab412cd03fa385def1075d17d35438` — CI #353 PASS;
-- TASK-120 `718714f9b63efa2a6ac33f0b1c022f1d38c2fa8c` — CI #354 PASS;
-- TASK-121 `42bd42e16417baa7554c8c82aed35ff17f92ef90` — CI #355 PASS.
+- TASK-122 `14e4464e7defd82999b1fd225a99b22b2ff42dff` — CI #359 PASS;
+- TASK-123 `afe59225ae58ee07160d8f73b4ee928d1bdf99fd` — CI #360 PASS;
+- TASK-124 `a2c2b4210320ea4ea945e21c8592fcfe4fca97ee` — CI #361 PASS.
 
 ## Achieved lifecycle
 
-A generated Runtime can now be started through an additive Deploy-local managed lifecycle, health-accepted, retained/queryable, explicitly/idempotently stopped and deterministically cleaned. Failure evidence covers incompatibility, invalid startup with secret redaction and unexpected process exit. The predecessor one-shot local-process path remains behaviorally compatible and unchanged.
+The Deploy-owned single-host orchestrator now keeps the prior active Runtime alive while a candidate is started/accepted and the existing P8 atomic authority decides promotion. Successful B activation retires A only after authority changes. Stale/failed contenders are cleaned without terminating B, and fresh authenticated PostgreSQL authority reconstruction reports B while the live B process remains healthy.
 
 ## Architecture result
 
@@ -28,6 +32,6 @@ PASS inside the P9 package boundary:
 
 ## Current gate
 
-Run repository-wide Deterministic CI #356 on the closure head. If green, verify PR #194 scope/reviews, mark Ready for human Sprint Review and stop.
+Run final repository-wide Deterministic CI on the closure head. If green, verify PR #195 scope/reviews, mark Ready for human Sprint Review and stop.
 
-No P9 Sprint 2/3 or package review is authorized at this gate.
+Do not merge automatically and do not materialize P9 Sprint 3 or package review at this gate.
