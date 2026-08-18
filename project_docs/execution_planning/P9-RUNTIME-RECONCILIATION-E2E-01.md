@@ -1,6 +1,6 @@
 # P9-RUNTIME-RECONCILIATION-E2E-01 — Runtime Restart Reconciliation
 
-Status: COMMITTED / PRE_CODE_CI_PENDING
+Status: PASS / FINAL_CI_PENDING
 Base: `34379b744661468d8f3575facdbb6ed7140f8470`
 Branch: `sprint/P9-RUNTIME-RECONCILIATION-E2E-01`
 Package: `P9-PACKAGE-01`
@@ -14,34 +14,32 @@ Prove bounded Deploy-owned restart reconciliation: after a controlled shutdown o
 
 PASS. `P9-ACTIVE-RUNTIME-PROMOTION-01` merged through PR #195 at `34379b744661468d8f3575facdbb6ed7140f8470`; final CI #362 PASS.
 
-## Committed TASKs
+## TASK results
 
-1. TASK-125 — authoritative Runtime reconciliation API and positive predecessor proof.
-2. TASK-126 — reconciliation fail-closed/retention safety.
-3. TASK-127 — durable Factory/Release/Artifact/Deploy restart E2E evidence.
+1. TASK-125 `e8d19463bf39ab7270d2dc07f6a4e14a3f1412b9` — CI #365 PASS.
+2. TASK-126 `56e68c4e4def1645749fe865362eaf06590dc6ff` — CI #366 PASS.
+3. TASK-127 `3121e632766a81f1ff3c025b0c09510feae305a6` — CI #367 PASS.
 
-## Growing package proof at exit
+Pre-code materialization CI #363 PASS.
 
-`durable Factory output -> managed A -> authority A -> accepted B promotion -> authority B -> stale/failed contender retention -> controlled manager shutdown -> fresh authenticated authority/Release/Artifact reconstruction -> fresh manager rematerializes B -> B health UP with Builder/Observe unavailable`
+## Growing package proof achieved
+
+`durable Catalog -> Assembly -> Validation -> Compiler -> durable Release/Artifact -> managed A -> authority A -> accepted B promotion -> authority B -> stale C + failed D retention -> controlled manager shutdown -> fresh authenticated Deploy/Release/Artifact reconstruction -> fresh manager rematerializes B -> B health UP with Builder/Observe unavailable`
 
 ## Reference restart model
 
-This Sprint does not discover arbitrary external processes. The manager restart boundary is controlled:
-- old manager owns and explicitly stops its in-memory managed Runtime before shutdown;
-- durable deployment authority, Release and Artifact payload remain persisted;
-- fresh manager has no in-memory process state;
-- fresh manager reconstructs the durable active DeploymentRecord;
-- caller supplies the matching reconstructed PublishedRelease, ReleaseArtifact, verified payload reader and EnvironmentProfile from existing durable repositories;
-- reconciliation verifies authority/evidence identity and starts only the authoritative Runtime.
+The proof remains intentionally bounded:
+- old manager owns and explicitly stops its managed Runtime before shutdown;
+- deployment authority, Release and Artifact payload remain durable;
+- fresh manager starts with no in-memory process state;
+- fresh manager reconstructs durable active B and matching reconstructed Release/Artifact evidence;
+- reconciliation rematerializes only authoritative B;
+- no generic process discovery, PID scan, unmanaged-process adoption, external service manager or traffic topology is introduced.
 
 ## Final validation
 
-`npm run verify` through GitHub Deterministic CI.
+Run repository-wide `npm run verify` through GitHub Deterministic CI on the closure head. If PASS, verify PR scope/reviews, promote the single Sprint PR to human Sprint Review and stop.
 
 ## Stop / escalation
 
-Stop immediately if completing the goal requires generic PID/process discovery, an external process/service manager, load balancer, DNS/reverse proxy, Kubernetes/container scheduler, fleet/cloud topology, shared canonical infrastructure contract, edits to `packages/contracts/**`, or Builder/Runtime L4 topology changes.
-
-## Non-goals
-
-P9 package review, production SecretResolver, TLS certificate hardening, Observe publication, multi-host/fleet orchestration, external traffic switching, production-readiness declaration.
+Do not materialize the P9 Integration & Technical Debt Review or any successor package until this Sprint passes human review, merges and `main` is freshly reconstructed.
