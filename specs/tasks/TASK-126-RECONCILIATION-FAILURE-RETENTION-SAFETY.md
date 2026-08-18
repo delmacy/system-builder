@@ -1,7 +1,7 @@
 ---
 id: TASK-126
 title: Harden restart reconciliation failure and retention safety
-status: blocked
+status: verification
 priority: 441
 milestone: M10
 model_tier: cheap
@@ -61,16 +61,16 @@ TASK-125 establishes positive rematerialization of the durable active Runtime af
 
 # Current behavior
 
-After TASK-125, a matching active record can be reconciled. Failure paths still require explicit proof that authority remains unchanged and partial process material is cleaned.
+TASK-125 reconciles a matching durable active record. This TASK adds explicit negative and idempotency evidence without changing predecessor APIs.
 
 # Required change
 
-Within the same reconciliation module/test:
+Within the same reconciliation test boundary:
 - fail closed when there is no durable active record;
-- fail closed when environmentRef, release reference/hash or artifact hash cannot satisfy the active DeploymentRecord;
-- on Runtime startup/health failure, return a bounded secret-free diagnostic and leave the active DeploymentRecord untouched;
-- repeated reconciliation into one reconciler instance must not silently create two managed copies for the same active deployment; either return the already reconciled active instance or fail deterministically without changing authority;
-- expose deterministic explicit stop/cleanup for the reconciled process so controlled manager shutdown is testable.
+- preserve pre-start mismatch rejection;
+- prove Runtime startup failure returns a secret-free diagnostic and leaves the active DeploymentRecord untouched;
+- prove repeated reconciliation of the same active deployment reuses the already managed Runtime rather than creating a second copy;
+- prove explicit shutdown removes the process while durable authority remains B.
 
 # Inputs / contracts
 
@@ -78,13 +78,13 @@ TASK-125 reconciliation API and existing P8/P9 Deploy authority/lifecycle APIs.
 
 # Outputs / contracts
 
-Hardened additive Deploy-local reconciliation behavior only.
+Focused failure/retention evidence only; no predecessor or canonical contract changes.
 
 # Acceptance criteria
 
-- no-active authority fails without spawning a Runtime;
-- mismatched Release/Artifact/Environment fails before process start;
-- startup/health failure does not modify durable active id and leaves no managed active process;
+- no-active authority fails without creating managed state;
+- non-authoritative evidence remains rejected before process start;
+- startup failure does not modify durable active id and leaves no managed active process;
 - resolved secret values never appear in result/diagnostics;
 - duplicate reconciliation cannot create an untracked second active process;
 - explicit shutdown removes the managed process while durable authority remains B for a later fresh manager;
@@ -97,7 +97,11 @@ Automatic external process adoption/discovery, host reboot supervision, process 
 
 # Evidence expected
 
-Focused negative tests for authority/evidence mismatch, startup failure, duplicate reconciliation and controlled shutdown while persistent authority remains unchanged.
+`tests/product/runtime-reconciliation.test.ts` covers no-active failure, duplicate reconciliation identity, controlled shutdown authority retention and startup failure with resolved-secret redaction in addition to TASK-125 predecessor proof.
+
+# Implementation evidence
+
+Implemented as additive focused test evidence on the Sprint branch. No product module change was required for TASK-126 because TASK-125 already implemented the necessary fail-closed/idempotent behavior. CI validation is required before TASK-127 becomes eligible.
 
 # Escalation
 

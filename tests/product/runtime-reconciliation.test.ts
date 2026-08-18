@@ -5,6 +5,7 @@ import { compileSyntheticRelease } from "../../packages/compiler/index.js";
 import { SingleHostActiveRuntimeOrchestrator } from "../../packages/deploy/active-runtime.js";
 import { DeploymentRegistry, dryRunDeploy, InMemoryDeploymentRecordStorage } from "../../packages/deploy/index.js";
 import { SingleHostRuntimeReconciler } from "../../packages/deploy/runtime-reconciliation.js";
+import { InMemorySecretResolver } from "../../packages/deploy/secret-resolver.js";
 import { ReleaseRegistry } from "../../packages/release/index.js";
 
 const assemblyPlan = {
@@ -35,6 +36,27 @@ function fixture() {
 
 function promotionInput(value: ReturnType<typeof fixture>, release: ReturnType<typeof fixture>["releaseA"], expectedActiveDeploymentId: string | null, startedAt: string, completedAt: string) {
   return { publishedRelease: release, releaseArtifact: value.compilation.artifact, artifactPayloadReader: value.artifacts, environment: value.environment, expectedActiveDeploymentId, startedAt, completedAt };
+}
+
+function activateRecord(value: ReturnType<typeof fixture>, environment = value.environment) {
+  return dryRunDeploy({
+    publishedRelease: value.releaseB,
+    releaseArtifact: value.compilation.artifact,
+    environment,
+    acceptanceChecks: [{ name: "runtime-health", pass: true }],
+    startedAt: "2026-08-18T00:44:00Z",
+    completedAt: "2026-08-18T00:44:01Z",
+  });
+}
+
+function overriddenReader(value: ReturnType<typeof fixture>, runtimeEntry: string) {
+  const verified = value.artifacts.getVerified(value.compilation.artifact);
+  return {
+    getVerified: () => ({
+      ...verified,
+      files: verified.files.map((file) => file.path === "runtime-entry.mjs" ? { ...file, content: runtimeEntry } : file),
+    }),
+  };
 }
 
 test("TASK-125 fresh reconciler rematerializes durable authoritative B after controlled manager shutdown", async () => {
@@ -69,7 +91,7 @@ test("TASK-125 fresh reconciler rematerializes durable authoritative B after con
 
 test("TASK-125 reconciliation rejects non-authoritative release before managed process exists", async () => {
   const value = fixture();
-  const candidate = dryRunDeploy({ publishedRelease: value.releaseB, releaseArtifact: value.compilation.artifact, environment: value.environment, acceptanceChecks: [{ name: "runtime-health", pass: true }], startedAt: "2026-08-18T00:44:00Z", completedAt: "2026-08-18T00:44:01Z" });
+  const candidate = activateRecord(value);
   assert.equal(candidate.ok, true);
   if (!candidate.ok) throw new Error("TASK125_RECORD_FAILED");
   assert.equal((await value.registry.activateCandidateAtomically(candidate.record, null)).outcome, "activated");
@@ -80,4 +102,68 @@ test("TASK-125 reconciliation rejects non-authoritative release before managed p
   assert.equal(result.diagnostic.code, "AUTHORITY_RELEASE_MISMATCH");
   assert.equal(fresh.getActive(value.environment.environmentRef), null);
   assert.equal(value.registry.getActive(value.environment.environmentRef)?.deploymentId, candidate.record.deploymentId);
+});
+
+test("TASK-126 no active authority fails closed without creating managed state", async () => {
+  const value = fixture();
+  const fresh = new SingleHostRuntimeReconciler(value.registry);
+  const result = await fresh.reconcile({ publishedRelease: value.releaseB, releaseArtifact: value.compilation.artifact, artifactPayloadReader: value.artifacts, environment: value.environment });
+  assert.equal(result.ok, false);
+  if (result.ok) throw new Error("TASK126_NO_AUTHORITY_ACCEPTED");
+  assert.equal(result.diagnostic.code, "NO_ACTIVE_AUTHORITY");
+  assert.equal(fresh.getActive(value.environment.environmentRef), null);
+  assert.equal(value.registry.list().length, 0);
+});
+
+test("TASK-126 duplicate reconciliation reuses the same managed B and controlled shutdown preserves authority", async () => {
+  const value = fixture();
+  const candidate = activateRecord(value);
+  assert.equal(candidate.ok, true);
+  if (!candidate.ok) throw new Error("TASK126_RECORD_FAILED");
+  assert.equal((await value.registry.activateCandidateAtomically(candidate.record, null)).outcome, "activated");
+  const fresh = new SingleHostRuntimeReconciler(value.registry);
+  const first = await fresh.reconcile({ publishedRelease: value.releaseB, releaseArtifact: value.compilation.artifact, artifactPayloadReader: value.artifacts, environment: value.environment });
+  assert.equal(first.ok, true);
+  if (!first.ok) throw new Error("TASK126_FIRST_RECONCILIATION_FAILED");
+  const second = await fresh.reconcile({ publishedRelease: value.releaseB, releaseArtifact: value.compilation.artifact, artifactPayloadReader: value.artifacts, environment: value.environment });
+  assert.equal(second.ok, true);
+  if (!second.ok) throw new Error("TASK126_SECOND_RECONCILIATION_FAILED");
+  assert.equal(second.alreadyReconciled, true);
+  assert.equal(second.active.process.port, first.active.process.port);
+  assert.equal(second.active.process.workingDirectory, first.active.process.workingDirectory);
+  assert.equal((await fresh.health(value.environment.environmentRef)).status, "UP");
+  const stopped = await fresh.shutdown(value.environment.environmentRef);
+  assert.ok(stopped);
+  assert.equal(stopped.process.state, "stopped");
+  assert.equal(fresh.getActive(value.environment.environmentRef), null);
+  assert.equal(value.registry.getActive(value.environment.environmentRef)?.deploymentId, candidate.record.deploymentId);
+});
+
+test("TASK-126 startup failure redacts resolved secret and leaves durable B untouched", async () => {
+  const value = fixture();
+  const secretValue = "reconciliation-secret-value";
+  const environment = {
+    ...value.environment,
+    bindings: [{ name: "RECONCILE_SECRET", kind: "secret-reference" as const, reference: "secret://reconcile/runtime" }],
+  };
+  const candidate = activateRecord(value, environment);
+  assert.equal(candidate.ok, true);
+  if (!candidate.ok) throw new Error("TASK126_SECRET_RECORD_FAILED");
+  assert.equal((await value.registry.activateCandidateAtomically(candidate.record, null)).outcome, "activated");
+  const invalidEntry = `console.log(process.env.RECONCILE_SECRET); setInterval(() => {}, 1000);`;
+  const fresh = new SingleHostRuntimeReconciler(value.registry);
+  const result = await fresh.reconcile({
+    publishedRelease: value.releaseB,
+    releaseArtifact: value.compilation.artifact,
+    artifactPayloadReader: overriddenReader(value, invalidEntry),
+    environment,
+    secretResolver: new InMemorySecretResolver({ "secret://reconcile/runtime": secretValue }),
+    timeoutMs: 1_000,
+  });
+  assert.equal(result.ok, false);
+  if (result.ok) throw new Error("TASK126_INVALID_STARTUP_ACCEPTED");
+  assert.equal(result.diagnostic.code, "RUNTIME_STARTUP_INVALID");
+  assert.equal(JSON.stringify(result).includes(secretValue), false);
+  assert.equal(fresh.getActive(environment.environmentRef), null);
+  assert.equal(value.registry.getActive(environment.environmentRef)?.deploymentId, candidate.record.deploymentId);
 });
