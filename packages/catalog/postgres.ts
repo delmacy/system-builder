@@ -225,7 +225,8 @@ export class PostgresCatalogRecordStorage implements CatalogRecordStorage {
     this.#pending = this.#pending.then(async () => {
       await postgresSimpleQuery(
         this.#connectionString,
-        `INSERT INTO ${this.#table} (identity, record_json) VALUES (${sqlLiteral(identity)}, ${sqlLiteral(encoded)})`,
+        `INSERT INTO ${this.#table} (identity, record_json) VALUES (${sqlLiteral(identity)}, ${sqlLiteral(encoded)}) ` +
+          `ON CONFLICT (identity) DO UPDATE SET record_json = EXCLUDED.record_json`,
       );
     });
   }

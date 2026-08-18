@@ -251,21 +251,14 @@ export class PostgresReleaseRecordStorage implements ReleaseRecordStorage {
   }
 
   set(identity: string, record: PublishedRelease): void {
-    const existed = this.#cache.has(identity);
     this.#cache.set(identity, record);
     const encoded = JSON.stringify(record);
     this.#pending = this.#pending.then(async () => {
-      if (existed) {
-        await postgresSimpleQuery(
-          this.#connectionString,
-          `UPDATE ${this.#table} SET record_json = ${sqlLiteral(encoded)} WHERE identity = ${sqlLiteral(identity)}`,
-        );
-      } else {
-        await postgresSimpleQuery(
-          this.#connectionString,
-          `INSERT INTO ${this.#table} (identity, record_json) VALUES (${sqlLiteral(identity)}, ${sqlLiteral(encoded)})`,
-        );
-      }
+      await postgresSimpleQuery(
+        this.#connectionString,
+        `INSERT INTO ${this.#table} (identity, record_json) VALUES (${sqlLiteral(identity)}, ${sqlLiteral(encoded)}) ` +
+          `ON CONFLICT (identity) DO UPDATE SET record_json = EXCLUDED.record_json`,
+      );
     });
   }
 

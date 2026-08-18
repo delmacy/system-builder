@@ -54,6 +54,39 @@ test(
   },
 );
 
+test(
+  "postgres catalog provider overwrites an existing identity idempotently without a primary-key crash",
+  { skip: postgresUrl === undefined ? "SYSTEM_BUILDER_TEST_POSTGRES_URL not configured" : false },
+  async () => {
+    assert.ok(postgresUrl);
+    const identity = "workflow.upsert::provider-a::1.0.0";
+    const first = new SoftwareCatalogRegistry().register({
+      capability: "workflow.upsert",
+      provider: "provider-a",
+      version: "1.0.0",
+      dependencies: ["auth.basic"],
+    });
+    const second = new SoftwareCatalogRegistry().register({
+      capability: "workflow.upsert",
+      provider: "provider-a",
+      version: "1.0.0",
+      dependencies: ["auth.basic", "storage.session"],
+    });
+
+    const storage = await PostgresCatalogRecordStorage.open(postgresUrl, "task_upsert");
+    storage.set(identity, first);
+    storage.set(identity, second);
+    await storage.flush();
+    await storage.close();
+
+    const reconstructed = await PostgresCatalogRecordStorage.open(postgresUrl, "task_upsert");
+    const records = reconstructed.values();
+    assert.equal(records.length, 1);
+    assert.deepEqual(records[0], second);
+    await reconstructed.close();
+  },
+);
+
 test("postgres catalog provider rejects invalid connection configuration without leaking credentials", async () => {
   const connectionString = "postgres://secret-user:super-secret@127.0.0.1:0/system_builder";
   await assert.rejects(
