@@ -1,7 +1,7 @@
 ---
 id: TASK-125
 title: Reconcile durable active authority into managed Runtime
-status: ready
+status: verification
 priority: 440
 milestone: M10
 model_tier: cheap
@@ -69,30 +69,23 @@ A fresh `SingleHostActiveRuntimeOrchestrator` has no process state even when its
 
 # Required change
 
-Introduce a new Deploy-local reconciliation API/class/function that:
-- reads the current active DeploymentRecord from the supplied existing DeploymentRegistry;
-- verifies the supplied PublishedRelease/ReleaseArtifact/Environment correspond to that durable authority;
-- starts the Runtime via the existing managed-process API only after those checks pass;
-- returns a secret-free reconciliation result/handle whose deployment identity equals the durable active id;
-- does not mutate deployment authority or create a new DeploymentRecord merely to recover process state.
-
-The restart model is controlled: the prior manager has already stopped its owned process. No process discovery is required or authorized.
+Introduce a new Deploy-local reconciliation API that reads current active authority, validates reconstructed release/artifact/environment identity, starts the existing managed Runtime only after those checks pass, and never mutates deployment authority merely to recover process state.
 
 # Inputs / contracts
 
-Existing `DeploymentRegistry.getActive`, `startManagedLocalRuntime`, `PublishedRelease`, `ReleaseArtifact`, verified payload reader and `EnvironmentProfile`. ADR-0002/ADR-0007 remain unchanged.
+Existing `DeploymentRegistry.getActive`, `startManagedLocalRuntime`, PublishedRelease, ReleaseArtifact, verified payload reader and EnvironmentProfile. ADR-0002/ADR-0007 remain unchanged.
 
 # Outputs / contracts
 
-Additive Deploy-module reconciliation API and focused tests. No canonical contract change.
+Additive `SingleHostRuntimeReconciler` with secret-free active snapshot, health, controlled shutdown and reconciliation result. No canonical contract change.
 
 # Acceptance criteria
 
 - fresh reconciler with durable active B and matching reconstructed B release/artifact/environment starts B and reports deployment id B;
-- Runtime health is UP with Builder/Observe unavailable;
+- Runtime health is UP;
 - no new activation decision or authority mutation occurs during reconciliation;
-- no raw child process or resolved secret is exposed;
 - mismatch between authority and supplied release/artifact/environment fails before process start;
+- no raw child process or resolved secret is exposed;
 - positive, negative and predecessor-integration tests exist;
 - declared validations pass.
 
@@ -102,7 +95,11 @@ Generic process discovery, unmanaged-process adoption, manager daemonization, ex
 
 # Evidence expected
 
-Focused product test proving a fresh reconciliation component can rematerialize authoritative B solely from durable authority identity plus reconstructed existing release/artifact/environment inputs, without Builder/Observe.
+`tests/product/runtime-reconciliation.test.ts` proves A -> B promotion through the predecessor orchestrator, controlled B shutdown, fresh reconciler rematerialization of authoritative B, health UP and unchanged durable authority, plus pre-start rejection of a non-authoritative release.
+
+# Implementation evidence
+
+Implemented on Sprint branch in `packages/deploy/runtime-reconciliation.ts` and focused product tests. CI validation is required before TASK-126 becomes eligible.
 
 # Escalation
 
