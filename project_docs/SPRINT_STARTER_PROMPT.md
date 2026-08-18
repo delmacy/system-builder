@@ -58,28 +58,19 @@ confie em histórico de chat nem em memória.
 ## 2. Instância atual (preenchida) — próxima sprint
 
 ```
-Sprint a executar: P10-PACKAGE-01 (seleção + materialização da 1ª construction
-Sprint) — FORECAST. Gate de pré-requisito SATISFEITO: P9 review e corretivo
-mesclados; main reconstruído.
-Base: 898a14f (merge do PR #197 sobre o merge do PR #198) — main reconstruído.
-Pré-requisitos integrados (verificados):
-  * PR #198 (P9 Integration & Technical Debt Review) MESCLADO em 6662c64 —
-    CI validate PASS nos heads (runs 32097890123, 32097982545, 32098073415);
-    mergeStateStatus CLEAN.
-  * PR #197 (corretivo SCRAM/TLS) MESCLADO em 898a14f — CI validate PASS no
-    head rebasado (run 32097697770, head 0f4161a); mergeStateStatus CLEAN.
-  * CI é disparada em pull_request para main; a correção pós-merge é garantida
-    pelos heads validate PASS exatamente mesclados (nenhuma execução separada de
-    push/main existe no workflow).
-Direção a selecionar a partir de evidência integrada (candidatos do skeleton
-P10-PACKAGE-01):
-  A) Production SecretResolver + TLS/server-identity hardening (TD-P4-05/TD-P8-02);
-  B) Observe publication (WBS 10.3.3 / TD-P7-03);
-  C) pivô de milestone (TD-P9-01/TD-P9-02).
-- Pendências de governança abertas:
-  * Nenhuma construção P10 sem materialização do manifesto do sprint escolhido
-    e sem autorização explícita. Seleção de direção a partir de evidência
-    integrada, revalidando predecessors/outputs reais no repositório.
+Sprint a executar: P10-PRODUCTION-SECRETRESOLVER-01 (1ª construction Sprint do
+P10-PACKAGE-01, direção A) — COMMITTED. Gate de pré-requisito: materialização P10
+mesclada; main reconstruído; autorização explícita para construção.
+Base: <SHA do main reconstruído após o merge da materialização P10>
+Direção selecionada: A — Production SecretResolver + TLS/server-identity hardening
+(TD-P4-05/TD-P8-02).
+Escopo desta Sprint: SecretResolver produtivo (TD-P4-05) — provedores replaceables
+process-environment/file-backed, fail-closed, sem vazamento de valor, prova de
+integração managed-Runtime. TASKs em ordem de dependência: TASK-128, TASK-129, TASK-130.
+Fora de escopo (escalado): TD-P8-02 (positive TLS verification) — NÃO construir;
+exige ADR L3/L4-adjacente aceito por humano antes de qualquer construção TLS.
+Pendência de governança: nenhuma construção P10 sem materialização mesclada, main
+reconstruído e autorização explícita desta Sprint.
 ```
 
 ---
@@ -92,6 +83,7 @@ P10-PACKAGE-01):
 | P9-RUNTIME-RECONCILIATION-E2E-01 | #196 | a559d1a | TASK-125, 126, 127 |
 | P9 Integration & Technical Debt Review | #198 | 6662c64 | revisão + skeleton P10 |
 | P9 corretivo SCRAM/TLS | #197 | 898a14f | consolidação transportes (TD-P6-01/TD-P8-02) |
+| P10 materialização | — | 0d805f3 | seleção direção A + manifesto + TASK-128/129/130 specs |
 
 *(Sprints anteriores a P9 Sprint 2 são preservados no `main`; registre aqui conforme encerrar cada sprint.)*
 
@@ -102,7 +94,8 @@ P10-PACKAGE-01):
 - **PR #196 (sprint/P9-RUNTIME-RECONCILIATION-E2E-01)** — P9 Sprint 3. MESCLADO em `a559d1a`; CI final PASS.
 - **PR #197 (sprint/CORRECTION-INFRA-01)** — corretivo traceável (crash Postgres overwrite + consolidação SCRAM/TLS + env config, cross-context). MESCLADO em `898a14f`; head rebasado `0f4161a`; Deterministic CI run `32097697770` validate PASS. Alinhado a `TD-P6-01`/`TD-P8-02` (este permanece aberto: positive TLS verification ainda não provado).
 - **PR #198 (review/P9-PACKAGE-01-integration-debt)** — P9 Integration & Technical Debt Review. MESCLADO em `6662c64`; heads validate PASS (runs `32097890123`, `32097982545`, `32098073415`). Reclassifica `TD-P4-06`/`TD-P7-02`/`TD-P6-01`/`TD-P8-02` + novos `TD-P9-01`/`TD-P9-02`; verifica que nenhuma topologia externa/fleet foi absorvida; materializa apenas skeleton `P10-PACKAGE-01`.
-- **P10** — apenas skeleton (`P10-PACKAGE-01.md`); selecionar direção (SecretResolver produtivo + TLS hardening / Observe publication / pivô de milestone) a partir de evidência integrada. Gate de pré-requisito satisfeito com `main` em `898a14f`; nenhuma construção P10 antes do manifesto do sprint + autorização explícita.
+- **P10 materialização** — `P10-PACKAGE-01` COMMITTED; direção **A** selecionada (Production SecretResolver + TLS hardening) a partir de evidência integrada; 1ª construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (manifesto + TASK-128/129/130 `ready`) materializado em `sprint/P10-PACKAGE-01-materialization`. Nenhuma construção P10 antes do merge da materialização + main reconstruído + autorização explícita.
+- **TD-P8-02 (positive TLS verification)** — dívida aberta; mudança de política de verificação de identidade de servidor é L3/L4-adjacente e exige ADR aceito por humano antes de qualquer construção TLS. Não inventar dentro de Sprint.
 
 ---
 
