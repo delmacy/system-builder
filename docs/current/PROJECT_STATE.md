@@ -1,6 +1,6 @@
 # Project State
 
-Date: 2026-08-17
+Date: 2026-08-18
 
 ## Repository
 
@@ -9,46 +9,38 @@ Date: 2026-08-17
 ## Integrated maturity
 
 - P1–P8 construction/review history is integrated.
-- P8 Integration & Technical Debt Review merged through PR #192 at `78e4e9a8056bf1e9c4bb4f49a798dd080cfd128a`, final review CI #348 PASS.
-- `P9-PACKAGE-01 — Managed Runtime Deployment Orchestration` planning merged through PR #193 at `14cdccbd391d3c337f749bc14e470e5a8bb1742f`, planning CI #349 PASS.
-- `P9-MANAGED-RUNTIME-PROCESS-01` merged through PR #194 at `cea8f09ccb99b2bf5bed27e9f01782db1520bb67`; final Sprint CI #356 PASS.
-- `P9-ACTIVE-RUNTIME-PROMOTION-01` merged through PR #195 at `34379b744661468d8f3575facdbb6ed7140f8470`; final Sprint CI #362 PASS.
+- P8 Integration & Technical Debt Review merged through PR #192 at `78e4e9a8056bf1e9c4bb4f49a798dd080cfd128a`.
+- `P9-PACKAGE-01 — Managed Runtime Deployment Orchestration` planning merged through PR #193 at `14cdccbd391d3c337f749bc14e470e5a8bb1742f`.
+- `P9-MANAGED-RUNTIME-PROCESS-01` merged through PR #194 at `cea8f09ccb99b2bf5bed27e9f01782db1520bb67`; final CI #356 PASS.
+- `P9-ACTIVE-RUNTIME-PROMOTION-01` merged through PR #195 at `34379b744661468d8f3575facdbb6ed7140f8470`; final CI #362 PASS.
+- `P9-RUNTIME-RECONCILIATION-E2E-01` merged through PR #196 at `a559d1af5d97562c0537cfb257de7dd2de889c84`; closure Deterministic CI PASS.
 
-## Active Sprint
+## Active milestone
 
-`P9-RUNTIME-RECONCILIATION-E2E-01 — Runtime Restart Reconciliation`
-
-Base: `34379b744661468d8f3575facdbb6ed7140f8470`
-Branch: `sprint/P9-RUNTIME-RECONCILIATION-E2E-01`
-PR: #196
-Status: `IMPLEMENTED / TASK_CI_PASS / FINAL_CI_PASS / READY_FOR_HUMAN_REVIEW`.
-
-Authoritative TASKs:
-- TASK-125 `e8d19463bf39ab7270d2dc07f6a4e14a3f1412b9` — CI #365 PASS;
-- TASK-126 `56e68c4e4def1645749fe865362eaf06590dc6ff` — CI #366 PASS;
-- TASK-127 `3121e632766a81f1ff3c025b0c09510feae305a6` — CI #367 PASS.
+M10. The mandatory `P9 Integration & Technical Debt Review` is in progress on branch `review/P9-PACKAGE-01-integration-debt` (PR #198).
 
 ## Achieved P9 construction proof
 
 `durable Catalog -> Assembly -> Validation -> Compiler -> durable Release/Artifact -> managed A -> durable authority A -> accepted B promotion -> durable authority B -> stale C + failed D retention -> controlled old-manager shutdown -> fresh authenticated Deploy/Release/Artifact reconstruction -> fresh manager rematerializes B -> B health UP with Builder/Observe unavailable`
 
-Safety evidence covers no-active fail-closed behavior, non-authoritative evidence rejection, duplicate reconciliation idempotency, secret-redacted startup failure, controlled shutdown authority retention and durable attempted-history reconstruction.
+## Corrective traceability
+
+`sprint/CORRECTION-INFRA-01` (PR #197) is registered as a traceable corrective: Postgres overwrite crash repair + consolidation of duplicated PostgreSQL transports onto a shared SCRAM/TLS client. Rebased over new `main` `a559d1a`; head `0f4161a`; Deterministic CI run `32097697770` validate SUCCESS. Merge is human.
 
 ## Architecture boundary
 
 - Deploy-owned single-host reference lifecycle only.
-- Additive `packages/deploy/runtime-reconciliation.ts`; existing Deploy predecessors unchanged.
+- Additive `packages/deploy/managed-process.ts` + `runtime-reconciliation.ts`; existing Deploy predecessors unchanged.
 - No canonical contracts, Runtime topology or ADR/L4 changes.
 - No generic process discovery/PID scan, unmanaged-process adoption or external service manager.
 - No load balancer/DNS/reverse proxy/scheduler/Kubernetes/fleet/cloud topology.
 
-## Residual P9 inputs
+## Residual P9 inputs (carried debt)
 
-- restart proof is controlled manager restart, not host reboot/production service-manager proof;
 - production traffic/fleet/infrastructure rollback remains unclaimed;
-- carried production SecretResolver, verified PostgreSQL TLS/server identity, migration/fleet coordination and Observe publication debts remain open;
-- mandatory P9 Integration & Technical Debt Review must reclassify process supervision/reconciliation debt and WBS coverage after this Sprint merges.
+- carried production SecretResolver (`TD-P4-05`), verified PostgreSQL TLS/server identity (`TD-P8-02`), migration/fleet coordination (`TD-P4-04`) and Observe publication (`WBS 10.3.3`) remain open;
+- process supervision/reconciliation is single-host and process-local (`TD-P9-01`/`TD-P9-02`).
 
 ## Current gate
 
-Closure-head Deterministic CI PASS (PR #196 `validate` SUCCESS). PR #196 scope verified — only authorized materialization, TASK-125..127 implementation/evidence and Sprint closure files. Promoted to human Sprint Review. Do not merge automatically or materialize the P9 package review until this Sprint is accepted, merged and `main` is freshly reconstructed.
+The P9 Integration & Technical Debt Review reclassified the package debts, verified no external/fleet topology was absorbed, registered PR #197 as a traceable corrective with CI evidence, and materialized only a `P10-PACKAGE-01` planning skeleton. Review PR #198 is promoted to human Sprint Review after final Deterministic CI PASS. Do not merge automatically or start any successor construction until the review is accepted, merged and `main` is freshly reconstructed.
