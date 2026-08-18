@@ -1,7 +1,7 @@
 ---
 id: TASK-122
 title: Bind managed Runtime promotion to atomic Deploy authority
-status: ready
+status: completed
 priority: 430
 milestone: M10
 model_tier: cheap
@@ -94,3 +94,7 @@ Focused product tests proving A activation and B promotion over the actual manag
 # Escalation
 
 Stop if implementation requires external traffic topology, canonical contracts, Runtime changes, or edits to forbidden predecessor APIs.
+
+# Implementation evidence
+
+Implemented by the authoritative TASK-122 commit on the Sprint branch. The new Deploy-local orchestrator composes the existing managed-process provider with `DeploymentRegistry.activateCandidateAtomically`, and focused tests prove A remains UP during B's authority decision and is retired only after successful activation.
