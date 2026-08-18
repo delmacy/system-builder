@@ -1,37 +1,36 @@
-# Current Execution Milestone — M10 P9 Sprint 2 Review Gate
+# Current Execution Milestone — M10 P9 Sprint 3 Review Gate
 
 ## Goal
 
-Close `P9-ACTIVE-RUNTIME-PROMOTION-01` after implementing and verifying bounded Deploy-owned active Runtime promotion.
+Close `P9-RUNTIME-RECONCILIATION-E2E-01` after proving bounded durable-authority-to-managed-Runtime reconciliation across a controlled Deploy manager restart.
 
 ## Integrated predecessor
 
-`P9-MANAGED-RUNTIME-PROCESS-01` merged through PR #194 at `cea8f09ccb99b2bf5bed27e9f01782db1520bb67`; final CI #356 PASS.
+`P9-ACTIVE-RUNTIME-PROMOTION-01` merged through PR #195 at `34379b744661468d8f3575facdbb6ed7140f8470`; final Sprint CI #362 PASS.
 
 ## Sprint result
 
-Goal: PASS pending final closure-head CI.
+Goal: PASS. Closure-head Deterministic CI is PASS (PR #196 `validate` SUCCESS).
 
 TASKs:
-- TASK-122 `14e4464e7defd82999b1fd225a99b22b2ff42dff` — CI #359 PASS;
-- TASK-123 `afe59225ae58ee07160d8f73b4ee928d1bdf99fd` — CI #360 PASS;
-- TASK-124 `a2c2b4210320ea4ea945e21c8592fcfe4fca97ee` — CI #361 PASS.
+- TASK-125 `e8d19463bf39ab7270d2dc07f6a4e14a3f1412b9` — CI #365 PASS;
+- TASK-126 `56e68c4e4def1645749fe865362eaf06590dc6ff` — CI #366 PASS;
+- TASK-127 `3121e632766a81f1ff3c025b0c09510feae305a6` — CI #367 PASS.
 
-## Achieved lifecycle
+## Achieved reconciliation
 
-The Deploy-owned single-host orchestrator now keeps the prior active Runtime alive while a candidate is started/accepted and the existing P8 atomic authority decides promotion. Successful B activation retires A only after authority changes. Stale/failed contenders are cleaned without terminating B, and fresh authenticated PostgreSQL authority reconstruction reports B while the live B process remains healthy.
+After controlled shutdown of the old Deploy-owned manager, durable Deploy authority, Release and Artifact state are reconstructed by fresh repositories; a fresh reconciliation manager validates that evidence and rematerializes only authoritative B. B returns health UP with Builder/Observe unavailable while stale/failed attempted history remains durable.
 
 ## Architecture result
 
 PASS inside the P9 package boundary:
 - Deploy-owned single-host reference only;
-- no canonical contracts;
-- no Runtime changes;
+- additive reconciliation module only;
+- no canonical contracts or Runtime topology changes;
 - no ADR/L4;
+- no generic process discovery/PID scan or external service manager;
 - no external traffic/fleet/cloud topology.
 
 ## Current gate
 
-Run final repository-wide Deterministic CI on the closure head. If green, verify PR #195 scope/reviews, mark Ready for human Sprint Review and stop.
-
-Do not merge automatically and do not materialize P9 Sprint 3 or package review at this gate.
+Closure-head Deterministic CI PASS (PR #196 `validate` SUCCESS). PR #196 scope verified and promoted to human Sprint Review; merge is a human decision. The mandatory P9 Integration & Technical Debt Review is not authorized for materialization until this Sprint is accepted, merged and `main` is freshly reconstructed.
