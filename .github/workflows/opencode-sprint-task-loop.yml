@@ -45,11 +45,41 @@ jobs:
   execute-one-unit:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    services:
+      postgres:
+        image: postgres:17.6-alpine
+        env:
+          POSTGRES_USER: system_builder
+          POSTGRES_DB: system_builder
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U system_builder -d system_builder"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 10
+      postgres_auth:
+        image: postgres:17.6-alpine
+        env:
+          POSTGRES_USER: deploy_auth
+          POSTGRES_PASSWORD: ci-test-password
+          POSTGRES_DB: system_builder_auth
+          POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U deploy_auth -d system_builder_auth"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 10
     env:
       SPRINT_ID: ${{ inputs.sprint_id }}
       SPRINT_BRANCH: ${{ inputs.branch }}
       FACTORY_MODEL: ${{ inputs.model || vars.OPENCODE_FACTORY_MODEL }}
       GH_TOKEN: ${{ github.token }}
+      SYSTEM_BUILDER_TEST_POSTGRES_URL: postgres://system_builder@127.0.0.1:5432/system_builder
+      SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL: postgres://deploy_auth:ci-test-password@127.0.0.1:5433/system_builder_auth
       DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -160,6 +190,12 @@ jobs:
             echo "made_progress=false" >> "$GITHUB_OUTPUT"
             echo "No authoritative commit was produced. The loop will stop safely."
           else
+            COMMIT_COUNT=$(git rev-list --count "$BASE_SHA..$HEAD_SHA")
+            if [ "$COMMIT_COUNT" -ne 1 ]; then
+              echo "Expected exactly one authoritative commit per fresh session; found $COMMIT_COUNT." >&2
+              git log --oneline "$BASE_SHA..$HEAD_SHA"
+              exit 1
+            fi
             echo "made_progress=true" >> "$GITHUB_OUTPUT"
             git log --oneline "$BASE_SHA..$HEAD_SHA"
           fi
