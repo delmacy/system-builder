@@ -1,33 +1,32 @@
-# Current Execution Milestone — M10 P9 Integration & Technical Debt Review Gate
+# Current Execution Milestone — M10 P10 Direction Selection & First Sprint Materialization
 
 ## Goal
 
-Close the mandatory `P9 Integration & Technical Debt Review` after all three P9 construction Sprints merged, reclassify the package's technical debt, verify no external/fleet topology was absorbed, and register the ungoverned Postgres transport corrective as traceable.
+Select the P10 successor direction from integrated evidence and materialize the first construction Sprint (manifest + committed TASK specs) as a planning package. No product construction is authorized by this milestone step.
 
 ## Integrated predecessor
 
-All P9 construction Sprints merged; `main` freshly reconstructed at `a559d1af5d97562c0537cfb257de7dd2de889c84` (PR #196).
+The P9 Integration & Technical Debt Review merged (PR #198 at `6662c64`, final CI `32097982545` PASS) and the SCRAM/TLS corrective merged (PR #197 at `898a14f`, CI `32097697770` PASS). `main` freshly reconstructed; doc-only PR #199 merged at `6279b98`.
 
-## Review result
+## Direction selection (from integrated evidence)
 
-The review reclassifies:
+Selected: **A — Production SecretResolver + TLS/server-identity hardening** (`TD-P4-05` + `TD-P8-02`).
 
-- `TD-P4-06` — MATERIALLY REDUCED / CARRIED HIGH (single-host managed lifecycle enacted; production traffic/fleet/supervision still absent).
-- `TD-P7-02` — CARRIED HIGH (authority retention, not infrastructure rollback).
-- `TD-P6-01` — REDUCED VIA REGISTERED CORRECTIVE (PR #197 transport consolidation; effective in `main` after human merge).
-- `TD-P8-02` — CARRIED HIGH (positive TLS identity/certificate verification not proven).
-- New `TD-P9-01` (single-host process-local supervision) and `TD-P9-02` (no production process/fleet supervision, cutover or infrastructure reconciliation) — CARRIED HIGH.
+- The P9 review ranked this HIGH security importance and `READY TO BE CONSIDERED`, naming it the principal production blocker.
+- B (Observe publication, `TD-P7-03`/WBS 10.3.3) retained as MEDIUM forecast.
+- C (milestone pivot, `TD-P9-01`/`TD-P9-02`) not assumed; requires explicit milestone re-scope.
 
-External/fleet topology verification: PASS — no load balancer/DNS/proxy/scheduler/Kubernetes/fleet/cloud topology absorbed.
+## Governance escalation
 
-## Corrective traceability
+`TD-P8-02` (positive TLS identity/certificate verification; removing `rejectUnauthorized: false`) is an **L3/L4-adjacent security-policy change**. It is escalated to an ADR and must be accepted by a human before any TLS construction. It is NOT built inside a Sprint. Construction Sprint 2 remains FORECAST pending that ADR.
 
-PR #197 (`sprint/CORRECTION-INFRA-01`): Postgres overwrite crash + shared SCRAM/TLS transport consolidation. Rebased over new `main` `a559d1a`; head `0f4161a`; Deterministic CI run `32097697770` validate SUCCESS.
+## Materialized first construction Sprint
 
-## Successor planning
-
-`P10-PACKAGE-01` materialized as a planning skeleton only (candidates: production SecretResolver + TLS hardening / Observe publication / milestone pivot). No construction authorized.
+`P10-PRODUCTION-SECRETRESOLVER-01` (committed, not yet constructed):
+- Goal: production replaceable SecretResolver providers, fail-closed, no value leakage, managed-Runtime integration proof (`TD-P4-05`, L2/L3).
+- Committed TASKs (ready): TASK-128 (providers), TASK-129 (fail-closed/no-leakage), TASK-130 (managed-Runtime E2E).
+- Branch: `sprint/P10-PRODUCTION-SECRETRESOLVER-01`.
 
 ## Current gate
 
-Review branch `review/P9-PACKAGE-01-integration-debt` (PR #198) is promoted to human Sprint Review after final Deterministic CI PASS. Merge and any successor construction are human decisions; do not merge automatically.
+The P10 materialization (`sprint/P10-PACKAGE-01-materialization`) is promoted to human Sprint Review after final Deterministic CI PASS. Merge and any P10 construction are human decisions; do not merge automatically.

@@ -14,10 +14,13 @@ Date: 2026-08-18
 - `P9-MANAGED-RUNTIME-PROCESS-01` merged through PR #194 at `cea8f09ccb99b2bf5bed27e9f01782db1520bb67`; final CI #356 PASS.
 - `P9-ACTIVE-RUNTIME-PROMOTION-01` merged through PR #195 at `34379b744661468d8f3575facdbb6ed7140f8470`; final CI #362 PASS.
 - `P9-RUNTIME-RECONCILIATION-E2E-01` merged through PR #196 at `a559d1af5d97562c0537cfb257de7dd2de889c84`; closure Deterministic CI PASS.
+- P9 Integration & Technical Debt Review merged through PR #198 at `6662c64`; final CI validate PASS (run `32097982545`).
+- P9 corrective SCRAM/TLS merged through PR #197 at `898a14f`; CI validate PASS on rebased head (run `32097697770`).
+- Sprint-starter-prompt update merged through PR #199 at `6279b98` (doc-only).
 
 ## Active milestone
 
-M10. The mandatory `P9 Integration & Technical Debt Review` is in progress on branch `review/P9-PACKAGE-01-integration-debt` (PR #198).
+M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver + TLS/server-identity hardening)** and the first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (manifest + TASK-128/129/130 specs) is materialized on `sprint/P10-PACKAGE-01-materialization`. No P10 product construction is authorized yet.
 
 ## Achieved P9 construction proof
 
@@ -25,7 +28,7 @@ M10. The mandatory `P9 Integration & Technical Debt Review` is in progress on br
 
 ## Corrective traceability
 
-`sprint/CORRECTION-INFRA-01` (PR #197) is registered as a traceable corrective: Postgres overwrite crash repair + consolidation of duplicated PostgreSQL transports onto a shared SCRAM/TLS client. Rebased over new `main` `a559d1a`; head `0f4161a`; Deterministic CI run `32097697770` validate SUCCESS. Merge is human.
+`sprint/CORRECTION-INFRA-01` (PR #197) is registered as a traceable corrective: Postgres overwrite crash repair + consolidation of duplicated PostgreSQL transports onto a shared SCRAM/TLS client. Rebased over new `main` `a559d1a`; head `0f4161a`; Deterministic CI run `32097697770` validate SUCCESS. Merge is human. Effective in `main` at `898a14f`.
 
 ## Architecture boundary
 
@@ -43,4 +46,4 @@ M10. The mandatory `P9 Integration & Technical Debt Review` is in progress on br
 
 ## Current gate
 
-The P9 Integration & Technical Debt Review reclassified the package debts, verified no external/fleet topology was absorbed, registered PR #197 as a traceable corrective with CI evidence, and materialized only a `P10-PACKAGE-01` planning skeleton. Review PR #198 is promoted to human Sprint Review after final Deterministic CI PASS. Do not merge automatically or start any successor construction until the review is accepted, merged and `main` is freshly reconstructed.
+`P10-PACKAGE-01` is materialized as a committed planning package: direction A selected from integrated evidence, first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (manifest + TASK-128/129/130 `ready` specs) materialized, and `TD-P8-02` (positive TLS verification) escalated as an L3/L4-adjacent change requiring an ADR before any TLS construction. This materialization PR is promoted to human Sprint Review after final Deterministic CI PASS. No P10 product construction, and no TLS policy change, may be started until the materialization is accepted, merged, `main` is freshly reconstructed, and the construction Sprint executes on its own branch.
