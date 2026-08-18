@@ -4,55 +4,48 @@ Date: 2026-08-17
 
 ## Repository
 
-`delmacy/system-builder` is the canonical source of truth. Agents reconstruct technical context from repository files rather than chat history.
+`delmacy/system-builder` is canonical. Reconstruct technical context from repository files, not chat history.
 
-## Current maturity
+## Integrated maturity
 
 - P1–P8 construction/review history is integrated.
-- P8 Integration & Technical Debt Review merged through PR #192 at `78e4e9a8056bf1e9c4bb4f49a798dd080cfd128a`; review final CI #348 PASS before merge.
-- P8 package result: construction PASS / architecture PASS WITH DEBT / no critical rollback blocker.
-- Authenticated atomic Deploy authority is integrated and package-level Runtime continuity is proven.
-- GitHub Actions with PostgreSQL 17.6 trust + SCRAM fixtures remains the objective deterministic integration gate.
+- P8 Integration & Technical Debt Review merged through PR #192 at `78e4e9a8056bf1e9c4bb4f49a798dd080cfd128a`, final review CI #348 PASS.
+- `P9-PACKAGE-01 — Managed Runtime Deployment Orchestration` planning merged through PR #193 at `14cdccbd391d3c337f749bc14e470e5a8bb1742f`, planning CI #349 PASS.
+- Authenticated atomic Deploy authority and autonomous Runtime continuity remain the integrated predecessor baseline.
 
-## Integrated baseline
+## Active Sprint
 
-`durable Factory output -> reconstructed Release/Artifact -> authenticated atomic Deploy authority -> A Runtime -> B promotion -> stale/failed contender retention -> fresh authority reconstruction -> B autonomous Runtime continuity`
+`P9-MANAGED-RUNTIME-PROCESS-01 — Managed Runtime Process Lifecycle`
 
-## Successor planning decision
+Base: `14cdccbd391d3c337f749bc14e470e5a8bb1742f`
+Branch: `sprint/P9-MANAGED-RUNTIME-PROCESS-01`
+PR: #194
+Status: `IMPLEMENTED / TASK_CI_PASS / FINAL_CI_PENDING`.
 
-Fresh reconstruction after the merged P8 review ranks deployment process orchestration as the highest-leverage next package direction. Existing Deploy already owns a local-process reference adapter, so the next package can remain bounded to Deploy and advance a single-host managed Runtime lifecycle without inventing an external traffic/fleet topology.
+Authoritative TASKs:
+- TASK-119 `521002b28fab412cd03fa385def1075d17d35438` — CI #353 PASS;
+- TASK-120 `718714f9b63efa2a6ac33f0b1c022f1d38c2fa8c` — CI #354 PASS;
+- TASK-121 `42bd42e16417baa7554c8c82aed35ff17f92ef90` — CI #355 PASS.
 
-Selected planning package:
+## Achieved proof
 
-`P9-PACKAGE-01 — Managed Runtime Deployment Orchestration`
+`verified real artifact + Environment -> managed Runtime start -> health UP -> retained/queryable process -> one-shot predecessor independently executes/cleans -> managed Runtime remains UP -> explicit/idempotent managed stop -> cleanup + endpoint unreachable`
 
-Planning branch: `plan/P9-PACKAGE-01`
-Status: `PLANNING / CI_PENDING`.
-
-## Package intent
-
-Advance the existing local-process Deploy reference path from bounded acceptance execution to managed authoritative Runtime lifecycle:
-- keep accepted Runtime process managed after health acceptance;
-- bind process promotion/retention to existing atomic deployment authority;
-- reconcile the authoritative managed Runtime after orchestrator restart from durable state;
-- preserve Builder/Observe independence and Release/Environment/Deployment separation.
+Safety evidence includes incompatible-runtime fail-closed behavior, secret-redacted startup failure, no false running state after unexpected process exit and Builder/Observe-independent Runtime operation.
 
 ## Architecture boundary
 
-The package is intentionally single-host/reference-provider scoped. It does not select or introduce external load balancer, DNS, reverse proxy, Kubernetes, container scheduler, fleet manager or cloud orchestration ownership. Any need for such a topology is an explicit architecture escalation, not implicit Sprint scope.
+- Deploy-owned single-host reference lifecycle only.
+- Additive `packages/deploy/managed-process.ts`; predecessor `local-process.ts` unchanged.
+- No canonical contracts, Runtime topology, ADR/L4, external load balancer/DNS/reverse proxy/scheduler/Kubernetes/fleet/cloud topology.
 
-## Carried high-priority debt outside/beyond this package
+## Residual P9 inputs
 
-- `TD-P4-03`: verified PostgreSQL TLS/credential lifecycle remains HIGH;
-- `TD-P4-04`: migration/fleet coordination remains HIGH;
-- `TD-P4-05`: production SecretResolver remains HIGH;
-- `TD-P4-06`: process/traffic supervision remains HIGH and is the primary P9 target in bounded form;
-- `TD-P6-01`: cross-context PostgreSQL transport duplication remains HIGH and architecture-gated;
-- `TD-P7-02`: authority retention is not process/infrastructure rollback and is a primary P9 target in bounded form;
-- `TD-P8-02`: positive TLS certificate/server-identity verification remains HIGH.
+- lifecycle is not reconstructed after orchestrator restart;
+- process lifecycle is not yet coordinated with durable active Deployment authority;
+- promotion/last-known-good process retention remains forecast;
+- production traffic/fleet/infrastructure rollback is not claimed.
 
 ## Current gate
 
-Run repository-wide Deterministic CI on the P9 planning branch. If green, verify planning diff scope, promote the single planning PR to human Planning Review and stop.
-
-Do not materialize P9 Sprint 1 or TASK specifications until the planning PR is accepted, merged and `main` is freshly reconstructed.
+Run closure-head Deterministic CI #356. If PASS, verify PR #194 final diff/review gates, promote to human Sprint Review and stop. Do not merge or materialize P9 Sprint 2/3/package review automatically.

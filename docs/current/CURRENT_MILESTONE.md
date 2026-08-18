@@ -1,40 +1,33 @@
-# Current Execution Milestone — M10 P9 Package Planning
+# Current Execution Milestone — M10 P9 Sprint 1 Review Gate
 
 ## Goal
 
-Materialize the next rolling-wave package from the actual integrated post-P8 state, selecting the highest-leverage bounded successor without silently introducing a new infrastructure topology.
+Close `P9-MANAGED-RUNTIME-PROCESS-01` after implementing and verifying the bounded Deploy-owned managed Runtime process lifecycle.
 
-## Integrated predecessor
+## Sprint result
 
-P8 Integration & Technical Debt Review merged through PR #192 at `78e4e9a8056bf1e9c4bb4f49a798dd080cfd128a` after final Deterministic CI #348 PASS.
+Goal: PASS pending final closure-head CI.
 
-P8 leaves authenticated atomic deployment authority reliable, while process/traffic orchestration remains the highest-leverage open deployment gap.
+TASKs:
+- TASK-119 `521002b28fab412cd03fa385def1075d17d35438` — CI #353 PASS;
+- TASK-120 `718714f9b63efa2a6ac33f0b1c022f1d38c2fa8c` — CI #354 PASS;
+- TASK-121 `42bd42e16417baa7554c8c82aed35ff17f92ef90` — CI #355 PASS.
 
-## Planning package
+## Achieved lifecycle
 
-`P9-PACKAGE-01 — Managed Runtime Deployment Orchestration`
+A generated Runtime can now be started through an additive Deploy-local managed lifecycle, health-accepted, retained/queryable, explicitly/idempotently stopped and deterministically cleaned. Failure evidence covers incompatibility, invalid startup with secret redaction and unexpected process exit. The predecessor one-shot local-process path remains behaviorally compatible and unchanged.
 
-Branch: `plan/P9-PACKAGE-01`
-Status: `PLANNING / CI_PENDING`.
+## Architecture result
 
-Forecast:
-1. `P9-MANAGED-RUNTIME-PROCESS-01` — commitment candidate after planning merge/reconstruction;
-2. `P9-ACTIVE-RUNTIME-PROMOTION-01` — forecast;
-3. `P9-RUNTIME-RECONCILIATION-E2E-01` — forecast;
-4. mandatory P9 Integration & Technical Debt Review.
-
-## Bounded architecture decision
-
-Planning chooses the existing Deploy-owned local-process adapter as the reference ownership seam for P9. “Active Runtime” means the authoritative managed process inside this single-host reference orchestrator.
-
-The package does not choose external load-balancer, DNS, reverse-proxy, container scheduler, Kubernetes, fleet or cloud orchestration topology. If implementation requires one, Sprint execution must stop/escalate rather than inventing architecture.
-
-## Growing proof target
-
-`P8 durable authenticated authority -> managed Runtime A -> accepted B promotion -> stale/failed contender cannot replace/terminate B -> orchestrator restart -> durable authority reconstruction -> B process reconciliation -> autonomous Runtime continuity`
+PASS inside the P9 package boundary:
+- Deploy-owned single-host reference only;
+- no canonical contracts;
+- no Runtime changes;
+- no ADR/L4;
+- no external traffic/fleet/cloud topology.
 
 ## Current gate
 
-Run Deterministic CI on this documentation-only planning head. If PASS, confirm the diff contains only the package plan and current-state planning documents, open/promote one planning PR and stop at human Planning Review.
+Run repository-wide Deterministic CI #356 on the closure head. If green, verify PR #194 scope/reviews, mark Ready for human Sprint Review and stop.
 
-No P9 TASK or construction Sprint is authorized by this planning branch.
+No P9 Sprint 2/3 or package review is authorized at this gate.
