@@ -1,7 +1,7 @@
 ---
 id: TASK-130
 title: Prove production SecretResolver managed-Runtime integration E2E
-status: ready
+status: verification
 priority: 452
 milestone: M10
 model_tier: cheap
