@@ -35,7 +35,7 @@ No product code, contract, ADR or L4 boundary was changed. This is a planning/ma
 
 - `check:tasks` (validate-tasks): 131 task specifications validated (includes new TASK-128/129/130).
 - `check:architecture`: PASS; `typecheck`: PASS (docs-only change, no product code).
-- Final closure-head Deterministic CI (PR #200 `validate`, run `32099095598`): PASS (1m5s) — Sprint promoted to human Sprint Review, merge pending human decision.
+- Final closure-head Deterministic CI (PR #200 `validate`): PASS — initial head run `32099095598`; final head (after docs promotion commit) run `32099249136` PASS (55s). Sprint promoted to human Sprint Review, merge pending human decision.
 - No local product execution is claimed. GitHub Actions is the objective CI evidence.
 
 ## Residual / next
