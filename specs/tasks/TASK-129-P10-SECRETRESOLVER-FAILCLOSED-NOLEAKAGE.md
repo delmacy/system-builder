@@ -1,7 +1,7 @@
 ---
 id: TASK-129
 title: Prove SecretResolver fail-closed and no-value-leakage safety
-status: ready
+status: verification
 priority: 451
 milestone: M10
 model_tier: cheap

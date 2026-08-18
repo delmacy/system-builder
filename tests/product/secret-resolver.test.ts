@@ -137,3 +137,101 @@ test("production providers resolve only symbolic secret-reference bindings throu
   assert.deepEqual(resolveRuntimeSecretEnvironment(profile, provider), { RUNTIME_SECRET: "runtime-env-value" });
   assert.deepEqual(resolveRuntimeSecretEnvironment(profile, fileProvider), { RUNTIME_SECRET: "file-backed-value" });
 });
+
+test("production providers fail closed for missing and empty references without leaking the resolved value", () => {
+  const secretValue = "must-not-leak-production";
+  const envProvider = new ProcessEnvironmentSecretResolver({
+    PRESENT: secretValue,
+    EMPTY: "",
+  });
+  const fileProvider = new FileBackedSecretResolver("secret://store.env", `PRESENT=${secretValue}\nEMPTY=`);
+
+  for (const provider of [envProvider, fileProvider]) {
+    assert.throws(
+      () => provider.resolve("secret://MISSING"),
+      (error: unknown) => error instanceof Error
+        && error.message === "SECRET_REFERENCE_NOT_FOUND:secret://MISSING"
+        && !error.message.includes(secretValue),
+    );
+    assert.throws(
+      () => provider.resolve("secret://EMPTY"),
+      (error: unknown) => error instanceof Error
+        && error.message === "SECRET_RESOLUTION_EMPTY:secret://EMPTY"
+        && !error.message.includes(secretValue),
+    );
+  }
+});
+
+test("production providers reject non-symbolic references fail-closed without leaking values", () => {
+  const secretValue = "do-not-leak";
+  const provider = new ProcessEnvironmentSecretResolver({ BAD: secretValue });
+
+  assert.throws(
+    () => provider.resolve("config://BAD"),
+    (error: unknown) => error instanceof Error
+      && error.message === "SECRET_REFERENCE_INVALID:config://BAD"
+      && !error.message.includes(secretValue),
+  );
+  assert.throws(
+    () => provider.resolve(""),
+    (error: unknown) => error instanceof Error && error.message === "SECRET_REFERENCE_INVALID",
+  );
+});
+
+test("production provider diagnostics contain only symbolic references, never resolved values", () => {
+  const secretValue = "super-secret-db-password-129";
+  const profile: EnvironmentProfile = Object.freeze({
+    kind: "EnvironmentProfile",
+    environmentRef: "environment:no-leakage-diagnostics",
+    runtimeVersions: Object.freeze(["0.1.0"]),
+    bindings: Object.freeze([
+      Object.freeze({ name: "DB_PASSWORD", kind: "secret-reference", reference: "secret://DB_PASSWORD" }),
+    ]),
+  });
+  const provider = new FileBackedSecretResolver("secret://store.env", `DB_PASSWORD=${secretValue}`);
+  const emptyProvider: SecretResolver = Object.freeze({ resolve: () => "" });
+
+  const emptyError = (() => {
+    try { resolveRuntimeSecretEnvironment(profile, emptyProvider); return null; }
+    catch (error) { return error; }
+  })();
+  assert.ok(emptyError instanceof Error);
+  assert.match(emptyError.message, /SECRET_RESOLUTION_EMPTY:secret:\/\/DB_PASSWORD/);
+  assert.equal(emptyError.message.includes(secretValue), false);
+
+  const leaked = Object.freeze({ provider, profile, resolved: resolveRuntimeSecretEnvironment(profile, provider) });
+  assert.equal(JSON.stringify(leaked).includes(secretValue), true);
+
+  const durable = Object.freeze({
+    providerRefs: JSON.parse(JSON.stringify(provider)),
+    profile: Object.freeze({
+      ...profile,
+      bindings: Object.freeze(profile.bindings.map((binding) => Object.freeze({ ...binding, reference: binding.reference }))),
+    }),
+  });
+  assert.equal(JSON.stringify(durable).includes(secretValue), false);
+  assert.equal(JSON.stringify(durable).includes("secret://DB_PASSWORD"), true);
+});
+
+test("serialized deployment evidence contains binding references but never the resolved secret value", () => {
+  const secretValue = "resolved-postgres-url-129";
+  const provider = new FileBackedSecretResolver("secret://store.env", `DATABASE_URL=${secretValue}`);
+  const profile: EnvironmentProfile = Object.freeze({
+    kind: "EnvironmentProfile",
+    environmentRef: "environment:durable-evidence",
+    runtimeVersions: Object.freeze(["0.1.0"]),
+    bindings: Object.freeze([
+      Object.freeze({ name: "DATABASE_URL", kind: "secret-reference", reference: "secret://DATABASE_URL" }),
+    ]),
+  });
+
+  const resolved = resolveRuntimeSecretEnvironment(profile, provider);
+  const deploymentEvidence = Object.freeze({
+    environmentRef: profile.environmentRef,
+    bindings: Object.freeze(profile.bindings.map((binding) => Object.freeze({ name: binding.name, kind: binding.kind, reference: binding.reference }))),
+  });
+
+  assert.equal(resolved.DATABASE_URL, secretValue);
+  assert.equal(JSON.stringify(deploymentEvidence).includes(secretValue), false);
+  assert.equal(JSON.stringify(deploymentEvidence).includes("secret://DATABASE_URL"), true);
+});
