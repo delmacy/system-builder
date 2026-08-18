@@ -10,7 +10,7 @@ Close `P9-RUNTIME-RECONCILIATION-E2E-01` after proving bounded durable-authority
 
 ## Sprint result
 
-Goal: PASS pending final closure-head CI.
+Goal: PASS. Closure-head Deterministic CI is PASS (PR #196 `validate` SUCCESS).
 
 TASKs:
 - TASK-125 `e8d19463bf39ab7270d2dc07f6a4e14a3f1412b9` — CI #365 PASS;
@@ -33,6 +33,4 @@ PASS inside the P9 package boundary:
 
 ## Current gate
 
-Run repository-wide Deterministic CI on the closure head. If green, verify PR #196 scope/reviews, mark Ready for human Sprint Review and stop.
-
-The mandatory P9 Integration & Technical Debt Review is not authorized for materialization until this Sprint is accepted, merged and `main` is freshly reconstructed.
+Closure-head Deterministic CI PASS (PR #196 `validate` SUCCESS). PR #196 scope verified and promoted to human Sprint Review; merge is a human decision. The mandatory P9 Integration & Technical Debt Review is not authorized for materialization until this Sprint is accepted, merged and `main` is freshly reconstructed.

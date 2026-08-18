@@ -8,14 +8,11 @@ The repository is authoritative. Do not use chat history as technical authority.
 
 Branch: `sprint/P9-RUNTIME-RECONCILIATION-E2E-01`
 PR: #196
-Status: `IMPLEMENTED / TASK_CI_PASS / FINAL_CI_PENDING`.
+Status: `IMPLEMENTED / TASK_CI_PASS / FINAL_CI_PASS / READY_FOR_HUMAN_REVIEW`.
 
 ## Required action
 
-1. Run final repository-wide Deterministic CI on the closure head.
-2. If green, confirm PR #196 contains only materialization/governance, TASK-125..127 authorized implementation/evidence and Sprint closure files.
-3. Confirm no unresolved review blockers.
-4. Promote PR #196 to human Sprint Review and stop.
+Closure-head Deterministic CI is PASS (PR #196 `validate` SUCCESS). PR #196 scope verified — only materialization/governance, TASK-125..127 authorized implementation/evidence and Sprint closure files. No unresolved review blockers. PR #196 is promoted to human Sprint Review. Merge is a human decision; this Sprint is complete and stops here.
 
 ## Boundary
 

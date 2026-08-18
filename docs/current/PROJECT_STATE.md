@@ -21,7 +21,7 @@ Date: 2026-08-17
 Base: `34379b744661468d8f3575facdbb6ed7140f8470`
 Branch: `sprint/P9-RUNTIME-RECONCILIATION-E2E-01`
 PR: #196
-Status: `IMPLEMENTED / TASK_CI_PASS / FINAL_CI_PENDING`.
+Status: `IMPLEMENTED / TASK_CI_PASS / FINAL_CI_PASS / READY_FOR_HUMAN_REVIEW`.
 
 Authoritative TASKs:
 - TASK-125 `e8d19463bf39ab7270d2dc07f6a4e14a3f1412b9` — CI #365 PASS;
@@ -51,4 +51,4 @@ Safety evidence covers no-active fail-closed behavior, non-authoritative evidenc
 
 ## Current gate
 
-Run closure-head Deterministic CI. If PASS, verify PR #196 final diff/review gates, promote to human Sprint Review and stop. Do not merge or materialize the P9 package review automatically.
+Closure-head Deterministic CI PASS (PR #196 `validate` SUCCESS). PR #196 scope verified — only authorized materialization, TASK-125..127 implementation/evidence and Sprint closure files. Promoted to human Sprint Review. Do not merge automatically or materialize the P9 package review until this Sprint is accepted, merged and `main` is freshly reconstructed.

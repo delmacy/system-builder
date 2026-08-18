@@ -63,6 +63,6 @@ PASS inside the package boundary.
 - TASK-125 CI #365: PASS;
 - TASK-126 CI #366: PASS;
 - TASK-127 CI #367: PASS;
-- final closure-head Deterministic CI: required PASS before human Sprint Review readiness.
+- final closure-head Deterministic CI (PR #196 `validate`): PASS — Sprint promoted to human Sprint Review, merge pending human decision.
 
 No local execution is claimed. GitHub Actions is the objective CI evidence.
