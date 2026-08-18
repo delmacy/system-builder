@@ -1,37 +1,31 @@
-# Current Execution Milestone — M10 P9 Sprint 2 Review Gate
+# Current Execution Milestone — M10 P9 Sprint 3 Construction
 
 ## Goal
 
-Close `P9-ACTIVE-RUNTIME-PROMOTION-01` after implementing and verifying bounded Deploy-owned active Runtime promotion.
+Execute `P9-RUNTIME-RECONCILIATION-E2E-01` after the merged Sprint 2 result, proving bounded Deploy-owned restart reconciliation from durable authority into the authoritative managed Runtime.
 
 ## Integrated predecessor
 
-`P9-MANAGED-RUNTIME-PROCESS-01` merged through PR #194 at `cea8f09ccb99b2bf5bed27e9f01782db1520bb67`; final CI #356 PASS.
+`P9-ACTIVE-RUNTIME-PROMOTION-01` merged through PR #195 at `34379b744661468d8f3575facdbb6ed7140f8470`; final Sprint CI #362 PASS before merge.
 
-## Sprint result
+## Active Sprint
 
-Goal: PASS pending final closure-head CI.
+`P9-RUNTIME-RECONCILIATION-E2E-01 — Runtime Restart Reconciliation`
 
-TASKs:
-- TASK-122 `14e4464e7defd82999b1fd225a99b22b2ff42dff` — CI #359 PASS;
-- TASK-123 `afe59225ae58ee07160d8f73b4ee928d1bdf99fd` — CI #360 PASS;
-- TASK-124 `a2c2b4210320ea4ea945e21c8592fcfe4fca97ee` — CI #361 PASS.
+Branch: `sprint/P9-RUNTIME-RECONCILIATION-E2E-01`
+Status: `MATERIALIZED / PRE_CODE_CI_PENDING`.
 
-## Achieved lifecycle
+Committed TASK order:
+1. TASK-125 — bounded authoritative Runtime reconciliation;
+2. TASK-126 — reconciliation failure/retention safety;
+3. TASK-127 — durable package-level restart E2E evidence.
 
-The Deploy-owned single-host orchestrator now keeps the prior active Runtime alive while a candidate is started/accepted and the existing P8 atomic authority decides promotion. Successful B activation retires A only after authority changes. Stale/failed contenders are cleaned without terminating B, and fresh authenticated PostgreSQL authority reconstruction reports B while the live B process remains healthy.
+## Architecture boundary
 
-## Architecture result
-
-PASS inside the P9 package boundary:
-- Deploy-owned single-host reference only;
-- no canonical contracts;
-- no Runtime changes;
-- no ADR/L4;
-- no external traffic/fleet/cloud topology.
+The Sprint models a controlled restart of the Deploy-owned single-host process manager. The old manager shuts down its owned Runtime before restart; the fresh manager reconstructs durable Deploy authority plus durable Release/Artifact evidence and rematerializes the authoritative Runtime. No generic process discovery, PID scanning, external service manager, load balancer, DNS/reverse proxy, scheduler, Kubernetes, fleet or cloud topology is introduced.
 
 ## Current gate
 
-Run final repository-wide Deterministic CI on the closure head. If green, verify PR #195 scope/reviews, mark Ready for human Sprint Review and stop.
+Run repository-wide Deterministic CI on the pre-code materialization head. Do not edit product code until that gate is green.
 
-Do not merge automatically and do not materialize P9 Sprint 3 or package review at this gate.
+Do not materialize the P9 Integration & Technical Debt Review or any successor package at this gate.

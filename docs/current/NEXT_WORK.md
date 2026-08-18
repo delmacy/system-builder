@@ -1,24 +1,25 @@
-# Next Work — P9 Sprint 2 Review Gate
+# Next Work — P9 Sprint 3 Construction
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Active Sprint
 
-`P9-ACTIVE-RUNTIME-PROMOTION-01`
+`P9-RUNTIME-RECONCILIATION-E2E-01`
 
-Branch: `sprint/P9-ACTIVE-RUNTIME-PROMOTION-01`
-PR: #195
-Status: `IMPLEMENTED / TASK_CI_PASS / FINAL_CI_PENDING`.
+Branch: `sprint/P9-RUNTIME-RECONCILIATION-E2E-01`
+Status: `MATERIALIZED / PRE_CODE_CI_PENDING`.
 
 ## Required action
 
-1. Run final repository-wide Deterministic CI on the closure head.
-2. If green, confirm PR #195 contains only authorized Sprint materialization, TASK-122..124 implementation/evidence and Sprint closure files.
-3. Confirm no unresolved review blockers.
-4. Promote PR #195 to human Sprint Review and stop.
+1. Run repository-wide Deterministic CI on the materialization head.
+2. If green, execute TASK-125 -> TASK-126 -> TASK-127 in dependency order.
+3. Run each TASK validation before advancing.
+4. After TASK-127, produce the Sprint Report, run final repository verification, promote one Sprint PR and stop at human Sprint Review.
 
 ## Boundary
 
-Do not merge PR #195 automatically at this gate.
-Do not materialize or execute `P9-RUNTIME-RECONCILIATION-E2E-01` or the P9 Integration & Technical Debt Review.
-Those successors may only be revalidated after this Sprint is accepted, merged and `main` is freshly reconstructed.
+Reconciliation is bounded to controlled restart of the Deploy-owned single-host manager. The old manager explicitly stops its owned process; the fresh manager reconstructs durable authority and rematerializes the authoritative Runtime from durable Release/Artifact state.
+
+Do not introduce generic process discovery, PID scanning, external service managers, load balancer, DNS/reverse proxy, Kubernetes/container scheduler, fleet/cloud topology, canonical infrastructure contracts or Builder/Runtime L4 changes.
+
+Do not materialize or execute the P9 Integration & Technical Debt Review or any successor package.
