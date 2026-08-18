@@ -1,7 +1,7 @@
 ---
 id: TASK-127
 title: Prove durable manager restart reconciliation end to end
-status: blocked
+status: verification
 priority: 442
 milestone: M10
 model_tier: cheap
@@ -66,21 +66,11 @@ P9 Sprint 1 added managed Runtime lifecycle. Sprint 2 bound live promotion/reten
 
 # Current behavior
 
-The pieces exist independently but package-level deterministic evidence after manager restart is not yet committed.
+The executable seams exist and TASK-125/126 are CI-proven; package-level durable restart evidence is the remaining construction proof.
 
 # Required change
 
-Add one E2E product test that:
-- creates/reconstructs durable Catalog/Assembly/Validation/Compiler/Release/Artifact outputs through existing APIs;
-- uses authenticated PostgreSQL Deploy state;
-- activates managed A and promotes managed B;
-- proves stale and failed contenders cannot replace B;
-- explicitly shuts down the old single-host manager/process while durable B authority remains;
-- constructs fresh durable Release/Artifact/Deploy repositories and a fresh reconciliation manager;
-- reconstructs active B authority and matching B release/artifact evidence;
-- reconciles/rematerializes B;
-- proves B health/Runtime continuity with Builder/Observe unavailable;
-- asserts durable attempted history/active authority remain correct and serialized evidence contains no credentials/secrets.
+Add one E2E product test that persists/reconstructs Catalog before compilation, persists/reconstructs Release and Artifact payload, uses authenticated PostgreSQL Deploy state, activates A and promotes B, records stale C and failed D retention, explicitly shuts down old manager B while durable authority remains, reopens durable Deploy/Release/Artifact stores, reconciles only reconstructed B in a fresh manager, and proves health with Builder/Observe unavailable.
 
 # Inputs / contracts
 
@@ -92,14 +82,15 @@ Evidence only: one package-level E2E test and this TASK spec status/evidence upd
 
 # Acceptance criteria
 
-- full P9 chain executes through real durable repositories;
-- B is the durable active deployment before and after controlled manager restart;
-- old manager process is stopped before fresh-manager reconciliation;
-- fresh manager starts only B from reconstructed authority/release/artifact/environment evidence;
+- durable Catalog is reconstructed before assembly/compiler output;
+- durable Release/Artifact repositories are reconstructed before live promotion and again after manager restart;
+- A -> B promotion runs against authenticated durable Deploy authority;
+- stale C and failed D remain durable attempts while B remains active;
+- old manager B is explicitly stopped before fresh-manager reconciliation;
+- fresh manager starts only reconstructed B from durable authority/release/artifact/environment evidence;
 - Builder/Observe remain unavailable while reconciled B is healthy;
-- stale/failed contender history remains durable;
 - credentials/secrets are absent from serialized evidence;
-- no packages/** changes;
+- no `packages/**` changes;
 - declared validations pass.
 
 # Non-goals
@@ -108,7 +99,11 @@ Host reboot/service daemon proof, generic process discovery, external load balan
 
 # Evidence expected
 
-Deterministic GitHub CI execution of the complete P9 restart/reconciliation proof against PostgreSQL fixtures.
+`tests/product/p9-runtime-reconciliation-e2e.test.ts` deterministically executes the complete P9 durable restart/reconciliation chain against the PostgreSQL CI fixtures.
+
+# Implementation evidence
+
+Evidence-only implementation is committed on the Sprint branch; CI validation is required before Sprint closure.
 
 # Escalation
 
