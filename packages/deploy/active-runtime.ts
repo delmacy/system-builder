@@ -30,8 +30,10 @@ export type ActiveRuntimePromotionResult =
   | Readonly<{
       ok: false;
       promoted: false;
-      outcome: "candidate-failed" | "local-active-mismatch";
-      diagnostic: ManagedLocalRuntimeDiagnostic | Readonly<{ code: "LOCAL_ACTIVE_MISMATCH"; detail: string }>;
+      outcome: "candidate-failed" | "local-active-mismatch" | "authority-process-divergence";
+      diagnostic:
+        | ManagedLocalRuntimeDiagnostic
+        | Readonly<{ code: "LOCAL_ACTIVE_MISMATCH" | "AUTHORITY_PROCESS_DIVERGENCE"; detail: string }>;
       active: ActiveManagedRuntimeSnapshot | null;
     }>;
 
@@ -76,14 +78,15 @@ export class SingleHostActiveRuntimeOrchestrator {
     const environmentRef = input.environment.environmentRef;
     const previous = this.#active.get(environmentRef);
     const previousId = previous?.record.deploymentId ?? null;
-    if (previousId !== input.expectedActiveDeploymentId) {
+    const authorityId = this.#registry.getActive(environmentRef)?.deploymentId ?? null;
+    if (previousId !== authorityId) {
       return Object.freeze({
         ok: false,
         promoted: false,
         outcome: "local-active-mismatch",
         diagnostic: Object.freeze({
           code: "LOCAL_ACTIVE_MISMATCH" as const,
-          detail: `${input.expectedActiveDeploymentId ?? "null"}:${previousId ?? "null"}`,
+          detail: `${authorityId ?? "null"}:${previousId ?? "null"}`,
         }),
         active: snapshot(previous),
       });
@@ -122,6 +125,19 @@ export class SingleHostActiveRuntimeOrchestrator {
     }
 
     if (decision.outcome === "activated") {
+      if (decision.resultingActiveDeploymentId !== candidate.record.deploymentId) {
+        await started.managed.stop();
+        return Object.freeze({
+          ok: false,
+          promoted: false,
+          outcome: "authority-process-divergence",
+          diagnostic: Object.freeze({
+            code: "AUTHORITY_PROCESS_DIVERGENCE" as const,
+            detail: `${decision.resultingActiveDeploymentId ?? "null"}:${candidate.record.deploymentId}`,
+          }),
+          active: snapshot(previous),
+        });
+      }
       const next = Object.freeze({ record: candidate.record, managed: started.managed });
       this.#active.set(environmentRef, next);
       if (previous !== undefined && previous.record.deploymentId !== candidate.record.deploymentId) {
@@ -138,6 +154,18 @@ export class SingleHostActiveRuntimeOrchestrator {
     }
 
     const candidateFinal = await started.managed.stop();
+    if (decision.resultingActiveDeploymentId !== previousId) {
+      return Object.freeze({
+        ok: false,
+        promoted: false,
+        outcome: "authority-process-divergence",
+        diagnostic: Object.freeze({
+          code: "AUTHORITY_PROCESS_DIVERGENCE" as const,
+          detail: `${decision.resultingActiveDeploymentId ?? "null"}:${previousId ?? "null"}`,
+        }),
+        active: snapshot(previous),
+      });
+    }
     return Object.freeze({
       ok: true,
       promoted: false,

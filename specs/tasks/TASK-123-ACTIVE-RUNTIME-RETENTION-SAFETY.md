@@ -1,7 +1,7 @@
 ---
 id: TASK-123
 title: Preserve active Runtime across stale and failed contenders
-status: blocked
+status: completed
 priority: 429
 milestone: M10
 model_tier: cheap
@@ -94,3 +94,7 @@ Focused tests covering stale accepted contender, failed startup/health contender
 # Escalation
 
 Stop for any required change to canonical contracts, external topology, Runtime implementation or forbidden predecessor APIs.
+
+# Implementation evidence
+
+The Deploy-local orchestrator now compares its managed process identity with the currently observed deployment authority rather than with the caller's expected CAS value. This permits a stale caller expectation to reach atomic authority and return `stale-active` while preserving B. Rejected candidates are stopped/cleaned; candidate startup failure does not invoke activation; authority/process divergence fails closed.
