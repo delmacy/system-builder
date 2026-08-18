@@ -1,6 +1,6 @@
 # P9-PACKAGE-01 — Integration & Technical Debt Review
 
-Status: READY_FOR_FINAL_CI / REVIEW_GATE_PENDING
+Status: FINAL_CI_PASS / REVIEW_GATE_PENDING
 
 ## Review authority
 
@@ -42,8 +42,8 @@ The corrective is a separate PR reviewed/merged by a human; it is not part of th
 
 Canonical package regression is repository-wide `npm run verify` through GitHub Deterministic CI with PostgreSQL 17.6 trust and SCRAM-authenticated fixtures.
 
-Review materialization head: (populated after final CI).
-Deterministic CI: (populated after final CI).
+Review materialization head: `94f6e42` (review commit).
+Deterministic CI: run `32097890123` — `validate` SUCCESS (57s).
 
 Observed objective evidence (from P9 Sprint CI runs #363–#367 and PR #196 closure):
 
@@ -189,8 +189,8 @@ Recommendation: after this review passes final CI, receives human Review Gate ac
 - external/fleet topology absorbed: NO (verified);
 - PR #197 registered as traceable corrective + rebased over new main + CI evidence PASS (run 32097697770): YES;
 - architecture revalidation: PASS WITH DEBT;
-- materialization-head regression: (populated after final CI);
-- final review regression: PENDING;
+- materialization-head regression: PASS (CI `32097890123`);
+- final review regression: PENDING (re-run on finalization head);
 - rollback blocker: NONE;
 - successor Sprint Package materialized: SKELETON ONLY (`P10-PACKAGE-01`);
 - decision: PENDING FINAL CI / HUMAN REVIEW GATE.
