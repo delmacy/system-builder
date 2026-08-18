@@ -13,6 +13,9 @@
       ],
       "@system-builder/runtime-core": [
         "packages/runtime-core/index.ts"
+      ],
+      "@system-builder/postgres": [
+        "packages/postgres/index.ts"
       ]
     },
     "strict": true,
