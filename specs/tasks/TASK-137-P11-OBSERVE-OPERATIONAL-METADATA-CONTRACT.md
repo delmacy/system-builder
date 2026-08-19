@@ -1,7 +1,7 @@
 ---
 id: TASK-137
 title: Define the provider-neutral DeploymentOperationMetadata contract
-status: ready
+status: verification
 priority: 459
 milestone: M11
 model_tier: cheap
@@ -104,7 +104,7 @@ Changing the canonical `DeploymentRecord` schema/identity, derivation from execu
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the first TASK of Sprint 2. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the first TASK of Sprint 2: `packages/observe/metadata.ts` exports `DeploymentOperationMetadata` (contract + deterministic content-addressed `operationId` via `create`), re-exported from `packages/observe/index.ts`. `tests/product/observe-operational-metadata-contract.test.ts` proves 6 cases (contract shape, determinism, content-addressing, missing-executor rejection, unsupported source/mode rejection, optional correlation refs). Local: lint PASS, typecheck PASS, focused test 6/6 PASS, `npm run test:product` core 118 tests/117 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 

@@ -1,6 +1,12 @@
 import { sha256Canonical } from "@system-builder/deterministic";
 
 export { publish, type PublishObserver, type PublishResult } from "./publish.js";
+export {
+  DeploymentOperationMetadata,
+  type DeploymentOperationMetadataFields,
+  type DeploymentOperationMode,
+  type DeploymentOperationSource,
+} from "./metadata.js";
 
 export type DeploymentHealthCheck = Readonly<{
   name: string;
