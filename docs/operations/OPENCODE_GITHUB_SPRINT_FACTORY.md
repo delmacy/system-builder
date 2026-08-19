@@ -143,9 +143,10 @@ No custom heartbeat is required initially. Each unit has a GitHub `timeout-minut
 
 ## Required GitHub configuration
 
-Create the Actions repository variable:
+Create the Actions repository variables:
 
 - `OPENCODE_FACTORY_MODEL` = exact OpenCode model ID in `provider/model` form.
+- `OPENCODE_VERSION` (optional) = OpenCode CLI version installed in each runner; defaults to `1.18` when unset.
 
 Configure the secret required by the selected provider. The workflows expose conventional secrets when present:
 
