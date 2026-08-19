@@ -1,7 +1,7 @@
 ---
 id: TASK-133
 title: Render positive TLS verification into the Runtime and prove authenticated positive-verification E2E
-status: ready
+status: verification
 priority: 455
 milestone: M10
 model_tier: cheap
