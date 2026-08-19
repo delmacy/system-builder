@@ -33,7 +33,7 @@ Before editing, explicitly confirm the TASK's `allowed_paths`, `forbidden_paths`
 8. **Explicit contracts between bounded contexts.** Do not depend on another module's internals.
 9. **No silent architecture changes.** Public contracts, module boundaries, Builder/Runtime relations or constitutional principles require an ADR.
 10. **Repository is memory.** Every durable decision must end as docs, contract, ADR, spec, test or code.
-11. **Local-first development.** The normal product executor is OpenCode CLI on the maintainer desktop using free/cheap models; GitHub backs source/history and deterministic CI.
+11. **Local-first development.** The normal product executor is OpenCode CLI on the maintainer desktop using free/cheap models; GitHub backs source/history and deterministic CI only.
 12. **Premium intelligence is exceptional.** Use Codex/strong models primarily for bootstrap, architecture, critical review, security-sensitive changes and exceptions.
 
 ## Sprint Mode
@@ -55,6 +55,16 @@ Product development executes in Sprint Mode by default.
 - Do not write directly to `main`.
 
 The AgentFactory Supervisor/runtime is preserved but is not a prerequisite or completion gate for product Sprints unless explicitly reactivated by repository authority.
+
+## Local-first Sprint execution
+
+GitHub-hosted OpenCode task generation/materialization workflows are disabled by repository decision. All planning and execution happen on the maintainer desktop:
+
+- **Planning (Work Packages, WBS, task specs) is produced locally** by the OpenCode planning session and committed through the normal Sprint branch flow.
+- **Sprint execution is local and automatic per TASK**: one disposable `opencode run` session per committed TASK, using the repository as the single source of truth, exactly one authoritative commit per TASK, in dependency order.
+- Use the local orchestrator `scripts/sprint-run-local.ps1` to iterate the committed TASK set, run each session, validate the one-commit rule, push the Sprint branch, run Sprint closure, and optionally open the Sprint Review PR.
+- GitHub is used only as source/history and as objective deterministic CI (`npm run verify`) on the Sprint PR head. GitHub Actions never drive OpenCode execution.
+- Default model: `opencode/deepseek-v4-flash-free`. Prefer free/cheap models; do not depend on paid API balance for routine Sprint execution.
 
 ## Agent behavior
 
@@ -80,7 +90,9 @@ L3/L4 work requires explicit Sprint authority/review; L4 always requires an ADR.
 
 ## Model policy
 
-Task metadata chooses the minimum execution tier. Existing AgentFactory model-routing policy remains useful guidance, but Sprint Mode may invoke OpenCode CLI directly rather than through the Supervisor runtime.
+Task metadata chooses the minimum execution tier. Existing AgentFactory model-routing policy remains useful guidance, but Sprint Mode invokes OpenCode CLI directly on the desktop.
+
+Default model: `opencode/deepseek-v4-flash-free` (free). The local orchestrator accepts `-Model <provider/model>` for tasks that require a stronger or paid tier.
 
 ## Legacy repository
 

@@ -129,9 +129,13 @@ Routine implementation choices, test fixes and bounded refactors do not require 
 
 ## Executor
 
-The default local executor is OpenCode CLI operating directly on the Sprint branch.
+The default executor is the local OpenCode orchestrator: `scripts/sprint-run-local.ps1`.
 
-A connected coding agent may execute through GitHub instead, provided it obeys the same repository authority chain, TASK contracts, validation gates, branch boundary and stop conditions. Local commands/tests must never be claimed unless actually observed; GitHub Actions may serve as objective remote verification.
+It executes the committed TASK set in dependency order, one disposable `opencode run` session per TASK on the Sprint branch, enforces exactly one authoritative commit per TASK, pushes the branch, runs Sprint closure (final verification + Sprint Report + closure commit), and may open the Sprint Review PR.
+
+GitHub-hosted OpenCode automation workflows are disabled by repository decision. GitHub is used only as source/history and as objective deterministic CI on the Sprint PR head; GitHub Actions never drive OpenCode execution.
+
+A connected coding agent may execute through another environment instead, provided it obeys the same repository authority chain, TASK contracts, validation gates, branch boundary and stop conditions. Local commands/tests must never be claimed unless actually observed; GitHub Actions may serve as objective remote verification.
 
 The AgentFactory Supervisor/runtime is not required to execute product Sprints. Its current implementation is preserved as development infrastructure but is frozen as a non-blocking track until explicitly reactivated.
 
