@@ -1,8 +1,9 @@
 import { createHash, createHmac, pbkdf2Sync, randomBytes } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { createConnection, type Socket } from "node:net";
 import { connect as createTlsConnection, type TLSSocket } from "node:tls";
 
-export type PostgresSslMode = "disable" | "prefer" | "require";
+export type PostgresSslMode = "disable" | "prefer" | "require" | "verify-ca" | "verify-full";
 
 export type PostgresConnection = Readonly<{
   host: string;
@@ -11,6 +12,7 @@ export type PostgresConnection = Readonly<{
   password: string;
   database: string;
   sslMode: PostgresSslMode;
+  ca?: string;
 }>;
 
 export type PostgresRow = readonly (string | null)[];
@@ -37,11 +39,16 @@ export function parsePostgresConnection(connectionString: string, prefix = "POST
   const database = decodeURIComponent(url.pathname.startsWith("/") ? url.pathname.slice(1) : url.pathname);
   const port = url.port ? Number(url.port) : 5432;
   const sslModeValue = url.searchParams.get("sslmode") ?? "disable";
-  if (sslModeValue !== "disable" && sslModeValue !== "prefer" && sslModeValue !== "require") {
+  if (sslModeValue !== "disable" && sslModeValue !== "prefer" && sslModeValue !== "require" && sslModeValue !== "verify-ca" && sslModeValue !== "verify-full") {
     throw new Error(errorCode(prefix, "SSLMODE_INVALID"));
   }
   if (!url.hostname || !user || !database || !Number.isInteger(port) || port <= 0 || port > 65535) {
     throw new Error(errorCode(prefix, "URL_INVALID"));
+  }
+  if (sslModeValue === "verify-ca" || sslModeValue === "verify-full") {
+    const ca = url.searchParams.get("sslrootcert") ?? "";
+    if (!ca) throw new Error(errorCode(prefix, "SSLMODE_CA_REQUIRED"));
+    return Object.freeze({ host: url.hostname, port, user, password, database, sslMode: sslModeValue, ca });
   }
   return Object.freeze({ host: url.hostname, port, user, password, database, sslMode: sslModeValue });
 }
@@ -127,6 +134,12 @@ function postgresErrorCode(payload: Buffer): string {
   return "UNKNOWN";
 }
 
+function tlsVerificationCode(error: unknown): string {
+  const code = (error as { code?: string } | null | undefined)?.code;
+  if (code === "ERR_TLS_CERT_ALTNAME_INVALID") return "TLS_HOSTNAME_MISMATCH";
+  return "TLS_CERT_UNTRUSTED";
+}
+
 function dataRow(payload: Buffer): PostgresRow {
   const count = payload.readInt16BE(0);
   let offset = 2;
@@ -198,17 +211,39 @@ function connectPostgres(config: PostgresConnection, prefix: string): Promise<Po
       socket.once("data", (chunk) => {
         const response = chunk[0];
         if (response === 78) {
-          if (config.sslMode === "require") finish(undefined, new Error(errorCode(prefix, "TLS_REQUIRED")));
-          else finish(socket);
+          if (config.sslMode === "require" || config.sslMode === "verify-ca" || config.sslMode === "verify-full") {
+            finish(undefined, new Error(errorCode(prefix, "TLS_REQUIRED")));
+          } else {
+            finish(socket);
+          }
           return;
         }
         if (response !== 83) {
           finish(undefined, new Error(errorCode(prefix, "TLS_NEGOTIATION_FAILED")));
           return;
         }
-        const secure = createTlsConnection({ socket, servername: config.host, rejectUnauthorized: false });
-        secure.once("secureConnect", () => finish(secure));
-        secure.once("error", () => finish(undefined, new Error(errorCode(prefix, "TLS_FAILED"))));
+        if (config.sslMode === "verify-ca" || config.sslMode === "verify-full") {
+          let ca: string;
+          try {
+            ca = readFileSync(config.ca ?? "", "utf8");
+          } catch {
+            finish(undefined, new Error(errorCode(prefix, "TLS_CA_UNAVAILABLE")));
+            return;
+          }
+          const secure = createTlsConnection({
+            socket,
+            servername: config.host,
+            rejectUnauthorized: true,
+            ca,
+            ...(config.sslMode === "verify-ca" ? { checkServerIdentity: () => undefined } : {}),
+          });
+          secure.once("secureConnect", () => finish(secure));
+          secure.once("error", (error) => finish(undefined, new Error(errorCode(prefix, tlsVerificationCode(error)))));
+        } else {
+          const secure = createTlsConnection({ socket, servername: config.host, rejectUnauthorized: false });
+          secure.once("secureConnect", () => finish(secure));
+          secure.once("error", () => finish(undefined, new Error(errorCode(prefix, "TLS_FAILED"))));
+        }
       });
     });
   });

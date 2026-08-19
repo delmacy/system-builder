@@ -1,7 +1,7 @@
 ---
 id: TASK-131
 title: Add positive TLS server-identity verification modes to the Postgres transport
-status: ready
+status: verification
 priority: 453
 milestone: M10
 model_tier: cheap
