@@ -6,6 +6,10 @@ Não fechar todo o conjunto de Sprints do projeto agora. Criar um forecast de on
 
 O default operacional passa a ser um **Sprint Package com até 3 construction Sprints + 1 Integration & Technical Debt Review**.
 
+## Onde a geração acontece
+
+Work Packages, WBS e TASK specs são gerados **localmente**, pela sessão OpenCode de planejamento no desktop do mantenedor, e persistidos no repositório (princípio *Repository is memory*). GitHub-hosted OpenCode generation/materialization workflows estão desativados por decisão do repositório; GitHub é usado apenas como source/history e CI determinístico.
+
 ## Por quê
 
 O escopo baseline permanece controlado, mas a decomposição executiva aprende com integração real. Fechar dezenas de Sprints antecipadamente cria falsa precisão e aumenta retrabalho. Planejar apenas a próxima Sprint, por outro lado, perde direção e reabre planejamento a cada merge.
