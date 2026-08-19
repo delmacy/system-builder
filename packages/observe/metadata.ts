@@ -215,4 +215,16 @@ export const DeploymentOperationMetadata = Object.freeze({
     }
     return Object.freeze({ ...operation, ...correlated, operationId: expected });
   },
+  toJson(metadata: DeploymentOperationMetadata): string {
+    return JSON.stringify(metadata);
+  },
+  fromJson(serialized: string): DeploymentOperationMetadata {
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(serialized);
+    } catch {
+      throw invalid("JSON");
+    }
+    return DeploymentOperationMetadata.validate(parsed);
+  },
 });

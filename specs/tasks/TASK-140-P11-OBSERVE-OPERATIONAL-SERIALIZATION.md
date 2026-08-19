@@ -1,7 +1,7 @@
 ---
 id: TASK-140
 title: Lossless JSON serialization round-trip for DeploymentOperationMetadata
-status: ready
+status: verification
 priority: 462
 milestone: M11
 model_tier: cheap
@@ -97,7 +97,7 @@ Serialization surface in `packages/observe/metadata.ts` + `tests/product/observe
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the fourth TASK. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the fourth TASK of Sprint 2: `DeploymentOperationMetadata.toJson`/`fromJson` in `packages/observe/metadata.ts` — deterministic serialization, lossless round-trip, `fromJson` validates via `validate` and rejects malformed JSON (`JSON`), tampered identity or tampered fields (`OPERATION_ID`). `tests/product/observe-operational-serialization.test.ts` proves 7 cases (lossless round-trip with identity, deterministic serialization, every correlation field preserved, malformed JSON, tampered identity, tampered field, create-only round-trip). Local: lint PASS, typecheck PASS, focused test 7/7 PASS, `npm run test:product` core 139 tests/138 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 
