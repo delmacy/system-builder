@@ -1,8 +1,9 @@
 # P11-OBSERVE-OPERATIONAL-METADATA-01 — Operational Metadata for Observe Publication
 
-Status: COMMITTED / MATERIALIZED (manifest + TASK specs) / NOT_YET_CONSTRUCTED
+Status: COMMITTED / MATERIALIZED (manifest + TASK specs) / CONSTRUCTED / MERGED
 Base: `fd05da2` (main após P11 Sprint 1 PR #219 merged)
-Branch: `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01`
+Merged: PR #221 at `1830705` (Deterministic CI run `32280667636` PASS)
+Branch: `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` (merged and deleted)
 Package: `P11-PACKAGE-01`
 Milestone: M11
 
@@ -12,25 +13,22 @@ Complete the remainder of `TD-P4-08` by enriching the Observe publication with *
 
 ## Predecessor gate
 
-SATISFIED.
-
-- `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` **merged** through PR #219 at `fd05da2` (Deterministic CI run `32273409636` PASS). `TD-P7-03` closed; `TD-P4-08` partially closed.
-- No remaining blocker, unaccepted ADR, L3/L4, destructive-migration or security-weakening gate blocks this Sprint boundary. The Sprint 1 observation contract and fail-open publish exist in `packages/observe` and are the predecessor inputs.
+SATISFIED (Sprint 1 merged at `fd05da2`, PR #219). This Sprint merged through PR #221 at `1830705` (Deterministic CI run `32280667636` PASS). `TD-P7-03` closed (Sprint 1) and `TD-P4-08` closed (Sprint 2). Closure recorded in `P11-OBSERVE-OPERATIONAL-METADATA-01.report.md`.
 
 ## Committed TASK set (dependency order)
 
-1. TASK-137 — `P11-OBSERVE-OPERATIONAL-METADATA-CONTRACT` (`ready`) — define the provider-neutral `DeploymentOperationMetadata` contract: executor identity, source/trigger, operation mode, correlation refs; deterministic, value-leak-free.
-2. TASK-138 — `P11-OBSERVE-OPERATIONAL-DERIVATION` (`ready`) — derive operational metadata deterministically from the execution context and the durable `DeploymentRecord`; content-addressed deterministic identity.
-3. TASK-139 — `P11-OBSERVE-OPERATIONAL-VALIDATION` (`ready`) — reject malformed, unknown or conflicting operational metadata deterministically (fail-closed), with positive and negative coverage.
-4. TASK-140 — `P11-OBSERVE-OPERATIONAL-SERIALIZATION` (`ready`) — lossless JSON round-trip for operational metadata preserving identity and every field.
-5. TASK-141 — `P11-OBSERVE-OPERATIONAL-CORRELATION` (`ready`) — correlate operational metadata with release/environment/runtime context (runtime/process/session refs) provider-neutrally, deterministically.
-6. TASK-142 — `P11-OBSERVE-OPERATIONAL-ENRICHMENT` (`ready`) — enrich `DeploymentObservation` additively with the operational metadata block without changing the Sprint 1 observation identity when metadata is absent.
-7. TASK-143 — `P11-OBSERVE-OPERATIONAL-FAILOPEN` (`ready`) — publication remains fail-open when operational metadata is unavailable or malformed: Deploy and Runtime are unchanged (ADR-0002).
-8. TASK-144 — `P11-OBSERVE-OPERATIONAL-NOLEAK` (`ready`) — proof that executor/source/operation metadata never carries a resolved secret, credential or CA value (ADR-0007).
-9. TASK-145 — `P11-OBSERVE-OPERATIONAL-POSITIVE-TEST` (`ready`) — product tests: positive derivation, correlation and enrichment of operational metadata.
-10. TASK-146 — `P11-OBSERVE-OPERATIONAL-NEGATIVE-TEST` (`ready`) — product tests: negative validation, fail-open and no-value-leakage cases.
-11. TASK-147 — `P11-OBSERVE-OPERATIONAL-INTEGRATED-E2E` (`ready`) — integrated E2E: durable DeploymentRecord -> enriched observation with operational metadata -> Observe receiver, with Runtime autonomy.
-12. TASK-148 — `P11-OBSERVE-OPERATIONAL-GROWING-PROOF` (`ready`) — extend the growing package integration proof and the Sprint report with operational-metadata coverage; spec statuses to `verification`.
+1. TASK-137 — `P11-OBSERVE-OPERATIONAL-METADATA-CONTRACT` (`verification`) — define the provider-neutral `DeploymentOperationMetadata` contract: executor identity, source/trigger, operation mode, correlation refs; deterministic, value-leak-free.
+2. TASK-138 — `P11-OBSERVE-OPERATIONAL-DERIVATION` (`verification`) — derive operational metadata deterministically from the execution context and the durable `DeploymentRecord`; content-addressed deterministic identity.
+3. TASK-139 — `P11-OBSERVE-OPERATIONAL-VALIDATION` (`verification`) — reject malformed, unknown or conflicting operational metadata deterministically (fail-closed), with positive and negative coverage.
+4. TASK-140 — `P11-OBSERVE-OPERATIONAL-SERIALIZATION` (`verification`) — lossless JSON round-trip for operational metadata preserving identity and every field.
+5. TASK-141 — `P11-OBSERVE-OPERATIONAL-CORRELATION` (`verification`) — correlate operational metadata with release/environment/runtime context (runtime/process/session refs) provider-neutrally, deterministically.
+6. TASK-142 — `P11-OBSERVE-OPERATIONAL-ENRICHMENT` (`verification`) — enrich `DeploymentObservation` additively with the operational metadata block without changing the Sprint 1 observation identity when metadata is absent.
+7. TASK-143 — `P11-OBSERVE-OPERATIONAL-FAILOPEN` (`verification`) — publication remains fail-open when operational metadata is unavailable or malformed: Deploy and Runtime are unchanged (ADR-0002).
+8. TASK-144 — `P11-OBSERVE-OPERATIONAL-NOLEAK` (`verification`) — proof that executor/source/operation metadata never carries a resolved secret, credential or CA value (ADR-0007).
+9. TASK-145 — `P11-OBSERVE-OPERATIONAL-POSITIVE-TEST` (`verification`) — product tests: positive derivation, correlation and enrichment of operational metadata.
+10. TASK-146 — `P11-OBSERVE-OPERATIONAL-NEGATIVE-TEST` (`verification`) — product tests: negative validation, fail-open and no-value-leakage cases.
+11. TASK-147 — `P11-OBSERVE-OPERATIONAL-INTEGRATED-E2E` (`verification`) — integrated E2E: durable DeploymentRecord -> enriched observation with operational metadata -> Observe receiver, with Runtime autonomy.
+12. TASK-148 — `P11-OBSERVE-OPERATIONAL-GROWING-PROOF` (`verification`) — extend the growing package integration proof and the Sprint report with operational-metadata coverage; spec statuses to `verification`.
 
 ## Growing integration proof expected at exit
 
