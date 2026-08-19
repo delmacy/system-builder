@@ -35,6 +35,7 @@ Selected: **A — Production SecretResolver + TLS/server-identity hardening** (`
 - Branch: `sprint/P10-TLS-SERVER-IDENTITY-01` (declared; not created by this planning transition).
 - **Revalidated** after the real Sprint 1 merge from freshly reconstructed `main` `e9f1b4d` (after PR #212): remains the sole eligible COMMITTED successor; TASK-131/132/133 validate.
 - **Re-confirmed** on the post-credential-fix re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 remains the sole eligible COMMITTED successor; no blocker or explicit human gate is present.
+- **Revalidated** on this fresh re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 remains the sole eligible COMMITTED successor; no blocker or explicit human gate is present.
 
 ## Current gate
 

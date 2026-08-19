@@ -22,6 +22,7 @@ The `TD-P8-02` human/ADR gate is **satisfied**: **ADR-0015 accepted by a human**
 - Branch: `sprint/P10-TLS-SERVER-IDENTITY-01` (declared declaratively; created only when the Sprint executes).
 - **Revalidated** after the real Sprint 1 merge from freshly reconstructed `main` `e9f1b4d` (after PR #212); TASK-131/132/133 validate (`check:tasks`: 134 specs).
 - **Re-confirmed** on the post-credential-fix re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 remains the sole eligible COMMITTED successor; TASK-131/132/133 validate (`check:tasks`: 134 specs).
+- **Revalidated** on this fresh re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 remains the sole eligible COMMITTED successor; TASK-131/132/133 validate (`check:tasks`: 134 specs).
 
 ## Required action
 

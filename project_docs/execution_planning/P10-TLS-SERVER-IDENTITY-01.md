@@ -18,6 +18,7 @@ SATISFIED.
 - `TD-P8-02` is **unblocked**: **ADR-0015 accepted by a human** through PR #206 (`docs/adr/ADR-0015-tls-server-identity-verification.md`, Status: Accepted). The ADR explicitly scopes and authorizes this construction Sprint.
 - **Revalidated after the real Sprint 1 merge** from freshly reconstructed `main` (`e9f1b4d`, after PR #212): this Sprint remains the sole eligible COMMITTED successor; TASK-131/132/133 are `ready` and validate.
 - **Re-confirmed on the post-credential-fix re-dispatch** from freshly reconstructed `main` (`e9f1b4d`): this Sprint remains the sole eligible COMMITTED successor; TASK-131/132/133 are `ready` and validate.
+- **Revalidated on this fresh re-dispatch** from freshly reconstructed `main` (`e9f1b4d`): this Sprint remains the sole eligible COMMITTED successor; TASK-131/132/133 are `ready` and validate.
 - No remaining blocker, ADR, L3/L4, destructive-migration or security-weakening gate blocks this Sprint boundary.
 
 ## Committed TASK set (dependency order)
