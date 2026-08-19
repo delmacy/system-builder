@@ -25,10 +25,12 @@ Date: 2026-08-19
 - Revalidated on this fresh re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 `P10-TLS-SERVER-IDENTITY-01` remains the sole eligible COMMITTED successor; no blocker, unaccepted ADR, L3/L4, destructive-migration or security-weakening gate is present.
 - `P10-TLS-SERVER-IDENTITY-01` (2nd construction Sprint) **merged** through PR #214 at `3fdfb95`; Deterministic CI PASS (run `32248430431`). `TD-P8-02` is **closed** under the human-accepted ADR-0015 (PR #206).
 - P10 Integration & Technical Debt Review materialized on `review/P10-PACKAGE-01-integration-debt` (PR pending): package goal PASS, both P10 Sprints merged, successor `P11-PACKAGE-01` (Observe/operations publication) materialized as **SKELETON ONLY / FORECAST**.
+- P10 Integration & Technical Debt Review **merged** through PR #216 at `72e6b09` (Deterministic CI PASS). P10 package is complete and closed.
+- `P11-PACKAGE-01` (Observe/operations publication) **materialized as COMMITTED/DIRECTION_SELECTED** with Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (TASK-134/135/136 specs, `ready`) on the planning branch; no product construction performed.
 
 ## Active milestone
 
-M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver + TLS/server-identity hardening)**. The 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (TASK-128/129/130) is **MERGED** through PR #201 at `4301936`, closing the production SecretResolver gap `TD-P4-05`. The `TD-P8-02` gate is **closed**: ADR-0015 is accepted by a human (PR #206), and Construction Sprint 2 `P10-TLS-SERVER-IDENTITY-01` (TASK-131/132/133) is **MERGED** through PR #214 at `3fdfb95`. P10 package is complete; the Integration & Technical Debt Review is **PENDING** on `review/P10-PACKAGE-01-integration-debt` (PR pending), with the successor `P11-PACKAGE-01` (Observe/operations publication) materialized as a planning skeleton only.
+M11 (candidate). P10 package is complete and closed (PR #201, #214, #216). `P11-PACKAGE-01` direction is **selected (B — Observe/operations publication, WBS 10.3.3)**. Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (TASK-134/135/136) is **COMMITTED** (manifest + specs, status `ready`), not yet constructed.
 
 ## Achieved P9 construction proof
 
@@ -60,8 +62,8 @@ M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver +
 - positive PostgreSQL TLS/server identity (`TD-P8-02`) is **closed** (ADR-0015 accepted, PR #206; Sprint 2 `P10-TLS-SERVER-IDENTITY-01` **MERGED** through PR #214); migration/fleet coordination (`TD-P4-04`) and Observe publication (`WBS 10.3.3`/`TD-P7-03`) remain open;
 - process supervision/reconciliation is single-host and process-local (`TD-P9-01`/`TD-P9-02`).
 - production SecretResolver (`TD-P4-05`) is constructed and **MERGED** (Sprint 1, PR #201).
-- successor readiness: `P11-PACKAGE-01` (Observe/operations publication, WBS 10.3.3, `TD-P7-03`/`TD-P4-08`) materialized as a planning skeleton only by the P10 review; not committed.
+- successor readiness: `P11-PACKAGE-01` (Observe/operations publication, WBS 10.3.3, `TD-P7-03`/`TD-P4-08`) materialized as **COMMITTED/DIRECTION_SELECTED** with Sprint 1 committed (TASK-134/135/136); Sprints 2/3 remain FORECAST.
 
 ## Current gate
 
-`P10-PACKAGE-01` direction A (Production SecretResolver + TLS hardening) is selected, Sprint 1 **MERGED** (PR #201), Sprint 2 **MERGED** (PR #214), and the `TD-P8-02` gate is **closed** (ADR-0015 accepted through PR #206). The package Integration & Technical Debt Review is **PENDING** on `review/P10-PACKAGE-01-integration-debt` (PR pending); its merge unblocks the successor `P11-PACKAGE-01` (Observe/operations publication) for planning. No construction Sprint is authorized until the review is accepted by a human and merged.
+`P10-PACKAGE-01` is **complete and closed** (Sprint 1 PR #201, Sprint 2 PR #214, review PR #216). `P11-PACKAGE-01` direction B (Observe/operations publication) is selected and Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (TASK-134/135/136) is **COMMITTED** and eligible; it executes on `sprint/P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` after the materialization PR merges and `main` is freshly reconstructed. No construction Sprint is authorized until then.

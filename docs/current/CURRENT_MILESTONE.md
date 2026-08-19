@@ -1,39 +1,28 @@
-# Current Execution Milestone — M10 P10 Direction Selection & Construction
+# Current Execution Milestone — M11 P11 Direction Selection & First Construction Sprint Materialized
 
 ## Goal
 
-Close the production credentials blocker `TD-P4-05` via a production-grade, replaceable SecretResolver, and close `TD-P8-02` via positive TLS server-identity verification under the human-accepted ADR-0015. The first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is implemented, CI-validated and **merged** through PR #201; the second construction Sprint `P10-TLS-SERVER-IDENTITY-01` is implemented, CI-validated and **merged** through PR #214. P10 is package-complete; the Integration & Technical Debt Review is pending on `review/P10-PACKAGE-01-integration-debt`.
+Start the Observe (SB-11) slice: publish the durable `DeploymentRecord` to Observe/operations (WBS 10.3.3) through a provider-neutral, fail-open `DeploymentObservation` contract, preserving Runtime autonomy (ADR-0002) and the no-value-leakage invariant (ADR-0007), closing `TD-P7-03` and partially `TD-P4-08`. Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (TASK-134/135/136) is **materialized as COMMITTED**.
 
 ## Integrated predecessor
 
-`P10-PRODUCTION-SECRETRESOLVER-01` merged through PR #201 at `4301936` (Deterministic CI run `32136056276` PASS on closure head `a1e0ed6`). `P10-TLS-SERVER-IDENTITY-01` merged through PR #214 at `3fdfb95` (Deterministic CI run `32248430431` PASS). `TD-P4-05` and `TD-P8-02` are both closed.
+P10 package **complete and closed**: Sprint 1 `P10-PRODUCTION-SECRETRESOLVER-01` (PR #201, `4301936`), Sprint 2 `P10-TLS-SERVER-IDENTITY-01` (PR #214, `3fdfb95`), Integration & Technical Debt Review (PR #216, `72e6b09`). `TD-P4-05` and `TD-P8-02` are closed.
 
 ## Direction selection (from integrated evidence)
 
-Selected: **A — Production SecretResolver + TLS/server-identity hardening** (`TD-P4-05` + `TD-P8-02`).
+Selected: **B — Observe/operations publication** (WBS 10.3.3, `TD-P7-03` + partial `TD-P4-08`).
 
-- The P9 review ranked this HIGH security importance and `READY TO BE CONSIDERED`, naming it the principal production blocker.
-- B (Observe publication, `TD-P7-03`/WBS 10.3.3) retained as MEDIUM forecast.
+- The P9 and P10 reviews ranked this the strongest remaining candidate after the P10 closure of `TD-P4-05`/`TD-P8-02`.
+- Observe (SB-11) is an accepted bounded context (ADR-0003) receiving optional telemetry (ADR-0002); the pipeline contract map already declares `Deploy -> ArtifactEnvelope<DeploymentRecord> -> Observe/operations`.
 - C (milestone pivot, `TD-P9-01`/`TD-P9-02`) not assumed; requires explicit milestone re-scope.
 
-## Governance escalation (resolved)
+## Materialized construction Sprint 1
 
-`TD-P8-02` (positive TLS identity/certificate verification; removing `rejectUnauthorized: false`) is an **L3/L4-adjacent security-policy change** and was escalated to an ADR. **ADR-0015 is accepted by a human** through PR #206 (`docs/adr/ADR-0015-tls-server-identity-verification.md`, Status: Accepted), which authorizes Construction Sprint 2 bounded to the PostgreSQL transport and its rendered Runtime counterpart and their tests/docs.
-
-## Constructed first construction Sprint
-
-`P10-PRODUCTION-SECRETRESOLVER-01` — PASS, **MERGED** through PR #201 at `4301936`.
-- Goal: production replaceable SecretResolver providers, fail-closed, no value leakage, managed-Runtime integration proof (`TD-P4-05`, L2/L3).
-- Committed TASKs: TASK-128 (providers `d39d1fb`), TASK-129 (fail-closed/no-leakage `f153e8d`), TASK-130 (managed-Runtime E2E `a1e0ed6`).
-- Branch: `sprint/P10-PRODUCTION-SECRETRESOLVER-01`; PR #201 merged.
-
-## Constructed second construction Sprint
-
-`P10-TLS-SERVER-IDENTITY-01` — PASS, **MERGED** through PR #214 at `3fdfb95`.
-- Goal: positive PostgreSQL TLS server-identity verification (`verify-ca`/`verify-full`) in the shared transport and the rendered autonomous Runtime, fail-closed, closing `TD-P8-02` under ADR-0015.
-- Committed TASKs: TASK-131 (`528c92e`), TASK-132 (`36dbe3a`), TASK-133 (`ae17052`).
-- Branch: `sprint/P10-TLS-SERVER-IDENTITY-01`; PR #214 merged.
+`P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` — COMMITTED (manifest + TASK-134/135/136 specs, status `ready`), not yet constructed.
+- Goal: provider-neutral `DeploymentObservation` derived from the durable `DeploymentRecord`, fail-open publication to Observe/operations when configured, no value leakage, Runtime autonomy preserved.
+- Committed TASKs: TASK-134 (observation contract), TASK-135 (fail-open publication), TASK-136 (publication E2E).
+- Branch: `sprint/P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (declared; created only when the Sprint executes).
 
 ## Current gate
 
-**Package complete; review pending.** `TD-P4-05` and `TD-P8-02` are closed; both P10 construction Sprints are merged. The Integration & Technical Debt Review is **PENDING** on `review/P10-PACKAGE-01-integration-debt` (PR pending). The successor `P11-PACKAGE-01` (Observe/operations publication, WBS 10.3.3, `TD-P7-03`/`TD-P4-08`) is materialized as a **planning skeleton only**; it becomes READY_TO_BE_PLANNED only after the review merges and is revalidated. No construction Sprint is authorized until then.
+**Eligible successor Sprint materialized.** `P11-PACKAGE-01` direction B is selected; Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` is **COMMITTED** and eligible. It executes on `sprint/P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` with TASK-134/135/136 in dependency order after the materialization PR merges and `main` is freshly reconstructed. Sprints 2/3 and the package review remain FORECAST until Sprint 1 merges.
