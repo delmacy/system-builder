@@ -23,22 +23,24 @@ Date: 2026-08-19
 - P10 Work Package revalidated after the real Sprint 1 merge from freshly reconstructed `main` `e9f1b4d` (after PR #212): Sprint 2 `P10-TLS-SERVER-IDENTITY-01` confirmed as the sole eligible COMMITTED successor (revalidation commit on `planning/P10-PACKAGE-01-after-201`).
 - Re-validation re-confirmed on the post-credential-fix re-dispatch: from freshly reconstructed `main` `e9f1b4d`, Sprint 2 `P10-TLS-SERVER-IDENTITY-01` remains the sole eligible COMMITTED successor; no blocker, unaccepted ADR, L3/L4, destructive-migration or security-weakening gate is present.
 - Revalidated on this fresh re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 `P10-TLS-SERVER-IDENTITY-01` remains the sole eligible COMMITTED successor; no blocker, unaccepted ADR, L3/L4, destructive-migration or security-weakening gate is present.
+- `P10-TLS-SERVER-IDENTITY-01` (2nd construction Sprint) **merged** through PR #214 at `3fdfb95`; Deterministic CI PASS (run `32248430431`). `TD-P8-02` is **closed** under the human-accepted ADR-0015 (PR #206).
+- P10 Integration & Technical Debt Review materialized on `review/P10-PACKAGE-01-integration-debt` (PR pending): package goal PASS, both P10 Sprints merged, successor `P11-PACKAGE-01` (Observe/operations publication) materialized as **SKELETON ONLY / FORECAST**.
 
 ## Active milestone
 
-M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver + TLS/server-identity hardening)**. The 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (TASK-128/129/130) is **MERGED** through PR #201 at `4301936`, closing the production SecretResolver gap `TD-P4-05`. The `TD-P8-02` gate is **unblocked**: ADR-0015 is accepted by a human (PR #206), and Construction Sprint 2 `P10-TLS-SERVER-IDENTITY-01` (TASK-131/132/133) is **COMMITTED**.
+M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver + TLS/server-identity hardening)**. The 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (TASK-128/129/130) is **MERGED** through PR #201 at `4301936`, closing the production SecretResolver gap `TD-P4-05`. The `TD-P8-02` gate is **closed**: ADR-0015 is accepted by a human (PR #206), and Construction Sprint 2 `P10-TLS-SERVER-IDENTITY-01` (TASK-131/132/133) is **MERGED** through PR #214 at `3fdfb95`. P10 package is complete; the Integration & Technical Debt Review is **PENDING** on `review/P10-PACKAGE-01-integration-debt` (PR pending), with the successor `P11-PACKAGE-01` (Observe/operations publication) materialized as a planning skeleton only.
 
 ## Achieved P9 construction proof
 
 `durable Catalog -> Assembly -> Validation -> Compiler -> durable Release/Artifact -> managed A -> durable authority A -> accepted B promotion -> durable authority B -> stale C + failed D retention -> controlled old-manager shutdown -> fresh authenticated Deploy/Release/Artifact reconstruction -> fresh manager rematerializes B -> B health UP with Builder/Observe unavailable`
 
-## Achieved P10 Sprint 1 construction proof
+## Achieved P10 construction proof
 
-`managed A -> durable authority A -> production SecretResolver resolves symbolic secret bindings -> managed Runtime process starts with resolved ephemeral values -> no resolved value in durable Release/Deployment evidence -> Runtime continuity with Builder/Observe unavailable`
+`managed A -> durable authority A -> production SecretResolver resolves symbolic secret bindings -> managed Runtime process starts with resolved ephemeral values -> no resolved value in durable Release/Deployment evidence -> Runtime continuity with Builder/Observe unavailable -> shared Transport and rendered Runtime perform positive PostgreSQL TLS server-identity verification (verify-ca/verify-full, fail-closed) -> authenticated SCRAM positive-verification E2E`
 
-## P10 Sprint 2 materialized (not yet constructed)
+## P10 Sprint 2 constructed (merged)
 
-`P10-TLS-SERVER-IDENTITY-01` — COMMITTED (manifest + TASK-131/132/133 specs, status `ready`). Goal: positive PostgreSQL TLS server-identity verification (`verify-ca`/`verify-full`) in the shared transport and the rendered autonomous Runtime, fail-closed, closing `TD-P8-02` under ADR-0015. No product construction has been performed.
+`P10-TLS-SERVER-IDENTITY-01` — **MERGED** through PR #214 at `3fdfb95` (Deterministic CI run `32248430431` PASS). Goal achieved: positive PostgreSQL TLS server-identity verification (`verify-ca`/`verify-full`) in the shared transport and the rendered autonomous Runtime, fail-closed, closing `TD-P8-02` under the human-accepted ADR-0015 (PR #206).
 
 ## Corrective traceability
 
@@ -55,10 +57,11 @@ M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver +
 ## Residual P9 inputs (carried debt)
 
 - production traffic/fleet/infrastructure rollback remains unclaimed;
-- verified PostgreSQL TLS/server identity (`TD-P8-02`) is **unblocked** — ADR-0015 accepted (PR #206) and Sprint 2 `P10-TLS-SERVER-IDENTITY-01` committed, not yet constructed — plus migration/fleet coordination (`TD-P4-04`) and Observe publication (`WBS 10.3.3`) remain open;
+- positive PostgreSQL TLS/server identity (`TD-P8-02`) is **closed** (ADR-0015 accepted, PR #206; Sprint 2 `P10-TLS-SERVER-IDENTITY-01` **MERGED** through PR #214); migration/fleet coordination (`TD-P4-04`) and Observe publication (`WBS 10.3.3`/`TD-P7-03`) remain open;
 - process supervision/reconciliation is single-host and process-local (`TD-P9-01`/`TD-P9-02`).
-- production SecretResolver (`TD-P4-05`) is now constructed and **MERGED** (Sprint 1, PR #201).
+- production SecretResolver (`TD-P4-05`) is constructed and **MERGED** (Sprint 1, PR #201).
+- successor readiness: `P11-PACKAGE-01` (Observe/operations publication, WBS 10.3.3, `TD-P7-03`/`TD-P4-08`) materialized as a planning skeleton only by the P10 review; not committed.
 
 ## Current gate
 
-`P10-PACKAGE-01` direction A (Production SecretResolver + TLS hardening) is selected, Sprint 1 is **MERGED** (PR #201), and the `TD-P8-02` human/ADR gate is **satisfied** (ADR-0015 accepted through PR #206). Construction Sprint 2 `P10-TLS-SERVER-IDENTITY-01` is **COMMITTED** and eligible; it executes on `sprint/P10-TLS-SERVER-IDENTITY-01` with TASK-131/132/133 in dependency order. The package Integration & Technical Debt Review remains FORECAST until Sprint 2 merges.
+`P10-PACKAGE-01` direction A (Production SecretResolver + TLS hardening) is selected, Sprint 1 **MERGED** (PR #201), Sprint 2 **MERGED** (PR #214), and the `TD-P8-02` gate is **closed** (ADR-0015 accepted through PR #206). The package Integration & Technical Debt Review is **PENDING** on `review/P10-PACKAGE-01-integration-debt` (PR pending); its merge unblocks the successor `P11-PACKAGE-01` (Observe/operations publication) for planning. No construction Sprint is authorized until the review is accepted by a human and merged.
