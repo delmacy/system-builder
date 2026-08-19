@@ -1,0 +1,251 @@
+name: OpenCode Work Package Planner
+
+on:
+  workflow_dispatch:
+    inputs:
+      horizon_count:
+        description: Number of successor Work Packages to project in the forecast horizon
+        required: true
+        default: "3"
+        type: string
+      model:
+        description: OpenCode provider/model; blank uses OPENCODE_FACTORY_MODEL
+        required: false
+        default: ""
+        type: string
+      planning_focus:
+        description: Optional bounded planning focus; blank means derive from repository truth
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: opencode-work-package-planner
+  cancel-in-progress: false
+
+jobs:
+  project-work-packages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    services:
+      postgres:
+        image: postgres:17.6-alpine
+        env:
+          POSTGRES_USER: system_builder
+          POSTGRES_DB: system_builder
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U system_builder -d system_builder"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 10
+      postgres_auth:
+        image: postgres:17.6-alpine
+        env:
+          POSTGRES_USER: deploy_auth
+          POSTGRES_PASSWORD: ci-test-password
+          POSTGRES_DB: system_builder_auth
+          POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U deploy_auth -d system_builder_auth"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      FACTORY_MODEL: ${{ inputs.model || vars.OPENCODE_FACTORY_MODEL }}
+      HORIZON_COUNT: ${{ inputs.horizon_count }}
+      PLANNING_FOCUS: ${{ inputs.planning_focus }}
+      GH_TOKEN: ${{ github.token }}
+      SYSTEM_BUILDER_TEST_POSTGRES_URL: postgres://system_builder@127.0.0.1:5432/system_builder
+      SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL: postgres://deploy_auth:ci-test-password@127.0.0.1:5433/system_builder_auth
+      DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
+
+    steps:
+      - name: Validate planning request
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$HORIZON_COUNT" =~ ^[1-9][0-9]*$ ]] || {
+            echo "horizon_count must be a positive integer." >&2
+            exit 2
+          }
+          if [ "$HORIZON_COUNT" -gt 6 ]; then
+            echo "horizon_count is capped at 6 to avoid false long-range precision." >&2
+            exit 2
+          fi
+          if [ -z "$FACTORY_MODEL" ]; then
+            echo "Set model input or repository variable OPENCODE_FACTORY_MODEL." >&2
+            exit 2
+          fi
+
+      - name: Checkout fresh repository truth
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Create isolated Work Package planning branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git reset --hard origin/main
+          BRANCH="planning/work-packages-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$BRANCH" origin/main
+          echo "PLANNING_BRANCH=$BRANCH" >> "$GITHUB_ENV"
+          echo "BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install repository dependencies
+        run: npm ci
+
+      - name: Install OpenCode 1.18
+        run: npm install --global opencode-ai@1.18
+
+      - name: Project successor Work Packages in a fresh OpenCode session
+        shell: bash
+        run: |
+          set -euo pipefail
+          PROMPT=$(cat <<EOF
+          Project the next ${HORIZON_COUNT} successor Work Packages for the System Builder factory from the freshly reconstructed main branch.
+
+          PLANNING FOCUS supplied by the operator (may be blank):
+          ${PLANNING_FOCUS}
+
+          This is PLANNING ONLY. The repository is the sole technical source of truth. Do not use chat history or prior OpenCode sessions.
+
+          Read the authority chain beginning with AGENTS.md. At minimum, inspect and reconcile:
+          - docs/current/PROJECT_STATE.md
+          - docs/current/CURRENT_MILESTONE.md
+          - docs/current/NEXT_WORK.md when present
+          - project_docs/WBS_METHOD.md
+          - project_docs/schedule/SPRINT_GENERATION_POLICY.md
+          - project_docs/schedule/SPRINT_MODE.md
+          - the active/current Work Package and its reports
+          - relevant module scope/README.md and WBS.md files across the project
+          - open technical-debt/integration review evidence
+          - applicable accepted ADRs and contracts
+          - docs/architecture/MASTER_BLUEPRINT.md when architecture boundaries affect sequencing
+
+          Planning semantics:
+          1. WBS defines scope and candidate Work Packages. Do not use Sprint structure to invent missing scope.
+          2. Reconstruct the real dependency DAG from integrated repository evidence, not from desired chronology.
+          3. Project exactly ${HORIZON_COUNT} successor Work Packages when repository evidence supports that many. If fewer are supportable, project fewer and explicitly record why.
+          4. Distinguish horizons rigorously:
+             - one nearest eligible Work Package may be READY/SELECTED/COMMITTED only when repository authority and predecessor gates actually justify it;
+             - farther Work Packages remain FORECAST/CANDIDATE;
+             - BLOCKED work must name its gate and must not be promoted.
+          5. Each projected Work Package must declare: ID, goal/deliverables, WBS traceability, predecessor/dependencies, readiness state, risk/change level, expected integrated proof, likely 2-3 construction-Sprint decomposition at forecast level, mandatory Integration & Technical Debt Review, explicit stop/escalation gates, and successor implications.
+          6. L3/L4, ADR, security-policy, destructive migration, external/fleet topology, or conflicting-authority decisions are gates. Record them; never silently resolve them.
+          7. Preserve rolling-wave discipline. Do not materialize detailed TASK specs for future Work Packages and do not implement any product code.
+          8. Do not alter completed historical scope to make the forecast look cleaner.
+
+          Durable outputs:
+          - create or update a concise project_docs/execution_planning/WORK_PACKAGE_ROADMAP.md containing the ordered forecast horizon, dependency/readiness table and rationale;
+          - create/update one project_docs/execution_planning/<WORK-PACKAGE-ID>.md planning file for each newly projected Work Package when the repository does not already contain an authoritative package file;
+          - update docs/current planning pointers only when needed to make the nearest eligible next Work Package unambiguous;
+          - do not modify product code, packages/**, apps/**, tests/**, tooling/**, .github/**, package.json or package-lock.json.
+
+          Validation and commit:
+          - inspect the final diff for planning-only scope;
+          - run npm run verify;
+          - create exactly one planning commit with all Work Package projection artifacts;
+          - leave the working tree clean;
+          - do not push, create a PR or merge; GitHub Actions owns publication of the planning result.
+          EOF
+          )
+
+          opencode run \
+            --auto \
+            --model "$FACTORY_MODEL" \
+            --title "work-package-planner:${GITHUB_RUN_ID}" \
+            "$PROMPT" | tee /tmp/opencode-work-package-planner.log
+
+      - name: Enforce one bounded planning commit
+        id: result
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Planner left uncommitted changes; refusing to publish." >&2
+            git status --short
+            exit 1
+          fi
+
+          HEAD_SHA=$(git rev-parse HEAD)
+          if [ "$HEAD_SHA" = "$BASE_SHA" ]; then
+            echo "made_progress=false" >> "$GITHUB_OUTPUT"
+            echo "Planner produced no authoritative change."
+            exit 0
+          fi
+
+          COMMIT_COUNT=$(git rev-list --count "$BASE_SHA..$HEAD_SHA")
+          if [ "$COMMIT_COUNT" -ne 1 ]; then
+            echo "Expected exactly one planning commit; found $COMMIT_COUNT." >&2
+            git log --oneline "$BASE_SHA..$HEAD_SHA"
+            exit 1
+          fi
+
+          if git diff --name-only "$BASE_SHA..$HEAD_SHA" | grep -Ev '^(project_docs/execution_planning/|docs/current/)' >/tmp/forbidden-planning-paths; then
+            echo "Work Package planner modified paths outside planning authority:" >&2
+            cat /tmp/forbidden-planning-paths >&2
+            exit 1
+          fi
+
+          ROADMAP="project_docs/execution_planning/WORK_PACKAGE_ROADMAP.md"
+          if [ ! -f "$ROADMAP" ]; then
+            echo "Required Work Package roadmap was not produced: $ROADMAP" >&2
+            exit 1
+          fi
+
+          echo "made_progress=true" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
+          git log --oneline "$BASE_SHA..$HEAD_SHA"
+          git diff --stat "$BASE_SHA..$HEAD_SHA"
+
+      - name: Re-run objective repository verification
+        if: steps.result.outputs.made_progress == 'true'
+        run: npm run verify
+
+      - name: Push planning branch
+        if: steps.result.outputs.made_progress == 'true'
+        run: git push --set-upstream origin "$PLANNING_BRANCH"
+
+      - name: Open Work Package Projection review PR
+        if: steps.result.outputs.made_progress == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh pr create \
+            --base main \
+            --head "$PLANNING_BRANCH" \
+            --title "Plan: project next Work Packages" \
+            --body "<!-- factory-work-package-projection -->
+
+          OpenCode projected the next Work Package horizon from fresh repository truth.
+
+          - planning only; no product code or TASK execution;
+          - horizon requested: ${HORIZON_COUNT};
+          - WBS/dependency/readiness and repository authority were revalidated;
+          - repository-wide verification passed before publication;
+          - human review/merge is required before any projected Work Package becomes repository truth.
+
+          Merging this PR does not itself authorize execution. Start **OpenCode Work Package Factory** separately for an eligible committed Work Package."
