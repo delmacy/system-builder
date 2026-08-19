@@ -1,7 +1,7 @@
 ---
 id: TASK-142
 title: Enrich DeploymentObservation additively with operational metadata
-status: ready
+status: verification
 priority: 464
 milestone: M11
 model_tier: cheap

@@ -1,4 +1,5 @@
 import { sha256Canonical } from "@system-builder/deterministic";
+import { DeploymentOperationMetadata } from "./metadata.js";
 
 export { publish, type PublishObserver, type PublishResult } from "./publish.js";
 export {
@@ -125,3 +126,40 @@ export const DeploymentObservation = Object.freeze({
     return expected;
   },
 });
+
+export type EnrichedDeploymentObservation = Readonly<{
+  kind: "EnrichedDeploymentObservation";
+  enrichedId: string;
+  observationId: string;
+  deploymentId: string;
+  publishedReleaseRef: string;
+  environmentRef: string;
+  releaseHash: string;
+  startedAt: string;
+  completedAt: string;
+  status: "succeeded" | "failed";
+  healthChecks: readonly DeploymentHealthCheck[];
+  operation: DeploymentOperationMetadata;
+}>;
+
+export function enrichObservation(
+  observation: DeploymentObservation,
+  metadata?: DeploymentOperationMetadata | null,
+): DeploymentObservation | EnrichedDeploymentObservation {
+  if (metadata === undefined || metadata === null) return observation;
+  const operation = DeploymentOperationMetadata.validate(metadata);
+  const payload = Object.freeze({
+    kind: "EnrichedDeploymentObservation",
+    observationId: observation.observationId,
+    deploymentId: observation.deploymentId,
+    publishedReleaseRef: observation.publishedReleaseRef,
+    environmentRef: observation.environmentRef,
+    releaseHash: observation.releaseHash,
+    startedAt: observation.startedAt,
+    completedAt: observation.completedAt,
+    status: observation.status,
+    healthChecks: observation.healthChecks,
+    operation,
+  });
+  return Object.freeze({ ...payload, enrichedId: sha256Canonical(payload) });
+}
