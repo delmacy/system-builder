@@ -1,6 +1,6 @@
 # P11-PACKAGE-01 — Observe / Operations Publication
 
-Status: COMMITTED / DIRECTION_SELECTED / SPRINT_1_MERGED / SPRINT_2_MERGED / SPRINT_3_FORECAST
+Status: COMMITTED / DIRECTION_SELECTED / SPRINT_1_MERGED / SPRINT_2_MERGED / SPRINT_3_COMMITTED
 Base SHA: `fd05da2` (main após P11 Sprint 1 PR #219 merged)
 Sprint 2 merge: PR #221 at `1830705` (Deterministic CI run `32280667636` PASS)
 Milestone: M11 (candidate)
@@ -45,9 +45,11 @@ Rationale from integrated evidence:
 - Committed TASKs (dependency order): TASK-137 (contract), TASK-138 (derivation), TASK-139 (validation), TASK-140 (serialization), TASK-141 (correlation), TASK-142 (enrichment), TASK-143 (fail-open), TASK-144 (no-leak), TASK-145 (positive tests), TASK-146 (negative tests), TASK-147 (integrated E2E), TASK-148 (growing proof/closure). Commits `7d20a6d`..`7f6a5e2`; closure report `P11-OBSERVE-OPERATIONAL-METADATA-01.report.md`.
 - Boundary: additive modules inside `packages/observe` + `tests/product/**`; no canonical `DeploymentRecord` schema change (identity preserved), no new ADR, no external dependencies, no `.github/**` / `tooling/**` change.
 
-### Construction Sprint 3 — Observe integration E2E (FORECAST)
+### Construction Sprint 3 — Observe integration E2E (COMMITTED / MATERIALIZED)
 - Carried driver: WBS 11.1.2/11.3.2 correlation and findings linkage.
-- NOT committed. Becomes committed only after Sprint 2 merges (`1830705`) and is revalidated from fresh repository truth.
+- Goal: prove the integration E2E and findings linkage — findings with context and confidence derived deterministically from the enriched observation, correlated and linked to release/environment/runtime context (WBS 11.1.2/11.3.2), published fail-open to Observe/operations when configured, with Runtime autonomy (ADR-0002) and no value leakage (ADR-0007).
+- Committed TASKs (dependency order): TASK-149 (findings contract), TASK-150 (derivation), TASK-151 (validation), TASK-152 (serialization), TASK-153 (correlation), TASK-154 (linkage), TASK-155 (fail-open), TASK-156 (no-leak), TASK-157 (positive tests), TASK-158 (negative tests), TASK-159 (integrated E2E), TASK-160 (growing proof/closure).
+- Manifest: `P11-OBSERVE-INTEGRATION-E2E-01.md`; construction branch `sprint/P11-OBSERVE-INTEGRATION-E2E-01`.
 
 ### Package Integration & Technical Debt Review (FORECAST)
 - Mandatory package review after the construction Sprints merge, per `SPRINT_GENERATION_POLICY`. Eligible once Sprint 3 is merged and package revalidation passes.
@@ -58,8 +60,8 @@ Rationale from integrated evidence:
 
 ## Candidate selection gate
 
-Direction and construction-Sprint readiness were revalidated from repository truth after the Sprint 1 merge (`fd05da2`). Selection is complete; Sprint 2 was constructed on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148, commits `7d20a6d`..`7f6a5e2`) and **MERGED** through PR #221 at `1830705` (Deterministic CI run `32280667636` PASS). No blocker, unaccepted ADR, L3/L4, destructive-migration or security-weakening gate is present for Sprint 3 planning.
+Direction and construction-Sprint readiness were revalidated from repository truth after the Sprint 1 merge (`fd05da2`) and again after the Sprint 2 merge (`1830705`). Selection is complete; Sprint 2 was constructed on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148, commits `7d20a6d`..`7f6a5e2`) and **MERGED** through PR #221 at `1830705` (Deterministic CI run `32280667636` PASS); Sprint 3 was materialized as COMMITTED on the planning branch after revalidation from fresh `main` (`1830705`/`04ac7b7`). No blocker, unaccepted ADR, L3/L4, destructive-migration or security-weakening gate is present for Sprint 3 execution.
 
 ## Non-commitment notice
 
-This package commits the direction and construction Sprints 1 and 2 (both merged). It does not authorize product implementation for uncommitted Sprints; Sprint 3 and the package review remain FORECAST until revalidated from fresh repository truth after the Sprint 2 merge (`1830705`). Observe stays optional to Runtime operation (ADR-0002).
+This package commits the direction and construction Sprints 1 and 2 (both merged) and construction Sprint 3 (materialized as COMMITTED on the planning branch). It does not authorize product implementation for uncommitted Sprints; the package Integration & Technical Debt Review remains FORECAST until Sprint 3 merges and the package revalidation gate passes. Observe stays optional to Runtime operation (ADR-0002).
