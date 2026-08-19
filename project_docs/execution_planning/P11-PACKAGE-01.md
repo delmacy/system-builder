@@ -1,7 +1,7 @@
 # P11-PACKAGE-01 — Observe / Operations Publication
 
-Status: COMMITTED / DIRECTION_SELECTED / SPRINT_1_COMMITTED
-Base SHA: `72e6b09` (main após P10 Integration & Technical Debt Review PR #216 merged)
+Status: COMMITTED / DIRECTION_SELECTED / SPRINT_1_MERGED / SPRINT_2_COMMITTED
+Base SHA: `fd05da2` (main após P11 Sprint 1 PR #219 merged)
 Milestone: M11 (candidate)
 
 ## Authority
@@ -10,7 +10,8 @@ Materialized from the `P11-PACKAGE-01` planning skeleton (FORECAST) after the P1
 
 Selection of direction is made from integrated evidence (P10 review successor-readiness ranking). The package authorizes the construction Sprint manifest and its committed TASK specs; no product construction is authorized before the Sprint executes on its own branch.
 
-- Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` is **COMMITTED** (manifest + TASK-134/135/136 specs, status `ready`). No product construction is performed inside this planning transition.
+- Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` was **MERGED** through PR #219 at `fd05da2` (Deterministic CI run `32273409636` PASS). `TD-P7-03` closed; `TD-P4-08` partially closed.
+- Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` is **COMMITTED** (manifest + TASK-137..148 specs, status `ready`). No product construction is performed inside this planning transition.
 
 ## Package Goal
 
@@ -37,25 +38,27 @@ Rationale from integrated evidence:
 - Committed TASKs: TASK-134 (observation contract), TASK-135 (fail-open publication), TASK-136 (integrated E2E).
 - Boundary: additive modules inside `packages/observe` + `packages/deploy`; no canonical `DeploymentRecord` schema change (identity preserved), no new ADR, no external dependencies, no `.github/**` / `tooling/**` change.
 
-### Construction Sprint 2 — operational metadata (FORECAST)
+### Construction Sprint 2 — `P11-OBSERVE-OPERATIONAL-METADATA-01` (COMMITTED / MATERIALIZED)
 - Carried driver: remainder of `TD-P4-08` (executor/source operational metadata) correlated with release/environment/runtime context.
-- NOT committed. Becomes committed only after Sprint 1 merges and is revalidated from fresh repository truth.
+- Goal: complete the remainder of `TD-P4-08` by enriching the Observe publication with executor/source operational metadata (WBS 10.3.1/11.1.2), provider-neutral, fail-open, deterministic and value-leak-free, without altering the canonical `DeploymentRecord` identity or the Sprint 1 observation identity when metadata is absent.
+- Committed TASKs (dependency order): TASK-137 (contract), TASK-138 (derivation), TASK-139 (validation), TASK-140 (serialization), TASK-141 (correlation), TASK-142 (enrichment), TASK-143 (fail-open), TASK-144 (no-leak), TASK-145 (positive tests), TASK-146 (negative tests), TASK-147 (integrated E2E), TASK-148 (growing proof/closure).
+- Boundary: additive modules inside `packages/observe` + `tests/product/**`; no canonical `DeploymentRecord` schema change (identity preserved), no new ADR, no external dependencies, no `.github/**` / `tooling/**` change.
 
 ### Construction Sprint 3 — Observe integration E2E (FORECAST)
 - Carried driver: WBS 11.1.2/11.3.2 correlation and findings linkage.
-- NOT committed. Becomes committed only after Sprint 2 merges and is revalidated.
+- NOT committed. Becomes committed only after Sprint 2 merges and is revalidated from fresh repository truth.
 
 ### Package Integration & Technical Debt Review (FORECAST)
 - Mandatory package review after the construction Sprints merge, per `SPRINT_GENERATION_POLICY`.
 
 ## Growing E2E proof (package horizon)
 
-`durable DeploymentRecord -> provider-neutral DeploymentObservation -> Observe/operations receives deployment observations when configured -> Runtime continuity with Observe unavailable -> observations linkable to release/environment context`
+`durable DeploymentRecord -> provider-neutral DeploymentObservation -> operational metadata (executor/source/mode) correlated to release/environment/runtime context -> enriched observation -> Observe/operations receives deployment observations when configured -> Runtime continuity with Observe unavailable -> observations linkable to release/environment context -> no resolved secret/CA value in any emitted observation`
 
 ## Candidate selection gate
 
-Direction and construction-Sprint readiness were revalidated from repository truth after the P10 review merge and `main` reconstruction (`72e6b09`). Selection is complete; Sprint 1 is committed (manifest + TASK-134/135/136 specs). No blocker, unaccepted ADR, L3/L4, destructive-migration or security-weakening gate is present for Sprint 1.
+Direction and construction-Sprint readiness were revalidated from repository truth after the Sprint 1 merge (`fd05da2`). Selection is complete; Sprint 2 is committed (manifest + TASK-137..148 specs). No blocker, unaccepted ADR, L3/L4, destructive-migration or security-weakening gate is present for Sprint 2.
 
 ## Non-commitment notice
 
-This package commits only the direction and the construction Sprint 1 manifest + TASK specs. It does not authorize product implementation or Sprint execution; the committed Sprint executes later on its own branch (`sprint/P11-OBSERVE-DEPLOYMENT-OBSERVATION-01`) with its declared validations. Sprints 2/3 remain FORECAST. Observe stays optional to Runtime operation (ADR-0002).
+This package commits only the direction and the construction Sprint 2 manifest + TASK specs. It does not authorize product implementation or Sprint execution; the committed Sprint executes later on its own branch (`sprint/P11-OBSERVE-OPERATIONAL-METADATA-01`) with its declared validations. Sprint 3 and the package review remain FORECAST. Observe stays optional to Runtime operation (ADR-0002).
