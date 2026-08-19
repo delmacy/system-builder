@@ -2,7 +2,7 @@
 
 ## Goal
 
-Close the production credentials blocker `TD-P4-05` via a production-grade, replaceable SecretResolver, and register the TLS/server-identity hardening (`TD-P8-02`) as an ADR-gated escalation. The first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is implemented, CI-validated and **merged** through PR #201.
+Close the production credentials blocker `TD-P4-05` via a production-grade, replaceable SecretResolver, and close `TD-P8-02` via positive TLS server-identity verification under the human-accepted ADR-0015. The first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is implemented, CI-validated and **merged** through PR #201; the second construction Sprint `P10-TLS-SERVER-IDENTITY-01` is **materialized as COMMITTED**.
 
 ## Integrated predecessor
 
@@ -16,9 +16,9 @@ Selected: **A — Production SecretResolver + TLS/server-identity hardening** (`
 - B (Observe publication, `TD-P7-03`/WBS 10.3.3) retained as MEDIUM forecast.
 - C (milestone pivot, `TD-P9-01`/`TD-P9-02`) not assumed; requires explicit milestone re-scope.
 
-## Governance escalation
+## Governance escalation (resolved)
 
-`TD-P8-02` (positive TLS identity/certificate verification; removing `rejectUnauthorized: false`) is an **L3/L4-adjacent security-policy change**. It is escalated to an ADR and must be accepted by a human before any TLS construction. It is NOT built inside a Sprint. Construction Sprint 2 remains FORECAST pending that ADR.
+`TD-P8-02` (positive TLS identity/certificate verification; removing `rejectUnauthorized: false`) is an **L3/L4-adjacent security-policy change** and was escalated to an ADR. **ADR-0015 is accepted by a human** through PR #206 (`docs/adr/ADR-0015-tls-server-identity-verification.md`, Status: Accepted), which authorizes Construction Sprint 2 bounded to the PostgreSQL transport and its rendered Runtime counterpart and their tests/docs.
 
 ## Constructed first construction Sprint
 
@@ -27,6 +27,16 @@ Selected: **A — Production SecretResolver + TLS/server-identity hardening** (`
 - Committed TASKs: TASK-128 (providers `d39d1fb`), TASK-129 (fail-closed/no-leakage `f153e8d`), TASK-130 (managed-Runtime E2E `a1e0ed6`).
 - Branch: `sprint/P10-PRODUCTION-SECRETRESOLVER-01`; PR #201 merged.
 
-## Current gate / blocker
+## Materialized second construction Sprint
 
-**BLOCKER:** Construction Sprint 2 (TLS/server-identity hardening) is the next forecast Sprint and requires the `TD-P8-02` ADR accepted by a human. **No such ADR is accepted in the repository** (no TLS/server-identity ADR exists under `docs/adr/`). This is an explicit human/ADR gate: Construction Sprint 2 stays FORECAST/BLOCKED and the package Integration & Technical Debt Review is not started. Do not promote, materialize or construct any TLS Sprint until that ADR is accepted.
+`P10-TLS-SERVER-IDENTITY-01` — COMMITTED (manifest + TASK-131/132/133 specs, status `ready`), not yet constructed.
+- Goal: positive PostgreSQL TLS server-identity verification (`verify-ca`/`verify-full`) in the shared transport and the rendered autonomous Runtime, fail-closed, closing `TD-P8-02` under ADR-0015.
+- Committed TASKs: TASK-131 (transport identity modes), TASK-132 (fail-closed safety), TASK-133 (rendered-Runtime + authenticated positive-verification E2E).
+- Branch: `sprint/P10-TLS-SERVER-IDENTITY-01` (declared; not created by this planning transition).
+- **Revalidated** after the real Sprint 1 merge from freshly reconstructed `main` `e9f1b4d` (after PR #212): remains the sole eligible COMMITTED successor; TASK-131/132/133 validate.
+- **Re-confirmed** on the post-credential-fix re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 remains the sole eligible COMMITTED successor; no blocker or explicit human gate is present.
+- **Revalidated** on this fresh re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 remains the sole eligible COMMITTED successor; no blocker or explicit human gate is present.
+
+## Current gate
+
+**Eligible successor Sprint materialized.** `TD-P8-02` is unblocked (ADR-0015 accepted by a human, PR #206). Construction Sprint 2 `P10-TLS-SERVER-IDENTITY-01` is **COMMITTED** and eligible under repository authority. It executes on `sprint/P10-TLS-SERVER-IDENTITY-01` with TASK-131/132/133 in dependency order. The package Integration & Technical Debt Review stays FORECAST until Sprint 2 merges.
