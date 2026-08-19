@@ -1,7 +1,7 @@
 ---
 id: TASK-141
 title: Correlate operational metadata with release/environment/runtime context
-status: ready
+status: verification
 priority: 463
 milestone: M11
 model_tier: cheap
@@ -104,7 +104,7 @@ Correlation function/type in `packages/observe/metadata.ts` + `tests/product/obs
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the fifth TASK. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the fifth TASK of Sprint 2: `correlateOperation` in `packages/observe/metadata.ts` producing `DeploymentOperationCorrelation` (content-addressed `correlationId` over deployment + operation + optional runtime/process/session refs), exported from `packages/observe/index.ts`. Fail-safe when runtime refs are absent; rejects metadata without deployment correlation (`CORRELATION_REQUIRES_DEPLOYMENT`) and resolved secret values (`RESOLVED_VALUE:<field>`). `tests/product/observe-operational-correlation.test.ts` proves 7 cases (binding, provider-neutral refs, determinism, content-addressing, fail-safe absence, resolved-value rejection, missing-correlation rejection). Local: lint PASS, typecheck PASS, focused test 7/7 PASS, `npm run test:product` core 146 tests/145 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 

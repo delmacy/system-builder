@@ -47,6 +47,19 @@ export type DeploymentExecutionContext = Readonly<{
   releaseHash: string;
 }>;
 
+export type DeploymentOperationCorrelation = Readonly<{
+  kind: "DeploymentOperationCorrelation";
+  correlationId: string;
+  deploymentId: string;
+  publishedReleaseRef: string;
+  environmentRef: string;
+  releaseHash: string;
+  operationId: string;
+  runtimeRef?: string;
+  processRef?: string;
+  sessionRef?: string;
+}>;
+
 const SOURCES: readonly DeploymentOperationSource[] = ["manual", "automation", "pipeline", "api"];
 const MODES: readonly DeploymentOperationMode[] = ["dry-run", "execute"];
 const RESOLVED_VALUE_MARKERS: readonly RegExp[] = [
@@ -83,7 +96,7 @@ function assertReferenceField(fieldName: string, value: string): string {
   return value;
 }
 
-type DeploymentOperationCorrelation = Readonly<{
+type DeploymentOperationPayload = Readonly<{
   kind: "DeploymentOperationMetadata";
   executorRef: string;
   source: DeploymentOperationSource;
@@ -95,7 +108,7 @@ type DeploymentOperationCorrelation = Readonly<{
   sessionRef?: string;
 }>;
 
-function withOperationId(payload: DeploymentOperationCorrelation): DeploymentOperationMetadata {
+function withOperationId(payload: DeploymentOperationPayload): DeploymentOperationMetadata {
   return Object.freeze({ ...payload, operationId: sha256Canonical(payload) });
 }
 
@@ -107,7 +120,7 @@ export const DeploymentOperationMetadata = Object.freeze({
     if (!SOURCES.includes(fields.source)) throw invalid(`UNSUPPORTED_SOURCE:${String(fields.source)}`);
     if (!MODES.includes(fields.mode)) throw invalid(`UNSUPPORTED_MODE:${String(fields.mode)}`);
 
-    const payload: DeploymentOperationCorrelation = Object.freeze({
+    const payload: DeploymentOperationPayload = Object.freeze({
       kind: "DeploymentOperationMetadata",
       executorRef: fields.executorRef,
       source: fields.source,
@@ -184,7 +197,7 @@ export const DeploymentOperationMetadata = Object.freeze({
       throw invalid(`UNSUPPORTED_MODE:${String(record["mode"])}`);
     }
 
-    const operation: DeploymentOperationCorrelation = Object.freeze({
+    const operation: DeploymentOperationPayload = Object.freeze({
       kind: "DeploymentOperationMetadata",
       executorRef,
       source: record["source"] as DeploymentOperationSource,
@@ -228,3 +241,35 @@ export const DeploymentOperationMetadata = Object.freeze({
     return DeploymentOperationMetadata.validate(parsed);
   },
 });
+
+export function correlateOperation(
+  operation: DeploymentOperationMetadata,
+  runtime: Readonly<{ runtimeRef?: string; processRef?: string; sessionRef?: string }> = Object.freeze({}),
+): DeploymentOperationCorrelation {
+  const validated = DeploymentOperationMetadata.validate(operation);
+  if (validated.deploymentId === undefined || validated.publishedReleaseRef === undefined
+      || validated.environmentRef === undefined || validated.releaseHash === undefined) {
+    throw invalid("CORRELATION_REQUIRES_DEPLOYMENT");
+  }
+
+  const optional = Object.freeze({
+    ...(runtime.runtimeRef !== undefined ? { runtimeRef: assertReferenceField("runtimeRef", runtime.runtimeRef) } : {}),
+    ...(runtime.processRef !== undefined ? { processRef: assertReferenceField("processRef", runtime.processRef) } : {}),
+    ...(runtime.sessionRef !== undefined ? { sessionRef: assertReferenceField("sessionRef", runtime.sessionRef) } : {}),
+  });
+
+  const payload = Object.freeze({
+    kind: "DeploymentOperationCorrelation",
+    deploymentId: validated.deploymentId,
+    publishedReleaseRef: validated.publishedReleaseRef,
+    environmentRef: validated.environmentRef,
+    releaseHash: validated.releaseHash,
+    operationId: validated.operationId,
+    ...optional,
+  });
+
+  return Object.freeze({
+    ...payload,
+    correlationId: sha256Canonical(payload),
+  });
+}
