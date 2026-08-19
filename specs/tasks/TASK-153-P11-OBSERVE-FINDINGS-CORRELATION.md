@@ -1,7 +1,7 @@
 ---
 id: TASK-153
 title: Correlate DeploymentFinding with release/environment/runtime context
-status: ready
+status: verification
 priority: 475
 milestone: M11
 model_tier: cheap
@@ -104,7 +104,7 @@ Changing the canonical `DeploymentRecord` schema/identity or the Sprint 1/2 iden
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the fifth TASK of Sprint 3. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the fifth TASK of Sprint 3: `packages/observe/findings.ts` exports `DeploymentFindingCorrelation` and `correlateFinding(finding, runtime?)`, producing a deterministic content-addressed `correlationId` that binds the finding to its observation/deployment/release/environment/hash refs and optional operation/runtime/process/session refs (from the finding, overridable by the runtime argument), requiring the deployment correlation (`CORRELATION_REQUIRES_DEPLOYMENT`) and rejecting resolved-value leakage in any runtime/process/session ref (`RESOLVED_VALUE:<field>`), without altering the `DeploymentFinding` identity or the canonical `DeploymentRecord`. `tests/product/observe-findings-correlation.test.ts` proves 8 cases (deterministic context binding, runtime/process/session refs, enriched ref reuse, determinism, content-addressing, deployment-correlation requirement, resolved-value rejection, no-value-leak). Local validations pending before commit.
 
 # Escalation
 

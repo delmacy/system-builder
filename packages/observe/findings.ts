@@ -38,6 +38,21 @@ export type DeploymentFindingFields = Readonly<{
   sessionRef?: string;
 }>;
 
+export type DeploymentFindingCorrelation = Readonly<{
+  kind: "DeploymentFindingCorrelation";
+  correlationId: string;
+  findingId: string;
+  observationId: string;
+  deploymentId: string;
+  publishedReleaseRef: string;
+  environmentRef: string;
+  releaseHash: string;
+  operationId?: string;
+  runtimeRef?: string;
+  processRef?: string;
+  sessionRef?: string;
+}>;
+
 const SEVERITIES: readonly DeploymentFindingSeverity[] = ["info", "warning", "critical"];
 const CONFIDENCES: readonly DeploymentFindingConfidence[] = ["low", "medium", "high"];
 
@@ -350,4 +365,49 @@ export function deriveFindings(
   }
 
   return Object.freeze(findings);
+}
+
+export function correlateFinding(
+  finding: DeploymentFinding,
+  runtime: Readonly<{ runtimeRef?: string; processRef?: string; sessionRef?: string }> = Object.freeze({}),
+): DeploymentFindingCorrelation {
+  if (!isRecordLike(finding)) throw invalid("NOT_OBJECT");
+  const input = finding as Record<string, unknown>;
+  if (
+    input["deploymentId"] === undefined
+    || input["publishedReleaseRef"] === undefined
+    || input["environmentRef"] === undefined
+    || input["releaseHash"] === undefined
+  ) {
+    throw invalid("CORRELATION_REQUIRES_DEPLOYMENT");
+  }
+
+  const validated = DeploymentFinding.validate(finding);
+
+  const runtimeRef = runtime.runtimeRef ?? validated.runtimeRef;
+  const processRef = runtime.processRef ?? validated.processRef;
+  const sessionRef = runtime.sessionRef ?? validated.sessionRef;
+
+  const optional = Object.freeze({
+    ...(validated.operationId !== undefined ? { operationId: validated.operationId } : {}),
+    ...(runtimeRef !== undefined ? { runtimeRef: assertReferenceOnly(runtimeRef, "runtimeRef") } : {}),
+    ...(processRef !== undefined ? { processRef: assertReferenceOnly(processRef, "processRef") } : {}),
+    ...(sessionRef !== undefined ? { sessionRef: assertReferenceOnly(sessionRef, "sessionRef") } : {}),
+  });
+
+  const payload = Object.freeze({
+    kind: "DeploymentFindingCorrelation",
+    findingId: validated.findingId,
+    observationId: validated.observationId,
+    deploymentId: validated.deploymentId,
+    publishedReleaseRef: validated.publishedReleaseRef,
+    environmentRef: validated.environmentRef,
+    releaseHash: validated.releaseHash,
+    ...optional,
+  });
+
+  return Object.freeze({
+    ...payload,
+    correlationId: sha256Canonical(payload),
+  });
 }
