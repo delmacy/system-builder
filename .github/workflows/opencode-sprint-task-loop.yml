@@ -236,6 +236,10 @@ jobs:
         if: steps.progress.outputs.made_progress == 'true'
         run: git push origin "$SPRINT_BRANCH"
 
+      - name: Reset verification Postgres databases
+        shell: bash
+        run: bash .github/scripts/reset-postgres.sh
+
       - name: Detect Sprint closure and open Sprint PR
         id: closure
         shell: bash
