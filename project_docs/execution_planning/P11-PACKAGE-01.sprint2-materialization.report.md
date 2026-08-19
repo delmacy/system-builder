@@ -14,7 +14,7 @@ Materialized the second construction Sprint `P11-OBSERVE-OPERATIONAL-METADATA-01
 
 ## Authoritative commit
 
-- `TBD` — feat(P11): materialize Sprint 2 operational-metadata manifest + TASK-137..148 specs.
+- `236656c` — feat(P11): materialize Sprint 2 operational-metadata manifest + TASK-137..148 specs.
 
 ## Deliverables
 
