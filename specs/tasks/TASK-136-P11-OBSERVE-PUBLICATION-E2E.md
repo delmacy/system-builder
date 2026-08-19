@@ -1,7 +1,7 @@
 ---
 id: TASK-136
 title: Prove Observe/operations publication E2E with Runtime autonomy
-status: ready
+status: verification
 priority: 458
 milestone: M11
 model_tier: cheap
