@@ -46,9 +46,9 @@ PASS inside the package boundary.
 
 ## Residual / next
 
-- `TD-P8-02` (positive TLS/server-identity verification) remains open and requires an ADR accepted by a human before any TLS construction; **Construction Sprint 2 is BLOCKED / FORECAST** (no TLS ADR accepted in `docs/adr/`).
+- `TD-P8-02` (positive TLS/server-identity verification) is **unblocked** after this report: **ADR-0015 was accepted by a human** through PR #206. Construction Sprint 2 `P10-TLS-SERVER-IDENTITY-01` is now **COMMITTED** (manifest + TASK-131/132/133 specs); it is executed later on `sprint/P10-TLS-SERVER-IDENTITY-01`.
 - Production traffic/fleet/infrastructure rollback, Observe publication and migration/fleet coordination remain open carried debt.
-- Do not start Sprint 2 or the package review without the `TD-P8-02` ADR being accepted and `main` freshly reconstructed.
+- The package Integration & Technical Debt Review remains FORECAST until Sprint 2 merges and the package revalidation gate passes.
 
 ## Escalations / discoveries
 
