@@ -6,8 +6,8 @@ set -euo pipefail
 # idempotent: they use fixed table names and assume a clean database, so any
 # earlier `npm run verify` inside the same job pollutes the shared service and
 # makes a second run fail with duplicate-identity errors.
-cat > /tmp/reset-postgres.ts <<'EOF'
-import { postgresQuery } from "./packages/postgres/index.ts";
+cat > "$PWD/.github/scripts/reset-postgres.tmp.ts" <<'EOF'
+import { postgresQuery } from "../../packages/postgres/index.ts";
 
 async function main(): Promise<void> {
   const databases = [
@@ -22,4 +22,5 @@ async function main(): Promise<void> {
 
 void main();
 EOF
-npx tsx /tmp/reset-postgres.ts
+npx tsx "$PWD/.github/scripts/reset-postgres.tmp.ts"
+rm -f "$PWD/.github/scripts/reset-postgres.tmp.ts"
