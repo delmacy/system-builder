@@ -232,6 +232,8 @@ jobs:
       - name: Open Work Package Projection review PR
         if: steps.result.outputs.made_progress == 'true'
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.REPO_ADMIN_PAT }}
         run: |
           set -euo pipefail
           gh pr create \
