@@ -18,11 +18,11 @@ Date: 2026-08-18
 - P9 corrective SCRAM/TLS merged through PR #197 at `898a14f`; CI validate PASS on rebased head (run `32097697770`).
 - Sprint-starter-prompt update merged through PR #199 at `6279b98` (doc-only).
 - P10 materialization merged through PR #200 at `d178445` (direction A selected + first construction Sprint manifest + TASK-128/129/130 specs).
-- `P10-PRODUCTION-SECRETRESOLVER-01` (1st construction Sprint) built on `sprint/P10-PRODUCTION-SECRETRESOLVER-01`, head `a1e0ed6`; Deterministic CI PASS (run `32136056276`); PR #201 open and promoted to human Sprint Review.
+- `P10-PRODUCTION-SECRETRESOLVER-01` (1st construction Sprint) merged through PR #201 at `4301936`; Deterministic CI PASS on closure head `a1e0ed6` (run `32136056276`).
 
 ## Active milestone
 
-M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver + TLS/server-identity hardening)**. The 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (TASK-128/129/130) is implemented on `sprint/P10-PRODUCTION-SECRETRESOLVER-01` (head `a1e0ed6`, CI PASS), promoted to human Sprint Review via PR #201. Merge is a human decision. Construction Sprint 2 (TLS) stays FORECAST pending the `TD-P8-02` ADR.
+M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver + TLS/server-identity hardening)**. The 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` (TASK-128/129/130) is **MERGED** through PR #201 at `4301936`, closing the production SecretResolver gap `TD-P4-05`. Construction Sprint 2 (TLS/server-identity hardening, `TD-P8-02`) remains **FORECAST / BLOCKED**: positive TLS identity/certificate verification is an L3/L4-adjacent security-policy change that requires an ADR accepted by a human before any construction, and no such ADR is accepted in the repository.
 
 ## Achieved P9 construction proof
 
@@ -49,8 +49,8 @@ M10. `P10-PACKAGE-01` direction is **selected (A — Production SecretResolver +
 - production traffic/fleet/infrastructure rollback remains unclaimed;
 - verified PostgreSQL TLS/server identity (`TD-P8-02`) — escalated to ADR before any TLS construction — plus migration/fleet coordination (`TD-P4-04`) and Observe publication (`WBS 10.3.3`) remain open;
 - process supervision/reconciliation is single-host and process-local (`TD-P9-01`/`TD-P9-02`).
-- production SecretResolver (`TD-P4-05`) is now constructed (Sprint 1) and promoted to human Sprint Review via PR #201.
+- production SecretResolver (`TD-P4-05`) is now constructed and **MERGED** (Sprint 1, PR #201).
 
 ## Current gate
 
-`P10-PACKAGE-01` direction A (Production SecretResolver + TLS hardening) is selected and the 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is implemented (head `a1e0ed6`, Deterministic CI PASS) and promoted to human Sprint Review via PR #201. `TD-P8-02` (positive TLS verification) is escalated as an L3/L4-adjacent change requiring an ADR accepted by a human before any TLS construction. No TLS policy change may be started until that ADR; Construction Sprint 2 stays FORECAST.
+`P10-PACKAGE-01` direction A (Production SecretResolver + TLS hardening) is selected and the 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is **MERGED** through PR #201 at `4301936`. `TD-P8-02` (positive TLS verification) is escalated as an L3/L4-adjacent change requiring an ADR accepted by a human before any TLS construction. **No TLS ADR is accepted in the repository**, so Construction Sprint 2 is **BLOCKED** and stays FORECAST; no successor Sprint is promoted and no package review is started until that human gate passes.

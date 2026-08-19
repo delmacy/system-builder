@@ -2,11 +2,11 @@
 
 ## Goal
 
-Close the production credentials blocker `TD-P4-05` via a production-grade, replaceable SecretResolver, and register the TLS/server-identity hardening (`TD-P8-02`) as an ADR-gated escalation. The first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is implemented and promoted to human Sprint Review.
+Close the production credentials blocker `TD-P4-05` via a production-grade, replaceable SecretResolver, and register the TLS/server-identity hardening (`TD-P8-02`) as an ADR-gated escalation. The first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is implemented, CI-validated and **merged** through PR #201.
 
 ## Integrated predecessor
 
-The P10 materialization merged through PR #200 at `d178445` (direction A selected + 1st construction Sprint manifest + TASK-128/129/130 specs), with `main` freshly reconstructed.
+`P10-PRODUCTION-SECRETRESOLVER-01` merged through PR #201 at `4301936` (Deterministic CI run `32136056276` PASS on closure head `a1e0ed6`), with `main` freshly reconstructed. `TD-P4-05` is closed.
 
 ## Direction selection (from integrated evidence)
 
@@ -22,11 +22,11 @@ Selected: **A — Production SecretResolver + TLS/server-identity hardening** (`
 
 ## Constructed first construction Sprint
 
-`P10-PRODUCTION-SECRETRESOLVER-01` — PASS (head `a1e0ed6`, Deterministic CI run `32136056276`).
+`P10-PRODUCTION-SECRETRESOLVER-01` — PASS, **MERGED** through PR #201 at `4301936`.
 - Goal: production replaceable SecretResolver providers, fail-closed, no value leakage, managed-Runtime integration proof (`TD-P4-05`, L2/L3).
 - Committed TASKs: TASK-128 (providers `d39d1fb`), TASK-129 (fail-closed/no-leakage `f153e8d`), TASK-130 (managed-Runtime E2E `a1e0ed6`).
-- Branch: `sprint/P10-PRODUCTION-SECRETRESOLVER-01`; PR #201 promoted to human Sprint Review.
+- Branch: `sprint/P10-PRODUCTION-SECRETRESOLVER-01`; PR #201 merged.
 
-## Current gate
+## Current gate / blocker
 
-The 1st construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is promoted to human Sprint Review via PR #201 after Deterministic CI PASS. Merge and any TLS construction are human decisions; do not merge automatically. Construction Sprint 2 (TLS) stays FORECAST pending the `TD-P8-02` ADR.
+**BLOCKER:** Construction Sprint 2 (TLS/server-identity hardening) is the next forecast Sprint and requires the `TD-P8-02` ADR accepted by a human. **No such ADR is accepted in the repository** (no TLS/server-identity ADR exists under `docs/adr/`). This is an explicit human/ADR gate: Construction Sprint 2 stays FORECAST/BLOCKED and the package Integration & Technical Debt Review is not started. Do not promote, materialize or construct any TLS Sprint until that ADR is accepted.

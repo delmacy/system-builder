@@ -1,7 +1,7 @@
 # P10-PRODUCTION-SECRETRESOLVER-01 — Sprint Report
 
 Date: 2026-08-18
-Status: PASS / HUMAN SPRINT REVIEW PENDING
+Status: PASS / MERGED (PR #201 at `4301936`)
 
 ## Result
 
@@ -34,7 +34,7 @@ Additive, bounded to Deploy and product tests.
 
 - Local fast-stage validations (lint, typecheck, `test:unit` 309 pass, focused product tests 11 + 2 pass): PASS.
 - Local full `npm run verify` includes Postgres E2E suites; those Postgres-dependent tests require a live database and are not claimed locally.
-- Objective final validation: GitHub Deterministic CI `npm run verify` (Postgres provisioned) — **PASS** on closure head `a1e0ed6`, PR #201, run `32136056276`. Sprint promoted to human Sprint Review; merge pending human decision.
+- Objective final validation: GitHub Deterministic CI `npm run verify` (Postgres provisioned) — **PASS** on closure head `a1e0ed6`, PR #201, run `32136056276`. **Merged through PR #201 at `4301936`.**
 
 ## Architecture / scope
 
@@ -46,9 +46,9 @@ PASS inside the package boundary.
 
 ## Residual / next
 
-- `TD-P8-02` (positive TLS/server-identity verification) remains open and requires an ADR accepted by a human before any TLS construction; Construction Sprint 2 stays FORECAST.
+- `TD-P8-02` (positive TLS/server-identity verification) remains open and requires an ADR accepted by a human before any TLS construction; **Construction Sprint 2 is BLOCKED / FORECAST** (no TLS ADR accepted in `docs/adr/`).
 - Production traffic/fleet/infrastructure rollback, Observe publication and migration/fleet coordination remain open carried debt.
-- Do not start Sprint 2 or the package review automatically without explicit authorization.
+- Do not start Sprint 2 or the package review without the `TD-P8-02` ADR being accepted and `main` freshly reconstructed.
 
 ## Escalations / discoveries
 
