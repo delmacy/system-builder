@@ -1,6 +1,6 @@
 # P10-PACKAGE-01 — Production Credentials & Connectivity Hardening
 
-Status: COMMITTED / DIRECTION_SELECTED / SPRINT_1_MERGED / SPRINT_2_COMMITTED
+Status: COMMITTED / DIRECTION_SELECTED / SPRINT_1_MERGED / SPRINT_2_MERGED / REVIEW_PENDING
 Base SHA: `e9f1b4d` (main reconstruído após PR #212; revalidated after the real Sprint 1 merge)
 Milestone: M10
 
@@ -11,7 +11,7 @@ Materialized from the `P10-PACKAGE-01` planning skeleton (FORECAST) after the P9
 Selection of direction is made from integrated evidence (P9 review successor-readiness ranking). The package authorizes the construction Sprint manifests and their committed TASK specs; no product construction is authorized before each Sprint executes on its own branch.
 
 - Sprint 1 `P10-PRODUCTION-SECRETRESOLVER-01` executed on `sprint/P10-PRODUCTION-SECRETRESOLVER-01` and **merged through PR #201 at `4301936`**, closing `TD-P4-05`.
-- Sprint 2 `P10-TLS-SERVER-IDENTITY-01` is **COMMITTED** (manifest + TASK-131/132/133 specs) after the `TD-P8-02` ADR (ADR-0015) was accepted by a human through PR #206. No product construction is performed inside this planning transition.
+- Sprint 2 `P10-TLS-SERVER-IDENTITY-01` executed on `sprint/P10-TLS-SERVER-IDENTITY-01` and **merged through PR #214 at `3fdfb95`**, closing `TD-P8-02` under the human-accepted ADR-0015 (PR #206).
 
 ## Package Goal
 
@@ -36,13 +36,14 @@ Rationale from integrated evidence:
 - Carried driver: `TD-P4-05` (L2/L3, no ADR required).
 - Result: PASS; merged through PR #201 at `4301936` (Deterministic CI run `32136056276` on head `a1e0ed6`).
 
-### Construction Sprint 2 — TLS/server-identity hardening (COMMITTED / MATERIALIZED)
+### Construction Sprint 2 — TLS/server-identity hardening (MERGED / CLOSED)
 - Carried driver: `TD-P8-02`.
 - **Governance escalation resolved:** removing `rejectUnauthorized: false` / adding positive CA/server-identity verification is an L3/L4-adjacent security-policy change. It was escalated to **ADR-0015**, which is now **accepted by a human** through PR #206 (`docs/adr/ADR-0015-tls-server-identity-verification.md`, Status: Accepted).
-- **Unblocked after revalidation:** ADR-0015 authorizes this Sprint bounded to the PostgreSQL transport and its rendered Runtime counterpart and their tests/docs. Construction Sprint 2 `P10-TLS-SERVER-IDENTITY-01` is now **COMMITTED** (manifest `project_docs/execution_planning/P10-TLS-SERVER-IDENTITY-01.md` + TASK-131/132/133 specs). No product construction happens inside this planning transition.
+- Result: PASS; merged through PR #214 at `3fdfb95` (Deterministic CI run `32248430431` on the Sprint Review PR head). Closes `TD-P8-02`.
 
-### Package Integration & Technical Debt Review (FORECAST)
+### Package Integration & Technical Debt Review (PENDING)
 - Mandatory package review after the construction Sprints merge, per `SPRINT_GENERATION_POLICY`.
+- Review branch: `review/P10-PACKAGE-01-integration-debt` (PR pending). Creates a **planning skeleton only** for the successor `P11-PACKAGE-01` (Observe/operations publication).
 
 ## Growing E2E proof (package horizon)
 

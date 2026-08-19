@@ -1,12 +1,12 @@
-# Current Execution Milestone — M10 P10 Direction Selection & First Construction Sprint
+# Current Execution Milestone — M10 P10 Direction Selection & Construction
 
 ## Goal
 
-Close the production credentials blocker `TD-P4-05` via a production-grade, replaceable SecretResolver, and close `TD-P8-02` via positive TLS server-identity verification under the human-accepted ADR-0015. The first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is implemented, CI-validated and **merged** through PR #201; the second construction Sprint `P10-TLS-SERVER-IDENTITY-01` is **materialized as COMMITTED**.
+Close the production credentials blocker `TD-P4-05` via a production-grade, replaceable SecretResolver, and close `TD-P8-02` via positive TLS server-identity verification under the human-accepted ADR-0015. The first construction Sprint `P10-PRODUCTION-SECRETRESOLVER-01` is implemented, CI-validated and **merged** through PR #201; the second construction Sprint `P10-TLS-SERVER-IDENTITY-01` is implemented, CI-validated and **merged** through PR #214. P10 is package-complete; the Integration & Technical Debt Review is pending on `review/P10-PACKAGE-01-integration-debt`.
 
 ## Integrated predecessor
 
-`P10-PRODUCTION-SECRETRESOLVER-01` merged through PR #201 at `4301936` (Deterministic CI run `32136056276` PASS on closure head `a1e0ed6`), with `main` freshly reconstructed. `TD-P4-05` is closed.
+`P10-PRODUCTION-SECRETRESOLVER-01` merged through PR #201 at `4301936` (Deterministic CI run `32136056276` PASS on closure head `a1e0ed6`). `P10-TLS-SERVER-IDENTITY-01` merged through PR #214 at `3fdfb95` (Deterministic CI run `32248430431` PASS). `TD-P4-05` and `TD-P8-02` are both closed.
 
 ## Direction selection (from integrated evidence)
 
@@ -27,16 +27,13 @@ Selected: **A — Production SecretResolver + TLS/server-identity hardening** (`
 - Committed TASKs: TASK-128 (providers `d39d1fb`), TASK-129 (fail-closed/no-leakage `f153e8d`), TASK-130 (managed-Runtime E2E `a1e0ed6`).
 - Branch: `sprint/P10-PRODUCTION-SECRETRESOLVER-01`; PR #201 merged.
 
-## Materialized second construction Sprint
+## Constructed second construction Sprint
 
-`P10-TLS-SERVER-IDENTITY-01` — COMMITTED (manifest + TASK-131/132/133 specs, status `ready`), not yet constructed.
+`P10-TLS-SERVER-IDENTITY-01` — PASS, **MERGED** through PR #214 at `3fdfb95`.
 - Goal: positive PostgreSQL TLS server-identity verification (`verify-ca`/`verify-full`) in the shared transport and the rendered autonomous Runtime, fail-closed, closing `TD-P8-02` under ADR-0015.
-- Committed TASKs: TASK-131 (transport identity modes), TASK-132 (fail-closed safety), TASK-133 (rendered-Runtime + authenticated positive-verification E2E).
-- Branch: `sprint/P10-TLS-SERVER-IDENTITY-01` (declared; not created by this planning transition).
-- **Revalidated** after the real Sprint 1 merge from freshly reconstructed `main` `e9f1b4d` (after PR #212): remains the sole eligible COMMITTED successor; TASK-131/132/133 validate.
-- **Re-confirmed** on the post-credential-fix re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 remains the sole eligible COMMITTED successor; no blocker or explicit human gate is present.
-- **Revalidated** on this fresh re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 remains the sole eligible COMMITTED successor; no blocker or explicit human gate is present.
+- Committed TASKs: TASK-131 (`528c92e`), TASK-132 (`36dbe3a`), TASK-133 (`ae17052`).
+- Branch: `sprint/P10-TLS-SERVER-IDENTITY-01`; PR #214 merged.
 
 ## Current gate
 
-**Eligible successor Sprint materialized.** `TD-P8-02` is unblocked (ADR-0015 accepted by a human, PR #206). Construction Sprint 2 `P10-TLS-SERVER-IDENTITY-01` is **COMMITTED** and eligible under repository authority. It executes on `sprint/P10-TLS-SERVER-IDENTITY-01` with TASK-131/132/133 in dependency order. The package Integration & Technical Debt Review stays FORECAST until Sprint 2 merges.
+**Package complete; review pending.** `TD-P4-05` and `TD-P8-02` are closed; both P10 construction Sprints are merged. The Integration & Technical Debt Review is **PENDING** on `review/P10-PACKAGE-01-integration-debt` (PR pending). The successor `P11-PACKAGE-01` (Observe/operations publication, WBS 10.3.3, `TD-P7-03`/`TD-P4-08`) is materialized as a **planning skeleton only**; it becomes READY_TO_BE_PLANNED only after the review merges and is revalidated. No construction Sprint is authorized until then.
