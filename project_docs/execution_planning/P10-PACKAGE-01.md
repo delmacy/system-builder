@@ -54,7 +54,7 @@ Direction and construction-Sprint readiness were revalidated from repository tru
 
 ## Post-merge revalidation
 
-Revalidated after the real Sprint 1 merge (PR #201) from freshly reconstructed `main` (`e9f1b4d`, after PR #212). Sprint 2 `P10-TLS-SERVER-IDENTITY-01` remains the sole eligible committed successor (manifest + TASK-131/132/133, `ready`); the `TD-P8-02` gate is satisfied by human-accepted ADR-0015 (PR #206). No blocker, ADR, L3/L4, destructive-migration or security-weakening gate is present. This transition records the revalidation only; no product construction was performed.
+Revalidated after the real Sprint 1 merge (PR #201) from freshly reconstructed `main` (`e9f1b4d`, after PR #212). Sprint 2 `P10-TLS-SERVER-IDENTITY-01` remains the sole eligible committed successor (manifest + TASK-131/132/133, `ready`); the `TD-P8-02` gate is satisfied by human-accepted ADR-0015 (PR #206). No blocker, ADR, L3/L4, destructive-migration or security-weakening gate is present. This transition records the revalidation only; no product construction was performed. Re-confirmed on the post-credential-fix re-dispatch from freshly reconstructed `main` (`e9f1b4d`): Sprint 2 remains the sole eligible committed successor.
 
 ## Non-commitment notice
 
