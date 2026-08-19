@@ -1,7 +1,7 @@
 ---
 id: TASK-134
 title: Define the provider-neutral DeploymentObservation contract
-status: ready
+status: verification
 priority: 456
 milestone: M11
 model_tier: cheap
