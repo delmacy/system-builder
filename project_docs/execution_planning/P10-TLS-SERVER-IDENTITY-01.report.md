@@ -1,7 +1,7 @@
 # P10-TLS-SERVER-IDENTITY-01 — Sprint Report
 
 Date: 2026-08-19
-Status: PASS / OPEN (PR #<PR> pending) / IMPLEMENTED_ON_SPRINT_BRANCH
+Status: PASS / PR #214 OPEN / IMPLEMENTED_ON_SPRINT_BRANCH
 
 ## Result
 
@@ -36,7 +36,7 @@ Additive, bounded to the transport, the Runtime rendering and product tests.
 ## Verification
 
 - Local lint: PASS. Local typecheck: PASS. Local `npm run test:unit`: 309 pass. Local focused TLS suites (non-live): `postgres-tls.test.ts` 4 pass / 7 skipped (live Postgres E2E require a provisioned database and are not claimed locally).
-- Objective final validation: GitHub Deterministic CI `npm run verify` (Postgres provisioned) on the Sprint Review PR head — pending.
+- Objective final validation: GitHub Deterministic CI `npm run verify` (Postgres provisioned) on the Sprint Review PR head (PR #214) — pending.
 
 ## Architecture / scope
 
