@@ -279,8 +279,19 @@ jobs:
         if: steps.progress.outputs.made_progress == 'true'
         run: git push --set-upstream origin "$PLANNING_BRANCH"
 
+      - name: Report published planning branch (pull_request trigger cannot create PRs)
+        if: >-
+          steps.progress.outputs.made_progress == 'true' &&
+          github.event_name == 'pull_request'
+        run: |
+          echo "Published planning branch: $PLANNING_BRANCH"
+          echo "GitHub Actions prohibits creating a pull request from a pull_request-triggered run (createPullRequest)."
+          echo "Open the planning/review PR manually from branch $PLANNING_BRANCH, then re-run materialization via workflow_dispatch if a successor Sprint is eligible."
+
       - name: Open planning or Work Package review PR
-        if: steps.progress.outputs.made_progress == 'true'
+        if: >-
+          steps.progress.outputs.made_progress == 'true' &&
+          github.event_name == 'workflow_dispatch'
         id: planning_pr
         shell: bash
         run: |
