@@ -243,6 +243,8 @@ jobs:
       - name: Detect Sprint closure and open Sprint PR
         id: closure
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.REPO_ADMIN_PAT }}
         run: |
           set -euo pipefail
           REPORT="project_docs/execution_planning/${SPRINT_ID}.report.md"
@@ -275,6 +277,8 @@ jobs:
           inputs.package_mode == true &&
           inputs.authorize_full_work_package == true
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.REPO_ADMIN_PAT }}
         run: |
           set -euo pipefail
           CURRENT_SPRINT=${{ inputs.sprint_index }}
