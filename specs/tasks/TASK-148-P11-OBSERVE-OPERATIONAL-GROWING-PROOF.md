@@ -1,7 +1,7 @@
 ---
 id: TASK-148
 title: Extend growing package proof with operational metadata coverage
-status: ready
+status: verification
 priority: 470
 milestone: M11
 model_tier: cheap
@@ -112,7 +112,7 @@ Sprint 2 closure report + updated docs/specs + GitHub Deterministic CI.
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the Sprint-closing TASK. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the Sprint-closing TASK: TASK-137..148 specs all set to `status: verification` with implementation evidence recorded; `project_docs/execution_planning/P11-OBSERVE-OPERATIONAL-METADATA-01.report.md` created in the Sprint 1 report format (Sprint Goal PASS, authoritative commits 7d20a6d..7f6a5e2, scope, integrated proof, verification, residuals); `P11-PACKAGE-01.md` updated to SPRINT_2_CONSTRUCTED with Sprint 3 and the package review FORECAST; `PROJECT_STATE.md`, `CURRENT_MILESTONE.md`, `NEXT_WORK.md` updated to the integrated operational-metadata proof with `TD-P4-08` closed. Local: lint PASS, typecheck PASS, `npm run check:tasks` 149 specs validated, core 182 tests/181 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 

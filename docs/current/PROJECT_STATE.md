@@ -29,10 +29,11 @@ Date: 2026-08-19
 - `P11-PACKAGE-01` (Observe/operations publication) **materialized as COMMITTED/DIRECTION_SELECTED** with Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (TASK-134/135/136 specs, `ready`) on the planning branch; no product construction performed.
 - `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (Construction Sprint 1) **merged** through PR #219 at `fd05da2` (Deterministic CI run `32273409636` PASS). `TD-P7-03` closed; `TD-P4-08` partially closed.
 - `P11-PACKAGE-01` **re-materialized** with Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148 specs, `ready`) as COMMITTED on the planning branch; no product construction performed.
+- `P11-OBSERVE-OPERATIONAL-METADATA-01` (Construction Sprint 2) **constructed** on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..147 commits `7d20a6d`..`7f6a5e2`, one per TASK in dependency order; TASK-148 closure in `P11-OBSERVE-OPERATIONAL-METADATA-01.report.md`). Operational-metadata path proven; `TD-P4-08` closed. Merge pending through the Sprint Review PR (Deterministic CI required).
 
 ## Active milestone
 
-M11 (candidate). P10 package is complete and closed (PR #201, #214, #216). `P11-PACKAGE-01` direction is **selected (B — Observe/operations publication, WBS 10.3.3)**. Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (TASK-134/135/136) is **MERGED** (PR #219, `fd05da2`). Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148) is **COMMITTED** (manifest + specs, status `ready`), not yet constructed.
+M11 (candidate). P10 package is complete and closed (PR #201, #214, #216). `P11-PACKAGE-01` direction is **selected (B — Observe/operations publication, WBS 10.3.3)**. Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (TASK-134/135/136) is **MERGED** (PR #219, `fd05da2`). Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148) is **CONSTRUCTED** on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` (commits `7d20a6d`..`7f6a5e2`), pending merge through its Sprint Review PR.
 
 ## Achieved P9 construction proof
 
@@ -50,6 +51,14 @@ M11 (candidate). P10 package is complete and closed (PR #201, #214, #216). `P11-
 
 `durable DeploymentRecord -> provider-neutral DeploymentObservation (deterministic, content-addressed) -> fail-open publish -> Observe/operations receives deployment observations when configured -> Runtime continuity with Observe unavailable -> no resolved secret/credential/CA value in any emitted observation -> observations linkable to release/environment/status/health correlation`
 
+## P11 Sprint 2 constructed (merge pending)
+
+`P11-OBSERVE-OPERATIONAL-METADATA-01` — **CONSTRUCTED** on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..147 commits `7d20a6d`..`7f6a5e2`, TASK-148 closure recorded). Goal achieved: executor/source operational metadata (WBS 10.3.1/11.1.2) correlated to release/environment/runtime context, provider-neutral, fail-open, deterministic, value-leak-free, extending the Sprint 1 `DeploymentObservation` additively without altering canonical identity. `TD-P4-08` closed. Merge pending through the Sprint Review PR (Deterministic CI required).
+
+## Achieved P11 construction proof (Sprint 2)
+
+`durable DeploymentRecord -> provider-neutral DeploymentObservation -> operational metadata (executor/source/mode) correlated to release/environment/runtime context -> enriched observation -> Observe/operations receives deployment observations when configured -> Runtime continuity with Observe unavailable -> observations linkable to release/environment context -> no resolved secret/CA value in any emitted observation`
+
 ## Corrective traceability
 
 `sprint/CORRECTION-INFRA-01` (PR #197) is registered as a traceable corrective: Postgres overwrite crash repair + consolidation of duplicated PostgreSQL transports onto a shared SCRAM/TLS client. Rebased over new `main` `a559d1a`; head `0f4161a`; Deterministic CI run `32097697770` validate SUCCESS. Merge is human. Effective in `main` at `898a14f`.
@@ -65,11 +74,11 @@ M11 (candidate). P10 package is complete and closed (PR #201, #214, #216). `P11-
 ## Residual P9 inputs (carried debt)
 
 - production traffic/fleet/infrastructure rollback remains unclaimed;
-- `TD-P4-08` — operational DeploymentRecord semantics: durable identity, release/environment/timestamps, result/history, active version and **Observe publication** proven; executor/source operational metadata (WBS 10.3.1/11.1.2) is the remainder, committed as Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148);
+- `TD-P4-08` — operational DeploymentRecord semantics: durable identity, release/environment/timestamps, result/history, active version, **Observe publication** and executor/source operational metadata (WBS 10.3.1/11.1.2) all proven across P11 Sprints 1 and 2. **CLOSED**.
 - process supervision/reconciliation is single-host and process-local (`TD-P9-01`/`TD-P9-02`).
 - production SecretResolver (`TD-P4-05`) is constructed and **MERGED** (Sprint 1, PR #201).
-- successor readiness: `P11-PACKAGE-01` (Observe/operations publication, WBS 10.3.3, `TD-P7-03`/`TD-P4-08`) — Sprint 1 **MERGED** (PR #219, `fd05da2`); Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` **COMMITTED** (TASK-137..148); Sprint 3 and the package review remain FORECAST.
+- successor readiness: `P11-PACKAGE-01` (Observe/operations publication, WBS 10.3.3, `TD-P7-03`/`TD-P4-08`) — Sprint 1 **MERGED** (PR #219, `fd05da2`); Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` **CONSTRUCTED** (TASK-137..148, commits `7d20a6d`..`7f6a5e2`), merge pending; Sprint 3 and the package review remain FORECAST.
 
 ## Current gate
 
-`P10-PACKAGE-01` is **complete and closed** (Sprint 1 PR #201, Sprint 2 PR #214, review PR #216). `P11-PACKAGE-01` direction B (Observe/operations publication) is selected; Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` is **MERGED** (PR #219, `fd05da2`); Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148) is **COMMITTED** and eligible; it executes on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` after the materialization PR merges and `main` is freshly reconstructed. No construction Sprint is authorized until then.
+`P10-PACKAGE-01` is **complete and closed** (Sprint 1 PR #201, Sprint 2 PR #214, review PR #216). `P11-PACKAGE-01` direction B (Observe/operations publication) is selected; Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` is **MERGED** (PR #219, `fd05da2`); Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148) is **CONSTRUCTED** on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` and pending merge through its Sprint Review PR (Deterministic CI required). Sprint 3 and the package review remain FORECAST until the Sprint 2 PR merges and `main` is freshly reconstructed.
