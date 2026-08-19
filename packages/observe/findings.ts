@@ -411,3 +411,102 @@ export function correlateFinding(
     correlationId: sha256Canonical(payload),
   });
 }
+
+export type DeploymentFindingLinkage = Readonly<{
+  kind: "DeploymentFindingLinkage";
+  linkageId: string;
+  findingId: string;
+  observationId: string;
+  deploymentId: string;
+  publishedReleaseRef: string;
+  environmentRef: string;
+  releaseHash: string;
+  severity: DeploymentFindingSeverity;
+  confidence: DeploymentFindingConfidence;
+  code: string;
+  message: string;
+  correlationId?: string;
+  operationId?: string;
+  runtimeRef?: string;
+  processRef?: string;
+  sessionRef?: string;
+}>;
+
+type DeploymentFindingLinkagePayload = Readonly<{
+  kind: "DeploymentFindingLinkage";
+  findingId: string;
+  observationId: string;
+  deploymentId: string;
+  publishedReleaseRef: string;
+  environmentRef: string;
+  releaseHash: string;
+  severity: DeploymentFindingSeverity;
+  confidence: DeploymentFindingConfidence;
+  code: string;
+  message: string;
+  correlationId?: string;
+  operationId?: string;
+  runtimeRef?: string;
+  processRef?: string;
+  sessionRef?: string;
+}>;
+
+function linkageObservationId(observation: unknown): string {
+  if (!isRecordLike(observation)) throw invalid("LINKAGE_NOT_OBJECT");
+  const kind = observation["kind"];
+  if (kind !== "DeploymentObservation" && kind !== "EnrichedDeploymentObservation") throw invalid("LINKAGE_KIND");
+  return assertReferenceOnly(requiredString(observation["observationId"], "observationId"), "observationId");
+}
+
+export function linkFinding(
+  finding: DeploymentFinding,
+  observation?: unknown,
+  correlation?: DeploymentFindingCorrelation | null,
+): DeploymentFindingLinkage {
+  if (!isRecordLike(finding)) throw invalid("NOT_OBJECT");
+  const validated = DeploymentFinding.validate(finding);
+
+  const observationId = observation === undefined || observation === null
+    ? validated.observationId
+    : linkageObservationId(observation);
+
+  const correlationId = correlation === undefined || correlation === null
+    ? undefined
+    : (() => {
+        if (!isRecordLike(correlation)) throw invalid("NOT_OBJECT");
+        const correlationRecord = correlation as Record<string, unknown>;
+        if (correlationRecord["findingId"] !== validated.findingId) throw invalid("LINKAGE_CORRELATION_FINDING");
+        return assertReferenceOnly(
+          requiredString(correlationRecord["correlationId"], "correlationId"),
+          "correlationId",
+        );
+      })();
+
+  const optional = Object.freeze({
+    ...(validated.operationId !== undefined ? { operationId: validated.operationId } : {}),
+    ...(validated.runtimeRef !== undefined ? { runtimeRef: validated.runtimeRef } : {}),
+    ...(validated.processRef !== undefined ? { processRef: validated.processRef } : {}),
+    ...(validated.sessionRef !== undefined ? { sessionRef: validated.sessionRef } : {}),
+    ...(correlationId !== undefined ? { correlationId } : {}),
+  });
+
+  const payload: DeploymentFindingLinkagePayload = Object.freeze({
+    kind: "DeploymentFindingLinkage",
+    findingId: validated.findingId,
+    observationId,
+    deploymentId: validated.deploymentId,
+    publishedReleaseRef: validated.publishedReleaseRef,
+    environmentRef: validated.environmentRef,
+    releaseHash: validated.releaseHash,
+    severity: validated.severity,
+    confidence: validated.confidence,
+    code: validated.code,
+    message: validated.message,
+    ...optional,
+  });
+
+  return Object.freeze({
+    ...payload,
+    linkageId: sha256Canonical(payload),
+  });
+}

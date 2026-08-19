@@ -3,8 +3,10 @@ import { DeploymentOperationMetadata } from "./metadata.js";
 
 export {
   DeploymentFinding,
+  linkFinding,
   type DeploymentFindingConfidence,
   type DeploymentFindingFields,
+  type DeploymentFindingLinkage,
   type DeploymentFindingSeverity,
 } from "./findings.js";
 
