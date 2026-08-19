@@ -15,6 +15,10 @@ export type DeploymentOperationMetadata = Readonly<{
   runtimeRef?: string;
   processRef?: string;
   sessionRef?: string;
+  deploymentId?: string;
+  publishedReleaseRef?: string;
+  environmentRef?: string;
+  releaseHash?: string;
 }>;
 
 export type DeploymentOperationMetadataFields = Readonly<{
@@ -145,6 +149,70 @@ export const DeploymentOperationMetadata = Object.freeze({
     });
 
     const operationId = sha256Canonical(Object.freeze({ ...operation, ...correlated }));
-    return Object.freeze({ ...operation, operationId });
+    return Object.freeze({ ...operation, ...correlated, operationId });
+  },
+  validate(value: unknown): DeploymentOperationMetadata {
+    if (value === null || typeof value !== "object" || Array.isArray(value)) throw invalid("NOT_OBJECT");
+    const record = value as Record<string, unknown>;
+
+    const allowed = new Set([
+      "kind",
+      "operationId",
+      "executorRef",
+      "source",
+      "mode",
+      "sourceRef",
+      "triggeredAt",
+      "runtimeRef",
+      "processRef",
+      "sessionRef",
+      "deploymentId",
+      "publishedReleaseRef",
+      "environmentRef",
+      "releaseHash",
+    ]);
+    for (const key of Object.keys(record)) {
+      if (!allowed.has(key)) throw invalid(`UNKNOWN_FIELD:${key}`);
+    }
+    if (record["kind"] !== "DeploymentOperationMetadata") throw invalid("KIND");
+
+    const executorRef = assertReferenceField("executorRef", String(record["executorRef"]));
+    if (!SOURCES.includes(record["source"] as DeploymentOperationSource)) {
+      throw invalid(`UNSUPPORTED_SOURCE:${String(record["source"])}`);
+    }
+    if (!MODES.includes(record["mode"] as DeploymentOperationMode)) {
+      throw invalid(`UNSUPPORTED_MODE:${String(record["mode"])}`);
+    }
+
+    const operation: DeploymentOperationCorrelation = Object.freeze({
+      kind: "DeploymentOperationMetadata",
+      executorRef,
+      source: record["source"] as DeploymentOperationSource,
+      mode: record["mode"] as DeploymentOperationMode,
+      ...(record["sourceRef"] !== undefined ? { sourceRef: assertReferenceField("sourceRef", String(record["sourceRef"])) } : {}),
+      ...(record["triggeredAt"] !== undefined ? { triggeredAt: assertReferenceField("triggeredAt", String(record["triggeredAt"])) } : {}),
+      ...(record["runtimeRef"] !== undefined ? { runtimeRef: assertReferenceField("runtimeRef", String(record["runtimeRef"])) } : {}),
+      ...(record["processRef"] !== undefined ? { processRef: assertReferenceField("processRef", String(record["processRef"])) } : {}),
+      ...(record["sessionRef"] !== undefined ? { sessionRef: assertReferenceField("sessionRef", String(record["sessionRef"])) } : {}),
+    });
+
+    const hasCorrelation = record["deploymentId"] !== undefined
+      || record["publishedReleaseRef"] !== undefined
+      || record["environmentRef"] !== undefined
+      || record["releaseHash"] !== undefined;
+    const correlated = hasCorrelation
+      ? Object.freeze({
+          deploymentId: assertReferenceField("deploymentId", String(record["deploymentId"])),
+          publishedReleaseRef: assertReferenceField("publishedReleaseRef", String(record["publishedReleaseRef"])),
+          environmentRef: assertReferenceField("environmentRef", String(record["environmentRef"])),
+          releaseHash: assertReferenceField("releaseHash", String(record["releaseHash"])),
+        })
+      : Object.freeze({});
+
+    const expected = sha256Canonical(Object.freeze({ ...operation, ...correlated }));
+    if (typeof record["operationId"] !== "string" || record["operationId"] !== expected) {
+      throw invalid("OPERATION_ID");
+    }
+    return Object.freeze({ ...operation, ...correlated, operationId: expected });
   },
 });
