@@ -95,3 +95,167 @@ export const DeploymentFinding = Object.freeze({
     return withFindingId(payload);
   },
 });
+
+export type DeploymentFindingSource = Readonly<{
+  kind: "DeploymentObservation" | "EnrichedDeploymentObservation";
+  observationId: string;
+  deploymentId: string;
+  publishedReleaseRef: string;
+  environmentRef: string;
+  releaseHash: string;
+  status: "succeeded" | "failed";
+  healthChecks: readonly Readonly<{ name: string; status: "PASS" | "FAIL" }>[];
+  operation?: Readonly<{
+    operationId?: string;
+    runtimeRef?: string;
+    processRef?: string;
+    sessionRef?: string;
+  }>;
+}>;
+
+export type DeploymentFindingsBaseline = Readonly<{
+  emitInfoOnCleanSuccess?: boolean;
+}>;
+
+export const DEFAULT_FINDINGS_BASELINE: DeploymentFindingsBaseline = Object.freeze({});
+
+const FINDING_CODES = Object.freeze({
+  DEPLOYMENT_FAILED: "OBSERVE_FINDING:DEPLOYMENT_FAILED",
+  HEALTH_CHECK_FAILED: "OBSERVE_FINDING:HEALTH_CHECK_FAILED",
+  DEPLOYMENT_SUCCEEDED: "OBSERVE_FINDING:DEPLOYMENT_SUCCEEDED",
+});
+
+const RESOLVED_VALUE_MARKERS: readonly RegExp[] = [
+  /-{5}BEGIN/i,
+  /password\s*[:=]/i,
+  /passwd\s*[:=]/i,
+  /token\s*[:=]/i,
+  /apikey\s*[:=]/i,
+  /api_key\s*[:=]/i,
+  /secret\s*[:=]/i,
+  /client_secret\s*[:=]/i,
+  /authorization\s*[:=]/i,
+  /credential\s*[:=]/i,
+  /bearer\s+[a-z0-9_-]+/i,
+];
+
+function isRecordLike(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function assertReferenceOnly(value: string, field: string): string {
+  if (RESOLVED_VALUE_MARKERS.some((marker) => marker.test(value))) throw invalid(`RESOLVED_VALUE:${field}`);
+  if (value.length >= 20 && /^[A-Za-z0-9+/]+={0,2}$/.test(value) && value.includes("=")) throw invalid(`RESOLVED_VALUE:${field}`);
+  return value;
+}
+
+function normalizeSource(value: unknown): DeploymentFindingSource {
+  if (!isRecordLike(value)) throw invalid("NOT_OBJECT");
+  const kind = value["kind"];
+  if (kind !== "DeploymentObservation" && kind !== "EnrichedDeploymentObservation") throw invalid("KIND");
+  const status = value["status"];
+  if (status !== "succeeded" && status !== "failed") throw invalid("STATUS");
+  const rawChecks = value["healthChecks"];
+  if (!Array.isArray(rawChecks)) throw invalid("HEALTH_CHECKS");
+  const healthChecks = Object.freeze(
+    rawChecks.map((check) => {
+      if (!isRecordLike(check)) throw invalid("HEALTH_CHECK");
+      const checkStatus = check["status"];
+      if (checkStatus !== "PASS" && checkStatus !== "FAIL") throw invalid("HEALTH_CHECK_STATUS");
+      return Object.freeze({
+        name: assertReferenceOnly(requiredString(check["name"], "name"), "healthCheckName"),
+        status: checkStatus,
+      });
+    }),
+  );
+  const operationRaw = value["operation"];
+  const operation = isRecordLike(operationRaw)
+    ? Object.freeze({
+        ...(operationRaw["operationId"] !== undefined
+          ? { operationId: assertReferenceOnly(requiredString(operationRaw["operationId"], "operationId"), "operationId") }
+          : {}),
+        ...(operationRaw["runtimeRef"] !== undefined
+          ? { runtimeRef: assertReferenceOnly(requiredString(operationRaw["runtimeRef"], "runtimeRef"), "runtimeRef") }
+          : {}),
+        ...(operationRaw["processRef"] !== undefined
+          ? { processRef: assertReferenceOnly(requiredString(operationRaw["processRef"], "processRef"), "processRef") }
+          : {}),
+        ...(operationRaw["sessionRef"] !== undefined
+          ? { sessionRef: assertReferenceOnly(requiredString(operationRaw["sessionRef"], "sessionRef"), "sessionRef") }
+          : {}),
+      })
+    : undefined;
+  return Object.freeze({
+    kind,
+    observationId: requiredString(value["observationId"], "observationId"),
+    deploymentId: requiredString(value["deploymentId"], "deploymentId"),
+    publishedReleaseRef: requiredString(value["publishedReleaseRef"], "publishedReleaseRef"),
+    environmentRef: requiredString(value["environmentRef"], "environmentRef"),
+    releaseHash: requiredString(value["releaseHash"], "releaseHash"),
+    status,
+    healthChecks,
+    ...(operation !== undefined ? { operation } : {}),
+  });
+}
+
+export function deriveFindings(
+  observation: DeploymentFindingSource,
+  baseline: DeploymentFindingsBaseline = DEFAULT_FINDINGS_BASELINE,
+): readonly DeploymentFinding[] {
+  const source = normalizeSource(observation);
+
+  const refs = Object.freeze({
+    observationId: source.observationId,
+    deploymentId: source.deploymentId,
+    publishedReleaseRef: source.publishedReleaseRef,
+    environmentRef: source.environmentRef,
+    releaseHash: source.releaseHash,
+    ...(source.operation?.operationId !== undefined ? { operationId: source.operation.operationId } : {}),
+    ...(source.operation?.runtimeRef !== undefined ? { runtimeRef: source.operation.runtimeRef } : {}),
+    ...(source.operation?.processRef !== undefined ? { processRef: source.operation.processRef } : {}),
+    ...(source.operation?.sessionRef !== undefined ? { sessionRef: source.operation.sessionRef } : {}),
+  });
+
+  const findings: DeploymentFinding[] = [];
+
+  if (source.status === "failed") {
+    findings.push(
+      DeploymentFinding.create({
+        ...refs,
+        severity: "critical",
+        confidence: "high",
+        code: FINDING_CODES.DEPLOYMENT_FAILED,
+        message: "deployment did not complete successfully",
+      }),
+    );
+  }
+
+  for (const check of source.healthChecks) {
+    if (check.status === "FAIL") {
+      findings.push(
+        DeploymentFinding.create({
+          ...refs,
+          severity: "warning",
+          confidence: "medium",
+          code: FINDING_CODES.HEALTH_CHECK_FAILED,
+          message: `health check "${check.name}" did not pass`,
+        }),
+      );
+    }
+  }
+
+  const cleanSuccess = source.status === "succeeded" && source.healthChecks.every((check) => check.status === "PASS");
+  if (cleanSuccess && baseline.emitInfoOnCleanSuccess === true) {
+    findings.push(
+      DeploymentFinding.create({
+        ...refs,
+        severity: "info",
+        confidence: "high",
+        code: FINDING_CODES.DEPLOYMENT_SUCCEEDED,
+        message: "deployment completed successfully",
+      }),
+    );
+  }
+
+  return Object.freeze(findings);
+}
