@@ -1,7 +1,7 @@
 ---
 id: TASK-147
 title: Prove operational metadata integrated E2E with Runtime autonomy
-status: ready
+status: verification
 priority: 469
 milestone: M11
 model_tier: cheap
@@ -109,7 +109,7 @@ Growing package proof (TASK-148), telemetry ingestion beyond deployment observat
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the Sprint-closing E2E TASK. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the Sprint-closing E2E TASK: `tests/product/observe-operational-e2e.test.ts` proves the integrated chain — durable `DeploymentRecord` (via `DeploymentRegistry` + `dryRunDeploy`) -> `DeploymentObservation` -> correlated/enriched with operational metadata (executor/source/mode + runtime/process/session correlation) -> published to an injected Observe receiver with correct correlation and operational context, linkable to release/environment/runtime; Runtime autonomy re-proven (Observe not configured and channel unavailable -> fail-open, Deploy/Runtime continuity unchanged); no resolved secret/credential/CA value in any emitted observation. Local: lint PASS, typecheck PASS, suite 5/5 PASS, `npm run test:product` core 182 tests/181 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 
