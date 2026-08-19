@@ -191,9 +191,7 @@ jobs:
 
           Full Work Package dispatch authorization means eligible Sprints may advance without a new user dispatch. It NEVER authorizes a Sprint that repository truth still marks FORECAST/BLOCKED, and NEVER substitutes for an ADR or explicit architecture/security decision.
 
-          You are currently checked out on the isolated planning/review branch (the workflow created it for you). Stay on this branch and DO NOT create, switch to or commit to any other branch (in particular do not create a sprint/<ID> or a branch named sprint/...-materialization). The workflow detects your progress by the commits you make on THIS branch, so commit your single bounded planning/review transition here. The actual construction Sprint branch (sprint/<SPRINT-ID>) is only referenced declaratively in the materialized manifest; you do not create or push it.
-
-          Do NOT implement product code. Do NOT execute a newly materialized TASK. Do NOT modify .github/** or tooling/**. Do NOT merge anything. Commit exactly one bounded planning/review transition when a durable repository change is warranted, on the current branch. Before returning, leave no uncommitted changes.
+          Do NOT implement product code. Do NOT execute a newly materialized TASK. Do NOT modify .github/** or tooling/**. Do NOT merge anything. Commit exactly one bounded planning/review transition when a durable repository change is warranted. Before returning, leave no uncommitted changes.
           EOF
           )
 
@@ -301,8 +299,6 @@ jobs:
           github.event_name == 'workflow_dispatch'
         id: planning_pr
         shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.REPO_ADMIN_PAT }}
         run: |
           set -euo pipefail
           EXISTING=$(gh pr list --head "$PLANNING_BRANCH" --base main --state open --json number --jq '.[0].number // empty')
@@ -327,8 +323,6 @@ jobs:
           inputs.authorize_full_work_package == true &&
           steps.successor.outputs.has_successor == 'true'
         shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.REPO_ADMIN_PAT }}
         run: |
           set -euo pipefail
           PR=${{ steps.planning_pr.outputs.pr_number }}
