@@ -110,11 +110,13 @@ test("transport fails closed for a positive sslmode without a trusted CA source"
 test("transport positive sslmode never downgrades when the server refuses TLS", async () => {
   const noTls = await startNoTlsServer();
   try {
-    const url = new URL("postgres://user@127.0.0.1:0/db");
-    url.port = String(noTls.port);
-    url.searchParams.set("sslmode", "verify-ca");
-    url.searchParams.set("sslrootcert", "/tmp/unused-ca.crt");
-    await assert.rejects(() => postgresQuery(url.toString(), "SELECT 1"), /POSTGRES_TLS_REQUIRED/);
+    for (const mode of ["verify-ca", "verify-full"]) {
+      const url = new URL("postgres://user@127.0.0.1:0/db");
+      url.port = String(noTls.port);
+      url.searchParams.set("sslmode", mode);
+      url.searchParams.set("sslrootcert", "/tmp/unused-ca.crt");
+      await assert.rejects(() => postgresQuery(url.toString(), "SELECT 1"), /POSTGRES_TLS_REQUIRED/);
+    }
   } finally {
     await noTls.close();
   }
@@ -231,6 +233,100 @@ test("transport positive sslmode fails closed for an untrusted CA without leakin
         assert.match(error.message, /POSTGRES_TLS_CERT_UNTRUSTED$/);
         assert.equal(error.message.includes(connectionString), false);
         assert.equal(error.message.includes("verify-full"), false);
+        return true;
+      });
+    } finally {
+      await proxy.close();
+    }
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("transport verify-ca fails closed for an untrusted chain with a deterministic diagnostic", { skip: liveSkip }, async () => {
+  assert.ok(postgresUrl);
+  const directory = mkdtempSync(join(tmpdir(), "sb-tls-"));
+  try {
+    const trustedCa = generateCa(directory);
+    const untrustedDirectory = join(directory, "untrusted");
+    mkdirSync(untrustedDirectory);
+    const untrustedCa = generateCa(untrustedDirectory);
+    const server = generateServerCert(directory, untrustedCa, "127.0.0.1", "IP:127.0.0.1");
+    const proxy = await startTlsTerminationProxy(postgresUrl, server);
+    try {
+      const url = new URL(postgresUrl);
+      url.port = String(proxy.port);
+      url.searchParams.set("sslmode", "verify-ca");
+      url.searchParams.set("sslrootcert", trustedCa.certPath);
+      const connectionString = url.toString();
+      await assert.rejects(() => postgresQuery(connectionString, "SELECT 1"), (error: unknown) => {
+        assert.ok(error instanceof Error);
+        assert.match(error.message, /POSTGRES_TLS_CERT_UNTRUSTED$/);
+        assert.equal(error.message.includes(connectionString), false);
+        assert.equal(error.message.includes("verify-ca"), false);
+        return true;
+      });
+    } finally {
+      await proxy.close();
+    }
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("transport positive sslmode fails closed when the trusted CA source is unavailable at connect", { skip: liveSkip }, async () => {
+  assert.ok(postgresUrl);
+  const directory = mkdtempSync(join(tmpdir(), "sb-tls-"));
+  try {
+    const ca = generateCa(directory);
+    const server = generateServerCert(directory, ca, "127.0.0.1", "IP:127.0.0.1");
+    const proxy = await startTlsTerminationProxy(postgresUrl, server);
+    try {
+      const url = new URL(postgresUrl);
+      url.port = String(proxy.port);
+      url.searchParams.set("sslmode", "verify-full");
+      url.searchParams.set("sslrootcert", join(directory, "missing-ca.crt"));
+      const connectionString = url.toString();
+      await assert.rejects(() => postgresQuery(connectionString, "SELECT 1"), (error: unknown) => {
+        assert.ok(error instanceof Error);
+        assert.match(error.message, /POSTGRES_TLS_CA_UNAVAILABLE$/);
+        assert.equal(error.message.includes(connectionString), false);
+        assert.equal(error.message.includes(join(directory, "missing-ca.crt")), false);
+        assert.equal(error.message.includes("verify-full"), false);
+        return true;
+      });
+    } finally {
+      await proxy.close();
+    }
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("transport positive sslmode never silently downgrades to the lenient session on the same endpoint", { skip: liveSkip }, async () => {
+  assert.ok(postgresUrl);
+  const directory = mkdtempSync(join(tmpdir(), "sb-tls-"));
+  try {
+    const trustedCa = generateCa(directory);
+    const untrustedDirectory = join(directory, "untrusted");
+    mkdirSync(untrustedDirectory);
+    const untrustedCa = generateCa(untrustedDirectory);
+    const server = generateServerCert(directory, untrustedCa, "127.0.0.1", "IP:127.0.0.1");
+    const proxy = await startTlsTerminationProxy(postgresUrl, server);
+    try {
+      const lenient = new URL(postgresUrl);
+      lenient.port = String(proxy.port);
+      lenient.searchParams.set("sslmode", "require");
+      const lenientRows = await postgresQuery(lenient.toString(), "SELECT 1");
+      assert.deepEqual(lenientRows, [Object.freeze(["1"])]);
+
+      const strict = new URL(postgresUrl);
+      strict.port = String(proxy.port);
+      strict.searchParams.set("sslmode", "verify-full");
+      strict.searchParams.set("sslrootcert", trustedCa.certPath);
+      await assert.rejects(() => postgresQuery(strict.toString(), "SELECT 1"), (error: unknown) => {
+        assert.ok(error instanceof Error);
+        assert.match(error.message, /POSTGRES_TLS_CERT_UNTRUSTED$/);
         return true;
       });
     } finally {

@@ -1,7 +1,7 @@
 ---
 id: TASK-132
 title: Prove TLS identity verification fails closed with deterministic safety
-status: ready
+status: verification
 priority: 454
 milestone: M10
 model_tier: cheap
