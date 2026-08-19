@@ -1,7 +1,7 @@
 ---
 id: TASK-146
 title: Prove operational metadata negative and fail-open paths with product tests
-status: ready
+status: verification
 priority: 468
 milestone: M11
 model_tier: cheap
@@ -105,7 +105,7 @@ Integrated E2E with Runtime autonomy (TASK-147), growing package proof (TASK-148
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the tenth TASK. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the ninth TASK of Sprint 2: `tests/product/observe-operational-negative.test.ts` proves the combined negative + fail-open matrix on the real path — malformed/unknown/conflicting metadata rejected deterministically (MALFORMED/UNSUPPORTED_SOURCE/UNSUPPORTED_MODE/UNKNOWN_FIELD/OPERATION_ID/NOT_OBJECT), resolved value rejected and never echoed, enrichment fail-safe, and the fail-open publication matrix (not-configured, channel-failed async + sync throw, metadata-production failure) with stable deterministic reference-free diagnostics. Local: lint PASS, typecheck PASS, suite 8/8 PASS, `npm run test:product` core 177 tests/176 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 

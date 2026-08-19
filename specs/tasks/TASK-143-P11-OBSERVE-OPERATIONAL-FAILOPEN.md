@@ -1,7 +1,7 @@
 ---
 id: TASK-143
 title: Keep publication fail-open with operational metadata
-status: ready
+status: verification
 priority: 465
 milestone: M11
 model_tier: cheap
@@ -100,7 +100,7 @@ Fail-open extension in `packages/observe/publish.ts` + `tests/product/observe-op
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the seventh TASK. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the sixth TASK of Sprint 2: `packages/observe/publish.ts` now exposes `publishEnriched(observation, operation, observer?)` alongside the unchanged Sprint 1 `publish`/`PublishObserver`. `EnrichedPublishObserver` accepts both plain and enriched observations; fail-open matrix is deterministic: `not-configured` (no observer), `delivered` (channel ok), `channel-failed` (`OBSERVE_CHANNEL_FAILED`), and new `metadata-failed` (`OBSERVE_METADATA_FAILED`) when operational metadata production/validation fails — never propagated into Deploy/Runtime and never echoing a resolved secret/credential/CA value. `tests/product/observe-operational-failopen.test.ts` proves 6 cases (not-configured, delivered enriched, channel-failed, metadata-failed, no-leak on failure, Sprint 1 invariant preserved). Local: lint PASS, typecheck PASS, focused suites 12/12 PASS, `npm run test:product` core 157 tests/156 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 

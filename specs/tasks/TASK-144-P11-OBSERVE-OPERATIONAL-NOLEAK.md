@@ -1,7 +1,7 @@
 ---
 id: TASK-144
 title: Prove no resolved secret/CA value in operational metadata
-status: ready
+status: verification
 priority: 466
 milestone: M11
 model_tier: cheap
@@ -103,7 +103,7 @@ Positive/negative product suites beyond the no-leak proof (TASK-145/146), integr
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the eighth TASK. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the seventh TASK of Sprint 2: `tests/product/observe-operational-noleak.test.ts` proves the no-value-leakage invariant end to end (derivation -> validation -> correlation -> enrichment -> fail-open publication) for executor/source/mode inputs and runtime refs, against marker-detected resolved values (password=, BEGIN CERTIFICATE, Authorization Bearer). Diagnostics never echo the leaked value; canonical `DeploymentRecord` identity and Sprint 1 observation identity remain unchanged; enriched payload omits any simulated resolved value. Local: lint PASS, typecheck PASS, suite 7/7 PASS, `npm run test:product` core 164 tests/163 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 

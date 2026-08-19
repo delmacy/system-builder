@@ -1,7 +1,7 @@
 ---
 id: TASK-139
 title: Validate DeploymentOperationMetadata fail-closed with deterministic diagnostics
-status: ready
+status: verification
 priority: 461
 milestone: M11
 model_tier: cheap
@@ -103,7 +103,7 @@ Validation surface in `packages/observe/metadata.ts` + `tests/product/observe-op
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the third TASK. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the third TASK of Sprint 2: `DeploymentOperationMetadata.validate` in `packages/observe/metadata.ts` — fail-closed validation with deterministic diagnostics (`UNKNOWN_FIELD:<key>`, `KIND`, `MALFORMED:<field>`, `UNSUPPORTED_SOURCE/MODE`, `RESOLVED_VALUE:<field>` never echoing the value, `OPERATION_ID` on tampered identity). The metadata document now carries the deployment correlation fields (self-describing), so identity is recomputable. `tests/product/observe-operational-validation.test.ts` proves 7 cases (accept valid, unknown field, wrong kind, tampered identity, unsupported enums, secret without echo, create-only without correlation). Local: lint PASS, typecheck PASS, focused test 7/7 PASS, `npm run test:product` core 132 tests/131 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 

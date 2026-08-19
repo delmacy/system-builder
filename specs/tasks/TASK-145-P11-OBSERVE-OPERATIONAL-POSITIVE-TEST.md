@@ -1,7 +1,7 @@
 ---
 id: TASK-145
 title: Prove operational metadata positive path with product tests
-status: ready
+status: verification
 priority: 467
 milestone: M11
 model_tier: cheap
@@ -103,7 +103,7 @@ Negative/fail-open product suite (TASK-146), integrated E2E with Runtime autonom
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the ninth TASK. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the eighth TASK of Sprint 2: `tests/product/observe-operational-positive.test.ts` drives a real Deploy `DeploymentRecord` through the observe chain end to end — `fromDeploymentRecord` -> `fromExecutionContext` -> `correlateOperation` -> `enrichObservation` -> `publishEnriched` to an injected receiver — proving delivered enriched payload with correct correlation (release/environment/status/health) and operational context (executor/source/mode), deterministic stable identity for equal inputs, and no resolved secret/credential/CA value. Local: lint PASS, typecheck PASS, suite 5/5 PASS, `npm run test:product` core 169 tests/168 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 
