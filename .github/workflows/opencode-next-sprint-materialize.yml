@@ -57,7 +57,9 @@ jobs:
   materialize-next-sprint:
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      (github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'sprint/'))
+      (github.event.pull_request.merged == true &&
+       startsWith(github.event.pull_request.head.ref, 'sprint/') &&
+       !contains(github.event.pull_request.body || '', 'Intermediate Sprint of explicitly authorized Work Package'))
     runs-on: ubuntu-latest
     timeout-minutes: 60
     services:
@@ -131,10 +133,6 @@ jobs:
           [[ "$MAX_CYCLES_PER_SPRINT" =~ ^[0-9]+$ ]] || exit 2
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             [[ "$WORK_PACKAGE_ID" =~ ^[A-Za-z0-9._-]+$ ]] || exit 2
-            if [ "$NEXT_SPRINT_INDEX" -gt "$MAX_SPRINTS" ]; then
-              echo "Work Package reached max_sprints=$MAX_SPRINTS before another construction Sprint; stopping safely." >&2
-              exit 1
-            fi
           fi
 
       - name: Checkout freshly integrated main
@@ -264,6 +262,10 @@ jobs:
           fi
 
           if [ "$CANDIDATES" -eq 1 ]; then
+            if [ "$NEXT_SPRINT_INDEX" -gt "$MAX_SPRINTS" ]; then
+              echo "A successor Sprint exists but Work Package max_sprints=$MAX_SPRINTS would be exceeded." >&2
+              exit 1
+            fi
             echo "has_successor=true" >> "$GITHUB_OUTPUT"
             echo "sprint_id=$NEXT_ID" >> "$GITHUB_OUTPUT"
             echo "branch=$NEXT_BRANCH" >> "$GITHUB_OUTPUT"
