@@ -14,7 +14,7 @@ Selected P11 direction B (Observe/operations publication, WBS 10.3.3) from integ
 
 ## Authoritative commit
 
-- `TODO` — feat(P11): select direction B and materialize first construction Sprint manifest + TASK-134/135/136 specs.
+- `b03ac91` — feat(P11): select direction B and materialize first construction Sprint manifest + TASK-134/135/136 specs.
 
 ## Deliverables
 
@@ -35,7 +35,7 @@ No product code, contract, ADR or L4 boundary was changed. This is a planning/ma
 
 - `check:tasks` (validate-tasks): 137 task specifications validated (includes new TASK-134/135/136).
 - `check:architecture`: PASS; `typecheck`: PASS (docs-only change, no product code).
-- Final closure-head Deterministic CI (PR #217 `validate`): PASS — pending.
+- Final closure-head Deterministic CI (PR #217 `validate`): PASS — run `32251627761` (1m0s).
 - No local product execution is claimed. GitHub Actions is the objective CI evidence.
 
 ## Residual / next
