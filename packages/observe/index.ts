@@ -1,5 +1,7 @@
 import { sha256Canonical } from "@system-builder/deterministic";
 
+export { publish, type PublishObserver, type PublishResult } from "./publish.js";
+
 export type DeploymentHealthCheck = Readonly<{
   name: string;
   status: "PASS" | "FAIL";

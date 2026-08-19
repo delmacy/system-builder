@@ -1,7 +1,7 @@
 ---
 id: TASK-135
 title: Publish observations through a fail-open Observe/operations channel
-status: ready
+status: verification
 priority: 457
 milestone: M11
 model_tier: cheap
