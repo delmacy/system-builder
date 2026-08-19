@@ -29,7 +29,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:unit": "tsx --env-file-if-exists=.env --test tooling/agent-harness/tests/*.test.ts",
-    "test:product": "tsx --env-file-if-exists=.env --test tests/product/*.test.ts",
+    "test:product": "node scripts/run-product-tests.mjs core",
+    "test:product:heavy": "node scripts/run-product-tests.mjs heavy",
+    "test:product:full": "node scripts/run-product-tests.mjs full",
     "test": "npm run test:unit && npm run test:product",
     "build": "tsc -p tsconfig.build.json",
     "verify": "npm run lint && npm run typecheck && npm run test && npm run check:tasks && npm run check:architecture && npm run build"
