@@ -2,7 +2,7 @@
 
 ## Goal
 
-Start and advance the Observe (SB-11) slice: publish the durable `DeploymentRecord` to Observe/operations (WBS 10.3.3) through a provider-neutral, fail-open `DeploymentObservation` contract, then enrich it with executor/source operational metadata correlated to release/environment/runtime context (WBS 10.3.1/11.1.2), preserving Runtime autonomy (ADR-0002) and the no-value-leakage invariant (ADR-0007), closing `TD-P7-03` and completing `TD-P4-08`. Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` is **MERGED** (PR #219, `fd05da2`); Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148) is **MERGED** (PR #221, `1830705`).
+Start and advance the Observe (SB-11) slice: publish the durable `DeploymentRecord` to Observe/operations (WBS 10.3.3) through a provider-neutral, fail-open `DeploymentObservation` contract, enrich it with executor/source operational metadata correlated to release/environment/runtime context (WBS 10.3.1/11.1.2), and close the slice with the integration E2E and findings linkage (WBS 11.1.2/11.3.2) — preserving Runtime autonomy (ADR-0002) and the no-value-leakage invariant (ADR-0007), closing `TD-P7-03` and completing `TD-P4-08`. Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` is **MERGED** (PR #219, `fd05da2`); Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148) is **MERGED** (PR #221, `1830705`); Construction Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` (TASK-149..160) is **COMMITTED** (manifest + TASK specs, `ready`).
 
 ## Integrated predecessor
 
@@ -30,4 +30,4 @@ Selected: **B — Observe/operations publication** (WBS 10.3.3, `TD-P7-03` + `TD
 
 ## Current gate
 
-**Both construction Sprints merged.** `P11-PACKAGE-01` direction B is selected; Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` is **MERGED** (PR #219, `fd05da2`); Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` is **MERGED** (PR #221, `1830705`). Sprint 3 (`Observe integration E2E`, WBS 11.1.2/11.3.2) and the package Integration & Technical Debt Review remain FORECAST until revalidated from freshly reconstructed `main`.
+**Both construction Sprints merged; Sprint 3 COMMITTED.** `P11-PACKAGE-01` direction B is selected; Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` is **MERGED** (PR #219, `fd05da2`); Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` is **MERGED** (PR #221, `1830705`); Construction Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` (TASK-149..160, `ready`) is **COMMITTED** as a planning package. The package Integration & Technical Debt Review remains FORECAST until Sprint 3 merges and the package is revalidated from freshly reconstructed `main`.
