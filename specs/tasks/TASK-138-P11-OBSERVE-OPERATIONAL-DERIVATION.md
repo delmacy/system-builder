@@ -1,7 +1,7 @@
 ---
 id: TASK-138
 title: Derive DeploymentOperationMetadata deterministically from execution context
-status: ready
+status: verification
 priority: 460
 milestone: M11
 model_tier: cheap
@@ -100,7 +100,7 @@ Validation beyond derivation-time rejection of value leakage (TASK-139), seriali
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the second TASK. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` as the second TASK of Sprint 2: `DeploymentOperationMetadata.fromExecutionContext` in `packages/observe/metadata.ts` (deterministic content-addressed `operationId` over the operation + deployment correlation; reference-only enforcement rejecting resolved secret/CA/credential values with `RESOLVED_VALUE:<field>` and malformed correlation with `MALFORMED:<field>`), re-exported from `packages/observe/index.ts`. `tests/product/observe-operational-derivation.test.ts` proves 7 cases (determinism, real-record correlation, identity sensitivity to correlation/executor/source, resolved-value rejection, malformed rejection). Local: lint PASS, typecheck PASS, focused test 7/7 PASS, `npm run test:product` core 125 tests/124 pass/0 fail. CI validation required before Sprint Review.
 
 # Escalation
 

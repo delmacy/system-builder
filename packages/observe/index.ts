@@ -3,6 +3,7 @@ import { sha256Canonical } from "@system-builder/deterministic";
 export { publish, type PublishObserver, type PublishResult } from "./publish.js";
 export {
   DeploymentOperationMetadata,
+  type DeploymentExecutionContext,
   type DeploymentOperationMetadataFields,
   type DeploymentOperationMode,
   type DeploymentOperationSource,
