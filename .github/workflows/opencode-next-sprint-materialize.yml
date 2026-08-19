@@ -226,6 +226,11 @@ jobs:
             git log --oneline "$BASE_SHA..$HEAD_SHA"
           fi
 
+      - name: Reset verification Postgres databases
+        if: steps.progress.outputs.made_progress == 'true'
+        shell: bash
+        run: bash .github/scripts/reset-postgres.sh
+
       - name: Verify planning state
         if: steps.progress.outputs.made_progress == 'true'
         run: npm run verify
