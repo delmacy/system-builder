@@ -1,93 +1,141 @@
-# OpenCode GitHub Sprint Factory
+# OpenCode GitHub Work Package Factory
 
 ## Purpose
 
-Run System Builder Sprint work on disposable GitHub-hosted runners while preserving repository-first Sprint Mode governance.
+Run a complete System Builder Work Package as a bounded GitHub-hosted execution chain while preserving repository-first governance.
 
-The automation deliberately does **not** recreate the AgentFactory Supervisor. GitHub Actions owns scheduling/isolation; OpenCode owns one bounded cognitive unit per session; Git remains durable memory and CI remains objective evidence.
+The automation deliberately does **not** recreate the AgentFactory Supervisor. GitHub Actions owns deterministic scheduling/isolation; OpenCode owns one bounded cognitive unit per fresh session; Git is durable memory; GitHub CI is objective evidence.
 
-## Execution model
+## Execution hierarchy
 
-### Inside a Sprint
+The execution hierarchy is:
 
-`.github/workflows/opencode-sprint-task-loop.yml` is started with `workflow_dispatch`.
+`Work Package -> Sprint -> TASK -> fresh OpenCode session`
 
-Each workflow run:
+A single manual Work Package dispatch may explicitly authorize automatic progression across eligible successor Sprints. That authorization never converts `FORECAST`/`BLOCKED` work into committed work and never substitutes for ADR/L3/L4/security/governance decisions.
 
-1. reconstructs the declared `sprint/<SPRINT-ID>` branch from GitHub;
-2. installs Node 24, locked repository dependencies and OpenCode 1.18.x;
-3. starts a **new OpenCode session** (never `--continue` / `--session`);
-4. reads `AGENTS.md` and the repository authority chain;
-5. executes exactly one next eligible committed TASK, including declared validation and one TASK commit;
-6. pushes that authoritative commit;
-7. dispatches a fresh workflow run/session for the next TASK when progress occurred and the Sprint is not closed;
-8. when no committed TASK remains, uses one fresh session for Sprint closure, final verification and the Sprint report;
-9. opens one PR to `main` and stops at human Sprint Review.
+## Entry point: Work Package
 
-The recursion has a configurable `max_cycles` safety bound. A run that produces no authoritative commit does not dispatch another run.
+Start `.github/workflows/opencode-work-package.yml` with `workflow_dispatch`.
 
-### After a reviewed Sprint merge
+Inputs:
 
-`.github/workflows/opencode-next-sprint-materialize.yml` reacts only when a PR whose source branch starts with `sprint/` is actually merged.
+- `work_package_id`: authoritative Work Package ID, for example `P10-PACKAGE-01`;
+- `first_sprint_id`: first already `COMMITTED` Sprint;
+- `first_sprint_branch`: its `sprint/<SPRINT-ID>` branch;
+- `model`: optional OpenCode `provider/model`; blank uses `OPENCODE_FACTORY_MODEL`;
+- `authorize_full_work_package`: when `true`, this initial dispatch is the explicit authorization to cross eligible successor Sprints without another user dispatch;
+- `max_sprints`: package-level safety ceiling;
+- `max_cycles_per_sprint`: session-level safety ceiling inside each Sprint.
 
-It reconstructs fresh `main`, creates an isolated `planning/next-sprint-after-pr-<N>` branch, starts a new OpenCode session and performs **planning/materialization only** for the next eligible Sprint according to rolling-wave policy. Product code and newly materialized TASKs are explicitly forbidden in that run.
+If `authorize_full_work_package=false`, only the first Sprint runs and the workflow stops at its normal Sprint review PR.
 
-If planning produces a valid commit and `npm run verify` passes, the workflow opens a planning PR to `main`. Human review/merge remains required before construction of that new Sprint can be dispatched.
+## Inside one Sprint
 
-This means automatic progression is:
+`.github/workflows/opencode-sprint-task-loop.yml` executes one bounded unit per GitHub runner/OpenCode session.
 
-`TASK session -> TASK session -> ... -> Sprint closure session -> Sprint Review PR -> human merge -> next-Sprint materialization session -> planning PR -> human merge/authorization -> next Sprint task loop`
+Each run:
+
+1. reconstructs the declared Sprint branch;
+2. installs Node 24, locked repository dependencies, OpenCode and the same PostgreSQL services used by deterministic CI;
+3. starts a new OpenCode session, never `--continue`/`--session`;
+4. reads `AGENTS.md`, Sprint Mode, parent Work Package, Sprint manifest, TASK spec and all declared `context_paths`;
+5. executes exactly the next eligible TASK, including its declared validations;
+6. requires exactly one authoritative commit and a clean working tree;
+7. pushes the Sprint branch;
+8. recursively dispatches another fresh runner/session for the next TASK;
+9. after the final TASK, uses one fresh session for Sprint closure/report and runs repository-wide `npm run verify`;
+10. opens one Sprint PR against `main`.
+
+## Intermediate Sprint integration in Work Package mode
+
+When `authorize_full_work_package=true`, the Sprint PR is an intermediate Work Package integration boundary. The controller may merge it only after:
+
+- all committed TASKs have distinct commits;
+- the Sprint report exists;
+- repository-wide verification passed;
+- the PR exists against `main`;
+- required GitHub checks on that PR pass;
+- no repository-defined escalation/blocker exists.
+
+The controller never writes product work directly to `main`; integration still occurs only through the Sprint PR.
+
+After the intermediate Sprint merge, the controller dispatches `.github/workflows/opencode-next-sprint-materialize.yml` as a **new runner and new OpenCode session**.
+
+## Between Sprints
+
+The next-Sprint materializer reconstructs fresh `main` and re-reads the parent Work Package, WBS, predecessor Sprint report, rolling-wave policy, contracts and ADRs.
+
+It performs exactly one bounded transition:
+
+- promote/materialize at most one next eligible construction Sprint to `COMMITTED`; or
+- materialize/perform the Work Package Integration & Technical Debt Review when construction is complete; or
+- record an authoritative blocker and stop.
+
+It does not implement product code.
+
+When exactly one committed successor Sprint is detected, the planning PR is verified, merged as an intermediate package transition after checks pass, and the successor Sprint task loop is dispatched with a fresh session chain.
+
+When no committed successor Sprint exists, automation stops at the planning/Work Package review PR. This represents either the final package review boundary or a real governance/ADR/blocker boundary and therefore requires human review.
+
+## Full chain
+
+With a fully executable Work Package:
+
+`WP dispatch`
+`-> Sprint 1 / TASK session(s)`
+`-> Sprint 1 verify + PR + checks + merge`
+`-> fresh planning session`
+`-> Sprint 2 materialization + PR + checks + merge`
+`-> Sprint 2 / TASK session(s)`
+`-> ...`
+`-> final construction Sprint merge`
+`-> fresh package-review session`
+`-> Work Package Integration & Technical Debt Review PR`
+`-> HUMAN REVIEW`
+
+A blocked package instead terminates safely at the first non-automatable authority gate.
+
+## Callback and heartbeat behavior
+
+GitHub Actions is the callback authority. Completion of `opencode run`, the step, job and workflow provides deterministic success/failure/cancelled/timeout state. Successful units explicitly dispatch the next workflow; failed units do not advance.
+
+No custom heartbeat is required initially. Each unit has a GitHub `timeout-minutes` watchdog, and recursive progression occurs only after a successful process return plus durable Git progress. A future observability layer may add progress heartbeats without making them completion authority.
 
 ## Required GitHub configuration
-
-### Repository variable
 
 Create the Actions repository variable:
 
 - `OPENCODE_FACTORY_MODEL` = exact OpenCode model ID in `provider/model` form.
 
-The task-loop workflow also accepts an explicit `model` input, which overrides the repository variable for that invocation. The automatic post-merge materializer requires `OPENCODE_FACTORY_MODEL` because it has no manual model input.
-
-### Provider secret
-
-Configure the secret required by the selected provider. The workflows expose these conventional secrets to OpenCode when present:
+Configure the secret required by the selected provider. The workflows expose conventional secrets when present:
 
 - `DEEPSEEK_API_KEY`
 - `OPENAI_API_KEY`
 - `ANTHROPIC_API_KEY`
 - `GOOGLE_GENERATIVE_AI_API_KEY`
 
-Only the provider selected by `OPENCODE_FACTORY_MODEL` needs to be configured.
-
-Never commit API keys or provider credentials to repository files.
-
-## Starting a Sprint
-
-From GitHub Actions, run **OpenCode Sprint Task Loop** with:
-
-- `sprint_id`: the committed Sprint ID, for example `P10-PRODUCTION-SECRETRESOLVER-01`;
-- `branch`: the authoritative Sprint branch, for example `sprint/P10-PRODUCTION-SECRETRESOLVER-01`;
-- `model`: optional override; blank uses `OPENCODE_FACTORY_MODEL`;
-- `auto_continue_tasks`: normally `true`;
-- `max_cycles`: safety ceiling, normally `8` for a three-TASK Sprint plus closure/recovery room;
-- `cycle`: leave at `1` for the initial dispatch.
-
-If the Sprint branch does not exist yet, the workflow creates it from fresh `origin/main`. If it exists, the runner reconstructs it from the remote branch.
+Never commit provider credentials.
 
 ## Safety properties
 
 - `main` is never the OpenCode working branch for construction.
-- Each task execution gets a fresh runner and fresh OpenCode session.
-- A dirty working tree after OpenCode returns is a hard failure; the controller refuses to advance.
-- No-progress runs stop instead of looping indefinitely.
-- The controller never merges a Sprint PR.
-- A Sprint report triggers repository-wide `npm run verify` before the review PR is opened.
-- Next-Sprint automation runs only after a real human-reviewed Sprint merge and materializes planning only.
-- The materializer does not execute the next Sprint and opens a separate human review PR.
-- Existing TASK `allowed_paths`, `forbidden_paths`, `max_files`, dependency gates and validation commands remain authoritative.
+- Every TASK/control transition uses a fresh runner and fresh OpenCode session.
+- Exactly one authoritative commit is allowed per cognitive unit.
+- Dirty working tree or ambiguous/multiple successor Sprint materialization is a hard stop.
+- No-progress runs stop rather than loop.
+- `max_cycles_per_sprint` and `max_sprints` bound recursion.
+- Forecast work is never executed solely because full Work Package progression was authorized.
+- ADR, L3/L4, destructive migration, security/governance and conflicting-authority gates always stop automation.
+- Existing TASK `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validation commands remain authoritative.
+- The final Work Package review/blocker PR is not auto-merged.
+
+## P10 example
+
+`P10-PACKAGE-01` currently has `P10-PRODUCTION-SECRETRESOLVER-01` committed, while its TLS/server-identity Sprint remains `FORECAST` behind an ADR/human gate. Therefore a full-P10 dispatch may execute the SecretResolver Sprint automatically, integrate it after objective checks, reconstruct `main`, and then must stop when fresh package revalidation reaches the unaccepted TLS ADR gate. It must not manufacture authorization for the TLS Sprint.
 
 ## Relationship to repository policy
 
-This workflow implements the connected-executor path already allowed by `project_docs/schedule/SPRINT_MODE.md`: GitHub may execute Sprint work provided it obeys the same repository authority chain, TASK contracts, validation gates, Sprint branch and review boundary.
+`project_docs/schedule/SPRINT_MODE.md` defines explicit Work Package execution mode. The initial named Work Package dispatch supplies the authorization to cross eligible successor Sprints, while repository truth after each real merge determines whether a successor is actually eligible.
 
-It does not reactivate the frozen AgentFactory Supervisor/runtime and does not make its callback/heartbeat artifacts Sprint completion gates.
+The frozen AgentFactory Supervisor/runtime remains unnecessary; callback/heartbeat artifacts are not Work Package completion gates.
