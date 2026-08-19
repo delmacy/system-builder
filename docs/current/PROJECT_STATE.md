@@ -20,6 +20,7 @@ Date: 2026-08-19
 - P10 materialization merged through PR #200 at `d178445` (direction A selected + first construction Sprint manifest + TASK-128/129/130 specs).
 - `P10-PRODUCTION-SECRETRESOLVER-01` (1st construction Sprint) merged through PR #201 at `4301936`; Deterministic CI PASS on closure head `a1e0ed6` (run `32136056276`).
 - ADR-0015 (positive TLS server-identity verification, `TD-P8-02`) accepted by a human through PR #206 at `99f344b`; `P10-TLS-SERVER-IDENTITY-01` (Construction Sprint 2) materialized as COMMITTED.
+- P10 Work Package revalidated after the real Sprint 1 merge from freshly reconstructed `main` `e9f1b4d` (after PR #212): Sprint 2 `P10-TLS-SERVER-IDENTITY-01` confirmed as the sole eligible COMMITTED successor (revalidation commit on `planning/P10-PACKAGE-01-after-201`).
 
 ## Active milestone
 

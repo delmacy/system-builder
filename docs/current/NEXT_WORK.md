@@ -20,6 +20,7 @@ The `TD-P8-02` human/ADR gate is **satisfied**: **ADR-0015 accepted by a human**
 - Goal: positive PostgreSQL TLS server-identity verification (`verify-ca`/`verify-full`) in the shared transport and the rendered autonomous Runtime, fail-closed, closing `TD-P8-02` under ADR-0015.
 - TASK dependency order: TASK-131 (transport identity modes) -> TASK-132 (fail-closed safety) -> TASK-133 (rendered-Runtime + authenticated positive-verification E2E).
 - Branch: `sprint/P10-TLS-SERVER-IDENTITY-01` (declared declaratively; created only when the Sprint executes).
+- **Revalidated** after the real Sprint 1 merge from freshly reconstructed `main` `e9f1b4d` (after PR #212); TASK-131/132/133 validate (`check:tasks`: 134 specs).
 
 ## Required action
 

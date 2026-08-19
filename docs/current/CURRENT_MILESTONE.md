@@ -33,6 +33,7 @@ Selected: **A — Production SecretResolver + TLS/server-identity hardening** (`
 - Goal: positive PostgreSQL TLS server-identity verification (`verify-ca`/`verify-full`) in the shared transport and the rendered autonomous Runtime, fail-closed, closing `TD-P8-02` under ADR-0015.
 - Committed TASKs: TASK-131 (transport identity modes), TASK-132 (fail-closed safety), TASK-133 (rendered-Runtime + authenticated positive-verification E2E).
 - Branch: `sprint/P10-TLS-SERVER-IDENTITY-01` (declared; not created by this planning transition).
+- **Revalidated** after the real Sprint 1 merge from freshly reconstructed `main` `e9f1b4d` (after PR #212): remains the sole eligible COMMITTED successor; TASK-131/132/133 validate.
 
 ## Current gate
 

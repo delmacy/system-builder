@@ -1,7 +1,7 @@
 # P10-PACKAGE-01 — Production Credentials & Connectivity Hardening
 
 Status: COMMITTED / DIRECTION_SELECTED / SPRINT_1_MERGED / SPRINT_2_COMMITTED
-Base SHA: `15c2c28` (main reconstruído após PR #210)
+Base SHA: `e9f1b4d` (main reconstruído após PR #212; revalidated after the real Sprint 1 merge)
 Milestone: M10
 
 ## Authority
@@ -51,6 +51,10 @@ Rationale from integrated evidence:
 ## Candidate selection gate
 
 Direction and construction-Sprint readiness were revalidated from repository truth after the review merge and `main` reconstruction. Selection is complete; Sprint 1 is committed (and now MERGED). After the `TD-P8-02` ADR (ADR-0015) was accepted by a human, Sprint 2 was revalidated from fresh repository truth and is now committed (manifest + TASK-131/132/133 specs), unblocked.
+
+## Post-merge revalidation
+
+Revalidated after the real Sprint 1 merge (PR #201) from freshly reconstructed `main` (`e9f1b4d`, after PR #212). Sprint 2 `P10-TLS-SERVER-IDENTITY-01` remains the sole eligible committed successor (manifest + TASK-131/132/133, `ready`); the `TD-P8-02` gate is satisfied by human-accepted ADR-0015 (PR #206). No blocker, ADR, L3/L4, destructive-migration or security-weakening gate is present. This transition records the revalidation only; no product construction was performed.
 
 ## Non-commitment notice
 

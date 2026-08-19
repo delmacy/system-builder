@@ -1,7 +1,7 @@
 # P10-TLS-SERVER-IDENTITY-01 — Positive TLS Server-Identity Verification
 
 Status: COMMITTED / MATERIALIZED (manifest + TASK specs) / NOT_YET_CONSTRUCTED
-Base: `15c2c28` (main reconstruído após PR #210)
+Base: `e9f1b4d` (main reconstruído após PR #212; revalidated after real Sprint 1 merge)
 Branch: `sprint/P10-TLS-SERVER-IDENTITY-01`
 Package: `P10-PACKAGE-01`
 Milestone: M10
@@ -16,6 +16,7 @@ SATISFIED.
 
 - `P10-PRODUCTION-SECRETRESOLVER-01` (Sprint 1, TASK-128/129/130) **merged** through PR #201 at `4301936` (Deterministic CI run `32136056276` PASS on closure head `a1e0ed6`).
 - `TD-P8-02` is **unblocked**: **ADR-0015 accepted by a human** through PR #206 (`docs/adr/ADR-0015-tls-server-identity-verification.md`, Status: Accepted). The ADR explicitly scopes and authorizes this construction Sprint.
+- **Revalidated after the real Sprint 1 merge** from freshly reconstructed `main` (`e9f1b4d`, after PR #212): this Sprint remains the sole eligible COMMITTED successor; TASK-131/132/133 are `ready` and validate.
 - No remaining blocker, ADR, L3/L4, destructive-migration or security-weakening gate blocks this Sprint boundary.
 
 ## Committed TASK set (dependency order)
