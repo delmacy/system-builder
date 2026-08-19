@@ -2,7 +2,7 @@
 
 Sprint Mode is the default product-development execution model for System Builder.
 
-Its purpose is to maximize product throughput while preserving repository-first governance, deterministic validation and a human review boundary at the Sprint level.
+Its purpose is to maximize product throughput while preserving repository-first governance, deterministic validation and a human review boundary at the Sprint level by default.
 
 ## Core execution unit
 
@@ -70,15 +70,52 @@ After the last committed TASK:
 4. push the Sprint branch;
 5. open one PR from `sprint/<SPRINT-ID>` to `main`;
 6. use GitHub CI as objective final validation;
-7. stop for Sprint Review.
+7. stop for Sprint Review unless an explicit Work Package execution authorization below permits deterministic intermediate integration.
 
 The next Sprint does not begin automatically unless the user explicitly authorizes more than one Sprint and repository policy permits it.
 
+## Explicit Work Package execution mode
+
+A user may explicitly authorize execution of a named Work Package as one bounded delivery authorization. This is the supported mode for GitHub-hosted automation across a package containing multiple construction Sprints.
+
+The authorization must name the Work Package and begin from a committed/materialized Sprint. It may allow the controller to continue across successor Sprints without a new user dispatch only when each successor becomes `COMMITTED` from freshly integrated repository truth.
+
+Work Package authorization does **not** pre-authorize forecast scope. It never overrides:
+
+- `FORECAST`, `BLOCKED` or dependency/readiness state;
+- TASK `allowed_paths`, `forbidden_paths`, `max_files` or validation commands;
+- an undeclared L3/L4 contract or architecture change;
+- an ADR acceptance requirement;
+- destructive/irreversible migration gates;
+- security/governance weakening;
+- conflicting repository authorities or explicit human-decision gates.
+
+For an explicitly authorized Work Package, an intermediate construction Sprint may be integrated automatically only after all of the following are true:
+
+1. every committed TASK has its distinct authoritative commit;
+2. the Sprint Report exists;
+3. repository-wide final verification passes;
+4. the Sprint PR is open against `main`;
+5. required GitHub checks pass on that exact PR head;
+6. no repository-defined escalation/blocker is present.
+
+After that merge, the controller must reconstruct fresh `main` and use a fresh OpenCode session to revalidate the Work Package before promoting/materializing at most one successor Sprint. A forecast Sprint cannot be executed merely because it was listed in the original package forecast.
+
+The Work Package automation stops when:
+
+- the package Integration & Technical Debt Review/final review boundary is reached;
+- no eligible committed successor Sprint can be produced;
+- a human/ADR/L3/L4/security/governance gate is encountered;
+- validation or CI fails;
+- the configured safety ceiling is reached.
+
+The normal human review boundary for this mode is the final Work Package review/blocker PR. Intermediate Sprint PRs remain durable integration evidence and may be automatically merged only under the explicit Work Package authorization and the deterministic conditions above.
+
 ## Human review boundary
 
-Normal human review is once per Sprint, at the Sprint PR/review gate.
+Normal standalone Sprint execution uses one human review per Sprint, at the Sprint PR/review gate.
 
-Immediate escalation is still required when execution encounters:
+Explicit Work Package execution mode may defer human review of intermediate Sprints to the Work Package boundary under the rules above. Immediate escalation is still required when execution encounters:
 
 - an undeclared L3/L4 contract or architecture change;
 - scope expansion outside committed TASKs;
@@ -104,8 +141,9 @@ The AgentFactory Supervisor/runtime is not required to execute product Sprints. 
 - A Sprint uses one branch: `sprint/<SPRINT-ID>`.
 - TASKs use separate commits, not separate PRs by default.
 - No autonomous direct write to `main`.
-- No merge to `main` before final Sprint validation and Sprint Review.
+- No merge to `main` before final Sprint validation and the applicable Sprint/Work Package review gate.
 - The preferred integration path is one GitHub PR per Sprint.
+- Intermediate Sprint PR auto-integration is permitted only in explicit Work Package execution mode after required checks pass.
 - Synchronization from `main` during an active Sprint is deliberate, not automatic; record it in the Sprint Report.
 
 ## State truth
@@ -130,6 +168,8 @@ WBS and Work Packages define scope. Dependencies define valid ordering. Mileston
 
 `Project Scope -> WBS -> Work Package -> Sprint Package -> Sprint manifest -> TASK -> Sprint Review -> main`
 
+In explicit Work Package mode, the controller repeats the Sprint segment only after fresh-main revalidation and stops at the Work Package review/blocker boundary.
+
 ## Default autonomy contract
 
 An authorized Sprint executor may continue through all committed TASKs without human intervention while:
@@ -139,5 +179,7 @@ An authorized Sprint executor may continue through all committed TASKs without h
 - no escalation condition is triggered;
 - the executor stays on the Sprint branch;
 - the next Sprint is not started without authorization.
+
+An explicit named Work Package dispatch is valid authorization for eligible successor Sprints in that package under the Work Package execution rules above; it is not authorization for blocked/forecast work or architecture/security decisions.
 
 This is the default meaning of `sprint-mode` in this repository.

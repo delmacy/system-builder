@@ -1,0 +1,91 @@
+name: OpenCode Work Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      work_package_id:
+        description: Committed Work Package ID
+        required: true
+        type: string
+      first_sprint_id:
+        description: First committed Sprint ID in the Work Package
+        required: true
+        type: string
+      first_sprint_branch:
+        description: First Sprint branch (sprint/<SPRINT-ID>)
+        required: true
+        type: string
+      model:
+        description: OpenCode provider/model; blank uses OPENCODE_FACTORY_MODEL
+        required: false
+        default: ""
+        type: string
+      authorize_full_work_package:
+        description: Explicitly authorize automatic progression across eligible Sprints in this Work Package
+        required: true
+        default: false
+        type: boolean
+      max_sprints:
+        description: Safety ceiling for construction Sprints in this Work Package run
+        required: true
+        default: "4"
+        type: string
+      max_cycles_per_sprint:
+        description: Safety ceiling for fresh OpenCode sessions inside each Sprint
+        required: true
+        default: "8"
+        type: string
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  dispatch-first-sprint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Work Package authorization
+        shell: bash
+        env:
+          WP_ID: ${{ inputs.work_package_id }}
+          SPRINT_ID: ${{ inputs.first_sprint_id }}
+          SPRINT_BRANCH: ${{ inputs.first_sprint_branch }}
+        run: |
+          set -euo pipefail
+          [[ "$WP_ID" =~ ^[A-Za-z0-9._-]+$ ]] || exit 2
+          [[ "$SPRINT_ID" =~ ^[A-Za-z0-9._-]+$ ]] || exit 2
+          [[ "$SPRINT_BRANCH" =~ ^sprint/[A-Za-z0-9._/-]+$ ]] || exit 2
+          [[ "${{ inputs.max_sprints }}" =~ ^[0-9]+$ ]] || exit 2
+          [[ "${{ inputs.max_cycles_per_sprint }}" =~ ^[0-9]+$ ]] || exit 2
+
+      - name: Dispatch first Sprint in a fresh runner/session
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WP_ID: ${{ inputs.work_package_id }}
+          SPRINT_ID: ${{ inputs.first_sprint_id }}
+          SPRINT_BRANCH: ${{ inputs.first_sprint_branch }}
+          MODEL: ${{ inputs.model }}
+        run: |
+          set -euo pipefail
+          gh workflow run opencode-sprint-task-loop.yml \
+            --ref main \
+            -f "work_package_id=$WP_ID" \
+            -f "sprint_id=$SPRINT_ID" \
+            -f "branch=$SPRINT_BRANCH" \
+            -f "model=$MODEL" \
+            -f "package_mode=true" \
+            -f "authorize_full_work_package=${{ inputs.authorize_full_work_package }}" \
+            -f "max_sprints=${{ inputs.max_sprints }}" \
+            -f "sprint_index=1" \
+            -f "auto_continue_tasks=true" \
+            -f "max_cycles=${{ inputs.max_cycles_per_sprint }}" \
+            -f "cycle=1"
+
+          echo "Dispatched Work Package $WP_ID starting at $SPRINT_ID."
+          if [ "${{ inputs.authorize_full_work_package }}" = "true" ]; then
+            echo "Full Work Package progression is explicitly authorized, subject to repository gates."
+          else
+            echo "Only the first Sprint is authorized; automation will stop at its review PR."
+          fi

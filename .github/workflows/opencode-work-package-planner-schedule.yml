@@ -1,0 +1,65 @@
+name: OpenCode Work Package Planner Schedule
+
+on:
+  schedule:
+    - cron: '17 */4 * * *'
+      timezone: America/Sao_Paulo
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  pull-requests: read
+  contents: read
+
+concurrency:
+  group: opencode-work-package-planner-schedule
+  cancel-in-progress: false
+
+jobs:
+  schedule-planner:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Checkout latest default-branch truth
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Skip when a Work Package projection is already awaiting review
+        id: gate
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          OPEN_PROJECTION_COUNT=$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --state open \
+            --limit 100 \
+            --json number,headRefName,body \
+            --jq '[.[] | select((.headRefName | startswith("planning/work-packages-")) or ((.body // "") | contains("<!-- factory-work-package-projection -->")))] | length')
+
+          if [ "$OPEN_PROJECTION_COUNT" -gt 0 ]; then
+            echo "dispatch=false" >> "$GITHUB_OUTPUT"
+            echo "A Work Package Projection PR is already open; scheduled replanning is skipped to avoid competing forecasts."
+            exit 0
+          fi
+
+          echo "dispatch=true" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch fresh Work Package planning session
+        if: steps.gate.outputs.dispatch == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh workflow run opencode-work-package-planner.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref main \
+            -f horizon_count=3 \
+            -f model='' \
+            -f planning_focus=''
+
+          echo "Dispatched OpenCode Work Package Planner from fresh main."

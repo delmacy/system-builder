@@ -1,0 +1,328 @@
+name: OpenCode Sprint Task Loop
+
+on:
+  workflow_dispatch:
+    inputs:
+      work_package_id:
+        description: Parent Work Package ID; blank for standalone Sprint mode
+        required: false
+        default: ""
+        type: string
+      sprint_id:
+        description: Committed Sprint ID from project_docs/execution_planning
+        required: true
+        type: string
+      branch:
+        description: Sprint branch (sprint/<SPRINT-ID>)
+        required: true
+        type: string
+      model:
+        description: OpenCode provider/model; blank uses repository variable OPENCODE_FACTORY_MODEL
+        required: false
+        default: ""
+        type: string
+      package_mode:
+        description: This Sprint belongs to a Work Package execution chain
+        required: true
+        default: false
+        type: boolean
+      authorize_full_work_package:
+        description: Initial user dispatch explicitly authorized eligible successor Sprints in this Work Package
+        required: true
+        default: false
+        type: boolean
+      max_sprints:
+        description: Work Package Sprint safety ceiling
+        required: true
+        default: "4"
+        type: string
+      sprint_index:
+        description: Current construction Sprint number inside this Work Package execution
+        required: true
+        default: "1"
+        type: string
+      auto_continue_tasks:
+        description: Dispatch a fresh workflow/session for the next TASK after progress
+        required: true
+        default: true
+        type: boolean
+      max_cycles:
+        description: Maximum fresh OpenCode sessions for this Sprint invocation
+        required: true
+        default: "8"
+        type: string
+      cycle:
+        description: Internal loop counter; leave at 1 for a new Sprint
+        required: true
+        default: "1"
+        type: string
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: opencode-sprint-${{ inputs.branch }}
+  cancel-in-progress: false
+
+jobs:
+  execute-one-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    services:
+      postgres:
+        image: postgres:17.6-alpine
+        env:
+          POSTGRES_USER: system_builder
+          POSTGRES_DB: system_builder
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U system_builder -d system_builder"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 10
+      postgres_auth:
+        image: postgres:17.6-alpine
+        env:
+          POSTGRES_USER: deploy_auth
+          POSTGRES_PASSWORD: ci-test-password
+          POSTGRES_DB: system_builder_auth
+          POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U deploy_auth -d system_builder_auth"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      WORK_PACKAGE_ID: ${{ inputs.work_package_id }}
+      SPRINT_ID: ${{ inputs.sprint_id }}
+      SPRINT_BRANCH: ${{ inputs.branch }}
+      FACTORY_MODEL: ${{ inputs.model || vars.OPENCODE_FACTORY_MODEL }}
+      GH_TOKEN: ${{ github.token }}
+      SYSTEM_BUILDER_TEST_POSTGRES_URL: postgres://system_builder@127.0.0.1:5432/system_builder
+      SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL: postgres://deploy_auth:ci-test-password@127.0.0.1:5433/system_builder_auth
+      DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
+
+    steps:
+      - name: Validate dispatch contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$SPRINT_BRANCH" =~ ^sprint/[A-Za-z0-9._/-]+$ ]] || {
+            echo "Invalid Sprint branch: $SPRINT_BRANCH" >&2
+            exit 2
+          }
+          [[ "$SPRINT_ID" =~ ^[A-Za-z0-9._-]+$ ]] || exit 2
+          if [ -n "$WORK_PACKAGE_ID" ]; then
+            [[ "$WORK_PACKAGE_ID" =~ ^[A-Za-z0-9._-]+$ ]] || exit 2
+          fi
+          [[ "${{ inputs.cycle }}" =~ ^[0-9]+$ ]] || exit 2
+          [[ "${{ inputs.max_cycles }}" =~ ^[0-9]+$ ]] || exit 2
+          [[ "${{ inputs.sprint_index }}" =~ ^[0-9]+$ ]] || exit 2
+          [[ "${{ inputs.max_sprints }}" =~ ^[0-9]+$ ]] || exit 2
+          if [ "${{ inputs.package_mode }}" = "true" ] && [ -z "$WORK_PACKAGE_ID" ]; then
+            echo "package_mode requires work_package_id." >&2
+            exit 2
+          fi
+          if [ -z "$FACTORY_MODEL" ]; then
+            echo "Set model input or repository variable OPENCODE_FACTORY_MODEL." >&2
+            exit 2
+          fi
+
+      - name: Checkout repository truth
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Reconstruct Sprint branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          if git ls-remote --exit-code --heads origin "$SPRINT_BRANCH" >/dev/null 2>&1; then
+            git fetch origin "$SPRINT_BRANCH"
+            git switch -C "$SPRINT_BRANCH" "origin/$SPRINT_BRANCH"
+          else
+            git switch -c "$SPRINT_BRANCH" origin/main
+            git push --set-upstream origin "$SPRINT_BRANCH"
+          fi
+          echo "BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install repository dependencies
+        run: npm ci
+
+      - name: Install OpenCode
+        run: npm install --global opencode-ai@${{ vars.OPENCODE_VERSION || '1.18' }}
+
+      - name: Show executor versions
+        run: |
+          node --version
+          npm --version
+          opencode --version
+
+      - name: Execute exactly one Sprint unit in a fresh OpenCode session
+        shell: bash
+        run: |
+          set -euo pipefail
+          PROMPT=$(cat <<EOF
+          Execute exactly ONE bounded unit of Sprint ${SPRINT_ID} on branch ${SPRINT_BRANCH}.
+          Parent Work Package: ${WORK_PACKAGE_ID:-standalone Sprint mode}.
+
+          The repository is the sole technical source of truth. Start with AGENTS.md and follow its required authority chain. Read project_docs/schedule/SPRINT_GENERATION_POLICY.md when package planning is relevant, project_docs/schedule/SPRINT_MODE.md, the parent Work Package when present, the committed Sprint manifest, the selected TASK specification, every context_paths entry, and all applicable contracts/ADRs before editing.
+
+          This GitHub Actions run is a disposable OpenCode session. Never rely on previous OpenCode session history. Work Package authorization never overrides repository scope, forbidden paths, L3/L4 escalation, ADR acceptance requirements, security gates, destructive-migration gates or conflicting authorities.
+
+          Control rule:
+          1. If an eligible committed TASK remains in Sprint dependency order, execute exactly the NEXT ONE TASK only. Confirm depends_on, allowed_paths, forbidden_paths, max_files and validation commands before editing. Implement only that TASK, run its declared validations, update its authorized durable evidence/status when required, and create exactly one authoritative commit for that TASK. Then STOP. Do not begin the following TASK.
+          2. If all committed TASKs are already implemented/evidenced and the Sprint has not been closed, perform Sprint closure only: run the Sprint final verification, update required repository evidence/docs, create project_docs/execution_planning/${SPRINT_ID}.report.md, and commit the closure. Do not create or start the next Sprint. Then STOP.
+          3. If an explicit Sprint Mode escalation condition is reached, do not widen scope or invent policy. Leave the repository in a safe state, report the blocker, and STOP.
+
+          Do not modify .github/** or tooling/** unless the active TASK explicitly authorizes those paths. Do not write directly to main. Do not merge anything. Do not create a PR; the workflow controller owns the Sprint PR boundary.
+
+          Before returning, ensure there are no uncommitted repository changes. A TASK execution must have one distinct TASK commit; Sprint closure may have one closure/report commit.
+          EOF
+          )
+
+          opencode run \
+            --auto \
+            --model "$FACTORY_MODEL" \
+            --title "${SPRINT_ID}:cycle-${{ inputs.cycle }}" \
+            "$PROMPT" | tee /tmp/opencode-sprint-unit.log
+
+      - name: Enforce committed durable state
+        id: progress
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "OpenCode left uncommitted changes; refusing to advance." >&2
+            git status --short
+            exit 1
+          fi
+          HEAD_SHA=$(git rev-parse HEAD)
+          echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
+          if [ "$HEAD_SHA" = "$BASE_SHA" ]; then
+            echo "made_progress=false" >> "$GITHUB_OUTPUT"
+            echo "No authoritative commit was produced. The loop will stop safely."
+          else
+            COMMIT_COUNT=$(git rev-list --count "$BASE_SHA..$HEAD_SHA")
+            if [ "$COMMIT_COUNT" -ne 1 ]; then
+              echo "Expected exactly one authoritative commit per fresh session; found $COMMIT_COUNT." >&2
+              git log --oneline "$BASE_SHA..$HEAD_SHA"
+              exit 1
+            fi
+            echo "made_progress=true" >> "$GITHUB_OUTPUT"
+            git log --oneline "$BASE_SHA..$HEAD_SHA"
+          fi
+
+      - name: Push authoritative Sprint state
+        if: steps.progress.outputs.made_progress == 'true'
+        run: git push origin "$SPRINT_BRANCH"
+
+      - name: Detect Sprint closure and open Sprint PR
+        id: closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPORT="project_docs/execution_planning/${SPRINT_ID}.report.md"
+          if [ ! -f "$REPORT" ]; then
+            echo "closed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Sprint report found at $REPORT; running objective closure verification."
+          npm run verify
+
+          PR_NUMBER=$(gh pr list --head "$SPRINT_BRANCH" --base main --state open --json number --jq '.[0].number // empty')
+          if [ -z "$PR_NUMBER" ]; then
+            if [ "${{ inputs.package_mode }}" = "true" ] && [ "${{ inputs.authorize_full_work_package }}" = "true" ]; then
+              BODY="Intermediate Sprint of explicitly authorized Work Package ${WORK_PACKAGE_ID}. Sprint closure verification passed. This PR may be automatically integrated only after required GitHub checks pass; repository escalation gates still override package authorization."
+            else
+              BODY="Automated Sprint execution reached its repository-defined closure report and passed repository-wide verification. Human Sprint Review and merge remain required."
+            fi
+            gh pr create --base main --head "$SPRINT_BRANCH" --title "${SPRINT_ID}: Sprint Review" --body "$BODY"
+            PR_NUMBER=$(gh pr list --head "$SPRINT_BRANCH" --base main --state open --json number --jq '.[0].number // empty')
+          fi
+
+          echo "closed=true" >> "$GITHUB_OUTPUT"
+          echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "Sprint PR: #$PR_NUMBER"
+
+      - name: Integrate intermediate Sprint and continue Work Package
+        if: >-
+          steps.closure.outputs.closed == 'true' &&
+          inputs.package_mode == true &&
+          inputs.authorize_full_work_package == true
+        shell: bash
+        run: |
+          set -euo pipefail
+          CURRENT_SPRINT=${{ inputs.sprint_index }}
+          MAX_SPRINTS=${{ inputs.max_sprints }}
+          if [ "$CURRENT_SPRINT" -gt "$MAX_SPRINTS" ]; then
+            echo "Work Package exceeded max_sprints=$MAX_SPRINTS; stopping." >&2
+            exit 1
+          fi
+
+          PR=${{ steps.closure.outputs.pr_number }}
+          echo "Waiting for objective PR checks on intermediate Sprint #$PR."
+          timeout 600 gh pr checks "$PR" --watch --fail-fast --interval 10
+          gh pr merge "$PR" --merge --delete-branch
+
+          gh workflow run opencode-next-sprint-materialize.yml \
+            --ref main \
+            -f "work_package_id=$WORK_PACKAGE_ID" \
+            -f "previous_sprint_id=$SPRINT_ID" \
+            -f "previous_sprint_pr=$PR" \
+            -f "model=$FACTORY_MODEL" \
+            -f "authorize_full_work_package=true" \
+            -f "max_sprints=$MAX_SPRINTS" \
+            -f "next_sprint_index=$((CURRENT_SPRINT + 1))" \
+            -f "max_cycles_per_sprint=${{ inputs.max_cycles }}"
+          echo "Intermediate Sprint integrated; dispatched fresh next-Sprint planning session for Work Package $WORK_PACKAGE_ID."
+
+      - name: Dispatch next TASK in a new runner and OpenCode session
+        if: >-
+          steps.progress.outputs.made_progress == 'true' &&
+          steps.closure.outputs.closed != 'true' &&
+          inputs.auto_continue_tasks == true
+        shell: bash
+        run: |
+          set -euo pipefail
+          CURRENT=${{ inputs.cycle }}
+          MAX=${{ inputs.max_cycles }}
+          if [ "$CURRENT" -ge "$MAX" ]; then
+            echo "Reached max_cycles=$MAX; stopping without further dispatch."
+            exit 0
+          fi
+          NEXT=$((CURRENT + 1))
+          gh workflow run opencode-sprint-task-loop.yml \
+            --ref main \
+            -f "work_package_id=$WORK_PACKAGE_ID" \
+            -f "sprint_id=$SPRINT_ID" \
+            -f "branch=$SPRINT_BRANCH" \
+            -f "model=$FACTORY_MODEL" \
+            -f "package_mode=${{ inputs.package_mode }}" \
+            -f "authorize_full_work_package=${{ inputs.authorize_full_work_package }}" \
+            -f "max_sprints=${{ inputs.max_sprints }}" \
+            -f "sprint_index=${{ inputs.sprint_index }}" \
+            -f "auto_continue_tasks=true" \
+            -f "max_cycles=$MAX" \
+            -f "cycle=$NEXT"
+          echo "Dispatched cycle $NEXT as a fresh GitHub runner/OpenCode session."
