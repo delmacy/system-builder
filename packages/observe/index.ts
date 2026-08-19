@@ -13,7 +13,11 @@ export {
 export {
   publish,
   publishEnriched,
+  publishFindings,
+  type DeploymentFindingsPublication,
   type EnrichedPublishObserver,
+  type FindingsPublishObserver,
+  type FindingsPublishResult,
   type PublishObserver,
   type PublishResult,
 } from "./publish.js";
