@@ -94,6 +94,86 @@ export const DeploymentFinding = Object.freeze({
     });
     return withFindingId(payload);
   },
+  validate(value: unknown): DeploymentFinding {
+    if (!isRecordLike(value)) throw invalid("NOT_OBJECT");
+    const record = value as Record<string, unknown>;
+
+    const allowed = new Set([
+      "kind",
+      "findingId",
+      "severity",
+      "confidence",
+      "code",
+      "message",
+      "observationId",
+      "deploymentId",
+      "publishedReleaseRef",
+      "environmentRef",
+      "releaseHash",
+      "operationId",
+      "runtimeRef",
+      "processRef",
+      "sessionRef",
+    ]);
+    for (const key of Object.keys(record)) {
+      if (!allowed.has(key)) throw invalid(`UNKNOWN_FIELD:${key}`);
+    }
+    if (record["kind"] !== "DeploymentFinding") throw invalid("KIND");
+
+    if (!SEVERITIES.includes(record["severity"] as DeploymentFindingSeverity)) {
+      throw invalid(`UNSUPPORTED_SEVERITY:${String(record["severity"])}`);
+    }
+    if (!CONFIDENCES.includes(record["confidence"] as DeploymentFindingConfidence)) {
+      throw invalid(`UNSUPPORTED_CONFIDENCE:${String(record["confidence"])}`);
+    }
+
+    const correlationFields = ["observationId", "deploymentId", "publishedReleaseRef", "environmentRef", "releaseHash"] as const;
+    const present = correlationFields.filter((field) => record[field] !== undefined);
+    if (present.length === 0) throw invalid("MISSING_CORRELATION");
+    if (present.length < correlationFields.length) throw invalid("CONFLICTING_CORRELATION");
+
+    const correlation = Object.freeze({
+      observationId: assertReferenceOnly(requiredString(record["observationId"], "observationId"), "observationId"),
+      deploymentId: assertReferenceOnly(requiredString(record["deploymentId"], "deploymentId"), "deploymentId"),
+      publishedReleaseRef: assertReferenceOnly(
+        requiredString(record["publishedReleaseRef"], "publishedReleaseRef"),
+        "publishedReleaseRef",
+      ),
+      environmentRef: assertReferenceOnly(requiredString(record["environmentRef"], "environmentRef"), "environmentRef"),
+      releaseHash: assertReferenceOnly(requiredString(record["releaseHash"], "releaseHash"), "releaseHash"),
+    });
+
+    const optional = Object.freeze({
+      ...(record["operationId"] !== undefined
+        ? { operationId: assertReferenceOnly(requiredString(record["operationId"], "operationId"), "operationId") }
+        : {}),
+      ...(record["runtimeRef"] !== undefined
+        ? { runtimeRef: assertReferenceOnly(requiredString(record["runtimeRef"], "runtimeRef"), "runtimeRef") }
+        : {}),
+      ...(record["processRef"] !== undefined
+        ? { processRef: assertReferenceOnly(requiredString(record["processRef"], "processRef"), "processRef") }
+        : {}),
+      ...(record["sessionRef"] !== undefined
+        ? { sessionRef: assertReferenceOnly(requiredString(record["sessionRef"], "sessionRef"), "sessionRef") }
+        : {}),
+    });
+
+    const payload: DeploymentFindingPayload = Object.freeze({
+      kind: "DeploymentFinding",
+      severity: record["severity"] as DeploymentFindingSeverity,
+      confidence: record["confidence"] as DeploymentFindingConfidence,
+      code: assertReferenceOnly(requiredString(record["code"], "code"), "code"),
+      message: assertReferenceOnly(requiredString(record["message"], "message"), "message"),
+      ...correlation,
+      ...optional,
+    });
+
+    const expected = sha256Canonical(payload);
+    if (typeof record["findingId"] !== "string" || record["findingId"] !== expected) {
+      throw invalid("FINDING_ID");
+    }
+    return Object.freeze({ ...payload, findingId: expected });
+  },
 });
 
 export type DeploymentFindingSource = Readonly<{
