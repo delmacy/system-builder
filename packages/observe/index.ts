@@ -1,7 +1,13 @@
 import { sha256Canonical } from "@system-builder/deterministic";
 import { DeploymentOperationMetadata } from "./metadata.js";
 
-export { publish, type PublishObserver, type PublishResult } from "./publish.js";
+export {
+  publish,
+  publishEnriched,
+  type EnrichedPublishObserver,
+  type PublishObserver,
+  type PublishResult,
+} from "./publish.js";
 export {
   DeploymentOperationMetadata,
   correlateOperation,
