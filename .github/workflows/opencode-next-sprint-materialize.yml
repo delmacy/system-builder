@@ -1,23 +1,63 @@
 name: OpenCode Next Sprint Materialization
 
 on:
+  workflow_dispatch:
+    inputs:
+      work_package_id:
+        description: Parent Work Package ID
+        required: true
+        type: string
+      previous_sprint_id:
+        description: Just-integrated predecessor Sprint ID
+        required: true
+        type: string
+      previous_sprint_pr:
+        description: Just-integrated predecessor Sprint PR number
+        required: true
+        type: string
+      model:
+        description: OpenCode provider/model; blank uses OPENCODE_FACTORY_MODEL
+        required: false
+        default: ""
+        type: string
+      authorize_full_work_package:
+        description: Preserve the explicit full-Work-Package authorization
+        required: true
+        default: false
+        type: boolean
+      max_sprints:
+        description: Work Package construction Sprint safety ceiling
+        required: true
+        default: "4"
+        type: string
+      next_sprint_index:
+        description: Candidate successor construction Sprint index
+        required: true
+        default: "2"
+        type: string
+      max_cycles_per_sprint:
+        description: Fresh OpenCode session ceiling for the successor Sprint
+        required: true
+        default: "8"
+        type: string
   pull_request:
     types:
       - closed
 
 permissions:
+  actions: write
   contents: write
   pull-requests: write
 
 concurrency:
-  group: opencode-next-sprint-${{ github.event.pull_request.merge_commit_sha || github.event.pull_request.number }}
+  group: opencode-next-sprint-${{ github.run_id }}
   cancel-in-progress: false
 
 jobs:
   materialize-next-sprint:
     if: >-
-      github.event.pull_request.merged == true &&
-      startsWith(github.event.pull_request.head.ref, 'sprint/')
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'sprint/'))
     runs-on: ubuntu-latest
     timeout-minutes: 60
     services:
@@ -49,7 +89,12 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     env:
-      FACTORY_MODEL: ${{ vars.OPENCODE_FACTORY_MODEL }}
+      WORK_PACKAGE_ID: ${{ inputs.work_package_id || '' }}
+      FACTORY_MODEL: ${{ inputs.model || vars.OPENCODE_FACTORY_MODEL }}
+      FULL_WP_AUTHORIZED: ${{ inputs.authorize_full_work_package || false }}
+      MAX_SPRINTS: ${{ inputs.max_sprints || '4' }}
+      NEXT_SPRINT_INDEX: ${{ inputs.next_sprint_index || '1' }}
+      MAX_CYCLES_PER_SPRINT: ${{ inputs.max_cycles_per_sprint || '8' }}
       GH_TOKEN: ${{ github.token }}
       SYSTEM_BUILDER_TEST_POSTGRES_URL: postgres://system_builder@127.0.0.1:5432/system_builder
       SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL: postgres://deploy_auth:ci-test-password@127.0.0.1:5433/system_builder_auth
@@ -57,17 +102,39 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
-      MERGED_PR: ${{ github.event.pull_request.number }}
-      MERGED_SPRINT_BRANCH: ${{ github.event.pull_request.head.ref }}
 
     steps:
-      - name: Require configured OpenCode model
+      - name: Resolve predecessor context
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "MERGED_PR=${{ inputs.previous_sprint_pr }}" >> "$GITHUB_ENV"
+            echo "MERGED_SPRINT_ID=${{ inputs.previous_sprint_id }}" >> "$GITHUB_ENV"
+            echo "MERGED_SPRINT_BRANCH=sprint/${{ inputs.previous_sprint_id }}" >> "$GITHUB_ENV"
+          else
+            echo "MERGED_PR=${{ github.event.pull_request.number }}" >> "$GITHUB_ENV"
+            echo "MERGED_SPRINT_ID=${{ github.event.pull_request.head.ref }}" >> "$GITHUB_ENV"
+            echo "MERGED_SPRINT_BRANCH=${{ github.event.pull_request.head.ref }}" >> "$GITHUB_ENV"
+          fi
+
+      - name: Validate package continuation contract
         shell: bash
         run: |
           set -euo pipefail
           if [ -z "$FACTORY_MODEL" ]; then
-            echo "Repository variable OPENCODE_FACTORY_MODEL is required for automatic next-Sprint materialization." >&2
+            echo "Set model input or repository variable OPENCODE_FACTORY_MODEL." >&2
             exit 2
+          fi
+          [[ "$MAX_SPRINTS" =~ ^[0-9]+$ ]] || exit 2
+          [[ "$NEXT_SPRINT_INDEX" =~ ^[0-9]+$ ]] || exit 2
+          [[ "$MAX_CYCLES_PER_SPRINT" =~ ^[0-9]+$ ]] || exit 2
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            [[ "$WORK_PACKAGE_ID" =~ ^[A-Za-z0-9._-]+$ ]] || exit 2
+            if [ "$NEXT_SPRINT_INDEX" -gt "$MAX_SPRINTS" ]; then
+              echo "Work Package reached max_sprints=$MAX_SPRINTS before another construction Sprint; stopping safely." >&2
+              exit 1
+            fi
           fi
 
       - name: Checkout freshly integrated main
@@ -84,7 +151,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
           git reset --hard origin/main
-          BRANCH="planning/next-sprint-after-pr-${MERGED_PR}"
+          if [ -n "$WORK_PACKAGE_ID" ]; then
+            BRANCH="planning/${WORK_PACKAGE_ID}-after-${MERGED_PR}"
+          else
+            BRANCH="planning/next-sprint-after-pr-${MERGED_PR}"
+          fi
           if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
             git fetch origin "$BRANCH"
             git switch -C "$BRANCH" "origin/$BRANCH"
@@ -106,32 +177,30 @@ jobs:
       - name: Install OpenCode 1.18
         run: npm install --global opencode-ai@1.18
 
-      - name: Materialize only the next Sprint planning state
+      - name: Revalidate Work Package and materialize one successor state
         shell: bash
         run: |
           set -euo pipefail
           PROMPT=$(cat <<EOF
-          A reviewed Sprint PR (#${MERGED_PR}, source ${MERGED_SPRINT_BRANCH}) has just been merged into main. Work only from the freshly reconstructed repository state on main.
+          Predecessor Sprint ${MERGED_SPRINT_ID} (PR #${MERGED_PR}) has just been integrated into main. Parent Work Package: ${WORK_PACKAGE_ID:-not supplied / standalone rolling-wave mode}. Work only from freshly reconstructed repository truth.
 
-          Start with AGENTS.md and follow the complete required repository authority chain, including docs/current/PROJECT_STATE.md, docs/current/CURRENT_MILESTONE.md, project_docs/schedule/SPRINT_GENERATION_POLICY.md, project_docs/schedule/SPRINT_MODE.md, the active Sprint Package/WBS, predecessor Sprint report and applicable contracts/ADRs.
+          Start with AGENTS.md and follow the complete required authority chain, including docs/current/PROJECT_STATE.md, docs/current/CURRENT_MILESTONE.md, project_docs/schedule/SPRINT_GENERATION_POLICY.md, project_docs/schedule/SPRINT_MODE.md, the parent Work Package/WBS when supplied, predecessor Sprint report and applicable contracts/ADRs.
 
-          Perform rolling-wave PLANNING ONLY for the next eligible Sprint after the newly integrated predecessor:
-          - revalidate actual predecessor outputs, dependencies, risks, contracts and growing E2E proof;
-          - determine the next eligible Sprint already forecast by repository authority, or materialize the next Sprint/package only when policy requires it;
-          - create/update the next Sprint manifest and committed TASK specifications needed to make that Sprint executable;
-          - update current planning/state documentation only as required by the repository;
-          - preserve human review gates and all L3/L4/ADR escalation requirements.
+          Revalidate the Work Package after the real predecessor merge. Perform exactly ONE bounded planning/review transition:
+          - if a next construction Sprint is eligible under repository authority, promote/materialize exactly that one Sprint to COMMITTED, with its manifest, TASK specs, dependency order, branch and current-state docs;
+          - if all construction goals are satisfied and package policy requires Integration & Technical Debt Review, materialize/perform the bounded package review state and produce the durable review/report needed for final Work Package human review;
+          - if the next forecast Sprint requires an unaccepted ADR, L3/L4 decision, scope expansion, destructive migration, security weakening or another explicit human gate, record the exact blocker in authorized planning/current-state artifacts and STOP. Never convert that gate into authorization.
 
-          Do NOT implement product code. Do NOT execute any newly materialized TASK. Do NOT start the next construction Sprint. Do NOT modify .github/** or tooling/**. Do NOT merge anything. If the next Sprint cannot be materialized without a human architecture/governance decision, record the exact planning blocker within authorized planning artifacts and stop instead of inventing policy.
+          Full Work Package dispatch authorization means eligible Sprints may advance without a new user dispatch. It NEVER authorizes a Sprint that repository truth still marks FORECAST/BLOCKED, and NEVER substitutes for an ADR or explicit architecture/security decision.
 
-          Commit the bounded planning/materialization result as exactly one planning commit to the current planning branch. Before returning, leave no uncommitted changes.
+          Do NOT implement product code. Do NOT execute a newly materialized TASK. Do NOT modify .github/** or tooling/**. Do NOT merge anything. Commit exactly one bounded planning/review transition when a durable repository change is warranted. Before returning, leave no uncommitted changes.
           EOF
           )
 
           opencode run \
             --auto \
             --model "$FACTORY_MODEL" \
-            --title "next-sprint-after-pr-${MERGED_PR}" \
+            --title "${WORK_PACKAGE_ID:-next-sprint}:after-${MERGED_PR}" \
             "$PROMPT" | tee /tmp/opencode-next-sprint.log
 
       - name: Enforce committed planning result
@@ -147,11 +216,11 @@ jobs:
           HEAD_SHA=$(git rev-parse HEAD)
           if [ "$HEAD_SHA" = "$BASE_SHA" ]; then
             echo "made_progress=false" >> "$GITHUB_OUTPUT"
-            echo "No planning commit produced; no PR will be opened."
+            echo "No planning/review commit produced; package continuation stops safely."
           else
             COMMIT_COUNT=$(git rev-list --count "$BASE_SHA..$HEAD_SHA")
             if [ "$COMMIT_COUNT" -ne 1 ]; then
-              echo "Expected exactly one planning commit; found $COMMIT_COUNT." >&2
+              echo "Expected exactly one planning/review commit; found $COMMIT_COUNT." >&2
               git log --oneline "$BASE_SHA..$HEAD_SHA"
               exit 1
             fi
@@ -163,27 +232,97 @@ jobs:
         if: steps.progress.outputs.made_progress == 'true'
         run: npm run verify
 
-      - name: Push planning branch
-        if: steps.progress.outputs.made_progress == 'true'
-        run: git push --set-upstream origin "$PLANNING_BRANCH"
-
-      - name: Open human review PR for next Sprint materialization
-        if: steps.progress.outputs.made_progress == 'true'
+      - name: Detect one eligible committed successor Sprint
+        if: steps.progress.outputs.made_progress == 'true' && github.event_name == 'workflow_dispatch'
+        id: successor
         shell: bash
         run: |
           set -euo pipefail
-          EXISTING=$(gh pr list \
-            --head "$PLANNING_BRANCH" \
-            --base main \
-            --state open \
-            --json number \
-            --jq '.[0].number // empty')
-          if [ -z "$EXISTING" ]; then
-            gh pr create \
-              --base main \
-              --head "$PLANNING_BRANCH" \
-              --title "Materialize next Sprint after PR #${MERGED_PR}" \
-              --body "Rolling-wave planning generated from freshly integrated main after reviewed Sprint PR #${MERGED_PR}. Planning/materialization only: no product construction was executed. Human review/merge remains required before the next Sprint can run."
-          else
-            echo "Planning PR already open: #$EXISTING"
+          CANDIDATES=0
+          NEXT_ID=""
+          NEXT_BRANCH=""
+
+          while IFS= read -r FILE; do
+            [ -f "$FILE" ] || continue
+            case "$FILE" in
+              *.report.md) continue ;;
+            esac
+            grep -Fq "Package: \`$WORK_PACKAGE_ID\`" "$FILE" || continue
+            grep -Eq '^Status:.*COMMITTED' "$FILE" || continue
+            BRANCH=$(sed -n 's/^Branch: `\([^`]*\)`.*/\1/p' "$FILE" | head -1)
+            [[ "$BRANCH" =~ ^sprint/[A-Za-z0-9._/-]+$ ]] || continue
+            ID=$(sed -n '1s/^# \([^ ]*\).*/\1/p' "$FILE")
+            [ -n "$ID" ] || continue
+            CANDIDATES=$((CANDIDATES + 1))
+            NEXT_ID="$ID"
+            NEXT_BRANCH="$BRANCH"
+          done < <(git diff --name-only "$BASE_SHA..HEAD" -- 'project_docs/execution_planning/*.md')
+
+          if [ "$CANDIDATES" -gt 1 ]; then
+            echo "Ambiguous planning result: $CANDIDATES committed successor Sprints were materialized." >&2
+            exit 1
           fi
+
+          if [ "$CANDIDATES" -eq 1 ]; then
+            echo "has_successor=true" >> "$GITHUB_OUTPUT"
+            echo "sprint_id=$NEXT_ID" >> "$GITHUB_OUTPUT"
+            echo "branch=$NEXT_BRANCH" >> "$GITHUB_OUTPUT"
+            echo "Eligible successor: $NEXT_ID ($NEXT_BRANCH)"
+          else
+            echo "has_successor=false" >> "$GITHUB_OUTPUT"
+            echo "No committed successor Sprint. This is a package-final review state or an authoritative blocker."
+          fi
+
+      - name: Push planning/review branch
+        if: steps.progress.outputs.made_progress == 'true'
+        run: git push --set-upstream origin "$PLANNING_BRANCH"
+
+      - name: Open planning or Work Package review PR
+        if: steps.progress.outputs.made_progress == 'true'
+        id: planning_pr
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXISTING=$(gh pr list --head "$PLANNING_BRANCH" --base main --state open --json number --jq '.[0].number // empty')
+          if [ -z "$EXISTING" ]; then
+            if [ "${{ steps.successor.outputs.has_successor }}" = "true" ] && [ "$FULL_WP_AUTHORIZED" = "true" ]; then
+              TITLE="${WORK_PACKAGE_ID}: materialize ${{ steps.successor.outputs.sprint_id }}"
+              BODY="Intermediate rolling-wave materialization inside explicitly authorized Work Package ${WORK_PACKAGE_ID}. Product construction was not executed. Automatic integration is permitted only after objective checks pass."
+            else
+              TITLE="${WORK_PACKAGE_ID:-Next Sprint}: package planning/review after #${MERGED_PR}"
+              BODY="No automatically executable committed successor Sprint was detected. This PR is the Work Package review/blocker boundary and requires human review. No product construction was executed."
+            fi
+            gh pr create --base main --head "$PLANNING_BRANCH" --title "$TITLE" --body "$BODY"
+            EXISTING=$(gh pr list --head "$PLANNING_BRANCH" --base main --state open --json number --jq '.[0].number // empty')
+          fi
+          echo "pr_number=$EXISTING" >> "$GITHUB_OUTPUT"
+          echo "Planning/review PR: #$EXISTING"
+
+      - name: Integrate eligible planning and dispatch successor Sprint
+        if: >-
+          steps.progress.outputs.made_progress == 'true' &&
+          github.event_name == 'workflow_dispatch' &&
+          inputs.authorize_full_work_package == true &&
+          steps.successor.outputs.has_successor == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          PR=${{ steps.planning_pr.outputs.pr_number }}
+          gh pr checks "$PR" --watch --fail-fast --interval 10
+          gh pr merge "$PR" --merge --delete-branch
+
+          gh workflow run opencode-sprint-task-loop.yml \
+            --ref main \
+            -f "work_package_id=$WORK_PACKAGE_ID" \
+            -f "sprint_id=${{ steps.successor.outputs.sprint_id }}" \
+            -f "branch=${{ steps.successor.outputs.branch }}" \
+            -f "model=$FACTORY_MODEL" \
+            -f "package_mode=true" \
+            -f "authorize_full_work_package=true" \
+            -f "max_sprints=$MAX_SPRINTS" \
+            -f "sprint_index=$NEXT_SPRINT_INDEX" \
+            -f "auto_continue_tasks=true" \
+            -f "max_cycles=$MAX_CYCLES_PER_SPRINT" \
+            -f "cycle=1"
+
+          echo "Dispatched ${{ steps.successor.outputs.sprint_id }} as a fresh runner/OpenCode session chain."
