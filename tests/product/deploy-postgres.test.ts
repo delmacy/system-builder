@@ -83,8 +83,15 @@ test("postgres deployment provider rejects required TLS when server does not off
 
 test("postgres deployment provider rejects unsupported sslmode deterministically", async () => {
   await assert.rejects(
-    () => PostgresDeploymentRecordStorage.open("postgres://user@127.0.0.1:5432/db?sslmode=verify-full", "task110_sslmode"),
+    () => PostgresDeploymentRecordStorage.open("postgres://user@127.0.0.1:5432/db?sslmode=verify-unknown", "task110_sslmode"),
     /DEPLOY_POSTGRES_SSLMODE_INVALID/,
+  );
+});
+
+test("postgres deployment provider fails closed for a positive sslmode without a trusted CA source", async () => {
+  await assert.rejects(
+    () => PostgresDeploymentRecordStorage.open("postgres://user@127.0.0.1:5432/db?sslmode=verify-full", "task110_sslmode"),
+    /DEPLOY_POSTGRES_SSLMODE_CA_REQUIRED/,
   );
 });
 
