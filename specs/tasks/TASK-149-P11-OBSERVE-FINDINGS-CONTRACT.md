@@ -1,7 +1,7 @@
 ---
 id: TASK-149
 title: Define the provider-neutral DeploymentFinding contract
-status: ready
+status: verification
 priority: 471
 milestone: M11
 model_tier: cheap
@@ -107,7 +107,7 @@ Changing the canonical `DeploymentRecord` schema/identity or the Sprint 1/2 obse
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the first TASK of Sprint 3. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the first TASK of Sprint 3: `packages/observe/findings.ts` exports `DeploymentFinding` (contract + deterministic content-addressed `findingId` via `create`, with stable severity/confidence enums, deterministic diagnostic code, non-value message and required/optional correlation refs), re-exported from `packages/observe/index.ts`. `tests/product/observe-findings-contract.test.ts` proves 7 cases (contract shape, determinism, content-addressing, optional correlation refs, malformed-field rejection, unsupported severity/confidence rejection, references-and-message-only field set). Local: lint PASS, typecheck PASS, focused test PASS, `npm run test:product` core PASS. CI validation required before Sprint Review.
 
 # Escalation
 

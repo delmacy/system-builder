@@ -2,6 +2,13 @@ import { sha256Canonical } from "@system-builder/deterministic";
 import { DeploymentOperationMetadata } from "./metadata.js";
 
 export {
+  DeploymentFinding,
+  type DeploymentFindingConfidence,
+  type DeploymentFindingFields,
+  type DeploymentFindingSeverity,
+} from "./findings.js";
+
+export {
   publish,
   publishEnriched,
   type EnrichedPublishObserver,
