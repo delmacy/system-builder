@@ -8,13 +8,18 @@ set -euo pipefail
 # makes a second run fail with duplicate-identity errors.
 cat > /tmp/reset-postgres.ts <<'EOF'
 import { postgresQuery } from "./packages/postgres/index.ts";
-const databases = [
-  { admin: "postgres://system_builder@127.0.0.1:5432/postgres", name: "system_builder" },
-  { admin: "postgres://deploy_auth:ci-test-password@127.0.0.1:5433/postgres", name: "system_builder_auth" },
-];
-for (const { admin, name } of databases) {
-  await postgresQuery(admin, `DROP DATABASE IF EXISTS "${name}" WITH (FORCE)`);
-  await postgresQuery(admin, `CREATE DATABASE "${name}"`);
+
+async function main(): Promise<void> {
+  const databases = [
+    { admin: "postgres://system_builder@127.0.0.1:5432/postgres", name: "system_builder" },
+    { admin: "postgres://deploy_auth:ci-test-password@127.0.0.1:5433/postgres", name: "system_builder_auth" },
+  ];
+  for (const { admin, name } of databases) {
+    await postgresQuery(admin, `DROP DATABASE IF EXISTS "${name}" WITH (FORCE)`);
+    await postgresQuery(admin, `CREATE DATABASE "${name}"`);
+  }
 }
+
+void main();
 EOF
 npx tsx /tmp/reset-postgres.ts
