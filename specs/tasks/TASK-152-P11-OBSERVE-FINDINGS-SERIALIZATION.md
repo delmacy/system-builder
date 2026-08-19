@@ -1,7 +1,7 @@
 ---
 id: TASK-152
 title: Provide lossless deterministic JSON round-trip for DeploymentFinding
-status: ready
+status: verification
 priority: 474
 milestone: M11
 model_tier: cheap

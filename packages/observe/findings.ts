@@ -174,6 +174,18 @@ export const DeploymentFinding = Object.freeze({
     }
     return Object.freeze({ ...payload, findingId: expected });
   },
+  toJson(finding: DeploymentFinding): string {
+    return JSON.stringify(finding);
+  },
+  fromJson(serialized: string): DeploymentFinding {
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(serialized);
+    } catch {
+      throw invalid("JSON");
+    }
+    return DeploymentFinding.validate(parsed);
+  },
 });
 
 export type DeploymentFindingSource = Readonly<{
