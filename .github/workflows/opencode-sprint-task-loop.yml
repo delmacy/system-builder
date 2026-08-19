@@ -3,6 +3,11 @@ name: OpenCode Sprint Task Loop
 on:
   workflow_dispatch:
     inputs:
+      work_package_id:
+        description: Parent Work Package ID; blank for standalone Sprint mode
+        required: false
+        default: ""
+        type: string
       sprint_id:
         description: Committed Sprint ID from project_docs/execution_planning
         required: true
@@ -16,6 +21,26 @@ on:
         required: false
         default: ""
         type: string
+      package_mode:
+        description: This Sprint belongs to a Work Package execution chain
+        required: true
+        default: false
+        type: boolean
+      authorize_full_work_package:
+        description: Initial user dispatch explicitly authorized eligible successor Sprints in this Work Package
+        required: true
+        default: false
+        type: boolean
+      max_sprints:
+        description: Work Package Sprint safety ceiling
+        required: true
+        default: "4"
+        type: string
+      sprint_index:
+        description: Current construction Sprint number inside this Work Package execution
+        required: true
+        default: "1"
+        type: string
       auto_continue_tasks:
         description: Dispatch a fresh workflow/session for the next TASK after progress
         required: true
@@ -27,7 +52,7 @@ on:
         default: "8"
         type: string
       cycle:
-        description: Internal loop counter; leave at 1 for a new run
+        description: Internal loop counter; leave at 1 for a new Sprint
         required: true
         default: "1"
         type: string
@@ -74,6 +99,7 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     env:
+      WORK_PACKAGE_ID: ${{ inputs.work_package_id }}
       SPRINT_ID: ${{ inputs.sprint_id }}
       SPRINT_BRANCH: ${{ inputs.branch }}
       FACTORY_MODEL: ${{ inputs.model || vars.OPENCODE_FACTORY_MODEL }}
@@ -94,14 +120,20 @@ jobs:
             echo "Invalid Sprint branch: $SPRINT_BRANCH" >&2
             exit 2
           }
-          [[ "$SPRINT_ID" =~ ^[A-Za-z0-9._-]+$ ]] || {
-            echo "Invalid Sprint ID: $SPRINT_ID" >&2
-            exit 2
-          }
+          [[ "$SPRINT_ID" =~ ^[A-Za-z0-9._-]+$ ]] || exit 2
+          if [ -n "$WORK_PACKAGE_ID" ]; then
+            [[ "$WORK_PACKAGE_ID" =~ ^[A-Za-z0-9._-]+$ ]] || exit 2
+          fi
           [[ "${{ inputs.cycle }}" =~ ^[0-9]+$ ]] || exit 2
           [[ "${{ inputs.max_cycles }}" =~ ^[0-9]+$ ]] || exit 2
+          [[ "${{ inputs.sprint_index }}" =~ ^[0-9]+$ ]] || exit 2
+          [[ "${{ inputs.max_sprints }}" =~ ^[0-9]+$ ]] || exit 2
+          if [ "${{ inputs.package_mode }}" = "true" ] && [ -z "$WORK_PACKAGE_ID" ]; then
+            echo "package_mode requires work_package_id." >&2
+            exit 2
+          fi
           if [ -z "$FACTORY_MODEL" ]; then
-            echo "Set the workflow model input or repository variable OPENCODE_FACTORY_MODEL." >&2
+            echo "Set model input or repository variable OPENCODE_FACTORY_MODEL." >&2
             exit 2
           fi
 
@@ -151,13 +183,14 @@ jobs:
           set -euo pipefail
           PROMPT=$(cat <<EOF
           Execute exactly ONE bounded unit of Sprint ${SPRINT_ID} on branch ${SPRINT_BRANCH}.
+          Parent Work Package: ${WORK_PACKAGE_ID:-standalone Sprint mode}.
 
-          The repository is the sole technical source of truth. Start with AGENTS.md and follow its required authority chain. Read project_docs/schedule/SPRINT_MODE.md, the committed Sprint manifest, the selected TASK specification, every context_paths entry, and all applicable contracts/ADRs before editing.
+          The repository is the sole technical source of truth. Start with AGENTS.md and follow its required authority chain. Read project_docs/schedule/SPRINT_GENERATION_POLICY.md when package planning is relevant, project_docs/schedule/SPRINT_MODE.md, the parent Work Package when present, the committed Sprint manifest, the selected TASK specification, every context_paths entry, and all applicable contracts/ADRs before editing.
 
-          This GitHub Actions run is a disposable OpenCode session. Never rely on previous OpenCode session history.
+          This GitHub Actions run is a disposable OpenCode session. Never rely on previous OpenCode session history. Work Package authorization never overrides repository scope, forbidden paths, L3/L4 escalation, ADR acceptance requirements, security gates, destructive-migration gates or conflicting authorities.
 
           Control rule:
-          1. If an eligible committed TASK remains in the Sprint dependency order, execute exactly the NEXT ONE TASK only. Confirm depends_on, allowed_paths, forbidden_paths, max_files and validation commands before editing. Implement only that TASK, run its declared validations, update its authorized durable evidence/status when required, and create exactly one authoritative commit for that TASK. Then STOP. Do not begin the following TASK.
+          1. If an eligible committed TASK remains in Sprint dependency order, execute exactly the NEXT ONE TASK only. Confirm depends_on, allowed_paths, forbidden_paths, max_files and validation commands before editing. Implement only that TASK, run its declared validations, update its authorized durable evidence/status when required, and create exactly one authoritative commit for that TASK. Then STOP. Do not begin the following TASK.
           2. If all committed TASKs are already implemented/evidenced and the Sprint has not been closed, perform Sprint closure only: run the Sprint final verification, update required repository evidence/docs, create project_docs/execution_planning/${SPRINT_ID}.report.md, and commit the closure. Do not create or start the next Sprint. Then STOP.
           3. If an explicit Sprint Mode escalation condition is reached, do not widen scope or invent policy. Leave the repository in a safe state, report the blocker, and STOP.
 
@@ -183,7 +216,6 @@ jobs:
             git status --short
             exit 1
           fi
-
           HEAD_SHA=$(git rev-parse HEAD)
           echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
           if [ "$HEAD_SHA" = "$BASE_SHA" ]; then
@@ -204,7 +236,7 @@ jobs:
         if: steps.progress.outputs.made_progress == 'true'
         run: git push origin "$SPRINT_BRANCH"
 
-      - name: Detect Sprint closure and open review PR
+      - name: Detect Sprint closure and open Sprint PR
         id: closure
         shell: bash
         run: |
@@ -218,30 +250,52 @@ jobs:
           echo "Sprint report found at $REPORT; running objective closure verification."
           npm run verify
 
-          PR_NUMBER=$(gh pr list \
-            --head "$SPRINT_BRANCH" \
-            --base main \
-            --state open \
-            --json number \
-            --jq '.[0].number // empty')
-
+          PR_NUMBER=$(gh pr list --head "$SPRINT_BRANCH" --base main --state open --json number --jq '.[0].number // empty')
           if [ -z "$PR_NUMBER" ]; then
-            gh pr create \
-              --base main \
-              --head "$SPRINT_BRANCH" \
-              --title "${SPRINT_ID}: Sprint Review" \
-              --body "Automated Sprint execution reached its repository-defined closure report and passed repository-wide verification. Human Sprint Review and merge remain required."
-            PR_NUMBER=$(gh pr list \
-              --head "$SPRINT_BRANCH" \
-              --base main \
-              --state open \
-              --json number \
-              --jq '.[0].number // empty')
+            if [ "${{ inputs.package_mode }}" = "true" ] && [ "${{ inputs.authorize_full_work_package }}" = "true" ]; then
+              BODY="Intermediate Sprint of explicitly authorized Work Package ${WORK_PACKAGE_ID}. Sprint closure verification passed. This PR may be automatically integrated only after required GitHub checks pass; repository escalation gates still override package authorization."
+            else
+              BODY="Automated Sprint execution reached its repository-defined closure report and passed repository-wide verification. Human Sprint Review and merge remain required."
+            fi
+            gh pr create --base main --head "$SPRINT_BRANCH" --title "${SPRINT_ID}: Sprint Review" --body "$BODY"
+            PR_NUMBER=$(gh pr list --head "$SPRINT_BRANCH" --base main --state open --json number --jq '.[0].number // empty')
           fi
 
           echo "closed=true" >> "$GITHUB_OUTPUT"
           echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
-          echo "Sprint Review PR: #$PR_NUMBER"
+          echo "Sprint PR: #$PR_NUMBER"
+
+      - name: Integrate intermediate Sprint and continue Work Package
+        if: >-
+          steps.closure.outputs.closed == 'true' &&
+          inputs.package_mode == true &&
+          inputs.authorize_full_work_package == true
+        shell: bash
+        run: |
+          set -euo pipefail
+          CURRENT_SPRINT=${{ inputs.sprint_index }}
+          MAX_SPRINTS=${{ inputs.max_sprints }}
+          if [ "$CURRENT_SPRINT" -gt "$MAX_SPRINTS" ]; then
+            echo "Work Package exceeded max_sprints=$MAX_SPRINTS; stopping." >&2
+            exit 1
+          fi
+
+          PR=${{ steps.closure.outputs.pr_number }}
+          echo "Waiting for objective PR checks on intermediate Sprint #$PR."
+          gh pr checks "$PR" --watch --fail-fast --interval 10
+          gh pr merge "$PR" --merge --delete-branch
+
+          gh workflow run opencode-next-sprint-materialize.yml \
+            --ref main \
+            -f "work_package_id=$WORK_PACKAGE_ID" \
+            -f "previous_sprint_id=$SPRINT_ID" \
+            -f "previous_sprint_pr=$PR" \
+            -f "model=$FACTORY_MODEL" \
+            -f "authorize_full_work_package=true" \
+            -f "max_sprints=$MAX_SPRINTS" \
+            -f "next_sprint_index=$((CURRENT_SPRINT + 1))" \
+            -f "max_cycles_per_sprint=${{ inputs.max_cycles }}"
+          echo "Intermediate Sprint integrated; dispatched fresh next-Sprint planning session for Work Package $WORK_PACKAGE_ID."
 
       - name: Dispatch next TASK in a new runner and OpenCode session
         if: >-
@@ -260,9 +314,14 @@ jobs:
           NEXT=$((CURRENT + 1))
           gh workflow run opencode-sprint-task-loop.yml \
             --ref main \
+            -f "work_package_id=$WORK_PACKAGE_ID" \
             -f "sprint_id=$SPRINT_ID" \
             -f "branch=$SPRINT_BRANCH" \
             -f "model=$FACTORY_MODEL" \
+            -f "package_mode=${{ inputs.package_mode }}" \
+            -f "authorize_full_work_package=${{ inputs.authorize_full_work_package }}" \
+            -f "max_sprints=${{ inputs.max_sprints }}" \
+            -f "sprint_index=${{ inputs.sprint_index }}" \
             -f "auto_continue_tasks=true" \
             -f "max_cycles=$MAX" \
             -f "cycle=$NEXT"
