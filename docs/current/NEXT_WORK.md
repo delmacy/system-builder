@@ -1,43 +1,48 @@
-# Next Work — P12 Controlled Evolution Authorization Gate
+# Next Work — P12 Controlled Evolution Sprint 4 Materialization Gate
 
 The repository is authoritative.
 
 ## Current integrated truth
-P12 Sprints 1–3 are merged. PR #230 (GitHub Actions validation audit) and PR #231 (bounded workflow maintenance) are also merged. The repository is no longer waiting on either auxiliary PR.
+P12 Sprints 1-3 are merged. PR #230 (GitHub Actions validation audit), PR #231 (bounded workflow maintenance) and PR #232 (Work Package cadence/repository-memory reconciliation) are integrated. The fresh integrated base for Sprint 4 planning is `932987117aed79d5af5ad3965bb87da740989318`.
 
-The current integrated support/evolution chain closes operational resolution through WBS 12.2.3. `Evolution` exists only as explicit triage classification; SupportCase/Problem operational paths reject it.
+The integrated support/evolution chain closes operational resolution through WBS 12.2.3. `Evolution` exists as explicit triage classification and is rejected by SupportCase/Problem operational paths.
 
-## Planning policy
-New Work Packages use the short lifecycle:
+## Committed successor
+`P12-CONTROLLED-EVOLUTION-LINKAGE-01` is **COMMITTED / MATERIALIZED** with TASK-202..211.
 
-`Planning & Materialization -> Construction A -> Construction B -> [optional Construction C] -> Package Integration & Review -> Documentation & Closure`.
+Goal:
+`human process-change request -> SupportEvidenceIntake -> explicit SupportTriageDecision(Evolution) -> EvolutionRequestEvidence -> ProcessMirror/BusinessRecipe linkage -> PublishedRelease linkage -> original request linkage`.
 
-P12 is an explicit legacy/grandfathered package because three Construction Sprints were materially executed under the prior cadence.
+Boundaries:
+- evidence/linkage only;
+- no automatic Evolution classification;
+- no SupportCase/Problem Evolution path;
+- no ProcessMirror/BusinessRecipe shared-schema mutation;
+- no invented Mirror/Recipe execution engine;
+- no release publication/transition/deploy or production mutation from Support/Evolution;
+- no L4 architecture change.
 
 ## Required next action
-Do not silently materialize P12 Sprint 4.
+1. Validate the materialization planning PR on its exact head with Deterministic CI.
+2. If green and review confirms only planning/materialization scope, merge preserving its planning history.
+3. Reconstruct fresh `main`.
+4. Create `sprint/P12-CONTROLLED-EVOLUTION-LINKAGE-01` from that exact integrated truth.
+5. Execute TASK-202..211 in dependency order, one authoritative commit per TASK.
+6. Run `npm run verify`, produce the Sprint Report, open one Sprint Review PR and stop at its review gate.
 
-When explicitly authorized to proceed:
-1. reconstruct fresh `main` after the planning/documentation reconciliation is integrated;
-2. re-read P12 package, WBS 12.3.x, Mirror/Recipe/release contracts and actual predecessor implementations;
-3. revalidate the forecast path `process-change evidence -> Mirror/Recipe -> version/release -> original request linkage`;
-4. materialize at most one P12 Sprint 4 manifest/TASK set if readiness remains valid;
-5. execute it under normal Sprint Mode and exact-head CI/review gates;
-6. finish P12 with its grandfathered package integration/debt review and repository-memory closure before opening the successor domain for execution.
+Do not begin the P12 Package Integration & Technical Debt Review before Sprint 4 is merged. Do not begin P13 before P12 package review/repository-memory closure.
+
+## Planning policy
+New Work Packages use:
+`Planning & Materialization -> Construction A -> Construction B -> [optional Construction C] -> Package Integration & Review -> Documentation & Closure`.
+
+P12 remains an explicit legacy/grandfathered package.
 
 ## Successor Work Package horizon — M13
-The next baseline domain after P12 is WBS 13 Autonomous Runtime. The following concrete Work Packages are now elaborated as forecast only:
-
-1. `P13-PACKAGE-01` — Autonomous Runtime Functional Execution — WBS 13.1.1-13.1.3;
-2. `P13-PACKAGE-02` — Autonomous Runtime Identity, Authority & Generated Experience — WBS 13.2.1-13.2.3;
-3. `P13-PACKAGE-03` — Autonomous Runtime Operational Autonomy — WBS 13.3.1-13.3.3.
-
-They are dependency ordered and non-executable. Each package begins with a Planning & Materialization Sprint that must reconstruct fresh `main`, inventory capability already delivered by earlier phases, classify it as predecessor evidence, identify only real gaps, and materialize at most Construction A.
-
-No P13 TASK set, Sprint manifest or execution branch is created by this forecast.
+The following remain FORECAST ONLY and blocked:
+1. `P13-PACKAGE-01` — Autonomous Runtime Functional Execution;
+2. `P13-PACKAGE-02` — Identity, Authority & Generated Experience;
+3. `P13-PACKAGE-03` — Operational Autonomy.
 
 ## Governance boundaries
-- Keep `main` deliberately without GitHub branch protection/required checks during the current construction phase unless explicit future maturity authority changes that decision.
-- Branch protection, required checks and broad structural privilege reduction remain DEFERRED.
-- Do not add a new general validation workflow, duplicate general `push: main` verification, `merge_group` before merge-queue adoption, or mandatory PR-heavy gate without new evidence/authority.
-- Planning/Review/Documentation Sprints must not absorb undeclared product implementation.
+Keep `main` deliberately without GitHub branch protection/required checks during current construction unless an explicit future maturity gate changes that decision. Branch protection, required checks and broad structural privilege reduction remain DEFERRED. Do not add a new general validation workflow, duplicate general `push: main` verification, `merge_group` before merge-queue adoption, or mandatory PR-heavy gate without new evidence/authority.
