@@ -8,6 +8,11 @@ export type SupportTriageDecisionFields = Readonly<{
   decidedAt: string;
   decidedByRef: string;
   reasonRef: string;
+  impactRef: string;
+  criticalityRef: string;
+  slaRef: string;
+  priorityRef: string;
+  contextRefs: readonly string[];
 }>;
 
 export type SupportTriageDecision = Readonly<{
@@ -18,7 +23,16 @@ export type SupportTriageDecision = Readonly<{
   decidedAt: string;
   decidedByRef: string;
   reasonRef: string;
+  impactRef: string;
+  criticalityRef: string;
+  slaRef: string;
+  priorityRef: string;
+  contextRefs: readonly string[];
 }>;
+
+function canonicalContextRefs(values: readonly string[]): readonly string[] {
+  return Object.freeze([...new Set(values)].sort());
+}
 
 function buildPayload(fields: SupportTriageDecisionFields) {
   return Object.freeze({
@@ -28,6 +42,11 @@ function buildPayload(fields: SupportTriageDecisionFields) {
     decidedAt: fields.decidedAt,
     decidedByRef: fields.decidedByRef,
     reasonRef: fields.reasonRef,
+    impactRef: fields.impactRef,
+    criticalityRef: fields.criticalityRef,
+    slaRef: fields.slaRef,
+    priorityRef: fields.priorityRef,
+    contextRefs: canonicalContextRefs(fields.contextRefs),
   });
 }
 
