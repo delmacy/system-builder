@@ -1,15 +1,18 @@
-# Current Execution Milestone — M12 P12 Support Resolution Sprint 3
+# Current Execution Milestone — M12 Auxiliary GitHub Actions Validation Audit
 
 ## Integrated predecessor
-P12 Sprint 2 `P12-SUPPORT-TRIAGE-CLASSIFICATION-01` is integrated through PR #228 at `e64d4abd4bbee42d5ad5a31ff8db4a445f28b669`.
+P12 Sprint 3 `P12-SUPPORT-RESOLUTION-01` merged through PR #229 at `7763177596cb684d3e3c6f9a55042337a865c2bc` after final Deterministic CI #507 PASS.
 
-## Constructed Sprint 3 result
-`P12-SUPPORT-RESOLUTION-01` is **CONSTRUCTED / SPRINT REVIEW** on PR #229. TASK-185..195 execute WBS 12.2.1-12.2.3 with deterministic support cases/knowledge links, maintenance problem records/explicit permitted-correction evidence, and explicit cause/resolution/evidence.
+## Active auxiliary Sprint
+`AUX-GITHUB-ACTIONS-VALIDATION-AUDIT-01` is **COMMITTED / NOT STARTED** with TASK-196..199.
 
-The growing proof covers both Observe-origin and human-origin intake through explicit triage into the appropriate operational-resolution path. Reference-only/no-value-leak boundaries and negative lifecycle/mutation invariants are covered.
+The Sprint evaluates current GitHub Actions validation coverage and repository-governance gaps before any CI topology change. It may recommend modifying an existing workflow, adding a workflow, changing a repository setting, keeping current behavior or taking no action; it does not implement any of those dispositions.
+
+## Initial evidence
+Fresh main has seven workflows. PR Deterministic CI executes `npm run verify`; heavy product tests run nightly/manual. `test:product:full` exists as a separate repository script. Main currently has no branch protection/required status checks, and recent runner logs emit Node 20 action-runtime deprecation warnings for `actions/checkout@v4` and `actions/setup-node@v4`.
 
 ## Boundaries
-No automatic classification/prioritization/SLA/scoring, no remediation or production mutation, and no direct Evolution execution. WBS 12.3.x remains controlled through Mirror/Recipe/release.
+No `.github/**` mutation, no branch-protection/settings mutation, no product/business behavior change and no P12 Sprint 4 materialization.
 
 ## Current gate
-Observe final Deterministic CI on the exact TASK-195 closure head, perform Sprint Review, and merge PR #229 only if approved. Reconstruct fresh `main` after merge before any successor materialization.
+Observe planning/materialization Deterministic CI on the auxiliary Sprint head. TASK-196 begins only in a later explicitly authorized execution round.

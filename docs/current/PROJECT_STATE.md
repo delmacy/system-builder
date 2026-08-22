@@ -3,27 +3,22 @@
 Date: 2026-08-22
 
 ## Repository
-`delmacy/system-builder` is canonical. `main` remains integrated through P12 Sprint 2 merge `e64d4abd4bbee42d5ad5a31ff8db4a445f28b669` until Sprint 3 review/merge completes.
+`delmacy/system-builder` is canonical. `main` is integrated through P12 Sprint 3 merge `7763177596cb684d3e3c6f9a55042337a865c2bc`.
 
 ## Integrated maturity
 - P1-P11 integrated.
-- P12 Sprint 1 merged through PR #227 at `91936363d7322c80424b67a3dcfbbcda6f98e82b`.
-- P12 Sprint 2 merged through PR #228 at `e64d4abd4bbee42d5ad5a31ff8db4a445f28b669`; Deterministic CI #473 PASS on final head `a3e2f6a7d500162991fc71d457bdfa59c4506448`.
+- P12 Sprint 1 merged through PR #227.
+- P12 Sprint 2 merged through PR #228.
+- P12 Sprint 3 `P12-SUPPORT-RESOLUTION-01` merged through PR #229 at `7763177596cb684d3e3c6f9a55042337a865c2bc` after Sprint Review and Deterministic CI #507 PASS on closure head `5d673871763d0ac6928ac2d106865a1c58c25b60`.
 
 ## Active milestone
-M12 — Support & Evolution.
+M12 — Support & Evolution, with an auxiliary repository-quality audit before successor construction planning.
 
-## Active committed Sprint
-`P12-SUPPORT-RESOLUTION-01` is **CONSTRUCTED / SPRINT REVIEW** on PR #229. TASK-185..195 are in verification; final Deterministic CI is required on the exact closure head before merge.
+## Integrated P12 capability
+`DeploymentFinding|human request -> SupportEvidenceIntake -> explicit SupportTriageDecision -> SupportCaseRecord|ProblemRecord -> explicit permission/cause/resolution/evidence` is integrated through WBS 12.2.3. Classification/prioritization/SLA evidence remains explicit; no remediation or production mutation is introduced.
 
-## Constructed capability
-Explicit `Support` triage can form deterministic support cases with canonical knowledge references and explicit resolution evidence. Explicit `Maintenance` triage can form deterministic problem records, explicit permitted-correction evidence and resolution evidence. Durable refs enforce no-value-leak semantics.
+## Active auxiliary Sprint
+`AUX-GITHUB-ACTIONS-VALIDATION-AUDIT-01` is **COMMITTED / NOT STARTED** from fresh integrated `main`. TASK-196..199 assess whether additional GitHub Actions workflows, jobs, triggers, required checks or action-runtime maintenance are warranted. The Sprint is assessment-only and forbids `.github/**` and repository-setting mutation.
 
-## Growing proof
-`DeploymentFinding|human request -> SupportEvidenceIntake -> explicit SupportTriageDecision -> SupportCaseRecord|ProblemRecord -> explicit permission/cause/resolution/evidence -> validated/lossless ResolutionEvidence`.
-
-## Architecture boundary
-No automatic classification, prioritization, SLA calculation, scoring, remediation or production mutation. `Evolution` remains outside Sprint 3. Business behavior change remains WBS 12.3.x and must return through Mirror/Recipe/release.
-
-## Package horizon
-Sprint 4 remains FORECAST ONLY. It must not be materialized until Sprint 3 is reviewed, merged and fresh `main` is revalidated.
+## P12 forecast
+P12 Sprint 4 / WBS 12.3.x remains **FORECAST ONLY**. Business behavior change remains controlled through Mirror/Recipe/release and is not materialized by the auxiliary Sprint.

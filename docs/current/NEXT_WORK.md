@@ -1,18 +1,20 @@
-# Next Work — P12 Sprint 3 Sprint Review
+# Next Work — Auxiliary GitHub Actions Validation Audit
 
 The repository is authoritative.
 
 ## Current state
-`P12-SUPPORT-RESOLUTION-01` is constructed on PR #229 with TASK-185..195 in verification. Sprint 3 is not integrated until review/merge completes.
+P12 Sprint 3 is integrated through merge `7763177596cb684d3e3c6f9a55042337a865c2bc`.
 
-## Required action
-1. Observe final Deterministic CI on the exact TASK-195 closure head.
-2. Review scope, tests, growing proof, no-value-leak and lifecycle/mutation boundaries.
-3. If approved and CI passes, merge PR #229 according to Sprint Mode.
-4. Reconstruct fresh `main` after merge and revalidate package authority before successor planning.
+`AUX-GITHUB-ACTIONS-VALIDATION-AUDIT-01` is materialized as the single active auxiliary Sprint. TASK-196..199 are ready; none has been executed.
 
-## Forecast only
-P12 Sprint 4 / WBS 12.3.x controlled Evolution remains FORECAST ONLY and must return through Mirror/Recipe/release. Do not materialize it automatically from Sprint 3 closure.
+## Required action next round
+1. Observe planning/materialization Deterministic CI on the exact auxiliary Sprint head.
+2. Execute TASK-196..199 in dependency order, one authoritative commit per TASK.
+3. Produce the evidence-backed disposition matrix before proposing any workflow or repository-setting mutation.
+4. Stop at auxiliary Sprint Review; implementation recommendations require separate authority.
+
+## P12 forecast only
+P12 Sprint 4 / WBS 12.3.x remains FORECAST ONLY and is not materialized or executed by this auxiliary audit.
 
 ## Boundaries
-No automatic classification/prioritization/SLA/scoring, no remediation or production mutation, and no business behavior change outside Mirror/Recipe/release.
+No `.github/**` mutation, no branch-protection/required-check mutation, no product/runtime/business behavior change, and no automatic governance change.
