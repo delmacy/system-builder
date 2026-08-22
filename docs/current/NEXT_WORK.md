@@ -1,16 +1,18 @@
-# Next Work — P12 Sprint 2 Sprint Review
+# Next Work — P12 Sprint 3 Sprint Review
 
 The repository is authoritative.
 
 ## Current state
-P12 Sprint 1 is merged. P12 Sprint 2 `P12-SUPPORT-TRIAGE-CLASSIFICATION-01` has been constructed on PR #228; TASK-174..184 are in verification.
+`P12-SUPPORT-RESOLUTION-01` is constructed on PR #229 with TASK-185..195 in verification. Sprint 3 is not integrated until review/merge completes.
 
 ## Required action
-1. Observe final Deterministic CI on the exact PR #228 closure head.
-2. Review Sprint 2 scope, tests, explicit-decision boundary and growing proof.
-3. If approved and CI passes, merge Sprint 2 according to Sprint Mode.
-4. Reconstruct fresh `main` after merge before any successor planning decision.
-5. **Do not materialize Sprint 3 automatically.** `P12` resolution/evolution work remains forecast-only until explicitly authorized after revalidation.
+1. Observe final Deterministic CI on the exact TASK-195 closure head.
+2. Review scope, tests, growing proof, no-value-leak and lifecycle/mutation boundaries.
+3. If approved and CI passes, merge PR #229 according to Sprint Mode.
+4. Reconstruct fresh `main` after merge and revalidate package authority before successor planning.
+
+## Forecast only
+P12 Sprint 4 / WBS 12.3.x controlled Evolution remains FORECAST ONLY and must return through Mirror/Recipe/release. Do not materialize it automatically from Sprint 3 closure.
 
 ## Boundaries
-No auto-triage/scoring, inferred impact/criticality/SLA/priority, remediation, production mutation, Observe-internal coupling, case resolution or direct Evolution execution. Any business behavior change returns through Mirror/Recipe.
+No automatic classification/prioritization/SLA/scoring, no remediation or production mutation, and no business behavior change outside Mirror/Recipe/release.

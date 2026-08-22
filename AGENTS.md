@@ -40,7 +40,7 @@ Before editing, explicitly confirm the TASK's `allowed_paths`, `forbidden_paths`
 
 Product development executes in Sprint Mode by default.
 
-- Rolling-wave planning uses a short Sprint Package, normally 3 construction Sprints plus an integration/technical-debt review.
+- Rolling-wave planning follows `SPRINT_GENERATION_POLICY.md`: a Sprint Package normally carries 4–8 construction Sprints plus one Integration & Technical Debt Review.
 - Only the active Sprint is committed; later Sprints remain forecast until predecessor gates pass.
 - One Sprint uses one branch: `sprint/<SPRINT-ID>`.
 - All committed TASKs execute on that branch in dependency order.
