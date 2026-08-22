@@ -1,7 +1,7 @@
 ---
 id: TASK-214
 title: Materialize deterministic runtime model and entity migrations
-status: ready
+status: completed
 priority: 214
 milestone: M13
 model_tier: cheap
