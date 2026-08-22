@@ -27,6 +27,11 @@ export type RuntimeModel = Readonly<{
   }>[];
   actions: CompilerSystemDefinitionRuntimeProjection["actions"];
   processes: CompilerSystemDefinitionRuntimeProjection["processes"];
+  environmentRequirements: NonNullable<CompilerSystemDefinitionRuntimeProjection["environmentRequirements"]>;
+  jobs: NonNullable<CompilerSystemDefinitionRuntimeProjection["jobs"]>;
+  events: NonNullable<CompilerSystemDefinitionRuntimeProjection["events"]>;
+  files: NonNullable<CompilerSystemDefinitionRuntimeProjection["files"]>;
+  integrations: NonNullable<CompilerSystemDefinitionRuntimeProjection["integrations"]>;
 }>;
 
 export type CompileRuntimeModelInput = CompileSyntheticInput & Readonly<{
@@ -59,6 +64,11 @@ export function materializeRuntimeModel(
     entities: Object.freeze(entities),
     actions: normalized.actions,
     processes: normalized.processes,
+    environmentRequirements: normalized.environmentRequirements ?? Object.freeze([]),
+    jobs: normalized.jobs ?? Object.freeze([]),
+    events: normalized.events ?? Object.freeze([]),
+    files: normalized.files ?? Object.freeze([]),
+    integrations: normalized.integrations ?? Object.freeze([]),
   });
   if (entities.length === 0) return Object.freeze({ model });
 
