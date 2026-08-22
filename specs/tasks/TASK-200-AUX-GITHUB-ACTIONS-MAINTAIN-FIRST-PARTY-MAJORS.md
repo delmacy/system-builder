@@ -42,10 +42,19 @@ Update existing deprecated first-party GitHub Action major references identified
 # Context
 The auxiliary validation audit found `actions/checkout@v4` and `actions/setup-node@v4` usages running through GitHub runtime compatibility forcing. The audit established maintenance of existing workflows as the correct remediation class and found no justification for a new workflow.
 
+# Current behavior
+The seven existing workflows use `actions/checkout@v4` and/or `actions/setup-node@v4`. Current CI logs show these Node 20-targeting action runtimes being forced onto Node 24 and emit a deprecation warning. Workflow triggers, jobs, services, commands, concurrency and permissions otherwise represent the accepted current topology.
+
 # Required change
 Replace only existing `actions/checkout@v4` and `actions/setup-node@v4` references with the maintained major established by the audit/current upstream evidence. Apply the update consistently to every affected existing workflow.
 
 Do not alter triggers, schedules, permissions, concurrency, runner labels, services, environment variables, commands, job structure, repository settings, branch protection or required checks as part of this TASK.
+
+# Inputs / contracts
+The exact seven workflow files on the Sprint base, the completed AUX validation-audit report, current upstream first-party Action major evidence, and the repository's existing `npm run verify` contract.
+
+# Outputs / contracts
+A version-reference-only maintenance delta across affected existing workflow files plus TASK-200 status/evidence metadata. Workflow count, trigger semantics, jobs, services, commands, concurrency, permissions and repository settings remain unchanged.
 
 # Acceptance criteria
 - no affected `actions/checkout@v4` or `actions/setup-node@v4` reference remains;
