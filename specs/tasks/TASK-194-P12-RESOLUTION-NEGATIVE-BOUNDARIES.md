@@ -1,7 +1,7 @@
 ---
 id: TASK-194
 title: Add negative lifecycle and mutation boundaries
-status: ready
+status: verification
 priority: 549
 milestone: M12
 model_tier: cheap
