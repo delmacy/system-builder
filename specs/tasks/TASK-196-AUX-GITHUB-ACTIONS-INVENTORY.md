@@ -1,7 +1,7 @@
 ---
 id: TASK-196
 title: Inventory GitHub Actions validation topology
-status: ready
+status: verification
 priority: 551
 milestone: M12
 model_tier: cheap
