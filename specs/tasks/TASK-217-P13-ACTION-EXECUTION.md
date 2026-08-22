@@ -1,7 +1,7 @@
 ---
 id: TASK-217
 title: Execute explicitly declared generated actions
-status: ready
+status: completed
 priority: 217
 milestone: M13
 model_tier: architecture
