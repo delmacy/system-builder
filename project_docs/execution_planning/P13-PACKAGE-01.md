@@ -1,6 +1,6 @@
 # P13-PACKAGE-01 — Autonomous Runtime Functional Execution
 
-Status: ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B FORECAST — L3 CHANGE CONTROL UNDER REVIEW
+Status: ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B COMMITTED-MATERIALIZED
 Milestone: M13
 Primary WBS: 13.1.1-13.1.3
 Predecessor: P12-PACKAGE-01 CLOSED
@@ -17,60 +17,64 @@ Deterministic CI: #561 PASS
 Merge-main: `554bff25683d0b523e38279b151f1d6b87578d72`
 Reviewed/merge tree: `fbc18c18511a4fa9aa140f124eacb995e82b189f`
 
-Construction A closed WBS 13.1.1 through the real SystemDefinition -> Compiler -> Release -> Deploy -> autonomous Runtime chain. The only shared-contract expansion was the explicitly authorized minimum additive/backward-compatible L3 SystemDefinition semantics for actions/workflows, including the bounded `process.initialState` correction. No L4 boundary changed.
+Construction A closed WBS 13.1.1 through the real SystemDefinition -> Compiler -> Release -> Deploy -> autonomous Runtime chain. Its additive L3 work remained bounded to explicit action/workflow semantics and `process.initialState`; no L4 boundary changed.
 
-## Post-A successor gate
-PR #238 reconciled repository memory after Construction A. Exact head `cccc4a7c2d16ebc240a7398402b4ce22faa21b34` passed Deterministic CI #562 and merged as `57b8cf3c4c671dd06b590514acac9ce449e7e69b`; reviewed-head -> merge-main has zero file differences.
+## Post-A gates — integrated
+PR #238 reconciled repository memory and recorded the real Construction B contract gap. It passed Deterministic CI #562 and merged as `57b8cf3c4c671dd06b590514acac9ce449e7e69b` with zero file drift.
 
-Fresh-main truth remains:
-- jobs: no public execution semantics;
-- events: no public routing/execution semantics;
-- files/storage: no public operation semantics;
-- integrations: identity/contract/direction exists, executable invocation semantics do not;
-- Compiler runtime projection carries entities/actions/processes only;
-- external activation-time binding foundation is reference-only and proven, but service/storage/integration compatibility breadth is not yet explicit.
+PR #239 integrated `P13-PACKAGE-01.construction-b-l3-change-control.md`. Its exact head `60d24d36963d2866f65d6e5f5d6e108cd9b865db` passed Deterministic CI #563 and merged as `8e9e7f1e3c86588ec0edbca0344a48f398332c7c`, tree `62e871d54a522a1e9faa9ccb854e04aba9bced63`, with zero file drift.
+
+The bounded L3 authority is ACCEPTED. It authorizes only minimum additive/backward-compatible semantics inside existing public contract families for explicit jobs/events/files-storage/integration execution, deterministic Compiler projection and reference-only binding compatibility metadata. It authorizes no L4 change.
 
 ## Construction B — Runtime services and external bindings
-Status: FORECAST — NOT MATERIALIZED
+Status: COMMITTED / MATERIALIZED
+Sprint: `P13-RUNTIME-SERVICES-BINDINGS-01`
+Tasks: TASK-221..230
+Materialization base: `8e9e7f1e3c86588ec0edbca0344a48f398332c7c`
+
 Goal: close WBS 13.1.2 and remaining 13.1.3 breadth using the same generated-runtime model and external configuration/no-value-leak boundary.
 
-### Bounded L3 change-control authority
-The change-control record `P13-PACKAGE-01.construction-b-l3-change-control.md` authorizes, subject to its own review/integration gate, only the minimum additive/backward-compatible L3 semantics needed for a future Construction B to declare and execute representative jobs/events/files-storage/integrations.
+Committed semantic envelope:
+- optional explicit interval jobs with declared action target and recordId;
+- optional explicit runtime-http events with declared actionRef and explicit invocation inputs;
+- optional file/storage descriptors with allowed `put|get|delete` operations and explicit storage `bindingRef`;
+- additive integration HTTP invocation (`method` + relative `path`) and explicit external-service `bindingRef`;
+- optional EnvironmentProfile binding `requirementKind` classification using existing environment requirement kinds;
+- deterministic normalized Compiler/runtime projection and fail-closed reference validation.
 
-Authorized envelope is limited to:
-- optional explicit job trigger/schedule and declared runtime-target descriptors;
-- optional explicit event source/routing and declared runtime-target descriptors;
-- optional explicit file/storage operation and external binding-reference descriptors;
-- additive integration operation/invocation and binding-reference semantics;
-- corresponding deterministic normalized Compiler runtime projection;
-- minimum additive reference-only binding compatibility/classification metadata only when concrete B planning proves it necessary.
+The Sprint deliberately reuses existing action execution, generated Runtime process, Deploy/SecretResolver activation-time resolution and Release/Environment separation. No scheduler/broker/object-store/integration vendor is selected; no new bounded context, worker topology or production topology is introduced.
 
-This authority does not select a scheduler, broker, object-store vendor, integration provider or deployment topology. It does not authorize resolved configuration/secret values in durable artifacts and does not permit Runtime behavior to be inferred from names, array order, integration direction or environment requirement kinds.
-
-No L4 boundary is authorized or currently identified. Any need for a new Builder/Runtime relation, release model, bounded context, suite topology or production topology requires an accepted ADR.
-
-### Successor gate
-Construction B remains FORECAST until the L3 change-control record is reviewed, exact-head CI-valid and integrated. After integration, reconstruct fresh `main` and revalidate actual contracts/predecessor outputs before promoting/materializing B.
-
-Forecast exit proof once eligible: actual compiled Runtime executes one representative materialized job, event path, file/storage path and integration path; required external bindings remain reference-only in durable artifacts; missing/incompatible bindings fail explicitly; Builder/Observe remain unavailable.
+Exit proof:
+- one actual declared interval job executes through its explicit action target;
+- one actual runtime-http event dispatch executes through its explicit action target;
+- one actual file/storage put/get/delete path executes beneath an externally supplied storage-root binding and rejects traversal;
+- one actual HTTP integration invocation uses an externally supplied external-service base-url binding plus declared method/relative path;
+- missing/incompatible classified bindings fail closed;
+- Builder/Observe unavailable does not break ordinary Runtime behavior;
+- resolved storage/endpoint/config/secret values remain absent from immutable/durable evidence and asserted diagnostics;
+- actual predecessor SystemDefinition -> Catalog -> Assembly -> Validation -> Compiler -> Release -> verified ArtifactPayload -> Deploy chain is used;
+- repository-wide `npm run verify` passes.
 
 ## Optional Construction C
 Status: FORECAST / CONDITIONAL
-Not eligible before Construction B is integrated and fresh-main evidence proves one bounded remaining WBS 13.1 gap.
+Not eligible before Construction B is integrated and fresh-main evidence proves one bounded remaining WBS 13.1 package-goal gap.
 
 ## Package Integration & Review
 Status: FORECAST
+Not started. Missing functional capability required by the Package Goal returns to explicit construction/change control.
 
 ## Documentation & Closure
 Status: FORECAST
+Not started.
 
 ## Boundaries
 - Builder != Runtime and autonomous ordinary Runtime remain constitutional.
 - BusinessRecipe != SystemDefinition remains preserved.
 - No Mirror/Recipe authoring, Analysis, Canvas or Release-management authoring behavior enters Runtime.
-- No resolved secrets/configuration values in durable artifacts.
+- No resolved secret/config/endpoint/storage values in immutable/durable artifacts.
+- No provider-specific scheduler, broker, object-store or integration framework becomes mandatory.
+- No exactly-once/distributed scheduling/event guarantee is authorized.
 - No production topology expansion without separate authority.
-- No L4 boundary without accepted ADR.
-- Construction B remains FORECAST; this change control is authority only, not materialization or implementation.
+- No new L4 boundary without accepted ADR.
 - Construction C, Package Integration & Review and Documentation & Closure remain FORECAST.
 - `P13-PACKAGE-02` and `P13-PACKAGE-03` remain not started.
