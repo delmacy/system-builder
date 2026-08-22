@@ -1,7 +1,7 @@
 ---
 id: TASK-165
 title: Map deployment findings into SupportEvidenceIntake
-status: ready
+status: verification
 priority: 504
 milestone: M12
 model_tier: cheap
@@ -36,31 +36,24 @@ validation:
   - npm run verify
 ---
 # Objective
-Map a structurally compatible P11 deployment finding into `SupportEvidenceIntake`.
-
+Map structurally compatible P11 deployment findings into `SupportEvidenceIntake`.
 # Context
-WBS 11.3.3 remains the direct downstream gap after P11: findings evidence must reach Support/Evolution without turning Observe into an auto-governance engine.
-
+WBS 11.3.3 requires findings evidence to reach Support/Evolution without auto-governance.
 # Current behavior
-P11 exposes `DeploymentFinding`; the Support/Evolution intake model exists locally but has no adapter from the proven finding shape.
-
+No finding adapter existed before this TASK.
 # Required change
-Add a structural `fromDeploymentFinding` adapter that reads only the stable public finding fields and produces deterministic Support intake evidence. The Support package must not import Observe implementation internals.
-
+Add a structural adapter preserving stable public finding correlations without Observe-internal imports.
 # Inputs / contracts
-Public shape exported by `packages/observe/index.ts`, Support intake validation/serialization from TASK-164, WBS 11.3.3 and module-boundary rules.
-
+Public finding shape, TASK-164 intake API and WBS 11.3.3.
 # Outputs / contracts
-A Support/Evolution-local structural adapter preserving finding and deployment/release/environment/runtime correlation refs.
-
+Support-local finding-to-intake adapter.
 # Acceptance criteria
-Valid finding-like input maps deterministically and malformed input fails closed; no Observe source file is modified or imported by Support implementation.
-
+Valid input maps deterministically; malformed input fails closed; Support implementation imports no Observe internals.
 # Non-goals
-Observe changes, classification, priority, remediation, Support case creation or production mutation.
-
+Observe changes, triage, remediation or case creation.
 # Evidence expected
-`packages/support-evolution/intake.ts`, `tests/product/support-evidence-intake-finding-mapping.test.ts`, and GitHub Deterministic CI.
-
+Implementation/tests and CI.
+# Implementation evidence
+Implemented in `9edb4202b93be78a8ebdec542b4aea7415483e08`; CI #433 PASS.
 # Escalation
-Stop if a direct dependency on Observe internals or a new canonical cross-context contract is required.
+Stop for direct Observe-internal or canonical dependency.

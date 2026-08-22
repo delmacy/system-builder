@@ -1,7 +1,7 @@
 ---
 id: TASK-169
 title: Add negative SupportEvidenceIntake product coverage
-status: ready
+status: verification
 priority: 508
 milestone: M12
 model_tier: cheap
@@ -32,31 +32,24 @@ validation:
   - npm run verify
 ---
 # Objective
-Add negative product coverage for the complete Support evidence intake boundary.
-
+Add negative coverage for the complete Support evidence intake boundary.
 # Context
-P12 intake must fail closed before later Support/Evolution classification or lifecycle routing can trust the evidence artifact.
-
+Later lifecycle behavior must receive fail-closed trustworthy intake evidence.
 # Current behavior
-Predecessor implementation tests cover focused failures, but there is no consolidated public-API suite spanning all malformed/conflicting/no-leak categories.
-
+No consolidated public-API negative suite existed.
 # Required change
-Add additive product tests for unknown fields, malformed required values, conflicting provenance, wrong content identity, invalid JSON and resolved-value markers.
-
+Cover unknown fields, malformed values, conflicting provenance, wrong identity, invalid JSON and resolved-value markers.
 # Inputs / contracts
-Public Support/Evolution intake API after TASK-167 and stable `SUPPORT_INTAKE` diagnostic conventions.
-
+Public Support/Evolution API and stable diagnostics.
 # Outputs / contracts
-Negative product-test evidence only; no implementation change.
-
+Negative product-test evidence only.
 # Acceptance criteria
-Every invalid category fails deterministically and no test path implies or performs production mutation.
-
+Invalid categories fail deterministically and perform no production mutation.
 # Non-goals
-Implementation edits, external security tooling, triage/classification or case lifecycle behavior.
-
+Implementation edits, triage or external security tooling.
 # Evidence expected
-`tests/product/support-evidence-intake-negative.test.ts` and GitHub Deterministic CI.
-
+Negative test and CI.
+# Implementation evidence
+Implemented in `fb70af675e61be653da1b45494bd0139320b83d6`; cumulative CI #437 PASS.
 # Escalation
-Stop if coverage requires broader architecture changes.
+Stop for broader architecture changes.

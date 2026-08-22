@@ -1,7 +1,7 @@
 ---
 id: TASK-170
 title: Prove Observe finding to Support intake E2E
-status: ready
+status: verification
 priority: 509
 milestone: M12
 model_tier: cheap
@@ -33,31 +33,24 @@ validation:
   - npm run verify
 ---
 # Objective
-Prove the real P11 deployment-finding to P12 Support-intake handoff end-to-end.
-
+Prove the actual P11 deployment-finding to P12 Support-intake handoff end-to-end.
 # Context
-The package goal is not satisfied by isolated constructors alone. The Sprint must demonstrate that an actual public `DeploymentFinding` produced by the P11 implementation can become validated, serialized Support/Evolution intake evidence without producer-internal coupling.
-
+The package goal requires integration evidence, not isolated constructors alone.
 # Current behavior
-TASK-165 maps finding-like evidence and TASK-168/169 cover Support intake independently, but no product test joins the actual Observe public constructor to the actual Support adapter.
-
+Before this TASK no test joined the actual Observe public constructor to the actual Support adapter.
 # Required change
-Add an integration product test that creates a real `DeploymentFinding`, maps it with the Support/Evolution public API, validates/round-trips it and asserts preservation of finding/deployment/release/environment/runtime references.
-
+Create a real `DeploymentFinding`, map it through Support public API, validate/round-trip it and assert all correlations.
 # Inputs / contracts
-Public P11 `DeploymentFinding` export, public Support/Evolution intake export, P12 growing-proof definition and WBS 11.3.3.
-
+Public P11 finding and public P12 intake APIs plus WBS 11.3.3.
 # Outputs / contracts
-Integrated test evidence only. Product packages remain unchanged by this TASK.
-
+Integrated test evidence only.
 # Acceptance criteria
-Actual P11 finding -> P12 intake succeeds deterministically, preserves required correlations, round-trips losslessly and adds no automatic remediation or production-mutation capability.
-
+Actual P11 finding -> P12 intake succeeds deterministically, preserves refs, round-trips and exposes no remediation capability.
 # Non-goals
-Full Deploy process spawning, Runtime mutation, triage/classification, priority, support-case lifecycle or evolution routing.
-
+Deploy spawning, Runtime mutation, triage, priority or case lifecycle.
 # Evidence expected
-`tests/product/support-evidence-intake-e2e.test.ts` and GitHub Deterministic CI.
-
+E2E test and CI.
+# Implementation evidence
+Implemented in `cc2877462b77cb4503cd77cb1a7dcc69117a5a26`; CI #438 PASS.
 # Escalation
-Stop if the E2E requires Support to depend on Observe internals or any product implementation edit.
+Stop if Support must depend on Observe internals or product implementation must change.

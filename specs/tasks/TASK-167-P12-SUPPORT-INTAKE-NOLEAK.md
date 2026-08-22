@@ -1,7 +1,7 @@
 ---
 id: TASK-167
 title: Enforce no-value-leak Support intake
-status: ready
+status: verification
 priority: 506
 milestone: M12
 model_tier: cheap
@@ -37,31 +37,24 @@ validation:
   - npm run verify
 ---
 # Objective
-Enforce no-value-leak semantics across durable Support/Evolution intake strings.
-
+Enforce no-value-leak semantics across durable Support intake strings.
 # Context
-ADR-0007 requires durable operational evidence to carry references rather than resolved secret, credential or CA values. P12 must preserve that invariant downstream of Observe and for human-originated evidence.
-
+ADR-0007 requires durable evidence to carry references rather than resolved credentials/secrets.
 # Current behavior
-The intake model validates shape and identity but does not yet reject obvious resolved-value markers consistently across source/provenance/correlation strings.
-
+Shape/identity validation previously did not reject resolved-value markers consistently.
 # Required change
-Add deterministic reference-only checks for secret, credential, password, token, authorization, private-key and CA value markers and apply them to intake construction/validation for both source variants.
-
+Reject password/token/authorization/private-key/credential/connection-value markers for both source variants.
 # Inputs / contracts
-ADR-0007, TASK-165 finding mapping, TASK-166 human capture and existing P11 no-leak conventions.
-
+ADR-0007 and TASK-165/166 paths.
 # Outputs / contracts
-Support/Evolution-local no-leak enforcement with stable failure diagnostics.
-
+Support-local no-leak enforcement.
 # Acceptance criteria
-Resolved-value markers are rejected deterministically while normal stable refs, hashes, codes, timestamps and non-value summaries remain accepted.
-
+Resolved-value markers fail deterministically while stable refs/hashes/messages remain valid.
 # Non-goals
-External secret scanners, credential rotation, data loss prevention services, security-policy changes or production mutation.
-
+External scanners, rotation or security-policy changes.
 # Evidence expected
-`packages/support-evolution/intake.ts`, `tests/product/support-evidence-intake-noleak.test.ts`, and GitHub Deterministic CI.
-
+Implementation/tests and CI.
+# Implementation evidence
+Implemented in `d4a17cda3087f905d6e5b8b555ea3331644316b7`; CI #435 PASS.
 # Escalation
-Stop if broader security architecture or policy change is required.
+Stop for broader security architecture changes.

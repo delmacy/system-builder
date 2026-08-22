@@ -1,7 +1,7 @@
 ---
 id: TASK-163
 title: Validate SupportEvidenceIntake fail closed
-status: ready
+status: verification
 priority: 502
 milestone: M12
 model_tier: cheap
@@ -36,30 +36,23 @@ validation:
 ---
 # Objective
 Implement deterministic fail-closed validation for `SupportEvidenceIntake`.
-
 # Context
-TASK-162 makes source provenance explicit. Before intake evidence can cross the Support/Evolution boundary durably, malformed, unknown, conflicting and identity-divergent payloads must fail deterministically.
-
+Source provenance must be trusted before downstream use.
 # Current behavior
-TASK-161 construction validates required strings during creation, but there is no parser/validator for arbitrary durable intake payloads and no source-conflict or content-identity verification.
-
+No arbitrary durable-payload validator existed before this TASK.
 # Required change
-Add validation that accepts only the known field set and source combinations, validates required/source-specific fields, recomputes the canonical identity and rejects any mismatch. Add positive and negative validation tests.
-
+Reject unknown/malformed/conflicting/identity-divergent payloads and normalize valid ones.
 # Inputs / contracts
-TASK-161/162 Support intake model, P12 Sprint manifest, deterministic hash helper and repository fail-closed conventions.
-
+TASK-161/162 model and deterministic identity conventions.
 # Outputs / contracts
-`SupportEvidenceIntake.validate(value)` or equivalent Support/Evolution-local validation API with stable `SUPPORT_INTAKE` diagnostics.
-
+Support-local validation API with stable diagnostics.
 # Acceptance criteria
-Unknown fields, malformed values, conflicting source provenance and wrong `intakeId` are rejected deterministically; valid input normalizes to an immutable intake artifact.
-
+Invalid input fails deterministically; valid input normalizes immutably.
 # Non-goals
-Serialization, finding mapping, human capture helpers, classification, SLA/priority, remediation or production mutation.
-
+Serialization, mapping, triage or mutation.
 # Evidence expected
-`packages/support-evolution/intake.ts`, `tests/product/support-evidence-intake-validation.test.ts`, and GitHub Deterministic CI.
-
+Implementation/tests and CI.
+# Implementation evidence
+Implemented in `fa9f01c258593d359118e299f6692697e2a18748`; CI #431 PASS.
 # Escalation
-Stop if validation requires shared/canonical contract changes.
+Stop for shared/canonical contract changes.

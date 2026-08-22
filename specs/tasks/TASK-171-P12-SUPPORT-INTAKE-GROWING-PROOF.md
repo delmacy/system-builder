@@ -1,7 +1,7 @@
 ---
 id: TASK-171
 title: Close P12 Support evidence intake growing proof
-status: ready
+status: verification
 priority: 510
 milestone: M12
 model_tier: cheap
@@ -50,30 +50,23 @@ validation:
 ---
 # Objective
 Close the P12 Sprint 1 repository-memory and growing-proof boundary.
-
 # Context
-After TASK-170, the product slice should have complete contract, failure, positive and integrated evidence. Sprint Mode requires an explicit closure report and current-state reconciliation before human Sprint Review.
-
+TASK-170 completed the actual P11 finding -> P12 intake integration proof.
 # Current behavior
-P11 review is merged, but current docs still describe the previous review gate and P12 package remains a forecast skeleton. The P12 Sprint has no closure report yet and TASK-161..171 remain `ready` until verified construction evidence is recorded.
-
+Before this TASK, current docs still described the P11 review/forecast gate and TASK specs remained ready.
 # Required change
-Create the Sprint report, update the Sprint/package/current-state documents from actual integrated branch evidence, and set TASK-161..171 to `verification`. Leave later P12 construction work forecast-only.
-
+Create the Sprint report, reconcile Sprint/package/current-state docs and set TASK-161..171 to verification without authorizing a successor Sprint.
 # Inputs / contracts
-All P12 Sprint 1 TASK outputs, PR/CI evidence, P12 package skeleton, current repository state docs, Sprint Mode and Sprint Generation Policy.
-
+All Sprint outputs, PR/CI evidence, package skeleton and Sprint governance.
 # Outputs / contracts
-Closure report and repository-memory reconciliation only. No product code or test changes.
-
+Closure report and repository-memory reconciliation only.
 # Acceptance criteria
-The report records actual commits, validation evidence and deviations; current docs identify P11 review as merged and P12 Sprint 1 at Sprint Review gate; package growing proof includes the Support evidence handoff; all committed TASK specs are `verification`; no successor Sprint is committed automatically.
-
+Actual commits/CI/deviations are recorded; current gate is PR #227 Sprint Review; all committed TASKs are verification; successor remains forecast-only.
 # Non-goals
-Product implementation/test changes, P12 triage/classification construction, package Integration & Technical Debt Review, successor Sprint execution or unobserved CI claims.
-
+Product/test changes, triage construction, package review or successor execution.
 # Evidence expected
-`P12-SUPPORT-EVIDENCE-INTAKE-01.report.md`, reconciled current/package/Sprint docs, TASK status updates and final GitHub Deterministic CI on the closure head.
-
+Closure report, reconciled docs/specs and final closure-head GitHub Deterministic CI.
+# Implementation evidence
+Repository-memory closure is this TASK-171 authoritative commit. Pre-closure CI #438 PASS; final closure-head CI must pass before Sprint Review readiness is final.
 # Escalation
-Stop if closure would claim validation/integration that was not actually observed or if successor construction would be authorized implicitly.
+Stop before claiming unobserved validation or authorizing successor construction.

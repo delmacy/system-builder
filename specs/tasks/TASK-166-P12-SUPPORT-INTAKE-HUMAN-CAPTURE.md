@@ -1,7 +1,7 @@
 ---
 id: TASK-166
 title: Capture human-origin SupportEvidenceIntake
-status: ready
+status: verification
 priority: 505
 milestone: M12
 model_tier: cheap
@@ -36,31 +36,24 @@ validation:
   - npm run verify
 ---
 # Objective
-Capture deterministic human-originated Support/Evolution intake evidence.
-
+Capture deterministic human-origin request/incident/feedback evidence.
 # Context
-WBS 12.1.1 requires requests, incidents and feedback in addition to telemetry/findings. This Sprint must establish intake provenance only, not triage behavior.
-
+WBS 12.1.1 requires human inputs in addition to telemetry/findings.
 # Current behavior
-The Support intake contract can represent source kinds but has no ergonomic constructor for human-originated evidence and its actor/channel provenance.
-
+No ergonomic human intake constructor existed before this TASK.
 # Required change
-Add a human capture helper for request, incident or feedback evidence with stable actor/channel references, submitted-at timestamp, external evidence reference and non-value summary.
-
+Add human capture with stable actor/channel/evidence refs and common intake identity/validation.
 # Inputs / contracts
-TASK-164 validated/serialized intake, Support & Evolution WBS 12.1.1 and P12 Sprint boundaries.
-
+TASK-164 intake and WBS 12.1.1.
 # Outputs / contracts
-Human-originated `SupportEvidenceIntake` creation API using the same deterministic identity and validation model.
-
+Human-origin intake API.
 # Acceptance criteria
-Human evidence preserves source/provenance deterministically, validates through the common intake contract and performs no action or mutation.
-
+Human provenance is deterministic and performs no action/mutation.
 # Non-goals
-Authentication changes, case management, classification, SLA, priority, ownership, remediation or production mutation.
-
+Auth changes, triage, SLA, ownership or remediation.
 # Evidence expected
-`packages/support-evolution/intake.ts`, `tests/product/support-evidence-intake-human.test.ts`, and GitHub Deterministic CI.
-
+Implementation/tests and CI.
+# Implementation evidence
+Implemented in `9c26207ec2747687b6a1c75bb78103854d4e76de`; CI #434 PASS.
 # Escalation
-Stop if user/auth contracts or another bounded context must change.
+Stop for auth/cross-context changes.

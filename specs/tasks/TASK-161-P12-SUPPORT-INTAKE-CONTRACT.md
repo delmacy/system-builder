@@ -1,7 +1,7 @@
 ---
 id: TASK-161
 title: Define SupportEvidenceIntake contract
-status: ready
+status: verification
 priority: 500
 milestone: M12
 model_tier: cheap
@@ -41,34 +41,24 @@ validation:
   - npm run verify
 ---
 # Objective
-Define provider-neutral deterministic `SupportEvidenceIntake` with content-addressed `intakeId`, source kind, provenance/evidence refs, summary and optional deployment/release/environment/runtime refs.
-
+Define deterministic provider-neutral `SupportEvidenceIntake` with content-addressed identity.
 # Context
-P11 integrated the deterministic Observe finding chain and the P11 package review selected Support & Evolution evidence intake as the strongest bounded successor. This TASK starts the first committed P12 Sprint without changing upstream contracts.
-
+P11 review selected Support/Evolution evidence intake as the bounded successor.
 # Current behavior
-The repository has no `packages/support-evolution` product implementation and no durable Support/Evolution intake artifact. Observe findings exist upstream but have no downstream lifecycle intake representation.
-
+Before this TASK no Support/Evolution intake artifact existed.
 # Required change
-Create `packages/support-evolution/intake.ts` and `index.ts` with an immutable `SupportEvidenceIntake` whose identity is derived deterministically from its payload. Add focused product coverage for deterministic identity, content addressing and immutability.
-
+Create and export the immutable deterministic intake contract with focused tests.
 # Inputs / contracts
-P12 Sprint manifest, Support & Evolution WBS/scope, ADR-0007 no-value-leakage, ADR-0009 provider-neutral evidence principles, and the Master Blueprint lifecycle boundary.
-
+P12 Sprint manifest, Support/Evolution WBS, ADR-0007/0009 and Master Blueprint.
 # Outputs / contracts
-An additive Support/Evolution-local intake contract exported from `packages/support-evolution/index.ts`. No canonical deployment, Observe, Runtime or public cross-context contract changes.
-
+Additive Support/Evolution-local intake contract only.
 # Acceptance criteria
-The artifact is additive, deterministic, immutable, content-addressed, reference-oriented and exported from the Support/Evolution package with focused positive coverage.
-
+Deterministic, immutable, content-addressed, reference-oriented contract is publicly exported.
 # Non-goals
-Deep validation, serialization, finding mapping, human capture, classification, priority, support-case lifecycle, remediation, production mutation or public cross-context contract changes.
-
+Validation/serialization/mapping/triage/remediation or cross-context contract changes.
 # Evidence expected
-`packages/support-evolution/intake.ts`, `packages/support-evolution/index.ts`, `tests/product/support-evidence-intake-contract.test.ts`, plus GitHub Deterministic CI.
-
+Implementation/tests plus GitHub Deterministic CI.
 # Implementation evidence
-Implemented on the Sprint branch in commit `199eef978ba4f1482542ec819076a0589a950549`. CI #428 reached lint and typecheck successfully; the run failed later because the newly materialized TASK specs lacked mandatory parser sections, which this planning repair addresses.
-
+Implemented in `199eef978ba4f1482542ec819076a0589a950549`; planning parser repair `0f550f6adb272c780afba5beb27e9a018376e1dc`; CI #429 PASS.
 # Escalation
-Stop if a canonical contract, another bounded context implementation, L3/L4 boundary or ADR is required.
+Stop for canonical/L3/L4/ADR scope expansion.

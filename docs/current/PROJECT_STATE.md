@@ -3,76 +3,54 @@
 Date: 2026-08-22
 
 ## Repository
-
 `delmacy/system-builder` is canonical. Reconstruct technical context from repository files and current Git/GitHub evidence, not chat history.
 
 ## Integrated maturity
-
 - P1–P10 construction/review history is integrated.
-- P11 package construction is complete across three merged Sprints.
-- Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` merged through PR #219.
-- Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` merged through PR #221.
-- Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` merged through PR #223 at `0dae4b058d1025dce5c8df54c6109707cac41727`; Deterministic CI #424 / run `32545758969` PASS.
-- Post-Sprint-3 repository-memory reconciliation merged through PR #225 at `a1c82d693eb0d0bc22da8228024c95dada8a021d`.
-- P11 Integration & Technical Debt Review is materialized on `review/P11-PACKAGE-01-integration-debt` from that fresh integrated base.
+- P11 construction and Integration & Technical Debt Review are complete. PR #226 merged at `d119480e4e665f53103832da9e47dfa897d1f4e2` after Deterministic CI #427 PASS.
+- P12 was revalidated from that fresh `main` and Sprint 1 `P12-SUPPORT-EVIDENCE-INTAKE-01` was committed/materialized.
+- P12 Sprint 1 product construction TASK-161..170 is complete on `sprint/P12-SUPPORT-EVIDENCE-INTAKE-01`; TASK-171 reconciles repository memory for Sprint Review.
 
 ## Active milestone
+M12 — P12 Support & Evolution Evidence Intake.
 
-M11 package review.
+## P12 Sprint 1 result
+Construction result: **PASS pending closure-head Deterministic CI and Sprint Review**.
 
-P11 construction result: **PASS**.
-Architecture/boundary revalidation: **PASS WITH DEBT**.
-Critical rollback blocker: **NONE FOUND**.
+Achieved proof:
 
-The review recommends `P12-PACKAGE-01 — Support & Evolution Evidence Intake` as the strongest bounded successor and materializes it as **SKELETON_ONLY / FORECAST**. P12 construction is not authorized until the P11 review merges and P12 is separately revalidated/materialized as COMMITTED.
+`durable DeploymentRecord -> provider-neutral DeploymentObservation -> deterministic DeploymentFinding -> SupportEvidenceIntake -> fail-closed validation -> lossless serialization -> Support/Evolution evidence handoff -> no automatic production mutation -> no resolved secret/credential/CA value`
 
-## Achieved P11 construction proof
+Human evidence path is also proven for request/incident/feedback with stable actor/channel/evidence references.
 
-`durable DeploymentRecord -> provider-neutral DeploymentObservation -> operational metadata -> enriched observation -> deterministic findings with severity/confidence -> correlation + linkage to deployment/release/environment/runtime context -> lossless serialization -> fail-open Observe publication -> Runtime continuity with Observe unavailable/not configured -> no resolved secret/credential/CA value in emitted artifacts`
+## Objective verification evidence
+Observed GitHub Deterministic CI:
+- #429 PASS — TASK-161 plus bounded task-spec repair;
+- #430 PASS — TASK-162;
+- #431 PASS — TASK-163;
+- #432 PASS — TASK-164;
+- #433 PASS — TASK-165;
+- #434 PASS — TASK-166;
+- #435 PASS — TASK-167;
+- #437 PASS — cumulative TASK-168 + TASK-169;
+- #438 PASS — TASK-170 actual P11 finding -> P12 intake E2E.
 
-## P11 verification evidence
+CI #436 was cancelled because the PR head advanced; its TASK-168 content was included and validated in #437.
 
-Sprint 3 Deterministic CI #424 / run `32545758969` PASS:
-
-- lint PASS;
-- typecheck PASS;
-- unit 309/309 PASS;
-- core product 298/298 PASS;
-- 161 task specifications validated;
-- architecture gates PASS;
-- build PASS.
-
-Review-head Deterministic CI is required before the package review merges.
+TASK-171 closure-head `npm run verify` remains required before final Sprint Review readiness.
 
 ## Architecture boundary
+- Support/Evolution implementation does not import Observe internals; it consumes a structural public finding shape.
+- Observe remains optional to Runtime operation.
+- No canonical `DeploymentRecord`, observation or finding identity was changed.
+- Durable Support intake evidence remains provider-neutral, deterministic and value-leak-free.
+- No automatic remediation, classification, priority/SLA decision or production mutation is introduced by Sprint 1.
+- No L4/fleet/Kubernetes/load-balancer/DNS/service-mesh architecture was introduced.
 
-- Observe remains optional to Runtime operation (ADR-0002).
-- No canonical `DeploymentRecord` schema/identity change.
-- No Sprint 1 observation identity or Sprint 2 metadata identity change.
-- Durable evidence remains reference-only/value-leak-free (ADR-0007).
-- No new L4/fleet/Kubernetes/scheduler/load-balancer/DNS/service-mesh/external-service-manager claim is introduced by P11.
-- Downstream Support/Evolution must consume evidence/contracts, not Observe internals.
+## Technical debt / remaining package work
+Carried production/fleet debt from P11 remains unchanged (`TD-P4-04`, `TD-P7-02`, `TD-P9-01`, `TD-P9-02`, `TD-P8-01`).
 
-## Technical debt disposition
-
-Closed by P11:
-
-- `TD-P7-03` — Deployment operational publication absent: CLOSED.
-- `TD-P4-08` — operational DeploymentRecord semantics incomplete: CLOSED.
-
-Carried high before production/fleet claims:
-
-- `TD-P4-04` — migration/fleet coordination;
-- `TD-P7-02` — infrastructure rollback semantics;
-- `TD-P9-01` / `TD-P9-02` — fleet/process supervision/reconciliation.
-
-Carried medium:
-
-- `TD-P8-01` — coarse deployment serialization;
-- WBS 11.3.3 — findings/evidence handoff to Support/Evolution without auto-governance.
+WBS 11.3.3 evidence forwarding is now materially covered by the P11 -> P12 intake E2E. P12 triage/classification, prioritization, support/problem lifecycle and resolution/evolution linkage remain later package work.
 
 ## Current gate
-
-The authoritative next gate is the **P11 Integration & Technical Debt Review PR**.
-
-The review must pass Deterministic CI and human review before merging. After that merge, reconstruct fresh `main` and revalidate/materialize P12. Do not begin P12 construction from this forecast skeleton alone.
+The authoritative gate is **P12 Sprint 1 PR #227**: closure-head Deterministic CI must pass, then human Sprint Review. Do not start or commit P12 Sprint 2 from this branch state. After PR #227 merges, reconstruct fresh `main` and revalidate successor readiness.

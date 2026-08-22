@@ -1,7 +1,7 @@
 ---
 id: TASK-164
 title: Serialize SupportEvidenceIntake losslessly
-status: ready
+status: verification
 priority: 503
 milestone: M12
 model_tier: cheap
@@ -36,30 +36,23 @@ validation:
 ---
 # Objective
 Serialize and deserialize `SupportEvidenceIntake` losslessly.
-
 # Context
-Validated durable evidence needs a deterministic transport representation before downstream Support/Evolution lifecycle records can consume it.
-
+Validated evidence needs deterministic transport representation.
 # Current behavior
-TASK-163 provides validation but the Support/Evolution intake API has no JSON round-trip.
-
+No intake JSON round-trip existed before this TASK.
 # Required change
-Add `toJson` and `fromJson` through the canonical validator, preserving identity and every optional correlation/provenance field.
-
+Add `toJson`/`fromJson` through canonical validation.
 # Inputs / contracts
-Validated Support intake model from TASK-163 and repository deterministic serialization conventions.
-
+TASK-163 validated intake model.
 # Outputs / contracts
-Lossless JSON serialization API local to `packages/support-evolution`.
-
+Support-local lossless JSON API.
 # Acceptance criteria
-Valid intake round-trips byte-semantically without field or identity loss; malformed JSON or payloads fail closed.
-
+Identity and optional fields survive round-trip; malformed input fails closed.
 # Non-goals
-Finding mapping, classification, remediation, external serialization libraries or storage.
-
+Mapping, triage, storage or external dependencies.
 # Evidence expected
-`packages/support-evolution/intake.ts`, `tests/product/support-evidence-intake-serialization.test.ts`, and GitHub Deterministic CI.
-
+Implementation/tests and CI.
+# Implementation evidence
+Implemented in `880f693207eccd18539883c6d86955732bb96ca9`; CI #432 PASS.
 # Escalation
-Stop if external dependencies or shared contract changes are required.
+Stop for external/shared contract requirements.
