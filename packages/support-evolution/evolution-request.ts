@@ -25,7 +25,11 @@ export type EvolutionRequestEvidence = Readonly<{
   contextRefs: readonly string[];
 }>;
 
+const ALLOWED_FIELDS = new Set([
+  "kind", "evolutionRequestId", "intakeId", "triageId", "requestedAt", "requestedByRef", "changeEvidenceRef", "reasonRef", "contextRefs",
+]);
 function invalid(detail: string): Error { return new Error(`EVOLUTION_REQUEST:${detail}`); }
+function isRecordLike(value: unknown): value is Record<string, unknown> { return value !== null && typeof value === "object" && !Array.isArray(value); }
 function requiredString(value: unknown, field: string): string {
   if (typeof value !== "string" || value.trim().length === 0) throw invalid(`MALFORMED:${field}`);
   return value;
@@ -46,11 +50,37 @@ function buildPayload(fields: EvolutionRequestEvidenceFields) {
     contextRefs: canonicalContextRefs(fields.contextRefs),
   });
 }
+function fieldsFromRecord(value: Record<string, unknown>): EvolutionRequestEvidenceFields {
+  const contextRefs = value["contextRefs"];
+  if (!Array.isArray(contextRefs)) throw invalid("MALFORMED:contextRefs");
+  return Object.freeze({
+    intakeId: requiredString(value["intakeId"], "intakeId"),
+    triageId: requiredString(value["triageId"], "triageId"),
+    requestedAt: requiredString(value["requestedAt"], "requestedAt"),
+    requestedByRef: requiredString(value["requestedByRef"], "requestedByRef"),
+    changeEvidenceRef: requiredString(value["changeEvidenceRef"], "changeEvidenceRef"),
+    reasonRef: requiredString(value["reasonRef"], "reasonRef"),
+    contextRefs: canonicalContextRefs(contextRefs as readonly string[]),
+  });
+}
 
 export const EvolutionRequestEvidence = Object.freeze({
   create(fields: EvolutionRequestEvidenceFields): EvolutionRequestEvidence {
     const payload = buildPayload(fields);
     return Object.freeze({ ...payload, evolutionRequestId: sha256Canonical(payload) });
+  },
+  validate(value: unknown, triageValue?: unknown): EvolutionRequestEvidence {
+    if (!isRecordLike(value)) throw invalid("NOT_OBJECT");
+    for (const key of Object.keys(value)) if (!ALLOWED_FIELDS.has(key)) throw invalid(`UNKNOWN_FIELD:${key}`);
+    if (value["kind"] !== "EvolutionRequestEvidence") throw invalid("KIND");
+    const normalized = EvolutionRequestEvidence.create(fieldsFromRecord(value));
+    if (typeof value["evolutionRequestId"] !== "string" || value["evolutionRequestId"] !== normalized.evolutionRequestId) throw invalid("EVOLUTION_REQUEST_ID");
+    if (triageValue !== undefined) {
+      const triage = SupportTriageDecision.validate(triageValue);
+      if (triage.classification !== "Evolution") throw invalid(`CLASSIFICATION:${triage.classification}`);
+      if (triage.triageId !== normalized.triageId || triage.intakeId !== normalized.intakeId) throw invalid("TRIAGE_LINKAGE");
+    }
+    return normalized;
   },
   fromTriage(triageValue: unknown, fields: EvolutionRequestFromTriageFields): EvolutionRequestEvidence {
     const triage = SupportTriageDecision.validate(triageValue);
