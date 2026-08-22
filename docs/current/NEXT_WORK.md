@@ -1,63 +1,24 @@
-# Next Work — P11 Package Review in Progress
+# Next Work — P12 Sprint 1 Final Review
 
-The repository is authoritative. Do not use chat history as technical authority.
+The repository is authoritative.
 
-## Just integrated
+## Current state
+P12 Sprint 1 `P12-SUPPORT-EVIDENCE-INTAKE-01` is constructed on PR #227. TASK-171 closure CI #456 passed. Sprint Review found one bounded provenance-completeness defect; TASK-172 corrected it. CI #457 exposed only a diagnostic-order regression, repaired at `84446b01b1c41fae2c20c2672f0e6df4c6b3bf3d`; CI #458 passed.
 
-P11 construction is complete and post-merge repository memory is reconciled:
-
-- Sprint 1 PR #219 merged;
-- Sprint 2 PR #221 merged;
-- Sprint 3 PR #223 merged at `0dae4b058d1025dce5c8df54c6109707cac41727`, Deterministic CI #424 / run `32545758969` PASS;
-- closure-state reconciliation PR #225 merged at `a1c82d693eb0d0bc22da8228024c95dada8a021d`.
-
-## Active work
-
-The mandatory **P11 Integration & Technical Debt Review** is materialized on `review/P11-PACKAGE-01-integration-debt`.
-
-The review revalidates the integrated P11 package from fresh `main`, classifies residual debt, verifies architecture/DAG/risk boundaries, and selects successor readiness from actual repository evidence.
-
-## Review conclusion before review-head CI
-
-- P11 package goal: PASS;
-- architecture/boundaries: PASS WITH DEBT;
-- critical rollback blocker: NONE FOUND;
-- `TD-P7-03`: CLOSED;
-- `TD-P4-08`: CLOSED;
-- high production/fleet debt remains (`TD-P4-04`, `TD-P7-02`, `TD-P9-01`, `TD-P9-02`);
-- medium `TD-P8-01` remains;
-- WBS 11.3.3 forwarding findings evidence to Support/Evolution remains unsatisfied and is the strongest bounded adjacent product gap.
-
-## Successor forecast
-
-The review materializes `P12-PACKAGE-01 — Support & Evolution Evidence Intake` as **SKELETON_ONLY / FORECAST**.
-
-Why this is the recommended successor:
-
-- P11 now produces deterministic, correlated findings evidence;
-- WBS 11.3.3 explicitly requires forwarding evidence to Support/Evolution without auto-governance;
-- Support & Evolution scope explicitly accepts telemetry/findings as inputs;
-- WBS 12.1/12.2 defines intake, classification, prioritization and support/problem records;
-- this is a bounded downstream contract/evidence step and does not silently introduce production fleet topology.
+TASK-173 reconciles this evidence in repository memory only.
 
 ## Required action
+1. Observe Deterministic CI on the TASK-173 docs-only head.
+2. If green, re-check PR #227 for review/thread/comment blockers and merge through the authorized Sprint Review gate using the exact head SHA.
+3. Reconstruct fresh `main` after merge.
+4. Re-read `AGENTS.md`, current state/milestone, Sprint policy/mode, `P12-PACKAGE-01`, Support/Evolution WBS/scope and relevant contracts/ADRs.
+5. Revalidate P12 successor readiness from integrated evidence.
+6. Materialize at most one successor Sprint only if still justified; do not execute it in this round.
 
-1. Run Deterministic CI on the P11 review PR head.
-2. If green, perform human review and merge the P11 Integration & Technical Debt Review.
-3. Reconstruct fresh `main` after that merge.
-4. Revalidate `P12-PACKAGE-01` from repository truth.
-5. Only then select the P12 direction and materialize its first COMMITTED Sprint with ready TASK specs.
+## Forecast only
+Expected candidate: deterministic Support/Maintenance/Evolution triage/classification with impact, criticality, SLA/context and traceability to `SupportEvidenceIntake`.
 
-Do not start P12 product construction from the skeleton alone.
+Do not commit or execute this forecast before the merge + fresh-main revalidation gate.
 
-## P12 forecast boundary
-
-Candidate package direction: consume provider-neutral findings/evidence in Support & Evolution for intake/triage and controlled lifecycle routing.
-
-Non-goals until separately authorized:
-
-- automatic remediation or production mutation from findings;
-- bypassing Mirror/Recipe for business behavior changes;
-- fleet/Kubernetes/load-balancer/DNS/service-mesh architecture;
-- public contract/L4 changes without explicit authority/ADR;
-- starting committed construction before the P11 review merge and P12 revalidation gate.
+## Boundary
+No automatic remediation, production mutation, Observe-internal coupling, uncontrolled business evolution or implicit L3/L4/fleet architecture.

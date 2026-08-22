@@ -1,56 +1,25 @@
-# Current Execution Milestone — M11 P11 Integration & Technical Debt Review
+# Current Execution Milestone — M12 P12 Support Evidence Intake Sprint 1
 
 ## Goal
-
-Close P11 at the package boundary after all three Observe construction Sprints merged: verify the integrated regression chain, classify residual technical debt, revalidate contracts/DAG/risks, and promote only the strongest successor supported by fresh repository evidence.
+Establish the first Support & Evolution evidence boundary downstream of P11 with deterministic, complete-provenance intake and no automatic production mutation.
 
 ## Integrated predecessor
+P11 review merged through PR #226 at `d119480e4e665f53103832da9e47dfa897d1f4e2` after CI #427 PASS. P12 was then revalidated and Sprint 1 committed.
 
-P11 construction is complete:
+## Sprint 1 result
+Construction: **PASS WITH SPRINT REVIEW CORRECTION CLOSED**.
 
-- Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` — PR #219 merged;
-- Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` — PR #221 merged;
-- Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` — PR #223 merged at `0dae4b058d1025dce5c8df54c6109707cac41727`, Deterministic CI #424 PASS;
-- post-merge state reconciliation — PR #225 merged at `a1c82d693eb0d0bc22da8228024c95dada8a021d`.
+TASK-161..171 established deterministic intake identity, explicit source models, fail-closed validation, serialization, P11 finding mapping, human capture, no-leak enforcement and actual P11->P12 E2E.
 
-## Integrated P11 proof
+Sprint Review found a provenance-completeness gap. TASK-172 now requires source-specific provenance for every intake. Its first correction head failed CI #457 only because validation diagnostic precedence changed; bounded repair `84446b01b1c41fae2c20c2672f0e6df4c6b3bf3d` restored that precedence and CI #458 PASS.
 
-`durable DeploymentRecord -> provider-neutral DeploymentObservation -> operational metadata -> enriched observation -> deterministic findings with severity/confidence -> correlation + linkage to deployment/release/environment/runtime context -> lossless serialization -> fail-open Observe publication -> Runtime continuity with Observe unavailable/not configured -> no resolved secret/credential/CA value in emitted artifacts`
+## Growing proof
+`DeploymentRecord -> DeploymentObservation -> DeploymentFinding -> SupportEvidenceIntake -> complete provenance -> validation -> lossless serialization -> Support/Evolution evidence`
 
-## Review result
-
-Package goal: **PASS**.
-
-Architecture/boundary: **PASS WITH DEBT**.
-
-Closed by P11:
-- `TD-P7-03` operational publication;
-- `TD-P4-08` operational DeploymentRecord semantics.
-
-Carried high:
-- `TD-P4-04` migration/fleet coordination;
-- `TD-P7-02` infrastructure rollback;
-- `TD-P9-01` / `TD-P9-02` production fleet/process supervision and reconciliation.
-
-Carried medium:
-- `TD-P8-01` coarse deployment serialization;
-- WBS 11.3.3 downstream findings/evidence handoff to Support/Evolution.
-
-No critical rollback blocker was found.
-
-## Successor recommendation
-
-The strongest bounded successor from integrated evidence is **Support & Evolution evidence intake / triage**:
-
-- WBS 11.3.3 explicitly requires forwarding findings evidence to Support/Evolution without auto-governance;
-- `project_docs/12-support-evolution/scope/README.md` names telemetry/findings as Support & Evolution inputs;
-- WBS 12.1/12.2 defines intake, classification, prioritization and support/problem records;
-- this continues the proven P11 evidence chain without expanding Observe into automatic remediation or silently introducing fleet architecture.
-
-`P12-PACKAGE-01 — Support & Evolution Evidence Intake` is therefore materialized as **SKELETON_ONLY / FORECAST** on the P11 review branch.
+No remediation, production mutation, triage/classification decision or uncontrolled lifecycle routing is introduced.
 
 ## Current gate
+TASK-173 docs-only repository-memory reconciliation must pass final PR-head Deterministic CI. Then PR #227 is ready for the authorized Sprint Review merge.
 
-The P11 Integration & Technical Debt Review must pass repository Deterministic CI and human review before merge.
-
-P12 construction is not authorized yet. After the review merges, reconstruct fresh `main`, revalidate P12, explicitly select its direction, and materialize the first committed Sprint/TASK set.
+## Successor forecast
+Triage/classification remains the strongest candidate direction, but it is **FORECAST ONLY** until PR #227 merges, fresh `main` is reconstructed and `P12-PACKAGE-01` is revalidated. Do not execute successor construction from this document.
