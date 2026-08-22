@@ -1,7 +1,7 @@
 ---
 id: TASK-201
 title: Review Work Package dispatcher permissions
-status: ready
+status: verification
 priority: 556
 milestone: M12
 model_tier: architecture
@@ -75,6 +75,16 @@ Repository hardening policy, branch protection, required checks, permissions in 
 
 # Evidence expected
 Permission-to-operation matrix, final `REDUCE` or `NO_CHANGE` disposition, validation result and one authoritative TASK commit.
+
+# Execution evidence
+The complete workflow contains only shell input validation, environment binding, one `gh workflow run` dispatch authenticated by `github.token`, and status output. GitHub's current REST documentation for `Create a workflow dispatch event` requires repository `Actions: write`. Current workflow syntax documentation states that omitted permissions are set to `none` when an explicit `permissions` map is present.
+
+Accordingly:
+- `actions: write` is retained because it is required for the workflow-dispatch operation;
+- `contents: write` is removed because the dispatcher performs no checkout, Git repository mutation or contents API operation;
+- `pull-requests: write` is removed because the dispatcher performs no PR operation.
+
+Final disposition: `REDUCE`, limited to `.github/workflows/opencode-work-package.yml`. The resulting map is only `actions: write`; no trigger, input, downstream target, job logic, repository setting or other workflow changes. Full evidence is recorded in `project_docs/execution_planning/AUX-GITHUB-ACTIONS-MAINTENANCE-01.report.md`. Repository-wide validation is delegated to the PR-head Deterministic CI as objective connected execution evidence.
 
 # Escalation
 Stop if exact permissions depend on undocumented GitHub behavior, external settings not observable from repository authority, or a reduction could impair current owner-directed construction workflows.
