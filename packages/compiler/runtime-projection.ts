@@ -28,6 +28,7 @@ export type CompilerRuntimeTransition = Readonly<{
 export type CompilerRuntimeProcess = Readonly<{
   id: string;
   states: readonly string[];
+  initialState?: string;
   transitions?: readonly CompilerRuntimeTransition[];
 }>;
 
@@ -59,13 +60,9 @@ export function normalizeSystemDefinitionRuntimeProjection(
   projection: CompilerSystemDefinitionRuntimeProjection,
 ): CompilerSystemDefinitionRuntimeProjection {
   const expectedRef = token(expectedSystemDefinitionRef, "system_definition_ref");
-  if (projection.kind !== "SystemDefinitionRuntimeProjection") {
-    throw new Error("COMPILER_RUNTIME_PROJECTION_INVALID_KIND");
-  }
+  if (projection.kind !== "SystemDefinitionRuntimeProjection") throw new Error("COMPILER_RUNTIME_PROJECTION_INVALID_KIND");
   const projectionRef = token(projection.systemDefinitionRef, "system_definition_ref");
-  if (projectionRef !== expectedRef) {
-    throw new Error(`COMPILER_RUNTIME_PROJECTION_REFERENCE_MISMATCH:${projectionRef}`);
-  }
+  if (projectionRef !== expectedRef) throw new Error(`COMPILER_RUNTIME_PROJECTION_REFERENCE_MISMATCH:${projectionRef}`);
 
   const entities = uniqueById(
     projection.entities.map((entity) => Object.freeze({
@@ -94,24 +91,22 @@ export function normalizeSystemDefinitionRuntimeProjection(
   const actions = uniqueById(
     projection.actions.map((action) => Object.freeze({
       id: token(action.id, "action_id"),
-      ...(action.effect === undefined ? {} : { effect: Object.freeze({
-        kind: action.effect.kind,
-        entityRef: token(action.effect.entityRef, "action_entity_ref"),
-      }) }),
+      ...(action.effect === undefined ? {} : { effect: Object.freeze({ kind: action.effect.kind, entityRef: token(action.effect.entityRef, "action_entity_ref") }) }),
     })).sort((left, right) => left.id.localeCompare(right.id)),
     "ACTION",
   );
   const actionIds = new Set(actions.map((action) => action.id));
   for (const action of actions) {
-    if (action.effect !== undefined && !entityIds.has(action.effect.entityRef)) {
-      throw new Error(`COMPILER_RUNTIME_PROJECTION_UNKNOWN_ACTION_ENTITY:${action.effect.entityRef}`);
-    }
+    if (action.effect !== undefined && !entityIds.has(action.effect.entityRef)) throw new Error(`COMPILER_RUNTIME_PROJECTION_UNKNOWN_ACTION_ENTITY:${action.effect.entityRef}`);
   }
 
   const processes = uniqueById(
     projection.processes.map((process) => {
+      const processId = token(process.id, "process_id");
       const states = [...process.states].map((state) => token(state, "process_state")).sort((left, right) => left.localeCompare(right));
-      if (new Set(states).size !== states.length) throw new Error(`COMPILER_RUNTIME_PROJECTION_DUPLICATE_STATE:${process.id}`);
+      if (new Set(states).size !== states.length) throw new Error(`COMPILER_RUNTIME_PROJECTION_DUPLICATE_STATE:${processId}`);
+      const stateSet = new Set(states);
+      const initialState = process.initialState === undefined ? undefined : token(process.initialState, "initial_state");
       const transitions = (process.transitions ?? []).map((transition) => Object.freeze({
         id: token(transition.id, "transition_id"),
         from: token(transition.from, "transition_from"),
@@ -119,18 +114,16 @@ export function normalizeSystemDefinitionRuntimeProjection(
         ...(transition.actionRef === undefined ? {} : { actionRef: token(transition.actionRef, "transition_action_ref") }),
       })).sort((left, right) => left.id.localeCompare(right.id));
       uniqueById(transitions, "TRANSITION");
-      const stateSet = new Set(states);
+      if (transitions.length > 0 && initialState === undefined) throw new Error(`COMPILER_RUNTIME_PROJECTION_INITIAL_STATE_REQUIRED:${processId}`);
+      if (initialState !== undefined && !stateSet.has(initialState)) throw new Error(`COMPILER_RUNTIME_PROJECTION_UNKNOWN_INITIAL_STATE:${processId}:${initialState}`);
       for (const transition of transitions) {
-        if (!stateSet.has(transition.from) || !stateSet.has(transition.to)) {
-          throw new Error(`COMPILER_RUNTIME_PROJECTION_UNKNOWN_TRANSITION_STATE:${process.id}:${transition.id}`);
-        }
-        if (transition.actionRef !== undefined && !actionIds.has(transition.actionRef)) {
-          throw new Error(`COMPILER_RUNTIME_PROJECTION_UNKNOWN_TRANSITION_ACTION:${transition.actionRef}`);
-        }
+        if (!stateSet.has(transition.from) || !stateSet.has(transition.to)) throw new Error(`COMPILER_RUNTIME_PROJECTION_UNKNOWN_TRANSITION_STATE:${processId}:${transition.id}`);
+        if (transition.actionRef !== undefined && !actionIds.has(transition.actionRef)) throw new Error(`COMPILER_RUNTIME_PROJECTION_UNKNOWN_TRANSITION_ACTION:${transition.actionRef}`);
       }
       return Object.freeze({
-        id: token(process.id, "process_id"),
+        id: processId,
         states: Object.freeze(states),
+        ...(initialState === undefined ? {} : { initialState }),
         ...(transitions.length === 0 ? {} : { transitions: Object.freeze(transitions) }),
       });
     }).sort((left, right) => left.id.localeCompare(right.id)),
