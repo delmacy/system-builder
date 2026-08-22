@@ -1,12 +1,13 @@
 ---
 id: TASK-219
 title: Regress external binding and no-value-leak boundaries across generated runtime behavior
-status: pending
+status: ready
 priority: 219
 milestone: M13
 model_tier: cheap
 risk: medium
 architecture_impact: false
+executor_preference: any
 depends_on:
   - TASK-214
   - TASK-215
