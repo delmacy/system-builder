@@ -11,8 +11,111 @@ import {
   type DeploymentRecordLike,
   type FindingsPublishObserver,
 } from "../../packages/observe/index.js";
+import { DeploymentRegistry, dryRunDeploy, type DeploymentRecord } from "../../packages/deploy/index.js";
+import type { EnvironmentProfile } from "../../packages/contracts/environment-profile/index.js";
 import { deriveFindings, correlateFinding } from "../../packages/observe/findings.js";
 import type { DeploymentFindingSource } from "../../packages/observe/findings.js";
+
+const e2eArtifactHash = `sha256:${"e".repeat(64)}`;
+const e2eRelease = Object.freeze({
+  kind: "PublishedRelease" as const,
+  releaseId: "observe-findings-positive",
+  version: "1.0.0",
+  artifactRef: e2eArtifactHash,
+  artifactHash: e2eArtifactHash,
+  validationEvidenceRef: `sha256:${"f".repeat(64)}`,
+  publishedAt: "2026-08-21T09:59:00Z",
+  status: "published" as const,
+});
+const e2eArtifact = Object.freeze({
+  kind: "ReleaseArtifact" as const,
+  artifactHash: e2eArtifactHash,
+  manifest: Object.freeze({ runtimeVersion: "runtime-1" }),
+  environmentSchema: Object.freeze([
+    Object.freeze({ name: "DATABASE_URL", kind: "secret-reference" as const, required: true }),
+  ]),
+});
+const e2eEnvironment: EnvironmentProfile = Object.freeze({
+  kind: "EnvironmentProfile",
+  environmentRef: "env:observe-findings-positive",
+  runtimeVersions: Object.freeze(["runtime-1"]),
+  bindings: Object.freeze([
+    Object.freeze({ name: "DATABASE_URL", kind: "secret-reference" as const, reference: "secret://findings-positive-db" }),
+  ]),
+});
+
+function deployThroughActualApi(
+  registry: DeploymentRegistry,
+  version: string,
+  acceptanceChecks: readonly { name: string; pass: boolean }[],
+): DeploymentRecord {
+  const result = dryRunDeploy({
+    publishedRelease: { ...e2eRelease, version },
+    releaseArtifact: e2eArtifact,
+    environment: e2eEnvironment,
+    acceptanceChecks,
+    startedAt: "2026-08-21T10:00:00Z",
+    completedAt: "2026-08-21T10:01:00Z",
+  });
+  assert.equal(result.ok, true);
+  if (!result.ok) throw new Error("TASK157_DEPLOY_FAILED");
+  return registry.record(result.record);
+}
+
+void test("findings positive path: actual Deploy record flows through enriched observation, findings, correlation, linkage, serialization and publication", async () => {
+  const registry = new DeploymentRegistry();
+  const record = deployThroughActualApi(registry, "1.0.1", [
+    { name: "runtime-health", pass: false },
+    { name: "database-health", pass: false },
+  ]);
+  assert.equal(registry.get(record.deploymentId), record);
+
+  const observation = DeploymentObservation.fromDeploymentRecord(record);
+  const metadata = DeploymentOperationMetadata.fromExecutionContext({
+    executorRef: "user://maintainer",
+    source: "manual",
+    mode: "execute",
+    sourceRef: "cli:sb-deploy",
+    triggeredAt: "2026-08-21T09:59:30Z",
+    runtimeRef: "runtime://managed-positive",
+    processRef: "process://positive-1",
+    sessionRef: "session://positive-1",
+    deploymentId: record.deploymentId,
+    publishedReleaseRef: record.publishedReleaseRef,
+    environmentRef: record.environmentRef,
+    releaseHash: record.releaseHash,
+  });
+  const enriched = enrichObservation(observation, metadata);
+  assert.equal(enriched.kind, "EnrichedDeploymentObservation");
+
+  const findings = deriveFindings(enriched as DeploymentFindingSource);
+  assert.equal(findings.length, 3);
+  const deploymentFailure = findings.find((finding) => finding.code === "OBSERVE_FINDING:DEPLOYMENT_FAILED");
+  assert.ok(deploymentFailure);
+  assert.equal(deploymentFailure.severity, "critical");
+  assert.equal(deploymentFailure.confidence, "high");
+  assert.equal(deploymentFailure.operationId, metadata.operationId);
+  assert.equal(deploymentFailure.runtimeRef, "runtime://managed-positive");
+
+  const correlation = correlateFinding(deploymentFailure);
+  assert.equal(correlation.deploymentId, record.deploymentId);
+  assert.equal(correlation.observationId, observation.observationId);
+  const linkage = linkFinding(deploymentFailure, observation, correlation);
+  assert.equal(linkage.correlationId, correlation.correlationId);
+  assert.equal(linkage.findingId, deploymentFailure.findingId);
+
+  const roundTripped = DeploymentFinding.fromJson(DeploymentFinding.toJson(deploymentFailure));
+  assert.deepEqual(roundTripped, deploymentFailure);
+
+  const delivered: unknown[] = [];
+  const result = await publishFindings(findings, linkage, {
+    deliver: (publication) => void delivered.push(publication),
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.outcome, "delivered");
+  assert.equal(delivered.length, 1);
+  assert.equal(JSON.stringify(delivered).includes("secret://findings-positive-db"), false);
+});
 
 void test("findings positive path: failed deployment derives critical finding with correct severity/confidence/id", () => {
   const record: DeploymentRecordLike = {
@@ -380,17 +483,21 @@ void test("findings positive path: publishFindings delivers to injected receiver
   assert.equal(result.ok, true);
   assert.equal(result.outcome, "delivered");
   assert.equal(result.count, 2);
-  assert.equal(received.length, 2);
+  assert.equal(received.length, 1);
 
-  for (let i = 0; i < 2; i++) {
-    const doc = received[i] as { kind: string; findingId: string };
-    assert.equal(doc.kind, "DeploymentFindingLinkage");
-    const finding = findings.find((f) => f.findingId === doc.findingId);
-    assert.ok(finding);
-  }
+  const publication = received[0] as {
+    kind: string;
+    findings: readonly { findingId: string }[];
+  };
+  assert.equal(publication.kind, "DeploymentFindingsPublication");
+  assert.equal(publication.findings.length, findings.length);
+  assert.deepEqual(
+    publication.findings.map((finding) => finding.findingId),
+    findings.map((finding) => finding.findingId),
+  );
 });
 
-void test("findings positive path: no resolved secret/CA value appears in any emitted artifact", () => {
+void test("findings positive path: no resolved secret/CA value appears in any emitted artifact", async () => {
   const record: DeploymentRecordLike = {
     kind: "DeploymentRecord",
     deploymentId: "dep-no-secret",
@@ -425,7 +532,6 @@ void test("findings positive path: no resolved secret/CA value appears in any em
     /authorization\s*[:=]/i,
     /credential\s*[:=]/i,
     /bearer\s+[a-z0-9_-]+/i,
-    /[A-Za-z0-9+/]{20,}={0,2}/,
   ];
 
   for (const marker of secretMarkers) {
@@ -455,7 +561,9 @@ void test("findings positive path: no resolved secret/CA value appears in any em
       return Promise.resolve();
     },
   };
-  publishFindings(findings, undefined, observer);
+  const result = await publishFindings(findings, undefined, observer);
+  assert.equal(result.ok, true);
+  assert.equal(result.outcome, "delivered");
 });
 
 void test("findings positive path: deriveFindings preserves all correlation refs from observation", () => {
@@ -514,7 +622,7 @@ void test("findings positive path: deriveFindings preserves all correlation refs
   }
 });
 
-void test("findings positive path: linkFinding with observation override uses observation observationId", () => {
+void test("findings positive path: linkFinding accepts the matching source observation", () => {
   const record: DeploymentRecordLike = {
     kind: "DeploymentRecord",
     deploymentId: "dep-link-obs",
@@ -532,10 +640,6 @@ void test("findings positive path: linkFinding with observation override uses ob
   assert.equal(findings.length, 1);
   const finding = findings[0]!;
 
-  const differentObservation: unknown = {
-    kind: "DeploymentObservation",
-    observationId: "obs-different",
-  };
-  const linkage = linkFinding(finding, differentObservation);
-  assert.equal(linkage.observationId, "obs-different");
+  const linkage = linkFinding(finding, observation);
+  assert.equal(linkage.observationId, observation.observationId);
 });

@@ -6,8 +6,39 @@ import {
   type DeploymentRecordLike,
   type FindingsPublishObserver,
 } from "../../packages/observe/index.js";
+import { DeploymentRegistry, dryRunDeploy } from "../../packages/deploy/index.js";
+import type { EnvironmentProfile } from "../../packages/contracts/environment-profile/index.js";
+import { bootstrapAutonomousRuntime } from "../../packages/runtime-core/index.js";
 import { correlateFinding, linkFinding, deriveFindings } from "../../packages/observe/findings.js";
 import { publishFindings } from "../../packages/observe/publish.js";
+
+const e2eArtifactHash = `sha256:${"d".repeat(64)}`;
+const e2eRelease = Object.freeze({
+  kind: "PublishedRelease" as const,
+  releaseId: "observe-findings-negative",
+  version: "1.0.0",
+  artifactRef: e2eArtifactHash,
+  artifactHash: e2eArtifactHash,
+  validationEvidenceRef: `sha256:${"c".repeat(64)}`,
+  publishedAt: "2026-08-21T09:59:00Z",
+  status: "published" as const,
+});
+const e2eArtifact = Object.freeze({
+  kind: "ReleaseArtifact" as const,
+  artifactHash: e2eArtifactHash,
+  manifest: Object.freeze({ runtimeVersion: "runtime-1" }),
+  environmentSchema: Object.freeze([
+    Object.freeze({ name: "DATABASE_URL", kind: "secret-reference" as const, required: true }),
+  ]),
+});
+const e2eEnvironment: EnvironmentProfile = Object.freeze({
+  kind: "EnvironmentProfile",
+  environmentRef: "env:observe-findings-negative",
+  runtimeVersions: Object.freeze(["runtime-1"]),
+  bindings: Object.freeze([
+    Object.freeze({ name: "DATABASE_URL", kind: "secret-reference" as const, reference: "secret://findings-negative-db" }),
+  ]),
+});
 
 function recordLike(
   status: "succeeded" | "failed",
@@ -290,6 +321,45 @@ test("linkFinding rejects correlation with mismatched findingId", () => {
     () => linkFinding(finding, undefined, badCorrelation),
     /OBSERVE_INVALID_FINDING:LINKAGE_CORRELATION_FINDING/,
   );
+});
+
+test("negative findings path: real Deploy and autonomous Runtime continue across findings channel failure", async () => {
+  const registry = new DeploymentRegistry();
+  const deployment = dryRunDeploy({
+    publishedRelease: e2eRelease,
+    releaseArtifact: e2eArtifact,
+    environment: e2eEnvironment,
+    acceptanceChecks: [{ name: "runtime-health", pass: false }],
+    startedAt: "2026-08-21T10:00:00Z",
+    completedAt: "2026-08-21T10:01:00Z",
+  });
+  assert.equal(deployment.ok, true);
+  if (!deployment.ok) throw new Error("TASK158_DEPLOY_FAILED");
+  const record = registry.record(deployment.record);
+  assert.equal(record.status, "failed");
+
+  const observation = DeploymentObservation.fromDeploymentRecord(record);
+  const findings = deriveFindings(observation);
+  const unavailable: FindingsPublishObserver = {
+    deliver: async () => {
+      throw new Error("findings channel unavailable");
+    },
+  };
+  const publication = await publishFindings(findings, undefined, unavailable);
+  assert.equal(publication.ok, false);
+  if (publication.ok) throw new Error("TASK158_SHOULD_HAVE_FAILED_OPEN");
+  assert.equal(publication.outcome, "channel-failed");
+  assert.equal(registry.get(record.deploymentId), record);
+
+  const runtime = bootstrapAutonomousRuntime({
+    runtimeVersion: "runtime-1",
+    environment: e2eEnvironment,
+    requirements: Object.freeze([{ name: "DATABASE_URL", kind: "secret-reference", required: true }]),
+  });
+  assert.equal(runtime.ok, true);
+  if (!runtime.ok) throw new Error("TASK158_RUNTIME_DOWN");
+  assert.equal(runtime.health.status, "UP");
+  assert.equal(JSON.stringify(publication).includes("secret://findings-negative-db"), false);
 });
 
 test("publishFindings returns not-configured when no observer is set", async () => {

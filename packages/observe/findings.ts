@@ -451,11 +451,105 @@ type DeploymentFindingLinkagePayload = Readonly<{
   sessionRef?: string;
 }>;
 
-function linkageObservationId(observation: unknown): string {
+function linkageObservationId(observation: unknown, finding: DeploymentFinding): string {
   if (!isRecordLike(observation)) throw invalid("LINKAGE_NOT_OBJECT");
   const kind = observation["kind"];
   if (kind !== "DeploymentObservation" && kind !== "EnrichedDeploymentObservation") throw invalid("LINKAGE_KIND");
-  return assertReferenceOnly(requiredString(observation["observationId"], "observationId"), "observationId");
+  const observationId = assertReferenceOnly(requiredString(observation["observationId"], "observationId"), "observationId");
+  if (observationId !== finding.observationId) throw invalid("LINKAGE_OBSERVATION");
+  return observationId;
+}
+
+export function validateFindingLinkage(
+  linkage: unknown,
+  finding: DeploymentFinding,
+): DeploymentFindingLinkage {
+  if (!isRecordLike(linkage)) throw invalid("LINKAGE_NOT_OBJECT");
+  const validatedFinding = DeploymentFinding.validate(finding);
+  const record = linkage as Record<string, unknown>;
+  const allowed = new Set([
+    "kind",
+    "linkageId",
+    "findingId",
+    "observationId",
+    "deploymentId",
+    "publishedReleaseRef",
+    "environmentRef",
+    "releaseHash",
+    "severity",
+    "confidence",
+    "code",
+    "message",
+    "correlationId",
+    "operationId",
+    "runtimeRef",
+    "processRef",
+    "sessionRef",
+  ]);
+  for (const key of Object.keys(record)) {
+    if (!allowed.has(key)) throw invalid(`LINKAGE_UNKNOWN_FIELD:${key}`);
+  }
+  if (record["kind"] !== "DeploymentFindingLinkage") throw invalid("LINKAGE_KIND");
+
+  const requiredMatches = [
+    ["findingId", validatedFinding.findingId],
+    ["observationId", validatedFinding.observationId],
+    ["deploymentId", validatedFinding.deploymentId],
+    ["publishedReleaseRef", validatedFinding.publishedReleaseRef],
+    ["environmentRef", validatedFinding.environmentRef],
+    ["releaseHash", validatedFinding.releaseHash],
+    ["severity", validatedFinding.severity],
+    ["confidence", validatedFinding.confidence],
+    ["code", validatedFinding.code],
+    ["message", validatedFinding.message],
+  ] as const;
+  for (const [field, expected] of requiredMatches) {
+    const actual = requiredString(record[field], field);
+    assertReferenceOnly(actual, field);
+    if (actual !== expected) throw invalid(`LINKAGE_MISMATCH:${field}`);
+  }
+
+  const optionalExpected = {
+    operationId: validatedFinding.operationId,
+    runtimeRef: validatedFinding.runtimeRef,
+    processRef: validatedFinding.processRef,
+    sessionRef: validatedFinding.sessionRef,
+  } as const;
+  for (const [field, expected] of Object.entries(optionalExpected)) {
+    const actual = record[field];
+    if (expected === undefined) {
+      if (actual !== undefined) throw invalid(`LINKAGE_MISMATCH:${field}`);
+      continue;
+    }
+    const normalized = assertReferenceOnly(requiredString(actual, field), field);
+    if (normalized !== expected) throw invalid(`LINKAGE_MISMATCH:${field}`);
+  }
+
+  const correlationId = record["correlationId"] === undefined
+    ? undefined
+    : assertReferenceOnly(requiredString(record["correlationId"], "correlationId"), "correlationId");
+
+  const payload: DeploymentFindingLinkagePayload = Object.freeze({
+    kind: "DeploymentFindingLinkage",
+    findingId: validatedFinding.findingId,
+    observationId: validatedFinding.observationId,
+    deploymentId: validatedFinding.deploymentId,
+    publishedReleaseRef: validatedFinding.publishedReleaseRef,
+    environmentRef: validatedFinding.environmentRef,
+    releaseHash: validatedFinding.releaseHash,
+    severity: validatedFinding.severity,
+    confidence: validatedFinding.confidence,
+    code: validatedFinding.code,
+    message: validatedFinding.message,
+    ...(validatedFinding.operationId !== undefined ? { operationId: validatedFinding.operationId } : {}),
+    ...(validatedFinding.runtimeRef !== undefined ? { runtimeRef: validatedFinding.runtimeRef } : {}),
+    ...(validatedFinding.processRef !== undefined ? { processRef: validatedFinding.processRef } : {}),
+    ...(validatedFinding.sessionRef !== undefined ? { sessionRef: validatedFinding.sessionRef } : {}),
+    ...(correlationId !== undefined ? { correlationId } : {}),
+  });
+  const expectedLinkageId = sha256Canonical(payload);
+  if (record["linkageId"] !== expectedLinkageId) throw invalid("LINKAGE_ID");
+  return Object.freeze({ ...payload, linkageId: expectedLinkageId });
 }
 
 export function linkFinding(
@@ -468,7 +562,7 @@ export function linkFinding(
 
   const observationId = observation === undefined || observation === null
     ? validated.observationId
-    : linkageObservationId(observation);
+    : linkageObservationId(observation, validated);
 
   const correlationId = correlation === undefined || correlation === null
     ? undefined

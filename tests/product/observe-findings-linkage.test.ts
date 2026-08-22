@@ -150,6 +150,14 @@ test("linkFinding rejects an observation that is not an observation-like object"
     /OBSERVE_INVALID_FINDING:LINKAGE_KIND/);
 });
 
+test("linkFinding rejects an observation that does not match the finding source observation", () => {
+  const finding = failedFinding();
+  assert.throws(
+    () => linkFinding(finding, { kind: "DeploymentObservation", observationId: "sha256:foreign-observation" } as never),
+    /OBSERVE_INVALID_FINDING:LINKAGE_OBSERVATION/,
+  );
+});
+
 test("linkFinding rejects a correlation that binds a different finding", () => {
   const finding = failedFinding();
   const other = deriveFindings(enriched(observation("failed", [{ name: "liveness", status: "FAIL" }])));

@@ -209,6 +209,40 @@ test("publishFindings fails open when a linkage binds a finding not in the publi
   assert.equal(result.count, 0);
 });
 
+test("publishFindings rejects a forged linkage with matching findingId and never delivers it", async () => {
+  const source = findings();
+  const [finding] = source;
+  assert.ok(finding);
+  const linkage = linkFinding(finding);
+  const forged = { ...linkage, observationId: "sha256:foreign-observation" } as DeploymentFindingLinkage;
+  let delivered = false;
+  const observer: FindingsPublishObserver = { deliver: () => { delivered = true; } };
+
+  const result = await publishFindings(source, forged, observer);
+
+  assert.equal(result.ok, false);
+  if (result.ok) throw new Error("TASK155_SHOULD_HAVE_FAILED_OPEN");
+  assert.equal(result.outcome, "findings-failed");
+  assert.equal(delivered, false);
+});
+
+test("publishFindings rejects a value-tainted forged linkage without echoing the value", async () => {
+  const source = findings();
+  const [finding] = source;
+  assert.ok(finding);
+  const linkage = linkFinding(finding);
+  const secret = "password=hunter2";
+  const forged = { ...linkage, message: secret } as DeploymentFindingLinkage;
+
+  const result = await publishFindings(source, forged);
+
+  assert.equal(result.ok, false);
+  if (result.ok) throw new Error("TASK155_SHOULD_HAVE_FAILED_OPEN");
+  assert.equal(result.outcome, "findings-failed");
+  assert.equal(JSON.stringify(result).includes(secret), false);
+  assert.equal(JSON.stringify(result).includes("hunter2"), false);
+});
+
 test("findings publication is deterministic: equal inputs produce equal outcomes", async () => {
   const source = findings();
 

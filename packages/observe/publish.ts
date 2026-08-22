@@ -1,5 +1,6 @@
 import {
   DeploymentFinding,
+  validateFindingLinkage,
   type DeploymentFinding as DeploymentFindingType,
   type DeploymentFindingLinkage,
 } from "./findings.js";
@@ -125,13 +126,11 @@ function assertValidLinkage(
   findings: readonly DeploymentFindingType[],
 ): DeploymentFindingLinkage {
   if (!isRecordLike(linkage)) throw new Error("OBSERVE_FINDINGS_FAILED:linkage-not-object");
-  const record = linkage as Record<string, unknown>;
-  if (record["kind"] !== "DeploymentFindingLinkage") throw new Error("OBSERVE_FINDINGS_FAILED:linkage-kind");
-  if (typeof record["findingId"] !== "string") throw new Error("OBSERVE_FINDINGS_FAILED:linkage-finding");
-  if (!findings.some((finding) => finding.findingId === record["findingId"])) {
-    throw new Error("OBSERVE_FINDINGS_FAILED:linkage-foreign-finding");
-  }
-  return linkage as DeploymentFindingLinkage;
+  const findingId = linkage["findingId"];
+  if (typeof findingId !== "string") throw new Error("OBSERVE_FINDINGS_FAILED:linkage-finding");
+  const finding = findings.find((candidate) => candidate.findingId === findingId);
+  if (finding === undefined) throw new Error("OBSERVE_FINDINGS_FAILED:linkage-foreign-finding");
+  return validateFindingLinkage(linkage, finding);
 }
 
 export async function publishFindings(
