@@ -1,7 +1,7 @@
 ---
 id: TASK-211
 title: Close P12 controlled-evolution growing proof
-status: ready
+status: verification
 priority: 590
 milestone: M12
 model_tier: cheap

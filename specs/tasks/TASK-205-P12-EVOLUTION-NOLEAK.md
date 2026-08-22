@@ -1,7 +1,7 @@
 ---
 id: TASK-205
 title: Enforce reference-only no-leak semantics for Evolution evidence
-status: ready
+status: verification
 priority: 530
 milestone: M12
 model_tier: cheap

@@ -1,7 +1,7 @@
 ---
 id: TASK-207
 title: Reject incomplete or bypassing Mirror/Recipe evolution linkage
-status: ready
+status: verification
 priority: 550
 milestone: M12
 model_tier: cheap

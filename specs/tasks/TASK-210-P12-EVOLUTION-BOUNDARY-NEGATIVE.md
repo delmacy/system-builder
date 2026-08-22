@@ -1,7 +1,7 @@
 ---
 id: TASK-210
 title: Prove Evolution cannot bypass operational or production boundaries
-status: ready
+status: verification
 priority: 580
 milestone: M12
 model_tier: cheap

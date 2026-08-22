@@ -1,7 +1,7 @@
 ---
 id: TASK-206
 title: Link Evolution evidence to ProcessMirror and BusinessRecipe artifacts
-status: ready
+status: verification
 priority: 540
 milestone: M12
 model_tier: cheap

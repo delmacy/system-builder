@@ -1,7 +1,7 @@
 ---
 id: TASK-204
 title: Add lossless serialization for EvolutionRequestEvidence
-status: ready
+status: verification
 priority: 520
 milestone: M12
 model_tier: cheap

@@ -1,7 +1,7 @@
 ---
 id: TASK-203
 title: Add fail-closed validation for EvolutionRequestEvidence
-status: ready
+status: verification
 priority: 510
 milestone: M12
 model_tier: cheap
