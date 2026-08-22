@@ -1,7 +1,7 @@
 ---
 id: TASK-202
 title: Define deterministic EvolutionRequestEvidence from explicit Evolution triage
-status: ready
+status: verification
 priority: 500
 milestone: M12
 model_tier: cheap
