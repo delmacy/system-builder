@@ -1,7 +1,7 @@
 ---
 id: TASK-193
 title: Add positive operational resolution coverage
-status: ready
+status: verification
 priority: 548
 milestone: M12
 model_tier: cheap
