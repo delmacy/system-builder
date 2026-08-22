@@ -93,6 +93,16 @@ function withScope<T>(value: string | undefined, run: () => T): T {
   }
 }
 
+function atObservedTime<T>(run: () => T): T {
+  const originalNow = Date.now;
+  try {
+    Date.now = () => Date.parse(now);
+    return run();
+  } finally {
+    Date.now = originalNow;
+  }
+}
+
 function preparedSnapshot(task: Task): OrchestratorSnapshot {
   return {
     task,
@@ -166,26 +176,30 @@ describe("development sprint/work-package authority", () => {
 
   it("lets OpenCode handle an explicitly scoped architecture task, including codex-to-opencode override", () => {
     const root = rootWithScope();
-    withScope("M1-SPRINT-01", () => {
+    atObservedTime(() => withScope("M1-SPRINT-01", () => {
       const executor = new OpenCodeExecutor(root);
       assert.equal(executor.canHandle(architectureTask()), true);
-    });
+    }));
   });
 
   it("does not let OpenCode cross a scope executor or override boundary", () => {
     const noOverride = rootWithScope({ allow_executor_override: false });
     const wrongExecutor = rootWithScope({ allowed_executors: ["codex"] });
-    withScope("M1-SPRINT-01", () => {
+    const expired = rootWithScope({ expires_at: "2026-08-15T01:00:00.000Z" });
+    atObservedTime(() => withScope("M1-SPRINT-01", () => {
       assert.equal(new OpenCodeExecutor(noOverride).canHandle(architectureTask()), false);
       assert.equal(new OpenCodeExecutor(wrongExecutor).canHandle(architectureTask()), false);
-    });
+      assert.equal(new OpenCodeExecutor(expired).canHandle(architectureTask()), false);
+    }));
   });
 
   it("bypasses the architecture start gate only through the real OpenCode executor under the selected scope", () => {
     const root = rootWithScope();
     const snapshot = preparedSnapshot(architectureTask());
     const executor = new OpenCodeExecutor(root);
-    assert.equal(withScope(undefined, () => new LocalTaskOrchestrator(harness(snapshot), [executor]).inspect("TASK-004").state), "ARCHITECTURE_REVIEW_REQUIRED");
-    assert.equal(withScope("M1-SPRINT-01", () => new LocalTaskOrchestrator(harness(snapshot), [executor]).inspect("TASK-004").state), "PREPARED");
+    atObservedTime(() => {
+      assert.equal(withScope(undefined, () => new LocalTaskOrchestrator(harness(snapshot), [executor]).inspect("TASK-004").state), "ARCHITECTURE_REVIEW_REQUIRED");
+      assert.equal(withScope("M1-SPRINT-01", () => new LocalTaskOrchestrator(harness(snapshot), [executor]).inspect("TASK-004").state), "PREPARED");
+    });
   });
 });
