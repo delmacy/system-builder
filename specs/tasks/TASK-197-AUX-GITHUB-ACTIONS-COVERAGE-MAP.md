@@ -1,7 +1,7 @@
 ---
 id: TASK-197
 title: Map repository test surfaces to GitHub Actions coverage
-status: ready
+status: verification
 priority: 552
 milestone: M12
 model_tier: cheap

@@ -26,6 +26,38 @@ Fresh `main` contains exactly seven workflows.
 - None of the five OpenCode workflows should be counted as an additional general-purpose CI workflow because their triggers and write permissions serve orchestration state transitions.
 
 ### TASK-196 conclusion
-The seven-workflow topology is reconciled with fresh `main`. No workflow addition is justified from inventory alone. Subsequent TASKs must decide command coverage and governance gaps from this complete topology.
+The seven-workflow topology is reconciled with fresh `main`. No workflow addition is justified from inventory alone.
+
+## TASK-197 — Repository validation coverage map
+
+Repository scripts establish the following composition:
+- `verify = lint + typecheck + test + check:tasks + check:architecture + build`.
+- `test = test:unit + test:product`.
+- `test:product` invokes product scope `core`.
+- `test:product:heavy` invokes product scope `heavy`.
+- `test:product:full` invokes product scope `full`.
+- `run-product-tests.mjs` defines `core` as every product test not in the `HEAVY` set, `heavy` as exactly the `HEAVY` set, and `full` as every product test file. Therefore `full = core ∪ heavy`; there is no third product-test partition exclusive to `full`.
+
+| Validation surface | PR to `main` | Schedule | Manual | Push `main` | Classification |
+| --- | --- | --- | --- | --- | --- |
+| `npm run lint` | yes, through `verify` | not as general validation | indirectly in OpenCode verify runs | no general push trigger | PR-covered |
+| `npm run typecheck` | yes, through `verify` | not as general validation | indirectly in OpenCode verify runs | no general push trigger | PR-covered |
+| `npm run test:unit` | yes, through `test`/`verify` | no dedicated schedule | indirectly in OpenCode verify runs | no | PR-covered |
+| `npm run test:product` (`core`) | yes, through `test`/`verify` | no dedicated schedule | indirectly in OpenCode verify runs | no | PR-covered |
+| `npm run test:product:heavy` | no | nightly | yes (`heavy-tests.yml`) | no | scheduled + manual covered |
+| `npm run test:product:full` | no direct invocation | no direct invocation | no direct invocation | no | indirectly covered by union of core PR + heavy nightly/manual; command itself unused in Actions |
+| `npm run check:tasks` | yes, through `verify` | no | indirectly in OpenCode verify runs | no | PR-covered |
+| `npm run check:architecture` | yes, through `verify` | no | indirectly in OpenCode verify runs | no | PR-covered |
+| `npm run build` | yes, through `verify` | no | indirectly in OpenCode verify runs | no | PR-covered |
+| `npm run verify` | direct in `ci.yml` | no general schedule | direct in several OpenCode controllers | no | primary PR aggregate gate |
+
+### Coverage findings
+1. `test:product:full` is not a unique missing test surface. Running it would execute the same product test files already partitioned between core and heavy; a separate workflow solely to invoke `full` would duplicate coverage.
+2. There is a temporal gate difference: heavy tests are not a PR-blocking gate, so a PR can merge after core/unit/architecture/build verification while heavy failures would be discovered later by nightly/manual execution.
+3. There is no general `push`-to-`main` verification. The merged commit relies on the PR merge result plus the pre-merge PR check; this is a lifecycle-trigger question for TASK-198, not proof that a new workflow is required.
+4. The OpenCode workflows' internal `verify` runs are pre-publication safety checks for their own state transitions and should not be treated as coverage for arbitrary developer PRs.
+
+### TASK-197 conclusion
+All declared repository validation surfaces are either PR-covered, scheduled/manual heavy coverage, or compositionally covered. The only evidence-backed coverage gap is lifecycle timing: heavy tests are not pre-merge and no post-merge/main or merge-queue validation trigger exists. Whether those require workflow changes is deferred to governance analysis.
 
 Boundaries preserved: no `.github/**`, repository-setting, product/runtime, or P12 WBS 12.3.x mutation.
