@@ -1,7 +1,7 @@
 ---
 id: TASK-220
 title: Close Construction A autonomous Runtime growing proof
-status: ready
+status: completed
 priority: 220
 milestone: M13
 model_tier: architecture
