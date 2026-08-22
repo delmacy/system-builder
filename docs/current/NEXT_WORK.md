@@ -1,52 +1,63 @@
-# Next Work — P11 Construction Complete; Package Review Next
+# Next Work — P11 Package Review in Progress
 
 The repository is authoritative. Do not use chat history as technical authority.
 
 ## Just integrated
 
-All three P11 construction Sprints are merged:
+P11 construction is complete and post-merge repository memory is reconciled:
 
-- `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` — merged through PR #219 at `fd05da2`; Deterministic CI PASS. `TD-P7-03` closed.
-- `P11-OBSERVE-OPERATIONAL-METADATA-01` — merged through PR #221 at `1830705`; Deterministic CI PASS. `TD-P4-08` closed.
-- `P11-OBSERVE-INTEGRATION-E2E-01` — merged through PR #223 at merge commit `0dae4b058d1025dce5c8df54c6109707cac41727`; final Sprint head `cfbe21de397d0dbeb8c54ff00c4d0d51b0cbae26`; Deterministic CI #424 / run `32545758969` PASS.
+- Sprint 1 PR #219 merged;
+- Sprint 2 PR #221 merged;
+- Sprint 3 PR #223 merged at `0dae4b058d1025dce5c8df54c6109707cac41727`, Deterministic CI #424 / run `32545758969` PASS;
+- closure-state reconciliation PR #225 merged at `a1c82d693eb0d0bc22da8228024c95dada8a021d`.
 
-Sprint 3 closes the findings path: deterministic findings with context/confidence, fail-closed validation, lossless serialization, correlation/linkage to deployment/release/environment/runtime context, fail-open publication, actual Deploy integration, autonomous Runtime continuation and no resolved secret/credential/CA value leakage.
+## Active work
 
-The post-merge repository-memory reconciliation records TASK-149..160 as `verification` and adds `P11-OBSERVE-INTEGRATION-E2E-01.report.md`.
+The mandatory **P11 Integration & Technical Debt Review** is materialized on `review/P11-PACKAGE-01-integration-debt`.
+
+The review revalidates the integrated P11 package from fresh `main`, classifies residual debt, verifies architecture/DAG/risk boundaries, and selects successor readiness from actual repository evidence.
+
+## Review conclusion before review-head CI
+
+- P11 package goal: PASS;
+- architecture/boundaries: PASS WITH DEBT;
+- critical rollback blocker: NONE FOUND;
+- `TD-P7-03`: CLOSED;
+- `TD-P4-08`: CLOSED;
+- high production/fleet debt remains (`TD-P4-04`, `TD-P7-02`, `TD-P9-01`, `TD-P9-02`);
+- medium `TD-P8-01` remains;
+- WBS 11.3.3 forwarding findings evidence to Support/Evolution remains unsatisfied and is the strongest bounded adjacent product gap.
+
+## Successor forecast
+
+The review materializes `P12-PACKAGE-01 — Support & Evolution Evidence Intake` as **SKELETON_ONLY / FORECAST**.
+
+Why this is the recommended successor:
+
+- P11 now produces deterministic, correlated findings evidence;
+- WBS 11.3.3 explicitly requires forwarding evidence to Support/Evolution without auto-governance;
+- Support & Evolution scope explicitly accepts telemetry/findings as inputs;
+- WBS 12.1/12.2 defines intake, classification, prioritization and support/problem records;
+- this is a bounded downstream contract/evidence step and does not silently introduce production fleet topology.
 
 ## Required action
 
-The next authoritative action is the mandatory **P11 Integration & Technical Debt Review**, subject to revalidation from fresh integrated `main` after this closure-state reconciliation merges.
+1. Run Deterministic CI on the P11 review PR head.
+2. If green, perform human review and merge the P11 Integration & Technical Debt Review.
+3. Reconstruct fresh `main` after that merge.
+4. Revalidate `P12-PACKAGE-01` from repository truth.
+5. Only then select the P12 direction and materialize its first COMMITTED Sprint with ready TASK specs.
 
-Per `project_docs/schedule/SPRINT_GENERATION_POLICY.md`, the review must:
+Do not start P12 product construction from the skeleton alone.
 
-- reconstruct fresh repository truth;
-- verify the complete P11 package goal and integrated regression chain;
-- classify residual technical debt;
-- revalidate affected contracts and dependency DAG;
-- update risks/readiness;
-- promote or demote successor work from actual integrated evidence;
-- create the next Sprint Package only from the reviewed state.
+## P12 forecast boundary
 
-Do not infer the successor from task numbering, prior chat history, or old forecast text.
+Candidate package direction: consume provider-neutral findings/evidence in Support & Evolution for intake/triage and controlled lifecycle routing.
 
-## Current package proof
+Non-goals until separately authorized:
 
-`durable DeploymentRecord -> provider-neutral DeploymentObservation -> operational metadata -> enriched observation -> deterministic findings with severity/confidence -> correlation + linkage to deployment/release/environment/runtime context -> lossless serialization -> fail-open Observe publication -> Runtime continuity with Observe unavailable/not configured -> no resolved secret/credential/CA value in emitted artifacts`
-
-## Verification baseline
-
-PR #223 Deterministic CI #424 / run `32545758969` PASS:
-
-- unit 309/309;
-- core product 298/298;
-- 161 task specs validated;
-- lint/typecheck/architecture/build PASS.
-
-## Boundary
-
-- Do not add new Observe product behavior in the closure reconciliation.
-- Do not change canonical `DeploymentRecord`, Sprint 1 observation identity or Sprint 2 metadata identity.
-- Do not modify ADR/L4 boundaries, `.github/**` or `tooling/**` as part of this reconciliation.
-- Do not start successor construction before the P11 Integration & Technical Debt Review determines readiness.
-- The package review is a separate review transition and must be grounded in the repository after this reconciliation is merged.
+- automatic remediation or production mutation from findings;
+- bypassing Mirror/Recipe for business behavior changes;
+- fleet/Kubernetes/load-balancer/DNS/service-mesh architecture;
+- public contract/L4 changes without explicit authority/ADR;
+- starting committed construction before the P11 review merge and P12 revalidation gate.

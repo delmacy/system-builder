@@ -8,74 +8,71 @@ Date: 2026-08-22
 
 ## Integrated maturity
 
-- P1–P9 construction/review history is integrated.
-- P9 Integration & Technical Debt Review merged through PR #198; P9 corrective SCRAM/TLS merged through PR #197.
-- P10 package is complete and closed: Sprint 1 `P10-PRODUCTION-SECRETRESOLVER-01` merged through PR #201; Sprint 2 `P10-TLS-SERVER-IDENTITY-01` merged through PR #214; P10 Integration & Technical Debt Review merged through PR #216. `TD-P4-05` and `TD-P8-02` are closed.
-- `P11-PACKAGE-01` selected Direction B — Observe/operations publication (WBS 10.3.3).
-- P11 Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` merged through PR #219 at `fd05da2`; Deterministic CI PASS. `TD-P7-03` closed; `TD-P4-08` partially closed.
-- P11 Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` merged through PR #221 at `1830705`; Deterministic CI PASS. `TD-P4-08` closed.
-- P11 Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` merged through PR #223 at merge commit `0dae4b058d1025dce5c8df54c6109707cac41727`; final Sprint head `cfbe21de397d0dbeb8c54ff00c4d0d51b0cbae26`; Deterministic CI #424 / run `32545758969` PASS.
-- Sprint 3 closure evidence is recorded in `project_docs/execution_planning/P11-OBSERVE-INTEGRATION-E2E-01.report.md`; TASK-149..160 are at `status: verification` after the post-merge repository-memory reconciliation.
+- P1–P10 construction/review history is integrated.
+- P11 package construction is complete across three merged Sprints.
+- Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` merged through PR #219.
+- Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` merged through PR #221.
+- Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` merged through PR #223 at `0dae4b058d1025dce5c8df54c6109707cac41727`; Deterministic CI #424 / run `32545758969` PASS.
+- Post-Sprint-3 repository-memory reconciliation merged through PR #225 at `a1c82d693eb0d0bc22da8228024c95dada8a021d`.
+- P11 Integration & Technical Debt Review is materialized on `review/P11-PACKAGE-01-integration-debt` from that fresh integrated base.
 
 ## Active milestone
 
-M11 (candidate).
+M11 package review.
 
-P11 construction is complete. All three construction Sprints are merged. Per `project_docs/schedule/SPRINT_GENERATION_POLICY.md`, the next eligible package-level action is the mandatory **P11 Integration & Technical Debt Review**, revalidated from fresh integrated `main`.
+P11 construction result: **PASS**.
+Architecture/boundary revalidation: **PASS WITH DEBT**.
+Critical rollback blocker: **NONE FOUND**.
 
-No P12/successor package is promoted by the current state. Successor readiness must be decided by the P11 package review from actual integrated evidence.
-
-## Achieved P9 construction proof
-
-`durable Catalog -> Assembly -> Validation -> Compiler -> durable Release/Artifact -> managed A -> durable authority A -> accepted B promotion -> durable authority B -> stale C + failed D retention -> controlled old-manager shutdown -> fresh authenticated Deploy/Release/Artifact reconstruction -> fresh manager rematerializes B -> B health UP with Builder/Observe unavailable`
-
-## Achieved P10 construction proof
-
-`managed A -> durable authority A -> production SecretResolver resolves symbolic secret bindings -> managed Runtime process starts with resolved ephemeral values -> no resolved value in durable Release/Deployment evidence -> Runtime continuity with Builder/Observe unavailable -> shared Transport and rendered Runtime perform positive PostgreSQL TLS server-identity verification (verify-ca/verify-full, fail-closed) -> authenticated SCRAM positive-verification E2E`
+The review recommends `P12-PACKAGE-01 — Support & Evolution Evidence Intake` as the strongest bounded successor and materializes it as **SKELETON_ONLY / FORECAST**. P12 construction is not authorized until the P11 review merges and P12 is separately revalidated/materialized as COMMITTED.
 
 ## Achieved P11 construction proof
 
-Sprint 1 established provider-neutral deployment observations and fail-open publication. Sprint 2 added deterministic operational metadata correlated to release/environment/runtime context. Sprint 3 completed findings derivation, validation, serialization, correlation, linkage and fail-open publication with actual Deploy integration and Runtime autonomy proof.
+`durable DeploymentRecord -> provider-neutral DeploymentObservation -> operational metadata -> enriched observation -> deterministic findings with severity/confidence -> correlation + linkage to deployment/release/environment/runtime context -> lossless serialization -> fail-open Observe publication -> Runtime continuity with Observe unavailable/not configured -> no resolved secret/credential/CA value in emitted artifacts`
 
-Growing package proof:
+## P11 verification evidence
 
-`durable DeploymentRecord -> provider-neutral DeploymentObservation -> operational metadata (executor/source/mode) -> enriched observation -> deterministic findings with severity/confidence -> correlation + linkage to deployment/release/environment/runtime context -> lossless serialization -> fail-open Observe publication -> Runtime continuity with Observe unavailable/not configured -> no resolved secret/credential/CA value in emitted artifacts`
-
-## P11 Sprint 3 verification evidence
-
-Deterministic CI #424, run `32545758969`, PASS:
+Sprint 3 Deterministic CI #424 / run `32545758969` PASS:
 
 - lint PASS;
 - typecheck PASS;
 - unit 309/309 PASS;
 - core product 298/298 PASS;
-- `check:tasks` 161 task specifications validated;
+- 161 task specifications validated;
 - architecture gates PASS;
 - build PASS.
 
-The product tests cover findings contract, derivation, validation, serialization, correlation, linkage, fail-open behavior, no-leak behavior, actual Deploy positive path, negative channel failure, and autonomous Runtime continuation.
+Review-head Deterministic CI is required before the package review merges.
 
 ## Architecture boundary
 
-- Deploy-owned single-host reference lifecycle remains unchanged.
 - Observe remains optional to Runtime operation (ADR-0002).
 - No canonical `DeploymentRecord` schema/identity change.
-- No Sprint 1 observation identity or Sprint 2 operational-metadata identity change.
-- No new ADR/L4 boundary, destructive migration, external service manager, fleet topology, Kubernetes, scheduler, load balancer, DNS or reverse-proxy claim is introduced by P11.
-- Durable evidence remains reference-only/value-leak-free under ADR-0007.
+- No Sprint 1 observation identity or Sprint 2 metadata identity change.
+- Durable evidence remains reference-only/value-leak-free (ADR-0007).
+- No new L4/fleet/Kubernetes/scheduler/load-balancer/DNS/service-mesh/external-service-manager claim is introduced by P11.
+- Downstream Support/Evolution must consume evidence/contracts, not Observe internals.
 
-## Residual inputs / technical debt
+## Technical debt disposition
 
-- production traffic/fleet/infrastructure rollback remains unclaimed;
-- process supervision/reconciliation remains single-host and process-local (`TD-P9-01`/`TD-P9-02`);
-- `TD-P4-05` closed in P10;
-- `TD-P8-02` closed in P10;
-- `TD-P7-03` closed in P11 Sprint 1;
-- `TD-P4-08` closed in P11 Sprint 2;
-- P11 Sprint 3 post-merge repository-memory drift (TASK-151/TASK-159/TASK-160 status plus missing closure report/stale current docs) is repaired by `hotfix/P11-sprint3-closure-state`.
+Closed by P11:
+
+- `TD-P7-03` — Deployment operational publication absent: CLOSED.
+- `TD-P4-08` — operational DeploymentRecord semantics incomplete: CLOSED.
+
+Carried high before production/fleet claims:
+
+- `TD-P4-04` — migration/fleet coordination;
+- `TD-P7-02` — infrastructure rollback semantics;
+- `TD-P9-01` / `TD-P9-02` — fleet/process supervision/reconciliation.
+
+Carried medium:
+
+- `TD-P8-01` — coarse deployment serialization;
+- WBS 11.3.3 — findings/evidence handoff to Support/Evolution without auto-governance.
 
 ## Current gate
 
-P11 construction is complete and merged. The current gate is **P11 Integration & Technical Debt Review revalidation** from fresh `main` after the Sprint 3 closure-state reconciliation merges.
+The authoritative next gate is the **P11 Integration & Technical Debt Review PR**.
 
-Do not start successor package construction from task numbering, chat history or forecast assumptions. The package review must classify residual debt, verify the full integrated regression chain, revalidate contracts/DAG/risks, and promote or demote successor work from repository truth.
+The review must pass Deterministic CI and human review before merging. After that merge, reconstruct fresh `main` and revalidate/materialize P12. Do not begin P12 construction from this forecast skeleton alone.
