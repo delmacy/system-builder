@@ -21,8 +21,7 @@ Primary decision: no additional general validation workflow is currently justifi
 - TASK-197 commit `7fd55c9a5620ac06a817f2ba71d9cd408b7cb5a8` — Deterministic CI #510 PASS.
 - TASK-198 commit `b5e90d4d118859ad13794b0da1eeba5e0def3c22` — Deterministic CI #511 PASS.
 - TASK-199 commit `bf5153d060c6c7bbad8821c4fe7722e0696799fc` — Deterministic CI #512 PASS.
-- Sprint report evidence head `25a6c1bd71d6489ea0c7a66cd6146a136c1ee3f7` — Deterministic CI #513 PASS.
-- Final Sprint Review manifest head `367d1a6dcc40804ca07fe81c7cd0417aaba892cc` — Deterministic CI #514 PASS.
+- Closure documentation commits were validation-only annotations after TASK-199; the latest pre-seal head `76de86053f793130c9b1f752f283f4a3649fed50` passed Deterministic CI #515.
 
 ## Boundaries
 - no `.github/**` modification;
