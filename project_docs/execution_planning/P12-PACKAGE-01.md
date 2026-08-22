@@ -1,41 +1,29 @@
 # P12-PACKAGE-01 — Support & Evolution Evidence Intake
 
-Status: ACTIVE — SPRINT 1 CONSTRUCTED / FINAL SPRINT REVIEW GATE
+Status: ACTIVE — SPRINT 1 MERGED / SPRINT 2 AT SPRINT REVIEW
 Milestone: M12
-Integrated predecessor: P11 review PR #226 merged at `d119480e4e665f53103832da9e47dfa897d1f4e2`.
 
 ## Package goal
-Close the first post-production lifecycle handoff by consuming provider-neutral Observe findings and human-origin evidence in Support & Evolution without automatic governance or production mutation.
+Close the first post-production lifecycle handoff by consuming provider-neutral operational/human evidence in Support & Evolution, classifying it for the correct lifecycle destination, and later recording controlled resolution/evolution evidence without automatic production governance.
 
-Primary WBS drivers: 11.3.3, 12.1.1, 12.1.2, 12.1.3, later 12.2.x and 12.3.x.
+Primary WBS drivers: 11.3.3, 12.1.1-12.1.3, later 12.2.x and 12.3.x.
 
-## Sprint 1 — Support evidence intake
-`P12-SUPPORT-EVIDENCE-INTAKE-01` is constructed on PR #227.
+## Construction Sprint 1 — Support evidence intake
+`P12-SUPPORT-EVIDENCE-INTAKE-01`: **MERGED** through PR #227 at `91936363d7322c80424b67a3dcfbbcda6f98e82b`; final CI #459 PASS.
 
-Achieved:
-- deterministic content-addressed `SupportEvidenceIntake`;
-- mandatory explicit provenance for `observe_finding` and `human_request`;
-- fail-closed validation and lossless serialization;
-- actual P11 finding mapping without Support importing Observe internals;
-- request/incident/feedback capture;
-- no-value-leak enforcement;
-- positive/negative/E2E evidence.
+## Construction Sprint 2 — Support triage classification
+`P12-SUPPORT-TRIAGE-CLASSIFICATION-01`: **CONSTRUCTED / SPRINT REVIEW** on PR #228.
 
-Review evidence: TASK-171 closure CI #456 PASS; TASK-172 first correction CI #457 FAIL due diagnostic ordering only; bounded repair head `84446b01b1c41fae2c20c2672f0e6df4c6b3bf3d` CI #458 PASS. TASK-173 is docs-only reconciliation and its CI is the final PR-head gate.
+Constructed proof:
+`DeploymentFinding|human evidence -> SupportEvidenceIntake -> explicit SupportTriageDecision -> validated/lossless triage evidence`
 
-## Growing proof
-`DeploymentRecord -> DeploymentObservation -> DeploymentFinding -> SupportEvidenceIntake -> complete provenance -> validated/lossless evidence -> later Support/Evolution triage (forecast)`
+Classification is explicitly one of `Support|Maintenance|Evolution`; impact/criticality/SLA/priority/context are stable explicit references. No automatic scoring, inference, remediation or production mutation is implemented.
 
-## Forecast Sprint 2 — Triage and classification
-Candidate only: deterministic classification as Support/Maintenance/Evolution, impact/criticality/SLA/context and traceability to originating intake. **Not committed or authorized yet.**
+## Forecast Construction Sprint 3 — Resolution/evolution linkage
+Remains **FORECAST ONLY**. Candidate scope includes support/problem records, cause/resolution/evidence and controlled Evolution proposal linkage back toward Mirror/Recipe. No direct business change execution. Forecast is not authorization.
 
-Promotion requires PR #227 merge, fresh-main reconstruction and package revalidation.
-
-## Forecast Sprint 3
-Resolution/evolution linkage remains forecast-only.
-
-## Package review
-Mandatory after committed P12 construction Sprints merge.
+## Package Integration & Technical Debt Review
+Mandatory after the committed P12 construction horizon is completed/merged, per Sprint Generation Policy.
 
 ## Boundaries
-No Observe-internal dependency; no automatic production mutation; business behavior changes return through the controlled lifecycle; Runtime autonomy/no-value-leakage preserved; no fleet/Kubernetes/LB/DNS/service-mesh claim; no L3/L4/public-contract change without explicit authority.
+Support/Evolution consumes evidence/contracts, not producer internals. No automatic production mutation. Business behavior changes return through controlled Mirror/Recipe/release lifecycle. Runtime autonomy and no-value-leakage remain invariant. No L4 change was made in Sprint 2.

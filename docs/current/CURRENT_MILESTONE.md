@@ -1,25 +1,14 @@
-# Current Execution Milestone — M12 P12 Support Evidence Intake Sprint 1
-
-## Goal
-Establish the first Support & Evolution evidence boundary downstream of P11 with deterministic, complete-provenance intake and no automatic production mutation.
+# Current Execution Milestone — M12 P12 Support Triage Classification Sprint 2
 
 ## Integrated predecessor
-P11 review merged through PR #226 at `d119480e4e665f53103832da9e47dfa897d1f4e2` after CI #427 PASS. P12 was then revalidated and Sprint 1 committed.
+P12 Sprint 1 merged through PR #227 at `91936363d7322c80424b67a3dcfbbcda6f98e82b`; final Sprint Review head passed Deterministic CI #459.
 
-## Sprint 1 result
-Construction: **PASS WITH SPRINT REVIEW CORRECTION CLOSED**.
+## Sprint 2 result
+`P12-SUPPORT-TRIAGE-CLASSIFICATION-01` is **CONSTRUCTED / SPRINT REVIEW** on PR #228. TASK-174..184 are in verification.
 
-TASK-161..171 established deterministic intake identity, explicit source models, fail-closed validation, serialization, P11 finding mapping, human capture, no-leak enforcement and actual P11->P12 E2E.
+The Sprint creates deterministic triage evidence linking validated intake to an explicitly supplied `Support|Maintenance|Evolution` decision plus explicit impact, criticality, SLA, priority and context references. It includes fail-closed validation, lossless serialization, intake linkage, no-value-leak enforcement and both Observe/human growing E2Es.
 
-Sprint Review found a provenance-completeness gap. TASK-172 now requires source-specific provenance for every intake. Its first correction head failed CI #457 only because validation diagnostic precedence changed; bounded repair `84446b01b1c41fae2c20c2672f0e6df4c6b3bf3d` restored that precedence and CI #458 PASS.
-
-## Growing proof
-`DeploymentRecord -> DeploymentObservation -> DeploymentFinding -> SupportEvidenceIntake -> complete provenance -> validation -> lossless serialization -> Support/Evolution evidence`
-
-No remediation, production mutation, triage/classification decision or uncontrolled lifecycle routing is introduced.
+No automated classification/scoring, remediation, ownership scheduling, production mutation or direct Evolution execution was introduced.
 
 ## Current gate
-TASK-173 docs-only repository-memory reconciliation must pass final PR-head Deterministic CI. Then PR #227 is ready for the authorized Sprint Review merge.
-
-## Successor forecast
-Triage/classification remains the strongest candidate direction, but it is **FORECAST ONLY** until PR #227 merges, fresh `main` is reconstructed and `P12-PACKAGE-01` is revalidated. Do not execute successor construction from this document.
+Observe final GitHub Deterministic CI on the PR #228 closure head and perform Sprint Review. Do not materialize Sprint 3 automatically.
