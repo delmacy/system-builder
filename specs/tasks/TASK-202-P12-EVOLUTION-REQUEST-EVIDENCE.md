@@ -1,0 +1,49 @@
+---
+id: TASK-202
+title: Define deterministic EvolutionRequestEvidence from explicit Evolution triage
+status: ready
+priority: 500
+milestone: M12
+model_tier: cheap
+risk: medium
+architecture_impact: false
+executor_preference: any
+depends_on: []
+context_paths:
+  - AGENTS.md
+  - docs/current/PROJECT_STATE.md
+  - project_docs/execution_planning/P12-CONTROLLED-EVOLUTION-LINKAGE-01.md
+  - project_docs/12-support-evolution/WBS.md
+  - packages/support-evolution/triage.ts
+  - packages/support-evolution/index.ts
+allowed_paths:
+  - packages/support-evolution/evolution-request.ts
+  - packages/support-evolution/index.ts
+  - tests/product/evolution-request-contract.test.ts
+  - specs/tasks/TASK-202-P12-EVOLUTION-REQUEST-EVIDENCE.md
+forbidden_paths:
+  - packages/contracts/**
+  - packages/release/**
+  - packages/deploy/**
+  - .github/**
+max_files: 4
+validation:
+  - npm run test:product
+  - npm run verify
+---
+
+# Objective
+Create a deterministic provider-neutral `EvolutionRequestEvidence` artifact derived only from a validated `SupportTriageDecision(Evolution)` and explicit process-change evidence references.
+
+# Required change
+Add the bounded Support/Evolution API and focused contract tests. The constructor must reject Support/Maintenance triage, require explicit evidence/provenance refs, derive stable identity deterministically, and expose no execution/mutation method.
+
+# Acceptance criteria
+- only explicit `Evolution` triage is accepted;
+- original `intakeId`/`triageId` remain linked by identity/reference, not embedded upstream objects;
+- evidence/reason/context refs are explicit and deterministic;
+- no direct Mirror/Recipe execution or production mutation exists;
+- product tests and repository verification pass.
+
+# Escalation
+Stop if a shared contract/schema or L4 boundary must change.
