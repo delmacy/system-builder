@@ -4,7 +4,7 @@ title: Execute declared interval jobs inside the generated autonomous Runtime
 status: ready
 priority: 225
 milestone: M13
-model_tier: code
+model_tier: cheap
 risk: high
 architecture_impact: false
 executor_preference: any
