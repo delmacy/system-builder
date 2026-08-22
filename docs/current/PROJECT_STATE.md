@@ -5,27 +5,30 @@ Date: 2026-08-22
 ## Repository
 `delmacy/system-builder` is canonical. P12 is CLOSED. P13 Construction A `P13-RUNTIME-CORE-EXECUTION-01` is INTEGRATED through PR #237.
 
-PR #238 reconciled repository memory and the Construction B gate. Its exact head `cccc4a7c2d16ebc240a7398402b4ce22faa21b34` passed Deterministic CI #562 and merged as `57b8cf3c4c671dd06b590514acac9ce449e7e69b`. Head -> merge-main contains zero file differences; merge tree is `b2564f1b1b4f908a3bc0ac0c0a4b79966f0d5a07`.
+Repository-memory gate PR #238 merged as `57b8cf3c4c671dd06b590514acac9ce449e7e69b` after Deterministic CI #562 PASS. Bounded L3 change-control PR #239 passed Deterministic CI #563 on exact head `60d24d36963d2866f65d6e5f5d6e108cd9b865db` and merged as fresh main `8e9e7f1e3c86588ec0edbca0344a48f398332c7c`, tree `62e871d54a522a1e9faa9ccb854e04aba9bced63`, with zero reviewed-head file drift.
 
 ## Integrated maturity
 - P1-P11 integrated.
 - `P12-PACKAGE-01`: CLOSED.
 - `P13-PACKAGE-01`: ACTIVE.
 - Construction A TASK-212..220: INTEGRATED.
-- Construction B: FORECAST; not materialized.
+- Construction B bounded L3 change control: INTEGRATED / ACCEPTED.
+- Construction B `P13-RUNTIME-SERVICES-BINDINGS-01`: COMMITTED / MATERIALIZED with TASK-221..230 on the materialization branch; no TASK implementation has started.
 
-## Construction B L3 change control
-Fresh-main analysis confirmed that jobs/events/files/integrations require explicit public execution semantics before Construction B can be materialized.
+## Construction B materialization result
+Fresh-main revalidation confirms the accepted L3 envelope still matches the concrete WBS 13.1.2/13.1.3 gap and no L4 change is required to materialize the Sprint.
 
-Bounded L3 change control is now recorded in `project_docs/execution_planning/P13-PACKAGE-01.construction-b-l3-change-control.md`.
+The committed increment is dependency-safe:
+- TASK-221 declares only the bounded SystemDefinition jobs/events/files/integration semantics;
+- TASK-222 adds optional reference-only binding compatibility classification;
+- TASK-223/224 project/materialize those descriptors deterministically;
+- TASK-225..228 execute representative job/event/file/integration paths incrementally;
+- TASK-229 extends fail-closed/no-value-leak proof;
+- TASK-230 closes the growing E2E proof and Sprint Report.
 
-The authority is intentionally narrow: a future Construction B may add only the minimum additive/backward-compatible declarative execution descriptors needed for jobs, events, files/storage, integrations, their deterministic compiler projection and reference-only external-binding compatibility metadata. No runtime behavior may be inferred.
-
-No L4 change is authorized or currently identified. Any required new Builder/Runtime relation, release model, bounded context, suite topology or production topology stops for ADR review.
+No scheduler/broker/object-store/integration vendor, new bounded context, new worker/service topology, Release/Environment ownership change or Builder dependency is introduced by materialization.
 
 ## Current gate
-The change-control branch itself must receive exact-head deterministic CI and review/integration. Construction B remains FORECAST and must not be materialized from this branch.
+Validate/review this planning-only materialization diff. After it is integrated, reconstruct fresh `main`, create `sprint/P13-RUNTIME-SERVICES-BINDINGS-01` from that exact main, and only then execute TASK-221..230 in dependency order under their declared paths/validation constraints.
 
-After accepted change control is integrated, reconstruct fresh `main`, re-read actual contracts and predecessor outputs, and only then revalidate whether Construction B can be promoted to COMMITTED.
-
-Construction C, Package Integration & Review, Documentation & Closure, `P13-PACKAGE-02` and `P13-PACKAGE-03` remain not started.
+Construction C, Package Integration & Review, Documentation & Closure, `P13-PACKAGE-02` and `P13-PACKAGE-03` remain FORECAST/not started.

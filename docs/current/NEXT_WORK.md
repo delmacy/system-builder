@@ -1,23 +1,27 @@
-# Next Work — P13 Package 01 Construction B L3 Change-Control Review
+# Next Work — P13 Package 01 Construction B Materialization Review
 
 The repository is authoritative.
 
 ## Integrated truth
-PR #238 reconciled Construction A as INTEGRATED and recorded Construction B as blocked pending bounded L3 change control. Its exact head `cccc4a7c2d16ebc240a7398402b4ce22faa21b34` passed Deterministic CI #562 and merged as `57b8cf3c4c671dd06b590514acac9ce449e7e69b`, with zero file drift to merge-main.
+PR #239 integrated the accepted bounded L3 change control on fresh main `8e9e7f1e3c86588ec0edbca0344a48f398332c7c`, tree `62e871d54a522a1e9faa9ccb854e04aba9bced63`, after Deterministic CI #563 PASS on exact head `60d24d36963d2866f65d6e5f5d6e108cd9b865db` and zero file drift.
 
-## Current work
-Review/integrate the bounded L3 change-control record for WBS 13.1.2/13.1.3. It authorizes only minimum additive/backward-compatible public semantics for explicit jobs/events/files-storage/integration execution plus deterministic runtime projection and reference-only binding compatibility metadata where required.
+## Materialized next Sprint
+`P13-RUNTIME-SERVICES-BINDINGS-01` — COMMITTED / MATERIALIZED.
+
+TASKs: TASK-221..230.
+
+Goal: extend the real Construction A generated-runtime chain through representative explicit job, event, file/storage and integration execution while preserving reference-only external bindings, fail-closed behavior, no-value-leak, Release/Environment separation and Builder != Runtime.
 
 ## Required next action
-1. Validate this change-control branch on its exact head.
-2. Confirm it changes only repository memory/governance authority and no product contracts/code.
-3. If approved, merge it.
+1. Validate/review the materialization branch on its exact head.
+2. Confirm the diff is planning-only: repository memory, Sprint manifest and TASK specs; no contract/code implementation.
+3. If approved and green, merge the materialization PR.
 4. Reconstruct fresh `main`.
-5. Re-read `P13-PACKAGE-01`, the change-control record, `SystemDefinition`, `EnvironmentProfile`, compiler runtime projection and Construction A outputs.
-6. Revalidate Construction B from fresh integrated truth.
-7. Only if still bounded and dependency-safe, materialize at most Construction B with concrete TASK specs; do not execute its TASKs unless separately authorized.
+5. Create `sprint/P13-RUNTIME-SERVICES-BINDINGS-01` from that exact main.
+6. Execute only TASK-221..230 in dependency order, one authoritative commit per TASK.
+7. Run declared validations, TASK-230 growing proof, final `npm run verify`, open one Sprint Review PR and stop.
 
 ## Stop conditions
-Any concrete need for a new L4 boundary, Builder/Runtime relation, release model, bounded context, suite topology or production topology requires an ADR before proceeding.
+Stop for ADR if concrete execution requires a new L4 boundary, Builder/Runtime relation, bounded context, release model, suite topology or production topology. Do not broaden into vendor-specific scheduler/broker/object-store/integration infrastructure, auth/views/permissions or P13-PACKAGE-02/03.
 
-Do not start Construction C, Package Integration & Review, Documentation & Closure, `P13-PACKAGE-02` or `P13-PACKAGE-03`.
+Do not start Construction C, Package Integration & Review or Documentation & Closure before Construction B integration and fresh-main revalidation.
