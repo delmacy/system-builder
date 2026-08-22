@@ -1,30 +1,49 @@
-# Next Work — P12 Closure Gate / P13 Planning Eligibility
+# Next Work — P13 Package 01 Planning Review / Construction A Gate
 
 The repository is authoritative.
 
-## Current integrated truth
-P12 Sprints 1-4 are merged. The product chain is integrated through WBS 12.3.3, with Sprint 4 merged by PR #234 at `24f86de2aa53fb9ffc3f3aaf9804b5b727473515` after exact-head Deterministic CI #540 PASS.
+## Integrated truth
+P12 is CLOSED and its closure is integrated through PR #235 at main merge `7c85da5c217f645f7968e62328dd7ec1d56dc237`. Closure head `d507934c58fd1f8b2e773d5c36f07a15d9d748c6` passed Deterministic CI #541; closure-head -> merge-main has zero file differences.
 
-The grandfathered P12 Package Integration & Technical Debt Review found no blocking debt and reconciles repository memory in `P12-PACKAGE-INTEGRATION-CLOSURE-01`.
+## Planning result
+The authorized Planning & Materialization Sprint for `P13-PACKAGE-01 — Autonomous Runtime Functional Execution` has inventoried fresh-main runtime truth against WBS 13.1.1-13.1.3.
+
+Coverage matrix:
+- entities — MISSING;
+- APIs — PARTIAL;
+- actions — PARTIAL;
+- workflows — MISSING;
+- jobs — MISSING;
+- events — MISSING;
+- files — MISSING;
+- integrations — MISSING;
+- external configuration — DELIVERED foundation / PARTIAL breadth.
+
+TASK-060, TASK-063 and P4-P10 runtime/state/deploy/configuration capabilities are predecessor evidence and are not repeated as new work.
+
+Planning found no new L4 boundary. The current SystemDefinition does expose entities/actions/process states, but lacks explicit executable action effects and workflow transitions. This is recorded as the bounded L3 prerequisite for Construction A rather than inferred behavior.
+
+## Materialized next Sprint
+`P13-RUNTIME-CORE-EXECUTION-01` — COMMITTED / MATERIALIZED.
+
+TASKs: TASK-212..220.
+
+Goal: execute actual materialized entities/APIs/actions/workflows through:
+`SystemDefinition -> Catalog -> Assembly -> Validation -> Compiler -> Release -> Artifact -> Deploy + external configuration -> autonomous Runtime`.
+
+The Sprint must preserve Builder != Runtime, PostgreSQL durability, external activation-time bindings and no-value-leakage. TASK-212 is the only authorized shared-contract change and is additive L3. Any L4 requirement stops for ADR review.
 
 ## Required next action
-1. Validate the package-closure branch/PR on its exact head with Deterministic CI.
-2. If green and the diff remains documentation/review-only, merge it.
-3. Reconstruct fresh `main` and confirm P12 is CLOSED.
-4. Stop at the M13 planning authorization gate.
+1. Validate and review the Planning & Materialization PR on its exact head.
+2. Confirm the diff contains only repository memory, planning manifests and task specifications; no product behavior.
+3. If approved and green, merge the Planning Sprint.
+4. Reconstruct fresh `main`.
+5. Create `sprint/P13-RUNTIME-CORE-EXECUTION-01` from that exact integrated planning truth.
+6. Execute TASK-212..220 in dependency order, one authoritative commit per TASK.
+7. Run repository-wide final verification, produce the Sprint Report, open one Sprint Review PR and stop.
 
-## Successor Work Package horizon — M13
-The following remain FORECAST ONLY:
-1. `P13-PACKAGE-01` — Autonomous Runtime Functional Execution;
-2. `P13-PACKAGE-02` — Identity, Authority & Generated Experience;
-3. `P13-PACKAGE-03` — Operational Autonomy.
-
-After P12 closure integration, the predecessor gate for `P13-PACKAGE-01` is satisfied. The next authorizable activity is **only** its Planning & Materialization Sprint from fresh `main`. That planning must inventory already-integrated runtime/autonomy evidence before materializing Construction A.
-
-No P13 Construction Sprint or TASK is authorized by this closure.
-
-## Residual debt
-`TD-P12-01` is non-blocking: duplicate reference-only/no-value-leak validation patterns exist across Support/Evolution and Observe. Do not reopen P12 solely for this refactor; reassess only when future work provides a bounded reason.
+## Explicitly not next
+Do not execute Construction B/C, Package Integration & Review, Documentation & Closure, `P13-PACKAGE-02` or `P13-PACKAGE-03` before their own predecessor/revalidation gates.
 
 ## Governance boundaries
-Keep `main` deliberately without GitHub branch protection/required checks during current construction unless an explicit future maturity gate changes that decision. Branch protection, required checks and broad structural privilege reduction remain DEFERRED. Do not add a new general validation workflow, duplicate general `push: main` verification, `merge_group` before merge-queue adoption, or mandatory PR-heavy gate without new evidence/authority.
+Keep `main` deliberately without GitHub branch protection/required checks during the current phase unless an explicit future maturity gate supersedes this decision. Do not add a new general validation workflow, duplicate general `push: main`, premature `merge_group` or mandatory PR-heavy gate.
