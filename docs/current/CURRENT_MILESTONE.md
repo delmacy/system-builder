@@ -1,49 +1,41 @@
-# Current Execution Milestone — M13 P13 Package 01 Planning Review Gate
+# Current Execution Milestone — M13 P13 Package 01 Construction B Change-Control Gate
 
 ## Integrated predecessor truth
-P12 is CLOSED. Its package Integration & Technical Debt Review / repository-memory closure merged through PR #235 at `7c85da5c217f645f7968e62328dd7ec1d56dc237` after Deterministic CI #541 PASS on closure head `d507934c58fd1f8b2e773d5c36f07a15d9d748c6`. Closure-head -> merge-main has zero file differences.
+P12 is CLOSED. `P13-PACKAGE-01` Construction A `P13-RUNTIME-CORE-EXECUTION-01` is INTEGRATED through PR #237.
 
-`P13-PACKAGE-01` predecessor `P12-PACKAGE-01 CLOSED` is therefore SATISFIED.
+Reviewed head `4c0e965c4e351ea29f240c370205303d3ef87c43` passed Deterministic CI #561 and merged to `main` as `554bff25683d0b523e38279b151f1d6b87578d72`. Reviewed-head tree and merge-main tree are identical at `fbc18c18511a4fa9aa140f124eacb995e82b189f`.
 
-## Planning & Materialization result
-Planning Sprint `P13-AUTONOMOUS-RUNTIME-FUNCTIONAL-PLANNING-01` reconstructed the exact fresh main and inventoried runtime-core/compiler/deploy/state/configuration against WBS 13.1.1-13.1.3.
+## Construction A result
+TASK-212..220 delivered the bounded WBS 13.1.1 increment:
+- generated entity persistence/API execution;
+- explicit action execution;
+- explicit workflow transitions with durable state;
+- actual Compiler/Release/Deploy/autonomous-Runtime growing proof;
+- reference-only external configuration with no durable resolved-value leakage.
 
-Existing predecessor evidence is reused rather than recreated, including TASK-060, TASK-063 and P4-P10 runtime/state/deploy/configuration work.
+The additive L3 SystemDefinition authority used by Construction A was explicitly bounded to WBS 13.1.1. No L4 boundary changed.
 
-Coverage:
-- entities MISSING;
-- APIs PARTIAL;
-- actions PARTIAL;
-- workflows MISSING;
-- jobs MISSING;
-- events MISSING;
-- files MISSING;
-- integrations MISSING;
-- external configuration DELIVERED foundation / PARTIAL breadth.
+## Construction B fresh-main revalidation
+Construction B is still required by the Package Goal for WBS 13.1.2 and remaining 13.1.3 breadth, but the integrated contracts are insufficient to materialize it without inventing public semantics:
+- no public job execution definition exists;
+- no public event execution/routing definition exists;
+- no public file/storage operation definition exists;
+- integration entries expose identity/contract/direction only, not executable connector invocation semantics;
+- Compiler runtime projection contains entities/actions/processes only;
+- EnvironmentProfile reference bindings remain `config|secret-reference` only.
 
-The planning evidence confirms Builder != Runtime and autonomous ordinary operation remain intact. External configuration/secrets remain activation-time reference/value boundaries with no immutable-artifact value leakage.
+## Current gate
+Construction B status: `FORECAST / BLOCKED — BOUNDED L3 CHANGE CONTROL REQUIRED`.
 
-## Materialized Construction A
-`P13-RUNTIME-CORE-EXECUTION-01` is COMMITTED / MATERIALIZED with TASK-212..220.
+Before Construction B may become COMMITTED, an explicit bounded change-control decision must authorize the minimum additive backward-compatible public contract semantics for WBS 13.1.2/13.1.3. Runtime behavior must not be inferred from names, ordering, direction labels or environment requirement kinds.
 
-Its bounded goal is WBS 13.1.1: actual SystemDefinition-derived entities/APIs/actions/workflows through the existing deterministic Compiler, Release/Deploy and autonomous Runtime chain.
+If the required design introduces a new L4 boundary, Builder/Runtime relation, release model or production topology, stop and require an ADR.
 
-TASK-212 carries explicit L3 authority for only the minimum additive, backward-compatible SystemDefinition action/workflow execution semantics. No other shared-contract change is authorized. If that work requires a new L4 boundary, execution stops for an ADR.
+After accepted change control is integrated, reconstruct fresh `main` and revalidate Construction B again. Do not materialize or execute Construction B before that gate.
 
 ## Forecast successors
-- Construction B — FORECAST: jobs/events/files/integrations + remaining external-binding breadth.
-- Construction C — FORECAST / CONDITIONAL only after Construction B fresh-main revalidation.
+- Construction B — FORECAST / BLOCKED.
+- Construction C — FORECAST / CONDITIONAL; not eligible.
 - Package Integration & Review — FORECAST.
 - Documentation & Closure — FORECAST.
 - P13-PACKAGE-02 and P13-PACKAGE-03 — not started.
-
-## Current gate
-1. Validate this Planning & Materialization branch on its exact head.
-2. Review that the diff is planning/materialization only and contains no product behavior.
-3. Merge the Planning Sprint if approved.
-4. Reconstruct fresh `main`.
-5. Only then create `sprint/P13-RUNTIME-CORE-EXECUTION-01` and execute TASK-212..220.
-6. Stop Construction A at Sprint Review; do not auto-promote Construction B.
-
-## GitHub governance boundary
-`main` deliberately remains without GitHub branch protection/required checks during the current phase. Branch protection, required checks and broad structural privilege reduction remain DEFERRED. No new general validation workflow, duplicate `push: main`, premature `merge_group` or mandatory PR-heavy gate is authorized.
