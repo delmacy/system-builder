@@ -1,7 +1,7 @@
 ---
 id: TASK-227
 title: Execute declared file storage operations through external storage binding
-status: ready
+status: completed
 priority: 227
 milestone: M13
 model_tier: cheap
