@@ -4,7 +4,7 @@ title: Materialize Construction B descriptors into generated Runtime service mod
 status: ready
 priority: 224
 milestone: M13
-model_tier: code
+model_tier: cheap
 risk: high
 architecture_impact: false
 executor_preference: any
