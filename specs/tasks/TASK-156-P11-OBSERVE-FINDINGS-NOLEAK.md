@@ -1,7 +1,7 @@
 ---
 id: TASK-156
 title: Prove no resolved secret/CA value in findings path
-status: ready
+status: verification
 priority: 478
 milestone: M11
 model_tier: cheap

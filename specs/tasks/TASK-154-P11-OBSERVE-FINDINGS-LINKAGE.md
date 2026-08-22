@@ -1,7 +1,7 @@
 ---
 id: TASK-154
 title: Link findings to deployment/observation evidence additively
-status: ready
+status: verification
 priority: 476
 milestone: M11
 model_tier: cheap
@@ -106,7 +106,7 @@ Changing the canonical `DeploymentRecord` schema/identity or the Sprint 1/2 iden
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the sixth TASK of Sprint 3. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the sixth TASK of Sprint 3: `packages/observe/findings.ts` exports `DeploymentFindingLinkage` and `linkFinding(finding, observation?, correlation?)`, producing a deterministic content-addressed `linkageId` that binds the finding to its observation/deployment/release/environment/hash refs and carries through severity/confidence/code/message plus optional operation/runtime/process/session refs and an optional correlation ref, without altering the `DeploymentFinding`, the observation or the canonical `DeploymentRecord` identity, and rejecting non-observation linkage sources (`LINKAGE_KIND`) or a correlation binding a different finding (`LINKAGE_CORRELATION_FINDING`). Re-exported from `packages/observe/index.ts`. `tests/product/observe-findings-linkage.test.ts` proves 12 cases (additive content-addressed linkage, context/confidence carry-through, observation binding, runtime/process/session refs, correlation ref carry-through, determinism, content-addressing, additive no-identity-alteration, non-observation rejection, foreign-correlation rejection, no-value-leak). Local validations pending before commit; CI validation required before Sprint Review.
 
 # Escalation
 

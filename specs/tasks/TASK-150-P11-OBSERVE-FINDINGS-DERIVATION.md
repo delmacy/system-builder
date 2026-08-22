@@ -1,7 +1,7 @@
 ---
 id: TASK-150
 title: Derive DeploymentFinding deterministically from an enriched observation
-status: ready
+status: verification
 priority: 472
 milestone: M11
 model_tier: cheap
@@ -106,7 +106,7 @@ Changing the canonical `DeploymentRecord` schema/identity or the Sprint 1/2 iden
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the second TASK of Sprint 3. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the second TASK of Sprint 3: `deriveFindings` in `packages/observe/findings.ts` derives a deterministic ordered `DeploymentFinding` set from a `DeploymentObservation`/`EnrichedDeploymentObservation` source using initially simple rules (failed status -> critical/high `OBSERVE_FINDING:DEPLOYMENT_FAILED`; each failing health check -> warning/medium `OBSERVE_FINDING:HEALTH_CHECK_FAILED`; clean success -> info/high `OBSERVE_FINDING:DEPLOYMENT_SUCCEEDED` only when the baseline declares `emitInfoOnCleanSuccess`), carrying the source correlation refs (observationId/deploymentId/release/environment/releaseHash plus optional operation/runtime/process/session refs) onto every finding, with reference-only enforcement (rejects resolved secret/CA/credential markers) and deterministic fail-closed rejection of malformed sources. `tests/product/observe-findings-derivation.test.ts` proves 12 cases (failed->critical, per-check warnings, determinism, content-addressing, no-op clean success, baseline info finding, correlation refs, enriched operation refs, resolved-value rejection, malformed-source rejection, no-leak serialization, ordering). Local: focused test 12/12 PASS. CI validation required before Sprint Review.
 
 # Escalation
 

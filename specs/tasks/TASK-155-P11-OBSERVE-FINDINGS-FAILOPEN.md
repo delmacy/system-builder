@@ -1,7 +1,7 @@
 ---
 id: TASK-155
 title: Keep findings publication fail-open end to end
-status: ready
+status: verification
 priority: 477
 milestone: M11
 model_tier: cheap
@@ -106,7 +106,7 @@ Changing the canonical `DeploymentRecord` schema/identity or the Sprint 1/2 iden
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the seventh TASK of Sprint 3. CI validation required before Sprint Review.
+Implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the seventh TASK of Sprint 3: `packages/observe/publish.ts` exports `publishFindings(findings, linkage?, observer?)` with a fail-open matrix of `not-configured` / `delivered` / `channel-failed` (`OBSERVE_CHANNEL_FAILED`) / `findings-failed` (`OBSERVE_FINDINGS_FAILED`), validating each finding (and any linkage binding) and never propagating a failure to Deploy or Runtime, plus the `DeploymentFindingsPublication` payload and `FindingsPublishObserver`/`FindingsPublishResult` types, re-exported from `packages/observe/index.ts`. `tests/product/observe-findings-failopen.test.ts` proves 12 cases (delivery with/without linkage, not-configured, async/sync channel fail-open without propagation, malformed-findings fail-open, foreign-linkage fail-open, determinism, no-value-leak in the delivered payload, and Deploy/Runtime continuity). CI validation required before Sprint Review.
 
 # Escalation
 
