@@ -38,8 +38,20 @@ validation:
 # Objective
 Extend the existing P10/Construction A trust proof to all Construction B external-binding surfaces.
 
+# Context
+Construction B adds storage and external-service activation-time references while preserving the existing Release/Environment and SecretResolver boundaries. The accepted change control requires fail-closed compatibility checks and no resolved-value leakage across all durable evidence.
+
+# Current behavior
+Construction A proves no-value-leak for its external configuration surfaces, but no equivalent regression yet covers Construction B storage/external-service bindings or their new execution diagnostics.
+
 # Required change
 Add deterministic regressions proving missing and incompatible storage/external-service bindings fail before unsafe execution and that resolved storage roots, endpoint URLs, tokens and other activation-time values do not appear in SystemDefinition, generated files, ReleaseArtifact, PublishedRelease, deployment evidence or asserted diagnostics. Any deploy/runtime redaction needed must remain bounded to existing external-binding paths.
+
+# Inputs / contracts
+TASK-225..228 execution surfaces; SystemDefinition and EnvironmentProfile contracts; existing SecretResolver/local Deploy behavior; P10 and Construction A no-value-leak evidence.
+
+# Outputs / contracts
+Construction B binding/no-leak regression evidence and only bounded redaction corrections if required. No public-contract changes.
 
 # Acceptance criteria
 - missing classified binding fails closed;
@@ -48,6 +60,12 @@ Add deterministic regressions proving missing and incompatible storage/external-
 - diagnostics identify reference/binding names without exposing values;
 - Builder/Observe remain unavailable and irrelevant;
 - Construction A no-leak regressions remain green.
+
+# Non-goals
+Changing resolution ownership; weakening diagnostics; embedding values; provider selection; release-model/topology changes.
+
+# Evidence expected
+A focused regression test covering missing/mismatched bindings, durable evidence snapshots, diagnostics redaction and Construction A predecessor regressions; declared validations green.
 
 # Escalation
 Stop if proof requires weakening diagnostics, embedding values, changing release/environment ownership or any L4 boundary.
