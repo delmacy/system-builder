@@ -1,12 +1,13 @@
 ---
 id: TASK-212
 title: Add bounded executable action and workflow semantics to SystemDefinition
-status: pending
+status: ready
 priority: 212
 milestone: M13
-model_tier: strong
+model_tier: architecture
 risk: high
 architecture_impact: true
+executor_preference: any
 depends_on: []
 context_paths:
   - AGENTS.md
