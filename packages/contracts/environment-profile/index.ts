@@ -3,11 +3,13 @@ import environmentProfileSchema from "./environment-profile.schema.json";
 export const ENVIRONMENT_PROFILE_SCHEMA_VERSION = "1.0.0" as const;
 
 export type EnvironmentBindingKind = "config" | "secret-reference";
+export type EnvironmentRequirementKind = "config" | "secret-reference" | "external-service" | "storage" | "database";
 
 export type EnvironmentBinding = Readonly<{
   name: string;
   kind: EnvironmentBindingKind;
   reference: string;
+  requirementKind?: EnvironmentRequirementKind;
 }>;
 
 export type EnvironmentProfile = Readonly<{

@@ -1,7 +1,7 @@
 ---
 id: TASK-222
 title: Add reference-only EnvironmentProfile binding compatibility metadata
-status: ready
+status: completed
 priority: 222
 milestone: M13
 model_tier: architecture

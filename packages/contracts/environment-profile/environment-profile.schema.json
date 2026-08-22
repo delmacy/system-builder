@@ -22,7 +22,8 @@
         "properties": {
           "name": { "type": "string", "minLength": 1 },
           "kind": { "enum": ["config", "secret-reference"] },
-          "reference": { "type": "string", "minLength": 1 }
+          "reference": { "type": "string", "minLength": 1 },
+          "requirementKind": { "enum": ["config", "secret-reference", "external-service", "storage", "database"] }
         }
       }
     }
