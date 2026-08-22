@@ -1,7 +1,7 @@
 ---
 id: TASK-185
 title: Define SupportCaseRecord contract
-status: ready
+status: verification
 priority: 540
 milestone: M12
 model_tier: architecture

@@ -9,3 +9,8 @@ export {
   type SupportTriageDecisionFields,
   type SupportTriageFromIntakeFields,
 } from "./triage.js";
+export {
+  SupportCaseRecord,
+  type SupportCaseRecordFields,
+  type SupportCaseFromTriageFields,
+} from "./case.js";
