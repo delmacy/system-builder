@@ -1,41 +1,29 @@
-# Current Execution Milestone — M13 P13 Package 01 Construction B Change-Control Gate
+# Current Execution Milestone — M13 P13 Package 01 Construction B L3 Change-Control Review
 
-## Integrated predecessor truth
-P12 is CLOSED. `P13-PACKAGE-01` Construction A `P13-RUNTIME-CORE-EXECUTION-01` is INTEGRATED through PR #237.
+## Integrated truth
+Construction A is INTEGRATED through PR #237. Repository-memory reconciliation PR #238 passed Deterministic CI #562 on exact head `cccc4a7c2d16ebc240a7398402b4ce22faa21b34` and merged as `57b8cf3c4c671dd06b590514acac9ce449e7e69b`, with zero file drift from reviewed head to merge-main.
 
-Reviewed head `4c0e965c4e351ea29f240c370205303d3ef87c43` passed Deterministic CI #561 and merged to `main` as `554bff25683d0b523e38279b151f1d6b87578d72`. Reviewed-head tree and merge-main tree are identical at `fbc18c18511a4fa9aa140f124eacb995e82b189f`.
+## Change-control decision
+Construction B remains required for WBS 13.1.2 and remaining 13.1.3, but is not materialized.
 
-## Construction A result
-TASK-212..220 delivered the bounded WBS 13.1.1 increment:
-- generated entity persistence/API execution;
-- explicit action execution;
-- explicit workflow transitions with durable state;
-- actual Compiler/Release/Deploy/autonomous-Runtime growing proof;
-- reference-only external configuration with no durable resolved-value leakage.
+The bounded L3 change-control record authorizes only minimum additive/backward-compatible semantics inside existing public contract families for:
+- explicit job trigger/schedule plus declared runtime target semantics;
+- explicit event source/routing plus declared runtime target semantics;
+- explicit file/storage operation plus binding-reference semantics;
+- explicit integration operation/invocation plus binding-reference semantics;
+- corresponding deterministic Compiler runtime projection;
+- minimum additive reference-only binding compatibility/classification metadata when required.
 
-The additive L3 SystemDefinition authority used by Construction A was explicitly bounded to WBS 13.1.1. No L4 boundary changed.
+No vendor-specific runtime service, new topology, resolved value in durable artifacts or inferred behavior is authorized.
 
-## Construction B fresh-main revalidation
-Construction B is still required by the Package Goal for WBS 13.1.2 and remaining 13.1.3 breadth, but the integrated contracts are insufficient to materialize it without inventing public semantics:
-- no public job execution definition exists;
-- no public event execution/routing definition exists;
-- no public file/storage operation definition exists;
-- integration entries expose identity/contract/direction only, not executable connector invocation semantics;
-- Compiler runtime projection contains entities/actions/processes only;
-- EnvironmentProfile reference bindings remain `config|secret-reference` only.
+## Architecture classification
+L3 only. No L4 boundary is authorized or identified by this decision. If concrete planning/implementation requires a new Builder/Runtime relation, release model, bounded context, suite topology or production topology, stop and require an ADR.
 
 ## Current gate
-Construction B status: `FORECAST / BLOCKED — BOUNDED L3 CHANGE CONTROL REQUIRED`.
+1. Review and exact-head validate this change-control branch.
+2. Integrate only if the diff remains documentation/governance authority and introduces no product behavior or contract implementation.
+3. Reconstruct fresh `main` after merge.
+4. Revalidate actual contracts/predecessor outputs.
+5. Only then may Construction B be considered for COMMITTED/materialized status.
 
-Before Construction B may become COMMITTED, an explicit bounded change-control decision must authorize the minimum additive backward-compatible public contract semantics for WBS 13.1.2/13.1.3. Runtime behavior must not be inferred from names, ordering, direction labels or environment requirement kinds.
-
-If the required design introduces a new L4 boundary, Builder/Runtime relation, release model or production topology, stop and require an ADR.
-
-After accepted change control is integrated, reconstruct fresh `main` and revalidate Construction B again. Do not materialize or execute Construction B before that gate.
-
-## Forecast successors
-- Construction B — FORECAST / BLOCKED.
-- Construction C — FORECAST / CONDITIONAL; not eligible.
-- Package Integration & Review — FORECAST.
-- Documentation & Closure — FORECAST.
-- P13-PACKAGE-02 and P13-PACKAGE-03 — not started.
+Construction B remains FORECAST. Construction C, Package Integration & Review, Documentation & Closure, `P13-PACKAGE-02` and `P13-PACKAGE-03` remain not started.
