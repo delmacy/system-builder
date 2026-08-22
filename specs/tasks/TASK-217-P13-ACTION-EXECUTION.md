@@ -1,12 +1,13 @@
 ---
 id: TASK-217
 title: Execute explicitly declared generated actions
-status: pending
+status: ready
 priority: 217
 milestone: M13
-model_tier: strong
+model_tier: architecture
 risk: high
 architecture_impact: false
+executor_preference: any
 depends_on:
   - TASK-212
   - TASK-216
