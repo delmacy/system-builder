@@ -4,7 +4,7 @@ title: Define SupportTriageDecision contract
 status: ready
 priority: 520
 milestone: M12
-model_tier: strong
+model_tier: architecture
 risk: medium
 architecture_impact: true
 executor_preference: any
