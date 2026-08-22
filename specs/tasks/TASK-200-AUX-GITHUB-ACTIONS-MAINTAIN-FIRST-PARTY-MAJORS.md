@@ -4,7 +4,7 @@ title: Maintain first-party GitHub Actions majors
 status: ready
 priority: 555
 milestone: M12
-model_tier: routine
+model_tier: cheap
 risk: low
 architecture_impact: false
 executor_preference: any
