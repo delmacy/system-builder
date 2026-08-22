@@ -25,8 +25,16 @@ When explicitly authorized to proceed:
 5. execute it under normal Sprint Mode and exact-head CI/review gates;
 6. finish P12 with its grandfathered package integration/debt review and repository-memory closure before opening the successor domain for execution.
 
-## Successor Work Package horizon
-The next baseline domain after P12 is WBS 13 Autonomous Runtime. Forecast Work Packages may be elaborated in advance from existing WBS and implementation evidence, but they remain non-executable until P12 closes and each package Planning Sprint confirms actual gaps/readiness from fresh `main`.
+## Successor Work Package horizon — M13
+The next baseline domain after P12 is WBS 13 Autonomous Runtime. The following concrete Work Packages are now elaborated as forecast only:
+
+1. `P13-PACKAGE-01` — Autonomous Runtime Functional Execution — WBS 13.1.1-13.1.3;
+2. `P13-PACKAGE-02` — Autonomous Runtime Identity, Authority & Generated Experience — WBS 13.2.1-13.2.3;
+3. `P13-PACKAGE-03` — Autonomous Runtime Operational Autonomy — WBS 13.3.1-13.3.3.
+
+They are dependency ordered and non-executable. Each package begins with a Planning & Materialization Sprint that must reconstruct fresh `main`, inventory capability already delivered by earlier phases, classify it as predecessor evidence, identify only real gaps, and materialize at most Construction A.
+
+No P13 TASK set, Sprint manifest or execution branch is created by this forecast.
 
 ## Governance boundaries
 - Keep `main` deliberately without GitHub branch protection/required checks during the current construction phase unless explicit future maturity authority changes that decision.
