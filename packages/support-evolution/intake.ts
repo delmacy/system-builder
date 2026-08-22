@@ -4,88 +4,50 @@ export type SupportEvidenceSourceKind = "observe_finding" | "human_request";
 export type SupportHumanRequestKind = "request" | "incident" | "feedback";
 
 export type SupportObserveFindingSource = Readonly<{
-  sourceKind: "observe_finding";
-  evidenceRef: string;
-  findingCode: string;
-  observationId: string;
-  deploymentId: string;
-  publishedReleaseRef: string;
-  environmentRef: string;
-  releaseHash: string;
-  operationId?: string;
-  runtimeRef?: string;
-  processRef?: string;
-  sessionRef?: string;
+  sourceKind: "observe_finding"; evidenceRef: string; findingCode: string; observationId: string; deploymentId: string;
+  publishedReleaseRef: string; environmentRef: string; releaseHash: string; operationId?: string; runtimeRef?: string;
+  processRef?: string; sessionRef?: string;
 }>;
 export type SupportHumanRequestSource = Readonly<{
-  sourceKind: "human_request";
-  evidenceRef: string;
-  requestKind: SupportHumanRequestKind;
-  actorRef: string;
-  channelRef: string;
+  sourceKind: "human_request"; evidenceRef: string; requestKind: SupportHumanRequestKind; actorRef: string; channelRef: string;
 }>;
 export type DeploymentFindingLike = Readonly<{
-  kind: "DeploymentFinding";
-  findingId: string;
-  code: string;
-  message: string;
-  observationId: string;
-  deploymentId: string;
-  publishedReleaseRef: string;
-  environmentRef: string;
-  releaseHash: string;
-  operationId?: string;
+  kind: "DeploymentFinding"; findingId: string; code: string; message: string; observationId: string; deploymentId: string;
+  publishedReleaseRef: string; environmentRef: string; releaseHash: string; operationId?: string; runtimeRef?: string;
+  processRef?: string; sessionRef?: string;
+}>;
+export type HumanSupportRequestInput = Readonly<{
+  requestKind: SupportHumanRequestKind;
+  evidenceRef: string;
+  summary: string;
+  submittedAt: string;
+  actorRef: string;
+  channelRef: string;
+  deploymentId?: string;
+  publishedReleaseRef?: string;
+  environmentRef?: string;
+  releaseHash?: string;
   runtimeRef?: string;
-  processRef?: string;
-  sessionRef?: string;
 }>;
 
 export type SupportEvidenceIntakeFields = Readonly<{
-  sourceKind: SupportEvidenceSourceKind;
-  evidenceRef: string;
-  summary: string;
-  submittedAt: string;
-  findingCode?: string;
-  observationId?: string;
-  deploymentId?: string;
-  publishedReleaseRef?: string;
-  environmentRef?: string;
-  releaseHash?: string;
-  operationId?: string;
-  runtimeRef?: string;
-  processRef?: string;
-  sessionRef?: string;
-  requestKind?: SupportHumanRequestKind;
-  actorRef?: string;
-  channelRef?: string;
+  sourceKind: SupportEvidenceSourceKind; evidenceRef: string; summary: string; submittedAt: string; findingCode?: string;
+  observationId?: string; deploymentId?: string; publishedReleaseRef?: string; environmentRef?: string; releaseHash?: string;
+  operationId?: string; runtimeRef?: string; processRef?: string; sessionRef?: string; requestKind?: SupportHumanRequestKind;
+  actorRef?: string; channelRef?: string;
 }>;
 export type SupportEvidenceIntake = Readonly<{
-  kind: "SupportEvidenceIntake";
-  intakeId: string;
-  sourceKind: SupportEvidenceSourceKind;
-  evidenceRef: string;
-  summary: string;
-  submittedAt: string;
-  findingCode?: string;
-  observationId?: string;
-  deploymentId?: string;
-  publishedReleaseRef?: string;
-  environmentRef?: string;
-  releaseHash?: string;
-  operationId?: string;
-  runtimeRef?: string;
-  processRef?: string;
-  sessionRef?: string;
-  requestKind?: SupportHumanRequestKind;
-  actorRef?: string;
-  channelRef?: string;
+  kind: "SupportEvidenceIntake"; intakeId: string; sourceKind: SupportEvidenceSourceKind; evidenceRef: string; summary: string;
+  submittedAt: string; findingCode?: string; observationId?: string; deploymentId?: string; publishedReleaseRef?: string;
+  environmentRef?: string; releaseHash?: string; operationId?: string; runtimeRef?: string; processRef?: string;
+  sessionRef?: string; requestKind?: SupportHumanRequestKind; actorRef?: string; channelRef?: string;
 }>;
 
 const HUMAN_REQUEST_KINDS: readonly SupportHumanRequestKind[] = ["request", "incident", "feedback"];
 const ALLOWED_FIELDS = new Set([
-  "kind", "intakeId", "sourceKind", "evidenceRef", "summary", "submittedAt", "findingCode", "observationId",
-  "deploymentId", "publishedReleaseRef", "environmentRef", "releaseHash", "operationId", "runtimeRef", "processRef",
-  "sessionRef", "requestKind", "actorRef", "channelRef",
+  "kind", "intakeId", "sourceKind", "evidenceRef", "summary", "submittedAt", "findingCode", "observationId", "deploymentId",
+  "publishedReleaseRef", "environmentRef", "releaseHash", "operationId", "runtimeRef", "processRef", "sessionRef", "requestKind",
+  "actorRef", "channelRef",
 ]);
 function invalid(detail: string): Error { return new Error(`SUPPORT_INTAKE:${detail}`); }
 function requiredString(value: unknown, field: string): string {
@@ -96,8 +58,7 @@ function isRecordLike(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 function optionalString(record: Record<string, unknown>, field: string): string | undefined {
-  const value = record[field];
-  return value === undefined ? undefined : requiredString(value, field);
+  const value = record[field]; return value === undefined ? undefined : requiredString(value, field);
 }
 function assertSourceProvenance(fields: SupportEvidenceIntakeFields): void {
   const humanPresent = fields.requestKind !== undefined || fields.actorRef !== undefined || fields.channelRef !== undefined;
@@ -119,10 +80,8 @@ function buildPayload(fields: SupportEvidenceIntakeFields) {
   if (fields.sourceKind !== "observe_finding" && fields.sourceKind !== "human_request") throw invalid(`SOURCE_KIND:${String(fields.sourceKind)}`);
   assertSourceProvenance(fields);
   return Object.freeze({
-    kind: "SupportEvidenceIntake" as const,
-    sourceKind: fields.sourceKind,
-    evidenceRef: requiredString(fields.evidenceRef, "evidenceRef"),
-    summary: requiredString(fields.summary, "summary"),
+    kind: "SupportEvidenceIntake" as const, sourceKind: fields.sourceKind,
+    evidenceRef: requiredString(fields.evidenceRef, "evidenceRef"), summary: requiredString(fields.summary, "summary"),
     submittedAt: requiredString(fields.submittedAt, "submittedAt"),
     ...(fields.findingCode !== undefined ? { findingCode: requiredString(fields.findingCode, "findingCode") } : {}),
     ...(fields.observationId !== undefined ? { observationId: requiredString(fields.observationId, "observationId") } : {}),
@@ -143,13 +102,9 @@ function fieldsFromRecord(value: Record<string, unknown>): SupportEvidenceIntake
   const sourceKind = value["sourceKind"];
   if (sourceKind !== "observe_finding" && sourceKind !== "human_request") throw invalid(`SOURCE_KIND:${String(sourceKind)}`);
   const requestKindRaw = value["requestKind"];
-  if (requestKindRaw !== undefined && !HUMAN_REQUEST_KINDS.includes(requestKindRaw as SupportHumanRequestKind)) {
-    throw invalid(`REQUEST_KIND:${String(requestKindRaw)}`);
-  }
+  if (requestKindRaw !== undefined && !HUMAN_REQUEST_KINDS.includes(requestKindRaw as SupportHumanRequestKind)) throw invalid(`REQUEST_KIND:${String(requestKindRaw)}`);
   return Object.freeze({
-    sourceKind,
-    evidenceRef: requiredString(value["evidenceRef"], "evidenceRef"),
-    summary: requiredString(value["summary"], "summary"),
+    sourceKind, evidenceRef: requiredString(value["evidenceRef"], "evidenceRef"), summary: requiredString(value["summary"], "summary"),
     submittedAt: requiredString(value["submittedAt"], "submittedAt"),
     ...(optionalString(value, "findingCode") !== undefined ? { findingCode: optionalString(value, "findingCode")! } : {}),
     ...(optionalString(value, "observationId") !== undefined ? { observationId: optionalString(value, "observationId")! } : {}),
@@ -169,8 +124,7 @@ function fieldsFromRecord(value: Record<string, unknown>): SupportEvidenceIntake
 
 export const SupportEvidenceIntake = Object.freeze({
   create(fields: SupportEvidenceIntakeFields): SupportEvidenceIntake {
-    const payload = buildPayload(fields);
-    return Object.freeze({ ...payload, intakeId: sha256Canonical(payload) });
+    const payload = buildPayload(fields); return Object.freeze({ ...payload, intakeId: sha256Canonical(payload) });
   },
   validate(value: unknown): SupportEvidenceIntake {
     if (!isRecordLike(value)) throw invalid("NOT_OBJECT");
@@ -180,32 +134,41 @@ export const SupportEvidenceIntake = Object.freeze({
     if (typeof value["intakeId"] !== "string" || value["intakeId"] !== normalized.intakeId) throw invalid("INTAKE_ID");
     return normalized;
   },
-  toJson(intake: SupportEvidenceIntake): string {
-    return JSON.stringify(SupportEvidenceIntake.validate(intake));
-  },
+  toJson(intake: SupportEvidenceIntake): string { return JSON.stringify(SupportEvidenceIntake.validate(intake)); },
   fromJson(serialized: string): SupportEvidenceIntake {
-    let parsed: unknown;
-    try { parsed = JSON.parse(serialized); } catch { throw invalid("JSON"); }
+    let parsed: unknown; try { parsed = JSON.parse(serialized); } catch { throw invalid("JSON"); }
     return SupportEvidenceIntake.validate(parsed);
   },
   fromDeploymentFinding(value: unknown, submittedAt: string): SupportEvidenceIntake {
     if (!isRecordLike(value)) throw invalid("FINDING:NOT_OBJECT");
     if (value["kind"] !== "DeploymentFinding") throw invalid("FINDING:KIND");
     return SupportEvidenceIntake.create({
-      sourceKind: "observe_finding",
-      evidenceRef: requiredString(value["findingId"], "findingId"),
-      summary: requiredString(value["message"], "message"),
-      submittedAt: requiredString(submittedAt, "submittedAt"),
-      findingCode: requiredString(value["code"], "code"),
-      observationId: requiredString(value["observationId"], "observationId"),
+      sourceKind: "observe_finding", evidenceRef: requiredString(value["findingId"], "findingId"),
+      summary: requiredString(value["message"], "message"), submittedAt: requiredString(submittedAt, "submittedAt"),
+      findingCode: requiredString(value["code"], "code"), observationId: requiredString(value["observationId"], "observationId"),
       deploymentId: requiredString(value["deploymentId"], "deploymentId"),
       publishedReleaseRef: requiredString(value["publishedReleaseRef"], "publishedReleaseRef"),
-      environmentRef: requiredString(value["environmentRef"], "environmentRef"),
-      releaseHash: requiredString(value["releaseHash"], "releaseHash"),
+      environmentRef: requiredString(value["environmentRef"], "environmentRef"), releaseHash: requiredString(value["releaseHash"], "releaseHash"),
       ...(optionalString(value, "operationId") !== undefined ? { operationId: optionalString(value, "operationId")! } : {}),
       ...(optionalString(value, "runtimeRef") !== undefined ? { runtimeRef: optionalString(value, "runtimeRef")! } : {}),
       ...(optionalString(value, "processRef") !== undefined ? { processRef: optionalString(value, "processRef")! } : {}),
       ...(optionalString(value, "sessionRef") !== undefined ? { sessionRef: optionalString(value, "sessionRef")! } : {}),
+    });
+  },
+  fromHumanRequest(input: HumanSupportRequestInput): SupportEvidenceIntake {
+    return SupportEvidenceIntake.create({
+      sourceKind: "human_request",
+      evidenceRef: input.evidenceRef,
+      summary: input.summary,
+      submittedAt: input.submittedAt,
+      requestKind: input.requestKind,
+      actorRef: input.actorRef,
+      channelRef: input.channelRef,
+      ...(input.deploymentId !== undefined ? { deploymentId: input.deploymentId } : {}),
+      ...(input.publishedReleaseRef !== undefined ? { publishedReleaseRef: input.publishedReleaseRef } : {}),
+      ...(input.environmentRef !== undefined ? { environmentRef: input.environmentRef } : {}),
+      ...(input.releaseHash !== undefined ? { releaseHash: input.releaseHash } : {}),
+      ...(input.runtimeRef !== undefined ? { runtimeRef: input.runtimeRef } : {}),
     });
   },
 });
