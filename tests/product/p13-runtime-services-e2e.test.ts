@@ -62,8 +62,9 @@ function runtimeProjection() {
 }
 
 async function waitForStarted(child: ReturnType<typeof spawn>): Promise<number> {
-  if (!child.stdout) throw new Error("P13_RUNTIME_STDOUT_UNAVAILABLE");
-  child.stdout.setEncoding("utf8");
+  const stdout = child.stdout;
+  if (!stdout) throw new Error("P13_RUNTIME_STDOUT_UNAVAILABLE");
+  stdout.setEncoding("utf8");
   return new Promise((resolve, reject) => {
     let buffer = "";
     const timer = setTimeout(() => reject(new Error("P13_RUNTIME_START_TIMEOUT")), 10_000);
@@ -72,14 +73,14 @@ async function waitForStarted(child: ReturnType<typeof spawn>): Promise<number> 
       const newline = buffer.indexOf("\n");
       if (newline < 0) return;
       clearTimeout(timer);
-      child.stdout?.off("data", onData);
+      stdout.off("data", onData);
       try {
         const started = JSON.parse(buffer.slice(0, newline)) as { kind?: string; port?: number };
         if (started.kind !== "RuntimeStarted" || !Number.isInteger(started.port) || Number(started.port) <= 0) throw new Error("P13_RUNTIME_START_INVALID");
         resolve(Number(started.port));
       } catch (error) { reject(error); }
     };
-    child.stdout.on("data", onData);
+    stdout.on("data", onData);
     child.once("error", reject);
     child.once("exit", (code) => { if (code !== null && code !== 0) reject(new Error(`P13_RUNTIME_EXITED:${code}`)); });
   });
