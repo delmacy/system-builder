@@ -1,7 +1,7 @@
 ---
 id: TASK-191
 title: Define cause resolution and evidence record
-status: ready
+status: verification
 priority: 546
 milestone: M12
 model_tier: architecture
