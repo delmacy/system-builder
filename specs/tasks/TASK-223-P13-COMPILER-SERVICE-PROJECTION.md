@@ -1,7 +1,7 @@
 ---
 id: TASK-223
 title: Project Construction B descriptors into the deterministic Compiler runtime model
-status: ready
+status: completed
 priority: 223
 milestone: M13
 model_tier: architecture

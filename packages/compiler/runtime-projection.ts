@@ -32,12 +32,52 @@ export type CompilerRuntimeProcess = Readonly<{
   transitions?: readonly CompilerRuntimeTransition[];
 }>;
 
+export type CompilerRuntimeEnvironmentRequirement = Readonly<{
+  name: string;
+  kind: "config" | "secret-reference" | "external-service" | "storage" | "database";
+  required: boolean;
+}>;
+
+export type CompilerRuntimeJob = Readonly<{
+  id: string;
+  trigger: Readonly<{ kind: "interval"; intervalMs: number }>;
+  actionRef: string;
+  recordId: string;
+}>;
+
+export type CompilerRuntimeEvent = Readonly<{
+  id: string;
+  source: Readonly<{ kind: "runtime-http" }>;
+  actionRef: string;
+}>;
+
+export type CompilerRuntimeFile = Readonly<{
+  id: string;
+  bindingRef: string;
+  operations: readonly ("put" | "get" | "delete")[];
+}>;
+
+export type CompilerRuntimeIntegration = Readonly<{
+  id: string;
+  invocation?: Readonly<{
+    kind: "http";
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+    path: string;
+    bindingRef: string;
+  }>;
+}>;
+
 export type CompilerSystemDefinitionRuntimeProjection = Readonly<{
   kind: "SystemDefinitionRuntimeProjection";
   systemDefinitionRef: string;
   entities: readonly CompilerRuntimeEntity[];
   actions: readonly CompilerRuntimeAction[];
   processes: readonly CompilerRuntimeProcess[];
+  environmentRequirements?: readonly CompilerRuntimeEnvironmentRequirement[];
+  jobs?: readonly CompilerRuntimeJob[];
+  events?: readonly CompilerRuntimeEvent[];
+  files?: readonly CompilerRuntimeFile[];
+  integrations?: readonly CompilerRuntimeIntegration[];
 }>;
 
 function token(value: string, field: string): string {
@@ -53,6 +93,35 @@ function uniqueById<T extends Readonly<{ id: string }>>(items: readonly T[], kin
     seen.add(item.id);
   }
   return items;
+}
+
+function normalizeEnvironmentRequirements(
+  requirements: readonly CompilerRuntimeEnvironmentRequirement[] | undefined,
+): readonly CompilerRuntimeEnvironmentRequirement[] {
+  const normalized = (requirements ?? []).map((requirement) => Object.freeze({
+    name: token(requirement.name, "environment_requirement_name"),
+    kind: requirement.kind,
+    required: requirement.required,
+  })).sort((left, right) => left.name.localeCompare(right.name) || left.kind.localeCompare(right.kind));
+  const seen = new Set<string>();
+  for (const requirement of normalized) {
+    if (seen.has(requirement.name)) throw new Error(`COMPILER_RUNTIME_PROJECTION_DUPLICATE_ENVIRONMENT_REQUIREMENT:${requirement.name}`);
+    seen.add(requirement.name);
+  }
+  return Object.freeze(normalized);
+}
+
+function requireBinding(
+  requirements: readonly CompilerRuntimeEnvironmentRequirement[],
+  bindingRef: string,
+  expectedKind: "storage" | "external-service",
+): string {
+  const reference = token(bindingRef, "binding_ref");
+  const requirement = requirements.find((candidate) => candidate.name === reference);
+  if (!requirement) throw new Error(`COMPILER_RUNTIME_PROJECTION_UNKNOWN_BINDING_REFERENCE:${reference}`);
+  if (requirement.kind !== expectedKind) throw new Error(`COMPILER_RUNTIME_PROJECTION_INCOMPATIBLE_BINDING:${reference}:${requirement.kind}`);
+  if (!requirement.required) throw new Error(`COMPILER_RUNTIME_PROJECTION_OPTIONAL_EXECUTION_BINDING:${reference}`);
+  return reference;
 }
 
 export function normalizeSystemDefinitionRuntimeProjection(
@@ -130,11 +199,73 @@ export function normalizeSystemDefinitionRuntimeProjection(
     "PROCESS",
   );
 
+  const environmentRequirements = normalizeEnvironmentRequirements(projection.environmentRequirements);
+
+  const jobs = uniqueById(
+    (projection.jobs ?? []).map((job) => {
+      const id = token(job.id, "job_id");
+      const actionRef = token(job.actionRef, "job_action_ref");
+      if (!actionIds.has(actionRef)) throw new Error(`COMPILER_RUNTIME_PROJECTION_UNKNOWN_JOB_ACTION:${actionRef}`);
+      if (job.trigger.kind !== "interval" || !Number.isInteger(job.trigger.intervalMs) || job.trigger.intervalMs <= 0) {
+        throw new Error(`COMPILER_RUNTIME_PROJECTION_INVALID_JOB_TRIGGER:${id}`);
+      }
+      return Object.freeze({ id, trigger: Object.freeze({ kind: "interval" as const, intervalMs: job.trigger.intervalMs }), actionRef, recordId: token(job.recordId, "job_record_id") });
+    }).sort((left, right) => left.id.localeCompare(right.id)),
+    "JOB",
+  );
+
+  const events = uniqueById(
+    (projection.events ?? []).map((event) => {
+      const id = token(event.id, "event_id");
+      const actionRef = token(event.actionRef, "event_action_ref");
+      if (!actionIds.has(actionRef)) throw new Error(`COMPILER_RUNTIME_PROJECTION_UNKNOWN_EVENT_ACTION:${actionRef}`);
+      if (event.source.kind !== "runtime-http") throw new Error(`COMPILER_RUNTIME_PROJECTION_INVALID_EVENT_SOURCE:${id}`);
+      return Object.freeze({ id, source: Object.freeze({ kind: "runtime-http" as const }), actionRef });
+    }).sort((left, right) => left.id.localeCompare(right.id)),
+    "EVENT",
+  );
+
+  const files = uniqueById(
+    (projection.files ?? []).map((file) => {
+      const id = token(file.id, "file_id");
+      const bindingRef = requireBinding(environmentRequirements, file.bindingRef, "storage");
+      const operations = [...file.operations].sort((left, right) => left.localeCompare(right));
+      if (operations.length === 0 || new Set(operations).size !== operations.length) throw new Error(`COMPILER_RUNTIME_PROJECTION_INVALID_FILE_OPERATIONS:${id}`);
+      return Object.freeze({ id, bindingRef, operations: Object.freeze(operations) });
+    }).sort((left, right) => left.id.localeCompare(right.id)),
+    "FILE",
+  );
+
+  const integrations = uniqueById(
+    (projection.integrations ?? []).map((integration) => {
+      const id = token(integration.id, "integration_id");
+      if (integration.invocation === undefined) return Object.freeze({ id });
+      if (integration.invocation.kind !== "http") throw new Error(`COMPILER_RUNTIME_PROJECTION_INVALID_INTEGRATION_KIND:${id}`);
+      const path = token(integration.invocation.path, "integration_path");
+      if (!path.startsWith("/") || path.startsWith("//")) throw new Error(`COMPILER_RUNTIME_PROJECTION_INVALID_INTEGRATION_PATH:${id}`);
+      return Object.freeze({
+        id,
+        invocation: Object.freeze({
+          kind: "http" as const,
+          method: integration.invocation.method,
+          path,
+          bindingRef: requireBinding(environmentRequirements, integration.invocation.bindingRef, "external-service"),
+        }),
+      });
+    }).sort((left, right) => left.id.localeCompare(right.id)),
+    "INTEGRATION",
+  );
+
   return Object.freeze({
     kind: "SystemDefinitionRuntimeProjection",
     systemDefinitionRef: projectionRef,
     entities: Object.freeze(entities),
     actions: Object.freeze(actions),
     processes: Object.freeze(processes),
+    ...(projection.environmentRequirements === undefined ? {} : { environmentRequirements }),
+    ...(projection.jobs === undefined ? {} : { jobs: Object.freeze(jobs) }),
+    ...(projection.events === undefined ? {} : { events: Object.freeze(events) }),
+    ...(projection.files === undefined ? {} : { files: Object.freeze(files) }),
+    ...(projection.integrations === undefined ? {} : { integrations: Object.freeze(integrations) }),
   });
 }
