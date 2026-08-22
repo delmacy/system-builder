@@ -5,22 +5,24 @@ The repository is authoritative.
 ## Current state
 P12 Sprint 3 is integrated through merge `7763177596cb684d3e3c6f9a55042337a865c2bc`.
 
-`AUX-GITHUB-ACTIONS-VALIDATION-AUDIT-01` is **CONSTRUCTED / SPRINT REVIEW** on PR #230. TASK-196..199 produced the evidence-backed validation/governance disposition matrix without modifying `.github/**` or repository settings.
+`AUX-GITHUB-ACTIONS-VALIDATION-AUDIT-01` is **CONSTRUCTED / SPRINT REVIEW / GOVERNANCE RECONCILED** on PR #230. TASK-196..199 produced the evidence-backed validation/governance disposition matrix without modifying `.github/**` or repository settings.
 
 ## Audit decisions
 - No additional general validation workflow is currently required.
-- Protecting `main` and requiring Deterministic CI is a separately authorized repository-setting follow-up.
-- Updating `actions/checkout@v4` / `actions/setup-node@v4` and least-privilege review of `opencode-work-package.yml` are separately authorized existing-workflow maintenance follow-ups.
-- Heavy tests remain nightly/manual; no separate `test:product:full` workflow is needed.
+- `KEEP_CURRENT`: `main` remains intentionally unprotected during construction and broad owner privilege is retained to preserve development velocity under point-in-time owner instructions.
+- `DEFERRED`: branch protection, required checks and broad privilege reduction wait for an explicit future pre-commercial maturity gate; do not re-promote them before that gate without new owner authority.
+- `MODIFY_EXISTING_WORKFLOW`: separately update `actions/checkout@v4` / `actions/setup-node@v4` and review `opencode-work-package.yml` permissions, reducing only permissions proven unnecessary where the reduction does not impair current development dynamics.
+- `NO_ACTION`: heavy tests remain nightly/manual; no separate `test:product:full` workflow, duplicate `push: main` verify, `merge_group` before merge queue adoption, mandatory PR-heavy gate or new general validation workflow is justified now.
 
 ## Required action
-1. Observe final Deterministic CI on the exact TASK-199 closure head.
-2. Review the final matrix and boundaries.
-3. If approved and CI passes, merge PR #230 as audit evidence only.
-4. After merge, reconstruct fresh `main` before separately authorizing any CI/settings remediation.
+1. Observe fresh Deterministic CI on the governance-reconciled PR #230 head.
+2. Review the reconciled matrix and confirm no `.github/**` or settings mutation occurred.
+3. If approved and CI passes, merge PR #230 preserving its authoritative TASK commits.
+4. Reconstruct fresh `main`.
+5. Materialize at most one separate bounded auxiliary maintenance intervention for existing workflows only; do not change repository settings and do not broadly reduce privileges.
 
 ## P12 forecast only
-P12 Sprint 4 / WBS 12.3.x remains FORECAST ONLY and is not materialized or executed by this auxiliary audit.
+P12 Sprint 4 / WBS 12.3.x remains FORECAST ONLY and is not materialized or executed by this auxiliary work.
 
 ## Boundaries
-Do not implement the audit recommendations implicitly. Workflow/settings remediation requires separate explicit authority and P12 business-evolution work remains governed by Mirror/Recipe/release.
+Do not implement deferred governance hardening implicitly. Workflow maintenance requires separate bounded authority and P12 business-evolution work remains governed by Mirror/Recipe/release.
