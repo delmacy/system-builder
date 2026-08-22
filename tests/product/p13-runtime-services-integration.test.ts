@@ -5,7 +5,7 @@ import { renderPersistentAutonomousRuntimeEntrypoint } from "../../packages/runt
 
 test("integration support resolves only classified env references and hides resolved endpoints", () => {
   const support = renderRuntimeIntegrationExecutionSupport();
-  assert.match(support, /requirementKind !== \"external-service\"/);
+  assert.match(support, /requirementKind !== "external-service"/);
   assert.match(support, /env:\/\//);
   assert.match(support, /descriptor\.invocation\.method/);
   assert.match(support, /descriptor\.invocation\.path/);

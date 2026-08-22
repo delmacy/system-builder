@@ -6,7 +6,7 @@ import { renderPersistentAutonomousRuntimeEntrypoint } from "../../packages/runt
 test("file execution support is reference-only and rejects traversal without embedding roots", () => {
   const support = renderRuntimeFileExecutionSupport();
   assert.match(support, /env:\/\//);
-  assert.match(support, /requirementKind !== \"storage\"/);
+  assert.match(support, /requirementKind !== "storage"/);
   assert.match(support, /RUNTIME_FILE_PATH_INVALID/);
   assert.match(support, /path\.relative/);
   assert.equal(support.includes("/resolved/storage/root"), false);
