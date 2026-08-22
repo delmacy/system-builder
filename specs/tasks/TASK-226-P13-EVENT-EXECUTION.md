@@ -4,7 +4,7 @@ title: Execute declared runtime-http event dispatch in the generated Runtime
 status: ready
 priority: 226
 milestone: M13
-model_tier: code
+model_tier: cheap
 risk: high
 architecture_impact: false
 executor_preference: any
