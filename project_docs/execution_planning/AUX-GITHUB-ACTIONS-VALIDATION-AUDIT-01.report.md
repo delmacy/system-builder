@@ -58,6 +58,52 @@ Repository scripts establish the following composition:
 4. The OpenCode workflows' internal `verify` runs are pre-publication safety checks for their own state transitions and should not be treated as coverage for arbitrary developer PRs.
 
 ### TASK-197 conclusion
-All declared repository validation surfaces are either PR-covered, scheduled/manual heavy coverage, or compositionally covered. The only evidence-backed coverage gap is lifecycle timing: heavy tests are not pre-merge and no post-merge/main or merge-queue validation trigger exists. Whether those require workflow changes is deferred to governance analysis.
+All declared repository validation surfaces are either PR-covered, scheduled/manual heavy coverage, or compositionally covered. The only evidence-backed coverage gap is lifecycle timing: heavy tests are not pre-merge and no post-merge/main or merge-queue validation trigger exists.
+
+## TASK-198 — Governance, triggers and action-runtime audit
+
+### Repository enforcement
+Fresh `main` is not protected and reports no required status checks. Therefore `Deterministic CI` currently provides evidence but GitHub repository settings do not make that evidence an enforced merge prerequisite. This is a repository-setting gap, not a missing workflow.
+
+Recommended remediation class: repository setting. Protect `main` and require the existing deterministic validation check before merge, with bypass policy decided explicitly by repository governance. Do not add a duplicate workflow to emulate branch protection.
+
+### Lifecycle trigger audit
+- PR: covered by `ci.yml`; this is the primary deterministic integration candidate gate.
+- Push to `main`: no general validation trigger. With branch protection + required PR checks, a duplicate full `verify` after every merge is defense-in-depth rather than a primary integrity requirement; without protection, direct pushes can bypass the PR gate.
+- Schedule: heavy product partition is covered nightly; Work Package planning also has its own schedule.
+- Manual: heavy tests and all OpenCode controllers expose deliberate manual entry points.
+- Merge queue / `merge_group`: no trigger exists. There is no current repository protection/merge-queue evidence requiring it; if merge queue is enabled later, `ci.yml` must be extended to `merge_group` so required validation is evaluated on the queued merge candidate.
+
+### Heavy-test timing
+Heavy tests are intentionally separated into a 30-minute nightly/manual workflow while PR CI has a 15-minute deterministic gate. The runner partitions product tests explicitly into core and heavy. Current evidence does not justify making every heavy test PR-blocking: doing so would add latency/cost, and no failure-rate or change-path evidence was found to support that policy. Retain nightly/manual heavy tests now; reconsider selective PR heavy execution only with observed regression/latency data.
+
+### Permissions
+- `ci.yml` and `heavy-tests.yml` use `contents: read`: appropriate least privilege for validation.
+- planner schedule uses `actions: write` with PR/contents read because it dispatches the planner and inspects PR state: role-aligned.
+- Sprint task loop, next-sprint materializer and Work Package planner create/push repository state and PRs, so their write permissions are role-aligned with orchestration.
+- `opencode-work-package.yml` only validates inputs and dispatches another workflow in the observed definition. Its `contents: write` and `pull-requests: write` permissions are broader than the visible job requires; a follow-up should reduce this dispatcher to the minimum needed for workflow dispatch (principally `actions: write`, with only any read scope proven necessary). This is modification of an existing workflow, not a new workflow.
+
+### Concurrency
+- PR CI cancels superseded runs per PR: appropriate for validation freshness.
+- heavy tests serialize and do not cancel: appropriate for scheduled heavy evidence.
+- Sprint task loop serializes per Sprint branch and does not cancel: appropriate because task execution is stateful.
+- Work Package planner/schedule use singleton serialization.
+- next-sprint materialization uses a per-run concurrency key, so duplicate invocations are not mutually exclusive. Isolated planning branches reduce collision risk, but no observed race/failure establishes a mandatory change. Record as residual orchestration risk rather than inventing a new concurrency policy.
+- Work Package dispatcher has no concurrency block, but its downstream Sprint loop serializes by Sprint branch. No separate validation workflow is warranted from this fact.
+
+### Action runtime/version maintenance
+Recent Deterministic CI runner logs explicitly warn that `actions/checkout@v4` and `actions/setup-node@v4` target the deprecated Node 20 action runtime and are being forced to Node 24. Current upstream documentation exposes `actions/checkout@v7` and `actions/setup-node@v7`; both lines include Node 24-era action runtimes and newer maintenance/security behavior. Repository workflows still reference `@v4`.
+
+Recommended remediation class: modify existing workflows in one bounded CI-maintenance change, upgrading these first-party action majors consistently and validating every affected workflow. No new workflow is needed for this maintenance.
+
+### Services and validation composition
+PR and heavy workflows both provision the two Postgres services required by current repository tests; their successful runs demonstrate that the service topology is functional. Repetition of service YAML is maintenance duplication, but extracting it would require a reusable workflow/composite abstraction whose benefit has not been established. No additional workflow is justified solely to remove this duplication.
+
+### TASK-198 conclusion
+The audit identifies two concrete integrity/maintenance changes and no evidence-backed need for an additional validation workflow:
+1. repository settings should enforce the existing deterministic PR check on protected `main`;
+2. existing workflows should upgrade deprecated first-party action majors, and the lightweight Work Package dispatcher should be least-privilege reviewed.
+
+Heavy tests should remain nightly/manual on current evidence. `push`/`merge_group` additions are conditional lifecycle choices, not separate workflow needs: `merge_group` becomes necessary if merge queue is enabled; post-merge `push` verification is optional defense-in-depth after branch protection is enforced.
 
 Boundaries preserved: no `.github/**`, repository-setting, product/runtime, or P12 WBS 12.3.x mutation.

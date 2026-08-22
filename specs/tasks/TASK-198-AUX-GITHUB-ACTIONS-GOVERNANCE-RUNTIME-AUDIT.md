@@ -1,7 +1,7 @@
 ---
 id: TASK-198
 title: Audit GitHub Actions governance triggers and runtime maintenance
-status: ready
+status: verification
 priority: 553
 milestone: M12
 model_tier: architecture
