@@ -1,7 +1,7 @@
 ---
 id: TASK-188
 title: Define ProblemRecord contract
-status: ready
+status: verification
 priority: 543
 milestone: M12
 model_tier: architecture

@@ -14,3 +14,8 @@ export {
   type SupportCaseRecordFields,
   type SupportCaseFromTriageFields,
 } from "./case.js";
+export {
+  ProblemRecord,
+  type ProblemRecordFields,
+  type ProblemFromTriageFields,
+} from "./problem.js";
