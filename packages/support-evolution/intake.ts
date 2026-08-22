@@ -88,11 +88,13 @@ function assertSourceProvenance(fields: SupportEvidenceIntakeFields): void {
 }
 function buildPayload(fields: SupportEvidenceIntakeFields) {
   if (fields.sourceKind !== "observe_finding" && fields.sourceKind !== "human_request") throw invalid(`SOURCE_KIND:${String(fields.sourceKind)}`);
+  const evidenceRef = requiredString(fields.evidenceRef, "evidenceRef");
+  const summary = requiredString(fields.summary, "summary");
+  const submittedAt = requiredString(fields.submittedAt, "submittedAt");
   assertSourceProvenance(fields);
   return Object.freeze({
     kind: "SupportEvidenceIntake" as const, sourceKind: fields.sourceKind,
-    evidenceRef: requiredString(fields.evidenceRef, "evidenceRef"), summary: requiredString(fields.summary, "summary"),
-    submittedAt: requiredString(fields.submittedAt, "submittedAt"),
+    evidenceRef, summary, submittedAt,
     ...(fields.findingCode !== undefined ? { findingCode: requiredString(fields.findingCode, "findingCode") } : {}),
     ...(fields.observationId !== undefined ? { observationId: requiredString(fields.observationId, "observationId") } : {}),
     ...(fields.deploymentId !== undefined ? { deploymentId: requiredString(fields.deploymentId, "deploymentId") } : {}),
