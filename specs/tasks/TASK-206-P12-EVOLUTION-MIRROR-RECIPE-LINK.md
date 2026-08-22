@@ -37,8 +37,20 @@ validation:
 # Objective
 Represent the controlled reopening of business knowledge as deterministic linkage from validated `EvolutionRequestEvidence` to canonical ProcessMirror and BusinessRecipe artifact identities/references.
 
+# Context
+WBS 12.3.2 requires business behavior changes to return through Mirror/Recipe. Current repository truth exposes ProcessMirror and BusinessRecipe as public contract artifacts but no executable authoring module exists for Sprint 4 to call.
+
+# Current behavior
+Evolution evidence has no durable link to the canonical ProcessMirror/BusinessRecipe artifact identities.
+
 # Required change
 Add an `EvolutionKnowledgeLink` (name may vary only if equally explicit) that records the evolution evidence identity plus ProcessMirror and BusinessRecipe artifact refs/schema identity needed for traceability. Consume existing public contract constants/schemas; do not modify them and do not invent an executor.
+
+# Inputs / contracts
+TASK-205 Evolution evidence, ProcessMirror public contract identity/constants, BusinessRecipe public contract identity/constants and WBS 12.3.2.
+
+# Outputs / contracts
+Module-local evolution knowledge linkage exported by `packages/support-evolution`; no modification to shared schemas.
 
 # Acceptance criteria
 - linkage requires validated EvolutionRequestEvidence;
@@ -47,3 +59,12 @@ Add an `EvolutionKnowledgeLink` (name may vary only if equally explicit) that re
 - repeated equivalent inputs have stable identity;
 - no shared schema change;
 - verification passes.
+
+# Non-goals
+Implementing Mirror/Recipe authoring, changing their schemas, producing SystemDefinition, publishing/deploying a release.
+
+# Evidence expected
+Focused product tests showing deterministic valid linkage and consumption of existing public contract identities, plus repository verification.
+
+# Escalation
+Stop if implementation requires a ProcessMirror/BusinessRecipe schema mutation, new authoring engine or L4 boundary.
