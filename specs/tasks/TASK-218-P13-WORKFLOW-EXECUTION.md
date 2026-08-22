@@ -1,12 +1,13 @@
 ---
 id: TASK-218
 title: Execute explicitly declared workflow transitions
-status: pending
+status: ready
 priority: 218
 milestone: M13
-model_tier: strong
+model_tier: architecture
 risk: high
 architecture_impact: false
+executor_preference: any
 depends_on:
   - TASK-212
   - TASK-217
