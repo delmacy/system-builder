@@ -8,9 +8,9 @@ Read, in order:
 
 1. `docs/current/PROJECT_STATE.md`
 2. `docs/current/CURRENT_MILESTONE.md`
-3. `project_docs/schedule/SPRINT_GENERATION_POLICY.md` when planning/selecting product Sprints
+3. `project_docs/schedule/SPRINT_GENERATION_POLICY.md` when planning/selecting product Sprints or Work Packages
 4. `project_docs/schedule/SPRINT_MODE.md` when executing product work
-5. the active Sprint Package when one exists
+5. the active Work Package/Sprint Package when one exists
 6. the active Sprint definition
 7. the task specification being executed
 8. every applicable path declared in that TASK's `context_paths`
@@ -36,22 +36,30 @@ Before editing, explicitly confirm the TASK's `allowed_paths`, `forbidden_paths`
 11. **Local-first development.** The normal product executor is OpenCode CLI on the maintainer desktop using free/cheap models; GitHub backs source/history and deterministic CI only.
 12. **Premium intelligence is exceptional.** Use Codex/strong models primarily for bootstrap, architecture, critical review, security-sensitive changes and exceptions.
 
-## Sprint Mode
+## Work Package and Sprint cadence
 
-Product development executes in Sprint Mode by default.
+Product development executes in Sprint Mode by default and uses rolling-wave Work Packages.
 
-- Rolling-wave planning follows `SPRINT_GENERATION_POLICY.md`: a Sprint Package normally carries 4–8 construction Sprints plus one Integration & Technical Debt Review.
+For newly planned Work Packages, `SPRINT_GENERATION_POLICY.md` is authoritative. The default cadence is:
+
+`1 Planning Sprint -> 2 Construction Sprints -> optional 3rd Construction Sprint -> 1 Package Integration & Review Sprint -> 1 Documentation & Closure Sprint`
+
 - Only the active Sprint is committed; later Sprints remain forecast until predecessor gates pass.
+- Planning reconciles fresh repository truth and materializes only the first eligible Construction Sprint.
+- Construction Sprints deliver bounded integrated increments and extend the growing integration/E2E proof.
+- The optional third Construction Sprint is promoted only after fresh-main revalidation proves it necessary for the Package Goal.
+- Package Integration & Review regresses the package, classifies debt and checks architecture/contracts/readiness; it is not an overflow feature Sprint.
+- Documentation & Closure reconciles repository memory and closes the package; documentation is still updated incrementally in every Sprint.
+- Legacy packages already materially executed under an older cadence may finish as explicitly recorded grandfathered packages; do not rewrite their history.
 - One Sprint uses one branch: `sprint/<SPRINT-ID>`.
 - All committed TASKs execute on that branch in dependency order.
-- Keep one distinct commit per TASK.
+- Keep one distinct authoritative commit per TASK.
 - Implementation TASKs include positive, negative and predecessor-integration tests where applicable.
-- Every construction Sprint extends the growing integration/E2E proof.
 - Run each TASK's declared validations before advancing.
 - Run repository-wide final verification at Sprint completion.
 - Open one PR from the Sprint branch to `main`.
 - Human review is normally at the Sprint boundary, not after every TASK.
-- Do not start the next Sprint automatically without explicit authorization.
+- Do not start a successor Sprint automatically without the authorization permitted by repository policy.
 - Do not write directly to `main`.
 
 The AgentFactory Supervisor/runtime is preserved but is not a prerequisite or completion gate for product Sprints unless explicitly reactivated by repository authority.
@@ -60,7 +68,7 @@ The AgentFactory Supervisor/runtime is preserved but is not a prerequisite or co
 
 GitHub-hosted OpenCode task generation/materialization workflows are disabled by repository decision. All planning and execution happen on the maintainer desktop:
 
-- **Planning (Work Packages, WBS, task specs) is produced locally** by the OpenCode planning session and committed through the normal Sprint branch flow.
+- **Planning (Work Packages, WBS, Sprint manifests and task specs) is produced locally** by the OpenCode planning session and committed through the normal branch/PR flow.
 - **Sprint execution is local and automatic per TASK**: one disposable `opencode run` session per committed TASK, using the repository as the single source of truth, exactly one authoritative commit per TASK, in dependency order.
 - Use the local orchestrator `scripts/sprint-run-local.ps1` to iterate the committed TASK set, run each session, validate the one-commit rule, push the Sprint branch, run Sprint closure, and optionally open the Sprint Review PR.
 - GitHub is used only as source/history and as objective deterministic CI (`npm run verify`) on the Sprint PR head. GitHub Actions never drive OpenCode execution.
@@ -78,6 +86,7 @@ GitHub-hosted OpenCode task generation/materialization workflows are disabled by
 - Do not modify unrelated paths.
 - Do not claim local test execution unless it was actually observed; connected execution may rely on GitHub Actions as objective CI evidence.
 - Stop the Sprint for a human decision only when an explicit escalation condition in `project_docs/schedule/SPRINT_MODE.md` is reached.
+- Never use Planning, Package Review or Documentation & Closure to conceal delayed product implementation.
 
 ## Change levels
 

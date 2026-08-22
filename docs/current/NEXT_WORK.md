@@ -1,28 +1,43 @@
-# Next Work — Auxiliary GitHub Actions Audit Sprint Review
+# Next Work — P12 Controlled Evolution Authorization Gate
 
 The repository is authoritative.
 
-## Current state
-P12 Sprint 3 is integrated through merge `7763177596cb684d3e3c6f9a55042337a865c2bc`.
+## Current integrated truth
+P12 Sprints 1–3 are merged. PR #230 (GitHub Actions validation audit) and PR #231 (bounded workflow maintenance) are also merged. The repository is no longer waiting on either auxiliary PR.
 
-`AUX-GITHUB-ACTIONS-VALIDATION-AUDIT-01` is **CONSTRUCTED / SPRINT REVIEW / GOVERNANCE RECONCILED** on PR #230. TASK-196..199 produced the evidence-backed validation/governance disposition matrix without modifying `.github/**` or repository settings.
+The current integrated support/evolution chain closes operational resolution through WBS 12.2.3. `Evolution` exists only as explicit triage classification; SupportCase/Problem operational paths reject it.
 
-## Audit decisions
-- No additional general validation workflow is currently required.
-- `KEEP_CURRENT`: `main` remains intentionally unprotected during construction and broad owner privilege is retained to preserve development velocity under point-in-time owner instructions.
-- `DEFERRED`: branch protection, required checks and broad privilege reduction wait for an explicit future pre-commercial maturity gate; do not re-promote them before that gate without new owner authority.
-- `MODIFY_EXISTING_WORKFLOW`: separately update `actions/checkout@v4` / `actions/setup-node@v4` and review `opencode-work-package.yml` permissions, reducing only permissions proven unnecessary where the reduction does not impair current development dynamics.
-- `NO_ACTION`: heavy tests remain nightly/manual; no separate `test:product:full` workflow, duplicate `push: main` verify, `merge_group` before merge queue adoption, mandatory PR-heavy gate or new general validation workflow is justified now.
+## Planning policy
+New Work Packages use the short lifecycle:
 
-## Required action
-1. Observe fresh Deterministic CI on the governance-reconciled PR #230 head.
-2. Review the reconciled matrix and confirm no `.github/**` or settings mutation occurred.
-3. If approved and CI passes, merge PR #230 preserving its authoritative TASK commits.
-4. Reconstruct fresh `main`.
-5. Materialize at most one separate bounded auxiliary maintenance intervention for existing workflows only; do not change repository settings and do not broadly reduce privileges.
+`Planning & Materialization -> Construction A -> Construction B -> [optional Construction C] -> Package Integration & Review -> Documentation & Closure`.
 
-## P12 forecast only
-P12 Sprint 4 / WBS 12.3.x remains FORECAST ONLY and is not materialized or executed by this auxiliary work.
+P12 is an explicit legacy/grandfathered package because three Construction Sprints were materially executed under the prior cadence.
 
-## Boundaries
-Do not implement deferred governance hardening implicitly. Workflow maintenance requires separate bounded authority and P12 business-evolution work remains governed by Mirror/Recipe/release.
+## Required next action
+Do not silently materialize P12 Sprint 4.
+
+When explicitly authorized to proceed:
+1. reconstruct fresh `main` after the planning/documentation reconciliation is integrated;
+2. re-read P12 package, WBS 12.3.x, Mirror/Recipe/release contracts and actual predecessor implementations;
+3. revalidate the forecast path `process-change evidence -> Mirror/Recipe -> version/release -> original request linkage`;
+4. materialize at most one P12 Sprint 4 manifest/TASK set if readiness remains valid;
+5. execute it under normal Sprint Mode and exact-head CI/review gates;
+6. finish P12 with its grandfathered package integration/debt review and repository-memory closure before opening the successor domain for execution.
+
+## Successor Work Package horizon — M13
+The next baseline domain after P12 is WBS 13 Autonomous Runtime. The following concrete Work Packages are now elaborated as forecast only:
+
+1. `P13-PACKAGE-01` — Autonomous Runtime Functional Execution — WBS 13.1.1-13.1.3;
+2. `P13-PACKAGE-02` — Autonomous Runtime Identity, Authority & Generated Experience — WBS 13.2.1-13.2.3;
+3. `P13-PACKAGE-03` — Autonomous Runtime Operational Autonomy — WBS 13.3.1-13.3.3.
+
+They are dependency ordered and non-executable. Each package begins with a Planning & Materialization Sprint that must reconstruct fresh `main`, inventory capability already delivered by earlier phases, classify it as predecessor evidence, identify only real gaps, and materialize at most Construction A.
+
+No P13 TASK set, Sprint manifest or execution branch is created by this forecast.
+
+## Governance boundaries
+- Keep `main` deliberately without GitHub branch protection/required checks during the current construction phase unless explicit future maturity authority changes that decision.
+- Branch protection, required checks and broad structural privilege reduction remain DEFERRED.
+- Do not add a new general validation workflow, duplicate general `push: main` verification, `merge_group` before merge-queue adoption, or mandatory PR-heavy gate without new evidence/authority.
+- Planning/Review/Documentation Sprints must not absorb undeclared product implementation.

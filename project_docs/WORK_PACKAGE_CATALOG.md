@@ -1,6 +1,6 @@
 # Work Package Catalog — Baseline pré-cronograma
 
-Este catálogo define famílias de Work Packages. IDs concretos de execução serão materializados a partir dos L3/L4 quando o respectivo ramo estiver NOW.
+Este catálogo define famílias de Work Packages. IDs concretos de execução são elaborados a partir dos L3/L4 quando o respectivo ramo estiver próximo de NOW, sempre sob a cadência vigente em `project_docs/schedule/SPRINT_GENERATION_POLICY.md`.
 
 ## WP-F01 Knowledge capture
 Predecessors: semantics/evidence hooks. Outputs: ProcessMirror contracts, capture/validation artifacts.
@@ -48,4 +48,10 @@ Predecessors: deployed runtime + events/audit. Outputs: technical/business telem
 Predecessors: vertical factory path. Outputs: end-to-end proof, autonomous-runtime proof, portability/compatibility evidence.
 
 ## Decomposition rule
-Cada família é Planning Package até seu predecessor imediato estar estável. Ao ser promovida para NOW, seus L3 são revisados; itens com mais de uma interface, acceptance independente ou risco distinto são decompostos em L4 e então em Work Packages concretos. Tasks só nascem depois.
+Cada família permanece Planning Package até seu predecessor imediato estar estável. Ao ser promovida para o forecast próximo, seus L3 são revisados contra a implementação já integrada; itens já entregues viram predecessor evidence e não são planejados novamente.
+
+Interfaces/acceptance/riscos independentes podem produzir Work Packages concretos separados. Cada novo Work Package concreto usa por padrão:
+
+`Planning & Materialization -> Construction A -> Construction B -> [optional Construction C] -> Package Integration & Review -> Documentation & Closure`.
+
+Tasks só nascem depois que a Planning Sprint do Work Package confirma gaps/readiness a partir de `main` fresco. Um Work Package forecast não materializa TASKs e não concede execução.
