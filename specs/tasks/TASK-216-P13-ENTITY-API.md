@@ -1,7 +1,7 @@
 ---
 id: TASK-216
 title: Expose generated entity APIs from materialized Runtime model
-status: ready
+status: completed
 priority: 216
 milestone: M13
 model_tier: cheap
