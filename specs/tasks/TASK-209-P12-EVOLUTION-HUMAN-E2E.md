@@ -1,7 +1,7 @@
 ---
 id: TASK-209
 title: Prove human process-change request through Evolution linkage
-status: ready
+status: verification
 priority: 570
 milestone: M12
 model_tier: cheap
