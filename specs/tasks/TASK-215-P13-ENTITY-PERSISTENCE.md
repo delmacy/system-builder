@@ -1,12 +1,13 @@
 ---
 id: TASK-215
 title: Execute generated entity persistence in autonomous Runtime
-status: pending
+status: ready
 priority: 215
 milestone: M13
 model_tier: cheap
 risk: medium
 architecture_impact: false
+executor_preference: any
 depends_on:
   - TASK-214
 context_paths:
@@ -40,7 +41,7 @@ Add the bounded Runtime execution layer that persists generated entities through
 - required fields/types are validated deterministically;
 - unknown entities/fields and invalid payloads fail closed;
 - persistence survives Runtime restart/redeploy through the existing PostgreSQL path;
-- DATABASE_URL or equivalent resolved material is consumed only at runtime and never emitted into durable evidence;
+- resolved database material is consumed only at runtime and never emitted into durable evidence;
 - existing state.counter behavior remains green.
 
 # Escalation
