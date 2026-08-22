@@ -1,7 +1,7 @@
 ---
 id: TASK-160
 title: Extend growing package proof with findings coverage
-status: ready
+status: verification
 priority: 482
 milestone: M11
 model_tier: cheap
@@ -115,7 +115,7 @@ Sprint 3 closure report + updated docs/specs + GitHub Deterministic CI.
 
 # Implementation evidence
 
-Implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the Sprint-closing TASK: TASK-149..160 specs all set to `status: verification` with implementation evidence recorded; `project_docs/execution_planning/P11-OBSERVE-INTEGRATION-E2E-01.report.md` created in the Sprint 1/2 report format; `P11-PACKAGE-01.md` updated to SPRINT_3_CONSTRUCTED with the package review FORECAST; `PROJECT_STATE.md`, `CURRENT_MILESTONE.md`, `NEXT_WORK.md` updated to the integrated findings proof. Local: lint PASS, typecheck PASS, `npm run check:tasks` 161 specs validated, core `test:product` PASS. CI validation required before Sprint Review.
+Sprint 3 product construction merged through PR #223 at merge commit `0dae4b058d1025dce5c8df54c6109707cac41727`; final Sprint head before merge was `cfbe21de397d0dbeb8c54ff00c4d0d51b0cbae26`. Deterministic CI #424 (run `32545758969`) passed the full repository gate: 309/309 unit tests, 298/298 core product tests, 161 task specifications, architecture gates and build. The post-merge reconciliation on `hotfix/P11-sprint3-closure-state` repairs the repository-memory debt left by PR #223: TASK-151/TASK-159/TASK-160 are brought to `status: verification`, Sprint 3 closure evidence is recorded, and package/current-state documents are aligned to the merged repository truth. No product behavior, canonical contracts, ADRs, tooling or CI configuration are changed by this reconciliation.
 
 # Escalation
 

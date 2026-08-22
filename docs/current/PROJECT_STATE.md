@@ -1,40 +1,29 @@
 # Project State
 
-Date: 2026-08-19
+Date: 2026-08-22
 
 ## Repository
 
-`delmacy/system-builder` is canonical. Reconstruct technical context from repository files, not chat history.
+`delmacy/system-builder` is canonical. Reconstruct technical context from repository files and current Git/GitHub evidence, not chat history.
 
 ## Integrated maturity
 
-- P1–P8 construction/review history is integrated.
-- P8 Integration & Technical Debt Review merged through PR #192 at `78e4e9a8056bf1e9c4bb4f49a798dd080cfd128a`.
-- `P9-PACKAGE-01 — Managed Runtime Deployment Orchestration` planning merged through PR #193 at `14cdccbd391d3c337f749bc14e470e5a8bb1742f`.
-- `P9-MANAGED-RUNTIME-PROCESS-01` merged through PR #194 at `cea8f09ccb99b2bf5bed27e9f01782db1520bb67`; final CI #356 PASS.
-- `P9-ACTIVE-RUNTIME-PROMOTION-01` merged through PR #195 at `34379b744661468d8f3575facdbb6ed7140f8470`; final CI #362 PASS.
-- `P9-RUNTIME-RECONCILIATION-E2E-01` merged through PR #196 at `a559d1af5d97562c0537cfb257de7dd2de889c84`; closure Deterministic CI PASS.
-- P9 Integration & Technical Debt Review merged through PR #198 at `6662c64`; final CI validate PASS (run `32097982545`).
-- P9 corrective SCRAM/TLS merged through PR #197 at `898a14f`; CI validate PASS on rebased head (run `32097697770`).
-- Sprint-starter-prompt update merged through PR #199 at `6279b98` (doc-only).
-- P10 materialization merged through PR #200 at `d178445` (direction A selected + first construction Sprint manifest + TASK-128/129/130 specs).
-- `P10-PRODUCTION-SECRETRESOLVER-01` (1st construction Sprint) merged through PR #201 at `4301936`; Deterministic CI PASS on closure head `a1e0ed6` (run `32136056276`).
-- ADR-0015 (positive TLS server-identity verification, `TD-P8-02`) accepted by a human through PR #206 at `99f344b`; `P10-TLS-SERVER-IDENTITY-01` (Construction Sprint 2) materialized as COMMITTED.
-- P10 Work Package revalidated after the real Sprint 1 merge from freshly reconstructed `main` `e9f1b4d` (after PR #212): Sprint 2 `P10-TLS-SERVER-IDENTITY-01` confirmed as the sole eligible COMMITTED successor (revalidation commit on `planning/P10-PACKAGE-01-after-201`).
-- Re-validation re-confirmed on the post-credential-fix re-dispatch: from freshly reconstructed `main` `e9f1b4d`, Sprint 2 `P10-TLS-SERVER-IDENTITY-01` remains the sole eligible COMMITTED successor; no blocker, unaccepted ADR, L3/L4, destructive-migration or security-weakening gate is present.
-- Revalidated on this fresh re-dispatch from freshly reconstructed `main` `e9f1b4d`: Sprint 2 `P10-TLS-SERVER-IDENTITY-01` remains the sole eligible COMMITTED successor; no blocker, unaccepted ADR, L3/L4, destructive-migration or security-weakening gate is present.
-- `P10-TLS-SERVER-IDENTITY-01` (2nd construction Sprint) **merged** through PR #214 at `3fdfb95`; Deterministic CI PASS (run `32248430431`). `TD-P8-02` is **closed** under the human-accepted ADR-0015 (PR #206).
-- P10 Integration & Technical Debt Review materialized on `review/P10-PACKAGE-01-integration-debt` (PR pending): package goal PASS, both P10 Sprints merged, successor `P11-PACKAGE-01` (Observe/operations publication) materialized as **SKELETON ONLY / FORECAST**.
-- P10 Integration & Technical Debt Review **merged** through PR #216 at `72e6b09` (Deterministic CI PASS). P10 package is complete and closed.
-- `P11-PACKAGE-01` (Observe/operations publication) **materialized as COMMITTED/DIRECTION_SELECTED** with Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (TASK-134/135/136 specs, `ready`) on the planning branch; no product construction performed.
-- `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (Construction Sprint 1) **merged** through PR #219 at `fd05da2` (Deterministic CI run `32273409636` PASS). `TD-P7-03` closed; `TD-P4-08` partially closed.
-- `P11-PACKAGE-01` **re-materialized** with Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148 specs, `ready`) as COMMITTED on the planning branch; no product construction performed.
-- `P11-OBSERVE-OPERATIONAL-METADATA-01` (Construction Sprint 2) **constructed** on `sprint/P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..147 commits `7d20a6d`..`7f6a5e2`, one per TASK in dependency order; TASK-148 closure in `P11-OBSERVE-OPERATIONAL-METADATA-01.report.md`) and **MERGED** through PR #221 at `1830705` (Deterministic CI run `32280667636` PASS). Operational-metadata path proven; `TD-P4-08` closed.
-- `P11-PACKAGE-01` **re-materialized** with Construction Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` (TASK-149..160 specs, `ready`) as COMMITTED on the planning branch after revalidation from fresh `main` (`1830705`/`04ac7b7`); no product construction performed.
+- P1–P9 construction/review history is integrated.
+- P9 Integration & Technical Debt Review merged through PR #198; P9 corrective SCRAM/TLS merged through PR #197.
+- P10 package is complete and closed: Sprint 1 `P10-PRODUCTION-SECRETRESOLVER-01` merged through PR #201; Sprint 2 `P10-TLS-SERVER-IDENTITY-01` merged through PR #214; P10 Integration & Technical Debt Review merged through PR #216. `TD-P4-05` and `TD-P8-02` are closed.
+- `P11-PACKAGE-01` selected Direction B — Observe/operations publication (WBS 10.3.3).
+- P11 Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` merged through PR #219 at `fd05da2`; Deterministic CI PASS. `TD-P7-03` closed; `TD-P4-08` partially closed.
+- P11 Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` merged through PR #221 at `1830705`; Deterministic CI PASS. `TD-P4-08` closed.
+- P11 Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` merged through PR #223 at merge commit `0dae4b058d1025dce5c8df54c6109707cac41727`; final Sprint head `cfbe21de397d0dbeb8c54ff00c4d0d51b0cbae26`; Deterministic CI #424 / run `32545758969` PASS.
+- Sprint 3 closure evidence is recorded in `project_docs/execution_planning/P11-OBSERVE-INTEGRATION-E2E-01.report.md`; TASK-149..160 are at `status: verification` after the post-merge repository-memory reconciliation.
 
 ## Active milestone
 
-M11 (candidate). P10 package is complete and closed (PR #201, #214, #216). `P11-PACKAGE-01` direction is **selected (B — Observe/operations publication, WBS 10.3.3)**. Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` (TASK-134/135/136) is **MERGED** (PR #219, `fd05da2`). Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148) is **MERGED** through PR #221 at `1830705` (Deterministic CI run `32280667636` PASS). Construction Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` (TASK-149..160) is **COMMITTED** (manifest + TASK specs, `ready`) on the planning branch; no product construction performed.
+M11 (candidate).
+
+P11 construction is complete. All three construction Sprints are merged. Per `project_docs/schedule/SPRINT_GENERATION_POLICY.md`, the next eligible package-level action is the mandatory **P11 Integration & Technical Debt Review**, revalidated from fresh integrated `main`.
+
+No P12/successor package is promoted by the current state. Successor readiness must be decided by the P11 package review from actual integrated evidence.
 
 ## Achieved P9 construction proof
 
@@ -44,42 +33,49 @@ M11 (candidate). P10 package is complete and closed (PR #201, #214, #216). `P11-
 
 `managed A -> durable authority A -> production SecretResolver resolves symbolic secret bindings -> managed Runtime process starts with resolved ephemeral values -> no resolved value in durable Release/Deployment evidence -> Runtime continuity with Builder/Observe unavailable -> shared Transport and rendered Runtime perform positive PostgreSQL TLS server-identity verification (verify-ca/verify-full, fail-closed) -> authenticated SCRAM positive-verification E2E`
 
-## P11 Sprint 1 constructed (merged)
+## Achieved P11 construction proof
 
-`P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` — **MERGED** through PR #219 at `fd05da2` (Deterministic CI run `32273409636` PASS). Goal achieved: provider-neutral `DeploymentObservation` derived from the durable `DeploymentRecord`, fail-open publication to Observe/operations when configured, no value leakage, Runtime autonomy preserved. `TD-P7-03` closed; `TD-P4-08` partially closed.
+Sprint 1 established provider-neutral deployment observations and fail-open publication. Sprint 2 added deterministic operational metadata correlated to release/environment/runtime context. Sprint 3 completed findings derivation, validation, serialization, correlation, linkage and fail-open publication with actual Deploy integration and Runtime autonomy proof.
 
-## Achieved P11 construction proof (Sprint 1)
+Growing package proof:
 
-`durable DeploymentRecord -> provider-neutral DeploymentObservation (deterministic, content-addressed) -> fail-open publish -> Observe/operations receives deployment observations when configured -> Runtime continuity with Observe unavailable -> no resolved secret/credential/CA value in any emitted observation -> observations linkable to release/environment/status/health correlation`
+`durable DeploymentRecord -> provider-neutral DeploymentObservation -> operational metadata (executor/source/mode) -> enriched observation -> deterministic findings with severity/confidence -> correlation + linkage to deployment/release/environment/runtime context -> lossless serialization -> fail-open Observe publication -> Runtime continuity with Observe unavailable/not configured -> no resolved secret/credential/CA value in emitted artifacts`
 
-## P11 Sprint 2 constructed (merged)
+## P11 Sprint 3 verification evidence
 
-`P11-OBSERVE-OPERATIONAL-METADATA-01` — **MERGED** through PR #221 at `1830705` (Deterministic CI run `32280667636` PASS). Goal achieved: executor/source operational metadata (WBS 10.3.1/11.1.2) correlated to release/environment/runtime context, provider-neutral, fail-open, deterministic, value-leak-free, extending the Sprint 1 `DeploymentObservation` additively without altering canonical identity. `TD-P4-08` closed.
+Deterministic CI #424, run `32545758969`, PASS:
 
-## Achieved P11 construction proof (Sprint 2)
+- lint PASS;
+- typecheck PASS;
+- unit 309/309 PASS;
+- core product 298/298 PASS;
+- `check:tasks` 161 task specifications validated;
+- architecture gates PASS;
+- build PASS.
 
-`durable DeploymentRecord -> provider-neutral DeploymentObservation -> operational metadata (executor/source/mode) correlated to release/environment/runtime context -> enriched observation -> Observe/operations receives deployment observations when configured -> Runtime continuity with Observe unavailable -> observations linkable to release/environment context -> no resolved secret/CA value in any emitted observation`
-
-## Corrective traceability
-
-`sprint/CORRECTION-INFRA-01` (PR #197) is registered as a traceable corrective: Postgres overwrite crash repair + consolidation of duplicated PostgreSQL transports onto a shared SCRAM/TLS client. Rebased over new `main` `a559d1a`; head `0f4161a`; Deterministic CI run `32097697770` validate SUCCESS. Merge is human. Effective in `main` at `898a14f`.
+The product tests cover findings contract, derivation, validation, serialization, correlation, linkage, fail-open behavior, no-leak behavior, actual Deploy positive path, negative channel failure, and autonomous Runtime continuation.
 
 ## Architecture boundary
 
-- Deploy-owned single-host reference lifecycle only.
-- Additive `packages/deploy/managed-process.ts` + `runtime-reconciliation.ts`; existing Deploy predecessors unchanged.
-- No canonical contracts, Runtime topology or ADR/L4 changes.
-- No generic process discovery/PID scan, unmanaged-process adoption or external service manager.
-- No load balancer/DNS/reverse proxy/scheduler/Kubernetes/fleet/cloud topology.
+- Deploy-owned single-host reference lifecycle remains unchanged.
+- Observe remains optional to Runtime operation (ADR-0002).
+- No canonical `DeploymentRecord` schema/identity change.
+- No Sprint 1 observation identity or Sprint 2 operational-metadata identity change.
+- No new ADR/L4 boundary, destructive migration, external service manager, fleet topology, Kubernetes, scheduler, load balancer, DNS or reverse-proxy claim is introduced by P11.
+- Durable evidence remains reference-only/value-leak-free under ADR-0007.
 
-## Residual P9 inputs (carried debt)
+## Residual inputs / technical debt
 
 - production traffic/fleet/infrastructure rollback remains unclaimed;
-- `TD-P4-08` — operational DeploymentRecord semantics: durable identity, release/environment/timestamps, result/history, active version, **Observe publication** and executor/source operational metadata (WBS 10.3.1/11.1.2) all proven across P11 Sprints 1 and 2. **CLOSED**.
-- process supervision/reconciliation is single-host and process-local (`TD-P9-01`/`TD-P9-02`).
-- production SecretResolver (`TD-P4-05`) is constructed and **MERGED** (Sprint 1, PR #201).
-- successor readiness: `P11-PACKAGE-01` (Observe/operations publication, WBS 10.3.3, `TD-P7-03`/`TD-P4-08`) — Sprint 1 **MERGED** (PR #219, `fd05da2`); Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` **MERGED** (PR #221, `1830705`); Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` **COMMITTED** (manifest + TASK specs, `ready`); the package review remains FORECAST.
+- process supervision/reconciliation remains single-host and process-local (`TD-P9-01`/`TD-P9-02`);
+- `TD-P4-05` closed in P10;
+- `TD-P8-02` closed in P10;
+- `TD-P7-03` closed in P11 Sprint 1;
+- `TD-P4-08` closed in P11 Sprint 2;
+- P11 Sprint 3 post-merge repository-memory drift (TASK-151/TASK-159/TASK-160 status plus missing closure report/stale current docs) is repaired by `hotfix/P11-sprint3-closure-state`.
 
 ## Current gate
 
-`P10-PACKAGE-01` is **complete and closed** (Sprint 1 PR #201, Sprint 2 PR #214, review PR #216). `P11-PACKAGE-01` direction B (Observe/operations publication) is selected; Construction Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` is **MERGED** (PR #219, `fd05da2`); Construction Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` (TASK-137..148) is **MERGED** through PR #221 at `1830705` (Deterministic CI run `32280667636` PASS); Construction Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` (TASK-149..160) is **COMMITTED** as a planning package (manifest + TASK specs). The package Integration & Technical Debt Review remains FORECAST until Sprint 3 merges and the package is revalidated from freshly reconstructed `main`.
+P11 construction is complete and merged. The current gate is **P11 Integration & Technical Debt Review revalidation** from fresh `main` after the Sprint 3 closure-state reconciliation merges.
+
+Do not start successor package construction from task numbering, chat history or forecast assumptions. The package review must classify residual debt, verify the full integrated regression chain, revalidate contracts/DAG/risks, and promote or demote successor work from repository truth.

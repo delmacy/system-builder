@@ -1,7 +1,7 @@
 ---
 id: TASK-159
 title: Prove findings integrated E2E with Runtime autonomy
-status: ready
+status: verification
 priority: 481
 milestone: M11
 model_tier: cheap
@@ -109,7 +109,7 @@ Changing the canonical `DeploymentRecord` schema/identity or the Sprint 1/2 iden
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the Sprint-closing construction TASK. CI validation required before Sprint Review.
+Implemented and merged through PR #223 using the actual integrated product paths already exercised by the Sprint 3 positive/negative suites: `observe-findings-positive.test.ts` drives a real Deploy API `DeploymentRecord` through observation, operational metadata, findings derivation, correlation, linkage, serialization and injected publication; `observe-findings-negative.test.ts` proves fail-open continuation across findings channel failure with real Deploy and the autonomous Runtime. The final hardening commit `cfbe21de397d0dbeb8c54ff00c4d0d51b0cbae26` strengthened these E2E proofs without changing Deploy/Runtime implementation. Deterministic CI #424 (run `32545758969`) passed with 309/309 unit tests and 298/298 core product tests, including the positive, negative, fail-open, no-leak and Runtime-autonomy findings paths.
 
 # Escalation
 

@@ -1,7 +1,7 @@
 ---
 id: TASK-151
 title: Validate DeploymentFinding fail-closed with deterministic diagnostics
-status: ready
+status: verification
 priority: 473
 milestone: M11
 model_tier: cheap
@@ -104,7 +104,7 @@ Changing the canonical `DeploymentRecord` schema/identity or the Sprint 1/2 iden
 
 # Implementation evidence
 
-To be implemented on `sprint/P11-OBSERVE-INTEGRATION-E2E-01` as the third TASK of Sprint 3. CI validation required before Sprint Review.
+Implemented and merged with Sprint 3 through PR #223. `DeploymentFinding.validate` now rejects non-object/wrong-kind/unknown/malformed/unsupported/conflicting inputs with deterministic `OBSERVE_INVALID_FINDING:*` diagnostics, verifies the content-addressed `findingId`, and rejects resolved-value markers without echoing the value. `tests/product/observe-findings-validation.test.ts` exercises the validation boundary. Deterministic CI #424 (run `32545758969`) passed on the Sprint Review merge ref, including 309/309 unit tests, 298/298 core product tests, 161 task specs, architecture gates and build.
 
 # Escalation
 
