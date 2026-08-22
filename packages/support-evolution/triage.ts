@@ -15,11 +15,21 @@ export type SupportTriageDecision = Readonly<{
 
 const CLASSIFICATIONS: readonly SupportTriageClassification[] = ["Support", "Maintenance", "Evolution"];
 const ALLOWED_FIELDS = new Set(["kind", "triageId", "intakeId", "classification", "decidedAt", "decidedByRef", "reasonRef", "impactRef", "criticalityRef", "slaRef", "priorityRef", "contextRefs"]);
+const RESOLVED_VALUE_MARKERS: readonly RegExp[] = [
+  /-{5}BEGIN/i, /password\s*[:=]/i, /passwd\s*[:=]/i, /token\s*[:=]/i, /apikey\s*[:=]/i, /api_key\s*[:=]/i,
+  /secret\s*[:=]/i, /client_secret\s*[:=]/i, /authorization\s*[:=]/i, /credential\s*[:=]/i,
+  /bearer\s+[a-z0-9._-]+/i, /postgres(?:ql)?:\/\/[^:\s]+:[^@\s]+@/i,
+];
 function invalid(detail: string): Error { return new Error(`SUPPORT_TRIAGE:${detail}`); }
 function isRecordLike(value: unknown): value is Record<string, unknown> { return value !== null && typeof value === "object" && !Array.isArray(value); }
+function assertReferenceOnly(value: string, field: string): string {
+  if (RESOLVED_VALUE_MARKERS.some((marker) => marker.test(value))) throw invalid(`RESOLVED_VALUE:${field}`);
+  if (value.length >= 20 && /^[A-Za-z0-9+/]+={1,2}$/.test(value)) throw invalid(`RESOLVED_VALUE:${field}`);
+  return value;
+}
 function requiredString(value: unknown, field: string): string {
   if (typeof value !== "string" || value.trim().length === 0) throw invalid(`MALFORMED:${field}`);
-  return value;
+  return assertReferenceOnly(value, field);
 }
 function requiredClassification(value: unknown): SupportTriageClassification {
   if (!CLASSIFICATIONS.includes(value as SupportTriageClassification)) throw invalid(`CLASSIFICATION:${String(value)}`);
