@@ -1,65 +1,56 @@
-# Current Execution Milestone — M11 P11 Construction Complete
+# Current Execution Milestone — M11 P11 Integration & Technical Debt Review
 
 ## Goal
 
-Complete the Observe (SB-11) slice: publish the durable `DeploymentRecord` to Observe/operations (WBS 10.3.3) through a provider-neutral, fail-open `DeploymentObservation`, enrich it with executor/source operational metadata correlated to release/environment/runtime context (WBS 10.3.1/11.1.2), and close the slice with integration E2E plus findings linkage (WBS 11.1.2/11.3.2), while preserving Runtime autonomy (ADR-0002), no-value-leakage (ADR-0007), and canonical deployment identity.
-
-That construction goal is now achieved across three merged Sprints.
+Close P11 at the package boundary after all three Observe construction Sprints merged: verify the integrated regression chain, classify residual technical debt, revalidate contracts/DAG/risks, and promote only the strongest successor supported by fresh repository evidence.
 
 ## Integrated predecessor
 
-P10 package is complete and closed: Sprint 1 `P10-PRODUCTION-SECRETRESOLVER-01` merged through PR #201, Sprint 2 `P10-TLS-SERVER-IDENTITY-01` merged through PR #214, and the P10 Integration & Technical Debt Review merged through PR #216. `TD-P4-05` and `TD-P8-02` are closed.
+P11 construction is complete:
 
-## Direction selection
+- Sprint 1 `P11-OBSERVE-DEPLOYMENT-OBSERVATION-01` — PR #219 merged;
+- Sprint 2 `P11-OBSERVE-OPERATIONAL-METADATA-01` — PR #221 merged;
+- Sprint 3 `P11-OBSERVE-INTEGRATION-E2E-01` — PR #223 merged at `0dae4b058d1025dce5c8df54c6109707cac41727`, Deterministic CI #424 PASS;
+- post-merge state reconciliation — PR #225 merged at `a1c82d693eb0d0bc22da8228024c95dada8a021d`.
 
-Selected: **B — Observe/operations publication** (WBS 10.3.3, `TD-P7-03` + `TD-P4-08`).
-
-Observe remains an optional bounded context that receives telemetry without becoming a Runtime dependency. No milestone pivot is assumed.
-
-## Constructed Sprint 1 — merged
-
-`P11-OBSERVE-DEPLOYMENT-OBSERVATION-01`
-
-- merged through PR #219 at `fd05da2`;
-- deterministic CI PASS;
-- established provider-neutral `DeploymentObservation`, fail-open publication, Runtime autonomy and no resolved-value leakage;
-- `TD-P7-03` closed; `TD-P4-08` partially closed.
-
-## Constructed Sprint 2 — merged
-
-`P11-OBSERVE-OPERATIONAL-METADATA-01`
-
-- merged through PR #221 at `1830705`;
-- deterministic CI PASS;
-- added executor/source/mode operational metadata correlated to release/environment/runtime context;
-- provider-neutral, deterministic, fail-open and value-leak-free;
-- `TD-P4-08` closed.
-
-## Constructed Sprint 3 — merged
-
-`P11-OBSERVE-INTEGRATION-E2E-01`
-
-- TASK-149..160;
-- merged through PR #223 at `0dae4b058d1025dce5c8df54c6109707cac41727`;
-- final Sprint head `cfbe21de397d0dbeb8c54ff00c4d0d51b0cbae26`;
-- Deterministic CI #424 / run `32545758969`: PASS;
-- 309/309 unit tests PASS;
-- 298/298 core product tests PASS;
-- 161 task specs validated;
-- architecture gates and build PASS.
-
-Goal achieved: deterministic findings with severity/confidence are derived from enriched deployment observations, validated fail-closed, serialized losslessly, correlated and linked to release/environment/runtime context, and published fail-open to Observe/operations. Actual Deploy integration and autonomous Runtime continuation are covered by the merged positive/negative product suites. No canonical `DeploymentRecord` identity change and no resolved secret/credential/CA value leakage.
-
-Sprint closure report: `project_docs/execution_planning/P11-OBSERVE-INTEGRATION-E2E-01.report.md`.
-
-## Growing integrated proof
+## Integrated P11 proof
 
 `durable DeploymentRecord -> provider-neutral DeploymentObservation -> operational metadata -> enriched observation -> deterministic findings with severity/confidence -> correlation + linkage to deployment/release/environment/runtime context -> lossless serialization -> fail-open Observe publication -> Runtime continuity with Observe unavailable/not configured -> no resolved secret/credential/CA value in emitted artifacts`
 
+## Review result
+
+Package goal: **PASS**.
+
+Architecture/boundary: **PASS WITH DEBT**.
+
+Closed by P11:
+- `TD-P7-03` operational publication;
+- `TD-P4-08` operational DeploymentRecord semantics.
+
+Carried high:
+- `TD-P4-04` migration/fleet coordination;
+- `TD-P7-02` infrastructure rollback;
+- `TD-P9-01` / `TD-P9-02` production fleet/process supervision and reconciliation.
+
+Carried medium:
+- `TD-P8-01` coarse deployment serialization;
+- WBS 11.3.3 downstream findings/evidence handoff to Support/Evolution.
+
+No critical rollback blocker was found.
+
+## Successor recommendation
+
+The strongest bounded successor from integrated evidence is **Support & Evolution evidence intake / triage**:
+
+- WBS 11.3.3 explicitly requires forwarding findings evidence to Support/Evolution without auto-governance;
+- `project_docs/12-support-evolution/scope/README.md` names telemetry/findings as Support & Evolution inputs;
+- WBS 12.1/12.2 defines intake, classification, prioritization and support/problem records;
+- this continues the proven P11 evidence chain without expanding Observe into automatic remediation or silently introducing fleet architecture.
+
+`P12-PACKAGE-01 — Support & Evolution Evidence Intake` is therefore materialized as **SKELETON_ONLY / FORECAST** on the P11 review branch.
+
 ## Current gate
 
-**P11 construction is complete.** All three construction Sprints are merged.
+The P11 Integration & Technical Debt Review must pass repository Deterministic CI and human review before merge.
 
-Per `project_docs/schedule/SPRINT_GENERATION_POLICY.md`, the next eligible milestone action is the mandatory **P11 Integration & Technical Debt Review** after reconstructing fresh integrated `main` and revalidating package evidence.
-
-The review must verify package goal/regression, classify technical debt, revalidate contracts/DAG/risks, and only then promote or demote successor work. No successor package or new construction Sprint is authorized by this milestone document.
+P12 construction is not authorized yet. After the review merges, reconstruct fresh `main`, revalidate P12, explicitly select its direction, and materialize the first committed Sprint/TASK set.
