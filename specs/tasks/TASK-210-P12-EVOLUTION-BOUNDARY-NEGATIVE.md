@@ -30,6 +30,21 @@ validation:
 # Objective
 Lock the negative boundary for controlled evolution: evidence/linkage must not become an operational-resolution or production-control API.
 
+# Context
+The positive WBS 12.3 path adds traceability but must preserve the existing separation between Evolution, operational Support/Maintenance resolution and Release/Deploy authority.
+
+# Current behavior
+Existing Sprint 3 tests reject Evolution through SupportCaseRecord/ProblemRecord, while TASK-202..208 introduce new evidence/linkage APIs. No integrated negative proof yet verifies that the new APIs preserve all operational and production boundaries.
+
+# Required change
+Add a test-only negative proof over the public APIs that rejects operational-path reuse, missing lineage, resolved secret values and any newly exposed execution/deployment methods.
+
+# Inputs / contracts
+Existing SupportCaseRecord/ProblemRecord boundaries, TASK-202..208 Support/Evolution APIs and public ReleaseRegistry behavior.
+
+# Outputs / contracts
+Executable negative evidence only. No product/public contract change.
+
 # Acceptance criteria
 - Evolution still fails through SupportCaseRecord and ProblemRecord constructors;
 - evolution APIs expose no execute/apply/deploy/remediate/mutateProduction operation;
@@ -37,3 +52,12 @@ Lock the negative boundary for controlled evolution: evidence/linkage must not b
 - missing Mirror/Recipe/release lineage fails closed;
 - no resolved secret/credential values are accepted in durable linkage refs;
 - verification passes.
+
+# Non-goals
+Product implementation changes, release/deploy mutation, schema changes or new policy engines.
+
+# Evidence expected
+One negative product test proving the complete controlled-evolution boundary plus repository verification.
+
+# Escalation
+Stop if proving the boundary requires modifying product code, release/deploy modules, shared schemas or architecture.
