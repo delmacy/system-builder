@@ -1,7 +1,7 @@
 ---
 id: TASK-195
 title: Extend P12 growing proof through operational resolution
-status: ready
+status: verification
 priority: 550
 milestone: M12
 model_tier: cheap

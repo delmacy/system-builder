@@ -3,7 +3,7 @@
 Date: 2026-08-22
 
 ## Repository
-`delmacy/system-builder` is canonical. `main` is integrated through merge `e64d4abd4bbee42d5ad5a31ff8db4a445f28b669`.
+`delmacy/system-builder` is canonical. `main` remains integrated through P12 Sprint 2 merge `e64d4abd4bbee42d5ad5a31ff8db4a445f28b669` until Sprint 3 review/merge completes.
 
 ## Integrated maturity
 - P1-P11 integrated.
@@ -14,16 +14,16 @@ Date: 2026-08-22
 M12 — Support & Evolution.
 
 ## Active committed Sprint
-`P12-SUPPORT-RESOLUTION-01` is materialized from integrated `main` for WBS 12.2.1-12.2.3 and is **COMMITTED / NOT STARTED**. TASK-185..195 are ready in dependency order. No TASK implementation has been executed in this planning round.
+`P12-SUPPORT-RESOLUTION-01` is **CONSTRUCTED / SPRINT REVIEW** on PR #229. TASK-185..195 are in verification; final Deterministic CI is required on the exact closure head before merge.
 
-## Integrated capability
-`SupportEvidenceIntake -> SupportTriageDecision` is integrated. Classification remains explicitly supplied as `Support|Maintenance|Evolution`; impact/criticality/SLA/priority/context remain explicit references.
+## Constructed capability
+Explicit `Support` triage can form deterministic support cases with canonical knowledge references and explicit resolution evidence. Explicit `Maintenance` triage can form deterministic problem records, explicit permitted-correction evidence and resolution evidence. Durable refs enforce no-value-leak semantics.
 
-## Growing proof target
-`DeploymentFinding|human evidence -> SupportEvidenceIntake -> explicit SupportTriageDecision -> support case|problem record -> explicit cause/resolution/evidence`
+## Growing proof
+`DeploymentFinding|human request -> SupportEvidenceIntake -> explicit SupportTriageDecision -> SupportCaseRecord|ProblemRecord -> explicit permission/cause/resolution/evidence -> validated/lossless ResolutionEvidence`.
 
 ## Architecture boundary
-No automatic classification, prioritization, SLA calculation, scoring, remediation or production mutation. Operational-resolution records may only record explicit references/evidence. Business behavior change remains WBS 12.3.x and must return through Mirror/Recipe/release.
+No automatic classification, prioritization, SLA calculation, scoring, remediation or production mutation. `Evolution` remains outside Sprint 3. Business behavior change remains WBS 12.3.x and must return through Mirror/Recipe/release.
 
 ## Package horizon
-`P12-PACKAGE-01` now reflects the authoritative Sprint Generation Policy: four construction Sprints in this package, followed by Integration & Technical Debt Review. Sprint 4 remains forecast-only.
+Sprint 4 remains FORECAST ONLY. It must not be materialized until Sprint 3 is reviewed, merged and fresh `main` is revalidated.
