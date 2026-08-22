@@ -1,7 +1,7 @@
 ---
 id: TASK-212
 title: Add bounded executable action and workflow semantics to SystemDefinition
-status: ready
+status: completed
 priority: 212
 milestone: M13
 model_tier: architecture

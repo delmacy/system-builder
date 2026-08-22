@@ -43,11 +43,28 @@
         "type": "object",
         "additionalProperties": false,
         "required": ["id", "name", "requirementRefs", "states"],
+        "dependentRequired": { "transitions": ["initialState"] },
         "properties": {
           "id": { "type": "string", "minLength": 1 },
           "name": { "type": "string", "minLength": 1 },
           "requirementRefs": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
-          "states": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+          "states": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "initialState": { "type": "string", "minLength": 1 },
+          "transitions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "from", "to"],
+              "properties": {
+                "id": { "type": "string", "minLength": 1 },
+                "from": { "type": "string", "minLength": 1 },
+                "to": { "type": "string", "minLength": 1 },
+                "actionRef": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
         }
       }
     },
@@ -60,7 +77,16 @@
         "properties": {
           "id": { "type": "string", "minLength": 1 },
           "name": { "type": "string", "minLength": 1 },
-          "requirementRefs": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+          "requirementRefs": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "effect": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "entityRef"],
+            "properties": {
+              "kind": { "enum": ["entity.create", "entity.update", "entity.delete"] },
+              "entityRef": { "type": "string", "minLength": 1 }
+            }
+          }
         }
       }
     },
