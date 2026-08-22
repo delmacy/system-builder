@@ -5,3 +5,4 @@ export { ProblemRecord, type ProblemRecordFields, type ProblemFromTriageFields }
 export { PermittedCorrectionEvidence, type PermittedCorrectionEvidenceFields, type PermittedCorrectionFromProblemFields } from "./correction.js";
 export { ResolutionEvidence, type ResolutionCommonFields, type SupportResolutionFields, type ProblemResolutionFields, type ResolutionEvidenceFields } from "./resolution.js";
 export { EvolutionRequestEvidence, type EvolutionRequestEvidenceFields, type EvolutionRequestFromTriageFields } from "./evolution-request.js";
+export { EvolutionKnowledgeLink, type EvolutionKnowledgeLinkFields, type EvolutionKnowledgeLinkFromRequestFields } from "./evolution-link.js";
