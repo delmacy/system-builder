@@ -2,7 +2,6 @@ import { sha256Canonical } from "@system-builder/deterministic";
 
 export type SupportEvidenceSourceKind = "observe_finding" | "human_request";
 export type SupportHumanRequestKind = "request" | "incident" | "feedback";
-
 export type SupportObserveFindingSource = Readonly<{
   sourceKind: "observe_finding"; evidenceRef: string; findingCode: string; observationId: string; deploymentId: string;
   publishedReleaseRef: string; environmentRef: string; releaseHash: string; operationId?: string; runtimeRef?: string;
@@ -17,19 +16,9 @@ export type DeploymentFindingLike = Readonly<{
   processRef?: string; sessionRef?: string;
 }>;
 export type HumanSupportRequestInput = Readonly<{
-  requestKind: SupportHumanRequestKind;
-  evidenceRef: string;
-  summary: string;
-  submittedAt: string;
-  actorRef: string;
-  channelRef: string;
-  deploymentId?: string;
-  publishedReleaseRef?: string;
-  environmentRef?: string;
-  releaseHash?: string;
-  runtimeRef?: string;
+  requestKind: SupportHumanRequestKind; evidenceRef: string; summary: string; submittedAt: string; actorRef: string; channelRef: string;
+  deploymentId?: string; publishedReleaseRef?: string; environmentRef?: string; releaseHash?: string; runtimeRef?: string;
 }>;
-
 export type SupportEvidenceIntakeFields = Readonly<{
   sourceKind: SupportEvidenceSourceKind; evidenceRef: string; summary: string; submittedAt: string; findingCode?: string;
   observationId?: string; deploymentId?: string; publishedReleaseRef?: string; environmentRef?: string; releaseHash?: string;
@@ -49,10 +38,29 @@ const ALLOWED_FIELDS = new Set([
   "publishedReleaseRef", "environmentRef", "releaseHash", "operationId", "runtimeRef", "processRef", "sessionRef", "requestKind",
   "actorRef", "channelRef",
 ]);
+const RESOLVED_VALUE_MARKERS: readonly RegExp[] = [
+  /-{5}BEGIN/i,
+  /password\s*[:=]/i,
+  /passwd\s*[:=]/i,
+  /token\s*[:=]/i,
+  /apikey\s*[:=]/i,
+  /api_key\s*[:=]/i,
+  /secret\s*[:=]/i,
+  /client_secret\s*[:=]/i,
+  /authorization\s*[:=]/i,
+  /credential\s*[:=]/i,
+  /bearer\s+[a-z0-9._-]+/i,
+  /postgres(?:ql)?:\/\/[^:\s]+:[^@\s]+@/i,
+];
 function invalid(detail: string): Error { return new Error(`SUPPORT_INTAKE:${detail}`); }
+function assertReferenceOnly(value: string, field: string): string {
+  if (RESOLVED_VALUE_MARKERS.some((marker) => marker.test(value))) throw invalid(`RESOLVED_VALUE:${field}`);
+  if (value.length >= 20 && /^[A-Za-z0-9+/]+={1,2}$/.test(value)) throw invalid(`RESOLVED_VALUE:${field}`);
+  return value;
+}
 function requiredString(value: unknown, field: string): string {
   if (typeof value !== "string" || value.trim().length === 0) throw invalid(`MALFORMED:${field}`);
-  return value;
+  return assertReferenceOnly(value, field);
 }
 function isRecordLike(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -68,12 +76,8 @@ function assertSourceProvenance(fields: SupportEvidenceIntakeFields): void {
     if (findingPresent && (fields.findingCode === undefined || fields.observationId === undefined)) throw invalid("SOURCE_PROVENANCE:observe_finding");
     return;
   }
-  if (findingPresent || fields.operationId !== undefined || fields.processRef !== undefined || fields.sessionRef !== undefined) {
-    throw invalid("SOURCE_CONFLICT:human_request");
-  }
-  if (humanPresent && (fields.requestKind === undefined || fields.actorRef === undefined || fields.channelRef === undefined)) {
-    throw invalid("SOURCE_PROVENANCE:human_request");
-  }
+  if (findingPresent || fields.operationId !== undefined || fields.processRef !== undefined || fields.sessionRef !== undefined) throw invalid("SOURCE_CONFLICT:human_request");
+  if (humanPresent && (fields.requestKind === undefined || fields.actorRef === undefined || fields.channelRef === undefined)) throw invalid("SOURCE_PROVENANCE:human_request");
   if (fields.requestKind !== undefined && !HUMAN_REQUEST_KINDS.includes(fields.requestKind)) throw invalid(`REQUEST_KIND:${String(fields.requestKind)}`);
 }
 function buildPayload(fields: SupportEvidenceIntakeFields) {
@@ -157,13 +161,8 @@ export const SupportEvidenceIntake = Object.freeze({
   },
   fromHumanRequest(input: HumanSupportRequestInput): SupportEvidenceIntake {
     return SupportEvidenceIntake.create({
-      sourceKind: "human_request",
-      evidenceRef: input.evidenceRef,
-      summary: input.summary,
-      submittedAt: input.submittedAt,
-      requestKind: input.requestKind,
-      actorRef: input.actorRef,
-      channelRef: input.channelRef,
+      sourceKind: "human_request", evidenceRef: input.evidenceRef, summary: input.summary, submittedAt: input.submittedAt,
+      requestKind: input.requestKind, actorRef: input.actorRef, channelRef: input.channelRef,
       ...(input.deploymentId !== undefined ? { deploymentId: input.deploymentId } : {}),
       ...(input.publishedReleaseRef !== undefined ? { publishedReleaseRef: input.publishedReleaseRef } : {}),
       ...(input.environmentRef !== undefined ? { environmentRef: input.environmentRef } : {}),
