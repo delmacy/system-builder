@@ -1,7 +1,7 @@
 ---
 id: TASK-182
 title: Prove Observe finding through intake to triage E2E
-status: ready
+status: verification
 priority: 528
 milestone: M12
 model_tier: cheap

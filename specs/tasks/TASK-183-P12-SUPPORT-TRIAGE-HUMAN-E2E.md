@@ -1,7 +1,7 @@
 ---
 id: TASK-183
 title: Prove human intake to triage E2E
-status: ready
+status: verification
 priority: 529
 milestone: M12
 model_tier: cheap

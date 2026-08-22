@@ -1,7 +1,7 @@
 ---
 id: TASK-184
 title: Close P12 triage classification growing proof
-status: ready
+status: verification
 priority: 530
 milestone: M12
 model_tier: cheap

@@ -1,7 +1,7 @@
 ---
 id: TASK-174
 title: Define SupportTriageDecision contract
-status: ready
+status: verification
 priority: 520
 milestone: M12
 model_tier: architecture

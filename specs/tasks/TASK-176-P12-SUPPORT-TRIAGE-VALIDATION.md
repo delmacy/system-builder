@@ -1,7 +1,7 @@
 ---
 id: TASK-176
 title: Validate SupportTriageDecision fail closed
-status: ready
+status: verification
 priority: 522
 milestone: M12
 model_tier: cheap

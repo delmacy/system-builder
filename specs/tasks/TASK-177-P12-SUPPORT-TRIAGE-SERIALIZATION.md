@@ -1,7 +1,7 @@
 ---
 id: TASK-177
 title: Serialize SupportTriageDecision losslessly
-status: ready
+status: verification
 priority: 523
 milestone: M12
 model_tier: cheap

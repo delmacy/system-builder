@@ -1,7 +1,7 @@
 ---
 id: TASK-181
 title: Add negative Support triage product coverage
-status: ready
+status: verification
 priority: 527
 milestone: M12
 model_tier: cheap

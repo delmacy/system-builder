@@ -1,7 +1,7 @@
 ---
 id: TASK-178
 title: Link intake evidence into triage decisions
-status: ready
+status: verification
 priority: 524
 milestone: M12
 model_tier: cheap

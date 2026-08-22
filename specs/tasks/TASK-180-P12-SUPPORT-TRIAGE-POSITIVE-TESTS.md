@@ -1,7 +1,7 @@
 ---
 id: TASK-180
 title: Add positive Support triage product coverage
-status: ready
+status: verification
 priority: 526
 milestone: M12
 model_tier: cheap

@@ -1,7 +1,7 @@
 ---
 id: TASK-175
 title: Model triage priority and context references
-status: ready
+status: verification
 priority: 521
 milestone: M12
 model_tier: cheap

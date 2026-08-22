@@ -1,7 +1,7 @@
 ---
 id: TASK-179
 title: Enforce no-value-leak triage evidence
-status: ready
+status: verification
 priority: 525
 milestone: M12
 model_tier: cheap
