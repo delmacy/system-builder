@@ -28,11 +28,21 @@ export type EvolutionRequestEvidence = Readonly<{
 const ALLOWED_FIELDS = new Set([
   "kind", "evolutionRequestId", "intakeId", "triageId", "requestedAt", "requestedByRef", "changeEvidenceRef", "reasonRef", "contextRefs",
 ]);
+const RESOLVED_VALUE_MARKERS: readonly RegExp[] = [
+  /-{5}BEGIN/i, /password\s*[:=]/i, /passwd\s*[:=]/i, /token\s*[:=]/i, /apikey\s*[:=]/i, /api_key\s*[:=]/i,
+  /secret\s*[:=]/i, /client_secret\s*[:=]/i, /authorization\s*[:=]/i, /credential\s*[:=]/i,
+  /bearer\s+[a-z0-9._-]+/i, /postgres(?:ql)?:\/\/[^:\s]+:[^@\s]+@/i,
+];
 function invalid(detail: string): Error { return new Error(`EVOLUTION_REQUEST:${detail}`); }
 function isRecordLike(value: unknown): value is Record<string, unknown> { return value !== null && typeof value === "object" && !Array.isArray(value); }
+function assertReferenceOnly(value: string, field: string): string {
+  if (RESOLVED_VALUE_MARKERS.some((marker) => marker.test(value))) throw invalid(`RESOLVED_VALUE:${field}`);
+  if (value.length >= 20 && /^[A-Za-z0-9+/]+={1,2}$/.test(value)) throw invalid(`RESOLVED_VALUE:${field}`);
+  return value;
+}
 function requiredString(value: unknown, field: string): string {
   if (typeof value !== "string" || value.trim().length === 0) throw invalid(`MALFORMED:${field}`);
-  return value;
+  return assertReferenceOnly(value, field);
 }
 function canonicalContextRefs(values: readonly string[]): readonly string[] {
   if (!Array.isArray(values) || values.length === 0) throw invalid("MALFORMED:contextRefs");
