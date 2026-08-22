@@ -1,7 +1,7 @@
 ---
 id: TASK-200
 title: Maintain first-party GitHub Actions majors
-status: ready
+status: verification
 priority: 555
 milestone: M12
 model_tier: cheap
@@ -69,6 +69,19 @@ Permission reduction, workflow redesign, new workflows, repository settings, bra
 
 # Evidence expected
 Exact affected workflow list, before/after Action references, validation result and one authoritative TASK commit.
+
+# Execution evidence
+Upstream revalidation on 2026-08-22 confirms maintained majors `actions/checkout@v7` and `actions/setup-node@v7`; current `setup-node` documentation demonstrates both with Node 24 and states v7 preserves setup-node inputs/outputs/behavior apart from documented compatibility changes that do not affect these workflows.
+
+Affected workflow set from the Sprint base:
+- `.github/workflows/ci.yml`: `checkout@v4 -> v7`, `setup-node@v4 -> v7`;
+- `.github/workflows/heavy-tests.yml`: `checkout@v4 -> v7`, `setup-node@v4 -> v7`;
+- `.github/workflows/opencode-next-sprint-materialize.yml`: `checkout@v4 -> v7`, `setup-node@v4 -> v7`;
+- `.github/workflows/opencode-sprint-task-loop.yml`: `checkout@v4 -> v7`, `setup-node@v4 -> v7`;
+- `.github/workflows/opencode-work-package-planner-schedule.yml`: `checkout@v4 -> v7`;
+- `.github/workflows/opencode-work-package-planner.yml`: `checkout@v4 -> v7`, `setup-node@v4 -> v7`.
+
+`.github/workflows/opencode-work-package.yml` contains neither affected reference and is intentionally unchanged. No trigger, schedule, permission, concurrency, runner, service, command, job-structure or topology change is part of the TASK-200 delta. Repository-wide validation is delegated to the PR-head Deterministic CI as objective connected execution evidence.
 
 # Escalation
 Stop if the maintained major requires workflow semantic changes beyond version compatibility or if current upstream evidence conflicts with the completed audit.
