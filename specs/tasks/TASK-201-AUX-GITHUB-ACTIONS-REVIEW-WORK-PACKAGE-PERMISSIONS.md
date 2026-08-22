@@ -46,12 +46,21 @@ The completed audit observed that `opencode-work-package.yml` primarily validate
 
 Current owner governance explicitly retains broad privilege during construction. Repository settings, branch protection and required checks are deferred until a future pre-commercial maturity gate.
 
+# Current behavior
+`opencode-work-package.yml` is an existing manual dispatcher. The completed audit observed input validation and downstream workflow dispatch behavior, while its workflow-level token declarations include `actions: write`, `contents: write` and `pull-requests: write`. No permission reduction has yet been proven safe from the complete workflow behavior.
+
 # Required change
 Trace every operation performed by `opencode-work-package.yml` and map each operation to the GitHub token permission it actually requires. Record the evidence in the Sprint report.
 
 If and only if a declared permission is proven unnecessary from the workflow's complete behavior, reduce that permission in this workflow alone. If the minimum permission cannot be proven safely, make no workflow permission change and record `NO_CHANGE` with the unresolved dependency/evidence gap.
 
 Do not alter triggers, schedules, inputs, downstream dispatch targets, job logic, repository settings, branch protection, required checks or other workflows.
+
+# Inputs / contracts
+The exact `opencode-work-package.yml` content after TASK-200, completed AUX validation-audit evidence, GitHub Actions permission semantics needed by each observed operation, and the current owner governance decision retaining broad construction-phase authority.
+
+# Outputs / contracts
+A permission-to-operation matrix and a final `REDUCE` or `NO_CHANGE` disposition in the Sprint report. Any workflow delta is limited to permission declarations in `opencode-work-package.yml` that are proven unnecessary; all dispatcher behavior and repository settings remain unchanged.
 
 # Acceptance criteria
 - each currently declared permission is mapped to observed workflow behavior;
