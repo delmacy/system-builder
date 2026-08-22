@@ -1,7 +1,7 @@
 ---
 id: TASK-225
 title: Execute declared interval jobs inside the generated autonomous Runtime
-status: ready
+status: completed
 priority: 225
 milestone: M13
 model_tier: cheap
