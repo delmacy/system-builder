@@ -4,7 +4,7 @@ title: Execute declared HTTP integration invocation through external service bin
 status: ready
 priority: 228
 milestone: M13
-model_tier: code
+model_tier: cheap
 risk: high
 architecture_impact: false
 executor_preference: any
