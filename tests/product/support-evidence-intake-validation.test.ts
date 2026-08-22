@@ -35,18 +35,30 @@ test("SupportEvidenceIntake rejects unknown fields and identity divergence", () 
   );
 });
 
-test("SupportEvidenceIntake rejects conflicting and incomplete source provenance", () => {
+test("SupportEvidenceIntake rejects conflicting, partial and absent source provenance", () => {
   assert.throws(
     () => SupportEvidenceIntake.create({
       sourceKind: "observe_finding",
       evidenceRef: "finding://1",
       summary: "conflicting provenance",
       submittedAt: "2026-08-22T03:46:00.000Z",
+      findingCode: "OBSERVE_FINDING:DEPLOYMENT_FAILED",
+      observationId: "observation://1",
       requestKind: "incident",
       actorRef: "actor://1",
       channelRef: "channel://desk",
     }),
     /SUPPORT_INTAKE:SOURCE_CONFLICT:observe_finding/,
+  );
+
+  assert.throws(
+    () => SupportEvidenceIntake.create({
+      sourceKind: "observe_finding",
+      evidenceRef: "finding://2",
+      summary: "missing finding provenance",
+      submittedAt: "2026-08-22T03:46:30.000Z",
+    }),
+    /SUPPORT_INTAKE:SOURCE_PROVENANCE:observe_finding/,
   );
 
   assert.throws(
@@ -57,6 +69,16 @@ test("SupportEvidenceIntake rejects conflicting and incomplete source provenance
       submittedAt: "2026-08-22T03:47:00.000Z",
       requestKind: "request",
       actorRef: "actor://1",
+    }),
+    /SUPPORT_INTAKE:SOURCE_PROVENANCE:human_request/,
+  );
+
+  assert.throws(
+    () => SupportEvidenceIntake.create({
+      sourceKind: "human_request",
+      evidenceRef: "request://2",
+      summary: "missing human provenance",
+      submittedAt: "2026-08-22T03:47:30.000Z",
     }),
     /SUPPORT_INTAKE:SOURCE_PROVENANCE:human_request/,
   );

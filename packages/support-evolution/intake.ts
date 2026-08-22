@@ -73,12 +73,18 @@ function assertSourceProvenance(fields: SupportEvidenceIntakeFields): void {
   const findingPresent = fields.findingCode !== undefined || fields.observationId !== undefined;
   if (fields.sourceKind === "observe_finding") {
     if (humanPresent) throw invalid("SOURCE_CONFLICT:observe_finding");
-    if (findingPresent && (fields.findingCode === undefined || fields.observationId === undefined)) throw invalid("SOURCE_PROVENANCE:observe_finding");
+    if (fields.findingCode === undefined || fields.observationId === undefined) {
+      throw invalid("SOURCE_PROVENANCE:observe_finding");
+    }
     return;
   }
-  if (findingPresent || fields.operationId !== undefined || fields.processRef !== undefined || fields.sessionRef !== undefined) throw invalid("SOURCE_CONFLICT:human_request");
-  if (humanPresent && (fields.requestKind === undefined || fields.actorRef === undefined || fields.channelRef === undefined)) throw invalid("SOURCE_PROVENANCE:human_request");
-  if (fields.requestKind !== undefined && !HUMAN_REQUEST_KINDS.includes(fields.requestKind)) throw invalid(`REQUEST_KIND:${String(fields.requestKind)}`);
+  if (findingPresent || fields.operationId !== undefined || fields.processRef !== undefined || fields.sessionRef !== undefined) {
+    throw invalid("SOURCE_CONFLICT:human_request");
+  }
+  if (fields.requestKind === undefined || fields.actorRef === undefined || fields.channelRef === undefined) {
+    throw invalid("SOURCE_PROVENANCE:human_request");
+  }
+  if (!HUMAN_REQUEST_KINDS.includes(fields.requestKind)) throw invalid(`REQUEST_KIND:${String(fields.requestKind)}`);
 }
 function buildPayload(fields: SupportEvidenceIntakeFields) {
   if (fields.sourceKind !== "observe_finding" && fields.sourceKind !== "human_request") throw invalid(`SOURCE_KIND:${String(fields.sourceKind)}`);

@@ -8,6 +8,8 @@ test("SupportEvidenceIntake is deterministic, content-addressed and immutable", 
     evidenceRef: `sha256:${"a".repeat(64)}`,
     summary: "deployment health finding requires support attention",
     submittedAt: "2026-08-22T03:30:00.000Z",
+    findingCode: "OBSERVE_FINDING:HEALTH_CHECK_FAILED",
+    observationId: `sha256:${"c".repeat(64)}`,
     deploymentId: "deploy:support-a",
     publishedReleaseRef: "release:support-app@1.0.0",
     environmentRef: "env:prod-a",
@@ -22,6 +24,8 @@ test("SupportEvidenceIntake is deterministic, content-addressed and immutable", 
   assert.equal(left.intakeId, right.intakeId);
   assert.equal(left.sourceKind, "observe_finding");
   assert.equal(left.evidenceRef, fields.evidenceRef);
+  assert.equal(left.findingCode, fields.findingCode);
+  assert.equal(left.observationId, fields.observationId);
   assert.equal(left.deploymentId, fields.deploymentId);
   assert.equal(Object.isFrozen(left), true);
 
