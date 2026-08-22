@@ -1,20 +1,26 @@
-# Next Work — Auxiliary GitHub Actions Validation Audit
+# Next Work — Auxiliary GitHub Actions Audit Sprint Review
 
 The repository is authoritative.
 
 ## Current state
 P12 Sprint 3 is integrated through merge `7763177596cb684d3e3c6f9a55042337a865c2bc`.
 
-`AUX-GITHUB-ACTIONS-VALIDATION-AUDIT-01` is materialized as the single active auxiliary Sprint. TASK-196..199 are ready; none has been executed.
+`AUX-GITHUB-ACTIONS-VALIDATION-AUDIT-01` is **CONSTRUCTED / SPRINT REVIEW** on PR #230. TASK-196..199 produced the evidence-backed validation/governance disposition matrix without modifying `.github/**` or repository settings.
 
-## Required action next round
-1. Observe planning/materialization Deterministic CI on the exact auxiliary Sprint head.
-2. Execute TASK-196..199 in dependency order, one authoritative commit per TASK.
-3. Produce the evidence-backed disposition matrix before proposing any workflow or repository-setting mutation.
-4. Stop at auxiliary Sprint Review; implementation recommendations require separate authority.
+## Audit decisions
+- No additional general validation workflow is currently required.
+- Protecting `main` and requiring Deterministic CI is a separately authorized repository-setting follow-up.
+- Updating `actions/checkout@v4` / `actions/setup-node@v4` and least-privilege review of `opencode-work-package.yml` are separately authorized existing-workflow maintenance follow-ups.
+- Heavy tests remain nightly/manual; no separate `test:product:full` workflow is needed.
+
+## Required action
+1. Observe final Deterministic CI on the exact TASK-199 closure head.
+2. Review the final matrix and boundaries.
+3. If approved and CI passes, merge PR #230 as audit evidence only.
+4. After merge, reconstruct fresh `main` before separately authorizing any CI/settings remediation.
 
 ## P12 forecast only
 P12 Sprint 4 / WBS 12.3.x remains FORECAST ONLY and is not materialized or executed by this auxiliary audit.
 
 ## Boundaries
-No `.github/**` mutation, no branch-protection/required-check mutation, no product/runtime/business behavior change, and no automatic governance change.
+Do not implement the audit recommendations implicitly. Workflow/settings remediation requires separate explicit authority and P12 business-evolution work remains governed by Mirror/Recipe/release.

@@ -1,7 +1,7 @@
 ---
 id: TASK-199
 title: Decide GitHub Actions validation topology recommendations
-status: ready
+status: verification
 priority: 554
 milestone: M12
 model_tier: architecture
