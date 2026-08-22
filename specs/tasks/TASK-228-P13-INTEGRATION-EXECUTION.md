@@ -1,7 +1,7 @@
 ---
 id: TASK-228
 title: Execute declared HTTP integration invocation through external service binding
-status: ready
+status: completed
 priority: 228
 milestone: M13
 model_tier: cheap

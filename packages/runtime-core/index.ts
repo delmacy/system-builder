@@ -1,9 +1,11 @@
 import type { EnvironmentProfile } from "@system-builder/contracts/environment-profile";
 import { renderRuntimeFileExecutionSupport, runtimeFileExecutionRoute } from "./file-execution.js";
+import { renderRuntimeIntegrationExecutionSupport, runtimeIntegrationExecutionRoute } from "./integration-execution.js";
 import { renderPostgresRuntimeStateSupport, type RuntimePostgresStateExecutionRequirement } from "./postgres-state.js";
 import type { RuntimeStateRequirement } from "./state-migrations.js";
 
 export * from "./file-execution.js";
+export * from "./integration-execution.js";
 export * from "./state-migrations.js";
 export * from "./postgres-state.js";
 
@@ -199,6 +201,7 @@ export function renderPersistentAutonomousRuntimeEntrypoint(input: Readonly<{
   const spec = JSON.stringify({ runtimeVersion, requirements, stateRequirements });
   const postgresSupport = renderPostgresRuntimeStateSupport(stateRequirements);
   const fileSupport = renderRuntimeFileExecutionSupport();
+  const integrationSupport = renderRuntimeIntegrationExecutionSupport();
   const stateSetup = stateRequirement === undefined
     ? []
     : [`            const stateBindingName = ${JSON.stringify(stateRequirement.connectionBinding.name)};`];
@@ -228,6 +231,7 @@ export function renderPersistentAutonomousRuntimeEntrypoint(input: Readonly<{
     'import { createServer } from "node:http";',
     postgresSupport,
     fileSupport,
+    integrationSupport,
     `const SPEC = ${spec};`,
     "function fail(code, detail) {",
     "  process.stderr.write(JSON.stringify({ kind: \"RuntimeDiagnostic\", code, detail }) + \"\\n\");",
@@ -274,6 +278,7 @@ export function renderPersistentAutonomousRuntimeEntrypoint(input: Readonly<{
     "              }",
     ...stateRoute,
     runtimeFileExecutionRoute,
+    runtimeIntegrationExecutionRoute,
     "              response.writeHead(404, { \"content-type\": \"application/json\" });",
     "              response.end(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_ROUTE_NOT_FOUND\", detail: String(request.url || \"\") }));",
     "            });",
