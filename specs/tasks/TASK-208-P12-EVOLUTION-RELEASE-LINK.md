@@ -1,7 +1,7 @@
 ---
 id: TASK-208
 title: Link resulting PublishedRelease to originating Evolution request
-status: ready
+status: verification
 priority: 560
 milestone: M12
 model_tier: cheap
