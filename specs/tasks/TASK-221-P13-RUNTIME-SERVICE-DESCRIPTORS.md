@@ -36,10 +36,22 @@ validation:
 # Objective
 Add only the accepted additive/backward-compatible SystemDefinition semantics required to explicitly describe Construction B jobs, events, files/storage and integration invocation.
 
+# Context
+The integrated bounded L3 change control authorizes only optional declarative execution descriptors inside the existing SystemDefinition family for WBS 13.1.2/13.1.3. Construction A already proves explicit action execution and Runtime autonomy; Construction B must reuse those boundaries without inferred behavior or a new L4 decision.
+
+# Current behavior
+SystemDefinition currently exposes entities, processes, actions, integrations and environmentRequirements, but has no public job/event/file execution structures and integration entries have no executable invocation semantics.
+
 # Required change
 Add optional `jobs`, `events` and `files` collections and additive optional integration invocation fields. Concrete semantics are exactly those recorded in the Sprint manifest: interval jobs with explicit action target and recordId; runtime-http events with explicit actionRef; file descriptors with explicit put/get/delete operations and storage `bindingRef`; integration descriptors with explicit HTTP method/relative path and external-service `bindingRef`.
 
 References must be explicit and values remain descriptive/reference-only. Historical valid fixtures without these fields remain valid.
+
+# Inputs / contracts
+Canonical SystemDefinition schema and fixtures; accepted Construction B L3 change-control record; Construction B Sprint manifest; ADR-0002 autonomous Runtime boundary.
+
+# Outputs / contracts
+Backward-compatible additive SystemDefinition schema semantics and product tests/fixtures for jobs, events, files/storage and integration invocation. No other shared-contract family changes.
 
 # Acceptance criteria
 - positive fixtures cover each new descriptor;
@@ -51,6 +63,9 @@ References must be explicit and values remain descriptive/reference-only. Histor
 
 # Non-goals
 Compiler/runtime/deploy implementation; EnvironmentProfile changes; provider selection; broker/object-store topology; auth/views/permissions.
+
+# Evidence expected
+Updated schema plus positive/negative product tests proving backward compatibility, explicit references, malformed declaration rejection and no-value-leak constraints; declared validations green.
 
 # Escalation
 Stop if faithful declaration requires semantics outside the accepted Construction B L3 envelope or any L4 decision.
