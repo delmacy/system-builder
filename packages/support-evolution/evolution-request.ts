@@ -82,6 +82,14 @@ export const EvolutionRequestEvidence = Object.freeze({
     }
     return normalized;
   },
+  toJson(evidence: EvolutionRequestEvidence): string {
+    return JSON.stringify(EvolutionRequestEvidence.validate(evidence));
+  },
+  fromJson(serialized: string): EvolutionRequestEvidence {
+    let parsed: unknown;
+    try { parsed = JSON.parse(serialized); } catch { throw invalid("JSON"); }
+    return EvolutionRequestEvidence.validate(parsed);
+  },
   fromTriage(triageValue: unknown, fields: EvolutionRequestFromTriageFields): EvolutionRequestEvidence {
     const triage = SupportTriageDecision.validate(triageValue);
     if (triage.classification !== "Evolution") throw invalid(`CLASSIFICATION:${triage.classification}`);
