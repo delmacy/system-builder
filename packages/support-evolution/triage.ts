@@ -1,10 +1,12 @@
 import { sha256Canonical } from "@system-builder/deterministic";
+import { SupportEvidenceIntake } from "./intake.js";
 
 export type SupportTriageClassification = "Support" | "Maintenance" | "Evolution";
 export type SupportTriageDecisionFields = Readonly<{
   intakeId: string; classification: SupportTriageClassification; decidedAt: string; decidedByRef: string; reasonRef: string;
   impactRef: string; criticalityRef: string; slaRef: string; priorityRef: string; contextRefs: readonly string[];
 }>;
+export type SupportTriageFromIntakeFields = Omit<SupportTriageDecisionFields, "intakeId">;
 export type SupportTriageDecision = Readonly<{
   kind: "SupportTriageDecision"; triageId: string; intakeId: string; classification: SupportTriageClassification; decidedAt: string;
   decidedByRef: string; reasonRef: string; impactRef: string; criticalityRef: string; slaRef: string; priorityRef: string;
@@ -30,16 +32,11 @@ function canonicalContextRefs(values: readonly string[]): readonly string[] {
 }
 function buildPayload(fields: SupportTriageDecisionFields) {
   return Object.freeze({
-    kind: "SupportTriageDecision" as const,
-    intakeId: requiredString(fields.intakeId, "intakeId"),
-    classification: requiredClassification(fields.classification),
-    decidedAt: requiredString(fields.decidedAt, "decidedAt"),
-    decidedByRef: requiredString(fields.decidedByRef, "decidedByRef"),
-    reasonRef: requiredString(fields.reasonRef, "reasonRef"),
-    impactRef: requiredString(fields.impactRef, "impactRef"),
-    criticalityRef: requiredString(fields.criticalityRef, "criticalityRef"),
-    slaRef: requiredString(fields.slaRef, "slaRef"),
-    priorityRef: requiredString(fields.priorityRef, "priorityRef"),
+    kind: "SupportTriageDecision" as const, intakeId: requiredString(fields.intakeId, "intakeId"),
+    classification: requiredClassification(fields.classification), decidedAt: requiredString(fields.decidedAt, "decidedAt"),
+    decidedByRef: requiredString(fields.decidedByRef, "decidedByRef"), reasonRef: requiredString(fields.reasonRef, "reasonRef"),
+    impactRef: requiredString(fields.impactRef, "impactRef"), criticalityRef: requiredString(fields.criticalityRef, "criticalityRef"),
+    slaRef: requiredString(fields.slaRef, "slaRef"), priorityRef: requiredString(fields.priorityRef, "priorityRef"),
     contextRefs: canonicalContextRefs(fields.contextRefs),
   });
 }
@@ -69,8 +66,11 @@ export const SupportTriageDecision = Object.freeze({
   },
   toJson(decision: SupportTriageDecision): string { return JSON.stringify(SupportTriageDecision.validate(decision)); },
   fromJson(serialized: string): SupportTriageDecision {
-    let parsed: unknown;
-    try { parsed = JSON.parse(serialized); } catch { throw invalid("JSON"); }
+    let parsed: unknown; try { parsed = JSON.parse(serialized); } catch { throw invalid("JSON"); }
     return SupportTriageDecision.validate(parsed);
+  },
+  fromIntake(intakeValue: unknown, fields: SupportTriageFromIntakeFields): SupportTriageDecision {
+    const intake = SupportEvidenceIntake.validate(intakeValue);
+    return SupportTriageDecision.create({ ...fields, intakeId: intake.intakeId });
   },
 });

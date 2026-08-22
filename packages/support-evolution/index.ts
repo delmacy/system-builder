@@ -7,4 +7,5 @@ export {
   SupportTriageDecision,
   type SupportTriageClassification,
   type SupportTriageDecisionFields,
+  type SupportTriageFromIntakeFields,
 } from "./triage.js";
