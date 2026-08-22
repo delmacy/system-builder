@@ -17,13 +17,27 @@ export type SupportObserveFindingSource = Readonly<{
   processRef?: string;
   sessionRef?: string;
 }>;
-
 export type SupportHumanRequestSource = Readonly<{
   sourceKind: "human_request";
   evidenceRef: string;
   requestKind: SupportHumanRequestKind;
   actorRef: string;
   channelRef: string;
+}>;
+export type DeploymentFindingLike = Readonly<{
+  kind: "DeploymentFinding";
+  findingId: string;
+  code: string;
+  message: string;
+  observationId: string;
+  deploymentId: string;
+  publishedReleaseRef: string;
+  environmentRef: string;
+  releaseHash: string;
+  operationId?: string;
+  runtimeRef?: string;
+  processRef?: string;
+  sessionRef?: string;
 }>;
 
 export type SupportEvidenceIntakeFields = Readonly<{
@@ -45,7 +59,6 @@ export type SupportEvidenceIntakeFields = Readonly<{
   actorRef?: string;
   channelRef?: string;
 }>;
-
 export type SupportEvidenceIntake = Readonly<{
   kind: "SupportEvidenceIntake";
   intakeId: string;
@@ -74,10 +87,7 @@ const ALLOWED_FIELDS = new Set([
   "deploymentId", "publishedReleaseRef", "environmentRef", "releaseHash", "operationId", "runtimeRef", "processRef",
   "sessionRef", "requestKind", "actorRef", "channelRef",
 ]);
-
-function invalid(detail: string): Error {
-  return new Error(`SUPPORT_INTAKE:${detail}`);
-}
+function invalid(detail: string): Error { return new Error(`SUPPORT_INTAKE:${detail}`); }
 function requiredString(value: unknown, field: string): string {
   if (typeof value !== "string" || value.trim().length === 0) throw invalid(`MALFORMED:${field}`);
   return value;
@@ -94,9 +104,7 @@ function assertSourceProvenance(fields: SupportEvidenceIntakeFields): void {
   const findingPresent = fields.findingCode !== undefined || fields.observationId !== undefined;
   if (fields.sourceKind === "observe_finding") {
     if (humanPresent) throw invalid("SOURCE_CONFLICT:observe_finding");
-    if (findingPresent && (fields.findingCode === undefined || fields.observationId === undefined)) {
-      throw invalid("SOURCE_PROVENANCE:observe_finding");
-    }
+    if (findingPresent && (fields.findingCode === undefined || fields.observationId === undefined)) throw invalid("SOURCE_PROVENANCE:observe_finding");
     return;
   }
   if (findingPresent || fields.operationId !== undefined || fields.processRef !== undefined || fields.sessionRef !== undefined) {
@@ -105,14 +113,10 @@ function assertSourceProvenance(fields: SupportEvidenceIntakeFields): void {
   if (humanPresent && (fields.requestKind === undefined || fields.actorRef === undefined || fields.channelRef === undefined)) {
     throw invalid("SOURCE_PROVENANCE:human_request");
   }
-  if (fields.requestKind !== undefined && !HUMAN_REQUEST_KINDS.includes(fields.requestKind)) {
-    throw invalid(`REQUEST_KIND:${String(fields.requestKind)}`);
-  }
+  if (fields.requestKind !== undefined && !HUMAN_REQUEST_KINDS.includes(fields.requestKind)) throw invalid(`REQUEST_KIND:${String(fields.requestKind)}`);
 }
 function buildPayload(fields: SupportEvidenceIntakeFields) {
-  if (fields.sourceKind !== "observe_finding" && fields.sourceKind !== "human_request") {
-    throw invalid(`SOURCE_KIND:${String(fields.sourceKind)}`);
-  }
+  if (fields.sourceKind !== "observe_finding" && fields.sourceKind !== "human_request") throw invalid(`SOURCE_KIND:${String(fields.sourceKind)}`);
   assertSourceProvenance(fields);
   return Object.freeze({
     kind: "SupportEvidenceIntake" as const,
@@ -135,6 +139,33 @@ function buildPayload(fields: SupportEvidenceIntakeFields) {
     ...(fields.channelRef !== undefined ? { channelRef: requiredString(fields.channelRef, "channelRef") } : {}),
   });
 }
+function fieldsFromRecord(value: Record<string, unknown>): SupportEvidenceIntakeFields {
+  const sourceKind = value["sourceKind"];
+  if (sourceKind !== "observe_finding" && sourceKind !== "human_request") throw invalid(`SOURCE_KIND:${String(sourceKind)}`);
+  const requestKindRaw = value["requestKind"];
+  if (requestKindRaw !== undefined && !HUMAN_REQUEST_KINDS.includes(requestKindRaw as SupportHumanRequestKind)) {
+    throw invalid(`REQUEST_KIND:${String(requestKindRaw)}`);
+  }
+  return Object.freeze({
+    sourceKind,
+    evidenceRef: requiredString(value["evidenceRef"], "evidenceRef"),
+    summary: requiredString(value["summary"], "summary"),
+    submittedAt: requiredString(value["submittedAt"], "submittedAt"),
+    ...(optionalString(value, "findingCode") !== undefined ? { findingCode: optionalString(value, "findingCode")! } : {}),
+    ...(optionalString(value, "observationId") !== undefined ? { observationId: optionalString(value, "observationId")! } : {}),
+    ...(optionalString(value, "deploymentId") !== undefined ? { deploymentId: optionalString(value, "deploymentId")! } : {}),
+    ...(optionalString(value, "publishedReleaseRef") !== undefined ? { publishedReleaseRef: optionalString(value, "publishedReleaseRef")! } : {}),
+    ...(optionalString(value, "environmentRef") !== undefined ? { environmentRef: optionalString(value, "environmentRef")! } : {}),
+    ...(optionalString(value, "releaseHash") !== undefined ? { releaseHash: optionalString(value, "releaseHash")! } : {}),
+    ...(optionalString(value, "operationId") !== undefined ? { operationId: optionalString(value, "operationId")! } : {}),
+    ...(optionalString(value, "runtimeRef") !== undefined ? { runtimeRef: optionalString(value, "runtimeRef")! } : {}),
+    ...(optionalString(value, "processRef") !== undefined ? { processRef: optionalString(value, "processRef")! } : {}),
+    ...(optionalString(value, "sessionRef") !== undefined ? { sessionRef: optionalString(value, "sessionRef")! } : {}),
+    ...(requestKindRaw !== undefined ? { requestKind: requestKindRaw as SupportHumanRequestKind } : {}),
+    ...(optionalString(value, "actorRef") !== undefined ? { actorRef: optionalString(value, "actorRef")! } : {}),
+    ...(optionalString(value, "channelRef") !== undefined ? { channelRef: optionalString(value, "channelRef")! } : {}),
+  });
+}
 
 export const SupportEvidenceIntake = Object.freeze({
   create(fields: SupportEvidenceIntakeFields): SupportEvidenceIntake {
@@ -145,32 +176,7 @@ export const SupportEvidenceIntake = Object.freeze({
     if (!isRecordLike(value)) throw invalid("NOT_OBJECT");
     for (const key of Object.keys(value)) if (!ALLOWED_FIELDS.has(key)) throw invalid(`UNKNOWN_FIELD:${key}`);
     if (value["kind"] !== "SupportEvidenceIntake") throw invalid("KIND");
-    const sourceKind = value["sourceKind"];
-    if (sourceKind !== "observe_finding" && sourceKind !== "human_request") throw invalid(`SOURCE_KIND:${String(sourceKind)}`);
-    const requestKindRaw = value["requestKind"];
-    if (requestKindRaw !== undefined && !HUMAN_REQUEST_KINDS.includes(requestKindRaw as SupportHumanRequestKind)) {
-      throw invalid(`REQUEST_KIND:${String(requestKindRaw)}`);
-    }
-    const fields: SupportEvidenceIntakeFields = Object.freeze({
-      sourceKind,
-      evidenceRef: requiredString(value["evidenceRef"], "evidenceRef"),
-      summary: requiredString(value["summary"], "summary"),
-      submittedAt: requiredString(value["submittedAt"], "submittedAt"),
-      ...(optionalString(value, "findingCode") !== undefined ? { findingCode: optionalString(value, "findingCode")! } : {}),
-      ...(optionalString(value, "observationId") !== undefined ? { observationId: optionalString(value, "observationId")! } : {}),
-      ...(optionalString(value, "deploymentId") !== undefined ? { deploymentId: optionalString(value, "deploymentId")! } : {}),
-      ...(optionalString(value, "publishedReleaseRef") !== undefined ? { publishedReleaseRef: optionalString(value, "publishedReleaseRef")! } : {}),
-      ...(optionalString(value, "environmentRef") !== undefined ? { environmentRef: optionalString(value, "environmentRef")! } : {}),
-      ...(optionalString(value, "releaseHash") !== undefined ? { releaseHash: optionalString(value, "releaseHash")! } : {}),
-      ...(optionalString(value, "operationId") !== undefined ? { operationId: optionalString(value, "operationId")! } : {}),
-      ...(optionalString(value, "runtimeRef") !== undefined ? { runtimeRef: optionalString(value, "runtimeRef")! } : {}),
-      ...(optionalString(value, "processRef") !== undefined ? { processRef: optionalString(value, "processRef")! } : {}),
-      ...(optionalString(value, "sessionRef") !== undefined ? { sessionRef: optionalString(value, "sessionRef")! } : {}),
-      ...(requestKindRaw !== undefined ? { requestKind: requestKindRaw as SupportHumanRequestKind } : {}),
-      ...(optionalString(value, "actorRef") !== undefined ? { actorRef: optionalString(value, "actorRef")! } : {}),
-      ...(optionalString(value, "channelRef") !== undefined ? { channelRef: optionalString(value, "channelRef")! } : {}),
-    });
-    const normalized = SupportEvidenceIntake.create(fields);
+    const normalized = SupportEvidenceIntake.create(fieldsFromRecord(value));
     if (typeof value["intakeId"] !== "string" || value["intakeId"] !== normalized.intakeId) throw invalid("INTAKE_ID");
     return normalized;
   },
@@ -179,11 +185,27 @@ export const SupportEvidenceIntake = Object.freeze({
   },
   fromJson(serialized: string): SupportEvidenceIntake {
     let parsed: unknown;
-    try {
-      parsed = JSON.parse(serialized);
-    } catch {
-      throw invalid("JSON");
-    }
+    try { parsed = JSON.parse(serialized); } catch { throw invalid("JSON"); }
     return SupportEvidenceIntake.validate(parsed);
+  },
+  fromDeploymentFinding(value: unknown, submittedAt: string): SupportEvidenceIntake {
+    if (!isRecordLike(value)) throw invalid("FINDING:NOT_OBJECT");
+    if (value["kind"] !== "DeploymentFinding") throw invalid("FINDING:KIND");
+    return SupportEvidenceIntake.create({
+      sourceKind: "observe_finding",
+      evidenceRef: requiredString(value["findingId"], "findingId"),
+      summary: requiredString(value["message"], "message"),
+      submittedAt: requiredString(submittedAt, "submittedAt"),
+      findingCode: requiredString(value["code"], "code"),
+      observationId: requiredString(value["observationId"], "observationId"),
+      deploymentId: requiredString(value["deploymentId"], "deploymentId"),
+      publishedReleaseRef: requiredString(value["publishedReleaseRef"], "publishedReleaseRef"),
+      environmentRef: requiredString(value["environmentRef"], "environmentRef"),
+      releaseHash: requiredString(value["releaseHash"], "releaseHash"),
+      ...(optionalString(value, "operationId") !== undefined ? { operationId: optionalString(value, "operationId")! } : {}),
+      ...(optionalString(value, "runtimeRef") !== undefined ? { runtimeRef: optionalString(value, "runtimeRef")! } : {}),
+      ...(optionalString(value, "processRef") !== undefined ? { processRef: optionalString(value, "processRef")! } : {}),
+      ...(optionalString(value, "sessionRef") !== undefined ? { sessionRef: optionalString(value, "sessionRef")! } : {}),
+    });
   },
 });
