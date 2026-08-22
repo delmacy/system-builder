@@ -1,7 +1,7 @@
 ---
 id: TASK-187
 title: Add explicit knowledge links to support cases
-status: ready
+status: verification
 priority: 542
 milestone: M12
 model_tier: cheap
