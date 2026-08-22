@@ -1,7 +1,7 @@
 ---
 id: TASK-192
 title: Enforce reference-only no-value-leak boundary
-status: ready
+status: verification
 priority: 547
 milestone: M12
 model_tier: cheap
