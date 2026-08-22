@@ -1,34 +1,24 @@
-# Next Work — P12 Sprint 1 Review
+# Next Work — P12 Sprint 1 Final Review
 
-The repository is authoritative. Do not use chat history as technical authority.
+The repository is authoritative.
 
-## Just completed on Sprint branch
-`P12-SUPPORT-EVIDENCE-INTAKE-01` TASK-161..170 are constructed on `sprint/P12-SUPPORT-EVIDENCE-INTAKE-01` / PR #227.
+## Current state
+P12 Sprint 1 `P12-SUPPORT-EVIDENCE-INTAKE-01` is constructed on PR #227. TASK-171 closure CI #456 passed. Sprint Review found one bounded provenance-completeness defect; TASK-172 corrected it. CI #457 exposed only a diagnostic-order regression, repaired at `84446b01b1c41fae2c20c2672f0e6df4c6b3bf3d`; CI #458 passed.
 
-The Sprint proves:
-
-`actual P11 DeploymentFinding -> deterministic SupportEvidenceIntake -> fail-closed validation -> lossless serialization -> preserved deployment/release/environment/runtime evidence -> no automatic production mutation -> no resolved-value leakage`
-
-It also supports human-origin request/incident/feedback intake with stable actor/channel/evidence references.
-
-## Verification observed
-GitHub Deterministic CI #429–#435 PASS for TASK-161..167, #437 PASS for TASK-168/169 cumulative coverage, and #438 PASS for TASK-170 E2E. #436 was cancelled only because its head was superseded by TASK-169 and the cumulative successor passed.
+TASK-173 reconciles this evidence in repository memory only.
 
 ## Required action
-1. Complete TASK-171 repository-memory closure and set TASK-161..171 to `verification`.
-2. Run/observe Deterministic CI on that exact closure head.
-3. If green, present PR #227 for human Sprint Review.
-4. Merge only through the applicable review boundary.
-5. After merge, reconstruct fresh `main` and revalidate P12 package state before materializing at most one successor Sprint.
+1. Observe Deterministic CI on the TASK-173 docs-only head.
+2. If green, re-check PR #227 for review/thread/comment blockers and merge through the authorized Sprint Review gate using the exact head SHA.
+3. Reconstruct fresh `main` after merge.
+4. Re-read `AGENTS.md`, current state/milestone, Sprint policy/mode, `P12-PACKAGE-01`, Support/Evolution WBS/scope and relevant contracts/ADRs.
+5. Revalidate P12 successor readiness from integrated evidence.
+6. Materialize at most one successor Sprint only if still justified; do not execute it in this round.
 
-## Forecast only — do not execute yet
-The strongest expected successor is P12 triage/classification:
-- classify intake as Support, Maintenance or Evolution;
-- model impact/criticality/SLA/context inputs;
-- preserve traceability to the originating `SupportEvidenceIntake`;
-- do not auto-remediate or mutate production.
+## Forecast only
+Expected candidate: deterministic Support/Maintenance/Evolution triage/classification with impact, criticality, SLA/context and traceability to `SupportEvidenceIntake`.
 
-This successor remains FORECAST ONLY until PR #227 merges and fresh-main revalidation produces a committed Sprint.
+Do not commit or execute this forecast before the merge + fresh-main revalidation gate.
 
 ## Boundary
-Do not introduce automatic remediation, direct production editing, Observe-internal coupling, L4/fleet topology, or uncontrolled evolution routing. Business behavior changes must continue through the controlled lifecycle.
+No automatic remediation, production mutation, Observe-internal coupling, uncontrolled business evolution or implicit L3/L4/fleet architecture.

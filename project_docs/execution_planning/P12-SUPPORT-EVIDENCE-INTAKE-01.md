@@ -1,6 +1,6 @@
 # P12-SUPPORT-EVIDENCE-INTAKE-01 — Support Evidence Intake Contract
 
-Status: CONSTRUCTED / TASK-161..172 VERIFICATION / SPRINT REVIEW CORRECTION GATE
+Status: CONSTRUCTED / TASK-161..173 VERIFICATION / FINAL SPRINT REVIEW GATE
 Base: `d119480e4e665f53103832da9e47dfa897d1f4e2`
 Branch: `sprint/P12-SUPPORT-EVIDENCE-INTAKE-01`
 Package: `P12-PACKAGE-01`
@@ -8,34 +8,25 @@ Milestone: M12
 PR: #227
 
 ## Sprint Goal
-Establish a provider-neutral deterministic `SupportEvidenceIntake` artifact accepting Observe finding references or human-originated request/feedback evidence, preserving provenance/correlation, validating fail-closed, serializing losslessly and never carrying resolved secret/credential/CA values. No automatic remediation, classification, prioritization or production mutation.
+Establish provider-neutral deterministic `SupportEvidenceIntake` for Observe findings and human requests/incidents/feedback, with complete provenance, fail-closed validation, lossless serialization and no resolved-value leakage; no remediation, classification, prioritization or production mutation.
 
-## Predecessor gate
-SATISFIED. P11 construction and package review are merged. PR #226 merged at `d119480e4e665f53103832da9e47dfa897d1f4e2` after Deterministic CI #427 / run `32548830575` PASS.
+## Achieved proof
+`DeploymentRecord -> DeploymentObservation -> DeploymentFinding -> SupportEvidenceIntake -> complete source provenance -> fail-closed validation -> lossless serialization -> Support/Evolution evidence handoff -> no automatic production mutation -> no resolved secret/credential/CA value`
 
-## Direction selection
-Selected: **Support evidence intake contract**. Later triage/classification and resolution/evolution linkage remain FORECAST.
+Actual P11 `DeploymentFinding` -> public P12 adapter E2E is covered; Support implementation does not import Observe internals.
 
-## Committed TASK set
-TASK-161 contract; TASK-162 source model; TASK-163 validation; TASK-164 serialization; TASK-165 finding mapping; TASK-166 human capture; TASK-167 no-leak; TASK-168 positive tests; TASK-169 negative tests; TASK-170 integrated E2E; TASK-171 growing proof/closure; TASK-172 Sprint Review provenance-completeness correction.
+## Review correction
+Sprint Review found that a source kind could omit all source-specific provenance. TASK-172 requires `findingCode + observationId` for every `observe_finding` and `requestKind + actorRef + channelRef` for every `human_request`.
 
-TASK-172 was added during Sprint Review after a bounded defect was found: both source kinds could omit all source-specific provenance even though partial provenance already failed closed. It does not widen product scope.
+- initial correction `d1f73ffd02bb3bf674c771589ab25a9f26a11dc5`: CI #457 FAIL because validation precedence changed one existing negative diagnostic;
+- bounded repair `84446b01b1c41fae2c20c2672f0e6df4c6b3bf3d`: preserves malformed base-field precedence while retaining mandatory provenance; CI #458 PASS.
 
-## Growing proof achieved
-`DeploymentRecord -> DeploymentObservation -> DeploymentFinding -> SupportEvidenceIntake -> complete explicit source provenance -> fail-closed validation -> lossless serialization -> downstream Support/Evolution evidence handoff -> no auto-production mutation -> no resolved secret/credential/CA value`
-
-An actual public P11 `DeploymentFinding` is consumed by the public Support/Evolution adapter in TASK-170 E2E; Support implementation does not import Observe internals.
+The two-commit TASK-172 history is an explicit deviation caused by the connector refusing a force-rewrite of the failed correction commit; no scope widening occurred.
 
 ## Validation evidence
-GitHub Deterministic CI #429 through #435 PASS for TASK-161..167, #437 PASS for the cumulative TASK-168/169 head, #438 PASS for TASK-170 E2E, and #456 PASS for the TASK-171 closure head. CI #436 was cancelled only because the PR head advanced and its content was validated by #437.
-
-The TASK-172 correction head must pass GitHub Deterministic CI before Sprint Review can be approved for merge.
-
-## Sprint report
-`project_docs/execution_planning/P12-SUPPORT-EVIDENCE-INTAKE-01.report.md`.
+CI #429-#435 PASS; #437 PASS for TASK-168/169 cumulative head; #438 PASS for TASK-170 E2E; #456 PASS for TASK-171 closure; #457 FAIL as documented above; #458 PASS after bounded repair. CI #436 was superseded/cancelled and its content was validated by #437.
 
 ## Current gate
-**Sprint Review correction validation on PR #227.** No successor Sprint is committed or authorized by this state.
+TASK-173 is docs-only repository-memory reconciliation. Its PR-head Deterministic CI must pass externally; after that, PR #227 is ready for the authorized human Sprint Review merge.
 
-## Stop / escalation
-Stop for canonical cross-context contract changes, L3/L4/ADR, destructive migration, security/governance weakening, Observe-internal imports, automatic remediation/triage/priority, or edits to `.github/**`, `tooling/**`, Runtime, Deploy, Release or Artifact Store.
+No P12 Sprint 2 is committed or authorized by this state.

@@ -41,20 +41,20 @@ validation:
 # Objective
 Close the Sprint Review provenance-completeness gap in `SupportEvidenceIntake`.
 # Context
-Sprint Review found that `sourceKind` could be accepted with all source-specific provenance fields absent, despite TASK-162/163 promising explicit fail-closed provenance.
+Sprint Review found that `sourceKind` could be accepted with all source-specific provenance absent despite the explicit/fail-closed source contract.
 # Current behavior
-`observe_finding` rejects partial finding provenance but accepts none; `human_request` rejects partial human provenance but accepts none.
+Corrected: every `observe_finding` requires `findingCode + observationId`; every `human_request` requires `requestKind + actorRef + channelRef`.
 # Required change
-Require `findingCode` + `observationId` for every `observe_finding`, and `requestKind` + `actorRef` + `channelRef` for every `human_request`. Update affected contract coverage and add regressions for fully absent provenance.
+Require complete source provenance while preserving existing base-field validation precedence and all valid adapter/human paths.
 # Inputs / contracts
-TASK-162 source model, TASK-163 fail-closed validation, Sprint Review finding, current public Support intake API.
+TASK-162 source model, TASK-163 validation, Sprint Review finding and public Support intake API.
 # Outputs / contracts
-Bounded Support-local validation correction only; no new cross-context contract or lifecycle behavior.
+Bounded Support-local validation correction only.
 # Acceptance criteria
-Both source kinds fail deterministically when required provenance is absent or partial; all valid existing adapter/human paths remain accepted; full repository verification passes.
+Absent/partial provenance fails deterministically; valid paths remain accepted; malformed base fields preserve their established diagnostics; repository verification passes.
 # Non-goals
-Triage/classification, priority/SLA, remediation, production mutation, Observe changes, public L3/L4 contract changes.
+Triage/classification, priority/SLA, remediation, production mutation, Observe changes or L3/L4 widening.
 # Evidence expected
-Corrected intake validation, contract/regression tests and GitHub Deterministic CI on the correction head.
+Initial correction `d1f73ffd02bb3bf674c771589ab25a9f26a11dc5` produced CI #457 FAIL because diagnostic precedence changed. Bounded repair `84446b01b1c41fae2c20c2672f0e6df4c6b3bf3d` preserved base validation precedence and CI #458 PASS. The two-commit history is retained because the connector rejected a force rewrite of the failed commit.
 # Escalation
 Stop if correction requires another bounded context, ADR or architectural widening.
