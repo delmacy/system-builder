@@ -1,7 +1,7 @@
 ---
 id: TASK-215
 title: Execute generated entity persistence in autonomous Runtime
-status: pending
+status: ready
 priority: 215
 milestone: M13
 model_tier: cheap
