@@ -1,33 +1,49 @@
-# Current Execution Milestone — M12 Package Closure / M13 Planning Gate
+# Current Execution Milestone — M13 P13 Package 01 Planning Review Gate
 
 ## Integrated predecessor truth
-P12 Sprints 1-4 are merged. Sprint 4 `P12-CONTROLLED-EVOLUTION-LINKAGE-01` merged through PR #234 at `24f86de2aa53fb9ffc3f3aaf9804b5b727473515` after Deterministic CI #540 PASS on exact head `9654633de2803efa915191d85577da532d31090d`.
+P12 is CLOSED. Its package Integration & Technical Debt Review / repository-memory closure merged through PR #235 at `7c85da5c217f645f7968e62328dd7ec1d56dc237` after Deterministic CI #541 PASS on closure head `d507934c58fd1f8b2e773d5c36f07a15d9d748c6`. Closure-head -> merge-main has zero file differences.
 
-## Integrated P12 capability
-P12 covers the full Support & Evolution WBS:
-- 12.1 intake/triage;
-- 12.2 Support/Maintenance operational resolution;
-- 12.3 controlled Evolution linkage through ProcessMirror/BusinessRecipe identities to PublishedRelease traceability.
+`P13-PACKAGE-01` predecessor `P12-PACKAGE-01 CLOSED` is therefore SATISFIED.
 
-The package preserves explicit classification, reference-only/no-value-leak evidence, Support/Maintenance/Evolution path separation and no direct production mutation.
+## Planning & Materialization result
+Planning Sprint `P13-AUTONOMOUS-RUNTIME-FUNCTIONAL-PLANNING-01` reconstructed the exact fresh main and inventoried runtime-core/compiler/deploy/state/configuration against WBS 13.1.1-13.1.3.
 
-## Package Integration & Technical Debt Review
-The grandfathered `P12-PACKAGE-INTEGRATION-CLOSURE-01` review found no blocking debt for the Package Goal.
+Existing predecessor evidence is reused rather than recreated, including TASK-060, TASK-063 and P4-P10 runtime/state/deploy/configuration work.
 
-Recorded non-blocking debt:
-- `TD-P12-01`: duplicated no-value-leak/reference validation patterns; defer to a future bounded refactor only if justified.
+Coverage:
+- entities MISSING;
+- APIs PARTIAL;
+- actions PARTIAL;
+- workflows MISSING;
+- jobs MISSING;
+- events MISSING;
+- files MISSING;
+- integrations MISSING;
+- external configuration DELIVERED foundation / PARTIAL breadth.
 
-Repository-memory closure is part of this review because P12 predates the new separate Documentation & Closure cadence.
+The planning evidence confirms Builder != Runtime and autonomous ordinary operation remain intact. External configuration/secrets remain activation-time reference/value boundaries with no immutable-artifact value leakage.
 
-## Planning policy
-New Work Packages use:
-`Planning & Materialization -> Construction A -> Construction B -> [optional Construction C] -> Package Integration & Review -> Documentation & Closure`.
+## Materialized Construction A
+`P13-RUNTIME-CORE-EXECUTION-01` is COMMITTED / MATERIALIZED with TASK-212..220.
+
+Its bounded goal is WBS 13.1.1: actual SystemDefinition-derived entities/APIs/actions/workflows through the existing deterministic Compiler, Release/Deploy and autonomous Runtime chain.
+
+TASK-212 carries explicit L3 authority for only the minimum additive, backward-compatible SystemDefinition action/workflow execution semantics. No other shared-contract change is authorized. If that work requires a new L4 boundary, execution stops for an ADR.
+
+## Forecast successors
+- Construction B — FORECAST: jobs/events/files/integrations + remaining external-binding breadth.
+- Construction C — FORECAST / CONDITIONAL only after Construction B fresh-main revalidation.
+- Package Integration & Review — FORECAST.
+- Documentation & Closure — FORECAST.
+- P13-PACKAGE-02 and P13-PACKAGE-03 — not started.
 
 ## Current gate
-1. Integrate the P12 package-closure PR only after exact-head Deterministic CI passes.
-2. Reconstruct fresh `main`.
-3. Confirm P12 is CLOSED and `P13-PACKAGE-01` predecessor `P12-PACKAGE-01 CLOSED` is satisfied.
-4. Stop before P13 unless the Planning & Materialization Sprint of `P13-PACKAGE-01` is explicitly authorized.
+1. Validate this Planning & Materialization branch on its exact head.
+2. Review that the diff is planning/materialization only and contains no product behavior.
+3. Merge the Planning Sprint if approved.
+4. Reconstruct fresh `main`.
+5. Only then create `sprint/P13-RUNTIME-CORE-EXECUTION-01` and execute TASK-212..220.
+6. Stop Construction A at Sprint Review; do not auto-promote Construction B.
 
 ## GitHub governance boundary
-`main` deliberately remains without GitHub branch protection/required checks during current construction. Branch protection, required checks and broad structural privilege reduction remain DEFERRED. No new general validation workflow, duplicate `push: main`, premature `merge_group` or mandatory PR-heavy gate is authorized.
+`main` deliberately remains without GitHub branch protection/required checks during the current phase. Branch protection, required checks and broad structural privilege reduction remain DEFERRED. No new general validation workflow, duplicate `push: main`, premature `merge_group` or mandatory PR-heavy gate is authorized.
