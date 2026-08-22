@@ -43,8 +43,20 @@ validation:
 # Objective
 Close Construction B with one real predecessor-integrated proof through representative job, event, file/storage and integration execution, then produce the Sprint Report.
 
+# Context
+TASK-221..229 are the committed Construction B increment. Sprint Mode requires the final task to exercise the real integrated chain, extend Construction A rather than replace it, record validation/deviations/discoveries and stop at Sprint Review.
+
+# Current behavior
+Before this closure task, Construction B has focused contract/compiler/runtime/binding tests but no single authoritative E2E proof for all new service classes through the actual Compiler/Release/Artifact/Deploy/autonomous Runtime path.
+
 # Required change
 Extend the actual Construction A chain rather than hand-authoring downstream artifacts. Prove one declared interval job, one runtime-http event, file put/get/delete and one HTTP integration after real Compiler/Release/Artifact/Deploy activation. Exercise missing/incompatible bindings and assert Builder/Observe unavailable plus no resolved-value leakage.
+
+# Inputs / contracts
+Integrated TASK-221..229 outputs; actual Catalog/Assembly/Validation/Compiler/Release/Artifact/Deploy APIs; Construction A growing proof; ADR-0002; accepted Construction B L3 change control.
+
+# Outputs / contracts
+One Construction B integrated product E2E proof plus `P13-RUNTIME-SERVICES-BINDINGS-01.report.md`. No product implementation or public-contract change is allowed in this closure task.
 
 # Acceptance criteria
 - actual SystemDefinition -> Catalog -> Assembly -> Validation -> Compiler -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> Deploy chain is used;
@@ -58,6 +70,12 @@ Extend the actual Construction A chain rather than hand-authoring downstream art
 
 # Non-goals
 Construction C, auth/views/permissions, production topology, package review/closure, or product fixes inside this closure task.
+
+# Evidence expected
+`tests/product/p13-runtime-services-e2e.test.ts`, the Construction B Sprint Report, predecessor regression results and exact-head deterministic CI after repository-wide verification.
+
+# Escalation
+Stop if closure requires product correction outside TASK-221..229, a new L4 decision, broader contract changes, or P13-PACKAGE-02/03 work.
 
 # Exit gate
 Stop at Construction B Sprint Review. Do not promote Construction C or package review until B is merged and fresh-main revalidation is complete.
