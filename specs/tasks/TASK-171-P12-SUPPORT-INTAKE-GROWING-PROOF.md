@@ -49,8 +49,31 @@ validation:
   - npm run verify
 ---
 # Objective
-Record Sprint proof, reconcile P11/P12 current repository memory, set TASK-161..171 to `verification`, and leave the next P12 Sprint forecast only.
+Close the P12 Sprint 1 repository-memory and growing-proof boundary.
+
+# Context
+After TASK-170, the product slice should have complete contract, failure, positive and integrated evidence. Sprint Mode requires an explicit closure report and current-state reconciliation before human Sprint Review.
+
+# Current behavior
+P11 review is merged, but current docs still describe the previous review gate and P12 package remains a forecast skeleton. The P12 Sprint has no closure report yet and TASK-161..171 remain `ready` until verified construction evidence is recorded.
+
+# Required change
+Create the Sprint report, update the Sprint/package/current-state documents from actual integrated branch evidence, and set TASK-161..171 to `verification`. Leave later P12 construction work forecast-only.
+
+# Inputs / contracts
+All P12 Sprint 1 TASK outputs, PR/CI evidence, P12 package skeleton, current repository state docs, Sprint Mode and Sprint Generation Policy.
+
+# Outputs / contracts
+Closure report and repository-memory reconciliation only. No product code or test changes.
+
 # Acceptance criteria
-Report records commits/evidence/deviations; current docs reflect P11 review merged and P12 Sprint 1 at Sprint Review gate; package proof includes Support intake handoff.
+The report records actual commits, validation evidence and deviations; current docs identify P11 review as merged and P12 Sprint 1 at Sprint Review gate; package growing proof includes the Support evidence handoff; all committed TASK specs are `verification`; no successor Sprint is committed automatically.
+
+# Non-goals
+Product implementation/test changes, P12 triage/classification construction, package Integration & Technical Debt Review, successor Sprint execution or unobserved CI claims.
+
+# Evidence expected
+`P12-SUPPORT-EVIDENCE-INTAKE-01.report.md`, reconciled current/package/Sprint docs, TASK status updates and final GitHub Deterministic CI on the closure head.
+
 # Escalation
-Stop if closure would claim unobserved validation or integration.
+Stop if closure would claim validation/integration that was not actually observed or if successor construction would be authorized implicitly.

@@ -32,8 +32,31 @@ validation:
   - npm run verify
 ---
 # Objective
-Add positive product tests for finding-origin intake, human-origin intake, determinism, immutability and lossless round-trip.
+Add positive product coverage for the complete Support evidence intake slice built by TASK-161..167.
+
+# Context
+The implementation path now includes deterministic contract/source provenance, validation, serialization, finding mapping, human capture and no-leak enforcement. This TASK proves those behaviors through the public Support/Evolution API only.
+
+# Current behavior
+Focused predecessor tests exist per implementation TASK, but there is no consolidated positive product suite for the completed intake API.
+
+# Required change
+Add additive tests covering finding-origin intake, human-origin intake, stable optional correlations, determinism, immutability, validation and lossless JSON round-trip.
+
+# Inputs / contracts
+Public exports from `packages/support-evolution/index.ts` and the committed Sprint behavior from TASK-161..167.
+
+# Outputs / contracts
+Positive product-test evidence only; no product implementation change.
+
 # Acceptance criteria
-Public Support/Evolution intake behavior is proven without implementation edits.
+All positive Sprint behaviors are exercised through public APIs and deterministic equality/identity assertions.
+
+# Non-goals
+Implementation edits, negative/failure testing, triage/classification, remediation or later P12 lifecycle behavior.
+
+# Evidence expected
+`tests/product/support-evidence-intake-positive.test.ts` and GitHub Deterministic CI.
+
 # Escalation
-Stop if tests expose an out-of-scope contract change.
+Stop if positive coverage exposes an out-of-scope contract change.

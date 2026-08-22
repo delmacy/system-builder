@@ -32,8 +32,31 @@ validation:
   - npm run verify
 ---
 # Objective
-Add negative product tests for unknown fields, malformed/conflicting sources, wrong identity, invalid JSON and resolved-value markers.
+Add negative product coverage for the complete Support evidence intake boundary.
+
+# Context
+P12 intake must fail closed before later Support/Evolution classification or lifecycle routing can trust the evidence artifact.
+
+# Current behavior
+Predecessor implementation tests cover focused failures, but there is no consolidated public-API suite spanning all malformed/conflicting/no-leak categories.
+
+# Required change
+Add additive product tests for unknown fields, malformed required values, conflicting provenance, wrong content identity, invalid JSON and resolved-value markers.
+
+# Inputs / contracts
+Public Support/Evolution intake API after TASK-167 and stable `SUPPORT_INTAKE` diagnostic conventions.
+
+# Outputs / contracts
+Negative product-test evidence only; no implementation change.
+
 # Acceptance criteria
-Invalid categories fail deterministically with `SUPPORT_INTAKE` errors and no mutation occurs.
+Every invalid category fails deterministically and no test path implies or performs production mutation.
+
+# Non-goals
+Implementation edits, external security tooling, triage/classification or case lifecycle behavior.
+
+# Evidence expected
+`tests/product/support-evidence-intake-negative.test.ts` and GitHub Deterministic CI.
+
 # Escalation
 Stop if coverage requires broader architecture changes.
