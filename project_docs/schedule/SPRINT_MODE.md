@@ -1,8 +1,6 @@
 # Sprint Mode
 
-Sprint Mode is the default product-development execution model for System Builder.
-
-Its purpose is to maximize product throughput while preserving repository-first governance, deterministic validation and a human review boundary at the Sprint level by default.
+Sprint Mode is the default product-development execution model for System Builder. It maximizes throughput while preserving repository-first governance, deterministic validation and explicit review/closure boundaries.
 
 ## Core execution unit
 
@@ -10,11 +8,23 @@ The Sprint is the operational delivery unit.
 
 `main -> sprint/<SPRINT-ID> -> committed TASKs -> full verification -> Sprint Review -> one PR -> main`
 
-A Sprint branch is created from a known synchronized `main` commit. All TASKs committed to that Sprint are implemented on the same Sprint branch unless an explicitly approved exception requires isolation.
+A Sprint branch is created from a known synchronized `main` commit. All TASKs committed to that Sprint execute on the same Sprint branch unless an explicitly approved exception requires isolation.
+
+## Work Package lifecycle
+
+For newly planned Work Packages, the authoritative default is:
+
+`Planning & Materialization -> Construction A -> Construction B -> [Construction C only if justified] -> Package Integration & Review -> Documentation & Closure`
+
+Only the active Sprint is committed. Later Sprints are forecast until fresh-main revalidation and predecessor gates permit promotion.
+
+Planning, Package Review and Documentation & Closure have distinct purposes and must not be used as overflow containers for product construction.
+
+A legacy Work Package already materially executed under an older cadence may finish under that recorded cadence when repository memory explicitly marks it grandfathered. Do not rewrite completed history to resemble the new policy.
 
 ## Pre-code Sprint manifest
 
-Before product code is changed, the active Sprint must have a durable manifest under `project_docs/execution_planning/` declaring:
+Before product code is changed, an active Construction Sprint must have a durable manifest under `project_docs/execution_planning/` declaring:
 
 - Sprint ID and Goal;
 - intended base/branch;
@@ -24,166 +34,164 @@ Before product code is changed, the active Sprint must have a durable manifest u
 - final validation command;
 - explicit stop/escalation conditions.
 
-Do not invent the Sprint while implementing it. Forecast Sprints may be prepared earlier, but only the active Sprint is committed.
+Forecast Sprints may have candidate goals/exit proofs, but only the active Sprint is committed.
 
-## Task execution inside a Sprint
+## Planning & Materialization Sprint
+
+Planning begins from freshly reconstructed `main` and must reconcile repository memory before committing new product work.
+
+It revalidates:
+- Work Package goal and WBS authority;
+- predecessor outputs and current implementation;
+- contracts/interfaces and architecture boundaries;
+- dependencies, risks and readiness;
+- growing package proof;
+- forecast Construction A/B and optional C;
+- package review and documentation-closure gates.
+
+Planning materializes only the first eligible Construction Sprint. It does not implement product behavior.
+
+## Task execution inside a Construction Sprint
 
 For each committed TASK, in dependency order:
 
-1. read `AGENTS.md` and the required repository authority chain;
+1. read `AGENTS.md` and the required authority chain;
 2. read the TASK contract and every applicable `context_paths` authority;
 3. confirm predecessor/readiness gates;
-4. confirm `allowed_paths`, `forbidden_paths` and `max_files` before editing;
-5. implement only the declared scope;
+4. confirm `allowed_paths`, `forbidden_paths` and `max_files`;
+5. implement only declared scope;
 6. add/maintain positive, negative and predecessor-integration tests where applicable;
-7. run the TASK-declared validation commands;
-8. correct implementation/validation failures autonomously when the correction remains inside scope;
-9. create a distinct commit for the TASK;
+7. run TASK-declared validation commands;
+8. correct bounded implementation/validation failures autonomously;
+9. create one distinct authoritative commit for the TASK;
 10. continue to the next eligible TASK.
 
 Recommended commit convention:
 
 `feat(TASK-045): <bounded outcome>`
 
-TASK boundaries remain authoritative even though branch and PR boundaries move to the Sprint.
-
 ## Growing integration proof
 
-Every construction Sprint must extend an integrated proof rather than relying only on isolated unit success.
+Every Construction Sprint extends an integrated proof rather than relying only on isolated unit success. Do not hand-author a downstream artifact inside E2E tests when the corresponding executable module already exists; invoke the actual module API.
 
-Examples:
-
-- contracts/knowledge Sprint: Mirror -> Recipe -> Analysis -> Definition;
-- factory Sprint: Definition -> Catalog -> AssemblyPlan;
-- validation/compiler Sprint: ... -> ValidationEvidence -> ReleaseArtifact;
-- release/deploy Sprint: ... -> PublishedRelease -> DeploymentRecord.
-
-Do not hand-author a downstream artifact inside an E2E test when the corresponding executable module already exists; invoke the actual module API.
-
-## Sprint completion
+## Construction Sprint completion
 
 After the last committed TASK:
 
-1. run the repository-wide final validation (`npm run verify` unless the Sprint declares a stricter command);
-2. update required docs/contracts/evidence;
+1. run repository-wide final validation (`npm run verify` unless stricter authority exists);
+2. update required docs/contracts/evidence incrementally;
 3. produce a Sprint Report with TASK results, commits, validations, deviations, discoveries and residual work;
 4. push the Sprint branch;
-5. open one PR from `sprint/<SPRINT-ID>` to `main`;
-6. use GitHub CI as objective final validation;
-7. stop for Sprint Review unless an explicit Work Package execution authorization below permits deterministic intermediate integration.
+5. open one PR to `main`;
+6. use GitHub CI as objective exact-head validation;
+7. stop for Sprint Review unless explicit Work Package execution authorization permits deterministic intermediate integration.
 
-The next Sprint does not begin automatically unless the user explicitly authorizes more than one Sprint and repository policy permits it.
+A successor Sprint is never started merely because it appears in forecast.
+
+## Optional third Construction Sprint
+
+Construction C is conditional. After Construction B is merged, reconstruct fresh `main` and determine whether the Package Goal is already satisfied strongly enough to proceed to package review.
+
+Promote Construction C only when fresh evidence shows a bounded remaining construction increment is necessary. Otherwise skip it and proceed to Package Integration & Review.
+
+## Package Integration & Review Sprint
+
+This Sprint evaluates the full integrated package outcome. It must inspect end-to-end regression, contract/schema drift, architecture fitness, dependency accuracy, technical debt, security/trust, CI health, documentation consistency, performance where relevant, risks and actual-vs-forecast effort.
+
+It may contain bounded corrections necessary to prove the already-built Package Goal. A missing product capability is not review work: return it to explicit construction/change control.
+
+Outputs include findings, debt classification, readiness/go-no-go, updated forecast and explicit disposition for Documentation & Closure.
+
+## Documentation & Closure Sprint
+
+Documentation is updated throughout construction; this Sprint performs final reconciliation and package closure.
+
+It must reconcile, as applicable:
+- `docs/current/PROJECT_STATE.md`;
+- `docs/current/CURRENT_MILESTONE.md`;
+- `docs/current/NEXT_WORK.md`;
+- Work Package status/report and Sprint reports;
+- WBS/DAG/readiness/risks/lessons;
+- module/public/operations docs affected by the package;
+- contract/ADR references and delivery traceability.
+
+No new product behavior is allowed in Documentation & Closure. Any functional gap found here becomes explicit blocked/corrective/successor work.
+
+The Work Package is not closed while current repository-memory documents still describe obsolete active gates as current truth.
 
 ## Explicit Work Package execution mode
 
-A user may explicitly authorize execution of a named Work Package as one bounded delivery authorization. This is the supported mode for GitHub-hosted automation across a package containing multiple construction Sprints.
+A user may explicitly authorize execution of a named Work Package as one bounded delivery authorization. Such authorization may allow progression across eligible successor Sprints only when each successor becomes `COMMITTED` after fresh-main revalidation.
 
-The authorization must name the Work Package and begin from a committed/materialized Sprint. It may allow the controller to continue across successor Sprints without a new user dispatch only when each successor becomes `COMMITTED` from freshly integrated repository truth.
-
-Work Package authorization does **not** pre-authorize forecast scope. It never overrides:
-
+Work Package authorization does not pre-authorize forecast scope and never overrides:
 - `FORECAST`, `BLOCKED` or dependency/readiness state;
-- TASK `allowed_paths`, `forbidden_paths`, `max_files` or validation commands;
-- an undeclared L3/L4 contract or architecture change;
-- an ADR acceptance requirement;
+- TASK path/file/validation constraints;
+- undeclared L3/L4 contract or architecture change;
+- ADR acceptance requirements;
 - destructive/irreversible migration gates;
 - security/governance weakening;
 - conflicting repository authorities or explicit human-decision gates.
 
-For an explicitly authorized Work Package, an intermediate construction Sprint may be integrated automatically only after all of the following are true:
+Intermediate Construction Sprint integration under explicit package authorization requires:
+1. all committed TASK authoritative commits;
+2. Sprint Report;
+3. repository-wide final verification;
+4. open PR against `main`;
+5. required exact-head GitHub checks passing;
+6. no repository-defined escalation/blocker.
 
-1. every committed TASK has its distinct authoritative commit;
-2. the Sprint Report exists;
-3. repository-wide final verification passes;
-4. the Sprint PR is open against `main`;
-5. required GitHub checks pass on that exact PR head;
-6. no repository-defined escalation/blocker is present.
+After merge, reconstruct fresh `main` before promoting at most one successor Sprint.
 
-After that merge, the controller must reconstruct fresh `main` and use a fresh OpenCode session to revalidate the Work Package before promoting/materializing at most one successor Sprint. A forecast Sprint cannot be executed merely because it was listed in the original package forecast.
-
-The Work Package automation stops when:
-
-- the package Integration & Technical Debt Review/final review boundary is reached;
-- no eligible committed successor Sprint can be produced;
-- a human/ADR/L3/L4/security/governance gate is encountered;
-- validation or CI fails;
-- the configured safety ceiling is reached.
-
-The normal human review boundary for this mode is the final Work Package review/blocker PR. Intermediate Sprint PRs remain durable integration evidence and may be automatically merged only under the explicit Work Package authorization and the deterministic conditions above.
+Package automation must stop at Package Integration & Review, Documentation & Closure, or any human/ADR/L3/L4/security/governance/validation/safety blocker unless explicit authority covers that exact transition.
 
 ## Human review boundary
 
-Normal standalone Sprint execution uses one human review per Sprint, at the Sprint PR/review gate.
-
-Explicit Work Package execution mode may defer human review of intermediate Sprints to the Work Package boundary under the rules above. Immediate escalation is still required when execution encounters:
-
-- an undeclared L3/L4 contract or architecture change;
+Normal standalone execution uses one human review per Sprint at the Sprint PR gate. Explicit Work Package mode may defer review of eligible intermediate Construction Sprints according to repository policy, but immediate escalation remains required for:
+- undeclared L3/L4 changes;
 - scope expansion outside committed TASKs;
-- destructive or irreversible migration;
-- conflicting repository authorities;
-- a required path forbidden by the TASK contract;
+- destructive/irreversible migration;
+- conflicting authority;
+- required forbidden paths;
 - security/governance weakening;
-- an ambiguity that cannot be resolved from repository authority.
-
-Routine implementation choices, test fixes and bounded refactors do not require per-TASK approval.
+- unresolved ambiguity that repository authority cannot settle.
 
 ## Executor
 
-The default executor is the local OpenCode orchestrator: `scripts/sprint-run-local.ps1`.
+The default executor is `scripts/sprint-run-local.ps1`, using one disposable `opencode run` session per committed TASK and enforcing one authoritative commit per TASK.
 
-It executes the committed TASK set in dependency order, one disposable `opencode run` session per TASK on the Sprint branch, enforces exactly one authoritative commit per TASK, pushes the branch, runs Sprint closure (final verification + Sprint Report + closure commit), and may open the Sprint Review PR.
+GitHub-hosted OpenCode automation workflows are disabled by repository decision. GitHub is source/history plus objective deterministic CI; Actions do not drive normal product execution.
 
-GitHub-hosted OpenCode automation workflows are disabled by repository decision. GitHub is used only as source/history and as objective deterministic CI on the Sprint PR head; GitHub Actions never drive OpenCode execution.
-
-A connected coding agent may execute through another environment instead, provided it obeys the same repository authority chain, TASK contracts, validation gates, branch boundary and stop conditions. Local commands/tests must never be claimed unless actually observed; GitHub Actions may serve as objective remote verification.
-
-The AgentFactory Supervisor/runtime is not required to execute product Sprints. Its current implementation is preserved as development infrastructure but is frozen as a non-blocking track until explicitly reactivated.
+A connected coding agent may execute in another environment if it obeys the same authority chain, TASK contracts, validations, branch boundary and stop conditions. Never claim unobserved local test execution.
 
 ## Git and merge policy
 
-- `main` remains protected product truth.
-- A Sprint uses one branch: `sprint/<SPRINT-ID>`.
-- TASKs use separate commits, not separate PRs by default.
+- `main` is the protected **product truth semantically**; this statement does not require GitHub branch protection settings during the current construction phase.
+- Current repository governance deliberately keeps GitHub branch protection/required checks deferred until an explicit future maturity gate unless superseded by owner authority.
+- A Sprint uses one `sprint/<SPRINT-ID>` branch.
+- TASKs use separate authoritative commits, not separate PRs by default.
 - No autonomous direct write to `main`.
-- No merge to `main` before final Sprint validation and the applicable Sprint/Work Package review gate.
-- The preferred integration path is one GitHub PR per Sprint.
-- Intermediate Sprint PR auto-integration is permitted only in explicit Work Package execution mode after required checks pass.
-- Synchronization from `main` during an active Sprint is deliberate, not automatic; record it in the Sprint Report.
+- No merge before final Sprint validation and the applicable review gate.
+- Preferred integration path is one GitHub PR per Sprint.
 
 ## State truth
 
-A TASK/Sprint may distinguish three states:
+A TASK/Sprint may distinguish:
+- `IMPLEMENTED_ON_SPRINT_BRANCH`;
+- `CI_PASS`;
+- `MERGED`.
 
-- `IMPLEMENTED_ON_SPRINT_BRANCH` — code exists only on the Sprint branch;
-- `CI_PASS` — objective Sprint CI passed for the current head;
-- `MERGED` — accepted into `main` and therefore published repository truth.
-
-Do not describe branch-only work as integrated/completed in `main`.
+Do not describe branch-only work as integrated into `main`.
 
 ## Evidence and repository memory
 
-Sprint Mode does not weaken repository-as-memory.
-
-Durable outcomes still end as code, tests, contracts, specs, ADRs, task status, Sprint Report or other repository artifacts. Runtime callback/heartbeat/state-closure artifacts are not product-Sprint completion gates unless a future Sprint explicitly reauthorizes them.
+Repository-as-memory remains mandatory. Durable outcomes end as code, tests, contracts, specs, ADRs, task status, Sprint Reports, package review evidence or closure documentation.
 
 ## Planning relationship
 
-WBS and Work Packages define scope. Dependencies define valid ordering. Milestones define integrated outcomes. Sprint Packages define the short rolling-wave horizon. Sprint Mode defines the execution container and review cadence.
+`Project Scope -> WBS -> Work Package -> Planning Sprint -> Construction Sprint(s) -> Package Integration & Review -> Documentation & Closure -> next Work Package`
 
-`Project Scope -> WBS -> Work Package -> Sprint Package -> Sprint manifest -> TASK -> Sprint Review -> main`
-
-In explicit Work Package mode, the controller repeats the Sprint segment only after fresh-main revalidation and stops at the Work Package review/blocker boundary.
+WBS/Work Packages define scope; dependencies define ordering; milestones define integrated outcomes; Sprint Mode defines execution/review/closure boundaries.
 
 ## Default autonomy contract
 
-An authorized Sprint executor may continue through all committed TASKs without human intervention while:
-
-- scope remains bounded;
-- declared validations can be satisfied;
-- no escalation condition is triggered;
-- the executor stays on the Sprint branch;
-- the next Sprint is not started without authorization.
-
-An explicit named Work Package dispatch is valid authorization for eligible successor Sprints in that package under the Work Package execution rules above; it is not authorization for blocked/forecast work or architecture/security decisions.
-
-This is the default meaning of `sprint-mode` in this repository.
+An authorized executor may continue through all committed TASKs while scope remains bounded, validations can pass, no escalation is triggered and it remains on the Sprint branch. It may not silently promote forecast work.
