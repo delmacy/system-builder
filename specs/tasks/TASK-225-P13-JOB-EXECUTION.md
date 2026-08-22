@@ -36,8 +36,20 @@ validation:
 # Objective
 Execute the explicit interval-job semantics committed by TASK-221 in the same generated Runtime process, invoking only the declared action target and recordId.
 
+# Context
+Construction B deliberately avoids distributed scheduling. TASK-224 will place explicit job descriptors in the generated Runtime model and Construction A already provides bounded action execution inside the autonomous Runtime.
+
+# Current behavior
+The generated Runtime has no job scheduler/executor surface. There is no authorized behavior for deriving schedules or targets from names or ordering.
+
 # Required change
 Add a bounded single-process interval scheduler/executor for generated jobs. It must use the declared positive interval and explicit action target; unknown/unsupported targets fail closed. Runtime shutdown must clear timers. No distributed, exactly-once or multi-worker guarantee is introduced.
+
+# Inputs / contracts
+TASK-221 job descriptors; TASK-224 generated Runtime model; Construction A action executor; current Runtime lifecycle/shutdown behavior.
+
+# Outputs / contracts
+Generated single-process job execution surface and focused tests for declared execution, failure paths and lifecycle cleanup. No public-contract changes.
 
 # Acceptance criteria
 - representative interval job invokes its declared action target;
@@ -45,6 +57,12 @@ Add a bounded single-process interval scheduler/executor for generated jobs. It 
 - no behavior is inferred from job name/order;
 - no Builder/Observe call is required;
 - existing action/entity/workflow regressions remain green.
+
+# Non-goals
+Distributed scheduling; exactly-once guarantees; worker fleets; broker/provider selection; contract changes.
+
+# Evidence expected
+Product tests covering positive interval invocation, invalid target failure, deterministic declared scheduling inputs, shutdown cleanup and Construction A regression compatibility; declared validations green.
 
 # Escalation
 Stop if the goal requires distributed scheduling, a broker/worker topology, provider-specific scheduler or any L4 boundary.
