@@ -1,7 +1,7 @@
 ---
 id: TASK-213
 title: Feed validated SystemDefinition runtime projection into Compiler
-status: pending
+status: ready
 priority: 213
 milestone: M13
 model_tier: cheap
