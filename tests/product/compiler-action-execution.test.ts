@@ -29,7 +29,7 @@ test("Compiler entrypoint executes only explicit generated action effects", () =
   assert.match(entrypoint.content, /\/actions\\\/\(\[\^\/\]\+\)/);
   assert.match(entrypoint.content, /RUNTIME_ACTION_UNKNOWN/);
   assert.match(entrypoint.content, /RUNTIME_ACTION_UNSUPPORTED/);
-  assert.match(entrypoint.content, /action\.effect\.kind === \"entity\.update\"/);
+  assert.match(entrypoint.content, /action\.effect\.kind === "entity\.update"/);
   assert.equal(entrypoint.content.includes("action:update"), false, "runtime must not infer behavior from a concrete action name");
   assert.equal(entrypoint.content.includes("SYSTEM_BUILDER_URL"), false);
   assert.ok(result.artifact.manifest.files.includes("runtime-entry.mjs"));

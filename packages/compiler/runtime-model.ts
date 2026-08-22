@@ -69,7 +69,7 @@ export function materializeRuntimeModel(
       capability: "runtime.entities",
       order: index + 1,
       path: `migrations/runtime-entities/${String(index + 1).padStart(3, "0")}-${token}.sql`,
-      content: `CREATE TABLE IF NOT EXISTS \"${entity.table}\" (\"id\" text PRIMARY KEY, \"data\" jsonb NOT NULL DEFAULT '{}'::jsonb, \"workflow_state\" jsonb NOT NULL DEFAULT '{}'::jsonb);\n`,
+      content: `CREATE TABLE IF NOT EXISTS "${entity.table}" ("id" text PRIMARY KEY, "data" jsonb NOT NULL DEFAULT '{}'::jsonb, "workflow_state" jsonb NOT NULL DEFAULT '{}'::jsonb);\n`,
     });
   });
   return Object.freeze({
