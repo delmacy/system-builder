@@ -67,4 +67,10 @@ export const SupportTriageDecision = Object.freeze({
     if (typeof value["triageId"] !== "string" || value["triageId"] !== normalized.triageId) throw invalid("TRIAGE_ID");
     return normalized;
   },
+  toJson(decision: SupportTriageDecision): string { return JSON.stringify(SupportTriageDecision.validate(decision)); },
+  fromJson(serialized: string): SupportTriageDecision {
+    let parsed: unknown;
+    try { parsed = JSON.parse(serialized); } catch { throw invalid("JSON"); }
+    return SupportTriageDecision.validate(parsed);
+  },
 });
