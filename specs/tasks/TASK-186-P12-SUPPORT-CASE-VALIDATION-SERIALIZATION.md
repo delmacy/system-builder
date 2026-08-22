@@ -1,7 +1,7 @@
 ---
 id: TASK-186
 title: Validate and serialize SupportCaseRecord
-status: ready
+status: verification
 priority: 541
 milestone: M12
 model_tier: cheap
