@@ -4,7 +4,7 @@ title: Execute declared file storage operations through external storage binding
 status: ready
 priority: 227
 milestone: M13
-model_tier: code
+model_tier: cheap
 risk: high
 architecture_impact: false
 executor_preference: any
