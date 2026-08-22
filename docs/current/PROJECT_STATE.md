@@ -3,48 +3,43 @@
 Date: 2026-08-22
 
 ## Repository
-`delmacy/system-builder` is canonical. `main` is integrated through planning reconciliation merge `932987117aed79d5af5ad3965bb87da740989318`.
+`delmacy/system-builder` is canonical. P12 product work is integrated through Sprint 4 merge `24f86de2aa53fb9ffc3f3aaf9804b5b727473515`; the current closure branch reconciles the package review/repository-memory state on top of that exact main.
 
 ## Integrated maturity
 - P1-P11 integrated.
 - P12 Sprint 1 merged through PR #227.
 - P12 Sprint 2 merged through PR #228.
-- P12 Sprint 3 `P12-SUPPORT-RESOLUTION-01` merged through PR #229 at `7763177596cb684d3e3c6f9a55042337a865c2bc` after Deterministic CI #507 PASS.
-- Auxiliary validation audit PR #230 merged at `86bde8830995e5d0a51bd3e3fd27734b5066f9d5`.
-- Auxiliary GitHub Actions maintenance PR #231 merged at `58fcfd837ebb91bec21172916090f71f75970ef5`; TASK-200 CI #526 PASS and TASK-201 CI #527 PASS.
-- Work Package cadence/repository-memory reconciliation PR #232 merged at `932987117aed79d5af5ad3965bb87da740989318` after CI #528 PASS.
+- P12 Sprint 3 merged through PR #229 at `7763177596cb684d3e3c6f9a55042337a865c2bc`, CI #507 PASS.
+- P12 Sprint 4 merged through PR #234 at `24f86de2aa53fb9ffc3f3aaf9804b5b727473515`, final head `9654633de2803efa915191d85577da532d31090d`, CI #540 PASS.
+- Auxiliary audit/maintenance PR #230/#231 and planning-policy reconciliation PR #232 are integrated.
 
-## Integrated P12 capability
-`DeploymentFinding|human request -> SupportEvidenceIntake -> explicit SupportTriageDecision -> SupportCaseRecord|ProblemRecord -> explicit permission/cause/resolution/evidence` is integrated through WBS 12.2.3.
+## P12 integrated capability
+P12 materially covers WBS 12.1.x -> 12.2.x -> 12.3.x.
 
-`Evolution` is an explicit triage classification only in integrated product truth. Operational SupportCase/Problem paths reject Evolution.
+Operational path:
+`DeploymentFinding|human request -> SupportEvidenceIntake -> explicit SupportTriageDecision(Support|Maintenance) -> SupportCaseRecord|ProblemRecord -> permission/cause/resolution evidence`.
 
-No automatic classification/prioritization/SLA/scoring, remediation or production mutation is introduced.
+Controlled Evolution path:
+`human request -> SupportEvidenceIntake -> explicit SupportTriageDecision(Evolution) -> EvolutionRequestEvidence -> ProcessMirror/BusinessRecipe linkage -> PublishedRelease linkage -> original request lineage`.
 
-## P12 Sprint 4 materialization
-`P12-CONTROLLED-EVOLUTION-LINKAGE-01` is now **COMMITTED / MATERIALIZED** from fresh base `932987117aed79d5af5ad3965bb87da740989318`, with TASK-202..211 committed in dependency order.
+`Evolution` remains explicitly supplied, never inferred. SupportCase/Problem operational paths reject Evolution. Support/Evolution has no direct release/deploy/production authority. Durable evidence remains reference-only/no-value-leak.
 
-The committed WBS 12.3.x path is:
-`human process-change request -> SupportEvidenceIntake -> explicit SupportTriageDecision(Evolution) -> EvolutionRequestEvidence -> ProcessMirror/BusinessRecipe linkage -> PublishedRelease linkage -> original request linkage`.
+## P12 package review and closure
+`P12-PACKAGE-INTEGRATION-CLOSURE-01` reviewed the integrated package and found no blocking debt against the Package Goal.
 
-The Sprint is evidence/linkage only: no direct Mirror/Recipe executor is invented, no shared ProcessMirror/BusinessRecipe schema mutation is authorized, and Support/Evolution does not publish/deploy/transition releases or mutate production.
+Non-blocking debt recorded:
+- `TD-P12-01`: duplicated reference-only/no-value-leak validation patterns across several Support/Evolution modules and Observe. Deferred; no P12 extension is justified solely to centralize it.
 
-Until the materialization planning PR is integrated, no execution branch should be created. After integration, execute only `sprint/P12-CONTROLLED-EVOLUTION-LINKAGE-01` under normal Sprint Mode.
+Repository-memory drift from pre-merge Sprint states is reconciled as part of this grandfathered closure. P12 is ready to be recorded CLOSED when the closure PR is integrated.
 
 ## GitHub Actions governance
-- No additional general validation workflow is currently justified.
-- Existing affected first-party Actions use maintained v7 majors where applicable.
-- `.github/workflows/opencode-work-package.yml` retains only `actions: write`.
-- Heavy product tests remain nightly/manual on current evidence.
-- No direct `test:product:full` workflow, duplicate general `push: main`, premature `merge_group` or mandatory PR-heavy gate is authorized.
-
-During construction, `main` remains deliberately without GitHub branch protection and required checks. Branch protection, required checks and broad structural privilege reduction remain **DEFERRED** until an explicit future pre-commercial maturity gate.
+No new general validation workflow, duplicate general `push: main`, premature `merge_group` or mandatory PR-heavy gate is authorized. During construction, `main` remains deliberately without GitHub branch protection and required checks. Branch protection, required checks and broad structural privilege reduction remain DEFERRED until an explicit future pre-commercial maturity gate.
 
 ## Work Package cadence
 New Work Packages use:
 `Planning & Materialization -> Construction A -> Construction B -> [optional Construction C when justified] -> Package Integration & Review -> Documentation & Closure`.
 
-P12 remains grandfathered under its prior cadence.
+P12 is the completed grandfathered package under the prior cadence.
 
 ## Next baseline horizon
-P13 Work Packages remain forecast only and blocked until P12 Sprint 4 is merged and the P12 package Integration & Technical Debt Review/repository-memory closure is complete.
+After closure integration and fresh-main reconstruction, `P13-PACKAGE-01` satisfies its predecessor gate and becomes eligible for an explicitly authorized Planning & Materialization Sprint. `P13-PACKAGE-01/02/03` remain FORECAST ONLY; no P13 Construction Sprint is currently committed.

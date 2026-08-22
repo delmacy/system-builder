@@ -1,43 +1,33 @@
-# Current Execution Milestone — M12 Controlled Evolution Sprint 4
+# Current Execution Milestone — M12 Package Closure / M13 Planning Gate
 
 ## Integrated predecessor truth
-P12 Sprints 1-3 are merged. Sprint 3 `P12-SUPPORT-RESOLUTION-01` merged through PR #229 at `7763177596cb684d3e3c6f9a55042337a865c2bc` after Deterministic CI #507 PASS.
+P12 Sprints 1-4 are merged. Sprint 4 `P12-CONTROLLED-EVOLUTION-LINKAGE-01` merged through PR #234 at `24f86de2aa53fb9ffc3f3aaf9804b5b727473515` after Deterministic CI #540 PASS on exact head `9654633de2803efa915191d85577da532d31090d`.
 
-Auxiliary GitHub Actions audit/maintenance and planning reconciliation are integrated through:
-- PR #230: `86bde8830995e5d0a51bd3e3fd27734b5066f9d5`;
-- PR #231: `58fcfd837ebb91bec21172916090f71f75970ef5`;
-- PR #232: `932987117aed79d5af5ad3965bb87da740989318`, CI #528 PASS.
+## Integrated P12 capability
+P12 covers the full Support & Evolution WBS:
+- 12.1 intake/triage;
+- 12.2 Support/Maintenance operational resolution;
+- 12.3 controlled Evolution linkage through ProcessMirror/BusinessRecipe identities to PublishedRelease traceability.
 
-## Current integrated capability
-P12 is integrated through WBS 12.2.3:
-`DeploymentFinding|human request -> SupportEvidenceIntake -> explicit SupportTriageDecision(Support|Maintenance|Evolution) -> SupportCaseRecord|ProblemRecord for Support/Maintenance -> explicit permission/cause/resolution/evidence`.
+The package preserves explicit classification, reference-only/no-value-leak evidence, Support/Maintenance/Evolution path separation and no direct production mutation.
 
-`Evolution` is intentionally rejected by SupportCase/Problem operational-resolution paths.
+## Package Integration & Technical Debt Review
+The grandfathered `P12-PACKAGE-INTEGRATION-CLOSURE-01` review found no blocking debt for the Package Goal.
 
-## Active committed Sprint
-`P12-CONTROLLED-EVOLUTION-LINKAGE-01` is **COMMITTED / MATERIALIZED** from base `932987117aed79d5af5ad3965bb87da740989318`.
+Recorded non-blocking debt:
+- `TD-P12-01`: duplicated no-value-leak/reference validation patterns; defer to a future bounded refactor only if justified.
 
-Committed TASKs: TASK-202..211.
-
-Sprint Goal: close WBS 12.3.1-12.3.3 as deterministic evidence/linkage:
-`process-change request -> Evolution triage -> EvolutionRequestEvidence -> ProcessMirror/BusinessRecipe linkage -> PublishedRelease linkage -> original request linkage`.
-
-The Sprint consumes existing public ProcessMirror/BusinessRecipe contract identities and Release public evidence. It does not invent a Mirror/Recipe execution engine, alter shared schemas, publish/deploy releases, or mutate production.
+Repository-memory closure is part of this review because P12 predates the new separate Documentation & Closure cadence.
 
 ## Planning policy
 New Work Packages use:
 `Planning & Materialization -> Construction A -> Construction B -> [optional Construction C] -> Package Integration & Review -> Documentation & Closure`.
 
-P12 remains grandfathered under its legacy cadence.
+## Current gate
+1. Integrate the P12 package-closure PR only after exact-head Deterministic CI passes.
+2. Reconstruct fresh `main`.
+3. Confirm P12 is CLOSED and `P13-PACKAGE-01` predecessor `P12-PACKAGE-01 CLOSED` is satisfied.
+4. Stop before P13 unless the Planning & Materialization Sprint of `P13-PACKAGE-01` is explicitly authorized.
 
 ## GitHub governance boundary
-`main` deliberately remains without GitHub branch protection/required checks during construction. Branch protection, required checks and broad structural privilege reduction remain DEFERRED. No new general validation workflow, duplicate `push: main`, premature `merge_group` or mandatory PR-heavy gate is authorized.
-
-## Current gate
-1. Validate and integrate the Sprint 4 materialization planning PR on its exact head.
-2. Reconstruct fresh `main`.
-3. Create `sprint/P12-CONTROLLED-EVOLUTION-LINKAGE-01` only from that integrated materialization truth.
-4. Execute TASK-202..211 in dependency order with one authoritative commit per TASK.
-5. Run repository-wide verification and stop at Sprint Review on exact TASK-211 closure head.
-
-Do not start P13 or P12 package Integration & Technical Debt Review before Sprint 4 is merged.
+`main` deliberately remains without GitHub branch protection/required checks during current construction. Branch protection, required checks and broad structural privilege reduction remain DEFERRED. No new general validation workflow, duplicate `push: main`, premature `merge_group` or mandatory PR-heavy gate is authorized.
