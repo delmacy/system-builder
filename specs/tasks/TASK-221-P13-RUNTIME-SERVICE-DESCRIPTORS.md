@@ -1,7 +1,7 @@
 ---
 id: TASK-221
 title: Add bounded Runtime service execution descriptors to SystemDefinition
-status: ready
+status: completed
 priority: 221
 milestone: M13
 model_tier: architecture
