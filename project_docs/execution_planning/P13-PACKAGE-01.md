@@ -1,13 +1,16 @@
 # P13-PACKAGE-01 — Autonomous Runtime Functional Execution
 
-Status: ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B INTEGRATED / CONSTRUCTION C NOT JUSTIFIED / PACKAGE REVIEW EXECUTED
+Status: CLOSED
 Milestone: M13
 Primary WBS: 13.1.1-13.1.3
 Predecessor: P12-PACKAGE-01 CLOSED
 Planning Sprint: `P13-AUTONOMOUS-RUNTIME-FUNCTIONAL-PLANNING-01`
+Closure Sprint: `P13-PACKAGE-DOCUMENTATION-CLOSURE-01`
 
 ## Package goal
 Close the remaining functional Runtime Core gap so a compiled/deployed client runtime executes materialized entities/APIs/actions/workflows plus jobs/events/files/integrations from external configuration without requiring the Builder during normal operation.
+
+Result: **SATISFIED / CLOSED**.
 
 ## Construction A — integrated
 Sprint: `P13-RUNTIME-CORE-EXECUTION-01`
@@ -32,12 +35,17 @@ Construction B closed WBS 13.1.2 and the remaining 13.1.3 breadth through explic
 ## Optional Construction C — not justified
 Status: NOT JUSTIFIED / NOT STARTED
 
-Fresh-main revalidation found no bounded remaining WBS 13.1 Package Goal gap. Construction C must not be promoted without new evidence plus explicit authority.
+Fresh-main revalidation found no bounded remaining WBS 13.1 Package Goal gap. Construction C was correctly skipped.
 
-## Package Integration & Review
+## Package Integration & Review — integrated
 Sprint: `P13-PACKAGE-INTEGRATION-REVIEW-01`
-Status: REVIEW EXECUTED / EXACT-HEAD CI + PR INTEGRATION REQUIRED
-Base: `3c2ad17c77d9bc041be969b38e60be2ed23d83ba`
+Reviewed head: `aa78f5c875999ad9b1ce28d3fc08dad55d3a1580`
+PR: #246
+Deterministic CI: #590 PASS
+Heavy Product Tests: #11 PASS
+Merge-main: `05bb4a61c7e6ebb42cf86cc51b7ad3a55a1b9900`
+Merge tree: `28662f2f1f3aa8253b24db6836e7c22038144db2`
+Reviewed-head -> merge-main drift: zero files
 
 Review conclusion:
 - Package Goal / WBS 13.1.1-13.1.3: PASS;
@@ -45,31 +53,33 @@ Review conclusion:
 - architecture/dependency fitness: PASS WITH DEBT;
 - security/trust: PASS WITH DEBT;
 - critical rollback blocker: NONE FOUND;
-- product correction required inside Package Review: NONE;
-- readiness for Documentation & Closure: GO after Package Review integration.
+- product correction required: NONE.
 
-Debt disposition:
+## Technical debt carried beyond package closure
 - `TD-P13-01` HIGH before production/fleet claims — single-process interval jobs have no overlap suppression, durable retry/idempotency or exactly-once semantics;
 - `TD-P13-02` MEDIUM — HTTP integration execution needs explicit timeout/abort and upstream response bounds before stronger production claims;
 - `TD-P13-03` MEDIUM — local file storage needs realpath/symlink and binary/streaming hardening before broader untrusted-storage claims;
 - `TD-P13-04` LOW/MEDIUM — generated Runtime support remains string-composed with small duplicated binding-resolution patterns.
 
-These are carried hardening/maintainability items, not missing P13-PACKAGE-01 functional capability. See `P13-PACKAGE-INTEGRATION-REVIEW-01.report.md`.
+These are explicit hardening/maintainability debt, not missing WBS 13.1 functionality and do not reopen this package.
 
 ## Documentation & Closure
-Status: NOT STARTED / AWAITING SEPARATE AUTHORIZATION
+Sprint: `P13-PACKAGE-DOCUMENTATION-CLOSURE-01`
+Status: CLOSED BY INTEGRATION OF THIS CLOSURE SPRINT
 
-Documentation & Closure may begin only after Package Integration & Review is integrated and fresh `main` is reconstructed. It must not add product behavior.
+Closure reconciles final repository memory, WBS/readiness/debt traceability and predecessor evidence only. No product behavior, shared contract or architecture change is introduced.
 
-## Boundaries
+## Successor readiness
+`P13-PACKAGE-02 — Autonomous Runtime Identity, Authority & Generated Experience` is **ELIGIBLE FOR PLANNING ONLY after this closure is integrated and fresh main is reconstructed**. Its forecast is not execution authority.
+
+`P13-PACKAGE-03 — Autonomous Runtime Operational Autonomy` remains downstream FORECAST / NOT STARTED.
+
+## Boundaries preserved
 - Builder != Runtime and autonomous ordinary Runtime remain constitutional.
 - BusinessRecipe != SystemDefinition remains preserved.
-- No Mirror/Recipe authoring, Analysis, Canvas or Release-management authoring behavior enters Runtime.
-- No resolved secret/config/endpoint/storage values in immutable/durable artifacts.
-- No provider-specific scheduler, broker, object-store or integration framework becomes mandatory.
-- No exactly-once/distributed scheduling/event guarantee is authorized.
-- No production topology expansion without separate authority.
-- No new L4 boundary without accepted ADR.
-- Construction C is NOT JUSTIFIED and NOT STARTED.
-- Documentation & Closure remains NOT STARTED.
-- `P13-PACKAGE-02` and `P13-PACKAGE-03` remain NOT STARTED.
+- no resolved secret/config/endpoint/storage values in immutable/durable artifacts.
+- no provider-specific scheduler, broker, object-store or integration framework becomes mandatory.
+- no exactly-once/distributed scheduling/event guarantee is claimed.
+- no production topology expansion occurred.
+- no new L4 boundary occurred.
+- WBS 13.2 and 13.3 remain outside this closed package.
