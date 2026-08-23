@@ -32,6 +32,9 @@ export type RuntimeModel = Readonly<{
   events: NonNullable<CompilerSystemDefinitionRuntimeProjection["events"]>;
   files: NonNullable<CompilerSystemDefinitionRuntimeProjection["files"]>;
   integrations: NonNullable<CompilerSystemDefinitionRuntimeProjection["integrations"]>;
+  authenticationProviders: NonNullable<CompilerSystemDefinitionRuntimeProjection["authenticationProviders"]>;
+  identities: NonNullable<CompilerSystemDefinitionRuntimeProjection["identities"]>;
+  sessionPolicy?: CompilerSystemDefinitionRuntimeProjection["sessionPolicy"];
 }>;
 
 export type CompileRuntimeModelInput = CompileSyntheticInput & Readonly<{
@@ -69,6 +72,9 @@ export function materializeRuntimeModel(
     events: normalized.events ?? Object.freeze([]),
     files: normalized.files ?? Object.freeze([]),
     integrations: normalized.integrations ?? Object.freeze([]),
+    authenticationProviders: normalized.authenticationProviders ?? Object.freeze([]),
+    identities: normalized.identities ?? Object.freeze([]),
+    ...(normalized.sessionPolicy === undefined ? {} : { sessionPolicy: normalized.sessionPolicy }),
   });
   if (entities.length === 0) return Object.freeze({ model });
 
