@@ -1,22 +1,24 @@
-# Next Work — P13 Package 01 Awaiting Explicit Successor Authorization
+# Next Work — P13 Package 01 Integration Review Gate
 
 The repository is authoritative.
 
 ## Integrated truth
-Construction A `P13-RUNTIME-CORE-EXECUTION-01` and Construction B `P13-RUNTIME-SERVICES-BINDINGS-01` are INTEGRATED.
+Construction A and B are INTEGRATED; Construction C is NOT JUSTIFIED / NOT STARTED. Package Integration & Review `P13-PACKAGE-INTEGRATION-REVIEW-01` has executed on fresh main `3c2ad17c77d9bc041be969b38e60be2ed23d83ba`.
 
-Construction B reviewed head `91fba7e0b18f05e4564ed2c69a35ee251faf8aeb` passed Deterministic CI #584/#586/#588 and Heavy Product Tests #7/#9. PR #241 merged as `4aec5f98700cbba4abbc403a6b35040a14031712`, tree `409561162c6e97649cdc55c43f87bcde5e9a4ac1`.
-
-Fresh-main revalidation concluded that WBS 13.1.1-13.1.3 and the `P13-PACKAGE-01` functional goal are covered by Construction A+B. Construction C is therefore NOT JUSTIFIED and must not be promoted.
+Review conclusion: Package Goal PASS, contracts PASS, architecture/security PASS WITH DEBT, no critical rollback blocker, no review-time product correction required.
 
 ## Required next action
-No successor execution is authorized by this repository-memory update.
+1. Validate the exact Package Review head with Deterministic CI and Heavy Product Tests.
+2. Review the PR diff for evidence/repository-memory-only scope.
+3. Integrate only if both checks are green and no new blocker appears.
+4. Reconstruct fresh `main` after merge.
+5. Stop. Documentation & Closure remains NOT STARTED until separately authorized.
 
-Wait for explicit authorization before beginning Package Integration & Review. If that stage is authorized later, reconstruct fresh `main` again and execute only the package-level integration/review scope defined by repository policy; do not use it to add missing product capability.
+Carried debt for later explicit planning: `TD-P13-01` job operational semantics; `TD-P13-02` HTTP integration timeout/response bounds; `TD-P13-03` file storage hardening; `TD-P13-04` generated runtime maintainability.
 
 ## Stop conditions
-- Do not start Construction C unless new fresh-main evidence first proves a bounded remaining Package Goal gap and explicit authority is granted.
-- Do not start Package Integration & Review without explicit authorization.
-- Do not start Documentation & Closure without its own predecessor gate.
-- Do not start `P13-PACKAGE-02` or `P13-PACKAGE-03` from this state.
-- Stop for ADR on any required L4 boundary, Builder/Runtime relation, bounded context, release model, suite topology or production topology change.
+- Do not add product behavior in Package Review.
+- Do not restart Construction C absent new bounded Package Goal evidence and explicit authority.
+- Do not start Documentation & Closure without explicit authorization.
+- Do not start `P13-PACKAGE-02` or `P13-PACKAGE-03`.
+- Stop for ADR on any required L4 change.
