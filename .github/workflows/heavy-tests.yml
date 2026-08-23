@@ -8,6 +8,10 @@ on:
       - opened
       - synchronize
       - reopened
+  pull_request_target:
+    branches:
+      - main
+    types:
       - ready_for_review
   schedule:
     - cron: "30 3 * * *"
@@ -18,11 +22,12 @@ permissions:
 
 concurrency:
   group: heavy-tests-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.event_name == 'pull_request_target' }}
 
 jobs:
   heavy:
     name: heavy
+    if: ${{ github.event_name != 'pull_request_target' || github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
