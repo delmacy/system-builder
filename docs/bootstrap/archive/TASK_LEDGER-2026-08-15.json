@@ -1,0 +1,8 @@
+{
+  "archived": true,
+  "archiveReason": "Legacy bootstrap/AgentFactory ledger snapshot. It is not current project or execution authority. Preserved only for historical traceability.",
+  "originalPath": "docs/current/TASK_LEDGER.json",
+  "originalUpdatedAt": "2026-08-15T08:40:22.791Z",
+  "authority": "historical-only",
+  "note": "The original ledger covered the bootstrap-era TASK-000..043 catalog and must not be used to select or authorize current work. Git history at or before 2026-08-15 preserves the exact machine-readable snapshot."
+}
