@@ -36,12 +36,22 @@ validation:
 ---
 
 # Objective
-Extend the repository trust/no-value-leak proof to the identity/authentication/session surfaces introduced by Construction A.
+Extend repository trust/no-value-leak proof to the identity/authentication/session surfaces introduced by Construction A.
+
+# Context
+P13-01 established fail-closed external bindings and no-value leakage. Identity/session introduces credentials, provider responses, session tokens and integrity material that must obey the same trust boundary.
+
+# Current behavior
+Existing trust regressions cover Runtime configuration, storage and integration bindings, but they do not cover authentication provider mapping, disabled identities, session expiry/tampering or actor-required unauthenticated requests.
 
 # Required change
-Add regressions covering missing/incompatible authentication bindings, malformed credentials request, invalid provider mapping, disabled identity, missing/tampered/expired session and unauthenticated actor-required request. Assert that resolved provider endpoints, credentials, session tokens, signing/integrity secrets and equivalent runtime values are absent from SystemDefinition, generated immutable files, ReleaseArtifact, PublishedRelease, durable deployment evidence and asserted diagnostics.
+Add regressions covering missing/incompatible authentication bindings, malformed credential requests, invalid provider mapping, disabled identity, missing/tampered/expired session and unauthenticated actor-required request. Assert resolved provider endpoints, credentials, session tokens, signing/integrity secrets and equivalent runtime values are absent from durable artifacts/evidence and asserted diagnostics. Bounded redaction/fail-closed corrections are allowed only inside Construction A Runtime/deploy paths.
 
-Bounded redaction/fail-closed corrections are allowed only inside existing Construction A Runtime/deploy paths; no public-contract change.
+# Inputs / contracts
+TASK-234..237 execution surfaces; SystemDefinition and EnvironmentProfile contracts; RuntimeModel/local Deploy; P13-01 no-value-leak evidence.
+
+# Outputs / contracts
+Identity/session trust regression evidence and only bounded redaction/fail-closed corrections if required. No public-contract change.
 
 # Acceptance criteria
 - every listed negative path fails closed with controlled diagnostic classification;
@@ -52,7 +62,7 @@ Bounded redaction/fail-closed corrections are allowed only inside existing Const
 - no authorization/UI semantics are added.
 
 # Non-goals
-Role/policy evaluation, audit subsystem expansion, generic secret-redaction refactor, TD-P13-01..04 remediation.
+Role/policy evaluation; audit subsystem expansion; generic secret-redaction refactor; TD-P13-01..04 remediation.
 
 # Evidence expected
 Focused trust regression plus durable snapshot/diagnostic assertions and declared validations green.
