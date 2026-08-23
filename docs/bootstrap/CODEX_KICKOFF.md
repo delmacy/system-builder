@@ -1,6 +1,8 @@
 # Codex Kickoff — TASK-001
 
-Use this only for the first engineering-bootstrap session after TASK-000 is on the default branch.
+> **HISTORICAL BOOTSTRAP ARTIFACT.** This prompt was only for the first engineering-bootstrap session after TASK-000. TASK-001 and that bootstrap horizon are long complete. Do not use this file to select, authorize or execute current work. Start from `AGENTS.md`, `docs/README.md` and current repository memory instead.
+
+Use this only as a historical record of the first engineering-bootstrap session after TASK-000 reached the default branch.
 
 ---
 
