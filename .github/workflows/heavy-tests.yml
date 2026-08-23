@@ -1,6 +1,14 @@
-name: Heavy Product Tests (nightly)
+name: Heavy Product Tests
 
 on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
   schedule:
     - cron: "30 3 * * *"
   workflow_dispatch:
@@ -9,8 +17,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: heavy-tests
-  cancel-in-progress: false
+  group: heavy-tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   heavy:
@@ -49,10 +57,11 @@ jobs:
       SYSTEM_BUILDER_TEST_POSTGRES_URL: postgres://system_builder@127.0.0.1:5432/system_builder
       SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL: postgres://deploy_auth:ci-test-password@127.0.0.1:5433/system_builder_auth
     steps:
-      - name: Checkout
+      - name: Checkout exact PR head
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Use Node.js 24
         uses: actions/setup-node@v7
         with:
