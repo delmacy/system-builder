@@ -4,7 +4,7 @@ title: Issue validate and expire bounded Runtime sessions
 status: ready
 priority: 236
 milestone: M13
-model_tier: standard
+model_tier: architecture
 risk: high
 architecture_impact: false
 executor_preference: any
@@ -33,8 +33,20 @@ validation:
 # Objective
 Generate bounded session issuance, validation and expiry for identities successfully authenticated by TASK-235.
 
+# Context
+Construction A needs a local autonomous session path after authentication and before actor context propagation. Session integrity and expiry are security-sensitive, but authorization remains Construction B scope.
+
+# Current behavior
+Generated Runtime has no session issuance, session validation, expiry or identity restoration path. Authentication established by TASK-235 would otherwise have no bounded persistent request context.
+
 # Required change
-Use the explicit session policy from TASK-231 to create Runtime-local session state/token semantics that carry only the minimum identity/session claims needed by Construction A. Session validity must include explicit expiry and integrity/unknown-state rejection. Any runtime secret material needed to protect session integrity must be activation-time only and must reuse existing external binding rules when available; it must never be embedded in immutable artifacts.
+Use the explicit session policy from TASK-231 to create Runtime-local session state/token semantics carrying only minimum identity/session claims. Session validity must include explicit expiry and integrity/unknown-state rejection. Any secret material needed for session integrity must be activation-time only and reuse existing external binding rules when available; it must never be embedded in immutable artifacts.
+
+# Inputs / contracts
+TASK-231 session policy; TASK-235 authenticated identity result; existing generated Runtime support and external binding/no-value-leak boundaries.
+
+# Outputs / contracts
+Generated Runtime bounded session issuance/validation/expiry plus positive and negative tests. No public-contract change.
 
 # Acceptance criteria
 - successful authentication can establish a session for the declared identity;
@@ -46,7 +58,7 @@ Use the explicit session policy from TASK-231 to create Runtime-local session st
 - existing Runtime core behavior remains green.
 
 # Non-goals
-Authorization policy, role claims, refresh-token/federation ecosystem, fleet session replication, production IAM topology, UI.
+Authorization policy; role claims; refresh-token/federation ecosystem; fleet session replication; production IAM topology; UI.
 
 # Evidence expected
 Positive and negative generated Runtime session tests with controllable expiry behavior and no-value assertions.
