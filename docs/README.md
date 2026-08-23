@@ -6,6 +6,8 @@ The repository is the durable source of truth. Documents under `docs/` have diff
 
 `docs/current/PROJECT_STATE.md`, `docs/current/CURRENT_MILESTONE.md`, `docs/current/NEXT_WORK.md` and current risk documentation describe integrated repository state and near-horizon gates. They must be reconciled at the repository-defined Sprint/package boundaries and must not be used as historical logs.
 
+`docs/current/TASK_LEDGER.json` is retained byte-for-byte as a legacy compatibility/evidence fixture for deterministic AgentFactory I2 tests. Despite its path, it is **not current planning or execution authority**; its historical READY entries must never drive work selection.
+
 Current-state prose does not override `AGENTS.md`, accepted architecture/ADRs, public/shared contracts, approved WBS/Work Package scope, active Sprint manifests or committed TASK specifications.
 
 ## Stable reference
