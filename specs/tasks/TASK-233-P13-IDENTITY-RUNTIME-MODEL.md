@@ -4,7 +4,7 @@ title: Materialize deterministic Runtime identity and session model
 status: ready
 priority: 233
 milestone: M13
-model_tier: standard
+model_tier: cheap
 risk: medium
 architecture_impact: false
 executor_preference: any
@@ -32,10 +32,22 @@ validation:
 ---
 
 # Objective
-Carry normalized identity/authentication/session declarations into the deterministic generated RuntimeModel without resolving any runtime values.
+Carry normalized identity/authentication/session declarations into the deterministic generated RuntimeModel without resolving runtime values.
+
+# Context
+TASK-232 produces the normalized Compiler projection. Construction A requires those declarations in the generated Runtime model before activation/authentication behavior can consume them.
+
+# Current behavior
+RuntimeModel contains entities, actions, processes, environment requirements, jobs, events, files and integrations. It has no identity/auth/session model and does not project permissions/policies/views.
 
 # Required change
-Extend RuntimeModel/materialization with immutable normalized identity/auth/session data from TASK-232. Preserve deterministic hashes/generated output and optional backward-compatible defaults. Do not project permissions/policies/views in Construction A.
+Extend RuntimeModel/materialization with immutable normalized identity/auth/session data from TASK-232. Preserve deterministic hashes/generated output and backward-compatible defaults. Do not project permissions/policies/views in Construction A.
+
+# Inputs / contracts
+TASK-232 Compiler projection; existing RuntimeModel/materializer; P13-RUNTIME-IDENTITY-SESSION-01.
+
+# Outputs / contracts
+Deterministic RuntimeModel identity/auth/session fields and focused model tests. No shared-contract change.
 
 # Acceptance criteria
 - normalized identity/auth/session data is present when declared and absent/defaulted deterministically otherwise;
@@ -45,10 +57,10 @@ Extend RuntimeModel/materialization with immutable normalized identity/auth/sess
 - permissions/policies/views remain outside this model change.
 
 # Non-goals
-Authentication provider execution; session token issuance; authorization; generated UI; EnvironmentProfile changes.
+Authentication-provider execution; session token issuance; authorization; generated UI; EnvironmentProfile changes.
 
 # Evidence expected
-RuntimeModel tests proving deterministic materialization, backwards compatibility and value exclusion.
+RuntimeModel tests proving deterministic materialization, backward compatibility and value exclusion.
 
 # Escalation
 Stop if materialization requires authorization/UI scope, a second public contract change or a new runtime ownership boundary.
