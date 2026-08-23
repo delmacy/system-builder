@@ -1,7 +1,7 @@
 ---
 id: TASK-230
 title: Close Construction B autonomous Runtime services growing proof
-status: ready
+status: completed
 priority: 230
 milestone: M13
 model_tier: architecture

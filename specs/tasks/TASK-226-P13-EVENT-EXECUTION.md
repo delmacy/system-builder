@@ -1,7 +1,7 @@
 ---
 id: TASK-226
 title: Execute declared runtime-http event dispatch in the generated Runtime
-status: ready
+status: completed
 priority: 226
 milestone: M13
 model_tier: cheap

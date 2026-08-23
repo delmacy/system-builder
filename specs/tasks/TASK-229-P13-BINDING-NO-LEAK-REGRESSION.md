@@ -1,7 +1,7 @@
 ---
 id: TASK-229
 title: Prove fail-closed external bindings and no-value-leak across Construction B surfaces
-status: ready
+status: completed
 priority: 229
 milestone: M13
 model_tier: architecture

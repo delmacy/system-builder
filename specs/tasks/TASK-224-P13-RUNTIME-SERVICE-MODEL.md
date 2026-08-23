@@ -1,7 +1,7 @@
 ---
 id: TASK-224
 title: Materialize Construction B descriptors into generated Runtime service model
-status: ready
+status: completed
 priority: 224
 milestone: M13
 model_tier: cheap
