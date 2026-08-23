@@ -1,31 +1,36 @@
 # Schedule Support
 
 ## Pipeline
-Scope Baseline -> Work Packages -> DAG -> topological order -> logical waves -> milestones/increments -> activity decomposition -> estimates -> critical path -> schedule baseline -> sprint loading.
+Scope Baseline -> WBS -> Work Packages -> dependency/DAG validation -> milestone/readiness analysis -> Planning & Materialization -> committed Sprint -> execution/evidence -> fresh-main revalidation -> successor promotion.
+
+Detailed estimates, critical-path analysis and capacity loading support decisions; they do not override repository authority or create execution permission.
 
 ## Milestone rule
-Milestone is evidence-based, not date-only. It is reached when a defined integrated capability/evidence exists.
+A milestone is evidence-based, not date-only. It is reached when the defined integrated capability/evidence exists and repository memory records that truth.
 
-Candidate milestones:
-- M0 Planning baseline approved.
-- M1 Semantic/identity foundations stable.
-- M2 Process knowledge can be captured/versioned/provenanced.
-- M3 Recipe -> Analysis -> Design chain validated.
-- M4 Catalog/capability contracts stable.
-- M5 First assembled and validated vertical slice.
-- M6 First autonomous compiled runtime slice.
-- M7 Release/deploy/rollback path proven.
-- M8 Runtime observation/support feedback loop proven.
-- M9 Improvement loop proven.
+Candidate milestone descriptions are planning aids. Current milestone truth is defined by `docs/current/CURRENT_MILESTONE.md` and related repository-memory documents.
 
 ## Critical path method
-Duration estimates are attached to activities/tasks, never invented at WBS level. After task decomposition, calculate earliest/latest starts, float and critical chain of mandatory predecessors. Recalculate after material scope/dependency/estimate changes.
+Duration estimates are attached to activities/tasks when useful; do not invent precision at WBS level. Recalculate critical-path assumptions after material scope, dependency, implementation or estimate changes. Critical-path priority never bypasses predecessor, contract, architecture, security or Sprint gates.
 
 ## Sprint loading gate
-A task may be loaded only if parent WP is READY; mandatory predecessor is DONE or accepted contract gate is satisfied; acceptance/evidence are known; task is small enough; required environment/tool/agent is available.
+A TASK may be committed only when:
+- its parent Work Package/Sprint transition is authorized by current policy;
+- fresh `main` and predecessor evidence have been revalidated;
+- mandatory predecessors or accepted contract gates are satisfied;
+- acceptance/evidence and context are known;
+- `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validations are defined;
+- required environment/tooling is available;
+- no unresolved escalation condition blocks commitment.
+
+READY/candidate/FORECAST status alone is insufficient.
 
 ## Sequential default, parallel optional
-Operational default may remain sequential for simplicity. Parallel work is allowed when DAG shows no blocking edge and integration capacity exists. Parallelism is optimization, never a reason to violate dependency gates.
+Within one committed Sprint, execute TASKs in dependency order. Parallelism is allowed only when the committed manifest and dependency graph make it safe and the executor can still preserve authoritative per-TASK evidence/commits. Parallelism is an optimization, never a reason to violate dependency or review gates.
 
 ## Traceability
-Every future task records: requirement -> WBS -> WP -> predecessor(s) -> milestone/increment -> sprint -> PR/commit -> validation/evidence.
+Every committed implementation TASK should remain traceable through the applicable chain:
+
+`requirement -> WBS -> Work Package -> Sprint -> TASK -> predecessor(s)/contracts -> authoritative commit -> validation/CI evidence -> PR/integration -> repository-memory outcome`.
+
+Forecast artifacts may stop before TASK/commit evidence because they are not execution commitments.
