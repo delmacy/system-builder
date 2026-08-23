@@ -1,33 +1,25 @@
-# Current Execution Milestone — M13 P13 Package 01 Post-Construction Reconciliation
+# Current Execution Milestone — M13 P13 Package 01 Integration & Review
 
 ## Integrated truth
-Construction A `P13-RUNTIME-CORE-EXECUTION-01` is INTEGRATED. Construction B `P13-RUNTIME-SERVICES-BINDINGS-01` is also INTEGRATED through PR #241 on exact reviewed head `91fba7e0b18f05e4564ed2c69a35ee251faf8aeb`.
+Construction A and Construction B are INTEGRATED. Construction C is NOT JUSTIFIED / NOT STARTED. Fresh authoritative base for Package Integration & Review is `3c2ad17c77d9bc041be969b38e60be2ed23d83ba`, tree `f5209163ce68d2e4c0098a1dc3605027ff979478`.
 
-Construction B validation evidence:
-- Deterministic CI #584/#586/#588: PASS;
-- Heavy Product Tests #7/#9: PASS;
-- merge-main: `4aec5f98700cbba4abbc403a6b35040a14031712`;
-- fresh-main tree: `409561162c6e97649cdc55c43f87bcde5e9a4ac1`.
+## Package Integration & Review
+`P13-PACKAGE-INTEGRATION-REVIEW-01` has executed its package-level inspection and is awaiting exact-head CI/PR integration.
 
-The Construction B merge contributes exactly its 29 reviewed paths relative to pre-merge main. The only whole-tree differences between the reviewed head and fresh main are the already-integrated heavy-test workflow and Sprint Generation Policy updates from PRs #242/#243.
+Result:
+- Package Goal / WBS 13.1.1-13.1.3: PASS;
+- contract/schema drift: PASS;
+- architecture/dependency fitness: PASS WITH DEBT;
+- security/trust: PASS WITH DEBT;
+- critical rollback blocker: NONE FOUND;
+- product correction required in review: NONE;
+- Documentation & Closure readiness: GO after review integration.
 
-## Package goal status
-The integrated Construction A+B chain now covers WBS 13.1.1-13.1.3 for `P13-PACKAGE-01`:
-- materialized entities/APIs/actions/workflows;
-- jobs/events/files/integrations;
-- external reference-only configuration with fail-closed compatibility and no-value-leak;
-- autonomous ordinary Runtime behavior without Builder/Observe dependency.
-
-Fresh-main revalidation found no bounded remaining WBS 13.1 gap required for the Package Goal.
-
-## Construction C decision
-Construction C is **NOT JUSTIFIED** and must not be promoted.
-
-This is a planning decision from integrated evidence, not authorization to begin a later Sprint.
+Carried debt is operational/maintainability hardening, not missing Package Goal capability: job overlap/retry/idempotency; HTTP integration timeout/response bounds; file realpath/symlink and binary/streaming hardening; generated-runtime support/string duplication.
 
 ## Current gate
-This repository-memory reconciliation records integrated truth only.
+Exact review head must pass Deterministic CI and Heavy Product Tests, and the PR must remain review/evidence/repository-memory only.
 
-Package Integration & Review is NOT STARTED and requires explicit authorization before execution. Documentation & Closure, `P13-PACKAGE-02` and `P13-PACKAGE-03` are also NOT STARTED.
+After approved integration, reconstruct fresh `main`. Documentation & Closure remains NOT STARTED and requires its own explicit authorization. `P13-PACKAGE-02` and `P13-PACKAGE-03` remain NOT STARTED.
 
-Any future discovery of a missing Package Goal capability must return to explicit construction/change control rather than being hidden in Package Review or Closure. Any L4 boundary, bounded context, Builder/Runtime relation, release model or production topology still requires ADR review.
+Any missing functional capability discovered before closure must return to explicit Construction/change control. Any L4 change still requires ADR review.
