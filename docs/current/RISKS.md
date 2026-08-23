@@ -1,57 +1,53 @@
 # Current Risks
 
-## R1 — Premature migration
+Date: 2026-08-23
 
-Bulk-copying `gestaotecnica` would reintroduce old coupling. Mitigation: classification audit before extraction.
+This register tracks risks that are materially current for the integrated repository horizon. Historical bootstrap/AgentFactory risks belong in historical evidence, not in this current-state document.
 
-## R2 — Documentation without enforcement
+## R1 — Authentication/authorization boundary collapse
 
-Agents may violate principles despite docs. Mitigation: convert enforceable rules into architecture/scope tests during M0.
+P13 Package 02 introduces Runtime identity/auth/session execution before authorization execution. A successful authentication must never be interpreted as authorization. Mitigation: keep Construction A limited to WBS 13.2.1, fail closed, and require explicit later authorization semantics/proof.
 
-## R3 — Harness becomes a second product
+## R2 — Identity or auth binding fails open
 
-Overbuilding dashboards/RAG/agent services delays System Builder. Mitigation: Markdown + schemas + small TypeScript scripts + Git first.
+Unknown/disabled identity, malformed identity state, missing/incompatible provider binding, or invalid/expired session could accidentally produce an actor context. Mitigation: deterministic negative-path tests and fail-closed activation/request behavior.
 
-## R4 — Premium-token dependency
+## R3 — Secret/value leakage into durable evidence
 
-Routine work could become expensive. Mitigation: bounded deterministic tasks, context packs and model routing; free/cheap OpenCode execution is default.
+Provider credentials, resolved values, session secrets/tokens or resolved endpoints could leak into Compiler artifacts, release/deploy evidence, logs or immutable records. Mitigation: preserve reference-only EnvironmentProfile/SecretResolver boundaries and test durable artifacts for absence of resolved sensitive values.
 
-## R5 — Local-only state loss
+## R4 — Authentication contract expands beyond bounded L3 authority
 
-Desktop development can diverge or be lost. Mitigation: frequent coherent commits/pushes; GitHub is remote system of record.
+TASK-231 authorizes only the minimum additive backward-compatible SystemDefinition identity/auth-provider/session semantics. A second shared-contract family, mandatory provider-specific IAM topology or ownership change would exceed that authority. Mitigation: stop and use explicit change control; L4 changes require ADR.
 
-## R6 — Architecture overdesign
+## R5 — Runtime autonomy regression
 
-Suite vision could encourage building all twelve products before proving value. Mitigation: architecture for expensive-to-change boundaries; implementation only for the next end-to-end proof.
+Identity/session work could reintroduce ordinary Runtime dependence on Builder or Observe. Mitigation: preserve Runtime autonomous operation and architecture dependency gates; external bindings must remain deployment/runtime concerns within accepted boundaries.
 
-## R7 — Lock-in accidentally reintroduced
+## R6 — Forecast scope pulled into committed construction
 
-Convenient internal coupling can contradict product philosophy. Mitigation: public contracts, autonomy tests, legacy coexistence tests and replaceability reviews.
+Authorization, roles/permissions/policies, generated views/forms, Construction C, package review/closure or P13-PACKAGE-03 could be absorbed prematurely into Construction A. Mitigation: execute only committed TASK-231..239 and revalidate fresh `main` before promoting successors.
 
-## R8 — Lightweight import scanner blind spots
+## R7 — Carried Runtime debt obscured by new package work
 
-The M0 gate scans static imports and known package aliases; it is not yet a full workspace dependency graph. Mitigation: self-tests now, then replace/augment it with package-manager-aware graph analysis when real packages exist.
+`TD-P13-01..04` remain real debt from P13 Package 01, including job overlap/retry/idempotency, HTTP bounds, file hardening and generated Runtime maintainability. Mitigation: preserve explicit debt traceability and do not silently claim it closed or absorb it without WBS/dependency authority.
 
-## R9 — Narrative state drift
+## R8 — Documentation/state authority drift
 
-`task:close` updates task status, durable evidence and `TASK_LEDGER.json`, but intentionally does not rewrite narrative project documents. Mitigation: state-doc updates remain explicit acceptance criteria at milestone transitions and reviews compare prose to the ledger.
+Historical bootstrap ledgers, handoffs or hosted-automation documents can contradict current repository memory and local-first execution policy. Mitigation: classify historical documents explicitly, keep `docs/current` limited to current truth, and resolve contradictory authority before execution.
 
-## R10 — Platform-specific bootstrap evidence
+## R9 — Documentation without enforcement
 
-Initial verification targets Windows with Node 24/npm 11. Mitigation: add Linux/macOS CI only after local-first M1 is stable; do not claim unverified portability meanwhile.
+Narrative rules alone can drift from implementation. Mitigation: encode enforceable architecture/security/scope rules in deterministic checks where practical and require exact-head CI/review evidence at integration boundaries.
 
-## R11 — Local Git delivery metadata
+## R10 — Architecture overdesign and lock-in regression
 
-Task/branch association and pre-closure Git metadata live under ignored `.agent/git/` so credentials and transient state are never committed. A lost workstation may require reconstructing the association from the deterministic branch name and GitHub PR. Durable metadata is written at task closure.
+Suite vision or convenient provider coupling could expand P13 beyond the next integrated proof or reintroduce lock-in. Mitigation: architecture only expensive-to-change boundaries, prefer additive/provider-neutral contracts, and implement only approved WBS/Work Package scope.
 
-## R12 — Post-merge state update
+## R11 — Provider economics and operational observability remain incomplete
 
-Git-managed closure occurs after the implementation PR is merged, so `task:close` produces a small second set of versioned state changes. Mitigation: integrate it through a reviewed state-update commit/PR; no direct protected-main commit or hidden automatic merge is performed.
+Provider cost/usage and some production-hardening signals may remain unavailable or nullable. Mitigation: record only authoritative observations; do not estimate facts or convert missing telemetry into false guarantees.
 
-## R13 — Dual state authority during I2 transition
+## R12 — Narrative repository memory can lag a just-completed gate
 
-The bootstrap task catalog/ledger and pure AgentFactory ledger receipts are separate representations. Mitigation: the I2 coordinator must reconcile them after every state-closure merge and stop on divergence; no silent source-of-truth replacement is allowed.
-
-## R14 — Incomplete provider economics
-
-Token/provider cost is nullable because current adapters do not expose trustworthy usage observations. Mitigation: retain null rather than estimate; add accounting only from authoritative provider output.
+Repository-memory documents are intentionally reconciled at defined Sprint/package transitions rather than rewritten by every low-level action. Mitigation: after accepted integration, reconstruct fresh `main` and reconcile `PROJECT_STATE`, `CURRENT_MILESTONE` and `NEXT_WORK` before successor materialization/execution when policy requires it.
