@@ -3,39 +3,53 @@
 Date: 2026-08-23
 
 ## Repository
-`delmacy/system-builder` is canonical. P12 is CLOSED. `P13-PACKAGE-01` is CLOSED by the integration of `P13-PACKAGE-DOCUMENTATION-CLOSURE-01`.
+`delmacy/system-builder` is canonical. P12 and `P13-PACKAGE-01` are CLOSED. `P13-PACKAGE-02 — Autonomous Runtime Identity, Authority & Generated Experience` is ACTIVE in Planning & Materialization.
 
 ## Integrated maturity
 - P1-P11: integrated.
 - `P12-PACKAGE-01`: CLOSED.
 - `P13-PACKAGE-01 — Autonomous Runtime Functional Execution`: CLOSED.
-- Construction A `P13-RUNTIME-CORE-EXECUTION-01` TASK-212..220: INTEGRATED.
-- Construction B `P13-RUNTIME-SERVICES-BINDINGS-01` TASK-221..230: INTEGRATED.
-- Construction C: NOT JUSTIFIED / NOT STARTED.
-- Package Integration & Review `P13-PACKAGE-INTEGRATION-REVIEW-01`: INTEGRATED through PR #246.
-- `P13-PACKAGE-02`: FORECAST / ELIGIBLE FOR PLANNING ONLY after closure integration and fresh-main revalidation.
+- P13 Runtime Core WBS 13.1.1-13.1.3: SATISFIED/CLOSED.
+- `P13-PACKAGE-02`: ACTIVE / PLANNING & MATERIALIZATION COMPLETE on planning branch; Construction A materialized only.
+- `P13-RUNTIME-IDENTITY-SESSION-01`: COMMITTED / MATERIALIZED, TASK-231..239, NOT EXECUTED.
+- P13-PACKAGE-02 Construction B: FORECAST.
+- P13-PACKAGE-02 Construction C: FORECAST / CONDITIONAL.
+- P13-PACKAGE-02 Package Integration & Review: FORECAST.
+- P13-PACKAGE-02 Documentation & Closure: FORECAST.
 - `P13-PACKAGE-03`: FORECAST / NOT STARTED.
 
-## P13 Package 01 evidence
-Package Review exact evidence:
-- reviewed head `aa78f5c875999ad9b1ce28d3fc08dad55d3a1580`;
-- Deterministic CI #590 PASS;
-- Heavy Product Tests #11 PASS;
-- PR #246 merged as `05bb4a61c7e6ebb42cf86cc51b7ad3a55a1b9900`;
-- merge tree `28662f2f1f3aa8253b24db6836e7c22038144db2`;
-- reviewed-head -> merge-main: zero file differences.
+## P13 Package 02 fresh-main planning findings
+Planning base: `2186f2ffa32e00d06dbe2230498a3d748a5d6533`, tree `9644bcc20ac5d6f2eeb5e97fa1f7ea2ae4b82265`.
 
-The integrated Construction A+B chain satisfies WBS 13.1.1-13.1.3 and the package goal: generated/deployed Runtime executes entities/APIs/actions/workflows plus jobs/events/files/integrations from external reference-only configuration without requiring Builder during ordinary operation.
+- generated identity/auth/session execution: MISSING;
+- WBS 27 Person/Actor/User-ServiceIdentity and auth-provider binding: authoritative domain model, not yet executable Runtime implementation;
+- existing `SystemDefinition.permissions`, `policies`, `views`: REUSE declarative inputs, not currently projected/executed by Runtime;
+- existing external EnvironmentProfile/SecretResolver no-value-leak boundary: REUSE;
+- no generated Runtime view/form renderer found;
+- no required L4 architecture change identified.
 
-## Carried technical debt
+Construction A therefore targets only WBS 13.2.1 identity/session. It explicitly authorizes the minimum additive backward-compatible SystemDefinition identity/auth-provider/session L3 semantics in TASK-231 and carries them through Compiler/Release/Deploy/Runtime to an authenticated actor context proof.
+
+Authorization roles/permissions/policies and generated views/forms remain Construction B forecast and must not be pulled into Construction A.
+
+## Security gate
+- authentication must fail closed for unknown/disabled/malformed identity state;
+- missing/incompatible auth binding fails closed;
+- invalid/expired session fails closed;
+- authentication does not imply authorization;
+- no resolved credential/provider/session secret/token/endpoint value enters immutable/durable evidence;
+- Runtime ordinary operation must not require Builder or Observe;
+- no provider-specific mandatory IAM platform or silent privilege inference.
+
+## Carried debt from P13 Package 01
 - `TD-P13-01` HIGH before production/fleet claims — job overlap/retry/idempotency;
 - `TD-P13-02` MEDIUM — HTTP integration timeout/response bounds;
 - `TD-P13-03` MEDIUM — file realpath/symlink and binary/streaming hardening;
-- `TD-P13-04` LOW/MEDIUM — generated Runtime maintainability/string-support duplication.
+- `TD-P13-04` LOW/MEDIUM — generated Runtime maintainability.
 
-These are explicit successor/backlog hardening items and do not reopen WBS 13.1.
+These remain explicit debt and are not absorbed into P13-PACKAGE-02 without WBS/dependency authority.
 
 ## Current gate
-The current authorized work is Documentation & Closure only. When this closure PR is integrated, reconstruct fresh `main` and stop.
+Integrate only the Planning & Materialization Sprint after exact-head Deterministic CI + Heavy Product Tests and review confirm planning-only scope. After merge, reconstruct fresh `main` and stop before Construction A execution unless separately authorized under repository policy.
 
-Do not start `P13-PACKAGE-02` or `P13-PACKAGE-03` automatically. `P13-PACKAGE-02` may be selected only through a fresh Planning & Materialization authorization/revalidation. Any L4 change still requires ADR review.
+Any required second shared-contract family change, new bounded context, Builder/Runtime ownership change, release/environment ownership change or other L4 decision is an escalation; L4 requires ADR.
