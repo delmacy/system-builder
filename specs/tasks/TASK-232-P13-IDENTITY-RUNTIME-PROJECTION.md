@@ -31,24 +31,33 @@ validation:
 ---
 
 # Objective
-Extend the existing deterministic Compiler SystemDefinition Runtime projection to carry the explicit identity/authentication/session descriptors introduced by TASK-231.
+Extend the deterministic Compiler SystemDefinition Runtime projection to carry the explicit identity/authentication/session descriptors introduced by TASK-231.
 
 # Context
-The current Runtime projection includes entities/actions/processes/environment requirements/jobs/events/files/integrations but omits identity and also omits existing permission/policy/view declarations. Construction A is identity/session only; permission/policy/view projection remains Construction B scope.
+Construction A closes WBS 13.2.1 only and must preserve the P13-01 Compiler/Runtime pipeline. Permission, policy and view execution belongs to Construction B.
+
+# Current behavior
+The Runtime projection carries entities, actions, processes, environment requirements, jobs, events, files and integrations. It omits identity/auth/session and also omits the existing declarative permissions, policies and views.
 
 # Required change
-Add identity/authentication/session projection fields and normalize them deterministically. Validate explicit cross-references, duplicate identifiers, declared provider-binding references and bounded session metadata without resolving provider values. Reject unknown/ambiguous references. Preserve stable ordering and backward compatibility when identity/session declarations are absent.
+Add identity/authentication/session projection fields and normalize them deterministically. Validate explicit cross-references, duplicate identifiers, declared provider-binding references and bounded session metadata without resolving provider values. Preserve stable ordering and backward compatibility when declarations are absent.
+
+# Inputs / contracts
+TASK-231 SystemDefinition semantics; canonical SystemDefinition schema; existing compiler runtime projection; P13-RUNTIME-IDENTITY-SESSION-01.
+
+# Outputs / contracts
+Normalized Compiler Runtime identity/auth/session projection and focused tests. No public-contract mutation in this task.
 
 # Acceptance criteria
 - deterministic normalization independent of input order;
 - duplicate/unknown identity/provider references fail closed;
-- binding references are validated against declared SystemDefinition environment requirements using existing compatible binding kinds when sufficient;
+- binding references are validated against declared SystemDefinition environment requirements using existing compatible kinds when sufficient;
 - no resolved binding/provider/credential values enter projection;
 - permissions/policies/views remain unprojected in this task;
 - existing P13-01 projection tests remain green.
 
 # Non-goals
-RuntimeModel execution, provider calls, sessions, authorization, UI rendering, new EnvironmentProfile kinds/contracts.
+RuntimeModel execution; provider calls; session issuance; authorization; UI rendering; new EnvironmentProfile kinds/contracts.
 
 # Evidence expected
 Focused compiler projection tests for positive ordering, absent optional descriptors, duplicate/unknown references and no-value behavior.
