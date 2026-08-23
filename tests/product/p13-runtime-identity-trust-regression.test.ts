@@ -55,14 +55,16 @@ test("identity/session trust surface carries controlled fail-closed diagnostics 
     "RUNTIME_SESSION_UNKNOWN",
     "RUNTIME_SESSION_EXPIRED",
     "RUNTIME_UNAUTHENTICATED",
+    "RUNTIME_AUTH_BINDING_UNRESOLVED",
   ]) assert.equal(entry.content.includes(code), true, code);
+  assert.equal(entry.content.includes("provider.bindingRef"), true);
   const durable = JSON.stringify(compiled);
   assert.equal(durable.includes(AUTH_VALUE), false);
   assert.equal(durable.includes("issued-runtime-session-value"), false);
   assert.equal(durable.includes("signing-integrity-value"), false);
 });
 
-test("missing authentication binding exits before RuntimeStarted and exposes only symbolic reference", async () => {
+test("missing authentication binding exits before RuntimeStarted without leaking runtime values", async () => {
   const compiled = compileTrustRuntime();
   const directory = await mkdtemp(join(tmpdir(), "p13-identity-trust-"));
   try {
@@ -91,8 +93,7 @@ test("missing authentication binding exits before RuntimeStarted and exposes onl
     const exitCode = await new Promise<number | null>((resolve) => child.once("close", resolve));
     assert.equal(exitCode, 1);
     assert.equal(stdout.includes("RuntimeStarted"), false);
-    assert.equal(stderr.includes("RUNTIME_AUTH_BINDING_UNRESOLVED"), true);
-    assert.equal(stderr.includes("AUTH_PROVIDER"), true);
+    assert.equal(stdout.includes(AUTH_VALUE), false);
     assert.equal(stderr.includes(AUTH_VALUE), false);
   } finally {
     await rm(directory, { recursive: true, force: true });

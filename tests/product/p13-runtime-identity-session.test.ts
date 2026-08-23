@@ -45,9 +45,11 @@ test("generated Runtime fails closed for missing unknown expired or disabled ses
 
 test("session runtime artifacts contain policy only, never an issued token", () => {
   const compiled = compiledRuntime(15);
+  const model = compiled.files.find((file) => file.path === "runtime-model.json");
+  assert.ok(model);
+  assert.equal(model.content.includes("\"lifetimeSeconds\":15"), true);
   const serialized = JSON.stringify(compiled);
   assert.equal(serialized.includes("issued-session-token-value"), false);
-  assert.equal(serialized.includes("\"lifetimeSeconds\":15"), true);
   assert.equal(serialized.includes("roles"), false);
   assert.equal(serialized.includes("permissions"), false);
 });
