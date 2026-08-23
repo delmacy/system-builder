@@ -116,8 +116,8 @@ Every Construction Sprint extends an integrated proof. Package Integration & Rev
 
 ## Product test separation
 
-- **`test:product` (core)** — deterministic in-memory contracts/catalog/assembly/compiler/deploy-dry-run/secret/observe/support tests; normal construction and PR CI gate.
-- **`test:product:heavy`** — real process/HTTP/TLS/Postgres/openssl work; nightly and manual/on-demand according to current repository policy.
+- **`test:product` (core)** — deterministic in-memory contracts/catalog/assembly/compiler/deploy-dry-run/secret/observe/support tests; normal construction and Deterministic CI gate.
+- **`test:product:heavy`** — real process/HTTP/TLS/Postgres/openssl work; automatic PR exact-head gate, plus nightly and manual/on-demand execution. The heavy workflow checks out the PR head SHA explicitly, uses concurrency scoped per PR/ref and cancels only obsolete runs of the same PR so unrelated PRs do not serialize behind one global heavy queue.
 - **`test:product:full`** — composition of core + heavy for complete manual/local verification when infrastructure is available.
 
 The classifier remains `scripts/run-product-tests.mjs`. New tests requiring process/server/socket/Postgres/openssl belong to heavy; pure in-memory tests belong to core.
