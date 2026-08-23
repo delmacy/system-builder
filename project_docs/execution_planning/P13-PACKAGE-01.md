@@ -1,6 +1,6 @@
 # P13-PACKAGE-01 — Autonomous Runtime Functional Execution
 
-Status: ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B COMMITTED-MATERIALIZED
+Status: ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B INTEGRATED / CONSTRUCTION C NOT JUSTIFIED
 Milestone: M13
 Primary WBS: 13.1.1-13.1.3
 Predecessor: P12-PACKAGE-01 CLOSED
@@ -24,17 +24,20 @@ PR #238 reconciled repository memory and recorded the real Construction B contra
 
 PR #239 integrated `P13-PACKAGE-01.construction-b-l3-change-control.md`. Its exact head `60d24d36963d2866f65d6e5f5d6e108cd9b865db` passed Deterministic CI #563 and merged as `8e9e7f1e3c86588ec0edbca0344a48f398332c7c`, tree `62e871d54a522a1e9faa9ccb854e04aba9bced63`, with zero file drift.
 
-The bounded L3 authority is ACCEPTED. It authorizes only minimum additive/backward-compatible semantics inside existing public contract families for explicit jobs/events/files-storage/integration execution, deterministic Compiler projection and reference-only binding compatibility metadata. It authorizes no L4 change.
+The bounded L3 authority is ACCEPTED. It authorized only minimum additive/backward-compatible semantics inside existing public contract families for explicit jobs/events/files-storage/integration execution, deterministic Compiler projection and reference-only binding compatibility metadata. It authorized no L4 change.
 
-## Construction B — Runtime services and external bindings
-Status: COMMITTED / MATERIALIZED
+## Construction B — integrated
 Sprint: `P13-RUNTIME-SERVICES-BINDINGS-01`
 Tasks: TASK-221..230
-Materialization base: `8e9e7f1e3c86588ec0edbca0344a48f398332c7c`
+Reviewed head: `91fba7e0b18f05e4564ed2c69a35ee251faf8aeb`
+Deterministic CI: #584/#586/#588 PASS
+Heavy Product Tests: #7/#9 PASS
+Merge-main: `4aec5f98700cbba4abbc403a6b35040a14031712`
+Fresh-main tree: `409561162c6e97649cdc55c43f87bcde5e9a4ac1`
 
-Goal: close WBS 13.1.2 and remaining 13.1.3 breadth using the same generated-runtime model and external configuration/no-value-leak boundary.
+Construction B closed WBS 13.1.2 and the remaining 13.1.3 breadth using the same generated-runtime model and external configuration/no-value-leak boundary.
 
-Committed semantic envelope:
+Integrated semantic envelope:
 - optional explicit interval jobs with declared action target and recordId;
 - optional explicit runtime-http events with declared actionRef and explicit invocation inputs;
 - optional file/storage descriptors with allowed `put|get|delete` operations and explicit storage `bindingRef`;
@@ -42,9 +45,7 @@ Committed semantic envelope:
 - optional EnvironmentProfile binding `requirementKind` classification using existing environment requirement kinds;
 - deterministic normalized Compiler/runtime projection and fail-closed reference validation.
 
-The Sprint deliberately reuses existing action execution, generated Runtime process, Deploy/SecretResolver activation-time resolution and Release/Environment separation. No scheduler/broker/object-store/integration vendor is selected; no new bounded context, worker topology or production topology is introduced.
-
-Exit proof:
+Integrated proof demonstrates:
 - one actual declared interval job executes through its explicit action target;
 - one actual runtime-http event dispatch executes through its explicit action target;
 - one actual file/storage put/get/delete path executes beneath an externally supplied storage-root binding and rejects traversal;
@@ -52,20 +53,27 @@ Exit proof:
 - missing/incompatible classified bindings fail closed;
 - Builder/Observe unavailable does not break ordinary Runtime behavior;
 - resolved storage/endpoint/config/secret values remain absent from immutable/durable evidence and asserted diagnostics;
-- actual predecessor SystemDefinition -> Catalog -> Assembly -> Validation -> Compiler -> Release -> verified ArtifactPayload -> Deploy chain is used;
-- repository-wide `npm run verify` passes.
+- the actual predecessor SystemDefinition -> Catalog -> Assembly -> Validation -> Compiler -> Release -> verified ArtifactPayload -> Deploy chain is used;
+- repository-wide deterministic verification and required heavy product tests pass on the exact reviewed head.
 
-## Optional Construction C
-Status: FORECAST / CONDITIONAL
-Not eligible before Construction B is integrated and fresh-main evidence proves one bounded remaining WBS 13.1 package-goal gap.
+Relative to pre-merge main `2301f9210e9eb4526607365c5e36a2ba11923ed4`, the merge contributes exactly the 29 reviewed Construction B paths. Whole-tree comparison between reviewed head and fresh main differs only in `.github/workflows/heavy-tests.yml` and `project_docs/schedule/SPRINT_GENERATION_POLICY.md`, both integrated before PR #241 by auxiliary PRs #242/#243.
+
+## Optional Construction C — not justified
+Status: NOT JUSTIFIED / NOT STARTED
+
+Fresh-main revalidation after Construction B found no bounded remaining WBS 13.1 package-goal gap. Construction A+B cover 13.1.1-13.1.3 and satisfy the functional Package Goal evidence required before package-level review.
+
+Construction C must not be promoted from the current evidence. A future contrary decision would require new fresh-main evidence of a bounded missing Package Goal capability plus explicit execution authority.
 
 ## Package Integration & Review
-Status: FORECAST
-Not started. Missing functional capability required by the Package Goal returns to explicit construction/change control.
+Status: NOT STARTED / AWAITING EXPLICIT AUTHORIZATION
+
+No Package Integration & Review work has begun. Missing functional capability required by the Package Goal must return to explicit construction/change control rather than being hidden in review.
 
 ## Documentation & Closure
-Status: FORECAST
-Not started.
+Status: NOT STARTED
+
+No Documentation & Closure work has begun. It remains gated by completion/integration of the package-level review when that stage is separately authorized.
 
 ## Boundaries
 - Builder != Runtime and autonomous ordinary Runtime remain constitutional.
@@ -76,5 +84,6 @@ Not started.
 - No exactly-once/distributed scheduling/event guarantee is authorized.
 - No production topology expansion without separate authority.
 - No new L4 boundary without accepted ADR.
-- Construction C, Package Integration & Review and Documentation & Closure remain FORECAST.
+- Construction C is NOT JUSTIFIED and NOT STARTED.
+- Package Integration & Review and Documentation & Closure remain NOT STARTED.
 - `P13-PACKAGE-02` and `P13-PACKAGE-03` remain not started.

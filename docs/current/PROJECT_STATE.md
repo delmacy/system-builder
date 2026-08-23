@@ -1,11 +1,15 @@
 # Project State
 
-Date: 2026-08-22
+Date: 2026-08-23
 
 ## Repository
-`delmacy/system-builder` is canonical. P12 is CLOSED. P13 Construction A `P13-RUNTIME-CORE-EXECUTION-01` is INTEGRATED through PR #237.
+`delmacy/system-builder` is canonical. P12 is CLOSED. `P13-PACKAGE-01` remains ACTIVE.
 
-Repository-memory gate PR #238 merged as `57b8cf3c4c671dd06b590514acac9ce449e7e69b` after Deterministic CI #562 PASS. Bounded L3 change-control PR #239 passed Deterministic CI #563 on exact head `60d24d36963d2866f65d6e5f5d6e108cd9b865db` and merged as fresh main `8e9e7f1e3c86588ec0edbca0344a48f398332c7c`, tree `62e871d54a522a1e9faa9ccb854e04aba9bced63`, with zero reviewed-head file drift.
+Construction A `P13-RUNTIME-CORE-EXECUTION-01` is INTEGRATED through PR #237. Construction B `P13-RUNTIME-SERVICES-BINDINGS-01` is INTEGRATED through PR #241 on reviewed head `91fba7e0b18f05e4564ed2c69a35ee251faf8aeb`.
+
+Construction B exact-head validation is green: Deterministic CI #584/#586/#588 PASS and Heavy Product Tests #7/#9 PASS. PR #241 merged as `4aec5f98700cbba4abbc403a6b35040a14031712`, fresh-main tree `409561162c6e97649cdc55c43f87bcde5e9a4ac1`.
+
+The merge contains exactly the 29 reviewed Construction B paths relative to pre-merge main `2301f9210e9eb4526607365c5e36a2ba11923ed4`. Whole-tree comparison against the reviewed head differs only in `.github/workflows/heavy-tests.yml` and `project_docs/schedule/SPRINT_GENERATION_POLICY.md`, both pre-existing infrastructure/policy changes integrated by PRs #242/#243 before PR #241.
 
 ## Integrated maturity
 - P1-P11 integrated.
@@ -13,22 +17,18 @@ Repository-memory gate PR #238 merged as `57b8cf3c4c671dd06b590514acac9ce449e7e6
 - `P13-PACKAGE-01`: ACTIVE.
 - Construction A TASK-212..220: INTEGRATED.
 - Construction B bounded L3 change control: INTEGRATED / ACCEPTED.
-- Construction B `P13-RUNTIME-SERVICES-BINDINGS-01`: COMMITTED / MATERIALIZED with TASK-221..230 on the materialization branch; no TASK implementation has started.
+- Construction B TASK-221..230: INTEGRATED.
+- Construction C: NOT JUSTIFIED by fresh-main revalidation.
 
-## Construction B materialization result
-Fresh-main revalidation confirms the accepted L3 envelope still matches the concrete WBS 13.1.2/13.1.3 gap and no L4 change is required to materialize the Sprint.
+## Fresh-main package revalidation
+WBS 13.1.1-13.1.3 and the `P13-PACKAGE-01` functional goal are covered by integrated Construction A+B evidence:
+- 13.1.1 entities/APIs/actions/workflows — Construction A;
+- 13.1.2 jobs/events/files/integrations — Construction B;
+- 13.1.3 external configuration without Builder dependency — Construction A foundation plus Construction B binding breadth and fail-closed/no-value-leak proof.
 
-The committed increment is dependency-safe:
-- TASK-221 declares only the bounded SystemDefinition jobs/events/files/integration semantics;
-- TASK-222 adds optional reference-only binding compatibility classification;
-- TASK-223/224 project/materialize those descriptors deterministically;
-- TASK-225..228 execute representative job/event/file/integration paths incrementally;
-- TASK-229 extends fail-closed/no-value-leak proof;
-- TASK-230 closes the growing E2E proof and Sprint Report.
-
-No scheduler/broker/object-store/integration vendor, new bounded context, new worker/service topology, Release/Environment ownership change or Builder dependency is introduced by materialization.
+No bounded remaining WBS 13.1 package-goal gap was identified. Therefore the optional Construction C must not be promoted.
 
 ## Current gate
-Validate/review this planning-only materialization diff. After it is integrated, reconstruct fresh `main`, create `sprint/P13-RUNTIME-SERVICES-BINDINGS-01` from that exact main, and only then execute TASK-221..230 in dependency order under their declared paths/validation constraints.
+Repository memory is reconciled to integrated Construction B truth. No successor stage is authorized by this state update.
 
-Construction C, Package Integration & Review, Documentation & Closure, `P13-PACKAGE-02` and `P13-PACKAGE-03` remain FORECAST/not started.
+Package Integration & Review, Documentation & Closure, `P13-PACKAGE-02` and `P13-PACKAGE-03` remain not started and require separate explicit authorization before execution.
