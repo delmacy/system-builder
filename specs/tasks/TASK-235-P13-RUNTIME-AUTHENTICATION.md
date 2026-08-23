@@ -36,10 +36,20 @@ validation:
 # Objective
 Generate a bounded authentication path that uses only explicitly declared identity/provider semantics and activation-time binding values, then maps successful authentication to a declared active identity.
 
-# Required change
-Implement one provider-replaceable reference authentication path sufficient for WBS 13.2.1. Provider interaction must be driven by explicit durable descriptors from TASK-231 and resolved binding input from TASK-234; Runtime must not infer a provider from naming or call Builder/Observe. Authentication result must map to a declared active identity before success.
+# Context
+TASK-231..234 establish declarative identity/auth/session semantics, deterministic RuntimeModel projection and activation-time provider binding. This task is the first authentication execution step and remains strictly inside WBS 13.2.1.
 
-Credential material received in an authentication request is ephemeral. It must not be echoed into diagnostics or persisted in RuntimeModel, ReleaseArtifact, generated files or deployment evidence.
+# Current behavior
+Generated Runtime has entity/action/workflow/service execution but no authentication route or provider interaction and no mapping from provider authentication result to a declared identity.
+
+# Required change
+Implement one provider-replaceable reference authentication path sufficient for WBS 13.2.1. Provider interaction must be driven by explicit durable descriptors from TASK-231 and resolved binding input from TASK-234; Runtime must not infer provider identity from names or call Builder/Observe. Authentication result must map to a declared active identity before success. Credential material is ephemeral and must not be echoed or persisted.
+
+# Inputs / contracts
+TASK-231 SystemDefinition semantics; TASK-233 RuntimeModel; TASK-234 activation-time binding delivery; existing generated Runtime request support.
+
+# Outputs / contracts
+Generated Runtime authentication execution plus focused positive/negative tests. No new public contract.
 
 # Acceptance criteria
 - representative declared provider authentication succeeds and maps to the intended active identity;
