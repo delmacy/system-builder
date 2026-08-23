@@ -4,7 +4,7 @@ title: Propagate authenticated actor context into representative Runtime request
 status: ready
 priority: 237
 milestone: M13
-model_tier: standard
+model_tier: cheap
 risk: medium
 architecture_impact: false
 executor_preference: any
@@ -32,10 +32,22 @@ validation:
 ---
 
 # Objective
-Prove that a valid Runtime session resolves to explicit actor/identity context and that one representative actor-required Runtime operation consumes that context without yet performing role/permission authorization.
+Prove that a valid Runtime session resolves to explicit actor/identity context and that one representative actor-required Runtime operation consumes that context without role/permission authorization.
+
+# Context
+TASK-235 and TASK-236 establish authentication and session validity. Construction A must connect that identity to an actual existing Runtime operation while preserving the boundary between authentication and later authorization.
+
+# Current behavior
+Existing entity/action Runtime routes execute without actor context. There is no generated request path that restores a declared identity from a valid session and exposes it to an existing operation.
 
 # Required change
-Thread the authenticated identity context produced by TASK-236 through the generated request path. Select a representative existing Runtime operation (entity/API/action path) and require valid authentication for the Construction A proof while preserving existing explicit semantics. The request must distinguish authentication failure from later authorization decisions.
+Thread the authenticated identity context from TASK-236 through the generated request path. Select one representative existing Runtime operation and require valid authentication for the Construction A proof while preserving its existing business semantics. Distinguish authentication failure from later authorization decisions.
+
+# Inputs / contracts
+TASK-235 authenticated identity; TASK-236 session validation; existing generated entity/action request path; P13-RUNTIME-IDENTITY-SESSION-01.
+
+# Outputs / contracts
+Actor-context propagation into one representative Runtime operation plus focused authentication-boundary tests. No public-contract change.
 
 # Acceptance criteria
 - valid session yields explicit identity/actor context to the representative operation;
@@ -46,7 +58,7 @@ Thread the authenticated identity context produced by TASK-236 through the gener
 - session/credential values are not emitted in durable evidence or diagnostics.
 
 # Non-goals
-Permission/policy enforcement, organization membership, UI rendering, broad conversion of every Runtime route to authorization-aware behavior.
+Permission/policy enforcement; organization membership; UI rendering; broad conversion of every Runtime route to authorization-aware behavior.
 
 # Evidence expected
 Focused generated Runtime tests demonstrating actor context propagation, unauthenticated rejection and separation of authentication from authorization.
