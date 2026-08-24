@@ -32,6 +32,9 @@ validation:
 # Objective
 Prove complete-Runtime local health/telemetry remains usable without Observe, and any Observe publication remains fail-open.
 
+# Context
+TASK-060 established local runtime health without Builder/Observe availability, and P11 established provider-neutral fail-open Observe publication. The complete Runtime path built by TASK-254..258 must reuse those semantics so telemetry consumption can remain optional rather than becoming an availability dependency.
+
 # Current behavior
 Bootstrap health and Observe fail-open publication exist separately; the complete Runtime autonomy proof has not yet connected them.
 
