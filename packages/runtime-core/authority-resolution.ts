@@ -111,7 +111,8 @@ export function resolveRuntimeActorAuthority(
   if (identityMatches.length !== 1) {
     return fail("RUNTIME_AUTHORITY_IDENTITY_AMBIGUOUS", identityRef);
   }
-  if (!identityMatches[0].active) {
+  const identity = identityMatches[0]!;
+  if (!identity.active) {
     return fail("RUNTIME_AUTHORITY_IDENTITY_DISABLED", identityRef);
   }
 
