@@ -34,6 +34,9 @@ validation:
 # Objective
 Extend existing Compiler output so the already-defined complete RuntimeModel can be materialized deterministically into the autonomous runtime bundle, without resolved configuration, secrets or Builder lookup.
 
+# Context
+TASK-060 proves autonomous Compiler-generated startup/health for the earlier runtime bundle. P13-PACKAGE-01/02 subsequently completed functional execution, identity/session, explicit fail-closed authority and generated experience. Construction A now needs only the additive bundle materialization required to carry that already-integrated RuntimeModel into the autonomous artifact; it must not redesign public contracts or autonomy boundaries.
+
 # Current behavior
 TASK-060 proves Compiler-generated startup/health, but current Compiler output does not carry the complete P13 RuntimeModel needed to certify actor-aware functional autonomy.
 
