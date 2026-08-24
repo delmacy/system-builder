@@ -31,6 +31,9 @@ validation:
 # Objective
 Produce a deterministic renderer-agnostic Runtime document for explicitly bound generated views/forms using the integrated view kind, binding metadata and supplied record data.
 
+# Context
+Construction C closes only the remaining WBS 13.2.3 rendering gap after Construction B integrated explicit generated view bindings and authority-gated interaction. TASK-249 preserves the already-declared view kind through Compiler/RuntimeModel; this task consumes that internal projection without changing the public SystemDefinition contract or introducing UI-framework semantics.
+
 # Current behavior
 Construction B exposes explicit generated view bindings and authority-gated interaction, but Runtime has no renderer-agnostic document abstraction that materializes those bindings plus caller-supplied record data into deterministic generated view/form output.
 
