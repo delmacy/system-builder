@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm, unlink, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, unlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
 import { sha256Canonical } from "../../packages/deterministic/index.js";
@@ -106,7 +106,9 @@ async function materializeBundle() {
   const directory = await mkdtemp(join(tmpdir(), "system-builder-task-255-"));
   const bundle = compileBundle();
   for (const file of bundle.files) {
-    await writeFile(join(directory, file.path), file.content, "utf8");
+    const target = join(directory, file.path);
+    await mkdir(dirname(target), { recursive: true });
+    await writeFile(target, file.content, "utf8");
   }
   return { directory, bundle };
 }
