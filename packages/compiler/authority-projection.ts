@@ -128,7 +128,7 @@ export function normalizeRuntimeAuthorityProjection(input: CompilerRuntimeAuthor
   uniqueIds(identities, "IDENTITY");
   const identityIds = new Set(identities.map((identity) => identity.id));
 
-  const views = [...(input.views ?? [])].map((view) => {
+  const views: CompilerRuntimeCompiledView[] = [...(input.views ?? [])].map((view): CompilerRuntimeCompiledView => {
     const id = token(view.id, "view_id");
     if (view.binding === undefined) return Object.freeze({ id });
     const entityRef = token(view.binding.entityRef, "view_entity_ref");
@@ -151,7 +151,7 @@ export function normalizeRuntimeAuthorityProjection(input: CompilerRuntimeAuthor
   const viewIds = new Set(views.map((view) => view.id));
   const resourceIds = new Set([...entityIds, ...viewIds]);
 
-  const policies = [...(input.policies ?? [])].map((policy) => {
+  const policies: CompilerRuntimeCompiledPolicy[] = [...(input.policies ?? [])].map((policy): CompilerRuntimeCompiledPolicy => {
     const id = token(policy.id, "policy_id");
     token(policy.statement, "policy_statement");
     if (policy.structured === undefined) return Object.freeze({ id });
@@ -175,7 +175,7 @@ export function normalizeRuntimeAuthorityProjection(input: CompilerRuntimeAuthor
   const policyIds = new Set(policies.map((policy) => policy.id));
   const executablePolicyIds = new Set(policies.filter((policy) => policy.structured !== undefined).map((policy) => policy.id));
 
-  const permissions = [...(input.permissions ?? [])].map((permission) => {
+  const permissions: CompilerRuntimePermission[] = [...(input.permissions ?? [])].map((permission): CompilerRuntimePermission => {
     const role = token(permission.role, "permission_role");
     const resource = token(permission.resource, "permission_resource");
     if (!resourceIds.has(resource)) throw new Error(`COMPILER_AUTHORITY_PROJECTION_UNKNOWN_PERMISSION_RESOURCE:${resource}`);
@@ -209,7 +209,7 @@ export function normalizeRuntimeAuthorityProjection(input: CompilerRuntimeAuthor
   const knownRoles = new Set(permissions.map((permission) => permission.role));
   for (const policy of policies) for (const roleRef of policy.structured?.roleRefs ?? []) knownRoles.add(roleRef);
 
-  const roleBindings = [...(input.roleBindings ?? [])].map((binding) => {
+  const roleBindings: CompilerRuntimeRoleBinding[] = [...(input.roleBindings ?? [])].map((binding): CompilerRuntimeRoleBinding => {
     const id = token(binding.id, "role_binding_id");
     const roleRef = token(binding.roleRef, "role_ref");
     if (!knownRoles.has(roleRef)) throw new Error(`COMPILER_AUTHORITY_PROJECTION_UNKNOWN_ROLE_REFERENCE:${roleRef}`);
