@@ -13,9 +13,9 @@ Status: IN PROGRESS
 - **13.2.2** Aplicar roles, permissions e policies materializadas. — SATISFIED
 - **13.2.3** Renderizar views/forms e interações geradas. — SATISFIED
 
-### 13.3 Autonomia operacional — PLANNING / CONSTRUCTION A MATERIALIZED
-- **13.3.1** Provar startup/operation com Builder indisponível. — PARTIALLY PROVEN by predecessor evidence; remaining full-runtime completeness is COMMITTED in `P13-RUNTIME-OFFLINE-AUTONOMY-01` / TASK-254..260.
-- **13.3.2** Expor health/telemetry sem tornar Observe obrigatório. — PARTIALLY PROVEN by TASK-060 and P11 fail-open Observe evidence; complete-runtime certification is COMMITTED in Construction A.
-- **13.3.3** Suportar upgrade/rollback conforme release/deploy contracts. — PREDECESSOR EVIDENCE EXISTS; remaining continuity certification remains FORECAST for Construction B.
+### 13.3 Autonomia operacional — CONSTRUCTION A SATISFIED / CONSTRUCTION B MATERIALIZED
+- **13.3.1** Provar startup/operation com Builder indisponível. — SATISFIED / INTEGRATED by `P13-RUNTIME-OFFLINE-AUTONOMY-01` / TASK-254..260.
+- **13.3.2** Expor health/telemetry sem tornar Observe obrigatório. — SATISFIED / INTEGRATED by Construction A complete-Runtime local health/telemetry and Observe fail-open proof.
+- **13.3.3** Suportar upgrade/rollback conforme release/deploy contracts. — COMMITTED / MATERIALIZED in `P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01` / TASK-261..266 after fresh-main revalidation of P7/P9 predecessor evidence.
 
-Primary package: `P13-PACKAGE-03`. Planning base `9e39ceca50b27a5f155ba8dfcfe340061a5ed71e`. Existing autonomous startup/deploy/Observe/rollback evidence must be reused rather than rebuilt. Construction B and optional C remain forecast until predecessor gates pass.
+Primary package: `P13-PACKAGE-03`. Construction A merge-main `80e9fd146498cc8a95fd212af281d78a952645a5`. Construction B must reuse existing Release/Artifact/Deploy activation, retention, promotion and reconstruction semantics. Optional Construction C remains conditional until Construction B is integrated and fresh-main evidence proves a bounded remaining Package Goal gap.
