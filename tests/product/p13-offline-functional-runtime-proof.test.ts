@@ -166,7 +166,8 @@ async function applyBundleMigrations(bundle: ReturnType<typeof compileBundle>, c
     generatedFiles: bundle.files,
     runtimeSecrets: Object.freeze({ DATABASE_URL: connectionString }),
   });
-  assert.equal(application.status, "applied");
+  assert.equal(application.kind, "LocalMigrationApplication");
+  assert.equal(application.migrations.length, preflight.migrations.length);
 }
 
 test(
