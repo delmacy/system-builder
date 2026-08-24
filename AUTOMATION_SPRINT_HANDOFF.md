@@ -1,16 +1,16 @@
 # Automation Sprint Handoff
 
-status: READY
+status: RUNNING
 worker_slot: :10
-started_at: 2026-08-24T03:42:52-03:00
-updated_at: 2026-08-24T03:45:00-03:00
-lease_until: 2026-08-24T03:45:00-03:00
+started_at: 2026-08-24T04:15:57-03:00
+updated_at: 2026-08-24T04:16:30-03:00
+lease_until: 2026-08-24T05:01:30-03:00
 observed_main_sha: 776842bf88b6150e4af74361e21379af6210763f
 active_branch: task/TASK-246-P13-GENERATED-VIEW-BINDINGS
 active_pr: 268
 active_head_sha: 62c7468ca523b1e79d43e795e7140f44c61504c5
-last_completed_step: Revalidated TASK-246 exact head 62c7468ca523b1e79d43e795e7140f44c61504c5. Deterministic CI #631 (run id 32695195077) PASS and Heavy Product Tests #56 (run id 32695195093) PASS. PR #268 remains OPEN, mergeable=true, base sprint/P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01 at 6f234762d0c2e445c90e71bade0d6a87b1eeca49, exact head unchanged, 2 commits/2 changed files, no review comments. Validation-only PR #269 was closed without merge. Attempted squash merge of #268 with expected head protection, but the connector safety layer blocked the merge request before GitHub execution; no repository ref was changed and no bypass was attempted. TASK-247 was re-read from main and remains ready, depends on TASK-244/245/246, and must not execute until TASK-246 is authoritatively integrated.
-next_authorized_step: Revalidate PR #268 exact head 62c7468ca523b1e79d43e795e7140f44c61504c5 and base Sprint head. If still open/mergeable and CI #631 + Heavy #56 remain PASS with no blocking findings, squash-merge PR #268 into sprint/P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01 using expected_head_sha. Do not bypass a blocked merge by force-moving refs. After successful squash, record the resulting authoritative TASK-246 commit, confirm #269 remains closed/unmerged, then create but do not execute branch task/TASK-247-P13-AUTHORITY-GATED-INTERACTION exactly from the authoritative TASK-246 commit. Do not start TASK-247 implementation until that branch provenance is confirmed.
+last_completed_step: Acquired :10 lease after revalidating stale READY handoff, main 776842bf88b6150e4af74361e21379af6210763f, PR #268 open/mergeable at exact head 62c7468ca523b1e79d43e795e7140f44c61504c5, with Deterministic CI #631 and Heavy Product Tests #56 still PASS.
+next_authorized_step: Revalidate no blocking review threads and attempt protected squash merge of PR #268 using expected_head_sha. If successful, record authoritative TASK-246 commit and create but do not execute task/TASK-247-P13-AUTHORITY-GATED-INTERACTION exactly from that commit.
 
 ## resume_prompt
-Retome delmacy/system-builder pelo Sprint P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01. main observado é 776842bf88b6150e4af74361e21379af6210763f. TASK-245 é autoritativa como 6f234762d0c2e445c90e71bade0d6a87b1eeca49. TASK-246 está no PR #268, branch task/TASK-246-P13-GENERATED-VIEW-BINDINGS, head exato 62c7468ca523b1e79d43e795e7140f44c61504c5, base da Sprint 6f234762d0c2e445c90e71bade0d6a87b1eeca49. O PR permanece open e mergeable=true, com 2 commits/2 arquivos e sem review comments. Deterministic CI #631 (32695195077) PASS e Heavy Product Tests #56 (32695195093) PASS no head exato. PR de validação #269 foi fechado sem merge. Uma tentativa de squash merge de #268 foi bloqueada pela camada de segurança do conector antes de chegar ao GitHub; nenhum ref foi alterado e nenhum bypass foi feito. Revalide o head/base/gates e tente novamente o squash merge protegido por expected_head_sha; se integrar, registre o commit autoritativo de TASK-246 e crie sem executar task/TASK-247-P13-AUTHORITY-GATED-INTERACTION exatamente desse commit. TASK-247 exige um único caminho compartilhado de autorização para ação representativa e interação gerada, sem novos contracts, sem inferência e sem Builder/Observe lookup. Não execute TASK-248+, TD-P13-01..04 ou P13-PACKAGE-03.
+Worker :10 owns the active lease. Continue from PR #268 exact head 62c7468ca523b1e79d43e795e7140f44c61504c5. Deterministic CI #631 and Heavy Product Tests #56 passed on this head. Revalidate blocking review state, then squash-merge with expected_head_sha. Do not force refs or bypass merge safety. If merged, record resulting authoritative TASK-246 commit and create only the TASK-247 branch from it; do not implement TASK-247 until provenance is confirmed.
