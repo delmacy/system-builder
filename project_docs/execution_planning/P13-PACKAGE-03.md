@@ -1,6 +1,6 @@
 # P13-PACKAGE-03 — Autonomous Runtime Operational Autonomy
 
-Status: ACTIVE / DOCUMENTATION & CLOSURE EXECUTED / READY TO CLOSE PENDING EXACT-HEAD GATES
+Status: CLOSED
 Milestone: M13
 Primary WBS: 13.3.1-13.3.3
 Planning base: `9e39ceca50b27a5f155ba8dfcfe340061a5ed71e`
@@ -36,7 +36,7 @@ TASKs: TASK-261..266.
 Status: NOT NECESSARY / NOT PROMOTED after fresh-main revalidation integrated by PR #321 as `17938965ea5ba71e588f6c6015f8d8bbc037cbb5`.
 
 ## Package Integration & Review
-Status: INTEGRATED / GO FOR CLOSURE.
+Status: INTEGRATED / PASS.
 Manifest: `P13-PACKAGE-03-INTEGRATION-REVIEW-01.md`.
 Report: `P13-PACKAGE-03-INTEGRATION-REVIEW-01.report.md`.
 Execution base: `c3d41f4cf1ea01d8b542cf6b53898875c0c25ddf`.
@@ -47,7 +47,7 @@ Reviewed-head tree == merge-main tree: `daf53f0b3412e9aaec6f230e9a4f749facf57fd8
 Result: full WBS 13.1-13.3 regression found no package-goal, architecture, security or compatibility blocker and no need to revive Construction C. TD-P13-01..04 remain carried and unabsorbed.
 
 ## Documentation & Closure
-Status: EXECUTED ON `sprint/P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01` / READY TO CLOSE ON EXACT-HEAD PASS + MERGE.
+Status: COMPLETE IN CLOSURE SPRINT; THIS CLOSED STATUS BECOMES CANONICAL WHEN THE EXACT CLOSURE HEAD PASSES REQUIRED GATES AND MERGES TO `main`.
 Manifest: `P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01.md`.
 Report: `P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01.report.md`.
 Closure base: `4a3353987dac2a14481191874cd1763ca3270c1f`.
