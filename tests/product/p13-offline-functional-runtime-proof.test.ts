@@ -1,13 +1,15 @@
 import assert from "node:assert/strict";
-import { spawn, spawnSync } from "node:child_process";
+import { spawn } from "node:child_process";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer, type Server } from "node:http";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test from "node:test";
 import { compileAutonomousRuntimeModelBundle } from "../../packages/compiler/autonomous-runtime-model-bundle.js";
-import { sha256Canonical } from "../../packages/deterministic/index.js";
 import type { EnvironmentProfile } from "../../packages/contracts/environment-profile/index.js";
+import { preflightVerifiedMigrations } from "../../packages/deploy/migration-preflight.js";
+import { applyVerifiedPostgresMigrations } from "../../packages/deploy/postgres-migrations.js";
+import { sha256Canonical } from "../../packages/deterministic/index.js";
 
 const databaseUrl = process.env.SYSTEM_BUILDER_TEST_POSTGRES_URL;
 const runtimeVersion = "0.13.3";
@@ -32,82 +34,39 @@ function compileBundle() {
       decision: "PASS",
       evidenceHash: sha256Canonical({ decision: "PASS", plan: plan.contentHash }),
     },
-    compilerVersion: "0.13.3",
+    compilerVersion: runtimeVersion,
     runtimeVersion,
-    environmentSchema: [
-      { name: "DATABASE_URL", kind: "secret-reference", required: true },
-    ],
+    environmentSchema: [{ name: "DATABASE_URL", kind: "secret-reference", required: true }],
     systemDefinitionRuntime: {
       kind: "SystemDefinitionRuntimeProjection",
       systemDefinitionRef: plan.systemDefinitionRef,
-      entities: [
-        {
-          id: "entity:ticket",
-          fields: [{ name: "title", type: "string", required: true }],
-        },
-      ],
+      entities: [{ id: "entity:ticket", fields: [{ name: "title", type: "string", required: true }] }],
       actions: [
-        {
-          id: "action:update",
-          effect: { kind: "entity.update", entityRef: "entity:ticket" },
-        },
-        {
-          id: "action:job-delete",
-          effect: { kind: "entity.delete", entityRef: "entity:ticket" },
-        },
+        { id: "action:update", effect: { kind: "entity.update", entityRef: "entity:ticket" } },
+        { id: "action:job-delete", effect: { kind: "entity.delete", entityRef: "entity:ticket" } },
       ],
-      processes: [
-        {
-          id: "process:ticket",
-          states: ["open", "closed"],
-          initialState: "open",
-          transitions: [
-            {
-              id: "transition:close",
-              from: "open",
-              to: "closed",
-              actionRef: "action:update",
-            },
-          ],
-        },
-      ],
+      processes: [{
+        id: "process:ticket",
+        states: ["open", "closed"],
+        initialState: "open",
+        transitions: [{ id: "transition:close", from: "open", to: "closed", actionRef: "action:update" }],
+      }],
       environmentRequirements: [
         { name: "storage:files", kind: "storage", required: true },
         { name: "service:notify", kind: "external-service", required: true },
       ],
-      jobs: [
-        {
-          id: "job:delete-ticket",
-          trigger: { kind: "interval", intervalMs: 1_000 },
-          actionRef: "action:job-delete",
-          recordId: "ticket-job",
-        },
-      ],
-      events: [
-        {
-          id: "event:update",
-          source: { kind: "runtime-http" },
-          actionRef: "action:update",
-        },
-      ],
-      files: [
-        {
-          id: "files:attachments",
-          bindingRef: "storage:files",
-          operations: ["put", "get", "delete"],
-        },
-      ],
-      integrations: [
-        {
-          id: "integration:notify",
-          invocation: {
-            kind: "http",
-            method: "POST",
-            path: "/notify",
-            bindingRef: "service:notify",
-          },
-        },
-      ],
+      jobs: [{
+        id: "job:delete-ticket",
+        trigger: { kind: "interval", intervalMs: 1_000 },
+        actionRef: "action:job-delete",
+        recordId: "ticket-job",
+      }],
+      events: [{ id: "event:update", source: { kind: "runtime-http" }, actionRef: "action:update" }],
+      files: [{ id: "files:attachments", bindingRef: "storage:files", operations: ["put", "get", "delete"] }],
+      integrations: [{
+        id: "integration:notify",
+        invocation: { kind: "http", method: "POST", path: "/notify", bindingRef: "service:notify" },
+      }],
     },
   });
 }
@@ -167,12 +126,10 @@ async function waitForStarted(child: ReturnType<typeof spawn>): Promise<number> 
 async function request(port: number, path: string, method: string, body?: unknown, raw = false) {
   const response = await fetch(`http://127.0.0.1:${port}${path}`, {
     method,
-    ...(body === undefined
-      ? {}
-      : {
-          headers: { "content-type": raw ? "text/plain" : "application/json" },
-          body: raw ? String(body) : JSON.stringify(body),
-        }),
+    ...(body === undefined ? {} : {
+      headers: { "content-type": raw ? "text/plain" : "application/json" },
+      body: raw ? String(body) : JSON.stringify(body),
+    }),
     signal: AbortSignal.timeout(10_000),
   });
   return { status: response.status, body: await response.json() as Record<string, unknown> };
@@ -200,6 +157,16 @@ async function waitForStatus(port: number, path: string, expected: number): Prom
     await new Promise((resolve) => setTimeout(resolve, 50));
   }
   throw new Error(`TASK_257_RUNTIME_STATUS_TIMEOUT:${expected}:${path}`);
+}
+
+async function applyBundleMigrations(bundle: ReturnType<typeof compileBundle>, connectionString: string) {
+  const preflight = preflightVerifiedMigrations(bundle.files);
+  const application = await applyVerifiedPostgresMigrations({
+    preflight,
+    generatedFiles: bundle.files,
+    runtimeSecrets: Object.freeze({ DATABASE_URL: connectionString }),
+  });
+  assert.equal(application.status, "applied");
 }
 
 test(
@@ -232,22 +199,13 @@ test(
       runtimeVersions: [runtimeVersion],
       bindings: [
         { name: "DATABASE_URL", kind: "secret-reference", reference: "secret://runtime-database" },
-        {
-          name: "storage:files",
-          kind: "config",
-          reference: "env://P13_TASK_257_STORAGE_ROOT",
-          requirementKind: "storage",
-        },
-        {
-          name: "service:notify",
-          kind: "config",
-          reference: "env://P13_TASK_257_SERVICE_URL",
-          requirementKind: "external-service",
-        },
+        { name: "storage:files", kind: "config", reference: "env://P13_TASK_257_STORAGE_ROOT", requirementKind: "storage" },
+        { name: "service:notify", kind: "config", reference: "env://P13_TASK_257_SERVICE_URL", requirementKind: "external-service" },
       ],
     };
 
     try {
+      await applyBundleMigrations(bundle, databaseUrl);
       child = spawn(process.execPath, [join(directory, "runtime-entry.mjs")], {
         cwd: directory,
         env: {
@@ -303,8 +261,11 @@ test(
   },
 );
 
-test("TASK-257 missing external binding fails locally without Builder fallback or secret leakage", async () => {
+test("TASK-257 missing external binding fails locally at use without Builder fallback or secret leakage", async () => {
   const { directory } = await materializeBundle();
+  const storageRoot = await mkdtemp(join(tmpdir(), "system-builder-task-257-missing-binding-"));
+  let child: ReturnType<typeof spawn> | undefined;
+  const sentinel = "resolved-secret-must-not-leak";
   try {
     const environment: EnvironmentProfile = {
       kind: "EnvironmentProfile",
@@ -312,35 +273,35 @@ test("TASK-257 missing external binding fails locally without Builder fallback o
       runtimeVersions: [runtimeVersion],
       bindings: [
         { name: "DATABASE_URL", kind: "secret-reference", reference: "secret://runtime-database" },
-        {
-          name: "storage:files",
-          kind: "config",
-          reference: "env://P13_TASK_257_STORAGE_ROOT",
-          requirementKind: "storage",
-        },
+        { name: "storage:files", kind: "config", reference: "env://P13_TASK_257_STORAGE_ROOT", requirementKind: "storage" },
       ],
     };
-    const sentinel = "resolved-secret-must-not-leak";
-    const result = spawnSync(process.execPath, [join(directory, "runtime-entry.mjs")], {
+    child = spawn(process.execPath, [join(directory, "runtime-entry.mjs")], {
       cwd: directory,
-      encoding: "utf8",
       env: {
         ...process.env,
         DATABASE_URL: sentinel,
+        P13_TASK_257_STORAGE_ROOT: storageRoot,
         SYSTEM_BUILDER_ENVIRONMENT_PROFILE: JSON.stringify(environment),
+        SYSTEM_BUILDER_RUNTIME_PORT: "0",
         SYSTEM_BUILDER_BUILDER_URL: "http://127.0.0.1:1",
         SYSTEM_BUILDER_OBSERVE_URL: "http://127.0.0.1:1",
       },
+      stdio: ["ignore", "pipe", "pipe"],
     });
-    assert.notEqual(result.status, 0);
-    const diagnostic = JSON.parse(result.stderr.trim()) as Record<string, unknown>;
-    assert.equal(diagnostic.kind, "RuntimeDiagnostic");
-    assert.equal(diagnostic.code, "RUNTIME_MISSING_ENVIRONMENT_BINDING");
-    assert.equal(diagnostic.detail, "service:notify");
-    assert.equal(result.stderr.includes(sentinel), false);
-    assert.equal(result.stderr.includes("builder"), false);
-    assert.equal(result.stderr.includes("observe"), false);
+    const port = await waitForStarted(child);
+    const failed = await request(port, "/integrations/integration%3Anotify", "POST", { ticketId: "offline" });
+    assert.equal(failed.status, 503);
+    assert.equal(failed.body.kind, "RuntimeDiagnostic");
+    assert.equal(failed.body.code, "RUNTIME_INTEGRATION_BINDING_INVALID");
+    assert.equal(failed.body.detail, "service:notify");
+    const evidence = JSON.stringify(failed.body);
+    assert.equal(evidence.includes(sentinel), false);
+    assert.equal(evidence.includes("builder"), false);
+    assert.equal(evidence.includes("observe"), false);
   } finally {
+    if (child) await stop(child);
     await rm(directory, { recursive: true, force: true });
+    await rm(storageRoot, { recursive: true, force: true });
   }
 });
