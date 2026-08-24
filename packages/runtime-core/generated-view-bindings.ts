@@ -1,3 +1,5 @@
+export type RuntimeGeneratedViewKind = "list" | "detail" | "form" | "dashboard" | "timeline" | "kanban" | "calendar" | "custom";
+
 export type RuntimeGeneratedBindingEntity = Readonly<{
   id: string;
   fields: readonly Readonly<{ name: string; type: string; required: boolean }>[];
@@ -10,6 +12,7 @@ export type RuntimeGeneratedBindingAction = Readonly<{
 
 export type RuntimeGeneratedBindingView = Readonly<{
   id: string;
+  kind?: RuntimeGeneratedViewKind;
   binding?: Readonly<{
     entityRef: string;
     fieldRefs?: readonly string[];
