@@ -196,7 +196,7 @@ test("TASK-262 promotes compatible autonomous Runtime A to B only after candidat
   assert.equal(b.decision.resultingActiveDeploymentId, b.candidateRecord.deploymentId);
   assert.equal(registry.getActive(environment().environmentRef)?.deploymentId, b.candidateRecord.deploymentId);
   assert.equal((await manager.health(environment().environmentRef)).status, "UP");
-  assert.equal(b.candidateFinal.process.state, "running");
+  assert.equal(b.candidateFinal.state, "running");
 
   const evidence = JSON.stringify({
     releaseA,
