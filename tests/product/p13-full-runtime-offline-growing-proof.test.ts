@@ -33,9 +33,9 @@ function prepareIsolatedPostgres(): string | undefined {
       "-v",
       "ON_ERROR_STOP=1",
       "-c",
-      `DROP DATABASE IF EXISTS \"${isolatedDatabase}\" WITH (FORCE);`,
+      `DROP DATABASE IF EXISTS "${isolatedDatabase}" WITH (FORCE);`,
       "-c",
-      `CREATE DATABASE \"${isolatedDatabase}\";`,
+      `CREATE DATABASE "${isolatedDatabase}";`,
     ],
     { encoding: "utf8", timeout: 30_000 },
   );
