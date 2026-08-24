@@ -31,6 +31,9 @@ validation:
 # Objective
 Prove representative API/data/action/workflow/job/event/file/integration execution remains autonomous when Builder is unavailable.
 
+# Context
+P13-PACKAGE-01 already integrated the Runtime execution/service capabilities. TASK-254..256 place the complete model and actor-aware authority path inside the autonomous bundle. This task composes those existing capabilities into an offline representative execution proof without adding new service classes or public contracts.
+
 # Current behavior
 P13-PACKAGE-01 proves these Runtime capabilities, but not through the complete locally loaded autonomous bundle created by TASK-254/255.
 
