@@ -1,0 +1,39 @@
+{
+  "properties": {
+    "authenticationProviders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "bindingRef"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "bindingRef": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "identities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "subjectRef", "active", "authenticationProviderRef"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["user", "service"] },
+          "subjectRef": { "type": "string", "minLength": 1 },
+          "active": { "type": "boolean" },
+          "authenticationProviderRef": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "sessionPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lifetimeSeconds"],
+      "properties": {
+        "lifetimeSeconds": { "type": "integer", "minimum": 1, "maximum": 86400 }
+      }
+    }
+  }
+}

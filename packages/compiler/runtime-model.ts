@@ -1,30 +1,12 @@
 import { canonicalJson, sha256Canonical, sha256Text } from "@system-builder/deterministic";
 import type { RuntimeStateRequirement } from "@system-builder/runtime-core";
-import {
-  compileSyntheticRelease,
-  type CompileSyntheticInput,
-  type GeneratedFile,
-  type ReleaseArtifact,
-  type SyntheticCompilation,
-} from "./index.js";
-import {
-  normalizeSystemDefinitionRuntimeProjection,
-  type CompilerSystemDefinitionRuntimeProjection,
-} from "./runtime-projection.js";
+import { compileSyntheticRelease, type CompileSyntheticInput, type GeneratedFile, type ReleaseArtifact, type SyntheticCompilation } from "./index.js";
+import { normalizeSystemDefinitionRuntimeProjection, type CompilerSystemDefinitionRuntimeProjection } from "./runtime-projection.js";
 
 export type RuntimeModel = Readonly<{
   kind: "RuntimeModel";
   systemDefinitionRef: string;
-  entities: readonly Readonly<{
-    id: string;
-    table: string;
-    fields: readonly Readonly<{
-      name: string;
-      type: string;
-      required: boolean;
-      referenceEntity?: string;
-    }>[];
-  }>[];
+  entities: readonly Readonly<{ id: string; table: string; fields: readonly Readonly<{ name: string; type: string; required: boolean; referenceEntity?: string }>[] }>[];
   actions: CompilerSystemDefinitionRuntimeProjection["actions"];
   processes: CompilerSystemDefinitionRuntimeProjection["processes"];
   environmentRequirements: NonNullable<CompilerSystemDefinitionRuntimeProjection["environmentRequirements"]>;
@@ -32,66 +14,22 @@ export type RuntimeModel = Readonly<{
   events: NonNullable<CompilerSystemDefinitionRuntimeProjection["events"]>;
   files: NonNullable<CompilerSystemDefinitionRuntimeProjection["files"]>;
   integrations: NonNullable<CompilerSystemDefinitionRuntimeProjection["integrations"]>;
+  authenticationProviders: NonNullable<CompilerSystemDefinitionRuntimeProjection["authenticationProviders"]>;
+  identities: NonNullable<CompilerSystemDefinitionRuntimeProjection["identities"]>;
+  sessionPolicy?: CompilerSystemDefinitionRuntimeProjection["sessionPolicy"];
 }>;
 
-export type CompileRuntimeModelInput = CompileSyntheticInput & Readonly<{
-  systemDefinitionRuntime: CompilerSystemDefinitionRuntimeProjection;
-  entityConnectionBinding?: string;
-}>;
+export type CompileRuntimeModelInput = CompileSyntheticInput & Readonly<{ systemDefinitionRuntime: CompilerSystemDefinitionRuntimeProjection; entityConnectionBinding?: string }>;
 
-function entityTable(id: string): string {
-  return `sb_entity_${sha256Text(id).slice("sha256:".length, "sha256:".length + 16)}`;
-}
+function entityTable(id: string): string { return `sb_entity_${sha256Text(id).slice("sha256:".length, "sha256:".length + 16)}`; }
 
-export function materializeRuntimeModel(
-  expectedSystemDefinitionRef: string,
-  projection: CompilerSystemDefinitionRuntimeProjection,
-): Readonly<{ model: RuntimeModel; stateRequirement?: RuntimeStateRequirement }> {
+export function materializeRuntimeModel(expectedSystemDefinitionRef: string, projection: CompilerSystemDefinitionRuntimeProjection): Readonly<{ model: RuntimeModel; stateRequirement?: RuntimeStateRequirement }> {
   const normalized = normalizeSystemDefinitionRuntimeProjection(expectedSystemDefinitionRef, projection);
-  const entities = normalized.entities.map((entity) => Object.freeze({
-    id: entity.id,
-    table: entityTable(entity.id),
-    fields: Object.freeze(entity.fields.map((field) => Object.freeze({
-      name: field.name,
-      type: field.type,
-      required: field.required === true,
-      ...(field.referenceEntity === undefined ? {} : { referenceEntity: field.referenceEntity }),
-    }))),
-  }));
-  const model: RuntimeModel = Object.freeze({
-    kind: "RuntimeModel",
-    systemDefinitionRef: normalized.systemDefinitionRef,
-    entities: Object.freeze(entities),
-    actions: normalized.actions,
-    processes: normalized.processes,
-    environmentRequirements: normalized.environmentRequirements ?? Object.freeze([]),
-    jobs: normalized.jobs ?? Object.freeze([]),
-    events: normalized.events ?? Object.freeze([]),
-    files: normalized.files ?? Object.freeze([]),
-    integrations: normalized.integrations ?? Object.freeze([]),
-  });
+  const entities = normalized.entities.map((entity) => Object.freeze({ id: entity.id, table: entityTable(entity.id), fields: Object.freeze(entity.fields.map((field) => Object.freeze({ name: field.name, type: field.type, required: field.required === true, ...(field.referenceEntity === undefined ? {} : { referenceEntity: field.referenceEntity }) }))) }));
+  const model: RuntimeModel = Object.freeze({ kind: "RuntimeModel", systemDefinitionRef: normalized.systemDefinitionRef, entities: Object.freeze(entities), actions: normalized.actions, processes: normalized.processes, environmentRequirements: normalized.environmentRequirements ?? Object.freeze([]), jobs: normalized.jobs ?? Object.freeze([]), events: normalized.events ?? Object.freeze([]), files: normalized.files ?? Object.freeze([]), integrations: normalized.integrations ?? Object.freeze([]), authenticationProviders: normalized.authenticationProviders ?? Object.freeze([]), identities: normalized.identities ?? Object.freeze([]), ...(normalized.sessionPolicy === undefined ? {} : { sessionPolicy: normalized.sessionPolicy }) });
   if (entities.length === 0) return Object.freeze({ model });
-
-  const migrations = entities.map((entity, index) => {
-    const token = sha256Text(entity.id).slice("sha256:".length, "sha256:".length + 12);
-    return Object.freeze({
-      id: `runtime-entity-${token}`,
-      capability: "runtime.entities",
-      order: index + 1,
-      path: `migrations/runtime-entities/${String(index + 1).padStart(3, "0")}-${token}.sql`,
-      content: `CREATE TABLE IF NOT EXISTS "${entity.table}" ("id" text PRIMARY KEY, "data" jsonb NOT NULL DEFAULT '{}'::jsonb, "workflow_state" jsonb NOT NULL DEFAULT '{}'::jsonb);\n`,
-    });
-  });
-  return Object.freeze({
-    model,
-    stateRequirement: Object.freeze({
-      kind: "RuntimeStateRequirement",
-      capability: "runtime.entities",
-      storeKind: "sql",
-      connectionBinding: Object.freeze({ name: "DATABASE_URL", kind: "secret-reference" }),
-      migrations: Object.freeze(migrations),
-    }),
-  });
+  const migrations = entities.map((entity, index) => { const token = sha256Text(entity.id).slice("sha256:".length, "sha256:".length + 12); return Object.freeze({ id: `runtime-entity-${token}`, capability: "runtime.entities", order: index + 1, path: `migrations/runtime-entities/${String(index + 1).padStart(3, "0")}-${token}.sql`, content: `CREATE TABLE IF NOT EXISTS "${entity.table}" ("id" text PRIMARY KEY, "data" jsonb NOT NULL DEFAULT '{}'::jsonb, "workflow_state" jsonb NOT NULL DEFAULT '{}'::jsonb);\n` }); });
+  return Object.freeze({ model, stateRequirement: Object.freeze({ kind: "RuntimeStateRequirement", capability: "runtime.entities", storeKind: "sql", connectionBinding: Object.freeze({ name: "DATABASE_URL", kind: "secret-reference" }), migrations: Object.freeze(migrations) }) });
 }
 
 function runtimeExecutionSupport(): string {
@@ -108,14 +46,23 @@ function runtimeExecutionSupport(): string {
     "async function runtimeEntityDelete(connectionString, entity, id) { const rows = await postgresSimpleQuery(connectionString, \"DELETE FROM \\\"\" + entity.table + \"\\\" WHERE \\\"id\\\" = \" + runtimeSqlLiteral(id) + \" RETURNING \\\"id\\\", \\\"data\\\"::text, \\\"workflow_state\\\"::text;\"); const value = runtimeEntityResult(rows); return value ? { ok: true, value } : { ok: false, code: \"RUNTIME_ENTITY_NOT_FOUND\", detail: entity.id + \":\" + id }; }",
     "function runtimeReadJsonBody(request) { return new Promise((resolve, reject) => { let body = \"\"; request.setEncoding(\"utf8\"); request.on(\"data\", (chunk) => { body += chunk; if (body.length > 1048576) reject(new Error(\"RUNTIME_REQUEST_BODY_TOO_LARGE\")); }); request.on(\"end\", () => { try { resolve(body.length === 0 ? {} : JSON.parse(body)); } catch { reject(new Error(\"RUNTIME_INVALID_JSON_BODY\")); } }); request.on(\"error\", reject); }); }",
     "function runtimeWriteJson(response, status, value) { response.writeHead(status, { \"content-type\": \"application/json\" }); response.end(JSON.stringify(value)); }",
+    "function runtimePublicIdentity(identity) { return { id: identity.id, kind: identity.kind, subjectRef: identity.subjectRef }; }",
+    "function runtimeBearerToken(request) { const header = request.headers && request.headers.authorization; if (typeof header !== \"string\" || !header.startsWith(\"Bearer \")) return undefined; const token = header.slice(7).trim(); return token.length > 0 ? token : undefined; }",
+    "function runtimeIssueSession(model, identity, sessions) { if (!model.sessionPolicy || !Number.isInteger(model.sessionPolicy.lifetimeSeconds) || model.sessionPolicy.lifetimeSeconds <= 0) return { ok: false, code: \"RUNTIME_SESSION_POLICY_INVALID\" }; const token = globalThis.crypto.randomUUID(); const expiresAt = Date.now() + model.sessionPolicy.lifetimeSeconds * 1000; sessions.set(token, { identityId: identity.id, expiresAt }); return { ok: true, token, expiresAt }; }",
+    "function runtimeResolveSession(model, sessions, token, now = Date.now()) { if (typeof token !== \"string\" || token.length === 0) return { ok: false, code: \"RUNTIME_SESSION_MISSING\" }; const state = sessions.get(token); if (!state) return { ok: false, code: \"RUNTIME_SESSION_UNKNOWN\" }; if (!Number.isFinite(state.expiresAt) || state.expiresAt <= now) { sessions.delete(token); return { ok: false, code: \"RUNTIME_SESSION_EXPIRED\" }; } const identity = model.identities.find((candidate) => candidate.id === state.identityId); if (!identity || !identity.active) { sessions.delete(token); return { ok: false, code: \"RUNTIME_SESSION_IDENTITY_INVALID\" }; } return { ok: true, identity, expiresAt: state.expiresAt }; }",
+    "function runtimeAuthRoute(url) { return String(url || \"\").split(\"?\", 1)[0] === \"/auth/login\"; }",
+    "function runtimeSessionRoute(url) { return String(url || \"\").split(\"?\", 1)[0] === \"/auth/session\"; }",
+    "async function runtimeHandleAuthenticationRequest(request, response, model, sessions) { if (!runtimeAuthRoute(request.url)) return false; if (request.method !== \"POST\") { runtimeWriteJson(response, 405, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_AUTH_METHOD_NOT_ALLOWED\", detail: String(request.method || \"\") }); return true; } let body; try { body = await runtimeReadJsonBody(request); } catch { runtimeWriteJson(response, 400, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_AUTH_REQUEST_INVALID\", detail: \"malformed-json\" }); return true; } if (!body || typeof body !== \"object\" || Array.isArray(body) || typeof body.providerRef !== \"string\" || body.providerRef.trim().length === 0 || typeof body.subjectRef !== \"string\" || body.subjectRef.trim().length === 0 || typeof body.credential !== \"string\" || body.credential.length === 0) { runtimeWriteJson(response, 400, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_AUTH_REQUEST_INVALID\", detail: \"required-fields\" }); return true; } const provider = model.authenticationProviders.find((candidate) => candidate.id === body.providerRef); if (!provider) { runtimeWriteJson(response, 401, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_AUTH_PROVIDER_UNKNOWN\", detail: body.providerRef }); return true; } const verifier = process.env[provider.bindingRef]; if (typeof verifier !== \"string\" || verifier.length === 0) { runtimeWriteJson(response, 503, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_AUTH_BINDING_UNRESOLVED\", detail: provider.bindingRef }); return true; } if (body.credential !== verifier) { runtimeWriteJson(response, 401, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_AUTH_INVALID_CREDENTIAL\", detail: provider.id }); return true; } const matches = model.identities.filter((identity) => identity.authenticationProviderRef === provider.id && identity.subjectRef === body.subjectRef); if (matches.length !== 1) { runtimeWriteJson(response, 401, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_AUTH_IDENTITY_UNMAPPED\", detail: body.subjectRef }); return true; } const identity = matches[0]; if (!identity.active) { runtimeWriteJson(response, 401, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_AUTH_IDENTITY_DISABLED\", detail: identity.id }); return true; } const session = runtimeIssueSession(model, identity, sessions); if (!session.ok) { runtimeWriteJson(response, 503, { kind: \"RuntimeDiagnostic\", code: session.code, detail: identity.id }); return true; } runtimeWriteJson(response, 200, { kind: \"RuntimeAuthenticatedIdentity\", identity: runtimePublicIdentity(identity), session: { token: session.token, expiresAt: session.expiresAt } }); return true; }",
+    "async function runtimeHandleSessionRequest(request, response, model, sessions) { if (!runtimeSessionRoute(request.url)) return false; if (request.method !== \"GET\") { runtimeWriteJson(response, 405, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_SESSION_METHOD_NOT_ALLOWED\", detail: String(request.method || \"\") }); return true; } const resolved = runtimeResolveSession(model, sessions, runtimeBearerToken(request)); if (!resolved.ok) { runtimeWriteJson(response, 401, { kind: \"RuntimeDiagnostic\", code: resolved.code, detail: \"session\" }); return true; } runtimeWriteJson(response, 200, { kind: \"RuntimeSession\", identity: runtimePublicIdentity(resolved.identity), expiresAt: resolved.expiresAt }); return true; }",
     "function runtimeEntityRoute(url) { const pathname = String(url || \"\").split(\"?\", 1)[0]; const match = pathname.match(/^\\/entities\\/([^/]+)\\/([^/]+)$/); if (!match) return undefined; try { return { entityId: decodeURIComponent(match[1]), recordId: decodeURIComponent(match[2]) }; } catch { return undefined; } }",
     "async function runtimeHandleEntityRequest(request, response, model, connectionString) { const route = runtimeEntityRoute(request.url); if (!route) return false; const entity = runtimeEntityById(model, route.entityId); if (!entity) { runtimeWriteJson(response, 404, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_ENTITY_UNKNOWN\", detail: route.entityId }); return true; } try { let result; if (request.method === \"GET\") result = await runtimeEntityRead(connectionString, entity, route.recordId); else if (request.method === \"POST\") result = await runtimeEntityCreate(connectionString, entity, route.recordId, await runtimeReadJsonBody(request)); else if (request.method === \"PATCH\" || request.method === \"PUT\") result = await runtimeEntityUpdate(connectionString, entity, route.recordId, await runtimeReadJsonBody(request)); else if (request.method === \"DELETE\") result = await runtimeEntityDelete(connectionString, entity, route.recordId); else { runtimeWriteJson(response, 405, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_ENTITY_METHOD_NOT_ALLOWED\", detail: String(request.method || \"\") }); return true; } if (!result.ok) { runtimeWriteJson(response, result.code === \"RUNTIME_ENTITY_NOT_FOUND\" ? 404 : 400, { kind: \"RuntimeDiagnostic\", code: result.code, detail: result.detail }); return true; } runtimeWriteJson(response, request.method === \"POST\" ? 201 : 200, { kind: \"RuntimeEntity\", entityId: entity.id, record: result.value }); return true; } catch (error) { runtimeWriteJson(response, 503, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_ENTITY_DATABASE_FAILED\", detail: error instanceof Error ? error.message : \"ENTITY_DATABASE_FAILED\" }); return true; } }",
     "async function runtimeExecuteDeclaredAction(model, connectionString, actionId, recordId, payload) { const action = model.actions.find((candidate) => candidate.id === actionId); if (!action) return { ok: false, status: 404, code: \"RUNTIME_ACTION_UNKNOWN\", detail: actionId }; if (!action.effect) return { ok: false, status: 400, code: \"RUNTIME_ACTION_UNSUPPORTED\", detail: actionId }; const entity = runtimeEntityById(model, action.effect.entityRef); if (!entity) return { ok: false, status: 400, code: \"RUNTIME_ACTION_INVALID_TARGET\", detail: action.effect.entityRef }; let result; if (action.effect.kind === \"entity.create\") result = await runtimeEntityCreate(connectionString, entity, recordId, payload || {}); else if (action.effect.kind === \"entity.update\") result = await runtimeEntityUpdate(connectionString, entity, recordId, payload || {}); else if (action.effect.kind === \"entity.delete\") result = await runtimeEntityDelete(connectionString, entity, recordId); else return { ok: false, status: 400, code: \"RUNTIME_ACTION_UNSUPPORTED\", detail: action.effect.kind }; if (!result.ok) return { ok: false, status: result.code === \"RUNTIME_ENTITY_NOT_FOUND\" ? 404 : 400, code: result.code, detail: result.detail }; return { ok: true, status: 200, action, result }; }",
     "function runtimeActionRoute(url) { const pathname = String(url || \"\").split(\"?\", 1)[0]; const match = pathname.match(/^\\/actions\\/([^/]+)\\/([^/]+)$/); if (!match) return undefined; try { return { actionId: decodeURIComponent(match[1]), recordId: decodeURIComponent(match[2]) }; } catch { return undefined; } }",
+    "async function runtimeHandleActorRequiredActionRequest(request, response, model, connectionString, sessions) { const route = runtimeActionRoute(request.url); if (!route || request.method !== \"POST\") return false; if (!Array.isArray(model.identities) || model.identities.length === 0) return false; const actor = runtimeResolveSession(model, sessions, runtimeBearerToken(request)); if (!actor.ok) { runtimeWriteJson(response, 401, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_UNAUTHENTICATED\", detail: actor.code }); return true; } try { const outcome = await runtimeExecuteDeclaredAction(model, connectionString, route.actionId, route.recordId, await runtimeReadJsonBody(request)); if (!outcome.ok) { runtimeWriteJson(response, outcome.status, { kind: \"RuntimeDiagnostic\", code: outcome.code, detail: outcome.detail }); return true; } runtimeWriteJson(response, 200, { kind: \"RuntimeAction\", actionId: outcome.action.id, effect: outcome.action.effect.kind, actor: runtimePublicIdentity(actor.identity), record: outcome.result.value }); return true; } catch (error) { runtimeWriteJson(response, 503, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_ACTION_DATABASE_FAILED\", detail: error instanceof Error ? error.message : \"ACTION_DATABASE_FAILED\" }); return true; } }",
     "async function runtimeHandleActionRequest(request, response, model, connectionString) { const route = runtimeActionRoute(request.url); if (!route) return false; if (request.method !== \"POST\") { runtimeWriteJson(response, 405, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_ACTION_METHOD_NOT_ALLOWED\", detail: String(request.method || \"\") }); return true; } try { const outcome = await runtimeExecuteDeclaredAction(model, connectionString, route.actionId, route.recordId, await runtimeReadJsonBody(request)); if (!outcome.ok) { runtimeWriteJson(response, outcome.status, { kind: \"RuntimeDiagnostic\", code: outcome.code, detail: outcome.detail }); return true; } runtimeWriteJson(response, 200, { kind: \"RuntimeAction\", actionId: outcome.action.id, effect: outcome.action.effect.kind, record: outcome.result.value }); return true; } catch (error) { runtimeWriteJson(response, 503, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_ACTION_DATABASE_FAILED\", detail: error instanceof Error ? error.message : \"ACTION_DATABASE_FAILED\" }); return true; } }",
     "function runtimeEventRoute(url) { const pathname = String(url || \"\").split(\"?\", 1)[0]; const match = pathname.match(/^\\/events\\/([^/]+)$/); if (!match) return undefined; try { return { eventId: decodeURIComponent(match[1]) }; } catch { return undefined; } }",
     "async function runtimeHandleEventRequest(request, response, model, connectionString) { const route = runtimeEventRoute(request.url); if (!route) return false; if (request.method !== \"POST\") { runtimeWriteJson(response, 405, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_EVENT_METHOD_NOT_ALLOWED\", detail: String(request.method || \"\") }); return true; } const event = model.events.find((candidate) => candidate.id === route.eventId); if (!event || !event.source || event.source.kind !== \"runtime-http\") { runtimeWriteJson(response, 404, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_EVENT_UNKNOWN\", detail: route.eventId }); return true; } try { const body = await runtimeReadJsonBody(request); if (!body || typeof body !== \"object\" || Array.isArray(body) || typeof body.recordId !== \"string\" || body.recordId.trim().length === 0 || (body.payload !== undefined && (!body.payload || typeof body.payload !== \"object\" || Array.isArray(body.payload)))) { runtimeWriteJson(response, 400, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_EVENT_INVALID_BODY\", detail: route.eventId }); return true; } const outcome = await runtimeExecuteDeclaredAction(model, connectionString, event.actionRef, body.recordId, body.payload || {}); if (!outcome.ok) { runtimeWriteJson(response, outcome.status, { kind: \"RuntimeDiagnostic\", code: outcome.code, detail: route.eventId + \":\" + outcome.detail }); return true; } runtimeWriteJson(response, 200, { kind: \"RuntimeEvent\", eventId: event.id, actionId: event.actionRef, record: outcome.result.value }); return true; } catch (error) { runtimeWriteJson(response, 400, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_EVENT_EXECUTION_FAILED\", detail: route.eventId + \":\" + (error instanceof Error ? error.message : \"EVENT_FAILED\") }); return true; } }",
-    "function runtimeStartJobs(model, connectionString) { if (!Array.isArray(model.jobs) || model.jobs.length === 0) return []; return model.jobs.map((job) => { const timer = setInterval(() => { void runtimeExecuteDeclaredAction(model, connectionString, job.actionRef, job.recordId, {}).then((outcome) => { if (!outcome.ok) process.stderr.write(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: outcome.code, detail: job.id + \":\" + outcome.detail }) + \"\\n\"); }).catch((error) => process.stderr.write(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_JOB_EXECUTION_FAILED\", detail: job.id + \":\" + (error instanceof Error ? error.message : \"JOB_FAILED\") }) + \"\\n\")); }, job.trigger.intervalMs); return timer; }); }",
+    "function runtimeStartJobs(model, connectionString) { if (!Array.isArray(model.jobs) || model.jobs.length === 0) return []; return model.jobs.map((job) => { const timer = setInterval(() => { void runtimeExecuteDeclaredAction(model, connectionString, job.actionRef, job.recordId, {}).then((outcome) => { if (!outcome.ok) process.stderr.write(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: outcome.code, detail: job.id + \":\" + outcome.detail }) + \"\\n\"); }).catch((error) => process.stderr.write(JSON.stringify({ kind: \"RuntimeDiagnostic\", code: \"RUNTIME_JOB_EXECUTION_FAILED\", detail: job.id + \":\" + (error instanceof Error ? error.message : \"JOB_FAILED\") }) + \"\\n\")); }, job.trigger.intervalMs); return timer; }); }"
   ].join("\n");
 }
 
@@ -124,60 +71,42 @@ function injectRuntimeExecution(entrypoint: string): string {
   const setupMarker = "            const server = createServer(async (request, response) => {";
   const routeMarker = "              response.writeHead(404, { \"content-type\": \"application/json\" });";
   const shutdownMarker = "              server.close(() => process.exit(0));";
-  if (!entrypoint.includes(supportMarker) || !entrypoint.includes(setupMarker) || !entrypoint.includes(routeMarker) || !entrypoint.includes(shutdownMarker)) {
-    throw new Error("COMPILER_RUNTIME_ENTRYPOINT_INJECTION_POINT_MISSING");
-  }
+  if (!entrypoint.includes(supportMarker) || !entrypoint.includes(setupMarker) || !entrypoint.includes(routeMarker) || !entrypoint.includes(shutdownMarker)) throw new Error("COMPILER_RUNTIME_ENTRYPOINT_INJECTION_POINT_MISSING");
   let rendered = entrypoint.replace(supportMarker, `${runtimeExecutionSupport()}\n${supportMarker}`);
   rendered = rendered.replace(setupMarker, [
     "            let runtimeModel;",
     "            try { runtimeModel = JSON.parse(createPostgresReadFile(new URL(\"./runtime-model.json\", import.meta.url), \"utf8\")); } catch { fail(\"RUNTIME_MODEL_INVALID\", \"runtime-model.json\"); }",
+    "            for (const provider of runtimeModel.authenticationProviders || []) { const value = process.env[provider.bindingRef]; if (typeof value !== \"string\" || value.length === 0) { fail(\"RUNTIME_AUTH_BINDING_UNRESOLVED\", provider.bindingRef); process.exit(1); } }",
+    "            const runtimeSessions = new Map();",
     "            const entityConnectionString = process.env.DATABASE_URL;",
+    "            const runtimeNeedsDatabase = Array.isArray(runtimeModel.entities) && runtimeModel.entities.length > 0;",
     "            const runtimeJobTimers = runtimeModel && entityConnectionString ? runtimeStartJobs(runtimeModel, entityConnectionString) : [];",
-    setupMarker,
+    setupMarker
   ].join("\n"));
   rendered = rendered.replace(routeMarker, [
-    "              if (runtimeModel && (!entityConnectionString || typeof entityConnectionString !== \"string\")) { runtimeWriteJson(response, 503, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_SECRET_UNRESOLVED\", detail: \"DATABASE_URL\" }); return; }",
+    "              if (runtimeModel && await runtimeHandleAuthenticationRequest(request, response, runtimeModel, runtimeSessions)) return;",
+    "              if (runtimeModel && await runtimeHandleSessionRequest(request, response, runtimeModel, runtimeSessions)) return;",
+    "              if (runtimeNeedsDatabase && (!entityConnectionString || typeof entityConnectionString !== \"string\")) { runtimeWriteJson(response, 503, { kind: \"RuntimeDiagnostic\", code: \"RUNTIME_SECRET_UNRESOLVED\", detail: \"DATABASE_URL\" }); return; }",
     "              if (runtimeModel && await runtimeHandleEntityRequest(request, response, runtimeModel, entityConnectionString)) return;",
+    "              if (runtimeModel && await runtimeHandleActorRequiredActionRequest(request, response, runtimeModel, entityConnectionString, runtimeSessions)) return;",
     "              if (runtimeModel && await runtimeHandleActionRequest(request, response, runtimeModel, entityConnectionString)) return;",
     "              if (runtimeModel && await runtimeHandleEventRequest(request, response, runtimeModel, entityConnectionString)) return;",
-    routeMarker,
+    routeMarker
   ].join("\n"));
-  rendered = rendered.replace(shutdownMarker, [
-    "              for (const timer of runtimeJobTimers) clearInterval(timer);",
-    shutdownMarker,
-  ].join("\n"));
+  rendered = rendered.replace(shutdownMarker, ["              for (const timer of runtimeJobTimers) clearInterval(timer);", "              runtimeSessions.clear();", shutdownMarker].join("\n"));
   return rendered;
 }
 
 export function compileRuntimeModelRelease(input: CompileRuntimeModelInput): SyntheticCompilation {
   const materialized = materializeRuntimeModel(input.assemblyPlan.systemDefinitionRef, input.systemDefinitionRuntime);
-  const stateRequirements = [
-    ...(input.stateRequirements ?? []),
-    ...(materialized.stateRequirement === undefined ? [] : [materialized.stateRequirement]),
-  ];
+  const stateRequirements = [...(input.stateRequirements ?? []), ...(materialized.stateRequirement === undefined ? [] : [materialized.stateRequirement])];
   const base = compileSyntheticRelease({ ...input, stateRequirements });
   const modelContent = canonicalJson(materialized.model);
   const runtimeModelFile: GeneratedFile = Object.freeze({ path: "runtime-model.json", content: modelContent, contentHash: sha256Text(modelContent) });
-  const transformedBaseFiles = base.files.map((file) => file.path === "runtime-entry.mjs"
-    ? Object.freeze({ ...file, content: injectRuntimeExecution(file.content), contentHash: sha256Text(injectRuntimeExecution(file.content)) })
-    : file);
+  const transformedBaseFiles = base.files.map((file) => file.path === "runtime-entry.mjs" ? Object.freeze({ ...file, content: injectRuntimeExecution(file.content), contentHash: sha256Text(injectRuntimeExecution(file.content)) }) : file);
   const files = Object.freeze([...transformedBaseFiles, runtimeModelFile].sort((left, right) => left.path.localeCompare(right.path)));
   const manifest = Object.freeze({ ...base.artifact.manifest, files: Object.freeze(files.map((file) => file.path)) });
-  const artifactPayload = {
-    kind: "ReleaseArtifact" as const,
-    assemblyPlanRef: base.artifact.assemblyPlanRef,
-    validationEvidenceRef: base.artifact.validationEvidenceRef,
-    manifest,
-    environmentSchema: base.artifact.environmentSchema,
-    fileHashes: files.map((file) => ({ path: file.path, contentHash: file.contentHash })),
-  };
-  const artifact: ReleaseArtifact = Object.freeze({
-    kind: "ReleaseArtifact",
-    assemblyPlanRef: artifactPayload.assemblyPlanRef,
-    validationEvidenceRef: artifactPayload.validationEvidenceRef,
-    artifactHash: sha256Canonical(artifactPayload),
-    manifest,
-    environmentSchema: base.artifact.environmentSchema,
-  });
+  const artifactPayload = { kind: "ReleaseArtifact" as const, assemblyPlanRef: base.artifact.assemblyPlanRef, validationEvidenceRef: base.artifact.validationEvidenceRef, manifest, environmentSchema: base.artifact.environmentSchema, fileHashes: files.map((file) => ({ path: file.path, contentHash: file.contentHash })) };
+  const artifact: ReleaseArtifact = Object.freeze({ kind: "ReleaseArtifact", assemblyPlanRef: artifactPayload.assemblyPlanRef, validationEvidenceRef: artifactPayload.validationEvidenceRef, artifactHash: sha256Canonical(artifactPayload), manifest, environmentSchema: base.artifact.environmentSchema });
   return Object.freeze({ files, artifact });
 }
