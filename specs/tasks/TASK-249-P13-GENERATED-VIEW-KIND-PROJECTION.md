@@ -34,6 +34,19 @@ Carry the already-declared SystemDefinition view kind through the existing Const
 # Context
 Construction B projects explicit view bindings but the current CompilerRuntimeViewDeclaration/compiled view projection drops the public `views.kind` value.
 
+# Current behavior
+The integrated Construction B Compiler/RuntimeModel projection preserves explicit generated view bindings but does not carry the already-declared `views.kind` value into the RuntimeModel projection.
+
+# Inputs / contracts
+- Existing public `SystemDefinition.views.kind` declarations and the integrated Construction B authority/view projection.
+- Existing internal CompilerRuntimeViewDeclaration and RuntimeModel projection contracts only.
+- No new public contract field or view-kind semantics are authorized by this task.
+
+# Outputs / contracts
+- Internal Compiler/RuntimeModel output preserves the explicitly declared supported view kind alongside the existing generated view binding.
+- Historical models without generated authority/view projection remain backward compatible.
+- Invalid or missing internal kind data fails closed rather than being inferred.
+
 # Required change
 Extend internal Compiler/RuntimeModel projection only so an explicitly declared supported view kind is preserved deterministically alongside the existing binding.
 
@@ -43,6 +56,9 @@ Extend internal Compiler/RuntimeModel projection only so an explicitly declared 
 - Missing/invalid internal view kind fails closed according to existing projection conventions rather than being inferred.
 - Historical models without authority/generated view projection remain backward compatible.
 - Product proof demonstrates RuntimeModel receives the declared kind with no free-text policy or secret/resolved-value leakage.
+
+# Evidence expected
+Focused product proof and repository verification demonstrate deterministic kind projection, backward compatibility, fail-closed handling, and absence of inferred or sensitive output.
 
 # Non-goals
 Do not add a UI framework, renderer, new public contract, new view kind, authorization semantics, or P13-PACKAGE-03 scope.
