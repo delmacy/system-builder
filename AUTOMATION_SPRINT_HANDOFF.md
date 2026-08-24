@@ -3,17 +3,17 @@
 status: RUNNING
 worker_slot: :50
 started_at: 2026-08-24T19:47:07-03:00
-updated_at: 2026-08-24T19:47:07-03:00
-lease_until: 2026-08-24T20:12:07-03:00
-observed_main_sha: c3d41f4cf1ea01d8b542cf6b53898875c0c25ddf
-active_branch: sprint/P13-PACKAGE-03-INTEGRATION-REVIEW-01
-active_pr: #323
-active_head_sha: 339cb141dfa0335ecfee97a50c9676f06630f903
-last_completed_step: Acquired :50 lease after revalidating PR #323 exact head 339cb141dfa0335ecfee97a50c9676f06630f903. Deterministic CI #703 PASS, Heavy Product Tests #128 PASS, PR mergeable, no review submissions or threads. Reconstructing closure authority before protected merge.
-next_authorized_step: Read authoritative repository memory/package/sprint/WBS/ADR references; if they confirm GO for Documentation & Closure and no blocker, merge PR #323 with expected-head protection, reconstruct fresh main/tree equivalence, and materialize only P13-PACKAGE-03 Documentation & Closure. Do not revive Construction C, add product capability, absorb TD-P13-01..04 or start successor scope.
+updated_at: 2026-08-24T19:56:00-03:00
+lease_until: 2026-08-24T20:21:00-03:00
+observed_main_sha: 4a3353987dac2a14481191874cd1763ca3270c1f
+active_branch: sprint/P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01
+active_pr: none
+active_head_sha: 0def923ee27d7e3806c4b1d0e408e213acd7b2fb
+last_completed_step: PR #323 exact head 339cb141dfa0335ecfee97a50c9676f06630f903 passed Deterministic CI #703 and Heavy Product Tests #128 with no blocking reviews/threads and merged with expected-head protection as main 4a3353987dac2a14481191874cd1763ca3270c1f. Reviewed-head tree and merge-main tree are identical at daf53f0b3412e9aaec6f230e9a4f749facf57fd8. Materialized and executed only P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01 on branch sprint/P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01; closure manifest/report, package and WBS reconciliation, and PROJECT_STATE final closure truth are in progress. No product capability, contract, architecture, Construction C, TD-P13-01..04 absorption or successor scope was added.
+next_authorized_step: Finish CURRENT_MILESTONE and NEXT_WORK reconciliation on the closure branch, verify changed files remain documentation/repository-memory only, open the closure PR to main, require exact-head Deterministic CI + Heavy Product Tests and no blocking review finding. If exact-head gates PASS unchanged, merge with expected-head protection, reconstruct fresh main and verify tree equivalence. Stop before successor product execution; successor remains separate planning/materialization only.
 
 ## Operational model-selection instruction
 All TASKs are executed with strong models. `model_tier` is retained only for task-schema compatibility and is not execution routing.
 
 ## resume_prompt
-Retome delmacy/system-builder com main c3d41f4cf1ea01d8b542cf6b53898875c0c25ddf e PR #323 no head 339cb141dfa0335ecfee97a50c9676f06630f903. CI #703 e Heavy #128 PASS; sem reviews/threads. Worker :50 adquiriu lease para reconstruir autoridade e, se confirmado, fazer merge protegido e promover somente Documentation & Closure. Sem Construction C, produto novo, TD-P13-01..04 ou successor scope.
+Retome delmacy/system-builder com main 4a3353987dac2a14481191874cd1763ca3270c1f. PR #323 foi integrado após CI #703 PASS e Heavy #128 PASS no head 339cb141dfa0335ecfee97a50c9676f06630f903, sem blockers; tree revisada e main são idênticas em daf53f0b3412e9aaec6f230e9a4f749facf57fd8. Documentation & Closure está em execução em sprint/P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01, head atual 0def923ee27d7e3806c4b1d0e408e213acd7b2fb. Já existem manifest/report de closure, package/WBS reconciliation e PROJECT_STATE final; falta CURRENT_MILESTONE/NEXT_WORK, abrir PR e passar CI/Heavy/review antes do merge. Sem Construction C, produto novo, TD-P13-01..04 ou successor scope.
