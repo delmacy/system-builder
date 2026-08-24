@@ -13,6 +13,14 @@ import { sha256Canonical } from "../../packages/deterministic/index.js";
 
 const databaseUrl = process.env.SYSTEM_BUILDER_TEST_POSTGRES_URL;
 const runtimeVersion = "0.13.3";
+const entityRef = "entity:offline-functional-ticket";
+const updateActionRef = "action:offline-functional-update";
+const jobDeleteActionRef = "action:offline-functional-job-delete";
+const processRef = "process:offline-functional-ticket";
+const transitionRef = "transition:offline-functional-close";
+const eventRef = "event:offline-functional-update";
+const fileRef = "files:offline-functional-attachments";
+const integrationRef = "integration:offline-functional-notify";
 
 function assemblyPlan() {
   const payload = {
@@ -40,31 +48,31 @@ function compileBundle() {
     systemDefinitionRuntime: {
       kind: "SystemDefinitionRuntimeProjection",
       systemDefinitionRef: plan.systemDefinitionRef,
-      entities: [{ id: "entity:ticket", fields: [{ name: "title", type: "string", required: true }] }],
+      entities: [{ id: entityRef, fields: [{ name: "title", type: "string", required: true }] }],
       actions: [
-        { id: "action:update", effect: { kind: "entity.update", entityRef: "entity:ticket" } },
-        { id: "action:job-delete", effect: { kind: "entity.delete", entityRef: "entity:ticket" } },
+        { id: updateActionRef, effect: { kind: "entity.update", entityRef } },
+        { id: jobDeleteActionRef, effect: { kind: "entity.delete", entityRef } },
       ],
       processes: [{
-        id: "process:ticket",
+        id: processRef,
         states: ["open", "closed"],
         initialState: "open",
-        transitions: [{ id: "transition:close", from: "open", to: "closed", actionRef: "action:update" }],
+        transitions: [{ id: transitionRef, from: "open", to: "closed", actionRef: updateActionRef }],
       }],
       environmentRequirements: [
         { name: "storage:files", kind: "storage", required: true },
         { name: "service:notify", kind: "external-service", required: true },
       ],
       jobs: [{
-        id: "job:delete-ticket",
+        id: "job:offline-functional-delete-ticket",
         trigger: { kind: "interval", intervalMs: 1_000 },
-        actionRef: "action:job-delete",
-        recordId: "ticket-job",
+        actionRef: jobDeleteActionRef,
+        recordId: "offline-functional-ticket-job",
       }],
-      events: [{ id: "event:update", source: { kind: "runtime-http" }, actionRef: "action:update" }],
-      files: [{ id: "files:attachments", bindingRef: "storage:files", operations: ["put", "get", "delete"] }],
+      events: [{ id: eventRef, source: { kind: "runtime-http" }, actionRef: updateActionRef }],
+      files: [{ id: fileRef, bindingRef: "storage:files", operations: ["put", "get", "delete"] }],
       integrations: [{
-        id: "integration:notify",
+        id: integrationRef,
         invocation: { kind: "http", method: "POST", path: "/notify", bindingRef: "service:notify" },
       }],
     },
@@ -223,27 +231,27 @@ test(
       });
       const port = await waitForStarted(child);
 
-      assert.equal((await request(port, "/entities/entity%3Aticket/ticket-main", "POST", { title: "Initial" })).status, 201);
-      assert.equal((await request(port, "/actions/action%3Aupdate/ticket-main", "POST", { title: "Actioned" })).status, 200);
-      const transition = await request(port, "/workflows/process%3Aticket/ticket-main/transition%3Aclose", "POST", { title: "Closed" });
+      assert.equal((await request(port, `/entities/${encodeURIComponent(entityRef)}/offline-functional-ticket-main`, "POST", { title: "Initial" })).status, 201);
+      assert.equal((await request(port, `/actions/${encodeURIComponent(updateActionRef)}/offline-functional-ticket-main`, "POST", { title: "Actioned" })).status, 200);
+      const transition = await request(port, `/workflows/${encodeURIComponent(processRef)}/offline-functional-ticket-main/${encodeURIComponent(transitionRef)}`, "POST", { title: "Closed" });
       assert.deepEqual([transition.status, transition.body.from, transition.body.to], [200, "open", "closed"]);
 
-      assert.equal((await request(port, "/entities/entity%3Aticket/ticket-event", "POST", { title: "Before event" })).status, 201);
-      assert.equal((await request(port, "/events/event%3Aupdate", "POST", { recordId: "ticket-event", payload: { title: "Evented" } })).status, 200);
-      const eventRecord = await request(port, "/entities/entity%3Aticket/ticket-event", "GET");
+      assert.equal((await request(port, `/entities/${encodeURIComponent(entityRef)}/offline-functional-ticket-event`, "POST", { title: "Before event" })).status, 201);
+      assert.equal((await request(port, `/events/${encodeURIComponent(eventRef)}`, "POST", { recordId: "offline-functional-ticket-event", payload: { title: "Evented" } })).status, 200);
+      const eventRecord = await request(port, `/entities/${encodeURIComponent(entityRef)}/offline-functional-ticket-event`, "GET");
       assert.equal(((eventRecord.body.record as Record<string, unknown>).data as Record<string, unknown>).title, "Evented");
 
-      assert.equal((await request(port, "/entities/entity%3Aticket/ticket-job", "POST", { title: "Delete me" })).status, 201);
-      await waitForStatus(port, "/entities/entity%3Aticket/ticket-job", 404);
+      assert.equal((await request(port, `/entities/${encodeURIComponent(entityRef)}/offline-functional-ticket-job`, "POST", { title: "Delete me" })).status, 201);
+      await waitForStatus(port, `/entities/${encodeURIComponent(entityRef)}/offline-functional-ticket-job`, 404);
 
-      const filePath = "/files/files%3Aattachments/folder%2Fnote.txt";
+      const filePath = `/files/${encodeURIComponent(fileRef)}/folder%2Fnote.txt`;
       assert.equal((await request(port, filePath, "PUT", "offline-file", true)).status, 200);
       assert.equal((await request(port, filePath, "GET")).body.content, "offline-file");
       assert.equal((await request(port, filePath, "DELETE")).status, 200);
 
-      const integration = await request(port, "/integrations/integration%3Anotify", "POST", { ticketId: "ticket-main" });
+      const integration = await request(port, `/integrations/${encodeURIComponent(integrationRef)}`, "POST", { ticketId: "offline-functional-ticket-main" });
       assert.deepEqual([integration.status, integration.body.status], [200, 202]);
-      assert.deepEqual(upstreamCalls, [{ method: "POST", path: "/notify", body: { ticketId: "ticket-main" } }]);
+      assert.deepEqual(upstreamCalls, [{ method: "POST", path: "/notify", body: { ticketId: "offline-functional-ticket-main" } }]);
 
       const evidence = JSON.stringify({
         artifact: bundle.artifact,
@@ -291,7 +299,7 @@ test("TASK-257 missing external binding fails locally at use without Builder fal
       stdio: ["ignore", "pipe", "pipe"],
     });
     const port = await waitForStarted(child);
-    const failed = await request(port, "/integrations/integration%3Anotify", "POST", { ticketId: "offline" });
+    const failed = await request(port, `/integrations/${encodeURIComponent(integrationRef)}`, "POST", { ticketId: "offline" });
     assert.equal(failed.status, 503);
     assert.equal(failed.body.kind, "RuntimeDiagnostic");
     assert.equal(failed.body.code, "RUNTIME_INTEGRATION_BINDING_INVALID");
