@@ -5,6 +5,7 @@ import { renderPostgresRuntimeStateSupport, type RuntimePostgresStateExecutionRe
 import type { RuntimeStateRequirement } from "./state-migrations.js";
 
 export * from "./authority-resolution.js";
+export * from "./permission-evaluation.js";
 export * from "./file-execution.js";
 export * from "./integration-execution.js";
 export * from "./state-migrations.js";
