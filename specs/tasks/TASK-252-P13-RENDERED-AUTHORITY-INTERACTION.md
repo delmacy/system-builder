@@ -31,6 +31,19 @@ validation:
 # Objective
 Connect actions exposed by a generated render document to the existing Construction B authority-gated generated interaction path without creating a second authorization model.
 
+# Current behavior
+Construction B already provides the shared authority-gated generated interaction path, but rendered/generated action references are not yet connected to that path through the Construction C render document.
+
+# Inputs / contracts
+- Explicit rendered/generated action references originating from the renderer-agnostic generated view/form document.
+- Existing generated view binding metadata and the integrated `authorizeRuntimeGeneratedInteraction` shared authority gate.
+- Existing authenticated actor/role/permission/policy context only; authentication alone is not authorization.
+
+# Outputs / contracts
+- A Runtime integration result that first verifies the rendered action is explicitly bound and then delegates to the existing shared authority decision.
+- Allowed/denied results preserve the existing authority decision semantics and deterministic evidence shape.
+- No new authorization contract, policy evaluator, role inference or public schema is introduced.
+
 # Required change
 Add a Runtime integration path that accepts an explicitly rendered/generated action reference, verifies it belongs to the render document/binding, and delegates authorization to the existing `authorizeRuntimeGeneratedInteraction`/shared authority gate.
 
@@ -42,6 +55,9 @@ Add a Runtime integration path that accepts an explicitly rendered/generated act
 - No free-text policy evaluation is introduced.
 - Evidence remains deterministic, auditable and secret/resolved-value free.
 - Product tests prove allowed and denied rendered interactions reuse the same gate.
+
+# Evidence expected
+Product tests and repository verification prove rendered actions cannot bypass explicit binding, allowed/denied outcomes reuse the same Construction B authority gate, authentication alone grants nothing, and deterministic evidence contains no sensitive resolved values.
 
 # Non-goals
 Do not add action business semantics, persistence mutation, new permission/policy rules, public contracts, UI framework behavior or P13-PACKAGE-03 scope.
