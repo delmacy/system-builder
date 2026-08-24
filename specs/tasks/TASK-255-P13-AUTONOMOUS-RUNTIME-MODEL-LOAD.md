@@ -34,6 +34,9 @@ validation:
 # Objective
 Make the generated autonomous runtime entrypoint consume the materialized RuntimeModel locally so normal execution can proceed without any Builder lookup.
 
+# Context
+TASK-254 materializes the already-integrated RuntimeModel into the generated bundle. This task is limited to loading that local bundle data through the existing autonomous runtime bootstrap so later proof tasks can exercise current Runtime semantics without adding a control-plane dependency or new public contract.
+
 # Current behavior
 The generated runtime entrypoint proves bootstrap/configuration/health but does not yet load the complete RuntimeModel emitted by TASK-254.
 
