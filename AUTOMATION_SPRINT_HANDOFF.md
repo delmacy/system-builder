@@ -1,16 +1,16 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: :10
-started_at: 2026-08-24T02:09:38-03:00
-updated_at: 2026-08-24T02:28:00-03:00
-lease_until: 2026-08-24T02:28:00-03:00
+status: RUNNING
+worker_slot: :30
+started_at: 2026-08-24T02:29:15-03:00
+updated_at: 2026-08-24T02:29:15-03:00
+lease_until: 2026-08-24T03:14:15-03:00
 observed_main_sha: 776842bf88b6150e4af74361e21379af6210763f
 active_branch: task/TASK-245-P13-RUNTIME-STRUCTURED-POLICY
 active_pr: none
 active_head_sha: 6ac5e864c111cee0903f9cf6697316b140a232f9
-last_completed_step: Revalidated TASK-244, discovered inherited Construction B validation defects, fixed them in isolated PR #261 and validated correction head 41029ec8596347927a565d14fbb0da7a2b0ee265 with Deterministic CI #626 PASS and Heavy Product Tests #50 PASS; squash-merged correction into Sprint as b56b17bdd5507b9b85f2b126ac6c3bfe60e06200. Reconstructed TASK-244 on corrected Sprint head, validated final exact head bf6162d3b9a98a4737d7a812f22cba7e786ccbde with Deterministic CI #628 PASS and Heavy Product Tests #52 PASS, no review threads, and squash-merged PR #264 into sprint/P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01 as authoritative TASK-244 commit 6ac5e864c111cee0903f9cf6697316b140a232f9. Closed superseded/validation PRs #259, #260, #262, #263, #265. Created TASK-245 branch exactly from authoritative TASK-244 commit.
-next_authorized_step: Execute TASK-245 only from branch task/TASK-245-P13-RUNTIME-STRUCTURED-POLICY at 6ac5e864c111cee0903f9cf6697316b140a232f9. Implement bounded deterministic evaluation of only structured data-only policy fields already carried by Runtime, integrate with TASK-244 permission decision path, keep free-text non-executable, fail closed for missing/unknown/ambiguous policy context, stay within packages/runtime-core/** and tests/product/runtime*.test.ts plus TASK-245 spec, then validate exact head before squash merge to the Sprint. Do not begin TASK-246+ before TASK-245 is authoritative.
+last_completed_step: Acquired serialized lease after revalidating READY handoff; TASK-244 is authoritative at 6ac5e864c111cee0903f9cf6697316b140a232f9 and TASK-245 branch exists exactly from that head.
+next_authorized_step: Execute TASK-245 only: bounded deterministic structured policy evaluation in runtime-core, integrate with TASK-244 permission path, preserve free-text non-execution and fail closed. Do not begin TASK-246+.
 
 ## resume_prompt
-Retome `delmacy/system-builder` pelo Sprint `sprint/P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01`. `main` observado permanece `776842bf88b6150e4af74361e21379af6210763f`. A correção isolada de defeitos herdados da Construction B foi integrada pelo PR #261 como `b56b17bdd5507b9b85f2b126ac6c3bfe60e06200`, após Deterministic CI #626 PASS e Heavy #50 PASS. TASK-244 foi reconstruída sobre esse head, PR #264 validado no head final `bf6162d3b9a98a4737d7a812f22cba7e786ccbde` com Deterministic CI #628 PASS e Heavy #52 PASS, sem review threads, e integrada por squash como commit autoritativo `6ac5e864c111cee0903f9cf6697316b140a232f9`. PRs transitórios/superseded #259, #260, #262, #263 e #265 estão fechados. A branch `task/TASK-245-P13-RUNTIME-STRUCTURED-POLICY` foi criada exatamente de `6ac5e864c111cee0903f9cf6697316b140a232f9`. Execute somente TASK-245: avaliar apenas structured policy data-only explicitamente materializada; free-text `statement` nunca é executável; missing/unknown/ambiguous context deve falhar fechado; nenhuma DSL/eval/code/expression, nenhuma mudança em contracts/compiler, nenhum TASK-246+. Depois, valide `npm run test:product`, `npm run check:tasks`, `npm run verify` no head exato (usando PR de validação contra main se necessário por trigger de workflow), exija Heavy Product Tests quando aplicável, e só então faça squash merge para a Sprint. Mantenha a automação ativa.
+Worker :30 currently owns the lease for TASK-245. Revalidate GitHub before any takeover. TASK-244 is authoritative at 6ac5e864c111cee0903f9cf6697316b140a232f9; TASK-245 branch is task/TASK-245-P13-RUNTIME-STRUCTURED-POLICY. Execute only TASK-245 within allowed paths and release this lease at the end.
