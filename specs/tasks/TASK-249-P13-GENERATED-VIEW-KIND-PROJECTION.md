@@ -4,7 +4,7 @@ title: Preserve declared generated view kind through Compiler and RuntimeModel
 status: ready
 priority: 249
 milestone: M13
-model_tier: standard
+model_tier: cheap
 risk: medium
 architecture_impact: false
 executor_preference: any
