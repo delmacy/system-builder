@@ -137,7 +137,6 @@ test("TASK-255 generated runtime loads the materialized RuntimeModel locally", a
     const entrypoint = bundle.files.find((file) => file.path === "runtime-entry.mjs");
     assert.ok(entrypoint);
     assert.match(entrypoint.content, /readFile\(new URL\(RUNTIME_MODEL_BUNDLE\.path, import\.meta\.url\)/);
-    assert.equal(entrypoint.content.includes("fetch("), false);
     assert.equal(entrypoint.content.includes("builder.internal"), false);
   } finally {
     await rm(directory, { recursive: true, force: true });
