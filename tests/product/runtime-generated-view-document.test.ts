@@ -91,7 +91,7 @@ test("unknown unbound invalid-kind and invalid binding inputs fail closed", () =
     /RUNTIME_GENERATED_RENDER_VIEW_NOT_BOUND:view:unbound/,
   );
   assert.throws(
-    () => materializeRuntimeGeneratedViewDocument({ model: { ...model(), views: [{ id: "view:bad", kind: undefined, binding: { entityRef: "entity:ticket" } }] }, viewRef: "view:bad", record: {} }),
+    () => materializeRuntimeGeneratedViewDocument({ model: { ...model(), views: [{ id: "view:bad", kind: undefined, binding: { entityRef: "entity:ticket" } } as never] }, viewRef: "view:bad", record: {} }),
     /RUNTIME_GENERATED_RENDER_INVALID_VIEW_KIND:view:bad/,
   );
   assert.throws(
