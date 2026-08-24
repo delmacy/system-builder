@@ -1,11 +1,12 @@
 # P13-PACKAGE-03 — Autonomous Runtime Operational Autonomy
 
-Status: ACTIVE / CONSTRUCTION A+B INTEGRATED / PACKAGE REVIEW ELIGIBLE
+Status: ACTIVE / CONSTRUCTION A+B INTEGRATED / PACKAGE REVIEW MATERIALIZED
 Milestone: M13
 Primary WBS: 13.3.1-13.3.3
 Planning base: `9e39ceca50b27a5f155ba8dfcfe340061a5ed71e`
 Construction A merge-main: `80e9fd146498cc8a95fd212af281d78a952645a5`
 Construction B merge-main: `046da2200385efdc05eac900df40add078def6d7`
+Post-Construction-B revalidation merge-main: `17938965ea5ba71e588f6c6015f8d8bbc037cbb5`
 Predecessor: P13-PACKAGE-02 CLOSED
 
 ## Package goal
@@ -31,16 +32,18 @@ TASKs: TASK-261..266.
 Result: actual autonomous Runtime A operates -> compatible B is accepted and operates -> compatible persisted data/external configuration remains usable -> exact retained A is restored/reconstructed through existing authority -> A operates again; incompatible, failed and stale candidates remain fail-closed.
 
 ## Optional Construction C
-Status: NOT NECESSARY / NOT PROMOTED after fresh-main revalidation at `046da2200385efdc05eac900df40add078def6d7`.
+Status: NOT NECESSARY / NOT PROMOTED after fresh-main revalidation integrated by PR #321 as `17938965ea5ba71e588f6c6015f8d8bbc037cbb5`.
 Reason: all primary Package WBS 13.3.1-13.3.3 are satisfied by integrated executable evidence and no bounded remaining Package Goal construction gap exists.
 
 ## Package Integration & Review
-Status: ELIGIBLE / NOT MATERIALIZED.
-Next lifecycle gate. Regress WBS 13.1-13.3 across functional execution, actor authority, Builder-offline operation, optional Observe/telemetry, upgrade/rollback and negative recovery; classify residual debt and M13 readiness. No overflow product construction.
+Status: COMMITTED / MATERIALIZED / NOT EXECUTED.
+Manifest: `P13-PACKAGE-03-INTEGRATION-REVIEW-01.md`.
+Materialization base: `17938965ea5ba71e588f6c6015f8d8bbc037cbb5`.
+Goal: regress WBS 13.1-13.3 across functional execution, actor authority, Builder-offline operation, optional Observe/telemetry, upgrade/rollback, negative recovery, contract/schema drift, architecture/dependency fitness, security/trust, CI health, debt classification and M13 readiness. No overflow product construction.
 
 ## Documentation & Closure
 Status: FORECAST.
-Reconcile current-state docs, WBS coverage, package/Sprint reports, runtime operations/runbooks, release/deploy compatibility notes, risks/lessons and next baseline horizon after Package Integration & Review passes.
+Promote only after Package Integration & Review is executed, exact-head validated, reviewed and integrated.
 
 ## Boundaries
 - Observe/Support may consume telemetry/evidence but cannot become a Runtime availability dependency.
@@ -48,4 +51,4 @@ Reconcile current-state docs, WBS coverage, package/Sprint reports, runtime oper
 - Upgrade/restoration follows existing Release/Deploy authority; no bypass or implicit production mutation.
 - No new canonical contract, provider/topology or L4 boundary without applicable change control.
 - TD-P13-01..04 remain carried and are not absorbed.
-- Construction C is not execution authority and must not be revived without new fresh evidence proving necessity.
+- Construction C must not be revived without new fresh evidence proving necessity.

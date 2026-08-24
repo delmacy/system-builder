@@ -1,15 +1,17 @@
-# Next Work — P13 Package 03 Package Review Materialization Gate
+# Next Work — P13 Package 03 Integration Review Gate
 
-Construction B `P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01` is INTEGRATED by Sprint Review PR #320. Exact reviewed head `d9f9940e2ae110553eda45dc78b736d52e5911a4` passed Deterministic CI #700 and Heavy Product Tests #125; merge-main is `046da2200385efdc05eac900df40add078def6d7` with zero reviewed-head -> merge-main file differences.
+Post-Construction-B revalidation PR #321 passed Deterministic CI #701 and Heavy Product Tests #126 on exact head `935ba73a77a87a7d6714959cb1484662b84f7b73`, had no blocking review threads and integrated as fresh main `17938965ea5ba71e588f6c6015f8d8bbc037cbb5` with zero reviewed-head -> merge-main file differences.
 
-Fresh-main revalidation confirms WBS 13.3.1, 13.3.2 and 13.3.3 are SATISFIED / INTEGRATED. The P13-PACKAGE-03 goal has no remaining bounded construction capability gap, so optional Construction C is NOT NECESSARY and is not promoted.
+WBS 13.3.1, 13.3.2 and 13.3.3 are SATISFIED / INTEGRATED. Optional Construction C is NOT NECESSARY and is not promoted.
+
+`P13-PACKAGE-03-INTEGRATION-REVIEW-01` is COMMITTED / MATERIALIZED / NOT EXECUTED from `17938965ea5ba71e588f6c6015f8d8bbc037cbb5`.
 
 ## Required next action
-1. Start from fresh integrated `main` after this revalidation is integrated.
-2. Materialize only the P13-PACKAGE-03 Package Integration & Review Sprint under repository policy.
-3. Regress the complete package outcome across WBS 13.1-13.3, contract/schema drift, architecture/dependency fitness, security/trust, CI health, technical debt classification, documentation consistency, risks and M13 readiness.
-4. Do not add missing product capability inside Package Review; any true functional gap returns to explicit construction/change control.
-5. Promote Documentation & Closure only after Package Integration & Review passes its gate.
+1. Integrate this Package Review materialization only after exact-head Deterministic CI + Heavy Product Tests pass and no blocking review finding exists.
+2. Reconstruct fresh integrated `main` and execute `P13-PACKAGE-03-INTEGRATION-REVIEW-01` only.
+3. Regress WBS 13.1-13.3, contract/schema drift and compatibility, architecture/dependency fitness, Runtime autonomy/security/trust, Observe optionality, upgrade/rollback recovery, CI health, technical-debt classification, documentation consistency, risks and M13 readiness.
+4. Do not add missing product capability inside Package Review. A true functional gap returns to explicit Construction/change control.
+5. Promote Documentation & Closure only after Package Integration & Review is executed, exact-head validated, reviewed and integrated.
 
 ## Boundaries
-Do not restart Construction C without new fresh evidence proving necessity. Do not invent a new deployment lifecycle, generic migration/version policy, provider/topology, canonical contract or L4 boundary. Do not absorb TD-P13-01..04. Package Integration & Review is eligible but not yet materialized or executed.
+Do not restart Construction C without new explicit evidence/change control. Do not invent a new canonical contract, deployment lifecycle, generic migration/version policy, provider/topology or L4 boundary. Do not absorb TD-P13-01..04. Documentation & Closure remains FORECAST.
