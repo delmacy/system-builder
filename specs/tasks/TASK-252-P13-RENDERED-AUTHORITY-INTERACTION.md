@@ -31,6 +31,9 @@ validation:
 # Objective
 Connect actions exposed by a generated render document to the existing Construction B authority-gated generated interaction path without creating a second authorization model.
 
+# Context
+Construction B already integrated explicit generated action bindings and a shared fail-closed authority gate. Construction C may only connect action references emitted by its renderer-agnostic render document to that existing path; it must not introduce a second authorization model, infer permissions/roles, or change public contracts.
+
 # Current behavior
 Construction B already provides the shared authority-gated generated interaction path, but rendered/generated action references are not yet connected to that path through the Construction C render document.
 
