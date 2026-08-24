@@ -71,7 +71,8 @@ test("fails closed for unknown or ambiguous identity authority", () => {
 
   const ambiguous = resolveRuntimeActorAuthority(model({ identities: [{ id: "identity:alice", active: true }, { id: "identity:alice", active: true }] }), { identityRef: "identity:alice" });
   assert.equal(ambiguous.ok, false);
-  if (!ambiguous.ok) assert.equal(ambiguous.diagnostic.code, "RUNTIME_AUTHORITY_IDENTITY_AMBIGUOUS");
+  if (ambiguous.ok) return;
+  assert.equal(ambiguous.diagnostic.code, "RUNTIME_AUTHORITY_IDENTITY_AMBIGUOUS");
 });
 
 test("fails closed for unknown roles and ambiguous role resolution", () => {
@@ -139,14 +140,14 @@ test("permission context requires exact bounded membership and organization refe
   assert.equal(allowed.allowed, true);
 });
 
-test("permissions with policy references fail closed until bounded policy evaluation is applied", () => {
+test("permissions with unresolved policy references fail closed", () => {
   const resolved = resolveRuntimeActorAuthority(model(), { identityRef: "identity:alice" });
   assert.equal(resolved.ok, true);
   if (!resolved.ok) return;
   const decision = evaluateRuntimePermission({ authority: resolved.authority, permissions: [{ ...permission("role:operator"), policyRefs: ["policy:office-hours"] }], resourceRef: "entity:ticket", actionRef: "action:read" });
   assert.equal(decision.allowed, false);
   assert.deepEqual(decision.evidence.policyRefs, ["policy:office-hours"]);
-  assert.equal(decision.evidence.reason, "RUNTIME_PERMISSION_POLICY_EVALUATION_REQUIRED");
+  assert.equal(decision.evidence.reason, "RUNTIME_PERMISSION_POLICY_UNKNOWN");
 });
 
 test("permission evidence is deterministic and contains references and reasons only", () => {
