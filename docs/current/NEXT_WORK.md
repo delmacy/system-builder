@@ -1,13 +1,13 @@
-# Next Work — P13 Package 03 Planning Integration Gate
+# Next Work — P13 Package 03 Construction A Sprint Review
 
-P13-PACKAGE-03 Planning & Materialization is prepared from fresh-main base `9e39ceca50b27a5f155ba8dfcfe340061a5ed71e`. Construction A `P13-RUNTIME-OFFLINE-AUTONOMY-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-254..260.
+Construction A `P13-RUNTIME-OFFLINE-AUTONOMY-01` is CONSTRUCTED / SPRINT REVIEW. TASK-254..260 are integrated on the Sprint branch in dependency order, culminating in TASK-260 authoritative Sprint commit `0465095ef100cf455348fb46d608c08dc29ed856`.
 
 ## Required next action
-1. Review and validate the Planning & Materialization PR on its exact head with required Deterministic CI and Heavy Product Tests.
-2. If all required gates pass without blocking findings, merge the planning PR.
-3. Reconstruct fresh `main` and verify zero unintended file drift/lost concurrent work.
-4. Create/use `sprint/P13-RUNTIME-OFFLINE-AUTONOMY-01` exactly from the integrated planning main and execute only TASK-254 first, then continue in declared dependency order while all task gates remain satisfied.
-5. Do not promote Construction B until Construction A is integrated and fresh-main revalidation explicitly commits it.
+1. Run final exact-head repository-wide Sprint Review validation for `sprint/P13-RUNTIME-OFFLINE-AUTONOMY-01`, including required Deterministic CI and Heavy Product Tests.
+2. Revalidate review threads/findings and mergeability on that exact closure head.
+3. If all required gates pass without blocking findings, integrate the Sprint Review PR into `main` with expected-head protection.
+4. Reconstruct fresh `main` and verify the integrated tree matches the reviewed Sprint tree with no unintended drift.
+5. Only after that integration, perform the separate Package-authorized fresh-main revalidation/promotion decision for Construction B. Construction B remains FORECAST until explicitly promoted/materialized; do not execute it from forecast.
 
 ## Boundaries
-Reuse TASK-060/TASK-063, P11 Observe fail-open and P7 rollback evidence rather than rebuilding them. Do not reopen P13-PACKAGE-02 or absorb TD-P13-01..04. Authentication != authorization; authority remains fail-closed; free-text policy remains non-executable; Observe cannot become a Runtime availability dependency; no new provider/topology or L4 boundary without ADR/change control.
+Reuse existing P7 rollback evidence for the later WBS 13.3.3 decision rather than absorbing it into Construction A. Do not absorb TD-P13-01..04. Authentication != authorization; authority remains fail-closed; free-text policy remains non-executable; Observe cannot become a Runtime availability dependency. No new provider/topology or L4 boundary without the applicable materialized ADR/change-control gate. Construction C remains CONDITIONAL / FORECAST.
