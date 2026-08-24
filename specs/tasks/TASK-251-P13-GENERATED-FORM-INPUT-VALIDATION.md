@@ -4,7 +4,7 @@ title: Validate generated form input against explicit bound fields
 status: ready
 priority: 251
 milestone: M13
-model_tier: standard
+model_tier: cheap
 risk: medium
 architecture_impact: false
 executor_preference: any
