@@ -31,6 +31,9 @@ validation:
 # Objective
 Validate generated form input only against fields explicitly bound to the generated form/view and fail closed for unknown, duplicate or unbound input.
 
+# Context
+Construction C already materializes explicit generated view/form bindings in Runtime. This task consumes only those explicit bindings and existing runtime field metadata to validate submitted form input without introducing new public schema semantics, UI-framework behavior, inferred bindings, business defaults or broader authority.
+
 # Current behavior
 Runtime can resolve explicit generated view bindings but does not yet provide a bounded form-input normalization/validation path tied to those explicit field bindings.
 
