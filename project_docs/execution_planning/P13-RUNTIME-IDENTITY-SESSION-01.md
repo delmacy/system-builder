@@ -1,23 +1,26 @@
 # P13-RUNTIME-IDENTITY-SESSION-01 — Construction A
 
-Status: COMMITTED / MATERIALIZED
+Status: INTEGRATED
 Work Package: P13-PACKAGE-02
 Milestone: M13
 WBS: 13.2.1, with 13.2.2-13.2.3 explicitly deferred
 Planning base: `2186f2ffa32e00d06dbe2230498a3d748a5d6533`
-Intended execution branch: `sprint/P13-RUNTIME-IDENTITY-SESSION-01`
+Execution branch: `sprint/P13-RUNTIME-IDENTITY-SESSION-01`
+Integration PR: #250
+Integrated main: `adc739c1370df380a31ad196bf24fcdff4b0bf2d`
+Reviewed head: `b149f823eddcc3e2589ba42e3794f01879f23629`
 
 ## Sprint goal
 Make the generated autonomous Runtime actor-aware at the identity/session layer: carry explicit identity/auth-provider/session declarations from SystemDefinition through Compiler/Release/Deploy, resolve authentication inputs externally, authenticate a representative identity, issue/validate bounded session state and reject invalid/expired/disabled/unauthenticated paths without Builder or Observe dependence.
 
-## Predecessor gate
-SATISFIED for materialization:
-- `P13-PACKAGE-01` CLOSED on fresh main `2186f2ffa32e00d06dbe2230498a3d748a5d6533`;
-- WBS 27 already establishes Person/Actor/User-ServiceIdentity separation and replaceable auth-provider binding as domain authority;
-- existing SystemDefinition contains views/permissions/policies, but current Compiler Runtime projection/model does not consume them;
-- P13-01 Runtime Core provides actual generated API/action/workflow/service execution substrate;
-- external reference-only configuration/no-value-leak machinery is integrated;
-- planning found no required L4 boundary change.
+## Integration result
+The Sprint goal is integrated for WBS 13.2.1.
+
+Exact reviewed-head gates:
+- Deterministic CI #616 — PASS.
+- Heavy Product Tests #39 — PASS.
+
+TASK-231..239 remain the nine authoritative implementation commits in committed dependency order. `a60f1d818e77f1f8bc00e9533924a8916cda7de9` is a bounded verification-only correction; `b149f823eddcc3e2589ba42e3794f01879f23629` adds the repository-required Sprint Report. Neither changes task authority or expands scope.
 
 ## Committed tasks and dependency order
 1. TASK-231 — additive SystemDefinition identity/auth-provider/session declaration semantics (L3)
@@ -30,58 +33,28 @@ SATISFIED for materialization:
 8. TASK-238 — identity/session fail-closed and no-value-leak regression
 9. TASK-239 — full predecessor-integrated autonomous identity/session growing proof
 
-Execute in numeric order. TASK-232 depends on 231; TASK-233 depends on 231-232; TASK-234 depends on 231-233; TASK-235 depends on 231-234; TASK-236 depends on 231-235; TASK-237 depends on 231-236; TASK-238 depends on 231-237; TASK-239 depends on all predecessors.
+## Explicit L3 authority used
+TASK-231 used only the minimum additive backward-compatible shared `SystemDefinition` change needed to represent explicit subject/technical identity references, replaceable authentication-provider reference, active/disabled identity state and bounded session policy/lifetime metadata.
 
-## Explicit L3 authority
-TASK-231 may make the minimum additive backward-compatible shared `SystemDefinition` change needed to represent:
-- explicit subject/technical identity references without conflating Person/Actor/User-ServiceIdentity;
-- an explicit replaceable authentication-provider binding/reference;
-- identity active/disabled state needed for fail-closed authentication;
-- explicit bounded session policy/lifetime metadata required for runtime validation.
+Provider credentials, passwords, tokens, signing material, resolved endpoint values and other secrets remain forbidden in SystemDefinition and immutable artifacts. EnvironmentProfile/reference binding machinery was reused unchanged. No additional shared-contract family or L4 change was introduced.
 
-The representation must remain declarative/reference-oriented. Provider credentials, passwords, tokens, signing material, resolved endpoint values and other secrets are forbidden in SystemDefinition and immutable artifacts.
+Existing `permissions`, `policies` and `views` were not given executable semantics by this Sprint; those remain successor scope and require their own authority.
 
-Existing EnvironmentProfile/reference binding machinery must be reused when sufficient. No EnvironmentProfile schema change, new identity bounded context, provider-specific IAM requirement, Builder runtime lookup or other shared-contract family change is authorized by default. If implementation proves another L3 contract change necessary, STOP for explicit change-control authority. Any L4 consequence requires ADR.
-
-TASK-231 must preserve all existing valid SystemDefinition fixtures and must not alter executable semantics of existing `permissions`, `policies` or `views`; those remain Construction B scope.
-
-## Authentication/session reference-path constraints
-Construction A may implement one bounded replaceable reference path sufficient to prove WBS 13.2.1, but it must satisfy all of the following:
-- provider selection/interaction is explicit in durable descriptors, never inferred from names;
-- resolved credential/provider/session-secret values exist only at activation/runtime;
-- session state has explicit validity/expiry semantics and fails closed when malformed/expired/unknown;
-- disabled/unmapped identity fails closed;
-- unauthenticated actor-required request fails closed;
-- Runtime ordinary operation does not call Builder or Observe;
-- no authorization privilege is inferred merely because authentication succeeded;
-- no production/federation/SSO topology claim is made.
-
-## Growing integration proof
+## Integrated growing proof
 `real SystemDefinition -> Catalog -> Assembly -> Validation -> Compiler -> ReleaseArtifact -> PublishedRelease -> verified ArtifactPayload -> Deploy + external EnvironmentProfile/SecretResolver -> autonomous Runtime -> explicit authentication provider -> authenticated identity -> session -> actor context -> representative authenticated Runtime request`
 
-Proof requirements:
-- use actual predecessor APIs/modules rather than hand-authored downstream artifacts;
-- preserve P13-01 entity/action/workflow behavior;
-- authentication failure, disabled/unknown identity, invalid session and expiry have deterministic negative evidence;
-- Builder and Observe are unavailable during ordinary Runtime behavior;
-- resolved credential/provider/session-secret/token values do not enter immutable/durable evidence or controlled diagnostics.
+The proof covers authentication failure, disabled/unknown identity, invalid/unknown/expired session, unauthenticated actor-required execution, Runtime operation without Builder/Observe, and no leakage of resolved credential/provider/session values into durable evidence.
 
-## Final validation
-`npm run verify`
-
-Heavy validation remains required at the Sprint PR exact head according to repository policy.
-
-## Stop / escalation conditions
-- any required L4 architecture/bounded-context/Builder-Runtime/release model change;
-- any public shared-contract change beyond TASK-231's bounded SystemDefinition authority;
-- any need to change EnvironmentProfile schema rather than reuse existing bindings;
-- inability to authenticate/session-bind without inventing provider or identity semantics not supported by repository authority;
-- any permissive fallback or silent privilege grant;
-- required modification under `.github/**` or repository settings;
-- production/federation/enterprise IAM topology expansion;
-- need to execute roles/permissions/policies/views/forms from WBS 13.2.2-13.2.3;
-- need to enter P13-PACKAGE-03 or absorb TD-P13-01..04;
-- validation cannot be made green inside committed scope.
+## Security boundary preserved
+- authentication does not imply authorization;
+- no role/permission/policy grant is inferred;
+- no production/federation/SSO topology claim;
+- no EnvironmentProfile schema change;
+- no Builder runtime lookup;
+- no `TD-P13-01..04` absorption;
+- no P13-PACKAGE-03 work.
 
 ## Successor state
-Construction B, optional C, Package Integration & Review, Documentation & Closure and P13-PACKAGE-03 remain FORECAST. Completing this Sprint does not authorize them automatically.
+Construction A is complete and integrated. Fresh-main revalidation after merge found Construction B still necessary for WBS 13.2.2-13.2.3 but blocked pending bounded L3 change control for minimum executable role/membership, permission/policy and generated-view/form binding semantics. Construction B must not be materialized or executed from this Sprint authority.
+
+Construction C, Package Integration & Review, Documentation & Closure and P13-PACKAGE-03 remain forecast.
