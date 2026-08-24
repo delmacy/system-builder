@@ -1,19 +1,19 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: :30
-started_at: 2026-08-24T17:29:00-03:00
-updated_at: 2026-08-24T17:31:30-03:00
-lease_until: 2026-08-24T17:31:30-03:00
+status: RUNNING
+worker_slot: :50
+started_at: 2026-08-24T17:52:47-03:00
+updated_at: 2026-08-24T17:52:47-03:00
+lease_until: 2026-08-24T18:17:47-03:00
 observed_main_sha: 27462ab3874650d38746b12f62dfc5f4c2e93271
 active_branch: task/TASK-262-P13-RUNTIME-COMPATIBLE-UPGRADE-PROOF
 active_pr: 310
 active_head_sha: 5bbb8a4200dfaa7f609c81361e5c603739f95d73
-last_completed_step: TASK-261 exact head c0a7c6a5637d5c03c090cddb71528dd6e589ca68 passed Deterministic CI #693 and Heavy #118, validation PR #309 was closed without merge, and authoritative PR #308 was protected-squash merged into the Sprint as c6ed583c48da7f7df464fea0b793b43fd7be1b7b. TASK-262 was then implemented as a focused product proof in tests/product/p13-runtime-compatible-upgrade-proof.test.ts. Authoritative PR #310 targets the Sprint at exact head 5bbb8a4200dfaa7f609c81361e5c603739f95d73; validation-only PR #311 targets main and must not merge. Deterministic CI #694 and Heavy Product Tests #119 are queued on that exact head.
-next_authorized_step: Revalidate CI #694 and Heavy #119 for exact head 5bbb8a4200dfaa7f609c81361e5c603739f95d73. If either fails, apply the destravamento rule strictly within TASK-262 allowed paths and scope. If both pass and PR #310 has no blocking review/thread, close #311 without merge and protected-squash #310 into sprint/P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01, record the authoritative TASK-262 commit, and only then execute TASK-263. Do not begin rollback, TASK-264+, Construction C, TD-P13-01..04, new contracts/providers/topology/L4.
+last_completed_step: Preflight revalidated TASK-262 head 5bbb8a4200dfaa7f609c81361e5c603739f95d73. Heavy Product Tests #119 PASS; Deterministic CI #694 FAIL at TypeScript typecheck only: tests/product/p13-runtime-compatible-upgrade-proof.test.ts line 199 incorrectly accesses b.candidateFinal.process.state even though candidateFinal is already the managed runtime snapshot with state directly. Acquired :50 lease to repair this proof-only type mismatch within TASK-262 scope.
+next_authorized_step: Replace only the invalid candidateFinal.process.state assertion with candidateFinal.state in TASK-262 proof, push a focused commit, revalidate exact-head Deterministic CI and Heavy. If both pass and PR #310 has no blocking review/thread, close #311 without merge, protected-squash #310 into sprint/P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01, record authoritative TASK-262 commit, then only TASK-263. Do not begin TASK-264+, Construction C, TD-P13-01..04, new contracts/providers/topology/L4.
 
 ## Operational model-selection instruction
 All TASKs are executed with strong models. `model_tier` is retained only for task-schema compatibility and is not execution routing.
 
 ## resume_prompt
-Retome delmacy/system-builder em main 27462ab3874650d38746b12f62dfc5f4c2e93271, Construction B P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01. TASK-261 foi integrada no commit autoritativo c6ed583c48da7f7df464fea0b793b43fd7be1b7b após CI #693 PASS e Heavy #118 PASS. TASK-262 está implementada no PR #310, base sprint/P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01, head exato 5bbb8a4200dfaa7f609c81361e5c603739f95d73; PR #311 é validation-only contra main e não deve ser mergeado. CI #694 e Heavy #119 estão queued. Se ambos passarem e não houver blockers, feche #311 sem merge, squash protegido #310, registre o commit autoritativo e só então execute TASK-263. Se falhar, corrija somente dentro do escopo/allowed paths de TASK-262. Não iniciar TASK-264+, rollback, Construction C ou TD-P13-01..04.
+Retome delmacy/system-builder em main 27462ab3874650d38746b12f62dfc5f4c2e93271, Construction B P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01. TASK-261 foi integrada no commit autoritativo c6ed583c48da7f7df464fea0b793b43fd7be1b7b. TASK-262 está no PR #310, head 5bbb8a4200dfaa7f609c81361e5c603739f95d73; Heavy #119 PASS e CI #694 FAIL apenas por TS2339 na prova: candidateFinal já possui state diretamente, sem .process. Corrigir somente essa asserção, revalidar gates, fechar #311 sem merge e integrar #310 se tudo passar; depois somente TASK-263.
