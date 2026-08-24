@@ -28,7 +28,10 @@ function compileBundle() {
     },
     compilerVersion: "0.13.3",
     runtimeVersion: "0.13.3",
-    environmentSchema: [{ name: "AUTH_SECRET", kind: "secret-reference", required: true }],
+    environmentSchema: [
+      { name: "AUTH_SECRET", kind: "secret-reference", required: true },
+      { name: "DATABASE_URL", kind: "secret-reference", required: true },
+    ],
     systemDefinitionRuntime: {
       kind: "SystemDefinitionRuntimeProjection",
       systemDefinitionRef: plan.systemDefinitionRef,
