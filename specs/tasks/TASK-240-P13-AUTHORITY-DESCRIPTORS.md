@@ -34,12 +34,33 @@ validation:
 # Objective
 Add only the minimum optional backward-compatible SystemDefinition semantics authorized for explicit actor/membership-to-role linkage, deterministic permission/policy context, and deterministic view/form entity/field/action bindings.
 
+# Context
+Construction B is bounded by the integrated P13-PACKAGE-02 L3 change-control decision and WBS 13.2.2-13.2.3.
+
+# Current behavior
+The existing shared contract lacks the minimum explicit executable linkage and generated-interaction bindings required by Construction B.
+
+# Required change
+Extend only the existing SystemDefinition authority/view descriptors with optional additive semantics explicitly authorized by the bounded L3 decision.
+
+# Inputs / contracts
+Use AGENTS.md, the active Package/Sprint plans, WBS 27 authority, the accepted Construction B L3 change-control record, and the current SystemDefinition schema.
+
+# Outputs / contracts
+A backward-compatible SystemDefinition contract capable of expressing explicit membership/role linkage, bounded structured policy context where required, and explicit generated view/form bindings.
+
 # Acceptance criteria
 - historical fixtures remain valid;
 - linkage and bindings are explicit references, never inferred;
 - free-text policy statement remains non-executable;
 - optional structured policy is bounded/data-only if required;
 - no secrets/resolved runtime values or L4 boundary changes.
+
+# Non-goals
+Do not add a new contract family, provider-specific IAM, executable free-text policy, UI framework dependency, credential material, or L4 topology/ownership change.
+
+# Evidence expected
+Product contract tests plus repository task/verification gates demonstrate backward compatibility, determinism, explicit references and fail-closed validation.
 
 # Escalation
 Stop if a second contract family, ownership/topology change or unbounded policy DSL is required.

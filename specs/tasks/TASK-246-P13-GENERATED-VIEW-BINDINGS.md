@@ -27,5 +27,29 @@ validation: [npm run test:product, npm run check:tasks, npm run verify]
 # Objective
 Materialize explicit view/form bindings to already-declared Runtime entities, fields and actions without framework-specific UI assumptions.
 
+# Context
+TASK-242 carries the normalized generated-interaction descriptors required by WBS 13.2.3.
+
+# Current behavior
+Runtime does not yet materialize deterministic renderer-agnostic bindings from those explicit descriptors.
+
+# Required change
+Resolve and materialize only explicit entity/field/action bindings, rejecting unknown or ambiguous references without inference.
+
+# Inputs / contracts
+Use TASK-242 RuntimeModel descriptors and existing Compiler/Runtime entity/action metadata.
+
+# Outputs / contracts
+Deterministic renderer-agnostic generated view/form binding descriptors for Runtime interaction.
+
 # Acceptance criteria
 Unknown/ambiguous bindings fail; ordering/names do not infer bindings; descriptors remain deterministic and renderer-agnostic.
+
+# Non-goals
+Do not introduce a mandatory UI framework, infer bindings, change SystemDefinition contracts, or add Builder/Observe runtime dependency.
+
+# Evidence expected
+Compiler/Runtime product tests prove deterministic explicit binding and invalid-reference failure; repository verification passes.
+
+# Escalation
+Stop if generated interaction requires framework-specific ownership, inferred binding semantics, new contracts, or L4 change.
