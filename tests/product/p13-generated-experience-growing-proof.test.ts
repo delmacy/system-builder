@@ -25,7 +25,7 @@ function runtimeModel() {
     actions: [
       { id: editActionRef, effect: { kind: "entity.update" as const, entityRef } },
       { id: "action:delete-ticket", effect: { kind: "entity.delete" as const, entityRef } },
-      { id: "action:read-ticket", effect: { kind: "entity.read" as const, entityRef } },
+      { id: "action:read-ticket" },
     ],
     processes: [],
     environmentRequirements: [{ name: "AUTH_SECRET", kind: "secret-reference" as const, required: true }],
