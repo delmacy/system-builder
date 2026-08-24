@@ -1,9 +1,9 @@
-# Current Execution Milestone — M13 P13 Package 02 Construction C Materialization
+# Current Execution Milestone — M13 P13 Package 02 Construction C Sprint Review
 
 P13-PACKAGE-02 is ACTIVE. Construction A is integrated and WBS 13.2.1 is satisfied. Construction B is integrated by Sprint Review PR #274 from exact head `09a9fd083c398678192c24af9b3f5c6aa188071a`, after Deterministic CI #634 PASS and Heavy Product Tests #59 PASS; merge-main is `64b06414718ac8160eeb423d8194ef9d12b46a85`.
 
-Fresh-main revalidation confirms WBS 13.2.2 is satisfied and WBS 13.2.3 still lacks actual generated view/form rendering output. The optional third Construction Sprint is therefore justified under the rolling-wave policy. No new public contract or L4 architecture change is currently required.
+Construction C materialization is integrated at `6db6e87077c5e458b8a40e2fd41c90e36e0613be`. `P13-RUNTIME-GENERATED-EXPERIENCE-RENDERING-01` has executed TASK-249..253 in dependency order and is now CONSTRUCTED / SPRINT REVIEW. TASK-253 exact task head `0570a38ff389a30aeea1b349a5049cc72f860295` passed Deterministic CI #656 and Heavy Product Tests #81 before protected squash integration as authoritative commit `f6150a327184caa7d4f94556ed729539e77beb8c`.
 
-Active materialized Sprint: `P13-RUNTIME-GENERATED-EXPERIENCE-RENDERING-01`, TASK-249..253, status COMMITTED / MATERIALIZED / NOT EXECUTED.
+Construction C closes the bounded WBS 13.2.3 generated-rendering gap with deterministic renderer-agnostic Runtime documents, fail-closed bound form input validation, and reuse of the existing authority gate for rendered generated actions. No new public contract or L4 architecture change was introduced.
 
-Current gate: integrate this bounded Construction C planning/materialization first; then execute TASK-249..253 on `sprint/P13-RUNTIME-GENERATED-EXPERIENCE-RENDERING-01` in dependency order. Do not absorb TD-P13-01..04 or start P13-PACKAGE-03. If implementation proves L3/L4 expansion necessary beyond the already-declared public view semantics, stop for change control/ADR.
+Current gate: final exact-head Sprint Review validation and integration of `P13-RUNTIME-GENERATED-EXPERIENCE-RENDERING-01`. After successful integration, reconstruct fresh `main` and promote Package Integration & Review. No fourth Construction Sprint is authorized. Do not absorb TD-P13-01..04 or start P13-PACKAGE-03.
