@@ -31,6 +31,19 @@ validation:
 # Objective
 Validate generated form input only against fields explicitly bound to the generated form/view and fail closed for unknown, duplicate or unbound input.
 
+# Current behavior
+Runtime can resolve explicit generated view bindings but does not yet provide a bounded form-input normalization/validation path tied to those explicit field bindings.
+
+# Inputs / contracts
+- The explicit generated form/view binding or renderer-agnostic document produced by prior Construction C work.
+- Caller-supplied field values keyed/referenced only through explicit bound field references.
+- Existing field metadata already present in the integrated runtime model; no new validation DSL or public schema semantics.
+
+# Outputs / contracts
+- A deterministic Runtime-only validation/normalization result for submitted bounded field values.
+- Unknown, duplicate, ambiguous or unbound field input is rejected fail-closed with deterministic reasons.
+- Output contains only bounded submitted values and references/reasons; no secret/provider-resolved values.
+
 # Required change
 Add a Runtime-only bounded form-input normalizer/validator that accepts an explicit generated binding/document and caller-supplied field values, preserving only explicitly bound fields and rejecting unbound/ambiguous field references.
 
@@ -42,6 +55,9 @@ Add a Runtime-only bounded form-input normalizer/validator that accepts an expli
 - Required-field absence is reported deterministically from the already-materialized field metadata.
 - Evidence/output contains references/reasons and submitted bounded values only; never credentials/secrets/resolved provider values.
 - Product tests cover valid form input, missing required field, extra field and ambiguous input.
+
+# Evidence expected
+Focused product tests and repository verification prove valid bounded form input, required-field failure, extra/unbound input rejection, ambiguity rejection, deterministic output and absence of implicit coercion/defaults or sensitive leakage.
 
 # Non-goals
 Do not execute actions, mutate persistence, add public schemas, introduce UI framework behavior, add validation DSL, or broaden authority semantics.
