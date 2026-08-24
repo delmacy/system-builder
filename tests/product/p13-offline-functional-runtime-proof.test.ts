@@ -6,6 +6,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test from "node:test";
 import { compileAutonomousRuntimeModelBundle } from "../../packages/compiler/autonomous-runtime-model-bundle.js";
+import { compileWorkflowRuntimeRelease } from "../../packages/compiler/workflow-runtime.js";
 import type { EnvironmentProfile } from "../../packages/contracts/environment-profile/index.js";
 import { preflightVerifiedMigrations } from "../../packages/deploy/migration-preflight.js";
 import { applyVerifiedPostgresMigrations } from "../../packages/deploy/postgres-migrations.js";
@@ -32,26 +33,26 @@ function assemblyPlan() {
   return { ...payload, contentHash: sha256Canonical(payload) };
 }
 
-function compileBundle() {
+function compileInput() {
   const plan = assemblyPlan();
-  return compileAutonomousRuntimeModelBundle({
+  return {
     assemblyPlan: plan,
     validationEvidence: {
-      kind: "ValidationEvidence",
+      kind: "ValidationEvidence" as const,
       assemblyPlanRef: plan.contentHash,
-      decision: "PASS",
+      decision: "PASS" as const,
       evidenceHash: sha256Canonical({ decision: "PASS", plan: plan.contentHash }),
     },
     compilerVersion: runtimeVersion,
     runtimeVersion,
-    environmentSchema: [{ name: "DATABASE_URL", kind: "secret-reference", required: true }],
+    environmentSchema: [{ name: "DATABASE_URL", kind: "secret-reference" as const, required: true }],
     systemDefinitionRuntime: {
-      kind: "SystemDefinitionRuntimeProjection",
+      kind: "SystemDefinitionRuntimeProjection" as const,
       systemDefinitionRef: plan.systemDefinitionRef,
-      entities: [{ id: entityRef, fields: [{ name: "title", type: "string", required: true }] }],
+      entities: [{ id: entityRef, fields: [{ name: "title", type: "string" as const, required: true }] }],
       actions: [
-        { id: updateActionRef, effect: { kind: "entity.update", entityRef } },
-        { id: jobDeleteActionRef, effect: { kind: "entity.delete", entityRef } },
+        { id: updateActionRef, effect: { kind: "entity.update" as const, entityRef } },
+        { id: jobDeleteActionRef, effect: { kind: "entity.delete" as const, entityRef } },
       ],
       processes: [{
         id: processRef,
@@ -60,34 +61,44 @@ function compileBundle() {
         transitions: [{ id: transitionRef, from: "open", to: "closed", actionRef: updateActionRef }],
       }],
       environmentRequirements: [
-        { name: "storage:files", kind: "storage", required: true },
-        { name: "service:notify", kind: "external-service", required: true },
+        { name: "storage:files", kind: "storage" as const, required: true },
+        { name: "service:notify", kind: "external-service" as const, required: true },
       ],
       jobs: [{
         id: "job:offline-functional-delete-ticket",
-        trigger: { kind: "interval", intervalMs: 1_000 },
+        trigger: { kind: "interval" as const, intervalMs: 1_000 },
         actionRef: jobDeleteActionRef,
         recordId: "offline-functional-ticket-job",
       }],
-      events: [{ id: eventRef, source: { kind: "runtime-http" }, actionRef: updateActionRef }],
-      files: [{ id: fileRef, bindingRef: "storage:files", operations: ["put", "get", "delete"] }],
+      events: [{ id: eventRef, source: { kind: "runtime-http" as const }, actionRef: updateActionRef }],
+      files: [{ id: fileRef, bindingRef: "storage:files", operations: ["put", "get", "delete"] as const }],
       integrations: [{
         id: integrationRef,
-        invocation: { kind: "http", method: "POST", path: "/notify", bindingRef: "service:notify" },
+        invocation: { kind: "http" as const, method: "POST" as const, path: "/notify", bindingRef: "service:notify" },
       }],
     },
-  });
+  };
 }
 
-async function materializeBundle() {
-  const directory = await mkdtemp(join(tmpdir(), "system-builder-task-257-runtime-"));
-  const bundle = compileBundle();
-  for (const file of bundle.files) {
+function compileBundle() {
+  return compileAutonomousRuntimeModelBundle(compileInput());
+}
+
+function compileWorkflowProof() {
+  return compileWorkflowRuntimeRelease(compileInput());
+}
+
+async function materialize(
+  compilation: ReturnType<typeof compileBundle> | ReturnType<typeof compileWorkflowProof>,
+  prefix: string,
+) {
+  const directory = await mkdtemp(join(tmpdir(), prefix));
+  for (const file of compilation.files) {
     const target = join(directory, file.path);
     await mkdir(dirname(target), { recursive: true });
     await writeFile(target, file.content, "utf8");
   }
-  return { directory, bundle };
+  return directory;
 }
 
 async function listen(server: Server): Promise<number> {
@@ -167,19 +178,52 @@ async function waitForStatus(port: number, path: string, expected: number): Prom
   throw new Error(`TASK_257_RUNTIME_STATUS_TIMEOUT:${expected}:${path}`);
 }
 
-async function applyBundleMigrations(bundle: ReturnType<typeof compileBundle>, connectionString: string) {
-  const preflight = preflightVerifiedMigrations(bundle.files);
+async function applyMigrations(
+  compilation: ReturnType<typeof compileBundle> | ReturnType<typeof compileWorkflowProof>,
+  connectionString: string,
+) {
+  const preflight = preflightVerifiedMigrations(compilation.files);
   const application = await applyVerifiedPostgresMigrations({
     preflight,
-    generatedFiles: bundle.files,
+    generatedFiles: compilation.files,
     runtimeSecrets: Object.freeze({ DATABASE_URL: connectionString }),
   });
   assert.equal(application.kind, "LocalMigrationApplication");
   assert.equal(application.migrations.length, preflight.migrations.length);
 }
 
+function runtimeEnvironment(serviceUrl: string, storageRoot: string): EnvironmentProfile {
+  return {
+    kind: "EnvironmentProfile",
+    environmentRef: "environment:p13:offline-functional-runtime",
+    runtimeVersions: [runtimeVersion],
+    bindings: [
+      { name: "DATABASE_URL", kind: "secret-reference", reference: "secret://runtime-database" },
+      { name: "storage:files", kind: "config", reference: "env://P13_TASK_257_STORAGE_ROOT", requirementKind: "storage" },
+      { name: "service:notify", kind: "config", reference: "env://P13_TASK_257_SERVICE_URL", requirementKind: "external-service" },
+    ],
+  };
+}
+
+function startRuntime(directory: string, environment: EnvironmentProfile, serviceUrl: string, storageRoot: string) {
+  return spawn(process.execPath, [join(directory, "runtime-entry.mjs")], {
+    cwd: directory,
+    env: {
+      ...process.env,
+      DATABASE_URL: databaseUrl,
+      P13_TASK_257_STORAGE_ROOT: storageRoot,
+      P13_TASK_257_SERVICE_URL: serviceUrl,
+      SYSTEM_BUILDER_ENVIRONMENT_PROFILE: JSON.stringify(environment),
+      SYSTEM_BUILDER_RUNTIME_PORT: "0",
+      SYSTEM_BUILDER_BUILDER_URL: "http://127.0.0.1:1",
+      SYSTEM_BUILDER_OBSERVE_URL: "http://127.0.0.1:1",
+    },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+}
+
 test(
-  "TASK-257 locally loaded autonomous bundle executes representative Runtime behavior with Builder and Observe unavailable",
+  "TASK-257 composes locally loaded autonomous Runtime behavior with existing offline workflow execution",
   { skip: databaseUrl === undefined },
   async () => {
     if (!databaseUrl) throw new Error("SYSTEM_BUILDER_TEST_POSTGRES_URL_REQUIRED");
@@ -199,42 +243,21 @@ test(
     const upstreamPort = await listen(upstream);
     const serviceUrl = `http://127.0.0.1:${upstreamPort}`;
     const storageRoot = await mkdtemp(join(tmpdir(), "system-builder-task-257-storage-"));
-    const { directory, bundle } = await materializeBundle();
+    const bundle = compileBundle();
+    const workflowProof = compileWorkflowProof();
+    const bundleDirectory = await materialize(bundle, "system-builder-task-257-runtime-");
+    const workflowDirectory = await materialize(workflowProof, "system-builder-task-257-workflow-");
+    const environment = runtimeEnvironment(serviceUrl, storageRoot);
     let child: ReturnType<typeof spawn> | undefined;
 
-    const environment: EnvironmentProfile = {
-      kind: "EnvironmentProfile",
-      environmentRef: "environment:p13:offline-functional-runtime",
-      runtimeVersions: [runtimeVersion],
-      bindings: [
-        { name: "DATABASE_URL", kind: "secret-reference", reference: "secret://runtime-database" },
-        { name: "storage:files", kind: "config", reference: "env://P13_TASK_257_STORAGE_ROOT", requirementKind: "storage" },
-        { name: "service:notify", kind: "config", reference: "env://P13_TASK_257_SERVICE_URL", requirementKind: "external-service" },
-      ],
-    };
-
     try {
-      await applyBundleMigrations(bundle, databaseUrl);
-      child = spawn(process.execPath, [join(directory, "runtime-entry.mjs")], {
-        cwd: directory,
-        env: {
-          ...process.env,
-          DATABASE_URL: databaseUrl,
-          P13_TASK_257_STORAGE_ROOT: storageRoot,
-          P13_TASK_257_SERVICE_URL: serviceUrl,
-          SYSTEM_BUILDER_ENVIRONMENT_PROFILE: JSON.stringify(environment),
-          SYSTEM_BUILDER_RUNTIME_PORT: "0",
-          SYSTEM_BUILDER_BUILDER_URL: "http://127.0.0.1:1",
-          SYSTEM_BUILDER_OBSERVE_URL: "http://127.0.0.1:1",
-        },
-        stdio: ["ignore", "pipe", "pipe"],
-      });
-      const port = await waitForStarted(child);
+      await applyMigrations(bundle, databaseUrl);
+      await applyMigrations(workflowProof, databaseUrl);
 
+      child = startRuntime(bundleDirectory, environment, serviceUrl, storageRoot);
+      const port = await waitForStarted(child);
       assert.equal((await request(port, `/entities/${encodeURIComponent(entityRef)}/offline-functional-ticket-main`, "POST", { title: "Initial" })).status, 201);
       assert.equal((await request(port, `/actions/${encodeURIComponent(updateActionRef)}/offline-functional-ticket-main`, "POST", { title: "Actioned" })).status, 200);
-      const transition = await request(port, `/workflows/${encodeURIComponent(processRef)}/offline-functional-ticket-main/${encodeURIComponent(transitionRef)}`, "POST", { title: "Closed" });
-      assert.deepEqual([transition.status, transition.body.from, transition.body.to], [200, "open", "closed"]);
 
       assert.equal((await request(port, `/entities/${encodeURIComponent(entityRef)}/offline-functional-ticket-event`, "POST", { title: "Before event" })).status, 201);
       assert.equal((await request(port, `/events/${encodeURIComponent(eventRef)}`, "POST", { recordId: "offline-functional-ticket-event", payload: { title: "Evented" } })).status, 200);
@@ -252,9 +275,23 @@ test(
       const integration = await request(port, `/integrations/${encodeURIComponent(integrationRef)}`, "POST", { ticketId: "offline-functional-ticket-main" });
       assert.deepEqual([integration.status, integration.body.status], [200, 202]);
       assert.deepEqual(upstreamCalls, [{ method: "POST", path: "/notify", body: { ticketId: "offline-functional-ticket-main" } }]);
+      await stop(child);
+      child = undefined;
+
+      child = startRuntime(workflowDirectory, environment, serviceUrl, storageRoot);
+      const workflowPort = await waitForStarted(child);
+      assert.equal((await request(workflowPort, `/entities/${encodeURIComponent(entityRef)}/offline-functional-ticket-workflow`, "POST", { title: "Workflow initial" })).status, 201);
+      const transition = await request(
+        workflowPort,
+        `/workflows/${encodeURIComponent(processRef)}/offline-functional-ticket-workflow/${encodeURIComponent(transitionRef)}`,
+        "POST",
+        { title: "Workflow closed" },
+      );
+      assert.deepEqual([transition.status, transition.body.from, transition.body.to], [200, "open", "closed"]);
 
       const evidence = JSON.stringify({
-        artifact: bundle.artifact,
+        autonomousArtifact: bundle.artifact,
+        workflowArtifact: workflowProof.artifact,
         metadata: JSON.parse(bundle.files.find((file) => file.path === "runtime-bundle.json")?.content ?? "{}"),
         model: JSON.parse(bundle.files.find((file) => file.path === "runtime-model.json")?.content ?? "{}"),
       });
@@ -264,14 +301,16 @@ test(
     } finally {
       if (child) await stop(child);
       await new Promise<void>((resolve) => upstream.close(() => resolve()));
-      await rm(directory, { recursive: true, force: true });
+      await rm(bundleDirectory, { recursive: true, force: true });
+      await rm(workflowDirectory, { recursive: true, force: true });
       await rm(storageRoot, { recursive: true, force: true });
     }
   },
 );
 
 test("TASK-257 missing external binding fails locally at use without Builder fallback or secret leakage", async () => {
-  const { directory } = await materializeBundle();
+  const bundle = compileBundle();
+  const directory = await materialize(bundle, "system-builder-task-257-missing-binding-runtime-");
   const storageRoot = await mkdtemp(join(tmpdir(), "system-builder-task-257-missing-binding-"));
   let child: ReturnType<typeof spawn> | undefined;
   const sentinel = "resolved-secret-must-not-leak";
