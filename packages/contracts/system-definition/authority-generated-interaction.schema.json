@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SystemDefinition bounded authority and generated interaction descriptors",
+  "type": "object",
+  "properties": {
+    "roleBindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "roleRef"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "roleRef": { "type": "string", "minLength": 1 },
+          "actorRef": { "type": "string", "minLength": 1 },
+          "membershipRef": { "type": "string", "minLength": 1 }
+        },
+        "oneOf": [
+          { "required": ["actorRef"], "not": { "required": ["membershipRef"] } },
+          { "required": ["membershipRef"], "not": { "required": ["actorRef"] } }
+        ]
+      }
+    },
+    "views": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "requirementRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["list", "detail", "form", "dashboard", "timeline", "kanban", "calendar", "custom"] },
+          "requirementRefs": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "binding": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["entityRef"],
+            "properties": {
+              "entityRef": { "type": "string", "minLength": 1 },
+              "fieldRefs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+              "actionRefs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+            }
+          }
+        }
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role", "resource", "actions"],
+        "properties": {
+          "role": { "type": "string", "minLength": 1 },
+          "resource": { "type": "string", "minLength": 1 },
+          "actions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "context": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "organizationRef": { "type": "string", "minLength": 1 },
+              "membershipRef": { "type": "string", "minLength": 1 }
+            },
+            "minProperties": 1
+          },
+          "policyRefs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "requirementRefs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "statement": { "type": "string", "minLength": 1 },
+          "requirementRefs": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "structured": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["effect"],
+            "properties": {
+              "effect": { "enum": ["allow", "deny"] },
+              "roleRefs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+              "resourceRefs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+              "actionRefs": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+              "contextEquals": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": ["string", "number", "boolean"]
+                }
+              }
+            },
+            "minProperties": 1
+          }
+        }
+      }
+    }
+  }
+}

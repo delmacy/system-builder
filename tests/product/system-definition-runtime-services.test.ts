@@ -48,6 +48,8 @@ function validate(value: unknown, schema: JsonSchema, path = "$"): readonly stri
   return errors;
 }
 
+const schema = systemDefinitionSchema as unknown as JsonSchema;
+
 function baseDefinition() {
   return {
     definition: "SystemDefinition",
@@ -65,7 +67,7 @@ function baseDefinition() {
 }
 
 test("SystemDefinition keeps historical definitions valid when Runtime service descriptors are absent", () => {
-  assert.deepEqual(validate(baseDefinition(), systemDefinitionSchema as JsonSchema), []);
+  assert.deepEqual(validate(baseDefinition(), schema), []);
 });
 
 test("SystemDefinition accepts explicit bounded job event file and HTTP integration descriptors", () => {
@@ -77,21 +79,21 @@ test("SystemDefinition accepts explicit bounded job event file and HTTP integrat
     files: [{ id: "files:attachments", name: "Attachments", requirementRefs: ["REQ-6"], bindingRef: "storage:files", operations: ["put", "get", "delete"] }],
     integrations: [{ id: "integration:notify", contract: "notify-v1", direction: "outbound", requirementRefs: ["REQ-7"], invocation: { kind: "http", method: "POST", path: "/notify", bindingRef: "service:notify" } }],
   };
-  assert.deepEqual(validate(value, systemDefinitionSchema as JsonSchema), []);
+  assert.deepEqual(validate(value, schema), []);
 });
 
 test("Runtime service descriptors reject malformed and value-bearing declarations", () => {
   const malformedJob = { ...baseDefinition(), jobs: [{ id: "job:bad", name: "Bad", requirementRefs: ["REQ-4"], trigger: { kind: "interval", intervalMs: 0 }, actionRef: "action:close", recordId: "ticket-1" }] };
-  assert.ok(validate(malformedJob, systemDefinitionSchema as JsonSchema).some((error) => error.includes("minimum")));
+  assert.ok(validate(malformedJob, schema).some((error) => error.includes("minimum")));
 
   const malformedEvent = { ...baseDefinition(), events: [{ id: "event:bad", name: "Bad", requirementRefs: ["REQ-5"], source: { kind: "broker" }, actionRef: "action:close" }] };
-  assert.ok(validate(malformedEvent, systemDefinitionSchema as JsonSchema).some((error) => error.includes("const")));
+  assert.ok(validate(malformedEvent, schema).some((error) => error.includes("const")));
 
   const leakingFile = { ...baseDefinition(), files: [{ id: "files:bad", name: "Bad", requirementRefs: ["REQ-6"], bindingRef: "storage:files", operations: ["put"], root: "/resolved/private" }] };
-  assert.ok(validate(leakingFile, systemDefinitionSchema as JsonSchema).some((error) => error.includes("root")));
+  assert.ok(validate(leakingFile, schema).some((error) => error.includes("root")));
 
   const leakingIntegration = { ...baseDefinition(), integrations: [{ id: "integration:bad", contract: "v1", direction: "outbound", requirementRefs: ["REQ-7"], invocation: { kind: "http", method: "POST", path: "https://resolved.example/notify", bindingRef: "service:notify", token: "secret" } }] };
-  const integrationErrors = validate(leakingIntegration, systemDefinitionSchema as JsonSchema);
+  const integrationErrors = validate(leakingIntegration, schema);
   assert.ok(integrationErrors.some((error) => error.includes("token")));
   assert.ok(integrationErrors.some((error) => error.includes("pattern")));
 });

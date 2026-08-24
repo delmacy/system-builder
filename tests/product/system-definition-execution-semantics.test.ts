@@ -43,6 +43,8 @@ function validateSchema(value: unknown, schema: JsonSchema, path = "$"): readonl
   return errors;
 }
 
+const schema = systemDefinitionSchema as unknown as JsonSchema;
+
 function baseDefinition() {
   return {
     definition: "SystemDefinition",
@@ -56,30 +58,30 @@ function baseDefinition() {
 }
 
 test("legacy SystemDefinition remains valid without executable semantics", () => {
-  assert.deepEqual(validateSchema(baseDefinition(), systemDefinitionSchema as JsonSchema), []);
+  assert.deepEqual(validateSchema(baseDefinition(), schema), []);
 });
 
 test("SystemDefinition accepts explicit initial state, action effects and workflow transitions", () => {
   const definition = baseDefinition() as Record<string, unknown>;
   definition.actions = [{ id: "action:close-ticket", name: "Close ticket", requirementRefs: ["REQ-3"], effect: { kind: "entity.update", entityRef: "entity:ticket" } }];
   definition.processes = [{ id: "process:ticket", name: "Ticket lifecycle", requirementRefs: ["REQ-2"], states: ["open", "closed"], initialState: "open", transitions: [{ id: "transition:close", from: "open", to: "closed", actionRef: "action:close-ticket" }] }];
-  assert.deepEqual(validateSchema(definition, systemDefinitionSchema as JsonSchema), []);
+  assert.deepEqual(validateSchema(definition, schema), []);
 });
 
 test("workflow transitions structurally require an explicit initial state", () => {
   const definition = baseDefinition() as Record<string, unknown>;
   definition.processes = [{ id: "process:ticket", name: "Ticket lifecycle", requirementRefs: ["REQ-2"], states: ["open", "closed"], transitions: [{ id: "transition:close", from: "open", to: "closed" }] }];
-  assert.ok(validateSchema(definition, systemDefinitionSchema as JsonSchema).some((error) => error.includes("initialState")));
+  assert.ok(validateSchema(definition, schema).some((error) => error.includes("initialState")));
 });
 
 test("executable semantics reject malformed, ambiguous and value-bearing declarations", () => {
   const malformed = baseDefinition() as Record<string, unknown>;
   malformed.actions = [{ id: "action:bad", name: "Bad", requirementRefs: ["REQ-3"], effect: { kind: "entity.update" } }];
-  assert.ok(validateSchema(malformed, systemDefinitionSchema as JsonSchema).some((error) => error.includes("entityRef")));
+  assert.ok(validateSchema(malformed, schema).some((error) => error.includes("entityRef")));
   const ambiguous = baseDefinition() as Record<string, unknown>;
   ambiguous.actions = [{ id: "action:bad", name: "Bad", requirementRefs: ["REQ-3"], effect: { kind: "entity.update", entityRef: "entity:ticket", handler: "guess-from-name" } }];
-  assert.ok(validateSchema(ambiguous, systemDefinitionSchema as JsonSchema).some((error) => error.includes("handler")));
+  assert.ok(validateSchema(ambiguous, schema).some((error) => error.includes("handler")));
   const leaking = baseDefinition() as Record<string, unknown>;
   leaking.processes = [{ id: "process:ticket", name: "Ticket lifecycle", requirementRefs: ["REQ-2"], states: ["open", "closed"], initialState: "open", transitions: [{ id: "transition:close", from: "open", to: "closed", value: "secret" }] }];
-  assert.ok(validateSchema(leaking, systemDefinitionSchema as JsonSchema).some((error) => error.includes("value")));
+  assert.ok(validateSchema(leaking, schema).some((error) => error.includes("value")));
 });
