@@ -35,7 +35,7 @@ function input(): CompilerRuntimeAuthorityProjectionInput {
       },
     ],
     views: [
-      { id: "view:ticket-form", binding: { entityRef: "entity:ticket", fieldRefs: ["title", "ownerId"], actionRefs: ["action:edit"] } },
+      { id: "view:ticket-form", kind: "form", binding: { entityRef: "entity:ticket", fieldRefs: ["title", "ownerId"], actionRefs: ["action:edit"] } },
     ],
   };
 }
@@ -56,6 +56,7 @@ test("authority projection is deterministic and keeps references explicit", () =
   assert.deepEqual(first, second);
   assert.equal(first.roleBindings[0]?.actorRef, "identity:alice");
   assert.equal(first.roleBindings[1]?.membershipRef, "membership:team-a");
+  assert.equal(first.views[0]?.kind, "form");
   const agentPermission = first.permissions.find((permission) => permission.role === "role:agent" && permission.resource === "entity:ticket");
   assert.deepEqual(agentPermission?.actions, ["action:close", "action:edit"]);
 });
@@ -74,16 +75,32 @@ test("authority projection fails closed on unknown and ambiguous references", ()
     /COMPILER_AUTHORITY_PROJECTION_UNKNOWN_MEMBERSHIP_REFERENCE/,
   );
   assert.throws(
-    () => normalizeRuntimeAuthorityProjection({ ...input(), views: [{ id: "view:bad", binding: { entityRef: "entity:missing" } }] }),
+    () => normalizeRuntimeAuthorityProjection({ ...input(), views: [{ id: "view:bad", kind: "form", binding: { entityRef: "entity:missing" } }] }),
     /COMPILER_AUTHORITY_PROJECTION_UNKNOWN_VIEW_ENTITY/,
   );
   assert.throws(
-    () => normalizeRuntimeAuthorityProjection({ ...input(), views: [{ id: "view:bad", binding: { entityRef: "entity:ticket", fieldRefs: ["missing"] } }] }),
+    () => normalizeRuntimeAuthorityProjection({ ...input(), views: [{ id: "view:bad", kind: "form", binding: { entityRef: "entity:ticket", fieldRefs: ["missing"] } }] }),
     /COMPILER_AUTHORITY_PROJECTION_UNKNOWN_VIEW_FIELD/,
   );
   assert.throws(
     () => normalizeRuntimeAuthorityProjection({ ...input(), permissions: [{ role: "role:agent", resource: "entity:ticket", actions: ["action:missing"] }] }),
     /COMPILER_AUTHORITY_PROJECTION_UNKNOWN_PERMISSION_ACTION/,
+  );
+});
+
+test("view kind is explicit and fails closed when missing or invalid", () => {
+  const source = input();
+  const views = source.views;
+  assert.ok(views);
+  const view = views[0];
+  assert.ok(view);
+  assert.throws(
+    () => normalizeRuntimeAuthorityProjection({ ...source, views: [{ ...view, kind: undefined } as never] }),
+    /COMPILER_AUTHORITY_PROJECTION_INVALID_VIEW_KIND/,
+  );
+  assert.throws(
+    () => normalizeRuntimeAuthorityProjection({ ...source, views: [{ ...view, kind: "invented" } as never] }),
+    /COMPILER_AUTHORITY_PROJECTION_INVALID_VIEW_KIND/,
   );
 });
 

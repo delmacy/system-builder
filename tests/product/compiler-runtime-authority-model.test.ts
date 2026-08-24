@@ -27,7 +27,7 @@ function authorityProjection() {
     roleBindings: [{ id: "binding:alice-agent", roleRef: "role:agent", actorRef: "identity:alice" }],
     permissions: [{ role: "role:agent", resource: "entity:ticket", actions: ["action:edit"], policyRefs: ["policy:owned"] }],
     policies: [{ id: "policy:owned", statement: "documentation only", structured: { effect: "allow", roleRefs: ["role:agent"], resourceRefs: ["entity:ticket"], actionRefs: ["action:edit"], contextEquals: { ownership: true } } }],
-    views: [{ id: "view:ticket", binding: { entityRef: "entity:ticket", fieldRefs: ["title"], actionRefs: ["action:edit"] } }],
+    views: [{ id: "view:ticket", kind: "form", binding: { entityRef: "entity:ticket", fieldRefs: ["title"], actionRefs: ["action:edit"] } }],
   });
 }
 
@@ -38,6 +38,7 @@ test("RuntimeModel carries normalized authority and generated interaction descri
   assert.deepEqual(first.roleBindings, [{ id: "binding:alice-agent", roleRef: "role:agent", actorRef: "identity:alice" }]);
   assert.deepEqual(first.permissions, [{ role: "role:agent", resource: "entity:ticket", actions: ["action:edit"], policyRefs: ["policy:owned"] }]);
   assert.equal(first.policies?.[0]?.structured?.effect, "allow");
+  assert.equal(first.views?.[0]?.kind, "form");
   assert.deepEqual(first.views?.[0]?.binding, { entityRef: "entity:ticket", fieldRefs: ["title"], actionRefs: ["action:edit"] });
   assert.equal(canonicalJson(first), canonicalJson(second));
 });

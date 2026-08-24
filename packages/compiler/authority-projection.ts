@@ -38,6 +38,8 @@ export type CompilerRuntimePolicyDeclaration = Readonly<{
   structured?: CompilerRuntimeStructuredPolicy;
 }>;
 
+export type CompilerRuntimeViewKind = "list" | "detail" | "form" | "dashboard" | "timeline" | "kanban" | "calendar" | "custom";
+
 export type CompilerRuntimeViewBinding = Readonly<{
   entityRef: string;
   fieldRefs?: readonly string[];
@@ -46,6 +48,7 @@ export type CompilerRuntimeViewBinding = Readonly<{
 
 export type CompilerRuntimeViewDeclaration = Readonly<{
   id: string;
+  kind: CompilerRuntimeViewKind;
   binding?: CompilerRuntimeViewBinding;
 }>;
 
@@ -66,6 +69,7 @@ export type CompilerRuntimeCompiledPolicy = Readonly<{
 
 export type CompilerRuntimeCompiledView = Readonly<{
   id: string;
+  kind: CompilerRuntimeViewKind;
   binding?: CompilerRuntimeViewBinding;
 }>;
 
@@ -77,10 +81,17 @@ export type CompilerRuntimeAuthorityProjection = Readonly<{
   views: readonly CompilerRuntimeCompiledView[];
 }>;
 
+const runtimeViewKinds = new Set<CompilerRuntimeViewKind>(["list", "detail", "form", "dashboard", "timeline", "kanban", "calendar", "custom"]);
+
 function token(value: string, field: string): string {
   const normalized = value.trim();
   if (normalized.length === 0) throw new Error(`COMPILER_AUTHORITY_PROJECTION_INVALID_${field.toUpperCase()}`);
   return normalized;
+}
+
+function viewKind(value: CompilerRuntimeViewKind | undefined): CompilerRuntimeViewKind {
+  if (value === undefined || !runtimeViewKinds.has(value)) throw new Error("COMPILER_AUTHORITY_PROJECTION_INVALID_VIEW_KIND");
+  return value;
 }
 
 function sortedUniqueTokens(values: readonly string[] | undefined, field: string): readonly string[] | undefined {
@@ -130,7 +141,8 @@ export function normalizeRuntimeAuthorityProjection(input: CompilerRuntimeAuthor
 
   const views: CompilerRuntimeCompiledView[] = [...(input.views ?? [])].map((view): CompilerRuntimeCompiledView => {
     const id = token(view.id, "view_id");
-    if (view.binding === undefined) return Object.freeze({ id });
+    const kind = viewKind(view.kind);
+    if (view.binding === undefined) return Object.freeze({ id, kind });
     const entityRef = token(view.binding.entityRef, "view_entity_ref");
     if (!entityIds.has(entityRef)) throw new Error(`COMPILER_AUTHORITY_PROJECTION_UNKNOWN_VIEW_ENTITY:${entityRef}`);
     const fieldRefs = sortedUniqueTokens(view.binding.fieldRefs, "view_field_ref");
@@ -140,6 +152,7 @@ export function normalizeRuntimeAuthorityProjection(input: CompilerRuntimeAuthor
     for (const actionRef of actionRefs ?? []) if (!actionIds.has(actionRef)) throw new Error(`COMPILER_AUTHORITY_PROJECTION_UNKNOWN_VIEW_ACTION:${actionRef}`);
     return Object.freeze({
       id,
+      kind,
       binding: Object.freeze({
         entityRef,
         ...(fieldRefs === undefined ? {} : { fieldRefs }),
