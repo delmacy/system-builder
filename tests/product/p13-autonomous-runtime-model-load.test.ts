@@ -26,6 +26,7 @@ function compileBundle() {
     compilerVersion: "0.1.0",
     runtimeVersion: "0.1.0",
     environmentSchema: [
+      { name: "DATABASE_URL", kind: "secret-reference", required: true },
       { name: "AUTH_BINDING", kind: "secret-reference", required: true },
     ],
     systemDefinitionRuntime: {
@@ -92,6 +93,11 @@ const environmentProfile = JSON.stringify({
       name: "AUTH_BINDING",
       kind: "secret-reference",
       reference: "secret:auth:test",
+    },
+    {
+      name: "DATABASE_URL",
+      kind: "secret-reference",
+      reference: "secret:database:test",
     },
   ],
 });
