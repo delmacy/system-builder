@@ -1,63 +1,47 @@
 # P13-PACKAGE-03 — Autonomous Runtime Operational Autonomy
 
-Status: FORECAST
+Status: PLANNING & MATERIALIZATION / CONSTRUCTION A COMMITTED / NOT EXECUTED
 Milestone: M13
 Primary WBS: 13.3.1-13.3.3
-Predecessor: P13-PACKAGE-02 CLOSED or equivalent functional/authority readiness proven by repository authority
+Planning base: `9e39ceca50b27a5f155ba8dfcfe340061a5ed71e`
+Predecessor: P13-PACKAGE-02 CLOSED
 
 ## Package goal
 Close operational autonomy for the fully capable client Runtime: prove continued operation with Builder unavailable, expose optional health/telemetry without making Observe mandatory, and prove upgrade/rollback compatibility through existing release/deploy contracts.
 
-## Existing predecessor evidence — do not rebuild
-Earlier integrated work already proves partial WBS 13.3:
-- Compiler-generated autonomous startup/health with Builder/Observe unavailable (`TASK-060`);
-- full local autonomous deployment vertical (`TASK-063`);
-- deployment upgrade/rollback and durable runtime lifecycle work exists across earlier deploy/release packages.
+## Planning evidence matrix
+- WBS 13.3.1 startup/health baseline: REUSE TASK-060; gap is completeness for the full actor-aware Runtime.
+- WBS 13.3.1 local deployment baseline: REUSE TASK-063 and integrated Deploy evidence; do not rebuild bootstrap-only deployment.
+- WBS 13.3.2 optional Observe baseline: REUSE TASK-135/136 fail-open publication; gap is complete-Runtime local health/telemetry certification.
+- WBS 13.3.3 rollback baseline: REUSE P7 TASK-104..106 activation/retention/reconstruction evidence; remaining continuity proof belongs to Construction B.
+- P13-PACKAGE-01/02 provide the complete Runtime functional, identity, authority and generated-experience behavior that Construction A must certify offline.
 
-This package must extend those proofs to the complete functional/actor-aware Runtime produced by P13-PACKAGE-01/02. It must not repeat bootstrap-only autonomy tests as if they were new capability.
-
-## Sprint 0 — Planning & Materialization
-Goal: reconstruct fresh `main`, map WBS 13.3 against existing autonomous-startup, telemetry/observe and release/deploy upgrade/rollback evidence, identify only the remaining completeness gaps, define package certification proof and materialize only Construction A.
-
-Required outputs:
-- evidence matrix for Builder-offline operation, optional telemetry/health and upgrade/rollback;
-- explicit reuse of prior runtime/deploy proofs;
-- Construction A/B goals and optional C candidate;
-- failure/recovery and no-observer-dependency acceptance;
-- no product implementation.
-
-## Construction A — Full-runtime offline autonomy and optional telemetry
-FORECAST.
-
-Candidate goal: prove the fully capable actor-aware Runtime keeps its representative login/API/data/workflow/job/integration behavior when Builder is unavailable, while health/telemetry remain locally usable and Observe is optional.
-
-Exit proof candidate: actual compiled/deployed Runtime executes representative end-to-end behavior with Builder/Observe endpoints absent or unreachable, emits bounded health/telemetry, and no required control path calls back to the Builder.
+## Construction A — P13-RUNTIME-OFFLINE-AUTONOMY-01
+Status: COMMITTED / MATERIALIZED / NOT EXECUTED.
+Goal: extend prior bootstrap-only proof to the complete actor-aware Runtime and certify optional local health/telemetry with Builder unavailable and Observe optional.
+Committed TASKs: TASK-254..260 in dependency order.
+Exit proof: actual Compiler output containing the complete materialized RuntimeModel executes representative actor-aware functional/generated behavior with Builder/Observe absent or unreachable, emits bounded local health/telemetry, fails explicitly for missing required bindings, and leaks no secrets/resolved values.
 
 ## Construction B — Upgrade/rollback continuity
-FORECAST.
-
-Candidate goal: prove upgrade and rollback of the autonomous Runtime according to existing release/deploy contracts while preserving compatible data/configuration and producing explicit failure/recovery evidence.
-
-Exit proof candidate: deploy version A -> operate -> upgrade to compatible B -> operate -> rollback/reconstruct A where contract permits, with deterministic records, no secret leakage and no false-success state on failed candidate activation.
+Status: FORECAST.
+Candidate goal: prove version A -> operate -> compatible B -> operate -> rollback/reconstruct A where existing release/deploy contracts permit, preserving compatible data/configuration and deterministic failure/recovery evidence. Reuse P7 release/deploy activation and rollback semantics; do not invent a new deployment lifecycle.
 
 ## Optional Construction C — portability/recovery completeness only if justified
-FORECAST / CONDITIONAL.
-
-Promote only if post-Construction-B integrated evidence shows a bounded WBS 13.3 acceptance gap remains, such as recovery continuity for one required runtime service class or an unproven telemetry independence edge. Do not use for new deployment-provider scope without separate authority.
+Status: FORECAST / CONDITIONAL.
+Promote only after Construction B fresh-main revalidation if a bounded WBS 13.3 acceptance gap remains. No new provider/topology without separate authority.
 
 ## Package Integration & Review
-FORECAST.
-
-Run the complete Autonomous Runtime certification chain across WBS 13.1-13.3: functional execution, actor authority, Builder-offline operation, optional Observe/telemetry, upgrade/rollback and negative recovery. Classify residual debt and determine whether M13 outcome is acceptable.
+Status: FORECAST.
+Regress WBS 13.1-13.3 across functional execution, actor authority, Builder-offline operation, optional Observe/telemetry, upgrade/rollback and negative recovery; classify residual debt and M13 readiness.
 
 ## Documentation & Closure
-FORECAST.
-
-Reconcile current-state docs, WBS 13 coverage, package/Sprint reports, runtime operations/runbooks, release/deploy compatibility notes, risks/lessons and next baseline horizon. Declare Autonomous Runtime closed only when repository memory and evidence agree.
+Status: FORECAST.
+Reconcile current-state docs, WBS coverage, package/Sprint reports, runtime operations/runbooks, release/deploy compatibility notes, risks/lessons and next baseline horizon.
 
 ## Boundaries
 - Observe/Support may consume telemetry/evidence but cannot become a Runtime availability dependency.
+- Authentication != authorization; authority remains explicit/fail-closed; free-text policy remains non-executable.
 - Upgrade/rollback follows existing Release/Deploy authority; no bypass or implicit production mutation.
-- No new provider/topology or L4 boundary without separate authority/ADR.
-- Branch protection/required-check governance remains unrelated and DEFERRED unless separately authorized.
-- This forecast grants no execution authority.
+- No new provider/topology or L4 boundary without ADR/change control.
+- TD-P13-01..04 remain carried and are not absorbed.
+- Planning grants execution authority only after this materialization is integrated and the committed Construction A Sprint is reconstructed from fresh main.
