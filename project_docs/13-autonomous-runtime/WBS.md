@@ -11,11 +11,11 @@ Status: IN PROGRESS
 Closure evidence: `P13-PACKAGE-01`, its Construction A/B integration, `P13-PACKAGE-INTEGRATION-REVIEW-01`, and `P13-PACKAGE-DOCUMENTATION-CLOSURE-01`. Construction C was NOT JUSTIFIED.
 
 ### 13.2 Experiência e autoridade — IN PROGRESS / `P13-PACKAGE-02`
-- **13.2.1** Implementar auth/session/identity bindings. — SATISFIED / INTEGRATED by `P13-RUNTIME-IDENTITY-SESSION-01`, PR #250, merge `adc739c1370df380a31ad196bf24fcdff4b0bf2d`.
-- **13.2.2** Aplicar roles, permissions e policies materializadas. — MISSING / FORECAST / BLOCKED PENDING BOUNDED L3 CHANGE CONTROL.
-- **13.2.3** Renderizar views/forms e interações geradas. — MISSING / FORECAST / BLOCKED PENDING BOUNDED L3 CHANGE CONTROL.
+- **13.2.1** Implementar auth/session/identity bindings. — SATISFIED / INTEGRATED by `P13-RUNTIME-IDENTITY-SESSION-01`, PR #250.
+- **13.2.2** Aplicar roles, permissions e policies materializadas. — SATISFIED / INTEGRATED by `P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01`, Sprint Review PR #274, merge `64b06414718ac8160eeb423d8194ef9d12b46a85`.
+- **13.2.3** Renderizar views/forms e interações geradas. — PARTIAL / CONSTRUCTION C MATERIALIZED. Construction B integrated explicit deterministic view/form bindings and authority-gated generated interaction, but fresh-main revalidation found no Runtime generated view/form render-output abstraction. `P13-RUNTIME-GENERATED-EXPERIENCE-RENDERING-01` / TASK-249..253 is materialized to close only this remaining rendering gap.
 
-Fresh-main post-Construction-A evidence confirms existing `SystemDefinition.permissions`, `policies` and `views` remain declarative and are not sufficient by themselves for executable actor/role membership, safe policy evaluation or deterministic generated view/form binding. A minimum additive backward-compatible L3 authority decision is required before Construction B may be materialized. No L4 requirement is currently identified.
+No new public contract or L4 change is currently required for Construction C; existing declared view kind/bindings plus Runtime authority behavior are the authorized substrate. If implementation disproves that assumption, stop for bounded change control/ADR rather than widening the Sprint.
 
 ### 13.3 Autonomia operacional — FORECAST / NOT STARTED
 - **13.3.1** Provar startup/operation com Builder indisponível.

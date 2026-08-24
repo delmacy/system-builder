@@ -1,6 +1,6 @@
 # P13-PACKAGE-02 — Autonomous Runtime Identity, Authority & Generated Experience
 
-Status: ACTIVE / CONSTRUCTION B MATERIALIZED
+Status: ACTIVE / CONSTRUCTION C MATERIALIZED
 Milestone: M13
 Primary WBS: 13.2.1-13.2.3
 Predecessor: P13-PACKAGE-01 CLOSED
@@ -11,18 +11,22 @@ Make the autonomous client runtime actor-aware and usable: authenticate/session-
 ## Construction A
 `P13-RUNTIME-IDENTITY-SESSION-01` / TASK-231..239 is INTEGRATED by PR #250; WBS 13.2.1 SATISFIED.
 
-## Construction B authority
-Bounded L3 change control is ACCEPTED/INTEGRATED by PR #253 at `039edb5ba9bab61dadbfe845e6cafb26dbb61933`, exact authority head `00b8be57c4036243035e2f6bd8547a644b1e33d0`, Deterministic CI #618 PASS, Heavy Product Tests #41 PASS. No L4 requirement was found.
+## Construction B
+Bounded L3 authority was accepted/integrated by PR #253. `P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01` / TASK-240..248 is INTEGRATED by Sprint Review PR #274 from exact head `09a9fd083c398678192c24af9b3f5c6aa188071a`; Deterministic CI #634 PASS, Heavy Product Tests #59 PASS; merge-main `64b06414718ac8160eeb423d8194ef9d12b46a85`.
 
-## Construction B — Authorization and generated interaction
-Sprint: `P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01`
+Construction B satisfies WBS 13.2.2 and supplies explicit deterministic view/form bindings plus authority-gated generated interaction for WBS 13.2.3.
+
+## Construction C — generated experience rendering
+Fresh-main revalidation at `project_docs/execution_planning/P13-PACKAGE-02.post-construction-b-revalidation.md` proves one bounded Package Goal gap remains: no Runtime render-output abstraction currently turns the integrated generated bindings into deterministic generated view/form output.
+
+Sprint: `P13-RUNTIME-GENERATED-EXPERIENCE-RENDERING-01`
 Status: COMMITTED / MATERIALIZED / NOT EXECUTED
-Tasks: TASK-240..248
-Primary WBS: 13.2.2-13.2.3
+Tasks: TASK-249..253
+Primary WBS: 13.2.3
 
-Goal: explicit actor/membership-role resolution -> deterministic permission/policy allow/deny -> deterministic generated view/form binding -> representative authority-gated action and generated interaction, all fail-closed and autonomous.
+Goal: preserve already-declared view kind through RuntimeModel, materialize renderer-agnostic generated view/form documents, validate bound form input fail-closed, reuse the existing authority gate for rendered actions, and close the growing Package Goal proof.
 
 ## Boundaries
-Authentication != authorization; free-text policy is non-executable; no inferred privilege/binding; no provider-specific IAM/UI framework; no new bounded context/ownership/topology; TD-P13-01..04 remain outside scope; P13-PACKAGE-03 remains NOT STARTED.
+Authentication != authorization; free-text policy is non-executable; no inferred privilege/field/action/binding; no provider-specific IAM/UI framework; no new bounded context/ownership/topology; no public contract expansion unless separately authorized; TD-P13-01..04 remain outside scope; P13-PACKAGE-03 remains NOT STARTED.
 
-Construction C remains FORECAST / CONDITIONAL. Package Integration & Review and Documentation & Closure remain FORECAST.
+Package Integration & Review and Documentation & Closure remain FORECAST until Construction C is integrated.
