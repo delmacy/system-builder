@@ -56,7 +56,8 @@ test("authority projection is deterministic and keeps references explicit", () =
   assert.deepEqual(first, second);
   assert.equal(first.roleBindings[0]?.actorRef, "identity:alice");
   assert.equal(first.roleBindings[1]?.membershipRef, "membership:team-a");
-  assert.deepEqual(first.permissions[0]?.actions, ["action:close", "action:edit"]);
+  const agentPermission = first.permissions.find((permission) => permission.role === "role:agent" && permission.resource === "entity:ticket");
+  assert.deepEqual(agentPermission?.actions, ["action:close", "action:edit"]);
 });
 
 test("authority projection fails closed on unknown and ambiguous references", () => {

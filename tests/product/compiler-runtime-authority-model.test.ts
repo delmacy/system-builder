@@ -26,7 +26,7 @@ function authorityProjection() {
     identities: runtime.identities,
     roleBindings: [{ id: "binding:alice-agent", roleRef: "role:agent", actorRef: "identity:alice" }],
     permissions: [{ role: "role:agent", resource: "entity:ticket", actions: ["action:edit"], policyRefs: ["policy:owned"] }],
-    policies: [{ id: "policy:owned", statement: "documentation only", structured: { effect: "allow", roleRefs: ["role:agent"], resourceRefs: ["entity:ticket"], actionRefs: ["action:edit"], contextEquals: { ownership: true } }],
+    policies: [{ id: "policy:owned", statement: "documentation only", structured: { effect: "allow", roleRefs: ["role:agent"], resourceRefs: ["entity:ticket"], actionRefs: ["action:edit"], contextEquals: { ownership: true } } }],
     views: [{ id: "view:ticket", binding: { entityRef: "entity:ticket", fieldRefs: ["title"], actionRefs: ["action:edit"] } }],
   });
 }
