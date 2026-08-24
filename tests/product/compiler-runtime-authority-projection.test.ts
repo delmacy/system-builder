@@ -93,10 +93,13 @@ test("free-text policy never becomes executable compiler output", () => {
   assert.equal(serialized.includes("statement"), false);
   assert.equal(result.policies[0]?.structured?.effect, "allow");
 
-  const descriptiveOnly = input();
-  descriptiveOnly.policies = [{ id: "policy:descriptive", statement: "documentation only" }];
-  descriptiveOnly.permissions = [{ role: "role:agent", resource: "entity:ticket", actions: ["action:edit"], policyRefs: ["policy:descriptive"] }];
-  descriptiveOnly.roleBindings = [{ id: "binding:alice-agent", roleRef: "role:agent", actorRef: "identity:alice" }];
+  const source = input();
+  const descriptiveOnly: CompilerRuntimeAuthorityProjectionInput = {
+    ...source,
+    policies: [{ id: "policy:descriptive", statement: "documentation only" }],
+    permissions: [{ role: "role:agent", resource: "entity:ticket", actions: ["action:edit"], policyRefs: ["policy:descriptive"] }],
+    roleBindings: [{ id: "binding:alice-agent", roleRef: "role:agent", actorRef: "identity:alice" }],
+  };
   assert.throws(
     () => normalizeRuntimeAuthorityProjection(descriptiveOnly),
     /COMPILER_AUTHORITY_PROJECTION_NON_EXECUTABLE_POLICY_REFERENCE/,
