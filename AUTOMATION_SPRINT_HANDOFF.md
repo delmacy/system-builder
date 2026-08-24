@@ -1,16 +1,16 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: :30
-started_at: 2026-08-24T04:52:42-03:00
-updated_at: 2026-08-24T04:58:00-03:00
-lease_until: 2026-08-24T04:58:00-03:00
+status: RUNNING
+worker_slot: :50
+started_at: 2026-08-24T05:13:12-03:00
+updated_at: 2026-08-24T05:14:30-03:00
+lease_until: 2026-08-24T05:58:00-03:00
 observed_main_sha: 776842bf88b6150e4af74361e21379af6210763f
-active_branch: task/TASK-248-P13-AUTHORITY-GROWING-PROOF
-active_pr: #272 task PR; #273 validation-only CI gate
-active_head_sha: d9efb95fcae9a21193f26bf3bd505f77b1819b43
-last_completed_step: Revalidated TASK-247 exact head 08a3a280b697e14fcac4c9693172fcfeba1fbd7a with Deterministic CI #632 PASS and Heavy Product Tests #57 PASS; closed validation-only PR #271 without merge; squash-merged PR #270 with expected-head protection, producing authoritative TASK-247 Sprint commit 1c7ccb55801ae2ef94f762391c755d5a1bcd73fa. Created TASK-248 branch exactly from that commit and implemented only the required growing E2E product proof in tests/product/runtime-authority-generated-interaction-e2e.test.ts. Opened task PR #272 against the Sprint branch and validation-only PR #273 against main, both at exact head d9efb95fcae9a21193f26bf3bd505f77b1819b43. PR #272 is mergeable and changes exactly 1 file (+178/-0). Deterministic CI #633 (run 32703818758) and Heavy Product Tests #58 (run 32703818827) are in progress. No successor work started.
-next_authorized_step: Revalidate exact head d9efb95fcae9a21193f26bf3bd505f77b1819b43, PR #272 reviews/threads/mergeability and runs #633/#58. If both required workflows PASS on the exact head with no blocking findings, close #273 without merge and squash-merge #272 with expected-head protection. Record the resulting authoritative TASK-248 commit on the Sprint branch. Then revalidate the Sprint manifest/policy to determine the next real gate (likely Sprint Review/Construction B completion) before any further materialization. If either workflow fails, fix only TASK-248 proof scope and retry. Do not absorb TD-P13-01..04 or P13-PACKAGE-03.
+active_branch: sprint/P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01
+active_pr: none yet; TASK-248 PR #272 merged, validation PR #273 closed unmerged
+active_head_sha: 1c3ad707c68336517a7024199c8c19c45cb4e833
+last_completed_step: Revalidated TASK-248 exact head d9efb95fcae9a21193f26bf3bd505f77b1819b43 with Deterministic CI #633 PASS and Heavy Product Tests #58 PASS, no blocking review threads, closed validation-only PR #273 without merge, and squash-merged task PR #272 with expected-head protection. Authoritative TASK-248 Sprint commit is 1c3ad707c68336517a7024199c8c19c45cb4e833. All committed TASK-240..248 are now executed on the Sprint branch.
+next_authorized_step: Revalidate Sprint completion authority, produce the required Sprint Report and repository-wide final validation evidence, then open the single Sprint Review PR from sprint/P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01 to main. Do not merge the Sprint PR before exact-head required checks and applicable review gate. Do not start Construction C or Package Review before fresh-main revalidation after Sprint integration.
 
 ## resume_prompt
-Retome delmacy/system-builder no Sprint P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01. main observado permanece 776842bf88b6150e4af74361e21379af6210763f. TASK-247 é autoritativa na Sprint em 1c7ccb55801ae2ef94f762391c755d5a1bcd73fa. TASK-248 foi implementada somente em tests/product/runtime-authority-generated-interaction-e2e.test.ts, cobrindo actor permitido/negado, membership ausente/ambígua, contexto de permission/policy ausente ou incompatível, binding gerado inválido, free-text policy sem execução, Runtime sem Builder/Observe e evidência sem secret/resolved value. O head exato é d9efb95fcae9a21193f26bf3bd505f77b1819b43. PR #272 é o task PR contra sprint/P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01 e está mergeable, 1 arquivo, +178/-0. PR #273 é somente gate CI contra main e NÃO deve ser mergeado. Deterministic CI #633 (32703818758) e Heavy Product Tests #58 (32703818827) estavam in_progress. Se ambos PASS no head exato e sem findings/reviews bloqueantes, feche #273 sem merge e squash-merge #272 com expected_head_sha=d9efb95fcae9a21193f26bf3bd505f77b1819b43. Registre o commit autoritativo TASK-248 e revalide o próximo gate da Sprint antes de qualquer novo trabalho. Não absorva TD-P13-01..04 nem P13-PACKAGE-03.
+Retome delmacy/system-builder na Construction B P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01. main observado é 776842bf88b6150e4af74361e21379af6210763f. TASK-248 foi validada no head d9efb95fcae9a21193f26bf3bd505f77b1819b43 por Deterministic CI #633 e Heavy Product Tests #58, ambos PASS; PR #273 foi fechado sem merge; PR #272 foi squash-merged com expected-head, produzindo o commit autoritativo TASK-248 1c3ad707c68336517a7024199c8c19c45cb4e833. Todas TASK-240..248 estão executadas na Sprint branch. Próximo passo: concluir Sprint closure documental, criar Sprint Report, obter final verification exact-head e abrir o único Sprint Review PR contra main. Não iniciar successor antes do merge e fresh-main revalidation; não absorver TD-P13-01..04 nem P13-PACKAGE-03.
