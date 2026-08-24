@@ -1,11 +1,11 @@
-# Current Execution Milestone — M13 P13 Package 03 Construction B Sprint Review
+# Current Execution Milestone — M13 P13 Package 03 Post-Construction-B Revalidation
 
 Construction A `P13-RUNTIME-OFFLINE-AUTONOMY-01` is integrated by PR #306 at `80e9fd146498cc8a95fd212af281d78a952645a5`; WBS 13.3.1-13.3.2 is SATISFIED / INTEGRATED.
 
-Construction B materialization integrated at `27462ab3874650d38746b12f62dfc5f4c2e93271`. `P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01` is now CONSTRUCTED / READY FOR SPRINT REVIEW after TASK-261..266 completed in dependency order.
+Construction B `P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01` is integrated by Sprint Review PR #320 from exact reviewed head `d9f9940e2ae110553eda45dc78b736d52e5911a4` after Deterministic CI #700 PASS and Heavy Product Tests #125 PASS. Merge-main is `046da2200385efdc05eac900df40add078def6d7`, with zero reviewed-head -> merge-main file differences.
 
-The constructed WBS 13.3.3 evidence uses actual Compiler A/B releases and existing Release/Artifact/Deploy authority to prove A operation -> accepted B promotion/operation -> compatible data/configuration continuity -> exact retained A restoration/operation, together with fail-closed incompatible, failed and stale candidate paths. TASK-266 exact task head `6c63ea7b2b22cd82d141b7a40480d60df3076931` passed Deterministic CI #699 and Heavy Product Tests #124.
+The integrated WBS 13.3.3 evidence proves actual Compiler release A operation -> compatible B acceptance/operation -> compatible persisted data/external configuration continuity -> exact retained A restoration/reconstruction -> A operation again, with fail-closed incompatible, failed and stale candidate paths. No new canonical contract, generic migration/version policy, provider/topology, deployment lifecycle or L4 boundary was introduced.
 
-Current gate: final Construction B Sprint Review PR from the reconciled closure head. Require exact-head Deterministic CI + Heavy Product Tests and no blocking review findings before integration to `main`.
+Fresh-main revalidation finds all WBS 13.3.1-13.3.3 SATISFIED / INTEGRATED and no remaining bounded construction capability gap. Optional Construction C is NOT NECESSARY and is not promoted.
 
-After integration, reconstruct fresh `main`, verify reviewed-head -> merge-main tree equivalence and perform the required post-Construction-B fresh-main revalidation. Construction C remains CONDITIONAL / FORECAST and must not be promoted automatically. TD-P13-01..04 remain carried. No new canonical contract, generic migration/version policy, provider/topology, deployment lifecycle or L4 boundary was introduced.
+Current gate: P13-PACKAGE-03 Package Integration & Review is eligible for a separate materialization step from fresh integrated `main`. Documentation & Closure remains FORECAST. TD-P13-01..04 remain carried and out of scope.
