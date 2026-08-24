@@ -17,6 +17,9 @@ const forbiddenEvidence = Object.freeze([
 ]);
 
 test("TASK-260 certifies the complete compiled Runtime offline autonomy growing proof", () => {
+  const childEnv = { ...process.env };
+  delete childEnv.NODE_TEST_CONTEXT;
+
   const result = spawnSync(
     "npx",
     [
@@ -29,7 +32,7 @@ test("TASK-260 certifies the complete compiled Runtime offline autonomy growing 
     {
       cwd: process.cwd(),
       env: {
-        ...process.env,
+        ...childEnv,
         SYSTEM_BUILDER_BUILDER_URL: "http://127.0.0.1:1",
         SYSTEM_BUILDER_OBSERVE_URL: "http://127.0.0.1:1",
       },
