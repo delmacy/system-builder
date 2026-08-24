@@ -119,7 +119,7 @@ test("TASK-256 local RuntimeModel preserves explicit allow and default deny sema
     const allowed = evaluateRuntimePermission({
       authority: resolved.authority,
       permissions: model.permissions ?? [],
-      policies: model.policies,
+      policies: model.policies ?? [],
       resourceRef: "entity:ticket",
       actionRef: "action:ticket:update",
       context: {
@@ -133,7 +133,7 @@ test("TASK-256 local RuntimeModel preserves explicit allow and default deny sema
     const denied = evaluateRuntimePermission({
       authority: resolved.authority,
       permissions: model.permissions ?? [],
-      policies: model.policies,
+      policies: model.policies ?? [],
       resourceRef: "entity:ticket",
       actionRef: "action:ticket:delete",
       context: { membershipRef: "membership:ops" },
@@ -155,7 +155,7 @@ test("TASK-256 free-text policy remains non-executable with Builder and Observe 
     const decision = evaluateRuntimePermission({
       authority: resolved.authority,
       permissions: model.permissions ?? [],
-      policies: model.policies,
+      policies: model.policies ?? [],
       resourceRef: "entity:legacy",
       actionRef: "action:legacy:read",
     });
