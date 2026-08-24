@@ -4,7 +4,7 @@ title: Connect rendered generated actions to existing authority-gated interactio
 status: ready
 priority: 252
 milestone: M13
-model_tier: standard
+model_tier: cheap
 risk: medium
 architecture_impact: false
 executor_preference: any
