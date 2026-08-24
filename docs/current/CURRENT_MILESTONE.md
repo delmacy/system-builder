@@ -1,34 +1,41 @@
-# Current Execution Milestone — M13 P13 Package 02 Construction A Gate
+# Current Execution Milestone — M13 P13 Package 02 Post-Construction-A Gate
 
-## Integrated predecessor truth
-`P13-PACKAGE-01 — Autonomous Runtime Functional Execution` is CLOSED. P13-PACKAGE-02 Planning & Materialization was integrated by PR #248, and the follow-up scheduling-guideline reconciliation was integrated by PR #249 at merge `722a51eef6a0a19c5e1a69c12158122f6fb5d856` with reviewed-head/merge tree `ef03c16dcd821e02301c5824d303d22ae6224fd9`.
+## Integrated truth
+`P13-PACKAGE-01 — Autonomous Runtime Functional Execution` is CLOSED and remains predecessor substrate. P13-PACKAGE-02 Planning & Materialization is integrated. `P13-RUNTIME-IDENTITY-SESSION-01` Construction A is now INTEGRATED by PR #250.
 
-The P13 Runtime Core WBS 13.1.1-13.1.3 is the execution substrate for P13-PACKAGE-02 and must be reused rather than recreated.
+Construction A reviewed head: `b149f823eddcc3e2589ba42e3794f01879f23629`.
+- Deterministic CI #616: PASS.
+- Heavy Product Tests #39: PASS.
+- Merge main: `adc739c1370df380a31ad196bf24fcdff4b0bf2d`.
 
-## First committed construction Sprint
-`P13-RUNTIME-IDENTITY-SESSION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-231..239.
+TASK-231..239 remain the nine authoritative TASK commits. The additional `a60f1d818e77f1f8bc00e9533924a8916cda7de9` correction is verification-only; `b149f823eddcc3e2589ba42e3794f01879f23629` adds the Sprint Report only.
 
-Planning established:
-- P13-PACKAGE-02 goal/WBS 13.2.1-13.2.3: VALIDATED;
-- identity/auth/session Runtime execution: MISSING before Construction A;
-- existing SystemDefinition permissions/policies/views: REUSE declarations, not executable Runtime behavior;
-- EnvironmentProfile/SecretResolver reference-only binding path: REUSE;
-- WBS 27 identity/organization/authorization authority: REUSE domain authority;
-- new L4 requirement: NONE FOUND;
-- Construction B/C/review/closure: FORECAST only;
-- P13-PACKAGE-03: NOT STARTED.
+## Delivered Construction A scope
+WBS 13.2.1 is now satisfied on integrated main: explicit identity/auth-provider/session declarations -> deterministic Compiler/Runtime model -> activation-time external binding -> authentication -> bounded session -> actor context -> representative authenticated Runtime request.
 
-## Construction A scope
-Close WBS 13.2.1 only: explicit identity/auth-provider/session declarations -> deterministic Compiler/Runtime model -> activation-time provider binding -> authentication -> bounded session -> actor context -> representative authenticated Runtime request.
+Security/trust result remains bounded:
+- authentication does not imply authorization;
+- unknown/disabled/unmapped identity and invalid/expired session fail closed;
+- EnvironmentProfile schema is unchanged;
+- Runtime ordinary operation does not require Builder/Observe;
+- resolved provider/credential/session values remain outside immutable/durable evidence;
+- no roles, permission grants, policy evaluation or generated views/forms are inferred.
 
-TASK-231 has explicit bounded L3 authority for the minimum additive backward-compatible SystemDefinition identity/auth/session declaration. Another shared-contract family change is not pre-authorized. Authorization and generated interaction remain outside Construction A.
+## Fresh-main successor revalidation
+Revalidation base: `adc739c1370df380a31ad196bf24fcdff4b0bf2d`.
 
-## Security boundary
-Unknown/disabled identity, invalid provider mapping, missing/incompatible auth binding and invalid/expired session must fail closed. Authentication never implies authorization. Runtime ordinary operation must not call Builder/Observe. Resolved credentials, provider values, session secrets/tokens and endpoints remain outside immutable/durable evidence.
+Construction B remains necessary for WBS 13.2.2-13.2.3, but it is not yet eligible for materialization:
+- `SystemDefinition.permissions` declares `role/resource/actions` but the integrated actor identity has no executable role/membership linkage;
+- `SystemDefinition.policies` remains opaque free-text and cannot safely become executable policy by inference;
+- `SystemDefinition.views` declares id/kind/requirements but lacks deterministic entity/field/action bindings needed for generated interaction;
+- Compiler/Runtime do not yet project or enforce these declarations;
+- WBS 27 provides domain authority for organization/roles/contextual authorization, but the minimum executable shared-contract representation is not yet explicitly authorized.
+
+No L4 change is currently indicated. The blocking gate is bounded L3 change control for the minimum additive backward-compatible Construction B semantics.
 
 ## Current gate
-Construction A is eligible only as the already committed Sprint; it is not implicitly authorized to execute by planning integration or by this documentation reconciliation. Execute TASK-231..239 only after explicit execution authorization under repository policy, in dependency order and within each TASK contract. Otherwise stop.
+`P13-PACKAGE-02` remains ACTIVE. Construction B is `FORECAST / BLOCKED PENDING BOUNDED L3 CHANGE CONTROL`.
 
-Construction B/C, Package Integration & Review, Documentation & Closure and P13-PACKAGE-03 remain forecast and must not be promoted by this document-only work.
+Do not recreate P13-PACKAGE-01 Construction B (TASK-221..230); it is already integrated predecessor Runtime services/bindings work and is unrelated to this new authorization/generated-interaction Construction B.
 
-Any new bounded context, mandatory provider-specific IAM topology, second shared-contract change not covered by TASK-231, Builder/Runtime ownership shift or other L4 change triggers escalation/ADR.
+Construction C, Package Integration & Review, Documentation & Closure and P13-PACKAGE-03 remain forecast. `TD-P13-01..04` remain carried debt and are not absorbed.
