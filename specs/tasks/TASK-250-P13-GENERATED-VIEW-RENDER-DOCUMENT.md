@@ -4,7 +4,7 @@ title: Materialize deterministic renderer-agnostic generated view and form docum
 status: ready
 priority: 250
 milestone: M13
-model_tier: standard
+model_tier: cheap
 risk: medium
 architecture_impact: false
 executor_preference: any
