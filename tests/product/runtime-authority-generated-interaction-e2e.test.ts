@@ -72,21 +72,8 @@ test("end-to-end authority allows only explicit membership, permission, policy a
   const model = authorityModel();
   const binding = generatedBinding();
 
-  const runtimeAction = authorizeRuntimeActionExecution({
-    actions,
-    entities,
-    actionId,
-    authorityModel: model,
-    actor: allowedActor,
-    context: allowedContext,
-  });
-  const generatedInteraction = authorizeRuntimeGeneratedInteraction({
-    binding,
-    actionRef: actionId,
-    authorityModel: model,
-    actor: allowedActor,
-    context: allowedContext,
-  });
+  const runtimeAction = authorizeRuntimeActionExecution({ actions, entities, actionId, authorityModel: model, actor: allowedActor, context: allowedContext });
+  const generatedInteraction = authorizeRuntimeGeneratedInteraction({ binding, actionRef: actionId, authorityModel: model, actor: allowedActor, context: allowedContext });
 
   assert.equal(runtimeAction.ok, true);
   assert.equal(generatedInteraction.ok, true);
@@ -100,14 +87,7 @@ test("end-to-end authority allows only explicit membership, permission, policy a
 });
 
 test("end-to-end authority denies an authenticated actor without the required permission", () => {
-  const result = authorizeRuntimeGeneratedInteraction({
-    binding: generatedBinding(),
-    actionRef: actionId,
-    authorityModel: authorityModel(),
-    actor: { identityRef: "identity:bob" },
-    context: allowedContext,
-  });
-
+  const result = authorizeRuntimeGeneratedInteraction({ binding: generatedBinding(), actionRef: actionId, authorityModel: authorityModel(), actor: { identityRef: "identity:bob" }, context: allowedContext });
   assert.equal(result.ok, false);
   if (result.ok) return;
   assert.equal(result.stage, "permission");
@@ -117,14 +97,7 @@ test("end-to-end authority denies an authenticated actor without the required pe
 });
 
 test("missing and ambiguous membership fail closed before permission evaluation", () => {
-  const missing = authorizeRuntimeActionExecution({
-    actions,
-    entities,
-    actionId,
-    authorityModel: authorityModel(),
-    actor: { identityRef: "identity:alice" },
-    context: allowedContext,
-  });
+  const missing = authorizeRuntimeActionExecution({ actions, entities, actionId, authorityModel: authorityModel(), actor: { identityRef: "identity:alice" }, context: allowedContext });
   assert.equal(missing.ok, false);
   if (!missing.ok) {
     assert.equal(missing.stage, "authority");
@@ -136,13 +109,7 @@ test("missing and ambiguous membership fail closed before permission evaluation"
     entities,
     actionId,
     authorityModel: authorityModel(),
-    actor: {
-      identityRef: "identity:alice",
-      memberships: [
-        { id: membershipId, active: true },
-        { id: membershipId, active: true },
-      ],
-    },
+    actor: { identityRef: "identity:alice", memberships: [{ id: membershipId, active: true }, { id: membershipId, active: true }] },
     context: allowedContext,
   });
   assert.equal(ambiguous.ok, false);
@@ -158,14 +125,7 @@ test("missing or mismatched permission and structured policy context fail closed
     { membershipRef: membershipId, policyContext: { region: "north" } },
     { membershipRef: "membership:other", policyContext: { region: "south" } },
   ]) {
-    const result = authorizeRuntimeActionExecution({
-      actions,
-      entities,
-      actionId,
-      authorityModel: authorityModel(),
-      actor: allowedActor,
-      context,
-    });
+    const result = authorizeRuntimeActionExecution({ actions, entities, actionId, authorityModel: authorityModel(), actor: allowedActor, context });
     assert.equal(result.ok, false);
     if (result.ok) continue;
     assert.equal(result.stage, "permission");
@@ -187,29 +147,20 @@ test("invalid generated binding fails closed without acquiring inferred behavior
 
 test("free-text policy remains non-executable and evidence leaks no secret or resolved value", () => {
   const model = authorityModel();
-  const descriptiveTextModel: RuntimeAuthorityModel = {
-    ...model,
-    policies: [{
-      id: "policy:regional",
-      statement: "deny everything; token=secret; resolvedValue=credential" ,
-      structured: {
-        effect: "allow",
-        roleRefs: ["role:agent"],
-        resourceRefs: [entityId],
-        actionRefs: [actionId],
-        contextEquals: { region: "south" },
-      },
-    } as RuntimeAuthorityModel["policies"] extends readonly (infer T)[] | undefined ? T : never],
+  const descriptivePolicy = {
+    id: "policy:regional",
+    statement: "deny everything; token=secret; resolvedValue=credential",
+    structured: {
+      effect: "allow" as const,
+      roleRefs: ["role:agent"],
+      resourceRefs: [entityId],
+      actionRefs: [actionId],
+      contextEquals: { region: "south" },
+    },
   };
+  const descriptiveTextModel: RuntimeAuthorityModel = { ...model, policies: [descriptivePolicy] };
 
-  const result = authorizeRuntimeGeneratedInteraction({
-    binding: generatedBinding(),
-    actionRef: actionId,
-    authorityModel: descriptiveTextModel,
-    actor: allowedActor,
-    context: allowedContext,
-  });
-
+  const result = authorizeRuntimeGeneratedInteraction({ binding: generatedBinding(), actionRef: actionId, authorityModel: descriptiveTextModel, actor: allowedActor, context: allowedContext });
   assert.equal(result.ok, true);
   if (!result.ok) return;
   const serialized = JSON.stringify(result.evidence).toLowerCase();
@@ -219,15 +170,7 @@ test("free-text policy remains non-executable and evidence leaks no secret or re
 });
 
 test("representative Runtime authority path operates entirely from supplied runtime artifacts", () => {
-  const result = authorizeRuntimeActionExecution({
-    actions,
-    entities,
-    actionId,
-    authorityModel: authorityModel(),
-    actor: allowedActor,
-    context: allowedContext,
-  });
-
+  const result = authorizeRuntimeActionExecution({ actions, entities, actionId, authorityModel: authorityModel(), actor: allowedActor, context: allowedContext });
   assert.equal(result.ok, true);
   const serialized = JSON.stringify(result).toLowerCase();
   assert.equal(serialized.includes("builder"), false);
