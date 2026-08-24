@@ -1,16 +1,16 @@
 # Automation Sprint Handoff
 
-status: RUNNING
+status: READY
 worker_slot: :50
 started_at: 2026-08-24T00:52:34-03:00
-updated_at: 2026-08-24T00:52:34-03:00
-lease_until: 2026-08-24T01:37:34-03:00
+updated_at: 2026-08-24T00:58:00-03:00
+lease_until: 2026-08-24T00:58:00-03:00
 observed_main_sha: 776842bf88b6150e4af74361e21379af6210763f
-active_branch: task/TASK-241-P13-AUTHORITY-COMPILER-PROJECTION
-active_pr: 256
-active_head_sha: 7346ca6c7a9b1c5da94e3f130ae9904b7e0b6a86
-last_completed_step: Acquired :50 worker lease after confirming prior :30 lease was expired and PR #256 remained open/mergeable at the expected TASK-241 head.
-next_authorized_step: Revalidate PR #256 exact head, changed paths, review findings and TASK-241 validation evidence. If satisfied, squash-merge #256 into sprint/P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01 and continue with TASK-242 only.
+active_branch: task/TASK-242-P13-AUTHORITY-RUNTIME-MODEL
+active_pr: none
+active_head_sha: 848edbc80a19abe137044579869cf1e9c19f2bde
+last_completed_step: Revalidated TASK-241 PR #256 at exact head 7346ca6c7a9b1c5da94e3f130ae9904b7e0b6a86 against its materialized scope and allowed paths, confirmed no blocking review findings or competing worker lease, and squash-merged it into sprint/P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01 with expected-head protection. The resulting authoritative TASK-241 Sprint commit is 848edbc80a19abe137044579869cf1e9c19f2bde. Created task/TASK-242-P13-AUTHORITY-RUNTIME-MODEL exactly from that commit and re-read TASK-242 plus the existing runtime-model handoff shape. No incomplete product edit or PR was created.
+next_authorized_step: Execute TASK-242 only on task/TASK-242-P13-AUTHORITY-RUNTIME-MODEL from base 848edbc80a19abe137044579869cf1e9c19f2bde. Modify only packages/compiler/runtime-model.ts and focused tests/product/compiler-runtime*.test.ts as necessary. Carry the already-normalized TASK-241 authority/generated-interaction projection into RuntimeModel deterministically and reference-only, preserve historical RuntimeModel output when declarations are absent, never include resolved credentials/tokens/endpoints, and do not execute authorization in Compiler. Run/establish the declared validations (npm run test:product, npm run check:tasks, npm run verify); then open a task PR targeting sprint/P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01. Do not widen into TASK-243 or later until TASK-242 is authoritatively integrated.
 
 ## resume_prompt
-Worker :50 is actively revalidating TASK-241 PR #256 at head 7346ca6c7a9b1c5da94e3f130ae9904b7e0b6a86 against Sprint scope. Do not duplicate work while this lease is valid.
+Resume P13-RUNTIME-AUTHORITY-GENERATED-INTERACTION-01 with main/materialization base still 776842bf88b6150e4af74361e21379af6210763f. TASK-240 authoritative Sprint commit is 58f19167eaa640268057759a73b33c77c4ba3085. TASK-241 PR #256 was exact-head reviewed and squash-merged; authoritative TASK-241 Sprint commit is 848edbc80a19abe137044579869cf1e9c19f2bde. Branch task/TASK-242-P13-AUTHORITY-RUNTIME-MODEL already exists exactly at 848edbc80a19abe137044579869cf1e9c19f2bde with no incomplete product edits and no PR. Execute TASK-242 only: update packages/compiler/runtime-model.ts plus focused compiler-runtime product test(s) within the manifest. Materialize TASK-241 normalized role/membership, permission/structured-policy and generated view/form descriptors into RuntimeModel deterministically, reference-only and backward-compatibly; absent declarations must preserve historical models and output identity, and no resolved secrets/provider values may enter RuntimeModel. Preserve authentication != authorization, no SystemDefinition changes, no Deploy ownership changes, no Compiler authorization execution, no L4, no TD-P13-01..04, no P13-PACKAGE-03, and do not start TASK-243 until TASK-242 is merged into the Sprint. Validate npm run test:product, npm run check:tasks and npm run verify before the task PR merge.
