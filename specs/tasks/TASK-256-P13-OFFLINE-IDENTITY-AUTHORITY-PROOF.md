@@ -32,6 +32,9 @@ validation:
 # Objective
 Prove the materialized autonomous Runtime executes integrated identity/session and fail-closed authority behavior using local RuntimeModel data with Builder unavailable.
 
+# Context
+P13-PACKAGE-02 already integrated identity/session and explicit authorization semantics. TASK-255 makes the complete RuntimeModel available locally in the autonomous runtime path. This task therefore proves reuse of those existing semantics offline; it does not define new roles, policy language or authentication behavior.
+
 # Current behavior
 P13-PACKAGE-02 proves identity and authority in Runtime, but not from the complete autonomous compiled bundle established by TASK-254/255.
 
