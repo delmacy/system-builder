@@ -15,8 +15,17 @@ export type RuntimeAuthorityRoleBinding = Readonly<{
   membershipRef?: string;
 }>;
 
+export type RuntimeAuthorityPermissionContext = Readonly<{
+  organizationRef?: string;
+  membershipRef?: string;
+}>;
+
 export type RuntimeAuthorityPermissionDescriptor = Readonly<{
   role: string;
+  resource: string;
+  actions: readonly string[];
+  context?: RuntimeAuthorityPermissionContext;
+  policyRefs?: readonly string[];
 }>;
 
 export type RuntimeAuthorityPolicyDescriptor = Readonly<{
