@@ -31,6 +31,9 @@ validation:
 # Objective
 Extend the P13-PACKAGE-02 growing proof through actual deterministic generated view/form rendering and authority-gated rendered interaction.
 
+# Context
+Construction A/B already provide autonomous runtime identity, explicit authority semantics, generated bindings and a shared fail-closed interaction gate. Construction C is limited to proving the remaining renderer-agnostic generated experience behavior from those integrated capabilities, without adding public SystemDefinition semantics, UI/browser frameworks, new authorization rules or package scope.
+
 # Current behavior
 Construction A/B prove autonomous runtime identity, authority and generated interaction, but the Package Goal still lacks end-to-end proof of deterministic renderer-agnostic generated view/form output, bounded form input validation and rendered interaction through the existing authority gate.
 
