@@ -1,16 +1,16 @@
-# Next Work — P13 Package 02 Integration & Review Validation
+# Next Work — Awaiting P13 Package 03 Planning Authorization
 
-Construction A/B/C are integrated and WBS 13.2.1-13.2.3 are satisfied. Package Integration & Review materialization PR #287 passed Deterministic CI #658 and Heavy Product Tests #83 and integrated as review base `8adb392c95591155a686420b84f3d72866caf9a6`.
+P13-PACKAGE-02 has completed Construction A/B/C and Package Integration & Review. Review PR #288 passed Deterministic CI #659 and Heavy Product Tests #84 on exact head `e6fb03e0b861dc52e54c6b21897f44fd1d67fa4e`, integrated as `3cfc87f3c2217bb78f9dbee8898a0a3f2ecd1c2c`, and has zero file drift from reviewed head.
 
-`P13-PACKAGE-02-INTEGRATION-REVIEW-01` has executed and produced `P13-PACKAGE-02-INTEGRATION-REVIEW-01.report.md`. Decision: GO for Documentation & Closure, contingent on exact-head validation and no blocking review findings.
+`P13-PACKAGE-02-DOCUMENTATION-CLOSURE-01` is the active documentation-only closure Sprint. Its integration closes P13-PACKAGE-02.
 
 ## Required next action
-1. Open/revalidate the Package Integration & Review PR from `sprint/P13-PACKAGE-02-INTEGRATION-REVIEW-01` to `main`.
-2. Require exact-head Deterministic CI + Heavy Product Tests and absence of blocking review findings.
-3. If all gates PASS on the unchanged head, merge the review PR with expected-head protection.
-4. Reconstruct fresh `main` and verify the integrated tree corresponds exactly to the reviewed head.
-5. Reconcile repository memory after merge.
-6. Promote only P13-PACKAGE-02 Documentation & Closure; do not execute it before materialization/integration gates permit it.
+1. Validate the exact closure head with Deterministic CI + Heavy Product Tests and absence of blocking review findings.
+2. Merge only if the closure diff remains documentation/repository-memory only.
+3. Reconstruct fresh `main` after merge and verify zero file drift from the reviewed closure head.
+4. Stop before successor execution.
+
+P13-PACKAGE-03 — Autonomous Runtime Operational Autonomy / WBS 13.3.1-13.3.3 — remains FORECAST / NOT STARTED. It becomes eligible for separate Planning & Materialization only after closure integration and fresh-main revalidation; eligibility is not execution authority.
 
 ## Boundaries
-No fourth Construction Sprint; no unrelated feature work; no new L4 without ADR; no inferred roles/permissions/bindings; authentication != authorization; no executable free-text policy; no Builder/Observe runtime dependency; no TD-P13-01..04 absorption; no P13-PACKAGE-03.
+No product behavior in closure; no fourth Construction Sprint; no TD-P13-01..04 absorption; no new L3/L4; authentication != authorization; no executable free-text policy; no inferred roles/permissions/bindings; no Builder/Observe runtime dependency; do not start P13-PACKAGE-03 automatically.
