@@ -31,6 +31,9 @@ validation:
 # Objective
 Prove list/detail/form rendering, form validation and rendered actions operate from the locally loaded RuntimeModel with Builder unavailable and preserve the existing shared authority gate.
 
+# Context
+P13-PACKAGE-02 already integrated renderer-agnostic generated views/forms and authority-gated rendered interaction. TASK-257 establishes the offline functional path. This task proves the generated experience uses that local autonomous path unchanged, without adding UI framework or authorization semantics.
+
 # Current behavior
 P13-PACKAGE-02 proves generated experience in Runtime, but not as part of the complete offline autonomous bundle path.
 
