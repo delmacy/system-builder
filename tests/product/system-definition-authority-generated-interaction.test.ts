@@ -42,7 +42,7 @@ test("structured policy is bounded data and free-text statement stays descriptiv
 
   const serialized = JSON.stringify(structured);
   for (const forbidden of ["expression", "script", "code", "eval", "function"]) {
-    assert.equal(serialized.includes(`\"${forbidden}\"`), false, forbidden);
+    assert.equal(serialized.includes(`"${forbidden}"`), false, forbidden);
   }
 });
 
