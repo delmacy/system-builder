@@ -28,9 +28,16 @@ export type RuntimeAuthorityPermissionDescriptor = Readonly<{
   policyRefs?: readonly string[];
 }>;
 
+export type RuntimeAuthorityPolicyScalar = string | number | boolean;
+
 export type RuntimeAuthorityPolicyDescriptor = Readonly<{
+  id?: string;
   structured?: Readonly<{
+    effect?: "allow" | "deny";
     roleRefs?: readonly string[];
+    resourceRefs?: readonly string[];
+    actionRefs?: readonly string[];
+    contextEquals?: Readonly<Record<string, RuntimeAuthorityPolicyScalar>>;
   }>;
 }>;
 
