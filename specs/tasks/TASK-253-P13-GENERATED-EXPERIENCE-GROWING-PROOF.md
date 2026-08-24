@@ -31,6 +31,19 @@ validation:
 # Objective
 Extend the P13-PACKAGE-02 growing proof through actual deterministic generated view/form rendering and authority-gated rendered interaction.
 
+# Current behavior
+Construction A/B prove autonomous runtime identity, authority and generated interaction, but the Package Goal still lacks end-to-end proof of deterministic renderer-agnostic generated view/form output, bounded form input validation and rendered interaction through the existing authority gate.
+
+# Inputs / contracts
+- Integrated RuntimeModel/generated view data and explicit bindings from Construction A/B plus TASK-249..252 outputs.
+- Renderer-agnostic generated documents, bounded caller-supplied record/form data and the existing Construction B shared authority decision path.
+- Existing package/product test harness only; no new public contract or UI/browser framework.
+
+# Outputs / contracts
+- Growing product evidence that proves representative list/detail/form rendering, bounded form validation and allowed/denied rendered interaction end to end.
+- Proof remains deterministic, secret/resolved-value free and independent of Builder/Observe runtime lookup.
+- No new public SystemDefinition semantics or authorization model is introduced.
+
 # Required change
 Add representative end-to-end product proof that starts from explicit RuntimeModel/generated view data, produces a renderer-agnostic generated view/form document, validates bound form input, and exercises allowed/denied rendered interaction through the existing authority gate.
 
