@@ -1,34 +1,38 @@
 # P13-PACKAGE-03 — Autonomous Runtime Operational Autonomy
 
-Status: PLANNING & MATERIALIZATION / CONSTRUCTION A COMMITTED / NOT EXECUTED
+Status: ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B MATERIALIZED
 Milestone: M13
 Primary WBS: 13.3.1-13.3.3
 Planning base: `9e39ceca50b27a5f155ba8dfcfe340061a5ed71e`
+Construction A merge-main: `80e9fd146498cc8a95fd212af281d78a952645a5`
 Predecessor: P13-PACKAGE-02 CLOSED
 
 ## Package goal
 Close operational autonomy for the fully capable client Runtime: prove continued operation with Builder unavailable, expose optional health/telemetry without making Observe mandatory, and prove upgrade/rollback compatibility through existing release/deploy contracts.
 
-## Planning evidence matrix
-- WBS 13.3.1 startup/health baseline: REUSE TASK-060; gap is completeness for the full actor-aware Runtime.
-- WBS 13.3.1 local deployment baseline: REUSE TASK-063 and integrated Deploy evidence; do not rebuild bootstrap-only deployment.
-- WBS 13.3.2 optional Observe baseline: REUSE TASK-135/136 fail-open publication; gap is complete-Runtime local health/telemetry certification.
-- WBS 13.3.3 rollback baseline: REUSE P7 TASK-104..106 activation/retention/reconstruction evidence; remaining continuity proof belongs to Construction B.
-- P13-PACKAGE-01/02 provide the complete Runtime functional, identity, authority and generated-experience behavior that Construction A must certify offline.
+## Integrated evidence matrix
+- WBS 13.3.1 is SATISFIED by integrated Construction A complete actor-aware Runtime offline-autonomy proof.
+- WBS 13.3.2 is SATISFIED by integrated Construction A bounded local health/telemetry plus optional/fail-open Observe proof.
+- WBS 13.3.3 reuses P7 TASK-104..106 and P9 promotion/reconciliation mechanisms; fresh-main revalidation at `80e9fd146498cc8a95fd212af281d78a952645a5` confirms the remaining gap is the composed compatible A -> B -> A continuity certification.
 
 ## Construction A — P13-RUNTIME-OFFLINE-AUTONOMY-01
-Status: COMMITTED / MATERIALIZED / NOT EXECUTED.
-Goal: extend prior bootstrap-only proof to the complete actor-aware Runtime and certify optional local health/telemetry with Builder unavailable and Observe optional.
-Committed TASKs: TASK-254..260 in dependency order.
-Exit proof: actual Compiler output containing the complete materialized RuntimeModel executes representative actor-aware functional/generated behavior with Builder/Observe absent or unreachable, emits bounded local health/telemetry, fails explicitly for missing required bindings, and leaks no secrets/resolved values.
+Status: INTEGRATED / SATISFIED.
+Sprint Review PR: #306.
+Reviewed head: `04453c8aff7987c16e9662ebdabbfb1d17752193`.
+Merge-main: `80e9fd146498cc8a95fd212af281d78a952645a5`.
+TASKs: TASK-254..260.
+Result: actual Compiler output containing the complete materialized RuntimeModel operates with Builder unavailable, representative actor-aware functional/generated behavior succeeds, bounded local health/telemetry remains available with Observe optional/fail-open, required binding failures are explicit, and durable evidence excludes resolved values.
 
-## Construction B — Upgrade/rollback continuity
-Status: FORECAST.
-Candidate goal: prove version A -> operate -> compatible B -> operate -> rollback/reconstruct A where existing release/deploy contracts permit, preserving compatible data/configuration and deterministic failure/recovery evidence. Reuse P7 release/deploy activation and rollback semantics; do not invent a new deployment lifecycle.
+## Construction B — P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01
+Status: COMMITTED / MATERIALIZED / NOT EXECUTED.
+Authority: `project_docs/execution_planning/P13-PACKAGE-03.post-construction-a-revalidation.md`.
+Goal: prove actual autonomous Runtime release A operates -> compatible B is accepted and operates -> compatible data/configuration remains usable -> A is restored/reconstructed through existing Release/Deploy authority -> A operates again, while incompatible/failed/stale candidates remain fail-closed.
+Committed TASKs: TASK-261..266 in dependency order.
+Exit proof: one complete actual-Compiler A -> B -> A continuity proof using existing Release/Artifact/Deploy semantics, with deterministic negative recovery evidence and no new deployment lifecycle.
 
 ## Optional Construction C — portability/recovery completeness only if justified
 Status: FORECAST / CONDITIONAL.
-Promote only after Construction B fresh-main revalidation if a bounded WBS 13.3 acceptance gap remains. No new provider/topology without separate authority.
+Promote only after Construction B integration and fresh-main revalidation if a bounded WBS 13.3 acceptance gap remains. No new provider/topology without separate authority.
 
 ## Package Integration & Review
 Status: FORECAST.
@@ -41,7 +45,7 @@ Reconcile current-state docs, WBS coverage, package/Sprint reports, runtime oper
 ## Boundaries
 - Observe/Support may consume telemetry/evidence but cannot become a Runtime availability dependency.
 - Authentication != authorization; authority remains explicit/fail-closed; free-text policy remains non-executable.
-- Upgrade/rollback follows existing Release/Deploy authority; no bypass or implicit production mutation.
-- No new provider/topology or L4 boundary without ADR/change control.
+- Upgrade/restoration follows existing Release/Deploy authority; no bypass or implicit production mutation.
+- No new canonical contract, provider/topology or L4 boundary without applicable change control.
 - TD-P13-01..04 remain carried and are not absorbed.
-- Planning grants execution authority only after this materialization is integrated and the committed Construction A Sprint is reconstructed from fresh main.
+- Construction B execution authority begins only after this materialization integrates into `main`; then TASK-261 executes first from a Sprint branch reconstructed from fresh integrated main.
