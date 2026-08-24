@@ -1,6 +1,6 @@
 # P13-PACKAGE-03 — Autonomous Runtime Operational Autonomy
 
-Status: CLOSED / DOCUMENTATION & CLOSURE READY FOR EXACT-HEAD VALIDATION
+Status: ACTIVE / DOCUMENTATION & CLOSURE EXECUTED / READY TO CLOSE PENDING EXACT-HEAD GATES
 Milestone: M13
 Primary WBS: 13.3.1-13.3.3
 Planning base: `9e39ceca50b27a5f155ba8dfcfe340061a5ed71e`
@@ -47,7 +47,7 @@ Reviewed-head tree == merge-main tree: `daf53f0b3412e9aaec6f230e9a4f749facf57fd8
 Result: full WBS 13.1-13.3 regression found no package-goal, architecture, security or compatibility blocker and no need to revive Construction C. TD-P13-01..04 remain carried and unabsorbed.
 
 ## Documentation & Closure
-Status: EXECUTED ON `sprint/P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01` / EXACT-HEAD VALIDATION REQUIRED.
+Status: EXECUTED ON `sprint/P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01` / READY TO CLOSE ON EXACT-HEAD PASS + MERGE.
 Manifest: `P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01.md`.
 Report: `P13-PACKAGE-03-DOCUMENTATION-CLOSURE-01.report.md`.
 Closure base: `4a3353987dac2a14481191874cd1763ca3270c1f`.
