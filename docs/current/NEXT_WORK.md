@@ -1,13 +1,16 @@
-# Next Work — P13 Package 03 Construction B Materialization Gate
+# Next Work — P13 Package 03 Construction B Sprint Review Gate
 
-Construction A is integrated at `80e9fd146498cc8a95fd212af281d78a952645a5`. Fresh-main revalidation has promoted exactly one successor Sprint: `P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01`, COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-261..266.
+Construction B `P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01` is CONSTRUCTED / READY FOR SPRINT REVIEW. TASK-261..266 completed in dependency order on the Sprint branch; the final growing proof certifies the complete actual-Compiler A -> B -> A compatible Runtime continuity chain plus fail-closed incompatible/failed/stale candidate behavior.
+
+TASK-266 exact task head `6c63ea7b2b22cd82d141b7a40480d60df3076931` passed Deterministic CI #699 and Heavy Product Tests #124 before protected integration into the Sprint as `bc001ef6064375a32de691910750f72fc22aeeb7`.
 
 ## Required next action
-1. Review and validate the Construction B materialization PR on its exact head with required Deterministic CI and Heavy Product Tests.
-2. If all required gates pass without blocking findings, integrate the materialization PR into `main` with expected-head protection.
-3. Reconstruct fresh `main` and verify no unintended tree drift.
-4. Create/use `sprint/P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01` exactly from integrated materialization main and execute only TASK-261 first, then continue in dependency order while task gates remain satisfied.
-5. After Construction B Sprint Review integration, reconstruct fresh `main` and decide whether conditional Construction C is actually necessary. Do not promote it automatically.
+1. Open/revalidate the Sprint Review PR from `sprint/P13-RUNTIME-UPGRADE-ROLLBACK-CONTINUITY-01` to `main` on the exact reconciled closure head.
+2. Require exact-head Deterministic CI and Heavy Product Tests plus no blocking review finding.
+3. If all gates pass, merge the reviewed Sprint into `main` with expected-head protection.
+4. Reconstruct fresh `main` and verify reviewed-head -> merge-main tree equivalence.
+5. Perform the policy-required post-Construction-B fresh-main revalidation of the P13-PACKAGE-03 goal and WBS 13.3.3 before promoting any successor.
+6. Promote conditional Construction C only if fresh integrated evidence proves a bounded remaining Package Goal construction gap. Otherwise keep it skipped/forecast and separately promote only the applicable Package Integration & Review gate under repository policy.
 
 ## Boundaries
-Reuse P7/P9 Release/Deploy activation, retention, promotion and reconstruction semantics. Do not invent a new deployment lifecycle, generic migration/version policy, provider/topology or L4 boundary. Do not absorb TD-P13-01..04. Construction C remains CONDITIONAL / FORECAST until post-B evidence proves a bounded Package Goal gap.
+Do not invent a new deployment lifecycle, generic migration/version policy, provider/topology, canonical contract or L4 boundary. Do not absorb TD-P13-01..04. Construction C remains CONDITIONAL / FORECAST until the fresh-main gate explicitly determines it is necessary. Package Integration & Review and Documentation & Closure remain FORECAST until separately promoted.
