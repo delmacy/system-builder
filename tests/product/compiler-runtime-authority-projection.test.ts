@@ -90,7 +90,10 @@ test("authority projection fails closed on unknown and ambiguous references", ()
 
 test("view kind is explicit and fails closed when missing or invalid", () => {
   const source = input();
-  const view = source.views?.[0]!;
+  const views = source.views;
+  assert.ok(views);
+  const view = views[0];
+  assert.ok(view);
   assert.throws(
     () => normalizeRuntimeAuthorityProjection({ ...source, views: [{ ...view, kind: undefined } as never] }),
     /COMPILER_AUTHORITY_PROJECTION_INVALID_VIEW_KIND/,
