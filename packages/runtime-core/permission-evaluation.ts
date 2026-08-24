@@ -48,10 +48,10 @@ function deny(
   actionRef: string,
   reason: Exclude<RuntimePermissionDecisionReason, "RUNTIME_PERMISSION_ALLOWED">,
   details: Readonly<{
-    roleRef?: string;
-    membershipRef?: string;
-    organizationRef?: string;
-    policyRefs?: readonly string[];
+    roleRef?: string | undefined;
+    membershipRef?: string | undefined;
+    organizationRef?: string | undefined;
+    policyRefs?: readonly string[] | undefined;
   }> = {},
 ): RuntimePermissionDecision {
   return Object.freeze({
