@@ -31,6 +31,19 @@ validation:
 # Objective
 Produce a deterministic renderer-agnostic Runtime document for explicitly bound generated views/forms using the integrated view kind, binding metadata and supplied record data.
 
+# Current behavior
+Construction B exposes explicit generated view bindings and authority-gated interaction, but Runtime has no renderer-agnostic document abstraction that materializes those bindings plus caller-supplied record data into deterministic generated view/form output.
+
+# Inputs / contracts
+- Integrated RuntimeModel generated view declarations including the view kind projected by TASK-249.
+- Existing explicit generated bindings for entity, field and action references.
+- Bounded caller-supplied entity record data only; no provider-resolved values or hidden defaults.
+
+# Outputs / contracts
+- A Runtime-only serializable renderer-agnostic generated view/form document.
+- Output contains only explicitly declared view/entity/field/action references and bounded caller-supplied field values.
+- The abstraction remains framework-neutral and does not introduce a public SystemDefinition contract.
+
 # Required change
 Add a Runtime-only materializer that consumes explicit generated bindings and bounded supplied entity record data and emits a serializable render document containing only declared view/entity/field/action references plus field values supplied by the caller.
 
@@ -42,6 +55,9 @@ Add a Runtime-only materializer that consumes explicit generated bindings and bo
 - Missing record values remain explicitly absent/null according to the bounded representation; no implicit default business values are invented.
 - Output is framework-neutral and contains no component implementation, CSS, browser runtime dependency, secret, credential or resolved binding value.
 - Positive and negative product tests cover list/detail/form representative kinds where existing contract values allow them.
+
+# Evidence expected
+Product proof demonstrates deterministic list/detail/form document materialization from explicit bindings, negative fail-closed cases, framework neutrality, and absence of secret/resolved-value leakage.
 
 # Non-goals
 No React/Next/browser framework, styling/design system, HTTP delivery layer, public schema change, authorization change, persistence layer or P13-PACKAGE-03 work.
