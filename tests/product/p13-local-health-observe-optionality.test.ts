@@ -73,7 +73,7 @@ function localHealth() {
 
   const boot = bootstrapAutonomousRuntime({ runtimeVersion, environment, requirements });
   assert.equal(boot.ok, true);
-  if (!boot.ok) throw new Error(`TASK259_RUNTIME_BOOT_FAILED:${boot.diagnostic.code}`);
+  if (!boot.ok) throw new Error("TASK259_RUNTIME_BOOT_FAILED");
   return { bundle, model, health: boot.health };
 }
 
