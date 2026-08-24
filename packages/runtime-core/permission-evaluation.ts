@@ -122,17 +122,14 @@ export function evaluateRuntimePermission(input: Readonly<{
     return deny(resourceRef, actionRef, "RUNTIME_PERMISSION_DEFAULT_DENY");
   }
 
+  let policyBoundCandidate: RuntimeAuthorityPermissionDescriptor | undefined;
   for (const permission of candidates) {
     const roleRef = token(permission.role)!;
     if (!contextMatches(permission, input.authority, input.context)) continue;
     const policyRefs = sortedUnique(permission.policyRefs);
     if (policyRefs.length > 0) {
-      return deny(resourceRef, actionRef, "RUNTIME_PERMISSION_POLICY_EVALUATION_REQUIRED", {
-        roleRef,
-        membershipRef: token(permission.context?.membershipRef),
-        organizationRef: token(permission.context?.organizationRef),
-        policyRefs,
-      });
+      policyBoundCandidate ??= permission;
+      continue;
     }
     return Object.freeze({
       kind: "RuntimePermissionDecision",
@@ -146,6 +143,15 @@ export function evaluateRuntimePermission(input: Readonly<{
         policyRefs: Object.freeze([]),
         reason: "RUNTIME_PERMISSION_ALLOWED" as const,
       }),
+    });
+  }
+
+  if (policyBoundCandidate !== undefined) {
+    return deny(resourceRef, actionRef, "RUNTIME_PERMISSION_POLICY_EVALUATION_REQUIRED", {
+      roleRef: token(policyBoundCandidate.role),
+      membershipRef: token(policyBoundCandidate.context?.membershipRef),
+      organizationRef: token(policyBoundCandidate.context?.organizationRef),
+      policyRefs: policyBoundCandidate.policyRefs,
     });
   }
 
