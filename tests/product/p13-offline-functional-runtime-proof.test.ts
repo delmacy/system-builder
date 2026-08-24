@@ -192,7 +192,7 @@ async function applyMigrations(
   assert.equal(application.migrations.length, preflight.migrations.length);
 }
 
-function runtimeEnvironment(serviceUrl: string, storageRoot: string): EnvironmentProfile {
+function runtimeEnvironment(): EnvironmentProfile {
   return {
     kind: "EnvironmentProfile",
     environmentRef: "environment:p13:offline-functional-runtime",
@@ -247,7 +247,7 @@ test(
     const workflowProof = compileWorkflowProof();
     const bundleDirectory = await materialize(bundle, "system-builder-task-257-runtime-");
     const workflowDirectory = await materialize(workflowProof, "system-builder-task-257-workflow-");
-    const environment = runtimeEnvironment(serviceUrl, storageRoot);
+    const environment = runtimeEnvironment();
     let child: ReturnType<typeof spawn> | undefined;
 
     try {
