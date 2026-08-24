@@ -35,6 +35,9 @@ validation:
 # Objective
 Extend TASK-060 into the package growing proof for the complete actor-aware Runtime.
 
+# Context
+TASK-060 proves autonomous startup/health from actual Compiler output, while P13-PACKAGE-01/02 integrated the complete functional, identity/authority and generated-experience Runtime semantics. TASK-254..259 connect those capabilities to the local autonomous bundle and optional telemetry path. This final Construction A task certifies the composed path end to end without extending into upgrade/rollback or new architecture.
+
 # Current behavior
 Earlier evidence proves compiler startup/health and P13-PACKAGE-01/02 capabilities separately; no single proof certifies the complete compiled Runtime while Builder and Observe are unavailable.
 
