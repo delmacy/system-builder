@@ -17,6 +17,51 @@ export type AutonomousRuntimeModelBundleMetadata = Readonly<{
   }>;
 }>;
 
+function renderRuntimeModelLoadingEntrypoint(
+  entrypoint: string,
+  metadata: AutonomousRuntimeModelBundleMetadata,
+): string {
+  const importNeedle = 'import { createServer } from "node:http";\n';
+  const environmentNeedle = "let environment;\n";
+  if (!entrypoint.startsWith(importNeedle) || !entrypoint.includes(environmentNeedle)) {
+    throw new Error("COMPILER_AUTONOMOUS_RUNTIME_ENTRYPOINT_UNSUPPORTED");
+  }
+
+  const modelDescriptor = JSON.stringify(metadata.runtimeModel);
+  const loader = [
+    `const RUNTIME_MODEL_BUNDLE = ${modelDescriptor};`,
+    "let runtimeModel;",
+    "try {",
+    '  const runtimeModelContent = await readFile(new URL(RUNTIME_MODEL_BUNDLE.path, import.meta.url), "utf8");',
+    '  const runtimeModelHash = "sha256:" + createHash("sha256").update(runtimeModelContent).digest("hex");',
+    "  if (runtimeModelHash !== RUNTIME_MODEL_BUNDLE.contentHash) {",
+    '    fail("RUNTIME_MODEL_HASH_MISMATCH", RUNTIME_MODEL_BUNDLE.path);',
+    "  } else {",
+    "    const parsedRuntimeModel = JSON.parse(runtimeModelContent);",
+    '    if (!parsedRuntimeModel || parsedRuntimeModel.kind !== "RuntimeModel") {',
+    '      fail("RUNTIME_MODEL_INVALID", RUNTIME_MODEL_BUNDLE.path);',
+    "    } else {",
+    "      runtimeModel = parsedRuntimeModel;",
+    "    }",
+    "  }",
+    "} catch (error) {",
+    "  if (!process.exitCode) {",
+    '    const code = error && typeof error === "object" && "code" in error && error.code === "ENOENT" ? "RUNTIME_MODEL_MISSING" : "RUNTIME_MODEL_INVALID";',
+    "    fail(code, RUNTIME_MODEL_BUNDLE.path);",
+    "  }",
+    "}",
+    "let environment;",
+    "",
+  ].join("\n");
+
+  return entrypoint
+    .replace(
+      importNeedle,
+      `${importNeedle}import { createHash } from "node:crypto";\nimport { readFile } from "node:fs/promises";\n`,
+    )
+    .replace(environmentNeedle, loader);
+}
+
 export function compileAutonomousRuntimeModelBundle(
   input: CompileRuntimeModelInput,
 ): SyntheticCompilation {
@@ -24,6 +69,10 @@ export function compileAutonomousRuntimeModelBundle(
   const runtimeModelFile = base.files.find((file) => file.path === "runtime-model.json");
   if (runtimeModelFile === undefined) {
     throw new Error("COMPILER_AUTONOMOUS_RUNTIME_MODEL_MISSING");
+  }
+  const runtimeEntrypointFile = base.files.find((file) => file.path === "runtime-entry.mjs");
+  if (runtimeEntrypointFile === undefined) {
+    throw new Error("COMPILER_AUTONOMOUS_RUNTIME_ENTRYPOINT_MISSING");
   }
 
   const metadata: AutonomousRuntimeModelBundleMetadata = Object.freeze({
@@ -39,8 +88,21 @@ export function compileAutonomousRuntimeModelBundle(
     content: metadataContent,
     contentHash: sha256Text(metadataContent),
   });
+  const runtimeEntrypointContent = renderRuntimeModelLoadingEntrypoint(
+    runtimeEntrypointFile.content,
+    metadata,
+  );
+  const runtimeEntrypoint: GeneratedFile = Object.freeze({
+    path: runtimeEntrypointFile.path,
+    content: runtimeEntrypointContent,
+    contentHash: sha256Text(runtimeEntrypointContent),
+  });
   const files = Object.freeze(
-    [...base.files, metadataFile].sort((left, right) => left.path.localeCompare(right.path)),
+    [
+      ...base.files.filter((file) => file.path !== runtimeEntrypoint.path),
+      runtimeEntrypoint,
+      metadataFile,
+    ].sort((left, right) => left.path.localeCompare(right.path)),
   );
   const manifest = Object.freeze({
     ...base.artifact.manifest,
