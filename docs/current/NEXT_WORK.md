@@ -1,14 +1,13 @@
-# Next Work — P13 Package 03 Planning & Materialization Gate
+# Next Work — P13 Package 03 Planning Integration Gate
 
-P13-PACKAGE-02 is CLOSED. Documentation & Closure PR #289 passed Deterministic CI #660 and Heavy Product Tests #85 on exact head `624db51857673ef20954adc79acb19d35998a491`, integrated as `83310e35e7d3992a659d30ed9cd4c516df9f81d2`, and has zero file drift from the reviewed closure head.
+P13-PACKAGE-03 Planning & Materialization is prepared from fresh-main base `9e39ceca50b27a5f155ba8dfcfe340061a5ed71e`. Construction A `P13-RUNTIME-OFFLINE-AUTONOMY-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-254..260.
 
 ## Required next action
-1. Reconstruct and revalidate fresh `main` from `83310e35e7d3992a659d30ed9cd4c516df9f81d2`.
-2. Re-read authority for P13-PACKAGE-03 / WBS 13.3.1-13.3.3 and predecessor evidence.
-3. If separately authorized, perform Planning & Materialization only for P13-PACKAGE-03; reuse existing predecessor evidence where it already satisfies WBS 13.3 and do not rebuild it.
-4. Do not execute a P13-PACKAGE-03 Construction Sprint until that Planning & Materialization is integrated and produces committed/materialized TASKs.
-
-P13-PACKAGE-03 — Autonomous Runtime Operational Autonomy / WBS 13.3.1-13.3.3 — remains FORECAST / NOT STARTED. Closure of P13-PACKAGE-02 makes it eligible for separate planning; eligibility is not execution authority.
+1. Review and validate the Planning & Materialization PR on its exact head with required Deterministic CI and Heavy Product Tests.
+2. If all required gates pass without blocking findings, merge the planning PR.
+3. Reconstruct fresh `main` and verify zero unintended file drift/lost concurrent work.
+4. Create/use `sprint/P13-RUNTIME-OFFLINE-AUTONOMY-01` exactly from the integrated planning main and execute only TASK-254 first, then continue in declared dependency order while all task gates remain satisfied.
+5. Do not promote Construction B until Construction A is integrated and fresh-main revalidation explicitly commits it.
 
 ## Boundaries
-Do not reopen P13-PACKAGE-02; do not absorb TD-P13-01..04; no unrelated feature work; no new L4 without ADR; preserve authentication != authorization, fail-closed authority, non-executable free-text policy and Runtime autonomy.
+Reuse TASK-060/TASK-063, P11 Observe fail-open and P7 rollback evidence rather than rebuilding them. Do not reopen P13-PACKAGE-02 or absorb TD-P13-01..04. Authentication != authorization; authority remains fail-closed; free-text policy remains non-executable; Observe cannot become a Runtime availability dependency; no new provider/topology or L4 boundary without ADR/change control.
