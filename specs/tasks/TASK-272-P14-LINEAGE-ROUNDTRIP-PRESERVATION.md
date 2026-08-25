@@ -32,8 +32,17 @@ Prove lossless preservation of evidence provenance lineage through compatible se
 # Context
 ADR-0009 requires compatible consumers to preserve unknown optional extension data. WBS 14.2.3 requires lineage preservation through compatible extensions.
 
+# Current behavior
+The envelope defines compatibility rules, but the new M14 provenance extension has no integrated round-trip preservation proof.
+
 # Required change
 Add reusable round-trip preservation behavior/tests for the integrated provenance extension, including unknown optional sibling extensions and historical envelope documents.
+
+# Inputs / contracts
+ADR-0009 compatibility rules, artifact-envelope 1.0.0, and TASK-267..271 evidence-provenance semantics.
+
+# Outputs / contracts
+Verified lossless compatible round-trip behavior for the additive M14 extension; no new persistence/query contract.
 
 # Acceptance criteria
 - normalized provenance survives serialize/parse/re-emit without semantic loss;

@@ -35,7 +35,13 @@ The contract must be portable across producers and serializers; equivalent valid
 No shared deterministic normalizer exists for the new extension.
 
 # Required change
-Add bounded contract-level helpers/validation that sort or canonicalize only where semantics permit and fail explicitly on malformed/ambiguous data.
+Add bounded contract-level helpers/validation that canonicalize only where semantics permit and fail explicitly on malformed or ambiguous data.
+
+# Inputs / contracts
+The TASK-267 evidence-provenance extension contract and ADR-0009 compatibility rules.
+
+# Outputs / contracts
+Deterministic validation/normalization behavior for the additive extension; no new envelope core fields.
 
 # Acceptance criteria
 - deterministic normalized output for equivalent input;

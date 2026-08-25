@@ -31,8 +31,17 @@ Implement stable provider-neutral source-reference semantics for origins that ar
 # Context
 ADR-0009 already covers input artifact references. WBS 14.1.1 additionally requires a source reference model; this TASK must complement, not duplicate, `provenance.inputs`.
 
+# Current behavior
+Input artifacts have stable identity tuples, but non-artifact origins lack a shared portable source-reference representation.
+
 # Required change
 Add the minimum validated source-reference representation needed for portable origin identity, optional source kind/location hint and stable correlation without mandatory provider/storage identifiers.
+
+# Inputs / contracts
+ADR-0009 artifact identity/input reference semantics and TASK-268 normalized evidence-provenance extension.
+
+# Outputs / contracts
+A deterministic non-artifact source-reference structure embedded only through the additive M14 extension.
 
 # Acceptance criteria
 - artifact inputs continue using ADR-0009 identity tuples;

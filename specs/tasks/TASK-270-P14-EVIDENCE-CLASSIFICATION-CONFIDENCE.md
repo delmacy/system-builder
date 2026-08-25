@@ -31,8 +31,17 @@ Add bounded optional classification/confidence semantics required by WBS 14.1.3.
 # Context
 Classification/confidence is evidence metadata only and must not imply authorization, correctness or execution authority. It must be representable without forcing probabilistic scoring where none exists.
 
+# Current behavior
+No canonical classification/confidence representation exists in the current public evidence-provenance surface.
+
 # Required change
-Define optional classification labels and optional confidence representation with explicit provenance/version semantics and deterministic validation.
+Define optional classification labels and optional confidence representation with explicit deterministic validation and no implicit default meaning.
+
+# Inputs / contracts
+The normalized M14 evidence-provenance extension and source-reference semantics from TASK-267..269.
+
+# Outputs / contracts
+Optional classification/confidence fields within the additive evidence-provenance extension.
 
 # Acceptance criteria
 - classification and confidence are independently optional;

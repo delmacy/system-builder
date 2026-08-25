@@ -34,8 +34,17 @@ Certify the integrated Construction A evidence-provenance contract as a coherent
 # Context
 TASK-267..272 establish the additive contract, deterministic normalization, source references, classification/confidence, transformation descriptors and compatible lineage preservation. This TASK composes those outputs without adding new semantics.
 
+# Current behavior
+Construction A outputs are validated individually but require one bounded composed proof before Sprint Review.
+
 # Required change
 Add one bounded integrated proof and Sprint evidence showing deterministic round-trip behavior, historical compatibility, explicit failure cases and no-leak/provider-neutral boundaries.
+
+# Inputs / contracts
+Integrated TASK-267..272 outputs, ADR-0009 and artifact-envelope 1.0.0 fixtures/validation.
+
+# Outputs / contracts
+A growing-proof product test plus Sprint report evidence only; no new product semantics.
 
 # Acceptance criteria
 - representative artifact envelope carries the complete optional M14 provenance extension and round-trips deterministically;

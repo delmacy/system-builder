@@ -31,8 +31,17 @@ Represent how evidence/artifacts were transformed without coupling the core cont
 # Context
 WBS 14.2.2 requires transformation/tool/provider provenance while ADR-0009 forbids mandatory provider resource identifiers in core provenance.
 
+# Current behavior
+ADR-0009 permits optional metadata, but no canonical portable transformation descriptor exists.
+
 # Required change
 Define a deterministic optional transformation descriptor carrying stable operation identity/version and optional tool/provider-neutral producer details; provider-specific data remains namespaced optional metadata.
+
+# Inputs / contracts
+TASK-267..270 evidence-provenance extension semantics and ADR-0009 provider/storage-independence rules.
+
+# Outputs / contracts
+A versioned optional transformation descriptor embedded through the additive M14 extension.
 
 # Acceptance criteria
 - transformation identity/version is explicit when descriptor is present;
