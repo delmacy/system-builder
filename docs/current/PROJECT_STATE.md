@@ -2,20 +2,21 @@
 
 Date: 2026-08-25
 
-`delmacy/system-builder` is canonical. M13 is CLOSED. `P14-PACKAGE-01 — Evidence Identity & Transformation Lineage` is CLOSED; WBS 14.1.1-14.2.3 is SATISFIED / CLOSED.
+`delmacy/system-builder` is canonical. M13 Autonomous Runtime and M14 Evidence & Provenance are CLOSED. `P14-PACKAGE-01` and `P14-PACKAGE-02` remain CLOSED; WBS 14.1.1-14.3.3 is SATISFIED / CLOSED.
 
-## M14 Evidence & Provenance — CLOSED
-`P14-PACKAGE-02 — Evidence Integrity & Provenance Query` is CLOSED. WBS 14.3.1-14.3.3 is SATISFIED / CLOSED.
+## M15 Deterministic / Human / Probabilistic Boundary — PLANNING & MATERIALIZATION
+Fresh-main planning base: `6222cc42af1db9fed0b20666ff9057644b9b5f30`.
 
-Construction A/B/C are COMPLETE / SPRINT REVIEW PASS / INTEGRATED. Package Integration & Review exact head `f2ce6e81ec683eb189e2b416b2332611a7534efb` passed Deterministic CI #782 and Heavy Product Tests #212 and merged as `2dd1bd26ddb4a242a55c47a485c2b28415495a46` with tree equivalence `1c3c4820226b1b1adcc4e0aed66d75592fbc0229`.
+The user explicitly authorized the next fresh-main Planning & Materialization cycle and all required approvals within the resulting bounded cycle. Baseline authority identifies WBS 15 as the unique immediate successor foundation: make deterministic, human-reserved and probabilistic decision nature explicit and prevent probabilistic output from silently governing deterministic guarantees or human-reserved authority.
 
-Final Documentation & Closure PR #353 exact head `297e7fb8221c904b24eb885a6ac7d60a0bb628ff` passed Deterministic CI #783 and Heavy Product Tests #213, had no blocking reviews/threads, and merged protected as `80429793f172e6dd5385d768b5d1e92abe86e65d`. Closure head and merge-main share exact tree `488ff5bb70b23d7c00feda4d88edcda0e62cee91`.
+`P15-PACKAGE-01 — Decision Classification & Authority Guardrails` is PLANNING / CONSTRUCTION A MATERIALIZED and covers WBS 15.1.1-15.2.3.
+
+Construction A `P15-DECISION-BOUNDARY-CONTRACT-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-298..304. It may execute only after the Planning & Materialization PR passes exact-head gates and is integrated into `main`.
+
+Construction B `P15-DECISION-BOUNDARY-ENFORCEMENT-01` remains FORECAST / NOT MATERIALIZED. Construction C remains OPTIONAL / NOT MATERIALIZED. `P15-PACKAGE-02` for WBS 15.3.1-15.3.3 is forecast-only and requires a separate fresh-main successor planning cycle after P15-PACKAGE-01 closure.
 
 ## Security and architecture boundary
-Evidence/provenance remains traceability, not execution authority. Runtime Audit Trail is not replaced. ADR-0009 remains authoritative. No secret value, credential, mandatory provider resource identifier, mandatory storage locator, graph database, provider registry, storage topology, destructive migration, migration engine/framework or undeclared L4 architecture change was introduced.
+Decision classification is not execution authority. Probabilistic output cannot silently satisfy deterministic invariants or human-reserved decisions. ADR-0010 durable human approval and existing authorization semantics remain authoritative and are not weakened/replaced. Evidence/provenance remains traceability, not authorization. No remote provider/model invocation, provider registry, secret material, mandatory AI, storage topology, Runtime Audit Trail replacement or undeclared L4 architecture change is authorized by planning.
 
 ## Carried debt
-TD-P13-01..04 remain carried and are not absorbed or re-ranked by M14 work.
-
-## Successor boundary
-No successor Work Package is committed by this closure. Any successor requires a separate fresh-main Planning & Materialization authorization cycle before execution.
+TD-P13-01..04 remain carried and are not absorbed or re-ranked by P15 planning.
