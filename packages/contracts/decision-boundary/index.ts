@@ -40,6 +40,11 @@ export type DeterministicInvariantEvaluation =
   | Readonly<{ status: "rejected"; decisionId: string; invariantRef: string; diagnostic: string }>
   | Readonly<{ status: "invalid"; diagnostic: string }>;
 
+export type HumanAuthorityReservationEvaluation =
+  | Readonly<{ status: "compatible"; decisionId: string; authorityRef: string }>
+  | Readonly<{ status: "rejected"; decisionId: string; authorityRef: string; diagnostic: string }>
+  | Readonly<{ status: "invalid"; diagnostic: string }>;
+
 const TOKEN_PATTERN = /^\S+$/;
 const CATEGORY_SET = new Set<string>(DECISION_CATEGORIES);
 const RISK_SET = new Set<string>(DECISION_RISK_LEVELS);
@@ -163,6 +168,40 @@ export function evaluateDeterministicInvariantControl(input: Readonly<{
       return { status: "rejected", decisionId: descriptor.decisionId, invariantRef, diagnostic: "gate invariant reference mismatch" };
     }
     return { status: "compatible", decisionId: descriptor.decisionId, invariantRef, gateRef: gate.gateRef };
+  } catch (error) {
+    return { status: "invalid", diagnostic: error instanceof Error ? error.message : "invalid decision boundary" };
+  }
+}
+
+export function evaluateHumanAuthorityReservation(input: Readonly<{
+  descriptor: unknown;
+  metadata: unknown;
+  authorityRef: unknown;
+}>): HumanAuthorityReservationEvaluation {
+  try {
+    const descriptor = normalizeDecisionBoundaryDescriptor(input.descriptor);
+    const metadata = normalizeDecisionCategoryMetadata(descriptor.category, input.metadata);
+    const authorityRef = tokenAt(input.authorityRef, "$decisionBoundary.authorityRef");
+
+    if (descriptor.category !== "human-decision") {
+      return {
+        status: "rejected",
+        decisionId: descriptor.decisionId,
+        authorityRef,
+        diagnostic: `${descriptor.category} decision cannot satisfy human-reserved authority`,
+      };
+    }
+
+    if (metadata.category !== "human-decision" || metadata.metadata.authorityRef !== authorityRef) {
+      return {
+        status: "rejected",
+        decisionId: descriptor.decisionId,
+        authorityRef,
+        diagnostic: "human authority reference mismatch",
+      };
+    }
+
+    return { status: "compatible", decisionId: descriptor.decisionId, authorityRef };
   } catch (error) {
     return { status: "invalid", diagnostic: error instanceof Error ? error.message : "invalid decision boundary" };
   }
