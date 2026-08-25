@@ -1,16 +1,16 @@
-# Next Work — M14 Planning & Materialization Gate
+# Next Work — P14 post-Construction-A fresh-main revalidation
 
-Fresh-main authority selects M14 Evidence & Provenance as the successor planning horizon after M13 closure.
+Construction A of `P14-PACKAGE-01 — Evidence Identity & Transformation Lineage` is integrated on `main` at `2ba94b028819e5daf8d4ff63bebe94209675774d`.
 
 ## Required next action
-1. Validate the exact Planning & Materialization head for `P14-PACKAGE-01 — Evidence Identity & Transformation Lineage` with Deterministic CI + Heavy Product Tests and no blocking review finding.
-2. If unchanged and PASS, merge the planning PR with expected-head protection.
-3. Reconstruct fresh `main` and verify planning-head -> merge-main tree equivalence.
-4. Create `sprint/P14-EVIDENCE-PROVENANCE-CONTRACT-01` from the integrated planning main.
-5. Execute committed TASK-267..273 in dependency order, beginning with TASK-267 only.
-6. Do not promote Construction B until Construction A is integrated and fresh-main revalidation confirms the remaining propagation gap.
+1. Start from fresh `main` at or after `2ba94b028819e5daf8d4ff63bebe94209675774d` and verify no intervening authority/state drift.
+2. Revalidate the P14-PACKAGE-01 goal against WBS 14.1.1-14.2.3 using the integrated Construction A contract/proofs and actual existing producer/transformer surfaces.
+3. Determine whether a real propagation gap remains that is necessary to satisfy the current Package Goal.
+4. Record the revalidation result in repository memory.
+5. If no required propagation gap remains, proceed only to the next package gate allowed by policy; do not create unnecessary Construction B work.
+6. If a required propagation gap remains, record it as evidence for a separate Planning & Materialization step for `P14-EVIDENCE-PROVENANCE-PROPAGATION-01`. Do not materialize or execute that forecast from this revalidation alone.
 
 ## Authority and boundaries
-P14-PACKAGE-01 covers WBS 14.1.1-14.2.3 only. ADR-0009/artifact-envelope 1.0.0 predecessor semantics are preserved. WBS 14.3.1-14.3.3 remains forecast for successor P14 planning and is not execution authority.
+P14-PACKAGE-01 covers WBS 14.1.1-14.2.3 only. ADR-0009/artifact-envelope 1.0.0 predecessor semantics remain authoritative. WBS 14.3.1-14.3.3 remains outside the package and forecast-only.
 
-Do not execute product work before planning integration, redesign core artifact-envelope semantics, replace Runtime Audit Trail, make provenance an authorization mechanism, require secret/provider/storage identifiers, absorb TD-P13-01..04, or execute Construction B/C merely because forecast.
+Construction B and optional Construction C are not materialized and grant no execution authority. Do not replace Runtime Audit Trail, introduce provider/storage topology, make provenance authorization, require secrets/credentials/provider resource identifiers/storage locators, or absorb TD-P13-01..04.
