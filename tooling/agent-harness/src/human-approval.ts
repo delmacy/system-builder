@@ -2,6 +2,14 @@ import { createHash, verify } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { isAbsolute, resolve } from "node:path";
 import { z } from "zod";
+import {
+  DECISION_BOUNDARY_VERSION,
+  evaluateHumanAuthorityReservation,
+  normalizeDecisionBoundaryDescriptor,
+  normalizeDecisionCategoryMetadata,
+  type DecisionBoundaryDescriptor,
+  type HumanAuthorityReservationEvaluation,
+} from "../../../packages/contracts/decision-boundary/index.js";
 import type { Task } from "./task.js";
 
 const taskId = z.string().regex(/^TASK-[0-9]{3}(?:-[A-Z0-9-]+)?$/);
@@ -11,6 +19,7 @@ const risk = z.enum(["low", "medium", "high"]);
 const developmentScopeId = z.string().regex(/^[A-Z0-9][A-Z0-9._-]{2,127}$/i);
 const executor = z.enum(["opencode", "codex", "any"]);
 const modelTier = z.enum(["free", "cheap", "architecture"]);
+const decisionBoundaryToken = z.string().min(1).regex(/^\S+$/);
 
 export const developmentAuthorityScopeSchema = z.object({
   scope_type: z.enum(["SPRINT", "WORK_PACKAGE"]),
@@ -74,6 +83,12 @@ export const humanApprovalEvaluationSchema = z.object({
   ])),
 }).strict();
 
+const humanApprovalDecisionBoundaryProjectionInputSchema = z.object({
+  decisionId: decisionBoundaryToken,
+  authorityRef: decisionBoundaryToken,
+  evaluation: humanApprovalEvaluationSchema,
+}).strict();
+
 export type HumanApprovalPolicy = z.infer<typeof humanApprovalPolicySchema>;
 export type DevelopmentAuthorityScope = z.infer<typeof developmentAuthorityScopeSchema>;
 export type HumanApprovalReceipt = z.infer<typeof humanApprovalReceiptSchema>;
@@ -82,6 +97,12 @@ export type HumanApprovalExpected = {
   repository: string; taskId: string; risk: "low" | "medium" | "high"; architectureImpact: boolean;
   prNumber: number; baseRef: string; headRef: string; headSha: string; observedAt: string;
 };
+export type HumanApprovalDecisionBoundaryProjection = Readonly<{
+  descriptor: DecisionBoundaryDescriptor;
+  metadata: Readonly<{ authorityRef: string }>;
+  reservation: HumanAuthorityReservationEvaluation;
+  evaluation: HumanApprovalEvaluation;
+}>;
 
 export function humanApprovalSigningPayload(receipt: Omit<HumanApprovalReceipt, "approval_id" | "signature">): string {
   return canonicalJson(approvalSemanticSchema.parse(receipt));
@@ -120,6 +141,22 @@ export function evaluateHumanApproval(policyInput: unknown, receiptInput: unknow
     } catch { reasons.push("SIGNATURE_INVALID"); }
   }
   return evaluation(reasons.length ? "INVALID" : "VALID", value.approval_id, [...new Set(reasons)]);
+}
+
+export function projectHumanApprovalDecisionBoundary(input: unknown): HumanApprovalDecisionBoundaryProjection {
+  const parsed = humanApprovalDecisionBoundaryProjectionInputSchema.parse(input);
+  const descriptor = normalizeDecisionBoundaryDescriptor({
+    boundaryVersion: DECISION_BOUNDARY_VERSION,
+    decisionId: parsed.decisionId,
+    category: "human-decision",
+  });
+  const metadata: Readonly<{ authorityRef: string }> = { authorityRef: parsed.authorityRef };
+  normalizeDecisionCategoryMetadata("human-decision", metadata);
+  const reservation = evaluateHumanAuthorityReservation({ descriptor, metadata, authorityRef: parsed.authorityRef });
+  if (reservation.status !== "compatible") {
+    throw new TypeError(`Human approval decision-boundary projection failed: ${reservation.diagnostic}`);
+  }
+  return { descriptor, metadata, reservation, evaluation: parsed.evaluation };
 }
 
 export function evaluateStoredHumanApproval(root: string, expected: HumanApprovalExpected): HumanApprovalEvaluation {
