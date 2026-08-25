@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://system-builder.local/contracts/evidence-provenance/1.0.0/evidence-provenance-extension.schema.json",
+  "title": "System Builder evidence provenance extension",
+  "description": "Additive provider-neutral evidence provenance metadata for ArtifactEnvelope extensions. This metadata is evidence and traceability only, never execution authority; ADR-0009 core producer and provenance.inputs remain authoritative for artifact producer/input semantics.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["extensionVersion", "evidenceId", "sources", "transformations", "lineage"],
+  "properties": {
+    "extensionVersion": {
+      "const": "1.0.0"
+    },
+    "evidenceId": {
+      "$comment": "Stable provider-neutral URI identifying this evidence metadata across compatible serialization.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+    },
+    "sources": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sourceId", "sourceType"],
+        "properties": {
+          "sourceId": {
+            "$comment": "Stable provider-neutral URI for a non-artifact source reference.",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+          },
+          "sourceType": {
+            "$comment": "Stable source-kind token. No provider taxonomy is required by the core contract.",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^\\S+$"
+          },
+          "capturedAt": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+          },
+          "authorRef": {
+            "$comment": "Optional stable provider-neutral author/actor reference; it is descriptive evidence, not authorization.",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^\\S+$"
+          }
+        }
+      }
+    },
+    "classification": {
+      "$comment": "Optional evidence classification and confidence. Labels remain domain-defined and do not grant execution authority.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label"],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^\\S(?:.*\\S)?$"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "transformations": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["descriptorId", "descriptorVersion"],
+        "properties": {
+          "descriptorId": {
+            "$comment": "Stable transformation descriptor token; it describes what produced evidence without requiring implementation coupling.",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^\\S+$"
+          },
+          "descriptorVersion": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+          },
+          "tool": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1, "pattern": "^\\S+$" },
+              "version": { "type": "string", "minLength": 1, "pattern": "^\\S+$" }
+            }
+          },
+          "provider": {
+            "$comment": "Optional logical provider identifier only; provider resource IDs, endpoints, credentials and storage locators are outside this contract.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1, "pattern": "^\\S+$" }
+            }
+          }
+        }
+      }
+    },
+    "lineage": {
+      "$comment": "Evidence-to-evidence lineage only. Artifact predecessor identity remains in ArtifactEnvelope provenance.inputs.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["predecessorEvidenceIds"],
+      "properties": {
+        "predecessorEvidenceIds": {
+          "type": "array",
+          "default": [],
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+          }
+        }
+      }
+    }
+  }
+}
