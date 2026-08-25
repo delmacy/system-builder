@@ -1,4 +1,5 @@
 import type { EvidenceNavigationIndex } from "./navigation-index.js";
+import { validateEvidenceNavigationIndex } from "./navigation-validation.js";
 
 export type SourceToEvidenceNavigationResult = Readonly<{
   sourceId: string;
@@ -15,11 +16,16 @@ function sourceIdAt(value: unknown): string {
   return value;
 }
 
+function compareStrings(left: string, right: string): number {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
 export function queryEvidenceBySource(
   index: EvidenceNavigationIndex,
   sourceId: string,
 ): SourceToEvidenceNavigationResult {
   const normalizedSourceId = sourceIdAt(sourceId);
+  validateEvidenceNavigationIndex(index);
   const entry = index.sources.find((candidate) => candidate.sourceId === normalizedSourceId);
 
   if (!entry) {
@@ -29,6 +35,6 @@ export function queryEvidenceBySource(
   return {
     sourceId: normalizedSourceId,
     found: true,
-    evidenceIds: [...entry.evidenceIds],
+    evidenceIds: [...entry.evidenceIds].sort(compareStrings),
   };
 }
