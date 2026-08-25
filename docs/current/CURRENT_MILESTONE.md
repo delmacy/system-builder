@@ -5,16 +5,12 @@ M13 remains CLOSED. `P14-PACKAGE-01 — Evidence Identity & Transformation Linea
 ## Active Work Package
 `P14-PACKAGE-02 — Evidence Integrity & Provenance Query`
 Primary WBS: 14.3.1-14.3.3.
-Status: CONSTRUCTION A/B/C INTEGRATED / PACKAGE INTEGRATION REVIEW GO / EXACT-HEAD VALIDATION REQUIRED.
+Status: DOCUMENTATION & CLOSURE COMPLETE / FINAL EXACT-HEAD GATES AND INTEGRATION PENDING.
 
-Construction A `P14-EVIDENCE-INTEGRITY-FOUNDATION-01` / TASK-280..286 is integrated and satisfies WBS 14.3.1.
-Construction B `P14-EVIDENCE-PROVENANCE-NAVIGATION-01` / TASK-287..292 is integrated and satisfies WBS 14.3.2.
-Construction C `P14-EVIDENCE-MIGRATION-CERTIFICATION-01` / TASK-293..297 is integrated as `7df79d3bbc03f6d6cb4436cea094abe4641d5af2` after final head `a02e032b87e25507c94e30be6247c557d4410674` passed Deterministic CI #781 and Heavy Product Tests #210. WBS 14.3.3 is SATISFIED / INTEGRATED.
+Construction A/B/C are integrated and satisfy WBS 14.3.1-14.3.3. Package Integration & Review head `f2ce6e81ec683eb189e2b416b2332611a7534efb` passed Deterministic CI #782 and Heavy Product Tests #212 and merged as `2dd1bd26ddb4a242a55c47a485c2b28415495a46`; reviewed head and merge-main share tree `1c3c4820226b1b1adcc4e0aed66d75592fbc0229`.
 
 ## Current gate
-`P14-PACKAGE-02-INTEGRATION-REVIEW-01` has executed on fresh main and recorded GO for Documentation & Closure. The exact review head must independently pass Deterministic CI + Heavy Product Tests with no blocking review finding. After protected merge and fresh-main tree equivalence, execute only Documentation & Closure.
-
-The user has authorized completion of the current Work Package through Package Integration & Review and Documentation & Closure, subject to all repository gates and stop conditions. Successor Work Package planning remains outside this authorization.
+`P14-PACKAGE-02-DOCUMENTATION-CLOSURE-01` has completed repository-memory reconciliation on its closure branch. The exact closure head must pass Deterministic CI + Heavy Product Tests with no blocking review finding. After protected merge and fresh-main tree equivalence, declare P14-PACKAGE-02 canonically CLOSED and stop before any successor Work Package planning/materialization/execution.
 
 ## Boundaries
 Provenance/integrity remains evidence, not authorization. Runtime Audit Trail remains separate. No mandatory sensitive/provider/storage data, graph database, provider registry, storage topology, destructive migration, migration engine/framework or undeclared L4 change is authorized. TD-P13-01..04 remain carried and unabsorbed.
