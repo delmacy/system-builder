@@ -2,6 +2,7 @@ import evidenceProvenanceExtensionSchema from "./evidence-provenance-extension.s
 
 export const EVIDENCE_PROVENANCE_EXTENSION_VERSION = "1.0.0" as const;
 export const EVIDENCE_PROVENANCE_EXTENSION_KEY = "system-builder.evidence-provenance" as const;
+export const EVIDENCE_PROVENANCE_INTEGRITY_ALGORITHM = "sha256" as const;
 
 export type EvidenceSourceReference = Readonly<{
   sourceId: string;
@@ -28,6 +29,11 @@ export type EvidenceLineage = Readonly<{
   predecessorEvidenceIds: readonly string[];
 }>;
 
+export type EvidenceProvenanceIntegrity = Readonly<{
+  algorithm: typeof EVIDENCE_PROVENANCE_INTEGRITY_ALGORITHM;
+  digest: string;
+}>;
+
 export type EvidenceProvenanceExtension = Readonly<{
   extensionVersion: typeof EVIDENCE_PROVENANCE_EXTENSION_VERSION;
   evidenceId: string;
@@ -35,6 +41,7 @@ export type EvidenceProvenanceExtension = Readonly<{
   classification?: EvidenceClassification;
   transformations: readonly EvidenceTransformationDescriptor[];
   lineage: EvidenceLineage;
+  integrity?: EvidenceProvenanceIntegrity;
 }>;
 
 const URI_PATTERN = /^[A-Za-z][A-Za-z0-9+.-]*:\S+$/;
@@ -42,6 +49,7 @@ const TOKEN_PATTERN = /^\S+$/;
 const LABEL_PATTERN = /^\S(?:[^\r\n]*\S)?$/;
 const SEMVER_PATTERN = /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/;
 const UTC_TIMESTAMP_PATTERN = /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?Z$/;
+const SHA256_DIGEST_PATTERN = /^[a-f0-9]{64}$/;
 
 function fail(path: string, reason: string): never {
   throw new TypeError(`Invalid evidence provenance at ${path}: ${reason}`);
@@ -118,9 +126,19 @@ function normalizeTransformation(value: unknown, path: string): EvidenceTransfor
   return normalized;
 }
 
+function normalizeIntegrity(value: unknown, path: string): EvidenceProvenanceIntegrity {
+  const integrity = recordAt(value, path);
+  exactKeys(integrity, ["algorithm", "digest"], path);
+  if (integrity.algorithm !== EVIDENCE_PROVENANCE_INTEGRITY_ALGORITHM) fail(`${path}.algorithm`, "unsupported algorithm");
+  return {
+    algorithm: EVIDENCE_PROVENANCE_INTEGRITY_ALGORITHM,
+    digest: stringAt(integrity.digest, SHA256_DIGEST_PATTERN, `${path}.digest`),
+  };
+}
+
 export function normalizeEvidenceProvenanceExtension(input: unknown): EvidenceProvenanceExtension {
   const candidate = recordAt(input, "$evidenceProvenance");
-  exactKeys(candidate, ["extensionVersion", "evidenceId", "sources", "classification", "transformations", "lineage"], "$evidenceProvenance");
+  exactKeys(candidate, ["extensionVersion", "evidenceId", "sources", "classification", "transformations", "lineage", "integrity"], "$evidenceProvenance");
   if (candidate.extensionVersion !== EVIDENCE_PROVENANCE_EXTENSION_VERSION) fail("$evidenceProvenance.extensionVersion", "unsupported version");
   const evidenceId = stringAt(candidate.evidenceId, URI_PATTERN, "$evidenceProvenance.evidenceId");
   if (!Array.isArray(candidate.sources)) fail("$evidenceProvenance.sources", "expected array");
@@ -145,7 +163,15 @@ export function normalizeEvidenceProvenanceExtension(input: unknown): EvidencePr
   const predecessorEvidenceIds = lineage.predecessorEvidenceIds.map((value, index) => stringAt(value, URI_PATTERN, `$evidenceProvenance.lineage.predecessorEvidenceIds[${index}]`));
   if (new Set(predecessorEvidenceIds).size !== predecessorEvidenceIds.length) fail("$evidenceProvenance.lineage.predecessorEvidenceIds", "duplicate predecessor evidence identifier");
   predecessorEvidenceIds.sort(compareStrings);
-  const normalized: { extensionVersion: typeof EVIDENCE_PROVENANCE_EXTENSION_VERSION; evidenceId: string; sources: readonly EvidenceSourceReference[]; classification?: EvidenceClassification; transformations: readonly EvidenceTransformationDescriptor[]; lineage: EvidenceLineage } = {
+  const normalized: {
+    extensionVersion: typeof EVIDENCE_PROVENANCE_EXTENSION_VERSION;
+    evidenceId: string;
+    sources: readonly EvidenceSourceReference[];
+    classification?: EvidenceClassification;
+    transformations: readonly EvidenceTransformationDescriptor[];
+    lineage: EvidenceLineage;
+    integrity?: EvidenceProvenanceIntegrity;
+  } = {
     extensionVersion: EVIDENCE_PROVENANCE_EXTENSION_VERSION,
     evidenceId,
     sources,
@@ -153,6 +179,7 @@ export function normalizeEvidenceProvenanceExtension(input: unknown): EvidencePr
     lineage: { predecessorEvidenceIds },
   };
   if (candidate.classification !== undefined) normalized.classification = normalizeClassification(candidate.classification, "$evidenceProvenance.classification");
+  if (candidate.integrity !== undefined) normalized.integrity = normalizeIntegrity(candidate.integrity, "$evidenceProvenance.integrity");
   return normalized;
 }
 

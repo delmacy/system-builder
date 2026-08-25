@@ -136,6 +136,22 @@
           }
         }
       }
+    },
+    "integrity": {
+      "$comment": "Optional portable integrity descriptor for this evidence provenance metadata. It is evidence only, does not replace logical identity, and never grants execution authority.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "digest"],
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "digest": {
+          "$comment": "Lowercase hexadecimal SHA-256 digest. No provider, storage locator, credential or secret material is encoded here.",
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
     }
   }
 }
