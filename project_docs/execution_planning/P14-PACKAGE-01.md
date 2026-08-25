@@ -1,10 +1,11 @@
 # P14-PACKAGE-01 — Evidence Identity & Transformation Lineage
 
-Status: CONSTRUCTION A INTEGRATED / POST-CONSTRUCTION-A REVALIDATION ELIGIBLE
+Status: CONSTRUCTION A INTEGRATED / PROPAGATION GAP CONFIRMED / CONSTRUCTION B PLANNING ELIGIBLE
 Milestone: M14 Evidence & Provenance
 Primary WBS: 14.1.1-14.2.3
 Planning base: `4d113432c089621c5f327aed50843b6fd2c8321a`
 Construction A merge-main: `2ba94b028819e5daf8d4ff63bebe94209675774d`
+Post-Construction-A memory merge-main: `4a9892448d45e5d3fde200a8102e3198de12fc8d`
 Predecessor: M13 / P13-PACKAGE-01..03 CLOSED
 
 ## Package goal
@@ -29,15 +30,15 @@ Tree equivalence: reviewed head and merge-main both resolve to tree `8fcd5146984
 Result: additive provider-neutral evidence-provenance extension, deterministic normalization, stable non-artifact source references, optional classification/confidence, transformation descriptors, compatible lineage round trips, historical envelope compatibility and no-leak proof are integrated without changing ADR-0009 core semantics.
 
 ## Post-Construction-A fresh-main truth
-Construction A closes the contract-level gaps for WBS 14.1.1-14.2.3 that it was materialized to address. The package is not yet closed because the existing package plan contains a conditional Construction B propagation candidate and later Package Integration & Review / Documentation & Closure gates.
+Post-Construction-A repository memory reconciliation PR #333 passed Deterministic CI #718 and Heavy Product Tests #143 on exact head `d0c604d148e2ff445dec504729acea0b53d5acae` and integrated as `4a9892448d45e5d3fde200a8102e3198de12fc8d`.
 
-Fresh-main revalidation may now determine whether a real propagation gap remains across existing producers/transformers. That revalidation is a gate only: it does not itself materialize or authorize Construction B.
+Fresh-main revalidation confirms a required propagation gap remains. The integrated evidence-provenance namespace is exercised by the contract, fixtures and product proofs, but repository-wide search finds no representative existing product producer/transformer surface yet propagating that provenance through actual module APIs. Construction A therefore closes contract semantics, but the Package Goal still requires real bounded-context propagation and at least one real multi-stage artifact-chain proof.
 
-## Construction B forecast
-Candidate ID: `P14-EVIDENCE-PROVENANCE-PROPAGATION-01`.
-Status: FORECAST / NOT MATERIALIZED / NOT AUTHORIZED FOR EXECUTION.
+## Construction B — P14-EVIDENCE-PROVENANCE-PROPAGATION-01
+Status: ELIGIBLE FOR SEPARATE PLANNING & MATERIALIZATION / NOT MATERIALIZED / NOT AUTHORIZED FOR EXECUTION.
 Candidate goal: propagate the integrated provenance contract through representative existing producers/transformers using actual module APIs and extend the growing proof across at least one real multi-stage artifact chain.
-Promotion gate: Construction A integrated; fresh-main revalidation proves propagation gaps remain necessary for this Package Goal; a separate materialization/authority step is still required before execution.
+Promotion evidence: Construction A is integrated and fresh-main revalidation proves the propagation gap is real and necessary for this Package Goal.
+Execution gate: a separate Planning & Materialization step must define the bounded TASK set and integrate before any Construction B product execution.
 
 ## Optional Construction C candidate
 Status: FORECAST ONLY / NOT MATERIALIZED.
@@ -46,7 +47,7 @@ Candidate purpose: bounded remediation only if later evidence proves a remaining
 ## Growing package proof
 1. Contract-level deterministic extension validation and backward compatibility — integrated by Construction A.
 2. Lossless unknown-compatible extension preservation and no-leak evidence — integrated by Construction A.
-3. Construction B, only if separately promoted/materialized, must use actual producers/transformers rather than hand-authored downstream artifacts.
+3. Construction B, after separate materialization, must use actual producers/transformers rather than hand-authored downstream artifacts and prove at least one real multi-stage artifact chain.
 4. Package Review regresses provenance semantics, compatibility, security/no-leak, architecture boundaries and technical debt.
 
 ## Package Integration & Review gate
@@ -59,7 +60,7 @@ Reconcile `PROJECT_STATE`, `CURRENT_MILESTONE`, `NEXT_WORK`, package/Sprint repo
 - **R14-01 Core-envelope overreach:** use additive namespaced extension semantics and preserve ADR-0009 core meaning.
 - **R14-02 Provenance becomes execution authority:** provenance remains evidence only; authorization/audit boundaries are unchanged.
 - **R14-03 Sensitive/provider data leakage:** contracts must not require secrets, credentials, provider resource IDs or storage locators.
-- **R14-04 Hand-authored lineage proof:** any later propagation proof must exercise real serializer/validator/module APIs when executable predecessors exist.
+- **R14-04 Hand-authored lineage proof:** Construction B must exercise real serializer/validator/module APIs when executable predecessors exist.
 - **R14-05 Scope collision with Audit Trail:** Runtime action audit remains out of scope.
 
 ## Explicit non-goals
