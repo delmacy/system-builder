@@ -1,18 +1,22 @@
-# Current Execution Milestone — M14 Evidence & Provenance
+# Current Execution Milestone — M15 Deterministic / Human / Probabilistic Boundary
 
-M13 remains CLOSED. `P14-PACKAGE-01 — Evidence Identity & Transformation Lineage` and WBS 14.1.1-14.2.3 remain SATISFIED / CLOSED.
+M13 Autonomous Runtime and M14 Evidence & Provenance remain CLOSED. `P14-PACKAGE-01` and `P14-PACKAGE-02` remain CLOSED; WBS 14.1.1-14.3.3 is SATISFIED / CLOSED.
 
-## Closed Work Package
-`P14-PACKAGE-02 — Evidence Integrity & Provenance Query`
-Primary WBS: 14.3.1-14.3.3.
-Status: CLOSED.
+## Active Planning Gate
+`P15-PACKAGE-01 — Decision Classification & Authority Guardrails`
+Primary WBS: 15.1.1-15.2.3.
+Status: PLANNING / CONSTRUCTION A MATERIALIZED.
+Planning base: `6222cc42af1db9fed0b20666ff9057644b9b5f30`.
 
-Construction A/B/C are integrated and WBS 14.3.1-14.3.3 is SATISFIED / CLOSED. Package Integration & Review exact head `f2ce6e81ec683eb189e2b416b2332611a7534efb` passed Deterministic CI #782 and Heavy Product Tests #212 and merged as `2dd1bd26ddb4a242a55c47a485c2b28415495a46`.
+Construction A `P15-DECISION-BOUNDARY-CONTRACT-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-298..304. It establishes the bounded category/metadata/risk/guard foundation only; no product execution may begin until this planning head passes required exact-head CI/Heavy gates and is integrated.
 
-Final Documentation & Closure PR #353 exact head `297e7fb8221c904b24eb885a6ac7d60a0bb628ff` passed Deterministic CI #783 and Heavy Product Tests #213, had no blocking reviews/threads, and merged as `80429793f172e6dd5385d768b5d1e92abe86e65d`. Closure head and merge-main share tree `488ff5bb70b23d7c00feda4d88edcda0e62cee91`.
+Construction B `P15-DECISION-BOUNDARY-ENFORCEMENT-01` remains FORECAST / NOT MATERIALIZED. Construction C is optional and evidence-gated. WBS 15.3.1-15.3.3 remains outside this package and forecast-only.
+
+## Milestone intent
+Make decision nature explicit and auditable: deterministic guarantees remain deterministic, human-reserved authority cannot be impersonated by inference, and probabilistic decisions carry explicit confidence/model context and cannot silently control deterministic invariants.
 
 ## Current gate
-M14 Evidence & Provenance is CLOSED. No successor Work Package is committed by this closure. A successor requires separate fresh-main Planning & Materialization authorization before execution.
+Complete Planning & Materialization exact-head validation and merge. After fresh-main reconstruction, execute only the committed Construction A TASK-298..304 in dependency order.
 
 ## Boundaries
-Provenance/integrity remains evidence, not authorization. Runtime Audit Trail remains separate. No mandatory sensitive/provider/storage data, graph database, provider registry, storage topology, destructive migration, migration engine/framework or undeclared L4 change is authorized. TD-P13-01..04 remain carried and unabsorbed.
+ADR-0010 remains authoritative for durable human approval; existing authorization semantics remain separate. Decision classification/provenance is not authorization. No mandatory AI/provider, provider registry, secret material, model invocation, storage topology, Runtime Audit Trail replacement or undeclared L4 change is authorized. TD-P13-01..04 remain carried and unabsorbed.
