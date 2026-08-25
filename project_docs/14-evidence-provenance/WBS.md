@@ -13,11 +13,9 @@
 
 Closure evidence for 14.1-14.2 is provided by Construction A `P14-EVIDENCE-PROVENANCE-CONTRACT-01`, Construction B `P14-EVIDENCE-PROVENANCE-PROPAGATION-01`, Package Integration & Review `P14-PACKAGE-01-INTEGRATION-REVIEW-01`, and Documentation & Closure `P14-PACKAGE-01-DOCUMENTATION-CLOSURE-01`.
 
-### 14.3 Integridade e consulta — ACTIVE under P14-PACKAGE-02
+### 14.3 Integridade e consulta — SATISFIED / INTEGRATED under P14-PACKAGE-02
 - **14.3.1** Definir hashes/integrity metadata onde necessário. — SATISFIED / INTEGRATED by Construction A `P14-EVIDENCE-INTEGRITY-FOUNDATION-01` / TASK-280..286.
-- **14.3.2** Permitir navegação source→artifact e artifact→source. — SATISFIED / INTEGRATED by Construction B `P14-EVIDENCE-PROVENANCE-NAVIGATION-01` / TASK-287..292, merged as `1b710f8935193455576237c6a59e85db221a67a9` after Deterministic CI #767 and Heavy Product Tests #195.
-- **14.3.3** Testar preservação em migrations/serialization. — PARTIAL / CONSTRUCTION C COMMITTED: JSON serialization preservation is already proven by TASK-285. `P14-EVIDENCE-MIGRATION-CERTIFICATION-01` / TASK-293..297 is materialized to certify the remaining migration half through the actual existing RuntimeStateRequirement -> Compiler migration manifest/files -> Deploy migration-preflight boundary, including fail-closed invalid migration material and preservation of integrated integrity/navigation semantics.
+- **14.3.2** Permitir navegação source→artifact e artifact→source. — SATISFIED / INTEGRATED by Construction B `P14-EVIDENCE-PROVENANCE-NAVIGATION-01` / TASK-287..292, merged as `1b710f8935193455576237c6a59e85db221a67a9`.
+- **14.3.3** Testar preservação em migrations/serialization. — SATISFIED / INTEGRATED. Serialization preservation is proven by Construction A; migration/version-transition preservation is certified by Construction C `P14-EVIDENCE-MIGRATION-CERTIFICATION-01` / TASK-293..297 through the existing RuntimeStateRequirement -> Compiler migration manifest/files -> Deploy migration-preflight boundary. Final Construction C closure head `a02e032b87e25507c94e30be6247c557d4410674` passed Deterministic CI #781 and Heavy Product Tests #210 and merged as `7df79d3bbc03f6d6cb4436cea094abe4641d5af2`.
 
-Construction C is evidence-focused and must not introduce a provenance migration engine, graph database, provider registry, storage topology, authorization semantics, Runtime Audit Trail replacement or destructive migration.
-
-After Construction C integration, fresh-main evidence must determine whether WBS 14.3.3 and the P14-PACKAGE-02 Package Goal are satisfied before Package Integration & Review.
+`P14-PACKAGE-02-INTEGRATION-REVIEW-01` found WBS 14.3.1-14.3.3 satisfied and the Package Goal met. The current gate is exact-head Package Review validation followed by Documentation & Closure. No successor Work Package is authorized by this disposition.
