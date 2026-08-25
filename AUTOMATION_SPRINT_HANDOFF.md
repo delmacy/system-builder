@@ -3,18 +3,18 @@
 status: RUNNING
 worker_slot: :50
 started_at: 2026-08-24T23:52:38-03:00
-updated_at: 2026-08-25T00:11:20-03:00
-lease_until: 2026-08-25T00:36:20-03:00
-observed_main_sha: bb733323ea7918032a1de6632814c6d172c52093
-active_branch: sprint/P14-EVIDENCE-PROVENANCE-CONTRACT-01
-active_pr: 332
-active_head_sha: eb881c9a07882cba9ec1d9068056166c922779c4
-current_step: Revalidate final Sprint Review head after evidence reconciliation.
-last_completed_step: TASK-273 growing proof/report reached corrected code head 2c8f9e3231069f4e41a927d8bdd9cd108427c851 with Deterministic CI #716 PASS and Heavy Product Tests #141 PASS. The Sprint report and PR body were then reconciled to record the TASK-273 lint-only follow-up and connector safety constraint transparently, producing documentation-only head eb881c9a07882cba9ec1d9068056166c922779c4.
-next_authorized_step: Revalidate PR #332 exact head eb881c9a07882cba9ec1d9068056166c922779c4, its Deterministic CI + Heavy Product Tests and review threads. If all PASS and PR remains mergeable on base main bb733323ea7918032a1de6632814c6d172c52093, merge #332 with expected-head protection, reconstruct fresh main, verify reviewed-head -> merge-main tree equivalence, and reconcile only the post-Construction-A state/gate. Do not execute or materialize Construction B/C, WBS 14.3, or absorb TD-P13-01..04 without fresh authority.
+updated_at: 2026-08-25T00:16:30-03:00
+lease_until: 2026-08-25T00:41:30-03:00
+observed_main_sha: 2ba94b028819e5daf8d4ff63bebe94209675774d
+active_branch: memory/P14-CONSTRUCTION-A-INTEGRATED
+active_pr: 333
+active_head_sha: d0c604d148e2ff445dec504729acea0b53d5acae
+current_step: Validate post-Construction-A repository-memory reconciliation on exact head.
+last_completed_step: Sprint Review PR #332 final head eb881c9a07882cba9ec1d9068056166c922779c4 passed Deterministic CI #717 and Heavy Product Tests #142 with zero blocking review threads and was squash-merged to main as 2ba94b028819e5daf8d4ff63bebe94209675774d. Reviewed head and merge-main have identical tree 8fcd51469846fe7ab11aedf62ec18720fea0a2c6. Repository memory was reconciled on branch memory/P14-CONSTRUCTION-A-INTEGRATED as commit d0c604d148e2ff445dec504729acea0b53d5acae; PR #333 opened.
+next_authorized_step: Revalidate PR #333 exact head d0c604d148e2ff445dec504729acea0b53d5acae, required Deterministic CI + Heavy Product Tests and review threads. If all PASS and base remains main 2ba94b028819e5daf8d4ff63bebe94209675774d, merge #333 with expected-head protection, reconstruct fresh main and verify memory-head -> merge-main tree equivalence. Then stop before any Construction B materialization/execution. The only next eligible action is fresh-main post-Construction-A package revalidation; Construction B/C remain forecast/not materialized, WBS 14.3 and TD-P13-01..04 remain outside scope.
 
 ## Operational model-selection instruction
 All TASKs are executed with strong models. `model_tier` is retained only for task-schema compatibility and is not execution routing.
 
 ## resume_prompt
-Retome delmacy/system-builder em main bb733323ea7918032a1de6632814c6d172c52093. Construction A branch sprint/P14-EVIDENCE-PROVENANCE-CONTRACT-01 concluiu TASK-267 d7057ad7a19c293052b7f992732995f29c03f038, TASK-268 cdc18632055b6e485cac9a819214bb0183a9331c, TASK-269 16a726882a9b530f55d4be1c33309f11eccec9dc, TASK-270 521195eaa710c7084f0b9ce845631e0c9528f046 (CI #712 / Heavy #137 PASS), TASK-271 72d53bb03f755e1c0f500250b0bdb90b5eeeb35f (CI #713 / Heavy #138 PASS), TASK-272 c37eb8d7d9281dc6e1a0c6408dd0b63a0ba57353 (CI #714 / Heavy #139 PASS), TASK-273 semantic commit 0f6e4b738173301d7616c98392c81cf70916d4cf + lint-only fix 2c8f9e3231069f4e41a927d8bdd9cd108427c851 (CI #716 / Heavy #141 PASS) + evidence-only reconciliation eb881c9a07882cba9ec1d9068056166c922779c4. PR #332 é Sprint Review e o único PR elegível para merge. Revalide gates exact-head do eb881c9..., threads e base; se PASS, merge protegido, fresh main e equivalência de tree. Construction B/C seguem forecast/não materializadas; WBS 14.3 e TD-P13-01..04 fora de escopo.
+Retome delmacy/system-builder após Construction A de P14. PR #332 foi integrado: reviewed head eb881c9a07882cba9ec1d9068056166c922779c4, CI #717 PASS, Heavy #142 PASS, zero threads, merge-main 2ba94b028819e5daf8d4ff63bebe94209675774d, tree idêntica 8fcd51469846fe7ab11aedf62ec18720fea0a2c6. A reconciliação de repository memory está no PR #333, branch memory/P14-CONSTRUCTION-A-INTEGRATED, head d0c604d148e2ff445dec504729acea0b53d5acae, mudando somente 6 docs para registrar Construction A integrada e manter Construction B FORECAST/NOT MATERIALIZED/NOT AUTHORIZED. Revalide gates #333; se PASS, merge protegido, fresh main, equivalência de tree e libere handoff READY. Não materialize/executar Construction B/C; WBS 14.3 e TD-P13-01..04 fora de escopo.
