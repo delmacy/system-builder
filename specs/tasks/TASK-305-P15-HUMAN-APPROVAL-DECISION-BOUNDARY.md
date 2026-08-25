@@ -34,6 +34,21 @@ validation:
 # Objective
 Expose an additive decision-boundary projection for the existing durable human-approval evaluation so real human authority is explicitly classified as `human-decision` without changing approval semantics.
 
+# Context
+Construction A established the canonical decision-boundary contract and human-authority reservation guard. Fresh-main revalidation found that the existing durable human-approval path does not yet expose that canonical classification.
+
+# Current behavior
+Durable human approval already evaluates signed approval receipts under ADR-0010, but its real-path result has no additive canonical decision-boundary projection.
+
+# Required change
+Add the minimum backward-compatible projection from the existing durable human-approval evaluation into the canonical `human-decision` boundary, preserving every existing approval and receipt semantic.
+
+# Inputs / contracts
+The integrated decision-boundary contract, the existing durable human-approval API, and ADR-0010 human authority semantics.
+
+# Outputs / contracts
+An additive projection/evidence surface that identifies the existing human-reserved authority using the canonical descriptor and explicit `authorityRef`, without creating authority.
+
 # Acceptance criteria
 - existing approval evaluation behavior and receipts remain unchanged;
 - a successful/required human approval path can be projected to the canonical decision-boundary contract with explicit authorityRef;
@@ -45,6 +60,9 @@ Expose an additive decision-boundary projection for the existing durable human-a
 
 # Non-goals
 No ADR-0010 redesign, policy changes, provider/model invocation, remote calls, package authorization changes, WBS 15.3 or L4 architecture.
+
+# Evidence expected
+Focused unit/product proof of the real human-approval projection, negative substitution cases, malformed input failure and repository validation.
 
 # Escalation
 Stop for any required change to approval authority semantics, receipt/signature meaning, or architecture boundary.
