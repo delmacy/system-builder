@@ -4,6 +4,10 @@ import {
   renderPersistentAutonomousRuntimeEntrypoint,
   type RuntimeStateRequirement,
 } from "@system-builder/runtime-core";
+import {
+  normalizeCompilerEvidenceProvenance,
+  type CompilerEvidenceProvenance,
+} from "./evidence-provenance.js";
 import { materializeAssemblyRuntimeCapabilities } from "./runtime-capabilities.js";
 
 export type CompilerAssemblyPlan = Readonly<{
@@ -49,6 +53,7 @@ export type ReleaseArtifact = Readonly<{
     files: readonly string[];
   }>;
   environmentSchema: readonly CompilerEnvironmentRequirement[];
+  evidenceProvenance?: CompilerEvidenceProvenance;
 }>;
 
 export type CompileSyntheticInput = Readonly<{
@@ -58,6 +63,7 @@ export type CompileSyntheticInput = Readonly<{
   runtimeVersion: string;
   environmentSchema?: readonly CompilerEnvironmentRequirement[];
   stateRequirements?: readonly RuntimeStateRequirement[];
+  evidenceProvenance?: CompilerEvidenceProvenance;
 }>;
 
 export type SyntheticCompilation = Readonly<{
@@ -180,6 +186,9 @@ export function compileSyntheticRelease(input: CompileSyntheticInput): Synthetic
   const compilerVersion = requireToken(input.compilerVersion, "compiler_version");
   const runtimeVersion = requireToken(input.runtimeVersion, "runtime_version");
   const environmentSchema = normalizeEnvironment(input.environmentSchema);
+  const evidenceProvenance = input.evidenceProvenance === undefined
+    ? undefined
+    : normalizeCompilerEvidenceProvenance(input.evidenceProvenance);
   const explicitStateRequirements = input.stateRequirements ?? [];
   const derivedStateRequirements = materializeAssemblyRuntimeCapabilities(
     capabilityMaterializationPlan(input.assemblyPlan, explicitStateRequirements),
@@ -260,6 +269,7 @@ export function compileSyntheticRelease(input: CompileSyntheticInput): Synthetic
     manifest,
     environmentSchema,
     fileHashes: files.map((file) => ({ path: file.path, contentHash: file.contentHash })),
+    ...(evidenceProvenance === undefined ? {} : { evidenceProvenance }),
   };
   const artifact: ReleaseArtifact = Object.freeze({
     kind: "ReleaseArtifact",
@@ -268,6 +278,7 @@ export function compileSyntheticRelease(input: CompileSyntheticInput): Synthetic
     artifactHash: sha256Canonical(artifactPayload),
     manifest,
     environmentSchema,
+    ...(evidenceProvenance === undefined ? {} : { evidenceProvenance }),
   });
 
   return Object.freeze({ files, artifact });
