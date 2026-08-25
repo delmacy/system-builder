@@ -1,7 +1,7 @@
 ---
 id: TASK-297
 title: Complete the WBS 14.3.3 migration preservation growing proof
-status: ready
+status: completed
 priority: 297
 milestone: M14
 model_tier: architecture
@@ -62,6 +62,12 @@ No migration engine, database schema redesign, graph/provider/storage topology, 
 
 # Evidence expected
 One composed product E2E proof plus repository-wide verification and Sprint Review exact-head CI.
+
+# Execution evidence
+- Product E2E proof added at `tests/product/p14-provenance-migration-certification-e2e.test.ts`.
+- The proof composes actual Compiler migration output, Deploy migration preflight, Release/Deploy provenance propagation, JSON round-trip, integrity verification and bidirectional navigation.
+- A tampered migration hash is rejected fail-closed before preservation success, and provenance-absent historical compilation remains valid.
+- Exact-head GitHub CI/Heavy Product Tests remain the objective validation gate before Sprint Review integration.
 
 # Escalation
 Stop if completing this proof requires product architecture changes outside the already-authoritative migration boundary.
