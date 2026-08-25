@@ -1,4 +1,5 @@
 import { sha256Canonical } from "@system-builder/deterministic";
+import { normalizeObserveEvidenceProvenance, type ObserveEvidenceProvenance } from "./evidence-provenance.js";
 import { DeploymentOperationMetadata } from "./metadata.js";
 
 export {
@@ -46,6 +47,7 @@ export type DeploymentRecordLike = Readonly<{
   completedAt: string;
   status: "succeeded" | "failed";
   healthChecks: readonly DeploymentHealthCheck[];
+  evidenceProvenance?: ObserveEvidenceProvenance;
 }>;
 
 export type DeploymentObservation = Readonly<{
@@ -59,6 +61,7 @@ export type DeploymentObservation = Readonly<{
   completedAt: string;
   status: "succeeded" | "failed";
   healthChecks: readonly DeploymentHealthCheck[];
+  evidenceProvenance?: ObserveEvidenceProvenance;
 }>;
 
 const CORRELATION_FIELDS = [
@@ -70,6 +73,7 @@ const CORRELATION_FIELDS = [
   "completedAt",
   "status",
   "healthChecks",
+  "evidenceProvenance",
 ] as const;
 
 function isRecordLike(value: unknown): value is Record<string, unknown> {
@@ -103,6 +107,15 @@ function parseCorrelation(value: Record<string, unknown>): Omit<DeploymentObserv
       return Object.freeze({ name: requiredString(check["name"], "name"), status: checkStatus });
     }),
   );
+  let evidenceProvenance: ObserveEvidenceProvenance | undefined;
+  if (value["evidenceProvenance"] !== undefined) {
+    try {
+      evidenceProvenance = normalizeObserveEvidenceProvenance(value["evidenceProvenance"]);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : "INVALID_PROVENANCE";
+      throw invalid(`PROVENANCE:${detail}`);
+    }
+  }
   return Object.freeze({
     deploymentId: requiredString(value["deploymentId"], "deploymentId"),
     publishedReleaseRef: requiredString(value["publishedReleaseRef"], "publishedReleaseRef"),
@@ -112,6 +125,7 @@ function parseCorrelation(value: Record<string, unknown>): Omit<DeploymentObserv
     completedAt: requiredString(value["completedAt"], "completedAt"),
     status,
     healthChecks,
+    ...(evidenceProvenance === undefined ? {} : { evidenceProvenance }),
   });
 }
 
@@ -158,6 +172,7 @@ export type EnrichedDeploymentObservation = Readonly<{
   completedAt: string;
   status: "succeeded" | "failed";
   healthChecks: readonly DeploymentHealthCheck[];
+  evidenceProvenance?: ObserveEvidenceProvenance;
   operation: DeploymentOperationMetadata;
 }>;
 
@@ -178,6 +193,7 @@ export function enrichObservation(
     completedAt: observation.completedAt,
     status: observation.status,
     healthChecks: observation.healthChecks,
+    ...(observation.evidenceProvenance === undefined ? {} : { evidenceProvenance: observation.evidenceProvenance }),
     operation,
   });
   return Object.freeze({ ...payload, enrichedId: sha256Canonical(payload) });

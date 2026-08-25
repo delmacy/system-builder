@@ -1,9 +1,11 @@
+import { normalizeReleaseEvidenceProvenance, type ReleaseEvidenceProvenance } from "./evidence-provenance.js";
 import { InMemoryReleaseRecordStorage, type ReleaseRecordStorage } from "./storage.js";
 
 export type ReleaseArtifactInput = Readonly<{
   kind: "ReleaseArtifact";
   artifactHash: string;
   validationEvidenceRef: string;
+  evidenceProvenance?: ReleaseEvidenceProvenance;
 }>;
 
 export type PublishedReleaseStatus = "published" | "deprecated" | "archived";
@@ -17,6 +19,7 @@ export type PublishedRelease = Readonly<{
   validationEvidenceRef: string;
   publishedAt: string;
   status: PublishedReleaseStatus;
+  evidenceProvenance?: ReleaseEvidenceProvenance;
 }>;
 
 function requireToken(value: string, field: string): string {
@@ -58,8 +61,11 @@ export class ReleaseRegistry {
     const version = requireToken(input.version, "version");
     const key = identity(releaseId, version);
     if (this.#storage.has(key)) throw new Error(`RELEASE_DUPLICATE_IDENTITY:${key}`);
+    const evidenceProvenance = input.artifact.evidenceProvenance === undefined
+      ? undefined
+      : normalizeReleaseEvidenceProvenance(input.artifact.evidenceProvenance);
 
-    const record = Object.freeze({
+    const record: PublishedRelease = Object.freeze({
       kind: "PublishedRelease" as const,
       releaseId,
       version,
@@ -68,6 +74,7 @@ export class ReleaseRegistry {
       validationEvidenceRef: requireToken(input.artifact.validationEvidenceRef, "validation_evidence_ref"),
       publishedAt: requireToken(input.publishedAt, "published_at"),
       status: "published" as const,
+      ...(evidenceProvenance === undefined ? {} : { evidenceProvenance }),
     });
     this.#storage.set(key, record);
     return record;
