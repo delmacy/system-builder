@@ -1,6 +1,6 @@
 # P14-PACKAGE-01 — Evidence Identity & Transformation Lineage
 
-Status: CONSTRUCTION A+B INTEGRATED / PACKAGE INTEGRATION & REVIEW EXECUTED / GO FOR DOCUMENTATION & CLOSURE / EXACT-HEAD VALIDATION REQUIRED
+Status: CONSTRUCTION A+B INTEGRATED / PACKAGE REVIEW PASS / DOCUMENTATION & CLOSURE MATERIALIZED
 Milestone: M14 Evidence & Provenance
 Primary WBS: 14.1.1-14.2.3
 Planning base: `4d113432c089621c5f327aed50843b6fd2c8321a`
@@ -8,7 +8,8 @@ Construction A merge-main: `2ba94b028819e5daf8d4ff63bebe94209675774d`
 Post-Construction-A propagation-gap merge-main: `4923892f66bc3dc0bd1915b96c336b5e7301c4c3`
 Construction B materialization merge-main: `c0100f2a0f0ce8950eab51a78df7938ceee5abc6`
 Construction B Sprint Review merge-main: `497e99c2a65bf1d1e489b95b0607241f41a5b01a`
-Package Review materialization merge-main / review base: `8f14987aa29597bc9d4193a2494431ea5d47a8fc`
+Package Review materialization merge-main: `8f14987aa29597bc9d4193a2494431ea5d47a8fc`
+Package Review merge-main / closure materialization base: `50c016e1b65cc205b4ae48127ecf5749bb072309`
 Predecessor: M13 / P13-PACKAGE-01..03 CLOSED
 
 ## Package goal
@@ -36,7 +37,7 @@ Integrated by PR #334 / main `4923892f66bc3dc0bd1915b96c336b5e7301c4c3`. It conf
 Status: COMPLETE / SPRINT REVIEW PASS / INTEGRATED.
 TASKs: TASK-274..279.
 Authoritative commits: TASK-274 `bef42774769263fe06515acb114243802e60d576`; TASK-275 `3d76b535c9ba9d2edb288a74ad5b43e5873fa279`; TASK-276 `2deb47963d12e1a2e3cbfe36ad70ce8a0044f72d`; TASK-277 `15bf782d68b74b8e71b584cd90058d8adeeee78a`; TASK-278 `e7db7d141e7b20d0bccfff40607f8508b1611dbf`; TASK-279 `670527e56bbe5d81d881eb6c47a9ccb429f6bd61`.
-TASK-279 exact head passed Deterministic CI #728 and Heavy Product Tests #154. Final Sprint Review PR #336 reviewed head `5d2d028c22fe4a1124c39b575f8b883284a9a7f4` passed Deterministic CI #734 and Heavy Product Tests #160, had no blocking reviews/threads and integrated as `497e99c2a65bf1d1e489b95b0607241f41a5b01a`; reviewed-head -> merge-main has zero changed files.
+Final Sprint Review PR #336 reviewed head `5d2d028c22fe4a1124c39b575f8b883284a9a7f4` passed Deterministic CI #734 and Heavy Product Tests #160, had no blocking reviews/threads and integrated as `497e99c2a65bf1d1e489b95b0607241f41a5b01a`; reviewed-head -> merge-main has zero changed files.
 Result: the real Compiler -> Release -> Deploy -> Observe chain preserves the integrated provenance extension with backward-compatible absence, explicit malformed-input failure, deterministic multi-stage lineage and no secret/provider/storage leakage.
 
 ## Optional Construction C candidate
@@ -44,14 +45,17 @@ Status: NOT NECESSARY / NOT PROMOTED.
 Fresh-main post-Construction-B evidence shows the planned producer/transformer propagation gap is closed and no bounded missing product capability required by the Package Goal remains.
 
 ## Package Integration & Review — P14-PACKAGE-01-INTEGRATION-REVIEW-01
-Status: REVIEW EXECUTED / GO FOR DOCUMENTATION & CLOSURE / EXACT-HEAD VALIDATION REQUIRED.
-Review base: `8f14987aa29597bc9d4193a2494431ea5d47a8fc`.
+Status: COMPLETE / REVIEW PASS / INTEGRATED.
+Materialization merge-main: `8f14987aa29597bc9d4193a2494431ea5d47a8fc`.
+Reviewed head: `ec55033838d59c66d54928f567227e074686c721`.
+Deterministic CI #736 PASS; Heavy Product Tests #163 PASS; no blocking review threads; merge-main `50c016e1b65cc205b4ae48127ecf5749bb072309`; reviewed-head -> merge-main has zero changed files.
 Detailed report: `P14-PACKAGE-01-INTEGRATION-REVIEW-01.report.md`.
-Finding: WBS 14.1.1-14.2.3 is SATISFIED / INTEGRATED; actual Compiler -> Release -> Deploy -> Observe lineage preservation, compatibility, deterministic normalization/serialization, malformed-input failure, provider/storage neutrality and no-leak/security boundaries regress without a package-goal blocker. No new L3/L4 decision or package-local blocker was identified. `TD-P13-01..04` remain carried/unabsorbed/unre-ranked.
-Decision: GO for Documentation & Closure, contingent on exact-head Deterministic CI + Heavy Product Tests PASS and no blocking review finding.
+Decision: GO for Documentation & Closure. WBS 14.1.1-14.2.3 is SATISFIED / INTEGRATED; no package-goal, architecture, security or compatibility blocker, no Construction C need and no new L3/L4 decision.
 
-## Documentation & Closure gate
-Eligible only after Package Integration & Review integrates with GO. Reconcile `PROJECT_STATE`, `CURRENT_MILESTONE`, `NEXT_WORK`, package/Sprint reports, WBS evidence and carried debt. No new product behavior during closure.
+## Documentation & Closure — P14-PACKAGE-01-DOCUMENTATION-CLOSURE-01
+Status: COMMITTED / MATERIALIZED / NOT EXECUTED.
+Materialization base: `50c016e1b65cc205b4ae48127ecf5749bb072309`.
+Goal: reconcile repository memory, package/Sprint reports, WBS status, debt/risks and successor planning gate, then close P14-PACKAGE-01 only if all integrated evidence agrees. No product behavior is allowed.
 
 ## Risks and controls
 - **R14-01 Core-envelope overreach:** additive namespaced extension only; ADR-0009 core meaning is unchanged.
