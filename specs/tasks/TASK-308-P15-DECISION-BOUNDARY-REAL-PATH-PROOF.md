@@ -1,7 +1,7 @@
 ---
 id: TASK-308
 title: Prove decision boundary across real governance paths
-status: ready
+status: completed
 priority: 308
 milestone: M15
 model_tier: architecture
