@@ -1,6 +1,6 @@
 # P14-PACKAGE-01 — Evidence Identity & Transformation Lineage
 
-Status: CONSTRUCTION A+B INTEGRATED / PACKAGE INTEGRATION & REVIEW MATERIALIZED
+Status: CONSTRUCTION A+B INTEGRATED / PACKAGE INTEGRATION & REVIEW EXECUTED / GO FOR DOCUMENTATION & CLOSURE / EXACT-HEAD VALIDATION REQUIRED
 Milestone: M14 Evidence & Provenance
 Primary WBS: 14.1.1-14.2.3
 Planning base: `4d113432c089621c5f327aed50843b6fd2c8321a`
@@ -8,6 +8,7 @@ Construction A merge-main: `2ba94b028819e5daf8d4ff63bebe94209675774d`
 Post-Construction-A propagation-gap merge-main: `4923892f66bc3dc0bd1915b96c336b5e7301c4c3`
 Construction B materialization merge-main: `c0100f2a0f0ce8950eab51a78df7938ceee5abc6`
 Construction B Sprint Review merge-main: `497e99c2a65bf1d1e489b95b0607241f41a5b01a`
+Package Review materialization merge-main / review base: `8f14987aa29597bc9d4193a2494431ea5d47a8fc`
 Predecessor: M13 / P13-PACKAGE-01..03 CLOSED
 
 ## Package goal
@@ -40,16 +41,17 @@ Result: the real Compiler -> Release -> Deploy -> Observe chain preserves the in
 
 ## Optional Construction C candidate
 Status: NOT NECESSARY / NOT PROMOTED.
-Fresh-main post-Construction-B evidence shows the planned producer/transformer propagation gap is closed and no bounded missing product capability required by the Package Goal remains. Any newly discovered missing product capability must return to explicit construction/change control; Package Review is not overflow construction.
+Fresh-main post-Construction-B evidence shows the planned producer/transformer propagation gap is closed and no bounded missing product capability required by the Package Goal remains.
 
 ## Package Integration & Review — P14-PACKAGE-01-INTEGRATION-REVIEW-01
-Status: COMMITTED / MATERIALIZED / NOT EXECUTED.
-Materialization base: `497e99c2a65bf1d1e489b95b0607241f41a5b01a`.
-Goal: regress WBS 14.1.1-14.2.3, contract/schema drift, extension compatibility, provider/storage neutrality, no-leak behavior, actual Compiler -> Release -> Deploy -> Observe lineage preservation, architecture/dependencies/security/debt and readiness for Documentation & Closure.
-Output: findings, debt classification and explicit GO/NO-GO. No new product behavior unless a bounded correction is strictly necessary to prove the already-constructed Package Goal and remains inside review authority.
+Status: REVIEW EXECUTED / GO FOR DOCUMENTATION & CLOSURE / EXACT-HEAD VALIDATION REQUIRED.
+Review base: `8f14987aa29597bc9d4193a2494431ea5d47a8fc`.
+Detailed report: `P14-PACKAGE-01-INTEGRATION-REVIEW-01.report.md`.
+Finding: WBS 14.1.1-14.2.3 is SATISFIED / INTEGRATED; actual Compiler -> Release -> Deploy -> Observe lineage preservation, compatibility, deterministic normalization/serialization, malformed-input failure, provider/storage neutrality and no-leak/security boundaries regress without a package-goal blocker. No new L3/L4 decision or package-local blocker was identified. `TD-P13-01..04` remain carried/unabsorbed/unre-ranked.
+Decision: GO for Documentation & Closure, contingent on exact-head Deterministic CI + Heavy Product Tests PASS and no blocking review finding.
 
 ## Documentation & Closure gate
-Forecast only until Package Integration & Review integrates with GO. Reconcile `PROJECT_STATE`, `CURRENT_MILESTONE`, `NEXT_WORK`, package/Sprint reports, WBS evidence and carried debt. No new product behavior during closure.
+Eligible only after Package Integration & Review integrates with GO. Reconcile `PROJECT_STATE`, `CURRENT_MILESTONE`, `NEXT_WORK`, package/Sprint reports, WBS evidence and carried debt. No new product behavior during closure.
 
 ## Risks and controls
 - **R14-01 Core-envelope overreach:** additive namespaced extension only; ADR-0009 core meaning is unchanged.
