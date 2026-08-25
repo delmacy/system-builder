@@ -9,6 +9,14 @@ export type DecisionBoundaryDescriptor = Readonly<{
   category: DecisionCategory;
 }>;
 
+export type DeterministicDecisionMetadata = Readonly<{ invariantRef: string }>;
+export type HumanDecisionMetadata = Readonly<{ authorityRef: string }>;
+export type ProbabilisticDecisionMetadata = Readonly<{ inferenceRef: string }>;
+export type DecisionCategoryMetadata =
+  | Readonly<{ category: "deterministic"; metadata: DeterministicDecisionMetadata }>
+  | Readonly<{ category: "human-decision"; metadata: HumanDecisionMetadata }>
+  | Readonly<{ category: "probabilistic"; metadata: ProbabilisticDecisionMetadata }>;
+
 const TOKEN_PATTERN = /^\S+$/;
 const CATEGORY_SET = new Set<string>(DECISION_CATEGORIES);
 
@@ -50,4 +58,18 @@ export function normalizeDecisionBoundaryDescriptor(input: unknown): DecisionBou
     decisionId: tokenAt(candidate.decisionId, "$decisionBoundary.decisionId"),
     category: candidate.category,
   };
+}
+
+export function normalizeDecisionCategoryMetadata(category: DecisionCategory, input: unknown): DecisionCategoryMetadata {
+  const metadata = recordAt(input, "$decisionBoundary.metadata");
+  if (category === "deterministic") {
+    exactKeys(metadata, ["invariantRef"], "$decisionBoundary.metadata");
+    return { category, metadata: { invariantRef: tokenAt(metadata.invariantRef, "$decisionBoundary.metadata.invariantRef") } };
+  }
+  if (category === "human-decision") {
+    exactKeys(metadata, ["authorityRef"], "$decisionBoundary.metadata");
+    return { category, metadata: { authorityRef: tokenAt(metadata.authorityRef, "$decisionBoundary.metadata.authorityRef") } };
+  }
+  exactKeys(metadata, ["inferenceRef"], "$decisionBoundary.metadata");
+  return { category, metadata: { inferenceRef: tokenAt(metadata.inferenceRef, "$decisionBoundary.metadata.inferenceRef") } };
 }
