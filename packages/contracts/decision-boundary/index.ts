@@ -3,6 +3,12 @@ export const DECISION_BOUNDARY_VERSION = "1.0.0" as const;
 export const DECISION_CATEGORIES = ["deterministic", "human-decision", "probabilistic"] as const;
 export type DecisionCategory = (typeof DECISION_CATEGORIES)[number];
 
+export const DECISION_RISK_LEVELS = ["low", "medium", "high"] as const;
+export type DecisionRiskLevel = (typeof DECISION_RISK_LEVELS)[number];
+
+export const DECISION_CRITICALITY_LEVELS = ["standard", "critical"] as const;
+export type DecisionCriticalityLevel = (typeof DECISION_CRITICALITY_LEVELS)[number];
+
 export type DecisionBoundaryDescriptor = Readonly<{
   boundaryVersion: typeof DECISION_BOUNDARY_VERSION;
   decisionId: string;
@@ -17,8 +23,15 @@ export type DecisionCategoryMetadata =
   | Readonly<{ category: "human-decision"; metadata: HumanDecisionMetadata }>
   | Readonly<{ category: "probabilistic"; metadata: ProbabilisticDecisionMetadata }>;
 
+export type DecisionRiskCriticality = Readonly<{
+  risk: DecisionRiskLevel;
+  criticality: DecisionCriticalityLevel;
+}>;
+
 const TOKEN_PATTERN = /^\S+$/;
 const CATEGORY_SET = new Set<string>(DECISION_CATEGORIES);
+const RISK_SET = new Set<string>(DECISION_RISK_LEVELS);
+const CRITICALITY_SET = new Set<string>(DECISION_CRITICALITY_LEVELS);
 
 function fail(path: string, reason: string): never {
   throw new TypeError(`Invalid decision boundary at ${path}: ${reason}`);
@@ -42,6 +55,14 @@ function tokenAt(value: unknown, path: string): string {
 
 export function isDecisionCategory(value: unknown): value is DecisionCategory {
   return typeof value === "string" && CATEGORY_SET.has(value);
+}
+
+export function isDecisionRiskLevel(value: unknown): value is DecisionRiskLevel {
+  return typeof value === "string" && RISK_SET.has(value);
+}
+
+export function isDecisionCriticalityLevel(value: unknown): value is DecisionCriticalityLevel {
+  return typeof value === "string" && CRITICALITY_SET.has(value);
 }
 
 export function normalizeDecisionBoundaryDescriptor(input: unknown): DecisionBoundaryDescriptor {
@@ -72,4 +93,16 @@ export function normalizeDecisionCategoryMetadata(category: DecisionCategory, in
   }
   exactKeys(metadata, ["inferenceRef"], "$decisionBoundary.metadata");
   return { category, metadata: { inferenceRef: tokenAt(metadata.inferenceRef, "$decisionBoundary.metadata.inferenceRef") } };
+}
+
+export function normalizeDecisionRiskCriticality(input: unknown): DecisionRiskCriticality {
+  const candidate = recordAt(input, "$decisionBoundary.riskCriticality");
+  exactKeys(candidate, ["risk", "criticality"], "$decisionBoundary.riskCriticality");
+  if (!isDecisionRiskLevel(candidate.risk)) {
+    fail("$decisionBoundary.riskCriticality.risk", "unsupported risk level");
+  }
+  if (!isDecisionCriticalityLevel(candidate.criticality)) {
+    fail("$decisionBoundary.riskCriticality.criticality", "unsupported criticality level");
+  }
+  return { risk: candidate.risk, criticality: candidate.criticality };
 }
