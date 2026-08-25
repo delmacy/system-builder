@@ -36,6 +36,21 @@ validation:
 # Objective
 Certify the Construction B growing proof across the real durable human-approval, package-authorization and authority-closure decision paths.
 
+# Context
+TASK-305..307 project the canonical boundary into each real governance/authority path selected by fresh-main revalidation. This closure TASK must prove those paths together without introducing new semantics.
+
+# Current behavior
+The individual real-path projections are planned as separate predecessor increments; no single Construction B product proof yet certifies their combined fail-closed behavior and compatibility.
+
+# Required change
+Add an integrated product-level proof over the real APIs for durable human approval, package authorization and authority closure, then record Sprint closure evidence without broadening into Construction C.
+
+# Inputs / contracts
+The integrated decision-boundary contract, TASK-305..307 outputs, ADR-0010 and the existing governance/authority APIs.
+
+# Outputs / contracts
+A deterministic growing proof and Sprint report demonstrating real-path classification/enforcement while preserving existing human and deterministic authority semantics.
+
 # Acceptance criteria
 - integrated proof exercises real APIs rather than hand-authored downstream substitutes;
 - human approval and package-owner authorization remain human-reserved and cannot be satisfied by probabilistic classification;
@@ -47,6 +62,9 @@ Certify the Construction B growing proof across the real durable human-approval,
 
 # Non-goals
 No new provider, model call, authorization system, policy engine, Runtime Audit Trail, WBS 15.3 or Construction C scope.
+
+# Evidence expected
+Integrated product proof across the three real paths, exact-head repository gates and a Sprint report with residual-gap disposition for fresh-main change control.
 
 # Escalation
 Stop if proof exposes a Package Goal gap requiring paths or semantics outside the committed Sprint; record it for fresh-main change control.
