@@ -5,7 +5,7 @@ M13 Autonomous Runtime and P13-PACKAGE-01..03 remain CLOSED. WBS 13.1-13.3 remai
 ## Active Work Package
 `P14-PACKAGE-01 — Evidence Identity & Transformation Lineage`
 Primary WBS: 14.1.1-14.2.3.
-Status: ACTIVE / CONSTRUCTION A+B INTEGRATED / PACKAGE REVIEW PASS / DOCUMENTATION & CLOSURE MATERIALIZED.
+Status: DOCUMENTATION & CLOSURE COMPLETE ON SPRINT BRANCH / FINAL CLOSURE GATE PENDING.
 
 Construction A `P14-EVIDENCE-PROVENANCE-CONTRACT-01` / TASK-267..273 is COMPLETE / SPRINT REVIEW PASS / INTEGRATED at merge-main `2ba94b028819e5daf8d4ff63bebe94209675774d`.
 
@@ -17,7 +17,9 @@ Package Review materialization PR #337 integrated as `8f14987aa29597bc9d4193a249
 
 Package Integration & Review PR #338 exact head `ec55033838d59c66d54928f567227e074686c721` passed Deterministic CI #736 and Heavy Product Tests #163, had no blocking review threads and integrated as `50c016e1b65cc205b4ae48127ecf5749bb072309` with zero reviewed-head -> merge-main file drift. Review decision: GO for Documentation & Closure.
 
-## Current gate
-`P14-PACKAGE-01-DOCUMENTATION-CLOSURE-01` is COMMITTED / MATERIALIZED / NOT EXECUTED. Execute documentation/repository-memory reconciliation only. No new product behavior is allowed. After exact-head validation and integration, reconstruct fresh `main`, verify tree equivalence and declare P14-PACKAGE-01 closed only if repository memory and evidence agree.
+Documentation & Closure materialization PR #339 exact head `fff3224302d205fa22f230e568f34449f3367387` passed Deterministic CI #737 and Heavy Product Tests #164, had no blocking reviews/threads and integrated as `540d4f9feee7217bb780ff668aa75dc94d94ff23`; materialization-head tree == merge-main tree `7dd07e16a992ed19ee13a1dec60a3416116fc975`.
 
-WBS 14.1.1-14.2.3 is SATISFIED / INTEGRATED pending closure. WBS 14.3.1-14.3.3 remains outside P14-PACKAGE-01. TD-P13-01..04 remain carried/unabsorbed/unre-ranked. Provenance remains evidence only and does not replace Audit Trail or authorization.
+## Current gate
+`P14-PACKAGE-01-DOCUMENTATION-CLOSURE-01` has completed repository-memory reconciliation on its Sprint branch. The only remaining package action is the final closure PR exact-head Deterministic CI + Heavy Product Tests + review gate, followed by integration and fresh-main zero-drift verification. Only then may P14-PACKAGE-01 be declared canonically CLOSED.
+
+WBS 14.1.1-14.2.3 is SATISFIED / INTEGRATED. WBS 14.3.1-14.3.3 remains FORECAST / OUTSIDE P14-PACKAGE-01 and is not execution-authorized by closure. TD-P13-01..04 remain carried/unabsorbed/unre-ranked. Provenance remains evidence only and does not replace Audit Trail or authorization.
