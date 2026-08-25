@@ -15,9 +15,9 @@ Closure evidence for 14.1-14.2 is provided by Construction A `P14-EVIDENCE-PROVE
 
 ### 14.3 Integridade e consulta — ACTIVE under P14-PACKAGE-02
 - **14.3.1** Definir hashes/integrity metadata onde necessário. — SATISFIED / INTEGRATED by Construction A `P14-EVIDENCE-INTEGRITY-FOUNDATION-01` / TASK-280..286.
-- **14.3.2** Permitir navegação source→artifact e artifact→source. — GAP CONFIRMED / Construction B `P14-EVIDENCE-PROVENANCE-NAVIGATION-01` COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-287..292, pending materialization PR integration.
-- **14.3.3** Testar preservação em migrations/serialization. — PARTIAL: JSON serialization preservation proven; residual migration-preservation capability remains evidence-gated after Construction B.
+- **14.3.2** Permitir navegação source→artifact e artifact→source. — SATISFIED / INTEGRATED by Construction B `P14-EVIDENCE-PROVENANCE-NAVIGATION-01` / TASK-287..292. Reviewed head `9beac6632b99c43a4951d6ce1b8d22e08ca7a86c` passed Deterministic CI #767 and Heavy Product Tests #195 and merged as `1b710f8935193455576237c6a59e85db221a67a9`; reviewed and merge trees are both `3fb604162591cfc196960714e076ab9bd79c7e63`.
+- **14.3.3** Testar preservação em migrations/serialization. — PARTIAL / RESIDUAL MIGRATION GAP CONFIRMED: JSON serialization preservation is proven by TASK-285 and reinforced by Construction B navigation proofs; TASK-285 explicitly excludes migration-framework work and current fresh-main evidence exposes no provenance migration boundary/certification capability.
 
 Construction B is intentionally bounded to deterministic provider-neutral in-memory navigation over explicit provenance identifiers. No graph database, provider registry, storage topology, authorization semantics or Runtime Audit Trail replacement is implied.
 
-Construction C remains optional/evidence-gated and may only be promoted if fresh integrated A+B evidence leaves a bounded residual 14.3.3 product gap.
+Construction C candidate `P14-EVIDENCE-MIGRATION-CERTIFICATION-01` is JUSTIFIED / FORECAST / NOT MATERIALIZED after post-B fresh-main revalidation. It may only be promoted through a separate gate and only for the bounded residual 14.3.3 migration-preservation outcome. Planning must not invent a migration framework or L4 topology merely to create work.

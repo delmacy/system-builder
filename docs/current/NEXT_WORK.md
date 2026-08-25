@@ -1,16 +1,17 @@
-# Next Work — P14-PACKAGE-02 Construction B Materialization Gate
+# Next Work — P14-PACKAGE-02 Construction C Promotion Gate
 
-`P14-PACKAGE-01` and WBS 14.1.1-14.2.3 are CLOSED. `P14-PACKAGE-02` Construction A is integrated and fresh-main revalidation confirms WBS 14.3.1 SATISFIED and WBS 14.3.2 as a real bounded gap.
+`P14-PACKAGE-01` and WBS 14.1.1-14.2.3 are CLOSED. `P14-PACKAGE-02` Construction A and Construction B are integrated.
 
-Construction B `P14-EVIDENCE-PROVENANCE-NAVIGATION-01` is now COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-287..292 on a Planning & Materialization branch based on fresh `main` `92fa2daaa9e8156260160721da5963328bffb78f`.
+Construction B `P14-EVIDENCE-PROVENANCE-NAVIGATION-01` / TASK-287..292 passed Sprint Review on exact head `9beac6632b99c43a4951d6ce1b8d22e08ca7a86c` with Deterministic CI #767 and Heavy Product Tests #195 and integrated as `1b710f8935193455576237c6a59e85db221a67a9`. Reviewed head and merge-main share tree `3fb604162591cfc196960714e076ab9bd79c7e63`. WBS 14.3.2 is SATISFIED / INTEGRATED.
+
+Fresh-main post-B revalidation confirms a bounded residual WBS 14.3.3 gap. TASK-285 proves JSON serialization preservation only and explicitly excludes migration-framework construction; no provenance migration boundary/certification capability is present on current `main`.
 
 ## Required next action
-1. Validate the Construction B Planning & Materialization PR on its exact head with Deterministic CI and Heavy Product Tests and ensure no blocking review findings/head drift.
-2. If all gates pass, integrate the Planning & Materialization PR into `main` with expected-head protection.
-3. Reconstruct fresh `main` and confirm zero file drift from the approved planning head.
-4. Create `sprint/P14-EVIDENCE-PROVENANCE-NAVIGATION-01` exactly from the materialization merge-main.
-5. Execute TASK-287 first, then TASK-288..292 strictly in dependency order and within each TASK's path/file/validation limits.
-6. After Construction B integration, fresh-main revalidate WBS 14.3.3 before deciding whether optional Construction C is necessary.
+1. Integrate this post-Construction-B repository-memory revalidation after exact-head gates pass.
+2. From fresh integrated `main`, obtain a separate promotion/materialization authorization for candidate Construction C `P14-EVIDENCE-MIGRATION-CERTIFICATION-01`.
+3. If that authority exists, revalidate WBS 14.3.3, existing migration/versioning boundaries, contracts, dependencies, risks and the growing proof, then materialize only the minimum bounded TASK set necessary to certify preservation across an actual existing migration boundary or to add the smallest compatible migration-preservation capability authorized by repository architecture.
+4. Pass Planning & Materialization gates and integrate before executing any Construction C product TASK.
+5. Do not start Package Integration & Review until the residual 14.3.3 gap is either satisfied or explicitly dispositioned by authoritative evidence.
 
 ## Boundaries
-Do not execute Construction B before materialization integration; do not promote Construction C; do not replace Runtime Audit Trail; provenance/integrity is not authorization; do not introduce graph database/provider registry/storage topology; do not absorb/re-rank TD-P13-01..04.
+Do not promote or execute Construction C from this revalidation alone. Do not invent a migration framework, graph database, provider registry or storage topology; do not replace Runtime Audit Trail; provenance/integrity is not authorization; do not reinterpret ADR-0009; do not absorb/re-rank TD-P13-01..04.
