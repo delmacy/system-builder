@@ -1,7 +1,7 @@
 ---
 id: TASK-305
 title: Project durable human approval into decision boundary
-status: ready
+status: completed
 priority: 305
 milestone: M15
 model_tier: architecture
