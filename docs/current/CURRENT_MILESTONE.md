@@ -2,24 +2,20 @@
 
 M13 Autonomous Runtime and P13-PACKAGE-01..03 remain CLOSED. WBS 13.1-13.3 remains SATISFIED / CLOSED.
 
-## Active Work Package
+## Closed Work Package
 `P14-PACKAGE-01 — Evidence Identity & Transformation Lineage`
 Primary WBS: 14.1.1-14.2.3.
-Status: DOCUMENTATION & CLOSURE COMPLETE ON SPRINT BRANCH / FINAL CLOSURE GATE PENDING.
+Status: CLOSED.
 
-Construction A `P14-EVIDENCE-PROVENANCE-CONTRACT-01` / TASK-267..273 is COMPLETE / SPRINT REVIEW PASS / INTEGRATED at merge-main `2ba94b028819e5daf8d4ff63bebe94209675774d`.
+Construction A `P14-EVIDENCE-PROVENANCE-CONTRACT-01` / TASK-267..273 and Construction B `P14-EVIDENCE-PROVENANCE-PROPAGATION-01` / TASK-274..279 are integrated. Optional Construction C was NOT NECESSARY / NOT PROMOTED.
 
-Construction B `P14-EVIDENCE-PROVENANCE-PROPAGATION-01` / TASK-274..279 is COMPLETE / SPRINT REVIEW PASS / INTEGRATED at merge-main `497e99c2a65bf1d1e489b95b0607241f41a5b01a`.
+Package Integration & Review PR #338 passed Deterministic CI #736 and Heavy Product Tests #163 on exact head `ec55033838d59c66d54928f567227e074686c721`, had no blocking review threads and integrated as `50c016e1b65cc205b4ae48127ecf5749bb072309` with zero file drift.
 
-Optional Construction C is NOT NECESSARY / NOT PROMOTED because fresh-main evidence after Construction B showed no bounded missing Package Goal capability.
+Documentation & Closure materialization PR #339 passed Deterministic CI #737 and Heavy Product Tests #164 on exact head `fff3224302d205fa22f230e568f34449f3367387` and integrated as `540d4f9feee7217bb780ff668aa75dc94d94ff23` with identical tree `7dd07e16a992ed19ee13a1dec60a3416116fc975`.
 
-Package Review materialization PR #337 integrated as `8f14987aa29597bc9d4193a2494431ea5d47a8fc` after Deterministic CI #735 and Heavy Product Tests #162 PASS.
+Final Documentation & Closure PR #341 passed Deterministic CI #738 and Heavy Product Tests #165 on exact head `ed75677d1c1f659cda93ac31f3900cdafe74552a`, had no blocking review threads and integrated as `97a9f627878c66c39ab6a205c813adc76a4dadf2`. Closure head and merge-main have identical tree `64ecf38a1706d2f20566cebccf42c25b370bc873`.
 
-Package Integration & Review PR #338 exact head `ec55033838d59c66d54928f567227e074686c721` passed Deterministic CI #736 and Heavy Product Tests #163, had no blocking review threads and integrated as `50c016e1b65cc205b4ae48127ecf5749bb072309` with zero reviewed-head -> merge-main file drift. Review decision: GO for Documentation & Closure.
-
-Documentation & Closure materialization PR #339 exact head `fff3224302d205fa22f230e568f34449f3367387` passed Deterministic CI #737 and Heavy Product Tests #164, had no blocking reviews/threads and integrated as `540d4f9feee7217bb780ff668aa75dc94d94ff23`; materialization-head tree == merge-main tree `7dd07e16a992ed19ee13a1dec60a3416116fc975`.
+WBS 14.1.1-14.2.3 is SATISFIED / CLOSED. WBS 14.3.1-14.3.3 remains FORECAST / OUTSIDE P14-PACKAGE-01 and is not execution-authorized by closure. TD-P13-01..04 remain carried/unabsorbed/unre-ranked. Provenance remains evidence only and does not replace Audit Trail or authorization.
 
 ## Current gate
-`P14-PACKAGE-01-DOCUMENTATION-CLOSURE-01` has completed repository-memory reconciliation on its Sprint branch. The only remaining package action is the final closure PR exact-head Deterministic CI + Heavy Product Tests + review gate, followed by integration and fresh-main zero-drift verification. Only then may P14-PACKAGE-01 be declared canonically CLOSED.
-
-WBS 14.1.1-14.2.3 is SATISFIED / INTEGRATED. WBS 14.3.1-14.3.3 remains FORECAST / OUTSIDE P14-PACKAGE-01 and is not execution-authorized by closure. TD-P13-01..04 remain carried/unabsorbed/unre-ranked. Provenance remains evidence only and does not replace Audit Trail or authorization.
+No successor product Sprint or Work Package is committed by this closure. Any WBS 14.3 execution requires a separate fresh-main Planning & Materialization authorization and integrated materialization.
