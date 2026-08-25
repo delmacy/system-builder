@@ -19,6 +19,14 @@ const probabilistic = {
 } as const;
 
 const authorityRef = "authority:release-approver";
+const probabilisticMetadata = {
+  inferenceRef: "inference:release-recommendation",
+  inferenceContext: {
+    confidence: 0.77,
+    modelRef: "model:release-recommendation-v1",
+    contextRef: "context:release-review",
+  },
+} as const;
 
 test("human-reserved descriptor may satisfy only its matching authority reservation", () => {
   assert.deepEqual(
@@ -39,7 +47,7 @@ test("probabilistic output cannot impersonate human-reserved authority", () => {
   assert.deepEqual(
     evaluateHumanAuthorityReservation({
       descriptor: probabilistic,
-      metadata: { inferenceRef: "inference:release-recommendation" },
+      metadata: probabilisticMetadata,
       authorityRef,
     }),
     {

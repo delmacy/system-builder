@@ -12,6 +12,14 @@ const probabilistic = {
   decisionId: "decision:risk-score",
   category: "probabilistic",
 } as const;
+const probabilisticMetadata = {
+  inferenceRef: "inference:risk-score",
+  inferenceContext: {
+    confidence: 0.84,
+    modelRef: "model:risk-score-v1",
+    contextRef: "context:release-risk",
+  },
+} as const;
 
 test("deterministic input may satisfy its explicitly matching invariant", () => {
   assert.deepEqual(
@@ -32,7 +40,7 @@ test("probabilistic input fails closed without an explicit compatible gate", () 
   assert.deepEqual(
     evaluateDeterministicInvariantControl({
       descriptor: probabilistic,
-      metadata: { inferenceRef: "inference:risk-score" },
+      metadata: probabilisticMetadata,
       invariantRef: "invariant:release-safe",
     }),
     {
@@ -46,7 +54,7 @@ test("probabilistic input fails closed without an explicit compatible gate", () 
   assert.equal(
     evaluateDeterministicInvariantControl({
       descriptor: probabilistic,
-      metadata: { inferenceRef: "inference:risk-score" },
+      metadata: probabilisticMetadata,
       invariantRef: "invariant:release-safe",
       gate: {
         gateRef: "gate:risk-to-release",
@@ -62,7 +70,7 @@ test("probabilistic input fails closed without an explicit compatible gate", () 
 test("explicit compatible gate permits compatibility without creating authorization", () => {
   const result = evaluateDeterministicInvariantControl({
     descriptor: probabilistic,
-    metadata: { inferenceRef: "inference:risk-score" },
+    metadata: probabilisticMetadata,
     invariantRef: "invariant:release-safe",
     gate: {
       gateRef: "gate:risk-to-release",
@@ -85,15 +93,15 @@ test("explicit compatible gate permits compatibility without creating authorizat
 test("invalid descriptors and silent category coercion fail explicitly", () => {
   const invalid = evaluateDeterministicInvariantControl({
     descriptor: { ...probabilistic, category: "deterministic" },
-    metadata: { inferenceRef: "inference:risk-score" },
+    metadata: probabilisticMetadata,
     invariantRef: "invariant:release-safe",
   });
   assert.equal(invalid.status, "invalid");
-  assert.match(invalid.diagnostic, /unexpected field inferenceRef/);
+  assert.match(invalid.diagnostic, /unexpected field inferenceContext/);
 
   const unknown = evaluateDeterministicInvariantControl({
     descriptor: { ...probabilistic, category: "ai" },
-    metadata: { inferenceRef: "inference:risk-score" },
+    metadata: probabilisticMetadata,
     invariantRef: "invariant:release-safe",
   });
   assert.equal(unknown.status, "invalid");

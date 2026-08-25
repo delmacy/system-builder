@@ -15,9 +15,18 @@ export type DecisionBoundaryDescriptor = Readonly<{
   category: DecisionCategory;
 }>;
 
+export type ProbabilisticInferenceContext = Readonly<{
+  confidence: number;
+  modelRef: string;
+  contextRef: string;
+}>;
+
 export type DeterministicDecisionMetadata = Readonly<{ invariantRef: string }>;
 export type HumanDecisionMetadata = Readonly<{ authorityRef: string }>;
-export type ProbabilisticDecisionMetadata = Readonly<{ inferenceRef: string }>;
+export type ProbabilisticDecisionMetadata = Readonly<{
+  inferenceRef: string;
+  inferenceContext: ProbabilisticInferenceContext;
+}>;
 export type DecisionCategoryMetadata =
   | Readonly<{ category: "deterministic"; metadata: DeterministicDecisionMetadata }>
   | Readonly<{ category: "human-decision"; metadata: HumanDecisionMetadata }>
@@ -70,6 +79,13 @@ function tokenAt(value: unknown, path: string): string {
   return value;
 }
 
+function confidenceAt(value: unknown, path: string): number {
+  if (typeof value !== "number" || !Number.isFinite(value) || value < 0 || value > 1) {
+    fail(path, "expected finite number between 0 and 1");
+  }
+  return value;
+}
+
 export function isDecisionCategory(value: unknown): value is DecisionCategory {
   return typeof value === "string" && CATEGORY_SET.has(value);
 }
@@ -98,6 +114,16 @@ export function normalizeDecisionBoundaryDescriptor(input: unknown): DecisionBou
   };
 }
 
+export function normalizeProbabilisticInferenceContext(input: unknown): ProbabilisticInferenceContext {
+  const context = recordAt(input, "$decisionBoundary.metadata.inferenceContext");
+  exactKeys(context, ["confidence", "modelRef", "contextRef"], "$decisionBoundary.metadata.inferenceContext");
+  return {
+    confidence: confidenceAt(context.confidence, "$decisionBoundary.metadata.inferenceContext.confidence"),
+    modelRef: tokenAt(context.modelRef, "$decisionBoundary.metadata.inferenceContext.modelRef"),
+    contextRef: tokenAt(context.contextRef, "$decisionBoundary.metadata.inferenceContext.contextRef"),
+  };
+}
+
 export function normalizeDecisionCategoryMetadata(category: DecisionCategory, input: unknown): DecisionCategoryMetadata {
   const metadata = recordAt(input, "$decisionBoundary.metadata");
   if (category === "deterministic") {
@@ -108,8 +134,14 @@ export function normalizeDecisionCategoryMetadata(category: DecisionCategory, in
     exactKeys(metadata, ["authorityRef"], "$decisionBoundary.metadata");
     return { category, metadata: { authorityRef: tokenAt(metadata.authorityRef, "$decisionBoundary.metadata.authorityRef") } };
   }
-  exactKeys(metadata, ["inferenceRef"], "$decisionBoundary.metadata");
-  return { category, metadata: { inferenceRef: tokenAt(metadata.inferenceRef, "$decisionBoundary.metadata.inferenceRef") } };
+  exactKeys(metadata, ["inferenceRef", "inferenceContext"], "$decisionBoundary.metadata");
+  return {
+    category,
+    metadata: {
+      inferenceRef: tokenAt(metadata.inferenceRef, "$decisionBoundary.metadata.inferenceRef"),
+      inferenceContext: normalizeProbabilisticInferenceContext(metadata.inferenceContext),
+    },
+  };
 }
 
 export function normalizeDecisionRiskCriticality(input: unknown): DecisionRiskCriticality {
