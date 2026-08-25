@@ -1,7 +1,7 @@
 ---
 id: TASK-306
 title: Project package authorization into decision boundary
-status: ready
+status: completed
 priority: 306
 milestone: M15
 model_tier: architecture

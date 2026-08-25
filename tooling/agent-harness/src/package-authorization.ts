@@ -3,6 +3,14 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { isAbsolute, resolve } from "node:path";
 import { z } from "zod";
+import {
+  DECISION_BOUNDARY_VERSION,
+  evaluateHumanAuthorityReservation,
+  normalizeDecisionBoundaryDescriptor,
+  normalizeDecisionCategoryMetadata,
+  type DecisionBoundaryDescriptor,
+  type HumanAuthorityReservationEvaluation,
+} from "../../../packages/contracts/decision-boundary/index.js";
 import { matchesAny } from "./glob.js";
 import { humanApprovalPolicySchema } from "./human-approval.js";
 import type { TaskMetadata } from "./task.js";
@@ -21,6 +29,7 @@ const risk = z.enum(["low", "medium", "high"]);
 const governanceClass = z.enum(["ROUTINE", "ARCHITECTURE", "CONTRACT", "SECURITY", "EVALUATOR", "DATA", "RELEASE", "WAIVER"]);
 const action = z.enum(["IMPLEMENTATION_PR", "STATE_PR"]);
 const check = z.object({ name: z.string().min(1), status: z.enum(["PENDING", "SUCCESS", "FAILURE", "CANCELLED", "TIMED_OUT", "UNKNOWN"]) }).strict();
+const decisionBoundaryToken = z.string().min(1).regex(/^\S+$/);
 const relativePattern = z.string().min(1).refine((value) => (
   !value.startsWith("/") && !/^[A-Za-z]:[\\/]/.test(value) && !value.split(/[\\/]/).includes("..")
 ), "path pattern must be repository-relative and cannot contain '..'");
@@ -243,6 +252,12 @@ export const packageAuthorizationEvaluationSchema = z.object({
   use_receipt: packageUseReceiptSchema.nullable(),
 }).strict();
 
+const packageAuthorizationDecisionBoundaryProjectionInputSchema = z.object({
+  decisionId: decisionBoundaryToken,
+  authorityRef: decisionBoundaryToken,
+  evaluation: packageAuthorizationEvaluationSchema,
+}).strict();
+
 export const packageTaskSpecAuthorizationSchema = z.object({
   schema_version: z.literal(1),
   authorization_id: z.string().regex(/^PSPEC-[0-9a-f]{64}$/),
@@ -274,6 +289,12 @@ export type PackageTaskConformance = z.infer<typeof packageTaskConformanceSchema
 export type PackageAuthorizationEvaluation = z.infer<typeof packageAuthorizationEvaluationSchema>;
 export type PackageTaskSpecAuthorization = z.infer<typeof packageTaskSpecAuthorizationSchema>;
 export type PackageAction = z.infer<typeof action>;
+export type PackageAuthorizationDecisionBoundaryProjection = Readonly<{
+  descriptor: DecisionBoundaryDescriptor;
+  metadata: Readonly<{ authorityRef: string }>;
+  reservation: HumanAuthorityReservationEvaluation;
+  evaluation: PackageAuthorizationEvaluation;
+}>;
 
 export type PackageTaskSpecExpected = {
   repository: string;
@@ -322,6 +343,22 @@ export function packageAuthorizationSigningPayload(receipt: Omit<PackageAuthoriz
 
 export function packageApprovalId(receipt: Omit<PackageAuthorizationReceipt, "approval_id" | "signature">): string {
   return `PAPR-${createHash("sha256").update(packageAuthorizationSigningPayload(receipt)).digest("hex")}`;
+}
+
+export function projectPackageAuthorizationDecisionBoundary(input: unknown): PackageAuthorizationDecisionBoundaryProjection {
+  const parsed = packageAuthorizationDecisionBoundaryProjectionInputSchema.parse(input);
+  const descriptor = normalizeDecisionBoundaryDescriptor({
+    boundaryVersion: DECISION_BOUNDARY_VERSION,
+    decisionId: parsed.decisionId,
+    category: "human-decision",
+  });
+  const metadata: Readonly<{ authorityRef: string }> = { authorityRef: parsed.authorityRef };
+  normalizeDecisionCategoryMetadata("human-decision", metadata);
+  const reservation = evaluateHumanAuthorityReservation({ descriptor, metadata, authorityRef: parsed.authorityRef });
+  if (reservation.status !== "compatible") {
+    throw new TypeError(`Package authorization decision-boundary projection failed: ${reservation.diagnostic}`);
+  }
+  return { descriptor, metadata, reservation, evaluation: parsed.evaluation };
 }
 
 export function packageRevocationSigningPayload(receipt: Omit<PackageRevocationReceipt, "revocation_id" | "signature">): string {
