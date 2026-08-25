@@ -2,6 +2,14 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import { z } from "zod";
+import {
+  DECISION_BOUNDARY_VERSION,
+  evaluateDeterministicInvariantControl,
+  normalizeDecisionBoundaryDescriptor,
+  normalizeDecisionCategoryMetadata,
+  type DecisionBoundaryDescriptor,
+  type DeterministicInvariantEvaluation,
+} from "../../../packages/contracts/decision-boundary/index.js";
 import type { DagGraph } from "./dag.js";
 import {
   buildAgentFactoryAttemptEvidence,
@@ -18,10 +26,11 @@ import { githubLifecycleReceiptSchema, type GitHubLifecycleReceipt } from "./git
 import { applyLedgerTransition, buildLedgerTransitionEvent, ledgerApplicationReceiptSchema, type LedgerApplicationReceipt } from "./ledger-engine.js";
 import { readinessRecomputationReceiptSchema, recomputeSuccessorReadiness } from "./readiness-recompute.js";
 import type { Task } from "./task.js";
-import type { ValidationGateReceipt } from "./validation-engine.js";
+import { validationGateReceiptSchema, type ValidationGateReceipt } from "./validation-engine.js";
 
 const taskId = z.string().regex(/^TASK-[0-9]{3}(?:-[A-Z0-9-]+)?$/);
 const hash = z.string().regex(/^[0-9a-f]{64}$/);
+const decisionBoundaryToken = z.string().min(1).regex(/^\S+$/);
 
 export const authorityClosureManifestSchema = z.object({
   schema_version: z.literal(1),
@@ -34,6 +43,14 @@ export const authorityClosureManifestSchema = z.object({
   state_branch: z.string().min(1),
   final_evidence_id: z.string().regex(/^AFEV-[0-9a-f]{64}$/),
   files: z.array(z.object({ path: z.string().min(1), sha256: hash }).strict()).min(4),
+}).strict();
+
+const authorityClosureDecisionBoundaryProjectionInputSchema = z.object({
+  decisionId: decisionBoundaryToken,
+  implementationInvariantRef: decisionBoundaryToken,
+  validationInvariantRef: decisionBoundaryToken,
+  implementationLifecycle: githubLifecycleReceiptSchema,
+  validation: validationGateReceiptSchema,
 }).strict();
 
 export type AuthorityClosureManifest = z.infer<typeof authorityClosureManifestSchema>;
@@ -63,14 +80,39 @@ export type AuthorityClosureInput = {
   stateBranch: string;
 };
 
+export type AuthorityClosureDeterministicDecisionProjection = Readonly<{
+  descriptor: DecisionBoundaryDescriptor;
+  metadata: Readonly<{ invariantRef: string }>;
+  control: DeterministicInvariantEvaluation;
+}>;
+
+export type AuthorityClosureDecisionBoundaryProjection = Readonly<{
+  implementationEligibility: AuthorityClosureDeterministicDecisionProjection;
+  validation: AuthorityClosureDeterministicDecisionProjection;
+  implementationLifecycle: GitHubLifecycleReceipt;
+  validationReceipt: ValidationGateReceipt;
+}>;
+
+export function projectAuthorityClosureDecisionBoundary(input: unknown): AuthorityClosureDecisionBoundaryProjection {
+  const parsed = authorityClosureDecisionBoundaryProjectionInputSchema.parse(input);
+  assertClosurePreconditions(parsed.implementationLifecycle, parsed.validation);
+  return {
+    implementationEligibility: deterministicProjection(
+      `${parsed.decisionId}:implementation-eligibility`,
+      parsed.implementationInvariantRef,
+    ),
+    validation: deterministicProjection(
+      `${parsed.decisionId}:validation`,
+      parsed.validationInvariantRef,
+    ),
+    implementationLifecycle: parsed.implementationLifecycle,
+    validationReceipt: parsed.validation,
+  };
+}
+
 export function buildAuthorityClosureBundle(input: AuthorityClosureInput): AuthorityClosureBundle {
   const lifecycle = githubLifecycleReceiptSchema.parse(input.implementationLifecycle);
-  if (lifecycle.decision !== "ELIGIBLE") {
-    throw new Error("AUTHORITY_CLOSURE_IMPLEMENTATION_NOT_ELIGIBLE");
-  }
-  if (input.validation.decision === "FAIL" || input.validation.commands.some((command) => command.status !== "PASS")) {
-    throw new Error("AUTHORITY_CLOSURE_VALIDATION_FAILED");
-  }
+  assertClosurePreconditions(lifecycle, input.validation);
   const headCommit = lifecycle.head_commit;
   const changeFingerprint = hash.parse(input.changeFingerprint);
   const common: Omit<EvidenceWriterInput, "acceptance" | "metrics"> = {
@@ -213,6 +255,33 @@ function buildTaskRecord(input: AuthorityClosureInput, state: TaskRecord["state"
     max_files: input.task.metadata.max_files, validation_commands: input.task.metadata.validation,
     acceptance_ids: [...new Set(input.acceptanceIds)].sort(),
   });
+}
+
+function assertClosurePreconditions(lifecycleInput: GitHubLifecycleReceipt, validationInput: ValidationGateReceipt): void {
+  const lifecycle = githubLifecycleReceiptSchema.parse(lifecycleInput);
+  const validation = validationGateReceiptSchema.parse(validationInput);
+  if (lifecycle.decision !== "ELIGIBLE") {
+    throw new Error("AUTHORITY_CLOSURE_IMPLEMENTATION_NOT_ELIGIBLE");
+  }
+  if (validation.decision === "FAIL" || validation.commands.some((command) => command.status !== "PASS")) {
+    throw new Error("AUTHORITY_CLOSURE_VALIDATION_FAILED");
+  }
+}
+
+function deterministicProjection(decisionId: string, invariantRef: string): AuthorityClosureDeterministicDecisionProjection {
+  const descriptor = normalizeDecisionBoundaryDescriptor({
+    boundaryVersion: DECISION_BOUNDARY_VERSION,
+    decisionId,
+    category: "deterministic",
+  });
+  const metadata: Readonly<{ invariantRef: string }> = { invariantRef };
+  normalizeDecisionCategoryMetadata("deterministic", metadata);
+  const control = evaluateDeterministicInvariantControl({ descriptor, metadata, invariantRef });
+  if (control.status !== "compatible") {
+    const diagnostic = control.status === "invalid" ? control.diagnostic : control.diagnostic;
+    throw new TypeError(`Authority closure decision-boundary projection failed: ${diagnostic}`);
+  }
+  return { descriptor, metadata, control };
 }
 
 function stableJson(value: unknown): string { return JSON.stringify(value, null, 2); }

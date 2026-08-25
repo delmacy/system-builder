@@ -1,7 +1,7 @@
 ---
 id: TASK-307
 title: Project authority closure into deterministic decision boundary
-status: ready
+status: completed
 priority: 307
 milestone: M15
 model_tier: architecture
