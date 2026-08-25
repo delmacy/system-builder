@@ -26,6 +26,16 @@ const validationEvidence = {
   decision: "PASS" as const,
   evidenceHash: `sha256:${"e".repeat(64)}`,
 };
+const compilerProvenance = {
+  extensionVersion: "1.0.0" as const,
+  evidenceId: "urn:evidence:p14:migration-serialization",
+  sources: [
+    { sourceId: "urn:source:p14:zeta", sourceType: "document" },
+    { sourceId: "urn:source:p14:alpha", sourceType: "artifact" },
+  ],
+  transformations: [{ descriptorId: "migration.certification", descriptorVersion: "1.0.0" }],
+  lineage: { predecessorEvidenceIds: ["urn:evidence:p14:migration-parent"] },
+};
 
 function stateRequirement(): RuntimeStateRequirement {
   return {
@@ -43,17 +53,8 @@ function stateRequirement(): RuntimeStateRequirement {
   };
 }
 
-function provenanceWithIntegrity(): EvidenceProvenanceExtension {
-  const normalized = normalizeEvidenceProvenanceExtension({
-    extensionVersion: "1.0.0",
-    evidenceId: "urn:evidence:p14:migration-serialization",
-    sources: [
-      { sourceId: "urn:source:p14:zeta", sourceType: "document" },
-      { sourceId: "urn:source:p14:alpha", sourceType: "artifact" },
-    ],
-    transformations: [{ descriptorId: "migration.certification", descriptorVersion: "1.0.0" }],
-    lineage: { predecessorEvidenceIds: ["urn:evidence:p14:migration-parent"] },
-  });
+function withIntegrity(input: unknown): EvidenceProvenanceExtension {
+  const normalized = normalizeEvidenceProvenanceExtension(input);
   return normalizeEvidenceProvenanceExtension({
     ...normalized,
     integrity: computeEvidenceProvenanceIntegrity(normalized),
@@ -61,7 +62,6 @@ function provenanceWithIntegrity(): EvidenceProvenanceExtension {
 }
 
 function certify() {
-  const provenance = provenanceWithIntegrity();
   const compilation = compileSyntheticRelease({
     assemblyPlan,
     validationEvidence,
@@ -69,26 +69,27 @@ function certify() {
     runtimeVersion: "14.0.0",
     environmentSchema: [{ name: "DATABASE_URL", kind: "secret-reference" as const, required: true }],
     stateRequirements: [stateRequirement()],
-    evidenceProvenance: provenance,
+    evidenceProvenance: compilerProvenance,
   });
   const preflight = preflightVerifiedMigrations(compilation.files);
   assert.equal(preflight.migrations.length, 1);
 
+  const portable = withIntegrity(compilation.artifact.evidenceProvenance);
   const restored = normalizeEvidenceProvenanceExtension(
-    JSON.parse(JSON.stringify(compilation.artifact.evidenceProvenance)) as unknown,
+    JSON.parse(JSON.stringify(portable)) as unknown,
   );
   const integrity = verifyEvidenceProvenanceIntegrity(restored);
   const navigation = buildEvidenceNavigationIndex([restored]);
   const sourceToEvidence = queryEvidenceBySource(navigation, "urn:source:p14:alpha");
   const evidenceToSource = querySourcesByEvidence(navigation, restored.evidenceId);
-  return { provenance, preflight, restored, integrity, sourceToEvidence, evidenceToSource };
+  return { portable, preflight, restored, integrity, sourceToEvidence, evidenceToSource };
 }
 
 test("successful migration preflight plus JSON round-trip preserves integrity and navigation", () => {
   const result = certify();
 
   assert.equal(result.integrity.status, "verified");
-  assert.deepEqual(result.restored, result.provenance);
+  assert.deepEqual(result.restored, result.portable);
   assert.deepEqual(result.sourceToEvidence, {
     sourceId: "urn:source:p14:alpha",
     found: true,
