@@ -1,19 +1,15 @@
-# Next Work — P14 Package Integration & Review exact-head gate
+# Next Work — P14 Package 01 Documentation & Closure
 
-Construction A and Construction B of `P14-PACKAGE-01 — Evidence Identity & Transformation Lineage` are integrated. Optional Construction C is NOT NECESSARY / NOT PROMOTED. Package Review materialization PR #337 passed exact-head Deterministic CI #735 and Heavy Product Tests #162 and integrated as `8f14987aa29597bc9d4193a2494431ea5d47a8fc` with identical materialization/merge tree `47633eff8313766f3999ea8a7953f0a166e94f95`.
+Construction A and Construction B of `P14-PACKAGE-01 — Evidence Identity & Transformation Lineage` are integrated. Optional Construction C is NOT NECESSARY / NOT PROMOTED. Package Integration & Review PR #338 passed exact-head Deterministic CI #736 and Heavy Product Tests #163 on head `ec55033838d59c66d54928f567227e074686c721`, had no blocking review threads, integrated as `50c016e1b65cc205b4ae48127ecf5749bb072309`, and reviewed-head -> merge-main has zero changed files.
 
-`P14-PACKAGE-01-INTEGRATION-REVIEW-01` has now executed and records GO for Documentation & Closure, contingent on the exact review head passing the required gates unchanged and having no blocking review finding.
+The Package Review decision is GO for Documentation & Closure. WBS 14.1.1-14.2.3 is SATISFIED / INTEGRATED; no package-goal, architecture, security or compatibility blocker remains.
 
 ## Required next action
-1. Open/use the single Package Review PR from `sprint/P14-PACKAGE-01-INTEGRATION-REVIEW-01` to `main`.
-2. Require exact-head Deterministic CI + Heavy Product Tests and no blocking review findings.
-3. Merge only if the head remains stable and the diff remains review/evidence/repository-memory only.
-4. Reconstruct fresh `main` and verify review-head -> merge-main tree equivalence.
-5. Promote only `P14-PACKAGE-01` Documentation & Closure after the integrated GO decision.
-6. Documentation & Closure must reconcile repository memory and close the package without adding product behavior.
-
-## Review decision
-WBS 14.1.1-14.2.3 is SATISFIED / INTEGRATED. Stable source identity, producer/authorship/timestamp, optional classification/confidence, input artifact/version references and transformation lineage are deterministic and portable; the real Compiler -> Release -> Deploy -> Observe chain preserves the compatible provenance extension; malformed explicit provenance fails; provider/storage neutrality and no-leak/security boundaries remain intact; ADR-0009 core envelope meaning is unchanged.
+1. Integrate materialization of `P14-PACKAGE-01-DOCUMENTATION-CLOSURE-01` after exact-head Deterministic CI + Heavy Product Tests and no blocking review finding.
+2. Reconstruct fresh `main` and verify materialization-head -> merge-main tree equivalence.
+3. Execute only Documentation & Closure: reconcile repository memory, package/Sprint reports, WBS status, risks/debt and successor planning gate.
+4. No product behavior, public contract semantics, provider/storage topology, authorization semantics or Construction C work may be introduced in closure.
+5. After closure head passes exact-head gates and integrates unchanged, reconstruct fresh `main` and declare P14-PACKAGE-01 CLOSED only when repository memory and evidence agree.
 
 ## Boundaries
-P14-PACKAGE-01 covers WBS 14.1.1-14.2.3 only. Do not execute WBS 14.3, revive Construction C without new explicit bounded evidence, replace Runtime Audit Trail, add authorization semantics/provider-storage topology, or absorb/re-rank TD-P13-01..04.
+P14-PACKAGE-01 covers WBS 14.1.1-14.2.3 only. WBS 14.3.1-14.3.3 remains for separate successor planning. Do not replace Runtime Audit Trail, make provenance authorization, add provider/storage coupling, revive Construction C without new bounded evidence, or absorb/re-rank TD-P13-01..04.
