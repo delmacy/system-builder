@@ -1,6 +1,6 @@
 # P14-PACKAGE-01 — Evidence Identity & Transformation Lineage
 
-Status: CONSTRUCTION A+B INTEGRATED / PACKAGE REVIEW PASS / DOCUMENTATION & CLOSURE MATERIALIZED
+Status: DOCUMENTATION & CLOSURE COMPLETE ON SPRINT BRANCH / FINAL CLOSURE GATE PENDING
 Milestone: M14 Evidence & Provenance
 Primary WBS: 14.1.1-14.2.3
 Planning base: `4d113432c089621c5f327aed50843b6fd2c8321a`
@@ -9,7 +9,8 @@ Post-Construction-A propagation-gap merge-main: `4923892f66bc3dc0bd1915b96c336b5
 Construction B materialization merge-main: `c0100f2a0f0ce8950eab51a78df7938ceee5abc6`
 Construction B Sprint Review merge-main: `497e99c2a65bf1d1e489b95b0607241f41a5b01a`
 Package Review materialization merge-main: `8f14987aa29597bc9d4193a2494431ea5d47a8fc`
-Package Review merge-main / closure materialization base: `50c016e1b65cc205b4ae48127ecf5749bb072309`
+Package Review merge-main: `50c016e1b65cc205b4ae48127ecf5749bb072309`
+Documentation & Closure materialization merge-main: `540d4f9feee7217bb780ff668aa75dc94d94ff23`
 Predecessor: M13 / P13-PACKAGE-01..03 CLOSED
 
 ## Package goal
@@ -53,9 +54,13 @@ Detailed report: `P14-PACKAGE-01-INTEGRATION-REVIEW-01.report.md`.
 Decision: GO for Documentation & Closure. WBS 14.1.1-14.2.3 is SATISFIED / INTEGRATED; no package-goal, architecture, security or compatibility blocker, no Construction C need and no new L3/L4 decision.
 
 ## Documentation & Closure — P14-PACKAGE-01-DOCUMENTATION-CLOSURE-01
-Status: COMMITTED / MATERIALIZED / NOT EXECUTED.
-Materialization base: `50c016e1b65cc205b4ae48127ecf5749bb072309`.
-Goal: reconcile repository memory, package/Sprint reports, WBS status, debt/risks and successor planning gate, then close P14-PACKAGE-01 only if all integrated evidence agrees. No product behavior is allowed.
+Status: COMPLETE ON CLOSURE SPRINT / FINAL EXACT-HEAD GATES AND INTEGRATION PENDING.
+Materialization PR #339 exact head `fff3224302d205fa22f230e568f34449f3367387`; Deterministic CI #737 PASS; Heavy Product Tests #164 PASS; no blocking reviews/threads; merge-main `540d4f9feee7217bb780ff668aa75dc94d94ff23`; materialization-head tree == merge-main tree `7dd07e16a992ed19ee13a1dec60a3416116fc975`.
+Report: `P14-PACKAGE-01-DOCUMENTATION-CLOSURE-01.report.md`.
+Result: repository memory is reconciled to integrated package truth and the package is ready to close if the final closure head passes exact-head CI/Heavy/review and integrates with zero drift. Until that final integration, `P14-PACKAGE-01` is not canonically CLOSED on `main`.
+
+## Successor gate
+WBS 14.3.1-14.3.3 remains FORECAST / OUTSIDE P14-PACKAGE-01. Successful closure makes it eligible only for a separate fresh-main Planning & Materialization cycle; no WBS 14.3 implementation is authorized by this package.
 
 ## Risks and controls
 - **R14-01 Core-envelope overreach:** additive namespaced extension only; ADR-0009 core meaning is unchanged.
