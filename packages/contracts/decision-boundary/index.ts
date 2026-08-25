@@ -28,6 +28,18 @@ export type DecisionRiskCriticality = Readonly<{
   criticality: DecisionCriticalityLevel;
 }>;
 
+export type DeterministicInvariantGate = Readonly<{
+  gateRef: string;
+  sourceCategory: "probabilistic";
+  targetCategory: "deterministic";
+  invariantRef: string;
+}>;
+
+export type DeterministicInvariantEvaluation =
+  | Readonly<{ status: "compatible"; decisionId: string; invariantRef: string; gateRef?: string }>
+  | Readonly<{ status: "rejected"; decisionId: string; invariantRef: string; diagnostic: string }>
+  | Readonly<{ status: "invalid"; diagnostic: string }>;
+
 const TOKEN_PATTERN = /^\S+$/;
 const CATEGORY_SET = new Set<string>(DECISION_CATEGORIES);
 const RISK_SET = new Set<string>(DECISION_RISK_LEVELS);
@@ -105,4 +117,53 @@ export function normalizeDecisionRiskCriticality(input: unknown): DecisionRiskCr
     fail("$decisionBoundary.riskCriticality.criticality", "unsupported criticality level");
   }
   return { risk: candidate.risk, criticality: candidate.criticality };
+}
+
+function normalizeDeterministicInvariantGate(input: unknown): DeterministicInvariantGate {
+  const gate = recordAt(input, "$decisionBoundary.gate");
+  exactKeys(gate, ["gateRef", "sourceCategory", "targetCategory", "invariantRef"], "$decisionBoundary.gate");
+  if (gate.sourceCategory !== "probabilistic") fail("$decisionBoundary.gate.sourceCategory", "must be probabilistic");
+  if (gate.targetCategory !== "deterministic") fail("$decisionBoundary.gate.targetCategory", "must be deterministic");
+  return {
+    gateRef: tokenAt(gate.gateRef, "$decisionBoundary.gate.gateRef"),
+    sourceCategory: "probabilistic",
+    targetCategory: "deterministic",
+    invariantRef: tokenAt(gate.invariantRef, "$decisionBoundary.gate.invariantRef"),
+  };
+}
+
+export function evaluateDeterministicInvariantControl(input: Readonly<{
+  descriptor: unknown;
+  metadata: unknown;
+  invariantRef: unknown;
+  gate?: unknown;
+}>): DeterministicInvariantEvaluation {
+  try {
+    const descriptor = normalizeDecisionBoundaryDescriptor(input.descriptor);
+    const metadata = normalizeDecisionCategoryMetadata(descriptor.category, input.metadata);
+    const invariantRef = tokenAt(input.invariantRef, "$decisionBoundary.invariantRef");
+
+    if (descriptor.category === "deterministic") {
+      if (metadata.category !== "deterministic" || metadata.metadata.invariantRef !== invariantRef) {
+        return { status: "rejected", decisionId: descriptor.decisionId, invariantRef, diagnostic: "deterministic invariant reference mismatch" };
+      }
+      return { status: "compatible", decisionId: descriptor.decisionId, invariantRef };
+    }
+
+    if (descriptor.category !== "probabilistic") {
+      return { status: "rejected", decisionId: descriptor.decisionId, invariantRef, diagnostic: "human decision cannot directly satisfy a deterministic invariant" };
+    }
+
+    if (input.gate === undefined) {
+      return { status: "rejected", decisionId: descriptor.decisionId, invariantRef, diagnostic: "probabilistic decision requires an explicit compatible gate" };
+    }
+
+    const gate = normalizeDeterministicInvariantGate(input.gate);
+    if (gate.invariantRef !== invariantRef) {
+      return { status: "rejected", decisionId: descriptor.decisionId, invariantRef, diagnostic: "gate invariant reference mismatch" };
+    }
+    return { status: "compatible", decisionId: descriptor.decisionId, invariantRef, gateRef: gate.gateRef };
+  } catch (error) {
+    return { status: "invalid", diagnostic: error instanceof Error ? error.message : "invalid decision boundary" };
+  }
 }
