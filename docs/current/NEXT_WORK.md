@@ -1,20 +1,16 @@
-# Next Work — P14-PACKAGE-02 Construction B Promotion Gate
+# Next Work — P14-PACKAGE-02 Construction B Materialization Gate
 
-`P14-PACKAGE-01` and WBS 14.1.1-14.2.3 are CLOSED. `P14-PACKAGE-02` Construction A is integrated on `main` as `a9165da3acc2ae6092188729d8bd76739b30fb49`.
+`P14-PACKAGE-01` and WBS 14.1.1-14.2.3 are CLOSED. `P14-PACKAGE-02` Construction A is integrated and fresh-main revalidation confirms WBS 14.3.1 SATISFIED and WBS 14.3.2 as a real bounded gap.
 
-Post-Construction-A revalidation head `1fa7482651b3c380e591d06ff1e73135bcc6f83d` passed Deterministic CI #756 and Heavy Product Tests #184 and integrated as `c07656775da38c34a85365ea23a008e5b136e066`; tree equivalence is exact at `ecd5635344b6064633990160142bfc64d70f4be7`.
-
-Fresh-main evidence confirms WBS 14.3.1 is satisfied and WBS 14.3.2 remains a real bounded gap: the repository carries explicit provenance references and lineage, but does not yet provide deterministic bidirectional source→artifact / artifact→source navigation/query capability.
+Construction B `P14-EVIDENCE-PROVENANCE-NAVIGATION-01` is now COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-287..292 on a Planning & Materialization branch based on fresh `main` `92fa2daaa9e8156260160721da5963328bffb78f`.
 
 ## Required next action
-1. Perform a separate promotion/materialization step for forecast Construction B `P14-EVIDENCE-PROVENANCE-NAVIGATION-01` from fresh `main`.
-2. Revalidate package scope, WBS, predecessor outputs, contracts, dependencies, risks and the growing proof before committing Construction B.
-3. Materialize only Construction B TASKs that are necessary for the bounded WBS 14.3.2 navigation/query outcome.
-4. Pass the required Planning & Materialization gates and integrate that materialization before executing any Construction B TASK.
-5. Construction C remains optional and must not be promoted until A+B fresh-main evidence proves a residual WBS 14.3.3 product gap.
-
-## Forecast
-Construction B is JUSTIFIED / FORECAST / NOT MATERIALIZED. Construction C remains OPTIONAL / EVIDENCE-GATED.
+1. Validate the Construction B Planning & Materialization PR on its exact head with Deterministic CI and Heavy Product Tests and ensure no blocking review findings/head drift.
+2. If all gates pass, integrate the Planning & Materialization PR into `main` with expected-head protection.
+3. Reconstruct fresh `main` and confirm zero file drift from the approved planning head.
+4. Create `sprint/P14-EVIDENCE-PROVENANCE-NAVIGATION-01` exactly from the materialization merge-main.
+5. Execute TASK-287 first, then TASK-288..292 strictly in dependency order and within each TASK's path/file/validation limits.
+6. After Construction B integration, fresh-main revalidate WBS 14.3.3 before deciding whether optional Construction C is necessary.
 
 ## Boundaries
-Do not reopen P14-PACKAGE-01, replace Runtime Audit Trail, convert provenance/integrity into authorization, invent graph/provider/storage topology, execute forecast Construction B/C, or absorb/re-rank TD-P13-01..04.
+Do not execute Construction B before materialization integration; do not promote Construction C; do not replace Runtime Audit Trail; provenance/integrity is not authorization; do not introduce graph database/provider registry/storage topology; do not absorb/re-rank TD-P13-01..04.
