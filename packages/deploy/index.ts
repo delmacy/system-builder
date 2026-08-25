@@ -1,5 +1,6 @@
 import type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
 import { sha256Canonical } from "@system-builder/deterministic";
+import { immutableDeployEvidenceProvenance, type DeployEvidenceProvenance } from "./evidence-provenance.js";
 import { InMemoryDeploymentRecordStorage, type AtomicDeploymentActivationResult, type DeploymentRecordStorage } from "./storage.js";
 
 export type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
@@ -14,6 +15,7 @@ export type DeployPublishedRelease = Readonly<{
   validationEvidenceRef: string;
   publishedAt: string;
   status?: "published" | "deprecated" | "archived";
+  evidenceProvenance?: DeployEvidenceProvenance;
 }>;
 
 export type DeployReleaseArtifact = Readonly<{
@@ -39,6 +41,7 @@ export type DeploymentRecord = Readonly<{
   completedAt: string;
   status: "succeeded" | "failed";
   healthChecks: readonly Readonly<{ name: string; status: "PASS" | "FAIL" }>[];
+  evidenceProvenance?: DeployEvidenceProvenance;
 }>;
 
 export type DeploymentActivationDecision = Readonly<{
@@ -69,6 +72,9 @@ function immutableDeploymentRecord(record: DeploymentRecord): DeploymentRecord {
   return Object.freeze({
     ...record,
     healthChecks: Object.freeze(record.healthChecks.map((check) => Object.freeze({ ...check }))),
+    ...(record.evidenceProvenance === undefined
+      ? {}
+      : { evidenceProvenance: immutableDeployEvidenceProvenance(record.evidenceProvenance) }),
   });
 }
 
@@ -196,6 +202,9 @@ export function dryRunDeploy(input: Readonly<{
     healthChecks,
     bindings,
   };
+  const evidenceProvenance = input.publishedRelease.evidenceProvenance === undefined
+    ? undefined
+    : immutableDeployEvidenceProvenance(input.publishedRelease.evidenceProvenance);
   const record: DeploymentRecord = Object.freeze({
     kind: "DeploymentRecord",
     deploymentId: sha256Canonical(payload),
@@ -206,6 +215,7 @@ export function dryRunDeploy(input: Readonly<{
     completedAt: payload.completedAt,
     status,
     healthChecks,
+    ...(evidenceProvenance === undefined ? {} : { evidenceProvenance }),
   });
   if (JSON.stringify(input.publishedRelease) !== releaseSnapshot) throw new Error("DEPLOY_MUTATED_RELEASE");
   return Object.freeze({ ok: true, record, bindings: Object.freeze(bindings.map((binding) => Object.freeze({ ...binding }))) });
