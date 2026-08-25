@@ -1,7 +1,7 @@
 ---
 id: TASK-304
 title: Prove integrated decision-boundary foundation behavior
-status: ready
+status: completed
 priority: 304
 milestone: M15
 model_tier: architecture
