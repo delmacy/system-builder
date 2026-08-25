@@ -1,19 +1,20 @@
-# Next Work — P14 Construction B planning gate
+# Next Work — P14 Construction B materialization gate
 
-Construction A of `P14-PACKAGE-01 — Evidence Identity & Transformation Lineage` is integrated. Post-Construction-A fresh-main revalidation confirms that a real producer/transformer propagation gap remains necessary to satisfy the current Package Goal.
+Construction A of `P14-PACKAGE-01 — Evidence Identity & Transformation Lineage` is integrated. Post-Construction-A revalidation is integrated by PR #334 / main `4923892f66bc3dc0bd1915b96c336b5e7301c4c3` and confirms a real producer/transformer propagation gap.
+
+Construction B `P14-EVIDENCE-PROVENANCE-PROPAGATION-01` is now COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-274..279 in a separate Planning & Materialization increment.
 
 ## Required next action
-1. Integrate the post-Construction-A revalidation evidence on exact-head CI/Heavy/review gates.
-2. Reconstruct fresh `main` and verify revalidation-head -> merge-main tree equivalence.
-3. Perform a separate Planning & Materialization step for `P14-EVIDENCE-PROVENANCE-PROPAGATION-01` using actual existing producer/transformer surfaces and the integrated evidence-provenance contract.
-4. Materialize only the bounded Construction B TASK set needed to propagate provenance through representative real producers/transformers and extend the growing proof across at least one actual multi-stage artifact chain.
-5. Do not execute Construction B until that materialization passes required gates and integrates.
-6. Keep optional Construction C forecast-only unless fresh integrated evidence after Construction B proves it necessary.
+1. Validate this materialization on its exact PR head with Deterministic CI + Heavy Product Tests and no blocking review findings.
+2. Merge only if the exact head remains stable and all required gates pass.
+3. Reconstruct fresh `main` and verify planning-head -> merge-main tree equivalence.
+4. Create `sprint/P14-EVIDENCE-PROVENANCE-PROPAGATION-01` exactly from the integrated planning merge.
+5. Execute TASK-274 first, then TASK-275..279 strictly in dependency order with one authoritative commit per TASK.
+6. At Sprint completion run repository-wide verification, produce the Sprint Report and open the single Sprint Review PR.
+7. After Construction B integrates, fresh-main revalidation decides whether optional Construction C is necessary or Package Integration & Review is next.
 
-## Revalidation finding
-The integrated evidence-provenance namespace is present in the contract, fixtures and product proofs, but no representative real producer/transformer product surface currently propagates it. Construction A therefore closes contract semantics but not the package-level propagation requirement across bounded-context artifacts.
+## Committed bounded chain
+Compiler -> Release -> Deploy -> Observe. The Sprint must propagate only the already-integrated provider-neutral evidence-provenance extension through these actual APIs and prove a real multi-stage chain. Historical absence remains backward compatible; malformed explicit provenance fails; no secrets/credentials/provider resource IDs/storage locators become required; provenance remains evidence only.
 
-## Authority and boundaries
-P14-PACKAGE-01 covers WBS 14.1.1-14.2.3 only. ADR-0009/artifact-envelope 1.0.0 predecessor semantics remain authoritative. WBS 14.3.1-14.3.3 remains outside the package and forecast-only.
-
-Construction B is eligible for separate Planning & Materialization but is not yet materialized and grants no execution authority. Do not replace Runtime Audit Trail, introduce provider/storage topology, make provenance authorization, require secrets/credentials/provider resource identifiers/storage locators, absorb TD-P13-01..04, or promote optional Construction C without fresh integrated evidence.
+## Boundaries
+P14-PACKAGE-01 covers WBS 14.1.1-14.2.3 only. ADR-0009 core envelope semantics remain authoritative. Do not replace Runtime Audit Trail, add provider/storage topology, make provenance authorization, absorb TD-P13-01..04, execute WBS 14.3, or promote Construction C without fresh integrated evidence.
