@@ -1,24 +1,24 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: :30
-started_at: 2026-08-25T13:30:28-03:00
-updated_at: 2026-08-25T13:38:00-03:00
-lease_until: 2026-08-25T13:38:00-03:00
-observed_main_sha: cbf0f8c42201793e9310e21c6835fc7b18d14aee
-active_branch: sprint/P14-EVIDENCE-MIGRATION-CERTIFICATION-01
-active_pr: 351
-active_head_sha: a02e032b87e25507c94e30be6247c557d4410674
-current_step: Sprint closure manifest/report committed; final exact-head Sprint Review gates pending association/execution.
+status: RUNNING
+worker_slot: :50
+started_at: 2026-08-25T13:50:05-03:00
+updated_at: 2026-08-25T13:52:30-03:00
+lease_until: 2026-08-25T14:17:30-03:00
+observed_main_sha: 7df79d3bbc03f6d6cb4436cea094abe4641d5af2
+active_branch: package/P14-PACKAGE-02-INTEGRATION-REVIEW-01
+active_pr: null
+active_head_sha: 7df79d3bbc03f6d6cb4436cea094abe4641d5af2
+current_step: Construction C merged with exact tree equivalence; executing bounded P14-PACKAGE-02 Package Integration & Review.
 
-last_completed_step: TASK-297 completion head e73a81e4a804ad2fe0da332d47be0f6705f5e423 passed Deterministic CI #779 and Heavy Product Tests #208. Construction C manifest was reconciled to COMPLETE / SPRINT REVIEW in commit 8eb3708bc8b595e28edd7e5a6d6a1a3a012568da and Sprint report added in final closure head a02e032b87e25507c94e30be6247c557d4410674. No final workflows were associated immediately after the closure head was created.
-next_authorized_step: Revalidate PR #351 exact head a02e032b87e25507c94e30be6247c557d4410674. Wait/recheck for Deterministic CI and Heavy Product Tests on that exact head. If both PASS and there are no blocking reviews/threads/head drift, mark PR ready for review, merge protected, reconstruct fresh main, verify reviewed-head -> merge-main tree equivalence, then continue automatically to P14-PACKAGE-02 Package Integration & Review and Documentation & Closure. Do not begin Planning/Materialization of any successor Work Package.
+last_completed_step: PR #351 final closure head a02e032b87e25507c94e30be6247c557d4410674 passed Deterministic CI #781 and Heavy Product Tests #210, had no blocking threads, was promoted from draft and squash-merged as main 7df79d3bbc03f6d6cb4436cea094abe4641d5af2. Reviewed head and merge-main share tree fef1a03f94c76936738c839f1d89e51ba57769b3.
+next_authorized_step: Execute only P14-PACKAGE-02 Package Integration & Review on fresh main. If Package Goal/WBS 14.3.1-14.3.3 are satisfied, record GO to Documentation & Closure, run exact-head CI + Heavy, merge protected, reconstruct fresh main, then execute only Documentation & Closure. Stop before successor Work Package planning/materialization.
 
 ## Boundaries
-Do not invent migration framework/topology, database mutation, Runtime Audit Trail replacement, authorization semantics, provider/storage coupling, graph database, ADR-0009 reinterpretation or TD-P13-01..04 absorption. Do not merge PR #351 before final closure-head CI/Heavy PASS.
+No migration framework/topology, destructive migration, Runtime Audit Trail replacement, authorization semantics, provider/storage coupling, graph database, ADR-0009 reinterpretation or TD-P13-01..04 absorption. Do not start successor Work Package planning/materialization.
 
 ## resume_prompt
-Retome `delmacy/system-builder` em main `cbf0f8c42201793e9310e21c6835fc7b18d14aee`, branch `sprint/P14-EVIDENCE-MIGRATION-CERTIFICATION-01`, draft PR #351, final closure head `a02e032b87e25507c94e30be6247c557d4410674`. TASK-293..297 estão executadas; TASK-297 completion head `e73a81e4a804ad2fe0da332d47be0f6705f5e423` passou CI #779 / Heavy #208. Manifest closure commit `8eb3708...` e Sprint report final `a02e032...` foram adicionados. Revalide workflows no head `a02e032...`; se CI + Heavy PASS e sem blockers, promova PR #351, faça merge protegido, fresh-main/tree equivalence e avance por Package Integration & Review e Documentation & Closure de P14-PACKAGE-02. Pare antes de qualquer próximo Work Package.
+Retome `delmacy/system-builder` em main `7df79d3bbc03f6d6cb4436cea094abe4641d5af2`, após merge do PR #351. O reviewed head `a02e032b87e25507c94e30be6247c557d4410674` passou CI #781 / Heavy #210 e possui a mesma tree `fef1a03f94c76936738c839f1d89e51ba57769b3` do merge-main. Execute somente P14-PACKAGE-02 Package Integration & Review; se GO e gates finais passarem, integre e avance somente para Documentation & Closure. Pare antes de qualquer successor Work Package.
 
 ## Operational model-selection instruction
 All TASKs are executed with strong models. `model_tier` is retained only for task-schema compatibility and is not execution routing.
