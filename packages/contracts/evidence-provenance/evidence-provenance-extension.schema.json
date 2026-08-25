@@ -45,6 +45,18 @@
             "type": "string",
             "minLength": 1,
             "pattern": "^\\S+$"
+          },
+          "correlationRef": {
+            "$comment": "Optional stable provider-neutral URI used only to correlate this non-artifact origin with related evidence or domain records.",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+          },
+          "locationHint": {
+            "$comment": "Optional non-authoritative URI hint. It may aid adapters but never replaces sourceId, requires no provider/storage identity and is not execution authority.",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
           }
         }
       }

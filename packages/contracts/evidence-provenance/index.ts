@@ -8,6 +8,8 @@ export type EvidenceSourceReference = Readonly<{
   sourceType: string;
   capturedAt?: string;
   authorRef?: string;
+  correlationRef?: string;
+  locationHint?: string;
 }>;
 
 export type EvidenceClassification = Readonly<{
@@ -75,12 +77,18 @@ function compareStrings(left: string, right: string): number {
 
 function normalizeSource(value: unknown, path: string): EvidenceSourceReference {
   const source = recordAt(value, path);
-  exactKeys(source, ["sourceId", "sourceType", "capturedAt", "authorRef"], path);
+  exactKeys(
+    source,
+    ["sourceId", "sourceType", "capturedAt", "authorRef", "correlationRef", "locationHint"],
+    path,
+  );
   const normalized: {
     sourceId: string;
     sourceType: string;
     capturedAt?: string;
     authorRef?: string;
+    correlationRef?: string;
+    locationHint?: string;
   } = {
     sourceId: stringAt(source.sourceId, URI_PATTERN, `${path}.sourceId`),
     sourceType: stringAt(source.sourceType, TOKEN_PATTERN, `${path}.sourceType`),
@@ -90,6 +98,12 @@ function normalizeSource(value: unknown, path: string): EvidenceSourceReference 
   }
   if (source.authorRef !== undefined) {
     normalized.authorRef = stringAt(source.authorRef, TOKEN_PATTERN, `${path}.authorRef`);
+  }
+  if (source.correlationRef !== undefined) {
+    normalized.correlationRef = stringAt(source.correlationRef, URI_PATTERN, `${path}.correlationRef`);
+  }
+  if (source.locationHint !== undefined) {
+    normalized.locationHint = stringAt(source.locationHint, URI_PATTERN, `${path}.locationHint`);
   }
   return normalized;
 }
