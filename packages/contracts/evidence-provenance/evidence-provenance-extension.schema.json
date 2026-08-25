@@ -62,10 +62,10 @@
       }
     },
     "classification": {
-      "$comment": "Optional evidence classification and confidence. Labels remain domain-defined and do not grant execution authority.",
+      "$comment": "Optional descriptive classification and/or confidence. Either field may appear independently; neither grants execution authority, correctness or authorization, and no default is inferred when absent.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["label"],
+      "minProperties": 1,
       "properties": {
         "label": {
           "type": "string",
@@ -73,6 +73,7 @@
           "pattern": "^\\S(?:.*\\S)?$"
         },
         "confidence": {
+          "$comment": "Optional bounded descriptive confidence value. No vendor scoring model or truth semantics are implied.",
           "type": "number",
           "minimum": 0,
           "maximum": 1
