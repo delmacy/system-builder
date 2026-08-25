@@ -1,10 +1,11 @@
 # P14-PACKAGE-02 — Evidence Integrity & Provenance Query
 
-Status: CONSTRUCTION A INTEGRATED / POST-A REVALIDATION IN PROGRESS
+Status: CONSTRUCTION A INTEGRATED / POST-A REVALIDATION INTEGRATED / CONSTRUCTION B PROMOTION GATE
 Milestone: M14 Evidence & Provenance
 Primary WBS: 14.3.1-14.3.3
 Planning base: `53301e333fb37cf4695e1793818ba478fe16f563`
 Construction A merge-main: `a9165da3acc2ae6092188729d8bd76739b30fb49`
+Post-A revalidation merge-main: `c07656775da38c34a85365ea23a008e5b136e066`
 Predecessor: P14-PACKAGE-01 CLOSED
 
 ## Package goal
@@ -19,8 +20,10 @@ Make portable provenance integrity-verifiable and navigable source→artifact / 
 ### Construction A — P14-EVIDENCE-INTEGRITY-FOUNDATION-01
 COMPLETE / SPRINT REVIEW PASS / INTEGRATED. TASK-280..286. Reviewed head `89ecedfdedfdf3ceed225c1137420794c070fcf0`; Deterministic CI #755 PASS; Heavy Product Tests #182 PASS; merged as `a9165da3acc2ae6092188729d8bd76739b30fb49`; reviewed head and merge-main share tree `ee70f603b01a8dffca78c637de7daa7634aced32`.
 
+Post-Construction-A revalidation head `1fa7482651b3c380e591d06ff1e73135bcc6f83d` passed Deterministic CI #756 and Heavy Product Tests #184, merged as `c07656775da38c34a85365ea23a008e5b136e066`, and shares tree `ecd5635344b6064633990160142bfc64d70f4be7` with merge-main.
+
 ### Construction B — P14-EVIDENCE-PROVENANCE-NAVIGATION-01
-FORECAST / NOT MATERIALIZED. Post-A fresh-main evidence confirms the WBS 14.3.2 capability gap remains real. A separate promotion/materialization gate is required before TASK execution. Intended bounded outcome remains deterministic source→artifact and artifact→source navigation over explicit provenance references, using existing boundaries where sufficient. No graph database or provider registry is implied.
+JUSTIFIED / FORECAST / NOT MATERIALIZED. Post-A fresh-main evidence confirms the WBS 14.3.2 capability gap remains real. A separate promotion/materialization gate is required before TASK execution. Intended bounded outcome remains deterministic source→artifact and artifact→source navigation over explicit provenance references, using existing boundaries where sufficient. No graph database or provider registry is implied.
 
 ### Construction C candidate — P14-EVIDENCE-MIGRATION-CERTIFICATION-01
 FORECAST / OPTIONAL / EVIDENCE-GATED. Promote only if A+B leave a bounded WBS 14.3.3 preservation gap requiring product construction rather than review-only certification.
@@ -29,4 +32,4 @@ FORECAST / OPTIONAL / EVIDENCE-GATED. Promote only if A+B leave a bounded WBS 14
 No Runtime Audit Trail replacement; no authorization semantics; no mandatory sensitive payload; no mandatory provider resource identifier/storage locator; no new provider/storage topology; no reopening P14-PACKAGE-01; no TD-P13-01..04 absorption or re-ranking.
 
 ## Gate
-Integrate the post-Construction-A revalidation before any successor promotion. Construction B/C remain forecast and are not execution-authorized by this state.
+Post-Construction-A revalidation is integrated. The next separate gate is promotion/materialization of Construction B from fresh `main`. Construction B/C remain forecast and are not execution-authorized until their applicable materialization gate is integrated.
