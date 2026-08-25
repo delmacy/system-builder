@@ -186,7 +186,7 @@ test("Construction A growing proof fails malformed ambiguous and unsupported-req
 test("Construction A growing proof keeps provider secrets topology and storage outside the portable schema", () => {
   const schemaText = JSON.stringify(evidenceProvenanceExtensionSchema);
   for (const forbiddenField of ["credential", "accountId", "storageLocator", "secretValue", "accessToken"]) {
-    assert.equal(schemaText.includes(`\"${forbiddenField}\"`), false);
+    assert.equal(schemaText.includes(`"${forbiddenField}"`), false);
   }
 
   assert.throws(
