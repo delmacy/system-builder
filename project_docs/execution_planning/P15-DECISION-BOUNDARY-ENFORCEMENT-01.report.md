@@ -9,14 +9,14 @@ Construction B certifies the canonical decision boundary across the three real g
 - TASK-305 — `510da3e2d1f04e9d3147ed7bd78d1282bf117764`
 - TASK-306 — `367174311b32f2030f47d28deacf559d85da9d3d`
 - TASK-307 — `b9a87e44b668d87b8b5d01b544d696482cd159f2`
-- TASK-308 — this Sprint-closing commit; exact SHA is established by Git after this report is materialized.
+- TASK-308 — `78408f9177af7fd9ca6dec2273a6c919058c06c6`
 
-## Objective CI evidence before closure
+## Objective CI evidence
 
 - TASK-305 exact head: Deterministic CI #808 PASS; Heavy Product Tests #238 PASS.
 - TASK-306 exact head: Deterministic CI #809 PASS; Heavy Product Tests #239 PASS.
 - TASK-307 exact head: Deterministic CI #810 PASS; Heavy Product Tests #240 PASS.
-- TASK-308 exact-head Deterministic CI and Heavy Product Tests remain the mandatory Sprint Review gate and must both pass before merge.
+- TASK-308 exact head `78408f9177af7fd9ca6dec2273a6c919058c06c6`: Deterministic CI #811 PASS; Heavy Product Tests #241 PASS.
 
 ## Integrated proof
 
@@ -31,7 +31,7 @@ Construction B certifies the canonical decision boundary across the three real g
 
 ## Deviations
 
-No architecture, policy, authorization validity, receipt/signature, revocation, budget, conformance, provider, model-call, Runtime Audit Trail, WBS 15.3, or Package-02 semantics were introduced. TASK-305 required one bounded TypeScript narrowing correction before its final authoritative head; the corrected head passed both required gates. TASK-306 and TASK-307 were revalidated as externally advanced branch commits before TASK-308 began and both satisfied their exact-head gates.
+No architecture, policy, authorization validity, receipt/signature, revocation, budget, conformance, provider, model-call, Runtime Audit Trail, WBS 15.3, or Package-02 semantics were introduced. TASK-305 required one bounded TypeScript narrowing correction before its final authoritative head; the corrected head passed both required gates. TASK-306 and TASK-307 were revalidated as externally advanced branch commits before TASK-308 began and both satisfied their exact-head gates. TASK-308 was executed by a cooperating serialized worker before the :30 worker acquired the closure lease; its exact head and gates were revalidated and preserved rather than duplicated.
 
 ## Residual gap disposition
 
@@ -39,4 +39,4 @@ Construction B now covers every real governance path identified by the Package p
 
 ## Sprint Review gate
 
-Do not integrate this Sprint until the final TASK-308 head has both Deterministic CI and Heavy Product Tests PASS, the PR has no unresolved blocking review/thread, and the reviewed head is unchanged. After integration, compare the reviewed head tree with fresh merge-main and then perform the Package evidence-based Construction-C decision.
+The product TASK head `78408f9177af7fd9ca6dec2273a6c919058c06c6` passed Deterministic CI #811 and Heavy Product Tests #241. This documentation closure advances the Sprint to COMPLETE / SPRINT REVIEW. Do not integrate until the final documentation head also passes both required workflows, the PR has no unresolved blocking review/thread, and the reviewed head is unchanged. After integration, compare reviewed-head tree with fresh merge-main and perform the Package evidence-based Construction-C decision.
