@@ -2,12 +2,15 @@
 
 `P16-PACKAGE-01 — Provider Abstraction Foundation` is canonically CLOSED. `P16-PACKAGE-02 — AI Execution Governance & Structured Output` is ACTIVE and covers WBS 16.2.1-16.2.3 only.
 
-Construction A `P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01` is INTEGRATED as `59ac3055ad837c60dfe76d4d3864953015b3173c`, tree `dcfe9a21e97dca157b03879bf4fccc603953b93b`, after TASK-334..339 and final CI #909 / Heavy #347 PASS.
+Construction A is INTEGRATED as `59ac3055ad837c60dfe76d4d3864953015b3173c`, tree `dcfe9a21e97dca157b03879bf4fccc603953b93b`. Post-Construction-A revalidation is INTEGRATED as `85f5518a5abc1e8f24457f7e09fed3477767391f`, tree `1b305d9bddbf1561b6045a5ea8772cee6cc9ebfe`.
 
-Fresh-main revalidation confirms Construction B `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` is JUSTIFIED / FORECAST / NOT MATERIALIZED. The residual gap is bounded to integrating the already-defined governance contracts through the existing AI Gateway invocation seam: explicit policy evaluation, structured-output validation and permitted metadata propagation, including fail-closed violations and preservation of deterministic/provider-neutral behavior.
+Construction B `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with dependency chain:
+`TASK-340 -> TASK-341 -> TASK-342 -> TASK-343 -> TASK-344`.
+
+The Sprint is limited to deterministic evaluation of existing governance contracts, composition with the existing provider-neutral invocation seam, explicit structured-output validation and permission-aware execution metadata propagation, followed by real-path fail-closed and growing proofs.
 
 ## Required next action
-First validate and integrate the post-Construction-A revalidation head. Then reconstruct fresh main and perform a separate Planning & Materialization for Construction B. Only TASKs committed by that materialization may execute, in dependency order and behind declared exact-head gates.
+Validate and integrate the Construction B Planning & Materialization head. Only after exact-head Deterministic CI + Heavy Product Tests PASS, no blocker/head drift, expected-head protected merge and tree-equivalence verification may `sprint/P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` be created and TASK-340 executed first.
 
 Construction C remains optional / evidence-gated / NOT MATERIALIZED and may be considered only after Construction B integrates and fresh-main evidence shows a residual Package Goal gap.
 

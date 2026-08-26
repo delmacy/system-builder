@@ -9,13 +9,15 @@ Status: SATISFIED / CLOSED via `P16-PACKAGE-01 — Provider Abstraction Foundati
 
 ### 16.2 Governança de execução
 Status: ACTIVE via `P16-PACKAGE-02 — AI Execution Governance & Structured Output`.
-- **16.2.1** Definir routing, budget/quota e fallback policies. — CONTRACT FOUNDATION INTEGRATED; INVOCATION-SEAM INTEGRATION PENDING
-- **16.2.2** Validar structured outputs contra schemas. — CONTRACT FOUNDATION INTEGRATED; INVOCATION-SEAM INTEGRATION PENDING
-- **16.2.3** Registrar model/version/cost/provenance quando permitido. — CONTRACT FOUNDATION INTEGRATED; INVOCATION-SEAM INTEGRATION PENDING
+- **16.2.1** Definir routing, budget/quota e fallback policies. — CONTRACT FOUNDATION INTEGRATED / CONSTRUCTION B MATERIALIZED
+- **16.2.2** Validar structured outputs contra schemas. — CONTRACT FOUNDATION INTEGRATED / CONSTRUCTION B MATERIALIZED
+- **16.2.3** Registrar model/version/cost/provenance quando permitido. — CONTRACT FOUNDATION INTEGRATED / CONSTRUCTION B MATERIALIZED
 
-Construction A `P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01` is INTEGRATED as `59ac3055ad837c60dfe76d4d3864953015b3173c`, tree `dcfe9a21e97dca157b03879bf4fccc603953b93b`; TASK-334..339 completed with final CI #909 / Heavy #347 PASS.
+Construction A `P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01` is INTEGRATED as `59ac3055ad837c60dfe76d4d3864953015b3173c`, tree `dcfe9a21e97dca157b03879bf4fccc603953b93b`.
 
-Fresh-main revalidation confirms Construction B `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` is JUSTIFIED / FORECAST / NOT MATERIALIZED to exercise the integrated governance contracts through the existing AI Gateway invocation seam. Separate Planning & Materialization is required before execution. Construction C remains optional/evidence-gated.
+Post-Construction-A revalidation is INTEGRATED as `85f5518a5abc1e8f24457f7e09fed3477767391f`, tree `1b305d9bddbf1561b6045a5ea8772cee6cc9ebfe`, confirming the residual invocation-seam gap.
+
+Construction B `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-340..344. It must pass its Planning & Materialization gate before execution. Construction C remains optional/evidence-gated.
 
 ### 16.3 Segurança e observação
 Status: FORECAST / NOT MATERIALIZED. Requires separate fresh-main Planning & Materialization before execution.
