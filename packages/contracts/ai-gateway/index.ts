@@ -131,3 +131,12 @@ export function normalizeModelCapabilityDescriptor(value: unknown): ModelCapabil
     limits: normalizeLimits(record.limits),
   };
 }
+
+export async function invokeModelProvider(
+  adapter: ModelProviderAdapter,
+  value: unknown,
+): Promise<ModelResponse> {
+  const request = normalizeModelRequest(value);
+  const response = await adapter.invoke(request);
+  return normalizeModelResponse(response);
+}
