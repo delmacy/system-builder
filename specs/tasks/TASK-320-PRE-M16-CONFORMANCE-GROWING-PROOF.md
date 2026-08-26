@@ -1,7 +1,7 @@
 ---
 id: TASK-320
 title: Prove integrated pre-M16 contract conformance hardening
-status: ready
+status: completed
 priority: 320
 milestone: PRE-M16
 model_tier: architecture
