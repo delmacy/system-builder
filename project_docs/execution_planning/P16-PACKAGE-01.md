@@ -1,6 +1,6 @@
 # P16-PACKAGE-01 — Provider Abstraction Foundation
 
-Status: ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B JUSTIFIED
+Status: ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B MATERIALIZED
 Date: 2026-08-26
 Milestone: M16 AI Gateway
 WBS coverage: 16.1.1–16.1.3
@@ -18,10 +18,10 @@ PR #384 integrated as `119d00cacfc88268073540c49786de5c841f46ae` after TASK-324.
 The integrated proof establishes provider-neutral request/response representation, explicit capability/limit descriptors, deterministic normalization and a replaceable `ModelProviderAdapter` contract without provider identity/configuration leakage into central request semantics.
 
 ### Construction B — `P16-PROVIDER-ABSTRACTION-INTEGRATION-01`
-Status: JUSTIFIED / NOT MATERIALIZED
-Fresh-main revalidation after Construction A identifies the bounded remaining Package increment: exercise the provider-neutral adapter abstraction through representative real AI Gateway integration seams and prove provider replaceability/failure behavior while preserving deterministic paths and authority semantics.
+Status: COMMITTED / MATERIALIZED / NOT EXECUTED
+Post-Construction-A fresh-main revalidation integrated by PR #386 as `36681b832938cd9f1d369f8128e58d912cb0a5d7` after Deterministic CI #891 / Heavy Product Tests #328 PASS and confirmed the bounded remaining increment: exercise the provider-neutral adapter abstraction through a representative real AI Gateway invocation seam.
 
-Promotion/materialization must occur in a separate Planning & Materialization cycle. This status does not authorize TASK execution yet.
+TASK-330..333 are materialized in dependency order. Execution may begin only after this Planning & Materialization change integrates and fresh-main/tree equivalence are confirmed.
 
 ### Construction C — optional
 Status: FORECAST / EVIDENCE-GATED / NOT MATERIALIZED
@@ -35,7 +35,7 @@ The growing proof must establish:
 4. changing adapter/provider does not change the central request contract;
 5. deterministic paths and authority semantics remain unaffected by provider unavailability.
 
-Construction A proves items 1–4 at the contract boundary. Construction B is required to extend items 4–5 through representative real integration seams without importing WBS 16.2/16.3 behavior.
+Construction A proves items 1–4 at the contract boundary. Construction B extends items 4–5 through a representative real integration seam without importing WBS 16.2/16.3 behavior.
 
 ## Package Integration & Review gate
 After required Construction Sprints integrate, review regression, schema/contract compatibility, provider-neutrality, dependency/architecture fitness, security/trust boundaries, technical debt, CI health, documentation consistency and Package Goal completeness. Review is not overflow feature work.
