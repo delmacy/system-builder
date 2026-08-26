@@ -1,7 +1,7 @@
 ---
 id: TASK-337
 title: Define permitted model execution metadata contract
-status: ready
+status: completed
 priority: 337
 milestone: M16
 model_tier: architecture
