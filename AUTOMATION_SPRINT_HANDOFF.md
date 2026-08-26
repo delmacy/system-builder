@@ -1,34 +1,32 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: :30
-started_at: 2026-08-26T12:28:05-03:00
-updated_at: 2026-08-26T12:31:10-03:00
-lease_until: 2026-08-26T12:31:10-03:00
+status: RUNNING
+worker_slot: :50
+started_at: 2026-08-26T12:35:09-03:00
+updated_at: 2026-08-26T12:35:09-03:00
+lease_until: 2026-08-26T13:00:09-03:00
 observed_main_sha: 7c9bb9d874b1976a562f73ffd7970ea4de2da022
 active_branch: sprint/P16-PROVIDER-ABSTRACTION-CONTRACT-01
 active_pr: 384
-active_head_sha: c5c64aa710ca9c4171c42f056b0fba7da3821a0a
-current_step: TASK-325 implementation is preserved exactly; GitHub Actions startup failure was mechanically recovered by reconstructing the authoritative TASK-325 commit with the identical tree and synchronizing PR #384. Await exact-head CI/Heavy association before TASK-326.
+active_head_sha: 38f7569834fc822702cd5233da509fa93d8e459f
+current_step: TASK-325 exact-head validation recovered via validation-only PR #385 after GitHub Actions startup failures. Deterministic CI #880/#878 and Heavy Product Tests #315 are queued on the exact authoritative head. Do not start TASK-326 until exact-head gates pass.
 
 ## Authorization
-User authorization covers PRE-M16 plus the next two eligible Work Packages derived serially from fresh-main authority. PRE-M16 is canonically closed by merged P16 planning state. `P16-PACKAGE-01 — Provider Abstraction Foundation` is the first authorized successor. L1-L3 process approvals are pre-granted. Do not skip materialization/gates, invent Package 2, absorb technical debt by inference, or perform undeclared L4 without ADR/change control.
+User explicitly instructed continuation of active Construction A `P16-PROVIDER-ABSTRACTION-CONTRACT-01`, TASK-324..329 only, without redoing Planning or completed TASKs. No Construction B, WBS 16.2/16.3, conformance/productization findings, or TD-P13-01..04 absorption.
 
 ## Completed this round
-- detected prior handoff as STALE and revalidated fresh main;
-- confirmed PR #382 merged as `7c9bb9d874b1976a562f73ffd7970ea4de2da022`, materializing `P16-PACKAGE-01` Construction A TASK-324..329;
-- confirmed PR #384 Construction A already contains TASK-324 `0d356993198099a9231780282f8b7f0180d1ca24` with CI #876 / Heavy #312 PASS and TASK-325 tree at superseded SHA `34ec1071638082150af56c9df2dce9273adfa9e1`;
-- closed redundant PRE-M16 reconciliation PR #383 because PR #382 already integrated the canonical closure;
-- diagnosed CI #877 as GitHub Actions `startup_failure` with zero jobs; retry endpoint returned 403 `cannot be retried`, while Heavy #313 remained queued;
-- preserved TASK-325 exactly by creating replacement authoritative commit `c5c64aa710ca9c4171c42f056b0fba7da3821a0a` from the same parent `0d356993...` and identical tree `37e82058a6e7fa52ddaf5eca075a3d6e3e38677f`, then force-updated only the Sprint branch to generate `synchronize` without adding a second TASK commit;
-- PR #384 is OPEN / DRAFT / MERGEABLE on head `c5c64aa...`; body reconciled to the replacement authoritative SHA;
-- no exact-head workflow runs were associated yet immediately after synchronization.
+- revalidated PR #384 and handoff; no competing valid lease;
+- confirmed TASK-324 complete and TASK-325 content preserved;
+- close/reopen of PR #384 did not produce exact-head runs;
+- reconstructed TASK-325 once more as commit `38f7569834fc822702cd5233da509fa93d8e459f` using the identical parent `0d356993198099a9231780282f8b7f0180d1ca24` and identical tree `37e82058a6e7fa52ddaf5eca075a3d6e3e38677f`, preserving one authoritative commit and exact file content;
+- opened validation-only PR #385 from the exact same SHA to trigger gates without adding product commits; it must never be merged;
+- exact-head Deterministic CI #880/#878 and Heavy Product Tests #315 are queued.
 
-last_completed_step: recovered transient GitHub Actions startup failure without changing TASK-325 content or violating one-authoritative-commit-per-TASK.
-next_authorized_step: Revalidate workflow runs for exact head `c5c64aa710ca9c4171c42f056b0fba7da3821a0a`. If Deterministic CI and Heavy Product Tests both PASS on that exact head, preserve TASK-325 and execute only TASK-326 according to its materialized spec. If workflows remain transiently absent/queued, do not mark human BLOCKED; revalidate on the next worker run.
+last_completed_step: mechanically recovered exact-head validation scheduling for TASK-325 without changing its tree or scope.
+next_authorized_step: wait/revalidate exact-head gates on `38f7569834fc822702cd5233da509fa93d8e459f`; when Deterministic CI and Heavy Product Tests PASS, close PR #385 without merge and execute only TASK-326 per its materialized spec. Then continue TASK-327..329 serially, each behind its required gates.
 
 ## Boundaries
-Construction A only until its Sprint gates and fresh-main integration. No WBS 16.2/16.3 execution, provider registry/routing/budget/fallback/secrets/mandatory network topology, TD-P13-01..04 absorption, pre-invented Package 2, or undeclared L4.
+Construction A only. No Construction B materialization, no WBS 16.2/16.3, no conformance/productization findings, no provider registry/routing/budget/fallback/secrets/mandatory network topology, no TD-P13-01..04 absorption, no undeclared L4.
 
 ## resume_prompt
-Retome `delmacy/system-builder` no draft PR #384, branch `sprint/P16-PROVIDER-ABSTRACTION-CONTRACT-01`, head exato `c5c64aa710ca9c4171c42f056b0fba7da3821a0a`, base main `7c9bb9d874b1976a562f73ffd7970ea4de2da022`. TASK-324 `0d356993...` passou CI #876 / Heavy #312. TASK-325 foi originalmente `34ec1071...`, mas CI #877 teve GitHub Actions startup_failure sem jobs e não pôde ser rerodado; o worker reconstruiu TASK-325 como `c5c64aa...` com o MESMO parent e a MESMA tree `37e82058...`, portanto sem alteração de arquivos e mantendo um único commit autoritativo. Revalide CI+Heavy do head `c5c64aa...`; somente com ambos PASS execute TASK-326. PRE-M16 está fechado e P16-PACKAGE-01 é o primeiro dos dois Packages sucessores autorizados; não derive Package 2 antes do fechamento/fresh-main revalidation do Package 1.
+Retome `delmacy/system-builder` no draft PR #384, branch `sprint/P16-PROVIDER-ABSTRACTION-CONTRACT-01`, head exato `38f7569834fc822702cd5233da509fa93d8e459f`, base main `7c9bb9d874b1976a562f73ffd7970ea4de2da022`. TASK-324 está concluída. TASK-325 está preservada com tree `37e82058a6e7fa52ddaf5eca075a3d6e3e38677f`; após startup failures do GitHub Actions, foi reconstruída mecanicamente no mesmo parent e mesma tree. Validation-only PR #385 aponta para o mesmo SHA e disparou Deterministic CI #880/#878 e Heavy #315; nunca faça merge de #385. Quando gates exact-head passarem, feche #385 sem merge e execute somente TASK-326. Continue TASK-327..329 em ordem, sem Construction B, WBS 16.2/16.3, conformance/productization findings ou TD-P13-01..04.
