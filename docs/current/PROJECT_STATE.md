@@ -2,19 +2,21 @@
 
 Date: 2026-08-26
 
-`delmacy/system-builder` is canonical. M13 Autonomous Runtime and M14 Evidence & Provenance are CLOSED. `P14-PACKAGE-01` and `P14-PACKAGE-02` remain CLOSED; WBS 14.1.1-14.3.3 is SATISFIED / CLOSED.
+`delmacy/system-builder` is canonical. M13 Autonomous Runtime, M14 Evidence & Provenance and M15 Deterministic / Human / Probabilistic Boundary are CLOSED. `P15-PACKAGE-01` and `P15-PACKAGE-02` remain CLOSED; WBS 15.1.1-15.3.3 is SATISFIED / CLOSED.
 
-## M15 Deterministic / Human / Probabilistic Boundary
-`P15-PACKAGE-01 — Decision Classification & Authority Guardrails` / WBS 15.1.1-15.2.3 is CLOSED on canonical main.
+## PRE-M16 Contract Conformance Hardening
+`PRE-M16-CONFORMANCE-HARDENING-PACKAGE-01` is ACTIVE before M16 provider-facing work.
 
-`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` / WBS 15.3.1-15.3.3 is CLOSED on canonical main. Construction A and B are COMPLETE / SPRINT REVIEW PASS / INTEGRATED; Construction C is NOT REQUIRED / NOT MATERIALIZED.
+Planning & Materialization integrated as `5299ae6dbf7ba24106cc9afe43a41e54613eb55e`.
 
-Package Integration & Review head `f1df8143d7c622aa0e1d4d662aaef8b5a46504c9` passed Deterministic CI #846 and Heavy Product Tests #280 and integrated as `3824357c4f0c50e35e7fdd9902ef87639c196958`.
+Construction A `PRE-M16-CONTRACT-CONFORMANCE-HARDENING-01` is COMPLETE / SPRINT REVIEW PASS / INTEGRATED via PR #377. Reviewed head `ad4ee8448d9cb4e855a35f6b0019ada13e2a63ab` passed Deterministic CI #860 and Heavy Product Tests #294 and integrated as `12af9d4226d7cd0510a682c9eccc4335f77ab55e`. Reviewed head and merge-main share tree `9b51361f597a278495cced60a2646bbf99e4b6e1`.
 
-Documentation & Closure head `27fcddbb8364e921c7a9a934eeb3d77f3032e7d6` passed Deterministic CI #847 and Heavy Product Tests #281 and integrated via PR #373 as `1fd84fc3ad912fd84218d0be152010b793910b9e`. Closure head and merge-main share exact tree `14078ff718984ea5ce299263d40ef71d7a926aab`.
+The two bounded pre-M16 findings are corrected: canonical SystemDefinition schema publication/import identity is unified, and critical-decision audit verification trust is bound to canonical verification provenance. Existing decision categories and ADR-0010 human authority semantics remain unchanged.
+
+Construction B `PRE-M16-CONFORMANCE-INTEGRATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED from fresh main `12af9d4226d7cd0510a682c9eccc4335f77ab55e`, limited to real-consumer/interoperability proof. Construction C remains OPTIONAL / NOT MATERIALIZED.
 
 ## Security and architecture boundary
-Decision verification/audit/availability/fallback evidence is not approval or execution authority. ADR-0010 and existing authorization semantics remain authoritative. No mandatory remote AI/provider/model execution, provider registry, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement or undeclared L4 architecture change is authorized.
+No M16 provider implementation, provider registry, remote invocation, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement or undeclared L4 architecture change is authorized by PRE-M16 hardening.
 
 ## Carried debt
-TD-P13-01..04 remain carried and are not absorbed or re-ranked by P15-PACKAGE-02.
+TD-P13-01..04 remain carried and are not absorbed or re-ranked.

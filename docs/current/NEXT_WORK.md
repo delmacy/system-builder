@@ -1,11 +1,13 @@
-# Next Work — Post-P15 Package 02 Closure
+# Next Work — PRE-M16 Construction B
 
-`P15-PACKAGE-01` / WBS 15.1.1-15.2.3 is CLOSED. `P15-PACKAGE-02 — Decision Boundary Verification & Auditability` / WBS 15.3.1-15.3.3 is also CLOSED on canonical main.
+M15 / `P15-PACKAGE-02` remains CLOSED. The separately authorized bounded prerequisite `PRE-M16-CONFORMANCE-HARDENING-PACKAGE-01` is ACTIVE.
 
-Construction A+B are integrated; Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review integrated as `3824357c4f0c50e35e7fdd9902ef87639c196958` after CI #846 / Heavy #280 PASS. Documentation & Closure head `27fcddbb8364e921c7a9a934eeb3d77f3032e7d6` passed CI #847 / Heavy #281 and integrated via PR #373 as `1fd84fc3ad912fd84218d0be152010b793910b9e`, with exact tree equivalence `14078ff718984ea5ce299263d40ef71d7a926aab`.
+Construction A `PRE-M16-CONTRACT-CONFORMANCE-HARDENING-01` is integrated at `12af9d4226d7cd0510a682c9eccc4335f77ab55e` after exact-head CI #860 / Heavy #294 PASS, with reviewed/merge tree equivalence `9b51361f597a278495cced60a2646bbf99e4b6e1`.
 
 ## Required next action
-No successor Work Package is authorized by this closure alone. Reconstruct fresh `main` and determine the next eligible milestone/package only from current authoritative planning documents and separate user/repository authority before Planning & Materialization.
+Execute materialized Construction B `PRE-M16-CONFORMANCE-INTEGRATION-01` from the fresh-main base. Run TASK-321, TASK-322 and TASK-323 in dependency order, producing exactly one authoritative commit per TASK. This Sprint is proof-only: exercise representative real Compiler projection and decision-audit consumers of the hardened contracts; do not add product behavior unless a bounded defect inside the active Package Goal is objectively proven and separately change-controlled.
+
+After Construction B is integrated, reconstruct fresh `main` and decide Construction C evidence-first. Construction C remains OPTIONAL / NOT MATERIALIZED. If no bounded residual Package Goal gap remains, proceed to Package Integration & Review and then Documentation & Closure.
 
 ## Boundaries
-Decision verification/audit/availability/fallback evidence is not approval or execution authority. Preserve ADR-0010 and existing authorization semantics. Do not add provider infrastructure, secrets, storage topology, Runtime Audit Trail replacement, policy-engine replacement, scope beyond WBS 15.3, or absorb/re-rank TD-P13-01..04.
+No M16/M17 implementation, provider registry, remote invocation, secrets, storage topology, Runtime Audit Trail replacement, policy-engine replacement, undeclared L4 change or absorption/re-ranking of TD-P13-01..04.
