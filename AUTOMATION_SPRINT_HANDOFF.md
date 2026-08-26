@@ -1,30 +1,24 @@
 # Automation Sprint Handoff
 
-status: BLOCKED
+status: RUNNING
 worker_slot: :30
-started_at: 2026-08-25T22:32:39-03:00
-updated_at: 2026-08-25T22:36:30-03:00
-lease_until: 2026-08-25T22:36:30-03:00
+started_at: 2026-08-25T23:33:05-03:00
+updated_at: 2026-08-25T23:34:30-03:00
+lease_until: 2026-08-25T23:59:30-03:00
 observed_main_sha: 21c20f8cde5b63c296e96819ec246b4ba4e66607
-active_branch: none
-active_pr: none
-active_head_sha: none
-current_step: P15-PACKAGE-01 canonical closure is complete; no successor work is authorized by this Package.
+active_branch: planning/P15-PACKAGE-02
+active_pr: 366
+active_head_sha: bab1f5d1b29836455d59ff12a62de7803194b8d6
+current_step: Revalidate Planning & Materialization PR #366 exact-head gates/review and integrate if all package planning gates are satisfied.
 
 ## Package execution authorization — user record
-The user explicitly granted all human approvals and authorizations necessary to execute and close `P15-PACKAGE-01 — Decision Classification & Authority Guardrails`, subject to repository gates and scope. That authorization has been fully consumed by successful Package closure. It does not authorize P15-PACKAGE-02/WBS 15.3, TD-P13-01..04 absorption or undeclared L4 architecture.
+The user explicitly authorized `P15-PACKAGE-02 / WBS 15.3.1-15.3.3` from fresh-main Planning & Materialization through Package closure, including all process approvals, L1-L3 execution of materialized TASKs, evidence-gated successor Constructions, Sprint Reviews, Package Integration & Technical Debt Review, Documentation & Closure, bounded corrections, merges and repository-memory reconciliation. This authority does not skip materialization/gates, broaden beyond WBS 15.3, absorb/re-rank TD-P13-01..04, or bypass ADR/change-control for L4.
 
-last_completed_step: PR #364 exact head `a2b5c45c19eb9667523bebc2c2441f7aef2bf78c` passed Deterministic CI #817 and Heavy Product Tests #248, with no reviews/threads and no head drift. It merged protected as `21c20f8cde5b63c296e96819ec246b4ba4e66607`. Reconciliation-head -> merge-main compare returned zero changed files. Fresh `main` tree is `becb1ef6fab4439b0780b84085b3e11c77ee2376`. Canonical repository memory now records P15-PACKAGE-01 and WBS 15.1.1-15.2.3 CLOSED.
-next_authorized_step: None inside P15-PACKAGE-01. `P15-PACKAGE-02` / WBS 15.3.1-15.3.3 remains forecast-only and requires a separate fresh-main Planning & Materialization authorization. Do not infer successor authority from this closure.
-
-## Block cause and smallest external decision
-Cause: the active Package is fully CLOSED and authoritative NEXT_WORK explicitly forbids starting successor product work from this closure. No TASK, Sprint, PR, or Work Package remains execution-authorized inside P15-PACKAGE-01.
-Smallest external decision required: explicit authorization to start the separate fresh-main Planning & Materialization cycle for the next eligible Package (`P15-PACKAGE-02` / WBS 15.3 if still confirmed by fresh authority reconstruction).
-
-resume_prompt: Retome `delmacy/system-builder` de fresh `main` `21c20f8cde5b63c296e96819ec246b4ba4e66607`, tree `becb1ef6fab4439b0780b84085b3e11c77ee2376`. P15-PACKAGE-01 / WBS 15.1.1-15.2.3 está canonically CLOSED. PR #364 head `a2b5c45c19eb9667523bebc2c2441f7aef2bf78c` passou CI #817 + Heavy #248 e integrou sem file drift. NEXT_WORK proíbe iniciar successor por inferência. Somente se houver autorização separada, reconstrua autoridade em fresh main e faça Planning & Materialization do próximo Package elegível; P15-PACKAGE-02/WBS 15.3 continua forecast até então. TD-P13-01..04 permanecem carried/unabsorbed.
+last_completed_step: P15-PACKAGE-01 canonical closure is complete on main 21c20f8cde5b63c296e96819ec246b4ba4e66607. Planning PR #366 exists from that exact base at head bab1f5d1b29836455d59ff12a62de7803194b8d6 and materializes only Construction A P15-DECISION-BOUNDARY-VERIFICATION-01 / TASK-309..312; exact-head Deterministic CI #823 and Heavy Product Tests #254 are PASS.
+next_authorized_step: Check PR #366 reviews/threads/head drift and authoritative planning documents. If no blockers and scope remains bounded to WBS 15.3, merge #366 with expected head, rebuild fresh main, verify tree equivalence, then create/continue only the materialized Construction A Sprint and execute TASK-309 first.
 
 ## Boundaries
-Do not invent successor scope. Do not absorb/re-rank TD-P13-01..04. ADR-0010 and existing authorization semantics remain authoritative; decision classification/evidence is not authority. No mandatory AI/provider invocation, provider registry, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement, ADR-0009 reinterpretation or undeclared L4 topology.
+Do not broaden beyond P15-PACKAGE-02/WBS 15.3. Do not absorb/re-rank TD-P13-01..04. Decision verification/audit evidence is not execution authority. Preserve ADR-0010 and existing authorization semantics. No provider registry, secret material, mandatory remote inference, storage topology, Runtime Audit Trail replacement, policy-engine replacement, ADR-0009 reinterpretation or undeclared L4 topology.
 
 ## Operational model-selection instruction
-All TASKs are executed with strong models. `model_tier` is retained only for task-schema compatibility and is not execution routing.
+All TASKs execute with strong models; model_tier is retained only for schema compatibility and is not execution routing.
