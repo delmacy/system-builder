@@ -1,34 +1,31 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: :10
-started_at: 2026-08-26T17:07:06-03:00
-heartbeat_at: 2026-08-26T17:11:00-03:00
-updated_at: 2026-08-26T17:11:00-03:00
-lease_until: released
-main_sha: 669f8c251dbee81a6bd0f6472a9798fd55c088e3
-main_tree: 6d2b19b8514949dd963bce0854f01731cba7e46d
-branch: planning/P16-POST-CONSTRUCTION-B-REVALIDATION
-pr: 389 OPEN / NOT DRAFT
-head_sha: 9a323dd662b629a670ce12a92195cd4a05ee4557
-step: Await exact-head gates on post-Construction-B revalidation before merge and Package Integration & Review.
+status: RUNNING
+worker_slot: :30
+started_at: 2026-08-26T17:27:22-03:00
+heartbeat_at: 2026-08-26T17:28:00-03:00
+updated_at: 2026-08-26T17:28:00-03:00
+lease_until: 2026-08-26T17:53:00-03:00
+main_sha: 1e9a3e015275968990efeae5c14247abd3b5d6e5
+branch: planning/P16-PACKAGE-INTEGRATION-REVIEW-01
+pr: none yet
+head_sha: 1e9a3e015275968990efeae5c14247abd3b5d6e5
+step: Fresh-main authority reconstruction and P16-PACKAGE-01 Package Integration & Review after PR #389 merge.
 
 ## Authorization
-Continue P16-PACKAGE-01 under the user's triple authorization, then fresh-main derive and execute the second eligible successor Work Package only after P16-PACKAGE-01 closes. Do not execute forecast without materialization. L4 requires materialized scope + ADR/change control.
+Continue P16-PACKAGE-01 under the user's triple authorization, then fresh-main derive/materialize/execute/close the second eligible successor Work Package only after P16-PACKAGE-01 closes. Do not execute forecast without materialization. L4 requires materialized scope + ADR/change control.
 
 ## Current evidence
-- PR #388 exact head `ba82eaa2aad6811086dc966e85d3a38edee78cad` passed Deterministic CI #897 and Heavy Product Tests #334.
-- PR #388 merged with expected-head protection as `669f8c251dbee81a6bd0f6472a9798fd55c088e3`.
-- Reviewed head and merge-main share tree `6d2b19b8514949dd963bce0854f01731cba7e46d`.
-- Fresh-main integrated evidence confirms no residual bounded WBS 16.1 Package Goal gap. Construction C is NOT REQUIRED / NOT MATERIALIZED.
-- Repository-memory revalidation is isolated in PR #389, head `9a323dd662b629a670ce12a92195cd4a05ee4557`, one commit / five files.
-- PR #389 exact-head workflows: Deterministic CI #898 IN_PROGRESS; Heavy Product Tests #336 IN_PROGRESS at handoff.
+- Construction B PR #388 integrated previously after exact-head gates.
+- Post-Construction-B revalidation PR #389 exact head `9a323dd662b629a670ce12a92195cd4a05ee4557` passed Deterministic CI #898 and Heavy Product Tests #336 with no review/thread blockers.
+- PR #389 merged with expected-head protection; current main is `1e9a3e015275968990efeae5c14247abd3b5d6e5`.
+- Fresh-main revalidation must now confirm authoritative Package Integration & Review scope before any mutation.
 
-last_completed_step: Integrated Construction B PR #388 after exact-head gates, proved reviewed-head/merge-main tree equivalence, performed fresh-main post-B revalidation, disposed Construction C as NOT REQUIRED / NOT MATERIALIZED, and opened PR #389 to record that state and advance the package gate.
-next_authorized_step: Revalidate CI #898 and Heavy #336 on exact head `9a323dd662b629a670ce12a92195cd4a05ee4557`. If both PASS and no blockers/head drift, merge PR #389 with expected-head protection, rebuild fresh main and prove tree equivalence. Then execute P16-PACKAGE-01 Package Integration & Review from fresh main; if GO and its exact-head gates pass, integrate and proceed to Documentation & Closure. Only after P16-PACKAGE-01 closes derive the second authorized successor Work Package from fresh-main authority.
+last_completed_step: Protected-merged PR #389 after exact-head gates.
+next_authorized_step: Reconstruct fresh-main authority; confirm Construction C remains NOT REQUIRED / NOT MATERIALIZED; execute bounded P16-PACKAGE-01 Package Integration & Review only within WBS 16.1 and repository-memory/package-review scope. Do not touch WBS 16.2/16.3 until P16-PACKAGE-01 closes and successor authority is derived.
 
 ## Boundaries
 No WBS 16.2/16.3 under P16-PACKAGE-01. No provider registry/routing/budget/fallback/secrets/mandatory network topology, no undeclared L4, no conformance/productization finding absorption, no TD-P13-01..04 absorption.
 
 ## resume_prompt
-Resume delmacy/system-builder at PR #389, branch `planning/P16-POST-CONSTRUCTION-B-REVALIDATION`, exact head `9a323dd662b629a670ce12a92195cd4a05ee4557`, base/main `669f8c251dbee81a6bd0f6472a9798fd55c088e3`, tree `6d2b19b8514949dd963bce0854f01731cba7e46d`. Construction B PR #388 is merged after CI #897 / Heavy #334 PASS and exact tree equivalence. Fresh-main evidence confirms Construction C NOT REQUIRED / NOT MATERIALIZED. PR #389 records this repository-memory decision; CI #898 and Heavy #336 were IN_PROGRESS at handoff. If both PASS, protected-merge #389, verify fresh-main/tree equivalence, then execute Package Integration & Review. Do not execute WBS 16.2/16.3 or absorb unrelated findings/TD.
+Resume delmacy/system-builder from fresh main `1e9a3e015275968990efeae5c14247abd3b5d6e5` after protected merge of PR #389, whose exact head `9a323dd662b629a670ce12a92195cd4a05ee4557` passed CI #898 / Heavy #336. Reconstruct authority, execute P16-PACKAGE-01 Package Integration & Review within WBS 16.1 only, then exact-head gates/merge/fresh-main, Documentation & Closure, canonical closure. Only after P16-PACKAGE-01 closes derive the second authorized successor Package from fresh-main authority.
