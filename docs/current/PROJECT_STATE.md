@@ -7,17 +7,14 @@ Date: 2026-08-26
 ## M15 Deterministic / Human / Probabilistic Boundary
 `P15-PACKAGE-01 — Decision Classification & Authority Guardrails` / WBS 15.1.1-15.2.3 is CLOSED on canonical main.
 
-`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` covers WBS 15.3.1-15.3.3 and is ACTIVE. Construction A `P15-DECISION-BOUNDARY-VERIFICATION-01` is COMPLETE / SPRINT REVIEW PASS / INTEGRATED as `67241892a545f4a7cdbf607aa4538bc7515228cf`. Post-Construction-A fresh-main revalidation integrated as `403c7e201a5a4fdf72807538697a4c3dbe63892a` and justified Construction B.
+`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` covers WBS 15.3.1-15.3.3. Construction A and Construction B are COMPLETE / SPRINT REVIEW PASS / INTEGRATED. Post-Construction-B fresh-main evidence classifies WBS 15.3.1-15.3.3 SATISFIED / INTEGRATED and Construction C NOT REQUIRED / NOT MATERIALIZED.
 
-Construction B `P15-DECISION-BOUNDARY-RESILIENCE-AUDIT-01` is COMPLETE / SPRINT REVIEW PASS / INTEGRATED via PR #370 as `2a59a4c7e5983010910b4dc6713d01ee0c6bbf0b`. Its final authoritative TASK-316 head `6b79b5f6babe22d8b16414deb0a9195cd6ef1b0f` passed Deterministic CI #844 and Heavy Product Tests #277; reviewed and merge-main trees are identical (`1192cba02316fb6ecd3c94f17bd7166611b72b4d`).
+Package Integration & Review passed on reviewed head `f1df8143d7c622aa0e1d4d662aaef8b5a46504c9` with Deterministic CI #846 PASS and Heavy Product Tests #280 PASS, no blocking reviews/threads, and integrated as `3824357c4f0c50e35e7fdd9902ef87639c196958`. Reviewed and merge-main trees are identical (`dd85d4d854524d83386c5afcb7a4387328d885ff`).
 
-Fresh-main post-Construction-B revalidation finds WBS 15.3.1-15.3.3 satisfied by the integrated Construction A+B proof. No bounded residual Package Goal capability remains for optional Construction C, so Construction C is NOT REQUIRED / NOT MATERIALIZED. The next eligible stage is Package Integration & Review.
+Documentation & Closure is the only active stage. It is repository-memory reconciliation only and introduces no product behavior. `P15-PACKAGE-02` becomes canonically CLOSED only after the closure candidate passes exact-head Deterministic CI + Heavy Product Tests, merges without blocker/head drift, and fresh-main tree equivalence is proven.
 
 ## Security and architecture boundary
-Decision verification/audit/availability/fallback evidence is not approval or execution authority. ADR-0010 and existing authorization semantics remain authoritative. No mandatory remote AI/provider/model execution, provider registry, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement or undeclared L4 architecture change is authorized. Provider unavailability/fallback work remains provider-neutral and fail closed rather than fabricating deterministic/human authority.
+Decision verification/audit/availability/fallback evidence is not approval or execution authority. ADR-0010 and existing authorization semantics remain authoritative. No mandatory remote AI/provider/model execution, provider registry, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement or undeclared L4 architecture change is authorized.
 
 ## Carried debt
 TD-P13-01..04 remain carried and are not absorbed or re-ranked by P15-PACKAGE-02.
-
-## Current gate
-Validate and integrate the post-Construction-B fresh-main revalidation. If exact-head Deterministic CI + Heavy Product Tests pass with no blocker/head drift, reconstruct fresh `main` and promote/materialize only `P15-PACKAGE-02-INTEGRATION-REVIEW-01`. Construction C must not be revived without new contradictory evidence.
