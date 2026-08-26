@@ -48,8 +48,12 @@ Governed invocation result exposes normalized execution metadata only according 
 # Required change
 Compose the existing metadata envelope into the governed result. When metadata is not permitted, no model/version/cost/provenance payload may be returned or fabricated. Do not inspect adapter/provider internals to synthesize metadata.
 
+A bounded conformance correction discovered after the initial TASK-342 commit requires metadata permission evidence to be canonically linked to the governance policy actually evaluated by the invocation path. The envelope therefore carries `permissionPolicyId`, and governed invocation/composition must fail closed when it does not match the evaluated governance `policyId`. A caller-supplied boolean alone is not sufficient evidence of permission.
+
 # Acceptance criteria
 - permitted metadata is normalized and propagated deterministically;
+- metadata permission carries an explicit non-empty `permissionPolicyId`;
+- `permissionPolicyId` must match the policy used by governance evaluation/composition or fail closed before provider invocation;
 - forbidden metadata remains absent/null according to the existing contract;
 - no provider ID, credential, endpoint or hidden cost lookup is introduced;
 - metadata does not imply approval or authority;
@@ -60,7 +64,7 @@ Compose the existing metadata envelope into the governed result. When metadata i
 No telemetry backend, persistence, quality observation, provider pricing lookup, secret lifecycle, WBS 16.3 or Runtime Audit Trail replacement.
 
 # Evidence expected
-Product tests proving permitted propagation, forbidden metadata behavior, malformed metadata failure and absence of synthesized provider data.
+Product tests proving permitted propagation, policy-reference mismatch failure before adapter invocation, forbidden metadata behavior, malformed metadata failure and absence of synthesized provider data.
 
 # Escalation
 Stop if propagation requires provider-specific introspection or storage/topology changes.
