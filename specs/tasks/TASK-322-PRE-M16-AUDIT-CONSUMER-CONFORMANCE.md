@@ -34,6 +34,23 @@ validation:
 # Objective
 Prove the TASK-319 trust hardening through representative existing audit consumers without changing decision or human-authority semantics.
 
+# Context
+Construction A hardened canonical decision-boundary verification trust before M16. Construction B must prove that representative audit consumers accept only results established by the official verification boundary while preserving the existing deterministic, human-reserved and probabilistic categories.
+
+# Current behavior
+`verifyDecisionBoundary` establishes canonical verification results, and `projectCriticalDecisionAuditEvidence` consumes those results for audit projection. Existing semantics keep human evidence non-authoritative and permit rejected canonical results to remain auditable; reconstructed or synthetic matching results must not acquire canonical trust.
+
+# Inputs / contracts
+- canonical decision-boundary exports from `packages/contracts/decision-boundary/**`;
+- ADR-0010 durable human approval constraints;
+- existing critical-decision audit projection and growing-proof product tests;
+- the official `verifyDecisionBoundary` result as the only trusted verification source for this proof.
+
+# Outputs / contracts
+- product regression evidence proving canonical verification trust survives through real audit projection consumers;
+- explicit fail-closed evidence for reconstructed or synthetic matching verification results;
+- no new verification API, persistence mechanism, approval authority, authorization semantic or provider behavior.
+
 # Required change
 Add focused product-level consumer regression that obtains legitimate results from `verifyDecisionBoundary`, projects them through `projectCriticalDecisionAuditEvidence`, proves canonical rejected results remain auditable, and proves reconstructed/forged matching results fail closed.
 
