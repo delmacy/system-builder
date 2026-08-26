@@ -9,9 +9,10 @@ import {
 import { AI_GATEWAY_EXECUTION_METADATA_VERSION } from "../../packages/contracts/ai-gateway/execution-metadata.js";
 import { invokeGovernedModelProvider } from "../../packages/contracts/ai-gateway/governed-invocation.js";
 
+const policyId = "policy:metadata-propagation";
 const rules = {
   contractVersion: AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION,
-  policyId: "policy:metadata-propagation",
+  policyId,
   routingEligibility: [{ ruleId: "route:json", requiredCapabilities: ["json"] }],
   budgetQuotas: [{ ruleId: "budget:tokens", metric: "tokens", limit: 1024, window: "request" }],
   fallbacks: [],
@@ -35,8 +36,10 @@ const request = {
   input: { prompt: "hello" },
 } as const;
 
+let invocationCount = 0;
 const adapter: ModelProviderAdapter = {
   async invoke(value) {
+    invocationCount += 1;
     return {
       contractVersion: AI_GATEWAY_MODEL_IO_VERSION,
       requestId: value.requestId,
@@ -57,9 +60,11 @@ function baseInput(executionMetadata?: unknown) {
   };
 }
 
-test("governed invocation propagates explicitly permitted normalized execution metadata", async () => {
+test("governed invocation propagates metadata only when permission evidence matches evaluated policy", async () => {
+  invocationCount = 0;
   const result = await invokeGovernedModelProvider(adapter, baseInput({
     metadataPermitted: true,
+    permissionPolicyId: policyId,
     metadata: {
       contractVersion: AI_GATEWAY_EXECUTION_METADATA_VERSION,
       modelRef: "model:logical-primary",
@@ -71,6 +76,7 @@ test("governed invocation propagates explicitly permitted normalized execution m
 
   assert.deepEqual(result.executionMetadata, {
     metadataPermitted: true,
+    permissionPolicyId: policyId,
     metadata: {
       contractVersion: AI_GATEWAY_EXECUTION_METADATA_VERSION,
       modelRef: "model:logical-primary",
@@ -79,16 +85,23 @@ test("governed invocation propagates explicitly permitted normalized execution m
       provenanceRefs: ["evidence:a", "evidence:z"],
     },
   });
-  assert.deepEqual(result.structuredOutput, { status: "valid", schemaRef: "schema:metadata-answer" });
-  assert.equal(result.governance.status, "eligible");
-  assert.equal("providerId" in result.executionMetadata!.metadata!, false);
-  assert.equal("credential" in result.executionMetadata!.metadata!, false);
-  assert.equal("authorized" in result, false);
+  assert.equal(result.governance.policyId, policyId);
+  assert.equal(invocationCount, 1);
 });
 
-test("governed invocation preserves explicit metadata denial without synthesizing payload", async () => {
-  const result = await invokeGovernedModelProvider(adapter, baseInput({ metadataPermitted: false, metadata: null }));
-  assert.deepEqual(result.executionMetadata, { metadataPermitted: false, metadata: null });
+test("mismatched metadata permission policy fails closed before adapter invocation", async () => {
+  invocationCount = 0;
+  await assert.rejects(invokeGovernedModelProvider(adapter, baseInput({
+    metadataPermitted: true,
+    permissionPolicyId: "policy:caller-supplied-mismatch",
+    metadata: null,
+  })), /permissionPolicyId must match evaluated governance policyId/);
+  assert.equal(invocationCount, 0);
+});
+
+test("governed invocation preserves explicit metadata denial with policy evidence", async () => {
+  const result = await invokeGovernedModelProvider(adapter, baseInput({ metadataPermitted: false, permissionPolicyId: policyId, metadata: null }));
+  assert.deepEqual(result.executionMetadata, { metadataPermitted: false, permissionPolicyId: policyId, metadata: null });
 });
 
 test("governed invocation does not fabricate metadata when no permission envelope is supplied", async () => {
@@ -96,10 +109,11 @@ test("governed invocation does not fabricate metadata when no permission envelop
   assert.equal(result.executionMetadata, null);
 });
 
-test("malformed or forbidden execution metadata fails closed before adapter introspection can matter", async () => {
+test("malformed or forbidden execution metadata fails closed", async () => {
   await assert.rejects(
     invokeGovernedModelProvider(adapter, baseInput({
       metadataPermitted: false,
+      permissionPolicyId: policyId,
       metadata: {
         contractVersion: AI_GATEWAY_EXECUTION_METADATA_VERSION,
         modelRef: "model:forbidden",
@@ -114,6 +128,7 @@ test("malformed or forbidden execution metadata fails closed before adapter intr
   await assert.rejects(
     invokeGovernedModelProvider(adapter, baseInput({
       metadataPermitted: true,
+      permissionPolicyId: policyId,
       metadata: {
         contractVersion: AI_GATEWAY_EXECUTION_METADATA_VERSION,
         modelRef: "model:logical-primary",
