@@ -13,9 +13,9 @@
 
 `P15-PACKAGE-01` is canonically CLOSED on main.
 
-### 15.3 Verificação — SATISFIED / INTEGRATED / CLOSURE GATE
-- **15.3.1** Criar architecture/contract checks aplicáveis — SATISFIED / INTEGRATED via Construction A `P15-DECISION-BOUNDARY-VERIFICATION-01` / TASK-309..312.
-- **15.3.2** Testar fallback e indisponibilidade do provider — SATISFIED / INTEGRATED via Construction B `P15-DECISION-BOUNDARY-RESILIENCE-AUDIT-01` / TASK-313..316.
-- **15.3.3** Auditar decisões críticas por categoria — SATISFIED / INTEGRATED across Construction A+B, including representative real-path resilience/audit proof in TASK-315..316.
+### 15.3 Verificação — SATISFIED / CLOSED in P15-PACKAGE-02
+- **15.3.1** Criar architecture/contract checks aplicáveis — SATISFIED / CLOSED via Construction A `P15-DECISION-BOUNDARY-VERIFICATION-01` / TASK-309..312.
+- **15.3.2** Testar fallback e indisponibilidade do provider — SATISFIED / CLOSED via Construction B `P15-DECISION-BOUNDARY-RESILIENCE-AUDIT-01` / TASK-313..316.
+- **15.3.3** Auditar decisões críticas por categoria — SATISFIED / CLOSED across Construction A+B, including representative real-path resilience/audit proof in TASK-315..316.
 
-`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` has passed Package Integration & Review. Documentation & Closure is the final gate before canonical CLOSED status. Construction C is NOT REQUIRED / NOT MATERIALIZED. TD-P13-01..04 remain carried and unabsorbed.
+`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` is canonically CLOSED after Package Integration & Review and Documentation & Closure. Closure head `27fcddbb8364e921c7a9a934eeb3d77f3032e7d6` passed CI #847 / Heavy #281 and integrated as `1fd84fc3ad912fd84218d0be152010b793910b9e` with exact tree equivalence `14078ff718984ea5ce299263d40ef71d7a926aab`. Construction C is NOT REQUIRED / NOT MATERIALIZED. TD-P13-01..04 remain carried and unabsorbed.

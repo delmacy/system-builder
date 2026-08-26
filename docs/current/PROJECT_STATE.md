@@ -7,11 +7,11 @@ Date: 2026-08-26
 ## M15 Deterministic / Human / Probabilistic Boundary
 `P15-PACKAGE-01 — Decision Classification & Authority Guardrails` / WBS 15.1.1-15.2.3 is CLOSED on canonical main.
 
-`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` covers WBS 15.3.1-15.3.3. Construction A and Construction B are COMPLETE / SPRINT REVIEW PASS / INTEGRATED. Post-Construction-B fresh-main evidence classifies WBS 15.3.1-15.3.3 SATISFIED / INTEGRATED and Construction C NOT REQUIRED / NOT MATERIALIZED.
+`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` / WBS 15.3.1-15.3.3 is CLOSED on canonical main. Construction A and B are COMPLETE / SPRINT REVIEW PASS / INTEGRATED; Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
-Package Integration & Review passed on reviewed head `f1df8143d7c622aa0e1d4d662aaef8b5a46504c9` with Deterministic CI #846 PASS and Heavy Product Tests #280 PASS, no blocking reviews/threads, and integrated as `3824357c4f0c50e35e7fdd9902ef87639c196958`. Reviewed and merge-main trees are identical (`dd85d4d854524d83386c5afcb7a4387328d885ff`).
+Package Integration & Review head `f1df8143d7c622aa0e1d4d662aaef8b5a46504c9` passed Deterministic CI #846 and Heavy Product Tests #280 and integrated as `3824357c4f0c50e35e7fdd9902ef87639c196958`.
 
-Documentation & Closure is the only active stage. It is repository-memory reconciliation only and introduces no product behavior. `P15-PACKAGE-02` becomes canonically CLOSED only after the closure candidate passes exact-head Deterministic CI + Heavy Product Tests, merges without blocker/head drift, and fresh-main tree equivalence is proven.
+Documentation & Closure head `27fcddbb8364e921c7a9a934eeb3d77f3032e7d6` passed Deterministic CI #847 and Heavy Product Tests #281 and integrated via PR #373 as `1fd84fc3ad912fd84218d0be152010b793910b9e`. Closure head and merge-main share exact tree `14078ff718984ea5ce299263d40ef71d7a926aab`.
 
 ## Security and architecture boundary
 Decision verification/audit/availability/fallback evidence is not approval or execution authority. ADR-0010 and existing authorization semantics remain authoritative. No mandatory remote AI/provider/model execution, provider registry, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement or undeclared L4 architecture change is authorized.
