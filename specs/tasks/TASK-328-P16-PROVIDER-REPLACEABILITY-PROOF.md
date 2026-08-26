@@ -1,7 +1,7 @@
 ---
 id: TASK-328
 title: Prove provider-neutral replaceability at the adapter boundary
-status: committed
+status: ready
 priority: 328
 milestone: M16
 model_tier: architecture
@@ -54,9 +54,9 @@ Add focused product-level evidence exercising real AI Gateway contract APIs and 
 # Acceptance criteria
 - the same canonical request is accepted through two adapter implementations;
 - adapter-specific metadata/config does not change central request semantics;
-- capability mismatch/invalid contract cases fail explicitly;
-- no `authorized`/`approved` meaning is fabricated;
-- no provider SDK/network/secret is required;
+- capability mismatch or invalid contract cases fail explicitly;
+- no authority meaning is fabricated;
+- no provider SDK, network call or secret is required;
 - declared validations pass.
 
 # Non-goals
