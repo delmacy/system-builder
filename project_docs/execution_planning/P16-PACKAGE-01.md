@@ -1,6 +1,6 @@
 # P16-PACKAGE-01 — Provider Abstraction Foundation
 
-Status: ACTIVE / PACKAGE INTEGRATION REVIEW GO / DOCUMENTATION & CLOSURE NEXT
+Status: ACTIVE / DOCUMENTATION & CLOSURE CANDIDATE
 Date: 2026-08-26
 Milestone: M16 AI Gateway
 WBS coverage: 16.1.1–16.1.3
@@ -17,11 +17,11 @@ PR #384 integrated the provider-neutral request/response representation, explici
 
 ### Construction B — `P16-PROVIDER-ABSTRACTION-INTEGRATION-01`
 Status: INTEGRATED
-TASK-330..333 exercised the abstraction through the canonical invocation seam, enforced fail-closed response/correlation validation and explicit adapter failure propagation, proved interchangeable adapters preserve canonical semantics, and closed the WBS 16.1 growing proof. Final exact-head Deterministic CI #897 / Heavy Product Tests #334 passed on `ba82eaa2aad6811086dc966e85d3a38edee78cad`; PR #388 integrated as `669f8c251dbee81a6bd0f6472a9798fd55c088e3`. Reviewed head and merge-main share tree `6d2b19b8514949dd963bce0854f01731cba7e46d`.
+TASK-330..333 exercised the abstraction through the canonical invocation seam, enforced fail-closed response/correlation validation and explicit adapter failure propagation, proved interchangeable adapters preserve canonical semantics, and closed the WBS 16.1 growing proof. Final exact-head Deterministic CI #897 / Heavy Product Tests #334 passed on `ba82eaa2aad6811086dc966e85d3a38edee78cad`; PR #388 integrated as `669f8c251dbee81a6bd0f6472a9798fd55c088e3`.
 
 ### Construction C — optional
 Status: NOT REQUIRED / NOT MATERIALIZED
-Fresh-main post-B evidence confirms no residual bounded capability necessary to WBS 16.1.1–16.1.3. The Package Goal is covered by Constructions A+B; no additional Construction is justified.
+Fresh-main post-B evidence integrated by PR #389 confirms no residual bounded capability necessary to WBS 16.1.1–16.1.3.
 
 ## Growing package proof
 Integrated evidence establishes:
@@ -34,10 +34,12 @@ Integrated evidence establishes:
 7. deterministic paths and authority semantics remain unaffected by provider unavailability.
 
 ## Package Integration & Review gate
-Executed by `P16-PACKAGE-01-INTEGRATION-REVIEW-01` from fresh main `1e9a3e015275968990efeae5c14247abd3b5d6e5`. Decision: GO FOR DOCUMENTATION & CLOSURE, contingent on exact-head Deterministic CI + Heavy Product Tests PASS and no blocking review finding. Review found WBS 16.1.1–16.1.3 satisfied/integrated, no provider-neutrality, architecture, security or compatibility blocker, and no residual need for Construction C.
+Executed from fresh main `1e9a3e015275968990efeae5c14247abd3b5d6e5`. PR #390 passed exact-head Deterministic CI #899 and Heavy Product Tests #337, had zero blocking review threads, and integrated as `3714e2e0b6669814c1a4a5e61f384dffa267cdf7`. Reviewed head and merge-main share tree `2fb26d8a650f90492e1154175dc7cfc55d016da2`. Decision: GO FOR DOCUMENTATION & CLOSURE.
 
 ## Documentation & Closure gate
-Next gate after exact-head review validation and integration. Reconcile PROJECT_STATE, CURRENT_MILESTONE, NEXT_WORK, Package/Sprint reports, WBS traceability and public/module docs. No new product behavior in closure.
+`P16-PACKAGE-01-DOCUMENTATION-CLOSURE-01` records the closure candidate. No product behavior is introduced. Canonical CLOSED status requires exact-head Deterministic CI + Heavy Product Tests PASS, no blocker/head drift, expected-head protected merge and fresh-main tree equivalence.
+
+After canonical closure, the second separately authorized successor Work Package must be derived from then-current fresh-main authority; it is not pre-invented here.
 
 ## Boundaries / non-goals
 - No WBS 16.2 routing, budget/quota, fallback policy or execution provenance governance.
