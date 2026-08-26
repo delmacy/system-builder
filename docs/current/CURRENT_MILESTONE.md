@@ -1,20 +1,17 @@
 # Current Execution Milestone — M15 Deterministic / Human / Probabilistic Boundary
 
-M13 Autonomous Runtime and M14 Evidence & Provenance remain CLOSED. WBS 14.1.1-14.3.3 remains SATISFIED / CLOSED.
+M13 Autonomous Runtime and M14 Evidence & Provenance remain CLOSED. WBS 14.1.1-14.3.3 remains SATISFIED / CLOSED. P15-PACKAGE-01 / WBS 15.1.1-15.2.3 is CLOSED.
 
-## Closed Work Package
-`P15-PACKAGE-01 — Decision Classification & Authority Guardrails`
-Primary WBS: 15.1.1-15.2.3.
-Status: CLOSED.
+## Active Work Package
+`P15-PACKAGE-02 — Decision Boundary Verification & Auditability`
+Primary WBS: 15.3.1-15.3.3.
+Status: PLANNING / MATERIALIZATION.
+Planning base: `21c20f8cde5b63c296e96819ec246b4ba4e66607`.
 
-Construction A integrated as `8d0ea6035ef9470b640c096d06d9409a6c7fc137`. Construction B integrated as `09eea027142d071349dce5523905768fbebce548`. Post-Construction-B fresh-main revalidation integrated as `bdfc55135505aa4746513643e459652f4e0b3f31` and confirmed Construction C NOT REQUIRED / NOT MATERIALIZED.
+Construction A `P15-DECISION-BOUNDARY-VERIFICATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-309..312. Construction B `P15-DECISION-BOUNDARY-RESILIENCE-AUDIT-01` remains FORECAST pending fresh-main revalidation after Construction A. Construction C is optional/evidence-gated only.
 
-Package Integration & Review integrated as `3f899ef5120bc1ee39b1793becec32aaa53ba0bd`. Documentation & Closure head `831da3cb2b77bc5677bf20ca58d0b13336daaa0a` passed Deterministic CI #816 and Heavy Product Tests #247 with no blocking reviews/threads and integrated as `77bff057465bb537dda296ed80c084ee88007c9f`. Closure-head and merge-main share tree `60582621de752ba9a4fd15d90e966acf6c0696b2`.
-
-WBS 15.1.1-15.2.3 is SATISFIED / CLOSED.
-
-## Next gate
-No successor is committed. WBS 15.3.1-15.3.3 / `P15-PACKAGE-02` remains forecast-only and requires a separate fresh-main Planning & Materialization cycle before execution.
+## Current gate
+Integrate the Planning & Materialization head only after exact-head Deterministic CI + Heavy Product Tests, no blocker/head drift, then reconstruct fresh main before creating `sprint/P15-DECISION-BOUNDARY-VERIFICATION-01` and executing TASK-309 first.
 
 ## Boundaries
-ADR-0010 and existing authorization semantics remain authoritative; decision classification/provenance is not authorization. No mandatory AI/provider/model invocation, provider registry, secrets, storage topology, Runtime Audit Trail replacement, policy-engine replacement, WBS 15.3 or undeclared L4 change. TD-P13-01..04 remain carried and unabsorbed.
+ADR-0010 and existing authorization semantics remain authoritative. Verification/audit evidence is not authority. No mandatory remote AI/provider invocation, provider registry, secrets, storage topology, Runtime Audit Trail replacement, policy-engine replacement, undeclared L4 change or scope outside WBS 15.3. TD-P13-01..04 remain carried and unabsorbed.
