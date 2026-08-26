@@ -33,8 +33,20 @@ validation:
 # Objective
 Prevent canonical critical-decision audit evidence from reporting a trusted `valid` verification solely because a caller supplied a structurally coherent synthetic verification verdict.
 
+# Context
+The pre-M16 conformance review found that critical audit evidence can preserve a caller-supplied verification result without proving that result came from the canonical verification boundary.
+
+# Current behavior
+A structurally coherent synthetic `valid` verdict can be presented to the audit projection and can appear canonical even when the repository did not establish that verdict through its official verification path.
+
 # Required change
 Use the minimum provider-neutral, backward-compatible hardening that makes canonical verification provenance/trust explicit or recomputes/derives the canonical verification result at the official audit projection boundary.
+
+# Inputs / contracts
+Existing decision-boundary verification result contracts, critical-decision audit projection, canonical classification metadata and ADR-0010 human-reserved authority semantics.
+
+# Outputs / contracts
+Critical audit evidence whose canonical verification status is bound to canonical verification provenance or canonical recomputation, without creating approval or execution authority.
 
 # Acceptance criteria
 - legitimate canonical verification remains auditable;
@@ -47,6 +59,9 @@ Use the minimum provider-neutral, backward-compatible hardening that makes canon
 
 # Non-goals
 No approval redesign, authorization redesign, Runtime Audit Trail replacement, provider implementation or L4 architecture change.
+
+# Evidence expected
+Focused negative and positive audit-verification tests proving canonical trust binding, plus repository-wide validation gates.
 
 # Escalation
 Stop if the hardening requires changing human authority semantics, public decision categories, or introducing persistent trust infrastructure.
