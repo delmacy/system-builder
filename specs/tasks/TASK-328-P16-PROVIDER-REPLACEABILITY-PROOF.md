@@ -1,7 +1,7 @@
 ---
 id: TASK-328
 title: Prove provider-neutral replaceability at the adapter boundary
-status: ready
+status: completed
 priority: 328
 milestone: M16
 model_tier: architecture
