@@ -6,6 +6,10 @@ import {
   type StructuredOutputValidationResult,
 } from "./index.js";
 import {
+  normalizeModelExecutionMetadataEnvelope,
+  type ModelExecutionMetadataEnvelope,
+} from "./execution-metadata.js";
+import {
   evaluateExecutionGovernance,
   type ExecutionGovernanceEvaluation,
 } from "./governance-evaluation.js";
@@ -16,12 +20,14 @@ export type GovernedModelInvocationInput = Readonly<{
   capabilities: unknown;
   usage: unknown;
   structuredOutputSchema: unknown;
+  executionMetadata?: unknown;
 }>;
 
 export type GovernedModelInvocationResult = Readonly<{
   response: ModelResponse;
   governance: ExecutionGovernanceEvaluation;
   structuredOutput: StructuredOutputValidationResult;
+  executionMetadata: ModelExecutionMetadataEnvelope | null;
 }>;
 
 function describeIneligibleEvaluation(evaluation: ExecutionGovernanceEvaluation): string {
@@ -44,6 +50,9 @@ export async function invokeGovernedModelProvider(
     throw new Error(`execution governance is ineligible: ${describeIneligibleEvaluation(governance)}`);
   }
 
+  const executionMetadata = input.executionMetadata === undefined
+    ? null
+    : normalizeModelExecutionMetadataEnvelope(input.executionMetadata);
   const response = await invokeModelProvider(adapter, input.request);
   const structuredOutput = validateStructuredOutput(input.structuredOutputSchema, response.output);
 
@@ -51,5 +60,6 @@ export async function invokeGovernedModelProvider(
     response,
     governance,
     structuredOutput,
+    executionMetadata,
   };
 }

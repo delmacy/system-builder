@@ -1,7 +1,7 @@
 ---
 id: TASK-342
 title: Propagate permitted execution metadata through governed invocation
-status: ready
+status: completed
 priority: 342
 milestone: M16
 model_tier: architecture
