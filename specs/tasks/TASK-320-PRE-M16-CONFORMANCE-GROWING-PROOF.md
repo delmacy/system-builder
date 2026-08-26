@@ -37,6 +37,21 @@ validation:
 # Objective
 Close Construction A with an integrated regression proof that both conformance findings are actually eliminated without weakening existing architecture or authority boundaries.
 
+# Context
+TASK-317/318 address SystemDefinition schema identity/publication equivalence and TASK-319 hardens critical audit verification trust. Construction A requires one final integrated proof and residual-gap disposition.
+
+# Current behavior
+The bounded fixes can be validated independently, but the Sprint is not complete until both findings are exercised together against representative repository consumers and decision categories.
+
+# Required change
+Add the integrated conformance regression proof and produce the Sprint closure report with exact task/gate evidence and an explicit fresh-main recommendation for Construction B.
+
+# Inputs / contracts
+Outputs of TASK-317, TASK-318 and TASK-319; representative SystemDefinition fixtures; decision-boundary verification/audit contracts; existing architecture and task governance checks.
+
+# Outputs / contracts
+An integrated regression proof plus Sprint Report showing whether any bounded consumer/interoperability gap remains; no M16 or successor capability is implemented.
+
 # Acceptance criteria
 - canonical SystemDefinition schema identity/publication/import equivalence is proven;
 - representative Compiler/Runtime-compatible SystemDefinition fixtures remain valid without modifying Compiler/Runtime production code;
@@ -47,3 +62,6 @@ Close Construction A with an integrated regression proof that both conformance f
 
 # Non-goals
 No unrelated productization, M16 implementation, M17 implementation or carried-debt absorption.
+
+# Evidence expected
+Integrated product/unit regression proof, repository-wide verification, exact task/CI evidence and a Sprint Report suitable for Sprint Review and fresh-main residual-gap evaluation.
