@@ -1,36 +1,34 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: :10
-started_at: 2026-08-26T14:10:29Z
-heartbeat_at: 2026-08-26T14:14:30Z
-updated_at: 2026-08-26T14:14:30Z
-lease_until: none
-main_sha: eeaf4619fdeac0f4f709bbe42f1e466f3f4d7dd8
-branch: planning/P16-PACKAGE-01
-pr: 382
-head_sha: 338b41ad325681521db958f3318915a349fe555c
-step: Await exact-head rerun gates after bounded TASK lifecycle metadata correction; integrate only if both gates PASS and no drift/blocker.
+status: RUNNING
+worker_slot: :50
+started_at: 2026-08-26T14:53:10Z
+heartbeat_at: 2026-08-26T14:53:10Z
+updated_at: 2026-08-26T14:53:10Z
+lease_until: 2026-08-26T15:18:10Z
+main_sha: 7c9bb9d874b1976a562f73ffd7970ea4de2da022
+branch: sprint/P16-PROVIDER-ABSTRACTION-CONTRACT-01
+pr: none
+head_sha: 7c9bb9d874b1976a562f73ffd7970ea4de2da022
+step: Planning PR #382 integrated after CI #874 and Heavy #310 PASS with exact tree equivalence. Acquire Construction A and execute TASK-324 only.
 
 last_completed_step:
-- PRE-M16 Documentation & Closure remains integrated in `main` as `eeaf4619fdeac0f4f709bbe42f1e466f3f4d7dd8`, tree `f180abd7d6f56b395fa6d6c335d8afccf78ee006`.
-- Fresh-main successor planning PR #382 derives `P16-PACKAGE-01 — Provider Abstraction Foundation` solely from M16 AI Gateway WBS 16.1.1–16.1.3 and materializes only Construction A `P16-PROVIDER-ABSTRACTION-CONTRACT-01` with TASK-324..329.
-- Original PR #382 head `37a01ba333a1a5dc0c3877ac12cab7bb27f4eb7a` produced Heavy Product Tests #307 PASS and Deterministic CI #871 FAIL.
-- Root cause was bounded materialization metadata: TASK-324..329 used lifecycle `status: committed`, inconsistent with the repository TASK lifecycle schema for materialized/not-yet-executed TASKs.
-- Corrected only lifecycle metadata to `status: ready` for TASK-324..329 on `planning/P16-PACKAGE-01`; task scope, dependencies, allowed/forbidden paths, acceptance criteria, WBS authority and non-goals were not expanded.
-- Current PR #382 head is `338b41ad325681521db958f3318915a349fe555c`.
+- PRE-M16 Documentation & Closure is canonically CLOSED at `eeaf4619fdeac0f4f709bbe42f1e466f3f4d7dd8`.
+- P16-PACKAGE-01 Planning & Materialization PR #382 head `338b41ad325681521db958f3318915a349fe555c` passed Deterministic CI #874 and Heavy Product Tests #310 with no review threads.
+- PR #382 merged with expected-head protection as `7c9bb9d874b1976a562f73ffd7970ea4de2da022`.
+- Reviewed head and merge-main share exact tree `7a5a4da0f2a374d24ac713ac84daab71b5b15731`.
 
 current_gate:
-- PR #382 exact head `338b41ad325681521db958f3318915a349fe555c`: Deterministic CI #874 QUEUED and Heavy Product Tests #310 PENDING at last revalidation. PR remains OPEN; revalidate mergeability, reviews/threads and main/head drift after both complete.
+- Construction A `P16-PROVIDER-ABSTRACTION-CONTRACT-01` is materialized with TASK-324..329. Execute TASK-324 first and run exact-head gates before advancing.
 
 blocked_cause:
-- None. The prior deterministic failure was bounded and corrected; only fresh exact-head CI/Heavy completion remains.
+- None.
 
 minimum_human_decision_required:
 - None under registered triple authorization.
 
 next_step:
-- Revalidate #874 and #310 on exact head `338b41ad325681521db958f3318915a349fe555c`. If both PASS and no blocker/drift exists, merge PR #382 with expected-head protection, reconstruct fresh `main`, prove reviewed-head/merge-main tree equivalence, create `sprint/P16-PROVIDER-ABSTRACTION-CONTRACT-01`, and execute TASK-324 first. Continue TASK-325..329 serially only after each predecessor/gate. Do not promote Construction B before Construction A integration plus fresh-main evidence-based revalidation.
+- Create `sprint/P16-PROVIDER-ABSTRACTION-CONTRACT-01` from fresh main `7c9bb9d874b1976a562f73ffd7970ea4de2da022`, execute only TASK-324 within its allowed paths/criteria, commit once, open/update Sprint draft PR, and run exact-head Deterministic CI + Heavy Product Tests. Do not start TASK-325 until TASK-324 gates pass.
 
 resume_prompt:
-- Resume `delmacy/system-builder` serialized as worker `:10`. PRE-M16 is canonically CLOSED on main `eeaf4619fdeac0f4f709bbe42f1e466f3f4d7dd8`, tree `f180abd7d6f56b395fa6d6c335d8afccf78ee006`. First authorized successor is `P16-PACKAGE-01 — Provider Abstraction Foundation`, derived solely from M16 AI Gateway WBS 16.1.1–16.1.3. Planning PR #382 is OPEN on corrected head `338b41ad325681521db958f3318915a349fe555c`; original head failed Deterministic CI because TASK-324..329 lifecycle metadata was `committed`; this was corrected boundedly to `ready` without scope changes. Exact-head reruns are Deterministic CI #874 and Heavy Product Tests #310. If both PASS and no blocker/drift exists, merge with expected-head protection, fresh-main/tree-equivalence, then create `sprint/P16-PROVIDER-ABSTRACTION-CONTRACT-01` and execute TASK-324 first. Construction B/C remain forecast; WBS 16.2/16.3, second successor Package, provider credentials/topology, undeclared L4 and TD-P13-01..04 absorption remain out of current execution scope.
+- Resume `delmacy/system-builder` serialized as worker `:50`. PRE-M16 is CLOSED. P16-PACKAGE-01 Planning & Materialization is integrated on main `7c9bb9d874b1976a562f73ffd7970ea4de2da022`, tree `7a5a4da0f2a374d24ac713ac84daab71b5b15731`. Construction A `P16-PROVIDER-ABSTRACTION-CONTRACT-01` is materialized with TASK-324..329. Execute TASK-324 first; Construction B/C remain forecast, WBS 16.2/16.3 and the second successor Package remain out of current execution scope until P16-PACKAGE-01 closes and fresh-main authority is reconstructed.
