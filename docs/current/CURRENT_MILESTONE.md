@@ -1,18 +1,16 @@
 # Current Execution Milestone — M15 Deterministic / Human / Probabilistic Boundary
 
-M13 Autonomous Runtime and M14 Evidence & Provenance remain CLOSED. WBS 14.1.1-14.3.3 remains SATISFIED / CLOSED. P15-PACKAGE-01 / WBS 15.1.1-15.2.3 is CLOSED.
+M13 Autonomous Runtime and M14 Evidence & Provenance remain CLOSED. WBS 14.1.1-14.3.3 remains SATISFIED / CLOSED. `P15-PACKAGE-01` / WBS 15.1.1-15.2.3 is CLOSED.
 
-## Active Work Package
-`P15-PACKAGE-02 — Decision Boundary Verification & Auditability`
-Primary WBS: 15.3.1-15.3.3.
-Status: PACKAGE REVIEW PASS / DOCUMENTATION & CLOSURE.
+## Package state
+`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` / WBS 15.3.1-15.3.3 is CLOSED on canonical main.
 
-Construction A and B are integrated. Fresh-main evidence after Construction B shows WBS 15.3.1-15.3.3 SATISFIED / INTEGRATED and Construction C NOT REQUIRED / NOT MATERIALIZED.
+Construction A and B are integrated. Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review integrated as `3824357c4f0c50e35e7fdd9902ef87639c196958` after CI #846 / Heavy #280 PASS.
 
-Package Integration & Review reviewed head `f1df8143d7c622aa0e1d4d662aaef8b5a46504c9` passed Deterministic CI #846 and Heavy Product Tests #280 and integrated as `3824357c4f0c50e35e7fdd9902ef87639c196958`; reviewed and merge-main trees are identical (`dd85d4d854524d83386c5afcb7a4387328d885ff`).
+Documentation & Closure head `27fcddbb8364e921c7a9a934eeb3d77f3032e7d6` passed CI #847 / Heavy #281 and integrated as `1fd84fc3ad912fd84218d0be152010b793910b9e`; reviewed and merge-main trees are identical at `14078ff718984ea5ce299263d40ef71d7a926aab`.
 
 ## Current gate
-Run exact-head Deterministic CI + Heavy Product Tests on the Documentation & Closure candidate, ensure no blocker/head drift, integrate it, reconstruct fresh `main`, prove closure-head -> merge-main tree equivalence, then reconcile canonical status to CLOSED if any post-merge wording remains pending.
+M15 / P15-PACKAGE-02 has no remaining execution gate. Do not materialize successor scope unless separately authorized by repository authority and user authorization.
 
 ## Boundaries
-No product behavior may be introduced in Documentation & Closure. Preserve ADR-0010 and existing authorization semantics. No mandatory remote provider invocation, provider registry, secrets, storage topology, Runtime Audit Trail replacement, policy-engine replacement, undeclared L4 change or scope outside WBS 15.3. TD-P13-01..04 remain carried and unabsorbed.
+Preserve ADR-0010 and existing authorization semantics. No mandatory remote provider invocation, provider registry, secrets, storage topology, Runtime Audit Trail replacement, policy-engine replacement, undeclared L4 change or scope outside WBS 15.3. TD-P13-01..04 remain carried and unabsorbed.
