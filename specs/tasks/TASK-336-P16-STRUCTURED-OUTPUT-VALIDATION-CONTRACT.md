@@ -1,7 +1,7 @@
 ---
 id: TASK-336
 title: Define structured output schema validation boundary
-status: ready
+status: completed
 priority: 336
 milestone: M16
 model_tier: architecture
