@@ -1,16 +1,16 @@
 # Automation Sprint Handoff
 
-status: RUNNING
+status: READY
 worker_slot: :10
 started_at: 2026-08-26T11:35:19Z
-heartbeat_at: 2026-08-26T11:38:00Z
-updated_at: 2026-08-26T11:38:00Z
-lease_until: 2026-08-26T12:03:00Z
+heartbeat_at: 2026-08-26T11:39:00Z
+updated_at: 2026-08-26T11:39:00Z
+lease_until: none
 main_sha: 12af9d4226d7cd0510a682c9eccc4335f77ab55e
 branch: sprint/PRE-M16-CONFORMANCE-INTEGRATION-PLANNING-01
 pr: 378
 head_sha: 298e3eb11e75354a61fd37c70b9a877e86bd7c98
-step: Re-run exact-head gates after bounded task-materialization schema repair.
+step: Await exact-head CI/Heavy completion after bounded task-materialization schema repair.
 
 last_completed_step:
 - Planning PR #376 integrated as `5299ae6dbf7ba24106cc9afe43a41e54613eb55e` after CI #856 / Heavy #290 PASS.
@@ -21,7 +21,7 @@ last_completed_step:
 - Corrected TASK-321..323 materialization metadata only, preserving objectives, dependencies, allowed/forbidden paths, acceptance criteria, non-goals and Package scope. New head `298e3eb11e75354a61fd37c70b9a877e86bd7c98`.
 
 blocked_cause:
-- None. CI #864 and Heavy #299 are pending on the repaired exact head.
+- None. CI #864 and Heavy #299 are in progress on the repaired exact head.
 
 attempts_and_evidence:
 - Failure was isolated to task-document schema validation, not product behavior or architecture.
