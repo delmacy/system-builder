@@ -1,15 +1,15 @@
-# Next Work — P15-PACKAGE-02 Documentation & Closure Gate
+# Next Work — Successor Planning Gate after M15 Closure
 
-`P15-PACKAGE-01` / WBS 15.1.1-15.2.3 is CLOSED. `P15-PACKAGE-02 — Decision Boundary Verification & Auditability` has completed Construction A+B and Package Integration & Review under the user's recorded authorization through Package closure.
+`P15-PACKAGE-01` / WBS 15.1.1-15.2.3 is CLOSED. `P15-PACKAGE-02 — Decision Boundary Verification & Auditability` / WBS 15.3.1-15.3.3 is CLOSED. M15 Deterministic / Human / Probabilistic Boundary is CLOSED.
 
-WBS 15.3.1-15.3.3 is SATISFIED / INTEGRATED. Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review head `f1df8143d7c622aa0e1d4d662aaef8b5a46504c9` passed Deterministic CI #846 and Heavy Product Tests #280 and integrated as `3824357c4f0c50e35e7fdd9902ef87639c196958`, with identical reviewed/merge tree `dd85d4d854524d83386c5afcb7a4387328d885ff`.
+Documentation & Closure head `27fcddbb8364e921c7a9a934eeb3d77f3032e7d6` passed Deterministic CI #847 and Heavy Product Tests #281, had no blocking reviews/threads, and integrated as `1fd84fc3ad912fd84218d0be152010b793910b9e`. Closure-head -> merge-main contains zero file differences; canonical merge tree is `14078ff718984ea5ce299263d40ef71d7a926aab`.
 
 ## Required next action
-1. Validate the Documentation & Closure candidate with exact-head Deterministic CI + Heavy Product Tests and no blocking review/head drift.
-2. Integrate it with expected-head protection.
-3. Reconstruct fresh `main` and prove closure-head -> merge-main tree equivalence.
-4. If repository-memory wording still describes a pending gate after that integration, perform only the minimal post-closure reconciliation needed to record `P15-PACKAGE-02` / WBS 15.3.1-15.3.3 as CLOSED.
-5. Do not materialize any successor Work Package from this closure unless separate repository authority permits it.
+1. Reconstruct fresh canonical `main` from the post-closure reconciliation merge.
+2. Re-read authoritative roadmap/WBS, PROJECT_STATE, CURRENT_MILESTONE, AGENTS.md, planning policy and applicable ADRs/contracts.
+3. Identify the unique eligible successor Work Package from repository authority.
+4. Only under separate Planning & Materialization authority, materialize the next bounded Package and only its first eligible Construction Sprint.
+5. Do not infer successor execution from M15 closure and do not absorb/re-rank carried debt without explicit authority.
 
 ## Boundaries
-Decision verification/audit/availability/fallback evidence is not approval or execution authority. Preserve ADR-0010 and existing authorization semantics. Do not add product behavior, provider infrastructure, secrets, storage topology, Runtime Audit Trail replacement, policy-engine replacement, scope beyond WBS 15.3, or absorb/re-rank TD-P13-01..04.
+Decision evidence remains non-authoritative. Preserve ADR-0010 and existing authorization semantics. No provider infrastructure, secrets, storage topology, Runtime Audit Trail replacement, policy-engine replacement or undeclared L4 change. TD-P13-01..04 remain carried and unabsorbed.
