@@ -5,20 +5,21 @@ Date: 2026-08-26
 `delmacy/system-builder` is canonical. M13 Autonomous Runtime, M14 Evidence & Provenance and M15 Deterministic / Human / Probabilistic Boundary are CLOSED. `P15-PACKAGE-01` and `P15-PACKAGE-02` remain CLOSED; WBS 15.1.1-15.3.3 is SATISFIED / CLOSED.
 
 ## PRE-M16 Contract Conformance Hardening
-`PRE-M16-CONFORMANCE-HARDENING-PACKAGE-01` is ACTIVE before M16 provider-facing work and is now in Documentation & Closure.
+`PRE-M16-CONFORMANCE-HARDENING-PACKAGE-01` is CLOSED.
 
-Planning & Materialization integrated as `5299ae6dbf7ba24106cc9afe43a41e54613eb55e`.
+Planning & Materialization integrated as `5299ae6dbf7ba24106cc9afe43a41e54613eb55e`. Construction A integrated as `12af9d4226d7cd0510a682c9eccc4335f77ab55e`; Construction B integrated as `cc26a95b2bfb94b4f21caf7ed09830007492b9b1`; Construction C was NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review integrated as `91a2958d369600a1bbb36e9becf9d0f6ec78c300`. Documentation & Closure PR #381 head `5add1444c974050a462b51f9c9296c1ca7ac28cb` passed Deterministic CI #870 and Heavy Product Tests #306 and integrated as `eeaf4619fdeac0f4f709bbe42f1e466f3f4d7dd8`; closure-head and merge-main share tree `f180abd7d6f56b395fa6d6c335d8afccf78ee006`.
 
-Construction A `PRE-M16-CONTRACT-CONFORMANCE-HARDENING-01` is COMPLETE / SPRINT REVIEW PASS / INTEGRATED via PR #377. Reviewed head `ad4ee8448d9cb4e855a35f6b0019ada13e2a63ab` passed Deterministic CI #860 and Heavy Product Tests #294 and integrated as `12af9d4226d7cd0510a682c9eccc4335f77ab55e` with tree equivalence `9b51361f597a278495cced60a2646bbf99e4b6e1`.
+The bounded pre-M16 contract-conformance findings are closed. TD-P13-01..04 remain carried unchanged.
 
-Construction B `PRE-M16-CONFORMANCE-INTEGRATION-01` is COMPLETE / SPRINT REVIEW PASS / INTEGRATED via PR #379. Final reviewed head `afa49c70971be82f34b0b379ab5dfce6c12a7f98` passed Deterministic CI #868 and Heavy Product Tests #303 and integrated as `cc26a95b2bfb94b4f21caf7ed09830007492b9b1` with tree equivalence `d14a513e1919d4073336f9cb354bf0a53006381d`.
+## M16 AI Gateway
+Fresh-main authority identifies M16 AI Gateway as the next milestone. `P16-PACKAGE-01 — Provider Abstraction Foundation` is in Planning & Materialization and covers WBS 16.1.1-16.1.3 only.
 
-Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review PR #380 head `f43c9d8765655b81523280e4b6d40194e84c6f35` passed Deterministic CI #869 and Heavy Product Tests #305, had no review blockers, and integrated as `91a2958d369600a1bbb36e9becf9d0f6ec78c300`; reviewed-head to merge-main has zero file differences.
+The package goal is to establish a provider-neutral request/response and capability abstraction with replaceable adapter boundaries, without embedding provider IDs, credentials, remote topology or business authority in core contracts.
 
-The review disposition is GO FOR DOCUMENTATION & CLOSURE. No residual bounded Package Goal defect, undeclared L3/L4 change, security weakening, contract drift or mandatory new debt was found. TD-P13-01..04 remain carried unchanged.
+Construction A `P16-PROVIDER-ABSTRACTION-CONTRACT-01` is the only Construction Sprint promoted/materialized by this planning cycle. Construction B remains FORECAST; Construction C remains optional/evidence-gated. WBS 16.2 and 16.3 remain outside this Package.
 
 ## Security and architecture boundary
-No M16 provider implementation, provider registry, remote invocation, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement or undeclared L4 architecture change is authorized inside PRE-M16 closure.
+M16 must preserve the deterministic/human/probabilistic decision boundary, Builder/Runtime separation, published runtime autonomy and provider replaceability. No provider credentials, secret values, mandatory remote invocation, storage topology, Runtime Audit Trail replacement, hidden prompt business logic or undeclared L4 architecture change is authorized by P16-PACKAGE-01.
 
 ## Carried debt
 TD-P13-01..04 remain carried and are not absorbed or re-ranked.
