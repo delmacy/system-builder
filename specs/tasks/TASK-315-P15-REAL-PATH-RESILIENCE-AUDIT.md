@@ -1,7 +1,7 @@
 ---
 id: TASK-315
 title: Prove representative real-path resilience auditability
-status: ready
+status: completed
 priority: 315
 milestone: M15
 model_tier: architecture

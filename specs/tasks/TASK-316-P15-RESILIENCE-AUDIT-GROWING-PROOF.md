@@ -1,7 +1,7 @@
 ---
 id: TASK-316
 title: Close Construction B with integrated resilience and audit proof
-status: ready
+status: completed
 priority: 316
 milestone: M15
 model_tier: architecture
