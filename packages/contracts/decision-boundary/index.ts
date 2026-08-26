@@ -83,6 +83,16 @@ const TOKEN_PATTERN = /^\S+$/;
 const CATEGORY_SET = new Set<string>(DECISION_CATEGORIES);
 const RISK_SET = new Set<string>(DECISION_RISK_LEVELS);
 const CRITICALITY_SET = new Set<string>(DECISION_CRITICALITY_LEVELS);
+const CANONICAL_VERIFICATION_RESULTS = new WeakSet<object>();
+
+function canonicalVerificationResult<T extends DecisionBoundaryVerificationResult>(result: T): T {
+  CANONICAL_VERIFICATION_RESULTS.add(result as object);
+  return result;
+}
+
+export function isCanonicalDecisionBoundaryVerificationResult(result: DecisionBoundaryVerificationResult): boolean {
+  return CANONICAL_VERIFICATION_RESULTS.has(result as object);
+}
 
 function fail(path: string, reason: string): never {
   throw new TypeError(`Invalid decision boundary at ${path}: ${reason}`);
@@ -295,15 +305,15 @@ export function verifyDecisionBoundary(input: Readonly<{
     } as const;
 
     if (input.expectedCategory !== undefined && descriptor.category !== input.expectedCategory) {
-      return {
+      return canonicalVerificationResult({
         status: "rejected",
         ...common,
         diagnostic: `decision category ${descriptor.category} does not match expected category ${input.expectedCategory}`,
-      };
+      });
     }
 
-    return { status: "valid", ...common };
+    return canonicalVerificationResult({ status: "valid", ...common });
   } catch (error) {
-    return { status: "invalid", diagnostic: error instanceof Error ? error.message : "invalid decision boundary" };
+    return canonicalVerificationResult({ status: "invalid", diagnostic: error instanceof Error ? error.message : "invalid decision boundary" });
   }
 }
