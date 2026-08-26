@@ -7,13 +7,16 @@ Status: SATISFIED / CLOSED via `P16-PACKAGE-01 — Provider Abstraction Foundati
 - **16.1.2** Implementar adapters sem vazar IDs de provider nos contracts core. — SATISFIED / CLOSED
 - **16.1.3** Declarar capabilities/limits dos modelos. — SATISFIED / CLOSED
 
-Closure evidence: Package Review PR #390 integrated after CI #899 / Heavy #337 PASS; Documentation & Closure PR #391 integrated after CI #900 / Heavy #338 PASS as `c577c49dc08e2b2f34916aa43bf34774c8b08506`, with reviewed closure head and merge-main sharing tree `97bd75a0f2c2e44c221a65b76f4a88f6da68a3ca`.
+Closure evidence: canonical post-merge closure integrated as `1bed56fcc8e3ef7ba7a31877e27cab12750fdcc3`, tree `e613c227c571d48280f1efc0b419b0eaf34ca79c`.
 
 ### 16.2 Governança de execução
-Status: FORECAST / NOT MATERIALIZED. Requires separate fresh-main Planning & Materialization before execution.
-- **16.2.1** Definir routing, budget/quota e fallback policies.
-- **16.2.2** Validar structured outputs contra schemas.
-- **16.2.3** Registrar model/version/cost/provenance quando permitido.
+Status: COMMITTED / PLANNING & MATERIALIZATION via `P16-PACKAGE-02 — AI Execution Governance & Structured Output`.
+- **16.2.1** Definir routing, budget/quota e fallback policies. — CONSTRUCTION A MATERIALIZED / NOT EXECUTED
+- **16.2.2** Validar structured outputs contra schemas. — CONSTRUCTION A MATERIALIZED / NOT EXECUTED
+- **16.2.3** Registrar model/version/cost/provenance quando permitido. — CONSTRUCTION A MATERIALIZED / NOT EXECUTED
+
+Construction A `P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01` materializes TASK-334..339. Construction B remains FORECAST / NOT MATERIALIZED and Construction C remains optional/evidence-gated. No execution authority exists until the Planning & Materialization head passes required gates and integrates.
+
 ### 16.3 Segurança e observação
 Status: FORECAST / NOT MATERIALIZED. Requires separate fresh-main Planning & Materialization before execution.
 - **16.3.1** Aplicar data/knowledge boundary antes do envio.
