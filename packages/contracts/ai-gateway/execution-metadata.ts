@@ -10,6 +10,7 @@ export type ModelExecutionMetadata = Readonly<{
 
 export type ModelExecutionMetadataEnvelope = Readonly<{
   metadataPermitted: boolean;
+  permissionPolicyId: string;
   metadata: ModelExecutionMetadata | null;
 }>;
 
@@ -64,12 +65,13 @@ export function normalizeModelExecutionMetadata(value: unknown): ModelExecutionM
 
 export function normalizeModelExecutionMetadataEnvelope(value: unknown): ModelExecutionMetadataEnvelope {
   const record = asRecord(value, "model execution metadata envelope");
-  assertExactFields(record, ["metadataPermitted", "metadata"], "model execution metadata envelope");
+  assertExactFields(record, ["metadataPermitted", "permissionPolicyId", "metadata"], "model execution metadata envelope");
   if (typeof record.metadataPermitted !== "boolean") throw new Error("metadataPermitted must be a boolean");
+  const permissionPolicyId = asNonEmptyString(record.permissionPolicyId, "permissionPolicyId");
   if (!record.metadataPermitted) {
     if (record.metadata !== null) throw new Error("metadata must be null when metadataPermitted is false");
-    return { metadataPermitted: false, metadata: null };
+    return { metadataPermitted: false, permissionPolicyId, metadata: null };
   }
-  if (record.metadata === null) return { metadataPermitted: true, metadata: null };
-  return { metadataPermitted: true, metadata: normalizeModelExecutionMetadata(record.metadata) };
+  if (record.metadata === null) return { metadataPermitted: true, permissionPolicyId, metadata: null };
+  return { metadataPermitted: true, permissionPolicyId, metadata: normalizeModelExecutionMetadata(record.metadata) };
 }

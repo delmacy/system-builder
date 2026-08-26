@@ -14,6 +14,7 @@ export type ExecutionGovernanceEvaluationReason = Readonly<{
 }>;
 
 export type ExecutionGovernanceEvaluation = Readonly<{
+  policyId: string;
   status: "eligible" | "ineligible";
   reasons: readonly ExecutionGovernanceEvaluationReason[];
   fallbacks: ExecutionGovernanceRuleSet["fallbacks"];
@@ -68,6 +69,7 @@ export function evaluateExecutionGovernance(input: Readonly<{
     || left.subject.localeCompare(right.subject));
 
   return {
+    policyId: rules.policyId,
     status: reasons.length === 0 ? "eligible" : "ineligible",
     reasons,
     fallbacks: rules.fallbacks,

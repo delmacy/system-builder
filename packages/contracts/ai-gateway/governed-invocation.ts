@@ -53,6 +53,10 @@ export async function invokeGovernedModelProvider(
   const executionMetadata = input.executionMetadata === undefined
     ? null
     : normalizeModelExecutionMetadataEnvelope(input.executionMetadata);
+  if (executionMetadata !== null && executionMetadata.permissionPolicyId !== governance.policyId) {
+    throw new Error("execution metadata permissionPolicyId must match evaluated governance policyId");
+  }
+
   const response = await invokeModelProvider(adapter, input.request);
   const structuredOutput = validateStructuredOutput(input.structuredOutputSchema, response.output);
 
