@@ -1,7 +1,7 @@
 ---
 id: TASK-325
 title: Define model capability and limit descriptors
-status: committed
+status: ready
 priority: 325
 milestone: M16
 model_tier: architecture
