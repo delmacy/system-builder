@@ -1,7 +1,7 @@
 ---
 id: TASK-311
 title: Project critical decision audit evidence
-status: committed
+status: ready
 priority: 311
 milestone: M15
 model_tier: architecture
