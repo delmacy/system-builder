@@ -1,41 +1,41 @@
 # Automation Sprint Handoff
 
-status: BLOCKED
+status: READY
 worker_slot: null
-started_at: 2026-08-26T09:10:05Z
-heartbeat_at: 2026-08-26T09:12:10Z
-updated_at: 2026-08-26T09:12:10Z
+started_at: 2026-08-26T10:29:05Z
+heartbeat_at: 2026-08-26T10:31:30Z
+updated_at: 2026-08-26T10:31:30Z
 lease_until: null
 main_sha: 6762118ce959903f271f96e9214aac79f61c9464
-branch: null
-pr: null
-head_sha: 6762118ce959903f271f96e9214aac79f61c9464
-step: P15-PACKAGE-02 remains canonically CLOSED; no executable gate exists inside authorized WBS 15.3.
+branch: sprint/PRE-M16-CONTRACT-CONFORMANCE-PLANNING-01
+pr: 376
+head_sha: 4d690b593bc48cf4788a6530951f1c3fc0678b0c
+step: Planning & Materialization for PRE-M16-CONTRACT-CONFORMANCE-HARDENING-01 is awaiting exact-head CI gates after bounded TASK-contract repair.
 
 last_completed_step:
-- Revalidated fresh main at `6762118ce959903f271f96e9214aac79f61c9464`; no newer main commit exists.
-- Confirmed no open PRs exist in `delmacy/system-builder`.
-- Re-read `AGENTS.md`, `PROJECT_STATE`, `CURRENT_MILESTONE`, `NEXT_WORK`, `SPRINT_GENERATION_POLICY`, and `P15-PACKAGE-02`.
-- Confirmed P15-PACKAGE-02 / WBS 15.3.1-15.3.3 is CLOSED, Construction C is NOT REQUIRED / NOT MATERIALIZED, and no unfinished materialized TASK/Sprint remains.
-- Confirmed no successor milestone/package such as P16/M16 is currently materialized in repository authority.
-- TD-P13-01..04 remain carried and unabsorbed.
+- Revalidated canonical main `6762118ce959903f271f96e9214aac79f61c9464` and open PR inventory.
+- Found PR #376 `Plan pre-M16 contract conformance hardening`, base main, original head `ebd458ee79a66f19c776daf1439e1782403b1909`, materializing only Construction A `PRE-M16-CONTRACT-CONFORMANCE-HARDENING-01` with TASK-317..320.
+- Heavy Product Tests #284 passed on the original head; Deterministic CI #850 failed.
+- Diagnosed CI #850 from job logs: task catalog rejected TASK-317 because required sections `Context`, `Current behavior`, `Inputs / contracts`, `Outputs / contracts`, and `Evidence expected` were missing. The same materialization defect existed across TASK-317..320.
+- Applied bounded documentation-only repairs to all four TASK specs without changing objective, dependencies, allowed/forbidden paths, scope, or product behavior.
+- Current PR #376 head is `4d690b593bc48cf4788a6530951f1c3fc0678b0c`.
+- Deterministic CI #854 and Heavy Product Tests #288 are pending on that exact head.
 
 blocked_cause:
-- Current user authorization is bounded to `P15-PACKAGE-02 / WBS 15.3.1-15.3.3`, which is fully CLOSED.
-- `NEXT_WORK` and `CURRENT_MILESTONE` explicitly require separate repository/user authority before successor Planning & Materialization.
-- No bounded implementation/test/CI/review/repository-memory repair remains inside WBS 15.3.
+- None. CI is an external gate, not a human block.
 
 attempts_and_evidence:
-- Revalidated canonical main and recent commit history.
-- Revalidated open PR inventory.
-- Reconstructed current authority from required repository memory and package manifest.
-- Searched repository authority for a successor P16/M16 materialization; none exists.
+- CI #850 logs explicitly identify the missing required task-contract sections.
+- The repaired specs now follow the repository task contract shape used by completed tasks such as TASK-316.
 
 minimum_human_decision_required:
-- Separately authorize Planning & Materialization of the next eligible successor Work Package after fresh repository planning identifies it.
+- None within the user's registered PRE-M16 + two-successor-Packages authorization.
 
 next_authorized_step:
-- None inside P15-PACKAGE-02 / WBS 15.3.1-15.3.3. On a future separately authorized successor cycle, reconstruct fresh main and current planning authority before materialization.
+- Revalidate PR #376 head `4d690b593bc48cf4788a6530951f1c3fc0678b0c` and workflow runs #854/#288.
+- If both pass and there are no review/thread blockers or head drift, merge PR #376 with expected head SHA.
+- Rebuild fresh main, prove tree equivalence, then create/use `sprint/PRE-M16-CONTRACT-CONFORMANCE-HARDENING-01` from the integrated planning merge and execute TASK-317 first, preserving dependency order and exact-head gates.
+- Do not start M16/provider-facing work or either successor Package until PRE-M16 closes and fresh-main authority derives the next eligible scope.
 
 resume_prompt: >-
-  Retome `delmacy/system-builder` a partir de fresh main `6762118ce959903f271f96e9214aac79f61c9464`. `P15-PACKAGE-02` / WBS 15.3.1-15.3.3 está canonicamente CLOSED, sem PRs abertos nem trabalho materializado/bounded restante. `docs/current/NEXT_WORK.md` e `CURRENT_MILESTONE.md` exigem autoridade separada antes de qualquer successor Planning & Materialization. Preserve TD-P13-01..04 fora do escopo e só avance quando houver autorização explícita para o próximo Work Package elegível.
+  Retome `delmacy/system-builder` a partir de main `6762118ce959903f271f96e9214aac79f61c9464` e PR #376 (`sprint/PRE-M16-CONTRACT-CONFORMANCE-PLANNING-01`) no head exato `4d690b593bc48cf4788a6530951f1c3fc0678b0c`. O primeiro head `ebd458ee...` teve Heavy #284 PASS e CI #850 FAIL porque TASK-317..320 não seguiam o contrato obrigatório de seções; o defeito foi corrigido somente nos quatro specs, sem mudança de escopo. CI #854 e Heavy #288 estão pendentes no novo head. Se ambos PASS e sem blocker/head drift, merge protegido #376, faça fresh-main + tree equivalence e execute somente TASK-317 de `PRE-M16-CONTRACT-CONFORMANCE-HARDENING-01` primeiro. A autorização do usuário cobre integralmente PRE-M16 e, após seu fechamento, os dois próximos Work Packages elegíveis derivados serialmente de fresh-main authority; não invente nomes/escopos, não pule materialization/gates, não absorva debt por inferência e L4 exige ADR/change control.
