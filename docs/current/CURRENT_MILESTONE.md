@@ -1,20 +1,15 @@
-# Current Execution Milestone — PRE-M16 Contract Conformance Hardening
+# Current Execution Milestone — Successor Planning after PRE-M16
 
 M13, M14 and M15 remain CLOSED. `P15-PACKAGE-01` and `P15-PACKAGE-02` remain CLOSED.
 
-## Active package
-`PRE-M16-CONFORMANCE-HARDENING-PACKAGE-01` is ACTIVE as a bounded prerequisite before M16 provider-facing work.
+`PRE-M16-CONFORMANCE-HARDENING-PACKAGE-01` is CLOSED. Construction A and Construction B are integrated; Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review integrated via PR #380 as `91a2958d369600a1bbb36e9becf9d0f6ec78c300` after CI #869 / Heavy #305 PASS.
 
-Construction A `PRE-M16-CONTRACT-CONFORMANCE-HARDENING-01` is COMPLETE / SPRINT REVIEW PASS / INTEGRATED. Final reviewed head `ad4ee8448d9cb4e855a35f6b0019ada13e2a63ab` passed CI #860 / Heavy #294 and integrated as `12af9d4226d7cd0510a682c9eccc4335f77ab55e` with tree equivalence `9b51361f597a278495cced60a2646bbf99e4b6e1`.
-
-Construction B `PRE-M16-CONFORMANCE-INTEGRATION-01` is COMPLETE / SPRINT REVIEW PASS / INTEGRATED. Final reviewed head `afa49c70971be82f34b0b379ab5dfce6c12a7f98` passed CI #868 / Heavy #303 and integrated as `cc26a95b2bfb94b4f21caf7ed09830007492b9b1` with tree equivalence `d14a513e1919d4073336f9cb354bf0a53006381d`.
-
-Construction C is NOT REQUIRED / NOT MATERIALIZED: the integrated consumer/interoperability proof exposes no residual bounded defect necessary to the PRE-M16 Package Goal.
-
-Package Integration & Review is COMPLETE / GO FOR DOCUMENTATION & CLOSURE. PR #380 head `f43c9d8765655b81523280e4b6d40194e84c6f35` passed CI #869 / Heavy #305 and integrated as `91a2958d369600a1bbb36e9becf9d0f6ec78c300`; reviewed-head to merge-main comparison has zero file differences.
+Documentation & Closure PR #381 reviewed head `5add1444c974050a462b51f9c9296c1ca7ac28cb` passed CI #870 / Heavy #306 and integrated as `eeaf4619fdeac0f4f709bbe42f1e466f3f4d7dd8`. Reviewed head and merge-main share tree `f180abd7d6f56b395fa6d6c335d8afccf78ee006`, proving closure tree equivalence.
 
 ## Current gate
-Execute PRE-M16 Documentation & Closure with repository-memory and traceability changes only. Do not add product behavior. Exact-head Deterministic CI + Heavy Product Tests must pass before closure integration. After closure merge, reconstruct fresh `main`, prove tree equivalence and mark the package canonically CLOSED before deriving the first separately authorized successor Work Package.
+Reconstruct fresh-main authority and derive the first of the two separately user-authorized successor Work Packages from authoritative roadmap/WBS/scope/ADR evidence. Planning must follow `SPRINT_GENERATION_POLICY.md`; only the first eligible Construction Sprint may be materialized unless repository authority explicitly says otherwise.
+
+Do not pre-invent the second successor Package. It must be derived after the first successor Package closes and fresh-main is revalidated, unless authoritative planning policy explicitly permits joint planning without early execution.
 
 ## Boundaries
-Preserve ADR-0010 and existing authorization semantics. Do not implement M16/M17 provider functionality, introduce provider registry/secrets/storage topology, alter Builder/Runtime architecture, replace Runtime Audit Trail/policy engine, or absorb/re-rank TD-P13-01..04.
+PRE-M16 closure does not itself authorize a provider registry, remote invocation, secrets/storage topology, Runtime Audit Trail replacement, policy-engine replacement, TD-P13-01..04 absorption/re-ranking or undeclared L4 architecture change. Successor scope comes only from fresh-main authority.
