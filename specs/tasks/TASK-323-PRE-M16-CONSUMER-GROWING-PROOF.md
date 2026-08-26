@@ -1,7 +1,7 @@
 ---
 id: TASK-323
 title: Close PRE-M16 consumer interoperability growing proof
-status: ready
+status: completed
 priority: 323
 milestone: PRE-M16
 model_tier: architecture
