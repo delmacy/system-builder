@@ -1,6 +1,6 @@
 # P16-PACKAGE-01 — Provider Abstraction Foundation
 
-Status: ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B MATERIALIZED
+Status: ACTIVE / CONSTRUCTIONS A+B INTEGRATED / CONSTRUCTION C NOT REQUIRED
 Date: 2026-08-26
 Milestone: M16 AI Gateway
 WBS coverage: 16.1.1–16.1.3
@@ -13,35 +13,31 @@ The Package is intentionally limited to WBS 16.1 Provider Abstraction. It does n
 ## Construction status
 ### Construction A — `P16-PROVIDER-ABSTRACTION-CONTRACT-01`
 Status: INTEGRATED
-PR #384 integrated as `119d00cacfc88268073540c49786de5c841f46ae` after TASK-324..329 and final exact-head Deterministic CI #890 / Heavy Product Tests #326 PASS.
-
-The integrated proof establishes provider-neutral request/response representation, explicit capability/limit descriptors, deterministic normalization and a replaceable `ModelProviderAdapter` contract without provider identity/configuration leakage into central request semantics.
+PR #384 integrated the provider-neutral request/response representation, explicit capability/limit descriptors, deterministic normalization and replaceable `ModelProviderAdapter` boundary.
 
 ### Construction B — `P16-PROVIDER-ABSTRACTION-INTEGRATION-01`
-Status: COMMITTED / MATERIALIZED / NOT EXECUTED
-Post-Construction-A fresh-main revalidation integrated by PR #386 as `36681b832938cd9f1d369f8128e58d912cb0a5d7` after Deterministic CI #891 / Heavy Product Tests #328 PASS and confirmed the bounded remaining increment: exercise the provider-neutral adapter abstraction through a representative real AI Gateway invocation seam.
-
-TASK-330..333 are materialized in dependency order. Execution may begin only after this Planning & Materialization change integrates and fresh-main/tree equivalence are confirmed.
+Status: INTEGRATED
+TASK-330..333 exercised the abstraction through the canonical invocation seam, enforced fail-closed response/correlation validation and explicit adapter failure propagation, proved interchangeable adapters preserve canonical semantics, and closed the WBS 16.1 growing proof. Final exact-head Deterministic CI #897 / Heavy Product Tests #334 passed on `ba82eaa2aad6811086dc966e85d3a38edee78cad`; PR #388 integrated as `669f8c251dbee81a6bd0f6472a9798fd55c088e3`. Reviewed head and merge-main share tree `6d2b19b8514949dd963bce0854f01731cba7e46d`.
 
 ### Construction C — optional
-Status: FORECAST / EVIDENCE-GATED / NOT MATERIALIZED
-Promote only if fresh-main evidence after Construction B shows a residual bounded gap necessary to WBS 16.1.1–16.1.3.
+Status: NOT REQUIRED / NOT MATERIALIZED
+Fresh-main post-B evidence confirms no residual bounded capability necessary to WBS 16.1.1–16.1.3. The Package Goal is covered by Constructions A+B; no additional Construction is justified.
 
 ## Growing package proof
-The growing proof must establish:
+Integrated evidence establishes:
 1. provider-neutral request/response representation;
 2. explicit capability/limit descriptors;
 3. adapter-specific identity/config remains outside core business request/response contracts;
 4. changing adapter/provider does not change the central request contract;
-5. deterministic paths and authority semantics remain unaffected by provider unavailability.
-
-Construction A proves items 1–4 at the contract boundary. Construction B extends items 4–5 through a representative real integration seam without importing WBS 16.2/16.3 behavior.
+5. canonical invocation validates responses/correlation fail-closed;
+6. provider unavailability remains explicit and does not fabricate routing/fallback or authority;
+7. deterministic paths and authority semantics remain unaffected by provider unavailability.
 
 ## Package Integration & Review gate
-After required Construction Sprints integrate, review regression, schema/contract compatibility, provider-neutrality, dependency/architecture fitness, security/trust boundaries, technical debt, CI health, documentation consistency and Package Goal completeness. Review is not overflow feature work.
+Next gate. Review regression, schema/contract compatibility, provider-neutrality, dependency/architecture fitness, security/trust boundaries, technical debt, CI health, documentation consistency and Package Goal completeness. Review is not overflow feature work.
 
 ## Documentation & Closure gate
-Reconcile PROJECT_STATE, CURRENT_MILESTONE, NEXT_WORK, Package/Sprint reports, WBS traceability and public/module docs. No new product behavior in closure.
+After review integration, reconcile PROJECT_STATE, CURRENT_MILESTONE, NEXT_WORK, Package/Sprint reports, WBS traceability and public/module docs. No new product behavior in closure.
 
 ## Boundaries / non-goals
 - No WBS 16.2 routing, budget/quota, fallback policy or execution provenance governance.
