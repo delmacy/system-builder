@@ -1,19 +1,18 @@
 # Current Execution Milestone — M16 AI Gateway
 
-M13, M14 and M15 remain CLOSED. PRE-M16 Contract Conformance Hardening is CLOSED.
+M13, M14 and M15 remain CLOSED. PRE-M16 Contract Conformance Hardening is CLOSED. `P16-PACKAGE-01 — Provider Abstraction Foundation` is CLOSED.
 
-## Closed predecessor
-`P16-PACKAGE-01 — Provider Abstraction Foundation` is CLOSED. WBS 16.1.1-16.1.3 are SATISFIED / CLOSED. Canonical closure is integrated as `1bed56fcc8e3ef7ba7a31877e27cab12750fdcc3` with tree `e613c227c571d48280f1efc0b419b0eaf34ca79c`.
+## Active package
+`P16-PACKAGE-02 — AI Execution Governance & Structured Output` is ACTIVE and covers WBS 16.2.1-16.2.3 only.
 
-## Active package planning
-`P16-PACKAGE-02 — AI Execution Governance & Structured Output` is COMMITTED / PLANNING & MATERIALIZATION and covers WBS 16.2.1-16.2.3 only.
+Construction A `P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01` is INTEGRATED as main `59ac3055ad837c60dfe76d4d3864953015b3173c`. TASK-334..339 completed; final head `e7d6e848ec91d64aa3445f3f9518e1ec2448a564` passed Deterministic CI #909 / Heavy #347. Reviewed and integrated trees are identical: `dcfe9a21e97dca157b03879bf4fccc603953b93b`.
 
-Construction A `P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01` is MATERIALIZED / NOT EXECUTED with TASK-334..339. It establishes provider-neutral execution-governance contracts for explicit routing/budget/quota/fallback rules, structured-output schema validation and permission-aware model/version/cost/provenance metadata.
-
-Construction B `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` is FORECAST / NOT MATERIALIZED. Construction C is optional / evidence-gated / NOT MATERIALIZED.
+Fresh-main revalidation finds the forecast residual integration gap real: the existing AI Gateway invocation seam validates request/response but does not yet exercise explicit governance evaluation, structured-output validation and permitted metadata propagation. Construction B `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` is JUSTIFIED / FORECAST / NOT MATERIALIZED.
 
 ## Current gate
-Validate and integrate the fresh-main Planning & Materialization head. Only after exact-head Deterministic CI + Heavy Product Tests PASS, no blocker/head drift, expected-head protected merge and tree-equivalence verification may `sprint/P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01` be created and TASK-334 executed first.
+Integrate this post-Construction-A revalidation after exact-head CI/Heavy PASS. Then perform a separate fresh-main Planning & Materialization for Construction B before any Construction B TASK execution.
+
+Construction C remains optional / evidence-gated / NOT MATERIALIZED.
 
 ## Boundaries
 WBS 16.3 remains FORECAST / NOT MATERIALIZED. No conformance/productization finding absorption, TD-P13-01..04 absorption, provider registry/mandatory remote topology, credential/secret lifecycle, Runtime Audit Trail replacement, or undeclared L4 change.
