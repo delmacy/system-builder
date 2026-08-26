@@ -5,16 +5,16 @@ M13 Autonomous Runtime and M14 Evidence & Provenance remain CLOSED. WBS 14.1.1-1
 ## Active Work Package
 `P15-PACKAGE-01 — Decision Classification & Authority Guardrails`
 Primary WBS: 15.1.1-15.2.3.
-Status: ACTIVE / CONSTRUCTION A+B INTEGRATED / CONSTRUCTION C NOT REQUIRED / PACKAGE INTEGRATION REVIEW GO.
+Status: ACTIVE / DOCUMENTATION & CLOSURE.
 
-Construction A `P15-DECISION-BOUNDARY-CONTRACT-01` / TASK-298..304 integrated as `8d0ea6035ef9470b640c096d06d9409a6c7fc137` after exact-head Deterministic CI #799 and Heavy Product Tests #229 passed.
+Construction A integrated as `8d0ea6035ef9470b640c096d06d9409a6c7fc137`. Construction B integrated as `09eea027142d071349dce5523905768fbebce548`. Post-Construction-B fresh-main revalidation integrated as `bdfc55135505aa4746513643e459652f4e0b3f31` and confirms Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
-Construction B `P15-DECISION-BOUNDARY-ENFORCEMENT-01` / TASK-305..308 integrated as `09eea027142d071349dce5523905768fbebce548`. Final reviewed head `421be2fdf65f21bbd6fc5f534a3d520f13cae342` passed Deterministic CI #813 and Heavy Product Tests #243; reviewed-head and merge-main tree are identical at `52e81cce0b6fe24512ac982bc7ca2e8ea8d9efb2`.
+Package Integration & Review head `c95880732f6cc1d66e31038237ff6d6c832a2f73` passed Deterministic CI #815 and Heavy Product Tests #246, had no blocking reviews/threads and integrated as `3f899ef5120bc1ee39b1793becec32aaa53ba0bd` with zero reviewed-head -> merge-main file differences.
 
-Post-Construction-B revalidation integrated as `bdfc55135505aa4746513643e459652f4e0b3f31` after exact-head Deterministic CI #814 and Heavy Product Tests #245. Construction C is NOT REQUIRED / NOT MATERIALIZED. WBS 15.1.1-15.2.3 is SATISFIED / INTEGRATED.
+WBS 15.1.1-15.2.3 is SATISFIED / INTEGRATED.
 
 ## Current gate
-`P15-PACKAGE-01-INTEGRATION-REVIEW-01` has executed on fresh main and records GO for Documentation & Closure. The exact Package Review head must independently pass Deterministic CI + Heavy Product Tests with no blocking review/thread/head drift. After protected merge and fresh-main tree equivalence, promote only Documentation & Closure.
+`P15-PACKAGE-01-DOCUMENTATION-CLOSURE-01` is the only eligible stage. It may reconcile repository memory and package traceability only. Final CLOSED state requires exact-head Deterministic CI + Heavy Product Tests, no blocking review/thread/head drift, protected merge and fresh-main tree equivalence.
 
 ## Forecast only
 WBS 15.3.1-15.3.3 / `P15-PACKAGE-02` remains outside this Package and forecast-only.
