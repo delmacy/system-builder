@@ -61,3 +61,6 @@ No new schema registry, network publication service, provider integration or bro
 
 # Evidence expected
 Focused equivalence tests plus successful unit, product, task, architecture and repository verification gates.
+
+# Escalation
+Stop if publication/import equivalence cannot be proven without inventing a schema registry/versioning policy, breaking public compatibility, or changing Runtime/Compiler production behavior.
