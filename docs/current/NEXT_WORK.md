@@ -1,15 +1,13 @@
-# Next Work — P16 Provider Abstraction Foundation
+# Next Work — M16 AI Gateway
 
-`P16-PACKAGE-01 — Provider Abstraction Foundation` is at DOCUMENTATION & CLOSURE CANDIDATE and covers WBS 16.1.1-16.1.3 only.
+`P16-PACKAGE-01 — Provider Abstraction Foundation` is canonically CLOSED. WBS 16.1.1-16.1.3 are SATISFIED / CLOSED.
 
-Construction A is integrated by PR #384. Construction B is integrated by PR #388. Post-Construction-B fresh-main revalidation integrated by PR #389 confirms no residual bounded WBS 16.1 gap and Construction C NOT REQUIRED / NOT MATERIALIZED.
-
-Package Integration & Review PR #390 passed exact-head Deterministic CI #899 / Heavy Product Tests #337, had zero blocking review threads, and integrated as `3714e2e0b6669814c1a4a5e61f384dffa267cdf7`; reviewed head and merge-main share tree `2fb26d8a650f90492e1154175dc7cfc55d016da2`. Decision: GO FOR DOCUMENTATION & CLOSURE.
+Documentation & Closure PR #391 passed exact-head Deterministic CI #900 and Heavy Product Tests #338, integrated as `c577c49dc08e2b2f34916aa43bf34774c8b08506`, and preserved exact tree `97bd75a0f2c2e44c221a65b76f4a88f6da68a3ca` between reviewed head and merge-main.
 
 ## Required next action
-Validate the Documentation & Closure head with Deterministic CI + Heavy Product Tests. If both pass unchanged and no review/thread blocker exists, merge with expected-head protection, rebuild fresh main and prove tree equivalence. Then reconcile any intentional pre-merge closure-candidate wording to canonical CLOSED if required by the repository-memory policy.
+Execute a separate fresh-main Planning & Materialization cycle for the next eligible M16 Work Package. Derive the successor strictly from the current M16 WBS/scope/ADR/repository-memory authority. Forecast is not execution authority and the successor must not be pre-invented.
 
-Only after `P16-PACKAGE-01` is canonically CLOSED may the second separately authorized successor Work Package be derived from then-current fresh-main authority. Do not pre-invent its name or scope.
+The user has separately authorized the second successor Work Package, including L1-L3 process approvals after valid Planning & Materialization. That authorization does not remove materialization, dependency or gate requirements.
 
 ## Boundaries
-Do not execute or materialize WBS 16.2/16.3 before Package 1 canonical closure. Do not introduce provider registry, routing/budget/fallback governance, credential/secret lifecycle, mandatory remote topology, provider IDs in central business contracts, hidden prompt business logic, Runtime Audit Trail replacement, conformance/productization finding absorption, undeclared L4 change, or absorption/re-ranking of TD-P13-01..04.
+Do not absorb conformance/productization findings or TD-P13-01..04 by inference. Do not introduce undeclared L4 changes. Any WBS 16.2/16.3 work must be explicitly selected and materialized by the fresh-main successor Planning cycle before execution.
