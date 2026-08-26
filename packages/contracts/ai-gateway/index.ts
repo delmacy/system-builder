@@ -22,6 +22,10 @@ export type ModelCapabilityDescriptor = Readonly<{
   limits: Readonly<Record<string, ModelLimitValue>>;
 }>;
 
+export type ModelProviderAdapter = Readonly<{
+  invoke(request: ModelRequest): Promise<ModelResponse>;
+}>;
+
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
