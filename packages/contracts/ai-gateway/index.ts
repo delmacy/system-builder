@@ -1,5 +1,6 @@
 export const AI_GATEWAY_MODEL_IO_VERSION = "1.0.0" as const;
 export const AI_GATEWAY_MODEL_CAPABILITY_VERSION = "1.0.0" as const;
+export const AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION = "1.0.0" as const;
 
 export type ModelRequest = Readonly<{
   contractVersion: typeof AI_GATEWAY_MODEL_IO_VERSION;
@@ -20,6 +21,13 @@ export type ModelCapabilityDescriptor = Readonly<{
   contractVersion: typeof AI_GATEWAY_MODEL_CAPABILITY_VERSION;
   capabilities: readonly string[];
   limits: Readonly<Record<string, ModelLimitValue>>;
+}>;
+
+export type ExecutionGovernancePolicyDescriptor = Readonly<{
+  contractVersion: typeof AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION;
+  policyId: string;
+  intent: string;
+  policyRef: string;
 }>;
 
 export type ModelProviderAdapter = Readonly<{
@@ -63,6 +71,13 @@ function assertCapabilityVersion(value: unknown): typeof AI_GATEWAY_MODEL_CAPABI
     throw new Error(`unsupported AI Gateway model capability contract version: ${String(value)}`);
   }
   return AI_GATEWAY_MODEL_CAPABILITY_VERSION;
+}
+
+function assertExecutionGovernanceVersion(value: unknown): typeof AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION {
+  if (value !== AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION) {
+    throw new Error(`unsupported AI Gateway execution governance contract version: ${String(value)}`);
+  }
+  return AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION;
 }
 
 function normalizeCapabilities(value: unknown): readonly string[] {
@@ -129,6 +144,18 @@ export function normalizeModelCapabilityDescriptor(value: unknown): ModelCapabil
     contractVersion: assertCapabilityVersion(record.contractVersion),
     capabilities: normalizeCapabilities(record.capabilities),
     limits: normalizeLimits(record.limits),
+  };
+}
+
+export function normalizeExecutionGovernancePolicyDescriptor(value: unknown): ExecutionGovernancePolicyDescriptor {
+  const record = asRecord(value, "execution governance policy descriptor");
+  assertExactFields(record, ["contractVersion", "policyId", "intent", "policyRef"], "execution governance policy descriptor");
+
+  return {
+    contractVersion: assertExecutionGovernanceVersion(record.contractVersion),
+    policyId: asNonEmptyString(record.policyId, "policyId"),
+    intent: asNonEmptyString(record.intent, "intent"),
+    policyRef: asNonEmptyString(record.policyRef, "policyRef"),
   };
 }
 
