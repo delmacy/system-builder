@@ -65,3 +65,6 @@ No unrelated productization, M16 implementation, M17 implementation or carried-d
 
 # Evidence expected
 Integrated product/unit regression proof, repository-wide verification, exact task/CI evidence and a Sprint Report suitable for Sprint Review and fresh-main residual-gap evaluation.
+
+# Escalation
+Stop if the integrated proof exposes a residual capability that cannot be fixed inside PRE-M16 bounds, or if closure would require M16/M17 implementation, carried-debt absorption, breaking compatibility, or an unmaterialized L4 architecture decision.
