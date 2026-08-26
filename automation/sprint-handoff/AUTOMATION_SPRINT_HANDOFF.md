@@ -3,33 +3,31 @@
 status: RUNNING
 worker_slot: :50
 started_at: 2026-08-26T19:47:09-03:00
-heartbeat_at: 2026-08-26T19:48:30-03:00
-updated_at: 2026-08-26T19:48:30-03:00
-lease_until: 2026-08-26T20:13:30-03:00
-main_sha: fb6ca52711f3ba00bff562bf4b9152b3ab8236e3
-branch: sprint/P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01
-pr: 394
-head_sha: e7d6e848ec91d64aa3445f3f9518e1ec2448a564
-step: TASK-339 completed; exact-head validation-only PR #397 opened on identical SHA to trigger Deterministic CI + Heavy Product Tests before Sprint Review.
+heartbeat_at: 2026-08-26T19:54:30-03:00
+updated_at: 2026-08-26T19:54:30-03:00
+lease_until: 2026-08-26T20:19:30-03:00
+main_sha: 59ac3055ad837c60dfe76d4d3864953015b3173c
+branch: revalidation/P16-PACKAGE-02-POST-CONSTRUCTION-A
+pr: 398
+head_sha: e88461a63a2a9245f6f19a7eb120a49223d85de1
+step: Construction A integrated with exact tree equivalence; post-Construction-A fresh-main revalidation records Construction B JUSTIFIED / FORECAST / NOT MATERIALIZED. PR #398 awaits exact-head CI + Heavy before merge and separate B materialization.
 
 ## Authorization
-User triple authorization remains active: PRE-M16 closed; P16-PACKAGE-01 closed; execute and conclude P16-PACKAGE-02 as the second authorized successor Package. L1/L2/L3 process approvals granted. L4 only if explicitly materialized with ADR/change control.
+User triple authorization remains active: PRE-M16 closed; P16-PACKAGE-01 closed; execute and conclude P16-PACKAGE-02 as second authorized successor Package. L1/L2/L3 process approvals granted. L4 only if explicitly materialized with ADR/change control.
 
 ## Current evidence
-- main `fb6ca52711f3ba00bff562bf4b9152b3ab8236e3` contains P16-PACKAGE-02 Planning & Materialization.
-- Construction A `P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01` is active in draft PR #394.
-- TASK-335 `a934bdaa5c61a9394de359304c69f2ca03df9d58` passed Deterministic CI #904 / Heavy #342.
-- TASK-336 `cc523378ff3284d81b754c82787f9162784c8876` complete.
-- TASK-337 `7c55c68a2e72ba5997ad1696da1baf00d6786633` passed Deterministic CI #906 / Heavy #344.
-- TASK-338 `95faa43e451d87dea4ea9c98522d92a96bf28b6d` passed Deterministic CI #908 / Heavy #346.
-- TASK-339 authoritative commit `e7d6e848ec91d64aa3445f3f9518e1ec2448a564` adds growing proof, Sprint Report and marks TASK-339 completed using only allowed paths.
-- Validation-only PR #397 points to the exact same TASK-339 SHA and must not be merged; it exists only to obtain exact-head CI/Heavy evidence.
+- TASK-339 final head `e7d6e848ec91d64aa3445f3f9518e1ec2448a564` passed Deterministic CI #909 / Heavy #347.
+- validation-only PR #397 closed without merge; obsolete validation PRs #395/#396 also closed without merge.
+- Sprint Review PR #394 merged with expected-head protection as `59ac3055ad837c60dfe76d4d3864953015b3173c`.
+- reviewed head and merge-main share exact tree `dcfe9a21e97dca157b03879bf4fccc603953b93b`.
+- fresh-main evidence confirms the forecast residual gap: `invokeModelProvider` validates request/response but does not yet exercise WBS 16.2 governance evaluation, structured-output validation and permitted metadata propagation at the invocation seam.
+- post-Construction-A revalidation PR #398 head `e88461a63a2a9245f6f19a7eb120a49223d85de1` changes repository memory only and marks Construction B JUSTIFIED / FORECAST / NOT MATERIALIZED.
 
-last_completed_step: Confirmed TASK-339 already completed by prior worker and opened validation-only PR #397 on identical exact head to trigger final gates.
-next_authorized_step: Revalidate Deterministic CI + Heavy Product Tests on exact head `e7d6e848ec91d64aa3445f3f9518e1ec2448a564`; if both PASS and no blocker/head drift, close #397 without merge, clean obsolete validation PRs, promote #394 to review, complete Sprint Review/merge, fresh-main tree equivalence, then revalidate Construction B strictly from integrated evidence.
+last_completed_step: Integrated Construction A, proved tree equivalence, and opened post-Construction-A fresh-main revalidation PR #398.
+next_authorized_step: Revalidate exact-head Deterministic CI + Heavy Product Tests for #398; if PASS/no blocker/head drift, merge with expected-head protection, rebuild fresh main/tree equivalence, then perform separate Planning & Materialization of `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` before executing any B TASK.
 
 ## Boundaries
 No WBS 16.3. No provider registry, mandatory remote topology, credentials/secrets lifecycle, Runtime Audit Trail replacement, conformance/productization finding absorption, TD-P13-01..04 absorption or undeclared L4.
 
 ## resume_prompt
-Resume delmacy/system-builder from main `fb6ca52711f3ba00bff562bf4b9152b3ab8236e3`, draft PR #394 branch `sprint/P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01`, exact head `e7d6e848ec91d64aa3445f3f9518e1ec2448a564`. TASK-338 passed CI #908 / Heavy #346. TASK-339 is complete in one authoritative commit with growing proof + Sprint Report. Validation-only PR #397 points to the identical SHA and must never be merged. Revalidate exact-head CI + Heavy; only if both pass, close #397 and perform Sprint Review/merge, fresh-main + tree equivalence and decide Construction B strictly from integrated evidence.
+Resume delmacy/system-builder from main `59ac3055ad837c60dfe76d4d3864953015b3173c`, post-Construction-A revalidation PR #398 branch `revalidation/P16-PACKAGE-02-POST-CONSTRUCTION-A`, head `e88461a63a2a9245f6f19a7eb120a49223d85de1`. Construction A PR #394 merged after CI #909 / Heavy #347 and tree equivalence `dcfe9a21...`. Revalidation records Construction B `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` as JUSTIFIED / FORECAST / NOT MATERIALIZED because the existing invocation seam still lacks governance evaluation, structured-output validation and permitted metadata propagation. If #398 exact-head CI+Heavy pass, merge it, prove fresh-main tree equivalence, then run a separate Planning & Materialization gate for Construction B. Do not execute WBS 16.3 or absorb external findings/TDs.
