@@ -1,7 +1,7 @@
 ---
 id: TASK-319
 title: Harden critical audit verification trust boundary
-status: ready
+status: completed
 priority: 319
 milestone: PRE-M16
 model_tier: architecture

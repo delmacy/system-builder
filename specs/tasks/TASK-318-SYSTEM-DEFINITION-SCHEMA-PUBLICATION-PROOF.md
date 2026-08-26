@@ -1,7 +1,7 @@
 ---
 id: TASK-318
 title: Prove SystemDefinition schema publication equivalence
-status: ready
+status: completed
 priority: 318
 milestone: PRE-M16
 model_tier: architecture

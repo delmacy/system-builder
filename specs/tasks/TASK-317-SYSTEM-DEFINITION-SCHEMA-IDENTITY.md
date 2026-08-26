@@ -1,7 +1,7 @@
 ---
 id: TASK-317
 title: Unify canonical SystemDefinition schema identity
-status: ready
+status: completed
 priority: 317
 milestone: PRE-M16
 model_tier: architecture

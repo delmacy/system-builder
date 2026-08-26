@@ -1,4 +1,5 @@
 import {
+  isCanonicalDecisionBoundaryVerificationResult,
   normalizeDecisionBoundaryDescriptor,
   normalizeDecisionCategoryMetadata,
   normalizeDecisionRiskCriticality,
@@ -39,6 +40,9 @@ export function projectCriticalDecisionAuditEvidence(input: Readonly<{
 
   if (riskCriticality.criticality !== "critical") fail("$audit.riskCriticality.criticality", "critical decision required");
   if (input.verificationResult.status === "invalid") fail("$audit.verificationResult.status", "invalid verification result cannot be audited");
+  if (!isCanonicalDecisionBoundaryVerificationResult(input.verificationResult)) {
+    fail("$audit.verificationResult", "verification result was not established by canonical verification boundary");
+  }
 
   const expectedReference: DecisionBoundaryVerificationReference =
     metadata.category === "deterministic"
