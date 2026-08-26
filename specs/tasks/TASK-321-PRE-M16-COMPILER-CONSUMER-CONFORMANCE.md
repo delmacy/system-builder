@@ -1,7 +1,7 @@
 ---
 id: TASK-321
 title: Prove canonical SystemDefinition through Compiler consumers
-status: ready
+status: completed
 priority: 321
 milestone: PRE-M16
 model_tier: architecture

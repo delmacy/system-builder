@@ -1,7 +1,7 @@
 ---
 id: TASK-322
 title: Prove canonical decision verification through audit consumers
-status: ready
+status: completed
 priority: 322
 milestone: PRE-M16
 model_tier: architecture
