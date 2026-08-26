@@ -1,7 +1,7 @@
 ---
 id: TASK-309
 title: Define decision-boundary verification result contract
-status: committed
+status: ready
 priority: 309
 milestone: M15
 model_tier: architecture
