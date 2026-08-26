@@ -1,7 +1,7 @@
 ---
 id: TASK-331
 title: Enforce fail-closed provider invocation response validation
-status: pending
+status: ready
 priority: 331
 milestone: M16
 model_tier: architecture

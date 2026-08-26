@@ -1,7 +1,7 @@
 ---
 id: TASK-330
 title: Add canonical provider invocation seam
-status: pending
+status: ready
 priority: 330
 milestone: M16
 model_tier: architecture

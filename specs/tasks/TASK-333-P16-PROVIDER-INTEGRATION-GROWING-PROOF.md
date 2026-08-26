@@ -1,7 +1,7 @@
 ---
 id: TASK-333
 title: Close Construction B with provider integration growing proof
-status: pending
+status: ready
 priority: 333
 milestone: M16
 model_tier: architecture
