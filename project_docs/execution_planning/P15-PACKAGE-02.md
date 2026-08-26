@@ -1,9 +1,10 @@
 # P15-PACKAGE-02 — Decision Boundary Verification & Auditability
 
-Status: PLANNING / MATERIALIZATION
+Status: CONSTRUCTION A INTEGRATED / CONSTRUCTION B JUSTIFIED
 Milestone: M15 Deterministic / Human / Probabilistic Boundary
 Primary WBS: 15.3.1-15.3.3
 Planning base: `21c20f8cde5b63c296e96819ec246b4ba4e66607`
+Construction A merge-main: `67241892a545f4a7cdbf607aa4538bc7515228cf`
 Predecessor: P15-PACKAGE-01 CLOSED
 
 ## Package goal
@@ -15,9 +16,11 @@ Certify the already-established decision boundary with deterministic architectur
 - 15.3.3 — critical decisions auditable by canonical category/risk/criticality/context references without secret/provider payload capture.
 
 ## Construction horizon
-- Construction A `P15-DECISION-BOUNDARY-VERIFICATION-01`: COMMITTED / MATERIALIZED. Establish deterministic verification primitives/checks and critical-decision audit projection/proof.
-- Construction B `P15-DECISION-BOUNDARY-RESILIENCE-AUDIT-01`: FORECAST. Exercise real provider-unavailability/fallback paths and full cross-category audit proof using the integrated Construction A substrate.
-- Construction C: OPTIONAL / FORECAST ONLY, promoted only if fresh-main evidence after Construction B proves a bounded Package Goal gap.
+- Construction A `P15-DECISION-BOUNDARY-VERIFICATION-01`: COMPLETE / SPRINT REVIEW PASS / INTEGRATED. Reviewed head `c74f0d006d5bf01928d8deb9df307db63b2f4671` passed Deterministic CI #832 and Heavy Product Tests #264 and integrated as `67241892a545f4a7cdbf607aa4538bc7515228cf` with zero file drift.
+- Construction B `P15-DECISION-BOUNDARY-RESILIENCE-AUDIT-01`: JUSTIFIED / FORECAST / NOT MATERIALIZED after fresh-main revalidation. It must prove the residual WBS 15.3.2 provider-unavailability/fallback behavior and real-path WBS 15.3.3 auditability through existing provider-neutral seams.
+- Construction C: OPTIONAL / NOT MATERIALIZED, promoted only if fresh-main evidence after Construction B proves a bounded Package Goal gap.
+
+Post-Construction-A evidence is recorded in `P15-PACKAGE-02.post-construction-a-revalidation.md`.
 
 ## Growing package proof
 A representative deterministic, human-decision and probabilistic decision set is checked against the canonical boundary; prohibited category/authority substitutions fail closed; critical decisions emit auditable category/risk/criticality/context references; provider absence cannot silently fabricate deterministic or human authority; no secret values, remote provider dependency, or Runtime Audit Trail replacement is introduced.
