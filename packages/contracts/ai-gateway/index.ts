@@ -137,6 +137,9 @@ export async function invokeModelProvider(
   value: unknown,
 ): Promise<ModelResponse> {
   const request = normalizeModelRequest(value);
-  const response = await adapter.invoke(request);
-  return normalizeModelResponse(response);
+  const response = normalizeModelResponse(await adapter.invoke(request));
+  if (response.requestId !== request.requestId) {
+    throw new Error("model response requestId must match invoked requestId");
+  }
+  return response;
 }
