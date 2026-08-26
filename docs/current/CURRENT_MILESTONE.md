@@ -1,16 +1,16 @@
-# Current Execution Milestone — M15 Deterministic / Human / Probabilistic Boundary
+# Current Execution Milestone — PRE-M16 Contract Conformance Hardening
 
-M13 Autonomous Runtime and M14 Evidence & Provenance remain CLOSED. WBS 14.1.1-14.3.3 remains SATISFIED / CLOSED. `P15-PACKAGE-01` / WBS 15.1.1-15.2.3 is CLOSED.
+M13, M14 and M15 remain CLOSED. `P15-PACKAGE-01` and `P15-PACKAGE-02` remain CLOSED.
 
-## Package state
-`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` / WBS 15.3.1-15.3.3 is CLOSED on canonical main.
+## Active package
+`PRE-M16-CONFORMANCE-HARDENING-PACKAGE-01` is ACTIVE as a bounded prerequisite before M16 provider-facing work.
 
-Construction A and B are integrated. Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review integrated as `3824357c4f0c50e35e7fdd9902ef87639c196958` after CI #846 / Heavy #280 PASS.
+Construction A `PRE-M16-CONTRACT-CONFORMANCE-HARDENING-01` is COMPLETE / SPRINT REVIEW PASS / INTEGRATED. Final reviewed head `ad4ee8448d9cb4e855a35f6b0019ada13e2a63ab` passed CI #860 / Heavy #294 and integrated as `12af9d4226d7cd0510a682c9eccc4335f77ab55e`; both trees are `9b51361f597a278495cced60a2646bbf99e4b6e1`.
 
-Documentation & Closure head `27fcddbb8364e921c7a9a934eeb3d77f3032e7d6` passed CI #847 / Heavy #281 and integrated as `1fd84fc3ad912fd84218d0be152010b793910b9e`; reviewed and merge-main trees are identical at `14078ff718984ea5ce299263d40ef71d7a926aab`.
+Construction B `PRE-M16-CONFORMANCE-INTEGRATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED from fresh main. It is proof-only and covers representative real Compiler/decision-audit consumers of the hardened contracts. Construction C is OPTIONAL / NOT MATERIALIZED.
 
 ## Current gate
-M15 / P15-PACKAGE-02 has no remaining execution gate. Do not materialize successor scope unless separately authorized by repository authority and user authorization.
+Execute TASK-321 -> TASK-322 -> TASK-323 on `sprint/PRE-M16-CONFORMANCE-INTEGRATION-01`, with one authoritative commit per TASK and exact-head validations. After integration, reconstruct fresh main and decide Construction C strictly from residual Package Goal evidence. If no bounded residual exists, proceed to Package Integration & Review.
 
 ## Boundaries
-Preserve ADR-0010 and existing authorization semantics. No mandatory remote provider invocation, provider registry, secrets, storage topology, Runtime Audit Trail replacement, policy-engine replacement, undeclared L4 change or scope outside WBS 15.3. TD-P13-01..04 remain carried and unabsorbed.
+Preserve ADR-0010 and existing authorization semantics. Do not implement M16/M17 provider functionality, introduce provider registry/secrets/storage topology, alter Builder/Runtime architecture, replace Runtime Audit Trail/policy engine, or absorb/re-rank TD-P13-01..04.
