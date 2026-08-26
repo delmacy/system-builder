@@ -1,6 +1,6 @@
 # P16-PACKAGE-02 — AI Execution Governance & Structured Output
 
-Status: ACTIVE / CONSTRUCTION A INTEGRATED
+Status: ACTIVE / CONSTRUCTION B MATERIALIZED
 Date: 2026-08-26
 Milestone: M16 AI Gateway
 WBS coverage: 16.2.1–16.2.3
@@ -10,22 +10,22 @@ Establish provider-neutral, deterministic governance for AI execution so routing
 
 ## Predecessor/readiness
 - `P16-PACKAGE-01 — Provider Abstraction Foundation` is CLOSED; WBS 16.1.1–16.1.3 are SATISFIED / CLOSED.
-- Provider-neutral model request/response, capability/limit descriptors, adapter boundary and canonical invocation seam are integrated.
-- WBS 16.2 is the active M16 block. WBS 16.3 remains forecast and is not execution authority.
-- No L4 change is required by the current Package Goal. Any discovered architecture-boundary change requires ADR/change control before implementation.
+- Construction A is integrated as `59ac3055ad837c60dfe76d4d3864953015b3173c`, tree `dcfe9a21e97dca157b03879bf4fccc603953b93b`.
+- Post-Construction-A revalidation is integrated as `85f5518a5abc1e8f24457f7e09fed3477767391f`, tree `1b305d9bddbf1561b6045a5ea8772cee6cc9ebfe`, proving the bounded invocation-seam gap.
+- WBS 16.3 remains forecast and is not execution authority.
+- No L4 change is required by the current Package Goal; any discovered architecture-boundary change requires ADR/change control.
 
 ## Construction state
 ### Construction A — `P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01`
 Status: INTEGRATED
-Integrated main: `59ac3055ad837c60dfe76d4d3864953015b3173c`
-Reviewed/integrated tree: `dcfe9a21e97dca157b03879bf4fccc603953b93b`
-Outcome: provider-neutral governance policy/rule contracts, deterministic normalization, explicit structured-output validation, permission-aware execution metadata and predecessor WBS 16.1 compatibility proof. TASK-334..339 completed; final CI #909 / Heavy #347 PASS.
+Outcome: provider-neutral governance policy/rule contracts, deterministic normalization, explicit structured-output validation, permission-aware execution metadata and WBS 16.1 compatibility proof. TASK-334..339 completed; final CI #909 / Heavy #347 PASS.
 
 ### Construction B — `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01`
-Status: JUSTIFIED / FORECAST / NOT MATERIALIZED
-Fresh-main evidence confirms the bounded residual gap forecast at Package planning: `invokeModelProvider` currently validates provider-neutral request/response identity but does not yet exercise the WBS 16.2 governance composition at the invocation boundary. Construction B remains limited to integrating explicit policy evaluation, structured-output validation and permitted metadata propagation through the existing seam, with fail-closed violations and no hidden fallback/authority fabrication.
-Exit proof: representative invocation paths exercise the governance boundary using real predecessor APIs and fail closed for policy/schema/metadata violations while deterministic/provider-neutral paths remain unaffected.
-A separate Planning & Materialization gate is mandatory before any Construction B TASK executes.
+Status: COMMITTED / MATERIALIZED / NOT EXECUTED
+Committed chain: `TASK-340 -> TASK-341 -> TASK-342 -> TASK-343 -> TASK-344`.
+Goal: integrate the already-defined governance contracts through the existing provider-neutral AI Gateway invocation seam, with deterministic eligibility/limit evaluation, explicit structured-output validation, permission-aware metadata propagation, fail-closed real-path evidence and no hidden fallback/authority fabrication.
+Exit proof: representative invocation paths use real predecessor APIs, prevent invocation when explicit governance is ineligible, validate normalized outputs, propagate metadata only when permitted, preserve legacy `invokeModelProvider` compatibility and remain provider-neutral.
+Execution authority begins only after this Planning & Materialization head passes exact-head CI + Heavy, integrates with expected-head protection, and fresh-main tree equivalence is proven.
 
 ### Construction C — optional
 Status: FORECAST / EVIDENCE-GATED / NOT MATERIALIZED
