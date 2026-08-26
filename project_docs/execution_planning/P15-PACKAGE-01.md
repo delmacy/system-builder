@@ -1,11 +1,12 @@
 # P15-PACKAGE-01 — Decision Classification & Authority Guardrails
 
-Status: ACTIVE / CONSTRUCTION A+B INTEGRATED / CONSTRUCTION C NOT REQUIRED
+Status: ACTIVE / PACKAGE INTEGRATION REVIEW GO / EXACT-HEAD VALIDATION REQUIRED
 Milestone: M15 Deterministic / Human / Probabilistic Boundary
 Primary WBS: 15.1.1-15.2.3
 Planning base: `6222cc42af1db9fed0b20666ff9057644b9b5f30`
 Construction A merge-main: `8d0ea6035ef9470b640c096d06d9409a6c7fc137`
 Construction B merge-main: `09eea027142d071349dce5523905768fbebce548`
+Post-Construction-B revalidation merge-main: `bdfc55135505aa4746513643e459652f4e0b3f31`
 Predecessor: M14 Evidence & Provenance CLOSED
 
 ## Package goal
@@ -29,10 +30,13 @@ WBS 15.3.1-15.3.3 remains outside this package and forecast for a separate succe
 `P15-DECISION-BOUNDARY-ENFORCEMENT-01` / TASK-305..308. Final reviewed head `421be2fdf65f21bbd6fc5f534a3d520f13cae342` passed Deterministic CI #813 and Heavy Product Tests #243 with no blocking review threads, and integrated as `09eea027142d071349dce5523905768fbebce548`. Reviewed-head and merge-main trees are identical: `52e81cce0b6fe24512ac982bc7ca2e8ea8d9efb2`.
 
 ### Construction C — NOT REQUIRED / NOT MATERIALIZED
-Fresh-main post-Construction-B revalidation found no residual bounded capability gap required by the Package Goal. Construction B covers every real governance path identified after Construction A: durable human approval, package-owner authorization and authority closure. Construction C must not be promoted without contrary fresh evidence.
+Fresh-main post-Construction-B revalidation found no residual bounded capability gap required by the Package Goal. Construction B covers every real governance path identified after Construction A: durable human approval, package-owner authorization and authority closure. The revalidation integrated as `bdfc55135505aa4746513643e459652f4e0b3f31` after Deterministic CI #814 and Heavy Product Tests #245. Construction C must not be promoted without contrary fresh evidence.
 
-## Package review and closure
-Package Integration & Review is the next eligible stage after the post-Construction-B revalidation integrates. It must regress the package, classify debt and check architecture/contracts/readiness; it is not an overflow feature Sprint. Documentation & Closure follows only after that review passes its own gates.
+## Package Integration & Review — EXECUTED / GO
+`P15-PACKAGE-01-INTEGRATION-REVIEW-01` regressed the complete integrated package from fresh main. Contract/taxonomy, real governance-path enforcement, fail-closed deterministic guards, human-reserved authority, inference metadata, architecture boundaries, dependency accuracy, security/trust, CI health, technical debt and readiness were reviewed. No missing Package Goal capability, architecture drift or package-local blocker requiring hidden construction was identified. GO for Documentation & Closure is contingent on exact-head Deterministic CI + Heavy Product Tests and no blocking review finding.
+
+## Closure
+Documentation & Closure is the only eligible successor stage after Package Review integration. It is repository-memory reconciliation only and must not introduce product behavior. `P15-PACKAGE-02` / WBS 15.3 remains outside scope.
 
 ## Explicit boundaries
 Decision classification is not execution authority. Do not weaken/replace ADR-0010 or existing authorization semantics; do not require AI/provider/model execution; do not introduce provider registry, secrets, storage topology, Runtime Audit Trail replacement, policy-engine replacement or WBS 15.3; do not absorb/re-rank TD-P13-01..04. L4 requires explicit materialized ADR authority.
