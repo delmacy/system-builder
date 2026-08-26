@@ -10,11 +10,13 @@ Date: 2026-08-26
 ## M16 AI Gateway
 `P16-PACKAGE-01 — Provider Abstraction Foundation` is CLOSED. WBS 16.1.1-16.1.3 are SATISFIED / CLOSED.
 
-`P16-PACKAGE-02 — AI Execution Governance & Structured Output` is ACTIVE / CONSTRUCTION A INTEGRATED and covers only WBS 16.2.1-16.2.3.
+`P16-PACKAGE-02 — AI Execution Governance & Structured Output` is ACTIVE and covers only WBS 16.2.1-16.2.3.
 
-Construction A `P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01` integrated as `59ac3055ad837c60dfe76d4d3864953015b3173c` after final exact-head Deterministic CI #909 and Heavy Product Tests #347 PASS. Reviewed head and merge-main share tree `dcfe9a21e97dca157b03879bf4fccc603953b93b`.
+Construction A `P16-AI-EXECUTION-GOVERNANCE-CONTRACT-01` is INTEGRATED as `59ac3055ad837c60dfe76d4d3864953015b3173c`, tree `dcfe9a21e97dca157b03879bf4fccc603953b93b`, after final exact-head Deterministic CI #909 and Heavy Product Tests #347 PASS.
 
-Fresh-main revalidation confirms a bounded residual Package Goal gap: the existing `invokeModelProvider` seam validates provider-neutral request/response identity but does not yet exercise execution-governance policy evaluation, structured-output validation and permitted metadata propagation. Construction B `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` is therefore JUSTIFIED / FORECAST / NOT MATERIALIZED and requires a separate Planning & Materialization gate before TASK execution.
+Post-Construction-A fresh-main revalidation is INTEGRATED as `85f5518a5abc1e8f24457f7e09fed3477767391f`, tree `1b305d9bddbf1561b6045a5ea8772cee6cc9ebfe`, and confirms the bounded invocation-seam gap.
+
+Construction B `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-340..344. It is limited to deterministic governance evaluation, governed invocation through the existing provider-neutral adapter seam, explicitly permitted execution metadata propagation, fail-closed integration proof, and the Construction B growing proof/Sprint Report. Its Planning & Materialization head must pass exact-head CI + Heavy and integrate before TASK-340 begins.
 
 Construction C remains optional / EVIDENCE-GATED / NOT MATERIALIZED. WBS 16.3 remains FORECAST / NOT MATERIALIZED.
 
