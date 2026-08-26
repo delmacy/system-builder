@@ -1,7 +1,7 @@
 ---
 id: TASK-326
 title: Add deterministic AI Gateway contract validation and normalization
-status: committed
+status: ready
 priority: 326
 milestone: M16
 model_tier: architecture
