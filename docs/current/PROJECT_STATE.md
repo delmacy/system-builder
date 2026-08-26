@@ -5,7 +5,7 @@ Date: 2026-08-26
 `delmacy/system-builder` is canonical. M13 Autonomous Runtime, M14 Evidence & Provenance and M15 Deterministic / Human / Probabilistic Boundary are CLOSED. `P15-PACKAGE-01` and `P15-PACKAGE-02` remain CLOSED; WBS 15.1.1-15.3.3 is SATISFIED / CLOSED.
 
 ## PRE-M16 Contract Conformance Hardening
-`PRE-M16-CONFORMANCE-HARDENING-PACKAGE-01` is ACTIVE before M16 provider-facing work and is now in Documentation & Closure.
+`PRE-M16-CONFORMANCE-HARDENING-PACKAGE-01` is CLOSED.
 
 Planning & Materialization integrated as `5299ae6dbf7ba24106cc9afe43a41e54613eb55e`.
 
@@ -15,10 +15,15 @@ Construction B `PRE-M16-CONFORMANCE-INTEGRATION-01` is COMPLETE / SPRINT REVIEW 
 
 Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review PR #380 head `f43c9d8765655b81523280e4b6d40194e84c6f35` passed Deterministic CI #869 and Heavy Product Tests #305, had no review blockers, and integrated as `91a2958d369600a1bbb36e9becf9d0f6ec78c300`; reviewed-head to merge-main has zero file differences.
 
-The review disposition is GO FOR DOCUMENTATION & CLOSURE. No residual bounded Package Goal defect, undeclared L3/L4 change, security weakening, contract drift or mandatory new debt was found. TD-P13-01..04 remain carried unchanged.
+Documentation & Closure PR #381 head `5add1444c974050a462b51f9c9296c1ca7ac28cb` passed Deterministic CI #870 and Heavy Product Tests #306 and integrated as `eeaf4619fdeac0f4f709bbe42f1e466f3f4d7dd8`. Both reviewed head and merge-main have tree `f180abd7d6f56b395fa6d6c335d8afccf78ee006`, so the closure tree is equivalent and the package is canonically CLOSED.
+
+No residual bounded Package Goal defect, undeclared L3/L4 change, security weakening, contract drift or mandatory new debt remains. TD-P13-01..04 remain carried unchanged.
+
+## Successor authority
+The user has separately authorized exactly two successor Work Packages after PRE-M16. Their names and scopes must be derived serially from fresh-main roadmap/WBS/scope/ADR authority. No successor product implementation is authorized by inference from PRE-M16 itself.
 
 ## Security and architecture boundary
-No M16 provider implementation, provider registry, remote invocation, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement or undeclared L4 architecture change is authorized inside PRE-M16 closure.
+No provider registry, remote invocation, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement or undeclared L4 architecture change was introduced by PRE-M16.
 
 ## Carried debt
 TD-P13-01..04 remain carried and are not absorbed or re-ranked.
