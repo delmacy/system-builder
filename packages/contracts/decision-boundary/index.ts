@@ -54,6 +54,31 @@ export type HumanAuthorityReservationEvaluation =
   | Readonly<{ status: "rejected"; decisionId: string; authorityRef: string; diagnostic: string }>
   | Readonly<{ status: "invalid"; diagnostic: string }>;
 
+export type DecisionBoundaryVerificationReference =
+  | Readonly<{ kind: "invariant"; ref: string }>
+  | Readonly<{ kind: "authority"; ref: string }>
+  | Readonly<{ kind: "inference"; ref: string }>;
+
+export type DecisionBoundaryVerificationResult =
+  | Readonly<{
+      status: "valid";
+      decisionId: string;
+      category: DecisionCategory;
+      risk: DecisionRiskLevel;
+      criticality: DecisionCriticalityLevel;
+      reference: DecisionBoundaryVerificationReference;
+    }>
+  | Readonly<{
+      status: "rejected";
+      decisionId: string;
+      category: DecisionCategory;
+      risk: DecisionRiskLevel;
+      criticality: DecisionCriticalityLevel;
+      reference: DecisionBoundaryVerificationReference;
+      diagnostic: string;
+    }>
+  | Readonly<{ status: "invalid"; diagnostic: string }>;
+
 const TOKEN_PATTERN = /^\S+$/;
 const CATEGORY_SET = new Set<string>(DECISION_CATEGORIES);
 const RISK_SET = new Set<string>(DECISION_RISK_LEVELS);
@@ -234,6 +259,50 @@ export function evaluateHumanAuthorityReservation(input: Readonly<{
     }
 
     return { status: "compatible", decisionId: descriptor.decisionId, authorityRef };
+  } catch (error) {
+    return { status: "invalid", diagnostic: error instanceof Error ? error.message : "invalid decision boundary" };
+  }
+}
+
+export function verifyDecisionBoundary(input: Readonly<{
+  descriptor: unknown;
+  metadata: unknown;
+  riskCriticality: unknown;
+  expectedCategory?: unknown;
+}>): DecisionBoundaryVerificationResult {
+  try {
+    const descriptor = normalizeDecisionBoundaryDescriptor(input.descriptor);
+    const metadata = normalizeDecisionCategoryMetadata(descriptor.category, input.metadata);
+    const riskCriticality = normalizeDecisionRiskCriticality(input.riskCriticality);
+
+    if (input.expectedCategory !== undefined && !isDecisionCategory(input.expectedCategory)) {
+      fail("$decisionBoundary.expectedCategory", "unsupported category");
+    }
+
+    const reference: DecisionBoundaryVerificationReference =
+      metadata.category === "deterministic"
+        ? { kind: "invariant", ref: metadata.metadata.invariantRef }
+        : metadata.category === "human-decision"
+          ? { kind: "authority", ref: metadata.metadata.authorityRef }
+          : { kind: "inference", ref: metadata.metadata.inferenceRef };
+
+    const common = {
+      decisionId: descriptor.decisionId,
+      category: descriptor.category,
+      risk: riskCriticality.risk,
+      criticality: riskCriticality.criticality,
+      reference,
+    } as const;
+
+    if (input.expectedCategory !== undefined && descriptor.category !== input.expectedCategory) {
+      return {
+        status: "rejected",
+        ...common,
+        diagnostic: `decision category ${descriptor.category} does not match expected category ${input.expectedCategory}`,
+      };
+    }
+
+    return { status: "valid", ...common };
   } catch (error) {
     return { status: "invalid", diagnostic: error instanceof Error ? error.message : "invalid decision boundary" };
   }
