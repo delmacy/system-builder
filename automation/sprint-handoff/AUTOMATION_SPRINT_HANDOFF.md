@@ -1,34 +1,32 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: :10
-started_at: 2026-08-26T15:11:14Z
-heartbeat_at: 2026-08-26T15:13:53Z
-updated_at: 2026-08-26T15:13:53Z
-lease_until: none
+status: RUNNING
+worker_slot: :50
+started_at: 2026-08-26T12:49:42-03:00
+heartbeat_at: 2026-08-26T12:49:42-03:00
+updated_at: 2026-08-26T12:49:42-03:00
+lease_until: 2026-08-26T13:14:42-03:00
 main_sha: 7c9bb9d874b1976a562f73ffd7970ea4de2da022
 branch: sprint/P16-PROVIDER-ABSTRACTION-CONTRACT-01
 pr: 384
-head_sha: 34ec1071638082150af56c9df2dce9273adfa9e1
-step: TASK-325 implemented as a single authoritative commit; await exact-head Deterministic CI + Heavy Product Tests before TASK-326.
+head_sha: 38f7569834fc822702cd5233da509fa93d8e459f
+step: Revalidate exact-head TASK-325 gates. Deterministic CI #880 is in progress; Heavy Product Tests #315 is queued. Do not start TASK-326 before both PASS.
 
 last_completed_step:
-- Planning & Materialization PR #382 head `338b41ad325681521db958f3318915a349fe555c` passed Deterministic CI #874 and Heavy Product Tests #310, merged as `7c9bb9d874b1976a562f73ffd7970ea4de2da022`; reviewed head and merge-main share tree `7a5a4da0f2a374d24ac713ac84daab71b5b15731`.
-- TASK-324 authoritative commit `0d356993198099a9231780282f8b7f0180d1ca24` passed Deterministic CI #876 and Heavy Product Tests #312.
-- TASK-325 executed in one authoritative commit `34ec1071638082150af56c9df2dce9273adfa9e1`, adding provider-neutral capability/limit descriptors, fail-closed validation, focused product proof and status completed.
-- PR #384 reconciled to the new exact head and remains draft/mergeable with exactly two TASK commits.
+- PRE-M16 is CLOSED; P16-PACKAGE-01 Planning & Materialization is integrated on main.
+- TASK-324 passed exact-head gates.
+- TASK-325 is preserved as authoritative commit `38f7569834fc822702cd5233da509fa93d8e459f`, same parent/tree/content as prior reconstructed forms.
+- Validation-only PR #385 exists only to obtain exact-head gates and must never be merged.
 
 current_gate:
-- Exact-head workflows for TASK-325 had not yet appeared immediately after the push. Treat as transient scheduling; revalidate workflows for `34ec1071638082150af56c9df2dce9273adfa9e1` before advancing.
-
-blocked_cause:
-- None. Only exact-head CI/Heavy scheduling/completion remains.
-
-minimum_human_decision_required:
-- None under registered triple authorization.
+- Deterministic CI #880 IN_PROGRESS on exact head `38f7569834fc822702cd5233da509fa93d8e459f`.
+- Heavy Product Tests #315 QUEUED on the same exact head.
 
 next_step:
-- Revalidate Deterministic CI + Heavy Product Tests on head `34ec1071638082150af56c9df2dce9273adfa9e1`. If both PASS and no blocker/head drift exists, execute only TASK-326 next as one authoritative commit. If a bounded failure appears, fix it strictly within TASK-325 allowed paths, reconstruct TASK-325 if needed to preserve one authoritative commit, and rerun exact-head gates. Do not begin TASK-326 before PASS.
+- When both gates PASS, close PR #385 without merge and execute only TASK-326 according to its materialized spec, then continue TASK-327..329 serially behind their own exact-head gates.
+
+boundaries:
+- Construction A only. No Construction B materialization. No WBS 16.2/16.3. No conformance/productization findings. No TD-P13-01..04 absorption. No provider registry/routing/budget/fallback/secrets/mandatory network topology. No undeclared L4.
 
 resume_prompt:
-- Resume `delmacy/system-builder` serialized as worker slot. PRE-M16 is CLOSED. P16-PACKAGE-01 Planning & Materialization is integrated on main `7c9bb9d874b1976a562f73ffd7970ea4de2da022`, tree `7a5a4da0f2a374d24ac713ac84daab71b5b15731`. Construction A `P16-PROVIDER-ABSTRACTION-CONTRACT-01` is active in draft PR #384. TASK-324 `0d356993198099a9231780282f8b7f0180d1ca24` passed CI #876 / Heavy #312. TASK-325 is implemented in single authoritative commit `34ec1071638082150af56c9df2dce9273adfa9e1`; revalidate its exact-head gates, then execute TASK-326 only after PASS. Construction B/C remain forecast; WBS 16.2/16.3 and the second successor Work Package remain outside current execution until proper materialization/fresh-main gates.
+- Resume `delmacy/system-builder` on draft PR #384, branch `sprint/P16-PROVIDER-ABSTRACTION-CONTRACT-01`, head `38f7569834fc822702cd5233da509fa93d8e459f`, base main `7c9bb9d874b1976a562f73ffd7970ea4de2da022`. TASK-324 is complete. TASK-325 is authoritative at the current head; validation-only PR #385 must not be merged. Revalidate CI #880 and Heavy #315; only after both PASS execute TASK-326, then TASK-327..329 serially. Keep Construction B, WBS 16.2/16.3, conformance/productization findings, and TD-P13-01..04 out of scope.
