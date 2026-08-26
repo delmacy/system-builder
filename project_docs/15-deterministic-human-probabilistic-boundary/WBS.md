@@ -13,8 +13,8 @@
 P15-PACKAGE-01 is canonically CLOSED on main.
 
 ### 15.3 Verificação — ACTIVE / P15-PACKAGE-02
-- **15.3.1** Criar architecture/contract checks aplicáveis — SATISFIED / INTEGRATED via Construction A `P15-DECISION-BOUNDARY-VERIFICATION-01` / TASK-309..312; final Package closure remains subject to package-level gates.
-- **15.3.2** Testar fallback e indisponibilidade do provider — COMMITTED / MATERIALIZED via Construction B `P15-DECISION-BOUNDARY-RESILIENCE-AUDIT-01` / TASK-313..316; not yet executed.
-- **15.3.3** Auditar decisões críticas por categoria — Construction A foundation SATISFIED / INTEGRATED; residual real-path/resilience audit proof COMMITTED / MATERIALIZED in Construction B TASK-315..316; not yet executed.
+- **15.3.1** Criar architecture/contract checks aplicáveis — SATISFIED / INTEGRATED via Construction A `P15-DECISION-BOUNDARY-VERIFICATION-01` / TASK-309..312.
+- **15.3.2** Testar fallback e indisponibilidade do provider — SATISFIED / INTEGRATED via Construction B `P15-DECISION-BOUNDARY-RESILIENCE-AUDIT-01` / TASK-313..316.
+- **15.3.3** Auditar decisões críticas por categoria — SATISFIED / INTEGRATED across Construction A+B, including representative real-path resilience/audit proof in TASK-315..316.
 
-`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` is the bounded WBS 15.3 delivery Package. Construction A is integrated. Construction B is the active committed/materialized Construction Sprint after fresh-main evidence proved the residual gap. Construction C remains optional/forecast/evidence-gated and is not execution authority. TD-P13-01..04 remain carried and unabsorbed.
+`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` is the bounded WBS 15.3 delivery Package. Construction A and B are integrated. Fresh-main post-Construction-B evidence identifies no residual Package Goal capability; optional Construction C is NOT REQUIRED / NOT MATERIALIZED. Final Package closure remains subject to Package Integration & Review and Documentation & Closure gates. TD-P13-01..04 remain carried and unabsorbed.
