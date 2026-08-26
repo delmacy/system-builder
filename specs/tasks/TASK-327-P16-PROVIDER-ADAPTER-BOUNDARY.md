@@ -1,7 +1,7 @@
 ---
 id: TASK-327
 title: Define replaceable provider adapter boundary
-status: committed
+status: ready
 priority: 327
 milestone: M16
 model_tier: architecture
