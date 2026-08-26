@@ -1,37 +1,34 @@
 # Automation Sprint Handoff
 
 status: RUNNING
-worker_slot: :30
-started_at: 2026-08-26T15:32:00-03:00
-heartbeat_at: 2026-08-26T15:47:30-03:00
-updated_at: 2026-08-26T15:47:30-03:00
-lease_until: 2026-08-26T16:12:30-03:00
-main_sha: 119d00cacfc88268073540c49786de5c841f46ae
-main_tree: e904a076678ce34f8f6e347bab8760624f67cf4f
-branch: none — fresh-main post-Construction-A revalidation
-pr: 384 MERGED
-head_sha: 11b4b4926fe03491fa5483ac6f25cfb03e61952d
-step: Construction A integrated; fresh-main evidence gate deciding whether bounded Construction B `P16-PROVIDER-ABSTRACTION-INTEGRATION-01` is required.
+worker_slot: :10
+started_at: 2026-08-26T16:12:46-03:00
+heartbeat_at: 2026-08-26T16:12:46-03:00
+updated_at: 2026-08-26T16:12:46-03:00
+lease_until: 2026-08-26T16:37:46-03:00
+main_sha: 36681b832938cd9f1d369f8128e58d912cb0a5d7
+main_tree: 73bb80b674bdd02f26a6fe9ad2b54ca75b9cfd7d
+branch: planning/P16-PROVIDER-ABSTRACTION-INTEGRATION-01
+pr: 387 OPEN
+head_sha: 801e3cb9bf0b92296bf8ede4a22bb0baaf04e5a1
+step: Revalidate exact-head gates for Construction B Planning & Materialization after bounded TASK lifecycle metadata correction.
 
 ## Authorization
-Continue `P16-PACKAGE-01 — Provider Abstraction Foundation` under the user's triple authorization. Construction A is integrated. Construction B may be materialized only if fresh-main evidence proves the bounded real-path integration/unavailability gap remains. Do not execute WBS 16.2/16.3 routing/budget/fallback/knowledge-boundary behavior. Construction C remains optional/evidence-gated. No conformance/productization finding or TD-P13-01..04 absorption by inference.
+Continue P16-PACKAGE-01 under the user's triple authorization. Construction A is integrated. Construction B is materialized only by PR #387 and remains non-executable until exact-head Deterministic CI + Heavy Product Tests PASS and merge/tree-equivalence. Do not execute WBS 16.2/16.3. Construction C remains optional/evidence-gated. No conformance/productization finding or TD-P13-01..04 absorption by inference.
 
-## Completed Construction A
-- TASK-324 `0d356993198099a9231780282f8b7f0180d1ca24`.
-- TASK-325 `38f7569834fc822702cd5233da509fa93d8e459f`.
-- TASK-326 `966f43c46af188c518fcdfa395be0e6c0a7aa024`; CI #886 PASS / Heavy #322 PASS.
-- TASK-327 `0adc037e7a2a630dc2a2c910e0fb45be4efef487`; CI #887 PASS / Heavy #323 PASS.
-- TASK-328 `fea4db88a281106e05a43baf4a037c1f1e00b5a3`; CI #888 PASS / Heavy #324 PASS.
-- TASK-329 `912e3aa79ea85656fc58cec9b80c406cd8103362`; CI #889 PASS / Heavy #325 PASS.
-- Sprint closure head `11b4b4926fe03491fa5483ac6f25cfb03e61952d`; CI #890 PASS / Heavy #326 PASS.
-- PR #384 merged as main `119d00cacfc88268073540c49786de5c841f46ae`; reviewed-head -> merge-main has zero file differences; tree `e904a076678ce34f8f6e347bab8760624f67cf4f`.
-- Validation-only PR #385 closed without merge.
+## Current evidence
+- PR #384 Construction A merged as `119d00cacfc88268073540c49786de5c841f46ae`.
+- PR #386 post-A revalidation merged as fresh main `36681b832938cd9f1d369f8128e58d912cb0a5d7`, tree `73bb80b674bdd02f26a6fe9ad2b54ca75b9cfd7d`.
+- PR #387 materializes TASK-330..333 only.
+- Initial PR #387 head `abe9bfeeae8c255b408886518fc5bd20fa1ca7da`: Heavy #329 PASS, Deterministic CI #892 FAIL.
+- Root cause bounded to lifecycle metadata: TASK-330..333 used `status: pending` instead of materialized `status: ready`.
+- Corrective commit `801e3cb9bf0b92296bf8ede4a22bb0baaf04e5a1` changes only those four status fields.
 
-last_completed_step: integrated Construction A after final exact-head gates and proved tree equivalence.
-next_authorized_step: inspect fresh main for real AI Gateway consumer/adapter seams and provider-unavailability behavior. If the forecast residual gap is real, record the revalidation and materialize only bounded Construction B before executing any new TASK. If already satisfied, keep Construction B unmaterialized and proceed to Package Integration/Review according to Package authority.
+last_completed_step: corrected Construction B task lifecycle metadata in one bounded commit.
+next_authorized_step: confirm Deterministic CI + Heavy Product Tests PASS on exact head `801e3cb9bf0b92296bf8ede4a22bb0baaf04e5a1`; if PASS and no blockers/drift, merge PR #387 with expected-head protection, reconstruct fresh main and prove tree equivalence before creating the Construction B execution branch and starting TASK-330.
 
 ## Boundaries
 No provider registry/routing/budget/fallback/secrets/mandatory network topology, no WBS 16.2/16.3 behavior, no undeclared L4, no conformance/productization finding absorption, no TD-P13-01..04 absorption.
 
 ## resume_prompt
-Resume `delmacy/system-builder` from fresh main `119d00cacfc88268073540c49786de5c841f46ae`, tree `e904a076678ce34f8f6e347bab8760624f67cf4f`. Construction A `P16-PROVIDER-ABSTRACTION-CONTRACT-01` is integrated via PR #384 after CI #890 / Heavy #326 PASS and zero tree diff. Perform fresh-main evidence revalidation against P16 Package Goal/WBS 16.1 only. Materialize `P16-PROVIDER-ABSTRACTION-INTEGRATION-01` only if a bounded real-path integration/provider-unavailability gap remains; do not implement WBS16.2/16.3 routing/budget/fallback or absorb unrelated findings/TDs. Preserve triple authorization for this Package and one additional successor Package after P16-PACKAGE-01 closes.
+Resume delmacy/system-builder at PR #387, head `801e3cb9bf0b92296bf8ede4a22bb0baaf04e5a1`. Fresh main before planning merge is `36681b832938cd9f1d369f8128e58d912cb0a5d7`, tree `73bb80b674bdd02f26a6fe9ad2b54ca75b9cfd7d`. Initial head had Heavy #329 PASS / CI #892 FAIL due only to TASK-330..333 lifecycle `status: pending`; bounded commit `801e3cb9...` changes them to `ready`. Validate exact-head CI+Heavy; if PASS/no blocker, merge #387 protected, reconstruct main/tree equivalence, then execute TASK-330 first and gate each TASK serially. Construction C optional/evidence-gated; WBS16.2/16.3 and TD-P13-01..04 remain excluded.
