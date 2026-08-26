@@ -1,7 +1,7 @@
 ---
 id: TASK-332
 title: Prove provider replaceability through the invocation seam
-status: ready
+status: completed
 priority: 332
 milestone: M16
 model_tier: architecture
