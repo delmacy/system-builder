@@ -1,28 +1,27 @@
 # Automation Sprint Handoff
 
-status: BLOCKED
-worker_slot: :30
-started_at: 2026-08-26T04:28:11-03:00
-updated_at: 2026-08-26T04:29:30-03:00
-lease_until: 2026-08-26T04:29:30-03:00
-observed_main_sha: 6762118ce959903f271f96e9214aac79f61c9464
-active_branch: none
-active_pr: none
-active_head_sha: none
-current_step: P15-PACKAGE-02 / WBS 15.3 / M15 canonical closure confirmed; no successor Work Package is authorized by this closure.
+status: RUNNING
+worker_slot: :50
+started_at: 2026-08-26T08:48:32-03:00
+updated_at: 2026-08-26T08:48:32-03:00
+lease_until: 2026-08-26T09:13:32-03:00
+observed_main_sha: 12af9d4226d7cd0510a682c9eccc4335f77ab55e
+active_branch: sprint/PRE-M16-CONFORMANCE-INTEGRATION-PLANNING-01
+active_pr: 378
+active_head_sha: 298e3eb11e75354a61fd37c70b9a877e86bd7c98
+current_step: Revalidate and integrate Construction B Planning & Materialization PR #378 after exact-head gates PASS; then fresh-main reconstruct and execute TASK-321 first if tree-equivalent and no blocker.
 
-## Package execution authorization — user record
-The user explicitly authorized `P15-PACKAGE-02 / WBS 15.3.1-15.3.3` from fresh-main Planning & Materialization through Package closure, including all process approvals, L1-L3 execution of materialized TASKs, evidence-gated successor Constructions, Sprint Reviews, Package Integration & Technical Debt Review, Documentation & Closure, bounded corrections, merges and repository-memory reconciliation. This authority does not skip materialization/gates, broaden beyond WBS 15.3, absorb/re-rank TD-P13-01..04, or bypass ADR/change-control for L4.
+## Authorization
+User authorization covers completion of PRE-M16-CONTRACT-CONFORMANCE-HARDENING-01 and, after PRE-M16 closes, the next two eligible Work Packages derived only from fresh-main authority. L1-L3 process approvals are pre-granted. Do not skip materialization/gates, invent successor scope, absorb technical debt by inference, or perform undeclared L4 without ADR/change control.
 
-last_completed_step: Revalidated PR #374 exact head `0d45e49bf9ae4ae8d966de97cef7266d8ca0d9d7`; Deterministic CI #848 PASS and Heavy Product Tests #282 PASS with no reviews or review threads. Merge attempt correctly failed because canonical `main` had independently advanced from `1fd84fc3ad912fd84218d0be152010b793910b9e` to `6762118ce959903f271f96e9214aac79f61c9464`, commit `P15: finalize Package 02 canonical closed state`, tree `f62c44e641b43eb785517f1180a46231534eef02`. Fresh `PROJECT_STATE` and `NEXT_WORK` on that main already record `P15-PACKAGE-02 / WBS 15.3.1-15.3.3` as CLOSED, Construction C NOT REQUIRED / NOT MATERIALIZED, and no successor authority. PR #374 became redundant/conflicting against the already-integrated canonical closure and was closed without merge. No open PRs remain.
+## Lock acquisition rationale
+Previous handoff was stale (updated_at/lease from 04:29 -03:00). Repository nevertheless advanced: Construction A integrated as main `12af9d4226d7cd0510a682c9eccc4335f77ab55e`; PR #378 materializes Construction B and its exact head `298e3eb11e75354a61fd37c70b9a877e86bd7c98` has Deterministic CI #864 PASS and Heavy Product Tests #299 PASS. No valid <=12-minute heartbeat existed, so worker :50 assumes serialization after GitHub revalidation.
 
-next_authorized_step: None within P15-PACKAGE-02; the Package and M15 are closed. A successor requires a separate fresh-main Planning & Materialization authorization and must be derived from authoritative planning, not inferred from this closure.
-
-## Block cause
-The active Package is complete. Remaining work would belong to a successor Package outside the authority granted for P15-PACKAGE-02/WBS 15.3. This is not a transient CI, branch, review or implementation blocker.
+last_completed_step: Construction A integrated; PR #378 exact-head gates verified PASS.
+next_authorized_step: Verify reviews/threads and mergeability for #378, merge with expected head if clean, prove tree equivalence on fresh main, then start only TASK-321 on `sprint/PRE-M16-CONFORMANCE-INTEGRATION-01`.
 
 ## Boundaries
-Do not broaden beyond P15-PACKAGE-02/WBS 15.3. Do not absorb/re-rank TD-P13-01..04. Decision verification/audit evidence is not execution authority. Preserve ADR-0010 and existing authorization semantics. No provider registry, secret material, mandatory remote inference, storage topology, Runtime Audit Trail replacement, policy-engine replacement, ADR-0009 reinterpretation or undeclared L4 topology.
+PRE-M16 Construction B is proof-only. No M16/M17 provider implementation, provider registry, remote calls, secrets, storage topology, Builder/Runtime architecture changes, Runtime Audit Trail replacement, policy-engine replacement, TD-P13-01..04 absorption/re-ranking, or undeclared L4 change.
 
 ## resume_prompt
-Retome `delmacy/system-builder` em canonical main `6762118ce959903f271f96e9214aac79f61c9464`, tree `f62c44e641b43eb785517f1180a46231534eef02`. `P15-PACKAGE-02 / WBS 15.3.1-15.3.3 / M15` está CLOSED em repository memory. Documentation & Closure PR #373 integrou como `1fd84fc3ad912fd84218d0be152010b793910b9e`; a reconciliação canônica posterior já está em main `6762118c...`. O PR #374, head `0d45e49b...`, passou CI #848 / Heavy #282 mas foi fechado como redundante após main avançar com a mesma finalidade; não há PRs abertos. Não materialize sucessor sem autorização separada de fresh-main Planning & Materialization.
+Retome PRE-M16 em main `12af9d4226d7cd0510a682c9eccc4335f77ab55e`. PR #378 `PRE-M16: materialize consumer conformance Construction B` está OPEN/MERGEABLE, head `298e3eb11e75354a61fd37c70b9a877e86bd7c98`, com CI #864 PASS e Heavy #299 PASS. Revalide review threads/head, integre com expected-head se clean, faça fresh-main/tree equivalence, e então execute somente TASK-321 da materializada `PRE-M16-CONFORMANCE-INTEGRATION-01`.
