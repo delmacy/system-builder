@@ -12,9 +12,9 @@
 
 P15-PACKAGE-01 is canonically CLOSED on main.
 
-### 15.3 Verificação — ACTIVE PLANNING / P15-PACKAGE-02
-- **15.3.1** Criar architecture/contract checks aplicáveis — COMMITTED via Construction A `P15-DECISION-BOUNDARY-VERIFICATION-01` / TASK-309..312.
-- **15.3.2** Testar fallback e indisponibilidade do provider — FORECAST for Construction B after Construction A integration plus fresh-main revalidation.
-- **15.3.3** Auditar decisões críticas por categoria — PARTIALLY COMMITTED foundation in Construction A; full real-path proof forecast for Construction B.
+### 15.3 Verificação — ACTIVE / P15-PACKAGE-02
+- **15.3.1** Criar architecture/contract checks aplicáveis — SATISFIED / INTEGRATED via Construction A `P15-DECISION-BOUNDARY-VERIFICATION-01` / TASK-309..312; final Package closure remains subject to package-level gates.
+- **15.3.2** Testar fallback e indisponibilidade do provider — COMMITTED / MATERIALIZED via Construction B `P15-DECISION-BOUNDARY-RESILIENCE-AUDIT-01` / TASK-313..316; not yet executed.
+- **15.3.3** Auditar decisões críticas por categoria — Construction A foundation SATISFIED / INTEGRATED; residual real-path/resilience audit proof COMMITTED / MATERIALIZED in Construction B TASK-315..316; not yet executed.
 
-`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` is authorized by the user as the bounded WBS 15.3 delivery Package. Construction A is the only committed/materialized Construction Sprint at this planning gate; Construction B remains forecast and Construction C optional/evidence-gated. TD-P13-01..04 remain carried and unabsorbed.
+`P15-PACKAGE-02 — Decision Boundary Verification & Auditability` is the bounded WBS 15.3 delivery Package. Construction A is integrated. Construction B is the active committed/materialized Construction Sprint after fresh-main evidence proved the residual gap. Construction C remains optional/forecast/evidence-gated and is not execution authority. TD-P13-01..04 remain carried and unabsorbed.
