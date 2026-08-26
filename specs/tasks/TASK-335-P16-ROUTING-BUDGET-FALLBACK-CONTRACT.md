@@ -1,7 +1,7 @@
 ---
 id: TASK-335
 title: Define routing budget quota and fallback rule contracts
-status: ready
+status: completed
 priority: 335
 milestone: M16
 model_tier: architecture

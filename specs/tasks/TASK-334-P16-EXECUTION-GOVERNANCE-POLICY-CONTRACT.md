@@ -1,7 +1,7 @@
 ---
 id: TASK-334
 title: Define execution governance policy descriptor
-status: ready
+status: completed
 priority: 334
 milestone: M16
 model_tier: architecture

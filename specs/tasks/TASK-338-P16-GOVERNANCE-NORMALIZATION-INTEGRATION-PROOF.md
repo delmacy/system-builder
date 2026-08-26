@@ -1,7 +1,7 @@
 ---
 id: TASK-338
 title: Add deterministic governance normalization and predecessor integration proof
-status: ready
+status: completed
 priority: 338
 milestone: M16
 model_tier: architecture
