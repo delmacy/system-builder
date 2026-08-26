@@ -6,8 +6,10 @@ Construction A is integrated by PR #384. Construction B `P16-PROVIDER-ABSTRACTIO
 
 Post-Construction-B fresh-main evidence confirms no residual bounded WBS 16.1 gap. Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
+Package Integration & Review has been executed from fresh main `1e9a3e015275968990efeae5c14247abd3b5d6e5` with GO FOR DOCUMENTATION & CLOSURE, contingent on exact-head Deterministic CI + Heavy Product Tests PASS and no blocker/head drift.
+
 ## Required next action
-Execute Package Integration & Review for P16-PACKAGE-01 from fresh main. If the review is GO and exact-head Deterministic CI + Heavy Product Tests pass with no drift/blocker, integrate it with expected-head protection, rebuild fresh main, prove tree equivalence and execute Documentation & Closure. Only after P16-PACKAGE-01 closes may the second separately authorized successor Work Package be derived from then-current fresh-main authority.
+Validate the Package Integration & Review head with Deterministic CI + Heavy Product Tests. If both pass unchanged and no review/thread blocker exists, merge with expected-head protection, rebuild fresh main, prove tree equivalence and execute Documentation & Closure for `P16-PACKAGE-01`. Only after canonical closure may the second separately authorized successor Work Package be derived from then-current fresh-main authority.
 
 ## Boundaries
 Do not execute WBS 16.2 or 16.3 under P16-PACKAGE-01. Do not introduce provider registry, routing/budget/fallback governance, credential/secret lifecycle, mandatory remote topology, provider IDs in central business contracts, hidden prompt business logic, Runtime Audit Trail replacement, conformance/productization finding absorption, undeclared L4 change, or absorption/re-ranking of TD-P13-01..04.
