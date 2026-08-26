@@ -30,6 +30,32 @@ export type ExecutionGovernancePolicyDescriptor = Readonly<{
   policyRef: string;
 }>;
 
+export type RoutingEligibilityRule = Readonly<{
+  ruleId: string;
+  requiredCapabilities: readonly string[];
+}>;
+
+export type BudgetQuotaRule = Readonly<{
+  ruleId: string;
+  metric: string;
+  limit: number;
+  window: string;
+}>;
+
+export type FallbackRule = Readonly<{
+  ruleId: string;
+  allowed: boolean;
+  order: readonly string[];
+}>;
+
+export type ExecutionGovernanceRuleSet = Readonly<{
+  contractVersion: typeof AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION;
+  policyId: string;
+  routingEligibility: readonly RoutingEligibilityRule[];
+  budgetQuotas: readonly BudgetQuotaRule[];
+  fallbacks: readonly FallbackRule[];
+}>;
+
 export type ModelProviderAdapter = Readonly<{
   invoke(request: ModelRequest): Promise<ModelResponse>;
 }>;
@@ -59,6 +85,18 @@ function asNonEmptyString(value: unknown, field: string): string {
   return value;
 }
 
+function asBoolean(value: unknown, field: string): boolean {
+  if (typeof value !== "boolean") throw new Error(`${field} must be a boolean`);
+  return value;
+}
+
+function asPositiveFiniteNumber(value: unknown, field: string): number {
+  if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) {
+    throw new Error(`${field} must be a finite positive number`);
+  }
+  return value;
+}
+
 function assertVersion(value: unknown): typeof AI_GATEWAY_MODEL_IO_VERSION {
   if (value !== AI_GATEWAY_MODEL_IO_VERSION) {
     throw new Error(`unsupported AI Gateway model I/O contract version: ${String(value)}`);
@@ -80,13 +118,15 @@ function assertExecutionGovernanceVersion(value: unknown): typeof AI_GATEWAY_EXE
   return AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION;
 }
 
+function normalizeStringArray(value: unknown, field: string, sort: boolean): readonly string[] {
+  if (!Array.isArray(value)) throw new Error(`${field} must be an array`);
+  const normalized = value.map((item, index) => asNonEmptyString(item, `${field}[${index}]`));
+  if (new Set(normalized).size !== normalized.length) throw new Error(`${field} must not contain duplicates`);
+  return sort ? [...normalized].sort((left, right) => left.localeCompare(right)) : normalized;
+}
+
 function normalizeCapabilities(value: unknown): readonly string[] {
-  if (!Array.isArray(value)) throw new Error("capabilities must be an array");
-  const normalized = value.map((capability, index) => asNonEmptyString(capability, `capabilities[${index}]`));
-  if (new Set(normalized).size !== normalized.length) {
-    throw new Error("capabilities must not contain duplicates");
-  }
-  return [...normalized].sort((left, right) => left.localeCompare(right));
+  return normalizeStringArray(value, "capabilities", true);
 }
 
 function normalizeLimits(value: unknown): Readonly<Record<string, ModelLimitValue>> {
@@ -111,6 +151,48 @@ function normalizeLimits(value: unknown): Readonly<Record<string, ModelLimitValu
     normalized[key] = limit;
   }
   return normalized;
+}
+
+function normalizeRuleArray<T>(
+  value: unknown,
+  label: string,
+  normalize: (item: unknown, index: number) => T & { readonly ruleId: string },
+): readonly T[] {
+  if (!Array.isArray(value)) throw new Error(`${label} must be an array`);
+  const normalized = value.map(normalize);
+  const ids = normalized.map((rule) => rule.ruleId);
+  if (new Set(ids).size !== ids.length) throw new Error(`${label} must not contain duplicate ruleId values`);
+  return [...normalized].sort((left, right) => left.ruleId.localeCompare(right.ruleId));
+}
+
+function normalizeRoutingEligibilityRule(value: unknown, index: number): RoutingEligibilityRule {
+  const record = asRecord(value, `routingEligibility[${index}]`);
+  assertExactFields(record, ["ruleId", "requiredCapabilities"], `routingEligibility[${index}]`);
+  return {
+    ruleId: asNonEmptyString(record.ruleId, `routingEligibility[${index}].ruleId`),
+    requiredCapabilities: normalizeStringArray(record.requiredCapabilities, `routingEligibility[${index}].requiredCapabilities`, true),
+  };
+}
+
+function normalizeBudgetQuotaRule(value: unknown, index: number): BudgetQuotaRule {
+  const record = asRecord(value, `budgetQuotas[${index}]`);
+  assertExactFields(record, ["ruleId", "metric", "limit", "window"], `budgetQuotas[${index}]`);
+  return {
+    ruleId: asNonEmptyString(record.ruleId, `budgetQuotas[${index}].ruleId`),
+    metric: asNonEmptyString(record.metric, `budgetQuotas[${index}].metric`),
+    limit: asPositiveFiniteNumber(record.limit, `budgetQuotas[${index}].limit`),
+    window: asNonEmptyString(record.window, `budgetQuotas[${index}].window`),
+  };
+}
+
+function normalizeFallbackRule(value: unknown, index: number): FallbackRule {
+  const record = asRecord(value, `fallbacks[${index}]`);
+  assertExactFields(record, ["ruleId", "allowed", "order"], `fallbacks[${index}]`);
+  return {
+    ruleId: asNonEmptyString(record.ruleId, `fallbacks[${index}].ruleId`),
+    allowed: asBoolean(record.allowed, `fallbacks[${index}].allowed`),
+    order: normalizeStringArray(record.order, `fallbacks[${index}].order`, false),
+  };
 }
 
 export function normalizeModelRequest(value: unknown): ModelRequest {
@@ -156,6 +238,23 @@ export function normalizeExecutionGovernancePolicyDescriptor(value: unknown): Ex
     policyId: asNonEmptyString(record.policyId, "policyId"),
     intent: asNonEmptyString(record.intent, "intent"),
     policyRef: asNonEmptyString(record.policyRef, "policyRef"),
+  };
+}
+
+export function normalizeExecutionGovernanceRuleSet(value: unknown): ExecutionGovernanceRuleSet {
+  const record = asRecord(value, "execution governance rule set");
+  assertExactFields(
+    record,
+    ["contractVersion", "policyId", "routingEligibility", "budgetQuotas", "fallbacks"],
+    "execution governance rule set",
+  );
+
+  return {
+    contractVersion: assertExecutionGovernanceVersion(record.contractVersion),
+    policyId: asNonEmptyString(record.policyId, "policyId"),
+    routingEligibility: normalizeRuleArray(record.routingEligibility, "routingEligibility", normalizeRoutingEligibilityRule),
+    budgetQuotas: normalizeRuleArray(record.budgetQuotas, "budgetQuotas", normalizeBudgetQuotaRule),
+    fallbacks: normalizeRuleArray(record.fallbacks, "fallbacks", normalizeFallbackRule),
   };
 }
 
