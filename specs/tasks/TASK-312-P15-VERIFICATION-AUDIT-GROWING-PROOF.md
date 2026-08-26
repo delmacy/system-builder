@@ -1,7 +1,7 @@
 ---
 id: TASK-312
 title: Prove decision-boundary verification and critical audit foundation
-status: committed
+status: ready
 priority: 312
 milestone: M15
 model_tier: architecture
