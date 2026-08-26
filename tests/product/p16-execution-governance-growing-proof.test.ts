@@ -11,16 +11,17 @@ import {
   proveExecutionGovernancePredecessorCompatibility,
 } from "../../packages/contracts/ai-gateway/governance-composition.js";
 
+const policyId = "policy:growing-proof";
 const governance = {
   policy: {
     contractVersion: AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION,
-    policyId: "policy:growing-proof",
+    policyId,
     intent: "extract",
     policyRef: "policy-ref:growing-proof",
   },
   rules: {
     contractVersion: AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION,
-    policyId: "policy:growing-proof",
+    policyId,
     routingEligibility: [{ ruleId: "route:json", requiredCapabilities: ["json", "text"] }],
     budgetQuotas: [{ ruleId: "budget:tokens", metric: "tokens", limit: 4096, window: "request" }],
     fallbacks: [{ ruleId: "fallback:none", allowed: false, order: [] }],
@@ -32,6 +33,7 @@ const governance = {
   },
   metadata: {
     metadataPermitted: true,
+    permissionPolicyId: policyId,
     metadata: {
       contractVersion: AI_GATEWAY_EXECUTION_METADATA_VERSION,
       modelRef: "model:abstract",
@@ -42,9 +44,10 @@ const governance = {
   },
 } as const;
 
-test("Construction A growing proof composes explicit governance without hidden provider or authority state", () => {
+test("Construction A growing proof composes explicit governance with policy-linked metadata", () => {
   const normalized = normalizeExecutionGovernanceComposition(governance);
-  assert.equal(normalized.policy.policyId, "policy:growing-proof");
+  assert.equal(normalized.policy.policyId, policyId);
+  assert.equal(normalized.metadata.permissionPolicyId, policyId);
   assert.deepEqual(normalized.rules.routingEligibility[0]?.requiredCapabilities, ["json", "text"]);
   assert.equal(normalized.rules.fallbacks[0]?.allowed, false);
   assert.deepEqual(normalized.metadata.metadata?.provenanceRefs, ["evidence:contract", "evidence:policy"]);
@@ -79,11 +82,16 @@ test("Construction A growing proof preserves WBS 16.1 request/response compatibi
   assert.deepEqual(proof.structuredOutput, { status: "valid", schemaRef: "schema:growing-proof" });
 });
 
-test("Construction A growing proof fails closed for policy, schema and metadata violations", () => {
+test("Construction A growing proof fails closed for policy, metadata-permission, schema and metadata violations", () => {
   assert.throws(() => normalizeExecutionGovernanceComposition({
     ...governance,
     rules: { ...governance.rules, policyId: "policy:mismatch" },
   }), /policyId must match/);
+
+  assert.throws(() => normalizeExecutionGovernanceComposition({
+    ...governance,
+    metadata: { ...governance.metadata, permissionPolicyId: "policy:mismatch" },
+  }), /permissionPolicyId must match governance policyId/);
 
   assert.throws(() => normalizeExecutionGovernanceComposition({
     ...governance,
@@ -95,7 +103,7 @@ test("Construction A growing proof fails closed for policy, schema and metadata 
 
   assert.throws(() => normalizeExecutionGovernanceComposition({
     ...governance,
-    metadata: { metadataPermitted: false, metadata: governance.metadata.metadata },
+    metadata: { metadataPermitted: false, permissionPolicyId: policyId, metadata: governance.metadata.metadata },
   }), /metadata must be null/);
 
   const invalidOutput = proveExecutionGovernancePredecessorCompatibility({
