@@ -1,7 +1,7 @@
 ---
 id: TASK-310
 title: Add decision-boundary architecture and contract checks
-status: committed
+status: ready
 priority: 310
 milestone: M15
 model_tier: architecture
