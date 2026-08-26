@@ -1,7 +1,7 @@
 ---
 id: TASK-327
 title: Define replaceable provider adapter boundary
-status: ready
+status: completed
 priority: 327
 milestone: M16
 model_tier: architecture
@@ -29,36 +29,38 @@ validation:
   - npm run verify
 ---
 # Objective
-Define the replaceable adapter boundary required by WBS 16.1.2 while keeping provider identity/configuration outside central request semantics.
+Define the replaceable provider adapter boundary required by WBS 16.1.2 while keeping provider identity/configuration outside core request semantics.
 
 # Context
-TASK-324..326 establish provider-neutral envelopes and deterministic validation. The next boundary is an adapter contract that consumes those canonical inputs without leaking provider-specific IDs into core contracts.
+The canonical request/response and capability contracts exist after TASK-324..326. The next boundary must allow provider-specific implementations to satisfy the same neutral contract without creating routing, credential or authority semantics.
 
 # Current behavior
-No M16 adapter interface is yet canonically owned by the AI Gateway contract boundary.
+Provider-neutral envelopes and capability descriptors are defined, but there is not yet a public adapter interface proving replaceability at the contract boundary.
 
 # Inputs / contracts
-- normalized request/response and capability/limit contracts from TASK-324..326.
+- canonical `ModelRequest` and `ModelResponse` contracts;
+- deterministic validation/normalization from TASK-326;
+- WBS 16.1.2 provider-replaceability requirement.
 
 # Outputs / contracts
 - additive provider adapter interface/types under `packages/contracts/ai-gateway/**`;
-- focused contract tests using fake in-memory adapters only.
+- focused fake/in-memory implementation tests only.
 
 # Required change
-Define an adapter boundary that can be implemented by different providers while keeping provider configuration opaque/outside the canonical request and without introducing registry, remote invocation or credentials.
+Introduce the smallest provider-neutral adapter contract needed for a caller to submit a canonical model request and receive a canonical model response. Provider-specific configuration remains an implementation concern and must not appear in the request contract. Do not introduce registry, routing, network invocation or credential management.
 
 # Acceptance criteria
-- two adapter implementations can satisfy the same interface in tests;
-- provider-specific IDs/config are not required in the canonical request envelope;
+- two adapter implementations satisfy the same interface in focused tests;
+- provider IDs/configuration are not required in the canonical request;
 - adapter result maps to the canonical response contract;
-- no routing/selection policy or authority semantics are introduced;
+- no routing/selection or authority semantics are introduced;
 - declared validations pass.
 
 # Non-goals
-No real provider SDK, network call, provider registry, credential lifecycle, routing/budget/fallback policy or WBS 16.2/16.3 behavior.
+No real provider SDK/network call, provider registry, credential lifecycle, routing/budget/fallback policy or WBS 16.2/16.3 behavior.
 
 # Evidence expected
-In-memory product tests proving replaceable adapter conformance against the same canonical request/response contract.
+Product proof with two fake/in-memory adapters demonstrating replaceability against the same request contract while keeping provider-specific configuration outside request semantics.
 
 # Escalation
-Stop if a real adapter requires new topology/secret architecture or any undeclared L4 decision.
+Stop if a real adapter boundary requires provider topology/secret architecture or an undeclared L4 boundary change.

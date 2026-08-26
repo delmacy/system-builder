@@ -1,7 +1,7 @@
 ---
 id: TASK-324
 title: Define provider-neutral model request and response contract
-status: ready
+status: completed
 priority: 324
 milestone: M16
 model_tier: architecture

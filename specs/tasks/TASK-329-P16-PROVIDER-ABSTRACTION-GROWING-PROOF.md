@@ -1,7 +1,7 @@
 ---
 id: TASK-329
 title: Close Construction A with provider abstraction growing proof
-status: ready
+status: completed
 priority: 329
 milestone: M16
 model_tier: architecture
