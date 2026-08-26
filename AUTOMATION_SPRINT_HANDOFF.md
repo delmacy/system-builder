@@ -1,24 +1,26 @@
 # Automation Sprint Handoff
 
-status: RUNNING
+status: READY
 worker_slot: :30
 started_at: 2026-08-25T21:27:20-03:00
-updated_at: 2026-08-25T21:27:20-03:00
-lease_until: 2026-08-25T21:52:20-03:00
-observed_main_sha: 382249d9f5b2b0990364a656f0e0e4d1614b45b1
-active_branch: sprint/P15-DECISION-BOUNDARY-ENFORCEMENT-01
-active_pr: 360
-active_head_sha: 421be2fdf65f21bbd6fc5f534a3d520f13cae342
-current_step: Revalidating final exact-head gates and Sprint Review for Construction B.
+updated_at: 2026-08-25T21:30:30-03:00
+lease_until: 2026-08-25T21:30:30-03:00
+observed_main_sha: 3f899ef5120bc1ee39b1793becec32aaa53ba0bd
+active_branch: sprint/P15-PACKAGE-01-DOCUMENTATION-CLOSURE-01
+active_pr: 363
+active_head_sha: 831da3cb2b77bc5677bf20ca58d0b13336daaa0a
+current_step: P15-PACKAGE-01 Documentation & Closure is materialized/executed; final exact-head validation is pending on PR #363.
 
 ## Package execution authorization — user record
-The user has explicitly granted, in advance, all human approvals and authorizations necessary to execute and close `P15-PACKAGE-01 — Decision Classification & Authority Guardrails`, provided every repository gate, materialization rule, TASK scope, contract boundary and review criterion remains satisfied. This covers Construction A; promotion/materialization and execution of Construction B when fresh-main evidence justifies it; optional Construction C only if evidence proves it necessary; bounded L1-L3 corrections; Sprint Reviews; Package Integration & Review; Documentation & Closure; merges; and repository-memory reconciliation. It does not skip materialization/gates, authorize P15-PACKAGE-02/WBS 15.3, absorb TD-P13-01..04 or invent L4 architecture.
+The user has explicitly granted, in advance, all human approvals and authorizations necessary to execute and close `P15-PACKAGE-01 — Decision Classification & Authority Guardrails`, provided every repository gate, materialization rule, TASK scope, contract boundary and review criterion remains satisfied. This includes bounded L1-L3 corrections, reviews, merges and repository-memory reconciliation. It does not skip gates, authorize P15-PACKAGE-02/WBS 15.3, absorb TD-P13-01..04 or invent L4 architecture.
 
-last_completed_step: TASK-307 commit b9a87e44b668d87b8b5d01b544d696482cd159f2 passed Deterministic CI #810 and Heavy Product Tests #240. TASK-308 commit/head 78408f9177af7fd9ca6dec2273a6c919058c06c6 passed Deterministic CI #811 / Heavy Product Tests #241. Construction B manifest/report closure head is 421be2fdf65f21bbd6fc5f534a3d520f13cae342.
-next_authorized_step: Revalidate PR #360 exact head and CI #813 / Heavy #243. If PASS with no blocker/head drift, promote/review/merge exact head, rebuild fresh main, verify tree equivalence and decide Construction C from fresh-main evidence. If Construction C is not justified, proceed to Package Integration & Review materialization under the package-wide authorization.
+last_completed_step: Construction B PR #360 was already merged before this worker acquired the lock. Fresh main had advanced through post-Construction-B revalidation PR #361 to `bdfc55135505aa4746513643e459652f4e0b3f31`, confirming Construction C NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review PR #362 head `c95880732f6cc1d66e31038237ff6d6c832a2f73` passed Deterministic CI #815 and Heavy Product Tests #246 with no blocking reviews/threads; this worker merged it protected as `3f899ef5120bc1ee39b1793becec32aaa53ba0bd` and verified zero reviewed-head -> merge-main file drift. Then materialized/executed repository-memory-only `P15-PACKAGE-01-DOCUMENTATION-CLOSURE-01` and opened PR #363 at exact head `831da3cb2b77bc5677bf20ca58d0b13336daaa0a`. No workflows were yet associated immediately after PR creation.
+next_authorized_step: Revalidate PR #363 exact head `831da3cb2b77bc5677bf20ca58d0b13336daaa0a` and its Deterministic CI + Heavy Product Tests. If both PASS with no blocking review/thread/head drift, merge protected on the exact head, reconstruct fresh main and verify closure-head -> merge-main tree equivalence. Then perform only any mechanical post-merge repository-memory reconciliation required to declare P15-PACKAGE-01 / WBS 15.1.1-15.2.3 canonically CLOSED. Do not plan/materialize/execute P15-PACKAGE-02 / WBS 15.3 in this Package closure.
+
+resume_prompt: Retome `delmacy/system-builder` de fresh main `3f899ef5120bc1ee39b1793becec32aaa53ba0bd`. `P15-PACKAGE-01` Construction A+B estão integradas; Construction C é NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review PR #362 reviewed head `c95880732f6cc1d66e31038237ff6d6c832a2f73` passou CI #815 + Heavy #246 e foi integrado como `3f899ef5120bc1ee39b1793becec32aaa53ba0bd` com zero file drift. Documentation & Closure está no PR #363 branch `sprint/P15-PACKAGE-01-DOCUMENTATION-CLOSURE-01`, exact head `831da3cb2b77bc5677bf20ca58d0b13336daaa0a`; no momento da abertura ainda não havia workflows associados. Revalide CI + Heavy desse head; se PASS e sem blocker/drift, merge protegido, fresh-main + tree equivalence e finalize apenas a reconciliação mecânica para CLOSED. P15-PACKAGE-02/WBS 15.3 e TD-P13-01..04 permanecem fora do escopo.
 
 ## Boundaries
-Do not invent successor scope. Do not absorb/re-rank TD-P13-01..04. ADR-0010 human approval and existing authorization semantics remain authoritative; decision classification/evidence is not authority. No mandatory AI/provider invocation, provider registry, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement, ADR-0009 reinterpretation or undeclared L4 topology. Construction C remains evidence-gated; P15-PACKAGE-02 remains outside this authorization.
+Do not invent successor scope. Do not absorb/re-rank TD-P13-01..04. ADR-0010 human approval and existing authorization semantics remain authoritative; decision classification/evidence is not authority. No mandatory AI/provider invocation, provider registry, secret material, storage topology, Runtime Audit Trail replacement, policy-engine replacement, ADR-0009 reinterpretation or undeclared L4 topology. P15-PACKAGE-02 remains outside this authorization.
 
 ## Operational model-selection instruction
 All TASKs are executed with strong models. `model_tier` is retained only for task-schema compatibility and is not execution routing.
