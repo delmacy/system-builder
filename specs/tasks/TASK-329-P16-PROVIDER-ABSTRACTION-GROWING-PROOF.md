@@ -1,7 +1,7 @@
 ---
 id: TASK-329
 title: Close Construction A with provider abstraction growing proof
-status: committed
+status: ready
 priority: 329
 milestone: M16
 model_tier: architecture
@@ -46,10 +46,10 @@ TASK-324..328 establish the provider-neutral contract foundation and focused rep
 
 # Outputs / contracts
 - integrated product proof spanning request/response, capabilities/limits, normalization and adapter replaceability;
-- `P16-PROVIDER-ABSTRACTION-CONTRACT-01.report.md` with commits, validations, deviations, findings and Construction B disposition.
+- P16-PROVIDER-ABSTRACTION-CONTRACT-01.report.md with commits, validations, deviations, findings and Construction B disposition.
 
 # Required change
-Add/extend one integrated product proof using real AI Gateway contract APIs and produce the Sprint Report. The report must identify bounded residual work for Construction B without materializing it.
+Add or extend one integrated product proof using real AI Gateway contract APIs and produce the Sprint Report. The report must identify bounded residual work for Construction B without materializing it.
 
 # Acceptance criteria
 - integrated proof covers all three WBS 16.1 items reached by Construction A;
