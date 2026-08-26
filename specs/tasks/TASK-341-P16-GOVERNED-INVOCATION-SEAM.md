@@ -1,7 +1,7 @@
 ---
 id: TASK-341
 title: Integrate governance through the provider-neutral invocation seam
-status: ready
+status: completed
 priority: 341
 milestone: M16
 model_tier: architecture
