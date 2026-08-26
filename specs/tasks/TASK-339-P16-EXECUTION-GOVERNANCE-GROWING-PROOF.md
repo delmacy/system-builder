@@ -1,7 +1,7 @@
 ---
 id: TASK-339
 title: Close Construction A growing execution governance proof
-status: ready
+status: completed
 priority: 339
 milestone: M16
 model_tier: architecture
