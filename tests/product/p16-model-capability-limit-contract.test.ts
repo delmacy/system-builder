@@ -20,11 +20,11 @@ test("AI Gateway capability and limit descriptors are explicit and provider-neut
 
   assert.deepEqual(descriptor, {
     contractVersion: "1.0.0",
-    capabilities: ["text-generation", "structured-output"],
+    capabilities: ["structured-output", "text-generation"],
     limits: {
+      contextMode: "bounded",
       maxInputTokens: 8192,
       maxOutputTokens: 2048,
-      contextMode: "bounded",
     },
   });
   assert.equal("providerId" in descriptor, false);

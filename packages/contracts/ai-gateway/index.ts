@@ -67,24 +67,29 @@ function normalizeCapabilities(value: unknown): readonly string[] {
   if (new Set(normalized).size !== normalized.length) {
     throw new Error("capabilities must not contain duplicates");
   }
-  return normalized;
+  return [...normalized].sort((left, right) => left.localeCompare(right));
 }
 
 function normalizeLimits(value: unknown): Readonly<Record<string, ModelLimitValue>> {
   const record = asRecord(value, "limits");
-  const normalized: Record<string, ModelLimitValue> = {};
+  const entries: Array<readonly [string, ModelLimitValue]> = [];
   for (const [key, limit] of Object.entries(record)) {
     asNonEmptyString(key, "limit key");
     if (typeof limit === "number") {
       if (!Number.isFinite(limit) || limit < 0) throw new Error(`limit ${key} must be a finite non-negative number`);
-      normalized[key] = limit;
+      entries.push([key, limit]);
       continue;
     }
     if (typeof limit === "string" && limit.trim().length > 0) {
-      normalized[key] = limit;
+      entries.push([key, limit]);
       continue;
     }
     throw new Error(`limit ${key} must be a finite non-negative number or non-empty string`);
+  }
+
+  const normalized: Record<string, ModelLimitValue> = {};
+  for (const [key, limit] of entries.sort(([left], [right]) => left.localeCompare(right))) {
+    normalized[key] = limit;
   }
   return normalized;
 }
