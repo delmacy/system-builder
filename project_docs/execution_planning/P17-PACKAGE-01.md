@@ -1,6 +1,6 @@
 # P17-PACKAGE-01 — Knowledge Classification & Use Policy Foundation
 
-Status: PLANNING & MATERIALIZATION CANDIDATE
+Status: COMMITTED / PLANNING & MATERIALIZATION INTEGRATED
 Date: 2026-08-27
 Milestone: M17 Knowledge Boundary
 WBS coverage: 17.1.1–17.1.3
@@ -9,12 +9,13 @@ WBS coverage: 17.1.1–17.1.3
 Establish explicit, portable and provider-neutral knowledge classification contracts for `generic`, `client-proprietary`, `personal` and `trade-secret` information, including ownership, manual/assisted classification mode, purpose/use restrictions and decision evidence — without enforcing isolation/promotion yet and without allowing probabilistic assistance to fabricate authority.
 
 ## Predecessor / readiness
-- M16 AI Gateway is canonically CLOSED through WBS 16.1.1–16.3.3 on `main` `891379be63305a352564cfe014f1cee15034124b`.
+- M16 AI Gateway is canonically CLOSED through WBS 16.1.1–16.3.3 on predecessor main `891379be63305a352564cfe014f1cee15034124b`.
 - `P16-PACKAGE-03` closure was integrated by PR #425 and canonical CLOSED reconciliation by PR #426; reviewed closure-reconciliation head and merge-main share tree `dfc93e272d1aae2dd5d1f334e4ff3f149c95339b`.
-- WBS 17.1 is the next sequential baseline block; WBS 17.2/17.3 remain forecast only.
+- Planning & Materialization PR #427 passed exact-head Deterministic CI #978 and Heavy Product Tests #421 on head `708be69bf17511d79bde196e9c2a44d42d530d0e` and integrated as `ef01f54c30ac5dabe9be54150a5e25a232211304`.
+- WBS 17.1 is therefore committed/materialized; WBS 17.2/17.3 remain forecast only.
 
 ## Construction forecasts
-### Construction A — `P17-KNOWLEDGE-CLASSIFICATION-CONTRACT-01` — COMMITTED / MATERIALIZED / NOT EXECUTED
+### Construction A — `P17-KNOWLEDGE-CLASSIFICATION-CONTRACT-01` — COMMITTED / MATERIALIZED
 Goal: define and normalize the canonical classification, ownership, purpose/use restriction and manual/assisted decision contracts with deterministic fail-closed proof.
 
 Exit proof: contracts reject unknown/ambiguous state, assisted suggestions remain non-authoritative until explicit human classification decision, predecessor decision/evidence contracts remain compatible, and no enforcement/promotion behavior is introduced.
