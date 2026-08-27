@@ -1,7 +1,7 @@
 ---
 id: TASK-364
 title: Integrate manual classification references through representative evidence path
-status: ready
+status: completed
 priority: 364
 milestone: M17
 model_tier: architecture

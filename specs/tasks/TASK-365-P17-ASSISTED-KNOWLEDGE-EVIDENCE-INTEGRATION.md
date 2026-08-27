@@ -1,7 +1,7 @@
 ---
 id: TASK-365
 title: Integrate assisted classification references without authority escalation
-status: ready
+status: completed
 priority: 365
 milestone: M17
 model_tier: architecture
