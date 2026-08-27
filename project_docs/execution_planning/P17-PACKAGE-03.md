@@ -1,6 +1,6 @@
 # P17-PACKAGE-03 — Knowledge Promotion Control & Provenance
 
-Status: PLANNING & MATERIALIZATION CANDIDATE
+Status: ACTIVE / PLANNING & MATERIALIZATION INTEGRATED
 Date: 2026-08-27
 Milestone: M17 Knowledge Boundary
 WBS coverage: 17.3.1–17.3.3
@@ -10,13 +10,14 @@ Establish deterministic, payload-minimal promotion-control contracts that can re
 
 ## Predecessor/readiness
 - `P17-PACKAGE-01 / WBS 17.1` CLOSED.
-- `P17-PACKAGE-02 / WBS 17.2` canonically CLOSED on fresh main `55f04ac98aa023270cf83163f4da06cf38272a5e`.
+- `P17-PACKAGE-02 / WBS 17.2` canonically CLOSED.
+- Planning & Materialization integrated via PR #452 / merge `80d642bc3b24cc2a90d57e78fce3629806859f0e` with exact-head CI #1042 and Heavy #493 PASS.
 - WBS 17.2 `eligible` remains bounded eligibility, not approval.
 - M15 `human-decision` remains the canonical authority category for final human decisions.
 
 ## Construction forecast
 ### Construction A — `P17-KNOWLEDGE-PROMOTION-CONTRACT-01` — COMMITTED / MATERIALIZED / NOT EXECUTED
-TASK-379..384 define candidate transformation, genericity evidence, promotion decision/provenance and deterministic composition contracts with integrated proof.
+TASK-379..384 define candidate transformation, genericity evidence, promotion decision/provenance and deterministic composition contracts with integrated proof. Execute only after fresh-main post-planning repository-memory reconciliation.
 
 ### Construction B — `P17-KNOWLEDGE-PROMOTION-INTEGRATION-01` — FORECAST / NOT MATERIALIZED
 Candidate goal: integrate the closed contracts into representative promotion/reuse consumer paths without sensitive payload leakage or authority inference. Promote only after Construction A merge + fresh-main revalidation.
