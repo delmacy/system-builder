@@ -1,7 +1,7 @@
 ---
 id: TASK-377
 title: Close Construction B knowledge enforcement integration proof
-status: ready
+status: completed
 priority: 377
 milestone: M17
 model_tier: architecture

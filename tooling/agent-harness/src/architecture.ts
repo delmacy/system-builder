@@ -84,6 +84,7 @@ export function analyzeArchitecture(root = process.cwd()): ArchitectureViolation
     }
     violations.push(...semanticPermissionViolations(repositoryPath, source));
     violations.push(...semanticHumanAuthorityViolations(repositoryPath, source));
+    violations.push(...semanticKnowledgeObserveValidationViolations(repositoryPath, source));
   }
   for (const cycle of packageCycles(packageGraph)) {
     violations.push({ file: `packages/${cycle[0]}`, rule: "no-circular-package-dependencies", importPath: cycle.join(" -> ") });
@@ -137,6 +138,20 @@ function semanticHumanAuthorityViolations(repositoryPath: string, source: string
     file: repositoryPath,
     rule: "knowledge-classification-human-authority-must-use-decision-boundary",
     importPath: "decisionActorRef-without-human-decision-boundary-verification",
+  }];
+}
+
+function semanticKnowledgeObserveValidationViolations(repositoryPath: string, source: string): ArchitectureViolation[] {
+  if (!repositoryPath.startsWith("packages/observe/")) return [];
+  const projectsKnowledgeEnforcement = /\bprojectKnowledgeEnforcementForObservation\b/.test(source);
+  if (!projectsKnowledgeEnforcement) return [];
+  const acceptsInjectedNormalizer = /\bKnowledgeEnforcementEnvelopeNormalizer\b/.test(source)
+    || /projectKnowledgeEnforcementForObservation\s*\([^)]*normalize\w*\s*:\s*[^,)]+/s.test(source);
+  if (!acceptsInjectedNormalizer) return [];
+  return [{
+    file: repositoryPath,
+    rule: "observe-knowledge-enforcement-validation-must-not-be-caller-injected",
+    importPath: "caller-supplied-knowledge-enforcement-normalizer",
   }];
 }
 
