@@ -1,16 +1,14 @@
-# Next Work — P17 Package 02 Construction B execution
+# Next Work — P17 Package 02 post-Construction-B gate
 
-`P17-PACKAGE-02` Planning & Materialization is INTEGRATED. Construction A is INTEGRATED and post-A revalidation #444 is INTEGRATED on main `0c4cc0651c4f7b7ae89ba32ff56e335493ca913a`.
+`P17-PACKAGE-02` Planning, Construction A and Construction B are INTEGRATED. Construction B PR #446 merged on fresh main `63b21e45f7cc68bc9b89d835bc4ee8f4afeb556e` with exact tree equivalence to the reviewed head and final Deterministic CI #1037 / Heavy Product Tests #487 PASS.
 
-Construction B `P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01` Planning & Materialization is now INTEGRATED on main `fd3c0de341f4706777ae808d74c205f9be5897d8`; TASK-373..377 are COMMITTED / MATERIALIZED / NOT EXECUTED.
+Fresh-main post-B evidence finds no residual bounded WBS 17.2 gap: catalog admission, Observe enforcement projection and AI Gateway governed invocation consume the canonical enforcement truth, unauthorized/malformed inputs fail closed, payload-minimal references remain explicit, and `eligible` is not promotion/reuse approval. Construction C is therefore NOT REQUIRED / NOT MATERIALIZED, subject to integration of the post-B revalidation record.
 
 ## Required next action
-1. reconstruct fresh main at or after `fd3c0de341f4706777ae808d74c205f9be5897d8` and prove the Construction B planning tree/content is integrated;
-2. create or resume `sprint/P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01` from that fresh main;
-3. execute TASK-373 first, then 374 -> 375 -> 376 -> 377 serially behind each TASK's declared gates;
-4. do not repeat Construction B Planning & Materialization and do not recreate TASK-373..377;
-5. do not materialize Construction C until Construction B is integrated and fresh-main evidence proves a bounded residual WBS 17.2 gap.
+1. validate and integrate the post-Construction-B revalidation on its exact head;
+2. reconstruct fresh main and prove the revalidation tree/content is integrated;
+3. promote/materialize only `P17-PACKAGE-02` Package Integration & Review;
+4. if Package Review is GO, proceed separately to Documentation & Closure;
+5. do not infer WBS 17.3 authority from WBS 17.2 completion.
 
-Handoff remains CORRECTION_PENDING until this post-planning repository-memory reconciliation is integrated and revalidated on fresh main.
-
-WBS 17.3 remains FORECAST / NOT MATERIALIZED. No unrelated findings/TDs or inferred L4.
+WBS 17.3 remains FORECAST / NOT MATERIALIZED. No unrelated findings/TDs, Decision Boundary changes or inferred L4.
