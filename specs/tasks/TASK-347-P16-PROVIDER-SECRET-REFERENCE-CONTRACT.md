@@ -1,7 +1,7 @@
 ---
 id: TASK-347
 title: Define portable provider secret reference contract
-status: ready
+status: completed
 priority: 347
 milestone: M16
 model_tier: architecture
