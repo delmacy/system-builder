@@ -2,10 +2,10 @@
 
 ## 17.0 Knowledge Boundary
 ### 17.1 Classificação
-Status: SATISFIED / CLOSURE CANDIDATE via `P17-PACKAGE-01 — Knowledge Classification & Use Policy Foundation`.
-- **17.1.1** Definir classes de conhecimento/dados e ownership. — SATISFIED / INTEGRATED
-- **17.1.2** Definir regras de classificação manual/assistida. — SATISFIED / CORRECTED + CONSUMER-INTEGRATED
-- **17.1.3** Registrar purpose/use restrictions relevantes. — SATISFIED / CORRECTED + CONSUMER-INTEGRATED
+Status: CLOSED via `P17-PACKAGE-01 — Knowledge Classification & Use Policy Foundation`.
+- **17.1.1** Definir classes de conhecimento/dados e ownership. — CLOSED / INTEGRATED
+- **17.1.2** Definir regras de classificação manual/assistida. — CLOSED / CORRECTED + CONSUMER-INTEGRATED
+- **17.1.3** Registrar purpose/use restrictions relevantes. — CLOSED / CORRECTED + CONSUMER-INTEGRATED
 
 Planning & Materialization integrated via PR #427 as `ef01f54c30ac5dabe9be54150a5e25a232211304` after exact-head Deterministic CI #978 / Heavy Product Tests #421 PASS.
 
@@ -15,7 +15,9 @@ Construction B `P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` integrated via PR #
 
 Post-Construction-B reconciliation PR #436 passed exact-head Deterministic CI #1001 / Heavy Product Tests #448 and integrated with tree `3f5e6461a28de911c0edc1168ffe35c73809f47c`. Fresh-main revalidation found no residual bounded WBS 17.1 capability gap, so Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
-Package Integration & Review PR #437 passed exact-head Deterministic CI #1002 / Heavy Product Tests #449 and integrated as `424d1f8b61c1e39e3c34e7ddad2e03b2df61b01c`; reviewed head and merge-main share tree `11573739e6fa3f97b018fb86cdc5257098038b07`. Documentation & Closure is the remaining gate before canonical CLOSED status.
+Package Integration & Review PR #437 passed exact-head Deterministic CI #1002 / Heavy Product Tests #449 and integrated as `424d1f8b61c1e39e3c34e7ddad2e03b2df61b01c`, tree `11573739e6fa3f97b018fb86cdc5257098038b07`.
+
+Documentation & Closure PR #438 passed exact-head Deterministic CI #1003 / Heavy Product Tests #450 and integrated as `119de7670e7c61d59b8eb1969a80ecb429b290d9`; closure-head and merge-main share tree `ac2ffdb9897bb2010fde1e76ce2113a0381c87e7` exactly. WBS 17.1.1–17.1.3 is canonically CLOSED.
 
 ### 17.2 Enforcement
 Status: FORECAST / NOT MATERIALIZED.
@@ -29,4 +31,4 @@ Status: FORECAST / NOT MATERIALIZED.
 - **17.3.2** Submeter candidato a revisão e testes de genericidade.
 - **17.3.3** Registrar decisão de promotion/rejection e provenance.
 
-Do not infer WBS 17.2/17.3 authority from satisfied WBS 17.1 work. Forecast is not execution authority.
+Do not infer WBS 17.2/17.3 authority from closed WBS 17.1 work. Forecast is not execution authority.
