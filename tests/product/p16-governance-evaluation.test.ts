@@ -29,6 +29,7 @@ const capabilities = {
 test("execution governance evaluation is deterministic and provider-neutral", () => {
   const evaluation = evaluateExecutionGovernance({ rules, capabilities, usage: { tokens: 1024 } });
   assert.deepEqual(evaluation, {
+    policyId: "policy:integration",
     status: "eligible",
     reasons: [],
     fallbacks: [{ ruleId: "fallback:explicit", allowed: true, order: ["secondary", "tertiary"] }],
