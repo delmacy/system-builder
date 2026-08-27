@@ -203,3 +203,50 @@ export function normalizeKnowledgeClassificationBundle(value: unknown): Knowledg
 
   return { classification, usePolicy, decision };
 }
+
+export const ASSISTED_CLASSIFICATION_PROPOSAL_VERSION = "1.0.0" as const;
+
+export type AssistedClassificationProposal = Readonly<{
+  contractVersion: typeof ASSISTED_CLASSIFICATION_PROPOSAL_VERSION;
+  proposalRef: string;
+  proposedClass: KnowledgeClass;
+  confidence: number;
+  modelRef: string;
+  contextRef: string;
+  evidenceRefs: readonly string[];
+}>;
+
+function assertAssistedClassificationProposalVersion(
+  value: unknown,
+): typeof ASSISTED_CLASSIFICATION_PROPOSAL_VERSION {
+  if (value !== ASSISTED_CLASSIFICATION_PROPOSAL_VERSION) {
+    throw new Error(`unsupported assisted classification proposal contract version: ${String(value)}`);
+  }
+  return ASSISTED_CLASSIFICATION_PROPOSAL_VERSION;
+}
+
+function asBoundedConfidence(value: unknown): number {
+  if (typeof value !== "number" || !Number.isFinite(value) || value < 0 || value > 1) {
+    throw new Error("confidence must be a finite number between 0 and 1");
+  }
+  return value;
+}
+
+export function normalizeAssistedClassificationProposal(value: unknown): AssistedClassificationProposal {
+  const record = asRecord(value, "assisted classification proposal");
+  assertExactFields(
+    record,
+    ["contractVersion", "proposalRef", "proposedClass", "confidence", "modelRef", "contextRef", "evidenceRefs"],
+    "assisted classification proposal",
+  );
+
+  return {
+    contractVersion: assertAssistedClassificationProposalVersion(record.contractVersion),
+    proposalRef: asNonEmptyTrimmedString(record.proposalRef, "proposalRef"),
+    proposedClass: assertKnowledgeClass(record.proposedClass),
+    confidence: asBoundedConfidence(record.confidence),
+    modelRef: asNonEmptyTrimmedString(record.modelRef, "modelRef"),
+    contextRef: asNonEmptyTrimmedString(record.contextRef, "contextRef"),
+    evidenceRefs: asCanonicalUniqueStringList(record.evidenceRefs, "evidenceRefs"),
+  };
+}
