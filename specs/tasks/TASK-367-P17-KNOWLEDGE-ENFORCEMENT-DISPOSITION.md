@@ -1,7 +1,7 @@
 ---
 id: TASK-367
 title: Define canonical knowledge enforcement disposition
-status: ready
+status: completed
 priority: 367
 milestone: M17
 model_tier: architecture

@@ -307,3 +307,53 @@ export function normalizeKnowledgeClassificationEvidenceProjection(value: unknow
     evidenceRefs: asCanonicalUniqueStringList(record.evidenceRefs, "evidenceRefs"),
   };
 }
+
+export const KNOWLEDGE_ENFORCEMENT_DISPOSITION_VERSION = "1.0.0" as const;
+
+export const KNOWLEDGE_ENFORCEMENT_OUTCOMES = ["allow", "deny", "isolate"] as const;
+
+export type KnowledgeEnforcementOutcome = (typeof KNOWLEDGE_ENFORCEMENT_OUTCOMES)[number];
+
+export type KnowledgeEnforcementDisposition = Readonly<{
+  contractVersion: typeof KNOWLEDGE_ENFORCEMENT_DISPOSITION_VERSION;
+  enforcementRef: string;
+  classificationDecisionRef: string;
+  usePolicyRef: string;
+  purposeId: string;
+  outcome: KnowledgeEnforcementOutcome;
+  reasonIds: readonly string[];
+}>;
+
+function assertEnforcementDispositionVersion(value: unknown): typeof KNOWLEDGE_ENFORCEMENT_DISPOSITION_VERSION {
+  if (value !== KNOWLEDGE_ENFORCEMENT_DISPOSITION_VERSION) {
+    throw new Error(`unsupported knowledge enforcement disposition version: ${String(value)}`);
+  }
+  return KNOWLEDGE_ENFORCEMENT_DISPOSITION_VERSION;
+}
+
+function assertKnowledgeEnforcementOutcome(value: unknown): KnowledgeEnforcementOutcome {
+  if (typeof value !== "string" || !KNOWLEDGE_ENFORCEMENT_OUTCOMES.includes(value as KnowledgeEnforcementOutcome)) {
+    throw new Error(`unsupported knowledge enforcement outcome: ${String(value)}`);
+  }
+  return value as KnowledgeEnforcementOutcome;
+}
+
+export function normalizeKnowledgeEnforcementDisposition(value: unknown): KnowledgeEnforcementDisposition {
+  const record = asRecord(value, "knowledge enforcement disposition");
+  assertExactFields(
+    record,
+    ["contractVersion", "enforcementRef", "classificationDecisionRef", "usePolicyRef", "purposeId", "outcome", "reasonIds"],
+    "knowledge enforcement disposition",
+  );
+  const reasonIds = asCanonicalUniqueStringList(record.reasonIds, "reasonIds");
+  if (reasonIds.length === 0) throw new Error("reasonIds must contain at least one explicit reason");
+  return {
+    contractVersion: assertEnforcementDispositionVersion(record.contractVersion),
+    enforcementRef: asNonEmptyTrimmedString(record.enforcementRef, "enforcementRef"),
+    classificationDecisionRef: asNonEmptyTrimmedString(record.classificationDecisionRef, "classificationDecisionRef"),
+    usePolicyRef: asNonEmptyTrimmedString(record.usePolicyRef, "usePolicyRef"),
+    purposeId: asNonEmptyTrimmedString(record.purposeId, "purposeId"),
+    outcome: assertKnowledgeEnforcementOutcome(record.outcome),
+    reasonIds,
+  };
+}
