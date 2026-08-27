@@ -15,6 +15,14 @@ export type KnowledgeClassificationDescriptor = Readonly<{
   ownerRef: string;
 }>;
 
+export const KNOWLEDGE_USE_POLICY_VERSION = "1.0.0" as const;
+
+export type KnowledgeUsePolicyDescriptor = Readonly<{
+  contractVersion: typeof KNOWLEDGE_USE_POLICY_VERSION;
+  purposeIds: readonly string[];
+  restrictionIds: readonly string[];
+}>;
+
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -40,6 +48,19 @@ function asNonEmptyTrimmedString(value: unknown, field: string): string {
   return value.trim();
 }
 
+function asCanonicalUniqueStringList(value: unknown, field: string): readonly string[] {
+  if (!Array.isArray(value)) throw new Error(`${field} must be an array`);
+
+  const normalized = value.map((item, index) => asNonEmptyTrimmedString(item, `${field}[${index}]`));
+  const seen = new Set<string>();
+  for (const item of normalized) {
+    if (seen.has(item)) throw new Error(`${field} contains duplicate value ${item}`);
+    seen.add(item);
+  }
+
+  return [...normalized].sort((left, right) => left.localeCompare(right));
+}
+
 function assertKnowledgeClass(value: unknown): KnowledgeClass {
   if (typeof value !== "string" || !KNOWLEDGE_CLASSES.includes(value as KnowledgeClass)) {
     throw new Error(`unsupported knowledge class: ${String(value)}`);
@@ -47,11 +68,18 @@ function assertKnowledgeClass(value: unknown): KnowledgeClass {
   return value as KnowledgeClass;
 }
 
-function assertVersion(value: unknown): typeof KNOWLEDGE_CLASSIFICATION_VERSION {
+function assertClassificationVersion(value: unknown): typeof KNOWLEDGE_CLASSIFICATION_VERSION {
   if (value !== KNOWLEDGE_CLASSIFICATION_VERSION) {
     throw new Error(`unsupported knowledge classification contract version: ${String(value)}`);
   }
   return KNOWLEDGE_CLASSIFICATION_VERSION;
+}
+
+function assertUsePolicyVersion(value: unknown): typeof KNOWLEDGE_USE_POLICY_VERSION {
+  if (value !== KNOWLEDGE_USE_POLICY_VERSION) {
+    throw new Error(`unsupported knowledge use policy contract version: ${String(value)}`);
+  }
+  return KNOWLEDGE_USE_POLICY_VERSION;
 }
 
 export function normalizeKnowledgeClassificationDescriptor(value: unknown): KnowledgeClassificationDescriptor {
@@ -63,8 +91,23 @@ export function normalizeKnowledgeClassificationDescriptor(value: unknown): Know
   );
 
   return {
-    contractVersion: assertVersion(record.contractVersion),
+    contractVersion: assertClassificationVersion(record.contractVersion),
     knowledgeClass: assertKnowledgeClass(record.knowledgeClass),
     ownerRef: asNonEmptyTrimmedString(record.ownerRef, "ownerRef"),
+  };
+}
+
+export function normalizeKnowledgeUsePolicyDescriptor(value: unknown): KnowledgeUsePolicyDescriptor {
+  const record = asRecord(value, "knowledge use policy descriptor");
+  assertExactFields(
+    record,
+    ["contractVersion", "purposeIds", "restrictionIds"],
+    "knowledge use policy descriptor",
+  );
+
+  return {
+    contractVersion: assertUsePolicyVersion(record.contractVersion),
+    purposeIds: asCanonicalUniqueStringList(record.purposeIds, "purposeIds"),
+    restrictionIds: asCanonicalUniqueStringList(record.restrictionIds, "restrictionIds"),
   };
 }

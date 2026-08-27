@@ -1,7 +1,7 @@
 ---
 id: TASK-356
 title: Define purpose and use restriction contract
-status: ready
+status: completed
 priority: 356
 milestone: M17
 model_tier: architecture
