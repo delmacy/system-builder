@@ -1,38 +1,33 @@
 # Automation Sprint Handoff
 
 status: READY
-worker_slot: :50
-started_at: 2026-08-27T17:16:27-03:00
-updated_at: 2026-08-27T17:18:40-03:00
+worker_slot: :30
+started_at: 2026-08-27T17:28:29-03:00
+updated_at: 2026-08-27T17:30:30-03:00
 lease_until: null
-observed_main_sha: fd3c0de341f4706777ae808d74c205f9be5897d8
+observed_main_sha: b30a0ac34783fc5e762f7ab4d05be488afa9f85c
 active_branch: sprint/P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01
 active_pr: 446
-active_head_sha: 8082ccb5da154555d1d500eb70070b91c04d2213
-current_step: TASK-373 bounded CI/typecheck correction completed and folded into one authoritative commit; exact-head CI #1022 and Heavy #472 are in progress. Do not start TASK-374 until both pass.
+active_head_sha: c68bba3a876acc0eff5c05376dc7138cbc2d63a1
+current_step: PR #447 conformance correction is integrated and fresh-main revalidated. TASK-373 was mechanically reconstructed over corrected fresh main, preserving its product/spec/test blobs and the repository-memory reconciliation. Exact-head CI #1024 and Heavy #474 are in progress; do not start TASK-374 until both pass.
 
 ## Conformance state
-- Package 02 Planning & Materialization PR #441 is integrated; never repeat Planning or recreate TASK-367..372.
-- bounded repository-memory correction PR #443 is integrated as `a6ca49646e0c325dd96e56242a2895738b3f246c`; CORRECTION_PENDING is resolved.
-- Construction A PR #442 TASK-367..372 is integrated as `e201f759bbb79af188c946bade925b193eec5949`.
-- post-Construction-A fresh-main revalidation justified Construction B.
-- Construction B Planning & Materialization PR #445 is integrated as current main `fd3c0de341f4706777ae808d74c205f9be5897d8`; materialized TASK-373..377 only.
-- Construction C remains OPTIONAL / FORECAST; WBS 17.3 remains FORECAST / NOT MATERIALIZED.
+- P17 Package 02 Planning & Materialization is integrated; never repeat it.
+- Construction A is integrated.
+- Construction B Planning & Materialization PR #445 is integrated; TASK-373..377 are COMMITTED / MATERIALIZED and must not be recreated.
+- bounded post-planning repository-memory correction PR #447 passed Deterministic CI #1023 and Heavy Product Tests #473 at exact head `fccbf6295e0058d2229c45e184f234a64d332756` and merged as `b30a0ac34783fc5e762f7ab4d05be488afa9f85c`.
+- reviewed-head -> merge-main comparison for #447 has zero changed files; fresh `NEXT_WORK.md` now identifies TASK-373 as the next executable step and prohibits repeating Planning.
+- pre-correction TASK-373 commit `8082ccb5da154555d1d500eb70070b91c04d2213` was based on the old main, so it was not reused as branch ancestry after #447.
+- TASK-373 was mechanically reconstructed on corrected fresh main as `c68bba3a876acc0eff5c05376dc7138cbc2d63a1`, using the same three final blobs from the prior validated implementation while preserving #447 repository-memory content.
+- PR #446 is OPEN / DRAFT / MERGEABLE at exact head `c68bba3a876acc0eff5c05376dc7138cbc2d63a1`.
+- exact-head Deterministic CI #1024 and Heavy Product Tests #474 are IN PROGRESS.
+- Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 17.3 remains FORECAST / NOT MATERIALIZED.
 
-## Completed this round
-- revalidated #443 as integrated and #442 as integrated; no Planning repetition occurred;
-- detected Construction B materialization #445 already integrated on fresh main;
-- revalidated TASK-373 initial head `e426f21b...`: Heavy #470 PASS, Deterministic CI #1020 FAIL solely on TypeScript narrowing in the proof;
-- corrected only `tests/product/p17-catalog-knowledge-enforcement-integration.test.ts`, removing an impossible `status === "admit"` branch after explicit `status === "reject"` assertion;
-- reconstructed TASK-373 as one authoritative commit `8082ccb5da154555d1d500eb70070b91c04d2213` directly over Construction B base `fd3c0de3...`, preserving the final corrected tree and one-commit-per-TASK invariant;
-- PR #446 is OPEN / DRAFT / MERGEABLE at exact head `8082ccb5...`;
-- exact-head Deterministic CI #1022 and Heavy Product Tests #472 are IN PROGRESS.
-
-last_completed_step: bounded TASK-373 proof/typecheck correction folded into a single authoritative commit after Heavy #470 PASS / CI #1020 typecheck failure.
-next_authorized_step: revalidate CI #1022 + Heavy #472 on exact head `8082ccb5da154555d1d500eb70070b91c04d2213`. If both PASS and no blocker/head drift exists, preserve TASK-373 and execute only TASK-374 according to its materialized spec, then continue TASK-375..377 serially behind their gates. Do not execute WBS 17.3.
+last_completed_step: integrated PR #447 with exact-head protection, proved zero-file tree drift, fresh-main revalidated repository memory, and reconstructed TASK-373 on the corrected base without repeating Planning or recreating TASK specs.
+next_authorized_step: revalidate CI #1024 + Heavy #474 on exact head `c68bba3a876acc0eff5c05376dc7138cbc2d63a1`. If both PASS and no blocker/head drift exists, preserve TASK-373 and execute only TASK-374 according to its materialized spec; then continue 375 -> 376 -> 377 serially behind exact-head gates.
 
 ## Boundaries
-No repeat Planning, no recreation of TASK-367..372, no WBS 17.3, no Construction C materialization absent evidence-based fresh-main gate, no automatic promotion approval, no Decision Boundary public-contract change, no unrelated finding/TD absorption and no undeclared L4.
+No repeat Construction B Planning & Materialization, no recreation of TASK-373..377, no WBS 17.3, no Construction C materialization absent evidence-based fresh-main gate, no automatic promotion approval, no Decision Boundary public-contract change, no unrelated finding/TD absorption and no undeclared L4.
 
 ## resume_prompt
-Resume `delmacy/system-builder` from main `fd3c0de341f4706777ae808d74c205f9be5897d8`, draft PR #446 branch `sprint/P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01`, exact head `8082ccb5da154555d1d500eb70070b91c04d2213`. PR #443 conformance memory correction is integrated; Package 02 Planning must never be repeated. Construction A #442 is integrated. Construction B Planning #445 is integrated and materialized TASK-373..377 only. TASK-373 initial CI #1020 failed only on an impossible narrowed test branch while Heavy #470 passed; the correction was folded into one authoritative TASK-373 commit `8082ccb5...`. Exact-head CI #1022 and Heavy #472 are in progress. With both PASS, execute TASK-374 next and continue 375→376→377 serially. Keep WBS 17.3 forecast/unmaterialized and do not absorb unrelated findings/TDs or infer L4.
+Resume `delmacy/system-builder` from corrected fresh main `b30a0ac34783fc5e762f7ab4d05be488afa9f85c`, draft PR #446 branch `sprint/P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01`, exact head `c68bba3a876acc0eff5c05376dc7138cbc2d63a1`. PR #447 conformance correction passed CI #1023 + Heavy #473 and is integrated; Planning must never be repeated and TASK-373..377 must not be recreated. TASK-373 was mechanically reconstructed over corrected fresh main with the same final implementation blobs. Exact-head CI #1024 + Heavy #474 are in progress. Only with both PASS, execute TASK-374 next, then 375 -> 376 -> 377 serially. Keep Construction C optional/unmaterialized and WBS 17.3 forecast/unmaterialized; do not absorb unrelated findings/TDs or infer L4.
