@@ -1,6 +1,6 @@
 # P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement
 
-Status: DOCUMENTATION & CLOSURE CANDIDATE
+Status: CLOSED
 Date: 2026-08-27
 Milestone: M17 Knowledge Boundary
 WBS coverage: 17.2.1–17.2.3
@@ -24,8 +24,8 @@ No bounded residual WBS 17.2 gap was found.
 ## Package Integration & Review — INTEGRATED
 PR #449 passed CI #1039 / Heavy #490 and integrated with GO FOR DOCUMENTATION & CLOSURE.
 
-## Documentation & Closure — CURRENT GATE
-Documentation/repository-memory only. Exact-head gates and protected merge are required before canonical CLOSED reconciliation.
+## Documentation & Closure — INTEGRATED
+Documentation/repository-memory closure is integrated. Fresh-main post-merge reconciliation marks this Package and WBS 17.2.1–17.2.3 canonically CLOSED.
 
 ## Boundaries / non-goals
 - no WBS 17.3 anonymization/generalization/review workflow;

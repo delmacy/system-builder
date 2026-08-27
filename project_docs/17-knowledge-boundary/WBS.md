@@ -8,12 +8,12 @@ Status: CLOSED via `P17-PACKAGE-01 — Knowledge Classification & Use Policy Fou
 - **17.1.3** Registrar purpose/use restrictions relevantes. — CLOSED / CORRECTED + CONSUMER-INTEGRATED
 
 ### 17.2 Enforcement
-Status: PACKAGE 02 DOCUMENTATION & CLOSURE CANDIDATE.
-- **17.2.1** Aplicar isolamento em catalogs, telemetry e AI Gateway. — SATISFIED / INTEGRATED
-- **17.2.2** Impedir promotion de conteúdo proprietário não autorizado. — SATISFIED / INTEGRATED; eligibility is not approval
-- **17.2.3** Preservar referências sem expor payload sensível. — SATISFIED / INTEGRATED; payload/content injection fails closed
+Status: CLOSED via `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement`.
+- **17.2.1** Aplicar isolamento em catalogs, telemetry e AI Gateway. — CLOSED / INTEGRATED
+- **17.2.2** Impedir promotion de conteúdo proprietário não autorizado. — CLOSED / INTEGRATED; eligibility is not approval
+- **17.2.3** Preservar referências sem expor payload sensível. — CLOSED / INTEGRATED; payload/content injection fails closed
 
-Construction A+B and post-B revalidation are integrated. TASK-378 correction removed caller-injected Observe validation authority. Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review is INTEGRATED with GO FOR DOCUMENTATION & CLOSURE. Canonical CLOSED status follows exact-head closure gates, merge and fresh-main repository-memory reconciliation.
+Construction A+B, bounded TASK-378 correction, post-B revalidation, Package Integration & Review and Documentation & Closure are integrated. Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
 ### 17.3 Promotion control
 Status: FORECAST / NOT MATERIALIZED.
