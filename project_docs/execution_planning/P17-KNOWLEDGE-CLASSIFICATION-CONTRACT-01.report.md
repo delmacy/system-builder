@@ -14,32 +14,36 @@ Construction A for `P17-PACKAGE-01 — Knowledge Classification & Use Policy Fou
 | TASK-358 | `36d616ebb71eff20c1d605624aa9331ea282f21a` | Deterministic CI #983 PASS / Heavy Product Tests #427 PASS |
 | TASK-359 | `f4854d438551396afbc6f35268d89fea99725a6a` | Deterministic CI #984 PASS / Heavy Product Tests #428 PASS |
 | TASK-360 | `5b1b9152c2236c11285e21ecd8d29dab9877ab8b` | Deterministic CI #985 PASS / Heavy Product Tests #429 PASS |
-| TASK-361 | this Sprint-closure commit | exact-head final Sprint gates required before review/merge |
+| TASK-361 | Construction A growing proof | completed before conformance review |
+| TASK-362 | bounded conformance correction | exact-head final CI/Heavy required before Sprint Review |
 
 ## Delivered boundary
 
 - four canonical knowledge classes: `generic`, `client-proprietary`, `personal`, `trade-secret`;
 - explicit normalized ownership reference;
 - provider-neutral purpose/use restriction descriptor with deterministic canonicalization and no inferred reuse permission;
-- explicit manual vs assisted classification decision record requiring a human decision actor/reference;
+- explicit manual vs assisted classification decision record;
+- final classification decisions now consume the canonical M15 Decision Boundary and must verify as `human-decision`; `decisionActorRef` must match the verified human `authorityRef`;
 - assisted proposal contract with bounded confidence plus model/context/evidence references, remaining non-authoritative;
 - deterministic aggregate normalization across class/owner/use-policy/decision contracts with fail-closed mismatch detection;
 - payload-minimal traceability projection carrying only class/owner/purpose and stable decision/proposal/evidence references.
 
 ## Integrated proof
 
-The TASK-361 product proof exercises all four classes through the exported APIs, validates manual and assisted paths, proves proposal-only data cannot satisfy the final decision contract, proves absent/invalid purpose restrictions do not become permission, and proves payload/secret/provider/promotion-authority fields are rejected from the evidence projection.
+The Construction A product proof exercises all four classes through exported APIs, validates manual and assisted paths, proves proposal-only data cannot satisfy the final decision contract, proves deterministic/probabilistic Decision Boundary categories cannot substitute for human authority, proves absent/invalid purpose restrictions do not become permission, and proves payload/secret/provider/promotion-authority fields are rejected from the evidence projection.
 
 ## Deviations and discoveries
 
-No architecture or scope deviation was required. The implementation remained inside `packages/contracts/knowledge-boundary/**`, product tests and materialized TASK/report paths. Decision Boundary and Evidence & Provenance public contracts were read as authority but not modified. A deterministic consistency guard was added in TASK-358 so the classification descriptor and final decision cannot disagree on `knowledgeClass`.
+A conformance review after TASK-361 found a material authority-semantic gap: TASK-357/TASK-361 described the final classification as an explicit human decision, while the implementation accepted any non-empty `decisionActorRef`/`decisionRef`. Therefore an actor such as `model:classifier` could satisfy the final Knowledge Boundary record even though M15 already defines `human-decision` as a distinct authority category.
 
-No conformance/productization findings or `TD-P13-01..04` were absorbed.
+TASK-362 corrects this within committed WBS 17.1.2 scope without changing the Decision Boundary public contract. `KnowledgeClassificationDecision` now carries explicit Decision Boundary input normalized and verified through `verifyDecisionBoundary(... expectedCategory: "human-decision")`; the verified `authorityRef` must equal `decisionActorRef`. A semantic architecture gate reproduces and rejects the prior actor-only anti-pattern so future contracts cannot silently equate non-empty actor references with human authority.
+
+No WBS 17.2/17.3 behavior, provider topology, promotion authority, unrelated conformance/productization finding or `TD-P13-01..04` was absorbed.
 
 ## Construction B disposition
 
-`P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` remains `FORECAST / NOT MATERIALIZED`. Construction A proves the contract boundary only. Promotion/materialization of Construction B requires successful TASK-361 exact-head gates, Sprint Review + merge, then fresh-main evidence showing a real consumer-integration gap. This report does not itself authorize or materialize Construction B.
+`P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` remains `FORECAST / NOT MATERIALIZED`. Construction A proves the contract boundary only. Promotion/materialization of Construction B requires TASK-362 exact-head Deterministic CI + Heavy Product Tests PASS, Sprint Review + merge, then fresh-main evidence showing a real consumer-integration gap. This report does not itself authorize or materialize Construction B.
 
 ## Exit condition
 
-Construction A becomes eligible for Sprint Review only after the exact head containing TASK-361 passes all required deterministic and heavy product gates with no blocking review finding or head drift.
+Construction A remains `CORRECTION_PENDING` and is not eligible for Sprint Review/merge until the exact head containing TASK-362 passes all required deterministic and heavy product gates with no blocking review finding or head drift.

@@ -98,4 +98,34 @@ export type Evaluation = Readonly<{
 `);
     assert.deepEqual(analyzeArchitecture(root), []);
   });
+
+  it("rejects Knowledge Boundary final decision actors without canonical human Decision Boundary verification", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-architecture-"));
+    const directory = join(root, "packages/contracts/knowledge-boundary");
+    mkdirSync(directory, { recursive: true });
+    writeFileSync(join(directory, "bad-classification.ts"), `
+export type KnowledgeClassificationDecision = Readonly<{
+  mode: "assisted";
+  decisionActorRef: string;
+  decisionRef: string;
+  proposalRef: string;
+}>;
+export function normalizeKnowledgeClassificationDecision(input: unknown) { return input; }
+`);
+    assert.ok(analyzeArchitecture(root).some((item) => item.rule === "knowledge-classification-human-authority-must-use-decision-boundary"));
+  });
+
+  it("allows Knowledge Boundary decisions linked to canonical human Decision Boundary verification", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-architecture-"));
+    const directory = join(root, "packages/contracts/knowledge-boundary");
+    mkdirSync(directory, { recursive: true });
+    writeFileSync(join(directory, "good-classification.ts"), `
+import { verifyDecisionBoundary } from "../decision-boundary/index.js";
+export type KnowledgeClassificationDecision = Readonly<{ decisionActorRef: string }>;
+export function normalizeKnowledgeClassificationDecision(input: unknown) {
+  return verifyDecisionBoundary({ descriptor: input, metadata: input, riskCriticality: input, expectedCategory: "human-decision" });
+}
+`);
+    assert.deepEqual(analyzeArchitecture(root), []);
+  });
 });
