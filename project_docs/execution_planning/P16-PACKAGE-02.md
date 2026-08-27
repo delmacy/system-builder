@@ -1,6 +1,6 @@
 # P16-PACKAGE-02 — AI Execution Governance & Structured Output
 
-Status: INTEGRATION REVIEW CANDIDATE
+Status: ACTIVE / DOCUMENTATION & CLOSURE CANDIDATE
 Date: 2026-08-27
 Milestone: M16 AI Gateway
 WBS coverage: 16.2.1–16.2.3
@@ -31,13 +31,15 @@ Status: NOT REQUIRED / NOT MATERIALIZED
 Fresh-main revalidation after Construction B found no bounded residual WBS 16.2 capability necessary to achieve the Package Goal. Construction B's integrated Sprint Report and exact-head gates provide sufficient evidence to proceed directly to Package Integration & Review.
 
 ## Growing package proof
-The integrated proof now covers contracts → deterministic governance normalization/evaluation → real provider-neutral invocation-seam enforcement → structured-output validation → permission-aware metadata propagation → fail-closed negative paths → predecessor compatibility. Provider identity/configuration stays outside central business contracts; policy and metadata remain explicit rather than hidden defaults.
+The integrated proof covers contracts → deterministic governance normalization/evaluation → real provider-neutral invocation-seam enforcement → structured-output validation → permission-aware metadata propagation → fail-closed negative paths → predecessor compatibility. Provider identity/configuration stays outside central business contracts; policy and metadata remain explicit rather than hidden defaults.
 
 ## Package Integration & Review gate
-`P16-PACKAGE-02-INTEGRATION-REVIEW-01` is the active review candidate. Review must verify end-to-end regression, schema/contract compatibility, provider-neutrality, policy/fallback behavior, security/trust boundaries, metadata permission semantics, technical debt, CI health, documentation consistency and Package Goal completeness. Review is not overflow feature work.
+Executed by `P16-PACKAGE-02-INTEGRATION-REVIEW-01`. PR #407 passed exact-head Deterministic CI #931 and Heavy Product Tests #371 on head `dce5d0b1592d19c01a7bbcdfd46c167748b0764f`, had no blocking reviews/threads, and integrated as `de1934176c1ef51937f860793df429ddc41b119b`. Reviewed head and merge-main have zero file differences. Decision: GO FOR DOCUMENTATION & CLOSURE.
 
 ## Documentation & Closure gate
-If Package Integration & Review is GO and exact-head gates pass, integrate the review, reconstruct fresh `main`, prove tree equivalence, then execute Documentation & Closure as repository-memory reconciliation only. No new product behavior in closure.
+`P16-PACKAGE-02-DOCUMENTATION-CLOSURE-01` records the closure candidate as repository-memory/traceability only. No new product behavior is introduced. Canonical CLOSED status requires exact-head Deterministic CI + Heavy Product Tests PASS, no blocker/head drift, expected-head protected merge and fresh-main tree equivalence, followed only by the minimal post-merge reconciliation required to convert candidate wording to canonical CLOSED.
+
+WBS 16.3 remains a separate forecast and receives no execution authority by inference from this closure.
 
 ## Boundaries / non-goals
 - No WBS 16.3 knowledge-boundary enforcement, credentials/secrets lifecycle or quality/cost observation package work.
