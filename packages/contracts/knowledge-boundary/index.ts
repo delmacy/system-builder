@@ -44,6 +44,12 @@ export type KnowledgeClassificationDecision =
       proposalRef: string;
     }>;
 
+export type KnowledgeClassificationBundle = Readonly<{
+  classification: KnowledgeClassificationDescriptor;
+  usePolicy: KnowledgeUsePolicyDescriptor;
+  decision: KnowledgeClassificationDecision;
+}>;
+
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -181,4 +187,19 @@ export function normalizeKnowledgeClassificationDecision(value: unknown): Knowle
     decisionRef: asNonEmptyTrimmedString(record.decisionRef, "decisionRef"),
     proposalRef: asNonEmptyTrimmedString(record.proposalRef, "proposalRef"),
   };
+}
+
+export function normalizeKnowledgeClassificationBundle(value: unknown): KnowledgeClassificationBundle {
+  const record = asRecord(value, "knowledge classification bundle");
+  assertExactFields(record, ["classification", "usePolicy", "decision"], "knowledge classification bundle");
+
+  const classification = normalizeKnowledgeClassificationDescriptor(record.classification);
+  const usePolicy = normalizeKnowledgeUsePolicyDescriptor(record.usePolicy);
+  const decision = normalizeKnowledgeClassificationDecision(record.decision);
+
+  if (classification.knowledgeClass !== decision.knowledgeClass) {
+    throw new Error("classification decision knowledgeClass must match classification descriptor");
+  }
+
+  return { classification, usePolicy, decision };
 }

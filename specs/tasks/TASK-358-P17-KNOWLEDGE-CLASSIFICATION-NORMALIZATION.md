@@ -1,7 +1,7 @@
 ---
 id: TASK-358
 title: Add deterministic classification validation and normalization
-status: ready
+status: completed
 priority: 358
 milestone: M17
 model_tier: architecture
