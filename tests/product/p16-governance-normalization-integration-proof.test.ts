@@ -43,6 +43,7 @@ const governanceInput = {
   },
   metadata: {
     metadataPermitted: true,
+    permissionPolicyId: "policy:default",
     metadata: {
       contractVersion: AI_GATEWAY_EXECUTION_METADATA_VERSION,
       modelRef: "model:general",
@@ -60,6 +61,7 @@ test("composed governance normalization is deterministic and canonical", () => {
   assert.deepEqual(normalized.rules.budgetQuotas.map((rule) => rule.ruleId), ["budget:a", "budget:b"]);
   assert.deepEqual(normalized.rules.fallbacks.map((rule) => rule.ruleId), ["fallback:a", "fallback:b"]);
   assert.deepEqual(normalized.structuredOutputSchema.required, ["score", "summary"]);
+  assert.equal(normalized.metadata.permissionPolicyId, normalized.policy.policyId);
   assert.deepEqual(normalized.metadata.metadata?.provenanceRefs, ["evidence:a", "evidence:b"]);
   assert.deepEqual(normalizeExecutionGovernanceComposition(normalized), normalized);
 });
@@ -91,9 +93,18 @@ test("composition fails closed for inconsistent and malformed governance states"
     ...governanceInput,
     metadata: {
       metadataPermitted: false,
+      permissionPolicyId: governanceInput.policy.policyId,
       metadata: governanceInput.metadata.metadata,
     },
   }), /metadata must be null/);
+
+  assert.throws(() => normalizeExecutionGovernanceComposition({
+    ...governanceInput,
+    metadata: {
+      ...governanceInput.metadata,
+      permissionPolicyId: "policy:other",
+    },
+  }), /permissionPolicyId must match governance policyId/);
 });
 
 test("predecessor WBS 16.1 request response and capability contracts remain compatible", () => {

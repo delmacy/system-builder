@@ -1,7 +1,7 @@
 ---
 id: TASK-340
 title: Define deterministic execution governance evaluation
-status: ready
+status: completed
 priority: 340
 milestone: M16
 model_tier: architecture

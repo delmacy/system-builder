@@ -60,12 +60,16 @@ export function normalizeExecutionGovernanceComposition(value: unknown): Executi
   if (policy.policyId !== rules.policyId) {
     throw new Error("execution governance policyId must match rule-set policyId");
   }
+  const metadata = normalizeModelExecutionMetadataEnvelope(record.metadata);
+  if (metadata.permissionPolicyId !== policy.policyId) {
+    throw new Error("execution metadata permissionPolicyId must match governance policyId");
+  }
 
   return {
     policy,
     rules,
     structuredOutputSchema: normalizeStructuredOutputSchema(record.structuredOutputSchema),
-    metadata: normalizeModelExecutionMetadataEnvelope(record.metadata),
+    metadata,
   };
 }
 

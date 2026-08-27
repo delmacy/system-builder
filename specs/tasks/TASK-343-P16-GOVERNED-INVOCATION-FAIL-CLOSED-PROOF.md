@@ -1,7 +1,7 @@
 ---
 id: TASK-343
 title: Prove fail-closed governed invocation and predecessor compatibility
-status: ready
+status: completed
 priority: 343
 milestone: M16
 model_tier: architecture
