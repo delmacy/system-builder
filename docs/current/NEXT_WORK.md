@@ -1,10 +1,8 @@
-# Next Work — P16 Package 03 Documentation & Closure
+# Next Work — Fresh-Main Successor Planning
 
-`P16-PACKAGE-03 — AI Security & Usage Observation` is at Documentation & Closure candidate. Construction A+B and Package Integration & Review are integrated; Construction C is NOT REQUIRED / NOT MATERIALIZED.
+`P16-PACKAGE-03 — AI Security & Usage Observation` is canonically CLOSED. WBS 16.3.1–16.3.3 and M16 AI Gateway are SATISFIED / CLOSED.
 
 ## Required next action
-Validate the Documentation & Closure candidate on its exact head with Deterministic CI + Heavy Product Tests. With both PASS, zero blocker/head drift and expected-head protection, integrate it, reconstruct fresh `main`, prove closure-head → merge-main tree equivalence, then reconcile repository memory to canonical CLOSED state.
+After this canonical closure reconciliation passes exact-head gates and integrates, reconstruct fresh `main` and derive Package 2 of the user's authorized three-Package sequence exclusively from authoritative `AGENTS.md`, repository memory, roadmap/WBS/scopes/ADRs/manifests and contracts. Then perform separate Planning & Materialization before any successor execution.
 
-Only after canonical closure may Package 2 of the user's authorized three-Package sequence be derived fresh-main from authoritative roadmap/WBS/scopes/ADRs/manifests.
-
-Do not absorb conformance/productization findings or TD-P13-01..04, introduce provider registry/mandatory remote topology, credential lifecycle, telemetry/billing authority, Runtime Audit Trail replacement or undeclared L4 change.
+Do not pre-invent the successor, execute forecast without materialization, absorb conformance/productization findings or TD-P13-01..04 by inference, or perform undeclared L4 change.
