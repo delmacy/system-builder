@@ -1,7 +1,7 @@
 ---
 id: TASK-344
 title: Close Construction B growing execution governance proof
-status: ready
+status: completed
 priority: 344
 milestone: M16
 model_tier: architecture
