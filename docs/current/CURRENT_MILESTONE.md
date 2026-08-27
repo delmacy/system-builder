@@ -3,14 +3,14 @@
 M13, M14 and M15 remain CLOSED. PRE-M16 Contract Conformance Hardening is CLOSED. `P16-PACKAGE-01` and `P16-PACKAGE-02` are CLOSED.
 
 ## Package state
-`P16-PACKAGE-03 — AI Security & Usage Observation` has Construction A+B INTEGRATED; Construction C remains NOT REQUIRED / NOT MATERIALIZED. The bounded post-Construction-B authority correction TASK-354 is now INTEGRATED and fresh-main tree-equivalent.
+`P16-PACKAGE-03 — AI Security & Usage Observation` is a corrected DOCUMENTATION & CLOSURE CANDIDATE. Construction A+B are INTEGRATED; Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
-TASK-354 was integrated by PR #420 as `4210b6727611d7c4440ad554993759aa3c844590` after exact-head Deterministic CI #971 PASS and Heavy Product Tests #413 PASS. Reviewed head `7332b330cc9253d4025f6ed12cf771664b2243de` and merge-main share tree `6fa621288d4898175a43381ffde93ec472c11e5d`.
+TASK-354 integrated by PR #420 as `4210b6727611d7c4440ad554993759aa3c844590` after CI #971 / Heavy #413 PASS, with tree-equivalent reviewed/integrated tree `6fa621288d4898175a43381ffde93ec472c11e5d`.
 
-The correction establishes explicit governance `observationPermissions`, evaluator-produced permitted observation measurements, governed-invocation consumption of only that evaluated decision, and semantic architecture rejection of authority inferred from `budgetQuotas[].metric`.
+Corrected Package Integration & Review head `1ebcb2f33003d12de9bd0a0690273da64e03bedc` passed CI #973 / Heavy #416 and integrated as `7d3b5207267164d50c443e6e2f2a69f9dae713ff`; reviewed head and merge-main share tree `3311d48867f923b83e777d11202b8f1ac72b3e72`.
 
 ## Current gate
-Package Integration & Review must be revalidated over this corrected fresh-main basis because the prior review predates TASK-354. Documentation & Closure remains prohibited until that corrected review passes its exact-head gates and integrates. Only after canonical Package closure may the next authorized Work Package be derived.
+Documentation & Closure exact-head validation and protected integration, followed by fresh-main tree-equivalence and canonical CLOSED reconciliation. Only after canonical closure may Package 2 of the user's authorized three-Package sequence be derived.
 
 ## Boundaries
-No conformance/productization finding absorption, TD-P13-01..04 absorption, provider registry/mandatory remote topology, credential lifecycle, secret material carriage, telemetry/billing authority, Runtime Audit Trail replacement or undeclared L4 change.
+Observation authority is explicit-governance-only; budget/quota metric names cannot grant it. No unrelated finding/TD absorption, provider registry/mandatory remote topology, credential lifecycle, telemetry/billing authority, Runtime Audit Trail replacement or undeclared L4 change.
