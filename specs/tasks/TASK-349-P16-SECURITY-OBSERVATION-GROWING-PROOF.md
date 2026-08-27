@@ -1,7 +1,7 @@
 ---
 id: TASK-349
 title: Prove Construction A security and observation contracts together
-status: planned
+status: ready
 priority: 349
 milestone: M16
 model_tier: architecture
