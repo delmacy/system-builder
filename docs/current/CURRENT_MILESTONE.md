@@ -5,14 +5,16 @@ M13, M14 and M15 remain CLOSED. PRE-M16 Contract Conformance Hardening is CLOSED
 ## Package state
 `P16-PACKAGE-03 — AI Security & Usage Observation` is ACTIVE over WBS 16.3.1-16.3.3.
 
-Construction A `P16-AI-SECURITY-OBSERVATION-CONTRACT-01` is INTEGRATED as `23023c03d47645a4bd1e7de2e72f18e4db4f55a4`, tree `c43409c81f39c6db951652cf966449bf33e7b4ad`, after exact-head Deterministic CI #952 and Heavy Product Tests #392 PASS.
+Construction A `P16-AI-SECURITY-OBSERVATION-CONTRACT-01` is INTEGRATED as `23023c03d47645a4bd1e7de2e72f18e4db4f55a4`; post-Construction-A revalidation is INTEGRATED as `049f4828056405a081a8bc5641c4976ce60ec265`.
 
-Post-Construction-A revalidation is INTEGRATED as `049f4828056405a081a8bc5641c4976ce60ec265`, tree `acd236e68f6ae47803fbb2ce828b2999cdf4c28c`, after exact-head CI #953 / Heavy #394 PASS.
+Construction B `P16-AI-SECURITY-OBSERVATION-INTEGRATION-01` is INTEGRATED as `b93e836eeceb1f017013d600bd7e3fcf7b02cc31`, tree `4d265a3684507f996ad001374e03b9873c2c2dc5`, after exact-head Deterministic CI #963 and Heavy Product Tests #404 PASS. TASK-350..353 are complete.
 
-Construction B `P16-AI-SECURITY-OBSERVATION-INTEGRATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-350..353. Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED.
+Fresh-main post-Construction-B revalidation confirms the integrated governed invocation now enforces the WBS 16.3 pre-send boundary, carries only normalized provider secret references, and emits provider-neutral usage observations whose permissions derive from evaluated policy. Negative proofs prevent undeclared outbound data, secret material and caller claims from fabricating authority or observation permission.
+
+Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
 ## Current gate
-Validate the Construction B Planning & Materialization PR on its exact head. Only after CI + Heavy PASS and integration may the Sprint branch execute TASK-350 -> 351 -> 352 -> 353. Package 2 of the user's authorized three-Package sequence must wait until this Package is canonically CLOSED and fresh-main is reconstructed.
+Proceed to Package Integration & Review for `P16-PACKAGE-03`; if approved, perform Documentation & Closure and canonical repository-memory reconciliation. Package 2 of the authorized three-Package sequence waits until Package 03 is CLOSED and fresh main is reconstructed.
 
 ## Boundaries
 No conformance/productization finding absorption, TD-P13-01..04 absorption, provider registry/mandatory remote topology, credential lifecycle, secret material carriage, telemetry/billing authority, Runtime Audit Trail replacement or undeclared L4 change.
