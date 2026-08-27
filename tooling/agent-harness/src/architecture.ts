@@ -82,10 +82,36 @@ export function analyzeArchitecture(root = process.cwd()): ArchitectureViolation
         }
       }
     }
+    violations.push(...semanticPermissionViolations(repositoryPath, source));
   }
   for (const cycle of packageCycles(packageGraph)) {
     violations.push({ file: `packages/${cycle[0]}`, rule: "no-circular-package-dependencies", importPath: cycle.join(" -> ") });
   }
+  return violations;
+}
+
+function semanticPermissionViolations(repositoryPath: string, source: string): ArchitectureViolation[] {
+  if (!repositoryPath.startsWith("packages/contracts/ai-gateway/")) return [];
+  const violations: ArchitectureViolation[] = [];
+
+  if (/\bmetadataPermitted\s*:\s*boolean\b/.test(source) && !/\bpermissionPolicyId\s*:\s*string\b/.test(source)) {
+    violations.push({
+      file: repositoryPath,
+      rule: "ai-gateway-permission-claims-require-policy-linkage",
+      importPath: "metadataPermitted:boolean-without-permissionPolicyId",
+    });
+  }
+
+  const definesBooleanObservationPermissions = /\bUsageObservationPermissions\b[\s\S]{0,300}\b(?:quality|failure|cost)\s*:\s*boolean\b/.test(source);
+  const envelopeAcceptsCallerPermissions = /\bpermissions\s*:\s*UsageObservationPermissions\b/.test(source);
+  if (definesBooleanObservationPermissions && envelopeAcceptsCallerPermissions) {
+    violations.push({
+      file: repositoryPath,
+      rule: "ai-gateway-observation-permissions-must-be-policy-derived",
+      importPath: "caller-supplied-observation-permission-booleans",
+    });
+  }
+
   return violations;
 }
 
