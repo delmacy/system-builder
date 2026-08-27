@@ -1,7 +1,7 @@
 ---
 id: TASK-348
 title: Define provider-neutral AI usage observation contract
-status: planned
+status: ready
 priority: 348
 milestone: M16
 model_tier: architecture
