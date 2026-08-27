@@ -1,38 +1,47 @@
 # Automation Sprint Handoff
 
 status: READY
-worker_slot: :50
-started_at: 2026-08-27T11:49:53-03:00
-updated_at: 2026-08-27T12:14:00-03:00
+worker_slot: :10
+started_at: 2026-08-27T13:10:15-03:00
+updated_at: 2026-08-27T13:14:00-03:00
 lease_until: null
-observed_main_sha: 9ffc18a44da68a3abe5e8d0508077d284d74fa37
-active_branch: revalidation/P17-PACKAGE-01-post-construction-a
-active_pr: 430
-active_head_sha: 7ac9daa76ee7ab434998c4baf1de5b25a99b43e7
-current_step: Construction A PR #428 integrated after CI #986 / Heavy #430 PASS. Fresh-main revalidation records Construction B JUSTIFIED / NOT MATERIALIZED in PR #430; exact-head workflows are pending association.
+observed_main_sha: 3d435e183c757c551d7b0abd4edd3affa961692a
+active_branch: sprint/P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01
+active_pr: 435
+active_head_sha: 81d99de3b29eccb57c1bd26ed7e020772b817e4c
+current_step: TASK-362 human-authority correction and post-merge reconciliation are integrated. Corrected Construction B Planning & Materialization PR #434 passed exact-head CI #992 / Heavy #437 and integrated as main `3d435e183c757c551d7b0abd4edd3affa961692a`, tree `98743c943056aeecd39e8929be5bc75cdab5b899`. TASK-363 is executed as one authoritative commit on PR #435; exact-head CI #993 and Heavy #439 are in progress.
 
 ## Authorization
 User authorized the next three eligible Work Packages sequentially, with all L1-L3/process approvals pre-granted. L4 requires explicit materialization plus ADR/change control. Automation remains active until explicit user order to disable.
 
-## Completed this round
-- confirmed historical P16 conformance reconciliation/closure is already integrated; did not repeat Package Review;
-- resumed P17 Construction A from TASK-356 and completed TASK-357..361 serially, each as one authoritative commit and behind exact-head gates;
-- TASK-357 `4a4305a221d370b3ee46700a0a4425a472dd9309`: CI #982 / Heavy #426 PASS;
-- TASK-358 `36d616ebb71eff20c1d605624aa9331ea282f21a`: CI #983 / Heavy #427 PASS;
-- TASK-359 `f4854d438551396afbc6f35268d89fea99725a6a`: CI #984 / Heavy #428 PASS;
-- TASK-360 `5b1b9152c2236c11285e21ecd8d29dab9877ab8b`: CI #985 / Heavy #429 PASS;
-- TASK-361 proof/report `f134ec2676d3491d3917e9b249c4c3041c746a96`: final CI #986 / Heavy #430 PASS, zero review threads;
-- promoted PR #428 to review and squash-merged with expected head as main `9ffc18a44da68a3abe5e8d0508077d284d74fa37`;
-- fresh-main inspection found no Construction A scope loss; squash tree differs from Sprint head because main had advanced repository-memory lineage before merge;
-- fresh-main evidence confirms a bounded remaining Package-goal gap: representative existing consumer/evidence paths do not yet carry classification/ownership/purpose/decision projections;
-- created PR #430 head `7ac9daa76ee7ab434998c4baf1de5b25a99b43e7` with six repository-memory/revalidation files recording Construction A INTEGRATED and Construction B `P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` JUSTIFIED / NOT MATERIALIZED;
-- no Construction B TASK was materialized or executed; WBS 17.2/17.3 and unrelated findings/TDs remain untouched.
+## Conformance correction resolved
+- TASK-362 / PR #432 corrected the material human-authority gap found after Construction A;
+- final classification now requires canonical `verifyDecisionBoundary(... expectedCategory: "human-decision")` semantics;
+- deterministic/probabilistic substitution is rejected;
+- `decisionActorRef` must equal verified `authorityRef`;
+- assisted proposal remains non-authoritative;
+- architecture gate `knowledge-classification-human-authority-must-use-decision-boundary` is integrated;
+- PR #432 exact-head Deterministic CI #990 PASS / Heavy Product Tests #435 PASS;
+- PR #432 integrated as `9a14c7bed8a45f5ff5a4fd39515aa3e9cef6581d`;
+- post-correction repository-memory reconciliation PR #433 integrated as `eecc9e758ab05e9b753ebafc9dc3f7c49af73089` after CI #991 / Heavy #436 PASS.
 
-last_completed_step: opened post-Construction-A fresh-main revalidation PR #430 on exact head `7ac9daa76ee7ab434998c4baf1de5b25a99b43e7`.
-next_authorized_step: Revalidate exact-head Deterministic CI + Heavy Product Tests for PR #430. If both PASS with no blocker/head drift, protected merge #430, reconstruct fresh main, then perform separate Planning & Materialization of Construction B `P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` only. Do not execute Construction B TASKs before materialization.
+## Completed this round
+- rejected obsolete pre-correction Construction B PR #431 lineage and used corrected fresh-main authority only;
+- validated corrected Construction B Planning & Materialization PR #434 head `aa2e87c079f1f5cee0f66ef16d64c8dd465847b3`: CI #992 PASS / Heavy #437 PASS, zero reviews/threads, no main drift;
+- promoted and squash-merged #434 with expected-head protection as `3d435e183c757c551d7b0abd4edd3affa961692a`;
+- proved reviewed-head and merge-main share tree `98743c943056aeecd39e8929be5bc75cdab5b899`;
+- created `sprint/P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` from corrected fresh main;
+- executed TASK-363 as one authoritative commit `81d99de3b29eccb57c1bd26ed7e020772b817e4c`;
+- TASK-363 adds a versioned payload-minimal reference projection derived from the corrected classification bundle, carrying class/owner/purpose/restrictions/decision-mode/decision/proposal/evidence references only;
+- projection derivation necessarily reuses corrected bundle normalization, so final authority remains sourced from canonical M15 human-decision verification; manual/assisted shapes fail closed when proposal semantics mismatch;
+- opened draft PR #435 with exactly one commit and three changed files;
+- exact-head Deterministic CI #993 and Heavy Product Tests #439 are currently in progress.
+
+last_completed_step: executed TASK-363 and opened PR #435 on head `81d99de3b29eccb57c1bd26ed7e020772b817e4c`.
+next_authorized_step: Revalidate exact-head Deterministic CI #993 + Heavy Product Tests #439. If both PASS and there are no blockers/head drift, execute TASK-364 as one authoritative commit on the same Sprint branch, then gate again before TASK-365. Do not advance WBS 17.2/17.3 or optional Construction C.
 
 ## Boundaries
-No WBS 17.2 enforcement, WBS 17.3 promotion/anonymization, automatic reuse authority, provider topology/credential lifecycle, unrelated finding/technical-debt absorption, TD-P13-01..04 absorption or undeclared L4.
+No WBS 17.2 enforcement, WBS 17.3 promotion/anonymization, automatic reuse authority, provider topology/credential lifecycle, sensitive payload carriage, Decision Boundary public-contract change, unrelated finding/technical-debt absorption, TD-P13-01..04 absorption or undeclared L4.
 
 ## resume_prompt
-Resume `delmacy/system-builder` at PR #430, branch `revalidation/P17-PACKAGE-01-post-construction-a`, head `7ac9daa76ee7ab434998c4baf1de5b25a99b43e7`, base/main `9ffc18a44da68a3abe5e8d0508077d284d74fa37`. Construction A PR #428 is merged after final CI #986 / Heavy #430 PASS. Fresh-main revalidation records Construction B `P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` as JUSTIFIED / NOT MATERIALIZED because representative consumer/evidence paths do not yet carry the new classification projection. Revalidate CI+Heavy for #430; if PASS, merge protected, reconstruct fresh main and only then plan/materialize Construction B separately. Keep WBS 17.2/17.3 and unrelated findings/TDs out of execution scope. Keep automation active recurring.
+Resume `delmacy/system-builder` at draft PR #435, branch `sprint/P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01`, head `81d99de3b29eccb57c1bd26ed7e020772b817e4c`, corrected base/main `3d435e183c757c551d7b0abd4edd3affa961692a`, tree `98743c943056aeecd39e8929be5bc75cdab5b899`. The TASK-362 human-authority correction is fully integrated and reconciled; no CORRECTION_PENDING remains. Corrected Construction B was materialized by PR #434 after CI #992 / Heavy #437 PASS and tree-equivalent merge. TASK-363 is complete as one authoritative commit; CI #993 and Heavy #439 are in progress. If both PASS with no blocker/head drift, execute TASK-364 only, as one authoritative commit, and gate before TASK-365. Preserve canonical `human-decision`, `decisionActorRef === authorityRef`, proposal-only assisted semantics, WBS 17.1 scope only, and keep automation active recurring.
