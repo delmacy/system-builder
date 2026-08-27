@@ -1,10 +1,14 @@
 # P17-PACKAGE-01-INTEGRATION-REVIEW-01 — Package Integration & Review
 
-Status: REVIEWED / GO FOR DOCUMENTATION & CLOSURE
+Status: INTEGRATED / GO FOR DOCUMENTATION & CLOSURE
 Date: 2026-08-27
 Package: P17-PACKAGE-01 — Knowledge Classification & Use Policy Foundation
 Scope: WBS 17.1.1–17.1.3 only
 Base: fresh main `7b9d1af5555b1ea3949942316eeb465dead6868c`, tree `3f5e6461a28de911c0edc1168ffe35c73809f47c`
+Reviewed head: `88c1426a8834934f82cb76fdfca6aa3948550593`
+Exact-head gates: Deterministic CI #1002 PASS / Heavy Product Tests #449 PASS
+Merge: `424d1f8b61c1e39e3c34e7ddad2e03b2df61b01c`
+Tree equivalence: reviewed-head and merge-main share `11573739e6fa3f97b018fb86cdc5257098038b07`
 
 ## Fresh-main Construction C disposition
 The post-Construction-B repository-memory reconciliation PR #436 passed exact-head Deterministic CI #1001 and Heavy Product Tests #448 on `b0abe038754e3afc921b69a0941d40687fa4026b` and integrated as `7b9d1af5555b1ea3949942316eeb465dead6868c`. Reviewed-head and merge-main share tree `3f5e6461a28de911c0edc1168ffe35c73809f47c`.
@@ -24,7 +28,7 @@ Construction C `P17-KNOWLEDGE-CLASSIFICATION-HARDENING-01` is therefore NOT REQU
 - Actual vs forecast: Construction C is unnecessary; Package Goal is satisfied by Constructions A+B plus bounded conformance correction.
 
 ## Disposition
-GO FOR DOCUMENTATION & CLOSURE, conditional on exact-head Deterministic CI + Heavy Product Tests for this review branch and absence of head/base drift or blocking review threads.
+GO FOR DOCUMENTATION & CLOSURE. Review gates passed and the reviewed tree was preserved by merge-main. Documentation & Closure may reconcile closure evidence only; it must not add product scope.
 
 ## Explicit exclusions
 No WBS 17.2/17.3 execution, automatic reuse/promotion authority, Decision Boundary public-contract change, unrelated conformance/productization finding absorption, TD-P13-01..04 absorption, or undeclared L4 change.

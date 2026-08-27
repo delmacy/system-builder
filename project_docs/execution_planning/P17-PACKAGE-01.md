@@ -1,6 +1,6 @@
 # P17-PACKAGE-01 — Knowledge Classification & Use Policy Foundation
 
-Status: ACTIVE / PACKAGE INTEGRATION & REVIEW
+Status: ACTIVE / DOCUMENTATION & CLOSURE
 Date: 2026-08-27
 Milestone: M17 Knowledge Boundary
 WBS coverage: 17.1.1–17.1.3
@@ -13,6 +13,8 @@ Establish explicit, portable and provider-neutral knowledge classification contr
 - TASK-362 corrected the human-authority conformance gap via PR #432 using canonical M15 `verifyDecisionBoundary(... expectedCategory: "human-decision")`, requiring `decisionActorRef === authorityRef` and rejecting deterministic/probabilistic substitution.
 - Construction B PR #435 integrated the representative consumer paths after final exact-head Deterministic CI #1000 PASS and Heavy Product Tests #446 PASS.
 - Post-Construction-B repository-memory reconciliation PR #436 passed exact-head Deterministic CI #1001 / Heavy Product Tests #448 and integrated as fresh main `7b9d1af5555b1ea3949942316eeb465dead6868c`, tree `3f5e6461a28de911c0edc1168ffe35c73809f47c`.
+- Fresh-main revalidation found no residual bounded WBS 17.1 gap; Construction C is NOT REQUIRED / NOT MATERIALIZED.
+- Package Integration & Review PR #437 passed exact-head Deterministic CI #1002 / Heavy Product Tests #449 on reviewed head `88c1426a8834934f82cb76fdfca6aa3948550593` and integrated as `424d1f8b61c1e39e3c34e7ddad2e03b2df61b01c`; reviewed-head and merge-main share tree `11573739e6fa3f97b018fb86cdc5257098038b07`.
 - WBS 17.2/17.3 remain forecast only.
 
 ## Construction state
@@ -26,7 +28,7 @@ Delivered payload-minimal classification reference projection, representative ma
 Fresh-main post-Construction-B revalidation found no residual bounded WBS 17.1 capability gap. No Construction C scope is promoted.
 
 ## Current gate
-`P17-PACKAGE-01-INTEGRATION-REVIEW-01`. Review the complete integrated Package for regression, contract/schema drift, architecture/dependency fitness, technical debt, security/trust, CI health, documentation consistency and readiness. If exact-head gates pass and no blocker/drift exists, integrate and proceed to Documentation & Closure.
+`P17-PACKAGE-01-DOCUMENTATION-CLOSURE-01`. Reconcile repository memory and closure evidence only. If exact-head gates pass and no blocker/head drift exists, integrate, reconstruct fresh main, prove tree equivalence and perform the minimum post-merge canonical closure reconciliation so P17-PACKAGE-01 / WBS 17.1.1–17.1.3 become CLOSED.
 
 ## Boundaries / non-goals
 - no WBS 17.2 enforcement;
