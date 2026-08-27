@@ -1,7 +1,7 @@
 ---
 id: TASK-371
 title: Prove predecessor authority compatibility for enforcement
-status: ready
+status: completed
 priority: 371
 milestone: M17
 model_tier: architecture
