@@ -49,6 +49,22 @@ function bundle(mode: "manual" | "assisted") {
   } as const;
 }
 
+function manualProjection(overrides: Record<string, unknown> = {}) {
+  return {
+    contractVersion: KNOWLEDGE_CLASSIFICATION_REFERENCE_PROJECTION_VERSION,
+    knowledgeClass: "generic",
+    ownerRef: "owner:generic",
+    purposeIds: [],
+    restrictionIds: [],
+    decisionMode: "manual",
+    decisionRef: "decision:manual",
+    proposalRef: null,
+    humanAuthority: humanAuthority("human:reviewer-01", "boundary:projection-manual"),
+    evidenceRefs: [],
+    ...overrides,
+  };
+}
+
 test("reference projection derives a deterministic payload-minimal manual view from verified classification state", () => {
   const projected = projectKnowledgeClassificationReference(bundle("manual"), [" evidence:002 ", "evidence:001"]);
   assert.deepEqual(projected, {
@@ -60,6 +76,7 @@ test("reference projection derives a deterministic payload-minimal manual view f
     decisionMode: "manual",
     decisionRef: "decision:manual-001",
     proposalRef: null,
+    humanAuthority: humanAuthority("human:reviewer-01", "boundary:manual-001"),
     evidenceRefs: ["evidence:001", "evidence:002"],
   });
 });
@@ -69,6 +86,8 @@ test("reference projection keeps assisted proposal traceability distinct from fi
   assert.equal(projected.decisionMode, "assisted");
   assert.equal(projected.decisionRef, "decision:assisted-001");
   assert.equal(projected.proposalRef, "proposal:model-001");
+  assert.equal(projected.humanAuthority.descriptor.category, "human-decision");
+  assert.equal(projected.humanAuthority.metadata.authorityRef, "human:reviewer-01");
 });
 
 test("reference projection cannot bypass canonical human authority verification", () => {
@@ -84,73 +103,76 @@ test("reference projection cannot bypass canonical human authority verification"
     /decisionActorRef must match verified human authorityRef/,
   );
 
+  const probabilisticAuthority = {
+    descriptor: {
+      boundaryVersion: DECISION_BOUNDARY_VERSION,
+      decisionId: "boundary:probabilistic",
+      category: "probabilistic",
+    },
+    metadata: {
+      inferenceRef: "inference:classification",
+      inferenceContext: { confidence: 0.9, modelRef: "model:classifier", contextRef: "context:classification" },
+    },
+    riskCriticality: { risk: "medium", criticality: "standard" },
+  } as const;
+
   assert.throws(
     () => projectKnowledgeClassificationReference({
       ...invalid,
       decision: {
         ...invalid.decision,
-        humanAuthority: {
-          descriptor: {
-            boundaryVersion: DECISION_BOUNDARY_VERSION,
-            decisionId: "boundary:probabilistic",
-            category: "probabilistic",
-          },
-          metadata: {
-            inferenceRef: "inference:classification",
-            inferenceContext: { confidence: 0.9, modelRef: "model:classifier", contextRef: "context:classification" },
-          },
-          riskCriticality: { risk: "medium", criticality: "standard" },
-        },
+        humanAuthority: probabilisticAuthority,
       },
     }, []),
     /requires Decision Boundary category human-decision/,
   );
+
+  assert.throws(
+    () => normalizeKnowledgeClassificationReferenceProjection(manualProjection({ humanAuthority: probabilisticAuthority })),
+    /requires Decision Boundary category human-decision/,
+  );
+});
+
+test("standalone projection normalization requires canonical human authority proof", () => {
+  assert.throws(
+    () => normalizeKnowledgeClassificationReferenceProjection({
+      ...manualProjection(),
+      humanAuthority: undefined,
+    }),
+    /humanAuthority must be an object/,
+  );
+
+  const normalized = normalizeKnowledgeClassificationReferenceProjection(manualProjection());
+  assert.equal(normalized.humanAuthority.descriptor.category, "human-decision");
+  assert.equal(normalized.humanAuthority.metadata.authorityRef, "human:reviewer-01");
 });
 
 test("reference projection fails closed for ambiguous mode/proposal shapes and sensitive channels", () => {
   assert.throws(
-    () => normalizeKnowledgeClassificationReferenceProjection({
-      contractVersion: KNOWLEDGE_CLASSIFICATION_REFERENCE_PROJECTION_VERSION,
-      knowledgeClass: "generic",
-      ownerRef: "owner:generic",
-      purposeIds: [],
-      restrictionIds: [],
-      decisionMode: "manual",
-      decisionRef: "decision:manual",
-      proposalRef: "proposal:unexpected",
-      evidenceRefs: [],
-    }),
+    () => normalizeKnowledgeClassificationReferenceProjection(manualProjection({ proposalRef: "proposal:unexpected" })),
     /manual classification reference projection cannot carry proposalRef/,
   );
 
   assert.throws(
     () => normalizeKnowledgeClassificationReferenceProjection({
-      contractVersion: KNOWLEDGE_CLASSIFICATION_REFERENCE_PROJECTION_VERSION,
-      knowledgeClass: "generic",
-      ownerRef: "owner:generic",
-      purposeIds: [],
-      restrictionIds: [],
+      ...manualProjection(),
       decisionMode: "assisted",
       decisionRef: "decision:assisted",
       proposalRef: null,
-      evidenceRefs: [],
     }),
     /assisted classification reference projection requires proposalRef/,
   );
 
   assert.throws(
-    () => normalizeKnowledgeClassificationReferenceProjection({
-      contractVersion: KNOWLEDGE_CLASSIFICATION_REFERENCE_PROJECTION_VERSION,
+    () => normalizeKnowledgeClassificationReferenceProjection(manualProjection({
       knowledgeClass: "trade-secret",
       ownerRef: "owner:secret",
       purposeIds: ["internal-review"],
       restrictionIds: ["no-training"],
-      decisionMode: "manual",
       decisionRef: "decision:secret",
-      proposalRef: null,
       evidenceRefs: ["evidence:secret"],
       payload: { text: "sensitive" },
-    }),
+    })),
     /unexpected field payload/,
   );
 });
