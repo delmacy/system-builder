@@ -357,3 +357,61 @@ export function normalizeKnowledgeEnforcementDisposition(value: unknown): Knowle
     reasonIds,
   };
 }
+
+export const KNOWLEDGE_PROMOTION_ELIGIBILITY_VERSION = "1.0.0" as const;
+
+export type KnowledgePromotionEligibilityStatus = "eligible" | "ineligible";
+
+export type KnowledgePromotionEligibility = Readonly<{
+  contractVersion: typeof KNOWLEDGE_PROMOTION_ELIGIBILITY_VERSION;
+  eligibilityRef: string;
+  enforcementRef: string;
+  classificationDecisionRef: string;
+  knowledgeClass: KnowledgeClass;
+  purposeId: string;
+  status: KnowledgePromotionEligibilityStatus;
+  permissionRef: string | null;
+  reasonIds: readonly string[];
+}>;
+
+export type KnowledgePromotionEligibilityInput = Readonly<{
+  eligibilityRef: string;
+  knowledgeClass: KnowledgeClass;
+  enforcement: KnowledgeEnforcementDisposition;
+  policyCompatible: boolean;
+  permissionRef: string | null;
+}>;
+
+function normalizeOptionalPermissionReference(value: unknown): string | null {
+  if (value === null) return null;
+  return asNonEmptyTrimmedString(value, "permissionRef");
+}
+
+export function evaluateKnowledgePromotionEligibility(input: KnowledgePromotionEligibilityInput): KnowledgePromotionEligibility {
+  const enforcement = normalizeKnowledgeEnforcementDisposition(input.enforcement);
+  const knowledgeClass = assertKnowledgeClass(input.knowledgeClass);
+  const permissionRef = normalizeOptionalPermissionReference(input.permissionRef);
+  const eligibilityRef = asNonEmptyTrimmedString(input.eligibilityRef, "eligibilityRef");
+
+  if (typeof input.policyCompatible !== "boolean") {
+    throw new Error("policyCompatible must be a boolean");
+  }
+
+  const reasons: string[] = [];
+  if (enforcement.outcome !== "allow") reasons.push(`enforcement:${enforcement.outcome}`);
+  if (!input.policyCompatible) reasons.push("policy:incompatible");
+  if (knowledgeClass !== "generic" && permissionRef === null) reasons.push("permission:required");
+
+  const status: KnowledgePromotionEligibilityStatus = reasons.length === 0 ? "eligible" : "ineligible";
+  return {
+    contractVersion: KNOWLEDGE_PROMOTION_ELIGIBILITY_VERSION,
+    eligibilityRef,
+    enforcementRef: enforcement.enforcementRef,
+    classificationDecisionRef: enforcement.classificationDecisionRef,
+    knowledgeClass,
+    purposeId: enforcement.purposeId,
+    status,
+    permissionRef,
+    reasonIds: reasons.length === 0 ? ["eligibility:explicit-compatible-state"] : reasons.sort((left, right) => left.localeCompare(right)),
+  };
+}
