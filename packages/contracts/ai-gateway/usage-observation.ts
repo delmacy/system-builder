@@ -1,9 +1,15 @@
 export const AI_GATEWAY_USAGE_OBSERVATION_VERSION = "1.0.0" as const;
 
-export type UsageObservationPermissions = Readonly<{
-  quality: boolean;
-  failure: boolean;
-  cost: boolean;
+export type UsageObservationMeasurement = "quality" | "failure" | "cost";
+
+export type UsageObservationPermissionPolicy = Readonly<{
+  policyId: string;
+  permittedMeasurements: readonly UsageObservationMeasurement[];
+}>;
+
+export type UsageObservationPermissionDecision = Readonly<{
+  permissionPolicyId: string;
+  permittedMeasurements: readonly UsageObservationMeasurement[];
 }>;
 
 export type QualityObservation = Readonly<{ score: number; scale: string }>;
@@ -22,12 +28,13 @@ export type ModelUsageObservation = Readonly<{
 }>;
 
 export type ModelUsageObservationEnvelope = Readonly<{
-  permissionPolicyId: string;
-  permissions: UsageObservationPermissions;
+  permission: UsageObservationPermissionDecision;
   observation: ModelUsageObservation;
 }>;
 
 type UnknownRecord = Record<string, unknown>;
+
+const measurements = new Set<UsageObservationMeasurement>(["quality", "failure", "cost"]);
 
 function asRecord(value: unknown, label: string): UnknownRecord {
   if (typeof value !== "object" || value === null || Array.isArray(value)) throw new Error(`${label} must be an object`);
@@ -44,23 +51,37 @@ function asNonEmptyString(value: unknown, field: string): string {
   return value;
 }
 
-function asBoolean(value: unknown, field: string): boolean {
-  if (typeof value !== "boolean") throw new Error(`${field} must be a boolean`);
-  return value;
-}
-
 function asFiniteNonNegative(value: unknown, field: string): number {
   if (typeof value !== "number" || !Number.isFinite(value) || value < 0) throw new Error(`${field} must be finite and non-negative`);
   return value;
 }
 
-function normalizePermissions(value: unknown): UsageObservationPermissions {
-  const record = asRecord(value, "usage observation permissions");
-  assertExactFields(record, ["quality", "failure", "cost"], "usage observation permissions");
+function normalizePermittedMeasurements(value: unknown): readonly UsageObservationMeasurement[] {
+  if (!Array.isArray(value)) throw new Error("permittedMeasurements must be an array");
+  const normalized = value.map((item, index) => {
+    if (typeof item !== "string" || !measurements.has(item as UsageObservationMeasurement)) {
+      throw new Error(`permittedMeasurements[${index}] has unsupported measurement ${String(item)}`);
+    }
+    return item as UsageObservationMeasurement;
+  });
+  if (new Set(normalized).size !== normalized.length) throw new Error("permittedMeasurements must not contain duplicates");
+  return [...normalized].sort((left, right) => left.localeCompare(right));
+}
+
+export function normalizeUsageObservationPermissionPolicy(value: unknown): UsageObservationPermissionPolicy {
+  const record = asRecord(value, "usage observation permission policy");
+  assertExactFields(record, ["policyId", "permittedMeasurements"], "usage observation permission policy");
   return {
-    quality: asBoolean(record.quality, "permissions.quality"),
-    failure: asBoolean(record.failure, "permissions.failure"),
-    cost: asBoolean(record.cost, "permissions.cost"),
+    policyId: asNonEmptyString(record.policyId, "policyId"),
+    permittedMeasurements: normalizePermittedMeasurements(record.permittedMeasurements),
+  };
+}
+
+export function evaluateUsageObservationPermission(value: unknown): UsageObservationPermissionDecision {
+  const policy = normalizeUsageObservationPermissionPolicy(value);
+  return {
+    permissionPolicyId: policy.policyId,
+    permittedMeasurements: policy.permittedMeasurements,
   };
 }
 
@@ -111,12 +132,12 @@ function normalizeObservation(value: unknown): ModelUsageObservation {
 
 export function normalizeModelUsageObservationEnvelope(value: unknown): ModelUsageObservationEnvelope {
   const record = asRecord(value, "model usage observation envelope");
-  assertExactFields(record, ["permissionPolicyId", "permissions", "observation"], "model usage observation envelope");
-  const permissionPolicyId = asNonEmptyString(record.permissionPolicyId, "permissionPolicyId");
-  const permissions = normalizePermissions(record.permissions);
+  assertExactFields(record, ["permissionPolicy", "observation"], "model usage observation envelope");
+  const permission = evaluateUsageObservationPermission(record.permissionPolicy);
+  const permitted = new Set(permission.permittedMeasurements);
   const observation = normalizeObservation(record.observation);
-  if (!permissions.quality && observation.quality !== null) throw new Error("quality observation must be null when quality permission is denied");
-  if (!permissions.failure && observation.failure !== null) throw new Error("failure observation must be null when failure permission is denied");
-  if (!permissions.cost && observation.cost !== null) throw new Error("cost observation must be null when cost permission is denied");
-  return { permissionPolicyId, permissions, observation };
+  if (!permitted.has("quality") && observation.quality !== null) throw new Error("quality observation must be null when policy does not permit quality measurement");
+  if (!permitted.has("failure") && observation.failure !== null) throw new Error("failure observation must be null when policy does not permit failure measurement");
+  if (!permitted.has("cost") && observation.cost !== null) throw new Error("cost observation must be null when policy does not permit cost measurement");
+  return { permission, observation };
 }
