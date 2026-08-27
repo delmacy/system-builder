@@ -36,11 +36,31 @@ test("execution governance rules normalize deterministically without provider id
     fallbacks: [
       { ruleId: "fallback:interactive", allowed: true, order: ["route:primary", "route:secondary"] },
     ],
+    observationPermissions: [],
   });
   assert.equal("providerId" in rules, false);
   assert.equal("defaultProvider" in rules, false);
   assert.equal("authorized" in rules, false);
   assert.equal("credential" in rules, false);
+});
+
+test("observation permission rules normalize explicitly and independently from quotas", () => {
+  const rules = normalizeExecutionGovernanceRuleSet({
+    contractVersion: AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION,
+    policyId: "policy:observation",
+    routingEligibility: [],
+    budgetQuotas: [{ ruleId: "budget:failure", metric: "failure", limit: 1, window: "request" }],
+    fallbacks: [],
+    observationPermissions: [
+      { ruleId: "observe:z", permittedMeasurements: ["quality", "failure"] },
+      { ruleId: "observe:a", permittedMeasurements: ["cost"] },
+    ],
+  });
+
+  assert.deepEqual(rules.observationPermissions, [
+    { ruleId: "observe:a", permittedMeasurements: ["cost"] },
+    { ruleId: "observe:z", permittedMeasurements: ["failure", "quality"] },
+  ]);
 });
 
 test("execution governance rules fail closed for invalid bounds and ambiguous duplicates", () => {
@@ -78,6 +98,18 @@ test("execution governance rules fail closed for invalid bounds and ambiguous du
       fallbacks: [{ ruleId: "fallback:a", allowed: true, order: ["route:a", "route:a"] }],
     }),
     /must not contain duplicates/,
+  );
+
+  assert.throws(
+    () => normalizeExecutionGovernanceRuleSet({
+      contractVersion: AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION,
+      policyId: "policy:a",
+      routingEligibility: [],
+      budgetQuotas: [],
+      fallbacks: [],
+      observationPermissions: [{ ruleId: "observe:a", permittedMeasurements: ["latency"] }],
+    }),
+    /unsupported measurement latency/,
   );
 });
 
