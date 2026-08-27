@@ -40,18 +40,21 @@ const boundary = {
   allowedKnowledgeRefs: ["knowledge:public"],
 } as const;
 
-function rules(observeFailure: boolean) {
+function rules(observeFailure: boolean, includeFailureQuota = false) {
   return {
     contractVersion: AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION,
     policyId: "policy:security-observation",
     routingEligibility: [{ ruleId: "route:json", requiredCapabilities: ["json"] }],
     budgetQuotas: [
       { ruleId: "budget:tokens", metric: "tokens", limit: 1024, window: "request" },
-      ...(observeFailure
-        ? [{ ruleId: "observe:failure", metric: "failure", limit: 1, window: "request" }]
+      ...(includeFailureQuota
+        ? [{ ruleId: "budget:failure", metric: "failure", limit: 1, window: "request" }]
         : []),
     ],
     fallbacks: [],
+    observationPermissions: observeFailure
+      ? [{ ruleId: "observe:failure", permittedMeasurements: ["failure"] as const }]
+      : [],
   };
 }
 
@@ -75,7 +78,7 @@ function capturingAdapter(capture: {
   };
 }
 
-test("integrated governed invocation composes boundary, secret reference and policy-derived observation", async () => {
+test("integrated governed invocation composes boundary, secret reference and explicit policy-derived observation", async () => {
   const capture: {
     calls: number;
     request?: ModelRequest;
@@ -86,7 +89,7 @@ test("integrated governed invocation composes boundary, secret reference and pol
     request,
     rules: rules(true),
     capabilities,
-    usage: { tokens: 64, failure: 0 },
+    usage: { tokens: 64 },
     structuredOutputSchema: schema,
     preSendBoundary: {
       boundary,
@@ -106,6 +109,7 @@ test("integrated governed invocation composes boundary, secret reference and pol
   assert.equal(result.preSendBoundary?.status, "allowed");
   assert.equal(capture.context?.providerSecretReference?.secretRef, "secret-ref:provider-primary");
   assert.equal(JSON.stringify(capture.request).includes("secret-ref:"), false);
+  assert.deepEqual(result.governance.permittedObservationMeasurements, ["failure"]);
   assert.deepEqual(result.usageObservation.permission, {
     permissionPolicyId: "policy:security-observation",
     permittedMeasurements: ["failure"],
@@ -117,6 +121,25 @@ test("integrated governed invocation composes boundary, secret reference and pol
   assert.equal("authorized" in result.usageObservation, false);
   assert.equal("approved" in result.usageObservation, false);
   assert.deepEqual(result.governance.fallbacks, []);
+});
+
+test("budget quota metric names cannot grant observation permission", async () => {
+  const capture: {
+    calls: number;
+    context: GovernedModelProviderInvocationContext | undefined;
+  } = { calls: 0, context: undefined };
+  const result = await invokeGovernedModelProvider(capturingAdapter(capture, { answer: 42 }), {
+    request,
+    rules: rules(false, true),
+    capabilities,
+    usage: { tokens: 64, failure: 0 },
+    structuredOutputSchema: schema,
+  });
+
+  assert.equal(result.structuredOutput.status, "invalid");
+  assert.deepEqual(result.governance.permittedObservationMeasurements, []);
+  assert.deepEqual(result.usageObservation.permission.permittedMeasurements, []);
+  assert.equal(result.usageObservation.observation.failure, null);
 });
 
 test("undeclared outbound data cannot reach the adapter", async () => {
