@@ -14,8 +14,10 @@ Date: 2026-08-27
 
 `P16-PACKAGE-03 — AI Security & Usage Observation` is ACTIVE. Construction A `P16-AI-SECURITY-OBSERVATION-CONTRACT-01` is INTEGRATED as `23023c03d47645a4bd1e7de2e72f18e4db4f55a4`, tree `c43409c81f39c6db951652cf966449bf33e7b4ad`, after exact-head Deterministic CI #952 and Heavy Product Tests #392 PASS. TASK-345..349 are complete.
 
-Post-Construction-A fresh-main revalidation identifies a bounded real-path gap: the existing governed invocation seam does not yet apply the new pre-send boundary, portable secret-reference input or permission-aware usage observation. Construction B `P16-AI-SECURITY-OBSERVATION-INTEGRATION-01` is therefore JUSTIFIED / FORECAST / NOT MATERIALIZED pending its separate Planning & Materialization gate.
+Post-Construction-A fresh-main revalidation is INTEGRATED as `049f4828056405a081a8bc5641c4976ce60ec265`, tree `acd236e68f6ae47803fbb2ce828b2999cdf4c28c`, after exact-head CI #953 / Heavy #394 PASS.
 
-Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. Package 2 of the user's three-Package authority cycle must not be derived before Package 03 is canonically CLOSED.
+Construction B `P16-AI-SECURITY-OBSERVATION-INTEGRATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-350..353. It integrates the existing WBS 16.3 pre-send boundary, reference-only secret input and policy-derived usage observation into governed invocation. Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED.
+
+Package 2 of the user's three-Package authority cycle must not be derived before Package 03 is canonically CLOSED.
 
 No conformance/productization finding absorption, TD-P13-01..04 absorption/re-ranking, provider registry/mandatory remote topology, credential issuance/rotation/revocation lifecycle, secret values in artifacts, telemetry/billing authority, Runtime Audit Trail replacement or undeclared L4 change is included.

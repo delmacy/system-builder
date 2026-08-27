@@ -1,14 +1,14 @@
-# Next Work — P16 Package 03 Post-Construction-A Gate
+# Next Work — P16 Package 03 Construction B Materialization Gate
 
-`P16-PACKAGE-01` and `P16-PACKAGE-02` remain canonically CLOSED. `P16-PACKAGE-03 — AI Security & Usage Observation` is active under the user's three-Package authority cycle.
+`P16-PACKAGE-01` and `P16-PACKAGE-02` remain canonically CLOSED. `P16-PACKAGE-03 — AI Security & Usage Observation` is active as Package 1 of the user's authorized three-Package sequence.
 
 ## Current state
-Construction A `P16-AI-SECURITY-OBSERVATION-CONTRACT-01` is INTEGRATED in fresh `main` `23023c03d47645a4bd1e7de2e72f18e4db4f55a4`; reviewed head and merge-main share tree `c43409c81f39c6db951652cf966449bf33e7b4ad`. TASK-345..349 are complete and exact-head Deterministic CI #952 / Heavy Product Tests #392 passed.
+Construction A `P16-AI-SECURITY-OBSERVATION-CONTRACT-01` is INTEGRATED. Post-Construction-A revalidation integrated as `049f4828056405a081a8bc5641c4976ce60ec265`, tree `acd236e68f6ae47803fbb2ce828b2999cdf4c28c`, after exact-head Deterministic CI #953 and Heavy Product Tests #394 PASS.
 
-Fresh-main evidence confirms the bounded forecast gap: `invokeGovernedModelProvider` does not yet apply the WBS 16.3 pre-send data/knowledge boundary, portable secret-reference input or permission-aware usage observation.
+Construction B `P16-AI-SECURITY-OBSERVATION-INTEGRATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-350..353. The Sprint applies the already-defined WBS 16.3 pre-send boundary, reference-only secret input and policy-derived usage observation to the real governed invocation seam.
 
 ## Required next action
-Validate and integrate the post-Construction-A revalidation. If exact-head Deterministic CI + Heavy Product Tests pass with no blocker/head drift, reconstruct fresh `main`, prove tree equivalence, then perform the separate Planning & Materialization of Construction B `P16-AI-SECURITY-OBSERVATION-INTEGRATION-01`. Do not execute Construction B before that materialization gate.
+Validate the Planning & Materialization PR on its exact head with Deterministic CI + Heavy Product Tests. If both pass with no blocker/head drift, integrate with expected-head protection, reconstruct fresh `main`, prove tree equivalence, create `sprint/P16-AI-SECURITY-OBSERVATION-INTEGRATION-01`, and execute TASK-350 first. Execute TASK-351 -> TASK-352 -> TASK-353 only after predecessor gates pass.
 
 Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. Package Integration & Review and Documentation & Closure remain subsequent Package gates.
 
