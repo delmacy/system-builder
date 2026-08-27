@@ -1,34 +1,33 @@
 # Automation Sprint Handoff
 
 status: READY
-worker_slot: :50
-started_at: 2026-08-26T21:47:53-03:00
-updated_at: 2026-08-26T21:52:30-03:00
-lease_until: 2026-08-26T21:52:30-03:00
-observed_main_sha: 57d0919eab05faabd5392a32ef7e5ff4fec6aec9
-active_branch: sprint/P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01
-active_pr: 403
-active_head_sha: 567140e54d6eeb0c1f9f6d8934153075eb93ab2c
-current_step: TASK-344 is implemented as a single authoritative commit. Final exact-head Deterministic CI #930 and Heavy Product Tests #369 are in progress; do not promote Sprint Review or merge until both PASS.
+worker_slot: :30
+started_at: 2026-08-27T02:28:47-03:00
+updated_at: 2026-08-27T02:31:00-03:00
+lease_until: 2026-08-27T02:31:00-03:00
+observed_main_sha: de448414e074d46a29801ba6f4fb64a3fcaf99c7
+active_branch: planning/P16-PACKAGE-03-SECURITY-OBSERVATION
+active_pr: 410
+active_head_sha: 561c610f215bdc4b1e5df2b7be67a79a35adc3a1
+current_step: Planning & Materialization for P16-PACKAGE-03 remains at exact-head validation after a bounded task-metadata correction. Deterministic CI #939 and Heavy Product Tests #379 are pending on the exact head; do not merge or execute TASK-345 until both PASS.
 
 ## Authorization
-PRE-M16 and P16-PACKAGE-01 are CLOSED. P16-PACKAGE-02 is the second authorized successor and covers WBS 16.2.1–16.2.3 only. Construction B TASK-340..344 is materialized and now fully implemented pending final gates. Construction C remains optional/evidence-gated and is NOT materialized. WBS 16.3 is outside scope. L4 requires materialized scope + ADR/change control. Do not absorb conformance/productization findings or TD-P13-01..04.
+The user authorized planning/materialization, execution and canonical closure of the next three eligible Work Packages in sequence, including all required L1/L2/L3 approvals for their Sprints and TASKs. P16-PACKAGE-03 — AI Security & Usage Observation is Package 1 of 3 and is derived strictly from fresh-main WBS 16.3.1–16.3.3. Construction A P16-AI-SECURITY-OBSERVATION-CONTRACT-01 materializes TASK-345..349 only. Construction B remains forecast and Construction C remains optional/evidence-gated. L4 still requires materialized scope + ADR/change control. Do not absorb conformance/productization findings or TD-P13-01..04 by inference.
 
 ## Completed this round
-- treated the prior READY handoff as stale repository memory and revalidated current GitHub state directly;
-- confirmed PR #403 Construction B current head `f698f2f766ace10d80d930ecd820baa6b274102d` with TASK-343 exact-head Deterministic CI #929 PASS and Heavy Product Tests #368 PASS;
-- executed only TASK-344 per its materialized allowed/forbidden paths;
-- created growing integrated product proof covering eligible governed invocation, policy-limit fail-closed behavior, structured-output invalidity, permitted/denied metadata behavior, and WBS 16.1 request/response compatibility;
-- created `P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01.report.md` with authoritative TASK-340..344 chain and evidence-based recommendation that Construction C is NOT REQUIRED / NOT MATERIALIZED, subject to final gates, Sprint Review, merge and fresh-main revalidation;
-- completed TASK-344 in single authoritative commit `567140e54d6eeb0c1f9f6d8934153075eb93ab2c`;
-- updated PR #403 body to the final task chain; zero review threads were present;
-- final exact-head Deterministic CI #930 and Heavy Product Tests #369 are both in progress on `567140e5...`.
+- revalidated PR #410 on planning/P16-PACKAGE-03-SECURITY-OBSERVATION at head de0a1a52fc61d73eac716a3d06fb2e8494ab6b4b;
+- confirmed Heavy Product Tests #374 PASS and Deterministic CI #934 FAIL;
+- inspected CI #934 logs and proved the failure was materialization metadata, not product behavior: TASK-345..349 used invalid status `planned`, while the repository task schema accepts draft/ready/running/verification/completed/blocked/failed/superseded;
+- confirmed the prior P16 planning convention uses status `ready` for materialized TASKs, including dependent TASKs;
+- corrected only the status metadata of TASK-345..349 from `planned` to `ready`, preserving objectives, dependencies, allowed/forbidden paths, validation commands and Package boundaries;
+- PR #410 now points to exact head `561c610f215bdc4b1e5df2b7be67a79a35adc3a1`;
+- new exact-head Deterministic CI #939 and Heavy Product Tests #379 are pending.
 
-last_completed_step: implemented TASK-344 and started final exact-head Sprint gates.
-next_authorized_step: Revalidate CI #930 and Heavy #369 on exact head `567140e54d6eeb0c1f9f6d8934153075eb93ab2c`. If both PASS with no blocker/head drift, mark PR #403 ready for review, complete Sprint Review, merge with expected-head protection, reconstruct fresh main and prove tree equivalence. Then perform evidence-based post-Construction-B revalidation; do not materialize Construction C unless a real residual Package Goal gap requires it. If no residual gap remains, continue to Package Integration & Review and Documentation & Closure for P16-PACKAGE-02 under the existing triple authorization.
+last_completed_step: bounded correction of invalid TASK-345..349 status metadata and retrigger of exact-head Planning gates.
+next_authorized_step: Revalidate Deterministic CI #939 and Heavy Product Tests #379 on exact head `561c610f215bdc4b1e5df2b7be67a79a35adc3a1`. If both PASS and PR #410 has no blocker/head drift, merge #410 with expected-head protection, reconstruct fresh main and prove tree equivalence. Then create/use the materialized Construction A execution branch and execute only TASK-345 first in one authoritative TASK commit, followed by its exact-head gates before TASK-346.
 
 ## Boundaries
-P16-PACKAGE-02 only covers WBS 16.2.1–16.2.3. No WBS 16.3 execution/materialization, provider registry/mandatory remote topology, credential/secret lifecycle, Runtime Audit Trail replacement, conformance/productization finding absorption, TD-P13-01..04 absorption/re-ranking or undeclared L4.
+P16-PACKAGE-03 covers only WBS 16.3.1–16.3.3. No provider registry or mandatory remote topology, credential lifecycle, Runtime Audit Trail replacement, conformance/productization finding absorption, TD-P13-01..04 absorption/re-ranking, or undeclared L4. Packages 2 and 3 of the current authorization must not be derived or executed before their predecessors are canonically CLOSED and fresh-main revalidated.
 
 ## resume_prompt
-Retome `delmacy/system-builder` pelo draft PR #403, branch `sprint/P16-AI-EXECUTION-GOVERNANCE-INTEGRATION-01`, head exato `567140e54d6eeb0c1f9f6d8934153075eb93ab2c`, base main `57d0919eab05faabd5392a32ef7e5ff4fec6aec9`. TASK-340..343 estão concluídas; TASK-343 `f698f2f...` passou CI #929 / Heavy #368. TASK-344 foi concluída em commit único `567140e5...`, adicionando growing proof + Sprint Report; final CI #930 e Heavy #369 estão em progresso. Revalide os dois gates; com PASS e sem blocker/head drift, promova #403 para review, faça Sprint Review e merge protegido, fresh-main/tree-equivalence e revalidação pós-Construction-B. Construction C continua NOT MATERIALIZED e somente pode ser promovida se evidence-based gap real surgir. WBS 16.3, findings de conformance/productization e TD-P13-01..04 permanecem fora do escopo.
+Retome `delmacy/system-builder` pelo PR #410, branch `planning/P16-PACKAGE-03-SECURITY-OBSERVATION`, head exato `561c610f215bdc4b1e5df2b7be67a79a35adc3a1`, base main `de448414e074d46a29801ba6f4fb64a3fcaf99c7`. O primeiro gate teve Heavy #374 PASS e CI #934 FAIL porque TASK-345..349 usavam `status: planned`, inválido para o schema do catálogo. Foi feita correção bounded somente desses cinco status para `ready`, sem alterar escopo ou contratos. CI #939 e Heavy #379 estão pendentes no novo head. Com ambos PASS e sem blocker/head drift, mergeie #410 protegido, faça fresh-main/tree-equivalence e execute somente TASK-345 primeiro. Construction B segue forecast; Construction C opcional/evidence-gated; Packages 2 e 3 só podem ser derivados após closures fresh-main dos predecessores.
