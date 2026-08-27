@@ -1,20 +1,17 @@
-# Next Work — Fresh-main successor planning after P17 Package 01 closure
+# Next Work — P17 Package 02 Planning & Materialization
 
-`P17-PACKAGE-01 — Knowledge Classification & Use Policy Foundation` is CLOSED for WBS 17.1.1–17.1.3.
+`P17-PACKAGE-01 / WBS 17.1.1–17.1.3` is canonically CLOSED on main `8a8c748ec7261e65eed6b0c86d5c31dce5624643`, tree `a9e0441380c8e96d0aa493b0fb020ea8728b0af5`.
 
-Construction A and corrected Construction B are integrated. Fresh-main revalidation found no residual bounded WBS 17.1 capability gap, so Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review PR #437 passed exact-head Deterministic CI #1002 / Heavy Product Tests #449 and integrated as `424d1f8b61c1e39e3c34e7ddad2e03b2df61b01c`, tree `11573739e6fa3f97b018fb86cdc5257098038b07`.
+Fresh-main authority identifies WBS 17.2.1–17.2.3 as the next sequential M17 block. `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` is therefore the current Planning & Materialization candidate.
 
-Documentation & Closure PR #438 passed exact-head Deterministic CI #1003 / Heavy Product Tests #450 on head `935921a118ada58ed787bd864a1d15ae430df9ea` and integrated as `119de7670e7c61d59b8eb1969a80ecb429b290d9`; closure-head and merge-main share tree `ac2ffdb9897bb2010fde1e76ce2113a0381c87e7` exactly.
-
-WBS 17.2/17.3 remain FORECAST / NOT MATERIALIZED.
+Construction A `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` is materialized with TASK-367..372 only. Construction B remains FORECAST / NOT MATERIALIZED; Construction C remains OPTIONAL / FORECAST. WBS 17.3 remains FORECAST / NOT MATERIALIZED.
 
 ## Required next action
-1. finish the minimum canonical repository-memory reconciliation marking `P17-PACKAGE-01 / WBS 17.1.1–17.1.3` CLOSED;
-2. validate and integrate that reconciliation with exact-head Deterministic CI + Heavy Product Tests and no blocker/head drift;
-3. reconstruct fresh `main` and prove reconciliation-head -> merge-main tree equivalence;
-4. only after canonical closure, derive the next authorized Work Package from fresh-main WBS/scope authority through a separate Planning & Materialization gate.
-
-Do not execute WBS 17.2/17.3 merely because WBS 17.1 is closed.
+1. validate the Planning & Materialization PR with exact-head Deterministic CI + Heavy Product Tests;
+2. integrate only if both pass and no blocker/head drift exists;
+3. reconstruct fresh `main` and prove planning-head -> merge-main tree equivalence;
+4. create `sprint/P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` from that fresh main;
+5. execute TASK-367 first and continue TASK-368..372 only through their dependency/validation gates.
 
 ## Boundaries
-No WBS 17.2 enforcement, WBS 17.3 promotion/anonymization, automatic reuse approval, provider topology/credential lifecycle, sensitive payload carriage, Decision Boundary public-contract change, unrelated conformance/productization finding or TD-P13-01..04 absorption, or undeclared L4 change.
+No WBS 17.3 execution, anonymization/generalization workflow, automatic promotion approval, Decision Boundary public-contract change, unrelated finding/TD absorption, sensitive payload carriage or undeclared L4.
