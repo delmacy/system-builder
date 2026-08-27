@@ -1,30 +1,20 @@
-# Next Work — P16 Package 03 Corrected Documentation & Closure
+# Next Work — Fresh-main successor derivation after M16 closure
 
-`TASK-354-P16-OBSERVATION-PERMISSION-AUTHORITY-CORRECTION` is integrated and fresh-main tree-equivalent. The corrected Package Integration & Review has revalidated and integrated, and repository memory has been reconciled so workers no longer repeat that completed gate. `P16-PACKAGE-03 — AI Security & Usage Observation` may now proceed only to Documentation & Closure.
+`P16-PACKAGE-03 — AI Security & Usage Observation` is canonically CLOSED together with WBS 16.3.1–16.3.3. M16 AI Gateway is therefore CLOSED through WBS 16.1.1–16.3.3.
 
-## Corrective evidence
-PR #420 integrated TASK-354 as `4210b6727611d7c4440ad554993759aa3c844590` after exact-head Deterministic CI #971 PASS and Heavy Product Tests #413 PASS. Reviewed head `7332b330cc9253d4025f6ed12cf771664b2243de` and merge-main share tree `6fa621288d4898175a43381ffde93ec472c11e5d`.
-
-The corrected Package Integration & Review integrated by PR #422 on fresh main. Reviewed head `1ebcb2f33003d12de9bd0a0690273da64e03bedc` passed exact-head Deterministic CI #973 and Heavy Product Tests #416, and main advanced to `7d3b5207267164d50c443e6e2f2a69f9dae713ff`.
-
-Bounded repository-memory reconciliation PR #423 passed exact-head Deterministic CI #974 and Heavy Product Tests #417 and integrated as `d5a0ffb907266257d76514d3db6bae7f939617d5`, removing stale instructions to repeat Package Review.
-
-Fresh-main evidence confirms:
-- governance has explicit additive `observationPermissions`;
-- absence of explicit observation permission remains backward-compatible and grants no observation measurements;
-- execution-governance evaluation emits the canonical permitted-observation-measurement decision tied to the evaluated policy;
-- governed invocation consumes only that evaluated decision;
-- `budgetQuotas[].metric` names retain budget/quota semantics and cannot grant observation authority;
-- semantic architecture CI rejects authority-by-metric-name;
-- corrected Package Integration & Review found no remaining bounded Package-goal blocker and returned GO for Documentation & Closure.
+## Closure evidence
+- TASK-354 correction integrated via PR #420 after exact-head Deterministic CI #971 / Heavy Product Tests #413.
+- Corrected Package Integration & Review integrated via PR #422 on reviewed head `1ebcb2f33003d12de9bd0a0690273da64e03bedc` after CI #973 / Heavy #416.
+- Repository-memory reconciliation PR #423 passed CI #974 / Heavy #417 and integrated as `d5a0ffb907266257d76514d3db6bae7f939617d5`.
+- Corrected Documentation & Closure PR #425 passed exact-head CI #976 / Heavy #419 on head `f01163f08bffca5f49127e7e5985685a3895a02c` and integrated as `e8b1c2aed4c6dda7acdba3774db6db069f0405c4`.
+- Reviewed closure head and merge-main share tree `31a579a2f7705b056929c8e2ef6f463fc2b5f893`.
 
 ## Required next action
-1. validate the corrected Documentation & Closure candidate on the corrected integrated basis;
-2. require exact-head Deterministic CI + Heavy Product Tests and zero blockers;
-3. merge with expected-head protection and prove reviewed-head -> merge-main tree equivalence;
-4. reconcile PROJECT_STATE, CURRENT_MILESTONE, NEXT_WORK, WBS and Package state to canonical CLOSED;
-5. derive no successor Work Package until `P16-PACKAGE-03` is canonically CLOSED.
+1. reconstruct authority from fresh `main`, including AGENTS.md, PROJECT_STATE, CURRENT_MILESTONE, this NEXT_WORK, roadmap/WBS/scopes/ADRs and relevant execution-planning policy;
+2. derive the next eligible Work Package only from that authority;
+3. perform its separate Planning & Materialization gate before any execution;
+4. do not pre-invent or execute forecast scope.
 
-Construction C remains NOT REQUIRED / NOT MATERIALIZED.
+The user's standing authorization covers the next eligible Work Packages in sequence, but does not waive materialization, exact-head gates, review, protected merge, fresh-main revalidation, ADR/change control for L4, or scope boundaries.
 
-Do not absorb conformance/productization findings or TD-P13-01..04, introduce provider registry/mandatory remote topology, credential lifecycle, telemetry/billing authority, Runtime Audit Trail replacement, Knowledge Boundary taxonomy ownership or undeclared L4 change.
+Do not absorb conformance/productization findings or TD-P13-01..04 by inference.
