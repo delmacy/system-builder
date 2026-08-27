@@ -1,37 +1,35 @@
 # Automation Sprint Handoff
 
 status: READY
-worker_slot: :30
-started_at: 2026-08-27T16:31:07-03:00
-updated_at: 2026-08-27T16:34:00-03:00
+worker_slot: :10
+started_at: 2026-08-27T17:08:14-03:00
+updated_at: 2026-08-27T17:08:14-03:00
 lease_until: null
-observed_main_sha: a6ca49646e0c325dd96e56242a2895738b3f246c
-active_branch: sprint/P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01
-active_pr: 442
-active_head_sha: 125626e7a5cc2e0975b0568258c581e711b2d722
-current_step: post-planning repository-memory conformance correction is integrated and tree-equivalent; TASK-370 bounded test correction is published and awaiting exact-head gates.
+observed_main_sha: 0c4cc0651c4f7b7ae89ba32ff56e335493ca913a
+active_branch: planning/P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01
+active_pr: 445
+active_head_sha: 19fb7a372e0948db49b52a9fadbc0e0b9b1c0bfb
+current_step: Construction A is integrated and fresh-main revalidation justified Construction B; Construction B Planning & Materialization PR #445 is awaiting exact-head gates.
 
 ## Authorization
-User authorized the next three eligible Work Packages sequentially, with all L1-L3/process approvals pre-granted. L4 requires explicit materialization plus ADR/change control. `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` is the third Package currently under this authorization.
+User authorized the next three eligible Work Packages sequentially, with all L1-L3/process approvals pre-granted. L4 requires explicit materialization plus ADR/change control. `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` is the current Package under this authorization.
 
-## Priority conformance reconciliation
-- `P17-PACKAGE-02` Planning & Materialization was integrated via PR #441 on main `a749d8b837beb621387d50561c7541de6fc4f741`; do not repeat Planning or recreate TASK-367..372.
-- bounded repository-memory correction PR #443 head `cdf106066d17cc5808380c741d2f6f5efe62221d` passed Deterministic CI #1012 and Heavy Product Tests #460.
-- PR #443 was promoted from draft and merged with expected-head protection as `a6ca49646e0c325dd96e56242a2895738b3f246c`.
-- compare `cdf106...` -> `a6ca496...` reports zero changed files, proving tree equivalence of the reconciled memory.
-- canonical state now remains: Package 02 Planning INTEGRATED; Construction A IN EXECUTION; Construction B FORECAST / NOT MATERIALIZED; Construction C OPTIONAL / FORECAST; WBS 17.3 FORECAST / NOT MATERIALIZED.
+## Conformance state
+- Package 02 Planning & Materialization PR #441 is INTEGRATED; never repeat it and never recreate TASK-367..372.
+- bounded post-planning repository-memory correction PR #443 head `cdf106066d17cc5808380c741d2f6f5efe62221d` passed Deterministic CI #1012 and Heavy Product Tests #460 and is MERGED as `a6ca49646e0c325dd96e56242a2895738b3f246c`.
+- Construction A PR #442 completed TASK-367..372; final head `904d2b20062f5f53368042f828c20e5621804155` is MERGED as `e201f759bbb79af188c946bade925b193eec5949`.
+- post-Construction-A fresh-main revalidation PR #444 is integrated; current main is `0c4cc0651c4f7b7ae89ba32ff56e335493ca913a`, tree `c22035cae598fbb308600d90bf856735f531da21`.
+- fresh-main evidence records Construction A INTEGRATED and a bounded WBS 17.2 consumer-integration gap; Construction B `P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01` is JUSTIFIED.
+- Construction C remains OPTIONAL / FORECAST; WBS 17.3 remains FORECAST / NOT MATERIALIZED.
 
-## Construction A state
-- PR #442 is OPEN / DRAFT. Its base predates #443 and currently reports non-mergeable after main advanced; do not attempt Sprint Review/merge until branch/base drift is reconciled on fresh main.
-- TASK-367 `95e1430632f7c0154a1d5a60ff314bee60a425d3`: Deterministic CI #1008 PASS / Heavy Product Tests #456 PASS.
-- TASK-368 `95224ecd756459a4c1b0065586aeacba854808c8`: Deterministic CI #1009 PASS / Heavy Product Tests #457 PASS.
-- TASK-369 `ff59855d85ec21204e5bcd4097336907456f4bd5`: Deterministic CI #1010 PASS / Heavy Product Tests #458 PASS.
-- TASK-370 original head `9ff902355dc55ad1abbcf3825992834788fa83b3`: Heavy #459 PASS, Deterministic CI #1011 FAIL in one product assertion only.
-- CI #1011 showed canonical fail-closed behavior was already correct: invalid deterministic substitution is rejected by the canonical Decision Boundary as `Invalid decision boundary at $decisionBoundary.category: unsupported category`; the test expected a wrapper-specific message instead.
-- bounded proof-only correction updated only `tests/product/p17-knowledge-enforcement-composition.test.ts` to assert the canonical error, with no public-contract/product behavior change.
-- corrected head is `125626e7a5cc2e0975b0568258c581e711b2d722`; Deterministic CI #1013 and Heavy Product Tests #462 are queued.
+## Construction B planning state
+- PR #445 `P17 Construction B planning and materialization` is OPEN / non-draft / MERGEABLE.
+- base: main `0c4cc0651c4f7b7ae89ba32ff56e335493ca913a`.
+- head: `19fb7a372e0948db49b52a9fadbc0e0b9b1c0bfb`.
+- planning-only; materializes TASK-373..377. No product implementation is included.
+- Deterministic CI #1019 and Heavy Product Tests #469 are currently in_progress on the exact head.
 
-## Required conformance property
+## Required conformance properties
 - canonical M15 `human-decision` authority remains mandatory for final manual classification;
 - deterministic/probabilistic authority substitution fails closed;
 - assisted proposal remains non-authoritative;
@@ -41,11 +39,11 @@ User authorized the next three eligible Work Packages sequentially, with all L1-
 - references remain payload-minimal;
 - no unrelated finding/TD absorption or undeclared L4.
 
-last_completed_step: integrated PR #443 with exact-head green gates and zero tree diff, then applied a bounded proof-only TASK-370 assertion correction on PR #442 head `125626e7...`.
-next_authorized_step: revalidate exact-head Deterministic CI #1013 + Heavy Product Tests #462 for `125626e7a5cc2e0975b0568258c581e711b2d722`. If both PASS, reconcile PR #442 with fresh main `a6ca49646e0c325dd96e56242a2895738b3f246c` without losing TASK-367..370 state, then re-run exact-head gates if the head changes. Only after a mergeable/green head may TASK-371 execute as one authoritative task change; TASK-372 remains behind TASK-371 gates. Construction B stays FORECAST / NOT MATERIALIZED until Construction A integrates and fresh-main evidence explicitly justifies materialization.
+last_completed_step: confirmed PR #443 correction integrated and green, confirmed Construction A PR #442 integrated, confirmed fresh-main revalidation PR #444 integrated and Construction B evidence-based justification recorded; revalidated PR #445 at exact head `19fb7a37...` with CI #1019 / Heavy #469 still running.
+next_authorized_step: revalidate Deterministic CI #1019 + Heavy Product Tests #469 on exact head `19fb7a372e0948db49b52a9fadbc0e0b9b1c0bfb`. If both PASS and no drift/review blockers exist, merge PR #445 with expected-head protection, reconstruct fresh main, prove planning-head -> merge-main tree equivalence, then execute TASK-373 first and gate each successor TASK serially. Do not execute WBS 17.3. Construction C remains evidence-gated.
 
 ## Boundaries
-WBS 17.3 remains FORECAST / NOT MATERIALIZED. Construction B remains FORECAST / NOT MATERIALIZED. Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. No anonymization/generalization workflow, automatic promotion approval, Decision Boundary public-contract change, provider topology/credential lifecycle, sensitive payload carriage, unrelated finding/TD absorption or undeclared L4.
+WBS 17.3 remains FORECAST / NOT MATERIALIZED. Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. No anonymization/generalization workflow, automatic promotion approval, Decision Boundary public-contract change, provider topology/credential lifecycle, sensitive payload carriage, unrelated finding/TD absorption or undeclared L4.
 
 ## resume_prompt
-Resume `delmacy/system-builder` from PR #442, branch `sprint/P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01`, corrected head `125626e7a5cc2e0975b0568258c581e711b2d722`, fresh main `a6ca49646e0c325dd96e56242a2895738b3f246c`. PR #443 post-planning repository-memory correction is already integrated with CI #1012 / Heavy #460 PASS and zero head-to-merge file diff; do not repeat Planning. TASK-367..369 are exact-head green. TASK-370 had Heavy #459 PASS but CI #1011 failed only because its test expected a wrapper-specific error while canonical Decision Boundary correctly rejected deterministic substitution first; bounded test-only correction is now at `125626e7...`, with CI #1013 / Heavy #462 queued. Revalidate those gates. Because main advanced via #443 and PR #442 reports non-mergeable, reconcile the Construction A branch onto fresh main after gates (or earlier if mechanically required), preserve TASK state, and require new exact-head gates after any head change. Then execute TASK-371 only when green/mergeable; TASK-372 follows its own gate. Keep Construction B/C and WBS 17.3 unmaterialized until their explicit fresh-main gates.
+Resume `delmacy/system-builder` from fresh main `0c4cc0651c4f7b7ae89ba32ff56e335493ca913a`, PR #445 branch `planning/P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01`, exact head `19fb7a372e0948db49b52a9fadbc0e0b9b1c0bfb`. PR #443 repository-memory correction is already integrated with CI #1012 / Heavy #460 PASS; do not repeat Package 02 Planning or recreate TASK-367..372. Construction A PR #442 is integrated, and post-Construction-A revalidation PR #444 justified Construction B. PR #445 materializes TASK-373..377 only; CI #1019 and Heavy #469 are in progress. Revalidate exact-head gates; if green and blocker-free, protected-merge #445, reconstruct fresh main/tree equivalence, and execute TASK-373 first, then successors serially through their own gates. Keep Construction C evidence-gated and WBS 17.3 forecast/unmaterialized.
