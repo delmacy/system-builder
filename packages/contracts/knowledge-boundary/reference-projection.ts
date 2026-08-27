@@ -1,6 +1,9 @@
 import {
+  KNOWLEDGE_CLASSIFICATION_DECISION_VERSION,
   normalizeKnowledgeClassificationBundle,
+  normalizeKnowledgeClassificationDecision,
   type KnowledgeClass,
+  type KnowledgeHumanDecisionAuthority,
 } from "./index.js";
 
 export const KNOWLEDGE_CLASSIFICATION_REFERENCE_PROJECTION_VERSION = "1.0.0" as const;
@@ -14,6 +17,7 @@ export type KnowledgeClassificationReferenceProjection = Readonly<{
   decisionMode: "manual" | "assisted";
   decisionRef: string;
   proposalRef: string | null;
+  humanAuthority: KnowledgeHumanDecisionAuthority;
   evidenceRefs: readonly string[];
 }>;
 
@@ -72,6 +76,30 @@ function asNullableReference(value: unknown, field: string): string | null {
   return asNonEmptyTrimmedString(value, field);
 }
 
+function normalizeProjectionHumanAuthority(input: Readonly<{
+  humanAuthority: unknown;
+  knowledgeClass: KnowledgeClass;
+  decisionMode: "manual" | "assisted";
+  decisionRef: string;
+  proposalRef: string | null;
+}>): KnowledgeHumanDecisionAuthority {
+  const authorityRecord = asRecord(input.humanAuthority, "humanAuthority");
+  const metadataRecord = asRecord(authorityRecord.metadata, "humanAuthority.metadata");
+  const decisionActorRef = asNonEmptyTrimmedString(metadataRecord.authorityRef, "humanAuthority.metadata.authorityRef");
+  const common = {
+    contractVersion: KNOWLEDGE_CLASSIFICATION_DECISION_VERSION,
+    mode: input.decisionMode,
+    knowledgeClass: input.knowledgeClass,
+    decisionActorRef,
+    decisionRef: input.decisionRef,
+    humanAuthority: input.humanAuthority,
+  } as const;
+  const decision = input.decisionMode === "manual"
+    ? normalizeKnowledgeClassificationDecision(common)
+    : normalizeKnowledgeClassificationDecision({ ...common, proposalRef: input.proposalRef });
+  return decision.humanAuthority;
+}
+
 export function normalizeKnowledgeClassificationReferenceProjection(value: unknown): KnowledgeClassificationReferenceProjection {
   const record = asRecord(value, "knowledge classification reference projection");
   assertExactFields(
@@ -85,6 +113,7 @@ export function normalizeKnowledgeClassificationReferenceProjection(value: unkno
       "decisionMode",
       "decisionRef",
       "proposalRef",
+      "humanAuthority",
       "evidenceRefs",
     ],
     "knowledge classification reference projection",
@@ -92,7 +121,9 @@ export function normalizeKnowledgeClassificationReferenceProjection(value: unkno
   if (record.contractVersion !== KNOWLEDGE_CLASSIFICATION_REFERENCE_PROJECTION_VERSION) {
     throw new Error(`unsupported knowledge classification reference projection version: ${String(record.contractVersion)}`);
   }
+  const knowledgeClass = asKnowledgeClass(record.knowledgeClass);
   const decisionMode = asDecisionMode(record.decisionMode);
+  const decisionRef = asNonEmptyTrimmedString(record.decisionRef, "decisionRef");
   const proposalRef = asNullableReference(record.proposalRef, "proposalRef");
   if (decisionMode === "manual" && proposalRef !== null) {
     throw new Error("manual classification reference projection cannot carry proposalRef");
@@ -100,15 +131,23 @@ export function normalizeKnowledgeClassificationReferenceProjection(value: unkno
   if (decisionMode === "assisted" && proposalRef === null) {
     throw new Error("assisted classification reference projection requires proposalRef");
   }
+  const humanAuthority = normalizeProjectionHumanAuthority({
+    humanAuthority: record.humanAuthority,
+    knowledgeClass,
+    decisionMode,
+    decisionRef,
+    proposalRef,
+  });
   return {
     contractVersion: KNOWLEDGE_CLASSIFICATION_REFERENCE_PROJECTION_VERSION,
-    knowledgeClass: asKnowledgeClass(record.knowledgeClass),
+    knowledgeClass,
     ownerRef: asNonEmptyTrimmedString(record.ownerRef, "ownerRef"),
     purposeIds: asCanonicalUniqueStringList(record.purposeIds, "purposeIds"),
     restrictionIds: asCanonicalUniqueStringList(record.restrictionIds, "restrictionIds"),
     decisionMode,
-    decisionRef: asNonEmptyTrimmedString(record.decisionRef, "decisionRef"),
+    decisionRef,
     proposalRef,
+    humanAuthority,
     evidenceRefs: asCanonicalUniqueStringList(record.evidenceRefs, "evidenceRefs"),
   };
 }
@@ -128,6 +167,7 @@ export function projectKnowledgeClassificationReference(
     decisionMode: bundle.decision.mode,
     decisionRef: bundle.decision.decisionRef,
     proposalRef: bundle.decision.mode === "assisted" ? bundle.decision.proposalRef : null,
+    humanAuthority: bundle.decision.humanAuthority,
     evidenceRefs,
   });
 }
