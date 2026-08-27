@@ -48,12 +48,20 @@ export type FallbackRule = Readonly<{
   order: readonly string[];
 }>;
 
+export type ObservationPermissionMeasurement = "quality" | "failure" | "cost";
+
+export type ObservationPermissionRule = Readonly<{
+  ruleId: string;
+  permittedMeasurements: readonly ObservationPermissionMeasurement[];
+}>;
+
 export type ExecutionGovernanceRuleSet = Readonly<{
   contractVersion: typeof AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION;
   policyId: string;
   routingEligibility: readonly RoutingEligibilityRule[];
   budgetQuotas: readonly BudgetQuotaRule[];
   fallbacks: readonly FallbackRule[];
+  observationPermissions?: readonly ObservationPermissionRule[];
 }>;
 
 export type StructuredOutputValueType = "string" | "number" | "boolean" | "object" | "array" | "null";
@@ -87,6 +95,15 @@ function assertExactFields(record: UnknownRecord, allowed: readonly string[], la
     if (!allowed.includes(key)) throw new Error(`${label} has unexpected field ${key}`);
   }
   for (const key of allowed) {
+    if (!(key in record)) throw new Error(`${label} is missing field ${key}`);
+  }
+}
+
+function assertAllowedAndRequiredFields(record: UnknownRecord, allowed: readonly string[], required: readonly string[], label: string): void {
+  for (const key of Object.keys(record)) {
+    if (!allowed.includes(key)) throw new Error(`${label} has unexpected field ${key}`);
+  }
+  for (const key of required) {
     if (!(key in record)) throw new Error(`${label} is missing field ${key}`);
   }
 }
@@ -189,6 +206,22 @@ function normalizeFallbackRule(value: unknown, index: number): FallbackRule {
   return { ruleId: asNonEmptyString(record.ruleId, `fallbacks[${index}].ruleId`), allowed: asBoolean(record.allowed, `fallbacks[${index}].allowed`), order: normalizeStringArray(record.order, `fallbacks[${index}].order`, false) };
 }
 
+function normalizeObservationPermissionRule(value: unknown, index: number): ObservationPermissionRule {
+  const record = asRecord(value, `observationPermissions[${index}]`);
+  assertExactFields(record, ["ruleId", "permittedMeasurements"], `observationPermissions[${index}]`);
+  const measurements = normalizeStringArray(record.permittedMeasurements, `observationPermissions[${index}].permittedMeasurements`, true);
+  const supported = new Set<ObservationPermissionMeasurement>(["quality", "failure", "cost"]);
+  for (const measurement of measurements) {
+    if (!supported.has(measurement as ObservationPermissionMeasurement)) {
+      throw new Error(`observationPermissions[${index}].permittedMeasurements has unsupported measurement ${measurement}`);
+    }
+  }
+  return {
+    ruleId: asNonEmptyString(record.ruleId, `observationPermissions[${index}].ruleId`),
+    permittedMeasurements: measurements as readonly ObservationPermissionMeasurement[],
+  };
+}
+
 function normalizeStructuredOutputProperties(value: unknown): Readonly<Record<string, StructuredOutputValueType>> {
   const record = asRecord(value, "structured output schema properties");
   const allowed = new Set<StructuredOutputValueType>(["string", "number", "boolean", "object", "array", "null"]);
@@ -240,8 +273,18 @@ export function normalizeExecutionGovernancePolicyDescriptor(value: unknown): Ex
 
 export function normalizeExecutionGovernanceRuleSet(value: unknown): ExecutionGovernanceRuleSet {
   const record = asRecord(value, "execution governance rule set");
-  assertExactFields(record, ["contractVersion", "policyId", "routingEligibility", "budgetQuotas", "fallbacks"], "execution governance rule set");
-  return { contractVersion: assertExecutionGovernanceVersion(record.contractVersion), policyId: asNonEmptyString(record.policyId, "policyId"), routingEligibility: normalizeRuleArray(record.routingEligibility, "routingEligibility", normalizeRoutingEligibilityRule), budgetQuotas: normalizeRuleArray(record.budgetQuotas, "budgetQuotas", normalizeBudgetQuotaRule), fallbacks: normalizeRuleArray(record.fallbacks, "fallbacks", normalizeFallbackRule) };
+  const coreFields = ["contractVersion", "policyId", "routingEligibility", "budgetQuotas", "fallbacks"] as const;
+  assertAllowedAndRequiredFields(record, [...coreFields, "observationPermissions"], coreFields, "execution governance rule set");
+  return {
+    contractVersion: assertExecutionGovernanceVersion(record.contractVersion),
+    policyId: asNonEmptyString(record.policyId, "policyId"),
+    routingEligibility: normalizeRuleArray(record.routingEligibility, "routingEligibility", normalizeRoutingEligibilityRule),
+    budgetQuotas: normalizeRuleArray(record.budgetQuotas, "budgetQuotas", normalizeBudgetQuotaRule),
+    fallbacks: normalizeRuleArray(record.fallbacks, "fallbacks", normalizeFallbackRule),
+    observationPermissions: record.observationPermissions === undefined
+      ? []
+      : normalizeRuleArray(record.observationPermissions, "observationPermissions", normalizeObservationPermissionRule),
+  };
 }
 
 export function normalizeStructuredOutputSchema(value: unknown): StructuredOutputSchema {
