@@ -1,5 +1,4 @@
 import {
-  normalizeExecutionGovernanceRuleSet,
   normalizeModelRequest,
   normalizeModelResponse,
   validateStructuredOutput,
@@ -28,7 +27,6 @@ import {
   AI_GATEWAY_USAGE_OBSERVATION_VERSION,
   normalizeModelUsageObservationEnvelope,
   type ModelUsageObservationEnvelope,
-  type UsageObservationMeasurement,
 } from "./usage-observation.js";
 
 export type GovernedModelProviderInvocationContext = Readonly<{
@@ -94,22 +92,12 @@ async function invokeGovernedAdapter(
   return response;
 }
 
-function policyDerivedObservationMeasurements(rulesValue: unknown): readonly UsageObservationMeasurement[] {
-  const rules = normalizeExecutionGovernanceRuleSet(rulesValue);
-  const supported = new Set<UsageObservationMeasurement>(["quality", "failure", "cost"]);
-  const measurements = rules.budgetQuotas
-    .map((rule) => rule.metric)
-    .filter((metric): metric is UsageObservationMeasurement => supported.has(metric as UsageObservationMeasurement));
-  return [...new Set(measurements)].sort((left, right) => left.localeCompare(right));
-}
-
 function deriveUsageObservation(
-  rulesValue: unknown,
   governance: ExecutionGovernanceEvaluation,
   response: ModelResponse,
   structuredOutput: StructuredOutputValidationResult,
 ): ModelUsageObservationEnvelope {
-  const permittedMeasurements = policyDerivedObservationMeasurements(rulesValue);
+  const permittedMeasurements = governance.permittedObservationMeasurements;
   const failure = permittedMeasurements.includes("failure") && structuredOutput.status !== "valid"
     ? { code: `structured-output:${structuredOutput.status}`, category: "structured-output" }
     : null;
@@ -166,7 +154,7 @@ export async function invokeGovernedModelProvider(
 
   const response = await invokeGovernedAdapter(adapter, input.request, providerSecretReference);
   const structuredOutput = validateStructuredOutput(input.structuredOutputSchema, response.output);
-  const usageObservation = deriveUsageObservation(input.rules, governance, response, structuredOutput);
+  const usageObservation = deriveUsageObservation(governance, response, structuredOutput);
 
   return {
     response,
