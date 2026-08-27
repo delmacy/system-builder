@@ -23,6 +23,27 @@ export type KnowledgeUsePolicyDescriptor = Readonly<{
   restrictionIds: readonly string[];
 }>;
 
+export const KNOWLEDGE_CLASSIFICATION_DECISION_VERSION = "1.0.0" as const;
+
+export type KnowledgeClassificationDecisionMode = "manual" | "assisted";
+
+export type KnowledgeClassificationDecision =
+  | Readonly<{
+      contractVersion: typeof KNOWLEDGE_CLASSIFICATION_DECISION_VERSION;
+      mode: "manual";
+      knowledgeClass: KnowledgeClass;
+      decisionActorRef: string;
+      decisionRef: string;
+    }>
+  | Readonly<{
+      contractVersion: typeof KNOWLEDGE_CLASSIFICATION_DECISION_VERSION;
+      mode: "assisted";
+      knowledgeClass: KnowledgeClass;
+      decisionActorRef: string;
+      decisionRef: string;
+      proposalRef: string;
+    }>;
+
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -82,6 +103,22 @@ function assertUsePolicyVersion(value: unknown): typeof KNOWLEDGE_USE_POLICY_VER
   return KNOWLEDGE_USE_POLICY_VERSION;
 }
 
+function assertClassificationDecisionVersion(
+  value: unknown,
+): typeof KNOWLEDGE_CLASSIFICATION_DECISION_VERSION {
+  if (value !== KNOWLEDGE_CLASSIFICATION_DECISION_VERSION) {
+    throw new Error(`unsupported knowledge classification decision contract version: ${String(value)}`);
+  }
+  return KNOWLEDGE_CLASSIFICATION_DECISION_VERSION;
+}
+
+function assertClassificationDecisionMode(value: unknown): KnowledgeClassificationDecisionMode {
+  if (value !== "manual" && value !== "assisted") {
+    throw new Error(`unsupported knowledge classification decision mode: ${String(value)}`);
+  }
+  return value;
+}
+
 export function normalizeKnowledgeClassificationDescriptor(value: unknown): KnowledgeClassificationDescriptor {
   const record = asRecord(value, "knowledge classification descriptor");
   assertExactFields(
@@ -109,5 +146,39 @@ export function normalizeKnowledgeUsePolicyDescriptor(value: unknown): Knowledge
     contractVersion: assertUsePolicyVersion(record.contractVersion),
     purposeIds: asCanonicalUniqueStringList(record.purposeIds, "purposeIds"),
     restrictionIds: asCanonicalUniqueStringList(record.restrictionIds, "restrictionIds"),
+  };
+}
+
+export function normalizeKnowledgeClassificationDecision(value: unknown): KnowledgeClassificationDecision {
+  const record = asRecord(value, "knowledge classification decision");
+  const mode = assertClassificationDecisionMode(record.mode);
+
+  if (mode === "manual") {
+    assertExactFields(
+      record,
+      ["contractVersion", "mode", "knowledgeClass", "decisionActorRef", "decisionRef"],
+      "knowledge classification decision",
+    );
+    return {
+      contractVersion: assertClassificationDecisionVersion(record.contractVersion),
+      mode,
+      knowledgeClass: assertKnowledgeClass(record.knowledgeClass),
+      decisionActorRef: asNonEmptyTrimmedString(record.decisionActorRef, "decisionActorRef"),
+      decisionRef: asNonEmptyTrimmedString(record.decisionRef, "decisionRef"),
+    };
+  }
+
+  assertExactFields(
+    record,
+    ["contractVersion", "mode", "knowledgeClass", "decisionActorRef", "decisionRef", "proposalRef"],
+    "knowledge classification decision",
+  );
+  return {
+    contractVersion: assertClassificationDecisionVersion(record.contractVersion),
+    mode,
+    knowledgeClass: assertKnowledgeClass(record.knowledgeClass),
+    decisionActorRef: asNonEmptyTrimmedString(record.decisionActorRef, "decisionActorRef"),
+    decisionRef: asNonEmptyTrimmedString(record.decisionRef, "decisionRef"),
+    proposalRef: asNonEmptyTrimmedString(record.proposalRef, "proposalRef"),
   };
 }

@@ -1,7 +1,7 @@
 ---
 id: TASK-357
 title: Define manual and assisted classification decision record
-status: ready
+status: completed
 priority: 357
 milestone: M17
 model_tier: architecture
