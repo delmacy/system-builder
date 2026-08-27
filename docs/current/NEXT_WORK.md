@@ -1,14 +1,18 @@
-# Next Work — P17 Package 02 Construction A
+# Next Work — P17 Package 02 post-Construction-A gate
 
-`P17-PACKAGE-01 / WBS 17.1.1–17.1.3` is canonically CLOSED. `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` Planning & Materialization is already INTEGRATED via PR #441 on main `a749d8b837beb621387d50561c7541de6fc4f741`. Do not repeat either predecessor closure or Package 02 Planning & Materialization.
+`P17-PACKAGE-01 / WBS 17.1.1–17.1.3` is canonically CLOSED. `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` Planning & Materialization is already INTEGRATED and must not be repeated.
 
-Construction A `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` is materialized with TASK-367..372 and is IN EXECUTION on PR #442. Construction B remains FORECAST / NOT MATERIALIZED; Construction C remains OPTIONAL / FORECAST. WBS 17.3 remains FORECAST / NOT MATERIALIZED.
+Construction A `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` is INTEGRATED via PR #442 on fresh main `e201f759bbb79af188c946bade925b193eec5949`. TASK-367..372 established and proved canonical enforcement disposition, bounded promotion eligibility, payload-minimal references, deterministic composition and predecessor human-decision authority preservation.
+
+Fresh-main revalidation finds a bounded residual WBS 17.2 integration gap: representative catalog and observe/telemetry consumers do not yet consume P17 enforcement, and AI Gateway uses the predecessor P16 pre-send allow-list boundary rather than P17 enforcement. Construction B `P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01` is JUSTIFIED / NOT MATERIALIZED.
 
 ## Required next action
-1. continue TASK-367..372 serially through their dependency and exact-head validation gates;
-2. keep PR #442 as the active Construction A review surface and do not recreate the Sprint or its TASKs;
-3. integrate Construction A only after its final exact-head Deterministic CI + Heavy Product Tests pass and Sprint Review is clean;
-4. reconstruct fresh main and revalidate WBS 17.2 before any Construction B Planning & Materialization.
+1. integrate this post-Construction-A revalidation behind exact-head CI + Heavy gates;
+2. reconstruct fresh main and prove the revalidation tree/content is integrated;
+3. execute separate Planning & Materialization for Construction B, deriving only bounded TASKs required to wire the existing WBS 17.2 contracts into representative consumers and prove bypass prevention;
+4. execute no Construction B product change before that materialization gate passes.
+
+Construction C remains OPTIONAL / FORECAST. WBS 17.3 remains FORECAST / NOT MATERIALIZED.
 
 ## Boundaries
 No WBS 17.3 execution, anonymization/generalization workflow, automatic promotion approval, Decision Boundary public-contract change, unrelated finding/TD absorption, sensitive payload carriage or undeclared L4.

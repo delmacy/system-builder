@@ -7,15 +7,13 @@ Status: CLOSED via `P17-PACKAGE-01 — Knowledge Classification & Use Policy Fou
 - **17.1.2** Definir regras de classificação manual/assistida. — CLOSED / CORRECTED + CONSUMER-INTEGRATED
 - **17.1.3** Registrar purpose/use restrictions relevantes. — CLOSED / CORRECTED + CONSUMER-INTEGRATED
 
-Canonical closure reconciliation PR #439 passed exact-head Deterministic CI #1004 / Heavy Product Tests #451 and integrated as `8a8c748ec7261e65eed6b0c86d5c31dce5624643`; reviewed-head and merge-main share tree `a9e0441380c8e96d0aa493b0fb020ea8728b0af5` exactly.
-
 ### 17.2 Enforcement
-Status: PLANNING & MATERIALIZATION INTEGRATED via `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` / PR #441 on main `a749d8b837beb621387d50561c7541de6fc4f741`.
-- **17.2.1** Aplicar isolamento em catalogs, telemetry e AI Gateway.
-- **17.2.2** Impedir promotion de conteúdo proprietário não autorizado.
-- **17.2.3** Preservar referências sem expor payload sensível.
+Status: PACKAGE 02 PLANNING INTEGRATED / CONSTRUCTION A INTEGRATED / CONSTRUCTION B JUSTIFIED NOT MATERIALIZED.
+- **17.2.1** Aplicar isolamento em catalogs, telemetry e AI Gateway. — CONTRACT FOUNDATION INTEGRATED; REPRESENTATIVE CONSUMER INTEGRATION GAP CONFIRMED
+- **17.2.2** Impedir promotion de conteúdo proprietário não autorizado. — CONTRACT GUARD INTEGRATED; REAL-PATH ENFORCEMENT GAP CONFIRMED
+- **17.2.3** Preservar referências sem expor payload sensível. — CONTRACT/PROJECTION INTEGRATED; CONSUMER PROPAGATION GAP CONFIRMED
 
-Construction A `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` is COMMITTED / MATERIALIZED / IN EXECUTION with TASK-367..372 on PR #442. Construction B remains FORECAST / NOT MATERIALIZED. Construction C remains OPTIONAL / FORECAST and evidence-gated. Do not repeat Package 02 Planning & Materialization or recreate TASK-367..372.
+Construction A `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` completed TASK-367..372 and integrated via PR #442 on main `e201f759bbb79af188c946bade925b193eec5949` after Deterministic CI #1017 / Heavy Product Tests #466 PASS. Fresh-main revalidation justifies Construction B `P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01`, but it remains NOT MATERIALIZED until its separate Planning & Materialization gate. Construction C remains OPTIONAL / FORECAST.
 
 ### 17.3 Promotion control
 Status: FORECAST / NOT MATERIALIZED.
