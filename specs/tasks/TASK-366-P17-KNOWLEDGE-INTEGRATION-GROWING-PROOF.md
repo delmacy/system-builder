@@ -1,7 +1,7 @@
 ---
 id: TASK-366
 title: Prove representative knowledge classification consumer integration
-status: ready
+status: completed
 priority: 366
 milestone: M17
 model_tier: architecture
