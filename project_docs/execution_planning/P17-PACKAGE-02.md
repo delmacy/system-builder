@@ -1,6 +1,6 @@
 # P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement
 
-Status: PLANNING + CONSTRUCTION A+B INTEGRATED / PACKAGE INTEGRATION & REVIEW
+Status: DOCUMENTATION & CLOSURE CANDIDATE
 Date: 2026-08-27
 Milestone: M17 Knowledge Boundary
 WBS coverage: 17.2.1–17.2.3
@@ -16,16 +16,16 @@ TASK-367..372 integrated via PR #442.
 TASK-373..377 plus bounded TASK-378 correction integrated via PR #446. TASK-378 removed caller authority over Observe validation before TASK-375 execution. Final Construction B gates: CI #1037 / Heavy #487 PASS.
 
 ### Post-B gate — INTEGRATED
-Fresh-main revalidation integrated as `b695a94cac7bcd84fcc2f8ff3310daa471ab9a8c` after CI #1038 / Heavy #489 PASS. WBS 17.2.1–17.2.3 are SATISFIED / INTEGRATED.
+Fresh-main revalidation PR #448 integrated after CI #1038 / Heavy #489 PASS. WBS 17.2.1–17.2.3 are SATISFIED / INTEGRATED.
 
 ### Construction C — `P17-KNOWLEDGE-ENFORCEMENT-HARDENING-01` — NOT REQUIRED / NOT MATERIALIZED
 No bounded residual WBS 17.2 gap was found.
 
-## Package Integration & Review
-CURRENT GATE. Review regressions cover enforcement semantics, predecessor authority preservation, contract/schema drift, architecture/dependency fitness, security/trust, CI health and technical debt. Review result is GO FOR DOCUMENTATION & CLOSURE subject to exact-head review gates and protected merge.
+## Package Integration & Review — INTEGRATED
+PR #449 passed CI #1039 / Heavy #490 and integrated with GO FOR DOCUMENTATION & CLOSURE.
 
-## Documentation & Closure
-Eligible only after Package Review integration. Closure may reconcile evidence/repository memory only; no product behavior.
+## Documentation & Closure — CURRENT GATE
+Documentation/repository-memory only. Exact-head gates and protected merge are required before canonical CLOSED reconciliation.
 
 ## Boundaries / non-goals
 - no WBS 17.3 anonymization/generalization/review workflow;
