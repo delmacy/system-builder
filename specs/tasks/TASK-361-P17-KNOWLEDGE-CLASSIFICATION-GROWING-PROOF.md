@@ -1,7 +1,7 @@
 ---
 id: TASK-361
 title: Prove integrated knowledge classification contract boundary
-status: ready
+status: completed
 priority: 361
 milestone: M17
 model_tier: architecture
