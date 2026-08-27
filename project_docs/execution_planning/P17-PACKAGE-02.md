@@ -1,6 +1,6 @@
 # P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement
 
-Status: PLANNING & MATERIALIZATION CANDIDATE
+Status: PLANNING & MATERIALIZATION INTEGRATED / CONSTRUCTION A IN EXECUTION
 Date: 2026-08-27
 Milestone: M17 Knowledge Boundary
 WBS coverage: 17.2.1–17.2.3
@@ -10,12 +10,12 @@ Establish deterministic, payload-minimal enforcement contracts that apply the cl
 
 ## Predecessor / readiness
 - `P17-PACKAGE-01 — Knowledge Classification & Use Policy Foundation` is canonically CLOSED on fresh `main` `8a8c748ec7261e65eed6b0c86d5c31dce5624643`, tree `a9e0441380c8e96d0aa493b0fb020ea8728b0af5`.
-- PR #439 passed exact-head Deterministic CI #1004 and Heavy Product Tests #451 and integrated with reviewed-head/merge-main exact tree equivalence.
-- WBS 17.2 is the next sequential baseline block. WBS 17.3 remains forecast only.
+- Package 02 Planning & Materialization was integrated via PR #441 on main `a749d8b837beb621387d50561c7541de6fc4f741`; do not repeat that gate.
+- WBS 17.2 is the active sequential baseline block. WBS 17.3 remains forecast only.
 
 ## Construction forecasts
-### Construction A — `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` — COMMITTED / MATERIALIZED / NOT EXECUTED
-Goal: define provider-neutral enforcement, promotion-eligibility and payload-minimal reference contracts, compose them deterministically with the closed WBS 17.1 classification/use-policy contracts, and prove fail-closed behavior without wiring real consumer paths yet.
+### Construction A — `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` — COMMITTED / MATERIALIZED / IN EXECUTION
+TASK-367..372 are the only materialized Construction A tasks and are executing on PR #442. Goal: define provider-neutral enforcement, promotion-eligibility and payload-minimal reference contracts, compose them deterministically with the closed WBS 17.1 classification/use-policy contracts, and prove fail-closed behavior without wiring real consumer paths yet.
 
 Exit proof: unauthorized proprietary/personal/trade-secret knowledge cannot be represented as reusable/promotable by the enforcement contract; unknown/ambiguous state fails closed; references remain payload-minimal; predecessor M15 human-decision and WBS 17.1 authority semantics remain intact.
 
