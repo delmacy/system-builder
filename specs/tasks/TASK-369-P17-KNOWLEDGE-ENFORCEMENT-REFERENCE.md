@@ -1,7 +1,7 @@
 ---
 id: TASK-369
 title: Define payload-minimal enforcement reference envelope
-status: ready
+status: completed
 priority: 369
 milestone: M17
 model_tier: architecture
@@ -32,7 +32,7 @@ validation:
   - npm run verify
 ---
 # Objective
-Define the payload-minimal reference envelope required by WBS 17.2.3.
+Define the payload-minimal enforcement reference envelope required by WBS 17.2.3.
 
 # Context
 Enforcement consumers need portable references to classification/policy decisions without transporting sensitive source content.

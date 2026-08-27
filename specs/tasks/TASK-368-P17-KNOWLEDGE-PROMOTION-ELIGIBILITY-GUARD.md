@@ -1,7 +1,7 @@
 ---
 id: TASK-368
 title: Define knowledge promotion eligibility guard
-status: ready
+status: completed
 priority: 368
 milestone: M17
 model_tier: architecture

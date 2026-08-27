@@ -1,7 +1,7 @@
 ---
 id: TASK-370
 title: Compose enforcement with canonical classification and use policy
-status: ready
+status: completed
 priority: 370
 milestone: M17
 model_tier: architecture
