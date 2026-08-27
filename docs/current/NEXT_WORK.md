@@ -1,15 +1,18 @@
-# Next Work — P17 Package 01 Construction B
+# Next Work — P17 Package 01 post-Construction B revalidation
 
-`P17-PACKAGE-01 — Knowledge Classification & Use Policy Foundation` remains ACTIVE for WBS 17.1.1–17.1.3. Construction A integrated via PR #428 and bounded conformance correction TASK-362 integrated via PR #432 after exact-head CI #990 / Heavy #435. Post-correction repository-memory reconciliation PR #433 passed CI #991 / Heavy #436 and integrated as `eecc9e758ab05e9b753ebafc9dc3f7c49af73089` with exact tree equivalence.
+`P17-PACKAGE-01 — Knowledge Classification & Use Policy Foundation` remains ACTIVE for WBS 17.1.1–17.1.3. Construction A integrated via PR #428; bounded human-authority correction TASK-362 integrated via PR #432; Construction B `P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` integrated via PR #435 as main `ed8f394114711793b170f18bd9ddda7abf9cb11e` after final exact-head Deterministic CI #1000 PASS and Heavy Product Tests #446 PASS.
 
-Fresh-main inspection confirms a bounded remaining Package-goal gap: the corrected classification/ownership/purpose/manual-assisted contracts exist, but representative evidence-facing consumer integration remains absent outside contracts/tests. Construction B `P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` is therefore COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-363..366. Construction C remains optional/evidence-gated. WBS 17.2/17.3 remain FORECAST / NOT MATERIALIZED.
+Construction B delivered the corrected payload-minimal classification reference projection plus representative manual and assisted evidence-facing consumer paths. The authority-laundering finding was corrected before TASK-364: the projection preserves canonical `humanAuthority`, standalone normalization re-verifies M15 Decision Boundary `human-decision`, and deterministic/probabilistic substitution fails closed.
+
+Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. WBS 17.2/17.3 remain FORECAST / NOT MATERIALIZED.
 
 ## Required next action
-1. validate the Construction B Planning & Materialization head with exact-head Deterministic CI and Heavy Product Tests;
-2. integrate only if gates pass and no blocker/head drift exists;
-3. reconstruct fresh `main` and prove tree equivalence;
-4. create `sprint/P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` and execute TASK-363 -> 364 -> 365 -> 366 serially behind declared validations;
-5. after Construction B integrates, revalidate fresh main before deciding optional Construction C or Package Integration & Review.
+1. reconstruct fresh `main` after PR #435 and verify reviewed-head -> merge-main tree equivalence;
+2. revalidate the complete WBS 17.1 Package goal against the integrated consumer paths and tests;
+3. if no residual bounded WBS 17.1 gap exists, record Construction C as NOT REQUIRED / NOT MATERIALIZED and proceed to Package Integration & Review;
+4. materialize Construction C only if fresh-main evidence demonstrates a real residual WBS 17.1 capability gap inside current Package authority.
+
+Do not repeat Construction B Planning or TASK-363..366.
 
 ## Boundaries
 No WBS 17.2 enforcement, WBS 17.3 promotion/anonymization, automatic reuse approval, provider topology/credential lifecycle, sensitive payload carriage, Decision Boundary public-contract change, unrelated conformance/productization finding or TD-P13-01..04 absorption, or undeclared L4 change.
