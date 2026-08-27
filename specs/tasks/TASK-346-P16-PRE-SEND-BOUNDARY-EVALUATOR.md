@@ -1,7 +1,7 @@
 ---
 id: TASK-346
 title: Implement deterministic pre-send boundary evaluator
-status: planned
+status: ready
 priority: 346
 milestone: M16
 model_tier: architecture
