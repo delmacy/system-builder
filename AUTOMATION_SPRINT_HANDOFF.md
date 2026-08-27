@@ -3,16 +3,16 @@
 status: RUNNING
 worker_slot: :50
 started_at: 2026-08-27T10:47:30-03:00
-updated_at: 2026-08-27T10:52:30-03:00
-lease_until: 2026-08-27T11:17:30-03:00
-observed_main_sha: e8b1c2aed4c6dda7acdba3774db6db069f0405c4
-active_branch: reconcile/P16-package-03-canonical-closed
-active_pr: 426
-active_head_sha: a889907a7d89753733fba4c3e37cbdd5e873f8d2
-current_step: Corrected Documentation & Closure PR #425 passed CI #976 / Heavy #419 and merged as e8b1c2aed4c6dda7acdba3774db6db069f0405c4; reviewed head and merge-main share tree 31a579a2f7705b056929c8e2ef6f463fc2b5f893. PR #426 now reconciles repository memory to canonical P16-PACKAGE-03 / WBS 16.3 / M16 CLOSED. Exact-head CI #977 and Heavy #420 are queued.
+updated_at: 2026-08-27T11:00:30-03:00
+lease_until: 2026-08-27T11:25:30-03:00
+observed_main_sha: 891379be63305a352564cfe014f1cee15034124b
+active_branch: planning/P17-PACKAGE-01-KNOWLEDGE-CLASSIFICATION-POLICY
+active_pr: 427
+active_head_sha: 708be69bf17511d79bde196e9c2a44d42d530d0e
+current_step: P16-PACKAGE-03 / WBS 16.3 / M16 closed canonically via PR #426 after CI #977 / Heavy #420; reviewed closure-reconciliation head and merge-main share tree dfc93e272d1aae2dd5d1f334e4ff3f149c95339b. Fresh-main authority derived M17 Knowledge Boundary WBS 17.1 as next Package. PR #427 now carries Planning & Materialization for P17-PACKAGE-01 and only Construction A TASK-355..361; CI #978 and Heavy #421 are in progress.
 
 ## Authorization
-User authorized continued serial execution of the current Package and next authorized Work Packages, with L1-L3 approvals. Automation remains active until explicit user order. L4 requires explicit materialization + ADR/change control.
+User authorized continued serial execution of next eligible Work Packages with L1-L3 approvals. Automation remains active until explicit user order. L4 requires explicit materialization + ADR/change control.
 
 ## Boundaries
-Do not repeat Package Integration & Review. No successor derivation until PR #426 integrates and fresh-main confirms canonical closure. No unrelated conformance/productization finding or TD absorption by inference. Construction C remains NOT REQUIRED / NOT MATERIALIZED.
+P17-PACKAGE-01 is limited to WBS 17.1.1–17.1.3. WBS 17.2/17.3 remain FORECAST / NOT MATERIALIZED. No unrelated conformance/productization finding or TD absorption by inference. No TASK-355 execution until PR #427 integrates and fresh-main is reconstructed.
