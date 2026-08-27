@@ -28,6 +28,15 @@ import {
   normalizeModelUsageObservationEnvelope,
   type ModelUsageObservationEnvelope,
 } from "./usage-observation.js";
+import {
+  evaluateKnowledgeEnforcement,
+  type KnowledgeEnforcementEvaluation,
+  type KnowledgeEnforcementEvaluationInput,
+} from "../knowledge-boundary/enforcement-composition.js";
+import {
+  normalizeKnowledgeEnforcementReferenceEnvelope,
+  type KnowledgeEnforcementReferenceEnvelope,
+} from "../knowledge-boundary/reference-projection.js";
 
 export type GovernedModelProviderInvocationContext = Readonly<{
   providerSecretReference?: ProviderSecretReferenceDescriptor;
@@ -38,6 +47,16 @@ export type GovernedModelProviderAdapter = ModelProviderAdapter & Readonly<{
     request: ModelRequest,
     context?: GovernedModelProviderInvocationContext,
   ): Promise<ModelResponse>;
+}>;
+
+export type GovernedKnowledgeEnforcementInput = Readonly<{
+  evaluation: KnowledgeEnforcementEvaluationInput;
+  reference: unknown;
+}>;
+
+export type GovernedKnowledgeEnforcement = Readonly<{
+  evaluation: KnowledgeEnforcementEvaluation;
+  reference: KnowledgeEnforcementReferenceEnvelope;
 }>;
 
 export type GovernedModelInvocationInput = Readonly<{
@@ -52,6 +71,7 @@ export type GovernedModelInvocationInput = Readonly<{
     evidence: unknown;
   }>;
   providerSecretReference?: unknown;
+  knowledgeEnforcement?: GovernedKnowledgeEnforcementInput;
 }>;
 
 export type GovernedModelInvocationResult = Readonly<{
@@ -62,6 +82,7 @@ export type GovernedModelInvocationResult = Readonly<{
   preSendBoundary: PreSendBoundaryEvaluation | null;
   providerSecretReference: ProviderSecretReferenceDescriptor | null;
   usageObservation: ModelUsageObservationEnvelope;
+  knowledgeEnforcement: GovernedKnowledgeEnforcement | null;
 }>;
 
 function describeIneligibleEvaluation(evaluation: ExecutionGovernanceEvaluation): string {
@@ -74,6 +95,36 @@ function describeBoundaryEvaluation(evaluation: PreSendBoundaryEvaluation): stri
   return evaluation.reasons
     .map((reason) => `${reason.code}:${reason.subject}`)
     .join(",");
+}
+
+function evaluateGovernedKnowledgeEnforcement(
+  input: GovernedKnowledgeEnforcementInput,
+): GovernedKnowledgeEnforcement {
+  const evaluation = evaluateKnowledgeEnforcement(input.evaluation);
+  const reference = normalizeKnowledgeEnforcementReferenceEnvelope(input.reference);
+
+  if (reference.enforcementRef !== evaluation.enforcementRef) {
+    throw new Error("knowledge enforcement reference enforcementRef must match evaluated enforcementRef");
+  }
+  if (reference.classificationDecisionRef !== evaluation.classificationDecisionRef) {
+    throw new Error("knowledge enforcement reference classificationDecisionRef must match evaluated classificationDecisionRef");
+  }
+  if (reference.usePolicyRef !== evaluation.usePolicyRef) {
+    throw new Error("knowledge enforcement reference usePolicyRef must match evaluated usePolicyRef");
+  }
+  if (reference.purposeId !== evaluation.purposeId) {
+    throw new Error("knowledge enforcement reference purposeId must match evaluated purposeId");
+  }
+  if (reference.outcome !== evaluation.enforcementOutcome) {
+    throw new Error("knowledge enforcement reference outcome must match evaluated enforcement outcome");
+  }
+  if (evaluation.enforcementOutcome !== "allow" || evaluation.eligibilityStatus !== "eligible") {
+    throw new Error(
+      `knowledge enforcement blocks provider invocation: ${evaluation.enforcementOutcome}/${evaluation.eligibilityStatus}`,
+    );
+  }
+
+  return { evaluation, reference };
 }
 
 async function invokeGovernedAdapter(
@@ -141,6 +192,10 @@ export async function invokeGovernedModelProvider(
     throw new Error(`pre-send boundary is ${preSendBoundary.status}: ${describeBoundaryEvaluation(preSendBoundary)}`);
   }
 
+  const knowledgeEnforcement = input.knowledgeEnforcement === undefined
+    ? null
+    : evaluateGovernedKnowledgeEnforcement(input.knowledgeEnforcement);
+
   const providerSecretReference = input.providerSecretReference === undefined
     ? null
     : normalizeProviderSecretReferenceDescriptor(input.providerSecretReference);
@@ -164,5 +219,6 @@ export async function invokeGovernedModelProvider(
     preSendBoundary,
     providerSecretReference,
     usageObservation,
+    knowledgeEnforcement,
   };
 }

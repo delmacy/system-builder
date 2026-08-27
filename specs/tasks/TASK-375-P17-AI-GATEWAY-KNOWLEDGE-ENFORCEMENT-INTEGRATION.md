@@ -1,7 +1,7 @@
 ---
 id: TASK-375
 title: Gate AI Gateway pre-send path with P17 knowledge enforcement
-status: ready
+status: completed
 priority: 375
 milestone: M17
 model_tier: architecture
