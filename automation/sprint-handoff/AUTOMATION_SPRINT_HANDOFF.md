@@ -1,30 +1,34 @@
 # Automation Sprint Handoff
 
-status: CORRECTION_PENDING
-worker_slot: :30
-started_at: 2026-08-27T12:28:55Z
-updated_at: 2026-08-27T12:36:30Z
+status: READY
+worker_slot: :50
+started_at: 2026-08-27T09:52:27-03:00
+updated_at: 2026-08-27T10:06:30-03:00
 lease_until: null
-observed_main_sha: fc29b6197ef49e1ee928979acf9e25379f8f2ad4
-active_branch: fix/P16-observation-permission-authority-rebased
-active_pr: 420
-active_head_sha: 8bc8229a0309009dd6167e5df8d886caee165abb
-current_step: TASK-354 fresh-main corrective PR rebuilt; exact-head Deterministic CI #968 and Heavy Product Tests #410 are running. Do not close P16-PACKAGE-03 or derive Package 2 before correction merge + fresh-main revalidation + repository-memory reconciliation.
+observed_main_sha: 21f5306c0bb085e148175d79f739f96d464ee3eb
+active_branch: package/P16-PACKAGE-03-INTEGRATION-REVIEW-CORRECTED
+active_pr: 422
+active_head_sha: 1ebcb2f33003d12de9bd0a0690273da64e03bedc
+current_step: TASK-354 correction and fresh-main repository-memory reconciliation are integrated and tree-equivalent. Corrected Package Integration & Review PR #422 is open; exact-head workflows were not yet associated at the final checkpoint.
 
 ## Authorization
-User authorized the bounded TASK-354 correction as mandatory priority before any P16-PACKAGE-03 closure, plus planning/materialization/execution/closure of the next three eligible Work Packages in sequence. This remains Package 1 of 3. Package 2 must not be derived/executed until Package 1 is canonically CLOSED after TASK-354. L4 requires explicit materialization + ADR/change control. Automation remains recurring and must not be disabled merely because this correction or any of the three Packages closes.
+User mandated TASK-354 as priority before any P16-PACKAGE-03 closure and authorized the next three eligible Work Packages sequentially after this Package closes. L1-L3/process approvals are pre-granted. L4 requires explicit materialization + ADR/change control. Automation must remain active and recurring even after the third Package closes.
 
-## Current evidence
-- `main` advanced to `fc29b6197ef49e1ee928979acf9e25379f8f2ad4` with a documentation/closure commit after the original TASK-354 PR base; that closure is not canonical until the mandated correction is integrated.
-- Original PR #418 became conflicted and was closed without merge as superseded.
-- Fresh-main reconstruction PR #420 is OPEN / DRAFT / MERGEABLE on head `8bc8229a0309009dd6167e5df8d886caee165abb`, base `fc29b6197ef49e1ee928979acf9e25379f8f2ad4`, with exactly 10 changed files matching TASK-354 `max_files: 10`.
-- The correction adds explicit `observationPermissions` governance rules; absence grants no observation measurements; governance evaluation emits canonical `permittedObservationMeasurements`; governed invocation consumes only that evaluated decision; budget/quota metric names no longer grant observation authority.
-- Semantic architecture CI rejects `budgetQuota.metric-as-observation-permission`.
-- WBS and NEXT_WORK on the corrective branch explicitly restore `CORRECTION_PENDING` and block successor derivation.
-- Exact-head workflows for #420: Deterministic CI #968 IN_PROGRESS; Heavy Product Tests #410 IN_PROGRESS at last observation.
+## Completed this round
+- revalidated rebased corrective PR #420;
+- fixed TASK-354 task-spec catalog conformance only, then updated legacy product-test fixtures to stop expecting observation authority from budget metric names;
+- final corrective head `7332b330cc9253d4025f6ed12cf771664b2243de` passed Deterministic CI #971 and Heavy Product Tests #413;
+- PR #420 merged protected as `4210b6727611d7c4440ad554993759aa3c844590`; reviewed head and merge-main share tree `6fa621288d4898175a43381ffde93ec472c11e5d`;
+- fresh-main revalidation confirmed explicit `observationPermissions`, evaluator-produced permitted measurements, governed invocation consuming only the evaluated decision, and semantic CI rejecting authority-by-metric-name;
+- reconciled PROJECT_STATE, CURRENT_MILESTONE, NEXT_WORK, WBS 16.3, P16-PACKAGE-03 and TASK-354 via PR #421; reconciliation head `1d191e4a0ad1add160d2353a51da08bb7e530de2` passed CI #972 / Heavy #415 and merged as `21f5306c0bb085e148175d79f739f96d464ee3eb`; reviewed head and merge-main share tree `8abb859500e9bb0263971df0db1da6ca1c9dc97d`;
+- correction gate is therefore complete and `CORRECTION_PENDING` is released;
+- started corrected Package Integration & Review revalidation on fresh main and opened PR #422, head `1ebcb2f33003d12de9bd0a0690273da64e03bedc`, one review-report file only.
+
+last_completed_step: integrated TASK-354 correction plus fresh-main repository-memory reconciliation with exact-head gates and tree equivalence.
+next_authorized_step: Revalidate exact-head Deterministic CI + Heavy Product Tests for PR #422. If both PASS with no blocker/head drift, merge #422 with expected-head protection, prove tree equivalence, then execute Documentation & Closure for P16-PACKAGE-03 on fresh main. Do not derive the next Work Package until P16-PACKAGE-03 is canonically CLOSED. After closure, derive Package 2 of the user's three-Package authorization exclusively from fresh-main authority.
 
 ## Boundaries
-No provider registry/default ranking, mandatory remote topology, credential issuance/rotation/revocation lifecycle, secret values in artifacts, telemetry/billing authority, Runtime Audit Trail replacement, Knowledge Boundary taxonomy ownership, hidden fallback, conformance/productization finding absorption beyond TASK-354, TD-P13-01..04 absorption/re-ranking, fabricated authority or undeclared L4.
+No provider registry/mandatory remote topology, credential lifecycle, telemetry/billing authority, Runtime Audit Trail replacement, Knowledge Boundary taxonomy ownership, technical-debt/finding absorption by inference, TD-P13-01..04 absorption, WBS expansion or undeclared L4.
 
 ## resume_prompt
-Resume `delmacy/system-builder` at mandatory TASK-354 correction PR #420, branch `fix/P16-observation-permission-authority-rebased`, head `8bc8229a0309009dd6167e5df8d886caee165abb`, base/main `fc29b6197ef49e1ee928979acf9e25379f8f2ad4`. Revalidate exact-head Deterministic CI #968 + Heavy #410. If both PASS and no blocker/head drift, mark PR ready, merge with expected-head protection, reconstruct fresh main and prove tree equivalence. Then reconcile repository memory so P16-PACKAGE-03 is only declared CLOSED after fresh-main confirms explicit observation-permission authority and no authority-by-budget-metric path remains. Only after canonical closure derive Package 2 of the user's three-Package authorization. Keep handoff CORRECTION_PENDING until the corrective merge and fresh-main revalidation complete.
+Resume `delmacy/system-builder` at corrected Package Integration & Review PR #422, branch `package/P16-PACKAGE-03-INTEGRATION-REVIEW-CORRECTED`, head `1ebcb2f33003d12de9bd0a0690273da64e03bedc`, base/main `21f5306c0bb085e148175d79f739f96d464ee3eb`. TASK-354 correction is fully integrated: PR #420 -> `4210b672...`, CI #971 PASS, Heavy #413 PASS, tree `6fa62128...`; repository reconciliation PR #421 -> `21f5306c...`, CI #972 PASS, Heavy #415 PASS, tree `8abb8595...`. Revalidate #422 exact-head gates; if PASS, merge protected/tree-equivalence and proceed to Documentation & Closure. Only after P16-PACKAGE-03 canonical CLOSED derive the next authorized Work Package. Keep automation active recurring.
