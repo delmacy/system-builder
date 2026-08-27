@@ -1,7 +1,7 @@
 ---
 id: TASK-372
 title: Prove Construction A knowledge enforcement end to end
-status: ready
+status: completed
 priority: 372
 milestone: M17
 model_tier: architecture
