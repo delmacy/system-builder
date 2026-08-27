@@ -3,6 +3,7 @@ import {
   normalizeModelCapabilityDescriptor,
   type ExecutionGovernanceRuleSet,
   type ModelCapabilityDescriptor,
+  type ObservationPermissionMeasurement,
 } from "./index.js";
 
 export type ExecutionGovernanceUsage = Readonly<Record<string, number>>;
@@ -18,6 +19,7 @@ export type ExecutionGovernanceEvaluation = Readonly<{
   status: "eligible" | "ineligible";
   reasons: readonly ExecutionGovernanceEvaluationReason[];
   fallbacks: ExecutionGovernanceRuleSet["fallbacks"];
+  permittedObservationMeasurements: readonly ObservationPermissionMeasurement[];
 }>;
 
 function normalizeUsage(value: unknown): ExecutionGovernanceUsage {
@@ -68,10 +70,15 @@ export function evaluateExecutionGovernance(input: Readonly<{
     || left.code.localeCompare(right.code)
     || left.subject.localeCompare(right.subject));
 
+  const permittedObservationMeasurements = [...new Set(
+    (rules.observationPermissions ?? []).flatMap((rule) => rule.permittedMeasurements),
+  )].sort((left, right) => left.localeCompare(right));
+
   return {
     policyId: rules.policyId,
     status: reasons.length === 0 ? "eligible" : "ineligible",
     reasons,
     fallbacks: rules.fallbacks,
+    permittedObservationMeasurements,
   };
 }

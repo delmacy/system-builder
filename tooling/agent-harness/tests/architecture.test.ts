@@ -67,17 +67,33 @@ export type Envelope = Readonly<{
     assert.ok(analyzeArchitecture(root).some((item) => item.rule === "ai-gateway-permission-claims-require-policy-linkage"));
   });
 
-  it("allows policy-derived AI Gateway observation permission contracts", () => {
+  it("rejects observation authority inferred from budget quota metric names", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-architecture-"));
+    const directory = join(root, "packages/contracts/ai-gateway");
+    mkdirSync(directory, { recursive: true });
+    writeFileSync(join(directory, "bad-quota-authority.ts"), `
+type UsageObservationMeasurement = "quality" | "failure" | "cost";
+function permittedMeasurements(rules: { budgetQuotas: Array<{ metric: string }> }): readonly UsageObservationMeasurement[] {
+  return rules.budgetQuotas
+    .map((rule) => rule.metric)
+    .filter((metric): metric is UsageObservationMeasurement => metric === "failure");
+}
+`);
+    assert.ok(analyzeArchitecture(root).some((item) => item.rule === "ai-gateway-observation-authority-must-not-be-inferred-from-budget-metrics"));
+  });
+
+  it("allows explicit policy-derived AI Gateway observation permission contracts", () => {
     const root = mkdtempSync(join(tmpdir(), "sb-architecture-"));
     const directory = join(root, "packages/contracts/ai-gateway");
     mkdirSync(directory, { recursive: true });
     writeFileSync(join(directory, "good-observation.ts"), `
-export type UsageObservationPermissionPolicy = Readonly<{
-  policyId: string;
+export type ObservationPermissionRule = Readonly<{
+  ruleId: string;
   permittedMeasurements: readonly ("quality" | "failure" | "cost")[];
 }>;
-export type Envelope = Readonly<{
-  permission: { permissionPolicyId: string; permittedMeasurements: readonly string[] };
+export type Evaluation = Readonly<{
+  policyId: string;
+  permittedObservationMeasurements: readonly string[];
 }>;
 `);
     assert.deepEqual(analyzeArchitecture(root), []);

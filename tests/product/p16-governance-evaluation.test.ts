@@ -33,6 +33,7 @@ test("execution governance evaluation is deterministic and provider-neutral", ()
     status: "eligible",
     reasons: [],
     fallbacks: [{ ruleId: "fallback:explicit", allowed: true, order: ["secondary", "tertiary"] }],
+    permittedObservationMeasurements: [],
   });
   assert.equal("providerId" in evaluation, false);
   assert.equal("authorized" in evaluation, false);

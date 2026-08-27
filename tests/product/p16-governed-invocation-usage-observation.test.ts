@@ -28,18 +28,27 @@ const schema = {
   properties: { answer: "string" },
 } as const;
 
-function rules(metrics: readonly string[]) {
+function rules({
+  budgetMetrics,
+  permittedMeasurements,
+}: {
+  readonly budgetMetrics: readonly string[];
+  readonly permittedMeasurements: readonly ("quality" | "failure" | "cost")[];
+}) {
   return {
     contractVersion: AI_GATEWAY_EXECUTION_GOVERNANCE_VERSION,
     policyId: "policy:usage-observation",
     routingEligibility: [{ ruleId: "route:json", requiredCapabilities: ["json"] }],
-    budgetQuotas: metrics.map((metric) => ({
+    budgetQuotas: budgetMetrics.map((metric) => ({
       ruleId: `budget:${metric}`,
       metric,
       limit: 1024,
       window: "request",
     })),
     fallbacks: [],
+    observationPermissions: permittedMeasurements.length === 0
+      ? []
+      : [{ ruleId: "observe:explicit", permittedMeasurements }],
   };
 }
 
@@ -59,7 +68,7 @@ function adapter(output: unknown): GovernedModelProviderAdapter {
 test("governed invocation derives observation permissions from the evaluated policy", async () => {
   const result = await invokeGovernedModelProvider(adapter({ answer: "ok" }), {
     request,
-    rules: rules(["cost", "failure"]),
+    rules: rules({ budgetMetrics: ["cost", "failure"], permittedMeasurements: ["cost", "failure"] }),
     capabilities,
     usage: { cost: 1, failure: 0 },
     structuredOutputSchema: schema,
@@ -77,10 +86,10 @@ test("governed invocation derives observation permissions from the evaluated pol
   assert.deepEqual(result.usageObservation.observation.evidenceRefs, []);
 });
 
-test("caller usage claims cannot grant an observation measurement absent from policy", async () => {
+test("budget quota metric names cannot grant observation permission", async () => {
   const result = await invokeGovernedModelProvider(adapter({ answer: "ok" }), {
     request,
-    rules: rules([]),
+    rules: rules({ budgetMetrics: ["cost", "quality", "failure"], permittedMeasurements: [] }),
     capabilities,
     usage: { cost: 99, quality: 1, failure: 1 },
     structuredOutputSchema: schema,
@@ -97,7 +106,7 @@ test("caller usage claims cannot grant an observation measurement absent from po
 test("structured-output failure is observed only when the evaluated policy permits failure measurement", async () => {
   const result = await invokeGovernedModelProvider(adapter({ answer: 42 }), {
     request,
-    rules: rules(["failure"]),
+    rules: rules({ budgetMetrics: ["failure"], permittedMeasurements: ["failure"] }),
     capabilities,
     usage: { failure: 0 },
     structuredOutputSchema: schema,
@@ -113,7 +122,7 @@ test("structured-output failure is observed only when the evaluated policy permi
 test("missing measurement evidence remains explicit rather than fabricated", async () => {
   const result = await invokeGovernedModelProvider(adapter({ answer: "ok" }), {
     request,
-    rules: rules(["quality", "cost"]),
+    rules: rules({ budgetMetrics: ["quality", "cost"], permittedMeasurements: ["quality", "cost"] }),
     capabilities,
     usage: { quality: 0, cost: 0 },
     structuredOutputSchema: schema,
