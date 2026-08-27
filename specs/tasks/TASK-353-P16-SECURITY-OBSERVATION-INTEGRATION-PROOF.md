@@ -1,7 +1,7 @@
 ---
 id: TASK-353
 title: Prove integrated AI security and usage observation path
-status: ready
+status: completed
 priority: 353
 milestone: M16
 model_tier: architecture
@@ -35,10 +35,10 @@ validation:
 Complete the Construction B growing proof across the real governed invocation path and record the Sprint Report.
 
 # Context
-TASK-350..352 integrate the already-defined WBS 16.3 contracts into governed invocation. This proof must demonstrate the Package Goal without adding new behavior.
+TASK-350..352 integrate the already-defined WBS 16.3 contracts into governed invocation. This proof demonstrates the Package Goal without adding new behavior.
 
 # Current behavior
-Focused proofs exist for the individual contracts and predecessor governance seam; no single Construction B proof yet composes pre-send boundary, reference-only secret input and policy-derived usage observation.
+A single Construction B product proof now composes pre-send boundary enforcement, reference-only secret propagation and policy-derived usage observation while preserving predecessor governance and fail-closed semantics.
 
 # Inputs / contracts
 - integrated governed invocation from TASK-350..352;
