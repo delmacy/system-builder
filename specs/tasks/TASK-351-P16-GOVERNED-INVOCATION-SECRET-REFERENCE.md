@@ -1,7 +1,7 @@
 ---
 id: TASK-351
 title: Carry provider secret references through governed invocation
-status: ready
+status: completed
 priority: 351
 milestone: M16
 model_tier: architecture
@@ -37,7 +37,7 @@ Integrate the existing provider secret-reference contract into governed invocati
 Construction A defined a provider-neutral reference-only secret descriptor. Construction B must prove the real invocation seam can accept and propagate that reference without credential lifecycle or secret-value semantics.
 
 # Current behavior
-The governed invocation path has no explicit portable secret-reference input.
+Governed invocation now accepts an optional provider secret-reference descriptor, normalizes it fail-closed before invocation, and passes only that normalized reference through an invocation context to the adapter seam. The canonical ModelRequest/ModelResponse contracts remain unchanged and contain no secret material.
 
 # Inputs / contracts
 - governed invocation from TASK-350;

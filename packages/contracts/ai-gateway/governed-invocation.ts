@@ -1,7 +1,10 @@
 import {
-  invokeModelProvider,
+  normalizeExecutionGovernanceRuleSet,
+  normalizeModelRequest,
+  normalizeModelResponse,
   validateStructuredOutput,
   type ModelProviderAdapter,
+  type ModelRequest,
   type ModelResponse,
   type StructuredOutputValidationResult,
 } from "./index.js";
@@ -13,6 +16,31 @@ import {
   evaluateExecutionGovernance,
   type ExecutionGovernanceEvaluation,
 } from "./governance-evaluation.js";
+import {
+  evaluatePreSendBoundary,
+  type PreSendBoundaryEvaluation,
+} from "./pre-send-boundary-evaluation.js";
+import {
+  normalizeProviderSecretReferenceDescriptor,
+  type ProviderSecretReferenceDescriptor,
+} from "./provider-secret-reference.js";
+import {
+  AI_GATEWAY_USAGE_OBSERVATION_VERSION,
+  normalizeModelUsageObservationEnvelope,
+  type ModelUsageObservationEnvelope,
+  type UsageObservationMeasurement,
+} from "./usage-observation.js";
+
+export type GovernedModelProviderInvocationContext = Readonly<{
+  providerSecretReference?: ProviderSecretReferenceDescriptor;
+}>;
+
+export type GovernedModelProviderAdapter = ModelProviderAdapter & Readonly<{
+  invoke(
+    request: ModelRequest,
+    context?: GovernedModelProviderInvocationContext,
+  ): Promise<ModelResponse>;
+}>;
 
 export type GovernedModelInvocationInput = Readonly<{
   request: unknown;
@@ -21,6 +49,11 @@ export type GovernedModelInvocationInput = Readonly<{
   usage: unknown;
   structuredOutputSchema: unknown;
   executionMetadata?: unknown;
+  preSendBoundary?: Readonly<{
+    boundary: unknown;
+    evidence: unknown;
+  }>;
+  providerSecretReference?: unknown;
 }>;
 
 export type GovernedModelInvocationResult = Readonly<{
@@ -28,6 +61,9 @@ export type GovernedModelInvocationResult = Readonly<{
   governance: ExecutionGovernanceEvaluation;
   structuredOutput: StructuredOutputValidationResult;
   executionMetadata: ModelExecutionMetadataEnvelope | null;
+  preSendBoundary: PreSendBoundaryEvaluation | null;
+  providerSecretReference: ProviderSecretReferenceDescriptor | null;
+  usageObservation: ModelUsageObservationEnvelope;
 }>;
 
 function describeIneligibleEvaluation(evaluation: ExecutionGovernanceEvaluation): string {
@@ -36,8 +72,68 @@ function describeIneligibleEvaluation(evaluation: ExecutionGovernanceEvaluation)
     .join(",");
 }
 
+function describeBoundaryEvaluation(evaluation: PreSendBoundaryEvaluation): string {
+  return evaluation.reasons
+    .map((reason) => `${reason.code}:${reason.subject}`)
+    .join(",");
+}
+
+async function invokeGovernedAdapter(
+  adapter: GovernedModelProviderAdapter,
+  requestValue: unknown,
+  providerSecretReference: ProviderSecretReferenceDescriptor | null,
+): Promise<ModelResponse> {
+  const request = normalizeModelRequest(requestValue);
+  const response = normalizeModelResponse(await adapter.invoke(
+    request,
+    providerSecretReference === null ? undefined : { providerSecretReference },
+  ));
+  if (response.requestId !== request.requestId) {
+    throw new Error("model response requestId must match invoked requestId");
+  }
+  return response;
+}
+
+function policyDerivedObservationMeasurements(rulesValue: unknown): readonly UsageObservationMeasurement[] {
+  const rules = normalizeExecutionGovernanceRuleSet(rulesValue);
+  const supported = new Set<UsageObservationMeasurement>(["quality", "failure", "cost"]);
+  const measurements = rules.budgetQuotas
+    .map((rule) => rule.metric)
+    .filter((metric): metric is UsageObservationMeasurement => supported.has(metric as UsageObservationMeasurement));
+  return [...new Set(measurements)].sort((left, right) => left.localeCompare(right));
+}
+
+function deriveUsageObservation(
+  rulesValue: unknown,
+  governance: ExecutionGovernanceEvaluation,
+  response: ModelResponse,
+  structuredOutput: StructuredOutputValidationResult,
+): ModelUsageObservationEnvelope {
+  const permittedMeasurements = policyDerivedObservationMeasurements(rulesValue);
+  const failure = permittedMeasurements.includes("failure") && structuredOutput.status !== "valid"
+    ? { code: `structured-output:${structuredOutput.status}`, category: "structured-output" }
+    : null;
+
+  return normalizeModelUsageObservationEnvelope({
+    permissionPolicy: {
+      policyId: governance.policyId,
+      permittedMeasurements,
+    },
+    observation: {
+      contractVersion: AI_GATEWAY_USAGE_OBSERVATION_VERSION,
+      observationId: `usage-observation:${response.requestId}`,
+      requestId: response.requestId,
+      responseId: response.responseId,
+      quality: null,
+      failure,
+      cost: null,
+      evidenceRefs: [],
+    },
+  });
+}
+
 export async function invokeGovernedModelProvider(
-  adapter: ModelProviderAdapter,
+  adapter: GovernedModelProviderAdapter,
   input: GovernedModelInvocationInput,
 ): Promise<GovernedModelInvocationResult> {
   const governance = evaluateExecutionGovernance({
@@ -50,6 +146,17 @@ export async function invokeGovernedModelProvider(
     throw new Error(`execution governance is ineligible: ${describeIneligibleEvaluation(governance)}`);
   }
 
+  const preSendBoundary = input.preSendBoundary === undefined
+    ? null
+    : evaluatePreSendBoundary(input.preSendBoundary);
+  if (preSendBoundary !== null && preSendBoundary.status !== "allowed") {
+    throw new Error(`pre-send boundary is ${preSendBoundary.status}: ${describeBoundaryEvaluation(preSendBoundary)}`);
+  }
+
+  const providerSecretReference = input.providerSecretReference === undefined
+    ? null
+    : normalizeProviderSecretReferenceDescriptor(input.providerSecretReference);
+
   const executionMetadata = input.executionMetadata === undefined
     ? null
     : normalizeModelExecutionMetadataEnvelope(input.executionMetadata);
@@ -57,13 +164,17 @@ export async function invokeGovernedModelProvider(
     throw new Error("execution metadata permissionPolicyId must match evaluated governance policyId");
   }
 
-  const response = await invokeModelProvider(adapter, input.request);
+  const response = await invokeGovernedAdapter(adapter, input.request, providerSecretReference);
   const structuredOutput = validateStructuredOutput(input.structuredOutputSchema, response.output);
+  const usageObservation = deriveUsageObservation(input.rules, governance, response, structuredOutput);
 
   return {
     response,
     governance,
     structuredOutput,
     executionMetadata,
+    preSendBoundary,
+    providerSecretReference,
+    usageObservation,
   };
 }

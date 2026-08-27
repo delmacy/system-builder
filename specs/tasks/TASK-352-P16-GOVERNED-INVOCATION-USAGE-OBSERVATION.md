@@ -1,7 +1,7 @@
 ---
 id: TASK-352
 title: Emit policy-derived usage observations from governed invocation
-status: ready
+status: completed
 priority: 352
 milestone: M16
 model_tier: architecture
@@ -37,7 +37,7 @@ Emit the existing provider-neutral usage observation from governed invocation us
 Construction A established usage-observation contracts and semantic permission hardening. Fresh-main evidence shows the real governed invocation path does not yet produce the observation.
 
 # Current behavior
-Governed invocation returns canonical execution results but does not expose a policy-derived WBS 16.3 usage observation.
+Governed invocation now emits a provider-neutral usage observation. Measurement permissions are derived only from explicit observation measurement metrics present in the evaluated governance policy; caller usage claims cannot widen them. Missing source evidence remains null, while an invalid structured output supplies bounded failure evidence when the policy permits failure observation.
 
 # Inputs / contracts
 - governed invocation from TASK-351;
