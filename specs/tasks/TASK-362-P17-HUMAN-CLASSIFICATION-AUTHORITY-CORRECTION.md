@@ -42,6 +42,21 @@ Correct the Construction A authority gap where a non-empty `decisionActorRef` co
 # Context
 TASK-357 and TASK-361 require assisted/probabilistic proposals to remain non-authoritative until an explicit human decision exists. The prior normalizer validated only the presence of `decisionActorRef`/`decisionRef`; therefore `model:*` or another arbitrary actor reference could be accepted as a final decision. M15 already provides the canonical Decision Boundary distinction and `verifyDecisionBoundary(... expectedCategory: "human-decision")`; this correction consumes that authority rather than inventing a new actor-prefix convention.
 
+# Current behavior
+Construction A is already integrated on `main`, but its final classification decision contract proves only that actor and decision references are non-empty. The contract does not prove that the actor occupies the canonical Decision Boundary `human-decision` category, so probabilistic/deterministic or arbitrary actor identity can be substituted without failing the Knowledge Boundary normalizer.
+
+# Inputs / contracts
+- WBS 17.1.2 manual/assisted classification authority;
+- the integrated `KnowledgeClassificationDecision` and assisted-proposal contracts;
+- the existing M15 Decision Boundary public API, especially `verifyDecisionBoundary`, `human-decision` category metadata and authority references;
+- TASK-357/TASK-359/TASK-361 intent and proof requirements.
+
+# Outputs / contracts
+- corrected `KnowledgeClassificationDecision` requiring canonical Decision Boundary human-authority evidence;
+- fail-closed normalization linking `decisionActorRef` to the verified human `authorityRef`;
+- product evidence for valid human decisions and invalid deterministic/probabilistic/arbitrary substitutions;
+- semantic architecture/CI protection against reintroducing actor-only classification authority.
+
 # Required change
 Require every manual or assisted `KnowledgeClassificationDecision` to carry explicit Decision Boundary input sufficient for `verifyDecisionBoundary` to validate the decision as `human-decision`. Normalize that proof through the existing Decision Boundary API, fail closed unless verification returns `valid` with category `human-decision`, and require `decisionActorRef` to match the resulting authority reference. Assisted mode must still require a distinct `proposalRef`; proposal confidence/model data remains non-authoritative.
 
@@ -57,8 +72,14 @@ Add a semantic architecture gate that rejects Knowledge Boundary classification 
 - CI/architecture tests reproduce and reject the prior actor-only anti-pattern;
 - declared validations pass.
 
+# Non-goals
+No new human-identity naming convention, Decision Boundary public-contract change, WBS 17.2 isolation enforcement, WBS 17.3 promotion/anonymization, consumer integration, automatic reuse authorization, provider topology/credentials, Runtime/compiler change, unrelated technical-debt absorption or L4 architecture change.
+
 # Evidence expected
 Focused product tests for manual/assisted valid human authority, deterministic/probabilistic substitution rejection, authority-reference mismatch and growing proof regression; architecture-unit fixture proving the semantic gate.
 
+# Escalation
+Stop if the correction requires changing the M15 Decision Boundary public contract, inventing a new authority source, expanding beyond WBS 17.1 classification semantics, or modifying Runtime/compiler/enforcement/promotion behavior. Otherwise complete as a bounded conformance correction before any Construction B materialization.
+
 # Handoff gate
-`P17-KNOWLEDGE-CLASSIFICATION-CONTRACT-01` remains CORRECTION_PENDING and must not enter Sprint Review/merge until TASK-362 is completed, exact-head Deterministic CI + Heavy Product Tests pass, and the Sprint Report records the correction.
+`P17-KNOWLEDGE-CLASSIFICATION-CONTRACT-01` remains CORRECTION_PENDING and must not enter successor Planning/Construction B or a new READY handoff until TASK-362 is completed, exact-head Deterministic CI + Heavy Product Tests pass, the correction is integrated on fresh main and repository memory is reconciled.
