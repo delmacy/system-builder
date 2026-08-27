@@ -1,7 +1,7 @@
 ---
 id: TASK-374
 title: Integrate payload-minimal knowledge enforcement into observe path
-status: ready
+status: completed
 priority: 374
 milestone: M17
 model_tier: architecture
