@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { DECISION_BOUNDARY_VERSION } from "../../packages/contracts/decision-boundary/index.js";
 import {
   ASSISTED_CLASSIFICATION_PROPOSAL_VERSION,
   KNOWLEDGE_CLASSES,
@@ -14,8 +15,17 @@ import {
   normalizeKnowledgeUsePolicyDescriptor,
 } from "../../packages/contracts/knowledge-boundary/index.js";
 
+function humanAuthority(authorityRef: string, decisionId: string) {
+  return {
+    descriptor: { boundaryVersion: DECISION_BOUNDARY_VERSION, decisionId, category: "human-decision" },
+    metadata: { authorityRef },
+    riskCriticality: { risk: "medium", criticality: "standard" },
+  } as const;
+}
+
 test("P17 classification boundary covers every canonical class through real exported APIs", () => {
   for (const knowledgeClass of KNOWLEDGE_CLASSES) {
+    const actorRef = `human:${knowledgeClass}-owner`;
     const bundle = normalizeKnowledgeClassificationBundle({
       classification: {
         contractVersion: KNOWLEDGE_CLASSIFICATION_VERSION,
@@ -31,8 +41,9 @@ test("P17 classification boundary covers every canonical class through real expo
         contractVersion: KNOWLEDGE_CLASSIFICATION_DECISION_VERSION,
         mode: "manual",
         knowledgeClass,
-        decisionActorRef: "human:classification-owner",
+        decisionActorRef: actorRef,
         decisionRef: `decision:${knowledgeClass}`,
+        humanAuthority: humanAuthority(actorRef, `boundary:${knowledgeClass}`),
       },
     });
 
@@ -49,10 +60,11 @@ test("P17 classification boundary covers every canonical class through real expo
     assert.equal(projection.knowledgeClass, knowledgeClass);
     assert.equal(projection.ownerRef, `owner:${knowledgeClass}`);
     assert.deepEqual(projection.purposeIds, ["internal-review"]);
+    assert.equal(bundle.decision.humanAuthority.descriptor.category, "human-decision");
   }
 });
 
-test("assisted proposal remains non-authoritative until an explicit human decision exists", () => {
+test("assisted proposal remains non-authoritative until canonical human decision exists", () => {
   const proposal = normalizeAssistedClassificationProposal({
     contractVersion: ASSISTED_CLASSIFICATION_PROPOSAL_VERSION,
     proposalRef: "proposal:classification-001",
@@ -63,10 +75,16 @@ test("assisted proposal remains non-authoritative until an explicit human decisi
     evidenceRefs: ["evidence:classification-001"],
   });
 
-  assert.throws(
-    () => normalizeKnowledgeClassificationDecision(proposal),
-    /unsupported knowledge classification decision mode/,
-  );
+  assert.throws(() => normalizeKnowledgeClassificationDecision(proposal), /unsupported knowledge classification decision mode/);
+
+  assert.throws(() => normalizeKnowledgeClassificationDecision({
+    contractVersion: KNOWLEDGE_CLASSIFICATION_DECISION_VERSION,
+    mode: "assisted",
+    knowledgeClass: proposal.proposedClass,
+    decisionActorRef: proposal.modelRef,
+    decisionRef: "decision:classification-model-only",
+    proposalRef: proposal.proposalRef,
+  }), /missing field humanAuthority/);
 
   const decision = normalizeKnowledgeClassificationDecision({
     contractVersion: KNOWLEDGE_CLASSIFICATION_DECISION_VERSION,
@@ -75,6 +93,7 @@ test("assisted proposal remains non-authoritative until an explicit human decisi
     decisionActorRef: "human:reviewer-001",
     decisionRef: "decision:classification-001",
     proposalRef: proposal.proposalRef,
+    humanAuthority: humanAuthority("human:reviewer-001", "boundary:classification-001"),
   });
 
   assert.equal(decision.mode, "assisted");
@@ -83,32 +102,23 @@ test("assisted proposal remains non-authoritative until an explicit human decisi
 });
 
 test("purpose restrictions fail closed instead of becoming implicit permission", () => {
-  assert.throws(
-    () => normalizeKnowledgeUsePolicyDescriptor({
-      contractVersion: KNOWLEDGE_USE_POLICY_VERSION,
-      restrictionIds: [],
-    }),
-    /missing field purposeIds/,
-  );
+  assert.throws(() => normalizeKnowledgeUsePolicyDescriptor({
+    contractVersion: KNOWLEDGE_USE_POLICY_VERSION,
+    restrictionIds: [],
+  }), /missing field purposeIds/);
 
-  assert.throws(
-    () => normalizeKnowledgeUsePolicyDescriptor({
-      contractVersion: KNOWLEDGE_USE_POLICY_VERSION,
-      purposeIds: ["internal-review"],
-      restrictionIds: ["   "],
-    }),
-    /restrictionIds\[0\] must be a non-empty string/,
-  );
+  assert.throws(() => normalizeKnowledgeUsePolicyDescriptor({
+    contractVersion: KNOWLEDGE_USE_POLICY_VERSION,
+    purposeIds: ["internal-review"],
+    restrictionIds: ["   "],
+  }), /restrictionIds\[0\] must be a non-empty string/);
 
-  assert.throws(
-    () => normalizeKnowledgeUsePolicyDescriptor({
-      contractVersion: KNOWLEDGE_USE_POLICY_VERSION,
-      purposeIds: [],
-      restrictionIds: [],
-      reuseAuthorized: true,
-    }),
-    /unexpected field reuseAuthorized/,
-  );
+  assert.throws(() => normalizeKnowledgeUsePolicyDescriptor({
+    contractVersion: KNOWLEDGE_USE_POLICY_VERSION,
+    purposeIds: [],
+    restrictionIds: [],
+    reuseAuthorized: true,
+  }), /unexpected field reuseAuthorized/);
 });
 
 test("classification evidence stays payload-minimal and provider-neutral", () => {
