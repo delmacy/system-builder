@@ -2,7 +2,9 @@ import {
   KNOWLEDGE_CLASSIFICATION_DECISION_VERSION,
   normalizeKnowledgeClassificationBundle,
   normalizeKnowledgeClassificationDecision,
+  normalizeKnowledgeEnforcementDisposition,
   type KnowledgeClass,
+  type KnowledgeEnforcementOutcome,
   type KnowledgeHumanDecisionAuthority,
 } from "./index.js";
 
@@ -173,5 +175,66 @@ export function projectKnowledgeClassificationReference(
     proposalRef: bundle.decision.mode === "assisted" ? bundle.decision.proposalRef : null,
     humanAuthority: bundle.decision.humanAuthority,
     evidenceRefs,
+  });
+}
+
+export const KNOWLEDGE_ENFORCEMENT_REFERENCE_VERSION = "1.0.0" as const;
+
+export type KnowledgeEnforcementReferenceEnvelope = Readonly<{
+  contractVersion: typeof KNOWLEDGE_ENFORCEMENT_REFERENCE_VERSION;
+  enforcementRef: string;
+  classificationDecisionRef: string;
+  usePolicyRef: string;
+  purposeId: string;
+  outcome: KnowledgeEnforcementOutcome;
+  reasonIds: readonly string[];
+  evidenceRefs: readonly string[];
+}>;
+
+export function normalizeKnowledgeEnforcementReferenceEnvelope(value: unknown): KnowledgeEnforcementReferenceEnvelope {
+  const record = asRecord(value, "knowledge enforcement reference envelope");
+  assertExactFields(
+    record,
+    ["contractVersion", "enforcementRef", "classificationDecisionRef", "usePolicyRef", "purposeId", "outcome", "reasonIds", "evidenceRefs"],
+    "knowledge enforcement reference envelope",
+  );
+  if (record.contractVersion !== KNOWLEDGE_ENFORCEMENT_REFERENCE_VERSION) {
+    throw new Error(`unsupported knowledge enforcement reference envelope version: ${String(record.contractVersion)}`);
+  }
+  const disposition = normalizeKnowledgeEnforcementDisposition({
+    contractVersion: "1.0.0",
+    enforcementRef: record.enforcementRef,
+    classificationDecisionRef: record.classificationDecisionRef,
+    usePolicyRef: record.usePolicyRef,
+    purposeId: record.purposeId,
+    outcome: record.outcome,
+    reasonIds: record.reasonIds,
+  });
+  return {
+    contractVersion: KNOWLEDGE_ENFORCEMENT_REFERENCE_VERSION,
+    enforcementRef: disposition.enforcementRef,
+    classificationDecisionRef: disposition.classificationDecisionRef,
+    usePolicyRef: disposition.usePolicyRef,
+    purposeId: disposition.purposeId,
+    outcome: disposition.outcome,
+    reasonIds: disposition.reasonIds,
+    evidenceRefs: asCanonicalUniqueStringList(record.evidenceRefs, "evidenceRefs"),
+  };
+}
+
+export function projectKnowledgeEnforcementReference(
+  dispositionValue: unknown,
+  evidenceRefsValue: unknown,
+): KnowledgeEnforcementReferenceEnvelope {
+  const disposition = normalizeKnowledgeEnforcementDisposition(dispositionValue);
+  return normalizeKnowledgeEnforcementReferenceEnvelope({
+    contractVersion: KNOWLEDGE_ENFORCEMENT_REFERENCE_VERSION,
+    enforcementRef: disposition.enforcementRef,
+    classificationDecisionRef: disposition.classificationDecisionRef,
+    usePolicyRef: disposition.usePolicyRef,
+    purposeId: disposition.purposeId,
+    outcome: disposition.outcome,
+    reasonIds: disposition.reasonIds,
+    evidenceRefs: evidenceRefsValue,
   });
 }
