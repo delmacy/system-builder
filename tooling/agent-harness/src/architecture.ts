@@ -112,6 +112,16 @@ function semanticPermissionViolations(repositoryPath: string, source: string): A
     });
   }
 
+  const infersObservationPermissionFromBudgetQuota = /budgetQuotas[\s\S]{0,500}\.map\s*\(\s*\([^)]*\)\s*=>\s*[^\n;]*\.metric/.test(source)
+    && /(?:UsageObservationMeasurement|permittedMeasurements|observation permission)/i.test(source);
+  if (infersObservationPermissionFromBudgetQuota) {
+    violations.push({
+      file: repositoryPath,
+      rule: "ai-gateway-observation-authority-must-not-be-inferred-from-budget-metrics",
+      importPath: "budgetQuota.metric-as-observation-permission",
+    });
+  }
+
   return violations;
 }
 
