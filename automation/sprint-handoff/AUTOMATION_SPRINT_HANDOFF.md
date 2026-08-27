@@ -1,31 +1,30 @@
 # Automation Sprint Handoff
 
-status: CORRECTION_PENDING
-worker_slot: :30
-started_at: 2026-08-27T18:31:38-03:00
-updated_at: 2026-08-27T18:36:00-03:00
+status: READY
+worker_slot: :10
+started_at: 2026-08-27T19:07:59-03:00
+updated_at: 2026-08-27T19:12:00-03:00
 lease_until: null
-observed_main_sha: b30a0ac34783fc5e762f7ab4d05be488afa9f85c
-active_branch: sprint/P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01
-active_pr: 446
-active_head_sha: 0ae4a1434206af268e5f427f53110b9aa960cd5b
-current_step: TASK-378 observe-validator authority correction is materially implemented and the prior corrective head `e195b14b7ea4661c010e63b117df878908a56c16` passed exact-head Deterministic CI #1032 and Heavy Product Tests #482. TASK-378 has now been marked `completed`, producing new head `0ae4a1434206af268e5f427f53110b9aa960cd5b`; new exact-head gates are required before TASK-375 or any READY handoff.
+observed_main_sha: b695a94cac7bcd84fcc2f8ff3310daa471ab9a8c
+active_branch: package/P17-PACKAGE-02-INTEGRATION-REVIEW-01
+active_pr: 449
+active_head_sha: b431e122fd49d097dfcbdd36c484d6fc8f7a1d29
+current_step: Package Integration & Review is materialized on PR #449 after Construction B and the post-B fresh-main revalidation were integrated. Exact-head Deterministic CI #1039 and Heavy Product Tests #490 are currently in progress; do not merge until both PASS on this exact head and no head/main drift or review blocker exists.
 
 ## Conformance state
-- PR #447 is integrated on fresh main `b30a0ac34783fc5e762f7ab4d05be488afa9f85c`; never repeat Construction B Planning & Materialization.
-- TASK-373 and TASK-374 are already executed on PR #446.
-- TASK-378 closes the material TASK-374 conformance gap: observe knowledge-enforcement validation is internal to the boundary; no caller-supplied normalizer/validator is accepted; malformed refs/outcomes, duplicate evidence and payload/content fail closed; architecture gate `observe-knowledge-enforcement-validation-must-not-be-caller-injected` covers bad/good fixtures.
-- Prior corrective head `e195b14...` passed Deterministic CI #1032 and Heavy #482.
-- TASK-378 is now `completed` at exact head `0ae4a1434206af268e5f427f53110b9aa960cd5b`.
-- No workflows were associated with `0ae4a143...` at the final checkpoint; do not execute TASK-375 until both Deterministic CI and Heavy Product Tests pass on this exact head and no head/main drift or blockers exist.
-- PR #446 remains OPEN / DRAFT / MERGEABLE.
-- Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 17.3 remains FORECAST / NOT MATERIALIZED.
+- PR #446 is integrated as `63b21e45f7cc68bc9b89d835bc4ee8f4afeb556e`; TASK-373..377 and bounded TASK-378 are complete and must not be repeated.
+- TASK-376 passed Deterministic CI #1035 / Heavy Product Tests #485 on `3e994d9e7e7af120137da150efa424adcf6cf874`.
+- TASK-377 completed the integrated growing proof/Sprint Report on `e261338ff5b98112620149a305dc703e4dcb6811`; final Deterministic CI #1037 / Heavy Product Tests #487 PASS.
+- Post-Construction-B fresh-main revalidation PR #448 passed Deterministic CI #1038 / Heavy Product Tests #489 and is integrated on main `b695a94cac7bcd84fcc2f8ff3310daa471ab9a8c`, tree `725911dfb02c73108cb699b59ed636a40561559d`.
+- WBS 17.2.1–17.2.3 is SATISFIED / INTEGRATED by evidence; Construction C `P17-KNOWLEDGE-ENFORCEMENT-HARDENING-01` is NOT REQUIRED / NOT MATERIALIZED.
+- PR #449 is the only current Package gate. It is OPEN / non-draft / MERGEABLE on head `b431e122fd49d097dfcbdd36c484d6fc8f7a1d29`.
+- WBS 17.3 remains FORECAST / NOT MATERIALIZED. No unrelated finding/TD absorption, Decision Boundary public-contract change or inferred L4 is authorized.
 
-last_completed_step: marked TASK-378 completed after its material corrective implementation passed exact-head CI #1032 / Heavy #482 on the prior head.
-next_authorized_step: revalidate exact-head Deterministic CI + Heavy Product Tests for `0ae4a1434206af268e5f427f53110b9aa960cd5b`. If both PASS and no drift/blocker exists, clear CORRECTION_PENDING and execute only TASK-375, then 376 -> 377 serially by declared gates. Do not integrate PR #446 before TASK-375..377 and final Sprint gates are complete.
+last_completed_step: integrated post-Construction-B fresh-main revalidation and materialized Package Integration & Review PR #449 on fresh main.
+next_authorized_step: revalidate exact-head Deterministic CI #1039 + Heavy Product Tests #490 for `b431e122fd49d097dfcbdd36c484d6fc8f7a1d29`, plus review threads/head-main drift. If both PASS and clean, merge PR #449 with expected-head protection, reconstruct fresh main, prove reviewed-head -> merge-main tree equivalence, then execute only Documentation & Closure for P17-PACKAGE-02. Do not execute WBS 17.3 before Package 02 is canonically CLOSED and a separate fresh-main successor Planning & Materialization gate is derived.
 
 ## Boundaries
-No repeat Construction B Planning & Materialization; no recreation of TASK-373..377; no caller-injected observe validator; no WBS 17.3; no Construction C materialization absent evidence-based fresh-main gate; no finding/TD absorption; no inferred L4 or Decision Boundary public-contract change.
+Do not repeat TASK-378, TASK-375, TASK-376, TASK-377, Construction B Planning & Materialization, Construction A, or post-B revalidation. No WBS 17.3 execution; no Construction C materialization; no unrelated finding/TD absorption; no inferred L4 or Decision Boundary public-contract change.
 
 ## resume_prompt
-Resume `delmacy/system-builder` from main `b30a0ac34783fc5e762f7ab4d05be488afa9f85c`, draft PR #446 branch `sprint/P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01`, exact head `0ae4a1434206af268e5f427f53110b9aa960cd5b`. PR #447 is integrated and Planning must not be repeated. TASK-378 material correction passed CI #1032 / Heavy #482 on prior head `e195b14...` and is now marked completed at `0ae4a143...`; require fresh exact-head CI + Heavy on `0ae4a143...` before clearing CORRECTION_PENDING or executing TASK-375. Then continue 375 -> 376 -> 377 serially. Construction C stays optional/unmaterialized and WBS 17.3 forecast/unmaterialized; do not absorb unrelated findings/TDs or infer L4.
+Resume `delmacy/system-builder` from fresh main `b695a94cac7bcd84fcc2f8ff3310daa471ab9a8c` (tree `725911dfb02c73108cb699b59ed636a40561559d`) at Package Integration & Review PR #449, branch `package/P17-PACKAGE-02-INTEGRATION-REVIEW-01`, exact head `b431e122fd49d097dfcbdd36c484d6fc8f7a1d29`. Construction B PR #446 and post-B revalidation PR #448 are integrated; TASK-373..378 must not be repeated. Construction C is NOT REQUIRED / NOT MATERIALIZED. Revalidate exact-head Deterministic CI #1039 and Heavy Product Tests #490 plus reviews/drift; if PASS and clean, merge #449 with expected-head protection, prove tree equivalence on fresh main, then execute Documentation & Closure only. WBS 17.3 remains FORECAST / NOT MATERIALIZED until P17-PACKAGE-02 is canonically CLOSED and separate successor authority is derived.
