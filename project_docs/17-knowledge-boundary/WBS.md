@@ -8,12 +8,12 @@ Status: CLOSED via `P17-PACKAGE-01 — Knowledge Classification & Use Policy Fou
 - **17.1.3** Registrar purpose/use restrictions relevantes. — CLOSED / CORRECTED + CONSUMER-INTEGRATED
 
 ### 17.2 Enforcement
-Status: PACKAGE 02 PLANNING + CONSTRUCTION A+B INTEGRATED / POST-B REVALIDATION.
-- **17.2.1** Aplicar isolamento em catalogs, telemetry e AI Gateway. — SATISFIED / INTEGRATED across representative catalog, Observe and AI Gateway paths
-- **17.2.2** Impedir promotion de conteúdo proprietário não autorizado. — SATISFIED / INTEGRATED with fail-closed cross-consumer bypass proof; eligibility is not approval
-- **17.2.3** Preservar referências sem expor payload sensível. — SATISFIED / INTEGRATED with payload-minimal reference projection and malformed/payload injection rejection
+Status: PACKAGE 02 DOCUMENTATION & CLOSURE CANDIDATE.
+- **17.2.1** Aplicar isolamento em catalogs, telemetry e AI Gateway. — SATISFIED / INTEGRATED
+- **17.2.2** Impedir promotion de conteúdo proprietário não autorizado. — SATISFIED / INTEGRATED; eligibility is not approval
+- **17.2.3** Preservar referências sem expor payload sensível. — SATISFIED / INTEGRATED; payload/content injection fails closed
 
-Construction B `P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01` integrated via PR #446. Its bounded TASK-378 correction removed caller-injected Observe validation authority before TASK-375..377 completed. Fresh-main evidence found no residual bounded WBS 17.2 gap; Construction C is NOT REQUIRED / NOT MATERIALIZED subject to integration of the post-B revalidation record.
+Construction A+B and post-B revalidation are integrated. TASK-378 correction removed caller-injected Observe validation authority. Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review is INTEGRATED with GO FOR DOCUMENTATION & CLOSURE. Canonical CLOSED status follows exact-head closure gates, merge and fresh-main repository-memory reconciliation.
 
 ### 17.3 Promotion control
 Status: FORECAST / NOT MATERIALIZED.
