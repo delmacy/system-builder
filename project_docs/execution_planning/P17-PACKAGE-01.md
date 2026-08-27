@@ -1,6 +1,6 @@
 # P17-PACKAGE-01 — Knowledge Classification & Use Policy Foundation
 
-Status: ACTIVE / CONSTRUCTION B MATERIALIZED / NOT EXECUTED
+Status: ACTIVE / CONSTRUCTION B INTEGRATED / POST-CONSTRUCTION REVALIDATION
 Date: 2026-08-27
 Milestone: M17 Knowledge Boundary
 WBS coverage: 17.1.1–17.1.3
@@ -11,25 +11,22 @@ Establish explicit, portable and provider-neutral knowledge classification contr
 ## Predecessor / readiness
 - Construction A PR #428 integrated the WBS 17.1 contract surface.
 - TASK-362 corrected the human-authority conformance gap via PR #432 using canonical M15 `verifyDecisionBoundary(... expectedCategory: "human-decision")`, requiring `decisionActorRef === authorityRef` and rejecting deterministic/probabilistic substitution.
-- PR #432 passed Deterministic CI #990 and Heavy Product Tests #435 and integrated as `9a14c7bed8a45f5ff5a4fd39515aa3e9cef6581d`.
-- Post-correction repository-memory reconciliation PR #433 passed Deterministic CI #991 and Heavy Product Tests #436 and integrated as `eecc9e758ab05e9b753ebafc9dc3f7c49af73089`, with reviewed head and merge-main on the same tree `9c1eb3f783c327f7da86fde8d8bf8a7ad30df618`.
-- Fresh-main inspection confirms the corrected classification contract is not consumed outside contracts/tests, leaving a bounded WBS 17.1 representative consumer-integration gap.
+- Construction B PR #435 integrated the representative consumer paths as main `ed8f394114711793b170f18bd9ddda7abf9cb11e` after final exact-head Deterministic CI #1000 PASS and Heavy Product Tests #446 PASS.
+- The pre-TASK-364 authority-laundering finding was resolved inside Construction B: payload-minimal classification projections preserve canonical `humanAuthority`, and standalone normalization re-verifies M15 Decision Boundary `human-decision`.
 - WBS 17.2/17.3 remain forecast only.
 
 ## Construction state
 ### Construction A — `P17-KNOWLEDGE-CLASSIFICATION-CONTRACT-01` — CORRECTED / INTEGRATED
 Delivered canonical classification, ownership, purpose/use and manual/assisted decision contracts with explicit M15 human authority.
 
-### Construction B — `P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` — COMMITTED / MATERIALIZED / NOT EXECUTED
-Goal: integrate payload-minimal classification references through representative evidence-facing consumer paths while preserving explicit human authority and proposal-only assisted semantics.
+### Construction B — `P17-KNOWLEDGE-CLASSIFICATION-INTEGRATION-01` — CORRECTED / INTEGRATED
+Delivered payload-minimal classification reference projection, representative manual/assisted evidence-facing consumer paths, authority-laundering correction, and integrated growing proof through TASK-363..366.
 
-Materialized dependency chain: `TASK-363 -> TASK-364 -> TASK-365 -> TASK-366`.
-
-### Construction C — `P17-KNOWLEDGE-CLASSIFICATION-HARDENING-01` — OPTIONAL / FORECAST / NOT MATERIALIZED
-Promote only after Construction B integrates and fresh-main evidence demonstrates a residual bounded WBS 17.1 gap.
+### Construction C — `P17-KNOWLEDGE-CLASSIFICATION-HARDENING-01` — OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED
+Promote only if fresh-main post-Construction-B evidence demonstrates a residual bounded WBS 17.1 gap. The current Sprint Report recommends NOT REQUIRED / NOT MATERIALIZED conditional on fresh-main revalidation.
 
 ## Current gate
-Validate and integrate the Construction B Planning & Materialization head. After fresh-main reconstruction and tree-equivalence, execute TASK-363..366 serially behind declared gates.
+Reconstruct fresh main after PR #435, verify tree equivalence and revalidate the complete Package goal. If no residual bounded WBS 17.1 gap exists, record Construction C as NOT REQUIRED / NOT MATERIALIZED and proceed to Package Integration & Review. Do not repeat Construction B Planning or TASK-363..366.
 
 ## Boundaries / non-goals
 - no WBS 17.2 enforcement;
