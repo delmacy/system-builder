@@ -128,4 +128,30 @@ export function normalizeKnowledgeClassificationDecision(input: unknown) {
 `);
     assert.deepEqual(analyzeArchitecture(root), []);
   });
+
+  it("rejects caller-injected normalizers on observe knowledge enforcement boundaries", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-architecture-"));
+    const directory = join(root, "packages/observe");
+    mkdirSync(directory, { recursive: true });
+    writeFileSync(join(directory, "bad-knowledge-observe.ts"), `
+export type KnowledgeEnforcementEnvelopeNormalizer = (value: unknown) => unknown;
+export function projectKnowledgeEnforcementForObservation(value: unknown, normalizeEnvelope: KnowledgeEnforcementEnvelopeNormalizer) {
+  return normalizeEnvelope(value);
+}
+`);
+    assert.ok(analyzeArchitecture(root).some((item) => item.rule === "observe-knowledge-enforcement-validation-must-not-be-caller-injected"));
+  });
+
+  it("allows observe knowledge enforcement boundaries with internal fail-closed validation", () => {
+    const root = mkdtempSync(join(tmpdir(), "sb-architecture-"));
+    const directory = join(root, "packages/observe");
+    mkdirSync(directory, { recursive: true });
+    writeFileSync(join(directory, "good-knowledge-observe.ts"), `
+function normalizeObserveKnowledgeEnforcementEnvelope(value: unknown) { return value; }
+export function projectKnowledgeEnforcementForObservation(value: unknown) {
+  return normalizeObserveKnowledgeEnforcementEnvelope(value);
+}
+`);
+    assert.deepEqual(analyzeArchitecture(root), []);
+  });
 });
