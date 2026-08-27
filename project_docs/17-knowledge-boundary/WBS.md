@@ -10,12 +10,12 @@ Status: CLOSED via `P17-PACKAGE-01 — Knowledge Classification & Use Policy Fou
 Canonical closure reconciliation PR #439 passed exact-head Deterministic CI #1004 / Heavy Product Tests #451 and integrated as `8a8c748ec7261e65eed6b0c86d5c31dce5624643`; reviewed-head and merge-main share tree `a9e0441380c8e96d0aa493b0fb020ea8728b0af5` exactly.
 
 ### 17.2 Enforcement
-Status: PLANNING & MATERIALIZATION CANDIDATE via `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement`.
+Status: PLANNING & MATERIALIZATION INTEGRATED via `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` / PR #441 on main `a749d8b837beb621387d50561c7541de6fc4f741`.
 - **17.2.1** Aplicar isolamento em catalogs, telemetry e AI Gateway.
 - **17.2.2** Impedir promotion de conteúdo proprietário não autorizado.
 - **17.2.3** Preservar referências sem expor payload sensível.
 
-Construction A `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-367..372. Construction B remains FORECAST / NOT MATERIALIZED. Construction C remains OPTIONAL / FORECAST and evidence-gated.
+Construction A `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` is COMMITTED / MATERIALIZED / IN EXECUTION with TASK-367..372 on PR #442. Construction B remains FORECAST / NOT MATERIALIZED. Construction C remains OPTIONAL / FORECAST and evidence-gated. Do not repeat Package 02 Planning & Materialization or recreate TASK-367..372.
 
 ### 17.3 Promotion control
 Status: FORECAST / NOT MATERIALIZED.
