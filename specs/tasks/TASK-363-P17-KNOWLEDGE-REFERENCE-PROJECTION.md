@@ -1,7 +1,7 @@
 ---
 id: TASK-363
 title: Define payload-minimal knowledge classification reference projection
-status: ready
+status: completed
 priority: 363
 milestone: M17
 model_tier: architecture
