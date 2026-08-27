@@ -1,7 +1,7 @@
 ---
 id: TASK-345
 title: Define AI data and knowledge boundary descriptor
-status: planned
+status: ready
 priority: 345
 milestone: M16
 model_tier: architecture
