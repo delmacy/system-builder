@@ -250,3 +250,50 @@ export function normalizeAssistedClassificationProposal(value: unknown): Assiste
     evidenceRefs: asCanonicalUniqueStringList(record.evidenceRefs, "evidenceRefs"),
   };
 }
+
+export const KNOWLEDGE_CLASSIFICATION_EVIDENCE_PROJECTION_VERSION = "1.0.0" as const;
+
+export type KnowledgeClassificationEvidenceProjection = Readonly<{
+  contractVersion: typeof KNOWLEDGE_CLASSIFICATION_EVIDENCE_PROJECTION_VERSION;
+  knowledgeClass: KnowledgeClass;
+  ownerRef: string;
+  purposeIds: readonly string[];
+  decisionRef: string;
+  proposalRef: string | null;
+  evidenceRefs: readonly string[];
+}>;
+
+function assertClassificationEvidenceProjectionVersion(
+  value: unknown,
+): typeof KNOWLEDGE_CLASSIFICATION_EVIDENCE_PROJECTION_VERSION {
+  if (value !== KNOWLEDGE_CLASSIFICATION_EVIDENCE_PROJECTION_VERSION) {
+    throw new Error(`unsupported knowledge classification evidence projection version: ${String(value)}`);
+  }
+  return KNOWLEDGE_CLASSIFICATION_EVIDENCE_PROJECTION_VERSION;
+}
+
+function asNullableReference(value: unknown, field: string): string | null {
+  if (value === null) return null;
+  return asNonEmptyTrimmedString(value, field);
+}
+
+export function normalizeKnowledgeClassificationEvidenceProjection(
+  value: unknown,
+): KnowledgeClassificationEvidenceProjection {
+  const record = asRecord(value, "knowledge classification evidence projection");
+  assertExactFields(
+    record,
+    ["contractVersion", "knowledgeClass", "ownerRef", "purposeIds", "decisionRef", "proposalRef", "evidenceRefs"],
+    "knowledge classification evidence projection",
+  );
+
+  return {
+    contractVersion: assertClassificationEvidenceProjectionVersion(record.contractVersion),
+    knowledgeClass: assertKnowledgeClass(record.knowledgeClass),
+    ownerRef: asNonEmptyTrimmedString(record.ownerRef, "ownerRef"),
+    purposeIds: asCanonicalUniqueStringList(record.purposeIds, "purposeIds"),
+    decisionRef: asNonEmptyTrimmedString(record.decisionRef, "decisionRef"),
+    proposalRef: asNullableReference(record.proposalRef, "proposalRef"),
+    evidenceRefs: asCanonicalUniqueStringList(record.evidenceRefs, "evidenceRefs"),
+  };
+}
