@@ -1,7 +1,7 @@
 ---
 id: TASK-349
 title: Prove and harden Construction A security and observation contracts
-status: verification
+status: completed
 priority: 349
 milestone: M16
 model_tier: architecture
