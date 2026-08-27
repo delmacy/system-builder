@@ -2,10 +2,15 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   AI_GATEWAY_USAGE_OBSERVATION_VERSION,
+  evaluateUsageObservationPermission,
   normalizeModelUsageObservationEnvelope,
 } from "../../packages/contracts/ai-gateway/usage-observation.js";
 
 const policyId = "policy:usage-observation";
+
+function permissionPolicy(permittedMeasurements: readonly ("quality" | "failure" | "cost")[]) {
+  return { policyId, permittedMeasurements } as const;
+}
 
 function baseObservation() {
   return {
@@ -20,22 +25,19 @@ function baseObservation() {
   };
 }
 
-test("usage observation normalizes provider-neutral quality and cost evidence", () => {
+test("usage observation derives provider-neutral measurement permission from explicit policy", () => {
   assert.deepEqual(normalizeModelUsageObservationEnvelope({
-    permissionPolicyId: policyId,
-    permissions: { quality: true, failure: false, cost: true },
+    permissionPolicy: permissionPolicy(["quality", "cost"]),
     observation: baseObservation(),
   }), {
-    permissionPolicyId: policyId,
-    permissions: { quality: true, failure: false, cost: true },
+    permission: { permissionPolicyId: policyId, permittedMeasurements: ["cost", "quality"] },
     observation: { ...baseObservation(), contractVersion: "1.0.0", evidenceRefs: ["evidence:a", "evidence:b"] },
   });
 });
 
-test("usage observation permits explicit failure evidence without requiring a response", () => {
+test("usage observation permits explicit failure evidence only when policy grants failure measurement", () => {
   const normalized = normalizeModelUsageObservationEnvelope({
-    permissionPolicyId: policyId,
-    permissions: { quality: false, failure: true, cost: false },
+    permissionPolicy: permissionPolicy(["failure"]),
     observation: {
       ...baseObservation(),
       responseId: null,
@@ -45,50 +47,61 @@ test("usage observation permits explicit failure evidence without requiring a re
       evidenceRefs: ["evidence:failure"],
     },
   });
+  assert.deepEqual(normalized.permission, { permissionPolicyId: policyId, permittedMeasurements: ["failure"] });
   assert.deepEqual(normalized.observation.failure, { code: "timeout", category: "transport" });
   assert.equal(normalized.observation.responseId, null);
 });
 
-test("denied measurements fail closed", () => {
+test("caller-supplied boolean permission claims are rejected", () => {
   assert.throws(() => normalizeModelUsageObservationEnvelope({
     permissionPolicyId: policyId,
-    permissions: { quality: false, failure: false, cost: true },
+    permissions: { quality: true, failure: true, cost: true },
+    observation: baseObservation(),
+  }), /unexpected field permissionPolicyId|missing field permissionPolicy/);
+});
+
+test("measurements not granted by policy fail closed", () => {
+  assert.throws(() => normalizeModelUsageObservationEnvelope({
+    permissionPolicy: permissionPolicy(["cost"]),
     observation: baseObservation(),
   }), /quality observation must be null/);
   assert.throws(() => normalizeModelUsageObservationEnvelope({
-    permissionPolicyId: policyId,
-    permissions: { quality: true, failure: false, cost: false },
+    permissionPolicy: permissionPolicy(["quality"]),
     observation: baseObservation(),
   }), /cost observation must be null/);
 });
 
+test("permission policy is canonical, bounded and fail-closed", () => {
+  assert.deepEqual(evaluateUsageObservationPermission(permissionPolicy(["quality", "cost"])), {
+    permissionPolicyId: policyId,
+    permittedMeasurements: ["cost", "quality"],
+  });
+  assert.throws(() => evaluateUsageObservationPermission({ policyId, permittedMeasurements: ["quality", "quality"] }), /must not contain duplicates/);
+  assert.throws(() => evaluateUsageObservationPermission({ policyId, permittedMeasurements: ["quality", "billing"] }), /unsupported measurement/);
+});
+
 test("malformed and non-canonical observation material fails closed", () => {
   assert.throws(() => normalizeModelUsageObservationEnvelope({
-    permissionPolicyId: policyId,
-    permissions: { quality: true, failure: false, cost: true },
+    permissionPolicy: permissionPolicy(["quality", "cost"]),
     observation: { ...baseObservation(), cost: { amount: -1, unit: "usd" } },
   }), /finite and non-negative/);
   assert.throws(() => normalizeModelUsageObservationEnvelope({
-    permissionPolicyId: policyId,
-    permissions: { quality: true, failure: false, cost: true },
+    permissionPolicy: permissionPolicy(["quality", "cost"]),
     observation: { ...baseObservation(), evidenceRefs: ["evidence:a", "evidence:a"] },
   }), /must not contain duplicates/);
   assert.throws(() => normalizeModelUsageObservationEnvelope({
-    permissionPolicyId: policyId,
-    permissions: { quality: true, failure: false, cost: true },
+    permissionPolicy: permissionPolicy(["quality", "cost"]),
     observation: { ...baseObservation(), providerPayload: { opaque: "forbidden" } },
   }), /unexpected field providerPayload/);
   assert.throws(() => normalizeModelUsageObservationEnvelope({
-    permissionPolicyId: policyId,
-    permissions: { quality: true, failure: false, cost: true },
+    permissionPolicy: permissionPolicy(["quality", "cost"]),
     observation: { ...baseObservation(), credential: "forbidden" },
   }), /unexpected field credential/);
 });
 
 test("usage observation does not become audit authority, approval, authorization or storage policy", () => {
   const normalized = normalizeModelUsageObservationEnvelope({
-    permissionPolicyId: policyId,
-    permissions: { quality: true, failure: false, cost: true },
+    permissionPolicy: permissionPolicy(["quality", "cost"]),
     observation: baseObservation(),
   });
   for (const forbidden of ["approved", "authorized", "authority", "auditTrail", "providerId", "backend", "storage", "billing"]) {
