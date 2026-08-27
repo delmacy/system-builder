@@ -1,7 +1,7 @@
 ---
 id: TASK-373
 title: Integrate knowledge enforcement into representative catalog admission
-status: ready
+status: completed
 priority: 373
 milestone: M17
 model_tier: architecture
