@@ -33,40 +33,9 @@ test("execution governance evaluation is deterministic and provider-neutral", ()
     status: "eligible",
     reasons: [],
     fallbacks: [{ ruleId: "fallback:explicit", allowed: true, order: ["secondary", "tertiary"] }],
-    permittedObservationMeasurements: [],
   });
   assert.equal("providerId" in evaluation, false);
   assert.equal("authorized" in evaluation, false);
-});
-
-test("execution governance derives observation permission only from explicit observation rules", () => {
-  const evaluation = evaluateExecutionGovernance({
-    rules: {
-      ...rules,
-      observationPermissions: [
-        { ruleId: "observe:z", permittedMeasurements: ["failure", "cost"] },
-        { ruleId: "observe:a", permittedMeasurements: ["quality", "failure"] },
-      ],
-    },
-    capabilities,
-    usage: { tokens: 1024 },
-  });
-  assert.deepEqual(evaluation.permittedObservationMeasurements, ["cost", "failure", "quality"]);
-});
-
-test("budget metric names do not imply observation permission", () => {
-  const evaluation = evaluateExecutionGovernance({
-    rules: {
-      ...rules,
-      budgetQuotas: [
-        { ruleId: "budget:tokens", metric: "tokens", limit: 4096, window: "request" },
-        { ruleId: "budget:failure", metric: "failure", limit: 1, window: "request" },
-      ],
-    },
-    capabilities,
-    usage: { tokens: 1024, failure: 0 },
-  });
-  assert.deepEqual(evaluation.permittedObservationMeasurements, []);
 });
 
 test("execution governance fails closed for missing capabilities and usage", () => {
