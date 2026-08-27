@@ -1,7 +1,7 @@
 ---
 id: TASK-359
 title: Define assisted classification proposal boundary
-status: ready
+status: completed
 priority: 359
 milestone: M17
 model_tier: architecture

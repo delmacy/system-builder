@@ -1,7 +1,7 @@
 ---
 id: TASK-360
 title: Define payload-minimal classification evidence projection
-status: ready
+status: completed
 priority: 360
 milestone: M17
 model_tier: architecture

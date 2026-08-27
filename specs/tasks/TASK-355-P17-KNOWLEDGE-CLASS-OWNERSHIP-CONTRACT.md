@@ -1,7 +1,7 @@
 ---
 id: TASK-355
 title: Define canonical knowledge class and ownership descriptor
-status: ready
+status: completed
 priority: 355
 milestone: M17
 model_tier: architecture
