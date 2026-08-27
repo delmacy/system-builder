@@ -16,9 +16,9 @@ Status: CLOSED via `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforceme
 Construction A+B, bounded TASK-378 correction, post-B revalidation, Package Integration & Review and Documentation & Closure are integrated. Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
 ### 17.3 Promotion control
-Status: FORECAST / NOT MATERIALIZED.
-- **17.3.1** Anonimizar/generalizar candidatos quando permitido.
-- **17.3.2** Submeter candidato a revisão e testes de genericidade.
-- **17.3.3** Registrar decisão de promotion/rejection e provenance.
+Status: PLANNING & MATERIALIZATION CANDIDATE via `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance`.
+- **17.3.1** Anonimizar/generalizar candidatos quando permitido. — Construction A contract materialized / NOT EXECUTED
+- **17.3.2** Submeter candidato a revisão e testes de genericidade. — Construction A contract materialized / NOT EXECUTED
+- **17.3.3** Registrar decisão de promotion/rejection e provenance. — Construction A contract materialized / NOT EXECUTED
 
-Do not infer WBS 17.3 authority from WBS 17.2 completion. Forecast is not execution authority.
+Only Construction A TASK-379..384 is materialized by the planning candidate. Construction B remains FORECAST / NOT MATERIALIZED; Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. Promotion eligibility, transformation or genericity evidence is never approval; canonical human authority remains required for promotion/rejection decision recording.
