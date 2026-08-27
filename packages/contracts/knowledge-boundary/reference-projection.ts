@@ -84,6 +84,10 @@ function normalizeProjectionHumanAuthority(input: Readonly<{
   proposalRef: string | null;
 }>): KnowledgeHumanDecisionAuthority {
   const authorityRecord = asRecord(input.humanAuthority, "humanAuthority");
+  const descriptorRecord = asRecord(authorityRecord.descriptor, "humanAuthority.descriptor");
+  if (descriptorRecord.category !== "human-decision") {
+    throw new Error("classification decision requires Decision Boundary category human-decision");
+  }
   const metadataRecord = asRecord(authorityRecord.metadata, "humanAuthority.metadata");
   const decisionActorRef = asNonEmptyTrimmedString(metadataRecord.authorityRef, "humanAuthority.metadata.authorityRef");
   const common = {
