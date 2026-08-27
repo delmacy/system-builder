@@ -1,7 +1,7 @@
 ---
 id: TASK-378
 title: Remove caller authority over observe knowledge enforcement validation
-status: verification
+status: completed
 priority: 378
 milestone: M17
 model_tier: architecture
