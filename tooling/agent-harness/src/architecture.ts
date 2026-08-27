@@ -83,6 +83,7 @@ export function analyzeArchitecture(root = process.cwd()): ArchitectureViolation
       }
     }
     violations.push(...semanticPermissionViolations(repositoryPath, source));
+    violations.push(...semanticHumanAuthorityViolations(repositoryPath, source));
   }
   for (const cycle of packageCycles(packageGraph)) {
     violations.push({ file: `packages/${cycle[0]}`, rule: "no-circular-package-dependencies", importPath: cycle.join(" -> ") });
@@ -123,6 +124,20 @@ function semanticPermissionViolations(repositoryPath: string, source: string): A
   }
 
   return violations;
+}
+
+function semanticHumanAuthorityViolations(repositoryPath: string, source: string): ArchitectureViolation[] {
+  if (!repositoryPath.startsWith("packages/contracts/knowledge-boundary/")) return [];
+  const exposesClassificationDecisionActor = /\bKnowledgeClassificationDecision\b[\s\S]{0,1400}\bdecisionActorRef\s*:\s*string\b/.test(source);
+  if (!exposesClassificationDecisionActor) return [];
+  const usesCanonicalDecisionBoundaryVerification = /\bverifyDecisionBoundary\b/.test(source)
+    && /expectedCategory\s*:\s*["']human-decision["']/.test(source);
+  if (usesCanonicalDecisionBoundaryVerification) return [];
+  return [{
+    file: repositoryPath,
+    rule: "knowledge-classification-human-authority-must-use-decision-boundary",
+    importPath: "decisionActorRef-without-human-decision-boundary-verification",
+  }];
 }
 
 function sourceFiles(root: string): string[] {
