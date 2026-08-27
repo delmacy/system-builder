@@ -1,7 +1,7 @@
 ---
 id: TASK-362
 title: Bind knowledge classification decisions to canonical human authority
-status: running
+status: verification
 priority: 362
 milestone: M17
 model_tier: architecture
@@ -40,7 +40,7 @@ validation:
 Correct the Construction A authority gap where a non-empty `decisionActorRef` could satisfy the Knowledge Boundary final classification record without canonical proof that the decision belongs to the existing Decision Boundary `human-decision` category.
 
 # Context
-TASK-357 and TASK-361 require assisted/probabilistic proposals to remain non-authoritative until an explicit human decision exists. The current normalizer validates only the presence of `decisionActorRef`/`decisionRef`; therefore `model:*` or another arbitrary actor reference can be accepted as a final decision. M15 already provides the canonical Decision Boundary distinction and `verifyDecisionBoundary(... expectedCategory: "human-decision")`; this correction must consume that authority rather than invent a new actor-prefix convention.
+TASK-357 and TASK-361 require assisted/probabilistic proposals to remain non-authoritative until an explicit human decision exists. The prior normalizer validated only the presence of `decisionActorRef`/`decisionRef`; therefore `model:*` or another arbitrary actor reference could be accepted as a final decision. M15 already provides the canonical Decision Boundary distinction and `verifyDecisionBoundary(... expectedCategory: "human-decision")`; this correction consumes that authority rather than inventing a new actor-prefix convention.
 
 # Required change
 Require every manual or assisted `KnowledgeClassificationDecision` to carry explicit Decision Boundary input sufficient for `verifyDecisionBoundary` to validate the decision as `human-decision`. Normalize that proof through the existing Decision Boundary API, fail closed unless verification returns `valid` with category `human-decision`, and require `decisionActorRef` to match the resulting authority reference. Assisted mode must still require a distinct `proposalRef`; proposal confidence/model data remains non-authoritative.
