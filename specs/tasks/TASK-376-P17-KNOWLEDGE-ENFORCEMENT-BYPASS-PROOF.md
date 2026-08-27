@@ -1,7 +1,7 @@
 ---
 id: TASK-376
 title: Prove cross-consumer knowledge enforcement bypass resistance
-status: ready
+status: completed
 priority: 376
 milestone: M17
 model_tier: architecture
