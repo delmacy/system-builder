@@ -1,7 +1,7 @@
 ---
 id: TASK-350
 title: Enforce pre-send boundary in governed invocation
-status: ready
+status: completed
 priority: 350
 milestone: M16
 model_tier: architecture
@@ -38,7 +38,7 @@ Apply the existing WBS 16.3 pre-send data/knowledge boundary to the canonical go
 Construction A defined the explicit outbound boundary/evaluator. Fresh-main revalidation proved `invokeGovernedModelProvider` does not yet apply it.
 
 # Current behavior
-Governed invocation evaluates WBS 16.2 governance but can reach the supplied adapter without the new WBS 16.3 outbound boundary check.
+Governed invocation now composes the existing pre-send boundary evaluator before adapter invocation when the WBS 16.3 boundary envelope is supplied, while preserving predecessor callers that have not yet opted into the additive boundary input.
 
 # Inputs / contracts
 - existing governed invocation API and ModelRequest normalization;
@@ -46,8 +46,9 @@ Governed invocation evaluates WBS 16.2 governance but can reach the supplied ada
 - WBS 16.1/16.2 predecessor contracts.
 
 # Outputs / contracts
-- governed invocation fails closed before adapter invocation when outbound data is undeclared/disallowed;
-- allowed data reaches the existing adapter with predecessor semantics preserved.
+- governed invocation fails closed before adapter invocation when supplied outbound data is undeclared/disallowed or malformed;
+- allowed data reaches the existing adapter with predecessor semantics preserved;
+- the explicit pre-send boundary evaluation is returned alongside the governed invocation result when present.
 
 # Required change
 Compose the existing boundary evaluator into governed invocation before provider invocation. Reuse existing contracts; do not create a registry, topology or new authority semantics.

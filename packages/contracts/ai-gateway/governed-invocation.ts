@@ -13,6 +13,10 @@ import {
   evaluateExecutionGovernance,
   type ExecutionGovernanceEvaluation,
 } from "./governance-evaluation.js";
+import {
+  evaluatePreSendBoundary,
+  type PreSendBoundaryEvaluation,
+} from "./pre-send-boundary-evaluation.js";
 
 export type GovernedModelInvocationInput = Readonly<{
   request: unknown;
@@ -21,6 +25,10 @@ export type GovernedModelInvocationInput = Readonly<{
   usage: unknown;
   structuredOutputSchema: unknown;
   executionMetadata?: unknown;
+  preSendBoundary?: Readonly<{
+    boundary: unknown;
+    evidence: unknown;
+  }>;
 }>;
 
 export type GovernedModelInvocationResult = Readonly<{
@@ -28,11 +36,18 @@ export type GovernedModelInvocationResult = Readonly<{
   governance: ExecutionGovernanceEvaluation;
   structuredOutput: StructuredOutputValidationResult;
   executionMetadata: ModelExecutionMetadataEnvelope | null;
+  preSendBoundary: PreSendBoundaryEvaluation | null;
 }>;
 
 function describeIneligibleEvaluation(evaluation: ExecutionGovernanceEvaluation): string {
   return evaluation.reasons
     .map((reason) => `${reason.ruleId}:${reason.code}:${reason.subject}`)
+    .join(",");
+}
+
+function describeBoundaryEvaluation(evaluation: PreSendBoundaryEvaluation): string {
+  return evaluation.reasons
+    .map((reason) => `${reason.code}:${reason.subject}`)
     .join(",");
 }
 
@@ -50,6 +65,13 @@ export async function invokeGovernedModelProvider(
     throw new Error(`execution governance is ineligible: ${describeIneligibleEvaluation(governance)}`);
   }
 
+  const preSendBoundary = input.preSendBoundary === undefined
+    ? null
+    : evaluatePreSendBoundary(input.preSendBoundary);
+  if (preSendBoundary !== null && preSendBoundary.status !== "allowed") {
+    throw new Error(`pre-send boundary is ${preSendBoundary.status}: ${describeBoundaryEvaluation(preSendBoundary)}`);
+  }
+
   const executionMetadata = input.executionMetadata === undefined
     ? null
     : normalizeModelExecutionMetadataEnvelope(input.executionMetadata);
@@ -65,5 +87,6 @@ export async function invokeGovernedModelProvider(
     governance,
     structuredOutput,
     executionMetadata,
+    preSendBoundary,
   };
 }
