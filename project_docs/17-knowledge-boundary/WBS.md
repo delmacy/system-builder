@@ -8,12 +8,12 @@ Status: CLOSED via `P17-PACKAGE-01 — Knowledge Classification & Use Policy Fou
 - **17.1.3** Registrar purpose/use restrictions relevantes. — CLOSED / CORRECTED + CONSUMER-INTEGRATED
 
 ### 17.2 Enforcement
-Status: PACKAGE 02 PLANNING INTEGRATED / CONSTRUCTION A INTEGRATED / CONSTRUCTION B COMMITTED + MATERIALIZED NOT EXECUTED.
-- **17.2.1** Aplicar isolamento em catalogs, telemetry e AI Gateway. — CONTRACT FOUNDATION INTEGRATED; CONSTRUCTION B MATERIALIZED
-- **17.2.2** Impedir promotion de conteúdo proprietário não autorizado. — CONTRACT GUARD INTEGRATED; CROSS-CONSUMER BYPASS PROOF MATERIALIZED
-- **17.2.3** Preservar referências sem expor payload sensível. — CONTRACT/PROJECTION INTEGRATED; CONSUMER PROPAGATION MATERIALIZED
+Status: PACKAGE 02 PLANNING + CONSTRUCTION A+B INTEGRATED / POST-B REVALIDATION.
+- **17.2.1** Aplicar isolamento em catalogs, telemetry e AI Gateway. — SATISFIED / INTEGRATED across representative catalog, Observe and AI Gateway paths
+- **17.2.2** Impedir promotion de conteúdo proprietário não autorizado. — SATISFIED / INTEGRATED with fail-closed cross-consumer bypass proof; eligibility is not approval
+- **17.2.3** Preservar referências sem expor payload sensível. — SATISFIED / INTEGRATED with payload-minimal reference projection and malformed/payload injection rejection
 
-Construction B `P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01` contains TASK-373..377 and may execute only after its Planning & Materialization PR integrates. Construction C remains OPTIONAL / FORECAST.
+Construction B `P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01` integrated via PR #446. Its bounded TASK-378 correction removed caller-injected Observe validation authority before TASK-375..377 completed. Fresh-main evidence found no residual bounded WBS 17.2 gap; Construction C is NOT REQUIRED / NOT MATERIALIZED subject to integration of the post-B revalidation record.
 
 ### 17.3 Promotion control
 Status: FORECAST / NOT MATERIALIZED.
@@ -21,4 +21,4 @@ Status: FORECAST / NOT MATERIALIZED.
 - **17.3.2** Submeter candidato a revisão e testes de genericidade.
 - **17.3.3** Registrar decisão de promotion/rejection e provenance.
 
-Do not infer WBS 17.3 authority from WBS 17.2 execution. Forecast is not execution authority.
+Do not infer WBS 17.3 authority from WBS 17.2 completion. Forecast is not execution authority.

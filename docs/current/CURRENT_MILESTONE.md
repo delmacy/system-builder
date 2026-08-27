@@ -3,12 +3,12 @@
 ## Package state
 `P17-PACKAGE-01` / WBS 17.1 is CLOSED. `P17-PACKAGE-02` / WBS 17.2 Planning is INTEGRATED.
 
-Construction A `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` is INTEGRATED via PR #442. Fresh-main revalidation #444 confirmed the bounded consumer integration gap.
+Construction A `P17-KNOWLEDGE-ENFORCEMENT-CONTRACT-01` is INTEGRATED via PR #442. Construction B `P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01` is INTEGRATED via PR #446 on main `63b21e45f7cc68bc9b89d835bc4ee8f4afeb556e`.
 
-Construction B `P17-KNOWLEDGE-ENFORCEMENT-INTEGRATION-01` Planning & Materialization is INTEGRATED on main `fd3c0de341f4706777ae808d74c205f9be5897d8`. TASK-373..377 are COMMITTED / MATERIALIZED / NOT EXECUTED with dependency chain `373 -> 374 -> 375 -> 376 -> 377`. Execution may start only from fresh main containing that planning state; do not repeat Planning & Materialization or recreate the TASKs.
+TASK-378 resolved the material Observe validator-authority finding before successor execution. TASK-375 integrated P17 enforcement into governed AI invocation, TASK-376 proved cross-consumer bypass resistance, and TASK-377 closed the integrated growing proof/report. Final exact-head gates for the reviewed Construction B head passed: Deterministic CI #1037 and Heavy Product Tests #487.
 
-Construction C `P17-KNOWLEDGE-ENFORCEMENT-HARDENING-01` remains OPTIONAL / FORECAST / NOT MATERIALIZED and is evidence-gated after Construction B integration.
+Fresh-main post-Construction-B evidence finds no bounded residual WBS 17.2 gap necessary to satisfy the Package Goal. Construction C `P17-KNOWLEDGE-ENFORCEMENT-HARDENING-01` is NOT REQUIRED / NOT MATERIALIZED, pending integration of this revalidation record.
 
-The current repository-memory handoff is CORRECTION_PENDING until the post-Planning reconciliation is integrated and fresh-main revalidated.
+After that gate, the next eligible stage is Package Integration & Review for `P17-PACKAGE-02`, not WBS 17.3 execution.
 
 WBS 17.3 remains FORECAST / NOT MATERIALIZED. No automatic promotion/reuse authority, Decision Boundary public-contract change, sensitive payload/provider credential carriage, unrelated finding/TD absorption or undeclared L4.
