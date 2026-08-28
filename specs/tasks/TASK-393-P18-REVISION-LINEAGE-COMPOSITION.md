@@ -35,6 +35,21 @@ validation:
 # Objective
 Compose WBS 18.1 identity, immutable-publication and lifecycle truth into deterministic revision lineage validation.
 
+# Context
+Construction A requires a bounded composition of the identity, publication and lifecycle contracts from TASK-390..392 before the integrated WBS 18.1 proof can close the Sprint.
+
+# Current behavior
+TASK-390..392 define the predecessor contracts independently; deterministic validation that composes them into one bounded same-artifact revision lineage is not yet implemented.
+
+# Inputs / contracts
+- TASK-390 stable artifact and immutable revision identity;
+- TASK-391 immutable publication guard;
+- TASK-392 lifecycle and supersession descriptors;
+- `P18-PACKAGE-01` / Construction A boundaries and WBS 18.1 authority.
+
+# Outputs / contracts
+A payload-minimal deterministic lineage composition/validator and product evidence that preserve same-artifact identity, immutable publication evidence and non-contradictory lifecycle relationships across revisions.
+
 # Required change
 Provide a payload-minimal composition/validator proving revisions belong to the same stable artifact identity, immutable publication evidence remains consistent and supersession/lifecycle references form a non-contradictory bounded lineage.
 
