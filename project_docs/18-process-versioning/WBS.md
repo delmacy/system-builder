@@ -8,12 +8,12 @@
 
 Evidence: P18-PACKAGE-01 Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01`, Construction B `P18-PROCESS-VERSION-IDENTITY-INTEGRATION-01`, post-B revalidation, Package Integration & Review and Documentation & Closure. Final canonical CLOSED-state reconciliation merged as fresh main `e205683422907edf8c27f99c01aab317cca3f66c`.
 
-### 18.2 Mudança semântica — ACTIVE PLANNING / CONSTRUCTION A MATERIALIZED NOT EXECUTED
+### 18.2 Mudança semântica — ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B MATERIALIZED NOT EXECUTED
 - **18.2.1** Calcular/representar diff de processos/regras.
 - **18.2.2** Classificar breaking/non-breaking quando aplicável.
 - **18.2.3** Registrar reason/approval/evidence da mudança.
 
-Planning authority: `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence`. Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` / TASK-399..403 is materialized but may not execute before Planning exact-head gates, integration and fresh-main revalidation.
+Planning authority: `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence`. Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` / TASK-399..403 is INTEGRATED through PR #480. Post-A reconciliation integrated on fresh main `db48bda8c2451cdfb054b4b506cb1b1851f597db`. Construction B `P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01` / TASK-404..408 is COMMITTED / MATERIALIZED / NOT EXECUTED and remains gated on Planning exact-head Deterministic CI + Heavy Product Tests, expected-head integration and fresh-main revalidation before TASK-404 executes.
 
 ### 18.3 Linha processo→sistema — FORECAST / NOT MATERIALIZED
 - **18.3.1** Ligar Recipe versions a Analysis/Definition.
