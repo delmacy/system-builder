@@ -1,8 +1,11 @@
 # P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01 — Sprint Report
 
-Status: SPRINT REVIEW
+Status: INTEGRATED
 Package: P18-PACKAGE-02
 Scope: WBS 18.2.1–18.2.3 only
+Integrated PR: #480
+Reviewed head: `be894a9de39d4683655546c10f11a670cd0888d4`
+Integrated main: `c0ef497eb4753a4aaebf3cdfc96739588dd83eab`
 
 ## Delivered
 
@@ -27,20 +30,13 @@ The integrated proof exercises a valid same-artifact rev-1 -> rev-2 change throu
 
 ## Validation evidence
 
-Predecessor lifecycle head `17eb7ce9d065783c60c0b80f4cc4a5e3f862870b` passed:
-- Deterministic CI #1138 — PASS
-- Heavy Product Tests #601 — PASS
+Predecessor lifecycle head `17eb7ce9d065783c60c0b80f4cc4a5e3f862870b` passed Deterministic CI #1138 and Heavy Product Tests #601.
+TASK-403 implementation head `dd92c70d487856844202dabca3576415889f79be` passed Deterministic CI #1139 and Heavy Product Tests #602.
+TASK-403 lifecycle head `3f97c7600ca046da49783bdd885ac21ebff1d3fa` passed Deterministic CI #1140 and Heavy Product Tests #603.
+Sprint Review head `be894a9de39d4683655546c10f11a670cd0888d4` passed Deterministic CI #1141 and Heavy Product Tests #604 with no blocking review threads, then integrated through PR #480 with expected-head protection as `c0ef497eb4753a4aaebf3cdfc96739588dd83eab`.
 
-TASK-403 implementation head `dd92c70d487856844202dabca3576415889f79be` passed:
-- Deterministic CI #1139 — PASS
-- Heavy Product Tests #602 — PASS
-
-TASK-403 lifecycle head `3f97c7600ca046da49783bdd885ac21ebff1d3fa` passed:
-- Deterministic CI #1140 — PASS
-- Heavy Product Tests #603 — PASS
-
-All TASK-399..403 lifecycle states are completed. Declared validations and repository exact-head gates have passed through the completed lifecycle head. This report-only Sprint Review head requires its own exact-head Deterministic CI + Heavy Product Tests before integration.
+All TASK-399..403 lifecycle states are completed and the Construction A outcome is integrated.
 
 ## Sprint Review disposition
 
-READY FOR EXACT-HEAD REVIEW GATES. No scope expansion, WBS 18.3 semantics, Decision Boundary modification, Git/PR/model/classification business authority, unrelated findings/TDs, or inferred L4 were introduced.
+APPROVED / INTEGRATED. Fresh-main successor work must be separately re-derived; Construction B is not materialized by this report.

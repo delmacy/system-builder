@@ -9,11 +9,13 @@ M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is
 
 Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-## M18 Process Versioning — P18-PACKAGE-02 PLANNING / CONSTRUCTION A MATERIALIZED NOT EXECUTED
+## M18 Process Versioning — P18-PACKAGE-02 ACTIVE / CONSTRUCTION A INTEGRATED
 `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` / WBS 18.1.1–18.1.3 is canonically CLOSED on fresh main `e205683422907edf8c27f99c01aab317cca3f66c`.
 
-Fresh-main successor planning derives `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence`, bounded exclusively to WBS 18.2.1–18.2.3. Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` / TASK-399..403 is MATERIALIZED / NOT EXECUTED and requires exact-head Deterministic CI + Heavy Product Tests on the Planning head, protected integration and fresh-main revalidation before TASK-399 may execute.
+`P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` is bounded exclusively to WBS 18.2.1–18.2.3. Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` / TASK-399..403 completed and integrated through PR #480. Exact Sprint Review head `be894a9de39d4683655546c10f11a670cd0888d4` passed Deterministic CI #1141 and Heavy Product Tests #604 and merged with expected-head protection as fresh main `c0ef497eb4753a4aaebf3cdfc96739588dd83eab`.
 
-Construction B remains FORECAST / NOT MATERIALIZED and Construction C OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.3 process→system lineage remains FORECAST / NOT MATERIALIZED.
+Fresh-main post-A revalidation confirms the public semantic-change contract and growing proof are integrated while no representative consumer seam yet composes the canonical predecessor/diff/classification/rationale/human-decision chain. Therefore Construction B `P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01` remains required by the Package cadence and is JUSTIFIED / NOT MATERIALIZED. It requires a separate Planning & Materialization gate before execution.
+
+Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.3 process→system lineage remains FORECAST / NOT MATERIALIZED.
 
 Diff/classification evidence is not approval authority. Process-change approval/rejection must be domain truth backed by canonical `human-decision`; ADR-0010 engineering PR approval is not business process-change approval. No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 is authorized.
