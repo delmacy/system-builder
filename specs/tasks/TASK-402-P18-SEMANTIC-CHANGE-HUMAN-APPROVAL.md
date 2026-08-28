@@ -1,7 +1,7 @@
 ---
 id: TASK-402
 title: Define human-authoritative process change approval decision
-status: verification
+status: completed
 priority: 402
 milestone: M18
 model_tier: architecture
