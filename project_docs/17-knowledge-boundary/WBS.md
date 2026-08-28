@@ -16,9 +16,11 @@ Status: CLOSED via `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforceme
 Construction A+B, bounded TASK-378 correction, post-B revalidation, Package Integration & Review and Documentation & Closure are integrated. Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
 ### 17.3 Promotion control
-Status: ACTIVE via `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance`; Package Planning and Construction A are INTEGRATED; Construction B is COMMITTED / MATERIALIZED / NOT EXECUTED pending its Planning gate integration.
-- **17.3.1** Anonimizar/generalizar candidatos quando permitido. — CONTRACT/PROOF INTEGRATED; CONSUMER PRE-ADMISSION MATERIALIZED
-- **17.3.2** Submeter candidato a revisão e testes de genericidade. — CONTRACT/PROOF INTEGRATED; CATALOG REVIEW/ADMISSION INTEGRATION MATERIALIZED
-- **17.3.3** Registrar decisão de promotion/rejection e provenance. — CONTRACT/PROOF INTEGRATED; CATALOG + OBSERVE CONSUMER INTEGRATION MATERIALIZED
+Status: SATISFIED / INTEGRATED / DOCUMENTATION & CLOSURE FINAL GATE PENDING via `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance`.
+- **17.3.1** Anonimizar/generalizar candidatos quando permitido. — SATISFIED / INTEGRATED
+- **17.3.2** Submeter candidato a revisão e testes de genericidade. — SATISFIED / INTEGRATED; genericity evidence is not approval
+- **17.3.3** Registrar decisão de promotion/rejection e provenance. — SATISFIED / INTEGRATED; final authority is canonical M15 `human-decision`
 
-Construction A TASK-379..384 is integrated. Construction B `P17-KNOWLEDGE-PROMOTION-INTEGRATION-01` contains TASK-385..389 and may execute only after its Planning & Materialization PR integrates. Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. Promotion eligibility, transformation or genericity evidence is never approval; canonical M15 `human-decision` authority remains required for promotion/rejection decision recording and admission.
+Construction A TASK-379..384 and Construction B TASK-385..389 are integrated. Construction C is NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review PR #462 merged as `105dda4ecb9522358675a76c4c4d001d53aa07d3` after CI #1080 / Heavy #534 PASS and GO for Documentation & Closure. The final closure candidate must pass exact-head gates and merge without tree drift before WBS 17.3 is marked canonically CLOSED.
+
+Promotion eligibility, review readiness, transformation or genericity evidence is never approval; deterministic/probabilistic/model evidence cannot substitute for human promotion authority; rejection remains observable as rejection; payload/content and caller-validator injection fail closed.
