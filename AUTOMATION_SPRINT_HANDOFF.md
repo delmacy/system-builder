@@ -1,30 +1,35 @@
 # Automation Sprint Handoff
 
-status: RUNNING
-worker_slot: :50
-started_at: 2026-08-28T03:50:30-03:00
-updated_at: 2026-08-28T03:50:30-03:00
-lease_until: 2026-08-28T04:15:30-03:00
-observed_main_sha: d316a18e24944d9b58e92f4fe06684bc4894b524
-active_branch: pending
-active_pr: pending
-active_head_sha: d316a18e24944d9b58e92f4fe06684bc4894b524
-current_step: Fresh-main post-P17-PACKAGE-03 canonical closure revalidation. PR #465 is merged after exact-head CI #1083 / Heavy #537 PASS and tree-equivalent merge. Repository memory still contains residual pre-merge wording in CURRENT_MILESTONE/NEXT_WORK; bounded reconciliation is required before successor Package Planning.
+status: READY
+worker_slot: none
+started_at: null
+updated_at: 2026-08-28T03:58:30-03:00
+lease_until: null
+observed_main_sha: d7f812502895780d383a2f35c73a11b41453d33c
+active_branch: planning/P18-package-01-process-version-identity
+active_pr: 468
+active_head_sha: 65dc1909350886e482921f1a5544822ddecf48df
+current_step: P18-PACKAGE-01 Planning & Materialization exact-head gates are running. Do not merge or execute TASK-390 until both gates pass on the same head without drift.
 
 ## Authorization
-User authorized the next three eligible Work Packages sequentially with all process approvals L1-L3 within materialized scope. P17-PACKAGE-03 is Package 1 of 3 and is canonically CLOSED after PR #465. Package 2 may be derived only after bounded post-merge repository-memory reconciliation is integrated and fresh-main authority is re-read. No unrelated findings/TD absorption or inferred L4.
+User authorized the next three eligible Work Packages sequentially with all process approvals L1-L3 within materialized scope. P17-PACKAGE-03 is Package 1 of 3 and canonically CLOSED. Fresh-main authority has now derived Package 2 as P18-PACKAGE-01 / WBS 18.1.1–18.1.3. Package 3 must not be derived until Package 2 canonically closes. No unrelated findings/TD absorption or inferred L4.
 
 ## Completed this round
-- revalidated PR #465 merged at main `d316a18e24944d9b58e92f4fe06684bc4894b524`;
-- confirmed PR #465 exact-head Deterministic CI #1083 PASS / Heavy Product Tests #537 PASS;
-- proved reviewed head `2e932c7d7e41a978f774ba555181c2f1e4fe4484` -> merge-main has zero file differences and identical tree `185a7c82b45bcb4e42a0eec68eb2398c903aa63c`;
-- fresh-main reading found PROJECT_STATE correctly CLOSED but CURRENT_MILESTONE/NEXT_WORK retain residual language treating #465 reconciliation as pending.
+- revalidated PR #465 exact-head CI #1083 / Heavy #537 PASS and canonical P17 closure;
+- created bounded post-closure memory PR #467 head `4e9aa1d09873ed412a3d9678545f189b34a3f910`;
+- PR #467 passed exact-head Deterministic CI #1085 / Heavy Product Tests #539, had zero review threads and merged protected as `d7f812502895780d383a2f35c73a11b41453d33c`;
+- proved #467 reviewed-head -> merge-main has zero file differences;
+- fresh-main WBS/scope selected M18 Process Versioning; WBS 18.1.1–18.1.3 is the first eligible bounded package scope;
+- materialized `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` and Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` only;
+- materialized TASK-390..394 with dependency chain TASK-390 -> TASK-391/TASK-392 -> TASK-393 -> TASK-394;
+- opened PR #468 on exact head `65dc1909350886e482921f1a5544822ddecf48df`;
+- PR #468 is mergeable; Deterministic CI #1086 and Heavy Product Tests #540 are IN PROGRESS.
 
-last_completed_step: P17-PACKAGE-03 canonical closure integrated and tree-equivalent; bounded post-merge memory residual identified.
-next_authorized_step: create bounded fresh-main reconciliation changing repository memory only; exact-head CI + Heavy; protected merge; fresh-main revalidation; then derive Package 2 through separate Planning & Materialization.
+last_completed_step: Package 2 Planning & Materialization is materialized in PR #468 and exact-head gates are running.
+next_authorized_step: require CI #1086 + Heavy #540 PASS on `65dc1909350886e482921f1a5544822ddecf48df`, no head drift/blocker, then protected merge #468; reconstruct fresh main and prove tree equivalence; only then execute TASK-390 serially.
 
 ## Boundaries
-No successor scope preselection. No P17 repeat. No Construction C. No Decision Boundary public-contract change, sensitive payload/content carriage, unrelated findings/TD-P13-01..04 absorption, storage/topology redesign, or undeclared L4.
+Construction B remains FORECAST / NOT MATERIALIZED. Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2 and 18.3 remain FORECAST / NOT MATERIALIZED. No Git-as-business-version authority, P17 reopening, Decision Boundary change, semantic-diff/breaking classification, process→system/release lineage, unrelated findings/TD-P13-01..04 absorption, storage/topology redesign or undeclared L4.
 
 ## resume_prompt
-Retome `delmacy/system-builder` de fresh main `d316a18e24944d9b58e92f4fe06684bc4894b524`. PR #465 is merged and passed CI #1083 / Heavy #537; reviewed-head -> merge-main has zero file differences and tree `185a7c82b45bcb4e42a0eec68eb2398c903aa63c`. P17-PACKAGE-03 is Package 1 of 3 and canonically CLOSED. Fresh-main repository memory has a bounded residual: CURRENT_MILESTONE and NEXT_WORK still describe #465 canonical reconciliation as pending. Reconcile memory only, gate/merge/revalidate, then derive Package 2 solely from fresh-main authority. No findings/TDs or inferred L4.
+Retome `delmacy/system-builder` serializadamente de fresh main `d7f812502895780d383a2f35c73a11b41453d33c`. P17-PACKAGE-03 (Package 1 of 3) is canonically CLOSED. Bounded post-closure reconciliation PR #467 head `4e9aa1d09873ed412a3d9678545f189b34a3f910` passed CI #1085 / Heavy #539 and merged as fresh main with zero file differences. Fresh-main authority selected M18 Process Versioning and bounded Package 2 to `P18-PACKAGE-01` / WBS 18.1.1–18.1.3. Planning PR #468 head `65dc1909350886e482921f1a5544822ddecf48df` materializes only Construction A TASK-390..394; CI #1086 / Heavy #540 are running. Do not execute TASK-390 or materialize Construction B before #468 passes exact-head gates, protected merge and fresh-main tree/repository-memory revalidation. WBS 18.2/18.3 remain forecast. No findings/TDs or inferred L4.
