@@ -2,8 +2,10 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   PROCESS_VERSION_IDENTITY_VERSION,
+  guardImmutablePublishedRevision,
   normalizeProcessArtifactIdentity,
   normalizeProcessRevisionIdentity,
+  normalizeProcessRevisionPublicationEvidence,
 } from "../../packages/contracts/process-versioning/index.js";
 
 test("process version identity keeps stable artifact and immutable revision identities distinct", () => {
@@ -89,5 +91,91 @@ test("Git metadata cannot replace canonical business identity fields", () => {
       previousRevisionRef: null,
     }),
     /unexpected field gitSha|missing field artifactRef/,
+  );
+});
+
+test("published revision guard recognizes identical publication deterministically as idempotent", () => {
+  const publication = {
+    contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+    artifactRef: "process:orders",
+    revisionRef: "process:orders@2",
+    revisionNumber: 2,
+    previousRevisionRef: "process:orders@1",
+    immutableContentRef: "sha256:orders-v2",
+  } as const;
+
+  assert.deepEqual(
+    normalizeProcessRevisionPublicationEvidence(publication),
+    normalizeProcessRevisionPublicationEvidence({ ...publication }),
+  );
+  assert.deepEqual(guardImmutablePublishedRevision(publication, { ...publication }), {
+    status: "idempotent",
+    revisionRef: "process:orders@2",
+    immutableContentRef: "sha256:orders-v2",
+  });
+});
+
+test("published revision guard rejects conflicting immutable content overwrite", () => {
+  const published = {
+    contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+    artifactRef: "process:orders",
+    revisionRef: "process:orders@2",
+    revisionNumber: 2,
+    previousRevisionRef: "process:orders@1",
+    immutableContentRef: "sha256:orders-v2",
+  } as const;
+
+  assert.throws(
+    () => guardImmutablePublishedRevision(published, {
+      ...published,
+      immutableContentRef: "sha256:mutated-orders-v2",
+    }),
+    /overwrite conflict on immutableContentRef/,
+  );
+});
+
+test("published revision guard rejects conflicting immutable revision identity", () => {
+  const published = {
+    contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+    artifactRef: "process:orders",
+    revisionRef: "process:orders@2",
+    revisionNumber: 2,
+    previousRevisionRef: "process:orders@1",
+    immutableContentRef: "sha256:orders-v2",
+  } as const;
+
+  assert.throws(
+    () => guardImmutablePublishedRevision(published, {
+      ...published,
+      previousRevisionRef: "process:orders@0",
+    }),
+    /overwrite conflict on previousRevisionRef/,
+  );
+});
+
+test("publication evidence is payload-minimal and rejects Git or payload injection", () => {
+  assert.throws(
+    () => normalizeProcessRevisionPublicationEvidence({
+      contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+      artifactRef: "process:orders",
+      revisionRef: "process:orders@1",
+      revisionNumber: 1,
+      previousRevisionRef: null,
+      immutableContentRef: "sha256:orders-v1",
+      gitSha: "abc123",
+    }),
+    /unexpected field gitSha/,
+  );
+  assert.throws(
+    () => normalizeProcessRevisionPublicationEvidence({
+      contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+      artifactRef: "process:orders",
+      revisionRef: "process:orders@1",
+      revisionNumber: 1,
+      previousRevisionRef: null,
+      immutableContentRef: "sha256:orders-v1",
+      payload: { secret: true },
+    }),
+    /unexpected field payload/,
   );
 });

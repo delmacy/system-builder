@@ -13,6 +13,21 @@ export type ProcessRevisionIdentity = Readonly<{
   previousRevisionRef: string | null;
 }>;
 
+export type ProcessRevisionPublicationEvidence = Readonly<{
+  contractVersion: typeof PROCESS_VERSION_IDENTITY_VERSION;
+  artifactRef: string;
+  revisionRef: string;
+  revisionNumber: number;
+  previousRevisionRef: string | null;
+  immutableContentRef: string;
+}>;
+
+export type PublishedRevisionGuardResult = Readonly<{
+  status: "idempotent";
+  revisionRef: string;
+  immutableContentRef: string;
+}>;
+
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -84,5 +99,60 @@ export function normalizeProcessRevisionIdentity(input: unknown): ProcessRevisio
     revisionRef,
     revisionNumber: record.revisionNumber as number,
     previousRevisionRef,
+  });
+}
+
+export function normalizeProcessRevisionPublicationEvidence(
+  input: unknown,
+): ProcessRevisionPublicationEvidence {
+  const record = asRecord(input, "process revision publication evidence");
+  assertExactFields(
+    record,
+    [
+      "contractVersion",
+      "artifactRef",
+      "revisionRef",
+      "revisionNumber",
+      "previousRevisionRef",
+      "immutableContentRef",
+    ],
+    "process revision publication evidence",
+  );
+  const revision = normalizeProcessRevisionIdentity({
+    contractVersion: record.contractVersion,
+    artifactRef: record.artifactRef,
+    revisionRef: record.revisionRef,
+    revisionNumber: record.revisionNumber,
+    previousRevisionRef: record.previousRevisionRef,
+  });
+  return Object.freeze({
+    ...revision,
+    immutableContentRef: nonEmpty(record.immutableContentRef, "immutableContentRef"),
+  });
+}
+
+export function guardImmutablePublishedRevision(
+  published: unknown,
+  attempted: unknown,
+): PublishedRevisionGuardResult {
+  const canonicalPublished = normalizeProcessRevisionPublicationEvidence(published);
+  const canonicalAttempted = normalizeProcessRevisionPublicationEvidence(attempted);
+  const immutableFields: readonly (keyof ProcessRevisionPublicationEvidence)[] = [
+    "contractVersion",
+    "artifactRef",
+    "revisionRef",
+    "revisionNumber",
+    "previousRevisionRef",
+    "immutableContentRef",
+  ];
+  for (const field of immutableFields) {
+    if (canonicalPublished[field] !== canonicalAttempted[field]) {
+      throw new Error(`published revision overwrite conflict on ${field}`);
+    }
+  }
+  return Object.freeze({
+    status: "idempotent",
+    revisionRef: canonicalPublished.revisionRef,
+    immutableContentRef: canonicalPublished.immutableContentRef,
   });
 }
