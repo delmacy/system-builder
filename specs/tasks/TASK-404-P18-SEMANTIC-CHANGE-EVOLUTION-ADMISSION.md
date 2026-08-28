@@ -38,8 +38,20 @@ validation:
 # Objective
 Add an additive representative consumer seam in Support/Evolution that admits canonical WBS 18.1/18.2 semantic-change evidence without changing existing `EvolutionRequestEvidence` behavior.
 
+# Context
+Construction A is integrated. Construction B must consume the public process-versioning and process-change contracts through the existing Support/Evolution module as the representative consumer while preserving current package boundaries.
+
+# Current behavior
+`EvolutionRequestEvidence` already carries reference-only change/reason evidence, but there is no bounded consumer seam that admits the canonical WBS 18.1/18.2 semantic-change evidence as one validated unit.
+
 # Required change
 Introduce a focused helper/API under `packages/support-evolution/**` that consumes public process-versioning/process-change contracts, validates the canonical revision/change inputs, and returns deterministic reference-only consumer evidence. Existing EvolutionRequest creation/validation/serialization must remain backward-compatible.
+
+# Inputs / contracts
+Public WBS 18.1 process-versioning contracts, public WBS 18.2 process-change contracts, and existing Support/Evolution evidence types only. Canonical contract implementations remain read-only for this TASK.
+
+# Outputs / contracts
+An additive Support/Evolution helper/API and reference-only consumer evidence shape whose truth is derived from canonical contracts rather than reimplemented locally.
 
 # Acceptance criteria
 - consumes public canonical contracts rather than reimplementing semantic truth;
@@ -50,6 +62,9 @@ Introduce a focused helper/API under `packages/support-evolution/**` that consum
 
 # Non-goals
 No release/deploy/compiler/runtime integration, no process→system lineage, no migration semantics, no replacement of existing EvolutionRequest evidence.
+
+# Evidence expected
+Product tests proving valid canonical admission plus fail-closed malformed/unknown/injected inputs, with existing EvolutionRequest behavior remaining backward-compatible.
 
 # Escalation
 Stop if implementation requires modifying canonical process-change/process-versioning contracts or Decision Boundary semantics.
