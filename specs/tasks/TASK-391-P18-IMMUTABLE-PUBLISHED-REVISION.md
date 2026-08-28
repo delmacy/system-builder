@@ -34,6 +34,20 @@ validation:
 # Objective
 Implement WBS 18.1.2 as a deterministic contract-level guard preventing conflicting overwrite of an already published business revision.
 
+# Context
+WBS 18.1 requires immutable revision truth to build on the stable artifact/revision identity established by TASK-390 without selecting persistence topology or using Git as business-version authority.
+
+# Current behavior
+TASK-390 provides the predecessor identity contract; a deterministic publication guard for recognizing identical publication versus conflicting replacement is not yet implemented.
+
+# Inputs / contracts
+- TASK-390 stable artifact and immutable revision identity contract;
+- `P18-PACKAGE-01` and `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` boundaries;
+- WBS 18.1.2 immutable published revision requirement.
+
+# Outputs / contracts
+A deterministic contract-level publication identity/content-identity guard and product evidence that distinguish idempotent identical publication from conflicting overwrite without mutating storage.
+
 # Required change
 Represent publication identity/content identity evidence sufficient to make identical publication idempotent and conflicting replacement fail closed, without selecting a persistence engine.
 
