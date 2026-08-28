@@ -2,13 +2,16 @@
 
 Date: 2026-08-28
 
-M13, M14, M15 and M16 are CLOSED. PRE-M16 Contract Conformance Hardening is CLOSED. `P16-PACKAGE-01`, `P16-PACKAGE-02` and `P16-PACKAGE-03` are CLOSED. TD-P13-01..04 remain carried unchanged.
+M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is CLOSED. `P16-PACKAGE-01`, `P16-PACKAGE-02`, `P16-PACKAGE-03`, `P17-PACKAGE-01`, `P17-PACKAGE-02` and `P17-PACKAGE-03` are CLOSED. TD-P13-01..04 remain carried unchanged.
 
-## M17 Knowledge Boundary
-`P17-PACKAGE-01` / WBS 17.1 is CLOSED. `P17-PACKAGE-02` / WBS 17.2 is CLOSED. `P17-PACKAGE-03` / WBS 17.3 is CLOSED.
+## M17 Knowledge Boundary — CLOSED
+`P17-PACKAGE-03` canonical closure PR #465 merged as `d316a18e24944d9b58e92f4fe06684bc4894b524` after Deterministic CI #1083 / Heavy Product Tests #537 PASS with exact reviewed/merge tree `185a7c82b45bcb4e42a0eec68eb2398c903aa63c`. Bounded post-closure memory reconciliation PR #467 then integrated on fresh main `d7f812502895780d383a2f35c73a11b41453d33c` after Deterministic CI #1085 / Heavy Product Tests #539 PASS and zero reviewed-head -> merge-main file differences.
 
-For `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance`, Planning, Construction A and Construction B are integrated; Construction C was NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review PR #462 merged as `105dda4ecb9522358675a76c4c4d001d53aa07d3` after Deterministic CI #1080 / Heavy Product Tests #534 PASS. Documentation & Closure PR #463 head `2ae7ea8ece63b04cca1512f3d5f022cab9d7de84` passed Deterministic CI #1081 / Heavy Product Tests #535 and merged as `bad2e5f51f0df058113ad94390f58ffeede01a1b`; closure-head and merge-main share tree `1ece342e09ca282285d4a54fce85d3d72f800e93` exactly.
+Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-M17 Knowledge Boundary is complete. The next eligible Work Package must be derived by a separate fresh-main Planning & Materialization gate; this closure reconciliation does not select or materialize successor scope.
+## M18 Process Versioning — ACTIVE PLANNING
+Fresh-main WBS/scope authority selects `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation`, bounded to WBS 18.1.1–18.1.3. Planning & Materialization defines Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` with TASK-390..394.
 
-Canonical M15 `human-decision` remains final promotion/rejection authority. Eligibility, review readiness, transformation/genericity/model output remains non-authoritative. No Decision Boundary public-contract change, unrelated finding/TD absorption, sensitive payload carriage or undeclared L4 occurred.
+Construction B is FORECAST / NOT MATERIALIZED. Construction C is OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2 semantic change and WBS 18.3 process→system lineage remain FORECAST / NOT MATERIALIZED.
+
+No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 is authorized.

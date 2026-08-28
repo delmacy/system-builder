@@ -1,14 +1,14 @@
-# Next Work — Fresh-main successor Planning
+# Next Work — P18 Package 01 Planning & Materialization
 
-`P17-PACKAGE-03 — Knowledge Promotion Control & Provenance` / WBS 17.3.1–17.3.3 is canonically CLOSED. Documentation & Closure PR #463 head `2ae7ea8ece63b04cca1512f3d5f022cab9d7de84` passed Deterministic CI #1081 / Heavy Product Tests #535 and merged as `bad2e5f51f0df058113ad94390f58ffeede01a1b`. Mechanical canonical CLOSED-state reconciliation PR #465 head `2e932c7d7e41a978f774ba555181c2f1e4fe4484` passed Deterministic CI #1083 / Heavy Product Tests #537 and merged as `d316a18e24944d9b58e92f4fe06684bc4894b524` with exact tree equivalence `185a7c82b45bcb4e42a0eec68eb2398c903aa63c`.
+Fresh main `d7f812502895780d383a2f35c73a11b41453d33c` confirms M17 CLOSED and selects M18 Process Versioning through repository WBS/scope authority. The first eligible bounded Work Package is `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation`, covering only WBS 18.1.1–18.1.3.
 
-## Required next action
-1. complete and integrate this bounded post-merge repository-memory reconciliation with exact-head Deterministic CI + Heavy Product Tests and no blocking review finding;
-2. reconstruct fresh `main` and prove reconciliation-head -> merge-main tree equivalence;
-3. re-read repository authority from fresh main, including roadmap/WBS/scope and scheduling policy;
-4. derive the next eligible Work Package only through a separate Planning & Materialization gate;
-5. materialize only the first eligible Construction Sprint for that Package, unless repository policy explicitly authorizes otherwise.
+## Current gate
+Integrate this Planning & Materialization state only after exact-head Deterministic CI + Heavy Product Tests pass and no blocking review finding exists. Then reconstruct fresh main and prove planning-head -> merge-main tree equivalence before executing Construction A.
 
-The user has authorized three sequential Work Packages. `P17-PACKAGE-03` is Package 1 of that mission and is CLOSED. Package 2 may be derived only after this bounded post-merge memory reconciliation integrates and fresh-main authority is revalidated.
+## Next authorized execution after planning integration
+Execute `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` serially:
+TASK-390 -> TASK-391/TASK-392 -> TASK-393 -> TASK-394, respecting each task's dependencies, allowed/forbidden paths, max_files and validations.
 
-Do not repeat P17 Planning/Construction/Review/Closure, materialize P17 Construction C, alter M15 `human-decision`/Decision Boundary, absorb unrelated findings/TDs, carry sensitive payload, preselect successor scope, or infer L4.
+Construction B remains FORECAST / NOT MATERIALIZED and may be promoted only after Construction A integrates plus fresh-main revalidation. Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2 and 18.3 remain FORECAST / NOT MATERIALIZED.
+
+`P18-PACKAGE-01` is Package 2 of the user's three-package sequential authorization. Do not reopen P17, calculate semantic diff/breaking classification, create WBS 18.3 lineage, use Git commit as sole business version authority, absorb unrelated findings/TDs or infer L4.
