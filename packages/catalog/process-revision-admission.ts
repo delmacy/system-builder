@@ -4,6 +4,7 @@ import {
   normalizeProcessRevisionIdentity,
   normalizeProcessRevisionLifecycleDescriptor,
   normalizeProcessRevisionPublicationEvidence,
+  validateProcessRevisionLineage,
   type ProcessRevisionLifecycleState,
 } from "@system-builder/contracts/process-versioning";
 
@@ -33,6 +34,19 @@ export type CatalogProcessRevisionReadmission = Readonly<{
   revisionRef: string;
   immutableContentRef: string;
   admission: CatalogProcessRevisionAdmission;
+}>;
+
+export type CatalogProcessRevisionLineageProjectionEntry = Readonly<{
+  revisionRef: string;
+  revisionNumber: number;
+  previousRevisionRef: string | null;
+  lifecycleState: ProcessRevisionLifecycleState;
+  supersedesRevisionRef: string | null;
+}>;
+
+export type CatalogProcessRevisionLineageProjection = Readonly<{
+  artifactRef: string;
+  revisions: readonly CatalogProcessRevisionLineageProjectionEntry[];
 }>;
 
 type UnknownRecord = Record<string, unknown>;
@@ -118,5 +132,39 @@ export function readmitCatalogProcessRevision(
     revisionRef: immutable.revisionRef,
     immutableContentRef: immutable.immutableContentRef,
     admission: attemptedAdmission,
+  });
+}
+
+export function projectCatalogProcessRevisionLineage(
+  input: readonly CatalogProcessRevisionAdmissionInput[],
+): CatalogProcessRevisionLineageProjection {
+  const lineage = validateProcessRevisionLineage(
+    input.map((entry) => ({ publication: entry.publication, lifecycle: entry.lifecycle })),
+  );
+  const admissions = input
+    .map((entry) => admitCatalogProcessRevision(entry))
+    .sort((left, right) => left.revisionNumber - right.revisionNumber);
+
+  const revisionRefs = admissions.map((entry) => entry.revisionRef);
+  if (
+    revisionRefs.length !== lineage.revisionRefs.length ||
+    revisionRefs.some((revisionRef, index) => revisionRef !== lineage.revisionRefs[index])
+  ) {
+    throw new Error("catalog process revision lineage projection conflicts with canonical lineage order");
+  }
+
+  return Object.freeze({
+    artifactRef: lineage.artifactRef,
+    revisions: Object.freeze(
+      admissions.map((entry) =>
+        Object.freeze({
+          revisionRef: entry.revisionRef,
+          revisionNumber: entry.revisionNumber,
+          previousRevisionRef: entry.previousRevisionRef,
+          lifecycleState: entry.lifecycleState,
+          supersedesRevisionRef: entry.supersedesRevisionRef,
+        }),
+      ),
+    ),
   });
 }
