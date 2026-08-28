@@ -1,7 +1,7 @@
 ---
 id: TASK-406
 title: Enforce human process-change authority in evolution integration
-status: verification
+status: completed
 priority: 406
 milestone: M18
 model_tier: architecture
