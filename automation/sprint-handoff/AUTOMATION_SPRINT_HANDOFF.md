@@ -3,29 +3,31 @@
 status: READY
 worker_slot: :50
 started_at: null
-updated_at: 2026-08-28T03:23:00-03:00
+updated_at: 2026-08-28T05:52:00-03:00
 lease_until: null
-observed_main_sha: bad2e5f51f0df058113ad94390f58ffeede01a1b
-active_branch: closure/P17-PACKAGE-03-canonical-closed
-active_pr: 465
-active_head_sha: 2e932c7d7e41a978f774ba555181c2f1e4fe4484
-current_step: Mechanical canonical CLOSED-state reconciliation for P17-PACKAGE-03 / WBS 17.3 is materialized in PR #465 on exact head 2e932c7d7e41a978f774ba555181c2f1e4fe4484. Deterministic CI #1083 and Heavy Product Tests #537 are in progress. Do not derive successor Package 2 until both pass without head drift, PR #465 has no blocker, expected-head merge succeeds, and fresh-main tree equivalence/repository-memory revalidation confirms canonical closure.
+observed_main_sha: 54f8dc598e9d7cc7ad80db7a9e5444632fe731d2
+active_branch: sprint/P18-PROCESS-VERSION-IDENTITY-CONTRACT-01
+active_pr: 469
+active_head_sha: 87eadaf5607b78fc1fb74de407b2266af64832a4
+current_step: P18-PACKAGE-01 Construction A TASK-393 is implemented in one authoritative commit 87eadaf5607b78fc1fb74de407b2266af64832a4 after TASK-392 exact-head Deterministic CI #1099 / Heavy Product Tests #553 PASS. TASK-393 exact-head Deterministic CI #1102 and Heavy Product Tests #556 are IN PROGRESS. Do not execute TASK-394, mark Construction A complete, or merge PR #469 until both pass without head drift.
 
 ## Conformance state
-- P17-PACKAGE-03 Planning and Construction A TASK-379..384 are consumed.
-- Construction B TASK-385..389 is integrated via PR #460 / merge 645b573697f2ebf3b4cb34c41c6adb2c9e20b0ee.
-- Construction C is NOT REQUIRED / NOT MATERIALIZED by fresh-main evidence.
-- Package Integration & Review PR #462 reviewed head e0da4df4d7bba43eb7ade31d6d756cdd11fe440f passed CI #1080 / Heavy #534 and merged as 105dda4ecb9522358675a76c4c4d001d53aa07d3.
-- Documentation & Closure PR #463 head 2ae7ea8ece63b04cca1512f3d5f022cab9d7de84 passed CI #1081 / Heavy #535 and merged as bad2e5f51f0df058113ad94390f58ffeede01a1b; head and merge-main share tree 1ece342e09ca282285d4a54fce85d3d72f800e93 exactly.
-- Duplicate stale closure PR #464 was closed without merge after #463 had already consumed that gate.
-- Canonical-close PR #465 changes repository memory only: P17-PACKAGE-03 and WBS 17.3 -> CLOSED; M17 complete; NEXT_WORK -> separate fresh-main successor Planning. No successor scope is selected/materialized.
-- Canonical M15 human-decision and Decision Boundary public contract remain unchanged. TD-P13-01..04 and unrelated findings remain unabsorbed.
+- Authorized triple mission remains active; P17-PACKAGE-03 is Package 1/3 and canonically closed.
+- P18-PACKAGE-01 is Package 2/3, Planning & Materialization integrated on fresh main 54f8dc598e9d7cc7ad80db7a9e5444632fe731d2.
+- Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` is bounded to WBS 18.1.1–18.1.3.
+- TASK-390 `204699e3073db27bd6214079fe2ee7fbc73686c2` is consumed.
+- TASK-391 `e50687bbb0341de97ef259fa25afebe0505181e4` is consumed; exact-head CI #1098 / Heavy #552 PASS.
+- TASK-392 `55551d39f512d2c957a69e3dd6a6d8497a366cb7` is consumed; exact-head CI #1099 / Heavy #553 PASS.
+- TASK-393 `87eadaf5607b78fc1fb74de407b2266af64832a4` composes same-artifact revision identity, immutable publication evidence and lifecycle/supersession into a deterministic payload-minimal lineage validator. It fails closed on cross-artifact composition, forged predecessor links, conflicting immutable evidence, cyclic/contradictory supersession and injected payload/semantic classification. It does not compute semantic diff or infer WBS 18.2 classification.
+- TASK-394 remains NOT EXECUTED and depends on TASK-393 exact-head gates.
+- Construction B remains FORECAST / NOT MATERIALIZED; Construction C OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2/18.3 remain outside current execution.
+- No Git-as-business-version authority, Decision Boundary change, inferred L4 or findings/TD absorption.
 
-last_completed_step: materialized canonical CLOSED-state reconciliation as PR #465 and triggered exact-head Deterministic CI #1083 / Heavy Product Tests #537 on 2e932c7d7e41a978f774ba555181c2f1e4fe4484.
-next_authorized_step: require #1083/#537 PASS on exact head 2e932c7d7e41a978f774ba555181c2f1e4fe4484 with no blocker/head drift; merge PR #465 with expected-head protection; reconstruct fresh main and prove tree equivalence; only then derive Package 2 of the authorized triple mission from fresh-main authority through separate Planning & Materialization.
+last_completed_step: implemented TASK-393 as authoritative commit 87eadaf5607b78fc1fb74de407b2266af64832a4 and triggered exact-head Deterministic CI #1102 / Heavy Product Tests #556.
+next_authorized_step: require #1102/#556 PASS on exact head 87eadaf5607b78fc1fb74de407b2266af64832a4 with no drift; only then execute TASK-394 according to its materialized allowed/forbidden paths and validations; after TASK-394 gates, complete Construction A lifecycle/Sprint Review and merge PR #469 only through declared protected gates.
 
 ## Boundaries
-Do not mix successor Planning into PR #465. Do not repeat Package 03 Planning/Construction/Review/Closure. No automatic promotion/reuse approval, Decision Boundary change, unrelated findings/TD absorption, sensitive payload carriage or inferred L4.
+Do not materialize Construction B before Construction A is reviewed/integrated and fresh-main revalidation authorizes its separate Planning & Materialization gate. Do not execute WBS 18.2/18.3, invent semantic-diff policy, use Git SHA as business version identity, alter Decision Boundary, absorb unrelated findings/TDs, or infer L4.
 
 ## resume_prompt
-Resume delmacy/system-builder from fresh main bad2e5f51f0df058113ad94390f58ffeede01a1b. P17-PACKAGE-03 Documentation & Closure PR #463 is integrated after CI #1081 / Heavy #535 with exact tree equivalence 1ece342e09ca282285d4a54fce85d3d72f800e93. Mechanical canonical-close PR #465 is open at exact head 2e932c7d7e41a978f774ba555181c2f1e4fe4484; Deterministic CI #1083 and Heavy Product Tests #537 are in progress. If both PASS without drift/blockers, expected-head merge #465, fresh-main prove tree equivalence and repository-memory closure. Only after that derive Package 2 of 3 from fresh-main authority. Preserve M15 human-decision/Decision Boundary; no inferred L4 or finding/TD absorption.
+Resume delmacy/system-builder serially as worker :50 from fresh main 54f8dc598e9d7cc7ad80db7a9e5444632fe731d2 and draft PR #469. TASK-390..392 are consumed; TASK-392 head 55551d39f512d2c957a69e3dd6a6d8497a366cb7 passed Deterministic CI #1099 / Heavy #553. TASK-393 is implemented at exact head 87eadaf5607b78fc1fb74de407b2266af64832a4; Deterministic CI #1102 and Heavy Product Tests #556 are in progress. Do not run TASK-394 until both PASS without drift. Then execute TASK-394 only, gate it, and proceed through Construction A review/merge as authorized. Preserve P18-PACKAGE-01 WBS 18.1 bounds; Construction B forecast/not materialized, Construction C optional/forecast/not materialized; no WBS 18.2/18.3, Git-as-business-version authority, inferred L4 or findings/TD absorption.
