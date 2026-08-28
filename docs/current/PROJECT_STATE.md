@@ -9,9 +9,11 @@ M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is
 
 Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-## M18 Process Versioning — CONSTRUCTION A INTEGRATED / POST-A REVALIDATION CONSUMED
-`P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` remains bounded to WBS 18.1.1–18.1.3. Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` / TASK-390..394 integrated through PR #469 on fresh main `22022c6d47291fb9b051a8289c3fbb3849f9010d`. Final lifecycle/report head `ee55b8d4c8df264a84327dc3083fcaf4b7baddeb` passed Deterministic CI #1107 / Heavy Product Tests #561 and reviewed-head -> merge-main has zero changed files.
+## M18 Process Versioning — CONSTRUCTION B MATERIALIZED / NOT EXECUTED
+`P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` remains bounded to WBS 18.1.1–18.1.3. Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` / TASK-390..394 integrated through PR #469 on fresh main `22022c6d47291fb9b051a8289c3fbb3849f9010d` after exact-head gates. Post-A revalidation PR #470 integrated as `afab73048e41d4db88786076c7df0e9d247f1cac`, and its repository-memory consumption PR #472 integrated as fresh main `4b6a9832621512662af9f3b3e96f4ab9a43a7a0c`.
 
-Fresh-main post-Construction-A revalidation was integrated through PR #470 as `afab73048e41d4db88786076c7df0e9d247f1cac`. It confirms the bounded representative-consumer integration gap within WBS 18.1. Construction B is JUSTIFIED but remains NOT MATERIALIZED pending its separate Planning & Materialization gate. Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2 semantic change and WBS 18.3 process→system lineage remain FORECAST / NOT MATERIALIZED.
+From that fresh main, separate Planning & Materialization now defines Construction B `P18-PROCESS-VERSION-IDENTITY-INTEGRATION-01` / TASK-395..398. It is MATERIALIZED but NOT EXECUTED; no TASK may run until the planning head passes exact-head Deterministic CI + Heavy Product Tests, integrates, and fresh main is revalidated.
+
+Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2 semantic change and WBS 18.3 process→system lineage remain FORECAST / NOT MATERIALIZED.
 
 No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 is authorized.
