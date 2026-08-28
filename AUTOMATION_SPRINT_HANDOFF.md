@@ -1,35 +1,33 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: :50
-started_at: 2026-08-27T19:51:43-03:00
-updated_at: 2026-08-27T19:54:30-03:00
-lease_until: 2026-08-27T19:54:30-03:00
-observed_main_sha: 55f04ac98aa023270cf83163f4da06cf38272a5e
-active_branch: none
-active_pr: none
-active_head_sha: 55f04ac98aa023270cf83163f4da06cf38272a5e
-current_step: P17-PACKAGE-02 is canonically CLOSED after post-merge repository-memory reconciliation. WBS 17.3 remains FORECAST / NOT MATERIALIZED.
+status: CORRECTION_PENDING
+worker_slot: :10
+started_at: 2026-08-27T21:09:14-03:00
+updated_at: 2026-08-27T21:14:00-03:00
+lease_until: 2026-08-27T21:14:00-03:00
+observed_main_sha: ddab1e1d51c0d9ec75314aa8b81bff72105b60b5
+active_branch: conformance/P17-package-03-next-work-residual
+active_pr: 455
+active_head_sha: ab1b74ae6beff434eeb80d75aca363ccedcb11c0
+current_step: bounded repository-memory correction after Package 03 Planning integration; TASK-379 execution remains gated until PR #455 is exact-head green and integrated.
 
 ## Authorization
-This run remained limited to `P17-PACKAGE-02 / WBS 17.2.1–17.2.3`. Construction C is NOT REQUIRED / NOT MATERIALIZED. WBS 17.3 is FORECAST / NOT MATERIALIZED and was not started. No unrelated findings/TDs, Decision Boundary public-contract changes, inferred L4, or product behavior were introduced.
+`P17-PACKAGE-03 — Knowledge Promotion Control & Provenance / WBS 17.3.1–17.3.3` Planning & Materialization is already integrated. Construction A `P17-KNOWLEDGE-PROMOTION-CONTRACT-01` / TASK-379..384 is COMMITTED / MATERIALIZED / NOT EXECUTED. Construction B remains FORECAST / NOT MATERIALIZED; Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. No promotion/reuse approval is inferred; canonical M15 `human-decision` authority remains unchanged. No findings/TD absorption or undeclared L4 is authorized.
 
 ## Completed this round
-- revalidated that TASK-376 exact-head gates had already passed: Deterministic CI #1035 PASS / Heavy #485 PASS;
-- confirmed TASK-377 completed at `e261338ff5b98112620149a305dc703e4dcb6811` with final CI #1037 / Heavy #487 PASS;
-- confirmed Construction B PR #446 merged as `63b21e45f7cc68bc9b89d835bc4ee8f4afeb556e`;
-- adopted already-integrated post-B revalidation PR #448 (`b695a94cac7bcd84fcc2f8ff3310daa471ab9a8c`), Construction C NOT REQUIRED;
-- adopted already-integrated Package Integration & Review PR #449 (`eb875006c16bacb8883910d2c6674f89b029c204`), GO for Documentation & Closure;
-- confirmed Documentation & Closure had advanced to post-merge reconciliation PR #451;
-- PR #451 exact head `f909c4783c28ea48d941d0125ea1fe65028f84ea` passed Deterministic CI #1041 and Heavy Product Tests #492, with zero review threads;
-- merged PR #451 protected by exact head as `55f04ac98aa023270cf83163f4da06cf38272a5e`;
-- verified reviewed head and merge-main share identical tree `926057931ce1283f8741f1998fd437b5f90401b2`.
+- revalidated that Planning PR #452 is already merged and must not be repeated;
+- validated and integrated bounded post-Planning repository-memory reconciliation PR #453 at exact head `80444cbe48f222cd6b32e486ea26e19dcad33acc` as merge `ddab1e1d51c0d9ec75314aa8b81bff72105b60b5` after required exact-head gates and no review blockers;
+- verified reviewed-head -> merge-main tree equivalence;
+- closed stale duplicate PR #454 without merge;
+- detected a residual bounded inconsistency in `NEXT_WORK.md`: it still instructed workers to consume the already-integrated PR #453 gate;
+- adopted correction PR #455, branch `conformance/P17-package-03-next-work-residual`, head `ab1b74ae6beff434eeb80d75aca363ccedcb11c0`;
+- at last revalidation, Deterministic CI #1044 and Heavy Product Tests #495 were both in progress on that exact head.
 
-last_completed_step: canonical closure of `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` on fresh main.
-next_authorized_step: none within WBS 17.2. WBS 17.3 remains FORECAST / NOT MATERIALIZED and requires its own Planning & Materialization authority/gate before execution.
+last_completed_step: post-Planning repository-memory reconciliation PR #453 integrated and duplicate PR #454 closed without merge.
+next_authorized_step: confirm exact-head Deterministic CI #1044 + Heavy Product Tests #495 PASS for PR #455; if green with no drift/blockers, protected merge #455, reconstruct fresh main and prove tree equivalence. Only then execute TASK-379. Do not execute TASK-380 until TASK-379 exact-head gates pass.
 
 ## Boundaries
-No WBS 17.3 execution, no Construction C, no automatic promotion/reuse approval, no Decision Boundary edits, no unrelated findings/TD-P13-01..04 absorption, no undeclared L4.
+Do not repeat Package 03 Planning & Materialization or recreate TASK-379..384. Do not execute Construction B/C. Do not infer promotion/reuse approval, change Decision Boundary, absorb findings/TD-P13-01..04, carry sensitive payloads, or infer L4.
 
 ## resume_prompt
-Retome `delmacy/system-builder` de fresh main `55f04ac98aa023270cf83163f4da06cf38272a5e`, tree `926057931ce1283f8741f1998fd437b5f90401b2`. `P17-PACKAGE-02 / WBS 17.2.1–17.2.3` está canonicamente CLOSED. TASK-378 correction, TASK-375, TASK-376 e TASK-377 estão integradas; PR #446 Construction B, PR #448 post-B revalidation, PR #449 Package Review, Documentation & Closure e PR #451 canonical reconciliation estão integrados. Construction C é NOT REQUIRED / NOT MATERIALIZED. WBS 17.3 permanece FORECAST / NOT MATERIALIZED; não executar sem Planning & Materialization separado e autoridade correspondente.
+Retome `delmacy/system-builder` como worker serializado a partir do fresh main após PR #453 merge `ddab1e1d51c0d9ec75314aa8b81bff72105b60b5`. `P17-PACKAGE-03 / WBS 17.3.1–17.3.3` Planning & Materialization já está INTEGRATED; Construction A TASK-379..384 está COMMITTED / MATERIALIZED / NOT EXECUTED. Não repetir PR #452, Planning ou TASK materialization. Existe correção bounded residual no PR #455, head `ab1b74ae6beff434eeb80d75aca363ccedcb11c0`, porque NEXT_WORK ainda apontava para o gate consumido de PR #453. Antes de TASK-379 ou handoff READY, exigir exact-head Deterministic CI + Heavy PASS, sem drift/review blockers, integrar #455 com expected-head protection, reconstruir fresh main e provar tree equivalence. Depois executar TASK-379 primeiro, serialmente. Construction B FORECAST / NOT MATERIALIZED; Construction C OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. Preserve M15 human-decision; não absorva findings/TDs nem L4 por inferência.
