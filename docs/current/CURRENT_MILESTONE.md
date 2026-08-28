@@ -3,10 +3,8 @@
 ## Milestone state
 M17 Knowledge Boundary is CLOSED. `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` is active and bounded to WBS 18.1.1–18.1.3.
 
-Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` / TASK-390..394 is integrated via PR #469. Post-Construction-A revalidation was consumed through PR #470 and bounded repository-memory reconciliation PR #472.
+Construction A and Construction B are integrated. Fresh-main post-Construction-B revalidation integrated as `e623d9a77c1d6aea76c6c68d31eb8448e3ab20a6` after exact-head Deterministic CI #1121 / Heavy Product Tests #578 and zero reviewed-head -> merge-main changed files. Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
-Construction B `P18-PROCESS-VERSION-IDENTITY-INTEGRATION-01` / TASK-395..398 is integrated via PR #473 as main `c2a3ee848ec24fe976ab13ff12e933a551dc8b2d`. Lifecycle head `173209bee6ad94dc4c870d2f312ae4df1dd49f1b` passed exact-head Deterministic CI #1120 and Heavy Product Tests #576, and reviewed-head -> merge-main comparison has zero changed files.
-
-Fresh-main post-Construction-B revalidation finds no bounded residual required to satisfy the P18-PACKAGE-01 Goal. Construction C is therefore NOT REQUIRED / NOT MATERIALIZED. The next eligible gate is Package Integration & Review over the complete WBS 18.1 package outcome.
+Package Integration & Review has been executed on the fresh integrated WBS 18.1 outcome. It finds the Package Goal satisfied, architecture/contracts compatible, no package-local technical-debt blocker, and gives GO for Documentation & Closure contingent on exact-head Deterministic CI + Heavy Product Tests on the review head and no blocking review finding.
 
 WBS 18.2 and 18.3 remain FORECAST / NOT MATERIALIZED. No P17 reopening, semantic-diff/breaking classification, process→system/release lineage, Git-as-business-version authority, Decision Boundary change, unrelated findings/TD absorption or inferred L4.
