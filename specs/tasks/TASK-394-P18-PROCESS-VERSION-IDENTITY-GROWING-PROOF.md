@@ -1,7 +1,7 @@
 ---
 id: TASK-394
 title: Prove integrated WBS 18.1 process version identity behavior
-status: verification
+status: completed
 priority: 394
 milestone: M18
 model_tier: architecture
