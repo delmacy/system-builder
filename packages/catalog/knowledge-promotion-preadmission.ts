@@ -1,17 +1,13 @@
 import {
   deriveKnowledgeGenericityEvidence,
+  deriveKnowledgePromotionCandidateDescriptor,
+  deriveKnowledgeTransformationResult,
   type KnowledgeGenericityEvidenceKind,
   type KnowledgeGenericityEvidenceResult,
-} from "../contracts/knowledge-boundary/genericity-evidence.js";
-import {
-  deriveKnowledgePromotionCandidateDescriptor,
   type KnowledgePromotionCandidateDerivationInput,
-} from "../contracts/knowledge-boundary/promotion-candidate.js";
-import {
-  deriveKnowledgeTransformationResult,
   type KnowledgeTransformationKind,
   type KnowledgeTransformationPolicy,
-} from "../contracts/knowledge-boundary/transformation-result.js";
+} from "@system-builder/contracts/knowledge-boundary";
 
 export const CATALOG_KNOWLEDGE_PROMOTION_PREADMISSION_VERSION = "1.0.0" as const;
 
