@@ -1,14 +1,12 @@
-# Next Work — P17 Package 03 Construction A
+# Next Work — P17 Package 03 post-Construction-A reconciliation
 
-`P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` is canonically CLOSED. `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance` Planning & Materialization is INTEGRATED via PR #452 / merge `80d642bc3b24cc2a90d57e78fce3629806859f0e`, and the post-planning repository-memory reconciliation is already integrated via PR #453 / main `ddab1e1d51c0d9ec75314aa8b81bff72105b60b5`.
+`P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` is canonically CLOSED. `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance` Planning & Materialization is INTEGRATED. Construction A `P17-KNOWLEDGE-PROMOTION-CONTRACT-01` / TASK-379..384 is INTEGRATED via PR #456 / merge `da0f7d07dd9c605fa411621799822c0f9c678f65`, with exact-head Deterministic CI #1060 / Heavy Product Tests #512 PASS and reviewed-head -> merge-main tree equivalence at `5e81769adc19388e4f90435bc8ab6d0a46c5419e`.
 
 ## Required next action
-1. do not repeat Package 03 Planning & Materialization or its post-planning reconciliation;
-2. create `sprint/P17-KNOWLEDGE-PROMOTION-CONTRACT-01` from fresh `main` if it does not already exist;
-3. execute TASK-379..384 serially through their declared dependencies, allowed/forbidden paths and exact-head gates, starting with TASK-379 only;
-4. after Construction A integration, reconstruct fresh `main`, prove reviewed-head -> merge-main tree equivalence and revalidate WBS 17.3 before deciding whether Construction B may be materialized;
-5. keep any bounded conformance discrepancy as CORRECTION_PENDING until resolved and validated before handoff.
+1. integrate this bounded post-Construction-A repository-memory reconciliation with exact-head Deterministic CI + Heavy Product Tests;
+2. reconstruct fresh `main` and revalidate the remaining `P17-PACKAGE-03 / WBS 17.3.1–17.3.3` Package Goal against the integrated Construction A proof;
+3. only if that fresh-main evidence confirms a bounded remaining consumer-integration increment, perform a separate Planning & Materialization gate for `P17-KNOWLEDGE-PROMOTION-INTEGRATION-01`; do not recreate TASK-379..384;
+4. keep Construction C OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED until after any integrated Construction B fresh-main revalidation;
+5. after the required construction sequence, proceed through Package Integration & Review and Documentation & Closure under their own gates.
 
-Construction B remains FORECAST / NOT MATERIALIZED until Construction A integrates and fresh-main evidence justifies promotion. Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED.
-
-Do not infer promotion/reuse approval from eligibility, transformation, genericity tests or probabilistic assistance. Preserve M15 `human-decision`; no Decision Boundary public-contract change, unrelated findings/TD absorption or undeclared L4.
+Do not repeat Package 03 Planning & Materialization or Construction A. Do not infer promotion/reuse approval from eligibility, transformation, genericity tests or probabilistic assistance. Preserve M15 `human-decision`; no Decision Boundary public-contract change, unrelated findings/TD absorption or undeclared L4.
