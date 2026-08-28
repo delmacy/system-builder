@@ -1,4 +1,5 @@
 import {
+  evaluateHumanAuthorityReservation,
   isCanonicalDecisionBoundaryVerificationResult,
   type DecisionBoundaryVerificationResult,
 } from "@system-builder/contracts/decision-boundary";
@@ -7,6 +8,8 @@ import { normalizeProcessRevisionIdentity, type ProcessRevisionIdentity } from "
 export const PROCESS_CHANGE_CONTRACT_VERSION = "1.0.0" as const;
 export const PROCESS_CHANGE_CLASSIFICATIONS = ["breaking", "non-breaking", "not-applicable"] as const;
 export type ProcessChangeClassification = (typeof PROCESS_CHANGE_CLASSIFICATIONS)[number];
+export const PROCESS_CHANGE_DECISION_OUTCOMES = ["approved", "rejected"] as const;
+export type ProcessChangeDecisionOutcome = (typeof PROCESS_CHANGE_DECISION_OUTCOMES)[number];
 
 export type ProcessSemanticSnapshotEntry = Readonly<{
   semanticRef: string;
@@ -44,6 +47,21 @@ export type ProcessSemanticChangeRationaleEvidence = Readonly<{
   diffRef: string;
   classificationRef: string;
   reasonRef: string;
+  evidenceRefs: readonly string[];
+}>;
+
+export type ProcessSemanticChangeDecision = Readonly<{
+  contractVersion: typeof PROCESS_CHANGE_CONTRACT_VERSION;
+  artifactRef: string;
+  fromRevisionRef: string;
+  toRevisionRef: string;
+  diffRef: string;
+  classificationRef: string;
+  rationaleRef: string;
+  reasonRef: string;
+  outcome: ProcessChangeDecisionOutcome;
+  decisionId: string;
+  authorityRef: string;
   evidenceRefs: readonly string[];
 }>;
 
@@ -275,5 +293,53 @@ export function normalizeProcessSemanticChangeRationaleEvidence(input: unknown):
     classificationRef,
     reasonRef: nonEmpty(record.reasonRef, "reasonRef"),
     evidenceRefs: normalizeRefList(record.evidenceRefs, "evidenceRefs"),
+  });
+}
+
+export function normalizeProcessSemanticChangeDecision(input: unknown): ProcessSemanticChangeDecision {
+  const record = asRecord(input, "process semantic change decision");
+  assertExactFields(
+    record,
+    ["rationaleRef", "rationaleEvidence", "outcome", "decisionId", "authorityRef", "decisionDescriptor", "decisionMetadata"],
+    "process semantic change decision",
+  );
+
+  const rationaleRef = nonEmpty(record.rationaleRef, "rationaleRef");
+  const rationaleEvidence = normalizeProcessSemanticChangeRationaleEvidence(record.rationaleEvidence);
+  if (!PROCESS_CHANGE_DECISION_OUTCOMES.includes(record.outcome as ProcessChangeDecisionOutcome)) {
+    throw new Error("outcome must be approved or rejected");
+  }
+
+  const decisionId = nonEmpty(record.decisionId, "decisionId");
+  const authorityRef = nonEmpty(record.authorityRef, "authorityRef");
+  const authorityEvaluation = evaluateHumanAuthorityReservation({
+    descriptor: record.decisionDescriptor,
+    metadata: record.decisionMetadata,
+    authorityRef,
+  });
+
+  if (authorityEvaluation.status !== "compatible") {
+    throw new Error(`process change decision requires compatible human authority: ${authorityEvaluation.diagnostic}`);
+  }
+  if (authorityEvaluation.decisionId !== decisionId) {
+    throw new Error("process change decisionId must match canonical human authority decision");
+  }
+  if (authorityEvaluation.authorityRef !== authorityRef) {
+    throw new Error("process change authorityRef must match canonical human authority evaluation");
+  }
+
+  return Object.freeze({
+    contractVersion: PROCESS_CHANGE_CONTRACT_VERSION,
+    artifactRef: rationaleEvidence.artifactRef,
+    fromRevisionRef: rationaleEvidence.fromRevisionRef,
+    toRevisionRef: rationaleEvidence.toRevisionRef,
+    diffRef: rationaleEvidence.diffRef,
+    classificationRef: rationaleEvidence.classificationRef,
+    rationaleRef,
+    reasonRef: rationaleEvidence.reasonRef,
+    outcome: record.outcome as ProcessChangeDecisionOutcome,
+    decisionId,
+    authorityRef,
+    evidenceRefs: rationaleEvidence.evidenceRefs,
   });
 }
