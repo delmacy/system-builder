@@ -3,6 +3,12 @@ import { normalizeObserveEvidenceProvenance, type ObserveEvidenceProvenance } fr
 import { DeploymentOperationMetadata } from "./metadata.js";
 
 export {
+  OBSERVE_KNOWLEDGE_PROMOTION_PROVENANCE_VERSION,
+  projectKnowledgePromotionProvenanceForObservation,
+  type ObserveKnowledgePromotionProvenanceProjection,
+} from "./knowledge-promotion-provenance.js";
+
+export {
   DeploymentFinding,
   linkFinding,
   type DeploymentFindingConfidence,
