@@ -16,9 +16,9 @@ Status: CLOSED via `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforceme
 Construction A+B, bounded TASK-378 correction, post-B revalidation, Package Integration & Review and Documentation & Closure are integrated. Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
 ### 17.3 Promotion control
-Status: PLANNING & MATERIALIZATION CANDIDATE via `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance`.
+Status: ACTIVE via `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance`; Planning & Materialization INTEGRATED via PR #452 on main `80d642bc3b24cc2a90d57e78fce3629806859f0e`.
 - **17.3.1** Anonimizar/generalizar candidatos quando permitido. — Construction A contract materialized / NOT EXECUTED
 - **17.3.2** Submeter candidato a revisão e testes de genericidade. — Construction A contract materialized / NOT EXECUTED
 - **17.3.3** Registrar decisão de promotion/rejection e provenance. — Construction A contract materialized / NOT EXECUTED
 
-Only Construction A TASK-379..384 is materialized by the planning candidate. Construction B remains FORECAST / NOT MATERIALIZED; Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. Promotion eligibility, transformation or genericity evidence is never approval; canonical human authority remains required for promotion/rejection decision recording.
+Only Construction A TASK-379..384 is currently materialized; TASK-379 is the next executable task. Construction B remains FORECAST / NOT MATERIALIZED; Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. Promotion eligibility, transformation or genericity evidence is never approval; canonical human authority remains required for promotion/rejection decision recording.
