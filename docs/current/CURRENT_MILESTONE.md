@@ -1,14 +1,12 @@
-# Current Execution Milestone — Fresh-main successor Planning
+# Current Execution Milestone — M18 Process Versioning
 
 ## Milestone state
-`P17-PACKAGE-01` / WBS 17.1, `P17-PACKAGE-02` / WBS 17.2 and `P17-PACKAGE-03` / WBS 17.3 are CLOSED.
+M17 Knowledge Boundary is CLOSED. Post-closure repository-memory reconciliation PR #467 integrated on fresh main `d7f812502895780d383a2f35c73a11b41453d33c` after exact-head Deterministic CI #1085 / Heavy Product Tests #539 PASS; its reviewed head and merge-main have zero file differences.
 
-`P17-PACKAGE-03 — Knowledge Promotion Control & Provenance` completed Planning, Construction A and Construction B; Construction C was NOT REQUIRED / NOT MATERIALIZED after fresh-main revalidation. Package Integration & Review PR #462 integrated with CI #1080 / Heavy #534 PASS. Documentation & Closure PR #463 head `2ae7ea8ece63b04cca1512f3d5f022cab9d7de84` passed CI #1081 / Heavy #535 and merged as `bad2e5f51f0df058113ad94390f58ffeede01a1b`; closure-head and merge-main share tree `1ece342e09ca282285d4a54fce85d3d72f800e93` exactly.
+Fresh-main WBS/scope authority selects M18 Process Versioning next. `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` is the active Planning & Materialization package, bounded to WBS 18.1.1–18.1.3.
 
-Mechanical canonical CLOSED-state reconciliation PR #465 head `2e932c7d7e41a978f774ba555181c2f1e4fe4484` passed Deterministic CI #1083 / Heavy Product Tests #537 and merged as `d316a18e24944d9b58e92f4fe06684bc4894b524`. Reviewed head and merge-main share tree `185a7c82b45bcb4e42a0eec68eb2398c903aa63c` exactly. M17 Knowledge Boundary is complete.
+Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` materializes TASK-390..394 for stable business artifact identity vs revision, immutable published revisions, supersedes/deprecated/archived lifecycle semantics, deterministic lineage composition and integrated growing proof.
 
-No successor Work Package is selected by P17 closure. The next eligible Work Package must be derived only through a separate fresh-main Planning & Materialization gate using current roadmap/WBS/scope and scheduling authority.
+Construction B is FORECAST / NOT MATERIALIZED. Construction C is OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2 and 18.3 remain FORECAST / NOT MATERIALIZED.
 
-The integrated proof preserves canonical WBS 17.1 classification/use-policy truth, WBS 17.2 enforcement/eligibility truth and WBS 17.3 final M15 human-authoritative promotion/rejection provenance through representative catalog and Observe paths. Rejection cannot be laundered into reuse; payload/content and caller-validator injection fail closed.
-
-No Decision Boundary public-contract change, unrelated findings/TD absorption or undeclared L4.
+No P17 reopening, semantic-diff/breaking classification, process→system/release lineage, Git-as-business-version authority, unrelated findings/TD absorption or inferred L4.
