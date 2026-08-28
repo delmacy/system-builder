@@ -1,34 +1,33 @@
 # Automation Sprint Handoff
 
 status: READY
-worker_slot: :50
-started_at: 2026-08-27T23:50:35-03:00
-updated_at: 2026-08-27T23:55:00-03:00
+worker_slot: :30
+started_at: 2026-08-28T00:28:58-03:00
+updated_at: 2026-08-28T00:39:00-03:00
 lease_until: null
-observed_main_sha: da0f7d07dd9c605fa411621799822c0f9c678f65
-active_branch: conformance/P17-package-03-post-construction-a-memory
-active_pr: 457
-active_head_sha: e65dfdf928503c50678e748bcf653a2f0499694d
-current_step: Construction A PR #456 was integrated after exact-head Deterministic CI #1060 and Heavy Product Tests #512 passed on lifecycle head 05d680dd05eb9faf2cbfb8d3122324acf0fc84b5. Protected expected-head merge produced main da0f7d07dd9c605fa411621799822c0f9c678f65; reviewed head and merge-main share tree 5e81769adc19388e4f90435bc8ab6d0a46c5419e. Fresh-main revalidation found repository memory stale (still describing Construction A as NOT EXECUTED), so bounded reconciliation PR #457 was opened at head e65dfdf928503c50678e748bcf653a2f0499694d. Deterministic CI #1061 and Heavy Product Tests #514 are IN PROGRESS on that exact head. Do not materialize Construction B until #457 integrates and fresh-main revalidation confirms the bounded remaining Package Goal increment.
+observed_main_sha: 0102fdd188853fef00e1b185fff5b0baa733f3ad
+active_branch: planning/P17-knowledge-promotion-integration-01
+active_pr: 459
+active_head_sha: f33ca8508031c66436b8b62f224bf16c21d0acac
+current_step: Construction A and its post-A reconciliation are consumed. Fresh-main evidence confirmed the bounded forecast residual: canonical WBS 17.3 contracts/proofs exist, while representative catalog/Observe paths do not consume final promotion/rejection truth. Construction B P17-KNOWLEDGE-PROMOTION-INTEGRATION-01 is now COMMITTED / MATERIALIZED / NOT EXECUTED in PR #459 with TASK-385..389. Deterministic CI #1063 and Heavy Product Tests #516 are queued on exact head f33ca8508031c66436b8b62f224bf16c21d0acac. Do not execute TASK-385 before both gates pass and Planning is integrated.
 
 ## Conformance state
-- P17-PACKAGE-03 Planning & Materialization remains INTEGRATED and must not be repeated.
-- Construction A P17-KNOWLEDGE-PROMOTION-CONTRACT-01 / TASK-379..384 is INTEGRATED via PR #456 / merge da0f7d07dd9c605fa411621799822c0f9c678f65.
-- Exact-head CI #1060 / Heavy #512 passed on reviewed head 05d680dd05eb9faf2cbfb8d3122324acf0fc84b5.
-- Reviewed head -> merge-main tree equivalence is exact at 5e81769adc19388e4f90435bc8ab6d0a46c5419e.
-- PR #457 is bounded repository-memory reconciliation only; it updates Package 03, Construction A manifest, PROJECT_STATE, CURRENT_MILESTONE and NEXT_WORK to integrated truth.
-- Construction B remains FORECAST / NOT MATERIALIZED until PR #457 is green, merged with protected expected head, and fresh-main evidence explicitly justifies/materializes it.
+- P17-PACKAGE-03 Package Planning and Construction A TASK-379..384 are INTEGRATED and must not be repeated.
+- Post-Construction-A reconciliation is consumed through main 0102fdd188853fef00e1b185fff5b0baa733f3ad.
+- Construction B P17-KNOWLEDGE-PROMOTION-INTEGRATION-01 is materialized only; TASK-385 -> 386 -> 387 -> 388 -> 389 are NOT EXECUTED.
+- TASK-385: catalog review/pre-admission, explicitly no authority.
+- TASK-386: catalog promotion/reuse admission only from canonical M15 human-decision promotion truth.
+- TASK-387: Observe promotion/rejection provenance with internal fail-closed validation and no caller-injected validator.
+- TASK-388: cross-consumer bypass proof.
+- TASK-389: integrated growing proof + Sprint Report.
 - Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED.
-- M15 human-decision authority and Decision Boundary public contract remain unchanged. No finding/TD absorption, sensitive payload carriage or inferred L4.
+- Preserve M15 human-decision and the existing Decision Boundary public contract. No inferred approval/L4, findings/TD absorption or sensitive payload/content carriage.
 
-last_completed_step: integrated Construction A PR #456 as main da0f7d07dd9c605fa411621799822c0f9c678f65 with exact tree equivalence, then opened bounded post-Construction-A repository-memory reconciliation PR #457 at e65dfdf928503c50678e748bcf653a2f0499694d.
-next_authorized_step: revalidate PR #457 head/main and exact-head Deterministic CI #1061 + Heavy Product Tests #514. If both PASS without drift/blocker, merge #457 protected with expected head; reconstruct fresh main and revalidate P17-PACKAGE-03 / WBS 17.3.1–17.3.3. Only if fresh evidence confirms the forecast bounded consumer-integration increment, perform a separate Planning & Materialization gate for P17-KNOWLEDGE-PROMOTION-INTEGRATION-01. Do not recreate TASK-379..384.
-
-## Triple-package mission
-This is still Package 1 of the user's authorized next 3 Work Packages. P17-PACKAGE-03 is not yet canonically CLOSED. Keep the :50 recurrence active until all three authorized Packages are canonically CLOSED.
+last_completed_step: derived and materialized Construction B from fresh-main evidence in PR #459 at f33ca8508031c66436b8b62f224bf16c21d0acac without executing product TASKs.
+next_authorized_step: revalidate PR #459 exact head and CI #1063 + Heavy #516. If both PASS with no head/main drift or blocker, merge #459 protected with expected head, reconstruct fresh main and prove tree equivalence; then create sprint/P17-KNOWLEDGE-PROMOTION-INTEGRATION-01 and execute TASK-385 only. Continue 386 -> 387 -> 388 -> 389 serially behind each exact-head gate.
 
 ## Boundaries
-Do not repeat Package 03 Planning or TASK-379..384. Do not materialize Construction B/C early. No automatic promotion/reuse approval, Decision Boundary change, findings/TD absorption, sensitive payload carriage or inferred L4.
+Do not repeat Package 03 Planning, Construction A or post-A reconciliation. Do not execute Construction C early. No automatic promotion/reuse approval, Decision Boundary change, unrelated findings/TD absorption, sensitive payload carriage or inferred L4.
 
 ## resume_prompt
-Resume delmacy/system-builder from main da0f7d07dd9c605fa411621799822c0f9c678f65 and bounded reconciliation PR #457, branch conformance/P17-package-03-post-construction-a-memory, head e65dfdf928503c50678e748bcf653a2f0499694d. Construction A PR #456 is integrated; head 05d680dd05eb9faf2cbfb8d3122324acf0fc84b5 passed CI #1060 / Heavy #512 and merged with exact tree equivalence 5e81769adc19388e4f90435bc8ab6d0a46c5419e. PR #457 exists because fresh main still described Construction A as NOT EXECUTED. Require exact-head CI #1061 + Heavy #514 PASS on #457 before protected merge. Then fresh-main revalidate and only materialize Construction B via a separate gate if evidence justifies it. Construction C optional/evidence-gated; preserve M15 human-decision; no Decision Boundary change, findings/TD absorption or inferred L4. Triple-package mission remains active; this is Package 1 and is not yet CLOSED.
+Resume delmacy/system-builder from main 0102fdd188853fef00e1b185fff5b0baa733f3ad and Planning PR #459, branch planning/P17-knowledge-promotion-integration-01, head f33ca8508031c66436b8b62f224bf16c21d0acac. Construction A TASK-379..384 and post-A reconciliation are consumed. Fresh-main evidence justified bounded Construction B P17-KNOWLEDGE-PROMOTION-INTEGRATION-01, now materialized with TASK-385..389 but NOT EXECUTED. Require exact-head Deterministic CI #1063 + Heavy Product Tests #516 PASS and no drift/blocker before protected merge. After fresh-main/tree-equivalence, execute TASK-385 first, then 386 -> 387 -> 388 -> 389 serially. Construction C remains optional/evidence-gated. Preserve canonical M15 human-decision and Decision Boundary; no inferred approval/L4 or findings/TD absorption.
