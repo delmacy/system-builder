@@ -1,3 +1,4 @@
+import { evaluateKnowledgeEnforcement, type KnowledgeEnforcementEvaluationInput } from "./enforcement-composition.js";
 import { KNOWLEDGE_CLASSES, type KnowledgeClass } from "./index.js";
 
 export const KNOWLEDGE_PROMOTION_CANDIDATE_VERSION = "1.0.0" as const;
@@ -9,6 +10,11 @@ export type KnowledgePromotionCandidateDescriptor = Readonly<{
   enforcementRef: string;
   eligibilityRef: string;
   knowledgeClass: KnowledgeClass;
+}>;
+
+export type KnowledgePromotionCandidateDerivationInput = Readonly<{
+  candidateRef: string;
+  predecessor: KnowledgeEnforcementEvaluationInput;
 }>;
 
 type UnknownRecord = Record<string, unknown>;
@@ -67,4 +73,21 @@ export function normalizeKnowledgePromotionCandidateDescriptor(value: unknown): 
     eligibilityRef: asRef(record.eligibilityRef, "eligibilityRef"),
     knowledgeClass: asKnowledgeClass(record.knowledgeClass),
   };
+}
+
+export function deriveKnowledgePromotionCandidateDescriptor(
+  input: KnowledgePromotionCandidateDerivationInput,
+): KnowledgePromotionCandidateDescriptor {
+  const predecessor = evaluateKnowledgeEnforcement(input.predecessor);
+  if (predecessor.eligibilityStatus !== "eligible") {
+    throw new Error("knowledge promotion candidate requires canonical eligible predecessor state");
+  }
+  return normalizeKnowledgePromotionCandidateDescriptor({
+    contractVersion: KNOWLEDGE_PROMOTION_CANDIDATE_VERSION,
+    candidateRef: input.candidateRef,
+    classificationDecisionRef: predecessor.classificationDecisionRef,
+    enforcementRef: predecessor.enforcementRef,
+    eligibilityRef: predecessor.eligibilityRef,
+    knowledgeClass: predecessor.knowledgeClass,
+  });
 }
