@@ -9,11 +9,9 @@ M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is
 
 Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-## M18 Process Versioning — CONSTRUCTION A+B INTEGRATED / PACKAGE REVIEW NEXT
-`P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` remains bounded to WBS 18.1.1–18.1.3. Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` / TASK-390..394 integrated through PR #469. Post-A revalidation was consumed through PR #470 and PR #472.
+## M18 Process Versioning — PACKAGE REVIEW / GO FOR DOCUMENTATION & CLOSURE PENDING EXACT-HEAD GATES
+`P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` remains bounded to WBS 18.1.1–18.1.3. Construction A and Construction B are integrated; post-B revalidation integrated as fresh main `e623d9a77c1d6aea76c6c68d31eb8448e3ab20a6` after exact-head Deterministic CI #1121 / Heavy Product Tests #578 and zero reviewed-head -> merge-main changed files.
 
-Construction B `P18-PROCESS-VERSION-IDENTITY-INTEGRATION-01` / TASK-395..398 integrated through PR #473 as main `c2a3ee848ec24fe976ab13ff12e933a551dc8b2d`. Its lifecycle head `173209bee6ad94dc4c870d2f312ae4df1dd49f1b` passed Deterministic CI #1120 and Heavy Product Tests #576; reviewed-head -> merge-main has zero changed files.
-
-Fresh-main post-B revalidation confirms the Package Goal is constructed across canonical WBS 18.1 contracts plus representative catalog consumer integration and bypass-resistance proof. Construction C is NOT REQUIRED / NOT MATERIALIZED. The next gate is Package Integration & Review.
+Package Integration & Review finds WBS 18.1.1–18.1.3 SATISFIED / INTEGRATED, no bounded Package Goal residual, no package-local technical-debt blocker, and Construction C NOT REQUIRED / NOT MATERIALIZED. Review decision is GO for Documentation & Closure contingent on exact-head review CI/Heavy and no blocking review finding.
 
 WBS 18.2 semantic change and WBS 18.3 process→system lineage remain FORECAST / NOT MATERIALIZED. No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 is authorized.
