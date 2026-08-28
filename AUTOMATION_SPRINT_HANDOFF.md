@@ -1,19 +1,19 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: null
-started_at: null
-updated_at: 2026-08-28T14:16:00-03:00
-lease_until: null
+status: RUNNING
+worker_slot: :10
+started_at: 2026-08-28T15:07:08-03:00
+updated_at: 2026-08-28T15:07:08-03:00
+lease_until: 2026-08-28T15:32:08-03:00
 observed_main_sha: 0f605f4db79036b2048f80689b553653ee89b40b
 active_branch: sprint/P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01
 active_pr: 480
-active_head_sha: 5d5b312906ffe05d73bbf906d607b1499ce3ce9f
-current_step: TASK-400 lifecycle completion committed after corrective exact-head gates passed. New lifecycle head requires exact-head Deterministic CI + Heavy Product Tests before TASK-401 may execute.
+active_head_sha: 4d5bd0c40af1f9a44fd353c4a74b76256f45deff
+current_step: TASK-401 lifecycle exact-head gates consumed PASS; TASK-402 authorized and being executed per committed spec.
 
-last_completed_step: TASK-400 marked completed in commit 5d5b312906ffe05d73bbf906d607b1499ce3ce9f after Deterministic CI #1131 and Heavy Product Tests #594 passed on implementation/corrective head 41ec68daea7f0aaf78df1a4256dce08b3bebfa13. No review blocker or head drift was observed before lifecycle commit.
-next_authorized_step: revalidate PR #480 head remains 5d5b312906ffe05d73bbf906d607b1499ce3ce9f and wait for exact-head Deterministic CI + Heavy Product Tests on that SHA; only if both PASS without drift execute TASK-401 per its committed spec and allowed paths. Do not execute TASK-402/403 until their predecessor gates.
-resume_prompt: Retome delmacy/system-builder serializadamente. Fresh main observado 0f605f4db79036b2048f80689b553653ee89b40b. Package 3/3 é P18-PACKAGE-02 / WBS 18.2.1-18.2.3. Construction A PR #480 branch sprint/P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01. TASK-399 e TASK-400 estão completed. TASK-400 lifecycle head atual é 5d5b312906ffe05d73bbf906d607b1499ce3ce9f; ainda não havia workflow associado no primeiro poll após o commit. Revalide exact-head Deterministic CI + Heavy Product Tests nesse SHA; somente após ambos PASS e sem drift execute TASK-401. TASK-401 deve apenas vincular reason/evidence provenance ao diff+classification canônicos, sem aprovação/Decision Boundary/L4/WBS 18.3/Git authority/findings-TDs. Continue serialmente pelos gates materializados até fechar P18-PACKAGE-02.
+last_completed_step: TASK-401 marked completed on lifecycle head 4d5bd0c40af1f9a44fd353c4a74b76256f45deff. Exact-head Deterministic CI #1134 and Heavy Product Tests #597 both PASS with no observed head drift.
+next_authorized_step: execute TASK-402 only within packages/contracts/process-change/**, tests/product/** and its task spec; require canonical human-decision authority via existing Decision Boundary reservation, exact TASK-401 predecessor binding, and negative proofs. Do not execute TASK-403 until TASK-402 exact-head gates pass.
+resume_prompt: Retome delmacy/system-builder serializadamente. Fresh main observado 0f605f4db79036b2048f80689b553653ee89b40b. Package 3/3 é P18-PACKAGE-02 / WBS 18.2.1-18.2.3. Construction A PR #480 branch sprint/P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01. TASK-399..401 estão completed. TASK-401 lifecycle head 4d5bd0c40af1f9a44fd353c4a74b76256f45deff passou Deterministic CI #1134 e Heavy Product Tests #597. TASK-402 está autorizada; implemente decisão approve/reject com autoridade humana canônica sem modificar Decision Boundary, sem PR approval como business authority, sem WBS 18.3/L4/findings-TDs. Depois revalide exact-head gates antes de TASK-403.
 
 ## Boundaries
 Package 3 is P18-PACKAGE-02 / WBS 18.2.1-18.2.3 only. WBS 18.3 remains forecast. No Git business authority, Decision Boundary modification, PR-approval substitution, unrelated findings/TDs or inferred L4.
