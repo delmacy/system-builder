@@ -1,13 +1,12 @@
-# Next Work — P18 Package 02 Construction B Planning Gate
+# Next Work — P18 Package 02 Integration & Review
 
-Fresh main `db48bda8c2451cdfb054b4b506cb1b1851f597db` contains Construction A integrated and the bounded post-A reconciliation. Construction B `P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01` is now COMMITTED / MATERIALIZED / NOT EXECUTED on a separate Planning & Materialization branch, bounded to WBS 18.2.1–18.2.3.
+Fresh main `44e0ba20aef3e7db87d9e3ad4bfba61a4c5ea7a8` contains Construction A and Construction B integrated for `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3. Construction B exact Sprint Review head `636ab0d77b144dada1c9fe82913fe59f67a91692` passed Deterministic CI #1160 and Heavy Product Tests #626 and merged through replacement PR #485 with expected-head protection after draft PR #484 was closed unmerged due connector failure. Tree equivalence is proven by zero file differences.
 
 ## Current gate
-TASK-404..408 are materialized serially around the representative existing `packages/support-evolution/**` consumer seam. Do not execute TASK-404 before the Planning head passes exact-head Deterministic CI + Heavy Product Tests, integrates with expected-head protection, and fresh main is revalidated.
+Fresh-main revalidation shows no bounded residual WBS 18.2 construction gap: canonical predecessor/diff/classification/rationale evidence, canonical `human-decision` approval/rejection authority, Support/Evolution consumer composition, backward compatibility and fail-closed bypass resistance are integrated. Therefore optional Construction C is `NOT REQUIRED / NOT MATERIALIZED`.
 
-## Execution order after Planning integration
-Execute only `TASK-404 -> TASK-405 -> TASK-406 -> TASK-407 -> TASK-408`, serially with exact-head gates before each successor. TASK-404 creates the additive consumer admission seam; TASK-405 binds predecessor/diff/classification/rationale truth; TASK-406 enforces canonical human process-change authority; TASK-407 proves deterministic approved/rejected consumer outcomes and backward compatibility; TASK-408 closes with the integrated growing proof and Sprint Report.
+Execute `P18-PACKAGE-02-INTEGRATION-REVIEW-01` only. Review the complete integrated Package Goal, regress public contracts and representative consumer behavior, check architecture/dependency/security/CI/documentation consistency, classify package-local debt/risks and issue GO/NO-GO for Documentation & Closure. Bounded proof/repository-memory corrections are permitted only when necessary to prove the already-built Package Goal; missing product capability must return to explicit construction/change control.
 
-Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED and may be promoted only after Construction B integration if fresh evidence proves it necessary. WBS 18.3 remains FORECAST / NOT MATERIALIZED.
+After exact-head Deterministic CI + Heavy Product Tests and blocker review pass, integrate the Package Review, reconstruct fresh main, prove tree equivalence and execute Documentation & Closure.
 
-Do not use Git as business-version authority, treat classification/model output as approval, reuse ADR-0010 PR approval as business approval, change Decision Boundary, alter WBS 18.1 identity semantics, absorb unrelated findings/TDs or infer L4.
+WBS 18.3 remains FORECAST / NOT MATERIALIZED. Do not use Git as business-version authority, treat classification/model output as approval, reuse ADR-0010 PR approval as business approval, change Decision Boundary, alter WBS 18.1 identity semantics, expand to Release/Compiler/Runtime, absorb unrelated findings/TDs or infer L4.
