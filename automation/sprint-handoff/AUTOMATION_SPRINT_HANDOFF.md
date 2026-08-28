@@ -1,34 +1,30 @@
 # Automation Sprint Handoff
 
-status: READY
+status: RUNNING
 worker_slot: :50
-started_at: null
-updated_at: 2026-08-28T12:55:10-03:00
-lease_until: null
-observed_main_sha: e205683422907edf8c27f99c01aab317cca3f66c
-active_branch: planning/P18-PACKAGE-02-semantic-process-change
-active_pr: 479
-active_head_sha: 3d58d29a935187cfaa5b71dabc6742e87af064cf
-current_step: Package 3/3 Planning & Materialization is open as draft PR #479 on exact head `3d58d29a935187cfaa5b71dabc6742e87af064cf`. WBS 18.2.1–18.2.3 only; Construction A TASK-399..403 materialized; Construction B forecast only; Construction C optional forecast only. Exact-head Deterministic CI #1125 and Heavy Product Tests #587 are IN_PROGRESS. Do not execute TASK-399 before both pass and Planning integrates.
+started_at: 2026-08-28T14:52:41-03:00
+updated_at: 2026-08-28T14:52:41-03:00
+lease_until: 2026-08-28T15:17:41-03:00
+observed_main_sha: 0f605f4db79036b2048f80689b553653ee89b40b
+active_branch: sprint/P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01
+active_pr: 480
+active_head_sha: 9e70fc4379e1a4897cbb2c2014d72effb2acdd28
+current_step: TASK-401 exact-head gates are PASS (Deterministic CI #1133, Heavy Product Tests #596). Execute only TASK-402 human-authoritative process change approval decision per materialized spec, then exact-head gates before TASK-403.
 
 ## Mission state
 - P17-PACKAGE-03 = Package 1/3 — canonically CLOSED.
-- P18-PACKAGE-01 / WBS 18.1 = Package 2/3 — canonically CLOSED; fresh main `e205683422907edf8c27f99c01aab317cca3f66c` includes final closed-state reconciliation PR #478.
-- P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence = Package 3/3 — ACTIVE PLANNING / NOT EXECUTED.
-- Fresh-main authority selects WBS 18.2.1–18.2.3: deterministic semantic diff, explicit breaking/non-breaking classification when applicable, and reason/approval/evidence.
-- Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` materializes TASK-399 -> 400 -> 401 -> 402 -> 403.
-- Construction B `P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01` remains FORECAST / NOT MATERIALIZED.
-- Construction C `P18-PROCESS-SEMANTIC-CHANGE-HARDENING-01` remains OPTIONAL / FORECAST / NOT MATERIALIZED.
+- P18-PACKAGE-01 / WBS 18.1 = Package 2/3 — canonically CLOSED.
+- P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence = Package 3/3 — ACTIVE Construction A.
+- Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01`: TASK-399..401 completed/gated; TASK-402 executing; TASK-403 not executed.
+- Construction B remains FORECAST / NOT MATERIALIZED.
+- Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED.
 - WBS 18.3 remains FORECAST / NOT MATERIALIZED.
 
-## Concurrency correction
-During Planning another authorized worker was concurrently materializing the same branch despite the operational lock. This produced duplicate TASK-402 specs. The duplicate `TASK-402-P18-SEMANTIC-CHANGE-HUMAN-DECISION.md` was removed; retained authority is `TASK-402-P18-SEMANTIC-CHANGE-HUMAN-APPROVAL.md`, which explicitly consumes existing Decision Boundary human authority and preserves ADR-0010 engineering approval as non-business-approval evidence.
-
-last_completed_step: revalidated stale handoff against GitHub; confirmed P18-PACKAGE-01 canonical closure on fresh main `e205683422907edf8c27f99c01aab317cca3f66c`; re-read AGENTS/current state/schedule/WBS/scope/contracts; confirmed WBS 18.2 is the next eligible Package scope; completed bounded Planning materialization on branch `planning/P18-PACKAGE-02-semantic-process-change`; removed duplicate TASK-402; opened draft PR #479 exact head `3d58d29a935187cfaa5b71dabc6742e87af064cf`; no review threads; exact-head Deterministic CI #1125 and Heavy Product Tests #587 are IN_PROGRESS.
-next_authorized_step: require Deterministic CI #1125 and Heavy Product Tests #587 PASS on exact head `3d58d29a935187cfaa5b71dabc6742e87af064cf` without drift/review blocker. If checks fail, bounded-fix Planning only. If both pass, perform Planning review/protected expected-head merge, reconstruct fresh main and prove tree equivalence where applicable. Only then create `sprint/P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` and execute TASK-399 serially.
+last_completed_step: consumed exact-head PASS for TASK-401 at `9e70fc4379e1a4897cbb2c2014d72effb2acdd28`: Deterministic CI #1133 and Heavy Product Tests #596.
+next_authorized_step: execute only TASK-402 within allowed paths; preserve Decision Boundary public contract unchanged and human-decision authority; then require exact-head Deterministic CI + Heavy Product Tests PASS before TASK-403.
 
 ## Boundaries
-No WBS 18.3 process→system/release/deployment lineage; no Git commit as business-version or approval authority; no Decision Boundary contract modification; no automatic/deterministic/probabilistic/model approval substitution; no ADR-0010 PR approval laundering into business approval; no unrelated findings/TD absorption; no inferred L4.
+No WBS 18.3 process→system/release/deployment lineage; no Git/PR/ADR/model/classification as business approval authority; no Decision Boundary contract modification; no unrelated findings/TD absorption; no inferred L4.
 
 ## resume_prompt
-Resume `delmacy/system-builder` serially as the shared triple-mission worker from fresh main `e205683422907edf8c27f99c01aab317cca3f66c`. Package 1/3 P17-PACKAGE-03 and Package 2/3 P18-PACKAGE-01 are canonically CLOSED. Package 3/3 is `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence`, WBS 18.2.1–18.2.3 only. Planning & Materialization draft PR #479 is at exact head `3d58d29a935187cfaa5b71dabc6742e87af064cf`, branch `planning/P18-PACKAGE-02-semantic-process-change`, with TASK-399..403 materialized and no review threads. Deterministic CI #1125 and Heavy Product Tests #587 are IN_PROGRESS; merge Planning only after both PASS without drift/blocker. Then reconstruct fresh main before Construction A. Construction B forecast only, Construction C optional forecast only, WBS 18.3 not materialized. Preserve human-decision authority; do not use Git/PR/model/classification as business approval, modify Decision Boundary, infer L4 or absorb unrelated findings/TDs.
+Resume `delmacy/system-builder` serially from PR #480 branch `sprint/P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01`. TASK-401 gates PASS on head `9e70fc4379e1a4897cbb2c2014d72effb2acdd28` (CI #1133, Heavy #596). TASK-402 is the only authorized execution step: define explicit approved/rejected process-change decision backed by canonical Decision Boundary human-decision authority, exact TASK-401 predecessor refs, fail-closed substitutions/injections, without modifying Decision Boundary. TASK-403 waits for TASK-402 exact-head gates.
