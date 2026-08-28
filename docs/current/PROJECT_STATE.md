@@ -9,9 +9,9 @@ M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is
 
 Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-## M18 Process Versioning — ACTIVE PLANNING
-Fresh-main WBS/scope authority selects `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation`, bounded to WBS 18.1.1–18.1.3. Planning & Materialization defines Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` with TASK-390..394.
+## M18 Process Versioning — CONSTRUCTION A INTEGRATED / POST-A REVALIDATION
+`P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` remains bounded to WBS 18.1.1–18.1.3. Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` / TASK-390..394 integrated through PR #469 on fresh main `22022c6d47291fb9b051a8289c3fbb3849f9010d`. Final lifecycle/report head `ee55b8d4c8df264a84327dc3083fcaf4b7baddeb` passed Deterministic CI #1107 / Heavy Product Tests #561 and reviewed-head -> merge-main has zero changed files.
 
-Construction B is FORECAST / NOT MATERIALIZED. Construction C is OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2 semantic change and WBS 18.3 process→system lineage remain FORECAST / NOT MATERIALIZED.
+Fresh-main post-Construction-A revalidation identifies a bounded representative-consumer integration gap within WBS 18.1, so Construction B is JUSTIFIED but remains NOT MATERIALIZED pending its separate Planning & Materialization gate. Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2 semantic change and WBS 18.3 process→system lineage remain FORECAST / NOT MATERIALIZED.
 
 No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 is authorized.
