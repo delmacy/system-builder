@@ -1,7 +1,7 @@
 ---
 id: TASK-400
 title: Define explicit semantic change classification evidence
-status: verification
+status: completed
 priority: 400
 milestone: M18
 model_tier: architecture
