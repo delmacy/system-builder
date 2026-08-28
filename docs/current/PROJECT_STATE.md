@@ -9,9 +9,11 @@ M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is
 
 Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-## M18 Process Versioning — P18-PACKAGE-01 CLOSED
-`P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` / WBS 18.1.1–18.1.3 is canonically CLOSED. Construction A+B are integrated, Construction C is NOT REQUIRED / NOT MATERIALIZED, Package Integration & Review returned GO, and Documentation & Closure head `98fb7e34cba846f2be8fd301eb2a4395a28e3bb4` passed Deterministic CI #1123 / Heavy Product Tests #583 and merged as `1f08c4d8b8a15099f39bcb46412a41a402a69131` with zero reviewed-head -> merge-main changed files.
+## M18 Process Versioning — P18-PACKAGE-02 PLANNING / CONSTRUCTION A MATERIALIZED NOT EXECUTED
+`P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` / WBS 18.1.1–18.1.3 is canonically CLOSED on fresh main `e205683422907edf8c27f99c01aab317cca3f66c`.
 
-WBS 18.1 is CLOSED. WBS 18.2 semantic change and WBS 18.3 process→system lineage remain baseline FORECAST / NOT MATERIALIZED. The next eligible action is a separate fresh-main Planning & Materialization gate; successor scope is not selected by this closure.
+Fresh-main successor planning derives `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence`, bounded exclusively to WBS 18.2.1–18.2.3. Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` / TASK-399..403 is MATERIALIZED / NOT EXECUTED and requires exact-head Deterministic CI + Heavy Product Tests on the Planning head, protected integration and fresh-main revalidation before TASK-399 may execute.
 
-No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 is authorized.
+Construction B remains FORECAST / NOT MATERIALIZED and Construction C OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.3 process→system lineage remains FORECAST / NOT MATERIALIZED.
+
+Diff/classification evidence is not approval authority. Process-change approval/rejection must be domain truth backed by canonical `human-decision`; ADR-0010 engineering PR approval is not business process-change approval. No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 is authorized.
