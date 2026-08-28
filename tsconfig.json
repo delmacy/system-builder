@@ -9,7 +9,7 @@
         "packages/contracts/environment-profile/index.ts"
       ],
       "@system-builder/contracts/knowledge-boundary": [
-        "packages/contracts/knowledge-boundary/index.ts"
+        "packages/contracts/knowledge-boundary/public.ts"
       ],
       "@system-builder/deterministic": [
         "packages/deterministic/index.ts"
