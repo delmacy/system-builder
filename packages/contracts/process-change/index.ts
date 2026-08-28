@@ -36,6 +36,17 @@ export type ProcessSemanticChangeClassificationEvidence = Readonly<{
   evidenceRefs: readonly string[];
 }>;
 
+export type ProcessSemanticChangeRationaleEvidence = Readonly<{
+  contractVersion: typeof PROCESS_CHANGE_CONTRACT_VERSION;
+  artifactRef: string;
+  fromRevisionRef: string;
+  toRevisionRef: string;
+  diffRef: string;
+  classificationRef: string;
+  reasonRef: string;
+  evidenceRefs: readonly string[];
+}>;
+
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -210,6 +221,59 @@ export function normalizeProcessSemanticChangeClassificationEvidence(input: unkn
     classifierDecisionId: classifierDecision.decisionId,
     classifierCategory: classifierDecision.category,
     classifierReference: Object.freeze({ ...classifierDecision.reference }),
+    evidenceRefs: normalizeRefList(record.evidenceRefs, "evidenceRefs"),
+  });
+}
+
+function sameSemanticDiff(left: ProcessSemanticChangeDiff, right: ProcessSemanticChangeDiff): boolean {
+  return (
+    left.contractVersion === right.contractVersion &&
+    left.artifactRef === right.artifactRef &&
+    left.fromRevisionRef === right.fromRevisionRef &&
+    left.toRevisionRef === right.toRevisionRef &&
+    left.addedSemanticRefs.join("\u0000") === right.addedSemanticRefs.join("\u0000") &&
+    left.removedSemanticRefs.join("\u0000") === right.removedSemanticRefs.join("\u0000") &&
+    left.changedSemanticRefs.join("\u0000") === right.changedSemanticRefs.join("\u0000")
+  );
+}
+
+export function normalizeProcessSemanticChangeRationaleEvidence(input: unknown): ProcessSemanticChangeRationaleEvidence {
+  const record = asRecord(input, "process semantic change rationale evidence");
+  assertExactFields(
+    record,
+    ["diffRef", "semanticDiff", "classificationRef", "classificationEvidence", "reasonRef", "evidenceRefs"],
+    "process semantic change rationale evidence",
+  );
+
+  const diffRef = nonEmpty(record.diffRef, "diffRef");
+  const semanticDiff = normalizeSemanticChangeDiff(record.semanticDiff);
+  const classificationRef = nonEmpty(record.classificationRef, "classificationRef");
+  const classificationInput = asRecord(record.classificationEvidence, "classificationEvidence");
+  const classificationEvidence = normalizeProcessSemanticChangeClassificationEvidence(classificationInput);
+  const classificationDiff = normalizeSemanticChangeDiff(classificationInput.semanticDiff);
+
+  if (classificationEvidence.diffRef !== diffRef) {
+    throw new Error("classification evidence diffRef must match rationale diffRef");
+  }
+  if (!sameSemanticDiff(classificationDiff, semanticDiff)) {
+    throw new Error("classification evidence must bind the exact semantic diff");
+  }
+  if (
+    classificationEvidence.artifactRef !== semanticDiff.artifactRef ||
+    classificationEvidence.fromRevisionRef !== semanticDiff.fromRevisionRef ||
+    classificationEvidence.toRevisionRef !== semanticDiff.toRevisionRef
+  ) {
+    throw new Error("classification evidence revision endpoints must match semantic diff");
+  }
+
+  return Object.freeze({
+    contractVersion: PROCESS_CHANGE_CONTRACT_VERSION,
+    artifactRef: semanticDiff.artifactRef,
+    fromRevisionRef: semanticDiff.fromRevisionRef,
+    toRevisionRef: semanticDiff.toRevisionRef,
+    diffRef,
+    classificationRef,
+    reasonRef: nonEmpty(record.reasonRef, "reasonRef"),
     evidenceRefs: normalizeRefList(record.evidenceRefs, "evidenceRefs"),
   });
 }

@@ -1,7 +1,7 @@
 ---
 id: TASK-401
 title: Bind semantic change reason and evidence to canonical change truth
-status: ready
+status: verification
 priority: 401
 milestone: M18
 model_tier: architecture
