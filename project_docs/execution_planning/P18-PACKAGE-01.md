@@ -1,6 +1,6 @@
 # P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation
 
-Status: ACTIVE / CONSTRUCTION A+B INTEGRATED / CONSTRUCTION C NOT REQUIRED / PACKAGE REVIEW NEXT
+Status: ACTIVE / PACKAGE INTEGRATION & REVIEW EXECUTED / GO FOR DOCUMENTATION & CLOSURE PENDING EXACT-HEAD GATES
 Date: 2026-08-28
 Milestone: M18 Process Versioning
 WBS coverage: 18.1.1–18.1.3
@@ -22,13 +22,18 @@ TASK-390..394 established the bounded WBS 18.1 contract surface and integrated g
 PR #470 integrated the fresh-main revalidation as `afab73048e41d4db88786076c7df0e9d247f1cac`; bounded repository-memory consumption then integrated through PR #472 as `4b6a9832621512662af9f3b3e96f4ab9a43a7a0c`, confirming Construction A integrated and Construction B justified.
 
 ### Construction B — `P18-PROCESS-VERSION-IDENTITY-INTEGRATION-01` — INTEGRATED
-TASK-395..398 integrated the canonical WBS 18.1 truth through the representative catalog consumer seam, immutable replay enforcement, lifecycle/lineage projection and integrated bypass-resistance proof. PR #473 lifecycle head `173209bee6ad94dc4c870d2f312ae4df1dd49f1b` passed Deterministic CI #1120 / Heavy Product Tests #576 and merged as fresh main `c2a3ee848ec24fe976ab13ff12e933a551dc8b2d`; reviewed-head -> merge-main comparison has zero changed files.
+TASK-395..398 integrated canonical WBS 18.1 truth through representative catalog admission/readmission/lineage consumption and integrated bypass-resistance proof. PR #473 lifecycle head `173209bee6ad94dc4c870d2f312ae4df1dd49f1b` passed Deterministic CI #1120 / Heavy Product Tests #576 and merged as `c2a3ee848ec24fe976ab13ff12e933a551dc8b2d`; reviewed-head -> merge-main has zero changed files.
 
-### Post-Construction-B revalidation — ACTIVE
-Fresh-main evidence confirms WBS 18.1.1–18.1.3 and the Package Goal are constructed across canonical contracts plus a representative consumer with deterministic negative proofs. No bounded residual required by the Package Goal remains.
+### Post-Construction-B revalidation — CONSUMED
+Revalidation head `61d642ca721712d9e51d6b9fa00ea1ce8359b9fe` passed Deterministic CI #1121 / Heavy Product Tests #578 and merged as fresh main `e623d9a77c1d6aea76c6c68d31eb8448e3ab20a6`, with zero reviewed-head -> merge-main changed files.
 
 ### Construction C — `P18-PROCESS-VERSION-IDENTITY-HARDENING-01` — NOT REQUIRED / NOT MATERIALIZED
-The optional third Construction Sprint is not promoted because fresh-main post-B evidence does not justify additional construction. Per Sprint Generation Policy, proceed directly to Package Integration & Review after this revalidation integrates.
+Fresh-main evidence does not justify additional bounded construction for the Package Goal.
+
+## Package Integration & Review — EXECUTED
+`P18-PACKAGE-01-INTEGRATION-REVIEW-01` regresses WBS 18.1.1–18.1.3, Construction A+B integration, representative catalog behavior, immutable replay, lifecycle/lineage rejection paths, compatibility, architecture/dependency fitness, security/trust, CI health, technical debt and actual-vs-forecast effort.
+
+Decision: GO for Documentation & Closure, contingent on exact-head Deterministic CI + Heavy Product Tests on the review head and absence of blocking review findings. No package-local technical-debt blocker or missing Package Goal capability was found.
 
 ## Out of scope
 - WBS 18.2 semantic diff/breaking classification/change approval;
@@ -38,4 +43,4 @@ The optional third Construction Sprint is not promoted because fresh-main post-B
 - reopening P17, Decision Boundary changes, unrelated findings/TDs or inferred L4.
 
 ## Package exit
-WBS 18.1.1–18.1.3 is proven through deterministic product tests, immutable-publication rejection and explicit revision lifecycle/lineage semantics, followed by fresh-main Package Integration & Review and Documentation & Closure.
+After Package Integration & Review integrates with exact-head gates, execute Documentation & Closure only. The Package becomes canonically CLOSED only after fresh-main repository-memory reconciliation confirms WBS 18.1.1–18.1.3 delivered and all successor scope remains forecast.
