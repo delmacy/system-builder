@@ -1,7 +1,7 @@
 ---
 id: TASK-384
 title: Prove promotion control contract chain and close Construction A
-status: verification
+status: completed
 priority: 384
 milestone: M17
 model_tier: architecture
