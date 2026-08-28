@@ -17,6 +17,9 @@
       "@system-builder/contracts/process-change": [
         "packages/contracts/process-change/index.ts"
       ],
+      "@system-builder/contracts/decision-boundary": [
+        "packages/contracts/decision-boundary/index.ts"
+      ],
       "@system-builder/deterministic": [
         "packages/deterministic/index.ts"
       ],

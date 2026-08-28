@@ -20,6 +20,7 @@ context_paths:
 allowed_paths:
   - packages/contracts/process-change/**
   - tests/product/**
+  - tsconfig.json
   - specs/tasks/TASK-400-P18-SEMANTIC-CHANGE-CLASSIFICATION.md
 forbidden_paths:
   - packages/contracts/decision-boundary/**
