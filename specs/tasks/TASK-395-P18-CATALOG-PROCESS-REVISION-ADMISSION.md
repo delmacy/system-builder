@@ -1,7 +1,7 @@
 ---
 id: TASK-395
 title: Integrate canonical process revision identity into representative catalog admission
-status: ready
+status: blocked
 priority: 395
 milestone: M18
 model_tier: architecture
@@ -70,3 +70,6 @@ Product tests with positive canonical admission plus malformed/extra-field and s
 
 # Escalation
 Stop if integration requires changing existing software catalog version semantics, WBS 18.2/18.3 behavior, storage topology or public authority boundaries.
+
+# Blocked evidence
+Fresh main `2ed098203090478c907992d56074f996fd377c08` contains the canonical implementation at `packages/contracts/process-versioning/index.ts`, but `tsconfig.json` exposes no public `@system-builder/contracts/process-versioning` path. Existing architecture policy rejects relative cross-package imports. Because this TASK's `allowed_paths` excludes `tsconfig.json` and any contracts/public-surface file, TASK-395 cannot consume the required canonical public process-versioning API without an out-of-scope public-surface change. No catalog implementation was retained; TASK-396 must not start until this blocker is resolved through an authorized bounded planning/correction gate.
