@@ -1,33 +1,32 @@
 # Automation Sprint Handoff
 
-status: READY
-worker_slot: :10
-started_at: 2026-08-27T22:12:10-03:00
-updated_at: 2026-08-27T22:15:00-03:00
-lease_until: none
-observed_main_sha: 4dc76583fb95ee5cf4712dd87d94e426bda77487
-active_branch: sprint/P17-KNOWLEDGE-PROMOTION-CONTRACT-01
-active_pr: 456
-active_head_sha: bd68c990e72a804509d4a43be4c68e3df4f99fbb
-current_step: TASK-379 corrective implementation is exact-head green and lifecycle-completed; metadata-only completion head is running its own CI/Heavy gate before TASK-380 begins.
+status: RUNNING
+worker_slot: :50
+started_at: 2026-08-28T00:52:00-03:00
+updated_at: 2026-08-28T00:55:00-03:00
+lease_until: 2026-08-28T01:20:00-03:00
+observed_main_sha: 8e0d3c120aaf14e482992df98d1b2fc2b9aea371
+active_branch: sprint/P17-KNOWLEDGE-PROMOTION-INTEGRATION-01
+active_pr: none
+active_head_sha: 8e0d3c120aaf14e482992df98d1b2fc2b9aea371
+current_step: Construction B Planning & Materialization PR #459 integrated after exact-head CI #1063 / Heavy #516 PASS; planning-head and merge-main share tree f72ef3eb350730f84240be555e6fd66cfd9e8178. Preparing TASK-385 only.
 
 ## Authorization
-`P17-PACKAGE-03 — Knowledge Promotion Control & Provenance / WBS 17.3.1–17.3.3` Planning & Materialization and post-planning reconciliations are already integrated. Construction A `P17-KNOWLEDGE-PROMOTION-CONTRACT-01` is in execution. TASK-379 is completed after bounded conformance correction; TASK-380..384 remain materialized and not executed. Construction B remains FORECAST / NOT MATERIALIZED; Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. Canonical M15 `human-decision` authority remains unchanged; eligibility/transformation evidence never implies promotion/reuse approval. No findings/TD absorption or undeclared L4 is authorized.
+User authorized the next three eligible Work Packages sequentially with all process approvals L1-L3 within materialized scope. P17-PACKAGE-03 is Package 1 of 3 and remains active. Construction B P17-KNOWLEDGE-PROMOTION-INTEGRATION-01 is now materialized with TASK-385..389. Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. No unrelated findings/TD absorption or inferred L4.
 
 ## Completed this round
-- revalidated PR #456 exact corrective head `9d163892cfd6ad94370d7a99b39381db19f8c364`;
-- confirmed Deterministic CI #1047 PASS and Heavy Product Tests #499 PASS on that exact SHA;
-- preserved the conformance correction proving the real WBS 17.1 -> 17.2 chain via `evaluateKnowledgeEnforcement`, canonical eligible predecessor state, payload-minimality and denied-eligibility fail-closed behavior;
-- marked TASK-379 lifecycle `completed` in metadata-only commit `bd68c990e72a804509d4a43be4c68e3df4f99fbb`;
-- reconciled PR #456 body so it no longer instructs workers to keep TASK-379 in verification;
-- observed fresh main `4dc76583fb95ee5cf4712dd87d94e426bda77487`; no Planning/reconciliation replay is authorized;
-- at last revalidation, Deterministic CI #1048 and Heavy Product Tests #500 were both in progress on metadata-only head `bd68c990...`.
+- adopted stale READY handoff with no valid lease;
+- confirmed PR #457 and #458 already integrated; did not repeat them;
+- confirmed PR #459 head f33ca8508031c66436b8b62f224bf16c21d0acac exact-head Deterministic CI #1063 PASS and Heavy #516 PASS with no review threads;
+- integrated PR #459 as main 8e0d3c120aaf14e482992df98d1b2fc2b9aea371;
+- proved planning-head and merge-main exact tree equivalence at f72ef3eb350730f84240be555e6fd66cfd9e8178;
+- revalidated TASK-385 materialized scope and boundaries.
 
-last_completed_step: TASK-379 bounded correction passed exact-head gates and TASK-379 lifecycle is now completed.
-next_authorized_step: confirm Deterministic CI #1048 + Heavy Product Tests #500 PASS on `bd68c990e72a804509d4a43be4c68e3df4f99fbb`; if green without drift/blockers, execute only TASK-380 as one bounded authoritative task change and gate that new head before TASK-381.
+last_completed_step: Construction B Planning & Materialization integrated and fresh-main tree equivalence proved.
+next_authorized_step: execute TASK-385 only on sprint/P17-KNOWLEDGE-PROMOTION-INTEGRATION-01, run declared gates, and do not start TASK-386 before exact-head gates pass.
 
 ## Boundaries
-Do not repeat PR #452/#453/#455, Package 03 Planning, post-planning reconciliation, or TASK-379 correction. Do not execute TASK-381 before TASK-380 gates. Do not materialize Construction B/C. Do not infer promotion/reuse approval, change Decision Boundary, absorb findings/TD-P13-01..04, carry raw sensitive payloads, or infer L4.
+No Construction C materialization. No Decision Boundary public-contract change, automatic/non-human promotion approval, sensitive payload/content carriage, unrelated findings/TD-P13-01..04 absorption, storage/topology redesign, or undeclared L4.
 
 ## resume_prompt
-Retome `delmacy/system-builder` serializadamente como worker `:10` a partir de fresh main `4dc76583fb95ee5cf4712dd87d94e426bda77487`. `P17-PACKAGE-03 / WBS 17.3.1–17.3.3` Planning & Materialization e reconciliações pós-planning já estão integradas; não repetir PR #452/#453/#455. Construction A PR #456 está em execução. TASK-379 corrective head `9d163892cfd6ad94370d7a99b39381db19f8c364` passou Deterministic CI #1047 + Heavy #499 e a TASK foi marcada `completed` no metadata-only head `bd68c990e72a804509d4a43be4c68e3df4f99fbb`. Antes de TASK-380, confirme CI #1048 + Heavy #500 PASS nesse head sem drift. Depois execute somente TASK-380 e gateie o novo head antes de TASK-381. Construction B FORECAST / NOT MATERIALIZED; Construction C OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. Preserve M15 human-decision; eligibility/transformation não significa promotion/reuse approval; não absorva findings/TDs nem L4 por inferência.
+Retome delmacy/system-builder no fresh main 8e0d3c120aaf14e482992df98d1b2fc2b9aea371. PR #459 Construction B Planning & Materialization is integrated; planning head f33ca8508031c66436b8b62f224bf16c21d0acac passed CI #1063 / Heavy #516 and shares tree f72ef3eb350730f84240be555e6fd66cfd9e8178 with merge-main. Construction B P17-KNOWLEDGE-PROMOTION-INTEGRATION-01 contains TASK-385 -> 386 -> 387 -> 388 -> 389. Execute TASK-385 first and gate exact head before TASK-386. Preserve M15 human-decision authority; Construction C optional/not materialized; no findings/TDs or inferred L4.
