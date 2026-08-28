@@ -40,6 +40,11 @@ export type ProcessRevisionLifecycleDescriptor = Readonly<{
   supersedesRevisionRef: string | null;
 }>;
 
+export type ProcessRevisionLineageResult = Readonly<{
+  artifactRef: string;
+  revisionRefs: readonly string[];
+}>;
+
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -214,5 +219,79 @@ export function normalizeProcessRevisionLifecycleDescriptor(
     ...revision,
     lifecycleState: lifecycleState(record.lifecycleState),
     supersedesRevisionRef,
+  });
+}
+
+export function validateProcessRevisionLineage(input: unknown): ProcessRevisionLineageResult {
+  if (!Array.isArray(input) || input.length === 0) {
+    throw new Error("process revision lineage must be a non-empty array");
+  }
+
+  const entries = input.map((value, index) => {
+    const record = asRecord(value, `process revision lineage entry ${index + 1}`);
+    assertExactFields(record, ["publication", "lifecycle"], `process revision lineage entry ${index + 1}`);
+    const publication = normalizeProcessRevisionPublicationEvidence(record.publication);
+    const lifecycle = normalizeProcessRevisionLifecycleDescriptor(record.lifecycle);
+    const identityFields: readonly (keyof ProcessRevisionIdentity)[] = [
+      "contractVersion",
+      "artifactRef",
+      "revisionRef",
+      "revisionNumber",
+      "previousRevisionRef",
+    ];
+    for (const field of identityFields) {
+      if (publication[field] !== lifecycle[field]) {
+        throw new Error(`lineage publication/lifecycle conflict on ${field}`);
+      }
+    }
+    return { publication, lifecycle };
+  }).sort((left, right) => left.publication.revisionNumber - right.publication.revisionNumber);
+
+  const artifactRef = entries[0]!.publication.artifactRef;
+  const seenRevisionRefs = new Set<string>();
+  const seenContentRefs = new Map<string, string>();
+
+  for (let index = 0; index < entries.length; index += 1) {
+    const current = entries[index]!;
+    const { publication, lifecycle } = current;
+    if (publication.artifactRef !== artifactRef) {
+      throw new Error("lineage contains cross-artifact revision");
+    }
+    if (seenRevisionRefs.has(publication.revisionRef)) {
+      const priorContentRef = seenContentRefs.get(publication.revisionRef);
+      if (priorContentRef !== publication.immutableContentRef) {
+        throw new Error("lineage contains conflicting immutable publication evidence");
+      }
+      throw new Error("lineage contains duplicate revisionRef");
+    }
+    if (publication.revisionNumber !== index + 1) {
+      throw new Error("lineage revision numbers must be contiguous from 1");
+    }
+    if (index === 0) {
+      if (publication.previousRevisionRef !== null || lifecycle.supersedesRevisionRef !== null) {
+        throw new Error("lineage first revision cannot reference a predecessor");
+      }
+    } else {
+      const previous = entries[index - 1]!;
+      if (publication.previousRevisionRef !== previous.publication.revisionRef) {
+        throw new Error("lineage previousRevisionRef must reference the immediately preceding revision");
+      }
+      if (
+        lifecycle.supersedesRevisionRef !== null &&
+        lifecycle.supersedesRevisionRef !== previous.publication.revisionRef
+      ) {
+        throw new Error("lineage supersedesRevisionRef must reference the immediately preceding revision");
+      }
+      if (lifecycle.supersedesRevisionRef !== null && previous.lifecycle.lifecycleState === "active") {
+        throw new Error("lineage cannot supersede a revision that remains active");
+      }
+    }
+    seenRevisionRefs.add(publication.revisionRef);
+    seenContentRefs.set(publication.revisionRef, publication.immutableContentRef);
+  }
+
+  return Object.freeze({
+    artifactRef,
+    revisionRefs: Object.freeze(entries.map((entry) => entry.publication.revisionRef)),
   });
 }
