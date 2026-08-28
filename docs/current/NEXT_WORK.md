@@ -1,11 +1,11 @@
-# Next Work — P18 Documentation & Closure
+# Next Work — P18 Package 01 Final Closure Gate
 
-Fresh main `e623d9a77c1d6aea76c6c68d31eb8448e3ab20a6` contains integrated Construction A+B and consumed post-B revalidation for `P18-PACKAGE-01` / WBS 18.1.1–18.1.3. Construction C is NOT REQUIRED / NOT MATERIALIZED.
+Fresh main `12b6d2530f5352fe7cbd5a056af2634bfa85bee9` contains integrated Construction A+B, Construction C NOT REQUIRED / NOT MATERIALIZED, consumed post-B revalidation and integrated Package Integration & Review for `P18-PACKAGE-01` / WBS 18.1.1–18.1.3.
 
 ## Current gate
-Package Integration & Review is executed with GO for Documentation & Closure, contingent on exact-head Deterministic CI + Heavy Product Tests on the review head and absence of blocking review findings. Do not integrate the review or start Documentation & Closure before those gates pass unchanged.
+Documentation & Closure is complete on its branch. Require exact-head Deterministic CI + Heavy Product Tests, no blocking review finding and expected-head integration of the closure PR. Then reconstruct fresh main and prove closure-head -> merge-main tree equivalence.
 
-## Next authorized step after review integration
-Reconstruct fresh main, prove reviewed-head -> merge-main tree equivalence, then execute only Documentation & Closure for `P18-PACKAGE-01`: reconcile PROJECT_STATE, CURRENT_MILESTONE, NEXT_WORK, Package/Sprint reports and traceability to mark WBS 18.1 package canonically CLOSED. No new product behavior may enter closure.
+## Next authorized step after closure integration
+Perform only mechanical canonical CLOSED-state repository-memory reconciliation for `P18-PACKAGE-01` / WBS 18.1. Do not select or materialize a successor Work Package until that canonical closure is integrated and fresh-main authority is revalidated.
 
 WBS 18.2 and 18.3 remain FORECAST / NOT MATERIALIZED. Do not calculate semantic diff/breaking classification, create process→system/release lineage, use Git commit as business-version authority, change Decision Boundary, absorb unrelated findings/TDs or infer L4.

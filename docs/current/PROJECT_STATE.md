@@ -9,9 +9,9 @@ M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is
 
 Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-## M18 Process Versioning — PACKAGE REVIEW / GO FOR DOCUMENTATION & CLOSURE PENDING EXACT-HEAD GATES
-`P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` remains bounded to WBS 18.1.1–18.1.3. Construction A and Construction B are integrated; post-B revalidation integrated as fresh main `e623d9a77c1d6aea76c6c68d31eb8448e3ab20a6` after exact-head Deterministic CI #1121 / Heavy Product Tests #578 and zero reviewed-head -> merge-main changed files.
+## M18 Process Versioning — P18-PACKAGE-01 CLOSURE READY / FINAL EXACT-HEAD GATES PENDING
+`P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` is fully constructed and reviewed for WBS 18.1.1–18.1.3. Construction A+B are integrated, Construction C is NOT REQUIRED / NOT MATERIALIZED, and Package Integration & Review merged as fresh main `12b6d2530f5352fe7cbd5a056af2634bfa85bee9` after exact-head Deterministic CI #1122 / Heavy Product Tests #581 with zero reviewed-head -> merge-main changed files.
 
-Package Integration & Review finds WBS 18.1.1–18.1.3 SATISFIED / INTEGRATED, no bounded Package Goal residual, no package-local technical-debt blocker, and Construction C NOT REQUIRED / NOT MATERIALIZED. Review decision is GO for Documentation & Closure contingent on exact-head review CI/Heavy and no blocking review finding.
+Documentation & Closure reconciles repository memory only and records the Package as READY TO CLOSE. Canonical CLOSED state is not established until the exact closure head passes Deterministic CI + Heavy Product Tests, has no blocking review finding, integrates with expected-head protection, and fresh-main equivalence is proven.
 
 WBS 18.2 semantic change and WBS 18.3 process→system lineage remain FORECAST / NOT MATERIALIZED. No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 is authorized.

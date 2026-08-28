@@ -1,6 +1,6 @@
 # P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation
 
-Status: ACTIVE / PACKAGE INTEGRATION & REVIEW EXECUTED / GO FOR DOCUMENTATION & CLOSURE PENDING EXACT-HEAD GATES
+Status: ACTIVE / DOCUMENTATION & CLOSURE COMPLETE ON BRANCH / FINAL EXACT-HEAD GATES PENDING
 Date: 2026-08-28
 Milestone: M18 Process Versioning
 WBS coverage: 18.1.1–18.1.3
@@ -30,10 +30,11 @@ Revalidation head `61d642ca721712d9e51d6b9fa00ea1ce8359b9fe` passed Deterministi
 ### Construction C — `P18-PROCESS-VERSION-IDENTITY-HARDENING-01` — NOT REQUIRED / NOT MATERIALIZED
 Fresh-main evidence does not justify additional bounded construction for the Package Goal.
 
-## Package Integration & Review — EXECUTED
-`P18-PACKAGE-01-INTEGRATION-REVIEW-01` regresses WBS 18.1.1–18.1.3, Construction A+B integration, representative catalog behavior, immutable replay, lifecycle/lineage rejection paths, compatibility, architecture/dependency fitness, security/trust, CI health, technical debt and actual-vs-forecast effort.
+## Package Integration & Review — INTEGRATED
+`P18-PACKAGE-01-INTEGRATION-REVIEW-01` found WBS 18.1.1–18.1.3 SATISFIED / INTEGRATED, no missing Package Goal capability and no package-local technical-debt blocker. Review head `525c329cbc7d943240529a9a982e82f279583ab4` passed Deterministic CI #1122 / Heavy Product Tests #581 and merged as fresh main `12b6d2530f5352fe7cbd5a056af2634bfa85bee9`, with zero reviewed-head -> merge-main changed files.
 
-Decision: GO for Documentation & Closure, contingent on exact-head Deterministic CI + Heavy Product Tests on the review head and absence of blocking review findings. No package-local technical-debt blocker or missing Package Goal capability was found.
+## Documentation & Closure — COMPLETE ON BRANCH / FINAL GATES PENDING
+Repository memory and traceability are reconciled without product or contract behavior changes. The package is READY TO CLOSE, but is not canonically CLOSED until the exact closure head passes Deterministic CI + Heavy Product Tests, has no blocking review finding, merges with expected-head protection, and fresh-main tree equivalence is proven.
 
 ## Out of scope
 - WBS 18.2 semantic diff/breaking classification/change approval;
@@ -43,4 +44,4 @@ Decision: GO for Documentation & Closure, contingent on exact-head Deterministic
 - reopening P17, Decision Boundary changes, unrelated findings/TDs or inferred L4.
 
 ## Package exit
-After Package Integration & Review integrates with exact-head gates, execute Documentation & Closure only. The Package becomes canonically CLOSED only after fresh-main repository-memory reconciliation confirms WBS 18.1.1–18.1.3 delivered and all successor scope remains forecast.
+After closure PR integration with exact-head gates and fresh-main tree equivalence, perform only mechanical canonical CLOSED-state reconciliation. Only after that reconciliation integrates may successor Work Package planning derive from fresh repository authority.
