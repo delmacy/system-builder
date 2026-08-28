@@ -5,6 +5,7 @@ import {
   guardImmutablePublishedRevision,
   normalizeProcessArtifactIdentity,
   normalizeProcessRevisionIdentity,
+  normalizeProcessRevisionLifecycleDescriptor,
   normalizeProcessRevisionPublicationEvidence,
 } from "../../packages/contracts/process-versioning/index.js";
 
@@ -177,5 +178,95 @@ test("publication evidence is payload-minimal and rejects Git or payload injecti
       payload: { secret: true },
     }),
     /unexpected field payload/,
+  );
+});
+
+test("revision lifecycle descriptor preserves identity and explicit supersession", () => {
+  const descriptor = normalizeProcessRevisionLifecycleDescriptor({
+    contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+    artifactRef: " process:orders ",
+    revisionRef: " process:orders@2 ",
+    revisionNumber: 2,
+    previousRevisionRef: " process:orders@1 ",
+    lifecycleState: "active",
+    supersedesRevisionRef: " process:orders@1 ",
+  });
+
+  assert.deepEqual(descriptor, {
+    contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+    artifactRef: "process:orders",
+    revisionRef: "process:orders@2",
+    revisionNumber: 2,
+    previousRevisionRef: "process:orders@1",
+    lifecycleState: "active",
+    supersedesRevisionRef: "process:orders@1",
+  });
+});
+
+test("deprecated and archived states retain immutable revision history without semantic classification", () => {
+  const base = {
+    contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+    artifactRef: "process:orders",
+    revisionRef: "process:orders@2",
+    revisionNumber: 2,
+    previousRevisionRef: "process:orders@1",
+    supersedesRevisionRef: "process:orders@1",
+  } as const;
+
+  const deprecated = normalizeProcessRevisionLifecycleDescriptor({ ...base, lifecycleState: "deprecated" });
+  const archived = normalizeProcessRevisionLifecycleDescriptor({ ...base, lifecycleState: "archived" });
+
+  assert.equal(deprecated.revisionRef, archived.revisionRef);
+  assert.equal(deprecated.previousRevisionRef, archived.previousRevisionRef);
+  assert.equal(deprecated.supersedesRevisionRef, archived.supersedesRevisionRef);
+  assert.equal("semanticClassification" in deprecated, false);
+  assert.equal("semanticClassification" in archived, false);
+});
+
+test("revision lifecycle fails closed on self-supersession contradictory state and injected classification", () => {
+  const base = {
+    contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+    artifactRef: "process:orders",
+    revisionRef: "process:orders@2",
+    revisionNumber: 2,
+    previousRevisionRef: "process:orders@1",
+  } as const;
+
+  assert.throws(
+    () => normalizeProcessRevisionLifecycleDescriptor({
+      ...base,
+      lifecycleState: "active",
+      supersedesRevisionRef: "process:orders@2",
+    }),
+    /supersedesRevisionRef must differ from revisionRef/,
+  );
+  assert.throws(
+    () => normalizeProcessRevisionLifecycleDescriptor({
+      ...base,
+      lifecycleState: "deleted",
+      supersedesRevisionRef: "process:orders@1",
+    }),
+    /unsupported process revision lifecycle state/,
+  );
+  assert.throws(
+    () => normalizeProcessRevisionLifecycleDescriptor({
+      ...base,
+      lifecycleState: "deprecated",
+      supersedesRevisionRef: "process:orders@1",
+      semanticClassification: "breaking",
+    }),
+    /unexpected field semanticClassification/,
+  );
+  assert.throws(
+    () => normalizeProcessRevisionLifecycleDescriptor({
+      contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+      artifactRef: "process:orders",
+      revisionRef: "process:orders@1",
+      revisionNumber: 1,
+      previousRevisionRef: null,
+      lifecycleState: "active",
+      supersedesRevisionRef: "process:orders@0",
+    }),
+    /first revision cannot supersede another revision/,
   );
 });

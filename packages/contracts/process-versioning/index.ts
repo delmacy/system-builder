@@ -28,6 +28,18 @@ export type PublishedRevisionGuardResult = Readonly<{
   immutableContentRef: string;
 }>;
 
+export type ProcessRevisionLifecycleState = "active" | "deprecated" | "archived";
+
+export type ProcessRevisionLifecycleDescriptor = Readonly<{
+  contractVersion: typeof PROCESS_VERSION_IDENTITY_VERSION;
+  artifactRef: string;
+  revisionRef: string;
+  revisionNumber: number;
+  previousRevisionRef: string | null;
+  lifecycleState: ProcessRevisionLifecycleState;
+  supersedesRevisionRef: string | null;
+}>;
+
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -58,6 +70,13 @@ function version(value: unknown): typeof PROCESS_VERSION_IDENTITY_VERSION {
     throw new Error(`unsupported process version identity contract version: ${String(value)}`);
   }
   return PROCESS_VERSION_IDENTITY_VERSION;
+}
+
+function lifecycleState(value: unknown): ProcessRevisionLifecycleState {
+  if (value !== "active" && value !== "deprecated" && value !== "archived") {
+    throw new Error(`unsupported process revision lifecycle state: ${String(value)}`);
+  }
+  return value;
 }
 
 export function normalizeProcessArtifactIdentity(input: unknown): ProcessArtifactIdentity {
@@ -154,5 +173,46 @@ export function guardImmutablePublishedRevision(
     status: "idempotent",
     revisionRef: canonicalPublished.revisionRef,
     immutableContentRef: canonicalPublished.immutableContentRef,
+  });
+}
+
+export function normalizeProcessRevisionLifecycleDescriptor(
+  input: unknown,
+): ProcessRevisionLifecycleDescriptor {
+  const record = asRecord(input, "process revision lifecycle descriptor");
+  assertExactFields(
+    record,
+    [
+      "contractVersion",
+      "artifactRef",
+      "revisionRef",
+      "revisionNumber",
+      "previousRevisionRef",
+      "lifecycleState",
+      "supersedesRevisionRef",
+    ],
+    "process revision lifecycle descriptor",
+  );
+  const revision = normalizeProcessRevisionIdentity({
+    contractVersion: record.contractVersion,
+    artifactRef: record.artifactRef,
+    revisionRef: record.revisionRef,
+    revisionNumber: record.revisionNumber,
+    previousRevisionRef: record.previousRevisionRef,
+  });
+  let supersedesRevisionRef: string | null = null;
+  if (record.supersedesRevisionRef !== null) {
+    supersedesRevisionRef = nonEmpty(record.supersedesRevisionRef, "supersedesRevisionRef");
+    if (supersedesRevisionRef === revision.revisionRef) {
+      throw new Error("supersedesRevisionRef must differ from revisionRef");
+    }
+    if (revision.revisionNumber === 1) {
+      throw new Error("first revision cannot supersede another revision");
+    }
+  }
+  return Object.freeze({
+    ...revision,
+    lifecycleState: lifecycleState(record.lifecycleState),
+    supersedesRevisionRef,
   });
 }
