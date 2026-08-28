@@ -1,31 +1,36 @@
 # Automation Sprint Handoff
 
-status: RUNNING
-worker_slot: :30
-started_at: 2026-08-28T12:55:55-03:00
-updated_at: 2026-08-28T12:59:00-03:00
-lease_until: 2026-08-28T13:24:00-03:00
-observed_main_sha: e205683422907edf8c27f99c01aab317cca3f66c
-active_branch: none
-active_pr: none
-active_head_sha: null
-current_step: Fresh-main successor Planning & Materialization gate after canonical P18-PACKAGE-01 closure. Revalidate M18 WBS/scope/contracts and derive only the next eligible bounded Work Package; do not reopen WBS 18.1.
+status: READY
+worker_slot: none
+started_at: null
+updated_at: 2026-08-28T13:03:00-03:00
+lease_until: null
+observed_main_sha: 0f605f4db79036b2048f80689b553653ee89b40b
+active_branch: sprint/P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01
+active_pr: 480
+active_head_sha: 7b74ebdb9dc17a493f1a5f50eb1b5a5674a73ea7
+current_step: TASK-399 is implemented and in verification. Exact-head Deterministic CI #1126 and Heavy Product Tests #589 are queued on PR #480 head `7b74ebdb9dc17a493f1a5f50eb1b5a5674a73ea7`. Do not execute TASK-400 until both pass without head drift.
 
 ## Authorization
-User authorized the next three eligible Work Packages sequentially with all process approvals L1-L3 within materialized scope. P17-PACKAGE-03 is Package 1 of 3 and canonically CLOSED. P18-PACKAGE-01 is Package 2 of 3 and canonically CLOSED on main `e205683422907edf8c27f99c01aab317cca3f66c`. Package 3 may now be derived only through fresh-main repository authority. No unrelated findings/TD absorption or inferred L4.
+User authorized the next three eligible Work Packages sequentially with all process approvals L1-L3 within materialized scope. P17-PACKAGE-03 is Package 1 of 3 CLOSED. P18-PACKAGE-01 is Package 2 of 3 CLOSED. Fresh-main authority derived Package 3 as `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3. Mission remains active until Package 3 is canonically CLOSED.
 
-## Revalidation this round
-- PR #478 canonical CLOSED-state head `83c2a788366f9da42637ad4b64aca23cb367a66d` passed Deterministic CI #1124 and Heavy Product Tests #585;
-- PR #478 merged as `e205683422907edf8c27f99c01aab317cca3f66c`;
-- reviewed-head -> merge-main comparison has zero changed files;
-- repository memory marks `P18-PACKAGE-01` / WBS 18.1 CLOSED and leaves WBS 18.2/18.3 FORECAST / NOT MATERIALIZED;
-- no current worker lease was active; prior handoff was stale and READY.
+## Completed this round
+- revalidated PR #478 head `83c2a788366f9da42637ad4b64aca23cb367a66d`: Deterministic CI #1124 PASS / Heavy Product Tests #585 PASS;
+- confirmed PR #478 merged as `e205683422907edf8c27f99c01aab317cca3f66c` and reviewed-head -> merge-main has zero changed files;
+- consumed pre-existing fresh-main Planning PR #479 rather than duplicating concurrent work;
+- validated #479 scope as WBS 18.2.1–18.2.3 only, Construction A TASK-399..403, B FORECAST / NOT MATERIALIZED, C OPTIONAL / FORECAST / NOT MATERIALIZED;
+- #479 exact head `3d58d29a935187cfaa5b71dabc6742e87af064cf` passed Deterministic CI #1125 / Heavy Product Tests #587 with no review threads;
+- marked #479 ready and merged with expected-head protection as `0f605f4db79036b2048f80689b553653ee89b40b`;
+- proved #479 reviewed-head -> merge-main has zero file differences;
+- created Construction A branch `sprint/P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` from fresh main;
+- executed TASK-399 as one authoritative commit `7b74ebdb9dc17a493f1a5f50eb1b5a5674a73ea7`: additive process-change diff contract, public alias, deterministic payload-minimal diff proof and negative forged/reversed/duplicate/injection proofs;
+- opened draft PR #480; TASK-399 is `verification`; TASK-400..403 are not executed.
 
-last_completed_step: Package 2 (`P18-PACKAGE-01`) canonically CLOSED with exact-head gates and tree equivalence confirmed.
-next_authorized_step: read AGENTS/policies/M18 WBS/scopes/contracts on fresh main, derive Package 3 through a separate Planning & Materialization gate, materialize only the justified bounded scope, then require exact-head gates before product execution.
+last_completed_step: TASK-399 implemented on Construction A branch as one authoritative commit and PR #480 opened for exact-head verification.
+next_authorized_step: require Deterministic CI #1126 + Heavy Product Tests #589 PASS on exact head `7b74ebdb9dc17a493f1a5f50eb1b5a5674a73ea7` with no drift/blocker; if green, mark TASK-399 completed on a new lifecycle head, re-run exact-head gates as required by repository convention, then execute TASK-400 serially only after the applicable gate remains satisfied.
 
 ## Boundaries
-WBS 18.1 is CLOSED and must not be reopened. WBS 18.2 and WBS 18.3 remain forecast until selected by fresh-main authority. No Git-as-business-version authority, Decision Boundary change, unrelated findings/TD-P13-01..04 absorption, storage/topology redesign or undeclared L4.
+WBS 18.1 is CLOSED. Package 3 is WBS 18.2.1–18.2.3 only. WBS 18.3 remains FORECAST / NOT MATERIALIZED. No Git-as-business-version/approval authority, Decision Boundary modification, ADR-0010 PR approval reuse as business approval, automatic/model approval, unrelated findings/TD-P13-01..04 absorption, storage/topology redesign or undeclared L4.
 
 ## resume_prompt
-Retome `delmacy/system-builder` serializadamente de fresh main `e205683422907edf8c27f99c01aab317cca3f66c`. Mission global: P17-PACKAGE-03 = Package 1/3 CLOSED; P18-PACKAGE-01 = Package 2/3 CLOSED. PR #478 head `83c2a788366f9da42637ad4b64aca23cb367a66d` passed Deterministic CI #1124 / Heavy #585, merged as current main, and reviewed-head -> merge-main has zero file differences. Fresh-main repository memory leaves WBS 18.2/18.3 FORECAST / NOT MATERIALIZED. Derive Package 3 only through the separate Planning & Materialization gate from current WBS/scope/contracts; do not reopen WBS 18.1, infer L4, use Git as business-version authority, or absorb findings/TDs.
+Retome `delmacy/system-builder` serializadamente de fresh main `0f605f4db79036b2048f80689b553653ee89b40b`. Mission global: P17-PACKAGE-03 = Package 1/3 CLOSED; P18-PACKAGE-01 = Package 2/3 CLOSED; Package 3 is `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3. Planning PR #479 exact head `3d58d29a935187cfaa5b71dabc6742e87af064cf` passed CI #1125 / Heavy #587 and merged protected as `0f605f4d…` with zero tree differences. Construction A PR #480 head `7b74ebdb9dc17a493f1a5f50eb1b5a5674a73ea7` contains only TASK-399 implemented as one authoritative commit and TASK-399 is in verification. CI #1126 and Heavy #589 are queued. Do not execute TASK-400 until exact-head gates pass without drift. WBS 18.3 stays forecast; no Git business authority, Decision Boundary change, PR-approval substitution, findings/TDs or inferred L4.
