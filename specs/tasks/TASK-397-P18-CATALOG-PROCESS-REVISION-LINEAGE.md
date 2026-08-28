@@ -1,7 +1,7 @@
 ---
 id: TASK-397
 title: Integrate canonical process revision lifecycle and lineage validation into representative catalog consumer
-status: blocked
+status: completed
 priority: 397
 milestone: M18
 model_tier: architecture

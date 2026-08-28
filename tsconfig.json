@@ -11,6 +11,9 @@
       "@system-builder/contracts/knowledge-boundary": [
         "packages/contracts/knowledge-boundary/public.ts"
       ],
+      "@system-builder/contracts/process-versioning": [
+        "packages/contracts/process-versioning/index.ts"
+      ],
       "@system-builder/deterministic": [
         "packages/deterministic/index.ts"
       ],

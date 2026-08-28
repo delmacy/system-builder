@@ -1,7 +1,7 @@
 ---
 id: TASK-395
 title: Integrate canonical process revision identity into representative catalog admission
-status: ready
+status: completed
 priority: 395
 milestone: M18
 model_tier: architecture
@@ -17,9 +17,11 @@ context_paths:
   - project_docs/18-process-versioning/scope/README.md
   - packages/catalog/**
   - packages/contracts/process-versioning/**
+  - tsconfig.json
 allowed_paths:
   - packages/catalog/**
   - tests/product/**
+  - tsconfig.json
   - specs/tasks/TASK-395-P18-CATALOG-PROCESS-REVISION-ADMISSION.md
 forbidden_paths:
   - packages/runtime-core/**
@@ -51,10 +53,11 @@ Construction A established canonical process artifact/revision identity, publica
 An additive catalog-facing WBS 18.1 admission result exposing only canonical artifact/revision/lifecycle references needed by later Construction B tasks, with no semantic-change or process-to-system authority.
 
 # Required change
-Create an additive catalog helper/module that accepts process artifact/revision publication and lifecycle descriptors, canonicalizes them using the public process-versioning contract functions, and returns only stable artifact/revision/lifecycle references required by downstream WBS 18.1 handling. Caller-injected validators are not allowed.
+Create an additive catalog helper/module that accepts process artifact/revision publication and lifecycle descriptors, canonicalizes them using the public process-versioning contract functions, and returns only stable artifact/revision/lifecycle references required by downstream WBS 18.1 handling. Caller-injected validators are not allowed. Ensure the existing public process-versioning package surface is resolvable through the repository TypeScript path mapping used by production package imports.
 
 # Acceptance criteria
 - canonical public process-versioning APIs perform normalization;
+- the public `@system-builder/contracts/process-versioning` surface resolves through repository TypeScript configuration without relative cross-package imports;
 - artifactRef, revisionRef, revisionNumber, previousRevisionRef and lifecycle truth remain explicit and payload-minimal;
 - malformed fields, extra payload/content fields and inconsistent publication/lifecycle identity fail closed;
 - existing SoftwareCatalogRegistry registration/resolution behavior is unchanged;

@@ -1,7 +1,7 @@
 ---
 id: TASK-396
 title: Enforce immutable published process revisions in representative catalog consumer
-status: blocked
+status: completed
 priority: 396
 milestone: M18
 model_tier: architecture
