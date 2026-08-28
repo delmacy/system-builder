@@ -1,7 +1,7 @@
 ---
 id: TASK-392
 title: Define supersedes deprecated and archived revision semantics
-status: committed
+status: ready
 priority: 392
 milestone: M18
 model_tier: architecture
