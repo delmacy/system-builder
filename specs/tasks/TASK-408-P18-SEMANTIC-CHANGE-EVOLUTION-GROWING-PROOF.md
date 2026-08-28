@@ -42,8 +42,20 @@ validation:
 # Objective
 Close Construction B with an integrated product proof that composes WBS 18.2 canonical semantic-change truth through the representative Support/Evolution consumer seam.
 
+# Context
+TASK-404..407 establish admission, canonical binding, human authority and deterministic outcome proof. This final Construction B TASK must compose those existing seams into one growing proof and record the Sprint Report without expanding package scope.
+
+# Current behavior
+The component proofs exist across the serialized Construction B chain, but the sprint still lacks one integrated end-to-end consumer proof and its Construction B report.
+
 # Required change
 Add a focused growing proof that exercises the public process-versioning/process-change contracts through the real Support/Evolution integration seam. Cover valid approved/rejected same-artifact changes and negative forged/reversed predecessor, cross-artifact, duplicate/mismatched semantic refs, classification/rationale mismatch, authorityRef mismatch, deterministic/probabilistic/model/PR/Git/caller authority substitution and payload injection. Produce the Construction B Sprint Report.
+
+# Inputs / contracts
+Completed TASK-404..407 seams and evidence, public WBS 18.1 process-versioning contracts, public WBS 18.2 process-change contracts, existing human-decision authority and the real Support/Evolution consumer seam.
+
+# Outputs / contracts
+An integrated growing product proof plus `P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01.report.md` recording validations, commits, preserved boundaries and any residuals.
 
 # Acceptance criteria
 - real consumer seam is exercised rather than hand-authoring downstream truth;
@@ -56,6 +68,9 @@ Add a focused growing proof that exercises the public process-versioning/process
 
 # Non-goals
 No Package Integration & Review, Documentation & Closure, WBS 18.3 lineage/migration, findings/TD absorption or inferred L4.
+
+# Evidence expected
+One integrated product proof covering valid approved/rejected same-artifact changes and all listed negative substitutions/injections, together with the Construction B Sprint Report and green declared validations.
 
 # Escalation
 Stop if proving the Package Goal requires architecture changes, Decision Boundary modifications or future WBS scope.
