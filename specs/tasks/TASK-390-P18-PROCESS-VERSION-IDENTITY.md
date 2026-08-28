@@ -1,7 +1,7 @@
 ---
 id: TASK-390
 title: Define stable process artifact identity and revision descriptor
-status: committed
+status: ready
 priority: 390
 milestone: M18
 model_tier: architecture
