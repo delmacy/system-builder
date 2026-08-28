@@ -1,7 +1,7 @@
 ---
 id: TASK-399
 title: Define canonical semantic process change diff contract
-status: verification
+status: completed
 priority: 399
 milestone: M18
 model_tier: architecture
