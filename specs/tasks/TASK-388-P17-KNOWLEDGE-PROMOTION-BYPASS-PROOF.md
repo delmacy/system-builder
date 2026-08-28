@@ -1,7 +1,7 @@
 ---
 id: TASK-388
 title: Prove cross-consumer promotion and reuse bypass resistance
-status: ready
+status: completed
 priority: 388
 milestone: M17
 model_tier: architecture

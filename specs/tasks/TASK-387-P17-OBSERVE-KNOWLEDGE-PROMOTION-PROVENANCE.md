@@ -1,7 +1,7 @@
 ---
 id: TASK-387
 title: Project promotion decision provenance into representative observe path
-status: ready
+status: completed
 priority: 387
 milestone: M17
 model_tier: architecture

@@ -1,3 +1,6 @@
+export * from "./knowledge-promotion-preadmission.js";
+export * from "./knowledge-promotion-admission.js";
+
 import { InMemoryCatalogRecordStorage, type CatalogRecordStorage } from "./storage.js";
 
 export type CatalogVersionConstraint = Readonly<{

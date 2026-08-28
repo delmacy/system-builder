@@ -1,7 +1,7 @@
 ---
 id: TASK-389
 title: Close knowledge promotion integration with growing proof
-status: ready
+status: completed
 priority: 389
 milestone: M17
 model_tier: architecture
