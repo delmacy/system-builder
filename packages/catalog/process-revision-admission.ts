@@ -1,4 +1,5 @@
 import {
+  guardImmutablePublishedRevision,
   normalizeProcessArtifactIdentity,
   normalizeProcessRevisionIdentity,
   normalizeProcessRevisionLifecycleDescriptor,
@@ -25,6 +26,13 @@ export type CatalogProcessRevisionAdmission = Readonly<{
   immutableContentRef: string;
   lifecycleState: ProcessRevisionLifecycleState;
   supersedesRevisionRef: string | null;
+}>;
+
+export type CatalogProcessRevisionReadmission = Readonly<{
+  status: "idempotent";
+  revisionRef: string;
+  immutableContentRef: string;
+  admission: CatalogProcessRevisionAdmission;
 }>;
 
 type UnknownRecord = Record<string, unknown>;
@@ -87,5 +95,28 @@ export function admitCatalogProcessRevision(
     immutableContentRef: publication.immutableContentRef,
     lifecycleState: lifecycle.lifecycleState,
     supersedesRevisionRef: lifecycle.supersedesRevisionRef,
+  });
+}
+
+export function readmitCatalogProcessRevision(
+  published: CatalogProcessRevisionAdmissionInput,
+  attempted: CatalogProcessRevisionAdmissionInput,
+): CatalogProcessRevisionReadmission {
+  const publishedAdmission = admitCatalogProcessRevision(published);
+  const attemptedAdmission = admitCatalogProcessRevision(attempted);
+  const immutable = guardImmutablePublishedRevision(published.publication, attempted.publication);
+
+  if (publishedAdmission.artifactRef !== attemptedAdmission.artifactRef) {
+    throw new Error("catalog process revision overwrite conflicts with canonical artifact identity");
+  }
+  if (publishedAdmission.revisionRef !== attemptedAdmission.revisionRef) {
+    throw new Error("catalog process revision overwrite conflicts with canonical revision identity");
+  }
+
+  return Object.freeze({
+    status: immutable.status,
+    revisionRef: immutable.revisionRef,
+    immutableContentRef: immutable.immutableContentRef,
+    admission: attemptedAdmission,
   });
 }
