@@ -37,6 +37,22 @@ validation:
 # Objective
 Provide the integrated growing proof and Sprint Report for Construction A / WBS 18.1.
 
+# Context
+Construction A closes only after the materialized WBS 18.1.1–18.1.3 contracts are exercised together under the Package boundaries, without entering forecast WBS 18.2/18.3 scope.
+
+# Current behavior
+TASK-390..393 provide the planned identity, immutable-publication, lifecycle and lineage composition contracts; the integrated growing proof and Sprint Report are not yet produced.
+
+# Inputs / contracts
+- TASK-390 stable artifact and immutable revision identity;
+- TASK-391 immutable publication guard;
+- TASK-392 lifecycle and supersession semantics;
+- TASK-393 deterministic revision-lineage composition;
+- `P18-PACKAGE-01`, Construction A and WBS 18.1 boundaries.
+
+# Outputs / contracts
+An integrated product-level positive/negative proof for WBS 18.1.1–18.1.3 plus `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01.report.md` recording evidence, validations and preserved scope boundaries.
+
 # Required change
 Exercise the complete bounded path: stable artifact identity → multiple immutable revisions → idempotent publication/conflicting overwrite rejection → explicit supersession/deprecated/archive lineage validation.
 
