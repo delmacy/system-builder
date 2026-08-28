@@ -1,6 +1,12 @@
+import {
+  isCanonicalDecisionBoundaryVerificationResult,
+  type DecisionBoundaryVerificationResult,
+} from "@system-builder/contracts/decision-boundary";
 import { normalizeProcessRevisionIdentity, type ProcessRevisionIdentity } from "@system-builder/contracts/process-versioning";
 
 export const PROCESS_CHANGE_CONTRACT_VERSION = "1.0.0" as const;
+export const PROCESS_CHANGE_CLASSIFICATIONS = ["breaking", "non-breaking", "not-applicable"] as const;
+export type ProcessChangeClassification = (typeof PROCESS_CHANGE_CLASSIFICATIONS)[number];
 
 export type ProcessSemanticSnapshotEntry = Readonly<{
   semanticRef: string;
@@ -15,6 +21,19 @@ export type ProcessSemanticChangeDiff = Readonly<{
   addedSemanticRefs: readonly string[];
   removedSemanticRefs: readonly string[];
   changedSemanticRefs: readonly string[];
+}>;
+
+export type ProcessSemanticChangeClassificationEvidence = Readonly<{
+  contractVersion: typeof PROCESS_CHANGE_CONTRACT_VERSION;
+  diffRef: string;
+  artifactRef: string;
+  fromRevisionRef: string;
+  toRevisionRef: string;
+  classification: ProcessChangeClassification;
+  classifierDecisionId: string;
+  classifierCategory: "deterministic" | "human-decision" | "probabilistic";
+  classifierReference: Readonly<{ kind: "invariant" | "authority" | "inference"; ref: string }>;
+  evidenceRefs: readonly string[];
 }>;
 
 type UnknownRecord = Record<string, unknown>;
@@ -36,8 +55,8 @@ function assertExactFields(record: UnknownRecord, fields: readonly string[], lab
 }
 
 function nonEmpty(value: unknown, field: string): string {
-  if (typeof value !== "string" || value.trim().length === 0) {
-    throw new Error(`${field} must be a non-empty string`);
+  if (typeof value !== "string" || value.trim().length === 0 || /\s/.test(value.trim())) {
+    throw new Error(`${field} must be a non-empty token`);
   }
   return value.trim();
 }
@@ -58,6 +77,49 @@ function normalizeSnapshot(input: unknown, label: string): readonly ProcessSeman
 
   normalized.sort((left, right) => left.semanticRef.localeCompare(right.semanticRef));
   return Object.freeze(normalized);
+}
+
+function normalizeRefList(input: unknown, label: string): readonly string[] {
+  if (!Array.isArray(input) || input.length === 0) throw new Error(`${label} must be a non-empty array`);
+  const refs = input.map((value, index) => nonEmpty(value, `${label}[${index}]`));
+  if (new Set(refs).size !== refs.length) throw new Error(`${label} contains duplicate reference`);
+  refs.sort((left, right) => left.localeCompare(right));
+  return Object.freeze(refs);
+}
+
+function normalizeSemanticRefList(input: unknown, label: string): readonly string[] {
+  if (!Array.isArray(input)) throw new Error(`${label} must be an array`);
+  const refs = input.map((value, index) => nonEmpty(value, `${label}[${index}]`));
+  if (new Set(refs).size !== refs.length) throw new Error(`${label} contains duplicate reference`);
+  refs.sort((left, right) => left.localeCompare(right));
+  return Object.freeze(refs);
+}
+
+function normalizeSemanticChangeDiff(input: unknown): ProcessSemanticChangeDiff {
+  const record = asRecord(input, "semanticDiff");
+  assertExactFields(
+    record,
+    [
+      "contractVersion",
+      "artifactRef",
+      "fromRevisionRef",
+      "toRevisionRef",
+      "addedSemanticRefs",
+      "removedSemanticRefs",
+      "changedSemanticRefs",
+    ],
+    "semanticDiff",
+  );
+  if (record.contractVersion !== PROCESS_CHANGE_CONTRACT_VERSION) throw new Error("semanticDiff has unsupported contractVersion");
+  return Object.freeze({
+    contractVersion: PROCESS_CHANGE_CONTRACT_VERSION,
+    artifactRef: nonEmpty(record.artifactRef, "semanticDiff.artifactRef"),
+    fromRevisionRef: nonEmpty(record.fromRevisionRef, "semanticDiff.fromRevisionRef"),
+    toRevisionRef: nonEmpty(record.toRevisionRef, "semanticDiff.toRevisionRef"),
+    addedSemanticRefs: normalizeSemanticRefList(record.addedSemanticRefs, "semanticDiff.addedSemanticRefs"),
+    removedSemanticRefs: normalizeSemanticRefList(record.removedSemanticRefs, "semanticDiff.removedSemanticRefs"),
+    changedSemanticRefs: normalizeSemanticRefList(record.changedSemanticRefs, "semanticDiff.changedSemanticRefs"),
+  });
 }
 
 function assertOrderedSameArtifactPredecessor(
@@ -113,5 +175,41 @@ export function calculateProcessSemanticChangeDiff(input: unknown): ProcessSeman
     addedSemanticRefs: Object.freeze(addedSemanticRefs),
     removedSemanticRefs: Object.freeze(removedSemanticRefs),
     changedSemanticRefs: Object.freeze(changedSemanticRefs),
+  });
+}
+
+export function normalizeProcessSemanticChangeClassificationEvidence(input: unknown): ProcessSemanticChangeClassificationEvidence {
+  const record = asRecord(input, "process semantic change classification evidence");
+  assertExactFields(
+    record,
+    ["diffRef", "semanticDiff", "classification", "classifierDecision", "evidenceRefs"],
+    "process semantic change classification evidence",
+  );
+
+  const diffRef = nonEmpty(record.diffRef, "diffRef");
+  const semanticDiff = normalizeSemanticChangeDiff(record.semanticDiff);
+  if (!PROCESS_CHANGE_CLASSIFICATIONS.includes(record.classification as ProcessChangeClassification)) {
+    throw new Error("classification must be breaking, non-breaking or not-applicable");
+  }
+
+  const classifierDecision = record.classifierDecision as DecisionBoundaryVerificationResult;
+  if (!isCanonicalDecisionBoundaryVerificationResult(classifierDecision)) {
+    throw new Error("classifierDecision must be a canonical Decision Boundary verification result");
+  }
+  if (classifierDecision.status !== "valid") {
+    throw new Error("classifierDecision must be valid classification provenance");
+  }
+
+  return Object.freeze({
+    contractVersion: PROCESS_CHANGE_CONTRACT_VERSION,
+    diffRef,
+    artifactRef: semanticDiff.artifactRef,
+    fromRevisionRef: semanticDiff.fromRevisionRef,
+    toRevisionRef: semanticDiff.toRevisionRef,
+    classification: record.classification as ProcessChangeClassification,
+    classifierDecisionId: classifierDecision.decisionId,
+    classifierCategory: classifierDecision.category,
+    classifierReference: Object.freeze({ ...classifierDecision.reference }),
+    evidenceRefs: normalizeRefList(record.evidenceRefs, "evidenceRefs"),
   });
 }
