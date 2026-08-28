@@ -34,6 +34,20 @@ validation:
 # Objective
 Define WBS 18.1.3 explicit supersedes/deprecated/archived semantics for immutable business revisions.
 
+# Context
+WBS 18.1 lifecycle semantics must preserve the stable artifact and immutable revision identities established by TASK-390 while retaining revision history and remaining separate from semantic-change classification.
+
+# Current behavior
+TASK-390 provides the predecessor identity contract; explicit deterministic supersession, deprecation and archive relationship semantics are not yet implemented.
+
+# Inputs / contracts
+- TASK-390 stable artifact and immutable revision identity contract;
+- `P18-PACKAGE-01` and `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` boundaries;
+- WBS 18.1.3 lifecycle and revision-relationship requirement.
+
+# Outputs / contracts
+Deterministic lifecycle/relationship descriptors and product evidence for explicit supersession plus active, deprecated and archived revision states while preserving immutable history.
+
 # Required change
 Add deterministic lifecycle/relationship descriptors that preserve immutable revision identity, explicitly reference superseded revisions, and distinguish active, deprecated and archived states without deleting history.
 
