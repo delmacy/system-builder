@@ -39,8 +39,20 @@ validation:
 # Objective
 Require canonical human process-change approve/reject authority at the Support/Evolution consumer seam while preserving classification/model/PR/Git as non-authoritative evidence.
 
+# Context
+TASK-405 binds the exact semantic change and its rationale evidence. This TASK may consume existing public process-change decision validation and existing human-decision authority, but Decision Boundary files and semantics remain unchanged.
+
+# Current behavior
+The representative consumer seam has bound semantic-change evidence, but Construction B still requires explicit business outcome authority from the canonical human decision rather than caller, model, classification, PR or Git signals.
+
 # Required change
 Extend the integration seam to consume the existing public process-change decision validator and canonical `human-decision` authority. The exact `authorityRef` must match the validated human decision. Approved/rejected outcome must be derived from that canonical decision, not caller flags or classification.
+
+# Inputs / contracts
+TASK-405 bound semantic-change evidence, existing public process-change decision validator, and existing canonical human-decision authority exposed through the current Decision Boundary contract.
+
+# Outputs / contracts
+Reference-only Support/Evolution evidence carrying an approved/rejected consumer outcome backed by the exact canonical human decision and matching authority reference.
 
 # Acceptance criteria
 - only canonical human-decision authority can back approved/rejected business outcome;
@@ -52,6 +64,9 @@ Extend the integration seam to consume the existing public process-change decisi
 
 # Non-goals
 No Decision Boundary contract change, no engineering approval redesign, no WBS 18.3 semantics.
+
+# Evidence expected
+Product tests proving valid canonical approve/reject consumption and negative authorityRef mismatch, caller outcome injection, deterministic/probabilistic/model substitution, PR/ADR substitution and Git identity substitution.
 
 # Escalation
 Stop if existing public contracts cannot enforce human authority without modifying Decision Boundary semantics.
