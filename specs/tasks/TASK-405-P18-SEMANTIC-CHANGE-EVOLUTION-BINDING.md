@@ -1,7 +1,7 @@
 ---
 id: TASK-405
 title: Bind canonical semantic change evidence to evolution requests
-status: materialized
+status: ready
 priority: 405
 milestone: M18
 model_tier: architecture

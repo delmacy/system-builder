@@ -1,7 +1,7 @@
 ---
 id: TASK-404
 title: Add support-evolution semantic change admission seam
-status: materialized
+status: ready
 priority: 404
 milestone: M18
 model_tier: architecture

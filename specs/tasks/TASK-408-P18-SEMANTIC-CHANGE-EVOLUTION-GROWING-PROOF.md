@@ -1,7 +1,7 @@
 ---
 id: TASK-408
 title: Close semantic change integration with growing proof
-status: materialized
+status: ready
 priority: 408
 milestone: M18
 model_tier: architecture

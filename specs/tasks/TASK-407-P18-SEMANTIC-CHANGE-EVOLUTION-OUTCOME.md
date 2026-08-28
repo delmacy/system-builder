@@ -1,7 +1,7 @@
 ---
 id: TASK-407
 title: Prove deterministic evolution consumer outcomes
-status: materialized
+status: ready
 priority: 407
 milestone: M18
 model_tier: architecture
