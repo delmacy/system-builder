@@ -1,10 +1,26 @@
-import { calculateProcessSemanticChangeDiff } from "@system-builder/contracts/process-change";
+import {
+  calculateProcessSemanticChangeDiff,
+  normalizeProcessSemanticChangeRationaleEvidence,
+} from "@system-builder/contracts/process-change";
+import { EvolutionRequestEvidence } from "./evolution-request.js";
 
 export type EvolutionSemanticChangeAdmission = Readonly<{
   changeRef: string;
   artifactRef: string;
   fromRevisionRef: string;
   toRevisionRef: string;
+}>;
+
+export type EvolutionSemanticChangeBinding = Readonly<{
+  evolutionRequestId: string;
+  changeRef: string;
+  artifactRef: string;
+  fromRevisionRef: string;
+  toRevisionRef: string;
+  diffRef: string;
+  classificationRef: string;
+  reasonRef: string;
+  evidenceRefs: readonly string[];
 }>;
 
 type UnknownRecord = Record<string, unknown>;
@@ -53,5 +69,54 @@ export function admitEvolutionSemanticChange(input: unknown): EvolutionSemanticC
     artifactRef: semanticDiff.artifactRef,
     fromRevisionRef: semanticDiff.fromRevisionRef,
     toRevisionRef: semanticDiff.toRevisionRef,
+  });
+}
+
+export function bindEvolutionSemanticChangeToRequest(input: unknown): EvolutionSemanticChangeBinding {
+  const record = asRecord(input);
+  assertExactFields(record, [
+    "evolutionRequest",
+    "changeRef",
+    "fromRevision",
+    "toRevision",
+    "fromSnapshot",
+    "toSnapshot",
+    "rationaleEvidence",
+  ]);
+
+  const evolutionRequest = EvolutionRequestEvidence.validate(record.evolutionRequest);
+  const admission = admitEvolutionSemanticChange({
+    changeRef: record.changeRef,
+    fromRevision: record.fromRevision,
+    toRevision: record.toRevision,
+    fromSnapshot: record.fromSnapshot,
+    toSnapshot: record.toSnapshot,
+  });
+  const rationale = normalizeProcessSemanticChangeRationaleEvidence(record.rationaleEvidence);
+
+  if (
+    rationale.artifactRef !== admission.artifactRef ||
+    rationale.fromRevisionRef !== admission.fromRevisionRef ||
+    rationale.toRevisionRef !== admission.toRevisionRef
+  ) {
+    throw new Error("EVOLUTION_SEMANTIC_CHANGE_BINDING:REVISION_ENDPOINT_MISMATCH");
+  }
+  if (evolutionRequest.changeEvidenceRef !== admission.changeRef) {
+    throw new Error("EVOLUTION_SEMANTIC_CHANGE_BINDING:CHANGE_REFERENCE_MISMATCH");
+  }
+  if (evolutionRequest.reasonRef !== rationale.reasonRef) {
+    throw new Error("EVOLUTION_SEMANTIC_CHANGE_BINDING:REASON_REFERENCE_MISMATCH");
+  }
+
+  return Object.freeze({
+    evolutionRequestId: evolutionRequest.evolutionRequestId,
+    changeRef: admission.changeRef,
+    artifactRef: admission.artifactRef,
+    fromRevisionRef: admission.fromRevisionRef,
+    toRevisionRef: admission.toRevisionRef,
+    diffRef: rationale.diffRef,
+    classificationRef: rationale.classificationRef,
+    reasonRef: rationale.reasonRef,
+    evidenceRefs: Object.freeze([...rationale.evidenceRefs]),
   });
 }

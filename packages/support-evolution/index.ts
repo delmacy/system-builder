@@ -5,7 +5,12 @@ export { ProblemRecord, type ProblemRecordFields, type ProblemFromTriageFields }
 export { PermittedCorrectionEvidence, type PermittedCorrectionEvidenceFields, type PermittedCorrectionFromProblemFields } from "./correction.js";
 export { ResolutionEvidence, type ResolutionCommonFields, type SupportResolutionFields, type ProblemResolutionFields, type ResolutionEvidenceFields } from "./resolution.js";
 export { EvolutionRequestEvidence, type EvolutionRequestEvidenceFields, type EvolutionRequestFromTriageFields } from "./evolution-request.js";
-export { admitEvolutionSemanticChange, type EvolutionSemanticChangeAdmission } from "./semantic-change.js";
+export {
+  admitEvolutionSemanticChange,
+  bindEvolutionSemanticChangeToRequest,
+  type EvolutionSemanticChangeAdmission,
+  type EvolutionSemanticChangeBinding,
+} from "./semantic-change.js";
 export {
   EvolutionKnowledgeLink,
   EvolutionReleaseLink,
