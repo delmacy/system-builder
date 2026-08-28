@@ -3,7 +3,7 @@
 ## Package state
 `P17-PACKAGE-01` / WBS 17.1 and `P17-PACKAGE-02` / WBS 17.2 are CLOSED.
 
-The next eligible block is `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance`, limited to WBS 17.3.1–17.3.3. Planning & Materialization is the current candidate gate; only Construction A `P17-KNOWLEDGE-PROMOTION-CONTRACT-01` with TASK-379..384 is materialized and remains NOT EXECUTED until this planning candidate integrates.
+`P17-PACKAGE-03 — Knowledge Promotion Control & Provenance` is the active M17 Work Package for WBS 17.3.1–17.3.3. Planning & Materialization is INTEGRATED on main `80d642bc3b24cc2a90d57e78fce3629806859f0e` via PR #452. Construction A `P17-KNOWLEDGE-PROMOTION-CONTRACT-01` with TASK-379..384 is COMMITTED / MATERIALIZED / NOT EXECUTED; TASK-379 is the next executable task.
 
 Construction B is FORECAST / NOT MATERIALIZED. Construction C is OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED.
 
