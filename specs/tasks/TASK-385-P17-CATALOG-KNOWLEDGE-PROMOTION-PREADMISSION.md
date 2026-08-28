@@ -1,7 +1,7 @@
 ---
 id: TASK-385
 title: Integrate promotion review truth into representative catalog pre-admission
-status: ready
+status: completed
 priority: 385
 milestone: M17
 model_tier: architecture
