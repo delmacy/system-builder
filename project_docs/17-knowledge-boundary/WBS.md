@@ -16,9 +16,11 @@ Status: CLOSED via `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforceme
 Construction A+B, bounded TASK-378 correction, post-B revalidation, Package Integration & Review and Documentation & Closure are integrated. Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
 ### 17.3 Promotion control
-Status: ACTIVE via `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance`; Package Planning and Construction A are INTEGRATED; Construction B is COMMITTED / MATERIALIZED / NOT EXECUTED pending its Planning gate integration.
-- **17.3.1** Anonimizar/generalizar candidatos quando permitido. — CONTRACT/PROOF INTEGRATED; CONSUMER PRE-ADMISSION MATERIALIZED
-- **17.3.2** Submeter candidato a revisão e testes de genericidade. — CONTRACT/PROOF INTEGRATED; CATALOG REVIEW/ADMISSION INTEGRATION MATERIALIZED
-- **17.3.3** Registrar decisão de promotion/rejection e provenance. — CONTRACT/PROOF INTEGRATED; CATALOG + OBSERVE CONSUMER INTEGRATION MATERIALIZED
+Status: DOCUMENTATION & CLOSURE CANDIDATE via `P17-PACKAGE-03 — Knowledge Promotion Control & Provenance`.
+- **17.3.1** Anonimizar/generalizar candidatos quando permitido. — INTEGRATED
+- **17.3.2** Submeter candidato a revisão e testes de genericidade. — INTEGRATED
+- **17.3.3** Registrar decisão de promotion/rejection e provenance. — INTEGRATED
 
-Construction A TASK-379..384 is integrated. Construction B `P17-KNOWLEDGE-PROMOTION-INTEGRATION-01` contains TASK-385..389 and may execute only after its Planning & Materialization PR integrates. Construction C remains OPTIONAL / EVIDENCE-GATED / NOT MATERIALIZED. Promotion eligibility, transformation or genericity evidence is never approval; canonical M15 `human-decision` authority remains required for promotion/rejection decision recording and admission.
+Planning, Construction A TASK-379..384, Construction B TASK-385..389, post-B revalidation and Package Integration & Review are integrated. Construction C is NOT REQUIRED / NOT MATERIALIZED. Documentation & Closure is active and adds no product behavior; after exact-head closure gates and protected merge, fresh-main repository-memory reconciliation must mark WBS 17.3 canonically CLOSED.
+
+Promotion eligibility, transformation output, genericity evidence, automated tests and probabilistic assistance are never approval. Canonical M15 `human-decision` authority remains required for final promotion/rejection decision recording and catalog admission. No Decision Boundary public-contract change, unrelated findings/TD absorption, sensitive payload carriage or undeclared L4 is authorized.
