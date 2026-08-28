@@ -6,6 +6,14 @@ export { PermittedCorrectionEvidence, type PermittedCorrectionEvidenceFields, ty
 export { ResolutionEvidence, type ResolutionCommonFields, type SupportResolutionFields, type ProblemResolutionFields, type ResolutionEvidenceFields } from "./resolution.js";
 export { EvolutionRequestEvidence, type EvolutionRequestEvidenceFields, type EvolutionRequestFromTriageFields } from "./evolution-request.js";
 export {
+  admitEvolutionSemanticChange,
+  bindEvolutionSemanticChangeToRequest,
+  authorizeEvolutionSemanticChange,
+  type EvolutionSemanticChangeAdmission,
+  type EvolutionSemanticChangeBinding,
+  type EvolutionSemanticChangeAuthority,
+} from "./semantic-change.js";
+export {
   EvolutionKnowledgeLink,
   EvolutionReleaseLink,
   type EvolutionKnowledgeLinkFields,
