@@ -9,12 +9,14 @@ M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is
 
 Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-## M18 Process Versioning — P18-PACKAGE-02 ACTIVE / CONSTRUCTION A INTEGRATED
+## M18 Process Versioning — P18-PACKAGE-02 ACTIVE / CONSTRUCTION B MATERIALIZED
 `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` / WBS 18.1.1–18.1.3 is canonically CLOSED on fresh main `e205683422907edf8c27f99c01aab317cca3f66c`.
 
-`P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` is bounded exclusively to WBS 18.2.1–18.2.3. Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` / TASK-399..403 completed and integrated through PR #480. Exact Sprint Review head `be894a9de39d4683655546c10f11a670cd0888d4` passed Deterministic CI #1141 and Heavy Product Tests #604 and merged with expected-head protection as fresh main `c0ef497eb4753a4aaebf3cdfc96739588dd83eab`.
+`P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` is bounded exclusively to WBS 18.2.1–18.2.3. Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` / TASK-399..403 completed and integrated through PR #480. Exact Sprint Review head `be894a9de39d4683655546c10f11a670cd0888d4` passed Deterministic CI #1141 and Heavy Product Tests #604 and merged with expected-head protection as `c0ef497eb4753a4aaebf3cdfc96739588dd83eab`.
 
-Fresh-main post-A revalidation confirms the public semantic-change contract and growing proof are integrated while no representative consumer seam yet composes the canonical predecessor/diff/classification/rationale/human-decision chain. Therefore Construction B `P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01` remains required by the Package cadence and is JUSTIFIED / NOT MATERIALIZED. It requires a separate Planning & Materialization gate before execution.
+Post-A reconciliation then integrated as fresh main `db48bda8c2451cdfb054b4b506cb1b1851f597db` with zero reviewed-head -> merge-main file differences. Fresh-main planning selected existing `packages/support-evolution/**` as the representative consumer seam because `EvolutionRequestEvidence` already carries reference-only change/reason evidence but does not compose the canonical predecessor/diff/classification/rationale/human-decision chain.
+
+Construction B `P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01` / TASK-404..408 is COMMITTED / MATERIALIZED / NOT EXECUTED on a separate Planning & Materialization gate. It must pass exact-head Deterministic CI + Heavy Product Tests, integrate with expected-head protection and be revalidated from fresh main before TASK-404 executes.
 
 Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.3 process→system lineage remains FORECAST / NOT MATERIALIZED.
 

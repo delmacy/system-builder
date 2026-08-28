@@ -1,16 +1,13 @@
-# Next Work — P18 Package 02 Post-A Revalidation
+# Next Work — P18 Package 02 Construction B Planning Gate
 
-Fresh main `c0ef497eb4753a4aaebf3cdfc96739588dd83eab` contains integrated Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` / TASK-399..403 through PR #480 after exact-head Deterministic CI #1141 and Heavy Product Tests #604 PASS.
+Fresh main `db48bda8c2451cdfb054b4b506cb1b1851f597db` contains Construction A integrated and the bounded post-A reconciliation. Construction B `P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01` is now COMMITTED / MATERIALIZED / NOT EXECUTED on a separate Planning & Materialization branch, bounded to WBS 18.2.1–18.2.3.
 
 ## Current gate
-Fresh-main post-A revalidation confirms required Construction B `P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01` is JUSTIFIED / NOT MATERIALIZED because the canonical semantic-change chain is public and proven in isolation but not yet composed through a representative existing consumer seam. Do not execute Construction B before a separate Planning & Materialization gate is integrated and fresh main is revalidated.
+TASK-404..408 are materialized serially around the representative existing `packages/support-evolution/**` consumer seam. Do not execute TASK-404 before the Planning head passes exact-head Deterministic CI + Heavy Product Tests, integrates with expected-head protection, and fresh main is revalidated.
 
-## Next authorized sequence
-1. Integrate this bounded post-A repository-memory reconciliation after exact-head gates.
-2. Rebuild fresh main and prove reviewed-head -> merge-main tree equivalence when applicable.
-3. Execute a separate Planning & Materialization gate for Construction B, deriving TASKs only from P18-PACKAGE-02 / WBS 18.2.1–18.2.3 and actual integrated contracts/consumer seams.
-4. Execute only the materialized Construction B TASK chain serially with exact-head gates.
+## Execution order after Planning integration
+Execute only `TASK-404 -> TASK-405 -> TASK-406 -> TASK-407 -> TASK-408`, serially with exact-head gates before each successor. TASK-404 creates the additive consumer admission seam; TASK-405 binds predecessor/diff/classification/rationale truth; TASK-406 enforces canonical human process-change authority; TASK-407 proves deterministic approved/rejected consumer outcomes and backward compatibility; TASK-408 closes with the integrated growing proof and Sprint Report.
 
 Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED and may be promoted only after Construction B integration if fresh evidence proves it necessary. WBS 18.3 remains FORECAST / NOT MATERIALIZED.
 
-Do not use Git as business-version authority, treat classification/model output as approval, reuse ADR-0010 PR approval as business approval, change Decision Boundary, absorb unrelated findings/TDs or infer L4.
+Do not use Git as business-version authority, treat classification/model output as approval, reuse ADR-0010 PR approval as business approval, change Decision Boundary, alter WBS 18.1 identity semantics, absorb unrelated findings/TDs or infer L4.
