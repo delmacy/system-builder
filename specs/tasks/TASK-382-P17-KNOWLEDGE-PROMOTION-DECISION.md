@@ -1,7 +1,7 @@
 ---
 id: TASK-382
 title: Define promotion or rejection decision provenance contract
-status: verification
+status: completed
 priority: 382
 milestone: M17
 model_tier: architecture
