@@ -9,9 +9,9 @@ M13, M14, M15 and M16 are CLOSED. PRE-M16 Contract Conformance Hardening is CLOS
 
 `P17-PACKAGE-02 — Knowledge Isolation & Promotion Enforcement` is canonically CLOSED for WBS 17.2.1–17.2.3. Construction C was NOT REQUIRED / NOT MATERIALIZED.
 
-`P17-PACKAGE-03 — Knowledge Promotion Control & Provenance` has Planning, Construction A and Construction B INTEGRATED for WBS 17.3.1–17.3.3. Construction B PR #460 merged as `645b573697f2ebf3b4cb34c41c6adb2c9e20b0ee`; reviewed head `0216bdfaf3cc581e8035c48708731b52ddea0b36` passed CI #1078 / Heavy #531. Post-B repository-memory reconciliation merged via PR #461 as fresh main `475dea93a383f2d4af4681e5b3a59a8c3f8f8aed`.
+`P17-PACKAGE-03 — Knowledge Promotion Control & Provenance` has Planning, Construction A+B, post-B revalidation and Package Integration & Review INTEGRATED for WBS 17.3.1–17.3.3. Construction C is `NOT REQUIRED / NOT MATERIALIZED`. Package Review PR #462 integrated as main `105dda4ecb9522358675a76c4c4d001d53aa07d3` after exact-head Deterministic CI #1080 / Heavy Product Tests #534 PASS; reviewed-head and merge-main share tree `5e3333d618f2287e8482c11a5840b077a6d5ca0c`.
 
-Fresh-main Package Goal revalidation found no bounded residual construction gap. Construction C is `NOT REQUIRED / NOT MATERIALIZED`. Package Integration & Review is the active gate with GO for Documentation & Closure contingent on exact-head validation and absence of blocking findings.
+Documentation & Closure is the active boundary. The Package Goal is satisfied and no bounded residual WBS 17.3 capability gap remains; closure adds no product behavior and must be followed by fresh-main mechanical CLOSED reconciliation.
 
 The canonical WBS 17.1 -> 17.2 -> 17.3 chain reaches representative catalog admission and Observe provenance while preserving M15 `human-decision` as final promotion/rejection authority. Review readiness, eligibility, transformation output, genericity tests, automated tests and probabilistic assistance remain non-authoritative.
 
