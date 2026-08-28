@@ -15,3 +15,8 @@ export {
   type KnowledgeGenericityEvidenceResult,
   type KnowledgeGenericityEvidence,
 } from "./genericity-evidence.js";
+export {
+  composeKnowledgePromotionControl,
+  type KnowledgePromotionControlComposition,
+  type KnowledgePromotionControlCompositionInput,
+} from "./promotion-composition.js";

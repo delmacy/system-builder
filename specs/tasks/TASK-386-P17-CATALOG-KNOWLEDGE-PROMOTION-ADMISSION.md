@@ -1,7 +1,7 @@
 ---
 id: TASK-386
 title: Gate catalog promotion and reuse admission on canonical human decision
-status: ready
+status: verification
 priority: 386
 milestone: M17
 model_tier: architecture
