@@ -1,7 +1,7 @@
 ---
 id: TASK-393
 title: Compose deterministic process revision lineage
-status: committed
+status: ready
 priority: 393
 milestone: M18
 model_tier: architecture
