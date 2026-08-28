@@ -1,5 +1,6 @@
 import {
   calculateProcessSemanticChangeDiff,
+  normalizeProcessSemanticChangeDecision,
   normalizeProcessSemanticChangeRationaleEvidence,
 } from "@system-builder/contracts/process-change";
 import { EvolutionRequestEvidence } from "./evolution-request.js";
@@ -20,6 +21,21 @@ export type EvolutionSemanticChangeBinding = Readonly<{
   diffRef: string;
   classificationRef: string;
   reasonRef: string;
+  evidenceRefs: readonly string[];
+}>;
+
+export type EvolutionSemanticChangeAuthority = Readonly<{
+  evolutionRequestId: string;
+  changeRef: string;
+  artifactRef: string;
+  fromRevisionRef: string;
+  toRevisionRef: string;
+  diffRef: string;
+  classificationRef: string;
+  reasonRef: string;
+  outcome: "approved" | "rejected";
+  decisionId: string;
+  authorityRef: string;
   evidenceRefs: readonly string[];
 }>;
 
@@ -118,5 +134,45 @@ export function bindEvolutionSemanticChangeToRequest(input: unknown): EvolutionS
     classificationRef: rationale.classificationRef,
     reasonRef: rationale.reasonRef,
     evidenceRefs: Object.freeze([...rationale.evidenceRefs]),
+  });
+}
+
+export function authorizeEvolutionSemanticChange(input: unknown): EvolutionSemanticChangeAuthority {
+  const record = asRecord(input);
+  assertExactFields(record, ["bindingInput", "processChangeDecision"]);
+
+  const binding = bindEvolutionSemanticChangeToRequest(record.bindingInput);
+  const decision = normalizeProcessSemanticChangeDecision(record.processChangeDecision);
+
+  if (
+    decision.artifactRef !== binding.artifactRef ||
+    decision.fromRevisionRef !== binding.fromRevisionRef ||
+    decision.toRevisionRef !== binding.toRevisionRef
+  ) {
+    throw new Error("EVOLUTION_SEMANTIC_CHANGE_AUTHORITY:REVISION_ENDPOINT_MISMATCH");
+  }
+  if (decision.diffRef !== binding.diffRef) {
+    throw new Error("EVOLUTION_SEMANTIC_CHANGE_AUTHORITY:DIFF_REFERENCE_MISMATCH");
+  }
+  if (decision.classificationRef !== binding.classificationRef) {
+    throw new Error("EVOLUTION_SEMANTIC_CHANGE_AUTHORITY:CLASSIFICATION_REFERENCE_MISMATCH");
+  }
+  if (decision.reasonRef !== binding.reasonRef) {
+    throw new Error("EVOLUTION_SEMANTIC_CHANGE_AUTHORITY:REASON_REFERENCE_MISMATCH");
+  }
+
+  return Object.freeze({
+    evolutionRequestId: binding.evolutionRequestId,
+    changeRef: binding.changeRef,
+    artifactRef: binding.artifactRef,
+    fromRevisionRef: binding.fromRevisionRef,
+    toRevisionRef: binding.toRevisionRef,
+    diffRef: binding.diffRef,
+    classificationRef: binding.classificationRef,
+    reasonRef: binding.reasonRef,
+    outcome: decision.outcome,
+    decisionId: decision.decisionId,
+    authorityRef: decision.authorityRef,
+    evidenceRefs: Object.freeze([...decision.evidenceRefs]),
   });
 }

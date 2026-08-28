@@ -8,8 +8,10 @@ export { EvolutionRequestEvidence, type EvolutionRequestEvidenceFields, type Evo
 export {
   admitEvolutionSemanticChange,
   bindEvolutionSemanticChangeToRequest,
+  authorizeEvolutionSemanticChange,
   type EvolutionSemanticChangeAdmission,
   type EvolutionSemanticChangeBinding,
+  type EvolutionSemanticChangeAuthority,
 } from "./semantic-change.js";
 export {
   EvolutionKnowledgeLink,
