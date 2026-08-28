@@ -1,6 +1,6 @@
 # P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01 — Sprint Report
 
-Status: CONSTRUCTED / SPRINT REVIEW PENDING
+Status: SPRINT REVIEW
 Package: P18-PACKAGE-02
 Scope: WBS 18.2.1–18.2.3 only
 Construction branch: `sprint/P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01`
@@ -37,8 +37,13 @@ The integrated proof exercises valid approved and rejected same-artifact rev-1 -
 - TASK-407 implementation head `cc54ba0b947395bb0540287ccba9bcdd257fa9d7`: Deterministic CI #1156 PASS; Heavy Product Tests #622 PASS.
 - TASK-407 lifecycle head `a8c6a938244b71a6207c62eab358064737d5499e`: Deterministic CI #1157 PASS; Heavy Product Tests #623 PASS.
 - TASK-408 implementation/growing-proof head `12eec4b00493393041bf4fd7555d2a26816b70de`: Deterministic CI #1158 PASS; Heavy Product Tests #624 PASS.
-- TASK-408 lifecycle exact-head gates remain required before Sprint Review.
+- TASK-408 lifecycle head `98f98bf078564b9c0dd8a2ed8f7ced3c2317ed51`: Deterministic CI #1159 PASS; Heavy Product Tests #625 PASS.
+- Sprint Review exact-head Deterministic CI + Heavy Product Tests remain required before integration.
 
 ## Residuals
 
 No residual is absorbed by this Construction. Construction C remains optional/forecast and WBS 18.3 remains forecast. Package Integration & Review and Documentation & Closure remain separate successor gates after Construction B integration.
+
+## Sprint Review disposition
+
+PENDING exact-head review gates and blocker review. Merge is not authorized until those gates are satisfied on the review head.
