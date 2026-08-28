@@ -38,8 +38,20 @@ validation:
 # Objective
 Prove deterministic approved/rejected consumer outcomes while preserving backward-compatible Support/Evolution behavior.
 
+# Context
+TASK-406 establishes canonical human authority for the consumer outcome. This TASK is evidence-focused and must prove deterministic consumer behavior without changing canonical contract authority.
+
+# Current behavior
+The integration seam can derive approved/rejected outcomes from canonical human decisions, but Construction B still requires focused replay and compatibility proof at the representative Support/Evolution consumer boundary.
+
 # Required change
 Add focused product tests around the TASK-404..406 seam showing stable deterministic output for valid approved and rejected same-artifact changes, exact replay where applicable, and coexistence with existing EvolutionRequest creation/validation/serialization and P12 linkage behavior.
+
+# Inputs / contracts
+The TASK-404..406 Support/Evolution seam, canonical process-change evidence and human-decision-backed outcomes, plus existing EvolutionRequest public behavior and product tests.
+
+# Outputs / contracts
+Deterministic product evidence for valid approved/rejected outcomes, replay equivalence and backward compatibility, without introducing a new business-authority source.
 
 # Acceptance criteria
 - approved and rejected outcomes are deterministic and reference-only;
@@ -51,6 +63,9 @@ Add focused product tests around the TASK-404..406 seam showing stable determini
 
 # Non-goals
 No new release/deploy behavior, no migration execution, no package-level closure.
+
+# Evidence expected
+Product tests demonstrating approved/rejected determinism, replay equivalence, coexistence with existing EvolutionRequest behavior, and fail-closed caller outcome/authority injection.
 
 # Escalation
 Stop if compatibility requires changing existing EvolutionRequest public semantics rather than adding a bounded seam.
