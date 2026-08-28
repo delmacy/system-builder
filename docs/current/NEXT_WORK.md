@@ -1,14 +1,13 @@
-# Next Work — P18 Package 01 Planning & Materialization
+# Next Work — P18 Package 01 Post-Construction-A Revalidation
 
-Fresh main `d7f812502895780d383a2f35c73a11b41453d33c` confirms M17 CLOSED and selects M18 Process Versioning through repository WBS/scope authority. The first eligible bounded Work Package is `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation`, covering only WBS 18.1.1–18.1.3.
+Fresh main `22022c6d47291fb9b051a8289c3fbb3849f9010d` contains integrated Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` from PR #469. Final lifecycle/report head `ee55b8d4c8df264a84327dc3083fcaf4b7baddeb` passed Deterministic CI #1107 / Heavy Product Tests #561 and reviewed-head -> merge-main has zero changed files.
 
 ## Current gate
-Integrate this Planning & Materialization state only after exact-head Deterministic CI + Heavy Product Tests pass and no blocking review finding exists. Then reconstruct fresh main and prove planning-head -> merge-main tree equivalence before executing Construction A.
+Integrate `P18-PACKAGE-01.post-construction-a-revalidation.md` only after exact-head Deterministic CI + Heavy Product Tests pass and no blocking review finding exists.
 
-## Next authorized execution after planning integration
-Execute `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` serially:
-TASK-390 -> TASK-391/TASK-392 -> TASK-393 -> TASK-394, respecting each task's dependencies, allowed/forbidden paths, max_files and validations.
+## Next authorized step after revalidation integration
+Reconstruct fresh main and execute a separate Planning & Materialization gate for `P18-PROCESS-VERSION-IDENTITY-INTEGRATION-01`. Construction B is JUSTIFIED by the fresh-main representative-consumer gap but remains NOT MATERIALIZED; no Construction B TASK may execute before that planning merge and its own fresh-main revalidation.
 
-Construction B remains FORECAST / NOT MATERIALIZED and may be promoted only after Construction A integrates plus fresh-main revalidation. Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2 and 18.3 remain FORECAST / NOT MATERIALIZED.
+Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2 and 18.3 remain FORECAST / NOT MATERIALIZED.
 
 `P18-PACKAGE-01` is Package 2 of the user's three-package sequential authorization. Do not reopen P17, calculate semantic diff/breaking classification, create WBS 18.3 lineage, use Git commit as sole business version authority, absorb unrelated findings/TDs or infer L4.
