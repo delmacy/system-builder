@@ -1,6 +1,6 @@
 # P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation
 
-Status: ACTIVE / CONSTRUCTION A INTEGRATED / POST-CONSTRUCTION-A REVALIDATION
+Status: ACTIVE / CONSTRUCTION A INTEGRATED / POST-CONSTRUCTION-A REVALIDATION CONSUMED / CONSTRUCTION B JUSTIFIED NOT MATERIALIZED
 Date: 2026-08-28
 Milestone: M18 Process Versioning
 WBS coverage: 18.1.1–18.1.3
@@ -18,8 +18,11 @@ Establish deterministic, provider-neutral business artifact identity and revisio
 ### Construction A — `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` — INTEGRATED
 TASK-390..394 established the bounded WBS 18.1 contract surface and integrated growing proof through PR #469. Final lifecycle/report head `ee55b8d4c8df264a84327dc3083fcaf4b7baddeb` passed Deterministic CI #1107 / Heavy Product Tests #561 and merged as fresh main `22022c6d47291fb9b051a8289c3fbb3849f9010d`, with zero reviewed-head -> merge-main changed files.
 
+### Post-Construction-A revalidation — CONSUMED
+PR #470 integrated the fresh-main revalidation as `afab73048e41d4db88786076c7df0e9d247f1cac`, confirming the predeclared bounded representative-consumer integration gap while preserving the package boundaries.
+
 ### Construction B — `P18-PROCESS-VERSION-IDENTITY-INTEGRATION-01` — JUSTIFIED / NOT MATERIALIZED
-Post-Construction-A fresh-main revalidation demonstrates the predeclared bounded representative-consumer integration gap. Separate Planning & Materialization remains required before any Construction B TASK executes.
+Separate Planning & Materialization remains required before any Construction B TASK executes. TASKs must be derived exclusively from WBS 18.1, Package scope and existing process-versioning contracts.
 
 ### Construction C — `P18-PROCESS-VERSION-IDENTITY-HARDENING-01` — OPTIONAL / FORECAST / NOT MATERIALIZED
 May be materialized only from fresh-main evidence after earlier Constructions.
