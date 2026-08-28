@@ -1,7 +1,7 @@
 ---
 id: TASK-383
 title: Compose promotion control with closed knowledge boundary predecessors
-status: verification
+status: completed
 priority: 383
 milestone: M17
 model_tier: architecture
