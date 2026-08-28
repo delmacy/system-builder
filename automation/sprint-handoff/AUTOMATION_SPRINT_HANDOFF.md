@@ -3,31 +3,30 @@
 status: READY
 worker_slot: :50
 started_at: null
-updated_at: 2026-08-28T05:52:00-03:00
+updated_at: 2026-08-28T06:51:00-03:00
 lease_until: null
-observed_main_sha: 54f8dc598e9d7cc7ad80db7a9e5444632fe731d2
-active_branch: sprint/P18-PROCESS-VERSION-IDENTITY-CONTRACT-01
-active_pr: 469
-active_head_sha: 87eadaf5607b78fc1fb74de407b2266af64832a4
-current_step: P18-PACKAGE-01 Construction A TASK-393 is implemented in one authoritative commit 87eadaf5607b78fc1fb74de407b2266af64832a4 after TASK-392 exact-head Deterministic CI #1099 / Heavy Product Tests #553 PASS. TASK-393 exact-head Deterministic CI #1102 and Heavy Product Tests #556 are IN PROGRESS. Do not execute TASK-394, mark Construction A complete, or merge PR #469 until both pass without head drift.
+observed_main_sha: 22022c6d47291fb9b051a8289c3fbb3849f9010d
+active_branch: planning/P18-PACKAGE-01-post-construction-a-revalidation
+active_pr: 470
+active_head_sha: 6ca2b0bbcd016c0154f73932f91d32009515c8fb
+current_step: P18-PACKAGE-01 Construction A is integrated. PR #469 final lifecycle/report head ee55b8d4c8df264a84327dc3083fcaf4b7baddeb passed Deterministic CI #1107 / Heavy Product Tests #561 and merged as fresh main 22022c6d47291fb9b051a8289c3fbb3849f9010d with zero reviewed-head -> merge-main changed files. Fresh-main revalidation found the predeclared bounded representative-consumer gap and opened PR #470 at head 6ca2b0bbcd016c0154f73932f91d32009515c8fb. Deterministic CI #1108 / Heavy Product Tests #563 are queued. Do not merge #470 or materialize Construction B until both pass exact-head without drift and no review blocker exists.
 
 ## Conformance state
 - Authorized triple mission remains active; P17-PACKAGE-03 is Package 1/3 and canonically closed.
-- P18-PACKAGE-01 is Package 2/3, Planning & Materialization integrated on fresh main 54f8dc598e9d7cc7ad80db7a9e5444632fe731d2.
-- Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` is bounded to WBS 18.1.1–18.1.3.
-- TASK-390 `204699e3073db27bd6214079fe2ee7fbc73686c2` is consumed.
-- TASK-391 `e50687bbb0341de97ef259fa25afebe0505181e4` is consumed; exact-head CI #1098 / Heavy #552 PASS.
-- TASK-392 `55551d39f512d2c957a69e3dd6a6d8497a366cb7` is consumed; exact-head CI #1099 / Heavy #553 PASS.
-- TASK-393 `87eadaf5607b78fc1fb74de407b2266af64832a4` composes same-artifact revision identity, immutable publication evidence and lifecycle/supersession into a deterministic payload-minimal lineage validator. It fails closed on cross-artifact composition, forged predecessor links, conflicting immutable evidence, cyclic/contradictory supersession and injected payload/semantic classification. It does not compute semantic diff or infer WBS 18.2 classification.
-- TASK-394 remains NOT EXECUTED and depends on TASK-393 exact-head gates.
-- Construction B remains FORECAST / NOT MATERIALIZED; Construction C OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2/18.3 remain outside current execution.
-- No Git-as-business-version authority, Decision Boundary change, inferred L4 or findings/TD absorption.
+- P18-PACKAGE-01 is Package 2/3 and remains ACTIVE.
+- Construction A `P18-PROCESS-VERSION-IDENTITY-CONTRACT-01` TASK-390..394 is INTEGRATED through PR #469.
+- Final Construction A lifecycle/report head `ee55b8d4c8df264a84327dc3083fcaf4b7baddeb` passed Deterministic CI #1107 / Heavy Product Tests #561.
+- Fresh main after merge: `22022c6d47291fb9b051a8289c3fbb3849f9010d`; reviewed-head -> merge-main changed files: zero.
+- Post-Construction-A revalidation records that production/representative consumers do not yet consume the new WBS 18.1 process-versioning lineage contract. Construction B `P18-PROCESS-VERSION-IDENTITY-INTEGRATION-01` is therefore JUSTIFIED but remains NOT MATERIALIZED until a separate Planning & Materialization gate integrates.
+- PR #470 contains only the fresh-main revalidation plus repository-memory reconciliation; exact-head CI #1108 / Heavy #563 are queued on `6ca2b0bbcd016c0154f73932f91d32009515c8fb`.
+- Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. WBS 18.2/18.3 remain FORECAST / NOT MATERIALIZED.
+- No Git-as-business-version authority, semantic diff/breaking classification, Decision Boundary change, inferred L4 or unrelated findings/TD absorption.
 
-last_completed_step: implemented TASK-393 as authoritative commit 87eadaf5607b78fc1fb74de407b2266af64832a4 and triggered exact-head Deterministic CI #1102 / Heavy Product Tests #556.
-next_authorized_step: require #1102/#556 PASS on exact head 87eadaf5607b78fc1fb74de407b2266af64832a4 with no drift; only then execute TASK-394 according to its materialized allowed/forbidden paths and validations; after TASK-394 gates, complete Construction A lifecycle/Sprint Review and merge PR #469 only through declared protected gates.
+last_completed_step: integrated Construction A PR #469 after exact-head CI #1107 / Heavy #561 PASS, proved zero reviewed-head -> merge-main changed files, revalidated fresh main, and opened PR #470 for the bounded post-Construction-A revalidation at head 6ca2b0bbcd016c0154f73932f91d32009515c8fb.
+next_authorized_step: require Deterministic CI #1108 and Heavy Product Tests #563 PASS on exact head 6ca2b0bbcd016c0154f73932f91d32009515c8fb with no drift/review blocker; then protected-merge PR #470, reconstruct fresh main and prove tree equivalence; only after that execute separate Planning & Materialization for `P18-PROCESS-VERSION-IDENTITY-INTEGRATION-01`, bounded to existing WBS 18.1 representative consumer wiring/proofs.
 
 ## Boundaries
-Do not materialize Construction B before Construction A is reviewed/integrated and fresh-main revalidation authorizes its separate Planning & Materialization gate. Do not execute WBS 18.2/18.3, invent semantic-diff policy, use Git SHA as business version identity, alter Decision Boundary, absorb unrelated findings/TDs, or infer L4.
+Do not execute any Construction B TASK before its separate Planning & Materialization is integrated and fresh-main revalidated. Construction C remains optional/evidence-gated. Do not execute WBS 18.2/18.3, invent semantic-diff policy, use Git SHA as business version identity, alter Decision Boundary, absorb unrelated findings/TDs, or infer L4.
 
 ## resume_prompt
-Resume delmacy/system-builder serially as worker :50 from fresh main 54f8dc598e9d7cc7ad80db7a9e5444632fe731d2 and draft PR #469. TASK-390..392 are consumed; TASK-392 head 55551d39f512d2c957a69e3dd6a6d8497a366cb7 passed Deterministic CI #1099 / Heavy #553. TASK-393 is implemented at exact head 87eadaf5607b78fc1fb74de407b2266af64832a4; Deterministic CI #1102 and Heavy Product Tests #556 are in progress. Do not run TASK-394 until both PASS without drift. Then execute TASK-394 only, gate it, and proceed through Construction A review/merge as authorized. Preserve P18-PACKAGE-01 WBS 18.1 bounds; Construction B forecast/not materialized, Construction C optional/forecast/not materialized; no WBS 18.2/18.3, Git-as-business-version authority, inferred L4 or findings/TD absorption.
+Resume delmacy/system-builder serially as worker :50 from fresh main 22022c6d47291fb9b051a8289c3fbb3849f9010d. Construction A PR #469 is integrated; final lifecycle/report head ee55b8d4c8df264a84327dc3083fcaf4b7baddeb passed Deterministic CI #1107 / Heavy #561 and reviewed-head -> merge-main has zero changed files. Post-Construction-A fresh-main revalidation PR #470 is open on branch planning/P18-PACKAGE-01-post-construction-a-revalidation at exact head 6ca2b0bbcd016c0154f73932f91d32009515c8fb; Deterministic CI #1108 / Heavy Product Tests #563 are queued. Require both PASS without drift and no review blocker, then protected-merge #470, reconstruct fresh main and prove tree equivalence. Only then perform separate Planning & Materialization for P18-PROCESS-VERSION-IDENTITY-INTEGRATION-01. Preserve WBS 18.1 only; Construction C optional/forecast/not materialized; no WBS 18.2/18.3, Git-as-business-version authority, semantic-diff inference, Decision Boundary change, L4 inference or unrelated findings/TD absorption.
