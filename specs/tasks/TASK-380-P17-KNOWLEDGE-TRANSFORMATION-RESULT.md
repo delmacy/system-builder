@@ -1,7 +1,7 @@
 ---
 id: TASK-380
 title: Define permitted anonymization and generalization result contract
-status: ready
+status: completed
 priority: 380
 milestone: M17
 model_tier: architecture

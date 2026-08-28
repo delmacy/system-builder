@@ -1,7 +1,7 @@
 ---
 id: TASK-379
 title: Define payload-minimal knowledge promotion candidate descriptor
-status: ready
+status: completed
 priority: 379
 milestone: M17
 model_tier: architecture
