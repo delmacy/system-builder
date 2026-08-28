@@ -1,7 +1,7 @@
 ---
 id: TASK-391
 title: Define immutable published revision guard
-status: committed
+status: ready
 priority: 391
 milestone: M18
 model_tier: architecture
