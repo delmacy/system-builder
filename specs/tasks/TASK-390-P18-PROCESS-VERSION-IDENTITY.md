@@ -33,6 +33,20 @@ validation:
 # Objective
 Define WBS 18.1.1 stable business artifact identity separately from immutable revision identity.
 
+# Context
+P18 Package 01 begins the process-versioning foundation by separating stable business artifact identity from the identity of each immutable revision, while preserving the Package boundary that Git metadata is not canonical business-version authority.
+
+# Current behavior
+The Package and Construction A are materialized, but the process-versioning contract required by WBS 18.1.1 is not yet implemented; TASK-391..394 depend on this identity foundation.
+
+# Inputs / contracts
+- `project_docs/execution_planning/P18-PACKAGE-01.md` Package scope and boundaries;
+- `project_docs/execution_planning/P18-PROCESS-VERSION-IDENTITY-CONTRACT-01.md` Construction A contract;
+- WBS 18.1.1 and the M18 process-versioning scope authority.
+
+# Outputs / contracts
+A deterministic provider-neutral process-versioning contract and product evidence that keep stable artifact identity distinct from immutable revision identity and carry only revision ordering/reference metadata required by this bounded task.
+
 # Required change
 Create a deterministic provider-neutral contract that normalizes stable artifact identity, revision identity and revision ordering/reference metadata without carrying process payload and without deriving business version authority from Git commits.
 
