@@ -1,7 +1,7 @@
 ---
 id: TASK-381
 title: Define genericity review and test evidence contract
-status: verification
+status: completed
 priority: 381
 milestone: M17
 model_tier: architecture
