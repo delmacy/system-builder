@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":30",
-  "at": "2026-08-29T18:35:00Z",
-  "note": "TASK-412 is implemented in single commit 9e21b7c1563c1271e66ccb6604ce97a122e7799b; managed PR #496 is open and Deterministic CI #1183 is queued. Hand off to :50 for CI/review continuation."
+  "owner": ":50",
+  "at": "2026-08-29T18:54:00Z",
+  "note": "Merged TASK-412 PR #496 after exact-head Deterministic CI #1183 and Heavy Product Tests #650 passed. TASK-413 is implemented in single commit 7064e506d281d9e7868e1ccd218e4102a0cff6b7 with managed PR #497 open. Hand off to :10 for exact-head CI/review continuation; do not promote Construction B before TASK-413 integration and fresh-main revalidation."
 }
