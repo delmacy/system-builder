@@ -1,18 +1,18 @@
 # Automation Sprint Handoff
 
-machine_state: NEXT_50
-next_worker: :50
+machine_state: NEXT_10
+next_worker: :10
 claimed_by: null
 claim_until: null
-sequence: 23
-updated_at: 2026-08-29T13:32:36.881Z
-active_pr: 492
-active_branch: sprint/P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01
-active_head_sha: 2f329dbe8c67bfc676b392262da8fb981ad00476
-deterministic_ci: failure
-heavy_product_tests: success
-last_event: CHECK_COMPLETED
-reason: CI_FAILED:Deterministic CI:failure
+sequence: 24
+updated_at: 2026-08-29T13:50:25.633Z
+active_pr: 493
+active_branch: hotfix/handoff-v2-test-reconciliation
+active_head_sha: 8f4845a0bf28067c94213f50ef2f43ae822a27d8
+deterministic_ci: pending
+heavy_product_tests: pending
+last_event: PR_CI_STARTED
+reason: null
 
 ## Authority
 
