@@ -1,6 +1,7 @@
 {
-  "type": "WORKER_HANDOFF",
-  "owner": ":50",
-  "at": "2026-08-29T14:52:00Z",
-  "note": "Worker :50 resumed Construction A from fresh main 7f7909f9adfe08a7cb62a3741497a2a3fa4482dd, fast-forwarded the existing Sprint branch, executed TASK-410 as authoritative commit 8c24c1974f28031347fbee3a71b1f5435b214b3a, and opened managed PR #494 for exact-head CI. Handoff to :10 to inspect real GitHub checks and continue only after the TASK-410 gate is resolved."
+  "type": "WORKER_CLAIM",
+  "owner": "conformance",
+  "at": "2026-08-29T15:38:00Z",
+  "lease_until": "2026-08-29T16:03:00Z",
+  "note": "User-requested immediate conformance gate execution to unblock work; hourly recurrence remains unchanged at minute 00. Claim only through reducer authority."
 }
