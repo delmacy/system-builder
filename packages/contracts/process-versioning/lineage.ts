@@ -120,8 +120,16 @@ export function normalizeProcessAnalysisDefinitionLineage(input: unknown): Proce
   if (processRevision.kind !== "process-revision") throw new Error("lineage anchor must be process-revision");
   if (analysis.kind !== "analysis") throw new Error("lineage analysis endpoint must be analysis");
   if (systemDefinition.kind !== "system-definition") throw new Error("lineage definition endpoint must be system-definition");
-  const analysisEndpoint = analysis as ReferencedLineageEndpoint & { readonly kind: "analysis" };
-  const systemDefinitionEndpoint = systemDefinition as ReferencedLineageEndpoint & { readonly kind: "system-definition" };
+  const analysisEndpoint: ReferencedLineageEndpoint & { readonly kind: "analysis" } = Object.freeze({
+    contractVersion: analysis.contractVersion,
+    kind: "analysis",
+    identityRef: analysis.identityRef,
+  });
+  const systemDefinitionEndpoint: ReferencedLineageEndpoint & { readonly kind: "system-definition" } = Object.freeze({
+    contractVersion: systemDefinition.contractVersion,
+    kind: "system-definition",
+    identityRef: systemDefinition.identityRef,
+  });
   if (!Array.isArray(record.hops) || record.hops.length !== 2) throw new Error("process-analysis-definition lineage requires exactly two ordered hops");
   const first = normalizeProcessSystemLineageHop(record.hops[0]);
   const second = normalizeProcessSystemLineageHop(record.hops[1]);
