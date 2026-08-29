@@ -36,6 +36,21 @@ validation:
 # Objective
 Satisfy WBS 18.3.3 at the public-contract layer by deterministically composing and querying complete lineage for a selected canonical process revision.
 
+# Context
+TASK-411 completes the ordered identity chain through deployment. This task adds only payload-minimal deterministic composition/query semantics over that canonical lineage evidence, without selecting a storage technology.
+
+# Current behavior
+The package can define lineage hops after TASK-409..411, but no WBS 18.3.3 contract yet guarantees an exact, complete and unambiguous historical chain for a selected canonical process revision.
+
+# Inputs / contracts
+- TASK-409 lineage endpoint/hop identities;
+- TASK-410 process revision -> analysis -> definition validation;
+- TASK-411 definition -> release -> deployment validation;
+- canonical WBS 18.1 process artifact/revision identity.
+
+# Outputs / contracts
+Deterministic payload-minimal lineage composition/query surface returning exactly one ordered process revision -> analysis -> definition -> release -> deployment history or failing closed for incomplete, conflicting or ambiguous evidence.
+
 # Required change
 Provide a payload-minimal deterministic composition/query surface that returns the exact ordered process revision -> analysis -> definition -> release -> deployment lineage and rejects incomplete or ambiguous history.
 
