@@ -1,0 +1,1 @@
+{"sequence":1,"accepted":true,"event":{"type":"MIGRATION_INITIALIZED","owner":":10","pr":488,"head":"d5653953ddf8a35b0a6a9f31f6f8f8385fcaced5"},"from":"LEGACY_HANDOFF","to":"CI_RUNNING_10","reason":null,"at":"2026-08-29T00:10:00Z"}
