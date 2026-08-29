@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":50",
-  "at": "2026-08-29T18:54:00Z",
-  "note": "Merged TASK-412 PR #496 after exact-head Deterministic CI #1183 and Heavy Product Tests #650 passed. TASK-413 is implemented in single commit 7064e506d281d9e7868e1ccd218e4102a0cff6b7 with managed PR #497 open. Hand off to :10 for exact-head CI/review continuation; do not promote Construction B before TASK-413 integration and fresh-main revalidation."
+  "owner": ":10",
+  "at": "2026-08-29T19:12:00Z",
+  "note": "PR #497 Deterministic CI #1184 failed only on TASK-413 growing-proof TypeScript assertions reading obsolete classificationDecision.descriptor. Corrected boundedly on the same branch to assert the canonical verification result shape after status=valid narrowing; new head df398143f42a6ae68865816d7e55ba0eac3fe847. Heavy Product Tests #651 on the prior head passed. Hand off to :30 for exact-head CI/review continuation and merge only if required gates pass."
 }
