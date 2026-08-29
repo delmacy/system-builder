@@ -43,6 +43,22 @@ validation:
 # Objective
 Complete Construction A with a growing deterministic proof from canonical WBS 18.1 process revision identity, through relevant WBS 18.2 change evidence, to WBS 18.3 analysis/definition/release/deployment historical lineage.
 
+# Context
+TASK-409..412 establish the complete contract-layer lineage chain and deterministic history query. This final Construction A task proves the package increment against real predecessor public contracts while preserving the existing human-decision and release/deployment authority boundaries.
+
+# Current behavior
+The materialized Construction A lacks a single integrated proof spanning the canonical WBS 18.1 identity foundation, relevant WBS 18.2 change evidence and the new WBS 18.3 process-to-system lineage chain.
+
+# Inputs / contracts
+- TASK-409..412 outputs;
+- canonical process-versioning and process-change public APIs/contracts;
+- BusinessRecipe, SystemAnalysis and SystemDefinition public contract shapes;
+- existing Release/Deploy identity/evidence surfaces;
+- P18 Package 03 scope and growing-proof requirements.
+
+# Outputs / contracts
+Integrated deterministic product evidence proving exact process revision -> analysis -> definition -> release -> deployment lineage, including bypass-resistance and explicit preservation of non-authoritative Git/PR/model/change-classification evidence.
+
 # Required change
 Extend product tests and any minimal contract composition needed to prove the complete lineage chain using real predecessor public APIs/contracts where executable, never hand-authoring downstream truth when a canonical module API already exists.
 
