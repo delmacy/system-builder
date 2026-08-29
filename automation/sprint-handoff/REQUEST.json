@@ -1,6 +1,7 @@
 {
-  "type": "WORKER_HANDOFF",
-  "owner": ":50",
-  "at": "2026-08-29T21:53:00Z",
-  "note": "Fresh main 294c348271f3efc416c71ecef7e2329c63128d97 revalidated after Construction A integration. Construction B P18-PROCESS-SYSTEM-LINEAGE-INTEGRATION-01 has been materialized as TASK-414..418 in planning PR #498, head 490eef8a554ad993745013fa93a320102732bc78. Planning/materialization only; no product TASK executed. Next worker :10 should validate exact-head planning CI/review/merge before executing TASK-414. Construction C and later package gates remain forecast/not materialized."
+  "type": "WORKER_CLAIM",
+  "owner": "conformance",
+  "at": "2026-08-29T22:57:00Z",
+  "lease_until": "2026-08-29T23:22:00Z",
+  "note": "Hourly Architecture Conformance & Product Traceability Review gate claim. Audit must begin only after reducer promotes conformance to RUNNING."
 }
