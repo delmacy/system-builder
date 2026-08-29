@@ -86,16 +86,29 @@ test("P18 Construction A growing proof keeps Git, PR and model signals outside b
   assert.equal(classificationDecision.status, "valid");
   if (classificationDecision.status !== "valid") return;
   assert.equal(classificationDecision.category, "deterministic");
-  assert.throws(
-    () => verifyDecisionBoundary({
+
+  for (const nonAuthoritativeSignal of [
+    { gitIdentity: "commit:approved" },
+    { pullRequest: 497, approved: true },
+    { modelRef: "model:approval", confidence: 1 },
+  ]) {
+    const decision = verifyDecisionBoundary({
       descriptor: {
         boundaryVersion: "1.0.0",
-        decisionId: "classification:orders:forged",
+        decisionId: "classification:orders:signal-proof",
         category: "deterministic",
       },
-      metadata: { invariantRef: "invariant:semantic-change-classification", gitIdentity: "commit:approved" },
+      metadata: {
+        invariantRef: "invariant:semantic-change-classification",
+        ...nonAuthoritativeSignal,
+      },
       riskCriticality: { risk: "medium", criticality: "standard" },
-    } as never),
-    /unexpected|unknown|field/i,
-  );
+    } as never);
+
+    assert.equal(decision.status, "valid");
+    if (decision.status !== "valid") continue;
+    assert.equal(decision.category, "deterministic");
+    assert.notEqual(decision.category, "human-decision");
+    assert.deepEqual(decision.metadata, { invariantRef: "invariant:semantic-change-classification" });
+  }
 });
