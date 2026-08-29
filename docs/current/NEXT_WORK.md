@@ -1,10 +1,10 @@
-# Next Work — P18 Package 02 Documentation & Closure
+# Next Work — Fresh-Main Planning Gate
 
-Fresh main `b5f559ae043709bf7a8bfdee034a98fce064a22d` contains Construction A+B and Package Integration & Review integrated for `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3. Package Review exact head `62b57806e2be52dd24328eeccbd9c648e1010345` passed Deterministic CI #1162 and Heavy Product Tests #628 with no blocking review finding and merged with expected-head protection. Reviewed head and merge-main share tree `5b555b0f00a281232151f261a149fdcff307a5fb`.
+`P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3 is canonically CLOSED after Documentation & Closure PR #487 exact head `9dc0ed34f7a9994ee7699d550f5947e36297f773` passed Deterministic CI #1163 and Heavy Product Tests #629 and merged with expected-head protection as `ac3e528bce3f3493d605a00fb2e24b3bd6cac018`; closure-head -> merge-main contains zero changed files.
 
 ## Current gate
-Execute `P18-PACKAGE-02-DOCUMENTATION-CLOSURE-01` only. Reconcile `PROJECT_STATE`, `CURRENT_MILESTONE`, `NEXT_WORK`, Package/WBS/review evidence and closure traceability to the integrated truth. No product implementation, public-contract change, Decision Boundary change or architecture change is permitted.
+Do not execute forecast work directly. Reconstruct fresh `main`, re-read the active milestone/WBS/package authorities and perform a separate Planning & Materialization decision for the next eligible Work Package only.
 
-The closure PR must pass exact-head Deterministic CI + Heavy Product Tests, have no blocking review finding and merge with expected-head protection. After merge, reconstruct fresh main and prove tree equivalence. Then perform only the mechanical canonical CLOSED-state reconciliation for P18-PACKAGE-02 / WBS 18.2 before deriving any successor Work Package.
+WBS 18.3 remains FORECAST / NOT MATERIALIZED at this closure point. No successor Package is selected or materialized by P18-PACKAGE-02 closure.
 
-Construction C is `NOT REQUIRED / NOT MATERIALIZED`. WBS 18.3 remains FORECAST / NOT MATERIALIZED. Do not use Git as business-version authority, treat classification/model output as approval, reuse ADR-0010 PR approval as business approval, change Decision Boundary, alter WBS 18.1 identity semantics, expand to Release/Compiler/Runtime, absorb unrelated findings/TDs or infer L4.
+Preserve canonical M15 `human-decision` business authority. Do not use Git as business-version or approval authority, treat classification/model output as approval, reuse ADR-0010 PR approval as business approval, change Decision Boundary, absorb unrelated findings/TDs, or infer L4.
