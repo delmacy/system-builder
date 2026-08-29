@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":30",
-  "at": "2026-08-29T13:31:45Z",
-  "note": "TASK-409 implementation is on managed PR #492 at head 2f329dbe8c67bfc676b392262da8fb981ad00476; handoff to :50 for CI/review continuation."
+  "owner": ":50",
+  "at": "2026-08-29T13:50:30Z",
+  "note": "Bounded repair for Deterministic CI #1175 opened as managed PR #493 at head 8f4845a0bf28067c94213f50ef2f43ae822a27d8; PR #492 remains open with Heavy PASS and Deterministic failure caused by stale handoff v1 tests. Handoff to :10 for CI/review continuation."
 }
