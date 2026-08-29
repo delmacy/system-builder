@@ -1,6 +1,6 @@
 # Project State
 
-Date: 2026-08-28
+Date: 2026-08-29
 
 M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is CLOSED. `P16-PACKAGE-01`, `P16-PACKAGE-02`, `P16-PACKAGE-03`, `P17-PACKAGE-01`, `P17-PACKAGE-02` and `P17-PACKAGE-03` are CLOSED. TD-P13-01..04 remain carried unchanged.
 
@@ -9,13 +9,16 @@ M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is
 
 Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-## M18 Process Versioning — P18-PACKAGE-02 CLOSED
+## M18 Process Versioning
 `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` / WBS 18.1.1–18.1.3 is canonically CLOSED on fresh main `e205683422907edf8c27f99c01aab317cca3f66c`.
 
-`P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3 is canonically CLOSED. Construction A integrated through PR #480. Construction B TASK-404..408 completed on reviewed head `636ab0d77b144dada1c9fe82913fe59f67a91692`, passed Deterministic CI #1160 and Heavy Product Tests #626 and integrated through replacement PR #485 with zero reviewed-head -> merge-main file differences. Optional Construction C remained NOT REQUIRED / NOT MATERIALIZED.
+`P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3 is canonically CLOSED. Documentation & Closure PR #487 head `9dc0ed34f7a9994ee7699d550f5947e36297f773` passed Deterministic CI #1163 and Heavy Product Tests #629 and merged as `ac3e528bce3f3493d605a00fb2e24b3bd6cac018` with zero closure-head -> merge-main file differences.
 
-Package Integration & Review PR #486 head `62b57806e2be52dd24328eeccbd9c648e1010345` passed Deterministic CI #1162 and Heavy Product Tests #628 and integrated with identical reviewed/merge tree `5b555b0f00a281232151f261a149fdcff307a5fb`.
+### P18-PACKAGE-03 — ACTIVE / PLANNED
+Fresh-main Planning & Materialization from `5a3612d20f30307ac2c0a2e70ca70dff034476d8` selected the only remaining M18 slice, WBS 18.3.1–18.3.3, as `P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability`.
 
-Documentation & Closure PR #487 head `9dc0ed34f7a9994ee7699d550f5947e36297f773` passed Deterministic CI #1163 and Heavy Product Tests #629 and merged with expected-head protection as `ac3e528bce3f3493d605a00fb2e24b3bd6cac018`; closure-head -> merge-main has zero changed files.
+Construction A `P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with serial TASK-409..413. It establishes additive deterministic lineage identity, Recipe/process revision -> Analysis -> SystemDefinition linkage, Definition -> Release -> Deployment linkage, complete historical query, and a growing WBS 18.1 -> 18.2 -> 18.3 proof.
 
-WBS 18.3 process→system lineage remains FORECAST / NOT MATERIALIZED. No successor Work Package is materialized by this closure. Diff/classification evidence is not approval authority; process-change approval/rejection remains domain truth backed by canonical `human-decision`. No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 was introduced.
+Construction B remains FORECAST / NOT MATERIALIZED pending Construction A integration and fresh-main revalidation. Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. Package Integration & Review and Documentation & Closure remain forecast gates.
+
+Preserved boundaries: canonical M15 `human-decision` remains business authority; classification/model/Git/PR/ADR evidence does not become business approval or version authority; no Builder/Runtime topology change, release/deployment execution authority, storage redesign, unrelated finding/TD absorption or inferred L4 is authorized.
