@@ -120,12 +120,14 @@ export function normalizeProcessAnalysisDefinitionLineage(input: unknown): Proce
   if (processRevision.kind !== "process-revision") throw new Error("lineage anchor must be process-revision");
   if (analysis.kind !== "analysis") throw new Error("lineage analysis endpoint must be analysis");
   if (systemDefinition.kind !== "system-definition") throw new Error("lineage definition endpoint must be system-definition");
+  const analysisEndpoint = analysis as ReferencedLineageEndpoint & { readonly kind: "analysis" };
+  const systemDefinitionEndpoint = systemDefinition as ReferencedLineageEndpoint & { readonly kind: "system-definition" };
   if (!Array.isArray(record.hops) || record.hops.length !== 2) throw new Error("process-analysis-definition lineage requires exactly two ordered hops");
   const first = normalizeProcessSystemLineageHop(record.hops[0]);
   const second = normalizeProcessSystemLineageHop(record.hops[1]);
   if (first.kind !== "process-revision-to-analysis" || second.kind !== "analysis-to-system-definition") throw new Error("process-analysis-definition lineage hops are out of order");
-  if (endpointFingerprint(first.from) !== endpointFingerprint(processRevision) || endpointFingerprint(first.to) !== endpointFingerprint(analysis)) throw new Error("process-to-analysis hop does not match declared endpoints");
-  if (endpointFingerprint(second.from) !== endpointFingerprint(analysis) || endpointFingerprint(second.to) !== endpointFingerprint(systemDefinition)) throw new Error("analysis-to-definition hop does not match declared endpoints");
-  if (analysis.identityRef === systemDefinition.identityRef) throw new Error("analysis and system-definition identities must be distinct");
-  return Object.freeze({ contractVersion, processRevision, analysis, systemDefinition, hops: Object.freeze([first, second]) });
+  if (endpointFingerprint(first.from) !== endpointFingerprint(processRevision) || endpointFingerprint(first.to) !== endpointFingerprint(analysisEndpoint)) throw new Error("process-to-analysis hop does not match declared endpoints");
+  if (endpointFingerprint(second.from) !== endpointFingerprint(analysisEndpoint) || endpointFingerprint(second.to) !== endpointFingerprint(systemDefinitionEndpoint)) throw new Error("analysis-to-definition hop does not match declared endpoints");
+  if (analysisEndpoint.identityRef === systemDefinitionEndpoint.identityRef) throw new Error("analysis and system-definition identities must be distinct");
+  return Object.freeze({ contractVersion, processRevision, analysis: analysisEndpoint, systemDefinition: systemDefinitionEndpoint, hops: Object.freeze([first, second]) });
 }
