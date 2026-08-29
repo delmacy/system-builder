@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":30",
-  "at": "2026-08-29T19:34:30Z",
-  "note": "PR #497 / TASK-413 exact failure in Deterministic CI #1185 was a test-only strictness assumption: verifyDecisionBoundary does not reject extra metadata fields. Corrected boundedly in allowed tests/product path to prove Git/PR/model signals are stripped/non-authoritative without changing decision-boundary contracts. New head bb4cc7341a4404f7e6de1b9052d37b4dc648844c; exact-head Deterministic CI and Heavy Product Tests are running. Hand off to :50 for exact-head CI/review continuation and merge only if required gates pass."
+  "owner": ":50",
+  "at": "2026-08-29T19:52:00Z",
+  "note": "PR #497 / TASK-413 Deterministic CI #1186 failed on a bounded test compile error: DecisionBoundaryVerificationResult exposes reference, not metadata, and extra non-authoritative metadata fails closed. Corrected only tests/product/p18-process-system-lineage-growing-proof.test.ts on head 851948512ac3a8f55bae14a5dff92631a8c7855b. Heavy had passed on prior head; exact-head checks must re-run. Hand off to :10 for exact-head CI continuation; do not promote Construction B before TASK-413 integrates and fresh-main revalidation."
 }
