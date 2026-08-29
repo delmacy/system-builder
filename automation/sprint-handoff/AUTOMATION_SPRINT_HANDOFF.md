@@ -1,20 +1,20 @@
 # Automation Sprint Handoff
 
-machine_state: CI_RUNNING_50
-phase: CI_RUNNING
+machine_state: BLOCKED_50
+phase: BLOCKED
 owner: :50
 resume_owner: null
-sequence: 11
-updated_at: 2026-08-29T10:32:46.988Z
+sequence: 12
+updated_at: 2026-08-29T10:33:00.306Z
 lease_until: null
 conformance_due: false
 active_pr: 491
 active_branch: planning/P18-PACKAGE-03-process-system-lineage
 active_head_sha: b437e2d5c6cb1e20f1c80e362c862e1e4b84b4f4
-deterministic_ci: pending
+deterministic_ci: failure
 heavy_product_tests: success
 last_event: CHECK_COMPLETED
-reason: null
+reason: CI_FAILED:Deterministic CI:failure
 
 ## Authority
 
