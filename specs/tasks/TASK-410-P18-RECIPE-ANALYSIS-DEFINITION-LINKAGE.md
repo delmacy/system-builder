@@ -39,6 +39,21 @@ validation:
 # Objective
 Satisfy the contract foundation of WBS 18.3.1 by deterministically validating the lineage from a canonical Recipe/process revision through System Analysis to SystemDefinition.
 
+# Context
+TASK-409 provides canonical WBS 18.3 lineage endpoint/hop primitives. This task composes only the upstream Recipe/process-revision -> SystemAnalysis -> SystemDefinition segment while preserving the semantics and ownership of the existing bounded-context contracts.
+
+# Current behavior
+Recipe, SystemAnalysis and SystemDefinition public contract surfaces exist, but the active package has no deterministic WBS 18.3 lineage validator binding those identities to one canonical process revision.
+
+# Inputs / contracts
+- TASK-409 lineage identity/hop descriptors;
+- canonical process-versioning process artifact/revision identity;
+- existing BusinessRecipe, SystemAnalysis and SystemDefinition public contract shapes;
+- P18 Package 03 and Construction A boundaries.
+
+# Outputs / contracts
+Additive lineage composition/validation for the process revision -> analysis -> definition segment, with deterministic fail-closed identity and ordering checks and no mutation of predecessor contract semantics.
+
 # Required change
 Extend the process-versioning lineage contract so the analysis and definition hops are explicitly bound to the same canonical process artifact/revision and cannot be substituted, reordered or cross-linked across artifacts.
 
