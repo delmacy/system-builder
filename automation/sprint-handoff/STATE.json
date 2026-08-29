@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "phase": "READY",
+  "phase": "RUNNING",
   "owner": ":50",
   "resume_owner": null,
-  "sequence": 3,
-  "updated_at": "2026-08-29T00:27:00Z",
-  "lease_until": null,
+  "sequence": 4,
+  "updated_at": "2026-08-29T02:55:00Z",
+  "lease_until": "2026-08-29T03:20:00Z",
   "conformance_due": false,
   "active_pr": null,
   "active_branch": null,
@@ -14,6 +14,6 @@
     "deterministic": "pending",
     "heavy": "pending"
   },
-  "last_event": "OWNER_CORRECTION",
-  "reason": "USER_DIRECTED_NEXT_OWNER_50"
+  "last_event": "WORKER_CLAIM",
+  "reason": null
 }
