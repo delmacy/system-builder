@@ -1,8 +1,8 @@
 {
-  "type": "PR_CI_STARTED",
-  "owner": ":50",
-  "pr": 491,
-  "branch": "planning/P18-PACKAGE-03-process-system-lineage",
+  "type": "CHECK_COMPLETED",
   "head": "8e9952dd680a6f3bb475365caee5d5be5b5787f5",
-  "at": "2026-08-29T11:58:00Z"
+  "workflow": "Deterministic CI",
+  "conclusion": "success",
+  "run_id": 33248833466,
+  "at": "2026-08-29T11:59:00Z"
 }
