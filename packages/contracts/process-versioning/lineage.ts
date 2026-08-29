@@ -40,72 +40,53 @@ export type ProcessSystemLineageHop = Readonly<{
   to: ProcessSystemLineageEndpoint;
 }>;
 
+export type ProcessAnalysisDefinitionLineage = Readonly<{
+  contractVersion: typeof PROCESS_SYSTEM_LINEAGE_VERSION;
+  processRevision: ProcessRevisionLineageEndpoint;
+  analysis: ReferencedLineageEndpoint & { readonly kind: "analysis" };
+  systemDefinition: ReferencedLineageEndpoint & { readonly kind: "system-definition" };
+  hops: readonly [ProcessSystemLineageHop, ProcessSystemLineageHop];
+}>;
+
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
-  if (typeof value !== "object" || value === null || Array.isArray(value)) {
-    throw new Error(`${label} must be an object`);
-  }
+  if (typeof value !== "object" || value === null || Array.isArray(value)) throw new Error(`${label} must be an object`);
   return value as UnknownRecord;
 }
 
 function assertExactFields(record: UnknownRecord, fields: readonly string[], label: string): void {
-  for (const key of Object.keys(record)) {
-    if (!fields.includes(key)) throw new Error(`${label} has unexpected field ${key}`);
-  }
-  for (const key of fields) {
-    if (!(key in record)) throw new Error(`${label} is missing field ${key}`);
-  }
+  for (const key of Object.keys(record)) if (!fields.includes(key)) throw new Error(`${label} has unexpected field ${key}`);
+  for (const key of fields) if (!(key in record)) throw new Error(`${label} is missing field ${key}`);
 }
 
 function version(value: unknown): typeof PROCESS_SYSTEM_LINEAGE_VERSION {
-  if (value !== PROCESS_SYSTEM_LINEAGE_VERSION) {
-    throw new Error(`unsupported process-system lineage contract version: ${String(value)}`);
-  }
+  if (value !== PROCESS_SYSTEM_LINEAGE_VERSION) throw new Error(`unsupported process-system lineage contract version: ${String(value)}`);
   return PROCESS_SYSTEM_LINEAGE_VERSION;
 }
 
 function nonEmpty(value: unknown, field: string): string {
-  if (typeof value !== "string" || value.trim().length === 0) {
-    throw new Error(`${field} must be a non-empty string`);
-  }
+  if (typeof value !== "string" || value.trim().length === 0) throw new Error(`${field} must be a non-empty string`);
   return value.trim();
 }
 
 function endpointFingerprint(endpoint: ProcessSystemLineageEndpoint): string {
-  if (endpoint.kind === "process-revision") {
-    return `${endpoint.kind}:${endpoint.processRevision.artifactRef}:${endpoint.processRevision.revisionRef}`;
-  }
+  if (endpoint.kind === "process-revision") return `${endpoint.kind}:${endpoint.processRevision.artifactRef}:${endpoint.processRevision.revisionRef}`;
   return `${endpoint.kind}:${endpoint.identityRef}`;
 }
 
 export function normalizeProcessSystemLineageEndpoint(input: unknown): ProcessSystemLineageEndpoint {
   const record = asRecord(input, "process-system lineage endpoint");
   const kind = record.kind;
-
   if (kind === "process-revision") {
     assertExactFields(record, ["contractVersion", "kind", "processRevision"], "process-system lineage endpoint");
     const processRevision = normalizeProcessRevisionIdentity(record.processRevision);
-    if (processRevision.contractVersion !== PROCESS_VERSION_IDENTITY_VERSION) {
-      throw new Error("process revision endpoint must use canonical process-versioning identity");
-    }
-    return Object.freeze({
-      contractVersion: version(record.contractVersion),
-      kind,
-      processRevision,
-    });
+    if (processRevision.contractVersion !== PROCESS_VERSION_IDENTITY_VERSION) throw new Error("process revision endpoint must use canonical process-versioning identity");
+    return Object.freeze({ contractVersion: version(record.contractVersion), kind, processRevision });
   }
-
-  if (kind !== "analysis" && kind !== "system-definition" && kind !== "release" && kind !== "deployment") {
-    throw new Error(`unsupported process-system lineage endpoint kind: ${String(kind)}`);
-  }
-
+  if (kind !== "analysis" && kind !== "system-definition" && kind !== "release" && kind !== "deployment") throw new Error(`unsupported process-system lineage endpoint kind: ${String(kind)}`);
   assertExactFields(record, ["contractVersion", "kind", "identityRef"], "process-system lineage endpoint");
-  return Object.freeze({
-    contractVersion: version(record.contractVersion),
-    kind,
-    identityRef: nonEmpty(record.identityRef, "identityRef"),
-  });
+  return Object.freeze({ contractVersion: version(record.contractVersion), kind, identityRef: nonEmpty(record.identityRef, "identityRef") });
 }
 
 const HOP_ENDPOINTS: Readonly<Record<ProcessSystemLineageHopKind, readonly [ProcessSystemLineageEndpointKind, ProcessSystemLineageEndpointKind]>> = {
@@ -122,15 +103,29 @@ export function normalizeProcessSystemLineageHop(input: unknown): ProcessSystemL
   const kind = record.kind as ProcessSystemLineageHopKind;
   const expected = HOP_ENDPOINTS[kind];
   if (!expected) throw new Error(`unsupported process-system lineage hop kind: ${String(record.kind)}`);
-
   const from = normalizeProcessSystemLineageEndpoint(record.from);
   const to = normalizeProcessSystemLineageEndpoint(record.to);
-  if (from.kind !== expected[0] || to.kind !== expected[1]) {
-    throw new Error(`lineage hop ${kind} requires ${expected[0]} -> ${expected[1]}`);
-  }
-  if (endpointFingerprint(from) === endpointFingerprint(to)) {
-    throw new Error("lineage hop endpoints must be distinct");
-  }
-
+  if (from.kind !== expected[0] || to.kind !== expected[1]) throw new Error(`lineage hop ${kind} requires ${expected[0]} -> ${expected[1]}`);
+  if (endpointFingerprint(from) === endpointFingerprint(to)) throw new Error("lineage hop endpoints must be distinct");
   return Object.freeze({ contractVersion, kind, from, to });
+}
+
+export function normalizeProcessAnalysisDefinitionLineage(input: unknown): ProcessAnalysisDefinitionLineage {
+  const record = asRecord(input, "process-analysis-definition lineage");
+  assertExactFields(record, ["contractVersion", "processRevision", "analysis", "systemDefinition", "hops"], "process-analysis-definition lineage");
+  const contractVersion = version(record.contractVersion);
+  const processRevision = normalizeProcessSystemLineageEndpoint(record.processRevision);
+  const analysis = normalizeProcessSystemLineageEndpoint(record.analysis);
+  const systemDefinition = normalizeProcessSystemLineageEndpoint(record.systemDefinition);
+  if (processRevision.kind !== "process-revision") throw new Error("lineage anchor must be process-revision");
+  if (analysis.kind !== "analysis") throw new Error("lineage analysis endpoint must be analysis");
+  if (systemDefinition.kind !== "system-definition") throw new Error("lineage definition endpoint must be system-definition");
+  if (!Array.isArray(record.hops) || record.hops.length !== 2) throw new Error("process-analysis-definition lineage requires exactly two ordered hops");
+  const first = normalizeProcessSystemLineageHop(record.hops[0]);
+  const second = normalizeProcessSystemLineageHop(record.hops[1]);
+  if (first.kind !== "process-revision-to-analysis" || second.kind !== "analysis-to-system-definition") throw new Error("process-analysis-definition lineage hops are out of order");
+  if (endpointFingerprint(first.from) !== endpointFingerprint(processRevision) || endpointFingerprint(first.to) !== endpointFingerprint(analysis)) throw new Error("process-to-analysis hop does not match declared endpoints");
+  if (endpointFingerprint(second.from) !== endpointFingerprint(analysis) || endpointFingerprint(second.to) !== endpointFingerprint(systemDefinition)) throw new Error("analysis-to-definition hop does not match declared endpoints");
+  if (analysis.identityRef === systemDefinition.identityRef) throw new Error("analysis and system-definition identities must be distinct");
+  return Object.freeze({ contractVersion, processRevision, analysis, systemDefinition, hops: Object.freeze([first, second]) });
 }
