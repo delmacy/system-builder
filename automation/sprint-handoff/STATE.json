@@ -1,19 +1,19 @@
 {
   "version": 1,
-  "phase": "CI_RUNNING",
+  "phase": "READY",
   "owner": ":10",
   "resume_owner": null,
-  "sequence": 1,
-  "updated_at": "2026-08-29T00:10:00Z",
+  "sequence": 2,
+  "updated_at": "2026-08-29T00:15:00Z",
   "lease_until": null,
   "conformance_due": false,
-  "active_pr": 488,
-  "active_branch": "closure/P18-PACKAGE-02-canonical-closed",
-  "active_head_sha": "d5653953ddf8a35b0a6a9f31f6f8f8385fcaced5",
+  "active_pr": null,
+  "active_branch": null,
+  "active_head_sha": null,
   "checks": {
     "deterministic": "pending",
     "heavy": "pending"
   },
-  "last_event": "MIGRATION_INITIALIZED",
-  "reason": null
+  "last_event": "MIGRATION_COMPLETE",
+  "reason": "THREE_PACKAGE_MISSION_COMPLETE"
 }
