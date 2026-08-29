@@ -1,19 +1,19 @@
 {
   "version": 1,
-  "phase": "RUNNING",
+  "phase": "CI_RUNNING",
   "owner": ":50",
   "resume_owner": null,
-  "sequence": 9,
-  "updated_at": "2026-08-29T10:22:00Z",
-  "lease_until": "2026-08-29T10:47:00Z",
+  "sequence": 10,
+  "updated_at": "2026-08-29T10:31:58.032Z",
+  "lease_until": null,
   "conformance_due": false,
-  "active_pr": null,
-  "active_branch": null,
-  "active_head_sha": null,
+  "active_pr": 491,
+  "active_branch": "planning/P18-PACKAGE-03-process-system-lineage",
+  "active_head_sha": "b437e2d5c6cb1e20f1c80e362c862e1e4b84b4f4",
   "checks": {
     "deterministic": "pending",
     "heavy": "pending"
   },
-  "last_event": "WORKER_CLAIM",
+  "last_event": "PR_CI_STARTED",
   "reason": null
 }
