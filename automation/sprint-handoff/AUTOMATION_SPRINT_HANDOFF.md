@@ -1,17 +1,17 @@
 # Automation Sprint Handoff
 
-machine_state: NEXT_50
-next_worker: :50
+machine_state: NEXT_10
+next_worker: :10
 claimed_by: null
 claim_until: null
-sequence: 48
-updated_at: 2026-08-29T17:29:15Z
-active_pr: null
-active_branch: null
-active_head_sha: null
+sequence: 49
+updated_at: 2026-08-29T17:54:17.374Z
+active_pr: 495
+active_branch: sprint/P18-TASK-411-definition-release-deployment-lineage
+active_head_sha: 3a77dda6a52559c5af29d7fb0f94286994553cab
 deterministic_ci: pending
 heavy_product_tests: pending
-last_event: WORKER_HANDOFF
+last_event: PR_CI_STARTED
 reason: null
 
 ## Authority
