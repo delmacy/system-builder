@@ -1,20 +1,20 @@
 # Automation Sprint Handoff
 
-machine_state: RUNNING_50
-phase: RUNNING
+machine_state: READY_TO_50
+phase: READY
 owner: :50
 resume_owner: null
-sequence: 4
-updated_at: 2026-08-29T02:55:00Z
-lease_until: 2026-08-29T03:20:00Z
+sequence: 5
+updated_at: 2026-08-29T07:11:30.887Z
+lease_until: null
 conformance_due: false
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: pending
 heavy_product_tests: pending
-last_event: WORKER_CLAIM
-reason: null
+last_event: LEASE_TICK
+reason: LEASE_EXPIRED_RECOVERED
 
 ## Authority
 
