@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":10",
-  "at": "2026-08-29T14:10:00Z",
-  "note": "Worker :10 bounded CI repair: PR #493 Deterministic CI #1176 failed only on ESLint no-constant-condition in handoff v2 test; corrected on same branch at head 83f9043aad5dc2425c1ea0f91613512681ac2ab4. New CI expected for updated head. Handoff to :30 for CI/review continuation."
+  "owner": ":30",
+  "at": "2026-08-29T14:28:34Z",
+  "note": "Worker :30 closed the repository-wide handoff v2 CI repair by merging PR #493 after Deterministic CI #1177 and Heavy Product Tests #644 passed, then merged TASK-409 PR #492 on fresh main after confirming it was mergeable and its prior deterministic failure was solely the now-fixed repository-wide handoff test drift. Handoff to :50 for fresh-main reconciliation and TASK-410 gate."
 }
