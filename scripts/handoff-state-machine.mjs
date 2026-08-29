@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 import { appendFileSync, readFileSync, writeFileSync } from "node:fs";
+import { argv, stdout } from "node:process";
 
 export const REQUIRED_CHECKS = ["Deterministic CI", "Heavy Product Tests"];
 export const WORKERS = [":10", ":30", ":50"];
 
 function clone(value) {
-  return structuredClone(value);
+  return JSON.parse(JSON.stringify(value));
 }
 
 function nowIso(event) {
@@ -232,7 +233,7 @@ export function renderEventLine(result, event) {
 }
 
 function cli() {
-  const args = process.argv.slice(2);
+  const args = argv.slice(2);
   if (args.length === 0 || args.includes("--help")) return;
   const get = (name) => {
     const index = args.indexOf(name);
@@ -253,7 +254,7 @@ function cli() {
     writeFileSync(handoffPath, renderHandoffMarkdown(result.next));
   }
   appendFileSync(eventsPath, `${renderEventLine(result, event)}\n`);
-  process.stdout.write(`${JSON.stringify({ accepted: result.accepted, state: displayState(result.next), sequence: result.next.sequence, reason: result.reason ?? null })}\n`);
+  stdout.write(`${JSON.stringify({ accepted: result.accepted, state: displayState(result.next), sequence: result.next.sequence, reason: result.reason ?? null })}\n`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) cli();
+if (import.meta.url === `file://${argv[1]}`) cli();
