@@ -1,7 +1,7 @@
 {
   "type": "WORKER_CLAIM",
   "owner": ":50",
-  "lease_until": "2026-08-29T02:15:00Z",
-  "at": "2026-08-29T01:50:30Z",
+  "lease_until": "2026-08-29T03:18:00Z",
+  "at": "2026-08-29T02:53:00Z",
   "note": "Worker :50 claim."
 }
