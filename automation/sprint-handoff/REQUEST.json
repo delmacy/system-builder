@@ -1,7 +1,6 @@
 {
-  "type": "WORKER_CLAIM",
+  "type": "WORKER_HANDOFF",
   "owner": ":10",
-  "at": "2026-08-29T15:45:00Z",
-  "lease_until": "2026-08-29T15:50:00Z",
-  "note": "User-authorized exceptional administrative reroute toward :50. No Package work is executed in this claim; this turn exists only to advance the deterministic worker ring through the reducer without editing canonical state directly."
+  "at": "2026-08-29T15:46:00Z",
+  "note": "User-authorized exceptional administrative reroute toward :50. No Package work was executed by :10; advance the deterministic worker ring one step through the reducer."
 }
