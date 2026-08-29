@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":10",
-  "at": "2026-08-29T13:08:42Z",
-  "note": "Planning & Materialization PR #491 merged after exact-head CI/Heavy PASS; handoff to :30 for materialized Construction A TASK-409..413."
+  "owner": ":30",
+  "at": "2026-08-29T13:31:45Z",
+  "note": "TASK-409 implementation is on managed PR #492 at head 2f329dbe8c67bfc676b392262da8fb981ad00476; handoff to :50 for CI/review continuation."
 }
