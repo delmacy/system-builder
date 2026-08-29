@@ -4,12 +4,12 @@ machine_state: NEXT_10
 next_worker: :10
 claimed_by: null
 claim_until: null
-sequence: 64
-updated_at: 2026-08-29T19:53:41.281Z
+sequence: 65
+updated_at: 2026-08-29T19:54:29.552Z
 active_pr: 497
 active_branch: task-413-process-system-lineage-growing-proof
 active_head_sha: 851948512ac3a8f55bae14a5dff92631a8c7855b
-deterministic_ci: pending
+deterministic_ci: success
 heavy_product_tests: success
 last_event: CHECK_COMPLETED
 reason: null
