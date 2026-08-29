@@ -40,6 +40,22 @@ validation:
 # Objective
 Satisfy the contract foundation of WBS 18.3.2 by deterministically connecting a SystemDefinition identity to the Release and Deployment identities that materialize it.
 
+# Context
+TASK-410 establishes the upstream process revision -> analysis -> definition segment. This task extends the same additive lineage contract through release and deployment identity while preserving ADR-0007 and existing execution boundaries.
+
+# Current behavior
+SystemDefinition, Release and Deployment surfaces exist, but P18 has no canonical deterministic WBS 18.3 lineage binding from a definition identity to the release/deployment identities that materialized it.
+
+# Inputs / contracts
+- TASK-410 upstream lineage segment;
+- canonical process-versioning lineage identity/hop descriptors;
+- SystemDefinition public identity shape;
+- existing Release/Deploy identity/evidence surfaces as read-only context;
+- ADR-0007 release/environment/deployment boundary.
+
+# Outputs / contracts
+Additive deterministic definition -> release -> deployment lineage validation within process-versioning, representing identity/evidence composition only and introducing no execution authority or side effect.
+
 # Required change
 Extend canonical process-versioning lineage validation with explicit definition -> release -> deployment hops. Preserve existing release/deploy execution semantics as read-only context and represent lineage as evidence/identity composition only.
 
