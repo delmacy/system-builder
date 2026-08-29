@@ -1,18 +1,18 @@
 # Automation Sprint Handoff
 
-machine_state: NEXT_CONF
+machine_state: CLAIMED_CONF
 next_worker: conformance
-claimed_by: null
-claim_until: null
-sequence: 37
-updated_at: 2026-08-29T14:55:30.871Z
+claimed_by: conformance
+claim_until: 2026-08-29T16:03:00Z
+sequence: 38
+updated_at: 2026-08-29T15:38:00Z
 active_pr: 494
 active_branch: sprint/P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01
 active_head_sha: 8c24c1974f28031347fbee3a71b1f5435b214b3a
 deterministic_ci: failure
 heavy_product_tests: success
-last_event: CONFORMANCE_DUE
-reason: CI_FAILED:Heavy Product Tests:success
+last_event: WORKER_CLAIM
+reason: null
 
 ## Authority
 
