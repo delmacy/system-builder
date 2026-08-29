@@ -1,11 +1,11 @@
 # Automation Sprint Handoff
 
-machine_state: NEXT_30
-next_worker: :30
+machine_state: NEXT_50
+next_worker: :50
 claimed_by: null
 claim_until: null
-sequence: 61
-updated_at: 2026-08-29T19:12:00Z
+sequence: 62
+updated_at: 2026-08-29T19:34:30Z
 active_pr: 497
 active_branch: task-413-process-system-lineage-growing-proof
 active_head_sha: 7064e506d281d9e7868e1ccd218e4102a0cff6b7
