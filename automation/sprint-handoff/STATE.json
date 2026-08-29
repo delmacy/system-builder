@@ -4,16 +4,16 @@
   "claimed_by": null,
   "claim_until": null,
   "resume_worker": null,
-  "sequence": 54,
-  "updated_at": "2026-08-29T18:34:46.850Z",
+  "sequence": 55,
+  "updated_at": "2026-08-29T18:35:23.292Z",
   "active_pr": 496,
   "active_branch": "task-412-process-system-history-query",
   "active_head_sha": "9e21b7c1563c1271e66ccb6604ce97a122e7799b",
   "checks": {
     "deterministic": "pending",
-    "heavy": "pending"
+    "heavy": "success"
   },
-  "last_event": "PR_CI_STARTED",
+  "last_event": "CHECK_COMPLETED",
   "reason": null,
   "owner": ":50",
   "resume_owner": null,
