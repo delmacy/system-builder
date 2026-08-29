@@ -1,10 +1,19 @@
-# Next Work — Fresh-Main Planning Gate
+# Next Work — P18-PACKAGE-03 Construction A
 
-`P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3 is canonically CLOSED after Documentation & Closure PR #487 exact head `9dc0ed34f7a9994ee7699d550f5947e36297f773` passed Deterministic CI #1163 and Heavy Product Tests #629 and merged with expected-head protection as `ac3e528bce3f3493d605a00fb2e24b3bd6cac018`; closure-head -> merge-main contains zero changed files.
+`P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability` / WBS 18.3.1–18.3.3 is the current active Work Package, selected by fresh-main Planning & Materialization from `5a3612d20f30307ac2c0a2e70ca70dff034476d8`.
 
 ## Current gate
-Do not execute forecast work directly. Reconstruct fresh `main`, re-read the active milestone/WBS/package authorities and perform a separate Planning & Materialization decision for the next eligible Work Package only.
+Execute only the committed Construction A Sprint:
 
-WBS 18.3 remains FORECAST / NOT MATERIALIZED at this closure point. No successor Package is selected or materialized by P18-PACKAGE-02 closure.
+`P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01` — COMMITTED / MATERIALIZED / NOT EXECUTED
 
-Preserve canonical M15 `human-decision` business authority. Do not use Git as business-version or approval authority, treat classification/model output as approval, reuse ADR-0010 PR approval as business approval, change Decision Boundary, absorb unrelated findings/TDs, or infer L4.
+Dependency-safe order:
+`TASK-409 -> TASK-410 -> TASK-411 -> TASK-412 -> TASK-413`.
+
+Before each TASK, re-read its context, confirm allowed/forbidden paths, max_files and validations. Construction A may extend `packages/contracts/process-versioning/**` additively/backward-compatibly and product tests as declared. Do not modify Release/Deploy/Runtime/Compiler/Decision Boundary surfaces unless a later fresh-main materialization explicitly authorizes them.
+
+After TASK-413 and Sprint-wide verification, produce the Sprint Report, open the Sprint PR, obtain exact-head Deterministic CI + Heavy Product Tests and complete Sprint Review/integration under the user's explicit Work Package authorization. Then reconstruct fresh main before deciding whether Construction B may be promoted.
+
+Construction B, optional Construction C, Package Integration & Review and Documentation & Closure remain FORECAST / NOT MATERIALIZED until their predecessor gates permit promotion.
+
+Preserve canonical M15 `human-decision` authority. Do not use Git/PR/model/classification/ADR evidence as business version or approval authority, infer L4, change Builder/Runtime topology, introduce deployment execution authority, redesign storage, or absorb unrelated findings/TDs.
