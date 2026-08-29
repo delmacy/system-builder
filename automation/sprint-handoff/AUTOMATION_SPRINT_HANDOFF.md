@@ -4,14 +4,14 @@ machine_state: NEXT_50
 next_worker: :50
 claimed_by: null
 claim_until: null
-sequence: 56
-updated_at: 2026-08-29T18:36:00.982Z
-active_pr: 496
-active_branch: task-412-process-system-history-query
-active_head_sha: 9e21b7c1563c1271e66ccb6604ce97a122e7799b
-deterministic_ci: success
-heavy_product_tests: success
-last_event: CHECK_COMPLETED
+sequence: 57
+updated_at: 2026-08-29T18:52:40.306Z
+active_pr: null
+active_branch: null
+active_head_sha: null
+deterministic_ci: pending
+heavy_product_tests: pending
+last_event: PR_CLOSED
 reason: null
 
 ## Authority
