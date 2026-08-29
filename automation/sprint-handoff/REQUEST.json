@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":10",
-  "at": "2026-08-29T17:10:00Z",
-  "note": "TASK-410 PR #494 Deterministic CI typecheck tuple mismatch corrected boundedly on new head 70a2359d32be548414cadbd24c9128dbb13182f5. Hand off to :30 for exact-head CI/review continuation."
+  "owner": ":30",
+  "at": "2026-08-29T17:28:14Z",
+  "note": "PR #494 / TASK-410 exact-head Deterministic CI #1181 and Heavy Product Tests #648 PASS; merged to main as 80b91723f22a95692b06f02b2c3d587fabd0b265. Fresh-main authority leaves TASK-411 as the next materialized gate. Hand off to :50."
 }
