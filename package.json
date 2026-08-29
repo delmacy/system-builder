@@ -28,7 +28,7 @@
     "check:architecture": "tsx tooling/agent-harness/src/cli.ts architecture",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:unit": "tsx --env-file-if-exists=.env --test tooling/agent-harness/tests/*.test.ts",
+    "test:unit": "tsx --env-file-if-exists=.env --test tooling/agent-harness/tests/*.test.ts && node --test scripts/handoff-state-machine.test.mjs",
     "test:product": "node scripts/run-product-tests.mjs core",
     "test:product:heavy": "node scripts/run-product-tests.mjs heavy",
     "test:product:full": "node scripts/run-product-tests.mjs full",
