@@ -1,7 +1,7 @@
 ---
 id: TASK-409
 title: Define process-to-system lineage identity and hop descriptors
-status: ready
+status: verification
 priority: 409
 milestone: M18
 model_tier: architecture

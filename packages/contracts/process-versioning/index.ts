@@ -295,3 +295,5 @@ export function validateProcessRevisionLineage(input: unknown): ProcessRevisionL
     revisionRefs: Object.freeze(entries.map((entry) => entry.publication.revisionRef)),
   });
 }
+
+export * from "./lineage.js";
