@@ -1,7 +1,7 @@
 ---
 id: TASK-410
 title: Validate Recipe/process revision to Analysis and SystemDefinition lineage
-status: ready
+status: verification
 priority: 410
 milestone: M18
 model_tier: architecture
