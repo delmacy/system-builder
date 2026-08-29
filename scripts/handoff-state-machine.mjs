@@ -3,7 +3,7 @@ import { appendFileSync, readFileSync, writeFileSync } from "node:fs";
 import { argv, stdout } from "node:process";
 
 export const REQUIRED_CHECKS = ["Deterministic CI", "Heavy Product Tests"];
-export const WORKERS = [":10", ":30", ":50"];
+export const WORKERS = [":10", ":30", ":50", "conformance"];
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -120,6 +120,7 @@ export function reduceHandoffState(rawState, event) {
         next.next_worker = nextWorker(event.owner);
         next.claimed_by = null;
         next.claim_until = null;
+        if (next.next_worker === "conformance") next.resume_worker = null;
         return next;
       });
     }
@@ -171,7 +172,7 @@ export function reduceHandoffState(rawState, event) {
         return ignored(state, "conformance does not hold token");
       }
       return accepted(state, event, (next) => {
-        next.next_worker = next.resume_worker ?? ":10";
+        next.next_worker = next.resume_worker ?? nextWorker("conformance");
         next.resume_worker = null;
         next.claimed_by = null;
         next.claim_until = null;
