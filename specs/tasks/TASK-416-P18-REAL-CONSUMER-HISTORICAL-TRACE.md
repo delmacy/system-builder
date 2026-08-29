@@ -4,6 +4,7 @@ title: Compose historical process lineage through real Release and Deploy consum
 status: ready
 priority: 416
 milestone: M18
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
