@@ -48,6 +48,14 @@ export type ProcessAnalysisDefinitionLineage = Readonly<{
   hops: readonly [ProcessSystemLineageHop, ProcessSystemLineageHop];
 }>;
 
+export type ProcessDefinitionReleaseDeploymentLineage = Readonly<{
+  contractVersion: typeof PROCESS_SYSTEM_LINEAGE_VERSION;
+  systemDefinition: ReferencedLineageEndpoint & { readonly kind: "system-definition" };
+  release: ReferencedLineageEndpoint & { readonly kind: "release" };
+  deployment: ReferencedLineageEndpoint & { readonly kind: "deployment" };
+  hops: readonly [ProcessSystemLineageHop, ProcessSystemLineageHop];
+}>;
+
 type UnknownRecord = Record<string, unknown>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -139,4 +147,28 @@ export function normalizeProcessAnalysisDefinitionLineage(input: unknown): Proce
   if (analysisEndpoint.identityRef === systemDefinitionEndpoint.identityRef) throw new Error("analysis and system-definition identities must be distinct");
   const hops: readonly [ProcessSystemLineageHop, ProcessSystemLineageHop] = Object.freeze([first, second]);
   return Object.freeze({ contractVersion, processRevision, analysis: analysisEndpoint, systemDefinition: systemDefinitionEndpoint, hops });
+}
+
+export function normalizeProcessDefinitionReleaseDeploymentLineage(input: unknown): ProcessDefinitionReleaseDeploymentLineage {
+  const record = asRecord(input, "definition-release-deployment lineage");
+  assertExactFields(record, ["contractVersion", "systemDefinition", "release", "deployment", "hops"], "definition-release-deployment lineage");
+  const contractVersion = version(record.contractVersion);
+  const systemDefinition = normalizeProcessSystemLineageEndpoint(record.systemDefinition);
+  const release = normalizeProcessSystemLineageEndpoint(record.release);
+  const deployment = normalizeProcessSystemLineageEndpoint(record.deployment);
+  if (systemDefinition.kind !== "system-definition") throw new Error("lineage definition endpoint must be system-definition");
+  if (release.kind !== "release") throw new Error("lineage release endpoint must be release");
+  if (deployment.kind !== "deployment") throw new Error("lineage deployment endpoint must be deployment");
+  const definitionEndpoint = Object.freeze({ contractVersion: systemDefinition.contractVersion, kind: "system-definition" as const, identityRef: systemDefinition.identityRef });
+  const releaseEndpoint = Object.freeze({ contractVersion: release.contractVersion, kind: "release" as const, identityRef: release.identityRef });
+  const deploymentEndpoint = Object.freeze({ contractVersion: deployment.contractVersion, kind: "deployment" as const, identityRef: deployment.identityRef });
+  if (!Array.isArray(record.hops) || record.hops.length !== 2) throw new Error("definition-release-deployment lineage requires exactly two ordered hops");
+  const first = normalizeProcessSystemLineageHop(record.hops[0]);
+  const second = normalizeProcessSystemLineageHop(record.hops[1]);
+  if (first.kind !== "system-definition-to-release" || second.kind !== "release-to-deployment") throw new Error("definition-release-deployment lineage hops are out of order");
+  if (endpointFingerprint(first.from) !== endpointFingerprint(definitionEndpoint) || endpointFingerprint(first.to) !== endpointFingerprint(releaseEndpoint)) throw new Error("definition-to-release hop does not match declared endpoints");
+  if (endpointFingerprint(second.from) !== endpointFingerprint(releaseEndpoint) || endpointFingerprint(second.to) !== endpointFingerprint(deploymentEndpoint)) throw new Error("release-to-deployment hop does not match declared endpoints");
+  if (definitionEndpoint.identityRef === releaseEndpoint.identityRef || releaseEndpoint.identityRef === deploymentEndpoint.identityRef || definitionEndpoint.identityRef === deploymentEndpoint.identityRef) throw new Error("definition, release and deployment identities must be distinct");
+  const hops: readonly [ProcessSystemLineageHop, ProcessSystemLineageHop] = Object.freeze([first, second]);
+  return Object.freeze({ contractVersion, systemDefinition: definitionEndpoint, release: releaseEndpoint, deployment: deploymentEndpoint, hops });
 }
