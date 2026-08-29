@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":10",
-  "at": "2026-08-29T15:46:00Z",
-  "note": "User-authorized exceptional administrative reroute toward :50. No Package work was executed by :10; advance the deterministic worker ring one step through the reducer."
+  "owner": ":30",
+  "at": "2026-08-29T16:34:00Z",
+  "note": "TASK-410 Deterministic CI failure investigated and boundedly repaired on PR #494; new head e852b928ce3910815aafe331ffb42517cfdfed88. Hand off to :50 for fresh CI/review continuation."
 }
