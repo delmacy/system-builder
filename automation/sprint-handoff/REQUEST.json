@@ -1,6 +1,7 @@
 {
-  "type": "WORKER_CLAIM",
-  "owner": ":50",
-  "lease_until": "2026-08-29T10:47:00Z",
-  "at": "2026-08-29T10:22:00Z"
+  "type": "CHECK_COMPLETED",
+  "head": "156ac6eefb997b8785d3a12a24c39bc53f358fec",
+  "workflow": "Deterministic CI",
+  "conclusion": "cancelled",
+  "at": "2026-08-29T11:56:00Z"
 }
