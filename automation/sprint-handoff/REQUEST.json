@@ -1,6 +1,7 @@
 {
-  "type": "CONFORMANCE_COMPLETE",
-  "owner": "conformance",
-  "at": "2026-08-29T15:44:00Z",
-  "note": "Architecture/Product Traceability gate complete for PR #494 / TASK-410. No material architecture or scope drift found against P18-PACKAGE-03 Construction A: implementation remains additive in process-versioning, preserves predecessor bounded contexts read-only, rejects substituted/reversed/cross-linked lineage descriptors, and does not advance TASK-411+. Deterministic CI remains failed while Heavy Product Tests passed; this is an execution-gate recovery for resume_owner :10, not a conformance blocker. Likely bounded TypeScript assignability issue in normalizeProcessAnalysisDefinitionLineage after literal-kind validation should be corrected by the worker and exact-head gates rerun before TASK-411 or merge."
+  "type": "WORKER_CLAIM",
+  "owner": ":10",
+  "at": "2026-08-29T15:45:00Z",
+  "lease_until": "2026-08-29T15:50:00Z",
+  "note": "User-authorized exceptional administrative reroute toward :50. No Package work is executed in this claim; this turn exists only to advance the deterministic worker ring through the reducer without editing canonical state directly."
 }
