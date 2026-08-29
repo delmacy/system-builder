@@ -1,7 +1,9 @@
 {
-  "type": "WORKER_CLAIM",
-  "owner": ":10",
-  "lease_until": "1970-01-01T00:00:00.000Z",
-  "at": "1970-01-01T00:00:00.000Z",
-  "note": "Mailbox only. Agents replace this file to request a reducer transition; they never edit STATE.json, AUTOMATION_SPRINT_HANDOFF.md, or EVENTS.ndjson directly."
+  "type": "CHECK_COMPLETED",
+  "workflow": "Deterministic CI",
+  "conclusion": "success",
+  "head": "d5653953ddf8a35b0a6a9f31f6f8f8385fcaced5",
+  "run_id": 33222674634,
+  "at": "2026-08-29T00:15:30.000Z",
+  "note": "One-time migration replay of exact-head Deterministic CI #1164 PASS for active PR #488."
 }
