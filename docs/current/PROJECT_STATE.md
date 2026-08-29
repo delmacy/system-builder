@@ -15,10 +15,10 @@ Canonical M15 `human-decision` remains final P17 promotion/rejection authority. 
 `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3 is canonically CLOSED. Documentation & Closure PR #487 head `9dc0ed34f7a9994ee7699d550f5947e36297f773` passed Deterministic CI #1163 and Heavy Product Tests #629 and merged as `ac3e528bce3f3493d605a00fb2e24b3bd6cac018` with zero closure-head -> merge-main file differences.
 
 ### P18-PACKAGE-03 — ACTIVE / PLANNED
-Fresh-main Planning & Materialization from `5a3612d20f30307ac2c0a2e70ca70dff034476d8` selected the only remaining M18 slice, WBS 18.3.1–18.3.3, as `P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability`.
+Construction A `P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01` / TASK-409..413 is integrated by PR #497 on fresh main `294c348271f3efc416c71ecef7e2329c63128d97`. It established additive deterministic process revision -> Analysis -> SystemDefinition -> Release -> Deployment lineage, historical query semantics and the WBS 18.1 -> 18.2 -> 18.3 growing proof.
 
-Construction A `P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with serial TASK-409..413. It establishes additive deterministic lineage identity, Recipe/process revision -> Analysis -> SystemDefinition linkage, Definition -> Release -> Deployment linkage, complete historical query, and a growing WBS 18.1 -> 18.2 -> 18.3 proof.
+Fresh-main revalidation promotes Construction B `P18-PROCESS-SYSTEM-LINEAGE-INTEGRATION-01` as COMMITTED / MATERIALIZED / NOT EXECUTED with serial TASK-414..418. It integrates canonical lineage through representative existing `packages/release/**` and `packages/deploy/**` consumer paths using actual predecessor/public APIs, preserving backward compatibility and fail-closed authority boundaries.
 
-Construction B remains FORECAST / NOT MATERIALIZED pending Construction A integration and fresh-main revalidation. Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED. Package Integration & Review and Documentation & Closure remain forecast gates.
+Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED pending Construction B integration and fresh-main evidence. Package Integration & Review and Documentation & Closure remain forecast gates.
 
 Preserved boundaries: canonical M15 `human-decision` remains business authority; classification/model/Git/PR/ADR evidence does not become business approval or version authority; no Builder/Runtime topology change, release/deployment execution authority, storage redesign, unrelated finding/TD absorption or inferred L4 is authorized.
