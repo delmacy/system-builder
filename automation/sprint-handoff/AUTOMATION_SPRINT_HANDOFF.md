@@ -1,19 +1,19 @@
 # Automation Sprint Handoff
 
-machine_state: READY_TO_50
-phase: READY
+machine_state: RUNNING_50
+phase: RUNNING
 owner: :50
 resume_owner: null
-sequence: 8
-updated_at: 2026-08-29T10:15:00Z
-lease_until: null
+sequence: 9
+updated_at: 2026-08-29T10:22:00Z
+lease_until: 2026-08-29T10:47:00Z
 conformance_due: false
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: pending
 heavy_product_tests: pending
-last_event: CONFORMANCE_COMPLETE
+last_event: WORKER_CLAIM
 reason: null
 
 ## Authority
