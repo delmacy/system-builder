@@ -1,0 +1,7 @@
+{
+  "type": "WORKER_CLAIM",
+  "owner": ":10",
+  "lease_until": "1970-01-01T00:00:00.000Z",
+  "at": "1970-01-01T00:00:00.000Z",
+  "note": "Mailbox only. Agents replace this file to request a reducer transition; they never edit STATE.json, AUTOMATION_SPRINT_HANDOFF.md, or EVENTS.ndjson directly."
+}
