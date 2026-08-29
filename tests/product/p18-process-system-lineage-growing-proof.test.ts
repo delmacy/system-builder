@@ -65,8 +65,10 @@ test("P18 Construction A growing proof traces canonical revision through analysi
   ]);
   assert.equal(semanticDiff.fromRevisionRef, fromRevision.revisionRef);
   assert.equal(semanticDiff.toRevisionRef, revision.revisionRef);
-  assert.equal(classificationDecision.descriptor.category, "deterministic");
-  assert.notEqual(classificationDecision.descriptor.category, "human-decision");
+  assert.equal(classificationDecision.status, "valid");
+  if (classificationDecision.status !== "valid") return;
+  assert.equal(classificationDecision.category, "deterministic");
+  assert.notEqual(classificationDecision.category, "human-decision");
 });
 
 test("P18 Construction A growing proof rejects forged, reversed, missing and conflicting lineage", () => {
@@ -81,7 +83,9 @@ test("P18 Construction A growing proof keeps Git, PR and model signals outside b
   assert.equal("git" in classificationDecision, false);
   assert.equal("pullRequest" in classificationDecision, false);
   assert.equal("modelRef" in classificationDecision, false);
-  assert.equal(classificationDecision.descriptor.category, "deterministic");
+  assert.equal(classificationDecision.status, "valid");
+  if (classificationDecision.status !== "valid") return;
+  assert.equal(classificationDecision.category, "deterministic");
   assert.throws(
     () => verifyDecisionBoundary({
       descriptor: {
