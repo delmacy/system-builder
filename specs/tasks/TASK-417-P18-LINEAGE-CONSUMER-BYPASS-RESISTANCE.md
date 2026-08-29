@@ -4,6 +4,7 @@ title: Prove Release and Deploy lineage integration is backward-compatible and f
 status: ready
 priority: 417
 milestone: M18
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
