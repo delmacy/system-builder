@@ -137,5 +137,6 @@ export function normalizeProcessAnalysisDefinitionLineage(input: unknown): Proce
   if (endpointFingerprint(first.from) !== endpointFingerprint(processRevision) || endpointFingerprint(first.to) !== endpointFingerprint(analysisEndpoint)) throw new Error("process-to-analysis hop does not match declared endpoints");
   if (endpointFingerprint(second.from) !== endpointFingerprint(analysisEndpoint) || endpointFingerprint(second.to) !== endpointFingerprint(systemDefinitionEndpoint)) throw new Error("analysis-to-definition hop does not match declared endpoints");
   if (analysisEndpoint.identityRef === systemDefinitionEndpoint.identityRef) throw new Error("analysis and system-definition identities must be distinct");
-  return Object.freeze({ contractVersion, processRevision, analysis: analysisEndpoint, systemDefinition: systemDefinitionEndpoint, hops: Object.freeze([first, second]) });
+  const hops: readonly [ProcessSystemLineageHop, ProcessSystemLineageHop] = Object.freeze([first, second]);
+  return Object.freeze({ contractVersion, processRevision, analysis: analysisEndpoint, systemDefinition: systemDefinitionEndpoint, hops });
 }
