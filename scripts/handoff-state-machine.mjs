@@ -18,171 +18,176 @@ function nextWorker(owner) {
   return index === -1 ? ":10" : WORKERS[(index + 1) % WORKERS.length];
 }
 
-function targetAfterOwner(state) {
-  if (state.owner === "conformance") {
-    return state.resume_owner ?? ":10";
-  }
-  return nextWorker(state.owner);
+function normalize(state) {
+  const next = clone(state);
+  next.version = 2;
+  next.next_worker ??= state.owner ?? ":10";
+  next.claimed_by ??= state.phase === "RUNNING" ? state.owner ?? null : null;
+  next.claim_until ??= state.lease_until ?? null;
+  next.resume_worker ??= state.resume_owner ?? null;
+  next.sequence ??= 0;
+  next.updated_at ??= new Date().toISOString();
+  next.active_pr ??= null;
+  next.active_branch ??= null;
+  next.active_head_sha ??= null;
+  next.checks ??= { deterministic: "pending", heavy: "pending" };
+  next.reason ??= null;
+  next.last_event ??= null;
+  return syncLegacy(next);
 }
 
-function readyFor(state, owner) {
-  const next = clone(state);
-  next.phase = "READY";
-  next.lease_until = null;
-  next.reason = null;
-  next.checks = { deterministic: "pending", heavy: "pending" };
-  next.active_pr = null;
-  next.active_branch = null;
-  next.active_head_sha = null;
-
-  if (next.conformance_due && owner !== "conformance") {
-    next.owner = "conformance";
-    next.resume_owner = owner;
-    next.conformance_due = false;
-  } else {
-    next.owner = owner;
-    if (owner !== "conformance") next.resume_owner = null;
-  }
-  return next;
+function syncLegacy(state) {
+  state.owner = state.next_worker;
+  state.resume_owner = state.resume_worker ?? null;
+  state.lease_until = state.claim_until ?? null;
+  state.phase = state.claimed_by === state.next_worker ? "RUNNING" : "READY";
+  state.conformance_due = false;
+  return state;
 }
 
 function accepted(state, event, mutate) {
-  const previous = clone(state);
-  const next = mutate(clone(state));
-  next.sequence = state.sequence + 1;
+  const previous = normalize(state);
+  const next = mutate(clone(previous));
+  next.sequence = previous.sequence + 1;
   next.updated_at = nowIso(event);
   next.last_event = event.type;
-  return { accepted: true, previous, next };
+  return { accepted: true, previous, next: syncLegacy(next) };
 }
 
 function ignored(state, reason) {
-  return { accepted: false, previous: clone(state), next: clone(state), reason };
+  const normalized = normalize(state);
+  return { accepted: false, previous: clone(normalized), next: clone(normalized), reason };
 }
 
-export function reduceHandoffState(state, event) {
-  if (!state || state.version !== 1) throw new Error("Unsupported handoff state version");
+function claimExpired(state, event) {
+  if (!state.claimed_by || !state.claim_until) return true;
+  const now = new Date(nowIso(event)).getTime();
+  const until = new Date(state.claim_until).getTime();
+  return !Number.isFinite(until) || !Number.isFinite(now) || now > until;
+}
+
+export function reduceHandoffState(rawState, event) {
+  if (!rawState || ![1, 2].includes(rawState.version)) throw new Error("Unsupported handoff state version");
   if (!event || typeof event.type !== "string") throw new Error("Event type is required");
+  const state = normalize(rawState);
 
   switch (event.type) {
     case "WORKER_CLAIM": {
-      if (state.phase !== "READY" || state.owner !== event.owner) {
-        return ignored(state, "claim owner/phase mismatch");
+      if (state.next_worker !== event.owner) return ignored(state, "claim next_worker mismatch");
+      if (state.claimed_by && state.claimed_by !== event.owner && !claimExpired(state, event)) {
+        return ignored(state, "token already claimed");
       }
       return accepted(state, event, (next) => {
-        next.phase = "RUNNING";
-        next.lease_until = event.lease_until ?? null;
+        next.claimed_by = event.owner;
+        next.claim_until = event.lease_until ?? null;
         next.reason = null;
         return next;
       });
     }
 
     case "WORKER_HANDOFF": {
-      if (!["READY", "RUNNING", "BLOCKED"].includes(state.phase) || state.owner !== event.owner) {
-        return ignored(state, "handoff owner/phase mismatch");
-      }
-      return accepted(state, event, (next) => readyFor(next, targetAfterOwner(next)));
+      if (state.next_worker !== event.owner) return ignored(state, "handoff next_worker mismatch");
+      return accepted(state, event, (next) => {
+        next.next_worker = nextWorker(event.owner);
+        next.claimed_by = null;
+        next.claim_until = null;
+        next.reason = null;
+        return next;
+      });
     }
 
     case "WORKER_BLOCK": {
-      if (!["READY", "RUNNING"].includes(state.phase) || state.owner !== event.owner) {
-        return ignored(state, "block owner/phase mismatch");
-      }
+      if (state.next_worker !== event.owner) return ignored(state, "block next_worker mismatch");
       return accepted(state, event, (next) => {
-        next.phase = "BLOCKED";
-        next.lease_until = null;
         next.reason = event.reason ?? "worker reported blocker";
+        next.next_worker = nextWorker(event.owner);
+        next.claimed_by = null;
+        next.claim_until = null;
         return next;
       });
     }
 
     case "PR_CI_STARTED": {
-      if (!["READY", "RUNNING", "BLOCKED"].includes(state.phase) || state.owner !== event.owner) {
-        return ignored(state, "PR owner/phase mismatch");
+      if (state.next_worker !== event.owner && state.claimed_by !== event.owner) {
+        return ignored(state, "PR owner is not current token holder");
       }
       return accepted(state, event, (next) => {
-        next.phase = "CI_RUNNING";
         next.active_pr = event.pr;
         next.active_branch = event.branch;
         next.active_head_sha = event.head;
-        next.lease_until = null;
-        next.reason = null;
         next.checks = { deterministic: "pending", heavy: "pending" };
+        next.reason = null;
+        next.next_worker = nextWorker(event.owner);
+        next.claimed_by = null;
+        next.claim_until = null;
         return next;
       });
     }
 
     case "CHECK_COMPLETED": {
-      if (state.phase !== "CI_RUNNING" || state.active_head_sha !== event.head) {
-        return ignored(state, "stale or unrelated check completion");
-      }
       if (!REQUIRED_CHECKS.includes(event.workflow)) {
         return ignored(state, "workflow is not a required handoff check");
+      }
+      if (state.active_head_sha && state.active_head_sha !== event.head) {
+        return ignored(state, "stale or unrelated check completion");
       }
       return accepted(state, event, (next) => {
         const key = event.workflow === "Deterministic CI" ? "deterministic" : "heavy";
         next.checks[key] = event.conclusion === "success" ? "success" : "failure";
-
         if (next.checks.deterministic === "failure" || next.checks.heavy === "failure") {
-          next.phase = "BLOCKED";
           next.reason = `CI_FAILED:${event.workflow}:${event.conclusion ?? "unknown"}`;
-          return next;
-        }
-
-        if (next.checks.deterministic === "success" && next.checks.heavy === "success") {
-          return readyFor(next, targetAfterOwner(next));
+        } else if (next.checks.deterministic === "success" && next.checks.heavy === "success") {
+          next.reason = null;
         }
         return next;
       });
     }
 
     case "PR_CLOSED": {
-      if (state.active_pr !== event.pr || state.active_head_sha !== event.head) {
-        return ignored(state, "closed PR does not match active PR/head");
-      }
+      if (state.active_pr !== event.pr) return ignored(state, "closed PR does not match active PR");
       return accepted(state, event, (next) => {
         next.active_pr = null;
         next.active_branch = null;
         next.active_head_sha = null;
-        if (!event.merged) {
-          next.phase = "BLOCKED";
-          next.reason = "ACTIVE_PR_CLOSED_UNMERGED";
-        }
+        next.checks = { deterministic: "pending", heavy: "pending" };
+        next.reason = event.merged ? null : "ACTIVE_PR_CLOSED_UNMERGED";
         return next;
       });
     }
 
     case "CONFORMANCE_DUE": {
-      if (state.owner === "conformance") return ignored(state, "conformance already owns token");
+      if (state.next_worker === "conformance") return ignored(state, "conformance already next");
       return accepted(state, event, (next) => {
-        if (next.phase === "READY") {
-          next.resume_owner = next.owner;
-          next.owner = "conformance";
-          next.conformance_due = false;
-        } else {
-          next.conformance_due = true;
-        }
+        next.resume_worker = next.next_worker;
+        next.next_worker = "conformance";
+        next.claimed_by = null;
+        next.claim_until = null;
         return next;
       });
     }
 
     case "CONFORMANCE_COMPLETE": {
-      if (state.owner !== "conformance" || !["READY", "RUNNING", "BLOCKED"].includes(state.phase)) {
-        return ignored(state, "conformance does not own token");
+      if (state.next_worker !== "conformance" && state.claimed_by !== "conformance") {
+        return ignored(state, "conformance does not hold token");
       }
-      return accepted(state, event, (next) => readyFor(next, next.resume_owner ?? ":10"));
+      return accepted(state, event, (next) => {
+        next.next_worker = next.resume_worker ?? ":10";
+        next.resume_worker = null;
+        next.claimed_by = null;
+        next.claim_until = null;
+        next.reason = null;
+        return next;
+      });
     }
 
     case "LEASE_TICK": {
-      if (state.phase !== "RUNNING" || !state.lease_until) return ignored(state, "no active lease");
-      const now = new Date(nowIso(event)).getTime();
-      const lease = new Date(state.lease_until).getTime();
-      if (!Number.isFinite(now) || !Number.isFinite(lease) || now <= lease) {
-        return ignored(state, "lease has not expired");
+      if (!state.claimed_by || !state.claim_until || !claimExpired(state, event)) {
+        return ignored(state, "no expired claim");
       }
       return accepted(state, event, (next) => {
-        next.phase = "READY";
-        next.lease_until = null;
-        next.reason = "LEASE_EXPIRED_RECOVERED";
+        next.claimed_by = null;
+        next.claim_until = null;
+        next.reason = "CLAIM_EXPIRED_RECOVERED";
         return next;
       });
     }
@@ -193,31 +198,29 @@ export function reduceHandoffState(state, event) {
 }
 
 function displayState(state) {
-  if (state.phase === "READY") return state.owner === "conformance" ? "READY_TO_CONF" : `READY_TO_${state.owner.slice(1)}`;
-  if (state.phase === "RUNNING") return state.owner === "conformance" ? "RUNNING_CONF" : `RUNNING_${state.owner.slice(1)}`;
-  if (state.phase === "CI_RUNNING") return state.owner === "conformance" ? "CI_RUNNING_CONF" : `CI_RUNNING_${state.owner.slice(1)}`;
-  return state.owner === "conformance" ? "BLOCKED_CONF" : `BLOCKED_${state.owner.slice(1)}`;
+  const normalized = normalize(state);
+  const who = normalized.next_worker === "conformance" ? "CONF" : normalized.next_worker.slice(1);
+  return normalized.claimed_by === normalized.next_worker ? `CLAIMED_${who}` : `NEXT_${who}`;
 }
 
 export function renderHandoffMarkdown(state) {
+  const s = normalize(state);
   return `# Automation Sprint Handoff\n\n` +
-    `machine_state: ${displayState(state)}\n` +
-    `phase: ${state.phase}\n` +
-    `owner: ${state.owner}\n` +
-    `resume_owner: ${state.resume_owner ?? "null"}\n` +
-    `sequence: ${state.sequence}\n` +
-    `updated_at: ${state.updated_at}\n` +
-    `lease_until: ${state.lease_until ?? "null"}\n` +
-    `conformance_due: ${state.conformance_due}\n` +
-    `active_pr: ${state.active_pr ?? "null"}\n` +
-    `active_branch: ${state.active_branch ?? "null"}\n` +
-    `active_head_sha: ${state.active_head_sha ?? "null"}\n` +
-    `deterministic_ci: ${state.checks.deterministic}\n` +
-    `heavy_product_tests: ${state.checks.heavy}\n` +
-    `last_event: ${state.last_event ?? "null"}\n` +
-    `reason: ${state.reason ?? "null"}\n\n` +
+    `machine_state: ${displayState(s)}\n` +
+    `next_worker: ${s.next_worker}\n` +
+    `claimed_by: ${s.claimed_by ?? "null"}\n` +
+    `claim_until: ${s.claim_until ?? "null"}\n` +
+    `sequence: ${s.sequence}\n` +
+    `updated_at: ${s.updated_at}\n` +
+    `active_pr: ${s.active_pr ?? "null"}\n` +
+    `active_branch: ${s.active_branch ?? "null"}\n` +
+    `active_head_sha: ${s.active_head_sha ?? "null"}\n` +
+    `deterministic_ci: ${s.checks.deterministic}\n` +
+    `heavy_product_tests: ${s.checks.heavy}\n` +
+    `last_event: ${s.last_event ?? "null"}\n` +
+    `reason: ${s.reason ?? "null"}\n\n` +
     `## Authority\n\n` +
-    `This file is generated by the GitHub handoff reducer. Agents must read STATE.json and must not edit STATE.json, this Markdown, or EVENTS.ndjson directly.\n`;
+    `Only next_worker selects who may work. Claims, CI, PR metadata and reasons are advisory context and must never create a permanent queue lock.\n`;
 }
 
 export function renderEventLine(result, event) {
