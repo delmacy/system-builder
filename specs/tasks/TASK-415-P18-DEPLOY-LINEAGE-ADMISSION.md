@@ -4,6 +4,7 @@ title: Integrate canonical Release lineage with Deployment consumer
 status: ready
 priority: 415
 milestone: M18
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
