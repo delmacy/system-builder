@@ -4,6 +4,7 @@ title: Prove Construction B process-to-system lineage through real consumers
 status: ready
 priority: 418
 milestone: M18
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
