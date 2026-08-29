@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":10",
-  "at": "2026-08-29T18:12:30Z",
-  "note": "TASK-411 PR #495 passed both required checks and merged at exact head 3a77dda6a52559c5af29d7fb0f94286994553cab. Next worker should be :30 for fresh-main revalidation and the next materialized gate."
+  "owner": ":30",
+  "at": "2026-08-29T18:35:00Z",
+  "note": "TASK-412 is implemented in single commit 9e21b7c1563c1271e66ccb6604ce97a122e7799b; managed PR #496 is open and Deterministic CI #1183 is queued. Hand off to :50 for CI/review continuation."
 }
