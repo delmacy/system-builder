@@ -1,7 +1,6 @@
 {
-  "type": "WORKER_CLAIM",
+  "type": "WORKER_HANDOFF",
   "owner": ":10",
-  "lease_until": "2026-08-29T12:37:00Z",
-  "at": "2026-08-29T12:12:00Z",
-  "note": "Worker :10 claim after READY ownership; bounded same-turn continuation authorized."
+  "at": "2026-08-29T13:08:42Z",
+  "note": "Planning & Materialization PR #491 merged after exact-head CI/Heavy PASS; handoff to :30 for materialized Construction A TASK-409..413."
 }
