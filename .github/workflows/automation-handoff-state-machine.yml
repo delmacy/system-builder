@@ -1,0 +1,154 @@
+name: Automation Handoff State Machine
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+      - closed
+  workflow_run:
+    workflows:
+      - Deterministic CI
+      - Heavy Product Tests
+    types:
+      - completed
+  push:
+    branches:
+      - automation/sprint-handoff
+    paths:
+      - automation/sprint-handoff/REQUEST.json
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+    - cron: "0 2,10,18 * * *"
+  workflow_dispatch:
+    inputs:
+      event_json:
+        description: JSON event for the handoff reducer
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+  pull-requests: read
+
+concurrency:
+  group: automation-handoff-state-machine
+  cancel-in-progress: false
+
+jobs:
+  reduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout reducer from main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          path: source
+          fetch-depth: 1
+
+      - name: Checkout handoff state branch
+        uses: actions/checkout@v7
+        with:
+          ref: automation/sprint-handoff
+          path: handoff
+          fetch-depth: 0
+
+      - name: Build deterministic event
+        id: event
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+          DISPATCH_EVENT_JSON: ${{ inputs.event_json }}
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const payload = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
+          const out = process.env.RUNNER_TEMP + '/handoff-event.json';
+          let event = null;
+
+          if (process.env.EVENT_NAME === 'pull_request') {
+            const pr = payload.pull_request;
+            if (process.env.EVENT_ACTION === 'closed') {
+              event = {
+                type: 'PR_CLOSED',
+                pr: pr.number,
+                head: pr.head.sha,
+                merged: Boolean(pr.merged),
+                at: new Date().toISOString(),
+              };
+            } else {
+              const body = pr.body || '';
+              const managed = body.includes('<!-- automation-handoff-managed -->');
+              const ownerMatch = body.match(/<!--\s*handoff-owner:(:10|:30|:50|conformance)\s*-->/);
+              if (managed && ownerMatch) {
+                event = {
+                  type: 'PR_CI_STARTED',
+                  owner: ownerMatch[1],
+                  pr: pr.number,
+                  branch: pr.head.ref,
+                  head: pr.head.sha,
+                  at: new Date().toISOString(),
+                };
+              }
+            }
+          } else if (process.env.EVENT_NAME === 'workflow_run') {
+            const run = payload.workflow_run;
+            event = {
+              type: 'CHECK_COMPLETED',
+              workflow: run.name,
+              conclusion: run.conclusion,
+              head: run.head_sha,
+              run_id: run.id,
+              at: new Date().toISOString(),
+            };
+          } else if (process.env.EVENT_NAME === 'push') {
+            const requestPath = 'handoff/automation/sprint-handoff/REQUEST.json';
+            event = JSON.parse(fs.readFileSync(requestPath, 'utf8'));
+          } else if (process.env.EVENT_NAME === 'schedule') {
+            event = process.env.EVENT_SCHEDULE === '0 2,10,18 * * *'
+              ? { type: 'CONFORMANCE_DUE', at: new Date().toISOString() }
+              : { type: 'LEASE_TICK', at: new Date().toISOString() };
+          } else if (process.env.EVENT_NAME === 'workflow_dispatch') {
+            event = JSON.parse(process.env.DISPATCH_EVENT_JSON);
+          }
+
+          if (!event) {
+            fs.writeFileSync(out, JSON.stringify({ type: 'NOOP' }));
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'skip=true\n');
+          } else {
+            fs.writeFileSync(out, JSON.stringify(event, null, 2));
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'skip=false\n');
+          }
+          NODE
+
+      - name: Reduce event into canonical state
+        if: steps.event.outputs.skip != 'true'
+        run: |
+          node source/scripts/handoff-state-machine.mjs \
+            --state handoff/automation/sprint-handoff/STATE.json \
+            --event "$RUNNER_TEMP/handoff-event.json" \
+            --handoff handoff/automation/sprint-handoff/AUTOMATION_SPRINT_HANDOFF.md \
+            --events handoff/automation/sprint-handoff/EVENTS.ndjson
+
+      - name: Commit generated state if changed
+        if: steps.event.outputs.skip != 'true'
+        working-directory: handoff
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add automation/sprint-handoff/STATE.json \
+                  automation/sprint-handoff/AUTOMATION_SPRINT_HANDOFF.md \
+                  automation/sprint-handoff/EVENTS.ndjson
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "chore(automation): reduce handoff event"
+          git pull --rebase origin automation/sprint-handoff
+          git push origin HEAD:automation/sprint-handoff
