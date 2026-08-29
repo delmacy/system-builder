@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":10",
-  "at": "2026-08-29T19:12:00Z",
-  "note": "PR #497 Deterministic CI #1184 failed only on TASK-413 growing-proof TypeScript assertions reading obsolete classificationDecision.descriptor. Corrected boundedly on the same branch to assert the canonical verification result shape after status=valid narrowing; new head df398143f42a6ae68865816d7e55ba0eac3fe847. Heavy Product Tests #651 on the prior head passed. Hand off to :30 for exact-head CI/review continuation and merge only if required gates pass."
+  "owner": ":30",
+  "at": "2026-08-29T19:34:30Z",
+  "note": "PR #497 / TASK-413 exact failure in Deterministic CI #1185 was a test-only strictness assumption: verifyDecisionBoundary does not reject extra metadata fields. Corrected boundedly in allowed tests/product path to prove Git/PR/model signals are stripped/non-authoritative without changing decision-boundary contracts. New head bb4cc7341a4404f7e6de1b9052d37b4dc648844c; exact-head Deterministic CI and Heavy Product Tests are running. Hand off to :50 for exact-head CI/review continuation and merge only if required gates pass."
 }
