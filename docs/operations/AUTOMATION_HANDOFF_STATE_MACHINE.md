@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Serialize the recurring `:10`, `:30`, `:50` workers and the periodic conformance worker with GitHub-owned state transitions instead of agent-authored lock interpretation.
+Serialize the recurring `:10`, `:30`, `:50` workers and the conformance gate with GitHub-owned state transitions instead of agent-authored lock interpretation.
 
 The machine state lives only on branch `automation/sprint-handoff` and must never be merged into `main`.
 
@@ -28,18 +28,22 @@ Owners are `:10`, `:30`, `:50`, and `conformance`.
 
 Human-readable projections are rendered as `READY_TO_10`, `CI_RUNNING_30`, `READY_TO_CONF`, and similar names.
 
-## Normal worker rotation
+## Canonical rotation
 
-`READY(:10) -> RUNNING(:10) -> CI_RUNNING(:10) -> READY(:30) -> ...`
+The canonical ownership ring is:
 
-The worker ring is `:10 -> :30 -> :50 -> :10`.
+`:10 -> :30 -> :50 -> conformance -> :10`.
 
-A CI handoff occurs only after both exact-head workflows complete successfully:
+Conformance is therefore a normal gate after the `:50` turn. A normal `CONFORMANCE_COMPLETE` with no `resume_worker` returns ownership to `:10`.
+
+A scheduled or explicitly due conformance inspection may still interrupt another owner. In that case the interrupted owner is stored in `resume_worker`, and `CONFORMANCE_COMPLETE` returns ownership to that worker instead of advancing the normal ring.
+
+A CI handoff records exact-head check context for the managed PR. The required checks are:
 
 - `Deterministic CI`
 - `Heavy Product Tests`
 
-If either required workflow fails, the machine becomes `BLOCKED` for the same owner. A stale workflow result whose `head_sha` differs from the active machine head is ignored and logged; it cannot rewind the machine.
+Stale workflow results whose `head_sha` differs from the active machine head are ignored and cannot rewind the machine.
 
 ## Managed PR marker
 
@@ -52,7 +56,7 @@ PRs that participate in automatic handoff must contain both markers in the PR bo
 
 Use the actual owner: `:10`, `:30`, `:50`, or `conformance`.
 
-The PR event deterministically records PR number, branch and exact head and enters `CI_RUNNING`. Unmarked PRs cannot seize the handoff token.
+The PR event deterministically records PR number, branch and exact head and advances to the next owner in the canonical ring. Unmarked PRs cannot seize the handoff token.
 
 ## Agent-requested transitions
 
@@ -60,18 +64,16 @@ When a transition is not naturally represented by PR/CI events, the authorized o
 
 Supported requests:
 
-- `WORKER_CLAIM` — `READY(owner)` to `RUNNING(owner)` with optional `lease_until`.
-- `WORKER_HANDOFF` — finishes a no-CI work turn and advances to the next worker.
-- `WORKER_BLOCK` — records a genuine blocker for the same owner.
-- `CONFORMANCE_COMPLETE` — returns the token to the owner interrupted by conformance.
+- `WORKER_CLAIM` — claims the current owner turn with optional `lease_until`.
+- `WORKER_HANDOFF` — finishes a no-CI work turn and advances to the next owner in the canonical ring.
+- `WORKER_BLOCK` — records a genuine blocker and advances according to reducer policy.
+- `CONFORMANCE_COMPLETE` — completes the conformance gate; returns to `resume_worker` for an interruption, otherwise advances to `:10`.
 
 The request is an event proposal, not authority. Invalid owner/phase requests are logged as rejected and cannot mutate canonical state.
 
-## Conformance interruption
+## Scheduled conformance interruption
 
-GitHub schedules conformance due events at 23:00, 07:00 and 15:00 America/Sao_Paulo (02:00, 10:00 and 18:00 UTC).
-
-If the machine is `READY`, ownership moves to `conformance` and the interrupted owner is stored in `resume_owner`. If CI or another work turn is active, `conformance_due=true` is deferred until the next READY boundary. After `CONFORMANCE_COMPLETE`, the interrupted owner resumes.
+Scheduled conformance events remain supported independently of the normal post-`:50` gate. When a due event interrupts another owner, that owner is stored in `resume_worker`. After `CONFORMANCE_COMPLETE`, the interrupted owner resumes.
 
 ## Lease recovery
 
