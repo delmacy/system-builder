@@ -1,7 +1,6 @@
 {
   "type": "WORKER_CLAIM",
-  "owner": ":50",
-  "lease_until": "2026-08-29T03:20:00Z",
-  "at": "2026-08-29T02:55:00Z",
-  "note": "Worker :50 claim after reducer trigger repair."
+  "owner": "conformance",
+  "lease_until": "2026-08-29T10:32:00Z",
+  "at": "2026-08-29T10:07:00Z"
 }
