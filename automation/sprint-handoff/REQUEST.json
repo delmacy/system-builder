@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
   "owner": ":30",
-  "at": "2026-08-29T17:28:14Z",
+  "at": "2026-08-29T17:29:15Z",
   "note": "PR #494 / TASK-410 exact-head Deterministic CI #1181 and Heavy Product Tests #648 PASS; merged to main as 80b91723f22a95692b06f02b2c3d587fabd0b265. Fresh-main authority leaves TASK-411 as the next materialized gate. Hand off to :50."
 }
