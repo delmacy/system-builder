@@ -4,17 +4,17 @@
   "claimed_by": null,
   "claim_until": null,
   "resume_worker": null,
-  "sequence": 35,
-  "updated_at": "2026-08-29T14:51:53.894Z",
+  "sequence": 36,
+  "updated_at": "2026-08-29T14:52:07.914Z",
   "active_pr": 494,
   "active_branch": "sprint/P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01",
   "active_head_sha": "8c24c1974f28031347fbee3a71b1f5435b214b3a",
   "checks": {
     "deterministic": "failure",
-    "heavy": "pending"
+    "heavy": "success"
   },
   "last_event": "CHECK_COMPLETED",
-  "reason": "CI_FAILED:Deterministic CI:failure",
+  "reason": "CI_FAILED:Heavy Product Tests:success",
   "owner": ":10",
   "resume_owner": null,
   "lease_until": null,
