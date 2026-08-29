@@ -6,3 +6,4 @@
 {"sequence":5,"accepted":true,"event":{"type":"LEASE_TICK","at":"2026-08-29T07:11:30.887Z"},"from":"RUNNING_50","to":"READY_TO_50","reason":null,"at":"2026-08-29T07:11:30.887Z"}
 {"sequence":6,"accepted":true,"event":{"type":"CONFORMANCE_DUE","at":"2026-08-29T08:38:19.358Z"},"from":"READY_TO_50","to":"READY_TO_CONF","reason":null,"at":"2026-08-29T08:38:19.358Z"}
 {"sequence":7,"accepted":true,"event":{"type":"WORKER_CLAIM","owner":"conformance","lease_until":"2026-08-29T10:32:00Z","at":"2026-08-29T10:07:00Z"},"from":"READY_TO_CONF","to":"RUNNING_CONF","reason":null,"at":"2026-08-29T10:07:00Z"}
+{"sequence":8,"accepted":true,"event":{"type":"CONFORMANCE_COMPLETE","at":"2026-08-29T10:15:00Z"},"from":"RUNNING_CONF","to":"READY_TO_50","reason":null,"at":"2026-08-29T10:15:00Z"}
