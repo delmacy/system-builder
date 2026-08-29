@@ -4,14 +4,14 @@ machine_state: NEXT_10
 next_worker: :10
 claimed_by: null
 claim_until: null
-sequence: 49
-updated_at: 2026-08-29T17:54:17.374Z
+sequence: 50
+updated_at: 2026-08-29T17:55:00.385Z
 active_pr: 495
 active_branch: sprint/P18-TASK-411-definition-release-deployment-lineage
 active_head_sha: 3a77dda6a52559c5af29d7fb0f94286994553cab
 deterministic_ci: pending
-heavy_product_tests: pending
-last_event: PR_CI_STARTED
+heavy_product_tests: success
+last_event: CHECK_COMPLETED
 reason: null
 
 ## Authority
