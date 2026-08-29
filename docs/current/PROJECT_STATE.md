@@ -9,15 +9,13 @@ M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is
 
 Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-## M18 Process Versioning — P18-PACKAGE-02 ACTIVE / DOCUMENTATION & CLOSURE
+## M18 Process Versioning — P18-PACKAGE-02 CLOSED
 `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` / WBS 18.1.1–18.1.3 is canonically CLOSED on fresh main `e205683422907edf8c27f99c01aab317cca3f66c`.
 
-`P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` remains bounded exclusively to WBS 18.2.1–18.2.3. Construction A `P18-PROCESS-SEMANTIC-CHANGE-CONTRACT-01` / TASK-399..403 integrated through PR #480. Construction B `P18-PROCESS-SEMANTIC-CHANGE-INTEGRATION-01` / TASK-404..408 completed on exact Sprint Review head `636ab0d77b144dada1c9fe82913fe59f67a91692`, which passed Deterministic CI #1160 and Heavy Product Tests #626. Because the connector could not transition draft PR #484 to ready, #484 was closed unmerged and replacement non-draft PR #485 reused the identical exact head; #485 merged with expected-head protection as fresh main `44e0ba20aef3e7db87d9e3ad4bfba61a4c5ea7a8`. Reviewed-head -> merge-main comparison has zero file differences.
+`P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3 is canonically CLOSED. Construction A integrated through PR #480. Construction B TASK-404..408 completed on reviewed head `636ab0d77b144dada1c9fe82913fe59f67a91692`, passed Deterministic CI #1160 and Heavy Product Tests #626 and integrated through replacement PR #485 with zero reviewed-head -> merge-main file differences. Optional Construction C remained NOT REQUIRED / NOT MATERIALIZED.
 
-Fresh-main revalidation found no bounded residual WBS 18.2 construction gap, so optional Construction C is `NOT REQUIRED / NOT MATERIALIZED`.
+Package Integration & Review PR #486 head `62b57806e2be52dd24328eeccbd9c648e1010345` passed Deterministic CI #1162 and Heavy Product Tests #628 and integrated with identical reviewed/merge tree `5b555b0f00a281232151f261a149fdcff307a5fb`.
 
-Package Integration & Review PR #486 exact head `62b57806e2be52dd24328eeccbd9c648e1010345` passed Deterministic CI #1162 and Heavy Product Tests #628 with no blocking reviews/threads and merged with expected-head protection as fresh main `b5f559ae043709bf7a8bfdee034a98fce064a22d`. Reviewed head and merge-main share tree `5b555b0f00a281232151f261a149fdcff307a5fb`. Review disposition is GO FOR DOCUMENTATION & CLOSURE.
+Documentation & Closure PR #487 head `9dc0ed34f7a9994ee7699d550f5947e36297f773` passed Deterministic CI #1163 and Heavy Product Tests #629 and merged with expected-head protection as `ac3e528bce3f3493d605a00fb2e24b3bd6cac018`; closure-head -> merge-main has zero changed files.
 
-The only active gate is `P18-PACKAGE-02-DOCUMENTATION-CLOSURE-01`. No new product behavior is permitted. WBS 18.3 process→system lineage remains FORECAST / NOT MATERIALIZED.
-
-Diff/classification evidence is not approval authority. Process-change approval/rejection remains domain truth backed by canonical `human-decision`; ADR-0010 engineering PR approval is not business process-change approval. No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 is authorized.
+WBS 18.3 process→system lineage remains FORECAST / NOT MATERIALIZED. No successor Work Package is materialized by this closure. Diff/classification evidence is not approval authority; process-change approval/rejection remains domain truth backed by canonical `human-decision`. No Git-as-business-version authority, Decision Boundary change, unrelated finding/TD absorption, storage/topology redesign or undeclared L4 was introduced.
