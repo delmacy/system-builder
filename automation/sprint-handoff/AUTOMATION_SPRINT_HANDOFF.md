@@ -4,16 +4,16 @@ machine_state: CI_RUNNING_50
 phase: CI_RUNNING
 owner: :50
 resume_owner: null
-sequence: 15
-updated_at: 2026-08-29T11:58:00Z
+sequence: 16
+updated_at: 2026-08-29T11:59:00Z
 lease_until: null
 conformance_due: false
 active_pr: 491
 active_branch: planning/P18-PACKAGE-03-process-system-lineage
 active_head_sha: 8e9952dd680a6f3bb475365caee5d5be5b5787f5
-deterministic_ci: pending
+deterministic_ci: success
 heavy_product_tests: pending
-last_event: PR_CI_STARTED
+last_event: CHECK_COMPLETED
 reason: null
 
 ## Authority
