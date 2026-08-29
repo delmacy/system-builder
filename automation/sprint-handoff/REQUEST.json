@@ -1,6 +1,4 @@
 {
-  "type": "WORKER_CLAIM",
-  "owner": "conformance",
-  "lease_until": "2026-08-29T10:32:00Z",
-  "at": "2026-08-29T10:07:00Z"
+  "type": "CONFORMANCE_COMPLETE",
+  "at": "2026-08-29T10:15:00Z"
 }
