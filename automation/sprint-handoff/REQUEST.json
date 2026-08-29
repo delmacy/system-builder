@@ -1,6 +1,6 @@
 {
-  "type": "WORKER_CLAIM",
+  "type": "CONFORMANCE_COMPLETE",
   "owner": "conformance",
-  "at": "2026-08-29T20:57:00Z",
-  "lease_until": "2026-08-29T21:22:00Z"
+  "at": "2026-08-29T21:07:00Z",
+  "note": "Canonical handoff rotation corrected in main to :10 -> :30 -> :50 -> conformance -> :10, with regression tests and documentation. This conformance turn was an already-active interruption, so completion returns to its recorded resume_worker; subsequent normal rotation uses the corrected order."
 }
