@@ -86,6 +86,10 @@ test("P18 Construction A growing proof keeps Git, PR and model signals outside b
   assert.equal(classificationDecision.status, "valid");
   if (classificationDecision.status !== "valid") return;
   assert.equal(classificationDecision.category, "deterministic");
+  assert.deepEqual(classificationDecision.reference, {
+    kind: "invariant",
+    ref: "invariant:semantic-change-classification",
+  });
 
   for (const nonAuthoritativeSignal of [
     { gitIdentity: "commit:approved" },
@@ -105,10 +109,8 @@ test("P18 Construction A growing proof keeps Git, PR and model signals outside b
       riskCriticality: { risk: "medium", criticality: "standard" },
     } as never);
 
-    assert.equal(decision.status, "valid");
-    if (decision.status !== "valid") continue;
-    assert.equal(decision.category, "deterministic");
-    assert.notEqual(decision.category, "human-decision");
-    assert.deepEqual(decision.metadata, { invariantRef: "invariant:semantic-change-classification" });
+    assert.equal(decision.status, "invalid");
+    if (decision.status !== "invalid") continue;
+    assert.match(decision.diagnostic, /unexpected field/);
   }
 });
