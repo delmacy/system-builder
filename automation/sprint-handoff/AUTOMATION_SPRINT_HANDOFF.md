@@ -4,14 +4,14 @@ machine_state: NEXT_50
 next_worker: :50
 claimed_by: null
 claim_until: null
-sequence: 21
-updated_at: 2026-08-29T13:31:41.728Z
+sequence: 22
+updated_at: 2026-08-29T13:32:26.156Z
 active_pr: 492
 active_branch: sprint/P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01
 active_head_sha: 2f329dbe8c67bfc676b392262da8fb981ad00476
 deterministic_ci: pending
-heavy_product_tests: pending
-last_event: PR_CI_STARTED
+heavy_product_tests: success
+last_event: CHECK_COMPLETED
 reason: null
 
 ## Authority
