@@ -4,14 +4,14 @@ machine_state: NEXT_30
 next_worker: :30
 claimed_by: null
 claim_until: null
-sequence: 27
-updated_at: 2026-08-29T14:10:00Z
-active_pr: 493
-active_branch: hotfix/handoff-v2-test-reconciliation
-active_head_sha: 8f4845a0bf28067c94213f50ef2f43ae822a27d8
-deterministic_ci: failure
-heavy_product_tests: success
-last_event: WORKER_HANDOFF
+sequence: 28
+updated_at: 2026-08-29T14:29:03.701Z
+active_pr: null
+active_branch: null
+active_head_sha: null
+deterministic_ci: pending
+heavy_product_tests: pending
+last_event: PR_CLOSED
 reason: null
 
 ## Authority
