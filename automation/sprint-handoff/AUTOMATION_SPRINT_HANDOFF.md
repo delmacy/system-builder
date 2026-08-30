@@ -3,16 +3,16 @@
 machine_state: CLAIMED_CONF
 next_worker: conformance
 claimed_by: conformance
-claim_until: 2026-08-30T01:25:15Z
-sequence: 82
-updated_at: 2026-08-30T01:59:40.113Z
+claim_until: 2026-08-30T02:22:09Z
+sequence: 83
+updated_at: 2026-08-30T01:57:09Z
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: failure
 heavy_product_tests: failure
-last_event: CHECK_COMPLETED
-reason: CI_FAILED:Heavy Product Tests:cancelled
+last_event: WORKER_CLAIM
+reason: null
 
 ## Authority
 
