@@ -1,18 +1,18 @@
 # Automation Sprint Handoff
 
-machine_state: NEXT_CONF
+machine_state: CLAIMED_CONF
 next_worker: conformance
-claimed_by: null
-claim_until: null
-sequence: 97
-updated_at: 2026-08-30T04:43:15Z
+claimed_by: conformance
+claim_until: 2026-08-30T05:09:00Z
+sequence: 98
+updated_at: 2026-08-30T04:44:00Z
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: success
 heavy_product_tests: success
-last_event: LEASE_TICK
-reason: CLAIM_EXPIRED_RECOVERED
+last_event: WORKER_CLAIM
+reason: null
 
 ## Authority
 
