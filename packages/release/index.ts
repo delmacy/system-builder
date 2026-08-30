@@ -1,3 +1,8 @@
+import {
+  normalizeProcessSystemLineageHop,
+  type ProcessSystemLineageHop,
+} from "@system-builder/contracts/process-versioning";
+
 import { normalizeReleaseEvidenceProvenance, type ReleaseEvidenceProvenance } from "./evidence-provenance.js";
 import { InMemoryReleaseRecordStorage, type ReleaseRecordStorage } from "./storage.js";
 
@@ -20,6 +25,14 @@ export type PublishedRelease = Readonly<{
   publishedAt: string;
   status: PublishedReleaseStatus;
   evidenceProvenance?: ReleaseEvidenceProvenance;
+}>;
+
+export type ReleaseLineageAdmission = Readonly<{
+  kind: "ReleaseLineageAdmission";
+  systemDefinitionRef: string;
+  releaseIdentityRef: string;
+  lineageHop: ProcessSystemLineageHop;
+  release: PublishedRelease;
 }>;
 
 function requireToken(value: string, field: string): string {
@@ -83,6 +96,39 @@ export class ReleaseRegistry {
   get(releaseId: string, version: string): PublishedRelease | undefined {
     const record = this.#storage.get(identity(releaseId.trim(), version.trim()));
     return record === undefined ? undefined : Object.freeze({ ...record });
+  }
+
+  admitSystemDefinitionLineage(input: Readonly<{
+    releaseId: string;
+    version: string;
+    systemDefinitionRef: string;
+    lineageHop: unknown;
+  }>): ReleaseLineageAdmission {
+    const releaseId = requireToken(input.releaseId, "release_id");
+    const version = requireToken(input.version, "version");
+    const systemDefinitionRef = requireToken(input.systemDefinitionRef, "system_definition_ref");
+    const releaseIdentityRef = identity(releaseId, version);
+    const release = this.#storage.get(releaseIdentityRef);
+    if (!release) throw new Error(`RELEASE_NOT_FOUND:${releaseIdentityRef}`);
+
+    const lineageHop = normalizeProcessSystemLineageHop(input.lineageHop);
+    if (lineageHop.kind !== "system-definition-to-release") {
+      throw new Error("RELEASE_LINEAGE_INVALID_HOP");
+    }
+    if (lineageHop.from.kind !== "system-definition" || lineageHop.from.identityRef !== systemDefinitionRef) {
+      throw new Error("RELEASE_LINEAGE_SYSTEM_DEFINITION_MISMATCH");
+    }
+    if (lineageHop.to.kind !== "release" || lineageHop.to.identityRef !== releaseIdentityRef) {
+      throw new Error("RELEASE_LINEAGE_RELEASE_MISMATCH");
+    }
+
+    return Object.freeze({
+      kind: "ReleaseLineageAdmission" as const,
+      systemDefinitionRef,
+      releaseIdentityRef,
+      lineageHop,
+      release: Object.freeze({ ...release }),
+    });
   }
 
   transition(releaseId: string, version: string, target: PublishedReleaseStatus): PublishedRelease {

@@ -1,4 +1,8 @@
 import type { EnvironmentBinding, EnvironmentProfile } from "@system-builder/contracts/environment-profile";
+import {
+  normalizeProcessSystemLineageHop,
+  type ProcessSystemLineageHop,
+} from "@system-builder/contracts/process-versioning";
 import { sha256Canonical } from "@system-builder/deterministic";
 import { immutableDeployEvidenceProvenance, type DeployEvidenceProvenance } from "./evidence-provenance.js";
 import { InMemoryDeploymentRecordStorage, type AtomicDeploymentActivationResult, type DeploymentRecordStorage } from "./storage.js";
@@ -44,6 +48,14 @@ export type DeploymentRecord = Readonly<{
   evidenceProvenance?: DeployEvidenceProvenance;
 }>;
 
+export type DeploymentLineageAdmission = Readonly<{
+  kind: "DeploymentLineageAdmission";
+  releaseIdentityRef: string;
+  deploymentIdentityRef: string;
+  lineageHop: ProcessSystemLineageHop;
+  deployment: DeploymentRecord;
+}>;
+
 export type DeploymentActivationDecision = Readonly<{
   kind: "DeploymentActivationDecision";
   decisionId: string;
@@ -66,6 +78,12 @@ export type DryRunDeploymentResult =
 
 function releaseRef(release: DeployPublishedRelease): string {
   return `${release.releaseId}@${release.version}`;
+}
+
+function requiredRef(value: string, field: string): string {
+  const normalized = value.trim();
+  if (!normalized) throw new Error(`DEPLOY_INVALID_${field.toUpperCase()}`);
+  return normalized;
 }
 
 function immutableDeploymentRecord(record: DeploymentRecord): DeploymentRecord {
@@ -114,6 +132,37 @@ export class DeploymentRegistry {
       this.#storage.setActiveDeploymentId(normalized.environmentRef, normalized.deploymentId);
     }
     return normalized;
+  }
+
+  admitReleaseLineage(input: Readonly<{
+    deploymentId: string;
+    releaseIdentityRef: string;
+    lineageHop: unknown;
+  }>): DeploymentLineageAdmission {
+    const deploymentIdentityRef = requiredRef(input.deploymentId, "deployment_id");
+    const releaseIdentityRef = requiredRef(input.releaseIdentityRef, "release_identity_ref");
+    const deployment = this.#storage.get(deploymentIdentityRef);
+    if (deployment === undefined) throw new Error(`DEPLOYMENT_NOT_FOUND:${deploymentIdentityRef}`);
+    if (deployment.publishedReleaseRef !== releaseIdentityRef) {
+      throw new Error("DEPLOY_LINEAGE_RELEASE_PREDECESSOR_MISMATCH");
+    }
+
+    const lineageHop = normalizeProcessSystemLineageHop(input.lineageHop);
+    if (lineageHop.kind !== "release-to-deployment") throw new Error("DEPLOY_LINEAGE_INVALID_HOP");
+    if (lineageHop.from.kind !== "release" || lineageHop.from.identityRef !== releaseIdentityRef) {
+      throw new Error("DEPLOY_LINEAGE_RELEASE_MISMATCH");
+    }
+    if (lineageHop.to.kind !== "deployment" || lineageHop.to.identityRef !== deploymentIdentityRef) {
+      throw new Error("DEPLOY_LINEAGE_DEPLOYMENT_MISMATCH");
+    }
+
+    return Object.freeze({
+      kind: "DeploymentLineageAdmission" as const,
+      releaseIdentityRef,
+      deploymentIdentityRef,
+      lineageHop,
+      deployment: immutableDeploymentRecord(deployment),
+    });
   }
 
   activateCandidate(record: DeploymentRecord): DeploymentActivationDecision {
