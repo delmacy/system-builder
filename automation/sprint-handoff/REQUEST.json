@@ -2,6 +2,6 @@
   "type": "WORKER_HANDOFF",
   "owner": ":50",
   "next_worker": ":10",
-  "at": "2026-08-30T23:50:00Z",
-  "reason": "Resolved Deterministic CI #1226 TypeScript failures boundedly on PR #512 with head 9e3138ce0dcb376b7afa55022f40a8546c584e85. New exact-head checks are awaiting GitHub scheduling; handoff to :10 at the natural CI gate."
+  "at": "2026-08-30T23:50:45Z",
+  "reason": "Bounded handoff retry after resolving Deterministic CI #1226 TypeScript failures on PR #512 head 9e3138ce0dcb376b7afa55022f40a8546c584e85. Exact-head checks are awaiting scheduling; next_worker must advance to :10."
 }
