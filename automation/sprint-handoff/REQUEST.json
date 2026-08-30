@@ -1,5 +1,5 @@
 {
-  "type": "WORKER_HANDOFF",
-  "owner": ":30",
-  "at": "2026-08-30T19:28:01Z"
+  "type": "CONFORMANCE_COMPLETE",
+  "owner": "conformance",
+  "at": "2026-08-30T21:01:53Z"
 }
