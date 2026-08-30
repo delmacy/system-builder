@@ -1,7 +1,5 @@
 {
-  "type": "WORKER_CLAIM",
-  "owner": "conformance",
-  "lease_until": "2026-08-30T04:25:57Z",
-  "at": "2026-08-30T04:00:57Z",
-  "note": "Conformance claims the READY gate exactly as assigned by the deterministic state machine. No audit or product mutation is authorized until the reducer promotes this claim to RUNNING."
+  "type": "LEASE_TICK",
+  "at": "2026-08-30T04:43:15Z",
+  "note": "Bounded recovery: conformance is RUNNING with an expired lease, no active PR, no resume owner, and conformance_due=false. Request reducer lease recovery only; do not advance work outside the deterministic state machine."
 }
