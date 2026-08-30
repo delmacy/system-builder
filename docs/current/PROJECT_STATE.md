@@ -1,6 +1,6 @@
 # Project State
 
-Date: 2026-08-29
+Date: 2026-08-30
 
 M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is CLOSED. `P16-PACKAGE-01`, `P16-PACKAGE-02`, `P16-PACKAGE-03`, `P17-PACKAGE-01`, `P17-PACKAGE-02` and `P17-PACKAGE-03` are CLOSED. TD-P13-01..04 remain carried unchanged.
 
@@ -14,11 +14,13 @@ Canonical M15 `human-decision` remains final P17 promotion/rejection authority. 
 
 `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3 is canonically CLOSED. Documentation & Closure PR #487 head `9dc0ed34f7a9994ee7699d550f5947e36297f773` passed Deterministic CI #1163 and Heavy Product Tests #629 and merged as `ac3e528bce3f3493d605a00fb2e24b3bd6cac018` with zero closure-head -> merge-main file differences.
 
-### P18-PACKAGE-03 — ACTIVE / PLANNED
-Construction A `P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01` / TASK-409..413 is integrated by PR #497 on fresh main `294c348271f3efc416c71ecef7e2329c63128d97`. It established additive deterministic process revision -> Analysis -> SystemDefinition -> Release -> Deployment lineage, historical query semantics and the WBS 18.1 -> 18.2 -> 18.3 growing proof.
+### P18-PACKAGE-03 — ACTIVE / PACKAGE INTEGRATION & REVIEW MATERIALIZED
+Construction A `P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01` / TASK-409..413 is integrated by PR #497 on fresh main `294c348271f3efc416c71ecef7e2329c63128d97`.
 
-Fresh-main revalidation promotes Construction B `P18-PROCESS-SYSTEM-LINEAGE-INTEGRATION-01` as COMMITTED / MATERIALIZED / NOT EXECUTED with serial TASK-414..418. It integrates canonical lineage through representative existing `packages/release/**` and `packages/deploy/**` consumer paths using actual predecessor/public APIs, preserving backward compatibility and fail-closed authority boundaries.
+Construction B `P18-PROCESS-SYSTEM-LINEAGE-INTEGRATION-01` / TASK-414..418 is integrated by PR #500. Exact Sprint Review head `f03d7d845d22f9fb05a52cb66fe4ac5d20a1eb8d` merged as `dd8b5d909df3fc82a43e0721672b11e3dddb5691`. Fresh main now includes subsequent bounded handoff-routing hotfix PR #502 as `a09da56fc05dcca54305cee8c4db1e8c8f1872b8` without changing P18 product semantics.
 
-Construction C remains OPTIONAL / FORECAST / NOT MATERIALIZED pending Construction B integration and fresh-main evidence. Package Integration & Review and Documentation & Closure remain forecast gates.
+Fresh-main revalidation finds the Package Goal already covered by Construction A+B: canonical process revision -> Analysis -> SystemDefinition -> Release -> Deployment lineage, representative Release/Deploy consumer admission, deterministic historical query composition, backward compatibility and fail-closed bypass resistance are integrated. No bounded residual WBS 18.3 construction gap is evidenced. Therefore optional Construction C is `NOT REQUIRED / NOT MATERIALIZED`.
+
+`P18-PACKAGE-03-INTEGRATION-REVIEW-01` is the active committed Package gate. It may regress/review the constructed Package Goal and make bounded proof corrections only; missing product capability must return to explicit construction/change control. Documentation & Closure remains forecast pending successful review integration.
 
 Preserved boundaries: canonical M15 `human-decision` remains business authority; classification/model/Git/PR/ADR evidence does not become business approval or version authority; no Builder/Runtime topology change, release/deployment execution authority, storage redesign, unrelated finding/TD absorption or inferred L4 is authorized.
