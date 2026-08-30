@@ -1,7 +1,5 @@
 {
-  "type": "WORKER_CLAIM",
-  "owner": "conformance",
-  "lease_until": "2026-08-30T05:09:00Z",
-  "at": "2026-08-30T04:44:00Z",
-  "note": "Conformance reclaims the READY gate after CLAIM_EXPIRED_RECOVERED. User explicitly reauthorized work. No audit or product mutation is authorized until the reducer promotes this claim to RUNNING."
+  "type": "CONFORMANCE_COMPLETE",
+  "at": "2026-08-30T04:46:30Z",
+  "note": "Conformance is RUNNING with no active PR and conformance_due=false; no audit is due. Complete the idle conformance token without inventing work. User requested eventual delivery to :50, but reducer routing remains authoritative and must not be bypassed."
 }
