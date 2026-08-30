@@ -1,7 +1,7 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":30",
-  "next_worker": ":50",
-  "at": "2026-08-30T03:36:45Z",
-  "note": "Bounded handoff retry. Construction B P18-PROCESS-SYSTEM-LINEAGE-INTEGRATION-01 executed TASK-414..418 as five authoritative commits. Sprint Review PR #500 is open at exact head f03d7d845d22f9fb05a52cb66fe4ac5d20a1eb8d against main 3a2b0a3a358a341d13b4c0f497d838902bbaa296. Exact-head CI is running (Heavy Product Tests #667 observed in_progress). next_worker must rotate to :50 to revalidate real checks and continue only after the Sprint Review gate. Construction C and package review/closure remain forecast."
+  "owner": ":50",
+  "next_worker": ":10",
+  "at": "2026-08-30T03:52:30Z",
+  "note": "PR #500 Construction B exact-head f03d7d845d22f9fb05a52cb66fe4ac5d20a1eb8d passed Deterministic CI #1200 and Heavy Product Tests #667 and was merged as dd8b5d909df3fc82a43e0721672b11e3dddb5691. Fresh-main evidence shows the Construction B exit proof is satisfied; Construction C remains optional/forecast and should not be inferred. Revalidate fresh main and promote only the next repository-governed eligible gate, expected Package Integration & Review if no new bounded Construction C need is evidenced."
 }
