@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { reduceHandoffState } from "./handoff-state-machine.mjs";
+import { reduceHandoffState, scheduledWorkerAfter } from "./handoff-state-machine.mjs";
 
 function baseState(overrides = {}) {
   return {
@@ -21,14 +21,28 @@ function baseState(overrides = {}) {
   };
 }
 
-test("PR CI observation hands the token forward while checks remain advisory context", () => {
+test("scheduled routing chooses the nearest strictly posterior recurrence", () => {
+  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:03:00.000Z" }), ":10");
+  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:17:00.000Z" }), ":30");
+  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:47:00.000Z" }), ":50");
+  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:55:00.000Z" }), "conformance");
+});
+
+test("scheduled routing treats an exact slot as already elapsed", () => {
+  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:10:00.000Z" }), ":30");
+  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:30:00.000Z" }), ":50");
+  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:50:00.000Z" }), "conformance");
+  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T05:00:00.000Z" }), ":10");
+});
+
+test("PR CI observation hands the token to the nearest later recurrence while checks remain advisory context", () => {
   let state = reduceHandoffState(baseState(), {
     type: "PR_CI_STARTED",
     owner: ":10",
     pr: 487,
     branch: "sprint/example",
     head: "abc",
-    at: "2026-08-28T23:01:00.000Z",
+    at: "2026-08-28T23:11:00.000Z",
   }).next;
 
   assert.equal(state.next_worker, ":30");
@@ -40,7 +54,7 @@ test("PR CI observation hands the token forward while checks remain advisory con
     workflow: "Heavy Product Tests",
     conclusion: "success",
     head: "abc",
-    at: "2026-08-28T23:02:00.000Z",
+    at: "2026-08-28T23:12:00.000Z",
   }).next;
   assert.equal(state.next_worker, ":30");
   assert.equal(state.checks.heavy, "success");
@@ -50,7 +64,7 @@ test("PR CI observation hands the token forward while checks remain advisory con
     workflow: "Deterministic CI",
     conclusion: "success",
     head: "abc",
-    at: "2026-08-28T23:03:00.000Z",
+    at: "2026-08-28T23:13:00.000Z",
   }).next;
   assert.equal(state.next_worker, ":30");
   assert.equal(state.checks.deterministic, "success");
@@ -69,59 +83,58 @@ test("failed required check records failure without reclaiming or blocking the t
     workflow: "Deterministic CI",
     conclusion: "failure",
     head: "abc",
-    at: "2026-08-28T23:04:00.000Z",
+    at: "2026-08-28T23:34:00.000Z",
   });
   assert.equal(result.next.next_worker, ":30");
   assert.equal(result.next.checks.deterministic, "failure");
   assert.equal(result.next.reason, "CI_FAILED:Deterministic CI:failure");
 });
 
-test("worker handoff advances the canonical queue :10 -> :30 -> :50 -> conformance", () => {
-  let state = reduceHandoffState(baseState(), {
+test("worker handoff routes by completion time instead of owner identity", () => {
+  const from10 = reduceHandoffState(baseState({ next_worker: ":10" }), {
     type: "WORKER_HANDOFF",
     owner: ":10",
-    at: "2026-08-28T23:05:00.000Z",
-  }).next;
-  assert.equal(state.next_worker, ":30");
+    at: "2026-08-30T04:47:00.000Z",
+  });
+  assert.equal(from10.next.next_worker, ":50");
 
-  state = reduceHandoffState(state, {
+  const from30 = reduceHandoffState(baseState({ next_worker: ":30" }), {
     type: "WORKER_HANDOFF",
     owner: ":30",
-    at: "2026-08-28T23:06:00.000Z",
-  }).next;
-  assert.equal(state.next_worker, ":50");
+    at: "2026-08-30T04:55:00.000Z",
+  });
+  assert.equal(from30.next.next_worker, "conformance");
 
-  state = reduceHandoffState(state, {
+  const from50 = reduceHandoffState(baseState({ next_worker: ":50" }), {
     type: "WORKER_HANDOFF",
     owner: ":50",
-    at: "2026-08-28T23:07:00.000Z",
-  }).next;
-  assert.equal(state.next_worker, "conformance");
-});
-
-test("PR CI started by :50 hands the token to conformance", () => {
-  const result = reduceHandoffState(baseState({ next_worker: ":50" }), {
-    type: "PR_CI_STARTED",
-    owner: ":50",
-    pr: 500,
-    branch: "sprint/example-50",
-    head: "def",
-    at: "2026-08-28T23:08:00.000Z",
+    at: "2026-08-30T05:03:00.000Z",
   });
-  assert.equal(result.next.next_worker, "conformance");
-  assert.equal(result.next.resume_worker, null);
+  assert.equal(from50.next.next_worker, ":10");
 });
 
-test("normal conformance completion returns the canonical queue to :10", () => {
+test("PR CI started by any owner uses the next chronological recurrence", () => {
+  const result = reduceHandoffState(baseState({ next_worker: ":10" }), {
+    type: "PR_CI_STARTED",
+    owner: ":10",
+    pr: 500,
+    branch: "sprint/example-10",
+    head: "def",
+    at: "2026-08-30T04:47:00.000Z",
+  });
+  assert.equal(result.next.next_worker, ":50");
+});
+
+test("normal conformance completion routes to the next chronological recurrence", () => {
   const result = reduceHandoffState(baseState({ next_worker: "conformance" }), {
     type: "CONFORMANCE_COMPLETE",
     owner: "conformance",
-    at: "2026-08-28T23:09:00.000Z",
+    at: "2026-08-30T04:47:00.000Z",
   });
-  assert.equal(result.next.next_worker, ":10");
+  assert.equal(result.next.next_worker, ":50");
 });
 
-test("scheduled conformance interruption returns to its interrupted resume worker", () => {
+test("scheduled conformance interruption still returns to its explicit interrupted resume worker", () => {
   let state = reduceHandoffState(baseState({ next_worker: ":30" }), {
     type: "CONFORMANCE_DUE",
     at: "2026-08-28T23:10:00.000Z",
