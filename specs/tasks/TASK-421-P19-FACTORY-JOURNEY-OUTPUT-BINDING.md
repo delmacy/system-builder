@@ -4,6 +4,7 @@ title: Bind definition through deployment stage identities
 status: blocked
 priority: 421
 milestone: M19
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
@@ -36,8 +37,20 @@ validation:
 # Objective
 Bind the exact SystemDefinition identity onward through capability resolution, AssemblyPlan, ValidationEvidence, ReleaseArtifact, PublishedRelease and DeploymentRecord stages using existing public factory-boundary contracts.
 
+# Context
+This task consumes TASK-420 and extends only the identity/provenance chain through existing downstream public artifact contracts.
+
+# Current behavior
+Downstream factory artifacts exist independently, but the canonical journey has no exact predecessor chain linking definition through deployment identity.
+
 # Required change
 Extend the journey contract with explicit successor-stage references that preserve the exact definition/materialization identity chain and reject implicit fixture stitching or stage substitution.
+
+# Inputs / contracts
+Existing SystemDefinition and factory-boundary public contracts for capability resolution, AssemblyPlan, ValidationEvidence, ReleaseArtifact, PublishedRelease and DeploymentRecord identities.
+
+# Outputs / contracts
+Additive journey-stage bindings preserving exact predecessor identity through deployment.
 
 # Acceptance criteria
 - each downstream stage references its exact predecessor identity;
@@ -48,6 +61,9 @@ Extend the journey contract with explicit successor-stage references that preser
 
 # Non-goals
 No orchestration, compiler implementation changes, publication/deployment execution or runtime launch.
+
+# Evidence expected
+Focused product evidence for exact successor identity binding and rejection of missing/cross-system/substituted stages, plus declared repository validations.
 
 # Escalation
 Stop if the journey cannot be represented additively through existing public factory-boundary semantics without topology or authority change.
