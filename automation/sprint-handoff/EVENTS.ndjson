@@ -220,3 +220,4 @@
 {"sequence":154,"accepted":true,"event":{"type":"CHECK_COMPLETED","workflow":"Deterministic CI","conclusion":"success","head":"ff74eff3a90cc0a9631dd7a339e0993f7c17ccb2","run_id":33326845667,"at":"2026-08-30T18:02:34.336Z"},"from":"NEXT_10","to":"NEXT_10","reason":null,"at":"2026-08-30T18:02:34.336Z"}
 {"sequence":155,"accepted":true,"event":{"type":"PR_CLOSED","pr":511,"head":"ff74eff3a90cc0a9631dd7a339e0993f7c17ccb2","merged":true,"at":"2026-08-30T18:10:25.938Z"},"from":"NEXT_10","to":"NEXT_10","reason":null,"at":"2026-08-30T18:10:25.938Z"}
 {"sequence":156,"accepted":true,"event":{"type":"WORKER_HANDOFF","owner":":10","at":"2026-08-30T18:09:49Z"},"from":"NEXT_10","to":"NEXT_10","reason":null,"at":"2026-08-30T18:09:49Z"}
+{"sequence":157,"accepted":true,"event":{"type":"WORKER_HANDOFF","owner":":10","at":"2026-08-30T18:10:40Z"},"from":"NEXT_10","to":"NEXT_30","reason":null,"at":"2026-08-30T18:10:40Z"}
