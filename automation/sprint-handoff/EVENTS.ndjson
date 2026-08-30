@@ -197,3 +197,4 @@
 {"sequence":135,"accepted":false,"event":{"type":"LEASE_TICK","at":"2026-08-30T15:04:12.127Z"},"from":"NEXT_CONF","to":"NEXT_CONF","reason":"no expired claim","at":"2026-08-30T15:04:12.127Z"}
 {"sequence":136,"accepted":true,"event":{"type":"CONFORMANCE_COMPLETE","at":"2026-08-30T16:03:00Z"},"from":"NEXT_CONF","to":"NEXT_50","reason":null,"at":"2026-08-30T16:03:00Z"}
 {"sequence":136,"accepted":false,"event":{"type":"PR_CLOSED","pr":501,"head":"0f8c8a48790fe8d9634595074c89c88bc840d8de","merged":false,"at":"2026-08-30T16:53:25.486Z"},"from":"NEXT_50","to":"NEXT_50","reason":"closed PR does not match active PR","at":"2026-08-30T16:53:25.486Z"}
+{"sequence":137,"accepted":true,"event":{"type":"CHECK_COMPLETED","workflow":"Heavy Product Tests","conclusion":"success","head":"0f8c8a48790fe8d9634595074c89c88bc840d8de","run_id":33323719108,"at":"2026-08-30T16:54:26.557Z"},"from":"NEXT_50","to":"NEXT_50","reason":null,"at":"2026-08-30T16:54:26.557Z"}
