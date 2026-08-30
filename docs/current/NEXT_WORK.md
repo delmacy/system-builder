@@ -1,12 +1,10 @@
-# Next Work — P18 Package 03 Documentation & Closure
+# Next Work — Fresh-main successor planning gate
 
-Fresh main `f175ac411b7f354b356993d9cf3856d5f7bda0ae` contains Construction A+B and the integrated Package Integration & Review for `P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability` / WBS 18.3.1–18.3.3.
+`P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability` / WBS 18.3.1–18.3.3 is canonically CLOSED.
 
-Package Review exact head `1b912104becb6df84ad08c4354e082ab15228590` passed Deterministic CI #1203 and Heavy Product Tests #670 and merged through PR #503 with no blocking review finding. Construction C remains NOT REQUIRED / NOT MATERIALIZED.
+Documentation & Closure PR #504 exact head `56c0dad425977faa2eeaa4dc438a36e2426e4917` passed Deterministic CI #1204 and Heavy Product Tests #671, had no blocking review/thread, and merged with expected-head protection as `73a0d3db1941d7df2f686a6825d1a0fd91e74a4c`. Closure head and merge-main share tree `3e2a7b15e9d22315e8cac73af9bb141b2e2c204c`, proving zero file drift.
 
 ## Current gate
-Execute `P18-PACKAGE-03-DOCUMENTATION-CLOSURE-01` only. Reconcile repository memory, WBS/package traceability and closure evidence. No product behavior or successor scope is authorized.
+Perform only this mechanical canonical CLOSED-state reconciliation. After it integrates, reconstruct fresh main and derive the next eligible Work Package/Planning & Materialization action from repository authority. Existing successor proposals remain proposals/forecast until explicitly reconciled against that fresh main and promoted under policy.
 
-After exact-head Deterministic CI + Heavy Product Tests and blocker review pass, merge with expected-head protection, reconstruct fresh main and verify closure-head -> merge-main tree equivalence. Then perform only the mechanical canonical CLOSED-state reconciliation required for P18-PACKAGE-03 / WBS 18.3 before deriving any successor work from fresh main.
-
-Do not modify canonical process-versioning semantics, Decision Boundary, Runtime, Compiler, Builder/Runtime topology, deployment execution authority, storage architecture or unrelated findings/TDs. Git/PR/model/classification/ADR evidence remains non-authoritative.
+Do not reopen P18, modify canonical process-versioning semantics, Decision Boundary, Runtime, Compiler, Builder/Runtime topology, deployment execution authority or storage architecture, and do not absorb unrelated findings/TDs by inference.
