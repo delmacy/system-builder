@@ -1,7 +1,7 @@
 {
-  "type": "WORKER_HANDOFF",
-  "owner": ":50",
-  "next_worker": ":10",
-  "at": "2026-08-30T03:52:30Z",
-  "note": "PR #500 Construction B exact-head f03d7d845d22f9fb05a52cb66fe4ac5d20a1eb8d passed Deterministic CI #1200 and Heavy Product Tests #667 and was merged as dd8b5d909df3fc82a43e0721672b11e3dddb5691. Fresh-main evidence shows the Construction B exit proof is satisfied; Construction C remains optional/forecast and should not be inferred. Revalidate fresh main and promote only the next repository-governed eligible gate, expected Package Integration & Review if no new bounded Construction C need is evidenced."
+  "type": "WORKER_CLAIM",
+  "owner": "conformance",
+  "lease_until": "2026-08-30T04:25:57Z",
+  "at": "2026-08-30T04:00:57Z",
+  "note": "Conformance claims the READY gate exactly as assigned by the deterministic state machine. No audit or product mutation is authorized until the reducer promotes this claim to RUNNING."
 }
