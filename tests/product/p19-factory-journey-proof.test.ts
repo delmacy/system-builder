@@ -161,11 +161,11 @@ test("WBS 19.1.1 rejects missing, stale, duplicate and reordered canonical stage
   missing.input.journey.stages.pop();
   assert.throws(() => normalizeCanonicalFactoryJourney(missing), /exactly 6 ordered stages/);
 
-  const stale = clone(canonicalBinding());
+  const stale = clone(canonicalBinding()) as any;
   stale.input.lineage.processRevision.processRevision.revisionRef = refs.previousProcessRevision;
   assert.throws(() => normalizeCanonicalFactoryJourney(stale), /approved-process stage does not match canonical process artifact\/revision identity/);
 
-  const duplicate = clone(canonicalBinding());
+  const duplicate = clone(canonicalBinding()) as any;
   duplicate.input.journey.stages[5]!.identityRef = refs.publishedRelease;
   duplicate.deploymentRecord.deploymentId = refs.publishedRelease;
   assert.throws(() => normalizeCanonicalFactoryJourney(duplicate), /duplicate stage identity/);
@@ -180,20 +180,20 @@ test("WBS 19.1.1 rejects substituted and lineage-broken identities", () => {
   substituted.releaseArtifact.validationEvidenceRef = `sha256:${"d".repeat(64)}`;
   assert.throws(() => normalizeCanonicalFactoryJourney(substituted), /exact ValidationEvidence identity/);
 
-  const brokenLineage = clone(canonicalBinding());
+  const brokenLineage = clone(canonicalBinding()) as any;
   brokenLineage.input.lineage.hops[1]!.from.identityRef = "analysis:other:v2";
   assert.throws(() => normalizeCanonicalFactoryJourney(brokenLineage), /analysis lineage hop does not match canonical endpoints/);
 });
 
 test("repository or model metadata cannot substitute business authority or canonical identity", () => {
   const metadataOnly = clone(canonicalBinding()) as ReturnType<typeof canonicalBinding> & Record<string, unknown>;
-  metadataOnly.input.journey.stages[0]!.identityRef = "git:commit:abc123";
+  (metadataOnly.input.journey.stages[0] as { identityRef: string }).identityRef = "git:commit:abc123";
   metadataOnly.model = "gpt-5.6";
   metadataOnly.pullRequest = 999;
   metadataOnly.classification = "approved";
   assert.throws(() => normalizeCanonicalFactoryJourney(metadataOnly), /unexpected field model/);
 
   const gitIdentity = clone(canonicalBinding());
-  gitIdentity.input.journey.stages[0]!.identityRef = "git:commit:abc123";
+  (gitIdentity.input.journey.stages[0] as { identityRef: string }).identityRef = "git:commit:abc123";
   assert.throws(() => normalizeCanonicalFactoryJourney(gitIdentity), /canonical process artifact\/revision identity/);
 });
