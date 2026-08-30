@@ -1,3 +1,8 @@
+import {
+  normalizeProcessAnalysisDefinitionLineage,
+  type ProcessAnalysisDefinitionLineage,
+} from "../process-versioning/lineage.js";
+
 export const FACTORY_JOURNEY_CONTRACT_VERSION = "1.0.0" as const;
 
 export const FACTORY_JOURNEY_STAGE_KINDS = [
@@ -20,6 +25,12 @@ export type FactoryJourneyStageDescriptor = Readonly<{
 export type FactoryJourneyEnvelope = Readonly<{
   contractVersion: typeof FACTORY_JOURNEY_CONTRACT_VERSION;
   stages: readonly FactoryJourneyStageDescriptor[];
+}>;
+
+export type FactoryJourneyInputBinding = Readonly<{
+  contractVersion: typeof FACTORY_JOURNEY_CONTRACT_VERSION;
+  journey: FactoryJourneyEnvelope;
+  lineage: ProcessAnalysisDefinitionLineage;
 }>;
 
 type UnknownRecord = Record<string, unknown>;
@@ -74,5 +85,39 @@ export function normalizeFactoryJourneyEnvelope(input: unknown): FactoryJourneyE
   return Object.freeze({
     contractVersion: FACTORY_JOURNEY_CONTRACT_VERSION,
     stages: Object.freeze(stages),
+  });
+}
+
+export function normalizeFactoryJourneyInputBinding(input: unknown): FactoryJourneyInputBinding {
+  const record = asRecord(input, "factory journey input binding");
+  assertExactFields(record, ["contractVersion", "journey", "lineage"], "factory journey input binding");
+  if (record.contractVersion !== FACTORY_JOURNEY_CONTRACT_VERSION) {
+    throw new Error(`unsupported factory journey contract version: ${String(record.contractVersion)}`);
+  }
+
+  const journey = normalizeFactoryJourneyEnvelope(record.journey);
+  const lineage = normalizeProcessAnalysisDefinitionLineage(record.lineage);
+  const processRevision = lineage.processRevision.processRevision;
+  const approvedProcess = journey.stages[0]!;
+  const analysisDefinition = journey.stages[1]!;
+
+  if (approvedProcess.identityRef !== processRevision.revisionRef || approvedProcess.provenanceRef !== processRevision.artifactRef) {
+    throw new Error("approved-process stage does not match canonical process artifact/revision identity");
+  }
+  if (analysisDefinition.identityRef !== lineage.analysis.identityRef) {
+    throw new Error("analysis-definition stage does not match canonical analysis identity");
+  }
+  if (analysisDefinition.provenanceRef !== processRevision.revisionRef) {
+    throw new Error("analysis-definition stage predecessor does not match approved process revision");
+  }
+  const capabilityAssembly = journey.stages[2]!;
+  if (capabilityAssembly.provenanceRef !== lineage.systemDefinition.identityRef) {
+    throw new Error("capability-assembly predecessor does not match canonical system-definition identity");
+  }
+
+  return Object.freeze({
+    contractVersion: FACTORY_JOURNEY_CONTRACT_VERSION,
+    journey,
+    lineage,
   });
 }
