@@ -4,14 +4,14 @@ machine_state: NEXT_10
 next_worker: :10
 claimed_by: null
 claim_until: null
-sequence: 155
-updated_at: 2026-08-30T18:10:25.938Z
+sequence: 156
+updated_at: 2026-08-30T18:09:49Z
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: pending
 heavy_product_tests: pending
-last_event: PR_CLOSED
+last_event: WORKER_HANDOFF
 reason: null
 
 ## Authority
