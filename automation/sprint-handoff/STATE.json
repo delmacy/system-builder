@@ -1,11 +1,11 @@
 {
   "version": 2,
   "next_worker": "conformance",
-  "claimed_by": null,
-  "claim_until": null,
+  "claimed_by": "conformance",
+  "claim_until": "2026-08-30T01:25:15Z",
   "resume_worker": null,
-  "sequence": 80,
-  "updated_at": "2026-08-30T00:16:11.874Z",
+  "sequence": 81,
+  "updated_at": "2026-08-30T01:00:15Z",
   "active_pr": null,
   "active_branch": null,
   "active_head_sha": null,
@@ -13,11 +13,11 @@
     "deterministic": "failure",
     "heavy": "success"
   },
-  "last_event": "LEASE_TICK",
-  "reason": "CLAIM_EXPIRED_RECOVERED",
+  "last_event": "WORKER_CLAIM",
+  "reason": null,
   "owner": "conformance",
   "resume_owner": null,
-  "lease_until": null,
-  "phase": "READY",
+  "lease_until": "2026-08-30T01:25:15Z",
+  "phase": "RUNNING",
   "conformance_due": false
 }
