@@ -1,5 +1,7 @@
 {
-  "type": "LEASE_TICK",
-  "at": "2026-08-30T10:01:50Z",
-  "note": "Bounded recovery: conformance remains RUNNING with an expired lease, no active PR, and conformance_due=false. Request reducer lease recovery only; do not advance work outside the deterministic state machine."
+  "type": "WORKER_CLAIM",
+  "owner": "conformance",
+  "lease_until": "2026-08-30T11:26:57Z",
+  "at": "2026-08-30T11:01:57Z",
+  "note": "Conformance claims the READY gate exactly as assigned by the deterministic state machine. No audit or product mutation is authorized until the reducer promotes this claim to RUNNING."
 }
