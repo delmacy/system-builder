@@ -189,7 +189,7 @@ export function reduceHandoffState(rawState, event) {
         return ignored(state, "conformance does not hold token");
       }
       return accepted(state, event, (next) => {
-        next.next_worker = next.resume_worker ?? scheduledWorkerAfter(event);
+        next.next_worker = next.resume_worker ?? ":10";
         next.resume_worker = null;
         next.claimed_by = null;
         next.claim_until = null;
