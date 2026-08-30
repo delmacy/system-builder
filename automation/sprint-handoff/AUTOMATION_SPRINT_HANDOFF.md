@@ -1,11 +1,11 @@
 # Automation Sprint Handoff
 
-machine_state: NEXT_50
-next_worker: :50
+machine_state: NEXT_CONF
+next_worker: conformance
 claimed_by: null
 claim_until: null
-sequence: 106
-updated_at: 2026-08-30T05:47:24Z
+sequence: 107
+updated_at: 2026-08-30T06:52:30Z
 active_pr: null
 active_branch: null
 active_head_sha: null
