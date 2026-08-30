@@ -1,7 +1,6 @@
 {
-  "type": "WORKER_CLAIM",
+  "type": "CONFORMANCE_COMPLETE",
   "owner": "conformance",
-  "lease_until": "2026-08-30T11:26:57Z",
-  "at": "2026-08-30T11:01:57Z",
-  "note": "Conformance claims the READY gate exactly as assigned by the deterministic state machine. No audit or product mutation is authorized until the reducer promotes this claim to RUNNING."
+  "at": "2026-08-30T11:50:30Z",
+  "note": "Bounded recovery after v1/v2 prompt mismatch. next_worker is the sole authority; current closure head has Deterministic CI #1204 and Heavy Product Tests #671 PASS, and no new product-scope blocker was evidenced. Return token according to reducer v2 resume/fallback semantics."
 }
