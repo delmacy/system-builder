@@ -225,3 +225,4 @@
 {"sequence":158,"accepted":false,"event":{"type":"LEASE_TICK","at":"2026-08-30T18:36:42.693Z"},"from":"NEXT_30","to":"NEXT_30","reason":"no expired claim","at":"2026-08-30T18:36:42.693Z"}
 {"sequence":159,"accepted":true,"event":{"type":"WORKER_HANDOFF","owner":":30","at":"2026-08-30T19:28:01Z"},"from":"NEXT_30","to":"NEXT_30","reason":null,"at":"2026-08-30T19:28:01Z"}
 {"sequence":160,"accepted":true,"event":{"type":"CONFORMANCE_DUE","at":"2026-08-30T20:34:37.109Z"},"from":"NEXT_30","to":"NEXT_CONF","reason":null,"at":"2026-08-30T20:34:37.109Z"}
+{"sequence":161,"accepted":true,"event":{"type":"CONFORMANCE_COMPLETE","owner":"conformance","at":"2026-08-30T21:01:53Z"},"from":"NEXT_CONF","to":"NEXT_30","reason":null,"at":"2026-08-30T21:01:53Z"}
