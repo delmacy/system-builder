@@ -4,17 +4,17 @@
   "claimed_by": "conformance",
   "claim_until": "2026-08-29T23:22:00Z",
   "resume_worker": null,
-  "sequence": 77,
-  "updated_at": "2026-08-30T00:00:14.336Z",
+  "sequence": 78,
+  "updated_at": "2026-08-30T00:00:36.550Z",
   "active_pr": null,
   "active_branch": null,
   "active_head_sha": null,
   "checks": {
     "deterministic": "failure",
-    "heavy": "failure"
+    "heavy": "success"
   },
   "last_event": "CHECK_COMPLETED",
-  "reason": "CI_FAILED:Heavy Product Tests:cancelled",
+  "reason": "CI_FAILED:Heavy Product Tests:success",
   "owner": "conformance",
   "resume_owner": null,
   "lease_until": "2026-08-29T23:22:00Z",
