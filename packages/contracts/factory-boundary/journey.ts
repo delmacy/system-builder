@@ -81,7 +81,7 @@ function requiredRef(record: UnknownRecord, field: string, label: string): strin
 function normalizeStage(value: unknown, index: number): FactoryJourneyStageDescriptor {
   const record = asRecord(value, `factory journey stage ${index + 1}`);
   assertExactFields(record, ["kind", "identityRef", "provenanceRef"], `factory journey stage ${index + 1}`);
-  const expectedKind = FACTORY_JOURNEY_STAGE_KINDS[index];
+  const expectedKind = FACTORY_JOURNEY_STAGE_KINDS[index]!;
   if (record.kind !== expectedKind) {
     throw new Error(`factory journey stage ${index + 1} must be ${expectedKind}`);
   }
