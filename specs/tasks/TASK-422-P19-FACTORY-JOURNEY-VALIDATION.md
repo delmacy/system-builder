@@ -4,6 +4,7 @@ title: Validate canonical factory journey fail-closed
 status: blocked
 priority: 422
 milestone: M19
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
@@ -36,8 +37,20 @@ validation:
 # Objective
 Provide deterministic normalization and fail-closed validation for the complete WBS 19.1.1 journey contract.
 
+# Context
+This task validates the canonical envelope and stage bindings produced by TASK-419..421 without introducing execution authority.
+
+# Current behavior
+The newly materialized journey requires one deterministic validator for ordered stage continuity and canonical predecessor lineage.
+
 # Required change
 Validate ordered stage identity, predecessor continuity, canonical lineage and compatibility across the journey envelope, rejecting missing, stale, duplicate, reordered, incompatible, forged and lineage-broken references.
+
+# Inputs / contracts
+The additive factory-journey envelope and bindings from TASK-419..421 plus existing process-versioning identities.
+
+# Outputs / contracts
+Deterministic normalization and fail-closed validation behavior within the existing factory-boundary contract.
 
 # Acceptance criteria
 - canonical valid journey normalizes deterministically;
@@ -49,6 +62,9 @@ Validate ordered stage identity, predecessor continuity, canonical lineage and c
 
 # Non-goals
 No execution command/API, runtime behavior, persistence, release publication or deployment side effects.
+
+# Evidence expected
+Focused adversarial product evidence covering canonical and rejected journey variants, plus declared repository validations.
 
 # Escalation
 Stop for destructive public-contract replacement, new authority semantics or undeclared L4.
