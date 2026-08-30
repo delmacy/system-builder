@@ -1,12 +1,15 @@
-# Current Execution Milestone — M18 Process Versioning
+# Current Execution Milestone — M19 Pre-Alpha Productization
 
 ## Milestone state
-M17 Knowledge Boundary is CLOSED. `P18-PACKAGE-01`, `P18-PACKAGE-02` and `P18-PACKAGE-03` are canonically CLOSED.
+M17 Knowledge Boundary and M18 Process Versioning are CLOSED. `P18-PACKAGE-01`, `P18-PACKAGE-02` and `P18-PACKAGE-03` are canonically CLOSED.
 
-`P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability` / WBS 18.3.1–18.3.3 closed after Construction A+B, with Construction C NOT REQUIRED / NOT MATERIALIZED. Package Integration & Review PR #503 exact head `1b912104becb6df84ad08c4354e082ab15228590` passed Deterministic CI #1203 and Heavy Product Tests #670 and merged as `f175ac411b7f354b356993d9cf3856d5f7bda0ae`.
+`P19-PACKAGE-01 — Consolidated Pre-Alpha Productization` is the active rolling-wave package authority. Its overall forecast remains governed by `project_docs/execution_planning/P19-PACKAGE-01-CONSOLIDATED-PREALPHA.md`, `project_docs/19-pre-alpha-productization/WBS.md`, the scope authority and the extended-package cadence exception. Forecast successor Sprints are not execution authority.
 
-Documentation & Closure PR #504 exact head `56c0dad425977faa2eeaa4dc438a36e2426e4917` passed Deterministic CI #1204 and Heavy Product Tests #671, had no blocking review/thread, and merged with expected-head protection as `73a0d3db1941d7df2f686a6825d1a0fd91e74a4c`. Closure head and merge-main share tree `3e2a7b15e9d22315e8cac73af9bb141b2e2c204c`.
+### Active materialized Construction Sprint
+`P19-FACTORY-JOURNEY-CONTRACT-01` / WBS 19.1.1 is COMMITTED / MATERIALIZED / NOT EXECUTED on fresh-main integration `814896bed3213b7933338a52b904b3ea2df9fd6b` from Planning PR #510.
 
-WBS 18.3.1–18.3.3 is SATISFIED / INTEGRATED / CLOSED. No successor work is materialized by this reconciliation; successor selection must be derived separately from fresh-main authority.
+The committed TASK chain is `TASK-419 -> TASK-420 -> TASK-421 -> TASK-422 -> TASK-423`. Only TASK-419 is initially ready; successors remain dependency-blocked until predecessor completion under Sprint policy.
 
-Canonical M15 `human-decision` remains business authority. Git/PR/model/classification/ADR evidence remains non-authoritative. No Decision Boundary change, release/deploy execution authority, Builder/Runtime topology change, storage redesign, unrelated finding/TD absorption or inferred L4 was introduced.
+This Sprint is bounded additive L3 contract work in the existing `packages/contracts/factory-boundary/**` boundary plus focused product evidence. It must reuse canonical predecessor identities, preserve M15 human-decision business authority, fail closed on unknown/incomplete lineage, and must not introduce orchestration, runtime launch, storage redesign, release/deploy side effects, Builder/Runtime topology change or inferred L4.
+
+No successor Construction Sprint is materialized by this state. WBS 19.1.2+ remains forecast until WBS 19.1.1 is executed, reviewed, integrated and fresh-main revalidation authorizes the next rolling-wave step.
