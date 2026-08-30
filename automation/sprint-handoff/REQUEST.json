@@ -1,7 +1,7 @@
 {
   "type": "WORKER_CLAIM",
   "owner": "conformance",
-  "at": "2026-08-30T01:00:15Z",
-  "lease_until": "2026-08-30T01:25:15Z",
-  "note": "Hourly Architecture Conformance & Product Traceability Review gate claim. Audit must begin only after reducer promotes conformance to RUNNING."
+  "at": "2026-08-30T01:57:09Z",
+  "lease_until": "2026-08-30T02:22:09Z",
+  "note": "Bounded recovery of expired conformance lease. Continue Architecture Conformance & Product Traceability Review only after reducer confirms RUNNING(conformance)."
 }
