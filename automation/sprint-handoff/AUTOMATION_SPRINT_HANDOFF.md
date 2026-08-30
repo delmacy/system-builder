@@ -4,14 +4,14 @@ machine_state: NEXT_10
 next_worker: :10
 claimed_by: null
 claim_until: null
-sequence: 154
-updated_at: 2026-08-30T18:02:34.336Z
-active_pr: 511
-active_branch: conformance/P19-PREEXEC-MEMORY-RECONCILIATION-01
-active_head_sha: ff74eff3a90cc0a9631dd7a339e0993f7c17ccb2
-deterministic_ci: success
-heavy_product_tests: success
-last_event: CHECK_COMPLETED
+sequence: 155
+updated_at: 2026-08-30T18:10:25.938Z
+active_pr: null
+active_branch: null
+active_head_sha: null
+deterministic_ci: pending
+heavy_product_tests: pending
+last_event: PR_CLOSED
 reason: null
 
 ## Authority
