@@ -6,3 +6,4 @@ import deploymentRecordSchema from "./deployment-record.schema.json";
 
 export const FACTORY_BOUNDARY_SCHEMA_VERSION = "1.0.0" as const;
 export { assemblyPlanSchema, validationEvidenceSchema, releaseArtifactSchema, publishedReleaseSchema, deploymentRecordSchema };
+export * from "./journey.js";
