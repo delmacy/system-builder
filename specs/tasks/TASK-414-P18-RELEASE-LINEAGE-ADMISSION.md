@@ -40,6 +40,21 @@ validation:
 # Objective
 Add an additive Release-side integration seam that consumes the canonical process-versioning lineage and binds an existing Release identity to the validated SystemDefinition -> Release hop.
 
+# Context
+Construction A already provides canonical deterministic process revision -> analysis -> SystemDefinition -> Release -> Deployment lineage. Construction B must integrate that truth into the existing Release bounded context without duplicating validation or changing release authority.
+
+# Current behavior
+Canonical lineage can validate SystemDefinition -> Release relationships at the contract layer, but the materialized Construction B has not yet exposed that validation through a representative existing Release API.
+
+# Inputs / contracts
+- public `packages/contracts/process-versioning/**` lineage APIs;
+- existing SystemDefinition public contract identity;
+- existing `packages/release/**` public APIs and Release identity/evidence surfaces;
+- P18-PACKAGE-03 and Construction B boundaries.
+
+# Outputs / contracts
+An additive Release-side seam that accepts canonical lineage evidence and binds an existing Release identity to a validated SystemDefinition -> Release hop while preserving all existing Release callers.
+
 # Required change
 Use public process-versioning exports from the existing Release bounded context. Do not reproduce lineage validation locally. Preserve all existing Release APIs and evidence behavior.
 
@@ -52,3 +67,9 @@ Use public process-versioning exports from the existing Release bounded context.
 
 # Non-goals
 No process-versioning contract mutation, deployment integration, release execution redesign, persistence redesign or L4 change.
+
+# Evidence expected
+Focused product evidence covering the positive Release admission path, forged/mismatched identifiers, backward compatibility and rejection of non-authoritative metadata substitution.
+
+# Escalation
+Stop and mark blocked if satisfying the objective requires modifying canonical process-versioning semantics, deployment behavior, Decision Boundary, Runtime/Compiler, persistence topology, release authority or any undeclared L4 surface.
