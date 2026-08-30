@@ -3,7 +3,13 @@ import { appendFileSync, readFileSync, writeFileSync } from "node:fs";
 import { argv, stdout } from "node:process";
 
 export const REQUIRED_CHECKS = ["Deterministic CI", "Heavy Product Tests"];
-export const WORKERS = [":10", ":30", ":50", "conformance"];
+export const WORKER_SLOTS = [
+  { worker: "conformance", minute: 0 },
+  { worker: ":10", minute: 10 },
+  { worker: ":30", minute: 30 },
+  { worker: ":50", minute: 50 },
+];
+export const WORKERS = WORKER_SLOTS.map(({ worker }) => worker);
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -13,9 +19,20 @@ function nowIso(event) {
   return event.at ?? new Date().toISOString();
 }
 
-function nextWorker(owner) {
-  const index = WORKERS.indexOf(owner);
-  return index === -1 ? ":10" : WORKERS[(index + 1) % WORKERS.length];
+export function scheduledWorkerAfter(event) {
+  const instant = new Date(nowIso(event));
+  if (!Number.isFinite(instant.getTime())) throw new Error("Event time must be a valid ISO timestamp");
+
+  const elapsedMs =
+    instant.getUTCMinutes() * 60_000 +
+    instant.getUTCSeconds() * 1_000 +
+    instant.getUTCMilliseconds();
+
+  for (const slot of WORKER_SLOTS) {
+    if (slot.minute * 60_000 > elapsedMs) return slot.worker;
+  }
+
+  return WORKER_SLOTS[0].worker;
 }
 
 function normalize(state) {
@@ -88,7 +105,7 @@ export function reduceHandoffState(rawState, event) {
     case "WORKER_HANDOFF": {
       if (state.next_worker !== event.owner) return ignored(state, "handoff next_worker mismatch");
       return accepted(state, event, (next) => {
-        next.next_worker = nextWorker(event.owner);
+        next.next_worker = scheduledWorkerAfter(event);
         next.claimed_by = null;
         next.claim_until = null;
         next.reason = null;
@@ -100,7 +117,7 @@ export function reduceHandoffState(rawState, event) {
       if (state.next_worker !== event.owner) return ignored(state, "block next_worker mismatch");
       return accepted(state, event, (next) => {
         next.reason = event.reason ?? "worker reported blocker";
-        next.next_worker = nextWorker(event.owner);
+        next.next_worker = scheduledWorkerAfter(event);
         next.claimed_by = null;
         next.claim_until = null;
         return next;
@@ -117,7 +134,7 @@ export function reduceHandoffState(rawState, event) {
         next.active_head_sha = event.head;
         next.checks = { deterministic: "pending", heavy: "pending" };
         next.reason = null;
-        next.next_worker = nextWorker(event.owner);
+        next.next_worker = scheduledWorkerAfter(event);
         next.claimed_by = null;
         next.claim_until = null;
         if (next.next_worker === "conformance") next.resume_worker = null;
@@ -172,7 +189,7 @@ export function reduceHandoffState(rawState, event) {
         return ignored(state, "conformance does not hold token");
       }
       return accepted(state, event, (next) => {
-        next.next_worker = next.resume_worker ?? nextWorker("conformance");
+        next.next_worker = next.resume_worker ?? scheduledWorkerAfter(event);
         next.resume_worker = null;
         next.claimed_by = null;
         next.claim_until = null;
