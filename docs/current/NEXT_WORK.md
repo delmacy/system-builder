@@ -1,19 +1,12 @@
-# Next Work — P18-PACKAGE-03 Construction B
+# Next Work — P18 Package 03 Integration & Review
 
-`P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability` / WBS 18.3.1–18.3.3 remains the current active Work Package.
-
-Construction A `P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01` / TASK-409..413 is integrated by PR #497 on fresh main `294c348271f3efc416c71ecef7e2329c63128d97`.
+Fresh main `a09da56fc05dcca54305cee8c4db1e8c8f1872b8` contains Construction A and Construction B integrated for `P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability` / WBS 18.3.1–18.3.3. Construction B exact Sprint Review head `f03d7d845d22f9fb05a52cb66fe4ac5d20a1eb8d` merged through PR #500 as `dd8b5d909df3fc82a43e0721672b11e3dddb5691`; subsequent PR #502 changes only handoff-routing infrastructure.
 
 ## Current gate
-Execute only the committed Construction B Sprint:
+Fresh-main revalidation shows no bounded residual WBS 18.3 construction gap: canonical process revision -> Analysis -> SystemDefinition -> Release -> Deployment lineage, representative Release/Deploy consumer admission, complete historical query composition, backward compatibility and fail-closed bypass resistance are integrated. Therefore optional Construction C is `NOT REQUIRED / NOT MATERIALIZED`.
 
-`P18-PROCESS-SYSTEM-LINEAGE-INTEGRATION-01` — COMMITTED / MATERIALIZED / NOT EXECUTED
+Execute `P18-PACKAGE-03-INTEGRATION-REVIEW-01` only. Review/regress the complete package chain, contract/schema compatibility, architecture/dependency fitness, security/trust, CI health, technical debt and residual risks, and issue GO/NO-GO for Documentation & Closure. Bounded proof/repository-memory corrections are allowed only when necessary to prove the already-built Package Goal; missing product capability must return to explicit construction/change control.
 
-Dependency-safe order:
-`TASK-414 -> TASK-415 -> TASK-416 -> TASK-417 -> TASK-418`.
-
-Construction B integrates canonical process-versioning lineage through representative existing `packages/release/**` and `packages/deploy/**` consumers. Before each TASK, re-read its context and confirm allowed/forbidden paths, max_files and validations.
+After exact-head Deterministic CI + Heavy Product Tests and blocker review pass, integrate the Package Review, reconstruct fresh main and then materialize/execute Documentation & Closure.
 
 Do not modify canonical process-versioning semantics, Decision Boundary, Runtime, Compiler, Builder/Runtime topology, deployment execution authority, storage architecture or unrelated findings/TDs. Git/PR/model/classification/ADR evidence remains non-authoritative.
-
-After TASK-418 and Sprint-wide verification, produce the Sprint Report, open the Sprint PR, obtain exact-head Deterministic CI + Heavy Product Tests and complete Sprint Review/integration. Then reconstruct fresh main before deciding whether optional Construction C is necessary. Construction C, Package Integration & Review and Documentation & Closure remain FORECAST / NOT MATERIALIZED until their predecessor gates permit promotion.
