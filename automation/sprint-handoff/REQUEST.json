@@ -1,7 +1,7 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":10",
-  "next_worker": ":30",
-  "at": "2026-08-30T23:10:34Z",
-  "reason": "PR #512 head 5d44d727c4e5dcebac673d13efee833ef9525b0b has Heavy success but Deterministic CI #1225 failure after TASK-422; diagnose bounded deterministic verification before TASK-423."
+  "owner": ":30",
+  "next_worker": ":50",
+  "at": "2026-08-30T23:33:00Z",
+  "reason": "TASK-423 completed on PR #512 head bc429eaceaa4e528af375f1c2bde25c2ff1fe997; Deterministic CI #1226 and Heavy Product Tests #694 are queued on the exact head, so continue from the real CI gate."
 }
