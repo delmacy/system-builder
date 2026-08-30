@@ -1,10 +1,12 @@
-# Next Work — Fresh-main successor planning gate
+# Next Work — P19 Factory Journey Contract
 
 `P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability` / WBS 18.3.1–18.3.3 is canonically CLOSED.
 
-Documentation & Closure PR #504 exact head `56c0dad425977faa2eeaa4dc438a36e2426e4917` passed Deterministic CI #1204 and Heavy Product Tests #671, had no blocking review/thread, and merged with expected-head protection as `73a0d3db1941d7df2f686a6825d1a0fd91e74a4c`. Closure head and merge-main share tree `3e2a7b15e9d22315e8cac73af9bb141b2e2c204c`, proving zero file drift.
+Planning PR #510 integrated `P19-FACTORY-JOURNEY-CONTRACT-01` / WBS 19.1.1 as COMMITTED / MATERIALIZED / NOT EXECUTED on fresh main `814896bed3213b7933338a52b904b3ea2df9fd6b`.
 
 ## Current gate
-Perform only this mechanical canonical CLOSED-state reconciliation. After it integrates, reconstruct fresh main and derive the next eligible Work Package/Planning & Materialization action from repository authority. Existing successor proposals remain proposals/forecast until explicitly reconciled against that fresh main and promoted under policy.
+Execute only the materialized `P19-FACTORY-JOURNEY-CONTRACT-01` TASK chain in dependency order: `TASK-419 -> TASK-420 -> TASK-421 -> TASK-422 -> TASK-423`. TASK-419 is the initial eligible task; later tasks remain blocked until their declared predecessors complete.
 
-Do not reopen P18, modify canonical process-versioning semantics, Decision Boundary, Runtime, Compiler, Builder/Runtime topology, deployment execution authority or storage architecture, and do not absorb unrelated findings/TDs by inference.
+The Sprint is bounded additive L3 factory-boundary contract work and focused product evidence. Preserve exact approved/versioned process and downstream artifact identities, M15 human-decision business authority, fail-closed lineage validation, public-boundary reuse and the declared allowed/forbidden paths.
+
+Do not materialize or execute WBS 19.1.2+ by inference. No orchestration command/API, runtime launch, storage redesign, release/deploy side effects, Builder/Runtime topology change, unrelated findings/TD absorption or inferred L4 is authorized by this Sprint. Successor work requires integrated WBS 19.1.1 truth plus fresh-main rolling-wave revalidation.

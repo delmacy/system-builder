@@ -9,7 +9,7 @@ M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is
 
 Canonical M15 `human-decision` remains final P17 promotion/rejection authority. P17 is not reopened.
 
-## M18 Process Versioning
+## M18 Process Versioning — CLOSED
 `P18-PACKAGE-01 — Process Version Identity & Immutable Revision Foundation` / WBS 18.1.1–18.1.3 is canonically CLOSED on fresh main `e205683422907edf8c27f99c01aab317cca3f66c`.
 
 `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3 is canonically CLOSED. Documentation & Closure PR #487 head `9dc0ed34f7a9994ee7699d550f5947e36297f773` passed Deterministic CI #1163 and Heavy Product Tests #629 and merged as `ac3e528bce3f3493d605a00fb2e24b3bd6cac018` with zero closure-head -> merge-main file differences.
@@ -22,3 +22,10 @@ Package Integration & Review PR #503 exact head `1b912104becb6df84ad08c4354e082a
 Documentation & Closure PR #504 exact head `56c0dad425977faa2eeaa4dc438a36e2426e4917` passed Deterministic CI #1204 and Heavy Product Tests #671, had no blocking review/thread, and merged with expected-head protection as `73a0d3db1941d7df2f686a6825d1a0fd91e74a4c`. Closure head and merge-main share tree `3e2a7b15e9d22315e8cac73af9bb141b2e2c204c`, proving zero file drift.
 
 WBS 18.3.1–18.3.3 is SATISFIED / INTEGRATED / CLOSED. Preserved boundaries remain unchanged: canonical M15 `human-decision` is business authority; Git/PR/model/classification/ADR evidence is non-authoritative; no Builder/Runtime topology change, release/deployment execution authority, storage redesign, unrelated finding/TD absorption or inferred L4 was introduced.
+
+## M19 Pre-Alpha Productization — ACTIVE
+`P19-PACKAGE-01 — Consolidated Pre-Alpha Productization` is the active rolling-wave package authority. The package forecast remains non-executable except for explicitly materialized work.
+
+Planning PR #510 materialized only Construction Sprint `P19-FACTORY-JOURNEY-CONTRACT-01` / WBS 19.1.1 and merged it to fresh main as `814896bed3213b7933338a52b904b3ea2df9fd6b`. The Sprint status is COMMITTED / MATERIALIZED / NOT EXECUTED with TASK-419..423 in dependency order; TASK-419 is initially ready and TASK-420..423 remain predecessor-blocked.
+
+This materialization authorizes bounded additive L3 work in the existing factory-boundary contract plus focused product evidence. It does not authorize WBS 19.1.2+, orchestration, runtime launch, storage redesign, release/deploy side effects, Builder/Runtime topology change, unrelated debt absorption or inferred L4. Canonical M15 human-decision authority and exact predecessor identity/provenance rules remain preserved.
