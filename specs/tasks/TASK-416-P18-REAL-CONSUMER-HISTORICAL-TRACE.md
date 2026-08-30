@@ -41,6 +41,22 @@ validation:
 # Objective
 Expose a representative historical trace using the actual Release/Deploy integration seams while delegating canonical lineage/query truth to process-versioning.
 
+# Context
+TASK-414 and TASK-415 establish Release and Deploy consumer seams. The package goal additionally requires an executable historical trace by canonical process revision through those real consumers rather than only contract-layer proof.
+
+# Current behavior
+Construction A can answer the canonical history query, while the materialized Construction B has not yet composed that result through the real Release/Deploy seams introduced by its predecessors.
+
+# Inputs / contracts
+- TASK-414 Release-side consumer seam;
+- TASK-415 Deploy-side consumer seam;
+- canonical process-versioning historical query;
+- BusinessRecipe, SystemAnalysis and SystemDefinition public identities/contracts;
+- existing Release/Deploy public APIs.
+
+# Outputs / contracts
+A representative historical trace composition that selects a canonical process revision and resolves its exact analysis, SystemDefinition, Release and Deployment through the real consumer seams without introducing parallel lineage truth.
+
 # Required change
 Compose the consumer APIs introduced by TASK-414/415 with the canonical process revision historical query. Do not implement a parallel lineage store, validator or business identity.
 
@@ -53,3 +69,9 @@ Compose the consumer APIs introduced by TASK-414/415 with the canonical process 
 
 # Non-goals
 No persistence topology change, process-versioning contract redesign, release/deploy execution authority, Runtime/Compiler mutation or L4 change.
+
+# Evidence expected
+Product evidence proving one exact positive history trace plus missing and cross-artifact failures through the real consumer composition, with compatibility of pre-existing Release/Deploy APIs.
+
+# Escalation
+Stop and mark blocked if historical composition requires a parallel lineage store, canonical contract redesign, new release/deployment authority, Runtime/Compiler mutation, persistence topology change or any undeclared L4 surface.
