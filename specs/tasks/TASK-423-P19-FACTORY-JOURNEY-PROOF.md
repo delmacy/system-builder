@@ -4,6 +4,7 @@ title: Prove canonical factory journey contract end to end
 status: blocked
 priority: 423
 milestone: M19
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
@@ -37,8 +38,20 @@ validation:
 # Objective
 Close Construction 1 with growing product evidence for the exact WBS 19.1.1 journey contract over integrated predecessor identities.
 
+# Context
+This task consumes TASK-419..422 and proves only the committed WBS 19.1.1 contract over real public predecessor identities.
+
+# Current behavior
+The journey contract requires integrated positive and bypass-resistant negative evidence before Sprint Review; no successor-sprint implementation is authorized here.
+
 # Required change
 Add focused product proof that composes canonical approved/versioned process identity through analysis/definition and the existing factory-boundary artifact stages to deployment identity, plus bypass-resistant negative cases.
+
+# Inputs / contracts
+The canonical factory-journey envelope, bindings and validator from TASK-419..422 together with existing public process-versioning and factory-boundary contracts.
+
+# Outputs / contracts
+Focused product evidence proving the complete WBS 19.1.1 journey contract without new runtime or deployment behavior.
 
 # Acceptance criteria
 - one deterministic canonical full journey is proven from exact predecessor identities;
@@ -50,6 +63,9 @@ Add focused product proof that composes canonical approved/versioned process ide
 
 # Non-goals
 No WBS 19.1.2 composition engine, WBS 19.1.3 command/API, operator bootstrap, runtime launch or dogfood.
+
+# Evidence expected
+Product tests proving the canonical full journey and required negative cases, plus declared repository-wide validation evidence.
 
 # Escalation
 Stop if proof requires successor-sprint implementation, topology change or undeclared L4.
