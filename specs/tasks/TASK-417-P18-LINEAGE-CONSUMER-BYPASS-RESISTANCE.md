@@ -38,6 +38,22 @@ validation:
 # Objective
 Prove the real Release/Deploy consumer integration preserves compatibility while rejecting attempts to bypass canonical process-to-system lineage truth.
 
+# Context
+TASK-414..416 establish the consumer seams and representative historical trace. This task is the dedicated adversarial/compatibility proof before the Construction-level growing proof.
+
+# Current behavior
+The materialized Construction B declares fail-closed and backward-compatible integration requirements, but those guarantees are not yet proven across the actual Release/Deploy consumer seams.
+
+# Inputs / contracts
+- TASK-414 Release-side admission seam;
+- TASK-415 Deploy-side admission seam;
+- TASK-416 real-consumer historical trace composition;
+- canonical process-versioning lineage/query APIs;
+- existing Release/Deploy behavior used by callers before Construction B.
+
+# Outputs / contracts
+Focused executable proof that valid legacy behavior remains intact while forged, missing, reversed, cross-artifact, duplicate/conflicting and non-authoritative substitution attempts are rejected by the new lineage seams.
+
 # Required change
 Add focused product evidence around TASK-414..416. Prefer tests over new implementation unless a bounded defect in the materialized consumer seam must be corrected.
 
@@ -50,3 +66,9 @@ Add focused product evidence around TASK-414..416. Prefer tests over new impleme
 
 # Non-goals
 No new product capability beyond proving the already-materialized integration goal; no contract redesign, persistence redesign, deployment execution changes or L4 work.
+
+# Evidence expected
+Focused positive compatibility tests plus negative/adversarial cases for every bypass class named in the acceptance criteria, executed through real Release/Deploy seams.
+
+# Escalation
+Stop and mark blocked if proving bypass resistance requires canonical contract redesign, release/deployment authority changes, persistence redesign, Runtime/Compiler mutation, Decision Boundary change or any undeclared L4 surface.
