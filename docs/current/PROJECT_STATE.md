@@ -14,15 +14,11 @@ Canonical M15 `human-decision` remains final P17 promotion/rejection authority. 
 
 `P18-PACKAGE-02 — Semantic Process Change Classification & Approval Evidence` / WBS 18.2.1–18.2.3 is canonically CLOSED. Documentation & Closure PR #487 head `9dc0ed34f7a9994ee7699d550f5947e36297f773` passed Deterministic CI #1163 and Heavy Product Tests #629 and merged as `ac3e528bce3f3493d605a00fb2e24b3bd6cac018` with zero closure-head -> merge-main file differences.
 
-### P18-PACKAGE-03 — ACTIVE / DOCUMENTATION & CLOSURE
-Construction A `P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01` / TASK-409..413 is integrated by PR #497 on fresh main `294c348271f3efc416c71ecef7e2329c63128d97`.
+### P18-PACKAGE-03 — CANONICALLY CLOSED
+Construction A `P18-PROCESS-SYSTEM-LINEAGE-CONTRACT-01` / TASK-409..413 integrated by PR #497. Construction B `P18-PROCESS-SYSTEM-LINEAGE-INTEGRATION-01` / TASK-414..418 integrated by PR #500. Construction C is NOT REQUIRED / NOT MATERIALIZED.
 
-Construction B `P18-PROCESS-SYSTEM-LINEAGE-INTEGRATION-01` / TASK-414..418 is integrated by PR #500. Exact Sprint Review head `f03d7d845d22f9fb05a52cb66fe4ac5d20a1eb8d` merged as `dd8b5d909df3fc82a43e0721672b11e3dddb5691`.
+Package Integration & Review PR #503 exact head `1b912104becb6df84ad08c4354e082ab15228590` passed Deterministic CI #1203 and Heavy Product Tests #670 and merged as `f175ac411b7f354b356993d9cf3856d5f7bda0ae` with no blocking review finding.
 
-Optional Construction C is `NOT REQUIRED / NOT MATERIALIZED`: fresh-main evidence already covers canonical process revision -> Analysis -> SystemDefinition -> Release -> Deployment lineage, representative Release/Deploy consumer admission, deterministic historical query composition, backward compatibility and fail-closed bypass resistance.
+Documentation & Closure PR #504 exact head `56c0dad425977faa2eeaa4dc438a36e2426e4917` passed Deterministic CI #1204 and Heavy Product Tests #671, had no blocking review/thread, and merged with expected-head protection as `73a0d3db1941d7df2f686a6825d1a0fd91e74a4c`. Closure head and merge-main share tree `3e2a7b15e9d22315e8cac73af9bb141b2e2c204c`, proving zero file drift.
 
-Package Integration & Review `P18-PACKAGE-03-INTEGRATION-REVIEW-01` exact head `1b912104becb6df84ad08c4354e082ab15228590` passed Deterministic CI #1203 and Heavy Product Tests #670 and merged through PR #503 as fresh main `f175ac411b7f354b356993d9cf3856d5f7bda0ae` with no blocking review finding.
-
-`P18-PACKAGE-03-DOCUMENTATION-CLOSURE-01` is now the active committed closure gate. It reconciles repository memory and traceability only; no new product capability is authorized. Canonical CLOSED state is contingent on exact-head closure CI + Heavy, no blocking review, expected-head merge and fresh-main equivalence.
-
-Preserved boundaries: canonical M15 `human-decision` remains business authority; classification/model/Git/PR/ADR evidence does not become business approval or version authority; no Builder/Runtime topology change, release/deployment execution authority, storage redesign, unrelated finding/TD absorption or inferred L4 is authorized.
+WBS 18.3.1–18.3.3 is SATISFIED / INTEGRATED / CLOSED. Preserved boundaries remain unchanged: canonical M15 `human-decision` is business authority; Git/PR/model/classification/ADR evidence is non-authoritative; no Builder/Runtime topology change, release/deployment execution authority, storage redesign, unrelated finding/TD absorption or inferred L4 was introduced.
