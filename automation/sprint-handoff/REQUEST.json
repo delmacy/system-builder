@@ -1,5 +1,7 @@
 {
-  "type": "CONFORMANCE_COMPLETE",
-  "owner": "conformance",
-  "at": "2026-08-30T23:01:13Z"
+  "type": "WORKER_HANDOFF",
+  "owner": ":10",
+  "next_worker": ":30",
+  "at": "2026-08-30T23:10:34Z",
+  "reason": "PR #512 head 5d44d727c4e5dcebac673d13efee833ef9525b0b has Heavy success but Deterministic CI #1225 failure after TASK-422; diagnose bounded deterministic verification before TASK-423."
 }
