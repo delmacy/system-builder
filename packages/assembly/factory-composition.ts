@@ -6,11 +6,11 @@ import {
 import {
   normalizeFactoryJourneyInputBinding,
   type FactoryJourneyInputBinding,
-} from "../contracts/factory-boundary/journey.js";
+} from "@system-builder/contracts/factory-boundary";
 import {
   resolveCatalogCandidates,
   type SoftwareCatalogRegistry,
-} from "../catalog/index.js";
+} from "@system-builder/catalog";
 
 export type FactoryCompositionRequest = Readonly<{
   journeyBinding: unknown;
