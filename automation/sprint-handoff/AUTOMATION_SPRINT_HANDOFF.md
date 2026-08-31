@@ -4,14 +4,14 @@ machine_state: NEXT_30
 next_worker: :30
 claimed_by: null
 claim_until: null
-sequence: 209
-updated_at: 2026-08-31T06:25:00Z
+sequence: 210
+updated_at: 2026-08-31T06:25:29.821Z
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: success
 heavy_product_tests: success
-last_event: WORKER_HANDOFF
+last_event: CHECK_COMPLETED
 reason: null
 
 ## Authority
