@@ -35,8 +35,6 @@ The canonical ownership ring is:
 
 Routing is chronological within the hour. Once the `:50` slot has elapsed, the next eligible worker is `:10` of the next hour.
 
-Legacy handoff state that still contains `conformance` is migrated by the reducer to `:30` on the next accepted event. Legacy conformance-specific fields are removed from the normalized state.
-
 A CI handoff records exact-head check context for the managed PR. The required checks are:
 
 - `Deterministic CI`
