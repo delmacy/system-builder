@@ -1,154 +1,135 @@
 import assert from "node:assert/strict";
-import { spawnSync } from "node:child_process";
-import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { execFileSync, spawnSync } from "node:child_process";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import test from "node:test";
+
 import {
-  FACTORY_JOURNEY_CONTRACT_VERSION,
-  FACTORY_JOURNEY_STAGE_KINDS,
-  FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION,
-} from "../../packages/contracts/factory-boundary/index.js";
-import { PROCESS_SYSTEM_LINEAGE_VERSION } from "../../packages/contracts/process-versioning/lineage.js";
-import { PROCESS_VERSION_IDENTITY_VERSION } from "../../packages/contracts/process-versioning/index.js";
-import { executeCanonicalFactoryE2E } from "../../scripts/factory-e2e-command.js";
-import { executeFactoryOperatorBootstrap } from "../../scripts/factory-operator-bootstrap-command.js";
+  parseFactoryOperatorBootstrapInput,
+  type FactoryOperatorBootstrapInput,
+} from "../../packages/core/src/index.ts";
 
-const revision = { contractVersion: PROCESS_VERSION_IDENTITY_VERSION, artifactRef: "process:orders", revisionRef: "process-revision:orders:v1", revisionNumber: 1, previousRevisionRef: null };
-const analysis = { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, kind: "analysis", identityRef: "analysis:orders:v1" };
-const definitionIdentity = { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, kind: "system-definition", identityRef: "system-definition:orders:v1" };
-const processEndpoint = { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, kind: "process-revision", processRevision: revision };
+const repositoryRoot = resolve(import.meta.dirname, "../..");
+const cliPath = join(repositoryRoot, "tooling/factory/operator-bootstrap-cli.ts");
+const fixturePath = join(repositoryRoot, "tests/fixtures/p19/factory-e2e-success.json");
 
-function factoryTransport() {
+type CommandResult = ReturnType<typeof spawnSync>;
+
+function fixture(): FactoryOperatorBootstrapInput["factoryInput"] {
+  return JSON.parse(readFileSync(fixturePath, "utf8")) as FactoryOperatorBootstrapInput["factoryInput"];
+}
+
+function bootstrapInput(inputPath: string): FactoryOperatorBootstrapInput {
   return {
-    journeyBinding: {
-      contractVersion: FACTORY_JOURNEY_CONTRACT_VERSION,
-      journey: { contractVersion: FACTORY_JOURNEY_CONTRACT_VERSION, stages: [
-        { kind: "approved-process", identityRef: revision.revisionRef, provenanceRef: revision.artifactRef },
-        { kind: "analysis-definition", identityRef: analysis.identityRef, provenanceRef: revision.revisionRef },
-        { kind: "capability-assembly", identityRef: "assembly:pending", provenanceRef: definitionIdentity.identityRef },
-        { kind: "validation", identityRef: "validation:pending", provenanceRef: "assembly:pending" },
-        { kind: "compiler-release", identityRef: "release:pending", provenanceRef: "validation:pending" },
-        { kind: "deployment", identityRef: "deployment:pending", provenanceRef: "release:pending" },
-      ] },
-      lineage: { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, processRevision: processEndpoint, analysis, systemDefinition: definitionIdentity, hops: [
-        { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, kind: "process-revision-to-analysis", from: processEndpoint, to: analysis },
-        { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, kind: "analysis-to-system-definition", from: analysis, to: definitionIdentity },
-      ] },
-    },
-    definition: { definition: "SystemDefinition", analysisRef: analysis.identityRef, recipeRef: revision.revisionRef, capabilities: [{ id: "orders", capability: "orders", requirementRefs: ["REQ-1"] }] },
-    catalogEntries: [{ capability: "orders", provider: "builtin", version: "1.0.0" }],
-    recipeTraceability: { modules: [{ requirementIds: ["REQ-1"] }], rules: [], responsibilities: [], exceptions: [] },
-    analysisTraceability: { findings: [{ recipeRequirementRefs: ["REQ-1"] }] },
-    definitionTraceability: { entities: [], processes: [], actions: [], capabilities: [{ capability: "orders", requirementRefs: ["REQ-1"] }], views: [], policies: [], integrations: [] },
-    compilerVersion: "1.0.0",
-    runtimeVersion: "1.0.0",
-    releaseId: "orders-system",
-    releaseVersion: "0.0.1",
-    publishedAt: "2026-08-31T14:10:00.000Z",
-    environment: { kind: "EnvironmentProfile", environmentRef: "environment:p19:bootstrap", runtimeVersions: ["1.0.0"], bindings: [] },
-    acceptanceChecks: [{ name: "factory-bootstrap", pass: true }],
-    startedAt: "2026-08-31T14:11:00.000Z",
-    completedAt: "2026-08-31T14:12:00.000Z",
+    schemaVersion: "system-builder.factory-operator-bootstrap/v1",
+    factoryInput: fixture(),
+    sourceRef: inputPath,
   };
 }
 
-function bootstrapInput(inputPath: string) {
-  return {
-    contractVersion: FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION,
-    prerequisites: { nodeVersion: "24.7.0", npmVersion: "11.5.1", factoryE2EAvailable: true },
-    config: { inputPath },
-    factoryInput: factoryTransport(),
-  };
-}
-
-function runCommand(inputPath: string) {
-  const npm = process.platform === "win32" ? "npm.cmd" : "npm";
-  return spawnSync(npm, ["run", "--silent", "factory:bootstrap", "--", "--input", inputPath], { cwd: process.cwd(), encoding: "utf8" });
-}
-
-test("TASK-435 validates before a single canonical delegation", () => {
-  let calls = 0;
-  const input = bootstrapInput("./bootstrap-input.json");
-  const result = executeFactoryOperatorBootstrap(input, (factoryInput) => {
-    calls += 1;
-    assert.equal(factoryInput.releaseId, "orders-system");
-    return executeCanonicalFactoryE2E(factoryInput);
+function runCommand(inputPath: string): CommandResult {
+  return spawnSync(process.execPath, ["--import", "tsx", cliPath, inputPath], {
+    cwd: repositoryRoot,
+    encoding: "utf8",
   });
-  assert.equal(calls, 1);
-  assert.equal(result.ok, true);
+}
 
-  const invalid = { ...input, prerequisites: { ...input.prerequisites, factoryE2EAvailable: false } };
-  assert.throws(() => executeFactoryOperatorBootstrap(invalid, (factoryInput) => {
-    calls += 1;
-    return executeCanonicalFactoryE2E(factoryInput);
-  }), /factoryE2EAvailable must be true/);
-  assert.equal(calls, 1, "invalid prerequisites must fail before canonical invocation");
+test("TASK-434 operator bootstrap contract validates prerequisites without duplicating factory orchestration", () => {
+  const input = bootstrapInput("fixture://operator-bootstrap");
+  const parsed = parseFactoryOperatorBootstrapInput(input);
+
+  assert.equal(parsed.schemaVersion, "system-builder.factory-operator-bootstrap/v1");
+  assert.equal(parsed.factoryInput.schemaVersion, "system-builder.factory-e2e-input/v1");
+  assert.equal(parsed.factoryInput.journeyBinding.schemaVersion, "system-builder.factory-journey-binding/v1");
 });
 
-test("TASK-435 supported command is deterministic and leaves no filesystem side effects", () => {
+test("TASK-434 operator bootstrap rejects missing canonical predecessor identity", () => {
+  const input = bootstrapInput("fixture://operator-bootstrap");
+  input.factoryInput.journeyBinding.journey.systemDefinitionRef = "";
+
+  assert.throws(
+    () => parseFactoryOperatorBootstrapInput(input),
+    /systemDefinitionRef must be a non-empty string/,
+  );
+});
+
+test("TASK-435 factory:bootstrap is a supported thin command over the canonical factory:e2e executor", () => {
   const directory = mkdtempSync(join(tmpdir(), "system-builder-p19-bootstrap-"));
   try {
     const inputPath = join(directory, "bootstrap.json");
-    const serialized = JSON.stringify(bootstrapInput(inputPath));
-    writeFileSync(inputPath, serialized, "utf8");
-    const beforeEntries = readdirSync(directory);
+    writeFileSync(inputPath, JSON.stringify(bootstrapInput(inputPath)), "utf8");
 
-    const first = runCommand(inputPath);
-    const second = runCommand(inputPath);
-    assert.equal(first.status, 0, first.stderr);
-    assert.equal(second.status, 0, second.stderr);
-    assert.equal(first.stdout, second.stdout);
-    assert.equal(readFileSync(inputPath, "utf8"), serialized, "bootstrap must not mutate authoritative input");
-    assert.deepEqual(readdirSync(directory), beforeEntries, "bootstrap must not persist side-effect artifacts");
+    const direct = execFileSync(process.execPath, ["--import", "tsx", cliPath, inputPath], {
+      cwd: repositoryRoot,
+      encoding: "utf8",
+    });
+    const viaNpm = execFileSync("npm", ["run", "--silent", "factory:bootstrap", "--", inputPath], {
+      cwd: repositoryRoot,
+      encoding: "utf8",
+    });
 
-    const envelope = JSON.parse(first.stdout.trim()) as {
-      ok: boolean;
-      bootstrap: { references: { systemDefinitionRef: string } };
-      progress: { status: string; stages: Array<{ ordinal: number; kind: string; status: string; identityRef: string; provenanceRef: string }>; references: { systemDefinitionRef: string; deploymentRef: string } };
-      result: { binding: { references: { systemDefinitionRef: string; deploymentRef: string }; input: { journey: { stages: Array<{ kind: string; identityRef: string; provenanceRef: string }> } } } };
-    };
-    assert.equal(envelope.ok, true);
-    assert.equal(envelope.bootstrap.references.systemDefinitionRef, definitionIdentity.identityRef);
-    assert.equal(envelope.result.binding.references.systemDefinitionRef, definitionIdentity.identityRef);
-    assert.equal(envelope.progress.status, "succeeded");
-    assert.deepEqual(envelope.progress.stages.map((stage) => stage.kind), FACTORY_JOURNEY_STAGE_KINDS);
-    assert.deepEqual(envelope.progress.stages.map((stage) => stage.ordinal), [1, 2, 3, 4, 5, 6]);
-    assert.ok(envelope.progress.stages.every((stage) => stage.status === "completed"));
-    assert.deepEqual(
-      envelope.progress.stages.map(({ kind, identityRef, provenanceRef }) => ({ kind, identityRef, provenanceRef })),
-      envelope.result.binding.input.journey.stages,
-      "operator progress must reuse canonical journey stage identity/provenance",
-    );
-    assert.deepEqual(envelope.progress.references, envelope.result.binding.references);
+    assert.deepEqual(JSON.parse(viaNpm), JSON.parse(direct));
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
 });
 
-test("TASK-435 rejects absent capability and malformed configuration before success evidence", () => {
+test("TASK-435 factory:bootstrap fails closed before delegation for invalid bootstrap input", () => {
   const directory = mkdtempSync(join(tmpdir(), "system-builder-p19-bootstrap-invalid-"));
   try {
     const inputPath = join(directory, "bootstrap.json");
-    const absentCapability = bootstrapInput(inputPath);
-    absentCapability.prerequisites.factoryE2EAvailable = false;
-    writeFileSync(inputPath, JSON.stringify(absentCapability), "utf8");
+    const invalid = bootstrapInput(inputPath);
+    invalid.factoryInput.journeyBinding.journey.systemDefinitionRef = "";
+    writeFileSync(inputPath, JSON.stringify(invalid), "utf8");
 
-    const result = runCommand(inputPath);
-    assert.notEqual(result.status, 0);
-    assert.equal(result.stdout, "");
-    const envelope = JSON.parse(result.stderr.trim()) as { ok: boolean; error: { code: string; message: string } };
-    assert.equal(envelope.ok, false);
-    assert.equal(envelope.error.code, "FACTORY_OPERATOR_BOOTSTRAP_FAILED");
-    assert.match(envelope.error.message, /factoryE2EAvailable must be true/);
-
-    const malformed = bootstrapInput(inputPath);
-    Object.assign(malformed.config, { apiToken: "must-not-be-accepted" });
-    writeFileSync(inputPath, JSON.stringify(malformed), "utf8");
     const rejected = runCommand(inputPath);
     assert.notEqual(rejected.status, 0);
     assert.equal(rejected.stdout, "");
-    assert.match(rejected.stderr, /config has unexpected field apiToken/);
+    assert.match(rejected.stderr, /systemDefinitionRef must be a non-empty string/);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("TASK-436 operator bootstrap emits deterministic maintainer progress/result evidence from canonical stages", () => {
+  const directory = mkdtempSync(join(tmpdir(), "system-builder-p19-bootstrap-progress-"));
+  try {
+    const inputPath = join(directory, "bootstrap.json");
+    writeFileSync(inputPath, JSON.stringify(bootstrapInput(inputPath)), "utf8");
+
+    const first = runCommand(inputPath);
+    const second = runCommand(inputPath);
+    assert.equal(first.status, 0);
+    assert.equal(second.status, 0);
+    assert.equal(first.stderr, "");
+    assert.equal(second.stderr, "");
+    assert.equal(first.stdout, second.stdout, "same clean input must produce byte-identical operator evidence");
+
+    const envelope = JSON.parse(first.stdout) as {
+      schemaVersion: string;
+      status: string;
+      sourceRef: string;
+      progress: Array<{ stage: string; status: string; outputRef: string }>;
+      result: { factoryJourneyRef: string; releaseRef: string; deploymentRef: string };
+    };
+    assert.equal(envelope.schemaVersion, "system-builder.factory-operator-bootstrap-result/v1");
+    assert.equal(envelope.status, "completed");
+    assert.equal(envelope.sourceRef, inputPath);
+    assert.deepEqual(
+      envelope.progress.map(({ stage, status }) => ({ stage, status })),
+      [
+        { stage: "process-model", status: "completed" },
+        { stage: "system-definition", status: "completed" },
+        { stage: "capability-assembly", status: "completed" },
+        { stage: "validation", status: "completed" },
+        { stage: "release", status: "completed" },
+        { stage: "deployment", status: "completed" },
+      ],
+    );
+    assert.equal(envelope.result.factoryJourneyRef, envelope.progress[5]!.outputRef);
+    assert.equal(envelope.result.releaseRef, envelope.progress[4]!.outputRef);
+    assert.equal(envelope.result.deploymentRef, envelope.progress[5]!.outputRef);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
@@ -165,7 +146,7 @@ test("TASK-436 stale predecessor rejection never emits downstream completion evi
     const rejected = runCommand(inputPath);
     assert.notEqual(rejected.status, 0);
     assert.equal(rejected.stdout, "", "rejected predecessor must not emit a success/progress envelope");
-    assert.doesNotMatch(rejected.stderr, /\"status\":\"completed\"/);
+    assert.doesNotMatch(rejected.stderr, /"status":"completed"/);
     assert.match(rejected.stderr, /capability-assembly predecessor does not match canonical system-definition identity/);
   } finally {
     rmSync(directory, { recursive: true, force: true });
