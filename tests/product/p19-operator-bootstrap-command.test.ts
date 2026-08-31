@@ -213,7 +213,7 @@ test("TASK-436 stale predecessor rejection never emits downstream completion evi
     const rejected = runCommand(inputPath);
     assert.notEqual(rejected.status, 0);
     assert.equal(String(rejected.stdout), "", "rejected predecessor must not emit a success/progress envelope");
-    assert.doesNotMatch(String(rejected.stderr), /\"status\":\"completed\"/);
+    assert.doesNotMatch(String(rejected.stderr), /"status":"completed"/);
     assert.match(String(rejected.stderr), /capability-assembly predecessor does not match canonical system-definition identity/);
   } finally {
     rmSync(directory, { recursive: true, force: true });
