@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":50",
-  "at": "2026-08-31T19:14:00Z",
-  "reason": "Operator correction: handoff must point to :30 instead of :50. Current canonical state was READY at :50; emit a deterministic WORKER_HANDOFF in the 19:14Z window so scheduledWorkerAfter resolves the next eligible slot to :30. Preserve current P19 work state and do not alter product scope."
+  "owner": ":30",
+  "at": "2026-08-31T19:32:30Z",
+  "reason": "PR #526 head 9f64380d54cdb5bfc206282c6e4561a989748531. TASK-434 and TASK-435 revalidated; TASK-436 completed with deterministic progress/result evidence derived only from canonical completed journey stages and references, plus stale predecessor negative proof. Deterministic CI #1284 and Heavy Product Tests #753 are currently running on the exact head. Next worker :50 must revalidate both runs; if green, review TASK-436 integration and only then advance to TASK-437. Risk: current-head CI/type/product proof remains to be confirmed; no mutable orchestration state or downstream scope was introduced."
 }
