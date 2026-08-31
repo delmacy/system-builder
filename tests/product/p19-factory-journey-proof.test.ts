@@ -167,7 +167,7 @@ test("WBS 19.1.1 rejects missing, stale, duplicate and reordered canonical stage
 
   const duplicate = clone(canonicalBinding());
   duplicate.input.journey.stages[5]!.identityRef = refs.publishedRelease;
-  duplicate.deploymentRecord.deploymentId = refs.publishedRelease;
+  (duplicate.deploymentRecord as { deploymentId: string }).deploymentId = refs.publishedRelease;
   assert.throws(() => normalizeCanonicalFactoryJourney(duplicate), /duplicate stage identity/);
 
   const reordered = clone(canonicalBinding());
