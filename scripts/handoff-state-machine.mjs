@@ -4,12 +4,13 @@ import { argv, stdout } from "node:process";
 
 export const REQUIRED_CHECKS = ["Deterministic CI", "Heavy Product Tests"];
 export const WORKER_SLOTS = [
-  { worker: "conformance", minute: 0 },
   { worker: ":10", minute: 10 },
   { worker: ":30", minute: 30 },
   { worker: ":50", minute: 50 },
 ];
 export const WORKERS = WORKER_SLOTS.map(({ worker }) => worker);
+
+const LEGACY_CONFORMANCE_FALLBACK = ":30";
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -35,13 +36,28 @@ export function scheduledWorkerAfter(event) {
   return WORKER_SLOTS[0].worker;
 }
 
+function normalizeWorker(worker, fallback = ":10") {
+  if (worker === "conformance") return LEGACY_CONFORMANCE_FALLBACK;
+  return WORKERS.includes(worker) ? worker : fallback;
+}
+
+function normalizeOptionalWorker(worker) {
+  if (worker === "conformance") return null;
+  return WORKERS.includes(worker) ? worker : null;
+}
+
 function normalize(state) {
   const next = clone(state);
   next.version = 2;
-  next.next_worker ??= state.owner ?? ":10";
-  next.claimed_by ??= state.phase === "RUNNING" ? state.owner ?? null : null;
+  next.next_worker = normalizeWorker(next.next_worker ?? state.owner ?? ":10");
+
+  const claimed = next.claimed_by ?? (state.phase === "RUNNING" ? state.owner ?? null : null);
+  next.claimed_by = normalizeOptionalWorker(claimed);
   next.claim_until ??= state.lease_until ?? null;
-  next.resume_worker ??= state.resume_owner ?? null;
+
+  const resume = next.resume_worker ?? state.resume_owner ?? null;
+  next.resume_worker = normalizeOptionalWorker(resume);
+
   next.sequence ??= 0;
   next.updated_at ??= new Date().toISOString();
   next.active_pr ??= null;
@@ -58,7 +74,7 @@ function syncLegacy(state) {
   state.resume_owner = state.resume_worker ?? null;
   state.lease_until = state.claim_until ?? null;
   state.phase = state.claimed_by === state.next_worker ? "RUNNING" : "READY";
-  state.conformance_due = false;
+  delete state.conformance_due;
   return state;
 }
 
@@ -137,7 +153,6 @@ export function reduceHandoffState(rawState, event) {
         next.next_worker = scheduledWorkerAfter(event);
         next.claimed_by = null;
         next.claim_until = null;
-        if (next.next_worker === "conformance") next.resume_worker = null;
         return next;
       });
     }
@@ -173,32 +188,6 @@ export function reduceHandoffState(rawState, event) {
       });
     }
 
-    case "CONFORMANCE_DUE": {
-      if (state.next_worker === "conformance") return ignored(state, "conformance already next");
-      return accepted(state, event, (next) => {
-        next.resume_worker = next.next_worker;
-        next.next_worker = "conformance";
-        next.claimed_by = null;
-        next.claim_until = null;
-        return next;
-      });
-    }
-
-    case "CONFORMANCE_COMPLETE": {
-      if (state.next_worker !== "conformance" && state.claimed_by !== "conformance") {
-        return ignored(state, "conformance does not hold token");
-      }
-      return accepted(state, event, (next) => {
-        const scheduled = scheduledWorkerAfter(event);
-        next.next_worker = next.resume_worker ?? (scheduled === "conformance" ? ":10" : scheduled);
-        next.resume_worker = null;
-        next.claimed_by = null;
-        next.claim_until = null;
-        next.reason = null;
-        return next;
-      });
-    }
-
     case "LEASE_TICK": {
       if (!state.claimed_by || !state.claim_until || !claimExpired(state, event)) {
         return ignored(state, "no expired claim");
@@ -218,7 +207,7 @@ export function reduceHandoffState(rawState, event) {
 
 function displayState(state) {
   const normalized = normalize(state);
-  const who = normalized.next_worker === "conformance" ? "CONF" : normalized.next_worker.slice(1);
+  const who = normalized.next_worker.slice(1);
   return normalized.claimed_by === normalized.next_worker ? `CLAIMED_${who}` : `NEXT_${who}`;
 }
 

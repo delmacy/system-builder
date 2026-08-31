@@ -21,17 +21,17 @@ function baseState(overrides = {}) {
   };
 }
 
-test("scheduled routing chooses the nearest strictly posterior recurrence", () => {
+test("scheduled routing chooses the nearest strictly posterior worker recurrence", () => {
   assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:03:00.000Z" }), ":10");
   assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:17:00.000Z" }), ":30");
   assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:47:00.000Z" }), ":50");
-  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:55:00.000Z" }), "conformance");
+  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:55:00.000Z" }), ":10");
 });
 
 test("scheduled routing treats an exact slot as already elapsed", () => {
   assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:10:00.000Z" }), ":30");
   assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:30:00.000Z" }), ":50");
-  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:50:00.000Z" }), "conformance");
+  assert.equal(scheduledWorkerAfter({ at: "2026-08-30T04:50:00.000Z" }), ":10");
   assert.equal(scheduledWorkerAfter({ at: "2026-08-30T05:00:00.000Z" }), ":10");
 });
 
@@ -90,7 +90,7 @@ test("failed required check records failure without reclaiming or blocking the t
   assert.equal(result.next.reason, "CI_FAILED:Deterministic CI:failure");
 });
 
-test("worker handoff routes by completion time instead of owner identity", () => {
+test("worker handoff routes only among :10, :30 and :50", () => {
   const from10 = reduceHandoffState(baseState({ next_worker: ":10" }), {
     type: "WORKER_HANDOFF",
     owner: ":10",
@@ -103,7 +103,7 @@ test("worker handoff routes by completion time instead of owner identity", () =>
     owner: ":30",
     at: "2026-08-30T04:55:00.000Z",
   });
-  assert.equal(from30.next.next_worker, "conformance");
+  assert.equal(from30.next.next_worker, ":10");
 
   const from50 = reduceHandoffState(baseState({ next_worker: ":50" }), {
     type: "WORKER_HANDOFF",
@@ -125,40 +125,24 @@ test("PR CI started by any owner uses the next chronological recurrence", () => 
   assert.equal(result.next.next_worker, ":50");
 });
 
-test("normal conformance completion routes to the next chronological recurrence", () => {
-  const result = reduceHandoffState(baseState({ next_worker: "conformance" }), {
-    type: "CONFORMANCE_COMPLETE",
+test("legacy conformance state migrates to :30 on the next accepted event", () => {
+  const result = reduceHandoffState(baseState({
+    next_worker: "conformance",
     owner: "conformance",
-    at: "2026-08-30T04:47:00.000Z",
+    claimed_by: "conformance",
+    phase: "RUNNING",
+    conformance_due: true,
+  }), {
+    type: "WORKER_CLAIM",
+    owner: ":30",
+    at: "2026-08-30T04:17:00.000Z",
   });
-  assert.equal(result.next.next_worker, ":50");
-});
 
-test("conformance completion cannot route back to conformance when no resume worker exists", () => {
-  const result = reduceHandoffState(baseState({ next_worker: "conformance", resume_worker: null }), {
-    type: "CONFORMANCE_COMPLETE",
-    owner: "conformance",
-    at: "2026-08-30T04:57:00.000Z",
-  });
-  assert.equal(result.next.next_worker, ":10");
-  assert.equal(result.next.resume_worker, null);
-});
-
-test("scheduled conformance interruption still returns to its explicit interrupted resume worker", () => {
-  let state = reduceHandoffState(baseState({ next_worker: ":30" }), {
-    type: "CONFORMANCE_DUE",
-    at: "2026-08-28T23:10:00.000Z",
-  }).next;
-  assert.equal(state.next_worker, "conformance");
-  assert.equal(state.resume_worker, ":30");
-
-  state = reduceHandoffState(state, {
-    type: "CONFORMANCE_COMPLETE",
-    owner: "conformance",
-    at: "2026-08-28T23:11:00.000Z",
-  }).next;
-  assert.equal(state.next_worker, ":30");
-  assert.equal(state.resume_worker, null);
+  assert.equal(result.accepted, true);
+  assert.equal(result.next.next_worker, ":30");
+  assert.equal(result.next.claimed_by, ":30");
+  assert.equal(result.next.owner, ":30");
+  assert.equal("conformance_due" in result.next, false);
 });
 
 test("claim is advisory and does not change next worker", () => {
