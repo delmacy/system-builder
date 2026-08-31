@@ -1,18 +1,18 @@
 # Automation Sprint Handoff
 
-machine_state: NEXT_30
-next_worker: :30
+machine_state: NEXT_50
+next_worker: :50
 claimed_by: null
 claim_until: null
-sequence: 178
-updated_at: 2026-08-31T00:15:19.058Z
+sequence: 179
+updated_at: 2026-08-31T00:30:30Z
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: failure
 heavy_product_tests: success
-last_event: CHECK_COMPLETED
-reason: CI_FAILED:Heavy Product Tests:success
+last_event: WORKER_HANDOFF
+reason: null
 
 ## Authority
 
