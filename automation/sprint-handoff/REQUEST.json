@@ -1,7 +1,7 @@
 {
   "type": "WORKER_HANDOFF",
   "owner": ":30",
-  "at": "2026-08-31T06:38:30Z",
+  "at": "2026-08-31T06:39:10Z",
   "next_worker": ":50",
-  "reason": "PR #515 planning materialization for P19-FACTORY-COMPOSITION-01 / WBS 19.1.2 received a bounded metadata-schema fix on TASK-424..428. New exact head 2ab7ab29323887d1a1fa12e7dfdcf354eb87242f has Deterministic CI #1244 and Heavy Product Tests #712 queued/pending. Revalidate exact-head checks and integrate planning only if gates pass; WBS 19.1.3+ remains forecast."
+  "reason": "Bounded retry of required handoff. PR #515 planning materialization for P19-FACTORY-COMPOSITION-01 / WBS 19.1.2 is at exact head 2ab7ab29323887d1a1fa12e7dfdcf354eb87242f after correcting TASK-424..428 to satisfy the mandatory task-section schema. Deterministic CI #1244 and Heavy Product Tests #712 are queued/pending. next_worker must become :50."
 }
