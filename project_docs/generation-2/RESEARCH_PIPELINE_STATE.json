@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "generation": "Generation 2 — Capability Architecture & Symbiotic Platform Engineering",
+  "status": "ACTIVE",
+  "phase": "RESEARCH_ELICITATION",
+  "phase_order": [
+    "RESEARCH_ELICITATION",
+    "CAPABILITY_SYNTHESIS",
+    "PLANNING_A_TAXONOMY_BOUNDARIES",
+    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION",
+    "PLANNING_C_TARGET_ARCHITECTURE",
+    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY",
+    "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE",
+    "ARCHITECTURE_RECONCILIATION",
+    "WBS_DECOMPOSITION",
+    "WBS_DEPENDENCY_GRAPH",
+    "WORK_PACKAGE_DESIGN",
+    "READY_FOR_MATERIALIZATION"
+  ],
+  "research": {
+    "initial_macro_capabilities": 24,
+    "minimum_full_cycles": 7,
+    "target_full_cycles": 10,
+    "completed_full_cycles": 0,
+    "hourly_runs_completed": 0,
+    "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
+    "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified CORE, CROSS_CUTTING, DOMAIN, PROVIDER_SPECIFIC, DUPLICATE, LOW_VALUE or N_A before promotion.",
+    "capability_candidates": [],
+    "saturated_capabilities": [],
+    "pending_capabilities": [],
+    "representative_coverage": {},
+    "finding_count": 0
+  },
+  "gates": {
+    "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
+    "CAPABILITY_SYNTHESIS": "Canonical capability taxonomy, subcapabilities, cross-cutting capabilities, representative coverage ledger, recurring primitives and unresolved contradictions are consolidated without implementation authority.",
+    "PLANNING_A_TAXONOMY_BOUNDARIES": "Capability ownership, boundaries, overlap rules and non-goals are explicit.",
+    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION": "Each material capability is mapped to repository truth, contracts, tests, maturity and gaps without guessing.",
+    "PLANNING_C_TARGET_ARCHITECTURE": "Target planes, universal primitives, provider/binding model, portable definition/IR and evidence/provenance model are coherent and decision-backed.",
+    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "Dependency order, compatibility, migration, rollback and coexistence strategy are explicit.",
+    "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "Native path, external-provider path, replaceability, portability, governance, runtime autonomy and integrated product proofs have measurable acceptance criteria.",
+    "ARCHITECTURE_RECONCILIATION": "Each material finding/gap has KEEP, HARDEN, GENERALIZE, PROVIDERIZE, INTEGRATE, REPLACE, DEFER or DO_NOT_BUILD disposition with evidence and dependencies.",
+    "WBS_DECOMPOSITION": "Architecture decisions are decomposed into small capability-oriented WBS documents with bounded scope, authority, dependencies, non-goals and proof obligations.",
+    "WBS_DEPENDENCY_GRAPH": "Cross-WBS dependency graph is acyclic or explicitly staged, with shared foundational work ordered before dependent domains.",
+    "WORK_PACKAGE_DESIGN": "Work Packages are derived from WBS, each sized for 3–10 Construction Sprints, plus integration/review and closure, with no forecast work materialized prematurely.",
+    "READY_FOR_MATERIALIZATION": "Research and planning artifacts are complete enough for a separate authorized materialization/execution phase."
+  },
+  "artifact_roots": {
+    "research": "project_docs/generation-2/research/",
+    "synthesis": "project_docs/generation-2/synthesis/",
+    "planning": "project_docs/generation-2/planning/",
+    "wbs": "project_docs/generation-2/wbs/",
+    "packages": "project_docs/generation-2/packages/"
+  },
+  "current_focus": null,
+  "last_completed_artifact": null,
+  "next_action": "Run RESEARCH_ELICITATION according to the hourly capability cycle, persist dossier/findings/coverage, update this state, and advance only when the phase gate is objectively satisfied.",
+  "last_updated": "2026-08-31T18:20:00-03:00"
+}
