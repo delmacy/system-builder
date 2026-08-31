@@ -26,11 +26,26 @@ function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : "unknown factory operator bootstrap failure";
 }
 
+function hasUnavailableCapabilityCause(error: unknown): boolean {
+  if (!(error instanceof Error) || typeof error.cause !== "object" || error.cause === null || Array.isArray(error.cause)) {
+    return false;
+  }
+  const diagnostics = (error.cause as UnknownRecord).diagnostics;
+  if (!Array.isArray(diagnostics)) return false;
+  return diagnostics.some((diagnostic) => {
+    if (typeof diagnostic !== "object" || diagnostic === null || Array.isArray(diagnostic)) return false;
+    return (diagnostic as UnknownRecord).code === "ASSEMBLY_CAPABILITY_UNRESOLVED";
+  });
+}
+
 /** Classifies only operator-actionable failures; canonical failure text is preserved without input/config payloads. */
 export function diagnoseFactoryOperatorBootstrapFailure(error: unknown): FactoryOperatorBootstrapDiagnostic {
   const message = errorMessage(error);
   if (/prerequisites\.|factoryE2EAvailable|repository Node\.js|repository npm/.test(message)) {
     return Object.freeze({ code: "MISSING_PREREQUISITE", message, action: "satisfy the declared repository prerequisite and retry" });
+  }
+  if (hasUnavailableCapabilityCause(error)) {
+    return Object.freeze({ code: "UNAVAILABLE_CAPABILITY", message, action: "make the declared supported capability/provider available and retry" });
   }
   if (/catalog|capability|provider/i.test(message) && /missing|not[ _-]?found|unavailable|no .*provider|does not provide/i.test(message)) {
     return Object.freeze({ code: "UNAVAILABLE_CAPABILITY", message, action: "make the declared supported capability/provider available and retry" });

@@ -78,7 +78,7 @@ export function invokeFactoryE2E(
     catalog: input.catalog,
   }), "factory assembly result");
   const assembly = asRecord(required(assembled, "assembly", "factory assembly result"), "factory assembly");
-  if (assembly.ok !== true) throw new Error("FACTORY_E2E_ASSEMBLY_FAILED");
+  if (assembly.ok !== true) throw new Error("FACTORY_E2E_ASSEMBLY_FAILED", { cause: assembly });
   const assemblyPlan = required(assembly, "plan", "factory assembly");
 
   const validated = asRecord(operations.validate({
