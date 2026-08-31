@@ -2,91 +2,140 @@
 
 ## Purpose
 
-Serialize the recurring `:10`, `:30` and `:50` workers with GitHub-owned state transitions instead of agent-authored lock interpretation.
+Coordinate the recurring `:10`, `:30` and `:50` workers without using a token, claim, lease or state-field lock.
+
+The state branch is telemetry and audit only. It must never decide whether a recurring worker is allowed to work. Operational authority comes from fresh repository policy plus live GitHub evidence for the active Sprint/TASK/PR/head.
 
 The machine state lives only on branch `automation/sprint-handoff` and must never be merged into `main`.
 
 Canonical files:
 
-- `automation/sprint-handoff/STATE.json` — machine-readable source of truth.
+- `automation/sprint-handoff/STATE.json` — machine-readable telemetry.
 - `automation/sprint-handoff/AUTOMATION_SPRINT_HANDOFF.md` — generated human-readable projection.
-- `automation/sprint-handoff/EVENTS.ndjson` — append-only transition/audit log.
-- `automation/sprint-handoff/REQUEST.json` — mailbox for agent-requested transitions only.
+- `automation/sprint-handoff/EVENTS.ndjson` — append-only telemetry/audit log.
+- `automation/sprint-handoff/REQUEST.json` — optional mailbox for worker observations.
 
 Agents MUST NOT directly edit `STATE.json`, `AUTOMATION_SPRINT_HANDOFF.md`, or `EVENTS.ndjson`.
 
-## States
+## Non-blocking authority model
 
-The compact machine uses the operational phases already projected by the reducer, with exactly one current worker selected by `next_worker`.
+No field in the state machine grants or denies permission to execute work.
 
-Valid workers are only:
+In particular, none of the following may block a recurring worker:
+
+- `next_worker`;
+- `owner` / `last_worker`;
+- `phase`;
+- claim or lease fields from older state versions;
+- stale `checks` values;
+- a previously recorded `reason`.
+
+`next_worker` is retained only as scheduling telemetry showing the nearest later recurrence. It is not a token.
+
+Valid recurring workers are:
 
 - `:10`
 - `:30`
 - `:50`
 
-Human-readable projections are rendered as `NEXT_10`, `NEXT_30`, `NEXT_50` or their claimed equivalents.
+## Recurring worker execution algorithm
 
-## Canonical rotation
+Every recurrence independently performs the same operational decision loop before mutating product code.
 
-The canonical ownership ring is:
+1. Re-read fresh `main`, repository policy, active Package/Sprint/TASK specs, open PR metadata and exact head.
+2. Query GitHub Actions for the active/current head.
+3. If a relevant required workflow is `queued` or `in_progress`, do not start a competing product mutation. The worker may inspect evidence, review code or prepare bounded analysis, then ends this recurrence.
+4. If no relevant workflow is running, identify the latest materialized TASK that has actually been implemented and its exact authoritative commit/head.
+5. Compare that head with the required GitHub Actions evidence, especially `Deterministic CI` and `Heavy Product Tests` when required by the Sprint.
+6. If the latest TASK/head has a failed, cancelled or otherwise invalid required gate, investigate the exact job/log, repair the cause boundedly on the current Sprint and rerun the required evidence. Do not advance to a successor TASK while the predecessor is objectively broken.
+7. If the latest TASK/head is valid and green, execute the next materialized, dependency-safe TASK in order. If no TASK remains, perform the applicable Sprint Review, merge, fresh-main reconciliation, Package review/closure or next rolling-wave step allowed by repository policy.
+8. Immediately before the first mutation, re-fetch the active PR/head. If the head changed since step 1, restart the decision loop from the new head. This optimistic revalidation is the race-safety mechanism.
+9. Never wait for another recurring slot merely because telemetry points to a different worker.
 
-`:10 -> :30 -> :50 -> :10`.
+The twenty-minute spacing between `:10`, `:30` and `:50`, together with the live-workflow guard and exact-head revalidation, is the normal concurrency control. A rare long-running task is handled by GitHub evidence and head comparison rather than a lease.
 
-Routing is chronological within the hour. Once the `:50` slot has elapsed, the next eligible worker is `:10` of the next hour.
+## GitHub Actions as the concurrency signal
 
-A CI handoff records exact-head check context for the managed PR. The required checks are:
+The primary signal that another worker is still completing the previous increment is an actual relevant workflow in `queued` or `in_progress` state for the active head.
 
-- `Deterministic CI`
-- `Heavy Product Tests`
+State telemetry must not substitute for querying GitHub Actions. A stale `pending` field in `STATE.json` is not evidence that work is still running, and a stale `success` field is not evidence that the current head is green.
 
-Stale workflow results whose `head_sha` differs from the active machine head are ignored and cannot rewind the machine.
+Required evidence is always matched to the exact head/commit being evaluated.
+
+## Failure and rework policy
+
+A failed gate does not block the recurring system. It changes the next action from "advance" to "repair".
+
+The next worker must:
+
+- read the failing job and logs;
+- classify the root cause;
+- repair the latest TASK boundedly;
+- preserve scope, architecture, contracts and negative proofs;
+- rerun the required checks;
+- advance only after the repaired exact head is valid.
+
+Do not hide failures with skipped tests, weakened assertions, arbitrary casts, relaxed gates or unrelated scope expansion.
+
+## Telemetry events
+
+The reducer records observations but does not serialize ownership.
+
+Supported worker events:
+
+- `WORKER_OBSERVATION` — preferred generic telemetry event for a completed recurrence.
+- `WORKER_HANDOFF` — backward-compatible observation; does not transfer authority.
+- `WORKER_CLAIM` — backward-compatible observation only; creates no claim or lease.
+- `WORKER_BLOCK` — records a reason/finding but cannot stop later recurrences.
+
+GitHub-originated events:
+
+- `PR_CI_STARTED` — records managed PR, branch and exact head plus the worker marker that produced it.
+- `CHECK_COMPLETED` — records exact-head required-check outcome; stale heads are ignored.
+- `PR_CLOSED` — clears active PR telemetry when it matches the recorded PR.
+
+Claims and lease recovery are retired in state-machine v3. Legacy v1/v2 state is normalized into v3 with claim/lease fields cleared.
 
 ## Managed PR marker
 
-PRs that participate in automatic handoff must contain both markers in the PR body:
+Managed PRs may retain these markers:
 
 ```text
 <!-- automation-handoff-managed -->
 <!-- handoff-owner::10 -->
 ```
 
-Use the actual owner: `:10`, `:30`, or `:50`.
+Use the actual worker that produced the head: `:10`, `:30`, or `:50`.
 
-The PR event deterministically records PR number, branch and exact head and advances to the next eligible worker recurrence. Unmarked PRs cannot seize the handoff token.
-
-## Agent-requested transitions
-
-When a transition is not naturally represented by PR/CI events, the authorized worker may replace `REQUEST.json`. The GitHub reducer validates the request against current state before changing canonical state.
-
-Supported requests:
-
-- `WORKER_CLAIM` — claims the current worker turn with optional `lease_until`.
-- `WORKER_HANDOFF` — finishes a no-CI work turn and advances to the next eligible recurrence.
-- `WORKER_BLOCK` — records a genuine blocker and advances according to reducer policy.
-
-The request is an event proposal, not authority. Invalid worker requests are logged as rejected and cannot mutate canonical state.
-
-## Lease recovery
-
-A lightweight scheduled tick checks claimed leases. When a lease is expired, the reducer clears the stale claim without changing the selected worker. CI states do not use leases because workflow events are the objective completion source.
+The owner marker is provenance/telemetry only. It does not prevent another recurrence from reviewing, repairing or continuing the same Sprint after live GitHub revalidation.
 
 ## Concurrency and race resistance
 
-All reducer workflow invocations share one GitHub Actions concurrency group with `cancel-in-progress: false`. State writes are therefore serialized.
+Reducer workflow invocations share one GitHub Actions concurrency group with `cancel-in-progress: false` so telemetry writes remain serialized.
 
-Every accepted event increments `sequence`. Stale exact-head CI events are rejected. Generated state commits rebase on the latest `automation/sprint-handoff` branch before push so a concurrent mailbox update does not overwrite canonical state.
+Product work itself is coordinated by:
+
+1. live Actions `queued`/`in_progress` detection;
+2. exact-head workflow evidence;
+3. immediate pre-mutation head revalidation;
+4. repository TASK dependency ordering;
+5. one authoritative commit per TASK when required by repository policy.
+
+Every accepted telemetry event increments `sequence`. Stale exact-head CI events are rejected. Generated telemetry commits rebase on the latest `automation/sprint-handoff` branch before push.
 
 ## Recurring worker contract
 
 Each recurring worker must:
 
-1. read `STATE.json` first;
-2. exit without mutation when it is not the current worker;
-3. revalidate GitHub/repository authority only when `next_worker` equals its own slot;
-4. never infer ownership from chat history or the generated Markdown alone;
-5. never edit canonical machine outputs directly;
-6. put the managed markers in any PR that should drive a CI handoff;
-7. use `REQUEST.json` only for claim, handoff or explicit blocker events.
+1. never stop because it is not `next_worker`;
+2. inspect live GitHub Actions before product mutation;
+3. when a relevant workflow is running, avoid competing mutation and end the recurrence after any safe inspection;
+4. when no workflow is running, compare the latest implemented TASK/head with its required Actions evidence;
+5. repair a broken latest TASK before advancing;
+6. execute the next eligible TASK when predecessor evidence is valid;
+7. re-fetch PR/head immediately before mutation and restart evaluation if it changed;
+8. preserve all repository gates, WBS dependencies, ADR/change-control rules and scope boundaries;
+9. treat `STATE.json` and generated Markdown as telemetry only;
+10. use `REQUEST.json` only for optional observations, never as permission to work.
 
-This machine serializes operational ownership only. It does not authorize scope, change level, WBS promotion, ADR decisions, business approval, or successor Package materialization.
+This coordination mechanism changes only operational scheduling. It does not authorize scope, change level, WBS promotion, ADR decisions, business approval or successor Package materialization.
