@@ -162,7 +162,7 @@ test("WBS 19.1.1 rejects missing, stale, duplicate and reordered canonical stage
   assert.throws(() => normalizeCanonicalFactoryJourney(missing), /exactly 6 ordered stages/);
 
   const stale = clone(canonicalBinding());
-  stale.input.journey.stages[0]!.identityRef = refs.previousProcessRevision;
+  (stale.input.journey.stages[0] as { identityRef: string }).identityRef = refs.previousProcessRevision;
   assert.throws(() => normalizeCanonicalFactoryJourney(stale), /approved-process stage does not match canonical process artifact\/revision identity/);
 
   const duplicate = clone(canonicalBinding());
@@ -181,8 +181,11 @@ test("WBS 19.1.1 rejects substituted and lineage-broken identities", () => {
   assert.throws(() => normalizeCanonicalFactoryJourney(substituted), /exact ValidationEvidence identity/);
 
   const brokenLineage = clone(canonicalBinding());
-  brokenLineage.input.lineage.hops[1]!.from = {
-    ...brokenLineage.input.lineage.hops[1]!.from,
+  const mutableAnalysisHop = brokenLineage.input.lineage.hops[1] as unknown as {
+    from: { identityRef: string };
+  };
+  mutableAnalysisHop.from = {
+    ...mutableAnalysisHop.from,
     identityRef: "analysis:other:v2",
   };
   assert.throws(() => normalizeCanonicalFactoryJourney(brokenLineage), /analysis-to-definition hop does not match declared endpoints/);
