@@ -4,8 +4,8 @@ machine_state: NEXT_CONF
 next_worker: conformance
 claimed_by: null
 claim_until: null
-sequence: 237
-updated_at: 2026-08-31T11:12:25.677Z
+sequence: 238
+updated_at: 2026-08-31T11:13:16.681Z
 active_pr: null
 active_branch: null
 active_head_sha: null
