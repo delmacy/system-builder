@@ -1,14 +1,14 @@
-# Next Work — P19 rolling-wave revalidation after WBS 19.1.2
+# Next Work — P19 operator bootstrap planning/materialization
 
-`P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability` / WBS 18.3.1–18.3.3 is canonically CLOSED.
-
-Planning PR #515 materialized `P19-FACTORY-COMPOSITION-01` / WBS 19.1.2. Review PR #518 integrated the completed TASK-424..428 chain to fresh main `c7545326e06a355ab6530b117145419f37ab732d`. Exact final Sprint head `190af386655dd94cd9ef607a1a9ee222504c7238` passed Deterministic CI #1255 and Heavy Product Tests #724.
+`P19-FACTORY-E2E-01` / WBS 19.1.3 completed TASK-429..433 and integrated through review PR #524 as fresh main `f2171bfa04e452850fcfb76b4724894b71166b45`. Exact final Sprint head `6717df967a2e05c4b33fc0289c55b03b825e2add` passed Deterministic CI #1270 and Heavy Product Tests #739, with zero reviewed-head -> merge-main file differences.
 
 ## Current gate
-WBS 19.1.1 and WBS 19.1.2 are EXECUTED / REVIEWED / INTEGRATED. Do not re-execute TASK-419..428.
+WBS 19.1.1–19.1.3 are EXECUTED / REVIEWED / INTEGRATED. Do not re-execute TASK-419..433.
 
-Revalidate `P19-PACKAGE-01 — Consolidated Pre-Alpha Productization` on fresh main and derive the next rolling-wave step only from canonical package/WBS authority. A successor Construction Sprint becomes executable only when explicitly materialized with its own scope, TASK chain, dependencies, allowed/forbidden paths and gates.
+Fresh-main rolling-wave revalidation of `P19-PACKAGE-01 — Consolidated Pre-Alpha Productization` selects the next bounded forecast slice as `P19-OPERATOR-BOOTSTRAP-01` / WBS 19.2.1. Execution requires explicit materialization of its own scope, TASK chain, dependencies, allowed/forbidden paths and gates; WBS 19.2.2+ remains forecast and non-executable.
 
-Preserve the integrated factory-journey/composition boundaries: exact approved/versioned process and downstream artifact identities, M15 human-decision business authority, fail-closed lineage validation, deterministic repeatability and public-boundary reuse. Carry forward the prevention learned in Construction 2: integration specs/tests should name required public package boundaries up front and include predecessor-substitution/failure-path proofs so architecture fixes do not emerge late in Sprint closure.
+Preserve the integrated factory-E2E boundaries: exact approved/versioned process and downstream artifact identities, canonical M15 human-decision business authority, fail-closed lineage validation, deterministic clean repeatability, public-package reuse, no hidden mutable state and no publication/deployment side effects or runtime launch.
 
-Do not materialize or execute WBS 19.1.3+ by inference. No orchestration command/API, runtime launch, storage redesign, release/deploy execution side effects, Builder/Runtime topology change, unrelated findings/TD absorption or inferred L4 is authorized merely by completion of WBS 19.1.2.
+Carry forward the closure prevention from Construction 3: command-level proofs must exercise the supported invocation without wrapper-output ambiguity; identity/lineage hardening must regression-test existing public identity forms before narrowing them; bootstrap progress/diagnostics must not become a second orchestration owner or weaken domain failures.
+
+Do not materialize or execute WBS 19.2.2+ by inference. No runtime materialization/handoff, autonomous runtime continuity, storage redesign, new bounded context, Decision Boundary change, Builder/Runtime topology change, unrelated findings/TD absorption or inferred L4 is authorized merely by completion of WBS 19.1.3.
