@@ -4,14 +4,14 @@ machine_state: NEXT_CONF
 next_worker: conformance
 claimed_by: null
 claim_until: null
-sequence: 228
-updated_at: 2026-08-31T08:07:37.656Z
+sequence: 229
+updated_at: 2026-08-31T08:57:40Z
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: success
 heavy_product_tests: success
-last_event: CHECK_COMPLETED
+last_event: CONFORMANCE_COMPLETE
 reason: null
 
 ## Authority
