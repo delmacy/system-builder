@@ -34,7 +34,8 @@
     "test:product:full": "node scripts/run-product-tests.mjs full",
     "test": "npm run test:unit && npm run test:product",
     "build": "tsc -p tsconfig.build.json",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run check:tasks && npm run check:architecture && npm run build"
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run check:tasks && npm run check:architecture && npm run build",
+    "factory:e2e": "tsx scripts/factory-e2e.ts"
   },
   "dependencies": {
     "yaml": "^2.8.1",
