@@ -32,7 +32,7 @@ export function diagnoseFactoryOperatorBootstrapFailure(error: unknown): Factory
   if (/prerequisites\.|factoryE2EAvailable|repository Node\.js|repository npm/.test(message)) {
     return Object.freeze({ code: "MISSING_PREREQUISITE", message, action: "satisfy the declared repository prerequisite and retry" });
   }
-  if (/catalog|capability|provider/.test(message) && /missing|not found|unavailable|no .*provider|does not provide/i.test(message)) {
+  if (/catalog|capability|provider/i.test(message) && /missing|not[ _-]?found|unavailable|no .*provider|does not provide/i.test(message)) {
     return Object.freeze({ code: "UNAVAILABLE_CAPABILITY", message, action: "make the declared supported capability/provider available and retry" });
   }
   if (/factory operator bootstrap|config\.|unexpected field|missing field|must be an object|must be a non-empty string|unsupported factory operator bootstrap contract/.test(message)) {
