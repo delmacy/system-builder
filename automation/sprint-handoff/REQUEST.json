@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":10",
-  "at": "2026-08-31T04:14:00Z",
-  "reason": "Bounded retry of WORKER_HANDOFF after reducer had not yet advanced STATE. PR #513 replaces draft PR #512 on the exact same branch/head c0764ddcf444cea8b5135963cbd3229f4e5837b4 because the ready-for-review connector mutation failed. Prior exact-head CI #1235 and Heavy #703 passed; replacement CI #1236 and Heavy #704 are queued. next_worker must become :30; :30 should revalidate those exact-head checks and merge only if green."
+  "owner": ":30",
+  "at": "2026-08-31T04:30:00Z",
+  "reason": "Sprint Review PR #513 now includes the required repository Sprint Report at head 9ae4cc03d0a3ff8cf385692a477aab13b44db2c9. The prior product head c0764ddcf444cea8b5135963cbd3229f4e5837b4 passed Deterministic CI #1235 and Heavy Product Tests #703; the documentation-only report head has fresh exact-head validate/heavy checks queued. next_worker must become :50; :50 should revalidate the exact-head checks and, if green with no blocker, complete review/integration under the existing Work Package authorization."
 }
