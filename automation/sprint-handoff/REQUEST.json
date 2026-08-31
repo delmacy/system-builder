@@ -1,6 +1,6 @@
 {
-  "type": "CONFORMANCE_COMPLETE",
-  "owner": "conformance",
-  "at": "2026-08-31T04:01:08Z",
-  "reason": "Architecture Conformance gate complete for PR #512 head c0764ddcf444cea8b5135963cbd3229f4e5837b4. Bounded adversarial proof corrections are validated by Deterministic CI #1235 PASS and Heavy Product Tests #703 PASS; no remaining material blocking discrepancy was found within materialized WBS 19.1.1 / TASK-419..423 scope."
+  "type": "WORKER_HANDOFF",
+  "owner": ":10",
+  "at": "2026-08-31T04:13:00Z",
+  "reason": "PR #512 draft-ready transition was blocked by connector GraphQL schema failure, so it was replaced boundedly by non-draft PR #513 on the exact same branch/head c0764ddcf444cea8b5135963cbd3229f4e5837b4. Prior exact-head Deterministic CI #1235 and Heavy Product Tests #703 were PASS; replacement PR #513 has fresh CI #1236 and Heavy #704 queued. Next worker :30 must revalidate PR #513 exact-head checks and merge with expected-head protection if green, then continue fresh-main reconciliation without expanding scope."
 }
