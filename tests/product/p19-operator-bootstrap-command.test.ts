@@ -6,10 +6,12 @@ import { join } from "node:path";
 import test from "node:test";
 import {
   FACTORY_JOURNEY_CONTRACT_VERSION,
+  FACTORY_JOURNEY_STAGE_KINDS,
   FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION,
 } from "../../packages/contracts/factory-boundary/index.js";
 import { PROCESS_SYSTEM_LINEAGE_VERSION } from "../../packages/contracts/process-versioning/lineage.js";
 import { PROCESS_VERSION_IDENTITY_VERSION } from "../../packages/contracts/process-versioning/index.js";
+import { executeCanonicalFactoryE2E } from "../../scripts/factory-e2e-command.js";
 import { executeFactoryOperatorBootstrap } from "../../scripts/factory-operator-bootstrap-command.js";
 
 const revision = { contractVersion: PROCESS_VERSION_IDENTITY_VERSION, artifactRef: "process:orders", revisionRef: "process-revision:orders:v1", revisionNumber: 1, previousRevisionRef: null };
@@ -71,15 +73,15 @@ test("TASK-435 validates before a single canonical delegation", () => {
   const result = executeFactoryOperatorBootstrap(input, (factoryInput) => {
     calls += 1;
     assert.equal(factoryInput.releaseId, "orders-system");
-    return { delegated: true } as never;
+    return executeCanonicalFactoryE2E(factoryInput);
   });
   assert.equal(calls, 1);
   assert.equal(result.ok, true);
 
   const invalid = { ...input, prerequisites: { ...input.prerequisites, factoryE2EAvailable: false } };
-  assert.throws(() => executeFactoryOperatorBootstrap(invalid, () => {
+  assert.throws(() => executeFactoryOperatorBootstrap(invalid, (factoryInput) => {
     calls += 1;
-    return { delegated: false } as never;
+    return executeCanonicalFactoryE2E(factoryInput);
   }), /factoryE2EAvailable must be true/);
   assert.equal(calls, 1, "invalid prerequisites must fail before canonical invocation");
 });
@@ -100,10 +102,25 @@ test("TASK-435 supported command is deterministic and leaves no filesystem side 
     assert.equal(readFileSync(inputPath, "utf8"), serialized, "bootstrap must not mutate authoritative input");
     assert.deepEqual(readdirSync(directory), beforeEntries, "bootstrap must not persist side-effect artifacts");
 
-    const envelope = JSON.parse(first.stdout.trim()) as { ok: boolean; bootstrap: { references: { systemDefinitionRef: string } }; result: { binding: { references: { systemDefinitionRef: string } } } };
+    const envelope = JSON.parse(first.stdout.trim()) as {
+      ok: boolean;
+      bootstrap: { references: { systemDefinitionRef: string } };
+      progress: { status: string; stages: Array<{ ordinal: number; kind: string; status: string; identityRef: string; provenanceRef: string }>; references: { systemDefinitionRef: string; deploymentRef: string } };
+      result: { binding: { references: { systemDefinitionRef: string; deploymentRef: string }; input: { journey: { stages: Array<{ kind: string; identityRef: string; provenanceRef: string }> } } } };
+    };
     assert.equal(envelope.ok, true);
     assert.equal(envelope.bootstrap.references.systemDefinitionRef, definitionIdentity.identityRef);
     assert.equal(envelope.result.binding.references.systemDefinitionRef, definitionIdentity.identityRef);
+    assert.equal(envelope.progress.status, "succeeded");
+    assert.deepEqual(envelope.progress.stages.map((stage) => stage.kind), FACTORY_JOURNEY_STAGE_KINDS);
+    assert.deepEqual(envelope.progress.stages.map((stage) => stage.ordinal), [1, 2, 3, 4, 5, 6]);
+    assert.ok(envelope.progress.stages.every((stage) => stage.status === "completed"));
+    assert.deepEqual(
+      envelope.progress.stages.map(({ kind, identityRef, provenanceRef }) => ({ kind, identityRef, provenanceRef })),
+      envelope.result.binding.input.journey.stages,
+      "operator progress must reuse canonical journey stage identity/provenance",
+    );
+    assert.deepEqual(envelope.progress.references, envelope.result.binding.references);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
@@ -132,6 +149,24 @@ test("TASK-435 rejects absent capability and malformed configuration before succ
     assert.notEqual(rejected.status, 0);
     assert.equal(rejected.stdout, "");
     assert.match(rejected.stderr, /config has unexpected field apiToken/);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("TASK-436 stale predecessor rejection never emits downstream completion evidence", () => {
+  const directory = mkdtempSync(join(tmpdir(), "system-builder-p19-bootstrap-stale-"));
+  try {
+    const inputPath = join(directory, "bootstrap.json");
+    const stale = bootstrapInput(inputPath);
+    stale.factoryInput.journeyBinding.journey.stages[2]!.provenanceRef = "system-definition:orders:stale";
+    writeFileSync(inputPath, JSON.stringify(stale), "utf8");
+
+    const rejected = runCommand(inputPath);
+    assert.notEqual(rejected.status, 0);
+    assert.equal(rejected.stdout, "", "rejected predecessor must not emit a success/progress envelope");
+    assert.doesNotMatch(rejected.stderr, /\"status\":\"completed\"/);
+    assert.match(rejected.stderr, /capability-assembly predecessor does not match canonical system-definition identity/);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }

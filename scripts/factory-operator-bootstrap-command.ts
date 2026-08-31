@@ -1,4 +1,5 @@
 import {
+  buildFactoryOperatorBootstrapProgress,
   validateFactoryOperatorBootstrap,
   type FactoryE2EInvocationInput,
 } from "../packages/contracts/factory-boundary/index.js";
@@ -28,6 +29,7 @@ export function executeFactoryOperatorBootstrap(
   const factoryInput = materializeFactoryE2EInput(transport.factoryInput);
   const validation = validateFactoryOperatorBootstrap({ ...transport, factoryInput });
   const result = invoke(factoryInput);
+  const progress = buildFactoryOperatorBootstrapProgress(result);
 
-  return Object.freeze({ ok: true as const, bootstrap: validation, result });
+  return Object.freeze({ ok: true as const, bootstrap: validation, progress, result });
 }

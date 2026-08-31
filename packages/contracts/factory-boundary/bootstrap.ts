@@ -1,5 +1,10 @@
-import type { FactoryE2EInvocationInput } from "./e2e.js";
-import { normalizeFactoryJourneyInputBinding } from "./journey.js";
+import type { FactoryE2EInvocationInput, FactoryE2EInvocationResult } from "./e2e.js";
+import {
+  FACTORY_JOURNEY_STAGE_KINDS,
+  normalizeFactoryJourneyInputBinding,
+  type FactoryJourneyOutputReferences,
+  type FactoryJourneyStageKind,
+} from "./journey.js";
 
 export const FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION = "1.0.0" as const;
 
@@ -30,6 +35,21 @@ export type FactoryOperatorBootstrapValidationResult = Readonly<{
     analysisRef: string;
     systemDefinitionRef: string;
   }>;
+}>;
+
+export type FactoryOperatorBootstrapProgressEntry = Readonly<{
+  ordinal: number;
+  kind: FactoryJourneyStageKind;
+  status: "completed";
+  identityRef: string;
+  provenanceRef: string;
+}>;
+
+export type FactoryOperatorBootstrapProgressResult = Readonly<{
+  contractVersion: typeof FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION;
+  status: "succeeded";
+  stages: readonly FactoryOperatorBootstrapProgressEntry[];
+  references: FactoryJourneyOutputReferences;
 }>;
 
 type UnknownRecord = Record<string, unknown>;
@@ -131,5 +151,39 @@ export function validateFactoryOperatorBootstrap(input: unknown): FactoryOperato
       analysisRef: canonical.lineage.analysis.identityRef,
       systemDefinitionRef: canonical.lineage.systemDefinition.identityRef,
     }),
+  });
+}
+
+/**
+ * Derives operator-visible completion evidence exclusively from the canonical
+ * E2E output binding. No progress is synthesized before the canonical journey
+ * returns, so rejected/partial journeys cannot claim downstream completion.
+ */
+export function buildFactoryOperatorBootstrapProgress(
+  result: FactoryE2EInvocationResult,
+): FactoryOperatorBootstrapProgressResult {
+  const stages = result.binding.input.journey.stages.map((stage, index) => {
+    const expectedKind = FACTORY_JOURNEY_STAGE_KINDS[index];
+    if (stage.kind !== expectedKind) {
+      throw new Error(`factory operator bootstrap progress stage ${index + 1} must be ${String(expectedKind)}`);
+    }
+    return Object.freeze({
+      ordinal: index + 1,
+      kind: stage.kind,
+      status: "completed" as const,
+      identityRef: stage.identityRef,
+      provenanceRef: stage.provenanceRef,
+    });
+  });
+
+  if (stages.length !== FACTORY_JOURNEY_STAGE_KINDS.length) {
+    throw new Error(`factory operator bootstrap progress must contain exactly ${FACTORY_JOURNEY_STAGE_KINDS.length} completed stages`);
+  }
+
+  return Object.freeze({
+    contractVersion: FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION,
+    status: "succeeded" as const,
+    stages: Object.freeze(stages),
+    references: result.binding.references,
   });
 }
