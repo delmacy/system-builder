@@ -1,0 +1,99 @@
+{
+  "journeyBinding": {
+    "contractVersion": "1.0.0",
+    "journey": {
+      "contractVersion": "1.0.0",
+      "stages": [
+        { "kind": "approved-process", "identityRef": "process-revision:orders:v1", "provenanceRef": "process:orders" },
+        { "kind": "analysis-definition", "identityRef": "analysis:orders:v1", "provenanceRef": "process-revision:orders:v1" },
+        { "kind": "capability-assembly", "identityRef": "assembly:pending", "provenanceRef": "system-definition:orders:v1" },
+        { "kind": "validation", "identityRef": "validation:pending", "provenanceRef": "assembly:pending" },
+        { "kind": "compiler-release", "identityRef": "release:pending", "provenanceRef": "validation:pending" },
+        { "kind": "deployment", "identityRef": "deployment:pending", "provenanceRef": "release:pending" }
+      ]
+    },
+    "lineage": {
+      "contractVersion": "1.0.0",
+      "processRevision": {
+        "contractVersion": "1.0.0",
+        "kind": "process-revision",
+        "processRevision": {
+          "contractVersion": "1.0.0",
+          "artifactRef": "process:orders",
+          "revisionRef": "process-revision:orders:v1",
+          "revisionNumber": 1,
+          "previousRevisionRef": null
+        }
+      },
+      "analysis": { "contractVersion": "1.0.0", "kind": "analysis", "identityRef": "analysis:orders:v1" },
+      "systemDefinition": { "contractVersion": "1.0.0", "kind": "system-definition", "identityRef": "system-definition:orders:v1" },
+      "hops": [
+        {
+          "contractVersion": "1.0.0",
+          "kind": "process-revision-to-analysis",
+          "from": {
+            "contractVersion": "1.0.0",
+            "kind": "process-revision",
+            "processRevision": {
+              "contractVersion": "1.0.0",
+              "artifactRef": "process:orders",
+              "revisionRef": "process-revision:orders:v1",
+              "revisionNumber": 1,
+              "previousRevisionRef": null
+            }
+          },
+          "to": { "contractVersion": "1.0.0", "kind": "analysis", "identityRef": "analysis:orders:v1" }
+        },
+        {
+          "contractVersion": "1.0.0",
+          "kind": "analysis-to-system-definition",
+          "from": { "contractVersion": "1.0.0", "kind": "analysis", "identityRef": "analysis:orders:v1" },
+          "to": { "contractVersion": "1.0.0", "kind": "system-definition", "identityRef": "system-definition:orders:v1" }
+        }
+      ]
+    }
+  },
+  "definition": {
+    "definition": "SystemDefinition",
+    "analysisRef": "analysis:orders:v1",
+    "recipeRef": "process-revision:orders:v1",
+    "capabilities": [
+      { "id": "orders", "capability": "orders", "requirementRefs": ["REQ-1"] }
+    ]
+  },
+  "catalogEntries": [
+    { "capability": "orders", "provider": "builtin", "version": "1.0.0" }
+  ],
+  "recipeTraceability": {
+    "modules": [{ "requirementIds": ["REQ-1"] }],
+    "rules": [],
+    "responsibilities": [],
+    "exceptions": []
+  },
+  "analysisTraceability": {
+    "findings": [{ "recipeRequirementRefs": ["REQ-1"] }]
+  },
+  "definitionTraceability": {
+    "entities": [],
+    "processes": [],
+    "actions": [],
+    "capabilities": [{ "capability": "orders", "requirementRefs": ["REQ-1"] }],
+    "views": [],
+    "policies": [],
+    "integrations": []
+  },
+  "compilerVersion": "1.0.0",
+  "runtimeVersion": "1.0.0",
+  "releaseId": "orders-system",
+  "releaseVersion": "0.0.1",
+  "publishedAt": "2026-08-31T14:10:00.000Z",
+  "environment": {
+    "kind": "EnvironmentProfile",
+    "environmentRef": "environment:p19:e2e",
+    "runtimeVersions": ["1.0.0"],
+    "bindings": []
+  },
+  "acceptanceChecks": [{ "name": "factory-e2e", "pass": true }],
+  "startedAt": "2026-08-31T14:11:00.000Z",
+  "completedAt": "2026-08-31T14:12:00.000Z"
+}
