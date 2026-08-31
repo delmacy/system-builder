@@ -134,6 +134,16 @@ test("normal conformance completion routes to the next chronological recurrence"
   assert.equal(result.next.next_worker, ":50");
 });
 
+test("conformance completion cannot route back to conformance when no resume worker exists", () => {
+  const result = reduceHandoffState(baseState({ next_worker: "conformance", resume_worker: null }), {
+    type: "CONFORMANCE_COMPLETE",
+    owner: "conformance",
+    at: "2026-08-30T04:57:00.000Z",
+  });
+  assert.equal(result.next.next_worker, ":10");
+  assert.equal(result.next.resume_worker, null);
+});
+
 test("scheduled conformance interruption still returns to its explicit interrupted resume worker", () => {
   let state = reduceHandoffState(baseState({ next_worker: ":30" }), {
     type: "CONFORMANCE_DUE",
