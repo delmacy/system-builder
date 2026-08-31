@@ -209,11 +209,12 @@ export function normalizeFactoryJourneyOutputBinding(input: unknown): FactoryJou
   if (compilerRelease.identityRef !== publishedReleaseRef || compilerRelease.provenanceRef !== validationEvidenceRef) {
     throw new Error("compiler-release stage does not match the exact published release chain");
   }
-  if (deploymentReleaseRef !== versionedPublishedReleaseRef || deploymentReleaseHash !== publishedArtifactHash) {
-    throw new Error("DeploymentRecord does not reference the exact versioned PublishedRelease identity");
+  const acceptedDeploymentReleaseRefs = new Set([publishedReleaseRef, versionedPublishedReleaseRef]);
+  if (!acceptedDeploymentReleaseRefs.has(deploymentReleaseRef) || deploymentReleaseHash !== publishedArtifactHash) {
+    throw new Error("DeploymentRecord does not reference the exact PublishedRelease identity");
   }
-  if (deployment.identityRef !== deploymentRef || deployment.provenanceRef !== versionedPublishedReleaseRef) {
-    throw new Error("deployment stage does not match the exact versioned DeploymentRecord predecessor chain");
+  if (deployment.identityRef !== deploymentRef || !acceptedDeploymentReleaseRefs.has(deployment.provenanceRef)) {
+    throw new Error("deployment stage does not match the exact DeploymentRecord predecessor chain");
   }
 
   return Object.freeze({
