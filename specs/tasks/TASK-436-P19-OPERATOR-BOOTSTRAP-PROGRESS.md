@@ -36,8 +36,20 @@ validation:
 # Objective
 Expose deterministic maintainer-facing progress/result evidence for the bootstrap invocation using canonical journey stages and identities, without mutable orchestration state.
 
+# Context
+TASK-435 adds the thin supported bootstrap command over the canonical E2E journey. WBS 19.2.1 requires stable operator-visible progress/result evidence without creating a second workflow owner.
+
+# Current behavior
+The canonical E2E path has deterministic stage outputs, but the bootstrap surface does not yet expose a stable maintainer-facing progress/result envelope derived from those outputs.
+
 # Required change
 Add only the stable progress/result envelope needed to report validated bootstrap start, canonical journey completion/failure and final auditable result. Derive stage reporting from existing canonical outputs rather than introducing callbacks, queues or a second workflow engine.
+
+# Inputs / contracts
+Validated TASK-434 bootstrap input and the canonical TASK-435 E2E delegation/result. Stage identity/order must come from existing canonical journey boundaries.
+
+# Outputs / contracts
+A deterministic ordered progress/result envelope that preserves canonical identities/provenance, never claims unexecuted stages, and carries stable success/non-success semantics.
 
 # Acceptance criteria
 - progress ordering is deterministic for equivalent input;
@@ -50,6 +62,9 @@ Add only the stable progress/result envelope needed to report validated bootstra
 
 # Non-goals
 Live streaming infrastructure, async job lifecycle, queueing, observability platform, production UX or runtime materialization.
+
+# Evidence expected
+Focused product proof that equivalent clean invocations yield equivalent ordered progress/result evidence, canonical identities/provenance are retained, and rejected stale/substituted predecessors never emit downstream completion; all declared validation commands must pass.
 
 # Escalation
 Stop if progress requires new workflow ownership, persistent job state, service topology or undeclared L4.
