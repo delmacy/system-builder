@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
   "owner": ":30",
-  "at": "2026-08-31T19:32:30Z",
-  "reason": "PR #526 head 9f64380d54cdb5bfc206282c6e4561a989748531. TASK-434 and TASK-435 revalidated; TASK-436 completed with deterministic progress/result evidence derived only from canonical completed journey stages and references, plus stale predecessor negative proof. Deterministic CI #1284 and Heavy Product Tests #753 are currently running on the exact head. Next worker :50 must revalidate both runs; if green, review TASK-436 integration and only then advance to TASK-437. Risk: current-head CI/type/product proof remains to be confirmed; no mutable orchestration state or downstream scope was introduced."
+  "at": "2026-08-31T19:33:30Z",
+  "reason": "Retry bounded: handoff :30 -> :50 after TASK-436 on PR #526 head 9f64380d54cdb5bfc206282c6e4561a989748531. Deterministic CI #1284 and Heavy Product Tests #753 are running on the exact head. TASK-436 adds only deterministic progress/result evidence derived from canonical completed journey stages/references and proves stale predecessor rejection emits no downstream completion. Next worker :50 revalidates gates, reviews TASK-436, then may advance to TASK-437 only if green."
 }
