@@ -4,8 +4,8 @@ machine_state: NEXT_30
 next_worker: :30
 claimed_by: null
 claim_until: null
-sequence: 212
-updated_at: 2026-08-31T06:37:30.482Z
+sequence: 213
+updated_at: 2026-08-31T06:37:42.063Z
 active_pr: null
 active_branch: null
 active_head_sha: null
