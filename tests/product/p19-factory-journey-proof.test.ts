@@ -194,7 +194,7 @@ test("WBS 19.1.1 rejects substituted and lineage-broken identities", () => {
           identityRef: "analysis:other:v2",
         },
       },
-    ],
+    ] as const,
   };
   assert.throws(() => normalizeCanonicalFactoryJourney(brokenLineage), /analysis-to-definition hop does not match declared endpoints/);
 });
