@@ -125,26 +125,6 @@ test("PR CI started by any owner uses the next chronological recurrence", () => 
   assert.equal(result.next.next_worker, ":50");
 });
 
-test("legacy conformance state migrates to :30 on the next accepted event", () => {
-  const result = reduceHandoffState(baseState({
-    next_worker: "conformance",
-    owner: "conformance",
-    claimed_by: "conformance",
-    phase: "RUNNING",
-    conformance_due: true,
-  }), {
-    type: "WORKER_CLAIM",
-    owner: ":30",
-    at: "2026-08-30T04:17:00.000Z",
-  });
-
-  assert.equal(result.accepted, true);
-  assert.equal(result.next.next_worker, ":30");
-  assert.equal(result.next.claimed_by, ":30");
-  assert.equal(result.next.owner, ":30");
-  assert.equal("conformance_due" in result.next, false);
-});
-
 test("claim is advisory and does not change next worker", () => {
   const result = reduceHandoffState(baseState(), {
     type: "WORKER_CLAIM",

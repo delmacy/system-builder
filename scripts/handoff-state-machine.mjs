@@ -10,8 +10,6 @@ export const WORKER_SLOTS = [
 ];
 export const WORKERS = WORKER_SLOTS.map(({ worker }) => worker);
 
-const LEGACY_CONFORMANCE_FALLBACK = ":30";
-
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
 }
@@ -37,12 +35,10 @@ export function scheduledWorkerAfter(event) {
 }
 
 function normalizeWorker(worker, fallback = ":10") {
-  if (worker === "conformance") return LEGACY_CONFORMANCE_FALLBACK;
   return WORKERS.includes(worker) ? worker : fallback;
 }
 
 function normalizeOptionalWorker(worker) {
-  if (worker === "conformance") return null;
   return WORKERS.includes(worker) ? worker : null;
 }
 
@@ -74,7 +70,6 @@ function syncLegacy(state) {
   state.resume_owner = state.resume_worker ?? null;
   state.lease_until = state.claim_until ?? null;
   state.phase = state.claimed_by === state.next_worker ? "RUNNING" : "READY";
-  delete state.conformance_due;
   return state;
 }
 
