@@ -1,3 +1,5 @@
+import { normalizeFactoryJourneyInputBinding, type FactoryJourneyInputBinding } from "@system-builder/contracts/factory-boundary";
+
 export * from "./knowledge-promotion-preadmission.js";
 export * from "./knowledge-promotion-admission.js";
 export * from "./process-revision-admission.js";
@@ -232,4 +234,87 @@ export function resolveCatalogCandidates(
   }
 
   return Object.freeze({ ok: true, candidates: Object.freeze([...candidates].sort(compareRecords)) });
+}
+
+export type FactoryCapabilityInput = Readonly<{
+  id: string;
+  capability: string;
+  requirementRefs: readonly string[];
+}>;
+
+export type FactoryCapabilityDefinitionInput = Readonly<{
+  definition: "SystemDefinition";
+  analysisRef: string;
+  recipeRef: string;
+  capabilities: readonly FactoryCapabilityInput[];
+}>;
+
+export type FactoryCapabilityResolutionEvidence = Readonly<{
+  capabilityId: string;
+  capability: string;
+  candidates: readonly SoftwareCatalogRecord[];
+}>;
+
+export type FactoryCapabilityResolutionComposition = Readonly<{
+  binding: FactoryJourneyInputBinding;
+  processRevisionRef: string;
+  analysisRef: string;
+  systemDefinitionRef: string;
+  resolutions: readonly FactoryCapabilityResolutionEvidence[];
+}>;
+
+function compareFactoryCapabilities(left: FactoryCapabilityInput, right: FactoryCapabilityInput): number {
+  return left.id.localeCompare(right.id) || left.capability.localeCompare(right.capability);
+}
+
+/**
+ * Resolves the capabilities declared by a SystemDefinition projection only after
+ * proving that its process and analysis references match the canonical factory
+ * journey lineage. It creates no new identity or execution authority.
+ */
+export function resolveFactoryJourneyCapabilities(
+  registry: SoftwareCatalogRegistry,
+  journeyBinding: unknown,
+  definition: FactoryCapabilityDefinitionInput,
+): FactoryCapabilityResolutionComposition {
+  const binding = normalizeFactoryJourneyInputBinding(journeyBinding);
+  const processRevisionRef = binding.lineage.processRevision.processRevision.revisionRef;
+  const analysisRef = binding.lineage.analysis.identityRef;
+  const systemDefinitionRef = binding.lineage.systemDefinition.identityRef;
+
+  if (definition.definition !== "SystemDefinition") {
+    throw new Error("FACTORY_CAPABILITY_INVALID_SYSTEM_DEFINITION");
+  }
+  if (requireToken(definition.analysisRef, "factory_analysis_ref") !== analysisRef) {
+    throw new Error("FACTORY_CAPABILITY_ANALYSIS_IDENTITY_MISMATCH");
+  }
+  if (requireToken(definition.recipeRef, "factory_recipe_ref") !== processRevisionRef) {
+    throw new Error("FACTORY_CAPABILITY_PROCESS_IDENTITY_MISMATCH");
+  }
+
+  const resolutions = [...definition.capabilities]
+    .sort(compareFactoryCapabilities)
+    .map((declared) => {
+      const capabilityId = requireToken(declared.id, "factory_capability_id");
+      const capability = requireToken(declared.capability, "factory_capability");
+      const resolution = resolveCatalogCandidates(registry, { capability });
+      if (!resolution.ok) {
+        throw new Error(
+          `FACTORY_CAPABILITY_RESOLUTION_FAILED:${resolution.diagnostic.code}:${resolution.diagnostic.capability}`,
+        );
+      }
+      return Object.freeze({
+        capabilityId,
+        capability,
+        candidates: resolution.candidates,
+      });
+    });
+
+  return Object.freeze({
+    binding,
+    processRevisionRef,
+    analysisRef,
+    systemDefinitionRef,
+    resolutions: Object.freeze(resolutions),
+  });
 }

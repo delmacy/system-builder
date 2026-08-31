@@ -5,8 +5,14 @@
     "moduleResolution": "NodeNext",
     "baseUrl": ".",
     "paths": {
+      "@system-builder/catalog": [
+        "packages/catalog/index.ts"
+      ],
       "@system-builder/contracts/environment-profile": [
         "packages/contracts/environment-profile/index.ts"
+      ],
+      "@system-builder/contracts/factory-boundary": [
+        "packages/contracts/factory-boundary/index.ts"
       ],
       "@system-builder/contracts/knowledge-boundary": [
         "packages/contracts/knowledge-boundary/public.ts"
