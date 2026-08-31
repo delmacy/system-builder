@@ -131,7 +131,10 @@ test("TASK-434 operator bootstrap validates declared prerequisites without execu
   const transportFactoryInput = raw.factoryInput as Record<string, unknown>;
   const catalogEntries = transportFactoryInput.catalogEntries;
   assert.ok(Array.isArray(catalogEntries));
-  const materializedFactoryInput = { ...transportFactoryInput, catalog: { transportProof: true } };
+  const materializedFactoryInput: Record<string, unknown> = {
+    ...transportFactoryInput,
+    catalog: { transportProof: true },
+  };
   delete materializedFactoryInput.catalogEntries;
   const parsed = validateFactoryOperatorBootstrap({ ...raw, factoryInput: materializedFactoryInput });
   assert.equal(parsed.contractVersion, FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION);
