@@ -1,21 +1,113 @@
 import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import test from "node:test";
 
 import {
+  FACTORY_JOURNEY_CONTRACT_VERSION,
   FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION,
   validateFactoryOperatorBootstrap,
 } from "../../packages/contracts/factory-boundary/index.js";
+import { PROCESS_SYSTEM_LINEAGE_VERSION } from "../../packages/contracts/process-versioning/lineage.js";
+import { PROCESS_VERSION_IDENTITY_VERSION } from "../../packages/contracts/process-versioning/index.js";
 
 const repositoryRoot = resolve(process.cwd());
 const cliPath = join(repositoryRoot, "scripts/factory-operator-bootstrap.ts");
-const fixturePath = join(repositoryRoot, "tests/fixtures/p19/factory-e2e-success.json");
 
 function factoryInput(): Record<string, unknown> {
-  return JSON.parse(readFileSync(fixturePath, "utf8")) as Record<string, unknown>;
+  const revision = {
+    contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
+    artifactRef: "process:orders",
+    revisionRef: "process-revision:orders:v1",
+    revisionNumber: 1,
+    previousRevisionRef: null,
+  };
+  const analysis = {
+    contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+    kind: "analysis",
+    identityRef: "analysis:orders:v1",
+  };
+  const systemDefinition = {
+    contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+    kind: "system-definition",
+    identityRef: "system-definition:orders:v1",
+  };
+  const processRevision = {
+    contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+    kind: "process-revision",
+    processRevision: revision,
+  };
+
+  return {
+    journeyBinding: {
+      contractVersion: FACTORY_JOURNEY_CONTRACT_VERSION,
+      journey: {
+        contractVersion: FACTORY_JOURNEY_CONTRACT_VERSION,
+        stages: [
+          { kind: "approved-process", identityRef: revision.revisionRef, provenanceRef: revision.artifactRef },
+          { kind: "analysis-definition", identityRef: analysis.identityRef, provenanceRef: revision.revisionRef },
+          { kind: "capability-assembly", identityRef: "assembly:pending", provenanceRef: systemDefinition.identityRef },
+          { kind: "validation", identityRef: "validation:pending", provenanceRef: "assembly:pending" },
+          { kind: "compiler-release", identityRef: "release:pending", provenanceRef: "validation:pending" },
+          { kind: "deployment", identityRef: "deployment:pending", provenanceRef: "release:pending" },
+        ],
+      },
+      lineage: {
+        contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+        processRevision,
+        analysis,
+        systemDefinition,
+        hops: [
+          {
+            contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+            kind: "process-revision-to-analysis",
+            from: processRevision,
+            to: analysis,
+          },
+          {
+            contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+            kind: "analysis-to-system-definition",
+            from: analysis,
+            to: systemDefinition,
+          },
+        ],
+      },
+    },
+    definition: {
+      definition: "SystemDefinition",
+      analysisRef: analysis.identityRef,
+      recipeRef: revision.revisionRef,
+      capabilities: [{ id: "orders", capability: "orders", requirementRefs: ["REQ-1"] }],
+    },
+    catalogEntries: [{ capability: "orders", provider: "builtin", version: "1.0.0" }],
+    recipeTraceability: { modules: [{ requirementIds: ["REQ-1"] }], rules: [], responsibilities: [], exceptions: [] },
+    analysisTraceability: { findings: [{ recipeRequirementRefs: ["REQ-1"] }] },
+    definitionTraceability: {
+      entities: [],
+      processes: [],
+      actions: [],
+      capabilities: [{ capability: "orders", requirementRefs: ["REQ-1"] }],
+      views: [],
+      policies: [],
+      integrations: [],
+    },
+    compilerVersion: "1.0.0",
+    runtimeVersion: "1.0.0",
+    releaseId: "orders-system",
+    releaseVersion: "0.0.1",
+    publishedAt: "2026-08-31T14:10:00.000Z",
+    environment: {
+      kind: "EnvironmentProfile",
+      environmentRef: "environment:p19:bootstrap",
+      runtimeVersions: ["1.0.0"],
+      bindings: [],
+    },
+    acceptanceChecks: [{ name: "factory-e2e", pass: true }],
+    startedAt: "2026-08-31T14:11:00.000Z",
+    completedAt: "2026-08-31T14:12:00.000Z",
+  };
 }
 
 function bootstrapInput(inputPath: string): Record<string, unknown> {
@@ -35,7 +127,13 @@ function runCommand(inputPath: string) {
 }
 
 test("TASK-434 operator bootstrap validates declared prerequisites without executing the journey", () => {
-  const parsed = validateFactoryOperatorBootstrap(bootstrapInput("fixture://operator-bootstrap"));
+  const raw = bootstrapInput("fixture://operator-bootstrap");
+  const transportFactoryInput = raw.factoryInput as Record<string, unknown>;
+  const catalogEntries = transportFactoryInput.catalogEntries;
+  assert.ok(Array.isArray(catalogEntries));
+  const materializedFactoryInput = { ...transportFactoryInput, catalog: { transportProof: true } };
+  delete materializedFactoryInput.catalogEntries;
+  const parsed = validateFactoryOperatorBootstrap({ ...raw, factoryInput: materializedFactoryInput });
   assert.equal(parsed.contractVersion, FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION);
   assert.equal(parsed.ok, true);
   assert.match(parsed.references.processRevisionRef, /.+/);
@@ -86,11 +184,11 @@ test("TASK-436 operator bootstrap emits deterministic evidence derived from cano
     assert.deepEqual(
       envelope.progress.stages.map(({ kind, status }) => ({ kind, status })),
       [
-        { kind: "process-model", status: "completed" },
-        { kind: "system-definition", status: "completed" },
+        { kind: "approved-process", status: "completed" },
+        { kind: "analysis-definition", status: "completed" },
         { kind: "capability-assembly", status: "completed" },
         { kind: "validation", status: "completed" },
-        { kind: "release", status: "completed" },
+        { kind: "compiler-release", status: "completed" },
         { kind: "deployment", status: "completed" },
       ],
     );
