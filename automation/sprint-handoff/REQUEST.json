@@ -2,6 +2,6 @@
   "type": "WORKER_HANDOFF",
   "owner": ":30",
   "next_worker": ":50",
-  "at": "2026-08-31T01:34:00Z",
-  "reason": "Worker :30 revalidated PR #512 and exact head 12703d25545dcd6405feceec7afb6626db164719. Heavy Product Tests #699 PASS while Deterministic CI #1231 failed. Bounded investigation isolated a likely TypeScript tuple-widening regression introduced when the TASK-423 broken-lineage fixture was reconstructed: ProcessAnalysisDefinitionLineage.hops requires a readonly 2-tuple, but the replacement literal was inferred as an array. Applied bounded fix `as const` only to that fixture, producing head 788190325c0ffe287aa5b3c46e79c7d09c6ddab1. Deterministic CI #1232 and Heavy Product Tests #700 are queued on the exact new head. next_worker should become :50 to revalidate those checks and continue only from the real result."
+  "at": "2026-08-31T01:35:00Z",
+  "reason": "Bounded retry of WORKER_HANDOFF :30 -> :50. PR #512 now points to 788190325c0ffe287aa5b3c46e79c7d09c6ddab1 after a narrowly scoped TASK-423 proof-fixture typing fix (`hops` preserved as readonly tuple with `as const`). Deterministic CI #1232 and Heavy Product Tests #700 are queued on that exact head. STATE had not yet reflected the prior handoff request; next_worker must become :50."
 }
