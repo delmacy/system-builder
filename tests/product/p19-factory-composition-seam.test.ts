@@ -11,6 +11,7 @@ const revision = {
   artifactRef: "process:orders",
   revisionRef: "process-revision:orders:v1",
   revisionNumber: 1,
+  previousRevisionRef: null,
 };
 const process = { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, kind: "process-revision" as const, processRevision: revision };
 const analysis = { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, kind: "analysis" as const, identityRef: "analysis:orders:v1" };
