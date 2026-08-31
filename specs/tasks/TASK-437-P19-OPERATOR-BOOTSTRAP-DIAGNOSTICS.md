@@ -36,8 +36,20 @@ validation:
 # Objective
 Provide deterministic actionable diagnostics for invalid bootstrap prerequisites/config and propagated canonical E2E failures while preserving fail-closed behavior.
 
+# Context
+TASK-434..436 define bootstrap validation, the single canonical E2E delegation and deterministic progress/result evidence. Diagnostics must clarify operator-actionable failures without becoming a parallel error authority.
+
+# Current behavior
+Bootstrap validation and canonical E2E failures can be surfaced, but WBS 19.2.1 still requires bounded actionable classification that preserves the underlying fail-closed boundary and avoids secret exposure or false completion.
+
 # Required change
 Classify only operator-actionable bootstrap boundary failures and preserve underlying canonical failure identity/context. Do not repair, downgrade, swallow or remap domain failures ambiguously.
+
+# Inputs / contracts
+TASK-434 validation failures, TASK-435 canonical invocation failures and TASK-436 progress/result state, including existing canonical predecessor identity/provenance errors.
+
+# Outputs / contracts
+Deterministic bounded diagnostics that distinguish malformed operator input from absent supported dependency/capability where the existing contracts allow, preserve canonical failure context, and exclude protected configuration values.
 
 # Acceptance criteria
 - missing prerequisite and malformed/unknown config produce bounded deterministic diagnostics;
@@ -49,6 +61,9 @@ Classify only operator-actionable bootstrap boundary failures and preserve under
 
 # Non-goals
 General logging framework, support ticketing, telemetry backend, auto-remediation, runtime diagnostics or new error authority.
+
+# Evidence expected
+Negative/adversarial product proof for missing prerequisites, malformed/unknown config, absent supported capability/dependency, stale/incompatible/substituted/lineage-broken predecessors, secret redaction and absence of downstream success/side effects; all declared validation commands must pass.
 
 # Escalation
 Stop if diagnostics require changing canonical business authority, weakening validation, new persistence/service topology or undeclared L4.
