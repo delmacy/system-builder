@@ -1,12 +1,14 @@
-# Next Work — P19 Factory Journey Contract
+# Next Work — P19 rolling-wave revalidation after WBS 19.1.1
 
 `P18-PACKAGE-03 — Process-to-System Version Lineage & Historical Traceability` / WBS 18.3.1–18.3.3 is canonically CLOSED.
 
-Planning PR #510 integrated `P19-FACTORY-JOURNEY-CONTRACT-01` / WBS 19.1.1 as COMMITTED / MATERIALIZED / NOT EXECUTED on fresh main `814896bed3213b7933338a52b904b3ea2df9fd6b`.
+Planning PR #510 materialized `P19-FACTORY-JOURNEY-CONTRACT-01` / WBS 19.1.1. Sprint Review PR #513 integrated the completed TASK-419..423 chain to fresh main `214fc69a2a119e484b7e2397bcf23397582c0e94`. The exact pre-report product head `c0764ddcf444cea8b5135963cbd3229f4e5837b4` passed Deterministic CI #1235 and Heavy Product Tests #703.
 
 ## Current gate
-Execute only the materialized `P19-FACTORY-JOURNEY-CONTRACT-01` TASK chain in dependency order: `TASK-419 -> TASK-420 -> TASK-421 -> TASK-422 -> TASK-423`. TASK-419 is the initial eligible task; later tasks remain blocked until their declared predecessors complete.
+WBS 19.1.1 is EXECUTED / REVIEWED / INTEGRATED. Do not re-execute TASK-419..423.
 
-The Sprint is bounded additive L3 factory-boundary contract work and focused product evidence. Preserve exact approved/versioned process and downstream artifact identities, M15 human-decision business authority, fail-closed lineage validation, public-boundary reuse and the declared allowed/forbidden paths.
+Revalidate `P19-PACKAGE-01 — Consolidated Pre-Alpha Productization` on fresh main and derive the next rolling-wave step only from canonical package/WBS authority. A successor Construction Sprint becomes executable only when explicitly materialized with its own scope, TASK chain, dependencies, allowed/forbidden paths and gates.
 
-Do not materialize or execute WBS 19.1.2+ by inference. No orchestration command/API, runtime launch, storage redesign, release/deploy side effects, Builder/Runtime topology change, unrelated findings/TD absorption or inferred L4 is authorized by this Sprint. Successor work requires integrated WBS 19.1.1 truth plus fresh-main rolling-wave revalidation.
+Preserve the integrated factory-journey contract boundaries: exact approved/versioned process and downstream artifact identities, M15 human-decision business authority, fail-closed lineage validation and public-boundary reuse.
+
+Do not materialize or execute WBS 19.1.2+ by inference. No orchestration command/API, runtime launch, storage redesign, release/deploy side effects, Builder/Runtime topology change, unrelated findings/TD absorption or inferred L4 is authorized merely by completion of WBS 19.1.1.
