@@ -1,6 +1,6 @@
 {
   "type": "WORKER_HANDOFF",
   "owner": ":50",
-  "at": "2026-08-31T04:52:30Z",
-  "reason": "PR #513 for P19-FACTORY-JOURNEY-CONTRACT-01 was revalidated on exact head 9ae4cc03d0a3ff8cf385692a477aab13b44db2c9 with Deterministic CI #1237 PASS, Heavy Product Tests #705 PASS, no blocking review/comments, and merged with expected-head protection as main 214fc69a2a119e484b7e2397bcf23397582c0e94. Fresh-main tree 9d2e997b19a08e61261bd98239598ba8d4f2386b equals the reviewed head tree. WBS 19.1.2 / P19-FACTORY-COMPOSITION-01 is next eligible but remains forecast until a new Planning & Materialization step commits it. next_worker must become :10; continue from fresh main without executing forecast directly."
+  "at": "2026-08-31T04:53:10Z",
+  "reason": "Bounded retry: PR #513 for P19-FACTORY-JOURNEY-CONTRACT-01 merged safely as main 214fc69a2a119e484b7e2397bcf23397582c0e94 after exact-head Deterministic CI #1237 PASS and Heavy Product Tests #705 PASS, with reviewed/merge tree 9d2e997b19a08e61261bd98239598ba8d4f2386b. Fresh-main makes WBS 19.1.2 / P19-FACTORY-COMPOSITION-01 next eligible, but it is still forecast and must first be explicitly materialized. next_worker must become :10; do not execute forecast directly."
 }
