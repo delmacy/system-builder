@@ -1,7 +1,7 @@
 {
   "type": "WORKER_HANDOFF",
   "owner": ":50",
-  "at": "2026-08-31T06:56:30Z",
+  "at": "2026-08-31T06:57:15Z",
   "next_worker": ":10",
-  "reason": "PR #515 materialization for P19-FACTORY-COMPOSITION-01 / WBS 19.1.2 passed exact-head Deterministic CI #1244 and Heavy Product Tests #712 and merged with expected-head protection as e975af0f229118f2a080098f12654123d198787f. Fresh main now contains COMMITTED / MATERIALIZED / NOT EXECUTED TASK-424..428; next execution begins with TASK-424."
+  "reason": "Bounded retry of required handoff. PR #515 materialization for P19-FACTORY-COMPOSITION-01 / WBS 19.1.2 passed exact-head Deterministic CI #1244 and Heavy Product Tests #712 and merged with expected-head protection as e975af0f229118f2a080098f12654123d198787f. Fresh main contains COMMITTED / MATERIALIZED / NOT EXECUTED TASK-424..428; next execution begins with TASK-424. next_worker must become :10."
 }
