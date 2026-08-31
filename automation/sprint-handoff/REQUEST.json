@@ -1,7 +1,7 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":30",
-  "next_worker": ":50",
-  "at": "2026-08-31T01:35:00Z",
-  "reason": "Bounded retry of WORKER_HANDOFF :30 -> :50. PR #512 now points to 788190325c0ffe287aa5b3c46e79c7d09c6ddab1 after a narrowly scoped TASK-423 proof-fixture typing fix (`hops` preserved as readonly tuple with `as const`). Deterministic CI #1232 and Heavy Product Tests #700 are queued on that exact head. STATE had not yet reflected the prior handoff request; next_worker must become :50."
+  "owner": ":50",
+  "next_worker": ":10",
+  "at": "2026-08-31T01:50:13Z",
+  "reason": "WORKER_HANDOFF :50 -> :10 after bounded correction on PR #512. Head 288a501a51c3360c70cfeb6ffd462db864f873cf replaces the adversarial lineage fixture tuple reconstruction with an in-place structuredClone mutation cast, preserving TASK-423 proof intent while eliminating the remaining TypeScript tuple-inference risk. New exact-head workflow runs had not yet appeared at handoff time; next worker should consult GitHub real CI before advancing."
 }
