@@ -23,7 +23,6 @@ on:
       - automation/sprint-handoff/REQUEST.json
   schedule:
     - cron: "7,22,37,52 * * * *"
-    - cron: "0 2,10,18 * * *"
   workflow_dispatch:
     inputs:
       event_json:
@@ -64,7 +63,6 @@ jobs:
         env:
           EVENT_NAME: ${{ github.event_name }}
           EVENT_ACTION: ${{ github.event.action }}
-          EVENT_SCHEDULE: ${{ github.event.schedule }}
           DISPATCH_EVENT_JSON: ${{ inputs.event_json }}
         run: |
           node <<'NODE'
@@ -86,7 +84,7 @@ jobs:
             } else {
               const body = pr.body || '';
               const managed = body.includes('<!-- automation-handoff-managed -->');
-              const ownerMatch = body.match(/<!--\s*handoff-owner:(:10|:30|:50|conformance)\s*-->/);
+              const ownerMatch = body.match(/<!--\s*handoff-owner:(:10|:30|:50)\s*-->/);
               if (managed && ownerMatch) {
                 event = {
                   type: 'PR_CI_STARTED',
@@ -112,9 +110,7 @@ jobs:
             const requestPath = 'handoff/automation/sprint-handoff/REQUEST.json';
             event = JSON.parse(fs.readFileSync(requestPath, 'utf8'));
           } else if (process.env.EVENT_NAME === 'schedule') {
-            event = process.env.EVENT_SCHEDULE === '0 2,10,18 * * *'
-              ? { type: 'CONFORMANCE_DUE', at: new Date().toISOString() }
-              : { type: 'LEASE_TICK', at: new Date().toISOString() };
+            event = { type: 'LEASE_TICK', at: new Date().toISOString() };
           } else if (process.env.EVENT_NAME === 'workflow_dispatch') {
             event = JSON.parse(process.env.DISPATCH_EVENT_JSON);
           }
