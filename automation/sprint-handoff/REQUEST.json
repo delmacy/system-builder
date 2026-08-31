@@ -2,6 +2,6 @@
   "type": "WORKER_HANDOFF",
   "owner": ":50",
   "next_worker": ":10",
-  "at": "2026-08-31T07:56:30Z",
-  "reason": "TASK-424 deterministic CI failure was traced to forbidden relative cross-package imports. Applied bounded correction on sprint/P19-FACTORY-COMPOSITION-01: exposed existing catalog/factory-boundary public aliases and switched factory-composition to public imports. New exact head f0ff8953bc4503224776fe188a6e368cec495132; Deterministic CI #1247 is pending and Heavy Product Tests #715 is in progress. Revalidate real GitHub checks before advancing TASK-425."
+  "at": "2026-08-31T07:57:10Z",
+  "reason": "Bounded retry of :50 -> :10 handoff after reducer delay. TASK-424 CI correction is on exact head f0ff8953bc4503224776fe188a6e368cec495132; Deterministic CI #1247 pending, Heavy Product Tests #715 in progress. next_worker must advance to :10; revalidate real GitHub checks before TASK-425."
 }
