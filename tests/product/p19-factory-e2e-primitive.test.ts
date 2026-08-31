@@ -57,6 +57,16 @@ const operations = {
   },
 };
 
+function captureFailure(action: () => unknown): string {
+  try {
+    action();
+  } catch (error) {
+    assert.ok(error instanceof Error);
+    return error.message;
+  }
+  assert.fail("expected factory E2E invocation to fail closed");
+}
+
 test("factory E2E primitive invokes the real composed path and returns auditable deterministic lineage", () => {
   const first = invokeFactoryE2E(input(), operations);
   const second = invokeFactoryE2E(input(), operations);
@@ -64,6 +74,78 @@ test("factory E2E primitive invokes the real composed path and returns auditable
   assert.equal(first.binding.references.systemDefinitionRef, definitionIdentity.identityRef);
   assert.equal(first.binding.references.publishedReleaseRef, "orders-system");
   assert.equal((first.deploymentRecord as { publishedReleaseRef: string }).publishedReleaseRef, "orders-system@0.0.1");
+});
+
+test("factory E2E boundary rejects missing, stale, cross-system and lineage-broken predecessors deterministically before successor operations", () => {
+  const cases: ReadonlyArray<Readonly<{ name: string; binding: unknown; expected: RegExp }>> = [
+    {
+      name: "missing canonical predecessor",
+      binding: {
+        ...journeyBinding,
+        journey: {
+          ...journeyBinding.journey,
+          stages: journeyBinding.journey.stages.map((stage, index) => index === 2 ? { ...stage, provenanceRef: "" } : stage),
+        },
+      },
+      expected: /stages\[2\]\.provenanceRef must be a non-empty string/,
+    },
+    {
+      name: "stale or incompatible predecessor",
+      binding: {
+        ...journeyBinding,
+        journey: {
+          ...journeyBinding.journey,
+          stages: journeyBinding.journey.stages.map((stage, index) => index === 2 ? { ...stage, provenanceRef: "system-definition:orders:v0" } : stage),
+        },
+      },
+      expected: /capability-assembly predecessor does not match canonical system-definition identity/,
+    },
+    {
+      name: "cross-system substituted predecessor",
+      binding: {
+        ...journeyBinding,
+        journey: {
+          ...journeyBinding.journey,
+          stages: journeyBinding.journey.stages.map((stage, index) => index === 0 ? { ...stage, identityRef: "process-revision:billing:v1" } : stage),
+        },
+      },
+      expected: /approved-process stage does not match canonical process artifact\/revision identity/,
+    },
+    {
+      name: "lineage-broken predecessor",
+      binding: {
+        ...journeyBinding,
+        lineage: {
+          ...journeyBinding.lineage,
+          hops: [
+            journeyBinding.lineage.hops[0],
+            {
+              ...journeyBinding.lineage.hops[1],
+              from: { ...analysis, identityRef: "analysis:billing:v1" },
+            },
+          ],
+        },
+      },
+      expected: /analysis-to-definition hop does not match declared endpoints/,
+    },
+  ];
+
+  for (const scenario of cases) {
+    let successorCalls = 0;
+    const guarded: typeof operations = {
+      assemble: (request) => { successorCalls += 1; return operations.assemble(request); },
+      validate: (request) => { successorCalls += 1; return operations.validate(request); },
+      compile: (request) => { successorCalls += 1; return operations.compile(request); },
+      previewRelease: (request) => { successorCalls += 1; return operations.previewRelease(request); },
+      dryRunDeployment: (request) => { successorCalls += 1; return operations.dryRunDeployment(request); },
+    };
+
+    const first = captureFailure(() => invokeFactoryE2E({ ...input(), journeyBinding: scenario.binding }, guarded));
+    const second = captureFailure(() => invokeFactoryE2E({ ...input(), journeyBinding: scenario.binding }, guarded));
+    assert.match(first, scenario.expected, scenario.name);
+    assert.equal(second, first, `${scenario.name} must preserve deterministic failure semantics`);
+    assert.equal(successorCalls, 0, `${scenario.name} must not invoke successor operations`);
+  }
 });
 
 test("factory E2E primitive fails closed for substituted canonical analysis identity before side effects", () => {
