@@ -181,8 +181,22 @@ test("WBS 19.1.1 rejects substituted and lineage-broken identities", () => {
   assert.throws(() => normalizeCanonicalFactoryJourney(substituted), /exact ValidationEvidence identity/);
 
   const brokenLineage = clone(canonicalBinding());
-  (brokenLineage.input.lineage.hops[1]!.from as { identityRef: string }).identityRef = "analysis:other:v2";
-  assert.throws(() => normalizeCanonicalFactoryJourney(brokenLineage), /analysis lineage hop does not match canonical endpoints/);
+  const originalLineage = brokenLineage.input.lineage;
+  brokenLineage.input.lineage = {
+    ...originalLineage,
+    hops: [
+      originalLineage.hops[0],
+      {
+        ...originalLineage.hops[1],
+        from: {
+          contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+          kind: "analysis",
+          identityRef: "analysis:other:v2",
+        },
+      },
+    ],
+  };
+  assert.throws(() => normalizeCanonicalFactoryJourney(brokenLineage), /analysis-to-definition hop does not match declared endpoints/);
 });
 
 test("repository or model metadata cannot substitute business authority or canonical identity", () => {
