@@ -85,3 +85,136 @@ test("repository factory E2E command rejects malformed input with bounded determ
     rmSync(directory, { recursive: true, force: true });
   }
 });
+
+test("WBS 19.1.3 growing proof audits the complete supported command lineage, repeatability and fail-closed predecessors", () => {
+  const directory = mkdtempSync(join(tmpdir(), "system-builder-p19-growing-proof-"));
+  try {
+    const clean = deterministicInput();
+    const cleanPath = join(directory, "clean.json");
+    writeFileSync(cleanPath, JSON.stringify(clean), "utf8");
+
+    const first = runCommand(cleanPath);
+    const second = runCommand(cleanPath);
+    assert.equal(first.status, 0, first.stderr);
+    assert.equal(second.status, 0, second.stderr);
+    assert.equal(first.stdout, second.stdout, "clean supported invocations must be byte-for-byte deterministic");
+
+    const success = JSON.parse(first.stdout.trim()) as {
+      ok: boolean;
+      result: {
+        binding: {
+          input: { journey: { stages: ReadonlyArray<{ kind: string; identityRef: string; provenanceRef: string }> } };
+          references: {
+            systemDefinitionRef: string;
+            assemblyPlanRef: string;
+            validationEvidenceRef: string;
+            releaseArtifactRef: string;
+            publishedReleaseRef: string;
+            deploymentRef: string;
+          };
+        };
+        deploymentRecord: { publishedReleaseRef: string };
+      };
+    };
+    assert.equal(success.ok, true);
+    assert.equal(success.result.binding.references.systemDefinitionRef, definitionIdentity.identityRef);
+    assert.deepEqual(success.result.binding.input.journey.stages.map((stage) => stage.kind), [
+      "approved-process",
+      "analysis-definition",
+      "capability-assembly",
+      "validation",
+      "compiler-release",
+      "deployment",
+    ]);
+    const stages = success.result.binding.input.journey.stages;
+    const references = success.result.binding.references;
+    assert.equal(stages[0]?.identityRef, revision.revisionRef);
+    assert.equal(stages[1]?.identityRef, analysis.identityRef);
+    assert.equal(stages[2]?.identityRef, references.assemblyPlanRef);
+    assert.equal(stages[3]?.identityRef, references.validationEvidenceRef);
+    assert.equal(stages[4]?.identityRef, references.publishedReleaseRef);
+    assert.equal(stages[5]?.identityRef, references.deploymentRef);
+    assert.equal(stages[2]?.provenanceRef, references.systemDefinitionRef);
+    assert.equal(stages[3]?.provenanceRef, references.assemblyPlanRef);
+    assert.equal(stages[4]?.provenanceRef, references.validationEvidenceRef);
+    assert.equal(stages[5]?.provenanceRef, success.result.deploymentRecord.publishedReleaseRef);
+    assert.equal(success.result.deploymentRecord.publishedReleaseRef, "orders-system@0.0.1");
+    assert.notEqual(references.releaseArtifactRef, "");
+
+    const invalidCases: ReadonlyArray<Readonly<{ name: string; payload: unknown; expected: RegExp }>> = [
+      {
+        name: "missing predecessor",
+        payload: {
+          ...clean,
+          journeyBinding: {
+            ...clean.journeyBinding,
+            journey: {
+              ...clean.journeyBinding.journey,
+              stages: clean.journeyBinding.journey.stages.map((stage, index) => index === 2 ? { ...stage, provenanceRef: "" } : stage),
+            },
+          },
+        },
+        expected: /stages\[2\]\.provenanceRef must be a non-empty string/,
+      },
+      {
+        name: "stale or incompatible predecessor",
+        payload: {
+          ...clean,
+          journeyBinding: {
+            ...clean.journeyBinding,
+            journey: {
+              ...clean.journeyBinding.journey,
+              stages: clean.journeyBinding.journey.stages.map((stage, index) => index === 2 ? { ...stage, provenanceRef: "system-definition:orders:v0" } : stage),
+            },
+          },
+        },
+        expected: /capability-assembly predecessor does not match canonical system-definition identity/,
+      },
+      {
+        name: "substituted cross-system predecessor",
+        payload: {
+          ...clean,
+          journeyBinding: {
+            ...clean.journeyBinding,
+            journey: {
+              ...clean.journeyBinding.journey,
+              stages: clean.journeyBinding.journey.stages.map((stage, index) => index === 0 ? { ...stage, identityRef: "process-revision:billing:v1" } : stage),
+            },
+          },
+        },
+        expected: /approved-process stage does not match canonical process artifact\/revision identity/,
+      },
+      {
+        name: "lineage-broken predecessor",
+        payload: {
+          ...clean,
+          journeyBinding: {
+            ...clean.journeyBinding,
+            lineage: {
+              ...clean.journeyBinding.lineage,
+              hops: [
+                clean.journeyBinding.lineage.hops[0],
+                { ...clean.journeyBinding.lineage.hops[1], from: { ...analysis, identityRef: "analysis:billing:v1" } },
+              ],
+            },
+          },
+        },
+        expected: /analysis-to-definition hop does not match declared endpoints/,
+      },
+    ];
+
+    for (const scenario of invalidCases) {
+      const inputPath = join(directory, `${scenario.name.replaceAll(" ", "-")}.json`);
+      writeFileSync(inputPath, JSON.stringify(scenario.payload), "utf8");
+      const rejected = runCommand(inputPath);
+      assert.notEqual(rejected.status, 0, `${scenario.name} must fail closed`);
+      assert.equal(rejected.stdout, "", `${scenario.name} must not emit partial success evidence`);
+      const failure = JSON.parse(rejected.stderr.trim()) as { ok: boolean; error: { code: string; message: string } };
+      assert.equal(failure.ok, false);
+      assert.equal(failure.error.code, "FACTORY_E2E_COMMAND_FAILED");
+      assert.match(failure.error.message, scenario.expected, scenario.name);
+    }
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
