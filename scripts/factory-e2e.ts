@@ -38,7 +38,8 @@ function buildInvocationInput(raw: unknown): FactoryE2EInvocationInput {
     catalog.register(entry as Parameters<SoftwareCatalogRegistry["register"]>[0]);
   }
 
-  const { catalogEntries: _catalogEntries, ...input } = payload;
+  const input = { ...payload };
+  delete input.catalogEntries;
   return { ...input, catalog } as unknown as FactoryE2EInvocationInput;
 }
 
