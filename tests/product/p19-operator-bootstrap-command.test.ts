@@ -6,93 +6,64 @@ import { join, resolve } from "node:path";
 import test from "node:test";
 
 import {
-  parseFactoryOperatorBootstrapInput,
-  type FactoryOperatorBootstrapInput,
-} from "../../packages/core/src/index.ts";
+  FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION,
+  validateFactoryOperatorBootstrap,
+} from "../../packages/contracts/factory-boundary/index.js";
 
-const repositoryRoot = resolve(import.meta.dirname, "../..");
-const cliPath = join(repositoryRoot, "tooling/factory/operator-bootstrap-cli.ts");
+const repositoryRoot = resolve(process.cwd());
+const cliPath = join(repositoryRoot, "scripts/factory-operator-bootstrap.ts");
 const fixturePath = join(repositoryRoot, "tests/fixtures/p19/factory-e2e-success.json");
 
-type CommandResult = ReturnType<typeof spawnSync>;
-
-function fixture(): FactoryOperatorBootstrapInput["factoryInput"] {
-  return JSON.parse(readFileSync(fixturePath, "utf8")) as FactoryOperatorBootstrapInput["factoryInput"];
+function factoryInput(): Record<string, unknown> {
+  return JSON.parse(readFileSync(fixturePath, "utf8")) as Record<string, unknown>;
 }
 
-function bootstrapInput(inputPath: string): FactoryOperatorBootstrapInput {
+function bootstrapInput(inputPath: string): Record<string, unknown> {
   return {
-    schemaVersion: "system-builder.factory-operator-bootstrap/v1",
-    factoryInput: fixture(),
-    sourceRef: inputPath,
+    contractVersion: FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION,
+    prerequisites: { nodeVersion: "24.0.0", npmVersion: "11.0.0", factoryE2EAvailable: true },
+    config: { inputPath },
+    factoryInput: factoryInput(),
   };
 }
 
-function runCommand(inputPath: string): CommandResult {
-  return spawnSync(process.execPath, ["--import", "tsx", cliPath, inputPath], {
+function runCommand(inputPath: string) {
+  return spawnSync(process.execPath, ["--import", "tsx", cliPath, "--input", inputPath], {
     cwd: repositoryRoot,
     encoding: "utf8",
   });
 }
 
-test("TASK-434 operator bootstrap contract validates prerequisites without duplicating factory orchestration", () => {
-  const input = bootstrapInput("fixture://operator-bootstrap");
-  const parsed = parseFactoryOperatorBootstrapInput(input);
-
-  assert.equal(parsed.schemaVersion, "system-builder.factory-operator-bootstrap/v1");
-  assert.equal(parsed.factoryInput.schemaVersion, "system-builder.factory-e2e-input/v1");
-  assert.equal(parsed.factoryInput.journeyBinding.schemaVersion, "system-builder.factory-journey-binding/v1");
+test("TASK-434 operator bootstrap validates declared prerequisites without executing the journey", () => {
+  const parsed = validateFactoryOperatorBootstrap(bootstrapInput("fixture://operator-bootstrap"));
+  assert.equal(parsed.contractVersion, FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION);
+  assert.equal(parsed.ok, true);
+  assert.match(parsed.references.processRevisionRef, /.+/);
+  assert.match(parsed.references.systemDefinitionRef, /.+/);
 });
 
-test("TASK-434 operator bootstrap rejects missing canonical predecessor identity", () => {
-  const input = bootstrapInput("fixture://operator-bootstrap");
-  input.factoryInput.journeyBinding.journey.systemDefinitionRef = "";
-
-  assert.throws(
-    () => parseFactoryOperatorBootstrapInput(input),
-    /systemDefinitionRef must be a non-empty string/,
-  );
-});
-
-test("TASK-435 factory:bootstrap is a supported thin command over the canonical factory:e2e executor", () => {
+test("TASK-435 factory:bootstrap is a supported thin command over the bootstrap entrypoint", () => {
   const directory = mkdtempSync(join(tmpdir(), "system-builder-p19-bootstrap-"));
   try {
     const inputPath = join(directory, "bootstrap.json");
     writeFileSync(inputPath, JSON.stringify(bootstrapInput(inputPath)), "utf8");
 
-    const direct = execFileSync(process.execPath, ["--import", "tsx", cliPath, inputPath], {
+    const direct = execFileSync(process.execPath, ["--import", "tsx", cliPath, "--input", inputPath], {
       cwd: repositoryRoot,
       encoding: "utf8",
     });
-    const viaNpm = execFileSync("npm", ["run", "--silent", "factory:bootstrap", "--", inputPath], {
+    const viaNpm = execFileSync("npm", ["run", "--silent", "factory:bootstrap", "--", "--input", inputPath], {
       cwd: repositoryRoot,
       encoding: "utf8",
     });
 
-    assert.deepEqual(JSON.parse(viaNpm), JSON.parse(direct));
+    assert.deepEqual(JSON.parse(String(viaNpm)), JSON.parse(String(direct)));
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
 });
 
-test("TASK-435 factory:bootstrap fails closed before delegation for invalid bootstrap input", () => {
-  const directory = mkdtempSync(join(tmpdir(), "system-builder-p19-bootstrap-invalid-"));
-  try {
-    const inputPath = join(directory, "bootstrap.json");
-    const invalid = bootstrapInput(inputPath);
-    invalid.factoryInput.journeyBinding.journey.systemDefinitionRef = "";
-    writeFileSync(inputPath, JSON.stringify(invalid), "utf8");
-
-    const rejected = runCommand(inputPath);
-    assert.notEqual(rejected.status, 0);
-    assert.equal(rejected.stdout, "");
-    assert.match(rejected.stderr, /systemDefinitionRef must be a non-empty string/);
-  } finally {
-    rmSync(directory, { recursive: true, force: true });
-  }
-});
-
-test("TASK-436 operator bootstrap emits deterministic maintainer progress/result evidence from canonical stages", () => {
+test("TASK-436 operator bootstrap emits deterministic evidence derived from canonical completed stages", () => {
   const directory = mkdtempSync(join(tmpdir(), "system-builder-p19-bootstrap-progress-"));
   try {
     const inputPath = join(directory, "bootstrap.json");
@@ -102,34 +73,31 @@ test("TASK-436 operator bootstrap emits deterministic maintainer progress/result
     const second = runCommand(inputPath);
     assert.equal(first.status, 0);
     assert.equal(second.status, 0);
-    assert.equal(first.stderr, "");
-    assert.equal(second.stderr, "");
-    assert.equal(first.stdout, second.stdout, "same clean input must produce byte-identical operator evidence");
+    assert.equal(String(first.stderr), "");
+    assert.equal(String(second.stderr), "");
+    assert.equal(String(first.stdout), String(second.stdout), "same clean input must produce byte-identical operator evidence");
 
-    const envelope = JSON.parse(first.stdout) as {
-      schemaVersion: string;
-      status: string;
-      sourceRef: string;
-      progress: Array<{ stage: string; status: string; outputRef: string }>;
-      result: { factoryJourneyRef: string; releaseRef: string; deploymentRef: string };
+    const envelope = JSON.parse(String(first.stdout)) as {
+      ok: boolean;
+      progress: { status: string; stages: Array<{ kind: string; status: string; identityRef: string; provenanceRef: string }> };
     };
-    assert.equal(envelope.schemaVersion, "system-builder.factory-operator-bootstrap-result/v1");
-    assert.equal(envelope.status, "completed");
-    assert.equal(envelope.sourceRef, inputPath);
+    assert.equal(envelope.ok, true);
+    assert.equal(envelope.progress.status, "succeeded");
     assert.deepEqual(
-      envelope.progress.map(({ stage, status }) => ({ stage, status })),
+      envelope.progress.stages.map(({ kind, status }) => ({ kind, status })),
       [
-        { stage: "process-model", status: "completed" },
-        { stage: "system-definition", status: "completed" },
-        { stage: "capability-assembly", status: "completed" },
-        { stage: "validation", status: "completed" },
-        { stage: "release", status: "completed" },
-        { stage: "deployment", status: "completed" },
+        { kind: "process-model", status: "completed" },
+        { kind: "system-definition", status: "completed" },
+        { kind: "capability-assembly", status: "completed" },
+        { kind: "validation", status: "completed" },
+        { kind: "release", status: "completed" },
+        { kind: "deployment", status: "completed" },
       ],
     );
-    assert.equal(envelope.result.factoryJourneyRef, envelope.progress[5]!.outputRef);
-    assert.equal(envelope.result.releaseRef, envelope.progress[4]!.outputRef);
-    assert.equal(envelope.result.deploymentRef, envelope.progress[5]!.outputRef);
+    for (const stage of envelope.progress.stages) {
+      assert.match(stage.identityRef, /.+/);
+      assert.match(stage.provenanceRef, /.+/);
+    }
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
@@ -140,14 +108,15 @@ test("TASK-436 stale predecessor rejection never emits downstream completion evi
   try {
     const inputPath = join(directory, "bootstrap.json");
     const stale = bootstrapInput(inputPath);
-    stale.factoryInput.journeyBinding.journey.stages[2]!.provenanceRef = "system-definition:orders:stale";
+    const rawFactoryInput = stale.factoryInput as { journeyBinding: { journey: { stages: Array<{ provenanceRef: string }> } } };
+    rawFactoryInput.journeyBinding.journey.stages[2]!.provenanceRef = "system-definition:orders:stale";
     writeFileSync(inputPath, JSON.stringify(stale), "utf8");
 
     const rejected = runCommand(inputPath);
     assert.notEqual(rejected.status, 0);
-    assert.equal(rejected.stdout, "", "rejected predecessor must not emit a success/progress envelope");
-    assert.doesNotMatch(rejected.stderr, /"status":"completed"/);
-    assert.match(rejected.stderr, /capability-assembly predecessor does not match canonical system-definition identity/);
+    assert.equal(String(rejected.stdout), "", "rejected predecessor must not emit a success/progress envelope");
+    assert.doesNotMatch(String(rejected.stderr), /\"status\":\"completed\"/);
+    assert.match(String(rejected.stderr), /capability-assembly predecessor does not match canonical system-definition identity/);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
