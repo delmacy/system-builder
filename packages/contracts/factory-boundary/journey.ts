@@ -174,6 +174,8 @@ export function normalizeFactoryJourneyOutputBinding(input: unknown): FactoryJou
   const releaseValidationRef = requiredRef(releaseArtifact, "validationEvidenceRef", "ReleaseArtifact");
   const releaseArtifactRef = requiredRef(releaseArtifact, "artifactHash", "ReleaseArtifact");
   const publishedReleaseRef = requiredRef(publishedRelease, "releaseId", "PublishedRelease");
+  const publishedReleaseVersion = requiredRef(publishedRelease, "version", "PublishedRelease");
+  const versionedPublishedReleaseRef = `${publishedReleaseRef}@${publishedReleaseVersion}`;
   const publishedArtifactRef = requiredRef(publishedRelease, "artifactRef", "PublishedRelease");
   const publishedArtifactHash = requiredRef(publishedRelease, "artifactHash", "PublishedRelease");
   const publishedValidationRef = requiredRef(publishedRelease, "validationEvidenceRef", "PublishedRelease");
@@ -207,10 +209,11 @@ export function normalizeFactoryJourneyOutputBinding(input: unknown): FactoryJou
   if (compilerRelease.identityRef !== publishedReleaseRef || compilerRelease.provenanceRef !== validationEvidenceRef) {
     throw new Error("compiler-release stage does not match the exact published release chain");
   }
-  if (deploymentReleaseRef !== publishedReleaseRef || deploymentReleaseHash !== publishedArtifactHash) {
+  const acceptedDeploymentReleaseRefs = new Set([publishedReleaseRef, versionedPublishedReleaseRef]);
+  if (!acceptedDeploymentReleaseRefs.has(deploymentReleaseRef) || deploymentReleaseHash !== publishedArtifactHash) {
     throw new Error("DeploymentRecord does not reference the exact PublishedRelease identity");
   }
-  if (deployment.identityRef !== deploymentRef || deployment.provenanceRef !== publishedReleaseRef) {
+  if (deployment.identityRef !== deploymentRef || !acceptedDeploymentReleaseRefs.has(deployment.provenanceRef)) {
     throw new Error("deployment stage does not match the exact DeploymentRecord predecessor chain");
   }
 
