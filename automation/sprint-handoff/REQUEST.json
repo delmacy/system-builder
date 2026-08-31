@@ -2,6 +2,6 @@
   "type": "WORKER_HANDOFF",
   "owner": ":50",
   "next_worker": ":10",
-  "at": "2026-08-31T00:53:00Z",
-  "reason": "Resolved Deterministic CI #1230 typecheck failure boundedly on PR #512. New head 12703d25545dcd6405feceec7afb6626db164719 only widens the intentionally invalid duplicate deployment fixture typing; no product behavior changed. New exact-head CI checks had not appeared yet at handoff, so next_worker should be :10 for real GitHub gate revalidation."
+  "at": "2026-08-31T00:53:20Z",
+  "reason": "Bounded handoff retry after reducer delay. Deterministic CI #1230 typecheck failure was corrected on PR #512 at head 12703d25545dcd6405feceec7afb6626db164719 by widening only the intentionally invalid duplicate deployment fixture typing. No product behavior changed. next_worker must become :10 for exact-head CI revalidation."
 }
