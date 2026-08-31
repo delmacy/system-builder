@@ -4,15 +4,15 @@ machine_state: NEXT_10
 next_worker: :10
 claimed_by: null
 claim_until: null
-sequence: 266
-updated_at: 2026-08-31T15:02:28.167Z
+sequence: 267
+updated_at: 2026-08-31T15:02:47.142Z
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: failure
 heavy_product_tests: success
 last_event: CHECK_COMPLETED
-reason: CI_FAILED:Heavy Product Tests:success
+reason: CI_FAILED:Deterministic CI:failure
 
 ## Authority
 
