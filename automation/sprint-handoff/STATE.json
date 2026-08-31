@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "next_worker": ":10",
+  "next_worker": ":50",
   "claimed_by": null,
   "claim_until": null,
   "resume_worker": null,
-  "sequence": 260,
-  "updated_at": "2026-08-31T14:04:58.582Z",
+  "sequence": 261,
+  "updated_at": "2026-08-31T14:38:52.752Z",
   "active_pr": null,
   "active_branch": null,
   "active_head_sha": null,
@@ -15,7 +15,7 @@
   },
   "last_event": "WORKER_HANDOFF",
   "reason": null,
-  "owner": ":10",
+  "owner": ":50",
   "resume_owner": null,
   "lease_until": null,
   "phase": "READY"
