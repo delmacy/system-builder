@@ -1,17 +1,17 @@
 # Automation Sprint Handoff
 
-machine_state: NEXT_CONF
-next_worker: conformance
+machine_state: NEXT_30
+next_worker: :30
 claimed_by: null
 claim_until: null
-sequence: 242
-updated_at: 2026-08-31T11:20:20.335Z
+sequence: 243
+updated_at: 2026-08-31T11:23:30Z
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: success
 heavy_product_tests: success
-last_event: CHECK_COMPLETED
+last_event: CONFORMANCE_COMPLETE
 reason: null
 
 ## Authority
