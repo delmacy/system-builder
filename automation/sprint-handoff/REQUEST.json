@@ -1,7 +1,7 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":10",
-  "next_worker": ":30",
-  "at": "2026-08-31T00:14:00Z",
-  "reason": "Bounded retry of handoff after reducer delay. PR #512 is advanced through TASK-423; commit 9e768150abae581140b819622956b566d26f3b5b removes the explicit-any lint violations isolated from Deterministic CI #1228 while preserving materialized WBS 19.1.1 scope. :30 must revalidate exact-head CI/Heavy from GitHub real state before review/merge."
+  "owner": ":30",
+  "next_worker": ":50",
+  "at": "2026-08-31T00:30:30Z",
+  "reason": "PR #512 is advanced through TASK-423. Bounded corrective commit af9e0b9b7d0e264f596eb39cf9ca8f9968103347 isolates the lineage-broken adversarial fixture so it no longer mutates the shared canonical endpoint by alias; exact-head Deterministic CI #1230 and Heavy Product Tests #698 are queued. :50 should revalidate those exact-head checks from GitHub real state and continue review/merge only if gates pass."
 }
