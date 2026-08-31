@@ -1,7 +1,7 @@
 {
   "type": "WORKER_HANDOFF",
-  "owner": ":30",
-  "next_worker": ":50",
-  "at": "2026-08-31T07:36:00Z",
-  "reason": "TASK-424 implementation and focused evidence committed on sprint/P19-FACTORY-COMPOSITION-01; draft PR #516 opened at a6c1fe9e36d8877f181b7408c6f3de428cefe746. Revalidate exact-head CI/Heavy and continue boundedly from TASK-424 gate before TASK-425."
+  "owner": ":50",
+  "next_worker": ":10",
+  "at": "2026-08-31T07:56:30Z",
+  "reason": "TASK-424 deterministic CI failure was traced to forbidden relative cross-package imports. Applied bounded correction on sprint/P19-FACTORY-COMPOSITION-01: exposed existing catalog/factory-boundary public aliases and switched factory-composition to public imports. New exact head f0ff8953bc4503224776fe188a6e368cec495132; Deterministic CI #1247 is pending and Heavy Product Tests #715 is in progress. Revalidate real GitHub checks before advancing TASK-425."
 }
