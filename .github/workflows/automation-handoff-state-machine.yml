@@ -21,12 +21,10 @@ on:
       - automation/sprint-handoff
     paths:
       - automation/sprint-handoff/REQUEST.json
-  schedule:
-    - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
     inputs:
       event_json:
-        description: JSON event for the handoff reducer
+        description: JSON event for the handoff telemetry reducer
         required: true
         type: string
 
@@ -51,7 +49,7 @@ jobs:
           path: source
           fetch-depth: 1
 
-      - name: Checkout handoff state branch
+      - name: Checkout handoff telemetry branch
         uses: actions/checkout@v7
         with:
           ref: automation/sprint-handoff
@@ -109,8 +107,6 @@ jobs:
           } else if (process.env.EVENT_NAME === 'push') {
             const requestPath = 'handoff/automation/sprint-handoff/REQUEST.json';
             event = JSON.parse(fs.readFileSync(requestPath, 'utf8'));
-          } else if (process.env.EVENT_NAME === 'schedule') {
-            event = { type: 'LEASE_TICK', at: new Date().toISOString() };
           } else if (process.env.EVENT_NAME === 'workflow_dispatch') {
             event = JSON.parse(process.env.DISPATCH_EVENT_JSON);
           }
@@ -124,7 +120,7 @@ jobs:
           }
           NODE
 
-      - name: Reduce event into canonical state
+      - name: Reduce event into canonical telemetry
         if: steps.event.outputs.skip != 'true'
         run: |
           node source/scripts/handoff-state-machine.mjs \
@@ -133,7 +129,7 @@ jobs:
             --handoff handoff/automation/sprint-handoff/AUTOMATION_SPRINT_HANDOFF.md \
             --events handoff/automation/sprint-handoff/EVENTS.ndjson
 
-      - name: Commit generated state if changed
+      - name: Commit generated telemetry if changed
         if: steps.event.outputs.skip != 'true'
         working-directory: handoff
         run: |
@@ -145,6 +141,6 @@ jobs:
           if git diff --cached --quiet; then
             exit 0
           fi
-          git commit -m "chore(automation): reduce handoff event"
+          git commit -m "chore(automation): reduce handoff telemetry"
           git pull --rebase origin automation/sprint-handoff
           git push origin HEAD:automation/sprint-handoff

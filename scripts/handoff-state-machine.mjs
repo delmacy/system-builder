@@ -44,16 +44,12 @@ function normalizeOptionalWorker(worker) {
 
 function normalize(state) {
   const next = clone(state);
-  next.version = 2;
+  next.version = 3;
   next.next_worker = normalizeWorker(next.next_worker ?? state.owner ?? ":10");
-
-  const claimed = next.claimed_by ?? (state.phase === "RUNNING" ? state.owner ?? null : null);
-  next.claimed_by = normalizeOptionalWorker(claimed);
-  next.claim_until ??= state.lease_until ?? null;
-
-  const resume = next.resume_worker ?? state.resume_owner ?? null;
-  next.resume_worker = normalizeOptionalWorker(resume);
-
+  next.last_worker = normalizeOptionalWorker(next.last_worker ?? state.claimed_by ?? state.owner ?? null);
+  next.claimed_by = null;
+  next.claim_until = null;
+  next.resume_worker = null;
   next.sequence ??= 0;
   next.updated_at ??= new Date().toISOString();
   next.active_pr ??= null;
@@ -66,10 +62,10 @@ function normalize(state) {
 }
 
 function syncLegacy(state) {
-  state.owner = state.next_worker;
-  state.resume_owner = state.resume_worker ?? null;
-  state.lease_until = state.claim_until ?? null;
-  state.phase = state.claimed_by === state.next_worker ? "RUNNING" : "READY";
+  state.owner = state.last_worker ?? state.next_worker;
+  state.resume_owner = null;
+  state.lease_until = null;
+  state.phase = "OBSERVING";
   return state;
 }
 
@@ -87,67 +83,52 @@ function ignored(state, reason) {
   return { accepted: false, previous: clone(normalized), next: clone(normalized), reason };
 }
 
-function claimExpired(state, event) {
-  if (!state.claimed_by || !state.claim_until) return true;
-  const now = new Date(nowIso(event)).getTime();
-  const until = new Date(state.claim_until).getTime();
-  return !Number.isFinite(until) || !Number.isFinite(now) || now > until;
+function validWorkerEvent(state, event) {
+  if (!WORKERS.includes(event.owner)) return ignored(state, "invalid worker");
+  return null;
 }
 
 export function reduceHandoffState(rawState, event) {
-  if (!rawState || ![1, 2].includes(rawState.version)) throw new Error("Unsupported handoff state version");
+  if (!rawState || ![1, 2, 3].includes(rawState.version)) throw new Error("Unsupported handoff state version");
   if (!event || typeof event.type !== "string") throw new Error("Event type is required");
   const state = normalize(rawState);
 
   switch (event.type) {
-    case "WORKER_CLAIM": {
-      if (state.next_worker !== event.owner) return ignored(state, "claim next_worker mismatch");
-      if (state.claimed_by && state.claimed_by !== event.owner && !claimExpired(state, event)) {
-        return ignored(state, "token already claimed");
-      }
+    case "WORKER_CLAIM":
+    case "WORKER_HANDOFF":
+    case "WORKER_OBSERVATION": {
+      const invalid = validWorkerEvent(state, event);
+      if (invalid) return invalid;
       return accepted(state, event, (next) => {
-        next.claimed_by = event.owner;
-        next.claim_until = event.lease_until ?? null;
-        next.reason = null;
-        return next;
-      });
-    }
-
-    case "WORKER_HANDOFF": {
-      if (state.next_worker !== event.owner) return ignored(state, "handoff next_worker mismatch");
-      return accepted(state, event, (next) => {
+        next.last_worker = event.owner;
         next.next_worker = scheduledWorkerAfter(event);
-        next.claimed_by = null;
-        next.claim_until = null;
-        next.reason = null;
+        next.reason = event.reason ?? null;
         return next;
       });
     }
 
     case "WORKER_BLOCK": {
-      if (state.next_worker !== event.owner) return ignored(state, "block next_worker mismatch");
+      const invalid = validWorkerEvent(state, event);
+      if (invalid) return invalid;
       return accepted(state, event, (next) => {
-        next.reason = event.reason ?? "worker reported blocker";
+        next.last_worker = event.owner;
         next.next_worker = scheduledWorkerAfter(event);
-        next.claimed_by = null;
-        next.claim_until = null;
+        next.reason = event.reason ?? "worker reported blocker";
         return next;
       });
     }
 
     case "PR_CI_STARTED": {
-      if (state.next_worker !== event.owner && state.claimed_by !== event.owner) {
-        return ignored(state, "PR owner is not current token holder");
-      }
+      const invalid = validWorkerEvent(state, event);
+      if (invalid) return invalid;
       return accepted(state, event, (next) => {
+        next.last_worker = event.owner;
         next.active_pr = event.pr;
         next.active_branch = event.branch;
         next.active_head_sha = event.head;
         next.checks = { deterministic: "pending", heavy: "pending" };
         next.reason = null;
         next.next_worker = scheduledWorkerAfter(event);
-        next.claimed_by = null;
-        next.claim_until = null;
         return next;
       });
     }
@@ -183,18 +164,6 @@ export function reduceHandoffState(rawState, event) {
       });
     }
 
-    case "LEASE_TICK": {
-      if (!state.claimed_by || !state.claim_until || !claimExpired(state, event)) {
-        return ignored(state, "no expired claim");
-      }
-      return accepted(state, event, (next) => {
-        next.claimed_by = null;
-        next.claim_until = null;
-        next.reason = "CLAIM_EXPIRED_RECOVERED";
-        return next;
-      });
-    }
-
     default:
       throw new Error(`Unsupported handoff event: ${event.type}`);
   }
@@ -202,8 +171,7 @@ export function reduceHandoffState(rawState, event) {
 
 function displayState(state) {
   const normalized = normalize(state);
-  const who = normalized.next_worker.slice(1);
-  return normalized.claimed_by === normalized.next_worker ? `CLAIMED_${who}` : `NEXT_${who}`;
+  return `ADVISORY_NEXT_${normalized.next_worker.slice(1)}`;
 }
 
 export function renderHandoffMarkdown(state) {
@@ -211,8 +179,7 @@ export function renderHandoffMarkdown(state) {
   return `# Automation Sprint Handoff\n\n` +
     `machine_state: ${displayState(s)}\n` +
     `next_worker: ${s.next_worker}\n` +
-    `claimed_by: ${s.claimed_by ?? "null"}\n` +
-    `claim_until: ${s.claim_until ?? "null"}\n` +
+    `last_worker: ${s.last_worker ?? "null"}\n` +
     `sequence: ${s.sequence}\n` +
     `updated_at: ${s.updated_at}\n` +
     `active_pr: ${s.active_pr ?? "null"}\n` +
@@ -223,7 +190,7 @@ export function renderHandoffMarkdown(state) {
     `last_event: ${s.last_event ?? "null"}\n` +
     `reason: ${s.reason ?? "null"}\n\n` +
     `## Authority\n\n` +
-    `Only next_worker selects who may work. Claims, CI, PR metadata and reasons are advisory context and must never create a permanent queue lock.\n`;
+    `No state-machine field grants or denies permission to work. next_worker is scheduling telemetry only. Each recurring worker decides whether to mutate by revalidating live GitHub Actions, the exact PR/head, the latest materialized TASK and its required workflow evidence.\n`;
 }
 
 export function renderEventLine(result, event) {
