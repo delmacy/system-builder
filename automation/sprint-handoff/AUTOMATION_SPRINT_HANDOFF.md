@@ -1,17 +1,17 @@
 # Automation Sprint Handoff
 
-machine_state: NEXT_50
-next_worker: :50
+machine_state: NEXT_10
+next_worker: :10
 claimed_by: null
 claim_until: null
-sequence: 296
-updated_at: 2026-08-31T17:35:18.295Z
+sequence: 297
+updated_at: 2026-08-31T17:50:25.510Z
 active_pr: null
 active_branch: null
 active_head_sha: null
 deterministic_ci: success
 heavy_product_tests: success
-last_event: CHECK_COMPLETED
+last_event: WORKER_HANDOFF
 reason: null
 
 ## Authority
