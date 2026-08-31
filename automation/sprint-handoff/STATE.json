@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "next_worker": ":30",
+  "next_worker": ":50",
   "claimed_by": null,
   "claim_until": null,
   "resume_worker": null,
-  "sequence": 272,
-  "updated_at": "2026-08-31T15:40:11.802Z",
+  "sequence": 273,
+  "updated_at": "2026-08-31T15:40:27.295Z",
   "active_pr": null,
   "active_branch": null,
   "active_head_sha": null,
@@ -13,9 +13,9 @@
     "deterministic": "failure",
     "heavy": "failure"
   },
-  "last_event": "CHECK_COMPLETED",
-  "reason": "CI_FAILED:Deterministic CI:cancelled",
-  "owner": ":30",
+  "last_event": "WORKER_HANDOFF",
+  "reason": null,
+  "owner": ":50",
   "resume_owner": null,
   "lease_until": null,
   "phase": "READY"
