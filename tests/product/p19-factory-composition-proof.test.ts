@@ -243,8 +243,10 @@ test("WBS 19.1.2 proof fails closed for a lineage-broken capability predecessor"
 
 test("WBS 19.1.2 proof fails closed for cross-system assembly substitution", () => {
   const canonical = composeFactoryJourney({ journeyBinding: binding(), definition, catalog: catalog() });
-  assert.equal(canonical.assembly.ok, true);
-  if (!canonical.assembly.ok) return;
+  const canonicalAssembly = canonical.assembly;
+  assert.equal(canonicalAssembly.ok, true);
+  if (!canonicalAssembly.ok) return;
+  const canonicalPlan = canonicalAssembly.plan;
 
   assert.throws(
     () => composeFactoryAssemblyValidation({
@@ -252,7 +254,7 @@ test("WBS 19.1.2 proof fails closed for cross-system assembly substitution", () 
       recipe: recipeTraceability,
       analysis: analysisTraceability,
       definition: definitionTraceability,
-      assemblyPlan: canonical.assembly.plan,
+      assemblyPlan: canonicalPlan,
     }),
     /FACTORY_VALIDATION_SYSTEM_DEFINITION_MISMATCH/,
   );
@@ -261,20 +263,22 @@ test("WBS 19.1.2 proof fails closed for cross-system assembly substitution", () 
 test("WBS 19.1.2 proof fails closed when validation evidence is substituted before compiler", () => {
   const journeyBinding = binding();
   const assembled = composeFactoryJourney({ journeyBinding, definition, catalog: catalog() });
-  assert.equal(assembled.assembly.ok, true);
-  if (!assembled.assembly.ok) return;
+  const assembly = assembled.assembly;
+  assert.equal(assembly.ok, true);
+  if (!assembly.ok) return;
+  const assemblyPlan = assembly.plan;
   const validation = composeFactoryAssemblyValidation({
     journeyBinding,
     recipe: recipeTraceability,
     analysis: analysisTraceability,
     definition: definitionTraceability,
-    assemblyPlan: assembled.assembly.plan,
+    assemblyPlan,
   });
 
   assert.throws(
     () => composeFactoryCompilerReleaseArtifact({
       journeyBinding,
-      assemblyPlan: assembled.assembly.plan,
+      assemblyPlan,
       validationEvidence: {
         ...validation.validationEvidence,
         assemblyPlanRef: `sha256:${"0".repeat(64)}`,
