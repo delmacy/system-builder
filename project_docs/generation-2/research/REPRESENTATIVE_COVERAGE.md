@@ -18,27 +18,13 @@ Camunda 8 migration/modification, AWS Step Functions versions/aliases/redrive, D
 Apache Kafka/Kafka Connect, Dapr Pub/Sub, AWS EventBridge Pipes, Azure Logic Apps, n8n, MuleSoft Anypoint, Zapier Platform and Make: `DEEP`. Revisit result: six material findings (`G2-FINDING-IA-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## Identity / Authentication / Federation — revisit cycle 2
-| Representative | Coverage | Revisit focus |
-|---|---|---|
-| OAuth Authorization Server Metadata — RFC 8414 | DEEP | Issuer identity, discovery/metadata revision, signed metadata and validation trust boundary. |
-| OAuth Token Revocation — RFC 7009 / RFC 9700 | DEEP | Revocation target/scope, cascade policy, propagation/freshness and unexpected invalidation. |
-| SPIFFE / SPIRE | DEEP | Stable workload identity versus short-lived SVID, trust-domain authority, rotating bundles and federation. |
-| OpenID Connect Core | DEEP | Authentication time/method/assurance context as event evidence rather than subject identity. |
-| Keycloak / Entra / Auth0 / Clerk / ZITADEL | DEEP | First-pass local identity, provider binding, issuer/tenant, session and delegated-admin evidence retained. |
-
-Revisit result: six material findings (`G2-FINDING-IAF-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
+OAuth Authorization Server Metadata RFC 8414, OAuth Token Revocation RFC 7009/RFC 9700, SPIFFE/SPIRE, OpenID Connect Core and retained Keycloak/Entra/Auth0/Clerk/ZITADEL evidence: `DEEP`. Revisit result: six material findings (`G2-FINDING-IAF-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## Authorization / Policy / Organization / Multitenancy — revisit cycle 2
-| Representative | Coverage | Revisit focus |
-|---|---|---|
-| Open Policy Agent | DEEP | Local decision autonomy, policy distribution status/freshness, decision ID/revision evidence and offline last-known-good behavior. |
-| Cedar Policy Language | DEEP | PARC, default deny, schema/policy compatibility, context boundary and validation lifecycle. |
-| OpenFGA | DEEP | Immutable model pinning, relationship-state evolution and query consistency/cache freshness. |
-| SpiceDB / Authzed | DEEP | Causal freshness, ZedTokens, stale-cache/new-enemy semantics and protected-resource coupling. |
-| Keycloak Organizations / FGAP | DEEP | Scoped delegated administration and organizations as protected admin resources. |
-| AWS multi-tenant SaaS authorization / Verified Permissions guidance | DEEP | Principal/resource tenant binding, external-data responsibility and isolation proof boundary. |
+Open Policy Agent, Cedar, OpenFGA, SpiceDB/Authzed, Keycloak Organizations/FGAP and AWS multi-tenant authorization/Verified Permissions guidance: `DEEP`. Revisit result: six material findings (`G2-FINDING-AUTH-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
-Revisit result: six material findings (`G2-FINDING-AUTH-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
+## Data / Schema / Migrations — revisit cycle 2
+PostgreSQL logical replication/schema coordination, Atlas migration lint/review, Liquibase changeset/rollback semantics and Flyway undo/history: `DEEP`. Historical PostgreSQL, Prisma Migrate, Supabase and Hasura first-pass evidence remains authoritative. Revisit result: six material findings (`G2-FINDING-DATA-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
