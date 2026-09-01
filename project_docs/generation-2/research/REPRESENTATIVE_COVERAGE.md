@@ -26,6 +26,9 @@ Open Policy Agent, Cedar, OpenFGA, SpiceDB/Authzed, Keycloak Organizations/FGAP 
 ## Data / Schema / Migrations — revisit cycle 2
 PostgreSQL logical replication/schema coordination, Atlas migration lint/review, Liquibase changeset/rollback semantics and Flyway undo/history: `DEEP`. Historical PostgreSQL, Prisma Migrate, Supabase and Hasura first-pass evidence remains authoritative. Revisit result: six material findings (`G2-FINDING-DATA-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
+## Storage / Documents / Media — revisit cycle 2
+Amazon S3 replication/Object Lock/key dependency `DEEP`; Google Cloud Storage object retention/resumable upload `DEEP`; Azure Blob immutability/object replication/cross-tenant controls `DEEP`; Ceph RGW multisite replication `DEEP`; BorgBackup recovery boundary `PARTIAL`. Historical S3/GCS/Azure/MinIO/SharePoint first-pass evidence remains authoritative. Revisit result: six material findings (`G2-FINDING-STORAGE-11..16`); consecutive-no-material = 0; NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
