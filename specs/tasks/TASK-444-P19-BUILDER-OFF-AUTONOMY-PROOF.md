@@ -1,7 +1,7 @@
 ---
 id: TASK-444
 title: Prove Builder-off autonomy from supported runtime handoff
-status: ready
+status: completed
 priority: 444
 milestone: M19
 model_tier: architecture
