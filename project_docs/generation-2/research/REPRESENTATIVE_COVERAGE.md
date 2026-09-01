@@ -29,6 +29,9 @@ PostgreSQL logical replication/schema coordination, Atlas migration lint/review,
 ## Storage / Documents / Media — revisit cycle 2
 Amazon S3 replication/Object Lock/key dependency `DEEP`; Google Cloud Storage object retention/resumable upload `DEEP`; Azure Blob immutability/object replication/cross-tenant controls `DEEP`; Ceph RGW multisite replication `DEEP`; BorgBackup recovery boundary `PARTIAL`. Historical S3/GCS/Azure/MinIO/SharePoint first-pass evidence remains authoritative. Revisit result: six material findings (`G2-FINDING-STORAGE-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
+## Notifications / Events / Messaging — revisit cycle 2
+Apache Kafka partition ordering/consumer groups `DEEP`; Google Cloud Pub/Sub subscriptions, ordering keys, retention/replay/dead-letter `DEEP`; Azure Service Bus MessageId deduplication, sessions, redelivery and DLQ `DEEP`; NATS JetStream alternative consumer/ack representative `PARTIAL`. Historical first-pass messaging representatives remain authoritative. Revisit result: six material findings (`G2-FINDING-NEM-11..16`); consecutive-no-material = 0; NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
