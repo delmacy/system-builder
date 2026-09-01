@@ -28,4 +28,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-DATA-15 — Migration Authority Requires Explicit Affected-data Scope, Including Tenant Boundaries
 - G2-FINDING-DATA-16 — Provider Replacement Preserves Semantic Data Identity but May Require New Physical Migration Lineage
 
+## Storage / Documents / Media — revisit 1
+- G2-FINDING-STORAGE-11 — Replication/Durability Evidence and Recoverability Proof Are Distinct
+- G2-FINDING-STORAGE-12 — Durable Bytes Do Not Prove Future Readability Without Key-Dependency Evidence
+- G2-FINDING-STORAGE-13 — Replication Evidence Must Be Revision-, Destination- and Freshness-Scoped
+- G2-FINDING-STORAGE-14 — Retention/Destructive Operations Require Explicit Affected-Content Scope and Authority Separation
+- G2-FINDING-STORAGE-15 — Source Success and Destination Governance Success Are Independent Outcomes
+- G2-FINDING-STORAGE-16 — Provider Replacement Must Re-Prove Durability, Governance and Recoverability
+
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
