@@ -10,12 +10,12 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 7,
-    "hourly_runs_completed": 31,
+    "capabilities_revisited_in_active_cycle": 8,
+    "hourly_runs_completed": 32,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 95,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-AUTHORIZATION-CONSISTENCY-FRESHNESS-EVIDENCE","G2-CAPABILITY-CANDIDATE-ENFORCEMENT-APPLICATION-EVIDENCE","G2-CAPABILITY-CANDIDATE-TENANT-ISOLATION-PROOF"],
+    "capability_candidate_count": 98,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-MIGRATION-ATTEMPT-VERIFICATION-LINEAGE","G2-CAPABILITY-CANDIDATE-DESTRUCTIVE-CHANGE-AUTHORITY-GATE","G2-CAPABILITY-CANDIDATE-AFFECTED-DATA-SCOPE-EVIDENCE"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
@@ -26,11 +26,12 @@
       "Workflow & Durable Execution": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-WDE-11","G2-FINDING-WDE-12","G2-FINDING-WDE-13","G2-FINDING-WDE-14","G2-FINDING-WDE-15","G2-FINDING-WDE-16"]},
       "Integration & Automation": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-IA-11","G2-FINDING-IA-12","G2-FINDING-IA-13","G2-FINDING-IA-14","G2-FINDING-IA-15","G2-FINDING-IA-16"]},
       "Identity / Authentication / Federation": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-IAF-11","G2-FINDING-IAF-12","G2-FINDING-IAF-13","G2-FINDING-IAF-14","G2-FINDING-IAF-15","G2-FINDING-IAF-16"]},
-      "Authorization / Policy / Organization / Multitenancy": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AUTH-11","G2-FINDING-AUTH-12","G2-FINDING-AUTH-13","G2-FINDING-AUTH-14","G2-FINDING-AUTH-15","G2-FINDING-AUTH-16"]}
+      "Authorization / Policy / Organization / Multitenancy": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AUTH-11","G2-FINDING-AUTH-12","G2-FINDING-AUTH-13","G2-FINDING-AUTH-14","G2-FINDING-AUTH-15","G2-FINDING-AUTH-16"]},
+      "Data / Schema / Migrations": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-DATA-11","G2-FINDING-DATA-12","G2-FINDING-DATA-13","G2-FINDING-DATA-14","G2-FINDING-DATA-15","G2-FINDING-DATA-16"]}
     },
-    "representative_coverage": {"Authorization / Policy / Organization / Multitenancy":{"Open Policy Agent":"DEEP","Cedar Policy Language":"DEEP","OpenFGA":"DEEP","SpiceDB / Authzed":"DEEP","Keycloak Organizations / FGAP":"DEEP","AWS multi-tenant SaaS authorization / Verified Permissions guidance":"DEEP"}},
+    "representative_coverage": {"Data / Schema / Migrations":{"PostgreSQL logical replication/schema coordination":"DEEP","Atlas migration lint/review":"DEEP","Liquibase changeset/rollback semantics":"DEEP","Flyway undo/history":"DEEP"}},
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 282
+    "finding_count": 288
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -47,8 +48,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Authorization / Policy / Organization / Multitenancy — revisit cycle 2 pass 1 complete. OPA, Cedar, OpenFGA, SpiceDB, Keycloak organization FGAP and AWS multi-tenant authorization guidance refined causal authorization freshness, revocation propagation, policy-versus-mutable-data revision, tenant isolation proof, delegated administration and decision-versus-enforcement evidence. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_REVISIT_01.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Data / Schema / Migrations, as the next oldest non-saturated capability. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; specifically test semantic schema identity versus physical storage schema, migration plan versus execution attempt versus verified result, expand/contract and backward/forward compatibility, online migration and dual-read/write hazards, data lineage/provenance, tenant/data isolation boundaries, provider-specific migration mechanisms versus portable intent, rollback/roll-forward truth, schema drift/freshness, destructive-change authority, and how authorization consistency/freshness and tenant-isolation proof intersect data state without making the data capability own authorization policy. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T16:27:39-03:00"
+  "current_focus": "Data / Schema / Migrations — revisit cycle 2 pass 1 complete. PostgreSQL logical replication, Atlas migration analysis/review, Liquibase changeset/rollback and Flyway undo refined plan-attempt-proof identity, provider-qualified compatibility, destructive authority, observed-schema freshness, affected tenant/data scope and provider-replacement lineage. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/DATA_SCHEMA_MIGRATIONS_REVISIT_01.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Storage / Documents / Media, as the next oldest non-saturated capability. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; specifically test logical object/document identity versus provider key/blob identity, metadata/version/retention lifecycle, immutable versus mutable object semantics, content hash and provenance, multipart/resumable transfer failure semantics, replication/durability claims, encryption/key boundaries, legal hold/retention/destructive authority, backup versus recoverability evidence, external-provider replacement and portability, tenant/data-scope isolation, and how affected-data-scope/destructive-change authority candidates intersect storage without making Storage own authorization policy. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T17:05:38-03:00"
 }
