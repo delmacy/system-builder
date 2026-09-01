@@ -1,16 +1,16 @@
-# Next Work — P19 autonomous runtime continuity
+# Next Work — P19 reference product process
 
-`P19-RUNTIME-MATERIALIZATION-HANDOFF-01` / WBS 19.2.2 completed TASK-439..443 and integrated through replacement Sprint Review PR #533 as fresh main `b262471a374844790f2cc5abcb98dc8e0f034893` from exact final head `5167369b691da99e4f2bc8484e4efd7b2a02413a` after Deterministic CI #1312 and Heavy Product Tests #781 PASS.
+`P19-AUTONOMOUS-RUNTIME-CONTINUITY-01` / WBS 19.2.3 completed TASK-444..449 and integrated through Sprint Review PR #536 as fresh main `7f1d1656006b58d9f4745490e21de1f46b219e11` from exact reviewed head `90c4dd565a3702880d2a656995b1b4004027da0b` after Deterministic CI #1329 and Heavy Product Tests #799 PASS.
 
 ## Current gate
-WBS 19.1.1–19.1.3 and 19.2.1–19.2.2 are EXECUTED / REVIEWED / INTEGRATED. Do not re-execute TASK-419..443.
+WBS 19.1.1–19.1.3 and 19.2.1–19.2.3 are EXECUTED / REVIEWED / INTEGRATED. Do not re-execute TASK-419..449.
 
-Fresh-main Planning & Materialization has selected only `P19-AUTONOMOUS-RUNTIME-CONTINUITY-01` / WBS 19.2.3 with dependency chain `TASK-444 -> TASK-445 -> TASK-446 -> TASK-447 -> TASK-448 -> TASK-449`. TASK-444 is first eligible after this Planning PR integrates; TASK-445..449 remain dependency-blocked until predecessors pass. WBS 19.3.1+ remains forecast and non-executable.
+Fresh-main Planning & Materialization selects only `P19-REFERENCE-PRODUCT-PROCESS-01` / WBS 19.3.1 with dependency chain `TASK-450 -> TASK-451 -> TASK-452 -> TASK-453 -> TASK-454 -> TASK-455 -> TASK-456`. TASK-450 becomes first eligible only after this Planning PR integrates; TASK-451..456 remain dependency-blocked until predecessors pass. WBS 19.3.2+ remains forecast and non-executable.
 
-The Sprint must reuse the current supported P19 runtime handoff and historical integrated autonomy/continuity primitives rather than inventing a second path. Source-of-truth journey: exact materialized release A -> Builder unavailable -> A continues operating and remains locally observable -> Builder restored from immutable lineage -> compatible successor B prepared through canonical factory/Compiler/Release -> B activated through existing Deploy -> exact A restored through existing rollback/reconstruction authority.
+Source-of-truth journey: deterministic representative process payload -> canonical project/Compiler artifact -> immutable Publish identity -> existing Deploy/local-process Runtime -> actual health/state -> correlated local/optional Observe evidence -> compatible same-host B through existing Release/Deploy authority -> exact retained A rollback.
 
-Preserve ADR-0002 autonomous Runtime and ADR-0007 Release+Environment boundaries. Runtime ordinary operation must not depend on Builder availability; optional Observe publication must not become runtime authority; immutable release artifacts must not absorb EnvironmentProfile/secrets; existing Release/Deploy/Observe owners remain source of truth.
+Preserve all integrated boundaries: canonical process/version/project/release/artifact/deployment/runtime/environment identities; immutable artifacts; external EnvironmentProfile/secrets; Builder-off ordinary Runtime; Observe fail-open/non-authoritative semantics; last-known-good on failed update/rollback; deterministic ordering/idempotency. Prefer real supported paths and existing persistence over mocks that bypass product boundaries.
 
-Required adversarial proof includes Builder unavailable, Observe publication unavailable, stale/substituted predecessor/release/artifact, mismatched deployment lineage, incompatible B/runtime/environment, migration/secret/startup/health failure, repeated restore/rollback attempts and protected-value leakage. Failures must not create partial-success continuity evidence and must preserve last-known-good semantics where existing Deploy authority requires it.
+Required adversarial proof includes stale/substituted process/release/artifact, hash/ref mismatch, unverifiable payload, runtime/environment mismatch, migration/secret/startup/health/state failure, unavailable optional Observe publication, stale successor predecessor, repeated update/rollback and protected-value leakage. Failures stop before unsafe side effects and must not emit partial-success evidence.
 
-Do not introduce dogfood/reference-process scope, WBS 19.3.1+, production supervision/control plane, additional deployment topology, generalized migrations, Decision Boundary change, unrelated TD/findings or inferred L4.
+Do not introduce WBS 19.3.2+, customer/domain dogfood semantics, unified CLI expansion, production/fleet/HA/remote orchestration, persistent control plane/supervisor, new public contract/identity scheme, Decision Boundary change, unrelated TD/findings or inferred L4.
