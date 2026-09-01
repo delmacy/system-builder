@@ -24,16 +24,19 @@ OAuth Authorization Server Metadata RFC 8414, OAuth Token Revocation RFC 7009/RF
 Open Policy Agent, Cedar, OpenFGA, SpiceDB/Authzed, Keycloak Organizations/FGAP and AWS multi-tenant authorization/Verified Permissions guidance: `DEEP`. Revisit result: six material findings (`G2-FINDING-AUTH-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## Data / Schema / Migrations — revisit cycle 2
-PostgreSQL logical replication/schema coordination, Atlas migration lint/review, Liquibase changeset/rollback semantics and Flyway undo/history: `DEEP`. Historical PostgreSQL, Prisma Migrate, Supabase and Hasura first-pass evidence remains authoritative. Revisit result: six material findings (`G2-FINDING-DATA-11..16`); consecutive-no-material = 0; NOT SATURATED.
+PostgreSQL logical replication/schema coordination, Atlas migration lint/review, Liquibase changeset/rollback semantics and Flyway undo/history: `DEEP`. Revisit result: six material findings (`G2-FINDING-DATA-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## Storage / Documents / Media — revisit cycle 2
-Amazon S3 replication/Object Lock/key dependency `DEEP`; Google Cloud Storage object retention/resumable upload `DEEP`; Azure Blob immutability/object replication/cross-tenant controls `DEEP`; Ceph RGW multisite replication `DEEP`; BorgBackup recovery boundary `PARTIAL`. Historical S3/GCS/Azure/MinIO/SharePoint first-pass evidence remains authoritative. Revisit result: six material findings (`G2-FINDING-STORAGE-11..16`); consecutive-no-material = 0; NOT SATURATED.
+Amazon S3, Google Cloud Storage, Azure Blob and Ceph RGW: `DEEP`; BorgBackup: `PARTIAL`. Revisit result: six material findings (`G2-FINDING-STORAGE-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## Notifications / Events / Messaging — revisit cycle 2
-Apache Kafka partition ordering/consumer groups `DEEP`; Google Cloud Pub/Sub subscriptions, ordering keys, retention/replay/dead-letter `DEEP`; Azure Service Bus MessageId deduplication, sessions, redelivery and DLQ `DEEP`; NATS JetStream alternative consumer/ack representative `PARTIAL`. Historical first-pass messaging representatives remain authoritative. Revisit result: six material findings (`G2-FINDING-NEM-11..16`); consecutive-no-material = 0; NOT SATURATED.
+Apache Kafka, Google Cloud Pub/Sub and Azure Service Bus: `DEEP`; NATS JetStream: `PARTIAL`. Revisit result: six material findings (`G2-FINDING-NEM-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## Build / Dependency Graph / Reproducibility — revisit cycle 2
-Bazel remote cache/action model `DEEP`; Nix derivations/content-addressed outputs/build trace `DEEP`; Docker BuildKit provenance/attestations `DEEP`; SLSA Build Provenance `DEEP`; GitHub Actions artifact attestations `DEEP`. Historical Turborepo and first-pass build evidence remains authoritative. Revisit result: six material findings (`G2-FINDING-BUILD-11..16`); consecutive-no-material = 0; NOT SATURATED.
+Bazel, Nix, Docker BuildKit, SLSA Build Provenance and GitHub Actions artifact attestations: `DEEP`. Revisit result: six material findings (`G2-FINDING-BUILD-11..16`); consecutive-no-material = 0; NOT SATURATED.
+
+## Artifact / Release / SBOM / Provenance — revisit cycle 2
+SLSA/in-toto attestation model `DEEP`; Sigstore/Cosign/Rekor `DEEP`; CycloneDX BOM identity/BOM-Link `DEEP`; SPDX artifact/package verification identity `DEEP`; OCI digest-addressed manifest/index model `DEEP`. Revisit result: six material findings (`G2-FINDING-ARSP-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
