@@ -9,19 +9,19 @@
     "minimum_full_cycles": 7,
     "target_full_cycles": 10,
     "completed_full_cycles": 0,
-    "hourly_runs_completed": 21,
+    "hourly_runs_completed": 22,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified CORE, CROSS_CUTTING, DOMAIN, PROVIDER_SPECIFIC, DUPLICATE, LOW_VALUE or N_A before promotion.",
-    "capability_candidate_count": 65,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-RECOVERY-OBJECTIVE-PROOF","G2-CAPABILITY-CANDIDATE-RECOVERY-POINT-LINEAGE","G2-CAPABILITY-CANDIDATE-RESILIENCE-POLICY-NEGOTIATION"],
+    "capability_candidate_count": 68,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-DELEGATED-AUTHORITY-ENVELOPE","G2-CAPABILITY-CANDIDATE-APPROVAL-CHECKPOINT-EVIDENCE","G2-CAPABILITY-CANDIDATE-PROBABILISTIC-ACTIVITY-BOUNDARY"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
-    "pending_capabilities": ["AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"],
+    "pending_capabilities": ["Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"],
     "representative_coverage": {
-      "Security / Resilience / Failure Recovery": {"NIST Cybersecurity Framework 2.0":"DEEP","NIST SSDF / SP 800-218 family":"DEEP","AWS Well-Architected Reliability":"DEEP","Kubernetes disruption semantics":"DEEP","AWS retry/circuit-breaker guidance":"DEEP","PostgreSQL 18 PITR":"DEEP"}
+      "AI-native Engineering / Agents / Approvals": {"OpenAI Responses / Agents platform":"DEEP","Anthropic Claude Code permissions / auto mode":"DEEP","GitHub Copilot cloud/coding agents":"DEEP","LangGraph durable execution / HITL":"PARTIAL","Temporal durable execution":"DEEP"}
     },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 210
+    "finding_count": 220
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -38,8 +38,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Security / Resilience / Failure Recovery — first deep pass complete; not saturated; prevention/detection/containment/recovery, recovery objectives/strategies/mechanisms, retry/idempotency, backup/restorability, recovery attempts/lineage and provider-specific semantics are separated; exact SB runtime/action recovery ownership remains deferred to fresh-main repository archaeology",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/SECURITY_RESILIENCE_FAILURE_RECOVERY.md",
-  "next_action": "Research the next lowest-coverage unsaturated macro-capability: AI-native Engineering / Agents / Approvals. Compare OpenAI agent/tool/approval patterns, Anthropic MCP/agent safety patterns, GitHub Copilot/Coding Agent governance, LangGraph durable/human-in-the-loop execution, Temporal-style agent workflow approaches or stronger representatives with emphasis on agent identity versus model/provider identity, tool/capability authority, approval checkpoints, delegated authority, plan/attempt/evidence identities, deterministic versus probabilistic boundaries, durable state, retry/replay semantics, human override, provenance/audit, provider portability, prompt/model versioning, failure containment and generated-runtime autonomy. Preserve Security / Resilience / Failure Recovery for later revisit focused on concrete SB retry/idempotency ownership, recovery-point contracts, RTO/RPO acceptance, provider resilience negotiation and restore/recovery proof.",
-  "last_updated": "2026-09-01T11:27:05-03:00"
+  "current_focus": "AI-native Engineering / Agents / Approvals — first deep pass complete; not saturated; agent/model/work/attempt identities, delegated authority, approval checkpoints, deterministic/probabilistic boundaries, durable evidence, retry/idempotency and provider portability are separated; exact SB ownership remains deferred to fresh-main repository archaeology",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/AI_NATIVE_ENGINEERING_AGENTS_APPROVALS.md",
+  "next_action": "Research the next lowest-coverage unsaturated macro-capability: Developer / Operator Experience / Self-hosting. Compare Backstage developer portals/templates, GitLab or GitHub developer workflows, Kubernetes operator/admin experience, Coolify/Dokku/Portainer self-hosting patterns, Nix/devenv or stronger representatives with emphasis on bootstrap identity, install/upgrade/rollback, local-vs-hosted parity, configuration and secret setup, diagnostics/health, backup/restore, operator authority, generated-system handoff, extension/provider management, offline/degraded operation, reproducible development environments, support bundles, telemetry opt-in/export, lock-in boundaries and autonomous self-hosted runtime operation. Preserve AI-native Engineering / Agents / Approvals for later revisit focused on concrete durable checkpoint/approval semantics, SB authority reuse and provider/model revision provenance.",
+  "last_updated": "2026-09-01T12:08:27-03:00"
 }
