@@ -30,5 +30,8 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | G2-CAPABILITY-CANDIDATE-DELIVERY-ATTEMPT-LINEAGE | CROSS_CUTTING | Kafka + Pub/Sub + Service Bus delivery/redelivery | CANDIDATE | Workflow/integration/notification synthesis confirms reusable attempt lineage. |
 | G2-CAPABILITY-CANDIDATE-ORDERING-SCOPE-CLAIM | CROSS_CUTTING | Kafka partition + Pub/Sub ordering key + Service Bus session | CANDIDATE | Provider negotiation/data-event processing need common scoped-ordering proof. |
 | G2-CAPABILITY-CANDIDATE-QUARANTINE-REPAIR-LIFECYCLE | CROSS_CUTTING | Pub/Sub/Service Bus dead-letter and operator repair | CANDIDATE | Integration/security/operator research confirms reusable quarantine/repair governance. |
+| G2-CAPABILITY-CANDIDATE-BUILD-REALIZATION-SOURCE-EVIDENCE | CROSS_CUTTING | Bazel remote cache + Nix build trace | CANDIDATE | Artifact/deployment proof models confirm a reusable cache-vs-execution realization source primitive. |
+| G2-CAPABILITY-CANDIDATE-REPRODUCIBILITY-REPLAY-PROOF | CROSS_CUTTING | Bazel + Nix + SLSA | CANDIDATE | Acceptance planning requires reusable cross-provider re-realization/equivalence proof. |
+| G2-CAPABILITY-CANDIDATE-BUILD-ENVIRONMENT-REALIZATION-EVIDENCE | CROSS_CUTTING | Nix + BuildKit + SLSA | CANDIDATE | Deployment/dev-environment synthesis confirms shared declared-vs-realized environment evidence. |
 
 All candidates omitted from this compact view remain authoritative in prior register revisions, state history and capability dossiers; none is revoked. `G2-CAPABILITY-CANDIDATE-FEDERATION-TRUST-LIFECYCLE` remains CANDIDATE pending synthesis.
