@@ -2,12 +2,12 @@
 
 Promotion requires multi-representative evidence or a clear structural System Builder need. Candidates are not architecture decisions.
 
-Existing candidates through `G2-CAPABILITY-CANDIDATE-EXTENSION-LIFECYCLE-EVIDENCE` remain CANDIDATE with their prior classifications and promotion conditions recorded in pipeline history and capability dossiers.
+Existing candidates through `G2-CAPABILITY-CANDIDATE-CONTROL-FRAMEWORK-MAPPING` remain CANDIDATE with their prior classifications and promotion conditions recorded in pipeline history and capability dossiers.
 
 | Candidate | Class | Evidence origin | Status | Promotion condition |
 |---|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-GOVERNANCE-EVIDENCE-COMPLETENESS | CROSS_CUTTING | AWS Audit Manager incomplete/inconclusive evidence + Kyverno current-resource report limits | CANDIDATE | Recur in Security, Observability and Provenance with a reusable completeness/quality contract distinct from generic telemetry quality. |
-| G2-CAPABILITY-CANDIDATE-GOVERNED-EXCEPTION-WAIVER | CORE | Azure-style policy exemptions + compliance exception lifecycle + enforcement separation | CANDIDATE | Synthesis must show scope/issuer/expiry/evidence semantics recur across authorization, deployment, security and compliance. |
-| G2-CAPABILITY-CANDIDATE-CONTROL-FRAMEWORK-MAPPING | DOMAIN | AWS Audit Manager control/evidence/framework mappings and portable compliance needs | CANDIDATE | Promote only if Generation 2 must natively map controls to external frameworks rather than leave mapping entirely provider/domain-owned. |
+| G2-CAPABILITY-CANDIDATE-SECRET-MATERIALIZATION-EVIDENCE | CROSS_CUTTING | Vault lease metadata + External Secrets sync status + deployment-local materialization boundary | CANDIDATE | Recur in Provider/Binding, Observability and Provenance with a stable disclosure-safe evidence envelope. |
+| G2-CAPABILITY-CANDIDATE-DYNAMIC-CREDENTIAL-LEASE | CORE | Vault dynamic credentials/leases contrasted with static versioned secrets | CANDIDATE | Promote only if multiple providers/target architectures require renew/revoke semantics as a portable capability rather than an optional provider feature. |
+| G2-CAPABILITY-CANDIDATE-SENSITIVE-TELEMETRY-REDACTION-CONTRACT | CROSS_CUTTING | Secret/config audit and telemetry must retain metadata while excluding material | CANDIDATE | Recur in Security, Observability, Governance and Provenance with common redaction-by-construction semantics. |
 
 This compact register view does not revoke or supersede earlier candidates; `RESEARCH_PIPELINE_STATE.json` is the authoritative candidate inventory.
