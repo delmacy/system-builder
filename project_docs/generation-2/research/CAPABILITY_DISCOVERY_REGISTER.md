@@ -33,5 +33,8 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | G2-CAPABILITY-CANDIDATE-BUILD-REALIZATION-SOURCE-EVIDENCE | CROSS_CUTTING | Bazel remote cache + Nix build trace | CANDIDATE | Artifact/deployment proof models confirm a reusable cache-vs-execution realization source primitive. |
 | G2-CAPABILITY-CANDIDATE-REPRODUCIBILITY-REPLAY-PROOF | CROSS_CUTTING | Bazel + Nix + SLSA | CANDIDATE | Acceptance planning requires reusable cross-provider re-realization/equivalence proof. |
 | G2-CAPABILITY-CANDIDATE-BUILD-ENVIRONMENT-REALIZATION-EVIDENCE | CROSS_CUTTING | Nix + BuildKit + SLSA | CANDIDATE | Deployment/dev-environment synthesis confirms shared declared-vs-realized environment evidence. |
+| G2-CAPABILITY-CANDIDATE-ATTESTATION-VERIFICATION-RESULT-EVIDENCE | CROSS_CUTTING | SLSA + Sigstore + SPDX/CycloneDX | CANDIDATE | Governance/security/acceptance confirm reusable subject+trust+policy verification result. |
+| G2-CAPABILITY-CANDIDATE-EVIDENCE-TRUST-CONTEXT-REVISION | CROSS_CUTTING | Sigstore trust roots/transparency + provenance verification | CANDIDATE | Identity/secrets/security converge on revisioned verifier trust context. |
+| G2-CAPABILITY-CANDIDATE-RELEASE-COMPOSITION-PROMOTION-EVIDENCE | CROSS_CUTTING | OCI + SLSA + SBOM composition | CANDIDATE | Deployment/lifecycle confirm release composition and promotion as reusable evidence. |
 
 All candidates omitted from this compact view remain authoritative in prior register revisions, state history and capability dossiers; none is revoked. `G2-CAPABILITY-CANDIDATE-FEDERATION-TRUST-LIFECYCLE` remains CANDIDATE pending synthesis.
