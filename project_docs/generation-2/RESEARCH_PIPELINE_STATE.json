@@ -10,12 +10,12 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 6,
-    "hourly_runs_completed": 30,
+    "capabilities_revisited_in_active_cycle": 7,
+    "hourly_runs_completed": 31,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 92,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-REVOCATION-SCOPE-FRESHNESS-EVIDENCE","G2-CAPABILITY-CANDIDATE-AUTHENTICATION-ASSURANCE-EVIDENCE","G2-CAPABILITY-CANDIDATE-WORKLOAD-IDENTITY-TRUST-BINDING"],
+    "capability_candidate_count": 95,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-AUTHORIZATION-CONSISTENCY-FRESHNESS-EVIDENCE","G2-CAPABILITY-CANDIDATE-ENFORCEMENT-APPLICATION-EVIDENCE","G2-CAPABILITY-CANDIDATE-TENANT-ISOLATION-PROOF"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
@@ -25,11 +25,12 @@
       "UI / Generated Experience / Low-code Builder": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-UI-11","G2-FINDING-UI-12","G2-FINDING-UI-13","G2-FINDING-UI-14","G2-FINDING-UI-15","G2-FINDING-UI-16"]},
       "Workflow & Durable Execution": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-WDE-11","G2-FINDING-WDE-12","G2-FINDING-WDE-13","G2-FINDING-WDE-14","G2-FINDING-WDE-15","G2-FINDING-WDE-16"]},
       "Integration & Automation": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-IA-11","G2-FINDING-IA-12","G2-FINDING-IA-13","G2-FINDING-IA-14","G2-FINDING-IA-15","G2-FINDING-IA-16"]},
-      "Identity / Authentication / Federation": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-IAF-11","G2-FINDING-IAF-12","G2-FINDING-IAF-13","G2-FINDING-IAF-14","G2-FINDING-IAF-15","G2-FINDING-IAF-16"]}
+      "Identity / Authentication / Federation": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-IAF-11","G2-FINDING-IAF-12","G2-FINDING-IAF-13","G2-FINDING-IAF-14","G2-FINDING-IAF-15","G2-FINDING-IAF-16"]},
+      "Authorization / Policy / Organization / Multitenancy": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AUTH-11","G2-FINDING-AUTH-12","G2-FINDING-AUTH-13","G2-FINDING-AUTH-14","G2-FINDING-AUTH-15","G2-FINDING-AUTH-16"]}
     },
-    "representative_coverage": {"Identity / Authentication / Federation":{"RFC 8414":"DEEP","RFC 7009 / RFC 9700":"DEEP","SPIFFE / SPIRE":"DEEP","OpenID Connect Core":"DEEP","Keycloak / Entra / Auth0 / Clerk / ZITADEL":"DEEP"}},
+    "representative_coverage": {"Authorization / Policy / Organization / Multitenancy":{"Open Policy Agent":"DEEP","Cedar Policy Language":"DEEP","OpenFGA":"DEEP","SpiceDB / Authzed":"DEEP","Keycloak Organizations / FGAP":"DEEP","AWS multi-tenant SaaS authorization / Verified Permissions guidance":"DEEP"}},
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 276
+    "finding_count": 282
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -46,8 +47,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Identity / Authentication / Federation — revisit cycle 2 pass 1 complete. RFC 8414, RFC 7009/9700, SPIFFE/SPIRE and OIDC refined identity-versus-credential separation, revisioned federation trust, scoped revocation/freshness, authentication assurance evidence and human-versus-workload specialization. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/IDENTITY_AUTHENTICATION_FEDERATION_REVISIT_01.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Authorization / Policy / Organization / Multitenancy, as the next oldest non-saturated capability. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; specifically test principal/subject versus policy identity, policy decision versus enforcement evidence, organization/tenant boundary semantics, delegated administration, relationship/attribute/context inputs, policy revision and cache/freshness, revocation propagation, provider replacement, cross-tenant isolation and generated-runtime autonomy. Cross-check whether revocation-scope/freshness and authentication-assurance evidence belong in shared primitives without collapsing authentication into authorization. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T16:04:00-03:00"
+  "current_focus": "Authorization / Policy / Organization / Multitenancy — revisit cycle 2 pass 1 complete. OPA, Cedar, OpenFGA, SpiceDB, Keycloak organization FGAP and AWS multi-tenant authorization guidance refined causal authorization freshness, revocation propagation, policy-versus-mutable-data revision, tenant isolation proof, delegated administration and decision-versus-enforcement evidence. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_REVISIT_01.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Data / Schema / Migrations, as the next oldest non-saturated capability. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; specifically test semantic schema identity versus physical storage schema, migration plan versus execution attempt versus verified result, expand/contract and backward/forward compatibility, online migration and dual-read/write hazards, data lineage/provenance, tenant/data isolation boundaries, provider-specific migration mechanisms versus portable intent, rollback/roll-forward truth, schema drift/freshness, destructive-change authority, and how authorization consistency/freshness and tenant-isolation proof intersect data state without making the data capability own authorization policy. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T16:27:39-03:00"
 }
