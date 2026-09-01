@@ -23,21 +23,15 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - Storage / Documents / Media: `G2-FINDING-STORAGE-11..16`.
 - Notifications / Events / Messaging: `G2-FINDING-NEM-11..16`.
 - Build / Dependency Graph / Reproducibility: `G2-FINDING-BUILD-11..16`.
+- Artifact / Release / SBOM / Provenance: `G2-FINDING-ARSP-11..16`.
+- Deployment / Environment / Runtime: `G2-FINDING-DER-11..16`.
 
-## Artifact / Release / SBOM / Provenance — revisit 1
-- G2-FINDING-ARSP-11 — Artifact, Build Realization and Release Are Distinct Identities
-- G2-FINDING-ARSP-12 — Attestation Existence and Verification Result Are Distinct Evidence
-- G2-FINDING-ARSP-13 — SBOM Identity, Subject Identity and Completeness/Freshness Are Independent Claims
-- G2-FINDING-ARSP-14 — Release Authority Is Separate from Publication and Promotion Transport
-- G2-FINDING-ARSP-15 — Long-lived Verification Requires Retained Trust-context Evidence, Not Only a Signature
-- G2-FINDING-ARSP-16 — Provider Replacement Preserves Semantic Artifact/Release Identity but Creates New Distribution/Trust Lineage
-
-## Deployment / Environment / Runtime — revisit 1
-- G2-FINDING-DER-11 — Deployment Intent, Attempt and Provider Realization Are Distinct Identities
-- G2-FINDING-DER-12 — Provider Readiness/Rollout Completion Is Not Business Acceptance
-- G2-FINDING-DER-13 — Runtime Realization and Serving Activation/Traffic Assignment Are Separate Authority Boundaries
-- G2-FINDING-DER-14 — Drift/Reconciliation Evidence Must Be Observation-time and Policy Scoped
-- G2-FINDING-DER-15 — Rollback/Revert Is a New Recovery Decision and Lineage, Not Erasure
-- G2-FINDING-DER-16 — Runtime Autonomy Requires Explicit External Control-plane Dependency Evidence
+## Observability / Operations / Incident — revisit 1
+- G2-FINDING-OOI-11 — Telemetry Signal Identity and Observation/Export-attempt Identity Are Distinct
+- G2-FINDING-OOI-12 — Alert/Detection Identity and Incident Identity Are Distinct
+- G2-FINDING-OOI-13 — Silence/Inhibition/Suppression/Grouping Change Disposition, Not Evidence Truth
+- G2-FINDING-OOI-14 — SLO/Error-budget Evidence Is Revision, Window and Freshness Scoped
+- G2-FINDING-OOI-15 — Remediation Authority, Attempt and Result Require Separate Governed Lineage
+- G2-FINDING-OOI-16 — Backend Replacement Preserves Semantic Correlation but Creates New Evidence Lineage
 
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
