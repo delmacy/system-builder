@@ -27,5 +27,8 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | G2-CAPABILITY-CANDIDATE-RECOVERABILITY-PROOF | CROSS_CUTTING | S3/Azure/Ceph propagation evidence + Borg recovery contrast | CANDIDATE | Security/Resilience and Operator research confirm reusable recovery-attempt/proof semantics. |
 | G2-CAPABILITY-CANDIDATE-DURABILITY-PROPAGATION-EVIDENCE | CROSS_CUTTING | S3, Azure and Ceph replication state | CANDIDATE | Resilience/Deployment/Messaging confirm shared revision/destination/freshness-scoped propagation evidence. |
 | G2-CAPABILITY-CANDIDATE-ENCRYPTION-READABILITY-DEPENDENCY | CROSS_CUTTING | S3 Object Lock/KMS + GCS retention/key lifecycle | CANDIDATE | Secrets/Security confirm reusable key/readability dependency proof beyond Storage. |
+| G2-CAPABILITY-CANDIDATE-DELIVERY-ATTEMPT-LINEAGE | CROSS_CUTTING | Kafka + Pub/Sub + Service Bus delivery/redelivery | CANDIDATE | Workflow/integration/notification synthesis confirms reusable attempt lineage. |
+| G2-CAPABILITY-CANDIDATE-ORDERING-SCOPE-CLAIM | CROSS_CUTTING | Kafka partition + Pub/Sub ordering key + Service Bus session | CANDIDATE | Provider negotiation/data-event processing need common scoped-ordering proof. |
+| G2-CAPABILITY-CANDIDATE-QUARANTINE-REPAIR-LIFECYCLE | CROSS_CUTTING | Pub/Sub/Service Bus dead-letter and operator repair | CANDIDATE | Integration/security/operator research confirms reusable quarantine/repair governance. |
 
 All candidates omitted from this compact view remain authoritative in prior register revisions, state history and capability dossiers; none is revoked. `G2-CAPABILITY-CANDIDATE-FEDERATION-TRUST-LIFECYCLE` remains CANDIDATE pending synthesis.
