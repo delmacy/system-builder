@@ -36,8 +36,20 @@ validation:
 # Objective
 Freeze an auditable historical A baseline reconstructible from canonical process revision through system definition, immutable release/artifact and deployment identity.
 
+# Context
+TASK-457 establishes exact process revisions A and B. Before B is regenerated or activated, Construction 8 needs a canonical historical predecessor baseline proving that retained A can be reconstructed from repository-owned lineage rather than test-local identity stitching.
+
+# Current behavior
+Construction 7 retains immutable Release/Deployment evidence and P18 retains process-to-system lineage, but WBS 19.3.2 has not yet composed those integrated identities into one deterministic historical reconstruction proof rooted at process revision A.
+
 # Required change
 Compose existing P18 lineage plus P19 Release/Deploy evidence so A can be reconstructed without test-local identity stitching before successor B is generated.
+
+# Inputs / contracts
+TASK-457 canonical A revision identity/provenance, integrated P18 process-to-definition lineage, immutable P19 Release/artifact identity and Deployment records.
+
+# Outputs / contracts
+A deterministic reconstruction proof for A from process revision through definition, release/artifact and deployment references/hashes, with no new persistence or history authority.
 
 # Acceptance criteria
 - exact A process revision -> definition -> release/artifact -> deployment chain is reconstructible from canonical refs/hashes;

@@ -41,8 +41,20 @@ validation:
 # Objective
 Close WBS 19.3.2 with one auditable growing proof of approved process revision evolution A(rev1) -> B(rev2) -> exact retained A.
 
+# Context
+TASK-457..461 establish the bounded successor-process journey in ordered proofs: approved B process revision, historical A reconstruction, B regeneration/publication, B activation and exact retained-A restoration. The final task must compose those proofs without creating a second implementation path.
+
+# Current behavior
+Construction 8 predecessor tasks provide focused evidence at each canonical boundary. No single growing proof yet composes the full approved process-revision evolution and representative adversarial failures into the Sprint-level auditable journey required by WBS 19.3.2.
+
 # Required change
 Compose TASK-457..461 through supported owners and real persistence paths: canonical approved successor revision -> regeneration -> immutable publication -> same-host activation -> healthy Builder-off runtime/Observe correlation -> exact predecessor restoration -> historical A/B reconstruction. Add only bounded operator documentation for behavior proven by the journey.
+
+# Inputs / contracts
+Evidence and canonical identities from TASK-457..461, integrated process/version approval and lineage contracts, existing Compiler/Release/Deploy/Runtime/Observe owners, external EnvironmentProfile/secrets and current operator documentation seams.
+
+# Outputs / contracts
+One cumulative deterministic product/heavy proof and bounded operator documentation for A(rev1) -> B(rev2) -> exact retained A, with no new approval/lifecycle owner, public contract, identity scheme or topology.
 
 # Acceptance criteria
 - one supported path proves exact approval and process revision provenance through definition/release/artifact/deployment/runtime identities;

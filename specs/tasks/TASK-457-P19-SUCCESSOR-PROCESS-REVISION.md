@@ -37,8 +37,20 @@ validation:
 # Objective
 Freeze canonical predecessor process revision A and one genuinely successor approved process revision B using existing process-version/approval authority.
 
+# Context
+Construction 7 proved a representative supported process through generation, publication, deployment, observation, compatible release update and exact rollback. WBS 19.3.2 is distinct: it must begin from a newly approved successor process revision and carry that process provenance through the same canonical owners.
+
+# Current behavior
+Integrated P18/M15 authority already provides process revision/version identity, predecessor lineage and human-decision approval semantics. No Construction 8 proof yet freezes an exact A/B process-revision pair for downstream regeneration and historical reconstruction.
+
 # Required change
 Exercise existing process revision/version and approval evidence through supported product seams. B must differ as a canonical process revision, not merely as a generated system/release version, and must retain exact predecessor provenance.
+
+# Inputs / contracts
+Canonical P18 process-version/revision identity and lineage, M15 human-decision approval evidence, existing supported product seams, and the integrated Construction 7 reference-process baseline.
+
+# Outputs / contracts
+A deterministic proof fixture/evidence for exact predecessor A and approved successor B identities and provenance, consumable by TASK-458..462 without introducing a new public contract, approval owner or identity scheme.
 
 # Acceptance criteria
 - A and B use canonical immutable process revision identities and predecessor references;

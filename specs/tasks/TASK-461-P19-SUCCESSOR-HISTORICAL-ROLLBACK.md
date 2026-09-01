@@ -37,8 +37,20 @@ validation:
 # Objective
 Restore exact retained A after successor-revision B and prove both historical process->definition->release->deployment chains remain reconstructible.
 
+# Context
+TASK-460 activates B while preserving retained A. The rollback proof must demonstrate that process-revision evolution does not erase either historical chain and that restore targets immutable retained A rather than regenerating or synthesizing predecessor state.
+
+# Current behavior
+Existing P19 Release/Deploy owners can restore an exact retained predecessor release, and TASK-458 establishes historical A reconstruction. Construction 8 still needs the combined A/B historical reconstruction and exact restore proof after B originated from a successor approved process revision.
+
 # Required change
 Rollback through existing Release/Deploy authority using retained immutable A rather than regeneration. Prove canonical historical reconstruction for A and B before/after restore and reject stale/substituted targets without disturbing last-known-good.
+
+# Inputs / contracts
+Canonical historical A from TASK-458, deployed B from TASK-460, retained immutable Release/artifact identities, existing rollback/activation validation and environment compatibility contracts.
+
+# Outputs / contracts
+A healthy restored deployment of exact retained A plus deterministic reconstructible A/B histories using canonical refs/hashes, without artifact mutation, synthetic release or new history authority.
 
 # Acceptance criteria
 - rollback targets exact retained A release/artifact and original process revision lineage;

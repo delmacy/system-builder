@@ -39,8 +39,20 @@ validation:
 # Objective
 Regenerate and publish canonical successor system B from the approved successor process revision through existing factory/Compiler/Release owners.
 
+# Context
+TASK-457 freezes approved successor process revision B and TASK-458 proves exact historical A reconstruction. This task is the first downstream materialization of B and must prove the generation/publication path consumes the approved process revision rather than synthesizing a release-local successor.
+
+# Current behavior
+The integrated factory/Compiler/Release path can deterministically generate, verify and publish immutable artifacts, but Construction 8 has not yet shown that a genuinely successor approved process revision is the canonical source of the resulting B definition and PublishedRelease.
+
 # Required change
 Feed the exact approved B process revision through the supported generation path and require its SystemDefinition, artifact payload and immutable Release identities to preserve revision provenance rather than deriving B from test-local release edits.
+
+# Inputs / contracts
+TASK-457 approved B revision and lineage, TASK-458 retained A history, existing factory/compiler seams, verified artifact payload repository and immutable Release publication contracts.
+
+# Outputs / contracts
+Canonical B SystemDefinition, verified immutable artifact payload and PublishedRelease evidence preserving exact process-revision provenance; no second factory, release owner or identity scheme.
 
 # Acceptance criteria
 - B generation starts from the exact approved successor process revision;
