@@ -65,4 +65,17 @@
 - G2-FINDING-IA-09 — Governance Can Wrap External Ownership
 - G2-FINDING-IA-10 — Automation Platform Must Not Become Business-Semantic Authority
 
+## Identity / Authentication / Federation
+
+- G2-FINDING-IAF-01 — External Subject Identity Must Be Issuer-Qualified
+- G2-FINDING-IAF-02 — Local Identity Must Outlive Authentication Provider Choice
+- G2-FINDING-IAF-03 — Authentication, Session and Token Are Separate Lifecycles
+- G2-FINDING-IAF-04 — Organization/Tenant Context Is a Trust Boundary
+- G2-FINDING-IAF-05 — Provider Configuration and Provider Binding Are Distinct
+- G2-FINDING-IAF-06 — Federation Metadata and Key State Are Operational Evidence
+- G2-FINDING-IAF-07 — Pending Authentication Requirements Need Explicit State
+- G2-FINDING-IAF-08 — Delegated Identity Administration Must Not Imply Business Authority
+- G2-FINDING-IAF-09 — Secret and Upstream Token Custody Must Be Outside Portable Semantics
+- G2-FINDING-IAF-10 — Runtime Autonomy Includes Identity Validation and Session Continuity
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
