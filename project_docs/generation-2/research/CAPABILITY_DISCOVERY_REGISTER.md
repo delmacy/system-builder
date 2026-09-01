@@ -2,12 +2,12 @@
 
 Promotion requires multi-representative evidence or a clear structural System Builder need. Candidates are not architecture decisions.
 
-Existing candidates through `G2-CAPABILITY-CANDIDATE-CONTRACT-CONFORMANCE-EVIDENCE` remain CANDIDATE with their prior classifications and promotion conditions recorded in pipeline history and capability dossiers.
+Existing candidates through `G2-CAPABILITY-CANDIDATE-IRREVERSIBLE-TRANSITION-PROOF` remain CANDIDATE with prior classifications and promotion conditions recorded in pipeline history and capability dossiers.
 
 | Candidate | Class | Evidence origin | Status | Promotion condition |
 |---|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-MIGRATION-ATTEMPT-CHECKPOINT-EVIDENCE | CROSS_CUTTING | Kubernetes version conversion/coexistence + PostgreSQL upgrade prerequisites/state + OpenTofu state lineage/backups | CANDIDATE | Promote if repository archaeology shows multiple capability families need one common migration attempt/checkpoint evidence envelope. |
-| G2-CAPABILITY-CANDIDATE-DEPRECATION-SUNSET-GOVERNANCE | CROSS_CUTTING | Kubernetes deprecation windows/warnings/audit + Stripe version upgrade lifecycle | CANDIDATE | Promote if contract, provider, extension and runtime evolution need shared machine-readable deprecation/sunset policy and usage evidence. |
-| G2-CAPABILITY-CANDIDATE-IRREVERSIBLE-TRANSITION-PROOF | CROSS_CUTTING | PostgreSQL major migration/recovery constraints + OpenTofu destructive state transition backup semantics | CANDIDATE | Promote if planning acceptance requires a reusable proof obligation distinguishing rollback-capable from restore/roll-forward-only transitions. |
+| G2-CAPABILITY-CANDIDATE-RECOVERY-OBJECTIVE-PROOF | CROSS_CUTTING | AWS Well-Architected RTO/RPO + PostgreSQL restore prerequisites + NIST Recover lifecycle | CANDIDATE | Promote if architecture reconciliation needs one reusable contract linking recovery objectives to measured recovery evidence across data/deployment/runtime. |
+| G2-CAPABILITY-CANDIDATE-RECOVERY-POINT-LINEAGE | CROSS_CUTTING | PostgreSQL base backup/WAL/timeline lineage + generic DR backup/restore requirements | CANDIDATE | Promote if multiple providers need portable identity for recovery points and restored-state lineage without hiding provider-specific restore semantics. |
+| G2-CAPABILITY-CANDIDATE-RESILIENCE-POLICY-NEGOTIATION | CORE | Kubernetes disruption guarantees + retry/circuit semantics + AWS DR capability differences | CANDIDATE | Promote if provider negotiation must match explicit resilience requirements to qualified provider offers and reject unsupported semantics. |
 
-This compact register view does not revoke or supersede earlier candidates; `RESEARCH_PIPELINE_STATE.json` is the authoritative candidate inventory.
+This compact register view does not revoke or supersede earlier candidates; `RESEARCH_PIPELINE_STATE.json` and capability dossiers preserve the full inventory.
