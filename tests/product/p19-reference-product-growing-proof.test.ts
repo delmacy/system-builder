@@ -169,7 +169,7 @@ test("TASK-456 composes the complete reference product journey through canonical
   const retainedA = release("0.0.1", 30);
   assert.deepEqual(retainedA.factory, repeatedA.factory);
   assert.deepEqual(retainedA.compilation, repeatedA.compilation);
-  assert.equal(retainedA.factory.result.assemblyPlan.systemDefinitionRef, REFERENCE.definitionRef);
+  assert.equal(requireCompilerPredecessors(retainedA.factory).assemblyPlan.systemDefinitionRef, REFERENCE.definitionRef);
 
   const registry = new DeploymentRegistry(new InMemoryDeploymentRecordStorage());
   const orchestrator = new SingleHostActiveRuntimeOrchestrator(registry);
