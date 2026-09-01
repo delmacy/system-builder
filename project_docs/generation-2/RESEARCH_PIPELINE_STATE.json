@@ -10,23 +10,24 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 1,
-    "hourly_runs_completed": 25,
+    "capabilities_revisited_in_active_cycle": 2,
+    "hourly_runs_completed": 26,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
-    "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified CORE, CROSS_CUTTING, DOMAIN, PROVIDER_SPECIFIC, DUPLICATE, LOW_VALUE or N_A before promotion.",
-    "capability_candidate_count": 77,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-ALLOCATION-REALIZATION-IDENTITY","G2-CAPABILITY-CANDIDATE-BINDING-CONFIGURATION-SCOPE","G2-CAPABILITY-CANDIDATE-EVIDENCE-TRUST-QUALIFICATION"],
+    "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
+    "capability_candidate_count": 80,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-SEMANTIC-PROJECTION-LIFECYCLE","G2-CAPABILITY-CANDIDATE-REFERENCE-RESOLUTION-EVIDENCE","G2-CAPABILITY-CANDIDATE-SEMANTIC-REPRESENTATION-SEPARATION"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
     "revisit_status": {
-      "Universal Capability Architecture": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-UCA-11","G2-FINDING-UCA-12","G2-FINDING-UCA-13","G2-FINDING-UCA-14","G2-FINDING-UCA-15","G2-FINDING-UCA-16"]}
+      "Universal Capability Architecture": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-UCA-11","G2-FINDING-UCA-12","G2-FINDING-UCA-13","G2-FINDING-UCA-14","G2-FINDING-UCA-15","G2-FINDING-UCA-16"]},
+      "Process & Application Modeling": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-PAM-11","G2-FINDING-PAM-12","G2-FINDING-PAM-13","G2-FINDING-PAM-14","G2-FINDING-PAM-15","G2-FINDING-PAM-16"]}
     },
     "representative_coverage": {
-      "Universal Capability Architecture": {"OASIS TOSCA 2.0":"DEEP","Kubernetes declarative APIs/controllers":"DEEP","Kubernetes Dynamic Resource Allocation":"DEEP","OpenTofu provider requirements/state replacement":"DEEP","Crossplane ProviderConfig/Managed Resources":"DEEP","CUE constraints/modules":"DEEP","Backstage Software Catalog":"DEEP"}
+      "Process & Application Modeling": {"Backstage Software Catalog":"DEEP","JSON Schema 2020-12":"DEEP","CUE":"DEEP","OMG BPMN 2.0/2.0.2":"DEEP","Mendix":"DEEP","ServiceNow App Engine":"DEEP","Power Apps / Dataverse":"DEEP","Salesforce Platform":"DEEP"}
     },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 246
+    "finding_count": 252
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -36,15 +37,15 @@
     "PLANNING_C_TARGET_ARCHITECTURE": "Target planes, universal primitives, provider/binding model, portable definition/IR and evidence/provenance model are coherent and decision-backed.",
     "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "Dependency order, compatibility, migration, rollback and coexistence strategy are explicit.",
     "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "Native path, external-provider path, replaceability, portability, governance, runtime autonomy and integrated product proofs have measurable acceptance criteria.",
-    "ARCHITECTURE_RECONCILIATION": "Each material finding/gap has KEEP, HARDEN, GENERALIZE, PROVIDERIZE, INTEGRATE, REPLACE, DEFER or DO_NOT_BUILD disposition with evidence and dependencies.",
-    "WBS_DECOMPOSITION": "Architecture decisions are decomposed into small capability-oriented WBS documents with bounded scope, authority, dependencies, non-goals and proof obligations.",
-    "WBS_DEPENDENCY_GRAPH": "Cross-WBS dependency graph is acyclic or explicitly staged, with shared foundational work ordered before dependent domains.",
-    "WORK_PACKAGE_DESIGN": "Work Packages are derived from WBS, each sized for 3–10 Construction Sprints, plus integration/review and closure, with no forecast work materialized prematurely.",
+    "ARCHITECTURE_RECONCILIATION": "Each material finding/gap has a reconciled disposition with evidence and dependencies.",
+    "WBS_DECOMPOSITION": "Architecture decisions are decomposed into bounded capability-oriented WBS documents.",
+    "WBS_DEPENDENCY_GRAPH": "Cross-WBS dependency graph is acyclic or explicitly staged.",
+    "WORK_PACKAGE_DESIGN": "Work Packages are derived from WBS and sized for 3–10 Construction Sprints plus required gates.",
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Universal Capability Architecture — revisit cycle 2 pass 1 complete. Stronger representatives separated capability offer, binding decision and concrete realization/allocation; showed scoped provider configuration, migration-bearing provider replacement, qualified evidence trust, and constraint composition without universal execution protocol. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/UNIVERSAL_CAPABILITY_ARCHITECTURE.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Process & Application Modeling, as the next oldest non-saturated capability after Universal Capability Architecture. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; test whether material new findings emerge, update explicit revisit/no-material counters, and do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T13:32:23-03:00"
+  "current_focus": "Process & Application Modeling — revisit cycle 2 pass 1 complete. Alternative representatives separated semantic identity from representation location, reference resolution from compatibility, and semantic truth from derived projection views. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/PROCESS_APPLICATION_MODELING.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: UI / Generated Experience / Low-code Builder, as the next oldest non-saturated capability after Process & Application Modeling. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; test whether material new findings emerge, update explicit revisit/no-material counters, and do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T14:05:34-03:00"
 }
