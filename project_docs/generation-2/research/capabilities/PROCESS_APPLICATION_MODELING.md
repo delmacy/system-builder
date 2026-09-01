@@ -1,160 +1,85 @@
 # Generation 2 Research — Process & Application Modeling
 
-Status: first deep pass; not saturated.
+Status: revisit cycle 2 pass 1 complete; NOT SATURATED.
 
 ## Research question
+Which primitives let System Builder model business structure, process, interfaces and composition as durable semantic assets while keeping semantic identity independent from representation, generated implementation and provider/runtime realization?
 
-Which primitives let an application platform model business data, behavior, process, presentation and policy as durable semantic assets without making the model inseparable from one runtime, database or UI implementation?
+## Prior representative baseline
+First pass covered Mendix, ServiceNow App Engine, Microsoft Power Apps/Dataverse and Salesforce. Findings `G2-FINDING-PAM-01..10` remain authoritative: inspectable model artifacts; stable semantic identity; explicit model-unit ownership; typed reference graphs; external references without ownership transfer; publication lifecycle; model-to-runtime lineage; governed composition; metadata-driven != portable; semantic model/provider orthogonality.
 
-## Representatives
+## Revisit representatives and evidence ledger
+| Representative | Coverage | Evidence / contribution |
+|---|---|---|
+| Backstage Software Catalog | DEEP | Source-controlled entity descriptors, stable entity references, typed directional relations, explicit Component/API/Resource/System/Domain separation and ownership. https://backstage.io/docs/features/software-catalog/system-model/ |
+| JSON Schema 2020-12 | DEEP | Schema resources/references, vocabularies, assertions vs annotations, `$ref`/`$dynamicRef`; URI identity is not necessarily a network locator. https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01 |
+| CUE | DEEP | Constraint composition/unification and explicit closed/open structural semantics show validation/composition can remain independent of execution. https://cuelang.org/docs/reference/spec/ |
+| OMG BPMN 2.0/2.0.2 | DEEP | Process, Collaboration and Choreography are related but distinct semantic views; participant/message mappings demonstrate projection between viewpoints rather than one flattened graph. https://www.omg.org/bpmn/ |
 
-1. **Mendix** — unusually explicit metamodel and SDK; useful for examining model-as-data, module boundaries, domain semantics and generated persistence.
-2. **ServiceNow App Engine / Flow Designer** — strong scoped-application, record model, process composition and governed reuse model.
-3. **Microsoft Power Apps / Dataverse** — strong model-driven application pattern, solution lifecycle/layering and metadata-to-UI generation.
-4. **Salesforce Platform** — mature multitenant metadata-driven architecture, metadata APIs, object relationships, flows and deployable metadata packages.
+## Source of truth, identity and lifecycle
+The revisit strengthens a distinction absent from many low-code products: **semantic source of truth is not necessarily one physical document**. Backstage permits multiple source-controlled descriptors while preserving entity references; JSON Schema permits referenced schema resources and explicitly says a URI identifier need not be a network locator. A portable SB definition therefore needs stable semantic identity plus independently resolvable representation/location metadata.
 
-OutSystems remains an intended representative for a later revisit; current authoritative evidence gathered in this pass was materially stronger for the four representatives above.
+Lifecycle remains `author/edit -> validate -> publish/revision -> bind/realize -> observe`, but the revisit adds **projection lifecycle**: a semantic model may have several derived views (process, collaboration, API/catalog, UI/runtime) whose freshness and lineage must be independently provable.
 
-## Evidence/source ledger
+## Versioning and failure semantics
+Schema/model dialect version, semantic model revision and generated projection revision are distinct. Failures separate into unresolved reference, incompatible referenced revision, constraint violation, projection failure, publication failure and runtime realization failure. A model reference resolving successfully does not prove semantic compatibility.
 
-- Mendix Domain Model documentation (updated 2026-04-03): each module owns a domain model; entities may be persistable, non-persistable, external or view entities; deployment maps the abstract model to database structures. https://docs.mendix.com/refguide10/domain-model/
-- Mendix Metamodel / Model Access API: app models are structured as units/elements and can be programmatically inspected; domain models, pages and other model components are exposed as model assets. https://docs.mendix.com/apidocs-mxsdk/mxsdk/mendix-metamodel/ and https://docs.mendix.com/apidocs-mxsdk/apidocs/web-extensibility-api-11/model-api/
-- ServiceNow Flow Designer (Australia release, updated 2026-03-12): flows are single-purpose compositions of reusable subflows/actions with typed inputs and application-scope ownership; IntegrationHub extends external actions. https://www.servicenow.com/docs/r/application-development/flow-designer.html
-- ServiceNow data-model guidance (updated 2026-03-12): applications define tables/fields and access controls; application scope and table internal names become durable identities. https://www.servicenow.com/docs/r/application-development/define-and-build-data-model.html
-- Power Apps model-driven app guidance (updated 2026-02-12): model-driven apps start from Dataverse tables, columns and relationships, then derive forms/views/business rules/process flows. https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/define-data-model-driven-app
-- Power Apps solution guidance: solutions provide ALM and movement of customizations between environments; solution layers expose composition/override semantics. https://learn.microsoft.com/en-us/power-apps/developer/data-platform/introduction-solutions
-- Salesforce Architecture Basics: Salesforce is explicitly multitenant and metadata-driven, with metadata/data separation and platform APIs as architectural concerns. https://architect.salesforce.com/docs/architect/fundamentals/guide/architecture-basics
-- Salesforce Metadata API/CLI evidence: flows and other application components are retrievable/deployable metadata selected through manifests; metadata can be source-controlled independently of business records. https://developer.salesforce.com/docs/marketing/marketing-cloud-growth/guide/mc-manage-flows-get.html
-- Salesforce metadata visualization: objects, fields, relationships and Flexipages are inspectable metadata structures rather than opaque runtime state. https://developer.salesforce.com/docs/platform/md-visualizer/guide/mdv-overview.html
+## Extensibility, provider boundaries and governance
+JSON Schema vocabularies and CUE composition support bounded semantic extension without requiring a universal runtime plugin protocol. Backstage shows catalog kinds/relations can be extended while ownership and references remain explicit. BPMN shows that multiple views may map shared participants/messages without collapsing their authority.
 
-## Primitive extraction
+Governance implication: extensions need namespace/owner/version/compatibility authority; derived views need lineage and freshness evidence; external references need trust/resolution policy rather than implicit network fetch.
 
-### Source of truth
+## Observability, portability and lock-in
+Model observability is the ability to inspect exact semantic units, references, validation/projection results and lineage. Runtime telemetry remains separate. Portability requires exportable semantic identity/reference graphs and deterministic or evidence-bearing projections. A YAML/JSON/XML representation alone is not portability if identities, semantics or resolution depend on one hosted control plane.
 
-A recurring pattern is **application definition as metadata/model**, distinct from business records and from generated runtime structures. Mendix exposes a metamodel; Salesforce explicitly separates metadata from data; Power Apps makes Dataverse metadata the basis of model-driven apps; ServiceNow scopes application artifacts and record/process definitions.
+## Product-specific mechanisms vs universal primitives
+Do not copy Backstage entity kinds, JSON Schema keywords, CUE syntax or BPMN notation as the SB IR. Reusable primitives are: `SemanticUnitIdentity`, `SemanticRevision`, `SemanticReference`, `ReferenceResolutionEvidence`, `SemanticView/Projection`, `ProjectionRevision`, `ProjectionLineage`, `ConstraintSet`, `OwnershipBoundary`, and `PublicationRevision`.
 
-Candidate primitive: `ApplicationDefinition` composed from independently identifiable model units rather than a single undifferentiated document.
+## Convergent/divergent patterns
+Convergent: stable identity separate from labels/location; typed references; compositional validation; explicit ownership; multiple semantic units; derived views; inspectable lineage. Divergent: Backstage catalogs software ecosystems, JSON Schema validates instance structure, CUE composes constraints/data, BPMN models process/collaboration/choreography. Their execution semantics must remain domain/provider-specific.
 
-### Identity
-
-Stable technical identity differs from display labels. ServiceNow explicitly makes application scope/table internal names durable while labels may change. Salesforce uses API names/metadata identities. Mendix units/elements and module-local definitions have model identity.
-
-Candidate principle: **semantic identity must survive presentation renaming**.
-
-### Lifecycle and versioning
-
-Application modeling is not only authoring. The representatives expose a lifecycle from model/edit → validate → publish/deploy → runtime, with environment/package/solution semantics. Power Apps solution layering and Salesforce deployable metadata show that model evolution requires explicit composition and promotion semantics.
-
-### Failure semantics
-
-Failures divide into at least: invalid model, invalid dependency/reference, policy/access violation, deployment/publish failure and runtime business failure. These should not collapse into one generic validation error.
-
-### Extensibility and provider boundaries
-
-Mendix external entities distinguish data owned elsewhere from locally persisted entities. ServiceNow IntegrationHub/actions separate reusable process actions and external integration. Salesforce/Power Apps allow metadata composition while retaining platform-managed runtime semantics.
-
-Strong primitive: **external semantic reference without ownership transfer**. An application model should be able to refer to external data/action/capability while recording that persistence/execution authority remains external.
-
-### Governance
-
-Scope/module/solution boundaries recur. Reuse is governed, not merely technically possible: ServiceNow actions have scope/access/protection; Power Apps solutions and layers govern customization transport; Salesforce metadata/package mechanisms govern deployable components.
-
-### Observability
-
-The application model itself is inspectable in all four systems, but runtime observability is a separate concern. A useful universal principle is model-to-runtime traceability rather than embedding runtime telemetry into authoring primitives.
-
-### Portability and lock-in
-
-The strongest lock-in appears when semantic model, persistence, UI generation and runtime are inseparable. Mendix external entities and exposed metamodel improve inspectability but its runtime remains platform-specific. Power Apps model-driven apps require Dataverse. ServiceNow applications depend heavily on Now Platform record/scope semantics. Salesforce metadata is highly inspectable/exportable but executes against Salesforce platform semantics.
-
-Therefore **metadata-driven is not equivalent to portable**.
-
-## Product-specific mechanisms not to copy automatically
-
-- Mendix Microflow/Nanoflow syntax, entity storage implementation and Studio Pro unit hierarchy.
-- ServiceNow `sys_*` record conventions, spokes, Script Includes and platform-specific table inheritance.
-- Dataverse solution-layer implementation, mandatory Dataverse dependency for model-driven apps and specific form/view component model.
-- Salesforce sObject/API-name conventions, governor limits, org/package mechanics and XML Metadata API representation.
-
-The reusable lesson is semantic separation and lifecycle, not reproduction of proprietary metamodels.
-
-## Recurring patterns
-
-1. **Model-as-data / metadata-first authoring** — definitions are inspectable artifacts.
-2. **Stable technical identity / mutable presentation** — labels are not authoritative identity.
-3. **Module/scope ownership** — every model unit has an ownership boundary.
-4. **Typed relations** — entities, associations, process actions and UI references form a graph.
-5. **Generated implementation** — persistence/UI/runtime artifacts can be derived from semantic models.
-6. **External reference without ownership** — externally owned data/actions can participate in the model.
-7. **Publish/deploy is a lifecycle transition** — editable model and executable model are distinct states.
-8. **Governed composition** — reuse and overrides require scope/layer/access rules.
-9. **Metadata-driven does not guarantee portability** — portability requires an explicit provider-independent semantic boundary.
-
-## Subcapabilities discovered
-
+## Subcapabilities
 - Semantic Model Unit & Ownership
 - Model Dependency/Reference Graph
 - External Semantic Reference
+- Reference Resolution & Compatibility Evidence
 - Model Validation & Publication
-- Model-to-Runtime Traceability
+- Semantic View / Projection Lifecycle
+- Model-to-Generated-Artifact Traceability
 - Layered Customization / Override Semantics
 
 ## System Builder comparison
-
-No new repository-truth claim is made in this pass. Existing Generation 2 research indicates the SB already values portable semantics/provider isolation, but whether current `SystemDefinition`, module boundaries and generated artifacts provide the model-unit identity, external-reference ownership and publication lifecycle described here must be established later from fresh `main` during `PLANNING_B_SB_CURRENT_STATE_RECONCILIATION`.
+No new SB implementation claim is made in this revisit. Repository-specific questions remain deferred to fresh-main archaeology in `PLANNING_B_SB_CURRENT_STATE_RECONCILIATION`; research evidence is not product truth.
 
 ## Reconciliation hypotheses
-
-- **KEEP/HARDEN** — declarative system definition if repository archaeology confirms it is authoritative and deterministic.
-- **GENERALIZE** — model-unit identity, typed dependency/reference graph and lifecycle states if current constructs are domain-local.
-- **PROVIDERIZE** — persistence/runtime/UI implementation where semantic model currently implies one implementation.
-- **INTEGRATE** — external semantic references rather than copying external schemas/resources into SB ownership.
-- **DO_NOT_BUILD** — proprietary-clone metamodels or platform-specific visual syntax without an independent SB semantic need.
-
-These are hypotheses only.
+- **KEEP/HARDEN** declarative portable definition if repository archaeology confirms deterministic authority and lineage.
+- **GENERALIZE** semantic-unit/reference/projection identities if current constructs are monolithic or representation-bound.
+- **PROVIDERIZE** runtime/persistence/UI realization rather than encoding provider semantics into portable model units.
+- **INTEGRATE** external semantic resources by reference plus compatibility/trust evidence.
+- **DO_NOT_BUILD** a universal executable metamodel or automatic network-resolution semantics merely because standards support references.
 
 ## Repository-validation questions
+1. Does `SystemDefinition` distinguish semantic identity from file/path/URI representation?
+2. Are semantic references revision-bound and can resolution/compatibility be evidenced?
+3. Can one semantic unit have multiple generated projections with independent revision/freshness lineage?
+4. Are model, schema/dialect and generated artifact versions independently represented?
+5. Can external references remain unresolved/offline until an explicit resolution phase?
+6. Are ownership and extension namespaces explicit?
+7. Can process/collaboration/runtime views coexist without one view becoming the authority for all others?
 
-1. Is `SystemDefinition` monolithic or composed from independently versionable/identifiable semantic units?
-2. Can a model distinguish locally owned entities/actions from externally owned ones?
-3. Are display labels separated from stable semantic identity?
-4. Is there an explicit model dependency/reference graph?
-5. Are authoring, validated, published and runtime states distinct?
-6. Can generated UI/persistence/runtime be traced back to exact semantic model identities?
-7. Are overrides/extensions governed by explicit scope/authority?
-8. Does persistence choice leak into the portable model?
+## Symbiotic Proof
+Given one portable application definition: preserve semantic-unit identities while changing representation/location; resolve one external semantic dependency under explicit trust/compatibility policy; produce at least two derived projections; prove each projection's lineage/freshness; replace a provider without changing domain identity; reject incompatible reference/override; regenerate autonomous runtime without Builder availability.
 
-## Symbiotic Proof candidate
+## Stable findings
+`G2-FINDING-PAM-01..10` remain authoritative from the first pass.
 
-Given one business application definition:
+### Revisit findings
+- **G2-FINDING-PAM-11 — Semantic Identity Is Independent From Representation Location.** A model unit's identity must not be its repository path, URL or serialization location.
+- **G2-FINDING-PAM-12 — Reference Resolution and Semantic Compatibility Are Separate Evidence.** Successfully locating a referenced model does not prove that its revision is compatible with the referring model.
+- **G2-FINDING-PAM-13 — Semantic Views Are Projections, Not Competing Sources of Truth.** Process, collaboration, API/catalog, UI and runtime views may derive from shared semantics while retaining distinct projection identity and lineage.
+- **G2-FINDING-PAM-14 — Projection Freshness Is a First-class Claim.** A derived model/view can be valid yet stale relative to the semantic revision from which it was generated.
+- **G2-FINDING-PAM-15 — Extension Vocabulary Does Not Grant Execution Authority.** Extensible modeling syntax/vocabulary must not implicitly authorize provider/runtime behavior.
+- **G2-FINDING-PAM-16 — Portable References Need Explicit Resolution Policy.** A URI/reference can be an identifier without being a fetch instruction; resolution authority, trust and offline behavior must be explicit.
 
-1. execute a native SB path;
-2. bind one data/process dependency to an external provider without changing domain semantics;
-3. replace that provider and prove semantic identity/dependency graph remain stable;
-4. regenerate runtime from the same portable model;
-5. prove policy/governance rejects an unauthorized override;
-6. trace runtime artifacts back to exact model-unit identities and version;
-7. prove generated runtime remains autonomous from the Builder control plane.
-
-## Findings
-
-- **G2-FINDING-PAM-01 — Model Is an Inspectable Artifact.** Mature platforms represent application structure as metadata/metamodel rather than only runtime code.
-- **G2-FINDING-PAM-02 — Stable Semantic Identity Must Outlive Labels.** Technical identity and presentation naming are separate concerns.
-- **G2-FINDING-PAM-03 — Model Units Need Explicit Ownership.** Module/scope boundaries recur as the basis for composition and governance.
-- **G2-FINDING-PAM-04 — Typed Reference Graph Is Foundational.** Application models are graphs of typed entities, relations, actions, views and dependencies, not flat feature lists.
-- **G2-FINDING-PAM-05 — External Reference Must Not Imply Ownership.** External entities/actions should participate without being copied into local authority.
-- **G2-FINDING-PAM-06 — Publication Is a Lifecycle Boundary.** Editable model, validated/published definition and executable runtime are distinct states.
-- **G2-FINDING-PAM-07 — Generated Implementation Must Remain Traceable.** Persistence/UI/runtime generation needs lineage back to semantic model identity/version.
-- **G2-FINDING-PAM-08 — Governed Composition Beats Unbounded Extension.** Scope, access, layering and override rules are architectural primitives.
-- **G2-FINDING-PAM-09 — Metadata-Driven Does Not Mean Portable.** Portability requires semantics independent of platform runtime/storage assumptions.
-- **G2-FINDING-PAM-10 — Semantic Model and Provider Choice Should Be Orthogonal.** Provider-specific storage/runtime choices should be bindings where feasible, not implicit model meaning.
-
-## Synthesis
-
-**Value for SB:** critical. Application modeling is the semantic source from which generation, validation, provider binding and evidence ultimately derive.
-
-**Adoption risk:** high if proprietary platform metamodels are copied; moderate if only recurring primitives are extracted.
-
-**Investigation priority:** critical.
-
-**Next research question for this capability:** after broader first-pass coverage, compare OutSystems plus one more portable/schema-oriented representative and test whether model-unit ownership, publication lifecycle and external semantic reference recur strongly enough to promote any new cross-cutting capability.
+## Value / risk / priority / next question
+Value: critical. Risk: high if representation, projection or provider mechanisms leak into semantic authority. Priority: critical. This revisit produced six material architectural findings, so `consecutive_no_material_finding = 0` and the capability remains NOT SATURATED. Next revisit should test these distinctions against model-driven engineering / package-module systems and determine whether projection lifecycle or reference-resolution evidence merits cross-cutting promotion.
