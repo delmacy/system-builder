@@ -32,4 +32,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-ARSP-15 — Long-lived Verification Requires Retained Trust-context Evidence, Not Only a Signature
 - G2-FINDING-ARSP-16 — Provider Replacement Preserves Semantic Artifact/Release Identity but Creates New Distribution/Trust Lineage
 
+## Deployment / Environment / Runtime — revisit 1
+- G2-FINDING-DER-11 — Deployment Intent, Attempt and Provider Realization Are Distinct Identities
+- G2-FINDING-DER-12 — Provider Readiness/Rollout Completion Is Not Business Acceptance
+- G2-FINDING-DER-13 — Runtime Realization and Serving Activation/Traffic Assignment Are Separate Authority Boundaries
+- G2-FINDING-DER-14 — Drift/Reconciliation Evidence Must Be Observation-time and Policy Scoped
+- G2-FINDING-DER-15 — Rollback/Revert Is a New Recovery Decision and Lineage, Not Erasure
+- G2-FINDING-DER-16 — Runtime Autonomy Requires Explicit External Control-plane Dependency Evidence
+
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
