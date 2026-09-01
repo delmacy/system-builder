@@ -157,7 +157,7 @@ test("TASK-447 prepares deterministic successor B from restored canonical A line
   assert.equal(JSON.stringify({ firstB, runtimeA }).includes(secret), false);
 });
 
-test("TASK-447 rejects stale restored predecessor and malformed successor before any activation evidence", () => {
+test("TASK-447 rejects stale restored predecessor, incompatible environment, and malformed successor before activation evidence", () => {
   const releaseA = bootstrapFor("0.0.1", "2026-09-01T08:55:00.000Z");
   assert.equal(releaseA.ok, true);
   if (!releaseA.ok) return;
@@ -167,6 +167,12 @@ test("TASK-447 rejects stale restored predecessor and malformed successor before
     throw new Error("TASK447_INVALID_DEPLOYMENT_A");
   }
   const environmentA = { kind: "EnvironmentProfile" as const, environmentRef: deploymentA.environmentRef, runtimeVersions: ["1.0.0"], bindings: [] };
+
+  assert.throws(() => preflightRuntimeMaterializationHandoff({
+    bootstrap: releaseA,
+    environment: { ...environmentA, environmentRef: "environment:p19:substituted" },
+    artifactPayloadReader: artifactsA,
+  }));
 
   let successorCalls = 0;
   const staleA = {
@@ -183,7 +189,9 @@ test("TASK-447 rejects stale restored predecessor and malformed successor before
   }, /RUNTIME_HANDOFF_DEPLOYMENT_PREDECESSOR_MISMATCH/);
   assert.equal(successorCalls, 0);
 
-  const malformedB = bootstrapFor("", "2026-09-01T09:05:00.000Z");
-  assert.equal(malformedB.ok, false);
-  assert.equal(JSON.stringify(malformedB).includes("task-447-secret-must-not-leak"), false);
+  assert.throws(() => bootstrapFor("", "2026-09-01T09:05:00.000Z"), (error: unknown) => {
+    assert.equal(error instanceof Error, true);
+    assert.equal(String(error).includes("task-447-secret-must-not-leak"), false);
+    return true;
+  });
 });
