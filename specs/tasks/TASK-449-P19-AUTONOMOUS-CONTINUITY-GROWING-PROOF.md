@@ -1,7 +1,7 @@
 ---
 id: TASK-449
 title: Prove complete autonomous runtime continuity journey
-status: blocked
+status: completed
 priority: 449
 milestone: M19
 model_tier: architecture
@@ -50,7 +50,7 @@ Close WBS 19.2.3 with one auditable growing proof from the supported P19 materia
 TASK-444..448 individually prove autonomy, observation optionality, restoration, successor preparation and A -> B -> A continuity. The Sprint needs one auditable supported-path composition and maintainer-facing statement of the proven boundary.
 
 # Current behavior
-The individual predecessor proofs are not yet composed into one P19 continuity journey with exact lineage from initial materialization through restoration/rollback.
+The predecessor proofs are now composed by `tests/product/p19-autonomous-continuity-growing-proof.test.ts` into one bounded P19 journey using only canonical factory/Compiler/Release/Deploy/Observe owners.
 
 # Required change
 Compose TASK-444..448 evidence into one supported journey without a second orchestration owner or synthetic downstream identity stitching. Update maintainer documentation only for behavior proven by tests. Reuse actual Compiler artifacts, immutable Release/Deployment identities, external EnvironmentProfile/secrets, existing local-process Deploy and existing Observe/rollback behavior.
@@ -70,6 +70,9 @@ Growing product/heavy proof plus bounded operations documentation; no new public
 - last-known-good semantics remain preserved where existing Deploy authority promises them;
 - documentation distinguishes bounded local-process continuity from production supervision, dogfood and WBS 19.3.x;
 - all declared validations and exact-head Sprint gates pass.
+
+# Integrated evidence
+The growing proof freezes canonical A from the factory/bootstrap path, materializes and executes that exact Compiler payload with Builder/factory/bootstrap/Observe endpoints unavailable, resolves a protected secret only through the external EnvironmentProfile, proves local observation plus unavailable Observe publication is fail-open, restores A lineage through the mandatory handoff preflight, prepares canonical B only after restoration, and then exercises A -> stale-B rejection -> B -> exact retained A through the existing PostgreSQL-backed `SingleHostActiveRuntimeOrchestrator`. The test asserts artifact/release/environment identity continuity, last-known-good retention and secret non-disclosure. TASK-442 and TASK-447 predecessor proofs remain cumulative fail-closed coverage for migration/secret/startup/health and malformed/substituted successor failures; TASK-449 composes rather than replaces those canonical negative boundaries.
 
 # Non-goals
 WBS 19.3.1+ dogfood/evolution, production control plane/SLA, new topology, Decision Boundary change, generalized migration framework, unrelated TD/findings or inferred L4.
