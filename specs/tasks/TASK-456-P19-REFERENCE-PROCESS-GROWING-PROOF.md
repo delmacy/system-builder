@@ -1,7 +1,7 @@
 ---
 id: TASK-456
 title: Prove complete reference product journey end-to-end
-status: blocked
+status: completed
 priority: 456
 milestone: M19
 model_tier: architecture
@@ -75,6 +75,14 @@ WBS 19.3.2+ unified CLI/smoke-hardening, production/fleet orchestration, custome
 
 # Evidence expected
 One auditable growing product/heavy proof composing the exact canonical journey plus cumulative representative negative-path evidence, deterministic/idempotent behavior, protected-value non-disclosure and bounded operator documentation, followed by all declared validations and exact-head Sprint gates.
+
+# Execution evidence
+- Added `tests/product/p19-reference-product-growing-proof.test.ts`, composing the actual factory/operator bootstrap, Compiler, verified artifact payload storage, Release publication, `SingleHostActiveRuntimeOrchestrator`, DeploymentRecord-derived Observe evidence, compatible B activation and exact retained A restoration.
+- The proof runs with Builder/factory/bootstrap/Observe endpoints unavailable in process environment, keeps runtime health `UP`, and proves optional Observe delivery failure leaves the canonical active deployment untouched.
+- The same deterministic process/system-definition lineage produces exact immutable release/artifact correlation; repeated A input is structurally identical, B uses the same compatible artifact lineage, stale B and stale repeated rollback preserve last-known-good, and A restoration reuses retained A rather than regenerating it.
+- External secret resolution is exercised at runtime while auditable Release/Deploy/Observe evidence is checked not to contain the resolved secret, secret reference or `EnvironmentProfile` material.
+- Added bounded operator evidence in `docs/operations/P19-REFERENCE-PRODUCT-PROCESS.md`; cumulative TASK-450..455 negative tests remain authoritative for substituted/hash/environment/secret/migration/startup/health/Observe/update/rollback failures.
+- No public contract, Runtime-core, application, Decision Boundary, parallel lifecycle/update/rollback owner, control plane or WBS 19.3.2+ behavior was added.
 
 # Escalation
 Stop if the end-to-end journey exposes a missing capability that cannot be corrected boundedly inside an already authoritative owner without public-contract/topology expansion.

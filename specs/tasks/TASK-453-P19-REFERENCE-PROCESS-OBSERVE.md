@@ -1,7 +1,7 @@
 ---
 id: TASK-453
 title: Correlate reference runtime into Observe evidence
-status: blocked
+status: completed
 priority: 453
 milestone: M19
 model_tier: architecture
@@ -67,6 +67,13 @@ New observability protocol, monitoring SLA, control plane, fleet semantics, publ
 
 # Evidence expected
 Focused proof of canonical correlation, deterministic local evidence, duplicate/reordered handling, fail-open unavailable publication, stale/substituted/malformed rejection and protected-value non-disclosure, plus declared validations and exact-head CI gates.
+
+# Execution evidence
+- Added `tests/product/p19-reference-process-observe.test.ts` using the existing `DeploymentObservation` normalization/identity and `publish` optional-channel contract.
+- Proved canonical deployment/release/environment/artifact correlation, deterministic repeated local identity, explicit health-check ordering behavior and JSON round-trip integrity.
+- Proved optional publication remains `not-configured` or bounded `channel-failed` without changing the deployment outcome, and repeated channel failure is deterministic.
+- Proved substituted serialized lineage is rejected by observation identity validation, malformed environment evidence fails closed, and unknown protected-value fields are rejected before Observe evidence is accepted.
+- No Runtime-core, Deploy lifecycle, public contract, application, topology, business authority or WBS 19.3.2+ behavior was added.
 
 # Escalation
 Stop if correlation requires a new observability/public contract, Runtime authority change, reverse Runtime->Builder dependency or topology beyond existing Observe ownership.

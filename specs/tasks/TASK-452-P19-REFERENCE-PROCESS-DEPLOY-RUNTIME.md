@@ -1,7 +1,7 @@
 ---
 id: TASK-452
 title: Deploy reference release into actual runtime state
-status: blocked
+status: completed
 priority: 452
 milestone: M19
 model_tier: architecture
@@ -68,6 +68,14 @@ Production supervision, persistent control plane, Runtime->Builder dependency, s
 
 # Evidence expected
 Focused product/heavy proof of exact release materialization, real startup/health, Builder-off steady-state behavior, external secret handling and representative fail-closed payload/environment/migration/secret/startup/health failures, plus declared validations and exact-head CI gates.
+
+# Execution evidence
+- Added `tests/product/p19-reference-process-deploy-runtime.test.ts`, carrying the same frozen reference process identity through the existing factory bootstrap, Compiler artifact, canonical Release identity and `invokeRuntimeMaterializationHandoff` without a parallel launcher or Runtime contract.
+- Proved the exact `PublishedRelease`/`ReleaseArtifact` lineage reaches Deploy, with verified artifact payload, external `EnvironmentProfile`, runtime secret resolution, generated-process startup, `UP` health evidence, stable environment/runtime identity and post-run cleanup while Builder/factory/bootstrap endpoints are unavailable.
+- Proved protected secret material does not enter the canonical Release/Compiler/deployment evidence.
+- Proved representative artifact-payload, environment-predecessor and secret-resolution failures fail before activation; migration failure remains pre-activation and redacts resolved secret material; startup process failure cannot produce false health/state success and cleans its working directory.
+- Existing Deploy-owned verification remains authoritative for artifact/hash/runtime/migration/startup/health semantics; this TASK adds only representative composition evidence and does not weaken or duplicate those gates.
+- No `packages/runtime-core/**`, application, Decision Boundary, public-contract, supervisor, second lifecycle owner, Observe or WBS 19.3.2+ change was introduced.
 
 # Escalation
 Stop if the representative deployment requires a new Runtime contract, second lifecycle owner, production supervision topology or public-contract expansion instead of bounded reuse of existing Deploy authority.

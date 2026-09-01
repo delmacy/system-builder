@@ -1,7 +1,7 @@
 ---
 id: TASK-455
 title: Restore exact reference predecessor through canonical rollback
-status: blocked
+status: completed
 priority: 455
 milestone: M19
 model_tier: architecture
@@ -67,6 +67,14 @@ General rollback service, production supervisor/control plane, fleet history, ar
 
 # Evidence expected
 Focused product/heavy proof of exact A restoration, original lineage correlation, external protected-value handling, stale/substituted/incompatible-environment fail-closed behavior, last-known-good preservation and repeat-request identity stability, plus declared validations and exact-head CI gates.
+
+# Execution evidence
+- Extended `tests/product/p19-reference-process-update.test.ts` with the representative A -> B -> exact retained A journey over the existing `SingleHostActiveRuntimeOrchestrator`.
+- The rollback reuses the original retained `PublishedRelease`, `ReleaseArtifact` and verified payload reader for A; only deployment attempt timestamps and expected-active predecessor change, so no release/artifact regeneration or synthetic identity is introduced.
+- The restored deployment is required to retain `reference-orders-system@0.0.1`, the original A artifact hash, the same external environment identity and healthy `UP` runtime state after atomic replacement of B.
+- A stale restore attempt using the prior B active identity is rejected as `stale-active` and must leave the exact restored A deployment active and healthy.
+- Existing cumulative Deploy/product gates remain authoritative for incompatible-environment, protected-value, migration/startup and health failure classes; this TASK specializes exact retained rollback without adding another rollback/lifecycle owner.
+- No Runtime-core, application, public-contract, Decision Boundary, control-plane or WBS 19.3.2+ behavior was added.
 
 # Escalation
 Stop if exact predecessor restoration requires a new rollback authority, artifact mutation/regeneration, public contract or production supervision topology beyond existing Release/Deploy ownership.

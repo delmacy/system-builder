@@ -1,0 +1,9 @@
+# P19 reference product process — supported proof boundary
+
+WBS 19.3.1 is proven by the product tests as one representative supported journey: deterministic process/version lineage enters the existing factory/operator bootstrap, Compiler produces the immutable artifact payload, Release publishes the exact artifact identity, Deploy owns local-process activation and health, Observe derives non-authoritative evidence from the DeploymentRecord, and the existing same-host orchestrator owns compatible update plus exact retained rollback.
+
+For the representative proof, Builder/factory/bootstrap/Observe endpoints are intentionally unavailable during ordinary runtime operation. Runtime health remains authoritative locally; optional Observe delivery failure does not change deployment outcome. `EnvironmentProfile` and secret values remain external to ReleaseArtifact/PublishedRelease/DeploymentObservation evidence.
+
+The A -> B -> A sequence must use canonical `PublishedRelease`, `ReleaseArtifact`, `DeploymentRecord`, environment refs and artifact hashes. A stale successor or stale repeated rollback is rejected without replacing the current last-known-good runtime. Exact predecessor restoration reuses the retained A release/artifact/payload; it does not regenerate or approximate identity.
+
+Negative coverage is cumulative with TASK-450..455: substituted process lineage, stale validation evidence, payload/hash mismatch, environment mismatch, secret resolution, migration/startup/health failure, malformed Observe evidence, unavailable Observe publication, stale successor and stale rollback all remain owned by their existing canonical boundaries. This document does not introduce a CLI, supervisor, control plane, new lifecycle owner, public contract, identity scheme or WBS 19.3.2+ behavior.

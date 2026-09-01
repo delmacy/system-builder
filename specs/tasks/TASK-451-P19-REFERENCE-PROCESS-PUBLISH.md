@@ -1,7 +1,7 @@
 ---
 id: TASK-451
 title: Prove reference process through project and publish
-status: blocked
+status: completed
 priority: 451
 milestone: M19
 model_tier: architecture
@@ -68,6 +68,14 @@ Deploy/runtime activation, Observe publication, new Release schema, new identity
 
 # Evidence expected
 Focused product proof covering happy-path publication, deterministic/idempotent repetition, stale/substituted identity or artifact rejection and protected/runtime-state non-disclosure, plus declared validations and exact-head CI gates.
+
+# Execution evidence
+- Extended `tests/product/p19-reference-process-baseline.test.ts` so the TASK-450 canonical baseline feeds the existing Compiler without a synthetic downstream identity seam.
+- Published the exact Compiler file set through `InMemoryArtifactPayloadRepository`, verified per-file and aggregate identity through `getVerified`, and only then published through the canonical `ReleaseRegistry`.
+- Proved deterministic repeated compilation, idempotent identical artifact-payload publication and existing duplicate Release identity rejection semantics.
+- Proved stale validation/project evidence is rejected by Compiler before publication and substituted file content is rejected by artifact verification before Release publication.
+- Verified immutable Compiler/Release evidence contains no `EnvironmentProfile`, reference environment identity or protected-value reference.
+- No Deploy/Runtime/Observe behavior, public contract, identity authority, application path or WBS 19.3.2+ scope was added.
 
 # Escalation
 Stop if publication of the representative baseline requires a new public contract, identity authority, topology or behavior outside existing Assembly/Compiler/Release owners.
