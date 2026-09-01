@@ -74,4 +74,14 @@ States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`.
 | AWS SNS + SQS | DEEP | Topic/subscription/queue decomposition proves ordering, deduplication, DLQ and replay guarantees compose at different boundaries. | Filter-policy semantics, archive/replay evidence, cross-account/region portability and provider-neutral requirement mapping. |
 | Novu | DEEP | Separates notification workflow/intent, subscriber/preferences, channel steps, provider integrations and transaction activity evidence. | Provider fallback, preference-policy precedence, tenant isolation, template/version migration and self-hosted portability. |
 
+## Build / Dependency Graph / Reproducibility coverage
+
+| Representative | Coverage | Why this pass matters | Revisit focus |
+|---|---|---|---|
+| Bazel | DEEP | Explicit target/action graph, declared inputs/outputs, action cache/CAS and remote execution expose cache correctness and hermeticity boundaries. | Current module/dependency model, toolchain transitions, Build Event Protocol provenance and remote-execution trust. |
+| Nix 2.28 | DEEP | Derivations define build steps with explicit inputs/outputs/system; flake locks preserve dependency graph selections. | Reproducibility limits, sandbox/network impurity, content-addressed derivations and portability beyond Nix. |
+| Docker BuildKit | DEEP | Build cache/provider separation plus SLSA provenance/SBOM attestations connect build inputs to output evidence. | LLB graph semantics, reproducible timestamps/platform effects, cache poisoning/trust and non-OCI outputs. |
+| GitHub Actions | DEEP | CI orchestration distinguishes caches from artifacts and supports signed artifact provenance attestations; caches are explicitly untrusted inputs. | Reusable workflow identity, runner image/toolchain pinning, retention loss and provider replacement. |
+| Turborepo | PARTIAL | Useful monorepo task-graph/incremental-cache contrast, but primary-source evidence was insufficient in this pass for DEEP status. | Task hash inputs/outputs, remote-cache trust, environment-variable hashing and boundary with package-manager graph. |
+
 This ledger expands horizontally as capability dossiers are created and vertically as additional representatives are discovered.
