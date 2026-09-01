@@ -185,7 +185,7 @@ function supportedInput() {
       verified: true as const,
     }),
   };
-  return { bootstrap, environment, generatedFiles, artifactPayloadReader };
+  return { bootstrap, environment, artifactHash, generatedFiles, artifactPayloadReader };
 }
 
 test("TASK-441 supported handoff preserves immutable release/artifact/generated inputs, externalizes secrets and cleans every run", async () => {
@@ -259,4 +259,39 @@ test("TASK-441 migration failure through supported handoff redacts resolved secr
   assert.match(result.deploy.diagnostic.detail, /TASK_441_MIGRATION_FAILURE:\[REDACTED\]/);
   assert.equal("workingDirectory" in result.deploy, false);
   assert.equal(JSON.stringify(result).includes(secretValue), false);
+});
+
+test("TASK-443 startup failure is proven through the supported real Deploy invocation without partial success", async () => {
+  const input = supportedInput();
+  const invalidStartupFiles = Object.freeze([
+    Object.freeze({
+      path: "runtime-entry.mjs",
+      content: `console.log("TASK_443_INVALID_STARTUP");\nsetInterval(() => {}, 1_000);\nprocess.once("SIGTERM", () => process.exit(0));`,
+      contentHash: `sha256:${"d".repeat(64)}`,
+    }),
+  ]);
+  const result = await invokeRuntimeMaterializationHandoff({
+    bootstrap: input.bootstrap,
+    environment: input.environment,
+    artifactPayloadReader: {
+      getVerified: () => Object.freeze({
+        artifactHash: input.artifactHash,
+        files: invalidStartupFiles,
+        verified: true as const,
+      }),
+    },
+    timeoutMs: 2_000,
+  });
+
+  assert.equal(result.deploy.ok, false);
+  if (result.deploy.ok) return;
+  assert.equal(result.deploy.activated, true);
+  assert.equal(result.deploy.diagnostic.code, "RUNTIME_STARTUP_INVALID");
+  assert.equal(result.deploy.diagnostic.detail, "TASK_443_INVALID_STARTUP");
+  assert.equal("health" in result.deploy, false);
+  assert.equal("state" in result.deploy, false);
+  assert.equal("migrationApplication" in result.deploy, false);
+  if ("workingDirectory" in result.deploy && result.deploy.workingDirectory !== undefined) {
+    await assert.rejects(access(result.deploy.workingDirectory));
+  }
 });
