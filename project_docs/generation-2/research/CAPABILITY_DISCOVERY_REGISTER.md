@@ -28,9 +28,12 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | G2-CAPABILITY-CANDIDATE-IDEMPOTENCY-CORRELATION-CONTRACT | CROSS_CUTTING | Kafka + Dapr + EventBridge | CANDIDATE | Promote if workflow/messaging/integration need portable correlation. |
 | G2-CAPABILITY-CANDIDATE-PARTIAL-EFFECT-OUTCOME-EVIDENCE | CROSS_CUTTING | EventBridge + Make | CANDIDATE | Promote if compound effects require reusable per-item proof. |
 | G2-CAPABILITY-CANDIDATE-RETRY-OWNERSHIP-DECLARATION | CROSS_CUTTING | Dapr + Logic Apps + EventBridge | CANDIDATE | Promote if retry precedence must be modeled universally. |
-| G2-CAPABILITY-CANDIDATE-REVOCATION-SCOPE-FRESHNESS-EVIDENCE | CROSS_CUTTING | RFC 7009/9700 + identity session lifecycle | CANDIDATE | Promote if Authorization/Security/Provider synthesis needs shared scoped revocation evidence. |
+| G2-CAPABILITY-CANDIDATE-REVOCATION-SCOPE-FRESHNESS-EVIDENCE | CROSS_CUTTING | RFC 7009/9700 + identity session lifecycle + SpiceDB/OpenFGA | CANDIDATE | Promote if Authorization/Security/Provider synthesis needs shared scoped revocation evidence. |
 | G2-CAPABILITY-CANDIDATE-AUTHENTICATION-ASSURANCE-EVIDENCE | CROSS_CUTTING | OIDC authentication context + MFA/session evidence | CANDIDATE | Promote if Authorization/Governance consume assurance beyond identity. |
 | G2-CAPABILITY-CANDIDATE-WORKLOAD-IDENTITY-TRUST-BINDING | CROSS_CUTTING | SPIFFE trust domains/SVIDs + service identity | CANDIDATE | Promote if Security/Deployment/Secrets converge on a shared workload trust binding. |
+| G2-CAPABILITY-CANDIDATE-AUTHORIZATION-CONSISTENCY-FRESHNESS-EVIDENCE | CROSS_CUTTING | SpiceDB + OpenFGA + authorization revocation semantics | CANDIDATE | Promote if Data/Provider/Security synthesis needs reusable authorization freshness evidence. |
+| G2-CAPABILITY-CANDIDATE-ENFORCEMENT-APPLICATION-EVIDENCE | CROSS_CUTTING | OPA decision evidence + application enforcement boundary | CANDIDATE | Promote if effect-application proof recurs beyond authorization. |
+| G2-CAPABILITY-CANDIDATE-TENANT-ISOLATION-PROOF | CROSS_CUTTING | AWS tenant authorization + Keycloak organization scoping | CANDIDATE | Promote if Data/Secrets/Deployment converge on reusable isolation proof. |
 
 `G2-CAPABILITY-CANDIDATE-FEDERATION-TRUST-LIFECYCLE` gains stronger evidence from RFC 8414 metadata and SPIFFE federation/bundle rotation but remains CANDIDATE pending synthesis.
 
