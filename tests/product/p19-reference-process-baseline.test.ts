@@ -19,10 +19,11 @@ const REFERENCE_PROCESS = Object.freeze({
 });
 
 function referenceFactoryInput() {
+  const revisionRef: string = REFERENCE_PROCESS.revisionRef;
   const revision = {
     contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
     artifactRef: REFERENCE_PROCESS.artifactRef,
-    revisionRef: REFERENCE_PROCESS.revisionRef,
+    revisionRef,
     revisionNumber: 1,
     previousRevisionRef: null,
   };
