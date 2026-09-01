@@ -18,11 +18,11 @@ const REFERENCE_PROCESS = Object.freeze({
   requirementRef: "REQ-REFERENCE-1",
 });
 
-function referenceFactoryInput(revisionRef: string = REFERENCE_PROCESS.revisionRef) {
+function referenceFactoryInput() {
   const revision = {
     contractVersion: PROCESS_VERSION_IDENTITY_VERSION,
     artifactRef: REFERENCE_PROCESS.artifactRef,
-    revisionRef,
+    revisionRef: REFERENCE_PROCESS.revisionRef,
     revisionNumber: 1,
     previousRevisionRef: null,
   };
@@ -164,7 +164,11 @@ test("TASK-450 freezes one deterministic canonical reference-process baseline", 
 });
 
 test("TASK-450 rejects substituted process lineage through the canonical supported seam", () => {
-  const substituted = referenceFactoryInput("process-revision:reference-orders:substituted");
+  const substituted = referenceFactoryInput();
+  substituted.journeyBinding.lineage.processRevision.processRevision.revisionRef =
+    "process-revision:reference-orders:substituted";
 
+  assert.equal(substituted.journeyBinding.journey.stages[0]?.identityRef, REFERENCE_PROCESS.revisionRef);
+  assert.equal(substituted.definition.recipeRef, REFERENCE_PROCESS.revisionRef);
   assert.throws(() => bootstrap(substituted));
 });
