@@ -4,6 +4,7 @@ title: Prepare compatible successor release from canonical restored lineage
 status: blocked
 priority: 447
 milestone: M19
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
@@ -38,13 +39,25 @@ validation:
   - npm run verify
 ---
 # Objective
-Prepare one compatible successor release B through the existing canonical P19 factory/Compiler/Release path after Builder restoration, while release A remains independently operable.
+Prepare one compatible successor release B through the existing canonical P19 factory/Compiler/Release path after Builder restoration while release A remains independently operable.
+
+# Context
+TASK-446 reconstructs the exact predecessor lineage after Builder restoration. P13 already proves compatible A/B continuity, while P19 factory E2E provides the current canonical generation/publication path.
+
+# Current behavior
+P19 does not yet prove a successor can be prepared from restored canonical lineage while the autonomous release A keeps operating.
 
 # Required change
-Compose the restored canonical predecessor context from TASK-446 with the supported factory journey to produce a successor ReleaseArtifact/PublishedRelease/DeploymentRecord lineage. Reuse existing versioning, Compiler, Release and compatibility authority. Do not hand-stitch downstream identities and do not activate B in this TASK.
+Compose TASK-446 restored predecessor context with the supported factory journey to produce successor ReleaseArtifact/PublishedRelease/DeploymentRecord lineage. Reuse existing versioning, Compiler, Release and compatibility authority; do not hand-stitch downstream identities or activate B.
+
+# Inputs / contracts
+TASK-446 restored predecessor evidence, canonical P19 factory input/path, existing Compiler/Release/versioning contracts and external EnvironmentProfile compatibility evidence.
+
+# Outputs / contracts
+Canonical compatible successor B release evidence only; no new public contract or activation side effect.
 
 # Acceptance criteria
-- successor B originates through the supported canonical factory path from the exact accepted predecessor lineage;
+- successor B originates through the supported canonical factory path from exact accepted predecessor lineage;
 - release/artifact hashes and refs are deterministic and internally consistent;
 - active A remains unaffected while B is prepared;
 - stale/substituted predecessor, incompatible runtime/environment or malformed successor evidence fails closed;
@@ -54,6 +67,9 @@ Compose the restored canonical predecessor context from TASK-446 with the suppor
 
 # Non-goals
 Business dogfood/evolution scope, new process revision authority, activation, rollback, generalized upgrade framework or WBS 19.3.1+.
+
+# Evidence expected
+Focused factory/release proof showing exact A-predecessor -> B lineage while A remains healthy, plus repository verification.
 
 # Escalation
 Stop if a compatible successor cannot be prepared using existing factory/versioning/Release contracts without new L3/L4 authority.
