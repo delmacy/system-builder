@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { access } from "node:fs/promises";
 import test from "node:test";
 
+import { InMemoryArtifactPayloadRepository } from "../../packages/artifact-store/index.js";
+import { compileSyntheticRelease, type CompilerAssemblyPlan, type CompilerValidationEvidence } from "../../packages/compiler/index.js";
 import {
   FACTORY_JOURNEY_CONTRACT_VERSION,
   FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION,
@@ -10,37 +12,6 @@ import { PROCESS_SYSTEM_LINEAGE_VERSION } from "../../packages/contracts/process
 import { PROCESS_VERSION_IDENTITY_VERSION } from "../../packages/contracts/process-versioning/index.js";
 import { executeFactoryOperatorBootstrap } from "../../scripts/factory-operator-bootstrap-command.js";
 import { invokeRuntimeMaterializationHandoff } from "../../scripts/runtime-materialization-handoff.js";
-
-const runtimeEntry = `
-import http from "node:http";
-const profile = JSON.parse(process.env.SYSTEM_BUILDER_ENVIRONMENT_PROFILE);
-const server = http.createServer((request, response) => {
-  if (request.url === "/health") {
-    response.writeHead(200, { "content-type": "application/json" });
-    response.end(JSON.stringify({
-      kind: "RuntimeHealth",
-      status: "UP",
-      runtimeVersion: "1.0.0",
-      environmentRef: profile.environmentRef,
-      bindingNames: profile.bindings.map((binding) => binding.name),
-    }));
-    return;
-  }
-  response.writeHead(404); response.end();
-});
-server.listen(0, "127.0.0.1", () => {
-  const address = server.address();
-  console.log(JSON.stringify({
-    kind: "RuntimeStarted",
-    status: "UP",
-    port: address.port,
-    runtimeVersion: "1.0.0",
-    environmentRef: profile.environmentRef,
-  }));
-});
-const shutdown = () => server.close(() => process.exit(0));
-process.once("SIGTERM", shutdown);
-process.once("SIGINT", shutdown);`;
 
 function canonicalBootstrap() {
   const revision = {
@@ -140,6 +111,31 @@ function canonicalBootstrap() {
   });
 }
 
+function requireCompilerPredecessors(bootstrap: ReturnType<typeof canonicalBootstrap>) {
+  const assemblyPlan = bootstrap.result.assemblyPlan;
+  const validationEvidence = bootstrap.result.validationEvidence;
+  if (
+    typeof assemblyPlan !== "object"
+    || assemblyPlan === null
+    || !("kind" in assemblyPlan)
+    || assemblyPlan.kind !== "AssemblyPlan"
+  ) {
+    throw new Error("canonical bootstrap assemblyPlan must be an AssemblyPlan");
+  }
+  if (
+    typeof validationEvidence !== "object"
+    || validationEvidence === null
+    || !("kind" in validationEvidence)
+    || validationEvidence.kind !== "ValidationEvidence"
+  ) {
+    throw new Error("canonical bootstrap validationEvidence must be ValidationEvidence");
+  }
+  return {
+    assemblyPlan: assemblyPlan as CompilerAssemblyPlan,
+    validationEvidence: validationEvidence as CompilerValidationEvidence,
+  };
+}
+
 function supportedInput() {
   const bootstrap = canonicalBootstrap();
   assert.equal(bootstrap.ok, true);
@@ -166,6 +162,23 @@ function supportedInput() {
   }
   const artifactHash = releaseArtifact.artifactHash;
 
+  const predecessors = requireCompilerPredecessors(bootstrap);
+  const compilation = compileSyntheticRelease({
+    ...predecessors,
+    compilerVersion: "1.0.0",
+    runtimeVersion: "1.0.0",
+  });
+  assert.deepEqual(compilation.artifact, releaseArtifact);
+
+  const artifacts = new InMemoryArtifactPayloadRepository();
+  const payload = artifacts.publish({
+    artifactHash: compilation.artifact.artifactHash,
+    files: compilation.files,
+  });
+  assert.equal(payload.artifactHash, artifactHash);
+  const verifiedPayload = artifacts.getVerified(compilation.artifact);
+  assert.equal(verifiedPayload.artifactHash, artifactHash);
+
   const environment = {
     kind: "EnvironmentProfile" as const,
     environmentRef: deploymentRecord.environmentRef,
@@ -175,17 +188,13 @@ function supportedInput() {
       { name: "LOG_LEVEL", kind: "config" as const, reference: "config://log-level" },
     ],
   };
-  const generatedFiles = Object.freeze([
-    Object.freeze({ path: "runtime-entry.mjs", content: runtimeEntry, contentHash: `sha256:${"c".repeat(64)}` }),
-  ]);
-  const artifactPayloadReader = {
-    getVerified: () => Object.freeze({
-      artifactHash,
-      files: generatedFiles,
-      verified: true as const,
-    }),
+  return {
+    bootstrap,
+    environment,
+    artifactHash,
+    generatedFiles: compilation.files,
+    artifactPayloadReader: artifacts,
   };
-  return { bootstrap, environment, artifactHash, generatedFiles, artifactPayloadReader };
 }
 
 test("TASK-441 supported handoff preserves immutable release/artifact/generated inputs, externalizes secrets and cleans every run", async () => {
@@ -261,24 +270,14 @@ test("TASK-441 migration failure through supported handoff redacts resolved secr
   assert.equal(JSON.stringify(result).includes(secretValue), false);
 });
 
-test("TASK-443 startup failure is proven through the supported real Deploy invocation without partial success", async () => {
+test("TASK-443 startup failure is proven with the exact compiler payload through the supported Deploy invocation", async () => {
   const input = supportedInput();
-  const invalidStartupFiles = Object.freeze([
-    Object.freeze({
-      path: "runtime-entry.mjs",
-      content: `console.log("TASK_443_INVALID_STARTUP");\nsetInterval(() => {}, 1_000);\nprocess.once("SIGTERM", () => process.exit(0));`,
-      contentHash: `sha256:${"d".repeat(64)}`,
-    }),
-  ]);
   const result = await invokeRuntimeMaterializationHandoff({
     bootstrap: input.bootstrap,
     environment: input.environment,
-    artifactPayloadReader: {
-      getVerified: () => Object.freeze({
-        artifactHash: input.artifactHash,
-        files: invalidStartupFiles,
-        verified: true as const,
-      }),
+    artifactPayloadReader: input.artifactPayloadReader,
+    processEnvironment: {
+      NODE_OPTIONS: "--task-443-invalid-node-option",
     },
     timeoutMs: 2_000,
   });
@@ -286,8 +285,8 @@ test("TASK-443 startup failure is proven through the supported real Deploy invoc
   assert.equal(result.deploy.ok, false);
   if (result.deploy.ok) return;
   assert.equal(result.deploy.activated, true);
-  assert.equal(result.deploy.diagnostic.code, "RUNTIME_STARTUP_INVALID");
-  assert.equal(result.deploy.diagnostic.detail, "TASK_443_INVALID_STARTUP");
+  assert.equal(result.deploy.diagnostic.code, "RUNTIME_PROCESS_FAILED");
+  assert.match(result.deploy.diagnostic.detail, /task-443-invalid-node-option|bad option|not allowed/i);
   assert.equal("health" in result.deploy, false);
   assert.equal("state" in result.deploy, false);
   assert.equal("migrationApplication" in result.deploy, false);
