@@ -24,4 +24,14 @@ Previous capability coverage remains authoritative in the corresponding dossiers
 | Coolify self-hosted lifecycle | DEEP | Concrete self-host install/update/backup/restore boundaries reveal control-plane-vs-application state separation and recovery prerequisites. | Export/migration portability, rollback evidence and managed-workload recovery scope. |
 | Nix Flakes / devShell | DEEP | Declarative reproducible environment inputs establish a strong provider-independent concept of development-environment definition versus realization. | Cross-platform realization, lock/update evidence and interaction with devcontainer-style manifests. |
 
+## Architecture Reconciliation as a Capability coverage
+
+| Representative | Coverage | Why this pass matters | Revisit focus |
+|---|---|---|---|
+| ADR lifecycle / MADR-style practice | DEEP | Stable decision identity, status and supersession establish decision provenance without rewriting history. | Formal authority/ownership and assumption invalidation. |
+| Evolutionary Architecture fitness functions | DEEP | Continuous evaluation turns selected architecture characteristics into repeatable evidence. | Multi-dimensional fitness and evidence freshness. |
+| ArchUnit-style architecture tests | DEEP | Deterministic dependency/package rules demonstrate executable bounded conformance. | Rule revision, exceptions and false confidence outside encoded scope. |
+| Kubernetes compatibility/deprecation governance | DEEP | Version-skew, upgrade ordering and round-trip obligations show measurable architecture/evolution governance. | Conformance certification and API lifecycle ownership. |
+| Repository-native architecture governance | PARTIAL | Version-controlled decisions, contracts, tests and evidence can remain portable while separately identified. | Exact System Builder ADR/conformance/evidence authorities during repository archaeology. |
+
 Historical representative coverage for prior capabilities is preserved in prior dossiers/state; no earlier status is superseded by this compact ledger update.
