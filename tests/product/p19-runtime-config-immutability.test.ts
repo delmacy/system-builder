@@ -294,3 +294,84 @@ test("TASK-443 startup failure is proven with the exact compiler payload through
     await assert.rejects(access(result.deploy.workingDirectory));
   }
 });
+
+test("TASK-444 supported runtime stays Builder-independent throughout the active Deploy window", async () => {
+  const secretValue = "task-444-builder-off-secret";
+  const input = supportedInput();
+  const published = input.bootstrap.result.publishedRelease;
+  if (
+    typeof published !== "object"
+    || published === null
+    || !("releaseId" in published)
+    || typeof published.releaseId !== "string"
+    || !("version" in published)
+    || typeof published.version !== "string"
+  ) {
+    throw new Error("canonical bootstrap publishedRelease must expose releaseId/version");
+  }
+  const publishedReleaseRef = `${published.releaseId}@${published.version}`;
+
+  const deployment = input.bootstrap.result.deploymentRecord;
+  if (
+    typeof deployment !== "object"
+    || deployment === null
+    || !("deploymentId" in deployment)
+    || typeof deployment.deploymentId !== "string"
+    || !("publishedReleaseRef" in deployment)
+    || typeof deployment.publishedReleaseRef !== "string"
+  ) {
+    throw new Error("canonical bootstrap deploymentRecord must expose deploymentId/publishedReleaseRef");
+  }
+  const deploymentId = deployment.deploymentId;
+  assert.equal(deployment.publishedReleaseRef, publishedReleaseRef);
+  const generatedPayload = input.generatedFiles.map((file) => file.content).join("\n");
+
+  assert.equal(generatedPayload.includes("SYSTEM_BUILDER_BUILDER_URL"), false);
+  assert.equal(generatedPayload.includes("factory-operator-bootstrap"), false);
+
+  const invoke = () => invokeRuntimeMaterializationHandoff({
+    bootstrap: input.bootstrap,
+    environment: input.environment,
+    artifactPayloadReader: input.artifactPayloadReader,
+    secretResolver: { resolve: () => secretValue },
+    processEnvironment: {
+      SYSTEM_BUILDER_BUILDER_URL: "http://127.0.0.1:1",
+      SYSTEM_BUILDER_FACTORY_URL: "http://127.0.0.1:1",
+      SYSTEM_BUILDER_BOOTSTRAP_URL: "http://127.0.0.1:1",
+    },
+    timeoutMs: 2_000,
+  });
+
+  const first = await invoke();
+  const second = await invoke();
+  assert.equal(first.deploy.ok, true);
+  assert.equal(second.deploy.ok, true);
+  if (!first.deploy.ok || !second.deploy.ok) return;
+
+  assert.equal(first.publishedReleaseRef, publishedReleaseRef);
+  assert.equal(first.artifactHash, input.artifactHash);
+  assert.equal(first.deploymentId, deploymentId);
+  assert.equal(first.deploy.health.status, "UP");
+  assert.equal(first.deploy.health.environmentRef, input.environment.environmentRef);
+  assert.equal(first.deploy.health.runtimeVersion, "1.0.0");
+  assert.equal(JSON.stringify(first).includes(secretValue), false);
+  assert.equal(JSON.stringify(second).includes(secretValue), false);
+
+  assert.deepEqual(
+    {
+      publishedReleaseRef: first.publishedReleaseRef,
+      artifactHash: first.artifactHash,
+      deploymentId: first.deploymentId,
+      health: first.deploy.health,
+    },
+    {
+      publishedReleaseRef: second.publishedReleaseRef,
+      artifactHash: second.artifactHash,
+      deploymentId: second.deploymentId,
+      health: second.deploy.health,
+    },
+  );
+
+  await assert.rejects(access(first.deploy.workingDirectory));
+  await assert.rejects(access(second.deploy.workingDirectory));
+});

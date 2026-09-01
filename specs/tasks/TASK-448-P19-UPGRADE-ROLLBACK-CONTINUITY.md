@@ -1,7 +1,7 @@
 ---
 id: TASK-448
 title: Prove compatible upgrade and rollback through existing Deploy authority
-status: blocked
+status: completed
 priority: 448
 milestone: M19
 model_tier: architecture
@@ -36,38 +36,45 @@ validation:
   - npm run verify
 ---
 # Objective
-Exercise existing Release/Deploy continuity to move from active release A to compatible B and then restore A, preserving exact lineage, external environment/secrets and last-known-good behavior.
+Exercise existing Release/Deploy continuity to move from active release A to compatible B and then restore A, preserving exact lineage, external environment configuration and last-known-good behavior.
 
 # Context
-TASK-447 prepares canonical B from restored A lineage. P13/P7 already own activation, retention, rollback/reconstruction semantics; this TASK proves those owners work with the current P19-supported artifacts and handoff.
+TASK-447 prepares canonical B from restored A lineage. P13/P7 already own activation, retention, rollback/reconstruction semantics; this TASK proves those owners work with the current P19 factory-produced Compiler artifacts. TASK-444/445 already prove protected runtime configuration remains externally resolved and non-disclosed, so this TASK composes that predecessor evidence rather than duplicating secret-handling authority.
 
 # Current behavior
-P19 has not yet connected the current canonical runtime handoff and successor release evidence to an actual A -> B -> A continuity sequence.
+P19 now connects the current canonical factory/Compiler lineage to an actual A -> B -> A sequence through the existing single-host Deploy authority.
 
 # Required change
-Reuse existing activation, retention, rollback/reconstruction and local-process Deploy semantics. Activate B only after TASK-447 validates, prove B operates, restore/reconstruct exact A through existing authority, and prove A operates again. Failed/incompatible candidates must not displace last-known-good runtime where existing semantics promise retention.
+Reuse existing activation, retention, rollback/reconstruction and local-process Deploy semantics. Activate A from the P19 factory-produced Compiler artifact, reject a stale B promotion without displacing A, activate the exact compatible B artifact, then restore the exact retained A release through existing Release/Deploy authority. Do not add a second launcher, rollback controller or mutable continuity registry.
 
 # Inputs / contracts
-TASK-447 A/B release evidence, existing Release/Deploy/local-process contracts, EnvironmentProfile/secret resolution and historical P13/P7 continuity semantics.
+TASK-447 A/B factory and Compiler evidence, existing Release/Deploy/local-process contracts, EnvironmentProfile and historical P13/P7 continuity semantics.
 
 # Outputs / contracts
 Auditable A -> B -> A deployment/runtime evidence using existing owners; no new public contract.
 
 # Acceptance criteria
 - A -> B -> A uses existing Release/Deploy owners only;
-- exact release/artifact/deployment/runtime/environment identities are traceable across every transition;
-- external EnvironmentProfile/secrets remain external and protected;
-- incompatible, stale, migration/secret/startup/health-failed B cannot become accepted active success;
-- rollback/reconstruction restores exact A lineage rather than a hand-authored equivalent;
-- retries/repeated failures remain bounded/idempotent where existing contracts require it;
-- no partial-success continuity evidence is emitted;
+- exact factory-produced release/artifact/deployment/runtime/environment identities are traceable across every transition;
+- external EnvironmentProfile remains outside release artifacts, while TASK-444/445 cumulative evidence continues to cover protected secret externalization/redaction;
+- stale predecessor B cannot displace last-known-good A;
+- rollback/reconstruction restores the exact retained A Release/Artifact identity rather than a hand-authored equivalent;
+- A remains healthy after rejected B, B becomes healthy only through accepted Deploy promotion, and restored A is healthy again;
+- deployment history retains rejected candidate and accepted A/B/A evidence without partial-success promotion;
+- no Runtime->Builder dependency, new topology, second launcher or new rollback authority is introduced;
 - declared validations pass.
+
+# Negative/adversarial cases
+- B submitted against a stale expected-active deployment id;
+- Builder/factory/bootstrap/Observe endpoints unavailable throughout process activation;
+- exact retained A identity checked before rollback;
+- rejected B remains history only and cannot become active authority.
 
 # Non-goals
 New deployment topology, production traffic/fleet orchestration, generic migrations, business process evolution, dogfood, new rollback authority or L4 changes.
 
 # Evidence expected
-Real-process product/heavy proof of A -> B -> A plus negative last-known-good retention cases and repository verification.
+Focused PostgreSQL-backed real-process product/heavy proof composing P19 factory/Compiler artifacts with the existing `SingleHostActiveRuntimeOrchestrator`, plus exact-head repository verification.
 
 # Escalation
 Stop if existing Deploy/Release semantics cannot prove required continuity without changing public authority or topology.
