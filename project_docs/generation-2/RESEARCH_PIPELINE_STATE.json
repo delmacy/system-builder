@@ -10,22 +10,22 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 14,
-    "hourly_runs_completed": 38,
+    "capabilities_revisited_in_active_cycle": 15,
+    "hourly_runs_completed": 39,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 116,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-OBSERVATION-FRESHNESS-EVIDENCE","G2-CAPABILITY-CANDIDATE-INCIDENT-CORRELATION-DISPOSITION-EVIDENCE","G2-CAPABILITY-CANDIDATE-REMEDIATION-AUTHORITY-ATTEMPT-LINEAGE"],
+    "capability_candidate_count": 119,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-EXTENSION-ADMISSION-DECISION-EVIDENCE","G2-CAPABILITY-CANDIDATE-RESOLVED-EXTENSION-WIRING-EVIDENCE","G2-CAPABILITY-CANDIDATE-EXTENSION-STATE-RETIREMENT-EVIDENCE"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
-    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for the first 13 capabilities in cycle 2; each has revisits_completed=1, consecutive_no_material_finding=0 and MATERIAL_NEW_FINDINGS.",
+    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for the first 14 capabilities in cycle 2; each has revisits_completed=1, consecutive_no_material_finding=0 and MATERIAL_NEW_FINDINGS.",
     "revisit_status": {
-      "Observability / Operations / Incident": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-OOI-11","G2-FINDING-OOI-12","G2-FINDING-OOI-13","G2-FINDING-OOI-14","G2-FINDING-OOI-15","G2-FINDING-OOI-16"]}
+      "Extension / Plugin / Marketplace Architecture": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-EXT-11","G2-FINDING-EXT-12","G2-FINDING-EXT-13","G2-FINDING-EXT-14","G2-FINDING-EXT-15","G2-FINDING-EXT-16"]}
     },
-    "representative_coverage": {"Observability / Operations / Incident":{"OpenTelemetry":"DEEP","Prometheus + Alertmanager":"DEEP","Grafana SLO":"DEEP","PagerDuty":"DEEP"}},
+    "representative_coverage": {"Extension / Plugin / Marketplace Architecture":{"VS Code extensions / Marketplace":"DEEP","Backstage backend plugins/modules":"DEEP","Kubernetes CRDs/operators":"DEEP","OSGi bundles/resolver":"DEEP","WordPress plugins":"DEEP"}},
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 324
+    "finding_count": 330
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -42,8 +42,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Observability / Operations / Incident — revisit cycle 2 pass 1 complete. OpenTelemetry, Prometheus/Alertmanager, Grafana SLO and PagerDuty evidence separated telemetry signal from export attempt, alert/detection from incident identity, suppression/grouping from evidence truth, SLO evidence from readiness, and remediation authority/attempt/result from incident state. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/OBSERVABILITY_OPERATIONS_INCIDENT_REVISIT_01.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Extension / Plugin / Marketplace Architecture, as the next oldest non-saturated capability. Target extension/plugin identity versus installation/activation instance identity, extension manifest and compatibility revision, capability declaration versus granted authority, install/update/disable/uninstall lifecycle, trust/signature/provenance and marketplace publication versus runtime admission, sandbox/isolation and failure containment, dependency/conflict resolution, provider/host API compatibility, tenant scope, migration/rollback, extension observability, offline/self-hosted distribution, and provider replacement. Test how remediation/delegated-authority evidence composes without making extensions own core capability, governance or authorization authority. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T20:08:52-03:00"
+  "current_focus": "Extension / Plugin / Marketplace Architecture — revisit cycle 2 pass 1 complete. VS Code, Backstage, Kubernetes, OSGi and WordPress evidence separated publication/verification from admission, declared compatibility from resolved wiring, deactivation from owned-state retirement, dependency trust from graph structure, runtime placement from privilege isolation, and API compatibility from extension-owned state migration. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_REVISIT_01.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Governance / Compliance / Audit, as the next oldest non-saturated capability. Target governance policy identity versus decision/evidence identity, policy/control revision and effective scope, compliance assertion versus observed proof, audit-event versus audit-record/retention identity, approval/delegation authority and revocation, evidence freshness/chain-of-custody, tenant/data/actor scope, redaction and minimization, immutable/tamper-evident claims, control inheritance and exceptions, external auditor/provider replacement, offline/self-hosted evidence verification, and composition with extension admission/dependency-trust/state-retirement findings without making Governance own business authorization or core capability semantics. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T20:29:59-03:00"
 }
