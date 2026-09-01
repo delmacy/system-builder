@@ -26,4 +26,17 @@
 - G2-FINDING-PAM-09 — Metadata-Driven Does Not Mean Portable
 - G2-FINDING-PAM-10 — Semantic Model and Provider Choice Should Be Orthogonal
 
+## UI / Generated Experience / Low-code Builder
+
+- G2-FINDING-UI-01 — Canvas Must Be a Projection, Not Authority
+- G2-FINDING-UI-02 — Presentation Metadata Is a Separate Versioned Concern
+- G2-FINDING-UI-03 — Design System Is Governance Infrastructure
+- G2-FINDING-UI-04 — Component Contracts Need Stable Typed Interfaces
+- G2-FINDING-UI-05 — State and Actions Are Not Styling
+- G2-FINDING-UI-06 — Custom Code Is a Bounded Escape Hatch
+- G2-FINDING-UI-07 — Preview, Publication and Runtime Evidence Are Distinct
+- G2-FINDING-UI-08 — Generated Experience Needs Model-to-Runtime Lineage
+- G2-FINDING-UI-09 — Inspectable Output Improves Exit Portability but Does Not Eliminate Coupling
+- G2-FINDING-UI-10 — Renderer Choice Should Be Orthogonal to Business Semantics Where Economically Justified
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
