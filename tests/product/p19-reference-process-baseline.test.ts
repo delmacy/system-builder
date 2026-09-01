@@ -260,11 +260,12 @@ test("TASK-451 carries the frozen reference process through Compiler verificatio
     publishedAt: "2026-09-01T13:40:00.000Z",
   }), /RELEASE_DUPLICATE_IDENTITY/);
 
-  const immutableEvidence = JSON.stringify({ artifact: first.compilation.artifact, published, files: verified.files });
+  const immutableReleaseMetadata = JSON.stringify({ artifact: first.compilation.artifact, published });
+  const immutablePayload = JSON.stringify({ metadata: immutableReleaseMetadata, files: verified.files });
   assert.equal(first.compilation.artifact.environmentSchema.length, 0);
-  assert.equal(immutableEvidence.includes("EnvironmentProfile"), false);
-  assert.equal(immutableEvidence.includes("environment:p19:reference-process"), false);
-  assert.equal(immutableEvidence.includes("secret://"), false);
+  assert.equal(immutableReleaseMetadata.includes("EnvironmentProfile"), false);
+  assert.equal(immutablePayload.includes("environment:p19:reference-process"), false);
+  assert.equal(immutablePayload.includes("secret://"), false);
 });
 
 test("TASK-451 fails closed on stale project or substituted artifact evidence before Release publication", () => {
