@@ -38,6 +38,9 @@ Bazel, Nix, Docker BuildKit, SLSA Build Provenance and GitHub Actions artifact a
 ## Artifact / Release / SBOM / Provenance — revisit cycle 2
 SLSA/in-toto attestation model `DEEP`; Sigstore/Cosign/Rekor `DEEP`; CycloneDX BOM identity/BOM-Link `DEEP`; SPDX artifact/package verification identity `DEEP`; OCI digest-addressed manifest/index model `DEEP`. Revisit result: six material findings (`G2-FINDING-ARSP-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
+## Deployment / Environment / Runtime — revisit cycle 2
+Kubernetes Deployments, Argo CD automated sync/self-heal, HashiCorp Nomad deployment/canary/promotion, Google Cloud Run revisions/traffic and Vercel immutable deployments/rollback/skew protection: `DEEP`. Revisit result: six material findings (`G2-FINDING-DER-11..16`); consecutive-no-material = 0; NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
