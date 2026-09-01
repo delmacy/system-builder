@@ -142,9 +142,29 @@ function supportedInput() {
   assert.equal(bootstrap.ok, true);
   if (!bootstrap.ok) throw new Error("canonical bootstrap fixture must succeed");
 
+  const deploymentRecord = bootstrap.result.deploymentRecord;
+  if (
+    typeof deploymentRecord !== "object"
+    || deploymentRecord === null
+    || !("environmentRef" in deploymentRecord)
+    || typeof deploymentRecord.environmentRef !== "string"
+  ) {
+    throw new Error("canonical bootstrap deploymentRecord must expose environmentRef");
+  }
+
+  const releaseArtifact = bootstrap.result.releaseArtifact;
+  if (
+    typeof releaseArtifact !== "object"
+    || releaseArtifact === null
+    || !("artifactHash" in releaseArtifact)
+    || typeof releaseArtifact.artifactHash !== "string"
+  ) {
+    throw new Error("canonical bootstrap releaseArtifact must expose artifactHash");
+  }
+
   const environment = {
     kind: "EnvironmentProfile" as const,
-    environmentRef: bootstrap.result.deploymentRecord.environmentRef,
+    environmentRef: deploymentRecord.environmentRef,
     runtimeVersions: ["1.0.0"],
     bindings: [
       { name: "DB_PASSWORD", kind: "secret-reference" as const, reference: "secret://db-password" },
@@ -156,7 +176,7 @@ function supportedInput() {
   ]);
   const artifactPayloadReader = {
     getVerified: () => Object.freeze({
-      artifactHash: bootstrap.result.releaseArtifact.artifactHash,
+      artifactHash: releaseArtifact.artifactHash,
       files: generatedFiles,
       verified: true as const,
     }),
