@@ -4,6 +4,7 @@ title: Prove local observation remains optional and fail-open while Builder is u
 status: blocked
 priority: 445
 milestone: M19
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
@@ -33,22 +34,36 @@ validation:
   - npm run verify
 ---
 # Objective
-Prove that runtime-local health/observation remains available during Builder unavailability and that optional remote/Observe publication failures do not become a runtime availability dependency.
+Prove runtime-local observation during Builder unavailability without making optional publication an availability dependency.
+
+# Context
+TASK-444 proves the exact P19 materialized runtime continues operating Builder-off. P13/TASK-259 already established local health plus optional/fail-open telemetry semantics.
+
+# Current behavior
+P19 does not yet connect those observation semantics to the exact runtime launched by WBS 19.2.2 during a Builder-off interval.
 
 # Required change
-Extend the TASK-444 real-process proof using existing Runtime/Observe behavior. Demonstrate local health/telemetry or equivalent supported observation while Builder-side and optional publication channels are unavailable, and verify publication failure remains bounded/fail-open where existing contracts already define it.
+Extend the TASK-444 real-process proof using existing Runtime/Observe behavior; demonstrate local health/observation while Builder-side and optional publication channels are unavailable.
+
+# Inputs / contracts
+TASK-444 active runtime evidence, existing Runtime health/telemetry behavior and existing Observe publication semantics.
+
+# Outputs / contracts
+Observation evidence only; no new transport or public contract.
 
 # Acceptance criteria
 - local runtime health/observation remains available while Builder is unavailable;
-- optional publication unavailability does not stop supported runtime behavior;
-- no fabricated success is emitted when publication is unavailable;
-- runtime identity/provenance remains tied to the exact active deployment/release;
+- optional publication unavailability does not stop supported runtime behavior or fabricate success;
+- runtime provenance remains tied to the exact active deployment/release;
 - protected values are absent from observation evidence;
 - repeated unavailable-publication cases do not accumulate hidden mutable state;
 - declared validations pass.
 
 # Non-goals
 New observability transport, production monitoring stack, mandatory remote telemetry, new persistence or Builder-owned runtime supervision.
+
+# Evidence expected
+Focused product/heavy proof on the exact TASK-444 runtime plus repository verification.
 
 # Escalation
 Stop if proof requires changing the public Observe contract or making telemetry mandatory for Runtime operation.
