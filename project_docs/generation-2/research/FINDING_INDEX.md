@@ -1,18 +1,18 @@
 # Generation 2 — Finding Index
 
-Prior stable findings G2-FINDING-UCA-01..10, PAM-01..10, UI-01..10, WDE-01..10, IA-01..10, IAF-01..10, AUTH-01..10, DATA-01..10, STORAGE-01..10, NEM-01..10, BUILD-01..10, ARTIFACT-01..10, DEPLOY-01..10, OBS-01..10, EXT-01..10, GOV-01..10, SCEP-01..10, PBCN-01..10 and SIAC-01..10 remain authoritative in their capability dossiers and pipeline history.
+Prior stable findings through `G2-FINDING-LVEM-10` remain authoritative in their capability dossiers and pipeline history.
 
-## Lifecycle / Versioning / Evolution / Migration
+## Security / Resilience / Failure Recovery
 
-- G2-FINDING-LVEM-01 — Logical Identity, Revision and Active/Default Revision Are Distinct
-- G2-FINDING-LVEM-02 — Compatibility Is Directional Evidence Bound to Source, Target and Context
-- G2-FINDING-LVEM-03 — Migration Definition, Migration Attempt and Migration Checkpoint Are Distinct Identities
-- G2-FINDING-LVEM-04 — Coexistence Is a Governed Lifecycle State and Often Precedes Default/Storage/Active Revision Change
-- G2-FINDING-LVEM-05 — Persisted-State Evolution Couples Versioning to Explicit Migration Semantics
-- G2-FINDING-LVEM-06 — Deprecation and Sunset Require Machine-Observable Lifecycle Evidence
-- G2-FINDING-LVEM-07 — Rollback Is a Qualified Recovery Capability, Not a Universal Migration Property
-- G2-FINDING-LVEM-08 — Irreversible Transitions Require Explicit Checkpoint/Backup and Roll-Forward or Restore Proof
-- G2-FINDING-LVEM-09 — Provider Replacement Is a Migration Class That Must Preserve Logical Requirement/Binding Lineage
-- G2-FINDING-LVEM-10 — Runtime Autonomy Requires Exportable Migration State/Evidence and Deployment-Local Continuation
+- G2-FINDING-SRFR-01 — Prevention, Detection, Containment and Recovery Are Distinct Authorities and Evidence Domains
+- G2-FINDING-SRFR-02 — Recovery Objective, Recovery Strategy and Recovery Mechanism Are Distinct Contracts
+- G2-FINDING-SRFR-03 — Backup/Replica Existence Does Not Prove Restorability or Achievement of RPO/RTO
+- G2-FINDING-SRFR-04 — Retry Requires Qualified Failure Semantics and Idempotency; Retry Is Not Universal Recovery
+- G2-FINDING-SRFR-05 — Circuit Breaking, Degradation and Failover Are Distinct Containment/Continuity Semantics
+- G2-FINDING-SRFR-06 — Recovery Attempt and Restored-Lineage Identity Must Be Preserved as First-Class Evidence
+- G2-FINDING-SRFR-07 — Recovery Authority Must Be Separate from Observation Evidence and Provider Mechanism Authority
+- G2-FINDING-SRFR-08 — Resilience Claims Must Be Revision-, Environment- and Provider-Bound and Re-Proved After Material Change
+- G2-FINDING-SRFR-09 — Fault/Chaos Testing Is Evidence Generation, Not Production Mutation Authority or Proof by Itself
+- G2-FINDING-SRFR-10 — Runtime Autonomy Requires Deployment-Local Recovery Capability and Exportable Recovery Evidence Without Builder Dependence
 
-Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
+Authoritative rationale and evidence are in `research/capabilities/SECURITY_RESILIENCE_FAILURE_RECOVERY.md`.
