@@ -1,7 +1,7 @@
 ---
 id: TASK-447
 title: Prepare compatible successor release from canonical restored lineage
-status: blocked
+status: completed
 priority: 447
 milestone: M19
 model_tier: architecture
@@ -45,7 +45,7 @@ Prepare one compatible successor release B through the existing canonical P19 fa
 TASK-446 reconstructs the exact predecessor lineage after Builder restoration. P13 already proves compatible A/B continuity, while P19 factory E2E provides the current canonical generation/publication path.
 
 # Current behavior
-P19 does not yet prove a successor can be prepared from restored canonical lineage while the autonomous release A keeps operating.
+P19 now proves a deterministic successor B can be prepared from restored canonical A lineage while the supported A runtime evidence remains unchanged.
 
 # Required change
 Compose TASK-446 restored predecessor context with the supported factory journey to produce successor ReleaseArtifact/PublishedRelease/DeploymentRecord lineage. Reuse existing versioning, Compiler, Release and compatibility authority; do not hand-stitch downstream identities or activate B.
@@ -64,6 +64,9 @@ Canonical compatible successor B release evidence only; no new public contract o
 - no secret/config value is embedded in immutable release artifacts;
 - no deploy activation occurs in this TASK;
 - declared validations pass.
+
+# Adversarial proof
+The focused product proof revalidates exact A release/deployment/artifact lineage before successor preparation, rejects a substituted deployment predecessor before any successor call, rejects malformed successor version input through the canonical bootstrap/factory boundary, keeps externally resolved secret material out of successor evidence, and asserts A health evidence is unchanged after deterministic B preparation. B receives only canonical dry-run DeploymentRecord evidence; runtime activation remains owned by TASK-448/Deploy.
 
 # Non-goals
 Business dogfood/evolution scope, new process revision authority, activation, rollback, generalized upgrade framework or WBS 19.3.1+.
