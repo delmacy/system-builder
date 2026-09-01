@@ -28,6 +28,18 @@ Apache Kafka/Kafka Connect, Dapr Pub/Sub, AWS EventBridge Pipes, Azure Logic App
 
 Revisit result: six material findings (`G2-FINDING-IAF-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
 
+## Authorization / Policy / Organization / Multitenancy — revisit cycle 2
+| Representative | Coverage | Revisit focus |
+|---|---|---|
+| Open Policy Agent | DEEP | Local decision autonomy, policy distribution status/freshness, decision ID/revision evidence and offline last-known-good behavior. |
+| Cedar Policy Language | DEEP | PARC, default deny, schema/policy compatibility, context boundary and validation lifecycle. |
+| OpenFGA | DEEP | Immutable model pinning, relationship-state evolution and query consistency/cache freshness. |
+| SpiceDB / Authzed | DEEP | Causal freshness, ZedTokens, stale-cache/new-enemy semantics and protected-resource coupling. |
+| Keycloak Organizations / FGAP | DEEP | Scoped delegated administration and organizations as protected admin resources. |
+| AWS multi-tenant SaaS authorization / Verified Permissions guidance | DEEP | Principal/resource tenant binding, external-data responsibility and isolation proof boundary. |
+
+Revisit result: six material findings (`G2-FINDING-AUTH-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
