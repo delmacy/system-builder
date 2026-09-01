@@ -10,24 +10,25 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 2,
-    "hourly_runs_completed": 26,
+    "capabilities_revisited_in_active_cycle": 3,
+    "hourly_runs_completed": 27,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 80,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-SEMANTIC-PROJECTION-LIFECYCLE","G2-CAPABILITY-CANDIDATE-REFERENCE-RESOLUTION-EVIDENCE","G2-CAPABILITY-CANDIDATE-SEMANTIC-REPRESENTATION-SEPARATION"],
+    "capability_candidate_count": 83,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-RENDERER-BINDING-DECISION-EVIDENCE","G2-CAPABILITY-CANDIDATE-DESIGN-TOKEN-REFERENCE-LINEAGE","G2-CAPABILITY-CANDIDATE-GENERATED-EXPERIENCE-CONFORMANCE-CASE"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
     "revisit_status": {
       "Universal Capability Architecture": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-UCA-11","G2-FINDING-UCA-12","G2-FINDING-UCA-13","G2-FINDING-UCA-14","G2-FINDING-UCA-15","G2-FINDING-UCA-16"]},
-      "Process & Application Modeling": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-PAM-11","G2-FINDING-PAM-12","G2-FINDING-PAM-13","G2-FINDING-PAM-14","G2-FINDING-PAM-15","G2-FINDING-PAM-16"]}
+      "Process & Application Modeling": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-PAM-11","G2-FINDING-PAM-12","G2-FINDING-PAM-13","G2-FINDING-PAM-14","G2-FINDING-PAM-15","G2-FINDING-PAM-16"]},
+      "UI / Generated Experience / Low-code Builder": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-UI-11","G2-FINDING-UI-12","G2-FINDING-UI-13","G2-FINDING-UI-14","G2-FINDING-UI-15","G2-FINDING-UI-16"]}
     },
     "representative_coverage": {
-      "Process & Application Modeling": {"Backstage Software Catalog":"DEEP","JSON Schema 2020-12":"DEEP","CUE":"DEEP","OMG BPMN 2.0/2.0.2":"DEEP","Mendix":"DEEP","ServiceNow App Engine":"DEEP","Power Apps / Dataverse":"DEEP","Salesforce Platform":"DEEP"}
+      "UI / Generated Experience / Low-code Builder": {"Design Tokens Community Group 2025.10":"DEEP","Web Components / Custom Elements / Shadow DOM / Slots":"DEEP","JSON Forms":"DEEP","Storybook Portable Stories":"DEEP","Storybook component/visual/accessibility testing":"DEEP","Mendix / Atlas UI":"DEEP","OutSystems UI / Style Guides":"DEEP","FlutterFlow":"DEEP"}
     },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 252
+    "finding_count": 258
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -44,8 +45,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Process & Application Modeling — revisit cycle 2 pass 1 complete. Alternative representatives separated semantic identity from representation location, reference resolution from compatibility, and semantic truth from derived projection views. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/PROCESS_APPLICATION_MODELING.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: UI / Generated Experience / Low-code Builder, as the next oldest non-saturated capability after Process & Application Modeling. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; test whether material new findings emerge, update explicit revisit/no-material counters, and do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T14:05:34-03:00"
+  "current_focus": "UI / Generated Experience / Low-code Builder — revisit cycle 2 pass 1 complete. DTCG, Web Components, JSON Forms and Storybook evidence separated design-token identity, component interface, renderer selection/binding and multi-dimensional state proof from semantic authority. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Workflow & Durable Execution, as the next oldest non-saturated capability after UI / Generated Experience / Low-code Builder. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; test whether material new findings emerge, update explicit revisit/no-material counters, and do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T14:32:59-03:00"
 }
