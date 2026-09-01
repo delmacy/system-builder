@@ -10,33 +10,22 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 13,
-    "hourly_runs_completed": 37,
+    "capabilities_revisited_in_active_cycle": 14,
+    "hourly_runs_completed": 38,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 113,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-DEPLOYMENT-ATTEMPT-REALIZATION-LINEAGE","G2-CAPABILITY-CANDIDATE-ACTIVATION-TRAFFIC-DECISION-EVIDENCE","G2-CAPABILITY-CANDIDATE-RUNTIME-AUTONOMY-CONTROL-PLANE-DEPENDENCY-PROOF"],
+    "capability_candidate_count": 116,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-OBSERVATION-FRESHNESS-EVIDENCE","G2-CAPABILITY-CANDIDATE-INCIDENT-CORRELATION-DISPOSITION-EVIDENCE","G2-CAPABILITY-CANDIDATE-REMEDIATION-AUTHORITY-ATTEMPT-LINEAGE"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
+    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for the first 13 capabilities in cycle 2; each has revisits_completed=1, consecutive_no_material_finding=0 and MATERIAL_NEW_FINDINGS.",
     "revisit_status": {
-      "Universal Capability Architecture": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-UCA-11","G2-FINDING-UCA-12","G2-FINDING-UCA-13","G2-FINDING-UCA-14","G2-FINDING-UCA-15","G2-FINDING-UCA-16"]},
-      "Process & Application Modeling": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-PAM-11","G2-FINDING-PAM-12","G2-FINDING-PAM-13","G2-FINDING-PAM-14","G2-FINDING-PAM-15","G2-FINDING-PAM-16"]},
-      "UI / Generated Experience / Low-code Builder": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-UI-11","G2-FINDING-UI-12","G2-FINDING-UI-13","G2-FINDING-UI-14","G2-FINDING-UI-15","G2-FINDING-UI-16"]},
-      "Workflow & Durable Execution": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-WDE-11","G2-FINDING-WDE-12","G2-FINDING-WDE-13","G2-FINDING-WDE-14","G2-FINDING-WDE-15","G2-FINDING-WDE-16"]},
-      "Integration & Automation": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-IA-11","G2-FINDING-IA-12","G2-FINDING-IA-13","G2-FINDING-IA-14","G2-FINDING-IA-15","G2-FINDING-IA-16"]},
-      "Identity / Authentication / Federation": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-IAF-11","G2-FINDING-IAF-12","G2-FINDING-IAF-13","G2-FINDING-IAF-14","G2-FINDING-IAF-15","G2-FINDING-IAF-16"]},
-      "Authorization / Policy / Organization / Multitenancy": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AUTH-11","G2-FINDING-AUTH-12","G2-FINDING-AUTH-13","G2-FINDING-AUTH-14","G2-FINDING-AUTH-15","G2-FINDING-AUTH-16"]},
-      "Data / Schema / Migrations": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-DATA-11","G2-FINDING-DATA-12","G2-FINDING-DATA-13","G2-FINDING-DATA-14","G2-FINDING-DATA-15","G2-FINDING-DATA-16"]},
-      "Storage / Documents / Media": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-STORAGE-11","G2-FINDING-STORAGE-12","G2-FINDING-STORAGE-13","G2-FINDING-STORAGE-14","G2-FINDING-STORAGE-15","G2-FINDING-STORAGE-16"]},
-      "Notifications / Events / Messaging": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-NEM-11","G2-FINDING-NEM-12","G2-FINDING-NEM-13","G2-FINDING-NEM-14","G2-FINDING-NEM-15","G2-FINDING-NEM-16"]},
-      "Build / Dependency Graph / Reproducibility": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-BUILD-11","G2-FINDING-BUILD-12","G2-FINDING-BUILD-13","G2-FINDING-BUILD-14","G2-FINDING-BUILD-15","G2-FINDING-BUILD-16"]},
-      "Artifact / Release / SBOM / Provenance": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-ARSP-11","G2-FINDING-ARSP-12","G2-FINDING-ARSP-13","G2-FINDING-ARSP-14","G2-FINDING-ARSP-15","G2-FINDING-ARSP-16"]},
-      "Deployment / Environment / Runtime": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-DER-11","G2-FINDING-DER-12","G2-FINDING-DER-13","G2-FINDING-DER-14","G2-FINDING-DER-15","G2-FINDING-DER-16"]}
+      "Observability / Operations / Incident": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-OOI-11","G2-FINDING-OOI-12","G2-FINDING-OOI-13","G2-FINDING-OOI-14","G2-FINDING-OOI-15","G2-FINDING-OOI-16"]}
     },
-    "representative_coverage": {"Deployment / Environment / Runtime":{"Kubernetes Deployments":"DEEP","Argo CD automated sync/self-heal":"DEEP","HashiCorp Nomad deployment/canary/promotion":"DEEP","Google Cloud Run revisions/traffic":"DEEP","Vercel immutable deployments/rollback/skew protection":"DEEP"}},
+    "representative_coverage": {"Observability / Operations / Incident":{"OpenTelemetry":"DEEP","Prometheus + Alertmanager":"DEEP","Grafana SLO":"DEEP","PagerDuty":"DEEP"}},
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 318
+    "finding_count": 324
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -53,8 +42,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Deployment / Environment / Runtime — revisit cycle 2 pass 1 complete. Kubernetes, Argo CD, Nomad, Cloud Run and Vercel evidence separated deployment intent/attempt/provider realization, provider readiness from business acceptance, runtime realization from serving activation, drift observation from reconciliation authority, rollback as new recovery lineage, and runtime autonomy as explicit external control-plane dependency evidence. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/DEPLOYMENT_ENVIRONMENT_RUNTIME_REVISIT_01.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Observability / Operations / Incident, as the next oldest non-saturated capability. Target unresolved questions/contradictions using 3–8 stronger or alternative representatives; specifically test telemetry signal identity versus observation/export attempt identity, resource/service/runtime identity correlation, metric/log/trace/profile cardinality and retention semantics, health/readiness versus SLO/business acceptance, incident identity versus alert/detection identity, alert deduplication/grouping/silence lifecycle, SLO/error-budget evidence freshness, remediation/automation authority, evidence redaction/tenant scope, provider/backend replacement and offline/self-hosted observability, and how deployment drift/runtime-autonomy evidence composes without making Observability own Deployment or Governance authority. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T19:27:42-03:00"
+  "current_focus": "Observability / Operations / Incident — revisit cycle 2 pass 1 complete. OpenTelemetry, Prometheus/Alertmanager, Grafana SLO and PagerDuty evidence separated telemetry signal from export attempt, alert/detection from incident identity, suppression/grouping from evidence truth, SLO evidence from readiness, and remediation authority/attempt/result from incident state. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/OBSERVABILITY_OPERATIONS_INCIDENT_REVISIT_01.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Extension / Plugin / Marketplace Architecture, as the next oldest non-saturated capability. Target extension/plugin identity versus installation/activation instance identity, extension manifest and compatibility revision, capability declaration versus granted authority, install/update/disable/uninstall lifecycle, trust/signature/provenance and marketplace publication versus runtime admission, sandbox/isolation and failure containment, dependency/conflict resolution, provider/host API compatibility, tenant scope, migration/rollback, extension observability, offline/self-hosted distribution, and provider replacement. Test how remediation/delegated-authority evidence composes without making extensions own core capability, governance or authorization authority. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T20:08:52-03:00"
 }
