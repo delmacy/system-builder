@@ -1,12 +1,19 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { InMemoryArtifactPayloadRepository } from "../../packages/artifact-store/index.js";
+import {
+  compileSyntheticRelease,
+  type CompilerAssemblyPlan,
+  type CompilerValidationEvidence,
+} from "../../packages/compiler/index.js";
 import {
   FACTORY_JOURNEY_CONTRACT_VERSION,
   FACTORY_OPERATOR_BOOTSTRAP_CONTRACT_VERSION,
 } from "../../packages/contracts/factory-boundary/index.js";
 import { PROCESS_SYSTEM_LINEAGE_VERSION } from "../../packages/contracts/process-versioning/lineage.js";
 import { PROCESS_VERSION_IDENTITY_VERSION } from "../../packages/contracts/process-versioning/index.js";
+import { ReleaseRegistry } from "../../packages/release/index.js";
 import { executeFactoryOperatorBootstrap } from "../../scripts/factory-operator-bootstrap-command.js";
 
 const REFERENCE_PROCESS = Object.freeze({
@@ -139,6 +146,43 @@ function bootstrap(input = referenceFactoryInput()) {
   });
 }
 
+function requireCompilerPredecessors(result: ReturnType<typeof bootstrap>) {
+  const assemblyPlan = result.result.assemblyPlan;
+  const validationEvidence = result.result.validationEvidence;
+  if (
+    typeof assemblyPlan !== "object"
+    || assemblyPlan === null
+    || !("kind" in assemblyPlan)
+    || assemblyPlan.kind !== "AssemblyPlan"
+  ) {
+    throw new Error("reference baseline assemblyPlan must be canonical AssemblyPlan evidence");
+  }
+  if (
+    typeof validationEvidence !== "object"
+    || validationEvidence === null
+    || !("kind" in validationEvidence)
+    || validationEvidence.kind !== "ValidationEvidence"
+  ) {
+    throw new Error("reference baseline validationEvidence must be canonical ValidationEvidence");
+  }
+  return {
+    assemblyPlan: assemblyPlan as CompilerAssemblyPlan,
+    validationEvidence: validationEvidence as CompilerValidationEvidence,
+  };
+}
+
+function compileReferenceProcess() {
+  const result = bootstrap();
+  assert.equal(result.ok, true);
+  const predecessors = requireCompilerPredecessors(result);
+  const compilation = compileSyntheticRelease({
+    ...predecessors,
+    compilerVersion: "1.0.0",
+    runtimeVersion: "1.0.0",
+  });
+  return { result, predecessors, compilation };
+}
+
 test("TASK-450 freezes one deterministic canonical reference-process baseline", () => {
   const first = bootstrap();
   const repeated = bootstrap();
@@ -172,4 +216,85 @@ test("TASK-450 rejects substituted process lineage through the canonical support
   assert.equal(substituted.journeyBinding.journey.stages[0]?.identityRef, REFERENCE_PROCESS.revisionRef);
   assert.equal(substituted.definition.recipeRef, REFERENCE_PROCESS.revisionRef);
   assert.throws(() => bootstrap(substituted));
+});
+
+test("TASK-451 carries the frozen reference process through Compiler verification and canonical Release publication", () => {
+  const first = compileReferenceProcess();
+  const repeated = compileReferenceProcess();
+  assert.deepEqual(first.compilation, repeated.compilation);
+
+  assert.equal(first.predecessors.assemblyPlan.systemDefinitionRef, REFERENCE_PROCESS.definitionRef);
+  assert.equal(first.compilation.artifact.assemblyPlanRef, first.predecessors.assemblyPlan.contentHash);
+  assert.equal(first.compilation.artifact.validationEvidenceRef, first.predecessors.validationEvidence.evidenceHash);
+
+  const payloads = new InMemoryArtifactPayloadRepository();
+  const stored = payloads.publish({
+    artifactHash: first.compilation.artifact.artifactHash,
+    files: first.compilation.files,
+  });
+  const repeatedStored = payloads.publish({
+    artifactHash: first.compilation.artifact.artifactHash,
+    files: first.compilation.files,
+  });
+  assert.deepEqual(stored, repeatedStored);
+  const verified = payloads.getVerified(first.compilation.artifact);
+  assert.equal(verified.verified, true);
+  assert.deepEqual(verified.files, first.compilation.files);
+
+  const releases = new ReleaseRegistry();
+  const published = releases.publish({
+    releaseId: "reference-orders-system",
+    version: "0.0.1",
+    artifact: first.compilation.artifact,
+    publishedAt: "2026-09-01T13:40:00.000Z",
+  });
+  assert.equal(published.kind, "PublishedRelease");
+  assert.equal(published.artifactRef, first.compilation.artifact.artifactHash);
+  assert.equal(published.artifactHash, first.compilation.artifact.artifactHash);
+  assert.equal(published.validationEvidenceRef, first.compilation.artifact.validationEvidenceRef);
+  assert.deepEqual(releases.get("reference-orders-system", "0.0.1"), published);
+  assert.throws(() => releases.publish({
+    releaseId: "reference-orders-system",
+    version: "0.0.1",
+    artifact: first.compilation.artifact,
+    publishedAt: "2026-09-01T13:40:00.000Z",
+  }), /RELEASE_DUPLICATE_IDENTITY/);
+
+  const immutableEvidence = JSON.stringify({ artifact: first.compilation.artifact, published, files: verified.files });
+  assert.equal(first.compilation.artifact.environmentSchema.length, 0);
+  assert.equal(immutableEvidence.includes("EnvironmentProfile"), false);
+  assert.equal(immutableEvidence.includes("environment:p19:reference-process"), false);
+  assert.equal(immutableEvidence.includes("secret://"), false);
+});
+
+test("TASK-451 fails closed on stale project or substituted artifact evidence before Release publication", () => {
+  const canonical = compileReferenceProcess();
+
+  const staleValidation: CompilerValidationEvidence = Object.freeze({
+    ...canonical.predecessors.validationEvidence,
+    assemblyPlanRef: `sha256:${"0".repeat(64)}`,
+  });
+  const staleReleases = new ReleaseRegistry();
+  assert.throws(() => compileSyntheticRelease({
+    assemblyPlan: canonical.predecessors.assemblyPlan,
+    validationEvidence: staleValidation,
+    compilerVersion: "1.0.0",
+    runtimeVersion: "1.0.0",
+  }), /COMPILER_VALIDATION_ASSEMBLY_MISMATCH/);
+  assert.equal(staleReleases.get("reference-orders-system", "0.0.1"), undefined);
+
+  const substitutedFiles = canonical.compilation.files.map((file, index) =>
+    index === 0 ? Object.freeze({ ...file, content: `${file.content}\nsubstituted` }) : file,
+  );
+  const substitutedPayloads = new InMemoryArtifactPayloadRepository();
+  substitutedPayloads.publish({
+    artifactHash: canonical.compilation.artifact.artifactHash,
+    files: substitutedFiles,
+  });
+  const substitutedReleases = new ReleaseRegistry();
+  assert.throws(
+    () => substitutedPayloads.getVerified(canonical.compilation.artifact),
+    /ARTIFACT_PAYLOAD_FILE_HASH_MISMATCH/,
+  );
+  assert.equal(substitutedReleases.get("reference-orders-system", "0.0.1"), undefined);
 });
