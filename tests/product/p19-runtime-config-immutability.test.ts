@@ -299,7 +299,23 @@ test("TASK-444 supported runtime stays Builder-independent throughout the active
   const secretValue = "task-444-builder-off-secret";
   const input = supportedInput();
   const published = input.bootstrap.result.publishedRelease;
+  if (
+    typeof published !== "object"
+    || published === null
+    || !("publishedReleaseRef" in published)
+    || typeof published.publishedReleaseRef !== "string"
+  ) {
+    throw new Error("canonical bootstrap publishedRelease must expose publishedReleaseRef");
+  }
   const deployment = input.bootstrap.result.deploymentRecord;
+  if (
+    typeof deployment !== "object"
+    || deployment === null
+    || !("deploymentId" in deployment)
+    || typeof deployment.deploymentId !== "string"
+  ) {
+    throw new Error("canonical bootstrap deploymentRecord must expose deploymentId");
+  }
   const generatedPayload = input.generatedFiles.map((file) => file.content).join("\n");
 
   assert.equal(generatedPayload.includes("SYSTEM_BUILDER_BUILDER_URL"), false);
