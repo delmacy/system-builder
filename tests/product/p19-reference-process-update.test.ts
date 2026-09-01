@@ -132,3 +132,57 @@ test("TASK-454 rejects stale and failed reference successors without perturbing 
 
   await orchestrator.stopActive(environmentRef);
 });
+
+test("TASK-455 restores exact retained A after B without regenerating release identity", async () => {
+  const registry = new DeploymentRegistry(new InMemoryDeploymentRecordStorage());
+  const orchestrator = new SingleHostActiveRuntimeOrchestrator(registry);
+  const retainedA = candidate("0.0.1", 26, null);
+
+  const a = await orchestrator.promote(retainedA);
+  assert.equal(a.ok, true);
+  if (!a.ok || !a.active) return;
+  const originalARelease = retainedA.publishedRelease;
+  const originalAArtifact = retainedA.releaseArtifact;
+  const originalAArtifactHash = originalAArtifact.artifactHash;
+
+  const retainedB = candidate("0.0.2", 27, a.candidateRecord.deploymentId);
+  const b = await orchestrator.promote(retainedB);
+  assert.equal(b.ok, true);
+  if (!b.ok || !b.active) return;
+  const bDeploymentId = b.candidateRecord.deploymentId;
+
+  const restored = await orchestrator.promote({
+    ...retainedA,
+    expectedActiveDeploymentId: bDeploymentId,
+    startedAt: "2026-09-01T14:28:01.000Z",
+    completedAt: "2026-09-01T14:28:02.000Z",
+  });
+  assert.equal(restored.ok, true);
+  if (!restored.ok || !restored.active) return;
+  assert.equal(restored.promoted, true);
+  assert.equal(restored.decision.outcome, "activated");
+  assert.equal(restored.decision.previousActiveDeploymentId, bDeploymentId);
+  assert.equal(restored.candidateRecord.publishedReleaseRef, "reference-orders-system@0.0.1");
+  assert.equal(restored.candidateRecord.artifactHash, originalAArtifactHash);
+  assert.equal(retainedA.publishedRelease, originalARelease);
+  assert.equal(retainedA.releaseArtifact, originalAArtifact);
+  assert.equal(restored.candidateRecord.environmentRef, "environment:p19:reference-process");
+  assert.equal(registry.getActive(restored.active.process.environmentRef)?.deploymentId, restored.candidateRecord.deploymentId);
+  assert.equal((await orchestrator.health(restored.active.process.environmentRef)).status, "UP");
+
+  const staleRestore = await orchestrator.promote({
+    ...retainedB,
+    expectedActiveDeploymentId: bDeploymentId,
+    startedAt: "2026-09-01T14:29:01.000Z",
+    completedAt: "2026-09-01T14:29:02.000Z",
+  });
+  assert.equal(staleRestore.ok, true);
+  if (!staleRestore.ok) return;
+  assert.equal(staleRestore.promoted, false);
+  assert.equal(staleRestore.decision.outcome, "stale-active");
+  assert.equal(staleRestore.decision.resultingActiveDeploymentId, restored.candidateRecord.deploymentId);
+  assert.equal(registry.getActive(restored.active.process.environmentRef)?.deploymentId, restored.candidateRecord.deploymentId);
+  assert.equal((await orchestrator.health(restored.active.process.environmentRef)).status, "UP");
+
+  await orchestrator.stopActive(restored.active.process.environmentRef);
+});
