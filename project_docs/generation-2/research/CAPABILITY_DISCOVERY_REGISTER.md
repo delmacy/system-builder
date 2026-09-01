@@ -4,40 +4,12 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 ## Current compact candidate inventory additions
 
+All candidates through the Deployment / Environment / Runtime revisit remain authoritative in prior register revisions, state history and capability dossiers; none is revoked.
+
 | Candidate | Class | Evidence origin | Status | Promotion condition |
 |---|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-DELEGATED-AUTHORITY-ENVELOPE | CROSS_CUTTING | AI agent governance representatives | CANDIDATE | Cross-domain delegated-authority need. |
-| G2-CAPABILITY-CANDIDATE-APPROVAL-CHECKPOINT-EVIDENCE | CROSS_CUTTING | AI/HITL representatives | CANDIDATE | Reusable checkpoint evidence beyond AI. |
-| G2-CAPABILITY-CANDIDATE-PROBABILISTIC-ACTIVITY-BOUNDARY | CORE | Agent/durable execution representatives | CANDIDATE | Explicit deterministic/probabilistic boundary required. |
-| G2-CAPABILITY-CANDIDATE-GENERATED-SYSTEM-OPERATOR-HANDOFF | CROSS_CUTTING | Developer/operator research | CANDIDATE | No existing generated-system handoff authority. |
-| G2-CAPABILITY-CANDIDATE-SUPPORT-BUNDLE-EVIDENCE | CROSS_CUTTING | Operator diagnostics research | CANDIDATE | Reusable redacted diagnostic evidence needed. |
-| G2-CAPABILITY-CANDIDATE-DEVELOPER-ENVIRONMENT-REALIZATION-EVIDENCE | CORE | Reproducible dev environments | CANDIDATE | Cross-provider reproducible bootstrap acceptance needed. |
-| G2-CAPABILITY-CANDIDATE-ARCHITECTURE-EVIDENCE-SNAPSHOT | CROSS_CUTTING | Reconciliation research | CANDIDATE | Shared revision-bound evidence envelope confirmed. |
-| G2-CAPABILITY-CANDIDATE-PROOF-OBLIGATION-LIFECYCLE | CROSS_CUTTING | Reconciliation/acceptance | CANDIDATE | Reusable proof lifecycle across capabilities. |
-| G2-CAPABILITY-CANDIDATE-ARCHITECTURE-WAIVER-LIFECYCLE | CROSS_CUTTING | Reconciliation/governance | CANDIDATE | Shared exception semantics confirmed. |
-| G2-CAPABILITY-CANDIDATE-EFFECT-GUARANTEE-QUALIFICATION | CROSS_CUTTING | DBOS + Kafka + Dapr | CANDIDATE | Reusable scoped guarantee claim needed. |
-| G2-CAPABILITY-CANDIDATE-SEMANTIC-MIGRATION-PROOF | CROSS_CUTTING | Camunda + lifecycle/data migration | CANDIDATE | Migration domains converge on proof obligations. |
-| G2-CAPABILITY-CANDIDATE-REVOCATION-SCOPE-FRESHNESS-EVIDENCE | CROSS_CUTTING | Identity + authorization | CANDIDATE | Shared scoped revocation evidence needed. |
-| G2-CAPABILITY-CANDIDATE-AUTHORIZATION-CONSISTENCY-FRESHNESS-EVIDENCE | CROSS_CUTTING | SpiceDB + OpenFGA | CANDIDATE | Data/Provider/Security synthesis needs reusable freshness evidence. |
-| G2-CAPABILITY-CANDIDATE-ENFORCEMENT-APPLICATION-EVIDENCE | CROSS_CUTTING | OPA/application boundary | CANDIDATE | Effect-application proof recurs beyond authorization. |
-| G2-CAPABILITY-CANDIDATE-TENANT-ISOLATION-PROOF | CROSS_CUTTING | Authorization + data boundary evidence | CANDIDATE | Data/Secrets/Deployment converge on reusable isolation proof. |
-| G2-CAPABILITY-CANDIDATE-MIGRATION-ATTEMPT-VERIFICATION-LINEAGE | CROSS_CUTTING | PostgreSQL + Atlas + Liquibase + Flyway | CANDIDATE | Workflow/deployment/lifecycle confirm reusable plan-attempt-proof lineage. |
-| G2-CAPABILITY-CANDIDATE-DESTRUCTIVE-CHANGE-AUTHORITY-GATE | CROSS_CUTTING | Atlas + migration governance | CANDIDATE | Governance/storage/lifecycle show shared destructive-operation authority semantics. |
-| G2-CAPABILITY-CANDIDATE-AFFECTED-DATA-SCOPE-EVIDENCE | CROSS_CUTTING | Migration + tenant/data isolation | CANDIDATE | Isolation, backup/restore and migration proofs need shared bounded data-scope identity. |
-| G2-CAPABILITY-CANDIDATE-RECOVERABILITY-PROOF | CROSS_CUTTING | S3/Azure/Ceph propagation evidence + Borg recovery contrast | CANDIDATE | Security/Resilience and Operator research confirm reusable recovery-attempt/proof semantics. |
-| G2-CAPABILITY-CANDIDATE-DURABILITY-PROPAGATION-EVIDENCE | CROSS_CUTTING | S3, Azure and Ceph replication state | CANDIDATE | Resilience/Deployment/Messaging confirm shared revision/destination/freshness-scoped propagation evidence. |
-| G2-CAPABILITY-CANDIDATE-ENCRYPTION-READABILITY-DEPENDENCY | CROSS_CUTTING | S3 Object Lock/KMS + GCS retention/key lifecycle | CANDIDATE | Secrets/Security confirm reusable key/readability dependency proof beyond Storage. |
-| G2-CAPABILITY-CANDIDATE-DELIVERY-ATTEMPT-LINEAGE | CROSS_CUTTING | Kafka + Pub/Sub + Service Bus delivery/redelivery | CANDIDATE | Workflow/integration/notification synthesis confirms reusable attempt lineage. |
-| G2-CAPABILITY-CANDIDATE-ORDERING-SCOPE-CLAIM | CROSS_CUTTING | Kafka partition + Pub/Sub ordering key + Service Bus session | CANDIDATE | Provider negotiation/data-event processing need common scoped-ordering proof. |
-| G2-CAPABILITY-CANDIDATE-QUARANTINE-REPAIR-LIFECYCLE | CROSS_CUTTING | Pub/Sub/Service Bus dead-letter and operator repair | CANDIDATE | Integration/security/operator research confirms reusable quarantine/repair governance. |
-| G2-CAPABILITY-CANDIDATE-BUILD-REALIZATION-SOURCE-EVIDENCE | CROSS_CUTTING | Bazel remote cache + Nix build trace | CANDIDATE | Artifact/deployment proof models confirm a reusable cache-vs-execution realization source primitive. |
-| G2-CAPABILITY-CANDIDATE-REPRODUCIBILITY-REPLAY-PROOF | CROSS_CUTTING | Bazel + Nix + SLSA | CANDIDATE | Acceptance planning requires reusable cross-provider re-realization/equivalence proof. |
-| G2-CAPABILITY-CANDIDATE-BUILD-ENVIRONMENT-REALIZATION-EVIDENCE | CROSS_CUTTING | Nix + BuildKit + SLSA | CANDIDATE | Deployment/dev-environment synthesis confirms shared declared-vs-realized environment evidence. |
-| G2-CAPABILITY-CANDIDATE-ATTESTATION-VERIFICATION-RESULT-EVIDENCE | CROSS_CUTTING | SLSA + Sigstore + SPDX/CycloneDX | CANDIDATE | Governance/security/acceptance confirm reusable subject+trust+policy verification result. |
-| G2-CAPABILITY-CANDIDATE-EVIDENCE-TRUST-CONTEXT-REVISION | CROSS_CUTTING | Sigstore trust roots/transparency + provenance verification | CANDIDATE | Identity/secrets/security converge on revisioned verifier trust context. |
-| G2-CAPABILITY-CANDIDATE-RELEASE-COMPOSITION-PROMOTION-EVIDENCE | CROSS_CUTTING | OCI + SLSA + SBOM composition | CANDIDATE | Deployment/lifecycle confirm release composition and promotion as reusable evidence. |
-| G2-CAPABILITY-CANDIDATE-DEPLOYMENT-ATTEMPT-REALIZATION-LINEAGE | CROSS_CUTTING | Kubernetes + Argo CD + Nomad deployment/reconciliation | CANDIDATE | Lifecycle/provider synthesis confirms reusable intent-attempt-realization semantics. |
-| G2-CAPABILITY-CANDIDATE-ACTIVATION-TRAFFIC-DECISION-EVIDENCE | CROSS_CUTTING | Nomad promotion + Cloud Run/Vercel traffic activation | CANDIDATE | Release/lifecycle/governance synthesis needs shared activation/promotion evidence. |
-| G2-CAPABILITY-CANDIDATE-RUNTIME-AUTONOMY-CONTROL-PLANE-DEPENDENCY-PROOF | CORE | Kubernetes/Nomad managed control plane contrast + Cloud Run/Vercel managed runtime | CANDIDATE | Deployment, Developer/Operator and Provider research converge on a common generated-runtime handoff proof. |
+| G2-CAPABILITY-CANDIDATE-OBSERVATION-FRESHNESS-EVIDENCE | CROSS_CUTTING | OpenTelemetry + Grafana SLO + operational evidence boundaries | CANDIDATE | Data/authorization/deployment synthesis confirms reusable observation-time/freshness proof. |
+| G2-CAPABILITY-CANDIDATE-INCIDENT-CORRELATION-DISPOSITION-EVIDENCE | CROSS_CUTTING | Alertmanager + PagerDuty alert/incident/grouping/suppression | CANDIDATE | Governance/operations synthesis confirms reusable alert-to-incident correlation and disposition semantics. |
+| G2-CAPABILITY-CANDIDATE-REMEDIATION-AUTHORITY-ATTEMPT-LINEAGE | CROSS_CUTTING | PagerDuty automation + incident lifecycle + prior operator-repair findings | CANDIDATE | Security/governance/AI approval research confirms shared delegated-remediation authority and attempt/result lineage. |
 
-All candidates omitted from this compact view remain authoritative in prior register revisions, state history and capability dossiers; none is revoked. `G2-CAPABILITY-CANDIDATE-FEDERATION-TRUST-LIFECYCLE` remains CANDIDATE pending synthesis.
+`G2-CAPABILITY-CANDIDATE-FEDERATION-TRUST-LIFECYCLE` and all candidates omitted from this compact view remain CANDIDATE pending synthesis.
