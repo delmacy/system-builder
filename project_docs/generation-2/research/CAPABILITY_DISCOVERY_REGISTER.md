@@ -1,22 +1,23 @@
 # Generation 2 — Capability Discovery Register
 
-Promotion requires multi-representative evidence or a clear structural System Builder need. Candidates are not architecture decisions.
-
-Existing candidates through `G2-CAPABILITY-CANDIDATE-RESILIENCE-POLICY-NEGOTIATION` remain CANDIDATE with prior classifications and promotion conditions recorded in pipeline history and capability dossiers.
+Promotion requires multi-representative evidence or a clear structural System Builder need. Candidates are not architecture decisions. Existing candidates through the previous run remain CANDIDATE with prior classifications and promotion conditions preserved in pipeline history and capability dossiers.
 
 | Candidate | Class | Evidence origin | Status | Promotion condition |
 |---|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-DELEGATED-AUTHORITY-ENVELOPE | CROSS_CUTTING | Anthropic permission boundaries + GitHub agent policy/review + agent tool patterns | CANDIDATE | Promote if Authorization/Governance reconciliation needs one portable contract binding delegated actor, operation scope, revision, duration and escalation across AI and non-AI automation. |
-| G2-CAPABILITY-CANDIDATE-APPROVAL-CHECKPOINT-EVIDENCE | CROSS_CUTTING | Anthropic approvals + GitHub human review/workflow approval + durable HITL patterns | CANDIDATE | Promote if workflow/agent architecture requires reusable checkpoint/decision identity and evidence beyond AI-specific orchestration. |
-| G2-CAPABILITY-CANDIDATE-PROBABILISTIC-ACTIVITY-BOUNDARY | CORE | Agent model calls + LangGraph/Temporal durable execution distinction | CANDIDATE | Promote if target architecture needs an explicit contract isolating probabilistic activity outputs from deterministic workflow replay and side-effect authority. |
-| G2-CAPABILITY-CANDIDATE-GENERATED-SYSTEM-OPERATOR-HANDOFF | CROSS_CUTTING | Backstage ownership/docs + Coolify self-host lifecycle + SB runtime-autonomy invariant | CANDIDATE | Promote if repository reconciliation shows no existing artifact owns generated-system prerequisites, bindings, operator responsibilities and evidence/export paths. |
-| G2-CAPABILITY-CANDIDATE-SUPPORT-BUNDLE-EVIDENCE | CROSS_CUTTING | Kubernetes diagnostics + self-host operational recovery/support patterns | CANDIDATE | Promote if Observe/Support lacks a reusable exportable diagnostic-evidence contract with collection scope, authority and redaction semantics. |
-| G2-CAPABILITY-CANDIDATE-DEVELOPER-ENVIRONMENT-REALIZATION-EVIDENCE | CORE | GitHub Dev Containers/Codespaces + Nix reproducible environments | CANDIDATE | Promote if Generation 2 acceptance requires reproducible bootstrap across local/hosted providers rather than documentation-only guidance. |
-| G2-CAPABILITY-CANDIDATE-ARCHITECTURE-EVIDENCE-SNAPSHOT | CROSS_CUTTING | ADR lineage + fitness functions + Kubernetes compatibility governance | CANDIDATE | Promote if synthesis confirms one portable revision-bound evidence envelope is shared by architecture reconciliation, governance and conformance. |
-| G2-CAPABILITY-CANDIDATE-PROOF-OBLIGATION-LIFECYCLE | CROSS_CUTTING | Architecture reconciliation + prior acceptance/evidence findings | CANDIDATE | Promote if proof obligations require reusable identity/status/closure evidence across multiple capabilities and planning gates. |
-| G2-CAPABILITY-CANDIDATE-ARCHITECTURE-WAIVER-LIFECYCLE | CROSS_CUTTING | ADR/conformance governance + policy/compliance exception patterns | CANDIDATE | Promote only if synthesis shows architecture, compliance and policy exceptions share semantics without collapsing their separate authorities. |
-| G2-CAPABILITY-CANDIDATE-ALLOCATION-REALIZATION-IDENTITY | CROSS_CUTTING | Kubernetes DRA claim/allocation separation + Crossplane managed-resource/external-resource identity | CANDIDATE | Promote if synthesis shows concrete realization identity recurs across storage, deployment, integration and other provider domains rather than being infrastructure-specific. |
-| G2-CAPABILITY-CANDIDATE-BINDING-CONFIGURATION-SCOPE | CROSS_CUTTING | Crossplane namespaced/cluster ProviderConfig + per-resource provider configuration | CANDIDATE | Promote if multiple capability domains need one portable scope/authority contract for binding configuration rather than domain-specific metadata. |
-| G2-CAPABILITY-CANDIDATE-EVIDENCE-TRUST-QUALIFICATION | CROSS_CUTTING | Kubernetes DRA driver-status trust warning + prior provenance/governance findings | CANDIDATE | Promote if synthesis confirms producer, authority, freshness and verification qualification is shared across runtime health, architecture conformance and governance evidence. |
+| G2-CAPABILITY-CANDIDATE-DELEGATED-AUTHORITY-ENVELOPE | CROSS_CUTTING | AI agent governance representatives | CANDIDATE | Cross-domain delegated-authority need. |
+| G2-CAPABILITY-CANDIDATE-APPROVAL-CHECKPOINT-EVIDENCE | CROSS_CUTTING | AI/HITL representatives | CANDIDATE | Reusable checkpoint evidence beyond AI. |
+| G2-CAPABILITY-CANDIDATE-PROBABILISTIC-ACTIVITY-BOUNDARY | CORE | Agent/durable execution representatives | CANDIDATE | Explicit deterministic/probabilistic boundary required. |
+| G2-CAPABILITY-CANDIDATE-GENERATED-SYSTEM-OPERATOR-HANDOFF | CROSS_CUTTING | Developer/operator research | CANDIDATE | No existing generated-system handoff authority. |
+| G2-CAPABILITY-CANDIDATE-SUPPORT-BUNDLE-EVIDENCE | CROSS_CUTTING | Operator diagnostics research | CANDIDATE | Reusable redacted diagnostic evidence needed. |
+| G2-CAPABILITY-CANDIDATE-DEVELOPER-ENVIRONMENT-REALIZATION-EVIDENCE | CORE | Reproducible dev environments | CANDIDATE | Cross-provider reproducible bootstrap acceptance needed. |
+| G2-CAPABILITY-CANDIDATE-ARCHITECTURE-EVIDENCE-SNAPSHOT | CROSS_CUTTING | Reconciliation research | CANDIDATE | Shared revision-bound evidence envelope confirmed. |
+| G2-CAPABILITY-CANDIDATE-PROOF-OBLIGATION-LIFECYCLE | CROSS_CUTTING | Reconciliation/acceptance | CANDIDATE | Reusable proof lifecycle across capabilities. |
+| G2-CAPABILITY-CANDIDATE-ARCHITECTURE-WAIVER-LIFECYCLE | CROSS_CUTTING | Reconciliation/governance | CANDIDATE | Shared exception semantics confirmed. |
+| G2-CAPABILITY-CANDIDATE-ALLOCATION-REALIZATION-IDENTITY | CROSS_CUTTING | UCA revisit | CANDIDATE | Recurs beyond infrastructure. |
+| G2-CAPABILITY-CANDIDATE-BINDING-CONFIGURATION-SCOPE | CROSS_CUTTING | UCA revisit | CANDIDATE | Cross-domain binding scope contract needed. |
+| G2-CAPABILITY-CANDIDATE-EVIDENCE-TRUST-QUALIFICATION | CROSS_CUTTING | UCA revisit | CANDIDATE | Shared producer/freshness/trust qualification confirmed. |
+| G2-CAPABILITY-CANDIDATE-SEMANTIC-PROJECTION-LIFECYCLE | CROSS_CUTTING | Backstage + BPMN + prior low-code model generation | CANDIDATE | Promote if UI/API/runtime/process projections share identity, lineage and freshness semantics across at least two capability domains. |
+| G2-CAPABILITY-CANDIDATE-REFERENCE-RESOLUTION-EVIDENCE | CROSS_CUTTING | JSON Schema references + Backstage entity refs + prior external-reference findings | CANDIDATE | Promote if contract/schema/model/provider references need one reusable resolution/trust/compatibility evidence envelope. |
+| G2-CAPABILITY-CANDIDATE-SEMANTIC-REPRESENTATION-SEPARATION | CORE | JSON Schema resource identity + source-controlled catalog descriptors | CANDIDATE | Promote only if repository reconciliation shows semantic identity is currently coupled to path/serialization/location and a common primitive is structurally necessary. |
 
 This compact register view does not revoke or supersede earlier candidates; `RESEARCH_PIPELINE_STATE.json` and capability dossiers preserve the full inventory.
