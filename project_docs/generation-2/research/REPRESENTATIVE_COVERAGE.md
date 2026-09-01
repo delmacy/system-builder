@@ -2,86 +2,17 @@
 
 States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`.
 
-| Representative | Universal Capability Architecture | Process & Application Modeling | UI / Generated Experience / Low-code Builder | Workflow & Durable Execution | Integration & Automation | Identity / Authentication / Federation | Notes |
-|---|---|---|---|---|---|---|---|
-| OASIS TOSCA 2.0 | DEEP | NOT_REVIEWED | N_A | N_A | N_A | N_A | Requirement/capability/relationship/fulfillment model. |
-| Kubernetes declarative API/controllers | DEEP | NOT_REVIEWED | N_A | PARTIAL | N_A | N_A | Desired/observed separation and reconciliation lifecycle; not a workflow engine. |
-| Terraform provider model | DEEP | NOT_REVIEWED | N_A | N_A | PARTIAL | NOT_REVIEWED | Provider identity/version/schema informs connector/provider boundary. |
-| Backstage Software Catalog | PARTIAL | NOT_REVIEWED | NOT_REVIEWED | N_A | N_A | NOT_REVIEWED | Entity identity, relations and extension authority. |
-| Mendix | NOT_REVIEWED | DEEP | DEEP | NOT_REVIEWED | NOT_REVIEWED | NOT_REVIEWED | Explicit page structure + Atlas design system, theme governance and reusable UI modules. |
-| ServiceNow App Engine / Flow Designer | NOT_REVIEWED | DEEP | NOT_REVIEWED | NOT_REVIEWED | PARTIAL | NOT_REVIEWED | Scoped application/data model plus reusable typed flow/action composition. |
-| Microsoft Power Apps / Dataverse | NOT_REVIEWED | DEEP | NOT_REVIEWED | N_A | NOT_REVIEWED | NOT_REVIEWED | Data-model-first apps; generated forms/views; solution ALM and strong Dataverse coupling. |
-| Salesforce Platform | NOT_REVIEWED | DEEP | NOT_REVIEWED | NOT_REVIEWED | NOT_REVIEWED | NOT_REVIEWED | Metadata-driven objects/relations/flows and packages. |
-| OutSystems | NOT_REVIEWED | NOT_REVIEWED | DEEP | NOT_REVIEWED | NOT_REVIEWED | NOT_REVIEWED | Responsive UI patterns, theme/style-guide libraries, reusable templates and custom-pattern extension. |
-| Retool | NOT_REVIEWED | NOT_REVIEWED | PARTIAL | N_A | NOT_REVIEWED | NOT_REVIEWED | Platform-centric app builder; useful hosted-builder/control-plane contrast. |
-| Appsmith | NOT_REVIEWED | NOT_REVIEWED | DEEP | N_A | NOT_REVIEWED | NOT_REVIEWED | Open-source/self-hostable widget builder with datasource/query/JavaScript composition and Git collaboration. |
-| FlutterFlow | NOT_REVIEWED | NOT_REVIEWED | DEEP | N_A | N_A | NOT_REVIEWED | Visual widget tree, generated Widget/Model code, reusable components, custom-code/package escape hatch and exportable project structure. |
-| Temporal | NOT_REVIEWED | N_A | N_A | PARTIAL | N_A | N_A | Crash-resilient durable workflow reference; later revisit needed for deeper history/replay, message and worker-versioning evidence. |
-| Camunda 8 / Zeebe | NOT_REVIEWED | PARTIAL | N_A | DEEP | PARTIAL | N_A | Process definition/version identity, job workers, retries/incidents and connector boundary. |
-| AWS Step Functions | NOT_REVIEWED | N_A | N_A | DEEP | PARTIAL | N_A | Managed state-machine execution history and service-integration contrast. |
-| Azure Durable Functions / Durable Task | NOT_REVIEWED | N_A | N_A | DEEP | N_A | N_A | Replay-deterministic orchestration with explicit nondeterminism/version-isolation constraints. |
-| Restate | NOT_REVIEWED | N_A | N_A | DEEP | PARTIAL | N_A | Reliable service calls inform side-effect/retry boundary. |
-| n8n | NOT_REVIEWED | NOT_REVIEWED | PARTIAL | PARTIAL | DEEP | NOT_REVIEWED | Visual/self-hostable automation; sub-workflows, execution history, error workflows, Git environments and queue workers. |
-| MuleSoft Anypoint Platform | NOT_REVIEWED | NOT_REVIEWED | N_A | PARTIAL | DEEP | NOT_REVIEWED | Enterprise connectors/APIs, policies, proxies, topology and connector/API observability. |
-| Zapier Platform | NOT_REVIEWED | N_A | PARTIAL | PARTIAL | DEEP | NOT_REVIEWED | Authentication/Trigger/Action contracts, UI/CLI authoring, bounded code escape hatch and integration versioning. |
-| Make | NOT_REVIEWED | N_A | PARTIAL | PARTIAL | DEEP | NOT_REVIEWED | Typed modules, connection validation, explicit error classes, webhook/request-response and partial-success guidance. |
-| Apache Camel | PARTIAL | N_A | N_A | PARTIAL | DEEP | N_A | Component/endpoint/EIP separation, idempotent consumer and transport/error boundary reference. |
-| Keycloak 26.x | NOT_REVIEWED | N_A | N_A | N_A | PARTIAL | DEEP | Realms, identity brokering, sessions, OIDC/SAML provider bindings, token controls and delegated realm administration. |
-| Auth0 Organizations / Enterprise Connections | NOT_REVIEWED | N_A | PARTIAL | N_A | PARTIAL | DEEP | Tenant-level connections bound per organization; B2B federation and bounded organization-admin connection management. |
-| Microsoft Entra ID / External ID | NOT_REVIEWED | N_A | N_A | N_A | N_A | DEEP | Tenant/issuer trust boundary, federation metadata/certificates, external identity and claim-scoping semantics. |
-| Clerk | NOT_REVIEWED | N_A | PARTIAL | N_A | N_A | DEEP | Explicit authentication/session distinction, pending session tasks and organization context. |
-| ZITADEL | NOT_REVIEWED | N_A | N_A | N_A | PARTIAL | DEEP | Instance- and organization-scoped identity providers, human/machine auth and delegated IdP self-service. |
+Previous capability coverage remains authoritative in the corresponding dossiers and state file; this ledger is append-oriented as research advances.
 
-## Authorization / Policy / Organization / Multitenancy coverage
+## Artifact / Release / SBOM / Provenance coverage
 
 | Representative | Coverage | Why this pass matters | Revisit focus |
 |---|---|---|---|
-| Open Policy Agent (OPA) | DEEP | Distributed decision engine, signed/versioned bundles, local enforcement topology, decision IDs/logs/status/discovery. | Partial evaluation/Wasm, external-data staleness and explicit fail-open/fail-closed deployment semantics. |
-| Cedar / Amazon Verified Permissions | DEEP | Typed principal/action/resource/context contract, schema validation and application-policy separation. | Conflict/default semantics, template lifecycle and portability limits between Cedar and managed AVP. |
-| Google Zanzibar | PARTIAL | Relationship model and external-consistency requirement are foundational conceptual evidence. | Zookies/consistency tokens, write/read semantics and what is actually worth generalizing below Google scale. |
-| OpenFGA | DEEP | Immutable model IDs, relationship tuples, contextual tuples, organization-context authorization and conditions. | Change API/provenance, consistency semantics and migration of in-use models. |
-| Keycloak Authorization Services / Organizations | DEEP | Resource/scope/policy/permission separation, PEP/PIP, mixed RBAC/ABAC/context, UMA delegation and per-organization admin authority. | Decision evidence/versioning and how organization admin boundaries interact with generated-system authority. |
-| Microsoft Entra / Azure multitenancy guidance | PARTIAL | Useful contrast: tenant isolation spans control plane/data plane and is not just authorization context. | Entra-specific application authorization and cross-tenant administration patterns. |
+| SLSA 1.2 / in-toto | DEEP | Separates immutable subjects, materials, builder identity and typed provenance; verification requires subject digest plus trusted builder/root context. | Source provenance, delegation, provenance distribution/loss and trust-root rotation. |
+| SPDX 3.0.1 | DEEP | Explicit Element/BOM/SBOM identities, creation info, relationships, external refs and integrity methods provide an interoperable inventory graph. | Profiles, serialization interoperability, completeness and mapping to generated runtime composition. |
+| CycloneDX 1.7 | DEEP | BOM serial identity/version, component/service/dependency graph and composition/completeness semantics distinguish BOM lifecycle from product lifecycle. | Attestation/declarations, VEX interplay, formulation and completeness across generated systems. |
+| OCI Image + Distribution specs | DEEP | Digest-bound descriptors, mutable tags, subject/referrers and registry distribution cleanly expose immutable content vs publication alias. | Referrer portability across registries, garbage collection/retention, multi-registry promotion and non-container artifacts. |
+| Sigstore / cosign | DEEP | Digest-bound signatures, signer identity, keyless certificates, transparency evidence and attestation verification expose trust-policy boundaries. | Revocation/trust-root rotation, offline bundles, private transparency infrastructure and provider replacement. |
+| GitHub artifact attestations | DEEP | Hosted implementation of SLSA/SBOM attestations with verification and offline path demonstrates providerizable provenance services. | Attestation lifecycle deletion/retention, private-repo portability and migration away from GitHub control plane. |
 
-## Data / Schema / Migrations coverage
-
-| Representative | Coverage | Why this pass matters | Revisit focus |
-|---|---|---|---|
-| PostgreSQL 18 | DEEP | Concrete DDL/locking/transaction behavior establishes why physical schema evolution is provider-specific. | Online DDL classes, transactional exceptions, replication/failover interaction and destructive-change recovery. |
-| Prisma Migrate | DEEP | Distinguishes application contract/current schema from migration history, applied ledger and drift; documents expand-contract. | Prisma 8 contract/migration evolution, production drift behavior and provider-neutral aspects worth extracting. |
-| Flyway | DEEP | Migration history/checksum/applied-state audit model is a clean migration-provenance reference. | Out-of-order/baseline/repair semantics and what must never become semantic authority. |
-| Liquibase | DEEP | Explicit changeset/rollback model proves reversibility is bounded by change type and representation. | Preconditions, rollback testing, deployment history and forward-repair semantics. |
-| Supabase | DEEP | Postgres migrations plus isolated branch/preview lifecycle connects schema evolution to environment/deployment evidence. | Branch merge conflict/drift semantics, production rollback and portability beyond Supabase control plane. |
-| Hasura | PARTIAL | Separates physical database schema, source binding and API metadata; recent CLI ordering prevents metadata exposure before migrations. | NDC/external data connector ownership, metadata versioning and remote/virtual data lifecycle. |
-
-## Storage / Documents / Media coverage
-
-| Representative | Coverage | Why this pass matters | Revisit focus |
-|---|---|---|---|
-| Amazon S3 | DEEP | Versioning, strong single-key consistency, explicit checksums, multipart lifecycle, Object Lock and lifecycle policies establish a broad object-storage reference. | Replication/failover evidence, encryption/key lifecycle, access points/tenant isolation and provider replacement semantics. |
-| Google Cloud Storage | DEEP | Immutable generations, separate metadata generation, atomic replacement and resumable upload make logical/physical identity and commit semantics explicit. | Retention lock, soft delete, replication/autoclass and conditional-write portability. |
-| Azure Blob Storage | DEEP | Immutable versions plus distinct soft-delete and lifecycle behavior demonstrate layered protection/governance semantics. | ETag/concurrency, immutable storage, replication and account/container failure boundaries. |
-| MinIO AIStor | DEEP | Self-hosted S3-compatible versioning, lifecycle and Object Lock provide an interoperability/replaceability contrast outside hyperscaler control planes. | Erasure/replication failure semantics, multipart compatibility, encryption and migration between S3-compatible implementations. |
-| SharePoint / Microsoft Purview records | DEEP | Document version/record/retention/disposition semantics prove document governance is richer than blob CRUD/versioning. | External document ownership, metadata/content separation, collaboration lifecycle and portability limits. |
-
-## Notifications / Events / Messaging coverage
-
-| Representative | Coverage | Why this pass matters | Revisit focus |
-|---|---|---|---|
-| Apache Kafka 4.1 | DEEP | Durable append-log, partition-scoped ordering, consumer position and transactional/idempotent processing show delivery guarantees are scoped and configuration-dependent. | Schema Registry/contract evolution, tiered storage, cross-cluster replication/failover and provider replacement. |
-| NATS / JetStream | DEEP | Core NATS vs JetStream exposes explicit ephemeral/durable classes; stream retention, durable/ephemeral consumers, dedup and double-ack provide a compact contrasting model. | Multi-region/source-mirror semantics, advisories/observability, subject governance and concrete failure recovery. |
-| CNCF CloudEvents | DEEP | Separates event information model from encoding and protocol binding; source-qualified event identity strongly informs portable semantic boundaries. | Subscriptions/registry work, extension governance, schema compatibility and projection into concrete transports. |
-| AWS SNS + SQS | DEEP | Topic/subscription/queue decomposition proves ordering, deduplication, DLQ and replay guarantees compose at different boundaries. | Filter-policy semantics, archive/replay evidence, cross-account/region portability and provider-neutral requirement mapping. |
-| Novu | DEEP | Separates notification workflow/intent, subscriber/preferences, channel steps, provider integrations and transaction activity evidence. | Provider fallback, preference-policy precedence, tenant isolation, template/version migration and self-hosted portability. |
-
-## Build / Dependency Graph / Reproducibility coverage
-
-| Representative | Coverage | Why this pass matters | Revisit focus |
-|---|---|---|---|
-| Bazel | DEEP | Explicit target/action graph, declared inputs/outputs, action cache/CAS and remote execution expose cache correctness and hermeticity boundaries. | Current module/dependency model, toolchain transitions, Build Event Protocol provenance and remote-execution trust. |
-| Nix 2.28 | DEEP | Derivations define build steps with explicit inputs/outputs/system; flake locks preserve dependency graph selections. | Reproducibility limits, sandbox/network impurity, content-addressed derivations and portability beyond Nix. |
-| Docker BuildKit | DEEP | Build cache/provider separation plus SLSA provenance/SBOM attestations connect build inputs to output evidence. | LLB graph semantics, reproducible timestamps/platform effects, cache poisoning/trust and non-OCI outputs. |
-| GitHub Actions | DEEP | CI orchestration distinguishes caches from artifacts and supports signed artifact provenance attestations; caches are explicitly untrusted inputs. | Reusable workflow identity, runner image/toolchain pinning, retention loss and provider replacement. |
-| Turborepo | PARTIAL | Useful monorepo task-graph/incremental-cache contrast, but primary-source evidence was insufficient in this pass for DEEP status. | Task hash inputs/outputs, remote-cache trust, environment-variable hashing and boundary with package-manager graph. |
-
-This ledger expands horizontally as capability dossiers are created and vertically as additional representatives are discovered.
+Historical representative coverage for prior capabilities is preserved in `RESEARCH_PIPELINE_STATE.json` and their capability dossiers; no prior status is superseded by this compact ledger update.
