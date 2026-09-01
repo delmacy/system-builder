@@ -307,6 +307,8 @@ test("TASK-444 supported runtime stays Builder-independent throughout the active
   ) {
     throw new Error("canonical bootstrap publishedRelease must expose publishedReleaseRef");
   }
+  const publishedReleaseRef = published.publishedReleaseRef;
+
   const deployment = input.bootstrap.result.deploymentRecord;
   if (
     typeof deployment !== "object"
@@ -316,6 +318,7 @@ test("TASK-444 supported runtime stays Builder-independent throughout the active
   ) {
     throw new Error("canonical bootstrap deploymentRecord must expose deploymentId");
   }
+  const deploymentId = deployment.deploymentId;
   const generatedPayload = input.generatedFiles.map((file) => file.content).join("\n");
 
   assert.equal(generatedPayload.includes("SYSTEM_BUILDER_BUILDER_URL"), false);
@@ -340,9 +343,9 @@ test("TASK-444 supported runtime stays Builder-independent throughout the active
   assert.equal(second.deploy.ok, true);
   if (!first.deploy.ok || !second.deploy.ok) return;
 
-  assert.equal(first.publishedReleaseRef, published.publishedReleaseRef);
+  assert.equal(first.publishedReleaseRef, publishedReleaseRef);
   assert.equal(first.artifactHash, input.artifactHash);
-  assert.equal(first.deploymentId, deployment.deploymentId);
+  assert.equal(first.deploymentId, deploymentId);
   assert.equal(first.deploy.health.status, "UP");
   assert.equal(first.deploy.health.environmentRef, input.environment.environmentRef);
   assert.equal(first.deploy.health.runtimeVersion, "1.0.0");
