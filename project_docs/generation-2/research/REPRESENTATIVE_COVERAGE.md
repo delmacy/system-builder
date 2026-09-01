@@ -64,4 +64,14 @@ States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`.
 | MinIO AIStor | DEEP | Self-hosted S3-compatible versioning, lifecycle and Object Lock provide an interoperability/replaceability contrast outside hyperscaler control planes. | Erasure/replication failure semantics, multipart compatibility, encryption and migration between S3-compatible implementations. |
 | SharePoint / Microsoft Purview records | DEEP | Document version/record/retention/disposition semantics prove document governance is richer than blob CRUD/versioning. | External document ownership, metadata/content separation, collaboration lifecycle and portability limits. |
 
+## Notifications / Events / Messaging coverage
+
+| Representative | Coverage | Why this pass matters | Revisit focus |
+|---|---|---|---|
+| Apache Kafka 4.1 | DEEP | Durable append-log, partition-scoped ordering, consumer position and transactional/idempotent processing show delivery guarantees are scoped and configuration-dependent. | Schema Registry/contract evolution, tiered storage, cross-cluster replication/failover and provider replacement. |
+| NATS / JetStream | DEEP | Core NATS vs JetStream exposes explicit ephemeral/durable classes; stream retention, durable/ephemeral consumers, dedup and double-ack provide a compact contrasting model. | Multi-region/source-mirror semantics, advisories/observability, subject governance and concrete failure recovery. |
+| CNCF CloudEvents | DEEP | Separates event information model from encoding and protocol binding; source-qualified event identity strongly informs portable semantic boundaries. | Subscriptions/registry work, extension governance, schema compatibility and projection into concrete transports. |
+| AWS SNS + SQS | DEEP | Topic/subscription/queue decomposition proves ordering, deduplication, DLQ and replay guarantees compose at different boundaries. | Filter-policy semantics, archive/replay evidence, cross-account/region portability and provider-neutral requirement mapping. |
+| Novu | DEEP | Separates notification workflow/intent, subscriber/preferences, channel steps, provider integrations and transaction activity evidence. | Provider fallback, preference-policy precedence, tenant isolation, template/version migration and self-hosted portability. |
+
 This ledger expands horizontally as capability dossiers are created and vertically as additional representatives are discovered.
