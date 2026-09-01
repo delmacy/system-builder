@@ -36,4 +36,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-STORAGE-15 — Source Success and Destination Governance Success Are Independent Outcomes
 - G2-FINDING-STORAGE-16 — Provider Replacement Must Re-Prove Durability, Governance and Recoverability
 
+## Notifications / Events / Messaging — revisit 1
+- G2-FINDING-NEM-11 — Semantic Event/Message Identity and Delivery-attempt Identity Are Distinct
+- G2-FINDING-NEM-12 — Ordering Is a Scoped Guarantee, Not a Channel-wide Universal Property
+- G2-FINDING-NEM-13 — Deduplication Is Identity-plus-Scope-plus-Time Evidence, Not Exactly-once Business Effect
+- G2-FINDING-NEM-14 — Acknowledgement/Delivery Disposition and Downstream Effect Evidence Are Separate
+- G2-FINDING-NEM-15 — Dead-letter/Quarantine Is a Governed Repair Lifecycle, Not a Terminal Failure Verdict
+- G2-FINDING-NEM-16 — Replay Is a New Governed Delivery Lineage over Existing Semantic Events
+
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
