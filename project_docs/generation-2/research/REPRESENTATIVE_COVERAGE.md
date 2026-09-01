@@ -23,6 +23,20 @@ DTCG 2025.10, Web Components, JSON Forms, Storybook Portable Stories/testing, Me
 
 Revisit result: six material findings (`G2-FINDING-WDE-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
 
+## Integration & Automation — revisit cycle 2
+| Representative | Coverage | Revisit focus |
+|---|---|---|
+| Apache Kafka / Kafka Connect | DEEP | Transaction-bound exactly-once scope; connector-dependent guarantees; external-effect boundary. |
+| Dapr Pub/Sub | DEEP | At-least-once contract, outbox, dead-letter and broker-vs-sidecar retry ownership. |
+| AWS EventBridge Pipes | DEEP | Partial-batch outcome identity, checkpoint/retry semantics and source replacement constraints. |
+| Azure Logic Apps | DEEP | Trigger/action retry qualification, connector throttling and concurrency-induced backpressure. |
+| n8n | DEEP | First-pass execution/retry/environment evidence retained. |
+| MuleSoft Anypoint | DEEP | First-pass connector/policy/observability evidence retained. |
+| Zapier Platform | DEEP | First-pass operation/auth/version evidence retained. |
+| Make | DEEP | First-pass connection/error/partial-success evidence retained. |
+
+Revisit result: six material findings (`G2-FINDING-IA-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
