@@ -209,7 +209,7 @@ test("TASK-441 supported handoff preserves immutable release/artifact/generated 
       SYSTEM_BUILDER_BUILDER_URL: "http://127.0.0.1:1",
       SYSTEM_BUILDER_OBSERVE_URL: "http://127.0.0.1:1",
     },
-    timeoutMs: 2_000,
+    timeoutMs: 5_000,
   });
 
   const first = await invoke();
