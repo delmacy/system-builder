@@ -27,4 +27,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-PAM-15 — Extension Vocabulary Does Not Grant Execution Authority
 - G2-FINDING-PAM-16 — Portable References Need Explicit Resolution Policy
 
+## UI / Generated Experience / Low-code Builder — revisit 1
+- G2-FINDING-UI-11 — Renderer Selection Is a Governed Binding Decision
+- G2-FINDING-UI-12 — Design Token Identity and Reference Lineage Are Independent of Renderer Output
+- G2-FINDING-UI-13 — Component Interface and Internal Rendering Implementation Are Distinct Evolution Boundaries
+- G2-FINDING-UI-14 — UI State Scenarios Are Proof Fixtures, Not Semantic Authority
+- G2-FINDING-UI-15 — Generated-Experience Conformance Is Multi-dimensional
+- G2-FINDING-UI-16 — Design-System or Renderer Upgrade Requires Compatibility Evidence Across the Exercised Revision Set
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`; compact index sections do not revoke earlier findings.
