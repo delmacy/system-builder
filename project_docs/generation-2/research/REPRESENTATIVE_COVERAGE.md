@@ -12,30 +12,21 @@ Backstage Software Catalog, JSON Schema 2020-12, CUE, OMG BPMN 2.0/2.0.2, Mendix
 DTCG 2025.10, Web Components, JSON Forms, Storybook Portable Stories/testing, Mendix/Atlas UI, OutSystems UI and FlutterFlow: `DEEP`. Revisit result: six material findings (`G2-FINDING-UI-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## Workflow & Durable Execution — revisit cycle 2
-| Representative | Coverage | Revisit focus |
-|---|---|---|
-| Camunda 8 migration/modification | DEEP | Mechanical versus semantic migration proof; stronger operator repair authority. |
-| AWS Step Functions versions/aliases/redrive | DEEP | Definition association, same-execution redrive and recovery lineage. |
-| DBOS workflows/transactions/recovery | DEEP | Step at-least-once versus atomic transaction exactly-once scope; distributed recovery ownership. |
-| Restate | DEEP | First-pass journal/idempotency/durable-promise evidence retained as cross-check. |
-| Temporal | DEEP | First-pass history/replay evidence remains authoritative. |
-| Azure Durable Functions / Durable Task | DEEP | First-pass deterministic replay/version isolation remains authoritative. |
-
-Revisit result: six material findings (`G2-FINDING-WDE-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
+Camunda 8 migration/modification, AWS Step Functions versions/aliases/redrive, DBOS workflows/transactions/recovery, Restate, Temporal and Azure Durable Task: `DEEP`. Revisit result: six material findings (`G2-FINDING-WDE-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## Integration & Automation — revisit cycle 2
+Apache Kafka/Kafka Connect, Dapr Pub/Sub, AWS EventBridge Pipes, Azure Logic Apps, n8n, MuleSoft Anypoint, Zapier Platform and Make: `DEEP`. Revisit result: six material findings (`G2-FINDING-IA-11..16`); consecutive-no-material = 0; NOT SATURATED.
+
+## Identity / Authentication / Federation — revisit cycle 2
 | Representative | Coverage | Revisit focus |
 |---|---|---|
-| Apache Kafka / Kafka Connect | DEEP | Transaction-bound exactly-once scope; connector-dependent guarantees; external-effect boundary. |
-| Dapr Pub/Sub | DEEP | At-least-once contract, outbox, dead-letter and broker-vs-sidecar retry ownership. |
-| AWS EventBridge Pipes | DEEP | Partial-batch outcome identity, checkpoint/retry semantics and source replacement constraints. |
-| Azure Logic Apps | DEEP | Trigger/action retry qualification, connector throttling and concurrency-induced backpressure. |
-| n8n | DEEP | First-pass execution/retry/environment evidence retained. |
-| MuleSoft Anypoint | DEEP | First-pass connector/policy/observability evidence retained. |
-| Zapier Platform | DEEP | First-pass operation/auth/version evidence retained. |
-| Make | DEEP | First-pass connection/error/partial-success evidence retained. |
+| OAuth Authorization Server Metadata — RFC 8414 | DEEP | Issuer identity, discovery/metadata revision, signed metadata and validation trust boundary. |
+| OAuth Token Revocation — RFC 7009 / RFC 9700 | DEEP | Revocation target/scope, cascade policy, propagation/freshness and unexpected invalidation. |
+| SPIFFE / SPIRE | DEEP | Stable workload identity versus short-lived SVID, trust-domain authority, rotating bundles and federation. |
+| OpenID Connect Core | DEEP | Authentication time/method/assurance context as event evidence rather than subject identity. |
+| Keycloak / Entra / Auth0 / Clerk / ZITADEL | DEEP | First-pass local identity, provider binding, issuer/tenant, session and delegated-admin evidence retained. |
 
-Revisit result: six material findings (`G2-FINDING-IA-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
+Revisit result: six material findings (`G2-FINDING-IAF-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
 
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
