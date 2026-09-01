@@ -9,19 +9,24 @@
     "minimum_full_cycles": 7,
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
-    "hourly_runs_completed": 24,
+    "active_revisit_cycle": 2,
+    "capabilities_revisited_in_active_cycle": 1,
+    "hourly_runs_completed": 25,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified CORE, CROSS_CUTTING, DOMAIN, PROVIDER_SPECIFIC, DUPLICATE, LOW_VALUE or N_A before promotion.",
-    "capability_candidate_count": 74,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-ARCHITECTURE-EVIDENCE-SNAPSHOT","G2-CAPABILITY-CANDIDATE-PROOF-OBLIGATION-LIFECYCLE","G2-CAPABILITY-CANDIDATE-ARCHITECTURE-WAIVER-LIFECYCLE"],
+    "capability_candidate_count": 77,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-ALLOCATION-REALIZATION-IDENTITY","G2-CAPABILITY-CANDIDATE-BINDING-CONFIGURATION-SCOPE","G2-CAPABILITY-CANDIDATE-EVIDENCE-TRUST-QUALIFICATION"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
+    "revisit_status": {
+      "Universal Capability Architecture": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-UCA-11","G2-FINDING-UCA-12","G2-FINDING-UCA-13","G2-FINDING-UCA-14","G2-FINDING-UCA-15","G2-FINDING-UCA-16"]}
+    },
     "representative_coverage": {
-      "Architecture Reconciliation as a Capability": {"ADR lifecycle / MADR-style practice":"DEEP","Evolutionary Architecture fitness functions":"DEEP","ArchUnit-style architecture tests":"DEEP","Kubernetes compatibility/deprecation governance":"DEEP","Repository-native architecture governance":"PARTIAL"}
+      "Universal Capability Architecture": {"OASIS TOSCA 2.0":"DEEP","Kubernetes declarative APIs/controllers":"DEEP","Kubernetes Dynamic Resource Allocation":"DEEP","OpenTofu provider requirements/state replacement":"DEEP","Crossplane ProviderConfig/Managed Resources":"DEEP","CUE constraints/modules":"DEEP","Backstage Software Catalog":"DEEP"}
     },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 240
+    "finding_count": 246
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -38,8 +43,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Architecture Reconciliation as a Capability — first deep pass complete; all 24 initial macro-capabilities now have first-pass coverage. Architecture intent, implementation truth and reconciliation truth are separated; findings/gaps/dispositions/proof obligations have distinct identities; automated conformance is evidence-bounded and cannot grant architecture-change authority. No capability is yet SATURATED because required revisit evidence is incomplete.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/ARCHITECTURE_RECONCILIATION_AS_CAPABILITY.md",
-  "next_action": "Begin RESEARCH_ELICITATION revisit cycle 2 without advancing phase: select the oldest non-saturated capability with the lowest historical representative coverage from REPRESENTATIVE_COVERAGE.md/state history (expected Universal Capability Architecture unless ledger evidence selects another), add 3–8 stronger or alternative representatives targeted only at unresolved questions/contradictions, and test whether material new architectural findings emerge. Update consecutive-no-material-finding counters only from explicit revisit evidence; do not mark SATURATED from first-pass coverage and do not enter CAPABILITY_SYNTHESIS until the RESEARCH_ELICITATION gate, including the configured minimum full-cycle requirement, is objectively satisfied.",
-  "last_updated": "2026-09-01T13:07:08-03:00"
+  "current_focus": "Universal Capability Architecture — revisit cycle 2 pass 1 complete. Stronger representatives separated capability offer, binding decision and concrete realization/allocation; showed scoped provider configuration, migration-bearing provider replacement, qualified evidence trust, and constraint composition without universal execution protocol. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/UNIVERSAL_CAPABILITY_ARCHITECTURE.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Process & Application Modeling, as the next oldest non-saturated capability after Universal Capability Architecture. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; test whether material new findings emerge, update explicit revisit/no-material counters, and do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T13:32:23-03:00"
 }
