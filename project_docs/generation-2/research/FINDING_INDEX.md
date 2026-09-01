@@ -41,4 +41,13 @@ Prior stable findings through `G2-FINDING-SRFR-10` remain authoritative in their
 - G2-FINDING-ARAC-09 — Continuous Conformance Requires Freshness and Dependency-Impact Semantics, Not Merely Repeated CI
 - G2-FINDING-ARAC-10 — Architecture Reconciliation Is Control/Evidence Plane Capability and Must Not Become Generated-Runtime Authority
 
+## Universal Capability Architecture — revisit 1
+
+- G2-FINDING-UCA-11 — Offer/Binding/Realization Separation
+- G2-FINDING-UCA-12 — Provider Configuration Is Scoped Binding Context
+- G2-FINDING-UCA-13 — Provider Replacement Is a Migration
+- G2-FINDING-UCA-14 — Observed Evidence Has a Trust Boundary
+- G2-FINDING-UCA-15 — Constraint Composition Does Not Require Execution Unification
+- G2-FINDING-UCA-16 — Fulfillment Failure Has a Realization Stage
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
