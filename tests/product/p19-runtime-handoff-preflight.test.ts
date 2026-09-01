@@ -177,6 +177,7 @@ test("TASK-439 rejects malformed canonical output and never trusts bootstrap pro
 
 test("TASK-440 invokes the existing Deploy adapter exactly once after mandatory preflight", async () => {
   const base = setup();
+  const expectedBinding = preflightRuntimeMaterializationHandoff(base);
   let calls = 0;
   let captured: unknown;
   const result = await invokeRuntimeMaterializationHandoff(base, async (input) => {
@@ -197,9 +198,9 @@ test("TASK-440 invokes the existing Deploy adapter exactly once after mandatory 
   assert.equal((captured as { publishedRelease: unknown }).publishedRelease, base.bootstrap.result.publishedRelease);
   assert.equal((captured as { releaseArtifact: unknown }).releaseArtifact, base.bootstrap.result.releaseArtifact);
   assert.equal((captured as { environment: unknown }).environment, base.environment);
-  assert.equal(result.publishedReleaseRef, base.bootstrap.result.deploymentRecord.publishedReleaseRef);
-  assert.equal(result.artifactHash, base.bootstrap.result.releaseArtifact.artifactHash);
-  assert.equal(result.deploymentId, base.bootstrap.result.deploymentRecord.deploymentId);
+  assert.equal(result.publishedReleaseRef, expectedBinding.deploymentRecord.publishedReleaseRef);
+  assert.equal(result.artifactHash, expectedBinding.releaseArtifact.artifactHash);
+  assert.equal(result.deploymentId, expectedBinding.deploymentRecord.deploymentId);
   assert.equal(result.deploy.ok, false);
 });
 
