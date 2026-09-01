@@ -130,4 +130,17 @@
 - G2-FINDING-NEM-09 — Preference and Mandatory-Delivery Policy Need Explicit Precedence
 - G2-FINDING-NEM-10 — Runtime Autonomy Includes Messaging and Notification Continuity
 
+## Build / Dependency Graph / Reproducibility
+
+- G2-FINDING-BUILD-01 — Build Target, Action and Execution Attempt Are Separate Identities
+- G2-FINDING-BUILD-02 — Dependency Graph and Execution Provider Must Be Separate Authorities
+- G2-FINDING-BUILD-03 — Cache Correctness Depends on Complete Qualified Action Inputs
+- G2-FINDING-BUILD-04 — Cache Is an Optimization/Evidence Source, Never Build Authority
+- G2-FINDING-BUILD-05 — Reproducibility Is a Qualified Property, Not a Boolean Claim
+- G2-FINDING-BUILD-06 — Dependency Lock Graph Is Versioned Build Input Evidence
+- G2-FINDING-BUILD-07 — Toolchain and Platform Are First-Class Build Inputs
+- G2-FINDING-BUILD-08 — Generated-Code Lineage Must Cross the Build Boundary
+- G2-FINDING-BUILD-09 — Build Provenance Is Distinct from Artifact Identity and CI Logs
+- G2-FINDING-BUILD-10 — Runtime/Artifact Autonomy Requires Rebuildability Outside the SB Control Plane
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
