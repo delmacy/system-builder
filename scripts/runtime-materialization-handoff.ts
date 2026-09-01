@@ -1,13 +1,17 @@
 import type { EnvironmentProfile } from "../packages/contracts/environment-profile/index.js";
 import type { DeploymentRecord, DeployPublishedRelease } from "../packages/deploy/index.js";
-import type {
-  LocalVerifiableReleaseArtifact,
-  LocalVerifiedArtifactPayloadReader,
+import {
+  runLocalProcessDeployment,
+  type LocalProcessDeploymentResult,
+  type LocalVerifiableReleaseArtifact,
+  type LocalVerifiedArtifactPayloadReader,
 } from "../packages/deploy/local-process.js";
 import type { executeFactoryOperatorBootstrap } from "./factory-operator-bootstrap-command.js";
 
 type UnknownRecord = Record<string, unknown>;
 type FactoryOperatorBootstrapResult = ReturnType<typeof executeFactoryOperatorBootstrap>;
+type LocalProcessDeploymentInput = Parameters<typeof runLocalProcessDeployment>[0];
+type LocalProcessDeploymentInvoker = typeof runLocalProcessDeployment;
 
 export type RuntimeHandoffBinding = Readonly<{
   publishedRelease: DeployPublishedRelease;
@@ -15,6 +19,14 @@ export type RuntimeHandoffBinding = Readonly<{
   deploymentRecord: DeploymentRecord;
   environment: EnvironmentProfile;
   artifactPayloadReader: LocalVerifiedArtifactPayloadReader;
+}>;
+
+export type RuntimeMaterializationInvocationResult = Readonly<{
+  kind: "RuntimeMaterializationInvocationResult";
+  publishedReleaseRef: string;
+  artifactHash: string;
+  deploymentId: string;
+  deploy: LocalProcessDeploymentResult;
 }>;
 
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -103,5 +115,43 @@ export function preflightRuntimeMaterializationHandoff(input: Readonly<{
     deploymentRecord: canonical.deploymentRecord as DeploymentRecord,
     environment: input.environment,
     artifactPayloadReader: input.artifactPayloadReader,
+  });
+}
+
+/**
+ * Runs the mandatory TASK-439 preflight and then delegates exactly once to the
+ * existing local-process Deploy adapter. Artifact verification, materialization,
+ * secret resolution, migrations, runtime launch and cleanup remain Deploy-owned.
+ */
+export async function invokeRuntimeMaterializationHandoff(
+  input: Readonly<{
+    bootstrap: FactoryOperatorBootstrapResult;
+    environment: EnvironmentProfile;
+    artifactPayloadReader: LocalVerifiedArtifactPayloadReader;
+    secretResolver?: LocalProcessDeploymentInput["secretResolver"];
+    migrationApplier?: LocalProcessDeploymentInput["migrationApplier"];
+    processEnvironment?: LocalProcessDeploymentInput["processEnvironment"];
+    timeoutMs?: number;
+  }>,
+  invoke: LocalProcessDeploymentInvoker = runLocalProcessDeployment,
+): Promise<RuntimeMaterializationInvocationResult> {
+  const binding = preflightRuntimeMaterializationHandoff(input);
+  const deploy = await invoke({
+    publishedRelease: binding.publishedRelease,
+    releaseArtifact: binding.releaseArtifact,
+    artifactPayloadReader: binding.artifactPayloadReader,
+    environment: binding.environment,
+    ...(input.secretResolver === undefined ? {} : { secretResolver: input.secretResolver }),
+    ...(input.migrationApplier === undefined ? {} : { migrationApplier: input.migrationApplier }),
+    ...(input.processEnvironment === undefined ? {} : { processEnvironment: input.processEnvironment }),
+    ...(input.timeoutMs === undefined ? {} : { timeoutMs: input.timeoutMs }),
+  });
+
+  return Object.freeze({
+    kind: "RuntimeMaterializationInvocationResult",
+    publishedReleaseRef: binding.deploymentRecord.publishedReleaseRef,
+    artifactHash: binding.releaseArtifact.artifactHash,
+    deploymentId: binding.deploymentRecord.deploymentId,
+    deploy,
   });
 }
