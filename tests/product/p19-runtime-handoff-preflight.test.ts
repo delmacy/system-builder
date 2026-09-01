@@ -61,7 +61,7 @@ function bootstrapInput() {
     releaseId: "orders-system",
     releaseVersion: "0.0.1",
     publishedAt: "2026-09-01T01:15:00.000Z",
-    environment: { kind: "EnvironmentProfile", environmentRef: "environment:p19:runtime-handoff", runtimeVersions: ["1.0.0"], bindings: [] },
+    environment: { kind: "EnvironmentProfile" as const, environmentRef: "environment:p19:runtime-handoff", runtimeVersions: ["1.0.0"], bindings: [] },
     acceptanceChecks: [{ name: "factory-e2e", pass: true }],
     startedAt: "2026-09-01T01:16:00.000Z",
     completedAt: "2026-09-01T01:17:00.000Z",
