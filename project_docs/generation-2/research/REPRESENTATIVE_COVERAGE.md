@@ -4,6 +4,20 @@ States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`.
 
 Previous capability coverage remains authoritative in the corresponding dossiers and state history; this ledger is append-oriented as research advances.
 
+## Universal Capability Architecture coverage — revisit cycle 2
+
+| Representative | Coverage | Why this pass matters | Revisit focus |
+|---|---|---|---|
+| OASIS TOSCA 2.0 | DEEP | Requirement/capability/relationship model remains the strongest direct evidence for need/offer/fulfillment separation. | Whether substitution/relationship mapping adds any universal semantics beyond current findings. |
+| Kubernetes declarative APIs/controllers | DEEP | Desired/observed reconciliation remains foundational. | Only revisit if architecture needs stronger reconciliation ownership semantics. |
+| Kubernetes Dynamic Resource Allocation | DEEP | Adds class/claim/allocation/status separation and explicit trust limits on driver-reported status. | Cross-domain recurrence of allocation/realization identity outside infrastructure. |
+| OpenTofu provider requirements/state replacement | DEEP | Separates requirement/source/version selection and proves provider replacement can mutate persisted lineage with mandatory backup. | Whether replacement semantics generalize beyond stateful provider-managed resources. |
+| Crossplane ProviderConfig/Managed Resources | DEEP | Separates provider implementation, scoped configuration and managed-resource identity. | Binding configuration scope/authority across non-infrastructure providers. |
+| CUE constraints/modules | DEEP | Shows constraint composition/validation can remain independent of provider execution protocol. | Whether one portable compatibility expression model is justified for SB. |
+| Backstage Software Catalog | DEEP | Preserves catalog/enrichment as non-execution extension authority. | Low priority unless synthesis finds catalog/ownership overlap. |
+
+Revisit result: six material findings (`G2-FINDING-UCA-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals coverage
 
 | Representative | Coverage | Why this pass matters | Revisit focus |
