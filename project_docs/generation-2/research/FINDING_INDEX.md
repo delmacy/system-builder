@@ -39,4 +39,17 @@
 - G2-FINDING-UI-09 — Inspectable Output Improves Exit Portability but Does Not Eliminate Coupling
 - G2-FINDING-UI-10 — Renderer Choice Should Be Orthogonal to Business Semantics Where Economically Justified
 
+## Workflow & Durable Execution
+
+- G2-FINDING-WDE-01 — Definition/Execution Identity Separation
+- G2-FINDING-WDE-02 — Durable Progress Is Execution Evidence
+- G2-FINDING-WDE-03 — Effect Boundary Is Foundational
+- G2-FINDING-WDE-04 — Execution Version Binding Must Be Explicit
+- G2-FINDING-WDE-05 — Recovery Semantics Are Multidimensional
+- G2-FINDING-WDE-06 — Durable Wait Is a First-Class Primitive
+- G2-FINDING-WDE-07 — Operator Mutation Is Governed Lifecycle
+- G2-FINDING-WDE-08 — Durability Level Is a Provider Capability
+- G2-FINDING-WDE-09 — History Retention and Business State Retention Differ
+- G2-FINDING-WDE-10 — Runtime Autonomy Must Include In-Flight Work
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
