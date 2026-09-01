@@ -163,7 +163,7 @@ test("TASK-455 restores exact retained A after B without regenerating release id
   assert.equal(restored.decision.outcome, "activated");
   assert.equal(restored.decision.previousActiveDeploymentId, bDeploymentId);
   assert.equal(restored.candidateRecord.publishedReleaseRef, "reference-orders-system@0.0.1");
-  assert.equal(restored.candidateRecord.artifactHash, originalAArtifactHash);
+  assert.equal(restored.candidateRecord.releaseHash, originalAArtifactHash);
   assert.equal(retainedA.publishedRelease, originalARelease);
   assert.equal(retainedA.releaseArtifact, originalAArtifact);
   assert.equal(restored.candidateRecord.environmentRef, "environment:p19:reference-process");
