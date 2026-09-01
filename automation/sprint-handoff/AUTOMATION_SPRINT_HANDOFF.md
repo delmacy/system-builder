@@ -3,15 +3,15 @@
 machine_state: ADVISORY_NEXT_10
 next_worker: :10
 last_worker: :50
-sequence: 444
-updated_at: 2026-09-01T18:38:42.424Z
+sequence: 445
+updated_at: 2026-09-01T18:38:59.106Z
 active_pr: null
 active_branch: null
 active_head_sha: null
-deterministic_ci: success
+deterministic_ci: failure
 heavy_product_tests: success
 last_event: CHECK_COMPLETED
-reason: null
+reason: CI_FAILED:Deterministic CI:failure
 
 ## Authority
 
