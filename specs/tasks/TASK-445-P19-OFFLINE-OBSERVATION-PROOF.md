@@ -1,7 +1,7 @@
 ---
 id: TASK-445
 title: Prove local observation remains optional and fail-open while Builder is unavailable
-status: blocked
+status: completed
 priority: 445
 milestone: M19
 model_tier: architecture
@@ -58,6 +58,13 @@ Observation evidence only; no new transport or public contract.
 - protected values are absent from observation evidence;
 - repeated unavailable-publication cases do not accumulate hidden mutable state;
 - declared validations pass.
+
+# Negative/adversarial cases
+- no Observe publisher configured;
+- configured Observe publisher unavailable on repeated attempts;
+- Builder/bootstrap/factory endpoints unavailable during the supported runtime window;
+- protected secret present only in external resolution and absent from runtime/observation/publication evidence;
+- repeated publication failures leave local health and canonical observation identity unchanged.
 
 # Non-goals
 New observability transport, production monitoring stack, mandatory remote telemetry, new persistence or Builder-owned runtime supervision.
