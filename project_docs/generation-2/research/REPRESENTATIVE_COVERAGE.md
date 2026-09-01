@@ -32,6 +32,9 @@ Amazon S3 replication/Object Lock/key dependency `DEEP`; Google Cloud Storage ob
 ## Notifications / Events / Messaging — revisit cycle 2
 Apache Kafka partition ordering/consumer groups `DEEP`; Google Cloud Pub/Sub subscriptions, ordering keys, retention/replay/dead-letter `DEEP`; Azure Service Bus MessageId deduplication, sessions, redelivery and DLQ `DEEP`; NATS JetStream alternative consumer/ack representative `PARTIAL`. Historical first-pass messaging representatives remain authoritative. Revisit result: six material findings (`G2-FINDING-NEM-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
+## Build / Dependency Graph / Reproducibility — revisit cycle 2
+Bazel remote cache/action model `DEEP`; Nix derivations/content-addressed outputs/build trace `DEEP`; Docker BuildKit provenance/attestations `DEEP`; SLSA Build Provenance `DEEP`; GitHub Actions artifact attestations `DEEP`. Historical Turborepo and first-pass build evidence remains authoritative. Revisit result: six material findings (`G2-FINDING-BUILD-11..16`); consecutive-no-material = 0; NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
