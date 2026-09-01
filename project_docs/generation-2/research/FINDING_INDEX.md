@@ -43,4 +43,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-WDE-15 — Migration Support Is a Negotiated Provider Capability
 - G2-FINDING-WDE-16 — Operator Repair Authority Is Stronger Than Execution Authority
 
+## Integration & Automation — revisit 1
+- G2-FINDING-IA-11 — Delivery/Effect Guarantee Is Boundary-Qualified
+- G2-FINDING-IA-12 — Business Correlation and Idempotency Identity Must Outlive Transport Identity
+- G2-FINDING-IA-13 — Partial Batch Retry Requires Per-item Outcome Evidence
+- G2-FINDING-IA-14 — Retry Ownership Is an Architectural Contract
+- G2-FINDING-IA-15 — Provider Replacement Can Change Operational Semantics Without Breaking the Operation Contract
+- G2-FINDING-IA-16 — Scheduler Success Is Not External-effect Proof
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`; compact index sections do not revoke earlier findings.
