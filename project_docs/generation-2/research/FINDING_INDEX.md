@@ -1,18 +1,18 @@
 # Generation 2 — Finding Index
 
-Prior stable findings G2-FINDING-UCA-01..10, PAM-01..10, UI-01..10, WDE-01..10, IA-01..10, IAF-01..10, AUTH-01..10, DATA-01..10, STORAGE-01..10, NEM-01..10 and BUILD-01..10 remain authoritative in their capability dossiers and pipeline history.
+Prior stable findings G2-FINDING-UCA-01..10, PAM-01..10, UI-01..10, WDE-01..10, IA-01..10, IAF-01..10, AUTH-01..10, DATA-01..10, STORAGE-01..10, NEM-01..10, BUILD-01..10 and ARTIFACT-01..10 remain authoritative in their capability dossiers and pipeline history.
 
-## Artifact / Release / SBOM / Provenance
+## Deployment / Environment / Runtime
 
-- G2-FINDING-ARTIFACT-01 — Logical Artifact, Artifact Revision and Content Digest Are Distinct Identities
-- G2-FINDING-ARTIFACT-02 — Release Identity Is a Governed Composition, Not an Artifact Alias
-- G2-FINDING-ARTIFACT-03 — Provenance Is a Typed Claim About a Subject, Not Artifact Authority
-- G2-FINDING-ARTIFACT-04 — SBOM Identity and Component Identity Must Remain Separate
-- G2-FINDING-ARTIFACT-05 — SBOM Completeness Must Be Qualified Evidence
-- G2-FINDING-ARTIFACT-06 — Signature Validity and Release Authorization Are Separate Decisions
-- G2-FINDING-ARTIFACT-07 — Verification Requires Policy and Trust Context Beyond Cryptographic Validity
-- G2-FINDING-ARTIFACT-08 — Mutable Publication Aliases Must Never Replace Immutable Subject References
-- G2-FINDING-ARTIFACT-09 — Supersession/Revocation Should Preserve Immutable Historical Evidence
-- G2-FINDING-ARTIFACT-10 — Artifact Autonomy Requires Exportable and Independently Verifiable Evidence
+- G2-FINDING-DEPLOY-01 — Release Identity, Deployment Intent, Deployment Attempt and Runtime Revision Are Distinct Identities
+- G2-FINDING-DEPLOY-02 — Environment Is a Logical Contract and Binding Context, Not a Provider Account or Location
+- G2-FINDING-DEPLOY-03 — Desired Deployment State and Observed Runtime State Require Explicit Reconciliation
+- G2-FINDING-DEPLOY-04 — Runtime Revision Creation and Serving Activation Are Separate Lifecycle Transitions
+- G2-FINDING-DEPLOY-05 — Health, Readiness and Rollout Progress Are Qualified Evidence, Not a Single Success Boolean
+- G2-FINDING-DEPLOY-06 — Automatic Reconciliation and Self-Healing Are Authority-Bearing Policies
+- G2-FINDING-DEPLOY-07 — Rollback Is a Family of Recovery Semantics, Not a Universal Provider Operation
+- G2-FINDING-DEPLOY-08 — Provider Runtime Projection Must Be Replaceable Without Rewriting Portable Release Semantics
+- G2-FINDING-DEPLOY-09 — Deployment Evidence Must Preserve Promotion, Drift and Recovery Decisions Independently of Provider History
+- G2-FINDING-DEPLOY-10 — Generated Runtime Autonomy Includes Reconstructable Bindings and Operations Beyond Builder Availability
 
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
