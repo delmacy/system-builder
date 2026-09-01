@@ -212,7 +212,14 @@ test("TASK-446 Builder restoration resolves canonical predecessor lineage withou
 
   const restoredBootstrap = Object.freeze({
     ...input.bootstrap,
-    progress: [{ kind: "BuilderProgress", detail: "restored-but-non-authoritative" }],
+    progress: Object.freeze({
+      ...input.bootstrap.progress,
+      stages: Object.freeze(input.bootstrap.progress.stages.map((stage, index) => Object.freeze({
+        ...stage,
+        identityRef: `${stage.identityRef}:builder-restored-noise:${index + 1}`,
+        provenanceRef: `${stage.provenanceRef}:builder-restored-noise:${index + 1}`,
+      }))),
+    }),
     diagnostics: [{ code: "BUILDER_RESTORED_NOISE", detail: secret }],
   });
   const restored = preflightRuntimeMaterializationHandoff({
