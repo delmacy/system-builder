@@ -69,93 +69,7 @@ function processDefinitionLineage() {
   });
 }
 
-function reconstructHistoricalA() {
-  const upstream = processDefinitionLineage();
-  const releaseRegistry = new ReleaseRegistry();
-  const published = releaseRegistry.publish({
-    releaseId: A.releaseId,
-    version: A.releaseVersion,
-    artifact: {
-      kind: "ReleaseArtifact",
-      artifactHash: A.artifactHash,
-      validationEvidenceRef: A.validationEvidenceRef,
-    },
-    publishedAt: A.publishedAt,
-  });
-  const releaseIdentityRef = `${published.releaseId}@${published.version}`;
-  const definitionToRelease = {
-    contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
-    kind: "system-definition-to-release" as const,
-    from: upstream.systemDefinition,
-    to: {
-      contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
-      kind: "release" as const,
-      identityRef: releaseIdentityRef,
-    },
-  };
-  const releaseAdmission = releaseRegistry.admitSystemDefinitionLineage({
-    releaseId: published.releaseId,
-    version: published.version,
-    systemDefinitionRef: upstream.systemDefinition.identityRef,
-    lineageHop: definitionToRelease,
-  });
-
-  const deploymentRegistry = new DeploymentRegistry(new InMemoryDeploymentRecordStorage());
-  const deployment = deploymentRegistry.record({
-    kind: "DeploymentRecord",
-    deploymentId: A.deploymentId,
-    publishedReleaseRef: releaseIdentityRef,
-    environmentRef: A.environmentRef,
-    releaseHash: published.artifactHash,
-    startedAt: A.startedAt,
-    completedAt: A.completedAt,
-    status: "succeeded",
-    healthChecks: [{ name: "startup", status: "PASS" }],
-  });
-  const releaseToDeployment = {
-    contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
-    kind: "release-to-deployment" as const,
-    from: {
-      contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
-      kind: "release" as const,
-      identityRef: releaseIdentityRef,
-    },
-    to: {
-      contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
-      kind: "deployment" as const,
-      identityRef: deployment.deploymentId,
-    },
-  };
-  const deploymentAdmission = deploymentRegistry.admitReleaseLineage({
-    deploymentId: deployment.deploymentId,
-    releaseIdentityRef,
-    lineageHop: releaseToDeployment,
-  });
-
-  return Object.freeze({ upstream, releaseAdmission, deploymentAdmission });
-}
-
-test("TASK-458 reconstructs exact historical A through canonical lineage and registries", () => {
-  const first = reconstructHistoricalA();
-  const repeated = reconstructHistoricalA();
-
-  assert.deepEqual(first, repeated);
-  assert.equal(first.upstream.processRevision.processRevision.revisionRef, A.revisionRef);
-  assert.equal(first.upstream.systemDefinition.identityRef, A.definitionRef);
-  assert.equal(first.releaseAdmission.releaseIdentityRef, `${A.releaseId}@${A.releaseVersion}`);
-  assert.equal(first.releaseAdmission.release.artifactHash, A.artifactHash);
-  assert.equal(first.deploymentAdmission.deploymentIdentityRef, A.deploymentId);
-  assert.equal(first.deploymentAdmission.deployment.releaseHash, A.artifactHash);
-  assert.equal(first.deploymentAdmission.deployment.publishedReleaseRef, first.releaseAdmission.releaseIdentityRef);
-  assert.equal(Object.isFrozen(first.releaseAdmission.release), true);
-  assert.equal(Object.isFrozen(first.deploymentAdmission.deployment), true);
-
-  const evidence = JSON.stringify(first);
-  assert.equal(evidence.includes("secret://"), false);
-  assert.equal(evidence.includes("EnvironmentProfile"), false);
-});
-
-test("TASK-458 fails closed for substituted, stale or missing historical lineage", () => {
+function createRetainedHistoricalAuthority() {
   const upstream = processDefinitionLineage();
   const releases = new ReleaseRegistry();
   const published = releases.publish({
@@ -169,34 +83,183 @@ test("TASK-458 fails closed for substituted, stale or missing historical lineage
     publishedAt: A.publishedAt,
   });
   const releaseIdentityRef = `${published.releaseId}@${published.version}`;
+  releases.admitSystemDefinitionLineage({
+    releaseId: published.releaseId,
+    version: published.version,
+    systemDefinitionRef: upstream.systemDefinition.identityRef,
+    lineageHop: {
+      contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+      kind: "system-definition-to-release",
+      from: upstream.systemDefinition,
+      to: {
+        contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+        kind: "release",
+        identityRef: releaseIdentityRef,
+      },
+    },
+  });
+
+  const deployments = new DeploymentRegistry(new InMemoryDeploymentRecordStorage());
+  const deployment = deployments.record({
+    kind: "DeploymentRecord",
+    deploymentId: A.deploymentId,
+    publishedReleaseRef: releaseIdentityRef,
+    environmentRef: A.environmentRef,
+    releaseHash: published.artifactHash,
+    startedAt: A.startedAt,
+    completedAt: A.completedAt,
+    status: "succeeded",
+    healthChecks: [{ name: "startup", status: "PASS" }],
+  });
+  deployments.admitReleaseLineage({
+    deploymentId: deployment.deploymentId,
+    releaseIdentityRef,
+    lineageHop: {
+      contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+      kind: "release-to-deployment",
+      from: {
+        contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+        kind: "release",
+        identityRef: releaseIdentityRef,
+      },
+      to: {
+        contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+        kind: "deployment",
+        identityRef: deployment.deploymentId,
+      },
+    },
+  });
+
+  return Object.freeze({ upstream, releases, deployments });
+}
+
+function reconstructRetainedHistoricalA(
+  authority: ReturnType<typeof createRetainedHistoricalAuthority>,
+  selector: Readonly<{
+    releaseId: string;
+    releaseVersion: string;
+    deploymentId: string;
+    definitionRef: string;
+  }> = A,
+) {
+  const release = authority.releases.get(selector.releaseId, selector.releaseVersion);
+  if (release === undefined) {
+    throw new Error(`HISTORICAL_RELEASE_NOT_FOUND:${selector.releaseId}@${selector.releaseVersion}`);
+  }
+  const releaseIdentityRef = `${release.releaseId}@${release.version}`;
+  const releaseAdmission = authority.releases.admitSystemDefinitionLineage({
+    releaseId: release.releaseId,
+    version: release.version,
+    systemDefinitionRef: selector.definitionRef,
+    lineageHop: {
+      contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+      kind: "system-definition-to-release",
+      from: authority.upstream.systemDefinition,
+      to: {
+        contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+        kind: "release",
+        identityRef: releaseIdentityRef,
+      },
+    },
+  });
+
+  const retainedDeployment = authority.deployments.get(selector.deploymentId);
+  if (retainedDeployment === undefined) {
+    throw new Error(`HISTORICAL_DEPLOYMENT_NOT_FOUND:${selector.deploymentId}`);
+  }
+  const deploymentAdmission = authority.deployments.admitReleaseLineage({
+    deploymentId: retainedDeployment.deploymentId,
+    releaseIdentityRef,
+    lineageHop: {
+      contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+      kind: "release-to-deployment",
+      from: {
+        contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+        kind: "release",
+        identityRef: releaseIdentityRef,
+      },
+      to: {
+        contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
+        kind: "deployment",
+        identityRef: retainedDeployment.deploymentId,
+      },
+    },
+  });
+
+  return Object.freeze({
+    upstream: authority.upstream,
+    releaseAdmission,
+    deploymentAdmission,
+  });
+}
+
+test("TASK-458 reconstructs exact retained historical A without republishing or re-recording it", () => {
+  const authority = createRetainedHistoricalAuthority();
+  const retainedReleaseBefore = authority.releases.get(A.releaseId, A.releaseVersion);
+  const retainedDeploymentsBefore = authority.deployments.list();
+
+  const first = reconstructRetainedHistoricalA(authority);
+  const repeated = reconstructRetainedHistoricalA(authority);
+
+  assert.deepEqual(first, repeated);
+  assert.deepEqual(authority.releases.get(A.releaseId, A.releaseVersion), retainedReleaseBefore);
+  assert.deepEqual(authority.deployments.list(), retainedDeploymentsBefore);
+  assert.equal(authority.deployments.list().length, 1);
+  assert.equal(first.upstream.processRevision.processRevision.revisionRef, A.revisionRef);
+  assert.equal(first.upstream.systemDefinition.identityRef, A.definitionRef);
+  assert.equal(first.releaseAdmission.releaseIdentityRef, `${A.releaseId}@${A.releaseVersion}`);
+  assert.equal(first.releaseAdmission.release.artifactHash, A.artifactHash);
+  assert.equal(first.deploymentAdmission.deploymentIdentityRef, A.deploymentId);
+  assert.equal(first.deploymentAdmission.deployment.releaseHash, A.artifactHash);
+  assert.equal(first.deploymentAdmission.deployment.publishedReleaseRef, first.releaseAdmission.releaseIdentityRef);
+  assert.equal(Object.isFrozen(first.releaseAdmission.release), true);
+  assert.equal(Object.isFrozen(first.deploymentAdmission.deployment), true);
 
   assert.throws(
-    () => releases.admitSystemDefinitionLineage({
-      releaseId: published.releaseId,
-      version: published.version,
-      systemDefinitionRef: upstream.systemDefinition.identityRef,
-      lineageHop: {
-        contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
-        kind: "system-definition-to-release",
-        from: { ...upstream.systemDefinition, identityRef: "system-definition:reference-orders:stale" },
-        to: { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, kind: "release", identityRef: releaseIdentityRef },
+    () => authority.releases.publish({
+      releaseId: A.releaseId,
+      version: A.releaseVersion,
+      artifact: {
+        kind: "ReleaseArtifact",
+        artifactHash: A.artifactHash,
+        validationEvidenceRef: A.validationEvidenceRef,
       },
+      publishedAt: A.publishedAt,
+    }),
+    /RELEASE_DUPLICATE_IDENTITY/,
+  );
+
+  const evidence = JSON.stringify(first);
+  assert.equal(evidence.includes("secret://"), false);
+  assert.equal(evidence.includes("EnvironmentProfile"), false);
+});
+
+test("TASK-458 fails closed for substituted, stale or missing retained historical lineage", () => {
+  const authority = createRetainedHistoricalAuthority();
+
+  assert.throws(
+    () => reconstructRetainedHistoricalA(authority, {
+      ...A,
+      definitionRef: "system-definition:reference-orders:stale",
     }),
     /SYSTEM_DEFINITION_MISMATCH/,
   );
 
-  const deployments = new DeploymentRegistry(new InMemoryDeploymentRecordStorage());
   assert.throws(
-    () => deployments.admitReleaseLineage({
-      deploymentId: "deployment:reference-orders:missing",
-      releaseIdentityRef,
-      lineageHop: {
-        contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION,
-        kind: "release-to-deployment",
-        from: { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, kind: "release", identityRef: releaseIdentityRef },
-        to: { contractVersion: PROCESS_SYSTEM_LINEAGE_VERSION, kind: "deployment", identityRef: "deployment:reference-orders:missing" },
-      },
+    () => reconstructRetainedHistoricalA(authority, {
+      ...A,
+      releaseVersion: "0.0.0-missing",
     }),
-    /DEPLOYMENT_NOT_FOUND/,
+    /HISTORICAL_RELEASE_NOT_FOUND/,
   );
+
+  assert.throws(
+    () => reconstructRetainedHistoricalA(authority, {
+      ...A,
+      deploymentId: "deployment:reference-orders:missing",
+    }),
+    /HISTORICAL_DEPLOYMENT_NOT_FOUND/,
+  );
+
+  assert.deepEqual(authority.deployments.list().map((deployment) => deployment.deploymentId), [A.deploymentId]);
 });
