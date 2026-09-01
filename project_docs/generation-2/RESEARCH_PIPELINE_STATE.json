@@ -9,19 +9,19 @@
     "minimum_full_cycles": 7,
     "target_full_cycles": 10,
     "completed_full_cycles": 0,
-    "hourly_runs_completed": 22,
+    "hourly_runs_completed": 23,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified CORE, CROSS_CUTTING, DOMAIN, PROVIDER_SPECIFIC, DUPLICATE, LOW_VALUE or N_A before promotion.",
-    "capability_candidate_count": 68,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-DELEGATED-AUTHORITY-ENVELOPE","G2-CAPABILITY-CANDIDATE-APPROVAL-CHECKPOINT-EVIDENCE","G2-CAPABILITY-CANDIDATE-PROBABILISTIC-ACTIVITY-BOUNDARY"],
+    "capability_candidate_count": 71,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-GENERATED-SYSTEM-OPERATOR-HANDOFF","G2-CAPABILITY-CANDIDATE-SUPPORT-BUNDLE-EVIDENCE","G2-CAPABILITY-CANDIDATE-DEVELOPER-ENVIRONMENT-REALIZATION-EVIDENCE"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
-    "pending_capabilities": ["Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"],
+    "pending_capabilities": ["Architecture Reconciliation as a Capability"],
     "representative_coverage": {
-      "AI-native Engineering / Agents / Approvals": {"OpenAI Responses / Agents platform":"DEEP","Anthropic Claude Code permissions / auto mode":"DEEP","GitHub Copilot cloud/coding agents":"DEEP","LangGraph durable execution / HITL":"PARTIAL","Temporal durable execution":"DEEP"}
+      "Developer / Operator Experience / Self-hosting": {"Backstage Catalog / Software Templates / TechDocs":"DEEP","GitHub Codespaces / Dev Containers":"DEEP","Kubernetes administration / diagnostics":"DEEP","Coolify self-hosted lifecycle":"DEEP","Nix Flakes / devShell":"DEEP"}
     },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 220
+    "finding_count": 230
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -38,8 +38,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "AI-native Engineering / Agents / Approvals — first deep pass complete; not saturated; agent/model/work/attempt identities, delegated authority, approval checkpoints, deterministic/probabilistic boundaries, durable evidence, retry/idempotency and provider portability are separated; exact SB ownership remains deferred to fresh-main repository archaeology",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/AI_NATIVE_ENGINEERING_AGENTS_APPROVALS.md",
-  "next_action": "Research the next lowest-coverage unsaturated macro-capability: Developer / Operator Experience / Self-hosting. Compare Backstage developer portals/templates, GitLab or GitHub developer workflows, Kubernetes operator/admin experience, Coolify/Dokku/Portainer self-hosting patterns, Nix/devenv or stronger representatives with emphasis on bootstrap identity, install/upgrade/rollback, local-vs-hosted parity, configuration and secret setup, diagnostics/health, backup/restore, operator authority, generated-system handoff, extension/provider management, offline/degraded operation, reproducible development environments, support bundles, telemetry opt-in/export, lock-in boundaries and autonomous self-hosted runtime operation. Preserve AI-native Engineering / Agents / Approvals for later revisit focused on concrete durable checkpoint/approval semantics, SB authority reuse and provider/model revision provenance.",
-  "last_updated": "2026-09-01T12:08:27-03:00"
+  "current_focus": "Developer / Operator Experience / Self-hosting — first deep pass complete; not saturated; developer-environment definition/realization, operator authority, control-plane/runtime health, backup/restore evidence, generated-system handoff, support evidence, local-hosted compatibility and degraded/offline autonomy are separated; exact SB ownership remains deferred to repository archaeology",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/DEVELOPER_OPERATOR_EXPERIENCE_SELF_HOSTING.md",
+  "next_action": "Research the only remaining lowest-coverage unsaturated first-pass macro-capability: Architecture Reconciliation as a Capability. Compare architecture decision/reconciliation mechanisms such as ADR lifecycle practices, fitness functions/evolutionary architecture, architecture conformance tools, Kubernetes API compatibility/conformance governance, Backstage catalog ownership or stronger representatives with emphasis on architecture truth identity, intended-vs-implemented state, evidence collection, drift classification, finding/gap identity, reconciliation disposition, decision/ADR linkage, non-goals, proof obligations, dependency impact, stale evidence, ownership conflicts, automated-vs-human authority, continuous conformance and how reconciliation itself remains portable/auditable without becoming product runtime authority. Preserve Developer / Operator Experience / Self-hosting for later revisit focused on handoff/support-bundle primitives, reproducibility evidence and concrete SB operator surfaces.",
+  "last_updated": "2026-09-01T12:31:04-03:00"
 }
