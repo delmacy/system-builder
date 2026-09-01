@@ -161,6 +161,7 @@ function supportedInput() {
   ) {
     throw new Error("canonical bootstrap releaseArtifact must expose artifactHash");
   }
+  const artifactHash = releaseArtifact.artifactHash;
 
   const environment = {
     kind: "EnvironmentProfile" as const,
@@ -176,7 +177,7 @@ function supportedInput() {
   ]);
   const artifactPayloadReader = {
     getVerified: () => Object.freeze({
-      artifactHash: releaseArtifact.artifactHash,
+      artifactHash,
       files: generatedFiles,
       verified: true as const,
     }),
