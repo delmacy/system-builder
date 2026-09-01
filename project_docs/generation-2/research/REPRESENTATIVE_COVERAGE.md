@@ -2,44 +2,11 @@
 
 States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`. Historical coverage remains authoritative in prior dossiers/state history; this compact ledger records current/recent revisits without superseding it.
 
-## Universal Capability Architecture — revisit cycle 2
-OASIS TOSCA 2.0, Kubernetes declarative APIs/controllers, Kubernetes DRA, OpenTofu provider/state replacement, Crossplane ProviderConfig/Managed Resources, CUE and Backstage Software Catalog: `DEEP`. Revisit result: six material findings (`G2-FINDING-UCA-11..16`); consecutive-no-material = 0; NOT SATURATED.
+## Revisit cycle 2 completed capabilities
+Universal Capability Architecture; Process & Application Modeling; UI / Generated Experience / Low-code Builder; Workflow & Durable Execution; Integration & Automation; Identity / Authentication / Federation; Authorization / Policy / Organization / Multitenancy; Data / Schema / Migrations; Storage / Documents / Media; Notifications / Events / Messaging; Build / Dependency Graph / Reproducibility; Artifact / Release / SBOM / Provenance; Deployment / Environment / Runtime: prior detailed coverage remains authoritative in capability dossiers and state history. Each revisit produced six material findings; consecutive-no-material = 0; NOT SATURATED.
 
-## Process & Application Modeling — revisit cycle 2
-Backstage Software Catalog, JSON Schema 2020-12, CUE, OMG BPMN 2.0/2.0.2, Mendix, ServiceNow App Engine, Power Apps/Dataverse and Salesforce Platform: `DEEP`. Revisit result: six material findings (`G2-FINDING-PAM-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## UI / Generated Experience / Low-code Builder — revisit cycle 2
-DTCG 2025.10, Web Components, JSON Forms, Storybook Portable Stories/testing, Mendix/Atlas UI, OutSystems UI and FlutterFlow: `DEEP`. Revisit result: six material findings (`G2-FINDING-UI-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## Workflow & Durable Execution — revisit cycle 2
-Camunda 8 migration/modification, AWS Step Functions versions/aliases/redrive, DBOS workflows/transactions/recovery, Restate, Temporal and Azure Durable Task: `DEEP`. Revisit result: six material findings (`G2-FINDING-WDE-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## Integration & Automation — revisit cycle 2
-Apache Kafka/Kafka Connect, Dapr Pub/Sub, AWS EventBridge Pipes, Azure Logic Apps, n8n, MuleSoft Anypoint, Zapier Platform and Make: `DEEP`. Revisit result: six material findings (`G2-FINDING-IA-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## Identity / Authentication / Federation — revisit cycle 2
-OAuth Authorization Server Metadata RFC 8414, OAuth Token Revocation RFC 7009/RFC 9700, SPIFFE/SPIRE, OpenID Connect Core and retained Keycloak/Entra/Auth0/Clerk/ZITADEL evidence: `DEEP`. Revisit result: six material findings (`G2-FINDING-IAF-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## Authorization / Policy / Organization / Multitenancy — revisit cycle 2
-Open Policy Agent, Cedar, OpenFGA, SpiceDB/Authzed, Keycloak Organizations/FGAP and AWS multi-tenant authorization/Verified Permissions guidance: `DEEP`. Revisit result: six material findings (`G2-FINDING-AUTH-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## Data / Schema / Migrations — revisit cycle 2
-PostgreSQL logical replication/schema coordination, Atlas migration lint/review, Liquibase changeset/rollback semantics and Flyway undo/history: `DEEP`. Revisit result: six material findings (`G2-FINDING-DATA-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## Storage / Documents / Media — revisit cycle 2
-Amazon S3, Google Cloud Storage, Azure Blob and Ceph RGW: `DEEP`; BorgBackup: `PARTIAL`. Revisit result: six material findings (`G2-FINDING-STORAGE-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## Notifications / Events / Messaging — revisit cycle 2
-Apache Kafka, Google Cloud Pub/Sub and Azure Service Bus: `DEEP`; NATS JetStream: `PARTIAL`. Revisit result: six material findings (`G2-FINDING-NEM-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## Build / Dependency Graph / Reproducibility — revisit cycle 2
-Bazel, Nix, Docker BuildKit, SLSA Build Provenance and GitHub Actions artifact attestations: `DEEP`. Revisit result: six material findings (`G2-FINDING-BUILD-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## Artifact / Release / SBOM / Provenance — revisit cycle 2
-SLSA/in-toto attestation model `DEEP`; Sigstore/Cosign/Rekor `DEEP`; CycloneDX BOM identity/BOM-Link `DEEP`; SPDX artifact/package verification identity `DEEP`; OCI digest-addressed manifest/index model `DEEP`. Revisit result: six material findings (`G2-FINDING-ARSP-11..16`); consecutive-no-material = 0; NOT SATURATED.
-
-## Deployment / Environment / Runtime — revisit cycle 2
-Kubernetes Deployments, Argo CD automated sync/self-heal, HashiCorp Nomad deployment/canary/promotion, Google Cloud Run revisions/traffic and Vercel immutable deployments/rollback/skew protection: `DEEP`. Revisit result: six material findings (`G2-FINDING-DER-11..16`); consecutive-no-material = 0; NOT SATURATED.
+## Observability / Operations / Incident — revisit cycle 2
+OpenTelemetry resource/telemetry/Collector boundaries: `DEEP`; Prometheus + Alertmanager grouping/dedup/routing/inhibition/silence lifecycle: `DEEP`; Grafana SLO/error-budget/maintenance-window semantics: `DEEP`; PagerDuty event/alert/incident/dedup/grouping/suppression/remediation orchestration: `DEEP`. Revisit result: six material findings (`G2-FINDING-OOI-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
