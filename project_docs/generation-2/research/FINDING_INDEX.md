@@ -104,4 +104,17 @@
 - G2-FINDING-DATA-09 — Data Contract, Physical Schema and Exposure Metadata Are Separate Concerns
 - G2-FINDING-DATA-10 — Runtime Autonomy Requires Evolution Evidence, Not Just Initial Schema Creation
 
+## Storage / Documents / Media
+
+- G2-FINDING-STORAGE-01 — Logical Content Identity Must Be Provider-Neutral
+- G2-FINDING-STORAGE-02 — Logical Revision and Physical Storage Version Are Distinct
+- G2-FINDING-STORAGE-03 — Integrity Must Be Algorithm-Qualified First-Class Evidence
+- G2-FINDING-STORAGE-04 — Upload Session and Committed Content Are Separate Lifecycles
+- G2-FINDING-STORAGE-05 — Versioning, Soft Delete, Retention and Legal Hold Are Orthogonal Capabilities
+- G2-FINDING-STORAGE-06 — Deletion Is a Governed State Transition, Not Necessarily Immediate Destruction
+- G2-FINDING-STORAGE-07 — S3 Compatibility Is Interface Portability, Not Semantic Equivalence
+- G2-FINDING-STORAGE-08 — Document Lifecycle Is a Semantic Layer Above Blob Storage
+- G2-FINDING-STORAGE-09 — Storage Binding Evidence Must Preserve Logical-to-Physical Lineage
+- G2-FINDING-STORAGE-10 — Runtime Autonomy Requires Runtime-Resolvable Storage Bindings
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
