@@ -13,4 +13,17 @@
 - G2-FINDING-UCA-09 — Extension Authority Classes
 - G2-FINDING-UCA-10 — Portable Semantics / Provider Isolation
 
-Authoritative rationale and evidence are in `research/capabilities/UNIVERSAL_CAPABILITY_ARCHITECTURE.md`.
+## Process & Application Modeling
+
+- G2-FINDING-PAM-01 — Model Is an Inspectable Artifact
+- G2-FINDING-PAM-02 — Stable Semantic Identity Must Outlive Labels
+- G2-FINDING-PAM-03 — Model Units Need Explicit Ownership
+- G2-FINDING-PAM-04 — Typed Reference Graph Is Foundational
+- G2-FINDING-PAM-05 — External Reference Must Not Imply Ownership
+- G2-FINDING-PAM-06 — Publication Is a Lifecycle Boundary
+- G2-FINDING-PAM-07 — Generated Implementation Must Remain Traceable
+- G2-FINDING-PAM-08 — Governed Composition Beats Unbounded Extension
+- G2-FINDING-PAM-09 — Metadata-Driven Does Not Mean Portable
+- G2-FINDING-PAM-10 — Semantic Model and Provider Choice Should Be Orthogonal
+
+Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
