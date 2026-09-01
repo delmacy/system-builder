@@ -43,4 +43,15 @@ States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`.
 | Keycloak Authorization Services / Organizations | DEEP | Resource/scope/policy/permission separation, PEP/PIP, mixed RBAC/ABAC/context, UMA delegation and per-organization admin authority. | Decision evidence/versioning and how organization admin boundaries interact with generated-system authority. |
 | Microsoft Entra / Azure multitenancy guidance | PARTIAL | Useful contrast: tenant isolation spans control plane/data plane and is not just authorization context. | Entra-specific application authorization and cross-tenant administration patterns. |
 
+## Data / Schema / Migrations coverage
+
+| Representative | Coverage | Why this pass matters | Revisit focus |
+|---|---|---|---|
+| PostgreSQL 18 | DEEP | Concrete DDL/locking/transaction behavior establishes why physical schema evolution is provider-specific. | Online DDL classes, transactional exceptions, replication/failover interaction and destructive-change recovery. |
+| Prisma Migrate | DEEP | Distinguishes application contract/current schema from migration history, applied ledger and drift; documents expand-contract. | Prisma 8 contract/migration evolution, production drift behavior and provider-neutral aspects worth extracting. |
+| Flyway | DEEP | Migration history/checksum/applied-state audit model is a clean migration-provenance reference. | Out-of-order/baseline/repair semantics and what must never become semantic authority. |
+| Liquibase | DEEP | Explicit changeset/rollback model proves reversibility is bounded by change type and representation. | Preconditions, rollback testing, deployment history and forward-repair semantics. |
+| Supabase | DEEP | Postgres migrations plus isolated branch/preview lifecycle connects schema evolution to environment/deployment evidence. | Branch merge conflict/drift semantics, production rollback and portability beyond Supabase control plane. |
+| Hasura | PARTIAL | Separates physical database schema, source binding and API metadata; recent CLI ordering prevents metadata exposure before migrations. | NDC/external data connector ownership, metadata versioning and remote/virtual data lifecycle. |
+
 This ledger expands horizontally as capability dossiers are created and vertically as additional representatives are discovered.
