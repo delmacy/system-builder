@@ -51,4 +51,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-IA-15 — Provider Replacement Can Change Operational Semantics Without Breaking the Operation Contract
 - G2-FINDING-IA-16 — Scheduler Success Is Not External-effect Proof
 
+## Identity / Authentication / Federation — revisit 1
+- G2-FINDING-IAF-11 — Identity and Credential Are Separate Identities
+- G2-FINDING-IAF-12 — Federation Trust Is Revisioned Verification Context
+- G2-FINDING-IAF-13 — Revocation Requires Explicit Target and Scope
+- G2-FINDING-IAF-14 — Revocation Freshness Is an Evidence Claim
+- G2-FINDING-IAF-15 — Authentication Assurance Belongs to the Authentication Event
+- G2-FINDING-IAF-16 — Human and Workload Identity Share Trust Primitives, Not Credential Lifecycles
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`; compact index sections do not revoke earlier findings.
