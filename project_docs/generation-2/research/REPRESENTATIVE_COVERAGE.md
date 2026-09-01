@@ -54,4 +54,14 @@ States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`.
 | Supabase | DEEP | Postgres migrations plus isolated branch/preview lifecycle connects schema evolution to environment/deployment evidence. | Branch merge conflict/drift semantics, production rollback and portability beyond Supabase control plane. |
 | Hasura | PARTIAL | Separates physical database schema, source binding and API metadata; recent CLI ordering prevents metadata exposure before migrations. | NDC/external data connector ownership, metadata versioning and remote/virtual data lifecycle. |
 
+## Storage / Documents / Media coverage
+
+| Representative | Coverage | Why this pass matters | Revisit focus |
+|---|---|---|---|
+| Amazon S3 | DEEP | Versioning, strong single-key consistency, explicit checksums, multipart lifecycle, Object Lock and lifecycle policies establish a broad object-storage reference. | Replication/failover evidence, encryption/key lifecycle, access points/tenant isolation and provider replacement semantics. |
+| Google Cloud Storage | DEEP | Immutable generations, separate metadata generation, atomic replacement and resumable upload make logical/physical identity and commit semantics explicit. | Retention lock, soft delete, replication/autoclass and conditional-write portability. |
+| Azure Blob Storage | DEEP | Immutable versions plus distinct soft-delete and lifecycle behavior demonstrate layered protection/governance semantics. | ETag/concurrency, immutable storage, replication and account/container failure boundaries. |
+| MinIO AIStor | DEEP | Self-hosted S3-compatible versioning, lifecycle and Object Lock provide an interoperability/replaceability contrast outside hyperscaler control planes. | Erasure/replication failure semantics, multipart compatibility, encryption and migration between S3-compatible implementations. |
+| SharePoint / Microsoft Purview records | DEEP | Document version/record/retention/disposition semantics prove document governance is richer than blob CRUD/versioning. | External document ownership, metadata/content separation, collaboration lifecycle and portability limits. |
+
 This ledger expands horizontally as capability dossiers are created and vertically as additional representatives are discovered.
