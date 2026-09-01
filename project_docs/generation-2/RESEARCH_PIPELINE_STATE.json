@@ -9,19 +9,19 @@
     "minimum_full_cycles": 7,
     "target_full_cycles": 10,
     "completed_full_cycles": 0,
-    "hourly_runs_completed": 20,
+    "hourly_runs_completed": 21,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified CORE, CROSS_CUTTING, DOMAIN, PROVIDER_SPECIFIC, DUPLICATE, LOW_VALUE or N_A before promotion.",
-    "capability_candidate_count": 62,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-MIGRATION-ATTEMPT-CHECKPOINT-EVIDENCE","G2-CAPABILITY-CANDIDATE-DEPRECATION-SUNSET-GOVERNANCE","G2-CAPABILITY-CANDIDATE-IRREVERSIBLE-TRANSITION-PROOF"],
-    "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history; no prior candidate is revoked by compact state representation",
+    "capability_candidate_count": 65,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-RECOVERY-OBJECTIVE-PROOF","G2-CAPABILITY-CANDIDATE-RECOVERY-POINT-LINEAGE","G2-CAPABILITY-CANDIDATE-RESILIENCE-POLICY-NEGOTIATION"],
+    "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
-    "pending_capabilities": ["Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"],
+    "pending_capabilities": ["AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"],
     "representative_coverage": {
-      "Lifecycle / Versioning / Evolution / Migration": {"Kubernetes API lifecycle":"DEEP","Stripe API lifecycle":"DEEP","PostgreSQL 18 lifecycle":"DEEP","OpenTofu state/provider evolution":"DEEP"}
+      "Security / Resilience / Failure Recovery": {"NIST Cybersecurity Framework 2.0":"DEEP","NIST SSDF / SP 800-218 family":"DEEP","AWS Well-Architected Reliability":"DEEP","Kubernetes disruption semantics":"DEEP","AWS retry/circuit-breaker guidance":"DEEP","PostgreSQL 18 PITR":"DEEP"}
     },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 200
+    "finding_count": 210
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -38,8 +38,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Lifecycle / Versioning / Evolution / Migration — first deep pass complete; not saturated; logical identity/revision, directional compatibility, coexistence, migration plan/attempt/checkpoint, deprecation/sunset and qualified recovery are separated; exact SB ownership remains deferred to fresh-main repository archaeology",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION.md",
-  "next_action": "Research the next lowest-coverage unsaturated macro-capability: Security / Resilience / Failure Recovery. Compare NIST SSDF/Cybersecurity Framework, Kubernetes security/recovery patterns, AWS Well-Architected Reliability, resilience4j/service-mesh resilience semantics, PostgreSQL backup/PITR or stronger representatives with emphasis on threat/control identity, prevention versus containment versus recovery, retry/idempotency/circuit-breaker semantics, backup/restore/PITR evidence, failure domains, degradation, disaster recovery objectives, security incident boundaries, recovery authority, chaos/fault evidence, provider portability and generated-runtime autonomy. Preserve Lifecycle / Versioning / Evolution / Migration for later revisit focused on concrete SB revision ownership, compatibility-policy composition, migration checkpoints, deprecation usage evidence and irreversible transition proofs.",
-  "last_updated": "2026-09-01T11:03:00-03:00"
+  "current_focus": "Security / Resilience / Failure Recovery — first deep pass complete; not saturated; prevention/detection/containment/recovery, recovery objectives/strategies/mechanisms, retry/idempotency, backup/restorability, recovery attempts/lineage and provider-specific semantics are separated; exact SB runtime/action recovery ownership remains deferred to fresh-main repository archaeology",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/SECURITY_RESILIENCE_FAILURE_RECOVERY.md",
+  "next_action": "Research the next lowest-coverage unsaturated macro-capability: AI-native Engineering / Agents / Approvals. Compare OpenAI agent/tool/approval patterns, Anthropic MCP/agent safety patterns, GitHub Copilot/Coding Agent governance, LangGraph durable/human-in-the-loop execution, Temporal-style agent workflow approaches or stronger representatives with emphasis on agent identity versus model/provider identity, tool/capability authority, approval checkpoints, delegated authority, plan/attempt/evidence identities, deterministic versus probabilistic boundaries, durable state, retry/replay semantics, human override, provenance/audit, provider portability, prompt/model versioning, failure containment and generated-runtime autonomy. Preserve Security / Resilience / Failure Recovery for later revisit focused on concrete SB retry/idempotency ownership, recovery-point contracts, RTO/RPO acceptance, provider resilience negotiation and restore/recovery proof.",
+  "last_updated": "2026-09-01T11:27:05-03:00"
 }
