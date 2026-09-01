@@ -1,7 +1,7 @@
 ---
 id: TASK-450
 title: Freeze representative reference-process baseline
-status: ready
+status: completed
 priority: 450
 milestone: M19
 model_tier: architecture
@@ -69,6 +69,11 @@ Customer dogfood selection, new business semantics, public-contract changes, WBS
 
 # Evidence expected
 Focused product proof for deterministic baseline identity/provenance, repeated-input equivalence and stale/substituted rejection where supported, plus the declared task/architecture/repository validations and exact-head CI gates.
+
+# Execution evidence
+- Added `tests/product/p19-reference-process-baseline.test.ts` through the supported `executeFactoryOperatorBootstrap` seam.
+- The proof freezes one deterministic process/version/analysis/system-definition lineage, repeats the identical input for exact-equivalence evidence, rejects substituted lineage through canonical validation, and verifies generated artifact evidence contains neither `EnvironmentProfile` material nor protected-value references.
+- No Release/Deploy/Observe implementation, public contract, business authority, lifecycle owner, or WBS 19.3.2+ scope was added.
 
 # Escalation
 Stop if the reference journey requires a new public process schema or business authority rather than reuse of integrated supported input contracts.
