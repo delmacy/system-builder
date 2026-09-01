@@ -86,6 +86,21 @@ function bootstrapFor(releaseVersion: string, publishedAt: string) {
   });
 }
 
+function requireRecord(value: unknown, label: string): Record<string, unknown> {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    throw new Error(`${label} must be an object`);
+  }
+  return value as Record<string, unknown>;
+}
+
+function requireString(record: Record<string, unknown>, key: string, label: string): string {
+  const value = record[key];
+  if (typeof value !== "string") {
+    throw new Error(`${label}.${key} must be a string`);
+  }
+  return value;
+}
+
 function payloadRepositoryFor(bootstrap: ReturnType<typeof bootstrapFor>) {
   assert.equal(bootstrap.ok, true);
   if (!bootstrap.ok) throw new Error("TASK447_BOOTSTRAP_FAILED");
@@ -150,9 +165,12 @@ test("TASK-447 prepares deterministic successor B from restored canonical A line
   assert.equal(firstB.ok, true);
   assert.deepEqual(firstB, secondB);
   if (!firstB.ok) return;
-  assert.equal(firstB.result.publishedRelease.version, "0.0.2");
-  assert.equal(firstB.result.deploymentRecord.publishedReleaseRef, "orders-system@0.0.2");
-  assert.notEqual(firstB.result.releaseArtifact.artifactHash, "");
+  const publishedReleaseB = requireRecord(firstB.result.publishedRelease, "TASK447_PUBLISHED_RELEASE_B");
+  const deploymentRecordB = requireRecord(firstB.result.deploymentRecord, "TASK447_DEPLOYMENT_RECORD_B");
+  const releaseArtifactB = requireRecord(firstB.result.releaseArtifact, "TASK447_RELEASE_ARTIFACT_B");
+  assert.equal(requireString(publishedReleaseB, "version", "TASK447_PUBLISHED_RELEASE_B"), "0.0.2");
+  assert.equal(requireString(deploymentRecordB, "publishedReleaseRef", "TASK447_DEPLOYMENT_RECORD_B"), "orders-system@0.0.2");
+  assert.notEqual(requireString(releaseArtifactB, "artifactHash", "TASK447_RELEASE_ARTIFACT_B"), "");
   assert.deepEqual(runtimeA.deploy.health, healthA);
   assert.equal(JSON.stringify({ firstB, runtimeA }).includes(secret), false);
 });
@@ -175,11 +193,12 @@ test("TASK-447 rejects stale restored predecessor, incompatible environment, and
   }));
 
   let successorCalls = 0;
+  const canonicalDeploymentA = requireRecord(releaseA.result.deploymentRecord, "TASK447_DEPLOYMENT_RECORD_A");
   const staleA = {
     ...releaseA,
     result: {
       ...releaseA.result,
-      deploymentRecord: { ...releaseA.result.deploymentRecord, publishedReleaseRef: "orders-system@stale" },
+      deploymentRecord: { ...canonicalDeploymentA, publishedReleaseRef: "orders-system@stale" },
     },
   };
   assert.throws(() => {
