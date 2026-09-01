@@ -1,16 +1,16 @@
-# Next Work — P19 runtime materialization/handoff execution
+# Next Work — P19 autonomous runtime continuity
 
-`P19-OPERATOR-BOOTSTRAP-01` / WBS 19.2.1 completed TASK-434..438 and integrated through replacement review PR #529 as fresh main `135f8e5d59c98ad507bf7b69a0f7f7c8297bdca2`. Fresh-main closure reconciliation PR #530 merged as `56868c69898d884f9d5e55cdd0de984c97f429aa`.
+`P19-RUNTIME-MATERIALIZATION-HANDOFF-01` / WBS 19.2.2 completed TASK-439..443 and integrated through replacement Sprint Review PR #533 as fresh main `b262471a374844790f2cc5abcb98dc8e0f034893` from exact final head `5167369b691da99e4f2bc8484e4efd7b2a02413a` after Deterministic CI #1312 and Heavy Product Tests #781 PASS.
 
 ## Current gate
-WBS 19.1.1–19.1.3 and 19.2.1 are EXECUTED / REVIEWED / INTEGRATED. Do not re-execute TASK-419..438.
+WBS 19.1.1–19.1.3 and 19.2.1–19.2.2 are EXECUTED / REVIEWED / INTEGRATED. Do not re-execute TASK-419..443.
 
-Fresh-main Planning & Materialization has selected and materialized only `P19-RUNTIME-MATERIALIZATION-HANDOFF-01` / WBS 19.2.2 with dependency chain `TASK-439 -> TASK-440 -> TASK-441 -> TASK-442 -> TASK-443`. TASK-439 is the first eligible execution increment after the Planning PR is integrated; TASK-440..443 remain dependency-blocked until their predecessors pass. WBS 19.2.3+ remains forecast and non-executable.
+Fresh-main Planning & Materialization has selected only `P19-AUTONOMOUS-RUNTIME-CONTINUITY-01` / WBS 19.2.3 with dependency chain `TASK-444 -> TASK-445 -> TASK-446 -> TASK-447 -> TASK-448 -> TASK-449`. TASK-444 is first eligible after this Planning PR integrates; TASK-445..449 remain dependency-blocked until predecessors pass. WBS 19.3.1+ remains forecast and non-executable.
 
-The Sprint must use the existing Compiler/Release/Deploy/Runtime boundaries and the existing local-process deployment topology. Its source-of-truth seam is: successful canonical operator-bootstrap/factory output -> exact PublishedRelease/ReleaseArtifact/DeploymentRecord identity -> verified Compiler artifact payload -> external EnvironmentProfile/secret resolution -> existing `runLocalProcessDeployment` -> actual generated-runtime startup/health.
+The Sprint must reuse the current supported P19 runtime handoff and historical integrated autonomy/continuity primitives rather than inventing a second path. Source-of-truth journey: exact materialized release A -> Builder unavailable -> A continues operating and remains locally observable -> Builder restored from immutable lineage -> compatible successor B prepared through canonical factory/Compiler/Release -> B activated through existing Deploy -> exact A restored through existing rollback/reconstruction authority.
 
-Preserve all integrated boundaries: exact approved/versioned process and downstream artifact identities; canonical M15 human-decision business authority; fail-closed lineage validation; immutable release artifacts; external configuration/secrets; published Runtime autonomy from Builder. Bootstrap progress/diagnostics cannot become deployment/runtime authority.
+Preserve ADR-0002 autonomous Runtime and ADR-0007 Release+Environment boundaries. Runtime ordinary operation must not depend on Builder availability; optional Observe publication must not become runtime authority; immutable release artifacts must not absorb EnvironmentProfile/secrets; existing Release/Deploy/Observe owners remain source of truth.
 
-Required adversarial proof includes stale/substituted release/artifact, hash/ref or deployment-predecessor mismatch, unverifiable payload, missing entrypoint, incompatible runtime/environment, migration/secret/startup/health/state failure and protected-value leakage. Failures must stop before the next unsafe side effect and must not emit partial-success handoff evidence.
+Required adversarial proof includes Builder unavailable, Observe publication unavailable, stale/substituted predecessor/release/artifact, mismatched deployment lineage, incompatible B/runtime/environment, migration/secret/startup/health failure, repeated restore/rollback attempts and protected-value leakage. Failures must not create partial-success continuity evidence and must preserve last-known-good semantics where existing Deploy authority requires it.
 
-Do not introduce a new deployment topology, persistent control plane, Builder-owned runtime dependency, production supervision, new bounded context, Decision Boundary change or other L4 movement. Any such need stops the affected TASK for explicit ADR/change control. Do not materialize or execute WBS 19.2.3+ by inference.
+Do not introduce dogfood/reference-process scope, WBS 19.3.1+, production supervision/control plane, additional deployment topology, generalized migrations, Decision Boundary change, unrelated TD/findings or inferred L4.
