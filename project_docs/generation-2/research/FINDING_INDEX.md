@@ -1,18 +1,18 @@
 # Generation 2 — Finding Index
 
-Prior stable findings through `G2-FINDING-LVEM-10` remain authoritative in their capability dossiers and pipeline history.
+Prior stable findings through `G2-FINDING-SRFR-10` remain authoritative in their capability dossiers and pipeline history.
 
-## Security / Resilience / Failure Recovery
+## AI-native Engineering / Agents / Approvals
 
-- G2-FINDING-SRFR-01 — Prevention, Detection, Containment and Recovery Are Distinct Authorities and Evidence Domains
-- G2-FINDING-SRFR-02 — Recovery Objective, Recovery Strategy and Recovery Mechanism Are Distinct Contracts
-- G2-FINDING-SRFR-03 — Backup/Replica Existence Does Not Prove Restorability or Achievement of RPO/RTO
-- G2-FINDING-SRFR-04 — Retry Requires Qualified Failure Semantics and Idempotency; Retry Is Not Universal Recovery
-- G2-FINDING-SRFR-05 — Circuit Breaking, Degradation and Failover Are Distinct Containment/Continuity Semantics
-- G2-FINDING-SRFR-06 — Recovery Attempt and Restored-Lineage Identity Must Be Preserved as First-Class Evidence
-- G2-FINDING-SRFR-07 — Recovery Authority Must Be Separate from Observation Evidence and Provider Mechanism Authority
-- G2-FINDING-SRFR-08 — Resilience Claims Must Be Revision-, Environment- and Provider-Bound and Re-Proved After Material Change
-- G2-FINDING-SRFR-09 — Fault/Chaos Testing Is Evidence Generation, Not Production Mutation Authority or Proof by Itself
-- G2-FINDING-SRFR-10 — Runtime Autonomy Requires Deployment-Local Recovery Capability and Exportable Recovery Evidence Without Builder Dependence
+- G2-FINDING-AIAA-01 — Agent Identity, Model/Provider Identity, Work Request and Attempt Are Distinct
+- G2-FINDING-AIAA-02 — Model Intent or Tool Selection Never Constitutes Tool/Mutation Authority
+- G2-FINDING-AIAA-03 — Approval Checkpoint and Approval Decision Need Independent Identity, Scope, Revision and Evidence
+- G2-FINDING-AIAA-04 — Delegated Authority Is Bounded and Cannot Be Expanded by the Agent
+- G2-FINDING-AIAA-05 — Deterministic Orchestration May Contain Probabilistic Activities Without Pretending They Replay Deterministically
+- G2-FINDING-AIAA-06 — Retry/Replay Safety Depends on Tool Side-Effect Idempotency/Compensation
+- G2-FINDING-AIAA-07 — Prompt, Agent Definition, Policy, Model Binding and Plan Are Independently Versioned Provenance Inputs
+- G2-FINDING-AIAA-08 — Transcript/Session Logs Are Supporting Evidence, Not Proof of Authorization or Side Effects
+- G2-FINDING-AIAA-09 — Human Review, Automated Validation and Execution Authority Are Separate Gates
+- G2-FINDING-AIAA-10 — Runtime Autonomy Requires Local Provider/Tool Resolution and Exportable Agent Checkpoint/Evidence Lineage
 
-Authoritative rationale and evidence are in `research/capabilities/SECURITY_RESILIENCE_FAILURE_RECOVERY.md`.
+Authoritative rationale and evidence are in `research/capabilities/AI_NATIVE_ENGINEERING_AGENTS_APPROVALS.md`.
