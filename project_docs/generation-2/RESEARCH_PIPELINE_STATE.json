@@ -10,12 +10,12 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 10,
-    "hourly_runs_completed": 34,
+    "capabilities_revisited_in_active_cycle": 11,
+    "hourly_runs_completed": 35,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 104,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-DELIVERY-ATTEMPT-LINEAGE","G2-CAPABILITY-CANDIDATE-ORDERING-SCOPE-CLAIM","G2-CAPABILITY-CANDIDATE-QUARANTINE-REPAIR-LIFECYCLE"],
+    "capability_candidate_count": 107,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-BUILD-REALIZATION-SOURCE-EVIDENCE","G2-CAPABILITY-CANDIDATE-REPRODUCIBILITY-REPLAY-PROOF","G2-CAPABILITY-CANDIDATE-BUILD-ENVIRONMENT-REALIZATION-EVIDENCE"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
@@ -29,11 +29,12 @@
       "Authorization / Policy / Organization / Multitenancy": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AUTH-11","G2-FINDING-AUTH-12","G2-FINDING-AUTH-13","G2-FINDING-AUTH-14","G2-FINDING-AUTH-15","G2-FINDING-AUTH-16"]},
       "Data / Schema / Migrations": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-DATA-11","G2-FINDING-DATA-12","G2-FINDING-DATA-13","G2-FINDING-DATA-14","G2-FINDING-DATA-15","G2-FINDING-DATA-16"]},
       "Storage / Documents / Media": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-STORAGE-11","G2-FINDING-STORAGE-12","G2-FINDING-STORAGE-13","G2-FINDING-STORAGE-14","G2-FINDING-STORAGE-15","G2-FINDING-STORAGE-16"]},
-      "Notifications / Events / Messaging": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-NEM-11","G2-FINDING-NEM-12","G2-FINDING-NEM-13","G2-FINDING-NEM-14","G2-FINDING-NEM-15","G2-FINDING-NEM-16"]}
+      "Notifications / Events / Messaging": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-NEM-11","G2-FINDING-NEM-12","G2-FINDING-NEM-13","G2-FINDING-NEM-14","G2-FINDING-NEM-15","G2-FINDING-NEM-16"]},
+      "Build / Dependency Graph / Reproducibility": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-BUILD-11","G2-FINDING-BUILD-12","G2-FINDING-BUILD-13","G2-FINDING-BUILD-14","G2-FINDING-BUILD-15","G2-FINDING-BUILD-16"]}
     },
-    "representative_coverage": {"Notifications / Events / Messaging":{"Apache Kafka partition ordering/consumer groups":"DEEP","Google Cloud Pub/Sub subscription/ordering/replay/dead-letter":"DEEP","Azure Service Bus deduplication/sessions/redelivery/DLQ":"DEEP","NATS JetStream consumer/ack alternative":"PARTIAL"}},
+    "representative_coverage": {"Build / Dependency Graph / Reproducibility":{"Bazel remote cache/action model":"DEEP","Nix derivations/content-addressed outputs/build trace":"DEEP","Docker BuildKit provenance/attestations":"DEEP","SLSA Build Provenance":"DEEP","GitHub Actions artifact attestations":"DEEP"}},
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 300
+    "finding_count": 306
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -50,8 +51,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Notifications / Events / Messaging — revisit cycle 2 pass 1 complete. Kafka, Google Pub/Sub and Azure Service Bus evidence refined semantic-event versus delivery-attempt identity, scoped ordering, bounded deduplication, acknowledgement versus downstream effect, dead-letter repair lifecycle and replay lineage. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/NOTIFICATIONS_EVENTS_MESSAGING_REVISIT_01.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Build / Dependency Graph / Reproducibility, as the next oldest non-saturated capability. Target unresolved questions/contradictions using 3–8 stronger or alternative representatives; specifically test semantic build/artifact identity versus build-attempt identity, dependency graph/source-of-truth, lockfile and toolchain identity, hermeticity versus reproducibility, cache-hit evidence versus rebuilt equivalence, remote execution/cache trust boundaries, deterministic output claims, dependency/provider replacement, provenance linkage, failure/retry lineage, environment portability and how delivery-attempt/proof-evidence patterns recur without making Build own release/deployment authority. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T18:05:39-03:00"
+  "current_focus": "Build / Dependency Graph / Reproducibility — revisit cycle 2 pass 1 complete. Bazel, Nix, BuildKit, SLSA and GitHub artifact-attestation evidence refined cache-versus-execution realization, independent reproducibility proof, cache trust boundaries, declared-versus-realized environment evidence, effective dependency closure and provider-replacement provenance lineage. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_REVISIT_01.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Artifact / Release / SBOM / Provenance, as the next oldest non-saturated capability. Target unresolved questions/contradictions using 3–8 stronger or alternative representatives; specifically test artifact identity versus build/output/release identity, provenance subject identity and attestation lifecycle, SBOM identity/completeness/freshness, release authority versus publication/storage, immutable release claims, signature/trust-root rotation, provenance retention and offline verification, multi-artifact release composition, provider/registry replacement, promotion across environments, and how build realization-source/reproducibility-proof evidence composes without making Artifact own build or deployment authority. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T18:28:47-03:00"
 }
