@@ -52,4 +52,17 @@
 - G2-FINDING-WDE-09 — History Retention and Business State Retention Differ
 - G2-FINDING-WDE-10 — Runtime Autonomy Must Include In-Flight Work
 
+## Integration & Automation
+
+- G2-FINDING-IA-01 — Integration, Connection and Invocation Identity Must Be Separate
+- G2-FINDING-IA-02 — Operation Contract Is the Portable Integration Surface
+- G2-FINDING-IA-03 — Connection Validation Is Runtime Lifecycle Evidence
+- G2-FINDING-IA-04 — Typed Common Path Plus Bounded Escape Hatch
+- G2-FINDING-IA-05 — Failure Taxonomy Must Outlive Transport Status Codes
+- G2-FINDING-IA-06 — Side-Effect Boundary Determines Recoverability
+- G2-FINDING-IA-07 — Retry Requires Definition and Side-Effect Context
+- G2-FINDING-IA-08 — Connector-Level Observability Is a First-Class Dimension
+- G2-FINDING-IA-09 — Governance Can Wrap External Ownership
+- G2-FINDING-IA-10 — Automation Platform Must Not Become Business-Semantic Authority
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
