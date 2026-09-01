@@ -35,4 +35,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-UI-15 — Generated-Experience Conformance Is Multi-dimensional
 - G2-FINDING-UI-16 — Design-System or Renderer Upgrade Requires Compatibility Evidence Across the Exercised Revision Set
 
+## Workflow & Durable Execution — revisit 1
+- G2-FINDING-WDE-11 — Effect Guarantee Must Be Scoped
+- G2-FINDING-WDE-12 — Recovery Attempt and Business Execution Identity Differ
+- G2-FINDING-WDE-13 — Mechanical Migration Success Is Not Semantic Migration Proof
+- G2-FINDING-WDE-14 — Recovery Ownership Is a Durability Concern
+- G2-FINDING-WDE-15 — Migration Support Is a Negotiated Provider Capability
+- G2-FINDING-WDE-16 — Operator Repair Authority Is Stronger Than Execution Authority
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`; compact index sections do not revoke earlier findings.
