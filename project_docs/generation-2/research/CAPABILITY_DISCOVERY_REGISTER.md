@@ -36,5 +36,8 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | G2-CAPABILITY-CANDIDATE-ATTESTATION-VERIFICATION-RESULT-EVIDENCE | CROSS_CUTTING | SLSA + Sigstore + SPDX/CycloneDX | CANDIDATE | Governance/security/acceptance confirm reusable subject+trust+policy verification result. |
 | G2-CAPABILITY-CANDIDATE-EVIDENCE-TRUST-CONTEXT-REVISION | CROSS_CUTTING | Sigstore trust roots/transparency + provenance verification | CANDIDATE | Identity/secrets/security converge on revisioned verifier trust context. |
 | G2-CAPABILITY-CANDIDATE-RELEASE-COMPOSITION-PROMOTION-EVIDENCE | CROSS_CUTTING | OCI + SLSA + SBOM composition | CANDIDATE | Deployment/lifecycle confirm release composition and promotion as reusable evidence. |
+| G2-CAPABILITY-CANDIDATE-DEPLOYMENT-ATTEMPT-REALIZATION-LINEAGE | CROSS_CUTTING | Kubernetes + Argo CD + Nomad deployment/reconciliation | CANDIDATE | Lifecycle/provider synthesis confirms reusable intent-attempt-realization semantics. |
+| G2-CAPABILITY-CANDIDATE-ACTIVATION-TRAFFIC-DECISION-EVIDENCE | CROSS_CUTTING | Nomad promotion + Cloud Run/Vercel traffic activation | CANDIDATE | Release/lifecycle/governance synthesis needs shared activation/promotion evidence. |
+| G2-CAPABILITY-CANDIDATE-RUNTIME-AUTONOMY-CONTROL-PLANE-DEPENDENCY-PROOF | CORE | Kubernetes/Nomad managed control plane contrast + Cloud Run/Vercel managed runtime | CANDIDATE | Deployment, Developer/Operator and Provider research converge on a common generated-runtime handoff proof. |
 
 All candidates omitted from this compact view remain authoritative in prior register revisions, state history and capability dossiers; none is revoked. `G2-CAPABILITY-CANDIDATE-FEDERATION-TRUST-LIFECYCLE` remains CANDIDATE pending synthesis.
