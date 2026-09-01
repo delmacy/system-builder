@@ -1,123 +1,16 @@
 # Generation 2 — UI / Generated Experience / Low-code Builder
 
-Status: FIRST_DEEP_PASS / NOT_SATURATED
+Status: REVISIT_CYCLE_2_PASS_1 / NOT_SATURATED
 
 ## Research question
 
 Which UI-builder primitives are reusable for System Builder without making the visual editor, a proprietary widget framework, or generated implementation the semantic source of truth? The focus is the boundary between semantic intent, presentation metadata, component/design-system governance, state/actions, extensibility, generated code and runtime portability.
 
-## Representatives
+## First-pass representatives
 
-1. **Mendix / Atlas UI** — mature model-driven page structure plus reusable design system and module-level theme governance.
-2. **OutSystems UI / Style Guides** — mature responsive pattern library, theme/template reuse and company-level style-guide composition.
-3. **Retool** — developer-oriented internal-app builder; useful contrast where UI composition, resources, queries and governance live primarily inside a hosted application platform.
-4. **Appsmith** — open-source internal-app builder combining drag/drop widgets, datasource bindings, queries, JavaScript and Git-backed collaboration/self-hosting.
-5. **FlutterFlow** — especially valuable because visual pages/components produce inspectable Flutter/Dart code, while custom widgets/actions and external packages provide an escape hatch.
+Mendix / Atlas UI, OutSystems UI / Style Guides, Retool, Appsmith and FlutterFlow remain authoritative from the first deep pass.
 
-## Evidence ledger
-
-| Representative | Evidence | Main claim |
-|---|---|---|
-| Mendix | https://docs.mendix.com/howto/front-end/atlas-ui/ | Atlas is a customizable/extendable design system; module-level theme settings can govern which elements developers may use. |
-| Mendix | https://docs.mendix.com/refguide/page-explorer/ | A page has an inspectable structural tree independent from the visual design view. |
-| OutSystems | https://www.outsystems.com/forge/component-overview/1385/outsystems-ui-o11 | OutSystems UI provides a reusable responsive pattern/design-system layer. |
-| OutSystems | https://www.outsystems.com/forge/component-documentation/16952/odc-live-style-guide-odc/0 | Theme library, custom pattern library, preview and app template are separable/reusable assets. |
-| Retool | https://docs.retool.com/ | App builder is one capability among apps, workflows, resources, permissions and self-hosting/governance. |
-| Appsmith | https://docs.appsmith.com/ | UI widgets bind to datasources/APIs; business logic is expressed through queries and JavaScript; Git and self-hosting are supported. |
-| FlutterFlow | https://docs.flutterflow.io/flutterflow-ui/canvas/ | Visual canvas operates over an explicit widget composition. |
-| FlutterFlow | https://docs.flutterflow.io/generated-code/page-model/ | Pages generate separate Widget and Model classes. |
-| FlutterFlow | https://docs.flutterflow.io/generated-code/component-model/ | Components generate reusable widget/model pairs with isolated state/lifecycle. |
-| FlutterFlow | https://docs.flutterflow.io/concepts/custom-code/custom-widgets/ | Custom widgets support explicit inputs/callbacks and third-party packages. |
-| FlutterFlow | https://docs.flutterflow.io/generated-code/project-structure/ | Exported project separates generated utilities, app state, custom code and application entry point. |
-
-## Extracted primitives
-
-### Source of truth
-A visual canvas should be a projection/editor over explicit page/component/presentation artifacts, not the only source of semantic truth. Mendix exposes both structure and design views. FlutterFlow retains a widget tree and generates code. OutSystems separates reusable themes/patterns/templates. Appsmith and Retool demonstrate that builder state can become platform-coupled when the hosted builder is the dominant authority.
-
-### Identity
-Pages, components, widgets, themes, reusable patterns and actions need stable identities independent of canvas position, label or generated class/file names. References should survive layout changes and regeneration.
-
-### Lifecycle
-A useful lifecycle is `definition -> validate/preview -> publish/generate -> deploy/runtime -> observe -> evolve`. Design-system assets and reusable components have their own version/update lifecycle and should not be silently conflated with application publication.
-
-### Versioning
-At least four independent dimensions recur: semantic/page definition version, presentation/design-system version, component/plugin version and generated/runtime implementation version.
-
-### Failure semantics
-Builder failures should distinguish invalid semantic binding, invalid presentation/layout, unavailable component/provider, custom-code compile error, generated-code failure and runtime interaction failure. A visual preview succeeding is not proof that the semantic contract or generated runtime is valid.
-
-### Extensibility
-The strongest pattern is a bounded escape hatch: standard components first; reusable components/patterns second; custom code/widget third; third-party package/provider last. Custom extensions need typed inputs/outputs/callbacks and dependency/version metadata.
-
-### Provider boundaries
-UI rendering technology should be replaceable where feasible. Semantic intent and data/action bindings should not be owned by React/Flutter/a vendor widget runtime. Renderer-specific metadata belongs behind a renderer/binding boundary.
-
-### Governance
-Design systems are governance artifacts, not only styling. Mendix module-level theme settings and OutSystems style-guide/pattern libraries show that an organization can constrain approved UI primitives while preserving extension points.
-
-### Observability
-Preview/design mode is authoring evidence, not runtime evidence. Generated experiences need traceability from semantic element -> page/component -> renderer/generated artifact -> runtime interaction/error.
-
-### Portability and lock-in
-FlutterFlow provides the strongest portability contrast because generated Flutter/Dart is inspectable/exportable, though generated framework utilities remain a coupling. Appsmith improves operational portability via open source/self-hosting, but application semantics still depend on Appsmith widgets/queries/runtime. Retool is intentionally more platform-centric. Mendix and OutSystems provide rich reusable UI governance but stronger proprietary runtime/model coupling.
-
-## Product-specific mechanisms not to copy automatically
-
-- Mendix Atlas class/design-property mechanics.
-- OutSystems UI pattern catalog, proprietary theme/library/template packaging.
-- Retool component/resource/query object model as SB ontology.
-- Appsmith widget and JavaScript-expression runtime as canonical business semantics.
-- FlutterFlow `FlutterFlowModel`, generated utility classes or Flutter widget tree as SB semantic IR.
-
-Their reusable value is the separation of layers and explicit extension/governance contracts, not their concrete object models.
-
-## Recurring patterns
-
-1. **Structure view and visual view are distinct projections of one composition.**
-2. **Design system is separately reusable/versioned from page instances.**
-3. **Component reuse needs explicit interfaces, not copy/paste.**
-4. **State/actions/data bindings are separate from visual styling.**
-5. **Custom-code escape hatches are bounded extension points.**
-6. **Preview is not publication and publication is not runtime proof.**
-7. **Generated implementation should be traceable back to model identity.**
-8. **Portability improves when generated output is inspectable and runtime assumptions are explicit.**
-
-## System Builder comparison
-
-Fresh `main` already states that Canvas / Visual Builder must provide visual authoring without making UI the source of truth. Its WBS explicitly requires mapping formal concepts to visual elements, separating semantic model from layout/presentation metadata, deterministic rendering, schema-aware editing, validation before persistence/publication and lossless round-trip to the canonical contract. This is strongly aligned with the external evidence and should be preserved rather than replaced by a vendor-style canvas ontology.
-
-Current evidence is insufficient to claim that the full generated end-user experience layer already has renderer/provider abstractions, a design-system contract, stable UI artifact identity or runtime traceability. Those remain repository-validation questions for Planning B.
-
-## Reconciliation hypotheses
-
-- **KEEP/HARDEN** — Canvas rule that UI is not source of truth.
-- **KEEP/HARDEN** — semantic model vs layout/presentation metadata separation and lossless round-trip.
-- **GENERALIZE** — stable Page/Component/Presentation artifact identity and lineage.
-- **GENERALIZE** — Design System / Theme / Component interfaces as governed reusable contracts.
-- **PROVIDERIZE** — renderer/runtime-specific implementation where multiple renderers are justified.
-- **INTEGRATE** — bounded external component/package ecosystem rather than cloning large widget ecosystems.
-- **DEFER** — multi-renderer abstraction until repository truth and product proof show replacement value.
-- **DO_NOT_BUILD** — proprietary clone of a full vendor widget marketplace solely for feature parity.
-
-## Repository-validation questions
-
-1. What is the canonical contract for generated end-user pages/forms/views today?
-2. Is UI identity stable across regeneration or inferred from filenames/layout positions?
-3. Are presentation metadata and semantic bindings separately versioned?
-4. Is there an explicit design-system/theme contract or only implementation styling?
-5. Are component inputs/outputs/actions typed and referenceable independently of renderer implementation?
-6. Can a generated page be traced back to the SystemDefinition/Recipe/semantic element that caused it?
-7. Can a renderer/provider be replaced without rewriting domain/process semantics?
-8. Which UI behaviors currently require Builder presence at runtime, if any?
-9. Are accessibility, responsive behavior and localization represented as governed requirements or ad-hoc implementation concerns?
-10. Does round-trip currently cover only the authoring Canvas or also generated end-user experience artifacts?
-
-## Symbiotic Proof candidate
-
-A strong future proof would define one semantic slice (entity + action + authorization-aware interaction), render it through the native generated-experience path, then through one external/alternative renderer or component provider without altering the semantic source. Prove: stable semantic identity; equivalent required behavior; design-system policy enforcement; typed component/action binding; regeneration determinism; renderer replacement; artifact/runtime provenance; accessibility/responsive requirements where declared; and autonomous runtime without consulting Builder authoring state.
-
-## Findings
+## First-pass stable findings
 
 - **G2-FINDING-UI-01 — Canvas Must Be a Projection, Not Authority.** Visual editing should round-trip to canonical semantics rather than own them.
 - **G2-FINDING-UI-02 — Presentation Metadata Is a Separate Versioned Concern.** Layout/theme/responsiveness must not mutate domain/process meaning.
@@ -130,19 +23,150 @@ A strong future proof would define one semantic slice (entity + action + authori
 - **G2-FINDING-UI-09 — Inspectable Output Improves Exit Portability but Does Not Eliminate Coupling.** Generated code may still depend on generator utilities/framework conventions.
 - **G2-FINDING-UI-10 — Renderer Choice Should Be Orthogonal to Business Semantics Where Economically Justified.** Renderer/provider abstraction is valuable only when replacement can be proven without contaminating the core model.
 
+## Revisit cycle 2 — pass 1
+
+### Revisit question
+
+Which mechanisms best preserve semantic identity and behavior through design-system evolution, layout/responsive change and renderer replacement, and what evidence should prove that a generated experience still satisfies its semantic contract after those transitions?
+
+### Representatives and evidence ledger
+
+| Representative | Coverage | Evidence | Architectural contribution |
+|---|---|---|---|
+| Design Tokens Community Group 2025.10 | DEEP | https://www.designtokens.org/ | Standard exchange format treats design decisions as portable data shared across tools/codebases/platforms, supporting token identity/reference semantics independent of a concrete renderer. |
+| Web Components / Custom Elements / Shadow DOM / Slots | DEEP | https://developer.mozilla.org/en-US/docs/Web/API/Web_components | Stable custom-element registration plus encapsulated implementation and explicit slots show interface/implementation separation at the UI component boundary. |
+| JSON Forms | DEEP | https://jsonforms.io/docs/uischema/ ; https://jsonforms.io/docs/tutorial/custom-renderers/ | UI Schema is distinct from renderer implementation; renderer registry/testers select a renderer for a semantic UI element, demonstrating renderer binding/selection as a separate concern. |
+| Storybook Portable Stories and component testing | DEEP | https://storybook.js.org/docs/9/api/portable-stories/portable-stories-vitest ; https://storybook.js.org/docs/writing-tests | A named component state can be rendered in external test environments and checked through render, interaction, accessibility, visual and snapshot evidence; proof dimensions are distinct. |
+| Storybook visual testing | DEEP | https://storybook.js.org/docs/9/writing-tests/visual-testing | Visual baselines detect appearance drift but are only one proof class; they do not replace semantic/interaction/accessibility evidence. |
+
+### Source of truth
+
+The revisit strengthens the first-pass conclusion: semantic interaction intent must remain upstream of UI-schema/presentation choices and concrete renderer implementations. JSON Forms is especially useful because the UI schema and JSON schema are inputs to a renderer-selection mechanism; renderer-specific options exist but do not have to become the domain schema. Design Tokens similarly externalize reusable design decisions rather than requiring a specific framework component tree.
+
+### Identity
+
+At least six identities must not be collapsed: semantic interaction requirement, presentation/UI projection, design token, component contract, renderer offer/registration, and generated/runtime realization. A custom-element name or React/Vue class is an implementation-facing identity, not sufficient as the System Builder semantic identity.
+
+### Lifecycle and versioning
+
+A generated-experience evolution can independently change semantic requirement revision, UI projection revision, design-token/design-system revision, component-contract revision, renderer revision and generated artifact revision. The compatibility question is therefore multidimensional. A token/theme update can be semantically neutral yet visually breaking; a renderer upgrade can preserve appearance while changing accessibility or interaction semantics.
+
+### Failure semantics
+
+Distinct failures include unresolved token/reference, renderer-not-applicable/no eligible renderer, renderer ambiguity/priority conflict, component-interface incompatibility, visual regression, accessibility regression, interaction regression, generation failure and runtime interaction failure. A screenshot match cannot prove successful interaction or accessibility, and a successful render cannot prove semantic binding correctness.
+
+### Extensibility and provider boundaries
+
+Web Components demonstrate a useful bounded contract: the consumer interacts with an externally named element/interface while internals may be encapsulated. JSON Forms shows another pattern: a registry evaluates candidate renderers against semantic/UI input and selects an implementation. The universal primitive is not Web Components or JSON Forms themselves; it is an explicit renderer/component offer + compatibility/selection + binding + realization boundary.
+
+### Governance
+
+Design-system governance needs explicit ownership of token vocabulary, aliases/references, approved component contracts, allowed renderer/provider sets and exception policy. Renderer registration or custom code must not silently grant authority to reinterpret semantic actions or authorization constraints.
+
+### Observability and proof
+
+Storybook contributes an important proof pattern: named component states can become reusable test fixtures, but evidence dimensions remain separate. Generated-experience conformance should record which semantic requirement/projection/component/renderer revisions were exercised and which proof dimensions passed (render, interaction, accessibility, visual, possibly localization/responsive constraints).
+
+### Portability and lock-in
+
+DTCG token exchange and Web Components reduce particular forms of tool/framework coupling, while JSON Forms demonstrates multiple renderer sets across React/Angular/Vue. None automatically provides semantic portability. SB portability requires the semantic interaction contract, projection and renderer-binding decision to remain explicit and exportable, with implementation-specific options isolated behind a provider/rendering boundary.
+
+### Product-specific vs universal
+
+Do not copy DTCG as the entire SB presentation ontology, Web Components as the mandatory runtime component model, Storybook stories as canonical semantic definitions, or JSON Forms tester/ranking APIs as the universal negotiation protocol. Generalize only the recurring primitives: stable semantic/projection identity, design-decision references, component interface, renderer offer/selection/binding, state-scenario proof and revision-bound evidence.
+
+### Convergent patterns
+
+1. Design decisions can be portable data separate from final rendered code.
+2. Component interface and internal implementation can evolve independently when the boundary is explicit.
+3. Renderer selection can be a registry/binding decision over semantic/presentation inputs.
+4. Renderer-specific configuration belongs behind the renderer boundary.
+5. Named UI states are reusable proof fixtures, not semantic authority.
+6. Visual, interaction and accessibility evidence are complementary, not interchangeable.
+7. Compatibility after design-system/renderer change must be proven against the specific revision set exercised.
+
+### Divergences
+
+- Web Components standardize a browser component boundary, while JSON Forms is schema-driven renderer selection and Storybook is a development/proof harness; none should be mistaken for a universal SB runtime.
+- Design tokens govern design decisions but do not define behavior, authorization or data/action semantics.
+- Snapshot/visual baselines favor implementation fidelity; SB requires semantic-behavior equivalence when renderer replacement intentionally changes markup or appearance.
+
+### Subcapabilities refined
+
+- Semantic interaction projection.
+- Presentation/layout metadata lifecycle.
+- Design token and design-system reference lifecycle.
+- Typed component contract lifecycle.
+- Renderer offer/selection/binding lifecycle.
+- Generated realization lineage.
+- UI-state scenario catalog.
+- Multi-dimensional generated-experience conformance evidence.
+- Accessibility/localization/responsive requirements as governed constraints.
+
+## System Builder comparison — fresh main evidence
+
+Fresh `main` WBS for System Design explicitly places `views/forms e interação necessária` beside, but distinct from, roles/permissions, integrations and the versioned `SystemDefinition`. It also requires consistency/completeness before publication. This supports preserving UI as a projection of broader system semantics rather than elevating a renderer/widget tree to system truth (`project_docs/04-system-design/WBS.md`, WBS 4.2.1 and 4.3.2–4.3.3).
+
+This revisit did not find repository evidence sufficient to claim that current `main` already has a universal renderer registry/negotiation contract, design-token reference lineage, renderer-binding evidence or state-scenario conformance model. Those remain Planning-B repository-validation questions; absence is not asserted as architectural truth beyond the files inspected.
+
+## Reconciliation hypotheses
+
+- **KEEP/HARDEN** — UI remains a projection and `SystemDefinition` remains the publication-level semantic authority.
+- **GENERALIZE** — explicit identities/revisions for UI projection, component contract and generated realization.
+- **GENERALIZE** — governed design token/design-system references with lineage rather than renderer-owned styling truth.
+- **PROVIDERIZE** — renderer offers and renderer binding/selection where replacement has product value.
+- **HARDEN** — renderer-specific options cannot reinterpret semantic action/authorization requirements.
+- **INTEGRATE** — external component/design-system ecosystems through bounded contracts rather than cloning them.
+- **DEFER** — universal multi-renderer support until product proof requires more than one concrete renderer family.
+- **DO_NOT_BUILD** — a proprietary visual-test platform or browser component standard solely for feature parity.
+
+## Repository-validation questions
+
+1. What concrete objects currently represent generated views/forms and their stable IDs?
+2. Are design tokens/themes explicit data/contracts or implicit CSS/framework configuration?
+3. Is component selection deterministic and recorded as evidence, or embedded directly in generation templates?
+4. Are renderer-specific options structurally separated from semantic requirements?
+5. Can a component/renderer revision be upgraded independently and traced to affected generated artifacts?
+6. Is there existing UI scenario/test metadata that can be tied back to semantic requirements?
+7. Are accessibility, localization and responsive requirements represented before code generation?
+8. Can generated UI conformance evidence distinguish render, visual, interaction and accessibility outcomes?
+9. Can renderer replacement preserve semantic/action/authorization identity without modifying domain/process definitions?
+10. What generated-experience state can operate autonomously after Builder removal?
+
+## Symbiotic Proof
+
+Use one semantic slice containing entity data, an authorized action, validation and declared accessibility/responsive requirements. Produce a canonical UI projection, bind it first to the native renderer and then to one alternate renderer/component provider without modifying semantic identity. Record design-system revision, renderer offer/selection, generated artifact lineage and named state scenarios. Prove independently: render success, interaction behavior, authorization preservation, accessibility constraints, declared responsive behavior and autonomous runtime. Renderer replacement succeeds only if semantic proof obligations remain satisfied; visual identity need only remain within explicitly governed design-system constraints rather than byte/screenshot equivalence.
+
+## New stable findings
+
+- **G2-FINDING-UI-11 — Renderer Selection Is a Governed Binding Decision.** A semantic/UI projection may admit multiple renderer offers; eligibility/priority/selection and the selected renderer revision must be explicit evidence rather than hidden generator logic.
+- **G2-FINDING-UI-12 — Design Token Identity and Reference Lineage Are Independent of Renderer Output.** Portable design decisions need stable references/aliases and revision lineage without becoming business semantics.
+- **G2-FINDING-UI-13 — Component Interface and Internal Rendering Implementation Are Distinct Evolution Boundaries.** A stable external component contract can permit implementation replacement, but only if interaction/accessibility obligations are re-proven.
+- **G2-FINDING-UI-14 — UI State Scenarios Are Proof Fixtures, Not Semantic Authority.** Named rendered states can be reused across test environments, while their authority remains limited to evidence about a referenced semantic/projection revision.
+- **G2-FINDING-UI-15 — Generated-Experience Conformance Is Multi-dimensional.** Render, visual, interaction, accessibility and declared responsive/localization outcomes are separate evidence classes and cannot substitute for one another.
+- **G2-FINDING-UI-16 — Design-System or Renderer Upgrade Requires Compatibility Evidence Across the Exercised Revision Set.** A single package/version bump cannot establish compatibility across tokens, component contracts, projection semantics and runtime behavior.
+
 ## Capability candidates
 
-- `G2-CAPABILITY-CANDIDATE-DESIGN-SYSTEM-GOVERNANCE` — CROSS_CUTTING. Evidence: Mendix + OutSystems + FlutterFlow. Promotion condition: recur in Governance and Developer/Operator Experience and show structural SB need.
-- `G2-CAPABILITY-CANDIDATE-GENERATED-EXPERIENCE-LINEAGE` — CROSS_CUTTING. Evidence: FlutterFlow generated structure + SB deterministic/round-trip intent. Promotion condition: recur materially in Artifact/Provenance, Observability and Lifecycle.
+Existing candidates remain active:
+- `G2-CAPABILITY-CANDIDATE-DESIGN-SYSTEM-GOVERNANCE` — CROSS_CUTTING.
+- `G2-CAPABILITY-CANDIDATE-GENERATED-EXPERIENCE-LINEAGE` — CROSS_CUTTING.
 
-`G2-CAPABILITY-CANDIDATE-MODEL-PUBLICATION-LIFECYCLE` receives additional supporting evidence from UI preview/template/publish/generate separation, but remains CANDIDATE pending Lifecycle/Deployment research.
+New this revisit:
+- `G2-CAPABILITY-CANDIDATE-RENDERER-BINDING-DECISION-EVIDENCE` — CROSS_CUTTING. Promote if Provider/Binding and generated-experience planning need a reusable selection/binding evidence envelope.
+- `G2-CAPABILITY-CANDIDATE-DESIGN-TOKEN-REFERENCE-LINEAGE` — DOMAIN. Promote only if repository archaeology shows design decisions need portable token/reference lifecycle beyond ordinary presentation metadata.
+- `G2-CAPABILITY-CANDIDATE-GENERATED-EXPERIENCE-CONFORMANCE-CASE` — CROSS_CUTTING. Promote if named state/proof cases recur as a reusable acceptance primitive across UI, accessibility, release and observability.
 
-## Value / risk / next question
+No candidate is promoted by this revisit.
 
-**Value for SB:** very high. Generated experience is where semantic portability can easily be lost through renderer-specific assumptions.
+## Value / risk / priority / next question
 
-**Adoption risk:** high if a visual/widget object model becomes canonical; medium if UI is maintained as projection + governed component/rendering contracts.
+**Value:** very high: renderer replacement and design-system evolution are likely portability boundaries.
 
-**Investigation priority:** critical.
+**Risk:** high if renderer selection or token/component identities are hidden inside generator templates; moderate if isolated as explicit binding/evidence concerns.
 
-**Next question on revisit:** Which mechanisms best preserve semantic identity and behavior through responsive/layout evolution, design-system upgrades and renderer replacement, especially OutSystems/Mendix upgrade semantics versus code-export approaches such as FlutterFlow?
+**Priority:** critical for synthesis and Planning B.
+
+**Revisit result:** MATERIAL_NEW_FINDINGS. Six new architectural findings were produced. `consecutive_no_material_finding = 0`; capability remains NOT_SATURATED.
+
+**Next research question on a later revisit:** determine whether accessibility/localization/responsive semantics need a shared cross-cutting requirement vocabulary or remain capability-specific proof obligations; prefer representatives that expose versioned compatibility and migration behavior rather than additional visual-builder feature catalogs.
