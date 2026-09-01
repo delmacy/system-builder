@@ -220,3 +220,74 @@ test("TASK-440 rejects stale preflight evidence before any Deploy invocation", a
   assert.equal(calls, 0);
   assert.equal(base.payloadReads(), 0);
 });
+
+const deployFailureCodes = [
+  "ARTIFACT_MISMATCH",
+  "ARTIFACT_PAYLOAD_INVALID",
+  "RUNTIME_INCOMPATIBLE",
+  "RUNTIME_ENTRYPOINT_MISSING",
+  "GENERATED_PATH_INVALID",
+  "MIGRATION_PREFLIGHT_INVALID",
+  "SECRET_RESOLUTION_FAILED",
+  "MIGRATION_APPLICATION_FAILED",
+  "RUNTIME_PROCESS_FAILED",
+  "RUNTIME_STARTUP_INVALID",
+  "RUNTIME_HEALTH_INVALID",
+  "RUNTIME_STATE_INVALID",
+  "RUNTIME_PROCESS_TIMEOUT",
+] as const;
+
+test("TASK-442 preserves Deploy-owned diagnostics exactly and emits no partial success evidence", async () => {
+  for (const code of deployFailureCodes) {
+    const base = setup();
+    let calls = 0;
+    const deployFailure = Object.freeze({
+      ok: false as const,
+      activated: code.startsWith("RUNTIME_") && !["RUNTIME_INCOMPATIBLE", "RUNTIME_ENTRYPOINT_MISSING"].includes(code),
+      diagnostic: Object.freeze({ code, detail: `deploy-owned:${code}` }),
+      stdout: "",
+      stderr: "",
+      exitCode: null,
+    });
+
+    const result = await invokeRuntimeMaterializationHandoff(base, async () => {
+      calls += 1;
+      return deployFailure;
+    });
+
+    assert.equal(calls, 1, code);
+    assert.equal(base.payloadReads(), 0, code);
+    assert.equal(result.deploy, deployFailure, code);
+    assert.equal(result.deploy.ok, false, code);
+    if (result.deploy.ok) continue;
+    assert.equal(result.deploy.diagnostic, deployFailure.diagnostic, code);
+    assert.equal(result.deploy.diagnostic.code, code);
+    assert.equal(result.deploy.diagnostic.detail, `deploy-owned:${code}`);
+    assert.equal("health" in result.deploy, false, code);
+    assert.equal("state" in result.deploy, false, code);
+    assert.equal("migrationApplication" in result.deploy, false, code);
+  }
+});
+
+test("TASK-442 real payload rejection fails closed before activation and is repeatable without stale state", async () => {
+  const base = setup();
+  const before = JSON.stringify({ bootstrap: base.bootstrap, environment: base.environment });
+
+  const first = await invokeRuntimeMaterializationHandoff(base);
+  const second = await invokeRuntimeMaterializationHandoff(base);
+
+  for (const result of [first, second]) {
+    assert.equal(result.deploy.ok, false);
+    if (result.deploy.ok) continue;
+    assert.equal(result.deploy.activated, false);
+    assert.equal(result.deploy.diagnostic.code, "ARTIFACT_PAYLOAD_INVALID");
+    assert.match(result.deploy.diagnostic.detail, /TASK-439 preflight must not read artifact payload/);
+    assert.equal("workingDirectory" in result.deploy, false);
+    assert.equal("health" in result.deploy, false);
+    assert.equal("state" in result.deploy, false);
+  }
+
+  assert.deepEqual(first, second);
+  assert.equal(base.payloadReads(), 2);
+  assert.equal(JSON.stringify({ bootstrap: base.bootstrap, environment: base.environment }), before);
+});
