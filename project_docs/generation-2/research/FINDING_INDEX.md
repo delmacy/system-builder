@@ -78,4 +78,17 @@
 - G2-FINDING-IAF-09 — Secret and Upstream Token Custody Must Be Outside Portable Semantics
 - G2-FINDING-IAF-10 — Runtime Autonomy Includes Identity Validation and Session Continuity
 
+## Authorization / Policy / Organization / Multitenancy
+
+- G2-FINDING-AUTH-01 — Authentication Is Authorization Input, Not Authority
+- G2-FINDING-AUTH-02 — Authorization Request Shape Must Be Explicit
+- G2-FINDING-AUTH-03 — Decision and Enforcement Are Separate Boundaries
+- G2-FINDING-AUTH-04 — Decision Must Bind to Policy/Model Revision
+- G2-FINDING-AUTH-05 — Durable Relationships and Ephemeral Context Must Stay Distinct
+- G2-FINDING-AUTH-06 — RBAC/ABAC/ReBAC Are Composable Semantics
+- G2-FINDING-AUTH-07 — Conflict/Default/Failure Semantics Must Be Explicit
+- G2-FINDING-AUTH-08 — Delegated Administration Is a Separate Authority Plane
+- G2-FINDING-AUTH-09 — Authorization Decision Evidence Is First-Class
+- G2-FINDING-AUTH-10 — Tenant Isolation Exceeds Authorization Context
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
