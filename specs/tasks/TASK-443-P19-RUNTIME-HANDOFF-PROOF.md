@@ -1,7 +1,7 @@
 ---
 id: TASK-443
 title: Prove complete runtime materialization handoff
-status: blocked
+status: completed
 priority: 443
 milestone: M19
 model_tier: architecture
@@ -76,6 +76,9 @@ WBS 19.2.3 Builder-off continuity/restoration, successor upgrade/rollback, dogfo
 
 # Evidence expected
 Growing core/heavy product proof plus updated operations documentation and exact-head Deterministic CI/Heavy Product Tests at Sprint Review.
+
+# Completion evidence
+TASK-441 provides the supported real-process proof for actual generated-runtime startup/health, immutable release/artifact/generated inputs, external EnvironmentProfile/secret resolution, repeatable clean invocation and cleanup. TASK-442 hardens the same supported handoff with exact Deploy-owned failure propagation, stale/substituted/incompatible rejection, no partial success evidence and repeatable fail-closed behavior. TASK-443 deliberately reuses those growing proofs rather than creating a parallel fixture or orchestration path, and records the supported lineage, limitations and operational boundary in `docs/operations/OPERATOR_BOOTSTRAP.md`.
 
 # Escalation
 Stop if final proof exposes missing product capability that cannot be corrected boundedly inside the declared existing topology, or any L4/authority change is required.

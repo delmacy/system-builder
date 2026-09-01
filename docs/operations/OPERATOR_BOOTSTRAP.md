@@ -1,6 +1,6 @@
 # Operator Bootstrap — supported pre-alpha factory invocation
 
-This guide documents only the repository-supported behavior proven by `P19-OPERATOR-BOOTSTRAP-01` / WBS 19.2.1. It is a maintainer/operator bootstrap over the canonical factory E2E path; it is not runtime provisioning, deployment execution, a persistent job system, or a production UI.
+This guide documents repository-supported maintainer/operator behavior proven by WBS 19.2.1 and the bounded runtime-materialization handoff proven by WBS 19.2.2. It is not a production UI, persistent job system, supervisor, control plane, or autonomous-continuity mechanism.
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ Use a clean repository checkout with Node.js major 24 and npm major 11 or newer.
 
 Do not put secrets or credentials in bootstrap configuration. Unknown configuration fields are rejected fail-closed and configuration values are not returned in diagnostics.
 
-## Supported invocation
+## Supported bootstrap invocation
 
 ```sh
 npm run factory:bootstrap -- --input ./path/to/bootstrap-input.json
@@ -34,6 +34,23 @@ Failures exit non-zero, emit no success envelope on stdout, and write one bounde
 
 Stale, incompatible, substituted or lineage-broken predecessor identities remain canonical failures; bootstrap diagnostics never repair, downgrade or swallow those failures. Rejected invocations do not emit completed progress or partial success evidence.
 
+## Supported runtime-materialization handoff
+
+WBS 19.2.2 adds a bounded maintainer-facing handoff from the successful canonical bootstrap result into the already-existing local-process Deploy adapter. The supported implementation is `invokeRuntimeMaterializationHandoff` in `scripts/runtime-materialization-handoff.ts`; it first executes the mandatory fail-closed preflight and then delegates exactly once to `runLocalProcessDeployment`.
+
+The handoff does not invent downstream identity. It binds the exact `PublishedRelease`, `ReleaseArtifact` and `DeploymentRecord` emitted by the canonical factory result, validates their release/version, artifact hash/ref, validation predecessor, deployment predecessor, runtime version and environment reference, and rejects stale or substituted evidence before activation. Bootstrap progress is informational and is never used as identity authority.
+
+Artifact payload verification, temporary materialization, secret resolution, migrations, generated-runtime launch, startup/health validation and cleanup remain owned by the existing Deploy adapter. `EnvironmentProfile` stays external to the release/generated files; protected bindings are references only and resolved secret values are redacted from failure evidence.
+
+The growing product proofs are intentionally cumulative rather than parallel implementations:
+
+- `tests/product/p19-runtime-config-immutability.test.ts` exercises the supported invocation against an actual generated `runtime-entry.mjs`, proves successful startup/health, repeated clean invocation, immutable release/artifact/generated inputs, external secret resolution and temporary-directory cleanup;
+- `tests/product/p19-runtime-handoff-preflight.test.ts` proves exact canonical predecessor binding, deterministic preflight, stale/substituted/incompatible rejection before side effects, exactly-one Deploy delegation, Deploy-owned diagnostic propagation, no partial success evidence and repeatable fail-closed behavior.
+
+For a successful invocation, `RuntimeMaterializationInvocationResult.publishedReleaseRef`, `.artifactHash` and `.deploymentId` are derived from the same validated canonical `DeploymentRecord`/`ReleaseArtifact` lineage used for Deploy. The returned Deploy evidence must report a valid runtime health result for the compatible runtime/environment profile. Equivalent clean invocations are expected to be deterministic in identity/evidence portions while process-specific ephemeral values such as a temporary working directory or bound port are not stable identity and are cleaned after execution.
+
+Representative failures remain fail-closed: artifact/payload mismatch, stale deployment predecessor, incompatible runtime/environment, invalid generated path/entrypoint, failed migration or secret resolution, startup/health/state failure and timeout do not become partial success and do not create a second lifecycle authority in the handoff layer.
+
 ## Deliberate boundaries
 
-This bootstrap performs no runtime launch, real publication/deployment execution, persistence, database access, network/service provisioning, telemetry service, production UI, Decision Boundary change, or Builder/Runtime topology change. Canonical M15 human-decision remains business authority. WBS 19.2.2+ is not implied or authorized by this command.
+The initial supported runtime execution topology is the existing local-process Deploy adapter only. WBS 19.2.2 does not establish production supervision, a persistent process manager, autonomous continuity/restoration, upgrade/rollback, Builder-owned Runtime authority, a new deployment topology, Decision Boundary changes, or WBS 19.2.3 behavior. Canonical M15 human-decision remains business authority.
