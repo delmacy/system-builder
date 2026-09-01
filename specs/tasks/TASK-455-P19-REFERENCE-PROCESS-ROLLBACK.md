@@ -39,8 +39,20 @@ validation:
 # Objective
 Restore the exact retained predecessor release of the reference journey using existing rollback/reconstruction authority.
 
+# Context
+TASK-454 promotes compatible B while retaining exact canonical A under existing last-known-good semantics. The representative journey must now prove restoration of that retained A artifact and lineage rather than regeneration or identity approximation.
+
+# Current behavior
+Existing Release/Deploy continuity primitives already support exact retained predecessor reconstruction and same-host rollback semantics. This TASK applies those owners to the representative A -> B -> A journey without creating a rollback service or parallel runtime owner.
+
 # Required change
 Exercise canonical A -> B -> exact A continuity over the reference-process lineage and existing same-host owners. The restored A must be the retained immutable artifact/lineage, not a regenerated approximation.
+
+# Inputs / contracts
+TASK-454 exact canonical A/B ReleaseArtifact/PublishedRelease and active deployment lineage, external EnvironmentProfile/secret bindings, plus existing Release retention and Deploy rollback/reconstruction semantics.
+
+# Outputs / contracts
+Focused evidence that exact retained A is restored healthy with original process/project/release/artifact lineage after B; no synthetic release, artifact mutation, new rollback authority or public contract.
 
 # Acceptance criteria
 - rollback targets exact canonical predecessor ReleaseArtifact/PublishedRelease identity;
@@ -52,3 +64,9 @@ Exercise canonical A -> B -> exact A continuity over the reference-process linea
 
 # Non-goals
 General rollback service, production supervisor/control plane, fleet history, artifact mutation, new public contract or WBS 19.3.2+.
+
+# Evidence expected
+Focused product/heavy proof of exact A restoration, original lineage correlation, external protected-value handling, stale/substituted/incompatible-environment fail-closed behavior, last-known-good preservation and repeat-request identity stability, plus declared validations and exact-head CI gates.
+
+# Escalation
+Stop if exact predecessor restoration requires a new rollback authority, artifact mutation/regeneration, public contract or production supervision topology beyond existing Release/Deploy ownership.

@@ -39,8 +39,20 @@ validation:
 # Objective
 Correlate the same canonical reference-process lineage into local and optional Observe evidence without making telemetry runtime authority.
 
+# Context
+TASK-452 produces actual generated-runtime state and health bound to the representative release/deployment lineage. The next bounded step is to carry those canonical identifiers into existing local and optional Observe evidence while preserving observability optionality.
+
+# Current behavior
+Observe already supports deterministic local evidence and optional publication with fail-open availability semantics established by prior P19 continuity proofs. This TASK must reuse those contracts rather than infer identity from log text or turn telemetry into lifecycle authority.
+
 # Required change
 Reuse existing Observe intake/publication contracts and the runtime/deployment evidence produced by TASK-452. Preserve canonical process/release/artifact/deployment/runtime/environment identifiers and deterministic ordering; do not reconstruct identity from log text or test aliases.
+
+# Inputs / contracts
+TASK-452 DeploymentRecord/runtime health evidence and canonical process/release/artifact/environment lineage, plus existing Observe intake/publication and local evidence semantics.
+
+# Outputs / contracts
+Deterministic correlated local/optional Observe evidence for the representative journey; no new observability protocol, runtime authority, identity scheme or public contract.
 
 # Acceptance criteria
 - Publish/Deploy/Runtime/Observe evidence correlates by canonical identifiers/refs;
@@ -52,3 +64,9 @@ Reuse existing Observe intake/publication contracts and the runtime/deployment e
 
 # Non-goals
 New observability protocol, monitoring SLA, control plane, fleet semantics, public contract expansion or WBS 19.3.2+.
+
+# Evidence expected
+Focused proof of canonical correlation, deterministic local evidence, duplicate/reordered handling, fail-open unavailable publication, stale/substituted/malformed rejection and protected-value non-disclosure, plus declared validations and exact-head CI gates.
+
+# Escalation
+Stop if correlation requires a new observability/public contract, Runtime authority change, reverse Runtime->Builder dependency or topology beyond existing Observe ownership.

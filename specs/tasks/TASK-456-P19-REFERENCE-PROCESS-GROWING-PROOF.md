@@ -45,8 +45,20 @@ validation:
 # Objective
 Close WBS 19.3.1 with one auditable growing proof of the complete representative product journey and same-host update/rollback continuity.
 
+# Context
+TASK-450..455 progressively establish the representative baseline, canonical publication, actual deployment/runtime state, Observe correlation, compatible B activation and exact A restoration. Closure requires one auditable composition showing these are one supported product journey rather than isolated fixtures.
+
+# Current behavior
+The repository already contains the integrated P19 primitives and predecessor-focused proofs needed for each boundary. What remains in this Sprint is to compose their canonical outputs through real owners/persistence paths and document only the behavior proven by that composition.
+
 # Required change
 Compose TASK-450..455 through supported APIs: representative payload/process -> generated project -> publish -> deploy -> actual runtime state/health -> Observe correlation -> compatible B -> exact A rollback. Prefer actual owners and persistence paths over mocks/fixtures that bypass the product boundary. Add only bounded operator documentation for behavior proven by the journey.
+
+# Inputs / contracts
+TASK-450..455 canonical outputs, existing factory/Compiler/Release/Deploy/Runtime/Observe contracts, integrated P19 autonomy/materialization/continuity evidence, ADR-0002 and ADR-0007.
+
+# Outputs / contracts
+One growing product/heavy proof and bounded operations documentation for the complete WBS 19.3.1 representative journey; no new public contract, identity scheme, lifecycle/update/rollback owner or Decision Boundary authority.
 
 # Acceptance criteria
 - one supported path covers the complete WBS 19.3.1 journey with exact process/project/release/artifact/deployment/runtime/environment correlation;
@@ -60,6 +72,9 @@ Compose TASK-450..455 through supported APIs: representative payload/process -> 
 
 # Non-goals
 WBS 19.3.2+ unified CLI/smoke-hardening, production/fleet orchestration, customer dogfood semantics, secret backend, new topology or inferred L4.
+
+# Evidence expected
+One auditable growing product/heavy proof composing the exact canonical journey plus cumulative representative negative-path evidence, deterministic/idempotent behavior, protected-value non-disclosure and bounded operator documentation, followed by all declared validations and exact-head Sprint gates.
 
 # Escalation
 Stop if the end-to-end journey exposes a missing capability that cannot be corrected boundedly inside an already authoritative owner without public-contract/topology expansion.

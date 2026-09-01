@@ -40,8 +40,20 @@ validation:
 # Objective
 Carry the frozen representative process through the existing generated-project/compiler path and canonical Release publication with exact immutable lineage.
 
+# Context
+TASK-450 freezes the representative process/version/project baseline. This successor must prove that exact baseline reaches the already-authoritative assembly/Compiler/Release path without synthetic identity stitching or downstream scope expansion.
+
+# Current behavior
+Assembly/factory, Compiler artifact verification and Release publication primitives already exist and are used by integrated P19 proofs. Construction 7 needs a focused composition proving the representative baseline traverses those owners unchanged before Deploy is involved.
+
 # Required change
 Compose existing assembly/factory, Compiler and Release APIs. Prefer proof-only changes when current primitives already support the journey; product code may change only boundedly inside an existing owner to close a demonstrated integration gap.
+
+# Inputs / contracts
+TASK-450 canonical baseline identity/provenance, existing assembly/factory project outputs, Compiler immutable artifact contracts and Release publication/verification APIs.
+
+# Outputs / contracts
+Focused evidence binding the representative process/project lineage to verified Compiler payload and canonical PublishedRelease/ReleaseArtifact identities; no new public contract, schema, identity owner or runtime behavior.
 
 # Acceptance criteria
 - exact baseline process/version identity reaches generated project and Compiler payload;
@@ -53,3 +65,9 @@ Compose existing assembly/factory, Compiler and Release APIs. Prefer proof-only 
 
 # Non-goals
 Deploy/runtime activation, Observe publication, new Release schema, new identity scheme or WBS 19.3.2+.
+
+# Evidence expected
+Focused product proof covering happy-path publication, deterministic/idempotent repetition, stale/substituted identity or artifact rejection and protected/runtime-state non-disclosure, plus declared validations and exact-head CI gates.
+
+# Escalation
+Stop if publication of the representative baseline requires a new public contract, identity authority, topology or behavior outside existing Assembly/Compiler/Release owners.
