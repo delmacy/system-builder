@@ -25,13 +25,14 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - Build / Dependency Graph / Reproducibility: `G2-FINDING-BUILD-11..16`.
 - Artifact / Release / SBOM / Provenance: `G2-FINDING-ARSP-11..16`.
 - Deployment / Environment / Runtime: `G2-FINDING-DER-11..16`.
+- Observability / Operations / Incident: `G2-FINDING-OOI-11..16`.
 
-## Observability / Operations / Incident — revisit 1
-- G2-FINDING-OOI-11 — Telemetry Signal Identity and Observation/Export-attempt Identity Are Distinct
-- G2-FINDING-OOI-12 — Alert/Detection Identity and Incident Identity Are Distinct
-- G2-FINDING-OOI-13 — Silence/Inhibition/Suppression/Grouping Change Disposition, Not Evidence Truth
-- G2-FINDING-OOI-14 — SLO/Error-budget Evidence Is Revision, Window and Freshness Scoped
-- G2-FINDING-OOI-15 — Remediation Authority, Attempt and Result Require Separate Governed Lineage
-- G2-FINDING-OOI-16 — Backend Replacement Preserves Semantic Correlation but Creates New Evidence Lineage
+## Extension / Plugin / Marketplace Architecture — revisit 1
+- G2-FINDING-EXT-11 — Marketplace Publication, Artifact Verification and Runtime Admission Are Distinct Decisions
+- G2-FINDING-EXT-12 — Declared Compatibility and Resolved Extension Wiring Are Distinct Evidence
+- G2-FINDING-EXT-13 — Disable/Deactivate and Uninstall/Owned-State Retirement Are Distinct Lifecycles
+- G2-FINDING-EXT-14 — Dependency Trust Propagation Is Policy, Not a Universal Consequence of Dependency Edges
+- G2-FINDING-EXT-15 — Runtime Placement/Process Separation Does Not Prove Privilege Isolation
+- G2-FINDING-EXT-16 — Extension API Compatibility and Extension-owned State Migration Are Separate Proof Obligations
 
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
