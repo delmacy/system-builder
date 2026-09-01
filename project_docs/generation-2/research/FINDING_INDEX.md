@@ -59,4 +59,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-IAF-15 — Authentication Assurance Belongs to the Authentication Event
 - G2-FINDING-IAF-16 — Human and Workload Identity Share Trust Primitives, Not Credential Lifecycles
 
+## Authorization / Policy / Organization / Multitenancy — revisit 1
+- G2-FINDING-AUTH-11 — Authorization Freshness Is a Decision Requirement, Not a Generic Cache Setting
+- G2-FINDING-AUTH-12 — Revocation State Change and Revocation Propagation Are Separate Evidence
+- G2-FINDING-AUTH-13 — Policy Revision Does Not Identify Mutable Authorization Data State
+- G2-FINDING-AUTH-14 — Tenant Context Is Not Tenant Isolation Proof
+- G2-FINDING-AUTH-15 — Delegated Administration Is Scoped Authorization Over Administrative Resources
+- G2-FINDING-AUTH-16 — Decision Evidence and Enforcement Application Evidence Are Distinct
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`; compact index sections do not revoke earlier findings.
