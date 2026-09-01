@@ -117,4 +117,17 @@
 - G2-FINDING-STORAGE-09 — Storage Binding Evidence Must Preserve Logical-to-Physical Lineage
 - G2-FINDING-STORAGE-10 — Runtime Autonomy Requires Runtime-Resolvable Storage Bindings
 
+## Notifications / Events / Messaging
+
+- G2-FINDING-NEM-01 — Event Identity and Delivery Identity Must Be Separate
+- G2-FINDING-NEM-02 — Event Is Fact; Message Is Delivery Vehicle
+- G2-FINDING-NEM-03 — Delivery Guarantees Are Scoped Capabilities, Not Universal Booleans
+- G2-FINDING-NEM-04 — Subscription/Consumer State Is a Separate Lifecycle
+- G2-FINDING-NEM-05 — Deduplication Requires Qualified Identity Plus Scope/Window
+- G2-FINDING-NEM-06 — Retry, Dead-Letter, Redrive and Replay Are Distinct Recovery Semantics
+- G2-FINDING-NEM-07 — Delivery Evidence Must Preserve Semantic-to-Provider Lineage
+- G2-FINDING-NEM-08 — Notification Intent and Notification Delivery Must Be Separate
+- G2-FINDING-NEM-09 — Preference and Mandatory-Delivery Policy Need Explicit Precedence
+- G2-FINDING-NEM-10 — Runtime Autonomy Includes Messaging and Notification Continuity
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
