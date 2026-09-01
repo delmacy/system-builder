@@ -2,12 +2,12 @@
 
 Promotion requires multi-representative evidence or a clear structural System Builder need. Candidates are not architecture decisions.
 
-Existing candidates through `G2-CAPABILITY-CANDIDATE-SBOM-COMPLETENESS-EVIDENCE` remain CANDIDATE with their prior classifications and promotion conditions recorded in pipeline history and capability dossiers.
+Existing candidates through `G2-CAPABILITY-CANDIDATE-DEPLOYMENT-RECOVERY-CONTRACT` remain CANDIDATE with their prior classifications and promotion conditions recorded in pipeline history and capability dossiers.
 
 | Candidate | Class | Evidence origin | Status | Promotion condition |
 |---|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-DEPLOYMENT-RECONCILIATION-EVIDENCE | CROSS_CUTTING | Kubernetes + Argo CD + OpenTofu + Nomad | CANDIDATE | Recur in Observability/Governance/Reconciliation and remain distinct from generic deployment history. |
-| G2-CAPABILITY-CANDIDATE-RUNTIME-ACTIVATION-PROMOTION | CROSS_CUTTING | Cloud Run + Nomad + Vercel + SB DeploymentActivationDecision | CANDIDATE | Recur in Lifecycle/Provider Negotiation and prove ownership distinct from release publication. |
-| G2-CAPABILITY-CANDIDATE-DEPLOYMENT-RECOVERY-CONTRACT | CROSS_CUTTING | Kubernetes rollback + Nomad auto-revert + Cloud Run traffic rollback | CANDIDATE | Recur in Security/Failure Recovery and Lifecycle with explicit safety/precondition semantics. |
+| G2-CAPABILITY-CANDIDATE-TELEMETRY-EVIDENCE-QUALITY | CROSS_CUTTING | OpenTelemetry + Prometheus + Grafana | CANDIDATE | Recur in Governance/Security/Reconciliation and remain distinct from generic provenance. |
+| G2-CAPABILITY-CANDIDATE-OPERATOR-ACTION-AUTHORITY-EVIDENCE | CROSS_CUTTING | PagerDuty + Grafana + SB Observe boundary | CANDIDATE | Recur in Governance/Authorization/Reconciliation with explicit authority and audit semantics. |
+| G2-CAPABILITY-CANDIDATE-SERVICE-OBJECTIVE-POLICY | CROSS_CUTTING | Google SRE SLI/SLO/error-budget model + Prometheus derived indicators | CANDIDATE | Prove structural SB product need beyond observability feature parity. |
 
 This compact register view does not revoke or supersede earlier candidates; `RESEARCH_PIPELINE_STATE.json` is the authoritative candidate inventory.
