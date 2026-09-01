@@ -32,4 +32,15 @@ States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`.
 | Clerk | NOT_REVIEWED | N_A | PARTIAL | N_A | N_A | DEEP | Explicit authentication/session distinction, pending session tasks and organization context. |
 | ZITADEL | NOT_REVIEWED | N_A | N_A | N_A | PARTIAL | DEEP | Instance- and organization-scoped identity providers, human/machine auth and delegated IdP self-service. |
 
+## Authorization / Policy / Organization / Multitenancy coverage
+
+| Representative | Coverage | Why this pass matters | Revisit focus |
+|---|---|---|---|
+| Open Policy Agent (OPA) | DEEP | Distributed decision engine, signed/versioned bundles, local enforcement topology, decision IDs/logs/status/discovery. | Partial evaluation/Wasm, external-data staleness and explicit fail-open/fail-closed deployment semantics. |
+| Cedar / Amazon Verified Permissions | DEEP | Typed principal/action/resource/context contract, schema validation and application-policy separation. | Conflict/default semantics, template lifecycle and portability limits between Cedar and managed AVP. |
+| Google Zanzibar | PARTIAL | Relationship model and external-consistency requirement are foundational conceptual evidence. | Zookies/consistency tokens, write/read semantics and what is actually worth generalizing below Google scale. |
+| OpenFGA | DEEP | Immutable model IDs, relationship tuples, contextual tuples, organization-context authorization and conditions. | Change API/provenance, consistency semantics and migration of in-use models. |
+| Keycloak Authorization Services / Organizations | DEEP | Resource/scope/policy/permission separation, PEP/PIP, mixed RBAC/ABAC/context, UMA delegation and per-organization admin authority. | Decision evidence/versioning and how organization admin boundaries interact with generated-system authority. |
+| Microsoft Entra / Azure multitenancy guidance | PARTIAL | Useful contrast: tenant isolation spans control plane/data plane and is not just authorization context. | Entra-specific application authorization and cross-tenant administration patterns. |
+
 This ledger expands horizontally as capability dossiers are created and vertically as additional representatives are discovered.
