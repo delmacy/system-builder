@@ -1,7 +1,7 @@
 ---
 id: TASK-454
 title: Activate compatible same-host reference successor
-status: blocked
+status: completed
 priority: 454
 milestone: M19
 model_tier: architecture
@@ -68,6 +68,13 @@ Fleet rollout, remote orchestration, generalized migrations, new update authorit
 
 # Evidence expected
 Focused product/heavy proof of canonical B preparation/activation, deterministic repetition where promised, exact A retention and representative stale/substituted/incompatible/environment/migration/secret/startup/health rejection before unsafe promotion, plus declared validations and exact-head CI gates.
+
+# Execution evidence
+- Added `tests/product/p19-reference-process-update.test.ts` over the existing `SingleHostActiveRuntimeOrchestrator`, canonical Compiler artifact payload and Release registry.
+- The reference A→B proof preserves exact predecessor deployment identity until atomic activation, confirms B becomes the active healthy deployment in the same external environment, and verifies the retired A working directory is cleaned.
+- The adversarial proof rejects a stale successor and a startup-invalid candidate while preserving the exact last-known-good B and `UP` health under the existing Deploy authority.
+- Existing cumulative P19 Deploy/product gates remain authoritative for environment, migration, secret, startup and health failure classes; this TASK specializes the representative A/B path without weakening those gates or adding a second lifecycle/update owner.
+- No Runtime-core, application, public-contract, Decision Boundary, control-plane or WBS 19.3.2+ behavior was added.
 
 # Escalation
 Stop if compatible successor activation requires a new update/lifecycle authority, public contract, generalized migration framework or topology beyond existing Release/Deploy owners.
