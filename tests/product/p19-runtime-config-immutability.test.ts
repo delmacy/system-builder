@@ -302,12 +302,14 @@ test("TASK-444 supported runtime stays Builder-independent throughout the active
   if (
     typeof published !== "object"
     || published === null
-    || !("publishedReleaseRef" in published)
-    || typeof published.publishedReleaseRef !== "string"
+    || !("releaseId" in published)
+    || typeof published.releaseId !== "string"
+    || !("version" in published)
+    || typeof published.version !== "string"
   ) {
-    throw new Error("canonical bootstrap publishedRelease must expose publishedReleaseRef");
+    throw new Error("canonical bootstrap publishedRelease must expose releaseId/version");
   }
-  const publishedReleaseRef = published.publishedReleaseRef;
+  const publishedReleaseRef = `${published.releaseId}@${published.version}`;
 
   const deployment = input.bootstrap.result.deploymentRecord;
   if (
@@ -315,10 +317,13 @@ test("TASK-444 supported runtime stays Builder-independent throughout the active
     || deployment === null
     || !("deploymentId" in deployment)
     || typeof deployment.deploymentId !== "string"
+    || !("publishedReleaseRef" in deployment)
+    || typeof deployment.publishedReleaseRef !== "string"
   ) {
-    throw new Error("canonical bootstrap deploymentRecord must expose deploymentId");
+    throw new Error("canonical bootstrap deploymentRecord must expose deploymentId/publishedReleaseRef");
   }
   const deploymentId = deployment.deploymentId;
+  assert.equal(deployment.publishedReleaseRef, publishedReleaseRef);
   const generatedPayload = input.generatedFiles.map((file) => file.content).join("\n");
 
   assert.equal(generatedPayload.includes("SYSTEM_BUILDER_BUILDER_URL"), false);
