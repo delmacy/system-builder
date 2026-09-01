@@ -10,12 +10,12 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 4,
-    "hourly_runs_completed": 28,
+    "capabilities_revisited_in_active_cycle": 5,
+    "hourly_runs_completed": 29,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 86,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-EFFECT-GUARANTEE-QUALIFICATION","G2-CAPABILITY-CANDIDATE-RECOVERY-ATTEMPT-LINEAGE","G2-CAPABILITY-CANDIDATE-SEMANTIC-MIGRATION-PROOF"],
+    "capability_candidate_count": 89,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-IDEMPOTENCY-CORRELATION-CONTRACT","G2-CAPABILITY-CANDIDATE-PARTIAL-EFFECT-OUTCOME-EVIDENCE","G2-CAPABILITY-CANDIDATE-RETRY-OWNERSHIP-DECLARATION"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
@@ -23,13 +23,14 @@
       "Universal Capability Architecture": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-UCA-11","G2-FINDING-UCA-12","G2-FINDING-UCA-13","G2-FINDING-UCA-14","G2-FINDING-UCA-15","G2-FINDING-UCA-16"]},
       "Process & Application Modeling": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-PAM-11","G2-FINDING-PAM-12","G2-FINDING-PAM-13","G2-FINDING-PAM-14","G2-FINDING-PAM-15","G2-FINDING-PAM-16"]},
       "UI / Generated Experience / Low-code Builder": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-UI-11","G2-FINDING-UI-12","G2-FINDING-UI-13","G2-FINDING-UI-14","G2-FINDING-UI-15","G2-FINDING-UI-16"]},
-      "Workflow & Durable Execution": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-WDE-11","G2-FINDING-WDE-12","G2-FINDING-WDE-13","G2-FINDING-WDE-14","G2-FINDING-WDE-15","G2-FINDING-WDE-16"]}
+      "Workflow & Durable Execution": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-WDE-11","G2-FINDING-WDE-12","G2-FINDING-WDE-13","G2-FINDING-WDE-14","G2-FINDING-WDE-15","G2-FINDING-WDE-16"]},
+      "Integration & Automation": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-IA-11","G2-FINDING-IA-12","G2-FINDING-IA-13","G2-FINDING-IA-14","G2-FINDING-IA-15","G2-FINDING-IA-16"]}
     },
     "representative_coverage": {
-      "Workflow & Durable Execution": {"Camunda 8 migration/modification":"DEEP","AWS Step Functions versions/aliases/redrive":"DEEP","DBOS workflows/transactions/recovery":"DEEP","Restate":"DEEP","Temporal":"DEEP","Azure Durable Functions / Durable Task":"DEEP"}
+      "Integration & Automation": {"Apache Kafka / Kafka Connect":"DEEP","Dapr Pub/Sub":"DEEP","AWS EventBridge Pipes":"DEEP","Azure Logic Apps":"DEEP","n8n":"DEEP","MuleSoft Anypoint":"DEEP","Zapier Platform":"DEEP","Make":"DEEP"}
     },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 264
+    "finding_count": 270
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -46,8 +47,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Workflow & Durable Execution — revisit cycle 2 pass 1 complete. Camunda, Step Functions, DBOS and retained Restate/Temporal/Durable Task evidence refined effect-guarantee scope, recovery-attempt lineage, migration proof and recovery ownership. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/WORKFLOW_DURABLE_EXECUTION.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Integration & Automation, as the next oldest non-saturated capability after Workflow & Durable Execution. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; specifically test delivery/effect guarantee qualification, idempotency/correlation, orchestration-versus-integration ownership, external side-effect evidence, provider replacement and failure semantics. Update explicit revisit/no-material counters, and do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T15:05:53-03:00"
+  "current_focus": "Integration & Automation — revisit cycle 2 pass 1 complete. Kafka/Kafka Connect, Dapr Pub/Sub, EventBridge Pipes and Azure Logic Apps refined boundary-qualified delivery/effect guarantees, business correlation/idempotency identity, per-item partial-effect evidence, retry ownership and provider-replacement operational semantics. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/INTEGRATION_AUTOMATION.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Identity / Authentication / Federation, as the next oldest non-saturated capability after Integration & Automation. Target only unresolved questions/contradictions using 3–8 stronger or alternative representatives; specifically test subject identity versus credential/session/token identity, issuer/provider/tenant identity, federation metadata lifecycle and trust evidence, assurance/authentication context, session/token revocation and freshness, provider replacement/migration, binding health and generated-runtime autonomy. Update explicit revisit/no-material counters, and do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T15:34:00-03:00"
 }
