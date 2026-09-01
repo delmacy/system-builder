@@ -1,200 +1,145 @@
 # Generation 2 — Workflow & Durable Execution
 
-Status: first deep pass; NOT SATURATED.
+Status: revisit cycle 2 pass 1 complete; NOT SATURATED.
 
 ## Research question
 
-Which durable-workflow semantics are universal enough to inform Generation 2, and which are implementation-specific mechanisms that must remain behind a provider/runtime boundary? This pass focuses on execution identity, durable progress, replay/redrive, failure semantics, versioning, worker boundaries, external events, observability, migration and portability.
+Which minimum portable durability contract can be satisfied by materially different providers without reducing the contract to the lowest common denominator, especially for versioned in-flight executions, recovery, migration and effect guarantees?
 
 ## Representatives
 
-1. **Temporal** — canonical history/replay durable execution; selected for long-lived code-first workflows and worker/service separation.
-2. **Camunda 8 / Zeebe** — BPMN/process-engine lineage; selected for explicit process-definition identity/version, jobs, incidents and live instance migration.
-3. **AWS Step Functions** — managed state-machine model; selected for immutable execution association to definition version/alias and selective redrive semantics.
-4. **Azure Durable Functions / Durable Task** — replay-based orchestrator-as-code; selected for explicit nondeterminism/versioning constraints and backend-agnostic orchestration version isolation.
-5. **Restate** — newer durable-execution runtime; selected as a useful contrast because journals, durable handlers, state, promises, reliable RPC and service deployment are exposed as general backend primitives rather than only workflow DSL constructs.
+First-pass evidence from Temporal, Camunda 8, AWS Step Functions, Azure Durable Functions/Durable Task and Restate remains authoritative. Revisit 1 targets unresolved semantics with four strong representatives:
 
-## Evidence/source ledger
+1. **Camunda 8** — live instance migration and modification, including explicit mapping constraints and operator-created unreachable states.
+2. **AWS Step Functions** — execution association with versions/aliases and redrive identity/history semantics.
+3. **DBOS** — durable workflows plus transaction-coupled exactly-once database effects, contrasting step-level at-least-once behavior.
+4. **Restate** — retained from first pass as the journal/idempotency/durable-promise contrast; no first-pass finding is revoked.
 
-| Representative | Current evidence | Architectural claim used |
+## Evidence/source ledger — revisit 1
+
+| Representative | Source of truth | Architectural evidence |
 |---|---|---|
-| Temporal | https://docs.temporal.io/ | Temporal positions Workflow Executions as crash-resilient durable application executions that resume after process/network/infrastructure failure; exact history/replay details require a later Temporal-specific revisit. |
-| Camunda 8 | https://docs.camunda.io/docs/components/concepts/incidents/ | Process instances have identity tied to a process definition/version; exhausted job retries can become incidents requiring repair/resolution before continuation. |
-| Camunda 8 | https://docs.camunda.io/docs/components/concepts/job-workers/ | Workers activate jobs and explicitly complete/fail them; retry counts/backoff are workflow-runtime state, not hidden application exceptions. |
-| Camunda 8 | https://docs.camunda.io/docs/components/concepts/process-instance-migration/ | Running instances may migrate to a new process version subject to element compatibility; existing jobs/mappings are not magically recreated. |
-| AWS Step Functions | https://docs.aws.amazon.com/step-functions/latest/dg/redrive-executions.html | Redrive resumes failed Standard Workflow executions from unsuccessful work while preserving successful history/results and original definition association. |
-| AWS Step Functions | https://docs.aws.amazon.com/step-functions/latest/dg/execution-alias-version-associate.html | Execution identity can be explicitly associated with a state-machine version/alias at start; version-level metrics make rollout/rollback observable. |
-| Azure Durable Task | https://learn.microsoft.com/en-us/azure/durable-task/common/durable-orchestration-versioning | Replay requires deterministic orchestration logic; in-flight instances are permanently version-associated and versioning isolates old/new orchestration behavior. |
-| Azure Durable Functions | https://learn.microsoft.com/en-us/azure/azure-functions/durable-functions/durable-functions-versioning | Changing durable calls/order can produce nondeterminism when history replay no longer matches orchestrator code. |
-| Restate | https://docs.restate.dev/foundations/key-concepts | Each invocation has a lifecycle; operations/results are journaled so recovery replays completed work and resumes incomplete work. |
-| Restate | https://docs.restate.dev/tour/workflows | Workflow identity is key-based; durable steps, durable promises, external events and queryable execution state are explicit primitives. |
-| Restate | https://docs.restate.dev/services/configuration | Workflow/journal/idempotency retention are independently configurable, demonstrating that execution durability and evidence retention are distinct lifecycle dimensions. |
+| Camunda 8 | https://docs.camunda.io/docs/components/concepts/process-instance-migration/ | Migration requires an explicit source→target mapping plan. Active jobs/expressions/input mappings are not automatically recreated or reevaluated; migration can produce semantically unintended states, so successful command execution is not semantic correctness proof. |
+| Camunda 8 | https://docs.camunda.io/docs/components/operate/userguide/process-instance-modification/ | Operator repair can skip/repeat activities and may create states unreachable by normal execution; modification authority therefore differs from ordinary workflow execution authority. |
+| AWS Step Functions | https://docs.aws.amazon.com/step-functions/latest/dg/execution-alias-version-associate.html | Execution association is determined at start: a version-qualified start pins that version, while an alias-associated execution records alias plus selected version. |
+| AWS Step Functions | https://docs.aws.amazon.com/step-functions/latest/dg/redrive-executions.html | Redrive preserves successful history/results, original execution ARN and original version/alias association while rescheduling unsuccessful work. |
+| DBOS | https://docs.dbos.dev/typescript/tutorials/workflow-tutorial | Workflow recovery resumes from completed steps; a step can be attempted at least once but is not re-executed after durable completion. |
+| DBOS | https://docs.dbos.dev/golang/tutorials/transaction-tutorial | Application writes plus DBOS durability record can commit atomically in a datasource transaction, yielding an exactly-once transaction guarantee stronger than an ordinary durable step. |
+| DBOS | https://docs.dbos.dev/production/workflow-recovery | Distributed self-hosted recovery requires executor identity and ownership/recovery coordination; durable state alone does not eliminate recovery-leadership semantics. |
+| Restate | first-pass dossier evidence remains authoritative | Journal, durable handler/state/promise and retention evidence remains useful for cross-checking the separation of execution truth, effects and evidence retention. |
 
-## Capability/primitives extracted
+## Source of truth / identity / lifecycle
 
-### Source of truth
+The revisit strengthens a three-way truth separation:
 
-A durable workflow needs at least two truths that must not be collapsed:
+`definition/revision truth → execution/history truth → effect-commit truth`.
 
-- **definition truth** — what behavior/version is intended;
-- **execution truth** — what an individual execution has already observed/completed.
+A workflow history can prove what the orchestrator durably recorded without universally proving that an external side effect occurred exactly once. DBOS demonstrates why the distinction matters: transaction-coupled application writes can obtain a stronger guarantee than a generic step because the business write and durability record share one atomic commit boundary.
 
-Temporal/Durable Task/Restate express execution truth through durable history/journal; Step Functions exposes execution history and pins redrive to the original definition; Camunda represents a process instance against a deployed process definition/version.
+Execution identity also needs an **attempt/recovery lineage** without pretending a redrive or recovered executor is a brand-new business execution. Step Functions preserves the same execution identity on redrive while appending new execution events; this is different from starting a replacement execution.
 
-Candidate universal shape:
+## Versioning and migration
 
-`WorkflowDefinitionRef + WorkflowExecutionIdentity + ExecutionHistory/Evidence + CurrentExecutionState`.
+Definition pinning and live migration are distinct lifecycle operations. Step Functions shows immutable association/redrive behavior; Camunda shows explicit in-flight migration with element mappings. A portable contract therefore cannot require all providers to support live migration. It can require providers to declare whether an execution is pinned, migratable, restart-only or replaceable-with-lineage.
 
-### Identity
+A successful migration API response is only **mechanical migration evidence**. Camunda explicitly warns that valid mappings can still create unintended process states and that active job properties may retain pre-migration values. Semantic migration proof must therefore be a separate obligation.
 
-Stable execution identity is universal. It must survive worker restarts and must be distinct from definition identity. Definition identity should include version/revision semantics; execution identity should preserve lineage to the exact definition/runtime contract used when the execution began.
+## Failure semantics / recovery
 
-### Lifecycle
+Recovery needs at least four independently declared dimensions:
 
-Recurring lifecycle stages across representatives:
+- **coordination recovery** — resume orchestration from durable truth;
+- **effect retry guarantee** — at-most-once / at-least-once / provider-specific qualified semantics;
+- **atomic effect guarantee** — only where a shared transaction/idempotency boundary actually proves it;
+- **recovery ownership** — which executor/worker may resume abandoned work and how duplicate recovery is prevented.
 
-`DEFINED -> DEPLOYED/REGISTERED -> STARTED -> RUNNING/WAITING -> RETRYING/INCIDENT/FAILED -> RECOVERED/REDRIVEN/MIGRATED -> COMPLETED/CANCELLED/TERMINATED`.
+The universal model must not label a workflow `exactly once` without scoping the claim to a particular effect boundary.
 
-Not every provider supports every state. Generation 2 should not force provider-specific names into the portable model; it should define portable lifecycle classes plus provider evidence.
+## Extensibility / provider boundaries / portability
 
-### Versioning
+Portable workflow semantics should express requirements and claims, not provider algorithms:
 
-Versioning is not merely deployment metadata. It is an execution-safety constraint.
+`ExecutionDefinitionBinding + DurableWaitRequirement + EffectRequirement + RecoveryRequirement + MigrationCapability + EvidenceRequirement`.
 
-- Step Functions can pin executions to a version/alias and redrive with the original association.
-- Durable Task permanently associates orchestration instances with versions and rejects replay divergence.
-- Camunda migration makes version transition explicit rather than assuming old instances adopt new behavior.
+Provider bindings may implement these through history replay, journals, state-machine events, database transactions, worker leases or other mechanisms. Provider replacement is safe only when the new provider satisfies the required semantic profile; syntax translation alone is insufficient.
 
-Universal primitive candidate: `ExecutionDefinitionBinding` containing immutable/pinned definition identity plus compatibility/migration evidence.
+## Governance / observability
 
-### Failure semantics
+Migration, modification, redrive and recovery takeover are governed mutations. Their evidence should identify actor/authority, source execution revision, requested operation, resulting lineage and proof status. Operator modification is particularly sensitive because it can intentionally create a state that ordinary execution could never reach.
 
-At least four failure classes recur:
+History/journal remains authoritative execution evidence, while logs/traces are projections. Effect evidence can require stronger provider-specific proof than history alone.
 
-1. transient retryable activity/job failure;
-2. terminal/business failure;
-3. orchestration/definition incompatibility or nondeterminism;
-4. operator-repairable incident/stuck execution.
+## Product-specific mechanism vs universal primitive
 
-Retry, compensation, incident repair, redrive and migration are different operations and should not be flattened into a single `retry` primitive.
+Do not universalize Camunda element-mapping rules, Step Functions ARN/alias semantics, DBOS database layout, Restate journal protocol or any Temporal SDK replay mechanism. Generalize only the semantic claims they expose: pinning, migration support, recovery ownership, effect guarantee scope and evidence lineage.
 
-### Extensibility and provider boundaries
+## Convergent/divergent patterns
 
-Worker/activity/service code should remain outside portable workflow semantics wherever possible. The portable layer should describe required effects/capabilities and durable coordination semantics; concrete workers, Lambda/functions, SDK handlers, BPMN job types or activity implementations are provider/runtime bindings.
+**Convergent:** stable execution identity; durable completed progress; explicit definition association; governed recovery; durable waits; effect boundaries.
 
-### Governance
+**Divergent:** whether in-flight migration exists; whether redrive preserves the same execution identity; exactly-once scope; recovery ownership algorithm; history retention; worker protocol. These divergences should become capability declarations, not lowest-common-denominator behavior.
 
-A safe durable system needs explicit control over definition publication, version association, migration/redrive authority, cancellation/termination, incident repair and retention. Operator mutation is governance, not just debugging.
+## Subcapabilities refined
 
-### Observability
+- execution-definition binding;
+- recovery-attempt lineage;
+- effect guarantee qualification;
+- recovery ownership/lease semantics;
+- in-flight migration capability;
+- semantic migration proof;
+- operator repair authority/evidence;
+- durable wait and external-event correlation.
 
-Execution history/journal is stronger than logs: it is part of execution correctness and recovery. Metrics/traces/logs remain projections. Restate explicitly exports journal-derived OpenTelemetry traces; Step Functions provides execution/version metrics; Camunda exposes incidents and process-instance operational state.
+## Comparison with fresh main
 
-### Portability and lock-in
-
-The main portability risk is not syntax alone. It is **semantic coupling to recovery mechanics**: replay rules, timer/event semantics, retry behavior, worker protocol, migration support, history limits/retention and provider-owned state. A portable definition therefore needs declared durability requirements rather than pretending all engines offer equivalent guarantees.
-
-## Product-specific mechanisms not to copy automatically
-
-- Temporal Event History command/event protocol and SDK-specific determinism rules.
-- BPMN/Zeebe element/job representation as the universal SB workflow ontology.
-- Step Functions Amazon States Language, ARN/version/alias model and service-integration catalog.
-- Durable Functions function-host/storage-provider conventions and language-specific replay APIs.
-- Restate Virtual Objects, handler/context taxonomy or reverse-proxy/server topology.
-
-These are valuable reference implementations, not automatic Generation 2 primitives.
-
-## Recurring patterns
-
-1. **Definition identity and execution identity are separate.**
-2. **Completed progress is durable evidence, not ephemeral worker memory.**
-3. **Recovery resumes from durable execution truth instead of naively restarting everything.**
-4. **Long-lived executions require explicit evolution/version semantics.**
-5. **Side effects require boundaries: activities/jobs/durable steps distinguish replayable coordination from effectful work.**
-6. **Retry, redrive, migration and compensation are orthogonal recovery operations.**
-7. **External events/timers/human waits must be durable first-class waits.**
-8. **Operator control and observability are part of the execution lifecycle.**
-9. **History/journal retention and business-state retention are separate concerns.**
-10. **Durability guarantees are capabilities that providers must declare, not assumptions the portable model can silently impose.**
-
-## Comparison with System Builder
-
-This pass did not find sufficiently direct fresh-main repository evidence for a concrete SB durable-workflow implementation through repository code search. Therefore no implementation-state claim is made here. Repository archaeology must later determine whether current SB workflow contracts/runtime already separate definition identity, execution identity, effect boundaries, durable history/evidence, version pinning, retry/compensation and provider bindings.
-
-The conceptual fit with the Generation 2 direction is strong: durable execution should likely be modeled as capability requirements fulfilled by native or external execution providers, while preserving a portable workflow/process semantic layer. This remains a hypothesis pending repository validation.
+A fresh-main repository code search for `workflow execution durable retry compensation` returned no direct implementation match in this run. Therefore this revisit makes no new implementation claim. The later `PLANNING_B_SB_CURRENT_STATE_RECONCILIATION` archaeology remains responsible for proving whether current contracts already implement any of these semantics.
 
 ## Architecture-reconciliation hypotheses
 
-- **GENERALIZE** — workflow definition identity and execution identity as separate primitives if current SB conflates them.
-- **HARDEN** — explicit execution-to-definition/version lineage if already present.
-- **PROVIDERIZE** — durable execution engine/runtime mechanics behind declared capability/binding contracts.
-- **GENERALIZE** — recovery taxonomy: retry, redrive/resume, compensation, migration, repair/incident resolution, cancellation/termination.
-- **INTEGRATE** — execution evidence/history as provenance/observability input rather than treating logs as authoritative execution truth.
-- **DEFER** — universal live-instance migration until requirements and provider support are proven.
-- **DO_NOT_BUILD** — provider-specific replay protocol or BPMN/ASL clone as a new SB-internal universal engine unless future reconciliation proves unique value.
+- **GENERALIZE** — represent effect guarantees as qualified claims scoped to an effect boundary, never as an unqualified workflow-wide `exactly once` flag.
+- **HARDEN** — preserve execution identity while recording recovery/redrive attempt lineage where current runtime already has durable execution identity.
+- **PROVIDERIZE** — recovery ownership, replay/journal algorithm and transaction coupling.
+- **GENERALIZE** — migration capability declaration plus separate semantic migration proof obligation.
+- **INTEGRATE** — governed operator repair/migration evidence with architecture/governance/provenance planes.
+- **DEFER** — universal live-instance migration requirement; providers may legitimately declare it unsupported.
+- **DO_NOT_BUILD** — a fake universal exactly-once abstraction over arbitrary external effects.
 
-## Repository validation questions
+## Repository-validation questions
 
-1. Is there a canonical workflow definition contract on fresh main? What owns its identity/version?
-2. Is runtime execution identity persisted separately from definition identity?
-3. Is there authoritative execution history/evidence, or only mutable current state/logs?
-4. Are activities/effects separated from replayable coordination semantics?
-5. Are retry, timeout, compensation and cancellation modeled explicitly and deterministically?
-6. Can an execution be pinned to a definition/provider version?
-7. What happens to in-flight executions when workflow definitions change?
-8. Is there any migration/redrive/repair model?
-9. Are external events/human approvals represented as durable waits?
-10. Are providers replaceable without rewriting workflow business semantics?
-11. Are execution-history retention and business-state retention separate?
-12. Which guarantees are native requirements versus assumptions of a particular runtime?
+1. Does fresh main distinguish workflow execution identity from recovery/redrive attempt lineage?
+2. Can effect guarantees be stated per activity/integration rather than globally?
+3. Is there an atomic coupling boundary between business state and durable execution state anywhere today?
+4. Who owns recovery of abandoned in-flight work, and is that ownership evidenced?
+5. Can a definition change while instances are active, and what pins old executions?
+6. Is migration mechanically validated separately from semantic post-migration proof?
+7. Are operator repair and normal execution governed by different authorities?
+8. Can external providers declare unsupported migration/recovery guarantees without breaking the portable model?
 
-## Possible Symbiotic Proof
+## Symbiotic Proof — refined
 
-A future proof should exercise one portable workflow definition with two execution paths:
+A future proof should run one portable business workflow against two materially different providers. It must prove: stable business execution identity; exact definition binding; durable wait; crash/recovery; a retryable external effect whose guarantee is explicitly qualified; recovery-attempt lineage; and normalized completion evidence. A migration-capable provider should additionally execute a governed in-flight migration and prove post-migration semantic invariants. A provider without live migration must instead declare the capability unsupported and still satisfy the portable workflow contract for new executions. Provider replacement must not silently upgrade the claimed effect guarantee.
 
-### Native path
-Run through the SB-native execution provider; persist stable execution identity, durable wait, retryable effect, external signal, completion evidence and exact definition binding.
+## Stable findings
 
-### External path
-Run equivalent semantics through one external durable provider (for example Temporal/Camunda/Restate depending later architecture decisions) using an explicit provider binding.
+First-pass `G2-FINDING-WDE-01..10` remain authoritative.
 
-### Replaceability
-Swap providers for a new execution without changing business-semantic workflow identity; compare declared capability compatibility and normalized outcome/evidence.
-
-### Portability
-Export/import the portable definition without embedding provider-specific worker identifiers beyond explicit bindings/extensions.
-
-### Governance
-Prove that publish/version, retry/redrive, cancellation, migration/repair and retention actions are authorized and evidence-bearing.
-
-### Runtime autonomy
-After generation/deployment, prove the generated system can continue workflow execution without needing the System Builder control plane, except where an explicitly selected external provider is itself required.
-
-## Normalized findings
-
-- **G2-FINDING-WDE-01 — Definition/Execution Identity Separation.** Durable executions need stable identity distinct from workflow-definition identity/version.
-- **G2-FINDING-WDE-02 — Durable Progress Is Execution Evidence.** Completed progress/history is authoritative recovery input, not merely logs.
-- **G2-FINDING-WDE-03 — Effect Boundary Is Foundational.** Replayable coordination must distinguish non-deterministic/effectful activities, jobs or durable steps.
-- **G2-FINDING-WDE-04 — Execution Version Binding Must Be Explicit.** In-flight execution safety requires immutable or governed association to compatible definition/runtime versions.
-- **G2-FINDING-WDE-05 — Recovery Semantics Are Multidimensional.** Retry, resume/redrive, compensation, repair, migration and cancellation are distinct primitives.
-- **G2-FINDING-WDE-06 — Durable Wait Is a First-Class Primitive.** Timers, signals, callbacks, human approvals and external events must survive process/runtime failure.
-- **G2-FINDING-WDE-07 — Operator Mutation Is Governed Lifecycle.** Incident repair, redrive, migration, cancellation and termination require authority and evidence.
-- **G2-FINDING-WDE-08 — Durability Level Is a Provider Capability.** Portable workflow semantics must declare required guarantees rather than assuming all providers implement the same recovery model.
-- **G2-FINDING-WDE-09 — History Retention and Business State Retention Differ.** Audit/recovery evidence lifetime must be modeled independently from application/workflow state retention.
-- **G2-FINDING-WDE-10 — Runtime Autonomy Must Include In-Flight Work.** Generated-system autonomy is incomplete if long-running workflows need the Builder control plane to resume or recover.
+- **G2-FINDING-WDE-11 — Effect Guarantee Must Be Scoped.** Durable orchestration history does not universally prove exactly-once external effects; guarantees must identify the concrete atomic/idempotency boundary they cover.
+- **G2-FINDING-WDE-12 — Recovery Attempt and Business Execution Identity Differ.** Resume/redrive can preserve one business execution while producing a new recovery attempt/evidence segment; replacement execution is a different lineage operation.
+- **G2-FINDING-WDE-13 — Mechanical Migration Success Is Not Semantic Migration Proof.** A provider may accept a valid migration mapping while leaving retained jobs/data or reachable-state assumptions semantically unsafe.
+- **G2-FINDING-WDE-14 — Recovery Ownership Is a Durability Concern.** Distributed recovery needs an explicit authority/ownership mechanism so abandoned work is resumed without uncontrolled duplicate recovery.
+- **G2-FINDING-WDE-15 — Migration Support Is a Negotiated Provider Capability.** Portable workflow semantics may require version lineage without requiring every provider to support live in-flight migration.
+- **G2-FINDING-WDE-16 — Operator Repair Authority Is Stronger Than Execution Authority.** Instance modification can create states unreachable by normal execution and therefore requires a separately governed mutation authority and evidence trail.
 
 ## Candidate discoveries
 
-- `G2-CAPABILITY-CANDIDATE-EXECUTION-DEFINITION-BINDING` — **CROSS_CUTTING**. Evidence: Step Functions version association + Durable Task version isolation + Camunda process version/migration. Promotion condition: recur in Lifecycle/Versioning and Provider/Binding research and map to a structural SB need.
-- `G2-CAPABILITY-CANDIDATE-DURABLE-EXECUTION-EVIDENCE` — **CROSS_CUTTING**. Evidence: Restate journal + Step Functions execution history + replay-oriented durable systems. Promotion condition: recur in Observability and Artifact/Provenance and prove distinction from generic provenance.
-- `G2-CAPABILITY-CANDIDATE-RECOVERY-SEMANTICS` — **CROSS_CUTTING**. Evidence: retry/incidents, redrive, compensation and migration across multiple representatives. Promotion condition: recur in Security/Resilience/Failure Recovery and Lifecycle; determine whether it is a capability or a subcapability shared by workflow/runtime.
+Existing candidates remain authoritative. New revisit candidates:
 
-## Synthesis
+- `G2-CAPABILITY-CANDIDATE-EFFECT-GUARANTEE-QUALIFICATION` — **CROSS_CUTTING**. Multi-representative need to scope delivery/atomicity/idempotency claims to the actual effect boundary. Promote if Integration/Automation and provider reconciliation need the same reusable claim/evidence primitive.
+- `G2-CAPABILITY-CANDIDATE-RECOVERY-ATTEMPT-LINEAGE` — **CROSS_CUTTING**. Recovery/redrive may preserve business execution identity while adding a distinct attempt segment. Promote if failure-recovery/provenance synthesis confirms shared lineage semantics.
+- `G2-CAPABILITY-CANDIDATE-SEMANTIC-MIGRATION-PROOF` — **CROSS_CUTTING**. Mechanical migration acceptance is insufficient to prove post-migration semantic invariants. Promote if lifecycle/data/schema migration research converges on the same proof obligation.
 
-**Value for SB:** very high. Workflow durability sits directly on the boundary between portable semantics, provider abstraction and generated-runtime autonomy.
+## Value / risk / priority / next question
 
-**Adoption risk:** high if the SB internal model copies one engine's replay/DSL/worker semantics; moderate if it defines explicit durability requirements, effect boundaries and evidence-normalized provider bindings.
+**Value:** critical for runtime autonomy and provider replaceability. **Risk:** high if guarantees are flattened into labels such as `durable` or `exactly-once` without scope. **Priority:** critical. **Revisit result:** six material architectural findings; `consecutive_no_material_finding = 0`; NOT SATURATED.
 
-**Investigation priority:** critical.
-
-**Next research question for revisit:** Which minimum portable durability contract can be satisfied by materially different providers without reducing the contract to the lowest common denominator, especially for versioned in-flight executions and migration/recovery semantics?
+**Next future revisit question:** can effect-guarantee qualification, recovery-attempt lineage and semantic migration proof be expressed through existing cross-cutting evidence primitives, or do they require promoted capabilities after synthesis/repository validation?
