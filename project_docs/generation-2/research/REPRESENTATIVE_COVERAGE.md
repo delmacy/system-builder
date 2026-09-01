@@ -19,6 +19,20 @@ OASIS TOSCA 2.0, Kubernetes declarative APIs/controllers, Kubernetes DRA, OpenTo
 
 Revisit result: six material findings (`G2-FINDING-PAM-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
 
+## UI / Generated Experience / Low-code Builder — revisit cycle 2
+| Representative | Coverage | Why this pass matters | Revisit focus |
+|---|---|---|---|
+| Design Tokens Community Group 2025.10 | DEEP | Portable exchange of design decisions across tools/code/platforms. | Token/reference identity and design-system evolution independent of renderer output. |
+| Web Components / Custom Elements / Shadow DOM / Slots | DEEP | Explicit external component identity/interface with encapsulated internals and composition slots. | Component-contract versus implementation evolution boundary. |
+| JSON Forms | DEEP | Separates schema/UI schema from renderer registry; testers select eligible concrete renderers. | Renderer offer/selection/binding as explicit concern. |
+| Storybook Portable Stories | DEEP | Named component states can execute in external test environments. | State scenarios as reusable proof fixtures rather than semantic authority. |
+| Storybook component/visual/accessibility testing | DEEP | Separates render, interaction, accessibility, visual and snapshot evidence. | Multi-dimensional generated-experience conformance. |
+| Mendix / Atlas UI | DEEP | First-pass structural/design-system evidence remains authoritative. | Upgrade semantics remain a later revisit question. |
+| OutSystems UI / Style Guides | DEEP | First-pass design-system/theme/pattern evidence remains authoritative. | Upgrade/replacement semantics remain a later revisit question. |
+| FlutterFlow | DEEP | First-pass generated-code/export evidence remains authoritative. | Generated implementation lineage and portability. |
+
+Revisit result: six material findings (`G2-FINDING-UI-11..16`); consecutive-no-material-finding count = 0; capability remains NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
