@@ -24,5 +24,8 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | G2-CAPABILITY-CANDIDATE-MIGRATION-ATTEMPT-VERIFICATION-LINEAGE | CROSS_CUTTING | PostgreSQL + Atlas + Liquibase + Flyway | CANDIDATE | Workflow/deployment/lifecycle confirm reusable plan-attempt-proof lineage. |
 | G2-CAPABILITY-CANDIDATE-DESTRUCTIVE-CHANGE-AUTHORITY-GATE | CROSS_CUTTING | Atlas + migration governance | CANDIDATE | Governance/storage/lifecycle show shared destructive-operation authority semantics. |
 | G2-CAPABILITY-CANDIDATE-AFFECTED-DATA-SCOPE-EVIDENCE | CROSS_CUTTING | Migration + tenant/data isolation | CANDIDATE | Isolation, backup/restore and migration proofs need shared bounded data-scope identity. |
+| G2-CAPABILITY-CANDIDATE-RECOVERABILITY-PROOF | CROSS_CUTTING | S3/Azure/Ceph propagation evidence + Borg recovery contrast | CANDIDATE | Security/Resilience and Operator research confirm reusable recovery-attempt/proof semantics. |
+| G2-CAPABILITY-CANDIDATE-DURABILITY-PROPAGATION-EVIDENCE | CROSS_CUTTING | S3, Azure and Ceph replication state | CANDIDATE | Resilience/Deployment/Messaging confirm shared revision/destination/freshness-scoped propagation evidence. |
+| G2-CAPABILITY-CANDIDATE-ENCRYPTION-READABILITY-DEPENDENCY | CROSS_CUTTING | S3 Object Lock/KMS + GCS retention/key lifecycle | CANDIDATE | Secrets/Security confirm reusable key/readability dependency proof beyond Storage. |
 
 All candidates omitted from this compact view remain authoritative in prior register revisions, state history and capability dossiers; none is revoked. `G2-CAPABILITY-CANDIDATE-FEDERATION-TRUST-LIFECYCLE` remains CANDIDATE pending synthesis.
