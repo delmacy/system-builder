@@ -44,4 +44,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-NEM-15 — Dead-letter/Quarantine Is a Governed Repair Lifecycle, Not a Terminal Failure Verdict
 - G2-FINDING-NEM-16 — Replay Is a New Governed Delivery Lineage over Existing Semantic Events
 
+## Build / Dependency Graph / Reproducibility — revisit 1
+- G2-FINDING-BUILD-11 — Cache Hit Is Realization-source Evidence, Not Build-execution Evidence
+- G2-FINDING-BUILD-12 — Reproducibility Requires an Independent Qualified Re-realization Proof, Not Cached Digest Reuse
+- G2-FINDING-BUILD-13 — Remote Cache Acceptance Is a Trust-boundary Decision Separate from Action Identity
+- G2-FINDING-BUILD-14 — Declared Build Environment and Realized Environment Evidence Are Distinct
+- G2-FINDING-BUILD-15 — Lockfile Identity Alone Does Not Prove the Effective Dependency Closure or Resolver Semantics
+- G2-FINDING-BUILD-16 — Build-provider Replacement Preserves Semantic Target Intent but Creates New Realization/Provenance Lineage
+
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
