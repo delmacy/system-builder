@@ -8,7 +8,10 @@ import {
 import { PROCESS_SYSTEM_LINEAGE_VERSION } from "../../packages/contracts/process-versioning/lineage.js";
 import { PROCESS_VERSION_IDENTITY_VERSION } from "../../packages/contracts/process-versioning/index.js";
 import { executeFactoryOperatorBootstrap } from "../../scripts/factory-operator-bootstrap-command.js";
-import { preflightRuntimeMaterializationHandoff } from "../../scripts/runtime-materialization-handoff.js";
+import {
+  invokeRuntimeMaterializationHandoff,
+  preflightRuntimeMaterializationHandoff,
+} from "../../scripts/runtime-materialization-handoff.js";
 
 function bootstrapInput() {
   const revision = {
@@ -169,5 +172,50 @@ test("TASK-439 rejects malformed canonical output and never trusts bootstrap pro
     () => preflightRuntimeMaterializationHandoff({ ...base, bootstrap: malformed }),
     /PublishedRelease must be an object/,
   );
+  assert.equal(base.payloadReads(), 0);
+});
+
+test("TASK-440 invokes the existing Deploy adapter exactly once after mandatory preflight", async () => {
+  const base = setup();
+  let calls = 0;
+  let captured: unknown;
+  const result = await invokeRuntimeMaterializationHandoff(base, async (input) => {
+    calls += 1;
+    captured = input;
+    return Object.freeze({
+      ok: false as const,
+      activated: false,
+      diagnostic: Object.freeze({ code: "ARTIFACT_PAYLOAD_INVALID" as const, detail: "proof-only-deploy-invoker" }),
+      stdout: "",
+      stderr: "",
+      exitCode: null,
+    });
+  });
+
+  assert.equal(calls, 1);
+  assert.equal(base.payloadReads(), 0);
+  assert.equal((captured as { publishedRelease: unknown }).publishedRelease, base.bootstrap.result.publishedRelease);
+  assert.equal((captured as { releaseArtifact: unknown }).releaseArtifact, base.bootstrap.result.releaseArtifact);
+  assert.equal((captured as { environment: unknown }).environment, base.environment);
+  assert.equal(result.publishedReleaseRef, base.bootstrap.result.deploymentRecord.publishedReleaseRef);
+  assert.equal(result.artifactHash, base.bootstrap.result.releaseArtifact.artifactHash);
+  assert.equal(result.deploymentId, base.bootstrap.result.deploymentRecord.deploymentId);
+  assert.equal(result.deploy.ok, false);
+});
+
+test("TASK-440 rejects stale preflight evidence before any Deploy invocation", async () => {
+  const base = setup();
+  let calls = 0;
+  await assert.rejects(
+    invokeRuntimeMaterializationHandoff(
+      { ...base, environment: { ...base.environment, runtimeVersions: ["2.0.0"] } },
+      async () => {
+        calls += 1;
+        throw new Error("Deploy must not run after preflight rejection");
+      },
+    ),
+    /RUNTIME_HANDOFF_RUNTIME_INCOMPATIBLE/,
+  );
+  assert.equal(calls, 0);
   assert.equal(base.payloadReads(), 0);
 });
