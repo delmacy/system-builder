@@ -11,60 +11,21 @@ G2-FINDING-DOESH-01..10 remain authoritative in the capability dossier.
 ## Architecture Reconciliation as a Capability
 G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 
-## Universal Capability Architecture — revisit 1
-- G2-FINDING-UCA-11 — Offer/Binding/Realization Separation
-- G2-FINDING-UCA-12 — Provider Configuration Is Scoped Binding Context
-- G2-FINDING-UCA-13 — Provider Replacement Is a Migration
-- G2-FINDING-UCA-14 — Observed Evidence Has a Trust Boundary
-- G2-FINDING-UCA-15 — Constraint Composition Does Not Require Execution Unification
-- G2-FINDING-UCA-16 — Fulfillment Failure Has a Realization Stage
+## Revisit cycle 2 — material findings already indexed
+- Universal Capability Architecture: `G2-FINDING-UCA-11..16`.
+- Process & Application Modeling: `G2-FINDING-PAM-11..16`.
+- UI / Generated Experience / Low-code Builder: `G2-FINDING-UI-11..16`.
+- Workflow & Durable Execution: `G2-FINDING-WDE-11..16`.
+- Integration & Automation: `G2-FINDING-IA-11..16`.
+- Identity / Authentication / Federation: `G2-FINDING-IAF-11..16`.
+- Authorization / Policy / Organization / Multitenancy: `G2-FINDING-AUTH-11..16`.
 
-## Process & Application Modeling — revisit 1
-- G2-FINDING-PAM-11 — Semantic Identity Is Independent From Representation Location
-- G2-FINDING-PAM-12 — Reference Resolution and Semantic Compatibility Are Separate Evidence
-- G2-FINDING-PAM-13 — Semantic Views Are Projections, Not Competing Sources of Truth
-- G2-FINDING-PAM-14 — Projection Freshness Is a First-class Claim
-- G2-FINDING-PAM-15 — Extension Vocabulary Does Not Grant Execution Authority
-- G2-FINDING-PAM-16 — Portable References Need Explicit Resolution Policy
+## Data / Schema / Migrations — revisit 1
+- G2-FINDING-DATA-11 — Migration Plan, Execution Attempt and Verified Result Are Distinct Identities
+- G2-FINDING-DATA-12 — Compatibility Is a Proof Obligation, Not a Provider-neutral Algorithm
+- G2-FINDING-DATA-13 — Destructive-change Detection and Destructive-change Authority Are Separate
+- G2-FINDING-DATA-14 — Observed Schema and Migration Ledger Are Independent, Freshness-bound Evidence
+- G2-FINDING-DATA-15 — Migration Authority Requires Explicit Affected-data Scope, Including Tenant Boundaries
+- G2-FINDING-DATA-16 — Provider Replacement Preserves Semantic Data Identity but May Require New Physical Migration Lineage
 
-## UI / Generated Experience / Low-code Builder — revisit 1
-- G2-FINDING-UI-11 — Renderer Selection Is a Governed Binding Decision
-- G2-FINDING-UI-12 — Design Token Identity and Reference Lineage Are Independent of Renderer Output
-- G2-FINDING-UI-13 — Component Interface and Internal Rendering Implementation Are Distinct Evolution Boundaries
-- G2-FINDING-UI-14 — UI State Scenarios Are Proof Fixtures, Not Semantic Authority
-- G2-FINDING-UI-15 — Generated-Experience Conformance Is Multi-dimensional
-- G2-FINDING-UI-16 — Design-System or Renderer Upgrade Requires Compatibility Evidence Across the Exercised Revision Set
-
-## Workflow & Durable Execution — revisit 1
-- G2-FINDING-WDE-11 — Effect Guarantee Must Be Scoped
-- G2-FINDING-WDE-12 — Recovery Attempt and Business Execution Identity Differ
-- G2-FINDING-WDE-13 — Mechanical Migration Success Is Not Semantic Migration Proof
-- G2-FINDING-WDE-14 — Recovery Ownership Is a Durability Concern
-- G2-FINDING-WDE-15 — Migration Support Is a Negotiated Provider Capability
-- G2-FINDING-WDE-16 — Operator Repair Authority Is Stronger Than Execution Authority
-
-## Integration & Automation — revisit 1
-- G2-FINDING-IA-11 — Delivery/Effect Guarantee Is Boundary-Qualified
-- G2-FINDING-IA-12 — Business Correlation and Idempotency Identity Must Outlive Transport Identity
-- G2-FINDING-IA-13 — Partial Batch Retry Requires Per-item Outcome Evidence
-- G2-FINDING-IA-14 — Retry Ownership Is an Architectural Contract
-- G2-FINDING-IA-15 — Provider Replacement Can Change Operational Semantics Without Breaking the Operation Contract
-- G2-FINDING-IA-16 — Scheduler Success Is Not External-effect Proof
-
-## Identity / Authentication / Federation — revisit 1
-- G2-FINDING-IAF-11 — Identity and Credential Are Separate Identities
-- G2-FINDING-IAF-12 — Federation Trust Is Revisioned Verification Context
-- G2-FINDING-IAF-13 — Revocation Requires Explicit Target and Scope
-- G2-FINDING-IAF-14 — Revocation Freshness Is an Evidence Claim
-- G2-FINDING-IAF-15 — Authentication Assurance Belongs to the Authentication Event
-- G2-FINDING-IAF-16 — Human and Workload Identity Share Trust Primitives, Not Credential Lifecycles
-
-## Authorization / Policy / Organization / Multitenancy — revisit 1
-- G2-FINDING-AUTH-11 — Authorization Freshness Is a Decision Requirement, Not a Generic Cache Setting
-- G2-FINDING-AUTH-12 — Revocation State Change and Revocation Propagation Are Separate Evidence
-- G2-FINDING-AUTH-13 — Policy Revision Does Not Identify Mutable Authorization Data State
-- G2-FINDING-AUTH-14 — Tenant Context Is Not Tenant Isolation Proof
-- G2-FINDING-AUTH-15 — Delegated Administration Is Scoped Authorization Over Administrative Resources
-- G2-FINDING-AUTH-16 — Decision Evidence and Enforcement Application Evidence Are Distinct
-
-Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`; compact index sections do not revoke earlier findings.
+Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
