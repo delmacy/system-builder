@@ -91,4 +91,17 @@
 - G2-FINDING-AUTH-09 — Authorization Decision Evidence Is First-Class
 - G2-FINDING-AUTH-10 — Tenant Isolation Exceeds Authorization Context
 
+## Data / Schema / Migrations
+
+- G2-FINDING-DATA-01 — Current Schema and Migration History Are Distinct Authorities
+- G2-FINDING-DATA-02 — Migration Identity Must Be Immutable and Content-Bound
+- G2-FINDING-DATA-03 — Applied Migration State Is Durable Execution Evidence
+- G2-FINDING-DATA-04 — Safe Schema Evolution Requires Explicit Compatibility Windows
+- G2-FINDING-DATA-05 — Rollback Is a Bounded Capability, Not a Universal Guarantee
+- G2-FINDING-DATA-06 — Physical Schema Semantics Belong to the Data Provider Boundary
+- G2-FINDING-DATA-07 — Drift Is a First-Class Governance Condition
+- G2-FINDING-DATA-08 — External Data Reference Must Not Imply Migration Ownership
+- G2-FINDING-DATA-09 — Data Contract, Physical Schema and Exposure Metadata Are Separate Concerns
+- G2-FINDING-DATA-10 — Runtime Autonomy Requires Evolution Evidence, Not Just Initial Schema Creation
+
 Authoritative rationale and evidence are in the corresponding documents under `research/capabilities/`.
