@@ -15,11 +15,11 @@
     "late_cycle_selection_rule": "As saturation increases, prefer research-by-exception and do not routinely reopen SATURATED capabilities without material new evidence or contradiction.",
     "completed_full_cycles": 4,
     "active_revisit_cycle": 5,
-    "capabilities_revisited_in_active_cycle": 1,
-    "hourly_runs_completed": 100,
-    "finding_count": 719,
-    "capability_candidate_count": 322,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-UNIVERSAL-ATTEMPT-EFFECTIVE-POSTCONDITION-LINEAGE","G2-CAPABILITY-CANDIDATE-UNIVERSAL-FACETED-AUTHORITY-CONTRACT","G2-CAPABILITY-CANDIDATE-UNIVERSAL-AMBIGUOUS-OUTCOME-DISPOSITION","G2-CAPABILITY-CANDIDATE-AUTHORIZED-NORMALIZATION-TRANSITION","G2-CAPABILITY-CANDIDATE-EVIDENCE-DEPENDENCY-CONVERGENCE-QUALIFICATION"],
+    "capabilities_revisited_in_active_cycle": 2,
+    "hourly_runs_completed": 101,
+    "finding_count": 727,
+    "capability_candidate_count": 326,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-PAM-ATTEMPT-ACCEPTED-EFFECTIVE-VALIDATED-LINEAGE","G2-CAPABILITY-CANDIDATE-PAM-BROWNFIELD-OBSERVED-CANDIDATE-NORMALIZATION","G2-CAPABILITY-CANDIDATE-PAM-SEMANTIC-MUTATION-OWNERSHIP-PRECONDITIONS","G2-CAPABILITY-CANDIDATE-PAM-INCONCLUSIVE-MODEL-EVIDENCE-DEPENDENCY"],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "SATURATED requires principal representatives covered and two consecutive eligible revisits with no material new architectural finding, or remaining questions requiring repository validation. Material findings reset the streak.",
@@ -50,35 +50,33 @@
       "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
       "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be challenged if not researched earlier. The review must also explicitly challenge executable composition/cumulative context, transaction-consistency-concurrency, simple-to-mature topology/build/runtime realization, tenant fleet placement, edge/ingress/domain/TLS routing and multi-dimensional tenant isolation."
     },
-    "active_cycle_completed": ["Universal Capability Architecture"],
+    "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling"],
     "latest_revisit": {
-      "capability": "Universal Capability Architecture",
+      "capability": "Process & Application Modeling",
       "revisits_completed": 4,
       "consecutive_no_material_finding": 0,
       "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-      "new_findings": ["G2-FINDING-UCA-29","G2-FINDING-UCA-30","G2-FINDING-UCA-31","G2-FINDING-UCA-32","G2-FINDING-UCA-33","G2-FINDING-UCA-34","G2-FINDING-UCA-35"],
+      "new_findings": ["G2-FINDING-PAM-29","G2-FINDING-PAM-30","G2-FINDING-PAM-31","G2-FINDING-PAM-32","G2-FINDING-PAM-33","G2-FINDING-PAM-34","G2-FINDING-PAM-35","G2-FINDING-PAM-36"],
       "representative_coverage": {
-        "Kubernetes declarative API/resource-version and Server-Side Apply conflict ownership": "DEEP",
-        "Crossplane managed-resource/external identity and ambiguous create outcome": "DEEP",
-        "OpenFeature provider/context lifecycle": "DEEP",
-        "OpenTelemetry entity identity/lifespan/multi-observer semantics": "DEEP",
-        "OASIS TOSCA requirement/capability/relationship matching": "DEEP",
-        "Flux reconciliation semantics prior evidence": "DEEP",
-        "Architecture-conformance/erosion literature prior evidence": "DEEP"
+        "Camunda process application versioning/deployment/instance migration/import": "DEEP",
+        "Mendix version control and model merge conflicts": "DEEP",
+        "Microsoft Dataverse solution layering/effective behavior after import": "DEEP",
+        "ServiceNow source control/update-set transport/delegated deployment permissions": "DEEP",
+        "OMG BPMN 2.0.2 portable process semantics": "DEEP"
       }
     },
-    "pending_capabilities": ["Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
+    "pending_capabilities": ["UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — four full cycles complete; cycle 5 has 1/25 capabilities revisited. All active macro-capabilities still require evidence-driven saturation, minimum seven cycles and the post-cycle-7 negative-space gate.",
+    "RESEARCH_ELICITATION": "OPEN — four full cycles complete; cycle 5 has 2/25 capabilities revisited. All active macro-capabilities still require evidence-driven saturation, minimum seven cycles and the post-cycle-7 negative-space gate.",
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "NOT_YET_ELIGIBLE — mandatory after completed_full_cycles >= 7 and before CAPABILITY_SYNTHESIS.",
-    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — retroactive proof obligations are mandatory for all active capabilities/hypotheses. Universal Capability Architecture now has explicit cycle-5 proof obligations in its dossier; the canonical proof matrix still requires later reconciliation of this backfill. Planning E cannot close with unresolved BACKFILL_REQUIRED/PARTIAL entries without explicit disposition.",
+    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — retroactive proof obligations are mandatory for all active capabilities/hypotheses. Process & Application Modeling now has explicit cycle-5 proof obligations and is PARTIAL in the canonical proof matrix. Planning E cannot close with unresolved BACKFILL_REQUIRED/PARTIAL entries without explicit disposition.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_BY_RESEARCH_ELICITATION"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Universal Capability Architecture — revisit 4 / cycle 5 complete. Seven material findings generalize attempted/effective/healthy lineage, generation-qualified evidence, ambiguous external actuation outcome, authorized observation-to-desired normalization, faceted non-amplifying authority, evidence dependency/convergence qualification and concurrency ownership/precondition evidence. Five candidates recorded, none promoted. AGWS remains distinct; all four mandatory research hypotheses were explicitly stress-tested. UCA remains NOT SATURATED.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/UNIVERSAL_CAPABILITY_ARCHITECTURE_REVISIT_04.md",
+  "current_focus": "Process & Application Modeling — revisit 4 / cycle 5 complete. Eight material findings distinguish attempted/accepted/effective/validated model lineage, brownfield observed-candidate normalization, semantic mutation ownership/preconditions, INCONCLUSIVE dependency propagation, executable composition/transaction intent from Workflow/Data runtime ownership, provider/topology/Station independence and action-faceted model authority. Four candidates recorded, none promoted. Ten explicit proof-backfill obligations added; PAM is PARTIAL in the proof matrix. AGWS remains distinct. PAM remains NOT SATURATED.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/PROCESS_APPLICATION_MODELING_REVISIT_04.md",
   "last_framework_artifact": "project_docs/generation-2/research/CAPABILITY_PROOF_MATRIX.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Process & Application Modeling, revisit 4 / cycle 5, as the next oldest non-saturated capability. Deepen semantic model/process identity versus realization; model generation/revision and attempted/applied/effective/validated states; brownfield discovery/import and authorized observation-to-desired normalization; incomplete/ambiguous model evidence and INCONCLUSIVE propagation; concurrent model edits/ownership/preconditions; migration/evolution lineage; executable composition and cumulative context without collapsing Workflow ownership; transaction/consistency boundaries; topology/build/runtime realization independence; tenant/Station scoping; AGWS domain-change escalation; qualified local/offline modeling closure; and explicit architecture proof-backfill obligations. Apply RESEARCH_EVIDENCE_METHOD.md and ARCHITECTURE_PROOF_QUALITY_METHOD.md. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=4 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T18:03:19-03:00"
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: UI / Generated Experience / Low-code Builder, revisit 4 / cycle 5, as the next oldest non-saturated capability. Deepen projection intent versus generated/rendered/effective/validated realization; constrained component/layout generation; semantic binding and incomplete-reference INCONCLUSIVE propagation; concurrent personalization/edit ownership/preconditions; rollback/diff/version lineage; accessibility evidence; provider/topology substitution; tenant/Station scoping; AGWS boundary and domain-change escalation; AI proposal versus authoritative validation/materialization; qualified local/offline UI interpretation closure; and explicit architecture proof-backfill obligations. Consume UCA/PAM cycle-5 attempted/effective/validated, normalization, concurrency, faceted-authority and evidence-dependency primitives without collapsing Adaptive Governed Work Surfaces. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=4 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T18:14:00-03:00"
 }
