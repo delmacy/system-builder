@@ -9,15 +9,24 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / PENDING_RESEARCH**. Support pricing should be explainable from measurable relative complexity per capability, service bundles and usage. Dedicated multi-representative research across entitlement, usage metering, relative complexity measurement, rating/pricing, billing and payment remains mandatory before promotion; the Negative-Space gate explicitly challenges it.
 
 ## Cycle-4 consolidation candidates
-`G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE. UCA, PAM, UI, AGWS, Workflow, Integration, Identity and Authorization now support revision-bound identity/evidence lineage; continue testing across data, deployment and provider planes.
+`G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE. UCA, PAM, UI, AGWS, Workflow, Integration, Identity, Authorization and Data now support revision-bound identity/evidence lineage; continue testing across storage, deployment and provider planes.
 
-`G2-CAPABILITY-CANDIDATE-UNIFIED-EVIDENCE-QUALIFICATION-CONTRACT` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE. UCA, PAM, UI, AGWS, Integration, Identity and Authorization support producer/subject/revision/scope/profile/context/freshness/coverage/trust/inconclusive semantics.
+`G2-CAPABILITY-CANDIDATE-UNIFIED-EVIDENCE-QUALIFICATION-CONTRACT` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE. UCA, PAM, UI, AGWS, Integration, Identity, Authorization and Data support producer/subject/revision/scope/profile/context/freshness/coverage/trust/inconclusive semantics. Data adds source/applied position and validation freshness as specialization.
 
-`G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CLOSURE-PROFILE` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE. PAM, UI, AGWS, Workflow, Integration, Identity and Authorization confirm the primitive can qualify local interpretation/execution/validation without requiring centralized Builder availability.
+`G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CLOSURE-PROFILE` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE. PAM, UI, AGWS, Workflow, Integration, Identity, Authorization and Data confirm the primitive can qualify local interpretation/execution/validation without requiring centralized Builder availability.
 
-`G2-CAPABILITY-CANDIDATE-NON-ACTUATING-RECONCILIATION-AUTHORITY-SEPARATION` remains active as a likely constitutional primitive (`DecisionAuthorityRef ≠ ExecutionAuthorityRef`) rather than a standalone capability; PAM, UI, AGWS, Workflow, Integration, Identity and Authorization independently confirm decision/approval/evidence vs execution/semantic authority separation.
+`G2-CAPABILITY-CANDIDATE-NON-ACTUATING-RECONCILIATION-AUTHORITY-SEPARATION` remains active as a likely constitutional primitive (`DecisionAuthorityRef ≠ ExecutionAuthorityRef`) rather than a standalone capability; PAM, UI, AGWS, Workflow, Integration, Identity, Authorization and Data independently confirm decision/approval/evidence vs execution/semantic authority separation.
 
-`G2-CAPABILITY-CANDIDATE-SHARED-GOVERNED-MIGRATION-TRANSITION` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM, UI, AGWS, Workflow, Integration, Identity and Authorization independently converge on `plan → validation → approval → attempt → postcondition evidence`; continue testing in Data/Schema, Lifecycle and Deployment before any promotion.
+`G2-CAPABILITY-CANDIDATE-SHARED-GOVERNED-MIGRATION-TRANSITION` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM, UI, AGWS, Workflow, Integration, Identity, Authorization and Data independently converge on `plan → validation → approval → attempt → checkpoint/postcondition evidence`; continue testing in Storage, Lifecycle and Deployment before any promotion.
+
+## Data / Schema / Migrations — revisit cycle 4 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-POSITION-QUALIFIED-DATA-CONFORMANCE-EVIDENCE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Observability, Notifications/Events and Deployment determine whether source/applied position + freshness + validation is a Data specialization of unified evidence qualification. |
+| G2-CAPABILITY-CANDIDATE-GOVERNED-DATA-MIGRATION-TRANSITION | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Storage/Lifecycle/Deployment confirm it should merge into `SHARED-GOVERNED-MIGRATION-TRANSITION`. |
+| G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-DATA-EVOLUTION-CLOSURE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Storage, Deployment and Lifecycle confirm reuse of `QUALIFIED-LOCAL-CLOSURE-PROFILE`. |
+
+No Data cycle-4 candidate is promoted. Master/reference-data remains intentionally deferred to Negative-Space review unless later evidence forces earlier promotion.
 
 ## Authorization / Policy / Organization / Multitenancy — revisit cycle 4 candidates
 | Candidate | Class | Status | Promotion / merge condition |
