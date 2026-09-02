@@ -3,91 +3,21 @@
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
 ## Cycle 4 stable findings
-### Universal Capability Architecture through Governance / Compliance / Audit
-All findings from the first 17 cycle-4 revisits remain authoritative in their capability dossiers and prior index revisions.
-
-### Secrets / Provider / Standards / Lifecycle completed revisits
-All stable findings from these cycle-4 revisits remain authoritative in their capability dossiers and prior index revisions, including `G2-FINDING-SCEP-23..29`, `G2-FINDING-PBCN-23..30`, `G2-FINDING-SIAC-23..29` and `G2-FINDING-LVEM-23..29`.
-
-### Security / Resilience / Failure Recovery — revisit 3
-- **G2-FINDING-SRFR-23** — Recovery Availability Is Not Semantic Recovery.
-- **G2-FINDING-SRFR-24** — Failover, Rollback, Restore and Forward-Fix Are Distinct Governed Transitions.
-- **G2-FINDING-SRFR-25** — Writer Promotion Requires Fencing/Exclusivity Evidence.
-- **G2-FINDING-SRFR-26** — Recovery Invalidates Transition Readiness Until Requalified.
-- **G2-FINDING-SRFR-27** — RTO/RPO Bound Time and Data-Loss Objectives but Do Not Prove Semantic Conformance.
-- **G2-FINDING-SRFR-28** — Degraded and Offline Recovery Must Be Authority-Non-Amplifying.
-- **G2-FINDING-SRFR-29** — Recovery Must Reconcile Persisted State and In-Flight Executions Separately.
-- **G2-FINDING-SRFR-30** — Qualified Local Recovery Closure Is Revision/Freshness/Trust Scoped.
-
-### AI-native Engineering / Agents / Approvals — revisit 3
-- **G2-FINDING-AIN-23** — Untrusted Context Is Data With Provenance, Never an Authority-Bearing Instruction Source by Itself.
-- **G2-FINDING-AIN-24** — Approval and Validation Evidence Are Revision/Freshness Scoped and Become Stale on Material Change.
-- **G2-FINDING-AIN-25** — Hard Actuation Boundaries Must Be Enforced Outside the Probabilistic Model/Classifier.
-- **G2-FINDING-AIN-26** — Multi-Agent Delegation Must Intersect/Subset Authority and Must Never Amplify It.
-- **G2-FINDING-AIN-27** — Probabilistic Proposal/Recommendation and Deterministic Validation/Policy Verdict Are Distinct Authorities.
-- **G2-FINDING-AIN-28** — Model/Harness Substitution Preserves Semantic Intent Only by Creating New Realization and Validation Evidence Lineage.
-- **G2-FINDING-AIN-29** — Incident Diagnosis or Recovery Recommendation Must Not Become Recovery/Writer/Secret/Provider-Admin Actuation Authority.
-- **G2-FINDING-AIN-30** — Local/Offline Agent Autonomy Requires Qualified Model/Tool/Policy/Trust/Validator/Approval/Enforcement Closure.
-
-### Developer / Operator Experience / Self-hosting — revisit 3
-- **G2-FINDING-DOESH-23** — Simple Operator Experience Must Be a Progressive Projection Over Explicit Topology Semantics, Not Hidden Architectural Defaults.
-- **G2-FINDING-DOESH-24** — Bootstrap Trust Is a First-Class Revisioned Requirement Separate From General Configuration and Later Authorization.
-- **G2-FINDING-DOESH-25** — Operator Preview/Preflight Evidence Must Be Non-Actuating and Revision/Freshness Bound.
-- **G2-FINDING-DOESH-26** — Disconnected Operational Closure Includes Maintenance/Update History Where the Provider Requires It.
-- **G2-FINDING-DOESH-27** — Rollback Support Is Conditional Eligibility Evidence Over Retained Realizations, State, Trust and Compatibility.
-- **G2-FINDING-DOESH-28** — Local Diagnostic Autonomy Must Preserve Privilege Boundaries.
-- **G2-FINDING-DOESH-29** — Self-hosting Does Not Collapse Definition, Bootstrap, Diagnostic, Upgrade, Secret/Trust and Recovery Authorities Into One Administrator Power.
-- **G2-FINDING-DOESH-30** — Provider/Topology Substitution Must Preserve Semantic System Identity While Producing New Realization and Conformance Evidence.
-
-### Architecture Reconciliation as a Capability — revisit 3
-- **G2-FINDING-ARAC-23** — Architecture Status Must Be Generation-Qualified; Current-Looking Status Bound to an Older Subject Generation Is Stale Evidence.
-- **G2-FINDING-ARAC-24** — Attempted Revision, Applied/Effective Revision and Ready/Healthy Postcondition Are Distinct Reconciliation Facts.
-- **G2-FINDING-ARAC-25** — Reconciliation Authority Is Action-Faceted; Observe, Normalize, Create, Update and Delete Capabilities Must Not Collapse Into One Permission.
-- **G2-FINDING-ARAC-26** — Ambiguous Actuation Outcome Is a First-Class Quarantine State; Blind Retry Can Duplicate or Leak External Realizations.
-- **G2-FINDING-ARAC-27** — Provider Observation May Enter Desired State Only Through an Explicitly Authorized, Provenanced Normalization/Late-Initialization Transition.
-- **G2-FINDING-ARAC-28** — Reconciliation Freshness Includes Queue, Attempt, Apply and Health-Convergence Lag, Not Observation Timestamp Alone.
-- **G2-FINDING-ARAC-29** — Obligation Dependencies and Structural Extraction Failures Can Mask Downstream Violations and Must Propagate INCONCLUSIVE/Coverage Semantics.
-- **G2-FINDING-ARAC-30** — AI-Recovered Architecture Is Qualified Evidence/Proposal, Not Canonical Architecture Authority; Relationship Uncertainty Must Remain Explicit.
+All cycle-4 findings remain authoritative in their capability dossiers and prior index revisions.
 
 ## Cycle 5 stable findings
-### Universal Capability Architecture — revisit 4
-- **G2-FINDING-UCA-29** — Universal Realization Lineage Requires Attempted, Effective and Healthy Facts to Remain Distinct.
-- **G2-FINDING-UCA-30** — Generation Qualification Is a Universal Evidence Dimension.
-- **G2-FINDING-UCA-31** — Ambiguous External Actuation Outcome Is a Reusable Transition State, Not Ordinary Failure.
-- **G2-FINDING-UCA-32** — Observation-to-Desired Normalization Is an Explicit Authority-Bearing Transition.
-- **G2-FINDING-UCA-33** — Universal Authority Must Be Faceted Rather Than Binary.
-- **G2-FINDING-UCA-34** — Evidence Dependency and Convergence Lag Are Part of Evidence Qualification.
-- **G2-FINDING-UCA-35** — Concurrent Desired-State Mutation Requires Ownership/Precondition Evidence Beyond Revision Identity.
+### Universal Capability Architecture / Process & Application Modeling / UI / AGWS
+All previously indexed cycle-5 findings `G2-FINDING-UCA-29..35`, `G2-FINDING-PAM-29..36`, `G2-FINDING-UIGX-29..36` and `G2-FINDING-AGWS-22..29` remain authoritative in their dossiers and prior index revisions.
 
-### Process & Application Modeling — revisit 4
-- **G2-FINDING-PAM-29** — Model Realization Lineage Must Distinguish Attempted, Accepted, Effective and Validated Revisions.
-- **G2-FINDING-PAM-30** — Brownfield Import/Discovery Produces an Observed Semantic Candidate, Not Canonical Truth.
-- **G2-FINDING-PAM-31** — Observation-to-Desired Model Normalization Is a Faceted Authority-Bearing Transition.
-- **G2-FINDING-PAM-32** — Concurrent Semantic Mutation Requires Expected-Base/Ownership Preconditions and Conflict Evidence.
-- **G2-FINDING-PAM-33** — Incomplete/Ambiguous Model Evidence Must Propagate INCONCLUSIVE Through Dependent Proofs.
-- **G2-FINDING-PAM-34** — Executable Composition May Declare Typed Cumulative Context and Transaction Requirements Without Absorbing Workflow/Data Runtime Ownership.
-- **G2-FINDING-PAM-35** — Topology, Provider, Tenant and Station Realization Changes Must Not Redefine Canonical Model Identity.
-- **G2-FINDING-PAM-36** — Model Authority Must Be Action-Faceted Across Observe/Import/Propose/Normalize/Merge/Publish/Materialize/Migrate/Operate.
-
-### UI / Generated Experience / Low-code Builder — revisit 4
-- **G2-FINDING-UIGX-29** — UI Lineage Must Distinguish Projection Intent, Materialization Attempt, Accepted Revision, Effective Realization and Validated Postcondition.
-- **G2-FINDING-UIGX-30** — Constrained Semantic Component/Layout Contracts Must Be Portable Above DOM/CSS/Framework Realizations.
-- **G2-FINDING-UIGX-31** — Accessibility Is Revision/Profile-Qualified Semantic Conformance, Not a Consequence of Successful Rendering.
-- **G2-FINDING-UIGX-32** — Concurrent Projection Mutation Requires Expected-Base/Ownership Preconditions and Explicit Conflict Evidence.
-- **G2-FINDING-UIGX-33** — Missing or Ambiguous UI Dependencies Must Propagate PARTIAL/INCONCLUSIVE Evidence Rather Than Be Silently Dropped.
-- **G2-FINDING-UIGX-34** — AI Proposal/Materialization Authority Is Distinct From Deterministic Validation, Publication and Canonical-Domain Mutation Authority.
-- **G2-FINDING-UIGX-35** — Renderer/Provider/Topology Substitution Must Preserve Projection Identity While Reissuing Realization and Accessibility/Semantic Evidence.
-- **G2-FINDING-UIGX-36** — UI Rollback Is an Eligibility-Bound Governed Transition Over Retained Semantic and Realization Dependencies.
-
-### Adaptive Governed Work Surfaces — revisit 4
-- **G2-FINDING-AGWS-22** — Effective AGWS Resolution and Generic UI Projection Identity Are Separate Subjects.
-- **G2-FINDING-AGWS-23** — Hierarchical Personalization Requires Expected-Base and Semantic Ownership Preconditions.
-- **G2-FINDING-AGWS-24** — Enterprise→Station→Role→Person Is a Monotonic Authority Constraint, Not Merely a Precedence Stack.
-- **G2-FINDING-AGWS-25** — Mandatory Inherited UI Elements Need Stable Obligation Identity Separate From Renderer Placement.
-- **G2-FINDING-AGWS-26** — Station Exposure and Delegated Administration Are Action-Faceted Authorities Separate From Provider Capability and Canonical Ownership.
-- **G2-FINDING-AGWS-27** — Personal Automation Executes Under Attenuated Effective Authority; Surface Materialization Never Grants Execution Authority.
-- **G2-FINDING-AGWS-28** — Accessibility and Dependency Qualification Are Part of Governed Effective-Surface Evidence.
-- **G2-FINDING-AGWS-29** — Personalization Promotion Is Evidence-Informed but Remains a Separate Authority-Bearing Organizational Transition.
+### Workflow & Durable Execution — revisit 4
+- **G2-FINDING-WDE-29** — Durable Run Identity Must Remain Independent of Latest Workflow Definition Revision.
+- **G2-FINDING-WDE-30** — Retry, Redrive, Replay, Resume, Migration, Compensation and Quarantine Are Distinct Governed Transitions.
+- **G2-FINDING-WDE-31** — External-Side-Effect Ambiguity Requires Correlation/Reconciliation or Quarantine, Not Blind Retry.
+- **G2-FINDING-WDE-32** — Human-Task Assignment and Approval Authority Have Independent Revision Lineage.
+- **G2-FINDING-WDE-33** — Mutable Execution Controls Require Expected-Generation/Ownership Preconditions.
+- **G2-FINDING-WDE-34** — In-Flight Provider Replacement Is a State Migration With Explicit Representability and Postcondition Proof.
+- **G2-FINDING-WDE-35** — Missing Durable/External Dependency Evidence Propagates PARTIAL/INCONCLUSIVE.
+- **G2-FINDING-WDE-36** — Qualified Local Durable-Execution Closure Must Include Authority and External-Effect Evidence.
 
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
@@ -96,4 +26,4 @@ All 25 active capabilities completed cycle 3. Every pass produced material archi
 All 25 active capabilities completed cycle 4. Every cycle-4 pass produced material architectural findings; consecutive-no-material remains 0 and none is SATURATED.
 
 ## Historical authority
-All prior findings, including cycle 1–3 findings and the full wording of compacted cycle-4 sections, remain authoritative in their dossiers and prior index revisions.
+All prior findings, including cycle 1–4 findings and compacted cycle-5 sections, remain authoritative in their dossiers and prior index revisions.
