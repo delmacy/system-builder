@@ -11,11 +11,11 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 3,
     "active_revisit_cycle": 4,
-    "capabilities_revisited_in_active_cycle": 8,
-    "hourly_runs_completed": 82,
-    "finding_count": 591,
-    "capability_candidate_count": 251,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-TEMPORARY-AUTHORITY-ELEVATION-LEASE","G2-CAPABILITY-CANDIDATE-AUTHORIZATION-DECISION-ENFORCEMENT-REVISION-EVIDENCE","G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-AUTHORIZATION-CLOSURE"],
+    "capabilities_revisited_in_active_cycle": 9,
+    "hourly_runs_completed": 83,
+    "finding_count": 597,
+    "capability_candidate_count": 254,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-POSITION-QUALIFIED-DATA-CONFORMANCE-EVIDENCE","G2-CAPABILITY-CANDIDATE-GOVERNED-DATA-MIGRATION-TRANSITION","G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-DATA-EVOLUTION-CLOSURE"],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
@@ -40,16 +40,16 @@
       "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
       "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred with rationale, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be explicitly challenged as part of cost/quotas/metering/FinOps negative space if not promoted/researched earlier."
     },
-    "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy"],
+    "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations"],
     "latest_revisit": {
-      "capability": "Authorization / Policy / Organization / Multitenancy",
+      "capability": "Data / Schema / Migrations",
       "revisits_completed": 3,
       "consecutive_no_material_finding": 0,
       "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-      "new_findings": ["G2-FINDING-AUTH-23","G2-FINDING-AUTH-24","G2-FINDING-AUTH-25","G2-FINDING-AUTH-26","G2-FINDING-AUTH-27","G2-FINDING-AUTH-28"],
-      "representative_coverage": {"Cedar policy/schema validation":"DEEP","OpenFGA contextual tuples/conditions/immutable models":"DEEP","Kubernetes RBAC privilege escalation/impersonation":"DEEP","Microsoft Entra PIM eligible/active role activation":"DEEP","Amazon Verified Permissions consistency/Cedar migration":"DEEP","OPA bundle/decision evidence":"DEEP"}
+      "new_findings": ["G2-FINDING-DSM-23","G2-FINDING-DSM-24","G2-FINDING-DSM-25","G2-FINDING-DSM-26","G2-FINDING-DSM-27","G2-FINDING-DSM-28"],
+      "representative_coverage": {"PostgreSQL logical replication/schema semantics":"DEEP","Vitess Online DDL/revert":"DEEP","Debezium schema history/log position":"DEEP","AWS DMS CDC/validation/resync":"DEEP","Prisma Migrate v7 history/drift":"DEEP","Liquibase 5.0.x checksum/history":"DEEP"}
     },
-    "pending_capabilities": ["Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
+    "pending_capabilities": ["Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, saturation conditions are satisfied, and when completed_full_cycles >= 7 the Enterprise Completeness / Negative-Space Review gate is closed with no material ownerless category.",
@@ -67,8 +67,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research/planning complete, integrated and ready for separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Authorization / Policy / Organization / Multitenancy — revisit 3 / cycle 4 complete. Six material findings establish revision-qualified canonical authority/policy/decision/enforcement lineage; temporary privilege as governed authority lease; freshness-profiled reauthorization for durable/asynchronous privileged effects; governed authorization policy/provider migration; qualified local authorization closure; and AGWS revalidation across Station/Role/policy/authentication-context changes without authority amplification. No candidate was promoted.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_REVISIT_03.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Data / Schema / Migrations, revisit cycle 4, as the next oldest non-saturated capability. Consume AUTH-23..28 and stress-test canonical data/schema identity versus provider/storage realization revision; schema/model compatibility windows; governed migration plan/validation/approval/attempt/checkpoint/postcondition evidence; forward-only versus reversible transitions; online/dual-write/backfill/cutover semantics; data ownership and authorization/policy revision dependencies; tenant/Station data boundaries; stale replicas and CDC/read-model evidence; import/export/bulk and master/reference-data concerns where relevant without stealing future negative-space ownership; qualified local/offline data interpretation/migration closure for self-hosted/air-gapped operation; AGWS projections revalidated after schema/data-contract migration; and measurable migration/storage/provider complexity factors for later relative operational-complexity metering without making Data owner of billing. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=3 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T13:29:40-03:00"
+  "current_focus": "Data / Schema / Migrations — revisit 3 / cycle 4 complete. Six material findings establish canonical-data/physical-realization/migration-attempt/observed-conformance identity separation; schema-at-log-position evidence for CDC and historical interpretation; migration/data-copy versus validation conformance separation; governed migration plan/validation/approval/attempt/checkpoint/postcondition lineage; Station/tenant access versus canonical ownership/migration authority; and qualified local data-evolution closure. No candidate was promoted.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/DATA_SCHEMA_MIGRATIONS_REVISIT_03.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Storage / Documents / Media, revisit cycle 4, as the next oldest non-saturated capability. Consume DSM-23..28 and stress-test logical document/object identity versus blob/provider realization revision; content-address/content-hash and metadata identity; versioning/immutability versus mutable aliases; retention, delete, tombstone, legal-hold and archival evidence; multipart/copy/replication completion versus content-integrity/conformance validation; provider replacement and cross-region/Station migration with attempt/checkpoint/postcondition lineage; tenant/Station ownership and authorization dependencies; external document/blob reference without ownership transfer; stale replica/cache/read-model evidence; offline/local content interpretation and recovery closure; AGWS document/media components revalidated across metadata/authority/provider revision; and measurable storage/provider complexity factors for later relative operational-complexity metering without making Storage owner of billing. Test whether position-qualified data conformance generalizes to object/content generation/version/hash/freshness evidence or remains Data-specific. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=3 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T13:46:45-03:00"
 }
