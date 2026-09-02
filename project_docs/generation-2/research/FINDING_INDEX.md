@@ -43,4 +43,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-GCA-15 — Tamper-evident Claims Require Coverage Interval and Trust/Verification Context
 - G2-FINDING-GCA-16 — Redaction/Minimization Is an Evidence Transformation Requiring Lineage
 
+## Secrets / Configuration / Environment Portability — revisit 1
+- G2-FINDING-SCEP-11 — Declared Binding, Provider Resolution, Materialization and Effective Runtime Consumption Are Distinct Evidence
+- G2-FINDING-SCEP-12 — Secret Disclosure Authority and Use-Without-Disclosure Authority Are Distinct
+- G2-FINDING-SCEP-13 — Secret-Zero / Bootstrap Handoff Has Its Own Identity, TTL and Consumption Lifecycle
+- G2-FINDING-SCEP-14 — Rotation Success Is Not End-to-End Freshness; Propagation to Materializers and Consumers Is a Separate Proof Obligation
+- G2-FINDING-SCEP-15 — Encrypted Configuration Availability and Decryptability/Recovery Are Separate Proofs
+- G2-FINDING-SCEP-16 — Provider Replacement Requires Rebind Continuity Proof, Not Locator Substitution
+
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
