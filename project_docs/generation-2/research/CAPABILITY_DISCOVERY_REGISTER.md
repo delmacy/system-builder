@@ -12,25 +12,28 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 `G2-RESEARCH-HYPOTHESIS-EXECUTABLE-CAPABILITY-COMPOSITION-AND-CUMULATIVE-CONTEXT` and `G2-RESEARCH-HYPOTHESIS-TRANSACTION-CONSISTENCY-CONCURRENCY` remain **USER-DIRECTED / MANDATORY_RESEARCH / NOT_A_PROMOTED_CAPABILITY** in their concept dossiers.
 
 ## Cycle-4 consolidation candidates
-`G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**.
+`G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Provider negotiation now strengthens this with explicit BindingRevision + NegotiatedEffectiveProfile + ProviderRealizationRevision lineage.
 
-`G2-CAPABILITY-CANDIDATE-UNIFIED-EVIDENCE-QUALIFICATION-CONTRACT` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**.
+`G2-CAPABILITY-CANDIDATE-UNIFIED-EVIDENCE-QUALIFICATION-CONTRACT` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Provider negotiation reinforces freshness, profile satisfaction, authority scope and `INCONCLUSIVE` as cross-cutting evidence qualifiers.
 
-`G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CLOSURE-PROFILE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Secrets/config now strengthens this with selective encrypted authority-scoped material, trust/freshness and recovery inputs.
+`G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CLOSURE-PROFILE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Secrets/config and provider negotiation now converge on local implementation/configuration/trust/authority/effective-profile/evidence context, not mere cached endpoints or credentials.
 
 `G2-CAPABILITY-CANDIDATE-NON-ACTUATING-RECONCILIATION-AUTHORITY-SEPARATION` remains a likely constitutional primitive.
 
-`G2-CAPABILITY-CANDIDATE-SHARED-GOVERNED-MIGRATION-TRANSITION` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Secrets/config adds credential rotation/revocation and provider cutover as concrete transition families.
+`G2-CAPABILITY-CANDIDATE-SHARED-GOVERNED-MIGRATION-TRANSITION` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Provider fallback/coexistence/cutover now joins credential rotation/revocation and other governed transition families.
 
-## Secrets / Configuration / Environment Portability — revisit cycle 4 candidates
+## Provider / Binding / Capability Negotiation — revisit cycle 4 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-SECRET-CONFIG-SEMANTIC-REALIZATION-REVISION-EVIDENCE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Provider/Lifecycle should confirm merge into unified revision-bound realization evidence while retaining lease/material freshness. |
-| G2-CAPABILITY-CANDIDATE-GOVERNED-CREDENTIAL-ROTATION-REVOCATION-EVIDENCE | CROSS_CUTTING | CANDIDATE | Security/Lifecycle should determine consolidation with shared governed transition and recovery semantics. |
-| G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-SECRET-CONFIG-RECOVERY-CLOSURE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Security/Self-hosting should confirm merge into qualified local closure with selective encrypted authority-scoped material. |
-| G2-CAPABILITY-CANDIDATE-NON-AMPLIFYING-ENVIRONMENT-STATION-CONFIG-OVERLAY | CROSS_CUTTING | CANDIDATE | Provider/Authorization/AGWS should confirm semantic ownership of overlay precedence and delegated specialization. |
+| G2-CAPABILITY-CANDIDATE-NEGOTIATED-EFFECTIVE-CAPABILITY-PROFILE-EVIDENCE | CORE | CANDIDATE / MERGE_TARGET | Standards/Lifecycle should confirm merge with capability-profile partial-satisfaction and unified revision-bound realization evidence while preserving mandatory/optional/degraded semantics. |
+| G2-CAPABILITY-CANDIDATE-GOVERNED-PROVIDER-FALLBACK-CUTOVER-TRANSITION | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Lifecycle/Security should confirm consolidation into shared governed migration transition with provider compatibility/authority/state/trust/rollback postconditions. |
+| G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-BINDING-REALIZATION-CLOSURE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Self-hosting/Security should confirm merge into qualified local closure while retaining provider implementation/configuration/trust/effective-profile/evidence context. |
+| G2-CAPABILITY-CANDIDATE-NON-AMPLIFYING-DELEGATED-PROVIDER-EXPOSURE | CROSS_CUTTING | CANDIDATE | Authorization/AGWS/Station planning should determine whether this is a reusable policy primitive or part of hierarchical capability exposure. |
 
-No Secrets/Configuration candidate is promoted.
+No Provider/Binding candidate is promoted.
+
+## Secrets / Configuration / Environment Portability — revisit cycle 4 candidates
+Prior Secrets cycle-4 candidates remain authoritative, including semantic-realization revision evidence, governed credential rotation/revocation, qualified local secret/config recovery closure and non-amplifying environment/Station configuration overlay. None is promoted.
 
 ## Governance / Compliance / Audit — revisit cycle 4 candidates
 Prior Governance cycle-4 candidates remain authoritative in its dossier/state history, including control-profile mapping lineage, evidence selection/package integrity, governed retention/disposition evidence and qualified local governance closure. None is promoted.
