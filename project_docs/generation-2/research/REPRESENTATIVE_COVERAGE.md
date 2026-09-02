@@ -17,6 +17,9 @@ HashiCorp Vault lease/renew/revoke + response wrapping/Agent bootstrap: `DEEP`; 
 ## Provider / Binding / Capability Negotiation — revisit cycle 2
 OpenTofu/Terraform provider requirements/configuration/lock/state linkage: `DEEP`; Crossplane Provider/ProviderRevision install/activation/health: `DEEP`; Kubernetes Discovery API + mixed-version discovery: `DEEP`; Kubernetes Device Plugin/DRA vendor-independent discovery/allocation: `DEEP`; gRPC Reflection + pluggable name resolution: `DEEP`; Backstage backend service overrides/capability-owned extension points: `DEEP`. Revisit result: six material findings (`G2-FINDING-PBCN-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
+## Standards / Interoperability / API Contracts — revisit cycle 2
+OpenAPI Specification 3.2.0 representation/link semantics: `DEEP`; HTTP Semantics RFC 9110 content negotiation: `DEEP`; RFC 9457 Problem Details semantic type/status/occurrence/extensions: `DEEP`; JSON Schema Draft 2020-12 dialect + required/optional vocabularies: `DEEP`; AsyncAPI 3.0 protocol-neutral core/bindings/schema formats: `DEEP`; gRPC status/origin model: `DEEP`. Revisit result: six material findings (`G2-FINDING-SIAC-11..16`); consecutive-no-material = 0; NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
