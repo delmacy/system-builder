@@ -7,6 +7,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 Required proofs remain: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for canonical domain change; provider-bound action without coupling; bounded personal automation; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion.
 
+## Workflow & Durable Execution — revisit cycle 3 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-AUTHORITY-REVALIDATED-DURABLE-CONTINUATION | CROSS_CUTTING | CANDIDATE | Authorization, AI and AGWS research converge on one reusable continuation/revalidation proof. |
+| G2-CAPABILITY-CANDIDATE-EXTERNAL-EFFECT-ATTEMPT-RECEIPT-IDEMPOTENCY-LINEAGE | CROSS_CUTTING | CANDIDATE | Integration, Provider and Observability findings converge on a shared external-effect proof primitive. |
+| G2-CAPABILITY-CANDIDATE-REVISION-BOUND-DURABLE-RUN-CONTEXT | CROSS_CUTTING | CANDIDATE | Lifecycle, Process and Workflow synthesis confirms one shared definition/authority/binding context snapshot. |
+
 ## Adaptive Governed Work Surfaces — revisit cycle 3 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
