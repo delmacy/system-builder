@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## Integration & Automation — revisit 2 / cycle 3
+- G2-FINDING-IA-17 — Connector Credential Capability Must Not Become Semantic Operation Authority
+- G2-FINDING-IA-18 — Trigger Deduplication and Business-effect Idempotency Are Distinct Contracts
+- G2-FINDING-IA-19 — Chained Integration Authority Must Be Monotonically Attenuated Across Hops
+- G2-FINDING-IA-20 — Connection Validity Is Revisioned Authority Evidence, Not Static Configuration
+- G2-FINDING-IA-21 — Async Connector Acceptance and Callback Completion Require Distinct Outcome States
+- G2-FINDING-IA-22 — Provider Replacement Must Revalidate Both Operational Guarantees and Authority Realization
+
 ## Workflow & Durable Execution — revisit 2 / cycle 3
 - G2-FINDING-WDE-17 — Semantic Operation, Workflow Run, Activity Invocation and Attempt Require Distinct Identities
 - G2-FINDING-WDE-18 — Durable Execution Must Bind Definition Revision, Effective Authority and Provider-Binding Context
