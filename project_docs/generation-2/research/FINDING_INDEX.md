@@ -42,5 +42,13 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - G2-FINDING-SIAC-21 — Portable Offline Conformance Requires an Interpretation Closure, Not a Standalone Contract Document
 - G2-FINDING-SIAC-22 — Station Contract Exposure Is a Non-Amplifying Projection Over Canonical Contract Authority
 
+## Lifecycle / Versioning / Evolution / Migration — revisit 2 / cycle 3
+- G2-FINDING-LVEM-17 — Desired Semantic Revision, Effective Realized Revision and Runtime Availability Are Separate Scope-Bound Facts
+- G2-FINDING-LVEM-18 — Compatibility Is a Profile/Operation/Direction/Window Relation, Not a Version-Label Property
+- G2-FINDING-LVEM-19 — Deprecation, Sunset Intent, Withdrawal and Observed Availability Form Distinct Lifecycle Evidence
+- G2-FINDING-LVEM-20 — Migration Continuity Across Address, Provider, Type or Runtime Changes Requires Explicit State/Semantic Compatibility Proof
+- G2-FINDING-LVEM-21 — Migration Recovery Creates New Governed Transitions and May Branch Lineage; Rollback Is Never History Erasure
+- G2-FINDING-LVEM-22 — Offline Migration Autonomy Requires a Complete Interpretation, Procedure, Trust and Recovery Closure Plus Post-Migration Conformance
+
 ## Current cycle historical authority
 Findings `EXT-17..22`, `OOI-17..22`, `DER-17..22`, `ARSP-17..22`, `BUILD-17..22`, `NEM-17..22`, `SDM-17..22`, `DSM-17..22`, `AUTH-17..22`, `IAF-17..22`, `IA-17..22`, `WDE-17..22`, `AGWS-10..15`, `UIGX-17..22`, `PAM-17..22`, and `UCA-17..22` remain authoritative in their dossiers and prior index revisions.
