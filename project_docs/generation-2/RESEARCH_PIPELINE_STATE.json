@@ -11,15 +11,11 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 2,
     "active_revisit_cycle": 3,
-    "capabilities_revisited_in_active_cycle": 18,
-    "hourly_runs_completed": 67,
-    "finding_count": 501,
-    "capability_candidate_count": 206,
-    "new_candidates_this_run": [
-      "G2-CAPABILITY-CANDIDATE-WORKLOAD-IDENTITY-CREDENTIAL-ELIMINATION",
-      "G2-CAPABILITY-CANDIDATE-GOVERNED-CONFIGURATION-ROLLOUT",
-      "G2-CAPABILITY-CANDIDATE-CONFIGURATION-OVERLAY-PRECEDENCE-LINEAGE"
-    ],
+    "capabilities_revisited_in_active_cycle": 19,
+    "hourly_runs_completed": 68,
+    "finding_count": 507,
+    "capability_candidate_count": 209,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-CAPABILITY-PROFILE-PARTIAL-SATISFACTION-EVIDENCE","G2-CAPABILITY-CANDIDATE-COMPOSITE-PROVIDER-REALIZATION-CONFORMANCE","G2-CAPABILITY-CANDIDATE-RUNTIME-AUTONOMOUS-PROVIDER-REALIZATION-CLOSURE"],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
@@ -44,52 +40,23 @@
       "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred with rationale, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be explicitly challenged as part of cost/quotas/metering/FinOps negative space if not promoted/researched earlier."
     },
     "revisit_status": {
-      "Extension / Plugin / Marketplace Architecture": {
+      "Provider / Binding / Capability Negotiation": {
         "revisits_completed": 2,
         "consecutive_no_material_finding": 0,
         "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-        "new_findings": ["G2-FINDING-EXT-17","G2-FINDING-EXT-18","G2-FINDING-EXT-19","G2-FINDING-EXT-20","G2-FINDING-EXT-21","G2-FINDING-EXT-22"]
-      },
-      "Governance / Compliance / Audit": {
-        "revisits_completed": 2,
-        "consecutive_no_material_finding": 0,
-        "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-        "new_findings": ["G2-FINDING-GCA-17","G2-FINDING-GCA-18","G2-FINDING-GCA-19","G2-FINDING-GCA-20","G2-FINDING-GCA-21","G2-FINDING-GCA-22"]
-      },
-      "Secrets / Configuration / Environment Portability": {
-        "revisits_completed": 2,
-        "consecutive_no_material_finding": 0,
-        "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-        "new_findings": ["G2-FINDING-SCEP-17","G2-FINDING-SCEP-18","G2-FINDING-SCEP-19","G2-FINDING-SCEP-20","G2-FINDING-SCEP-21","G2-FINDING-SCEP-22"]
+        "new_findings": ["G2-FINDING-PBCN-17","G2-FINDING-PBCN-18","G2-FINDING-PBCN-19","G2-FINDING-PBCN-20","G2-FINDING-PBCN-21","G2-FINDING-PBCN-22"]
       }
     },
     "representative_coverage": {
-      "Extension / Plugin / Marketplace Architecture": {
-        "VS Code extensions / enterprise management": "DEEP",
-        "Terraform providers / plugin protocol / lock / mirror": "DEEP",
-        "Backstage plugins / modules / feature loaders": "DEEP",
-        "Kubernetes CRD/operator version boundary": "DEEP",
-        "OSGi resolver / lifecycle": "DEEP"
-      },
-      "Governance / Compliance / Audit": {
-        "NIST OSCAL Assessment Layer / Results": "DEEP",
-        "Azure Policy scope / assignments / exemptions": "DEEP",
-        "AWS Audit Manager assessment / evidence": "DEEP",
-        "Open Policy Agent management / decision logs / status": "DEEP",
-        "HashiCorp Sentinel enforcement / override": "DEEP",
-        "AWS CloudTrail integrity validation": "DEEP"
-      },
-      "Secrets / Configuration / Environment Portability": {
-        "HashiCorp Vault Agent / Proxy / leases": "DEEP",
-        "AWS Secrets Manager": "DEEP",
-        "External Secrets Operator + Kubernetes Secret / ConfigMap": "DEEP",
-        "AWS AppConfig": "DEEP",
-        "SPIFFE / SPIRE workload identity": "DEEP",
-        "SOPS": "DEEP",
-        "Kustomize bases / overlays": "DEEP"
+      "Provider / Binding / Capability Negotiation": {
+        "Terraform provider requirements/configurations/state": "DEEP",
+        "Kubernetes extended resources + DRA": "DEEP",
+        "Kubernetes device plugins": "DEEP",
+        "SPIFFE Workload API + federation": "DEEP",
+        "Backstage feature discovery/plugins": "PARTIAL"
       }
     },
-    "pending_capabilities": ["Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
+    "pending_capabilities": ["Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, saturation conditions are satisfied, and when completed_full_cycles >= 7 the Enterprise Completeness / Negative-Space Review gate is closed with no material ownerless category.",
@@ -106,15 +73,9 @@
     "WORK_PACKAGE_DESIGN": "WPs derived from WBS and sized for 3–10 Construction Sprints plus required gates.",
     "READY_FOR_WORKER_HANDOFF": "Research/planning complete, integrated and ready for separate :10/:30/:50 execution pipeline."
   },
-  "artifact_roots": {
-    "research": "project_docs/generation-2/research/",
-    "synthesis": "project_docs/generation-2/synthesis/",
-    "planning": "project_docs/generation-2/planning/",
-    "wbs": "project_docs/generation-2/wbs/",
-    "packages": "project_docs/generation-2/packages/"
-  },
-  "current_focus": "Secrets / Configuration / Environment Portability — revisit 2 / cycle 3 complete. Six material findings distinguish configuration intent/overlay/deployment/effective runtime revision; require non-amplifying precedence lineage across Enterprise → Station → Role → Person; distinguish workload authentication from secret requirement so short-lived workload identity can eliminate stored credentials; require disclosure-free effective-state evidence or UNKNOWN; treat configuration rollout as validated/progressive/rollback-capable runtime change; and require local trust/recovery paths for offline autonomy.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_REVISIT_02.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Provider / Binding / Capability Negotiation, revisit cycle 3. Test semantic capability requirement versus provider implementation/package/runtime instance; requirement satisfaction and negotiation inputs; provider manifest/capability claims versus independently proven compatibility; binding identity/version/scope; selection policy and deterministic resolution; optional versus mandatory provider features; composition of independent realizations such as workload identity, secret resolution, configuration rollout and offline materialization; provider replacement/migration/rollback; degraded/partial capability states; admission/trust/dependency closure; runtime-autonomous provider use; Station-scoped capability exposure and non-amplifying Enterprise → Station → Role → Person delegation; AI/AGWS inability to introduce providers or broaden provider authority without escalation; evidence of selected provider/realization without coupling portable definitions to provider-specific locators; and convergence with G2-CAPABILITY-CANDIDATE-WORKLOAD-IDENTITY-CREDENTIAL-ELIMINATION, G2-CAPABILITY-CANDIDATE-GOVERNED-CONFIGURATION-ROLLOUT, G2-CAPABILITY-CANDIDATE-CONFIGURATION-OVERLAY-PRECEDENCE-LINEAGE and prior semantic-realization candidates. Update dossier, Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7; Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T09:48:00-03:00"
+  "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
+  "current_focus": "Provider / Binding / Capability Negotiation — revisit 2 / cycle 3 complete. Six material findings distinguish provider claims from compatibility/admission proof; require mandatory/optional capability profiles and partial-satisfaction semantics; demonstrate mechanism-independent realization; require composite realization compatibility/authority evidence; define runtime-autonomous local provider closure; and make Station-scoped provider exposure a non-amplifying delegated binding boundary.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/PROVIDER_BINDING_CAPABILITY_NEGOTIATION_REVISIT_02.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Standards / Interoperability / API Contracts, revisit cycle 3. Test semantic contract/profile identity versus wire/API/schema/transport/provider realization; mandatory versus optional profile features and partial-satisfaction/conformance evidence; compatibility windows and backward/forward evolution; OpenAPI/AsyncAPI/JSON Schema/CloudEvents/OAuth-OIDC/SCIM/OCI or stronger representatives where relevant; negotiation/version selection versus provider binding ownership; schema vocabulary and namespaced extension governance; API lifecycle/deprecation; error/failure semantics; capability discovery; offline/self-hosted conformance; provider replacement without contract ownership transfer; Station-scoped exposed contracts and non-amplifying Enterprise → Station → Role → Person authority; AGWS/AI consuming only admitted semantic contracts without arbitrary endpoint/query creation; and convergence with G2-CAPABILITY-CANDIDATE-CAPABILITY-PROFILE-PARTIAL-SATISFACTION-EVIDENCE plus prior standards/interoperability candidates. Update dossier, Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7; Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T10:08:00-03:00"
 }
