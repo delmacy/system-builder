@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 3/25 capabilities revisited.
+Cycle 4 is open with 4/25 capabilities revisited.
 
 ### Universal Capability Architecture — revisit 3
 OASIS TOSCA 2.0: `DEEP`; Kubernetes desired/observed generation: `DEEP`; OpenFeature provider/context/status: `DEEP`; OpenTelemetry Resource/Entity identity: `DEEP`; Crossplane ProviderConfig/ManagedResource: `DEEP`; SPIFFE trust domains/bundles: `DEEP`; OPA bundle persistence/status: `DEEP`. Findings `G2-FINDING-UCA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
@@ -19,6 +19,9 @@ Camunda 8 process application/versioning + process-instance migration: `DEEP`; M
 
 ### UI / Generated Experience / Low-code Builder — revisit 3
 Microsoft Power Apps/Dataverse solution dependencies + layers: `DEEP`; Mendix pages/pluggable widgets/Software Composition: `DEEP`; ServiceNow UI Builder data resources/page variants: `DEEP`; Salesforce Lightning App Builder/LWC metadata/Dynamic Forms migration: `DEEP`; prior constrained-layout/component-contract evidence: `DEEP`. Findings `G2-FINDING-UIGX-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: projection revision vs realization coexistence; explicit projection migration; semantic compatibility beyond render success; revision/profile-qualified UI validation; qualified local interpretation closure; analysis/generation authority separated from canonical mutation/migration authority.
+
+### Adaptive Governed Work Surfaces — revisit 2
+Microsoft Power Apps/Dataverse personal/system/public views + security-role-managed views/forms/apps: `DEEP`; ServiceNow UI Builder variants/audiences/ordered conditions: `DEEP`; SAP Build Work Zone spaces/pages/business roles/federated transport: `DEEP`; Salesforce Lightning App Builder org/app/profile/record-type/form-factor assignment: `DEEP`; prior Appsmith boundary evidence: `DEEP`; prior Retool evidence: `PARTIAL`. Findings `G2-FINDING-AGWS-16..21`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: revision-qualified `Enterprise → Station → Role → Person` resolution; independently versioned Station exposure; mandatory-component semantic migration; governed Personal→Team/Role/System promotion; revision/profile/context-qualified validation; AI materialization without superior-authority amplification.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
