@@ -7,6 +7,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 Required proofs remain: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for canonical domain change; provider-bound action without coupling; bounded personal automation; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion.
 
+## Adaptive Governed Work Surfaces — revisit cycle 3 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-AI-MUTATION-CLASS-AUTHORITY-CLASSIFIER | CROSS_CUTTING | CANDIDATE | AI-native/Process/AGWS synthesis confirms one reusable pre-materialization authority classifier. |
+| G2-CAPABILITY-CANDIDATE-EFFECTIVE-SURFACE-DEPENDENCY-FRESHNESS-PROOF | CROSS_CUTTING | CANDIDATE | Lifecycle/provider/UI synthesis confirms shared revision-freshness semantics. |
+| G2-CAPABILITY-CANDIDATE-STATION-REALIZATION-CONFORMANCE-EVIDENCE | CROSS_CUTTING | CANDIDATE | Deployment/provider/portability synthesis confirms a reusable source-definition-versus-target-realization proof. |
+
 ## UI / Generated Experience / Low-code Builder — revisit 2 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
