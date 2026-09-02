@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## Universal Capability Architecture — revisit 3 / cycle 4
+- G2-FINDING-UCA-23 — Desired/Effective/Observed Candidates Collapse Into One Revision-Bound Realization Lineage
+- G2-FINDING-UCA-24 — Evidence Freshness/Coverage/Trust Is Qualification of Evidence, Not a Standalone Capability by Default
+- G2-FINDING-UCA-25 — Decision/Evaluation Authority and Execution Authority Are Universally Distinct Contracts
+- G2-FINDING-UCA-26 — Context Resolution Is Universal but Organizational Hierarchy Is Specialized
+- G2-FINDING-UCA-27 — Compatibility Is a Profile/Context/Operation-Scoped Tri-State Evidence Relation
+- G2-FINDING-UCA-28 — Offline Autonomy Is a Qualified Closure Profile Over Local Dependencies
+
 ## Architecture Reconciliation as a Capability — revisit 2 / cycle 3
 - G2-FINDING-ARAC-17 — Architecture Reconciliation Requires Desired, Remembered and Observed Realization Identities Rather Than a Global Conformance Boolean
 - G2-FINDING-ARAC-18 — Evidence Freshness and Coverage Are Policy/Profile-Specific Inputs to Conformance; Missing or Stale Evidence Must Produce Unknown/Inconclusive States
@@ -36,6 +44,9 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close. Cycle 4 restarts under the pipeline rotation rule.
+
+## Cycle 4 progress
+1/25 active capabilities revisited. Universal Capability Architecture produced material findings `UCA-23..28`, so consecutive-no-material remains 0 and UCA is NOT SATURATED.
 
 ## Current cycle historical authority
 All prior current-cycle findings, including SIAC-17..22, SRFR-17..22, PBCN-17..22, SCEP-17..22, GCA-17..22, EXT-17..22, OOI-17..22, DER-17..22, ARSP-17..22, BUILD-17..22, NEM-17..22, SDM-17..22, DSM-17..22, AUTH-17..22, IAF-17..22, IA-17..22, WDE-17..22, AGWS-10..15, UIGX-17..22, PAM-17..22 and UCA-17..22 remain authoritative in their dossiers and prior index revisions.
