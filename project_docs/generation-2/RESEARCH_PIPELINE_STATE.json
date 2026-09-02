@@ -11,27 +11,71 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 2,
     "active_revisit_cycle": 3,
-    "capabilities_revisited_in_active_cycle": 16,
-    "hourly_runs_completed": 65,
-    "finding_count": 489,
-    "capability_candidate_count": 199,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-SEMANTIC-EXTENSION-REALIZATION-BINDING","G2-CAPABILITY-CANDIDATE-EXTENSION-ADMISSION-DEPENDENCY-CLOSURE","G2-CAPABILITY-CANDIDATE-EXTENSION-REVOCATION-CONTAINMENT-EVIDENCE"],
+    "capabilities_revisited_in_active_cycle": 17,
+    "hourly_runs_completed": 66,
+    "finding_count": 495,
+    "capability_candidate_count": 203,
+    "new_candidates_this_run": [
+      "G2-CAPABILITY-CANDIDATE-CONTROL-EFFECTIVENESS-EVIDENCE-QUALITY",
+      "G2-CAPABILITY-CANDIDATE-DELEGATED-GOVERNANCE-INHERITANCE-CONFORMANCE",
+      "G2-CAPABILITY-CANDIDATE-CONTINUOUS-CONTROL-COVERAGE-UNKNOWN-STATE",
+      "G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING"
+    ],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; compact representations do not revoke prior candidates",
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "mandatory_discovered_capabilities": {"Adaptive Governed Work Surfaces":{"candidate_id":"G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES","classification":"CORE","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","must_remain_distinct_from":"UI / Generated Experience / Low-code Builder","required_boundary":"Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.","required_authoring_rule":"Users express intent and compose constrained semantic components; AI is sole materializer over valid entities/domains/capabilities/permissions/contracts and must classify mutation authority and escalate canonical domain/process changes.","required_proofs":["list/form/grid without new canonical model","layout constrained to allowed slots/grid","mandatory component non-removable","personalization revalidated after Station/Role change","AI request requiring domain change escalated","provider-bound action without coupling","personal automation respects authority","lineage/version/diff/reset/rollback","Personal→Team/Role/System promotion governed by evidence"]}},
-    "enterprise_completeness_negative_space_gate": {"required_when_completed_full_cycles_gte":7,"status":"NOT_YET_ELIGIBLE","artifact":"project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md","rule":"CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred with rationale, and no material category remains ownerless."},
+    "mandatory_discovered_capabilities": {
+      "Adaptive Governed Work Surfaces": {
+        "candidate_id": "G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES",
+        "classification": "CORE",
+        "status": "PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY",
+        "saturation": "NOT_SATURATED",
+        "must_remain_distinct_from": "UI / Generated Experience / Low-code Builder",
+        "required_boundary": "Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.",
+        "required_authoring_rule": "Users express intent and compose constrained semantic components; AI is sole materializer over valid entities/domains/capabilities/permissions/contracts and must classify mutation authority and escalate canonical domain/process changes.",
+        "required_proofs": ["list/form/grid without new canonical model","layout constrained to allowed slots/grid","mandatory component non-removable","personalization revalidated after Station/Role change","AI request requiring domain change escalated","provider-bound action without coupling","personal automation respects authority","lineage/version/diff/reset/rollback","Personal→Team/Role/System promotion governed by evidence"]
+      }
+    },
+    "enterprise_completeness_negative_space_gate": {
+      "required_when_completed_full_cycles_gte": 7,
+      "status": "NOT_YET_ELIGIBLE",
+      "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
+      "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred with rationale, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be explicitly challenged as part of cost/quotas/metering/FinOps negative space if not promoted/researched earlier."
+    },
     "revisit_status": {
-      "Observability / Operations / Incident":{"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-OOI-17","G2-FINDING-OOI-18","G2-FINDING-OOI-19","G2-FINDING-OOI-20","G2-FINDING-OOI-21","G2-FINDING-OOI-22"]},
-      "Extension / Plugin / Marketplace Architecture":{"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-EXT-17","G2-FINDING-EXT-18","G2-FINDING-EXT-19","G2-FINDING-EXT-20","G2-FINDING-EXT-21","G2-FINDING-EXT-22"]}
+      "Extension / Plugin / Marketplace Architecture": {
+        "revisits_completed": 2,
+        "consecutive_no_material_finding": 0,
+        "last_revisit_result": "MATERIAL_NEW_FINDINGS",
+        "new_findings": ["G2-FINDING-EXT-17","G2-FINDING-EXT-18","G2-FINDING-EXT-19","G2-FINDING-EXT-20","G2-FINDING-EXT-21","G2-FINDING-EXT-22"]
+      },
+      "Governance / Compliance / Audit": {
+        "revisits_completed": 2,
+        "consecutive_no_material_finding": 0,
+        "last_revisit_result": "MATERIAL_NEW_FINDINGS",
+        "new_findings": ["G2-FINDING-GCA-17","G2-FINDING-GCA-18","G2-FINDING-GCA-19","G2-FINDING-GCA-20","G2-FINDING-GCA-21","G2-FINDING-GCA-22"]
+      }
     },
     "representative_coverage": {
-      "Observability / Operations / Incident":{"OpenTelemetry semantic conventions":"DEEP","Prometheus alerting / Alertmanager":"DEEP","Google SRE SLO / error budget":"DEEP","PagerDuty Incident Management":"DEEP","Grafana Alloy / collector realization":"DEEP"},
-      "Extension / Plugin / Marketplace Architecture":{"VS Code extensions / enterprise management":"DEEP","Terraform providers / plugin protocol / lock / mirror":"DEEP","Backstage plugins / modules / feature loaders":"DEEP","Kubernetes CRD/operator version boundary":"DEEP","OSGi resolver / lifecycle":"DEEP"}
+      "Extension / Plugin / Marketplace Architecture": {
+        "VS Code extensions / enterprise management": "DEEP",
+        "Terraform providers / plugin protocol / lock / mirror": "DEEP",
+        "Backstage plugins / modules / feature loaders": "DEEP",
+        "Kubernetes CRD/operator version boundary": "DEEP",
+        "OSGi resolver / lifecycle": "DEEP"
+      },
+      "Governance / Compliance / Audit": {
+        "NIST OSCAL Assessment Layer / Results": "DEEP",
+        "Azure Policy scope / assignments / exemptions": "DEEP",
+        "AWS Audit Manager assessment / evidence": "DEEP",
+        "Open Policy Agent management / decision logs / status": "DEEP",
+        "HashiCorp Sentinel enforcement / override": "DEEP",
+        "AWS CloudTrail integrity validation": "DEEP"
+      }
     },
-    "pending_capabilities": ["Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
+    "pending_capabilities": ["Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, saturation conditions are satisfied, and when completed_full_cycles >= 7 the Enterprise Completeness / Negative-Space Review gate is closed with no material ownerless category.",
@@ -48,9 +92,15 @@
     "WORK_PACKAGE_DESIGN": "WPs derived from WBS and sized for 3–10 Construction Sprints plus required gates.",
     "READY_FOR_WORKER_HANDOFF": "Research/planning complete, integrated and ready for separate :10/:30/:50 execution pipeline."
   },
-  "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Extension / Plugin / Marketplace Architecture — revisit 2 / cycle 3 complete. Six material findings separate semantic extension identity from package/distribution/runtime realization; installation from scoped enablement/activation/placement; integrity/publisher/dependency-closure trust from host admission; require verified offline realization closure; qualify containment/revocation evidence; and keep Station/AGWS exposure non-amplifying with AI escalation for new code/packages/provider authority.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_REVISIT_02.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Governance / Compliance / Audit, revisit cycle 3. Test policy intent versus enforceable control versus evidence; governance identity and policy revision; obligation/control mapping; preventive/detective/corrective controls; exception/waiver lifecycle and expiry; audit event versus evidence package versus attestation; segregation of duties and approval authority; provider-neutral compliance evidence; retention/legal hold and tamper evidence; continuous controls monitoring; control effectiveness/freshness/unknown state; delegated governance across Enterprise → Station → Role → Person; governance of external providers/extensions/AI agents; non-amplifying remediation authority; and prove governance metadata cannot silently become canonical business/runtime authority. Reconcile candidates from Observability and Extension where relevant. Update dossier, Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7; Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T09:29:00-03:00"
+  "artifact_roots": {
+    "research": "project_docs/generation-2/research/",
+    "synthesis": "project_docs/generation-2/synthesis/",
+    "planning": "project_docs/generation-2/planning/",
+    "wbs": "project_docs/generation-2/wbs/",
+    "packages": "project_docs/generation-2/packages/"
+  },
+  "current_focus": "Governance / Compliance / Audit — revisit 2 / cycle 3 complete. Six material findings separate governance intent/control assignment/enforcement realization/evaluation/effectiveness; require applicability, evidence quality, coverage, freshness and explicit unknown states; formalize scoped expiring delegated exceptions; preserve policy-revision and evidence-gap lineage; qualify continuous-control monitoring; and enforce non-amplifying governance across Enterprise → Station → Role → Person. Relative operational complexity metering/rating for support pricing is registered as a dedicated pending candidate, not absorbed into Governance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/GOVERNANCE_COMPLIANCE_AUDIT_REVISIT_02.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Secrets / Configuration / Environment Portability, revisit cycle 3. Test semantic secret/configuration identity versus secret material/provider realization; configuration intent versus environment-specific binding; secret references/handles versus values; rotation/version/lease/expiry/revocation; disclosure/read/use authority; dynamic/ephemeral credentials; encryption/key-provider boundaries; generated-runtime autonomy and offline/self-hosted/air-gapped operation; environment overlays and precedence without canonical drift; portability/provider replacement; failure semantics for unavailable/stale/revoked secret/config; evidence and redaction without secret leakage; Station capability/config exposure across Enterprise → Station → Role → Person; AGWS/AI inability to reveal or silently create secret material; and relation to the pending commercial metering/rating candidate only where secret/provider complexity contributes measurable evidence, without researching billing in this capability. Update dossier, Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7; Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T09:32:33-03:00"
 }
