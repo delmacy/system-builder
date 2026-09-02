@@ -8,6 +8,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Governance / Commercial-metering pending research
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / PENDING_RESEARCH**. Support pricing should be explainable from measurable relative complexity per capability, service bundles and usage. Dedicated multi-representative research across entitlement, usage metering, relative complexity measurement, rating/pricing, billing and payment remains mandatory before promotion; the Negative-Space gate explicitly challenges it.
 
+## Architecture Reconciliation as a Capability — revisit cycle 3 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-DESIRED-EFFECTIVE-ARCHITECTURE-REALIZATION-EVIDENCE | CROSS_CUTTING | CANDIDATE | Deployment/Lifecycle/Provider/DOESH synthesis confirms one reusable desired/effective/observed realization-evidence primitive across architecture and runtime planes. |
+| G2-CAPABILITY-CANDIDATE-ARCHITECTURE-EVIDENCE-FRESHNESS-COVERAGE-QUALITY | CROSS_CUTTING | CANDIDATE | Observability/Governance/Product Proof confirm reusable freshness/coverage/quality semantics rather than an architecture-only mechanism. |
+| G2-CAPABILITY-CANDIDATE-NON-ACTUATING-RECONCILIATION-AUTHORITY-SEPARATION | CORE | CANDIDATE | AI/Authorization/Governance/Deployment synthesis confirms a constitutional separation of detection, disposition, remediation approval and execution authority across reconciliation domains. |
+
 ## Developer / Operator Experience / Self-hosting — revisit cycle 3 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
