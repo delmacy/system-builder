@@ -1,16 +1,15 @@
 # Current Execution Milestone — M19 Pre-Alpha Productization
 
 ## Milestone state
-M17 Knowledge Boundary and M18 Process Versioning are CLOSED. `P19-PACKAGE-01 — Consolidated Pre-Alpha Productization` is ACTIVE under the milestone-bounded extended-package policy.
+M17 Knowledge Boundary and M18 Process Versioning are CLOSED. `P19-PACKAGE-01 — Consolidated Pre-Alpha Productization` remains ACTIVE under the milestone-bounded extended-package policy.
 
-Construction Sprints 1–8 / WBS 19.1.1–19.3.2 are EXECUTED / REVIEWED / INTEGRATED. Construction 8 `P19-SUCCESSOR-PROCESS-EVOLUTION-01` completed TASK-457..462; PR #544 integrated exact reviewed head `35eb837099418a7cf8df2c33500e45fbb6373346` after Deterministic CI #1371 and Heavy Product Tests #841 PASS as fresh main `02b34c7273f5cb91e9237cbda28fd1c353f2b97c`.
+Construction Sprints 1–8 / WBS 19.1.1–19.3.2 are EXECUTED / REVIEWED / INTEGRATED. Sprint 9 `P19-PREALPHA-INTEGRATION-ACCEPTANCE-01` / WBS 19.3.3 acceptance integrated by PR #545 from exact reviewed head `3f8b3d8d7e00b98f3eb97c16846f67e62ea6cf19`, after Deterministic CI #1372 and Heavy Product Tests #842 PASS, producing fresh main `ec07e0bc9c0ea1147da04d83c749cb49cde11fad`.
 
-## Sprint 9 — `P19-PREALPHA-INTEGRATION-ACCEPTANCE-01`
-WBS 19.3.3 acceptance is the current materialized gate. Its purpose is to review the complete already-built pre-alpha path—clean supported factory/bootstrap, verified Compiler/Release/Deploy integrity, generated Runtime autonomy, successor process/release evolution and exact rollback/history reconstruction—against product, technical, architecture, trust/security, diagnostics and reproducibility requirements.
+## Sprint 10 — `P19-PREALPHA-DOCUMENTATION-CLOSURE-01`
+Sprint 10 / WBS 19.3.3 closure is now COMMITTED / MATERIALIZED from fresh main `ec07e0bc9c0ea1147da04d83c749cb49cde11fad`.
 
-Sprint 9 is not Construction. It may add bounded review/evidence/repository-memory only. Any missing product capability or material acceptance finding produces NO-GO and returns to explicit bounded construction/change control; it cannot be repaired as hidden review overflow.
+Its scope is final repository/operator documentation reconciliation plus immutable pre-alpha candidate evidence tied to exact reviewed commit/artifact identities. It is not product construction and may not repair missing functionality, alter contracts/architecture, introduce new lifecycle authority, or absorb unrelated debt/findings.
 
-Current disposition is conditional GO pending exact-head Deterministic CI and Heavy Product Tests plus absence of blocking review findings.
+P19 remains ACTIVE until the closure-bearing head has exact-head Deterministic CI and Heavy Product Tests PASS, no material review blocker, immutable candidate version/tag/release evidence, reconciled `PROJECT_STATE`/`CURRENT_MILESTONE`/`NEXT_WORK` and package evidence, and expected-head integration with no reviewed-tree drift.
 
-## Successor
-Only after Sprint 9 integrates as GO may fresh-main rolling-wave revalidation materialize Sprint 10 `P19-PREALPHA-DOCUMENTATION-CLOSURE-01`. Sprint 10 is closure/release evidence, not product repair. Generation 2 remains out of scope until P19 is canonically closed or no prior materialized work remains eligible.
+Generation 2 remains non-executable until P19 is canonically CLOSED / PRE-ALPHA.
