@@ -14,15 +14,15 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Data / Schema / Migrations — revisit cycle 5 candidates
+## Storage / Documents / Media — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-DSM-DIRECTIONAL-COMPATIBILITY-WINDOW-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Standards compatibility qualification while preserving Data ownership of schema/data reader-writer windows. |
-| G2-CAPABILITY-CANDIDATE-DSM-MIGRATION-BACKFILL-CDC-CONVERGENCE-EVIDENCE | CROSS_CUTTING | CANDIDATE | Validate across Integration, Lifecycle and Observability; Data owns semantic data convergence while providers own transport mechanisms. |
-| G2-CAPABILITY-CANDIDATE-DSM-DUAL-WRITE-DIVERGENCE-RECONCILIATION | CROSS_CUTTING | CANDIDATE | Validate provider replacement and migration cutover; reconcile with shared governed migration without universalizing dual-write. |
-| G2-CAPABILITY-CANDIDATE-DSM-QUALIFIED-LOCAL-DATA-MIGRATION-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with qualified-local-closure primitive while preserving source/target/checkpoint/schema-specific obligations. |
+| G2-CAPABILITY-CANDIDATE-SDM-QUALIFIED-CONTENT-EFFECTIVE-AVAILABILITY-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Validate against Artifact, Deployment and Observability evidence qualification; keep content-specific subject/dependency semantics. |
+| G2-CAPABILITY-CANDIDATE-SDM-LARGE-OBJECT-TRANSFER-COMMIT-RECONCILIATION | DOMAIN | CANDIDATE | Remain Storage subcapability unless Integration/Artifact research proves a genuinely shared transfer/commit primitive. |
+| G2-CAPABILITY-CANDIDATE-SDM-DERIVATIVE-PROJECTION-LINEAGE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UI/Data and later enterprise retrieval/search ownership without making Storage owner of search semantics. |
+| G2-CAPABILITY-CANDIDATE-SDM-QUALIFIED-LOCAL-DOCUMENT-MEDIA-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with shared qualified-local-closure primitive while preserving content/integrity/governance/key-specific obligations. |
 
-No Data candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
+No Storage candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
 
 ## Historical authority
 All omitted candidates remain authoritative in prior register revisions, state history and capability dossiers.
