@@ -24,5 +24,15 @@ Prior cycle-4 and cycle-5 candidates remain authoritative in earlier register re
 
 No Workflow cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains distinct and unchanged.
 
+## Integration & Automation — revisit cycle 5 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-IA-QUALIFIED-EXTERNAL-EFFECT-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Multi-representative Integration evidence now confirms Workflow's ambiguous-external-effect candidate. Merge during synthesis only after Data/Notifications contradiction checks; preserve Integration ownership of external invocation evidence. |
+| G2-CAPABILITY-CANDIDATE-IA-SCOPED-IDEMPOTENCY-CONTRACT-EVIDENCE | CROSS_CUTTING | CANDIDATE | Reconcile operation/provider/account/window scope with Data, Workflow and Notifications before promotion. |
+| G2-CAPABILITY-CANDIDATE-IA-INTEGRATION-DEFINITION-OWNERSHIP-PRECONDITIONS | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Align with UCA/PAM/UI expected-base/semantic ownership; retain Integration-specific subscription/route/filter semantics. |
+| G2-CAPABILITY-CANDIDATE-IA-PROVIDER-DUAL-RUN-CUTOVER-REPLAY-DISPOSITION | CROSS_CUTTING | CANDIDATE | Require Provider/Lifecycle validation of dual-running, cutover and replay-position representability before any promotion. |
+
+No Integration cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
+
 ## Historical authority
 All candidates from prior sections/revisions remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
