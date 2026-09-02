@@ -51,11 +51,21 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - **G2-FINDING-DER-28** — Qualified Local/Offline Runtime Execution and Recovery Require a Profile-scoped Closure of Artifact, Runtime, Config/Secret, Trust, State/Recovery and Verification Inputs.
 - **G2-FINDING-DER-29** — Release Approval, Deployment Authority, Runtime Administration and Recovery Authority Must Remain Separated Across AI/AGWS Automation.
 
+### Observability / Operations / Incident — revisit 3
+- **G2-FINDING-OOI-23** — Desired Operational Condition, Effective Runtime Realization, Semantic Observation, Telemetry Transport and Operational Evaluation Are Distinct Identities.
+- **G2-FINDING-OOI-24** — Operational Evidence Must Be Revision/Topology/Window/Freshness/Coverage/Pipeline-Health Qualified, With INCONCLUSIVE as a First-Class Result.
+- **G2-FINDING-OOI-25** — Deployment Success, Runtime Readiness and Domain Operational Postcondition Require an Explicit Revision/Cohort Evidence Handoff; Aggregate Health Is Not Sufficient Proof.
+- **G2-FINDING-OOI-26** — Alert Evaluation, Alert Instance, Incident, Diagnosis, Remediation Attempt and Recovery/Reconciliation Evidence Require Separate Lifecycles and Preserved Lineage.
+- **G2-FINDING-OOI-27** — Detection, Diagnosis, Incident Administration, Remediation, Deployment and Recovery Authorities Must Remain Non-Amplifying Across Providers, Station, AGWS and AI.
+- **G2-FINDING-OOI-28** — SLI/SLO/Error-Budget Evaluation Is Governed Revision-Bound Evidence; Invalid or Insufficient Measurement Must Not Silently Become a Policy Conclusion.
+- **G2-FINDING-OOI-29** — Qualified Local/Offline Observability and Incident Operation Requires Profile-Scoped Closure of Identity, Collection, Retention/Evaluation, Trust, Authority, Incident Ledger and Reconciliation Inputs.
+- **G2-FINDING-OOI-30** — Operational Complexity Metrics Are Evidence Inputs for Later Rating/FinOps Decisions, Not Billing Authority Owned by Observability.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-14/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
+15/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings and the full wording of compacted cycle-4 sections, remain authoritative in their dossiers and prior index revisions.
