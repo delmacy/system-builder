@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## UI / Generated Experience / Low-code Builder — revisit 2 / cycle 3
+- G2-FINDING-UIGX-17 — Generated Experience Is a Revisioned Projection, Not Canonical Model or Rendered Realization
+- G2-FINDING-UIGX-18 — Form/List/Grid Derivation Must Be Possible Under Projection-Only Authority
+- G2-FINDING-UIGX-19 — Semantic Component Contracts Must Declare Data, Intent, Accessibility and Responsive Expectations
+- G2-FINDING-UIGX-20 — Generated Experience Validity Requires Revision-Bound Dependency Freshness Evidence
+- G2-FINDING-UIGX-21 — Action-Bearing UI Must Reference Semantic Requirements; Concrete Provider Selection Remains Outside UI
+- G2-FINDING-UIGX-22 — Regeneration Must Preserve Projection-to-Realization Lineage and Distinguish Semantic Diff from Renderer Diff
+
 ## Process & Application Modeling — revisit 2 / cycle 3
 - G2-FINDING-PAM-17 — Canonical Model, Process Definition, Projection and Execution Instance Require Distinct Identities
 - G2-FINDING-PAM-18 — Projection Authority Must Not Imply Canonical Model Authority
