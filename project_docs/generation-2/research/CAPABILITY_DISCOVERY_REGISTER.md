@@ -43,5 +43,16 @@ All candidates from these completed revisits remain authoritative in their dossi
 
 No Security/Recovery candidate is promoted.
 
+## AI-native Engineering / Agents / Approvals — revisit cycle 4 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-UNTRUSTED-CONTEXT-AUTHORITY-PROVENANCE-ENVELOPE | CROSS_CUTTING | CANDIDATE | Reconcile with executable cumulative context, Security and Governance; promote only if provenance/trust classification needs a shared constitutional contract. |
+| G2-CAPABILITY-CANDIDATE-REVISION-BOUND-ACTUATION-APPROVAL-EVIDENCE | CROSS_CUTTING | MERGE_TARGET | Merge prior revision-bound agent approval evidence into unified evidence-qualification semantics while preserving candidate/policy/authority/expiry applicability. |
+| G2-CAPABILITY-CANDIDATE-NON-AMPLIFYING-AGENT-DELEGATION-AUTHORITY-ENVELOPE | CROSS_CUTTING | CANDIDATE | Authorization, AGWS and multi-agent evidence should confirm that delegation is always subset/intersection authority rather than union of discoverable tools/providers. |
+| G2-CAPABILITY-CANDIDATE-DETERMINISTIC-VALIDATOR-PROBABILISTIC-PROPOSAL-SEPARATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with non-actuating reconciliation and Governance; likely constitutional separation between recommendation/proposal and authoritative validation. |
+| G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-AGENT-EXECUTION-CLOSURE | CROSS_CUTTING | MERGE_TARGET | Merge into qualified local closure profile if model/tool/policy/trust/validator/approval/enforcement requirements remain profile elements rather than a separate capability. |
+
+No AI-native candidate is promoted in this revisit.
+
 ## Historical authority
 All candidates from prior sections/revisions remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
