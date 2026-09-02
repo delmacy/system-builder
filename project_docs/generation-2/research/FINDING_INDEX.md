@@ -1,6 +1,14 @@
 # Generation 2 — Finding Index
 
-Prior stable findings through `G2-FINDING-DOESH-16` remain authoritative in their capability dossiers and pipeline history. All revisit-cycle-2 findings remain authoritative; compacting this index does not revoke them.
+Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
+
+## Universal Capability Architecture — revisit 2 / cycle 3
+- G2-FINDING-UCA-17 — Semantic Identity Requires Explicit Lifespan Semantics
+- G2-FINDING-UCA-18 — Evidence Must Bind to the Revision It Observed
+- G2-FINDING-UCA-19 — Capability Exposure Is Distinct from Offer, Authorization and Binding
+- G2-FINDING-UCA-20 — Universal Context Should Be Relational, Not Embedded Domain Hierarchy
+- G2-FINDING-UCA-21 — Semantic Vocabulary and Execution Protocol Must Remain Orthogonal
+- G2-FINDING-UCA-22 — Effective Resolution Requires Revision-Bound Inputs and Evidence
 
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
 - G2-FINDING-AGWS-01 — Surface Definition, Overlay and Effective Resolved Surface Are Distinct Identities
