@@ -7,6 +7,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 Required proofs remain: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for canonical domain change; provider-bound action without coupling; bounded personal automation; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion.
 
+## Process & Application Modeling — revisit 2 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-CANONICAL-PROJECTION-AUTHORITY-SEPARATION | CROSS_CUTTING | CANDIDATE | Synthesis confirms reusable authority separation across AGWS, reporting, documents/notifications and generated experience projections. |
+| G2-CAPABILITY-CANDIDATE-REVISION-BOUND-SEMANTIC-REFERENCE-COMPATIBILITY-EVIDENCE | CROSS_CUTTING | CANDIDATE | Synthesis confirms one proof shape across process, schema, provider and migration references. |
+| G2-CAPABILITY-CANDIDATE-DEFINITION-EXECUTION-SEMANTIC-CONTEXT-LINEAGE | CROSS_CUTTING | CANDIDATE | Workflow, AI, deployment and observability findings converge on a shared definition-to-execution context lineage primitive. |
+
 ## Universal Capability Architecture — revisit 2 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
