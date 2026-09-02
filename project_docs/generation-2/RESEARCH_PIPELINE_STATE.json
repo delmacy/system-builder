@@ -10,22 +10,22 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 17,
-    "hourly_runs_completed": 41,
+    "capabilities_revisited_in_active_cycle": 18,
+    "hourly_runs_completed": 42,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 125,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-EFFECTIVE-SECRET-CONSUMPTION-FRESHNESS-EVIDENCE","G2-CAPABILITY-CANDIDATE-RUNTIME-BOOTSTRAP-HANDOFF-LIFECYCLE","G2-CAPABILITY-CANDIDATE-SECRET-PROVIDER-REBIND-CONTINUITY-PROOF"],
+    "capability_candidate_count": 128,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-EFFECTIVE-CAPABILITY-OBSERVATION-EVIDENCE","G2-CAPABILITY-CANDIDATE-DETERMINISTIC-PROVIDER-RESOLUTION-RECORD","G2-CAPABILITY-CANDIDATE-PROVIDER-REBIND-CONTINUITY-PROOF"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
-    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for the first 16 capabilities in cycle 2; each has revisits_completed=1, consecutive_no_material_finding=0 and MATERIAL_NEW_FINDINGS.",
+    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for the first 17 capabilities in cycle 2; each has revisits_completed=1, consecutive_no_material_finding=0 and MATERIAL_NEW_FINDINGS.",
     "revisit_status": {
-      "Secrets / Configuration / Environment Portability": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-SCEP-11","G2-FINDING-SCEP-12","G2-FINDING-SCEP-13","G2-FINDING-SCEP-14","G2-FINDING-SCEP-15","G2-FINDING-SCEP-16"]}
+      "Provider / Binding / Capability Negotiation": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-PBCN-11","G2-FINDING-PBCN-12","G2-FINDING-PBCN-13","G2-FINDING-PBCN-14","G2-FINDING-PBCN-15","G2-FINDING-PBCN-16"]}
     },
-    "representative_coverage": {"Secrets / Configuration / Environment Portability":{"HashiCorp Vault lease/renew/revoke + response wrapping/Agent bootstrap":"DEEP","Kubernetes Secrets + External Secrets Operator refresh/materialization/ownership":"DEEP","AWS Secrets Manager staged asynchronous rotation":"DEEP","SOPS encrypted configuration + online/offline key identities":"DEEP","Twelve-Factor Config deploy-time separation":"DEEP"}},
+    "representative_coverage": {"Provider / Binding / Capability Negotiation":{"OpenTofu/Terraform provider requirements/configuration/lock/state linkage":"DEEP","Crossplane Provider/ProviderRevision install/activation/health":"DEEP","Kubernetes Discovery API + mixed-version discovery":"DEEP","Kubernetes Device Plugin/DRA discovery/allocation":"DEEP","gRPC Reflection + pluggable name resolution":"DEEP","Backstage backend service overrides/capability-owned extension points":"DEEP"}},
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 342
+    "finding_count": 348
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -42,8 +42,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Secrets / Configuration / Environment Portability — revisit cycle 2 pass 1 complete. Vault, Kubernetes/External Secrets Operator, AWS Secrets Manager, SOPS and Twelve-Factor evidence separated declared binding/provider truth/materialization/runtime-effective consumption; disclosure authority from use-without-disclosure; secret-zero/bootstrap handoff from steady-state secret identity; provider rotation from end-to-end propagation freshness; ciphertext availability from decryptability/recovery; and provider locator replacement from semantic rebind continuity proof. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_REVISIT_01.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Provider / Binding / Capability Negotiation, as the next oldest non-saturated capability. Target portable capability requirement identity versus provider implementation/binding/realization identity; declared provider capabilities versus probed/effective capabilities; binding selection/negotiation authority and deterministic resolution; provider version/configuration/trust-context revision; fallback/failover versus replacement semantics; compatibility and semantic degradation; health/readiness versus capability satisfaction; migration/rebind continuity; multi-provider composition; tenant/environment scope; offline/self-hosted provider discovery; provider admission/trust; and evidence linking selection, negotiated contract, effective realization and replacement without transferring business-capability ownership into the provider plane. Compose the new secrets rebind/bootstrap/freshness findings with prior extension wiring and deployment realization evidence. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T21:35:00-03:00"
+  "current_focus": "Provider / Binding / Capability Negotiation — revisit cycle 2 pass 1 complete. OpenTofu/Terraform, Crossplane, Kubernetes Discovery/DRA, gRPC Reflection/name resolution and Backstage evidence separated portable requirement, provider implementation/revision/configuration, admission, deterministic resolution, effective capability observation, health and realization; established that health is weaker than semantic satisfaction and provider replacement requires continuity proof across semantics/state/trust/realization. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/PROVIDER_BINDING_CAPABILITY_NEGOTIATION_REVISIT_01.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Standards / Interoperability / API Contracts, as the next oldest non-saturated capability. Target contract identity versus implementation/provider identity; protocol/schema/profile/version negotiation; compatibility versus conformance; syntactic versus semantic interoperability; optional/required feature declaration; content/media negotiation; capability discovery versus normative contract; backward/forward compatibility and deprecation; error/problem contracts; extension/vendor fields; test/conformance suites; transport independence; tenant/security context; offline/self-hosted validation; and evidence linking contract revision, negotiated profile and effective behavior. Compose provider requirement/resolution/effective-capability findings without transferring provider-selection authority into Standards. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T22:15:00-03:00"
 }
