@@ -8,6 +8,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Governance / Commercial-metering pending research
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / PENDING_RESEARCH**. Support pricing should be explainable from measurable relative complexity per capability, service bundles and usage. Dedicated multi-representative research across entitlement, usage metering, relative complexity measurement, rating/pricing, billing and payment remains mandatory before promotion; the Negative-Space gate explicitly challenges it.
 
+## Developer / Operator Experience / Self-hosting — revisit cycle 3 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-QUALIFIED-OFFLINE-OPERATION-CLOSURE | CROSS_CUTTING | CANDIDATE | Artifact/AI/Lifecycle/Security synthesis confirms one reusable operation-profile closure across runtime, migration, model/tool and trust dependencies. |
+| G2-CAPABILITY-CANDIDATE-DESIRED-EFFECTIVE-ENVIRONMENT-REALIZATION-EVIDENCE | CORE | CANDIDATE | Deployment/Observe/Provider synthesis confirms reusable desired-vs-effective realization evidence beyond environment-specific tooling. |
+| G2-CAPABILITY-CANDIDATE-PHASE-SCOPED-BOOTSTRAP-SECRET-TRUST-BINDING | CROSS_CUTTING | CANDIDATE | Secrets/Build/Migration/Recovery synthesis confirms phase/purpose-scoped binding semantics as a common primitive. |
+
 ## AI-native Engineering / Agents / Approvals — revisit cycle 3 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
