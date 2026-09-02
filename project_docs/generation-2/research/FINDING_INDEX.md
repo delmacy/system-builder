@@ -19,6 +19,16 @@ All previously indexed cycle-5 findings `G2-FINDING-UCA-29..35`, `G2-FINDING-PAM
 - **G2-FINDING-WDE-35** — Missing Durable/External Dependency Evidence Propagates PARTIAL/INCONCLUSIVE.
 - **G2-FINDING-WDE-36** — Qualified Local Durable-Execution Closure Must Include Authority and External-Effect Evidence.
 
+### Integration & Automation — revisit 4
+- **G2-FINDING-IA-29** — Ambiguous External Effects Require Explicit Effect Disposition Before Re-actuation.
+- **G2-FINDING-IA-30** — Idempotency Is a Qualified Contract, Not a Bare Key.
+- **G2-FINDING-IA-31** — Mutable Integration Definitions Require Expected-base or Semantic Ownership Preconditions.
+- **G2-FINDING-IA-32** — Connector Capability and Invocation Authority Are Independent Gates.
+- **G2-FINDING-IA-33** — Retry, Redrive/Replay, DLQ Repair, Reconciliation and Compensation Are Distinct Governed Transitions.
+- **G2-FINDING-IA-34** — Provider Replacement Is a Dual-realization/Cutover Transition With Replay-position Disposition.
+- **G2-FINDING-IA-35** — Missing Integration Dependencies Must Propagate PARTIAL/INCONCLUSIVE Evidence.
+- **G2-FINDING-IA-36** — Qualified Local Integration Closure Must Include Ambiguity and Authority Evidence, Not Only Connectors.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
