@@ -531,23 +531,25 @@ test("TASK-462 cumulative adversarial boundaries fail closed without partial-suc
   assert.deepEqual(deployments.getActive(PRODUCT.environmentRef), aRecord);
 
   const verified = successorB.artifactPayloadReader.getVerified(successorB.releaseArtifact);
+  const tamperedPayloads = new InMemoryArtifactPayloadRepository();
+  tamperedPayloads.publish({
+    artifactHash: successorB.releaseArtifact.artifactHash,
+    files: verified.files.map((file) =>
+      file.path === "runtime-entry.mjs"
+        ? { ...file, content: `${file.content}\n// substituted` }
+        : file),
+  });
   const tampered = await orchestrator.promote({
     ...successorB,
-    artifactPayloadReader: {
-      getVerified: () => ({
-        ...verified,
-        files: verified.files.map((file) =>
-          file.path === "runtime-entry.mjs"
-            ? { ...file, content: `${file.content}\n// substituted` }
-            : file),
-      }),
-    },
+    artifactPayloadReader: tamperedPayloads,
     startedAt: "2026-09-02T03:23:01.000Z",
     completedAt: "2026-09-02T03:23:02.000Z",
   });
   assert.equal(tampered.ok, false);
   if (!tampered.ok) {
     assert.equal(tampered.outcome, "candidate-failed");
+    assert.equal(tampered.diagnostic.code, "ARTIFACT_PAYLOAD_INVALID");
+    assert.match(tampered.diagnostic.detail, /ARTIFACT_PAYLOAD_FILE_HASH_MISMATCH:runtime-entry\.mjs/);
   }
   assert.deepEqual(deployments.getActive(PRODUCT.environmentRef), aRecord);
   assert.equal((await orchestrator.health(PRODUCT.environmentRef)).status, "UP");
