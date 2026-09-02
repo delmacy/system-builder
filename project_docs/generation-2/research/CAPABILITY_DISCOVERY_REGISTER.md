@@ -12,15 +12,25 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 `G2-RESEARCH-HYPOTHESIS-EXECUTABLE-CAPABILITY-COMPOSITION-AND-CUMULATIVE-CONTEXT` — **USER-DIRECTED / MANDATORY_RESEARCH / NOT_A_PROMOTED_CAPABILITY**. See `project_docs/generation-2/research/concepts/EXECUTABLE_CAPABILITY_COMPOSITION_AND_CUMULATIVE_CONTEXT.md`. Capability Synthesis must explicitly dispose this hypothesis by evidence.
 
 ## Cycle-4 consolidation candidates
-`G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. UCA through Observability repeatedly support revision-bound semantic identity, provider realization and observed evidence lineage.
+`G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. UCA through Extension repeatedly support revision-bound semantic identity, provider realization and observed evidence lineage.
 
-`G2-CAPABILITY-CANDIDATE-UNIFIED-EVIDENCE-QUALIFICATION-CONTRACT` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Producer/subject/revision/scope/profile/context/freshness/coverage/trust/inconclusive semantics recur across capabilities; Deployment adds attempt/platform/region/runtime/readiness qualification and Observability adds topology/window/pipeline-health qualification.
+`G2-CAPABILITY-CANDIDATE-UNIFIED-EVIDENCE-QUALIFICATION-CONTRACT` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Producer/subject/revision/scope/profile/context/freshness/coverage/trust/inconclusive semantics recur across capabilities; Deployment adds attempt/platform/region/runtime/readiness qualification, Observability adds topology/window/pipeline-health qualification, and Extension adds install/resolve-wire/enable/activate/revocation qualification.
 
-`G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CLOSURE-PROFILE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Observability confirm profile-scoped local interpretation/execution/validation/recovery/replay/build/verification/install/runtime/operational closure without centralized Builder availability.
+`G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CLOSURE-PROFILE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Extension confirm profile-scoped local interpretation/execution/validation/recovery/replay/build/verification/install/runtime/operational/extension closure without centralized Builder availability.
 
-`G2-CAPABILITY-CANDIDATE-NON-ACTUATING-RECONCILIATION-AUTHORITY-SEPARATION` remains a likely constitutional primitive (`DecisionAuthorityRef ≠ ExecutionAuthorityRef`). Observability strengthens this with detection/diagnosis/incident-administration/remediation/deployment/recovery separation.
+`G2-CAPABILITY-CANDIDATE-NON-ACTUATING-RECONCILIATION-AUTHORITY-SEPARATION` remains a likely constitutional primitive (`DecisionAuthorityRef ≠ ExecutionAuthorityRef`). Extension strengthens this by separating marketplace/discovery, install, admission, extension-point ownership, activation/runtime and revocation authorities.
 
-`G2-CAPABILITY-CANDIDATE-SHARED-GOVERNED-MIGRATION-TRANSITION` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Observability converge on `plan → validation → approval → attempt → checkpoint/postcondition evidence`; Observability adds provider-overlap/continuity and remediation/recovery transition evidence. Lifecycle remains an important confirmation point.
+`G2-CAPABILITY-CANDIDATE-SHARED-GOVERNED-MIGRATION-TRANSITION` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Extension converge on `plan → validation → approval → attempt → checkpoint/postcondition evidence`; Extension adds update/coexisting-wiring and revocation-enforcement transitions. Lifecycle remains an important confirmation point.
+
+## Extension / Plugin / Marketplace Architecture — revisit cycle 4 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-EXTENSION-RESOLUTION-WIRING-REVISION-EVIDENCE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Provider/Binding and Lifecycle should determine merge into unified revision-bound realization/evidence while preserving install→resolve/wire→enable→activate semantics. |
+| G2-CAPABILITY-CANDIDATE-GOVERNED-EXTENSION-REVOCATION-ENFORCEMENT-TRANSITION | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Governance/Lifecycle/Security should confirm merge into shared governed transition and non-actuating authority separation while preserving affected-realization enumeration and postcondition proof. |
+| G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-EXTENSION-RESOLUTION-EXECUTION-CLOSURE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Self-hosting/Security should confirm merge into qualified local closure with dependency, trust, compatibility, loader/runtime and rollback inputs. |
+| G2-CAPABILITY-CANDIDATE-EXTENSION-OPERATIONAL-COMPLEXITY-EVIDENCE-FACTORS | CROSS_CUTTING | CANDIDATE / FEEDS_PENDING_RESEARCH | Feed dependency fan-out, isolation, platform matrix, provider count, offline burden, update/revocation complexity and privileged authority into later relative-operational-complexity research; Extension must not own pricing/billing. |
+
+No Extension candidate is promoted.
 
 ## Observability / Operations / Incident — revisit cycle 4 candidates
 | Candidate | Class | Status | Promotion / merge condition |
@@ -31,30 +41,6 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | G2-CAPABILITY-CANDIDATE-OPERATIONAL-COMPLEXITY-EVIDENCE-FACTORS | CROSS_CUTTING | CANDIDATE / FEEDS_PENDING_RESEARCH | Feed measurable telemetry/topology/SLO/incident/provider/offline/recovery facts into the existing relative-operational-complexity metering/rating research; Observability must not own pricing/billing. |
 
 No Observability candidate is promoted.
-
-## Deployment / Environment / Runtime — revisit cycle 4 candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-QUALIFIED-DEPLOYMENT-RUNTIME-EVIDENCE-SET | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Observability/Governance should determine merge into unified realization/evidence qualification while preserving attempt/platform/region/readiness semantics. |
-| G2-CAPABILITY-CANDIDATE-GOVERNED-DEPLOYMENT-RUNTIME-PROVIDER-MIGRATION-TRANSITION | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Lifecycle/Security should confirm merge into shared governed migration transition for rollout, provider replacement and rollback/recovery. |
-| G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-RUNTIME-EXECUTION-RECOVERY-CLOSURE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Security/Self-hosting should confirm merge into qualified local closure profile with artifact/runtime/config-secret/trust/state/recovery semantics. |
-
-No Deployment candidate is promoted. Deployment/runtime topology, region/platform count, statefulness, rollout strategy, health/recovery and provider diversity may contribute measurable relative operational-complexity evidence later; Deployment does not own rating/billing.
-
-## Artifact / Release / SBOM / Provenance — revisit cycle 4 candidates
-`G2-CAPABILITY-CANDIDATE-QUALIFIED-ARTIFACT-RELEASE-EVIDENCE-SET`, `G2-CAPABILITY-CANDIDATE-GOVERNED-REGISTRY-RELEASE-PROMOTION-MIGRATION-TRANSITION`, `G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-ARTIFACT-VERIFICATION-INSTALL-CLOSURE` remain active merge-target candidates; none promoted.
-
-## Build / Dependency Graph / Reproducibility — revisit cycle 4 candidates
-`G2-CAPABILITY-CANDIDATE-QUALIFIED-BUILD-CACHE-REALIZATION-EVIDENCE`, `G2-CAPABILITY-CANDIDATE-GOVERNED-BUILD-RUNNER-PROVIDER-MIGRATION-TRANSITION`, `G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-BUILD-EXECUTION-CLOSURE` remain active merge-target candidates; none promoted.
-
-## Notifications / Events / Messaging — revisit cycle 4 candidates
-`G2-CAPABILITY-CANDIDATE-POSITION-QUALIFIED-ASYNC-CONSUMPTION-EVIDENCE`, `G2-CAPABILITY-CANDIDATE-GOVERNED-ASYNC-PROVIDER-SUBSCRIPTION-MIGRATION-TRANSITION`, `G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-EVENT-INTERPRETATION-REPLAY-CLOSURE` remain active merge-target candidates; none promoted.
-
-## Storage / Documents / Media — revisit cycle 4 candidates
-`G2-CAPABILITY-CANDIDATE-LOGICAL-CONTENT-REALIZATION-INTEGRITY-EVIDENCE`, `G2-CAPABILITY-CANDIDATE-GOVERNED-STORAGE-CONTENT-MIGRATION-TRANSITION`, `G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CONTENT-RECOVERY-CLOSURE` remain active merge-target candidates; none promoted.
-
-## Data / Schema / Migrations — revisit cycle 4 candidates
-`G2-CAPABILITY-CANDIDATE-POSITION-QUALIFIED-DATA-CONFORMANCE-EVIDENCE`, `G2-CAPABILITY-CANDIDATE-GOVERNED-DATA-MIGRATION-TRANSITION`, `G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-DATA-EVOLUTION-CLOSURE` remain active merge-target candidates; none promoted.
 
 ## Historical authority
 All candidates from prior sections/revisions remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
