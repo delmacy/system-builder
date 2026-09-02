@@ -6,42 +6,24 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 ### Universal Capability Architecture through Governance / Compliance / Audit
 All findings from the first 17 cycle-4 revisits remain authoritative in their capability dossiers and prior index revisions.
 
-### Secrets / Configuration / Environment Portability — revisit 3
-Findings `G2-FINDING-SCEP-23..29` remain authoritative in the capability dossier and prior index revision.
+### Secrets / Provider / Standards / Lifecycle completed revisits
+All stable findings from these cycle-4 revisits remain authoritative in their capability dossiers and prior index revisions, including `G2-FINDING-SCEP-23..29`, `G2-FINDING-PBCN-23..30`, `G2-FINDING-SIAC-23..29` and `G2-FINDING-LVEM-23..29`.
 
-### Provider / Binding / Capability Negotiation — revisit 3
-- **G2-FINDING-PBCN-23** — Negotiated Effective Profile Is a First-Class Revision-Bound Realization Fact.
-- **G2-FINDING-PBCN-24** — Discovery, Compatibility, Admission, Delegated Exposure and Effective Satisfaction Are Distinct Gates.
-- **G2-FINDING-PBCN-25** — Fallback Is a Governed Rebinding Decision and Must Not Silently Weaken Mandatory Semantics.
-- **G2-FINDING-PBCN-26** — Provider Cutover Requires Transition Evidence Across Binding, State, Trust/Credentials, Effective Profile and Rollback Lineage.
-- **G2-FINDING-PBCN-27** — Credential/Secret/Workload-Identity Realization Is Referenced by Binding but Does Not Define Provider or Capability Identity.
-- **G2-FINDING-PBCN-28** — Qualified Local Binding Closure Must Include Semantic, Authority, Trust, Configuration and Evidence Context.
-- **G2-FINDING-PBCN-29** — Binding Alternatives and Provider Instances Can Coexist Behind Stable Semantic Identity Only with Explicit Selection Scope.
-- **G2-FINDING-PBCN-30** — Capability-Owned Extension Surfaces Must Remain Stable Across Provider Implementation Replacement.
-
-### Standards / Interoperability / API Contracts — revisit 3
-- **G2-FINDING-SIAC-23** — Compatibility Is a Revision-Pair, Direction, Profile and Rule-Set Relation, Not a Boolean.
-- **G2-FINDING-SIAC-24** — Wire Compatibility Does Not Imply Source or Semantic Compatibility.
-- **G2-FINDING-SIAC-25** — Negotiated Representation Selection Must Not Authorize Semantic Profile Downgrade.
-- **G2-FINDING-SIAC-26** — Coexisting API Revisions Need Explicit Read/Write/Storage/Exposure Roles and Round-Trip Postconditions.
-- **G2-FINDING-SIAC-27** — Provider Description and Negotiation Success Are Claims/Realization Facts, Not Domain Conformance Proof.
-- **G2-FINDING-SIAC-28** — Deprecation Usage Evidence Is Required to Govern Safe Contract Withdrawal.
-- **G2-FINDING-SIAC-29** — Qualified Local Contract Closure Must Include Compatibility Baselines, Conversion Rules and Conformance Fixtures.
-
-### Lifecycle / Versioning / Evolution / Migration — revisit 3
-- **G2-FINDING-LVEM-23** — Effective Lifecycle State Is a Revision Vector, Not One Current Version.
-- **G2-FINDING-LVEM-24** — Migration Success Is Context-Bound Evidence and Can Become Stale When the Transition Context Changes.
-- **G2-FINDING-LVEM-25** — Safe Mixed-Version Evolution Requires Explicit Role-Aware Coexistence and Directional Compatibility.
-- **G2-FINDING-LVEM-26** — Persisted-State Normalization Is Independent from Served/Read Compatibility and Needs Its Own Postcondition Evidence.
-- **G2-FINDING-LVEM-27** — Routing Rollback and State/Semantic Recovery Are Different Governed Transitions.
-- **G2-FINDING-LVEM-28** — Withdrawal Readiness Requires Fresh Usage, Drainage and Stale-Realization Evidence, Not Deprecation/Sunset Time Alone.
-- **G2-FINDING-LVEM-29** — Transition Readiness Is a Qualified, Time/Scope-Bound Evidence Product.
+### Security / Resilience / Failure Recovery — revisit 3
+- **G2-FINDING-SRFR-23** — Recovery Availability Is Not Semantic Recovery.
+- **G2-FINDING-SRFR-24** — Failover, Rollback, Restore and Forward-Fix Are Distinct Governed Transitions.
+- **G2-FINDING-SRFR-25** — Writer Promotion Requires Fencing/Exclusivity Evidence.
+- **G2-FINDING-SRFR-26** — Recovery Invalidates Transition Readiness Until Requalified.
+- **G2-FINDING-SRFR-27** — RTO/RPO Bound Time and Data-Loss Objectives but Do Not Prove Semantic Conformance.
+- **G2-FINDING-SRFR-28** — Degraded and Offline Recovery Must Be Authority-Non-Amplifying.
+- **G2-FINDING-SRFR-29** — Recovery Must Reconcile Persisted State and In-Flight Executions Separately.
+- **G2-FINDING-SRFR-30** — Qualified Local Recovery Closure Is Revision/Freshness/Trust Scoped.
 
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-21/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
+22/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings and the full wording of compacted cycle-4 sections, remain authoritative in their dossiers and prior index revisions.
