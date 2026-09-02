@@ -40,4 +40,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-LVEM-15 — Rollback Is a New Governed Transition and Cannot Be Assumed Universally Reversible
 - G2-FINDING-LVEM-16 — Migration Completion Does Not Prove Post-Transition Conformance or Consumer Readiness
 
+## Security / Resilience / Failure Recovery — revisit 1
+- G2-FINDING-SRFR-11 — Failure Occurrence, Failure-Domain Observation and Blast-Radius Disposition Are Distinct Evidence
+- G2-FINDING-SRFR-12 — Retry Attempt Identity Must Be Separate from Semantic Operation Identity, and Timeout Does Not Prove Predecessor Termination
+- G2-FINDING-SRFR-13 — Containment, Ejection, Circuit Breaking and Load Shedding Are Protective Realizations, Not Recovery Proof
+- G2-FINDING-SRFR-14 — Recovery-Point Existence Is Separate from Admissibility, Completeness and Restored-Lineage Identity
+- G2-FINDING-SRFR-15 — Failover and Failback Are Independent Governed Transitions with Separate Attempt, Result and Validation Evidence
+- G2-FINDING-SRFR-16 — Recovery Mechanism Completion and Infrastructure Health Do Not Prove Recovery Objectives or Post-Recovery Conformance
+
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
