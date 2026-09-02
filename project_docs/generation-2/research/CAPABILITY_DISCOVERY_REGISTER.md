@@ -43,5 +43,16 @@ All candidates from Secrets, Provider, Standards, Lifecycle, Security, AI-native
 
 No Architecture Reconciliation candidate is promoted. Adaptive Governed Work Surfaces remains distinct and unchanged.
 
+## Universal Capability Architecture — revisit cycle 5 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-UNIVERSAL-ATTEMPT-EFFECTIVE-POSTCONDITION-LINEAGE | CROSS_CUTTING | MERGE_TARGET | Merge into unified revision-bound realization/evidence lineage; preserve domain-specific postconditions. |
+| G2-CAPABILITY-CANDIDATE-UNIVERSAL-FACETED-AUTHORITY-CONTRACT | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with non-actuating/faceted reconciliation authority; provider support must never imply caller authority. |
+| G2-CAPABILITY-CANDIDATE-UNIVERSAL-AMBIGUOUS-OUTCOME-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Require confirmation across Workflow, Integration, Deployment and Recovery before synthesis promotion/merge. |
+| G2-CAPABILITY-CANDIDATE-AUTHORIZED-NORMALIZATION-TRANSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Require brownfield/Data/Config evidence that observation-to-desired adoption is reusable without erasing semantic ownership. |
+| G2-CAPABILITY-CANDIDATE-EVIDENCE-DEPENDENCY-CONVERGENCE-QUALIFICATION | CROSS_CUTTING | MERGE_TARGET | Merge into unified evidence qualification if dependency/lag semantics remain common across proof consumers. |
+
+No cycle-5 UCA candidate is promoted. Adaptive Governed Work Surfaces remains distinct and unchanged.
+
 ## Historical authority
 All candidates from prior sections/revisions remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
