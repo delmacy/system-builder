@@ -28,11 +28,20 @@ Findings `G2-FINDING-SCEP-23..29` remain authoritative in the capability dossier
 - **G2-FINDING-SIAC-28** — Deprecation Usage Evidence Is Required to Govern Safe Contract Withdrawal.
 - **G2-FINDING-SIAC-29** — Qualified Local Contract Closure Must Include Compatibility Baselines, Conversion Rules and Conformance Fixtures.
 
+### Lifecycle / Versioning / Evolution / Migration — revisit 3
+- **G2-FINDING-LVEM-23** — Effective Lifecycle State Is a Revision Vector, Not One Current Version.
+- **G2-FINDING-LVEM-24** — Migration Success Is Context-Bound Evidence and Can Become Stale When the Transition Context Changes.
+- **G2-FINDING-LVEM-25** — Safe Mixed-Version Evolution Requires Explicit Role-Aware Coexistence and Directional Compatibility.
+- **G2-FINDING-LVEM-26** — Persisted-State Normalization Is Independent from Served/Read Compatibility and Needs Its Own Postcondition Evidence.
+- **G2-FINDING-LVEM-27** — Routing Rollback and State/Semantic Recovery Are Different Governed Transitions.
+- **G2-FINDING-LVEM-28** — Withdrawal Readiness Requires Fresh Usage, Drainage and Stale-Realization Evidence, Not Deprecation/Sunset Time Alone.
+- **G2-FINDING-LVEM-29** — Transition Readiness Is a Qualified, Time/Scope-Bound Evidence Product.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-20/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
+21/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings and the full wording of compacted cycle-4 sections, remain authoritative in their dossiers and prior index revisions.
