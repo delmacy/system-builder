@@ -22,5 +22,12 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | G2-CAPABILITY-CANDIDATE-COMPOSITE-PROVIDER-REALIZATION-CONFORMANCE | CROSS_CUTTING | CANDIDATE | Identity/Secrets/Deployment and synthesis confirm multi-binding composition requires reusable compatibility + authority evidence. |
 | G2-CAPABILITY-CANDIDATE-RUNTIME-AUTONOMOUS-PROVIDER-REALIZATION-CLOSURE | CROSS_CUTTING | CANDIDATE | Runtime/Security/Developer-Operator research confirms reusable local implementation + configuration + trust closure for autonomous provider use. |
 
+## Security / Resilience / Failure Recovery — revisit cycle 3 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-RECOVERY-MATERIAL-DEPENDENCY-CLOSURE | CROSS_CUTTING | CANDIDATE | Data/Artifact/Secrets synthesis confirms one reusable recovery-closure primitive covering required ancestor/log/manifest/trust material across materially different providers. |
+| G2-CAPABILITY-CANDIDATE-RESILIENCE-CONTROL-APPLICABILITY-EVIDENCE | CROSS_CUTTING | CANDIDATE | Governance/Product Proof confirms a reusable applicability + uncovered-failure-class evidence model rather than provider-specific flags. |
+| G2-CAPABILITY-CANDIDATE-RESTORED-LINEAGE-BRANCH-EVIDENCE | CROSS_CUTTING | CANDIDATE | Data/Lifecycle/Deployment reconciliation confirms one reusable branch-lineage primitive for restored state without erasing source history. |
+
 ## Recent-cycle historical authority
-Candidates from Extension/Plugin/Marketplace, Governance, Observability, Deployment/Environment/Runtime, Artifact/Release/SBOM/Provenance, Build/Dependency/Reproducibility, Notifications/Events/Messaging, Storage/Documents/Media, Data/Schema/Migrations, Authorization, Identity, Integration, Workflow, AGWS, UI, Process/Application Modeling and Universal Capability Architecture remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
+Candidates from Standards/Interoperability, Lifecycle/Versioning, AI-native Engineering, Developer/Operator Experience, Architecture Reconciliation, Extension/Plugin/Marketplace, Governance, Observability, Deployment/Environment/Runtime, Artifact/Release/SBOM/Provenance, Build/Dependency/Reproducibility, Notifications/Events/Messaging, Storage/Documents/Media, Data/Schema/Migrations, Authorization, Identity, Integration, Workflow, AGWS, UI, Process/Application Modeling and Universal Capability Architecture remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
