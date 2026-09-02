@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## Workflow & Durable Execution — revisit 2 / cycle 3
+- G2-FINDING-WDE-17 — Semantic Operation, Workflow Run, Activity Invocation and Attempt Require Distinct Identities
+- G2-FINDING-WDE-18 — Durable Execution Must Bind Definition Revision, Effective Authority and Provider-Binding Context
+- G2-FINDING-WDE-19 — Retry, Resume, Redrive and Delegation Must Be Authority-Non-Amplifying
+- G2-FINDING-WDE-20 — External-Effect Safety Requires Attempt/Receipt/Idempotency Lineage Beyond Workflow History
+- G2-FINDING-WDE-21 — Long-Running Runs Need Explicit Authority-Revalidation Checkpoints
+- G2-FINDING-WDE-22 — Compensation Is a Governed Forward Semantic Action, Not Universal Rollback
+
 ## Adaptive Governed Work Surfaces — revisit 1 / cycle 3
 - G2-FINDING-AGWS-10 — AI Authoring Authority Must Be Classified by Mutation Class Before Materialization
 - G2-FINDING-AGWS-11 — Employee Work-Surface Authoring Must Exclude Privileged Query/Script/Frontend Escape Hatches
