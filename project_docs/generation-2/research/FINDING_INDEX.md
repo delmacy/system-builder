@@ -21,4 +21,12 @@ Prior stable findings through `G2-FINDING-SRFR-16` remain authoritative in their
 - G2-FINDING-AIAA-15 — AI Materialization Authority Does Not Confer Canonical-Domain Authority
 - G2-FINDING-AIAA-16 — Review/Acceptance Evidence Is Separate from Execution Authority
 
+## Developer / Operator Experience / Self-hosting — revisit 1
+- G2-FINDING-DOESH-11 — Operational Contract and Installation Realization Are Distinct Identities
+- G2-FINDING-DOESH-12 — Dependency Closure Is a First-Class Bootstrap Evidence Object
+- G2-FINDING-DOESH-13 — Backup Artifact, Restore Attempt and Post-Restore Conformance Are Distinct Evidence
+- G2-FINDING-DOESH-14 — Upgrade Planning Must Bind Version-Skew Preconditions to the Attempt
+- G2-FINDING-DOESH-15 — Generated Runtime Operational Autonomy Must Be Stronger Than Builder/Model Availability
+- G2-FINDING-DOESH-16 — Operator Convenience Authority Must Not Collapse Into Canonical Business Authority
+
 Detailed earlier finding titles remain authoritative in earlier index revisions and capability dossiers.
