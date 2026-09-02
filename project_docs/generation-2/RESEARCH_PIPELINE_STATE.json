@@ -11,11 +11,11 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 23,
-    "hourly_runs_completed": 47,
+    "capabilities_revisited_in_active_cycle": 24,
+    "hourly_runs_completed": 48,
     "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
-    "capability_candidate_count": 145,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-REVISION-BOUND-APPROVAL-REVALIDATION","G2-CAPABILITY-CANDIDATE-DELEGATED-AUTHORITY-ATTENUATION-EVIDENCE","G2-CAPABILITY-CANDIDATE-SIDE-EFFECT-ATTEMPT-RECEIPT-LINEAGE"],
+    "capability_candidate_count": 148,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-OPERATIONAL-REALIZATION-CONFORMANCE-EVIDENCE","G2-CAPABILITY-CANDIDATE-OFFLINE-DEPENDENCY-CLOSURE-EVIDENCE","G2-CAPABILITY-CANDIDATE-RESTORE-POST-CONFORMANCE-LINEAGE"],
     "promoted_capabilities_this_run": [],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "mandatory_discovered_capabilities": {
@@ -32,18 +32,20 @@
       }
     },
     "saturated_capabilities": [],
-    "pending_capabilities": ["Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"],
+    "pending_capabilities": ["Architecture Reconciliation as a Capability"],
     "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for all earlier cycle-2 capabilities; material findings reset their saturation counters.",
     "revisit_status": {
       "Adaptive Governed Work Surfaces": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AGWS-01","G2-FINDING-AGWS-02","G2-FINDING-AGWS-03","G2-FINDING-AGWS-04","G2-FINDING-AGWS-05","G2-FINDING-AGWS-06","G2-FINDING-AGWS-07","G2-FINDING-AGWS-08","G2-FINDING-AGWS-09"]},
-      "AI-native Engineering / Agents / Approvals": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AIAA-11","G2-FINDING-AIAA-12","G2-FINDING-AIAA-13","G2-FINDING-AIAA-14","G2-FINDING-AIAA-15","G2-FINDING-AIAA-16"]}
+      "AI-native Engineering / Agents / Approvals": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AIAA-11","G2-FINDING-AIAA-12","G2-FINDING-AIAA-13","G2-FINDING-AIAA-14","G2-FINDING-AIAA-15","G2-FINDING-AIAA-16"]},
+      "Developer / Operator Experience / Self-hosting": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-DOESH-11","G2-FINDING-DOESH-12","G2-FINDING-DOESH-13","G2-FINDING-DOESH-14","G2-FINDING-DOESH-15","G2-FINDING-DOESH-16"]}
     },
     "representative_coverage": {
       "Adaptive Governed Work Surfaces":{"ServiceNow UI Builder":"DEEP","SAP Build Work Zone":"DEEP","Salesforce Lightning App Builder / Dynamic Forms":"DEEP","Microsoft Power Apps":"PARTIAL","Retool":"PARTIAL","Appsmith":"PARTIAL"},
-      "AI-native Engineering / Agents / Approvals":{"OpenAI Agents SDK HITL / MCP approvals":"DEEP","LangGraph / LangChain HITL + persistence":"DEEP","GitHub Copilot cloud agent":"DEEP","Anthropic Claude Code permissions":"DEEP","Temporal durable execution":"DEEP"}
+      "AI-native Engineering / Agents / Approvals":{"OpenAI Agents SDK HITL / MCP approvals":"DEEP","LangGraph / LangChain HITL + persistence":"DEEP","GitHub Copilot cloud agent":"DEEP","Anthropic Claude Code permissions":"DEEP","Temporal durable execution":"DEEP"},
+      "Developer / Operator Experience / Self-hosting":{"GitLab Self-Managed / offline / backup-restore":"DEEP","Kubernetes / kubeadm":"DEEP","Backstage deployment / config / plugins":"DEEP","Nix Flakes / devShell":"DEEP"}
     },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 381
+    "finding_count": 387
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -60,8 +62,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "AI-native Engineering / Agents / Approvals — revisit 1 complete. OpenAI Agents SDK HITL/MCP approvals, LangGraph/LangChain HITL+persistence, GitHub Copilot cloud agent, Anthropic Claude Code permissions and Temporal durable execution are DEEP. Six material findings establish revision-bound approval revalidation, delegated/subagent authority attenuation, separation of tool intent/approval/effect attempt/effect result, durable side-effect receipt/idempotency requirements, AI materialization without canonical-domain authority, and review/acceptance separation. Composition with Adaptive Governed Work Surfaces is explicit: AI is sole surface materializer but domain/process-changing intent escalates and Station/Role authority remains binding. Capability remains NOT SATURATED.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/AI_NATIVE_ENGINEERING_AGENTS_APPROVALS_REVISIT_01.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Developer / Operator Experience / Self-hosting, the next non-saturated capability in cycle-2 rotation. Deepen portable developer/operator contract identity versus local realization; bootstrap/install/upgrade/recovery lifecycle; control-plane versus generated-runtime operational autonomy; environment parity and reproducible dev shells; self-hosted/offline installation and dependency closure; configuration/secrets/provider discovery UX; diagnostics/support bundles and redaction; backup/restore/DR operator experience; delegated administration and multi-Station operation; extension/provider installation; release/channel/version skew; accessibility/documentation and escape hatches; hosted-versus-self-hosted feature equivalence and lock-in. Explicitly test how Adaptive Governed Work Surfaces and AI-native materialization remain operable when Builder/cloud/model providers are unavailable or replaced, without granting operator convenience paths authority to bypass Station/Role, Governance or canonical-domain contracts. Update dossier, Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-02T00:31:00-03:00"
+  "current_focus": "Developer / Operator Experience / Self-hosting — revisit 1 complete. GitLab Self-Managed/offline/backup-restore, Kubernetes/kubeadm, Backstage deployment/config/plugins and Nix Flakes/devShell are DEEP. Six material findings establish operational-contract versus installation-realization identity, offline dependency closure, backup/restore/post-conformance separation, version-skew-bound upgrade planning, generated-runtime autonomy stronger than Builder/model availability, and bounded operator authority. Composition with Adaptive Governed Work Surfaces is explicit: runtime use survives Builder/model outage where already-materialized contracts permit; editing may degrade but cannot gain an authority-bypassing fallback. Capability remains NOT SATURATED.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/DEVELOPER_OPERATOR_EXPERIENCE_SELF_HOSTING_REVISIT_01.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Architecture Reconciliation as a Capability, the final pending capability in cycle-2 rotation. Deepen architecture-decision identity versus conformance rule/fitness-function identity; decision lifecycle and supersession; evidence freshness; repository-native architecture policy; drift detection; waiver/exception authority; automated fitness functions versus human review; cross-plane dependency/conformance; migration-safe rule rollout; false-positive/failure semantics; provenance and auditability; provider/extension/runtime conformance; and explicit composition with Adaptive Governed Work Surfaces so Station/Role surface invariants and AI materialization boundaries become testable architecture obligations rather than prose-only rules. Update dossier, Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. After this capability, recompute cycle-2 completion and rotation according to minimum_full_cycles=7; do not enter CAPABILITY_SYNTHESIS unless the RESEARCH_ELICITATION gate has objective evidence of closure.",
+  "last_updated": "2026-09-02T01:04:39-03:00"
 }
