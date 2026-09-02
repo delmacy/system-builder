@@ -19,6 +19,16 @@ All previously indexed cycle-5 findings `G2-FINDING-UCA-29..35`, `G2-FINDING-PAM
 - **G2-FINDING-IAF-35** — Identity-provider Coexistence and Migration Require Dual Mapping/Trust Qualification Before Cutover.
 - **G2-FINDING-IAF-36** — Qualified Local Identity Closure Includes Freshness and Trust-generation Evidence, Not Merely Local Credential Validation.
 
+### Authorization / Policy / Organization / Multitenancy — revisit 4
+- **G2-FINDING-AUTH-29** — Authorization Consistency and Freshness Are Operation-qualified Semantic Inputs, Not Provider Cache Details.
+- **G2-FINDING-AUTH-30** — Administrative Authorization Authority Must Be Faceted and Non-amplifying.
+- **G2-FINDING-AUTH-31** — Authorization Decision and Enforcement/Postcondition Are Separate Revision-bound Evidence.
+- **G2-FINDING-AUTH-32** — Revocation and Lease Expiry Can Precede Effective Enforcement Convergence.
+- **G2-FINDING-AUTH-33** — Break-glass Is a Governed Exceptional Authority Lease, Not an Implicit Administrator Bypass.
+- **G2-FINDING-AUTH-34** — Policy/Authorization Provider Migration Requires Dual-model Semantic Qualification, Not Deployment Success.
+- **G2-FINDING-AUTH-35** — PARTIAL/INCONCLUSIVE Authorization Must Propagate Missing Identity, Organization, Policy, Entitlement or Provider Evidence Without Permission Inflation.
+- **G2-FINDING-AUTH-36** — Qualified Local Authorization Closure Preserves Only Explicitly Bounded Existing Authority.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
