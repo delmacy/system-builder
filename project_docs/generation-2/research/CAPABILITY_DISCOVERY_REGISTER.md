@@ -74,5 +74,15 @@ No PAM cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains di
 
 No UI cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains distinct and unchanged.
 
+## Adaptive Governed Work Surfaces — revisit cycle 5 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-AGWS-MONOTONIC-EFFECTIVE-AUTHORITY-PROOF | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal faceted/non-amplifying authority while preserving Enterprise→Station→Role→Person semantics. |
+| G2-CAPABILITY-CANDIDATE-AGWS-SEMANTIC-OVERLAY-OWNERSHIP-PRECONDITIONS | CROSS_CUTTING | MERGE_TARGET | Reconcile with UCA/PAM/UI expected-base and ownership evidence if the common contract survives Workflow/Data revisits. |
+| G2-CAPABILITY-CANDIDATE-AGWS-SUPERIOR-OBLIGATION-IDENTITY | CORE | CANDIDATE | Keep AGWS-owned unless negative-space research proves reusable mandatory-obligation semantics across other adaptive surfaces. |
+| G2-CAPABILITY-CANDIDATE-AGWS-EVIDENCE-GOVERNED-PERSONALIZATION-PROMOTION | CROSS_CUTTING | MERGE_TARGET | Reconcile with shared governed transition while retaining Personal→Team/Role/System source/target authority semantics. |
+
+No AGWS cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains the already-promoted mandatory capability and remains distinct from generic UI.
+
 ## Historical authority
 All candidates from prior sections/revisions remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
