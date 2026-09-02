@@ -1,12 +1,12 @@
-# Next Work — P19 Sprint 9 Product/Technical Acceptance
+# Next Work — P19 Sprint 10 Documentation & Closure
 
-Construction Sprints 1–8 / WBS 19.1.1–19.3.2 are EXECUTED / REVIEWED / INTEGRATED. Do not re-execute TASK-419..462. Construction 8 integrated through PR #544 from exact reviewed head `35eb837099418a7cf8df2c33500e45fbb6373346`, which passed Deterministic CI #1371 and Heavy Product Tests #841, producing fresh main `02b34c7273f5cb91e9237cbda28fd1c353f2b97c`.
+Construction Sprints 1–8 / WBS 19.1.1–19.3.2 are EXECUTED / REVIEWED / INTEGRATED. Sprint 9 `P19-PREALPHA-INTEGRATION-ACCEPTANCE-01` / WBS 19.3.3 acceptance integrated by PR #545 from exact reviewed head `3f8b3d8d7e00b98f3eb97c16846f67e62ea6cf19`, after Deterministic CI #1372 and Heavy Product Tests #842 PASS, producing fresh main `ec07e0bc9c0ea1147da04d83c749cb49cde11fad`.
 
 ## Current gate
-Execute/review `P19-PREALPHA-INTEGRATION-ACCEPTANCE-01` / WBS 19.3.3 acceptance. This gate composes existing evidence for the complete supported pre-alpha journey and classifies product/technical blockers and limitations; it must not add functional implementation.
+Execute `P19-PREALPHA-DOCUMENTATION-CLOSURE-01` / WBS 19.3.3 closure. This gate must reconcile repository/operator documentation, package status/report, accepted candidate identity, explicit limitations/non-goals, delivery traceability and immutable pre-alpha version/tag/release evidence tied to exact reviewed commits/artifacts.
 
-Required objective exit evidence is exact-head Deterministic CI plus Heavy Product Tests and no material review blocker. Any gate failure, stale/superseded evidence, missing applicable proof, architecture/trust regression or newly evidenced product gap is NO-GO and must be handled through bounded rework/construction rather than weakened acceptance.
+No product behavior is allowed. Any functional gap, architecture/trust regression, missing applicable proof or inconsistent candidate identity blocks closure and returns to explicit bounded construction/change control.
 
-If Sprint 9 integrates as GO, rebuild/revalidate fresh `main` and only then materialize Sprint 10 `P19-PREALPHA-DOCUMENTATION-CLOSURE-01`. Sprint 10 must reconcile repository/operator documentation and immutable pre-alpha evidence tied to the accepted commit/artifacts; it cannot repair product capability.
+Required exit evidence is exact-head Deterministic CI plus Heavy Product Tests on the closure-bearing head, no material review blocker, immutable candidate evidence, reconciled `PROJECT_STATE`/`CURRENT_MILESTONE`/`NEXT_WORK`, package closure evidence, and expected-head PR integration. P19 remains ACTIVE until all closure conditions are satisfied.
 
-Preserve canonical M15 `human-decision`, P18 process revision/lineage, existing Factory/Compiler/Release/Deploy/Runtime/Observe owners, immutable identity, external EnvironmentProfile/secrets, Builder-off Runtime, Observe fail-open semantics and last-known-good. Do not introduce new public contracts/authority/identity/topology/control plane, customer/domain semantics, SaaS/billing/marketplace/public-beta, unrelated TD/findings, inferred L4, or Generation 2 work.
+Preserve canonical M15 `human-decision`, P18 process revision/lineage, existing Factory/Compiler/Release/Deploy/Runtime/Observe owners, immutable identity, external EnvironmentProfile/secrets, Builder-off Runtime, Observe fail-open semantics and last-known-good. Do not introduce Generation 2 work before canonical M19 closure.
