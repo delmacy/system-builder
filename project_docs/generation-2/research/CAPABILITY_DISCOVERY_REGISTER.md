@@ -7,17 +7,24 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 Required proofs remain: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for canonical domain change; provider-bound action without coupling; authority-bounded personal automation; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion.
 
-## New candidates from dedicated Adaptive Governed Work Surfaces pass
-| Candidate | Class | Evidence origin | Status | Promotion condition |
-|---|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-EFFECTIVE-WORK-SURFACE-RESOLUTION-EVIDENCE | CROSS_CUTTING | ServiceNow audience variants + SAP role surfaces + required layered resolver | CANDIDATE | Authorization/Governance/UI synthesis confirms reusable effective-resolution evidence primitive. |
-| G2-CAPABILITY-CANDIDATE-STATION-CAPABILITY-EXPOSURE-CONTRACT | CORE | SAP spaces/federated content/delegated admin + SB structural requirement | CANDIDATE | Provider/Authorization/architecture synthesis establishes ownership and hierarchical composition semantics. |
-| G2-CAPABILITY-CANDIDATE-AUTHORITY-BOUNDED-WORK-AUTOMATION | CROSS_CUTTING | Surface actions + workflow/provider/authorization boundary | CANDIDATE | Integration/Workflow/Authorization synthesis proves generic authority-intersection semantics. |
-| G2-CAPABILITY-CANDIDATE-EVIDENCE-GOVERNED-SURFACE-PROMOTION | CROSS_CUTTING | Personal→organizational overlay requirement + governance evidence separation | CANDIDATE | Governance/Lifecycle synthesis establishes evidence-versus-decision lifecycle. |
+## Adaptive Governed Work Surfaces candidates
+| Candidate | Class | Status |
+|---|---|---|
+| G2-CAPABILITY-CANDIDATE-EFFECTIVE-WORK-SURFACE-RESOLUTION-EVIDENCE | CROSS_CUTTING | CANDIDATE |
+| G2-CAPABILITY-CANDIDATE-STATION-CAPABILITY-EXPOSURE-CONTRACT | CORE | CANDIDATE |
+| G2-CAPABILITY-CANDIDATE-AUTHORITY-BOUNDED-WORK-AUTOMATION | CROSS_CUTTING | CANDIDATE |
+| G2-CAPABILITY-CANDIDATE-EVIDENCE-GOVERNED-SURFACE-PROMOTION | CROSS_CUTTING | CANDIDATE |
 
-## New candidates from AI-native Engineering / Agents / Approvals revisit 1
+## AI-native Engineering / Agents / Approvals revisit 1 candidates
+| Candidate | Class | Status |
+|---|---|---|
+| G2-CAPABILITY-CANDIDATE-REVISION-BOUND-APPROVAL-REVALIDATION | CROSS_CUTTING | CANDIDATE |
+| G2-CAPABILITY-CANDIDATE-DELEGATED-AUTHORITY-ATTENUATION-EVIDENCE | CROSS_CUTTING | CANDIDATE |
+| G2-CAPABILITY-CANDIDATE-SIDE-EFFECT-ATTEMPT-RECEIPT-LINEAGE | CROSS_CUTTING | CANDIDATE |
+
+## Developer / Operator Experience / Self-hosting revisit 1 candidates
 | Candidate | Class | Evidence origin | Status | Promotion condition |
 |---|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-REVISION-BOUND-APPROVAL-REVALIDATION | CROSS_CUTTING | OpenAI Agents SDK approvals + LangGraph HITL/checkpointing + governed surface revalidation requirement | CANDIDATE | Governance/Workflow/Authorization synthesis proves reusable approval freshness/revalidation primitive. |
-| G2-CAPABILITY-CANDIDATE-DELEGATED-AUTHORITY-ATTENUATION-EVIDENCE | CROSS_CUTTING | Nested-agent approval propagation + explicit tool bounds + Station/Role authority intersection | CANDIDATE | Authorization/AI synthesis establishes provider-neutral parent→child authority derivation evidence. |
-| G2-CAPABILITY-CANDIDATE-SIDE-EFFECT-ATTEMPT-RECEIPT-LINEAGE | CROSS_CUTTING | LangGraph resume semantics + durable execution retry discipline + external tool effects | CANDIDATE | Workflow/Integration/Resilience synthesis proves shared side-effect attempt/result/idempotency evidence ownership. |
+| G2-CAPABILITY-CANDIDATE-OPERATIONAL-REALIZATION-CONFORMANCE-EVIDENCE | CROSS_CUTTING | GitLab restore prerequisites + kubeadm staged upgrade + Backstage realization freedom | CANDIDATE | Deployment/Resilience/Lifecycle synthesis proves shared post-transition conformance ownership. |
+| G2-CAPABILITY-CANDIDATE-OFFLINE-DEPENDENCY-CLOSURE-EVIDENCE | CROSS_CUTTING | GitLab offline package/dependency transport + Nix declared inputs | CANDIDATE | Build/Artifact/Deployment synthesis proves provider-neutral dependency-closure evidence. |
+| G2-CAPABILITY-CANDIDATE-RESTORE-POST-CONFORMANCE-LINEAGE | CROSS_CUTTING | GitLab exact-version restore + secrets/config custody + recovery validation requirement | CANDIDATE | Resilience/Governance/Deployment synthesis establishes restore-attempt/result/post-conformance lineage ownership. |
