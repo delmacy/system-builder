@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## Process & Application Modeling — revisit 2 / cycle 3
+- G2-FINDING-PAM-17 — Canonical Model, Process Definition, Projection and Execution Instance Require Distinct Identities
+- G2-FINDING-PAM-18 — Projection Authority Must Not Imply Canonical Model Authority
+- G2-FINDING-PAM-19 — Process References Need Revision-Bound Semantic Compatibility Evidence
+- G2-FINDING-PAM-20 — Provider-Neutral Action References Belong in Process/Application Semantics; Provider Selection Does Not
+- G2-FINDING-PAM-21 — AI Authoring Must Classify Requested Change Authority Before Materialization
+- G2-FINDING-PAM-22 — Definition-to-Execution Evidence Must Preserve the Full Semantic Context Snapshot
+
 ## Universal Capability Architecture — revisit 2 / cycle 3
 - G2-FINDING-UCA-17 — Semantic Identity Requires Explicit Lifespan Semantics
 - G2-FINDING-UCA-18 — Evidence Must Bind to the Revision It Observed
