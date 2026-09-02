@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 6/25 capabilities revisited.
+Cycle 4 is open with 7/25 capabilities revisited.
 
 ### Universal Capability Architecture — revisit 3
 OASIS TOSCA 2.0: `DEEP`; Kubernetes desired/observed generation: `DEEP`; OpenFeature provider/context/status: `DEEP`; OpenTelemetry Resource/Entity identity: `DEEP`; Crossplane ProviderConfig/ManagedResource: `DEEP`; SPIFFE trust domains/bundles: `DEEP`; OPA bundle persistence/status: `DEEP`. Findings `G2-FINDING-UCA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
@@ -28,6 +28,9 @@ Camunda 8 process-instance migration: `DEEP`; Camunda 8 incidents: `DEEP`; AWS S
 
 ### Integration & Automation — revisit 3
 Apache Kafka 4.2 delivery/transaction boundary: `DEEP`; Amazon EventBridge API destinations/retry/DLQ/archive/replay: `DEEP`; CloudEvents identity/context envelope: `PARTIAL`; prior Dapr Pub/Sub/resiliency: `DEEP`; prior Azure Logic Apps connection/identity evidence: `DEEP`; prior Zapier trigger/dedup evidence: `DEEP`. Findings `G2-FINDING-IA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: trigger/subscription vs delivery-run revision coexistence; transport receipt vs domain acceptance; retry/replay lineage; governed integration migration; qualified local integration closure; Station authority captured and attenuated across async continuation.
+
+### Identity / Authentication / Federation — revisit 3
+OpenID Connect Core/registration/back-channel logout: `DEEP`; Microsoft Entra Conditional Access authentication strengths/risk policies: `DEEP`; Keycloak sessions/offline/transient sessions/revocation: `DEEP`; Auth0 refresh-token/session revocation and rotation: `DEEP`; SPIFFE federation/trust-bundle rotation: `DEEP`. Findings `G2-FINDING-IAF-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: canonical subject vs authentication-context/session/credential/provider revisions; contextual assurance/step-up; scoped revocation and stale windows; governed IdP/federation migration; qualified local identity closure; AGWS revalidation without authority amplification.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
