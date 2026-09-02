@@ -64,5 +64,15 @@ No cycle-5 UCA candidate is promoted. Adaptive Governed Work Surfaces remains di
 
 No PAM cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains distinct and unchanged.
 
+## UI / Generated Experience / Low-code Builder — revisit cycle 5 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-UIGX-ATTEMPT-ACCEPTED-EFFECTIVE-VALIDATED-LINEAGE | CROSS_CUTTING | MERGE_TARGET | Reconcile with UCA/PAM attempt/effective/postcondition lineage while preserving UI acceptance/accessibility facts. |
+| G2-CAPABILITY-CANDIDATE-UIGX-CONCURRENT-PROJECTION-OWNERSHIP-PRECONDITIONS | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal/PAM expected-base, ownership and conflict evidence; UI ordering/binding remain semantic units. |
+| G2-CAPABILITY-CANDIDATE-UIGX-ACCESSIBILITY-CONFORMANCE-EVIDENCE | CROSS_CUTTING | CANDIDATE | Keep as UI-specialized proof/evidence contract unless later accessibility negative-space review shows independent macro ownership. |
+| G2-CAPABILITY-CANDIDATE-UIGX-INCONCLUSIVE-DEPENDENCY-QUALIFICATION | CROSS_CUTTING | MERGE_TARGET | Reconcile with unified evidence dependency/convergence qualification; missing UI dependencies remain explicit. |
+
+No UI cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains distinct and unchanged.
+
 ## Historical authority
 All candidates from prior sections/revisions remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
