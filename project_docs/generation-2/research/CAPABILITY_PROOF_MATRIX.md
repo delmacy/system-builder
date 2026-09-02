@@ -10,7 +10,7 @@ Legend: `BACKFILL_REQUIRED`, `PARTIAL`, `READY_FOR_ACCEPTANCE_TRANSLATION`, `N_A
 | Capability / hypothesis | Status | Minimum proof emphasis |
 |---|---|---|
 | Universal Capability Architecture | BACKFILL_REQUIRED | primitive reuse; semantic identity vs realization; evidence qualification; authority separation; provider-neutrality |
-| Process & Application Modeling | BACKFILL_REQUIRED | model lineage/validation/migration; brownfield mapping; incomplete-model negatives |
+| Process & Application Modeling | PARTIAL | explicit proof set below: attempted/accepted/effective/validated lineage; brownfield ambiguity/normalization; concurrency ownership; INCONCLUSIVE propagation; migration postconditions; composition/transaction boundary; provider/topology substitution; Station/AGWS authority; local closure |
 | UI / Generated Experience / Low-code Builder | BACKFILL_REQUIRED | constrained generation; semantic binding; accessibility; no arbitrary domain mutation; rollback/diff |
 | Adaptive Governed Work Surfaces | PARTIAL | nine existing proofs + Station/Role revalidation; mandatory components; personal automation authority; promotion/rollback |
 | Workflow & Durable Execution | BACKFILL_REQUIRED | in-flight revision; retry/redrive; human tasks; migration/provider replacement; recovery |
@@ -39,6 +39,18 @@ Legend: `BACKFILL_REQUIRED`, `PARTIAL`, `READY_FOR_ACCEPTANCE_TRANSLATION`, `N_A
 | Topology / Build / Runtime Realization | PARTIAL | simple collapse; split/scale; build once/replicate many; provider substitution; partial build; topology migration |
 | Tenant Fleet / Edge / Ingress / Routing | PARTIAL | 20+ routing; unknown-host denial; isolation; hybrid placement; TLS; tenant migration; edge substitution |
 | Commercial Metering / Entitlements / Rating / Billing / Payment | BACKFILL_REQUIRED | entitlement; usage evidence; rating reproducibility; quotas; billing evidence; payment boundary; dispute/replay |
+
+## Process & Application Modeling — explicit cycle-5 proof obligations
+1. **Attempt/effective negative proof:** publish/deploy revision B while an environment override/layer keeps A effective. Evidence must report attempted=B, effective=A and must not claim B validated.
+2. **Brownfield ambiguity proof:** import a legacy model with an unmapped/provider-specific semantic construct. Preserve source provenance and produce PARTIAL/INCONCLUSIVE mapping rather than silently dropping/coercing it.
+3. **Normalization authority proof:** discover a provider default/legacy field and attempt canonical adoption under observe-only authority. Canonical semantics remain unchanged until explicit normalize/adopt authority exists.
+4. **Concurrent edit proof:** create two edits from the same base over the same semantic unit; commit one then attempt the stale second edit. Require conflict/revalidation/authorized resolution rather than silent overwrite.
+5. **Dependency-INCONCLUSIVE proof:** remove a required schema/template/validator used by model validation. Dependent conformance becomes INCONCLUSIVE while independent checks may still evaluate.
+6. **Migration postcondition proof:** perform a technically accepted in-flight process migration that violates a declared semantic invariant. Engine acceptance alone must not produce VALIDATED/healthy evidence.
+7. **Composition/transaction boundary proof:** compose a model with typed cumulative context plus transaction/compensation requirement. Preserve typed/provenanced context while runtime guarantees remain unsatisfied until Workflow/Data evidence is attached.
+8. **Topology/provider substitution proof:** realize the same accepted semantic revision on two materially different providers/topologies. Canonical model identity stays stable while realization/effective/validation lineage differs.
+9. **Station/AGWS authority proof:** request a canonical field/process-rule change through a Personal/Role surface. AI may propose a model revision, but direct canonical mutation is denied/escalated.
+10. **Qualified-local-closure proof:** validate/import offline with declared local closure; remove one required schema/template/trust/authority dependency and require degraded/INCONCLUSIVE behavior, never silent online fallback or broadened authority.
 
 ## Security / Resilience / Failure Recovery — explicit cycle-4 proof obligations
 1. **Positive semantic recovery:** inject primary realization loss; recover within declared RTO/RPO and prove restored data position, schema/workflow/provider revision vector, trust validity and domain postconditions before normal write authority resumes.
