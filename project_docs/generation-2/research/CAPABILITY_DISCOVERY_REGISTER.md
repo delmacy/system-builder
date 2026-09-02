@@ -7,6 +7,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 Required proofs remain: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for canonical domain change; provider-bound action without coupling; bounded personal automation; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion.
 
+## UI / Generated Experience / Low-code Builder — revisit 2 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-SEMANTIC-COMPONENT-CONTRACT | CROSS_CUTTING | CANDIDATE | Synthesis confirms reuse across AGWS, notifications/documents and extension surfaces without renderer coupling. |
+| G2-CAPABILITY-CANDIDATE-GENERATED-EXPERIENCE-DEPENDENCY-FRESHNESS-EVIDENCE | CROSS_CUTTING | CANDIDATE | Lifecycle/build/conformance synthesis confirms a shared revision-freshness proof shape. |
+| G2-CAPABILITY-CANDIDATE-PROJECTION-REALIZATION-REGENERATION-LINEAGE | CROSS_CUTTING | CANDIDATE | Artifact/build/deployment findings converge on one lineage primitive for semantic projection versus generated realization. |
+
 ## Process & Application Modeling — revisit 2 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
