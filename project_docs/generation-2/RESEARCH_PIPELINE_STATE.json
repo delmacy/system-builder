@@ -11,118 +11,26 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 2,
     "active_revisit_cycle": 3,
-    "capabilities_revisited_in_active_cycle": 22,
-    "hourly_runs_completed": 71,
-    "finding_count": 525,
-    "capability_candidate_count": 218,
-    "new_candidates_this_run": [
-      "G2-CAPABILITY-CANDIDATE-EFFECTIVE-REVISION-REALIZATION-OBSERVATION",
-      "G2-CAPABILITY-CANDIDATE-PROFILE-SCOPED-COMPATIBILITY-COEXISTENCE-MATRIX",
-      "G2-CAPABILITY-CANDIDATE-OFFLINE-MIGRATION-INTERPRETATION-RECOVERY-CLOSURE"
-    ],
+    "capabilities_revisited_in_active_cycle": 23,
+    "hourly_runs_completed": 72,
+    "finding_count": 531,
+    "capability_candidate_count": 221,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-REVISION-BOUND-AGENT-APPROVAL-EVIDENCE","G2-CAPABILITY-CANDIDATE-AGENT-CANDIDATE-MUTATION-AUTHORITY-SEPARATION","G2-CAPABILITY-CANDIDATE-PORTABLE-AGENT-EXECUTION-EVIDENCE-CLOSURE"],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; compact representations do not revoke prior candidates",
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "mandatory_discovered_capabilities": {
-      "Adaptive Governed Work Surfaces": {
-        "candidate_id": "G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES",
-        "classification": "CORE",
-        "status": "PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY",
-        "saturation": "NOT_SATURATED",
-        "must_remain_distinct_from": "UI / Generated Experience / Low-code Builder",
-        "required_boundary": "Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.",
-        "required_authoring_rule": "Users express intent and compose constrained semantic components; AI is sole materializer over valid entities/domains/capabilities/permissions/contracts and must classify mutation authority and escalate canonical domain/process changes.",
-        "required_proofs": ["list/form/grid without new canonical model","layout constrained to allowed slots/grid","mandatory component non-removable","personalization revalidated after Station/Role change","AI request requiring domain change escalated","provider-bound action without coupling","personal automation respects authority","lineage/version/diff/reset/rollback","Personal→Team/Role/System promotion governed by evidence"]
-      }
-    },
-    "enterprise_completeness_negative_space_gate": {
-      "required_when_completed_full_cycles_gte": 7,
-      "status": "NOT_YET_ELIGIBLE",
-      "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
-      "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred with rationale, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be explicitly challenged as part of cost/quotas/metering/FinOps negative space if not promoted/researched earlier."
-    },
-    "revisit_status": {
-      "Provider / Binding / Capability Negotiation": {
-        "revisits_completed": 2,
-        "consecutive_no_material_finding": 0,
-        "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-        "new_findings": ["G2-FINDING-PBCN-17","G2-FINDING-PBCN-18","G2-FINDING-PBCN-19","G2-FINDING-PBCN-20","G2-FINDING-PBCN-21","G2-FINDING-PBCN-22"]
-      },
-      "Security / Resilience / Failure Recovery": {
-        "revisits_completed": 2,
-        "consecutive_no_material_finding": 0,
-        "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-        "new_findings": ["G2-FINDING-SRFR-17","G2-FINDING-SRFR-18","G2-FINDING-SRFR-19","G2-FINDING-SRFR-20","G2-FINDING-SRFR-21","G2-FINDING-SRFR-22"]
-      },
-      "Standards / Interoperability / API Contracts": {
-        "revisits_completed": 2,
-        "consecutive_no_material_finding": 0,
-        "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-        "new_findings": ["G2-FINDING-SIAC-17","G2-FINDING-SIAC-18","G2-FINDING-SIAC-19","G2-FINDING-SIAC-20","G2-FINDING-SIAC-21","G2-FINDING-SIAC-22"]
-      },
-      "Lifecycle / Versioning / Evolution / Migration": {
-        "revisits_completed": 2,
-        "consecutive_no_material_finding": 0,
-        "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-        "new_findings": ["G2-FINDING-LVEM-17","G2-FINDING-LVEM-18","G2-FINDING-LVEM-19","G2-FINDING-LVEM-20","G2-FINDING-LVEM-21","G2-FINDING-LVEM-22"]
-      }
-    },
-    "representative_coverage": {
-      "Provider / Binding / Capability Negotiation": {
-        "Terraform provider requirements/configurations/state": "DEEP",
-        "Kubernetes extended resources + DRA": "DEEP",
-        "Kubernetes device plugins": "DEEP",
-        "SPIFFE Workload API + federation": "DEEP",
-        "Backstage feature discovery/plugins": "PARTIAL"
-      },
-      "Security / Resilience / Failure Recovery": {
-        "PostgreSQL 18 PITR/incremental-backup dependency chains": "DEEP",
-        "Kubernetes disruptions/PDB applicability": "DEEP",
-        "AWS Well-Architected DR objectives/strategies/testing": "DEEP",
-        "AWS retry/backoff + circuit breaker": "DEEP",
-        "NIST CSF 2.0 lifecycle outcomes": "DEEP"
-      },
-      "Standards / Interoperability / API Contracts": {
-        "OpenAPI 3.2.0": "DEEP",
-        "JSON Schema Draft 2020-12": "DEEP",
-        "AsyncAPI 3.0.0": "DEEP",
-        "SCIM RFC 7643": "DEEP",
-        "OpenID Connect Discovery 1.0": "DEEP",
-        "OCI Image Specification descriptors/manifests/annotations": "DEEP",
-        "RFC 9745 + RFC 8594 deprecation/sunset lifecycle": "DEEP"
-      },
-      "Lifecycle / Versioning / Evolution / Migration": {
-        "Kubernetes API deprecation + storage/preferred-version evolution": "DEEP",
-        "Kubernetes component version-skew/upgrade ordering": "DEEP",
-        "RFC 9745 Deprecation + RFC 8594 Sunset": "DEEP",
-        "Terraform moved/import/remove/state continuity": "DEEP",
-        "Terraform provider cross-resource-type state move": "DEEP",
-        "Flyway target/versioned migration/undo/schema history": "DEEP",
-        "Temporal durable execution version coexistence constraint": "PARTIAL"
-      }
-    },
-    "pending_capabilities": ["AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
+    "mandatory_discovered_capabilities": {"Adaptive Governed Work Surfaces":{"candidate_id":"G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES","classification":"CORE","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","must_remain_distinct_from":"UI / Generated Experience / Low-code Builder","required_boundary":"Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.","required_authoring_rule":"Users express intent and compose constrained semantic components; AI is sole materializer over valid entities/domains/capabilities/permissions/contracts and must classify mutation authority and escalate canonical domain/process changes.","required_proofs":["list/form/grid without new canonical model","layout constrained to allowed slots/grid","mandatory component non-removable","personalization revalidated after Station/Role change","AI request requiring domain change escalated","provider-bound action without coupling","personal automation respects authority","lineage/version/diff/reset/rollback","Personal→Team/Role/System promotion governed by evidence"]}},
+    "enterprise_completeness_negative_space_gate":{"required_when_completed_full_cycles_gte":7,"status":"NOT_YET_ELIGIBLE","artifact":"project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md","rule":"CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred with rationale, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be explicitly challenged as part of cost/quotas/metering/FinOps negative space if not promoted/researched earlier."},
+    "revisit_status":{"AI-native Engineering / Agents / Approvals":{"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AIN-17","G2-FINDING-AIN-18","G2-FINDING-AIN-19","G2-FINDING-AIN-20","G2-FINDING-AIN-21","G2-FINDING-AIN-22"]}},
+    "representative_coverage":{"AI-native Engineering / Agents / Approvals":{"OpenAI Agents/Workspace Agents":"DEEP","Model Context Protocol tool/auth/capability negotiation":"DEEP","Temporal durable execution/version coexistence":"PARTIAL","LangGraph durable execution/HITL":"PARTIAL","Google A2A task/artifact interoperability":"PARTIAL"}},
+    "pending_capabilities":["Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
   },
-  "gates": {
-    "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, saturation conditions are satisfied, and when completed_full_cycles >= 7 the Enterprise Completeness / Negative-Space Review gate is closed with no material ownerless category.",
-    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "Mandatory after completed_full_cycles >= 7 and before CAPABILITY_SYNTHESIS.",
-    "CAPABILITY_SYNTHESIS": "Canonical taxonomy, subcapabilities, cross-cutting capabilities, representative coverage, recurring primitives and unresolved contradictions consolidated.",
-    "PLANNING_A_TAXONOMY_BOUNDARIES": "Ownership, boundaries, overlap rules and non-goals explicit.",
-    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION": "Each material capability mapped to fresh-main repository truth, contracts, tests, maturity and gaps.",
-    "PLANNING_C_TARGET_ARCHITECTURE": "Target planes, primitives, provider/binding model, portable definition/IR and evidence/provenance coherent and decision-backed.",
-    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "Dependency order, compatibility, migration, rollback and coexistence explicit.",
-    "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "Native/external-provider/replaceability/portability/governance/runtime-autonomy proofs measurable.",
-    "ARCHITECTURE_RECONCILIATION": "Each material finding/gap has evidence-backed disposition and dependencies.",
-    "WBS_DECOMPOSITION": "Reconciled architecture decisions decomposed into bounded WBS documents.",
-    "WBS_DEPENDENCY_GRAPH": "Cross-WBS graph acyclic or explicitly staged.",
-    "WORK_PACKAGE_DESIGN": "WPs derived from WBS and sized for 3–10 Construction Sprints plus required gates.",
-    "READY_FOR_WORKER_HANDOFF": "Research/planning complete, integrated and ready for separate :10/:30/:50 execution pipeline."
-  },
-  "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Lifecycle / Versioning / Evolution / Migration — revisit 2 / cycle 3 complete. Six material findings distinguish desired semantic revision from effective realization/availability; compatibility as profile/operation/direction/window relation; deprecation/sunset/withdrawal/availability; explicit migration continuity proof; restored-lineage rollback/forward-fix; and offline migration interpretation/trust/recovery closure.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_REVISIT_02.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: AI-native Engineering / Agents / Approvals, revisit cycle 3, because it is now the oldest explicit pending capability. Deepen agent/tool/policy revision identity; in-flight execution compatibility; approval authority bound to exact policy/tool/model revisions; replay/reproducibility versus nondeterministic model behavior; agent-produced migration/policy/config changes as candidate artifacts requiring separate validation and authority; tool capability negotiation; provider/model replacement without rewriting semantic task intent; degraded/offline/self-hosted agent execution; Station/Role authority projection; and evidence required to prove that an AI action was authorized, reproducible enough for governance, and did not self-authorize a higher-scope mutation. Explicitly test how Lifecycle findings LVEM-17..22 and Standards SIAC-17..22 constrain AI-native evolution. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7; Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T10:50:40-03:00"
+  "gates":{"RESEARCH_ELICITATION":"All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, saturation conditions are satisfied, and when completed_full_cycles >= 7 the Enterprise Completeness / Negative-Space Review gate is closed with no material ownerless category.","ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW":"Mandatory after completed_full_cycles >= 7 and before CAPABILITY_SYNTHESIS.","CAPABILITY_SYNTHESIS":"Canonical taxonomy, subcapabilities, cross-cutting capabilities, representative coverage, recurring primitives and unresolved contradictions consolidated.","PLANNING_A_TAXONOMY_BOUNDARIES":"Ownership, boundaries, overlap rules and non-goals explicit.","PLANNING_B_SB_CURRENT_STATE_RECONCILIATION":"Each material capability mapped to fresh-main repository truth, contracts, tests, maturity and gaps.","PLANNING_C_TARGET_ARCHITECTURE":"Target planes, primitives, provider/binding model, portable definition/IR and evidence/provenance coherent and decision-backed.","PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY":"Dependency order, compatibility, migration, rollback and coexistence explicit.","PLANNING_E_PRODUCT_PROOF_ACCEPTANCE":"Native/external-provider/replaceability/portability/governance/runtime-autonomy proofs measurable.","ARCHITECTURE_RECONCILIATION":"Each material finding/gap has evidence-backed disposition and dependencies.","WBS_DECOMPOSITION":"Reconciled architecture decisions decomposed into bounded WBS documents.","WBS_DEPENDENCY_GRAPH":"Cross-WBS graph acyclic or explicitly staged.","WORK_PACKAGE_DESIGN":"WPs derived from WBS and sized for 3–10 Construction Sprints plus required gates.","READY_FOR_WORKER_HANDOFF":"Research/planning complete, integrated and ready for separate :10/:30/:50 execution pipeline."},
+  "artifact_roots":{"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
+  "current_focus":"AI-native Engineering / Agents / Approvals — revisit 2 / cycle 3 complete. Six material findings separate semantic task from model/harness/tool realization; bind approvals to exact effective revisions; separate candidate materialization, approval and execution authority; deny authority-by-discovery; define governance reproducibility without token replay; and require qualified in-flight/offline agent realization closure. AGWS remains non-amplifying across Enterprise → Station → Role → Person.",
+  "last_completed_artifact":"project_docs/generation-2/research/capabilities/AI_NATIVE_ENGINEERING_AGENTS_APPROVALS_REVISIT_02.md",
+  "next_action":"Continue RESEARCH_ELICITATION with exactly one capability: Developer / Operator Experience / Self-hosting, revisit cycle 3, because it is now the oldest explicit pending capability. Deepen install/bootstrap identity versus environment realization; declarative local topology; air-gapped/offline dependency, artifact, contract, migration, model/tool and trust closure; operator workflows for upgrade/rollback/recovery; diagnostics and evidence export without provider control-plane dependence; provider/model/tool replacement; configuration/secrets bootstrap; reproducible dev/test/prod parity versus legitimate environment differences; delegated Station administration; portability of backups/state/evidence; failure semantics for partial bootstrap/upgrade; and complexity/operability evidence that may later feed the pending relative-operational-complexity metering/rating research without turning DX/Ops into billing ownership. Explicitly test how AI-native AIN-17..22, Lifecycle LVEM-17..22 and Security/Runtime autonomy findings constrain self-hosted operation. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7; Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated":"2026-09-02T11:06:47-03:00"
 }
