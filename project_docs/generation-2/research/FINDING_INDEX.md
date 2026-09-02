@@ -66,11 +66,19 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - G2-FINDING-AUTH-27 — Qualified Local Authorization Closure Must Include Policy Interpretation, Authority State, Trust, Freshness and Enforcement Dependencies
 - G2-FINDING-AUTH-28 — AGWS Revalidation Consumes Current Station/Role/Policy/Auth Evidence Without Authority Amplification
 
+## Data / Schema / Migrations — revisit 3 / cycle 4
+- G2-FINDING-DSM-23 — Canonical Data Revision, Physical Realization, Migration Attempt and Observed Conformance Must Coexist Without Identity Collapse
+- G2-FINDING-DSM-24 — CDC and Historical Data Interpretation Require Schema-at-Position Evidence
+- G2-FINDING-DSM-25 — Migration/Data-copy Completion and Source-target Conformance Are Distinct Evidence States
+- G2-FINDING-DSM-26 — Data Migration Is a Governed Plan/Validation/Approval/Attempt/Checkpoint/Postcondition Transition
+- G2-FINDING-DSM-27 — Station/Tenant Data Access, Canonical Ownership and Migration Authority Are Distinct and Must Be Revalidated Across Schema/Policy Revision
+- G2-FINDING-DSM-28 — Qualified Local Data-evolution Closure Must Include Contract, Executor, Ledger/Checkpoint, Validation, Trust, Authority and Recovery State
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-8/25 active capabilities revisited. UCA, Process & Application Modeling, UI / Generated Experience, Adaptive Governed Work Surfaces, Workflow & Durable Execution, Integration & Automation, Identity / Authentication / Federation, and Authorization / Policy / Organization / Multitenancy produced material findings; consecutive-no-material remains 0 for all and none is SATURATED.
+9/25 active capabilities revisited. UCA, Process & Application Modeling, UI / Generated Experience, Adaptive Governed Work Surfaces, Workflow & Durable Execution, Integration & Automation, Identity / Authentication / Federation, Authorization / Policy / Organization / Multitenancy, and Data / Schema / Migrations produced material findings; consecutive-no-material remains 0 for all and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings, remain authoritative in their dossiers and prior index revisions.
