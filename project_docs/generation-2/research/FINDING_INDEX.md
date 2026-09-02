@@ -79,6 +79,16 @@ All stable findings from these cycle-4 revisits remain authoritative in their ca
 - **G2-FINDING-UIGX-35** — Renderer/Provider/Topology Substitution Must Preserve Projection Identity While Reissuing Realization and Accessibility/Semantic Evidence.
 - **G2-FINDING-UIGX-36** — UI Rollback Is an Eligibility-Bound Governed Transition Over Retained Semantic and Realization Dependencies.
 
+### Adaptive Governed Work Surfaces — revisit 4
+- **G2-FINDING-AGWS-22** — Effective AGWS Resolution and Generic UI Projection Identity Are Separate Subjects.
+- **G2-FINDING-AGWS-23** — Hierarchical Personalization Requires Expected-Base and Semantic Ownership Preconditions.
+- **G2-FINDING-AGWS-24** — Enterprise→Station→Role→Person Is a Monotonic Authority Constraint, Not Merely a Precedence Stack.
+- **G2-FINDING-AGWS-25** — Mandatory Inherited UI Elements Need Stable Obligation Identity Separate From Renderer Placement.
+- **G2-FINDING-AGWS-26** — Station Exposure and Delegated Administration Are Action-Faceted Authorities Separate From Provider Capability and Canonical Ownership.
+- **G2-FINDING-AGWS-27** — Personal Automation Executes Under Attenuated Effective Authority; Surface Materialization Never Grants Execution Authority.
+- **G2-FINDING-AGWS-28** — Accessibility and Dependency Qualification Are Part of Governed Effective-Surface Evidence.
+- **G2-FINDING-AGWS-29** — Personalization Promotion Is Evidence-Informed but Remains a Separate Authority-Bearing Organizational Transition.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
