@@ -1,51 +1,16 @@
 # Generation 2 — Finding Index
 
-Prior stable findings through `G2-FINDING-SRFR-10` remain authoritative in their capability dossiers and pipeline history.
+Prior stable findings through `G2-FINDING-SRFR-16` remain authoritative in their capability dossiers and pipeline history. All revisit-cycle-2 findings for the original capabilities remain authoritative; compacting this index does not revoke them.
 
-## AI-native Engineering / Agents / Approvals
-G2-FINDING-AIAA-01..10 remain authoritative in the capability dossier.
+## Adaptive Governed Work Surfaces — dedicated research pass 1
+- G2-FINDING-AGWS-01 — Surface Definition, Overlay and Effective Resolved Surface Are Distinct Identities
+- G2-FINDING-AGWS-02 — Visual Composition Authority Must Be Strictly Smaller Than Canonical Domain Authority
+- G2-FINDING-AGWS-03 — Station Is a First-Class Capability-Exposure and Delegated-Administration Boundary
+- G2-FINDING-AGWS-04 — Superior Invariants Require Monotonic Overlay Resolution and Explicit Mandatory-Component Placement Policy
+- G2-FINDING-AGWS-05 — AI Materialization Is an Authority Boundary, Not Merely an Authoring Convenience
+- G2-FINDING-AGWS-06 — Work-Surface Automation Authority Is the Intersection of Actor, Role, Station, Binding and Action Policy
+- G2-FINDING-AGWS-07 — Provider-Neutral Semantic Binding Is Required for Replaceable Work Surfaces
+- G2-FINDING-AGWS-08 — Personalization Requires Revalidation Against Changing Authority and Capability Context
+- G2-FINDING-AGWS-09 — Promotion Is a Governed New Revision Backed by Evidence, Not Automatic Copying of Popular Personalization
 
-## Developer / Operator Experience / Self-hosting
-G2-FINDING-DOESH-01..10 remain authoritative in the capability dossier.
-
-## Architecture Reconciliation as a Capability
-G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
-
-## Revisit cycle 2 — material findings already indexed
-- Universal Capability Architecture: `G2-FINDING-UCA-11..16`.
-- Process & Application Modeling: `G2-FINDING-PAM-11..16`.
-- UI / Generated Experience / Low-code Builder: `G2-FINDING-UI-11..16`.
-- Workflow & Durable Execution: `G2-FINDING-WDE-11..16`.
-- Integration & Automation: `G2-FINDING-IA-11..16`.
-- Identity / Authentication / Federation: `G2-FINDING-IAF-11..16`.
-- Authorization / Policy / Organization / Multitenancy: `G2-FINDING-AUTH-11..16`.
-- Data / Schema / Migrations: `G2-FINDING-DATA-11..16`.
-- Storage / Documents / Media: `G2-FINDING-STORAGE-11..16`.
-- Notifications / Events / Messaging: `G2-FINDING-NEM-11..16`.
-- Build / Dependency Graph / Reproducibility: `G2-FINDING-BUILD-11..16`.
-- Artifact / Release / SBOM / Provenance: `G2-FINDING-ARSP-11..16`.
-- Deployment / Environment / Runtime: `G2-FINDING-DER-11..16`.
-- Observability / Operations / Incident: `G2-FINDING-OOI-11..16`.
-- Extension / Plugin / Marketplace Architecture: `G2-FINDING-EXT-11..16`.
-- Governance / Compliance / Audit: `G2-FINDING-GCA-11..16`.
-- Secrets / Configuration / Environment Portability: `G2-FINDING-SCEP-11..16`.
-- Provider / Binding / Capability Negotiation: `G2-FINDING-PBCN-11..16`.
-- Standards / Interoperability / API Contracts: `G2-FINDING-SIAC-11..16`.
-
-## Lifecycle / Versioning / Evolution / Migration — revisit 1
-- G2-FINDING-LVEM-11 — Semantic Object Identity, Revision Identity and Effective Realization Identity Are Distinct
-- G2-FINDING-LVEM-12 — Compatibility Policy and Observed Compatibility Are Separate Evidence
-- G2-FINDING-LVEM-13 — Migration Intent, Plan, Attempt, Checkpoint and Result Require Independent Lineage
-- G2-FINDING-LVEM-14 — Deprecation, Disablement and Removal Are Distinct Lifecycle Decisions
-- G2-FINDING-LVEM-15 — Rollback Is a New Governed Transition and Cannot Be Assumed Universally Reversible
-- G2-FINDING-LVEM-16 — Migration Completion Does Not Prove Post-Transition Conformance or Consumer Readiness
-
-## Security / Resilience / Failure Recovery — revisit 1
-- G2-FINDING-SRFR-11 — Failure Occurrence, Failure-Domain Observation and Blast-Radius Disposition Are Distinct Evidence
-- G2-FINDING-SRFR-12 — Retry Attempt Identity Must Be Separate from Semantic Operation Identity, and Timeout Does Not Prove Predecessor Termination
-- G2-FINDING-SRFR-13 — Containment, Ejection, Circuit Breaking and Load Shedding Are Protective Realizations, Not Recovery Proof
-- G2-FINDING-SRFR-14 — Recovery-Point Existence Is Separate from Admissibility, Completeness and Restored-Lineage Identity
-- G2-FINDING-SRFR-15 — Failover and Failback Are Independent Governed Transitions with Separate Attempt, Result and Validation Evidence
-- G2-FINDING-SRFR-16 — Recovery Mechanism Completion and Infrastructure Health Do Not Prove Recovery Objectives or Post-Recovery Conformance
-
-Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
+Detailed earlier finding titles remain authoritative in earlier index revisions and capability dossiers.
