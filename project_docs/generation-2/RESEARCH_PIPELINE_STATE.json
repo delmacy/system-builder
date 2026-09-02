@@ -11,11 +11,11 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 3,
     "active_revisit_cycle": 4,
-    "capabilities_revisited_in_active_cycle": 6,
-    "hourly_runs_completed": 80,
-    "finding_count": 579,
-    "capability_candidate_count": 245,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-INTEGRATION-DELIVERY-RUN-DOMAIN-ACCEPTANCE-EVIDENCE","G2-CAPABILITY-CANDIDATE-GOVERNED-INTEGRATION-MIGRATION-EVIDENCE","G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-INTEGRATION-CLOSURE"],
+    "capabilities_revisited_in_active_cycle": 7,
+    "hourly_runs_completed": 81,
+    "finding_count": 585,
+    "capability_candidate_count": 248,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-AUTHENTICATION-CONTEXT-REVISION-EVIDENCE","G2-CAPABILITY-CANDIDATE-GOVERNED-IDENTITY-PROVIDER-MIGRATION-EVIDENCE","G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-IDENTITY-CLOSURE"],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
@@ -40,16 +40,16 @@
       "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
       "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred with rationale, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be explicitly challenged as part of cost/quotas/metering/FinOps negative space if not promoted/researched earlier."
     },
-    "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation"],
+    "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation"],
     "latest_revisit": {
-      "capability": "Integration & Automation",
+      "capability": "Identity / Authentication / Federation",
       "revisits_completed": 3,
       "consecutive_no_material_finding": 0,
       "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-      "new_findings": ["G2-FINDING-IA-23","G2-FINDING-IA-24","G2-FINDING-IA-25","G2-FINDING-IA-26","G2-FINDING-IA-27","G2-FINDING-IA-28"],
-      "representative_coverage": {"Apache Kafka 4.2":"DEEP","Amazon EventBridge":"DEEP","CloudEvents":"PARTIAL","Dapr Pub/Sub/resiliency prior evidence":"DEEP","Azure Logic Apps prior evidence":"DEEP","Zapier Platform prior evidence":"DEEP"}
+      "new_findings": ["G2-FINDING-IAF-23","G2-FINDING-IAF-24","G2-FINDING-IAF-25","G2-FINDING-IAF-26","G2-FINDING-IAF-27","G2-FINDING-IAF-28"],
+      "representative_coverage": {"OpenID Connect core/registration/back-channel logout":"DEEP","Microsoft Entra authentication strengths/risk policies":"DEEP","Keycloak session/offline/transient/revocation":"DEEP","Auth0 refresh-token/session rotation-revocation":"DEEP","SPIFFE federation/trust-bundle rotation":"DEEP"}
     },
-    "pending_capabilities": ["Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
+    "pending_capabilities": ["Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, saturation conditions are satisfied, and when completed_full_cycles >= 7 the Enterprise Completeness / Negative-Space Review gate is closed with no material ownerless category.",
@@ -67,8 +67,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research/planning complete, integrated and ready for separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Integration & Automation — revisit 3 / cycle 4 complete. Six material findings establish trigger/subscription vs delivery-run revision coexistence; transport receipt distinct from domain acceptance; retry/redrive/replay lineage; governed integration migration; qualified local integration closure; and revision-bound Station authority attenuation across asynchronous continuation. No candidate was promoted.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/INTEGRATION_AUTOMATION_REVISIT_03.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Identity / Authentication / Federation, revisit cycle 4, as the next oldest non-saturated capability. Stress-test semantic principal/identity identity versus authenticator/session/token/provider realization; authentication-context revision versus active session/credential revision; MFA/passwordless/federation/ephemeral credentials; assurance levels and step-up; identity-provider replacement/migration; session/token revocation and stale evidence; offline/self-hosted/air-gapped identity closure; Enterprise → Station → Role → Person identity projection without conflating authentication with authorization; AGWS revalidation after identity/session/context change; governed identity migration plan/validation/approval/attempt/postcondition evidence; and whether measurable authentication complexity factors can later feed relative operational complexity metering/rating without making Identity owner of billing. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=3 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T13:06:19-03:00"
+  "current_focus": "Identity / Authentication / Federation — revisit 3 / cycle 4 complete. Six material findings establish coexistence of canonical subject/authentication-context/session/credential/provider revisions; contextual assurance and step-up; scoped revocation and stale windows; governed IdP/federation migration; qualified local identity closure; and AGWS/Station identity revalidation without authority amplification. No candidate was promoted.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/IDENTITY_AUTHENTICATION_FEDERATION_REVISIT_03.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Authorization / Policy / Organization / Multitenancy, revisit cycle 4, as the next oldest non-saturated capability. Consume IAF-23..28 and stress-test canonical authority versus policy-decision/evaluation revision versus session/authentication evidence; Enterprise → Station → Role → Person hierarchy and attenuation; delegated administration and temporary elevation; policy/provider replacement; stale authorization snapshots across durable/asynchronous work; decision evidence versus enforcement/actuation; governed authorization-policy migration plan/validation/approval/attempt/postcondition evidence; qualified local policy/authorization closure for self-hosted/air-gapped operation; AGWS revalidation after role/Station/policy/authentication-context change; and measurable policy/hierarchy complexity factors for later relative operational-complexity metering without making Authorization owner of billing. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=3 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T13:15:36-03:00"
 }
