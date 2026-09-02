@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 8/25 capabilities revisited.
+Cycle 4 is open with 9/25 capabilities revisited.
 
 ### Universal Capability Architecture — revisit 3
 OASIS TOSCA 2.0: `DEEP`; Kubernetes desired/observed generation: `DEEP`; OpenFeature provider/context/status: `DEEP`; OpenTelemetry Resource/Entity identity: `DEEP`; Crossplane ProviderConfig/ManagedResource: `DEEP`; SPIFFE trust domains/bundles: `DEEP`; OPA bundle persistence/status: `DEEP`. Findings `G2-FINDING-UCA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
@@ -34,6 +34,9 @@ OpenID Connect Core/registration/back-channel logout: `DEEP`; Microsoft Entra Co
 
 ### Authorization / Policy / Organization / Multitenancy — revisit 3
 Cedar policy/schema validation: `DEEP`; OpenFGA contextual tuples/conditions/immutable models: `DEEP`; Kubernetes RBAC privilege-escalation prevention/impersonation: `DEEP`; Microsoft Entra PIM eligible/active role activation: `DEEP`; Amazon Verified Permissions policy-store consistency/Cedar migration: `DEEP`; prior OPA bundle/decision evidence: `DEEP`. Findings `G2-FINDING-AUTH-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: revision-qualified authority/decision/enforcement lineage; temporary authority leases; durable/asynchronous freshness-profiled reauthorization; governed policy/provider migration; qualified local authorization closure; AGWS revalidation across Station/Role/policy/auth-context changes.
+
+### Data / Schema / Migrations — revisit 3
+PostgreSQL current logical-replication/schema semantics: `DEEP`; Vitess Online DDL/revert: `DEEP`; Debezium schema-history/log-position interpretation: `DEEP`; AWS DMS full-load+CDC/validation/resync: `DEEP`; Prisma Migrate v7 history/drift: `DEEP`; Liquibase 5.0.x checksum/history: `DEEP`. Findings `G2-FINDING-DSM-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: semantic→physical→attempt→observation identity separation; schema-at-position CDC interpretation; migration/data-copy vs source-target conformance; governed migration lineage; Station/tenant data ownership vs migration authority; qualified local data-evolution closure.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
