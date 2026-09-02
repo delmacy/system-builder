@@ -187,10 +187,13 @@ function admitDeploymentLineage(
   });
 }
 
-test("TASK-461 restores exact retained A without regeneration and reconstructs immutable A/B history", async () => {
+test("TASK-461 restores exact retained A without regeneration and reconstructs immutable A/B history", async (t) => {
   const releases = new ReleaseRegistry();
   const deployments = new DeploymentRegistry(new InMemoryDeploymentRecordStorage());
   const orchestrator = new SingleHostActiveRuntimeOrchestrator(deployments);
+  t.after(async () => {
+    await orchestrator.stopActive(PRODUCT.environmentRef);
+  });
 
   const retainedA = candidate(releases, A, 40, null);
   const a = await orchestrator.promote(retainedA);
@@ -276,14 +279,15 @@ test("TASK-461 restores exact retained A without regeneration and reconstructs i
   assert.equal(repeated.decision.resultingActiveDeploymentId, restored.candidateRecord.deploymentId);
   assert.equal(deployments.getActive(PRODUCT.environmentRef)?.deploymentId, restored.candidateRecord.deploymentId);
   assert.equal(releases.get(PRODUCT.releaseId, "0.0.3"), undefined);
-
-  await orchestrator.stopActive(PRODUCT.environmentRef);
 });
 
-test("TASK-461 rejects stale, substituted or incompatible rollback without disturbing active B", async () => {
+test("TASK-461 rejects stale, substituted or incompatible rollback without disturbing active B", async (t) => {
   const releases = new ReleaseRegistry();
   const deployments = new DeploymentRegistry(new InMemoryDeploymentRecordStorage());
   const orchestrator = new SingleHostActiveRuntimeOrchestrator(deployments);
+  t.after(async () => {
+    await orchestrator.stopActive(PRODUCT.environmentRef);
+  });
 
   const retainedA = candidate(releases, A, 44, null);
   const a = await orchestrator.promote(retainedA);
@@ -321,24 +325,28 @@ test("TASK-461 rejects stale, substituted or incompatible rollback without distu
     completedAt: "2026-09-01T23:47:02.000Z",
   });
   assert.equal(incompatible.ok, false);
+  if (!incompatible.ok) {
+    assert.equal(incompatible.outcome, "candidate-failed");
+    assert.equal(incompatible.diagnostic.code, "RUNTIME_INCOMPATIBLE");
+  }
   assert.deepEqual(deployments.getActive(PRODUCT.environmentRef), bRecord);
   assert.equal(orchestrator.getActive(PRODUCT.environmentRef)?.deploymentId, bDeploymentId);
   assert.equal((await orchestrator.health(PRODUCT.environmentRef)).status, "UP");
 
-  await assert.rejects(
-    orchestrator.promote({
-      ...retainedA,
-      publishedRelease: successorB.publishedRelease,
-      expectedActiveDeploymentId: bDeploymentId,
-      startedAt: "2026-09-01T23:48:01.000Z",
-      completedAt: "2026-09-01T23:48:02.000Z",
-    }),
-    /ACTIVE_RUNTIME_RECORD_FAILED:ARTIFACT_MISMATCH/,
-  );
+  const substituted = await orchestrator.promote({
+    ...retainedA,
+    publishedRelease: successorB.publishedRelease,
+    expectedActiveDeploymentId: bDeploymentId,
+    startedAt: "2026-09-01T23:48:01.000Z",
+    completedAt: "2026-09-01T23:48:02.000Z",
+  });
+  assert.equal(substituted.ok, false);
+  if (!substituted.ok) {
+    assert.equal(substituted.outcome, "candidate-failed");
+    assert.equal(substituted.diagnostic.code, "ARTIFACT_MISMATCH");
+  }
   assert.deepEqual(deployments.getActive(PRODUCT.environmentRef), bRecord);
   assert.equal(orchestrator.getActive(PRODUCT.environmentRef)?.deploymentId, bDeploymentId);
   assert.equal((await orchestrator.health(PRODUCT.environmentRef)).status, "UP");
   assert.equal(releases.get(PRODUCT.releaseId, "0.0.3"), undefined);
-
-  await orchestrator.stopActive(PRODUCT.environmentRef);
 });
