@@ -7,6 +7,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 Required proofs remain: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for canonical domain change; provider-bound action without coupling; bounded personal automation; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion.
 
+## Identity / Authentication / Federation — revisit cycle 3 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-ACTOR-SUBJECT-WORKLOAD-IDENTITY-LINEAGE | CROSS_CUTTING | CANDIDATE | Authorization, AI delegated-authority and audit research converge on one reusable subject/actor/workload provenance primitive. |
+| G2-CAPABILITY-CANDIDATE-REVISION-BOUND-AUTHENTICATION-ASSURANCE-EVIDENCE | CROSS_CUTTING | CANDIDATE | Security, workflow and governance findings converge on common audience/issuer/session/assurance freshness semantics. |
+| G2-CAPABILITY-CANDIDATE-FEDERATED-IDENTITY-PROVIDER-REPLACEMENT-CONFORMANCE | CROSS_CUTTING | CANDIDATE | Provider/binding and portability research confirm reusable subject-mapping, assurance and revocation conformance proof. |
+
 ## Integration & Automation — revisit cycle 3 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
