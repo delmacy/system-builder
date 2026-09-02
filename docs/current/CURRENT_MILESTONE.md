@@ -1,17 +1,16 @@
 # Current Execution Milestone — M19 Pre-Alpha Productization
 
 ## Milestone state
-M17 Knowledge Boundary and M18 Process Versioning are CLOSED. `P19-PACKAGE-01 — Consolidated Pre-Alpha Productization` is the active extended rolling-wave package authority under `project_docs/19-pre-alpha-productization/EXTENDED_PACKAGE_POLICY.md`.
+M17 Knowledge Boundary and M18 Process Versioning are CLOSED. `P19-PACKAGE-01 — Consolidated Pre-Alpha Productization` is ACTIVE under the milestone-bounded extended-package policy.
 
-WBS 19.1.1–19.1.3, 19.2.1–19.2.3 and 19.3.1 are EXECUTED / REVIEWED / INTEGRATED. Construction 7 `P19-REFERENCE-PRODUCT-PROCESS-01` completed TASK-450..456 and was reviewed on exact head `e1961cdcb897931f4f6f62801887369e5e050652`; Deterministic CI #1351 and Heavy Product Tests #821 passed. Sprint Review PR #540 integrated that exact reviewed tree as fresh main `e4c40eba332ab1a81b4870a141b03d4464831f1c`.
+Construction Sprints 1–8 / WBS 19.1.1–19.3.2 are EXECUTED / REVIEWED / INTEGRATED. Construction 8 `P19-SUCCESSOR-PROCESS-EVOLUTION-01` completed TASK-457..462; PR #544 integrated exact reviewed head `35eb837099418a7cf8df2c33500e45fbb6373346` after Deterministic CI #1371 and Heavy Product Tests #841 PASS as fresh main `02b34c7273f5cb91e9237cbda28fd1c353f2b97c`.
 
-The integrated P19 path proves canonical factory/bootstrap -> verified Compiler payload -> immutable Release/Deployment lineage -> external EnvironmentProfile/secrets -> actual local-process Runtime startup/health -> Builder-off operation/local observation -> compatible same-host release successor -> exact retained predecessor restoration.
+## Sprint 9 — `P19-PREALPHA-INTEGRATION-ACCEPTANCE-01`
+WBS 19.3.3 acceptance is the current materialized gate. Its purpose is to review the complete already-built pre-alpha path—clean supported factory/bootstrap, verified Compiler/Release/Deploy integrity, generated Runtime autonomy, successor process/release evolution and exact rollback/history reconstruction—against product, technical, architecture, trust/security, diagnostics and reproducibility requirements.
 
-## Construction 8 — Sprint Review
-`P19-SUCCESSOR-PROCESS-EVOLUTION-01` / WBS 19.3.2 completed dependency chain `TASK-457 -> TASK-458 -> TASK-459 -> TASK-460 -> TASK-461 -> TASK-462` on the Sprint branch. The increment freezes exact historical process revision A, proves canonical human-approved successor process revision B, regenerates and publishes B from that approved revision, activates B through existing same-host authority, restores exact retained A, and keeps A/B history reconstructible by canonical process -> definition -> release -> deployment identifiers, hashes and refs.
+Sprint 9 is not Construction. It may add bounded review/evidence/repository-memory only. Any missing product capability or material acceptance finding produces NO-GO and returns to explicit bounded construction/change control; it cannot be repaired as hidden review overflow.
 
-The Sprint continues to reuse canonical M15 `human-decision` approval authority, integrated P18 process version/revision and process->system lineage, and existing P19 factory/Compiler/Release/Deploy/Runtime/Observe owners. No new approval authority, public contract, identity scheme, lifecycle/update/rollback owner, Runtime->Builder dependency, EnvironmentProfile/secret carriage or Decision Boundary change was introduced.
+Current disposition is conditional GO pending exact-head Deterministic CI and Heavy Product Tests plus absence of blocking review findings.
 
-Replacement Sprint Review PR #544 preserves the exact Construction 8 tree. Its review head must pass Deterministic CI and Heavy Product Tests on the live exact SHA and have no material review blocker before integration.
-
-WBS 19.3.3 remains forecast and non-executable until Construction 8 is reviewed/integrated and fresh `main` is revalidated. Pre-alpha Package Integration/Product Acceptance and Documentation & Closure are not construction overflow and cannot absorb missing future scope.
+## Successor
+Only after Sprint 9 integrates as GO may fresh-main rolling-wave revalidation materialize Sprint 10 `P19-PREALPHA-DOCUMENTATION-CLOSURE-01`. Sprint 10 is closure/release evidence, not product repair. Generation 2 remains out of scope until P19 is canonically closed or no prior materialized work remains eligible.
