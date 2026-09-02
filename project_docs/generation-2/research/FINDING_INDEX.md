@@ -13,4 +13,12 @@ Prior stable findings through `G2-FINDING-SRFR-16` remain authoritative in their
 - G2-FINDING-AGWS-08 — Personalization Requires Revalidation Against Changing Authority and Capability Context
 - G2-FINDING-AGWS-09 — Promotion Is a Governed New Revision Backed by Evidence, Not Automatic Copying of Popular Personalization
 
+## AI-native Engineering / Agents / Approvals — revisit 1
+- G2-FINDING-AIAA-11 — Approval Validity Is Operation-, Authority-Context- and Revision-Bound
+- G2-FINDING-AIAA-12 — Delegated/Subagent Authority Must Attenuate Through Effective-Authority Intersection
+- G2-FINDING-AIAA-13 — Tool Intent, Approval, Side-Effect Attempt and Result Are Distinct Identities
+- G2-FINDING-AIAA-14 — Durable Resume Requires Explicit Side-Effect Receipt/Idempotency or Compensation
+- G2-FINDING-AIAA-15 — AI Materialization Authority Does Not Confer Canonical-Domain Authority
+- G2-FINDING-AIAA-16 — Review/Acceptance Evidence Is Separate from Execution Authority
+
 Detailed earlier finding titles remain authoritative in earlier index revisions and capability dossiers.
