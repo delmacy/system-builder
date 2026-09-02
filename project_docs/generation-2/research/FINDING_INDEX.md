@@ -34,5 +34,13 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - G2-FINDING-SRFR-21 — Retry Eligibility Must Bind Failure Class, Idempotency/Side-Effect Semantics and Budget Before an Attempt Is Authorized
 - G2-FINDING-SRFR-22 — Recovery Completion Without Semantic Postcondition Validation Is Not Recovery Proof
 
+## Standards / Interoperability / API Contracts — revisit 2 / cycle 3
+- G2-FINDING-SIAC-17 — Deprecation, Compatibility, Sunset and Runtime Availability Are Separate Lifecycle Evidence
+- G2-FINDING-SIAC-18 — Extension Namespaces Need Ownership Plus Processing Authority; Recognition Alone Grants No Semantic or Execution Authority
+- G2-FINDING-SIAC-19 — Provider Discovery Metadata Is an Identity-Bound Support Claim, Not Runtime Conformance Proof
+- G2-FINDING-SIAC-20 — Unknown-Feature Handling Is Profile-and-Operation Scoped, Not a Global Accept/Reject Policy
+- G2-FINDING-SIAC-21 — Portable Offline Conformance Requires an Interpretation Closure, Not a Standalone Contract Document
+- G2-FINDING-SIAC-22 — Station Contract Exposure Is a Non-Amplifying Projection Over Canonical Contract Authority
+
 ## Current cycle historical authority
 Findings `EXT-17..22`, `OOI-17..22`, `DER-17..22`, `ARSP-17..22`, `BUILD-17..22`, `NEM-17..22`, `SDM-17..22`, `DSM-17..22`, `AUTH-17..22`, `IAF-17..22`, `IA-17..22`, `WDE-17..22`, `AGWS-10..15`, `UIGX-17..22`, `PAM-17..22`, and `UCA-17..22` remain authoritative in their dossiers and prior index revisions.
