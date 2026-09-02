@@ -7,6 +7,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 Required proofs remain: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for canonical domain change; provider-bound action without coupling; bounded personal automation; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion.
 
+## Data / Schema / Migrations — revisit cycle 3 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-CANONICAL-DATA-TO-PHYSICAL-REALIZATION-CONFORMANCE | CROSS_CUTTING | CANDIDATE | Provider/deployment/portability synthesis proves one reusable canonical-to-physical realization proof shape across data providers. |
+| G2-CAPABILITY-CANDIDATE-MIGRATION-COMPATIBILITY-WINDOW-EVIDENCE | CROSS_CUTTING | CANDIDATE | Lifecycle/deployment/runtime synthesis confirms reusable producer/consumer read-write compatibility semantics. |
+| G2-CAPABILITY-CANDIDATE-BACKFILL-CHECKPOINT-IDEMPOTENCY-LINEAGE | CROSS_CUTTING | CANDIDATE | Workflow/observability/recovery synthesis confirms a shared resumable data-transformation evidence primitive. |
+
 ## Authorization / Policy / Organization / Multitenancy — revisit cycle 3 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
