@@ -24,14 +24,14 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 3,
     "active_revisit_cycle": 4,
-    "capabilities_revisited_in_active_cycle": 12,
-    "hourly_runs_completed": 86,
-    "finding_count": 615,
-    "capability_candidate_count": 263,
+    "capabilities_revisited_in_active_cycle": 13,
+    "hourly_runs_completed": 87,
+    "finding_count": 622,
+    "capability_candidate_count": 266,
     "new_candidates_this_run": [
-      "G2-CAPABILITY-CANDIDATE-QUALIFIED-BUILD-CACHE-REALIZATION-EVIDENCE",
-      "G2-CAPABILITY-CANDIDATE-GOVERNED-BUILD-RUNNER-PROVIDER-MIGRATION-TRANSITION",
-      "G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-BUILD-EXECUTION-CLOSURE"
+      "G2-CAPABILITY-CANDIDATE-QUALIFIED-ARTIFACT-RELEASE-EVIDENCE-SET",
+      "G2-CAPABILITY-CANDIDATE-GOVERNED-REGISTRY-RELEASE-PROMOTION-MIGRATION-TRANSITION",
+      "G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-ARTIFACT-VERIFICATION-INSTALL-CLOSURE"
     ],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
@@ -79,32 +79,33 @@
       "Data / Schema / Migrations",
       "Storage / Documents / Media",
       "Notifications / Events / Messaging",
-      "Build / Dependency Graph / Reproducibility"
+      "Build / Dependency Graph / Reproducibility",
+      "Artifact / Release / SBOM / Provenance"
     ],
     "latest_revisit": {
-      "capability": "Build / Dependency Graph / Reproducibility",
+      "capability": "Artifact / Release / SBOM / Provenance",
       "revisits_completed": 3,
       "consecutive_no_material_finding": 0,
       "last_revisit_result": "MATERIAL_NEW_FINDINGS",
       "new_findings": [
-        "G2-FINDING-BUILD-23",
-        "G2-FINDING-BUILD-24",
-        "G2-FINDING-BUILD-25",
-        "G2-FINDING-BUILD-26",
-        "G2-FINDING-BUILD-27",
-        "G2-FINDING-BUILD-28"
+        "G2-FINDING-ARSP-23",
+        "G2-FINDING-ARSP-24",
+        "G2-FINDING-ARSP-25",
+        "G2-FINDING-ARSP-26",
+        "G2-FINDING-ARSP-27",
+        "G2-FINDING-ARSP-28",
+        "G2-FINDING-ARSP-29"
       ],
       "representative_coverage": {
-        "Bazel remote cache/CAS/action cache/remote execution": "DEEP",
-        "Bazel sandbox/repository cache": "DEEP",
-        "Docker BuildKit reproducible builds/cache invalidation": "DEEP",
-        "GitHub Actions dependency caching": "DEEP",
-        "Reproducible Builds normalization": "DEEP",
-        "Nix flakes/offline closure": "DEEP"
+        "SLSA v1.2 provenance": "DEEP",
+        "OCI descriptor/content-addressability + multi-platform index": "DEEP",
+        "GitHub Artifact Attestations + lifecycle": "DEEP",
+        "Sigstore/Cosign trust + offline bundle": "DEEP",
+        "CycloneDX 1.7/BOM-Link": "DEEP",
+        "Build closure handoff prior evidence": "DEEP"
       }
     },
     "pending_capabilities": [
-      "Artifact / Release / SBOM / Provenance",
       "Deployment / Environment / Runtime",
       "Observability / Operations / Incident",
       "Extension / Plugin / Marketplace Architecture",
@@ -131,8 +132,8 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "Build / Dependency Graph / Reproducibility — revisit 3 / cycle 4 complete. Six material findings establish revision-bound separation of semantic build definition, resolved closure, graph/action revision, provider execution/cache identity and output realization; cache hit as qualified realization evidence rather than semantic equivalence; dependency-edge-qualified incremental invalidation; governed runner/builder/cache provider migration; qualified local/offline build execution closure; and AGWS/AI build authority attenuation. Cache/toolchain/platform evidence converges with unified realization/evidence qualification, local closure and shared governed migration primitives. No candidate promoted.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_REVISIT_03.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Artifact / Release / SBOM / Provenance, revisit cycle 4, as the next oldest non-saturated capability. Stress-test semantic artifact/release identity versus build output/container/package/provider realization; artifact digest versus release identity; provenance subject/material relationships; SBOM document identity/version/freshness versus actual resolved dependency closure; attestations/signatures/trust roots and revocation; promotion/channel/tag mutability; release rollback versus artifact immutability; multi-platform manifests; build-cache/toolchain/closure evidence handoff into release without collapsing build authority into release authority; provider/registry replacement with governed migration/validation/checkpoint/postcondition evidence; qualified local/offline artifact verification/install closure; AGWS/AI generated changes and release promotion without authority amplification; and measurable artifact/provenance/registry complexity factors for later relative operational-complexity metering without making Artifact owner of billing. Test convergence with unified revision-bound realization evidence, evidence qualification, qualified local closure and shared governed migration transition. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=3 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T14:28:04-03:00"
+  "current_focus": "Artifact / Release / SBOM / Provenance — revisit 3 / cycle 4 complete. Seven material findings separate semantic release revision, concrete realization/platform selection and mutable channel binding; establish SBOM identity/version/freshness as subject/closure-qualified evidence; require per-platform release-profile qualification; separate artifact bytes, evidence availability/trust and historical release qualification lifecycles; model registry replacement as governed artifact+evidence+binding migration; require qualified local/offline verification/install closure; and preserve AI/AGWS authority attenuation across release. Evidence strongly converges with unified revision-bound realization/evidence qualification, qualified local closure and shared governed migration primitives. No candidate promoted.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/ARTIFACT_RELEASE_SBOM_PROVENANCE_REVISIT_03.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Deployment / Environment / Runtime, revisit cycle 4, as the next oldest non-saturated capability. Stress-test desired deployment/environment/runtime semantic revision versus release artifact/profile, provider realization and observed runtime revision; rollout attempt/checkpoint/postcondition evidence; environment identity and promotion binding; rollback versus new deployment transition; multi-platform/runtime scheduling selection; runtime health/readiness versus deployment success; provider replacement and stateful migration; qualified local/offline runtime execution/recovery closure; trust/config/secret/policy closure handoff; release→deployment authority separation; AGWS/AI changes without deployment authority amplification; and measurable deployment/runtime complexity factors for later relative operational-complexity metering without making Deployment owner of billing. Test convergence with unified revision-bound realization evidence, evidence qualification, qualified local closure and shared governed migration transition. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=3 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T14:55:00-03:00"
 }

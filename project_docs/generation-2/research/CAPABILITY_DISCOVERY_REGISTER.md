@@ -16,15 +16,24 @@ The hypothesis requires Generation 2 to stress-test a coherent composition gramm
 This item is deliberately **not counted as a promoted capability candidate yet**. Universal Capability Architecture, Process/Application Modeling, Workflow, Integration, Authorization, Data, Provider/Binding, Standards/API Contracts, Security/Recovery, Observability/Evidence and AGWS/UI must cross-test it. Capability Synthesis must explicitly dispose the hypothesis by KEEP/MERGE/GENERALIZE/SPECIALIZE/DEFER/DO_NOT_BUILD with evidence; it must not disappear implicitly.
 
 ## Cycle-4 consolidation candidates
-`G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. UCA through Build repeatedly support revision-bound semantic identity, provider realization and observed evidence lineage.
+`G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. UCA through Artifact/Release repeatedly support revision-bound semantic identity, provider realization and observed evidence lineage.
 
-`G2-CAPABILITY-CANDIDATE-UNIFIED-EVIDENCE-QUALIFICATION-CONTRACT` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Producer/subject/revision/scope/profile/context/freshness/coverage/trust/inconclusive semantics recur across capabilities; Data specializes source/applied position, Storage content revision/version/replica generation, Notifications provider/subscription/sequence/checkpoint and Build cache/toolchain/platform qualification.
+`G2-CAPABILITY-CANDIDATE-UNIFIED-EVIDENCE-QUALIFICATION-CONTRACT` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Producer/subject/revision/scope/profile/context/freshness/coverage/trust/inconclusive semantics recur across capabilities; Data specializes source/applied position, Storage content revision/version/replica generation, Notifications provider/subscription/sequence/checkpoint, Build cache/toolchain/platform qualification and Artifact/Release subject/platform/evidence-set/trust qualification.
 
-`G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CLOSURE-PROFILE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Build confirm profile-scoped local interpretation/execution/validation/recovery/replay/build closure without centralized Builder availability.
+`G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CLOSURE-PROFILE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Artifact/Release confirm profile-scoped local interpretation/execution/validation/recovery/replay/build/verification/install closure without centralized Builder availability.
 
 `G2-CAPABILITY-CANDIDATE-NON-ACTUATING-RECONCILIATION-AUTHORITY-SEPARATION` remains a likely constitutional primitive (`DecisionAuthorityRef ≠ ExecutionAuthorityRef`).
 
-`G2-CAPABILITY-CANDIDATE-SHARED-GOVERNED-MIGRATION-TRANSITION` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Build converge on `plan → validation → approval → attempt → checkpoint/postcondition evidence`; Lifecycle and Deployment remain important confirmation points.
+`G2-CAPABILITY-CANDIDATE-SHARED-GOVERNED-MIGRATION-TRANSITION` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Artifact/Release converge on `plan → validation → approval → attempt → checkpoint/postcondition evidence`; Lifecycle and Deployment remain important confirmation points.
+
+## Artifact / Release / SBOM / Provenance — revisit cycle 4 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-QUALIFIED-ARTIFACT-RELEASE-EVIDENCE-SET | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Observability/Governance should determine merge into unified realization/evidence qualification; subject/profile/freshness/trust semantics must remain explicit. |
+| G2-CAPABILITY-CANDIDATE-GOVERNED-REGISTRY-RELEASE-PROMOTION-MIGRATION-TRANSITION | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Deployment/Lifecycle should confirm merge into shared governed migration transition across artifact graph, evidence graph and channel bindings. |
+| G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-ARTIFACT-VERIFICATION-INSTALL-CLOSURE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Security/Self-hosting should confirm merge into qualified local closure profile with trust/policy/platform/install semantics. |
+
+No Artifact/Release cycle-4 candidate is promoted. Artifact/provenance/registry complexity can contribute measurable relative operational-complexity evidence later; this capability does not own rating/billing.
 
 ## Build / Dependency Graph / Reproducibility — revisit cycle 4 candidates
 | Candidate | Class | Status | Promotion / merge condition |
@@ -32,8 +41,6 @@ This item is deliberately **not counted as a promoted capability candidate yet**
 | G2-CAPABILITY-CANDIDATE-QUALIFIED-BUILD-CACHE-REALIZATION-EVIDENCE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Artifact/Release and Observability should determine merge into unified realization/evidence qualification rather than standalone promotion. |
 | G2-CAPABILITY-CANDIDATE-GOVERNED-BUILD-RUNNER-PROVIDER-MIGRATION-TRANSITION | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Deployment/Lifecycle should confirm merge into shared governed migration transition. |
 | G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-BUILD-EXECUTION-CLOSURE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Artifact/Security/Self-hosting should confirm reuse of qualified local closure profile for build/toolchain/trust/normalization inputs. |
-
-No Build cycle-4 candidate is promoted. Build graph/cache/toolchain/provider complexity may later feed relative operational-complexity evidence, but Build does not own rating/billing.
 
 ## Notifications / Events / Messaging — revisit cycle 4 candidates
 `G2-CAPABILITY-CANDIDATE-POSITION-QUALIFIED-ASYNC-CONSUMPTION-EVIDENCE`, `G2-CAPABILITY-CANDIDATE-GOVERNED-ASYNC-PROVIDER-SUBSCRIPTION-MIGRATION-TRANSITION` and `G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-EVENT-INTERPRETATION-REPLAY-CLOSURE` remain active merge-target candidates; none promoted.
