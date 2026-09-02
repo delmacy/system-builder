@@ -8,6 +8,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Governance / Commercial-metering pending research
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / PENDING_RESEARCH**. Support pricing should be explainable from measurable relative complexity per capability, service bundles and usage. Dedicated multi-representative research across entitlement, usage metering, relative complexity measurement, rating/pricing, billing and payment remains mandatory before promotion; the Negative-Space gate explicitly challenges it.
 
+## Mandatory cross-capability research hypothesis — executable composition
+`G2-RESEARCH-HYPOTHESIS-EXECUTABLE-CAPABILITY-COMPOSITION-AND-CUMULATIVE-CONTEXT` — **USER-DIRECTED / MANDATORY_RESEARCH / NOT_A_PROMOTED_CAPABILITY**. See `project_docs/generation-2/research/concepts/EXECUTABLE_CAPABILITY_COMPOSITION_AND_CUMULATIVE_CONTEXT.md`.
+
+The hypothesis requires Generation 2 to stress-test a coherent composition grammar around `Module → Capability → CapabilityOperation → WorkflowNode → CumulativeExecutionContext → Input/Output Binding → Provider/Adapter realization`, with governed Integration Borders for external communication. It also requires explicit separation of Operation vs Projection vs Adapter, cumulative logical workflow context with minimum-authorized per-node projections, provider DTOs as realization artifacts rather than semantic authority, and examination of whether `Gate` deserves a first-class primitive or is only a composed workflow pattern.
+
+This item is deliberately **not counted as a promoted capability candidate yet**. Universal Capability Architecture, Process/Application Modeling, Workflow, Integration, Authorization, Data, Provider/Binding, Standards/API Contracts, Security/Recovery, Observability/Evidence and AGWS/UI must cross-test it. Capability Synthesis must explicitly dispose the hypothesis by KEEP/MERGE/GENERALIZE/SPECIALIZE/DEFER/DO_NOT_BUILD with evidence; it must not disappear implicitly.
+
 ## Cycle-4 consolidation candidates
 `G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. UCA through Build repeatedly support revision-bound semantic identity, provider realization and observed evidence lineage.
 
