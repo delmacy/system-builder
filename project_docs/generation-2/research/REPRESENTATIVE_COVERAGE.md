@@ -12,6 +12,9 @@ OASIS TOSCA 2.0: `DEEP`; Kubernetes declarative API / observedGeneration: `DEEP`
 ### Process & Application Modeling — revisit 2
 Mendix Domain Model + Microflows + Model Access API: `DEEP`; Microsoft Power Apps / Dataverse model-driven apps: `DEEP`; ServiceNow App Engine Studio + Workflow Studio: `DEEP`; OMG BPMN 2.0.2: `DEEP`; JSON Schema 2020-12 baseline: `DEEP`. Findings `G2-FINDING-PAM-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
+### UI / Generated Experience / Low-code Builder — revisit 2
+Mendix Pages/Layout Grid/Page Explorer/Maia: `DEEP`; Microsoft Power Apps model-driven forms/views/components: `DEEP`; ServiceNow UI Builder data resources/page variants: `DEEP`; Salesforce Lightning App Builder/Dynamic Forms: `DEEP`; Mendix pluggable widget/marketplace security: `PARTIAL`. Findings `G2-FINDING-UIGX-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED.
+
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
 ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
