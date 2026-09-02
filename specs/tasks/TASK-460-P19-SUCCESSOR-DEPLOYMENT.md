@@ -1,7 +1,7 @@
 ---
 id: TASK-460
 title: Activate successor revision through canonical deployment
-status: blocked
+status: completed
 priority: 460
 milestone: M19
 model_tier: architecture
@@ -68,6 +68,13 @@ Fleet rollout, remote orchestration, Runtime-core changes, WBS 19.3.3+ or new co
 
 # Evidence expected
 Focused product/heavy proof of exact successor-revision deployment, health/correlation and adversarial last-known-good preservation plus declared gates.
+
+# Execution evidence
+- Added `tests/product/p19-successor-deployment.test.ts` over the existing `SingleHostActiveRuntimeOrchestrator`, canonical Release and Deployment registries, Compiler artifact payload and process-to-system lineage contracts.
+- The proof carries canonical successor revision `process-revision:reference-orders:v2` through definition `system-definition:reference-orders:v2`, immutable `reference-orders-system@0.0.2`, exact release hash and Release-to-Deployment lineage before asserting B as the active healthy same-host runtime.
+- Retained A is used as the exact expected active predecessor and remains reconstructible/unchanged in Deployment history while B atomically becomes active; external environment identity is preserved and protected values do not enter correlated evidence.
+- Adversarial coverage rejects a substituted/stale active predecessor and a startup-invalid B candidate while preserving exact last-known-good A and `UP` health. Existing cumulative Deploy/product gates remain authoritative for environment, migration, secret, startup, health/state and optional Observe fail-open behavior.
+- No Runtime-core, application, public contract, Decision Boundary, second deploy/update owner, topology/control-plane or WBS 19.3.3+ behavior was added.
 
 # Escalation
 Stop if activation requires new lifecycle authority, topology or public contract beyond existing Release/Deploy owners.

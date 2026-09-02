@@ -1,7 +1,7 @@
 ---
 id: TASK-461
 title: Restore exact predecessor and reconstruct A/B history
-status: blocked
+status: completed
 priority: 461
 milestone: M19
 model_tier: architecture
@@ -66,6 +66,13 @@ General rollback service, fleet history, artifact regeneration, WBS 19.3.3+ or n
 
 # Evidence expected
 Focused product/heavy proof of exact A restoration, A/B historical reconstruction, stale/substituted rejection and repeated-request stability plus declared gates.
+
+# Execution evidence
+- Added `tests/product/p19-successor-historical-rollback.test.ts` over the existing Release registry, Deployment registry and `SingleHostActiveRuntimeOrchestrator`; no product owner or public contract changed.
+- The proof publishes A and B once, activates A then B, and restores A by reusing A's retained immutable `PublishedRelease`, verified artifact payload and original process->definition->release lineage rather than recompiling or synthesizing a replacement release.
+- Original A, successor B and restored-A Deployment records remain queryable while A/B Release records and canonical process revision/definition identities remain stable; no synthetic `0.0.3` release appears.
+- Adversarial coverage rejects stale expected-active state, runtime-incompatible environment and a substituted release/artifact rollback target while exact active B remains healthy; repeating the already-consumed restore request remains stale/idempotent and preserves restored A.
+- Evidence carries no EnvironmentProfile object or protected value, and Runtime-core, applications, Decision Boundary, lifecycle topology and WBS 19.3.3+ remain untouched.
 
 # Escalation
 Stop if exact reconstruction/restore requires artifact mutation, a new history store, lifecycle owner or public identity contract.

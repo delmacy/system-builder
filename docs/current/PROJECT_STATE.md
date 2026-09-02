@@ -1,6 +1,6 @@
 # Project State
 
-Date: 2026-09-01
+Date: 2026-09-02
 
 M13, M14, M15, M16 and M17 are CLOSED. PRE-M16 Contract Conformance Hardening is CLOSED. `P16-PACKAGE-01`, `P16-PACKAGE-02`, `P16-PACKAGE-03`, `P17-PACKAGE-01`, `P17-PACKAGE-02` and `P17-PACKAGE-03` are CLOSED. TD-P13-01..04 remain carried unchanged.
 
@@ -42,10 +42,12 @@ Construction 7 `P19-REFERENCE-PRODUCT-PROCESS-01` / WBS 19.3.1 completed TASK-45
 
 WBS 19.1.1–19.1.3, 19.2.1–19.2.3 and 19.3.1 are therefore EXECUTED / REVIEWED / INTEGRATED. The supported path composes canonical factory/bootstrap, verified Compiler payloads, immutable Release/Deployment lineage, external EnvironmentProfile/secrets, local-process Deploy, actual generated Runtime startup/health, Builder-off operation/local observation, compatible same-host release successor activation and exact retained predecessor restoration without a second lifecycle owner or Runtime->Builder dependency.
 
-Construction 7 does not collapse WBS 19.3.2: its compatible B is a generated system/release successor inside the representative supported lineage, while WBS 19.3.2 requires a newly approved successor **process revision**, regeneration/publication from that revision, upgrade/rollback and historical process -> definition -> release -> deployment reconstruction.
+Construction 8 `P19-SUCCESSOR-PROCESS-EVOLUTION-01` / WBS 19.3.2 completed TASK-457..462 on the active Sprint branch. Its growing proof freezes exact retained process revision A, proves canonical `human-decision` approval of successor process revision B, regenerates/publishes B through the supported Factory/Compiler/Release path, activates B through existing Deploy/local Runtime authority, restores exact retained A, and reconstructs both A and B histories through canonical process -> definition -> release -> deployment identifiers/hashes/refs.
+
+The Construction 8 report-bearing review tree passed exact-head Deterministic CI and Heavy Product Tests before Sprint Review replacement PR #544 was opened. PR #544 is the active integration gate; its live exact head must independently pass the required gates and have no material review blocker before merge.
 
 Sprint-closure prevention carried forward: command-level proofs must exercise supported entrypoints without wrapper-output ambiguity; repository-wide typecheck compatibility is part of proof quality; lineage hardening must regress already accepted public identity forms; structured canonical failure causes should be preserved rather than reconstructed from message text; adversarial fixtures must use canonical parameter shapes and assert contract-owned fields rather than inferred aliases.
 
-Fresh-main rolling-wave revalidation selects WBS 19.3.2 / `P19-SUCCESSOR-PROCESS-EVOLUTION-01` as the only next package slice eligible for explicit Planning & Materialization. Its TASK-457..462 chain is COMMITTED / MATERIALIZED / NOT EXECUTED on this planning branch; TASK-457 becomes executable only after the Planning PR integrates. WBS 19.3.3 remains forecast.
+WBS 19.3.2 is CONSTRUCTED / SPRINT REVIEW pending integration of PR #544. WBS 19.3.3 remains forecast and non-executable until Construction 8 integrates and fresh `main` rolling-wave revalidation explicitly selects/materializes successor work.
 
-Construction 8 must reuse canonical M15 `human-decision`, integrated P18 process-version/revision and process->system lineage, and existing P19 factory/Compiler/Release/Deploy/Runtime/Observe owners. No new approval authority, public contract, identity scheme, messaging semantics, deployment topology, control plane, Decision Boundary, Runtime->Builder dependency or unrelated debt/finding absorption is authorized.
+Construction 8 preserves canonical M15 `human-decision`, integrated P18 process-version/revision and process->system lineage, and existing P19 factory/Compiler/Release/Deploy/Runtime/Observe owners. No new approval authority, public contract, identity scheme, messaging semantics, deployment topology, control plane, Decision Boundary, Runtime->Builder dependency or unrelated debt/finding absorption was introduced.
