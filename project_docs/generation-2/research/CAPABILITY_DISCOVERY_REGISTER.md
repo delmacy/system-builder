@@ -22,7 +22,15 @@ Prior cycle-4 and cycle-5 candidates remain authoritative in earlier register re
 | G2-CAPABILITY-CANDIDATE-IAF-IDENTITY-LINKING-OWNERSHIP-PRECONDITIONS | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Confirms UCA/PAM/UI expected-base and semantic-ownership pattern for external-to-canonical identity mapping mutations. |
 | G2-CAPABILITY-CANDIDATE-IAF-AUTHENTICATION-FRESHNESS-DEPENDENCY-EVIDENCE | CROSS_CUTTING | CANDIDATE | Reconcile with unified freshness/evidence qualification while preserving Identity ownership of assurance, reauthentication and auth-time facts. |
 
-No Identity cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
+## Authorization / Policy / Organization / Multitenancy — revisit cycle 5 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-AUTH-OPERATION-QUALIFIED-CONSISTENCY-FRESHNESS-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with unified freshness/evidence qualification; Authorization retains semantic ownership of operation-specific authority freshness/consistency requirements. |
+| G2-CAPABILITY-CANDIDATE-AUTH-FACETED-ADMINISTRATIVE-AUTHORITY | CROSS_CUTTING | CANDIDATE | Validate reuse across Governance, Secrets, Provider, Security/Recovery and AI actuation while preserving each semantic owner. |
+| G2-CAPABILITY-CANDIDATE-AUTH-REVOCATION-ENFORCEMENT-CONVERGENCE-EVIDENCE | CROSS_CUTTING | CANDIDATE | Reconcile with Observability and unified revision-bound realization/evidence lineage; prove expiry/revocation distinct from downstream enforcement convergence. |
+| G2-CAPABILITY-CANDIDATE-AUTH-BREAK-GLASS-EXCEPTIONAL-AUTHORITY-LEASE | CROSS_CUTTING | CANDIDATE | Validate against Security/Recovery, Governance and AI approvals before promotion or merge with temporary-authority lease. |
+
+No cycle-5 Identity or Authorization candidate is promoted. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
 
 ## Historical authority
 All candidates from prior sections/revisions remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
