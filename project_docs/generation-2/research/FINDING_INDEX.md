@@ -1,6 +1,6 @@
 # Generation 2 — Finding Index
 
-Prior stable findings through `G2-FINDING-SRFR-16` remain authoritative in their capability dossiers and pipeline history. All revisit-cycle-2 findings for the original capabilities remain authoritative; compacting this index does not revoke them.
+Prior stable findings through `G2-FINDING-DOESH-16` remain authoritative in their capability dossiers and pipeline history. All revisit-cycle-2 findings remain authoritative; compacting this index does not revoke them.
 
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
 - G2-FINDING-AGWS-01 — Surface Definition, Overlay and Effective Resolved Surface Are Distinct Identities
@@ -13,20 +13,12 @@ Prior stable findings through `G2-FINDING-SRFR-16` remain authoritative in their
 - G2-FINDING-AGWS-08 — Personalization Requires Revalidation Against Changing Authority and Capability Context
 - G2-FINDING-AGWS-09 — Promotion Is a Governed New Revision Backed by Evidence, Not Automatic Copying of Popular Personalization
 
-## AI-native Engineering / Agents / Approvals — revisit 1
-- G2-FINDING-AIAA-11 — Approval Validity Is Operation-, Authority-Context- and Revision-Bound
-- G2-FINDING-AIAA-12 — Delegated/Subagent Authority Must Attenuate Through Effective-Authority Intersection
-- G2-FINDING-AIAA-13 — Tool Intent, Approval, Side-Effect Attempt and Result Are Distinct Identities
-- G2-FINDING-AIAA-14 — Durable Resume Requires Explicit Side-Effect Receipt/Idempotency or Compensation
-- G2-FINDING-AIAA-15 — AI Materialization Authority Does Not Confer Canonical-Domain Authority
-- G2-FINDING-AIAA-16 — Review/Acceptance Evidence Is Separate from Execution Authority
-
-## Developer / Operator Experience / Self-hosting — revisit 1
-- G2-FINDING-DOESH-11 — Operational Contract and Installation Realization Are Distinct Identities
-- G2-FINDING-DOESH-12 — Dependency Closure Is a First-Class Bootstrap Evidence Object
-- G2-FINDING-DOESH-13 — Backup Artifact, Restore Attempt and Post-Restore Conformance Are Distinct Evidence
-- G2-FINDING-DOESH-14 — Upgrade Planning Must Bind Version-Skew Preconditions to the Attempt
-- G2-FINDING-DOESH-15 — Generated Runtime Operational Autonomy Must Be Stronger Than Builder/Model Availability
-- G2-FINDING-DOESH-16 — Operator Convenience Authority Must Not Collapse Into Canonical Business Authority
+## Architecture Reconciliation as a Capability — revisit 1
+- G2-FINDING-ARAC-11 — Architecture Decision, Architecture Obligation and Conformance Rule Are Distinct Identities
+- G2-FINDING-ARAC-12 — Conformance Is a Revision-, Scope- and Evidence-Bound Evaluation, Not a Timeless Boolean Property
+- G2-FINDING-ARAC-13 — Waiver/Exception Must Be a Governed Bounded Decision and Must Not Mutate the Underlying Obligation
+- G2-FINDING-ARAC-14 — Architecture Rule Rollout Requires Migration-Safe Applicability and Enforcement Modes
+- G2-FINDING-ARAC-15 — Automated Fitness Functions Complement but Cannot Universally Replace Human Architectural Review
+- G2-FINDING-ARAC-16 — Adaptive Work-Surface and AI Materialization Boundaries Must Be Testable Architecture Obligations with Provenance
 
 Detailed earlier finding titles remain authoritative in earlier index revisions and capability dossiers.
