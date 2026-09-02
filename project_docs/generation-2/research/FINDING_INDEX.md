@@ -2,45 +2,13 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
-## Governance / Compliance / Audit — revisit 2 / cycle 3
-- G2-FINDING-GCA-17 — Governance Intent, Control Assignment, Enforcement Realization, Evaluation and Effectiveness Are Distinct Identities
-- G2-FINDING-GCA-18 — Compliance and Control-Effectiveness Claims Require Applicability, Coverage, Evidence Quality and Freshness; Missing Evidence Produces Unknown, Not Compliant
-- G2-FINDING-GCA-19 — Exception/Waiver Authority Must Be Scoped, Delegated, Expiring and Historically Preserved, With Post-Expiry Revalidation
-- G2-FINDING-GCA-20 — Audit Decision Evidence Must Bind the Governing Revision and Preserve Transformation/Delivery Gaps
-- G2-FINDING-GCA-21 — Continuous Controls Monitoring Is a Qualified Coverage Claim, Not a Boolean Capability
-- G2-FINDING-GCA-22 — Delegated Governance Is Non-amplifying Across Enterprise → Station → Role → Person
-
-## Secrets / Configuration / Environment Portability — revisit 2 / cycle 3
-- G2-FINDING-SCEP-17 — Configuration Intent, Environment Overlay, Configuration Deployment and Effective Runtime Revision Are Distinct Identities
-- G2-FINDING-SCEP-18 — Governed Overlay Precedence Must Preserve Provenance and Be Non-Amplifying Across Enterprise → Station → Role → Person
-- G2-FINDING-SCEP-19 — Workload Authentication Is Not Necessarily a Secret Requirement; Short-Lived Workload Identity Can Eliminate Stored Provider Credentials
-- G2-FINDING-SCEP-20 — Provider/Deployment Success Does Not Prove Effective Consumer State; Effective Config/Secret Revision Needs Disclosure-Free Evidence or Explicit UNKNOWN
-- G2-FINDING-SCEP-21 — Configuration Rollout Is a Governed Runtime Change Lifecycle With Validation, Progressive Exposure, Health Evaluation and Rollback Independent of Code Release
-- G2-FINDING-SCEP-22 — Offline Runtime Autonomy Requires a Local Authentication/Trust/Recovery Path, Not Merely Cached Configuration or Encrypted Ciphertext
-
-## Provider / Binding / Capability Negotiation — revisit 2 / cycle 3
-- G2-FINDING-PBCN-17 — Provider Claims Are Candidate Evidence, Not Compatibility or Admission Proof
-- G2-FINDING-PBCN-18 — Capability Negotiation Requires Explicit Mandatory/Optional Profiles and Partial-Satisfaction Semantics
-- G2-FINDING-PBCN-19 — One Semantic Requirement May Be Realized by Different Mechanisms Without Consumer Rewriting
-- G2-FINDING-PBCN-20 — Composite Provider Realization Requires Compatibility and Authority Proof Across Independent Bindings
-- G2-FINDING-PBCN-21 — Runtime-Autonomous Provider Use Requires a Qualified Local Realization Closure, Not Registry or Control-Plane Reachability
-- G2-FINDING-PBCN-22 — Station-Scoped Capability Exposure Is a Delegated Binding Boundary and Must Be Non-Amplifying
-
-## Security / Resilience / Failure Recovery — revisit 2 / cycle 3
-- G2-FINDING-SRFR-17 — Recoverability Depends on Recovery-Material Dependency Closure, Not Backup Artifact Existence
-- G2-FINDING-SRFR-18 — Recovery Produces a New Explicit Lineage Branch and Must Preserve the Source History
-- G2-FINDING-SRFR-19 — Resilience Controls Require Applicability Scope and Uncovered Failure-Class Evidence
-- G2-FINDING-SRFR-20 — Recovery Objective, Strategy, Provider Mechanism and Achieved Objective Are Distinct Identities and Evidence
-- G2-FINDING-SRFR-21 — Retry Eligibility Must Bind Failure Class, Idempotency/Side-Effect Semantics and Budget Before an Attempt Is Authorized
-- G2-FINDING-SRFR-22 — Recovery Completion Without Semantic Postcondition Validation Is Not Recovery Proof
-
-## Standards / Interoperability / API Contracts — revisit 2 / cycle 3
-- G2-FINDING-SIAC-17 — Deprecation, Compatibility, Sunset and Runtime Availability Are Separate Lifecycle Evidence
-- G2-FINDING-SIAC-18 — Extension Namespaces Need Ownership Plus Processing Authority; Recognition Alone Grants No Semantic or Execution Authority
-- G2-FINDING-SIAC-19 — Provider Discovery Metadata Is an Identity-Bound Support Claim, Not Runtime Conformance Proof
-- G2-FINDING-SIAC-20 — Unknown-Feature Handling Is Profile-and-Operation Scoped, Not a Global Accept/Reject Policy
-- G2-FINDING-SIAC-21 — Portable Offline Conformance Requires an Interpretation Closure, Not a Standalone Contract Document
-- G2-FINDING-SIAC-22 — Station Contract Exposure Is a Non-Amplifying Projection Over Canonical Contract Authority
+## AI-native Engineering / Agents / Approvals — revisit 2 / cycle 3
+- G2-FINDING-AIN-17 — Semantic Agent Task Identity Must Be Independent of Model, Harness and Tool Realization
+- G2-FINDING-AIN-18 — Approval Must Bind Exact Effective Policy, Tool, Input-Scope and Candidate-Artifact Revisions and Become Stale on Material Change
+- G2-FINDING-AIN-19 — Agent-Produced Mutations Are Candidate Artifacts; Materialization Authority, Approval Authority and Execution Authority Are Distinct
+- G2-FINDING-AIN-20 — Tool Discovery/Negotiation Is a Capability Claim and Never Grants Execution Authority or Credentials
+- G2-FINDING-AIN-21 — Governance Reproducibility Requires Revision-Bound Reconstruction and Postcondition Evidence, Not Deterministic Model Token Replay
+- G2-FINDING-AIN-22 — In-flight and Offline Agent Autonomy Require Qualified Local Policy/Tool/Model/Trust/Approval Closure With Explicit Compatibility Windows
 
 ## Lifecycle / Versioning / Evolution / Migration — revisit 2 / cycle 3
 - G2-FINDING-LVEM-17 — Desired Semantic Revision, Effective Realized Revision and Runtime Availability Are Separate Scope-Bound Facts
@@ -51,4 +19,4 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - G2-FINDING-LVEM-22 — Offline Migration Autonomy Requires a Complete Interpretation, Procedure, Trust and Recovery Closure Plus Post-Migration Conformance
 
 ## Current cycle historical authority
-Findings `EXT-17..22`, `OOI-17..22`, `DER-17..22`, `ARSP-17..22`, `BUILD-17..22`, `NEM-17..22`, `SDM-17..22`, `DSM-17..22`, `AUTH-17..22`, `IAF-17..22`, `IA-17..22`, `WDE-17..22`, `AGWS-10..15`, `UIGX-17..22`, `PAM-17..22`, and `UCA-17..22` remain authoritative in their dossiers and prior index revisions.
+All prior current-cycle findings, including SIAC-17..22, SRFR-17..22, PBCN-17..22, SCEP-17..22, GCA-17..22, EXT-17..22, OOI-17..22, DER-17..22, ARSP-17..22, BUILD-17..22, NEM-17..22, SDM-17..22, DSM-17..22, AUTH-17..22, IAF-17..22, IA-17..22, WDE-17..22, AGWS-10..15, UIGX-17..22, PAM-17..22 and UCA-17..22 remain authoritative in their dossiers and prior index revisions.
