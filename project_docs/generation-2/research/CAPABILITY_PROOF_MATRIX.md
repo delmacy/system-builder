@@ -11,7 +11,7 @@ Legend: `BACKFILL_REQUIRED`, `PARTIAL`, `READY_FOR_ACCEPTANCE_TRANSLATION`, `N_A
 |---|---|---|
 | Universal Capability Architecture | BACKFILL_REQUIRED | primitive reuse; semantic identity vs realization; evidence qualification; authority separation; provider-neutrality |
 | Process & Application Modeling | PARTIAL | explicit proof set below: attempted/accepted/effective/validated lineage; brownfield ambiguity/normalization; concurrency ownership; INCONCLUSIVE propagation; migration postconditions; composition/transaction boundary; provider/topology substitution; Station/AGWS authority; local closure |
-| UI / Generated Experience / Low-code Builder | BACKFILL_REQUIRED | constrained generation; semantic binding; accessibility; no arbitrary domain mutation; rollback/diff |
+| UI / Generated Experience / Low-code Builder | PARTIAL | explicit cycle-5 proof set below: attempted/accepted/effective/validated lineage; constrained semantic layout; accessibility; concurrency ownership; dependency-INCONCLUSIVE propagation; AI/domain authority boundary; renderer substitution; rollback eligibility; AGWS boundary; local closure |
 | Adaptive Governed Work Surfaces | PARTIAL | nine existing proofs + Station/Role revalidation; mandatory components; personal automation authority; promotion/rollback |
 | Workflow & Durable Execution | BACKFILL_REQUIRED | in-flight revision; retry/redrive; human tasks; migration/provider replacement; recovery |
 | Integration & Automation | BACKFILL_REQUIRED | trigger/subscription revision; retry/DLQ/replay; receipt != domain acceptance; idempotency; provider replacement |
@@ -51,6 +51,18 @@ Legend: `BACKFILL_REQUIRED`, `PARTIAL`, `READY_FOR_ACCEPTANCE_TRANSLATION`, `N_A
 8. **Topology/provider substitution proof:** realize the same accepted semantic revision on two materially different providers/topologies. Canonical model identity stays stable while realization/effective/validation lineage differs.
 9. **Station/AGWS authority proof:** request a canonical field/process-rule change through a Personal/Role surface. AI may propose a model revision, but direct canonical mutation is denied/escalated.
 10. **Qualified-local-closure proof:** validate/import offline with declared local closure; remove one required schema/template/trust/authority dependency and require degraded/INCONCLUSIVE behavior, never silent online fallback or broadened authority.
+
+## UI / Generated Experience / Low-code Builder — explicit cycle-5 proof obligations
+1. **Attempt/effective negative proof:** attempt projection B, force materialization/publication failure while projection A remains effective; evidence must retain attempted=B/effective=A and never claim B validated.
+2. **Constrained-layout adversarial proof:** request or generate arbitrary DOM/CSS/script or layout outside the allowed semantic vocabulary; authoritative validation must reject it or route it to an explicit extension path.
+3. **Accessibility negative proof:** render a visually correct page with invalid logical order, labels, focus or keyboard semantics; rendering may succeed but accessibility conformance must fail with revision/profile-bound evidence.
+4. **Concurrent edit proof:** create two edits from the same base over the same semantic binding/order unit; after one commits, the stale second edit must conflict/rebase or receive authorized resolution rather than overwrite.
+5. **Dependency-INCONCLUSIVE proof:** remove a required provider/schema/component/validator. Dependent semantic checks become PARTIAL/INCONCLUSIVE while independent structure/accessibility checks remain evaluable where possible.
+6. **AI/domain-boundary proof:** ask AI to invent a nonexistent canonical entity/field/action solely to satisfy the page. The candidate must be rejected/escalated and canonical model state must remain unchanged.
+7. **Provider/renderer substitution proof:** realize one accepted projection through two materially different renderer/runtime profiles; semantic projection identity remains stable while realization/accessibility evidence is independently issued.
+8. **Rollback-eligibility proof:** rollback using retained compatible projection/component/validator material; then remove a prerequisite and prove rollback is unavailable/INCONCLUSIVE rather than falsely safe.
+9. **AGWS-boundary proof:** consume generic UI components in a Personal/Role AGWS overlay and prove generic variant/layout facilities cannot remove mandatory inherited components or broaden Station authority.
+10. **Qualified-local-closure proof:** validate/materialize offline from a declared closure; remove one component contract/accessibility rule/trust/validator dependency and require explicit degraded/INCONCLUSIVE behavior without silent online fallback or authority broadening.
 
 ## Security / Resilience / Failure Recovery — explicit cycle-4 proof obligations
 1. **Positive semantic recovery:** inject primary realization loss; recover within declared RTO/RPO and prove restored data position, schema/workflow/provider revision vector, trust validity and domain postconditions before normal write authority resumes.
