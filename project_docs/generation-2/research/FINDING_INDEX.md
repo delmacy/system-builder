@@ -50,11 +50,19 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - G2-FINDING-IA-27 — Qualified Local Integration Closure Is Operation/Profile Scoped
 - G2-FINDING-IA-28 — Station Authority Must Be Captured at Admission and Attenuated Through Asynchronous Continuation
 
+## Identity / Authentication / Federation — revisit 3 / cycle 4
+- G2-FINDING-IAF-23 — Canonical Subject, Authentication-context, Session, Credential and Provider-realization Revisions Must Coexist Without Identity Collapse
+- G2-FINDING-IAF-24 — Authentication Assurance Is Resource/Operation/Context-qualified Evidence, Not a Scalar Property of a User
+- G2-FINDING-IAF-25 — Session Logout, Credential Revocation and Authentication Freshness Are Distinct Evidence States With Explicit Stale Windows
+- G2-FINDING-IAF-26 — Identity-provider / Federation Migration Is a Governed Plan/Validation/Approval/Attempt/Postcondition Transition
+- G2-FINDING-IAF-27 — Qualified Local Identity Closure Is Profile-scoped and Includes Trust, Mapping, Validation, Freshness and Recovery Dependencies
+- G2-FINDING-IAF-28 — Enterprise → Station → Role → Person Identity Projection and AGWS Revalidation Consume Authentication Evidence but Cannot Amplify Authority
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-6/25 active capabilities revisited. UCA, Process & Application Modeling, UI / Generated Experience, Adaptive Governed Work Surfaces, Workflow & Durable Execution, and Integration & Automation produced material findings; consecutive-no-material remains 0 for all and none is SATURATED.
+7/25 active capabilities revisited. UCA, Process & Application Modeling, UI / Generated Experience, Adaptive Governed Work Surfaces, Workflow & Durable Execution, Integration & Automation, and Identity / Authentication / Federation produced material findings; consecutive-no-material remains 0 for all and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings, remain authoritative in their dossiers and prior index revisions.
