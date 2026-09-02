@@ -1,6 +1,6 @@
 # P19-SUCCESSOR-PROCESS-EVOLUTION-01 — Sprint Report
 
-Status: CONSTRUCTED / SPRINT REVIEW / FINAL CI PASS PENDING REPORT HEAD
+Status: CONSTRUCTED / SPRINT REVIEW
 Work Package: `P19-PACKAGE-01 — Consolidated Pre-Alpha Productization`
 WBS: 19.3.2
 Sprint branch: `sprint/P19-CONTINUOUS-PRODUCTION-CYCLE-01`
@@ -19,15 +19,17 @@ No second approval, release, deployment, update or rollback owner was introduced
 - TASK-461 — restored exact retained A without synthetic release identity and kept A/B history reconstructible; stale/environment/substituted rollback inputs preserve B until a valid restore succeeds.
 - TASK-462 — composed the full growing proof and operator documentation. Retrabalho aligned approval fixtures with canonical raw inputs, then hardened tampered-payload coverage to traverse `InMemoryArtifactPayloadRepository` verification and assert the canonical `ARTIFACT_PAYLOAD_INVALID` / file-hash-mismatch diagnostic rather than bypassing the reader.
 
-## Exact-head validation before report
+## Validation evidence
 Implementation head `b27a99e6a9b45d3a32b05e5856c2709d8625c987` passed:
 - Deterministic CI #1365 — PASS.
 - Heavy Product Tests #835 — PASS.
 - Automation Handoff State Machine #842 — PASS (telemetry only).
 
-The last hardening commit `b27a99e6a9b45d3a32b05e5856c2709d8625c987` exercises tampered runtime payload through the canonical artifact repository/reader, asserts the owned failure diagnostic and preserves exact active A plus `UP` health.
+The report-bearing predecessor head `2da864e21eed0c4f4888b3bcadfdad7594cbe481` subsequently passed Deterministic CI #1366, Heavy Product Tests #836 and Automation Handoff State Machine #845.
 
-Because this Sprint Report and manifest reconciliation create a new exact head, Sprint Review remains conditional until Deterministic CI and Heavy Product Tests pass again for the report-bearing SHA.
+Sprint integration remains governed by the live PR exact head: immediately before merge, Deterministic CI and Heavy Product Tests must both be green for that current SHA and no material review blocker may remain. This report intentionally avoids treating an embedded self-referential final SHA as authority, so a documentation-only reconciliation does not make its own status stale.
+
+The last product hardening commit `b27a99e6a9b45d3a32b05e5856c2709d8625c987` exercises tampered runtime payload through the canonical artifact repository/reader, asserts the owned failure diagnostic and preserves exact active A plus `UP` health.
 
 ## Deviations and quality corrections
 No architecture/scope expansion was required. Retrabalho stayed inside tests/evidence and preserved fail-closed contracts. Recurrent prevention reinforced during this Sprint: adversarial fixtures must retain canonical input/output shape separation; readonly evidence must be challenged through constructed invalid inputs rather than mutation; payload tampering proofs must traverse canonical verification owners instead of mocked readers; assertions should target contract-owned diagnostic fields/codes.
@@ -44,6 +46,6 @@ The predecessor->successor boundaries remain coherent:
 - repeated restore/update requests remain deterministic/stale-safe rather than creating duplicate active history.
 
 ## Residual work / Sprint Review decision
-No material WBS 19.3.2 product gap was found after exact-head green validation. Construction 8 is ready for Sprint Review conditional on the report-bearing exact-head Deterministic CI and Heavy Product Tests and absence of a new material review finding.
+No material WBS 19.3.2 product gap was found after exact-head green validation. Construction 8 is ready for Sprint Review when the live PR exact head has Deterministic CI and Heavy Product Tests green and no material review finding remains.
 
 Do not execute WBS 19.3.3 before this Sprint is reviewed/integrated and fresh `main` is reconstructed and revalidated.
