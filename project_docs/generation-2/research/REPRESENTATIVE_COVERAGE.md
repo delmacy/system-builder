@@ -2,11 +2,15 @@
 
 States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`. Historical coverage remains authoritative in prior dossiers/state history; this compact ledger records current/recent revisits without superseding it.
 
-## Revisit cycle 2 completed capabilities
-All 25 active capabilities now have a cycle-2 pass recorded in their dossiers/state history. Every cycle-2 pass produced material findings, therefore consecutive-no-material remains 0 and no capability is SATURATED.
+## Revisit cycle 2
+All 25 active capabilities completed cycle 2. Every pass produced material findings; no capability was SATURATED at cycle close.
+
+## Revisit cycle 3
+### Universal Capability Architecture — revisit 2
+OASIS TOSCA 2.0: `DEEP`; Kubernetes declarative API / observedGeneration: `DEEP`; OpenTelemetry Resources / Entities / semantic conventions: `DEEP`; Backstage Software Catalog: `DEEP`; Crossplane provider/configuration/managed realization: `DEEP`; OpenTofu/Terraform provider requirements/association: `DEEP`. Findings `G2-FINDING-UCA-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
-ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED. Dedicated evidence supports promotion from mandatory CORE candidate to active research taxonomy while preserving separation from `UI / Generated Experience / Low-code Builder`.
+ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
 ## AI-native Engineering / Agents / Approvals — revisit 1
 OpenAI Agents SDK HITL / MCP approvals: `DEEP`; LangGraph / LangChain HITL + persistence: `DEEP`; GitHub Copilot cloud agent: `DEEP`; Anthropic Claude Code permissions: `DEEP`; Temporal durable execution: `DEEP`. Findings `G2-FINDING-AIAA-11..16`; material new findings, consecutive-no-material = 0; NOT SATURATED.
