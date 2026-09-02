@@ -55,6 +55,34 @@ Every arrow must eventually be represented by a versioned contract.
 
 These are product/bounded-context divisions. They do not imply twelve microservices or twelve repositories.
 
+## Two orthogonal suite axes — Generation 2 research clarification
+
+The accepted architecture already defines an open **factory/lifecycle suite**: specialist applications cooperate to understand, design, assemble, release, deploy and evolve systems. Generation 2 research is also testing a second, orthogonal **capability/composition suite**: reusable specialist capabilities and domain modules from which autonomous client systems are composed.
+
+The candidate formation is:
+
+```text
+COMPLETE SYSTEM BUILDER
+  = factory/lifecycle suite
+  + capability/runtime suite and catalog
+  + composition/resolution/governance/evidence mechanisms
+
+CLIENT SYSTEM
+  = governed subset/composition of required modules + capabilities
+  + workflows/processes + authority + interfaces
+  + provider bindings + topology/environment realization
+```
+
+A client system is therefore not expected to ship the complete Builder suite. It materializes only the selected dependency/capability closure required by its `SystemDefinition` and environment. Conversely, the complete SB reference product may know about/provide a much broader catalog of capabilities and specialist tools.
+
+Candidate Generation 2 rule:
+
+> Modules aggregate coherent domain semantics; capabilities expose reusable semantic abilities/operations; workflows compose operation invocations together with durable control, human handoff, approval, wait and transition semantics; providers realize mechanics without redefining portable semantic identity.
+
+This clarification does not imply microservices or one container per module/capability. Semantic composition remains independent from physical topology.
+
+Research authority and synthesis questions are recorded in `project_docs/generation-2/research/concepts/SYSTEM_BUILDER_SUITE_COMPOSITION_FORMATION.md`. This section is a Generation 2 research clarification and does not silently amend accepted ADRs before architecture reconciliation/change control.
+
 ## Physical direction
 
 Start as a modular monorepo. Proposed target:
