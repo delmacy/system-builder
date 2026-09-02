@@ -11,11 +11,15 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 2,
     "active_revisit_cycle": 3,
-    "capabilities_revisited_in_active_cycle": 21,
-    "hourly_runs_completed": 70,
-    "finding_count": 519,
-    "capability_candidate_count": 215,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-CONTRACT-DEPRECATION-SUNSET-COMPATIBILITY-WINDOW-EVIDENCE","G2-CAPABILITY-CANDIDATE-PORTABLE-CONTRACT-INTERPRETATION-CLOSURE","G2-CAPABILITY-CANDIDATE-STATION-SCOPED-CONTRACT-EXPOSURE-PROJECTION"],
+    "capabilities_revisited_in_active_cycle": 22,
+    "hourly_runs_completed": 71,
+    "finding_count": 525,
+    "capability_candidate_count": 218,
+    "new_candidates_this_run": [
+      "G2-CAPABILITY-CANDIDATE-EFFECTIVE-REVISION-REALIZATION-OBSERVATION",
+      "G2-CAPABILITY-CANDIDATE-PROFILE-SCOPED-COMPATIBILITY-COEXISTENCE-MATRIX",
+      "G2-CAPABILITY-CANDIDATE-OFFLINE-MIGRATION-INTERPRETATION-RECOVERY-CLOSURE"
+    ],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
@@ -57,6 +61,12 @@
         "consecutive_no_material_finding": 0,
         "last_revisit_result": "MATERIAL_NEW_FINDINGS",
         "new_findings": ["G2-FINDING-SIAC-17","G2-FINDING-SIAC-18","G2-FINDING-SIAC-19","G2-FINDING-SIAC-20","G2-FINDING-SIAC-21","G2-FINDING-SIAC-22"]
+      },
+      "Lifecycle / Versioning / Evolution / Migration": {
+        "revisits_completed": 2,
+        "consecutive_no_material_finding": 0,
+        "last_revisit_result": "MATERIAL_NEW_FINDINGS",
+        "new_findings": ["G2-FINDING-LVEM-17","G2-FINDING-LVEM-18","G2-FINDING-LVEM-19","G2-FINDING-LVEM-20","G2-FINDING-LVEM-21","G2-FINDING-LVEM-22"]
       }
     },
     "representative_coverage": {
@@ -82,9 +92,18 @@
         "OpenID Connect Discovery 1.0": "DEEP",
         "OCI Image Specification descriptors/manifests/annotations": "DEEP",
         "RFC 9745 + RFC 8594 deprecation/sunset lifecycle": "DEEP"
+      },
+      "Lifecycle / Versioning / Evolution / Migration": {
+        "Kubernetes API deprecation + storage/preferred-version evolution": "DEEP",
+        "Kubernetes component version-skew/upgrade ordering": "DEEP",
+        "RFC 9745 Deprecation + RFC 8594 Sunset": "DEEP",
+        "Terraform moved/import/remove/state continuity": "DEEP",
+        "Terraform provider cross-resource-type state move": "DEEP",
+        "Flyway target/versioned migration/undo/schema history": "DEEP",
+        "Temporal durable execution version coexistence constraint": "PARTIAL"
       }
     },
-    "pending_capabilities": ["Lifecycle / Versioning / Evolution / Migration","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
+    "pending_capabilities": ["AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, saturation conditions are satisfied, and when completed_full_cycles >= 7 the Enterprise Completeness / Negative-Space Review gate is closed with no material ownerless category.",
@@ -102,8 +121,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research/planning complete, integrated and ready for separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Standards / Interoperability / API Contracts — revisit 2 / cycle 3 complete. Six material findings separate deprecation/compatibility/sunset/availability, extension namespace recognition from processing authority, provider discovery claims from conformance proof, profile-scoped unknown-feature handling, portable offline interpretation closure, and non-amplifying Station contract exposure.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/STANDARDS_INTEROPERABILITY_API_CONTRACTS_REVISIT_02.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Lifecycle / Versioning / Evolution / Migration, revisit cycle 3, because it is now the oldest explicit pending capability in the authoritative state. Deepen semantic object/contract revision versus provider/runtime realization; compatibility and coexistence windows; deprecation versus sunset/withdrawal; migration plan/run/attempt/checkpoint identity; forward-only versus reversible transitions; consumer/provider upgrade ordering; restored-lineage branches; configuration/provider/contract evolution; offline/self-hosted migration closure; Station/Role revalidation across revision changes; and AGWS/AI authority escalation for canonical process/domain migration. Explicitly test how Standards findings SIAC-17..22 constrain lifecycle semantics. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7; Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T10:29:14-03:00"
+  "current_focus": "Lifecycle / Versioning / Evolution / Migration — revisit 2 / cycle 3 complete. Six material findings distinguish desired semantic revision from effective realization/availability; compatibility as profile/operation/direction/window relation; deprecation/sunset/withdrawal/availability; explicit migration continuity proof; restored-lineage rollback/forward-fix; and offline migration interpretation/trust/recovery closure.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_REVISIT_02.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: AI-native Engineering / Agents / Approvals, revisit cycle 3, because it is now the oldest explicit pending capability. Deepen agent/tool/policy revision identity; in-flight execution compatibility; approval authority bound to exact policy/tool/model revisions; replay/reproducibility versus nondeterministic model behavior; agent-produced migration/policy/config changes as candidate artifacts requiring separate validation and authority; tool capability negotiation; provider/model replacement without rewriting semantic task intent; degraded/offline/self-hosted agent execution; Station/Role authority projection; and evidence required to prove that an AI action was authorized, reproducible enough for governance, and did not self-authorize a higher-scope mutation. Explicitly test how Lifecycle findings LVEM-17..22 and Standards SIAC-17..22 constrain AI-native evolution. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7; Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T10:50:40-03:00"
 }
