@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## Data / Schema / Migrations — revisit 2 / cycle 3
+- G2-FINDING-DSM-17 — Canonical Data Model Revision and Physical Schema Realization Require Distinct Identities
+- G2-FINDING-DSM-18 — Safe Data Evolution Requires an Explicit Compatibility Window, Not Merely an Ordered DDL List
+- G2-FINDING-DSM-19 — Migration Plan, Run, Attempt, Backfill and Checkpoint Require Separate Lineage
+- G2-FINDING-DSM-20 — Revert Is a Governed Forward Operation with Conditional Eligibility, Not a Guaranteed Inverse
+- G2-FINDING-DSM-21 — Provider Replacement Requires Data-Semantic and Migration Conformance Evidence Beyond Schema Syntax
+- G2-FINDING-DSM-22 — Projection Authority Must Be Structurally Incapable of Creating Canonical Data Migrations
+
 ## Authorization / Policy / Organization / Multitenancy — revisit 2 / cycle 3
 - G2-FINDING-AUTH-17 — Effective Authority Is a Monotonic Resolution, Not a Union of Credentials, Roles and Context
 - G2-FINDING-AUTH-18 — Delegated Administration Requires a Subset/Non-Escalation Proof
