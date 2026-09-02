@@ -10,22 +10,38 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 20,
-    "hourly_runs_completed": 44,
+    "capabilities_revisited_in_active_cycle": 21,
+    "hourly_runs_completed": 45,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 134,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-MIGRATION-ATTEMPT-CHECKPOINT-RESULT-LINEAGE","G2-CAPABILITY-CANDIDATE-COMPATIBILITY-COEXISTENCE-WINDOW-EVIDENCE","G2-CAPABILITY-CANDIDATE-POST-MIGRATION-CONFORMANCE-EVIDENCE"],
+    "capability_candidate_count": 138,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-SEMANTIC-OPERATION-RETRY-ATTEMPT-LINEAGE","G2-CAPABILITY-CANDIDATE-RECOVERY-TRANSITION-DECISION-ATTEMPT-EVIDENCE","G2-CAPABILITY-CANDIDATE-RECOVERY-OBJECTIVE-ACHIEVEMENT-EVIDENCE","G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
-    "saturated_capabilities": [],
-    "pending_capabilities": [],
-    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for the first 19 capabilities in cycle 2; each has revisits_completed=1, consecutive_no_material_finding=0 and MATERIAL_NEW_FINDINGS.",
-    "revisit_status": {
-      "Lifecycle / Versioning / Evolution / Migration": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-LVEM-11","G2-FINDING-LVEM-12","G2-FINDING-LVEM-13","G2-FINDING-LVEM-14","G2-FINDING-LVEM-15","G2-FINDING-LVEM-16"]}
+    "mandatory_discovered_capabilities": {
+      "Adaptive Governed Work Surfaces": {
+        "candidate_id": "G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES",
+        "classification": "CORE",
+        "status": "RESEARCH_REQUIRED",
+        "coverage": "NOT_REVIEWED",
+        "must_remain_distinct_from": "UI / Generated Experience / Low-code Builder",
+        "required_boundary": "Enterprise → Station → Role → Person with higher invariants non-weakenable; Station is a first-class boundary for partial suites, inherited/exposed capabilities, delegated administration and hierarchically managed System Builder instances.",
+        "required_authoring_rule": "Users may select/add/reorganize constrained components and express intent; AI is the only materializer and may bind/generate only over valid entities, domains, capabilities, permissions and contracts, never silently create canonical schema/entity/rule changes.",
+        "required_proofs": ["list/form/grid without new canonical model","layout constrained to allowed slots/grid","mandatory component non-removable","personalization revalidated after Station/Role change","AI request requiring domain change escalated","provider-bound action without coupling","personal automation respects authority","lineage/version/diff/reset/rollback","Personal→Team/Role/System promotion governed by evidence"]
+      }
     },
-    "representative_coverage": {"Lifecycle / Versioning / Evolution / Migration":{"Kubernetes API deprecation/migration/version-skew":"DEEP","Flyway migration target/undo lifecycle":"DEEP","PostgreSQL migration/transaction boundary":"DEEP","Terraform/OpenTofu state/provider continuity":"DEEP","Temporal long-lived execution evolution":"DEEP"}},
+    "saturated_capabilities": [],
+    "pending_capabilities": ["Adaptive Governed Work Surfaces"],
+    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for the first 20 capabilities in cycle 2; each has revisits_completed=1, consecutive_no_material_finding=0 and MATERIAL_NEW_FINDINGS.",
+    "revisit_status": {
+      "Security / Resilience / Failure Recovery": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-SRFR-11","G2-FINDING-SRFR-12","G2-FINDING-SRFR-13","G2-FINDING-SRFR-14","G2-FINDING-SRFR-15","G2-FINDING-SRFR-16"]},
+      "Adaptive Governed Work Surfaces": {"revisits_completed":0,"consecutive_no_material_finding":0,"last_revisit_result":"NOT_REVIEWED","new_findings":[]}
+    },
+    "representative_coverage": {
+      "Security / Resilience / Failure Recovery":{"Envoy retry/circuit breaking/outlier detection":"DEEP","Temporal durable Activity execution":"DEEP","Kubernetes disruption semantics":"DEEP","PostgreSQL PITR/timelines":"DEEP","AWS Well-Architected Reliability/DR":"DEEP","LitmusChaos":"DEEP"},
+      "Adaptive Governed Work Surfaces":{"dedicated representative set":"NOT_REVIEWED"}
+    },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 360
+    "finding_count": 366
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -42,8 +58,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Lifecycle / Versioning / Evolution / Migration — revisit cycle 2 pass 1 complete. Kubernetes, Flyway, PostgreSQL, Terraform/OpenTofu and Temporal evidence separated semantic identity, revision, effective realization, compatibility policy/observation, migration intent/plan/attempt/checkpoint/result, deprecation/disablement/removal and rollback/forward-fix. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_REVISIT_01.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Security / Resilience / Failure Recovery, as the next oldest non-saturated capability. Target failure-domain identity versus incident/error occurrence; retry attempt lineage and idempotency boundaries; timeout/cancellation/deadline semantics; circuit breaking/load shedding/backpressure; degraded-mode declaration versus effective behavior; recovery point/recovery time objectives versus observed recovery evidence; checkpoint/restore/failover/failback lineage; corruption versus unavailability; irreversible/partial migration interaction; disaster-recovery authority; tenant blast radius; dependency/provider failure propagation; trust/security failure versus availability failure; offline/self-hosted recovery; chaos/fault-injection proof; and evidence linking failure detection, governed recovery decision, attempt, effective realization and post-recovery conformance. Compose Lifecycle partial-migration/rollback/forward-fix findings without transferring domain migration semantics into Security. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T23:03:29-03:00"
+  "current_focus": "Security / Resilience / Failure Recovery — revisit cycle 2 pass 1 complete. Envoy, Temporal, Kubernetes, PostgreSQL, AWS Well-Architected Reliability/DR and LitmusChaos evidence separated failure occurrence/domain observation, semantic operation/retry attempt, containment versus recovery, recovery-point admissibility, failover/failback transitions and post-recovery conformance. Six material findings emerged, so saturation counter remains zero. Adaptive Governed Work Surfaces is now explicitly registered as a mandatory distinct CORE research candidate with NOT_REVIEWED coverage; by the rotation rule it becomes the next capability because it has lower coverage than already-deep non-saturated capabilities.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/SECURITY_RESILIENCE_FAILURE_RECOVERY_REVISIT_01.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Adaptive Governed Work Surfaces, the newly registered mandatory CORE candidate and lowest-coverage non-saturated capability (NOT_REVIEWED). Perform its first dedicated multi-representative research pass; do not absorb it into UI / Generated Experience / Low-code Builder. Select 3–8 strong current representatives from composable workspace/low-code systems (candidate families include Retool, Appsmith, Power Apps/Dynamics, OutSystems, Mendix, ServiceNow UI Builder, Salesforce Lightning/App Builder, SAP Build Work Zone, replacing candidates when stronger representatives are found). Compare component registry, constrained grid/slot/template layout, limited drag/drop, semantic metadata, AI authoring, contextual component/DOM selection, safe data/action binding, mandatory non-removable components, inheritance/policies, Personal/Team/Role/Org overlays, version/diff/reset/rollback, evidence-governed promotion, accessibility, extensibility, portability, audit/provenance, workflows and external systems. Model Enterprise → Station → Role → Person with non-weakenable superior invariants; Station must cover partial suites, inherited/exposed capabilities, delegated administration and SB hierarchically managed by another SB. Distinguish visual personalization, personal action, supervised automation, team workflow and canonical domain/process change; automation may never exceed Station/Role authority. Mandatory proofs: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for domain change; provider-bound action without coupling; authority-bounded personal automation; lineage/version/diff/reset/rollback; and evidence-governed Personal→Team/Role/System promotion. Update Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T23:30:12-03:00"
 }
