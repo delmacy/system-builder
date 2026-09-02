@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 19/25 capabilities revisited.
+Cycle 4 is open with 20/25 capabilities revisited.
 
 ### Universal Capability Architecture through Governance / Compliance / Audit
 The first 17 cycle-4 revisits remain authoritative in their capability dossiers and prior ledger revisions. Every pass produced material findings and remains NOT SATURATED.
@@ -19,6 +19,9 @@ HashiCorp Vault dynamic-secret leases/renewal/revocation/mount migration and irr
 
 ### Provider / Binding / Capability Negotiation — revisit 3
 Kubernetes Dynamic Resource Allocation v1.35 DeviceClass/ResourceClaim/ResourceSlice/prioritized alternatives/adminAccess: `DEEP`; OpenTofu provider requirements/configuration/aliases/provider meta-argument/dependency lock: `DEEP`; Terraform provider requirements/lock behavior: `DEEP`; Backstage backend services/extension points/modules: `DEEP`; SPIFFE Workload API/federated trust bundles: `DEEP`. Findings `G2-FINDING-PBCN-23..30`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: negotiated effective profile, discovery→compatibility→admission→delegated exposure→effective satisfaction gates, governed fallback/cutover, non-provider credential identity, qualified local binding closure, explicit multi-provider selection scope and capability-owned extension surfaces.
+
+### Standards / Interoperability / API Contracts — revisit 3
+Protocol Buffers Editions/schema evolution: `DEEP`; Buf breaking-change categories/baselines: `DEEP`; HTTP Semantics RFC 9110 content negotiation: `DEEP`; Kubernetes API deprecation/versioning/round-trip policy: `DEEP`; GraphQL September 2025 deprecation/introspection: `DEEP`; OpenAPI 3.2.0 version/description semantics: `DEEP`. Findings `G2-FINDING-SIAC-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: multi-class compatibility evidence; wire versus source/semantic compatibility; semantic non-weakening negotiation; coexistence read/write/storage/exposure roles; conformance versus provider claim; deprecation-usage evidence; qualified local compatibility/conformance closure; AGWS provider-independent semantic-operation consumption.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
