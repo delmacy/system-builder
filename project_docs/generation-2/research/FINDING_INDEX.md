@@ -42,11 +42,19 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - G2-FINDING-WDE-27 — Qualified Local Durable-execution Closure Requires Interpreter, State, Bindings, Trust, Authority and Recovery Dependencies
 - G2-FINDING-WDE-28 — AGWS Personal/Supervised Automation to Team Workflow Requires an Explicit Attenuated Authority Handoff
 
+## Integration & Automation — revisit 3 / cycle 4
+- G2-FINDING-IA-23 — Trigger/Subscription Revision and Delivery-run Revision Must Coexist Without Identity Collapse
+- G2-FINDING-IA-24 — Transport Receipt and Domain Acceptance Are Distinct Evidence States
+- G2-FINDING-IA-25 — Retry, Redrive and Replay Are Lineaged Attempts/Runs, Not Invisible Continuations
+- G2-FINDING-IA-26 — Integration Migration Is a Governed Plan/Validation/Approval/Attempt/Postcondition Transition
+- G2-FINDING-IA-27 — Qualified Local Integration Closure Is Operation/Profile Scoped
+- G2-FINDING-IA-28 — Station Authority Must Be Captured at Admission and Attenuated Through Asynchronous Continuation
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-5/25 active capabilities revisited. UCA, Process & Application Modeling, UI / Generated Experience, Adaptive Governed Work Surfaces and Workflow & Durable Execution produced material findings; consecutive-no-material remains 0 for all and none is SATURATED.
+6/25 active capabilities revisited. UCA, Process & Application Modeling, UI / Generated Experience, Adaptive Governed Work Surfaces, Workflow & Durable Execution, and Integration & Automation produced material findings; consecutive-no-material remains 0 for all and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings, remain authoritative in their dossiers and prior index revisions.
