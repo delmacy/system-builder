@@ -24,6 +24,9 @@ Temporal durable execution/replay baseline: `DEEP`; Camunda 8 / Zeebe jobs-incid
 ### Integration & Automation — revisit 2
 Apache Kafka / Kafka Connect 4.3: `DEEP`; Dapr Pub/Sub + Resiliency: `DEEP`; Amazon EventBridge Pipes: `DEEP`; Azure Logic Apps / managed connectors: `DEEP`; Zapier Platform OAuth/triggers: `DEEP`. Findings `G2-FINDING-IA-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED. This pass focused connector-credential versus semantic authority, trigger deduplication versus business idempotency, monotonic authority attenuation across chained automations, connection authority freshness, async/callback outcome identity and provider-replacement authority/operational conformance.
 
+### Identity / Authentication / Federation — revisit 2
+OpenID Connect / OAuth identity and audience semantics: `DEEP`; RFC 8693 OAuth Token Exchange: `DEEP`; Microsoft identity platform / MSAL On-Behalf-Of: `DEEP`; SPIFFE/SPIRE workload identity and federation: `DEEP`; Keycloak session/token lifecycle and revocation: `DEEP`. Findings `G2-FINDING-IAF-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED. This pass focused canonical-subject/authenticated-principal/actor/workload separation, audience/issuer/trust-bound evidence, non-amplifying delegation/OBO, session-versus-token freshness, federation-versus-authorization boundaries and identity-provider replacement conformance.
+
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
 ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
