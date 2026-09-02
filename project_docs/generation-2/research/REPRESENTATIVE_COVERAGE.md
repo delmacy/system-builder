@@ -30,6 +30,9 @@ OpenID Connect / OAuth identity and audience semantics: `DEEP`; RFC 8693 OAuth T
 ### Authorization / Policy / Organization / Multitenancy — revisit 2
 Cedar Policy Language: `DEEP`; OpenFGA contextual/organization/conditional authorization: `DEEP`; SpiceDB/Authzed: `DEEP`; Open Policy Agent: `DEEP`; Kubernetes RBAC privilege-escalation prevention: `DEEP`; Amazon Verified Permissions identity-source boundary: `DEEP`. Findings `G2-FINDING-AUTH-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED. This pass focused monotonic effective-authority resolution, delegated-administration subset proof, impersonation/OBO re-resolution, ephemeral organization/Station context versus canonical membership, provider conflict/default semantics and authority revalidation for long-running privileged effects.
 
+### Data / Schema / Migrations — revisit 2
+PostgreSQL 18/19 data-definition and ALTER TABLE semantics: `DEEP`; Vitess 23/24 Managed Online Schema Changes / declarative migrations / revert: `DEEP`; Liquibase 5.x changeset checksum, preconditions and rollback: `DEEP`. Findings `G2-FINDING-DSM-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED. This pass focused canonical-model versus physical-realization identity, explicit read/write compatibility windows, migration/run/attempt/backfill/checkpoint lineage, conditional revert/roll-forward semantics, provider-replacement data conformance and structural prevention of AGWS projection authority creating canonical migrations.
+
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
 ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
