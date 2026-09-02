@@ -3,20 +3,7 @@
   "generation": "Generation 2 — Capability Architecture & Symbiotic Platform Engineering",
   "status": "ACTIVE",
   "phase": "RESEARCH_ELICITATION",
-  "phase_order": [
-    "RESEARCH_ELICITATION",
-    "CAPABILITY_SYNTHESIS",
-    "PLANNING_A_TAXONOMY_BOUNDARIES",
-    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION",
-    "PLANNING_C_TARGET_ARCHITECTURE",
-    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY",
-    "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE",
-    "ARCHITECTURE_RECONCILIATION",
-    "WBS_DECOMPOSITION",
-    "WBS_DEPENDENCY_GRAPH",
-    "WORK_PACKAGE_DESIGN",
-    "READY_FOR_WORKER_HANDOFF"
-  ],
+  "phase_order": ["RESEARCH_ELICITATION","CAPABILITY_SYNTHESIS","PLANNING_A_TAXONOMY_BOUNDARIES","PLANNING_B_SB_CURRENT_STATE_RECONCILIATION","PLANNING_C_TARGET_ARCHITECTURE","PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY","PLANNING_E_PRODUCT_PROOF_ACCEPTANCE","ARCHITECTURE_RECONCILIATION","WBS_DECOMPOSITION","WBS_DEPENDENCY_GRAPH","WORK_PACKAGE_DESIGN","READY_FOR_WORKER_HANDOFF"],
   "research": {
     "initial_macro_capabilities": 24,
     "active_taxonomy_capabilities": 25,
@@ -24,15 +11,11 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 2,
     "active_revisit_cycle": 3,
-    "capabilities_revisited_in_active_cycle": 8,
-    "hourly_runs_completed": 57,
+    "capabilities_revisited_in_active_cycle": 9,
+    "hourly_runs_completed": 58,
     "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
-    "capability_candidate_count": 175,
-    "new_candidates_this_run": [
-      "G2-CAPABILITY-CANDIDATE-MONOTONIC-EFFECTIVE-AUTHORITY-RESOLUTION",
-      "G2-CAPABILITY-CANDIDATE-DELEGATED-AUTHORITY-SUBSET-PROOF",
-      "G2-CAPABILITY-CANDIDATE-AUTHORIZATION-CONTEXT-PROVENANCE"
-    ],
+    "capability_candidate_count": 178,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-CANONICAL-DATA-TO-PHYSICAL-REALIZATION-CONFORMANCE","G2-CAPABILITY-CANDIDATE-MIGRATION-COMPATIBILITY-WINDOW-EVIDENCE","G2-CAPABILITY-CANDIDATE-BACKFILL-CHECKPOINT-IDEMPOTENCY-LINEAGE"],
     "promoted_capabilities_this_run": [],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "mandatory_discovered_capabilities": {
@@ -45,102 +28,50 @@
         "must_remain_distinct_from": "UI / Generated Experience / Low-code Builder",
         "required_boundary": "Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.",
         "required_authoring_rule": "Users express intent and compose constrained semantic components; AI is sole materializer over valid entities/domains/capabilities/permissions/contracts and must classify mutation authority and escalate canonical domain/process changes.",
-        "required_proofs": [
-          "list/form/grid without new canonical model",
-          "layout constrained to allowed slots/grid",
-          "mandatory component non-removable",
-          "personalization revalidated after Station/Role change",
-          "AI request requiring domain change escalated",
-          "provider-bound action without coupling",
-          "personal automation respects authority",
-          "lineage/version/diff/reset/rollback",
-          "Personal→Team/Role/System promotion governed by evidence"
-        ]
+        "required_proofs": ["list/form/grid without new canonical model","layout constrained to allowed slots/grid","mandatory component non-removable","personalization revalidated after Station/Role change","AI request requiring domain change escalated","provider-bound action without coupling","personal automation respects authority","lineage/version/diff/reset/rollback","Personal→Team/Role/System promotion governed by evidence"]
       }
     },
     "saturated_capabilities": [],
-    "pending_capabilities": [
-      "Data / Schema / Migrations",
-      "Storage / Documents / Media",
-      "Notifications / Events / Messaging",
-      "Build / Dependency Graph / Reproducibility",
-      "Artifact / Release / SBOM / Provenance",
-      "Deployment / Environment / Runtime",
-      "Observability / Operations / Incident",
-      "Extension / Plugin / Marketplace Architecture",
-      "Governance / Compliance / Audit",
-      "Secrets / Configuration / Environment Portability",
-      "Provider / Binding / Capability Negotiation",
-      "Standards / Interoperability / API Contracts",
-      "Lifecycle / Versioning / Evolution / Migration",
-      "Security / Resilience / Failure Recovery",
-      "AI-native Engineering / Agents / Approvals",
-      "Developer / Operator Experience / Self-hosting",
-      "Architecture Reconciliation as a Capability"
-    ],
-    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for all capabilities. Cycle 2 completed across all 25 active capabilities. Cycle 3 has material findings for Universal Capability Architecture, Process & Application Modeling, UI / Generated Experience / Low-code Builder, Adaptive Governed Work Surfaces, Workflow & Durable Execution, Integration & Automation, Identity / Authentication / Federation and Authorization / Policy / Organization / Multitenancy.",
+    "pending_capabilities": ["Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"],
+    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for all capabilities. Cycle 2 completed across all 25 active capabilities. Cycle 3 has material findings for Universal Capability Architecture, Process & Application Modeling, UI / Generated Experience / Low-code Builder, Adaptive Governed Work Surfaces, Workflow & Durable Execution, Integration & Automation, Identity / Authentication / Federation, Authorization / Policy / Organization / Multitenancy and Data / Schema / Migrations.",
     "revisit_status": {
-      "Universal Capability Architecture": {"revisits_completed": 2, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-UCA-17","G2-FINDING-UCA-18","G2-FINDING-UCA-19","G2-FINDING-UCA-20","G2-FINDING-UCA-21","G2-FINDING-UCA-22"]},
-      "Process & Application Modeling": {"revisits_completed": 2, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-PAM-17","G2-FINDING-PAM-18","G2-FINDING-PAM-19","G2-FINDING-PAM-20","G2-FINDING-PAM-21","G2-FINDING-PAM-22"]},
-      "UI / Generated Experience / Low-code Builder": {"revisits_completed": 2, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-UIGX-17","G2-FINDING-UIGX-18","G2-FINDING-UIGX-19","G2-FINDING-UIGX-20","G2-FINDING-UIGX-21","G2-FINDING-UIGX-22"]},
-      "Adaptive Governed Work Surfaces": {"revisits_completed": 2, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-AGWS-10","G2-FINDING-AGWS-11","G2-FINDING-AGWS-12","G2-FINDING-AGWS-13","G2-FINDING-AGWS-14","G2-FINDING-AGWS-15"]},
-      "Workflow & Durable Execution": {"revisits_completed": 2, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-WDE-17","G2-FINDING-WDE-18","G2-FINDING-WDE-19","G2-FINDING-WDE-20","G2-FINDING-WDE-21","G2-FINDING-WDE-22"]},
-      "Integration & Automation": {"revisits_completed": 2, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-IA-17","G2-FINDING-IA-18","G2-FINDING-IA-19","G2-FINDING-IA-20","G2-FINDING-IA-21","G2-FINDING-IA-22"]},
-      "Identity / Authentication / Federation": {"revisits_completed": 2, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-IAF-17","G2-FINDING-IAF-18","G2-FINDING-IAF-19","G2-FINDING-IAF-20","G2-FINDING-IAF-21","G2-FINDING-IAF-22"]},
-      "Authorization / Policy / Organization / Multitenancy": {"revisits_completed": 2, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-AUTH-17","G2-FINDING-AUTH-18","G2-FINDING-AUTH-19","G2-FINDING-AUTH-20","G2-FINDING-AUTH-21","G2-FINDING-AUTH-22"]},
-      "Architecture Reconciliation as a Capability": {"revisits_completed": 1, "consecutive_no_material_finding": 0, "last_revisit_result": "MATERIAL_NEW_FINDINGS", "new_findings": ["G2-FINDING-ARAC-11","G2-FINDING-ARAC-12","G2-FINDING-ARAC-13","G2-FINDING-ARAC-14","G2-FINDING-ARAC-15","G2-FINDING-ARAC-16"]}
+      "Universal Capability Architecture": {"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-UCA-17","G2-FINDING-UCA-18","G2-FINDING-UCA-19","G2-FINDING-UCA-20","G2-FINDING-UCA-21","G2-FINDING-UCA-22"]},
+      "Process & Application Modeling": {"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-PAM-17","G2-FINDING-PAM-18","G2-FINDING-PAM-19","G2-FINDING-PAM-20","G2-FINDING-PAM-21","G2-FINDING-PAM-22"]},
+      "UI / Generated Experience / Low-code Builder": {"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-UIGX-17","G2-FINDING-UIGX-18","G2-FINDING-UIGX-19","G2-FINDING-UIGX-20","G2-FINDING-UIGX-21","G2-FINDING-UIGX-22"]},
+      "Adaptive Governed Work Surfaces": {"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AGWS-10","G2-FINDING-AGWS-11","G2-FINDING-AGWS-12","G2-FINDING-AGWS-13","G2-FINDING-AGWS-14","G2-FINDING-AGWS-15"]},
+      "Workflow & Durable Execution": {"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-WDE-17","G2-FINDING-WDE-18","G2-FINDING-WDE-19","G2-FINDING-WDE-20","G2-FINDING-WDE-21","G2-FINDING-WDE-22"]},
+      "Integration & Automation": {"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-IA-17","G2-FINDING-IA-18","G2-FINDING-IA-19","G2-FINDING-IA-20","G2-FINDING-IA-21","G2-FINDING-IA-22"]},
+      "Identity / Authentication / Federation": {"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-IAF-17","G2-FINDING-IAF-18","G2-FINDING-IAF-19","G2-FINDING-IAF-20","G2-FINDING-IAF-21","G2-FINDING-IAF-22"]},
+      "Authorization / Policy / Organization / Multitenancy": {"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AUTH-17","G2-FINDING-AUTH-18","G2-FINDING-AUTH-19","G2-FINDING-AUTH-20","G2-FINDING-AUTH-21","G2-FINDING-AUTH-22"]},
+      "Data / Schema / Migrations": {"revisits_completed":2,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-DSM-17","G2-FINDING-DSM-18","G2-FINDING-DSM-19","G2-FINDING-DSM-20","G2-FINDING-DSM-21","G2-FINDING-DSM-22"]},
+      "Architecture Reconciliation as a Capability": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-ARAC-11","G2-FINDING-ARAC-12","G2-FINDING-ARAC-13","G2-FINDING-ARAC-14","G2-FINDING-ARAC-15","G2-FINDING-ARAC-16"]}
     },
     "representative_coverage": {
-      "Authorization / Policy / Organization / Multitenancy": {
-        "Cedar Policy Language": "DEEP",
-        "OpenFGA contextual/organization/conditional authorization": "DEEP",
-        "SpiceDB / Authzed": "DEEP",
-        "Open Policy Agent": "DEEP",
-        "Kubernetes RBAC privilege-escalation prevention": "DEEP",
-        "Amazon Verified Permissions identity-source boundary": "DEEP"
-      },
-      "Identity / Authentication / Federation": {
-        "OpenID Connect / OAuth identity and audience semantics": "DEEP",
-        "RFC 8693 OAuth Token Exchange": "DEEP",
-        "Microsoft identity platform / MSAL On-Behalf-Of": "DEEP",
-        "SPIFFE/SPIRE workload identity and federation": "DEEP",
-        "Keycloak session/token lifecycle and revocation": "DEEP"
-      },
-      "Adaptive Governed Work Surfaces": {
-        "Microsoft Power Apps / Dataverse / model-driven apps": "DEEP",
-        "ServiceNow UI Builder": "DEEP",
-        "SAP Build Work Zone": "DEEP",
-        "Salesforce Lightning App Builder / Dynamic Forms": "DEEP",
-        "Appsmith boundary/anti-pattern analysis": "DEEP",
-        "Retool": "PARTIAL"
-      }
+      "Data / Schema / Migrations": {"PostgreSQL 18/19 data-definition and ALTER TABLE semantics":"DEEP","Vitess 23/24 Managed Online Schema Changes / declarative migrations / revert":"DEEP","Liquibase 5.x changeset checksum, preconditions and rollback":"DEEP"},
+      "Authorization / Policy / Organization / Multitenancy": {"Cedar Policy Language":"DEEP","OpenFGA contextual/organization/conditional authorization":"DEEP","SpiceDB / Authzed":"DEEP","Open Policy Agent":"DEEP","Kubernetes RBAC privilege-escalation prevention":"DEEP","Amazon Verified Permissions identity-source boundary":"DEEP"},
+      "Identity / Authentication / Federation": {"OpenID Connect / OAuth identity and audience semantics":"DEEP","RFC 8693 OAuth Token Exchange":"DEEP","Microsoft identity platform / MSAL On-Behalf-Of":"DEEP","SPIFFE/SPIRE workload identity and federation":"DEEP","Keycloak session/token lifecycle and revocation":"DEEP"},
+      "Adaptive Governed Work Surfaces": {"Microsoft Power Apps / Dataverse / model-driven apps":"DEEP","ServiceNow UI Builder":"DEEP","SAP Build Work Zone":"DEEP","Salesforce Lightning App Builder / Dynamic Forms":"DEEP","Appsmith boundary/anti-pattern analysis":"DEEP","Retool":"PARTIAL"}
     },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 441
+    "finding_count": 447
   },
   "gates": {
-    "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
-    "CAPABILITY_SYNTHESIS": "Canonical capability taxonomy, subcapabilities, cross-cutting capabilities, representative coverage ledger, recurring primitives and unresolved contradictions are consolidated without implementation authority.",
-    "PLANNING_A_TAXONOMY_BOUNDARIES": "Capability ownership, boundaries, overlap rules and non-goals are explicit.",
-    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION": "Each material capability is mapped to repository truth, contracts, tests, maturity and gaps without guessing.",
-    "PLANNING_C_TARGET_ARCHITECTURE": "Target planes, universal primitives, provider/binding model, portable definition/IR and evidence/provenance model are coherent and decision-backed.",
-    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "Dependency order, compatibility, migration, rollback and coexistence strategy are explicit.",
-    "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "Native path, external-provider path, replaceability, portability, governance, runtime autonomy and integrated product proofs have measurable acceptance criteria.",
-    "ARCHITECTURE_RECONCILIATION": "Each material finding/gap has a reconciled disposition with evidence and dependencies.",
-    "WBS_DECOMPOSITION": "Architecture decisions are decomposed into bounded capability-oriented WBS documents.",
-    "WBS_DEPENDENCY_GRAPH": "Cross-WBS dependency graph is acyclic or explicitly staged.",
-    "WORK_PACKAGE_DESIGN": "Work Packages are derived from WBS and sized for 3–10 Construction Sprints plus required gates.",
-    "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
+    "RESEARCH_ELICITATION":"All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
+    "CAPABILITY_SYNTHESIS":"Canonical capability taxonomy, subcapabilities, cross-cutting capabilities, representative coverage ledger, recurring primitives and unresolved contradictions are consolidated without implementation authority.",
+    "PLANNING_A_TAXONOMY_BOUNDARIES":"Capability ownership, boundaries, overlap rules and non-goals are explicit.",
+    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION":"Each material capability is mapped to repository truth, contracts, tests, maturity and gaps without guessing.",
+    "PLANNING_C_TARGET_ARCHITECTURE":"Target planes, universal primitives, provider/binding model, portable definition/IR and evidence/provenance model are coherent and decision-backed.",
+    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY":"Dependency order, compatibility, migration, rollback and coexistence strategy are explicit.",
+    "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE":"Native path, external-provider path, replaceability, portability, governance, runtime autonomy and integrated product proofs have measurable acceptance criteria.",
+    "ARCHITECTURE_RECONCILIATION":"Each material finding/gap has a reconciled disposition with evidence and dependencies.",
+    "WBS_DECOMPOSITION":"Architecture decisions are decomposed into bounded capability-oriented WBS documents.",
+    "WBS_DEPENDENCY_GRAPH":"Cross-WBS dependency graph is acyclic or explicitly staged.",
+    "WORK_PACKAGE_DESIGN":"Work Packages are derived from WBS and sized for 3–10 Construction Sprints plus required gates.",
+    "READY_FOR_WORKER_HANDOFF":"Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
-  "artifact_roots": {
-    "research": "project_docs/generation-2/research/",
-    "synthesis": "project_docs/generation-2/synthesis/",
-    "planning": "project_docs/generation-2/planning/",
-    "wbs": "project_docs/generation-2/wbs/",
-    "packages": "project_docs/generation-2/packages/"
-  },
-  "current_focus": "Authorization / Policy / Organization / Multitenancy — revisit 2 / cycle 3 complete. Six material findings establish monotonic effective-authority resolution; delegated-administration subset/non-escalation proof; impersonation/OBO authority re-resolution with preserved subject/actor lineage; selected organization/Station context distinct from canonical membership; permit/deny/conflict/error semantics as provider conformance; and long-running privileged-effect revalidation. AGWS remains bounded by Enterprise→Station→Role→Person and lower layers, authentication, connector/workload credentials, retries, delegation or provider replacement cannot widen superior invariants.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_REVISIT_02.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Data / Schema / Migrations, revisit cycle 3. Test canonical model identity versus physical schema/realization; schema revision and migration identity; additive versus destructive evolution; expand-contract and online migration patterns; data compatibility/read-write windows; migration attempt/checkpoint/resume/rollback/roll-forward evidence; backfill identity/idempotency; tenant/Station data isolation; canonical membership/resource ownership versus authorization context; provider-neutral data capability requirements; provider/database replacement and semantic conformance; generated-runtime autonomy; and prove that AGWS projection/list/form/grid changes remain projection-only unless a separately authorized canonical data-model migration is approved. Update dossier, Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7 and no capability is SATURATED.",
-  "last_updated": "2026-09-02T05:32:21-03:00"
+  "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
+  "current_focus": "Data / Schema / Migrations — revisit 2 / cycle 3 complete. Six material findings separate canonical data-model revision from physical schema realization; require explicit read/write compatibility windows; distinguish migration plan/run/attempt/backfill/checkpoint lineage; treat revert as conditional governed forward migration rather than guaranteed inverse; require semantic/migration conformance for provider replacement; and structurally prevent AGWS projection authority from creating canonical migrations.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/DATA_SCHEMA_MIGRATIONS_REVISIT_02.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Storage / Documents / Media, revisit cycle 3. Test logical object/document/media identity versus blob/provider realization; metadata versus content identity; immutable/versioned content and mutable aliases; retention/legal-hold/deletion semantics; multipart/upload attempt and checksum/integrity evidence; encryption/key boundary without collapsing into Secrets; tenant/Station isolation and authority; provider-neutral storage requirements; external object-store/document provider replacement; replication/copy/migration and content-addressed provenance; generated-runtime autonomy and offline/self-hosted operation; and composition with AGWS so surface attachments/document components consume authorized semantic storage capabilities without acquiring raw bucket/provider authority. Update dossier, Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7 and no capability is SATURATED.",
+  "last_updated": "2026-09-02T06:06:16-03:00"
 }
