@@ -23,6 +23,12 @@ OpenAPI 3.2, HTTP RFC 9110, RFC 9457, JSON Schema 2020-12, AsyncAPI 3.0 and gRPC
 ## Lifecycle / Versioning / Evolution / Migration — revisit cycle 2
 Kubernetes API deprecation/migration/version-skew: `DEEP`; Flyway migration target/undo lifecycle: `DEEP`; PostgreSQL migration/transaction boundary: `DEEP`; Terraform/OpenTofu state/provider continuity: `DEEP`; Temporal long-lived execution evolution: `DEEP`. Findings `G2-FINDING-LVEM-11..16`; consecutive-no-material = 0; NOT SATURATED.
 
+## Security / Resilience / Failure Recovery — revisit cycle 2
+Envoy retry/circuit breaking/outlier detection: `DEEP`; Temporal durable Activity execution: `DEEP`; Kubernetes disruption semantics: `DEEP`; PostgreSQL PITR/timelines: `DEEP`; AWS Well-Architected Reliability/DR: `DEEP`; LitmusChaos: `DEEP`. Findings `G2-FINDING-SRFR-11..16`; consecutive-no-material = 0; NOT SATURATED.
+
+## Adaptive Governed Work Surfaces — mandatory discovered capability
+Dedicated research is required and must not be absorbed by `UI / Generated Experience / Low-code Builder`. Current coverage: `NOT_REVIEWED`. Required representative families for the dedicated pass include strong current composable workspace/low-code systems; representative selection remains open until that pass. Boundary to prove includes `Enterprise → Station → Role → Person`, constrained editor surfaces, AI-only materialization over valid contracts/authority, governed overlays, provider-bound work automation and promotion evidence.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
