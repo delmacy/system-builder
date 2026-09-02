@@ -10,8 +10,8 @@ Extension / Plugin / Marketplace Architecture; Governance / Compliance / Audit; 
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
 ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED. Dedicated evidence supports promotion from mandatory CORE candidate to active research taxonomy while preserving separation from `UI / Generated Experience / Low-code Builder`. Boundary: `Enterprise → Station → Role → Person`, constrained semantic composition, AI-only materialization, provider-neutral bindings and authority-bounded automation.
 
-## AI-native Engineering / Agents / Approvals
-OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
+## AI-native Engineering / Agents / Approvals — revisit 1
+OpenAI Agents SDK HITL / MCP approvals: `DEEP`; LangGraph / LangChain HITL + persistence: `DEEP`; GitHub Copilot cloud agent: `DEEP`; Anthropic Claude Code permissions: `DEEP`; Temporal durable execution: `DEEP`. Findings `G2-FINDING-AIAA-11..16`; material new findings, consecutive-no-material = 0; NOT SATURATED. Revisit deepened revision-bound approval, delegated/subagent authority attenuation, durable side-effect receipt lineage and explicit composition with Adaptive Governed Work Surfaces.
 
 ## Developer / Operator Experience / Self-hosting
 Backstage `DEEP`; GitHub Codespaces/Dev Containers `DEEP`; Kubernetes administration `DEEP`; Coolify `DEEP`; Nix Flakes/devShell `DEEP`.
