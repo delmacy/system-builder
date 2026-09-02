@@ -11,6 +11,8 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory research hypotheses
 Executable composition/cumulative context; transaction-consistency-concurrency; topology-build-runtime realization; tenant-fleet-edge-ingress routing remain authoritative research hypotheses, not promoted capabilities.
 
+`G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**. See `project_docs/generation-2/research/concepts/SYSTEM_BUILDER_SUITE_COMPOSITION_FORMATION.md`. Synthesis must reconcile two orthogonal suite axes: (A) the accepted replaceable factory/lifecycle suite and (B) the reusable capability/domain-module suite from which client systems and Stations consume governed subsets. Required formation: modules aggregate coherent domain semantics; capabilities expose reusable semantic operations; workflows compose operation invocations plus durable control/human-work constructs; provider bindings realize mechanics without becoming semantic owners; semantic composition does not imply physical distribution. The complete SB is the broad reference suite/factory/catalog, while an autonomous client runtime contains only its selected dependency/capability closure.
+
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
