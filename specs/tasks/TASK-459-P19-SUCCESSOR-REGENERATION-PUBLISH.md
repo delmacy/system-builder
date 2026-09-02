@@ -1,7 +1,7 @@
 ---
 id: TASK-459
 title: Regenerate and publish successor from approved revision
-status: blocked
+status: completed
 priority: 459
 milestone: M19
 model_tier: architecture
@@ -67,6 +67,13 @@ Deploying B, Runtime changes, customer/domain semantics, WBS 19.3.3+ or generali
 
 # Evidence expected
 Focused product/heavy proof for approved-revision regeneration/publication and negative lineage/hash/publication paths plus declared gates.
+
+# Execution evidence
+- Added `tests/product/p19-successor-regeneration-publish.test.ts` to carry the TASK-457 canonical approved revision B through the existing Factory bootstrap and Compiler seams without release-local successor edits.
+- Proved revision B -> system-definition v2 -> Compiler assembly/validation hashes -> verified immutable artifact payload -> PublishedRelease `0.0.2` provenance and explicit system-definition-to-release lineage admission.
+- Proved deterministic repeated generation, idempotent identical payload publication, immutable Release duplicate rejection, and that retained A remains unchanged while B is published.
+- Added fail-closed proofs for rejected approval, substituted predecessor, broken process lineage, stale Compiler validation and substituted payload content before any B Release publication.
+- No Deploy/Runtime/Observe path, public contract, Decision Boundary authority, factory/release owner, identity scheme or WBS 19.3.3+ scope was added.
 
 # Escalation
 Stop if successor generation requires a new public process/system contract or parallel publication authority.
