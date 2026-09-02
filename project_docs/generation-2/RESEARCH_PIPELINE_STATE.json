@@ -10,22 +10,22 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 16,
-    "hourly_runs_completed": 40,
+    "capabilities_revisited_in_active_cycle": 17,
+    "hourly_runs_completed": 41,
     "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
     "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 122,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-COMPLIANCE-ASSERTION-FRESHNESS-EVIDENCE","G2-CAPABILITY-CANDIDATE-EVIDENCE-CUSTODY-INTEGRITY-VERIFICATION-LINEAGE","G2-CAPABILITY-CANDIDATE-GOVERNED-EXCEPTION-OVERRIDE-LIFECYCLE"],
+    "capability_candidate_count": 125,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-EFFECTIVE-SECRET-CONSUMPTION-FRESHNESS-EVIDENCE","G2-CAPABILITY-CANDIDATE-RUNTIME-BOOTSTRAP-HANDOFF-LIFECYCLE","G2-CAPABILITY-CANDIDATE-SECRET-PROVIDER-REBIND-CONTINUITY-PROOF"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "saturated_capabilities": [],
     "pending_capabilities": [],
-    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for the first 15 capabilities in cycle 2; each has revisits_completed=1, consecutive_no_material_finding=0 and MATERIAL_NEW_FINDINGS.",
+    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for the first 16 capabilities in cycle 2; each has revisits_completed=1, consecutive_no_material_finding=0 and MATERIAL_NEW_FINDINGS.",
     "revisit_status": {
-      "Governance / Compliance / Audit": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-GCA-11","G2-FINDING-GCA-12","G2-FINDING-GCA-13","G2-FINDING-GCA-14","G2-FINDING-GCA-15","G2-FINDING-GCA-16"]}
+      "Secrets / Configuration / Environment Portability": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-SCEP-11","G2-FINDING-SCEP-12","G2-FINDING-SCEP-13","G2-FINDING-SCEP-14","G2-FINDING-SCEP-15","G2-FINDING-SCEP-16"]}
     },
-    "representative_coverage": {"Governance / Compliance / Audit":{"NIST OSCAL assessment/results/POA&M":"DEEP","HashiCorp Sentinel enforcement/override":"DEEP","AWS CloudTrail integrity/digest chaining":"DEEP","Sigstore Rekor transparency/verification":"DEEP","GitHub Enterprise audit log retention/export":"DEEP"}},
+    "representative_coverage": {"Secrets / Configuration / Environment Portability":{"HashiCorp Vault lease/renew/revoke + response wrapping/Agent bootstrap":"DEEP","Kubernetes Secrets + External Secrets Operator refresh/materialization/ownership":"DEEP","AWS Secrets Manager staged asynchronous rotation":"DEEP","SOPS encrypted configuration + online/offline key identities":"DEEP","Twelve-Factor Config deploy-time separation":"DEEP"}},
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 336
+    "finding_count": 342
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -42,8 +42,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Governance / Compliance / Audit — revisit cycle 2 pass 1 complete. OSCAL, Sentinel, CloudTrail, Rekor and GitHub Enterprise evidence separated policy/control identity from enforcement and decisions; compliance assertion from observation/freshness context; approval/override from policy mutation; audit occurrence from retention/custody/integrity verification; tamper-evidence from coverage/trust context; and redaction from source-evidence lineage. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/GOVERNANCE_COMPLIANCE_AUDIT_REVISIT_01.md",
-  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Secrets / Configuration / Environment Portability, as the next oldest non-saturated capability. Target secret/config semantic identity versus provider locator/version/materialization identity; declared configuration versus effective runtime binding; rotation/revocation and lease lifecycle; disclosure/read authority versus use-without-disclosure; environment inheritance/overlay and precedence; secret zero/bootstrapping; encryption/key-provider boundaries; audit evidence without secret leakage; redaction/minimization lineage; provider replacement and re-binding; offline/self-hosted operation; generated-runtime autonomy; failure/recovery when provider or key is unavailable; and composition with governance custody/integrity/exception findings without making Secrets own business authorization or deployment semantics. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T21:15:00-03:00"
+  "current_focus": "Secrets / Configuration / Environment Portability — revisit cycle 2 pass 1 complete. Vault, Kubernetes/External Secrets Operator, AWS Secrets Manager, SOPS and Twelve-Factor evidence separated declared binding/provider truth/materialization/runtime-effective consumption; disclosure authority from use-without-disclosure; secret-zero/bootstrap handoff from steady-state secret identity; provider rotation from end-to-end propagation freshness; ciphertext availability from decryptability/recovery; and provider locator replacement from semantic rebind continuity proof. Six material findings emerged, so saturation counter remains zero and phase cannot advance.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_REVISIT_01.md",
+  "next_action": "Continue RESEARCH_ELICITATION revisit cycle 2 with exactly one capability: Provider / Binding / Capability Negotiation, as the next oldest non-saturated capability. Target portable capability requirement identity versus provider implementation/binding/realization identity; declared provider capabilities versus probed/effective capabilities; binding selection/negotiation authority and deterministic resolution; provider version/configuration/trust-context revision; fallback/failover versus replacement semantics; compatibility and semantic degradation; health/readiness versus capability satisfaction; migration/rebind continuity; multi-provider composition; tenant/environment scope; offline/self-hosted provider discovery; provider admission/trust; and evidence linking selection, negotiated contract, effective realization and replacement without transferring business-capability ownership into the provider plane. Compose the new secrets rebind/bootstrap/freshness findings with prior extension wiring and deployment realization evidence. Update explicit revisit/no-material counters; do not mark SATURATED unless the configured rule is objectively met. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-01T21:35:00-03:00"
 }
