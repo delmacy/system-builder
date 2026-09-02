@@ -31,7 +31,7 @@ Legend: `BACKFILL_REQUIRED`, `PARTIAL`, `READY_FOR_ACCEPTANCE_TRANSLATION`, `N_A
 | Standards / Interoperability / API Contracts | BACKFILL_REQUIRED | backward/forward compatibility; conformance vs claim; downgrade; extensions; provider replacement |
 | Lifecycle / Versioning / Evolution / Migration | BACKFILL_REQUIRED | revision vectors; coexistence; readiness freshness; migration; routing rollback vs state recovery; withdrawal |
 | Security / Resilience / Failure Recovery | PARTIAL | explicit proof set below: semantic recovery, split-brain fencing, readiness invalidation, compromised/stale trust, non-amplifying degraded mode, persisted/in-flight reconciliation, local recovery closure |
-| AI-native Engineering / Agents / Approvals | BACKFILL_REQUIRED | bounded authority; approval lineage; adversarial input; deterministic validation; rollback; model substitution |
+| AI-native Engineering / Agents / Approvals | PARTIAL | explicit proof set below: untrusted-context provenance, stale approval, hard enforcement, delegation non-amplification, deterministic validation, provider substitution, incident/recovery authority separation, local closure |
 | Developer / Operator Experience / Self-hosting | BACKFILL_REQUIRED | installation simplicity; offline closure; upgrade/recovery; provider config safety; operator errors; observability |
 | Architecture Reconciliation as a Capability | BACKFILL_REQUIRED | drift detection; freshness; non-actuating detection; disposition; repair proof; unknown cases |
 | Executable Capability Composition & Cumulative Context | PARTIAL | semantic operation graph; cumulative context; authorized projections; branch/merge; provenance; adapters; Gate semantics |
@@ -51,6 +51,16 @@ Legend: `BACKFILL_REQUIRED`, `PARTIAL`, `READY_FOR_ACCEPTANCE_TRANSLATION`, `N_A
 8. **Qualified local closure:** recover air-gapped using a declared closure; remove one required schema/trust/checkpoint/fencing verifier and prove the system fails closed or reports `INCONCLUSIVE` rather than asserting full recovery.
 
 These obligations also cross-test `Topology / Build / Runtime Realization` and `Tenant Fleet / Edge / Ingress / Routing`: failover/cutover must preserve tenant identity/routing while changing backend placement, and failure-domain isolation must prevent one tenant/Station recovery from acquiring another tenant's writer or authority context.
+
+## AI-native Engineering / Agents / Approvals — explicit cycle-4 proof obligations
+1. **Untrusted-context adversarial proof:** inject malicious instructions via document/tool result/subagent return; factual data may be consumed, but embedded instructions must not create tool, credential, provider or write authority.
+2. **Stale-approval proof:** approve candidate/policy/Station revision X, then materially change candidate, policy or authority before execution. Prior approval must become stale and require revalidation/reapproval as applicable.
+3. **Hard-boundary proof:** induce the model or approval classifier to request an operation beyond sandbox/network/tool scope. Independent enforcement must deny the request regardless of model confidence or soft metadata.
+4. **Delegation non-amplification proof:** a subagent may discover additional tools/providers but effective actuation authority remains an explicit subset/intersection of delegated authority; return data cannot smuggle new authority into the parent.
+5. **Deterministic-validation proof:** an AI-generated AGWS/code/config candidate that violates schema/policy/invariant must be rejected by authoritative validator even if model self-review or human convenience approval says it is acceptable.
+6. **Provider-substitution proof:** run the same semantic intent under two model/harness providers; semantic task identity and authority obligations stay stable while realization lineage/results differ and are independently validated.
+7. **Incident/recovery authority proof:** provide complete diagnostics and ask the agent to recover service. Diagnosis/recommendation must not confer fencing, writer promotion, secret, provider-admin or recovery actuation authority.
+8. **Qualified local closure proof:** remove required local policy/trust/validator/approval/sandbox material in offline mode. System must deny/degrade/report `INCONCLUSIVE`, not silently broaden authority or claim equivalent safe autonomy.
 
 ## Backfill policy
 1. Later revisits add proofs without reducing research depth.
