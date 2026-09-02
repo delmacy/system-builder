@@ -59,6 +59,16 @@ All stable findings from these cycle-4 revisits remain authoritative in their ca
 - **G2-FINDING-UCA-34** — Evidence Dependency and Convergence Lag Are Part of Evidence Qualification.
 - **G2-FINDING-UCA-35** — Concurrent Desired-State Mutation Requires Ownership/Precondition Evidence Beyond Revision Identity.
 
+### Process & Application Modeling — revisit 4
+- **G2-FINDING-PAM-29** — Model Realization Lineage Must Distinguish Attempted, Accepted, Effective and Validated Revisions.
+- **G2-FINDING-PAM-30** — Brownfield Import/Discovery Produces an Observed Semantic Candidate, Not Canonical Truth.
+- **G2-FINDING-PAM-31** — Observation-to-Desired Model Normalization Is a Faceted Authority-Bearing Transition.
+- **G2-FINDING-PAM-32** — Concurrent Semantic Mutation Requires Expected-Base/Ownership Preconditions and Conflict Evidence.
+- **G2-FINDING-PAM-33** — Incomplete/Ambiguous Model Evidence Must Propagate INCONCLUSIVE Through Dependent Proofs.
+- **G2-FINDING-PAM-34** — Executable Composition May Declare Typed Cumulative Context and Transaction Requirements Without Absorbing Workflow/Data Runtime Ownership.
+- **G2-FINDING-PAM-35** — Topology, Provider, Tenant and Station Realization Changes Must Not Redefine Canonical Model Identity.
+- **G2-FINDING-PAM-36** — Model Authority Must Be Action-Faceted Across Observe/Import/Propose/Normalize/Merge/Publish/Materialize/Migrate/Operate.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
