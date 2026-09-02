@@ -21,6 +21,9 @@ Microsoft Power Apps / Dataverse / model-driven apps: `DEEP`; ServiceNow UI Buil
 ### Workflow & Durable Execution — revisit 2
 Temporal durable execution/replay baseline: `DEEP`; Camunda 8 / Zeebe jobs-incidents-process migration: `DEEP`; AWS Step Functions Standard retry/callback/redrive: `DEEP`; Azure Durable Functions / Durable Task replay/external events: `DEEP`; BPMN/Camunda compensation semantics: `DEEP`. Findings `G2-FINDING-WDE-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED. This pass focused semantic-operation/run/activity/attempt identity, revision-bound execution context, authority-non-amplifying continuation, external-effect receipts/idempotency, long-run authority revalidation and compensation-vs-rollback.
 
+### Integration & Automation — revisit 2
+Apache Kafka / Kafka Connect 4.3: `DEEP`; Dapr Pub/Sub + Resiliency: `DEEP`; Amazon EventBridge Pipes: `DEEP`; Azure Logic Apps / managed connectors: `DEEP`; Zapier Platform OAuth/triggers: `DEEP`. Findings `G2-FINDING-IA-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED. This pass focused connector-credential versus semantic authority, trigger deduplication versus business idempotency, monotonic authority attenuation across chained automations, connection authority freshness, async/callback outcome identity and provider-replacement authority/operational conformance.
+
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
 ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
