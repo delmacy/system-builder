@@ -6,42 +6,42 @@
   "phase_order": ["RESEARCH_ELICITATION","CAPABILITY_SYNTHESIS","PLANNING_A_TAXONOMY_BOUNDARIES","PLANNING_B_SB_CURRENT_STATE_RECONCILIATION","PLANNING_C_TARGET_ARCHITECTURE","PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY","PLANNING_E_PRODUCT_PROOF_ACCEPTANCE","ARCHITECTURE_RECONCILIATION","WBS_DECOMPOSITION","WBS_DEPENDENCY_GRAPH","WORK_PACKAGE_DESIGN","READY_FOR_WORKER_HANDOFF"],
   "research": {
     "initial_macro_capabilities": 24,
+    "active_taxonomy_capabilities": 25,
     "minimum_full_cycles": 7,
     "target_full_cycles": 10,
     "completed_full_cycles": 1,
     "active_revisit_cycle": 2,
-    "capabilities_revisited_in_active_cycle": 21,
-    "hourly_runs_completed": 45,
-    "saturation_rule": "A capability is SATURATED only after the principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
-    "discovery_rule": "Material concepts that do not fit the current taxonomy must be registered as G2-CAPABILITY-CANDIDATE-* and classified before promotion.",
-    "capability_candidate_count": 138,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-SEMANTIC-OPERATION-RETRY-ATTEMPT-LINEAGE","G2-CAPABILITY-CANDIDATE-RECOVERY-TRANSITION-DECISION-ATTEMPT-EVIDENCE","G2-CAPABILITY-CANDIDATE-RECOVERY-OBJECTIVE-ACHIEVEMENT-EVIDENCE","G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES"],
+    "capabilities_revisited_in_active_cycle": 22,
+    "hourly_runs_completed": 46,
+    "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
+    "capability_candidate_count": 142,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-EFFECTIVE-WORK-SURFACE-RESOLUTION-EVIDENCE","G2-CAPABILITY-CANDIDATE-STATION-CAPABILITY-EXPOSURE-CONTRACT","G2-CAPABILITY-CANDIDATE-AUTHORITY-BOUNDED-WORK-AUTOMATION","G2-CAPABILITY-CANDIDATE-EVIDENCE-GOVERNED-SURFACE-PROMOTION"],
+    "promoted_capabilities_this_run": ["Adaptive Governed Work Surfaces"],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; no prior candidate is revoked by compact state representation",
     "mandatory_discovered_capabilities": {
       "Adaptive Governed Work Surfaces": {
         "candidate_id": "G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES",
         "classification": "CORE",
-        "status": "RESEARCH_REQUIRED",
-        "coverage": "NOT_REVIEWED",
+        "status": "PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY",
+        "coverage": "MIXED_DEEP_PARTIAL",
+        "saturation": "NOT_SATURATED",
         "must_remain_distinct_from": "UI / Generated Experience / Low-code Builder",
-        "required_boundary": "Enterprise → Station → Role → Person with higher invariants non-weakenable; Station is a first-class boundary for partial suites, inherited/exposed capabilities, delegated administration and hierarchically managed System Builder instances.",
-        "required_authoring_rule": "Users may select/add/reorganize constrained components and express intent; AI is the only materializer and may bind/generate only over valid entities, domains, capabilities, permissions and contracts, never silently create canonical schema/entity/rule changes.",
+        "required_boundary": "Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.",
+        "required_authoring_rule": "Users express intent and compose constrained semantic components; AI is sole materializer over valid entities/domains/capabilities/permissions/contracts and must escalate canonical domain/process changes.",
         "required_proofs": ["list/form/grid without new canonical model","layout constrained to allowed slots/grid","mandatory component non-removable","personalization revalidated after Station/Role change","AI request requiring domain change escalated","provider-bound action without coupling","personal automation respects authority","lineage/version/diff/reset/rollback","Personal→Team/Role/System promotion governed by evidence"]
       }
     },
     "saturated_capabilities": [],
-    "pending_capabilities": ["Adaptive Governed Work Surfaces"],
-    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for the first 20 capabilities in cycle 2; each has revisits_completed=1, consecutive_no_material_finding=0 and MATERIAL_NEW_FINDINGS.",
+    "pending_capabilities": ["AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"],
+    "revisit_status_authority": "Prior state history and capability dossiers preserve revisit status for all earlier cycle-2 capabilities; material findings reset their saturation counters.",
     "revisit_status": {
-      "Security / Resilience / Failure Recovery": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-SRFR-11","G2-FINDING-SRFR-12","G2-FINDING-SRFR-13","G2-FINDING-SRFR-14","G2-FINDING-SRFR-15","G2-FINDING-SRFR-16"]},
-      "Adaptive Governed Work Surfaces": {"revisits_completed":0,"consecutive_no_material_finding":0,"last_revisit_result":"NOT_REVIEWED","new_findings":[]}
+      "Adaptive Governed Work Surfaces": {"revisits_completed":1,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-AGWS-01","G2-FINDING-AGWS-02","G2-FINDING-AGWS-03","G2-FINDING-AGWS-04","G2-FINDING-AGWS-05","G2-FINDING-AGWS-06","G2-FINDING-AGWS-07","G2-FINDING-AGWS-08","G2-FINDING-AGWS-09"]}
     },
     "representative_coverage": {
-      "Security / Resilience / Failure Recovery":{"Envoy retry/circuit breaking/outlier detection":"DEEP","Temporal durable Activity execution":"DEEP","Kubernetes disruption semantics":"DEEP","PostgreSQL PITR/timelines":"DEEP","AWS Well-Architected Reliability/DR":"DEEP","LitmusChaos":"DEEP"},
-      "Adaptive Governed Work Surfaces":{"dedicated representative set":"NOT_REVIEWED"}
+      "Adaptive Governed Work Surfaces":{"ServiceNow UI Builder":"DEEP","SAP Build Work Zone":"DEEP","Salesforce Lightning App Builder / Dynamic Forms":"DEEP","Microsoft Power Apps":"PARTIAL","Retool":"PARTIAL","Appsmith":"PARTIAL"}
     },
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
-    "finding_count": 366
+    "finding_count": 375
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, and remaining external-research gaps are non-material or saturated.",
@@ -58,8 +58,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research and planning artifacts are complete, integrated and ready for the separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Security / Resilience / Failure Recovery — revisit cycle 2 pass 1 complete. Envoy, Temporal, Kubernetes, PostgreSQL, AWS Well-Architected Reliability/DR and LitmusChaos evidence separated failure occurrence/domain observation, semantic operation/retry attempt, containment versus recovery, recovery-point admissibility, failover/failback transitions and post-recovery conformance. Six material findings emerged, so saturation counter remains zero. Adaptive Governed Work Surfaces is now explicitly registered as a mandatory distinct CORE research candidate with NOT_REVIEWED coverage; by the rotation rule it becomes the next capability because it has lower coverage than already-deep non-saturated capabilities.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/SECURITY_RESILIENCE_FAILURE_RECOVERY_REVISIT_01.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Adaptive Governed Work Surfaces, the newly registered mandatory CORE candidate and lowest-coverage non-saturated capability (NOT_REVIEWED). Perform its first dedicated multi-representative research pass; do not absorb it into UI / Generated Experience / Low-code Builder. Select 3–8 strong current representatives from composable workspace/low-code systems (candidate families include Retool, Appsmith, Power Apps/Dynamics, OutSystems, Mendix, ServiceNow UI Builder, Salesforce Lightning/App Builder, SAP Build Work Zone, replacing candidates when stronger representatives are found). Compare component registry, constrained grid/slot/template layout, limited drag/drop, semantic metadata, AI authoring, contextual component/DOM selection, safe data/action binding, mandatory non-removable components, inheritance/policies, Personal/Team/Role/Org overlays, version/diff/reset/rollback, evidence-governed promotion, accessibility, extensibility, portability, audit/provenance, workflows and external systems. Model Enterprise → Station → Role → Person with non-weakenable superior invariants; Station must cover partial suites, inherited/exposed capabilities, delegated administration and SB hierarchically managed by another SB. Distinguish visual personalization, personal action, supervised automation, team workflow and canonical domain/process change; automation may never exceed Station/Role authority. Mandatory proofs: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for domain change; provider-bound action without coupling; authority-bounded personal automation; lineage/version/diff/reset/rollback; and evidence-governed Personal→Team/Role/System promotion. Update Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
-  "last_updated": "2026-09-01T23:30:12-03:00"
+  "current_focus": "Adaptive Governed Work Surfaces — first dedicated research pass complete and promoted from mandatory CORE candidate into the active research taxonomy. ServiceNow UI Builder, SAP Build Work Zone and Salesforce Lightning/Dynamic Forms are DEEP; Power Apps, Retool and Appsmith are PARTIAL. Nine material findings establish semantic surface/overlay/effective-surface identities, Station as capability-exposure boundary, monotonic Enterprise→Station→Role→Person invariants, AI materialization authority boundary, provider-neutral action binding, authority-intersection automation, revalidation and evidence-governed promotion. Capability remains NOT SATURATED.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/ADAPTIVE_GOVERNED_WORK_SURFACES_RESEARCH_01.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: AI-native Engineering / Agents / Approvals, the next non-saturated capability in cycle-2 rotation after completing the newly inserted Adaptive Governed Work Surfaces pass. Deepen approval/authority semantics, proposal-versus-materialization identity, tool/capability grants, delegated/subagent authority, human review checkpoints, resumability, side-effect attempt/result lineage, policy/context revision, prompt/model/provider portability, audit/provenance and failure recovery. Explicitly test composition with Adaptive Governed Work Surfaces: AI is sole surface materializer but receives no implied canonical-domain authority; domain/process-changing intents must escalate; surface automation authority is bounded by Station/Role and provider/action policy. Update dossier, Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS; minimum_full_cycles remains 7 and only 1 full cycle is complete.",
+  "last_updated": "2026-09-02T00:08:26-03:00"
 }
