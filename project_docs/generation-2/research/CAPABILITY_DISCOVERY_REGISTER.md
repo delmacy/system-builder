@@ -7,6 +7,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 Required proofs remain: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for canonical domain change; provider-bound action without coupling; bounded personal automation; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion.
 
+## Integration & Automation — revisit cycle 3 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-CONNECTOR-CREDENTIAL-SEMANTIC-AUTHORITY-INTERSECTION | CROSS_CUTTING | CANDIDATE | Authorization, Provider/Binding and AGWS research converge on one reusable proof that technical credential capability cannot widen semantic operation authority. |
+| G2-CAPABILITY-CANDIDATE-MONOTONIC-AUTHORITY-ATTENUATION-ACROSS-AUTOMATION-HOPS | CROSS_CUTTING | CANDIDATE | Workflow, AI delegated-authority and Authorization research converge on the same no-widening invariant across chained execution. |
+| G2-CAPABILITY-CANDIDATE-ASYNC-EFFECT-CALLBACK-CORRELATION-EVIDENCE | CROSS_CUTTING | CANDIDATE | Observability, Notifications/Events and Provider findings converge on a shared submission/callback/effect evidence primitive. |
+
 ## Workflow & Durable Execution — revisit cycle 3 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
