@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## Adaptive Governed Work Surfaces — revisit 1 / cycle 3
+- G2-FINDING-AGWS-10 — AI Authoring Authority Must Be Classified by Mutation Class Before Materialization
+- G2-FINDING-AGWS-11 — Employee Work-Surface Authoring Must Exclude Privileged Query/Script/Frontend Escape Hatches
+- G2-FINDING-AGWS-12 — Effective Surface Resolution Requires Explainable Layer Contribution and Conflict Evidence
+- G2-FINDING-AGWS-13 — Personalization Validity Requires a Revision-Bound Dependency Set, Not Merely a Saved Layout Revision
+- G2-FINDING-AGWS-14 — Portable Surface Definition and Target Station Realization Are Separate Proofs
+- G2-FINDING-AGWS-15 — Read Assistance, Suggested Mutation, Supervised Automation and Canonical Change Require Distinct Authority Classes
+
 ## UI / Generated Experience / Low-code Builder — revisit 2 / cycle 3
 - G2-FINDING-UIGX-17 — Generated Experience Is a Revisioned Projection, Not Canonical Model or Rendered Realization
 - G2-FINDING-UIGX-18 — Form/List/Grid Derivation Must Be Possible Under Projection-Only Authority
