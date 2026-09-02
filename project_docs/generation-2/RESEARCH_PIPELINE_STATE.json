@@ -13,13 +13,13 @@
     "cycle_semantics": "minimum_full_cycles is a mandatory floor; target_full_cycles is a maturity checkpoint for global saturation reassessment, not an upper bound. There is no maximum cycle count.",
     "continuation_rule": "Cycle count never authorizes CAPABILITY_SYNTHESIS by itself. Continue while material findings, gaps, divergences or unresolved cross-cutting primitives remain; transition only when saturation and completeness gates are satisfied.",
     "late_cycle_selection_rule": "As saturation increases, prefer research-by-exception and do not routinely reopen SATURATED capabilities without material new evidence or contradiction.",
-    "completed_full_cycles": 3,
-    "active_revisit_cycle": 4,
-    "capabilities_revisited_in_active_cycle": 24,
-    "hourly_runs_completed": 98,
-    "finding_count": 704,
-    "capability_candidate_count": 312,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-PROGRESSIVE-OPERATIONAL-REALIZATION-PROFILE","G2-CAPABILITY-CANDIDATE-BOOTSTRAP-TRUST-QUALIFICATION-EVIDENCE","G2-CAPABILITY-CANDIDATE-NON-ACTUATING-OPERATOR-TRANSITION-PREVIEW-EVIDENCE","G2-CAPABILITY-CANDIDATE-ROLLBACK-ELIGIBILITY-RETAINED-MATERIAL-EVIDENCE","G2-CAPABILITY-CANDIDATE-BOUNDED-LOCAL-DIAGNOSTIC-AUTHORITY-EVIDENCE"],
+    "completed_full_cycles": 4,
+    "active_revisit_cycle": 5,
+    "capabilities_revisited_in_active_cycle": 0,
+    "hourly_runs_completed": 99,
+    "finding_count": 712,
+    "capability_candidate_count": 317,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-GENERATION-QUALIFIED-RECONCILIATION-EVIDENCE","G2-CAPABILITY-CANDIDATE-FACETED-RECONCILIATION-ACTUATION-AUTHORITY","G2-CAPABILITY-CANDIDATE-AMBIGUOUS-ACTUATION-OUTCOME-QUARANTINE","G2-CAPABILITY-CANDIDATE-AUTHORIZED-OBSERVATION-TO-DESIRED-NORMALIZATION","G2-CAPABILITY-CANDIDATE-RECONCILIATION-CONVERGENCE-LAG-EVIDENCE"],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "SATURATED requires principal representatives covered and two consecutive eligible revisits with no material new architectural finding, or remaining questions requiring repository validation. Material findings reset the streak.",
@@ -32,22 +32,53 @@
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; compact representations do not revoke prior candidates",
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
     "finding_inventory_authority": "project_docs/generation-2/research/FINDING_INDEX.md plus capability dossiers and prior state history; compact state does not revoke prior findings",
-    "mandatory_discovered_capabilities": {"Adaptive Governed Work Surfaces":{"candidate_id":"G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES","classification":"CORE","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","must_remain_distinct_from":"UI / Generated Experience / Low-code Builder","required_boundary":"Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.","required_authoring_rule":"Users express intent and compose constrained semantic components; AI is sole materializer and must escalate canonical domain/process changes.","required_proofs":["list/form/grid without new canonical model","layout constrained to allowed slots/grid","mandatory component non-removable","personalization revalidated after Station/Role change","AI request requiring domain change escalated","provider-bound action without coupling","personal automation respects authority","lineage/version/diff/reset/rollback","Personal→Team/Role/System promotion governed by evidence"]}},
-    "enterprise_completeness_negative_space_gate": {"required_when_completed_full_cycles_gte":7,"status":"NOT_YET_ELIGIBLE","artifact":"project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md","rule":"CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be challenged if not researched earlier. The review must also explicitly challenge executable composition/cumulative context, transaction-consistency-concurrency, simple-to-mature topology/build/runtime realization, tenant fleet placement, edge/ingress/domain/TLS routing and multi-dimensional tenant isolation."},
-    "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting"],
-    "latest_revisit": {"capability":"Developer / Operator Experience / Self-hosting","revisits_completed":3,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-DOESH-23","G2-FINDING-DOESH-24","G2-FINDING-DOESH-25","G2-FINDING-DOESH-26","G2-FINDING-DOESH-27","G2-FINDING-DOESH-28","G2-FINDING-DOESH-29","G2-FINDING-DOESH-30"],"representative_coverage":{"Talos Linux machine configuration/upgrade/rollback/troubleshooting/PKI":"DEEP","OpenShift disconnected environments/oc-mirror image-set and update-history closure":"DEEP","NixOS/Nix generations/dry activation/test/build-vm/rollback eligibility":"DEEP","Kubernetes kubeadm bootstrap trust/CA pinning and kubectl node diagnostics":"DEEP"}},
-    "pending_capabilities": ["Architecture Reconciliation as a Capability"]
+    "mandatory_discovered_capabilities": {
+      "Adaptive Governed Work Surfaces": {
+        "candidate_id": "G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES",
+        "classification": "CORE",
+        "status": "PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY",
+        "saturation": "NOT_SATURATED",
+        "must_remain_distinct_from": "UI / Generated Experience / Low-code Builder",
+        "required_boundary": "Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.",
+        "required_authoring_rule": "Users express intent and compose constrained semantic components; AI is sole materializer and must escalate canonical domain/process changes.",
+        "required_proofs": ["list/form/grid without new canonical model","layout constrained to allowed slots/grid","mandatory component non-removable","personalization revalidated after Station/Role change","AI request requiring domain change escalated","provider-bound action without coupling","personal automation respects authority","lineage/version/diff/reset/rollback","Personal→Team/Role/System promotion governed by evidence"]
+      }
+    },
+    "enterprise_completeness_negative_space_gate": {
+      "required_when_completed_full_cycles_gte": 7,
+      "status": "NOT_YET_ELIGIBLE",
+      "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
+      "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be challenged if not researched earlier. The review must also explicitly challenge executable composition/cumulative context, transaction-consistency-concurrency, simple-to-mature topology/build/runtime realization, tenant fleet placement, edge/ingress/domain/TLS routing and multi-dimensional tenant isolation."
+    },
+    "active_cycle_completed": [],
+    "latest_revisit": {
+      "capability": "Architecture Reconciliation as a Capability",
+      "revisits_completed": 3,
+      "consecutive_no_material_finding": 0,
+      "last_revisit_result": "MATERIAL_NEW_FINDINGS",
+      "new_findings": ["G2-FINDING-ARAC-23","G2-FINDING-ARAC-24","G2-FINDING-ARAC-25","G2-FINDING-ARAC-26","G2-FINDING-ARAC-27","G2-FINDING-ARAC-28","G2-FINDING-ARAC-29","G2-FINDING-ARAC-30"],
+      "representative_coverage": {
+        "Kubernetes observedGeneration/status conditions": "DEEP",
+        "Flux Kustomization attempted/applied revisions and reconciliation conditions": "DEEP",
+        "Crossplane management policies/late initialization/ambiguous creation outcome": "DEEP",
+        "Terraform drift/refresh prior evidence": "DEEP",
+        "Architecture-conformance and erosion literature": "DEEP",
+        "AI architecture-intent recovery literature": "DEEP",
+        "GitOps reconciliation performance literature": "DEEP"
+      }
+    },
+    "pending_capabilities": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
   },
   "gates": {
-    "RESEARCH_ELICITATION":"OPEN — all active macro-capabilities require sufficient evidential coverage/saturation, minimum cycles and the post-cycle-7 negative-space gate.",
-    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW":"NOT_YET_ELIGIBLE — mandatory after completed_full_cycles >= 7 and before CAPABILITY_SYNTHESIS.",
-    "ARCHITECTURE_PROOF_BACKFILL":"OPEN — retroactive proof obligations are mandatory for all active capabilities/hypotheses. Security/Resilience/Failure Recovery, AI-native Engineering / Agents / Approvals and Developer / Operator Experience / Self-hosting are PARTIAL with eight explicit proof obligations each; Planning E cannot close with unresolved BACKFILL_REQUIRED/PARTIAL entries without explicit disposition.",
-    "CAPABILITY_SYNTHESIS":"BLOCKED_BY_RESEARCH_ELICITATION"
+    "RESEARCH_ELICITATION": "OPEN — four full cycles complete; all active macro-capabilities still require evidence-driven saturation, minimum seven cycles and the post-cycle-7 negative-space gate.",
+    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "NOT_YET_ELIGIBLE — mandatory after completed_full_cycles >= 7 and before CAPABILITY_SYNTHESIS.",
+    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — retroactive proof obligations are mandatory for all active capabilities/hypotheses. Security/Resilience/Failure Recovery, AI-native Engineering / Agents / Approvals, Developer / Operator Experience / Self-hosting and Architecture Reconciliation as a Capability are PARTIAL with explicit cycle-4 proof obligations; Planning E cannot close with unresolved BACKFILL_REQUIRED/PARTIAL entries without explicit disposition.",
+    "CAPABILITY_SYNTHESIS": "BLOCKED_BY_RESEARCH_ELICITATION"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Developer / Operator Experience / Self-hosting — revisit 3 / cycle 4 complete. Eight material findings establish progressive simple-to-mature operational realization, first-class bootstrap trust, non-actuating revision-bound preview/preflight, disconnected maintenance/update-history closure, conditional rollback eligibility, local diagnostics with bounded authority, non-collapsed self-host administration powers and provider/topology substitution without semantic rewrite. Five candidates recorded, none promoted. Eight explicit architecture proof obligations advance Developer/Operator/Self-hosting proof-backfill status to PARTIAL.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/DEVELOPER_OPERATOR_EXPERIENCE_SELF_HOSTING_REVISIT_03.md",
+  "current_focus": "Architecture Reconciliation as a Capability — revisit 3 closed cycle 4. Eight material findings establish generation-qualified status; attempted versus applied/effective versus healthy revision separation; action-faceted reconciliation authority; first-class ambiguous-actuation quarantine; explicit authority/provenance for provider-observation-to-desired normalization; convergence-lag evidence; obligation dependency and INCONCLUSIVE propagation; and AI-recovered architecture as qualified evidence/proposal rather than canonical authority. Five candidates recorded, none promoted. Eight explicit proof obligations advance Architecture Reconciliation proof-backfill status to PARTIAL. Cycle 4 is complete with material findings in all 25 capabilities; no capability is saturated.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/ARCHITECTURE_RECONCILIATION_AS_CAPABILITY_REVISIT_03.md",
   "last_framework_artifact": "project_docs/generation-2/research/CAPABILITY_PROOF_MATRIX.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Architecture Reconciliation as a Capability, revisit cycle 4, as the final pending non-saturated capability in cycle 4. Deepen desired/effective/observed architecture drift identity; reconciliation evidence freshness and INCONCLUSIVE semantics; detection versus proposal versus approval versus repair authority; stale evidence invalidation; multi-plane revision comparison across definition/provider/topology/runtime/security; conflict/disposition taxonomy; provider substitution and migration reconciliation; offline/local reconciliation closure; cross-Station/hierarchical-SB reconciliation without authority amplification; repair rollback/postcondition evidence; and integration with deterministic-validator/non-actuating AI findings. Apply RESEARCH_EVIDENCE_METHOD.md and ARCHITECTURE_PROOF_QUALITY_METHOD.md, adding/refining high-value positive, adversarial, failure/recovery, authority and provider-substitution proof obligations and updating CAPABILITY_PROOF_MATRIX.md when materially advanced. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=3 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T17:32:28-03:00"
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Universal Capability Architecture, revisit 4 / cycle 5, as the oldest non-saturated capability at the start of cycle 5. Reassess whether the cycle-4 convergence around unified revision-bound realization/evidence lineage, unified evidence qualification, qualified local closure, non-actuating/faceted authority separation and shared governed transitions can be consolidated without erasing semantic owners. Explicitly test generation-qualified observation, attempted/applied/effective/healthy distinctions, ambiguous actuation outcomes, authorized observation-to-desired normalization, convergence-lag evidence, obligation dependency/INCONCLUSIVE propagation, architecture-proof backfill obligations, Adaptive Governed Work Surfaces distinctness and the four mandatory research hypotheses. Apply RESEARCH_EVIDENCE_METHOD.md and ARCHITECTURE_PROOF_QUALITY_METHOD.md. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=4 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T17:47:30-03:00"
 }
