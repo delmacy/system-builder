@@ -27,6 +27,9 @@ Apache Kafka / Kafka Connect 4.3: `DEEP`; Dapr Pub/Sub + Resiliency: `DEEP`; Ama
 ### Identity / Authentication / Federation — revisit 2
 OpenID Connect / OAuth identity and audience semantics: `DEEP`; RFC 8693 OAuth Token Exchange: `DEEP`; Microsoft identity platform / MSAL On-Behalf-Of: `DEEP`; SPIFFE/SPIRE workload identity and federation: `DEEP`; Keycloak session/token lifecycle and revocation: `DEEP`. Findings `G2-FINDING-IAF-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED. This pass focused canonical-subject/authenticated-principal/actor/workload separation, audience/issuer/trust-bound evidence, non-amplifying delegation/OBO, session-versus-token freshness, federation-versus-authorization boundaries and identity-provider replacement conformance.
 
+### Authorization / Policy / Organization / Multitenancy — revisit 2
+Cedar Policy Language: `DEEP`; OpenFGA contextual/organization/conditional authorization: `DEEP`; SpiceDB/Authzed: `DEEP`; Open Policy Agent: `DEEP`; Kubernetes RBAC privilege-escalation prevention: `DEEP`; Amazon Verified Permissions identity-source boundary: `DEEP`. Findings `G2-FINDING-AUTH-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED. This pass focused monotonic effective-authority resolution, delegated-administration subset proof, impersonation/OBO re-resolution, ephemeral organization/Station context versus canonical membership, provider conflict/default semantics and authority revalidation for long-running privileged effects.
+
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
 ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
