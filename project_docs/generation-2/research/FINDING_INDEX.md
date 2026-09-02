@@ -38,4 +38,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-PBCN-15 — Provider Health Does Not Prove Capability Satisfaction or Semantic Equivalence
 - G2-FINDING-PBCN-16 — Provider Replacement Is a Continuity Proof Across Semantic Requirement, State, Trust and Effective Realization
 
+## Standards / Interoperability / API Contracts — revisit 1
+- G2-FINDING-SIAC-11 — Declared Contract/Profile and Negotiated Effective Profile Are Distinct Evidence
+- G2-FINDING-SIAC-12 — Document Validity, Compatibility and Runtime Conformance Are Separate Proof Classes
+- G2-FINDING-SIAC-13 — Required and Optional Feature Semantics Need Explicit MUST-UNDERSTAND/Fallback Rules
+- G2-FINDING-SIAC-14 — Content/Profile Negotiation Is an Interaction or Binding Outcome, Not Contract Mutation
+- G2-FINDING-SIAC-15 — Semantic Problem Type, Protocol Status and Error Occurrence Are Distinct Identities
+- G2-FINDING-SIAC-16 — Extension Interoperability Requires Explicit Unknown-Feature Processing Semantics
+
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
