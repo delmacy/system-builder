@@ -26,29 +26,16 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - Artifact / Release / SBOM / Provenance: `G2-FINDING-ARSP-11..16`.
 - Deployment / Environment / Runtime: `G2-FINDING-DER-11..16`.
 - Observability / Operations / Incident: `G2-FINDING-OOI-11..16`.
+- Extension / Plugin / Marketplace Architecture: `G2-FINDING-EXT-11..16`.
+- Governance / Compliance / Audit: `G2-FINDING-GCA-11..16`.
+- Secrets / Configuration / Environment Portability: `G2-FINDING-SCEP-11..16`.
 
-## Extension / Plugin / Marketplace Architecture — revisit 1
-- G2-FINDING-EXT-11 — Marketplace Publication, Artifact Verification and Runtime Admission Are Distinct Decisions
-- G2-FINDING-EXT-12 — Declared Compatibility and Resolved Extension Wiring Are Distinct Evidence
-- G2-FINDING-EXT-13 — Disable/Deactivate and Uninstall/Owned-State Retirement Are Distinct Lifecycles
-- G2-FINDING-EXT-14 — Dependency Trust Propagation Is Policy, Not a Universal Consequence of Dependency Edges
-- G2-FINDING-EXT-15 — Runtime Placement/Process Separation Does Not Prove Privilege Isolation
-- G2-FINDING-EXT-16 — Extension API Compatibility and Extension-owned State Migration Are Separate Proof Obligations
-
-## Governance / Compliance / Audit — revisit 1
-- G2-FINDING-GCA-11 — Policy/Control Identity, Enforcement Configuration and Decision Evidence Are Distinct
-- G2-FINDING-GCA-12 — Compliance Assertion Is Subject-, Scope-, Window- and Freshness-bound Evidence
-- G2-FINDING-GCA-13 — Approval, Override and Exception Are Governed Decisions, Not Policy Mutation
-- G2-FINDING-GCA-14 — Audit Event Occurrence, Retained Record, Custody and Integrity Verification Are Separate Evidence
-- G2-FINDING-GCA-15 — Tamper-evident Claims Require Coverage Interval and Trust/Verification Context
-- G2-FINDING-GCA-16 — Redaction/Minimization Is an Evidence Transformation Requiring Lineage
-
-## Secrets / Configuration / Environment Portability — revisit 1
-- G2-FINDING-SCEP-11 — Declared Binding, Provider Resolution, Materialization and Effective Runtime Consumption Are Distinct Evidence
-- G2-FINDING-SCEP-12 — Secret Disclosure Authority and Use-Without-Disclosure Authority Are Distinct
-- G2-FINDING-SCEP-13 — Secret-Zero / Bootstrap Handoff Has Its Own Identity, TTL and Consumption Lifecycle
-- G2-FINDING-SCEP-14 — Rotation Success Is Not End-to-End Freshness; Propagation to Materializers and Consumers Is a Separate Proof Obligation
-- G2-FINDING-SCEP-15 — Encrypted Configuration Availability and Decryptability/Recovery Are Separate Proofs
-- G2-FINDING-SCEP-16 — Provider Replacement Requires Rebind Continuity Proof, Not Locator Substitution
+## Provider / Binding / Capability Negotiation — revisit 1
+- G2-FINDING-PBCN-11 — Capability Requirement, Provider Selection and Effective Realization Are Distinct Identities
+- G2-FINDING-PBCN-12 — Declared Provider Capability and Observed Effective Capability Are Distinct Evidence
+- G2-FINDING-PBCN-13 — Provider Admission, Selection, Activation and Health Are Independent Decisions/States
+- G2-FINDING-PBCN-14 — Deterministic Binding Requires a Persisted Resolution Record, Not Only Compatibility Constraints
+- G2-FINDING-PBCN-15 — Provider Health Does Not Prove Capability Satisfaction or Semantic Equivalence
+- G2-FINDING-PBCN-16 — Provider Replacement Is a Continuity Proof Across Semantic Requirement, State, Trust and Effective Realization
 
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
