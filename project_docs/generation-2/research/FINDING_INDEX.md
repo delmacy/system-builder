@@ -69,6 +69,16 @@ All stable findings from these cycle-4 revisits remain authoritative in their ca
 - **G2-FINDING-PAM-35** — Topology, Provider, Tenant and Station Realization Changes Must Not Redefine Canonical Model Identity.
 - **G2-FINDING-PAM-36** — Model Authority Must Be Action-Faceted Across Observe/Import/Propose/Normalize/Merge/Publish/Materialize/Migrate/Operate.
 
+### UI / Generated Experience / Low-code Builder — revisit 4
+- **G2-FINDING-UIGX-29** — UI Lineage Must Distinguish Projection Intent, Materialization Attempt, Accepted Revision, Effective Realization and Validated Postcondition.
+- **G2-FINDING-UIGX-30** — Constrained Semantic Component/Layout Contracts Must Be Portable Above DOM/CSS/Framework Realizations.
+- **G2-FINDING-UIGX-31** — Accessibility Is Revision/Profile-Qualified Semantic Conformance, Not a Consequence of Successful Rendering.
+- **G2-FINDING-UIGX-32** — Concurrent Projection Mutation Requires Expected-Base/Ownership Preconditions and Explicit Conflict Evidence.
+- **G2-FINDING-UIGX-33** — Missing or Ambiguous UI Dependencies Must Propagate PARTIAL/INCONCLUSIVE Evidence Rather Than Be Silently Dropped.
+- **G2-FINDING-UIGX-34** — AI Proposal/Materialization Authority Is Distinct From Deterministic Validation, Publication and Canonical-Domain Mutation Authority.
+- **G2-FINDING-UIGX-35** — Renderer/Provider/Topology Substitution Must Preserve Projection Identity While Reissuing Realization and Accessibility/Semantic Evidence.
+- **G2-FINDING-UIGX-36** — UI Rollback Is an Eligibility-Bound Governed Transition Over Retained Semantic and Realization Dependencies.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
