@@ -33,7 +33,7 @@ Legend: `BACKFILL_REQUIRED`, `PARTIAL`, `READY_FOR_ACCEPTANCE_TRANSLATION`, `N_A
 | Security / Resilience / Failure Recovery | PARTIAL | explicit proof set below: semantic recovery, split-brain fencing, readiness invalidation, compromised/stale trust, non-amplifying degraded mode, persisted/in-flight reconciliation, local recovery closure |
 | AI-native Engineering / Agents / Approvals | PARTIAL | explicit proof set below: untrusted-context provenance, stale approval, hard enforcement, delegation non-amplification, deterministic validation, provider substitution, incident/recovery authority separation, local closure |
 | Developer / Operator Experience / Self-hosting | PARTIAL | explicit proof set below: simple→mature topology, bootstrap trust, non-actuating preview, disconnected update closure, rollback eligibility, bounded diagnostics, provider substitution, AGWS/AI non-amplification |
-| Architecture Reconciliation as a Capability | BACKFILL_REQUIRED | drift detection; freshness; non-actuating detection; disposition; repair proof; unknown cases |
+| Architecture Reconciliation as a Capability | PARTIAL | explicit proof set below: stale generation, attempted/applied/healthy distinction, action-faceted authority, ambiguous outcome quarantine, normalization authority, convergence lag, dependency/INCONCLUSIVE propagation, AI architecture evidence boundary |
 | Executable Capability Composition & Cumulative Context | PARTIAL | semantic operation graph; cumulative context; authorized projections; branch/merge; provenance; adapters; Gate semantics |
 | Transaction / Consistency / Concurrency | PARTIAL | invariants; concurrent mutation; duplicate/reorder/replay; atomicity; compensation; split-brain/offline reconciliation |
 | Topology / Build / Runtime Realization | PARTIAL | simple collapse; split/scale; build once/replicate many; provider substitution; partial build; topology migration |
@@ -49,8 +49,6 @@ Legend: `BACKFILL_REQUIRED`, `PARTIAL`, `READY_FOR_ACCEPTANCE_TRANSLATION`, `N_A
 6. **Authority non-amplification:** disconnect external providers/authority services while AGWS remains locally available. Person/Role/AI must not gain provider admin, secret access, writer promotion or canonical mutation authority; unavailable privileged actions become explicit degraded/escalated states.
 7. **Persisted vs in-flight reconciliation:** recover state while durable workflows/messages/automations are mid-flight. Each execution must be classified and evidenced as resume/replay/compensate/quarantine/terminate without duplicate unauthorized effects.
 8. **Qualified local closure:** recover air-gapped using a declared closure; remove one required schema/trust/checkpoint/fencing verifier and prove the system fails closed or reports `INCONCLUSIVE` rather than asserting full recovery.
-
-These obligations also cross-test `Topology / Build / Runtime Realization` and `Tenant Fleet / Edge / Ingress / Routing`: failover/cutover must preserve tenant identity/routing while changing backend placement, and failure-domain isolation must prevent one tenant/Station recovery from acquiring another tenant's writer or authority context.
 
 ## AI-native Engineering / Agents / Approvals — explicit cycle-4 proof obligations
 1. **Untrusted-context adversarial proof:** inject malicious instructions via document/tool result/subagent return; factual data may be consumed, but embedded instructions must not create tool, credential, provider or write authority.
@@ -72,7 +70,17 @@ These obligations also cross-test `Topology / Build / Runtime Realization` and `
 7. **Provider/topology substitution proof:** satisfy the same operational profile with two materially different host/orchestrator realizations while provider IDs remain non-canonical and conformance is re-proven.
 8. **AGWS/AI authority proof:** from a self-hosted AGWS request topology/provider mutation, CA/secret exposure or recovery without authority; AI may propose/escalate but authoritative actuation must be denied.
 
-These proofs cross-test qualified local closure, `Topology / Build / Runtime Realization`, Security/Recovery and Station/AGWS authority. “Simple” is accepted only when complexity is projected away from the user, not erased from reproducible/evidence-bearing semantics.
+## Architecture Reconciliation as a Capability — explicit cycle-4 proof obligations
+1. **Stale-generation negative proof:** evaluate generation N, mutate desired architecture to N+1 without refreshing evidence, and require the old apparently healthy status to become stale/inapplicable rather than `CONFORMANT`.
+2. **Attempt/applied/healthy distinction:** attempt revision B after applied revision A and force health failure. Evidence must retain attempted=B, effective/applied state as actually observed, and non-ready postcondition without collapsing them into one current revision.
+3. **Action-faceted authority proof:** grant Observe but deny Normalize/Create/Update/Delete. Reconciliation may collect/classify evidence but every denied mutation facet must remain impossible even if the provider supports it.
+4. **Ambiguous-outcome adversarial proof:** inject acknowledgement loss after an external create succeeds. Reconciler must enter `OUTCOME_UNKNOWN`/quarantine, reconcile external identity and refuse blind duplicate create until disposition/recovery is authorized.
+5. **Normalization-authority proof:** provider returns a default/late-initialized value. Observe-only mode must not alter canonical desired state; explicit normalization authority must create provenance-bound desired-state lineage if accepted.
+6. **Convergence-lag proof:** delay reconciliation queue/apply/health independently. Freshness reporting must expose each lag dimension and must not treat a recent observation timestamp as proof of timely convergence.
+7. **Dependency/INCONCLUSIVE proof:** break an upstream architecture extractor/classifier required by downstream obligations. Dependent evaluations must report incomplete/`INCONCLUSIVE`, not false `PASS`; unaffected independent obligations may still evaluate.
+8. **AI architecture boundary proof:** feed ambiguous historical work items to an architecture-recovery model and produce a plausible architecture candidate. It may become evidence/proposal only; canonical ADR/obligation changes require deterministic validation and authorized disposition, with uncertainty retained.
+
+These proofs cross-test unified evidence qualification, provider capability negotiation, non-actuating reconciliation, shared governed transitions, AI-native validation and Station/AGWS authority.
 
 ## Backfill policy
 1. Later revisits add proofs without reducing research depth.
