@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 16/25 capabilities revisited.
+Cycle 4 is open with 17/25 capabilities revisited.
 
 ### Universal Capability Architecture — revisit 3
 OASIS TOSCA 2.0, Kubernetes desired/observed generation, OpenFeature provider/context/status, OpenTelemetry Resource/Entity identity, Crossplane ProviderConfig/ManagedResource, SPIFFE trust domains/bundles and OPA bundle persistence/status: `DEEP`. Findings `G2-FINDING-UCA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
@@ -51,13 +51,16 @@ Bazel remote cache/CAS/action cache/remote execution, Bazel sandbox/repository c
 SLSA v1.2 provenance, OCI descriptor/content-addressability and multi-platform image index, GitHub Artifact Attestations + lifecycle, Sigstore/Cosign trust/offline bundles and CycloneDX 1.7/BOM-Link: `DEEP`. Findings `G2-FINDING-ARSP-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED.
 
 ### Deployment / Environment / Runtime — revisit 3
-Kubernetes Deployment rollout/revision/readiness/rollback, RuntimeClass scheduling/runtime selection, StatefulSet rollback boundary, HashiCorp Nomad canary/promotion/auto-revert/multi-region deployment and failure recovery: `DEEP`. Findings `G2-FINDING-DER-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: semantic deployment/environment identity vs release/provider/runtime realization; rollout/checkpoint/postcondition evidence; rollback as new transition; runtime selection; region/platform qualification; qualified local runtime recovery closure; release/deployment/runtime authority separation.
+Kubernetes Deployment rollout/revision/readiness/rollback, RuntimeClass scheduling/runtime selection, StatefulSet rollback boundary, HashiCorp Nomad canary/promotion/auto-revert/multi-region deployment and failure recovery: `DEEP`. Findings `G2-FINDING-DER-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED.
 
 ### Observability / Operations / Incident — revisit 3
-OpenTelemetry Logs/Event data model, OpenTelemetry Collector internal telemetry/resiliency, Prometheus alerting rules, Google SRE SLO/error-budget policy, PagerDuty incident lifecycle/timeline/escalation: `DEEP`. Findings `G2-FINDING-OOI-23..30`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: revision/topology-bound operational evidence; pipeline-health/freshness/coverage/INCONCLUSIVE qualification; deployment/readiness/domain-postcondition handoff; alert/incident/remediation/recovery lineage; SLO evidence; authority non-amplification; qualified local/offline observability/incident closure; operational-complexity evidence without billing ownership.
+OpenTelemetry Logs/Event data model, OpenTelemetry Collector internal telemetry/resiliency, Prometheus alerting rules, Google SRE SLO/error-budget policy, PagerDuty incident lifecycle/timeline/escalation: `DEEP`. Findings `G2-FINDING-OOI-23..30`; material new findings; consecutive-no-material = 0; NOT SATURATED.
 
 ### Extension / Plugin / Marketplace Architecture — revisit 3
-Terraform provider registry/mirror/plugin protocol/signing/lock-file: `DEEP`; VS Code Marketplace/Workspace Trust: `DEEP`; OSGi Core lifecycle/BundleRevision/wiring: `DEEP`; Backstage frontend/backend plugin architecture, installation and permissions: `DEEP`; Kubernetes admission extensibility: `PARTIAL`. Findings `G2-FINDING-EXT-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: install→resolve/wire→enable→activate separation; coexisting revisions/wirings; integrity vs protocol vs semantic compatibility vs admission; revocation enforcement evidence; host-owned extension points/authority; qualified local extension closure; Station/AGWS/AI non-amplification.
+Terraform provider registry/mirror/plugin protocol/signing/lock-file: `DEEP`; VS Code Marketplace/Workspace Trust: `DEEP`; OSGi Core lifecycle/BundleRevision/wiring: `DEEP`; Backstage frontend/backend plugin architecture, installation and permissions: `DEEP`; Kubernetes admission extensibility: `PARTIAL`. Findings `G2-FINDING-EXT-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED.
+
+### Governance / Compliance / Audit — revisit 3
+NIST OSCAL Control/Profile/Mapping/Assessment Results, AWS Audit Manager evidence/inconclusive/report-integrity, Azure Policy exemptions and Microsoft Purview audit retention: `DEEP`; prior OPA/Sentinel/CloudTrail evidence remains `DEEP`. Findings `G2-FINDING-GCA-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: cross-framework mapping without semantic duplication; observation→selection→package→integrity boundaries; retention as policy-qualified evidence; exception expiry lineage; assessment/remediation authority separation; qualified local governance closure.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
