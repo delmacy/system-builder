@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 13/25 capabilities revisited.
+Cycle 4 is open with 14/25 capabilities revisited.
 
 ### Universal Capability Architecture — revisit 3
 OASIS TOSCA 2.0, Kubernetes desired/observed generation, OpenFeature provider/context/status, OpenTelemetry Resource/Entity identity, Crossplane ProviderConfig/ManagedResource, SPIFFE trust domains/bundles and OPA bundle persistence/status: `DEEP`. Findings `G2-FINDING-UCA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
@@ -45,10 +45,13 @@ Amazon S3 Object Versioning/Object Lock/Replication: `DEEP`; Azure Blob Versioni
 Apache Kafka 4.1 producer transactions/consumer offsets: `DEEP`; Google Cloud Pub/Sub ordering/exactly-once/subscription lifecycle: `DEEP`; Amazon SQS FIFO/DLQ redrive: `DEEP`; NATS JetStream consumer position/ack/replay/retention: `DEEP`; CloudEvents 1.0.x semantic envelope: `DEEP`. Findings `G2-FINDING-NEM-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
 
 ### Build / Dependency Graph / Reproducibility — revisit 3
-Bazel remote cache/CAS/action cache/remote execution, Bazel sandbox/repository cache, Docker BuildKit reproducible builds/cache invalidation and GitHub Actions dependency caching: `DEEP`; prior Reproducible Builds and Nix closure evidence remains `DEEP`. Findings `G2-FINDING-BUILD-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: semantic build identity vs graph/action/cache/output realization; cache qualification; incremental invalidation; provider/runner migration; qualified local build closure; AGWS/AI authority attenuation.
+Bazel remote cache/CAS/action cache/remote execution, Bazel sandbox/repository cache, Docker BuildKit reproducible builds/cache invalidation and GitHub Actions dependency caching: `DEEP`; prior Reproducible Builds and Nix closure evidence remains `DEEP`. Findings `G2-FINDING-BUILD-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
 
 ### Artifact / Release / SBOM / Provenance — revisit 3
-SLSA v1.2 provenance, OCI descriptor/content-addressability and multi-platform image index, GitHub Artifact Attestations + lifecycle, Sigstore/Cosign trust/offline bundles and CycloneDX 1.7/BOM-Link: `DEEP`. Findings `G2-FINDING-ARSP-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: semantic release vs realization/platform/channel identity; SBOM revision/freshness/subject binding; per-platform qualification; independent evidence/trust lifecycle; governed registry migration; qualified local verification/install closure; AI/AGWS authority attenuation.
+SLSA v1.2 provenance, OCI descriptor/content-addressability and multi-platform image index, GitHub Artifact Attestations + lifecycle, Sigstore/Cosign trust/offline bundles and CycloneDX 1.7/BOM-Link: `DEEP`. Findings `G2-FINDING-ARSP-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED.
+
+### Deployment / Environment / Runtime — revisit 3
+Kubernetes Deployment rollout/revision/readiness/rollback, RuntimeClass scheduling/runtime selection, StatefulSet rollback boundary, HashiCorp Nomad canary/promotion/auto-revert/multi-region deployment and failure recovery: `DEEP`. Findings `G2-FINDING-DER-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: semantic deployment/environment identity vs release/provider/runtime realization; rollout/checkpoint/postcondition evidence; rollback as new transition; runtime selection; region/platform qualification; qualified local runtime recovery closure; release/deployment/runtime authority separation.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
