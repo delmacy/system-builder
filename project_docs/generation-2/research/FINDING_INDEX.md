@@ -39,11 +39,21 @@ All stable findings from these cycle-4 revisits remain authoritative in their ca
 - **G2-FINDING-DOESH-29** — Self-hosting Does Not Collapse Definition, Bootstrap, Diagnostic, Upgrade, Secret/Trust and Recovery Authorities Into One Administrator Power.
 - **G2-FINDING-DOESH-30** — Provider/Topology Substitution Must Preserve Semantic System Identity While Producing New Realization and Conformance Evidence.
 
+### Architecture Reconciliation as a Capability — revisit 3
+- **G2-FINDING-ARAC-23** — Architecture Status Must Be Generation-Qualified; Current-Looking Status Bound to an Older Subject Generation Is Stale Evidence.
+- **G2-FINDING-ARAC-24** — Attempted Revision, Applied/Effective Revision and Ready/Healthy Postcondition Are Distinct Reconciliation Facts.
+- **G2-FINDING-ARAC-25** — Reconciliation Authority Is Action-Faceted; Observe, Normalize, Create, Update and Delete Capabilities Must Not Collapse Into One Permission.
+- **G2-FINDING-ARAC-26** — Ambiguous Actuation Outcome Is a First-Class Quarantine State; Blind Retry Can Duplicate or Leak External Realizations.
+- **G2-FINDING-ARAC-27** — Provider Observation May Enter Desired State Only Through an Explicitly Authorized, Provenanced Normalization/Late-Initialization Transition.
+- **G2-FINDING-ARAC-28** — Reconciliation Freshness Includes Queue, Attempt, Apply and Health-Convergence Lag, Not Observation Timestamp Alone.
+- **G2-FINDING-ARAC-29** — Obligation Dependencies and Structural Extraction Failures Can Mask Downstream Violations and Must Propagate INCONCLUSIVE/Coverage Semantics.
+- **G2-FINDING-ARAC-30** — AI-Recovered Architecture Is Qualified Evidence/Proposal, Not Canonical Architecture Authority; Relationship Uncertainty Must Remain Explicit.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
-## Cycle 4 progress
-24/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
+## Cycle 4 closure
+All 25 active capabilities completed cycle 4. Every cycle-4 pass produced material architectural findings; consecutive-no-material remains 0 and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings and the full wording of compacted cycle-4 sections, remain authoritative in their dossiers and prior index revisions.
