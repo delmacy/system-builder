@@ -9,6 +9,9 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 ### Universal Capability Architecture — revisit 2
 OASIS TOSCA 2.0: `DEEP`; Kubernetes declarative API / observedGeneration: `DEEP`; OpenTelemetry Resources / Entities / semantic conventions: `DEEP`; Backstage Software Catalog: `DEEP`; Crossplane provider/configuration/managed realization: `DEEP`; OpenTofu/Terraform provider requirements/association: `DEEP`. Findings `G2-FINDING-UCA-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
+### Process & Application Modeling — revisit 2
+Mendix Domain Model + Microflows + Model Access API: `DEEP`; Microsoft Power Apps / Dataverse model-driven apps: `DEEP`; ServiceNow App Engine Studio + Workflow Studio: `DEEP`; OMG BPMN 2.0.2: `DEEP`; JSON Schema 2020-12 baseline: `DEEP`. Findings `G2-FINDING-PAM-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED.
+
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
 ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
