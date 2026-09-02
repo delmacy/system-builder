@@ -29,21 +29,15 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - Extension / Plugin / Marketplace Architecture: `G2-FINDING-EXT-11..16`.
 - Governance / Compliance / Audit: `G2-FINDING-GCA-11..16`.
 - Secrets / Configuration / Environment Portability: `G2-FINDING-SCEP-11..16`.
+- Provider / Binding / Capability Negotiation: `G2-FINDING-PBCN-11..16`.
+- Standards / Interoperability / API Contracts: `G2-FINDING-SIAC-11..16`.
 
-## Provider / Binding / Capability Negotiation — revisit 1
-- G2-FINDING-PBCN-11 — Capability Requirement, Provider Selection and Effective Realization Are Distinct Identities
-- G2-FINDING-PBCN-12 — Declared Provider Capability and Observed Effective Capability Are Distinct Evidence
-- G2-FINDING-PBCN-13 — Provider Admission, Selection, Activation and Health Are Independent Decisions/States
-- G2-FINDING-PBCN-14 — Deterministic Binding Requires a Persisted Resolution Record, Not Only Compatibility Constraints
-- G2-FINDING-PBCN-15 — Provider Health Does Not Prove Capability Satisfaction or Semantic Equivalence
-- G2-FINDING-PBCN-16 — Provider Replacement Is a Continuity Proof Across Semantic Requirement, State, Trust and Effective Realization
-
-## Standards / Interoperability / API Contracts — revisit 1
-- G2-FINDING-SIAC-11 — Declared Contract/Profile and Negotiated Effective Profile Are Distinct Evidence
-- G2-FINDING-SIAC-12 — Document Validity, Compatibility and Runtime Conformance Are Separate Proof Classes
-- G2-FINDING-SIAC-13 — Required and Optional Feature Semantics Need Explicit MUST-UNDERSTAND/Fallback Rules
-- G2-FINDING-SIAC-14 — Content/Profile Negotiation Is an Interaction or Binding Outcome, Not Contract Mutation
-- G2-FINDING-SIAC-15 — Semantic Problem Type, Protocol Status and Error Occurrence Are Distinct Identities
-- G2-FINDING-SIAC-16 — Extension Interoperability Requires Explicit Unknown-Feature Processing Semantics
+## Lifecycle / Versioning / Evolution / Migration — revisit 1
+- G2-FINDING-LVEM-11 — Semantic Object Identity, Revision Identity and Effective Realization Identity Are Distinct
+- G2-FINDING-LVEM-12 — Compatibility Policy and Observed Compatibility Are Separate Evidence
+- G2-FINDING-LVEM-13 — Migration Intent, Plan, Attempt, Checkpoint and Result Require Independent Lineage
+- G2-FINDING-LVEM-14 — Deprecation, Disablement and Removal Are Distinct Lifecycle Decisions
+- G2-FINDING-LVEM-15 — Rollback Is a New Governed Transition and Cannot Be Assumed Universally Reversible
+- G2-FINDING-LVEM-16 — Migration Completion Does Not Prove Post-Transition Conformance or Consumer Readiness
 
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
