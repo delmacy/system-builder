@@ -26,5 +26,13 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - G2-FINDING-PBCN-21 — Runtime-Autonomous Provider Use Requires a Qualified Local Realization Closure, Not Registry or Control-Plane Reachability
 - G2-FINDING-PBCN-22 — Station-Scoped Capability Exposure Is a Delegated Binding Boundary and Must Be Non-Amplifying
 
+## Security / Resilience / Failure Recovery — revisit 2 / cycle 3
+- G2-FINDING-SRFR-17 — Recoverability Depends on Recovery-Material Dependency Closure, Not Backup Artifact Existence
+- G2-FINDING-SRFR-18 — Recovery Produces a New Explicit Lineage Branch and Must Preserve the Source History
+- G2-FINDING-SRFR-19 — Resilience Controls Require Applicability Scope and Uncovered Failure-Class Evidence
+- G2-FINDING-SRFR-20 — Recovery Objective, Strategy, Provider Mechanism and Achieved Objective Are Distinct Identities and Evidence
+- G2-FINDING-SRFR-21 — Retry Eligibility Must Bind Failure Class, Idempotency/Side-Effect Semantics and Budget Before an Attempt Is Authorized
+- G2-FINDING-SRFR-22 — Recovery Completion Without Semantic Postcondition Validation Is Not Recovery Proof
+
 ## Current cycle historical authority
 Findings `EXT-17..22`, `OOI-17..22`, `DER-17..22`, `ARSP-17..22`, `BUILD-17..22`, `NEM-17..22`, `SDM-17..22`, `DSM-17..22`, `AUTH-17..22`, `IAF-17..22`, `IA-17..22`, `WDE-17..22`, `AGWS-10..15`, `UIGX-17..22`, `PAM-17..22`, and `UCA-17..22` remain authoritative in their dossiers and prior index revisions.
