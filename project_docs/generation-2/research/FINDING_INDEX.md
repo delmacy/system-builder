@@ -35,4 +35,12 @@ G2-FINDING-ARAC-01..10 remain authoritative in the capability dossier.
 - G2-FINDING-EXT-15 — Runtime Placement/Process Separation Does Not Prove Privilege Isolation
 - G2-FINDING-EXT-16 — Extension API Compatibility and Extension-owned State Migration Are Separate Proof Obligations
 
+## Governance / Compliance / Audit — revisit 1
+- G2-FINDING-GCA-11 — Policy/Control Identity, Enforcement Configuration and Decision Evidence Are Distinct
+- G2-FINDING-GCA-12 — Compliance Assertion Is Subject-, Scope-, Window- and Freshness-bound Evidence
+- G2-FINDING-GCA-13 — Approval, Override and Exception Are Governed Decisions, Not Policy Mutation
+- G2-FINDING-GCA-14 — Audit Event Occurrence, Retained Record, Custody and Integrity Verification Are Separate Evidence
+- G2-FINDING-GCA-15 — Tamper-evident Claims Require Coverage Interval and Trust/Verification Context
+- G2-FINDING-GCA-16 — Redaction/Minimization Is an Evidence Transformation Requiring Lineage
+
 Detailed prior finding titles remain authoritative in earlier index revisions and capability dossiers; this compact index does not revoke them.
