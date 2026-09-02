@@ -9,58 +9,13 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 17/25 capabilities revisited.
+Cycle 4 is open with 18/25 capabilities revisited.
 
-### Universal Capability Architecture — revisit 3
-OASIS TOSCA 2.0, Kubernetes desired/observed generation, OpenFeature provider/context/status, OpenTelemetry Resource/Entity identity, Crossplane ProviderConfig/ManagedResource, SPIFFE trust domains/bundles and OPA bundle persistence/status: `DEEP`. Findings `G2-FINDING-UCA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
+### Universal Capability Architecture through Governance / Compliance / Audit
+The first 17 cycle-4 revisits remain authoritative in their capability dossiers and prior ledger revisions. Every pass produced material findings and remains NOT SATURATED.
 
-### Process & Application Modeling — revisit 3
-Camunda 8 and Mendix: `DEEP`; ServiceNow update-set transport/version-direction boundary: `PARTIAL`; OMG BPMN 2.0.2 and prior layered-modeling evidence: `DEEP`. Findings `G2-FINDING-PAM-23..28`; material new findings; NOT SATURATED.
-
-### UI / Generated Experience / Low-code Builder — revisit 3
-Power Apps/Dataverse, Mendix, ServiceNow UI Builder, Salesforce Lightning App Builder: `DEEP`. Findings `G2-FINDING-UIGX-23..28`; material new findings; NOT SATURATED.
-
-### Adaptive Governed Work Surfaces — revisit 2
-Power Apps/Dataverse, ServiceNow UI Builder, SAP Build Work Zone, Salesforce Lightning App Builder and prior Appsmith evidence: `DEEP`; Retool: `PARTIAL`. Findings `G2-FINDING-AGWS-16..21`; material new findings; NOT SATURATED.
-
-### Workflow & Durable Execution — revisit 3
-Camunda 8, AWS Step Functions, Azure Durable Functions: `DEEP`; Temporal: `PARTIAL`. Findings `G2-FINDING-WDE-23..28`; material new findings; NOT SATURATED.
-
-### Integration & Automation — revisit 3
-Apache Kafka and Amazon EventBridge: `DEEP`; CloudEvents: `PARTIAL`; prior Dapr, Azure Logic Apps and Zapier: `DEEP`. Findings `G2-FINDING-IA-23..28`; material new findings; NOT SATURATED.
-
-### Identity / Authentication / Federation — revisit 3
-OpenID Connect, Microsoft Entra, Keycloak, Auth0 and SPIFFE: `DEEP`. Findings `G2-FINDING-IAF-23..28`; material new findings; NOT SATURATED.
-
-### Authorization / Policy / Organization / Multitenancy — revisit 3
-Cedar, OpenFGA, Kubernetes RBAC, Microsoft Entra PIM, Amazon Verified Permissions and prior OPA evidence: `DEEP`. Findings `G2-FINDING-AUTH-23..28`; material new findings; NOT SATURATED.
-
-### Data / Schema / Migrations — revisit 3
-PostgreSQL, Vitess, Debezium, AWS DMS, Prisma Migrate v7 and Liquibase 5.0.x: `DEEP`. Findings `G2-FINDING-DSM-23..28`; material new findings; NOT SATURATED.
-
-### Storage / Documents / Media — revisit 3
-Amazon S3 Object Versioning/Object Lock/Replication: `DEEP`; Azure Blob Versioning/Object Replication/Immutable Storage: `DEEP`; Google Cloud Storage Object Versioning/Object Retention Lock/Bucket Lock: `DEEP`; MinIO/S3-compatible prior evidence: `PARTIAL` for this revisit. Findings `G2-FINDING-SDM-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### Notifications / Events / Messaging — revisit 3
-Apache Kafka 4.1 producer transactions/consumer offsets: `DEEP`; Google Cloud Pub/Sub ordering/exactly-once/subscription lifecycle: `DEEP`; Amazon SQS FIFO/DLQ redrive: `DEEP`; NATS JetStream consumer position/ack/replay/retention: `DEEP`; CloudEvents 1.0.x semantic envelope: `DEEP`. Findings `G2-FINDING-NEM-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### Build / Dependency Graph / Reproducibility — revisit 3
-Bazel remote cache/CAS/action cache/remote execution, Bazel sandbox/repository cache, Docker BuildKit reproducible builds/cache invalidation and GitHub Actions dependency caching: `DEEP`; prior Reproducible Builds and Nix closure evidence remains `DEEP`. Findings `G2-FINDING-BUILD-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### Artifact / Release / SBOM / Provenance — revisit 3
-SLSA v1.2 provenance, OCI descriptor/content-addressability and multi-platform image index, GitHub Artifact Attestations + lifecycle, Sigstore/Cosign trust/offline bundles and CycloneDX 1.7/BOM-Link: `DEEP`. Findings `G2-FINDING-ARSP-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### Deployment / Environment / Runtime — revisit 3
-Kubernetes Deployment rollout/revision/readiness/rollback, RuntimeClass scheduling/runtime selection, StatefulSet rollback boundary, HashiCorp Nomad canary/promotion/auto-revert/multi-region deployment and failure recovery: `DEEP`. Findings `G2-FINDING-DER-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### Observability / Operations / Incident — revisit 3
-OpenTelemetry Logs/Event data model, OpenTelemetry Collector internal telemetry/resiliency, Prometheus alerting rules, Google SRE SLO/error-budget policy, PagerDuty incident lifecycle/timeline/escalation: `DEEP`. Findings `G2-FINDING-OOI-23..30`; material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### Extension / Plugin / Marketplace Architecture — revisit 3
-Terraform provider registry/mirror/plugin protocol/signing/lock-file: `DEEP`; VS Code Marketplace/Workspace Trust: `DEEP`; OSGi Core lifecycle/BundleRevision/wiring: `DEEP`; Backstage frontend/backend plugin architecture, installation and permissions: `DEEP`; Kubernetes admission extensibility: `PARTIAL`. Findings `G2-FINDING-EXT-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### Governance / Compliance / Audit — revisit 3
-NIST OSCAL Control/Profile/Mapping/Assessment Results, AWS Audit Manager evidence/inconclusive/report-integrity, Azure Policy exemptions and Microsoft Purview audit retention: `DEEP`; prior OPA/Sentinel/CloudTrail evidence remains `DEEP`. Findings `G2-FINDING-GCA-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: cross-framework mapping without semantic duplication; observation→selection→package→integrity boundaries; retention as policy-qualified evidence; exception expiry lineage; assessment/remediation authority separation; qualified local governance closure.
+### Secrets / Configuration / Environment Portability — revisit 3
+HashiCorp Vault dynamic-secret leases/renewal/revocation/mount migration and irrevocable-lease failure semantics: `DEEP`; SPIFFE/SPIRE workload identity/SVID/registration: `DEEP`; Kubernetes Secrets/security/external-store projection/bound service-account guidance: `DEEP`; Vault Proxy persistent-cache freshness boundary: `DEEP`. Findings `G2-FINDING-SCEP-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: semantic reference vs credential/provider realization; workload identity as credential-elimination realization; rotation/revocation postconditions; stale local material; non-amplifying Enterprise→Station→Role→Person overlays; governed provider transition; qualified local secret/config recovery closure.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
