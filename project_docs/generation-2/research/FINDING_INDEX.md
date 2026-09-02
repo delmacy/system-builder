@@ -19,11 +19,20 @@ Findings `G2-FINDING-SCEP-23..29` remain authoritative in the capability dossier
 - **G2-FINDING-PBCN-29** — Binding Alternatives and Provider Instances Can Coexist Behind Stable Semantic Identity Only with Explicit Selection Scope.
 - **G2-FINDING-PBCN-30** — Capability-Owned Extension Surfaces Must Remain Stable Across Provider Implementation Replacement.
 
+### Standards / Interoperability / API Contracts — revisit 3
+- **G2-FINDING-SIAC-23** — Compatibility Is a Revision-Pair, Direction, Profile and Rule-Set Relation, Not a Boolean.
+- **G2-FINDING-SIAC-24** — Wire Compatibility Does Not Imply Source or Semantic Compatibility.
+- **G2-FINDING-SIAC-25** — Negotiated Representation Selection Must Not Authorize Semantic Profile Downgrade.
+- **G2-FINDING-SIAC-26** — Coexisting API Revisions Need Explicit Read/Write/Storage/Exposure Roles and Round-Trip Postconditions.
+- **G2-FINDING-SIAC-27** — Provider Description and Negotiation Success Are Claims/Realization Facts, Not Domain Conformance Proof.
+- **G2-FINDING-SIAC-28** — Deprecation Usage Evidence Is Required to Govern Safe Contract Withdrawal.
+- **G2-FINDING-SIAC-29** — Qualified Local Contract Closure Must Include Compatibility Baselines, Conversion Rules and Conformance Fixtures.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-19/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
+20/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings and the full wording of compacted cycle-4 sections, remain authoritative in their dossiers and prior index revisions.
