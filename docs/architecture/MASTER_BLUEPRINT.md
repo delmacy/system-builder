@@ -210,6 +210,33 @@ The complete SB suite is a reference implementation of the full pipeline. A user
 Horizontal interoperability: replace an SB suite stage.
 Vertical interoperability: integrate generated client systems with existing enterprise systems.
 
+### Generation 2 research clarification — capability composition axis
+
+Generation 2 is testing a second, orthogonal meaning of suite that complements the factory pipeline above. The complete System Builder is also expected to maintain a broad catalog/suite of specialist reusable capabilities and domain modules, while each client system materializes only the governed subset required for its work.
+
+Candidate formation:
+
+```text
+Complete SB
+  = factory/lifecycle tools
+  + reusable capability/runtime suite
+  + catalogs/resolution/governance/evidence
+
+Client System
+  = selected modules/capabilities
+  + workflow/process composition
+  + authority/data/interfaces
+  + provider bindings/topology
+```
+
+Candidate ownership rule:
+
+> Modules aggregate coherent domain semantics. Capabilities expose reusable semantic operations. Workflows compose operation invocations together with durable orchestration/human-work constructs. Providers realize mechanics without redefining portable semantic identity.
+
+This does not imply that every capability is shipped to every runtime, nor that module/capability boundaries imply microservices. Assembly/build should eventually close only over the selected dependency/capability set required by the client system. Brownfield providers such as an ERP may realize one selected capability while another is SB-native under the same semantic composition model.
+
+Research authority: `project_docs/generation-2/research/concepts/SYSTEM_BUILDER_SUITE_COMPOSITION_FORMATION.md`. This subsection is a Generation 2 research clarification and does not amend accepted ADR-0003 without later synthesis/architecture reconciliation/change control.
+
 ## 9. AI role
 
 AI is strongest in ambiguous work: elicitation, discovery, analysis, gap detection, system design and suggestions.
