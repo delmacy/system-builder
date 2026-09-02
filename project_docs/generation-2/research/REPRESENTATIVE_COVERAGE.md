@@ -15,6 +15,9 @@ Mendix Domain Model + Microflows + Model Access API: `DEEP`; Microsoft Power App
 ### UI / Generated Experience / Low-code Builder — revisit 2
 Mendix Pages/Layout Grid/Page Explorer/Maia: `DEEP`; Microsoft Power Apps model-driven forms/views/components: `DEEP`; ServiceNow UI Builder data resources/page variants: `DEEP`; Salesforce Lightning App Builder/Dynamic Forms: `DEEP`; Mendix pluggable widget/marketplace security: `PARTIAL`. Findings `G2-FINDING-UIGX-17..22`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
+### Adaptive Governed Work Surfaces — revisit 1
+Microsoft Power Apps / Dataverse / model-driven apps: `DEEP`; ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Appsmith: `DEEP` for boundary/anti-pattern analysis; Retool: `PARTIAL`. Findings `G2-FINDING-AGWS-10..15`; material new findings, consecutive-no-material = 0; NOT SATURATED. This pass deepened AI mutation authority, employee-vs-maker escape-hatch boundaries, explainable effective resolution, dependency-freshness revalidation, target-Station realization and supervised automation semantics.
+
 ## Adaptive Governed Work Surfaces — dedicated research pass 1
 ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED.
 
