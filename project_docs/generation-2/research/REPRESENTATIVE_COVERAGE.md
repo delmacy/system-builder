@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 7/25 capabilities revisited.
+Cycle 4 is open with 8/25 capabilities revisited.
 
 ### Universal Capability Architecture — revisit 3
 OASIS TOSCA 2.0: `DEEP`; Kubernetes desired/observed generation: `DEEP`; OpenFeature provider/context/status: `DEEP`; OpenTelemetry Resource/Entity identity: `DEEP`; Crossplane ProviderConfig/ManagedResource: `DEEP`; SPIFFE trust domains/bundles: `DEEP`; OPA bundle persistence/status: `DEEP`. Findings `G2-FINDING-UCA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
@@ -31,6 +31,9 @@ Apache Kafka 4.2 delivery/transaction boundary: `DEEP`; Amazon EventBridge API d
 
 ### Identity / Authentication / Federation — revisit 3
 OpenID Connect Core/registration/back-channel logout: `DEEP`; Microsoft Entra Conditional Access authentication strengths/risk policies: `DEEP`; Keycloak sessions/offline/transient sessions/revocation: `DEEP`; Auth0 refresh-token/session revocation and rotation: `DEEP`; SPIFFE federation/trust-bundle rotation: `DEEP`. Findings `G2-FINDING-IAF-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: canonical subject vs authentication-context/session/credential/provider revisions; contextual assurance/step-up; scoped revocation and stale windows; governed IdP/federation migration; qualified local identity closure; AGWS revalidation without authority amplification.
+
+### Authorization / Policy / Organization / Multitenancy — revisit 3
+Cedar policy/schema validation: `DEEP`; OpenFGA contextual tuples/conditions/immutable models: `DEEP`; Kubernetes RBAC privilege-escalation prevention/impersonation: `DEEP`; Microsoft Entra PIM eligible/active role activation: `DEEP`; Amazon Verified Permissions policy-store consistency/Cedar migration: `DEEP`; prior OPA bundle/decision evidence: `DEEP`. Findings `G2-FINDING-AUTH-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: revision-qualified authority/decision/enforcement lineage; temporary authority leases; durable/asynchronous freshness-profiled reauthorization; governed policy/provider migration; qualified local authorization closure; AGWS revalidation across Station/Role/policy/auth-context changes.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
