@@ -54,5 +54,15 @@ No Architecture Reconciliation candidate is promoted. Adaptive Governed Work Sur
 
 No cycle-5 UCA candidate is promoted. Adaptive Governed Work Surfaces remains distinct and unchanged.
 
+## Process & Application Modeling — revisit cycle 5 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-PAM-ATTEMPT-ACCEPTED-EFFECTIVE-VALIDATED-LINEAGE | CROSS_CUTTING | MERGE_TARGET | Reconcile with universal attempt/effective/postcondition lineage while preserving semantic publication/acceptance as a model-specific fact. |
+| G2-CAPABILITY-CANDIDATE-PAM-BROWNFIELD-OBSERVED-CANDIDATE-NORMALIZATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with authorized normalization across Data/Config/Deployment; preserve source provenance and unknown semantics. |
+| G2-CAPABILITY-CANDIDATE-PAM-SEMANTIC-MUTATION-OWNERSHIP-PRECONDITIONS | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA concurrency ownership/preconditions and later Data/UI collaborative-edit evidence. |
+| G2-CAPABILITY-CANDIDATE-PAM-INCONCLUSIVE-MODEL-EVIDENCE-DEPENDENCY | CROSS_CUTTING | MERGE_TARGET | Reconcile with unified evidence dependency/convergence qualification; model-specific missing references remain explicit. |
+
+No PAM cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains distinct and unchanged.
+
 ## Historical authority
 All candidates from prior sections/revisions remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
