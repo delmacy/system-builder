@@ -7,6 +7,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 Required proofs remain: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for canonical domain change; provider-bound action without coupling; bounded personal automation; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion.
 
+## Universal Capability Architecture — revisit 2 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-SEMANTIC-IDENTITY-LIFESPAN-CONTRACT | CROSS_CUTTING | CANDIDATE | Synthesis confirms common identity/lifespan semantics across domain objects, providers, runtime realizations and evidence. |
+| G2-CAPABILITY-CANDIDATE-SCOPED-CAPABILITY-EXPOSURE | CORE | CANDIDATE | Synthesis proves exposure is reusable and distinct from authorization, deployment and provider offer across multiple domains. |
+| G2-CAPABILITY-CANDIDATE-REVISION-BOUND-EFFECTIVE-RESOLUTION-EVIDENCE | CROSS_CUTTING | CANDIDATE | Synthesis confirms shared proof shape across provider binding, AGWS overlay resolution, migration and conformance. |
+
 ## Adaptive Governed Work Surfaces candidates
 | Candidate | Class | Status |
 |---|---|---|
