@@ -11,11 +11,11 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 2,
     "active_revisit_cycle": 3,
-    "capabilities_revisited_in_active_cycle": 19,
-    "hourly_runs_completed": 68,
-    "finding_count": 507,
-    "capability_candidate_count": 209,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-CAPABILITY-PROFILE-PARTIAL-SATISFACTION-EVIDENCE","G2-CAPABILITY-CANDIDATE-COMPOSITE-PROVIDER-REALIZATION-CONFORMANCE","G2-CAPABILITY-CANDIDATE-RUNTIME-AUTONOMOUS-PROVIDER-REALIZATION-CLOSURE"],
+    "capabilities_revisited_in_active_cycle": 20,
+    "hourly_runs_completed": 69,
+    "finding_count": 513,
+    "capability_candidate_count": 212,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-RECOVERY-MATERIAL-DEPENDENCY-CLOSURE","G2-CAPABILITY-CANDIDATE-RESILIENCE-CONTROL-APPLICABILITY-EVIDENCE","G2-CAPABILITY-CANDIDATE-RESTORED-LINEAGE-BRANCH-EVIDENCE"],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
@@ -45,6 +45,12 @@
         "consecutive_no_material_finding": 0,
         "last_revisit_result": "MATERIAL_NEW_FINDINGS",
         "new_findings": ["G2-FINDING-PBCN-17","G2-FINDING-PBCN-18","G2-FINDING-PBCN-19","G2-FINDING-PBCN-20","G2-FINDING-PBCN-21","G2-FINDING-PBCN-22"]
+      },
+      "Security / Resilience / Failure Recovery": {
+        "revisits_completed": 2,
+        "consecutive_no_material_finding": 0,
+        "last_revisit_result": "MATERIAL_NEW_FINDINGS",
+        "new_findings": ["G2-FINDING-SRFR-17","G2-FINDING-SRFR-18","G2-FINDING-SRFR-19","G2-FINDING-SRFR-20","G2-FINDING-SRFR-21","G2-FINDING-SRFR-22"]
       }
     },
     "representative_coverage": {
@@ -54,9 +60,16 @@
         "Kubernetes device plugins": "DEEP",
         "SPIFFE Workload API + federation": "DEEP",
         "Backstage feature discovery/plugins": "PARTIAL"
+      },
+      "Security / Resilience / Failure Recovery": {
+        "PostgreSQL 18 PITR/incremental-backup dependency chains": "DEEP",
+        "Kubernetes disruptions/PDB applicability": "DEEP",
+        "AWS Well-Architected DR objectives/strategies/testing": "DEEP",
+        "AWS retry/backoff + circuit breaker": "DEEP",
+        "NIST CSF 2.0 lifecycle outcomes": "DEEP"
       }
     },
-    "pending_capabilities": ["Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
+    "pending_capabilities": ["Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
   },
   "gates": {
     "RESEARCH_ELICITATION": "All active macro-capabilities have representative coverage, discovered candidates are triaged, minimum cycles completed, saturation conditions are satisfied, and when completed_full_cycles >= 7 the Enterprise Completeness / Negative-Space Review gate is closed with no material ownerless category.",
@@ -74,8 +87,8 @@
     "READY_FOR_WORKER_HANDOFF": "Research/planning complete, integrated and ready for separate :10/:30/:50 execution pipeline."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Provider / Binding / Capability Negotiation — revisit 2 / cycle 3 complete. Six material findings distinguish provider claims from compatibility/admission proof; require mandatory/optional capability profiles and partial-satisfaction semantics; demonstrate mechanism-independent realization; require composite realization compatibility/authority evidence; define runtime-autonomous local provider closure; and make Station-scoped provider exposure a non-amplifying delegated binding boundary.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/PROVIDER_BINDING_CAPABILITY_NEGOTIATION_REVISIT_02.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Standards / Interoperability / API Contracts, revisit cycle 3. Test semantic contract/profile identity versus wire/API/schema/transport/provider realization; mandatory versus optional profile features and partial-satisfaction/conformance evidence; compatibility windows and backward/forward evolution; OpenAPI/AsyncAPI/JSON Schema/CloudEvents/OAuth-OIDC/SCIM/OCI or stronger representatives where relevant; negotiation/version selection versus provider binding ownership; schema vocabulary and namespaced extension governance; API lifecycle/deprecation; error/failure semantics; capability discovery; offline/self-hosted conformance; provider replacement without contract ownership transfer; Station-scoped exposed contracts and non-amplifying Enterprise → Station → Role → Person authority; AGWS/AI consuming only admitted semantic contracts without arbitrary endpoint/query creation; and convergence with G2-CAPABILITY-CANDIDATE-CAPABILITY-PROFILE-PARTIAL-SATISFACTION-EVIDENCE plus prior standards/interoperability candidates. Update dossier, Representative Coverage Ledger, Capability Discovery Register, Finding Index and state. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7; Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T10:08:00-03:00"
+  "current_focus": "Security / Resilience / Failure Recovery — revisit 2 / cycle 3 complete. Six material findings add recovery-material dependency closure, restored-lineage branching, explicit resilience-control applicability/uncovered failure classes, separation of recovery objective/strategy/mechanism/achievement, qualified retry eligibility and semantic post-recovery proof.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/SECURITY_RESILIENCE_FAILURE_RECOVERY_REVISIT_02.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Standards / Interoperability / API Contracts, revisit cycle 3, because it remains the oldest explicit pending capability in the authoritative state. Deepen semantic contract/profile identity versus representation/provider realization; mandatory/optional profile features and partial-satisfaction/conformance evidence; compatibility/deprecation windows; namespaced extension governance; negotiation versus provider binding ownership; offline/self-hosted conformance; non-amplifying Station-scoped contract exposure; and AGWS/AI consumption of admitted semantic contracts only. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=2 is below minimum_full_cycles=7; Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T10:13:00-03:00"
 }
