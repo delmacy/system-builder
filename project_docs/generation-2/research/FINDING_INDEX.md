@@ -49,6 +49,16 @@ All stable findings from these cycle-4 revisits remain authoritative in their ca
 - **G2-FINDING-ARAC-29** — Obligation Dependencies and Structural Extraction Failures Can Mask Downstream Violations and Must Propagate INCONCLUSIVE/Coverage Semantics.
 - **G2-FINDING-ARAC-30** — AI-Recovered Architecture Is Qualified Evidence/Proposal, Not Canonical Architecture Authority; Relationship Uncertainty Must Remain Explicit.
 
+## Cycle 5 stable findings
+### Universal Capability Architecture — revisit 4
+- **G2-FINDING-UCA-29** — Universal Realization Lineage Requires Attempted, Effective and Healthy Facts to Remain Distinct.
+- **G2-FINDING-UCA-30** — Generation Qualification Is a Universal Evidence Dimension.
+- **G2-FINDING-UCA-31** — Ambiguous External Actuation Outcome Is a Reusable Transition State, Not Ordinary Failure.
+- **G2-FINDING-UCA-32** — Observation-to-Desired Normalization Is an Explicit Authority-Bearing Transition.
+- **G2-FINDING-UCA-33** — Universal Authority Must Be Faceted Rather Than Binary.
+- **G2-FINDING-UCA-34** — Evidence Dependency and Convergence Lag Are Part of Evidence Qualification.
+- **G2-FINDING-UCA-35** — Concurrent Desired-State Mutation Requires Ownership/Precondition Evidence Beyond Revision Identity.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
