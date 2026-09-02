@@ -26,11 +26,19 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - G2-FINDING-UIGX-27 — Qualified Local Closure Can Cover UI Interpretation Without Owning External Runtime Providers
 - G2-FINDING-UIGX-28 — UI/AI Analysis and Candidate Generation Authority Is Distinct From Canonical Mutation or Migration Authority
 
+## Adaptive Governed Work Surfaces — revisit 2 / cycle 4
+- G2-FINDING-AGWS-16 — Effective Work Surfaces Are Revision-Qualified Resolution Results, Not Mutable Source Pages
+- G2-FINDING-AGWS-17 — Station Capability Exposure Is Independently Versioned and Can Invalidate Otherwise-Unchanged Personalization
+- G2-FINDING-AGWS-18 — Mandatory Inherited Components Require Semantic Migration Compatibility, Not Coordinate Preservation
+- G2-FINDING-AGWS-19 — Personal-to-Organizational Promotion Is a Governed Plan/Attempt/Evidence Transition
+- G2-FINDING-AGWS-20 — Surface Validation Is Revision/Profile/Context-Qualified and May Be Inconclusive
+- G2-FINDING-AGWS-21 — AI Surface Materialization Authority Cannot Amplify Superior Policy, Domain, Provider or Promotion Authority
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-3/25 active capabilities revisited. UCA, Process & Application Modeling and UI / Generated Experience all produced material findings; consecutive-no-material remains 0 for all and none is SATURATED.
+4/25 active capabilities revisited. UCA, Process & Application Modeling, UI / Generated Experience and Adaptive Governed Work Surfaces all produced material findings; consecutive-no-material remains 0 for all and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings, remain authoritative in their dossiers and prior index revisions.
