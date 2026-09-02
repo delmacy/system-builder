@@ -11,6 +11,9 @@ VS Code extensions / Marketplace trust, signatures, host placement and workspace
 ## Governance / Compliance / Audit — revisit cycle 2
 NIST OSCAL assessment/results/POA&M: `DEEP`; HashiCorp Sentinel enforcement/override semantics: `DEEP`; AWS CloudTrail integrity/digest chaining: `DEEP`; Sigstore Rekor transparency/verification: `DEEP`; GitHub Enterprise audit log retention/export: `DEEP`. Revisit result: six material findings (`G2-FINDING-GCA-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
+## Secrets / Configuration / Environment Portability — revisit cycle 2
+HashiCorp Vault lease/renew/revoke + response wrapping/Agent bootstrap: `DEEP`; Kubernetes Secrets + External Secrets Operator refresh/materialization/ownership semantics: `DEEP`; AWS Secrets Manager staged asynchronous rotation: `DEEP`; SOPS encrypted configuration + online/offline key identities: `DEEP`; Twelve-Factor Config deploy-time separation: `DEEP`. Revisit result: six material findings (`G2-FINDING-SCEP-11..16`); consecutive-no-material = 0; NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
