@@ -15,11 +15,11 @@
     "late_cycle_selection_rule": "As saturation increases, prefer research-by-exception and do not routinely reopen SATURATED capabilities without material new evidence or contradiction.",
     "completed_full_cycles": 4,
     "active_revisit_cycle": 5,
-    "capabilities_revisited_in_active_cycle": 3,
-    "hourly_runs_completed": 102,
-    "finding_count": 735,
-    "capability_candidate_count": 330,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-UIGX-ATTEMPT-ACCEPTED-EFFECTIVE-VALIDATED-LINEAGE","G2-CAPABILITY-CANDIDATE-UIGX-CONCURRENT-PROJECTION-OWNERSHIP-PRECONDITIONS","G2-CAPABILITY-CANDIDATE-UIGX-ACCESSIBILITY-CONFORMANCE-EVIDENCE","G2-CAPABILITY-CANDIDATE-UIGX-INCONCLUSIVE-DEPENDENCY-QUALIFICATION"],
+    "capabilities_revisited_in_active_cycle": 4,
+    "hourly_runs_completed": 103,
+    "finding_count": 743,
+    "capability_candidate_count": 334,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-AGWS-MONOTONIC-EFFECTIVE-AUTHORITY-PROOF","G2-CAPABILITY-CANDIDATE-AGWS-SEMANTIC-OVERLAY-OWNERSHIP-PRECONDITIONS","G2-CAPABILITY-CANDIDATE-AGWS-SUPERIOR-OBLIGATION-IDENTITY","G2-CAPABILITY-CANDIDATE-AGWS-EVIDENCE-GOVERNED-PERSONALIZATION-PROMOTION"],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "SATURATED requires principal representatives covered and two consecutive eligible revisits with no material new architectural finding, or remaining questions requiring repository validation. Material findings reset the streak.",
@@ -50,34 +50,34 @@
       "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
       "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be challenged if not researched earlier. The review must also explicitly challenge executable composition/cumulative context, transaction-consistency-concurrency, simple-to-mature topology/build/runtime realization, tenant fleet placement, edge/ingress/domain/TLS routing and multi-dimensional tenant isolation."
     },
-    "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder"],
+    "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces"],
     "latest_revisit": {
-      "capability": "UI / Generated Experience / Low-code Builder",
+      "capability": "Adaptive Governed Work Surfaces",
       "revisits_completed": 4,
       "consecutive_no_material_finding": 0,
       "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-      "new_findings": ["G2-FINDING-UIGX-29","G2-FINDING-UIGX-30","G2-FINDING-UIGX-31","G2-FINDING-UIGX-32","G2-FINDING-UIGX-33","G2-FINDING-UIGX-34","G2-FINDING-UIGX-35","G2-FINDING-UIGX-36"],
+      "new_findings": ["G2-FINDING-AGWS-22","G2-FINDING-AGWS-23","G2-FINDING-AGWS-24","G2-FINDING-AGWS-25","G2-FINDING-AGWS-26","G2-FINDING-AGWS-27","G2-FINDING-AGWS-28","G2-FINDING-AGWS-29"],
       "representative_coverage": {
-        "Microsoft Power Apps canvas source/layout/accessibility": "DEEP",
-        "Mendix Page Explorer and fine-grained merge conflicts": "DEEP",
-        "ServiceNow UI Builder pages/variants/data resources/application scope": "DEEP",
-        "Salesforce Lightning App Builder/LWC targets and base-component accessibility": "DEEP",
-        "Retool app builder/AI/governance": "PARTIAL",
-        "Appsmith drag-drop/query/JavaScript/Git divergence evidence": "PARTIAL"
+        "Microsoft Power Platform solution layering": "DEEP",
+        "ServiceNow UI Builder variants/audiences/condition order": "DEEP",
+        "SAP Build Work Zone spaces/pages/roles/federated transport": "DEEP",
+        "Salesforce Lightning App Builder activation scopes": "DEEP",
+        "CHI 2026 reflexive personalization study": "DEEP",
+        "MRAAC adaptive-access-control literature": "SUPPORTING"
       }
     },
-    "pending_capabilities": ["Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
+    "pending_capabilities": ["Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — four full cycles complete; cycle 5 has 3/25 capabilities revisited. All active macro-capabilities still require evidence-driven saturation, minimum seven cycles and the post-cycle-7 negative-space gate.",
+    "RESEARCH_ELICITATION": "OPEN — four full cycles complete; cycle 5 has 4/25 capabilities revisited. All active macro-capabilities still require evidence-driven saturation, minimum seven cycles and the post-cycle-7 negative-space gate.",
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "NOT_YET_ELIGIBLE — mandatory after completed_full_cycles >= 7 and before CAPABILITY_SYNTHESIS.",
-    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — retroactive proof obligations are mandatory for all active capabilities/hypotheses. Process & Application Modeling and UI / Generated Experience / Low-code Builder now have explicit cycle-5 proof obligations and are PARTIAL in the canonical proof matrix. Planning E cannot close with unresolved BACKFILL_REQUIRED/PARTIAL entries without explicit disposition.",
+    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — retroactive proof obligations are mandatory for all active capabilities/hypotheses. Process & Application Modeling, UI / Generated Experience / Low-code Builder and Adaptive Governed Work Surfaces now have explicit cycle-5 proof obligations and remain PARTIAL for acceptance translation. Planning E cannot close with unresolved BACKFILL_REQUIRED/PARTIAL entries without explicit disposition.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_BY_RESEARCH_ELICITATION"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "UI / Generated Experience / Low-code Builder — revisit 4 / cycle 5 complete. Eight material findings distinguish projection intent/materialization attempt/accepted/effective/validated lineage, constrained semantic component/layout contracts above renderer code, revision/profile-qualified accessibility conformance, concurrent edit ownership/preconditions, dependency-INCONCLUSIVE propagation, AI proposal/materialization from validation/publication/domain authority, renderer/provider/topology substitution and rollback eligibility/local closure. Four candidates recorded, none promoted. Ten explicit proof-backfill obligations added; UI is PARTIAL in the proof matrix. Adaptive Governed Work Surfaces remains explicit and distinct. UI remains NOT SATURATED.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_REVISIT_04.md",
+  "current_focus": "Adaptive Governed Work Surfaces — revisit 4 / cycle 5 complete and concurrency-reconciled. Eight material findings separate effective AGWS resolution from generic UI projection identity; require expected-base/semantic ownership for overlays; make Enterprise→Station→Role→Person a monotonic authority proof rather than precedence stack; preserve stable superior-obligation identity; separate Station exposure/delegated administration from provider/canonical authority; attenuate personal automation; qualify accessibility/dependency evidence; and keep Personal→Team/Role/System promotion as a separate evidence-governed authority transition. AGWS remains the promoted mandatory capability, explicit and distinct from generic UI, and remains NOT SATURATED. Four candidates recorded, none promoted; proof obligations remain PARTIAL for later acceptance translation.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/ADAPTIVE_GOVERNED_WORK_SURFACES_REVISIT_03.md",
   "last_framework_artifact": "project_docs/generation-2/research/CAPABILITY_PROOF_MATRIX.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Adaptive Governed Work Surfaces, revisit 4 / cycle 5, as the next oldest non-saturated capability. Stress-test the mandatory Enterprise → Station → Role → Person monotonic authority model against the cycle-5 generic UI contracts: effective surface resolution versus projection identity; constrained component/slot/grid composition; mandatory inherited/non-removable components; Station capability exposure/delegated administration/hierarchical SB; role/person overlays with expected-base/ownership conflict semantics; revalidation after Station/Role/provider revision; AI-only materialization with deterministic validation and canonical-domain escalation; provider-bound external actions without provider coupling; personal automation authority attenuation; accessibility and INCONCLUSIVE dependency evidence; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion; qualified local/offline surface closure; and explicit architecture proof-backfill obligations. Do not collapse AGWS into UI / Generated Experience / Low-code Builder. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=4 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T18:27:38-03:00"
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Workflow & Durable Execution, revisit 4 / cycle 5, as the next oldest non-saturated capability. Stress-test long-lived execution against cycle-5 universal/PAM/UI/AGWS contracts: distinguish workflow definition/run/in-flight semantic revision, materialization attempt/effective/validated execution state and generation-qualified evidence; classify retry/redrive/replay/resume/migrate/terminate/compensate/quarantine without implicit semantic upgrade; preserve human-task assignment and approval authority lineage independently from workflow code revision; require expected-base/ownership semantics for mutable execution controls; propagate missing dependency evidence as PARTIAL/INCONCLUSIVE; separate engine/provider support from actuation authority; model ambiguous external side effects and idempotency/reconciliation; test provider replacement and in-flight migration; preserve Station/Role/Person attenuation for human tasks and personal automations; require rollback/recovery eligibility and qualified local/offline durable-execution closure; and add explicit architecture proof-backfill obligations. Apply RESEARCH_EVIDENCE_METHOD.md, including scientific literature where it materially challenges durability, exactly-once/idempotency, workflow evolution or recovery assumptions. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=4 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T18:56:00-03:00"
 }
