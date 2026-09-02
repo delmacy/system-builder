@@ -2,38 +2,21 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
-## Cycle 4 stable findings
-All cycle-4 findings remain authoritative in their capability dossiers and prior index revisions.
-
 ## Cycle 5 stable findings
-### Universal Capability Architecture through Integration & Automation
-All previously indexed cycle-5 findings `G2-FINDING-UCA-29..35`, `G2-FINDING-PAM-29..36`, `G2-FINDING-UIGX-29..36`, `G2-FINDING-AGWS-22..29`, `G2-FINDING-WDE-29..36` and `G2-FINDING-IA-29..36` remain authoritative in their dossiers and prior index revisions.
+All previously indexed cycle-5 findings through Authorization remain authoritative in their dossiers and prior index revisions.
 
-### Identity / Authentication / Federation — revisit 4
-- **G2-FINDING-IAF-29** — External Federated Subject Identifiers Are Scoped Mapping Evidence, Not Canonical Subject Identity.
-- **G2-FINDING-IAF-30** — Authentication Freshness Is an Explicit Operation-qualified Dependency, Not Session Existence.
-- **G2-FINDING-IAF-31** — Federation Trust Is a Qualified Trust-chain/Anchor/Policy Result, Not Metadata Reachability.
-- **G2-FINDING-IAF-32** — Key and Trust-bundle Rollover Requires Overlapping Realization Evidence Without Collapsing Trust Revision.
-- **G2-FINDING-IAF-33** — Federated Account Linking and Mapping Override Are Governed Identity Mutations With Ownership Preconditions.
-- **G2-FINDING-IAF-34** — Authenticator Anomaly Signals Can Be Inconclusive and Must Not Rewrite Identity or Authority.
-- **G2-FINDING-IAF-35** — Identity-provider Coexistence and Migration Require Dual Mapping/Trust Qualification Before Cutover.
-- **G2-FINDING-IAF-36** — Qualified Local Identity Closure Includes Freshness and Trust-generation Evidence, Not Merely Local Credential Validation.
+### Data / Schema / Migrations — revisit 4
+- **G2-FINDING-DSM-29** — Canonical Schema Revision and Provider Storage Schema Realization Are Distinct Identities.
+- **G2-FINDING-DSM-30** — Schema Compatibility Is Directional, Revision-pair/Window-qualified and Policy-scoped, Not a Boolean Property.
+- **G2-FINDING-DSM-31** — Migration Acceptance, Application, Backfill/CDC Convergence and Semantic Validation Are Separate Revision-bound Evidence.
+- **G2-FINDING-DSM-32** — Mixed-version Readers/Writers Require Explicit Compatibility Windows and Cutover Preconditions.
+- **G2-FINDING-DSM-33** — Backfill/CDC Progress Requires Source-position, Target-position, Coverage and Ordering Evidence; Completion Signals Alone Are Insufficient.
+- **G2-FINDING-DSM-34** — Destructive Schema Evolution Has No Universal Rollback; Restore and Forward-fix Are Distinct Governed Recovery Transitions.
+- **G2-FINDING-DSM-35** — Provider Coexistence/Dual-write Cutover Requires Divergence Reconciliation and Semantic Postcondition Evidence Before Authority Transfer.
+- **G2-FINDING-DSM-36** — Missing/Stale Schema, Source, Target, CDC, Authorization or Provider Evidence Must Propagate PARTIAL/INCONCLUSIVE Without Data-authority Inflation.
 
-### Authorization / Policy / Organization / Multitenancy — revisit 4
-- **G2-FINDING-AUTH-29** — Authorization Consistency and Freshness Are Operation-qualified Semantic Inputs, Not Provider Cache Details.
-- **G2-FINDING-AUTH-30** — Administrative Authorization Authority Must Be Faceted and Non-amplifying.
-- **G2-FINDING-AUTH-31** — Authorization Decision and Enforcement/Postcondition Are Separate Revision-bound Evidence.
-- **G2-FINDING-AUTH-32** — Revocation and Lease Expiry Can Precede Effective Enforcement Convergence.
-- **G2-FINDING-AUTH-33** — Break-glass Is a Governed Exceptional Authority Lease, Not an Implicit Administrator Bypass.
-- **G2-FINDING-AUTH-34** — Policy/Authorization Provider Migration Requires Dual-model Semantic Qualification, Not Deployment Success.
-- **G2-FINDING-AUTH-35** — PARTIAL/INCONCLUSIVE Authorization Must Propagate Missing Identity, Organization, Policy, Entitlement or Provider Evidence Without Permission Inflation.
-- **G2-FINDING-AUTH-36** — Qualified Local Authorization Closure Preserves Only Explicitly Bounded Existing Authority.
-
-## Cycle 3 closure
-All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
-
-## Cycle 4 closure
-All 25 active capabilities completed cycle 4. Every cycle-4 pass produced material architectural findings; consecutive-no-material remains 0 and none is SATURATED.
+## Cycle closures
+Cycles 3 and 4 completed all 25 active capabilities. Every pass produced material architectural findings; no capability was SATURATED at either cycle close.
 
 ## Historical authority
-All prior findings, including cycle 1–4 findings and compacted cycle-5 sections, remain authoritative in their dossiers and prior index revisions.
+All prior findings, including cycle 1–4 and compacted cycle-5 findings, remain authoritative in their dossiers and prior index revisions.
