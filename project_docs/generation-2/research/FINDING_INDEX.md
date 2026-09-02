@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## Identity / Authentication / Federation — revisit 2 / cycle 3
+- G2-FINDING-IAF-17 — Canonical Subject, Authenticated Principal, Acting Principal and Workload Principal Require Distinct Identities
+- G2-FINDING-IAF-18 — Authentication Evidence Is Audience-, Issuer-, Time- and Trust-Context Bound
+- G2-FINDING-IAF-19 — Delegation and On-Behalf-Of Must Preserve Subject/Actor Lineage and Cannot Widen Semantic Authority
+- G2-FINDING-IAF-20 — Session and Credential Revocation/Freshness Are Distinct From Canonical Identity Lifecycle
+- G2-FINDING-IAF-21 — Federation Establishes Cross-Domain Authentication Trust, Not Organization, Station or Capability Authority
+- G2-FINDING-IAF-22 — Identity-Provider Replacement Requires Subject-Mapping and Assurance Conformance, Not Merely Protocol Compatibility
+
 ## Integration & Automation — revisit 2 / cycle 3
 - G2-FINDING-IA-17 — Connector Credential Capability Must Not Become Semantic Operation Authority
 - G2-FINDING-IA-18 — Trigger Deduplication and Business-effect Idempotency Are Distinct Contracts
