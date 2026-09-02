@@ -54,5 +54,16 @@ No Security/Recovery candidate is promoted.
 
 No AI-native candidate is promoted in this revisit.
 
+## Developer / Operator Experience / Self-hosting — revisit cycle 4 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-PROGRESSIVE-OPERATIONAL-REALIZATION-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Topology/Build/Runtime hypothesis; expected to remain a profile primitive unless synthesis finds independent ownership. |
+| G2-CAPABILITY-CANDIDATE-BOOTSTRAP-TRUST-QUALIFICATION-EVIDENCE | CROSS_CUTTING | CANDIDATE | Identity/Secrets/Security synthesis must confirm shared bootstrap-trust ownership and weakened-trust exception semantics. |
+| G2-CAPABILITY-CANDIDATE-NON-ACTUATING-OPERATOR-TRANSITION-PREVIEW-EVIDENCE | CROSS_CUTTING | MERGE_TARGET | Merge into revision-bound readiness/validation evidence if operator preview adds no separate semantic owner. |
+| G2-CAPABILITY-CANDIDATE-ROLLBACK-ELIGIBILITY-RETAINED-MATERIAL-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Lifecycle/Security/Artifact reconciliation should determine whether one reusable eligibility contract covers runtime/config/build rollback. |
+| G2-CAPABILITY-CANDIDATE-BOUNDED-LOCAL-DIAGNOSTIC-AUTHORITY-EVIDENCE | CROSS_CUTTING | CANDIDATE | Observability/Security/Authorization must confirm distinction between evidence read/export and privileged diagnostic actuation. |
+
+No Developer/Operator/Self-hosting candidate is promoted in this revisit.
+
 ## Historical authority
 All candidates from prior sections/revisions remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
