@@ -93,24 +93,26 @@ function successorApproval(outcome: "approved" | "rejected" = "approved") {
     riskCriticality: { risk: "medium", criticality: "standard" },
     expectedCategory: "deterministic",
   });
-  const classificationEvidence = normalizeProcessSemanticChangeClassificationEvidence({
+  const classificationInput = {
     diffRef: "diff:reference-orders:v1-v2",
     semanticDiff,
-    classification: "non-breaking",
+    classification: "non-breaking" as const,
     classifierDecision,
     evidenceRefs: ["evidence:reference-orders:v1-v2"],
-  });
-  const rationaleEvidence = normalizeProcessSemanticChangeRationaleEvidence({
+  };
+  const classificationEvidence = normalizeProcessSemanticChangeClassificationEvidence(classificationInput);
+  const rationaleInput = {
     diffRef: classificationEvidence.diffRef,
     semanticDiff,
     classificationRef: "classification:reference-orders:v1-v2",
-    classificationEvidence,
+    classificationEvidence: classificationInput,
     reasonRef: "reason:approved-successor-process-revision",
     evidenceRefs: ["evidence:reference-orders:v1-v2"],
-  });
+  };
+  normalizeProcessSemanticChangeRationaleEvidence(rationaleInput);
   const decision = normalizeProcessSemanticChangeDecision({
     rationaleRef: "rationale:reference-orders:v1-v2",
-    rationaleEvidence,
+    rationaleEvidence: rationaleInput,
     outcome,
     decisionId: "decision:approve-reference-orders-v2",
     authorityRef: PRODUCT.authorityRef,
