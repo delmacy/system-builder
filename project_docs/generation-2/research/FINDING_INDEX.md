@@ -3,17 +3,17 @@
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
 ## Cycle 5 stable findings
-All previously indexed cycle-5 findings through Authorization remain authoritative in their dossiers and prior index revisions.
+All previously indexed cycle-5 findings through Data / Schema / Migrations remain authoritative in their dossiers and prior index revisions.
 
-### Data / Schema / Migrations — revisit 4
-- **G2-FINDING-DSM-29** — Canonical Schema Revision and Provider Storage Schema Realization Are Distinct Identities.
-- **G2-FINDING-DSM-30** — Schema Compatibility Is Directional, Revision-pair/Window-qualified and Policy-scoped, Not a Boolean Property.
-- **G2-FINDING-DSM-31** — Migration Acceptance, Application, Backfill/CDC Convergence and Semantic Validation Are Separate Revision-bound Evidence.
-- **G2-FINDING-DSM-32** — Mixed-version Readers/Writers Require Explicit Compatibility Windows and Cutover Preconditions.
-- **G2-FINDING-DSM-33** — Backfill/CDC Progress Requires Source-position, Target-position, Coverage and Ordering Evidence; Completion Signals Alone Are Insufficient.
-- **G2-FINDING-DSM-34** — Destructive Schema Evolution Has No Universal Rollback; Restore and Forward-fix Are Distinct Governed Recovery Transitions.
-- **G2-FINDING-DSM-35** — Provider Coexistence/Dual-write Cutover Requires Divergence Reconciliation and Semantic Postcondition Evidence Before Authority Transfer.
-- **G2-FINDING-DSM-36** — Missing/Stale Schema, Source, Target, CDC, Authorization or Provider Evidence Must Propagate PARTIAL/INCONCLUSIVE Without Data-authority Inflation.
+### Storage / Documents / Media — revisit 4
+- **G2-FINDING-SDM-29** — Upload/Transfer Attempt, Parts-or-Blocks Presence, Commit, Effective Availability and Validation Are Separate Revision-bound States.
+- **G2-FINDING-SDM-30** — Integrity Evidence Must Bind Subject, Algorithm and Checksum Type/Profile; ETag or Composite Checksum Is Not Portable Content Identity.
+- **G2-FINDING-SDM-31** — Incomplete or Ambiguous Large-object Writes Require Reconciliation/Resume/Abort Semantics Before Blind Retry.
+- **G2-FINDING-SDM-32** — Content Availability Is Operation-qualified and Dependency-aware; Missing Key/Trust/Schema/Scan/Governance Evidence Propagates PARTIAL/INCONCLUSIVE.
+- **G2-FINDING-SDM-33** — Retention/Legal-hold/Records Constraints and Ordinary Delete/Write Authority Are Orthogonal.
+- **G2-FINDING-SDM-34** — Preview/Rendition/Search-index Projection Must Retain Derivative Lineage and Cannot Become Canonical Content Source of Truth.
+- **G2-FINDING-SDM-35** — Provider Coexistence/Cutover Requires Large-object Byte + Metadata + Governance + Alias/Reference Postcondition Evidence Before Effective Authority Transfer.
+- **G2-FINDING-SDM-36** — Qualified Local Document/Media Closure Is Operation-scoped and Must Include Integrity, Governance, Key/Trust and Realization Dependencies Needed for the Claimed Action.
 
 ## Cycle closures
 Cycles 3 and 4 completed all 25 active capabilities. Every pass produced material architectural findings; no capability was SATURATED at either cycle close.
