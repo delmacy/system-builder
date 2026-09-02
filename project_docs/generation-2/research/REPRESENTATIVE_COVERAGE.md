@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 23/25 capabilities revisited.
+Cycle 4 is open with 24/25 capabilities revisited.
 
 ### Universal Capability Architecture through Governance / Compliance / Audit
 The first 17 cycle-4 revisits remain authoritative in their capability dossiers and prior ledger revisions. Every pass produced material findings and remains NOT SATURATED.
@@ -31,6 +31,9 @@ AWS Well-Architected Reliability recovery objectives/testing/automation: `DEEP`;
 
 ### AI-native Engineering / Agents / Approvals — revisit 3
 OpenAI Codex/Agents SDK sandboxing, approvals, guardrails and telemetry: `DEEP`; Anthropic Claude Code sandboxing/auto-mode/prompt-injection probes and delegation checks: `DEEP`; GitHub Copilot Agentic Workflows/tool permissions/safe outputs/approval semantics: `DEEP`; MCP tool annotations as non-enforcing risk metadata: `DEEP`; CaMeL capability/control-vs-data-flow research: `DEEP`; adaptive indirect-prompt-injection research: `DEEP`; NetInjectBench execution-time policy-gate evidence: `DEEP`. Findings `G2-FINDING-AIN-23..30`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: untrusted-context provenance, stale-on-material-change approval/validation, hard enforcement outside probabilistic models, non-amplifying delegation, deterministic-validator separation, provider-substitution lineage, non-actuating incident/recovery assistance and qualified local agent closure.
+
+### Developer / Operator Experience / Self-hosting — revisit 3
+Talos Linux machine configuration/image upgrade/rollback/troubleshooting/PKI: `DEEP`; OpenShift disconnected environments/oc-mirror image-set and update-history closure: `DEEP`; NixOS/Nix generations, dry activation, test/build-vm and rollback eligibility: `DEEP`; Kubernetes kubeadm bootstrap trust/CA pinning and kubectl privileged node diagnostics: `DEEP`. Prior K3s, Dev Containers/Codespaces, Compose and Coolify evidence remains authoritative. Findings `G2-FINDING-DOESH-23..30`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: progressive simple-to-mature operational realization, bootstrap trust, non-actuating preview/preflight, disconnected maintenance history, conditional rollback eligibility, local diagnostics with bounded authority, non-collapsed admin authorities and provider/topology substitution without semantic rewrite.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
