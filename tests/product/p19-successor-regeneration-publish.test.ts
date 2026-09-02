@@ -317,8 +317,23 @@ test("TASK-459 fails closed before Release publication for rejected, stale or br
   assert.throws(() => successorApproval({ previousRevisionRef: "process-revision:reference-orders:substituted" }), /canonical predecessor/);
   assert.equal(releases.get(PROCESS.releaseId, PROCESS.successorReleaseVersion), undefined);
 
-  const broken = successorFactoryInput();
-  broken.journeyBinding.lineage.processRevision.processRevision.revisionRef = "process-revision:reference-orders:substituted";
+  const canonicalInput = successorFactoryInput();
+  const broken = {
+    ...canonicalInput,
+    journeyBinding: {
+      ...canonicalInput.journeyBinding,
+      lineage: {
+        ...canonicalInput.journeyBinding.lineage,
+        processRevision: {
+          ...canonicalInput.journeyBinding.lineage.processRevision,
+          processRevision: {
+            ...canonicalInput.journeyBinding.lineage.processRevision.processRevision,
+            revisionRef: "process-revision:reference-orders:substituted",
+          },
+        },
+      },
+    },
+  };
   assert.throws(() => bootstrapSuccessor(broken));
   assert.equal(releases.get(PROCESS.releaseId, PROCESS.successorReleaseVersion), undefined);
 });
