@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 15/25 capabilities revisited.
+Cycle 4 is open with 16/25 capabilities revisited.
 
 ### Universal Capability Architecture — revisit 3
 OASIS TOSCA 2.0, Kubernetes desired/observed generation, OpenFeature provider/context/status, OpenTelemetry Resource/Entity identity, Crossplane ProviderConfig/ManagedResource, SPIFFE trust domains/bundles and OPA bundle persistence/status: `DEEP`. Findings `G2-FINDING-UCA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
@@ -55,6 +55,9 @@ Kubernetes Deployment rollout/revision/readiness/rollback, RuntimeClass scheduli
 
 ### Observability / Operations / Incident — revisit 3
 OpenTelemetry Logs/Event data model, OpenTelemetry Collector internal telemetry/resiliency, Prometheus alerting rules, Google SRE SLO/error-budget policy, PagerDuty incident lifecycle/timeline/escalation: `DEEP`. Findings `G2-FINDING-OOI-23..30`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: revision/topology-bound operational evidence; pipeline-health/freshness/coverage/INCONCLUSIVE qualification; deployment/readiness/domain-postcondition handoff; alert/incident/remediation/recovery lineage; SLO evidence; authority non-amplification; qualified local/offline observability/incident closure; operational-complexity evidence without billing ownership.
+
+### Extension / Plugin / Marketplace Architecture — revisit 3
+Terraform provider registry/mirror/plugin protocol/signing/lock-file: `DEEP`; VS Code Marketplace/Workspace Trust: `DEEP`; OSGi Core lifecycle/BundleRevision/wiring: `DEEP`; Backstage frontend/backend plugin architecture, installation and permissions: `DEEP`; Kubernetes admission extensibility: `PARTIAL`. Findings `G2-FINDING-EXT-23..29`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: install→resolve/wire→enable→activate separation; coexisting revisions/wirings; integrity vs protocol vs semantic compatibility vs admission; revocation enforcement evidence; host-owned extension points/authority; qualified local extension closure; Station/AGWS/AI non-amplification.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
