@@ -14,15 +14,15 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Storage / Documents / Media — revisit cycle 5 candidates
+## Notifications / Events / Messaging — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-SDM-QUALIFIED-CONTENT-EFFECTIVE-AVAILABILITY-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Validate against Artifact, Deployment and Observability evidence qualification; keep content-specific subject/dependency semantics. |
-| G2-CAPABILITY-CANDIDATE-SDM-LARGE-OBJECT-TRANSFER-COMMIT-RECONCILIATION | DOMAIN | CANDIDATE | Remain Storage subcapability unless Integration/Artifact research proves a genuinely shared transfer/commit primitive. |
-| G2-CAPABILITY-CANDIDATE-SDM-DERIVATIVE-PROJECTION-LINEAGE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UI/Data and later enterprise retrieval/search ownership without making Storage owner of search semantics. |
-| G2-CAPABILITY-CANDIDATE-SDM-QUALIFIED-LOCAL-DOCUMENT-MEDIA-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with shared qualified-local-closure primitive while preserving content/integrity/governance/key-specific obligations. |
+| G2-CAPABILITY-CANDIDATE-NEM-AMBIGUOUS-PUBLISH-OUTCOME-RECONCILIATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with the universal ambiguous-outcome primitive while retaining messaging-specific publication/provider-position evidence. |
+| G2-CAPABILITY-CANDIDATE-NEM-FANOUT-PARTIAL-DELIVERY-AGGREGATION | CORE | SUBCAPABILITY_CANDIDATE | Keep under Notifications / Events / Messaging unless synthesis proves a broader universal branch-obligation aggregate. |
+| G2-CAPABILITY-CANDIDATE-NEM-QUALIFIED-REPLAY-POSITION-MIGRATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Provider/Lifecycle/Data migration primitives while retaining subscription/checkpoint/replay semantics in Messaging. |
+| G2-CAPABILITY-CANDIDATE-NEM-QUALIFIED-LOCAL-MESSAGING-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with shared qualified-local-closure primitive while preserving event range/checkpoint/schema/content-reference/authority obligations. |
 
-No Storage candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
+No Messaging candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
 
 ## Historical authority
 All omitted candidates remain authoritative in prior register revisions, state history and capability dossiers.
