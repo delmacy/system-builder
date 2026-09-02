@@ -5,29 +5,10 @@ States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`. Historical covera
 ## Revisit cycle 2 completed capabilities
 Universal Capability Architecture; Process & Application Modeling; UI / Generated Experience / Low-code Builder; Workflow & Durable Execution; Integration & Automation; Identity / Authentication / Federation; Authorization / Policy / Organization / Multitenancy; Data / Schema / Migrations; Storage / Documents / Media; Notifications / Events / Messaging; Build / Dependency Graph / Reproducibility; Artifact / Release / SBOM / Provenance; Deployment / Environment / Runtime; Observability / Operations / Incident: prior detailed coverage remains authoritative in capability dossiers and state history. Each revisit produced six material findings; consecutive-no-material = 0; NOT SATURATED.
 
-## Extension / Plugin / Marketplace Architecture — revisit cycle 2
-VS Code, Backstage, Kubernetes CRD/operator, OSGi and WordPress: `DEEP`. Findings `G2-FINDING-EXT-11..16`; consecutive-no-material = 0; NOT SATURATED.
+Extension / Plugin / Marketplace Architecture; Governance / Compliance / Audit; Secrets / Configuration / Environment Portability; Provider / Binding / Capability Negotiation; Standards / Interoperability / API Contracts; Lifecycle / Versioning / Evolution / Migration; Security / Resilience / Failure Recovery: prior detailed coverage remains authoritative in capability dossiers/state history; all are DEEP on principal representatives, produced material revisit findings, and remain NOT SATURATED.
 
-## Governance / Compliance / Audit — revisit cycle 2
-NIST OSCAL, HashiCorp Sentinel, AWS CloudTrail, Sigstore Rekor and GitHub Enterprise audit log: `DEEP`. Findings `G2-FINDING-GCA-11..16`; consecutive-no-material = 0; NOT SATURATED.
-
-## Secrets / Configuration / Environment Portability — revisit cycle 2
-HashiCorp Vault, Kubernetes Secrets + External Secrets Operator, AWS Secrets Manager, SOPS and Twelve-Factor Config: `DEEP`. Findings `G2-FINDING-SCEP-11..16`; consecutive-no-material = 0; NOT SATURATED.
-
-## Provider / Binding / Capability Negotiation — revisit cycle 2
-OpenTofu/Terraform, Crossplane, Kubernetes Discovery/DRA, gRPC Reflection/name resolution and Backstage: `DEEP`. Findings `G2-FINDING-PBCN-11..16`; consecutive-no-material = 0; NOT SATURATED.
-
-## Standards / Interoperability / API Contracts — revisit cycle 2
-OpenAPI 3.2, HTTP RFC 9110, RFC 9457, JSON Schema 2020-12, AsyncAPI 3.0 and gRPC: `DEEP`. Findings `G2-FINDING-SIAC-11..16`; consecutive-no-material = 0; NOT SATURATED.
-
-## Lifecycle / Versioning / Evolution / Migration — revisit cycle 2
-Kubernetes API deprecation/migration/version-skew: `DEEP`; Flyway migration target/undo lifecycle: `DEEP`; PostgreSQL migration/transaction boundary: `DEEP`; Terraform/OpenTofu state/provider continuity: `DEEP`; Temporal long-lived execution evolution: `DEEP`. Findings `G2-FINDING-LVEM-11..16`; consecutive-no-material = 0; NOT SATURATED.
-
-## Security / Resilience / Failure Recovery — revisit cycle 2
-Envoy retry/circuit breaking/outlier detection: `DEEP`; Temporal durable Activity execution: `DEEP`; Kubernetes disruption semantics: `DEEP`; PostgreSQL PITR/timelines: `DEEP`; AWS Well-Architected Reliability/DR: `DEEP`; LitmusChaos: `DEEP`. Findings `G2-FINDING-SRFR-11..16`; consecutive-no-material = 0; NOT SATURATED.
-
-## Adaptive Governed Work Surfaces — mandatory discovered capability
-Dedicated research is required and must not be absorbed by `UI / Generated Experience / Low-code Builder`. Current coverage: `NOT_REVIEWED`. Required representative families for the dedicated pass include strong current composable workspace/low-code systems; representative selection remains open until that pass. Boundary to prove includes `Enterprise → Station → Role → Person`, constrained editor surfaces, AI-only materialization over valid contracts/authority, governed overlays, provider-bound work automation and promotion evidence.
+## Adaptive Governed Work Surfaces — dedicated research pass 1
+ServiceNow UI Builder: `DEEP`; SAP Build Work Zone: `DEEP`; Salesforce Lightning App Builder / Dynamic Forms: `DEEP`; Microsoft Power Apps: `PARTIAL`; Retool: `PARTIAL`; Appsmith: `PARTIAL`. Findings `G2-FINDING-AGWS-01..09`; material new findings, consecutive-no-material = 0; NOT SATURATED. Dedicated evidence supports promotion from mandatory CORE candidate to active research taxonomy while preserving separation from `UI / Generated Experience / Low-code Builder`. Boundary: `Enterprise → Station → Role → Person`, constrained semantic composition, AI-only materialization, provider-neutral bindings and authority-bounded automation.
 
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
