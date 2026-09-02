@@ -3,17 +3,17 @@
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
 ## Cycle 5 stable findings
-All previously indexed cycle-5 findings through Data / Schema / Migrations remain authoritative in their dossiers and prior index revisions.
+All previously indexed cycle-5 findings through Storage / Documents / Media remain authoritative in their dossiers and prior index revisions.
 
-### Storage / Documents / Media — revisit 4
-- **G2-FINDING-SDM-29** — Upload/Transfer Attempt, Parts-or-Blocks Presence, Commit, Effective Availability and Validation Are Separate Revision-bound States.
-- **G2-FINDING-SDM-30** — Integrity Evidence Must Bind Subject, Algorithm and Checksum Type/Profile; ETag or Composite Checksum Is Not Portable Content Identity.
-- **G2-FINDING-SDM-31** — Incomplete or Ambiguous Large-object Writes Require Reconciliation/Resume/Abort Semantics Before Blind Retry.
-- **G2-FINDING-SDM-32** — Content Availability Is Operation-qualified and Dependency-aware; Missing Key/Trust/Schema/Scan/Governance Evidence Propagates PARTIAL/INCONCLUSIVE.
-- **G2-FINDING-SDM-33** — Retention/Legal-hold/Records Constraints and Ordinary Delete/Write Authority Are Orthogonal.
-- **G2-FINDING-SDM-34** — Preview/Rendition/Search-index Projection Must Retain Derivative Lineage and Cannot Become Canonical Content Source of Truth.
-- **G2-FINDING-SDM-35** — Provider Coexistence/Cutover Requires Large-object Byte + Metadata + Governance + Alias/Reference Postcondition Evidence Before Effective Authority Transfer.
-- **G2-FINDING-SDM-36** — Qualified Local Document/Media Closure Is Operation-scoped and Must Include Integrity, Governance, Key/Trust and Realization Dependencies Needed for the Claimed Action.
+### Notifications / Events / Messaging — revisit 4
+- **G2-FINDING-NEM-29** — Semantic Occurrence/Notification Intent, Publication Attempt, Provider Acceptance/Position, Delivery Attempt, Transport Acknowledgement, Consumer Checkpoint and Domain Acceptance Are Distinct Revision-bound Evidence States.
+- **G2-FINDING-NEM-30** — Publish Timeout or Lost Acknowledgement Can Mean Provider Acceptance Already Occurred; Ambiguous Publication Requires `OUTCOME_UNKNOWN` Reconciliation or Explicit Duplicate Guards Before Retry.
+- **G2-FINDING-NEM-31** — Exactly-once, Deduplication and Ordering Guarantees Are Provider/Subscription/Message-or-Ordering-Scope Qualified and Cannot Be Promoted to Universal Business-effect Guarantees.
+- **G2-FINDING-NEM-32** — Ordering/Sequence Evidence Must Bind Its Ordering Domain and Revision; Redelivery/Redrive/Replay Can Change Interleaving Without Creating a New Semantic Occurrence.
+- **G2-FINDING-NEM-33** — Consumer Checkpoint and Replay Eligibility Require Provider/Subscription/Position/Schema/Retention/Freshness Qualification; a Numeric Offset Alone Does Not Prove Resumability.
+- **G2-FINDING-NEM-34** — Fan-out Completion Is a Branch-qualified Aggregate; Mixed Required Outcomes Produce `PARTIAL`, and Missing/Stale/Outcome-unknown Required Evidence Produces `INCONCLUSIVE` Rather Than Last-success Wins.
+- **G2-FINDING-NEM-35** — Retry, Redelivery, Replay, Redrive and Domain Repair Are Distinct Governed Transitions With Separate Authority, Position/Range and Postcondition Evidence.
+- **G2-FINDING-NEM-36** — Qualified Local Messaging Closure and AGWS Event/Notification Surfaces Must Preserve Station/Role Authority, Provider-neutral Bindings, Referenced-content Dependencies and Requalification on Scope/Role/Provider Change.
 
 ## Cycle closures
 Cycles 3 and 4 completed all 25 active capabilities. Every pass produced material architectural findings; no capability was SATURATED at either cycle close.
