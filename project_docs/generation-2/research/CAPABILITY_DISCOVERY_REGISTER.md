@@ -12,27 +12,17 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 The four user-directed mandatory hypotheses remain NOT_A_PROMOTED_CAPABILITY and authoritative in their concept dossiers: executable composition/cumulative context; transaction-consistency-concurrency; topology-build-runtime realization; tenant-fleet-edge-ingress routing.
 
 ## Cross-cutting consolidation authority
-Prior cycle-4 and cycle-5 candidates remain authoritative in earlier register revisions and dossiers, including unified revision-bound realization/evidence lineage, unified evidence qualification, qualified local closure, non-actuating/faceted authority, shared governed migration, ambiguous-outcome disposition, authorized normalization, concurrency ownership/preconditions and AGWS-specific obligations. None is revoked by compacting this register.
+Prior cycle-4 and cycle-5 candidates remain authoritative in earlier register revisions and dossiers, including unified revision-bound realization/evidence lineage, unified evidence qualification, qualified local closure, non-actuating/faceted authority, shared governed migration, ambiguous-outcome disposition, authorized normalization, concurrency ownership/preconditions, Workflow/Integration candidates and AGWS-specific obligations. None is revoked by compacting this register.
 
-## Workflow & Durable Execution — revisit cycle 5 candidates
+## Identity / Authentication / Federation — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-WDE-TYPED-EXECUTION-CONTROL-TRANSITIONS | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with shared governed migration/transition taxonomy while preserving Workflow-owned retry/redrive/replay/resume/compensate/quarantine semantics. |
-| G2-CAPABILITY-CANDIDATE-WDE-AMBIGUOUS-EXTERNAL-EFFECT-DISPOSITION | CROSS_CUTTING | MERGE_TARGET | Confirms universal ambiguous-outcome disposition; Integration must test delivery/receipt/domain-effect ambiguity before synthesis merge. |
-| G2-CAPABILITY-CANDIDATE-WDE-INFLIGHT-PROVIDER-MIGRATION-REPRESENTABILITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with provider migration and lifecycle migration; preserve workflow-specific durable position, timers, tasks and compensation state. |
-| G2-CAPABILITY-CANDIDATE-WDE-INDEPENDENT-HUMAN-TASK-AUTHORITY-LINEAGE | CROSS_CUTTING | CANDIDATE | Authorization/Workflow boundary must confirm that task assignment/delegation/approval revision remains independent of workflow-code revision. |
+| G2-CAPABILITY-CANDIDATE-IAF-FEDERATED-SUBJECT-MAPPING-REVISION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with canonical semantic identity and Authorization/Organization subject references; provider/issuer IDs must remain mapping evidence rather than canonical identity. |
+| G2-CAPABILITY-CANDIDATE-IAF-FEDERATION-TRUST-CHAIN-POLICY-QUALIFICATION | CROSS_CUTTING | CANDIDATE | Reconcile with Governance/Standards evidence qualification while preserving Identity ownership of trust establishment and federation metadata/trust-chain semantics. |
+| G2-CAPABILITY-CANDIDATE-IAF-IDENTITY-LINKING-OWNERSHIP-PRECONDITIONS | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Confirms UCA/PAM/UI expected-base and semantic-ownership pattern for external-to-canonical identity mapping mutations. |
+| G2-CAPABILITY-CANDIDATE-IAF-AUTHENTICATION-FRESHNESS-DEPENDENCY-EVIDENCE | CROSS_CUTTING | CANDIDATE | Reconcile with unified freshness/evidence qualification while preserving Identity ownership of assurance, reauthentication and auth-time facts. |
 
-No Workflow cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains distinct and unchanged.
-
-## Integration & Automation — revisit cycle 5 candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-IA-QUALIFIED-EXTERNAL-EFFECT-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Multi-representative Integration evidence now confirms Workflow's ambiguous-external-effect candidate. Merge during synthesis only after Data/Notifications contradiction checks; preserve Integration ownership of external invocation evidence. |
-| G2-CAPABILITY-CANDIDATE-IA-SCOPED-IDEMPOTENCY-CONTRACT-EVIDENCE | CROSS_CUTTING | CANDIDATE | Reconcile operation/provider/account/window scope with Data, Workflow and Notifications before promotion. |
-| G2-CAPABILITY-CANDIDATE-IA-INTEGRATION-DEFINITION-OWNERSHIP-PRECONDITIONS | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Align with UCA/PAM/UI expected-base/semantic ownership; retain Integration-specific subscription/route/filter semantics. |
-| G2-CAPABILITY-CANDIDATE-IA-PROVIDER-DUAL-RUN-CUTOVER-REPLAY-DISPOSITION | CROSS_CUTTING | CANDIDATE | Require Provider/Lifecycle validation of dual-running, cutover and replay-position representability before any promotion. |
-
-No Integration cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
+No Identity cycle-5 candidate is promoted. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
 
 ## Historical authority
 All candidates from prior sections/revisions remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
