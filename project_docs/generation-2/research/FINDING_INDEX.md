@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## Developer / Operator Experience / Self-hosting — revisit 2 / cycle 3
+- G2-FINDING-DOESH-17 — Offline/Self-host Autonomy Requires a Qualified Execution Closure, Not Merely Local Hosting
+- G2-FINDING-DOESH-18 — Desired Environment Topology and Effective Realized Topology Are Distinct Revision-Bound Evidence
+- G2-FINDING-DOESH-19 — Bootstrap Secrets and Trust Material Are Phase- and Purpose-Scoped Bindings With Independent Custody
+- G2-FINDING-DOESH-20 — Upgrade/Rollback/Recovery Must Preserve Transition Lineage and Bind Recovery Material to the Attempt
+- G2-FINDING-DOESH-21 — Environment Parity Is a Profile-Based Conformance Claim Across Legitimately Different Realizations
+- G2-FINDING-DOESH-22 — Operational Autonomy Requires Exportable Local Diagnostics and Evidence Independent of Provider Control Planes
+
 ## AI-native Engineering / Agents / Approvals — revisit 2 / cycle 3
 - G2-FINDING-AIN-17 — Semantic Agent Task Identity Must Be Independent of Model, Harness and Tool Realization
 - G2-FINDING-AIN-18 — Approval Must Bind Exact Effective Policy, Tool, Input-Scope and Candidate-Artifact Revisions and Become Stale on Material Change
