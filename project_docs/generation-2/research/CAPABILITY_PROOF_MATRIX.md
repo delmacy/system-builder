@@ -32,7 +32,7 @@ Legend: `BACKFILL_REQUIRED`, `PARTIAL`, `READY_FOR_ACCEPTANCE_TRANSLATION`, `N_A
 | Lifecycle / Versioning / Evolution / Migration | BACKFILL_REQUIRED | revision vectors; coexistence; readiness freshness; migration; routing rollback vs state recovery; withdrawal |
 | Security / Resilience / Failure Recovery | PARTIAL | explicit proof set below: semantic recovery, split-brain fencing, readiness invalidation, compromised/stale trust, non-amplifying degraded mode, persisted/in-flight reconciliation, local recovery closure |
 | AI-native Engineering / Agents / Approvals | PARTIAL | explicit proof set below: untrusted-context provenance, stale approval, hard enforcement, delegation non-amplification, deterministic validation, provider substitution, incident/recovery authority separation, local closure |
-| Developer / Operator Experience / Self-hosting | BACKFILL_REQUIRED | installation simplicity; offline closure; upgrade/recovery; provider config safety; operator errors; observability |
+| Developer / Operator Experience / Self-hosting | PARTIAL | explicit proof set below: simple→mature topology, bootstrap trust, non-actuating preview, disconnected update closure, rollback eligibility, bounded diagnostics, provider substitution, AGWS/AI non-amplification |
 | Architecture Reconciliation as a Capability | BACKFILL_REQUIRED | drift detection; freshness; non-actuating detection; disposition; repair proof; unknown cases |
 | Executable Capability Composition & Cumulative Context | PARTIAL | semantic operation graph; cumulative context; authorized projections; branch/merge; provenance; adapters; Gate semantics |
 | Transaction / Consistency / Concurrency | PARTIAL | invariants; concurrent mutation; duplicate/reorder/replay; atomicity; compensation; split-brain/offline reconciliation |
@@ -61,6 +61,18 @@ These obligations also cross-test `Topology / Build / Runtime Realization` and `
 6. **Provider-substitution proof:** run the same semantic intent under two model/harness providers; semantic task identity and authority obligations stay stable while realization lineage/results differ and are independently validated.
 7. **Incident/recovery authority proof:** provide complete diagnostics and ask the agent to recover service. Diagnosis/recommendation must not confer fencing, writer promotion, secret, provider-admin or recovery actuation authority.
 8. **Qualified local closure proof:** remove required local policy/trust/validator/approval/sandbox material in offline mode. System must deny/degrade/report `INCONCLUSIVE`, not silently broaden authority or claim equivalent safe autonomy.
+
+## Developer / Operator Experience / Self-hosting — explicit cycle-4 proof obligations
+1. **Simple→mature topology proof:** instantiate one semantic system under a collapsed local profile and then a split/HA profile; System/Station/capability identities remain unchanged while topology/provider realization evidence changes.
+2. **Bootstrap-trust adversarial proof:** replace or tamper with bootstrap CA/trust material. Bootstrap/join must fail unless a separately authorized weakened-trust exception exists and is retained as evidence.
+3. **Preview non-actuation proof:** run preview/preflight for privileged config/topology mutation and prove no mutation occurs; then change target/dependency revision and prove the earlier preview becomes stale.
+4. **Disconnected-maintenance closure proof:** bootstrap offline and execute an allowed update from retained closure/history metadata; remove required mirror/update-path metadata and require explicit incomplete/`INCONCLUSIVE`, never silent online fallback.
+5. **Rollback-eligibility proof:** upgrade with retained prior realization and validate rollback; remove or invalidate one required artifact/state/trust prerequisite and prove rollback is no longer READY/available.
+6. **Bounded local-diagnostics proof:** Station operator may export authorized local logs/support evidence but cannot perform privileged node/host debug, secret inspection or recovery without delegated authority.
+7. **Provider/topology substitution proof:** satisfy the same operational profile with two materially different host/orchestrator realizations while provider IDs remain non-canonical and conformance is re-proven.
+8. **AGWS/AI authority proof:** from a self-hosted AGWS request topology/provider mutation, CA/secret exposure or recovery without authority; AI may propose/escalate but authoritative actuation must be denied.
+
+These proofs cross-test qualified local closure, `Topology / Build / Runtime Realization`, Security/Recovery and Station/AGWS authority. “Simple” is accepted only when complexity is projected away from the user, not erased from reproducible/evidence-bearing semantics.
 
 ## Backfill policy
 1. Later revisits add proofs without reducing research depth.
