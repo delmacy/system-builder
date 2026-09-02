@@ -8,6 +8,9 @@ Universal Capability Architecture; Process & Application Modeling; UI / Generate
 ## Extension / Plugin / Marketplace Architecture — revisit cycle 2
 VS Code extensions / Marketplace trust, signatures, host placement and workspace/organization policy: `DEEP`; Backstage backend plugins/modules and capability-owned extension points: `DEEP`; Kubernetes CRD/operator API-version/storage-migration boundaries: `DEEP`; OSGi bundle lifecycle/resolver/wiring: `DEEP`; WordPress activation/deactivation/uninstall state lifecycle: `DEEP`. Revisit result: six material findings (`G2-FINDING-EXT-11..16`); consecutive-no-material = 0; NOT SATURATED.
 
+## Governance / Compliance / Audit — revisit cycle 2
+NIST OSCAL assessment/results/POA&M: `DEEP`; HashiCorp Sentinel enforcement/override semantics: `DEEP`; AWS CloudTrail integrity/digest chaining: `DEEP`; Sigstore Rekor transparency/verification: `DEEP`; GitHub Enterprise audit log retention/export: `DEEP`. Revisit result: six material findings (`G2-FINDING-GCA-11..16`); consecutive-no-material = 0; NOT SATURATED.
+
 ## AI-native Engineering / Agents / Approvals
 OpenAI Agents/Responses `DEEP`; Anthropic Claude Code permissions `DEEP`; GitHub Copilot coding agents `DEEP`; Temporal `DEEP`; LangGraph `PARTIAL`.
 
