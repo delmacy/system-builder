@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## Storage / Documents / Media — revisit 2 / cycle 3
+- G2-FINDING-SDM-17 — Logical Asset/Document/Media Identity and Provider Storage Realization Require Distinct Identities
+- G2-FINDING-SDM-18 — Content Revision, Content Digest and Mutable Current Alias Are Distinct Contracts
+- G2-FINDING-SDM-19 — Upload Session, Transfer Attempt and Committed Content Require Separate Integrity Lineage
+- G2-FINDING-SDM-20 — Retention/Legal Hold Bind to Governed Revisions and Delete Intent Is Not Destruction Evidence
+- G2-FINDING-SDM-21 — Storage Immutability and Content Readability/Key Survivability Are Independent Safety Dimensions
+- G2-FINDING-SDM-22 — Storage Provider Replacement Requires Revision/Integrity/Retention/Deletion Conformance, Not API Compatibility Alone
+
 ## Data / Schema / Migrations — revisit 2 / cycle 3
 - G2-FINDING-DSM-17 — Canonical Data Model Revision and Physical Schema Realization Require Distinct Identities
 - G2-FINDING-DSM-18 — Safe Data Evolution Requires an Explicit Compatibility Window, Not Merely an Ordered DDL List
@@ -73,24 +81,5 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - G2-FINDING-UCA-20 — Universal Context Should Be Relational, Not Embedded Domain Hierarchy
 - G2-FINDING-UCA-21 — Semantic Vocabulary and Execution Protocol Must Remain Orthogonal
 - G2-FINDING-UCA-22 — Effective Resolution Requires Revision-Bound Inputs and Evidence
-
-## Adaptive Governed Work Surfaces — dedicated research pass 1
-- G2-FINDING-AGWS-01 — Surface Definition, Overlay and Effective Resolved Surface Are Distinct Identities
-- G2-FINDING-AGWS-02 — Visual Composition Authority Must Be Strictly Smaller Than Canonical Domain Authority
-- G2-FINDING-AGWS-03 — Station Is a First-Class Capability-Exposure and Delegated-Administration Boundary
-- G2-FINDING-AGWS-04 — Superior Invariants Require Monotonic Overlay Resolution and Explicit Mandatory-Component Placement Policy
-- G2-FINDING-AGWS-05 — AI Materialization Is an Authority Boundary, Not Merely an Authoring Convenience
-- G2-FINDING-AGWS-06 — Work-Surface Automation Authority Is the Intersection of Actor, Role, Station, Binding and Action Policy
-- G2-FINDING-AGWS-07 — Provider-Neutral Semantic Binding Is Required for Replaceable Work Surfaces
-- G2-FINDING-AGWS-08 — Personalization Requires Revalidation Against Changing Authority and Capability Context
-- G2-FINDING-AGWS-09 — Promotion Is a Governed New Revision Backed by Evidence, Not Automatic Copying of Popular Personalization
-
-## Architecture Reconciliation as a Capability — revisit 1
-- G2-FINDING-ARAC-11 — Architecture Decision, Architecture Obligation and Conformance Rule Are Distinct Identities
-- G2-FINDING-ARAC-12 — Conformance Is a Revision-, Scope- and Evidence-Bound Evaluation, Not a Timeless Boolean Property
-- G2-FINDING-ARAC-13 — Waiver/Exception Must Be a Governed Bounded Decision and Must Not Mutate the Underlying Obligation
-- G2-FINDING-ARAC-14 — Architecture Rule Rollout Requires Migration-Safe Applicability and Enforcement Modes
-- G2-FINDING-ARAC-15 — Automated Fitness Functions Complement but Cannot Universally Replace Human Architectural Review
-- G2-FINDING-ARAC-16 — Adaptive Work-Surface and AI Materialization Boundaries Must Be Testable Architecture Obligations with Provenance
 
 Detailed earlier finding titles remain authoritative in earlier index revisions and capability dossiers.
