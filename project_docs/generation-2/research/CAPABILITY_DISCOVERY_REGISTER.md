@@ -16,15 +16,15 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Notifications / Events / Messaging — revisit cycle 5 candidates
+## Build / Dependency Graph / Reproducibility — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-NEM-AMBIGUOUS-PUBLISH-OUTCOME-RECONCILIATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with the universal ambiguous-outcome primitive while retaining messaging-specific publication/provider-position evidence. |
-| G2-CAPABILITY-CANDIDATE-NEM-FANOUT-PARTIAL-DELIVERY-AGGREGATION | CORE | SUBCAPABILITY_CANDIDATE | Keep under Notifications / Events / Messaging unless synthesis proves a broader universal branch-obligation aggregate. |
-| G2-CAPABILITY-CANDIDATE-NEM-QUALIFIED-REPLAY-POSITION-MIGRATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Provider/Lifecycle/Data migration primitives while retaining subscription/checkpoint/replay semantics in Messaging. |
-| G2-CAPABILITY-CANDIDATE-NEM-QUALIFIED-LOCAL-MESSAGING-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with shared qualified-local-closure primitive while preserving event range/checkpoint/schema/content-reference/authority obligations. |
+| G2-CAPABILITY-CANDIDATE-BUILD-REPRODUCIBILITY-PROFILE-AND-OBSERVATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with shared evidence qualification while preserving Build ownership of build-specific byte/semantic/rebuildability comparison semantics. |
+| G2-CAPABILITY-CANDIDATE-BUILD-CACHE-TRUST-AND-WRITE-AUTHORITY | CORE | SUBCAPABILITY_CANDIDATE | Keep under Build/supply-chain governance unless synthesis proves a broader shared-cache authority primitive with equivalent semantics. |
+| G2-CAPABILITY-CANDIDATE-BUILD-AMBIGUOUS-RUNNER-OUTCOME-RECONCILIATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with universal ambiguous-outcome primitive while retaining build-attempt/output identity. |
+| G2-CAPABILITY-CANDIDATE-BUILD-LONG-TERM-REBUILDABILITY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with qualified-local closure plus Lifecycle/Artifact retention semantics; do not collapse long-term rebuildability into current offline closure. |
 
-No Messaging candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
+No Build candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
 
 ## Historical authority
 All omitted candidates remain authoritative in prior register revisions, state history and capability dossiers.
