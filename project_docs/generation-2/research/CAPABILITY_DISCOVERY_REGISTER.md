@@ -5,13 +5,6 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Adaptive Governed Work Surfaces
 `G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES` — **CORE / PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY**. Dedicated evidence establishes a material capability distinct from generic low-code UI. Structural boundary remains `Enterprise → Station → Role → Person`; Station owns bounded capability exposure/delegated administration; employee authoring is constrained semantic composition; AI is sole materializer; automation cannot exceed effective Station/Role permissions. Required nine proofs remain authoritative.
 
-## Observability / Operations / Incident — revisit cycle 3 candidates
-| Candidate | Class | Status | Promotion condition |
-|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-OBSERVABILITY-EVIDENCE-QUALITY-FRESHNESS | CROSS_CUTTING | CANDIDATE | Deployment, Security/Resilience and Developer/Operator research converge on reusable unknown/stale/partial evidence semantics. |
-| G2-CAPABILITY-CANDIDATE-TOPOLOGY-CORRELATED-PARTIAL-ROLLOUT-OBSERVATION | CROSS_CUTTING | CANDIDATE | Deployment/Lifecycle synthesis requires reusable release/cohort/topology correlation beyond observability alone. |
-| G2-CAPABILITY-CANDIDATE-INCIDENT-REMEDIATION-AUTHORITY-LINEAGE | CROSS_CUTTING | CANDIDATE | Authorization, Governance and AI-agent research converge on reusable incident-action authority/evidence semantics. |
-
 ## Extension / Plugin / Marketplace Architecture — revisit cycle 3 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
@@ -19,5 +12,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | G2-CAPABILITY-CANDIDATE-EXTENSION-ADMISSION-DEPENDENCY-CLOSURE | CROSS_CUTTING | CANDIDATE | Security/Governance research converges on reusable integrity + signer/publisher + dependency-closure + host-admission semantics. |
 | G2-CAPABILITY-CANDIDATE-EXTENSION-REVOCATION-CONTAINMENT-EVIDENCE | CROSS_CUTTING | CANDIDATE | Lifecycle/Security/Observability converge on reusable revocation outcome, effective containment and preserved evidence semantics. |
 
+## Governance / Compliance / Audit — revisit cycle 3 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-CONTROL-EFFECTIVENESS-EVIDENCE-QUALITY | CROSS_CUTTING | CANDIDATE | Observability, Security/Resilience and Product Proof acceptance converge on reusable effectiveness/freshness/coverage semantics. |
+| G2-CAPABILITY-CANDIDATE-DELEGATED-GOVERNANCE-INHERITANCE-CONFORMANCE | CROSS_CUTTING | CANDIDATE | Authorization, Provider/Binding and hierarchical Station research confirm reusable delegated-governance conformance beyond Governance alone. |
+| G2-CAPABILITY-CANDIDATE-CONTINUOUS-CONTROL-COVERAGE-UNKNOWN-STATE | CROSS_CUTTING | CANDIDATE | Observability/runtime-autonomy research confirms common missing/stale/partial-evidence semantics for continuous controls. |
+| G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING | CROSS_CUTTING | PENDING_RESEARCH | User-stated structural need: support pricing should be explainable from measurable relative complexity per capability, service bundles and usage; must receive dedicated multi-representative research across metering/rating/billing/payment before promotion. Governance owns only evidence/audit constraints. |
+
 ## Recent-cycle historical authority
-Candidates from Extension/Plugin/Marketplace Architecture, Deployment/Environment/Runtime, Artifact/Release/SBOM/Provenance, Build/Dependency/Reproducibility, Notifications/Events/Messaging, Storage/Documents/Media, Data/Schema/Migrations, Authorization, Identity, Integration, Workflow, AGWS, UI, Process/Application Modeling and Universal Capability Architecture remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
+Candidates from Observability, Extension/Plugin/Marketplace Architecture, Deployment/Environment/Runtime, Artifact/Release/SBOM/Provenance, Build/Dependency/Reproducibility, Notifications/Events/Messaging, Storage/Documents/Media, Data/Schema/Migrations, Authorization, Identity, Integration, Workflow, AGWS, UI, Process/Application Modeling and Universal Capability Architecture remain authoritative in their dossiers, prior register revisions and pipeline history. Compacting this register does not revoke them.
