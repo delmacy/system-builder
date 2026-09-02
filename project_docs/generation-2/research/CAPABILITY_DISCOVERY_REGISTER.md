@@ -11,6 +11,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory cross-capability research hypothesis — executable composition
 `G2-RESEARCH-HYPOTHESIS-EXECUTABLE-CAPABILITY-COMPOSITION-AND-CUMULATIVE-CONTEXT` — **USER-DIRECTED / MANDATORY_RESEARCH / NOT_A_PROMOTED_CAPABILITY**. See `project_docs/generation-2/research/concepts/EXECUTABLE_CAPABILITY_COMPOSITION_AND_CUMULATIVE_CONTEXT.md`. Capability Synthesis must explicitly dispose this hypothesis by evidence.
 
+## Mandatory cross-capability research hypothesis — transaction / consistency / concurrency
+`G2-RESEARCH-HYPOTHESIS-TRANSACTION-CONSISTENCY-CONCURRENCY` — **USER-DIRECTED / MANDATORY_RESEARCH / NOT_A_PROMOTED_CAPABILITY**. See `project_docs/generation-2/research/concepts/TRANSACTION_CONSISTENCY_CONCURRENCY.md`.
+
+Generation 2 must stress-test whether portable System Builder semantics require explicit primitives for business invariants, operation-scoped consistency, transaction/atomicity boundaries, concurrent mutation, expected revisions, idempotency/correlation, ordering, conflict resolution, compensation, irreversible effects, reconciliation and postcondition evidence. Provider mechanisms such as database isolation/locks, broker transactions, saga engines, leases or provider-specific exactly-once guarantees are realization evidence rather than automatic semantic authority.
+
+This hypothesis must be challenged across Universal Capability Architecture, Process/Application Modeling, Workflow, Integration, Authorization, Data, Events/Messaging, Runtime, Observability, Provider/Binding, Standards/API, Lifecycle, Security/Recovery, Architecture Reconciliation and the Executable Composition/Cumulative Context hypothesis. The post-cycle-7 Negative-Space Review and Capability Synthesis must explicitly dispose it with evidence; it must not disappear merely because pieces are discussed inside Data, Workflow or Integration.
+
 ## Cycle-4 consolidation candidates
 `G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. UCA through Extension repeatedly support revision-bound semantic identity, provider realization and observed evidence lineage.
 
