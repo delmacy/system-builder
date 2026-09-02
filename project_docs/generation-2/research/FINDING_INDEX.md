@@ -40,19 +40,22 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 `G2-FINDING-BUILD-23..28` remain authoritative in the Build dossier.
 
 ### Artifact / Release / SBOM / Provenance — revisit 3
-- **G2-FINDING-ARSP-23** — Semantic Release Revision, Concrete Artifact Realization, Platform Selection and Mutable Channel Binding Are Distinct Identities.
-- **G2-FINDING-ARSP-24** — SBOM Identity/Version/Freshness Is Independent of Artifact Identity and Must Be Qualified Against the Exact Subject and Resolved Closure.
-- **G2-FINDING-ARSP-25** — Multi-platform Release Qualification Is Profile-Coverage Evidence, Not a Blanket Property Inherited from One Index Digest.
-- **G2-FINDING-ARSP-26** — Artifact Bytes, Evidence Availability, Evidence Trust/Revocation and Historical Release Qualification Have Independent Lifecycles.
-- **G2-FINDING-ARSP-27** — Registry/Artifact Provider Replacement Is a Governed Migration Over Artifact Graph + Evidence Graph + Bindings, Not a Successful Copy/Tag Operation.
-- **G2-FINDING-ARSP-28** — Qualified Local/Offline Artifact Verification and Installation Require Closure of Artifact Graph, Evidence Predicates, Trust Roots, Verification Policy and Platform-resolution Metadata.
-- **G2-FINDING-ARSP-29** — AI/AGWS Build or Evidence Materialization Is Authority-Attenuating Across the Release Boundary.
+`G2-FINDING-ARSP-23..29` remain authoritative in the Artifact/Release dossier.
+
+### Deployment / Environment / Runtime — revisit 3
+- **G2-FINDING-DER-23** — Desired Deployment Revision, Environment Binding, Release Profile, Deployment Attempt and Provider Runtime Realization Are Distinct Identities.
+- **G2-FINDING-DER-24** — Deployment Success, Runtime Readiness and Domain Postcondition Qualification Are Distinct Evidence Layers.
+- **G2-FINDING-DER-25** — Rollback/Revert Is a New Governed Deployment Transition, Not Erasure of the Failed Revision.
+- **G2-FINDING-DER-26** — Runtime/Scheduling Selection Is a Provider Realization Constrained by Semantic Profiles and Authority.
+- **G2-FINDING-DER-27** — Deployment Qualification Must Carry Platform/Region/Attempt Coverage and Freshness.
+- **G2-FINDING-DER-28** — Qualified Local/Offline Runtime Execution and Recovery Require a Profile-scoped Closure of Artifact, Runtime, Config/Secret, Trust, State/Recovery and Verification Inputs.
+- **G2-FINDING-DER-29** — Release Approval, Deployment Authority, Runtime Administration and Recovery Authority Must Remain Separated Across AI/AGWS Automation.
 
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-13/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
+14/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings and the full wording of compacted cycle-4 sections, remain authoritative in their dossiers and prior index revisions.
