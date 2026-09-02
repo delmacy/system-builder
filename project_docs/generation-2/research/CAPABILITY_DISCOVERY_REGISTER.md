@@ -7,6 +7,13 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 Required proofs remain: list/form/grid without canonical model creation; constrained layout; mandatory component non-removal; revalidation on Station/Role change; AI escalation for canonical domain change; provider-bound action without coupling; bounded personal automation; lineage/version/diff/reset/rollback; evidence-governed Personal→Team/Role/System promotion.
 
+## Authorization / Policy / Organization / Multitenancy — revisit cycle 3 candidates
+| Candidate | Class | Status | Promotion condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-MONOTONIC-EFFECTIVE-AUTHORITY-RESOLUTION | CROSS_CUTTING | CANDIDATE | AGWS, Workflow, Integration, AI and Governance synthesis confirm one reusable non-widening resolution primitive across human, agent and provider execution. |
+| G2-CAPABILITY-CANDIDATE-DELEGATED-AUTHORITY-SUBSET-PROOF | CROSS_CUTTING | CANDIDATE | Governance, Extension/Marketplace and AI delegated-action findings converge on reusable delegation-without-escalation evidence. |
+| G2-CAPABILITY-CANDIDATE-AUTHORIZATION-CONTEXT-PROVENANCE | CROSS_CUTTING | CANDIDATE | Identity, Observability and AGWS synthesis confirm one reusable evidence model for selected scope/context versus canonical membership and mutable authorization state. |
+
 ## Identity / Authentication / Federation — revisit cycle 3 candidates
 | Candidate | Class | Status | Promotion condition |
 |---|---|---|---|
