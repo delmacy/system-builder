@@ -12,15 +12,25 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 `G2-RESEARCH-HYPOTHESIS-EXECUTABLE-CAPABILITY-COMPOSITION-AND-CUMULATIVE-CONTEXT` — **USER-DIRECTED / MANDATORY_RESEARCH / NOT_A_PROMOTED_CAPABILITY**. See `project_docs/generation-2/research/concepts/EXECUTABLE_CAPABILITY_COMPOSITION_AND_CUMULATIVE_CONTEXT.md`. Capability Synthesis must explicitly dispose this hypothesis by evidence.
 
 ## Cycle-4 consolidation candidates
-`G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. UCA through Deployment repeatedly support revision-bound semantic identity, provider realization and observed evidence lineage.
+`G2-CAPABILITY-CANDIDATE-UNIFIED-REVISION-BOUND-REALIZATION-EVIDENCE-LINEAGE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. UCA through Observability repeatedly support revision-bound semantic identity, provider realization and observed evidence lineage.
 
-`G2-CAPABILITY-CANDIDATE-UNIFIED-EVIDENCE-QUALIFICATION-CONTRACT` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Producer/subject/revision/scope/profile/context/freshness/coverage/trust/inconclusive semantics recur across capabilities; Deployment adds attempt/platform/region/runtime/readiness qualification.
+`G2-CAPABILITY-CANDIDATE-UNIFIED-EVIDENCE-QUALIFICATION-CONTRACT` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. Producer/subject/revision/scope/profile/context/freshness/coverage/trust/inconclusive semantics recur across capabilities; Deployment adds attempt/platform/region/runtime/readiness qualification and Observability adds topology/window/pipeline-health qualification.
 
-`G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CLOSURE-PROFILE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Deployment confirm profile-scoped local interpretation/execution/validation/recovery/replay/build/verification/install/runtime closure without centralized Builder availability.
+`G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CLOSURE-PROFILE` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Observability confirm profile-scoped local interpretation/execution/validation/recovery/replay/build/verification/install/runtime/operational closure without centralized Builder availability.
 
-`G2-CAPABILITY-CANDIDATE-NON-ACTUATING-RECONCILIATION-AUTHORITY-SEPARATION` remains a likely constitutional primitive (`DecisionAuthorityRef ≠ ExecutionAuthorityRef`).
+`G2-CAPABILITY-CANDIDATE-NON-ACTUATING-RECONCILIATION-AUTHORITY-SEPARATION` remains a likely constitutional primitive (`DecisionAuthorityRef ≠ ExecutionAuthorityRef`). Observability strengthens this with detection/diagnosis/incident-administration/remediation/deployment/recovery separation.
 
-`G2-CAPABILITY-CANDIDATE-SHARED-GOVERNED-MIGRATION-TRANSITION` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Deployment converge on `plan → validation → approval → attempt → checkpoint/postcondition evidence`; Lifecycle remains an important confirmation point.
+`G2-CAPABILITY-CANDIDATE-SHARED-GOVERNED-MIGRATION-TRANSITION` — **CROSS_CUTTING / CONSOLIDATION_CANDIDATE**. PAM through Observability converge on `plan → validation → approval → attempt → checkpoint/postcondition evidence`; Observability adds provider-overlap/continuity and remediation/recovery transition evidence. Lifecycle remains an important confirmation point.
+
+## Observability / Operations / Incident — revisit cycle 4 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-QUALIFIED-OPERATIONAL-EVIDENCE-SET | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Governance/Lifecycle should determine merge into unified evidence qualification/realization lineage while preserving topology, window, pipeline-health and INCONCLUSIVE semantics. |
+| G2-CAPABILITY-CANDIDATE-GOVERNED-INCIDENT-REMEDIATION-RECOVERY-TRANSITION | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Governance/Lifecycle/Security should confirm convergence with shared governed transition and non-actuating authority separation while preserving incident/remediation/recovery lineage. |
+| G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-OBSERVABILITY-INCIDENT-CLOSURE | CROSS_CUTTING | CANDIDATE / MERGE_TARGET | Security/Self-hosting should confirm merge into qualified local closure with collection, evaluation, incident ledger, trust, authority and reconciliation semantics. |
+| G2-CAPABILITY-CANDIDATE-OPERATIONAL-COMPLEXITY-EVIDENCE-FACTORS | CROSS_CUTTING | CANDIDATE / FEEDS_PENDING_RESEARCH | Feed measurable telemetry/topology/SLO/incident/provider/offline/recovery facts into the existing relative-operational-complexity metering/rating research; Observability must not own pricing/billing. |
+
+No Observability candidate is promoted.
 
 ## Deployment / Environment / Runtime — revisit cycle 4 candidates
 | Candidate | Class | Status | Promotion / merge condition |
