@@ -2,6 +2,14 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
+## Authorization / Policy / Organization / Multitenancy — revisit 2 / cycle 3
+- G2-FINDING-AUTH-17 — Effective Authority Is a Monotonic Resolution, Not a Union of Credentials, Roles and Context
+- G2-FINDING-AUTH-18 — Delegated Administration Requires a Subset/Non-Escalation Proof
+- G2-FINDING-AUTH-19 — Impersonation and On-Behalf-Of Require Authority Re-Resolution Under Preserved Subject/Actor Lineage
+- G2-FINDING-AUTH-20 — Selected Organization/Station Context Is Ephemeral Authorization Input, Not Canonical Membership State
+- G2-FINDING-AUTH-21 — Permit/Deny/Conflict/Error Semantics Are Part of Provider Conformance
+- G2-FINDING-AUTH-22 — Long-Running Privileged Effects Require Authority Revalidation Against Mutable Inputs
+
 ## Identity / Authentication / Federation — revisit 2 / cycle 3
 - G2-FINDING-IAF-17 — Canonical Subject, Authenticated Principal, Acting Principal and Workload Principal Require Distinct Identities
 - G2-FINDING-IAF-18 — Authentication Evidence Is Audience-, Issuer-, Time- and Trust-Context Bound
