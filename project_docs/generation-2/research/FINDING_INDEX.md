@@ -29,11 +29,21 @@ All stable findings from these cycle-4 revisits remain authoritative in their ca
 - **G2-FINDING-AIN-29** — Incident Diagnosis or Recovery Recommendation Must Not Become Recovery/Writer/Secret/Provider-Admin Actuation Authority.
 - **G2-FINDING-AIN-30** — Local/Offline Agent Autonomy Requires Qualified Model/Tool/Policy/Trust/Validator/Approval/Enforcement Closure.
 
+### Developer / Operator Experience / Self-hosting — revisit 3
+- **G2-FINDING-DOESH-23** — Simple Operator Experience Must Be a Progressive Projection Over Explicit Topology Semantics, Not Hidden Architectural Defaults.
+- **G2-FINDING-DOESH-24** — Bootstrap Trust Is a First-Class Revisioned Requirement Separate From General Configuration and Later Authorization.
+- **G2-FINDING-DOESH-25** — Operator Preview/Preflight Evidence Must Be Non-Actuating and Revision/Freshness Bound.
+- **G2-FINDING-DOESH-26** — Disconnected Operational Closure Includes Maintenance/Update History Where the Provider Requires It.
+- **G2-FINDING-DOESH-27** — Rollback Support Is Conditional Eligibility Evidence Over Retained Realizations, State, Trust and Compatibility.
+- **G2-FINDING-DOESH-28** — Local Diagnostic Autonomy Must Preserve Privilege Boundaries.
+- **G2-FINDING-DOESH-29** — Self-hosting Does Not Collapse Definition, Bootstrap, Diagnostic, Upgrade, Secret/Trust and Recovery Authorities Into One Administrator Power.
+- **G2-FINDING-DOESH-30** — Provider/Topology Substitution Must Preserve Semantic System Identity While Producing New Realization and Conformance Evidence.
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-23/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
+24/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings and the full wording of compacted cycle-4 sections, remain authoritative in their dossiers and prior index revisions.
