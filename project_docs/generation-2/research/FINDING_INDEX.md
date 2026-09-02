@@ -34,11 +34,19 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 - G2-FINDING-AGWS-20 — Surface Validation Is Revision/Profile/Context-Qualified and May Be Inconclusive
 - G2-FINDING-AGWS-21 — AI Surface Materialization Authority Cannot Amplify Superior Policy, Domain, Provider or Promotion Authority
 
+## Workflow & Durable Execution — revisit 3 / cycle 4
+- G2-FINDING-WDE-23 — Workflow Semantic Revision, In-flight Run Revision and Execution Realization Revision Must Coexist Without Identity Collapse
+- G2-FINDING-WDE-24 — Workflow Migration Is a Governed Plan/Validation/Approval/Attempt/Postcondition Transition
+- G2-FINDING-WDE-25 — Human-task Assignment and Authority Require Independent Revision Lineage Across Migration
+- G2-FINDING-WDE-26 — Recovery/Redrive Must Declare Preserved Identity and Cannot Implicitly Upgrade Semantic Revision
+- G2-FINDING-WDE-27 — Qualified Local Durable-execution Closure Requires Interpreter, State, Bindings, Trust, Authority and Recovery Dependencies
+- G2-FINDING-WDE-28 — AGWS Personal/Supervised Automation to Team Workflow Requires an Explicit Attenuated Authority Handoff
+
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-4/25 active capabilities revisited. UCA, Process & Application Modeling, UI / Generated Experience and Adaptive Governed Work Surfaces all produced material findings; consecutive-no-material remains 0 for all and none is SATURATED.
+5/25 active capabilities revisited. UCA, Process & Application Modeling, UI / Generated Experience, Adaptive Governed Work Surfaces and Workflow & Durable Execution produced material findings; consecutive-no-material remains 0 for all and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings, remain authoritative in their dossiers and prior index revisions.

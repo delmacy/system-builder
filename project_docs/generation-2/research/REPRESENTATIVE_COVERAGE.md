@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 4/25 capabilities revisited.
+Cycle 4 is open with 5/25 capabilities revisited.
 
 ### Universal Capability Architecture — revisit 3
 OASIS TOSCA 2.0: `DEEP`; Kubernetes desired/observed generation: `DEEP`; OpenFeature provider/context/status: `DEEP`; OpenTelemetry Resource/Entity identity: `DEEP`; Crossplane ProviderConfig/ManagedResource: `DEEP`; SPIFFE trust domains/bundles: `DEEP`; OPA bundle persistence/status: `DEEP`. Findings `G2-FINDING-UCA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
@@ -22,6 +22,9 @@ Microsoft Power Apps/Dataverse solution dependencies + layers: `DEEP`; Mendix pa
 
 ### Adaptive Governed Work Surfaces — revisit 2
 Microsoft Power Apps/Dataverse personal/system/public views + security-role-managed views/forms/apps: `DEEP`; ServiceNow UI Builder variants/audiences/ordered conditions: `DEEP`; SAP Build Work Zone spaces/pages/business roles/federated transport: `DEEP`; Salesforce Lightning App Builder org/app/profile/record-type/form-factor assignment: `DEEP`; prior Appsmith boundary evidence: `DEEP`; prior Retool evidence: `PARTIAL`. Findings `G2-FINDING-AGWS-16..21`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: revision-qualified `Enterprise → Station → Role → Person` resolution; independently versioned Station exposure; mandatory-component semantic migration; governed Personal→Team/Role/System promotion; revision/profile/context-qualified validation; AI materialization without superior-authority amplification.
+
+### Workflow & Durable Execution — revisit 3
+Camunda 8 process-instance migration: `DEEP`; Camunda 8 incidents: `DEEP`; AWS Step Functions versions/aliases/redrive: `DEEP`; Azure Durable Functions external events: `DEEP`; Temporal durable execution/evolution semantics: `PARTIAL`. Findings `G2-FINDING-WDE-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: semantic/run/realization revision coexistence; governed migration evidence; human-task assignment-authority lineage; recovery preservation semantics; qualified local durable-execution closure; explicit bounded AGWS→Team Workflow authority handoff.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
