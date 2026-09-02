@@ -31,18 +31,21 @@ Prior stable findings remain authoritative in their capability dossiers and pipe
 `G2-FINDING-DSM-23..28` remain authoritative in the Data dossier.
 
 ### Storage / Documents / Media — revisit 3
-- **G2-FINDING-SDM-23** — Logical Content Identity, Content Revision, Metadata Revision and Provider Realization Must Coexist Without Identity Collapse
-- **G2-FINDING-SDM-24** — Content Hash/Checksum Is Qualified Integrity Evidence, Not Universal Document Identity
-- **G2-FINDING-SDM-25** — Retention, Legal Hold, Delete/Tombstone and New-Version Creation Are Distinct Governed Transitions
-- **G2-FINDING-SDM-26** — Copy/Replication Completion and Source-target Content/Governance Conformance Are Distinct Evidence States
-- **G2-FINDING-SDM-27** — Storage/Document Migration Is a Governed Plan/Validation/Approval/Attempt/Checkpoint/Postcondition Transition
-- **G2-FINDING-SDM-28** — Qualified Local Content Closure and Replica Freshness Generalize Evidence Qualification Beyond Data Positions
+`G2-FINDING-SDM-23..28` remain authoritative in the Storage dossier.
+
+### Notifications / Events / Messaging — revisit 3
+- **G2-FINDING-NEM-23** — Semantic Occurrence, Envelope Revision and Provider Position/Sequence Are Coexisting Identities; Transport Position Is Qualified Realization Evidence, Not Event Identity.
+- **G2-FINDING-NEM-24** — Consumer Observation, Delivery Acknowledgement, Checkpoint/Commit and Domain Acceptance Are Distinct Evidence States.
+- **G2-FINDING-NEM-25** — Async Consumption Progress Is Position-Qualified by Provider/Subscription/Ordering Scope/Schema Revision/Freshness; a Raw Offset Is Not Universal Progress.
+- **G2-FINDING-NEM-26** — Replay/Redrive Creates Governed Delivery-Realization Lineage and May Reset Provider Identity, Retention or Ordering Relationships Without Creating a New Domain Occurrence.
+- **G2-FINDING-NEM-27** — Provider/Subscription/Cross-Station Migration Requires Plan/Validation/Approval/Attempt/Checkpoint/Postcondition Evidence; API Shape Does Not Prove Consumption Continuity.
+- **G2-FINDING-NEM-28** — Qualified Local Event Interpretation/Replay Closure Must Carry Schema, Position, Trust, Authority-Freshness and Replay-Guard Evidence Without Amplifying Stale Authority.
 
 ## Cycle 3 closure
 All 25 active capabilities completed cycle 3. Every pass produced material architectural findings; no capability is SATURATED at cycle close.
 
 ## Cycle 4 progress
-10/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
+11/25 active capabilities revisited. Every cycle-4 pass so far produced material findings; consecutive-no-material remains 0 and none is SATURATED.
 
 ## Historical authority
 All prior findings, including cycle 1–3 findings and the full wording of compacted cycle-4 sections, remain authoritative in their dossiers and prior index revisions.

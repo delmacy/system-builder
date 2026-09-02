@@ -3,7 +3,20 @@
   "generation": "Generation 2 — Capability Architecture & Symbiotic Platform Engineering",
   "status": "ACTIVE",
   "phase": "RESEARCH_ELICITATION",
-  "phase_order": ["RESEARCH_ELICITATION","CAPABILITY_SYNTHESIS","PLANNING_A_TAXONOMY_BOUNDARIES","PLANNING_B_SB_CURRENT_STATE_RECONCILIATION","PLANNING_C_TARGET_ARCHITECTURE","PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY","PLANNING_E_PRODUCT_PROOF_ACCEPTANCE","ARCHITECTURE_RECONCILIATION","WBS_DECOMPOSITION","WBS_DEPENDENCY_GRAPH","WORK_PACKAGE_DESIGN","READY_FOR_WORKER_HANDOFF"],
+  "phase_order": [
+    "RESEARCH_ELICITATION",
+    "CAPABILITY_SYNTHESIS",
+    "PLANNING_A_TAXONOMY_BOUNDARIES",
+    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION",
+    "PLANNING_C_TARGET_ARCHITECTURE",
+    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY",
+    "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE",
+    "ARCHITECTURE_RECONCILIATION",
+    "WBS_DECOMPOSITION",
+    "WBS_DEPENDENCY_GRAPH",
+    "WORK_PACKAGE_DESIGN",
+    "READY_FOR_WORKER_HANDOFF"
+  ],
   "research": {
     "initial_macro_capabilities": 24,
     "active_taxonomy_capabilities": 25,
@@ -11,11 +24,15 @@
     "target_full_cycles": 10,
     "completed_full_cycles": 3,
     "active_revisit_cycle": 4,
-    "capabilities_revisited_in_active_cycle": 10,
-    "hourly_runs_completed": 84,
-    "finding_count": 603,
-    "capability_candidate_count": 257,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-LOGICAL-CONTENT-REALIZATION-INTEGRITY-EVIDENCE","G2-CAPABILITY-CANDIDATE-GOVERNED-STORAGE-CONTENT-MIGRATION-TRANSITION","G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-CONTENT-RECOVERY-CLOSURE"],
+    "capabilities_revisited_in_active_cycle": 11,
+    "hourly_runs_completed": 85,
+    "finding_count": 609,
+    "capability_candidate_count": 260,
+    "new_candidates_this_run": [
+      "G2-CAPABILITY-CANDIDATE-POSITION-QUALIFIED-ASYNC-CONSUMPTION-EVIDENCE",
+      "G2-CAPABILITY-CANDIDATE-GOVERNED-ASYNC-PROVIDER-SUBSCRIPTION-MIGRATION-TRANSITION",
+      "G2-CAPABILITY-CANDIDATE-QUALIFIED-LOCAL-EVENT-INTERPRETATION-REPLAY-CLOSURE"
+    ],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "A capability is SATURATED only after principal representatives are covered and two consecutive revisits produce no material new architectural finding, or remaining questions require repository validation rather than external research.",
@@ -31,7 +48,17 @@
         "must_remain_distinct_from": "UI / Generated Experience / Low-code Builder",
         "required_boundary": "Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.",
         "required_authoring_rule": "Users express intent and compose constrained semantic components; AI is sole materializer over valid entities/domains/capabilities/permissions/contracts and must escalate canonical domain/process changes.",
-        "required_proofs": ["list/form/grid without new canonical model","layout constrained to allowed slots/grid","mandatory component non-removable","personalization revalidated after Station/Role change","AI request requiring domain change escalated","provider-bound action without coupling","personal automation respects authority","lineage/version/diff/reset/rollback","Personal→Team/Role/System promotion governed by evidence"]
+        "required_proofs": [
+          "list/form/grid without new canonical model",
+          "layout constrained to allowed slots/grid",
+          "mandatory component non-removable",
+          "personalization revalidated after Station/Role change",
+          "AI request requiring domain change escalated",
+          "provider-bound action without coupling",
+          "personal automation respects authority",
+          "lineage/version/diff/reset/rollback",
+          "Personal→Team/Role/System promotion governed by evidence"
+        ]
       }
     },
     "enterprise_completeness_negative_space_gate": {
@@ -40,25 +67,71 @@
       "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
       "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred with rationale, and no material category remains ownerless. Commercial metering/entitlements/rating/billing/payment and relative operational complexity pricing must be explicitly challenged as part of cost/quotas/metering/FinOps negative space if not promoted/researched earlier."
     },
-    "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media"],
+    "active_cycle_completed": [
+      "Universal Capability Architecture",
+      "Process & Application Modeling",
+      "UI / Generated Experience / Low-code Builder",
+      "Adaptive Governed Work Surfaces",
+      "Workflow & Durable Execution",
+      "Integration & Automation",
+      "Identity / Authentication / Federation",
+      "Authorization / Policy / Organization / Multitenancy",
+      "Data / Schema / Migrations",
+      "Storage / Documents / Media",
+      "Notifications / Events / Messaging"
+    ],
     "latest_revisit": {
-      "capability": "Storage / Documents / Media",
+      "capability": "Notifications / Events / Messaging",
       "revisits_completed": 3,
       "consecutive_no_material_finding": 0,
       "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-      "new_findings": ["G2-FINDING-SDM-23","G2-FINDING-SDM-24","G2-FINDING-SDM-25","G2-FINDING-SDM-26","G2-FINDING-SDM-27","G2-FINDING-SDM-28"],
-      "representative_coverage": {"Amazon S3 Object Versioning/Object Lock/Replication":"DEEP","Azure Blob Versioning/Object Replication/Immutable Storage":"DEEP","Google Cloud Storage Object Versioning/Object Retention Lock/Bucket Lock":"DEEP","MinIO/S3-compatible prior evidence":"PARTIAL"}
+      "new_findings": [
+        "G2-FINDING-NEM-23",
+        "G2-FINDING-NEM-24",
+        "G2-FINDING-NEM-25",
+        "G2-FINDING-NEM-26",
+        "G2-FINDING-NEM-27",
+        "G2-FINDING-NEM-28"
+      ],
+      "representative_coverage": {
+        "Apache Kafka 4.1 producer transactions/consumer offsets": "DEEP",
+        "Google Cloud Pub/Sub ordering/exactly-once/subscription lifecycle": "DEEP",
+        "Amazon SQS FIFO/DLQ redrive": "DEEP",
+        "NATS JetStream consumer position/ack/replay/retention": "DEEP",
+        "CloudEvents 1.0.x semantic envelope": "DEEP"
+      }
     },
-    "pending_capabilities": ["Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"]
+    "pending_capabilities": [
+      "Build / Dependency Graph / Reproducibility",
+      "Artifact / Release / SBOM / Provenance",
+      "Deployment / Environment / Runtime",
+      "Observability / Operations / Incident",
+      "Extension / Plugin / Marketplace Architecture",
+      "Governance / Compliance / Audit",
+      "Secrets / Configuration / Environment Portability",
+      "Provider / Binding / Capability Negotiation",
+      "Standards / Interoperability / API Contracts",
+      "Lifecycle / Versioning / Evolution / Migration",
+      "Security / Resilience / Failure Recovery",
+      "AI-native Engineering / Agents / Approvals",
+      "Developer / Operator Experience / Self-hosting",
+      "Architecture Reconciliation as a Capability"
+    ]
   },
   "gates": {
     "RESEARCH_ELICITATION": "OPEN — all active macro-capabilities require sufficient coverage/saturation, minimum cycles and the post-cycle-7 negative-space gate.",
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "NOT_YET_ELIGIBLE — mandatory after completed_full_cycles >= 7 and before CAPABILITY_SYNTHESIS.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_BY_RESEARCH_ELICITATION"
   },
-  "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Storage / Documents / Media — revisit 3 / cycle 4 complete. Six material findings establish logical content/content-revision/metadata/provider-realization identity separation; checksum/hash as qualified integrity evidence rather than identity; retention/legal-hold/delete/new-version transition separation; replication completion versus content/governance conformance; governed storage migration lineage; and qualified local content/recovery closure with replica freshness. AGWS remains revalidated across metadata/authority/provider revisions. No candidate promoted.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/STORAGE_DOCUMENTS_MEDIA_REVISIT_03.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Notifications / Events / Messaging, revisit cycle 4, as the next oldest non-saturated capability. Stress-test semantic event/message identity versus transport/provider realization; producer event revision versus delivery attempt/consumer observation; ordering/partition/sequence and duplicate evidence; acknowledgement versus domain acceptance; retry/redrive/replay lineage; durable subscription and consumer-position/checkpoint semantics; schema-at-event-position interpretation; retention/expiry/dead-letter and archival; provider replacement and cross-Station migration with plan/validation/approval/attempt/checkpoint/postcondition evidence; tenant/Station authority captured and attenuated through asynchronous delivery; qualified local/offline event interpretation/replay closure; AGWS notification/action components revalidated across authority/provider/schema revisions; and measurable messaging/provider complexity factors for later relative operational-complexity metering without making Messaging owner of billing. Test whether Storage content-generation/freshness evidence and Data position-qualified conformance converge with event offset/sequence evidence under the unified evidence qualification contract. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=3 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T14:08:36-03:00"
+  "artifact_roots": {
+    "research": "project_docs/generation-2/research/",
+    "synthesis": "project_docs/generation-2/synthesis/",
+    "planning": "project_docs/generation-2/planning/",
+    "wbs": "project_docs/generation-2/wbs/",
+    "packages": "project_docs/generation-2/packages/"
+  },
+  "current_focus": "Notifications / Events / Messaging — revisit 3 / cycle 4 complete. Six material findings establish semantic event/envelope/provider-position identity separation; acknowledgement/consumer observation/domain acceptance separation; position-qualified async consumption evidence; replay/redrive as new delivery realization lineage; governed provider/subscription/Station migration; and qualified local/offline event interpretation/replay closure with authority/schema freshness. Data position-qualified evidence and Storage generation/freshness evidence converge with async offset/sequence evidence under the unified evidence qualification contract. No candidate promoted.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/NOTIFICATIONS_EVENTS_MESSAGING_REVISIT_03.md",
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Build / Dependency Graph / Reproducibility, revisit cycle 4, as the next oldest non-saturated capability. Stress-test source definition identity versus dependency-resolution/lock revision/build-graph node/artifact realization; declared dependency versus resolved closure; lockfile and package-manager/toolchain provenance; hermeticity and network/environment inputs; cache-hit evidence versus semantic build equivalence; incremental graph invalidation and stale-cache detection; reproducibility qualification across platform/toolchain/container/Nix/Bazel/BuildKit/GitHub Actions; supply-chain inputs and trust roots; provider/runner replacement with governed migration/validation/checkpoint/postcondition evidence; qualified local/offline build closure; AGWS/AI-generated change builds without authority amplification; and measurable graph/closure/toolchain/provider complexity factors for later relative operational-complexity metering without making Build owner of billing. Test convergence with unified revision-bound realization evidence, evidence qualification, qualified local closure and shared governed migration transition. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=3 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T14:18:00-03:00"
 }

@@ -9,7 +9,7 @@ All 25 active capabilities completed cycle 2. Every pass produced material findi
 All 25 active capabilities completed cycle 3. Every capability produced material new findings; no capability satisfied saturation at cycle close.
 
 ## Revisit cycle 4
-Cycle 4 is open with 10/25 capabilities revisited.
+Cycle 4 is open with 11/25 capabilities revisited.
 
 ### Universal Capability Architecture — revisit 3
 OASIS TOSCA 2.0, Kubernetes desired/observed generation, OpenFeature provider/context/status, OpenTelemetry Resource/Entity identity, Crossplane ProviderConfig/ManagedResource, SPIFFE trust domains/bundles and OPA bundle persistence/status: `DEEP`. Findings `G2-FINDING-UCA-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
@@ -39,7 +39,10 @@ Cedar, OpenFGA, Kubernetes RBAC, Microsoft Entra PIM, Amazon Verified Permission
 PostgreSQL, Vitess, Debezium, AWS DMS, Prisma Migrate v7 and Liquibase 5.0.x: `DEEP`. Findings `G2-FINDING-DSM-23..28`; material new findings; NOT SATURATED.
 
 ### Storage / Documents / Media — revisit 3
-Amazon S3 Object Versioning/Object Lock/Replication: `DEEP`; Azure Blob Versioning/Object Replication/Immutable Storage: `DEEP`; Google Cloud Storage Object Versioning/Object Retention Lock/Bucket Lock: `DEEP`; MinIO/S3-compatible prior evidence: `PARTIAL` for this revisit. Findings `G2-FINDING-SDM-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: logical content vs provider realization identity; qualified integrity evidence; retention/hold/delete/version transitions; replication completion vs conformance; governed storage migration; qualified local content closure and replica freshness; AGWS revalidation; storage complexity evidence without billing ownership.
+Amazon S3 Object Versioning/Object Lock/Replication: `DEEP`; Azure Blob Versioning/Object Replication/Immutable Storage: `DEEP`; Google Cloud Storage Object Versioning/Object Retention Lock/Bucket Lock: `DEEP`; MinIO/S3-compatible prior evidence: `PARTIAL` for this revisit. Findings `G2-FINDING-SDM-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED.
+
+### Notifications / Events / Messaging — revisit 3
+Apache Kafka 4.1 producer transactions/consumer offsets: `DEEP`; Google Cloud Pub/Sub ordering/exactly-once/subscription lifecycle: `DEEP`; Amazon SQS FIFO/DLQ redrive: `DEEP`; NATS JetStream consumer position/ack/replay/retention: `DEEP`; CloudEvents 1.0.x semantic envelope: `DEEP`. Findings `G2-FINDING-NEM-23..28`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: semantic identity vs provider position; observation/ack/checkpoint/domain acceptance; position-qualified consumption evidence; replay/redrive lineage; governed provider/subscription/Station migration; qualified local replay closure; AGWS authority/schema/provider revalidation; convergence with Data/Storage evidence qualification.
 
 ## Historical authority
 All representatives/findings from prior capability sections and earlier revisions remain authoritative in their dossiers/state history. Compacting this ledger does not revoke coverage.
