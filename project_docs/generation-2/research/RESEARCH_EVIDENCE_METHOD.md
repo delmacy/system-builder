@@ -56,14 +56,46 @@ Evidence is evaluated by fitness for the claim rather than by a single global ra
 
 Conflicts must be preserved rather than averaged away. A production convention that contradicts stronger portability or correctness evidence should be recorded as a divergence, not silently generalized.
 
+## Cycle semantics and open-ended depth
+
+Research cycles are progress checkpoints, not a deadline and not a success metric.
+
+- `minimum_full_cycles = 7` is a mandatory floor before the Enterprise Completeness / Negative-Space Review can satisfy its gate.
+- `target_full_cycles = 10` is a maturity checkpoint at which global saturation should be reassessed; it is **not** an upper bound and does not authorize transition by itself.
+- Generation 2 has **no maximum number of research cycles**. If cycle 10, 15, 20, or later still produces material architectural findings, unresolved security/reliability concerns, material divergences, ownerless negative space, or new evidence that changes target-architecture hypotheses, RESEARCH_ELICITATION continues.
+- CAPABILITY_SYNTHESIS is entered only when the saturation and completeness gates are actually satisfied, regardless of cycle count.
+
+The objective is evidential saturation: consolidate techniques, production practices, standards, engineering experience, and scientific knowledge deeply enough to support a broad, safe, portable, enterprise-quality architecture. More cycles are justified only by remaining information value, not by a desire to increase the count.
+
+## Late-cycle research-by-exception
+
+After broad coverage becomes mature, additional cycles must become increasingly selective rather than mechanically revisiting every capability.
+
+A capability already marked `SATURATED` should not be reopened merely because a new cycle starts. Reopen it only when material new evidence, a newly promoted cross-cutting primitive, negative-space discovery, a contradiction, or repository validation creates a substantive unanswered question.
+
+Late-cycle effort should concentrate on:
+
+- non-saturated capabilities;
+- capabilities with material unresolved divergences or weak evidence classes;
+- cross-cutting primitives whose reconciliation affects multiple capabilities;
+- security, resilience, governance, interoperability, migration, offline/closure, and other enterprise-critical gaps;
+- candidates exposed by negative-space review;
+- contradictions between papers, standards, production systems, and SB repository reality.
+
+Thus a “full cycle” after substantial saturation may legitimately be sparse or exception-driven; the pipeline must not manufacture redundant reviews simply to preserve a uniform cadence.
+
 ## Saturation interaction
 
-Adding literature does **not** increase `minimum_full_cycles`, `target_full_cycles`, or otherwise create an unbounded research loop. Saturation remains governed by the existing state-machine rule. Literature is another evidence dimension inside eligible revisits and the negative-space review.
+Adding literature does not automatically increase cycle counts, but neither `minimum_full_cycles` nor `target_full_cycles` limits how long research may continue. Saturation remains governed by evidence.
 
-A capability should not remain perpetually unsaturated merely because additional papers exist. Once principal representatives and material literature/standards questions are sufficiently covered and two consecutive revisits yield no material architectural finding, or remaining questions require repository validation, the existing saturation rule applies.
+A capability should not remain perpetually unsaturated merely because additional papers exist. Once principal representatives and material literature/standards questions are sufficiently covered and two consecutive eligible revisits yield no material architectural finding, or remaining questions require repository validation, the existing saturation rule applies.
+
+Conversely, a capability must not be declared saturated merely because the target cycle count has been reached. Any material new finding resets the relevant no-material-finding streak and keeps the capability open until its unresolved questions are closed or correctly deferred to repository validation.
 
 ## Researcher operating rule
 
 For each selected capability, prefer 3–8 strong production/standards representatives as already required, and add literature selectively where it can test assumptions, expose unresolved negative space, formalize a primitive, or challenge apparent product convergence. Do not perform broad paper collection for its own sake.
 
 All material paper-derived evidence must be added to the capability evidence/source ledger and reflected in findings/candidates exactly like other evidence classes.
+
+When choosing work in later cycles, prioritize information gain over symmetry: do not revisit saturated capabilities by routine; focus on the oldest/lowest-covered eligible gap, unresolved material questions, newly discovered negative space, and cross-cutting contradictions that can still change the Generation 2 architecture.
