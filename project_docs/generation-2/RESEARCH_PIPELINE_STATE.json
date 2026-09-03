@@ -12,8 +12,8 @@
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 181,
-    "finding_count": 1367,
+    "hourly_runs_completed": 182,
+    "finding_count": 1375,
     "capability_candidate_count": 642,
     "new_candidates_this_run": [],
     "promoted_capabilities_this_run": [],
@@ -22,59 +22,34 @@
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; compact representations do not revoke prior candidates",
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
     "finding_inventory_authority": "project_docs/generation-2/research/FINDING_INDEX.md plus capability dossiers and prior state history; compact state does not revoke prior findings",
-    "mandatory_discovered_capabilities": {
-      "Adaptive Governed Work Surfaces": {"classification":"CORE","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","required_boundary":"Enterprise → Station → Role → Person; higher invariants non-weakenable; AI-only materialization never amplifies authority."},
-      "Enterprise Trust / PKI / Certificate Lifecycle": {"classification":"CROSS_CUTTING","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","artifact":"project_docs/generation-2/research/ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE.md"},
-      "Privacy / Data Governance / Retention / Legal Hold / Residency": {"classification":"CROSS_CUTTING","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","artifact":"project_docs/generation-2/research/PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY.md"},
-      "Technology Economic Governance / FinOps": {"classification":"CROSS_CUTTING","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","artifact":"project_docs/generation-2/research/ECONOMIC_GOVERNANCE_FINOPS_PROCUREMENT_DISPOSITION.md","excluded_owners":"Procurement/Sourcing/Vendor Contract Execution remains specialized; customer-commercial billing remains Commercial Metering owner; statutory accounting remains external/domain authority."}
-    },
-    "mandatory_cross_cutting_research_inputs": {
-      "Workload-Driven Runtime Realization & Capability Installation": {
-        "artifact":"project_docs/generation-2/research/WORKLOAD_DRIVEN_MINIMAL_RUNTIME_REALIZATION_PROOF.md",
-        "source_hypothesis":"project_docs/generation-2/research/concepts/WORKLOAD_DRIVEN_RUNTIME_REALIZATION_AND_CAPABILITY_INSTALLATION.md",
-        "status":"RESEARCH_COMPLETE_DISPOSITIONED_WITHOUT_TOP_LEVEL_PROMOTION",
-        "candidates":["G2-CAPABILITY-CANDIDATE-WORKLOAD-DRIVEN-RUNTIME-REALIZATION","G2-CAPABILITY-CANDIDATE-MINIMAL-CAPABILITY-RUNTIME-CLOSURE","G2-CAPABILITY-CANDIDATE-OPERATIONAL-PROFILE-SEPARATION","G2-CAPABILITY-CANDIDATE-RUNTIME-REALIZATION-EVOLUTION"],
-        "disposition":"Minimal closure merges into Build + Deployment; workload-driven realization merges into existing owners; OperationalProfile is a first-class revisioned cross-cutting contract, not a capability; realization evolution merges into Lifecycle + Deployment."
-      }
-    },
     "enterprise_completeness_negative_space_gate": {
       "required_when_completed_full_cycles_gte": 7,
-      "status": "IN_PROGRESS_PASS_1_STRUCTURAL_GAPS_AND_TWO_CENTRALIZED_PROOFS_RESOLVED_REMAINING_PROOFS_OPEN",
+      "status": "IN_PROGRESS_PASS_1_TRUST_PROOFS_RESOLVED_REMAINING_PROOFS_OPEN",
       "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
       "proof_backfill_addendum": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md",
       "resolved_structural_gaps": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE","G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY","G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"],
-      "disposed_without_promotion": ["G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE","G2-CAPABILITY-CANDIDATE-WORKLOAD-DRIVEN-RUNTIME-REALIZATION","G2-CAPABILITY-CANDIDATE-MINIMAL-CAPABILITY-RUNTIME-CLOSURE","G2-CAPABILITY-CANDIDATE-RUNTIME-REALIZATION-EVOLUTION"],
-      "required_cross_cutting_contracts": ["G2-CAPABILITY-CANDIDATE-OPERATIONAL-PROFILE-SEPARATION"],
-      "structural_research_queue": [],
-      "resolved_centralized_proofs": ["workload-driven minimal runtime realization","same semantics/different runtime realization","artifact-to-runtime admission"],
-      "centralized_proof_debt": ["enterprise trust qualification/rotation/substitution/offline horizon","privacy retention-hold-residency disposition","AI evaluation qualification and stale-evidence rejection","technology-economic normalization/allocation/history/budget/forecast/commitment/provider-substitution","domain composition/provider identity","disconnected trust horizon"]
-    },
-    "latest_structural_gap_research": {
-      "candidate": "G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT",
-      "result": "SPLIT_PARENT_NOT_PROMOTED_CHILD_TECHNOLOGY_ECONOMIC_GOVERNANCE_PROMOTED_CROSS_CUTTING",
-      "artifact": "project_docs/generation-2/research/ECONOMIC_GOVERNANCE_FINOPS_PROCUREMENT_DISPOSITION.md",
-      "new_findings": ["G2-FINDING-EGFP-01","G2-FINDING-EGFP-02","G2-FINDING-EGFP-03","G2-FINDING-EGFP-04","G2-FINDING-EGFP-05","G2-FINDING-EGFP-06","G2-FINDING-EGFP-07","G2-FINDING-EGFP-08"]
+      "resolved_centralized_proofs": ["workload-driven minimal runtime realization","same semantics/different runtime realization","artifact-to-runtime admission","enterprise trust qualification/lifecycle","trust rotation/residual drainage","disconnected trust horizon"],
+      "centralized_proof_debt": ["privacy retention-hold-residency disposition","AI evaluation qualification and stale-evidence rejection","technology-economic normalization/allocation/history/budget/forecast/commitment/provider-substitution","domain composition/provider identity"]
     },
     "latest_centralized_proof_research": {
-      "proof": "artifact-to-runtime admission",
-      "result": "RESOLVED_BY_MULTI_REPRESENTATIVE_RESEARCH_WITHOUT_TOP_LEVEL_PROMOTION",
-      "artifact": "project_docs/generation-2/research/ARTIFACT_TO_RUNTIME_ADMISSION_PROOF.md",
-      "new_findings": ["G2-FINDING-ATRA-01","G2-FINDING-ATRA-02","G2-FINDING-ATRA-03","G2-FINDING-ATRA-04","G2-FINDING-ATRA-05","G2-FINDING-ATRA-06","G2-FINDING-ATRA-07","G2-FINDING-ATRA-08"],
-      "representative_coverage": {"SLSA v1.2 verification/provenance expectations":"DEEP","Sigstore policy-controller admission/TUF root":"DEEP","Kubernetes desired-vs-observed generation/readiness":"DEEP","SPIFFE trust-bundle currentness/rotation":"DEEP","Provider/Binding effective satisfaction baseline":"DEEP","Deployment/Runtime rollout/reconciliation baseline":"DEEP"}
+      "proof": "enterprise trust qualification/rotation/substitution/offline horizon",
+      "result": "RESOLVED_BY_MULTI_REPRESENTATIVE_RESEARCH_WITHOUT_NEW_PROMOTION",
+      "artifact": "project_docs/generation-2/research/ENTERPRISE_TRUST_QUALIFICATION_ROTATION_SUBSTITUTION_OFFLINE_PROOF.md",
+      "new_findings": ["G2-FINDING-ETQP-01","G2-FINDING-ETQP-02","G2-FINDING-ETQP-03","G2-FINDING-ETQP-04","G2-FINDING-ETQP-05","G2-FINDING-ETQP-06","G2-FINDING-ETQP-07","G2-FINDING-ETQP-08"],
+      "representative_coverage": {"RFC 5280 path validation/time/trust anchors":"DEEP","SPIFFE trust bundles/federation/workload distribution":"DEEP","cert-manager/trust-manager issuance and trust-store rotation":"DEEP","Vault PKI multi-issuer/CRL/revocation":"DEEP"}
     },
-    "latest_gate_review": {"gate":"ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW","pass":1,"result":"STRUCTURAL_GAPS_AND_MINIMAL_RUNTIME_AND_ARTIFACT_RUNTIME_ADMISSION_DISPOSED_REMAINING_CENTRALIZED_PROOFS_OPEN","remaining_candidates":[]},
     "pending_capabilities": []
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — seven full cycles complete. Structural negative-space gaps, workload-driven minimal-runtime realization and artifact-to-runtime admission are dispositioned; centralized proof junctions remain open.",
-    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "IN_PROGRESS — structural semantic-owner gaps, minimal-runtime and artifact-to-runtime admission proofs are dispositioned, but remaining trust/privacy/AI/economic/domain-composition/disconnected-trust proof debt can still falsify completeness. Do not advance to synthesis.",
-    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — artifact-to-runtime admission is resolved; enterprise trust, privacy, AI evaluation, economic-governance, domain-composition/provider-identity and disconnected-trust proof suites remain unresolved.",
+    "RESEARCH_ELICITATION": "OPEN — seven full cycles complete. Structural gaps plus minimal-runtime, artifact-runtime and Enterprise Trust proof junctions are dispositioned; centralized privacy/AI/economic/domain-composition proof junctions remain open.",
+    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "IN_PROGRESS — Enterprise Trust qualification/lifecycle/rotation/offline horizon is resolved; remaining proof debt can still falsify completeness. Do not advance to synthesis.",
+    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — Enterprise Trust proof suite is resolved; privacy, AI evaluation, economic-governance and domain-composition/provider-identity proof suites remain unresolved.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_BY_ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Enterprise Completeness / Negative-Space Review remains open. Artifact-to-runtime admission is resolved: release qualification is separate from observed effective runtime realization and requires a revision-qualified RuntimeAdmissionQualification across artifact/provenance/verifier trust, RuntimeRealizationPlan, bindings, config, trust, schema/contracts, OperationalProfile, desired/observed generation and evidence currentness. Next unresolved centralized proof junction is Enterprise Trust qualification/rotation/substitution/offline horizon. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
-  "last_completed_artifact": "project_docs/generation-2/research/ARTIFACT_TO_RUNTIME_ADMISSION_PROOF.md",
+  "current_focus": "Enterprise Completeness / Negative-Space Review remains open. Enterprise Trust qualification/lifecycle, root/intermediate/provider rotation with overlap or fenced cutover, residual trust-cohort drainage and disconnected trust horizon are resolved by multi-representative research. Present certificate/key bytes are insufficient without current path/anchor/policy/revocation and consumer-effective qualification. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
+  "last_completed_artifact": "project_docs/generation-2/research/ENTERPRISE_TRUST_QUALIFICATION_ROTATION_SUBSTITUTION_OFFLINE_PROOF.md",
   "last_framework_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md",
-  "next_action": "Resolve exactly the Enterprise Trust qualification/rotation/substitution/offline-horizon centralized proof junction. Use 3–8 strong representatives spanning X.509 path validation/revocation/currentness, ACME/certificate lifecycle, SPIFFE/SPIRE trust-bundle rotation/federation, cert-manager/Vault/step-ca or equivalent automated issuance/rotation, workload trust distribution and offline/disconnected behavior. Prove that present certificate/key bytes are insufficient without current path/revocation/trust-root/policy qualification; root/intermediate rotation and provider substitution require overlapping-trust or explicit cutover plus residual-cohort drainage; stale/expired/revoked/path-invalid or beyond-offline-horizon trust must DENY/DEGRADE/INCONCLUSIVE according to higher policy; reconnect forces requalification. Preserve Enterprise → Station → Role → Person and AGWS/AI non-amplification. Do not enter CAPABILITY_SYNTHESIS until this and remaining centralized proof junctions are resolved.",
-  "updated_at": "2026-09-03T14:49:12-03:00"
+  "next_action": "Resolve exactly the Privacy retention/hold/residency centralized proof junction. Use 3–8 strong representatives spanning purpose/use limitation and data-subject obligations, retention schedules and deletion, records/legal hold overriding ordinary destruction, residency/jurisdiction placement and transfer constraints, provider-neutral policy enforcement and evidence/currentness. Prove that an otherwise valid delete/migrate/archive/replicate transition is DENIED or INCONCLUSIVE when a controlling legal hold, retention obligation, purpose restriction or residency rule applies; policy/obligation revisions are independently versioned; provider substitution or cross-region movement requires requalification; historical disposition remains replayable against producing revisions. Preserve Enterprise → Station → Role → Person and AGWS/AI non-amplification. Do not enter CAPABILITY_SYNTHESIS until this and remaining centralized proof junctions are resolved.",
+  "updated_at": "2026-09-03T15:07:03-03:00"
 }
