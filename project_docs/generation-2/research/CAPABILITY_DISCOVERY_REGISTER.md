@@ -16,15 +16,15 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Provider / Binding / Capability Negotiation — revisit cycle 5 candidates
+## Standards / Interoperability / API Contracts — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-PBCN-CONSUMER-EFFECTIVE-BINDING-SATISFACTION-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified effective-realization evidence; Provider/Binding keeps binding-satisfaction ownership and SCEP keeps secret/config consumption semantics. |
-| G2-CAPABILITY-CANDIDATE-PBCN-EXPECTED-BASE-BINDING-OWNERSHIP | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with universal concurrency/ownership preconditions while retaining binding-specific conflict semantics. |
-| G2-CAPABILITY-CANDIDATE-PBCN-PARTIAL-AMBIGUOUS-ACTUATION-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with universal ambiguous-outcome disposition and Architecture Reconciliation quarantine/reconciliation semantics. |
-| G2-CAPABILITY-CANDIDATE-PBCN-DELEGATED-CROSS-BOUNDARY-PROVIDER-EXPOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Authorization/AGWS hierarchical capability exposure; promote only if synthesis finds an ownerless semantic gap. |
+| G2-CAPABILITY-CANDIDATE-SIAC-CONSUMER-POPULATION-TRANSITIVE-COMPATIBILITY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified evidence qualification and Lifecycle migration readiness; Standards retains compatibility semantics. |
+| G2-CAPABILITY-CANDIDATE-SIAC-CROSS-BOUNDARY-SEMANTIC-REFERENCE-CONSENT | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Authorization/AGWS delegated exposure; preserve Standards ownership of semantic-reference validity. |
+| G2-CAPABILITY-CANDIDATE-SIAC-DEPRECATION-SUNSET-WITHDRAWAL-DRAINAGE-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Lifecycle governed transition/evidence; no new macro-capability unless synthesis finds ownerless semantics. |
+| G2-CAPABILITY-CANDIDATE-SIAC-EXECUTABLE-SEMANTIC-CONFORMANCE-LADDER | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified evidence qualification while retaining Standards interpretation/conformance ownership. |
 
 No candidate is promoted in this revisit.
 
 ## Historical authority
-Secrets / Configuration / Environment Portability revisit-cycle-5 candidates and all earlier candidates remain authoritative in prior register revisions and capability dossiers.
+Provider / Binding / Capability Negotiation revisit-cycle-5 candidates and all earlier candidates remain authoritative in prior register revisions and capability dossiers.
