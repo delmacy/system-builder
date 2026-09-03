@@ -46,8 +46,18 @@ All previously indexed cycle-5 findings through Developer / Operator Experience 
 - **G2-FINDING-UIGX-43** — Qualified local rendering/validation closure has a trust/evidence horizon and requires reconnection requalification when dependency epochs change.
 - **G2-FINDING-UIGX-44** — AI materialization must preserve independent semantic, target, accessibility and AGWS authority boundaries; generated representation success cannot self-authorize acceptance.
 
+### Adaptive Governed Work Surfaces — revisit 5
+- **G2-FINDING-AGWS-30** — AGWS identity is typed across surface, overlay, obligation, delegation, binding and realization kinds; provider/page IDs cannot become canonical AGWS identity.
+- **G2-FINDING-AGWS-31** — Effective AGWS state is a multi-axis revision vector including session-effective authority, Station exposure, component/model/binding/accessibility and trust epochs.
+- **G2-FINDING-AGWS-32** — Conflict-free personalization does not prove hierarchical, semantic or accessibility validity; merge and governed conformance are independent evidence classes.
+- **G2-FINDING-AGWS-33** — Hierarchical composite proof requires revision-compatible evidence joins; incompatible Enterprise/Station/Role/Person evidence propagates `INCONCLUSIVE`.
+- **G2-FINDING-AGWS-34** — Surface-selection context is provenance, never an authority source; audience/context/provider hints cannot grant data, action, provider or canonical-mutation authority.
+- **G2-FINDING-AGWS-35** — Mandatory organizational components require semantic obligation continuity across renderer/provider substitution, not visual or positional equivalence.
+- **G2-FINDING-AGWS-36** — Delegated Station administration is faceted and non-amplifying; surface/exposure authority does not confer domain, secret, provider-admin, deployment, recovery or superior-policy authority.
+- **G2-FINDING-AGWS-37** — Qualified local work-surface closure has a revalidation horizon; superior policy/trust/role/binding changes require requalification before privileged actuation.
+
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture, Process & Application Modeling and UI / Generated Experience / Low-code Builder completed.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture, Process & Application Modeling, UI / Generated Experience / Low-code Builder and Adaptive Governed Work Surfaces completed.
 
 ## Historical authority
 All prior findings, including cycle 1–5 and compacted findings, remain authoritative in their dossiers and prior index revisions.
