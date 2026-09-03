@@ -2,6 +2,18 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Technology Economic Governance — centralized proof disposition
+- **G2-FINDING-TEGP-01** — Provider-neutral economic identity is applicability-scoped across source, basis, purpose, scope, period, currency, normalization, rate/cost-model, allocation-policy, provider-binding and evidence-horizon revisions; provider IDs are realization evidence, not canonical organizational identity.
+- **G2-FINDING-TEGP-02** — Missing or late economic evidence yields `PARTIAL/INCONCLUSIVE`; absence of evidence must never collapse to zero cost or zero exposure.
+- **G2-FINDING-TEGP-03** — Allocation is a conservation proof: allocated targets plus explicit residual/excluded components reconcile to the declared source basis under the producing policy/rate/rounding revision.
+- **G2-FINDING-TEGP-04** — Historical economic replay is producing-revision-bound; later normalization/allocation/rate changes create new statements and cannot silently rewrite old showback/chargeback evidence.
+- **G2-FINDING-TEGP-05** — Budget and forecast are distinct identities and authorities; forecast currentness/model changes independently, and budget evidence/alerts never self-authorize runtime actuation.
+- **G2-FINDING-TEGP-06** — Commitment exposure, provider purchase, eligibility, applied benefit, unused/vacant portion and internal benefit allocation are distinct lifecycle semantics.
+- **G2-FINDING-TEGP-07** — Provider substitution is an economic requalification event across a mixed support vector; current statements cannot inherit equivalence from API or FOCUS-shape compatibility alone, while historical provider evidence remains replayable.
+- **G2-FINDING-TEGP-08** — Technology Economic Governance remains non-amplifying across `Enterprise → Station → Role → Person`; AGWS/AI can explain/recommend but cannot gain budget-mutation, commitment-purchase, provider-admin or runtime-actuation authority.
+
+Disposition: technology-economic normalization/allocation/history/budget/forecast/commitment/provider-substitution centralized proof **RESOLVED_BY_MULTI_REPRESENTATIVE_RESEARCH_WITHOUT_NEW_PROMOTION** in `TECHNOLOGY_ECONOMIC_GOVERNANCE_CENTRALIZED_PROOF.md`.
+
 ## AI Evaluation Qualification / Stale-Evidence Rejection — centralized proof disposition
 - **G2-FINDING-AIQP-01** — AI qualification is applicability-scoped over effective model/provider/prompt/instruction/tool/runtime configuration, evaluation dataset/population, evaluator/judge, qualification policy, authority scope and evidence horizon; scalar PASS is invalid.
 - **G2-FINDING-AIQP-02** — Changing any applicability-bearing dimension makes prior PASS stale/inapplicable unless explicit current-policy equivalence evidence exists; historical evidence remains immutable for its producing envelope.
