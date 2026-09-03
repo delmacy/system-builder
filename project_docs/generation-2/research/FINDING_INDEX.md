@@ -2,15 +2,18 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Cycle 7 — Provider / Binding / Capability Negotiation revisit 6
+- **G2-FINDING-PBCN-45** — Capability satisfaction is an applicability-scoped claim over requirement, offer, binding revision, provider realization, protocol/profile, policy, failure/evidence profile, target Station/consumer cohort, trust/config revision and observation horizon; provider `healthy` or `supports` alone is insufficient.
+- **G2-FINDING-PBCN-46** — Requirement, offer, binding, provider realization and consumer-effective satisfaction need separate typed identities; collapsing them makes provider replacement and historical evidence ambiguous.
+- **G2-FINDING-PBCN-47** — Provider readiness is supporting evidence, not consumer-effective satisfaction; effective proof must observe the qualified target population through the bound semantic contract.
+- **G2-FINDING-PBCN-48** — Binding mutation requires single-writer ownership/fencing or an equivalent conflict rule; shadow/dual realization must not duplicate mutation authority merely because two providers are simultaneously reachable.
+- **G2-FINDING-PBCN-49** — Cross-boundary consent/reference is a revocable, scoped grant with independent lineage/currentness; possession of an endpoint/reference does not grant canonical binding or provider-admin authority.
+- **G2-FINDING-PBCN-50** — Bind/program/cutover timeout or lost acknowledgement yields an ambiguous actuation outcome and requires reconcile-before-retry; retrying blindly can create competing bindings or duplicate effects.
+- **G2-FINDING-PBCN-51** — Provider portability is a mixed support vector spanning semantics, limits, failure/consistency guarantees, evidence, trust/security, lifecycle, offline behavior and administration; protocol/version compatibility is only one axis.
+- **G2-FINDING-PBCN-52** — Provider migration closes only after target consumer-effective satisfaction plus residual route/session/cache/subscription/consumer-cohort drainage or explicit disposition; qualified offline closure is horizon-bounded and `Enterprise → Station → Role → Person` plus AGWS/AI cannot amplify binding/provider authority.
+
 ## Cycle 7 — Secrets / Configuration / Environment Portability revisit 6
-- **G2-FINDING-SCEP-46** — Effective secret/configuration truth is an applicability-scoped qualification claim over semantic reference, overlay/environment, provider binding/generation, lease, materialization, refresh policy, consumer cohort, observation point, evidence freshness and delegated scope.
-- **G2-FINDING-SCEP-47** — Secret value, logical reference, provider version, materialization and consumer-effective generation require separate typed identity; stable references can outlive many values and consumer realizations.
-- **G2-FINDING-SCEP-48** — Consumer-effective currentness depends on delivery/refresh mechanism and qualified population; Kubernetes `subPath`, ESO refresh policies, AWS caches and Azure reference caches show provider-current cannot establish consumer-current.
-- **G2-FINDING-SCEP-49** — Secret/config evidence has independent currentness and historical replay horizons; lease/cache/sync intervals bound present qualification while audit/evidence retention bounds later replay.
-- **G2-FINDING-SCEP-50** — Rotation/revocation control-plane closure does not prove backend or consumer postconditions; Vault force-revoke can remove lease bookkeeping despite backend revocation failure, so ambiguous acknowledgement requires observation and reconcile-before-retry.
-- **G2-FINDING-SCEP-51** — Secret/config portability is a mixed provider/KMS/delivery/runtime support vector; storage compatibility alone cannot prove lease, rotation, refresh, wrapping, offline, evidence or residual-revocation equivalence.
-- **G2-FINDING-SCEP-52** — Rotation and provider cutover close only after residual consumer/session/cache/mount/environment cohorts are drained or dispositioned; previous-version retention or provider revocation is not consumer-adoption proof.
-- **G2-FINDING-SCEP-53** — Qualified local secret/config closure and AGWS/AI materialization are non-amplifying; local validity is horizon-bounded and reconnect-qualified, and `Enterprise → Station → Role → Person` cannot mint secret-read/provider/environment/KMS-admin or rotation/revocation authority.
+Findings `G2-FINDING-SCEP-46..53` remain authoritative in the capability dossier and prior index revision.
 
 ## Cycle 7 — Governance / Compliance / Audit revisit 6
 Findings `G2-FINDING-GCA-46..53` remain authoritative in the capability dossier and prior index revision.
@@ -20,18 +23,6 @@ Findings `G2-FINDING-EPM-45..52` remain authoritative in the capability dossier 
 
 ## Cycle 7 — Observability / Operations / Incident revisit 6
 Findings `G2-FINDING-OOI-47..54` remain authoritative in the capability dossier and prior index revision.
-
-## Cycle 7 — Deployment / Environment / Runtime revisit 6
-Findings `G2-FINDING-DER-46..53` remain authoritative in the capability dossier and prior index revision.
-
-## Cycle 7 — Artifact / Release / SBOM / Provenance revisit 6
-Findings `G2-FINDING-ARSP-46..53` remain authoritative in the capability dossier and prior index revision.
-
-## Cycle 7 — Build / Dependency Graph / Reproducibility revisit 6
-Findings `G2-FINDING-BDGR-45..52` remain authoritative in the capability dossier and prior index revision.
-
-## Cycle 7 — Notifications / Events / Messaging revisit 6
-Findings `G2-FINDING-NEM-45..52` remain authoritative in the capability dossier and prior index revision.
 
 ## Historical authority
 Detailed findings for all other capabilities remain authoritative in their dossiers, earlier index revisions and pipeline history.
