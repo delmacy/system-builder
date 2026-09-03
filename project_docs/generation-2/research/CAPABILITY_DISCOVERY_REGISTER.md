@@ -16,15 +16,15 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Secrets / Configuration / Environment Portability — revisit cycle 5 candidates
+## Provider / Binding / Capability Negotiation — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-SCEP-WORKLOAD-EFFECTIVE-SECRET-GENERATION-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified effective-realization evidence while retaining Secrets ownership of secret/config material-consumption semantics. |
-| G2-CAPABILITY-CANDIDATE-SCEP-RESIDUAL-IN-USE-GENERATION-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/Security governed retirement and ambiguous-outcome disposition. |
-| G2-CAPABILITY-CANDIDATE-SCEP-SECRET-SAFE-NONDISCLOSURE-EVIDENCE-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Governance/Observability/AI consume lineage and qualification without secret plaintext. |
-| G2-CAPABILITY-CANDIDATE-SCEP-GOVERNED-DUAL-REALIZATION-CUTOVER | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Provider Binding and universal governed migration transition. |
+| G2-CAPABILITY-CANDIDATE-PBCN-CONSUMER-EFFECTIVE-BINDING-SATISFACTION-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified effective-realization evidence; Provider/Binding keeps binding-satisfaction ownership and SCEP keeps secret/config consumption semantics. |
+| G2-CAPABILITY-CANDIDATE-PBCN-EXPECTED-BASE-BINDING-OWNERSHIP | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with universal concurrency/ownership preconditions while retaining binding-specific conflict semantics. |
+| G2-CAPABILITY-CANDIDATE-PBCN-PARTIAL-AMBIGUOUS-ACTUATION-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with universal ambiguous-outcome disposition and Architecture Reconciliation quarantine/reconciliation semantics. |
+| G2-CAPABILITY-CANDIDATE-PBCN-DELEGATED-CROSS-BOUNDARY-PROVIDER-EXPOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Authorization/AGWS hierarchical capability exposure; promote only if synthesis finds an ownerless semantic gap. |
 
 No candidate is promoted in this revisit.
 
 ## Historical authority
-Governance / Compliance / Audit revisit-cycle-5 candidates and all earlier candidates remain authoritative in prior register revisions and capability dossiers.
+Secrets / Configuration / Environment Portability revisit-cycle-5 candidates and all earlier candidates remain authoritative in prior register revisions and capability dossiers.
