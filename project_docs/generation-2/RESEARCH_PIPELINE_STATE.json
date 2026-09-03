@@ -28,15 +28,15 @@
     "late_cycle_selection_rule": "As saturation increases, prefer research-by-exception and do not routinely reopen SATURATED capabilities without material new evidence or contradiction.",
     "completed_full_cycles": 4,
     "active_revisit_cycle": 5,
-    "capabilities_revisited_in_active_cycle": 15,
-    "hourly_runs_completed": 114,
-    "finding_count": 831,
-    "capability_candidate_count": 378,
+    "capabilities_revisited_in_active_cycle": 16,
+    "hourly_runs_completed": 115,
+    "finding_count": 839,
+    "capability_candidate_count": 382,
     "new_candidates_this_run": [
-      "G2-CAPABILITY-CANDIDATE-OOI-TELEMETRY-PIPELINE-QUALIFICATION-DEPENDENCY",
-      "G2-CAPABILITY-CANDIDATE-OOI-REVISION-BOUND-OBSERVATION-SUBJECT",
-      "G2-CAPABILITY-CANDIDATE-OOI-INCIDENT-CLOSURE-POSTCONDITION-SEPARATION",
-      "G2-CAPABILITY-CANDIDATE-OOI-GOVERNED-REMEDIATION-ACTUATION"
+      "G2-CAPABILITY-CANDIDATE-EXT-QUALIFIED-ADMISSION-TRUST-CONTAINMENT-VECTOR",
+      "G2-CAPABILITY-CANDIDATE-EXT-DEPENDENCY-CLOSURE-REVISION-AND-BLAST-RADIUS",
+      "G2-CAPABILITY-CANDIDATE-EXT-RESIDUAL-IN-USE-REVOCATION-POSTCONDITION",
+      "G2-CAPABILITY-CANDIDATE-EXT-CONTROL-PATH-FAILURE-AND-BOOTSTRAP-GOVERNANCE"
     ],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
@@ -97,35 +97,34 @@
       "Build / Dependency Graph / Reproducibility",
       "Artifact / Release / SBOM / Provenance",
       "Deployment / Environment / Runtime",
-      "Observability / Operations / Incident"
+      "Observability / Operations / Incident",
+      "Extension / Plugin / Marketplace Architecture"
     ],
     "latest_revisit": {
-      "capability": "Observability / Operations / Incident",
+      "capability": "Extension / Plugin / Marketplace Architecture",
       "revisits_completed": 4,
       "consecutive_no_material_finding": 0,
       "last_revisit_result": "MATERIAL_NEW_FINDINGS",
       "new_findings": [
-        "G2-FINDING-OOI-31",
-        "G2-FINDING-OOI-32",
-        "G2-FINDING-OOI-33",
-        "G2-FINDING-OOI-34",
-        "G2-FINDING-OOI-35",
-        "G2-FINDING-OOI-36",
-        "G2-FINDING-OOI-37",
-        "G2-FINDING-OOI-38"
+        "G2-FINDING-EXT-30",
+        "G2-FINDING-EXT-31",
+        "G2-FINDING-EXT-32",
+        "G2-FINDING-EXT-33",
+        "G2-FINDING-EXT-34",
+        "G2-FINDING-EXT-35",
+        "G2-FINDING-EXT-36",
+        "G2-FINDING-EXT-37"
       ],
       "representative_coverage": {
-        "OpenTelemetry Collector internal telemetry/resiliency": "DEEP",
-        "OpenTelemetry Resource/semantic conventions": "DEEP",
-        "Prometheus recording/alerting evaluation semantics": "DEEP",
-        "Google SRE multiwindow/multi-burn-rate SLO alerting": "DEEP",
-        "Grafana Mimir HA deduplication": "DEEP",
-        "Grafana Loki multi-tenancy/isolation": "DEEP",
-        "PagerDuty incident response/SRE Agent/Runbook Automation": "DEEP"
+        "VS Code Marketplace/runtime security/Workspace Trust/web extension sandbox": "DEEP",
+        "Terraform provider requirements/lock/install mirrors": "DEEP",
+        "OSGi Core 8 BundleRevision/BundleWiring/lifecycle": "DEEP",
+        "Backstage frontend/backend plugin and extension-point architecture": "DEEP",
+        "Kubernetes dynamic and manifest-based admission": "DEEP",
+        "USENIX plugin/supply-chain ecosystem studies": "DEEP"
       }
     },
     "pending_capabilities": [
-      "Extension / Plugin / Marketplace Architecture",
       "Governance / Compliance / Audit",
       "Secrets / Configuration / Environment Portability",
       "Provider / Binding / Capability Negotiation",
@@ -138,9 +137,9 @@
     ]
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — four full cycles complete; cycle 5 has 15/25 capabilities revisited. All active macro-capabilities still require evidence-driven saturation, minimum seven cycles and the post-cycle-7 negative-space gate.",
+    "RESEARCH_ELICITATION": "OPEN — four full cycles complete; cycle 5 has 16/25 capabilities revisited. All active macro-capabilities still require evidence-driven saturation, minimum seven cycles and the post-cycle-7 negative-space gate.",
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "NOT_YET_ELIGIBLE — mandatory after completed_full_cycles >= 7 and before CAPABILITY_SYNTHESIS.",
-    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — Observability / Operations / Incident now has ten explicit cycle-5 proof obligations in its revisit dossier, covering telemetry-pipeline failure, wrong-generation observation, derived-evaluation staleness, partial rollout, multi-Station/tenant coverage, diagnosis-vs-actuation authority, remediation postconditions, incident-closure gaps, provider replacement and qualified local closure; CAPABILITY_PROOF_MATRIX remains authoritative for unresolved acceptance-translation debt.",
+    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — Extension / Plugin / Marketplace Architecture now has ten explicit cycle-5 proof obligations in its revisit dossier covering signature-not-authority, dependency-staleness, ambiguous installation, residual revocation, containment substitution, control-path failure, Station delegation, AI-authored extension admission, provider migration and qualified local closure; CAPABILITY_PROOF_MATRIX remains authoritative for unresolved acceptance-translation debt.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_BY_RESEARCH_ELICITATION"
   },
   "artifact_roots": {
@@ -150,9 +149,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "Observability / Operations / Incident — revisit 4 / cycle 5 complete. Eight material findings require telemetry-pipeline health/loss/backlog/coverage to qualify operational evidence; bind observations to semantic subject plus effective realization/cohort; invalidate SLI/SLO/alert evidence after material rule/query/schema/provider/topology/cohort changes; separate incident closure from recovery postconditions; preserve non-amplifying diagnosis/remediation/deployment/provider-admin/recovery authority; require explicit multi-tenant/Station scope and provider-continuity evidence; and expose retention/backlog/loss/reconciliation in local/offline closure. Observability remains NOT SATURATED.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/OBSERVABILITY_OPERATIONS_INCIDENT_REVISIT_04.md",
+  "current_focus": "Extension / Plugin / Marketplace Architecture — revisit 4 / cycle 5 complete. Eight material findings separate integrity, producer trust, admission, dependency compatibility, containment and effective authority; make dependency closure revision-bound; require attempt/receipt/effective/postcondition states for install/update/revoke/remove; preserve residual-in-use revocation evidence; requalify containment across runtime/provider changes; require explicit control-path failure/bootstrap-governance semantics; preserve non-amplifying Enterprise→Station→Role→Person administration; and prevent AI/AGWS from bypassing host-owned extension contracts and admission. Extension remains NOT SATURATED.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_REVISIT_04.md",
   "last_framework_artifact": "project_docs/generation-2/research/CAPABILITY_PROOF_MATRIX.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Extension / Plugin / Marketplace Architecture, revisit 4 / cycle 5, as the next oldest non-saturated capability. Stress-test extension semantic/package identity versus installed/enabled/effective runtime realization; admission/trust/signature/SBOM/provenance qualification and freshness; dependency/compatibility closure; install/update/revoke/remove attempt versus provider receipt/effective realization/postcondition; sandbox/isolation and host capability exposure; extension/provider coexistence and migration; tenant/Station scope, delegated administration and hierarchical SB capability exposure; stale trust/policy/evidence invalidation; local/offline extension closure; AI-authored extension authority; AGWS component/extension boundary; partial/ambiguous installation or revocation outcomes; and architecture proof-backfill. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=4 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-02T21:31:50-03:00"
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Governance / Compliance / Audit, revisit 4 / cycle 5, as the next oldest non-saturated capability. Stress-test control/requirement identity versus framework mappings and effective applicability; evidence observation/selection/package/integrity/retention freshness; exception/waiver request, approval, expiry and residual noncompliance; assessment versus remediation authority; continuous-control evaluation and INCONCLUSIVE/coverage-failure semantics; cross-framework mapping drift; delegated Enterprise→Station governance without authority amplification; local/offline audit and retention closure; provider replacement; AI-generated compliance evidence/assessment boundaries; and architecture proof-backfill. Test convergence with Extension trust/admission/revocation findings, unified evidence qualification, revision-bound lineage, qualified local closure and faceted non-actuating authority. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=4 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-02T21:46:00-03:00"
 }
