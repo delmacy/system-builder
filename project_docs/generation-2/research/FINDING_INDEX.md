@@ -2,6 +2,18 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## AI Evaluation Qualification / Stale-Evidence Rejection — centralized proof disposition
+- **G2-FINDING-AIQP-01** — AI qualification is applicability-scoped over effective model/provider/prompt/instruction/tool/runtime configuration, evaluation dataset/population, evaluator/judge, qualification policy, authority scope and evidence horizon; scalar PASS is invalid.
+- **G2-FINDING-AIQP-02** — Changing any applicability-bearing dimension makes prior PASS stale/inapplicable unless explicit current-policy equivalence evidence exists; historical evidence remains immutable for its producing envelope.
+- **G2-FINDING-AIQP-03** — Prompt/version identity alone cannot prove effective AI configuration identity because model configuration and tool/binding context can change independently.
+- **G2-FINDING-AIQP-04** — Missing mandatory evaluator dimensions, partial coverage, unavailable judge/provider, unknown lineage or stale evidence yields `INCONCLUSIVE`, never inherited PASS.
+- **G2-FINDING-AIQP-05** — Evaluation score/qualification and promotion/admission are distinct authorities; PASS never self-grants deployment, provider substitution, tool authority, waiver or canonical mutation.
+- **G2-FINDING-AIQP-06** — Offline evaluation and production online evaluation are different evidence populations/horizons; sampled live evidence cannot silently broaden pre-release qualification and lack of observed failure is not universal proof.
+- **G2-FINDING-AIQP-07** — AI evaluation portability is a mixed support vector across evaluator semantics, judge/model pinning, safety taxonomy, dataset/trace portability, sampling, retention/replay, offline support and provider availability; API compatibility is insufficient equivalence evidence.
+- **G2-FINDING-AIQP-08** — `Enterprise → Station → Role → Person` is monotonic for AI qualification, and AGWS/AI remains non-amplifying: lower layers may narrow admitted profiles but cannot weaken superior qualification or acquire policy/provider/canonical authority.
+
+Disposition: AI evaluation qualification/stale-evidence centralized proof **RESOLVED_BY_MULTI_REPRESENTATIVE_RESEARCH_WITHOUT_NEW_PROMOTION** in `AI_EVALUATION_QUALIFICATION_STALE_EVIDENCE_CENTRALIZED_PROOF.md`.
+
 ## Privacy Retention / Hold / Residency — centralized proof disposition
 - **G2-FINDING-PRHR-01** — Governed transition eligibility is applicability-scoped across independently versioned purpose/use, retention, hold, residency, provider/control, population and evidence-currentness revisions.
 - **G2-FINDING-PRHR-02** — Preservation authority can override technically valid destruction; active controlling hold/records/retention authority DENYs, while stale/unknown hold state yields INCONCLUSIVE.
