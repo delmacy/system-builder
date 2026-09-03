@@ -2,35 +2,31 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Privacy / Data Governance / Retention / Legal Hold / Residency — structural gap research
+- **G2-FINDING-PDGR-01** — Privacy/data-governance requires a distinct semantic owner. NIST separates privacy risk arising from data processing from cybersecurity risk, while GDPR and enterprise implementations attach purpose, retention, hold, erasure and accountability semantics independently of schema/storage/access-control mechanics. Parent candidate promoted `CROSS_CUTTING / NOT_SATURATED`.
+- **G2-FINDING-PDGR-02** — Deletion eligibility is an obligation-resolution result, not a delete capability. Erasure exceptions, restriction, retention and legal hold can block otherwise-valid destructive operations; canonical deletion must consume a revision-qualified `DeletionEligibility` claim over all controlling obligations.
+- **G2-FINDING-PDGR-03** — Retention, legal hold, user-visible deletion and physical disposition are separate facts. A user-visible delete can coexist with preserved content and an active hold/retention obligation.
+- **G2-FINDING-PDGR-04** — Residency is applicability- and provider-support-qualified. Workload/account/OU/service scopes and documented exemptions mean a scalar region flag cannot prove effective residency.
+- **G2-FINDING-PDGR-05** — Exceptional deletion is privileged governance actuation. Retention/hold override mechanisms require explicit narrow authority, approvals/roles and audit where applicable; generic admin, AI or ordinary data-write authority must not imply it.
+- **G2-FINDING-PDGR-06** — Governance evidence has an independent currentness/replay horizon. Historical policy assignment, hold, residency control or disposition receipt proves only the qualified state for its own revisions and observation horizon.
+- **G2-FINDING-PDGR-07** — Provider portability is a mixed governance-support vector across purpose/classification, retention start/event semantics, immutable records, legal hold, exceptional deletion, residency precision/service coverage, evidence export, offline behavior and disposition closure.
+- **G2-FINDING-PDGR-08** — Governance closure requires residual-population drainage. Primary-record deletion/movement is insufficient while governed replicas, backups, caches, indexes, exports, renditions or downstream consumers remain undispositioned.
+
 ## Enterprise Trust / PKI / Certificate Lifecycle — structural gap research
-- **G2-FINDING-ETPKI-01** — Effective trust is applicability-scoped, not certificate-presence state. Relying subject/workload, purpose, certificate/profile, issuer/path, trust-anchor revision, trust-policy revision, revocation/currentness evidence, Station/consumer, provider realization and observation horizon qualify the claim.
-- **G2-FINDING-ETPKI-02** — Enterprise trust lifecycle is structurally distinct from Secrets, Identity and Security ownership. Secrets protects material; Identity owns subjects/authentication; Security owns assurance/risk policy; trust-domain/anchor/issuer/certificate/revocation/rotation/consumer-effective state needs its own cross-cutting semantic owner. Parent candidate promoted, NOT SATURATED.
-- **G2-FINDING-ETPKI-03** — Issuance, distribution and effective consumption are separate typed facts. ACME/cert-manager evidence shows `issued` does not imply every relying consumer has observed or qualified the material.
-- **G2-FINDING-ETPKI-04** — Revocation is a freshness- and scope-qualified distributed state. RFC 5280 permits `UNDETERMINED`; Vault can expose local/unified or pending cross-cluster revocation. Revocation intent/acceptance cannot substitute for relying-party-effective denial.
-- **G2-FINDING-ETPKI-05** — Rotation requires overlap, fencing and residual consumer drainage. New issuer/root/certificate availability does not prove closure until old certificate/anchor/bundle/session consumers are requalified, drained or explicitly disposed.
-- **G2-FINDING-ETPKI-06** — PKI/provider portability is a mixed support vector across enrollment, hierarchy, multi-issuer rotation, revocation/status, workload identity, HSM/key custody, offline behavior, evidence and rollover. X.509/ACME support alone is insufficient.
-- **G2-FINDING-ETPKI-07** — Trust evidence has an independent replay/currentness horizon. CRLs, OCSP evidence, trust bundles and consumer observations may become stale while certificate bytes remain unchanged; offline closure needs explicit expiry and reconnect requalification.
-- **G2-FINDING-ETPKI-08** — Delegated Station trust and AI/AGWS authority are monotonic and non-amplifying. `Enterprise → Station → Role → Person` may only specialize delegated issuer/profile/usage scope and cannot add superior roots, weaken mandatory trust policy or infer issuer/revocation/provider-admin authority.
+Findings `G2-FINDING-ETPKI-01..08` remain authoritative in the dedicated dossier and prior index revision; parent capability is promoted `CROSS_CUTTING / NOT_SATURATED`.
 
 ## Enterprise Completeness / Negative-Space Review — pass 1
-- **G2-FINDING-ENSR-01** — Enterprise trust/PKI is not equivalent to secret storage: certificate, issuer/trust-anchor, path/policy, validity, revocation/status, renewal/rollover and workload-effective trust are distinct facts. **Disposition after structural research:** resolved by promotion of Enterprise Trust / PKI / Certificate Lifecycle as `CROSS_CUTTING / NOT_SATURATED`; executable proof backfill remains open.
-- **G2-FINDING-ENSR-02** — Privacy/data-governance obligations can override ordinary data lifecycle: purpose/use, classification, retention, legal hold, deletion eligibility and residency/jurisdiction need explicit semantic ownership research.
-- **G2-FINDING-ENSR-03** — Economic governance/FinOps contains real allocation/budget/forecast/commitment/rating semantics but is DOMAIN_ONLY pending proof of reusable cross-cutting primitives.
-- **G2-FINDING-ENSR-04** — Supply-chain semantics are already owned by Build + Artifact/Provenance + Security, but artifact-to-runtime admission is an unresolved executable proof junction: signature/artifact presence alone cannot prove qualified admission.
-- **G2-FINDING-ENSR-05** — Agent/tool authority coverage does not prove model/prompt/evaluation/safety lifecycle governance; versioned AI asset/evaluation evidence requires bounded dedicated research before synthesis.
-- **G2-FINDING-ENSR-06** — Enterprise portal/search/admin collaboration are composition/providerization tests, not automatic universal capabilities; Backstage-like catalog/search and SCIM-like provisioning fit existing semantic owners unless contrary evidence appears.
-- **G2-FINDING-ENSR-07** — Workload-driven minimal runtime realization remains falsifiable proof debt across simple/scaled/critical archetypes: optional omission, deterministic dependency lineage, same semantics/different realization and no semantic mutation under scaling.
-- **G2-FINDING-ENSR-08** — Seven cycles satisfy review eligibility, not completeness. Structural candidates plus unresolved centralized proof obligations keep Enterprise Completeness open and CAPABILITY_SYNTHESIS blocked.
+- **G2-FINDING-ENSR-01** — Enterprise trust/PKI is not equivalent to secret storage. **Structurally resolved** by promotion of Enterprise Trust / PKI / Certificate Lifecycle; proof backfill remains open.
+- **G2-FINDING-ENSR-02** — Privacy/data-governance obligations can override ordinary data lifecycle. **Structurally resolved** by promotion of Privacy / Data Governance / Retention / Legal Hold / Residency; proof backfill remains open.
+- **G2-FINDING-ENSR-03** — Economic governance/FinOps contains real allocation/budget/forecast/commitment/rating semantics but is DOMAIN_ONLY pending bounded disposition.
+- **G2-FINDING-ENSR-04** — Supply-chain semantics are already owned by Build + Artifact/Provenance + Security, but artifact-to-runtime admission remains an unresolved executable proof junction.
+- **G2-FINDING-ENSR-05** — Agent/tool authority coverage does not prove model/prompt/evaluation/safety lifecycle governance; bounded dedicated disposition remains required.
+- **G2-FINDING-ENSR-06** — Enterprise portal/search/admin collaboration are composition/providerization tests, not automatic universal capabilities.
+- **G2-FINDING-ENSR-07** — Workload-driven minimal runtime realization remains falsifiable proof debt across simple/scaled/critical archetypes.
+- **G2-FINDING-ENSR-08** — Seven cycles satisfy review eligibility, not completeness. Remaining structural candidates and centralized proof obligations keep CAPABILITY_SYNTHESIS blocked.
 
 ## Cycle 7 — Architecture Reconciliation as a Capability revisit 6
-- **G2-FINDING-ARC-47** — Architecture reconciliation is an applicability-scoped qualification, not a scalar state. Subject, semantic owner, evidence/product/target revisions, provider/runtime/tool realization, policy/authority, dependency closure, consumer cohort, Station and evidence horizon qualify every material claim.
-- **G2-FINDING-ARC-48** — `ArchitectureEvidence → Finding → ProductTruth → Gap → Disposition → Plan → ExecutionAttempt → Acceptance → EffectiveState → Proof` are distinct typed facts. Acceptance or command success cannot substitute for observed effective convergence.
-- **G2-FINDING-ARC-49** — SB-current product truth, target architectural intent and migrated effective state must remain separate. Plans/diffs are revision-bound observations and become stale when their backing state or assumptions change.
-- **G2-FINDING-ARC-50** — `KEEP/HARDEN/GENERALIZE/PROVIDERIZE/INTEGRATE/REPLACE/DEFER/DO_NOT_BUILD` decisions are revision- and evidence-qualified, reopenable records rather than permanent labels; domain semantic ownership remains with the originating capability.
-- **G2-FINDING-ARC-51** — Ambiguous reconciliation/apply outcomes require `OUTCOME_UNKNOWN → observe/reconcile-before-retry`; blind replay is unsafe where the external effect may already have occurred.
-- **G2-FINDING-ARC-52** — Reconciliation portability is a mixed support vector across observation, diff, planning, admission, actuation, drift, rollback/recovery, ownership/fencing, dependencies, evidence export and offline behavior; protocol/tool compatibility alone is insufficient.
-- **G2-FINDING-ARC-53** — Convergence closure requires dependency closure plus drainage or explicit disposition of residual controller/version/session/cache/config/binding/route/consumer cohorts; desired-versus-observed revision agreement alone is insufficient for enterprise migration closure.
-- **G2-FINDING-ARC-54** — Reconciliation evidence has a replay/retention horizon independent of historical validity. Offline/local proofs require bounded trust/freshness closure and reconnect requalification; delegated Station, AI or AGWS context never amplifies canonical or provider-admin authority.
+Findings `G2-FINDING-ARC-47..54` remain authoritative in the capability dossier and prior index revision.
 
 ## Cycle 7 — Developer / Operator Experience / Self-hosting revisit 6
 Findings `G2-FINDING-DOESH-47..54` remain authoritative in the capability dossier and prior index revision.
@@ -40,9 +36,6 @@ Findings `G2-FINDING-AIN-47..54` remain authoritative in the capability dossier 
 
 ## Cycle 7 — Security / Resilience / Failure Recovery revisit 6
 Findings `G2-FINDING-SRFR-47..54` remain authoritative in the capability dossier and prior index revision.
-
-## Cycle 7 — Lifecycle / Versioning / Evolution / Migration revisit 6
-Findings `G2-FINDING-LVEM-46..53` remain authoritative in the capability dossier and prior index revision.
 
 ## Historical authority
 Detailed findings for all other capabilities remain authoritative in their dossiers, earlier ledger revisions and `RESEARCH_PIPELINE_STATE.json` history.
