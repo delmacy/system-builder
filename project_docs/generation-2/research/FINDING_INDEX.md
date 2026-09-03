@@ -2,6 +2,16 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Cycle 7 — Lifecycle / Versioning / Evolution / Migration revisit 6
+- **G2-FINDING-LVEM-46** — Transition qualification is applicability-scoped over semantic object, source/target revisions, transition-plan revision, population, provider/runtime realization, policy/trust/configuration vector, target scope and evidence horizon; scalar `currentVersion` is insufficient.
+- **G2-FINDING-LVEM-47** — Object revision, transition plan, attempt, realization, population and closure require separate typed identities; collapsing them prevents deterministic historical compatibility and ambiguous-actuation reconciliation.
+- **G2-FINDING-LVEM-48** — Lifecycle completion requires attempted→accepted→applied→converged→validated→drained closure; provider acceptance or target application cannot stand in for semantic validation or population/residual-state closure.
+- **G2-FINDING-LVEM-49** — Ambiguous migration/cutover actuation requires effect reconciliation before retry; transport timeout or lost acknowledgement does not authorize replay.
+- **G2-FINDING-LVEM-50** — Rollback eligibility is directional and must be recomputed against current effective state; historical health of an old revision is insufficient after new writes/state/effects.
+- **G2-FINDING-LVEM-51** — Mixed-version coexistence and residual cohort drainage are first-class transition states; withdrawal closes only after target-effective proof plus disposition of old clients, sessions, caches, subscriptions, workflows, replication paths and provider state.
+- **G2-FINDING-LVEM-52** — Transition evidence has a replay/retention horizon independent of historical validity; evidence expiry can block current requalification without retroactively falsifying a historical decision.
+- **G2-FINDING-LVEM-53** — Lifecycle portability is a mixed support vector and delegated transition authority must remain non-amplifying across `Enterprise → Station → Role → Person`; AGWS/AI cannot create canonical migration/provider authority.
+
 ## Cycle 7 — Standards / Interoperability / API Contracts revisit 6
 - **G2-FINDING-SIAC-47** — Interoperability is an applicability-scoped layered claim across syntactic, structural, behavioral and semantic conformance; success at a lower layer does not imply consumer-effective semantic satisfaction.
 - **G2-FINDING-SIAC-48** — Specification, dialect/profile, schema, operation, provider implementation, conformance result and consumer-effective state require separate typed identities and independent revision lineage.
@@ -13,14 +23,7 @@ Prior stable findings remain authoritative in their capability dossiers, earlier
 - **G2-FINDING-SIAC-54** — Conformance evidence has an applicability and replay horizon independent of document validity; local/offline use and historical proofs must requalify after relevant contract/profile/provider/trust advancement, while `Enterprise → Station → Role → Person` and AGWS/AI cannot amplify contract/API/provider authority.
 
 ## Cycle 7 — Provider / Binding / Capability Negotiation revisit 6
-- **G2-FINDING-PBCN-45** — Capability satisfaction is an applicability-scoped claim over requirement, offer, binding revision, provider realization, protocol/profile, policy, failure/evidence profile, target Station/consumer cohort, trust/config revision and observation horizon; provider `healthy` or `supports` alone is insufficient.
-- **G2-FINDING-PBCN-46** — Requirement, offer, binding, provider realization and consumer-effective satisfaction need separate typed identities; collapsing them makes provider replacement and historical evidence ambiguous.
-- **G2-FINDING-PBCN-47** — Provider readiness is supporting evidence, not consumer-effective satisfaction; effective proof must observe the qualified target population through the bound semantic contract.
-- **G2-FINDING-PBCN-48** — Binding mutation requires single-writer ownership/fencing or an equivalent conflict rule; shadow/dual realization must not duplicate mutation authority merely because two providers are simultaneously reachable.
-- **G2-FINDING-PBCN-49** — Cross-boundary consent/reference is a revocable, scoped grant with independent lineage/currentness; possession of an endpoint/reference does not grant canonical binding or provider-admin authority.
-- **G2-FINDING-PBCN-50** — Bind/program/cutover timeout or lost acknowledgement yields an ambiguous actuation outcome and requires reconcile-before-retry; retrying blindly can create competing bindings or duplicate effects.
-- **G2-FINDING-PBCN-51** — Provider portability is a mixed support vector spanning semantics, limits, failure/consistency guarantees, evidence, trust/security, lifecycle, offline behavior and administration; protocol/version compatibility is only one axis.
-- **G2-FINDING-PBCN-52** — Provider migration closes only after target consumer-effective satisfaction plus residual route/session/cache/subscription/consumer-cohort drainage or explicit disposition; qualified offline closure is horizon-bounded and `Enterprise → Station → Role → Person` plus AGWS/AI cannot amplify binding/provider authority.
+Findings `G2-FINDING-PBCN-45..52` remain authoritative in the capability dossier and prior index revision.
 
 ## Cycle 7 — Secrets / Configuration / Environment Portability revisit 6
 Findings `G2-FINDING-SCEP-46..53` remain authoritative in the capability dossier and prior index revision.
