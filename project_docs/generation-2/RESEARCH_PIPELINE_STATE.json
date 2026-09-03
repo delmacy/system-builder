@@ -6,61 +6,61 @@
   "phase_order": ["RESEARCH_ELICITATION","CAPABILITY_SYNTHESIS","PLANNING_A_TAXONOMY_BOUNDARIES","PLANNING_B_SB_CURRENT_STATE_RECONCILIATION","PLANNING_C_TARGET_ARCHITECTURE","PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY","PLANNING_E_PRODUCT_PROOF_ACCEPTANCE","ARCHITECTURE_RECONCILIATION","WBS_DECOMPOSITION","WBS_DEPENDENCY_GRAPH","WORK_PACKAGE_DESIGN","READY_FOR_WORKER_HANDOFF"],
   "research": {
     "initial_macro_capabilities": 24,
-    "active_taxonomy_capabilities": 27,
+    "active_taxonomy_capabilities": 28,
     "minimum_full_cycles": 7,
     "target_full_cycles": 10,
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 178,
-    "finding_count": 1343,
-    "capability_candidate_count": 638,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-AIEG-APPLICABILITY-SCOPED-AI-QUALIFICATION","G2-CAPABILITY-CANDIDATE-AIEG-EVALUATION-EVIDENCE-REPLAY-HORIZON","G2-CAPABILITY-CANDIDATE-AIEG-MIXED-EVALUATION-SAFETY-PROVIDER-SUPPORT-VECTOR","G2-CAPABILITY-CANDIDATE-AIEG-AI-CONFIGURATION-COHORT-DRAINAGE"],
-    "promoted_capabilities_this_run": [],
+    "hourly_runs_completed": 179,
+    "finding_count": 1351,
+    "capability_candidate_count": 642,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-TECHNOLOGY-ECONOMIC-GOVERNANCE-FINOPS","G2-CAPABILITY-CANDIDATE-TEG-APPLICABILITY-SCOPED-ECONOMIC-CLAIM","G2-CAPABILITY-CANDIDATE-TEG-ALLOCATION-CONSERVATION-RESIDUAL","G2-CAPABILITY-CANDIDATE-TEG-MIXED-COST-SOURCE-RATE-SUPPORT-VECTOR"],
+    "promoted_capabilities_this_run": ["G2-CAPABILITY-CANDIDATE-TECHNOLOGY-ECONOMIC-GOVERNANCE-FINOPS"],
     "saturated_capabilities": [],
     "saturation_rule": "SATURATED requires principal representatives covered and two consecutive eligible revisits with no material new architectural finding, or remaining questions requiring repository validation. Material findings reset the streak.",
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; compact representations do not revoke prior candidates",
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
     "finding_inventory_authority": "project_docs/generation-2/research/FINDING_INDEX.md plus capability dossiers and prior state history; compact state does not revoke prior findings",
     "mandatory_discovered_capabilities": {
-      "Adaptive Governed Work Surfaces": {"classification":"CORE","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","must_remain_distinct_from":"UI / Generated Experience / Low-code Builder","required_boundary":"Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is capability-exposure/delegated-administration/hierarchical-SB boundary; AI-only materialization never amplifies authority."},
+      "Adaptive Governed Work Surfaces": {"classification":"CORE","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","required_boundary":"Enterprise → Station → Role → Person; higher invariants non-weakenable; AI-only materialization never amplifies authority."},
       "Enterprise Trust / PKI / Certificate Lifecycle": {"classification":"CROSS_CUTTING","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","artifact":"project_docs/generation-2/research/ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE.md"},
-      "Privacy / Data Governance / Retention / Legal Hold / Residency": {"classification":"CROSS_CUTTING","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","artifact":"project_docs/generation-2/research/PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY.md"}
+      "Privacy / Data Governance / Retention / Legal Hold / Residency": {"classification":"CROSS_CUTTING","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","artifact":"project_docs/generation-2/research/PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY.md"},
+      "Technology Economic Governance / FinOps": {"classification":"CROSS_CUTTING","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","artifact":"project_docs/generation-2/research/ECONOMIC_GOVERNANCE_FINOPS_PROCUREMENT_DISPOSITION.md","excluded_owners":"Procurement/Sourcing/Vendor Contract Execution remains specialized; customer-commercial billing remains Commercial Metering owner; statutory accounting remains external/domain authority."}
     },
     "mandatory_cross_cutting_research_inputs": {
       "Workload-Driven Runtime Realization & Capability Installation": {"artifact":"project_docs/generation-2/research/concepts/WORKLOAD_DRIVEN_RUNTIME_REALIZATION_AND_CAPABILITY_INSTALLATION.md","status":"RESEARCH_HYPOTHESIS_PENDING_MULTI_REPRESENTATIVE_VALIDATION","candidates":["G2-CAPABILITY-CANDIDATE-WORKLOAD-DRIVEN-RUNTIME-REALIZATION","G2-CAPABILITY-CANDIDATE-MINIMAL-CAPABILITY-RUNTIME-CLOSURE","G2-CAPABILITY-CANDIDATE-OPERATIONAL-PROFILE-SEPARATION","G2-CAPABILITY-CANDIDATE-RUNTIME-REALIZATION-EVOLUTION"]}
     },
     "enterprise_completeness_negative_space_gate": {
       "required_when_completed_full_cycles_gte": 7,
-      "status": "IN_PROGRESS_PASS_1_TRUST_PRIVACY_RESOLVED_AI_DISPOSED_ECONOMIC_RESEARCH_COMPLETE_GATE_DISPOSITION_AND_PROOFS_OPEN",
+      "status": "IN_PROGRESS_PASS_1_STRUCTURAL_GAPS_DISPOSED_CENTRALIZED_PROOFS_OPEN",
       "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
       "proof_backfill_addendum": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md",
-      "resolved_structural_gaps": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE","G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY"],
+      "resolved_structural_gaps": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE","G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY","G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"],
       "disposed_without_promotion": ["G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE"],
       "structural_research_queue": [],
-      "structural_research_pending_gate_disposition": ["G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"],
-      "centralized_proof_debt": ["workload-driven minimal runtime realization","artifact-to-runtime admission","enterprise trust qualification/rotation/substitution/offline horizon","privacy retention-hold-residency disposition","AI evaluation qualification and stale-evidence rejection","economic allocation/budget/forecast/commitment/provider-substitution proofs"]
+      "centralized_proof_debt": ["workload-driven minimal runtime realization","same semantics/different runtime realization","artifact-to-runtime admission","enterprise trust qualification/rotation/substitution/offline horizon","privacy retention-hold-residency disposition","AI evaluation qualification and stale-evidence rejection","technology-economic normalization/allocation/history/budget/forecast/commitment/provider-substitution"]
     },
     "latest_structural_gap_research": {
       "candidate": "G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT",
-      "result": "RESEARCH_COMPLETE_RECOMMEND_CROSS_CUTTING_ECONOMIC_GOVERNANCE_SPLIT_PROCUREMENT_SPECIALIZED_PENDING_GATE_DISPOSITION",
-      "artifact": "project_docs/generation-2/research/deep-research/DEEP_RESEARCH_ECONOMIC_GOVERNANCE_FINOPS_PROCUREMENT_BOUNDARY_01.md",
-      "new_findings": [],
+      "result": "SPLIT_PARENT_NOT_PROMOTED_CHILD_TECHNOLOGY_ECONOMIC_GOVERNANCE_PROMOTED_CROSS_CUTTING",
+      "artifact": "project_docs/generation-2/research/ECONOMIC_GOVERNANCE_FINOPS_PROCUREMENT_DISPOSITION.md",
+      "new_findings": ["G2-FINDING-EGFP-01","G2-FINDING-EGFP-02","G2-FINDING-EGFP-03","G2-FINDING-EGFP-04","G2-FINDING-EGFP-05","G2-FINDING-EGFP-06","G2-FINDING-EGFP-07","G2-FINDING-EGFP-08"],
       "representative_coverage": {"FinOps Framework":"DEEP","FOCUS 1.4":"DEEP","OpenCost":"DEEP","Microsoft Azure Cost Management":"DEEP","AWS Cost Management":"TARGETED","Google Cloud commitment pricing":"TARGETED","TCO/private-cloud literature":"TARGETED"}
     },
-    "latest_gate_review": {"gate":"ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW","pass":1,"result":"ECONOMIC_RESEARCH_COMPLETE_GATE_DISPOSITION_AND_PROOFS_OPEN","remaining_candidates":["G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"]},
+    "latest_gate_review": {"gate":"ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW","pass":1,"result":"STRUCTURAL_GAPS_DISPOSED_CENTRALIZED_PROOFS_OPEN","remaining_candidates":[]},
     "pending_capabilities": []
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — seven full cycles complete. Trust and Privacy structural gaps are promoted owners; AI evaluation is merged into existing owners; Economic Governance deep research is complete with a cross-cutting split recommendation pending Enterprise Completeness gate disposition. Centralized proof debt remains open.",
-    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "IN_PROGRESS — Economic Governance research is complete but its split/promotion disposition is not yet gate-authoritative. Workload-driven minimal-runtime and cross-capability proof junctions remain open. Do not advance to synthesis.",
-    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — trust, privacy, AI evaluation and economic-governance proof suites require acceptance backfill; workload-driven runtime proof remains research/proof debt.",
+    "RESEARCH_ELICITATION": "OPEN — seven full cycles complete. Structural negative-space gaps found in pass 1 are dispositioned; workload-driven minimal-runtime realization and centralized proof junctions remain open.",
+    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "IN_PROGRESS — structural semantic-owner gaps are dispositioned, but centralized proof debt can still falsify completeness. Do not advance to synthesis.",
+    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — minimal-runtime research/proof plus trust, privacy, AI evaluation, economic-governance and artifact-admission proof suites remain unresolved.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_BY_ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Enterprise Completeness / Negative-Space Review remains open. Economic Governance / FinOps / Procurement deep research now recommends splitting a distinct cross-cutting technology-economic interpretation/governance owner from specialized Procurement/Sourcing execution; the recommendation awaits gate disposition and is not a promotion. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
-  "last_completed_artifact": "project_docs/generation-2/research/deep-research/DEEP_RESEARCH_ECONOMIC_GOVERNANCE_FINOPS_PROCUREMENT_BOUNDARY_01.md",
+  "current_focus": "Enterprise Completeness / Negative-Space Review remains open. Economic Governance is gate-disposed by splitting/promoting Technology Economic Governance / FinOps as a cross-cutting owner while Procurement remains specialized. Next unresolved item is workload-driven minimal runtime realization/proof debt. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
+  "last_completed_artifact": "project_docs/generation-2/research/ECONOMIC_GOVERNANCE_FINOPS_PROCUREMENT_DISPOSITION.md",
   "last_framework_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
-  "next_action": "Return to the Enterprise Completeness / Negative-Space Review and reconcile the completed Economic Governance deep research against the candidate register, existing Commercial Metering/Rating owner and centralized proof debt. Decide the gate-authoritative KEEP/MERGE/GENERALIZE/SPECIALIZE/DEFER disposition without entering CAPABILITY_SYNTHESIS until workload-driven minimal-runtime and cross-capability proof junctions are also resolved. Do not repeat the Economic Governance breadth/deep research unless new contradictory evidence appears.",
-  "updated_at": "2026-09-03T14:18:05-03:00"
+  "next_action": "Resolve exactly the workload-driven minimal runtime realization hypothesis/proof debt. Use 3–8 strong representatives spanning modular/package closure, build/runtime dependency pruning, profile/topology realization, provider substitution, offline/disconnected closure and evolution. Test whether optional capabilities can be omitted while every included runtime component traces to explicit requirement/dependency lineage; test the same canonical capability graph under collapsed/simple and split/scaled/critical realizations without canonical business-semantic mutation. Reconcile G2-CAPABILITY-CANDIDATE-WORKLOAD-DRIVEN-RUNTIME-REALIZATION, G2-CAPABILITY-CANDIDATE-MINIMAL-CAPABILITY-RUNTIME-CLOSURE, G2-CAPABILITY-CANDIDATE-OPERATIONAL-PROFILE-SEPARATION and G2-CAPABILITY-CANDIDATE-RUNTIME-REALIZATION-EVOLUTION; produce proof obligations and gate disposition. Preserve Enterprise → Station → Role → Person and AGWS/AI non-amplification. Do not enter CAPABILITY_SYNTHESIS until this and remaining centralized proof junctions are resolved.",
+  "updated_at": "2026-09-03T14:24:00-03:00"
 }
