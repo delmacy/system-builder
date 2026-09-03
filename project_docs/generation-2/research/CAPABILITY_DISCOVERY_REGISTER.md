@@ -72,6 +72,14 @@ All prior cycle-4/5 candidates remain authoritative in earlier revisions and dos
 | G2-CAPABILITY-CANDIDATE-IA-CONNECTOR-CHECKPOINT-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Kafka Connect multi-generation evidence establishes an Integration-owned checkpoint/source-position fencing need distinct from Workflow durable checkpoints. |
 | G2-CAPABILITY-CANDIDATE-IA-QUALIFIED-DELIVERY-EFFECT-GUARANTEE-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Workflow scoped-effect profile and Data transaction semantics while preserving connector/broker/webhook transaction boundaries. |
 
+## Identity / Authentication / Federation — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-IAF-CONTINUOUS-IDENTITY-SECURITY-STATE-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile CAEP/RISC posture-change evidence with UCA evidence qualification while retaining Identity ownership of subject/session applicability. |
+| G2-CAPABILITY-CANDIDATE-IAF-REVOCATION-PROPAGATION-CLOSURE-LINEAGE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with shared governed transition/effective-postcondition lineage without collapsing Identity-specific logout/session semantics. |
+| G2-CAPABILITY-CANDIDATE-IAF-SUBJECT-ACTOR-DELEGATION-PROVENANCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Authorization/Audit actor attribution; token-exchange actor/subject claims remain evidence, never self-authorizing semantic authority. |
+| G2-CAPABILITY-CANDIDATE-IAF-REVOCATION-STREAM-FRESHNESS-POSITION-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Integration checkpoint/freshness evidence while preserving Identity ownership of security-event applicability and revocation closure. |
+
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
