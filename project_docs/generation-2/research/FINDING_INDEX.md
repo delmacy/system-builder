@@ -2,6 +2,18 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Privacy Retention / Hold / Residency — centralized proof disposition
+- **G2-FINDING-PRHR-01** — Governed transition eligibility is applicability-scoped across independently versioned purpose/use, retention, hold, residency, provider/control, population and evidence-currentness revisions.
+- **G2-FINDING-PRHR-02** — Preservation authority can override technically valid destruction; active controlling hold/records/retention authority DENYs, while stale/unknown hold state yields INCONCLUSIVE.
+- **G2-FINDING-PRHR-03** — Retention expiry alone never proves deletion eligibility; every controlling obligation and residual governed population must be resolved.
+- **G2-FINDING-PRHR-04** — Residency is transition- and provider-support-qualified across create/restore/replicate/migrate operations, service scope and documented exemptions.
+- **G2-FINDING-PRHR-05** — Provider or region substitution requires governance requalification; matching feature labels do not prove retention/hold/residency/evidence semantic parity.
+- **G2-FINDING-PRHR-06** — Historical disposition evidence is immutable with producing-revision lineage; later policy changes do not rewrite historical decision basis.
+- **G2-FINDING-PRHR-07** — Authored policy/provider acceptance and consumer-effective governance coverage are distinct; closure requires observed coverage plus residual cohort drainage/requalification/disposition.
+- **G2-FINDING-PRHR-08** — Privacy governance delegation is monotonic and non-amplifying across Enterprise→Station→Role→Person; AI/AGWS cannot implicitly gain hold-release, exceptional-delete, residency-exception or provider-admin authority.
+
+Disposition: privacy retention/hold/residency centralized proof **RESOLVED_BY_MULTI_REPRESENTATIVE_RESEARCH_WITHOUT_NEW_PROMOTION** in `PRIVACY_RETENTION_HOLD_RESIDENCY_CENTRALIZED_PROOF.md`.
+
 ## Enterprise Trust Qualification / Rotation / Substitution / Offline — centralized proof disposition
 - **G2-FINDING-ETQP-01** — Certificate/key presence is not effective trust; qualification is applicability-scoped over path, anchor, policy, revocation/currentness, consumer generation and observation horizon.
 - **G2-FINDING-ETQP-02** — Trust anchors and bundles are revisioned runtime inputs; unchanged certificate bytes can become untrusted without contradiction.
