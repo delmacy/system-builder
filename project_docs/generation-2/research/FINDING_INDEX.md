@@ -32,5 +32,15 @@ Prior stable findings remain authoritative in their capability dossiers, earlier
 - **G2-FINDING-DSM-51** — Provider/schema migration closes only after residual source writers, old readers, dual-write divergence, backfill, CDC and derived-consumer cohorts are drained or explicitly dispositioned; destination success does not transfer data authority by itself.
 - **G2-FINDING-DSM-52** — Qualified local/offline data operation and delegated Station administration are non-amplifying and horizon-bounded; reconnect after superior schema/data/trust/authority advancement requires reconciliation before privileged writes, migration or cutover continue.
 
+## Cycle 7 — Storage / Documents / Media revisit 6
+- **G2-FINDING-SDM-45** — Effective Storage Truth Is Applicability-scoped Across Consumer, Operation, Semantic Revision, Governance State, Provider Realization and Evidence Horizon. A single `current` object status cannot serve every document/storage consumer.
+- **G2-FINDING-SDM-46** — Storage Conformance Is Revision-qualified Between Canonical Content and Provider Realization; Restore May Create a New Realization Identity Rather Than Resurrect the Original. Canonical lineage must survive provider generation changes without conflation.
+- **G2-FINDING-SDM-47** — Logical Visibility, Recoverability, Retention and Physical Destruction Are Independent Lifecycle Dimensions. Delete markers, noncurrent versions and soft-deleted objects make `not visible` insufficient evidence of purge.
+- **G2-FINDING-SDM-48** — Storage Policy Acceptance and Destructive Effect Can Be Temporally Separated; Ambiguous Delete/Restore Outcomes Require Reconcile-before-retry. Provider propagation and retention constraints prevent acknowledgement from proving final effect.
+- **G2-FINDING-SDM-49** — Storage Evidence Has a Multi-axis Replay Horizon Distinct From Byte Retention. Historical bytes can remain while metadata, policy, key, alias or index evidence needed for exact proof has expired.
+- **G2-FINDING-SDM-50** — Storage Portability Is a Mixed Support Vector Across Versioning, Recovery, WORM, Fencing, Integrity, Replication, Encryption, Evidence and Offline Semantics. API/byte compatibility alone is insufficient.
+- **G2-FINDING-SDM-51** — Storage Migration/Deletion Closes Only After Residual Replica, Cache, Index, Rendition, Backup, Export and Consumer Cohorts Are Drained or Explicitly Dispositioned. Destination success or logical deletion does not prove global closure.
+- **G2-FINDING-SDM-52** — Qualified Local Storage and AGWS Exposure Are Non-amplifying and Reconnect-bounded. Offline readability/composition cannot grant retention, purge, provider-admin or canonical-schema authority.
+
 ## Historical authority
 All findings from prior capabilities and cycles remain authoritative in their dossiers, earlier `FINDING_INDEX.md` revisions and `RESEARCH_PIPELINE_STATE.json` history.
