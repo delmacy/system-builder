@@ -8,6 +8,16 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
+## Cycle 7 — Lifecycle / Versioning / Evolution / Migration candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-LVEM-APPLICABILITY-SCOPED-TRANSITION-QUALIFICATION` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability claims while Lifecycle retains transition-specific object/revision/plan/population/evidence qualification. |
+| `G2-CAPABILITY-CANDIDATE-LVEM-AMBIGUOUS-TRANSITION-EFFECT-RECONCILIATION` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Lifecycle owns transition-attempt reconciliation and retry eligibility while SIAC retains operation-level remote-effect semantics. |
+| `G2-CAPABILITY-CANDIDATE-LVEM-MIXED-TRANSITION-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent compatibility, coexistence, migration, rollback, evidence, offline and administration axes. |
+| `G2-CAPABILITY-CANDIDATE-LVEM-RESIDUAL-CONSUMER-SESSION-CACHE-SUBSCRIPTION-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Lifecycle owns transition closure over residual cohorts while semantic owners retain correctness proofs. |
+
+No candidate is promoted in this revisit.
+
 ## Cycle 7 — Standards / Interoperability / API Contracts candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
@@ -16,15 +26,8 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | `G2-CAPABILITY-CANDIDATE-SIAC-MIXED-INTEROPERABILITY-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent syntax/schema, behavior, protocol, limits, failure/retry, security, evidence, lifecycle, offline and administration axes. |
 | `G2-CAPABILITY-CANDIDATE-SIAC-CLIENT-PROTOCOL-SESSION-CACHE-SUBSCRIPTION-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Contract/version migration owns target-effective proof plus residual client/session/cache/subscription disposition. |
 
-No candidate is promoted in this revisit.
-
 ## Cycle 7 — Provider / Binding / Capability Negotiation candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| `G2-CAPABILITY-CANDIDATE-PBCN-APPLICABILITY-SCOPED-CAPABILITY-SATISFACTION-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability claims while Provider/Binding retains requirement→offer→binding→realization→consumer-effective semantics. |
-| `G2-CAPABILITY-CANDIDATE-PBCN-BINDING-OWNERSHIP-FENCING-AND-AMBIGUOUS-ACTUATION` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Provider/Binding owns competing-binding exclusion and reconcile-before-retry for bind/program/cutover. |
-| `G2-CAPABILITY-CANDIDATE-PBCN-MIXED-PROVIDER-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent semantics, limits, failure/consistency, evidence, trust, lifecycle, offline and administration axes. |
-| `G2-CAPABILITY-CANDIDATE-PBCN-CONSUMER-EFFECTIVE-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Provider migration owns target-effective proof plus residual route/session/cache/subscription/consumer disposition. |
+Prior cycle-7 candidates remain authoritative: applicability-scoped capability satisfaction, binding ownership/fencing and ambiguous actuation, mixed provider support vector, and consumer-effective cohort drainage.
 
 ## Cycle 7 — Secrets / Configuration / Environment Portability candidates
 Prior cycle-7 candidates remain authoritative: applicability-scoped effective qualification, evidence currentness/replay horizon, mixed provider/KMS/delivery/runtime support vector, and consumer/session/cache/mount/environment cohort drainage.
