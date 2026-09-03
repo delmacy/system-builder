@@ -12,16 +12,16 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
-## Cycle 6 authority through Identity
-All prior cycle-6 candidates through Identity / Authentication / Federation remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
+## Cycle 6 authority through Authorization
+All prior cycle-6 candidates through Authorization / Policy / Organization / Multitenancy remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
-## Authorization / Policy / Organization / Multitenancy — revisit cycle 6 candidates
+## Data / Schema / Migrations — revisit cycle 6 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-APOM-TYPED-AUTHORITY-DECISION-ENFORCEMENT-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity continuity while retaining authorization ownership of policy, relationship, delegation and enforcement identities. |
-| G2-CAPABILITY-CANDIDATE-APOM-MULTI-AXIS-EFFECTIVE-AUTHORITY-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Lifecycle/UCA revision vectors plus Identity security-state freshness without collapsing authorization into session semantics. |
-| G2-CAPABILITY-CANDIDATE-APOM-DECISION-ENFORCEMENT-CONVERGENCE-LINEAGE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Architecture Reconciliation effective-state lineage while preserving authorization decision/enforcement semantics. |
-| G2-CAPABILITY-CANDIDATE-APOM-BREAK-GLASS-EXCEPTION-LEASE-LIFECYCLE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep under Authorization unless later evidence establishes a broader owner; exception authority must remain bounded, revocable and auditable. |
+| G2-CAPABILITY-CANDIDATE-DSM-TYPED-DATA-SCHEMA-MIGRATION-TRANSACTION-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity continuity while preserving Data ownership of semantic schema/dataset lifecycle. |
+| G2-CAPABILITY-CANDIDATE-DSM-MULTI-AXIS-EFFECTIVE-DATA-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Lifecycle revision-vector semantics with schema/data/checkpoint/transaction/provider/tenant/Station axes. |
+| G2-CAPABILITY-CANDIDATE-DSM-MIGRATION-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep under Data unless synthesis proves a generic governed-transition owner; stale migration actors must be rejected. |
+| G2-CAPABILITY-CANDIDATE-DSM-DATA-CONVERGENCE-CUTOVER-DISPOSITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve residual-source, dual-write divergence, CDC position and authority-transfer evidence under Data cutover semantics. |
 
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
