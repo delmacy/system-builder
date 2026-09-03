@@ -6,10 +6,10 @@ States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`. Historical covera
 All 25 active capabilities completed cycles 2, 3 and 4. Every pass produced material findings; no capability was SATURATED at cycle close. Historical representative detail remains authoritative in capability dossiers and prior ledger revisions.
 
 ## Revisit cycle 5
-All prior cycle-5 coverage through Provider / Binding / Capability Negotiation remains authoritative in capability dossiers and prior ledger revisions.
+All prior cycle-5 coverage through Standards / Interoperability / API Contracts remains authoritative in capability dossiers and prior ledger revisions.
 
-### Standards / Interoperability / API Contracts — revisit 4
-OpenAPI Specification 3.2/3.1: `DEEP`; Protocol Buffers evolution guidance: `DEEP`; Confluent Schema Registry compatibility/transitivity: `DEEP`; Kubernetes Gateway API ReferenceGrant: `DEEP`; RFC 9745 Deprecation + RFC 8594 Sunset: `DEEP`; Pact provider verification: `DEEP`; AsyncAPI 3.1.0 protocol bindings: `DEEP`. Findings `G2-FINDING-SIAC-30..37`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: consumer-population/transitive compatibility closure; structural validity versus executable semantic conformance; cross-boundary consent/revocation; deprecation versus sunset versus withdrawal/drainage; expected-base evidence freshness; ambiguous contract actuation; consumer-effective provider substitution; AI/AGWS non-amplification.
+### Lifecycle / Versioning / Evolution / Migration — revisit 4
+Kubernetes API deprecation/storage-version policy: `DEEP`; Kubernetes version-skew/upgrade-order policy: `DEEP`; Camunda 8 process-instance migration: `DEEP`; Confluent Schema Registry compatibility/transitivity: `DEEP`; SIAC deprecation/sunset/withdrawal evidence: `DEEP` by cross-capability reuse; Provider/Binding consumer-effective cutover evidence: `DEEP` by cross-capability reuse. Findings `G2-FINDING-LVEM-30..37`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: revision vectors; attempted/applied/effective/validated transition lineage; consumer drainage; generation-bound readiness; rollback versus restore versus forward-fix; ambiguous actuation; provider residual-source closure; local/offline Station requalification; AI/AGWS non-amplification.
 
 ## Historical authority
 All omitted representative/capability cells remain authoritative in prior ledger revisions and capability dossiers.
