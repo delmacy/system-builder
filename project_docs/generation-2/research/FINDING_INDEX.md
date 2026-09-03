@@ -2,6 +2,16 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Cycle 7 — Extension / Plugin / Marketplace Architecture revisit 6
+- **G2-FINDING-EPM-45** — Effective extension qualification is applicability-scoped: package installation, publisher trust, workspace/Station context, requested permissions, granted permissions and runtime-effective capabilities are independent revision-qualified claims.
+- **G2-FINDING-EPM-46** — Extension requested capability, granted capability and effective runtime capability require separate typed lineage; runtime consent/revocation or host/workspace scope can make an installed extension less privileged than its manifest request.
+- **G2-FINDING-EPM-47** — Published/downloaded/installed/running extension revision are distinct states; update currentness must be cohort-qualified because idle gating, active sessions or administrative pinning can leave consumers on older effective revisions.
+- **G2-FINDING-EPM-48** — Containment is an explicit support vector, not an inherent property of `plugin`: ecosystems range from host-equivalent extension authority to network/process isolation, so semantic admission cannot infer blast radius from package type.
+- **G2-FINDING-EPM-49** — Extension trust and compatibility evidence has an independent replay/currentness horizon; publisher/signature/workspace/admission evidence may remain historically replayable while no longer qualifying the current grant, host or runtime revision.
+- **G2-FINDING-EPM-50** — Ambiguous install/update/activation must use expected-base plus observed installed/runtime revision and reconcile-before-retry; retry without observation can duplicate hooks/processes or overwrite newer effective state.
+- **G2-FINDING-EPM-51** — Extension portability is a mixed support vector across package, compatibility, permission model, containment, lifecycle/update, state, offline verification, marketplace and observability; provider substitution closes only after residual version/session/cache/hook/grant/consumer cohorts are drained or dispositioned.
+- **G2-FINDING-EPM-52** — Qualified local/offline extension closure and AGWS/AI composition are non-amplifying: locally cached trust/grants have bounded horizons, reconnect requalifies superior state, and composition cannot mint install, marketplace/provider-admin, deployment/recovery or canonical-change authority.
+
 ## Cycle 7 — Observability / Operations / Incident revisit 6
 - **G2-FINDING-OOI-47** — Effective operational health is an applicability-scoped claim across subject/runtime generation, traffic/cohort, expected population, instrumentation, selection, pipeline, query/evaluation, provider, policy and observation/evidence horizon; no globally current `healthy` fact exists.
 - **G2-FINDING-OOI-48** — Signal, selection decision, collection receipt, query/evaluation, alert, notification, incident, acknowledgement, remediation attempt and postcondition are distinct typed identities; success at one boundary cannot prove another.

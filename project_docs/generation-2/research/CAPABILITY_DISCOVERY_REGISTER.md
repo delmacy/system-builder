@@ -8,6 +8,16 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
+## Cycle 7 — Extension / Plugin / Marketplace Architecture candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-EPM-APPLICABILITY-SCOPED-EFFECTIVE-EXTENSION-QUALIFICATION-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability claims while Extension retains admission/activation/update/runtime semantics. |
+| `G2-CAPABILITY-CANDIDATE-EPM-REQUESTED-GRANTED-EFFECTIVE-CAPABILITY-LINEAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve extension-owned capability-request/grant/effective-runtime lineage unless Authorization synthesis proves a universal owner without semantic loss. |
+| `G2-CAPABILITY-CANDIDATE-EPM-MIXED-EXTENSION-CONTAINMENT-RUNTIME-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Provider/Security support vectors while preserving extension-specific containment, host-authority and runtime dimensions. |
+| `G2-CAPABILITY-CANDIDATE-EPM-EXTENSION-VERSION-SESSION-HOOK-GRANT-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Extension owns residual update/provider-cutover closure for old versions, sessions, caches, hooks, grants and consumers. |
+
+No candidate is promoted in this revisit.
+
 ## Cycle 7 — Observability / Operations / Incident candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
