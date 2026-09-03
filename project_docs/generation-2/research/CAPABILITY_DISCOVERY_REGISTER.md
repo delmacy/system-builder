@@ -12,8 +12,8 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
-## Cycle 6 authority through AI-native Engineering / Agents / Approvals
-All prior cycle-6 candidates through AI-native Engineering / Agents / Approvals remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
+## Cycle 6 authority through Architecture Reconciliation as a Capability
+All prior cycle-6 candidates remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
 ### Developer / Operator Experience / Self-hosting — revisit cycle 6 candidates
 | Candidate | Class | Status | Promotion / merge condition |
@@ -22,6 +22,14 @@ All prior cycle-6 candidates through AI-native Engineering / Agents / Approvals 
 | G2-CAPABILITY-CANDIDATE-DOESH-PATH-RELATIVE-UPGRADE-COMPATIBILITY | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve required-stop/migration-completion semantics under Developer/Operator Experience; reconcile compatibility primitives with Lifecycle. |
 | G2-CAPABILITY-CANDIDATE-DOESH-QUALIFIED-AIRGAP-MATERIAL-TRUST-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Build/Artifact, Secrets/Trust and Security local-closure primitives; retain operator-facing completeness proof. |
 | G2-CAPABILITY-CANDIDATE-DOESH-DIAGNOSTIC-CUSTODY-REDACTION-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Developer/Operator Experience owns support-bundle UX/custody; Governance/Observability/Security share evidence and disclosure rules. |
+
+### Architecture Reconciliation as a Capability — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-ARC-EVIDENCE-FINDING-PRODUCTTRUTH-GAP-DISPOSITION-PROOF-LINEAGE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with typed identity, governance, proof/readiness and Planning-B product-truth evidence; preserve explicit architecture reconciliation ownership. |
+| G2-CAPABILITY-CANDIDATE-ARC-SEMANTIC-VS-TECHNICAL-OWNERSHIP-TRANSFER-PROOF | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Authorization/Governance/Provider ownership primitives; do not equate SSA/provider mutation ownership with semantic authority. |
+| G2-CAPABILITY-CANDIDATE-ARC-CONTRADICTION-STALE-EVIDENCE-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Observability/evidence freshness and Governance dispute handling; retain provenance and explicit INCONCLUSIVE/CONTRADICTED states. |
+| G2-CAPABILITY-CANDIDATE-ARC-EXECUTABLE-CONFORMANCE-REVISION-QUALIFIED-PROOF | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with proof/readiness and Build/CI concerns; architecture reconciliation owns proof applicability, not the execution engine itself. |
 
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
