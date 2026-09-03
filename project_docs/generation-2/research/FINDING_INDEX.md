@@ -2,15 +2,18 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Cycle 7 — Architecture Reconciliation as a Capability revisit 6
+- **G2-FINDING-ARC-47** — Architecture reconciliation is an applicability-scoped qualification, not a scalar state. Subject, semantic owner, evidence/product/target revisions, provider/runtime/tool realization, policy/authority, dependency closure, consumer cohort, Station and evidence horizon qualify every material claim.
+- **G2-FINDING-ARC-48** — `ArchitectureEvidence → Finding → ProductTruth → Gap → Disposition → Plan → ExecutionAttempt → Acceptance → EffectiveState → Proof` are distinct typed facts. Acceptance or command success cannot substitute for observed effective convergence.
+- **G2-FINDING-ARC-49** — SB-current product truth, target architectural intent and migrated effective state must remain separate. Plans/diffs are revision-bound observations and become stale when their backing state or assumptions change.
+- **G2-FINDING-ARC-50** — `KEEP/HARDEN/GENERALIZE/PROVIDERIZE/INTEGRATE/REPLACE/DEFER/DO_NOT_BUILD` decisions are revision- and evidence-qualified, reopenable records rather than permanent labels; domain semantic ownership remains with the originating capability.
+- **G2-FINDING-ARC-51** — Ambiguous reconciliation/apply outcomes require `OUTCOME_UNKNOWN → observe/reconcile-before-retry`; blind replay is unsafe where the external effect may already have occurred.
+- **G2-FINDING-ARC-52** — Reconciliation portability is a mixed support vector across observation, diff, planning, admission, actuation, drift, rollback/recovery, ownership/fencing, dependencies, evidence export and offline behavior; protocol/tool compatibility alone is insufficient.
+- **G2-FINDING-ARC-53** — Convergence closure requires dependency closure plus drainage or explicit disposition of residual controller/version/session/cache/config/binding/route/consumer cohorts; desired-versus-observed revision agreement alone is insufficient for enterprise migration closure.
+- **G2-FINDING-ARC-54** — Reconciliation evidence has a replay/retention horizon independent of historical validity. Offline/local proofs require bounded trust/freshness closure and reconnect requalification; delegated Station, AI or AGWS context never amplifies canonical or provider-admin authority.
+
 ## Cycle 7 — Developer / Operator Experience / Self-hosting revisit 6
-- **G2-FINDING-DOESH-47** — Install/operate/upgrade/recovery/supportability are applicability-scoped claims over Station/environment, distribution/effective revisions, configuration/data/schema/trust, provider realization, consumer cohort, support profile and evidence horizon; scalar `installed/healthy/supported` flags are insufficient.
-- **G2-FINDING-DOESH-48** — Distribution, installation, operator intent, reconciliation attempt and observed effective state are distinct typed facts. Desired fleet state cannot substitute for observed local realization, especially for offline or partially upgraded members.
-- **G2-FINDING-DOESH-49** — Self-hosting portability is a mixed support vector across package/runtime/architecture/config/schema/data/upgrade/recovery/trust/provider/diagnostic axes; a nominally supported product version does not prove a requested operation is supported for a mixed population.
-- **G2-FINDING-DOESH-50** — Disconnected update closure requires content plus provenance/signature/trust, compatibility metadata, dependencies and consumer resolvability for the exact action. Mirror/tarball presence alone is insufficient.
-- **G2-FINDING-DOESH-51** — Provider/version substitution closes only after residual process/node/cache/config/credential/controller/session/consumer cohorts are drained or explicitly dispositioned; package replacement alone is not convergence.
-- **G2-FINDING-DOESH-52** — Operational/support evidence has a replay/retention horizon independent of historical validity. Evidence loss or trust/support evolution can make present requalification inconclusive without rewriting a previously valid observation.
-- **G2-FINDING-DOESH-53** — Developer/operator escape hatches are not semantic authority. Manual/force/provider-native mutation outside governed contracts must emit bounded evidence or mark affected guarantees drifted/unqualified until reconciliation.
-- **G2-FINDING-DOESH-54** — Delegated self-hosting remains non-amplifying across `Enterprise -> Station -> Role -> Person`; provider-admin/root, AI or AGWS context cannot mint canonical configuration/domain, update, recovery or broader platform authority, and material target/revision changes invalidate stale operational approval.
+Findings `G2-FINDING-DOESH-47..54` remain authoritative in the capability dossier and prior index revision.
 
 ## Cycle 7 — AI-native Engineering / Agents / Approvals revisit 6
 Findings `G2-FINDING-AIN-47..54` remain authoritative in the capability dossier and prior index revision.
@@ -22,4 +25,4 @@ Findings `G2-FINDING-SRFR-47..54` remain authoritative in the capability dossier
 Findings `G2-FINDING-LVEM-46..53` remain authoritative in the capability dossier and prior index revision.
 
 ## Historical authority
-Detailed findings for all other capabilities remain authoritative in their dossiers, earlier index revisions and pipeline history.
+Detailed findings for all other capabilities remain authoritative in their dossiers, earlier ledger revisions and `RESEARCH_PIPELINE_STATE.json` history.
