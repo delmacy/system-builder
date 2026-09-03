@@ -36,8 +36,18 @@ All previously indexed cycle-5 findings through Developer / Operator Experience 
 - **G2-FINDING-PAM-43** — Qualified local modeling closure has a trust/evidence horizon and requires reconnection requalification when relevant dependencies advance.
 - **G2-FINDING-PAM-44** — AGWS domain-change escalation is a cross-capability boundary: Personal/Role/Station intent that changes canonical semantics must enter Process/Application Modeling authority and validation lineage.
 
+### UI / Generated Experience / Low-code Builder — revisit 5
+- **G2-FINDING-UIGX-37** — Generated UI identity is typed across projection semantics, representation, component contract, renderer/provider and effective realization; continuity is explicit per identity kind.
+- **G2-FINDING-UIGX-38** — Effective generated experience is a multi-axis revision vector across projection, model/schema, component registry, binding, renderer, accessibility and policy/trust revisions.
+- **G2-FINDING-UIGX-39** — Conflict-free UI composition does not prove semantic, target or accessibility conformance; merge/syntax and conformance are independent evidence classes.
+- **G2-FINDING-UIGX-40** — Composite UI proof requires revision/profile-compatible evidence joins; incompatible required evidence propagates `INCONCLUSIVE`.
+- **G2-FINDING-UIGX-41** — Propagated UI context is provenance/selection input, not authorization or canonical mutation authority.
+- **G2-FINDING-UIGX-42** — Generated-UI portability is layered across preserve, interpret, validate, realize and actuate; renderer support is not binary portability.
+- **G2-FINDING-UIGX-43** — Qualified local rendering/validation closure has a trust/evidence horizon and requires reconnection requalification when dependency epochs change.
+- **G2-FINDING-UIGX-44** — AI materialization must preserve independent semantic, target, accessibility and AGWS authority boundaries; generated representation success cannot self-authorize acceptance.
+
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture and Process & Application Modeling completed.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture, Process & Application Modeling and UI / Generated Experience / Low-code Builder completed.
 
 ## Historical authority
 All prior findings, including cycle 1–5 and compacted findings, remain authoritative in their dossiers and prior index revisions.
