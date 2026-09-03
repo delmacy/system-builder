@@ -47,3 +47,13 @@ No AGWS cycle-7 candidate is promoted. `G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNE
 | G2-CAPABILITY-CANDIDATE-WDE-INFLIGHT-COHORT-DRAINAGE-CLOSURE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Workflow owns semantic closure for in-flight run/timer/signal/effect drainage during worker/provider substitution. |
 
 No Workflow cycle-7 candidate is promoted. Adaptive Governed Work Surfaces remains promoted and distinct.
+
+### Integration & Automation — revisit cycle 7 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-IA-APPLICABILITY-SCOPED-INTEGRATION-GUARANTEE-CLAIM | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA/Workflow applicability claims while retaining provider/binding/protocol/API/dedup/retry/effect/authority axes. |
+| G2-CAPABILITY-CANDIDATE-IA-DEDUP-EVIDENCE-REPLAY-HORIZON | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA/Workflow/Governance evidence horizons; preserve provider idempotency/dedup state semantics and expiry. |
+| G2-CAPABILITY-CANDIDATE-IA-MIXED-INTEGRATION-STABILITY-SUPPORT-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA mixed-support vectors while retaining provider/protocol/API/runtime/guarantee dimensions. |
+| G2-CAPABILITY-CANDIDATE-IA-DELIVERY-EFFECT-COHORT-DRAINAGE-CLOSURE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Integration owns residual queued/in-flight delivery and ambiguous external-effect closure during provider substitution, distinct from Workflow run drainage. |
+
+No Integration cycle-7 candidate is promoted. Adaptive Governed Work Surfaces remains promoted and distinct.
