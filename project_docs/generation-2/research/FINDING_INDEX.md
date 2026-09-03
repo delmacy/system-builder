@@ -2,6 +2,18 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Artifact-to-Runtime Admission — centralized proof disposition
+- **G2-FINDING-ATRA-01** — Release artifact qualification and runtime realization are separate transitions; admission success never proves intended runtime generation became effective.
+- **G2-FINDING-ATRA-02** — Artifact admission must bind immutable artifact identity to provenance/verifier expectations, admission-policy revision and verifier trust-root revision; digest validity alone is insufficient.
+- **G2-FINDING-ATRA-03** — Runtime admission/effectiveness is an applicability-scoped multi-revision qualification over artifact, plan, bindings, config, trust, schema/contracts, operational profile, desired generation, observed generation and evidence currentness.
+- **G2-FINDING-ATRA-04** — Desired state writes are asynchronous claims; effective success requires observed-generation convergence plus readiness/effective-binding evidence for that same generation.
+- **G2-FINDING-ATRA-05** — Stale or unverifiable provenance expectations, verifier roots, configuration, trust bundles, schema/contracts or provider bindings must DENY or yield INCONCLUSIVE; unknown cannot be normalized to allow.
+- **G2-FINDING-ATRA-06** — Ambiguous deployment/rollout effects require observe-and-reconcile-before-retry to prevent duplicate/conflicting actuation and generation drift.
+- **G2-FINDING-ATRA-07** — Rollback/provider substitution/cutover creates a new qualification event and cannot close until residual runtime/traffic/session/cache/subscription cohorts are drained, requalified or explicitly dispositioned.
+- **G2-FINDING-ATRA-08** — RuntimeAdmissionQualification is a cross-capability proof contract, not a new semantic-owner capability; AGWS/AI may assist evidence/proposal surfaces but cannot amplify release, trust-root, policy-waiver or provider-admin authority.
+
+Disposition: centralized proof **RESOLVED_BY_MULTI_REPRESENTATIVE_RESEARCH** in `ARTIFACT_TO_RUNTIME_ADMISSION_PROOF.md`; no new top-level capability promoted.
+
 ## Workload-Driven Minimal Runtime Realization — centralized proof disposition
 - **G2-FINDING-WDRR-01** — Minimal runtime closure is a typed, explainable transitive closure rooted in explicit semantic requirements; hidden/disabled unrelated capability code does not satisfy minimality when omission is technically feasible.
 - **G2-FINDING-WDRR-02** — Build dependencies and runtime dependencies are distinct; build tooling can and should be excluded from the autonomous runtime unless it is an explicit runtime requirement.
@@ -36,7 +48,7 @@ Parent `G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT`: **SPLIT
 `G2-FINDING-ETPKI-01..08` remain authoritative; parent capability is promoted CROSS_CUTTING / NOT_SATURATED.
 
 ## Enterprise Completeness / Negative-Space Review — pass 1
-`G2-FINDING-ENSR-01..08` remain authoritative. Trust and Privacy are resolved by promoted owners; AI evaluation is merged into existing owners; Economic Governance is resolved by split/promotion of the narrower technology-economic owner. Workload-driven minimal-runtime is now resolved by cross-capability proof/disposition. Artifact-to-runtime admission and remaining centralized proof obligations stay open.
+`G2-FINDING-ENSR-01..08` remain authoritative. Trust and Privacy are resolved by promoted owners; AI evaluation is merged into existing owners; Economic Governance is resolved by split/promotion of the narrower technology-economic owner. Workload-driven minimal-runtime and Artifact-to-Runtime Admission are resolved by explicit cross-capability proof/disposition. Remaining centralized proof obligations stay open.
 
 ## Historical authority
 Detailed findings for all other capabilities remain authoritative in their dossiers, earlier ledger revisions and `RESEARCH_PIPELINE_STATE.json` history.
