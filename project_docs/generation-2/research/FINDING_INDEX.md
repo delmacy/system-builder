@@ -56,8 +56,18 @@ All previously indexed cycle-5 findings through Developer / Operator Experience 
 - **G2-FINDING-AGWS-36** — Delegated Station administration is faceted and non-amplifying; surface/exposure authority does not confer domain, secret, provider-admin, deployment, recovery or superior-policy authority.
 - **G2-FINDING-AGWS-37** — Qualified local work-surface closure has a revalidation horizon; superior policy/trust/role/binding changes require requalification before privileged actuation.
 
+### Workflow & Durable Execution — revisit 5
+- **G2-FINDING-WDE-37** — Workflow identity is typed across definition, run, checkpoint, activity, worker realization and provider binding; provider execution IDs or worker builds cannot define canonical run/checkpoint identity.
+- **G2-FINDING-WDE-38** — Effective durable execution is a multi-axis compatibility revision vector across definition, run generation, worker compatibility/build, provider binding, activity/schema, configuration, policy, trust and ownership epochs.
+- **G2-FINDING-WDE-39** — Durable checkpoint acceptance requires ownership/fencing, not merely successful computation; stale/zombie executors must not advance canonical durable position.
+- **G2-FINDING-WDE-40** — Replay-sensitive context must be deterministically captured provenance, not mutable ambient state or authority.
+- **G2-FINDING-WDE-41** — Exactly-once and idempotency claims are operation- and transaction-domain-qualified; narrow atomic commits cannot justify arbitrary external-effect guarantees.
+- **G2-FINDING-WDE-42** — Worker/provider substitution is a compatibility admission relation, not a mere deployment change; incompatible in-flight runs remain pinned or require explicit migration.
+- **G2-FINDING-WDE-43** — Composite workflow proof requires revision-compatible checkpoint, worker, effect, policy/trust and retention evidence; incompatible/stale required evidence yields `INCONCLUSIVE`.
+- **G2-FINDING-WDE-44** — Qualified local durable-execution closure includes compatibility, fencing and evidence horizons; replayability alone does not authorize privileged offline continuation.
+
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture, Process & Application Modeling, UI / Generated Experience / Low-code Builder and Adaptive Governed Work Surfaces completed.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture, Process & Application Modeling, UI / Generated Experience / Low-code Builder, Adaptive Governed Work Surfaces and Workflow & Durable Execution completed.
 
 ## Historical authority
 All prior findings, including cycle 1–5 and compacted findings, remain authoritative in their dossiers and prior index revisions.

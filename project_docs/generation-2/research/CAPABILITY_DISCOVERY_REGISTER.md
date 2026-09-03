@@ -56,6 +56,14 @@ All prior cycle-4/5 candidates remain authoritative in earlier revisions and dos
 | G2-CAPABILITY-CANDIDATE-AGWS-HIERARCHICAL-COMPOSITE-PROOF-COMPATIBILITY-JOIN | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with UCA evidence compatibility while preserving Enterprise/Station/Role/Person layer semantics. |
 | G2-CAPABILITY-CANDIDATE-AGWS-MANDATORY-OBLIGATION-REALIZATION-CONTINUITY | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep under AGWS unless negative-space research proves a broader semantic owner for mandatory inherited work-surface obligations. |
 
+## Workflow & Durable Execution — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-WDE-TYPED-EXECUTION-CHECKPOINT-WORKER-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity continuity for workflow definition/run/checkpoint/activity/worker/provider kinds. |
+| G2-CAPABILITY-CANDIDATE-WDE-MULTI-AXIS-EXECUTION-COMPATIBILITY-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/UCA revision vectors while retaining workflow-specific replay compatibility. |
+| G2-CAPABILITY-CANDIDATE-WDE-CHECKPOINT-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Multiple-executor recovery evidence establishes a Workflow-owned checkpoint-fencing need. |
+| G2-CAPABILITY-CANDIDATE-WDE-SCOPED-EFFECT-GUARANTEE-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Integration/Data transaction semantics without creating a universal exactly-once claim. |
+
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
