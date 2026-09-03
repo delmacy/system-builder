@@ -12,7 +12,7 @@
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 186,
+    "hourly_runs_completed": 187,
     "finding_count": 1407,
     "capability_candidate_count": 642,
     "new_candidates_this_run": [],
@@ -24,12 +24,15 @@
     "finding_inventory_authority": "project_docs/generation-2/research/FINDING_INDEX.md plus capability dossiers and prior state history; compact state does not revoke prior findings",
     "enterprise_completeness_negative_space_gate": {
       "required_when_completed_full_cycles_gte": 7,
-      "status": "PASS_1_STRUCTURAL_GAPS_AND_CENTRALIZED_PROOFS_DISPOSITIONED_CLOSURE_AUDIT_REQUIRED",
+      "status": "SIX_CRITERIA_PASS_SATURATION_RECONCILIATION_REQUIRED",
       "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
+      "closure_audit": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_GATE_CLOSURE_AUDIT.md",
       "proof_backfill_addendum": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md",
       "resolved_structural_gaps": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE","G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY","G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"],
       "resolved_centralized_proofs": ["workload-driven minimal runtime realization","same semantics/different runtime realization","artifact-to-runtime admission","enterprise trust qualification/lifecycle","trust rotation/residual drainage","disconnected trust horizon","privacy retention-hold-residency disposition","AI evaluation qualification and stale-evidence rejection","technology-economic normalization/allocation/history/budget/forecast/commitment/provider-substitution","domain composition/provider identity"],
-      "centralized_proof_debt": []
+      "centralized_proof_debt": [],
+      "closure_criteria": {"archetype_decomposability":"PASS","semantic_owner_completeness":"PASS","gap_disposition":"PASS","candidate_treatment":"PASS","coverage_challenge_disposition":"PASS","evidence_backed_sufficiency":"PASS"},
+      "closure_blocker": "NORMAL_SATURATION_RULE_NOT_SATISFIED_FOR_POST_CYCLE_7_PROMOTED_CAPABILITIES"
     },
     "latest_centralized_proof_research": {
       "proof": "domain composition/provider identity",
@@ -38,18 +41,18 @@
       "new_findings": ["G2-FINDING-DCPI-01","G2-FINDING-DCPI-02","G2-FINDING-DCPI-03","G2-FINDING-DCPI-04","G2-FINDING-DCPI-05","G2-FINDING-DCPI-06","G2-FINDING-DCPI-07","G2-FINDING-DCPI-08"],
       "representative_coverage": {"SCIM RFC 7643":"DEEP","Backstage Software Catalog":"DEEP","Crossplane managed resources":"DEEP","OpenSearch federated search":"DEEP","Salesforce external objects":"DEEP"}
     },
-    "pending_capabilities": []
+    "pending_capabilities": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE","G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY","G2-CAPABILITY-CANDIDATE-TECHNOLOGY-ECONOMIC-GOVERNANCE-FINOPS"]
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — seven full cycles complete; all pass-1 structural gaps and centralized proof junctions are dispositioned. Explicit Enterprise Completeness six-criterion closure audit plus normal elicitation/saturation reconciliation is required before transition.",
-    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "CLOSURE_AUDIT_REQUIRED — no centralized proof debt remains, but the gate is not CLOSED until all six closure criteria and normal elicitation/saturation constraints are explicitly audited.",
+    "RESEARCH_ELICITATION": "OPEN — Enterprise Completeness six-criterion closure audit PASS, but normal saturation remains unsatisfied for post-cycle-7 promoted capabilities; no waiver is permitted.",
+    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "SIX_CRITERIA_PASS / NOT_CLOSED — blocked only by normal saturation reconciliation for promoted post-cycle-7 capabilities.",
     "ARCHITECTURE_PROOF_BACKFILL": "CENTRALIZED_PASS_1_COMPLETE — no centralized proof debt remains; historical per-capability backfill obligations remain authoritative.",
-    "CAPABILITY_SYNTHESIS": "BLOCKED_PENDING_ENTERPRISE_COMPLETENESS_CLOSURE_AUDIT"
+    "CAPABILITY_SYNTHESIS": "BLOCKED_PENDING_PROMOTED_CAPABILITY_SATURATION"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Domain Composition / Provider Identity centralized proof is resolved without new promotion. Canonical domain/business identity remains distinct from external/provider IDs; external IDs are typed provider/tenant/resource/version-scoped bindings; SCIM provider id and provisioning-domain externalId do not collapse Person/Role/Station identity; portal/search/catalog composition preserves source lineage and partiality; provider substitution/reconnection preserves canonical identity while forcing binding requalification; ambiguous/missing mappings are PARTIAL/INCONCLUSIVE and unknown external effects reconcile before retry. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and no AI authority amplification. All pass-1 centralized proof debt is now dispositioned; explicit Enterprise Completeness closure audit is next.",
-  "last_completed_artifact": "project_docs/generation-2/research/DOMAIN_COMPOSITION_PROVIDER_IDENTITY_CENTRALIZED_PROOF.md",
+  "current_focus": "Enterprise Completeness closure audit passed all six structural criteria, but the normal saturation rule blocks phase transition. Enterprise Trust / PKI / Certificate Lifecycle, Privacy / Data Governance / Retention / Legal Hold / Residency, and Technology Economic Governance / FinOps were promoted after the seven-cycle traversal and remain NOT_SATURATED; saturated_capabilities is empty. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
+  "last_completed_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_GATE_CLOSURE_AUDIT.md",
   "last_framework_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md",
-  "next_action": "Perform exactly the Enterprise Completeness / Negative-Space gate-closure audit against all six mandatory closure criteria and normal elicitation/saturation constraints. Verify that every required archetype decomposes without forced concepts; no material enterprise-system category lacks a semantic owner; every gap/candidate is treated or rationally deferred; coverage challenges are resolved or objectively retained as subcapabilities; and the sufficiency rationale is evidence-backed. Reconcile the fact that promoted post-cycle-7 capabilities remain NOT_SATURATED and saturated_capabilities is empty against the normal saturation rule; do not silently waive it. If and only if every closure condition is objectively satisfied, mark the gate CLOSED and advance exactly one phase to CAPABILITY_SYNTHESIS; otherwise remain in RESEARCH_ELICITATION with the precise blocker. Preserve Adaptive Governed Work Surfaces, Enterprise → Station → Role → Person and AI/AGWS non-amplification.",
-  "updated_at": "2026-09-03T16:07:45-03:00"
+  "next_action": "Research exactly Enterprise Trust / PKI / Certificate Lifecycle — post-promotion saturation revisit 1. Use research-by-exception against the existing deep dossier and centralized trust proofs; test path/revocation currentness, issuance/renewal/rotation, workload/service identity trust, provider substitution, residual consumer drainage, disconnected trust/evidence horizons, governance/observability/portability and remaining repo-validation questions. Record whether a material architectural finding exists. If material, reset the no-material-finding streak; if none, record eligible no-material revisit 1/2. Do not research another capability and do not enter CAPABILITY_SYNTHESIS. Preserve Adaptive Governed Work Surfaces, Enterprise → Station → Role → Person and AI/AGWS non-amplification.",
+  "updated_at": "2026-09-03T16:13:32-03:00"
 }
