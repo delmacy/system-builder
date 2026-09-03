@@ -12,16 +12,16 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
-## Cycle 6 authority through Governance / Compliance / Audit
-All prior cycle-6 candidates through Extension / Plugin / Marketplace Architecture remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
+## Cycle 6 authority through Secrets / Configuration / Environment Portability
+All prior cycle-6 candidates through Governance / Compliance / Audit remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
-### Governance / Compliance / Audit — revisit cycle 6 candidates
+### Secrets / Configuration / Environment Portability — revisit cycle 6 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-GCA-TYPED-CONTROL-IMPLEMENTATION-ASSESSMENT-AUDIT-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA typed identity while Governance retains control/assessment/audit semantic ownership. |
-| G2-CAPABILITY-CANDIDATE-GCA-POPULATION-SAMPLING-INHERITANCE-EVIDENCE-QUALIFICATION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Governance retains population/sampling/inheritance semantics; reconcile common evidence qualification primitive. |
-| G2-CAPABILITY-CANDIDATE-GCA-APPEND-ONLY-AUDIT-CORRECTION-SUPERSESSION-LINEAGE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal immutable history/version lineage without reducing audit-specific retention/hold semantics. |
-| G2-CAPABILITY-CANDIDATE-GCA-HISTORICAL-VERIFIABILITY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with qualified local closure/provider migration while Governance retains historical assessment proof semantics. |
+| G2-CAPABILITY-CANDIDATE-SCEP-TYPED-SECRET-CONFIG-PROJECTION-CONSUMER-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal typed identity while Secrets retains material-consumption semantics. |
+| G2-CAPABILITY-CANDIDATE-SCEP-MULTI-AXIS-EFFECTIVE-SECRET-CONFIG-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal revision-qualified evidence primitive. |
+| G2-CAPABILITY-CANDIDATE-SCEP-SECRET-CONFIG-MUTATION-OWNERSHIP-FENCING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with concurrency/ownership primitive while retaining binding/current-generation promotion specifics. |
+| G2-CAPABILITY-CANDIDATE-SCEP-CONSUMER-EFFECTIVE-RESIDUAL-USE-DISPOSITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Secrets owns consumer-effective material uptake and old-generation residual-use disposition. |
 
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
