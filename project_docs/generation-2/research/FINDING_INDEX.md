@@ -2,6 +2,16 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Cycle 7 — Notifications / Events / Messaging revisit 6
+- **G2-FINDING-NEM-45** — Effective event/delivery/effect guarantees are applicability-scoped claims over semantic contract/envelope, provider realization, topology/ordering scope, subscription/filter, consumer cohort, checkpoint epoch, dedup horizon, policy/trust and evidence horizon; no broker status is globally authoritative.
+- **G2-FINDING-NEM-46** — Occurrence, envelope, publication attempt, broker acceptance/persistence, delivery attempt, acknowledgement/checkpoint and consumer effect are distinct identities and lifecycle facts; acknowledgement at one boundary cannot prove downstream effect.
+- **G2-FINDING-NEM-47** — Delivery/effect conformance is revision-qualified and atomic-domain-relative; broker or stream exactly-once semantics cannot be extended to arbitrary external side effects without shared transactional/idempotent coordination.
+- **G2-FINDING-NEM-48** — Ambiguous publish/ack/effect outcomes require reconcile-before-retry; bounded deduplication and visibility/ack windows make blind retries capable of duplicating work.
+- **G2-FINDING-NEM-49** — Messaging evidence has independent replay horizons across retained log/message, dedup state, checkpoint/offset, acknowledgement and DLQ/redrive lineage; expiry makes exact later proof unavailable without invalidating historical facts.
+- **G2-FINDING-NEM-50** — Messaging provider portability is a mixed support vector across durability, ordering, replay, retention, deduplication, transactional coupling, acknowledgement, DLQ/redrive, filtering, partitioning, offline behavior and evidence; binary compatibility is unsafe.
+- **G2-FINDING-NEM-51** — Provider cutover closes only after residual message, subscription, checkpoint, retry/DLQ and consumer cohorts from the source realization are drained or explicitly dispositioned; destination delivery success alone is insufficient.
+- **G2-FINDING-NEM-52** — Qualified local/offline Station messaging and AGWS/AI composition are non-amplifying: local closure may permit only explicitly delegated event classes/actions, and reconnect must requalify policy/trust/provider/checkpoint state before privileged continuation.
+
 ## Cycle 7 — Identity / Authentication / Federation revisit 6
 - **G2-FINDING-IAF-45** — Authentication claims require explicit applicability across relying party/Station, purpose, assurance, authenticator/session class, federation/trust, provider, policy and evidence horizon.
 - **G2-FINDING-IAF-46** — Authentication assurance is a revision-qualified relation; credential validity or historical login cannot self-prove current assurance.
@@ -12,35 +22,5 @@ Prior stable findings remain authoritative in their capability dossiers, earlier
 - **G2-FINDING-IAF-51** — Qualified offline authentication continuity does not imply current privileged authority; stale revocation/trust/policy/assurance requires reconnect requalification.
 - **G2-FINDING-IAF-52** — Identity context is provenance and cannot amplify AGWS/AI authority into authorization, provider administration, account linking or canonical mutation.
 
-## Cycle 7 — Authorization / Policy / Organization / Multitenancy revisit 6
-- **G2-FINDING-APOM-45** — Effective authority is an applicability-scoped claim over subject/actor, semantic scope, policy/model/schema, relationship/topology, delegation/lease, identity-security, evaluator, consistency, enforcement and evidence horizon; possession of a valid decision or policy revision alone is insufficient.
-- **G2-FINDING-APOM-46** — Policy-currentness is realization-specific: publication/admission of a policy does not prove every evaluator or enforcement cohort has loaded or applied it; distributed uptake must be evidenced.
-- **G2-FINDING-APOM-47** — Authorization conformance is revision-qualified across both policy and the interpretation schema/entity model; prior validation cannot automatically survive schema/semantic evolution.
-- **G2-FINDING-APOM-48** — Contextual or token-derived authorization facts are provenance-bearing, applicability-bounded evidence, not canonical relationships; source-token lifetime can exceed underlying membership validity and therefore requires explicit freshness/revocation policy.
-- **G2-FINDING-APOM-49** — Authorization evidence has a replay horizon distinct from historical event validity; retention/GC of exact snapshots, policies, schemas or trust material can make later exact re-evaluation unavailable and must propagate proof qualification.
-- **G2-FINDING-APOM-50** — Authorization portability/support is a mixed vector across policy semantics, schema/entity interpretation, relationship model, consistency/freshness, temporal/contextual grants, delegation, distribution, enforcement and evidence; binary provider compatibility is unsafe.
-- **G2-FINDING-APOM-51** — Role/policy/provider migration closes only after residual evaluator, active-session/contextual-claim, temporary-grant and enforcement consumer cohorts are drained or explicitly dispositioned; destination decision success is not cutover closure.
-- **G2-FINDING-APOM-52** — Qualified local/offline authorization and delegated administration are non-amplifying: authority is bounded by explicit facet attenuation and policy/revocation/trust/evidence horizons, with mandatory reconnect requalification before privileged continuation.
-
-## Cycle 7 — Data / Schema / Migrations revisit 6
-- **G2-FINDING-DSM-45** — Effective data/schema truth is an applicability-scoped claim over schema/model, dataset/population, tenant/Station, provider realization, transaction profile, consumer cohort, CDC/checkpoint, compatibility, authority/trust and evidence horizon; no single database status is globally authoritative.
-- **G2-FINDING-DSM-46** — Data-currentness is realization- and consumer-specific: primary/schema success does not prove replicas, CDC, indexes/materialized projections, caches, writers/readers or external consumers have converged to the same effective epoch.
-- **G2-FINDING-DSM-47** — Data conformance is revision-qualified across semantic schema, data population, transaction/invariant profile, provider realization and validation rules; schema compatibility alone cannot prove business-invariant safety.
-- **G2-FINDING-DSM-48** — Migration actuation has distinct attempted, accepted, persisted, converged and validated states; acknowledgement loss or timeout creates OUTCOME_UNKNOWN and requires reconcile-before-retry rather than blind replay.
-- **G2-FINDING-DSM-49** — Data/migration evidence has a replay horizon distinct from historical validity; loss/GC of WAL/log positions, CDC offsets, schema history, old revisions or validation populations makes exact reconstruction unavailable and must propagate INCONCLUSIVE/new-baseline semantics.
-- **G2-FINDING-DSM-50** — Database/provider portability is a mixed support vector across schema/constraint semantics, transaction/isolation, online DDL, backfill, CDC/checkpoint/ordering, derived-read freshness, rollback/forward-fix and evidence; nominal schema compatibility is insufficient.
-- **G2-FINDING-DSM-51** — Provider/schema migration closes only after residual source writers, old readers, dual-write divergence, backfill, CDC and derived-consumer cohorts are drained or explicitly dispositioned; destination success does not transfer data authority by itself.
-- **G2-FINDING-DSM-52** — Qualified local/offline data operation and delegated Station administration are non-amplifying and horizon-bounded; reconnect after superior schema/data/trust/authority advancement requires reconciliation before privileged writes, migration or cutover continue.
-
-## Cycle 7 — Storage / Documents / Media revisit 6
-- **G2-FINDING-SDM-45** — Effective Storage Truth Is Applicability-scoped Across Consumer, Operation, Semantic Revision, Governance State, Provider Realization and Evidence Horizon. A single `current` object status cannot serve every document/storage consumer.
-- **G2-FINDING-SDM-46** — Storage Conformance Is Revision-qualified Between Canonical Content and Provider Realization; Restore May Create a New Realization Identity Rather Than Resurrect the Original. Canonical lineage must survive provider generation changes without conflation.
-- **G2-FINDING-SDM-47** — Logical Visibility, Recoverability, Retention and Physical Destruction Are Independent Lifecycle Dimensions. Delete markers, noncurrent versions and soft-deleted objects make `not visible` insufficient evidence of purge.
-- **G2-FINDING-SDM-48** — Storage Policy Acceptance and Destructive Effect Can Be Temporally Separated; Ambiguous Delete/Restore Outcomes Require Reconcile-before-retry. Provider propagation and retention constraints prevent acknowledgement from proving final effect.
-- **G2-FINDING-SDM-49** — Storage Evidence Has a Multi-axis Replay Horizon Distinct From Byte Retention. Historical bytes can remain while metadata, policy, key, alias or index evidence needed for exact proof has expired.
-- **G2-FINDING-SDM-50** — Storage Portability Is a Mixed Support Vector Across Versioning, Recovery, WORM, Fencing, Integrity, Replication, Encryption, Evidence and Offline Semantics. API/byte compatibility alone is insufficient.
-- **G2-FINDING-SDM-51** — Storage Migration/Deletion Closes Only After Residual Replica, Cache, Index, Rendition, Backup, Export and Consumer Cohorts Are Drained or Explicitly Dispositioned. Destination success or logical deletion does not prove global closure.
-- **G2-FINDING-SDM-52** — Qualified Local Storage and AGWS Exposure Are Non-amplifying and Reconnect-bounded. Offline readability/composition cannot grant retention, purge, provider-admin or canonical-schema authority.
-
 ## Historical authority
-All findings from prior capabilities and cycles remain authoritative in their dossiers, earlier `FINDING_INDEX.md` revisions and `RESEARCH_PIPELINE_STATE.json` history.
+Detailed findings for all other capabilities remain authoritative in their dossiers, earlier index revisions and pipeline history.
