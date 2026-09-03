@@ -12,16 +12,16 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
-## Cycle 6 authority through Observability / Operations / Incident
-All prior cycle-6 candidates through Deployment / Environment / Runtime remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
+## Cycle 6 authority through Extension / Plugin / Marketplace Architecture
+All prior cycle-6 candidates through Observability / Operations / Incident remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
-### Observability / Operations / Incident — revisit cycle 6 candidates
+### Extension / Plugin / Marketplace Architecture — revisit cycle 6 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-OOI-TYPED-OPERATIONAL-EVIDENCE-LIFECYCLE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA typed identity/evidence while retaining Observability ownership of alert/incident semantics. |
-| G2-CAPABILITY-CANDIDATE-OOI-SAMPLING-SELECTION-POLICY-REVISION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with evidence qualification; Observability retains sampling-selection realization semantics. |
-| G2-CAPABILITY-CANDIDATE-OOI-NO-DATA-ERROR-EVALUATION-SEMANTICS | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve explicit operational evidence states independently of provider alert presentation. |
-| G2-CAPABILITY-CANDIDATE-OOI-EXPECTED-OBSERVATION-POPULATION-COVERAGE-DENOMINATOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with fleet/topology coverage while Observability owns expected-vs-received telemetry qualification. |
+| G2-CAPABILITY-CANDIDATE-EPM-TYPED-EXTENSION-ADMISSION-ACTIVATION-REVOCATION-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA typed identity while Extension retains admission/activation/revocation semantics. |
+| G2-CAPABILITY-CANDIDATE-EPM-MULTI-AXIS-EFFECTIVE-EXTENSION-QUALIFICATION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal revision-vector primitive. |
+| G2-CAPABILITY-CANDIDATE-EPM-RESIDUAL-USE-REVOCATION-POSTCONDITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Extension retains drain/residual-use closure unless later evidence proves a broader lifecycle primitive is required. |
+| G2-CAPABILITY-CANDIDATE-EPM-CONTROL-PATH-BOOTSTRAP-RECOVERY-ISOLATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Security/Recovery and Architecture Reconciliation while preserving extension control-path proof. |
 
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
