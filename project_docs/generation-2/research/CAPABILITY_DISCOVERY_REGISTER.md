@@ -8,6 +8,16 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
+## Cycle 7 — Developer / Operator Experience / Self-hosting candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-DOESH-APPLICABILITY-SCOPED-OPERATIONAL-SUPPORT-QUALIFICATION` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability while DOESH retains install/operate/upgrade/support semantics. |
+| `G2-CAPABILITY-CANDIDATE-DOESH-MIXED-SELFHOSTING-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve package/runtime/config/schema/data/recovery/trust/provider/diagnostic axes independently. |
+| `G2-CAPABILITY-CANDIDATE-DOESH-DISCONNECTED-SUPPLYCHAIN-EVIDENCE-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Artifact/Provenance evidence horizons with local consumer-resolvability and disconnected operational closure. |
+| `G2-CAPABILITY-CANDIDATE-DOESH-RESIDUAL-OPERATIONAL-COHORT-DRAINAGE` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Lifecycle owns generic drainage; DOESH retains process/node/cache/config/credential/controller/consumer closure semantics. |
+
+No candidate is promoted in this revisit.
+
 ## Cycle 7 — AI-native Engineering / Agents / Approvals candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
@@ -15,8 +25,6 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | `G2-CAPABILITY-CANDIDATE-AIN-APPROVAL-EVIDENCE-REPLAY-HORIZON` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve historical approval/effect validity separately from present replay/requalification evidence. |
 | `G2-CAPABILITY-CANDIDATE-AIN-MIXED-AGENT-RUNTIME-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Keep approval, replay, tool identity, containment, evidence, offline and recovery axes independently negotiable. |
 | `G2-CAPABILITY-CANDIDATE-AIN-RESIDUAL-APPROVAL-CHECKPOINT-TOOL-SESSION-DRAINAGE` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Lifecycle owns generic drainage mechanics; AI owns agent-specific approval/checkpoint/tool-session closure semantics. |
-
-No candidate is promoted in this revisit.
 
 ## Cycle 7 — Security / Resilience / Failure Recovery candidates
 Prior cycle-7 candidates remain authoritative: applicability-scoped protection/recovery qualification, observed recovery-objective evidence, ambiguous recovery actuation reconciliation and residual recovery consumer-cohort drainage.
