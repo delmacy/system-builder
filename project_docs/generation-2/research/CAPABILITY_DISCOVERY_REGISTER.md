@@ -13,15 +13,15 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
 ## Cycle 6 authority through Provider / Binding / Capability Negotiation
-All prior cycle-6 candidates through Secrets / Configuration / Environment Portability remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
+All prior cycle-6 candidates through Provider / Binding / Capability Negotiation remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
-### Provider / Binding / Capability Negotiation — revisit cycle 6 candidates
+### Standards / Interoperability / API Contracts — revisit cycle 6 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-PBCN-TYPED-REQUIREMENT-OFFER-BINDING-REALIZATION-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal typed identity while Provider/Binding retains semantic-to-realization mapping. |
-| G2-CAPABILITY-CANDIDATE-PBCN-MULTI-AXIS-EFFECTIVE-SATISFACTION-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal revision-qualified evidence. |
-| G2-CAPABILITY-CANDIDATE-PBCN-FAILURE-EVIDENCE-PROFILE-NEGOTIATION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Provider substitutability must include failure and evidence semantics, not feature labels only. |
-| G2-CAPABILITY-CANDIDATE-PBCN-REVOCABLE-CROSS-BOUNDARY-PROVIDER-CONSENT | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Authorization/AGWS target-side consent and hierarchical exposure. |
+| G2-CAPABILITY-CANDIDATE-SIAC-TYPED-SEMANTIC-CONTRACT-REALIZATION-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal typed identity; Standards retains semantic-contract-to-representation/protocol mapping. |
+| G2-CAPABILITY-CANDIDATE-SIAC-MULTI-AXIS-COMPATIBILITY-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal revision-qualified evidence and Lifecycle. |
+| G2-CAPABILITY-CANDIDATE-SIAC-CONSUMER-POPULATION-TRANSITIVE-COMPATIBILITY | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep under Standards unless negative-space shows broader owner need; compatibility must reflect actual historical client/data cohort. |
+| G2-CAPABILITY-CANDIDATE-SIAC-EXECUTABLE-SEMANTIC-CONFORMANCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with testing/conformance negative-space concern and Product Proof Acceptance; structural validity is insufficient. |
 
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
