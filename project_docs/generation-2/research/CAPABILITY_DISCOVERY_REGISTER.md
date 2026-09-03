@@ -11,17 +11,20 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory research hypotheses
 Executable composition/cumulative context; transaction-consistency-concurrency; topology-build-runtime realization; tenant-fleet-edge-ingress routing remain authoritative research hypotheses, not promoted capabilities.
 
-`G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**. See `project_docs/generation-2/research/concepts/SYSTEM_BUILDER_SUITE_COMPOSITION_FORMATION.md`. Synthesis must reconcile two orthogonal suite axes: (A) the accepted replaceable factory/lifecycle suite and (B) the reusable capability/domain-module suite from which client systems and Stations consume governed subsets.
+`G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**. Synthesis must reconcile factory/lifecycle suite and reusable capability/domain-module suite axes.
 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Developer / Operator Experience / Self-hosting — revisit cycle 5 candidates
+## Architecture Reconciliation as a Capability — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-DOESH-QUALIFIED-OFFLINE-UPDATE-SOURCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Artifact provenance, Secrets/trust, Lifecycle readiness and Provider Binding without losing update freshness/consistency semantics. |
-| G2-CAPABILITY-CANDIDATE-DOESH-MULTI-MATERIAL-RECOVERY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Security/Recovery qualified local closure if data/config/trust/version-chain completeness remains explicit. |
-| G2-CAPABILITY-CANDIDATE-DOESH-DIAGNOSTIC-EVIDENCE-CUSTODY | CROSS_CUTTING | CANDIDATE | Reconcile with Observability/Governance evidence handling while preserving separation from privileged diagnostic actuation. |
-| G2-CAPABILITY-CANDIDATE-DOESH-AUTHORITY-SCOPED-FLEET-ROLLOUT | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Tenant/Fleet hypothesis, Deployment and Authorization; do not promote as duplicate fleet engine. |
+| G2-CAPABILITY-CANDIDATE-ARC-REVISION-QUALIFIED-CONVERGENCE-LINEAGE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle revision vectors, Deployment effective realization and Observability evidence qualification. |
+| G2-CAPABILITY-CANDIDATE-ARC-ACTION-FACETED-RECONCILIATION-AUTHORITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Authorization/Provider Binding faceted authority without collapsing Observe/Normalize/Create/Update/Delete/Repair/Migrate/Recovery. |
+| G2-CAPABILITY-CANDIDATE-ARC-AMBIGUOUS-ACTUATION-QUARANTINE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with cross-capability ambiguous-outcome disposition while preserving reconcile-before-retry semantics. |
+| G2-CAPABILITY-CANDIDATE-ARC-DEPENDENCY-INCONCLUSIVE-PROPAGATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal evidence qualification so required uncertain dependencies block conclusive parent satisfaction. |
 
-No Developer / Operator Experience / Self-hosting candidate is promoted in this run.
+No Architecture Reconciliation candidate is promoted in this run.
+
+## Historical authority
+Developer/Operator cycle-5 candidates and all earlier candidates remain authoritative in prior revisions and capability dossiers.
