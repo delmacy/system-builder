@@ -2,8 +2,10 @@
 
 Promotion requires multi-representative evidence or a clear structural System Builder need. Existing candidates omitted from this compact view remain authoritative in prior revisions, state history and capability dossiers; none is revoked.
 
-## Active promoted capability
+## Active promoted capabilities
 `G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES` — **CORE / PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY**. Remains distinct from generic UI with `Enterprise → Station → Role → Person`, bounded capability exposure, AI-only materialization and nine mandatory proofs.
+
+`G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE` — **CROSS_CUTTING / PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY / NOT_SATURATED**. Multi-representative evidence from RFC 5280, RFC 8555, SPIFFE, cert-manager, Vault PKI and Smallstep establishes a distinct semantic owner for trust domains/relationships, trust anchors/bundles, issuer/certificate lifecycle, revocation/currentness, rollover and consumer-effective trust. Secrets retains key/material protection; Identity retains subject/authentication ownership; Security retains assurance/risk policy. Promotion does not authorize System Builder to build a bespoke CA.
 
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
@@ -11,12 +13,22 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Enterprise Completeness / Negative-Space Review — pass 1 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| `G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE` | CROSS_CUTTING | RESEARCH_REQUIRED | Multi-representative research must prove identities/lifecycle/authority/failure/versioning/provider boundaries distinct from Secrets, Identity and Security; otherwise merge into those owners. |
+| `G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE` | CROSS_CUTTING | **PROMOTED / NOT_SATURATED** | Structural research complete: distinct ownership proven across trust anchors, issuer/certificate lifecycle, revocation/currentness, rollover and consumer-effective trust. Executable proofs remain backfill-required. |
 | `G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY` | CROSS_CUTTING | RESEARCH_REQUIRED | Validate purpose/classification/retention/hold/residency/disposition primitives across standards and enterprise systems; determine boundaries with Data, Governance and Security. |
 | `G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT` | DOMAIN | RESEARCH_REQUIRED | Test allocation/budget/forecast/commitment/rate semantics across cloud, on-prem and internal chargeback before deciding DOMAIN_ONLY versus shared primitive. |
 | `G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE` | DOMAIN | RESEARCH_REQUIRED | Test model/prompt/evaluation/safety identities, lifecycle, evidence and provider substitution against existing AI-native, Artifact/Lifecycle, Governance and Observability owners. |
 
-No pass-1 candidate is promoted. `Adaptive Governed Work Surfaces` remains CORE/promoted and distinct.
+`Adaptive Governed Work Surfaces` remains CORE/promoted and distinct.
+
+## Enterprise Trust / PKI / Certificate Lifecycle — structural research candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-ETPKI-APPLICABILITY-SCOPED-EFFECTIVE-TRUST-QUALIFICATION` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Consolidate into the promoted trust capability and Universal applicability envelope; preserve relying-party/purpose/path/policy/currentness/Station qualification. |
+| `G2-CAPABILITY-CANDIDATE-ETPKI-TRUST-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Consolidate with cross-cutting evidence horizons while preserving CRL/OCSP/bundle/offline trust freshness semantics. |
+| `G2-CAPABILITY-CANDIDATE-ETPKI-MIXED-TRUST-PROVIDER-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent enrollment, hierarchy, revocation, workload, HSM, offline, evidence and rollover axes; do not collapse to X.509/ACME protocol support. |
+| `G2-CAPABILITY-CANDIDATE-ETPKI-RESIDUAL-TRUST-CONSUMER-COHORT-DRAINAGE` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Lifecycle owns generic drainage; promoted trust capability retains certificate/anchor/bundle/issuer consumer-effective requalification semantics. |
+
+No subordinate candidate is promoted as a separate top-level capability.
 
 ## Mandatory workload-driven runtime realization hypotheses
 | Candidate | Class | Status | Promotion / merge condition |
