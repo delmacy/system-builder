@@ -64,6 +64,14 @@ All prior cycle-4/5 candidates remain authoritative in earlier revisions and dos
 | G2-CAPABILITY-CANDIDATE-WDE-CHECKPOINT-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Multiple-executor recovery evidence establishes a Workflow-owned checkpoint-fencing need. |
 | G2-CAPABILITY-CANDIDATE-WDE-SCOPED-EFFECT-GUARANTEE-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Integration/Data transaction semantics without creating a universal exactly-once claim. |
 
+## Integration & Automation — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-IA-TYPED-OPERATION-DEFINITION-DELIVERY-POSITION-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity continuity for semantic operation, integration definition, trigger, delivery, checkpoint and provider-realization identities. |
+| G2-CAPABILITY-CANDIDATE-IA-MULTI-AXIS-INTEGRATION-COMPATIBILITY-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/UCA revision vectors while retaining integration-specific route, connector, checkpoint and idempotency axes. |
+| G2-CAPABILITY-CANDIDATE-IA-CONNECTOR-CHECKPOINT-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Kafka Connect multi-generation evidence establishes an Integration-owned checkpoint/source-position fencing need distinct from Workflow durable checkpoints. |
+| G2-CAPABILITY-CANDIDATE-IA-QUALIFIED-DELIVERY-EFFECT-GUARANTEE-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Workflow scoped-effect profile and Data transaction semantics while preserving connector/broker/webhook transaction boundaries. |
+
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
