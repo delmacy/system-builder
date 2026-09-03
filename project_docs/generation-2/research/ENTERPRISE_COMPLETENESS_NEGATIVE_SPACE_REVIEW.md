@@ -1,11 +1,11 @@
 # Generation 2 — Enterprise Completeness / Negative-Space Review
 
-Status: PASS 1 / GATE OPEN / STRUCTURAL GAP RESEARCH DISPOSED / CENTRALIZED PROOFS OPEN
+Status: PASS 1 / GATE OPEN / STRUCTURAL GAPS DISPOSED / MINIMAL-RUNTIME PROOF RESOLVED / CENTRALIZED PROOFS OPEN
 Phase: RESEARCH_ELICITATION
 Authority: `RESEARCH_PIPELINE_STATE.json`, active capability dossiers and ledgers.
 
 ## Purpose
-Attempt to falsify the taxonomy after seven cycles. Synthesis remains blocked until material semantic-owner gaps and centralized architecture-proof obligations—including workload-driven minimal runtime realization—are dispositioned.
+Attempt to falsify the taxonomy after seven cycles. Synthesis remains blocked until material semantic-owner gaps and centralized architecture-proof obligations are dispositioned.
 
 ## Structural-gap disposition log
 
@@ -25,11 +25,27 @@ The promoted owner preserves distinct source evidence, normalization, allocation
 
 Findings: `G2-FINDING-EGFP-01..08`.
 
+## Centralized proof disposition — workload-driven minimal runtime realization — RESOLVED
+Multi-representative evidence from Nix closures, Bazel dependency graphs, Docker multi-stage builds, Kubernetes Deployment/autoscaling/RuntimeClass, Knative autoscaling and AWS Lambda concurrency establishes the architectural primitives needed to resolve the workload-driven minimal-runtime hypothesis without adding a new top-level semantic owner.
+
+Disposition:
+- minimal artifact/dependency closure → Build / Dependency Graph / Reproducibility;
+- instantiated runtime closure/topology → Deployment / Environment / Runtime;
+- provider-specific implementation dependencies → Provider / Binding / Capability Negotiation;
+- operational/workload requirements → first-class revisioned `OperationalProfile`-style cross-cutting contract, orthogonal to canonical business semantics;
+- realization migration/rollback/drainage → Lifecycle / Versioning / Evolution / Migration + Deployment;
+- observed realization acceptance → Observability + Deployment;
+- security/recovery/residency/cost constraints remain owned by their respective capabilities.
+
+Proof obligations are recorded in `WORKLOAD_DRIVEN_MINIMAL_RUNTIME_REALIZATION_PROOF.md`, findings `G2-FINDING-WDRR-01..08`. Every included runtime component must be explainable by requirement/dependency lineage; optional capability code must be omitted where technically separable; same semantics may produce different qualified runtime realizations; pruning requires residual-cohort proof; disconnected autonomy requires complete local closure.
+
+Adaptive Governed Work Surfaces remains separate and non-amplifying: `Enterprise → Station → Role → Person` constrains operational/provider choices, and AGWS/AI cannot silently add capabilities, weaken higher invariants or acquire deployment/provider-admin/canonical-domain authority.
+
 ## Remaining negative-space / proof debt
-No structural candidate remains queued for broad external research in pass 1. The gate nevertheless remains OPEN because centralized cross-capability proofs remain unresolved, especially workload-driven minimal runtime realization and artifact-to-runtime admission plus the trust/privacy/AI/economic proof junctions already recorded in the proof backfill.
+No structural candidate remains queued for broad external research in pass 1. Workload-driven minimal-runtime realization is disposed. The gate remains OPEN because centralized cross-capability proofs can still falsify completeness, especially artifact-to-runtime admission and the trust/privacy/AI/economic proof junctions recorded in the proof-backfill addendum.
 
 ## Gate status
-The taxonomy is **not yet safe to synthesize**. Structural semantic-owner gaps found by pass 1 are now dispositioned, but proof debt can still falsify boundary completeness. Adaptive Governed Work Surfaces remains CORE and distinct from generic UI, preserving `Enterprise → Station → Role → Person`, higher-invariant monotonicity, Station capability-exposure boundaries and AI non-amplification.
+The taxonomy is **not yet safe to synthesize**. Structural semantic-owner gaps and the minimal-runtime realization proof are dispositioned, but remaining centralized proof debt must still close. Adaptive Governed Work Surfaces remains CORE and distinct from generic UI, preserving `Enterprise → Station → Role → Person`, higher-invariant monotonicity, Station capability-exposure boundaries and AI non-amplification.
 
 ## Next action
-Resolve exactly the workload-driven minimal-runtime realization hypothesis/proof debt next. Validate across multiple realization patterns whether optional capabilities can be omitted while every included runtime component traces to explicit requirement/dependency lineage; test same semantics across collapsed/simple versus split/scaled profiles, provider substitution, offline closure and evolution without canonical business-semantic mutation. Do not enter CAPABILITY_SYNTHESIS until this and the remaining centralized proof junctions are dispositioned.
+Resolve exactly the **artifact-to-runtime admission** centralized proof junction next. Prove that a release-qualified artifact plus runtime realization plan, provider bindings, configuration, trust and schema state becomes the intended observed runtime generation; stale/untrusted/mismatched provenance, verifier root, configuration/trust/schema generation or ambiguous deployment outcome must deny, become INCONCLUSIVE or require reconcile-before-retry. Do not enter `CAPABILITY_SYNTHESIS` until this and the remaining centralized proof junctions are dispositioned.
