@@ -23,6 +23,14 @@ All prior cycle-6 candidates through Lifecycle / Versioning / Evolution / Migrat
 | G2-CAPABILITY-CANDIDATE-SRFR-POST-RESTORE-SEMANTIC-VALIDATION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Security owns recovery qualification; executable validator mechanisms remain shared with conformance/testing. |
 | G2-CAPABILITY-CANDIDATE-SRFR-POST-RECOVERY-REPROTECTION-CLOSURE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve distinction between recovered availability and restored resilience/protection posture. |
 
+### AI-native Engineering / Agents / Approvals — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-AIN-TYPED-AGENTIC-CONTROL-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile typed proposal/approval/attempt/effect identity with Workflow, Integration and Lifecycle without losing agent-specific realization lineage. |
+| G2-CAPABILITY-CANDIDATE-AIN-PROVENANCE-QUALIFIED-CUMULATIVE-CONTEXT | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve context provenance/trust/freshness as evidence while forbidding authority amplification; reconcile mandatory cumulative-context hypothesis. |
+| G2-CAPABILITY-CANDIDATE-AIN-RESUME-SEMANTICS-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Unify node-replay/journal-replay/idempotency/ambiguity contracts across agent, workflow and runtime providers. |
+| G2-CAPABILITY-CANDIDATE-AIN-RESOURCE-BOUND-TOOL-AUTHORITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile audience/resource-scoped tool credentials with Authorization, Secrets and Provider/Binding boundaries. |
+
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
