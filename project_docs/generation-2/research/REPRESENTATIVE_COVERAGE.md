@@ -2,6 +2,11 @@
 
 States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`. Historical coverage in prior revisions, capability dossiers and state history remains authoritative; this compact ledger does not revoke omitted cells.
 
+## AI Evaluation Qualification / Stale-Evidence Rejection — centralized proof
+MLflow Prompt Registry + GenAI Evaluation: `DEEP`; LangSmith offline/online evaluation + experiment metadata: `DEEP`; Microsoft Foundry risk/safety evaluators: `DEEP`; NIST AI RMF / AIRC TEVV: `DEEP`; Google Vertex AI evaluation family: `TARGETED`.
+
+Findings `G2-FINDING-AIQP-01..08`. Centralized AI qualification/stale-evidence proof is **RESOLVED_BY_MULTI_REPRESENTATIVE_RESEARCH_WITHOUT_NEW_PROMOTION** in `AI_EVALUATION_QUALIFICATION_STALE_EVIDENCE_CENTRALIZED_PROOF.md`.
+
 ## Privacy Retention / Hold / Residency — centralized proof
 EU GDPR purpose/storage/erasure/legal-obligation semantics: `DEEP`; Microsoft Purview retention/eDiscovery/priority cleanup: `DEEP`; NARA records/disposition authority: `DEEP`; Google Cloud data-residency enforcement: `DEEP`; AWS Control Tower residency controls/service exemptions: `DEEP`; OPA provider-neutral policy decision/enforcement boundary: `DEEP`.
 
@@ -37,7 +42,7 @@ NIST Privacy Framework: `DEEP`; EU GDPR: `DEEP`; Microsoft Purview: `DEEP`; Goog
 RFC 5280: `DEEP`; RFC 8555 ACME: `DEEP`; SPIFFE/SPIRE: `DEEP`; cert-manager: `DEEP`; Vault PKI: `DEEP`; Smallstep step-ca: `DEEP`. Parent promoted CROSS_CUTTING / NOT_SATURATED.
 
 ## Enterprise Completeness / Negative-Space Review
-Seven original cycles are complete. Trust, Privacy and Technology Economic Governance are promoted post-cycle-7 owners and remain NOT_SATURATED. AI Evaluation is merged into existing owners. Workload-driven minimal-runtime realization, Artifact-to-Runtime Admission, Enterprise Trust lifecycle/rotation/offline and Privacy retention/hold/residency proof junctions are dispositioned. Remaining AI/economic/domain-composition centralized proof junctions remain open before synthesis.
+Seven original cycles are complete. Trust, Privacy and Technology Economic Governance are promoted post-cycle-7 owners and remain NOT_SATURATED. AI Evaluation is merged into existing owners, and its centralized qualification/stale-evidence proof is now resolved. Workload-driven minimal-runtime realization, Artifact-to-Runtime Admission, Enterprise Trust lifecycle/rotation/offline and Privacy retention/hold/residency proof junctions are dispositioned. Remaining technology-economic and domain-composition centralized proof junctions remain open before synthesis.
 
 ## Historical authority
 Detailed representative coverage for all other capabilities remains authoritative in their dossiers, earlier ledger revisions and `RESEARCH_PIPELINE_STATE.json` history.
