@@ -6,18 +6,18 @@
   "phase_order": ["RESEARCH_ELICITATION","CAPABILITY_SYNTHESIS","PLANNING_A_TAXONOMY_BOUNDARIES","PLANNING_B_SB_CURRENT_STATE_RECONCILIATION","PLANNING_C_TARGET_ARCHITECTURE","PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY","PLANNING_E_PRODUCT_PROOF_ACCEPTANCE","ARCHITECTURE_RECONCILIATION","WBS_DECOMPOSITION","WBS_DEPENDENCY_GRAPH","WORK_PACKAGE_DESIGN","READY_FOR_WORKER_HANDOFF"],
   "research": {
     "initial_macro_capabilities": 24,
-    "active_taxonomy_capabilities": 26,
+    "active_taxonomy_capabilities": 27,
     "minimum_full_cycles": 7,
     "target_full_cycles": 10,
     "maximum_full_cycles": null,
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 176,
-    "finding_count": 1327,
-    "capability_candidate_count": 630,
-    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-ETPKI-APPLICABILITY-SCOPED-EFFECTIVE-TRUST-QUALIFICATION","G2-CAPABILITY-CANDIDATE-ETPKI-TRUST-EVIDENCE-REPLAY-HORIZON","G2-CAPABILITY-CANDIDATE-ETPKI-MIXED-TRUST-PROVIDER-SUPPORT-VECTOR","G2-CAPABILITY-CANDIDATE-ETPKI-RESIDUAL-TRUST-CONSUMER-COHORT-DRAINAGE"],
-    "promoted_capabilities_this_run": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE"],
+    "hourly_runs_completed": 177,
+    "finding_count": 1335,
+    "capability_candidate_count": 634,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-PDGR-APPLICABILITY-SCOPED-DATA-GOVERNANCE-QUALIFICATION","G2-CAPABILITY-CANDIDATE-PDGR-DELETION-ELIGIBILITY-OBLIGATION-RESOLUTION","G2-CAPABILITY-CANDIDATE-PDGR-MIXED-PRIVACY-RETENTION-RESIDENCY-SUPPORT-VECTOR","G2-CAPABILITY-CANDIDATE-PDGR-RESIDUAL-GOVERNED-POPULATION-DRAINAGE"],
+    "promoted_capabilities_this_run": ["G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY"],
     "saturated_capabilities": [],
     "saturation_rule": "SATURATED requires principal representatives covered and two consecutive eligible revisits with no material new architectural finding, or remaining questions requiring repository validation. Material findings reset the streak.",
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; compact representations do not revoke prior candidates",
@@ -41,6 +41,15 @@
         "artifact": "project_docs/generation-2/research/ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE.md",
         "required_boundary": "Enterprise Trust owns portable trust relationship, anchor/bundle, issuer/certificate lifecycle, revocation/currentness, rollover and consumer-effective qualification semantics; Secrets owns protected material, Identity owns subjects/authentication, Security owns assurance/risk policy, providers own cryptographic/CA mechanisms.",
         "required_authority_rule": "Enterprise → Station → Role → Person may only narrow delegated trust scope; AGWS/AI never amplifies trust-anchor, issuer, revocation or provider-admin authority."
+      },
+      "Privacy / Data Governance / Retention / Legal Hold / Residency": {
+        "candidate_id": "G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY",
+        "classification": "CROSS_CUTTING",
+        "status": "PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY",
+        "saturation": "NOT_SATURATED",
+        "artifact": "project_docs/generation-2/research/PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY.md",
+        "required_boundary": "Privacy/Data Governance owns portable purpose/use, governed-population/classification, retention/hold precedence, deletion eligibility, residency/jurisdiction, exceptional governance authority, effective qualification and disposition-evidence semantics; Data/Storage/Security/Authorization/Governance/Lifecycle remain adjacent owners and providers own native enforcement mechanisms.",
+        "required_authority_rule": "Enterprise → Station → Role → Person may only narrow delegated privacy/governance scope; AGWS/AI never amplifies hold-release, exceptional-delete, residency-exception or provider-admin authority."
       }
     },
     "mandatory_cross_cutting_research_inputs": {
@@ -54,37 +63,47 @@
     },
     "enterprise_completeness_negative_space_gate": {
       "required_when_completed_full_cycles_gte": 7,
-      "status": "IN_PROGRESS_PASS_1_STRUCTURAL_GAP_1_RESOLVED_MORE_GAPS_OPEN",
+      "status": "IN_PROGRESS_PASS_1_STRUCTURAL_GAPS_1_AND_2_RESOLVED_MORE_GAPS_OPEN",
       "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
       "proof_backfill_addendum": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md",
       "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred, no material category remains ownerless, and workload-driven minimal runtime realization is tested across simple, scaled and critical client archetypes.",
       "pass_1_findings": ["G2-FINDING-ENSR-01","G2-FINDING-ENSR-02","G2-FINDING-ENSR-03","G2-FINDING-ENSR-04","G2-FINDING-ENSR-05","G2-FINDING-ENSR-06","G2-FINDING-ENSR-07","G2-FINDING-ENSR-08"],
-      "resolved_structural_gaps": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE"],
-      "structural_research_queue": ["G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY","G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE","G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"]
+      "resolved_structural_gaps": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE","G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY"],
+      "structural_research_queue": ["G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE","G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"]
     },
     "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting","Architecture Reconciliation as a Capability"],
-    "promoted_after_cycle7": [{"capability":"Enterprise Trust / PKI / Certificate Lifecycle","status":"NOT_SATURATED","dedicated_research_passes":1,"findings":["G2-FINDING-ETPKI-01","G2-FINDING-ETPKI-02","G2-FINDING-ETPKI-03","G2-FINDING-ETPKI-04","G2-FINDING-ETPKI-05","G2-FINDING-ETPKI-06","G2-FINDING-ETPKI-07","G2-FINDING-ETPKI-08"]}],
-    "latest_revisit": {"capability":"Architecture Reconciliation as a Capability","revisits_completed":6,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-ARC-47","G2-FINDING-ARC-48","G2-FINDING-ARC-49","G2-FINDING-ARC-50","G2-FINDING-ARC-51","G2-FINDING-ARC-52","G2-FINDING-ARC-53","G2-FINDING-ARC-54"],"representative_coverage":{"Kubernetes Deployment/controller status":"DEEP","HashiCorp Terraform/HCP Terraform saved-plan workflow":"DEEP","Argo CD reconciliation/diff":"DEEP","Crossplane managed resources/managementPolicies":"DEEP","Flux Kustomization/Conditions/dependencies":"DEEP","fresh-main SB AssemblyPlan/validation/compiler bounded comparison":"DEEP"}},
+    "promoted_after_cycle7": [
+      {"capability":"Enterprise Trust / PKI / Certificate Lifecycle","status":"NOT_SATURATED","dedicated_research_passes":1,"findings":["G2-FINDING-ETPKI-01","G2-FINDING-ETPKI-02","G2-FINDING-ETPKI-03","G2-FINDING-ETPKI-04","G2-FINDING-ETPKI-05","G2-FINDING-ETPKI-06","G2-FINDING-ETPKI-07","G2-FINDING-ETPKI-08"]},
+      {"capability":"Privacy / Data Governance / Retention / Legal Hold / Residency","status":"NOT_SATURATED","dedicated_research_passes":1,"findings":["G2-FINDING-PDGR-01","G2-FINDING-PDGR-02","G2-FINDING-PDGR-03","G2-FINDING-PDGR-04","G2-FINDING-PDGR-05","G2-FINDING-PDGR-06","G2-FINDING-PDGR-07","G2-FINDING-PDGR-08"]}
+    ],
+    "latest_revisit": {"capability":"Architecture Reconciliation as a Capability","revisits_completed":6,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-ARC-47","G2-FINDING-ARC-48","G2-FINDING-ARC-49","G2-FINDING-ARC-50","G2-FINDING-ARC-51","G2-FINDING-ARC-52","G2-FINDING-ARC-53","G2-FINDING-ARC-54"]},
     "latest_structural_gap_research": {
-      "candidate": "G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE",
+      "candidate": "G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY",
       "result": "PROMOTED_CROSS_CUTTING_NOT_SATURATED",
-      "artifact": "project_docs/generation-2/research/ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE.md",
-      "new_findings": ["G2-FINDING-ETPKI-01","G2-FINDING-ETPKI-02","G2-FINDING-ETPKI-03","G2-FINDING-ETPKI-04","G2-FINDING-ETPKI-05","G2-FINDING-ETPKI-06","G2-FINDING-ETPKI-07","G2-FINDING-ETPKI-08"],
-      "representative_coverage": {"RFC 5280 X.509 path validation/trust anchors/revocation":"DEEP","RFC 8555 ACME issuance/revocation lifecycle":"DEEP","SPIFFE/SPIRE workload identity/trust bundles/federation":"DEEP","cert-manager Issuer/ClusterIssuer/Certificate/external issuers":"DEEP","HashiCorp Vault PKI multi-issuer/rotation/revocation":"DEEP","Smallstep step-ca private PKI/ACME divergence":"DEEP","fresh-main SB ADR-0015 TLS server identity verification":"DEEP_BOUNDED"}
+      "artifact": "project_docs/generation-2/research/PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY.md",
+      "new_findings": ["G2-FINDING-PDGR-01","G2-FINDING-PDGR-02","G2-FINDING-PDGR-03","G2-FINDING-PDGR-04","G2-FINDING-PDGR-05","G2-FINDING-PDGR-06","G2-FINDING-PDGR-07","G2-FINDING-PDGR-08"],
+      "representative_coverage": {"NIST Privacy Framework":"DEEP","EU GDPR purpose/storage/erasure/restriction/legal-claims":"DEEP","Microsoft Purview retention/records/eDiscovery":"DEEP","Google Assured Workloads/Data Residency":"DEEP","AWS Control Tower Data Residency":"DEEP","Open Policy Agent provider-neutral policy boundary":"DEEP"}
     },
-    "latest_gate_review": {"gate":"ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW","pass":1,"result":"STRUCTURAL_GAP_1_RESOLVED_MORE_GAPS_OPEN","new_findings":["G2-FINDING-ENSR-01","G2-FINDING-ENSR-02","G2-FINDING-ENSR-03","G2-FINDING-ENSR-04","G2-FINDING-ENSR-05","G2-FINDING-ENSR-06","G2-FINDING-ENSR-07","G2-FINDING-ENSR-08"],"resolved_candidates":["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE"],"remaining_candidates":["G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY","G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE","G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"]},
+    "latest_gate_review": {
+      "gate":"ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW",
+      "pass":1,
+      "result":"STRUCTURAL_GAPS_1_AND_2_RESOLVED_MORE_GAPS_OPEN",
+      "new_findings":["G2-FINDING-ENSR-01","G2-FINDING-ENSR-02","G2-FINDING-ENSR-03","G2-FINDING-ENSR-04","G2-FINDING-ENSR-05","G2-FINDING-ENSR-06","G2-FINDING-ENSR-07","G2-FINDING-ENSR-08"],
+      "resolved_candidates":["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE","G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY"],
+      "remaining_candidates":["G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE","G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"]
+    },
     "pending_capabilities": []
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — seven full cycles complete. Enterprise Completeness pass 1 found material gaps; Enterprise Trust / PKI / Certificate Lifecycle is now promoted CROSS_CUTTING / NOT_SATURATED. Continue bounded research of exactly one remaining queued structural candidate at a time.",
-    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "IN_PROGRESS — PASS_1_COMPLETE / STRUCTURAL_GAP_1_RESOLVED / MORE_GAPS_OPEN. Enterprise Trust/PKI has a semantic owner; Privacy/Data Governance still requires structural research; AI model/prompt/evaluation/safety ownership and Economic Governance require bounded disposition. Workload-driven minimal runtime realization and cross-capability admission/privacy/AI/trust proof junctions remain open. Do not advance to synthesis.",
-    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — enterprise-trust proofs are no longer research-blocked and are BACKFILL_REQUIRED under the promoted capability; Privacy and AI evaluation proofs remain RESEARCH_BLOCKED. CAPABILITY_PROOF_MATRIX remains authoritative, supplemented by ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md.",
+    "RESEARCH_ELICITATION": "OPEN — seven full cycles complete. Enterprise Completeness pass 1 found material gaps; Enterprise Trust/PKI and Privacy/Data Governance are now promoted CROSS_CUTTING / NOT_SATURATED. Continue bounded research of exactly one remaining queued structural candidate at a time.",
+    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "IN_PROGRESS — PASS_1_COMPLETE / STRUCTURAL_GAPS_1_AND_2_RESOLVED / MORE_GAPS_OPEN. Enterprise Trust and Privacy/Data Governance now have semantic owners. AI model/prompt/evaluation/safety ownership and Economic Governance require bounded disposition. Workload-driven minimal runtime realization and cross-capability admission/privacy/AI/trust proof junctions remain open. Do not advance to synthesis.",
+    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — enterprise-trust and privacy proofs are no longer research-blocked and are BACKFILL_REQUIRED under promoted capabilities; AI evaluation proofs remain RESEARCH_BLOCKED. CAPABILITY_PROOF_MATRIX remains authoritative, supplemented by ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_BY_ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Enterprise Completeness / Negative-Space Review pass 1 remains open. Enterprise Trust / PKI / Certificate Lifecycle was promoted CROSS_CUTTING after dedicated multi-representative research. Next queued structural gap is Privacy / Data Governance / Retention / Legal Hold / Residency. Adaptive Governed Work Surfaces remains CORE/promoted and distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
-  "last_completed_artifact": "project_docs/generation-2/research/ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE.md",
+  "current_focus": "Enterprise Completeness / Negative-Space Review pass 1 remains open. Enterprise Trust / PKI and Privacy / Data Governance / Retention / Legal Hold / Residency are promoted CROSS_CUTTING / NOT_SATURATED after dedicated multi-representative research. Next queued structural gap is AI Evaluation / Model / Prompt / Safety Governance. Adaptive Governed Work Surfaces remains CORE/promoted and distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
+  "last_completed_artifact": "project_docs/generation-2/research/PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY.md",
   "last_framework_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md",
-  "next_action": "Research exactly one queued structural gap: G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY. Use 3–8 strong representatives spanning privacy purpose/use and data-subject obligations, enterprise retention/records/legal hold, residency/jurisdiction controls and at least one provider-neutral or multi-provider governance implementation. Determine primitives, source of truth, typed identity, lifecycle, versioning, deletion-eligibility versus hold/retention conflicts, authority, provider boundaries, observability/evidence horizons, offline behavior, portability/lock-in and whether the candidate is a distinct CROSS_CUTTING capability or should merge into Data / Governance / Security / Storage. Preserve Enterprise → Station → Role → Person and AGWS/AI non-amplification. Produce findings/candidates/proof obligations; do not promote without multi-representative evidence; then return to Enterprise Completeness review disposition. Do not enter CAPABILITY_SYNTHESIS.",
-  "last_updated": "2026-09-03T13:33:17-03:00"
+  "next_action": "Research exactly one queued structural gap: G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE. Use 3–8 strong representatives spanning model/prompt/instruction identity and lifecycle, evaluation suites/results and regression qualification, safety/policy evidence, provider/model substitution and at least one provider-neutral or multi-provider evaluation/governance implementation. Determine primitives, source of truth, typed identity, lifecycle, versioning, evaluation applicability/currentness, authority, provider boundaries, observability/evidence horizons, offline behavior, portability/lock-in and whether the candidate is a distinct CROSS_CUTTING/DOMAIN capability or should merge into AI-native Engineering / Governance / Artifact / Lifecycle / Observability. Preserve Enterprise → Station → Role → Person and AGWS/AI non-amplification. Produce findings/candidates/proof obligations; do not promote without multi-representative evidence; then return to Enterprise Completeness review disposition. Do not enter CAPABILITY_SYNTHESIS.",
+  "last_updated": "2026-09-03T13:47:59-03:00"
 }
