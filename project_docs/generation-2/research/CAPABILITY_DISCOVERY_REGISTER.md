@@ -16,12 +16,15 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Governance / Compliance / Audit — revisit cycle 5 candidates
+## Secrets / Configuration / Environment Portability — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-GCA-QUALIFIED-COMPLIANCE-ASSESSMENT-EVIDENCE-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified evidence qualification while retaining Governance ownership of applicability, assessment and control-coverage semantics. |
-| G2-CAPABILITY-CANDIDATE-GCA-REVISION-BOUND-CROSS-FRAMEWORK-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal revision lineage; framework mapping/tailoring remains Governance-specific. |
-| G2-CAPABILITY-CANDIDATE-GCA-GOVERNED-EXCEPTION-WAIVER-LIFECYCLE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle and Authorization while retaining Governance ownership of risk acceptance, expiry and residual noncompliance. |
-| G2-CAPABILITY-CANDIDATE-GCA-QUALIFIED-LOCAL-AUDIT-RETENTION-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge into qualified-local closure while retaining evidence retention and audit re-verification requirements. |
+| G2-CAPABILITY-CANDIDATE-SCEP-WORKLOAD-EFFECTIVE-SECRET-GENERATION-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified effective-realization evidence while retaining Secrets ownership of secret/config material-consumption semantics. |
+| G2-CAPABILITY-CANDIDATE-SCEP-RESIDUAL-IN-USE-GENERATION-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/Security governed retirement and ambiguous-outcome disposition. |
+| G2-CAPABILITY-CANDIDATE-SCEP-SECRET-SAFE-NONDISCLOSURE-EVIDENCE-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Governance/Observability/AI consume lineage and qualification without secret plaintext. |
+| G2-CAPABILITY-CANDIDATE-SCEP-GOVERNED-DUAL-REALIZATION-CUTOVER | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Provider Binding and universal governed migration transition. |
 
 No candidate is promoted in this revisit.
+
+## Historical authority
+Governance / Compliance / Audit revisit-cycle-5 candidates and all earlier candidates remain authoritative in prior register revisions and capability dossiers.
