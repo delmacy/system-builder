@@ -35,6 +35,16 @@ All previously indexed cycle-5 findings through Build / Dependency Graph / Repro
 - **G2-FINDING-OOI-37** — Multi-tenant/Station Operational Aggregation Requires Explicit Authorized Scope and Coverage; Missing Subordinate Evidence Cannot Become Enterprise-wide Health.
 - **G2-FINDING-OOI-38** — Qualified Local/Offline Observability Must Expose Retention, Backlog, Loss Budget and Reconciliation Position; Reconnection Cannot Reconstruct Unretained Evidence.
 
+### Extension / Plugin / Marketplace Architecture — revisit 4
+- **G2-FINDING-EXT-30** — Extension Integrity, Producer Trust, Policy Admission, Dependency Compatibility, Runtime Containment and Effective Authority Are Independent Qualified Predicates.
+- **G2-FINDING-EXT-31** — Extension Dependency Closure Is a Revision-bound Security and Compatibility Subject; Material Dependency/Trust/Host-contract Change Invalidates Prior Admission Evidence.
+- **G2-FINDING-EXT-32** — Install/Update/Enable/Activate/Revoke/Remove External Effects Require Attempt, Receipt, Effective Realization and Postcondition States, Including PARTIAL/OUTCOME_UNKNOWN Reconciliation.
+- **G2-FINDING-EXT-33** — Runtime Revocation Requires Residual-in-use Realization Evidence; Marketplace Removal, Package Uninstall or Policy Change Alone Does Not Prove Code Is No Longer Effective.
+- **G2-FINDING-EXT-34** — Extension Containment Strength Is a Realization-qualified Property and Must Be Re-proven Across Loader/Runtime/Provider Changes.
+- **G2-FINDING-EXT-35** — Control-path Extensions Require Explicit Failure/Bypass Semantics and Recovery Paths That Avoid Self-dependency and Bootstrap Governance Gaps.
+- **G2-FINDING-EXT-36** — Extension Administration Must Be Faceted and Non-amplifying Across Enterprise→Station→Role→Person; Capability Exposure Does Not Confer Installation, Trust, Policy or Provider Authority.
+- **G2-FINDING-EXT-37** — AI-authored Extension Material and AGWS Composition Remain Proposals/Consumers of Host-owned Contracts; Executable Introduction Requires Deterministic Validation, Admission and Explicit Authority.
+
 ## Cycle closures
 Cycles 3 and 4 completed all 25 active capabilities. Every pass produced material architectural findings; no capability was SATURATED at either cycle close.
 
