@@ -2,6 +2,16 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Cycle 7 — Deployment / Environment / Runtime revisit 6
+- **G2-FINDING-DER-46** — Effective deployment/runtime readiness is an applicability-scoped claim across release, intent/admission, environment/runtime binding, config/secret/schema, provider generation, realization, traffic, readiness/domain evidence, policy/trust and observation horizon; there is no globally current `deployed/healthy` fact.
+- **G2-FINDING-DER-47** — QualifiedRelease, DeploymentIntent, AdmissionDecision, RolloutAttempt, RuntimeRealization, ReplicaRevision, TrafficBinding, ReadinessEvidence, RollbackPoint and QualificationClaim are distinct typed identities; lifecycle facts at one boundary cannot stand in for another.
+- **G2-FINDING-DER-48** — Runtime readiness/conformance is revision- and observation-qualified; controller/provider state referring to an older desired generation, routing revision or observation window cannot qualify newer effective state even if the historical status remains positive.
+- **G2-FINDING-DER-49** — Deployment evidence has independent replay horizons: retained rollout/status/metric history can remain historically valid after it ceases to prove present readiness because policy, trust, config, schema, routing, provider or observation freshness changed.
+- **G2-FINDING-DER-50** — Deployment provider portability is a mixed support vector across reconciliation, progressive rollout, traffic/replica independence, health/analysis semantics, rollback, stateful support, fencing, offline behavior, evidence export and residual drainage; binary deploy compatibility is unsafe.
+- **G2-FINDING-DER-51** — Rollout/rollback/traffic outcomes may be ambiguous and require reconcile-before-retry; provider acknowledgement loss cannot be converted to failure because effective state may already have changed, and blind retries may duplicate actuation or overwrite newer ownership.
+- **G2-FINDING-DER-52** — Provider/environment cutover closes only after semantic comparison plus explicit drainage/disposition of residual replicas, in-flight requests, sticky sessions/connections, caches, discovery state, projections and consumer cohorts; destination success alone is insufficient.
+- **G2-FINDING-DER-53** — Qualified local/offline Station runtime operation and AGWS/AI deployment requests are non-amplifying: continuation is limited to predelegated closure, reconnect requalifies superior state, and deployment invocation cannot mint release/signing/provider-admin/recovery/canonical authority.
+
 ## Cycle 7 — Artifact / Release / SBOM / Provenance revisit 6
 - **G2-FINDING-ARSP-46** — Effective release qualification is applicability-scoped across artifact profile, evidence/completeness, signer/verifier/trust, policy, channel/registry, consumer cohort, anti-rollback state, freshness and evidence horizon; there is no globally current release claim.
 - **G2-FINDING-ARSP-47** — Artifact subject, evidence document, verification decision, release revision, channel binding, distribution realization and consumer-observed state are distinct typed identities; currentness or success at one boundary cannot stand in for another.
