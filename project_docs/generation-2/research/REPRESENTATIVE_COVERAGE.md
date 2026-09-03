@@ -29,5 +29,10 @@ Kubernetes kubeadm upgrade/recovery: `DEEP`; K3s air-gap install/upgrade/rollbac
 ### Architecture Reconciliation as a Capability — revisit 5
 AWS ADR lifecycle/supersession/non-compliant code: `DEEP`; Kubernetes Server-Side Apply field ownership/conflicts: `DEEP`; Flux 2.9 SSA ignore/delegation: `DEEP`; Crossplane managementPolicies/late initialization/initProvider: `DEEP`; Terraform refresh/refresh-only observation semantics: `DEEP`; Open Policy Agent executable policy/conformance tests: `DEEP`; Kubernetes node conformance: `DEEP`. Findings `G2-FINDING-ARC-39..46`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: typed evidence→finding→product-truth→gap→disposition→proof lineage, decision supersession/applicability, contradiction/stale-evidence handling, semantic-vs-technical ownership, provenance-bearing defaulting, qualified provider observation, executable conformance and AGWS/AI non-amplification.
 
+## Revisit cycle 7
+
+### Universal Capability Architecture — revisit 6
+AWS ADR immutability/supersession/non-compliant implementation: `DEEP`; Kubernetes resourceVersion consistency/watch retention/410 re-observation: `DEEP`; CUE constraint unification/incomplete values: `DEEP`; OpenTelemetry component stability/semantic schemas/dual representation: `DEEP`; OCI content descriptors/content identity: `DEEP`. Findings `G2-FINDING-UCA-44..51`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: typed applicability-scoped claim graph, claim-vs-evidence-retention separation, constraint compatibility without authority amplification, relational conformance, mixed stability/support vectors, semantic continuity/dual representation, narrow content-integrity claims, append/supersede historical lineage, qualified local closure and AGWS non-amplification.
+
 ## Historical authority
 All omitted representative/capability cells remain authoritative in prior ledger revisions and capability dossiers.
