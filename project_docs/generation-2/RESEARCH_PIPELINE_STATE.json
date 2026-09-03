@@ -28,15 +28,15 @@
     "late_cycle_selection_rule": "As saturation increases, prefer research-by-exception and do not routinely reopen SATURATED capabilities without material new evidence or contradiction.",
     "completed_full_cycles": 5,
     "active_revisit_cycle": 6,
-    "capabilities_revisited_in_active_cycle": 22,
-    "hourly_runs_completed": 146,
-    "finding_count": 1087,
-    "capability_candidate_count": 506,
+    "capabilities_revisited_in_active_cycle": 23,
+    "hourly_runs_completed": 147,
+    "finding_count": 1095,
+    "capability_candidate_count": 510,
     "new_candidates_this_run": [
-      "G2-CAPABILITY-CANDIDATE-SRFR-TYPED-RECOVERY-BRANCH-IDENTITY",
-      "G2-CAPABILITY-CANDIDATE-SRFR-RECOVERY-WRITER-EPOCH-FENCING",
-      "G2-CAPABILITY-CANDIDATE-SRFR-POST-RESTORE-SEMANTIC-VALIDATION",
-      "G2-CAPABILITY-CANDIDATE-SRFR-POST-RECOVERY-REPROTECTION-CLOSURE"
+      "G2-CAPABILITY-CANDIDATE-AIN-TYPED-AGENTIC-CONTROL-IDENTITY",
+      "G2-CAPABILITY-CANDIDATE-AIN-PROVENANCE-QUALIFIED-CUMULATIVE-CONTEXT",
+      "G2-CAPABILITY-CANDIDATE-AIN-RESUME-SEMANTICS-PROFILE",
+      "G2-CAPABILITY-CANDIDATE-AIN-RESOURCE-BOUND-TOOL-AUTHORITY"
     ],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
@@ -104,42 +104,42 @@
       "Provider / Binding / Capability Negotiation",
       "Standards / Interoperability / API Contracts",
       "Lifecycle / Versioning / Evolution / Migration",
-      "Security / Resilience / Failure Recovery"
+      "Security / Resilience / Failure Recovery",
+      "AI-native Engineering / Agents / Approvals"
     ],
     "latest_revisit": {
-      "capability": "Security / Resilience / Failure Recovery",
+      "capability": "AI-native Engineering / Agents / Approvals",
       "revisits_completed": 5,
       "consecutive_no_material_finding": 0,
       "last_revisit_result": "MATERIAL_NEW_FINDINGS",
       "new_findings": [
-        "G2-FINDING-SRFR-39",
-        "G2-FINDING-SRFR-40",
-        "G2-FINDING-SRFR-41",
-        "G2-FINDING-SRFR-42",
-        "G2-FINDING-SRFR-43",
-        "G2-FINDING-SRFR-44",
-        "G2-FINDING-SRFR-45",
-        "G2-FINDING-SRFR-46"
+        "G2-FINDING-AIN-39",
+        "G2-FINDING-AIN-40",
+        "G2-FINDING-AIN-41",
+        "G2-FINDING-AIN-42",
+        "G2-FINDING-AIN-43",
+        "G2-FINDING-AIN-44",
+        "G2-FINDING-AIN-45",
+        "G2-FINDING-AIN-46"
       ],
       "representative_coverage": {
-        "NIST SP 800-160 Vol. 2 Rev. 1": "DEEP",
-        "CISA StopRansomware recovery guidance": "DEEP",
-        "AWS Backup Restore Testing/validation": "DEEP",
-        "etcd Disaster Recovery revision-bump/cache invalidation": "DEEP",
-        "PostgreSQL PITR/timelines": "DEEP",
-        "Azure Site Recovery failover/commit/reprotect": "DEEP"
+        "OpenAI Agents SDK HITL/guardrails": "DEEP",
+        "Anthropic Claude Code containment/sandboxing": "DEEP",
+        "Model Context Protocol authorization": "DEEP",
+        "LangGraph interrupts/replay semantics": "DEEP",
+        "Google ADK + Restate durable agents": "DEEP",
+        "NIST Software/AI Agent Identity & Authorization initiative": "DEEP"
       }
     },
     "pending_capabilities": [
-      "AI-native Engineering / Agents / Approvals",
       "Developer / Operator Experience / Self-hosting",
       "Architecture Reconciliation as a Capability"
     ]
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — five full cycles complete; cycle 6 has 22/25 capabilities revisited. Security / Resilience / Failure Recovery produced eight material findings and remains NOT SATURATED. Minimum seven cycles and the post-cycle-7 negative-space gate remain mandatory.",
+    "RESEARCH_ELICITATION": "OPEN — five full cycles complete; cycle 6 has 23/25 capabilities revisited. AI-native Engineering / Agents / Approvals produced eight material findings and remains NOT SATURATED. Minimum seven cycles and the post-cycle-7 negative-space gate remain mandatory.",
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "NOT_YET_ELIGIBLE — mandatory after completed_full_cycles >= 7 and before CAPABILITY_SYNTHESIS.",
-    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — Security cycle-6 dossier adds explicit proofs for typed recovery branches, threat/path-relative point eligibility, writer-epoch fencing, restore-versus-validation separation, option-consuming commit, post-recovery reprotection, observer/cache/checkpoint invalidation, residual compromised-branch disposition and Enterprise→Station→Role→Person/AI/AGWS non-amplification. CAPABILITY_PROOF_MATRIX remains authoritative for acceptance-translation debt.",
+    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — AI cycle-6 dossier adds explicit proofs for typed agentic identities, sticky-approval containment, cumulative-context non-amplification, pre-trust attack surfaces, resource/audience-bound tool authorization, replay-profile portability, ambiguous-effect reconciliation, separation of duties, provider substitution, qualified offline closure, AGWS escalation and semantic postcondition validation. CAPABILITY_PROOF_MATRIX remains authoritative for acceptance-translation debt.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_BY_RESEARCH_ELICITATION"
   },
   "artifact_roots": {
@@ -149,9 +149,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "Security / Resilience / Failure Recovery — revisit 5 / cycle 6 complete. Eight material findings harden typed recovery branch identities, threat/path-relative point eligibility, restore-versus-validation separation, writer-epoch fencing, option-consuming commit, reprotection, stale-observer invalidation and residual compromised-branch disposition. Capability remains NOT SATURATED.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/SECURITY_RESILIENCE_FAILURE_RECOVERY_REVISIT_05.md",
+  "current_focus": "AI-native Engineering / Agents / Approvals — revisit 5 / cycle 6 complete. Eight material findings harden typed agentic control identities, approval applicability, non-amplifying cumulative context, resource-bound tool authority, durable resume semantics, provider substitution evidence and separation of duties. Capability remains NOT SATURATED.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/AI_NATIVE_ENGINEERING_AGENTS_APPROVALS_REVISIT_05.md",
   "last_framework_artifact": "project_docs/generation-2/research/CAPABILITY_PROOF_MATRIX.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: AI-native Engineering / Agents / Approvals, revisit 5 / cycle 6, selected as the oldest non-saturated capability remaining in cycle 6. Use research-by-exception to stress-test typed model/agent/run/tool-call/proposal/approval/delegation/materialization/evidence identities; model/prompt/tool/policy/trust/provider/Station/domain revision vectors; proposal versus authorized actuation versus effective postcondition; cumulative context and retrieved/tool evidence as provenance rather than authority; tool-call idempotency and ambiguous external effects; approval freshness/revocation and separation-of-duties; delegated agent authority with Enterprise→Station→Role→Person attenuation; AI materialization boundaries for Adaptive Governed Work Surfaces; canonical domain/process changes requiring explicit escalation; provider/model substitution and reproducibility/evidence limits; offline/local agent closure and reconnect requalification; adversarial prompt/tool/result injection; and architecture proof-backfill. Preserve Adaptive Governed Work Surfaces as promoted and distinct. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=5 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-03T05:32:33-03:00"
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Developer / Operator Experience / Self-hosting, revisit 5 / cycle 6, selected as the oldest non-saturated capability remaining in cycle 6. Use research-by-exception to stress-test typed installation/instance/operator/update/recovery/diagnostic/fleet identities; self-hosted control-plane versus local-runtime source of truth; update/trust/recovery revision vectors; disconnected update-source qualification; supply-chain and bootstrap trust; install/upgrade/rollback/restore/reprotect lifecycle; configuration/secrets/data compatibility; fleet targeting and authority; diagnostics custody/redaction versus privileged access; partial/ambiguous update outcomes and reconcile-before-retry; backup/restore semantic validation; provider substitution and local closure/reconnection; Enterprise→Station→Role→Person attenuation; AI-assisted operations and AGWS without privileged amplification; and architecture proof-backfill. Preserve Adaptive Governed Work Surfaces as promoted and distinct. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=5 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-03T05:49:30-03:00"
 }
