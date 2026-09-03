@@ -12,16 +12,16 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
-## Cycle 6 authority through Secrets / Configuration / Environment Portability
-All prior cycle-6 candidates through Governance / Compliance / Audit remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
+## Cycle 6 authority through Provider / Binding / Capability Negotiation
+All prior cycle-6 candidates through Secrets / Configuration / Environment Portability remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
-### Secrets / Configuration / Environment Portability — revisit cycle 6 candidates
+### Provider / Binding / Capability Negotiation — revisit cycle 6 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-SCEP-TYPED-SECRET-CONFIG-PROJECTION-CONSUMER-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal typed identity while Secrets retains material-consumption semantics. |
-| G2-CAPABILITY-CANDIDATE-SCEP-MULTI-AXIS-EFFECTIVE-SECRET-CONFIG-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal revision-qualified evidence primitive. |
-| G2-CAPABILITY-CANDIDATE-SCEP-SECRET-CONFIG-MUTATION-OWNERSHIP-FENCING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with concurrency/ownership primitive while retaining binding/current-generation promotion specifics. |
-| G2-CAPABILITY-CANDIDATE-SCEP-CONSUMER-EFFECTIVE-RESIDUAL-USE-DISPOSITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Secrets owns consumer-effective material uptake and old-generation residual-use disposition. |
+| G2-CAPABILITY-CANDIDATE-PBCN-TYPED-REQUIREMENT-OFFER-BINDING-REALIZATION-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal typed identity while Provider/Binding retains semantic-to-realization mapping. |
+| G2-CAPABILITY-CANDIDATE-PBCN-MULTI-AXIS-EFFECTIVE-SATISFACTION-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal revision-qualified evidence. |
+| G2-CAPABILITY-CANDIDATE-PBCN-FAILURE-EVIDENCE-PROFILE-NEGOTIATION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Provider substitutability must include failure and evidence semantics, not feature labels only. |
+| G2-CAPABILITY-CANDIDATE-PBCN-REVOCABLE-CROSS-BOUNDARY-PROVIDER-CONSENT | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Authorization/AGWS target-side consent and hierarchical exposure. |
 
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
