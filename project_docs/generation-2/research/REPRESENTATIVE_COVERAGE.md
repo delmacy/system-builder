@@ -2,6 +2,11 @@
 
 States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`. Historical coverage in prior revisions, capability dossiers and state history remains authoritative; this compact ledger does not revoke omitted cells.
 
+## Privacy Retention / Hold / Residency — centralized proof
+EU GDPR purpose/storage/erasure/legal-obligation semantics: `DEEP`; Microsoft Purview retention/eDiscovery/priority cleanup: `DEEP`; NARA records/disposition authority: `DEEP`; Google Cloud data-residency enforcement: `DEEP`; AWS Control Tower residency controls/service exemptions: `DEEP`; OPA provider-neutral policy decision/enforcement boundary: `DEEP`.
+
+Findings `G2-FINDING-PRHR-01..08`. Centralized privacy retention/hold/residency proof is **RESOLVED_BY_MULTI_REPRESENTATIVE_RESEARCH_WITHOUT_NEW_PROMOTION** in `PRIVACY_RETENTION_HOLD_RESIDENCY_CENTRALIZED_PROOF.md`.
+
 ## Enterprise Trust Qualification / Rotation / Substitution / Offline — centralized proof
 RFC 5280 path validation/time/trust-anchor semantics: `DEEP`; SPIFFE Trust Domain/Bundle: `DEEP`; SPIFFE Federation: `DEEP`; SPIFFE Workload API bundle distribution: `DEEP`; cert-manager CA/issuer lifecycle: `DEEP`; trust-manager trust-store distribution/rotation: `DEEP`; Vault PKI multi-issuer/CRL/revocation: `DEEP`.
 
@@ -32,7 +37,7 @@ NIST Privacy Framework: `DEEP`; EU GDPR: `DEEP`; Microsoft Purview: `DEEP`; Goog
 RFC 5280: `DEEP`; RFC 8555 ACME: `DEEP`; SPIFFE/SPIRE: `DEEP`; cert-manager: `DEEP`; Vault PKI: `DEEP`; Smallstep step-ca: `DEEP`. Parent promoted CROSS_CUTTING / NOT_SATURATED.
 
 ## Enterprise Completeness / Negative-Space Review
-Seven original cycles are complete. Trust, Privacy and Technology Economic Governance are promoted post-cycle-7 owners and remain NOT_SATURATED. AI Evaluation is merged into existing owners. Workload-driven minimal-runtime realization, Artifact-to-Runtime Admission and Enterprise Trust lifecycle/rotation/offline proof junctions are dispositioned. Remaining privacy/AI/economic/domain-composition centralized proof junctions remain open before synthesis.
+Seven original cycles are complete. Trust, Privacy and Technology Economic Governance are promoted post-cycle-7 owners and remain NOT_SATURATED. AI Evaluation is merged into existing owners. Workload-driven minimal-runtime realization, Artifact-to-Runtime Admission, Enterprise Trust lifecycle/rotation/offline and Privacy retention/hold/residency proof junctions are dispositioned. Remaining AI/economic/domain-composition centralized proof junctions remain open before synthesis.
 
 ## Historical authority
 Detailed representative coverage for all other capabilities remains authoritative in their dossiers, earlier ledger revisions and `RESEARCH_PIPELINE_STATE.json` history.
