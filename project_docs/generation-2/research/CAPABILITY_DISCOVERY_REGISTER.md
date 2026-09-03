@@ -41,6 +41,14 @@ All prior cycle-6 candidates remain authoritative in earlier register revisions 
 | G2-CAPABILITY-CANDIDATE-UCA-MIXED-STABILITY-SUPPORT-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Standards/Lifecycle/Extension/Provider support semantics; stability remains attached to typed surfaces/components, not a whole release scalar. |
 | G2-CAPABILITY-CANDIDATE-UCA-SEMANTIC-CONTINUITY-DUAL-REPRESENTATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Standards, Lifecycle, Data and consumer-population migration; no universal translation/migration engine is implied. |
 
+### Process & Application Modeling — revisit cycle 7 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-PAM-APPLICABILITY-SCOPED-SEMANTIC-CLAIM | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA typed claim applicability while preserving Process/Application Modeling as semantic owner rather than creating a global truth store. |
+| G2-CAPABILITY-CANDIDATE-PAM-MODEL-EVIDENCE-RETENTION-REPLAY-HORIZON | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA evidence-retention horizons plus Governance/Observability retention semantics; expired replay evidence must not rewrite historical model truth. |
+| G2-CAPABILITY-CANDIDATE-PAM-MIXED-SEMANTIC-SURFACE-STABILITY-SUPPORT | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve mixed standard/extension/provider support semantics inside Process & Application Modeling; share vector primitive with Standards/Lifecycle. |
+| G2-CAPABILITY-CANDIDATE-PAM-DUAL-REPRESENTATION-CONSUMER-DRAINAGE-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/Standards/Data consumer-population migration while retaining process/application semantic continuity ownership. |
+
 No cycle-7 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
