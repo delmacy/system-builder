@@ -2,7 +2,7 @@
   "schema_version": 1,
   "generation": "Generation 2 — Capability Architecture & Symbiotic Platform Engineering",
   "status": "ACTIVE",
-  "phase": "RESEARCH_ELICITATION",
+  "phase": "CAPABILITY_SYNTHESIS",
   "phase_order": ["RESEARCH_ELICITATION","CAPABILITY_SYNTHESIS","PLANNING_A_TAXONOMY_BOUNDARIES","PLANNING_B_SB_CURRENT_STATE_RECONCILIATION","PLANNING_C_TARGET_ARCHITECTURE","PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY","PLANNING_E_PRODUCT_PROOF_ACCEPTANCE","ARCHITECTURE_RECONCILIATION","WBS_DECOMPOSITION","WBS_DEPENDENCY_GRAPH","WORK_PACKAGE_DESIGN","READY_FOR_WORKER_HANDOFF"],
   "research": {
     "initial_macro_capabilities": 24,
@@ -52,16 +52,41 @@
     },
     "pending_capabilities": []
   },
+  "synthesis": {
+    "status": "COMPLETE",
+    "artifact": "project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md",
+    "canonical_capability_count": 28,
+    "original_macro_capabilities": 24,
+    "structural_promotions": [
+      "Adaptive Governed Work Surfaces",
+      "Enterprise Trust / PKI / Certificate Lifecycle",
+      "Privacy / Data Governance / Retention / Legal Hold / Residency",
+      "Technology Economic Governance / FinOps"
+    ],
+    "required_products": {
+      "canonical_capability_taxonomy": "PASS",
+      "macro_sub_cross_cutting_map": "PASS",
+      "universal_primitives_register": "PASS",
+      "representative_contribution_map": "PASS",
+      "contradiction_unresolved_evidence_register": "PASS",
+      "symbiotic_completeness_candidate_matrix": "PASS",
+      "saturation_report": "PASS"
+    },
+    "unresolved_external_semantic_owner_gaps": [],
+    "planning_b_repo_validation_deferred": true,
+    "planning_e_product_proof_backfill_deferred": true
+  },
   "gates": {
-    "RESEARCH_ELICITATION": "CLOSURE CONDITIONS SATISFIED — seven cycles complete, Enterprise Completeness / Negative-Space gate CLOSED, centralized proof debt empty, six closure criteria PASS, and all post-cycle-7 promoted structural capabilities satisfy normal saturation. Phase transition is intentionally deferred to the next execution so no state-machine phase is skipped or combined with gate closure.",
+    "RESEARCH_ELICITATION": "CLOSED — seven cycles complete, Enterprise Completeness / Negative-Space gate CLOSED, centralized proof debt empty, six closure criteria PASS, and all post-cycle-7 promoted structural capabilities satisfy normal saturation.",
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "CLOSED / SIX_CRITERIA_PASS / PROMOTED_SATURATION_COMPLETE / FORMAL_CLOSURE_RECONCILIATION_PASS",
-    "ARCHITECTURE_PROOF_BACKFILL": "CENTRALIZED_PASS_1_COMPLETE — no centralized proof debt remains; historical per-capability backfill obligations remain authoritative.",
-    "CAPABILITY_SYNTHESIS": "READY_TO_ENTER_NEXT_EXECUTION — not started in this closure run"
+    "ARCHITECTURE_PROOF_BACKFILL": "CENTRALIZED_PASS_1_COMPLETE — no centralized proof debt remains; historical per-capability backfill obligations remain authoritative for later Product Proof / Acceptance.",
+    "CAPABILITY_SYNTHESIS": "CLOSED / PASS — canonical taxonomy, cross-cutting map, universal primitives, representative contribution map, contradiction register, Symbiotic Completeness candidate matrix and saturation report materialized.",
+    "PLANNING_A_TAXONOMY_BOUNDARIES": "READY_TO_ENTER_NEXT_EXECUTION — not started in this synthesis run"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Formal Enterprise Completeness / Negative-Space gate closure reconciliation completed. All six mandatory criteria remain PASS; centralized proof debt is empty; Enterprise Trust/PKI, Privacy/Data Governance and Technology Economic Governance/FinOps are each SATURATED at eligible streak 2/2. The Enterprise Completeness gate is CLOSED. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and AI/AGWS non-amplification. No Capability Synthesis work was performed in this execution.",
-  "last_completed_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_GATE_CLOSURE_AUDIT.md",
+  "current_focus": "Capability Synthesis completed from the authoritative research corpus. The canonical taxonomy contains 28 active capabilities; Adaptive Governed Work Surfaces remains CORE/distinct from generic UI with Enterprise → Station → Role → Person and bounded Station capability exposure/delegated administration; AI/AGWS authority remains non-amplifying. Late synthesis evidence on relative operational complexity was reconciled as DO_NOT_PROMOTE with qualified measurement/profile primitives generalized into existing owners. No Planning A work was performed in this execution.",
+  "last_completed_artifact": "project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md",
   "last_framework_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
-  "next_action": "Advance exactly one state-machine phase to CAPABILITY_SYNTHESIS and perform only Capability Synthesis work. Produce/update the canonical capability taxonomy, macro/sub/cross-cutting map, universal primitives register, representative contribution map, contradiction/unresolved-evidence register, Symbiotic Completeness candidate matrix and saturation report from the authoritative research artifacts. Preserve Adaptive Governed Work Surfaces as distinct from generic UI, preserve Enterprise → Station → Role → Person and Station capability-exposure/delegated-administration boundaries, and preserve AI/AGWS non-amplification. Do not enter PLANNING_A_TAXONOMY_BOUNDARIES in the same execution unless the CAPABILITY_SYNTHESIS gate is objectively completed and the state-machine rule for advancing only after the current gate closes is satisfied; do not execute product code, Work Packages, executive TASKs, Construction or worker handoff.",
-  "updated_at": "2026-09-03T18:06:00-03:00"
+  "next_action": "Advance exactly one state-machine phase to PLANNING_A_TAXONOMY_BOUNDARIES and perform only Planning A taxonomy/boundary work from the closed Capability Synthesis artifact and authoritative research corpus. Materialize explicit capability ownership boundaries, canonical-vs-provider semantics, macro/subcapability relationships, cross-cutting contracts, Station capability-exposure/delegated-administration boundaries, and contradiction dispositions needed before SB current-state reconciliation. Preserve Adaptive Governed Work Surfaces as distinct from generic UI, preserve Enterprise → Station → Role → Person, preserve provider IDs as non-canonical unless explicitly adopted, and preserve AI/AGWS non-amplification. Do not enter PLANNING_B_SB_CURRENT_STATE_RECONCILIATION in the same execution unless the Planning A gate objectively closes and the state-machine transition rule permits the next execution; do not execute product code, Work Packages, executive TASKs, Construction or worker handoff.",
+  "updated_at": "2026-09-03T18:17:00-03:00"
 }
