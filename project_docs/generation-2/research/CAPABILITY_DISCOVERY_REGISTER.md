@@ -5,8 +5,8 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Active promoted capability
 `G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES` — **CORE / PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY**. Remains distinct from generic UI with `Enterprise → Station → Role → Person`, bounded capability exposure, AI-only materialization and nine mandatory proofs.
 
-## Mandatory pending research
-`G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / PENDING_RESEARCH**. Dedicated research remains mandatory before promotion; Negative-Space explicitly challenges it.
+## Mandatory candidate with dedicated deep research complete
+`G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**. `DR-ROCMR-01` falsifies promotion under the current conflated name: universal scalar complexity, LOC/service/provider-count surrogates and pricing-as-architecture truth are `DO_NOT_BUILD`. Capability Synthesis should **MERGE / GENERALIZE / SPECIALIZE** the information need into typed Operational Burden Evidence / measurement-profile concerns over existing architecture/operations evidence, while commercial weighting/rating remains under Commercial Metering/Rating. Any learned scalar predictor remains `DEFER` pending fleet calibration, uncertainty and Goodhart/gaming proofs. Artifact: `project_docs/generation-2/research/deep-research/DEEP_RESEARCH_RELATIVE_OPERATIONAL_COMPLEXITY_MEASUREMENT_RATING_01.md`.
 
 Executable composition/cumulative context; transaction-consistency-concurrency; topology-build-runtime realization; tenant-fleet-edge-ingress routing remain mandatory research hypotheses, not promoted capabilities.
 
