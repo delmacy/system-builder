@@ -16,12 +16,12 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Lifecycle / Versioning / Evolution / Migration — revisit cycle 5 candidates
+## Security / Resilience / Failure Recovery — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-LVEM-REVISION-VECTOR-TRANSITION-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge unified revision-bound lineage while semantic owners retain their revision semantics. |
-| G2-CAPABILITY-CANDIDATE-LVEM-CONSUMER-DRAINAGE-WITHDRAWAL-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with SIAC deprecation/withdrawal and Provider/Binding residual-source evidence. |
-| G2-CAPABILITY-CANDIDATE-LVEM-AMBIGUOUS-TRANSITION-ACTUATION-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge universal ambiguous-outcome disposition; Lifecycle owns transition interpretation, not provider mechanics. |
-| G2-CAPABILITY-CANDIDATE-LVEM-QUALIFIED-LOCAL-MIGRATION-RECOVERY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge qualified-local-closure family with Station/offline coverage and reconnection requalification. |
+| G2-CAPABILITY-CANDIDATE-SRFR-THREAT-RECOVERY-REVISION-VECTOR-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle revision-vector transition closure and qualified operational evidence without moving Security/Recovery semantic ownership. |
+| G2-CAPABILITY-CANDIDATE-SRFR-RECOVERY-POINT-INTEGRITY-ELIGIBILITY-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with storage integrity/provenance and unified evidence qualification if recovery eligibility semantics remain capability-owned. |
+| G2-CAPABILITY-CANDIDATE-SRFR-AMBIGUOUS-RECOVERY-ACTUATION-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge universal ambiguous-outcome disposition across Integration, Deployment, Lifecycle and Architecture Reconciliation. |
+| G2-CAPABILITY-CANDIDATE-SRFR-NONAMPLIFYING-BREAKGLASS-LOCAL-RECOVERY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with faceted authority, qualified local closure, Station hierarchy and reconnection requalification. |
 
-No lifecycle candidate is promoted in this run.
+No Security / Resilience / Failure Recovery candidate is promoted in this run.
