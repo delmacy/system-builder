@@ -83,6 +83,61 @@ This clarification does not imply microservices or one container per module/capa
 
 Research authority and synthesis questions are recorded in `project_docs/generation-2/research/concepts/SYSTEM_BUILDER_SUITE_COMPOSITION_FORMATION.md`. This section is a Generation 2 research clarification and does not silently amend accepted ADRs before architecture reconciliation/change control.
 
+## Semantic assembly-line process model — Generation 2 research clarification
+
+Generation 2 also preserves a user-directed mental model for runtime process composition: **the process advances longitudinally while reusable capabilities are consumed transversally**.
+
+```text
+INPUT
+  ↓
+Saga / Process Stage
+  ↔ Capability operations
+  ↔ Human / agent work
+  ↔ External providers
+  ↓
+Gate / transition condition
+  ↓
+Next Stage
+  ↔ other capabilities
+  ↓
+Gate
+  ↓
+...
+  ↓
+OUTPUT
+```
+
+The model is analogous to an assembly line surrounded by specialist stations/robotic arms. The item travelling on the line is the process/workflow instance; specialist stations are capability operations or human-work stations; quality checkpoints are gates/evidence-qualified transition conditions; providers are the concrete machinery/vendors that realize required mechanics.
+
+Candidate rules:
+
+> **The process advances longitudinally; capabilities are accessed transversally.**
+
+> **A saga stage may use several capabilities, human handoffs, waits, decisions and external effects before its transition gate is satisfied.**
+
+> **A system is a governed composition of processes, rules, people/authority, data, interfaces and capabilities, resolved into a validated, buildable, deployable and autonomous realization.**
+
+The analogy is not a requirement for linear workflows: loops, branches, parallelism, fan-out/fan-in, compensation and subworkflows remain first-class concerns. Capability "layers" in a visual tool are not assumed to be canonical priority levels or deployment boundaries; synthesis must determine whether layers represent capability families, domains, exposure/trust sectors or merely a visualization/projection.
+
+The model also distinguishes two scales of assembly:
+
+```text
+SYSTEM ASSEMBLY (design/build time)
+Processes + Rules + Authority + Data + Capabilities + Interfaces
+  → SystemDefinition
+  → Capability/Provider Resolution
+  → Assembly / Validation / Build / Release / Deploy
+  → Autonomous Runtime
+
+PROCESS-RESULT ASSEMBLY (runtime)
+Input
+  → saga stages / gates
+  ↔ reusable capabilities / human work / providers
+  → business outcome / Output
+```
+
+These two forms of assembly are related but must not collapse into one semantic lifecycle. Detailed research authority, proof obligations and synthesis questions are recorded in `project_docs/generation-2/research/concepts/SEMANTIC_ASSEMBLY_LINE_PROCESS_MODEL.md`.
+
 ## Physical direction
 
 Start as a modular monorepo. Proposed target:
