@@ -2,6 +2,16 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Cycle 7 — Artifact / Release / SBOM / Provenance revisit 6
+- **G2-FINDING-ARSP-46** — Effective release qualification is applicability-scoped across artifact profile, evidence/completeness, signer/verifier/trust, policy, channel/registry, consumer cohort, anti-rollback state, freshness and evidence horizon; there is no globally current release claim.
+- **G2-FINDING-ARSP-47** — Artifact subject, evidence document, verification decision, release revision, channel binding, distribution realization and consumer-observed state are distinct typed identities; currentness or success at one boundary cannot stand in for another.
+- **G2-FINDING-ARSP-48** — Signing-time validity and current release trust are separate temporal claims; signed timestamps can preserve verifiable signing-time evidence after short-lived certificates expire while current trust/release policy may still require requalification.
+- **G2-FINDING-ARSP-49** — SBOM completeness is composition-scoped and uncertainty propagates; an SBOM may contain complete and unknown subgraphs, so document presence cannot imply complete inventory.
+- **G2-FINDING-ARSP-50** — Delegated verification is trust- and policy-qualified evidence, not universal release authority; VSA-style summaries require explicit accepted signer/verifier/policy applicability and may abstract raw input evidence.
+- **G2-FINDING-ARSP-51** — Evidence discovery is a registry capability with distinct concurrency and failure semantics; native OCI referrers and mutable fallback-tag discovery are not semantically equivalent despite equal subject bytes.
+- **G2-FINDING-ARSP-52** — Release freshness and anti-rollback are consumer-relative state; mutable provider tags/channels cannot override stronger previously observed trusted metadata/version state.
+- **G2-FINDING-ARSP-53** — Registry/release cutover requires evidence-discovery equivalence plus residual alias/referrer/replica/cache/consumer cohort drainage; offline closure must separately qualify historical verification and current freshness.
+
 ## Cycle 7 — Build / Dependency Graph / Reproducibility revisit 6
 - **G2-FINDING-BDGR-45** — Effective build/reproducibility is an applicability-scoped claim across source, build definition, dependency graph/material, toolchain/platform, hermeticity/network profile, provider/cache trust, conformance policy and evidence horizon; no job status, source revision or output digest is globally authoritative.
 - **G2-FINDING-BDGR-46** — Source revision, dependency intent, resolution attempt, graph/lock snapshot, dependency material, toolchain, build attempt, cache entry, output and build evidence are distinct typed identities; lifecycle facts at one boundary cannot stand in for another.
@@ -21,16 +31,6 @@ Prior stable findings remain authoritative in their capability dossiers, earlier
 - **G2-FINDING-NEM-50** — Messaging provider portability is a mixed support vector across durability, ordering, replay, retention, deduplication, transactional coupling, acknowledgement, DLQ/redrive, filtering, partitioning, offline behavior and evidence; binary compatibility is unsafe.
 - **G2-FINDING-NEM-51** — Provider cutover closes only after residual message, subscription, checkpoint, retry/DLQ and consumer cohorts from the source realization are drained or explicitly dispositioned; destination delivery success alone is insufficient.
 - **G2-FINDING-NEM-52** — Qualified local/offline Station messaging and AGWS/AI composition are non-amplifying: local closure may permit only explicitly delegated event classes/actions, and reconnect must requalify policy/trust/provider/checkpoint state before privileged continuation.
-
-## Cycle 7 — Identity / Authentication / Federation revisit 6
-- **G2-FINDING-IAF-45** — Authentication claims require explicit applicability across relying party/Station, purpose, assurance, authenticator/session class, federation/trust, provider, policy and evidence horizon.
-- **G2-FINDING-IAF-46** — Authentication assurance is a revision-qualified relation; credential validity or historical login cannot self-prove current assurance.
-- **G2-FINDING-IAF-47** — Federated IdP and RP sessions are independent lifecycle identities; upstream session termination cannot be treated as downstream closure proof.
-- **G2-FINDING-IAF-48** — Trust-bundle possession is necessary evidence, not perpetual trust; trust-domain association and currentness qualify validation.
-- **G2-FINDING-IAF-49** — Identity stability/support is a mixed vector across mapping, authenticator, assurance, session, revocation, federation/trust, offline and evidence semantics.
-- **G2-FINDING-IAF-50** — Provider/authenticator substitution requires residual session, credential, mapping and trust cohort drainage; destination login success does not close migration.
-- **G2-FINDING-IAF-51** — Qualified offline authentication continuity does not imply current privileged authority; stale revocation/trust/policy/assurance requires reconnect requalification.
-- **G2-FINDING-IAF-52** — Identity context is provenance and cannot amplify AGWS/AI authority into authorization, provider administration, account linking or canonical mutation.
 
 ## Historical authority
 Detailed findings for all other capabilities remain authoritative in their dossiers, earlier index revisions and pipeline history.
