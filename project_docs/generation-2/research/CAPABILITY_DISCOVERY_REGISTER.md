@@ -32,7 +32,15 @@ All prior cycle-4/5 candidates remain authoritative in earlier revisions and dos
 | G2-CAPABILITY-CANDIDATE-DER-DEPENDENCY-QUALIFIED-READINESS-FRESHNESS-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/Observability freshness while retaining Deployment dependency-vector semantics. |
 | G2-CAPABILITY-CANDIDATE-DER-GOVERNED-DUAL-RUN-TRAFFIC-CUTOVER-RECOVERY-TRANSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with shared provider migration/recovery transitions; do not promote independently without synthesis evidence. |
 
-No Artifact/Release or Deployment candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
+## Observability / Operations / Incident — revisit cycle 5 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-OOI-TELEMETRY-PIPELINE-QUALIFICATION-DEPENDENCY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified evidence qualification while retaining Observability ownership of telemetry loss/backlog/coverage semantics. |
+| G2-CAPABILITY-CANDIDATE-OOI-REVISION-BOUND-OBSERVATION-SUBJECT | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with universal realization/evidence lineage; semantic observation subject/cohort binding remains Observability-specific. |
+| G2-CAPABILITY-CANDIDATE-OOI-INCIDENT-CLOSURE-POSTCONDITION-SEPARATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Security/Recovery and Architecture Reconciliation while preserving a separately owned incident administrative lifecycle. |
+| G2-CAPABILITY-CANDIDATE-OOI-GOVERNED-REMEDIATION-ACTUATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with faceted authority/governed transition primitives while retaining incident/remediation lineage. |
+
+No Artifact/Release, Deployment or Observability candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
 
 ## Historical authority
 All omitted candidates remain authoritative in prior register revisions, state history and capability dossiers.
