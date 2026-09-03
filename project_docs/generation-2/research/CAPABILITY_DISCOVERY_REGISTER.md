@@ -16,15 +16,12 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Standards / Interoperability / API Contracts — revisit cycle 5 candidates
+## Lifecycle / Versioning / Evolution / Migration — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-SIAC-CONSUMER-POPULATION-TRANSITIVE-COMPATIBILITY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified evidence qualification and Lifecycle migration readiness; Standards retains compatibility semantics. |
-| G2-CAPABILITY-CANDIDATE-SIAC-CROSS-BOUNDARY-SEMANTIC-REFERENCE-CONSENT | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Authorization/AGWS delegated exposure; preserve Standards ownership of semantic-reference validity. |
-| G2-CAPABILITY-CANDIDATE-SIAC-DEPRECATION-SUNSET-WITHDRAWAL-DRAINAGE-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Lifecycle governed transition/evidence; no new macro-capability unless synthesis finds ownerless semantics. |
-| G2-CAPABILITY-CANDIDATE-SIAC-EXECUTABLE-SEMANTIC-CONFORMANCE-LADDER | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified evidence qualification while retaining Standards interpretation/conformance ownership. |
+| G2-CAPABILITY-CANDIDATE-LVEM-REVISION-VECTOR-TRANSITION-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge unified revision-bound lineage while semantic owners retain their revision semantics. |
+| G2-CAPABILITY-CANDIDATE-LVEM-CONSUMER-DRAINAGE-WITHDRAWAL-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with SIAC deprecation/withdrawal and Provider/Binding residual-source evidence. |
+| G2-CAPABILITY-CANDIDATE-LVEM-AMBIGUOUS-TRANSITION-ACTUATION-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge universal ambiguous-outcome disposition; Lifecycle owns transition interpretation, not provider mechanics. |
+| G2-CAPABILITY-CANDIDATE-LVEM-QUALIFIED-LOCAL-MIGRATION-RECOVERY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge qualified-local-closure family with Station/offline coverage and reconnection requalification. |
 
-No candidate is promoted in this revisit.
-
-## Historical authority
-Provider / Binding / Capability Negotiation revisit-cycle-5 candidates and all earlier candidates remain authoritative in prior register revisions and capability dossiers.
+No lifecycle candidate is promoted in this run.
