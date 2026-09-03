@@ -3,20 +3,20 @@
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
 ## Cycle 5 stable findings
-All previously indexed cycle-5 findings through AI-native Engineering / Agents / Approvals remain authoritative in their dossiers and prior index revisions.
+All previously indexed cycle-5 findings through Developer / Operator Experience / Self-hosting remain authoritative in their dossiers and prior index revisions.
 
-### Developer / Operator Experience / Self-hosting — revisit 4
-- **G2-FINDING-DOESH-31** — Self-hosted Update Eligibility Requires a Revision-bound Trust/Freshness/Consistency Vector, Not Merely Signed or Present Artifacts.
-- **G2-FINDING-DOESH-32** — Maintenance Intent, Attempt, Effective Realization and Healthy/Validated State Are Distinct Evidence Facts; Ambiguous Outcomes Require Reconciliation Before Retry.
-- **G2-FINDING-DOESH-33** — An Offline Mirror Is Operationally Eligible Only When Its Artifact, Trust Metadata, Update-path/Graph, History and Freshness Satisfy the Declared Profile.
-- **G2-FINDING-DOESH-34** — Self-hosted Recovery Closure Is Multi-material and Compatibility-qualified.
-- **G2-FINDING-DOESH-35** — Diagnostic Evidence Custody/Redaction and Privileged Diagnostic Actuation Are Separate Authorities.
-- **G2-FINDING-DOESH-36** — Fleet Target Selection and Rollout Scope Are Authority-bearing Semantic Decisions, Not Mere Operator Filtering.
-- **G2-FINDING-DOESH-37** — Break-glass for Self-hosted Recovery Must Be a Scoped, Expiring, Audited Authority Lease With Post-use Requalification.
-- **G2-FINDING-DOESH-38** — Offline-to-connected Transition Requires Requalification of Evidence Whose Policy, Trust, Provider or Update Dependencies May Have Advanced.
+### Architecture Reconciliation as a Capability — revisit 4
+- **G2-FINDING-ARC-31** — Reconciliation requires revision-qualified `Desired → Attempted → Applied → Effective → Healthy/SemanticallySatisfied` lineage; no single `Synced` bit is sufficient.
+- **G2-FINDING-ARC-32** — Reconciliation authority is action-faceted; Observe, Normalize/Adopt, Create, Update, Delete, Repair, Migrate and Recovery must not be implicitly interchangeable.
+- **G2-FINDING-ARC-33** — Ambiguous external actuation requires correlation, quarantine and reconcile-before-retry; transport acknowledgement is not proof of effect absence or success.
+- **G2-FINDING-ARC-34** — Observation-to-desired normalization is a canonical mutation requiring explicit ownership and authority, not harmless controller bookkeeping.
+- **G2-FINDING-ARC-35** — Dependency uncertainty propagates upward: required `PARTIAL/INCONCLUSIVE` child state prevents conclusive parent semantic satisfaction.
+- **G2-FINDING-ARC-36** — Queue, apply, consumer-uptake and health convergence have independent lag/freshness; status must identify the revision each evidence item qualifies.
+- **G2-FINDING-ARC-37** — Provider/topology substitution is reconciliation migration and requires representability, new-effective evidence and residual-source disposition before authority transfer.
+- **G2-FINDING-ARC-38** — Offline/local convergence is profile-qualified and must be requalified after reconnection when trust, policy, provider, dependency or desired revisions may have advanced.
 
 ## Cycle closures
-Cycles 3 and 4 completed all 25 active capabilities. Every pass produced material architectural findings; no capability was SATURATED at either cycle close.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close.
 
 ## Historical authority
 All prior findings, including cycle 1–4 and compacted cycle-5 findings, remain authoritative in their dossiers and prior index revisions.
