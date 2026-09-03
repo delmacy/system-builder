@@ -37,3 +37,13 @@ No cycle-7 UI candidate is promoted. Adaptive Governed Work Surfaces remains pro
 | G2-CAPABILITY-CANDIDATE-AGWS-CONSUMER-COHORT-DRAINAGE-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Lifecycle/UIGX migration closure while requiring Station/device/session cohort and residual dependency disposition. |
 
 No AGWS cycle-7 candidate is promoted. `G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES` remains the already-promoted CORE capability and remains distinct from generic UI.
+
+### Workflow & Durable Execution — revisit cycle 7 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-WDE-APPLICABILITY-SCOPED-DURABLE-GUARANTEE-CLAIM | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability-scoped claim graph; preserve run/provider/effect/authority dimensions. |
+| G2-CAPABILITY-CANDIDATE-WDE-EVIDENCE-REPLAY-HORIZON | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Governance/Observability evidence horizons; retain workflow journal/idempotency/retry semantics. |
+| G2-CAPABILITY-CANDIDATE-WDE-MIXED-RUNTIME-STABILITY-SUPPORT-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA mixed stability while preserving worker/protocol/provider/activity-contract surfaces. |
+| G2-CAPABILITY-CANDIDATE-WDE-INFLIGHT-COHORT-DRAINAGE-CLOSURE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Workflow owns semantic closure for in-flight run/timer/signal/effect drainage during worker/provider substitution. |
+
+No Workflow cycle-7 candidate is promoted. Adaptive Governed Work Surfaces remains promoted and distinct.
