@@ -14,5 +14,9 @@ The Update Framework 1.0.36 secure-update metadata/trust/freshness: `DEEP`; Open
 ### Architecture Reconciliation as a Capability — revisit 4
 Kubernetes controller/finalizer semantics: `DEEP`; Crossplane managed-resource reconciliation/managementPolicies/conditions/external-create evidence: `DEEP`; Flux Kustomization/Receiver reconciliation/observedGeneration: `DEEP`; Argo CD automated sync/self-heal/retry: `DEEP`; Cluster API Conditions/observedGeneration: `DEEP`. Findings `G2-FINDING-ARC-31..38`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: desired→attempted→applied→effective→healthy lineage, faceted authority, ambiguous-actuation quarantine, normalization authority, dependency uncertainty propagation, convergence lag, provider/topology migration and qualified offline closure.
 
+## Revisit cycle 6
+### Universal Capability Architecture — revisit 5
+Kubernetes API consistency / Server-Side Apply: `DEEP`; PostgreSQL 18 transaction isolation: `DEEP`; SPIFFE federation / SVID trust-domain identity: `DEEP`; OpenTelemetry Context / Baggage propagation: `DEEP`; OCI image manifests / content descriptors: `DEEP`. Findings `G2-FINDING-UCA-36..43`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: typed semantic-owner identity, revision-vs-consistency separation, non-authoritative propagated context, composite-proof evidence compatibility, trust/evidence-horizon closure, layered portability claims and AGWS hierarchy preservation.
+
 ## Historical authority
 All omitted representative/capability cells remain authoritative in prior ledger revisions and capability dossiers.

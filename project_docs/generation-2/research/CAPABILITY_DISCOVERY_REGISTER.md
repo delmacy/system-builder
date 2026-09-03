@@ -24,7 +24,15 @@ All prior cycle-4/5 candidates remain authoritative in earlier revisions and dos
 | G2-CAPABILITY-CANDIDATE-ARC-AMBIGUOUS-ACTUATION-QUARANTINE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with cross-capability ambiguous-outcome disposition while preserving reconcile-before-retry semantics. |
 | G2-CAPABILITY-CANDIDATE-ARC-DEPENDENCY-INCONCLUSIVE-PROPAGATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal evidence qualification so required uncertain dependencies block conclusive parent satisfaction. |
 
-No Architecture Reconciliation candidate is promoted in this run.
+## Universal Capability Architecture — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-TYPED-IDENTITY-CONTINUITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Identity, Artifact, Provider and Lifecycle identity kinds; do not impose one global identity invariant. |
+| G2-CAPABILITY-CANDIDATE-EVIDENCE-COMPATIBILITY-COMPOSITE-PROOF-JOIN | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Confirm across proof matrix that revision/snapshot/trust/freshness incompatibility must propagate INCONCLUSIVE. |
+| G2-CAPABILITY-CANDIDATE-TRUST-EVIDENCE-HORIZON-QUALIFIED-LOCAL-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with existing qualified-local-closure family; retain reconnection requalification semantics. |
+| G2-CAPABILITY-CANDIDATE-CAPABILITY-SUPPORT-LAYERING-PRESERVE-INTERPRET-VALIDATE-REALIZE-ACTUATE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Provider/Standards/Artifact evidence before promotion. |
+
+No UCA candidate is promoted in this run. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
 Developer/Operator cycle-5 candidates and all earlier candidates remain authoritative in prior revisions and capability dossiers.
