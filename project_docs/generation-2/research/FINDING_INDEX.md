@@ -2,6 +2,16 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Enterprise Completeness / Negative-Space Review — pass 1
+- **G2-FINDING-ENSR-01** — Enterprise trust/PKI is not equivalent to secret storage: certificate, issuer/trust-anchor, path/policy, validity, revocation/status, renewal/rollover and workload-effective trust are distinct facts. Dedicated cross-cutting candidate registered; no promotion yet.
+- **G2-FINDING-ENSR-02** — Privacy/data-governance obligations can override ordinary data lifecycle: purpose/use, classification, retention, legal hold, deletion eligibility and residency/jurisdiction need explicit semantic ownership research.
+- **G2-FINDING-ENSR-03** — Economic governance/FinOps contains real allocation/budget/forecast/commitment/rating semantics but is DOMAIN_ONLY pending proof of reusable cross-cutting primitives.
+- **G2-FINDING-ENSR-04** — Supply-chain semantics are already owned by Build + Artifact/Provenance + Security, but artifact-to-runtime admission is an unresolved executable proof junction: signature/artifact presence alone cannot prove qualified admission.
+- **G2-FINDING-ENSR-05** — Agent/tool authority coverage does not prove model/prompt/evaluation/safety lifecycle governance; versioned AI asset/evaluation evidence requires bounded dedicated research before synthesis.
+- **G2-FINDING-ENSR-06** — Enterprise portal/search/admin collaboration are composition/providerization tests, not automatic universal capabilities; Backstage-like catalog/search and SCIM-like provisioning fit existing semantic owners unless contrary evidence appears.
+- **G2-FINDING-ENSR-07** — Workload-driven minimal runtime realization remains falsifiable proof debt across simple/scaled/critical archetypes: optional omission, deterministic dependency lineage, same semantics/different realization and no semantic mutation under scaling.
+- **G2-FINDING-ENSR-08** — Seven cycles satisfy review eligibility, not completeness. Structural candidates plus unresolved centralized proof obligations keep Enterprise Completeness open and CAPABILITY_SYNTHESIS blocked.
+
 ## Cycle 7 — Architecture Reconciliation as a Capability revisit 6
 - **G2-FINDING-ARC-47** — Architecture reconciliation is an applicability-scoped qualification, not a scalar state. Subject, semantic owner, evidence/product/target revisions, provider/runtime/tool realization, policy/authority, dependency closure, consumer cohort, Station and evidence horizon qualify every material claim.
 - **G2-FINDING-ARC-48** — `ArchitectureEvidence → Finding → ProductTruth → Gap → Disposition → Plan → ExecutionAttempt → Acceptance → EffectiveState → Proof` are distinct typed facts. Acceptance or command success cannot substitute for observed effective convergence.

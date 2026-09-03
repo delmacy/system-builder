@@ -8,6 +8,16 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
+## Enterprise Completeness / Negative-Space Review — pass 1 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE` | CROSS_CUTTING | RESEARCH_REQUIRED | Multi-representative research must prove identities/lifecycle/authority/failure/versioning/provider boundaries distinct from Secrets, Identity and Security; otherwise merge into those owners. |
+| `G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY` | CROSS_CUTTING | RESEARCH_REQUIRED | Validate purpose/classification/retention/hold/residency/disposition primitives across standards and enterprise systems; determine boundaries with Data, Governance and Security. |
+| `G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT` | DOMAIN | RESEARCH_REQUIRED | Test allocation/budget/forecast/commitment/rate semantics across cloud, on-prem and internal chargeback before deciding DOMAIN_ONLY versus shared primitive. |
+| `G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE` | DOMAIN | RESEARCH_REQUIRED | Test model/prompt/evaluation/safety identities, lifecycle, evidence and provider substitution against existing AI-native, Artifact/Lifecycle, Governance and Observability owners. |
+
+No pass-1 candidate is promoted. `Adaptive Governed Work Surfaces` remains CORE/promoted and distinct.
+
 ## Mandatory workload-driven runtime realization hypotheses
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
