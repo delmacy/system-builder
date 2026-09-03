@@ -12,24 +12,16 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
-## Cycle 6 authority through Lifecycle / Versioning / Evolution / Migration
-All prior cycle-6 candidates through Lifecycle / Versioning / Evolution / Migration remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
+## Cycle 6 authority through AI-native Engineering / Agents / Approvals
+All prior cycle-6 candidates through AI-native Engineering / Agents / Approvals remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
-### Security / Resilience / Failure Recovery — revisit cycle 6 candidates
+### Developer / Operator Experience / Self-hosting — revisit cycle 6 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-SRFR-TYPED-RECOVERY-BRANCH-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle typed transition identity while Security retains recovery/threat semantics. |
-| G2-CAPABILITY-CANDIDATE-SRFR-RECOVERY-WRITER-EPOCH-FENCING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile expected-base/fencing across Data, Workflow, Deployment, Provider and recovery mutation. |
-| G2-CAPABILITY-CANDIDATE-SRFR-POST-RESTORE-SEMANTIC-VALIDATION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Security owns recovery qualification; executable validator mechanisms remain shared with conformance/testing. |
-| G2-CAPABILITY-CANDIDATE-SRFR-POST-RECOVERY-REPROTECTION-CLOSURE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve distinction between recovered availability and restored resilience/protection posture. |
-
-### AI-native Engineering / Agents / Approvals — revisit cycle 6 candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-AIN-TYPED-AGENTIC-CONTROL-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile typed proposal/approval/attempt/effect identity with Workflow, Integration and Lifecycle without losing agent-specific realization lineage. |
-| G2-CAPABILITY-CANDIDATE-AIN-PROVENANCE-QUALIFIED-CUMULATIVE-CONTEXT | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve context provenance/trust/freshness as evidence while forbidding authority amplification; reconcile mandatory cumulative-context hypothesis. |
-| G2-CAPABILITY-CANDIDATE-AIN-RESUME-SEMANTICS-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Unify node-replay/journal-replay/idempotency/ambiguity contracts across agent, workflow and runtime providers. |
-| G2-CAPABILITY-CANDIDATE-AIN-RESOURCE-BOUND-TOOL-AUTHORITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile audience/resource-scoped tool credentials with Authorization, Secrets and Provider/Binding boundaries. |
+| G2-CAPABILITY-CANDIDATE-DOESH-TYPED-INSTALLATION-UPDATE-RECOVERY-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile typed realization/attempt/recovery identities with Deployment, Lifecycle and Security while preserving self-hosted instance/fleet semantics. |
+| G2-CAPABILITY-CANDIDATE-DOESH-PATH-RELATIVE-UPGRADE-COMPATIBILITY | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve required-stop/migration-completion semantics under Developer/Operator Experience; reconcile compatibility primitives with Lifecycle. |
+| G2-CAPABILITY-CANDIDATE-DOESH-QUALIFIED-AIRGAP-MATERIAL-TRUST-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Build/Artifact, Secrets/Trust and Security local-closure primitives; retain operator-facing completeness proof. |
+| G2-CAPABILITY-CANDIDATE-DOESH-DIAGNOSTIC-CUSTODY-REDACTION-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Developer/Operator Experience owns support-bundle UX/custody; Governance/Observability/Security share evidence and disclosure rules. |
 
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
