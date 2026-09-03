@@ -37,8 +37,18 @@ All previously indexed cycle-6 findings remain authoritative in their dossiers a
 - **G2-FINDING-UCA-50** — Cryptographic/Content Integrity Is Narrower Than Semantic Validity, Admission and Authority: byte identity does not prove runtime suitability, policy admission, trust or actuation authority.
 - **G2-FINDING-UCA-51** — Historical Decision/Evidence Identity Should Be Append-and-Supersede While Applicability Evolves: newer applicability must not rewrite prior evidence, findings or accepted decision history.
 
+### Process & Application Modeling — revisit 6
+- **G2-FINDING-PAM-45** — Canonical Model Truth Is a Typed Applicability-Scoped Semantic Claim Set, Not One Global Current Revision: semantic claims can be simultaneously valid for different Stations, cohorts or runtime profiles; representation/provider truth remains separately owned.
+- **G2-FINDING-PAM-46** — Model Claim Applicability and Model Evidence Availability/Retention Are Independent: expired or compacted proof material makes replay unavailable or inconclusive; it does not retroactively falsify the historical canonical claim.
+- **G2-FINDING-PAM-47** — Process/Application Conformance Is a Revision-Qualified Relation: subject, normative profile, evaluator, dependency revisions, scope/provider profile and evidence determine a result; merge/import/content identity cannot supply a universal `valid` boolean.
+- **G2-FINDING-PAM-48** — Process/Application Stability and Support Are Typed Semantic-Surface Vectors: standard constructs, extensions, templates and provider realizations can have independent stability/support and version streams inside one application.
+- **G2-FINDING-PAM-49** — Semantic Continuity May Require Dual Representation Plus Consumer/Cohort Drainage Evidence: new semantics cannot exclusively supersede old representation while affected consumers/running realizations remain unqualified or undrained.
+- **G2-FINDING-PAM-50** — Representation Content Integrity Is Narrower Than Semantic Validity, Applicability and Authority: digest/immutable revision evidence proves representation identity only within scope; it cannot prove canonical authorization, provider suitability or runtime postconditions.
+- **G2-FINDING-PAM-51** — Canonical Modeling History Is Append-and-Supersede While Applicability Evolves: new mappings/decisions change applicability through explicit lineage without rewriting imported evidence, prior findings or accepted historical revisions.
+- **G2-FINDING-PAM-52** — Constraint Compatibility Does Not Transfer Canonical Modeling Authority: compatible Enterprise, Station, domain, schema and process constraints may compose, but publication/relaxation authority remains independently governed and non-amplifying.
+
 ## Cycle closures
-Cycles 3, 4, 5 and 6 completed all 25 active capabilities. Every cycle-6 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 7 is active with 1/25 capabilities revisited. Enterprise Completeness / Negative-Space remains gated until seven full cycles complete.
+Cycles 3, 4, 5 and 6 completed all 25 active capabilities. Every cycle-6 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 7 is active with 2/25 capabilities revisited. Enterprise Completeness / Negative-Space remains gated until seven full cycles complete.
 
 ## Historical authority
 All prior findings, including cycle 1–6 findings compacted out of this view, remain authoritative in their dossiers and prior index revisions.
