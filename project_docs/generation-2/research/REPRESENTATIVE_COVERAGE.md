@@ -2,6 +2,11 @@
 
 States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`. Historical coverage in prior revisions, capability dossiers and state history remains authoritative; this compact ledger does not revoke omitted cells.
 
+## Enterprise Trust / PKI / Certificate Lifecycle — post-promotion saturation revisit 01
+RFC 5280 path/policy/time qualification: `DEEP`; RFC 8555 / ACME issuance-state lifecycle: `DEEP`; SPIFFE trust-domain/bundle rotation and workload distribution: `DEEP`; cert-manager CA issuer rotation semantics: `DEEP`; cert-manager trust-manager root-overlap/distribution semantics: `DEEP`; Vault PKI multi-issuer/CRL currentness: `DEEP`.
+
+Result: **ELIGIBLE_NO_MATERIAL_FINDING_REVISIT_1_OF_2**. No new stable finding or candidate. Existing `G2-FINDING-ETPKI-*` and `G2-FINDING-ETQP-01..08` cover the tested exceptions. Capability remains **NOT_SATURATED** pending a second consecutive eligible no-material-finding revisit or repository-only remainder under the authoritative rule. See `ENTERPRISE_TRUST_PKI_POST_PROMOTION_SATURATION_REVISIT_01.md`.
+
 ## Domain Composition / Provider Identity — centralized proof
 SCIM RFC 7643 identity and `externalId` scoping: `DEEP`; Backstage Catalog entity/provider/external-reference semantics: `DEEP`; Crossplane managed-resource vs external-name identity and ambiguous-create reconciliation: `DEEP`; OpenSearch cross-cluster/multi-search federation: `DEEP`; Salesforce external-object / External ID relationships: `DEEP`.
 
@@ -28,10 +33,10 @@ SLSA v1.2: `DEEP`; Sigstore policy-controller: `DEEP`; Kubernetes generation/rea
 Nix: `DEEP`; Bazel: `DEEP`; Docker: `DEEP`; Kubernetes: `DEEP`; Knative: `DEEP`; AWS Lambda: `DEEP`. Findings `G2-FINDING-WDRR-01..08`; proof resolved.
 
 ## Structural-gap dispositions
-Technology Economic Governance / FinOps: promoted CROSS_CUTTING / NOT_SATURATED. AI Evaluation: merged into existing owners / not promoted. Privacy/Data Governance: promoted CROSS_CUTTING / NOT_SATURATED. Enterprise Trust/PKI: promoted CROSS_CUTTING / NOT_SATURATED.
+Technology Economic Governance / FinOps: promoted CROSS_CUTTING / NOT_SATURATED. AI Evaluation: merged into existing owners / not promoted. Privacy/Data Governance: promoted CROSS_CUTTING / NOT_SATURATED. Enterprise Trust/PKI: promoted CROSS_CUTTING / NOT_SATURATED with post-promotion no-material streak `1/2`.
 
 ## Enterprise Completeness / Negative-Space Review
-Seven original cycles are complete. All structural gaps and centralized proof junctions discovered by the pass-1 falsification are now dispositioned. Explicit gate closure still requires checking the six Enterprise Completeness closure criteria before synthesis.
+Seven original cycles are complete. All structural gaps and centralized proof junctions discovered by the pass-1 falsification are now dispositioned. All six structural closure criteria pass, but normal saturation reconciliation remains required for capabilities promoted after cycle 7.
 
 ## Historical authority
 Detailed representative coverage for all other capabilities remains authoritative in their dossiers, earlier ledger revisions and `RESEARCH_PIPELINE_STATE.json` history.
