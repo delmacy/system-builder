@@ -8,6 +8,18 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
+## Mandatory workload-driven runtime realization hypotheses
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-WORKLOAD-DRIVEN-RUNTIME-REALIZATION` | CROSS_CUTTING | RESEARCH_HYPOTHESIS | Determine whether workload-driven realization is standalone, Deployment/Runtime-owned, or a synthesis across Build + Provider + Deployment + Observability. |
+| `G2-CAPABILITY-CANDIDATE-MINIMAL-CAPABILITY-RUNTIME-CLOSURE` | CROSS_CUTTING | RESEARCH_HYPOTHESIS | Prove deterministic capability/dependency closure and omission of unused runtime components across representative build/runtime systems. |
+| `G2-CAPABILITY-CANDIDATE-OPERATIONAL-PROFILE-SEPARATION` | CROSS_CUTTING | RESEARCH_HYPOTHESIS | Determine whether workload/quality requirements require a stable first-class model orthogonal to business SystemDefinition semantics. |
+| `G2-CAPABILITY-CANDIDATE-RUNTIME-REALIZATION-EVOLUTION` | CROSS_CUTTING | RESEARCH_HYPOTHESIS | Determine ownership of same-semantics/different-topology evolution, migration, drainage, rollback and runtime requalification. |
+
+Dedicated input: `project_docs/generation-2/research/concepts/WORKLOAD_DRIVEN_RUNTIME_REALIZATION_AND_CAPABILITY_INSTALLATION.md`.
+
+The OS/kernel/driver analogy is not itself promotable. Research must extract only portable primitives: capability closure, provider realization, workload profile, runtime realization plan, reproducible image manifest, migration/evolution and autonomy.
+
 ## Cycle 7 — Developer / Operator Experience / Self-hosting candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
