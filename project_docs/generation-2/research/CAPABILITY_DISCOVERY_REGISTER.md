@@ -7,7 +7,7 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 
 `G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE` — **CROSS_CUTTING / PROMOTED / NOT_SATURATED / POST_PROMOTION_NO_MATERIAL_STREAK_1_OF_2**. Post-promotion revisit 01 found no material architectural finding across path/revocation currentness, issuance/renewal/rotation, workload trust, provider substitution, residual drainage, disconnected horizons, governance, observability and portability. See `ENTERPRISE_TRUST_PKI_POST_PROMOTION_SATURATION_REVISIT_01.md`.
 
-`G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY` — **CROSS_CUTTING / PROMOTED / NOT_SATURATED**.
+`G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY` — **CROSS_CUTTING / PROMOTED / NOT_SATURATED / POST_PROMOTION_NO_MATERIAL_STREAK_1_OF_2**. Post-promotion revisit 01 found no material architectural finding across purpose/use limitation, retention/deletion, hold precedence, residency/provider support, residual governed populations, disconnected evidence horizons, governance, observability and portability. See `PRIVACY_DATA_GOVERNANCE_POST_PROMOTION_SATURATION_REVISIT_01.md`.
 
 `G2-CAPABILITY-CANDIDATE-TECHNOLOGY-ECONOMIC-GOVERNANCE-FINOPS` — **CROSS_CUTTING / PROMOTED / NOT_SATURATED**. Owns provider-neutral technology-economic evidence/normalization, allocation/shared-cost policy, internal rates/cost models, budgets, forecasts, commitment economic exposure, unit economics and showback/chargeback evidence. Does not own statutory accounting, customer-commercial billing or procurement execution.
 
@@ -15,7 +15,7 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | Candidate | Class | Status | Disposition |
 |---|---|---|---|
 | `G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE` | CROSS_CUTTING | PROMOTED / NOT_SATURATED / no-material streak 1/2 | Distinct owner proven; one eligible post-promotion saturation revisit completed without new material finding. |
-| `G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY` | CROSS_CUTTING | PROMOTED / NOT_SATURATED | Distinct owner proven. |
+| `G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY` | CROSS_CUTTING | PROMOTED / NOT_SATURATED / no-material streak 1/2 | Distinct owner proven; one eligible post-promotion saturation revisit completed without new material finding. |
 | `G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE` | CROSS_CUTTING concern | MERGE_INTO_EXISTING_OWNERS / NOT_PROMOTED / CENTRALIZED_PROOF_RESOLVED | Explicit qualification contracts required; no ownerless top-level semantic category remains. `AI_EVALUATION_QUALIFICATION_STALE_EVIDENCE_CENTRALIZED_PROOF.md` proves applicability/staleness/inconclusive/promotion boundaries without taxonomy promotion. |
 | `G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT` | DOMAIN → CROSS_CUTTING split | SPLIT / PARENT_NOT_PROMOTED / CENTRALIZED_PROOF_RESOLVED | Narrow cross-cutting Technology Economic Governance owner promoted; Procurement/Sourcing remains specialized/domain-specific; provider billing/optimization mechanics providerized. `TECHNOLOGY_ECONOMIC_GOVERNANCE_CENTRALIZED_PROOF.md` resolves normalization/allocation/history/budget/forecast/commitment/provider-substitution without further promotion. |
 
