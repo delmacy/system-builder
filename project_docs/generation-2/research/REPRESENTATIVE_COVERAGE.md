@@ -2,6 +2,11 @@
 
 States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`. Historical coverage in prior revisions, capability dossiers and state history remains authoritative; this compact ledger does not revoke omitted cells.
 
+## Technology Economic Governance / FinOps — post-promotion saturation revisit 01
+FinOps Framework Allocation / Forecasting / Budgeting / Unit Economics / Rate Optimization: `DEEP`; FOCUS 1.4 normalization/split-allocation/conservation/commitment semantics: `DEEP`; OpenCost on-prem/custom/internal pricing and provider overrides: `DEEP`; Microsoft Cost Management allocation/reprocessing/limitations: `DEEP`.
+
+Result: **ELIGIBLE_NO_MATERIAL_FINDING_REVISIT_1_OF_2**. No new stable finding or candidate. Existing `G2-FINDING-EGFP-01..08` and `G2-FINDING-TEGP-01..08` cover the tested exceptions. Capability remains **NOT_SATURATED** pending a second consecutive eligible no-material-finding revisit or repository-only remainder under the authoritative rule. See `TECHNOLOGY_ECONOMIC_GOVERNANCE_POST_PROMOTION_SATURATION_REVISIT_01.md`.
+
 ## Privacy / Data Governance / Retention / Legal Hold / Residency — post-promotion saturation revisit 01
 EU GDPR purpose/storage/erasure/legal-claims obligations: `DEEP`; Microsoft Purview retention/eDiscovery precedence: `DEEP`; NIST Privacy Framework privacy-vs-cyber risk boundary: `DEEP`; Google Cloud Assured Workloads/data-residency service/program qualification: `DEEP`; AWS Control Tower data-residency/Region-deny applicability and exemptions: `DEEP`; OPA provider-neutral policy realization/currentness boundary: `DEEP`.
 
@@ -38,7 +43,7 @@ SLSA v1.2: `DEEP`; Sigstore policy-controller: `DEEP`; Kubernetes generation/rea
 Nix: `DEEP`; Bazel: `DEEP`; Docker: `DEEP`; Kubernetes: `DEEP`; Knative: `DEEP`; AWS Lambda: `DEEP`. Findings `G2-FINDING-WDRR-01..08`; proof resolved.
 
 ## Structural-gap dispositions
-Technology Economic Governance / FinOps: promoted CROSS_CUTTING / NOT_SATURATED. AI Evaluation: merged into existing owners / not promoted. Privacy/Data Governance: promoted CROSS_CUTTING / NOT_SATURATED with post-promotion no-material streak `1/2`. Enterprise Trust/PKI: promoted CROSS_CUTTING / NOT_SATURATED with post-promotion no-material streak `1/2`.
+Technology Economic Governance / FinOps: promoted CROSS_CUTTING / NOT_SATURATED with post-promotion no-material streak `1/2`. AI Evaluation: merged into existing owners / not promoted. Privacy/Data Governance: promoted CROSS_CUTTING / NOT_SATURATED with post-promotion no-material streak `1/2`. Enterprise Trust/PKI: promoted CROSS_CUTTING / NOT_SATURATED with post-promotion no-material streak `1/2`.
 
 ## Enterprise Completeness / Negative-Space Review
 Seven original cycles are complete. All structural gaps and centralized proof junctions discovered by the pass-1 falsification are now dispositioned. All six structural closure criteria pass, but normal saturation reconciliation remains required for capabilities promoted after cycle 7.
