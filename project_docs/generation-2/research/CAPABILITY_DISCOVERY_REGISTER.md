@@ -40,6 +40,14 @@ All prior cycle-4/5 candidates remain authoritative in earlier revisions and dos
 | G2-CAPABILITY-CANDIDATE-PAM-SEMANTIC-VALIDATION-AFTER-CONFLICT-FREE-MERGE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Retain as Process/Application Modeling subcapability unless later evidence establishes broader ownership. |
 | G2-CAPABILITY-CANDIDATE-PAM-COMPOSITE-MODEL-PROOF-COMPATIBILITY-JOIN | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with UCA evidence-compatibility joins while preserving model-specific semantic dependencies. |
 
+## UI / Generated Experience / Low-code Builder — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-UIGX-TYPED-PROJECTION-REPRESENTATION-RENDERER-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity continuity for projection, representation, component-contract, renderer/provider and realization identities. |
+| G2-CAPABILITY-CANDIDATE-UIGX-MULTI-AXIS-EFFECTIVE-PROJECTION-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/UCA revision vectors while retaining UI-specific schema/component/binding/accessibility axes. |
+| G2-CAPABILITY-CANDIDATE-UIGX-POST-MERGE-SEMANTIC-ACCESSIBILITY-VALIDATION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Retain under generic UI unless later evidence establishes a broader owner; merge success must not imply conformance. |
+| G2-CAPABILITY-CANDIDATE-UIGX-LAYERED-PORTABILITY-CONFORMANCE-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with UCA preserve/interpret/validate/realize/actuate portability layering while retaining UI target/accessibility dimensions. |
+
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
