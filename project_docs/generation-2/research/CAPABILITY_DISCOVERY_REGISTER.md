@@ -32,7 +32,15 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | `G2-CAPABILITY-CANDIDATE-DSM-MIXED-DATABASE-PROVIDER-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent schema/constraint, transaction/isolation, DDL, backfill, CDC, freshness, recovery and evidence axes. |
 | `G2-CAPABILITY-CANDIDATE-DSM-DATA-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Data owns residual writer/reader/CDC/dual-write/derived-consumer closure during schema/provider migration. |
 
-No cycle-7 Identity, Authorization or Data candidate is promoted. Adaptive Governed Work Surfaces remains promoted and distinct.
+## Cycle 7 — Storage / Documents / Media candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-SDM-APPLICABILITY-SCOPED-EFFECTIVE-STORAGE-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability while Storage retains content/metadata/retention/realization/consumer dimensions. |
+| `G2-CAPABILITY-CANDIDATE-SDM-STORAGE-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile evidence-horizon primitives while preserving byte/metadata/policy/key/index evidence semantics. |
+| `G2-CAPABILITY-CANDIDATE-SDM-MIXED-STORAGE-PROVIDER-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent versioning/recovery/WORM/fencing/integrity/replication/encryption/evidence/offline axes. |
+| `G2-CAPABILITY-CANDIDATE-SDM-STORAGE-RESIDUAL-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Storage owns residual realization/replica/cache/index/rendition/backup/export/consumer disposition during migration or deletion. |
+
+No cycle-7 Identity, Authorization, Data or Storage candidate is promoted. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
 All prior candidates from UCA, PAM, UIGX, AGWS, Workflow, Integration and earlier cycles remain authoritative in their dossiers, earlier register revisions and state history. Compact representation does not revoke them.
