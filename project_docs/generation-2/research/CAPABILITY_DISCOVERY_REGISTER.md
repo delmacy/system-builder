@@ -12,32 +12,16 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
-## Cycle 6 authority through Authorization
-All prior cycle-6 candidates through Authorization / Policy / Organization / Multitenancy remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
+## Cycle 6 authority through Notifications / Events / Messaging
+All prior cycle-6 candidates through Notifications / Events / Messaging remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
-## Data / Schema / Migrations — revisit cycle 6 candidates
+## Build / Dependency Graph / Reproducibility — revisit cycle 6 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-DSM-TYPED-DATA-SCHEMA-MIGRATION-TRANSACTION-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity continuity while preserving Data ownership of semantic schema/dataset lifecycle. |
-| G2-CAPABILITY-CANDIDATE-DSM-MULTI-AXIS-EFFECTIVE-DATA-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Lifecycle revision-vector semantics with schema/data/checkpoint/transaction/provider/tenant/Station axes. |
-| G2-CAPABILITY-CANDIDATE-DSM-MIGRATION-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep under Data unless synthesis proves a generic governed-transition owner; stale migration actors must be rejected. |
-| G2-CAPABILITY-CANDIDATE-DSM-DATA-CONVERGENCE-CUTOVER-DISPOSITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve residual-source, dual-write divergence, CDC position and authority-transfer evidence under Data cutover semantics. |
-
-## Storage / Documents / Media — revisit cycle 6 candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-SDM-TYPED-CONTENT-METADATA-ALIAS-OBLIGATION-REALIZATION-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity while preserving Storage ownership of semantic content/metadata/alias/obligation lineage. |
-| G2-CAPABILITY-CANDIDATE-SDM-MULTI-AXIS-EFFECTIVE-CONTENT-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Lifecycle revision-vector semantics with content/metadata/alias/retention/trust/provider/exposure axes. |
-| G2-CAPABILITY-CANDIDATE-SDM-STORAGE-MUTATION-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep expected-base/fence semantics for alias, commit, purge and provider-migration ownership under Storage unless synthesis proves a generic owner. |
-| G2-CAPABILITY-CANDIDATE-SDM-GOVERNANCE-EQUIVALENT-PROVIDER-CUTOVER-DISPOSITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve bytes+metadata+retention/hold+alias residual-source disposition before storage authority cutover. |
-
-## Notifications / Events / Messaging — revisit cycle 6 candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-NEM-TYPED-MESSAGING-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity while preserving Messaging ownership of occurrence→delivery→ack/checkpoint semantics. |
-| G2-CAPABILITY-CANDIDATE-NEM-MULTI-AXIS-EFFECTIVE-MESSAGING-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Lifecycle revision vectors with message/subscription/ownership/retention/provider/Station axes. |
-| G2-CAPABILITY-CANDIDATE-NEM-ORDERING-CHECKPOINT-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve message-scope ownership/fencing under Messaging while reusing generic transition fencing. |
-| G2-CAPABILITY-CANDIDATE-NEM-PROVIDER-CUTOVER-CONSUMER-DRAIN-DISPOSITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep consumer-drain/residual-message/checkpoint semantics under Messaging; coordinate authority transfer with Provider/Lifecycle. |
+| G2-CAPABILITY-CANDIDATE-BDGR-TYPED-BUILD-DEPENDENCY-TOOLCHAIN-ATTEMPT-OUTPUT-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity while preserving Build ownership of definition/dependency/toolchain/environment/attempt/output lineage. |
+| G2-CAPABILITY-CANDIDATE-BDGR-MULTI-AXIS-EFFECTIVE-REPRODUCIBILITY-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Lifecycle evidence vectors with source/dependency/toolchain/environment/cache/provider axes. |
+| G2-CAPABILITY-CANDIDATE-BDGR-CACHE-TRUST-AUTHORITY-SEPARATION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep cache read/write trust and poisoning resistance under Build unless synthesis proves a stronger cross-cutting owner. |
+| G2-CAPABILITY-CANDIDATE-BDGR-HISTORICAL-REBUILD-CLOSURE-HORIZON | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve dependency/material/toolchain retention and `INCONCLUSIVE/UNAVAILABLE` semantics under Build; coordinate with Storage/Artifact retention. |
 
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
