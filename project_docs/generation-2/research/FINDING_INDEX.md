@@ -2,31 +2,21 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
-## Cycle 6 authority through Lifecycle / Versioning / Evolution / Migration
-All previously indexed cycle-6 findings through `G2-FINDING-LVEM-45` remain authoritative in their dossiers and prior index revisions.
+## Cycle 6 authority through AI-native Engineering / Agents / Approvals
+All previously indexed cycle-6 findings through `G2-FINDING-AIN-46` remain authoritative in their dossiers and prior index revisions.
 
-### Security / Resilience / Failure Recovery — revisit 5
-- **G2-FINDING-SRFR-39** — Recovery requires typed recovery-point, recovery-branch, attempt, writer-epoch, validation and protection identities; a scalar recovery/version status cannot safely alias them.
-- **G2-FINDING-SRFR-40** — Recovery-point eligibility is threat-, path- and branch-relative; existence or historical cleanliness does not establish current eligibility.
-- **G2-FINDING-SRFR-41** — Restore realization and semantic recovery validation are separate states; provider restore completion does not prove domain correctness, integrity acceptance or production eligibility.
-- **G2-FINDING-SRFR-42** — Recovery mutation requires expected-base and exclusive writer-epoch fencing; generic authentication/admin rights do not prevent stale concurrent restore or promotion actors.
-- **G2-FINDING-SRFR-43** — Recovery commit is an option-consuming transition requiring explicit evidence because it can delete or invalidate alternative recovery choices.
-- **G2-FINDING-SRFR-44** — Reachability after recovery does not establish restored protection; replication/reprotection/resilience posture has its own lifecycle and proof.
-- **G2-FINDING-SRFR-45** — State rewind requires observer/cache/checkpoint invalidation evidence; abandoned-future observations can otherwise corrupt recovered authority.
-- **G2-FINDING-SRFR-46** — Recovery closure includes residual compromise and abandoned-branch disposition across writers, routes, sources, recovery material and consumers.
-
-### AI-native Engineering / Agents / Approvals — revisit 5
-- **G2-FINDING-AIN-39** — Agentic control requires typed model, agent, run, proposal, approval, attempt and effective-outcome identities; provider run state may correlate but cannot safely alias them.
-- **G2-FINDING-AIN-40** — Sticky or tool-level approval is provider convenience, not constitutional authority; approval applicability binds reviewed effect/candidate and governing revision vector.
-- **G2-FINDING-AIN-41** — Human approval is fallible evidence; independently enforced capability, filesystem, network and credential boundaries remain the trust root.
-- **G2-FINDING-AIN-42** — Cumulative agent context carries provenance/trust/freshness but cannot amplify authority; trusted connectors and user-originated prompts may still carry attacker-controlled instructions.
-- **G2-FINDING-AIN-43** — Tool authorization is resource/audience bound; token passthrough or ambient credential reuse creates confused-deputy authority leakage.
-- **G2-FINDING-AIN-44** — Durable agent resume requires an explicit resume-semantics profile and attempt lineage because node replay and journal replay create different idempotency obligations.
-- **G2-FINDING-AIN-45** — Model/harness substitution preserves semantic intent only with fresh realization and acceptance evidence.
-- **G2-FINDING-AIN-46** — Proposer, approver, execution authorizer, actuator and postcondition observer are distinct governance roles and may coincide only where policy permits.
+### Developer / Operator Experience / Self-hosting — revisit 5
+- **G2-FINDING-DOESH-39** — Self-hosting requires typed installation, instance, fleet-member, update-intent/material/attempt, recovery-point and diagnostic identities; a scalar deployment/version identity is insufficient.
+- **G2-FINDING-DOESH-40** — Desired fleet intent and observed local realization are separate sources of truth; disconnected/local success cannot be overwritten by control-plane assumption, nor can local state silently redefine fleet intent.
+- **G2-FINDING-DOESH-41** — Upgrade compatibility is path-relative and may require ordered intermediate stops plus migration completion; endpoint version compatibility alone is insufficient.
+- **G2-FINDING-DOESH-42** — Air-gapped updateability requires a qualified local material-and-trust closure; possession of a binary/image alone does not establish an admissible update source.
+- **G2-FINDING-DOESH-43** — Update/recovery mutation requires expected-base ownership and reconcile-before-retry semantics; interrupted or acknowledgement-lost operations are `OUTCOME_UNKNOWN`, not automatically retryable.
+- **G2-FINDING-DOESH-44** — Update/restore mechanism success and semantic operational validity are distinct postconditions spanning configuration, secrets, data/schema, application behavior and protection posture.
+- **G2-FINDING-DOESH-45** — Diagnostic/support evidence is privileged derived data with explicit collection scope, redaction, custody and recipient authority; diagnostic access must not imply secret/provider-admin access.
+- **G2-FINDING-DOESH-46** — Fleet completion requires residual-realization disposition and reconnect requalification; stale/offline members cannot be silently counted as converged or allowed privileged mutation under obsolete trust/policy.
 
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with twenty-three capabilities completed through AI-native Engineering / Agents / Approvals.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with twenty-four capabilities completed through Developer / Operator Experience / Self-hosting.
 
 ## Historical authority
 All prior findings, including cycle 1–5 and compacted cycle-6 findings, remain authoritative in their dossiers and prior index revisions.
