@@ -17,5 +17,8 @@ Kubernetes API deprecation/versioning/round-trip policy: `DEEP`; Confluent Schem
 ### Lifecycle / Versioning / Evolution / Migration — revisit 5
 Kubernetes API deprecation/round-trip policy: `DEEP`; Confluent Schema Registry transitive compatibility: `DEEP`; Camunda 8 process-instance migration and migration limitations: `DEEP`; AWS DMS load/CDC/validation/resync lifecycle: `DEEP`; prior Standards/Provider/Data/Workflow/Security Generation-2 research: `DEEP`. Findings `G2-FINDING-LVEM-38..45`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: typed transition identities, population/path-relative compatibility, migration fencing, directional rollback eligibility, applied→converged→validated separation, residual-source disposition, revocable cross-boundary consent and local/reconnect requalification.
 
+### Security / Resilience / Failure Recovery — revisit 5
+NIST SP 800-160 Vol. 2 Rev. 1: `DEEP`; CISA StopRansomware recovery guidance: `DEEP`; AWS Backup Restore Testing/validation: `DEEP`; etcd Disaster Recovery revision-bump/cache invalidation: `DEEP`; PostgreSQL PITR/timelines: `DEEP`; Azure Site Recovery failover/commit/reprotect: `DEEP`. Findings `G2-FINDING-SRFR-39..46`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: typed recovery branch identities, threat/path-relative recovery-point eligibility, restore-versus-validation separation, writer-epoch fencing, option-consuming commit, post-recovery reprotection, observer/cache invalidation after rewind, residual compromised-branch disposition and Enterprise→Station→Role→Person/AI/AGWS non-amplification.
+
 ## Historical authority
 All omitted representative/capability cells remain authoritative in prior ledger revisions and capability dossiers.
