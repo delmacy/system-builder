@@ -6,50 +6,24 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 `G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES` — **CORE / PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY**. Remains distinct from generic UI with `Enterprise → Station → Role → Person`, bounded capability exposure, AI-only materialization and nine mandatory proofs.
 
 ## Mandatory candidate with dedicated deep research complete
-`G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**. `DR-ROCMR-01` falsifies promotion under the current conflated name: universal scalar complexity, LOC/service/provider-count surrogates and pricing-as-architecture truth are `DO_NOT_BUILD`. Capability Synthesis should **MERGE / GENERALIZE / SPECIALIZE** the information need into typed Operational Burden Evidence / measurement-profile concerns over existing architecture/operations evidence, while commercial weighting/rating remains under Commercial Metering/Rating. Any learned scalar predictor remains `DEFER` pending fleet calibration, uncertainty and Goodhart/gaming proofs. Artifact: `project_docs/generation-2/research/deep-research/DEEP_RESEARCH_RELATIVE_OPERATIONAL_COMPLEXITY_MEASUREMENT_RATING_01.md`.
+`G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**. Prior deep research remains authoritative.
 
 Executable composition/cumulative context; transaction-consistency-concurrency; topology-build-runtime realization; tenant-fleet-edge-ingress routing remain mandatory research hypotheses, not promoted capabilities.
 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
-## Cycle 6 authority through Architecture Reconciliation as a Capability
+## Cycle 6 authority
 All prior cycle-6 candidates remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
-### Developer / Operator Experience / Self-hosting — revisit cycle 6 candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-DOESH-TYPED-INSTALLATION-UPDATE-RECOVERY-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile typed realization/attempt/recovery identities with Deployment, Lifecycle and Security while preserving self-hosted instance/fleet semantics. |
-| G2-CAPABILITY-CANDIDATE-DOESH-PATH-RELATIVE-UPGRADE-COMPATIBILITY | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve required-stop/migration-completion semantics under Developer/Operator Experience; reconcile compatibility primitives with Lifecycle. |
-| G2-CAPABILITY-CANDIDATE-DOESH-QUALIFIED-AIRGAP-MATERIAL-TRUST-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Build/Artifact, Secrets/Trust and Security local-closure primitives; retain operator-facing completeness proof. |
-| G2-CAPABILITY-CANDIDATE-DOESH-DIAGNOSTIC-CUSTODY-REDACTION-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Developer/Operator Experience owns support-bundle UX/custody; Governance/Observability/Security share evidence and disclosure rules. |
-
-### Architecture Reconciliation as a Capability — revisit cycle 6 candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-ARC-EVIDENCE-FINDING-PRODUCTTRUTH-GAP-DISPOSITION-PROOF-LINEAGE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with typed identity, governance, proof/readiness and Planning-B product-truth evidence; preserve explicit architecture reconciliation ownership. |
-| G2-CAPABILITY-CANDIDATE-ARC-SEMANTIC-VS-TECHNICAL-OWNERSHIP-TRANSFER-PROOF | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Authorization/Governance/Provider ownership primitives; do not equate SSA/provider mutation ownership with semantic authority. |
-| G2-CAPABILITY-CANDIDATE-ARC-CONTRADICTION-STALE-EVIDENCE-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Observability/evidence freshness and Governance dispute handling; retain provenance and explicit INCONCLUSIVE/CONTRADICTED states. |
-| G2-CAPABILITY-CANDIDATE-ARC-EXECUTABLE-CONFORMANCE-REVISION-QUALIFIED-PROOF | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with proof/readiness and Build/CI concerns; architecture reconciliation owns proof applicability, not the execution engine itself. |
-
 ## Cycle 7 authority
+Prior UCA and Process/Application Modeling cycle-7 candidates remain authoritative in their dossiers and state history.
 
-### Universal Capability Architecture — revisit cycle 7 candidates
+### UI / Generated Experience / Low-code Builder — revisit cycle 7 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-UCA-TYPED-CLAIM-APPLICABILITY-GRAPH | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Architecture Reconciliation, Governance, Observability and Lifecycle; preserve typed semantic ownership and bounded applicability rather than introducing one global truth store. |
-| G2-CAPABILITY-CANDIDATE-UCA-EVIDENCE-RETENTION-AVAILABILITY-HORIZON | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile evidence freshness/retention with Observability, Security/Recovery and qualified local/offline closure; evidence unavailability must not imply claim falsification. |
-| G2-CAPABILITY-CANDIDATE-UCA-MIXED-STABILITY-SUPPORT-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Standards/Lifecycle/Extension/Provider support semantics; stability remains attached to typed surfaces/components, not a whole release scalar. |
-| G2-CAPABILITY-CANDIDATE-UCA-SEMANTIC-CONTINUITY-DUAL-REPRESENTATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Standards, Lifecycle, Data and consumer-population migration; no universal translation/migration engine is implied. |
+| G2-CAPABILITY-CANDIDATE-UIGX-APPLICABILITY-SCOPED-PROJECTION-CLAIM | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability-scoped claim graph; retain UI target/audience/component/renderer/accessibility dimensions. |
+| G2-CAPABILITY-CANDIDATE-UIGX-UI-EVIDENCE-RETENTION-REPLAY-HORIZON | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA evidence horizon and Governance/Observability; preserve UI evaluator/profile replay requirements. |
+| G2-CAPABILITY-CANDIDATE-UIGX-MIXED-UI-SURFACE-STABILITY-SUPPORT | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA mixed stability vector; retain projection/component/layout/renderer/accessibility/target surfaces. |
+| G2-CAPABILITY-CANDIDATE-UIGX-DUAL-REPRESENTATION-CONSUMER-DRAINAGE-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Lifecycle migration closure with UI device/Station cohort evidence; new generation alone cannot close migration. |
 
-### Process & Application Modeling — revisit cycle 7 candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-PAM-APPLICABILITY-SCOPED-SEMANTIC-CLAIM | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA typed claim applicability while preserving Process/Application Modeling as semantic owner rather than creating a global truth store. |
-| G2-CAPABILITY-CANDIDATE-PAM-MODEL-EVIDENCE-RETENTION-REPLAY-HORIZON | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA evidence-retention horizons plus Governance/Observability retention semantics; expired replay evidence must not rewrite historical model truth. |
-| G2-CAPABILITY-CANDIDATE-PAM-MIXED-SEMANTIC-SURFACE-STABILITY-SUPPORT | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve mixed standard/extension/provider support semantics inside Process & Application Modeling; share vector primitive with Standards/Lifecycle. |
-| G2-CAPABILITY-CANDIDATE-PAM-DUAL-REPRESENTATION-CONSUMER-DRAINAGE-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/Standards/Data consumer-population migration while retaining process/application semantic continuity ownership. |
-
-No cycle-7 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
-
-## Historical authority
-All earlier candidates remain authoritative in prior revisions, state history and capability dossiers.
+No cycle-7 UI candidate is promoted. Adaptive Governed Work Surfaces remains promoted and distinct.
