@@ -20,23 +20,21 @@ Dedicated input: `project_docs/generation-2/research/concepts/WORKLOAD_DRIVEN_RU
 
 The OS/kernel/driver analogy is not itself promotable. Research must extract only portable primitives: capability closure, provider realization, workload profile, runtime realization plan, reproducible image manifest, migration/evolution and autonomy.
 
-## Cycle 7 — Developer / Operator Experience / Self-hosting candidates
+## Cycle 7 — Architecture Reconciliation as a Capability candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| `G2-CAPABILITY-CANDIDATE-DOESH-APPLICABILITY-SCOPED-OPERATIONAL-SUPPORT-QUALIFICATION` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability while DOESH retains install/operate/upgrade/support semantics. |
-| `G2-CAPABILITY-CANDIDATE-DOESH-MIXED-SELFHOSTING-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve package/runtime/config/schema/data/recovery/trust/provider/diagnostic axes independently. |
-| `G2-CAPABILITY-CANDIDATE-DOESH-DISCONNECTED-SUPPLYCHAIN-EVIDENCE-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Artifact/Provenance evidence horizons with local consumer-resolvability and disconnected operational closure. |
-| `G2-CAPABILITY-CANDIDATE-DOESH-RESIDUAL-OPERATIONAL-COHORT-DRAINAGE` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Lifecycle owns generic drainage; DOESH retains process/node/cache/config/credential/controller/consumer closure semantics. |
+| `G2-CAPABILITY-CANDIDATE-ARC-APPLICABILITY-SCOPED-RECONCILIATION-QUALIFICATION` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Universal Capability Architecture applicability while Architecture Reconciliation retains evidence→truth→gap→disposition→proof semantics. |
+| `G2-CAPABILITY-CANDIDATE-ARC-RECONCILIATION-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Consolidate with cross-cutting evidence horizons while preserving reconciliation-specific stale/inconclusive proof semantics. |
+| `G2-CAPABILITY-CANDIDATE-ARC-MIXED-RECONCILIATION-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve observation/diff/plan/admission/actuation/drift/rollback/fencing/dependency/evidence/offline axes independently. |
+| `G2-CAPABILITY-CANDIDATE-ARC-RESIDUAL-RECONCILIATION-COHORT-DRAINAGE` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Lifecycle owns generic drainage; Architecture Reconciliation retains convergence-proof composition over residual controller/version/session/cache/config/binding/route/consumer cohorts. |
 
 No candidate is promoted in this revisit.
 
+## Cycle 7 — Developer / Operator Experience / Self-hosting candidates
+Prior cycle-7 candidates remain authoritative: applicability-scoped operational/support qualification, mixed self-hosting support vector, disconnected supply-chain evidence horizon and residual operational cohort drainage.
+
 ## Cycle 7 — AI-native Engineering / Agents / Approvals candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| `G2-CAPABILITY-CANDIDATE-AIN-APPLICABILITY-SCOPED-AGENTIC-QUALIFICATION` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability while AI retains proposal/approval/execution semantics. |
-| `G2-CAPABILITY-CANDIDATE-AIN-APPROVAL-EVIDENCE-REPLAY-HORIZON` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve historical approval/effect validity separately from present replay/requalification evidence. |
-| `G2-CAPABILITY-CANDIDATE-AIN-MIXED-AGENT-RUNTIME-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Keep approval, replay, tool identity, containment, evidence, offline and recovery axes independently negotiable. |
-| `G2-CAPABILITY-CANDIDATE-AIN-RESIDUAL-APPROVAL-CHECKPOINT-TOOL-SESSION-DRAINAGE` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Lifecycle owns generic drainage mechanics; AI owns agent-specific approval/checkpoint/tool-session closure semantics. |
+Prior cycle-7 candidates remain authoritative: applicability-scoped agentic qualification, approval evidence replay horizon, mixed agent runtime support vector and residual approval/checkpoint/tool-session drainage.
 
 ## Cycle 7 — Security / Resilience / Failure Recovery candidates
 Prior cycle-7 candidates remain authoritative: applicability-scoped protection/recovery qualification, observed recovery-objective evidence, ambiguous recovery actuation reconciliation and residual recovery consumer-cohort drainage.
