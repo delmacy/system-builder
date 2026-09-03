@@ -8,6 +8,16 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
+## Cycle 7 — Standards / Interoperability / API Contracts candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-SIAC-APPLICABILITY-SCOPED-LAYERED-INTEROPERABILITY-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability claims while SIAC retains syntactic→structural→behavioral→semantic qualification. |
+| `G2-CAPABILITY-CANDIDATE-SIAC-REMOTE-MUTATION-EFFECT-DISPOSITION-AND-RECONCILIATION` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | SIAC owns operation-scoped remote effect disposition and reconcile-before-retry for ambiguous mutation. |
+| `G2-CAPABILITY-CANDIDATE-SIAC-MIXED-INTEROPERABILITY-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent syntax/schema, behavior, protocol, limits, failure/retry, security, evidence, lifecycle, offline and administration axes. |
+| `G2-CAPABILITY-CANDIDATE-SIAC-CLIENT-PROTOCOL-SESSION-CACHE-SUBSCRIPTION-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Contract/version migration owns target-effective proof plus residual client/session/cache/subscription disposition. |
+
+No candidate is promoted in this revisit.
+
 ## Cycle 7 — Provider / Binding / Capability Negotiation candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
@@ -15,8 +25,6 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | `G2-CAPABILITY-CANDIDATE-PBCN-BINDING-OWNERSHIP-FENCING-AND-AMBIGUOUS-ACTUATION` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Provider/Binding owns competing-binding exclusion and reconcile-before-retry for bind/program/cutover. |
 | `G2-CAPABILITY-CANDIDATE-PBCN-MIXED-PROVIDER-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent semantics, limits, failure/consistency, evidence, trust, lifecycle, offline and administration axes. |
 | `G2-CAPABILITY-CANDIDATE-PBCN-CONSUMER-EFFECTIVE-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Provider migration owns target-effective proof plus residual route/session/cache/subscription/consumer disposition. |
-
-No candidate is promoted in this revisit.
 
 ## Cycle 7 — Secrets / Configuration / Environment Portability candidates
 Prior cycle-7 candidates remain authoritative: applicability-scoped effective qualification, evidence currentness/replay horizon, mixed provider/KMS/delivery/runtime support vector, and consumer/session/cache/mount/environment cohort drainage.
