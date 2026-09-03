@@ -12,16 +12,16 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
-## Cycle 6 authority through Notifications / Events / Messaging
-All prior cycle-6 candidates through Notifications / Events / Messaging remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
+## Cycle 6 authority through Artifact / Release / SBOM / Provenance
+All prior cycle-6 candidates through Build / Dependency Graph / Reproducibility remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
-## Build / Dependency Graph / Reproducibility — revisit cycle 6 candidates
+### Artifact / Release / SBOM / Provenance — revisit cycle 6 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-BDGR-TYPED-BUILD-DEPENDENCY-TOOLCHAIN-ATTEMPT-OUTPUT-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity while preserving Build ownership of definition/dependency/toolchain/environment/attempt/output lineage. |
-| G2-CAPABILITY-CANDIDATE-BDGR-MULTI-AXIS-EFFECTIVE-REPRODUCIBILITY-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Lifecycle evidence vectors with source/dependency/toolchain/environment/cache/provider axes. |
-| G2-CAPABILITY-CANDIDATE-BDGR-CACHE-TRUST-AUTHORITY-SEPARATION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep cache read/write trust and poisoning resistance under Build unless synthesis proves a stronger cross-cutting owner. |
-| G2-CAPABILITY-CANDIDATE-BDGR-HISTORICAL-REBUILD-CLOSURE-HORIZON | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve dependency/material/toolchain retention and `INCONCLUSIVE/UNAVAILABLE` semantics under Build; coordinate with Storage/Artifact retention. |
+| G2-CAPABILITY-CANDIDATE-ARSP-TYPED-ARTIFACT-EVIDENCE-RELEASE-DISTRIBUTION-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity while retaining Artifact/Release semantic ownership of artifact/evidence/release/channel/distribution lineage. |
+| G2-CAPABILITY-CANDIDATE-ARSP-MULTI-AXIS-EFFECTIVE-RELEASE-QUALIFICATION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Lifecycle evidence vectors with artifact/material/SBOM/provenance/signing/trust/policy/channel/provider/distribution axes. |
+| G2-CAPABILITY-CANDIDATE-ARSP-SBOM-COMPLETENESS-UNCERTAINTY-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve explicit complete/incomplete/unknown BOM and dependency-coverage semantics under Artifact/Release qualification. |
+| G2-CAPABILITY-CANDIDATE-ARSP-RESIDUAL-DISTRIBUTION-CONSUMER-UPTAKE-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile provider cutover/residual-source patterns while retaining release distribution and downstream consumer-uptake semantics. |
 
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
