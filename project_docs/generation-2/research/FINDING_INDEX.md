@@ -2,6 +2,9 @@
 
 Prior stable findings remain authoritative in capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Privacy / Data Governance / Retention / Legal Hold / Residency — post-promotion saturation revisit 01
+No new stable finding was minted. Research-by-exception against GDPR, Microsoft Purview, NIST Privacy Framework, Google Cloud residency, AWS Control Tower data-residency/Region-deny controls and OPA found no material architectural primitive, ownership boundary, authority rule or failure mode beyond the existing `G2-FINDING-PDGR-01..08` and `G2-FINDING-PRHR-01..08` families. This is **ELIGIBLE_NO_MATERIAL_FINDING_REVISIT_1_OF_2**; see `PRIVACY_DATA_GOVERNANCE_POST_PROMOTION_SATURATION_REVISIT_01.md`.
+
 ## Enterprise Trust / PKI — post-promotion saturation revisit 01
 No new stable finding was minted. Research-by-exception against RFC 5280, RFC 8555/ACME, SPIFFE, cert-manager/trust-manager and Vault PKI found no material architectural primitive, boundary or failure mode beyond the existing `G2-FINDING-ETPKI-*` and `G2-FINDING-ETQP-01..08` families. This is **ELIGIBLE_NO_MATERIAL_FINDING_REVISIT_1_OF_2**; see `ENTERPRISE_TRUST_PKI_POST_PROMOTION_SATURATION_REVISIT_01.md`.
 
