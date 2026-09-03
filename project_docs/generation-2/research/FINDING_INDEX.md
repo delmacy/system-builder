@@ -2,6 +2,9 @@
 
 Prior stable findings remain authoritative in capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Enterprise Trust / PKI — post-promotion saturation revisit 01
+No new stable finding was minted. Research-by-exception against RFC 5280, RFC 8555/ACME, SPIFFE, cert-manager/trust-manager and Vault PKI found no material architectural primitive, boundary or failure mode beyond the existing `G2-FINDING-ETPKI-*` and `G2-FINDING-ETQP-01..08` families. This is **ELIGIBLE_NO_MATERIAL_FINDING_REVISIT_1_OF_2**; see `ENTERPRISE_TRUST_PKI_POST_PROMOTION_SATURATION_REVISIT_01.md`.
+
 ## Domain Composition / Provider Identity — centralized proof disposition
 - **G2-FINDING-DCPI-01** — Canonical domain/business identity and provider/external identity are distinct; external IDs are typed aliases/bindings scoped by provider, tenant/account, resource type/schema and revision/currentness.
 - **G2-FINDING-DCPI-02** — SCIM service-provider `id`, provisioning-domain `externalId`, and canonical Person/Role/Station identities must not collapse into one universal identifier.
