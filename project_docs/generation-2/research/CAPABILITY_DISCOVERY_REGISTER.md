@@ -40,7 +40,15 @@ All prior cycle-4/5 candidates remain authoritative in earlier revisions and dos
 | G2-CAPABILITY-CANDIDATE-OOI-INCIDENT-CLOSURE-POSTCONDITION-SEPARATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Security/Recovery and Architecture Reconciliation while preserving a separately owned incident administrative lifecycle. |
 | G2-CAPABILITY-CANDIDATE-OOI-GOVERNED-REMEDIATION-ACTUATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with faceted authority/governed transition primitives while retaining incident/remediation lineage. |
 
-No Artifact/Release, Deployment or Observability candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
+## Extension / Plugin / Marketplace Architecture — revisit cycle 5 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-EXT-QUALIFIED-ADMISSION-TRUST-CONTAINMENT-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with shared evidence qualification while Extension retains dependency/containment subject semantics. |
+| G2-CAPABILITY-CANDIDATE-EXT-DEPENDENCY-CLOSURE-REVISION-AND-BLAST-RADIUS | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Build/Artifact dependency and provenance graphs while keeping effective runtime extension closure distinct. |
+| G2-CAPABILITY-CANDIDATE-EXT-RESIDUAL-IN-USE-REVOCATION-POSTCONDITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/Security governed retirement and recovery evidence. |
+| G2-CAPABILITY-CANDIDATE-EXT-CONTROL-PATH-FAILURE-AND-BOOTSTRAP-GOVERNANCE | CROSS_CUTTING | FEEDS_PENDING_RESEARCH | Test against Security/Recovery, Governance and Self-hosting before promotion. |
+
+No Artifact/Release, Deployment, Observability or Extension candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
 
 ## Historical authority
 All omitted candidates remain authoritative in prior register revisions, state history and capability dossiers.
