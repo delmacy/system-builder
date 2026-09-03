@@ -8,6 +8,14 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
+## Cycle 7 — Build / Dependency Graph / Reproducibility candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-BDGR-APPLICABILITY-SCOPED-BUILD-REPRODUCIBILITY-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability graph while Build retains source/dependency/material/toolchain/platform/cache/conformance dimensions. |
+| `G2-CAPABILITY-CANDIDATE-BDGR-BUILD-MATERIAL-CACHE-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Governance evidence horizons while preserving repository/material/toolchain/cache and build-evidence retention semantics. |
+| `G2-CAPABILITY-CANDIDATE-BDGR-MIXED-BUILD-SYSTEM-TOOLCHAIN-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent resolution, verification, hermeticity, platform, cache, provenance, offline and conformance axes. |
+| `G2-CAPABILITY-CANDIDATE-BDGR-WORKER-CACHE-RESOLUTION-BUILD-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Build owns residual worker/cache/resolver/queued-attempt/build-cohort closure during provider/toolchain substitution. |
+
 ## Cycle 7 — Notifications / Events / Messaging candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
