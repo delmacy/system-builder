@@ -31,6 +31,14 @@ All prior cycle-6 candidates through Authorization / Policy / Organization / Mul
 | G2-CAPABILITY-CANDIDATE-SDM-STORAGE-MUTATION-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep expected-base/fence semantics for alias, commit, purge and provider-migration ownership under Storage unless synthesis proves a generic owner. |
 | G2-CAPABILITY-CANDIDATE-SDM-GOVERNANCE-EQUIVALENT-PROVIDER-CUTOVER-DISPOSITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve bytes+metadata+retention/hold+alias residual-source disposition before storage authority cutover. |
 
+## Notifications / Events / Messaging — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-NEM-TYPED-MESSAGING-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity while preserving Messaging ownership of occurrence→delivery→ack/checkpoint semantics. |
+| G2-CAPABILITY-CANDIDATE-NEM-MULTI-AXIS-EFFECTIVE-MESSAGING-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Lifecycle revision vectors with message/subscription/ownership/retention/provider/Station axes. |
+| G2-CAPABILITY-CANDIDATE-NEM-ORDERING-CHECKPOINT-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve message-scope ownership/fencing under Messaging while reusing generic transition fencing. |
+| G2-CAPABILITY-CANDIDATE-NEM-PROVIDER-CUTOVER-CONSUMER-DRAIN-DISPOSITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep consumer-drain/residual-message/checkpoint semantics under Messaging; coordinate authority transfer with Provider/Lifecycle. |
+
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority

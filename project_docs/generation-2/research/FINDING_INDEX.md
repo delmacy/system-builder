@@ -25,8 +25,18 @@ All previously indexed cycle-6 findings through `G2-FINDING-APOM-44` remain auth
 - **G2-FINDING-SDM-43** — Provider replacement requires governance-equivalent capability proof plus residual-source/alias disposition before authority cutover; API compatibility or byte-copy success is insufficient.
 - **G2-FINDING-SDM-44** — Qualified local document closure must declare operation scope and requalification horizon; offline readability cannot silently grant canonical mutation, retention or provider-admin authority.
 
+### Notifications / Events / Messaging — revisit 5
+- **G2-FINDING-NEM-37** — Messaging identity is typed across semantic occurrence/notification intent, envelope, publication attempt, provider realization, subscription, delivery, acknowledgement, checkpoint and consumer effect; no provider message ID or position can safely represent all of them.
+- **G2-FINDING-NEM-38** — Effective messaging evidence is a multi-axis revision vector spanning payload/schema, binding, subscription/policy, ordering ownership, retention, provider/topology, tenant/Station, trust and freshness; incompatible joins are `INCONCLUSIVE`.
+- **G2-FINDING-NEM-39** — Provider request acceptance, durable persistence/position, consumer-effective delivery/acknowledgement and business effect are distinct proof stages; success at an earlier stage cannot establish a later one.
+- **G2-FINDING-NEM-40** — Producer idempotency, broker deduplication and consumer-effect idempotency are separate scoped guarantees; portable architecture must specify duplicate/loss/effect requirements rather than universal exactly-once.
+- **G2-FINDING-NEM-41** — Ordered consumption/checkpoint/effect commit requires scope-qualified ownership epochs/fencing; stale group/partition/ordering actors must be rejected even when provider credentials remain valid.
+- **G2-FINDING-NEM-42** — Acknowledgement, redelivery, dead-letter, replay and redrive require explicit lineage and ambiguity states; redrive may create new provider identity/retention/order without creating a new semantic occurrence.
+- **G2-FINDING-NEM-43** — Provider substitution requires consumer-drain, residual-message/checkpoint disposition, retained-history and duplicate/loss evidence before messaging authority transfers; dual-publish or target-topic existence is insufficient.
+- **G2-FINDING-NEM-44** — Qualified local/offline messaging closure has retention, trust, ownership and reconciliation horizons; reconnect must requalify stale evidence and reconcile ambiguous outbox publications without widening Station/Role/Person authority.
+
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with ten capabilities completed through Storage / Documents / Media.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with eleven capabilities completed through Notifications / Events / Messaging.
 
 ## Historical authority
 All prior findings, including cycle 1–5 and compacted cycle-6 findings, remain authoritative in their dossiers and prior index revisions.
