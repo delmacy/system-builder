@@ -8,6 +8,14 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
+## Cycle 7 — Artifact / Release / SBOM / Provenance candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-ARSP-APPLICABILITY-SCOPED-RELEASE-QUALIFICATION-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability graph while Artifact/Release retains artifact/evidence/completeness/signer-verifier/trust/channel/registry/consumer/anti-rollback dimensions. |
+| `G2-CAPABILITY-CANDIDATE-ARSP-ARTIFACT-TRUST-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Governance evidence horizons while preserving certificate/timestamp/transparency/trust/policy/SBOM/attestation retention semantics. |
+| `G2-CAPABILITY-CANDIDATE-ARSP-MIXED-REGISTRY-SIGNING-SBOM-DISTRIBUTION-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent referrers/fallback, mutation fencing, completeness, signing/trust, retention, replication, offline and consumer-state axes. |
+| `G2-CAPABILITY-CANDIDATE-ARSP-RELEASE-DISCOVERY-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Artifact/Release owns residual alias/referrer/replica/cache/consumer closure during registry or release-channel substitution. |
+
 ## Cycle 7 — Build / Dependency Graph / Reproducibility candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
@@ -21,7 +29,7 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 |---|---|---|---|
 | `G2-CAPABILITY-CANDIDATE-NEM-APPLICABILITY-SCOPED-EVENT-DELIVERY-EFFECT-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability graph while Messaging retains contract/envelope, provider/topology, subscription/filter, ordering, checkpoint and dedup dimensions. |
 | `G2-CAPABILITY-CANDIDATE-NEM-MESSAGING-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Governance evidence horizons while preserving retained-message/log, dedup, offset/checkpoint, ack and DLQ/redrive semantics. |
-| `G2-CAPABILITY-CANDIDATE-NEM-MIXED-MESSAGING-PROVIDER-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent durability, ordering, replay, retention, dedup, transaction, acknowledgement, DLQ/redrive, filtering, partitioning, offline and evidence axes. |
+| `G2-CAPABILITY-CANDIDATE-NEM-MIXED-MESSAGING-PROVIDER-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent durability, ordering, replay, retention, deduplication, transactional coupling, acknowledgement, DLQ/redrive, filtering, partitioning, offline and evidence axes. |
 | `G2-CAPABILITY-CANDIDATE-NEM-MESSAGE-CHECKPOINT-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Messaging owns residual message/subscription/checkpoint/retry/DLQ/consumer closure during provider migration. |
 
 ## Cycle 7 — Identity / Authentication / Federation candidates
