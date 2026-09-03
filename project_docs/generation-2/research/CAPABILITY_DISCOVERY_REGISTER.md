@@ -8,6 +8,16 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
+## Cycle 7 — Governance / Compliance / Audit candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-GCA-APPLICABILITY-SCOPED-GOVERNANCE-QUALIFICATION-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability graph while Governance retains obligation/control/assessment/population/exception semantics. |
+| `G2-CAPABILITY-CANDIDATE-GCA-GOVERNANCE-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA/Observability evidence horizons while preserving assessment/audit retention and historical-verifiability semantics. |
+| `G2-CAPABILITY-CANDIDATE-GCA-MIXED-ASSESSOR-EVIDENCE-AUDIT-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent framework, applicability, assessment-method, evidence, exception, audit, retention, offline and delegated-admin axes. |
+| `G2-CAPABILITY-CANDIDATE-GCA-EVIDENCE-FINDING-EXCEPTION-AUDIT-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Governance owns residual closure for old assessor/provider evidence, findings, exceptions, audit/trust artifacts and dependent consumers. |
+
+No candidate is promoted in this revisit.
+
 ## Cycle 7 — Extension / Plugin / Marketplace Architecture candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
@@ -15,8 +25,6 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | `G2-CAPABILITY-CANDIDATE-EPM-REQUESTED-GRANTED-EFFECTIVE-CAPABILITY-LINEAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve extension-owned capability-request/grant/effective-runtime lineage unless Authorization synthesis proves a universal owner without semantic loss. |
 | `G2-CAPABILITY-CANDIDATE-EPM-MIXED-EXTENSION-CONTAINMENT-RUNTIME-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Provider/Security support vectors while preserving extension-specific containment, host-authority and runtime dimensions. |
 | `G2-CAPABILITY-CANDIDATE-EPM-EXTENSION-VERSION-SESSION-HOOK-GRANT-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Extension owns residual update/provider-cutover closure for old versions, sessions, caches, hooks, grants and consumers. |
-
-No candidate is promoted in this revisit.
 
 ## Cycle 7 — Observability / Operations / Incident candidates
 | Candidate | Class | Status | Promotion / merge condition |
