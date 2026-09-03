@@ -18,5 +18,8 @@ Kubernetes controller/finalizer semantics: `DEEP`; Crossplane managed-resource r
 ### Universal Capability Architecture — revisit 5
 Kubernetes API consistency / Server-Side Apply: `DEEP`; PostgreSQL 18 transaction isolation: `DEEP`; SPIFFE federation / SVID trust-domain identity: `DEEP`; OpenTelemetry Context / Baggage propagation: `DEEP`; OCI image manifests / content descriptors: `DEEP`. Findings `G2-FINDING-UCA-36..43`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: typed semantic-owner identity, revision-vs-consistency separation, non-authoritative propagated context, composite-proof evidence compatibility, trust/evidence-horizon closure, layered portability claims and AGWS hierarchy preservation.
 
+### Process & Application Modeling — revisit 5
+Camunda 8 process-application/file-level versioning and migration: `DEEP`; Mendix semantic merge/version-control behavior: `DEEP`; Microsoft Dataverse solution layering/effective realization: `DEEP`; ServiceNow delegated application-development/deployment permissions: `DEEP`; OMG BPMN semantic portability: `DEEP` historical cross-check. Findings `G2-FINDING-PAM-37..44`; material new findings; consecutive-no-material = 0; NOT SATURATED. Focus: typed semantic/representation/provider identity continuity, multi-axis revision vectors, conflict-free merge vs semantic validation, composite proof joins, context non-authority, layered portability, qualified-local trust/evidence horizon and AGWS canonical-domain escalation.
+
 ## Historical authority
 All omitted representative/capability cells remain authoritative in prior ledger revisions and capability dossiers.
