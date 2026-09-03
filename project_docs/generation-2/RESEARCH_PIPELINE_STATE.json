@@ -3,155 +3,42 @@
   "generation": "Generation 2 — Capability Architecture & Symbiotic Platform Engineering",
   "status": "ACTIVE",
   "phase": "RESEARCH_ELICITATION",
-  "phase_order": [
-    "RESEARCH_ELICITATION",
-    "CAPABILITY_SYNTHESIS",
-    "PLANNING_A_TAXONOMY_BOUNDARIES",
-    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION",
-    "PLANNING_C_TARGET_ARCHITECTURE",
-    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY",
-    "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE",
-    "ARCHITECTURE_RECONCILIATION",
-    "WBS_DECOMPOSITION",
-    "WBS_DEPENDENCY_GRAPH",
-    "WORK_PACKAGE_DESIGN",
-    "READY_FOR_WORKER_HANDOFF"
-  ],
+  "phase_order": ["RESEARCH_ELICITATION","CAPABILITY_SYNTHESIS","PLANNING_A_TAXONOMY_BOUNDARIES","PLANNING_B_SB_CURRENT_STATE_RECONCILIATION","PLANNING_C_TARGET_ARCHITECTURE","PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY","PLANNING_E_PRODUCT_PROOF_ACCEPTANCE","ARCHITECTURE_RECONCILIATION","WBS_DECOMPOSITION","WBS_DEPENDENCY_GRAPH","WORK_PACKAGE_DESIGN","READY_FOR_WORKER_HANDOFF"],
   "research": {
     "initial_macro_capabilities": 24,
     "active_taxonomy_capabilities": 25,
     "minimum_full_cycles": 7,
     "target_full_cycles": 10,
     "maximum_full_cycles": null,
-    "cycle_semantics": "minimum_full_cycles is a mandatory floor; target_full_cycles is a maturity checkpoint for global saturation reassessment, not an upper bound. There is no maximum cycle count.",
-    "continuation_rule": "Cycle count never authorizes CAPABILITY_SYNTHESIS by itself. Continue while material findings, gaps, divergences or unresolved cross-cutting primitives remain; transition only when saturation and completeness gates are satisfied.",
-    "late_cycle_selection_rule": "As saturation increases, prefer research-by-exception and do not routinely reopen SATURATED capabilities without material new evidence or contradiction.",
     "completed_full_cycles": 5,
     "active_revisit_cycle": 6,
-    "capabilities_revisited_in_active_cycle": 23,
-    "hourly_runs_completed": 147,
-    "finding_count": 1095,
-    "capability_candidate_count": 510,
-    "new_candidates_this_run": [
-      "G2-CAPABILITY-CANDIDATE-AIN-TYPED-AGENTIC-CONTROL-IDENTITY",
-      "G2-CAPABILITY-CANDIDATE-AIN-PROVENANCE-QUALIFIED-CUMULATIVE-CONTEXT",
-      "G2-CAPABILITY-CANDIDATE-AIN-RESUME-SEMANTICS-PROFILE",
-      "G2-CAPABILITY-CANDIDATE-AIN-RESOURCE-BOUND-TOOL-AUTHORITY"
-    ],
+    "capabilities_revisited_in_active_cycle": 24,
+    "hourly_runs_completed": 148,
+    "finding_count": 1103,
+    "capability_candidate_count": 514,
+    "new_candidates_this_run": ["G2-CAPABILITY-CANDIDATE-DOESH-TYPED-INSTALLATION-UPDATE-RECOVERY-IDENTITY","G2-CAPABILITY-CANDIDATE-DOESH-PATH-RELATIVE-UPGRADE-COMPATIBILITY","G2-CAPABILITY-CANDIDATE-DOESH-QUALIFIED-AIRGAP-MATERIAL-TRUST-CLOSURE","G2-CAPABILITY-CANDIDATE-DOESH-DIAGNOSTIC-CUSTODY-REDACTION-EVIDENCE"],
     "promoted_capabilities_this_run": [],
     "saturated_capabilities": [],
     "saturation_rule": "SATURATED requires principal representatives covered and two consecutive eligible revisits with no material new architectural finding, or remaining questions requiring repository validation. Material findings reset the streak.",
-    "research_evidence_method_authority": "project_docs/generation-2/research/RESEARCH_EVIDENCE_METHOD.md",
-    "architecture_proof_quality_method_authority": "project_docs/generation-2/research/ARCHITECTURE_PROOF_QUALITY_METHOD.md",
-    "capability_proof_matrix_authority": "project_docs/generation-2/research/CAPABILITY_PROOF_MATRIX.md",
-    "proof_backfill_rule": "All 25 active capabilities and mandatory research hypotheses must acquire explicit positive, negative/adversarial, failure/authority/version/provider/evidence proof obligations as applicable. Existing dossiers inherit retroactive proof debt. CAPABILITY_SYNTHESIS must reconcile duplicate proofs and PLANNING_E_PRODUCT_PROOF_ACCEPTANCE cannot close until all active capability proof entries are READY_FOR_ACCEPTANCE_TRANSLATION or explicitly dispositioned with rationale.",
-    "mandatory_research_hypotheses": [
-      "G2-RESEARCH-HYPOTHESIS-EXECUTABLE-CAPABILITY-COMPOSITION-AND-CUMULATIVE-CONTEXT",
-      "G2-RESEARCH-HYPOTHESIS-TRANSACTION-CONSISTENCY-CONCURRENCY",
-      "G2-RESEARCH-HYPOTHESIS-TOPOLOGY-BUILD-RUNTIME-REALIZATION",
-      "G2-RESEARCH-HYPOTHESIS-TENANT-FLEET-EDGE-INGRESS-ROUTING"
-    ],
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; compact representations do not revoke prior candidates",
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
     "finding_inventory_authority": "project_docs/generation-2/research/FINDING_INDEX.md plus capability dossiers and prior state history; compact state does not revoke prior findings",
-    "mandatory_discovered_capabilities": {
-      "Adaptive Governed Work Surfaces": {
-        "candidate_id": "G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES",
-        "classification": "CORE",
-        "status": "PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY",
-        "saturation": "NOT_SATURATED",
-        "must_remain_distinct_from": "UI / Generated Experience / Low-code Builder",
-        "required_boundary": "Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.",
-        "required_authoring_rule": "Users express intent and compose constrained semantic components; AI is sole materializer and must escalate canonical domain/process changes.",
-        "required_proofs": [
-          "list/form/grid without new canonical model",
-          "layout constrained to allowed slots/grid",
-          "mandatory component non-removable",
-          "personalization revalidated after Station/Role change",
-          "AI request requiring domain change escalated",
-          "provider-bound action without coupling",
-          "personal automation respects authority",
-          "lineage/version/diff/reset/rollback",
-          "Personal→Team/Role/System promotion governed by evidence"
-        ]
-      }
-    },
-    "enterprise_completeness_negative_space_gate": {
-      "required_when_completed_full_cycles_gte": 7,
-      "status": "NOT_YET_ELIGIBLE",
-      "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
-      "rule": "CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred, and no material category remains ownerless."
-    },
-    "active_cycle_completed": [
-      "Universal Capability Architecture",
-      "Process & Application Modeling",
-      "UI / Generated Experience / Low-code Builder",
-      "Adaptive Governed Work Surfaces",
-      "Workflow & Durable Execution",
-      "Integration & Automation",
-      "Identity / Authentication / Federation",
-      "Authorization / Policy / Organization / Multitenancy",
-      "Data / Schema / Migrations",
-      "Storage / Documents / Media",
-      "Notifications / Events / Messaging",
-      "Build / Dependency Graph / Reproducibility",
-      "Artifact / Release / SBOM / Provenance",
-      "Deployment / Environment / Runtime",
-      "Observability / Operations / Incident",
-      "Extension / Plugin / Marketplace Architecture",
-      "Governance / Compliance / Audit",
-      "Secrets / Configuration / Environment Portability",
-      "Provider / Binding / Capability Negotiation",
-      "Standards / Interoperability / API Contracts",
-      "Lifecycle / Versioning / Evolution / Migration",
-      "Security / Resilience / Failure Recovery",
-      "AI-native Engineering / Agents / Approvals"
-    ],
-    "latest_revisit": {
-      "capability": "AI-native Engineering / Agents / Approvals",
-      "revisits_completed": 5,
-      "consecutive_no_material_finding": 0,
-      "last_revisit_result": "MATERIAL_NEW_FINDINGS",
-      "new_findings": [
-        "G2-FINDING-AIN-39",
-        "G2-FINDING-AIN-40",
-        "G2-FINDING-AIN-41",
-        "G2-FINDING-AIN-42",
-        "G2-FINDING-AIN-43",
-        "G2-FINDING-AIN-44",
-        "G2-FINDING-AIN-45",
-        "G2-FINDING-AIN-46"
-      ],
-      "representative_coverage": {
-        "OpenAI Agents SDK HITL/guardrails": "DEEP",
-        "Anthropic Claude Code containment/sandboxing": "DEEP",
-        "Model Context Protocol authorization": "DEEP",
-        "LangGraph interrupts/replay semantics": "DEEP",
-        "Google ADK + Restate durable agents": "DEEP",
-        "NIST Software/AI Agent Identity & Authorization initiative": "DEEP"
-      }
-    },
-    "pending_capabilities": [
-      "Developer / Operator Experience / Self-hosting",
-      "Architecture Reconciliation as a Capability"
-    ]
+    "mandatory_discovered_capabilities": {"Adaptive Governed Work Surfaces":{"candidate_id":"G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES","classification":"CORE","status":"PROMOTED_TO_ACTIVE_RESEARCH_TAXONOMY","saturation":"NOT_SATURATED","must_remain_distinct_from":"UI / Generated Experience / Low-code Builder","required_boundary":"Enterprise → Station → Role → Person; higher invariants non-weakenable; Station is first-class capability-exposure/delegated-administration/hierarchical-SB boundary.","required_authoring_rule":"Users express intent and compose constrained semantic components; AI is sole materializer and must escalate canonical domain/process changes."}},
+    "enterprise_completeness_negative_space_gate": {"required_when_completed_full_cycles_gte":7,"status":"NOT_YET_ELIGIBLE","artifact":"project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md","rule":"CAPABILITY_SYNTHESIS remains blocked after cycle 7 until enterprise archetypes and negative-space concerns are classified, material semantic-owner gaps are researched or explicitly deferred, and no material category remains ownerless."},
+    "active_cycle_completed": ["Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Adaptive Governed Work Surfaces","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Governance / Compliance / Audit","Secrets / Configuration / Environment Portability","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Security / Resilience / Failure Recovery","AI-native Engineering / Agents / Approvals","Developer / Operator Experience / Self-hosting"],
+    "latest_revisit": {"capability":"Developer / Operator Experience / Self-hosting","revisits_completed":5,"consecutive_no_material_finding":0,"last_revisit_result":"MATERIAL_NEW_FINDINGS","new_findings":["G2-FINDING-DOESH-39","G2-FINDING-DOESH-40","G2-FINDING-DOESH-41","G2-FINDING-DOESH-42","G2-FINDING-DOESH-43","G2-FINDING-DOESH-44","G2-FINDING-DOESH-45","G2-FINDING-DOESH-46"],"representative_coverage":{"Kubernetes kubeadm upgrade/recovery":"DEEP","K3s air-gap install/upgrade/rollback":"DEEP","GitLab Self-Managed upgrade/backup-restore":"DEEP","HashiCorp Nomad upgrade/snapshot recovery":"DEEP","prior cross-capability Generation-2 research":"DEEP"}},
+    "pending_capabilities": ["Architecture Reconciliation as a Capability"]
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — five full cycles complete; cycle 6 has 23/25 capabilities revisited. AI-native Engineering / Agents / Approvals produced eight material findings and remains NOT SATURATED. Minimum seven cycles and the post-cycle-7 negative-space gate remain mandatory.",
+    "RESEARCH_ELICITATION": "OPEN — five full cycles complete; cycle 6 has 24/25 capabilities revisited. Developer / Operator Experience / Self-hosting produced eight material findings and remains NOT SATURATED. Minimum seven cycles and the post-cycle-7 negative-space gate remain mandatory.",
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "NOT_YET_ELIGIBLE — mandatory after completed_full_cycles >= 7 and before CAPABILITY_SYNTHESIS.",
-    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — AI cycle-6 dossier adds explicit proofs for typed agentic identities, sticky-approval containment, cumulative-context non-amplification, pre-trust attack surfaces, resource/audience-bound tool authorization, replay-profile portability, ambiguous-effect reconciliation, separation of duties, provider substitution, qualified offline closure, AGWS escalation and semantic postcondition validation. CAPABILITY_PROOF_MATRIX remains authoritative for acceptance-translation debt.",
+    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — cycle-6 dossiers continue adding explicit positive, negative, failure, authority, version, provider and evidence proof obligations; CAPABILITY_PROOF_MATRIX remains authoritative.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_BY_RESEARCH_ELICITATION"
   },
-  "artifact_roots": {
-    "research": "project_docs/generation-2/research/",
-    "synthesis": "project_docs/generation-2/synthesis/",
-    "planning": "project_docs/generation-2/planning/",
-    "wbs": "project_docs/generation-2/wbs/",
-    "packages": "project_docs/generation-2/packages/"
-  },
-  "current_focus": "AI-native Engineering / Agents / Approvals — revisit 5 / cycle 6 complete. Eight material findings harden typed agentic control identities, approval applicability, non-amplifying cumulative context, resource-bound tool authority, durable resume semantics, provider substitution evidence and separation of duties. Capability remains NOT SATURATED.",
-  "last_completed_artifact": "project_docs/generation-2/research/capabilities/AI_NATIVE_ENGINEERING_AGENTS_APPROVALS_REVISIT_05.md",
+  "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
+  "current_focus": "Developer / Operator Experience / Self-hosting — revisit 5 / cycle 6 complete. Eight material findings harden typed installation/update/recovery identity, desired-vs-observed truth, path-relative upgrade compatibility, qualified air-gap closure, reconcile-before-retry, semantic validation, diagnostic custody and residual fleet/reconnect disposition. Capability remains NOT SATURATED.",
+  "last_completed_artifact": "project_docs/generation-2/research/capabilities/DEVELOPER_OPERATOR_EXPERIENCE_SELF_HOSTING_REVISIT_05.md",
   "last_framework_artifact": "project_docs/generation-2/research/CAPABILITY_PROOF_MATRIX.md",
-  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Developer / Operator Experience / Self-hosting, revisit 5 / cycle 6, selected as the oldest non-saturated capability remaining in cycle 6. Use research-by-exception to stress-test typed installation/instance/operator/update/recovery/diagnostic/fleet identities; self-hosted control-plane versus local-runtime source of truth; update/trust/recovery revision vectors; disconnected update-source qualification; supply-chain and bootstrap trust; install/upgrade/rollback/restore/reprotect lifecycle; configuration/secrets/data compatibility; fleet targeting and authority; diagnostics custody/redaction versus privileged access; partial/ambiguous update outcomes and reconcile-before-retry; backup/restore semantic validation; provider substitution and local closure/reconnection; Enterprise→Station→Role→Person attenuation; AI-assisted operations and AGWS without privileged amplification; and architecture proof-backfill. Preserve Adaptive Governed Work Surfaces as promoted and distinct. Do not enter CAPABILITY_SYNTHESIS because completed_full_cycles=5 remains below minimum_full_cycles=7 and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
-  "last_updated": "2026-09-03T05:49:30-03:00"
+  "next_action": "Continue RESEARCH_ELICITATION with exactly one capability: Architecture Reconciliation as a Capability, revisit 5 / cycle 6, the sole remaining capability in cycle 6. Use research-by-exception to stress-test evidence→finding→product-truth→gap→disposition identity and lineage; architecture decision/ADR applicability and supersession; fresh-main evidence versus research-branch hypotheses; contradiction and unresolved-evidence handling; proof-obligation ownership; KEEP/HARDEN/GENERALIZE/PROVIDERIZE/INTEGRATE/REPLACE/DEFER/DO_NOT_BUILD semantics; dependency/risk/non-goal traceability; stale-evidence invalidation; multi-axis revision vectors; provider and migration implications; executable conformance versus documentation claims; Enterprise→Station→Role→Person and AGWS/AI non-amplification; and architecture proof-backfill. Preserve Adaptive Governed Work Surfaces as promoted and distinct. Do not enter CAPABILITY_SYNTHESIS: completed_full_cycles remains 5 until cycle 6 closes, minimum_full_cycles=7, and Enterprise Completeness / Negative-Space Review remains NOT_YET_ELIGIBLE.",
+  "last_updated": "2026-09-03T06:05:37-03:00"
 }
