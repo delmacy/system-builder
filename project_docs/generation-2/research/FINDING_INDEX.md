@@ -26,8 +26,18 @@ All previously indexed cycle-5 findings through Developer / Operator Experience 
 - **G2-FINDING-UCA-42** — Identity continuity across provider/topology/trust change is per identity kind; higher semantic identity may remain stable while authn/artifact/realization identities legitimately change.
 - **G2-FINDING-UCA-43** — Universal scope primitives must not absorb AGWS's `Enterprise → Station → Role → Person` governance hierarchy.
 
+### Process & Application Modeling — revisit 5
+- **G2-FINDING-PAM-37** — Process/Application identity continuity is typed across semantic, representation, provider and execution kinds; stable file/provider IDs cannot define canonical semantic identity.
+- **G2-FINDING-PAM-38** — Application revision is a vector rather than necessarily one bundle version; semantic units, schemas/contracts, bindings and runtime definitions may advance independently.
+- **G2-FINDING-PAM-39** — Conflict-free merge does not prove semantic validity; merge/conflict detection and whole-model semantic conformance are independent evidence classes.
+- **G2-FINDING-PAM-40** — Composite Process/Application proof requires revision-compatible evidence joins; incompatible model/schema/provider/trust evidence yields `INCONCLUSIVE`.
+- **G2-FINDING-PAM-41** — Propagated modeling context is provenance, not canonical mutation or actuation authority.
+- **G2-FINDING-PAM-42** — Process/Application portability must be layered across preserve, interpret, validate, realize and actuate; lower-layer support cannot become generic compatibility.
+- **G2-FINDING-PAM-43** — Qualified local modeling closure has a trust/evidence horizon and requires reconnection requalification when relevant dependencies advance.
+- **G2-FINDING-PAM-44** — AGWS domain-change escalation is a cross-capability boundary: Personal/Role/Station intent that changes canonical semantics must enter Process/Application Modeling authority and validation lineage.
+
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture and Process & Application Modeling completed.
 
 ## Historical authority
 All prior findings, including cycle 1–5 and compacted findings, remain authoritative in their dossiers and prior index revisions.
