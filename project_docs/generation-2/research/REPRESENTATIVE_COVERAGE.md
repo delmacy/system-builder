@@ -2,6 +2,11 @@
 
 States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`. Historical coverage in prior revisions, capability dossiers and state history remains authoritative; this compact ledger does not revoke omitted cells.
 
+## Technology Economic Governance — centralized proof
+FinOps Framework Allocation / Forecasting / Rate Optimization: `DEEP`; FOCUS 1.4 normalization/effective-cost/commitment semantics: `DEEP`; OpenCost allocation/custom on-prem pricing: `DEEP`; AWS Cost Management amortized/net-amortized semantics: `DEEP`; Microsoft Cost Management actual/amortized reservation and savings-plan semantics: `DEEP`; Google Cloud Billing/CUD model and data-latency semantics: `DEEP`; on-prem/internal-rate evidence via OpenCost + FinOps Data Center guidance: `DEEP`.
+
+Findings `G2-FINDING-TEGP-01..08`. Technology-economic normalization/allocation/history/budget/forecast/commitment/provider-substitution centralized proof is **RESOLVED_BY_MULTI_REPRESENTATIVE_RESEARCH_WITHOUT_NEW_PROMOTION** in `TECHNOLOGY_ECONOMIC_GOVERNANCE_CENTRALIZED_PROOF.md`.
+
 ## AI Evaluation Qualification / Stale-Evidence Rejection — centralized proof
 MLflow Prompt Registry + GenAI Evaluation: `DEEP`; LangSmith offline/online evaluation + experiment metadata: `DEEP`; Microsoft Foundry risk/safety evaluators: `DEEP`; NIST AI RMF / AIRC TEVV: `DEEP`; Google Vertex AI evaluation family: `TARGETED`.
 
@@ -28,9 +33,9 @@ Nix store closure / `why-depends` / closure copy: `DEEP`; Bazel dependency query
 Findings `G2-FINDING-WDRR-01..08`. Centralized workload-driven minimal-runtime proof debt is resolved.
 
 ## Economic Governance / FinOps / Procurement — structural gap disposition
-FinOps Framework: `DEEP`; FOCUS 1.4: `DEEP`; OpenCost: `DEEP`; Microsoft Azure Cost Management: `DEEP`; AWS Cost Management: `TARGETED`; Google Cloud commitment pricing: `TARGETED`; TCO/private-cloud literature: `TARGETED`.
+FinOps Framework: `DEEP`; FOCUS 1.4: `DEEP`; OpenCost: `DEEP`; Microsoft Azure Cost Management: `DEEP`; AWS Cost Management: `DEEP`; Google Cloud commitment pricing/billing model: `DEEP`; on-prem/internal-rate guidance: `DEEP`.
 
-Findings `G2-FINDING-EGFP-01..08`; parent split; Technology Economic Governance / FinOps promoted CROSS_CUTTING / NOT_SATURATED.
+Findings `G2-FINDING-EGFP-01..08` plus centralized proof findings `G2-FINDING-TEGP-01..08`; parent split; Technology Economic Governance / FinOps promoted CROSS_CUTTING / NOT_SATURATED.
 
 ## AI Evaluation / Model / Prompt / Safety Governance — structural gap research
 NIST AI RMF Generative AI Profile + AIRC TEVV: `DEEP`; MLflow: `DEEP`; LangSmith: `DEEP`; Microsoft Foundry: `DEEP`; Google Vertex AI: `DEEP`. Parent RESEARCH_COMPLETE / MERGE_INTO_EXISTING_OWNERS / NOT_PROMOTED.
@@ -42,7 +47,7 @@ NIST Privacy Framework: `DEEP`; EU GDPR: `DEEP`; Microsoft Purview: `DEEP`; Goog
 RFC 5280: `DEEP`; RFC 8555 ACME: `DEEP`; SPIFFE/SPIRE: `DEEP`; cert-manager: `DEEP`; Vault PKI: `DEEP`; Smallstep step-ca: `DEEP`. Parent promoted CROSS_CUTTING / NOT_SATURATED.
 
 ## Enterprise Completeness / Negative-Space Review
-Seven original cycles are complete. Trust, Privacy and Technology Economic Governance are promoted post-cycle-7 owners and remain NOT_SATURATED. AI Evaluation is merged into existing owners, and its centralized qualification/stale-evidence proof is now resolved. Workload-driven minimal-runtime realization, Artifact-to-Runtime Admission, Enterprise Trust lifecycle/rotation/offline and Privacy retention/hold/residency proof junctions are dispositioned. Remaining technology-economic and domain-composition centralized proof junctions remain open before synthesis.
+Seven original cycles are complete. Trust, Privacy and Technology Economic Governance are promoted post-cycle-7 owners and remain NOT_SATURATED. AI Evaluation is merged into existing owners. Workload-driven minimal-runtime realization, Artifact-to-Runtime Admission, Enterprise Trust lifecycle/rotation/offline, Privacy retention/hold/residency, AI evaluation qualification/stale-evidence and Technology Economic Governance proof junctions are dispositioned. Only the domain-composition/provider-identity centralized proof junction remains open before synthesis.
 
 ## Historical authority
 Detailed representative coverage for all other capabilities remains authoritative in their dossiers, earlier ledger revisions and `RESEARCH_PIPELINE_STATE.json` history.
