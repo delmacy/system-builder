@@ -16,12 +16,12 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Security / Resilience / Failure Recovery — revisit cycle 5 candidates
+## AI-native Engineering / Agents / Approvals — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-SRFR-THREAT-RECOVERY-REVISION-VECTOR-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle revision-vector transition closure and qualified operational evidence without moving Security/Recovery semantic ownership. |
-| G2-CAPABILITY-CANDIDATE-SRFR-RECOVERY-POINT-INTEGRITY-ELIGIBILITY-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with storage integrity/provenance and unified evidence qualification if recovery eligibility semantics remain capability-owned. |
-| G2-CAPABILITY-CANDIDATE-SRFR-AMBIGUOUS-RECOVERY-ACTUATION-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge universal ambiguous-outcome disposition across Integration, Deployment, Lifecycle and Architecture Reconciliation. |
-| G2-CAPABILITY-CANDIDATE-SRFR-NONAMPLIFYING-BREAKGLASS-LOCAL-RECOVERY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with faceted authority, qualified local closure, Station hierarchy and reconnection requalification. |
+| G2-CAPABILITY-CANDIDATE-AIN-REVISION-VECTOR-APPROVAL-APPLICABILITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with revision-bound evidence, expected-base ownership and Lifecycle revision vectors; approval semantics remain AI/agent-owned only where specifically needed. |
+| G2-CAPABILITY-CANDIDATE-AIN-REPLAY-SAFE-AGENT-CHECKPOINT-ACTUATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Workflow durable execution, idempotency/correlation and universal ambiguous-outcome disposition. |
+| G2-CAPABILITY-CANDIDATE-AIN-ACTUATION-SURFACE-ENFORCEMENT-COVERAGE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Authorization, Provider Binding and Security hard-boundary evidence if per-surface coverage can remain explicit. |
+| G2-CAPABILITY-CANDIDATE-AIN-SENSITIVE-INTERACTION-OUT-OF-BAND-BOUNDARY | CROSS_CUTTING | CANDIDATE | Retain unless Secrets/Identity/Governance synthesis absorbs sensitive elicitation without losing the model-context separation requirement. |
 
-No Security / Resilience / Failure Recovery candidate is promoted in this run.
+No AI-native Engineering / Agents / Approvals candidate is promoted in this run.
