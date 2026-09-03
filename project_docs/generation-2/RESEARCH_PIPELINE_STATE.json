@@ -2,7 +2,7 @@
   "schema_version": 1,
   "generation": "Generation 2 — Capability Architecture & Symbiotic Platform Engineering",
   "status": "ACTIVE",
-  "phase": "CAPABILITY_SYNTHESIS",
+  "phase": "PLANNING_A_TAXONOMY_BOUNDARIES",
   "phase_order": ["RESEARCH_ELICITATION","CAPABILITY_SYNTHESIS","PLANNING_A_TAXONOMY_BOUNDARIES","PLANNING_B_SB_CURRENT_STATE_RECONCILIATION","PLANNING_C_TARGET_ARCHITECTURE","PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY","PLANNING_E_PRODUCT_PROOF_ACCEPTANCE","ARCHITECTURE_RECONCILIATION","WBS_DECOMPOSITION","WBS_DEPENDENCY_GRAPH","WORK_PACKAGE_DESIGN","READY_FOR_WORKER_HANDOFF"],
   "research": {
     "initial_macro_capabilities": 24,
@@ -12,7 +12,7 @@
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 194,
+    "hourly_runs_completed": 195,
     "finding_count": 1407,
     "capability_candidate_count": 642,
     "new_candidates_this_run": [],
@@ -57,36 +57,35 @@
     "artifact": "project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md",
     "canonical_capability_count": 28,
     "original_macro_capabilities": 24,
-    "structural_promotions": [
-      "Adaptive Governed Work Surfaces",
-      "Enterprise Trust / PKI / Certificate Lifecycle",
-      "Privacy / Data Governance / Retention / Legal Hold / Residency",
-      "Technology Economic Governance / FinOps"
-    ],
-    "required_products": {
-      "canonical_capability_taxonomy": "PASS",
-      "macro_sub_cross_cutting_map": "PASS",
-      "universal_primitives_register": "PASS",
-      "representative_contribution_map": "PASS",
-      "contradiction_unresolved_evidence_register": "PASS",
-      "symbiotic_completeness_candidate_matrix": "PASS",
-      "saturation_report": "PASS"
-    },
+    "structural_promotions": ["Adaptive Governed Work Surfaces","Enterprise Trust / PKI / Certificate Lifecycle","Privacy / Data Governance / Retention / Legal Hold / Residency","Technology Economic Governance / FinOps"],
+    "required_products": {"canonical_capability_taxonomy":"PASS","macro_sub_cross_cutting_map":"PASS","universal_primitives_register":"PASS","representative_contribution_map":"PASS","contradiction_unresolved_evidence_register":"PASS","symbiotic_completeness_candidate_matrix":"PASS","saturation_report":"PASS"},
     "unresolved_external_semantic_owner_gaps": [],
     "planning_b_repo_validation_deferred": true,
     "planning_e_product_proof_backfill_deferred": true
+  },
+  "planning_a": {
+    "status": "IN_PROGRESS",
+    "canonical_capability_count": 28,
+    "completed_capability_count": 1,
+    "completed_capabilities": ["Adaptive Governed Work Surfaces"],
+    "latest_capability": "Adaptive Governed Work Surfaces",
+    "latest_artifact": "project_docs/generation-2/planning/PLANNING_A_ADAPTIVE_GOVERNED_WORK_SURFACES_BOUNDARIES.md",
+    "latest_result": "PASS_FOR_CAPABILITY",
+    "global_gate": "OPEN",
+    "global_blocker": "27 canonical capabilities still require explicit Planning A ownership/boundary reconciliation before global Planning A closure.",
+    "preserved_constitutional_boundaries": ["AGWS distinct from UI / Generated Experience / Low-code Builder","Enterprise → Station → Role → Person monotonic delegated authority","Station as capability-exposure/delegated-administration boundary","provider/external IDs non-canonical unless explicitly adopted","AI/AGWS non-amplification"]
   },
   "gates": {
     "RESEARCH_ELICITATION": "CLOSED — seven cycles complete, Enterprise Completeness / Negative-Space gate CLOSED, centralized proof debt empty, six closure criteria PASS, and all post-cycle-7 promoted structural capabilities satisfy normal saturation.",
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "CLOSED / SIX_CRITERIA_PASS / PROMOTED_SATURATION_COMPLETE / FORMAL_CLOSURE_RECONCILIATION_PASS",
     "ARCHITECTURE_PROOF_BACKFILL": "CENTRALIZED_PASS_1_COMPLETE — no centralized proof debt remains; historical per-capability backfill obligations remain authoritative for later Product Proof / Acceptance.",
     "CAPABILITY_SYNTHESIS": "CLOSED / PASS — canonical taxonomy, cross-cutting map, universal primitives, representative contribution map, contradiction register, Symbiotic Completeness candidate matrix and saturation report materialized.",
-    "PLANNING_A_TAXONOMY_BOUNDARIES": "READY_TO_ENTER_NEXT_EXECUTION — not started in this synthesis run"
+    "PLANNING_A_TAXONOMY_BOUNDARIES": "IN_PROGRESS — Adaptive Governed Work Surfaces PASS_FOR_CAPABILITY; 27 canonical capabilities remain; PLANNING_B not entered."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Capability Synthesis completed from the authoritative research corpus. The canonical taxonomy contains 28 active capabilities; Adaptive Governed Work Surfaces remains CORE/distinct from generic UI with Enterprise → Station → Role → Person and bounded Station capability exposure/delegated administration; AI/AGWS authority remains non-amplifying. Late synthesis evidence on relative operational complexity was reconciled as DO_NOT_PROMOTE with qualified measurement/profile primitives generalized into existing owners. No Planning A work was performed in this execution.",
-  "last_completed_artifact": "project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md",
+  "current_focus": "PLANNING_A_TAXONOMY_BOUNDARIES is active. Adaptive Governed Work Surfaces has explicit canonical ownership, source-of-truth, non-goals, neighboring-owner relations, provider boundary, Enterprise → Station → Role → Person monotonic authority, mandatory-component/layout semantics, Station capability exposure/delegated administration, AI non-amplification, lifecycle/failure semantics and preserved nine proof obligations. No SB current-state claims were made and no Planning B work was performed.",
+  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_A_ADAPTIVE_GOVERNED_WORK_SURFACES_BOUNDARIES.md",
   "last_framework_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
-  "next_action": "Advance exactly one state-machine phase to PLANNING_A_TAXONOMY_BOUNDARIES and perform only Planning A taxonomy/boundary work from the closed Capability Synthesis artifact and authoritative research corpus. Materialize explicit capability ownership boundaries, canonical-vs-provider semantics, macro/subcapability relationships, cross-cutting contracts, Station capability-exposure/delegated-administration boundaries, and contradiction dispositions needed before SB current-state reconciliation. Preserve Adaptive Governed Work Surfaces as distinct from generic UI, preserve Enterprise → Station → Role → Person, preserve provider IDs as non-canonical unless explicitly adopted, and preserve AI/AGWS non-amplification. Do not enter PLANNING_B_SB_CURRENT_STATE_RECONCILIATION in the same execution unless the Planning A gate objectively closes and the state-machine transition rule permits the next execution; do not execute product code, Work Packages, executive TASKs, Construction or worker handoff.",
-  "updated_at": "2026-09-03T18:17:00-03:00"
+  "next_action": "Continue only PLANNING_A_TAXONOMY_BOUNDARIES and reconcile exactly one canonical capability: Universal Capability Architecture. Define its semantic ownership, source of truth, non-goals, macro/sub/cross-cutting boundary, relationships to all other owners, anti-god-object constraints, canonical-vs-provider semantics, lifecycle/evidence responsibilities and contradiction dispositions from the closed Capability Synthesis and authoritative research corpus. Do not inspect or infer SB implementation except where a later Planning B question must be recorded. Preserve Adaptive Governed Work Surfaces as distinct from generic UI, preserve Enterprise → Station → Role → Person and Station delegated capability exposure, preserve provider IDs as non-canonical unless explicitly adopted, preserve AI/AGWS non-amplification, do not enter PLANNING_B_SB_CURRENT_STATE_RECONCILIATION, and do not execute product code, Work Packages, executive TASKs, Construction, PR or worker handoff.",
+  "updated_at": "2026-09-03T18:31:19-03:00"
 }
