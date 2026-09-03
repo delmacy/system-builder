@@ -21,10 +21,18 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 |---|---|---|---|
 | `G2-CAPABILITY-CANDIDATE-APOM-APPLICABILITY-SCOPED-EFFECTIVE-AUTHORITY-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability while Authorization retains policy/model/schema, relationship/topology, delegation/lease, consistency and enforcement dimensions. |
 | `G2-CAPABILITY-CANDIDATE-APOM-AUTHORIZATION-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile evidence-horizon primitives while preserving authorization snapshot/policy/schema/trust semantics. |
-| `G2-CAPABILITY-CANDIDATE-APOM-MIXED-AUTHORIZATION-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent policy, schema/entity, relationship, consistency, temporal/contextual, delegation, distribution, enforcement and evidence axes. |
+| `G2-CAPABILITY-CANDIDATE-APOM-MIXED-AUTHORIZATION-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent policy, schema/entity, relationship, consistency/freshness, temporal/contextual, delegation, distribution, enforcement and evidence axes. |
 | `G2-CAPABILITY-CANDIDATE-APOM-AUTHORITY-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Authorization owns residual evaluator/session/contextual-grant/temporary-grant/enforcement closure during policy/provider migration. |
 
-No cycle-7 Identity or Authorization candidate is promoted. Adaptive Governed Work Surfaces remains promoted and distinct.
+## Cycle 7 — Data / Schema / Migrations candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-DSM-APPLICABILITY-SCOPED-EFFECTIVE-DATA-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability while Data retains dataset/population, transaction, CDC/checkpoint, consumer and provider-realization dimensions. |
+| `G2-CAPABILITY-CANDIDATE-DSM-DATA-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Governance/Lifecycle evidence horizons while Data retains WAL/log/offset/schema-history semantics. |
+| `G2-CAPABILITY-CANDIDATE-DSM-MIXED-DATABASE-PROVIDER-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent schema/constraint, transaction/isolation, DDL, backfill, CDC, freshness, recovery and evidence axes. |
+| `G2-CAPABILITY-CANDIDATE-DSM-DATA-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Data owns residual writer/reader/CDC/dual-write/derived-consumer closure during schema/provider migration. |
+
+No cycle-7 Identity, Authorization or Data candidate is promoted. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
 All prior candidates from UCA, PAM, UIGX, AGWS, Workflow, Integration and earlier cycles remain authoritative in their dossiers, earlier register revisions and state history. Compact representation does not revoke them.
