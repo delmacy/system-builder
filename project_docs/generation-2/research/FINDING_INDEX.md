@@ -66,8 +66,18 @@ All previously indexed cycle-5 findings through Developer / Operator Experience 
 - **G2-FINDING-WDE-43** — Composite workflow proof requires revision-compatible checkpoint, worker, effect, policy/trust and retention evidence; incompatible/stale required evidence yields `INCONCLUSIVE`.
 - **G2-FINDING-WDE-44** — Qualified local durable-execution closure includes compatibility, fencing and evidence horizons; replayability alone does not authorize privileged offline continuation.
 
+### Integration & Automation — revisit 5
+- **G2-FINDING-IA-37** — Integration identity is typed across semantic operation, definition, delivery position and provider realization; provider IDs are canonical only for their own identity kind.
+- **G2-FINDING-IA-38** — Effective integration behavior is a multi-axis revision vector spanning route/schema/binding/connector/checkpoint/idempotency/trust/policy/Station exposure.
+- **G2-FINDING-IA-39** — Integration checkpoint advancement requires ownership/fencing evidence; stale or zombie connector generations must not advance canonical position.
+- **G2-FINDING-IA-40** — Deduplication state has its own persistence, retention and failure horizon; loss/expiry/replacement invalidates the guarantee rather than silently preserving it.
+- **G2-FINDING-IA-41** — Retry and redelivery semantics are provider-qualified governed transitions; materially different provider behavior must not collapse into one universal retry state machine.
+- **G2-FINDING-IA-42** — Composite integration proof requires revision-compatible trigger, position, delivery, idempotency, trust/schema and domain-effect evidence; incompatible required evidence yields `PARTIAL/INCONCLUSIVE`.
+- **G2-FINDING-IA-43** — Provider dual-run requires intake ownership/fencing before canonical position can move; new-provider health alone cannot transfer source/actuation ownership.
+- **G2-FINDING-IA-44** — Qualified local integration closure includes checkpoint/dedup state and a reconnection requalification horizon; offline availability alone is not sufficient.
+
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture, Process & Application Modeling, UI / Generated Experience / Low-code Builder, Adaptive Governed Work Surfaces and Workflow & Durable Execution completed.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture, Process & Application Modeling, UI / Generated Experience / Low-code Builder, Adaptive Governed Work Surfaces, Workflow & Durable Execution and Integration & Automation completed.
 
 ## Historical authority
 All prior findings, including cycle 1–5 and compacted findings, remain authoritative in their dossiers and prior index revisions.
