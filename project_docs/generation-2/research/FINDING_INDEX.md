@@ -25,6 +25,16 @@ All previously indexed cycle-5 findings through Build / Dependency Graph / Repro
 - **G2-FINDING-DER-36** — Build-once/Replicate-many Requires Immutable Qualified Release Identity to Remain Separate From Environment and Provider Bindings.
 - **G2-FINDING-DER-37** — Release, Deployment Admission/Actuation, Traffic Promotion, Runtime Administration, Persisted-state Recovery and AGWS/AI Authorities Are Non-amplifying Facets.
 
+### Observability / Operations / Incident — revisit 4
+- **G2-FINDING-OOI-31** — Telemetry Pipeline Health, Loss/Backlog and Coverage Are Dependencies of Operational Evidence; Recent Samples Alone Do Not Prove Fresh or Complete Observation.
+- **G2-FINDING-OOI-32** — Operational Observations Must Bind to Semantic Subject + Effective Realization/Cohort Revision; Provider Resource Labels Are Correlation Metadata, Not Canonical Runtime Identity.
+- **G2-FINDING-OOI-33** — SLI/SLO/Alert Evaluation Is a Revision-bound Derived Artifact Whose Freshness Is Invalidated by Material Rule, Query, Schema, Provider, Topology or Cohort Changes.
+- **G2-FINDING-OOI-34** — Incident Resolution Is Not Recovery/Postcondition Proof; Missing Historical Coverage and Dependent Recovery Claims May Remain PARTIAL or INCONCLUSIVE After Administrative Closure.
+- **G2-FINDING-OOI-35** — Diagnosis, Remediation Proposal, Remediation Actuation, Deployment, Provider Administration and Recovery Are Non-amplifying Authority Facets With Independent Evidence.
+- **G2-FINDING-OOI-36** — Telemetry-provider Replacement Requires Governed Overlap/Continuity Evidence Across Semantic Identity, Coverage, Retention, Evaluation and Tenant Isolation; Backend Reachability or Provider Dedup Is Insufficient.
+- **G2-FINDING-OOI-37** — Multi-tenant/Station Operational Aggregation Requires Explicit Authorized Scope and Coverage; Missing Subordinate Evidence Cannot Become Enterprise-wide Health.
+- **G2-FINDING-OOI-38** — Qualified Local/Offline Observability Must Expose Retention, Backlog, Loss Budget and Reconciliation Position; Reconnection Cannot Reconstruct Unretained Evidence.
+
 ## Cycle closures
 Cycles 3 and 4 completed all 25 active capabilities. Every pass produced material architectural findings; no capability was SATURATED at either cycle close.
 
