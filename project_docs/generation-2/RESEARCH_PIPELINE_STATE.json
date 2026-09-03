@@ -12,8 +12,8 @@
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 183,
-    "finding_count": 1383,
+    "hourly_runs_completed": 184,
+    "finding_count": 1391,
     "capability_candidate_count": 642,
     "new_candidates_this_run": [],
     "promoted_capabilities_this_run": [],
@@ -24,32 +24,32 @@
     "finding_inventory_authority": "project_docs/generation-2/research/FINDING_INDEX.md plus capability dossiers and prior state history; compact state does not revoke prior findings",
     "enterprise_completeness_negative_space_gate": {
       "required_when_completed_full_cycles_gte": 7,
-      "status": "IN_PROGRESS_PASS_1_PRIVACY_PROOF_RESOLVED_REMAINING_PROOFS_OPEN",
+      "status": "IN_PROGRESS_PASS_1_AI_PROOF_RESOLVED_REMAINING_ECONOMIC_AND_DOMAIN_COMPOSITION_PROOFS_OPEN",
       "artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
       "proof_backfill_addendum": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md",
       "resolved_structural_gaps": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE","G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY","G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"],
-      "resolved_centralized_proofs": ["workload-driven minimal runtime realization","same semantics/different runtime realization","artifact-to-runtime admission","enterprise trust qualification/lifecycle","trust rotation/residual drainage","disconnected trust horizon","privacy retention-hold-residency disposition"],
-      "centralized_proof_debt": ["AI evaluation qualification and stale-evidence rejection","technology-economic normalization/allocation/history/budget/forecast/commitment/provider-substitution","domain composition/provider identity"]
+      "resolved_centralized_proofs": ["workload-driven minimal runtime realization","same semantics/different runtime realization","artifact-to-runtime admission","enterprise trust qualification/lifecycle","trust rotation/residual drainage","disconnected trust horizon","privacy retention-hold-residency disposition","AI evaluation qualification and stale-evidence rejection"],
+      "centralized_proof_debt": ["technology-economic normalization/allocation/history/budget/forecast/commitment/provider-substitution","domain composition/provider identity"]
     },
     "latest_centralized_proof_research": {
-      "proof": "privacy retention/hold/residency disposition",
+      "proof": "AI evaluation qualification and stale-evidence rejection",
       "result": "RESOLVED_BY_MULTI_REPRESENTATIVE_RESEARCH_WITHOUT_NEW_PROMOTION",
-      "artifact": "project_docs/generation-2/research/PRIVACY_RETENTION_HOLD_RESIDENCY_CENTRALIZED_PROOF.md",
-      "new_findings": ["G2-FINDING-PRHR-01","G2-FINDING-PRHR-02","G2-FINDING-PRHR-03","G2-FINDING-PRHR-04","G2-FINDING-PRHR-05","G2-FINDING-PRHR-06","G2-FINDING-PRHR-07","G2-FINDING-PRHR-08"],
-      "representative_coverage": {"EU GDPR purpose/storage/erasure/legal-obligation semantics":"DEEP","Microsoft Purview retention/eDiscovery/priority cleanup":"DEEP","NARA records/disposition authority":"DEEP","Google Cloud data-residency enforcement":"DEEP","AWS Control Tower residency controls/service exemptions":"DEEP","OPA policy decision/enforcement boundary":"DEEP"}
+      "artifact": "project_docs/generation-2/research/AI_EVALUATION_QUALIFICATION_STALE_EVIDENCE_CENTRALIZED_PROOF.md",
+      "new_findings": ["G2-FINDING-AIQP-01","G2-FINDING-AIQP-02","G2-FINDING-AIQP-03","G2-FINDING-AIQP-04","G2-FINDING-AIQP-05","G2-FINDING-AIQP-06","G2-FINDING-AIQP-07","G2-FINDING-AIQP-08"],
+      "representative_coverage": {"MLflow Prompt Registry + GenAI Evaluation":"DEEP","LangSmith offline/online evaluation + experiment metadata":"DEEP","Microsoft Foundry risk/safety evaluators":"DEEP","NIST AI RMF / AIRC TEVV":"DEEP","Google Vertex AI evaluation family":"TARGETED"}
     },
     "pending_capabilities": []
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — seven full cycles complete. Structural gaps plus minimal-runtime, artifact-runtime, Enterprise Trust and Privacy retention/hold/residency proof junctions are dispositioned; centralized AI/economic/domain-composition proof junctions remain open.",
-    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "IN_PROGRESS — Privacy retention/hold/residency proof is resolved; remaining AI/economic/domain-composition proof debt can still falsify completeness. Do not advance to synthesis.",
-    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — Enterprise Trust and Privacy proof suites are resolved; AI evaluation, economic-governance and domain-composition/provider-identity proof suites remain unresolved.",
+    "RESEARCH_ELICITATION": "OPEN — seven full cycles complete. Structural gaps plus minimal-runtime, artifact-runtime, Enterprise Trust, Privacy and AI-evaluation proof junctions are dispositioned; centralized Technology Economic Governance and domain-composition/provider-identity proof junctions remain open.",
+    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "IN_PROGRESS — AI evaluation qualification/stale-evidence proof is resolved; remaining economic and domain-composition proof debt can still falsify completeness. Do not advance to synthesis.",
+    "ARCHITECTURE_PROOF_BACKFILL": "OPEN — Enterprise Trust, Privacy and AI evaluation proof suites are resolved; Technology Economic Governance and domain-composition/provider-identity proof suites remain unresolved.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_BY_ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Enterprise Completeness / Negative-Space Review remains open. Privacy retention/hold/residency centralized proof is resolved: technically valid destructive or movement transitions are DENIED by controlling obligations and INCONCLUSIVE when obligation/provider/effective-coverage evidence is stale or partial; provider/region substitution requires requalification; historical disposition binds producing revisions. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
-  "last_completed_artifact": "project_docs/generation-2/research/PRIVACY_RETENTION_HOLD_RESIDENCY_CENTRALIZED_PROOF.md",
+  "current_focus": "Enterprise Completeness / Negative-Space Review remains open. AI evaluation qualification/stale-evidence centralized proof is resolved: qualification is applicability-scoped across effective model/provider/prompt/instruction/tool configuration, dataset/population, evaluator/judge, policy/threshold, authority scope and evidence horizon; any applicability-bearing change makes prior PASS stale/inapplicable unless explicit equivalence exists; missing mandatory evidence is INCONCLUSIVE; promotion/admission remains separate authority; historical evidence remains replayable against producing revisions. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
+  "last_completed_artifact": "project_docs/generation-2/research/AI_EVALUATION_QUALIFICATION_STALE_EVIDENCE_CENTRALIZED_PROOF.md",
   "last_framework_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md",
-  "next_action": "Resolve exactly the AI evaluation qualification and stale-evidence-rejection centralized proof junction. Use 3–8 strong representatives spanning model/prompt/tool configuration identity, versioned datasets/evaluators, safety/quality scoring, qualification thresholds/policies, provider/model substitution, production-observation boundaries and evidence currentness/replay. Prove that changing any applicability-bearing model/provider/prompt/instruction/tool/dataset/evaluator/policy dimension makes prior PASS stale or INAPPLICABLE unless explicit equivalence evidence exists; partial/unavailable evaluator or missing lineage yields INCONCLUSIVE; promotion/admission remains a separate governed decision; historical qualification remains replayable against producing revisions. Preserve Enterprise → Station → Role → Person and AGWS/AI non-amplification. Do not enter CAPABILITY_SYNTHESIS until this and remaining centralized proof junctions are resolved.",
-  "updated_at": "2026-09-03T15:17:00-03:00"
+  "next_action": "Resolve exactly the Technology Economic Governance normalization/allocation/history/budget/forecast/commitment/provider-substitution centralized proof suite. Use 3–8 strong representatives spanning FOCUS/FinOps/OpenCost plus cloud and on-prem/internal-rate evidence. Prove provider-neutral economic semantic identity across heterogeneous sources; incomplete/partial source evidence yields PARTIAL/INCONCLUSIVE; allocation conserves source basis with explicit residual under the producing policy/rate revision; historical replay remains stable after later policy/rate changes; budget and forecast remain distinct; budget alerts/evidence cannot actuate runtime without separate authority; commitment/provider substitution forces economic requalification and preserves historical evidence. Preserve Enterprise → Station → Role → Person and AGWS/AI non-amplification. Do not enter CAPABILITY_SYNTHESIS until this and Domain Composition / Provider Identity are resolved.",
+  "updated_at": "2026-09-03T15:28:45-03:00"
 }
