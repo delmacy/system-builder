@@ -24,7 +24,15 @@ All prior cycle-4/5 candidates remain authoritative in earlier revisions and dos
 | G2-CAPABILITY-CANDIDATE-ARSP-ROLLBACK-ELIGIBILITY-CLOSURE-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/Security retained-material and recovery semantics; release rollback remains promotion, not persisted-state restore. |
 | G2-CAPABILITY-CANDIDATE-ARSP-QUALIFIED-LOCAL-RELEASE-VERIFICATION-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge into qualified-local closure while retaining artifact/evidence/trust graph requirements. |
 
-No Artifact/Release candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
+## Deployment / Environment / Runtime — revisit cycle 5 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-DER-QUALIFIED-EFFECTIVE-RUNTIME-POSTCONDITION-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with unified realization/evidence qualification while retaining Deployment ownership of runtime, traffic and dependency coverage semantics. |
+| G2-CAPABILITY-CANDIDATE-DER-PARTIAL-AMBIGUOUS-ACTUATION-RECONCILIATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with universal ambiguous external-effect disposition; provider actuation correlation remains Deployment-owned evidence. |
+| G2-CAPABILITY-CANDIDATE-DER-DEPENDENCY-QUALIFIED-READINESS-FRESHNESS-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/Observability freshness while retaining Deployment dependency-vector semantics. |
+| G2-CAPABILITY-CANDIDATE-DER-GOVERNED-DUAL-RUN-TRAFFIC-CUTOVER-RECOVERY-TRANSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with shared provider migration/recovery transitions; do not promote independently without synthesis evidence. |
+
+No Artifact/Release or Deployment candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
 
 ## Historical authority
 All omitted candidates remain authoritative in prior register revisions, state history and capability dossiers.
