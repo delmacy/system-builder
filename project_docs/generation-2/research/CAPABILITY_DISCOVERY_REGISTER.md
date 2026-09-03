@@ -16,15 +16,15 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## Build / Dependency Graph / Reproducibility — revisit cycle 5 candidates
+## Artifact / Release / SBOM / Provenance — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-BUILD-REPRODUCIBILITY-PROFILE-AND-OBSERVATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with shared evidence qualification while preserving Build ownership of build-specific byte/semantic/rebuildability comparison semantics. |
-| G2-CAPABILITY-CANDIDATE-BUILD-CACHE-TRUST-AND-WRITE-AUTHORITY | CORE | SUBCAPABILITY_CANDIDATE | Keep under Build/supply-chain governance unless synthesis proves a broader shared-cache authority primitive with equivalent semantics. |
-| G2-CAPABILITY-CANDIDATE-BUILD-AMBIGUOUS-RUNNER-OUTCOME-RECONCILIATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with universal ambiguous-outcome primitive while retaining build-attempt/output identity. |
-| G2-CAPABILITY-CANDIDATE-BUILD-LONG-TERM-REBUILDABILITY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with qualified-local closure plus Lifecycle/Artifact retention semantics; do not collapse long-term rebuildability into current offline closure. |
+| G2-CAPABILITY-CANDIDATE-ARSP-POLICY-TRUST-QUALIFIED-VERIFICATION-DECISION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with shared evidence qualification while retaining Artifact ownership of release subject/profile semantics. |
+| G2-CAPABILITY-CANDIDATE-ARSP-PARTIAL-AMBIGUOUS-PUBLICATION-RECONCILIATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with universal ambiguous-outcome disposition while retaining registry publication identity. |
+| G2-CAPABILITY-CANDIDATE-ARSP-ROLLBACK-ELIGIBILITY-CLOSURE-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/Security retained-material and recovery semantics; release rollback remains promotion, not persisted-state restore. |
+| G2-CAPABILITY-CANDIDATE-ARSP-QUALIFIED-LOCAL-RELEASE-VERIFICATION-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge into qualified-local closure while retaining artifact/evidence/trust graph requirements. |
 
-No Build candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
+No Artifact/Release candidate is promoted this run. Adaptive Governed Work Surfaces remains promoted, explicit and distinct.
 
 ## Historical authority
 All omitted candidates remain authoritative in prior register revisions, state history and capability dossiers.
