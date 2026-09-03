@@ -48,6 +48,14 @@ All prior cycle-4/5 candidates remain authoritative in earlier revisions and dos
 | G2-CAPABILITY-CANDIDATE-UIGX-POST-MERGE-SEMANTIC-ACCESSIBILITY-VALIDATION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Retain under generic UI unless later evidence establishes a broader owner; merge success must not imply conformance. |
 | G2-CAPABILITY-CANDIDATE-UIGX-LAYERED-PORTABILITY-CONFORMANCE-PROFILE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with UCA preserve/interpret/validate/realize/actuate portability layering while retaining UI target/accessibility dimensions. |
 
+## Adaptive Governed Work Surfaces — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-AGWS-TYPED-SURFACE-OVERLAY-OBLIGATION-REALIZATION-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity continuity while keeping ObligationId and hierarchy semantics AGWS-owned. |
+| G2-CAPABILITY-CANDIDATE-AGWS-MULTI-AXIS-EFFECTIVE-SURFACE-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle/UIGX revision vectors; retain session-effective authority and Station exposure axes. |
+| G2-CAPABILITY-CANDIDATE-AGWS-HIERARCHICAL-COMPOSITE-PROOF-COMPATIBILITY-JOIN | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with UCA evidence compatibility while preserving Enterprise/Station/Role/Person layer semantics. |
+| G2-CAPABILITY-CANDIDATE-AGWS-MANDATORY-OBLIGATION-REALIZATION-CONTINUITY | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep under AGWS unless negative-space research proves a broader semantic owner for mandatory inherited work-surface obligations. |
+
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
