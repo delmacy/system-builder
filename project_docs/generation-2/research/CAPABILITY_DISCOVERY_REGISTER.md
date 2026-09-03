@@ -23,6 +23,14 @@ All prior cycle-6 candidates through Authorization / Policy / Organization / Mul
 | G2-CAPABILITY-CANDIDATE-DSM-MIGRATION-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep under Data unless synthesis proves a generic governed-transition owner; stale migration actors must be rejected. |
 | G2-CAPABILITY-CANDIDATE-DSM-DATA-CONVERGENCE-CUTOVER-DISPOSITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve residual-source, dual-write divergence, CDC position and authority-transfer evidence under Data cutover semantics. |
 
+## Storage / Documents / Media — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-SDM-TYPED-CONTENT-METADATA-ALIAS-OBLIGATION-REALIZATION-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed identity while preserving Storage ownership of semantic content/metadata/alias/obligation lineage. |
+| G2-CAPABILITY-CANDIDATE-SDM-MULTI-AXIS-EFFECTIVE-CONTENT-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/Lifecycle revision-vector semantics with content/metadata/alias/retention/trust/provider/exposure axes. |
+| G2-CAPABILITY-CANDIDATE-SDM-STORAGE-MUTATION-OWNERSHIP-FENCING-EVIDENCE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Keep expected-base/fence semantics for alias, commit, purge and provider-migration ownership under Storage unless synthesis proves a generic owner. |
+| G2-CAPABILITY-CANDIDATE-SDM-GOVERNANCE-EQUIVALENT-PROVIDER-CUTOVER-DISPOSITION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve bytes+metadata+retention/hold+alias residual-source disposition before storage authority cutover. |
+
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
