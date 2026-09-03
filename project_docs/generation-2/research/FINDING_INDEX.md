@@ -3,47 +3,17 @@
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
 ## Cycle 5 stable findings
-All previously indexed cycle-5 findings through Build / Dependency Graph / Reproducibility remain authoritative in their dossiers and prior index revisions.
+All previously indexed cycle-5 findings through Extension / Plugin / Marketplace Architecture remain authoritative in their dossiers and prior index revisions.
 
-### Artifact / Release / SBOM / Provenance — revisit 4
-- **G2-FINDING-ARSP-30** — Artifact Publication Attempt, Published Realization, Evidence Verification, Release Decision, Promotion, Distribution and Deployment Are Distinct Revision-bound States.
-- **G2-FINDING-ARSP-31** — Evidence Existence Is Not Verification; Verification Is a Policy-, Trust-, Subject- and Time-qualified Decision.
-- **G2-FINDING-ARSP-32** — Artifact Publication Can Be PARTIAL or OUTCOME_UNKNOWN and Must Be Reconciled Before Retry, Alias Mutation or Release Qualification.
-- **G2-FINDING-ARSP-33** — Release Qualification Freshness Is Dependency-qualified Across Evidence, Policy and Trust Revisions.
-- **G2-FINDING-ARSP-34** — Multi-platform Release Identity Requires Explicit Child-realization and Evidence Coverage; Aggregate Index Presence Does Not Prove Profile Completeness.
-- **G2-FINDING-ARSP-35** — Rollback Eligibility Is a Current Evidence Predicate Over Retained Artifact, Trust, Policy and Compatibility Closure, Not a Historical Property of a Prior Release.
-- **G2-FINDING-ARSP-36** — Registry/Signing/Attestation Provider Replacement Must Preserve or Re-establish Artifact + Evidence + Trust Semantics, Not Merely Copy Bytes.
-- **G2-FINDING-ARSP-37** — Build, Publication, Signing, Verification, Release, Promotion, Distribution, Deployment and AGWS/AI Authorities Are Non-amplifying Facets.
-
-### Deployment / Environment / Runtime — revisit 4
-- **G2-FINDING-DER-30** — Deployment Admission, Actuation Receipt, Effective Runtime Realization, Traffic Placement, Readiness, Domain Validation and Qualification Are Distinct Revision-bound States.
-- **G2-FINDING-DER-31** — Deployment Actuation Can Be PARTIAL or OUTCOME_UNKNOWN and Requires Reconciliation Before Blind Retry, Promotion or Rollback.
-- **G2-FINDING-DER-32** — Runtime Readiness Is Dependency-qualified and Becomes Stale After Material Release, Config, Schema, Trust, Topology, Binding or Routing Revision Change.
-- **G2-FINDING-DER-33** — Progressive Delivery Requires First-class Coexistence and Traffic-placement State Separate from Replica/Process Count.
-- **G2-FINDING-DER-34** — Routing/Workload Rollback and Persisted-state Recovery Are Different Governed Transitions With Different Authority and Postconditions.
-- **G2-FINDING-DER-35** — Provider Replacement Requires Dual-run/Cutover Evidence Across Runtime, Routing, Dependency Compatibility, State and Recovery Closure; Healthy Providers Alone Do Not Select the Effective Realization.
-- **G2-FINDING-DER-36** — Build-once/Replicate-many Requires Immutable Qualified Release Identity to Remain Separate From Environment and Provider Bindings.
-- **G2-FINDING-DER-37** — Release, Deployment Admission/Actuation, Traffic Promotion, Runtime Administration, Persisted-state Recovery and AGWS/AI Authorities Are Non-amplifying Facets.
-
-### Observability / Operations / Incident — revisit 4
-- **G2-FINDING-OOI-31** — Telemetry Pipeline Health, Loss/Backlog and Coverage Are Dependencies of Operational Evidence; Recent Samples Alone Do Not Prove Fresh or Complete Observation.
-- **G2-FINDING-OOI-32** — Operational Observations Must Bind to Semantic Subject + Effective Realization/Cohort Revision; Provider Resource Labels Are Correlation Metadata, Not Canonical Runtime Identity.
-- **G2-FINDING-OOI-33** — SLI/SLO/Alert Evaluation Is a Revision-bound Derived Artifact Whose Freshness Is Invalidated by Material Rule, Query, Schema, Provider, Topology or Cohort Changes.
-- **G2-FINDING-OOI-34** — Incident Resolution Is Not Recovery/Postcondition Proof; Missing Historical Coverage and Dependent Recovery Claims May Remain PARTIAL or INCONCLUSIVE After Administrative Closure.
-- **G2-FINDING-OOI-35** — Diagnosis, Remediation Proposal, Remediation Actuation, Deployment, Provider Administration and Recovery Are Non-amplifying Authority Facets With Independent Evidence.
-- **G2-FINDING-OOI-36** — Telemetry-provider Replacement Requires Governed Overlap/Continuity Evidence Across Semantic Identity, Coverage, Retention, Evaluation and Tenant Isolation; Backend Reachability or Provider Dedup Is Insufficient.
-- **G2-FINDING-OOI-37** — Multi-tenant/Station Operational Aggregation Requires Explicit Authorized Scope and Coverage; Missing Subordinate Evidence Cannot Become Enterprise-wide Health.
-- **G2-FINDING-OOI-38** — Qualified Local/Offline Observability Must Expose Retention, Backlog, Loss Budget and Reconciliation Position; Reconnection Cannot Reconstruct Unretained Evidence.
-
-### Extension / Plugin / Marketplace Architecture — revisit 4
-- **G2-FINDING-EXT-30** — Extension Integrity, Producer Trust, Policy Admission, Dependency Compatibility, Runtime Containment and Effective Authority Are Independent Qualified Predicates.
-- **G2-FINDING-EXT-31** — Extension Dependency Closure Is a Revision-bound Security and Compatibility Subject; Material Dependency/Trust/Host-contract Change Invalidates Prior Admission Evidence.
-- **G2-FINDING-EXT-32** — Install/Update/Enable/Activate/Revoke/Remove External Effects Require Attempt, Receipt, Effective Realization and Postcondition States, Including PARTIAL/OUTCOME_UNKNOWN Reconciliation.
-- **G2-FINDING-EXT-33** — Runtime Revocation Requires Residual-in-use Realization Evidence; Marketplace Removal, Package Uninstall or Policy Change Alone Does Not Prove Code Is No Longer Effective.
-- **G2-FINDING-EXT-34** — Extension Containment Strength Is a Realization-qualified Property and Must Be Re-proven Across Loader/Runtime/Provider Changes.
-- **G2-FINDING-EXT-35** — Control-path Extensions Require Explicit Failure/Bypass Semantics and Recovery Paths That Avoid Self-dependency and Bootstrap Governance Gaps.
-- **G2-FINDING-EXT-36** — Extension Administration Must Be Faceted and Non-amplifying Across Enterprise→Station→Role→Person; Capability Exposure Does Not Confer Installation, Trust, Policy or Provider Authority.
-- **G2-FINDING-EXT-37** — AI-authored Extension Material and AGWS Composition Remain Proposals/Consumers of Host-owned Contracts; Executable Introduction Requires Deterministic Validation, Admission and Explicit Authority.
+### Governance / Compliance / Audit — revisit 4
+- **G2-FINDING-GCA-30** — Requirement/Control Identity, Applicability, Framework Mapping, Evidence, Assessment, Finding, Waiver and Remediation Closure Are Distinct Revision-bound Subjects.
+- **G2-FINDING-GCA-31** — Evidence Existence or Collection Success Is Not Compliance; Positive Assessment Requires Qualified Coverage, Freshness, Integrity, Applicability and Authorized Decision Evidence.
+- **G2-FINDING-GCA-32** — Continuous-control Automation Must Expose Testable-objective and Coverage Boundaries; Missing or Unevaluable Scope Produces PARTIAL/INCONCLUSIVE Rather Than Implicit PASS.
+- **G2-FINDING-GCA-33** — Cross-framework Mapping and Tailoring Are Revision-bound Derived Artifacts; Mapping Drift Invalidates Reused Assessment Conclusions.
+- **G2-FINDING-GCA-34** — Exception/Waiver Is a Governed, Expiring and Revocable Risk-acceptance Lifecycle; It Does Not Mutate the Underlying Requirement or Prove Remediation.
+- **G2-FINDING-GCA-35** — Assessment, Exception Approval, Remediation Actuation and Audit Closure Are Non-amplifying Authority Facets Across Enterprise→Station→Role→Person.
+- **G2-FINDING-GCA-36** — Auditability Depends on Retention and Evidence Availability; Framework Persistence or Report Closure Cannot Substitute for Retained Qualified Evidence.
+- **G2-FINDING-GCA-37** — Governance-provider Replacement and Local/Offline Operation Require Requalified Mapping, Collector, Evidence, Retention and Decision Closure; Provider Reachability Alone Is Insufficient.
 
 ## Cycle closures
 Cycles 3 and 4 completed all 25 active capabilities. Every pass produced material architectural findings; no capability was SATURATED at either cycle close.
