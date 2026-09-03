@@ -1,41 +1,20 @@
 # Generation 2 — Representative Coverage Ledger
 
-States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`.
+States: `NOT_REVIEWED`, `PARTIAL`, `DEEP`, `N_A`, `LOW_VALUE`. Historical coverage in prior revisions, capability dossiers and state history remains authoritative; this compact ledger does not revoke omitted cells.
 
-Historical coverage in prior revisions, capability dossiers and state history remains authoritative; this compact ledger does not revoke omitted cells.
+## AI Evaluation / Model / Prompt / Safety Governance — structural gap research
+NIST AI RMF Generative AI Profile + AIRC TEVV/metrology: `DEEP`; MLflow Prompt Registry + GenAI Evaluation (provider-neutral/open-source): `DEEP`; LangSmith datasets/experiments/evaluators/model-prompt-tool metadata: `DEEP`; Microsoft Foundry evaluation runs/safety metrics/human feedback/threshold-qualified pass-fail: `DEEP`; Google Vertex AI model evaluation with ground-truth dataset and batch inference outputs: `DEEP`.
+
+Findings `G2-FINDING-AIEG-01..08`; four consolidation candidates. Parent candidate **RESEARCH_COMPLETE / MERGE_INTO_EXISTING_OWNERS / NOT_PROMOTED**. Structural conclusion: explicit applicability-qualified AI evaluation contracts are mandatory, but semantic ownership composes without collapse across AI-native Engineering, Governance/Compliance/Audit, Artifact/Provenance, Lifecycle, Observability and Provider Binding. Provider evaluators/judges/safety classifiers remain providerized.
 
 ## Privacy / Data Governance / Retention / Legal Hold / Residency — structural gap research
-NIST Privacy Framework 1.1 privacy-risk/data-processing/governance model: `DEEP`; EU GDPR purpose limitation/storage limitation/accountability/erasure/restriction/legal-claims exceptions: `DEEP`; Microsoft Purview retention/records/eDiscovery/Preservation Lock: `DEEP`; Google Cloud Assured Workloads + current Data Residency service scope: `DEEP`; AWS Control Tower data-residency/digital-sovereignty controls and exemptions: `DEEP`; Open Policy Agent provider-neutral policy decision/enforcement/distribution/decision-log boundary: `DEEP`.
-
-Findings `G2-FINDING-PDGR-01..08`; four consolidation candidates; parent candidate **PROMOTED as CROSS_CUTTING / NOT_SATURATED**. Structural conclusion: portable purpose/use, governed-population/classification, retention/hold precedence, deletion eligibility, residency/jurisdiction, exceptional governance authority, effective qualification and disposition evidence cannot be fully merged into Data, Storage, Security, Authorization or generic Governance without semantic ownership collapse. Provider retention/records/residency/policy mechanics remain providerized.
+NIST Privacy Framework: `DEEP`; EU GDPR purpose/storage/erasure/restriction/legal-claims: `DEEP`; Microsoft Purview retention/records/eDiscovery: `DEEP`; Google Assured Workloads/Data Residency: `DEEP`; AWS Control Tower Data Residency: `DEEP`; OPA provider-neutral policy boundary: `DEEP`. Parent promoted `CROSS_CUTTING / NOT_SATURATED`.
 
 ## Enterprise Trust / PKI / Certificate Lifecycle — structural gap research
-RFC 5280 X.509 path validation/trust anchors/revocation: `DEEP`; RFC 8555 ACME issuance/revocation lifecycle: `DEEP`; SPIFFE/SPIRE workload identity, trust bundles and federation: `DEEP`; cert-manager Certificate + Issuer/ClusterIssuer + external issuer model: `DEEP`; HashiCorp Vault PKI multi-issuer/rotation/CRL/OCSP/revocation: `DEEP`; Smallstep step-ca private PKI/ACME and documented limitation profile: `DEEP`; fresh-main SB ADR-0015 PostgreSQL TLS server-identity verification: `DEEP` for bounded comparison.
+RFC 5280: `DEEP`; RFC 8555 ACME: `DEEP`; SPIFFE/SPIRE: `DEEP`; cert-manager: `DEEP`; Vault PKI: `DEEP`; Smallstep step-ca: `DEEP`. Parent promoted `CROSS_CUTTING / NOT_SATURATED`.
 
-Findings `G2-FINDING-ETPKI-01..08`; four consolidation candidates; parent candidate **PROMOTED as CROSS_CUTTING / NOT_SATURATED**. Structural conclusion: trust-domain/anchor/issuer/certificate/revocation/rotation/consumer-effective semantics cannot be fully merged into Secrets, Identity or Security without semantic ownership collapse. Provider mechanisms remain providerized; System Builder is not required to implement a bespoke CA.
+## Enterprise Completeness / Negative-Space Review
+Seven cycles are complete for the original 25 capabilities. Enterprise Trust and Privacy/Data Governance were promoted after cycle 7 and remain NOT_SATURATED. AI Evaluation / Model / Prompt / Safety Governance has now received dedicated multi-representative disposition and is not promoted; its qualification proof junction remains backfill-required. Economic Governance and workload-driven runtime/proof obligations remain open.
 
-## Enterprise Completeness / Negative-Space Review — pass 1
-NIST Cybersecurity Framework 2.0 / SP 1305 supply-chain governance: `DEEP`; FinOps Framework Allocation + Forecasting: `DEEP`; NIST Privacy Framework: `DEEP` after dedicated structural-gap research; NIST AI RMF / AI 600-1 / AIRC TEVV: `DEEP` for frontier-screen scope; RFC 5280 X.509 PKI: `DEEP`; RFC 8555 ACME: `DEEP`; RFC 7644 SCIM: `DEEP`; SLSA provenance/build integrity: `DEEP`; Backstage Catalog / developer-platform composition: `DEEP`.
-
-Findings `G2-FINDING-ENSR-01..08`. `G2-FINDING-ENSR-01` is structurally resolved by promotion of Enterprise Trust / PKI / Certificate Lifecycle. `G2-FINDING-ENSR-02` is structurally resolved by promotion of Privacy / Data Governance / Retention / Legal Hold / Residency. Executable proof backfill remains open. Enterprise Completeness gate remains open for the remaining AI evaluation/model/prompt/safety and Economic Governance dispositions plus centralized proof obligations.
-
-## Cycle authority
-Cycles 2–7 completed for the original 25 active capabilities. Every cycle-7 pass produced material findings; none was saturated. Enterprise Trust / PKI / Certificate Lifecycle and Privacy / Data Governance / Retention / Legal Hold / Residency were promoted after cycle 7 from the mandatory Enterprise Completeness structural-gap queue and each remains NOT SATURATED.
-
-## Revisit cycle 7
-Completed: all 25 capabilities active when cycle 7 began. Architecture Reconciliation as a Capability was the final revisit and closed that cycle. Newly promoted structural capabilities do not retroactively invalidate completion of the seven-cycle eligibility threshold; they remain explicit unsaturated research/planning inputs.
-
-### Architecture Reconciliation as a Capability — revisit 6
-Kubernetes Deployment/controller status: `DEEP`; HashiCorp Terraform/HCP Terraform saved-plan workflow: `DEEP`; Argo CD reconciliation/diff: `DEEP`; Crossplane managed resources/managementPolicies: `DEEP`; Flux Kustomization/Conditions/dependencies: `DEEP`; fresh-main SB AssemblyPlan/validation/compiler evidence: `DEEP` for the bounded comparison performed. Findings `G2-FINDING-ARC-47..54`; eight material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### Developer / Operator Experience / Self-hosting — revisit 6
-Kubernetes kubeadm upgrade: `DEEP`; K3s air-gap install/upgrade: `DEEP`; GitLab Self-Managed upgrade paths: `DEEP`; Red Hat OpenShift disconnected updates/mirroring: `DEEP`; HashiCorp Nomad upgrade: `DEEP`; Nomad snapshot/key-management recovery evidence: `DEEP`; prior G2 AI/Lifecycle/Security/Artifact/Deployment/Secrets/Provider research: `DEEP`. Findings `G2-FINDING-DOESH-47..54`; eight material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### AI-native Engineering / Agents / Approvals — revisit 6
-OpenAI Agents SDK HITL + hosted MCP approval: `DEEP`; LangGraph/LangChain interrupts + HITL: `DEEP`; Microsoft Agent Framework tool/workflow approvals: `DEEP`; Anthropic Claude Code permission architecture: `DEEP`; prior G2 AI/Security/Lifecycle/Provider research: `DEEP`. Findings `G2-FINDING-AIN-47..54`; eight material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### Security / Resilience / Failure Recovery — revisit 6
-NIST SP 1339 OT Backup Quick Start Guide: `DEEP`; NIST SP 800-61 Rev.3/CSF 2.0 incident-response profile: `DEEP`; CISA StopRansomware Guide: `DEEP`; AWS Backup Restore Testing + Well-Architected REL09-BP04: `DEEP`; etcd v3.7 disaster recovery: `DEEP`; Google Cloud SQL advanced DR / HA split-brain guidance: `DEEP`; Azure Site Recovery failover/test/reprotect: `DEEP`. Findings `G2-FINDING-SRFR-47..54`; eight material new findings; consecutive-no-material = 0; NOT SATURATED.
-
-### Historical authority
+## Historical authority
 Detailed representative coverage for all other capabilities remains authoritative in their dossiers, earlier ledger revisions and `RESEARCH_PIPELINE_STATE.json` history.
