@@ -76,8 +76,18 @@ All previously indexed cycle-5 findings through Developer / Operator Experience 
 - **G2-FINDING-IA-43** — Provider dual-run requires intake ownership/fencing before canonical position can move; new-provider health alone cannot transfer source/actuation ownership.
 - **G2-FINDING-IA-44** — Qualified local integration closure includes checkpoint/dedup state and a reconnection requalification horizon; offline availability alone is not sufficient.
 
+### Identity / Authentication / Federation — revisit 5
+- **G2-FINDING-IAF-37** — Identity security state is continuously revisioned after login; CAEP-style session/credential/claims/assurance events invalidate the assumption that login-time evidence remains current.
+- **G2-FINDING-IAF-38** — Revocation is a distributed propagation lineage (`Event → Delivered → Accepted → Applied → Effective/Postcondition`), not a single boolean.
+- **G2-FINDING-IAF-39** — Security-event position and freshness are identity evidence dependencies; a healthy receiver behind the required revocation/security stream can still be unsafe or `INCONCLUSIVE`.
+- **G2-FINDING-IAF-40** — Subject and actor identity remain distinct under delegation/impersonation; propagated actor/subject claims are provenance evidence, not semantic authority.
+- **G2-FINDING-IAF-41** — Session identity is issuer-scoped and cannot define canonical subject continuity across providers.
+- **G2-FINDING-IAF-42** — Revocation closure must distinguish interactive sessions from offline/long-lived credentials; successful logout cannot imply every credential class is unusable.
+- **G2-FINDING-IAF-43** — Trust-domain key rotation has ordered propagation semantics; trust qualification includes trust-domain binding, generation/sequence and propagation freshness.
+- **G2-FINDING-IAF-44** — Identity composite proof requires compatible joins across mapping, trust, credential/assertion, authentication freshness, session realization and revocation-stream evidence; stale required evidence propagates `PARTIAL/INCONCLUSIVE`.
+
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture, Process & Application Modeling, UI / Generated Experience / Low-code Builder, Adaptive Governed Work Surfaces, Workflow & Durable Execution and Integration & Automation completed.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture, Process & Application Modeling, UI / Generated Experience / Low-code Builder, Adaptive Governed Work Surfaces, Workflow & Durable Execution, Integration & Automation and Identity / Authentication / Federation completed.
 
 ## Historical authority
 All prior findings, including cycle 1–5 and compacted findings, remain authoritative in their dossiers and prior index revisions.
