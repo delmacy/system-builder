@@ -2,45 +2,34 @@
 
 Prior stable findings remain authoritative in their capability dossiers, earlier index revisions and pipeline history. Compacting this index does not revoke them.
 
+## Cycle 7 — Observability / Operations / Incident revisit 6
+- **G2-FINDING-OOI-47** — Effective operational health is an applicability-scoped claim across subject/runtime generation, traffic/cohort, expected population, instrumentation, selection, pipeline, query/evaluation, provider, policy and observation/evidence horizon; no globally current `healthy` fact exists.
+- **G2-FINDING-OOI-48** — Signal, selection decision, collection receipt, query/evaluation, alert, notification, incident, acknowledgement, remediation attempt and postcondition are distinct typed identities; success at one boundary cannot prove another.
+- **G2-FINDING-OOI-49** — Operational conformance/currentness is revision- and observation-qualified: old green evidence cannot qualify a newer runtime generation, traffic binding, expected population, rule or observation window.
+- **G2-FINDING-OOI-50** — NoData, Error, MissingSeries/Stale, PARTIAL and INCONCLUSIVE are evidence states independent of provider presentation; mapping them to Normal/KeepLast/Resolved cannot manufacture observed health or recovery.
+- **G2-FINDING-OOI-51** — Operational evidence has independent selection and replay horizons; sampling/retention changes what can be concluded or re-evaluated, and expiry can make later proof unavailable without invalidating historical facts.
+- **G2-FINDING-OOI-52** — Alert/incident/remediation mutations with ambiguous acknowledgement require reconcile-before-retry against current incident, ownership, target and expected-base state; blind retry can overwrite newer state or duplicate actuation.
+- **G2-FINDING-OOI-53** — Observability/incident provider portability is a mixed support vector, and cutover closes only after semantic comparison plus drainage/disposition of residual signal buffers, rules, notification queues, incidents, escalation/on-call state and consumer cohorts.
+- **G2-FINDING-OOI-54** — Qualified local/offline operations and AGWS/AI are non-amplifying: local conclusions/acts remain bounded by delegated closure, reconnect requalifies superior state, and diagnosis/proposal cannot mint incident-command/provider-admin/deployment/recovery/canonical authority.
+
 ## Cycle 7 — Deployment / Environment / Runtime revisit 6
-- **G2-FINDING-DER-46** — Effective deployment/runtime readiness is an applicability-scoped claim across release, intent/admission, environment/runtime binding, config/secret/schema, provider generation, realization, traffic, readiness/domain evidence, policy/trust and observation horizon; there is no globally current `deployed/healthy` fact.
-- **G2-FINDING-DER-47** — QualifiedRelease, DeploymentIntent, AdmissionDecision, RolloutAttempt, RuntimeRealization, ReplicaRevision, TrafficBinding, ReadinessEvidence, RollbackPoint and QualificationClaim are distinct typed identities; lifecycle facts at one boundary cannot stand in for another.
-- **G2-FINDING-DER-48** — Runtime readiness/conformance is revision- and observation-qualified; controller/provider state referring to an older desired generation, routing revision or observation window cannot qualify newer effective state even if the historical status remains positive.
-- **G2-FINDING-DER-49** — Deployment evidence has independent replay horizons: retained rollout/status/metric history can remain historically valid after it ceases to prove present readiness because policy, trust, config, schema, routing, provider or observation freshness changed.
-- **G2-FINDING-DER-50** — Deployment provider portability is a mixed support vector across reconciliation, progressive rollout, traffic/replica independence, health/analysis semantics, rollback, stateful support, fencing, offline behavior, evidence export and residual drainage; binary deploy compatibility is unsafe.
-- **G2-FINDING-DER-51** — Rollout/rollback/traffic outcomes may be ambiguous and require reconcile-before-retry; provider acknowledgement loss cannot be converted to failure because effective state may already have changed, and blind retries may duplicate actuation or overwrite newer ownership.
-- **G2-FINDING-DER-52** — Provider/environment cutover closes only after semantic comparison plus explicit drainage/disposition of residual replicas, in-flight requests, sticky sessions/connections, caches, discovery state, projections and consumer cohorts; destination success alone is insufficient.
-- **G2-FINDING-DER-53** — Qualified local/offline Station runtime operation and AGWS/AI deployment requests are non-amplifying: continuation is limited to predelegated closure, reconnect requalifies superior state, and deployment invocation cannot mint release/signing/provider-admin/recovery/canonical authority.
+- **G2-FINDING-DER-46** — Effective deployment/runtime readiness is applicability-scoped across release, intent/admission, environment/runtime binding, config/secret/schema, provider generation, realization, traffic, readiness/domain evidence, policy/trust and observation horizon.
+- **G2-FINDING-DER-47** — QualifiedRelease, DeploymentIntent, AdmissionDecision, RolloutAttempt, RuntimeRealization, ReplicaRevision, TrafficBinding, ReadinessEvidence, RollbackPoint and QualificationClaim are distinct typed identities.
+- **G2-FINDING-DER-48** — Runtime readiness/conformance is revision- and observation-qualified.
+- **G2-FINDING-DER-49** — Deployment evidence has independent replay horizons.
+- **G2-FINDING-DER-50** — Deployment provider portability is a mixed support vector.
+- **G2-FINDING-DER-51** — Rollout/rollback/traffic ambiguity requires reconcile-before-retry.
+- **G2-FINDING-DER-52** — Provider/environment cutover requires residual runtime/traffic/session/cache/discovery/consumer drainage.
+- **G2-FINDING-DER-53** — Qualified local/offline Station runtime operation and AGWS/AI deployment requests are non-amplifying.
 
 ## Cycle 7 — Artifact / Release / SBOM / Provenance revisit 6
-- **G2-FINDING-ARSP-46** — Effective release qualification is applicability-scoped across artifact profile, evidence/completeness, signer/verifier/trust, policy, channel/registry, consumer cohort, anti-rollback state, freshness and evidence horizon; there is no globally current release claim.
-- **G2-FINDING-ARSP-47** — Artifact subject, evidence document, verification decision, release revision, channel binding, distribution realization and consumer-observed state are distinct typed identities; currentness or success at one boundary cannot stand in for another.
-- **G2-FINDING-ARSP-48** — Signing-time validity and current release trust are separate temporal claims; signed timestamps can preserve verifiable signing-time evidence after short-lived certificates expire while current trust/release policy may still require requalification.
-- **G2-FINDING-ARSP-49** — SBOM completeness is composition-scoped and uncertainty propagates; an SBOM may contain complete and unknown subgraphs, so document presence cannot imply complete inventory.
-- **G2-FINDING-ARSP-50** — Delegated verification is trust- and policy-qualified evidence, not universal release authority; VSA-style summaries require explicit accepted signer/verifier/policy applicability and may abstract raw input evidence.
-- **G2-FINDING-ARSP-51** — Evidence discovery is a registry capability with distinct concurrency and failure semantics; native OCI referrers and mutable fallback-tag discovery are not semantically equivalent despite equal subject bytes.
-- **G2-FINDING-ARSP-52** — Release freshness and anti-rollback are consumer-relative state; mutable provider tags/channels cannot override stronger previously observed trusted metadata/version state.
-- **G2-FINDING-ARSP-53** — Registry/release cutover requires evidence-discovery equivalence plus residual alias/referrer/replica/cache/consumer cohort drainage; offline closure must separately qualify historical verification and current freshness.
+Findings `G2-FINDING-ARSP-46..53` remain authoritative in the capability dossier and prior index revision.
 
 ## Cycle 7 — Build / Dependency Graph / Reproducibility revisit 6
-- **G2-FINDING-BDGR-45** — Effective build/reproducibility is an applicability-scoped claim across source, build definition, dependency graph/material, toolchain/platform, hermeticity/network profile, provider/cache trust, conformance policy and evidence horizon; no job status, source revision or output digest is globally authoritative.
-- **G2-FINDING-BDGR-46** — Source revision, dependency intent, resolution attempt, graph/lock snapshot, dependency material, toolchain, build attempt, cache entry, output and build evidence are distinct typed identities; lifecycle facts at one boundary cannot stand in for another.
-- **G2-FINDING-BDGR-47** — Reproducibility/conformance is revision-qualified and profile-relative: byte identity, semantic conformance, isolation and hermeticity are independent claims, and SLSA isolation must not be interpreted as hermeticity.
-- **G2-FINDING-BDGR-48** — Dependency locking and material integrity have separate evidence horizons; stable coordinates/lock state cannot prove stable bytes, while expired repositories, verification metadata or trust roots can make later rebuild proof `INCONCLUSIVE/UNAVAILABLE` without rewriting historical truth.
-- **G2-FINDING-BDGR-49** — Cache state is trust- and retention-qualified evidence, not reproducibility truth: restored cache content may be untrusted, cache read/write authorities differ, cache hit does not prove independent rebuild, and eviction limits future replay/rebuild evidence.
-- **G2-FINDING-BDGR-50** — Build portability is a mixed support vector across dependency/resolution/verification semantics, hermeticity/network controls, toolchain/platform, remote execution, cache trust, byte determinism, semantic-conformance hooks, provenance, offline behavior and evidence retention; binary provider compatibility is unsafe.
-- **G2-FINDING-BDGR-51** — Build-provider/toolchain cutover closes only after representability and comparison proof plus explicit drainage/disposition of residual workers, cache scopes, queued/running attempts, resolver state and build cohorts; destination success alone is insufficient.
-- **G2-FINDING-BDGR-52** — Qualified local/offline Station builds and AGWS/AI composition are non-amplifying: local closure is limited to delegated material/toolchain/proof profiles, reconnect must requalify policy/trust/material state, and build invocation cannot silently grant dependency/toolchain/cache-write/attestation/release authority.
+Findings `G2-FINDING-BDGR-45..52` remain authoritative in the capability dossier and prior index revision.
 
 ## Cycle 7 — Notifications / Events / Messaging revisit 6
-- **G2-FINDING-NEM-45** — Effective event/delivery/effect guarantees are applicability-scoped claims over semantic contract/envelope, provider realization, topology/ordering scope, subscription/filter, consumer cohort, checkpoint epoch, dedup horizon, policy/trust and evidence horizon; no broker status is globally authoritative.
-- **G2-FINDING-NEM-46** — Occurrence, envelope, publication attempt, broker acceptance/persistence, delivery attempt, acknowledgement/checkpoint and consumer effect are distinct identities and lifecycle facts; acknowledgement at one boundary cannot prove downstream effect.
-- **G2-FINDING-NEM-47** — Delivery/effect conformance is revision-qualified and atomic-domain-relative; broker or stream exactly-once semantics cannot be extended to arbitrary external side effects without shared transactional/idempotent coordination.
-- **G2-FINDING-NEM-48** — Ambiguous publish/ack/effect outcomes require reconcile-before-retry; bounded deduplication and visibility/ack windows make blind retries capable of duplicating work.
-- **G2-FINDING-NEM-49** — Messaging evidence has independent replay horizons across retained log/message, dedup state, checkpoint/offset, acknowledgement and DLQ/redrive lineage; expiry makes exact later proof unavailable without invalidating historical facts.
-- **G2-FINDING-NEM-50** — Messaging provider portability is a mixed support vector across durability, ordering, replay, retention, deduplication, transactional coupling, acknowledgement, DLQ/redrive, filtering, partitioning, offline behavior and evidence; binary compatibility is unsafe.
-- **G2-FINDING-NEM-51** — Provider cutover closes only after residual message, subscription, checkpoint, retry/DLQ and consumer cohorts from the source realization are drained or explicitly dispositioned; destination delivery success alone is insufficient.
-- **G2-FINDING-NEM-52** — Qualified local/offline Station messaging and AGWS/AI composition are non-amplifying: local closure may permit only explicitly delegated event classes/actions, and reconnect must requalify policy/trust/provider/checkpoint state before privileged continuation.
+Findings `G2-FINDING-NEM-45..52` remain authoritative in the capability dossier and prior index revision.
 
 ## Historical authority
 Detailed findings for all other capabilities remain authoritative in their dossiers, earlier index revisions and pipeline history.
