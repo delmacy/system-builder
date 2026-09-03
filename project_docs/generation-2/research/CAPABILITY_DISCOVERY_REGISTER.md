@@ -31,7 +31,17 @@ All prior cycle-6 candidates remain authoritative in earlier register revisions 
 | G2-CAPABILITY-CANDIDATE-ARC-CONTRADICTION-STALE-EVIDENCE-DISPOSITION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Observability/evidence freshness and Governance dispute handling; retain provenance and explicit INCONCLUSIVE/CONTRADICTED states. |
 | G2-CAPABILITY-CANDIDATE-ARC-EXECUTABLE-CONFORMANCE-REVISION-QUALIFIED-PROOF | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with proof/readiness and Build/CI concerns; architecture reconciliation owns proof applicability, not the execution engine itself. |
 
-No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
+## Cycle 7 authority
+
+### Universal Capability Architecture — revisit cycle 7 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-UCA-TYPED-CLAIM-APPLICABILITY-GRAPH | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Architecture Reconciliation, Governance, Observability and Lifecycle; preserve typed semantic ownership and bounded applicability rather than introducing one global truth store. |
+| G2-CAPABILITY-CANDIDATE-UCA-EVIDENCE-RETENTION-AVAILABILITY-HORIZON | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile evidence freshness/retention with Observability, Security/Recovery and qualified local/offline closure; evidence unavailability must not imply claim falsification. |
+| G2-CAPABILITY-CANDIDATE-UCA-MIXED-STABILITY-SUPPORT-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Standards/Lifecycle/Extension/Provider support semantics; stability remains attached to typed surfaces/components, not a whole release scalar. |
+| G2-CAPABILITY-CANDIDATE-UCA-SEMANTIC-CONTINUITY-DUAL-REPRESENTATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Standards, Lifecycle, Data and consumer-population migration; no universal translation/migration engine is implied. |
+
+No cycle-7 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
 All earlier candidates remain authoritative in prior revisions, state history and capability dossiers.
