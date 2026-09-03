@@ -32,7 +32,15 @@ All prior cycle-4/5 candidates remain authoritative in earlier revisions and dos
 | G2-CAPABILITY-CANDIDATE-TRUST-EVIDENCE-HORIZON-QUALIFIED-LOCAL-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with existing qualified-local-closure family; retain reconnection requalification semantics. |
 | G2-CAPABILITY-CANDIDATE-CAPABILITY-SUPPORT-LAYERING-PRESERVE-INTERPRET-VALIDATE-REALIZE-ACTUATE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Provider/Standards/Artifact evidence before promotion. |
 
-No UCA candidate is promoted in this run. Adaptive Governed Work Surfaces remains promoted and distinct.
+## Process & Application Modeling — revisit cycle 6 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-PAM-TYPED-SEMANTIC-REPRESENTATION-PROVIDER-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Specialize UCA typed-identity continuity for semantic, representation, provider and execution identities. |
+| G2-CAPABILITY-CANDIDATE-PAM-MULTI-AXIS-SEMANTIC-REVISION-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle revision vectors while leaving domain consistency semantics with Process/Application Modeling. |
+| G2-CAPABILITY-CANDIDATE-PAM-SEMANTIC-VALIDATION-AFTER-CONFLICT-FREE-MERGE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Retain as Process/Application Modeling subcapability unless later evidence establishes broader ownership. |
+| G2-CAPABILITY-CANDIDATE-PAM-COMPOSITE-MODEL-PROOF-COMPATIBILITY-JOIN | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with UCA evidence-compatibility joins while preserving model-specific semantic dependencies. |
+
+No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
 ## Historical authority
 Developer/Operator cycle-5 candidates and all earlier candidates remain authoritative in prior revisions and capability dossiers.
