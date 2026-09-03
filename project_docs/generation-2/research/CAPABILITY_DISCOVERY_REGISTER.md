@@ -16,12 +16,12 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 ## Cross-cutting consolidation authority
 All prior cycle-4/5 candidates remain authoritative in earlier revisions and dossiers, including revision-bound realization/evidence lineage, evidence qualification, qualified local closure, faceted authority, governed migration, ambiguous-outcome disposition, normalization and concurrency ownership/preconditions.
 
-## AI-native Engineering / Agents / Approvals — revisit cycle 5 candidates
+## Developer / Operator Experience / Self-hosting — revisit cycle 5 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-AIN-REVISION-VECTOR-APPROVAL-APPLICABILITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with revision-bound evidence, expected-base ownership and Lifecycle revision vectors; approval semantics remain AI/agent-owned only where specifically needed. |
-| G2-CAPABILITY-CANDIDATE-AIN-REPLAY-SAFE-AGENT-CHECKPOINT-ACTUATION | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Workflow durable execution, idempotency/correlation and universal ambiguous-outcome disposition. |
-| G2-CAPABILITY-CANDIDATE-AIN-ACTUATION-SURFACE-ENFORCEMENT-COVERAGE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Authorization, Provider Binding and Security hard-boundary evidence if per-surface coverage can remain explicit. |
-| G2-CAPABILITY-CANDIDATE-AIN-SENSITIVE-INTERACTION-OUT-OF-BAND-BOUNDARY | CROSS_CUTTING | CANDIDATE | Retain unless Secrets/Identity/Governance synthesis absorbs sensitive elicitation without losing the model-context separation requirement. |
+| G2-CAPABILITY-CANDIDATE-DOESH-QUALIFIED-OFFLINE-UPDATE-SOURCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Artifact provenance, Secrets/trust, Lifecycle readiness and Provider Binding without losing update freshness/consistency semantics. |
+| G2-CAPABILITY-CANDIDATE-DOESH-MULTI-MATERIAL-RECOVERY-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Merge with Security/Recovery qualified local closure if data/config/trust/version-chain completeness remains explicit. |
+| G2-CAPABILITY-CANDIDATE-DOESH-DIAGNOSTIC-EVIDENCE-CUSTODY | CROSS_CUTTING | CANDIDATE | Reconcile with Observability/Governance evidence handling while preserving separation from privileged diagnostic actuation. |
+| G2-CAPABILITY-CANDIDATE-DOESH-AUTHORITY-SCOPED-FLEET-ROLLOUT | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Tenant/Fleet hypothesis, Deployment and Authorization; do not promote as duplicate fleet engine. |
 
-No AI-native Engineering / Agents / Approvals candidate is promoted in this run.
+No Developer / Operator Experience / Self-hosting candidate is promoted in this run.
