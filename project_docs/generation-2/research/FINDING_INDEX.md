@@ -2,21 +2,21 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
-## Cycle 6 authority through Secrets / Configuration / Environment Portability
-All previously indexed cycle-6 findings through `G2-FINDING-SCEP-45` remain authoritative in their dossiers and prior index revisions.
+## Cycle 6 authority through Provider / Binding / Capability Negotiation
+All previously indexed cycle-6 findings through `G2-FINDING-PBCN-46` remain authoritative in their dossiers and prior index revisions.
 
-### Provider / Binding / Capability Negotiation — revisit 5
-- **G2-FINDING-PBCN-39** — Provider binding and satisfaction require typed identity across requirement, offer, binding, realization and consumer-effective planes; provider/package/config/runtime IDs are mapped realization identities, not canonical capability identity.
-- **G2-FINDING-PBCN-40** — Effective provider satisfaction is a multi-axis revision-qualified proof spanning requirement, contract/profile, admission/policy, trust, config, binding, topology, Station, consumer population and evidence profile.
-- **G2-FINDING-PBCN-41** — Negotiated functional compatibility is insufficient without failure-domain and evidence-profile compatibility; operational ambiguity, isolation, freshness and proof obligations constrain substitutability.
-- **G2-FINDING-PBCN-42** — Competing binding/attachment claims require explicit ownership/fencing and effective-winner evidence; stale/concurrent writers must not silently alter the effective provider.
-- **G2-FINDING-PBCN-43** — Cross-boundary provider consent is revocable runtime authority, not static configuration; removal must invalidate dependent effective realizations even when provider health remains unchanged.
-- **G2-FINDING-PBCN-44** — Shadow/dual realization must separate availability from mutation authority; target readiness does not authorize dual writes or mutating traffic.
-- **G2-FINDING-PBCN-45** — Provider cutover closure requires consumer-population convergence and residual-source disposition; target health/provider-current state alone cannot close migration.
-- **G2-FINDING-PBCN-46** — Local provider closure is revision-bounded and must be requalified on reconnect; cached bytes/endpoints plus local success do not establish current global admission/trust/exposure validity.
+### Standards / Interoperability / API Contracts — revisit 5
+- **G2-FINDING-SIAC-39** — Interoperability requires typed identity across semantic contract, representation/dialect, protocol/transport binding, provider realization and consumer cohort; representation IDs are not canonical semantic identity.
+- **G2-FINDING-SIAC-40** — Effective compatibility is a multi-axis revision-qualified proof spanning contract, representation/dialect, compatibility profile, provider/binding, policy/trust, consumer population and evidence revision.
+- **G2-FINDING-SIAC-41** — Pairwise/latest-version compatibility does not imply transitive consumer-population compatibility; compatibility proof must match the actual historical data/client cohort.
+- **G2-FINDING-SIAC-42** — Structural/schema validity is weaker than executable semantic conformance; a contract can parse and validate while violating behavioral/domain invariants.
+- **G2-FINDING-SIAC-43** — Cross-boundary semantic references require revocable target-side consent; discovery/reference visibility does not create authority to bind or continue use.
+- **G2-FINDING-SIAC-44** — Deprecation, sunset, withdrawal and consumer drainage are distinct lifecycle facts; withdrawal closure requires qualified residual-use evidence rather than declaration alone.
+- **G2-FINDING-SIAC-45** — Provider substitutability for an API contract includes failure and evidence semantics, not only request/response shape; target structural compatibility alone is insufficient.
+- **G2-FINDING-SIAC-46** — Local/offline conformance is revision-bounded; reconnect after contract/policy/trust/provider advancement requires requalification before privileged or mutating use.
 
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with nineteen capabilities completed through Provider / Binding / Capability Negotiation.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with twenty capabilities completed through Standards / Interoperability / API Contracts.
 
 ## Historical authority
 All prior findings, including cycle 1–5 and compacted cycle-6 findings, remain authoritative in their dossiers and prior index revisions.
