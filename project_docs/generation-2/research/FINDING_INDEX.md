@@ -25,8 +25,20 @@ All previously indexed cycle-6 findings remain authoritative in their dossiers a
 - **G2-FINDING-ARC-45** — External/provider observation is epistemic evidence whose source, credentials/configuration, freshness and coverage qualify confidence; observation failure or misleading context cannot be flattened into authoritative absence.
 - **G2-FINDING-ARC-46** — Architecture proof closure must bind executable conformance/inspection evidence to the tested revision, scope and implementation profile; documentation claims cannot substitute for behavior where executable proof is feasible.
 
+## Cycle 7 authority
+
+### Universal Capability Architecture — revisit 6
+- **G2-FINDING-UCA-44** — Universal Product Truth Is a Typed Applicability-Scoped Claim Graph, Not a Global Truth Store: decisions, observations, contracts, realizations and proofs have different semantic owners and applicability; reconciliation links them without collapsing them.
+- **G2-FINDING-UCA-45** — Claim Applicability and Evidence Availability Are Independent Axes: history compaction can make prior evidence unreplayable without falsifying the historical claim; proof semantics require an explicit evidence-retention horizon.
+- **G2-FINDING-UCA-46** — Constraint Compatibility Does Not Establish Semantic Authority: independently owned constraints may compose successfully while authority to make each canonical remains separately governed.
+- **G2-FINDING-UCA-47** — Conformance Is a Revision-Qualified Relation, Not an Intrinsic Artifact Boolean: subject, normative contract/profile, evaluator, scope, revisions and evidence must all be identified.
+- **G2-FINDING-UCA-48** — Stability and Support Are Typed Surface Vectors, Not Release-Wide Scalars: mixed component stability and independent version streams require surface-specific compatibility/support obligations.
+- **G2-FINDING-UCA-49** — Semantic Continuity May Require Dual Representation and Consumer-Population Evidence: staged semantic migration can require old and new representations to coexist until consumers are proven drained or translated.
+- **G2-FINDING-UCA-50** — Cryptographic/Content Integrity Is Narrower Than Semantic Validity, Admission and Authority: byte identity does not prove runtime suitability, policy admission, trust or actuation authority.
+- **G2-FINDING-UCA-51** — Historical Decision/Evidence Identity Should Be Append-and-Supersede While Applicability Evolves: newer applicability must not rewrite prior evidence, findings or accepted decision history.
+
 ## Cycle closures
-Cycles 3, 4, 5 and 6 completed all 25 active capabilities. Every cycle-6 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 7 is the next eligible research cycle; Enterprise Completeness / Negative-Space remains gated until seven full cycles complete.
+Cycles 3, 4, 5 and 6 completed all 25 active capabilities. Every cycle-6 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 7 is active with 1/25 capabilities revisited. Enterprise Completeness / Negative-Space remains gated until seven full cycles complete.
 
 ## Historical authority
 All prior findings, including cycle 1–6 findings compacted out of this view, remain authoritative in their dossiers and prior index revisions.
