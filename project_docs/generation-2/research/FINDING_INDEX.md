@@ -2,92 +2,21 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
-## Cycle 5 stable findings
-All previously indexed cycle-5 findings through Developer / Operator Experience / Self-hosting remain authoritative in their dossiers and prior index revisions.
+## Cycle 6 authority through Identity
+All previously indexed cycle-6 findings through `G2-FINDING-IAF-44` remain authoritative in their dossiers and prior index revision.
 
-### Architecture Reconciliation as a Capability — revisit 4
-- **G2-FINDING-ARC-31** — Reconciliation requires revision-qualified `Desired → Attempted → Applied → Effective → Healthy/SemanticallySatisfied` lineage; no single `Synced` bit is sufficient.
-- **G2-FINDING-ARC-32** — Reconciliation authority is action-faceted; Observe, Normalize/Adopt, Create, Update, Delete, Repair, Migrate and Recovery must not be implicitly interchangeable.
-- **G2-FINDING-ARC-33** — Ambiguous external actuation requires correlation, quarantine and reconcile-before-retry; transport acknowledgement is not proof of effect absence or success.
-- **G2-FINDING-ARC-34** — Observation-to-desired normalization is a canonical mutation requiring explicit ownership and authority, not harmless controller bookkeeping.
-- **G2-FINDING-ARC-35** — Dependency uncertainty propagates upward: required `PARTIAL/INCONCLUSIVE` child state prevents conclusive parent semantic satisfaction.
-- **G2-FINDING-ARC-36** — Queue, apply, consumer-uptake and health convergence have independent lag/freshness; status must identify the revision each evidence item qualifies.
-- **G2-FINDING-ARC-37** — Provider/topology substitution is reconciliation migration and requires representability, new-effective evidence and residual-source disposition before authority transfer.
-- **G2-FINDING-ARC-38** — Offline/local convergence is profile-qualified and must be requalified after reconnection when trust, policy, provider, dependency or desired revisions may have advanced.
-
-## Cycle 6 findings
-### Universal Capability Architecture — revisit 5
-- **G2-FINDING-UCA-36** — Universal identity must be typed and semantic-owner-defined, not universally provider-distinct; content/trust identifiers can legitimately be canonical for their own identity kind.
-- **G2-FINDING-UCA-37** — Revision lineage does not constitute a consistency guarantee; snapshot/serialization semantics remain domain-owned.
-- **G2-FINDING-UCA-38** — Propagated cumulative context is non-authoritative by default; provenance and actuation authority must be resolved independently.
-- **G2-FINDING-UCA-39** — Composite proof requires evidence-compatibility joins across revision, snapshot, trust, scope, realization and freshness; incompatible required evidence propagates `INCONCLUSIVE`.
-- **G2-FINDING-UCA-40** — Qualified local closure has a trust/evidence horizon and requires reconnection requalification when relevant epochs advance.
-- **G2-FINDING-UCA-41** — Portability must separate preserve/transport, interpret, validate, realize and actuate capability claims.
-- **G2-FINDING-UCA-42** — Identity continuity across provider/topology/trust change is per identity kind; higher semantic identity may remain stable while authn/artifact/realization identities legitimately change.
-- **G2-FINDING-UCA-43** — Universal scope primitives must not absorb AGWS's `Enterprise → Station → Role → Person` governance hierarchy.
-
-### Process & Application Modeling — revisit 5
-- **G2-FINDING-PAM-37** — Process/Application identity continuity is typed across semantic, representation, provider and execution kinds; stable file/provider IDs cannot define canonical semantic identity.
-- **G2-FINDING-PAM-38** — Application revision is a vector rather than necessarily one bundle version; semantic units, schemas/contracts, bindings and runtime definitions may advance independently.
-- **G2-FINDING-PAM-39** — Conflict-free merge does not prove semantic validity; merge/conflict detection and whole-model semantic conformance are independent evidence classes.
-- **G2-FINDING-PAM-40** — Composite Process/Application proof requires revision-compatible evidence joins; incompatible model/schema/provider/trust evidence yields `INCONCLUSIVE`.
-- **G2-FINDING-PAM-41** — Propagated modeling context is provenance, not canonical mutation or actuation authority.
-- **G2-FINDING-PAM-42** — Process/Application portability must be layered across preserve, interpret, validate, realize and actuate; lower-layer support cannot become generic compatibility.
-- **G2-FINDING-PAM-43** — Qualified local modeling closure has a trust/evidence horizon and requires reconnection requalification when relevant dependencies advance.
-- **G2-FINDING-PAM-44** — AGWS domain-change escalation is a cross-capability boundary: Personal/Role/Station intent that changes canonical semantics must enter Process/Application Modeling authority and validation lineage.
-
-### UI / Generated Experience / Low-code Builder — revisit 5
-- **G2-FINDING-UIGX-37** — Generated UI identity is typed across projection semantics, representation, component contract, renderer/provider and effective realization; continuity is explicit per identity kind.
-- **G2-FINDING-UIGX-38** — Effective generated experience is a multi-axis revision vector across projection, model/schema, component registry, binding, renderer, accessibility and policy/trust revisions.
-- **G2-FINDING-UIGX-39** — Conflict-free UI composition does not prove semantic, target or accessibility conformance; merge/syntax and conformance are independent evidence classes.
-- **G2-FINDING-UIGX-40** — Composite UI proof requires revision/profile-compatible evidence joins; incompatible required evidence propagates `INCONCLUSIVE`.
-- **G2-FINDING-UIGX-41** — Propagated UI context is provenance/selection input, not authorization or canonical mutation authority.
-- **G2-FINDING-UIGX-42** — Generated-UI portability is layered across preserve, interpret, validate, realize and actuate; renderer support is not binary portability.
-- **G2-FINDING-UIGX-43** — Qualified local rendering/validation closure has a trust/evidence horizon and requires reconnection requalification when dependency epochs change.
-- **G2-FINDING-UIGX-44** — AI materialization must preserve independent semantic, target, accessibility and AGWS authority boundaries; generated representation success cannot self-authorize acceptance.
-
-### Adaptive Governed Work Surfaces — revisit 5
-- **G2-FINDING-AGWS-30** — AGWS identity is typed across surface, overlay, obligation, delegation, binding and realization kinds; provider/page IDs cannot become canonical AGWS identity.
-- **G2-FINDING-AGWS-31** — Effective AGWS state is a multi-axis revision vector including session-effective authority, Station exposure, component/model/binding/accessibility and trust epochs.
-- **G2-FINDING-AGWS-32** — Conflict-free personalization does not prove hierarchical, semantic or accessibility validity; merge and governed conformance are independent evidence classes.
-- **G2-FINDING-AGWS-33** — Hierarchical composite proof requires revision-compatible evidence joins; incompatible Enterprise/Station/Role/Person evidence propagates `INCONCLUSIVE`.
-- **G2-FINDING-AGWS-34** — Surface-selection context is provenance, never an authority source; audience/context/provider hints cannot grant data, action, provider or canonical-mutation authority.
-- **G2-FINDING-AGWS-35** — Mandatory organizational components require semantic obligation continuity across renderer/provider substitution, not visual or positional equivalence.
-- **G2-FINDING-AGWS-36** — Delegated Station administration is faceted and non-amplifying; surface/exposure authority does not confer domain, secret, provider-admin, deployment, recovery or superior-policy authority.
-- **G2-FINDING-AGWS-37** — Qualified local work-surface closure has a revalidation horizon; superior policy/trust/role/binding changes require requalification before privileged actuation.
-
-### Workflow & Durable Execution — revisit 5
-- **G2-FINDING-WDE-37** — Workflow identity is typed across definition, run, checkpoint, activity, worker realization and provider binding; provider execution IDs or worker builds cannot define canonical run/checkpoint identity.
-- **G2-FINDING-WDE-38** — Effective durable execution is a multi-axis compatibility revision vector across definition, run generation, worker compatibility/build, provider binding, activity/schema, configuration, policy, trust and ownership epochs.
-- **G2-FINDING-WDE-39** — Durable checkpoint acceptance requires ownership/fencing, not merely successful computation; stale/zombie executors must not advance canonical durable position.
-- **G2-FINDING-WDE-40** — Replay-sensitive context must be deterministically captured provenance, not mutable ambient state or authority.
-- **G2-FINDING-WDE-41** — Exactly-once and idempotency claims are operation- and transaction-domain-qualified; narrow atomic commits cannot justify arbitrary external-effect guarantees.
-- **G2-FINDING-WDE-42** — Worker/provider substitution is a compatibility admission relation, not a mere deployment change; incompatible in-flight runs remain pinned or require explicit migration.
-- **G2-FINDING-WDE-43** — Composite workflow proof requires revision-compatible checkpoint, worker, effect, policy/trust and retention evidence; incompatible/stale required evidence yields `INCONCLUSIVE`.
-- **G2-FINDING-WDE-44** — Qualified local durable-execution closure includes compatibility, fencing and evidence horizons; replayability alone does not authorize privileged offline continuation.
-
-### Integration & Automation — revisit 5
-- **G2-FINDING-IA-37** — Integration identity is typed across semantic operation, definition, delivery position and provider realization; provider IDs are canonical only for their own identity kind.
-- **G2-FINDING-IA-38** — Effective integration behavior is a multi-axis revision vector spanning route/schema/binding/connector/checkpoint/idempotency/trust/policy/Station exposure.
-- **G2-FINDING-IA-39** — Integration checkpoint advancement requires ownership/fencing evidence; stale or zombie connector generations must not advance canonical position.
-- **G2-FINDING-IA-40** — Deduplication state has its own persistence, retention and failure horizon; loss/expiry/replacement invalidates the guarantee rather than silently preserving it.
-- **G2-FINDING-IA-41** — Retry and redelivery semantics are provider-qualified governed transitions; materially different provider behavior must not collapse into one universal retry state machine.
-- **G2-FINDING-IA-42** — Composite integration proof requires revision-compatible trigger, position, delivery, idempotency, trust/schema and domain-effect evidence; incompatible required evidence yields `PARTIAL/INCONCLUSIVE`.
-- **G2-FINDING-IA-43** — Provider dual-run requires intake ownership/fencing before canonical position can move; new-provider health alone cannot transfer source/actuation ownership.
-- **G2-FINDING-IA-44** — Qualified local integration closure includes checkpoint/dedup state and a reconnection requalification horizon; offline availability alone is not sufficient.
-
-### Identity / Authentication / Federation — revisit 5
-- **G2-FINDING-IAF-37** — Identity security state is continuously revisioned after login; CAEP-style session/credential/claims/assurance events invalidate the assumption that login-time evidence remains current.
-- **G2-FINDING-IAF-38** — Revocation is a distributed propagation lineage (`Event → Delivered → Accepted → Applied → Effective/Postcondition`), not a single boolean.
-- **G2-FINDING-IAF-39** — Security-event position and freshness are identity evidence dependencies; a healthy receiver behind the required revocation/security stream can still be unsafe or `INCONCLUSIVE`.
-- **G2-FINDING-IAF-40** — Subject and actor identity remain distinct under delegation/impersonation; propagated actor/subject claims are provenance evidence, not semantic authority.
-- **G2-FINDING-IAF-41** — Session identity is issuer-scoped and cannot define canonical subject continuity across providers.
-- **G2-FINDING-IAF-42** — Revocation closure must distinguish interactive sessions from offline/long-lived credentials; successful logout cannot imply every credential class is unusable.
-- **G2-FINDING-IAF-43** — Trust-domain key rotation has ordered propagation semantics; trust qualification includes trust-domain binding, generation/sequence and propagation freshness.
-- **G2-FINDING-IAF-44** — Identity composite proof requires compatible joins across mapping, trust, credential/assertion, authentication freshness, session realization and revocation-stream evidence; stale required evidence propagates `PARTIAL/INCONCLUSIVE`.
+### Authorization / Policy / Organization / Multitenancy — revisit 5
+- **G2-FINDING-APOM-37** — Authorization identity is typed across semantic policy/model, relationship/membership, organization/tenant/Station, delegation/exception, decision and enforcement-realization kinds; authentication/session identity cannot define authorization identity.
+- **G2-FINDING-APOM-38** — Effective authority is a multi-axis revision vector; policy/model revision alone is insufficient without relationship, delegation/exception, identity-security freshness, provider/enforcement and Station-scope evidence.
+- **G2-FINDING-APOM-39** — Authorization decision and enforcement are separate convergence stages; a produced `ALLOW` is evidence of evaluation, not proof that the governed action was effectively admitted/enforced.
+- **G2-FINDING-APOM-40** — Subject/actor delegation and impersonation require explicit provenance plus independent authority facets; propagated identity claims are inputs/evidence and cannot self-authorize delegated power.
+- **G2-FINDING-APOM-41** — Delegated administration is non-amplifying and action-faceted; role binding, policy definition, impersonation, escalation, exception approval, provider administration and recovery must not be implicitly interchangeable across Enterprise→Station→Role→Person.
+- **G2-FINDING-APOM-42** — Break-glass/exception authority is a bounded revocable lease with its own lifecycle and evidence, not a permanent role mutation or generic authentication override.
+- **G2-FINDING-APOM-43** — Composite authorization proof requires compatible joins across identity-security freshness, policy/model, relationship, scope, delegation/exception, evaluator and enforcement evidence; stale/missing required inputs propagate `PARTIAL/INCONCLUSIVE`.
+- **G2-FINDING-APOM-44** — Qualified local/offline authorization has a policy/relationship/trust/revocation horizon; reconnection or superior-epoch change requires requalification before privileged actuation continues.
 
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with Universal Capability Architecture, Process & Application Modeling, UI / Generated Experience / Low-code Builder, Adaptive Governed Work Surfaces, Workflow & Durable Execution, Integration & Automation and Identity / Authentication / Federation completed.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with eight capabilities completed through Authorization / Policy / Organization / Multitenancy.
 
 ## Historical authority
-All prior findings, including cycle 1–5 and compacted findings, remain authoritative in their dossiers and prior index revisions.
+All prior findings, including cycle 1–5 and compacted cycle-6 findings, remain authoritative in their dossiers and prior index revisions.
