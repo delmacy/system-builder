@@ -12,12 +12,12 @@
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 190,
+    "hourly_runs_completed": 191,
     "finding_count": 1407,
     "capability_candidate_count": 642,
     "new_candidates_this_run": [],
     "promoted_capabilities_this_run": [],
-    "saturated_capabilities": [],
+    "saturated_capabilities": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE"],
     "saturation_rule": "SATURATED requires principal representatives covered and two consecutive eligible revisits with no material new architectural finding, or remaining questions requiring repository validation. Material findings reset the streak.",
     "candidate_inventory_authority": "project_docs/generation-2/research/CAPABILITY_DISCOVERY_REGISTER.md plus prior state history and capability dossiers; compact representations do not revoke prior candidates",
     "historical_coverage_authority": "project_docs/generation-2/research/REPRESENTATIVE_COVERAGE.md and capability dossiers; all prior coverage remains authoritative and unsuperseded",
@@ -31,36 +31,36 @@
       "resolved_structural_gaps": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE","G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY","G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT"],
       "centralized_proof_debt": [],
       "closure_criteria": {"archetype_decomposability":"PASS","semantic_owner_completeness":"PASS","gap_disposition":"PASS","candidate_treatment":"PASS","coverage_challenge_disposition":"PASS","evidence_backed_sufficiency":"PASS"},
-      "closure_blocker": "NORMAL_SATURATION_RULE_NOT_SATISFIED_FOR_POST_CYCLE_7_PROMOTED_CAPABILITIES"
+      "closure_blocker": "NORMAL_SATURATION_RULE_NOT_SATISFIED_FOR_REMAINING_POST_CYCLE_7_PROMOTED_CAPABILITIES"
     },
     "latest_saturation_revisit": {
-      "capability": "G2-CAPABILITY-CANDIDATE-TECHNOLOGY-ECONOMIC-GOVERNANCE-FINOPS",
-      "artifact": "project_docs/generation-2/research/TECHNOLOGY_ECONOMIC_GOVERNANCE_POST_PROMOTION_SATURATION_REVISIT_01.md",
-      "result": "ELIGIBLE_NO_MATERIAL_FINDING_REVISIT_1_OF_2",
+      "capability": "G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE",
+      "artifact": "project_docs/generation-2/research/ENTERPRISE_TRUST_PKI_POST_PROMOTION_SATURATION_REVISIT_02.md",
+      "result": "ELIGIBLE_NO_MATERIAL_FINDING_REVISIT_2_OF_2",
       "material_findings": [],
       "new_candidates": [],
-      "representative_coverage": {"FinOps Framework":"DEEP","FOCUS 1.4":"DEEP","OpenCost":"DEEP","Microsoft Cost Management":"DEEP"},
-      "no_material_finding_streak": 1,
+      "representative_coverage": {"AWS Private CA":"DEEP","Google Cloud CA Service":"DEEP","Kubernetes certificate and CA rotation":"DEEP"},
+      "no_material_finding_streak": 2,
       "required_streak": 2,
-      "saturation_status": "NOT_SATURATED"
+      "saturation_status": "SATURATED"
     },
     "promoted_capability_saturation": {
-      "G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE": {"streak":1,"required":2,"status":"NOT_SATURATED"},
+      "G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE": {"streak":2,"required":2,"status":"SATURATED"},
       "G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY": {"streak":1,"required":2,"status":"NOT_SATURATED"},
       "G2-CAPABILITY-CANDIDATE-TECHNOLOGY-ECONOMIC-GOVERNANCE-FINOPS": {"streak":1,"required":2,"status":"NOT_SATURATED"}
     },
-    "pending_capabilities": ["G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE","G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY","G2-CAPABILITY-CANDIDATE-TECHNOLOGY-ECONOMIC-GOVERNANCE-FINOPS"]
+    "pending_capabilities": ["G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY","G2-CAPABILITY-CANDIDATE-TECHNOLOGY-ECONOMIC-GOVERNANCE-FINOPS"]
   },
   "gates": {
-    "RESEARCH_ELICITATION": "OPEN — Enterprise Completeness six-criterion closure audit PASS, but normal saturation remains unsatisfied for post-cycle-7 promoted capabilities; no waiver is permitted.",
-    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "SIX_CRITERIA_PASS / NOT_CLOSED — blocked only by normal saturation reconciliation for promoted post-cycle-7 capabilities.",
+    "RESEARCH_ELICITATION": "OPEN — Enterprise Completeness six-criterion closure audit PASS; Enterprise Trust/PKI is now SATURATED, but normal saturation remains unsatisfied for Privacy/Data Governance and Technology Economic Governance / FinOps; no waiver is permitted.",
+    "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "SIX_CRITERIA_PASS / NOT_CLOSED — blocked only by normal saturation reconciliation for two remaining promoted post-cycle-7 capabilities.",
     "ARCHITECTURE_PROOF_BACKFILL": "CENTRALIZED_PASS_1_COMPLETE — no centralized proof debt remains; historical per-capability backfill obligations remain authoritative.",
     "CAPABILITY_SYNTHESIS": "BLOCKED_PENDING_PROMOTED_CAPABILITY_SATURATION"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "Technology Economic Governance / FinOps post-promotion saturation revisit 1 is complete with no material architectural finding. FinOps Framework, FOCUS 1.4, OpenCost and Microsoft Cost Management remain DEEP; existing economic findings cover tested exceptions. All three post-cycle-7 promoted capabilities now have eligible no-material-finding streak 1/2 and remain NOT_SATURATED. Enterprise Completeness has all six structural criteria PASS but remains blocked solely by the normal saturation rule. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
-  "last_completed_artifact": "project_docs/generation-2/research/TECHNOLOGY_ECONOMIC_GOVERNANCE_POST_PROMOTION_SATURATION_REVISIT_01.md",
+  "current_focus": "Enterprise Trust / PKI / Certificate Lifecycle post-promotion saturation revisit 2 is complete with no material architectural finding. Alternate current evidence from AWS Private CA, Google Cloud CA Service and Kubernetes confirms revocation currentness, overlap, consumer-effective adoption, provider support divergence and residual drainage already represented by the promoted trust model. Enterprise Trust/PKI is SATURATED at eligible streak 2/2. Privacy/Data Governance and Technology Economic Governance / FinOps remain NOT_SATURATED at streak 1/2. Enterprise Completeness has all six structural criteria PASS but remains blocked solely by those two normal saturation obligations. Adaptive Governed Work Surfaces remains CORE/distinct with Enterprise → Station → Role → Person and no AI authority amplification.",
+  "last_completed_artifact": "project_docs/generation-2/research/ENTERPRISE_TRUST_PKI_POST_PROMOTION_SATURATION_REVISIT_02.md",
   "last_framework_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_ARCHITECTURE_PROOF_BACKFILL.md",
-  "next_action": "Research exactly Enterprise Trust / PKI / Certificate Lifecycle — post-promotion saturation revisit 2. Use research-by-exception against the promoted trust dossier, centralized trust proof and revisit 1; test path/policy/time qualification, issuance/renewal/revocation, root/intermediate rotation overlap, consumer-effective trust, provider substitution, residual cohort drainage, disconnected/offline evidence horizons, governance/observability/portability and remaining repo-validation questions. Record whether a material architectural finding exists. If material, reset the no-material-finding streak; if none, record eligible no-material revisit 2/2 and mark only this capability SATURATED if principal representative coverage remains sufficient. Do not research another capability and do not enter CAPABILITY_SYNTHESIS. Preserve Adaptive Governed Work Surfaces, Enterprise → Station → Role → Person and AI/AGWS non-amplification.",
-  "updated_at": "2026-09-03T17:07:05-03:00"
+  "next_action": "Research exactly Privacy / Data Governance / Retention / Legal Hold / Residency — post-promotion saturation revisit 2. Use research-by-exception against the promoted privacy dossier, centralized privacy proof and revisit 1; test purpose/use qualification, retention-versus-hold precedence, disposition eligibility, residency/replication/backup scope, provider substitution, evidence replay/currentness, residual data/replica/backup/consumer cohort drainage, disconnected/offline behavior, governance/observability/portability and remaining repo-validation questions. Record whether a material architectural finding exists. If material, reset the no-material-finding streak; if none, record eligible no-material revisit 2/2 and mark only this capability SATURATED if principal representative coverage remains sufficient. Do not research another capability and do not enter CAPABILITY_SYNTHESIS. Preserve Adaptive Governed Work Surfaces, Enterprise → Station → Role → Person and AI/AGWS non-amplification.",
+  "updated_at": "2026-09-03T17:18:20-03:00"
 }
