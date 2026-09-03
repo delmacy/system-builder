@@ -12,16 +12,16 @@ Executable composition/cumulative context; transaction-consistency-concurrency; 
 
 `G2-RESEARCH-HYPOTHESIS-SYSTEM-BUILDER-SUITE-COMPOSITION-FORMATION` — **USER-DIRECTED / ARCHITECTURAL_FORMATION / NOT_A_PROMOTED_CAPABILITY**.
 
-## Cycle 6 authority through Standards / Interoperability / API Contracts
-All prior cycle-6 candidates through Standards / Interoperability / API Contracts remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
+## Cycle 6 authority through Lifecycle / Versioning / Evolution / Migration
+All prior cycle-6 candidates through Lifecycle / Versioning / Evolution / Migration remain authoritative in earlier register revisions and their dossiers. None was promoted in those passes.
 
-### Lifecycle / Versioning / Evolution / Migration — revisit cycle 6 candidates
+### Security / Resilience / Failure Recovery — revisit cycle 6 candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| G2-CAPABILITY-CANDIDATE-LVEM-TYPED-TRANSITION-IDENTITY-MAPPING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal typed identity while Lifecycle retains transition-lineage ownership. |
-| G2-CAPABILITY-CANDIDATE-LVEM-DIRECTIONAL-ROLLBACK-ELIGIBILITY-PROOF | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve Lifecycle↔Recovery boundary; rollback eligibility is current-state and direction qualified. |
-| G2-CAPABILITY-CANDIDATE-LVEM-MIGRATION-OWNERSHIP-FENCING-EVIDENCE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with expected-base/fencing primitive used by Data, Workflow, Provider and governance mutations. |
-| G2-CAPABILITY-CANDIDATE-LVEM-RESIDUAL-SOURCE-DISPOSITION-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile residual-use closure across Provider, Data, Deployment, Secrets and Integration. |
+| G2-CAPABILITY-CANDIDATE-SRFR-TYPED-RECOVERY-BRANCH-IDENTITY | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Lifecycle typed transition identity while Security retains recovery/threat semantics. |
+| G2-CAPABILITY-CANDIDATE-SRFR-RECOVERY-WRITER-EPOCH-FENCING | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile expected-base/fencing across Data, Workflow, Deployment, Provider and recovery mutation. |
+| G2-CAPABILITY-CANDIDATE-SRFR-POST-RESTORE-SEMANTIC-VALIDATION | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Security owns recovery qualification; executable validator mechanisms remain shared with conformance/testing. |
+| G2-CAPABILITY-CANDIDATE-SRFR-POST-RECOVERY-REPROTECTION-CLOSURE | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve distinction between recovered availability and restored resilience/protection posture. |
 
 No cycle-6 candidate is promoted in this pass. Adaptive Governed Work Surfaces remains promoted and distinct.
 
