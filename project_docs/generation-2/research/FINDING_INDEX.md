@@ -2,21 +2,21 @@
 
 Prior stable findings remain authoritative in their capability dossiers and pipeline history. Compacting this index does not revoke them.
 
-## Cycle 6 authority through Identity
-All previously indexed cycle-6 findings through `G2-FINDING-IAF-44` remain authoritative in their dossiers and prior index revision.
+## Cycle 6 authority through Authorization
+All previously indexed cycle-6 findings through `G2-FINDING-APOM-44` remain authoritative in their dossiers and prior index revision.
 
-### Authorization / Policy / Organization / Multitenancy — revisit 5
-- **G2-FINDING-APOM-37** — Authorization identity is typed across semantic policy/model, relationship/membership, organization/tenant/Station, delegation/exception, decision and enforcement-realization kinds; authentication/session identity cannot define authorization identity.
-- **G2-FINDING-APOM-38** — Effective authority is a multi-axis revision vector; policy/model revision alone is insufficient without relationship, delegation/exception, identity-security freshness, provider/enforcement and Station-scope evidence.
-- **G2-FINDING-APOM-39** — Authorization decision and enforcement are separate convergence stages; a produced `ALLOW` is evidence of evaluation, not proof that the governed action was effectively admitted/enforced.
-- **G2-FINDING-APOM-40** — Subject/actor delegation and impersonation require explicit provenance plus independent authority facets; propagated identity claims are inputs/evidence and cannot self-authorize delegated power.
-- **G2-FINDING-APOM-41** — Delegated administration is non-amplifying and action-faceted; role binding, policy definition, impersonation, escalation, exception approval, provider administration and recovery must not be implicitly interchangeable across Enterprise→Station→Role→Person.
-- **G2-FINDING-APOM-42** — Break-glass/exception authority is a bounded revocable lease with its own lifecycle and evidence, not a permanent role mutation or generic authentication override.
-- **G2-FINDING-APOM-43** — Composite authorization proof requires compatible joins across identity-security freshness, policy/model, relationship, scope, delegation/exception, evaluator and enforcement evidence; stale/missing required inputs propagate `PARTIAL/INCONCLUSIVE`.
-- **G2-FINDING-APOM-44** — Qualified local/offline authorization has a policy/relationship/trust/revocation horizon; reconnection or superior-epoch change requires requalification before privileged actuation continues.
+### Data / Schema / Migrations — revisit 5
+- **G2-FINDING-DSM-37** — Data evolution identity is typed across semantic schema, dataset, migration, transaction domain, CDC/checkpoint and provider realization; provider job/slot/table IDs cannot define canonical data identity.
+- **G2-FINDING-DSM-38** — Effective data qualification is multi-axis; schema revision alone is insufficient without storage generation, dataset epoch, migration ownership, transaction profile, checkpoint/coverage, provider/scope and trust evidence.
+- **G2-FINDING-DSM-39** — Schema admission, provider application, persisted-data convergence and executable conformance are separate stages; provider DONE/SUCCEEDED cannot prove effective schema/data truth.
+- **G2-FINDING-DSM-40** — Migration execution requires epoch/ownership fencing; a stale or concurrent migration actor must not continue merely because provider commands remain technically executable.
+- **G2-FINDING-DSM-41** — Schema compatibility and transaction/consistency guarantees are orthogonal; representable/compatible schemas do not prove required concurrent business invariants.
+- **G2-FINDING-DSM-42** — CDC/backfill continuity requires row/source identity plus schema/checkpoint/coverage evidence; transport continuity can fail independently of canonical schema validity.
+- **G2-FINDING-DSM-43** — Provider substitution/cutover requires residual-source and dual-write divergence disposition plus transaction/CDC conformance before data authority transfers.
+- **G2-FINDING-DSM-44** — Composite data proofs and qualified local closure have compatibility/freshness horizons; missing or changed mandatory axes propagate PARTIAL/INCONCLUSIVE and require reconnection requalification.
 
 ## Cycle closures
-Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with eight capabilities completed through Authorization / Policy / Organization / Multitenancy.
+Cycles 3, 4 and 5 completed all 25 active capabilities. Every cycle-5 pass produced material architectural findings; no capability was SATURATED at cycle close. Cycle 6 is active with nine capabilities completed through Data / Schema / Migrations.
 
 ## Historical authority
 All prior findings, including cycle 1–5 and compacted cycle-6 findings, remain authoritative in their dossiers and prior index revisions.
