@@ -17,7 +17,7 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 | `G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE` | CROSS_CUTTING | PROMOTED / NOT_SATURATED | Distinct owner proven. |
 | `G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY` | CROSS_CUTTING | PROMOTED / NOT_SATURATED | Distinct owner proven. |
 | `G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE` | CROSS_CUTTING concern | MERGE_INTO_EXISTING_OWNERS / NOT_PROMOTED / CENTRALIZED_PROOF_RESOLVED | Explicit qualification contracts required; no ownerless top-level semantic category remains. `AI_EVALUATION_QUALIFICATION_STALE_EVIDENCE_CENTRALIZED_PROOF.md` proves applicability/staleness/inconclusive/promotion boundaries without taxonomy promotion. |
-| `G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT` | DOMAIN → CROSS_CUTTING split | SPLIT / PARENT_NOT_PROMOTED | Narrow cross-cutting Technology Economic Governance owner promoted; Procurement/Sourcing remains specialized/domain-specific; provider billing/optimization mechanics providerized. |
+| `G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT` | DOMAIN → CROSS_CUTTING split | SPLIT / PARENT_NOT_PROMOTED / CENTRALIZED_PROOF_RESOLVED | Narrow cross-cutting Technology Economic Governance owner promoted; Procurement/Sourcing remains specialized/domain-specific; provider billing/optimization mechanics providerized. `TECHNOLOGY_ECONOMIC_GOVERNANCE_CENTRALIZED_PROOF.md` resolves normalization/allocation/history/budget/forecast/commitment/provider-substitution without further promotion. |
 
 ## AI Evaluation consolidation disposition
 No new candidate was created by the centralized proof. Existing consolidation candidates remain authoritative:
@@ -35,10 +35,11 @@ No new candidate was created by the centralized proof. Existing consolidation ca
 These dispositions resolve the workload-driven minimal-runtime semantic-owner question without adding a top-level capability. See `WORKLOAD_DRIVEN_MINIMAL_RUNTIME_REALIZATION_PROOF.md` and findings `G2-FINDING-WDRR-01..08`.
 
 ## Economic Governance consolidation candidates
+No new candidate was created by the centralized economic proof. Existing candidates remain sufficient:
 - `G2-CAPABILITY-CANDIDATE-TECHNOLOGY-ECONOMIC-GOVERNANCE-FINOPS` — CROSS_CUTTING / PROMOTED / NOT_SATURATED.
-- `G2-CAPABILITY-CANDIDATE-TEG-APPLICABILITY-SCOPED-ECONOMIC-CLAIM` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE.
-- `G2-CAPABILITY-CANDIDATE-TEG-ALLOCATION-CONSERVATION-RESIDUAL` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE.
-- `G2-CAPABILITY-CANDIDATE-TEG-MIXED-COST-SOURCE-RATE-SUPPORT-VECTOR` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE.
+- `G2-CAPABILITY-CANDIDATE-TEG-APPLICABILITY-SCOPED-ECONOMIC-CLAIM` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE; strengthened by `G2-FINDING-TEGP-01,02,04`.
+- `G2-CAPABILITY-CANDIDATE-TEG-ALLOCATION-CONSERVATION-RESIDUAL` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE; strengthened by `G2-FINDING-TEGP-03,04`.
+- `G2-CAPABILITY-CANDIDATE-TEG-MIXED-COST-SOURCE-RATE-SUPPORT-VECTOR` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE; strengthened by `G2-FINDING-TEGP-01,06,07`.
 
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
