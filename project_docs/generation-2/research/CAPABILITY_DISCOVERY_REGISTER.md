@@ -16,8 +16,15 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 |---|---|---|---|
 | `G2-CAPABILITY-CANDIDATE-ENTERPRISE-TRUST-PKI-CERTIFICATE-LIFECYCLE` | CROSS_CUTTING | PROMOTED / NOT_SATURATED | Distinct owner proven. |
 | `G2-CAPABILITY-CANDIDATE-PRIVACY-DATA-GOVERNANCE-RETENTION-LEGAL-HOLD-RESIDENCY` | CROSS_CUTTING | PROMOTED / NOT_SATURATED | Distinct owner proven. |
-| `G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE` | CROSS_CUTTING concern | MERGE_INTO_EXISTING_OWNERS / NOT_PROMOTED | Explicit qualification contracts required; no ownerless top-level semantic category remains. |
+| `G2-CAPABILITY-CANDIDATE-AI-EVALUATION-MODEL-PROMPT-SAFETY-GOVERNANCE` | CROSS_CUTTING concern | MERGE_INTO_EXISTING_OWNERS / NOT_PROMOTED / CENTRALIZED_PROOF_RESOLVED | Explicit qualification contracts required; no ownerless top-level semantic category remains. `AI_EVALUATION_QUALIFICATION_STALE_EVIDENCE_CENTRALIZED_PROOF.md` proves applicability/staleness/inconclusive/promotion boundaries without taxonomy promotion. |
 | `G2-CAPABILITY-CANDIDATE-ECONOMIC-GOVERNANCE-FINOPS-PROCUREMENT` | DOMAIN → CROSS_CUTTING split | SPLIT / PARENT_NOT_PROMOTED | Narrow cross-cutting Technology Economic Governance owner promoted; Procurement/Sourcing remains specialized/domain-specific; provider billing/optimization mechanics providerized. |
+
+## AI Evaluation consolidation disposition
+No new candidate was created by the centralized proof. Existing consolidation candidates remain authoritative:
+- `G2-CAPABILITY-CANDIDATE-AIEG-APPLICABILITY-SCOPED-AI-QUALIFICATION` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE; strengthened by `G2-FINDING-AIQP-01..05`.
+- `G2-CAPABILITY-CANDIDATE-AIEG-EVALUATION-EVIDENCE-REPLAY-HORIZON` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE; strengthened by `G2-FINDING-AIQP-02,04,06`.
+- `G2-CAPABILITY-CANDIDATE-AIEG-MIXED-EVALUATION-SAFETY-PROVIDER-SUPPORT-VECTOR` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE; strengthened by `G2-FINDING-AIQP-07`.
+- `G2-CAPABILITY-CANDIDATE-AIEG-AI-CONFIGURATION-COHORT-DRAINAGE` — CROSS_CUTTING / CONSOLIDATION_CANDIDATE; remains a Lifecycle/Provider/AI-native synthesis concern, not a capability promotion.
 
 ## Workload-driven runtime realization dispositions
 - `G2-CAPABILITY-CANDIDATE-WORKLOAD-DRIVEN-RUNTIME-REALIZATION` — **CROSS_CUTTING / MERGE_INTO_EXISTING_OWNERS / NOT_PROMOTED**. Deployment/Runtime owns concrete realization; Build, Provider Binding, Observability and Security/Recovery contribute qualification inputs.
