@@ -27,3 +27,13 @@ Prior UCA and Process/Application Modeling cycle-7 candidates remain authoritati
 | G2-CAPABILITY-CANDIDATE-UIGX-DUAL-REPRESENTATION-CONSUMER-DRAINAGE-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Lifecycle migration closure with UI device/Station cohort evidence; new generation alone cannot close migration. |
 
 No cycle-7 UI candidate is promoted. Adaptive Governed Work Surfaces remains promoted and distinct.
+
+### Adaptive Governed Work Surfaces — revisit cycle 7 candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| G2-CAPABILITY-CANDIDATE-AGWS-APPLICABILITY-SCOPED-EFFECTIVE-SURFACE-CLAIM | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/UIGX applicability claims while retaining Enterprise/Station/Role/Person, obligation and Station-exposure axes. |
+| G2-CAPABILITY-CANDIDATE-AGWS-EVIDENCE-REPLAY-HORIZON | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile UCA/UIGX/Governance evidence horizons while preserving hierarchy-resolution and authority-uptake evidence. |
+| G2-CAPABILITY-CANDIDATE-AGWS-MIXED-SURFACE-STABILITY-SUPPORT-VECTOR | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Generalize mixed stability with UIGX/Provider/Lifecycle while retaining Station exposure and authority-model dimensions. |
+| G2-CAPABILITY-CANDIDATE-AGWS-CONSUMER-COHORT-DRAINAGE-CLOSURE | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile Lifecycle/UIGX migration closure while requiring Station/device/session cohort and residual dependency disposition. |
+
+No AGWS cycle-7 candidate is promoted. `G2-CAPABILITY-CANDIDATE-ADAPTIVE-GOVERNED-WORK-SURFACES` remains the already-promoted CORE capability and remains distinct from generic UI.
