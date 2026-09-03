@@ -8,6 +8,14 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
+## Cycle 7 — Deployment / Environment / Runtime candidates
+| Candidate | Class | Status | Promotion / merge condition |
+|---|---|---|---|
+| `G2-CAPABILITY-CANDIDATE-DER-APPLICABILITY-SCOPED-DEPLOYMENT-RUNTIME-QUALIFICATION-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability graphs while Deployment retains release/admission/realization/traffic/readiness dimensions. |
+| `G2-CAPABILITY-CANDIDATE-DER-DEPLOYMENT-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Governance/UCA evidence-horizon primitives while preserving rollout/readiness/provider freshness semantics. |
+| `G2-CAPABILITY-CANDIDATE-DER-MIXED-RUNTIME-ORCHESTRATOR-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent reconciliation, rollout, traffic, readiness, rollback, stateful, offline, fencing and evidence axes. |
+| `G2-CAPABILITY-CANDIDATE-DER-RUNTIME-TRAFFIC-SESSION-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Deployment owns residual runtime/traffic/session/cache/discovery/consumer closure during provider/environment substitution. |
+
 ## Cycle 7 — Artifact / Release / SBOM / Provenance candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
