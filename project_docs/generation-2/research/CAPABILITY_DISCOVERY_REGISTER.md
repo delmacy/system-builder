@@ -8,39 +8,27 @@ Promotion requires multi-representative evidence or a clear structural System Bu
 ## Mandatory candidate with dedicated deep research complete
 `G2-CAPABILITY-CANDIDATE-RELATIVE-OPERATIONAL-COMPLEXITY-METERING-RATING` — **CROSS_CUTTING / RESEARCH_COMPLETE_PENDING_SYNTHESIS_DISPOSITION**.
 
-## Cycle 7 — Governance / Compliance / Audit candidates
+## Cycle 7 — Secrets / Configuration / Environment Portability candidates
 | Candidate | Class | Status | Promotion / merge condition |
 |---|---|---|---|
-| `G2-CAPABILITY-CANDIDATE-GCA-APPLICABILITY-SCOPED-GOVERNANCE-QUALIFICATION-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability graph while Governance retains obligation/control/assessment/population/exception semantics. |
-| `G2-CAPABILITY-CANDIDATE-GCA-GOVERNANCE-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA/Observability evidence horizons while preserving assessment/audit retention and historical-verifiability semantics. |
-| `G2-CAPABILITY-CANDIDATE-GCA-MIXED-ASSESSOR-EVIDENCE-AUDIT-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent framework, applicability, assessment-method, evidence, exception, audit, retention, offline and delegated-admin axes. |
-| `G2-CAPABILITY-CANDIDATE-GCA-EVIDENCE-FINDING-EXCEPTION-AUDIT-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Governance owns residual closure for old assessor/provider evidence, findings, exceptions, audit/trust artifacts and dependent consumers. |
+| `G2-CAPABILITY-CANDIDATE-SCEP-APPLICABILITY-SCOPED-EFFECTIVE-SECRET-CONFIG-QUALIFICATION-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability claims while Secrets retains materialization/refresh/consumer semantics. |
+| `G2-CAPABILITY-CANDIDATE-SCEP-SECRET-CONFIG-EVIDENCE-CURRENTNESS-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with universal evidence horizons while preserving lease/cache/sync/non-disclosure constraints. |
+| `G2-CAPABILITY-CANDIDATE-SCEP-MIXED-PROVIDER-KMS-DELIVERY-RUNTIME-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent provider, KMS/wrapping, lease, rotation, projection, refresh, offline and evidence axes. |
+| `G2-CAPABILITY-CANDIDATE-SCEP-SECRET-CONFIG-CONSUMER-SESSION-CACHE-MOUNT-ENV-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Secrets owns residual material-consumption closure across generations/provider migration. |
 
 No candidate is promoted in this revisit.
 
+## Cycle 7 — Governance / Compliance / Audit candidates
+Prior cycle-7 candidates remain authoritative: applicability-scoped governance qualification, governance evidence replay horizon, mixed assessor/evidence/audit support vector, and evidence/finding/exception/audit consumer-cohort drainage.
+
 ## Cycle 7 — Extension / Plugin / Marketplace Architecture candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| `G2-CAPABILITY-CANDIDATE-EPM-APPLICABILITY-SCOPED-EFFECTIVE-EXTENSION-QUALIFICATION-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability claims while Extension retains admission/activation/update/runtime semantics. |
-| `G2-CAPABILITY-CANDIDATE-EPM-REQUESTED-GRANTED-EFFECTIVE-CAPABILITY-LINEAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Preserve extension-owned capability-request/grant/effective-runtime lineage unless Authorization synthesis proves a universal owner without semantic loss. |
-| `G2-CAPABILITY-CANDIDATE-EPM-MIXED-EXTENSION-CONTAINMENT-RUNTIME-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Provider/Security support vectors while preserving extension-specific containment, host-authority and runtime dimensions. |
-| `G2-CAPABILITY-CANDIDATE-EPM-EXTENSION-VERSION-SESSION-HOOK-GRANT-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Extension owns residual update/provider-cutover closure for old versions, sessions, caches, hooks, grants and consumers. |
+Prior cycle-7 candidates remain authoritative: applicability-scoped extension qualification, requested→granted→effective capability lineage, mixed extension containment/runtime support vector, and extension version/session/hook/grant/consumer cohort drainage.
 
 ## Cycle 7 — Observability / Operations / Incident candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| `G2-CAPABILITY-CANDIDATE-OOI-APPLICABILITY-SCOPED-OPERATIONAL-QUALIFICATION-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability graphs while Observability retains runtime-generation/traffic/coverage/signal/evaluation/incident dimensions. |
-| `G2-CAPABILITY-CANDIDATE-OOI-OPERATIONAL-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA/Governance evidence horizons while preserving sampling, retention, query/evaluation and incident evidence semantics. |
-| `G2-CAPABILITY-CANDIDATE-OOI-MIXED-TELEMETRY-ALERT-INCIDENT-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent signal, sampling, retention, query, NoData/stale, alert, notification, incident, escalation, offline and evidence axes. |
-| `G2-CAPABILITY-CANDIDATE-OOI-SIGNAL-RULE-INCIDENT-ONCALL-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Observability/Operations owns residual telemetry/rule/notification/incident/on-call closure during provider migration. |
+Prior cycle-7 candidates remain authoritative: applicability-scoped operational qualification, operational evidence replay horizon, mixed telemetry/alert/incident support vector, and signal/rule/incident/on-call cohort drainage.
 
 ## Cycle 7 — Deployment / Environment / Runtime candidates
-| Candidate | Class | Status | Promotion / merge condition |
-|---|---|---|---|
-| `G2-CAPABILITY-CANDIDATE-DER-APPLICABILITY-SCOPED-DEPLOYMENT-RUNTIME-QUALIFICATION-CLAIM` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with UCA applicability graphs while Deployment retains release/admission/realization/traffic/readiness dimensions. |
-| `G2-CAPABILITY-CANDIDATE-DER-DEPLOYMENT-EVIDENCE-REPLAY-HORIZON` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Reconcile with Governance/UCA evidence-horizon primitives. |
-| `G2-CAPABILITY-CANDIDATE-DER-MIXED-RUNTIME-ORCHESTRATOR-SUPPORT-VECTOR` | CROSS_CUTTING | CONSOLIDATION_CANDIDATE | Preserve independent reconciliation, rollout, traffic, readiness, rollback, stateful, offline, fencing and evidence axes. |
-| `G2-CAPABILITY-CANDIDATE-DER-RUNTIME-TRAFFIC-SESSION-CONSUMER-COHORT-DRAINAGE` | CORE_SUBCAPABILITY | PENDING_SYNTHESIS | Deployment owns residual runtime/traffic/session/cache/discovery/consumer closure. |
+Prior cycle-7 candidates remain authoritative: applicability-scoped deployment/runtime qualification, deployment evidence replay horizon, mixed runtime/orchestrator support vector, and runtime/traffic/session/consumer cohort drainage.
 
 ## Cycle 7 — Artifact / Release / SBOM / Provenance candidates
 Prior cycle-7 candidates remain authoritative: applicability-scoped release qualification, artifact trust evidence replay horizon, mixed registry/signing/SBOM/distribution support vector, and release-discovery consumer cohort drainage.
