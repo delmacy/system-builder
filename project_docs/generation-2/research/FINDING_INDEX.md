@@ -22,5 +22,15 @@ Prior stable findings remain authoritative in their capability dossiers, earlier
 - **G2-FINDING-APOM-51** — Role/policy/provider migration closes only after residual evaluator, active-session/contextual-claim, temporary-grant and enforcement consumer cohorts are drained or explicitly dispositioned; destination decision success is not cutover closure.
 - **G2-FINDING-APOM-52** — Qualified local/offline authorization and delegated administration are non-amplifying: authority is bounded by explicit facet attenuation and policy/revocation/trust/evidence horizons, with mandatory reconnect requalification before privileged continuation.
 
+## Cycle 7 — Data / Schema / Migrations revisit 6
+- **G2-FINDING-DSM-45** — Effective data/schema truth is an applicability-scoped claim over schema/model, dataset/population, tenant/Station, provider realization, transaction profile, consumer cohort, CDC/checkpoint, compatibility, authority/trust and evidence horizon; no single database status is globally authoritative.
+- **G2-FINDING-DSM-46** — Data-currentness is realization- and consumer-specific: primary/schema success does not prove replicas, CDC, indexes/materialized projections, caches, writers/readers or external consumers have converged to the same effective epoch.
+- **G2-FINDING-DSM-47** — Data conformance is revision-qualified across semantic schema, data population, transaction/invariant profile, provider realization and validation rules; schema compatibility alone cannot prove business-invariant safety.
+- **G2-FINDING-DSM-48** — Migration actuation has distinct attempted, accepted, persisted, converged and validated states; acknowledgement loss or timeout creates OUTCOME_UNKNOWN and requires reconcile-before-retry rather than blind replay.
+- **G2-FINDING-DSM-49** — Data/migration evidence has a replay horizon distinct from historical validity; loss/GC of WAL/log positions, CDC offsets, schema history, old revisions or validation populations makes exact reconstruction unavailable and must propagate INCONCLUSIVE/new-baseline semantics.
+- **G2-FINDING-DSM-50** — Database/provider portability is a mixed support vector across schema/constraint semantics, transaction/isolation, online DDL, backfill, CDC/checkpoint/ordering, derived-read freshness, rollback/forward-fix and evidence; nominal schema compatibility is insufficient.
+- **G2-FINDING-DSM-51** — Provider/schema migration closes only after residual source writers, old readers, dual-write divergence, backfill, CDC and derived-consumer cohorts are drained or explicitly dispositioned; destination success does not transfer data authority by itself.
+- **G2-FINDING-DSM-52** — Qualified local/offline data operation and delegated Station administration are non-amplifying and horizon-bounded; reconnect after superior schema/data/trust/authority advancement requires reconciliation before privileged writes, migration or cutover continue.
+
 ## Historical authority
 All findings from prior capabilities and cycles remain authoritative in their dossiers, earlier `FINDING_INDEX.md` revisions and `RESEARCH_PIPELINE_STATE.json` history.
