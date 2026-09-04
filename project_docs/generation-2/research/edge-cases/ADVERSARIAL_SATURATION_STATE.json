@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "status": "ACTIVE",
+  "phase": "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION",
+  "minimum_full_passes": 8,
+  "target_full_passes": 12,
+  "completed_full_passes": 0,
+  "active_full_pass": 1,
+  "canonical_capability_count": 28,
+  "capabilities_covered_in_active_pass": [],
+  "required_clusters_covered_in_active_pass": [],
+  "material_findings_total": 0,
+  "high_critical_open_without_owner_or_proof": 0,
+  "local_no_material_streaks": {},
+  "cluster_no_material_streaks": {},
+  "negative_space_status": "NOT_STARTED",
+  "saturation_status": "NOT_SATURATED",
+  "current_local_focus": "Adaptive Governed Work Surfaces",
+  "current_cluster_focus": "Identity × Authorization × Station × AGWS × AI",
+  "next_action": "Begin Full Pass 1 with the first local capability and paired high-risk interaction cluster; record only material scenarios with explicit owners/safe behavior/forbidden behavior/proof obligations, then continue rotation until all 28 capabilities and mandatory clusters are covered before counting the pass.",
+  "updated_at": "2026-09-04T09:05:41-03:00"
+}
