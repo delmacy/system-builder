@@ -1,6 +1,9 @@
-# Capítulo 1 — O que é o System Builder e qual problema ele tenta resolver
+# Capítulo 01 — O que é o System Builder e qual problema ele tenta resolver — v1.0.0
 
-> **Status editorial:** primeira edição didática. Este capítulo explica a visão consolidada pela pesquisa até a fase adversarial atual. O livro não substitui os artefatos autoritativos de pesquisa, síntese ou planejamento.
+> **Identidade editorial:** `CHAPTER_01`  
+> **Versão editorial:** `1.0.0`  
+> **Status:** `PUBLISHED`  
+> **Camada:** compreensão e síntese; não substitui pesquisa, síntese, Planning A/B nem futura arquitetura alvo.
 
 ## 1.1 O problema começa antes do software
 
@@ -18,181 +21,147 @@ Uma **capability** é uma capacidade coerente do sistema: um conjunto de semânt
 
 ## 1.2 O System Builder como tradutor de uma empresa
 
-Uma maneira simples de entender a visão é imaginar três mundos.
+A visão do System Builder pode ser entendida como uma cadeia de tradução. A empresa possui intenções, processos, responsabilidades, dados, regras, exceções e recursos. O Builder ajuda a transformar esse conhecimento em uma descrição suficientemente precisa para gerar e evoluir software sem perder o significado empresarial no caminho.
+
+Uma representação simplificada é:
 
 ```text
-MUNDO DA EMPRESA
-intenções, pessoas, regras, processos, recursos, responsabilidades
-        |
-        v
-SYSTEM BUILDER
-modela -> qualifica -> compõe -> verifica -> materializa
-        |
-        v
-SISTEMA REALIZADO
-UI, workflow, dados, integrações, runtime, providers, evidência operacional
+empresa / intenção
+       |
+       v
+modelo semântico
+       |
+       v
+composição de capabilities
+       |
+       v
+artefatos + bindings + configuração
+       |
+       v
+runtime autônomo
 ```
 
-A seta do meio é a parte difícil.
+A palavra “tradutor” é uma analogia. Ela deixa de valer se imaginarmos uma tradução puramente textual ou determinística. O trabalho envolve elicitação, normalização, decisões humanas, evidência, compatibilidade, providers e evolução ao longo do tempo.
 
-Uma empresa não fala naturalmente em schemas, filas, artefatos assinados, revision vectors ou idempotência. Ela fala em “ninguém pode aprovar o próprio pedido”, “essa equipe atende esta região”, “a peça só pode ser baixada quando usada” ou “se o fornecedor não responder, alguém precisa verificar antes de repetir a cobrança”.
+## 1.3 O significado pertence ao SB; a mecânica pode ser delegada
 
-O System Builder precisa preservar o significado empresarial ao traduzi-lo para mecanismos técnicos.
+Uma diretriz recorrente da pesquisa é: **mature-system semantics with simple-system ergonomics; own semantics/requirements/evidence, delegate mature mechanics to providers**.
 
-Isso leva a uma distinção que aparecerá durante todo o livro:
+Em português: o SB deve preservar o significado, os requisitos e a evidência que precisam continuar verdadeiros mesmo quando a realização técnica muda. Ao mesmo tempo, não deve reinventar mecanismos maduros apenas para “possuir tudo”.
 
-- **semântica** é o que uma coisa significa para o sistema e para a empresa;
-- **realização** é o mecanismo concreto usado para fazê-la acontecer.
+Um provider de e-mail pode entregar mensagens. Um engine de workflow pode persistir timers e retries. Um storage provider pode guardar bytes. Um serviço de identidade pode autenticar usuários. A existência desses providers é vantagem, não ameaça.
 
-Uma notificação pode significar “avisar o responsável pela OS”. A realização pode ser e-mail hoje, outro provider amanhã, ou até uma combinação de canais. O provider ajuda a executar a capability, mas não deve redefinir sozinho o significado empresarial.
-
-**DECIDIDO — na síntese:** identidade semântica e identidade de realização são conceitos distintos. IDs de providers, runtimes ou sistemas externos não se tornam automaticamente a identidade canônica do negócio.
-
-## 1.3 “Own semantics, delegate mechanics”
-
-Uma das ideias mais importantes da pesquisa pode ser traduzida assim:
-
-> O System Builder deve possuir os significados, requisitos e evidências que precisam permanecer estáveis; mecanismos maduros podem ser delegados a providers.
-
-Isso não significa reimplementar Kubernetes, bancos, motores de workflow, PKI, observabilidade ou sistemas de cobrança. Significa exatamente o contrário: aproveitar mecanismos maduros sem deixar que o formato particular de um fornecedor se transforme na arquitetura conceitual inteira do SB.
-
-Considere autenticação. Um provider pode autenticar uma pessoa. Isso não significa que ele deva decidir toda a estrutura empresarial de autoridade. Da mesma forma, um storage pode confirmar que recebeu bytes; isso não significa, sem qualificação adicional, que todos os significados empresariais de “documento correto, atual e disponível” estejam provados.
-
-Esse princípio sustenta o objetivo de **anti-lock-in**: trocar uma realização não deveria obrigar a empresa a redefinir o próprio negócio.
-
-**HIPÓTESE/ORIENTAÇÃO DE ARQUITETURA CONSOLIDADA:** a Generation 2 busca *mature-system semantics with simple-system ergonomics*: semânticas capazes de sobreviver a cenários maduros e complexos, mas sem obrigar uma pequena instalação a operar uma infraestrutura desnecessariamente sofisticada.
-
-## 1.4 Simples não significa semanticamente pobre
-
-Uma barbearia, uma oficina ou uma pequena equipe técnica talvez rode tudo em uma topologia pequena. Uma organização grande pode distribuir serviços, providers e Stations. Seria ruim manter dois modelos mentais incompatíveis: um “modelo simples” que depois precisa ser descartado e outro “modelo enterprise”.
-
-A pesquisa segue outra direção: a topologia pode colapsar, mas as distinções importantes continuam existindo.
-
-Por exemplo, mesmo que uma aplicação pequena use um único servidor:
+O problema aparece quando a semântica empresarial é acidentalmente definida pelo provider.
 
 ```text
-Pessoa != Papel (Role)
-Papel != Station
-Regra empresarial != botão da interface
-Documento lógico != objeto do storage
-Efeito solicitado != efeito confirmado
-Capability != provider
+Semântica canônica do SB     Provider
+-------------------------    --------------------
+"notificar responsável" --> SMTP / API / serviço
+"guardar documento"      --> S3 / filesystem / etc.
+"executar workflow"      --> engine A / engine B
 ```
 
-No sistema pequeno, várias dessas coisas podem morar no mesmo processo ou banco. Isso não as torna semanticamente idênticas.
+Trocar a coluna da direita deveria ser possível sem redefinir silenciosamente a coluna da esquerda.
 
-A analogia é a de uma casa: cozinha e sala podem compartilhar o mesmo ambiente físico, mas continuam tendo funções diferentes. A analogia deixa de valer quando entramos em propriedades formais: software precisa registrar explicitamente certas identidades, revisões e relações que uma casa não precisa representar.
+## 1.4 Capability, Provider, Binding e Semantic Owner
 
-## 1.5 Da configuração para um sistema versionado
+Quatro conceitos aparecem repetidamente na G2.
 
-Um construtor convencional de aplicações pode ser imaginado como um editor que produz telas e automações. A ambição do SB é maior: representar uma empresa como um sistema que evolui.
+Uma **Capability** é a capacidade semanticamente coerente. Um **Provider** é um mecanismo especializado que realiza parte dela. Um **Binding** é o vínculo qualificado entre uma necessidade e uma realização admitida. Um **Semantic Owner** é quem possui o significado canônico e as invariantes daquela informação ou decisão.
 
-Isso introduz o conceito de **revisão (revision)**. Processos, schemas, políticas, fórmulas, providers, artefatos e runtimes podem mudar em momentos diferentes. Por isso, a pesquisa rejeita a ideia de que uma única versão global explique sempre o estado do sistema.
+Esses conceitos serão aprofundados no Capítulo 3. Por enquanto, basta perceber que eles evitam uma pergunta enganosa: “qual produto vamos usar?”. Antes dela vêm perguntas como “qual problema estamos resolvendo?”, “qual significado precisa sobreviver à troca do produto?” e “quem pode afirmar que uma condição é verdadeira?”.
 
-Um processo iniciado ontem pode estar usando uma definição anterior enquanto novos processos usam a definição atual. Um relatório histórico pode depender da fórmula que era válida quando o fato foi produzido. Um runtime antigo pode ainda estar drenando trabalho durante uma migração.
+## 1.5 Builder grande, runtime pequeno
 
-A Generation 2 chama atenção repetidamente para **coexistência**: mudar o desejado não faz desaparecer instantaneamente tudo o que realizava a versão anterior.
+A visão G2 não pressupõe que o Builder precise permanecer conectado para que cada sistema-cliente execute seu trabalho cotidiano. O Builder pode concentrar capacidades de elicitação, composição, análise, materialização, prova e evolução, enquanto o runtime recebe apenas aquilo de que necessita para operar.
 
-Esse tema será aprofundado nos capítulos sobre versionamento, deployment, providers e migração.
+Isso é **runtime autonomy**: autonomia operacional do sistema materializado dentro de seus contratos, evidências, revisões e limites de autoridade.
 
-## 1.6 O sistema precisa saber o que sabe — e o que não sabe
+Autonomia não significa ausência de governança. Um runtime autônomo ainda precisa saber quais regras, identidades, bindings, artefatos e authority envelopes são aplicáveis. Também pode precisar reconciliar estado quando volta a se comunicar com outros componentes.
 
-Outro problema humano aparece quando alguém pergunta: “deu certo?”.
+## 1.6 O mundo distribuído não responde apenas “sim” ou “não”
 
-Em software distribuído, às vezes a resposta correta é: “ainda não sabemos”.
-
-Imagine que o SB mande um provider cobrar R$ 100 e a conexão caia antes da resposta. Existem pelo menos duas possibilidades:
-
-1. o provider não aplicou a cobrança;
-2. o provider aplicou a cobrança, mas a resposta se perdeu.
-
-Repetir cegamente pode cobrar duas vezes. Assumir sucesso pode deixar uma cobrança inexistente como paga.
-
-Por isso a pesquisa trabalha com disposições explícitas de efeito, como `APPLIED`, `NOT_APPLIED`, `PARTIAL` e `UNKNOWN`. Quando um efeito mutante permanece `UNKNOWN`, a regra conceitual é reconciliar antes de uma repetição potencialmente insegura.
-
-**DECIDIDO — primitive de síntese:** `INCONCLUSIVE` também é resultado de primeira classe. Evidência ausente, parcial, velha ou insuficiente não deve ser convertida silenciosamente em `PASS`, `ALLOW` ou “saudável”.
-
-Isso parece conservador, mas é uma forma de honestidade computacional: o sistema não deve inventar certeza.
-
-## 1.7 Evidence: por que “aconteceu” precisa de qualificação
-
-**Evidência (evidence)** é informação usada para sustentar uma afirmação. Um log pode ser evidência. Uma resposta de provider pode ser evidência. Uma assinatura, uma medição, um resultado de teste ou uma observação de runtime também.
-
-Mas evidência só é útil se soubermos a que ela se aplica.
-
-A síntese consolidou a ideia de **qualified evidence envelope**: a evidência precisa carregar contexto suficiente para que o consumidor saiba seu sujeito, origem, revisão produtora, aplicabilidade, atualidade, cobertura, incerteza e horizonte relevante.
-
-Exemplo: “todos os workloads observados estão saudáveis” não é automaticamente equivalente a “toda a população autoritativa do sistema convergiu”. Pode existir uma Station desconectada ou um cohort antigo fora do conjunto observado.
-
-Esse detalhe explica por que observabilidade não é apenas fazer dashboards. Ela participa da disciplina de saber quais conclusões os sinais realmente autorizam.
-
-## 1.8 O perigo das partes corretas formando um todo errado
-
-A fase atual da pesquisa é adversarial porque uma arquitetura pode funcionar perfeitamente no happy path e ainda falhar quando partes corretas são compostas.
-
-Considere duas regras:
-
-- regra A: o supervisor pode aprovar compras até determinado valor;
-- regra B: quem abriu a solicitação pode atuar como supervisor de sua Station.
-
-Cada regra pode parecer válida isoladamente. Juntas, em determinado contexto, talvez permitam autoaprovação indevida.
-
-A pesquisa chama a descrição reutilizável desse risco de **ConflictPattern**. Um padrão de conflito não significa que o defeito existe agora. Ele descreve condições sob as quais componentes localmente válidos podem se tornar incompatíveis.
+Um dos conceitos mais importantes da pesquisa é a disposição de efeitos externos:
 
 ```text
-ConflictPattern
-      |
-      v
-ActivationCondition presente?
-   /        \
- não        talvez/sim
- |             |
-sem caso     Signal
-              |
-        evidência suficiente?
-          /          \
-        não          sim
-        |             |
-   inconclusivo   ConflictInstance confirmado
+APPLIED
+NOT_APPLIED
+PARTIAL
+UNKNOWN
 ```
 
-**EM PESQUISA:** a campanha adversarial ainda está ativa. No estado consultado para esta edição, o primeiro full pass havia desafiado 25 das 28 capabilities, e nenhum dos oito full passes mínimos estava completo. Portanto, este livro não deve narrar a arquitetura alvo como encerrada.
+Imagine que o SB mande um provider criar um recurso. A conexão cai antes da resposta. O recurso pode ter sido criado, pode não ter sido criado ou pode ter sido criado parcialmente.
 
-## 1.9 O que o System Builder não deve virar
+Responder “falhou” é perigoso, porque pode levar a uma repetição que cria um segundo efeito. Responder “funcionou” também é perigoso, porque talvez nada tenha acontecido.
 
-A pesquisa também define a visão por negativas importantes.
+`UNKNOWN` preserva honestamente o estado do conhecimento. Daí nasce o princípio **reconcile-before-retry**: quando uma mutação ficou ambígua, primeiro investigue/reconcilie o efeito; só repita quando o contrato qualificado provar que isso é seguro.
 
-O SB não deve virar um **semantic god-object**: uma camada universal que tenta possuir todos os significados de todos os domínios. A Universal Capability Architecture pode oferecer primitives compartilhadas, mas cada capability conserva seu **semantic owner**, isto é, o responsável canônico pelo significado e pelas invariantes daquele domínio.
+## 1.7 Evidência não é decoração
 
-Também não deve confundir:
+A G2 usa evidência como parte da correção arquitetural. Uma afirmação como “o deployment está saudável” precisa ser interpretada com perguntas adicionais: saudável para qual workload? Observado por quem? Em qual revisão? Em qual instante? Com qual cobertura? Essa observação ainda está atual?
 
-- UI visível com autorização;
-- resposta do provider com efeito empresarial concluído;
-- health check com convergência total;
-- rollback disponível com rollback seguro;
-- dado histórico com evidência ainda atual;
-- feature de fornecedor com capability portátil equivalente;
-- recomendação de IA com autoridade para agir.
+Um **qualified evidence envelope** é o modelo conceitual de preservar esse contexto. Ele impede que uma observação local seja fortalecida silenciosamente para uma conclusão global.
 
-Essas separações podem parecer excessivas no início. Na prática, são o que permite que o sistema cresça sem transformar conveniências locais em dependências arquiteturais invisíveis.
+Isso importa porque a pesquisa adversarial encontrou repetidamente a mesma família de problema: componentes podem estar localmente corretos e, ainda assim, a composição das suas afirmações ser incompatível.
 
-## 1.10 A visão em uma frase
+## 1.8 Partes corretas podem formar um sistema errado
 
-Podemos resumir a Generation 2 assim:
+Imagine duas regras:
 
-> **O System Builder procura transformar a intenção e a operação de uma organização em sistemas versionados, governados e executáveis, preservando significado, autoridade, evidência e autonomia enquanto delega mecanismos especializados a providers substituíveis.**
+1. o solicitante de uma compra não pode aprová-la;
+2. apenas o responsável local pode aprovar compras daquela Station.
 
-Essa frase é uma síntese editorial, não uma nova decisão arquitetural.
+As duas podem ser corretas. Mas, se o solicitante for o único responsável local elegível, o processo pode chegar a um estado em que nenhuma pessoa possui autoridade legal para avançar.
 
-O próximo capítulo começa pela primeira metade dela: o que significa, concretamente, tratar uma empresa como um sistema versionado — e por que um processo não é apenas um fluxograma.
+O grafo pode estar correto. A política pode estar correta. A organização pode estar correta. A composição pode estar bloqueada.
 
-## O que você deve guardar deste capítulo
+A campanha adversarial chama atenção para essa classe de problema. Um **ConflictPattern** descreve uma família reutilizável de incompatibilidade potencial. Uma **ConflictInstance** é uma ocorrência concreta. E um **Signal** é apenas um indício: `Signal != ConfirmedConflict`.
 
-O System Builder não começa nas telas; começa no significado do trabalho da empresa. Capabilities separam responsabilidades sem obrigar topologias pesadas. Providers realizam mecanismos, mas não devem possuir automaticamente a verdade do negócio. Revisões e coexistência existem porque empresas mudam enquanto continuam operando. Evidência precisa ser qualificada porque sinais não são sinônimo de verdade. E a arquitetura precisa sobreviver não apenas a componentes defeituosos, mas também ao caso mais traiçoeiro: componentes individualmente corretos que, quando combinados, produzem um processo errado.
+Essa prudência evita dois extremos: ignorar riscos porque cada módulo passa sozinho ou bloquear processos legítimos porque um detector encontrou apenas uma semelhança superficial.
 
-## Referências internas consultadas
+## 1.9 Revisão e coexistência
 
-- `project_docs/generation-2/RESEARCH_PIPELINE_STATE.json` — fase e gates atuais.
-- `project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md` — taxonomia de 28 capabilities e primitives consolidadas.
-- `project_docs/generation-2/research/POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md` — propósito e famílias da campanha adversarial.
-- `project_docs/generation-2/research/edge-cases/PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md` — distinção entre padrão, sinal e conflito manifestado.
+Uma empresa muda. Processos, schemas, fórmulas, policies, providers, runtimes e artefatos podem evoluir em ritmos diferentes.
+
+Por isso, a G2 não assume que existe uma única “versão do sistema” capaz de explicar tudo. Revisões podem coexistir e formar um **revision vector** relevante para determinada conclusão.
+
+Publicar um processo novo não prova que workflows antigos migraram. Atualizar uma fórmula não prova que valores históricos devem ser recalculados. Fazer rollout de um runtime não prova que toda a população anterior desapareceu.
+
+O Capítulo 2 desenvolverá essa ideia em profundidade.
+
+## 1.10 IA é poderosa, mas não vira autoridade por ser inteligente
+
+A IA pode ajudar a elicitar processos, propor modelos, gerar configurações, analisar conflitos e produzir candidatos de arquitetura. Isso não lhe dá autoridade canônica automática.
+
+A pesquisa preserva a direção `Enterprise → Station → Role → Person` e a não amplificação de autoridade por AI/AGWS. Uma IA pode propor uma ação que alguém autorizado aprove; não pode transformar sua própria sugestão em permissão.
+
+Esse limite é especialmente importante em low-code, onde montar duas operações individualmente válidas pode produzir uma composição globalmente perigosa.
+
+## 1.11 O que a Generation 2 está fazendo agora
+
+**EM PESQUISA:** a fase atual é adversarial. Depois da elicitação, síntese, Planning A, Planning B e pesquisa matemática, o projeto está tentando falsificar suas próprias safe assumptions com edge cases, failure cases, misuse e conflitos processuais/semânticos.
+
+Isso significa que este livro precisa distinguir cuidadosamente aquilo que já está decidido em boundaries/taxonomia, aquilo que está evidenciado no SB atual e aquilo que ainda é hipótese ou questão aberta.
+
+A futura Planning C deverá transformar esse conhecimento em arquitetura alvo. Este capítulo não antecipa essa decisão.
+
+## 1.12 O que você deve guardar deste capítulo
+
+O System Builder tenta preservar o significado empresarial enquanto transforma intenção em software materializado e operável.
+
+Ele não quer reinventar providers maduros; quer possuir as semânticas, requisitos e evidências que precisam sobreviver à substituição desses providers.
+
+A Generation 2 está estruturando o problema em capabilities com semantic owners explícitos, runtime autônomo, revisões e evidência qualificada. Ela também está levando a sério uma descoberta fundamental: **não basta que cada peça esteja correta isoladamente; a composição precisa continuar correta.**
+
+Nos próximos capítulos, construiremos esse modelo mental por partes, começando pela ideia de empresa como sistema versionado.
+
+---
+
+## Referências internas autoritativas consultadas
+
+- `project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md`;
+- `project_docs/generation-2/research/POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md`;
+- `project_docs/generation-2/research/edge-cases/PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md`;
+- `project_docs/generation-2/RESEARCH_PIPELINE_STATE.json`.
+
+Os artefatos acima permanecem autoritativos. Esta versão apenas formaliza a identidade editorial do conteúdo originalmente publicado, sem alterar seu entendimento substantivo.
