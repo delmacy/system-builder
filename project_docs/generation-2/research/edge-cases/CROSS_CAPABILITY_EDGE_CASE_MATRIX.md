@@ -1,104 +1,72 @@
 # Generation 2 — Cross-Capability Edge-Case Matrix
 
 Status: ACTIVE
-Phase: RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION
+Phase: `RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION`
 
-Mandatory clusters initialized for rotation:
-1. Process/Application × Workflow × Data/Schema
-2. Workflow × Integration × Messaging × external mutation
-3. Identity × Authorization × Station × AGWS × AI
-4. Data/Schema × Privacy × Storage × Lifecycle
-5. Build × Artifact/Release × Deployment × Runtime
-6. Provider/Binding × external realizations
-7. Secrets/Config × Runtime × Provider substitution
-8. Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps
-9. Observability × Security/Recovery × runtime truth
-10. Extension/Plugin × authority × provider trust × lifecycle
-11. Commercial Metering × Entitlements × Rating × Billing × Payment
-12. Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution
+This matrix is an index over detailed per-capability registers. It does not assert `ConflictInstance`s or authorize remediation. Preserve `ConflictPattern != ConflictInstance`, `Signal != ConfirmedConflict`, qualified evidence/currentness, provider IDs as non-canonical, `Enterprise → Station → Role → Person`, AI/AGWS non-amplification and `UNKNOWN → reconcile-before-retry`.
 
-## Full Pass 1 progress
+## Mandatory cluster rotation — Full Pass 1
+
+| # | Cluster | Full Pass 1 status | Detailed register | Material scenario range | Reusable conflict patterns linked |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Process/Application × Workflow × Data/Schema | **CHALLENGED / MATERIAL / STREAK 0** | `PROCESS_APPLICATION_MODELING_EDGE_CASE_REGISTER.md` | `G2-XEDGE-PROCESS-WORKFLOW-DATA-001..004` | `STRUCTURAL-001`, `VERSION-001`, `SEMANTIC-001`, `AI-LOWCODE-001` |
+| 2 | Workflow × Integration × Messaging × external mutation | **CHALLENGED / MATERIAL / STREAK 0** | `WORKFLOW_DURABLE_EXECUTION_EDGE_CASE_REGISTER.md` | `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-001..004` | `TEMPORAL-001`, `PROVIDER-001`, `RECOVERY-001`, `AUTHORITY-001` |
+| 3 | Identity × Authorization × Station × AGWS × AI | **CHALLENGED / MATERIAL / STREAK 0** | `ADAPTIVE_GOVERNED_WORK_SURFACES_EDGE_CASE_REGISTER.md` | `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-001..003` | `AI-LOWCODE-001`, `AUTHORITY-001/002`, `CURRENTNESS-001` as applicable |
+| 4 | Data/Schema × Privacy × Storage × Lifecycle | **CHALLENGED / MATERIAL / STREAK 0** | `DATA_SCHEMA_MIGRATIONS_EDGE_CASE_REGISTER.md` | `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001..004` | `DATA-001`, `POLICY-001`, `REPLICA-001`, `MIGRATION-001` |
+| 5 | Build × Artifact/Release × Deployment × Runtime | **CHALLENGED / MATERIAL / STREAK 0** | `BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_EDGE_CASE_REGISTER.md` | `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-001..004` | `BUILD-PROVENANCE-001`, `EFFECTIVE-IDENTITY-001`, `SUPPLY-CHAIN-001` |
+| 6 | Provider/Binding × external realizations | **CHALLENGED / MATERIAL / STREAK 0** | `STORAGE_DOCUMENTS_MEDIA_EDGE_CASE_REGISTER.md` (Storage realization slice) | `G2-XEDGE-PROVIDER-STORAGE-001..004` | `PROVIDER-002`, `REPRESENTATION-001`, `SUPPORT-001` |
+| 7 | Secrets/Config × Runtime × Provider substitution | **CHALLENGED / MATERIAL / STREAK 0** | `SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_EDGE_CASE_REGISTER.md` | `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-001..004` | `CURRENTNESS-001`, `SECRET-BOUNDARY-001`, `AUTHORITY-002` |
+| 8 | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps | **NOT YET CHALLENGED IN FULL PASS 1** | — | — | — |
+| 9 | Observability × Security/Recovery × runtime truth | **CHALLENGED / MATERIAL / STREAK 0** | `DEPLOYMENT_RUNTIME_AUTONOMOUS_OPERATION_EDGE_CASE_REGISTER.md` | `G2-XEDGE-OBS-SEC-RECOVERY-RUNTIME-001..004` | `HEALTH-QUALIFICATION-001`, `RECOVERY-CONTAINMENT-001`, `ACTUATION-CONVERGENCE-001` |
+| 10 | Extension/Plugin × authority × provider trust × lifecycle | **CHALLENGED / MATERIAL / STREAK 0** | `EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_EDGE_CASE_REGISTER.md` | `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-001..004` | `EXTENSION-IDENTITY-001`, `PERMISSION-COMPOSITION-001`, `EXTENSION-LIFECYCLE-001`, `TRUST-PROVENANCE-001` |
+| 11 | Commercial Metering × Entitlements × Rating × Billing × Payment | **NOT YET CHALLENGED IN FULL PASS 1 — NEXT** | — | — | — |
+| 12 | Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution | **CHALLENGED / MATERIAL / STREAK 0** | `ARTIFACT_RELEASE_SBOM_PROVENANCE_EDGE_CASE_REGISTER.md` | `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-001..004` | `ATTESTATION-QUALIFICATION-001`, `TRUST-AUTHORITY-001`, `DISTRIBUTION-CONVERGENCE-001` |
+
+## Material interaction summaries
 
 ### Cluster 1 — Process/Application × Workflow × Data/Schema
-Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
-Register: `project_docs/generation-2/research/edge-cases/PROCESS_APPLICATION_MODELING_EDGE_CASE_REGISTER.md`
-
-Material interactions:
-- `G2-XEDGE-PROCESS-WORKFLOW-DATA-001` — a long-running instance may cross incompatible process/schema revisions; latest-by-default interpretation is unsafe without applicability evidence.
-- `G2-XEDGE-PROCESS-WORKFLOW-DATA-002` — partial migration/backfill creates split semantic populations; migration acknowledgement is not convergence.
-- `G2-XEDGE-PROCESS-WORKFLOW-DATA-003` — ambiguous data mutation effect cannot be retried as if `NOT_APPLIED`; require reconcile-before-retry unless qualified idempotency exists.
-- `G2-XEDGE-PROCESS-WORKFLOW-DATA-004` — individually valid process paths can claim incompatible canonical postconditions; arrival/completion order cannot choose business truth.
-
-Conflict patterns linked: `G2-CONFLICT-PATTERN-STRUCTURAL-001`, `G2-CONFLICT-PATTERN-VERSION-001`, `G2-CONFLICT-PATTERN-SEMANTIC-001`, `G2-CONFLICT-PATTERN-AI-LOWCODE-001`. These are catalogued detection/remediation candidates, not asserted ConflictInstances.
+Long-running process/schema skew, partial migration populations, ambiguous data mutation retry and incompatible canonical postconditions show that local process/workflow/data validity cannot select canonical truth by execution order. Revision applicability and semantic ownership remain explicit.
 
 ### Cluster 2 — Workflow × Integration × Messaging × external mutation
-Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
-Register: `project_docs/generation-2/research/edge-cases/WORKFLOW_DURABLE_EXECUTION_EDGE_CASE_REGISTER.md`
-
-Material interactions:
-- `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-001` — provider/request/publication acknowledgement does not prove effective/converged business state; workflow terminal progress requires semantic-owner-qualified evidence.
-- `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-002` — workflow retry may be locally valid while connector/provider idempotency scope, lifetime or provider generation makes the external mutation non-deduplicated; ambiguous mutation stays `UNKNOWN` until reconciliation.
-- `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-003` — compensation/cancellation can race with delayed original/retry deliveries; closure is false while residual authoritative deliveries can reapply the effect.
-- `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-004` — provider substitution can leave old subscriptions/messages/attempts authoritative; cutover remains `PARTIAL/INCONCLUSIVE` until residual cohorts are fenced, drained or explicitly dispositioned.
-
-Conflict patterns linked: `G2-CONFLICT-PATTERN-TEMPORAL-001`, `G2-CONFLICT-PATTERN-PROVIDER-001`, `G2-CONFLICT-PATTERN-RECOVERY-001`, `G2-CONFLICT-PATTERN-AUTHORITY-001`. They remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; none is a claimed current ConflictInstance.
+Provider acknowledgement is not effective business state; idempotency scope/horizon may disagree across workflow/provider; compensation can race with delayed messages; provider substitution can leave residual messages/subscriptions authoritative. Ambiguous mutation remains `UNKNOWN` until reconciled.
 
 ### Cluster 3 — Identity × Authorization × Station × AGWS × AI
-Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
-Register: `project_docs/generation-2/research/edge-cases/ADAPTIVE_GOVERNED_WORK_SURFACES_EDGE_CASE_REGISTER.md`
-
-Material interactions:
-- `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-001` — stale identity relationship + cached surface + AI suggestion can preserve obsolete authority unless invocation re-authorizes against qualified current context.
-- `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-002` — Station/Role transition racing with proposal approval/promotion can transfer stale authority across scopes unless admission revalidates applicability at commit time.
-- `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-003` — visible mandatory guardrail does not prove owner-level enforcement when AI can invoke another path.
+Cached surfaces and stale identity/Station state can retain obsolete authority; promotion/approval can race with scope changes; rendered guardrails do not prove authoritative enforcement when another invocation path exists. AI/AGWS cannot amplify inherited authority.
 
 ### Cluster 4 — Data/Schema × Privacy × Storage × Lifecycle
-Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
-Register: `project_docs/generation-2/research/edge-cases/DATA_SCHEMA_MIGRATIONS_EDGE_CASE_REGISTER.md`
-
-Material interactions:
-- `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001` — erasure and legal-hold/mandatory-retention claims can both be locally valid; authority/applicability evidence must resolve precedence instead of execution order.
-- `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-002` — canonical deletion/tombstone can diverge from versioned objects, replicas, caches and backups; source acknowledgement is not enterprise-wide erasure convergence.
-- `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-003` — storage/provider substitution can leave stale read/write/restore cohorts authoritative; provider generation is realization evidence, not canonical data identity.
-- `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-004` — individually valid retention, archival, residency, minimization and deletion policies can compose into an impossible canonical disposition; a successful provider lifecycle job cannot choose semantic truth.
-
-Conflict patterns linked: `G2-CONFLICT-PATTERN-DATA-001`, `G2-CONFLICT-PATTERN-POLICY-001`, `G2-CONFLICT-PATTERN-REPLICA-001`, `G2-CONFLICT-PATTERN-MIGRATION-001`. They remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; none is a claimed current ConflictInstance.
+Erasure may conflict with retention/legal hold; canonical tombstones may diverge from residual copies; provider substitution may leave stale authoritative replicas; individually valid lifecycle policies can compose into impossible dispositions. Precedence requires owner/authority evidence rather than provider execution order.
 
 ### Cluster 5 — Build × Artifact/Release × Deployment × Runtime
-Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
-Register: `project_docs/generation-2/research/edge-cases/BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_EDGE_CASE_REGISTER.md`
-
-Material interactions:
-- `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-001` — build output, release, deployment and runtime-effective identities can all be locally valid yet refer to different lifecycle stages/revisions; no upstream identity proves downstream convergence.
-- `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-002` — a retained/reproducible artifact can be historically valid while its current dependency/config/schema/provider/trust state makes rollback ineligible.
-- `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-003` — desired deployment may be `APPLIED` while residual old runtime cohorts remain authoritative, so fleet convergence stays `PARTIAL/INCONCLUSIVE` until observed and drained/qualified.
-- `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-004` — runner/toolchain/provider substitution can preserve nominal build interface while changing output/runtime semantics; semantic equivalence requires qualified differential evidence.
-
-Conflict patterns linked/adopted: new `G2-CONFLICT-PATTERN-BUILD-PROVENANCE-001`, `G2-CONFLICT-PATTERN-EFFECTIVE-IDENTITY-001`, `G2-CONFLICT-PATTERN-SUPPLY-CHAIN-001`; existing `G2-CONFLICT-PATTERN-VERSION-001`, `G2-CONFLICT-PATTERN-MIGRATION-001`, `G2-CONFLICT-PATTERN-RECOVERY-001`, `G2-CONFLICT-PATTERN-SUPPORT-001`, `G2-CONFLICT-PATTERN-CURRENTNESS-001` and `G2-CONFLICT-PATTERN-AI-LOWCODE-001` remain applicable without duplication. All remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; no current ConflictInstance is asserted.
+Build, release, deployment and runtime-effective identities are distinct; retained artifacts may be rollback-ineligible; deployment success can hide residual runtime cohorts; nominal runner/provider compatibility can alter output semantics. Upstream success never proves downstream convergence.
 
 ### Cluster 6 — Provider/Binding × external realizations
-Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
-Register: `project_docs/generation-2/research/edge-cases/STORAGE_DOCUMENTS_MEDIA_EDGE_CASE_REGISTER.md`
-Concrete slice: Storage / Documents / Media realization.
-
-Material interactions:
-- `G2-XEDGE-PROVIDER-STORAGE-001` — provider write/copy/restore ACK can be fully correct under its local contract yet insufficient to prove the stronger canonical claim of durable, current, integrity-valid and consumer-effective object availability. Required claim profile and current provider evidence must match; otherwise preserve `PARTIAL/INCONCLUSIVE/UNKNOWN`.
-- `G2-XEDGE-PROVIDER-STORAGE-002` — provider substitution can leave old versions, caches, signed access paths and restore sources materially authoritative after the new binding becomes nominally active. Cutover is not convergence until residual cohorts are fenced, drained or explicitly dispositioned.
-- `G2-XEDGE-PROVIDER-STORAGE-003` — two providers can advertise the same nominal feature while differing materially in versioning, integrity, immutability, multipart, range, consistency or restore semantics. Matching names/API shapes do not prove portable semantic support.
-- `G2-XEDGE-PROVIDER-STORAGE-004` — bytes can remain durable while key/credential/access-path rotation makes the canonical revision effectively unreachable. Storage durability, authorization and reachability are separate qualifications.
-
-Conflict patterns linked/adopted: `G2-CONFLICT-PATTERN-PROVIDER-002`, `G2-CONFLICT-PATTERN-REPRESENTATION-001`, `G2-CONFLICT-PATTERN-SUPPORT-001`; existing `G2-CONFLICT-PATTERN-REPLICA-001`, `G2-CONFLICT-PATTERN-MIGRATION-001` and `G2-CONFLICT-PATTERN-RECOVERY-001` remain applicable without duplication. All remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; no current ConflictInstance is asserted.
+A provider ACK can be weaker than the canonical qualification required; old provider cohorts can remain authoritative; nominal feature equivalence can mask semantic incompatibility; durable bytes can become effectively unreachable after credential/key path changes. Provider support is multidimensional evidence, not canonical identity.
 
 ### Cluster 7 — Secrets/Config × Runtime × Provider substitution
-Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
-Register: `project_docs/generation-2/research/edge-cases/SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_EDGE_CASE_REGISTER.md`
+Source/provider rotation can be applied while consumer adoption stays partial; old credentials/config paths can survive cutover; disconnected runtime can exceed currentness horizons; provider-native secret/key/version identity must not become canonical binding identity.
 
-Material interactions:
-- `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-001` — provider rotation can be `APPLIED` while runtime fleet adoption remains `PARTIAL/INCONCLUSIVE`; env snapshots, caches and mount semantics prove source-currentness and consumer-effective currentness are distinct.
-- `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-002` — provider substitution can leave old credentials, files, resolver paths and service accounts materially usable after nominal cutover; provider IDs remain non-canonical and residual authority must be reconciled.
-- `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-003` — disconnected runtime can remain locally healthy after secret/config currentness or lease evidence becomes stale; autonomy cannot silently extend trust or authorization beyond an explicit bound.
-- `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-004` — provider-native key/secret/version identity can accidentally become canonical binding identity, breaking portable substitution and potentially leaking authority assumptions.
+### Cluster 8 — Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps
+Pending Full Pass 1 challenge. The prior mathematical campaign is evidence input only; this cluster still requires adversarial recomposition and cannot inherit saturation from the math gate.
 
-Conflict patterns linked/adopted: new `G2-CONFLICT-PATTERN-CURRENTNESS-001`, `G2-CONFLICT-PATTERN-SECRET-BOUNDARY-001`, `G2-CONFLICT-PATTERN-AUTHORITY-002`; existing `G2-CONFLICT-PATTERN-MIGRATION-001`, `G2-CONFLICT-PATTERN-RECOVERY-001`, `G2-CONFLICT-PATTERN-SUPPORT-001` and `G2-CONFLICT-PATTERN-AI-LOWCODE-001` remain applicable without duplication. All remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; no current ConflictInstance is asserted.
+### Cluster 9 — Observability × Security/Recovery × runtime truth
+`G2-XEDGE-OBS-SEC-RECOVERY-RUNTIME-001..004` establish that green health can conflict with stale security/recovery qualification, rollback/recovery success can coexist with residual incompatible cohorts, security containment can conflict with availability recovery, and individually authorized operational primitives can compose into unsafe AI/low-code authority. All remain research patterns/proof obligations, not remediation.
 
-Clusters 1–7 discovered material findings, so their no-material streaks are `0`. Mandatory clusters 8–12 remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
+### Cluster 10 — Extension/Plugin × authority × provider trust × lifecycle
+`G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-001..004` establish transitive dependency/publisher trust amplification, revocation/disablement with residual runtime authority, provider/marketplace substitution with semantic mismatch, and AI/low-code confused-deputy chains. `installed/trusted/signed != admitted != authorized != effective` remains the governing distinction.
+
+### Cluster 11 — Commercial Metering × Entitlements × Rating × Billing × Payment
+Pending Full Pass 1 challenge and current `next_action`. Preserve `entitlement != authorization` and `metering != rating != billing != payment`; material commercial effects require exact monetary/formula revision and provider-effect evidence.
+
+### Cluster 12 — Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution
+`G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-001..004` establish that authentic signer identity is not release authority, provider substitution can alter trust/distribution semantics, residual distribution paths can continue serving withdrawn releases, and AI/low-code can compose build/sign/promotion primitives into excessive supply-chain authority.
+
+## Full Pass 1 campaign state
+
+- mandatory clusters challenged: **10/12**;
+- mandatory clusters not yet challenged: **8 and 11**;
+- every challenged mandatory cluster currently has material findings and therefore no-material streak **0**;
+- full passes completed: **0/8 minimum**;
+- no cluster is saturated;
+- `PLANNING_C_TARGET_ARCHITECTURE` remains blocked until adversarial research is `CLOSED / SATURATED / PASS`.
+
+Detailed scenario fields, owners, evidence/currentness, blast radius, severity, false-positive risk, recovery/reconciliation and proof obligations remain authoritative in the linked per-capability registers and `EDGE_CASE_INDEX.md`.
