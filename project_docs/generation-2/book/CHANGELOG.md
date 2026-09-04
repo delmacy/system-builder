@@ -30,3 +30,12 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 - **Motivo:** continuidade do plano editorial e necessidade de estabelecer o vocabulário fundamental antes dos capítulos de composição/runtime e low-code.
 - **Resumo:** publicado o capítulo que separa Capability, Semantic Owner, Provider e Binding; explica discovery/advertisement/qualification/admission/binding/effectiveness, support vectors, provider acknowledgement versus sucesso semântico, substituição e residual cohorts, anti-lock-in e os limites anti-god-object da Universal Capability Architecture. O texto distingue explicitamente as fronteiras pesquisadas do que Planning B efetivamente evidencia hoje no AI Gateway.
 - **Artefatos autoritativos relacionados:** `CAPABILITY_SYNTHESIS.md`, `PLANNING_A_UNIVERSAL_CAPABILITY_ARCHITECTURE_BOUNDARIES.md`, `PLANNING_A_PROVIDER_BINDING_CAPABILITY_NEGOTIATION_BOUNDARIES.md`, `PLANNING_B_PROVIDER_BINDING_CAPABILITY_NEGOTIATION_SB_CURRENT_STATE.md`, `RESEARCH_PIPELINE_STATE.json`.
+
+### CHAPTER_04 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial e necessidade de explicar fechamento de dependências e autonomia antes de introduzir grafos executáveis/low-code.
+- **Resumo:** publicado o capítulo que explica a assimetria Builder/runtime, closure transitiva, minimal runtime closure, retained runtime closure, autonomia qualificada, Builder-time/build-time/runtime, cumulative context sem cumulative coupling, colapso de topologia física sem colapso semântico, falsa minimalidade, closure inflada e técnicas didáticas de prova. O texto distingue a visão pesquisada da fundação atualmente evidenciada no assembler/compiler do SB.
+- **Artefatos autoritativos relacionados:** `PLANNING_A_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_BOUNDARIES.md`, `PLANNING_B_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_SB_CURRENT_STATE.md`, `PLANNING_A_DEPLOYMENT_ENVIRONMENT_RUNTIME_BOUNDARIES.md`, `CAPABILITY_SYNTHESIS.md`, `RESEARCH_PIPELINE_STATE.json`.
