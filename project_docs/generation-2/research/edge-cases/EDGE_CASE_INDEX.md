@@ -33,29 +33,30 @@ Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != Confir
 | Enterprise Trust / PKI / Certificate Lifecycle | `ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE_EDGE_CASE_REGISTER.md` | `G2-EDGE-TRUST-001..007` | deepens Trust/Identity/Artifact/Provider + Provider/Binding + Secrets/Runtime/Provider + Identity/Authorization/Station/AGWS/AI + Observability/Security/Recovery clusters | 0 |
 | Privacy / Data Governance / Retention / Legal Hold / Residency | `PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY_EDGE_CASE_REGISTER.md` | `G2-EDGE-PRIVACY-001..007` | deepens Data/Privacy/Storage/Lifecycle + Provider/Binding + Observability/Security/Recovery + Identity/Authorization/Station/AGWS/AI clusters | 0 |
 | Notifications / Events / Messaging | `NOTIFICATIONS_EVENTS_MESSAGING_EDGE_CASE_REGISTER.md` | `G2-EDGE-MESSAGING-001..007` | deepens Workflow/Integration/Messaging + Provider/Binding + Identity/Authorization/Station/AGWS/AI + Data/Privacy/Storage/Lifecycle + Observability/Security/Recovery clusters | 0 |
+| Observability / Operations / Incident | `OBSERVABILITY_OPERATIONS_INCIDENT_EDGE_CASE_REGISTER.md` | `G2-EDGE-OBSERVABILITY-001..007` | deepens Observability/Security/Recovery + Provider/Binding + Identity/Authorization/Station/AGWS/AI + Data/Privacy/Storage/Lifecycle clusters | 0 |
 
-Full Pass 1 local coverage: **22/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+Full Pass 1 local coverage: **23/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 75 patterns remain authoritative in their originating registers and prior index history. Notifications / Events / Messaging adds:
+Existing 79 patterns remain authoritative in their originating registers and prior index history. Observability / Operations / Incident adds:
 
-- `G2-CONFLICT-PATTERN-ACK-EFFECT-001`
-- `G2-CONFLICT-PATTERN-ORDERING-SCOPE-001`
-- `G2-CONFLICT-PATTERN-REPLAY-ELIGIBILITY-001`
-- `G2-CONFLICT-PATTERN-FANOUT-COHORT-001`
+- `G2-CONFLICT-PATTERN-OBSERVABILITY-COVERAGE-001`
+- `G2-CONFLICT-PATTERN-ALERT-CONDITION-001`
+- `G2-CONFLICT-PATTERN-OBSERVABILITY-REVISION-001`
+- `G2-CONFLICT-PATTERN-OPERATIONAL-AUTHORITY-001`
 
-Total reusable conflict patterns indexed: **79**.
+Total reusable conflict patterns indexed: **83**.
 
-## Latest material summary — Notifications / Events / Messaging
+## Latest material summary — Observability / Operations / Incident
 
-Seven local material classes challenge provider delivery identity versus canonical communication identity, malformed/duplicate/stale/out-of-order delivery against current process state, acknowledgement versus semantic effect, ambiguous publication retry outside qualified idempotency scope/horizon, replayability versus current eligibility, provider/subscription cutover with residual authoritative cohorts, and fan-out/backlog/AI-low-code composition causing unauthorized disclosure, loops or resource exhaustion. Four reusable ConflictPatterns catalogue ACK-versus-effect qualification, transport ordering scope versus broader causal dependencies, historical replay source versus current actuation eligibility, and individually valid subscriptions composing into an invalid effective recipient cohort. No new mandatory cluster is created and no `ConflictInstance` is asserted.
+Seven local material classes challenge provider-native telemetry identity versus canonical evidence identity, missing/sampled/truncated/overflowed evidence interpreted as health, timestamp/temporality ambiguity, monitoring-green versus runtime/security/business convergence, SLO/rule revision skew, alert/incident workflow state versus underlying condition state, and privacy/resource/authority hazards from high-cardinality or AI/low-code operational composition. Four reusable ConflictPatterns catalogue coverage qualification, alert-condition lifecycle separation, observability revision coexistence and operational recommendation versus current actuation authority. No new mandatory cluster is created and no `ConflictInstance` is asserted.
 
 ## Campaign state
 
-- material edge findings: **195**;
-- reusable conflict patterns: **79**;
-- combined material findings: **274**;
+- material edge findings: **202**;
+- reusable conflict patterns: **83**;
+- combined material findings: **285**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - local no-material streak for every challenged capability: **0**;
 - mandatory-cluster streaks: **0**;
