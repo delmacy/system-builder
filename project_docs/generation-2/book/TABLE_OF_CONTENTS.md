@@ -4,8 +4,8 @@ Numeração editorial estável a partir desta publicação. Versões indicadas s
 
 1. **Capítulo 01 — O que é o System Builder e qual problema ele tenta resolver — v1.0.0** — publicado
 2. **Capítulo 02 — A ideia de modelar uma empresa como sistema versionado — v1.0.0** — publicado
-3. **Capítulo 03 — Capability, Provider, Binding e Semantic Owner** — próximo
-4. **Capítulo 04 — Builder grande, Runtime pequeno: composição modular e fechamento de dependências**
+3. **Capítulo 03 — Capability, Provider, Binding e Semantic Owner — v1.0.0** — publicado
+4. **Capítulo 04 — Builder grande, Runtime pequeno: composição modular e fechamento de dependências** — próximo
 5. **Capítulo 05 — Low-code, Canvas e processos como grafos executáveis**
 6. **Capítulo 06 — Workflow, ações, eventos, formulários e integrações**
 7. **Capítulo 07 — Identidade, autorização, organização, Stations e least privilege**
