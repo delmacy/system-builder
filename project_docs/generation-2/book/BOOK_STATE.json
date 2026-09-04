@@ -1,60 +1,57 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "status": "ACTIVE",
-  "authority_note": "Editorial comprehension layer only; never supersedes research, synthesis, planning, gates or architecture authority.",
+  "authority_note": "Editorial comprehension layer only; never supersedes research, synthesis, planning, gates or architecture authority. ChapterVersion != ArchitectureRevision != SystemRevision.",
   "source_branch": "research/g2-capability-pipeline",
   "research_phase_at_last_edit": "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION",
   "chapters": {
     "01": {
+      "id": "CHAPTER_01",
       "title": "O que é o System Builder e qual problema ele tenta resolver",
-      "status": "COMPLETE_V1",
-      "artifact": "project_docs/generation-2/book/chapters/CHAPTER_01_O_QUE_E_O_SYSTEM_BUILDER.md"
+      "version": "1.0.0",
+      "status": "PUBLISHED",
+      "artifact": "project_docs/generation-2/book/chapters/CHAPTER_01_O_QUE_E_O_SYSTEM_BUILDER.md",
+      "first_published_at": "2026-09-04",
+      "last_revised_at": "2026-09-04",
+      "previous_versions": ["unversioned first edition"],
+      "pending_revision_reason": null,
+      "primary_authoritative_sources": ["project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md", "project_docs/generation-2/research/POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md", "project_docs/generation-2/research/edge-cases/PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md"],
+      "next_editorial_step": "Bounded review only if later research materially changes introductory understanding."
     },
     "02": {
+      "id": "CHAPTER_02",
       "title": "A ideia de modelar uma empresa como sistema versionado",
-      "status": "NEXT"
+      "version": "1.0.0",
+      "status": "PUBLISHED",
+      "artifact": "project_docs/generation-2/book/chapters/CHAPTER_02_EMPRESA_COMO_SISTEMA_VERSIONADO.md",
+      "first_published_at": "2026-09-04",
+      "last_revised_at": "2026-09-04",
+      "previous_versions": [],
+      "pending_revision_reason": null,
+      "primary_authoritative_sources": ["project_docs/generation-2/planning/PLANNING_A_PROCESS_APPLICATION_MODELING_BOUNDARIES.md", "project_docs/generation-2/planning/PLANNING_B_PROCESS_APPLICATION_MODELING_SB_CURRENT_STATE.md", "project_docs/generation-2/research/edge-cases/PROCESS_APPLICATION_MODELING_FULL_PASS_2_REVISIT.md", "project_docs/generation-2/RESEARCH_PIPELINE_STATE.json"],
+      "next_editorial_step": "Revisit only if adversarial research changes model/revision semantics materially."
     },
-    "03-24": {
+    "03": {
+      "id": "CHAPTER_03",
+      "title": "Capability, Provider, Binding e Semantic Owner",
+      "version": null,
+      "status": "PLANNED",
+      "first_published_at": null,
+      "last_revised_at": null,
+      "previous_versions": [],
+      "pending_revision_reason": null,
+      "primary_authoritative_sources": [],
+      "next_editorial_step": "Read synthesis plus Planning A/B for Universal Capability Architecture and Provider/Binding, then write the first substantial draft."
+    },
+    "04-24": {
       "status": "PLANNED",
       "authority": "project_docs/generation-2/book/TABLE_OF_CONTENTS.md"
     }
   },
-  "sources_consulted_last_round": [
-    "project_docs/generation-2/RESEARCH_PIPELINE_STATE.json",
-    "project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md",
-    "project_docs/generation-2/research/POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md",
-    "project_docs/generation-2/research/edge-cases/PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md"
-  ],
-  "glossary_terms_added_last_round": [
-    "Anti-lock-in",
-    "APPLIED / NOT_APPLIED / PARTIAL / UNKNOWN",
-    "Binding",
-    "Capability",
-    "Canonical",
-    "Coexistência",
-    "ConflictInstance",
-    "ConflictPattern",
-    "Edge case",
-    "Evidence",
-    "Happy path",
-    "Idempotência",
-    "INCONCLUSIVE",
-    "Provider",
-    "Qualified evidence envelope",
-    "Reconcile-before-retry",
-    "Revision",
-    "Runtime",
-    "Semantic owner",
-    "Signal",
-    "Station",
-    "Version skew"
-  ],
+  "sources_consulted_last_round": ["project_docs/generation-2/RESEARCH_PIPELINE_STATE.json", "project_docs/generation-2/planning/PLANNING_A_PROCESS_APPLICATION_MODELING_BOUNDARIES.md", "project_docs/generation-2/planning/PLANNING_B_PROCESS_APPLICATION_MODELING_SB_CURRENT_STATE.md", "project_docs/generation-2/research/edge-cases/PROCESS_APPLICATION_MODELING_FULL_PASS_2_REVISIT.md"],
+  "glossary_terms_added_last_round": ["Brownfield", "Lineage", "Lossy", "Revision vector", "Stale"],
   "revision_queue": [],
-  "editorial_notes": [
-    "The adversarial phase is still ACTIVE / NOT_SATURATED; chapters must not present Planning C target architecture as decided.",
-    "At the source-state snapshot used for Chapter 1, Full Pass 1 covered 25/28 canonical capabilities and 0/8 minimum full passes were complete.",
-    "Chapter 1 deliberately introduces UNKNOWN, qualified evidence and ConflictPattern early because later chapters depend on these concepts."
-  ],
-  "next_step": "Write Chapter 2 as a substantial chapter: explain process/application modeling, canonical enterprise semantics, revisions/revision vectors, desired vs observed/effective truth, lineage, coexistence and why a process is more than a flowchart. Read the relevant Process & Application Modeling dossier, Planning A/B reconciliation, Lifecycle/Versioning and Architecture Reconciliation artifacts before writing.",
-  "updated_at": "2026-09-04T16:09:00-03:00"
+  "editorial_notes": ["The adversarial phase remains ACTIVE / NOT_SATURATED; Planning C remains blocked.", "At this editorial snapshot Full Pass 1 is complete and Full Pass 2 is 2/28 capabilities and 2/12 mandatory clusters; only 1/8 minimum full passes is complete.", "Chapter 2 deliberately distinguishes publication of canonical revision from downstream convergence.", "Editorial semantic versioning was introduced after the first Chapter 1 publication; Chapter 1 is baselined at v1.0.0 and CHANGELOG records the transition."],
+  "next_step": "Write Chapter 3 — Capability, Provider, Binding e Semantic Owner — starting at v1.0.0 only when published. Explain semantic ownership before provider mechanics, support qualification, binding lifecycle and anti-god-object boundaries, using concrete OS/email/storage/workflow examples.",
+  "updated_at": "2026-09-04T17:11:00-03:00"
 }
