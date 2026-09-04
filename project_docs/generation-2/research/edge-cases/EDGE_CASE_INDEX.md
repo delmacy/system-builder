@@ -30,10 +30,11 @@ Full Pass 1 completed **28/28 capabilities** and **12/12 mandatory clusters**. T
 | Universal Capability Architecture | `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_2_REVISIT.md` | `G2-EDGE-UCA-008..010` | No new mandatory cluster required; all 12 remain covered once in Pass 2 | 0 | unchanged |
 | UI / Generated Experience / Low-code Builder | `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_FULL_PASS_2_REVISIT.md` | `G2-EDGE-UI-008..010` | No new mandatory cluster; existing UI-linked clusters remain unchanged | 0 | unchanged |
 | Integration & Automation | `INTEGRATION_AUTOMATION_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; existing linked cluster streaks intentionally unchanged | 1 | unchanged |
+| Identity / Authentication / Federation | `IDENTITY_AUTHENTICATION_FEDERATION_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; Identity-linked cluster streaks intentionally unchanged | 1 | unchanged |
 
 ## Pass-2 reusable ConflictPatterns
 
-Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin, Commercial Metering, FinOps, UCA, UI and Integration added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
+Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin, Commercial Metering, FinOps, UCA, UI, Integration and Identity added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
 
 Artifact/Release Pass 2 maps `G2-EDGE-ARTIFACT-008..009` and `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-005` to existing qualification-join, qualified-claim, revision-vector, currentness, effective-identity, provider-qualification, attestation-qualification, trust-authority, distribution-convergence and migration/coexistence patterns.
 
@@ -51,6 +52,8 @@ UI Pass 2 maps `G2-EDGE-UI-008..010` to existing revision-vector/qualification-j
 
 Integration Pass 2 admitted no new scenario or reusable pattern after compound-graph, admission/actuation, provider-substitution, redrive, partial-batch/compensation, backpressure, offline-queue and AI/low-code scope-mutation falsification. The challenged mechanisms duplicate existing integration-identity/idempotency/subscription-coexistence/automation-composition, currentness/revision-vector, stale-base/replay, residual-cohort, scheduling-starvation, compensation/adoption, effective-identity and authority non-amplification families. This is recorded as one eligible local no-material revisit, not as proof that the mechanisms are safe.
 
+Identity Pass 2 admitted no new scenario or reusable pattern after namespace/reassignment mutation, assurance-vector fracture, multi-issuer/client mix-up falsification, logout/revocation propagation-lag analysis, recovery identity mutation, IdP-substitution differential, correlation/privacy screening, resource-pressure perturbation and AI/low-code evidence-misuse mutation. The challenged mechanisms duplicate existing identity-mapping/effective-identity, authentication-currentness/qualified-claim/revision-vector, federation-coexistence/provider-qualification, residual-cohort/adoption-convergence, recovery-identity-authority, multitenant/privacy and authority non-amplification families. This is one eligible local no-material revisit only.
+
 ## Campaign state
 
 - material edge findings: **278**;
@@ -58,10 +61,11 @@ Integration Pass 2 admitted no new scenario or reusable pattern after compound-g
 - combined material findings: **393**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - Integration & Automation local no-material streak: **1**;
+- Identity / Authentication / Federation local no-material streak: **1**;
 - Identity × Authorization × Station × AGWS × AI cluster streak: **1**;
 - Provider/Binding × external realizations cluster streak: **1**;
 - other mandatory cluster streaks: **0**;
-- Full Pass 2 local coverage: **15/28 capabilities**;
+- Full Pass 2 local coverage: **16/28 capabilities**;
 - Full Pass 2 mandatory cluster coverage: **12/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
