@@ -16,6 +16,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Brownfield** — contexto em que a organização já possui sistemas, dados, integrações e processos que precisam coexistir com a evolução. Descobrir uma estrutura brownfield não significa adotá-la automaticamente como semântica canônica.
 
+**Build closure / fechamento de build** — conjunto transitivamente fechado de materiais, dependências, recipe/toolchain e inputs declarados necessários para produzir um output sob um perfil de build. Não é a mesma coisa que retained runtime closure.
+
 ## C
 
 **Capability** — capacidade semanticamente coerente do sistema, com problema e responsabilidades próprios. Não é sinônimo de módulo de UI, pacote de código ou produto externo.
@@ -24,11 +26,15 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Canonical / canônico** — aquilo que o SB reconhece como representação ou verdade normativa dentro de um domínio. Um dado externo pode ser evidência sem ser automaticamente canônico.
 
+**Closure / fechamento** — conjunto que inclui um elemento e todas as dependências transitivas necessárias sob um perfil declarado. Uma closure correta precisa considerar condições, revisões e dependências que influenciam a execução ou materialização; não é apenas uma lista de imports diretos.
+
 **Coexistência** — período ou condição em que múltiplas revisões, cohorts, providers, runtimes ou representações permanecem simultaneamente relevantes durante evolução/migração.
 
 **ConflictInstance** — ocorrência concreta, observada ou reproduzível, de um conflito em um sistema/revisão/contexto específicos.
 
 **ConflictPattern** — descrição reutilizável de uma composição potencialmente incompatível. Não prova, por si só, que um defeito está manifestado.
+
+**Cumulative context / contexto acumulado** — contexto mínimo que precisa atravessar boundaries sucessivas para preservar identidade, revisão, lineage, constraints e evidência aplicáveis sem obrigar cada etapa a conhecer a implementação interna de todas as anteriores.
 
 ## E
 
@@ -52,6 +58,10 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Lossy / com perda** — transformação ou mapeamento que não preserva integralmente a semântica da origem. Uma normalização lossy precisa permanecer explícita; não deve ser apresentada como equivalência perfeita.
 
+## M
+
+**Minimal runtime closure** — fechamento mínimo de dependências que um workload precisa reter para executar corretamente sob determinado perfil operacional. “Mínimo” não autoriza remover policy, trust, configuração, schema ou outros requisitos necessários apenas para reduzir tamanho.
+
 ## P
 
 **Provider** — sistema, serviço, engine ou mecanismo especializado que realiza parte de uma capability. O SB procura delegar mecânicas maduras sem entregar automaticamente ao provider a propriedade da semântica empresarial.
@@ -68,11 +78,15 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Residual cohort / cohort residual** — população pertencente a uma realização/revisão anterior que ainda pode produzir efeitos relevantes ou autoritativos após um cutover, como sessões, workers, caches, callbacks, credenciais, filas ou clientes antigos.
 
+**Retained runtime closure / closure retida de runtime** — conjunto de artefatos, dependências runtime, configuração, trust, autoridade/policy local, schema/data compatibility, bindings e demais requisitos que precisam permanecer disponíveis para a operação permitida de um runtime, inclusive durante um horizonte desconectado quando esse perfil for suportado.
+
 **Revision / revisão** — identidade de uma evolução de definição, política, schema, fórmula, artefato ou outro elemento. Diferentes elementos podem evoluir independentemente, razão pela qual a pesquisa trabalha também com revision vectors.
 
 **Revision vector / vetor de revisões** — conjunto das revisões relevantes de dimensões que evoluem independentemente. Evita presumir que uma única versão global descreva corretamente processo, schema, política, fórmula, runtime e provider ao mesmo tempo.
 
 **Runtime** — parte do sistema materializado que executa trabalho em operação. A visão G2 busca autonomia de runtime sem exigir dependência permanente do Builder para toda execução.
+
+**Runtime autonomy / autonomia de runtime** — capacidade de um runtime continuar operando dentro de uma retained closure e horizonte explicitamente qualificados sem depender continuamente do control plane do Builder. Não significa isolamento, operação offline eterna nem licença para inventar autoridade/currentness ausentes.
 
 ## S
 
@@ -85,6 +99,12 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Stale / obsoleto para o contexto** — informação, proposta ou evidência que pode ter sido válida em uma revisão ou instante anterior, mas não pode ser assumida como atual para a decisão presente sem requalificação.
 
 **Station** — escopo organizacional/governado dentro da hierarquia `Enterprise → Station → Role → Person`, usado na pesquisa G2 para exposição de capabilities, administração delegada e limites de autoridade.
+
+## T
+
+**Topology collapse / colapso de topologia** — realização em que múltiplas capabilities ou owners compartilham processo, host, banco ou outro substrato físico para reduzir complexidade operacional. Não implica colapso de identidade semântica, lifecycle ou autoridade.
+
+**Transitive dependency closure / fechamento transitivo de dependências** — operação de incluir recursivamente as dependências necessárias das dependências até que o conjunto esteja fechado para o perfil considerado, respeitando versões, condições e constraints aplicáveis.
 
 ## U
 
