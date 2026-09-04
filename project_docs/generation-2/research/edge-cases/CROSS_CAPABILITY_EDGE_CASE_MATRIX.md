@@ -9,38 +9,41 @@ This matrix indexes detailed per-capability registers. It does not assert `Confl
 
 | # | Cluster | Status | Detailed register(s) | Material range / deepening |
 | --- | --- | --- | --- | --- |
-| 1 | Process/Application × Workflow × Data/Schema | MATERIAL / STREAK 0 | `PROCESS_APPLICATION_MODELING_EDGE_CASE_REGISTER.md` | `G2-XEDGE-PROCESS-WORKFLOW-DATA-001..004` |
-| 2 | Workflow × Integration × Messaging × external mutation | MATERIAL / STREAK 0 | existing registers + `STANDARDS_INTEROPERABILITY_API_CONTRACTS_EDGE_CASE_REGISTER.md` | `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-001..004` + ACK/effect, scoped ordering/retry/replay, API-revision idempotency and protocol-success != canonical effect deepening |
-| 3 | Identity × Authorization × Station × AGWS × AI | MATERIAL / STREAK 0 | existing registers + `STANDARDS_INTEROPERABILITY_API_CONTRACTS_EDGE_CASE_REGISTER.md` | authority/currentness, SoD, degraded/offline authority, external IDs non-canonical, negotiated/generated contracts cannot weaken inherited authority |
-| 4 | Data/Schema × Privacy × Storage × Lifecycle | MATERIAL / STREAK 0 | existing registers + `STANDARDS_INTEROPERABILITY_API_CONTRACTS_EDGE_CASE_REGISTER.md` | `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001..004` + API/schema compatibility, privacy constraints and residual old-client/cohort coexistence deepening |
-| 5 | Build × Artifact/Release × Deployment × Runtime | MATERIAL / STREAK 0 | existing registers | `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-001..004` + operator/runbook/CLI revision-vector and upgrade-order qualification |
-| 6 | Provider/Binding × external realizations | MATERIAL / STREAK 0 | existing provider-related registers + `STANDARDS_INTEROPERABILITY_API_CONTRACTS_EDGE_CASE_REGISTER.md` | provider feature/protocol label != portable semantics; schema-valid != semantically equivalent; stale qualification; ACK != effect; `UNKNOWN` reconcile-before-retry; binding/contract coexistence and residual cohorts |
-| 7 | Secrets/Config × Runtime × Provider substitution | MATERIAL / STREAK 0 | existing registers | `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-001..004` + recovery/rotation/revocation and binding/config revision skew + residual-cohort races + offline qualification currentness |
-| 8 | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps | MATERIAL / STREAK 0 | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_EDGE_CASE_REGISTER.md` | `G2-XEDGE-MATH-FINOPS-001..005` |
-| 9 | Observability × Security/Recovery × runtime truth | MATERIAL / STREAK 0 | existing registers | `G2-XEDGE-OBS-SEC-RECOVERY-RUNTIME-001..004` + provider reachability/health/ACK != semantic qualification, canonical effect, convergence or safe-retry evidence |
-| 10 | Extension/Plugin × authority × provider trust × lifecycle | MATERIAL / STREAK 0 | `EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_EDGE_CASE_REGISTER.md` | `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-001..004` |
-| 11 | Commercial Metering × Entitlements × Rating × Billing × Payment | MATERIAL / STREAK 0 | existing registers | `G2-XEDGE-COMMERCIAL-001..005` + provider fan-out/fallback can amplify economic effects unless aggregate composition is bounded |
-| 12 | Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution | MATERIAL / STREAK 0 | existing trust/artifact/identity/security registers + `STANDARDS_INTEROPERABILITY_API_CONTRACTS_EDGE_CASE_REGISTER.md` | trust/protocol compatibility is only a qualification dimension; canonicalization/profile currentness, revision vectors, rotation cohorts, downgrade and provider substitution require semantic qualification and convergence |
+| 1 | Process/Application × Workflow × Data/Schema | MATERIAL / STREAK 0 | existing registers | `G2-XEDGE-PROCESS-WORKFLOW-DATA-001..004`; lifecycle revision/currentness deepening where process/workflow/schema revisions coexist |
+| 2 | Workflow × Integration × Messaging × external mutation | MATERIAL / STREAK 0 | existing registers + `LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_EDGE_CASE_REGISTER.md` | in-flight work crosses deprecation/withdrawal; callback/retry after revision change; `UNKNOWN` remote effect requires reconciliation |
+| 3 | Identity × Authorization × Station × AGWS × AI | MATERIAL / STREAK 0 | existing registers + lifecycle register | authority/policy/trust may change during long-lived migration; AI/low-code evolution plans cannot amplify authority |
+| 4 | Data/Schema × Privacy × Storage × Lifecycle | MATERIAL / STREAK 0 | existing registers + lifecycle register | `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001..004` plus schema/privacy currentness, residual data/client cohorts, rollback eligibility and correction lineage |
+| 5 | Build × Artifact/Release × Deployment × Runtime | MATERIAL / STREAK 0 | existing registers + lifecycle register | retained artifact/history != current rollback eligibility; independently changing runtime/config/provider/data dimensions must be requalified |
+| 6 | Provider/Binding × external realizations | MATERIAL / STREAK 0 | existing provider-related registers + lifecycle register | provider substitution/migration ACK != canonical convergence; residual old-provider cohorts may remain authoritative |
+| 7 | Secrets/Config × Runtime × Provider substitution | MATERIAL / STREAK 0 | existing registers + lifecycle register | credential/config rotations are independent lifecycle dimensions; residual credentials/config consumers can survive cutover |
+| 8 | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps | MATERIAL / STREAK 0 | existing registers | formula/policy revisions remain part of lifecycle revision vector; historical recomputation remains qualified |
+| 9 | Observability × Security/Recovery × runtime truth | MATERIAL / STREAK 0 | existing registers + lifecycle register | migration health/ACK != current convergence; rollback/recovery eligibility must be current and owner-qualified |
+| 10 | Extension/Plugin × authority × provider trust × lifecycle | MATERIAL / STREAK 0 | existing registers + lifecycle register | extension/provider cohorts and trust revisions can coexist across evolution/withdrawal windows |
+| 11 | Commercial Metering × Entitlements × Rating × Billing × Payment | MATERIAL / STREAK 0 | existing registers | commercial revisions/cohorts remain subject to explicit evolution lineage and convergence evidence |
+| 12 | Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution | MATERIAL / STREAK 0 | existing registers + lifecycle register | trust/credential/release/provider revisions form independent dimensions; residual trust cohorts can outlive cutover |
 
-## Standards / Interoperability / API Contracts deepening — reusable conflict links
+## Lifecycle / Versioning / Evolution / Migration deepening — reusable conflict links
 
 No 13th mandatory cluster is added.
 
 | Conflict pattern | Cross-capability activation | Detection candidate | Status |
 | --- | --- | --- | --- |
-| `G2-CONFLICT-PATTERN-CONFORMANCE-SEMANTICS-001` | producer/consumer are schema/protocol conformant while transported domain meanings/postconditions differ or remain unqualified | semantic-profile diff + revision/currentness vector + semantic-owner corpus + postcondition reconciliation | MATERIAL / catalogue |
-| `G2-CONFLICT-PATTERN-NEGOTIATION-NONWEAKENING-001` | mutually supported fallback/downgrade exists but superior authority/privacy/trust/governance/domain constraints require stronger semantics | negotiated profile × current policy/authority/trust/semantic requirement vector | MATERIAL / catalogue |
-| `G2-CONFLICT-PATTERN-CONTRACT-EFFECT-001` | protocol ACK/failure or method-level idempotency is treated as canonical effect certainty or universal retry safety | operation contract + effect disposition + idempotency scope/horizon + current target revision + reconciliation | MATERIAL / catalogue |
-| `G2-CONFLICT-PATTERN-CONTRACT-COEXISTENCE-001` | old/new contract revisions are individually valid but residual old clients/adapters/providers remain able to create authoritative effects after cutover/withdrawal | compatibility/cohort graph + runtime old-revision traffic/effects + lifecycle convergence evidence | MATERIAL / catalogue |
+| `G2-CONFLICT-PATTERN-MIGRATION-READINESS-001` | readiness evidence applies to an older revision/cohort/time while dependent owners changed before cutover/cleanup | current revision/cohort/evidence vector diff + stale-evidence and validation coverage checks | MATERIAL / catalogue |
+| `G2-CONFLICT-PATTERN-CUTOVER-AUTHORITY-001` | new revision/provider is declared canonical while an old cohort can still create authoritative effects | cohort graph + last authoritative effect + binding/credential/contract traffic evidence | MATERIAL / catalogue |
+| `G2-CONFLICT-PATTERN-ROLLBACK-ELIGIBILITY-001` | retained historical target exists but current data/provider/trust/policy/privacy/runtime constraints no longer match | rollback target × current multi-owner qualification vector | MATERIAL / catalogue |
+| `G2-CONFLICT-PATTERN-SUPERSESSION-LINEAGE-001` | correction/supersession changes current truth while historical interpretation loses its producing revision/evidence | producing-revision lineage + historical snapshot/materialization metadata + supersession graph | MATERIAL / catalogue |
 
-These preserve `syntax/structure conformance != semantic equivalence`, `negotiated compatible != permitted weakening`, `ACK/method idempotency != canonical effect`, and `withdrawn/published != residual authoritative cohort drained`.
+These preserve `migration status != convergence`, `cutover pointer != residual cohort drained`, `retained history != current rollback eligibility`, and `current correction != historical producing truth`.
 
 ## Full Pass 1 campaign state
 
 - mandatory clusters challenged: **12/12**;
 - all mandatory cluster no-material streaks: **0**;
-- canonical capabilities challenged locally: **26/28**;
-- latest Standards/API findings: **7 edge scenarios + 4 conflict patterns; local streak 0**;
+- canonical capabilities challenged locally: **27/28**;
+- latest Lifecycle findings: **7 edge scenarios + 4 conflict patterns; local streak 0**;
+- material edge scenarios: **230**;
+- reusable conflict patterns: **99**;
+- combined material findings: **329**;
 - full passes completed: **0/8 minimum**;
 - negative-space review: NOT STARTED;
 - saturation: NOT SATURATED;
