@@ -42,7 +42,7 @@ Register: `project_docs/generation-2/research/edge-cases/PROCESS_APPLICATION_MOD
 | `G2-XEDGE-PROCESS-WORKFLOW-DATA-003` | retry after ambiguous data mutation replays process transition | CRITICAL | Workflow + Data + Integration | `XPROCESS-ADV-PROOF-003` |
 | `G2-XEDGE-PROCESS-WORKFLOW-DATA-004` | valid paths claim incompatible canonical postconditions | CRITICAL | domain/data owner + Process + Workflow | `XPROCESS-ADV-PROOF-004` |
 
-### Processual / semantic conflict patterns discovered in this visit
+### Processual / semantic conflict patterns discovered in Process Modeling visit
 | ID | Family | Material pattern | Severity range | Detection candidate | Proof |
 | --- | --- | --- | --- | --- | --- |
 | `G2-CONFLICT-PATTERN-STRUCTURAL-001` | structural graph | valid branches produce incompatible terminal claims/fan-in | HIGH–CRITICAL | static postcondition/graph constraint analysis | `PROCESS-CONFLICT-PROOF-001` |
@@ -50,4 +50,32 @@ Register: `project_docs/generation-2/research/edge-cases/PROCESS_APPLICATION_MOD
 | `G2-CONFLICT-PATTERN-SEMANTIC-001` | semantic ownership | multiple components claim one canonical fact/postcondition | CRITICAL | ownership-reference + competing mutation signals | `PROCESS-CONFLICT-PROOF-003` |
 | `G2-CONFLICT-PATTERN-AI-LOWCODE-001` | AI/low-code composition | safe primitives compose into unauthorized semantic mutation | CRITICAL | owner/authority dependency analysis + commit-time revalidation | `PROCESS-CONFLICT-PROOF-004` |
 
-Both Process & Application Modeling and its paired cluster discovered material findings on first visit, so both streaks are `0`. Full Pass 1 remains incomplete.
+### Workflow & Durable Execution
+Register: `project_docs/generation-2/research/edge-cases/WORKFLOW_DURABLE_EXECUTION_EDGE_CASE_REGISTER.md`
+
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-EDGE-WORKFLOW-001` | duplicate/out-of-order signal advances incompatible transition | CRITICAL | Workflow + Messaging + Integration | `WORKFLOW-ADV-PROOF-001` |
+| `G2-EDGE-WORKFLOW-002` | timer/cancellation/approval race creates incompatible terminal claims | CRITICAL | Workflow + Authorization + temporal realization | `WORKFLOW-ADV-PROOF-002` |
+| `G2-EDGE-WORKFLOW-003` | activity effect succeeds but durable transition persistence fails | CRITICAL | Workflow + Integration/Data + Provider Binding | `WORKFLOW-ADV-PROOF-003` |
+| `G2-EDGE-WORKFLOW-004` | in-flight instance crosses workflow/provider/schema/policy revision skew | CRITICAL | Workflow + Lifecycle + Provider/Data/Auth owners | `WORKFLOW-ADV-PROOF-004` |
+| `G2-EDGE-WORKFLOW-005` | human-task authority drifts while task remains open | CRITICAL | Workflow + Authorization/Identity | `WORKFLOW-ADV-PROOF-005` |
+| `G2-EDGE-WORKFLOW-006` | valid fan-out/retry composition exhausts queue/provider/cost capacity | HIGH | Workflow + Provider/Runtime + FinOps | `WORKFLOW-ADV-PROOF-006` |
+
+### Workflow × Integration × Messaging × external mutation
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-001` | provider acknowledgement mistaken for effective business state | CRITICAL | Integration + Workflow + target owner + Messaging | `XWORKFLOW-ADV-PROOF-001` |
+| `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-002` | idempotency scope mismatch duplicates external mutation | CRITICAL | Integration + Provider/Binding + Workflow | `XWORKFLOW-ADV-PROOF-002` |
+| `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-003` | compensation races with delayed original/retry message | CRITICAL | Workflow + Messaging + Integration + Lifecycle | `XWORKFLOW-ADV-PROOF-003` |
+| `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-004` | provider substitution leaves residual old subscriptions/messages authoritative | HIGH–CRITICAL | Provider/Binding + Integration + Messaging + Workflow + Lifecycle | `XWORKFLOW-ADV-PROOF-004` |
+
+### Processual / semantic conflict patterns discovered in Workflow visit
+| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
+| --- | --- | --- | --- | --- | --- |
+| `G2-CONFLICT-PATTERN-TEMPORAL-001` | temporal/state-transition | locally valid transitions become jointly contradictory under race/order skew | HIGH–CRITICAL | transition conflict graph + commit/currentness + late-event classification | `WORKFLOW-CONFLICT-PROOF-001` |
+| `G2-CONFLICT-PATTERN-PROVIDER-001` | provider/integration | retry/idempotency semantics composition-incompatible across owners/providers | CRITICAL | semantic support + idempotency scope/horizon compatibility | `WORKFLOW-CONFLICT-PROOF-002` |
+| `G2-CONFLICT-PATTERN-RECOVERY-001` | exception/recovery | compensation/recovery conflicts with residual authoritative work | CRITICAL | residual-cohort inventory + post-recovery convergence | `WORKFLOW-CONFLICT-PROOF-003` |
+| `G2-CONFLICT-PATTERN-AUTHORITY-001` | authority/human procedure | durable assignment conflicts with current authority/responsibility | HIGH–CRITICAL | commit-time authority/currentness + SoD analysis | `WORKFLOW-CONFLICT-PROOF-004` |
+
+Workflow & Durable Execution and its paired cluster discovered material findings on first visit, so both streaks are `0`. Full Pass 1 remains incomplete.
