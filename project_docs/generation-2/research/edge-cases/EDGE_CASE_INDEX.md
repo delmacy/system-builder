@@ -38,32 +38,35 @@ Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != Confir
 | Provider / Binding / Capability Negotiation | `PROVIDER_BINDING_CAPABILITY_NEGOTIATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-PROVIDER-001..007` | deepens Provider/Binding × external realizations plus authority, secrets/runtime substitution, observability/recovery, trust/substitution, privacy/governance and FinOps interactions | 0 |
 | Standards / Interoperability / API Contracts | `STANDARDS_INTEROPERABILITY_API_CONTRACTS_EDGE_CASE_REGISTER.md` | `G2-EDGE-STANDARDS-001..007` | deepens Provider/Binding, Workflow/Integration/Messaging, Identity/Authorization/Station/AGWS/AI, Trust/Identity/Artifact/Provider and Data/Privacy/Storage/Lifecycle clusters | 0 |
 | Lifecycle / Versioning / Evolution / Migration | `LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-LIFECYCLE-001..007` | deepens Data/Privacy/Storage/Lifecycle, Provider/Binding, Workflow/Integration/Messaging, Build/Artifact/Deployment/Runtime, Identity/Authorization/Station/AGWS/AI and Trust/Identity/Artifact/Provider clusters | 0 |
+| Architecture Reconciliation as a Capability | `ARCHITECTURE_RECONCILIATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-RECONCILIATION-001..007` | deepens Process/Workflow/Data, Provider/Binding, Build/Release/Deployment/Runtime, Observability/Security/Recovery, Identity/Authorization/Station/AGWS/AI and Data/Privacy/Storage/Lifecycle clusters | 0 |
 
-Full Pass 1 local coverage: **27/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+Full Pass 1 local coverage: **28/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **1/8 minimum**. Full Pass 2 is next; no no-material streak advances from this material visit.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 95 patterns remain authoritative in their originating registers and prior index history. Lifecycle / Versioning / Evolution / Migration adds:
+Existing 99 patterns remain authoritative in their originating registers and prior index history. Architecture Reconciliation adds:
 
-- `G2-CONFLICT-PATTERN-MIGRATION-READINESS-001`
-- `G2-CONFLICT-PATTERN-CUTOVER-AUTHORITY-001`
-- `G2-CONFLICT-PATTERN-ROLLBACK-ELIGIBILITY-001`
-- `G2-CONFLICT-PATTERN-SUPERSESSION-LINEAGE-001`
+- `G2-CONFLICT-PATTERN-RECONCILIATION-CURRENTNESS-001`
+- `G2-CONFLICT-PATTERN-RECONCILIATION-OWNERSHIP-001`
+- `G2-CONFLICT-PATTERN-RECONCILIATION-CLOSURE-001`
+- `G2-CONFLICT-PATTERN-RECONCILIATION-LINEAGE-001`
 
-Total reusable conflict patterns indexed: **99**.
+Total reusable conflict patterns indexed: **103**.
 
-## Latest material summary — Lifecycle / Versioning / Evolution / Migration
+## Latest material summary — Architecture Reconciliation as a Capability
 
-Seven local material classes challenge revision-vector truncation, timeless readiness/convergence, residual authoritative cohorts after cutover, deprecation/withdrawal races with in-flight work, historical availability versus current rollback eligibility, `PARTIAL/UNKNOWN` migration effects and unsafe retry, and correction/generated evolution that destroys producing history or exceeds current authority. Four reusable ConflictPatterns catalogue scoped migration readiness, cutover versus residual authority, current rollback eligibility and supersession lineage. No new mandatory cluster is created and no `ConflictInstance` is asserted.
+Seven local material classes challenge desired-versus-observed revision/currentness mismatch, contradictory/partial evidence reduction, reconciliation-subject identity collapse, simultaneous correction/reconciliation races, scoped clean results promoted to universal closure, stale architecture/rollback evidence reused as current qualification, and reconciliation becoming a semantic/authority god-object under AI/low-code or resource pressure. Four reusable ConflictPatterns catalogue reconciliation currentness, ownership non-amplification, closure-versus-residual-cohort and correction/supersession lineage. No new mandatory cluster is created and no `ConflictInstance` is asserted.
 
 ## Campaign state
 
-- material edge findings: **230**;
-- reusable conflict patterns: **99**;
-- combined material findings: **329**;
+- material edge findings: **237**;
+- reusable conflict patterns: **103**;
+- combined material findings: **340**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - local no-material streak for every challenged capability: **0**;
 - mandatory-cluster streaks: **0**;
+- completed full passes: **1/8 minimum**;
+- active full pass: **2**;
 - negative-space review: NOT STARTED;
 - saturation: NOT SATURATED;
 - `PLANNING_C_TARGET_ARCHITECTURE`: BLOCKED.
