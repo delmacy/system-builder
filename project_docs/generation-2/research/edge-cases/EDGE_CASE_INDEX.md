@@ -163,3 +163,32 @@ Register: `project_docs/generation-2/research/edge-cases/SECRETS_CONFIGURATION_E
 | `G2-CONFLICT-PATTERN-AUTHORITY-002` | authority/SoD/human/AI | reveal, rotate, bind and deploy privileges compose into a separation-of-duty bypass | CRITICAL | action dependency + SoD policy + current `Enterprise → Station → Role → Person` analysis | `SECRETS-CONFLICT-PROOF-003` |
 
 Secrets / Configuration / Environment Portability and Secrets/Config × Runtime × Provider substitution discovered material findings on first visit, so both streaks are `0`. Full Pass 1 progress is 6/28 capabilities and 6/12 mandatory clusters; the full-pass count remains `0`.
+
+### Build / Dependency Graph / Reproducibility
+Register: `project_docs/generation-2/research/edge-cases/BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_EDGE_CASE_REGISTER.md`
+
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-EDGE-BUILD-001` | undeclared ambient dependency changes output while declared graph is unchanged | CRITICAL | Build + Provider/Binding + Secrets/Config | `BUILD-ADV-PROOF-001` |
+| `G2-EDGE-BUILD-002` | duplicate/cyclic/conditional graph resolves differently across tools or order | HIGH–CRITICAL | Build + Standards + Lifecycle | `BUILD-ADV-PROOF-002` |
+| `G2-EDGE-BUILD-003` | stale/poisoned cache accepted from key equality despite inapplicable provenance/currentness | CRITICAL | Build + Security/Recovery + Provider/Binding + Lifecycle | `BUILD-ADV-PROOF-003` |
+| `G2-EDGE-BUILD-004` | concurrent source/build/release mutation creates provenance subject skew | CRITICAL | Build + Artifact/Release/SBOM/Provenance + Lifecycle | `BUILD-ADV-PROOF-004` |
+| `G2-EDGE-BUILD-005` | remote build/publication effect is `UNKNOWN` and blind retry creates competing outputs | CRITICAL | Build + Artifact/Release + Provider/Binding + Integration | `BUILD-ADV-PROOF-005` |
+| `G2-EDGE-BUILD-006` | pathological graph or AI/low-code build step exhausts resources or expands authority | CRITICAL | Build + Authorization + Security + AGWS/AI + FinOps + Provider | `BUILD-ADV-PROOF-006` |
+
+### Build × Artifact/Release × Deployment × Runtime
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-001` | build/release/deployment/runtime-effective identities collapse into one inferred truth | CRITICAL | Build + Artifact/Release + Deployment/Runtime + Observability/Lifecycle | `XBUILD-ADV-PROOF-001` |
+| `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-002` | retained/reproducible artifact is no longer currently rollback-eligible | CRITICAL | Lifecycle + Deployment/Runtime + Build + Artifact/Release + dependency owners | `XBUILD-ADV-PROOF-002` |
+| `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-003` | deployment success hides residual old authoritative runtime cohorts | CRITICAL | Deployment/Runtime + Artifact/Release + Build + Observability/Lifecycle | `XBUILD-ADV-PROOF-003` |
+| `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-004` | runner/toolchain/provider substitution changes runtime semantics despite nominal interface compatibility | HIGH–CRITICAL | Build + Provider/Binding + Artifact/Release + Deployment/Runtime + Standards | `XBUILD-ADV-PROOF-004` |
+
+### Processual / semantic conflict patterns discovered/adopted in Build visit
+| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
+| --- | --- | --- | --- | --- | --- |
+| `G2-CONFLICT-PATTERN-BUILD-PROVENANCE-001` | semantic/data/supply-chain | declared build identity conflicts with effective material closure | CRITICAL | sandbox/egress + provenance-to-effective-material reconciliation + rebuild differential | `BUILD-CONFLICT-PROOF-001` |
+| `G2-CONFLICT-PATTERN-EFFECTIVE-IDENTITY-001` | semantic/state/version | adjacent lifecycle identities are locally valid but silently treated as one effective state | CRITICAL | lineage-stage typing + runtime cohort/currentness reconciliation | `BUILD-CONFLICT-PROOF-002` |
+| `G2-CONFLICT-PATTERN-SUPPLY-CHAIN-001` | authority/AI/provider/supply-chain | individually authorized build primitives compose into unqualified supply-chain authority | CRITICAL | action/material dependency + effective authority + trust/capability diff | `BUILD-CONFLICT-PROOF-003` |
+
+Build / Dependency Graph / Reproducibility and Build × Artifact/Release × Deployment × Runtime discovered material findings on first visit, so both streaks are `0`. Full Pass 1 progress is 7/28 capabilities and 7/12 mandatory clusters; the full-pass count remains `0`.
