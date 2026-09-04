@@ -27,29 +27,30 @@ Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != Confir
 | UI / Generated Experience / Low-code Builder | `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_EDGE_CASE_REGISTER.md` | `G2-EDGE-UI-001..007` | deepens existing mandatory clusters | 0 |
 | Integration & Automation | `INTEGRATION_AUTOMATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-INTEGRATION-001..007` | deepens Workflow/Integration/Messaging + Provider clusters | 0 |
 | Identity / Authentication / Federation | `IDENTITY_AUTHENTICATION_FEDERATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-IDENTITY-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Trust/Identity/Artifact/Provider clusters | 0 |
+| Authorization / Policy / Organization / Multitenancy | `AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_EDGE_CASE_REGISTER.md` | `G2-EDGE-AUTHZ-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Provider/Binding + Trust/Identity/Artifact/Provider clusters | 0 |
 
-Full Pass 1 local coverage: **16/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+Full Pass 1 local coverage: **17/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 51 patterns remain authoritative in their originating registers and prior index history. Identity adds:
+Existing 55 patterns remain authoritative in their originating registers and prior index history. Authorization adds:
 
-- `G2-CONFLICT-PATTERN-IDENTITY-MAPPING-001`
-- `G2-CONFLICT-PATTERN-AUTHENTICATION-CURRENTNESS-001`
-- `G2-CONFLICT-PATTERN-FEDERATION-COEXISTENCE-001`
-- `G2-CONFLICT-PATTERN-RECOVERY-IDENTITY-AUTHORITY-001`
+- `G2-CONFLICT-PATTERN-POLICY-PRECEDENCE-001`
+- `G2-CONFLICT-PATTERN-AUTHORITY-CURRENTNESS-001`
+- `G2-CONFLICT-PATTERN-MULTITENANT-SCOPE-001`
+- `G2-CONFLICT-PATTERN-SOD-DELEGATION-001`
 
-Total reusable conflict patterns indexed: **55**.
+Total reusable conflict patterns indexed: **59**.
 
-## Latest material summary — Identity / Authentication / Federation
+## Latest material summary — Authorization / Policy / Organization / Multitenancy
 
-Seven local material classes challenge ambiguous canonical/external identity merge/split/link, stale session evidence across authority revisions, concurrent revoke/disable/login residual cohorts, federation metadata/key epoch skew, protocol-name provider substitution with divergent subject/assurance semantics, bounded offline authentication currentness, and recovery/AI-low-code composition that can amplify authority. Four reusable ConflictPatterns catalogue identity mapping contradiction, authentication-currentness conflict, federation coexistence and recovery-versus-authority safety. No new mandatory cluster is created and no `ConflictInstance` or remediation implementation is asserted.
+Seven local material classes challenge inherited-constraint weakening, stale membership/delegation authority, concurrent grant/revoke/use with partial policy distribution, tenant/Station/resource identity ambiguity, SoD and break-glass self-dealing, policy/model revision skew across in-flight work, and pathological/AI-generated policy graphs that broaden authority or evaluation cost. Four reusable ConflictPatterns catalogue policy-precedence divergence, authority currentness, multitenant scope mapping and SoD/delegation composition. No new mandatory cluster is created and no `ConflictInstance` or remediation implementation is asserted.
 
 ## Campaign state
 
-- material edge findings: **153**;
-- reusable conflict patterns: **55**;
-- combined material findings: **208**;
+- material edge findings: **160**;
+- reusable conflict patterns: **59**;
+- combined material findings: **219**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - local no-material streak for every challenged capability: **0**;
 - mandatory-cluster streaks: **0**;
