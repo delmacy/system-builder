@@ -12,6 +12,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Binding** — vínculo qualificado entre uma necessidade/capability do SB e uma realização/provider admitido. Um binding não torna automaticamente todos os recursos do provider parte da semântica canônica.
 
+**Brownfield** — contexto em que a organização já possui sistemas, dados, integrações e processos que precisam coexistir com a evolução. Descobrir uma estrutura brownfield não significa adotá-la automaticamente como semântica canônica.
+
 ## C
 
 **Capability** — capacidade semanticamente coerente do sistema, com problema e responsabilidades próprios. Não é sinônimo de módulo de UI, pacote de código ou produto externo.
@@ -40,6 +42,12 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **INCONCLUSIVE** — resultado explícito indicando evidência insuficiente para concluir PASS/FAIL, ALLOW/DENY ou outra afirmação forte. Evita transformar ausência de conhecimento em certeza.
 
+## L
+
+**Lineage / linhagem** — relação rastreável entre uma definição, dado, artefato ou evidência e suas origens, transformações, revisões, correções ou adoções. Ajuda a explicar de onde veio uma verdade e quais derivados podem ser afetados por uma mudança.
+
+**Lossy / com perda** — transformação ou mapeamento que não preserva integralmente a semântica da origem. Uma normalização lossy precisa permanecer explícita; não deve ser apresentada como equivalência perfeita.
+
 ## P
 
 **Provider** — sistema, serviço, engine ou mecanismo especializado que realiza parte de uma capability. O SB procura delegar mecânicas maduras sem entregar automaticamente ao provider a propriedade da semântica empresarial.
@@ -54,6 +62,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Revision / revisão** — identidade de uma evolução de definição, política, schema, fórmula, artefato ou outro elemento. Diferentes elementos podem evoluir independentemente, razão pela qual a pesquisa trabalha também com revision vectors.
 
+**Revision vector / vetor de revisões** — conjunto das revisões relevantes de dimensões que evoluem independentemente. Evita presumir que uma única versão global descreva corretamente processo, schema, política, fórmula, runtime e provider ao mesmo tempo.
+
 **Runtime** — parte do sistema materializado que executa trabalho em operação. A visão G2 busca autonomia de runtime sem exigir dependência permanente do Builder para toda execução.
 
 ## S
@@ -61,6 +71,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Semantic owner** — capability ou domínio responsável pelo significado canônico e pelas invariantes de determinada informação/decisão. Um consumidor pode observar ou projetar esse significado sem automaticamente se tornar seu dono.
 
 **Signal / sinal** — indício que pode justificar investigação ou avaliação. `Signal != ConfirmedConflict`: um detector não deve converter suspeita em fato sem evidência suficiente.
+
+**Stale / obsoleto para o contexto** — informação, proposta ou evidência que pode ter sido válida em uma revisão ou instante anterior, mas não pode ser assumida como atual para a decisão presente sem requalificação.
 
 **Station** — escopo organizacional/governado dentro da hierarquia `Enterprise → Station → Role → Person`, usado na pesquisa G2 para exposição de capabilities, administração delegada e limites de autoridade.
 
