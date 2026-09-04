@@ -28,29 +28,30 @@ Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != Confir
 | Integration & Automation | `INTEGRATION_AUTOMATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-INTEGRATION-001..007` | deepens Workflow/Integration/Messaging + Provider clusters | 0 |
 | Identity / Authentication / Federation | `IDENTITY_AUTHENTICATION_FEDERATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-IDENTITY-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Trust/Identity/Artifact/Provider clusters | 0 |
 | Authorization / Policy / Organization / Multitenancy | `AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_EDGE_CASE_REGISTER.md` | `G2-EDGE-AUTHZ-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Provider/Binding + Trust/Identity/Artifact/Provider clusters | 0 |
+| Governance / Compliance / Audit | `GOVERNANCE_COMPLIANCE_AUDIT_EDGE_CASE_REGISTER.md` | `G2-EDGE-GOVERNANCE-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Provider/Binding + Observability/Security/Recovery + Data/Privacy/Storage/Lifecycle clusters | 0 |
 
-Full Pass 1 local coverage: **17/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+Full Pass 1 local coverage: **18/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 55 patterns remain authoritative in their originating registers and prior index history. Authorization adds:
+Existing 59 patterns remain authoritative in their originating registers and prior index history. Governance adds:
 
-- `G2-CONFLICT-PATTERN-POLICY-PRECEDENCE-001`
-- `G2-CONFLICT-PATTERN-AUTHORITY-CURRENTNESS-001`
-- `G2-CONFLICT-PATTERN-MULTITENANT-SCOPE-001`
-- `G2-CONFLICT-PATTERN-SOD-DELEGATION-001`
+- `G2-CONFLICT-PATTERN-GOVERNANCE-APPLICABILITY-001`
+- `G2-CONFLICT-PATTERN-ASSESSMENT-CURRENTNESS-001`
+- `G2-CONFLICT-PATTERN-EXCEPTION-CONTROL-001`
+- `G2-CONFLICT-PATTERN-AUDIT-CLOSURE-001`
 
-Total reusable conflict patterns indexed: **59**.
+Total reusable conflict patterns indexed: **63**.
 
-## Latest material summary — Authorization / Policy / Organization / Multitenancy
+## Latest material summary — Governance / Compliance / Audit
 
-Seven local material classes challenge inherited-constraint weakening, stale membership/delegation authority, concurrent grant/revoke/use with partial policy distribution, tenant/Station/resource identity ambiguity, SoD and break-glass self-dealing, policy/model revision skew across in-flight work, and pathological/AI-generated policy graphs that broaden authority or evaluation cost. Four reusable ConflictPatterns catalogue policy-precedence divergence, authority currentness, multitenant scope mapping and SoD/delegation composition. No new mandatory cluster is created and no `ConflictInstance` or remediation implementation is asserted.
+Seven local material classes challenge obligation/control applicability and precedence, stale/incomplete evidence accepted as compliance, waiver/exception expiry with residual enforcement cohorts, incomplete/reordered/mutable audit narratives, remediation acknowledgement mistaken for validated closure, provider certification scope overgeneralized into customer compliance, and pathological/AI-generated governance evaluation that fabricates coverage or authority. Four reusable ConflictPatterns catalogue applicability/precedence conflict, assessment-currentness conflict, exception/enforcement lifecycle divergence and execution-completion versus governance-closure divergence. No new mandatory cluster is created and no `ConflictInstance` or remediation implementation is asserted.
 
 ## Campaign state
 
-- material edge findings: **160**;
-- reusable conflict patterns: **59**;
-- combined material findings: **219**;
+- material edge findings: **167**;
+- reusable conflict patterns: **63**;
+- combined material findings: **230**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - local no-material streak for every challenged capability: **0**;
 - mandatory-cluster streaks: **0**;
