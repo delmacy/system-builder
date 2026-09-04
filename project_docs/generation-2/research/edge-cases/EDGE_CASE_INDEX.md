@@ -25,10 +25,11 @@ Full Pass 1 completed **28/28 capabilities** and **12/12 mandatory clusters**. T
 | Artifact / Release / SBOM / Provenance | `ARTIFACT_RELEASE_SBOM_PROVENANCE_FULL_PASS_2_REVISIT.md` | `G2-EDGE-ARTIFACT-008..009` | `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-005` — individually valid members lack one common trust/authority/currentness cut | 0 | 0 |
 | Deployment / Runtime / Autonomous Operation | `DEPLOYMENT_RUNTIME_AUTONOMOUS_OPERATION_FULL_PASS_2_REVISIT.md` | `G2-EDGE-RUNTIME-007..008` | `G2-XEDGE-OBS-SEC-RECOVERY-RUNTIME-005` — telemetry topology/coverage can invalidate stronger security/recovery/runtime-truth claims | 0 | 0 |
 | Extension / Plugin / Marketplace Architecture | `EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_FULL_PASS_2_REVISIT.md` | `G2-EDGE-EXTENSION-008..009` | `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-005` — effective dependency/provider closure changes after admission without a common authority/trust requalification cut | 0 | 0 |
+| Commercial Metering / Entitlements / Rating / Billing / Payment | `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_FULL_PASS_2_REVISIT.md` | `G2-EDGE-COMMERCIAL-008..009` | `G2-XEDGE-COMMERCIAL-006` — provider-finalized billing can lack a closed population/currentness cut over residual qualified usage and adjustments | 0 | 0 |
 
 ## Pass-2 reusable ConflictPatterns
 
-Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime and Extension/Plugin added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
+Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin and Commercial Metering added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
 
 Artifact/Release Pass 2 maps `G2-EDGE-ARTIFACT-008..009` and `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-005` to existing qualification-join, qualified-claim, revision-vector, currentness, effective-identity, provider-qualification, attestation-qualification, trust-authority, distribution-convergence and migration/coexistence patterns.
 
@@ -36,18 +37,20 @@ Deployment/Runtime Pass 2 maps `G2-EDGE-RUNTIME-007..008` and `G2-XEDGE-OBS-SEC-
 
 Extension/Plugin Pass 2 maps `G2-EDGE-EXTENSION-008..009` and `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-005` to existing dependency-closure/qualification-join, semantic-ownership, temporal-ordering, permission-composition, currentness/revision-vector, trust-authority, provider-substitution and residual-cohort families.
 
+Commercial Metering Pass 2 maps `G2-EDGE-COMMERCIAL-008..009` and `G2-XEDGE-COMMERCIAL-006` to existing idempotency-qualification/effective-identity/provider-substitution, conservation/revision/currentness/correction-supersession, completeness/coverage, commercial-cohort/revision and residual-cohort/adoption-convergence families. No new `ConflictPattern` was needed after duplicate screening.
+
 ## Campaign state
 
-- material edge findings: **266**;
+- material edge findings: **269**;
 - reusable conflict patterns: **115**;
-- combined material findings: **381**;
+- combined material findings: **384**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
-- Extension / Plugin / Marketplace Architecture local no-material streak: **0**;
-- Extension/Plugin × authority × provider trust × lifecycle cluster streak: **0**;
+- Commercial Metering / Entitlements / Rating / Billing / Payment local no-material streak: **0**;
+- Commercial Metering × Entitlements × Rating × Billing × Payment cluster streak: **0**;
 - Identity × Authorization × Station × AGWS × AI cluster streak: **1**;
 - Provider/Binding × external realizations cluster streak: **1**;
-- Full Pass 2 local coverage: **10/28 capabilities**;
-- Full Pass 2 mandatory cluster coverage: **10/12**;
+- Full Pass 2 local coverage: **11/28 capabilities**;
+- Full Pass 2 mandatory cluster coverage: **11/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
 - negative-space review: NOT STARTED;
