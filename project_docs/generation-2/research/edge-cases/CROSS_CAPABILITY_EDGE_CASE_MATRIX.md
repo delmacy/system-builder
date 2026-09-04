@@ -37,13 +37,29 @@ This matrix indexes detailed per-capability registers. It does not assert `Confl
 11. **Commercial Metering × Entitlements × Rating × Billing × Payment:** late usage corrections can conflict with settled invoices; effective-date/revision vectors can disagree; provider cutover can leave pending commercial cohorts authoritative; provider ACK is scoped evidence rather than settlement/customer-commercial convergence; entitlement remains distinct from authorization.
 12. **Enterprise Trust/PKI × Identity × Artifact/Release × provider:** authentic signer identity is not release authority; substitution and residual distribution paths can alter effective trust/distribution semantics.
 
+## UCA reusable composition patterns — Full Pass 1 local deep dive
+
+Register: `UNIVERSAL_CAPABILITY_ARCHITECTURE_EDGE_CASE_REGISTER.md`
+
+No 13th mandatory cluster was added. The UCA visit instead produced reusable cross-owner patterns that must be linked into later cluster revisits whenever their activation conditions appear:
+
+| Conflict pattern | Cross-capability activation | Detection route | Status |
+| --- | --- | --- | --- |
+| `G2-CONFLICT-PATTERN-QUALIFIED-CLAIM-001` | two owners emit individually valid claims whose scope/profile/revision/currentness are incompatible after composition | qualification-intersection + applicability/currentness comparison | MATERIAL / reuse on revisits |
+| `G2-CONFLICT-PATTERN-REVISION-VECTOR-001` | exposed versions appear compatible while hidden material owner revisions diverge | material revision dependency closure + compatibility matrix | MATERIAL / reuse on revisits |
+| `G2-CONFLICT-PATTERN-CONVERGENCE-SEMANTICS-001` | owners bind generic “success” to different attempted/accepted/applied/converged/validated stages | typed lineage-stage compatibility + effect reconciliation evidence | MATERIAL / reuse on revisits |
+| `G2-CONFLICT-PATTERN-UCA-OWNERSHIP-001` | universal/common abstraction chooses semantic truth, precedence, score or authority across owners | architecture decision provenance + explicit semantic-owner check | MATERIAL / reuse on revisits |
+
+These patterns are research catalogue entries only. They do not assert a concrete conflict or authorize remediation.
+
 ## Full Pass 1 campaign state
 
 - mandatory clusters challenged: **12/12**;
 - every challenged mandatory cluster currently has material findings and therefore no-material streak **0**;
-- canonical capabilities challenged locally: **12/28**;
+- canonical capabilities challenged locally: **13/28**;
+- UCA local findings: **7 edge scenarios + 4 conflict patterns; local streak 0**;
 - full passes completed: **0/8 minimum**;
-- no cluster is saturated;
+- no capability or cluster is saturated;
 - subsequent Full Pass 1 work continues local capability rotation and may add materially motivated deep-dive clusters without using them as quota substitutes;
 - `PLANNING_C_TARGET_ARCHITECTURE` remains blocked until adversarial research is `CLOSED / SATURATED / PASS`.
 
