@@ -29,10 +29,11 @@ Full Pass 1 completed **28/28 capabilities** and **12/12 mandatory clusters**. T
 | Technology Economic Governance / FinOps | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_FULL_PASS_2_REVISIT.md` | `G2-EDGE-FINOPS-008..009` | `G2-XEDGE-MATH-FINOPS-006` — provisional derived economics can be adopted into durable workflow/commercial effects before evidence closure | 0 | 0 |
 | Universal Capability Architecture | `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_2_REVISIT.md` | `G2-EDGE-UCA-008..010` | No new mandatory cluster required; all 12 remain covered once in Pass 2 | 0 | unchanged |
 | UI / Generated Experience / Low-code Builder | `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_FULL_PASS_2_REVISIT.md` | `G2-EDGE-UI-008..010` | No new mandatory cluster; existing UI-linked clusters remain unchanged | 0 | unchanged |
+| Integration & Automation | `INTEGRATION_AUTOMATION_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; existing linked cluster streaks intentionally unchanged | 1 | unchanged |
 
 ## Pass-2 reusable ConflictPatterns
 
-Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin, Commercial Metering, FinOps, UCA and UI added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
+Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin, Commercial Metering, FinOps, UCA, UI and Integration added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
 
 Artifact/Release Pass 2 maps `G2-EDGE-ARTIFACT-008..009` and `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-005` to existing qualification-join, qualified-claim, revision-vector, currentness, effective-identity, provider-qualification, attestation-qualification, trust-authority, distribution-convergence and migration/coexistence patterns.
 
@@ -48,17 +49,19 @@ UCA Pass 2 maps `G2-EDGE-UCA-008..010` to existing qualified-claim/currentness, 
 
 UI Pass 2 maps `G2-EDGE-UI-008..010` to existing revision-vector/qualification-join/currentness, workflow-decision-lineage, stale-base/replay/idempotency/effective-identity, residual-cohort/correction-supersession, projection-semantics, presentation-authority, human-instruction, standards/provider-downgrade and AI/low-code non-amplification families. The new local mechanisms are aggregate multi-step qualification fracture, offline resurrection of superseded intent and omission of a conditionally material semantic qualifier by generated/adaptive projection. No new reusable `ConflictPattern` was needed after duplicate screening.
 
+Integration Pass 2 admitted no new scenario or reusable pattern after compound-graph, admission/actuation, provider-substitution, redrive, partial-batch/compensation, backpressure, offline-queue and AI/low-code scope-mutation falsification. The challenged mechanisms duplicate existing integration-identity/idempotency/subscription-coexistence/automation-composition, currentness/revision-vector, stale-base/replay, residual-cohort, scheduling-starvation, compensation/adoption, effective-identity and authority non-amplification families. This is recorded as one eligible local no-material revisit, not as proof that the mechanisms are safe.
+
 ## Campaign state
 
 - material edge findings: **278**;
 - reusable conflict patterns: **115**;
 - combined material findings: **393**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
-- UI / Generated Experience / Low-code Builder local no-material streak: **0**;
-- Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps cluster streak: **0**;
+- Integration & Automation local no-material streak: **1**;
 - Identity × Authorization × Station × AGWS × AI cluster streak: **1**;
 - Provider/Binding × external realizations cluster streak: **1**;
-- Full Pass 2 local coverage: **14/28 capabilities**;
+- other mandatory cluster streaks: **0**;
+- Full Pass 2 local coverage: **15/28 capabilities**;
 - Full Pass 2 mandatory cluster coverage: **12/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
