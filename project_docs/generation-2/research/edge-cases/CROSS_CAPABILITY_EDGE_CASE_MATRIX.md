@@ -27,20 +27,22 @@ This matrix indexes detailed per-capability registers. It does not assert `Confl
 | # | Cluster | Pass-2 status | Detailed artifact | Result / streak |
 | --- | --- | --- | --- | --- |
 | 3 | Identity × Authorization × Station × AGWS × AI | COVERED / NO NEW MATERIAL CLASS | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_2_REVISIT.md` | stale authority, simultaneous human/AI edits, AI action-sequence composition, inherited constraints, stale evidence and AI/provider bypass all mapped to already-catalogued classes after duplicate screening; eligible no-material streak **1** |
+| 1 | Process/Application × Workflow × Data/Schema | COVERED / MATERIAL NEW CLASS | `PROCESS_APPLICATION_MODELING_FULL_PASS_2_REVISIT.md` | new `G2-XEDGE-PROCESS-WORKFLOW-DATA-005`: producer-local compensation can become semantically incompatible after another process has adopted the effect; cluster streak remains/resets **0** |
 
-The same AGWS revisit found three new **local** composition classes that do not constitute a new finding for cluster 3: presentation ordering versus mandatory operational priority, cross-surface capacity projection versus canonical reservation/allocation truth, and historical surface reconstruction versus current action eligibility. These are linked through `G2-CONFLICT-PATTERN-WORK-PRIORITY-PROJECTION-001`, `G2-CONFLICT-PATTERN-CAPACITY-PROJECTION-001` and `G2-CONFLICT-PATTERN-WORK-SURFACE-REACTIVATION-001`.
+The Process/Application revisit also found two new local composition classes: graph reachability can be destroyed by the conjunction of otherwise-valid responsibility/authority predicates (`G2-CONFLICT-PATTERN-AUTHORITY-LIVENESS-001`), and independently current claims can have no jointly valid fan-in interval (`G2-CONFLICT-PATTERN-QUALIFICATION-JOIN-001`). Cross-process compensation after semantic adoption is catalogued as `G2-CONFLICT-PATTERN-CROSS-PROCESS-COMPENSATION-001`.
 
-No 13th mandatory cluster is added.
+Candidates involving local objective versus enterprise constraint, brownfield residual semantics, generic canonical-fact contention and recovery-cut external effects were duplicate-screened into existing patterns. No 13th mandatory cluster is added.
 
 ## Full Pass 2 campaign state
 
-- canonical capabilities revisited: **1/28**;
-- mandatory clusters revisited: **1/12**;
+- canonical capabilities revisited: **2/28**;
+- mandatory clusters revisited: **2/12**;
 - Identity × Authorization × Station × AGWS × AI streak: **1**;
+- Process/Application × Workflow × Data/Schema streak: **0**;
 - all other mandatory cluster streaks: **0**;
-- material edge scenarios: **240**;
-- reusable conflict patterns: **106**;
-- combined material findings: **346**;
+- material edge scenarios: **243**;
+- reusable conflict patterns: **109**;
+- combined material findings: **352**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
