@@ -30,21 +30,23 @@ This matrix indexes detailed per-capability registers. It does not assert `Confl
 | 1 | Process/Application × Workflow × Data/Schema | COVERED / MATERIAL NEW CLASS | `PROCESS_APPLICATION_MODELING_FULL_PASS_2_REVISIT.md` | new `G2-XEDGE-PROCESS-WORKFLOW-DATA-005`: producer-local compensation can become semantically incompatible after another process has adopted the effect; cluster streak remains/resets **0** |
 | 2 | Workflow × Integration × Messaging × external mutation | COVERED / MATERIAL NEW CLASS | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_2_REVISIT.md` | new `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-005`: individually valid event normalization/delivery/waits can disagree on owner-qualified consumption cardinality; cluster streak remains/resets **0** |
 | 4 | Data/Schema × Privacy × Storage × Lifecycle | COVERED / MATERIAL NEW CLASS | `DATA_SCHEMA_MIGRATIONS_FULL_PASS_2_REVISIT.md` | new `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-005`: individually valid sinks or CDC cohorts can lack a common qualified cut after data/lifecycle changes; cluster streak remains/resets **0** |
+| 6 | Provider/Binding × external realizations | COVERED / NO NEW MATERIAL CLASS | `STORAGE_DOCUMENTS_MEDIA_FULL_PASS_2_REVISIT.md` | provider-specific ETag/checksum/version, object-lock scope, copy/restore effects, key/access drift and residual-provider objects mapped to existing provider/storage patterns; eligible no-material streak **1** |
 
-The Data revisit also found two new local composition classes: adjacent/pairwise schema compatibility does not prove active-cohort directional losslessness (`G2-CONFLICT-PATTERN-SCHEMA-LOSSLESSNESS-001`), and a schema/UI/migration default does not acquire canonical stored-fact authority merely by being materialized (`G2-CONFLICT-PATTERN-DEFAULT-MATERIALIZATION-001`). The cross-sink common-cut finding deepens existing migration/replica/currentness patterns rather than creating a redundant third reusable pattern. No 13th mandatory cluster is added.
+The Storage revisit found two new **local** composition classes while the paired Provider/Binding cluster itself yielded no new reusable class: cross-owner physical deduplication can violate independent governance (`G2-CONFLICT-PATTERN-PHYSICAL-SHARING-GOVERNANCE-001`), and provider/version-scoped protection can be confused with owner-qualified protection of a logical document lineage (`G2-CONFLICT-PATTERN-PROTECTION-SCOPE-001`). Provider-differential qualification for those mechanisms was already represented by existing support/conformance/provider-qualification patterns, so no redundant cross-capability scenario was added.
 
 ## Full Pass 2 campaign state
 
-- canonical capabilities revisited: **4/28**;
-- mandatory clusters revisited: **4/12**;
+- canonical capabilities revisited: **5/28**;
+- mandatory clusters revisited: **5/12**;
 - Identity × Authorization × Station × AGWS × AI streak: **1**;
 - Process/Application × Workflow × Data/Schema streak: **0**;
 - Workflow × Integration × Messaging × external mutation streak: **0**;
 - Data/Schema × Privacy × Storage × Lifecycle streak: **0**;
+- Provider/Binding × external realizations streak: **1**;
 - all other mandatory cluster streaks: **0**;
-- material edge scenarios: **249**;
-- reusable conflict patterns: **113**;
-- combined material findings: **362**;
+- material edge scenarios: **251**;
+- reusable conflict patterns: **115**;
+- combined material findings: **366**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
