@@ -26,7 +26,7 @@
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 226,
+    "hourly_runs_completed": 227,
     "finding_count": 1407,
     "capability_candidate_count": 642,
     "new_findings_this_run": [],
@@ -109,7 +109,7 @@
   "planning_b": {
     "status": "IN_PROGRESS",
     "canonical_capability_count": 28,
-    "completed_capability_count": 16,
+    "completed_capability_count": 17,
     "completed_capabilities": [
       "Adaptive Governed Work Surfaces",
       "Universal Capability Architecture",
@@ -126,15 +126,16 @@
       "Data / Schema / Migrations",
       "Storage / Documents / Media",
       "Notifications / Events / Messaging",
-      "Secrets / Configuration / Environment Portability"
+      "Secrets / Configuration / Environment Portability",
+      "Build / Dependency Graph / Reproducibility"
     ],
-    "latest_capability": "Secrets / Configuration / Environment Portability",
-    "latest_artifact": "project_docs/generation-2/planning/PLANNING_B_SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_SB_CURRENT_STATE.md",
+    "latest_capability": "Build / Dependency Graph / Reproducibility",
+    "latest_artifact": "project_docs/generation-2/planning/PLANNING_B_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_SB_CURRENT_STATE.md",
     "latest_result": "PASS_FOR_CAPABILITY / CURRENT_STATE_RECONCILED",
     "fresh_main_anchor": "d8760c7f08757bb164a758ae0c3f0a4a1752464b",
-    "global_gate": "OPEN — 16/28 reconciled",
+    "global_gate": "OPEN — 17/28 reconciled",
     "global_blocker": null,
-    "secrets_configuration_environment_portability_current_state_summary": "Fresh main has a canonical EnvironmentProfile with environmentRef/runtime compatibility and config/secret-reference bindings, a provider-neutral SecretResolver with process-environment/file-backed realizations, deterministic fail-closed symbolic secret resolution, ephemeral runtime injection, redaction/no durable secret-value leakage and autonomous runtime operation. It does not evidence first-class typed configuration defaults/overlays/effective-value lineage, secret/config instance revisions, lease/currentness horizons, rotation/revocation and consumer-effective adoption, residual generation drainage, generic ambiguous remote mutation reconciliation, qualified provider substitution or full Enterprise -> Station -> Role -> Person administration semantics."
+    "build_dependency_graph_reproducibility_current_state_summary": "Fresh main has deterministic transitive capability dependency resolution with version/compatibility constraints, cycle/conflict diagnostics and canonical AssemblyPlan hashing, plus a canonicalizing compiler with explicit compiler/runtime versions, sorted inputs/outputs, per-file hashes, aggregate artifact identity, validation gating, symbolic secret references and generated runtime/migration closure. It does not evidence generalized canonical material identities, integrity-qualified material closure, first-class build recipe/target/runner revision vectors, hermeticity or controlled-impurity profiles, BuildAttempt lifecycle, cache qualification/currentness, rebuild/replay evidence, applicability-scoped reproducibility assessments, remote UNKNOWN reconciliation, qualified runner/toolchain substitution or full hierarchical build authority semantics."
   },
   "post_planning_b_math_research": {
     "status": "QUEUED_AFTER_PLANNING_B",
@@ -160,7 +161,7 @@
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "CLOSED / SIX_CRITERIA_PASS",
     "CAPABILITY_SYNTHESIS": "CLOSED / PASS",
     "PLANNING_A_TAXONOMY_BOUNDARIES": "CLOSED / PASS — all twenty-eight canonical capabilities have explicit Planning A ownership/boundary reconciliation.",
-    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION": "IN_PROGRESS — 16/28 canonical capabilities reconciled against fresh main; on closure transition to RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION, not Planning C.",
+    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION": "IN_PROGRESS — 17/28 canonical capabilities reconciled against fresh main; on closure transition to RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION, not Planning C.",
     "RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION": "QUEUED — mandatory immediately after Planning B; Planning C is blocked until this research/reconciliation gate closes."
   },
   "artifact_roots": {
@@ -170,9 +171,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION is active. Secrets / Configuration / Environment Portability has been reconciled against fresh main d8760c7f08757bb164a758ae0c3f0a4a1752464b. Current SB has canonical environment identity/bindings, symbolic secret references, replaceable fail-closed resolvers, ephemeral runtime materialization, no durable secret-value leakage and runtime autonomy, but lacks first-class configuration overlay/effective-value lineage, secret/config revision/currentness, rotation/revocation, residual-generation drainage, qualified provider substitution and generic ambiguous remote mutation reconciliation. No product code changed and Planning C was not entered. A mandatory post-Planning-B Mathematical Expressions / Rules / Calculation research gate is queued and must run before Planning C.",
-  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_B_SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_SB_CURRENT_STATE.md",
+  "current_focus": "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION is active. Build / Dependency Graph / Reproducibility has been reconciled against fresh main d8760c7f08757bb164a758ae0c3f0a4a1752464b. Current SB has a strong deterministic capability dependency graph and canonicalizing compiler baseline, including cycle/conflict diagnostics, stable AssemblyPlan identity, explicit compiler/runtime versions, deterministic generated-file hashes, validation gating and generated runtime/migration closure. Generalized material graph identity/integrity, build recipe/target/runner revisions, hermeticity, BuildAttempt lineage, cache qualification, rebuild evidence, applicability-scoped reproducibility claims, remote ambiguity reconciliation and qualified runner/toolchain substitution remain unevidenced gaps. No product code changed and Planning C was not entered. Mandatory post-Planning-B Mathematical Expressions / Rules / Calculation research remains queued before Planning C.",
+  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_B_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_SB_CURRENT_STATE.md",
   "last_framework_artifact": "project_docs/generation-2/research/POST_PLANNING_B_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_RESEARCH.md",
-  "next_action": "Continue only PLANNING_B_SB_CURRENT_STATE_RECONCILIATION and reconcile exactly one canonical capability in canonical order: Build / Dependency Graph / Reproducibility. Use fresh authoritative main evidence to inspect build-input/material identity, dependency closure/graph, recipe/toolchain/runner revisions, deterministic/reproducible-output claims, cache qualification, hermeticity/network/input boundaries, rebuild/replay evidence, ambiguous build outcomes, runner/provider substitution, portability and workload-driven minimal-runtime closure inputs. Preserve build result != released artifact != deployed/effective runtime, reproducibility as an applicability-scoped evidence-backed claim rather than inference, stale/partial evidence -> PARTIAL/INCONCLUSIVE, UNKNOWN -> reconcile-before-retry where mutations/effects are ambiguous, external/provider IDs non-canonical unless explicitly adopted, Enterprise -> Station -> Role -> Person plus AI/AGWS non-amplification. Preserve boundaries with Artifact/Release/SBOM/Provenance, Deployment/Runtime, Provider/Binding, Lifecycle, Security/Recovery, Developer/Operator Experience and UCA. Record only evidenced KEEP/HARDEN/GENERALIZE/PROVIDERIZE/INTEGRATE/REPLACE/DEFER/DO_NOT_BUILD dispositions; do not invent target architecture. When Planning B reaches 28/28 and closes, transition only to RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION using project_docs/generation-2/research/POST_PLANNING_B_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_RESEARCH.md; do not enter Planning C until that gate closes. Do not execute product code, Work Packages, executive TASKs, Construction, PR or worker handoff.",
-  "updated_at": "2026-09-04T05:30:21-03:00"
+  "next_action": "Continue only PLANNING_B_SB_CURRENT_STATE_RECONCILIATION and reconcile exactly one canonical capability in canonical order: Artifact / Release / SBOM / Provenance. Use fresh authoritative main evidence to inspect canonical artifact/release identity, content/manifest integrity, publication/adoption lifecycle, provenance/evidence lineage, SBOM or material inventory, signatures/attestations/admission, promotion/distribution, duplicate/conflict semantics, release immutability/correction/supersession, provider-backed artifact storage/registry boundaries, portability/substitution and residual releases/artifacts. Preserve build result != released artifact != deployed/effective runtime, provider acknowledgement != canonical publication/adoption, stale/partial evidence -> PARTIAL/INCONCLUSIVE, UNKNOWN -> reconcile-before-retry for ambiguous remote effects, provider IDs non-canonical unless explicitly adopted, Enterprise -> Station -> Role -> Person and AI/AGWS non-amplification. Preserve boundaries with Build/Dependency Graph/Reproducibility, Deployment/Runtime, Storage/Documents/Media, Provider/Binding, Lifecycle, Governance, Security and UCA. Record only evidenced KEEP/HARDEN/GENERALIZE/PROVIDERIZE/INTEGRATE/REPLACE/DEFER/DO_NOT_BUILD dispositions; do not invent target architecture. When Planning B reaches 28/28 and closes, transition only to RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION using project_docs/generation-2/research/POST_PLANNING_B_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_RESEARCH.md; do not enter Planning C until that gate closes. Do not execute product code, Work Packages, executive TASKs, Construction, PR or worker handoff.",
+  "updated_at": "2026-09-04T05:38:00-03:00"
 }
