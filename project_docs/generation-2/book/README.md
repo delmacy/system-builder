@@ -15,12 +15,17 @@ Afirmações importantes podem receber marcadores editoriais:
 - `ABERTO/INCONCLUSIVO`: evidência ainda insuficiente para conclusão;
 - `EXEMPLO DIDÁTICO`: cenário criado para ensinar, não afirmação sobre implementação real.
 
-Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apagar silenciosamente a versão anterior.
+Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apagar silenciosamente a versão anterior. Cada capítulo publicado possui identidade `CHAPTER_XX` e versão editorial própria; `ChapterVersion != ArchitectureRevision != SystemRevision`. O histórico dessas versões fica em `CHANGELOG.md` e o estado editorial detalhado em `BOOK_STATE.json`.
 
 ## Estado atual da narrativa
 
-- Capítulo 1: completo — visão, problema, semântica versus realização, evidence e composição adversarial.
-- Capítulo 2: próximo — empresa como sistema versionado.
-- Glossário: inicializado e evolutivo.
+- Capítulos 1–5: publicados em `v1.0.0`.
+- Capítulo 1: visão do System Builder e o problema que ele tenta resolver.
+- Capítulo 2: empresa como sistema versionado e semântica revisionada.
+- Capítulo 3: Capability, Provider, Binding e Semantic Owner.
+- Capítulo 4: composição modular, fechamento de dependências e runtime autônomo.
+- Capítulo 5: low-code, Canvas, grafos executáveis e admissibilidade de composição.
+- Capítulo 6: próximo — Workflow, ações, eventos, formulários e integrações.
+- Glossário: evolutivo e didático; definições autoritativas continuam nos artefatos de pesquisa/planejamento.
 
-Consulte `BOOK_STATE.json` para o estado editorial detalhado.
+A pesquisa adversarial continua ativa; por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
