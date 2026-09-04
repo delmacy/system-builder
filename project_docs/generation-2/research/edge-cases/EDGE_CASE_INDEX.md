@@ -40,31 +40,38 @@ Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != Confir
 | Lifecycle / Versioning / Evolution / Migration | `LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-LIFECYCLE-001..007` | deepens Data/Privacy/Storage/Lifecycle, Provider/Binding, Workflow/Integration/Messaging, Build/Artifact/Deployment/Runtime, Identity/Authorization/Station/AGWS/AI and Trust/Identity/Artifact/Provider clusters | 0 |
 | Architecture Reconciliation as a Capability | `ARCHITECTURE_RECONCILIATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-RECONCILIATION-001..007` | deepens Process/Workflow/Data, Provider/Binding, Build/Release/Deployment/Runtime, Observability/Security/Recovery, Identity/Authorization/Station/AGWS/AI and Data/Privacy/Storage/Lifecycle clusters | 0 |
 
-Full Pass 1 local coverage: **28/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **1/8 minimum**. Full Pass 2 is next; no no-material streak advances from this material visit.
+Full Pass 1 local coverage: **28/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **1/8 minimum**.
+
+## Full Pass 2 — revisit index
+
+| Capability | Revisit artifact | New local material | Paired cluster result | Local streak | Cluster streak |
+| --- | --- | --- | --- | --- | --- |
+| Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_2_REVISIT.md` | `G2-EDGE-AGWS-007..009` | Identity × Authorization × Station × AGWS × AI: no genuinely new material class after duplicate screen | 0 | 1 |
+
+New Pass-2 AGWS ConflictPatterns:
+
+- `G2-CONFLICT-PATTERN-WORK-PRIORITY-PROJECTION-001`
+- `G2-CONFLICT-PATTERN-CAPACITY-PROJECTION-001`
+- `G2-CONFLICT-PATTERN-WORK-SURFACE-REACTIVATION-001`
+
+Pass-2 AGWS findings distinguish presentation ordering from mandatory operational priority, availability projection from reservation/capacity truth, and historical surface reconstruction from current action eligibility. They do not create target architecture or implementation work.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 99 patterns remain authoritative in their originating registers and prior index history. Architecture Reconciliation adds:
+Existing 103 Full-Pass-1 patterns remain authoritative in their originating registers and prior index history. Full Pass 2 currently adds three AGWS patterns listed above.
 
-- `G2-CONFLICT-PATTERN-RECONCILIATION-CURRENTNESS-001`
-- `G2-CONFLICT-PATTERN-RECONCILIATION-OWNERSHIP-001`
-- `G2-CONFLICT-PATTERN-RECONCILIATION-CLOSURE-001`
-- `G2-CONFLICT-PATTERN-RECONCILIATION-LINEAGE-001`
-
-Total reusable conflict patterns indexed: **103**.
-
-## Latest material summary — Architecture Reconciliation as a Capability
-
-Seven local material classes challenge desired-versus-observed revision/currentness mismatch, contradictory/partial evidence reduction, reconciliation-subject identity collapse, simultaneous correction/reconciliation races, scoped clean results promoted to universal closure, stale architecture/rollback evidence reused as current qualification, and reconciliation becoming a semantic/authority god-object under AI/low-code or resource pressure. Four reusable ConflictPatterns catalogue reconciliation currentness, ownership non-amplification, closure-versus-residual-cohort and correction/supersession lineage. No new mandatory cluster is created and no `ConflictInstance` is asserted.
+Total reusable conflict patterns indexed: **106**.
 
 ## Campaign state
 
-- material edge findings: **237**;
-- reusable conflict patterns: **103**;
-- combined material findings: **340**;
+- material edge findings: **240**;
+- reusable conflict patterns: **106**;
+- combined material findings: **346**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
-- local no-material streak for every challenged capability: **0**;
-- mandatory-cluster streaks: **0**;
+- AGWS local no-material streak: **0**;
+- Identity × Authorization × Station × AGWS × AI cluster no-material streak: **1**;
+- Full Pass 2 local coverage: **1/28 capabilities**;
+- Full Pass 2 mandatory cluster coverage: **1/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
 - negative-space review: NOT STARTED;
