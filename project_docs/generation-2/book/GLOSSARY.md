@@ -20,6 +20,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 ## C
 
+**Canvas** — superfície visual de autoria/composição usada para organizar componentes, nós, relações, formulários, ações ou partes de processos. No modelo didático G2, Canvas é meio de expressão e projeção; não se torna automaticamente a fonte canônica de processo, autorização, dados ou efeito.
+
 **Capability** — capacidade semanticamente coerente do sistema, com problema e responsabilidades próprios. Não é sinônimo de módulo de UI, pacote de código ou produto externo.
 
 **Capability/Support Vector** — representação multidimensional que compara requisitos de uma capability com o suporte de uma realização/provider em dimensões relevantes, como semântica, limites, falhas, ordering, locality, lifecycle, offline e evidência. Evita reduzir portabilidade a `supported=true`.
@@ -29,6 +31,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Closure / fechamento** — conjunto que inclui um elemento e todas as dependências transitivas necessárias sob um perfil declarado. Uma closure correta precisa considerar condições, revisões e dependências que influenciam a execução ou materialização; não é apenas uma lista de imports diretos.
 
 **Coexistência** — período ou condição em que múltiplas revisões, cohorts, providers, runtimes ou representações permanecem simultaneamente relevantes durante evolução/migração.
+
+**Composition admissibility / admissibilidade da composição** — avaliação de se uma combinação de primitivas, ações, regras ou nós respeita as constraints materiais aplicáveis ao conjunto. É diferente de validar cada primitiva isoladamente e também não substitui autorização no momento da atuação ou qualificação do efeito.
 
 **ConflictInstance** — ocorrência concreta, observada ou reproduzível, de um conflito em um sistema/revisão/contexto específicos.
 
@@ -42,6 +46,12 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Evidence / evidência** — informação usada para sustentar uma afirmação. Para ser confiável arquiteturalmente, precisa ser qualificada quanto a sujeito, origem, revisão, aplicabilidade, atualidade, cobertura e incerteza quando relevantes.
 
+**Executable graph / grafo executável** — representação em nós e relações cuja estrutura participa da execução de comportamento, em vez de servir apenas como diagrama explicativo. Sua validade depende não só de conectividade, mas também de estados, guards, tipos, revisões, constraints, autoridade e efeitos aplicáveis.
+
+## G
+
+**Guard / guarda** — condição que torna uma transição, caminho ou ação elegível dentro de um processo/grafo. Uma guarda precisa preservar a semântica dos valores, regras e revisões que utiliza; expressão sintaticamente válida não garante decisão semanticamente válida.
+
 ## H
 
 **Happy path** — percurso em que entradas, dependências e participantes se comportam como esperado. É necessário, mas insuficiente para demonstrar robustez.
@@ -52,11 +62,15 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **INCONCLUSIVE** — resultado explícito indicando evidência insuficiente para concluir PASS/FAIL, ALLOW/DENY ou outra afirmação forte. Evita transformar ausência de conhecimento em certeza.
 
+**Interaction intent / intento de interação** — intenção expressa por uma interação de UI, como clicar, arrastar, submeter ou selecionar. Não é equivalente, por si só, a autorização, transição canônica ou efeito aplicado; deve atravessar os boundaries responsáveis por essas decisões.
+
 ## L
 
 **Lineage / linhagem** — relação rastreável entre uma definição, dado, artefato ou evidência e suas origens, transformações, revisões, correções ou adoções. Ajuda a explicar de onde veio uma verdade e quais derivados podem ser afetados por uma mudança.
 
 **Lossy / com perda** — transformação ou mapeamento que não preserva integralmente a semântica da origem. Uma normalização lossy precisa permanecer explícita; não deve ser apresentada como equivalência perfeita.
+
+**Low-code** — abordagem de autoria que usa modelos, componentes, configurações e relações de alto nível para reduzir código manual. No contexto G2, low-code não elimina semantic owners, autoridade, revisionamento ou constraints; a interface pode simplificar sua exposição sem apagá-los.
 
 ## M
 
