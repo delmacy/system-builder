@@ -64,4 +64,17 @@ Material interactions:
 
 Conflict patterns linked: `G2-CONFLICT-PATTERN-DATA-001`, `G2-CONFLICT-PATTERN-POLICY-001`, `G2-CONFLICT-PATTERN-REPLICA-001`, `G2-CONFLICT-PATTERN-MIGRATION-001`. They remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; none is a claimed current ConflictInstance.
 
-Clusters 1–4 discovered material findings, so their no-material streaks are `0`. All other mandatory clusters remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
+### Cluster 6 — Provider/Binding × external realizations
+Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
+Register: `project_docs/generation-2/research/edge-cases/STORAGE_DOCUMENTS_MEDIA_EDGE_CASE_REGISTER.md`
+Concrete slice: Storage / Documents / Media realization.
+
+Material interactions:
+- `G2-XEDGE-PROVIDER-STORAGE-001` — provider write/copy/restore ACK can be fully correct under its local contract yet insufficient to prove the stronger canonical claim of durable, current, integrity-valid and consumer-effective object availability. Required claim profile and current provider evidence must match; otherwise preserve `PARTIAL/INCONCLUSIVE/UNKNOWN`.
+- `G2-XEDGE-PROVIDER-STORAGE-002` — provider substitution can leave old versions, caches, signed access paths and restore sources materially authoritative after the new binding becomes nominally active. Cutover is not convergence until residual cohorts are fenced, drained or explicitly dispositioned.
+- `G2-XEDGE-PROVIDER-STORAGE-003` — two providers can advertise the same nominal feature while differing materially in versioning, integrity, immutability, multipart, range, consistency or restore semantics. Matching names/API shapes do not prove portable semantic support.
+- `G2-XEDGE-PROVIDER-STORAGE-004` — bytes can remain durable while key/credential/access-path rotation makes the canonical revision effectively unreachable. Storage durability, authorization and reachability are separate qualifications.
+
+Conflict patterns linked/adopted: `G2-CONFLICT-PATTERN-PROVIDER-002`, `G2-CONFLICT-PATTERN-REPRESENTATION-001`, `G2-CONFLICT-PATTERN-SUPPORT-001`; existing `G2-CONFLICT-PATTERN-REPLICA-001`, `G2-CONFLICT-PATTERN-MIGRATION-001` and `G2-CONFLICT-PATTERN-RECOVERY-001` remain applicable without duplication. All remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; no current ConflictInstance is asserted.
+
+Clusters 1–4 and 6 discovered material findings, so their no-material streaks are `0`. Mandatory clusters 5 and 7–12 remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
