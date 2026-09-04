@@ -49,35 +49,39 @@ Full Pass 1 local coverage: **28/28 capabilities**. Mandatory clusters: **12/12 
 | Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_2_REVISIT.md` | `G2-EDGE-AGWS-007..009` | Identity × Authorization × Station × AGWS × AI: no genuinely new material class after duplicate screen | 0 | 1 |
 | Process & Application Modeling | `PROCESS_APPLICATION_MODELING_FULL_PASS_2_REVISIT.md` | `G2-EDGE-PROCESS-007..008` | `G2-XEDGE-PROCESS-WORKFLOW-DATA-005` — compensation after downstream semantic adoption is a genuinely new cross-process composition class | 0 | 0 |
 | Workflow & Durable Execution | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_2_REVISIT.md` | `G2-EDGE-WORKFLOW-007..008` | `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-005` — ambiguous event/obligation correlation cardinality is a genuinely new cross-capability class | 0 | 0 |
+| Data / Schema / Migrations | `DATA_SCHEMA_MIGRATIONS_FULL_PASS_2_REVISIT.md` | `G2-EDGE-DATA-007..008` | `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-005` — individually valid sinks/CDC cohorts can lack a common qualified cut for lifecycle truth | 0 | 0 |
 
 New Pass-2 ConflictPatterns:
 
 - AGWS: `G2-CONFLICT-PATTERN-WORK-PRIORITY-PROJECTION-001`, `G2-CONFLICT-PATTERN-CAPACITY-PROJECTION-001`, `G2-CONFLICT-PATTERN-WORK-SURFACE-REACTIVATION-001`.
 - Process/Application: `G2-CONFLICT-PATTERN-AUTHORITY-LIVENESS-001`, `G2-CONFLICT-PATTERN-QUALIFICATION-JOIN-001`, `G2-CONFLICT-PATTERN-CROSS-PROCESS-COMPENSATION-001`.
 - Workflow: `G2-CONFLICT-PATTERN-CORRELATION-CARDINALITY-001`, `G2-CONFLICT-PATTERN-SCHEDULING-STARVATION-001`.
+- Data/Schema: `G2-CONFLICT-PATTERN-SCHEMA-LOSSLESSNESS-001`, `G2-CONFLICT-PATTERN-DEFAULT-MATERIALIZATION-001`.
 
-Pass-2 Workflow findings distinguish event validity from owner-qualified correlation cardinality and per-dispatch policy validity from durable liveness/fairness. Candidates around wake-condition authority drift, timer races, cross-process compensation/adoption, revisioned replay, missing acknowledgement and AI/low-code retry loops were duplicate-screened into existing patterns rather than re-catalogued.
+Pass-2 Data findings distinguish adjacent compatibility from active-cohort losslessness, schema/default interpretation from owner-authorized stored fact, and per-sink validity from a common qualified data/lifecycle cut. Identity/key reuse, legal-hold/erasure contradictions, correction after downstream adoption, restore resurrection and AI/low-code authority paths were duplicate-screened into existing patterns rather than re-catalogued.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 103 Full-Pass-1 patterns remain authoritative in their originating registers and prior index history. Full Pass 2 currently adds eight patterns: three AGWS, three Process/Application and two Workflow patterns listed above.
+Existing 103 Full-Pass-1 patterns remain authoritative in their originating registers and prior index history. Full Pass 2 currently adds ten patterns: three AGWS, three Process/Application, two Workflow and two Data/Schema patterns listed above.
 
-Total reusable conflict patterns indexed: **111**.
+Total reusable conflict patterns indexed: **113**.
 
 ## Campaign state
 
-- material edge findings: **246**;
-- reusable conflict patterns: **111**;
-- combined material findings: **357**;
+- material edge findings: **249**;
+- reusable conflict patterns: **113**;
+- combined material findings: **362**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - AGWS local no-material streak: **0**;
 - Process/Application local no-material streak: **0**;
 - Workflow local no-material streak: **0**;
+- Data / Schema / Migrations local no-material streak: **0**;
 - Identity × Authorization × Station × AGWS × AI cluster no-material streak: **1**;
 - Process/Application × Workflow × Data/Schema cluster no-material streak: **0**;
 - Workflow × Integration × Messaging × external mutation cluster no-material streak: **0**;
-- Full Pass 2 local coverage: **3/28 capabilities**;
-- Full Pass 2 mandatory cluster coverage: **3/12**;
+- Data/Schema × Privacy × Storage × Lifecycle cluster no-material streak: **0**;
+- Full Pass 2 local coverage: **4/28 capabilities**;
+- Full Pass 2 mandatory cluster coverage: **4/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
 - negative-space review: NOT STARTED;
