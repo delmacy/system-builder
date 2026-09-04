@@ -177,3 +177,28 @@ Required enterprise proofs opened and specified in the ledger include labor hour
 `IN_PROGRESS / NO TAXONOMY PROMOTION YET`.
 
 Evidence currently leans toward **cross-cutting portable calculation semantics with providerized evaluation mechanics**, but this is deliberately provisional. Remaining exit-gate work includes deeper null/missing/error/unknown comparison, dependency/cycle/recomputation semantics, historical revision patterns, bulk/offline evaluation, provider-conformance strategy and the remaining enterprise examples. No bounded synthesis/Planning-A backfill is authorized until the ownership decision is evidence-complete.
+
+## Research increment 2 — failure algebra, dependency/recomputation and historical evidence
+
+Completed: 2026-09-04
+Evidence ledger: `MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_EVIDENCE_LEDGER.md`
+
+Additional representatives reviewed: CEL language definition/cel-go partial evaluation, Power Fx formula-level errors, Drools DMN/FEEL, HyperFormula dependency graph/batch/volatile/headless execution, Camunda DMN history, Stripe Price revision pattern and Drools stateful rule execution.
+
+Material convergence:
+
+- `Missing`, `Null`, `Unknown` and `Error` are observably different across mature engines; portable calculation semantics cannot collapse them into a single nullable value or silently coerce them to zero/false;
+- formula dependencies need an explicit graph and are acyclic-by-default; accidental cycles must fail validation, while any fixed-point/iterative semantics require an explicit owner, convergence rule and resource bound;
+- recomputation trigger/materialization policy is separate from expression meaning, and volatile/contextual functions require captured evaluation context for replay;
+- historical authoritative results require formula revision + input/context revisions + result/evidence lineage; “recompute with the latest formula” is not historical truth;
+- local/offline/headless evaluation is practical, so remote calculation SaaS is not structurally required;
+- provider substitution must be proven against a semantic conformance corpus covering failure algebra, decimal/rounding, money, units, temporal/calendar behavior, functions, cycles/recomputation, sandbox/resource limits and evidence output;
+- rule/action engines that mutate working memory demonstrate a necessary boundary: pure formula evaluation must not become a generic state-changing rule/action escape hatch.
+
+Enterprise proof obligations now cover SLA/calendar deadlines, approval thresholds, commissions/rates, inventory valuation and derived form fields in addition to labor hourly cost and service-order labor cost.
+
+### Increment-2 disposition
+
+`IN_PROGRESS / NO TAXONOMY PROMOTION YET`.
+
+Evidence is now substantially stronger for **KEEP_AS_CROSS_CUTTING_SUBCAPABILITY + PROVIDERIZE_MECHANICS_WITH_PORTABLE_SEMANTICS**, with existing semantic owners retaining formula meaning. This remains provisional because temporal/calendar edge semantics, revision/adoption mechanics, large-DAG/resource exhaustion behavior, a concrete cross-engine conformance matrix and the math-specific negative-space/security pass are still open. Planning C remains blocked, and the adversarial campaign remains queued behind this gate.
