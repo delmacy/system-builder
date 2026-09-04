@@ -12,7 +12,7 @@
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 237,
+    "hourly_runs_completed": 238,
     "finding_count": 1407,
     "capability_candidate_count": 642,
     "new_findings_this_run": [],
@@ -98,6 +98,13 @@
     "target_full_passes": 12,
     "completed_full_passes": 0,
     "active_full_pass": 1,
+    "capabilities_covered_in_active_pass": 1,
+    "required_clusters_covered_in_active_pass": 1,
+    "material_findings_total": 9,
+    "latest_capability": "Adaptive Governed Work Surfaces",
+    "latest_cluster": "Identity × Authorization × Station × AGWS × AI",
+    "latest_register": "project_docs/generation-2/research/edge-cases/ADAPTIVE_GOVERNED_WORK_SURFACES_EDGE_CASE_REGISTER.md",
+    "latest_result": "MATERIAL FINDINGS — 6 local + 3 cross-capability; local streak 0; cluster streak 0",
     "saturation_rule": "Two consecutive eligible no-material revisits per capability and per high-risk cluster; material finding resets affected streak; no maximum pass count.",
     "planning_c_blocked_until_complete": true,
     "entry_gate": "SATISFIED — Planning B CLOSED/PASS; mathematical research CLOSED/PASS; bounded math synthesis/Planning-A backfill COMPLETE/PASS."
@@ -109,13 +116,13 @@
     "PLANNING_A_TAXONOMY_BOUNDARIES": "CLOSED / PASS including bounded mathematical backfill",
     "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION": "CLOSED / PASS — all 28 canonical capabilities reconciled against fresh main d8760c7f08757bb164a758ae0c3f0a4a1752464b.",
     "RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION": "CLOSED / PASS — three evidence increments complete; final disposition is cross-cutting portable calculation semantics plus providerized mechanics; bounded synthesis/Planning-A backfill complete.",
-    "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION": "ACTIVE / NOT_SATURATED — Full Pass 1 initialized; 0/8 minimum full passes complete; Planning C blocked.",
+    "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION": "ACTIVE / NOT_SATURATED — Full Pass 1: 1/28 capabilities and 1/12 mandatory clusters challenged; 9 material scenarios; 0/8 minimum full passes complete; Planning C blocked.",
     "PLANNING_C_TARGET_ARCHITECTURE": "BLOCKED — requires adversarial CLOSED / SATURATED / PASS"
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION is now active. Full Pass 1 is initialized but does not count until all 28 canonical capabilities and mandatory cross-capability clusters are actually challenged. Begin with Adaptive Governed Work Surfaces paired with Identity × Authorization × Station × AGWS × AI. Prioritize authority/misuse, stale Role/Station transitions, inherited mandatory components, AI materialization boundaries, personal automation promotion, provider-backed actions, partial/UNKNOWN effects, version skew and scale. Every material HIGH/CRITICAL scenario requires owner, safe behavior, forbidden behavior, effect disposition, evidence/currentness, recovery/reconciliation and proof obligation. Planning C remains blocked.",
-  "last_completed_artifact": "project_docs/generation-2/research/MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_INCREMENT_3_FINAL_RECONCILIATION.md",
+  "current_focus": "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION Full Pass 1. Adaptive Governed Work Surfaces and Identity × Authorization × Station × AGWS × AI were challenged and produced material findings, so both saturation streaks are 0. Continue rotation with Process & Application Modeling paired with Process/Application × Workflow × Data/Schema. Preserve provider IDs as non-canonical, Enterprise → Station → Role → Person, AI/AGWS non-amplification, qualified evidence/currentness and UNKNOWN → reconcile-before-retry.",
+  "last_completed_artifact": "project_docs/generation-2/research/edge-cases/ADAPTIVE_GOVERNED_WORK_SURFACES_EDGE_CASE_REGISTER.md",
   "last_framework_artifact": "project_docs/generation-2/research/POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md",
-  "next_action": "Continue only RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION, Full Pass 1. Challenge local capability Adaptive Governed Work Surfaces and cross-capability cluster Identity × Authorization × Station × AGWS × AI using authority/misuse, concurrency/version skew, partial/UNKNOWN provider effects, AI/low-code misuse, recovery false safety and pathological scale. Create/update the AGWS per-capability register, EDGE_CASE_INDEX, CROSS_CAPABILITY_EDGE_CASE_MATRIX and ADVERSARIAL_SATURATION_STATE. Record stable G2-EDGE/G2-XEDGE IDs for material scenarios with owner, expected safe behavior, forbidden behavior and proof obligation. Do not increment full-pass count until all 28 capabilities and mandatory clusters are covered. Do not enter Planning C until adversarial status is CLOSED / SATURATED / PASS.",
-  "updated_at": "2026-09-04T09:05:41-03:00"
+  "next_action": "Continue only RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION, Full Pass 1. Challenge Process & Application Modeling and cross-capability cluster Process/Application × Workflow × Data/Schema. Cover malformed/missing/contradictory definitions, concurrent edits and stale base revisions, process/schema version skew, long-running execution crossing revisions, partial migration/residual cohorts, authority and AI/low-code semantic mutation, cycles/pathological graph size, rollback false safety and evidence/currentness. Create/update its per-capability register, EDGE_CASE_INDEX, CROSS_CAPABILITY_EDGE_CASE_MATRIX and ADVERSARIAL_SATURATION_STATE with stable G2-EDGE/G2-XEDGE IDs for material scenarios. Do not increment full-pass count until all 28 capabilities and mandatory clusters are covered. Do not enter Planning C until adversarial status is CLOSED / SATURATED / PASS.",
+  "updated_at": "2026-09-04T09:19:10-03:00"
 }
