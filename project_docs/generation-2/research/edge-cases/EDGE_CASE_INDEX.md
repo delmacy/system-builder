@@ -29,29 +29,30 @@ Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != Confir
 | Identity / Authentication / Federation | `IDENTITY_AUTHENTICATION_FEDERATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-IDENTITY-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Trust/Identity/Artifact/Provider clusters | 0 |
 | Authorization / Policy / Organization / Multitenancy | `AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_EDGE_CASE_REGISTER.md` | `G2-EDGE-AUTHZ-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Provider/Binding + Trust/Identity/Artifact/Provider clusters | 0 |
 | Governance / Compliance / Audit | `GOVERNANCE_COMPLIANCE_AUDIT_EDGE_CASE_REGISTER.md` | `G2-EDGE-GOVERNANCE-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Provider/Binding + Observability/Security/Recovery + Data/Privacy/Storage/Lifecycle clusters | 0 |
+| Security / Resilience / Failure Recovery | `SECURITY_RESILIENCE_FAILURE_RECOVERY_EDGE_CASE_REGISTER.md` | `G2-EDGE-SECURITY-001..007` | deepens Observability/Security/Recovery + Workflow/Integration/Messaging + Provider/Binding + Secrets/Runtime/Provider + Identity/Authorization/Station/AGWS/AI clusters | 0 |
 
-Full Pass 1 local coverage: **18/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+Full Pass 1 local coverage: **19/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 59 patterns remain authoritative in their originating registers and prior index history. Governance adds:
+Existing 63 patterns remain authoritative in their originating registers and prior index history. Security / Resilience / Failure Recovery adds:
 
-- `G2-CONFLICT-PATTERN-GOVERNANCE-APPLICABILITY-001`
-- `G2-CONFLICT-PATTERN-ASSESSMENT-CURRENTNESS-001`
-- `G2-CONFLICT-PATTERN-EXCEPTION-CONTROL-001`
-- `G2-CONFLICT-PATTERN-AUDIT-CLOSURE-001`
+- `G2-CONFLICT-PATTERN-RECOVERY-QUALIFICATION-001`
+- `G2-CONFLICT-PATTERN-FENCING-RECOVERY-001`
+- `G2-CONFLICT-PATTERN-RECOVERY-CUT-EFFECT-001`
+- `G2-CONFLICT-PATTERN-DEGRADED-AUTHORITY-001`
 
-Total reusable conflict patterns indexed: **63**.
+Total reusable conflict patterns indexed: **67**.
 
-## Latest material summary — Governance / Compliance / Audit
+## Latest material summary — Security / Resilience / Failure Recovery
 
-Seven local material classes challenge obligation/control applicability and precedence, stale/incomplete evidence accepted as compliance, waiver/exception expiry with residual enforcement cohorts, incomplete/reordered/mutable audit narratives, remediation acknowledgement mistaken for validated closure, provider certification scope overgeneralized into customer compliance, and pathological/AI-generated governance evaluation that fabricates coverage or authority. Four reusable ConflictPatterns catalogue applicability/precedence conflict, assessment-currentness conflict, exception/enforcement lifecycle divergence and execution-completion versus governance-closure divergence. No new mandatory cluster is created and no `ConflictInstance` or remediation implementation is asserted.
+Seven local material classes challenge stale posture evidence, fencing/isolation races, degraded-mode authority amplification, backup/rollback false safety, recovery-point rewind with surviving external effects, concurrent containment versus business-recovery transitions, and pathological/AI-assisted recovery that fabricates confidence or coverage. Four reusable ConflictPatterns catalogue restore qualification divergence, competing containment/recovery authority, recovery-cut external-effect inconsistency and continuity-versus-authority conflict. No new mandatory cluster is created; `G2-CONFLICT-PATTERN-DEGRADED-AUTHORITY-001` records a bounded preventive invariant candidate for non-amplification only, without prescribing implementation. No `ConflictInstance` or remediation implementation is asserted.
 
 ## Campaign state
 
-- material edge findings: **167**;
-- reusable conflict patterns: **63**;
-- combined material findings: **230**;
+- material edge findings: **174**;
+- reusable conflict patterns: **67**;
+- combined material findings: **241**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - local no-material streak for every challenged capability: **0**;
 - mandatory-cluster streaks: **0**;
