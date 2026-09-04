@@ -28,16 +28,18 @@ All 12 mandatory clusters were challenged in Full Pass 1 and remain MATERIAL / S
 
 Universal Capability Architecture Pass 2 did **not** create a 13th mandatory cluster. `G2-EDGE-UCA-008..010` are local UCA composition/portability findings that map into already indexed cross-capability families: standards/provider downgrade and qualification loss; revision-vector/currentness/qualification-join; semantic ownership and permission/provider-composition authority. Mandatory-cluster streaks therefore remain unchanged.
 
+UI / Generated Experience / Low-code Builder Pass 2 likewise creates no new mandatory cluster. `G2-EDGE-UI-008..010` deepen existing cross-capability families through aggregate multi-step qualification fracture, replay of superseded offline intent and generated/adaptive omission of conditionally material qualifiers. These are linked to existing UI/math/workflow/data/authorization/provider clusters but do not count as a second designated cluster revisit; cluster streak counters therefore remain unchanged.
+
 ## Full Pass 2 campaign state
 
-- canonical capabilities revisited: **13/28**;
+- canonical capabilities revisited: **14/28**;
 - mandatory clusters revisited: **12/12**;
 - Identity × Authorization × Station × AGWS × AI streak: **1**;
 - Provider/Binding × external realizations streak: **1**;
 - other material-revisit cluster streaks: **0**;
-- material edge scenarios: **275**;
+- material edge scenarios: **278**;
 - reusable conflict patterns: **115**;
-- combined material findings: **390**;
+- combined material findings: **393**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
