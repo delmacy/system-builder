@@ -1,6 +1,6 @@
 # Post-Planning-B Research — Mathematical Expressions, Rules & Calculation
 
-Status: QUEUED_AFTER_PLANNING_B
+Status: IN_PROGRESS
 Phase target: RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION
 Authority: user-directed research gate inserted between PLANNING_B_SB_CURRENT_STATE_RECONCILIATION and PLANNING_C_TARGET_ARCHITECTURE.
 
@@ -151,3 +151,29 @@ PLANNING_C_TARGET_ARCHITECTURE remains blocked until:
 9. proof obligations for representative enterprise calculations are recorded.
 
 This phase performs research/planning only. It does not execute product code, Work Packages, TASKs, Construction, PR handoff or deployment.
+
+## Research increment 1 — typed semantics and calculation portability
+
+Completed: 2026-09-04
+Evidence ledger: `MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_EVIDENCE_LEDGER.md`
+
+Representatives/standards covered in this bounded increment: OMG DMN 1.5 / FEEL, Common Expression Language (CEL), Microsoft Power Fx, PostgreSQL numeric/generated columns, JSONata, UCUM 2.2 and ISO 4217.
+
+Evidence convergence:
+
+- typed expression semantics are materially more portable than raw formula text;
+- exact decimal business semantics cannot be inherited from an arbitrary engine because representative numeric models diverge (for example CEL IEEE-754 `double` versus Power Fx/PostgreSQL decimal/exact arithmetic);
+- purity/sandbox restrictions are a reusable boundary rather than permission for formulas to execute arbitrary actions;
+- money/currency, units, time and rounding require explicit typed/contextual semantics instead of display strings or provider defaults;
+- live/virtual derivation and persisted historical result are distinct materialization products;
+- replay requires formula revision + input/context revisions, not merely the latest expression;
+- provider-specific AST/function identity cannot become canonical formula identity;
+- semantic owners retain the meaning of labor cost, billing, workflow decisions, FinOps, inventory valuation and similar formulas while a generic evaluator supplies mechanics.
+
+Required enterprise proofs opened and specified in the ledger include labor hourly cost and service-order labor cost with historical applicability, exact money arithmetic, typed duration/unit handling, explicit rounding, missing/zero/error behavior and provider-substitution qualification.
+
+### Increment-1 disposition
+
+`IN_PROGRESS / NO TAXONOMY PROMOTION YET`.
+
+Evidence currently leans toward **cross-cutting portable calculation semantics with providerized evaluation mechanics**, but this is deliberately provisional. Remaining exit-gate work includes deeper null/missing/error/unknown comparison, dependency/cycle/recomputation semantics, historical revision patterns, bulk/offline evaluation, provider-conformance strategy and the remaining enterprise examples. No bounded synthesis/Planning-A backfill is authorized until the ownership decision is evidence-complete.
