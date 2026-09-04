@@ -32,14 +32,17 @@ UI / Generated Experience / Low-code Builder Pass 2 likewise creates no new mand
 
 Integration & Automation Pass 2 produced **no new material local or cross-capability class** after duplicate-screening compound graph, provider-substitution retry, admission/actuation currentness, residual registrations/jobs, stale-authentic callbacks, partial batch/compensation, redrive after adoption, offline queues, quota/backpressure, correlation collisions and AI/low-code scope amplification. The revisit deepens existing Workflow × Integration × Messaging, Provider/Binding × external realizations, Identity/Authorization/AGWS/AI, Secrets/Runtime/Provider and Observability/Security/Recovery interaction families. It is recorded as an eligible **local** no-material revisit only; because it was not the designated second cluster rotation, mandatory-cluster streak counters remain unchanged.
 
+Identity / Authentication / Federation Pass 2 likewise produced **no new material local or cross-capability class** after namespace/reassignment mutation, assurance-vector fracture, issuer/client mix-up falsification, logout/revocation propagation-lag analysis, recovery identity mutation, IdP-substitution differential, correlation/privacy review, resource-pressure perturbation and AI/low-code evidence-misuse mutation. The revisit deepens Identity × Authorization × Station × AGWS × AI, Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution, Provider/Binding × external realizations and Observability × Security/Recovery × runtime truth. It is an eligible **local** no-material revisit only; mandatory-cluster streak counters remain unchanged.
+
 ## Full Pass 2 campaign state
 
-- canonical capabilities revisited: **15/28**;
+- canonical capabilities revisited: **16/28**;
 - mandatory clusters revisited: **12/12**;
 - Identity × Authorization × Station × AGWS × AI streak: **1**;
 - Provider/Binding × external realizations streak: **1**;
 - other mandatory cluster streaks: **0**;
 - Integration & Automation local streak: **1**;
+- Identity / Authentication / Federation local streak: **1**;
 - material edge scenarios: **278**;
 - reusable conflict patterns: **115**;
 - combined material findings: **393**;
