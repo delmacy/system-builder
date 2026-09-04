@@ -12,7 +12,7 @@
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 210,
+    "hourly_runs_completed": 211,
     "finding_count": 1407,
     "capability_candidate_count": 642,
     "new_findings_this_run": [],
@@ -35,15 +35,15 @@
   },
   "synthesis": {"status":"COMPLETE","artifact":"project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md","canonical_capability_count":28,"unresolved_external_semantic_owner_gaps":[],"planning_b_repo_validation_deferred":true,"planning_e_product_proof_backfill_deferred":true},
   "planning_a": {
-    "status": "IN_PROGRESS",
+    "status": "COMPLETE",
     "canonical_capability_count": 28,
-    "completed_capability_count": 27,
-    "completed_capabilities": ["Adaptive Governed Work Surfaces","Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Governance / Compliance / Audit","Security / Resilience / Failure Recovery","Enterprise Trust / PKI / Certificate Lifecycle","Privacy / Data Governance / Retention / Legal Hold / Residency","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Secrets / Configuration / Environment Portability","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Developer / Operator Experience / Self-hosting","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Architecture Reconciliation as a Capability","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Commercial Metering / Entitlements / Rating / Billing / Payment"],
-    "latest_capability": "Commercial Metering / Entitlements / Rating / Billing / Payment",
-    "latest_artifact": "project_docs/generation-2/planning/PLANNING_A_COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_BOUNDARIES.md",
+    "completed_capability_count": 28,
+    "completed_capabilities": ["Adaptive Governed Work Surfaces","Universal Capability Architecture","Process & Application Modeling","UI / Generated Experience / Low-code Builder","Workflow & Durable Execution","Integration & Automation","Identity / Authentication / Federation","Authorization / Policy / Organization / Multitenancy","Governance / Compliance / Audit","Security / Resilience / Failure Recovery","Enterprise Trust / PKI / Certificate Lifecycle","Privacy / Data Governance / Retention / Legal Hold / Residency","Data / Schema / Migrations","Storage / Documents / Media","Notifications / Events / Messaging","Secrets / Configuration / Environment Portability","Build / Dependency Graph / Reproducibility","Artifact / Release / SBOM / Provenance","Deployment / Environment / Runtime","Developer / Operator Experience / Self-hosting","Provider / Binding / Capability Negotiation","Standards / Interoperability / API Contracts","Lifecycle / Versioning / Evolution / Migration","Architecture Reconciliation as a Capability","Observability / Operations / Incident","Extension / Plugin / Marketplace Architecture","Commercial Metering / Entitlements / Rating / Billing / Payment","Technology Economic Governance / FinOps"],
+    "latest_capability": "Technology Economic Governance / FinOps",
+    "latest_artifact": "project_docs/generation-2/planning/PLANNING_A_TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_BOUNDARIES.md",
     "latest_result": "PASS_FOR_CAPABILITY",
-    "global_gate": "OPEN",
-    "global_blocker": "1 canonical capability still requires explicit Planning A ownership/boundary reconciliation before global Planning A closure.",
+    "global_gate": "CLOSED / PASS",
+    "global_blocker": null,
     "preserved_constitutional_boundaries": [
       "AGWS distinct from UI / Generated Experience / Low-code Builder",
       "Universal Capability Architecture never a semantic god-object",
@@ -73,19 +73,26 @@
       "customer-commercial charge truth is distinct from internal technology cost truth",
       "missing, stale or partial usage evidence is PARTIAL/INCONCLUSIVE rather than implicit zero",
       "commercial correction/rerating preserves producing lineage",
-      "commercial provider cutover remains incomplete while residual authoritative commercial cohorts remain"
+      "commercial provider cutover remains incomplete while residual authoritative commercial cohorts remain",
+      "provider invoice/category identity is evidence/realization identity rather than canonical technology-economic truth by default",
+      "allocation requires conservation/explanation against the declared source basis",
+      "budget and forecast are distinct economic truths and neither implies runtime or provider-admin authority",
+      "showback, internal chargeback, customer billing and statutory accounting remain distinct dispositions/authorities",
+      "missing, stale or partial economic evidence is PARTIAL/INCONCLUSIVE rather than fabricated zero cost",
+      "economic correction/recalculation preserves producing revision lineage",
+      "technology-economic provider cutover remains incomplete while residual authoritative economic cohorts remain"
     ]
   },
   "gates": {
     "RESEARCH_ELICITATION": "CLOSED",
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "CLOSED / SIX_CRITERIA_PASS",
     "CAPABILITY_SYNTHESIS": "CLOSED / PASS",
-    "PLANNING_A_TAXONOMY_BOUNDARIES": "IN_PROGRESS — twenty-seven canonical capabilities PASS_FOR_CAPABILITY through Commercial Metering / Entitlements / Rating / Billing / Payment; 1 canonical capability remains; PLANNING_B not entered."
+    "PLANNING_A_TAXONOMY_BOUNDARIES": "CLOSED / PASS — all twenty-eight canonical capabilities have explicit Planning A ownership/boundary reconciliation; PLANNING_B not entered."
   },
   "artifact_roots": {"research":"project_docs/generation-2/research/","synthesis":"project_docs/generation-2/synthesis/","planning":"project_docs/generation-2/planning/","wbs":"project_docs/generation-2/wbs/","packages":"project_docs/generation-2/packages/"},
-  "current_focus": "PLANNING_A_TAXONOMY_BOUNDARIES is active. Commercial Metering / Entitlements / Rating / Billing / Payment now owns canonical customer-commercial identities, entitlement/allowance semantics, commercially qualified usage evidence, revisioned rating/pricing, charge/rerating lineage, billing-period/invoice/adjustment/dispute semantics, provider-neutral payment-state interpretation and residual commercial cohort drainage. It preserves entitlement != authorization, metering != rating != billing != payment, customer-commercial charge truth != internal technology cost truth, and missing/stale/partial usage evidence as PARTIAL/INCONCLUSIVE rather than implicit zero. No SB current-state claim was made and no Planning B work was performed.",
-  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_A_COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_BOUNDARIES.md",
+  "current_focus": "PLANNING_A_TAXONOMY_BOUNDARIES is complete. Technology Economic Governance / FinOps closes the twenty-eighth canonical capability boundary and owns provider-neutral technology-economic normalization, allocation/shared-cost policy, internal rates/cost models, budgets/forecasts, commitment exposure, unit economics, showback and internal chargeback evidence. It preserves allocation conservation, customer-commercial charge truth != internal technology cost truth, budget != forecast, showback != chargeback != customer billing != statutory accounting, provider/external IDs non-canonical by default, missing/stale/partial economic evidence as PARTIAL/INCONCLUSIVE, correction/supersession lineage and non-amplifying Enterprise → Station → Role → Person / AI / AGWS authority. No SB current-state inspection or Planning B work was performed.",
+  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_A_TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_BOUNDARIES.md",
   "last_framework_artifact": "project_docs/generation-2/research/ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW.md",
-  "next_action": "Continue only PLANNING_A_TAXONOMY_BOUNDARIES and reconcile exactly one canonical capability: Technology Economic Governance / FinOps. Define ownership for provider-neutral technology-economic evidence, allocation/shared-cost policy, internal rates/cost models, budgets/forecasts, commitment exposure, unit economics and showback/chargeback evidence. Distinguish internal technology-economic truth from customer-commercial rating/billing/payment, statutory accounting, procurement/sourcing execution, raw observability, provider-native invoice/category identity, and domain semantic owners. Preserve provider/external IDs non-canonical unless explicitly adopted, qualified evidence/currentness and allocation conservation, missing/stale/partial evidence -> INCONCLUSIVE/PARTIAL rather than fabricated cost, correction/supersession lineage, Enterprise → Station → Role → Person monotonic authority, Station capability-exposure boundaries and AI/AGWS non-amplification. Record SB implementation questions for later Planning B only; do not inspect or infer current SB implementation. Do not enter PLANNING_B_SB_CURRENT_STATE_RECONCILIATION and do not execute product code, Work Packages, executive TASKs, Construction, PR or worker handoff.",
-  "updated_at": "2026-09-04T01:04:29-03:00"
+  "next_action": "Advance exactly one phase to PLANNING_B_SB_CURRENT_STATE_RECONCILIATION. Begin repository-current-state reconciliation from fresh authoritative repository evidence, processing exactly one canonical capability in canonical order: Adaptive Governed Work Surfaces. Compare actual SB implementation/documented contracts against its Planning A ownership boundaries without changing product code. Record only evidenced KEEP/HARDEN/GENERALIZE/PROVIDERIZE/INTEGRATE/REPLACE/DEFER/DO_NOT_BUILD dispositions, implementation gaps, contradictions, migration questions and validation evidence. Preserve AGWS as CORE and distinct from generic UI, Enterprise → Station → Role → Person monotonic delegated authority, Station capability-exposure/delegated-administration boundaries, provider/external IDs non-canonical unless explicitly adopted and AI/AGWS non-amplification. Do not enter PLANNING_C_TARGET_ARCHITECTURE in the same execution and do not execute product code, Work Packages, executive TASKs, Construction, PR or worker handoff.",
+  "updated_at": "2026-09-04T01:14:26-03:00"
 }
