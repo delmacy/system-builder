@@ -26,8 +26,9 @@ Detailed scenario fields remain authoritative in the linked registers. This inde
 | Commercial Metering / Entitlements / Rating / Billing / Payment | `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_EDGE_CASE_REGISTER.md` | `G2-EDGE-COMMERCIAL-001..007` | `G2-XEDGE-COMMERCIAL-001..005` | 0 |
 | Technology Economic Governance / FinOps | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_EDGE_CASE_REGISTER.md` | `G2-EDGE-FINOPS-001..007` | `G2-XEDGE-MATH-FINOPS-001..005` | 0 |
 | Universal Capability Architecture | `UNIVERSAL_CAPABILITY_ARCHITECTURE_EDGE_CASE_REGISTER.md` | `G2-EDGE-UCA-001..007` | none added; reusable cross-owner patterns linked in matrix | 0 |
+| UI / Generated Experience / Low-code Builder | `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_EDGE_CASE_REGISTER.md` | `G2-EDGE-UI-001..007` | none added; findings deepen existing mandatory clusters | 0 |
 
-Full Pass 1 local coverage after UCA: **13/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+Full Pass 1 local coverage after UI: **14/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
@@ -98,28 +99,26 @@ Full Pass 1 local coverage after UCA: **13/28 capabilities**. Mandatory clusters
 - `G2-CONFLICT-PATTERN-CONVERGENCE-SEMANTICS-001`
 - `G2-CONFLICT-PATTERN-UCA-OWNERSHIP-001`
 
-Total reusable conflict patterns indexed: **43**.
+### UI / Generated Experience / Low-code Builder
+- `G2-CONFLICT-PATTERN-PROJECTION-SEMANTICS-001`
+- `G2-CONFLICT-PATTERN-PRESENTATION-AUTHORITY-001`
+- `G2-CONFLICT-PATTERN-HUMAN-INSTRUCTION-001`
+- `G2-CONFLICT-PATTERN-LOWCODE-MATERIALIZATION-001`
 
-## UCA material summary
+Total reusable conflict patterns indexed: **47**.
 
-The UCA Full Pass 1 visit found seven material local classes:
+## Latest material summary — UI / Generated Experience / Low-code Builder
 
-1. provider/realization identity silently becoming canonical identity;
-2. qualification/currentness stripped from a previously valid claim;
-3. material revision-vector dimensions truncated into false compatibility;
-4. attempted/accepted/applied/converged/validated stages collapsed into generic success;
-5. qualified evidence or AI/reconciliation output adopted into owner truth without authority;
-6. cutover/rollback declared safe while residual cohorts or current compatibility remain unresolved;
-7. reusable primitives expanding into a semantic god-object, universal evaluator or authority/precedence broker.
+The UI Full Pass 1 visit found seven material local classes: stale semantic projection against incompatible owner revisions; presentation mistaken for authority; optimistic UI collapsing ambiguous external effects; malformed/localized/accessibility-invalid representation changing semantic input; concurrent stale-base drafts; valid low-code graph/resource explosion; and DerivedValue being persisted as StoredFact without declared materialization semantics.
 
-The four reusable UCA conflict patterns cover claim-qualification incompatibility, hidden revision incompatibility, success-stage incompatibility and semantic-owner usurpation. They are catalogue/detection candidates only; no `ConflictInstance` or remediation is asserted.
+Four reusable ConflictPatterns catalogue composition failures where individually valid projection/owner semantics, presentation/authority claims, human instructions, or low-code primitives become incompatible only after composition. They remain detection/remediation-route research candidates; no `ConflictInstance` is asserted.
 
 ## Campaign state
 
-- material edge findings: **132**;
-- reusable conflict patterns: **43**;
-- combined material findings: **175**;
-- HIGH/CRITICAL without semantic owner or proof obligation: **0**;
+- material edge findings: **139**;
+- reusable conflict patterns: **47**;
+- combined material findings: **186**;
+- HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - local no-material streak for every challenged capability: **0** because every first visit has produced material findings;
 - mandatory-cluster streaks: **0**;
 - negative-space review: NOT STARTED;
