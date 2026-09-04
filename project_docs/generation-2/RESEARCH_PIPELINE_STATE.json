@@ -26,7 +26,7 @@
     "completed_full_cycles": 7,
     "active_revisit_cycle": 7,
     "capabilities_revisited_in_active_cycle": 25,
-    "hourly_runs_completed": 227,
+    "hourly_runs_completed": 228,
     "finding_count": 1407,
     "capability_candidate_count": 642,
     "new_findings_this_run": [],
@@ -109,7 +109,7 @@
   "planning_b": {
     "status": "IN_PROGRESS",
     "canonical_capability_count": 28,
-    "completed_capability_count": 18,
+    "completed_capability_count": 19,
     "completed_capabilities": [
       "Adaptive Governed Work Surfaces",
       "Universal Capability Architecture",
@@ -128,16 +128,18 @@
       "Notifications / Events / Messaging",
       "Secrets / Configuration / Environment Portability",
       "Build / Dependency Graph / Reproducibility",
-      "Artifact / Release / SBOM / Provenance"
+      "Artifact / Release / SBOM / Provenance",
+      "Deployment / Environment / Runtime"
     ],
-    "latest_capability": "Artifact / Release / SBOM / Provenance",
-    "latest_artifact": "project_docs/generation-2/planning/PLANNING_B_ARTIFACT_RELEASE_SBOM_PROVENANCE_SB_CURRENT_STATE.md",
+    "latest_capability": "Deployment / Environment / Runtime",
+    "latest_artifact": "project_docs/generation-2/planning/PLANNING_B_DEPLOYMENT_ENVIRONMENT_RUNTIME_SB_CURRENT_STATE.md",
     "latest_result": "PASS_FOR_CAPABILITY / CURRENT_STATE_RECONCILED",
     "fresh_main_anchor": "d8760c7f08757bb164a758ae0c3f0a4a1752464b",
-    "global_gate": "OPEN — 18/28 reconciled",
+    "global_gate": "OPEN — 19/28 reconciled",
     "global_blocker": null,
     "build_dependency_graph_reproducibility_current_state_summary": "Fresh main has deterministic transitive capability dependency resolution with version/compatibility constraints, cycle/conflict diagnostics and canonical AssemblyPlan hashing, plus a canonicalizing compiler with explicit compiler/runtime versions, sorted inputs/outputs, per-file hashes, aggregate artifact identity, validation gating, symbolic secret references and generated runtime/migration closure. It does not evidence generalized canonical material identities, integrity-qualified material closure, first-class build recipe/target/runner revision vectors, hermeticity or controlled-impurity profiles, BuildAttempt lifecycle, cache qualification/currentness, rebuild/replay evidence, applicability-scoped reproducibility assessments, remote UNKNOWN reconciliation, qualified runner/toolchain substitution or full hierarchical build authority semantics.",
-    "artifact_release_sbom_provenance_current_state_summary": "Fresh main has canonical releaseId@version identity, SHA-256 content-addressed artifact payloads, exact per-file/aggregate integrity verification, conflict-safe immutable artifact publication, explicit ReleaseRegistry publication and published->deprecated->archived lifecycle, typed evidence provenance, SystemDefinition-to-release lineage and in-memory/Postgres persistence behind SB-owned interfaces. It does not evidence complete SBOM/material inventory semantics, artifact-subject provenance completeness/applicability, signatures/attestations or trust qualification, promotion/distribution/admission convergence, remote APPLIED/PARTIAL/UNKNOWN reconciliation, release correction/supersession lineage, current rollback eligibility, external registry support qualification/substitution or residual release/artifact cohort drainage."
+    "artifact_release_sbom_provenance_current_state_summary": "Fresh main has canonical releaseId@version identity, SHA-256 content-addressed artifact payloads, exact per-file/aggregate integrity verification, conflict-safe immutable artifact publication, explicit ReleaseRegistry publication and published->deprecated->archived lifecycle, typed evidence provenance, SystemDefinition-to-release lineage and in-memory/Postgres persistence behind SB-owned interfaces. It does not evidence complete SBOM/material inventory semantics, artifact-subject provenance completeness/applicability, signatures/attestations or trust qualification, promotion/distribution/admission convergence, remote APPLIED/PARTIAL/UNKNOWN reconciliation, release correction/supersession lineage, current rollback eligibility, external registry support qualification/substitution or residual release/artifact cohort drainage.",
+    "deployment_environment_runtime_current_state_summary": "Fresh main has deterministic SB-owned deployment identity, provider-neutral EnvironmentProfile references and symbolic bindings, release/artifact/runtime compatibility admission, verified artifact and migration preflight, local generated-process realization, explicit startup/health diagnostics, durable deployment records, atomic active promotion with stale-active protection, retained-active failure semantics and single-host runtime reconciliation after manager restart. Product proofs keep generated runtime operable while Builder/Observe control-plane URLs are unavailable. It does not evidence generalized desired deployment generations, full Operational Profiles, placement/replicas/traffic/scaling, distributed rollout/convergence, generic remote APPLIED/PARTIAL/UNKNOWN reconciliation, current rollback eligibility/actuation, qualified deployment-provider substitution or residual workload drainage."
   },
   "post_planning_b_math_research": {
     "status": "QUEUED_AFTER_PLANNING_B",
@@ -163,7 +165,7 @@
     "ENTERPRISE_COMPLETENESS_NEGATIVE_SPACE_REVIEW": "CLOSED / SIX_CRITERIA_PASS",
     "CAPABILITY_SYNTHESIS": "CLOSED / PASS",
     "PLANNING_A_TAXONOMY_BOUNDARIES": "CLOSED / PASS — all twenty-eight canonical capabilities have explicit Planning A ownership/boundary reconciliation.",
-    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION": "IN_PROGRESS — 18/28 canonical capabilities reconciled against fresh main; on closure transition to RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION, not Planning C.",
+    "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION": "IN_PROGRESS — 19/28 canonical capabilities reconciled against fresh main; on closure transition to RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION, not Planning C.",
     "RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION": "QUEUED — mandatory immediately after Planning B; Planning C is blocked until this research/reconciliation gate closes."
   },
   "artifact_roots": {
@@ -173,9 +175,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION is active. Artifact / Release / SBOM / Provenance has been reconciled against fresh main d8760c7f08757bb164a758ae0c3f0a4a1752464b. Current SB has canonical releaseId@version identity, SHA-256 content-addressed artifact integrity, immutable/conflict-safe payload publication, explicit release publication/lifecycle, typed evidence provenance and durable Postgres-backed persistence. Complete SBOM and artifact-subject provenance qualification, signatures/attestations, promotion/distribution/admission convergence, remote ambiguity reconciliation, correction/supersession, current rollback eligibility and external registry substitution/drainage remain unevidenced gaps. No product code changed and Planning C was not entered. Mandatory post-Planning-B Mathematical Expressions / Rules / Calculation research remains queued before Planning C.",
-  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_B_ARTIFACT_RELEASE_SBOM_PROVENANCE_SB_CURRENT_STATE.md",
+  "current_focus": "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION is active. Deployment / Environment / Runtime has been reconciled against fresh main d8760c7f08757bb164a758ae0c3f0a4a1752464b. Current SB has deterministic provider-neutral deployment/environment identity, release admission, verified local generated-runtime realization, atomic active promotion with stale-writer protection, retained-active failure behavior, durable restart reconciliation and direct runtime-autonomy proofs. General desired/observed/effective workload semantics, Operational Profile topology, distributed rollout/convergence, remote ambiguity reconciliation, rollback qualification, provider substitution and residual-workload drainage remain unevidenced gaps. No product code changed and Planning C was not entered. Mandatory post-Planning-B Mathematical Expressions / Rules / Calculation research remains queued before Planning C.",
+  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_B_DEPLOYMENT_ENVIRONMENT_RUNTIME_SB_CURRENT_STATE.md",
   "last_framework_artifact": "project_docs/generation-2/research/POST_PLANNING_B_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_RESEARCH.md",
-  "next_action": "Continue only PLANNING_B_SB_CURRENT_STATE_RECONCILIATION and reconcile exactly one canonical capability in canonical order: Deployment / Environment / Runtime. Use fresh authoritative main evidence to inspect canonical deployment/environment/runtime identity, desired deployment generation, release-to-runtime plan, Operational Profile/environment realization, placement/replicas/traffic/scaling/readiness, desired versus observed/effective state, rollout/cutover, runtime autonomy and retained closure, rollback actuation versus release rollback eligibility, degraded/disconnected operation, runtime/provider substitution, ambiguous actuation reconciliation and drainage of residual replicas/routes/sessions/caches/workers. Preserve build result != released artifact != deployed state != runtime-effective state, provider acknowledgement != effective runtime, stale/partial evidence -> PARTIAL/INCONCLUSIVE, UNKNOWN -> reconcile-before-retry for ambiguous mutations, provider IDs non-canonical unless explicitly adopted, Enterprise -> Station -> Role -> Person and AI/AGWS non-amplification. Preserve boundaries with Artifact/Release, Build, Secrets/Configuration, Provider/Binding, Lifecycle, Security/Resilience, Observability and UCA. Record only evidenced KEEP/HARDEN/GENERALIZE/PROVIDERIZE/INTEGRATE/REPLACE/DEFER/DO_NOT_BUILD dispositions; do not invent target architecture. When Planning B reaches 28/28 and closes, transition only to RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION using project_docs/generation-2/research/POST_PLANNING_B_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_RESEARCH.md; do not enter Planning C until that gate closes. Do not execute product code, Work Packages, executive TASKs, Construction, PR or worker handoff.",
-  "updated_at": "2026-09-04T05:51:00-03:00"
+  "next_action": "Continue only PLANNING_B_SB_CURRENT_STATE_RECONCILIATION and reconcile exactly one canonical capability in canonical order: Developer / Operator Experience / Self-hosting. Use fresh authoritative main evidence to inspect local setup/bootstrap, developer workflows, CLI/operator interfaces, diagnostics, environment prerequisites, generated-runtime operation, installation/upgrade, self-hosted persistence/deploy paths, offline/air-gapped viability, observability/troubleshooting surfaces, backup/recovery operator hooks, provider/config portability and operational evidence. Preserve runtime autonomy, anti-lock-in, declared configuration != effective operation, provider IDs non-canonical, stale/partial evidence -> PARTIAL/INCONCLUSIVE, UNKNOWN -> reconcile-before-retry for ambiguous operational mutations, Enterprise -> Station -> Role -> Person and AI/AGWS non-amplification. Preserve boundaries with Deployment/Runtime, Secrets/Configuration, Observability/Incident, Security/Resilience, Provider/Binding, Lifecycle and UCA. Record only evidenced KEEP/HARDEN/GENERALIZE/PROVIDERIZE/INTEGRATE/REPLACE/DEFER/DO_NOT_BUILD dispositions; do not invent target architecture. When Planning B reaches 28/28 and closes, transition only to RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION using project_docs/generation-2/research/POST_PLANNING_B_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_RESEARCH.md; do not enter Planning C until that gate closes. Do not execute product code, Work Packages, executive TASKs, Construction, PR or worker handoff.",
+  "updated_at": "2026-09-04T06:05:38-03:00"
 }
