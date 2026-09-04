@@ -1,225 +1,129 @@
 # Generation 2 — Edge-Case Index
 
 Status: ACTIVE
-Phase: RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION
+Phase: `RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION`
 
-Stable IDs use `G2-EDGE-<CAPABILITY>-NNN`, cross-capability IDs use `G2-XEDGE-<CLUSTER>-NNN`, and reusable processual/semantic conflict patterns use `G2-CONFLICT-PATTERN-<FAMILY>-NNN`. `ConflictPattern != ConflictInstance`; `Signal != ConfirmedConflict`.
+Stable IDs use `G2-EDGE-<CAPABILITY>-NNN`, cross-capability IDs use `G2-XEDGE-<CLUSTER>-NNN`, and reusable processual/semantic conflict patterns use `G2-CONFLICT-PATTERN-<FAMILY>-NNN`.
 
-## Full Pass 1 — indexed material findings
+Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != ConfirmedConflict`; provider IDs are non-canonical; `Enterprise → Station → Role → Person`; AI/AGWS cannot amplify authority; `UNKNOWN → reconcile-before-retry`; `StoredFact != DerivedValue`; `FormulaRevision != CalculationResult`.
 
-### Adaptive Governed Work Surfaces
-Register: `project_docs/generation-2/research/edge-cases/ADAPTIVE_GOVERNED_WORK_SURFACES_EDGE_CASE_REGISTER.md`
+Detailed scenario fields remain authoritative in the linked registers. This index deliberately keeps the central inventory compact while preserving every stable material range and reusable conflict-pattern ID.
 
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+## Full Pass 1 — capability / cluster index
+
+| Capability | Detailed register | Local material range | Cross-capability material range | Local streak |
 | --- | --- | --- | --- | --- |
-| `G2-EDGE-AGWS-001` | stale Role/Station context leaves a previously valid surface actionable | CRITICAL | Authorization + Identity + AGWS | `AGWS-ADV-PROOF-001` |
-| `G2-EDGE-AGWS-002` | lower-layer overlay removes or neutralizes inherited mandatory component | HIGH | AGWS + Lifecycle + Authorization | `AGWS-ADV-PROOF-002` |
-| `G2-EDGE-AGWS-003` | AI proposal mixes valid layout intent with unauthorized semantic mutation | CRITICAL | AGWS + referenced semantic owners + Authorization | `AGWS-ADV-PROOF-003` |
-| `G2-EDGE-AGWS-004` | usage-driven promotion converts personal automation into shared authority | CRITICAL | AGWS + Authorization + Integration/Workflow | `AGWS-ADV-PROOF-004` |
-| `G2-EDGE-AGWS-005` | provider-backed action times out and surface retries an `UNKNOWN` mutation | CRITICAL | Integration + Provider/Binding + AGWS | `AGWS-ADV-PROOF-005` |
-| `G2-EDGE-AGWS-006` | pathological overlay/component graph exhausts resolution resources and induces unsafe fallback | HIGH | AGWS + UI + Authorization | `AGWS-ADV-PROOF-006` |
+| Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_EDGE_CASE_REGISTER.md` | `G2-EDGE-AGWS-001..006` | `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-001..003` | 0 |
+| Process & Application Modeling | `PROCESS_APPLICATION_MODELING_EDGE_CASE_REGISTER.md` | `G2-EDGE-PROCESS-001..006` | `G2-XEDGE-PROCESS-WORKFLOW-DATA-001..004` | 0 |
+| Workflow & Durable Execution | `WORKFLOW_DURABLE_EXECUTION_EDGE_CASE_REGISTER.md` | `G2-EDGE-WORKFLOW-001..006` | `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-001..004` | 0 |
+| Data / Schema / Migrations | `DATA_SCHEMA_MIGRATIONS_EDGE_CASE_REGISTER.md` | `G2-EDGE-DATA-001..006` | `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001..004` | 0 |
+| Storage / Documents / Media | `STORAGE_DOCUMENTS_MEDIA_EDGE_CASE_REGISTER.md` | `G2-EDGE-STORAGE-001..006` | `G2-XEDGE-PROVIDER-STORAGE-001..004` | 0 |
+| Secrets / Configuration / Environment Portability | `SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_EDGE_CASE_REGISTER.md` | `G2-EDGE-SECRETS-001..006` | `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-001..004` | 0 |
+| Build / Dependency Graph / Reproducibility | `BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_EDGE_CASE_REGISTER.md` | `G2-EDGE-BUILD-001..006` | `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-001..004` | 0 |
+| Artifact / Release / SBOM / Provenance | `ARTIFACT_RELEASE_SBOM_PROVENANCE_EDGE_CASE_REGISTER.md` | `G2-EDGE-ARTIFACT-001..007` | `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-001..004` | 0 |
+| Deployment / Runtime / Autonomous Operation | `DEPLOYMENT_RUNTIME_AUTONOMOUS_OPERATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-RUNTIME-001..006` | `G2-XEDGE-OBS-SEC-RECOVERY-RUNTIME-001..004` | 0 |
+| Extension / Plugin / Marketplace Architecture | `EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_EDGE_CASE_REGISTER.md` | `G2-EDGE-EXTENSION-001..007` | `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-001..004` | 0 |
+| Commercial Metering / Entitlements / Rating / Billing / Payment | `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_EDGE_CASE_REGISTER.md` | `G2-EDGE-COMMERCIAL-001..007` | `G2-XEDGE-COMMERCIAL-001..005` | 0 |
+| Technology Economic Governance / FinOps | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_EDGE_CASE_REGISTER.md` | `G2-EDGE-FINOPS-001..007` | `G2-XEDGE-MATH-FINOPS-001..005` | 0 |
+| Universal Capability Architecture | `UNIVERSAL_CAPABILITY_ARCHITECTURE_EDGE_CASE_REGISTER.md` | `G2-EDGE-UCA-001..007` | none added; reusable cross-owner patterns linked in matrix | 0 |
 
-### Identity × Authorization × Station × AGWS × AI
-| `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-001` | stale identity relationship + cached surface + AI action suggestion | CRITICAL | Identity + Authorization + AGWS | `XAGWS-ADV-PROOF-001` |
-| `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-002` | Station transition races with proposal approval/promotion | CRITICAL | AGWS + Authorization + Identity/Governance | `XAGWS-ADV-PROOF-002` |
-| `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-003` | mandatory guardrail is rendered but AI routes around owner-level control | CRITICAL | AGWS + Workflow/Governance/Authorization | `XAGWS-ADV-PROOF-003` |
+Full Pass 1 local coverage after UCA: **13/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+
+## Reusable processual / semantic conflict-pattern inventory
 
 ### Process & Application Modeling
-Register: `project_docs/generation-2/research/edge-cases/PROCESS_APPLICATION_MODELING_EDGE_CASE_REGISTER.md`
-
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-EDGE-PROCESS-001` | stale-base semantic overwrite | HIGH | Process Modeling + Lifecycle + affected owners | `PROCESS-ADV-PROOF-001` |
-| `G2-EDGE-PROCESS-002` | lossy brownfield normalization promoted as canonical equivalence | HIGH | Process Modeling + Integration + semantic owner | `PROCESS-ADV-PROOF-002` |
-| `G2-EDGE-PROCESS-003` | process revision publication falsely implies downstream convergence | CRITICAL | Process + Workflow + Data + Lifecycle | `PROCESS-ADV-PROOF-003` |
-| `G2-EDGE-PROCESS-004` | historical revision exists but rollback is no longer eligible | CRITICAL | Lifecycle + Process + affected owners | `PROCESS-ADV-PROOF-004` |
-| `G2-EDGE-PROCESS-005` | pathological valid graph exhausts analysis/materialization | HIGH | Process + analysis consumers + FinOps | `PROCESS-ADV-PROOF-005` |
-| `G2-EDGE-PROCESS-006` | AI/low-code composition smuggles semantic-owner mutation | CRITICAL | Process + Authorization + semantic owner | `PROCESS-ADV-PROOF-006` |
-
-### Process/Application × Workflow × Data/Schema
-| `G2-XEDGE-PROCESS-WORKFLOW-DATA-001` | long-running instance crosses incompatible process/schema revisions | CRITICAL | Workflow + Process + Data + Lifecycle | `XPROCESS-ADV-PROOF-001` |
-| `G2-XEDGE-PROCESS-WORKFLOW-DATA-002` | partial schema migration creates split semantic population | CRITICAL | Data + Process + Workflow + Lifecycle | `XPROCESS-ADV-PROOF-002` |
-| `G2-XEDGE-PROCESS-WORKFLOW-DATA-003` | retry after ambiguous data mutation replays process transition | CRITICAL | Workflow + Data + Integration | `XPROCESS-ADV-PROOF-003` |
-| `G2-XEDGE-PROCESS-WORKFLOW-DATA-004` | valid paths claim incompatible canonical postconditions | CRITICAL | domain/data owner + Process + Workflow | `XPROCESS-ADV-PROOF-004` |
-
-### Processual / semantic conflict patterns discovered in Process Modeling visit
-| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
-| --- | --- | --- | --- | --- | --- |
-| `G2-CONFLICT-PATTERN-STRUCTURAL-001` | structural graph | valid branches produce incompatible terminal claims/fan-in | HIGH–CRITICAL | static postcondition/graph constraint analysis | `PROCESS-CONFLICT-PROOF-001` |
-| `G2-CONFLICT-PATTERN-VERSION-001` | version/coexistence | individually valid revisions are composition-incompatible | CRITICAL | revision-vector compatibility/currentness | `PROCESS-CONFLICT-PROOF-002` |
-| `G2-CONFLICT-PATTERN-SEMANTIC-001` | semantic ownership | multiple components claim one canonical fact/postcondition | CRITICAL | ownership-reference + competing mutation signals | `PROCESS-CONFLICT-PROOF-003` |
-| `G2-CONFLICT-PATTERN-AI-LOWCODE-001` | AI/low-code composition | safe primitives compose into unauthorized semantic mutation | CRITICAL | owner/authority dependency analysis + commit-time revalidation | `PROCESS-CONFLICT-PROOF-004` |
+- `G2-CONFLICT-PATTERN-STRUCTURAL-001`
+- `G2-CONFLICT-PATTERN-VERSION-001`
+- `G2-CONFLICT-PATTERN-SEMANTIC-001`
+- `G2-CONFLICT-PATTERN-AI-LOWCODE-001`
 
 ### Workflow & Durable Execution
-Register: `project_docs/generation-2/research/edge-cases/WORKFLOW_DURABLE_EXECUTION_EDGE_CASE_REGISTER.md`
-
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-EDGE-WORKFLOW-001` | duplicate/out-of-order signal advances incompatible transition | CRITICAL | Workflow + Messaging + Integration | `WORKFLOW-ADV-PROOF-001` |
-| `G2-EDGE-WORKFLOW-002` | timer/cancellation/approval race creates incompatible terminal claims | CRITICAL | Workflow + Authorization + temporal realization | `WORKFLOW-ADV-PROOF-002` |
-| `G2-EDGE-WORKFLOW-003` | activity effect succeeds but durable transition persistence fails | CRITICAL | Workflow + Integration/Data + Provider Binding | `WORKFLOW-ADV-PROOF-003` |
-| `G2-EDGE-WORKFLOW-004` | in-flight instance crosses workflow/provider/schema/policy revision skew | CRITICAL | Workflow + Lifecycle + Provider/Data/Auth owners | `WORKFLOW-ADV-PROOF-004` |
-| `G2-EDGE-WORKFLOW-005` | human-task authority drifts while task remains open | CRITICAL | Workflow + Authorization/Identity | `WORKFLOW-ADV-PROOF-005` |
-| `G2-EDGE-WORKFLOW-006` | valid fan-out/retry composition exhausts queue/provider/cost capacity | HIGH | Workflow + Provider/Runtime + FinOps | `WORKFLOW-ADV-PROOF-006` |
-
-### Workflow × Integration × Messaging × external mutation
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-001` | provider acknowledgement mistaken for effective business state | CRITICAL | Integration + Workflow + target owner + Messaging | `XWORKFLOW-ADV-PROOF-001` |
-| `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-002` | idempotency scope mismatch duplicates external mutation | CRITICAL | Integration + Provider/Binding + Workflow | `XWORKFLOW-ADV-PROOF-002` |
-| `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-003` | compensation races with delayed original/retry message | CRITICAL | Workflow + Messaging + Integration + Lifecycle | `XWORKFLOW-ADV-PROOF-003` |
-| `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-004` | provider substitution leaves residual old subscriptions/messages authoritative | HIGH–CRITICAL | Provider/Binding + Integration + Messaging + Workflow + Lifecycle | `XWORKFLOW-ADV-PROOF-004` |
-
-### Processual / semantic conflict patterns discovered in Workflow visit
-| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
-| --- | --- | --- | --- | --- | --- |
-| `G2-CONFLICT-PATTERN-TEMPORAL-001` | temporal/state-transition | locally valid transitions become jointly contradictory under race/order skew | HIGH–CRITICAL | transition conflict graph + commit/currentness + late-event classification | `WORKFLOW-CONFLICT-PROOF-001` |
-| `G2-CONFLICT-PATTERN-PROVIDER-001` | provider/integration | retry/idempotency semantics composition-incompatible across owners/providers | CRITICAL | semantic support + idempotency scope/horizon compatibility | `WORKFLOW-CONFLICT-PROOF-002` |
-| `G2-CONFLICT-PATTERN-RECOVERY-001` | exception/recovery | compensation/recovery conflicts with residual authoritative work | CRITICAL | residual-cohort inventory + post-recovery convergence | `WORKFLOW-CONFLICT-PROOF-003` |
-| `G2-CONFLICT-PATTERN-AUTHORITY-001` | authority/human procedure | durable assignment conflicts with current authority/responsibility | HIGH–CRITICAL | commit-time authority/currentness + SoD analysis | `WORKFLOW-CONFLICT-PROOF-004` |
+- `G2-CONFLICT-PATTERN-TEMPORAL-001`
+- `G2-CONFLICT-PATTERN-PROVIDER-001`
+- `G2-CONFLICT-PATTERN-RECOVERY-001`
+- `G2-CONFLICT-PATTERN-AUTHORITY-001`
 
 ### Data / Schema / Migrations
-Register: `project_docs/generation-2/research/edge-cases/DATA_SCHEMA_MIGRATIONS_EDGE_CASE_REGISTER.md`
-
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-EDGE-DATA-001` | stale read drives incompatible canonical write | CRITICAL | Data/domain owner + Process/Workflow | `DATA-ADV-PROOF-001` |
-| `G2-EDGE-DATA-002` | duplicate/imported identity collision creates conflicting canonical subjects | HIGH–CRITICAL | Data/master/reference + domain identity owner | `DATA-ADV-PROOF-002` |
-| `G2-EDGE-DATA-003` | partial migration/backfill produces split semantic population | CRITICAL | Data/Schema + Lifecycle + affected owners | `DATA-ADV-PROOF-003` |
-| `G2-EDGE-DATA-004` | irreversible data evolution makes rollback falsely safe | CRITICAL | Lifecycle + Data/Schema + affected owners | `DATA-ADV-PROOF-004` |
-| `G2-EDGE-DATA-005` | StoredFact and DerivedValue are silently interchanged | CRITICAL | Data owner + Calculation + domain owner | `DATA-ADV-PROOF-005` |
-| `G2-EDGE-DATA-006` | large valid backfill exhausts capacity and creates unsafe mixed-state fallback | HIGH | Data + Operations/Storage + FinOps | `DATA-ADV-PROOF-006` |
-
-### Data/Schema × Privacy × Storage × Lifecycle
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001` | erasure request conflicts with legal hold/mandatory retention | CRITICAL | Privacy/Governance + Records/Lifecycle + Data | `XDATA-ADV-PROOF-001` |
-| `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-002` | canonical deletion/tombstone diverges from residual replicas/versions | CRITICAL | Storage + Data/Lifecycle + Privacy | `XDATA-ADV-PROOF-002` |
-| `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-003` | provider/storage substitution leaves stale authoritative replica | CRITICAL | Provider/Binding + Storage + Data/Lifecycle | `XDATA-ADV-PROOF-003` |
-| `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-004` | individually valid lifecycle policies compose into impossible canonical state | HIGH–CRITICAL | Governance/Privacy/Records + Data | `XDATA-ADV-PROOF-004` |
-
-### Processual / semantic conflict patterns discovered in Data visit
-| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
-| --- | --- | --- | --- | --- | --- |
-| `G2-CONFLICT-PATTERN-DATA-001` | data/consistency | competing canonical writes are locally valid but jointly violate owner invariants | HIGH–CRITICAL | revision/precondition conflict + invariant re-evaluation | `DATA-CONFLICT-PROOF-001` |
-| `G2-CONFLICT-PATTERN-POLICY-001` | policy/compliance | valid privacy/retention/residency obligations produce incompatible dispositions | HIGH–CRITICAL | obligation-set intersection + precedence/authority evidence | `DATA-CONFLICT-PROOF-002` |
-| `G2-CONFLICT-PATTERN-REPLICA-001` | provider/data/recovery | canonical lifecycle state conflicts with residual physical realizations | CRITICAL | replica/cohort inventory + delete/restore conformance | `DATA-CONFLICT-PROOF-003` |
-| `G2-CONFLICT-PATTERN-MIGRATION-001` | version/migration | old/new cohorts are individually valid but composition-incompatible | CRITICAL | revision-vector/cohort compatibility matrix | `DATA-CONFLICT-PROOF-004` |
+- `G2-CONFLICT-PATTERN-DATA-001`
+- `G2-CONFLICT-PATTERN-POLICY-001`
+- `G2-CONFLICT-PATTERN-REPLICA-001`
+- `G2-CONFLICT-PATTERN-MIGRATION-001`
 
 ### Storage / Documents / Media
-Register: `project_docs/generation-2/research/edge-cases/STORAGE_DOCUMENTS_MEDIA_EDGE_CASE_REGISTER.md`
-
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-EDGE-STORAGE-001` | provider-native object/version identity mistaken for canonical logical object/content revision | HIGH–CRITICAL | Storage + Provider/Binding + domain owner | `STORAGE-ADV-PROOF-001` |
-| `G2-EDGE-STORAGE-002` | concurrent content and metadata revisions form a semantically impossible composite | CRITICAL | Storage + metadata owner + Lifecycle | `STORAGE-ADV-PROOF-002` |
-| `G2-EDGE-STORAGE-003` | multipart/chunked fragments accepted while canonical completion remains `UNKNOWN/PARTIAL` | HIGH–CRITICAL | Storage + Provider/Binding | `STORAGE-ADV-PROOF-003` |
-| `G2-EDGE-STORAGE-004` | integrity evidence is stale, absent or representation-scope mismatched | CRITICAL | Storage + Security + provider realization | `STORAGE-ADV-PROOF-004` |
-| `G2-EDGE-STORAGE-005` | oversized content/rendition graph exhausts resources and induces unsafe degradation | HIGH | Storage + Runtime/Operations/Provider + FinOps | `STORAGE-ADV-PROOF-005` |
-| `G2-EDGE-STORAGE-006` | recoverable bytes exist but restore is not currently eligible/semantically usable | CRITICAL | Storage + Security/Recovery + Lifecycle + Governance/Secrets | `STORAGE-ADV-PROOF-006` |
-
-### Provider/Binding × external realizations — Storage slice
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-XEDGE-PROVIDER-STORAGE-001` | provider ACK is stronger locally than canonical object qualification actually proved | CRITICAL | Storage + Provider/Binding + qualified evidence | `XSTORAGE-ADV-PROOF-001` |
-| `G2-XEDGE-PROVIDER-STORAGE-002` | provider substitution leaves old/new versions, caches or restore sources authoritative | CRITICAL | Provider/Binding + Storage + Lifecycle + Secrets/Security | `XSTORAGE-ADV-PROOF-002` |
-| `G2-XEDGE-PROVIDER-STORAGE-003` | same provider feature label hides incompatible storage semantics/limits | HIGH–CRITICAL | Provider/Binding + Storage + Standards | `XSTORAGE-ADV-PROOF-003` |
-| `G2-XEDGE-PROVIDER-STORAGE-004` | durable bytes become effectively unreachable after key/access-path rotation | CRITICAL | Storage + Secrets + Security + Provider/Binding + Authorization | `XSTORAGE-ADV-PROOF-004` |
-
-### Processual / semantic conflict patterns discovered/adopted in Storage visit
-| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
-| --- | --- | --- | --- | --- | --- |
-| `G2-CONFLICT-PATTERN-PROVIDER-002` | provider/semantic/integrity | provider ACK conflicts with stronger canonical object qualification | HIGH–CRITICAL | support-profile check + bounded post-effect integrity/currentness evidence | `STORAGE-CONFLICT-PROOF-001` |
-| `G2-CONFLICT-PATTERN-REPRESENTATION-001` | semantic/version/integrity | logical content, metadata, rendition and provider versions are valid alone but incompatible together | HIGH–CRITICAL | revision-vector/applicability + typed rendition lineage | `STORAGE-CONFLICT-PROOF-002` |
-| `G2-CONFLICT-PATTERN-SUPPORT-001` | provider/capability negotiation | nominal feature equivalence conflicts with required semantic support | HIGH–CRITICAL | multidimensional support-vector + provider-differential conformance | `STORAGE-CONFLICT-PROOF-003` |
-
-Storage / Documents / Media and Provider/Binding × external realizations discovered material findings on first visit, so both streaks are `0`. Full Pass 1 progress is 5/28 capabilities and 5/12 mandatory clusters; the full-pass count remains `0`.
+- `G2-CONFLICT-PATTERN-PROVIDER-002`
+- `G2-CONFLICT-PATTERN-REPRESENTATION-001`
+- `G2-CONFLICT-PATTERN-SUPPORT-001`
 
 ### Secrets / Configuration / Environment Portability
-Register: `project_docs/generation-2/research/edge-cases/SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_EDGE_CASE_REGISTER.md`
-
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-EDGE-SECRETS-001` | symbolic reference, resolved value and provider-native identifier are conflated | CRITICAL | Secrets/Config + Provider/Binding + Authorization/Governance | `SECRETS-ADV-PROOF-001` |
-| `G2-EDGE-SECRETS-002` | source revision current while runtime consumer remains stale/revoked | CRITICAL | Secrets/Config + Runtime + Security + Provider/Binding | `SECRETS-ADV-PROOF-002` |
-| `G2-EDGE-SECRETS-003` | concurrent rotation/restart creates mixed credential/config epochs | HIGH–CRITICAL | Runtime + Secrets/Config + Lifecycle + semantic owner | `SECRETS-ADV-PROOF-003` |
-| `G2-EDGE-SECRETS-004` | rotation/revocation/provider mutation effect remains `UNKNOWN` and blind retry compounds ambiguity | CRITICAL | Secrets/Config + Provider/Binding + Integration/Security | `SECRETS-ADV-PROOF-004` |
-| `G2-EDGE-SECRETS-005` | recovery/rollback revives revoked, expired or incompatible secret/config state | CRITICAL | Recovery + Secrets/Config + Lifecycle + Authorization/Trust + Provider | `SECRETS-ADV-PROOF-005` |
-| `G2-EDGE-SECRETS-006` | pathological config/secret composition exhausts resources or leaks authority through AI/low-code | CRITICAL | Secrets/Config + Runtime + Authorization + AGWS/AI + FinOps | `SECRETS-ADV-PROOF-006` |
-
-### Secrets/Config × Runtime × Provider substitution
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-001` | provider rotation complete while consumer-effective adoption remains partial | CRITICAL | Secrets/Config + Runtime + Provider/Binding + Security | `XSECRETS-ADV-PROOF-001` |
-| `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-002` | provider substitution leaves old credentials/config paths materially usable | CRITICAL | Provider/Binding + Secrets/Config + Runtime + Security/Lifecycle | `XSECRETS-ADV-PROOF-002` |
-| `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-003` | offline runtime exceeds currentness horizon while remaining locally healthy | HIGH–CRITICAL | Secrets/Config + Runtime + Security/Trust + Provider/Binding | `XSECRETS-ADV-PROOF-003` |
-| `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-004` | provider-native secret/key/version identity becomes canonical binding identity | HIGH–CRITICAL | Secrets/Config + Provider/Binding + Standards + Authorization | `XSECRETS-ADV-PROOF-004` |
-
-### Processual / semantic conflict patterns discovered/adopted in Secrets/Config visit
-| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
-| --- | --- | --- | --- | --- | --- |
-| `G2-CONFLICT-PATTERN-CURRENTNESS-001` | temporal/version/security | provider/source currentness conflicts with runtime consumer-effective generation | CRITICAL | cohort generation + lease/version/currentness comparison | `SECRETS-CONFLICT-PROOF-001` |
-| `G2-CONFLICT-PATTERN-SECRET-BOUNDARY-001` | semantic/security/provider | reference, resolved value and provider identity collapse across generic composition | HIGH–CRITICAL | typed-flow + durable-value scan + provider mapping checks | `SECRETS-CONFLICT-PROOF-002` |
-| `G2-CONFLICT-PATTERN-AUTHORITY-002` | authority/SoD/human/AI | reveal, rotate, bind and deploy privileges compose into a separation-of-duty bypass | CRITICAL | action dependency + SoD policy + current `Enterprise → Station → Role → Person` analysis | `SECRETS-CONFLICT-PROOF-003` |
-
-Secrets / Configuration / Environment Portability and Secrets/Config × Runtime × Provider substitution discovered material findings on first visit, so both streaks are `0`. Full Pass 1 progress is 6/28 capabilities and 6/12 mandatory clusters; the full-pass count remains `0`.
+- `G2-CONFLICT-PATTERN-CURRENTNESS-001`
+- `G2-CONFLICT-PATTERN-SECRET-BOUNDARY-001`
+- `G2-CONFLICT-PATTERN-AUTHORITY-002`
 
 ### Build / Dependency Graph / Reproducibility
-Register: `project_docs/generation-2/research/edge-cases/BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_EDGE_CASE_REGISTER.md`
+- `G2-CONFLICT-PATTERN-BUILD-PROVENANCE-001`
+- `G2-CONFLICT-PATTERN-EFFECTIVE-IDENTITY-001`
+- `G2-CONFLICT-PATTERN-SUPPLY-CHAIN-001`
 
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-EDGE-BUILD-001` | undeclared ambient dependency changes output while declared graph is unchanged | CRITICAL | Build + Provider/Binding + Secrets/Config | `BUILD-ADV-PROOF-001` |
-| `G2-EDGE-BUILD-002` | duplicate/cyclic/conditional graph resolves differently across tools or order | HIGH–CRITICAL | Build + Standards + Lifecycle | `BUILD-ADV-PROOF-002` |
-| `G2-EDGE-BUILD-003` | stale/poisoned cache accepted from key equality despite inapplicable provenance/currentness | CRITICAL | Build + Security/Recovery + Provider/Binding + Lifecycle | `BUILD-ADV-PROOF-003` |
-| `G2-EDGE-BUILD-004` | concurrent source/build/release mutation creates provenance subject skew | CRITICAL | Build + Artifact/Release/SBOM/Provenance + Lifecycle | `BUILD-ADV-PROOF-004` |
-| `G2-EDGE-BUILD-005` | remote build/publication effect is `UNKNOWN` and blind retry creates competing outputs | CRITICAL | Build + Artifact/Release + Provider/Binding + Integration | `BUILD-ADV-PROOF-005` |
-| `G2-EDGE-BUILD-006` | pathological graph or AI/low-code build step exhausts resources or expands authority | CRITICAL | Build + Authorization + Security + AGWS/AI + FinOps + Provider | `BUILD-ADV-PROOF-006` |
+### Artifact / Release / SBOM / Provenance
+- `G2-CONFLICT-PATTERN-ATTESTATION-QUALIFICATION-001`
+- `G2-CONFLICT-PATTERN-TRUST-AUTHORITY-001`
+- `G2-CONFLICT-PATTERN-DISTRIBUTION-CONVERGENCE-001`
 
-### Build × Artifact/Release × Deployment × Runtime
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-001` | build/release/deployment/runtime-effective identities collapse into one inferred truth | CRITICAL | Build + Artifact/Release + Deployment/Runtime + Observability/Lifecycle | `XBUILD-ADV-PROOF-001` |
-| `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-002` | retained/reproducible artifact is no longer currently rollback-eligible | CRITICAL | Lifecycle + Deployment/Runtime + Build + Artifact/Release + dependency owners | `XBUILD-ADV-PROOF-002` |
-| `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-003` | deployment success hides residual old authoritative runtime cohorts | CRITICAL | Deployment/Runtime + Artifact/Release + Build + Observability/Lifecycle | `XBUILD-ADV-PROOF-003` |
-| `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-004` | runner/toolchain/provider substitution changes runtime semantics despite nominal interface compatibility | HIGH–CRITICAL | Build + Provider/Binding + Artifact/Release + Deployment/Runtime + Standards | `XBUILD-ADV-PROOF-004` |
-
-### Processual / semantic conflict patterns discovered/adopted in Build visit
-| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
-| --- | --- | --- | --- | --- | --- |
-| `G2-CONFLICT-PATTERN-BUILD-PROVENANCE-001` | semantic/data/supply-chain | declared build identity conflicts with effective material closure | CRITICAL | sandbox/egress + provenance-to-effective-material reconciliation + rebuild differential | `BUILD-CONFLICT-PROOF-001` |
-| `G2-CONFLICT-PATTERN-EFFECTIVE-IDENTITY-001` | semantic/state/version | adjacent lifecycle identities are locally valid but silently treated as one effective state | CRITICAL | lineage-stage typing + runtime cohort/currentness reconciliation | `BUILD-CONFLICT-PROOF-002` |
-| `G2-CONFLICT-PATTERN-SUPPLY-CHAIN-001` | authority/AI/provider/supply-chain | individually authorized build primitives compose into unqualified supply-chain authority | CRITICAL | action/material dependency + effective authority + trust/capability diff | `BUILD-CONFLICT-PROOF-003` |
-
-Build / Dependency Graph / Reproducibility and Build × Artifact/Release × Deployment × Runtime discovered material findings on first visit, so both streaks are `0`. Full Pass 1 progress is 7/28 capabilities and 7/12 mandatory clusters; the full-pass count remains `0`.
+### Deployment / Runtime / Autonomous Operation
+- `G2-CONFLICT-PATTERN-HEALTH-QUALIFICATION-001`
+- `G2-CONFLICT-PATTERN-RECOVERY-CONTAINMENT-001`
+- `G2-CONFLICT-PATTERN-ACTUATION-CONVERGENCE-001`
 
 ### Extension / Plugin / Marketplace Architecture
-Register: `project_docs/generation-2/research/edge-cases/EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_EDGE_CASE_REGISTER.md`
+- `G2-CONFLICT-PATTERN-EXTENSION-IDENTITY-001`
+- `G2-CONFLICT-PATTERN-PERMISSION-COMPOSITION-001`
+- `G2-CONFLICT-PATTERN-EXTENSION-LIFECYCLE-001`
+- `G2-CONFLICT-PATTERN-TRUST-PROVENANCE-001`
 
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-EDGE-EXTENSION-001` | provider/marketplace identity leaks into canonical extension identity | HIGH–CRITICAL | Extension + Provider/Binding + Lifecycle | `EXTENSION-ADV-PROOF-001` |
-| `G2-EDGE-EXTENSION-002` | install/enable races with extension revision or admission change | CRITICAL | Extension + Authorization + Trust + Lifecycle + Runtime | `EXTENSION-ADV-PROOF-002` |
-| `G2-EDGE-EXTENSION-003` | requested/granted/effective permission drift widens runtime authority | CRITICAL | Authorization + Extension + Runtime/Security | `EXTENSION-ADV-PROOF-003` |
-| `G2-EDGE-EXTENSION-004` | signature/provenance/trusted publisher is promoted into global safety/admission | CRITICAL | Artifact/Provenance + Trust + Extension + Security/Governance | `EXTENSION-ADV-PROOF-004` |
-| `G2-EDGE-EXTENSION-005` | host/API/dependency skew remains syntactically loadable but semantically incompatible | HIGH–CRITICAL | Extension + Standards + Provider/Binding + Lifecycle | `EXTENSION-ADV-PROOF-005` |
-| `G2-EDGE-EXTENSION-006` | uninstall/rollback reports success while extension-created state/effects remain authoritative | CRITICAL | Extension + Lifecycle + Runtime/Integration/Data owners | `EXTENSION-ADV-PROOF-006` |
-| `G2-EDGE-EXTENSION-007` | valid dependency/extension composition causes resource or authority explosion | CRITICAL | Extension + Build/Dependency + Authorization + Security + Runtime + FinOps | `EXTENSION-ADV-PROOF-007` |
+### Commercial Metering / Entitlements / Rating / Billing / Payment
+- `G2-CONFLICT-PATTERN-COMMERCIAL-PIPELINE-001`
+- `G2-CONFLICT-PATTERN-COMMERCIAL-REVISION-001`
+- `G2-CONFLICT-PATTERN-COMMERCIAL-COHORT-001`
+- `G2-CONFLICT-PATTERN-COMMERCIAL-AUTHORITY-001`
 
-### Extension/Plugin × authority × provider trust × lifecycle
-| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
-| --- | --- | --- | --- | --- |
-| `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-001` | transitive publisher/dependency trust exceeds intended authority | CRITICAL | Extension + Authorization + Trust/PKI + Build/Dependency | `XEXTENSION-ADV-PROOF-001` |
-| `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-002` | revocation/disablement conflicts with residual runtime authority | CRITICAL | Extension + Authorization + Runtime + Secrets + Integration + Lifecycle | `XEXTENSION-ADV-PROOF-002` |
-| `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-003` | provider/marketplace substitution changes semantics while canonical extension appears unchanged | HIGH–CRITICAL | Provider/Binding + Extension + Trust + Standards + Lifecycle | `XEXTENSION-ADV-PROOF-003` |
-| `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-004` | AI/low-code chains allowed extensions into a confused-deputy authority path | CRITICAL | Authorization + Extension + AGWS/AI + semantic owner | `XEXTENSION-ADV-PROOF-004` |
+### Technology Economic Governance / FinOps
+- `G2-CONFLICT-PATTERN-ECONOMIC-EVIDENCE-001`
+- `G2-CONFLICT-PATTERN-ALLOCATION-CONSERVATION-001`
+- `G2-CONFLICT-PATTERN-ECONOMIC-REVISION-001`
+- `G2-CONFLICT-PATTERN-OBJECTIVE-GOVERNANCE-001`
 
-### Processual / semantic conflict patterns discovered in Extension visit
-| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
-| --- | --- | --- | --- | --- | --- |
-| `G2-CONFLICT-PATTERN-EXTENSION-IDENTITY-001` | semantic/provider/version | realization identity conflicts with canonical extension identity | HIGH–CRITICAL | identity-provenance graph + governed alias/adoption evidence | `EXTENSION-CONFLICT-PROOF-001` |
-| `G2-CONFLICT-PATTERN-PERMISSION-COMPOSITION-001` | authority/AI/cross-process | locally valid extension permissions compose into excessive effective authority | CRITICAL | transitive requested/granted/effective graph + confused-deputy path analysis | `EXTENSION-CONFLICT-PROOF-002` |
-| `G2-CONFLICT-PATTERN-EXTENSION-LIFECYCLE-001` | state/lifecycle/recovery | control-plane lifecycle state conflicts with residual effective extension state | CRITICAL | residual cohort/effect inventory + postcondition reconciliation | `EXTENSION-CONFLICT-PROOF-003` |
-| `G2-CONFLICT-PATTERN-TRUST-PROVENANCE-001` | trust/policy/provenance | authentic/provenanced artifact conflicts with admission/safety/authority requirements | HIGH–CRITICAL | multidimensional admission evidence + current trust/permission/compatibility diff | `EXTENSION-CONFLICT-PROOF-004` |
+### Universal Capability Architecture
+- `G2-CONFLICT-PATTERN-QUALIFIED-CLAIM-001`
+- `G2-CONFLICT-PATTERN-REVISION-VECTOR-001`
+- `G2-CONFLICT-PATTERN-CONVERGENCE-SEMANTICS-001`
+- `G2-CONFLICT-PATTERN-UCA-OWNERSHIP-001`
 
-Extension / Plugin / Marketplace Architecture and Extension/Plugin × authority × provider trust × lifecycle discovered material findings on first visit, so both streaks are `0`. Full Pass 1 campaign state is 10/28 capabilities and 10/12 mandatory clusters challenged; full-pass count remains `0`.
+Total reusable conflict patterns indexed: **43**.
+
+## UCA material summary
+
+The UCA Full Pass 1 visit found seven material local classes:
+
+1. provider/realization identity silently becoming canonical identity;
+2. qualification/currentness stripped from a previously valid claim;
+3. material revision-vector dimensions truncated into false compatibility;
+4. attempted/accepted/applied/converged/validated stages collapsed into generic success;
+5. qualified evidence or AI/reconciliation output adopted into owner truth without authority;
+6. cutover/rollback declared safe while residual cohorts or current compatibility remain unresolved;
+7. reusable primitives expanding into a semantic god-object, universal evaluator or authority/precedence broker.
+
+The four reusable UCA conflict patterns cover claim-qualification incompatibility, hidden revision incompatibility, success-stage incompatibility and semantic-owner usurpation. They are catalogue/detection candidates only; no `ConflictInstance` or remediation is asserted.
+
+## Campaign state
+
+- material edge findings: **132**;
+- reusable conflict patterns: **43**;
+- combined material findings: **175**;
+- HIGH/CRITICAL without semantic owner or proof obligation: **0**;
+- local no-material streak for every challenged capability: **0** because every first visit has produced material findings;
+- mandatory-cluster streaks: **0**;
+- negative-space review: NOT STARTED;
+- saturation: NOT SATURATED;
+- `PLANNING_C_TARGET_ARCHITECTURE`: BLOCKED.
+
+Next local rotation owner is maintained by `RESEARCH_PIPELINE_STATE.json` / `ADVERSARIAL_SATURATION_STATE.json`; this index does not independently advance the state machine.
