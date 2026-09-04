@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "status": "ACTIVE",
+  "authority_note": "Editorial comprehension layer only; never supersedes research, synthesis, planning, gates or architecture authority.",
+  "source_branch": "research/g2-capability-pipeline",
+  "research_phase_at_last_edit": "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION",
+  "chapters": {
+    "01": {
+      "title": "O que é o System Builder e qual problema ele tenta resolver",
+      "status": "COMPLETE_V1",
+      "artifact": "project_docs/generation-2/book/chapters/CHAPTER_01_O_QUE_E_O_SYSTEM_BUILDER.md"
+    },
+    "02": {
+      "title": "A ideia de modelar uma empresa como sistema versionado",
+      "status": "NEXT"
+    },
+    "03-24": {
+      "status": "PLANNED",
+      "authority": "project_docs/generation-2/book/TABLE_OF_CONTENTS.md"
+    }
+  },
+  "sources_consulted_last_round": [
+    "project_docs/generation-2/RESEARCH_PIPELINE_STATE.json",
+    "project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md",
+    "project_docs/generation-2/research/POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md",
+    "project_docs/generation-2/research/edge-cases/PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md"
+  ],
+  "glossary_terms_added_last_round": [
+    "Anti-lock-in",
+    "APPLIED / NOT_APPLIED / PARTIAL / UNKNOWN",
+    "Binding",
+    "Capability",
+    "Canonical",
+    "Coexistência",
+    "ConflictInstance",
+    "ConflictPattern",
+    "Edge case",
+    "Evidence",
+    "Happy path",
+    "Idempotência",
+    "INCONCLUSIVE",
+    "Provider",
+    "Qualified evidence envelope",
+    "Reconcile-before-retry",
+    "Revision",
+    "Runtime",
+    "Semantic owner",
+    "Signal",
+    "Station",
+    "Version skew"
+  ],
+  "revision_queue": [],
+  "editorial_notes": [
+    "The adversarial phase is still ACTIVE / NOT_SATURATED; chapters must not present Planning C target architecture as decided.",
+    "At the source-state snapshot used for Chapter 1, Full Pass 1 covered 25/28 canonical capabilities and 0/8 minimum full passes were complete.",
+    "Chapter 1 deliberately introduces UNKNOWN, qualified evidence and ConflictPattern early because later chapters depend on these concepts."
+  ],
+  "next_step": "Write Chapter 2 as a substantial chapter: explain process/application modeling, canonical enterprise semantics, revisions/revision vectors, desired vs observed/effective truth, lineage, coexistence and why a process is more than a flowchart. Read the relevant Process & Application Modeling dossier, Planning A/B reconciliation, Lifecycle/Versioning and Architecture Reconciliation artifacts before writing.",
+  "updated_at": "2026-09-04T16:09:00-03:00"
+}
