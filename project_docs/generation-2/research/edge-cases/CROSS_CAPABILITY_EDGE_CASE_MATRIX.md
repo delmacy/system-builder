@@ -64,6 +64,18 @@ Material interactions:
 
 Conflict patterns linked: `G2-CONFLICT-PATTERN-DATA-001`, `G2-CONFLICT-PATTERN-POLICY-001`, `G2-CONFLICT-PATTERN-REPLICA-001`, `G2-CONFLICT-PATTERN-MIGRATION-001`. They remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; none is a claimed current ConflictInstance.
 
+### Cluster 5 — Build × Artifact/Release × Deployment × Runtime
+Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
+Register: `project_docs/generation-2/research/edge-cases/BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_EDGE_CASE_REGISTER.md`
+
+Material interactions:
+- `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-001` — build output, release, deployment and runtime-effective identities can all be locally valid yet refer to different lifecycle stages/revisions; no upstream identity proves downstream convergence.
+- `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-002` — a retained/reproducible artifact can be historically valid while its current dependency/config/schema/provider/trust state makes rollback ineligible.
+- `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-003` — desired deployment may be `APPLIED` while residual old runtime cohorts remain authoritative, so fleet convergence stays `PARTIAL/INCONCLUSIVE` until observed and drained/qualified.
+- `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-004` — runner/toolchain/provider substitution can preserve nominal build interface while changing output/runtime semantics; semantic equivalence requires qualified differential evidence.
+
+Conflict patterns linked/adopted: new `G2-CONFLICT-PATTERN-BUILD-PROVENANCE-001`, `G2-CONFLICT-PATTERN-EFFECTIVE-IDENTITY-001`, `G2-CONFLICT-PATTERN-SUPPLY-CHAIN-001`; existing `G2-CONFLICT-PATTERN-VERSION-001`, `G2-CONFLICT-PATTERN-MIGRATION-001`, `G2-CONFLICT-PATTERN-RECOVERY-001`, `G2-CONFLICT-PATTERN-SUPPORT-001`, `G2-CONFLICT-PATTERN-CURRENTNESS-001` and `G2-CONFLICT-PATTERN-AI-LOWCODE-001` remain applicable without duplication. All remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; no current ConflictInstance is asserted.
+
 ### Cluster 6 — Provider/Binding × external realizations
 Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
 Register: `project_docs/generation-2/research/edge-cases/STORAGE_DOCUMENTS_MEDIA_EDGE_CASE_REGISTER.md`
@@ -89,4 +101,4 @@ Material interactions:
 
 Conflict patterns linked/adopted: new `G2-CONFLICT-PATTERN-CURRENTNESS-001`, `G2-CONFLICT-PATTERN-SECRET-BOUNDARY-001`, `G2-CONFLICT-PATTERN-AUTHORITY-002`; existing `G2-CONFLICT-PATTERN-MIGRATION-001`, `G2-CONFLICT-PATTERN-RECOVERY-001`, `G2-CONFLICT-PATTERN-SUPPORT-001` and `G2-CONFLICT-PATTERN-AI-LOWCODE-001` remain applicable without duplication. All remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; no current ConflictInstance is asserted.
 
-Clusters 1–4, 6 and 7 discovered material findings, so their no-material streaks are `0`. Mandatory clusters 5 and 8–12 remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
+Clusters 1–7 discovered material findings, so their no-material streaks are `0`. Mandatory clusters 8–12 remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
