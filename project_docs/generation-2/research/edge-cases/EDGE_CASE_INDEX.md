@@ -51,6 +51,7 @@ Full Pass 1 local coverage: **28/28 capabilities**. Mandatory clusters: **12/12 
 | Workflow & Durable Execution | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_2_REVISIT.md` | `G2-EDGE-WORKFLOW-007..008` | `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-005` — ambiguous event/obligation correlation cardinality is a genuinely new cross-capability class | 0 | 0 |
 | Data / Schema / Migrations | `DATA_SCHEMA_MIGRATIONS_FULL_PASS_2_REVISIT.md` | `G2-EDGE-DATA-007..008` | `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-005` — individually valid sinks/CDC cohorts can lack a common qualified cut for lifecycle truth | 0 | 0 |
 | Storage / Documents / Media | `STORAGE_DOCUMENTS_MEDIA_FULL_PASS_2_REVISIT.md` | `G2-EDGE-STORAGE-007..008` | Provider/Binding × external realizations: no genuinely new material cluster class after duplicate screen | 0 | 1 |
+| Secrets / Configuration / Environment Portability | `SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_FULL_PASS_2_REVISIT.md` | `G2-EDGE-SECRETS-007..008` | `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-005` — recovery/bootstrap dependencies can form a cycle with no qualified acyclic startup cut | 0 | 0 |
 
 New Pass-2 ConflictPatterns:
 
@@ -59,33 +60,26 @@ New Pass-2 ConflictPatterns:
 - Workflow: `G2-CONFLICT-PATTERN-CORRELATION-CARDINALITY-001`, `G2-CONFLICT-PATTERN-SCHEDULING-STARVATION-001`.
 - Data/Schema: `G2-CONFLICT-PATTERN-SCHEMA-LOSSLESSNESS-001`, `G2-CONFLICT-PATTERN-DEFAULT-MATERIALIZATION-001`.
 - Storage: `G2-CONFLICT-PATTERN-PHYSICAL-SHARING-GOVERNANCE-001`, `G2-CONFLICT-PATTERN-PROTECTION-SCOPE-001`.
-
-Pass-2 Storage findings distinguish physical byte sharing from canonical ownership/governance and provider/version-scoped protection from owner-qualified protection of a logical document lineage. Multipart/range ambiguity, checksum/ETag semantics, key drift, residual provider objects, restore false safety, aliases and AI/low-code transformations were duplicate-screened into existing patterns rather than re-catalogued. Provider/Binding × external realizations receives eligible no-material streak 1.
+- Secrets/Config: **no new reusable ConflictPattern** after duplicate screening; `G2-EDGE-SECRETS-007..008` and `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-005` map to existing revision-vector, qualification-join, structural-cycle, recovery-qualification, currentness and degraded-authority patterns.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 103 Full-Pass-1 patterns remain authoritative in their originating registers and prior index history. Full Pass 2 currently adds twelve patterns: three AGWS, three Process/Application, two Workflow, two Data/Schema and two Storage patterns listed above.
+Existing 103 Full-Pass-1 patterns remain authoritative in their originating registers and prior index history. Full Pass 2 currently adds twelve patterns: three AGWS, three Process/Application, two Workflow, two Data/Schema and two Storage patterns listed above. Secrets/Config adds no redundant reusable family.
 
 Total reusable conflict patterns indexed: **115**.
 
 ## Campaign state
 
-- material edge findings: **251**;
+- material edge findings: **254**;
 - reusable conflict patterns: **115**;
-- combined material findings: **366**;
+- combined material findings: **369**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
-- AGWS local no-material streak: **0**;
-- Process/Application local no-material streak: **0**;
-- Workflow local no-material streak: **0**;
-- Data / Schema / Migrations local no-material streak: **0**;
-- Storage / Documents / Media local no-material streak: **0**;
+- Secrets / Configuration / Environment Portability local no-material streak: **0**;
+- Secrets/Config × Runtime × Provider substitution cluster no-material streak: **0**;
 - Identity × Authorization × Station × AGWS × AI cluster no-material streak: **1**;
-- Process/Application × Workflow × Data/Schema cluster no-material streak: **0**;
-- Workflow × Integration × Messaging × external mutation cluster no-material streak: **0**;
-- Data/Schema × Privacy × Storage × Lifecycle cluster no-material streak: **0**;
 - Provider/Binding × external realizations cluster no-material streak: **1**;
-- Full Pass 2 local coverage: **5/28 capabilities**;
-- Full Pass 2 mandatory cluster coverage: **5/12**;
+- Full Pass 2 local coverage: **6/28 capabilities**;
+- Full Pass 2 mandatory cluster coverage: **6/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
 - negative-space review: NOT STARTED;
