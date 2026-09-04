@@ -77,4 +77,16 @@ Material interactions:
 
 Conflict patterns linked/adopted: `G2-CONFLICT-PATTERN-PROVIDER-002`, `G2-CONFLICT-PATTERN-REPRESENTATION-001`, `G2-CONFLICT-PATTERN-SUPPORT-001`; existing `G2-CONFLICT-PATTERN-REPLICA-001`, `G2-CONFLICT-PATTERN-MIGRATION-001` and `G2-CONFLICT-PATTERN-RECOVERY-001` remain applicable without duplication. All remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; no current ConflictInstance is asserted.
 
-Clusters 1–4 and 6 discovered material findings, so their no-material streaks are `0`. Mandatory clusters 5 and 7–12 remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
+### Cluster 7 — Secrets/Config × Runtime × Provider substitution
+Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
+Register: `project_docs/generation-2/research/edge-cases/SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_EDGE_CASE_REGISTER.md`
+
+Material interactions:
+- `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-001` — provider rotation can be `APPLIED` while runtime fleet adoption remains `PARTIAL/INCONCLUSIVE`; env snapshots, caches and mount semantics prove source-currentness and consumer-effective currentness are distinct.
+- `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-002` — provider substitution can leave old credentials, files, resolver paths and service accounts materially usable after nominal cutover; provider IDs remain non-canonical and residual authority must be reconciled.
+- `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-003` — disconnected runtime can remain locally healthy after secret/config currentness or lease evidence becomes stale; autonomy cannot silently extend trust or authorization beyond an explicit bound.
+- `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-004` — provider-native key/secret/version identity can accidentally become canonical binding identity, breaking portable substitution and potentially leaking authority assumptions.
+
+Conflict patterns linked/adopted: new `G2-CONFLICT-PATTERN-CURRENTNESS-001`, `G2-CONFLICT-PATTERN-SECRET-BOUNDARY-001`, `G2-CONFLICT-PATTERN-AUTHORITY-002`; existing `G2-CONFLICT-PATTERN-MIGRATION-001`, `G2-CONFLICT-PATTERN-RECOVERY-001`, `G2-CONFLICT-PATTERN-SUPPORT-001` and `G2-CONFLICT-PATTERN-AI-LOWCODE-001` remain applicable without duplication. All remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; no current ConflictInstance is asserted.
+
+Clusters 1–4, 6 and 7 discovered material findings, so their no-material streaks are `0`. Mandatory clusters 5 and 8–12 remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
