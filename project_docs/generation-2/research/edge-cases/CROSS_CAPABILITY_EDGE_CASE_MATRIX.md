@@ -30,13 +30,16 @@ Universal Capability Architecture Pass 2 did **not** create a 13th mandatory clu
 
 UI / Generated Experience / Low-code Builder Pass 2 likewise creates no new mandatory cluster. `G2-EDGE-UI-008..010` deepen existing cross-capability families through aggregate multi-step qualification fracture, replay of superseded offline intent and generated/adaptive omission of conditionally material qualifiers. These are linked to existing UI/math/workflow/data/authorization/provider clusters but do not count as a second designated cluster revisit; cluster streak counters therefore remain unchanged.
 
+Integration & Automation Pass 2 produced **no new material local or cross-capability class** after duplicate-screening compound graph, provider-substitution retry, admission/actuation currentness, residual registrations/jobs, stale-authentic callbacks, partial batch/compensation, redrive after adoption, offline queues, quota/backpressure, correlation collisions and AI/low-code scope amplification. The revisit deepens existing Workflow × Integration × Messaging, Provider/Binding × external realizations, Identity/Authorization/AGWS/AI, Secrets/Runtime/Provider and Observability/Security/Recovery interaction families. It is recorded as an eligible **local** no-material revisit only; because it was not the designated second cluster rotation, mandatory-cluster streak counters remain unchanged.
+
 ## Full Pass 2 campaign state
 
-- canonical capabilities revisited: **14/28**;
+- canonical capabilities revisited: **15/28**;
 - mandatory clusters revisited: **12/12**;
 - Identity × Authorization × Station × AGWS × AI streak: **1**;
 - Provider/Binding × external realizations streak: **1**;
-- other material-revisit cluster streaks: **0**;
+- other mandatory cluster streaks: **0**;
+- Integration & Automation local streak: **1**;
 - material edge scenarios: **278**;
 - reusable conflict patterns: **115**;
 - combined material findings: **393**;
