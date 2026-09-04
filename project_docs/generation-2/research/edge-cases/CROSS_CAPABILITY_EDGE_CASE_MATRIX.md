@@ -28,21 +28,21 @@ This matrix indexes detailed per-capability registers. It does not assert `Confl
 | --- | --- | --- | --- | --- |
 | 3 | Identity × Authorization × Station × AGWS × AI | COVERED / NO NEW MATERIAL CLASS | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_2_REVISIT.md` | stale authority, simultaneous human/AI edits, AI action-sequence composition, inherited constraints, stale evidence and AI/provider bypass all mapped to already-catalogued classes after duplicate screening; eligible no-material streak **1** |
 | 1 | Process/Application × Workflow × Data/Schema | COVERED / MATERIAL NEW CLASS | `PROCESS_APPLICATION_MODELING_FULL_PASS_2_REVISIT.md` | new `G2-XEDGE-PROCESS-WORKFLOW-DATA-005`: producer-local compensation can become semantically incompatible after another process has adopted the effect; cluster streak remains/resets **0** |
+| 2 | Workflow × Integration × Messaging × external mutation | COVERED / MATERIAL NEW CLASS | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_2_REVISIT.md` | new `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-005`: individually valid event normalization/delivery/waits can disagree on owner-qualified consumption cardinality; cluster streak remains/resets **0** |
 
-The Process/Application revisit also found two new local composition classes: graph reachability can be destroyed by the conjunction of otherwise-valid responsibility/authority predicates (`G2-CONFLICT-PATTERN-AUTHORITY-LIVENESS-001`), and independently current claims can have no jointly valid fan-in interval (`G2-CONFLICT-PATTERN-QUALIFICATION-JOIN-001`). Cross-process compensation after semantic adoption is catalogued as `G2-CONFLICT-PATTERN-CROSS-PROCESS-COMPENSATION-001`.
-
-Candidates involving local objective versus enterprise constraint, brownfield residual semantics, generic canonical-fact contention and recovery-cut external effects were duplicate-screened into existing patterns. No 13th mandatory cluster is added.
+The Workflow revisit also found two new local composition classes: current event validity does not prove exclusive/broadcast/aggregate correlation ownership (`G2-CONFLICT-PATTERN-CORRELATION-CARDINALITY-001`), and policy-valid dispatch decisions can cumulatively violate an owner-qualified liveness/fairness obligation (`G2-CONFLICT-PATTERN-SCHEDULING-STARVATION-001`). Candidates involving wake-condition authority drift, concurrent timers, cross-process compensation/adoption, revisioned replay, missing acknowledgement and aggregate AI/low-code retry loops were duplicate-screened into existing patterns. No 13th mandatory cluster is added.
 
 ## Full Pass 2 campaign state
 
-- canonical capabilities revisited: **2/28**;
-- mandatory clusters revisited: **2/12**;
+- canonical capabilities revisited: **3/28**;
+- mandatory clusters revisited: **3/12**;
 - Identity × Authorization × Station × AGWS × AI streak: **1**;
 - Process/Application × Workflow × Data/Schema streak: **0**;
+- Workflow × Integration × Messaging × external mutation streak: **0**;
 - all other mandatory cluster streaks: **0**;
-- material edge scenarios: **243**;
-- reusable conflict patterns: **109**;
-- combined material findings: **352**;
+- material edge scenarios: **246**;
+- reusable conflict patterns: **111**;
+- combined material findings: **357**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
