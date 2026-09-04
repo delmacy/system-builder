@@ -27,10 +27,11 @@ Full Pass 1 completed **28/28 capabilities** and **12/12 mandatory clusters**. T
 | Extension / Plugin / Marketplace Architecture | `EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_FULL_PASS_2_REVISIT.md` | `G2-EDGE-EXTENSION-008..009` | `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-005` — effective dependency/provider closure changes after admission without a common authority/trust requalification cut | 0 | 0 |
 | Commercial Metering / Entitlements / Rating / Billing / Payment | `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_FULL_PASS_2_REVISIT.md` | `G2-EDGE-COMMERCIAL-008..009` | `G2-XEDGE-COMMERCIAL-006` — provider-finalized obligation can lack a closed population/currentness cut over residual qualified usage/adjustments | 0 | 0 |
 | Technology Economic Governance / FinOps | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_FULL_PASS_2_REVISIT.md` | `G2-EDGE-FINOPS-008..009` | `G2-XEDGE-MATH-FINOPS-006` — provisional derived economics can be adopted into durable workflow/commercial effects before evidence closure | 0 | 0 |
+| Universal Capability Architecture | `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_2_REVISIT.md` | `G2-EDGE-UCA-008..010` | No new mandatory cluster required; all 12 remain covered once in Pass 2 | 0 | unchanged |
 
 ## Pass-2 reusable ConflictPatterns
 
-Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin, Commercial Metering and FinOps added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
+Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin, Commercial Metering, FinOps and UCA added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
 
 Artifact/Release Pass 2 maps `G2-EDGE-ARTIFACT-008..009` and `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-005` to existing qualification-join, qualified-claim, revision-vector, currentness, effective-identity, provider-qualification, attestation-qualification, trust-authority, distribution-convergence and migration/coexistence patterns.
 
@@ -42,17 +43,19 @@ Commercial Metering Pass 2 maps `G2-EDGE-COMMERCIAL-008..009` and `G2-XEDGE-COMM
 
 FinOps Pass 2 maps `G2-EDGE-FINOPS-008..009` and `G2-XEDGE-MATH-FINOPS-006` to existing correction/supersession, idempotency/effective-identity/provider-substitution, semantic-ownership, allocation-conservation, revision-vector/currentness, qualified-population/qualified-claim, workflow-decision-lineage, commercial-cohort, authority and historical-reproduction families. No new reusable `ConflictPattern` was needed after duplicate screening.
 
+UCA Pass 2 maps `G2-EDGE-UCA-008..010` to existing qualified-claim/currentness, standards/provider downgrade, revision-vector/qualification-join, semantic-ownership, permission/provider-composition authority, multitenant-scope and AI/low-code non-amplification families. The new local mechanisms are unknown critical-semantic loss during round-trip, individually-current revisions forming no jointly compatible cut, and Cartesian authority multiplication from relational grants. No new reusable `ConflictPattern` was needed after duplicate screening.
+
 ## Campaign state
 
-- material edge findings: **272**;
+- material edge findings: **275**;
 - reusable conflict patterns: **115**;
-- combined material findings: **387**;
+- combined material findings: **390**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
-- Technology Economic Governance / FinOps local no-material streak: **0**;
+- Universal Capability Architecture local no-material streak: **0**;
 - Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps cluster streak: **0**;
 - Identity × Authorization × Station × AGWS × AI cluster streak: **1**;
 - Provider/Binding × external realizations cluster streak: **1**;
-- Full Pass 2 local coverage: **12/28 capabilities**;
+- Full Pass 2 local coverage: **13/28 capabilities**;
 - Full Pass 2 mandatory cluster coverage: **12/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
