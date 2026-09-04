@@ -32,29 +32,30 @@ Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != Confir
 | Security / Resilience / Failure Recovery | `SECURITY_RESILIENCE_FAILURE_RECOVERY_EDGE_CASE_REGISTER.md` | `G2-EDGE-SECURITY-001..007` | deepens Observability/Security/Recovery + Workflow/Integration/Messaging + Provider/Binding + Secrets/Runtime/Provider + Identity/Authorization/Station/AGWS/AI clusters | 0 |
 | Enterprise Trust / PKI / Certificate Lifecycle | `ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE_EDGE_CASE_REGISTER.md` | `G2-EDGE-TRUST-001..007` | deepens Trust/Identity/Artifact/Provider + Provider/Binding + Secrets/Runtime/Provider + Identity/Authorization/Station/AGWS/AI + Observability/Security/Recovery clusters | 0 |
 | Privacy / Data Governance / Retention / Legal Hold / Residency | `PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY_EDGE_CASE_REGISTER.md` | `G2-EDGE-PRIVACY-001..007` | deepens Data/Privacy/Storage/Lifecycle + Provider/Binding + Observability/Security/Recovery + Identity/Authorization/Station/AGWS/AI clusters | 0 |
+| Notifications / Events / Messaging | `NOTIFICATIONS_EVENTS_MESSAGING_EDGE_CASE_REGISTER.md` | `G2-EDGE-MESSAGING-001..007` | deepens Workflow/Integration/Messaging + Provider/Binding + Identity/Authorization/Station/AGWS/AI + Data/Privacy/Storage/Lifecycle + Observability/Security/Recovery clusters | 0 |
 
-Full Pass 1 local coverage: **21/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+Full Pass 1 local coverage: **22/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 71 patterns remain authoritative in their originating registers and prior index history. Privacy / Data Governance / Retention / Legal Hold / Residency adds:
+Existing 75 patterns remain authoritative in their originating registers and prior index history. Notifications / Events / Messaging adds:
 
-- `G2-CONFLICT-PATTERN-PURPOSE-USE-001`
-- `G2-CONFLICT-PATTERN-PRESERVATION-DISPOSITION-001`
-- `G2-CONFLICT-PATTERN-RESIDENCY-PLACEMENT-001`
-- `G2-CONFLICT-PATTERN-ERASURE-RECOVERY-001`
+- `G2-CONFLICT-PATTERN-ACK-EFFECT-001`
+- `G2-CONFLICT-PATTERN-ORDERING-SCOPE-001`
+- `G2-CONFLICT-PATTERN-REPLAY-ELIGIBILITY-001`
+- `G2-CONFLICT-PATTERN-FANOUT-COHORT-001`
 
-Total reusable conflict patterns indexed: **75**.
+Total reusable conflict patterns indexed: **79**.
 
-## Latest material summary — Privacy / Data Governance / Retention / Legal Hold / Residency
+## Latest material summary — Notifications / Events / Messaging
 
-Seven local material classes challenge stale purpose/use eligibility, retention-expiry versus active preservation obligations, primary-delete versus residual-population erasure closure, operation/resource-scoped residency, ambiguous subject/population linkage, recovery resurrection of disposed/restricted data, and scale/offline/AI-low-code coercion of incomplete evidence into apparent permission. Four reusable ConflictPatterns catalogue technical authorization versus privacy eligibility, preservation versus disposition, local placement versus population-wide residency and recovery versus current erasure/restriction truth. No new mandatory cluster is created. `G2-CONFLICT-PATTERN-PRESERVATION-DISPOSITION-001` carries only a bounded preventive-invariant candidate for unresolved applicable preservation blockers; no implementation is prescribed and no `ConflictInstance` is asserted.
+Seven local material classes challenge provider delivery identity versus canonical communication identity, malformed/duplicate/stale/out-of-order delivery against current process state, acknowledgement versus semantic effect, ambiguous publication retry outside qualified idempotency scope/horizon, replayability versus current eligibility, provider/subscription cutover with residual authoritative cohorts, and fan-out/backlog/AI-low-code composition causing unauthorized disclosure, loops or resource exhaustion. Four reusable ConflictPatterns catalogue ACK-versus-effect qualification, transport ordering scope versus broader causal dependencies, historical replay source versus current actuation eligibility, and individually valid subscriptions composing into an invalid effective recipient cohort. No new mandatory cluster is created and no `ConflictInstance` is asserted.
 
 ## Campaign state
 
-- material edge findings: **188**;
-- reusable conflict patterns: **75**;
-- combined material findings: **263**;
+- material edge findings: **195**;
+- reusable conflict patterns: **79**;
+- combined material findings: **274**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - local no-material streak for every challenged capability: **0**;
 - mandatory-cluster streaks: **0**;
