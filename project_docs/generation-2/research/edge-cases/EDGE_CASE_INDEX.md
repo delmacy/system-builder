@@ -47,31 +47,33 @@ Full Pass 1 local coverage: **28/28 capabilities**. Mandatory clusters: **12/12 
 | Capability | Revisit artifact | New local material | Paired cluster result | Local streak | Cluster streak |
 | --- | --- | --- | --- | --- | --- |
 | Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_2_REVISIT.md` | `G2-EDGE-AGWS-007..009` | Identity × Authorization × Station × AGWS × AI: no genuinely new material class after duplicate screen | 0 | 1 |
+| Process & Application Modeling | `PROCESS_APPLICATION_MODELING_FULL_PASS_2_REVISIT.md` | `G2-EDGE-PROCESS-007..008` | `G2-XEDGE-PROCESS-WORKFLOW-DATA-005` — compensation after downstream semantic adoption is a genuinely new cross-process composition class | 0 | 0 |
 
-New Pass-2 AGWS ConflictPatterns:
+New Pass-2 ConflictPatterns:
 
-- `G2-CONFLICT-PATTERN-WORK-PRIORITY-PROJECTION-001`
-- `G2-CONFLICT-PATTERN-CAPACITY-PROJECTION-001`
-- `G2-CONFLICT-PATTERN-WORK-SURFACE-REACTIVATION-001`
+- AGWS: `G2-CONFLICT-PATTERN-WORK-PRIORITY-PROJECTION-001`, `G2-CONFLICT-PATTERN-CAPACITY-PROJECTION-001`, `G2-CONFLICT-PATTERN-WORK-SURFACE-REACTIVATION-001`.
+- Process/Application: `G2-CONFLICT-PATTERN-AUTHORITY-LIVENESS-001`, `G2-CONFLICT-PATTERN-QUALIFICATION-JOIN-001`, `G2-CONFLICT-PATTERN-CROSS-PROCESS-COMPENSATION-001`.
 
-Pass-2 AGWS findings distinguish presentation ordering from mandatory operational priority, availability projection from reservation/capacity truth, and historical surface reconstruction from current action eligibility. They do not create target architecture or implementation work.
+Pass-2 Process/Application findings distinguish structural reachability from authority-qualified liveness, per-owner claim validity from jointly current fan-in applicability, and producer-local compensation eligibility from cross-process semantic adoption. Candidates around objective governance, brownfield coexistence, generic shared-fact ownership and recovery-cut external effects were duplicate-screened into existing patterns rather than re-catalogued.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 103 Full-Pass-1 patterns remain authoritative in their originating registers and prior index history. Full Pass 2 currently adds three AGWS patterns listed above.
+Existing 103 Full-Pass-1 patterns remain authoritative in their originating registers and prior index history. Full Pass 2 currently adds six patterns: three AGWS and three Process/Application patterns listed above.
 
-Total reusable conflict patterns indexed: **106**.
+Total reusable conflict patterns indexed: **109**.
 
 ## Campaign state
 
-- material edge findings: **240**;
-- reusable conflict patterns: **106**;
-- combined material findings: **346**;
+- material edge findings: **243**;
+- reusable conflict patterns: **109**;
+- combined material findings: **352**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - AGWS local no-material streak: **0**;
+- Process/Application local no-material streak: **0**;
 - Identity × Authorization × Station × AGWS × AI cluster no-material streak: **1**;
-- Full Pass 2 local coverage: **1/28 capabilities**;
-- Full Pass 2 mandatory cluster coverage: **1/12**;
+- Process/Application × Workflow × Data/Schema cluster no-material streak: **0**;
+- Full Pass 2 local coverage: **2/28 capabilities**;
+- Full Pass 2 mandatory cluster coverage: **2/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
 - negative-space review: NOT STARTED;
