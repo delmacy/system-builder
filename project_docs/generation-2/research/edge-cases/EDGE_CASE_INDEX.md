@@ -37,29 +37,30 @@ Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != Confir
 | Developer / Operator Experience / Self-hosting | `DEVELOPER_OPERATOR_EXPERIENCE_SELF_HOSTING_EDGE_CASE_REGISTER.md` | `G2-EDGE-DEVOPS-001..007` | deepens Build/Artifact/Deployment/Runtime + Provider/Binding + Secrets/Runtime/Provider + Observability/Security/Recovery + Identity/Authorization/Station/AGWS/AI clusters | 0 |
 | Provider / Binding / Capability Negotiation | `PROVIDER_BINDING_CAPABILITY_NEGOTIATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-PROVIDER-001..007` | deepens Provider/Binding × external realizations plus authority, secrets/runtime substitution, observability/recovery, trust/substitution, privacy/governance and FinOps interactions | 0 |
 | Standards / Interoperability / API Contracts | `STANDARDS_INTEROPERABILITY_API_CONTRACTS_EDGE_CASE_REGISTER.md` | `G2-EDGE-STANDARDS-001..007` | deepens Provider/Binding, Workflow/Integration/Messaging, Identity/Authorization/Station/AGWS/AI, Trust/Identity/Artifact/Provider and Data/Privacy/Storage/Lifecycle clusters | 0 |
+| Lifecycle / Versioning / Evolution / Migration | `LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-LIFECYCLE-001..007` | deepens Data/Privacy/Storage/Lifecycle, Provider/Binding, Workflow/Integration/Messaging, Build/Artifact/Deployment/Runtime, Identity/Authorization/Station/AGWS/AI and Trust/Identity/Artifact/Provider clusters | 0 |
 
-Full Pass 1 local coverage: **26/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+Full Pass 1 local coverage: **27/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 91 patterns remain authoritative in their originating registers and prior index history. Standards / Interoperability / API Contracts adds:
+Existing 95 patterns remain authoritative in their originating registers and prior index history. Lifecycle / Versioning / Evolution / Migration adds:
 
-- `G2-CONFLICT-PATTERN-CONFORMANCE-SEMANTICS-001`
-- `G2-CONFLICT-PATTERN-NEGOTIATION-NONWEAKENING-001`
-- `G2-CONFLICT-PATTERN-CONTRACT-EFFECT-001`
-- `G2-CONFLICT-PATTERN-CONTRACT-COEXISTENCE-001`
+- `G2-CONFLICT-PATTERN-MIGRATION-READINESS-001`
+- `G2-CONFLICT-PATTERN-CUTOVER-AUTHORITY-001`
+- `G2-CONFLICT-PATTERN-ROLLBACK-ELIGIBILITY-001`
+- `G2-CONFLICT-PATTERN-SUPERSESSION-LINEAGE-001`
 
-Total reusable conflict patterns indexed: **95**.
+Total reusable conflict patterns indexed: **99**.
 
-## Latest material summary — Standards / Interoperability / API Contracts
+## Latest material summary — Lifecycle / Versioning / Evolution / Migration
 
-Seven local material classes challenge syntax/schema validity versus domain semantic equivalence, extension criticality, encoding/locale/canonicalization ambiguity, scoped compatibility/currentness, downgrade non-weakening, protocol ACK/idempotency versus canonical effect, and withdrawal/generated-adapter residual cohorts/pathological graphs. Four reusable ConflictPatterns catalogue false semantic equivalence, negotiation weakening, contract/effect mismatch and contract-revision coexistence. No new mandatory cluster is created and no `ConflictInstance` is asserted.
+Seven local material classes challenge revision-vector truncation, timeless readiness/convergence, residual authoritative cohorts after cutover, deprecation/withdrawal races with in-flight work, historical availability versus current rollback eligibility, `PARTIAL/UNKNOWN` migration effects and unsafe retry, and correction/generated evolution that destroys producing history or exceeds current authority. Four reusable ConflictPatterns catalogue scoped migration readiness, cutover versus residual authority, current rollback eligibility and supersession lineage. No new mandatory cluster is created and no `ConflictInstance` is asserted.
 
 ## Campaign state
 
-- material edge findings: **223**;
-- reusable conflict patterns: **95**;
-- combined material findings: **318**;
+- material edge findings: **230**;
+- reusable conflict patterns: **99**;
+- combined material findings: **329**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - local no-material streak for every challenged capability: **0**;
 - mandatory-cluster streaks: **0**;
