@@ -22,22 +22,25 @@ All 12 mandatory clusters were challenged in Full Pass 1 and remain MATERIAL / S
 | 5 | Build × Artifact/Release × Deployment × Runtime | COVERED / MATERIAL NEW SCENARIO | `BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_FULL_PASS_2_REVISIT.md` | `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-005`; streak **0** |
 | 12 | Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution | COVERED / MATERIAL NEW SCENARIO | `ARTIFACT_RELEASE_SBOM_PROVENANCE_FULL_PASS_2_REVISIT.md` | `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-005`: individually valid release members need not share one compatible trust/authority/currentness cut; no new reusable ConflictPattern; streak **0** |
 | 9 | Observability × Security/Recovery × runtime truth | COVERED / MATERIAL NEW SCENARIO | `DEPLOYMENT_RUNTIME_AUTONOMOUS_OPERATION_FULL_PASS_2_REVISIT.md` | `G2-XEDGE-OBS-SEC-RECOVERY-RUNTIME-005`: telemetry topology/coverage can invalidate stronger security/recovery/runtime-truth claims; no new reusable ConflictPattern; streak **0** |
+| 10 | Extension/Plugin × authority × provider trust × lifecycle | COVERED / MATERIAL NEW SCENARIO | `EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_FULL_PASS_2_REVISIT.md` | `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-005`: effective dependency/provider closure can change after admission without a common authority/trust requalification cut; no new reusable ConflictPattern; streak **0** |
 
 Artifact/Release Pass 2 also adds `G2-EDGE-ARTIFACT-008..009`: per-member validity does not prove coherent release-set closure, and authentic attestations from different semantic profiles do not automatically satisfy the same portable claim. These map to existing qualification-join, qualified-claim, revision-vector, currentness, effective-identity, provider-qualification, attestation-qualification, trust-authority, distribution-convergence and migration/coexistence patterns.
 
 Deployment/Runtime Pass 2 also adds `G2-EDGE-RUNTIME-007..008`: traffic withdrawal does not prove execution/effect quiescence, and a suspended progress detector cannot be interpreted as positive rollout safety evidence. These map to existing health-qualification, actuation-convergence, currentness, qualified-claim, residual-cohort, recovery/containment and support/coverage patterns.
 
+Extension/Plugin Pass 2 adds `G2-EDGE-EXTENSION-008..009`: dependency diamonds can yield a locally valid but jointly unqualified realized semantic surface, and incidental activation/hook order can silently determine effective ownership/precedence. These map to existing dependency-closure, semantic-ownership, ordering, permission-composition, currentness and residual-cohort patterns.
+
 ## Full Pass 2 campaign state
 
-- canonical capabilities revisited: **9/28**;
-- mandatory clusters revisited: **9/12**;
+- canonical capabilities revisited: **10/28**;
+- mandatory clusters revisited: **10/12**;
 - Identity × Authorization × Station × AGWS × AI streak: **1**;
 - Provider/Binding × external realizations streak: **1**;
-- Observability × Security/Recovery × runtime truth streak: **0**;
+- Extension/Plugin × authority × provider trust × lifecycle streak: **0**;
 - other material-revisit cluster streaks: **0**;
-- material edge scenarios: **263**;
+- material edge scenarios: **266**;
 - reusable conflict patterns: **115**;
-- combined material findings: **378**;
+- combined material findings: **381**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
