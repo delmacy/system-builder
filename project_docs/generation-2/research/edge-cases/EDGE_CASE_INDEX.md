@@ -192,3 +192,34 @@ Register: `project_docs/generation-2/research/edge-cases/BUILD_DEPENDENCY_GRAPH_
 | `G2-CONFLICT-PATTERN-SUPPLY-CHAIN-001` | authority/AI/provider/supply-chain | individually authorized build primitives compose into unqualified supply-chain authority | CRITICAL | action/material dependency + effective authority + trust/capability diff | `BUILD-CONFLICT-PROOF-003` |
 
 Build / Dependency Graph / Reproducibility and Build × Artifact/Release × Deployment × Runtime discovered material findings on first visit, so both streaks are `0`. Full Pass 1 progress is 7/28 capabilities and 7/12 mandatory clusters; the full-pass count remains `0`.
+
+### Extension / Plugin / Marketplace Architecture
+Register: `project_docs/generation-2/research/edge-cases/EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_EDGE_CASE_REGISTER.md`
+
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-EDGE-EXTENSION-001` | provider/marketplace identity leaks into canonical extension identity | HIGH–CRITICAL | Extension + Provider/Binding + Lifecycle | `EXTENSION-ADV-PROOF-001` |
+| `G2-EDGE-EXTENSION-002` | install/enable races with extension revision or admission change | CRITICAL | Extension + Authorization + Trust + Lifecycle + Runtime | `EXTENSION-ADV-PROOF-002` |
+| `G2-EDGE-EXTENSION-003` | requested/granted/effective permission drift widens runtime authority | CRITICAL | Authorization + Extension + Runtime/Security | `EXTENSION-ADV-PROOF-003` |
+| `G2-EDGE-EXTENSION-004` | signature/provenance/trusted publisher is promoted into global safety/admission | CRITICAL | Artifact/Provenance + Trust + Extension + Security/Governance | `EXTENSION-ADV-PROOF-004` |
+| `G2-EDGE-EXTENSION-005` | host/API/dependency skew remains syntactically loadable but semantically incompatible | HIGH–CRITICAL | Extension + Standards + Provider/Binding + Lifecycle | `EXTENSION-ADV-PROOF-005` |
+| `G2-EDGE-EXTENSION-006` | uninstall/rollback reports success while extension-created state/effects remain authoritative | CRITICAL | Extension + Lifecycle + Runtime/Integration/Data owners | `EXTENSION-ADV-PROOF-006` |
+| `G2-EDGE-EXTENSION-007` | valid dependency/extension composition causes resource or authority explosion | CRITICAL | Extension + Build/Dependency + Authorization + Security + Runtime + FinOps | `EXTENSION-ADV-PROOF-007` |
+
+### Extension/Plugin × authority × provider trust × lifecycle
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-001` | transitive publisher/dependency trust exceeds intended authority | CRITICAL | Extension + Authorization + Trust/PKI + Build/Dependency | `XEXTENSION-ADV-PROOF-001` |
+| `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-002` | revocation/disablement conflicts with residual runtime authority | CRITICAL | Extension + Authorization + Runtime + Secrets + Integration + Lifecycle | `XEXTENSION-ADV-PROOF-002` |
+| `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-003` | provider/marketplace substitution changes semantics while canonical extension appears unchanged | HIGH–CRITICAL | Provider/Binding + Extension + Trust + Standards + Lifecycle | `XEXTENSION-ADV-PROOF-003` |
+| `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-004` | AI/low-code chains allowed extensions into a confused-deputy authority path | CRITICAL | Authorization + Extension + AGWS/AI + semantic owner | `XEXTENSION-ADV-PROOF-004` |
+
+### Processual / semantic conflict patterns discovered in Extension visit
+| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
+| --- | --- | --- | --- | --- | --- |
+| `G2-CONFLICT-PATTERN-EXTENSION-IDENTITY-001` | semantic/provider/version | realization identity conflicts with canonical extension identity | HIGH–CRITICAL | identity-provenance graph + governed alias/adoption evidence | `EXTENSION-CONFLICT-PROOF-001` |
+| `G2-CONFLICT-PATTERN-PERMISSION-COMPOSITION-001` | authority/AI/cross-process | locally valid extension permissions compose into excessive effective authority | CRITICAL | transitive requested/granted/effective graph + confused-deputy path analysis | `EXTENSION-CONFLICT-PROOF-002` |
+| `G2-CONFLICT-PATTERN-EXTENSION-LIFECYCLE-001` | state/lifecycle/recovery | control-plane lifecycle state conflicts with residual effective extension state | CRITICAL | residual cohort/effect inventory + postcondition reconciliation | `EXTENSION-CONFLICT-PROOF-003` |
+| `G2-CONFLICT-PATTERN-TRUST-PROVENANCE-001` | trust/policy/provenance | authentic/provenanced artifact conflicts with admission/safety/authority requirements | HIGH–CRITICAL | multidimensional admission evidence + current trust/permission/compatibility diff | `EXTENSION-CONFLICT-PROOF-004` |
+
+Extension / Plugin / Marketplace Architecture and Extension/Plugin × authority × provider trust × lifecycle discovered material findings on first visit, so both streaks are `0`. Full Pass 1 campaign state is 10/28 capabilities and 10/12 mandatory clusters challenged; full-pass count remains `0`.
