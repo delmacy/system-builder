@@ -1,6 +1,6 @@
 # Mathematical Expressions, Rules & Calculation — Evidence Ledger
 
-Status: IN_PROGRESS — increment 1
+Status: IN_PROGRESS — increments 1–2
 Phase: RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION
 Scope authority: `POST_PLANNING_B_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_RESEARCH.md`
 Evidence date: 2026-09-04
@@ -9,7 +9,7 @@ Evidence date: 2026-09-04
 
 What portable semantic contract is required for enterprise formulas, derived values and computed conditions so that calculation engines can be replaced without changing business meaning, historical truth or authority boundaries; and does that contract require a new canonical capability, a cross-cutting subcapability, an existing-owner primitive, or providerized mechanics?
 
-This increment is intentionally bounded. It establishes representative evidence for typed numerical semantics, deterministic evaluation, units, time, rounding, materialization and engine substitution. It does not close the phase or promote a capability.
+This evidence ledger is intentionally bounded. Increment 1 established representative evidence for typed numerical semantics, deterministic evaluation, units, time, rounding, materialization and engine substitution. Increment 2 deepens null/missing/error/unknown behavior, dependency graphs/cycles/recomputation, historical applicability, bulk/offline execution and provider conformance. It still does not close the phase or promote a capability.
 
 ## Semantic invariants under test
 
@@ -23,7 +23,7 @@ This increment is intentionally bounded. It establishes representative evidence 
 - business decimal/money semantics must not silently degrade to binary floating point.
 - the generic evaluator computes; the semantic owner defines what the formula means.
 
-## Evidence ledger
+## Evidence ledger — increment 1
 
 | ID | Representative / source | Evidence observed | Architectural implication | Coverage |
 |---|---|---|---|---|
@@ -35,7 +35,7 @@ This increment is intentionally bounded. It establishes representative evidence 
 | MATH-E06 | UCUM 2.2 — https://ucum.org/ucum | UCUM defines machine-readable unit expressions with precise semantics, dimensional equivalence/commensurability and computationally verifiable conversions. It explicitly targets electronic communication across science, engineering and business; currency is outside UCUM scope. | `UnitOfMeasure` should use portable semantic identity and dimensional compatibility rather than provider/display strings. Units and money are separate typed domains; a generic evaluator must reject or qualify incompatible dimensions rather than multiply arbitrary strings. | DEEP for units; N_A for currency. |
 | MATH-E07 | ISO 4217 currency codes — https://www.iso.org/iso-4217-currency-codes.html | ISO 4217 defines canonical alphabetic/numeric currency identifiers and, for currencies with minor units, the decimal relationship between currency and fractional unit. The maintenance authority updates code tables over time. | `Money` needs currency identity/revision/currentness separate from numeric magnitude. Currency exponent/minor-unit metadata does not itself define the business rounding policy, which must remain explicit and historically applicable. | DEEP for currency identity; PARTIAL for rounding semantics. |
 
-## Cross-representative convergence
+## Increment 1 convergence
 
 1. **Typed semantics beat untyped expression text.** DMN/FEEL, CEL and Power Fx all make types material to evaluation. Equivalent-looking source text is not sufficient evidence of equivalent behavior across engines.
 2. **Business decimal cannot inherit engine defaults.** CEL's core floating type is IEEE-754 double, while Power Fx and PostgreSQL provide decimal/exact arithmetic. Substitution therefore requires a declared numeric profile and conformance tests, not provider-name replacement.
@@ -45,66 +45,143 @@ This increment is intentionally bounded. It establishes representative evidence 
 6. **Units and currency require semantic identifiers.** UCUM supplies dimensional semantics; ISO 4217 supplies currency identity/minor-unit metadata. Neither should be reduced to display labels.
 7. **Semantic ownership remains outside the evaluator.** A formula engine can calculate a result but does not decide whether that result represents labor cost, a billing charge, an approval threshold, inventory valuation policy or authorization.
 
-## Divergence / substitution hazards
+## Evidence ledger — increment 2: failure semantics, DAG/recomputation and history
 
-- CEL `double` and Power Fx/PostgreSQL decimal can diverge on common business fractions and rounding chains.
-- Rounding defaults differ across ecosystems; therefore rounding mode, scale/precision and application point must be explicit when material.
-- Null/unknown/error are not universally equivalent; a provider returning `null` cannot automatically be treated as a successful zero, false or missing input.
-- Time functions can be evaluation-context dependent; provider substitution must qualify clock/time-zone/calendar behavior.
-- Unit support may be native, extension-based or absent. A provider without compatible dimensional semantics is `PARTIAL`/`UNSUPPORTED`, not silently equivalent.
-- Formula text portability is weaker than semantic portability. A provider-specific AST/function set may be stored as execution material, but provider identity and AST encoding must remain non-canonical.
+| ID | Representative / source | Evidence observed | Architectural implication | Coverage |
+|---|---|---|---|---|
+| MATH-E08 | CEL language definition / cel-go partial evaluation — https://github.com/cel-expr/cel-spec/blob/master/doc/langdef.md and https://github.com/google/cel-go | CEL makes `null` a distinct runtime type rather than generic absence; dynamic inputs can still produce runtime type errors. CEL also distinguishes **unknown** from **error** during partial evaluation, and commutative boolean operators can sometimes resolve a result despite unknown/error inputs. Checked ASTs retain source positions and partial evaluation can produce residual expressions. | `Missing`, `Null`, `Unknown` and `Error` cannot be normalized to one sentinel. A portable profile needs explicit dispositions plus evidence of which inputs remain unresolved. Provider conformance must test truth tables and short-circuit/partial-state behavior, not only successful values. | DEEP for null/error/unknown distinction and partial evaluation. |
+| MATH-E09 | Microsoft Power Fx formula-level error handling — https://learn.microsoft.com/en-us/power-platform/power-fx/error-handling | Power Fx has explicit error values and error propagation, but Blank is distinct and arithmetic can coerce Blank to zero in some contexts. `IfError` can replace selected errors; unobserved branches can contain errors without surfacing them. Formula-level error handling is configurable historically for older apps. | Provider defaults may silently turn missing/blank into numeric zero or suppress unobserved errors. Portable enterprise semantics therefore need **no implicit blank-to-zero/false coercion unless formula policy explicitly requests it**, plus engine-profile evidence recording error-mode assumptions. | DEEP for Blank/error coercion hazard. |
+| MATH-E10 | Drools DMN / FEEL implementation — https://kie.apache.org/docs/10.1.x/drools/drools/DMN/index.html | Drools implements FEEL numbers using Decimal128/BigDecimal semantics with 34 digits precision; invalid numeric conditions can yield `null`. Drools extends DMN in some type/function areas. | Even standards-aligned engines carry implementation profiles/extensions. Standards conformance alone does not prove provider equivalence; precision, null/error mapping and extensions need a qualified engine profile. | DEEP for implementation-profile divergence; PARTIAL for historical revision. |
+| MATH-E11 | HyperFormula 3.4 dependency graph — https://hyperformula.handsontable.com/docs/guide/dependency-graph.html | HyperFormula models formula/cell/range dependencies as a directed graph and evaluates prerequisites before dependents. It performs dependency-aware recalculation rather than treating formulas as isolated calls. | Cross-formula calculation requires a first-class dependency graph and stable formula/input identities. Recalculation scope can be derived from dependency closure; ad-hoc “recalculate everything” is not the only viable model. | DEEP for dependency graph. |
+| MATH-E12 | HyperFormula batch/volatile execution — https://hyperformula.handsontable.com/docs/api/classes/hyperformulans.html and https://hyperformula.handsontable.com/docs/guide/volatile-functions.html | Batch operations can defer evaluation so multiple mutations trigger one necessary recomputation set. Volatile functions such as NOW/TODAY/RAND are recalculated on defined actions and therefore explicitly escape pure input-only determinism. | Recalculation policy needs trigger/batch semantics and volatile/contextual-function classification. Historical replay cannot rely on reevaluating volatile functions; captured context/result lineage is required. | DEEP for batch/recompute/volatility. |
+| MATH-E13 | HyperFormula headless server-side execution — https://hyperformula.handsontable.com/docs/ and https://github.com/handsontable/hyperformula | HyperFormula is headless, runs in browsers and Node.js, supports hundreds of spreadsheet-compatible formulas and can be integrated server-side without a UI or mandatory remote service. | Offline/self-hosted evaluator mechanics are feasible. Provider substitution can include local engines, but licensing and function-profile compatibility remain qualification dimensions rather than canonical identity. | DEEP for local/offline; PARTIAL for semantic equivalence. |
+| MATH-E14 | Camunda DMN / History — https://camunda.com/platform/decision-engine/ and https://docs.camunda.io/docs/components/modeler/dmn/ | Camunda executes DMN/FEEL decisions at scale and exposes historical decision information including past inputs, rules triggered and outputs. DMN models and decision requirements graphs separate decision dependencies from process orchestration. | Historical evidence is a first-class concern: authoritative replay/audit requires the decision/formula revision plus inputs and outputs, not just recomputing today's model. Decision history is evidence, not replacement for canonical business-record ownership. | DEEP for history/evidence; PARTIAL for revision-addressing details. |
+| MATH-E15 | Stripe Price object — https://docs.stripe.com/api/prices/create | Stripe treats price-bearing commercial definitions as separately identified Price objects; price updates are bounded, and changing the economic amount is modeled by creating another Price rather than mutating arbitrary historical meaning in place. | A commercial formula/rate change should be revisioned/adopted with historical applicability. This is supporting evidence for `FormulaRevision != CalculationResult` and for retaining prior records against prior revisions, while Commercial remains semantic owner. | PARTIAL supporting pattern; provider-specific commercial semantics are not canonical calculation semantics. |
+| MATH-E16 | Drools rule engine agenda — https://docs.jboss.org/drools/release/latest/drools-docs/drools/rule-engine/index.html | Rules can react to working-memory changes and repeatedly activate other rules; the agenda and conflict-resolution strategy control execution order. Rule consequences may mutate facts and cause further evaluation. | Generic **formula evaluation** should stay separate from state-mutating rule/action execution. A calculation DAG should reject implicit cycles unless a specifically owned fixed-point/iterative policy exists; Drools-style action loops are not a safe default for derived-value formulas. | DEEP boundary evidence between pure calculation and stateful rules. |
 
-## Candidate portable semantic profile — evidence-backed, not yet final architecture
+## Increment 2 convergence
 
-The evidence supports evaluating these as reusable primitives/contracts rather than declaring a new capability yet:
+### 1. Failure values are a semantic algebra, not one nullable slot
 
-- `FormulaDefinition` — canonical semantic identity, owner, inputs/outputs, expression profile.
-- `FormulaRevision` — immutable revision plus historical applicability.
-- `TypedValue` — explicit type including Decimal, Integer, Boolean, String, Date/Time/Duration, Money, Quantity/Unit, Null/Missing/Unknown/Error.
-- `EvaluationContext` — source value identities/revisions, effective time, locale/display context if relevant, authority/data-access context, engine qualification reference.
-- `RoundingPolicy` — mode, scale/precision, application point and owner/policy revision.
-- `MaterializationPolicy` — live/virtual, stored snapshot, recompute trigger, historical immutability.
-- `CalculationResult` — result identity tied to formula revision + input/context revisions, never conflated with formula definition.
-- `CalculationEvidence` — engine/version/profile, normalized inputs, output, warnings/errors, evaluation time and conformance status.
-- `FormulaDependencyGraph` — formula-to-input/formula dependencies with cycle rejection or explicitly defined fixed-point semantics; no implicit cycles.
+Cross-engine evidence materially diverges:
 
-These are provisional research objects, not approved target architecture.
+- CEL: `null` is a real type; **unknown** and **error** are distinct evaluation states.
+- Power Fx: Blank and Error are distinct, but some arithmetic contexts coerce Blank to zero.
+- Drools/FEEL: invalid numeric evaluation may materialize as `null` under FEEL implementation semantics.
 
-## Required enterprise proof — labor hourly cost
+Therefore a provider-neutral profile must at least distinguish `PRESENT(value)`, `MISSING`, `NULL`, `UNKNOWN`, and `ERROR`; domain owners may further constrain which states are legal. Silent mapping `MISSING|NULL|UNKNOWN|ERROR -> 0|false|""` is forbidden unless an explicit, revisioned formula policy declares that coercion.
 
-A policy-neutral structure can express:
+### 2. Formula dependencies require acyclic-by-default graph semantics
 
-`HourlyLaborCost = (Salary + EmployerCharges + Benefits + AllocatedOverhead) / ProductiveHours`
+HyperFormula demonstrates an explicit directed dependency graph with dependency-aware recomputation. Stateful rule engines demonstrate that mutation-driven rule activation is a different execution model. The portable calculation layer should therefore treat formula dependencies as a DAG by default and reject cycles at validation/materialization time. A fixed-point/iterative cycle, if ever needed, must be an explicit domain-owned algorithm with convergence/iteration bounds and cannot arise accidentally from low-code references.
 
-Required semantics:
+### 3. Recalculation policy is independently revisioned behavior
 
-- all monetary terms are exact decimal `Money` in one qualified currency or require an explicit FX/conversion owner before aggregation;
-- `ProductiveHours` is a typed duration/quantity and must be non-zero and semantically commensurable;
-- rounding is explicit and owner-specific rather than inherited from the evaluator;
-- salary/charges/benefits/overhead/productive-hours are `StoredFact` inputs or separately-derived values with identities/revisions;
-- result is a `DerivedValue`; evaluation success does not make it an accounting posting, billing charge or authorization decision;
-- historical use requires the formula revision and input revisions applicable for the effective period.
+Batching and volatile-function evidence show that “when does this recompute?” is separate from “what does this formula mean?”. A formula may be recomputed on source change, transaction close, explicit command, schedule, or not at all after authoritative snapshot materialization. Volatile/contextual inputs such as clock/calendar/randomness require captured context and cannot be silently replayed against current values.
 
-Failure cases that must not silently coerce: zero/missing productive hours, mixed currencies without qualified conversion, stale applicability, overflow/precision loss, unknown input, incompatible units.
+### 4. Historical evidence must bind revision + inputs + context + result
 
-## Required enterprise proof — service-order labor cost
+Decision-history and price-versioning patterns reinforce that authoritative historical truth is not reconstructed by “run latest formula now”. A `CalculationResult` used as evidence should bind at minimum the canonical formula revision, input identities/revisions (or immutable normalized snapshot), relevant contextual revisions (calendar, currency/rate/rounding policy, evaluation instant), provider semantic-profile qualification, and output/error disposition.
 
-A policy-neutral structure can express:
+### 5. Provider substitution is a conformance problem, not parser compatibility
 
-`ServiceOrderLaborCost = WorkedDuration × HistoricallyApplicableHourlyLaborCost`
+Two engines are substitutable only for the declared semantic profile. Required conformance vectors include:
 
-Required semantics:
+- type system and null/missing/error/unknown truth tables;
+- decimal precision, overflow and rounding mode/application point;
+- money/currency and rate semantics;
+- units and dimensional conversion;
+- date/time/duration/calendar semantics;
+- function/operator behavior and evaluation order where observable;
+- volatile/contextual inputs;
+- dependency/cycle/recomputation behavior;
+- deterministic serialization/evidence output;
+- sandbox/purity and resource limits;
+- offline/bulk capability and engine-version currentness.
 
-- `WorkedDuration` is tied to the service-order/time-record evidence and a canonical duration unit;
-- hourly cost is selected by historical applicability, not by the current formula/current employee cost by default;
-- the resulting service-order cost snapshot records the hourly-cost calculation result/revision used;
-- a later salary or formula revision may trigger an explicitly authorized recomputation workflow, but must not silently rewrite the historical snapshot;
-- live UI preview and authoritative historical result are distinct products of evaluation;
-- provider/engine replacement is acceptable only after the new engine proves semantic equivalence for the declared numeric, rounding, temporal, unit, null/error and function profile.
+Conformance outcome should be qualified as `SUPPORTED`, `PARTIAL`, `UNSUPPORTED` or `INCONCLUSIVE`; provider IDs remain non-canonical.
 
-## Provisional ownership assessment
+## Enterprise proof extensions — increment 2
 
-Evidence in this increment leans toward **cross-cutting portable calculation semantics + providerized evaluation mechanics**, reused by semantic owners, rather than a calculation god-object. Confidence is intentionally `PARTIAL`: dependency/cycle semantics, historical revision applicability, bulk/vectorized evaluation, null/unknown/error comparison across representatives, offline engines and provider-conformance proof still require deeper evidence before the phase can choose among `KEEP_AS_CROSS_CUTTING_SUBCAPABILITY`, `PROMOTE_TO_CANONICAL_CAPABILITY`, `MERGE_INTO_EXISTING_OWNER` or `PROVIDERIZE_MECHANICS_WITH_PORTABLE_SEMANTICS`.
+### MATH-PROOF-09 — SLA/calendar deadline
+
+Example intent: `Deadline = BusinessCalendar.add(OpenedAt, SLA_Duration)`.
+
+Proof obligations:
+
+- `OpenedAt` is a stored timestamp with zone/offset semantics; `SLA_Duration` is typed duration, not a display string;
+- the applicable business-calendar revision/holiday set/time-zone/DST rule is explicit evidence;
+- missing calendar or stale/unqualified calendar yields `INCONCLUSIVE`/error, never fallback to 24x7 by accident;
+- replay of an old SLA uses the historically applicable calendar revision unless an explicit correction is authorized;
+- Workflow may consume the deadline, but does not own the calendar/formula semantics merely because the result gates a transition.
+
+### MATH-PROOF-10 — computed approval threshold
+
+Example intent: `RequiresApproval = EffectiveAmount > ApplicableApprovalThreshold`.
+
+Proof obligations:
+
+- amount and threshold use compatible Money/currency semantics;
+- threshold revision/effective period is explicit;
+- `UNKNOWN` amount or threshold never coerces to `false` and bypasses approval;
+- calculation success does not grant approval authority; Authorization/Policy remains owner of who may approve.
+
+### MATH-PROOF-11 — commission/rate
+
+Example intent: `Commission = QualifiedBase × ApplicableRate`.
+
+Proof obligations:
+
+- rate is a typed percentage/rate with explicit basis and scale;
+- rate/formula revision is selected by historical applicability;
+- rounding point and mode are explicit and reproducible;
+- later rate changes do not silently mutate historical commission snapshots;
+- Commercial/HR/domain policy owns commission meaning; calculator provides mechanics.
+
+### MATH-PROOF-12 — inventory valuation
+
+Example intent: a domain-owned valuation policy may use weighted-average or another bounded method.
+
+Proof obligations:
+
+- inventory domain owns lot/movement/value semantics and policy selection;
+- quantities carry compatible units; money carries currency; conversion/FX is separately qualified;
+- dependency graph can show which movement/source revisions contributed to the derived valuation;
+- correction/revaluation is explicit lineage, not overwrite of prior evidence;
+- provider engine cannot invent accounting policy from generic arithmetic support.
+
+### MATH-PROOF-13 — derived form field
+
+Example intent: UI shows `Total = Quantity × UnitPrice` while editing.
+
+Proof obligations:
+
+- preview is a live `DerivedValue`, not automatically an authoritative persisted fact;
+- missing quantity/price follows explicit display/form semantics and does not silently become authoritative zero;
+- the canonical formula revision is not a UI-control/provider ID;
+- if the record is saved with an authoritative snapshot, the saved result carries formula/input lineage;
+- low-code/AI authoring cannot reference unauthorized data/functions or mutate schema/policy as a formula side effect.
+
+## Provider semantic-conformance evidence requirements
+
+For a candidate evaluator/provider to be qualified for a canonical formula profile, evidence should include:
+
+1. engine/version and adapter/profile revision;
+2. canonical conformance corpus ID/revision;
+3. normalized formula revision and provider execution-material hash, kept distinct;
+4. pass/fail/partial/inconclusive results over typed boundary vectors;
+5. exact expected and observed values/dispositions for decimal, rounding, null/missing/error/unknown, units, time/calendar and cycle cases;
+6. resource/sandbox limits and prohibited functions/effects;
+7. bulk/offline capability and determinism constraints;
+8. currentness/applicability period of the qualification;
+9. substitution comparison against the currently effective provider profile;
+10. explicit non-equivalence surfacing rather than fallback to a “closest” provider behavior.
+
+## Provisional ownership assessment after increment 2
+
+Evidence is now stronger for **cross-cutting portable calculation semantics + providerized evaluator mechanics**, reused by semantic owners, rather than a standalone calculation god-object. No evidence in this increment requires a new top-level canonical capability: formula meaning remains naturally owned by Process/Application, Data, Workflow conditions, Commercial, FinOps, UI-derived fields or other domains, while the reusable concern is the typed/evidence-bearing calculation contract and engine conformance boundary.
+
+This remains **provisional / no taxonomy promotion yet**. Remaining research should still close temporal/calendar edge semantics, formula revision/adoption mechanics, bulk/resource-exhaustion limits, cross-engine conformance corpus design, and whether bounded synthesis/Planning-A backfill is necessary to name the cross-cutting subcapability explicitly.
 
 ## Proof obligations opened by increment 1
 
@@ -117,17 +194,28 @@ Evidence in this increment leans toward **cross-cutting portable calculation sem
 - MATH-PROOF-07: a provider-specific function/AST cannot leak into canonical formula identity; unsupported semantics yield `PARTIAL`, `UNSUPPORTED` or `INCONCLUSIVE` rather than false equivalence.
 - MATH-PROOF-08: AI/low-code formula authoring can propose/edit only within delegated formula authority and permitted inputs/functions; a request requiring domain/schema/policy change escalates instead of being materialized as a formula side effect.
 
+## Proof obligations opened by increment 2
+
+- MATH-PROOF-09: SLA/calendar deadlines replay with the historically applicable calendar/time-zone/holiday revision and never default missing calendar evidence to 24x7.
+- MATH-PROOF-10: computed approval conditions fail closed or remain inconclusive on unknown inputs and never grant approval authority.
+- MATH-PROOF-11: commission/rate calculations bind rate revision, basis and rounding policy; historical snapshots survive later rate changes.
+- MATH-PROOF-12: inventory valuation preserves domain ownership, movement/input lineage and explicit correction/revaluation rather than overwriting history.
+- MATH-PROOF-13: derived form previews remain distinct from authoritative stored snapshots and obey data/authoring authority boundaries.
+- MATH-PROOF-14: dependency cycles are rejected by default; any iterative/fixed-point semantics require an explicit owner, convergence rule, resource bound and proof.
+- MATH-PROOF-15: provider substitution runs the same conformance corpus and rejects/marks `PARTIAL|INCONCLUSIVE` when failure, decimal, temporal, unit or recomputation semantics diverge.
+- MATH-PROOF-16: bulk/offline evaluation preserves the same canonical results/evidence as single-evaluation semantics within declared resource limits; exhaustion produces explicit failure, not partial silent values.
+
 ## Remaining questions for next increment
 
-1. Compare null/missing/error/unknown semantics deeply across FEEL, CEL, Power Fx and one rules/decision implementation.
-2. Establish dependency graph/cycle behavior from spreadsheet/formula systems and calculation DAG implementations.
-3. Compare historical formula revision/materialization patterns from rule/decision engines and financial/rating systems.
-4. Evaluate bulk/vectorized execution and offline/self-hosted implementations.
-5. Evaluate provider-conformance strategy: normalized AST/profile vs canonical intermediate expression vs capability-qualified adapter.
-6. Expand enterprise proofs to SLA/calendar arithmetic, approval threshold, commission/rate, inventory valuation and derived form fields.
+1. Deepen temporal/calendar semantics: DST gaps/overlaps, month/year duration, business calendars, time-zone database revision and deadline inclusivity.
+2. Compare formula/model revision deployment and historical applicability in at least two mature decision/rating systems.
+3. Define canonical dependency/cycle diagnostics and bounded resource-exhaustion behavior for large DAGs/bulk evaluation.
+4. Build a concrete provider-conformance matrix/corpus outline for two semantically different engines.
+5. Decide whether the evidence is sufficient for `KEEP_AS_CROSS_CUTTING_SUBCAPABILITY + PROVIDERIZE_MECHANICS_WITH_PORTABLE_SEMANTICS` and, if so, identify the minimum bounded synthesis/Planning-A boundary backfill.
+6. Perform a negative-space pass over math-specific security/authority issues before closing the math gate.
 
 ## Current gate disposition
 
 `RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION = IN_PROGRESS`.
 
-This increment is evidence-bearing but insufficient to close the exit gate. Planning C remains blocked. Adversarial Edge-Case Saturation remains queued until this research and any bounded taxonomy/Planning-A backfill close.
+Increment 2 materially improves the exit-gate evidence but does not close it. Planning C remains blocked. Adversarial Edge-Case Saturation remains queued until this research and any bounded taxonomy/Planning-A backfill close.
