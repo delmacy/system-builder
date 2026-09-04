@@ -134,3 +134,32 @@ Register: `project_docs/generation-2/research/edge-cases/STORAGE_DOCUMENTS_MEDIA
 | `G2-CONFLICT-PATTERN-SUPPORT-001` | provider/capability negotiation | nominal feature equivalence conflicts with required semantic support | HIGH–CRITICAL | multidimensional support-vector + provider-differential conformance | `STORAGE-CONFLICT-PROOF-003` |
 
 Storage / Documents / Media and Provider/Binding × external realizations discovered material findings on first visit, so both streaks are `0`. Full Pass 1 progress is 5/28 capabilities and 5/12 mandatory clusters; the full-pass count remains `0`.
+
+### Secrets / Configuration / Environment Portability
+Register: `project_docs/generation-2/research/edge-cases/SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_EDGE_CASE_REGISTER.md`
+
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-EDGE-SECRETS-001` | symbolic reference, resolved value and provider-native identifier are conflated | CRITICAL | Secrets/Config + Provider/Binding + Authorization/Governance | `SECRETS-ADV-PROOF-001` |
+| `G2-EDGE-SECRETS-002` | source revision current while runtime consumer remains stale/revoked | CRITICAL | Secrets/Config + Runtime + Security + Provider/Binding | `SECRETS-ADV-PROOF-002` |
+| `G2-EDGE-SECRETS-003` | concurrent rotation/restart creates mixed credential/config epochs | HIGH–CRITICAL | Runtime + Secrets/Config + Lifecycle + semantic owner | `SECRETS-ADV-PROOF-003` |
+| `G2-EDGE-SECRETS-004` | rotation/revocation/provider mutation effect remains `UNKNOWN` and blind retry compounds ambiguity | CRITICAL | Secrets/Config + Provider/Binding + Integration/Security | `SECRETS-ADV-PROOF-004` |
+| `G2-EDGE-SECRETS-005` | recovery/rollback revives revoked, expired or incompatible secret/config state | CRITICAL | Recovery + Secrets/Config + Lifecycle + Authorization/Trust + Provider | `SECRETS-ADV-PROOF-005` |
+| `G2-EDGE-SECRETS-006` | pathological config/secret composition exhausts resources or leaks authority through AI/low-code | CRITICAL | Secrets/Config + Runtime + Authorization + AGWS/AI + FinOps | `SECRETS-ADV-PROOF-006` |
+
+### Secrets/Config × Runtime × Provider substitution
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-001` | provider rotation complete while consumer-effective adoption remains partial | CRITICAL | Secrets/Config + Runtime + Provider/Binding + Security | `XSECRETS-ADV-PROOF-001` |
+| `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-002` | provider substitution leaves old credentials/config paths materially usable | CRITICAL | Provider/Binding + Secrets/Config + Runtime + Security/Lifecycle | `XSECRETS-ADV-PROOF-002` |
+| `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-003` | offline runtime exceeds currentness horizon while remaining locally healthy | HIGH–CRITICAL | Secrets/Config + Runtime + Security/Trust + Provider/Binding | `XSECRETS-ADV-PROOF-003` |
+| `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-004` | provider-native secret/key/version identity becomes canonical binding identity | HIGH–CRITICAL | Secrets/Config + Provider/Binding + Standards + Authorization | `XSECRETS-ADV-PROOF-004` |
+
+### Processual / semantic conflict patterns discovered/adopted in Secrets/Config visit
+| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
+| --- | --- | --- | --- | --- | --- |
+| `G2-CONFLICT-PATTERN-CURRENTNESS-001` | temporal/version/security | provider/source currentness conflicts with runtime consumer-effective generation | CRITICAL | cohort generation + lease/version/currentness comparison | `SECRETS-CONFLICT-PROOF-001` |
+| `G2-CONFLICT-PATTERN-SECRET-BOUNDARY-001` | semantic/security/provider | reference, resolved value and provider identity collapse across generic composition | HIGH–CRITICAL | typed-flow + durable-value scan + provider mapping checks | `SECRETS-CONFLICT-PROOF-002` |
+| `G2-CONFLICT-PATTERN-AUTHORITY-002` | authority/SoD/human/AI | reveal, rotate, bind and deploy privileges compose into a separation-of-duty bypass | CRITICAL | action dependency + SoD policy + current `Enterprise → Station → Role → Person` analysis | `SECRETS-CONFLICT-PROOF-003` |
+
+Secrets / Configuration / Environment Portability and Secrets/Config × Runtime × Provider substitution discovered material findings on first visit, so both streaks are `0`. Full Pass 1 progress is 6/28 capabilities and 6/12 mandatory clusters; the full-pass count remains `0`.
