@@ -78,4 +78,32 @@ Register: `project_docs/generation-2/research/edge-cases/WORKFLOW_DURABLE_EXECUT
 | `G2-CONFLICT-PATTERN-RECOVERY-001` | exception/recovery | compensation/recovery conflicts with residual authoritative work | CRITICAL | residual-cohort inventory + post-recovery convergence | `WORKFLOW-CONFLICT-PROOF-003` |
 | `G2-CONFLICT-PATTERN-AUTHORITY-001` | authority/human procedure | durable assignment conflicts with current authority/responsibility | HIGH–CRITICAL | commit-time authority/currentness + SoD analysis | `WORKFLOW-CONFLICT-PROOF-004` |
 
-Workflow & Durable Execution and its paired cluster discovered material findings on first visit, so both streaks are `0`. Full Pass 1 remains incomplete.
+### Data / Schema / Migrations
+Register: `project_docs/generation-2/research/edge-cases/DATA_SCHEMA_MIGRATIONS_EDGE_CASE_REGISTER.md`
+
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-EDGE-DATA-001` | stale read drives incompatible canonical write | CRITICAL | Data/domain owner + Process/Workflow | `DATA-ADV-PROOF-001` |
+| `G2-EDGE-DATA-002` | duplicate/imported identity collision creates conflicting canonical subjects | HIGH–CRITICAL | Data/master/reference + domain identity owner | `DATA-ADV-PROOF-002` |
+| `G2-EDGE-DATA-003` | partial migration/backfill produces split semantic population | CRITICAL | Data/Schema + Lifecycle + affected owners | `DATA-ADV-PROOF-003` |
+| `G2-EDGE-DATA-004` | irreversible data evolution makes rollback falsely safe | CRITICAL | Lifecycle + Data/Schema + affected owners | `DATA-ADV-PROOF-004` |
+| `G2-EDGE-DATA-005` | StoredFact and DerivedValue are silently interchanged | CRITICAL | Data owner + Calculation + domain owner | `DATA-ADV-PROOF-005` |
+| `G2-EDGE-DATA-006` | large valid backfill exhausts capacity and creates unsafe mixed-state fallback | HIGH | Data + Operations/Storage + FinOps | `DATA-ADV-PROOF-006` |
+
+### Data/Schema × Privacy × Storage × Lifecycle
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001` | erasure request conflicts with legal hold/mandatory retention | CRITICAL | Privacy/Governance + Records/Lifecycle + Data | `XDATA-ADV-PROOF-001` |
+| `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-002` | canonical deletion/tombstone diverges from residual replicas/versions | CRITICAL | Storage + Data/Lifecycle + Privacy | `XDATA-ADV-PROOF-002` |
+| `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-003` | provider/storage substitution leaves stale authoritative replica | CRITICAL | Provider/Binding + Storage + Data/Lifecycle | `XDATA-ADV-PROOF-003` |
+| `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-004` | individually valid lifecycle policies compose into impossible canonical state | HIGH–CRITICAL | Governance/Privacy/Records + Data | `XDATA-ADV-PROOF-004` |
+
+### Processual / semantic conflict patterns discovered in Data visit
+| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
+| --- | --- | --- | --- | --- | --- |
+| `G2-CONFLICT-PATTERN-DATA-001` | data/consistency | competing canonical writes are locally valid but jointly violate owner invariants | HIGH–CRITICAL | revision/precondition conflict + invariant re-evaluation | `DATA-CONFLICT-PROOF-001` |
+| `G2-CONFLICT-PATTERN-POLICY-001` | policy/compliance | valid privacy/retention/residency obligations produce incompatible dispositions | HIGH–CRITICAL | obligation-set intersection + precedence/authority evidence | `DATA-CONFLICT-PROOF-002` |
+| `G2-CONFLICT-PATTERN-REPLICA-001` | provider/data/recovery | canonical lifecycle state conflicts with residual physical realizations | CRITICAL | replica/cohort inventory + delete/restore conformance | `DATA-CONFLICT-PROOF-003` |
+| `G2-CONFLICT-PATTERN-MIGRATION-001` | version/migration | old/new cohorts are individually valid but composition-incompatible | CRITICAL | revision-vector/cohort compatibility matrix | `DATA-CONFLICT-PROOF-004` |
+
+Data / Schema / Migrations and its paired cluster discovered material findings on first visit, so both streaks are `0`. Full Pass 1 remains incomplete.
