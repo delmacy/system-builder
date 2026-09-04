@@ -47,6 +47,19 @@
     "04": {
       "id": "CHAPTER_04",
       "title": "Builder grande, Runtime pequeno: composição modular e fechamento de dependências",
+      "version": "1.0.0",
+      "status": "PUBLISHED",
+      "artifact": "project_docs/generation-2/book/chapters/CHAPTER_04_BUILDER_GRANDE_RUNTIME_PEQUENO.md",
+      "first_published_at": "2026-09-04",
+      "last_revised_at": "2026-09-04",
+      "previous_versions": [],
+      "pending_revision_reason": null,
+      "primary_authoritative_sources": ["project_docs/generation-2/planning/PLANNING_A_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_BOUNDARIES.md", "project_docs/generation-2/planning/PLANNING_B_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_SB_CURRENT_STATE.md", "project_docs/generation-2/planning/PLANNING_A_DEPLOYMENT_ENVIRONMENT_RUNTIME_BOUNDARIES.md", "project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md", "project_docs/generation-2/RESEARCH_PIPELINE_STATE.json"],
+      "next_editorial_step": "Bounded review if target architecture or later adversarial research materially changes closure/autonomy/topology-collapse understanding."
+    },
+    "05": {
+      "id": "CHAPTER_05",
+      "title": "Low-code, Canvas e processos como grafos executáveis",
       "version": null,
       "status": "PLANNED",
       "first_published_at": null,
@@ -54,17 +67,17 @@
       "previous_versions": [],
       "pending_revision_reason": null,
       "primary_authoritative_sources": [],
-      "next_editorial_step": "Read Build/Dependency, Deployment/Runtime, Developer/Operator Self-hosting, UCA and executable composition materials; explain minimal runtime closure and why topology may collapse without semantic identity collapse."
+      "next_editorial_step": "Read UI/Form/Experience, Process/Application Modeling, Workflow, Integration/Automation, AGWS and low-code composition/conflict research. Explain graph semantics before Canvas ergonomics and distinguish visual validity from executable/compositional admissibility."
     },
-    "05-24": {
+    "06-24": {
       "status": "PLANNED",
       "authority": "project_docs/generation-2/book/TABLE_OF_CONTENTS.md"
     }
   },
-  "sources_consulted_last_round": ["project_docs/generation-2/RESEARCH_PIPELINE_STATE.json", "project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md", "project_docs/generation-2/planning/PLANNING_A_UNIVERSAL_CAPABILITY_ARCHITECTURE_BOUNDARIES.md", "project_docs/generation-2/planning/PLANNING_A_PROVIDER_BINDING_CAPABILITY_NEGOTIATION_BOUNDARIES.md", "project_docs/generation-2/planning/PLANNING_B_PROVIDER_BINDING_CAPABILITY_NEGOTIATION_SB_CURRENT_STATE.md"],
-  "glossary_terms_added_last_round": ["Admission", "Capability/Support Vector", "Qualification", "Residual cohort", "Semantic god-object", "Universal Capability Architecture (UCA)"],
+  "sources_consulted_last_round": ["project_docs/generation-2/RESEARCH_PIPELINE_STATE.json", "project_docs/generation-2/planning/PLANNING_A_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_BOUNDARIES.md", "project_docs/generation-2/planning/PLANNING_B_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_SB_CURRENT_STATE.md", "project_docs/generation-2/planning/PLANNING_A_DEPLOYMENT_ENVIRONMENT_RUNTIME_BOUNDARIES.md", "project_docs/generation-2/synthesis/CAPABILITY_SYNTHESIS.md"],
+  "glossary_terms_added_last_round": ["Build closure", "Closure", "Cumulative context", "Minimal runtime closure", "Retained runtime closure", "Runtime autonomy", "Topology collapse", "Transitive dependency closure"],
   "revision_queue": [],
-  "editorial_notes": ["The adversarial phase remains ACTIVE / NOT_SATURATED; Planning C remains blocked.", "At this editorial snapshot Full Pass 1 is complete and Full Pass 2 is 6/28 capabilities and 6/12 mandatory clusters; only 1/8 minimum full passes is complete.", "Chapter 3 deliberately distinguishes researched Provider/Binding boundaries from the narrower provider-neutral AI seam evidenced in current SB.", "Chapter 3 treats UCA as reusable structural vocabulary and explicitly rejects semantic god-object behavior."],
-  "next_step": "Write Chapter 4 — Builder grande, Runtime pequeno: composição modular e fechamento de dependências — starting at v1.0.0 only when published. Explain executable capability composition, cumulative context, minimal runtime closure, build/dependency closure, runtime autonomy, topology collapse versus semantic collapse, and simple-system ergonomics without claiming Planning C architecture.",
-  "updated_at": "2026-09-04T18:11:00-03:00"
+  "editorial_notes": ["The adversarial phase remains ACTIVE / NOT_SATURATED; Planning C remains blocked.", "At this editorial snapshot Full Pass 1 is complete and Full Pass 2 is 9/28 capabilities and 9/12 mandatory clusters; only 1/8 minimum full passes is complete.", "Chapter 4 deliberately distinguishes build closure from retained runtime closure and topology collapse from semantic collapse.", "Chapter 4 records current SB assembly/compiler determinism as a meaningful bounded foundation, not as proof of generalized hermetic/reproducible build or mathematically minimal runtime closure.", "No earlier chapter requires revision from this round."],
+  "next_step": "Write Chapter 5 — Low-code, Canvas e processos como grafos executáveis — starting at v1.0.0 only when published. Explain human visual composition versus canonical process semantics, nodes/edges/guards/state/effects, graph validation versus composition admissibility, semantic-owner constraints, low-code/AI valid-but-dangerous composition, and how Canvas can remain ergonomic without becoming the source of truth.",
+  "updated_at": "2026-09-04T19:09:00-03:00"
 }
