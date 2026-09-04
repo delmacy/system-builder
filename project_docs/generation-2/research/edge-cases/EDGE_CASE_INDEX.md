@@ -31,29 +31,30 @@ Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != Confir
 | Governance / Compliance / Audit | `GOVERNANCE_COMPLIANCE_AUDIT_EDGE_CASE_REGISTER.md` | `G2-EDGE-GOVERNANCE-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Provider/Binding + Observability/Security/Recovery + Data/Privacy/Storage/Lifecycle clusters | 0 |
 | Security / Resilience / Failure Recovery | `SECURITY_RESILIENCE_FAILURE_RECOVERY_EDGE_CASE_REGISTER.md` | `G2-EDGE-SECURITY-001..007` | deepens Observability/Security/Recovery + Workflow/Integration/Messaging + Provider/Binding + Secrets/Runtime/Provider + Identity/Authorization/Station/AGWS/AI clusters | 0 |
 | Enterprise Trust / PKI / Certificate Lifecycle | `ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE_EDGE_CASE_REGISTER.md` | `G2-EDGE-TRUST-001..007` | deepens Trust/Identity/Artifact/Provider + Provider/Binding + Secrets/Runtime/Provider + Identity/Authorization/Station/AGWS/AI + Observability/Security/Recovery clusters | 0 |
+| Privacy / Data Governance / Retention / Legal Hold / Residency | `PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY_EDGE_CASE_REGISTER.md` | `G2-EDGE-PRIVACY-001..007` | deepens Data/Privacy/Storage/Lifecycle + Provider/Binding + Observability/Security/Recovery + Identity/Authorization/Station/AGWS/AI clusters | 0 |
 
-Full Pass 1 local coverage: **20/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+Full Pass 1 local coverage: **21/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
-Existing 67 patterns remain authoritative in their originating registers and prior index history. Enterprise Trust / PKI / Certificate Lifecycle adds:
+Existing 71 patterns remain authoritative in their originating registers and prior index history. Privacy / Data Governance / Retention / Legal Hold / Residency adds:
 
-- `G2-CONFLICT-PATTERN-TRUST-CURRENTNESS-001`
-- `G2-CONFLICT-PATTERN-TRUST-COHORT-001`
-- `G2-CONFLICT-PATTERN-CRYPTO-AUTHORITY-001`
-- `G2-CONFLICT-PATTERN-TRUST-EMERGENCY-001`
+- `G2-CONFLICT-PATTERN-PURPOSE-USE-001`
+- `G2-CONFLICT-PATTERN-PRESERVATION-DISPOSITION-001`
+- `G2-CONFLICT-PATTERN-RESIDENCY-PLACEMENT-001`
+- `G2-CONFLICT-PATTERN-ERASURE-RECOVERY-001`
 
-Total reusable conflict patterns indexed: **71**.
+Total reusable conflict patterns indexed: **75**.
 
-## Latest material summary — Enterprise Trust / PKI / Certificate Lifecycle
+## Latest material summary — Privacy / Data Governance / Retention / Legal Hold / Residency
 
-Seven local material classes challenge stale/wrong anchor generations, revocation/status currentness and profile applicability, asynchronous rotation cohorts, compromise/emergency continuity, cryptographic-validity versus identity/authorization ownership, ambiguous issuance/revocation effects, and clock/resource/AI-low-code false trust confidence. Four reusable ConflictPatterns catalogue current-path versus enterprise-currentness divergence, cross-generation cohort incompatibility, crypto-validity authority confusion and emergency trust versus continuity conflict. No new mandatory cluster is created. `G2-CONFLICT-PATTERN-CRYPTO-AUTHORITY-001` records a bounded preventive invariant candidate only for non-amplification of business authority; no implementation is prescribed and no `ConflictInstance` is asserted.
+Seven local material classes challenge stale purpose/use eligibility, retention-expiry versus active preservation obligations, primary-delete versus residual-population erasure closure, operation/resource-scoped residency, ambiguous subject/population linkage, recovery resurrection of disposed/restricted data, and scale/offline/AI-low-code coercion of incomplete evidence into apparent permission. Four reusable ConflictPatterns catalogue technical authorization versus privacy eligibility, preservation versus disposition, local placement versus population-wide residency and recovery versus current erasure/restriction truth. No new mandatory cluster is created. `G2-CONFLICT-PATTERN-PRESERVATION-DISPOSITION-001` carries only a bounded preventive-invariant candidate for unresolved applicable preservation blockers; no implementation is prescribed and no `ConflictInstance` is asserted.
 
 ## Campaign state
 
-- material edge findings: **181**;
-- reusable conflict patterns: **71**;
-- combined material findings: **252**;
+- material edge findings: **188**;
+- reusable conflict patterns: **75**;
+- combined material findings: **263**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - local no-material streak for every challenged capability: **0**;
 - mandatory-cluster streaks: **0**;
