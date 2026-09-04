@@ -27,8 +27,9 @@ Detailed scenario fields remain authoritative in the linked registers. This inde
 | Technology Economic Governance / FinOps | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_EDGE_CASE_REGISTER.md` | `G2-EDGE-FINOPS-001..007` | `G2-XEDGE-MATH-FINOPS-001..005` | 0 |
 | Universal Capability Architecture | `UNIVERSAL_CAPABILITY_ARCHITECTURE_EDGE_CASE_REGISTER.md` | `G2-EDGE-UCA-001..007` | none added; reusable cross-owner patterns linked in matrix | 0 |
 | UI / Generated Experience / Low-code Builder | `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_EDGE_CASE_REGISTER.md` | `G2-EDGE-UI-001..007` | none added; findings deepen existing mandatory clusters | 0 |
+| Integration & Automation | `INTEGRATION_AUTOMATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-INTEGRATION-001..007` | none added; findings deepen existing Workflow × Integration × Messaging and Provider/Binding clusters | 0 |
 
-Full Pass 1 local coverage after UI: **14/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
+Full Pass 1 local coverage after Integration & Automation: **15/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **0/8 minimum**.
 
 ## Reusable processual / semantic conflict-pattern inventory
 
@@ -105,19 +106,25 @@ Full Pass 1 local coverage after UI: **14/28 capabilities**. Mandatory clusters:
 - `G2-CONFLICT-PATTERN-HUMAN-INSTRUCTION-001`
 - `G2-CONFLICT-PATTERN-LOWCODE-MATERIALIZATION-001`
 
-Total reusable conflict patterns indexed: **47**.
+### Integration & Automation
+- `G2-CONFLICT-PATTERN-INTEGRATION-IDENTITY-001`
+- `G2-CONFLICT-PATTERN-IDEMPOTENCY-QUALIFICATION-001`
+- `G2-CONFLICT-PATTERN-SUBSCRIPTION-COEXISTENCE-001`
+- `G2-CONFLICT-PATTERN-AUTOMATION-COMPOSITION-001`
 
-## Latest material summary — UI / Generated Experience / Low-code Builder
+Total reusable conflict patterns indexed: **51**.
 
-The UI Full Pass 1 visit found seven material local classes: stale semantic projection against incompatible owner revisions; presentation mistaken for authority; optimistic UI collapsing ambiguous external effects; malformed/localized/accessibility-invalid representation changing semantic input; concurrent stale-base drafts; valid low-code graph/resource explosion; and DerivedValue being persisted as StoredFact without declared materialization semantics.
+## Latest material summary — Integration & Automation
 
-Four reusable ConflictPatterns catalogue composition failures where individually valid projection/owner semantics, presentation/authority claims, human instructions, or low-code primitives become incompatible only after composition. They remain detection/remediation-route research candidates; no `ConflictInstance` is asserted.
+The Integration Full Pass 1 visit found seven local material classes: duplicate/replayed trigger versus semantic-effect identity; out-of-order/stale trigger actuation; provider idempotency scope/horizon mismatch; provider ACK collapse into semantic completion; concurrent enable/disable/cutover leaving residual subscriptions/jobs/callbacks; callback authenticity/credential capability mistaken for current canonical authority; and recursive/fan-out AI/low-code automation that is locally valid but globally unsafe.
+
+Four reusable ConflictPatterns catalogue identity mismatch, qualified idempotency, subscription/provider coexistence and unsafe automation composition. They deepen existing Workflow × Integration × Messaging, Provider/Binding, Identity/Authorization and low-code interaction classes. No new mandatory cluster is created and no `ConflictInstance` or remediation implementation is asserted.
 
 ## Campaign state
 
-- material edge findings: **139**;
-- reusable conflict patterns: **47**;
-- combined material findings: **186**;
+- material edge findings: **146**;
+- reusable conflict patterns: **51**;
+- combined material findings: **197**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - local no-material streak for every challenged capability: **0** because every first visit has produced material findings;
 - mandatory-cluster streaks: **0**;
