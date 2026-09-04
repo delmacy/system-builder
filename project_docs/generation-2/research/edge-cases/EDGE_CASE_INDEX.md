@@ -21,26 +21,27 @@ Full Pass 1 completed **28/28 capabilities** and **12/12 mandatory clusters**. T
 | Data / Schema / Migrations | `DATA_SCHEMA_MIGRATIONS_FULL_PASS_2_REVISIT.md` | `G2-EDGE-DATA-007..008` | `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-005` | 0 | 0 |
 | Storage / Documents / Media | `STORAGE_DOCUMENTS_MEDIA_FULL_PASS_2_REVISIT.md` | `G2-EDGE-STORAGE-007..008` | Provider/Binding × external realizations: no genuinely new material class after duplicate screen | 0 | 1 |
 | Secrets / Configuration / Environment Portability | `SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_FULL_PASS_2_REVISIT.md` | `G2-EDGE-SECRETS-007..008` | `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-005` | 0 | 0 |
-| Build / Dependency Graph / Reproducibility | `BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_FULL_PASS_2_REVISIT.md` | `G2-EDGE-BUILD-007..008` | `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-005` — byte identity does not establish equivalent producing provenance/authority/policy eligibility | 0 | 0 |
+| Build / Dependency Graph / Reproducibility | `BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_FULL_PASS_2_REVISIT.md` | `G2-EDGE-BUILD-007..008` | `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-005` | 0 | 0 |
+| Artifact / Release / SBOM / Provenance | `ARTIFACT_RELEASE_SBOM_PROVENANCE_FULL_PASS_2_REVISIT.md` | `G2-EDGE-ARTIFACT-008..009` | `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-005` — individually valid members lack one common trust/authority/currentness cut | 0 | 0 |
 
 ## Pass-2 reusable ConflictPatterns
 
-Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config and Build added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
+Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build and Artifact/Release added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
 
-Build Pass 2 maps `G2-EDGE-BUILD-007..008` and `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-005` to existing qualification-join, revision-vector, currentness, effective-identity, provider-qualification, attestation-qualification, trust-authority and qualified-claim patterns.
+Artifact/Release Pass 2 maps `G2-EDGE-ARTIFACT-008..009` and `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-005` to existing qualification-join, qualified-claim, revision-vector, currentness, effective-identity, provider-qualification, attestation-qualification, trust-authority, distribution-convergence and migration/coexistence patterns.
 
 ## Campaign state
 
-- material edge findings: **257**;
+- material edge findings: **260**;
 - reusable conflict patterns: **115**;
-- combined material findings: **372**;
+- combined material findings: **375**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
-- Build / Dependency Graph / Reproducibility local no-material streak: **0**;
-- Build × Artifact/Release × Deployment × Runtime cluster no-material streak: **0**;
+- Artifact / Release / SBOM / Provenance local no-material streak: **0**;
+- Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution cluster streak: **0**;
 - Identity × Authorization × Station × AGWS × AI cluster streak: **1**;
 - Provider/Binding × external realizations cluster streak: **1**;
-- Full Pass 2 local coverage: **7/28 capabilities**;
-- Full Pass 2 mandatory cluster coverage: **7/12**;
+- Full Pass 2 local coverage: **8/28 capabilities**;
+- Full Pass 2 mandatory cluster coverage: **8/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
 - negative-space review: NOT STARTED;
