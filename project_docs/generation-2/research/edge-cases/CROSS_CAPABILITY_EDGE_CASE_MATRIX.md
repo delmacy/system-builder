@@ -22,32 +22,30 @@ This matrix indexes detailed per-capability registers. It does not assert `Confl
 | 11 | Commercial Metering × Entitlements × Rating × Billing × Payment | MATERIAL / STREAK 0 | existing registers | commercial pipeline reconciliation remains producing-revision and effect qualified |
 | 12 | Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution | MATERIAL / STREAK 0 | existing registers | trust/identity/release/provider evidence remains independently currentness-qualified |
 
-## Architecture Reconciliation deepening — reusable conflict links
+## Full Pass 2 — mandatory cluster revisits
+
+| # | Cluster | Pass-2 status | Detailed artifact | Result / streak |
+| --- | --- | --- | --- | --- |
+| 3 | Identity × Authorization × Station × AGWS × AI | COVERED / NO NEW MATERIAL CLASS | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_2_REVISIT.md` | stale authority, simultaneous human/AI edits, AI action-sequence composition, inherited constraints, stale evidence and AI/provider bypass all mapped to already-catalogued classes after duplicate screening; eligible no-material streak **1** |
+
+The same AGWS revisit found three new **local** composition classes that do not constitute a new finding for cluster 3: presentation ordering versus mandatory operational priority, cross-surface capacity projection versus canonical reservation/allocation truth, and historical surface reconstruction versus current action eligibility. These are linked through `G2-CONFLICT-PATTERN-WORK-PRIORITY-PROJECTION-001`, `G2-CONFLICT-PATTERN-CAPACITY-PROJECTION-001` and `G2-CONFLICT-PATTERN-WORK-SURFACE-REACTIVATION-001`.
 
 No 13th mandatory cluster is added.
 
-| Conflict pattern | Cross-capability activation | Detection candidate | Status |
-| --- | --- | --- | --- |
-| `G2-CONFLICT-PATTERN-RECONCILIATION-CURRENTNESS-001` | desired revision advances while observed/runtime/provider evidence still represents an older or unknown generation | revision-vector/currentness match + stale-cache/evidence check + producing-generation validation | MATERIAL / catalogue |
-| `G2-CONFLICT-PATTERN-RECONCILIATION-OWNERSHIP-001` | generic reconciler/AI can compare a mismatch and assumes this grants authority to choose which semantic owner must change | owner graph + current authority/SoD check + mutation actor/proposal lineage | MATERIAL / catalogue |
-| `G2-CONFLICT-PATTERN-RECONCILIATION-CLOSURE-001` | one covered cohort is conformant while another applicable/residual cohort remains unobserved or authoritative | applicability/cohort graph + coverage completeness + last-authoritative-effect evidence | MATERIAL / catalogue |
-| `G2-CONFLICT-PATTERN-RECONCILIATION-LINEAGE-001` | correction/closure is based on one revision/evidence set while concurrent supersession changes current truth and later history loses the producing inputs | base-revision reassessment + supersession graph + evidence lineage/audit replay | MATERIAL / catalogue |
+## Full Pass 2 campaign state
 
-These preserve `comparison != semantic ownership`, `observed evidence != canonical truth`, `local conformance != universal closure`, `historical review != current qualification`, and `correction != deletion of producing history`.
-
-## Full Pass 1 campaign state
-
-- mandatory clusters challenged: **12/12**;
-- all mandatory cluster no-material streaks: **0**;
-- canonical capabilities challenged locally: **28/28**;
-- latest Architecture Reconciliation findings: **7 edge scenarios + 4 conflict patterns; local streak 0**;
-- material edge scenarios: **237**;
-- reusable conflict patterns: **103**;
-- combined material findings: **340**;
-- full passes completed: **1/8 minimum**;
+- canonical capabilities revisited: **1/28**;
+- mandatory clusters revisited: **1/12**;
+- Identity × Authorization × Station × AGWS × AI streak: **1**;
+- all other mandatory cluster streaks: **0**;
+- material edge scenarios: **240**;
+- reusable conflict patterns: **106**;
+- combined material findings: **346**;
+- HIGH/CRITICAL without owner/proof/detection route: **0**;
+- completed full passes: **1/8 minimum**;
 - active full pass: **2**;
 - negative-space review: NOT STARTED;
 - saturation: NOT SATURATED;
 - `PLANNING_C_TARGET_ARCHITECTURE`: BLOCKED.
 
-Detailed scenario fields remain authoritative in linked registers and `EDGE_CASE_INDEX.md`. Full Pass 2 must revisit all capabilities and mandatory clusters; eligible no-material streaks only advance on revisits with no material finding.
+Detailed scenario fields remain authoritative in linked registers and `EDGE_CASE_INDEX.md`. Full Pass 2 must revisit all capabilities and mandatory clusters; eligible no-material streaks only advance on revisits with no genuinely new material finding.
