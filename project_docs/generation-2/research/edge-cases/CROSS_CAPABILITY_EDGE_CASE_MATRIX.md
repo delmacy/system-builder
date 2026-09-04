@@ -31,6 +31,18 @@ Material interactions:
 
 Conflict patterns linked: `G2-CONFLICT-PATTERN-STRUCTURAL-001`, `G2-CONFLICT-PATTERN-VERSION-001`, `G2-CONFLICT-PATTERN-SEMANTIC-001`, `G2-CONFLICT-PATTERN-AI-LOWCODE-001`. These are catalogued detection/remediation candidates, not asserted ConflictInstances.
 
+### Cluster 2 — Workflow × Integration × Messaging × external mutation
+Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
+Register: `project_docs/generation-2/research/edge-cases/WORKFLOW_DURABLE_EXECUTION_EDGE_CASE_REGISTER.md`
+
+Material interactions:
+- `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-001` — provider/request/publication acknowledgement does not prove effective/converged business state; workflow terminal progress requires semantic-owner-qualified evidence.
+- `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-002` — workflow retry may be locally valid while connector/provider idempotency scope, lifetime or provider generation makes the external mutation non-deduplicated; ambiguous mutation stays `UNKNOWN` until reconciliation.
+- `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-003` — compensation/cancellation can race with delayed original/retry deliveries; closure is false while residual authoritative deliveries can reapply the effect.
+- `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-004` — provider substitution can leave old subscriptions/messages/attempts authoritative; cutover remains `PARTIAL/INCONCLUSIVE` until residual cohorts are fenced, drained or explicitly dispositioned.
+
+Conflict patterns linked: `G2-CONFLICT-PATTERN-TEMPORAL-001`, `G2-CONFLICT-PATTERN-PROVIDER-001`, `G2-CONFLICT-PATTERN-RECOVERY-001`, `G2-CONFLICT-PATTERN-AUTHORITY-001`. They remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; none is a claimed current ConflictInstance.
+
 ### Cluster 3 — Identity × Authorization × Station × AGWS × AI
 Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
 Register: `project_docs/generation-2/research/edge-cases/ADAPTIVE_GOVERNED_WORK_SURFACES_EDGE_CASE_REGISTER.md`
@@ -40,4 +52,4 @@ Material interactions:
 - `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-002` — Station/Role transition racing with proposal approval/promotion can transfer stale authority across scopes unless admission revalidates applicability at commit time.
 - `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-003` — visible mandatory guardrail does not prove owner-level enforcement when AI can invoke another path.
 
-Clusters 1 and 3 both discovered material findings, so their no-material streaks are `0`. All other mandatory clusters remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
+Clusters 1, 2 and 3 discovered material findings, so their no-material streaks are `0`. All other mandatory clusters remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
