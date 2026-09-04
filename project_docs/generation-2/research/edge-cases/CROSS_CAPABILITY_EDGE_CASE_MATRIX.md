@@ -16,7 +16,7 @@ This matrix indexes detailed per-capability registers. It does not assert `Confl
 | 5 | Build × Artifact/Release × Deployment × Runtime | **CHALLENGED / MATERIAL / STREAK 0** | `BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_EDGE_CASE_REGISTER.md` | `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-001..004` | `BUILD-PROVENANCE-001`, `EFFECTIVE-IDENTITY-001`, `SUPPLY-CHAIN-001` |
 | 6 | Provider/Binding × external realizations | **CHALLENGED / MATERIAL / STREAK 0** | `STORAGE_DOCUMENTS_MEDIA_EDGE_CASE_REGISTER.md` | `G2-XEDGE-PROVIDER-STORAGE-001..004` | `PROVIDER-002`, `REPRESENTATION-001`, `SUPPORT-001` |
 | 7 | Secrets/Config × Runtime × Provider substitution | **CHALLENGED / MATERIAL / STREAK 0** | `SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_EDGE_CASE_REGISTER.md` | `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-001..004` | `CURRENTNESS-001`, `SECRET-BOUNDARY-001`, `AUTHORITY-002` |
-| 8 | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps | **NOT YET CHALLENGED IN FULL PASS 1 — NEXT** | — | — | — |
+| 8 | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps | **CHALLENGED / MATERIAL / STREAK 0** | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_EDGE_CASE_REGISTER.md` | `G2-XEDGE-MATH-FINOPS-001..005` | `ECONOMIC-EVIDENCE-001`, `ALLOCATION-CONSERVATION-001`, `ECONOMIC-REVISION-001`, `OBJECTIVE-GOVERNANCE-001`, plus prior `COMMERCIAL-REVISION-001` where applicable |
 | 9 | Observability × Security/Recovery × runtime truth | **CHALLENGED / MATERIAL / STREAK 0** | `DEPLOYMENT_RUNTIME_AUTONOMOUS_OPERATION_EDGE_CASE_REGISTER.md` | `G2-XEDGE-OBS-SEC-RECOVERY-RUNTIME-001..004` | `HEALTH-QUALIFICATION-001`, `RECOVERY-CONTAINMENT-001`, `ACTUATION-CONVERGENCE-001` |
 | 10 | Extension/Plugin × authority × provider trust × lifecycle | **CHALLENGED / MATERIAL / STREAK 0** | `EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_EDGE_CASE_REGISTER.md` | `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-001..004` | `EXTENSION-IDENTITY-001`, `PERMISSION-COMPOSITION-001`, `EXTENSION-LIFECYCLE-001`, `TRUST-PROVENANCE-001` |
 | 11 | Commercial Metering × Entitlements × Rating × Billing × Payment | **CHALLENGED / MATERIAL / STREAK 0** | `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_EDGE_CASE_REGISTER.md` | `G2-XEDGE-COMMERCIAL-001..005` | `COMMERCIAL-PIPELINE-001`, `COMMERCIAL-REVISION-001`, `COMMERCIAL-COHORT-001`, `COMMERCIAL-AUTHORITY-001` |
@@ -31,7 +31,7 @@ This matrix indexes detailed per-capability registers. It does not assert `Confl
 5. **Build × Release × Deployment × Runtime:** adjacent lifecycle identities remain distinct; success upstream does not prove downstream convergence or rollback eligibility.
 6. **Provider/Binding × external realization:** ACK/support labels are weaker than canonical qualification; residual cohorts and identity leakage remain explicit.
 7. **Secrets/Config × Runtime × Provider:** source rotation can be current while consumer-effective state remains stale; old credentials/config paths can survive cutover.
-8. **Math × Workflow × Data × UI/Form × Commercial/FinOps:** pending Full Pass 1 challenge. Prior math research is evidence input, not saturation credit.
+8. **Math × Workflow × Data × UI/Form × Commercial/FinOps:** a DerivedValue cannot silently become StoredFact; producing FormulaRevision and historical snapshot must remain distinguishable from live recomputation; internal technology cost remains distinct from customer-commercial charge truth; cross-owner formula/allocation cycles and objective conflicts require explicit detection/owner routing rather than arbitrary evaluation order or cheapest-wins optimization.
 9. **Observability × Security/Recovery × runtime truth:** green health does not prove security/recovery qualification or business convergence; recovery can conflict with containment.
 10. **Extension × authority × trust × lifecycle:** transitive trust/permissions, residual runtime authority and marketplace substitution can exceed local validity.
 11. **Commercial Metering × Entitlements × Rating × Billing × Payment:** late usage corrections can conflict with settled invoices; effective-date/revision vectors can disagree; provider cutover can leave pending commercial cohorts authoritative; provider ACK is scoped evidence rather than settlement/customer-commercial convergence; entitlement remains distinct from authorization.
@@ -39,11 +39,12 @@ This matrix indexes detailed per-capability registers. It does not assert `Confl
 
 ## Full Pass 1 campaign state
 
-- mandatory clusters challenged: **11/12**;
-- mandatory cluster not yet challenged: **8**;
+- mandatory clusters challenged: **12/12**;
 - every challenged mandatory cluster currently has material findings and therefore no-material streak **0**;
+- canonical capabilities challenged locally: **12/28**;
 - full passes completed: **0/8 minimum**;
 - no cluster is saturated;
+- subsequent Full Pass 1 work continues local capability rotation and may add materially motivated deep-dive clusters without using them as quota substitutes;
 - `PLANNING_C_TARGET_ARCHITECTURE` remains blocked until adversarial research is `CLOSED / SATURATED / PASS`.
 
 Detailed scenario fields, owners, evidence/currentness, blast radius, severity, false-positive risk, recovery/reconciliation and proof obligations remain authoritative in linked registers and `EDGE_CASE_INDEX.md`.
