@@ -106,4 +106,31 @@ Register: `project_docs/generation-2/research/edge-cases/DATA_SCHEMA_MIGRATIONS_
 | `G2-CONFLICT-PATTERN-REPLICA-001` | provider/data/recovery | canonical lifecycle state conflicts with residual physical realizations | CRITICAL | replica/cohort inventory + delete/restore conformance | `DATA-CONFLICT-PROOF-003` |
 | `G2-CONFLICT-PATTERN-MIGRATION-001` | version/migration | old/new cohorts are individually valid but composition-incompatible | CRITICAL | revision-vector/cohort compatibility matrix | `DATA-CONFLICT-PROOF-004` |
 
-Data / Schema / Migrations and its paired cluster discovered material findings on first visit, so both streaks are `0`. Full Pass 1 remains incomplete.
+### Storage / Documents / Media
+Register: `project_docs/generation-2/research/edge-cases/STORAGE_DOCUMENTS_MEDIA_EDGE_CASE_REGISTER.md`
+
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-EDGE-STORAGE-001` | provider-native object/version identity mistaken for canonical logical object/content revision | HIGH–CRITICAL | Storage + Provider/Binding + domain owner | `STORAGE-ADV-PROOF-001` |
+| `G2-EDGE-STORAGE-002` | concurrent content and metadata revisions form a semantically impossible composite | CRITICAL | Storage + metadata owner + Lifecycle | `STORAGE-ADV-PROOF-002` |
+| `G2-EDGE-STORAGE-003` | multipart/chunked fragments accepted while canonical completion remains `UNKNOWN/PARTIAL` | HIGH–CRITICAL | Storage + Provider/Binding | `STORAGE-ADV-PROOF-003` |
+| `G2-EDGE-STORAGE-004` | integrity evidence is stale, absent or representation-scope mismatched | CRITICAL | Storage + Security + provider realization | `STORAGE-ADV-PROOF-004` |
+| `G2-EDGE-STORAGE-005` | oversized content/rendition graph exhausts resources and induces unsafe degradation | HIGH | Storage + Runtime/Operations/Provider + FinOps | `STORAGE-ADV-PROOF-005` |
+| `G2-EDGE-STORAGE-006` | recoverable bytes exist but restore is not currently eligible/semantically usable | CRITICAL | Storage + Security/Recovery + Lifecycle + Governance/Secrets | `STORAGE-ADV-PROOF-006` |
+
+### Provider/Binding × external realizations — Storage slice
+| ID | Material scenario | Severity | Primary owner(s) | Proof obligation |
+| --- | --- | --- | --- | --- |
+| `G2-XEDGE-PROVIDER-STORAGE-001` | provider ACK is stronger locally than canonical object qualification actually proved | CRITICAL | Storage + Provider/Binding + qualified evidence | `XSTORAGE-ADV-PROOF-001` |
+| `G2-XEDGE-PROVIDER-STORAGE-002` | provider substitution leaves old/new versions, caches or restore sources authoritative | CRITICAL | Provider/Binding + Storage + Lifecycle + Secrets/Security | `XSTORAGE-ADV-PROOF-002` |
+| `G2-XEDGE-PROVIDER-STORAGE-003` | same provider feature label hides incompatible storage semantics/limits | HIGH–CRITICAL | Provider/Binding + Storage + Standards | `XSTORAGE-ADV-PROOF-003` |
+| `G2-XEDGE-PROVIDER-STORAGE-004` | durable bytes become effectively unreachable after key/access-path rotation | CRITICAL | Storage + Secrets + Security + Provider/Binding + Authorization | `XSTORAGE-ADV-PROOF-004` |
+
+### Processual / semantic conflict patterns discovered/adopted in Storage visit
+| ID | Family | Material pattern | Severity range | Detection candidate | Proof |
+| --- | --- | --- | --- | --- | --- |
+| `G2-CONFLICT-PATTERN-PROVIDER-002` | provider/semantic/integrity | provider ACK conflicts with stronger canonical object qualification | HIGH–CRITICAL | support-profile check + bounded post-effect integrity/currentness evidence | `STORAGE-CONFLICT-PROOF-001` |
+| `G2-CONFLICT-PATTERN-REPRESENTATION-001` | semantic/version/integrity | logical content, metadata, rendition and provider versions are valid alone but incompatible together | HIGH–CRITICAL | revision-vector/applicability + typed rendition lineage | `STORAGE-CONFLICT-PROOF-002` |
+| `G2-CONFLICT-PATTERN-SUPPORT-001` | provider/capability negotiation | nominal feature equivalence conflicts with required semantic support | HIGH–CRITICAL | multidimensional support-vector + provider-differential conformance | `STORAGE-CONFLICT-PROOF-003` |
+
+Storage / Documents / Media and Provider/Binding × external realizations discovered material findings on first visit, so both streaks are `0`. Full Pass 1 progress is 5/28 capabilities and 5/12 mandatory clusters; the full-pass count remains `0`.
