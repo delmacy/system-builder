@@ -52,4 +52,16 @@ Material interactions:
 - `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-002` — Station/Role transition racing with proposal approval/promotion can transfer stale authority across scopes unless admission revalidates applicability at commit time.
 - `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-003` — visible mandatory guardrail does not prove owner-level enforcement when AI can invoke another path.
 
-Clusters 1, 2 and 3 discovered material findings, so their no-material streaks are `0`. All other mandatory clusters remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
+### Cluster 4 — Data/Schema × Privacy × Storage × Lifecycle
+Status: **CHALLENGED / MATERIAL FINDINGS / STREAK 0**
+Register: `project_docs/generation-2/research/edge-cases/DATA_SCHEMA_MIGRATIONS_EDGE_CASE_REGISTER.md`
+
+Material interactions:
+- `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001` — erasure and legal-hold/mandatory-retention claims can both be locally valid; authority/applicability evidence must resolve precedence instead of execution order.
+- `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-002` — canonical deletion/tombstone can diverge from versioned objects, replicas, caches and backups; source acknowledgement is not enterprise-wide erasure convergence.
+- `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-003` — storage/provider substitution can leave stale read/write/restore cohorts authoritative; provider generation is realization evidence, not canonical data identity.
+- `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-004` — individually valid retention, archival, residency, minimization and deletion policies can compose into an impossible canonical disposition; a successful provider lifecycle job cannot choose semantic truth.
+
+Conflict patterns linked: `G2-CONFLICT-PATTERN-DATA-001`, `G2-CONFLICT-PATTERN-POLICY-001`, `G2-CONFLICT-PATTERN-REPLICA-001`, `G2-CONFLICT-PATTERN-MIGRATION-001`. They remain `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; none is a claimed current ConflictInstance.
+
+Clusters 1–4 discovered material findings, so their no-material streaks are `0`. All other mandatory clusters remain unvisited in Full Pass 1. Full-pass count remains `0`; no cluster is saturated.
