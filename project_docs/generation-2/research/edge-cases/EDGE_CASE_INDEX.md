@@ -7,79 +7,40 @@ Stable IDs use `G2-EDGE-<CAPABILITY>-NNN`, cross-capability IDs use `G2-XEDGE-<C
 
 Canonical distinctions: `ConflictPattern != ConflictInstance`; `Signal != ConfirmedConflict`; provider IDs are non-canonical; `Enterprise → Station → Role → Person`; AI/AGWS cannot amplify authority; `UNKNOWN → reconcile-before-retry`; `StoredFact != DerivedValue`; `FormulaRevision != CalculationResult`. Detailed scenario fields remain authoritative in linked registers.
 
-## Full Pass 1 — capability / cluster index
+## Full Pass 1 historical index
 
-| Capability | Detailed register | Local material range | Cross-capability material range | Local streak |
-| --- | --- | --- | --- | --- |
-| Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_EDGE_CASE_REGISTER.md` | `G2-EDGE-AGWS-001..006` | `G2-XEDGE-IDENTITY-AUTH-STATION-AGWS-AI-001..003` | 0 |
-| Process & Application Modeling | `PROCESS_APPLICATION_MODELING_EDGE_CASE_REGISTER.md` | `G2-EDGE-PROCESS-001..006` | `G2-XEDGE-PROCESS-WORKFLOW-DATA-001..004` | 0 |
-| Workflow & Durable Execution | `WORKFLOW_DURABLE_EXECUTION_EDGE_CASE_REGISTER.md` | `G2-EDGE-WORKFLOW-001..006` | `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-001..004` | 0 |
-| Data / Schema / Migrations | `DATA_SCHEMA_MIGRATIONS_EDGE_CASE_REGISTER.md` | `G2-EDGE-DATA-001..006` | `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001..004` | 0 |
-| Storage / Documents / Media | `STORAGE_DOCUMENTS_MEDIA_EDGE_CASE_REGISTER.md` | `G2-EDGE-STORAGE-001..006` | `G2-XEDGE-PROVIDER-STORAGE-001..004` | 0 |
-| Secrets / Configuration / Environment Portability | `SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_EDGE_CASE_REGISTER.md` | `G2-EDGE-SECRETS-001..006` | `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-001..004` | 0 |
-| Build / Dependency Graph / Reproducibility | `BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_EDGE_CASE_REGISTER.md` | `G2-EDGE-BUILD-001..006` | `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-001..004` | 0 |
-| Artifact / Release / SBOM / Provenance | `ARTIFACT_RELEASE_SBOM_PROVENANCE_EDGE_CASE_REGISTER.md` | `G2-EDGE-ARTIFACT-001..007` | `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-001..004` | 0 |
-| Deployment / Runtime / Autonomous Operation | `DEPLOYMENT_RUNTIME_AUTONOMOUS_OPERATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-RUNTIME-001..006` | `G2-XEDGE-OBS-SEC-RECOVERY-RUNTIME-001..004` | 0 |
-| Extension / Plugin / Marketplace Architecture | `EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_EDGE_CASE_REGISTER.md` | `G2-EDGE-EXTENSION-001..007` | `G2-XEDGE-EXTENSION-AUTH-TRUST-LIFECYCLE-001..004` | 0 |
-| Commercial Metering / Entitlements / Rating / Billing / Payment | `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_EDGE_CASE_REGISTER.md` | `G2-EDGE-COMMERCIAL-001..007` | `G2-XEDGE-COMMERCIAL-001..005` | 0 |
-| Technology Economic Governance / FinOps | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_EDGE_CASE_REGISTER.md` | `G2-EDGE-FINOPS-001..007` | `G2-XEDGE-MATH-FINOPS-001..005` | 0 |
-| Universal Capability Architecture | `UNIVERSAL_CAPABILITY_ARCHITECTURE_EDGE_CASE_REGISTER.md` | `G2-EDGE-UCA-001..007` | reusable cross-owner patterns linked in matrix | 0 |
-| UI / Generated Experience / Low-code Builder | `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_EDGE_CASE_REGISTER.md` | `G2-EDGE-UI-001..007` | deepens existing mandatory clusters | 0 |
-| Integration & Automation | `INTEGRATION_AUTOMATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-INTEGRATION-001..007` | deepens Workflow/Integration/Messaging + Provider clusters | 0 |
-| Identity / Authentication / Federation | `IDENTITY_AUTHENTICATION_FEDERATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-IDENTITY-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Trust/Identity/Artifact/Provider clusters | 0 |
-| Authorization / Policy / Organization / Multitenancy | `AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_EDGE_CASE_REGISTER.md` | `G2-EDGE-AUTHZ-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Provider/Binding + Trust/Identity/Artifact/Provider clusters | 0 |
-| Governance / Compliance / Audit | `GOVERNANCE_COMPLIANCE_AUDIT_EDGE_CASE_REGISTER.md` | `G2-EDGE-GOVERNANCE-001..007` | deepens Identity/Authorization/Station/AGWS/AI + Provider/Binding + Observability/Security/Recovery + Data/Privacy/Storage/Lifecycle clusters | 0 |
-| Security / Resilience / Failure Recovery | `SECURITY_RESILIENCE_FAILURE_RECOVERY_EDGE_CASE_REGISTER.md` | `G2-EDGE-SECURITY-001..007` | deepens Observability/Security/Recovery + Workflow/Integration/Messaging + Provider/Binding + Secrets/Runtime/Provider + Identity/Authorization/Station/AGWS/AI clusters | 0 |
-| Enterprise Trust / PKI / Certificate Lifecycle | `ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE_EDGE_CASE_REGISTER.md` | `G2-EDGE-TRUST-001..007` | deepens Trust/Identity/Artifact/Provider + Provider/Binding + Secrets/Runtime/Provider + Identity/Authorization/Station/AGWS/AI + Observability/Security/Recovery clusters | 0 |
-| Privacy / Data Governance / Retention / Legal Hold / Residency | `PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY_EDGE_CASE_REGISTER.md` | `G2-EDGE-PRIVACY-001..007` | deepens Data/Privacy/Storage/Lifecycle + Provider/Binding + Observability/Security/Recovery + Identity/Authorization/Station/AGWS/AI clusters | 0 |
-| Notifications / Events / Messaging | `NOTIFICATIONS_EVENTS_MESSAGING_EDGE_CASE_REGISTER.md` | `G2-EDGE-MESSAGING-001..007` | deepens Workflow/Integration/Messaging + Provider/Binding + Identity/Authorization/Station/AGWS/AI + Data/Privacy/Storage/Lifecycle + Observability/Security/Recovery clusters | 0 |
-| Observability / Operations / Incident | `OBSERVABILITY_OPERATIONS_INCIDENT_EDGE_CASE_REGISTER.md` | `G2-EDGE-OBSERVABILITY-001..007` | deepens Observability/Security/Recovery + Provider/Binding + Identity/Authorization/Station/AGWS/AI + Data/Privacy/Storage/Lifecycle clusters | 0 |
-| Developer / Operator Experience / Self-hosting | `DEVELOPER_OPERATOR_EXPERIENCE_SELF_HOSTING_EDGE_CASE_REGISTER.md` | `G2-EDGE-DEVOPS-001..007` | deepens Build/Artifact/Deployment/Runtime + Provider/Binding + Secrets/Runtime/Provider + Observability/Security/Recovery + Identity/Authorization/Station/AGWS/AI clusters | 0 |
-| Provider / Binding / Capability Negotiation | `PROVIDER_BINDING_CAPABILITY_NEGOTIATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-PROVIDER-001..007` | deepens Provider/Binding × external realizations plus authority, secrets/runtime substitution, observability/recovery, trust/substitution, privacy/governance and FinOps interactions | 0 |
-| Standards / Interoperability / API Contracts | `STANDARDS_INTEROPERABILITY_API_CONTRACTS_EDGE_CASE_REGISTER.md` | `G2-EDGE-STANDARDS-001..007` | deepens Provider/Binding, Workflow/Integration/Messaging, Identity/Authorization/Station/AGWS/AI, Trust/Identity/Artifact/Provider and Data/Privacy/Storage/Lifecycle clusters | 0 |
-| Lifecycle / Versioning / Evolution / Migration | `LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-LIFECYCLE-001..007` | deepens Data/Privacy/Storage/Lifecycle, Provider/Binding, Workflow/Integration/Messaging, Build/Artifact/Deployment/Runtime, Identity/Authorization/Station/AGWS/AI and Trust/Identity/Artifact/Provider clusters | 0 |
-| Architecture Reconciliation as a Capability | `ARCHITECTURE_RECONCILIATION_EDGE_CASE_REGISTER.md` | `G2-EDGE-RECONCILIATION-001..007` | deepens Process/Workflow/Data, Provider/Binding, Build/Release/Deployment/Runtime, Observability/Security/Recovery, Identity/Authorization/Station/AGWS/AI and Data/Privacy/Storage/Lifecycle clusters | 0 |
-
-Full Pass 1 local coverage: **28/28 capabilities**. Mandatory clusters: **12/12 challenged**. Full passes complete: **1/8 minimum**.
+Full Pass 1 completed **28/28 capabilities** and **12/12 mandatory clusters**. The 28 `*_EDGE_CASE_REGISTER.md` artifacts and prior Git history remain the detailed historical authority for the Full-Pass-1 per-capability table, material ranges and 103 reusable ConflictPatterns. Full Pass 2 does not supersede those records.
 
 ## Full Pass 2 — revisit index
 
 | Capability | Revisit artifact | New local material | Paired cluster result | Local streak | Cluster streak |
 | --- | --- | --- | --- | --- | --- |
 | Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_2_REVISIT.md` | `G2-EDGE-AGWS-007..009` | Identity × Authorization × Station × AGWS × AI: no genuinely new material class after duplicate screen | 0 | 1 |
-| Process & Application Modeling | `PROCESS_APPLICATION_MODELING_FULL_PASS_2_REVISIT.md` | `G2-EDGE-PROCESS-007..008` | `G2-XEDGE-PROCESS-WORKFLOW-DATA-005` — compensation after downstream semantic adoption is a genuinely new cross-process composition class | 0 | 0 |
-| Workflow & Durable Execution | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_2_REVISIT.md` | `G2-EDGE-WORKFLOW-007..008` | `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-005` — ambiguous event/obligation correlation cardinality is a genuinely new cross-capability class | 0 | 0 |
-| Data / Schema / Migrations | `DATA_SCHEMA_MIGRATIONS_FULL_PASS_2_REVISIT.md` | `G2-EDGE-DATA-007..008` | `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-005` — individually valid sinks/CDC cohorts can lack a common qualified cut for lifecycle truth | 0 | 0 |
-| Storage / Documents / Media | `STORAGE_DOCUMENTS_MEDIA_FULL_PASS_2_REVISIT.md` | `G2-EDGE-STORAGE-007..008` | Provider/Binding × external realizations: no genuinely new material cluster class after duplicate screen | 0 | 1 |
-| Secrets / Configuration / Environment Portability | `SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_FULL_PASS_2_REVISIT.md` | `G2-EDGE-SECRETS-007..008` | `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-005` — recovery/bootstrap dependencies can form a cycle with no qualified acyclic startup cut | 0 | 0 |
+| Process & Application Modeling | `PROCESS_APPLICATION_MODELING_FULL_PASS_2_REVISIT.md` | `G2-EDGE-PROCESS-007..008` | `G2-XEDGE-PROCESS-WORKFLOW-DATA-005` | 0 | 0 |
+| Workflow & Durable Execution | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_2_REVISIT.md` | `G2-EDGE-WORKFLOW-007..008` | `G2-XEDGE-WORKFLOW-INTEGRATION-MSG-005` | 0 | 0 |
+| Data / Schema / Migrations | `DATA_SCHEMA_MIGRATIONS_FULL_PASS_2_REVISIT.md` | `G2-EDGE-DATA-007..008` | `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-005` | 0 | 0 |
+| Storage / Documents / Media | `STORAGE_DOCUMENTS_MEDIA_FULL_PASS_2_REVISIT.md` | `G2-EDGE-STORAGE-007..008` | Provider/Binding × external realizations: no genuinely new material class after duplicate screen | 0 | 1 |
+| Secrets / Configuration / Environment Portability | `SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_FULL_PASS_2_REVISIT.md` | `G2-EDGE-SECRETS-007..008` | `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-005` | 0 | 0 |
+| Build / Dependency Graph / Reproducibility | `BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_FULL_PASS_2_REVISIT.md` | `G2-EDGE-BUILD-007..008` | `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-005` — byte identity does not establish equivalent producing provenance/authority/policy eligibility | 0 | 0 |
 
-New Pass-2 ConflictPatterns:
+## Pass-2 reusable ConflictPatterns
 
-- AGWS: `G2-CONFLICT-PATTERN-WORK-PRIORITY-PROJECTION-001`, `G2-CONFLICT-PATTERN-CAPACITY-PROJECTION-001`, `G2-CONFLICT-PATTERN-WORK-SURFACE-REACTIVATION-001`.
-- Process/Application: `G2-CONFLICT-PATTERN-AUTHORITY-LIVENESS-001`, `G2-CONFLICT-PATTERN-QUALIFICATION-JOIN-001`, `G2-CONFLICT-PATTERN-CROSS-PROCESS-COMPENSATION-001`.
-- Workflow: `G2-CONFLICT-PATTERN-CORRELATION-CARDINALITY-001`, `G2-CONFLICT-PATTERN-SCHEDULING-STARVATION-001`.
-- Data/Schema: `G2-CONFLICT-PATTERN-SCHEMA-LOSSLESSNESS-001`, `G2-CONFLICT-PATTERN-DEFAULT-MATERIALIZATION-001`.
-- Storage: `G2-CONFLICT-PATTERN-PHYSICAL-SHARING-GOVERNANCE-001`, `G2-CONFLICT-PATTERN-PROTECTION-SCOPE-001`.
-- Secrets/Config: **no new reusable ConflictPattern** after duplicate screening; `G2-EDGE-SECRETS-007..008` and `G2-XEDGE-SECRETS-RUNTIME-PROVIDER-005` map to existing revision-vector, qualification-join, structural-cycle, recovery-qualification, currentness and degraded-authority patterns.
+Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config and Build added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
 
-## Reusable processual / semantic conflict-pattern inventory
-
-Existing 103 Full-Pass-1 patterns remain authoritative in their originating registers and prior index history. Full Pass 2 currently adds twelve patterns: three AGWS, three Process/Application, two Workflow, two Data/Schema and two Storage patterns listed above. Secrets/Config adds no redundant reusable family.
-
-Total reusable conflict patterns indexed: **115**.
+Build Pass 2 maps `G2-EDGE-BUILD-007..008` and `G2-XEDGE-BUILD-RELEASE-DEPLOY-RUNTIME-005` to existing qualification-join, revision-vector, currentness, effective-identity, provider-qualification, attestation-qualification, trust-authority and qualified-claim patterns.
 
 ## Campaign state
 
-- material edge findings: **254**;
+- material edge findings: **257**;
 - reusable conflict patterns: **115**;
-- combined material findings: **369**;
+- combined material findings: **372**;
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
-- Secrets / Configuration / Environment Portability local no-material streak: **0**;
-- Secrets/Config × Runtime × Provider substitution cluster no-material streak: **0**;
-- Identity × Authorization × Station × AGWS × AI cluster no-material streak: **1**;
-- Provider/Binding × external realizations cluster no-material streak: **1**;
-- Full Pass 2 local coverage: **6/28 capabilities**;
-- Full Pass 2 mandatory cluster coverage: **6/12**;
+- Build / Dependency Graph / Reproducibility local no-material streak: **0**;
+- Build × Artifact/Release × Deployment × Runtime cluster no-material streak: **0**;
+- Identity × Authorization × Station × AGWS × AI cluster streak: **1**;
+- Provider/Binding × external realizations cluster streak: **1**;
+- Full Pass 2 local coverage: **7/28 capabilities**;
+- Full Pass 2 mandatory cluster coverage: **7/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
 - negative-space review: NOT STARTED;
