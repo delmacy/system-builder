@@ -58,3 +58,13 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 - **Motivo:** continuidade do plano editorial e necessidade de explicar a progressão durável do trabalho antes dos capítulos de autorização, dados e evolução.
 - **Resumo:** publicado o capítulo que separa processo, workflow, interação, ação, formulário, evento, mensagem e integração; explica instância/histórico durável, waits/timers, human tasks, a cadeia `attempted → accepted → applied/effective → converged → validated`, `UNKNOWN`, reconcile-before-retry, retry/redrive, idempotência qualificada, replay e side-effect boundaries. O texto inclui um exemplo integrado de OS com compra externa e distingue explicitamente a direção pesquisada do baseline atual do workflow do SB, inclusive a exposição de split failure entre mutação e persistência de estado.
 - **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `PLANNING_A_WORKFLOW_DURABLE_EXECUTION_BOUNDARIES.md`, `PLANNING_B_WORKFLOW_DURABLE_EXECUTION_SB_CURRENT_STATE.md`, `PLANNING_A_INTEGRATION_AUTOMATION_BOUNDARIES.md`, `PLANNING_A_NOTIFICATIONS_EVENTS_MESSAGING_BOUNDARIES.md`.
+
+### CHAPTER_07 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-04.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial e necessidade de estabelecer identidade, autenticação, autoridade e escopo organizacional antes dos capítulos de dados, privacidade, segurança e IA.
+- **Resumo:** publicado o capítulo que separa identidade/autenticação de autorização; explica identidade canônica versus identifiers de provider, assurance/currentness, `Enterprise → Station → Role → Person`, least privilege, delegation envelope, subdelegação, break-glass, residual authority cohorts, `ALLOW/DENY/INCONCLUSIVE`, policy composition, SoD, Station isolation, offline authorization closure, confused deputy e non-amplification por AGWS/IA. O texto distingue explicitamente a fundação já evidenciada no SB atual dos gaps G2 ainda em pesquisa.
+- **Artefatos autoritativos relacionados:** `PLANNING_A_IDENTITY_AUTHENTICATION_FEDERATION_BOUNDARIES.md`, `PLANNING_B_IDENTITY_AUTHENTICATION_FEDERATION_SB_CURRENT_STATE.md`, `PLANNING_A_AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_BOUNDARIES.md`, `PLANNING_B_AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_SB_CURRENT_STATE.md`, `IDENTITY_AUTHENTICATION_FEDERATION_FULL_PASS_2_REVISIT.md`, `AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_FULL_PASS_2_REVISIT.md`, `RESEARCH_PIPELINE_STATE.json`.
