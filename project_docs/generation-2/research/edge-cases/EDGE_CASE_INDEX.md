@@ -70,6 +70,14 @@ The authoritative detailed records remain the originating per-capability registe
 - saturation: `NOT_SATURATED`;
 - `PLANNING_C_TARGET_ARCHITECTURE`: **BLOCKED**.
 
+## Full Pass 3 — active revisit index
+
+| Capability | Revisit artifact | Pass-3 material result | Local streak after revisit | Cluster disposition |
+| --- | --- | --- | ---: | --- |
+| Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_3_REVISIT.md` | eligible no-new-material revisit; 0 local / 0 cross / 0 reusable pattern after duplicate screen against 115 patterns | 1 | Identity × Authorization × Station × AGWS × AI explicitly revisited; no new cluster material; streak **2** |
+
+Current Full Pass 3 coverage: **1/28 capabilities + 1/12 mandatory clusters**. Material inventory remains **278 edge scenarios + 115 reusable ConflictPatterns = 393 findings**. HIGH/CRITICAL without owner/proof/detection route remains **0**. Planning C remains blocked.
+
 ## Next rotation
 
-The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: begin Full Pass 3 with **Adaptive Governed Work Surfaces** and an explicit eligible revisit of **Identity × Authorization × Station × AGWS × AI**, using techniques materially different from Full Passes 1 and 2 and duplicate-screening against all 115 reusable ConflictPatterns. A material finding resets the affected streak; absence of material local/cluster findings can advance the respective eligible streak only. Do not enter Planning C.
+The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 3 with **Process & Application Modeling** and explicitly revisit **Process/Application × Workflow × Data/Schema**, using techniques materially different from Full Passes 1 and 2 and duplicate-screening against all 115 reusable ConflictPatterns. A material finding resets the affected streak; absence of material local/cluster findings can advance only the explicitly eligible counters. Do not enter Planning C.
