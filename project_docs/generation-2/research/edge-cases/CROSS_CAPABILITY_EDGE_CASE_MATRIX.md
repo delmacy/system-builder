@@ -3,15 +3,15 @@
 Status: ACTIVE
 Phase: `RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION`
 
-This matrix indexes detailed per-capability registers. It does not assert `ConflictInstance`s or authorize remediation. Preserve `ConflictPattern != ConflictInstance`, `Signal != ConfirmedConflict`, qualified evidence/currentness, provider IDs as non-canonical, `Enterprise → Station → Role → Person`, AI/AGWS non-amplification and `UNKNOWN → reconcile-before-retry`.
+This matrix indexes detailed per-capability registers and explicit mandatory-cluster revisits. It does not assert `ConflictInstance`s or authorize remediation. Preserve `ConflictPattern != ConflictInstance`, `Signal != ConfirmedConflict`, qualified evidence/currentness, provider IDs as non-canonical, `Enterprise → Station → Role → Person`, AI/AGWS non-amplification and `UNKNOWN → reconcile-before-retry`.
 
 ## Mandatory cluster rotation — Full Pass 1
 
-All 12 mandatory clusters were challenged in Full Pass 1 and remain MATERIAL / STREAK 0 as historically indexed. Full-Pass-1 detailed registers remain authoritative.
+All 12 mandatory clusters were challenged in Full Pass 1. Full-Pass-1 detailed registers remain authoritative historical evidence.
 
-## Full Pass 2 — mandatory cluster revisits
+## Full Pass 2 — completed mandatory-cluster revisits
 
-| # | Cluster | Pass-2 status | Detailed artifact | Result / streak |
+| # | Cluster | Pass-2 status | Detailed artifact | Result / streak after Pass 2 |
 | --- | --- | --- | --- | --- |
 | 3 | Identity × Authorization × Station × AGWS × AI | COVERED / NO NEW MATERIAL CLASS | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_2_REVISIT.md` | eligible no-material streak **1** |
 | 1 | Process/Application × Workflow × Data/Schema | COVERED / MATERIAL NEW CLASS | `PROCESS_APPLICATION_MODELING_FULL_PASS_2_REVISIT.md` | `G2-XEDGE-PROCESS-WORKFLOW-DATA-005`; streak **0** |
@@ -26,48 +26,39 @@ All 12 mandatory clusters were challenged in Full Pass 1 and remain MATERIAL / S
 | 11 | Commercial Metering × Entitlements × Rating × Billing × Payment | COVERED / MATERIAL NEW SCENARIO | `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_FULL_PASS_2_REVISIT.md` | `G2-XEDGE-COMMERCIAL-006`; streak **0** |
 | 8 | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps | COVERED / MATERIAL NEW SCENARIO | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_FULL_PASS_2_REVISIT.md` | `G2-XEDGE-MATH-FINOPS-006`; streak **0** |
 
-Universal Capability Architecture Pass 2 did **not** create a 13th mandatory cluster. `G2-EDGE-UCA-008..010` are local UCA composition/portability findings that map into already indexed cross-capability families: standards/provider downgrade and qualification loss; revision-vector/currentness/qualification-join; semantic ownership and permission/provider-composition authority. Mandatory-cluster streaks therefore remain unchanged.
+Full Pass 2 completed **28/28 capabilities and 12/12 mandatory clusters**. Local-only revisits after the explicit cluster rotations did not increment cluster streaks incidentally. The campaign left Full Pass 2 with cluster streak 1 for `Identity × Authorization × Station × AGWS × AI` and `Provider/Binding × external realizations`; all other mandatory cluster streaks were 0.
 
-UI / Generated Experience / Low-code Builder Pass 2 likewise creates no new mandatory cluster. `G2-EDGE-UI-008..010` deepen existing cross-capability families through aggregate multi-step qualification fracture, replay of superseded offline intent and generated/adaptive omission of conditionally material qualifiers. These are linked to existing UI/math/workflow/data/authorization/provider clusters but do not count as a second designated cluster revisit; cluster streak counters therefore remain unchanged.
+## Full Pass 3 — active mandatory-cluster revisits
 
-Integration & Automation Pass 2 produced **no new material local or cross-capability class** after duplicate-screening compound graph, provider-substitution retry, admission/actuation currentness, residual registrations/jobs, stale-authentic callbacks, partial batch/compensation, redrive after adoption, offline queues, quota/backpressure, correlation collisions and AI/low-code scope amplification. The revisit deepens existing Workflow × Integration × Messaging, Provider/Binding × external realizations, Identity/Authorization/AGWS/AI, Secrets/Runtime/Provider and Observability/Security/Recovery interaction families. It is recorded as an eligible **local** no-material revisit only; because it was not the designated second cluster rotation, mandatory-cluster streak counters remain unchanged.
+| # | Cluster | Pass-3 status | Detailed artifact | Result / streak |
+| --- | --- | --- | --- | --- |
+| 3 | Identity × Authorization × Station × AGWS × AI | COVERED / ELIGIBLE NO NEW MATERIAL CLASS | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_3_REVISIT.md` | explicit revisit found 0 new cluster scenarios and 0 reusable patterns after duplicate screen; streak **1 → 2** |
 
-Identity / Authentication / Federation Pass 2 likewise produced **no new material local or cross-capability class** after namespace/reassignment mutation, assurance-vector fracture, issuer/client mix-up falsification, logout/revocation propagation-lag analysis, recovery identity mutation, IdP-substitution differential, correlation/privacy review, resource-pressure perturbation and AI/low-code evidence-misuse mutation. The revisit deepens Identity × Authorization × Station × AGWS × AI, Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution, Provider/Binding × external realizations and Observability × Security/Recovery × runtime truth. It is an eligible **local** no-material revisit only; mandatory-cluster streak counters remain unchanged.
+### Full-Pass-3 AGWS cluster challenge summary
 
-Authorization / Policy / Organization / Multitenancy Pass 2 produced **no new material local or cross-capability class** after policy-lattice mutation, consistency-mode differential, model-revision pin fracture, contextual-claim substitution, shared-cache scope perturbation, break-glass/delegation expiry races, cross-process self-dealing mutation, provider error-semantics differential, resource pressure and AI/low-code authority-delta composition. It deepens Identity × Authorization × Station × AGWS × AI, Provider/Binding × external realizations, Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution and Observability × Security/Recovery × runtime truth without counting as a second designated cluster revisit. Cluster streaks remain unchanged.
+The explicit revisit varied evidence-state projection, instruction-set intersections, Person/Role/Station/tenant scope partitions, long-lived surface cuts across policy/workflow/schema/provider revisions, offline/resumed supersession, human/AI plan deltas, shared-versus-personal automation promotion, `PARTIAL/UNKNOWN/INCONCLUSIVE` presentation and resource/cardinality pressure.
 
-Governance / Compliance / Audit Pass 2 produced **no new material local or cross-capability class** after obligation-lattice mutation, evidence-provenance fracture, waiver/currentness races, audit sequence/correction mutation, closure-state differential, inherited-scope/SoD mutation, provider-attestation substitution, distributed `PARTIAL/UNKNOWN`, residual/offline cohorts, cardinality pressure, objective inversion and AI/low-code authority/coverage-delta composition. It deepens policy/authority, Provider/Binding, Data/Privacy/Lifecycle, Observability/Security/Recovery and cross-process objective interaction families without constituting a designated second cluster rotation. Cluster streaks remain unchanged.
+No genuinely new cross-capability class survived duplicate screening against the 115 reusable ConflictPatterns. Candidate mechanisms remained covered by existing multitenant-scope, effective-identity, permission/automation composition, qualified-claim/currentness, revision-vector, human-instruction, work-priority projection, presentation-authority, replay/supersession, ambiguous-effect/idempotency, resource-boundedness and AI/low-code non-amplification families.
 
-Security / Resilience / Failure Recovery Pass 2 produced **no new material local or cross-capability class** after recovery-dependency cut mutation, incident-epoch braid analysis, evidence-horizon fracture, fencing-lease perturbation, restore-point contamination differential, persistent-commitment inversion, fail-open/fail-closed objective inversion, residual-cohort compromise mutation, resource/evidence-loss injection, cross-process recovery collision and AI/low-code playbook delta analysis. It deepens Observability × Security/Recovery × runtime truth, Secrets/Config × Runtime × Provider substitution, Provider/Binding × external realizations, Workflow × Integration × Messaging × external mutation, Identity × Authorization × Station × AGWS × AI and Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution. This is an eligible **local** no-material revisit only; mandatory-cluster streaks remain unchanged.
+This is an eligible no-new-material cluster revisit, not proof that no concrete `ConflictInstance` can occur. `Signal != ConfirmedConflict` remains mandatory.
 
-Enterprise Trust / PKI / Certificate Lifecycle Pass 2 produced **no new material local or cross-capability class** after trust-anchor generation-cut mutation, certificate/issuer/consumer cohort braid analysis, revocation-horizon fracture, enrollment/account-key versus certificate-key identity differential, proof-of-possession ambiguity, federation bootstrap/current-bundle differential, emergency compromise-epoch mutation, provider semantic substitution, clock-boundary perturbation, ambiguous issuance/revocation effect analysis, resource exhaustion and AI/low-code trust-scope delta analysis. It deepens Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution, Identity × Authorization × Station × AGWS × AI and Provider/Binding interaction families without constituting a designated second cluster rotation. Cluster streaks remain unchanged.
+## Current campaign state
 
-Privacy / Data Governance / Retention / Legal Hold / Residency Pass 2 produced **no new material local or cross-capability class** after purpose-stage differential, consent/legal-basis and policy-currentness mutation, retention/hold precedence lattice mutation, residual-population braid analysis, provider acknowledgement versus erasure-convergence differential, residency support-vector substitution, subject-linkage ambiguity, restore-versus-governance-history differential, offline evidence-horizon fracture, derived/inferred-data purpose-delta analysis, lineage-cardinality pressure and AI/low-code privacy-scope delta composition. It deepens Data/Schema × Privacy × Storage × Lifecycle, Provider/Binding × external realizations, Identity/Authorization, Security/Recovery and AI/low-code interaction families without constituting a designated second cluster rotation. Cluster streaks remain unchanged.
-
-## Full Pass 2 campaign state
-
-- canonical capabilities revisited: **21/28**;
-- mandatory clusters revisited: **12/12**;
-- Identity × Authorization × Station × AGWS × AI streak: **1**;
-- Provider/Binding × external realizations streak: **1**;
-- other mandatory cluster streaks: **0**;
-- Integration & Automation local streak: **1**;
-- Identity / Authentication / Federation local streak: **1**;
-- Authorization / Policy / Organization / Multitenancy local streak: **1**;
-- Governance / Compliance / Audit local streak: **1**;
-- Security / Resilience / Failure Recovery local streak: **1**;
-- Enterprise Trust / PKI / Certificate Lifecycle local streak: **1**;
-- Privacy / Data Governance / Retention / Legal Hold / Residency local streak: **1**;
+- completed full passes: **2/8 minimum**; target **12**, no maximum;
+- active full pass: **3**;
+- Full Pass 3 cluster coverage: **1/12 mandatory clusters**;
+- Full Pass 3 capability coverage: **1/28 canonical capabilities**;
 - material edge scenarios: **278**;
-- reusable conflict patterns: **115**;
+- reusable ConflictPatterns: **115**;
 - combined material findings: **393**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
-- completed full passes: **1/8 minimum**;
-- active full pass: **2**;
-- negative-space review: NOT STARTED;
-- saturation: NOT SATURATED;
-- `PLANNING_C_TARGET_ARCHITECTURE`: BLOCKED.
+- `Identity × Authorization × Station × AGWS × AI` streak: **2**;
+- `Provider/Binding × external realizations` streak: **1**;
+- all other mandatory cluster streaks: **0**;
+- negative-space review: `NOT_STARTED`;
+- saturation: `NOT_SATURATED`;
+- `PLANNING_C_TARGET_ARCHITECTURE`: **BLOCKED**.
 
-All mandatory clusters have now been revisited once in Full Pass 2. Full Pass 2 is not complete until all 28 canonical capabilities have also been revisited. Detailed scenario fields remain authoritative in linked registers and `EDGE_CASE_INDEX.md`; eligible no-material streaks advance only on revisits with no genuinely new material finding.
+## Next explicit cluster rotation
 
-Next local rotation: **Notifications / Events / Messaging**.
+Continue Full Pass 3 with **Process & Application Modeling** and explicitly revisit **Process/Application × Workflow × Data/Schema**. Use techniques materially different from Full Passes 1 and 2; challenge structural graph contradictions, state-transition incompatibility, semantic ownership collision, human-procedure versus executable graph, resource/fact contention, revision coexistence, compensation after downstream adoption, brownfield semantic collisions, objective/optimization conflict, pathological graph expansion and AI/low-code composition. Duplicate-screen against the 115 reusable ConflictPatterns. Any material finding resets the affected streak; otherwise advance only the explicitly eligible local/cluster counters. Do not enter Planning C.
