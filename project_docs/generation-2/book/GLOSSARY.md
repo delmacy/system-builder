@@ -64,7 +64,11 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Delegation envelope / envelope de delegação** — contrato que delimita a autoridade que pode ser delegada: origem, destinatário, ações/recursos, scope, limites, validade, subdelegação e demais constraints. Delegação não é transitiva por padrão.
 
+**Deployment generation / geração de deployment** — revisão identificável da intenção operacional que relaciona uma release e seu perfil/bindings/configuração à realização de runtime que deve ser provada. Evidência de uma geração anterior não prova automaticamente a geração desejada atual.
+
 **DerivedValue / valor derivado** — valor obtido por cálculo a partir de outros valores, regras e contexto. Pode ser virtual, cacheado ou materializado; sua existência matemática não lhe concede automaticamente autoridade para tornar-se fato canônico.
+
+**Desired state / estado desejado** — intenção operacional canônica que descreve o estado que um controller/runtime deve realizar. É distinta de observações do provider e do estado efetivamente qualificado para consumidores.
 
 **Disposition / disposição governada** — transição pela qual uma população de dados alcança um estado final permitido sob obrigações aplicáveis, como destruição, preservação, arquivamento ou outra destinação qualificada. Elegibilidade para disposition e execução física da disposition são fatos distintos.
 
@@ -75,6 +79,10 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## E
 
 **Edge case** — situação válida ou possível situada em limites, combinações incomuns ou condições difíceis do comportamento esperado. Não é necessariamente um bug; serve para testar se as premissas continuam verdadeiras fora do caminho comum.
+
+**Effective state / estado efetivo** — estado qualificado que realmente satisfaz a intenção operacional aplicável para os consumidores relevantes, considerando readiness, dependências, tráfego, currentness e demais evidências exigidas. Não é sinônimo de recurso simplesmente existente ou “running”.
+
+**Environment / Operational Profile** — contexto operacional revisionado que reúne requisitos portáveis de runtime, configuração, bindings, trust, placement/residency, conectividade e outros constraints aplicáveis. O SB atual evidencia um `EnvironmentProfile` mais estreito; um Operational Profile geral permanece direção G2, não implementação já presumida.
 
 **EvaluationContext / contexto de avaliação** — conjunto explicitamente admitido de inputs, revisões, unidades/moedas, contexto temporal e funções disponíveis a uma avaliação. Não equivale a acesso irrestrito ao sistema.
 
@@ -136,6 +144,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 ## O
 
+**Observed state / estado observado** — evidência disponível sobre a realização atualmente percebida, como recursos, processos, replicas ou routing vistos pelo sistema/provider. Pode estar stale ou incompleta e não deve ser confundida com desired state nem effective state.
+
 **Offline authorization closure** — conjunto qualificado de políticas, relações, evidências e limites que um runtime pode reter para continuar decidindo certas operações durante desconexão/degradação. Não autoriza ampliar privilégio quando currentness necessária deixa de existir.
 
 ## P
@@ -151,6 +161,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Qualified evidence envelope** — estrutura conceitual que preserva contexto necessário para interpretar evidência: provenance/origem, produtor e revisão, sujeito, aplicabilidade, freshness/currentness, cobertura, incerteza e horizonte relevante.
 
 ## R
+
+**Readiness / prontidão** — afirmação qualificada de que um workload está apto a assumir o trabalho pretendido sob critérios aplicáveis. Processo vivo ou provider readiness isolados podem ser evidências, mas não provam necessariamente dependências, tráfego e consumer-effective service.
 
 **Reconcile-before-retry** — princípio segundo o qual um efeito mutante `UNKNOWN` deve ser reconciliado antes de uma repetição potencialmente insegura, salvo quando o contrato qualificado da operação prova que a repetição é segura.
 
@@ -173,6 +185,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Revision / revisão** — identidade de uma evolução de definição, política, schema, fórmula, artefato ou outro elemento. Diferentes elementos podem evoluir independentemente, razão pela qual a pesquisa trabalha também com revision vectors.
 
 **Revision vector / vetor de revisões** — conjunto das revisões relevantes de dimensões que evoluem independentemente. Evita presumir que uma única versão global descreva corretamente processo, schema, política, fórmula, runtime e provider ao mesmo tempo.
+
+**Rollout** — progressão governada de uma deployment generation por stages/cohorts até convergência, pausa, aborto ou outra disposição. Estratégias como rolling, canary e blue/green são realizações possíveis, não a definição universal do conceito.
 
 **RoundingPolicy / política de arredondamento** — regra explícita de escala, ponto e modo de arredondamento aplicável a um cálculo. Não deve ser herdada silenciosamente do provider quando material para o negócio.
 
@@ -204,6 +218,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Topology collapse / colapso de topologia** — realização em que múltiplas capabilities ou owners compartilham processo, host, banco ou outro substrato físico para reduzir complexidade operacional. Não implica colapso de identidade semântica, lifecycle ou autoridade.
 
+**Traffic effectiveness / efetividade de tráfego** — evidência de que os consumidores pretendidos estão efetivamente sendo encaminhados para a geração/target corretos. Uma configuração de rota aceita ou observada não prova, sozinha, comportamento de tráfego real.
+
 **Transitive dependency closure / fechamento transitivo de dependências** — operação de incluir recursivamente as dependências necessárias das dependências até que o conjunto esteja fechado para o perfil considerado, respeitando versões, condições e constraints aplicáveis.
 
 **TypedValue / valor tipado** — valor cujo tipo semântico relevante acompanha a magnitude/conteúdo, permitindo distinguir, por exemplo, money, unit, duration, percentage, null/unknown/error e outros casos que um escalar cru não expressa adequadamente.
@@ -221,3 +237,5 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## W
 
 **Workflow instance / instância de workflow** — identidade de uma execução concreta de uma definição executável admitida. É distinta de worker ID, container ID, provider run ID e da própria definição do processo.
+
+**Workload** — unidade operacional que executa trabalho sob um perfil de runtime. Pode ser realizada como processo, container, VM, função, job, worker ou outro mecanismo; a realização concreta não deve ser confundida com a identidade semântica do workload.
