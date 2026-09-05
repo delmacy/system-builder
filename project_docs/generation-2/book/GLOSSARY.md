@@ -6,6 +6,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Admission / admissão** — decisão de que uma realização já qualificada pode ser usada em determinado escopo sob as políticas aplicáveis. Capacidade técnica não implica admissão.
 
+**Alert / alerta** — transição ou avaliação operacional qualificada que requer atenção segundo regra/perfil aplicável. Alert não é sinônimo de incident, notification delivery, acknowledgement humano nem resolução da condição subjacente.
+
 **Anti-lock-in** — orientação para impedir que a semântica canônica do System Builder dependa desnecessariamente de um fornecedor, protocolo ou mecanismo específico. Não significa evitar providers; significa preservar a possibilidade de substituí-los sem redefinir o negócio.
 
 **APPLIED / NOT_APPLIED / PARTIAL / UNKNOWN** — disposições usadas para descrever o que se sabe sobre um efeito, especialmente uma mutação remota. `UNKNOWN` é importante quando não há evidência suficiente para afirmar se o efeito ocorreu.
@@ -57,6 +59,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Confused deputy** — situação em que um componente com autoridade elevada é induzido a usar essa autoridade em favor de um solicitante que não possui o mesmo poder. A prevenção exige preservar quem pediu, em nome de quem se atua e qual delegação/escopo autoriza o efeito.
 
 **Content identity / identidade de conteúdo** — identidade usada para caracterizar uma revisão concreta de conteúdo, frequentemente por digest/hash quando byte-level equivalence importa. Não é automaticamente a identidade canônica do documento ou objeto empresarial.
+
+**Coverage / cobertura** — qualificação de qual população, cohort, região, tenant, Station, provider, revisão, rota, dispositivo ou horizonte foi realmente observado. Evidência correta para um subconjunto não autoriza inferir automaticamente verdade global.
 
 **Cumulative context / contexto acumulado** — contexto mínimo que precisa atravessar boundaries sucessivas para preservar identidade, revisão, lineage, constraints e evidência aplicáveis sem obrigar cada etapa a conhecer a implementação interna de todas as anteriores.
 
@@ -121,6 +125,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## I
 
 **Idempotência** — propriedade segundo a qual repetir uma operação dentro das condições qualificadas do seu contrato não produz efeitos adicionais indevidos. Não deve ser presumida universalmente nem apenas porque existe uma chave de idempotência.
+
+**Incident / incidente** — registro operacional governado para uma condição material de serviço/operação que exige resposta coordenada. Sua identidade/lifecycle são distintos de provider ticket IDs, alert state, notification delivery e da própria condição subjacente.
 
 **INCONCLUSIVE** — resultado explícito indicando evidência insuficiente para concluir PASS/FAIL, ALLOW/DENY ou outra afirmação forte. Evita transformar ausência de conhecimento em certeza.
 
@@ -218,6 +224,10 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Signal / sinal** — indício que pode justificar investigação ou avaliação. `Signal != ConfirmedConflict`: um detector não deve converter suspeita em fato sem evidência suficiente.
 
+**SLI (Service Level Indicator) / indicador de nível de serviço** — medida operacional revisionada usada para avaliar um aspecto de serviço sob população, janela, exclusions e measurement profile explícitos. O valor do indicador não é automaticamente uma verdade empresarial universal.
+
+**SLO (Service Level Objective) / objetivo de nível de serviço** — alvo definido sobre um SLI para determinado scope e horizonte. Observability pode possuir a semântica de medição/avaliação do SLO sem se tornar dona da obrigação empresarial ou governança que motivou o objetivo.
+
 **Stale / obsoleto para o contexto** — informação, proposta ou evidência que pode ter sido válida em uma revisão ou instante anterior, mas não pode ser assumida como atual para a decisão presente sem requalificação.
 
 **Station** — escopo organizacional/governado dentro da hierarquia `Enterprise → Station → Role → Person`, usado na pesquisa G2 para exposição de capabilities, administração delegada e limites de autoridade.
@@ -227,6 +237,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Support qualification / qualificação de suporte** — comparação evidence-backed entre requirements e support vector de uma realização sob escopo, revisão e currentness definidos. Nome de feature, reachability ou compatibilidade de protocolo não bastam para provar suporte semântico.
 
 ## T
+
+**Telemetry / telemetria** — dados produzidos/coletados para observar comportamento operacional, incluindo realizações como metrics, logs, traces e events. Telemetria torna-se evidência útil quando preserva qualificadores suficientes de identidade, provenance, revisão, scope, tempo, coverage e incerteza.
 
 **Timer durável** — intenção temporal persistente cuja identidade e semântica sobrevivem a restart/substituição de worker; não é simplesmente manter uma thread dormindo.
 
