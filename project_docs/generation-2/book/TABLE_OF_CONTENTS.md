@@ -7,8 +7,8 @@ Numeração editorial estável a partir desta publicação. Versões indicadas s
 3. **Capítulo 03 — Capability, Provider, Binding e Semantic Owner — v1.0.0** — publicado
 4. **Capítulo 04 — Builder grande, Runtime pequeno: composição modular e fechamento de dependências — v1.0.0** — publicado
 5. **Capítulo 05 — Low-code, Canvas e processos como grafos executáveis — v1.0.0** — publicado
-6. **Capítulo 06 — Workflow, ações, eventos, formulários e integrações** — próximo
-7. **Capítulo 07 — Identidade, autorização, organização, Stations e least privilege**
+6. **Capítulo 06 — Workflow, ações, eventos, formulários e integrações — v1.0.0** — publicado
+7. **Capítulo 07 — Identidade, autorização, organização, Stations e least privilege** — próximo
 8. **Capítulo 08 — Dados, schema, documentos, storage, privacidade e retenção**
 9. **Capítulo 09 — Cálculos, fórmulas, valores derivados e matemática empresarial**
 10. **Capítulo 10 — Build, artefatos, releases, provenance, SBOM e repositórios do cliente**
