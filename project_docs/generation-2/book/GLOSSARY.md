@@ -24,6 +24,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Binding** — vínculo qualificado, revisionado e scoped entre uma necessidade/capability do SB e uma realização/provider admitido. Um binding não torna automaticamente todos os recursos do provider parte da semântica canônica e não é apenas uma connection string.
 
+**Boundary case / caso de fronteira** — cenário que exercita valores ou estados exatamente em, imediatamente antes ou imediatamente depois de um limite declarado. É uma subfamília útil de teste e não deve ser confundida com todo edge case possível.
+
 **Break-glass** — mecanismo de autoridade emergencial explicitamente governado, limitado por escopo, duração, origem, evidência e revisão. Não significa “ignorar todas as políticas”; é uma forma especializada de grant temporário.
 
 **Brownfield** — contexto em que a organização já possui sistemas, dados, integrações e processos que precisam coexistir com a evolução. Descobrir uma estrutura brownfield não significa adotá-la automaticamente como semântica canônica.
@@ -58,6 +60,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Composition admissibility / admissibilidade da composição** — avaliação de se uma combinação de primitivas, ações, regras ou nós respeita as constraints materiais aplicáveis ao conjunto. É diferente de validar cada primitiva isoladamente e também não substitui autorização no momento da atuação ou qualificação do efeito.
 
+**Conformance test / teste de conformidade** — teste que avalia se uma implementação ou realização satisfaz um contrato ou perfil semântico declarado nas dimensões relevantes. Não presume que providers com o mesmo nome de feature sejam equivalentes.
+
 **ConflictInstance** — ocorrência concreta, observada ou reproduzível, de um conflito em um sistema/revisão/contexto específicos.
 
 **ConflictPattern** — descrição reutilizável de uma composição potencialmente incompatível. Não prova, por si só, que um defeito está manifestado.
@@ -83,6 +87,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **DerivedValue / valor derivado** — valor obtido por cálculo a partir de outros valores, regras e contexto. Pode ser virtual, cacheado ou materializado; sua existência matemática não lhe concede automaticamente autoridade para tornar-se fato canônico.
 
 **Desired state / estado desejado** — intenção operacional canônica que descreve o estado que um controller/runtime deve realizar. É distinta de observações do provider e do estado efetivamente qualificado para consumidores.
+
+**Differential test / teste diferencial** — execução comparativa de inputs equivalentes em duas ou mais realizações para descobrir divergências. Divergência é um sinal a investigar; não identifica automaticamente qual implementação está errada nem prova que o contrato portátil esteja completo.
 
 **Disposition / disposição governada** — transição pela qual uma população de dados alcança um estado final permitido sob obrigações aplicáveis, como destruição, preservação, arquivamento ou outra destinação qualificada. Elegibilidade para disposition e execução física da disposition são fatos distintos.
 
@@ -111,6 +117,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Executable graph / grafo executável** — representação em nós e relações cuja estrutura participa da execução de comportamento, em vez de servir apenas como diagrama explicativo. Sua validade depende não só de conectividade, mas também de estados, guards, tipos, revisões, constraints, autoridade e efeitos aplicáveis.
 
 ## F
+
+**Failure case / caso de falha** — cenário que desafia o comportamento quando uma dependência, etapa ou recurso falha. A pergunta central não é apenas se apareceu erro, mas em que estado e com que efeito/evidência o sistema terminou.
 
 **Fallback qualification / qualificação de fallback** — verificação de que um provider ou caminho alternativo continua satisfazendo os requisitos semânticos, de autoridade, policy, estado e evidência aplicáveis no momento da troca. Fallback configurado não implica fallback qualificado.
 
@@ -148,6 +156,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Interaction intent / intento de interação** — intenção expressa por uma interação de UI, como clicar, arrastar, submeter ou selecionar. Não é equivalente, por si só, a autorização, transição canônica ou efeito aplicado; deve atravessar os boundaries responsáveis por essas decisões.
 
+**Invariant / invariante** — propriedade que deve permanecer verdadeira ao longo de estados/transições dentro de um escopo e condições de aplicabilidade definidos. Invariant bem definido permite avaliar classes de comportamento sem enumerar manualmente todos os exemplos.
+
 ## L
 
 **Least privilege / menor privilégio** — princípio segundo o qual pessoa, serviço, processo ou automação deve receber apenas a autoridade necessária ao trabalho, no scope e horizonte necessários. Seu objetivo é limitar blast radius sem inviabilizar responsabilidades legítimas.
@@ -172,6 +182,10 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Money / CurrencyAmount** — valor monetário tipado que preserva magnitude e identidade de moeda. Um decimal sem currency não é semanticamente equivalente a dinheiro.
 
+## N
+
+**Negative-space review / revisão de espaço negativo** — investigação deliberada de categorias importantes que podem estar ausentes do próprio modelo de perguntas, e não apenas verificação de casos já catalogados. Procura “o que nem entrou na lista?”.
+
 ## O
 
 **Observed state / estado observado** — evidência disponível sobre a realização atualmente percebida, como recursos, processos, replicas ou routing vistos pelo sistema/provider. Pode estar stale ou incompleta e não deve ser confundida com desired state nem effective state.
@@ -181,6 +195,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## P
 
 **PKI (Public Key Infrastructure) / infraestrutura de chaves públicas** — conjunto de identidades, chaves, certificados, emissores, trust anchors, políticas e mecanismos usados para estabelecer e qualificar relações de confiança baseadas em criptografia assimétrica. Possuir certificado ou chave não prova, por si só, confiança atual nem autorização empresarial.
+
+**Property-based testing / teste baseado em propriedades** — técnica que gera/explora muitos exemplos a partir de uma propriedade declarada e de um espaço de inputs, buscando violações do invariant em vez de depender apenas de uma lista fixa de casos manuais.
 
 **Provider** — sistema, serviço, engine ou mecanismo especializado que realiza parte de uma capability. O SB procura delegar mecânicas maduras sem entregar automaticamente ao provider a propriedade da semântica empresarial.
 
@@ -209,6 +225,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Recovery Time Objective (RTO) / objetivo de tempo de recuperação** — objetivo de tempo para restabelecer uma capacidade dentro de um escopo definido. Não é necessariamente igual ao tempo para iniciar um processo; pode exigir convergência, validação e return-to-service.
 
 **Redrive** — nova tentativa governada de processamento de trabalho previamente falho, pendente ou desviado, preservando vínculo com as tentativas e disposições anteriores em vez de apagar a história.
+
+**Regression test / teste de regressão** — teste destinado a detectar perda de um comportamento ou contrato anteriormente aceito e ainda aplicável. Mudança deliberada de comportamento entre revisões não é regressão automaticamente.
 
 **Replay** — reconstrução ou reexecução controlada a partir de histórico/inputs registrados sob um contrato de determinismo e revisão. Replay de lógica não autoriza repetir automaticamente side effects externos.
 
