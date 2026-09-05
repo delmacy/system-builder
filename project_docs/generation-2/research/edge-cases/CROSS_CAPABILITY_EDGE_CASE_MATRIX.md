@@ -44,24 +44,37 @@ Detection route: presence-state compatibility matrix, schema/profile/operator re
 
 Disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`. This is a reusable `ConflictPattern`, not a `ConflictInstance`; it does **not** create or advance a mandatory-cluster streak in this run.
 
+### `G2-EDGE-UI-011` — UI rendered/confirmed value × submission presence × downstream default semantics
+
+Origin: `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_FULL_PASS_3_REVISIT.md`.
+
+Cross-capability surfaces: UI/Generated Experience × UCA × Data/Schema × Process × Formula/Math × Authorization/Policy × Standards/Interoperability × Provider/Binding.
+
+Material interaction: a human can validly see and confirm a material value `A`; a valid control/provider serialization path can omit that value from the payload; a valid downstream owner can then treat `ABSENT/UNSET` using default/current semantics `B`. The composed chain therefore changes the meaning of the human decision after presentation but before semantic actuation, even when each local component is conformant.
+
+Detection route: rendered-value versus emitted-payload semantic differential, control-state serialization truth table, presence/default compatibility matrix, confirmation-lineage binding and post-effect rendered-versus-producing-input audit. Owner route: UI for faithful projection/intent lineage plus the Data/Process/Formula/Policy semantic owners and Standards/Provider translation owners as applicable.
+
+Duplicate-screen disposition: this is a new UI-specific material edge scenario but maps to the existing `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`; it does not create a 117th reusable pattern or a new mandatory cluster. Mandatory-cluster streaks are not incremented/reset incidentally by this local rotation.
+
 ## Current campaign state
 
 - completed full passes: **2/8 minimum**; target **12**, no maximum;
 - active full pass: **3**;
 - Full Pass 3 cluster coverage: **12/12 mandatory clusters**;
-- Full Pass 3 capability coverage: **13/28 canonical capabilities**;
-- material edge scenarios: **279**;
+- Full Pass 3 capability coverage: **14/28 canonical capabilities**;
+- material edge scenarios: **280**;
 - reusable ConflictPatterns: **116**;
-- combined material findings: **395**;
+- combined material findings: **396**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
 - `Identity × Authorization × Station × AGWS × AI` streak: **2**;
 - `Provider/Binding × external realizations` streak: **2**;
 - each of the other ten mandatory cluster streaks: **1**;
 - UCA local streak: **0** after material finding;
+- UI local streak: **0** after material finding;
 - negative-space review: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
 - `PLANNING_C_TARGET_ARCHITECTURE`: **BLOCKED**.
 
 ## Next explicit research rotation
 
-All required clusters are already covered for Full Pass 3, so the authoritative rotation continues locally with **UI / Generated Experience / Low-code Builder**. Use techniques materially different from Full Passes 1 and 2 and duplicate-screen against all **116** reusable ConflictPatterns, explicitly including `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`. Any material finding resets affected streaks. Do not enter Planning C.
+All required clusters are already covered for Full Pass 3, so the authoritative rotation continues locally with **Integration & Automation**. Use techniques materially different from Full Passes 1 and 2 and duplicate-screen against all **116** reusable ConflictPatterns, explicitly including `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`. Any material finding resets affected streaks. Do not enter Planning C.
