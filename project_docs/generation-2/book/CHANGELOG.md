@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_15 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial após observabilidade/operação e necessidade de explicar por que disponibilidade, trust, possession de secrets, integridade, recovery e return-to-service são fatos distintos que precisam ser qualificados em conjunto sem colapsar seus semantic owners.
+- **Resumo:** publicado o capítulo que separa Security/Resilience, Enterprise Trust/PKI, Secrets/Configuration, Identity, Authorization e Observability; explica trust domains, PKI, chain/hostname/currentness, emissão versus consumer-effective adoption, secret reference versus value/possession, rotation e residual credential cohorts, bootstrap, failure versus compromise, containment/fencing e split-brain, RPO/RTO, recovery-point/path qualification, `UNKNOWN → reconcile-before-retry`, restoration versus return-to-service e reprotection. O texto distingue explicitamente a fundação atual do SB — PostgreSQL positive TLS verification, EnvironmentProfile/SecretResolver, deployment CAS/last-known-good e A→B→A continuity — das semânticas G2 ainda não generalizadas.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `PLANNING_A_ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE_BOUNDARIES.md`, `PLANNING_B_ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE_SB_CURRENT_STATE.md`, `PLANNING_A_SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_BOUNDARIES.md`, `PLANNING_B_SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_SB_CURRENT_STATE.md`, `PLANNING_A_SECURITY_RESILIENCE_FAILURE_RECOVERY_BOUNDARIES.md`, `PLANNING_B_SECURITY_RESILIENCE_FAILURE_RECOVERY_SB_CURRENT_STATE.md`.
+
 ### CHAPTER_14 — v1.0.0
 
 - **Versão anterior:** inexistente.
