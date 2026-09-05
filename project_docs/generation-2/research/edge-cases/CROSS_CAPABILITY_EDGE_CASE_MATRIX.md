@@ -72,17 +72,37 @@ Disposition: `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_RO
 
 Cluster effect: `Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution` streak reset **1→0**. `Provider/Binding × external realizations` remains **2** because provider substitution is an activation surface rather than the semantic owner; its next explicit revisit must challenge the new pattern.
 
+### `G2-EDGE-PRIVACY-008` / `G2-CONFLICT-PATTERN-CUMULATIVE-PRIVACY-001` — privacy exposure emerges from release/query/inference composition
+
+Origin: `PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY_FULL_PASS_3_REVISIT.md`.
+
+Cross-capability surfaces: Privacy / Data Governance × Data/Schema/analytics × Authorization/Policy/Governance × Process/external sharing × AI/low-code composition.
+
+Material interaction: two or more datasets, query outputs, views, aggregates, pseudonymous releases, derived features or model outputs can each be valid under their own current purpose/access/privacy assessment while their combination gives the same recipient/system/agent materially greater identifying or inferential power. Where an explicitly differential-privacy mechanism applies, individually valid analyses can also consume an aggregate privacy-loss budget whose cumulative bound cannot be established by evaluating each analysis in isolation.
+
+Why this is distinct: the source owners can be locally correct; subject identities can be unambiguous; representations and trust relations can remain correct; and there need be no policy-revision drift. The unsafe or inconclusive property emerges only at the N-wise/history/recipient-context join. Therefore this is not subsumed by purpose-use, identity-linkage, presence-semantics, resource-boundedness or trust-namespace families.
+
+Detection route: release/query/derivation lineage; recipient/view-context graph; reasonably available auxiliary-data inventory; linkability/mosaic analysis; cumulative output history; derived/inferred-data classification and composition-level purpose/use qualification; AI/low-code plan-delta analysis for generated joins/inferences; differential-privacy composition/privacy-budget accounting only where DP semantics are explicitly applicable. A signal does not establish a `ConfirmedConflict` without owner/context evidence that the aggregate exposure is materially incompatible.
+
+Owner route: Privacy / Data Governance primary; relevant Data/Schema/analytics owners; Authorization/Governance/policy owners; process/external-sharing owner; AI authority/plan owner where applicable.
+
+False-positive control: theoretical joinability alone is insufficient; combination may be deliberately owner-qualified; recipient holdings and auxiliary information must be contextually meaningful; differential-privacy budget semantics are mechanism-specific and are not promoted into a generic legal rule.
+
+Disposition: `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`. No `ConflictInstance`, no automatic guard and no remediation implementation.
+
+Cluster effect: no mandatory-cluster streak changes. `Data/Schema × Privacy × Storage × Lifecycle` remains **1** because this local cross-cutting finding is not fabricated into a second explicit cluster revisit.
+
 ## Current campaign state
 
 - completed full passes: **2/8 minimum**; target **12**, no maximum;
 - active full pass: **3**;
 - Full Pass 3 cluster coverage: **12/12**;
-- Full Pass 3 capability coverage: **20/28**;
-- material edge scenarios: **282**;
-- reusable ConflictPatterns: **117**;
-- combined material findings: **399**;
+- Full Pass 3 capability coverage: **21/28**;
+- material edge scenarios: **283**;
+- reusable ConflictPatterns: **118**;
+- combined material findings: **401**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
-- local streaks reset by current material chain: UCA **0**, UI **0**, Integration **0**, Enterprise Trust/PKI **0**;
+- local streaks reset by current material chain: UCA **0**, UI **0**, Integration **0**, Enterprise Trust/PKI **0**, Privacy **0**;
 - mandatory cluster streaks: Identity/Authorization/Station/AGWS/AI **2**; Provider/Binding/external realizations **2**; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution **0**; all other nine **1**;
 - negative-space: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
@@ -90,4 +110,4 @@ Cluster effect: `Enterprise Trust/PKI × Identity × Artifact/Release × provide
 
 ## Next explicit research rotation
 
-Continue locally with **Privacy / Data Governance / Retention / Legal Hold / Residency** under the authoritative state. Duplicate-screen against all **117** reusable patterns, including presence semantics and trust-namespace collapse where applicable. Do not enter Planning C.
+Continue locally with **Notifications / Events / Messaging** under the authoritative state. Duplicate-screen against all **118** reusable patterns, including cumulative privacy where event history, recipient fan-out or derived notifications aggregate knowledge. Do not enter Planning C.
