@@ -23,8 +23,8 @@ Numeração editorial estável a partir desta publicação. Versões indicadas s
 19. **Capítulo 19 — Conflitos processuais e semânticos: quando partes corretas formam um processo errado — v1.0.0** — publicado
 20. **Capítulo 20 — Técnicas adversariais: fuzzing, property-based, chaos, model checking, version-skew e negative-space — v1.0.0** — publicado
 21. **Capítulo 21 — IA como arquiteta/assistente sem se tornar autoridade — v1.0.0** — publicado
-22. **Capítulo 22 — O ciclo completo: da intenção humana ao sistema materializado e operado** — próximo
-23. **Capítulo 23 — Como transformar esta pesquisa em arquitetura alvo, WBS e construção**
+22. **Capítulo 22 — O ciclo completo: da intenção humana ao sistema materializado e operado — v1.0.0** — publicado
+23. **Capítulo 23 — Como transformar esta pesquisa em arquitetura alvo, WBS e construção** — próximo
 24. **Capítulo 24 — Glossário comentado e mapa mental geral**
 
 ## Apêndices previstos
