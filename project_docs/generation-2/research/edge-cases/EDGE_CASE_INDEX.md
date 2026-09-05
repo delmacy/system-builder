@@ -17,46 +17,45 @@ Full Pass 2 completed **28/28 capabilities** and **12/12 mandatory clusters**. I
 
 ## Reusable ConflictPattern inventory
 
-The reusable catalogue remains **115 `G2-CONFLICT-PATTERN-*` families**. A researched pattern is not a concrete defect and does not authorize implementation. Default disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`.
+The reusable catalogue is now **116 `G2-CONFLICT-PATTERN-*` families**. Full Pass 3 UCA added `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`, covering incompatible `ABSENT/UNSET/UNKNOWN/NOT_APPLICABLE/REDACTED/null/default/delete` interpretations across otherwise valid representation/profile boundaries. A researched pattern is not a concrete defect and does not authorize implementation. Default disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`.
 
 ## Full Pass 3 — active revisit index
 
 | Capability | Revisit artifact | Pass-3 material result | Local streak after revisit | Cluster disposition |
 | --- | --- | --- | ---: | --- |
-| Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 local / 0 cross / 0 reusable pattern | 1 | Identity × Authorization × Station × AGWS × AI: explicit no-new-material revisit; streak **2** |
+| Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 local / 0 cross / 0 reusable pattern | 1 | Identity × Authorization × Station × AGWS × AI: streak **2** |
 | Process & Application Modeling | `PROCESS_APPLICATION_MODELING_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Process/Application × Workflow × Data/Schema: streak **1** |
 | Workflow & Durable Execution | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Workflow × Integration × Messaging × external mutation: streak **1** |
 | Data / Schema / Migrations | `DATA_SCHEMA_MIGRATIONS_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Data/Schema × Privacy × Storage × Lifecycle: streak **1** |
 | Storage / Documents / Media | `STORAGE_DOCUMENTS_MEDIA_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Provider/Binding × external realizations: streak **2** |
 | Secrets / Configuration / Environment Portability | `SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Secrets/Config × Runtime × Provider substitution: streak **1** |
 | Build / Dependency Graph / Reproducibility | `BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Build × Artifact/Release × Deployment × Runtime: streak **1** |
-| Artifact / Release / SBOM / Provenance | `ARTIFACT_RELEASE_SBOM_PROVENANCE_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 after duplicate screen against 115 patterns | 1 | Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution: streak **1** |
+| Artifact / Release / SBOM / Provenance | `ARTIFACT_RELEASE_SBOM_PROVENANCE_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution: streak **1** |
 | Deployment / Runtime / Autonomous Operation | `DEPLOYMENT_RUNTIME_AUTONOMOUS_OPERATION_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Observability × Security/Recovery × runtime truth: streak **1** |
 | Extension / Plugin / Marketplace Architecture | `EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Extension/Plugin × authority × provider trust × lifecycle: streak **1** |
 | Commercial Metering / Entitlements / Rating / Billing / Payment | `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Commercial Metering × Entitlements × Rating × Billing × Payment: streak **1** |
 | Technology Economic Governance / FinOps | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps: streak **1** |
+| Universal Capability Architecture | `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_3_REVISIT.md` | **MATERIAL**: `G2-EDGE-UCA-011` + `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001` | **0** | no mandatory cluster advanced; cross-cutting presence-semantics linkage added to matrix |
 
-### Full-Pass-3 duplicate-screen summary through FinOps
+### Full-Pass-3 UCA material result
 
-The twelve revisits use materially rotated techniques: release-set and policy-digest mutation; rollout/cohort and runtime-truth braids; extension authority-envelope subtraction; commercial multi-revision interval slicing; and FinOps multi-revision economic-cut braiding, correction-algebra permutations, conservation-versus-attribution metamorphism, source-population closure subtraction, historical-reproduction differentials, objective-priority inversion, resource/cardinality amplification and AI/low-code aggregate mutation.
-
-No new local/cross-capability scenario or reusable ConflictPattern survived duplicate screening in these twelve revisits. FinOps specifically revalidated that correction-style/generation mixing remains covered by `G2-EDGE-FINOPS-008`, temporal allocation attribution by `G2-EDGE-FINOPS-009`, and adoption of provisional derived economics by `G2-XEDGE-MATH-FINOPS-006`. Fresh FOCUS 1.4 and current provider billing-export evidence reinforce recency/completeness, correction-lineage and allocation-policy distinctions without creating a new portable conflict family.
+Semantic-bottom mutation and representation-operator substitution found a class not reducible to qualifier loss/currentness alone: otherwise valid producers/consumers can disagree on whether absence, explicit default, `null`, `UNKNOWN`, `NOT_APPLICABLE`, redaction or delete are values, lack of values or mutation operators. Protocol Buffers explicit/implicit presence, JSON Merge Patch null deletion semantics and OpenTelemetry conditionally-required attributes provide concrete mature precedents for this distinction. The detailed activation, owner, detection, severity, false-positive and future-remediation fields are authoritative in `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_3_REVISIT.md`.
 
 ## Campaign state
 
 - completed full passes: **2/8 minimum**; target reference **12**, no maximum;
 - active full pass: **3**;
-- Full Pass 3: **12/28 capabilities + 12/12 mandatory clusters**;
-- material edge scenarios: **278**;
-- reusable ConflictPatterns: **115**;
-- combined material findings: **393**;
+- Full Pass 3: **13/28 capabilities + 12/12 mandatory clusters**;
+- material edge scenarios: **279**;
+- reusable ConflictPatterns: **116**;
+- combined material findings: **395**;
 - HIGH/CRITICAL without semantic owner/proof obligation/detection route: **0**;
-- local no-material streaks for the twelve explicitly revisited Pass-3 capabilities: **1 each**;
-- cluster streaks: Identity × Authorization × Station × AGWS × AI **2**; Provider/Binding × external realizations **2**; all ten other mandatory clusters **1**;
+- UCA local no-material streak: **0** after material finding;
+- cluster streaks remain unchanged by this local revisit: Identity × Authorization × Station × AGWS × AI **2**; Provider/Binding × external realizations **2**; all ten other mandatory clusters **1**;
 - adversarial negative-space review: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
 - `PLANNING_C_TARGET_ARCHITECTURE`: **BLOCKED**.
 
 ## Next rotation
 
-The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 3 with **Universal Capability Architecture** using techniques materially different from Full Passes 1 and 2 and duplicate-screening against all 115 reusable ConflictPatterns. Challenge canonical capability identity versus realization identity; generic-contract weakening of capability-specific obligations; incompatible revision vectors and qualified claims; attempted/accepted/effective/converged collapse; coercion of `PARTIAL/UNKNOWN/INCONCLUSIVE`; semantic-owner bypass; provider-binding leakage; residual/offline cohorts; authority amplification; rollback/recovery qualification; correction/supersession lineage; measurement/evaluation profile ambiguity; graph/resource/cardinality pressure; and AI/low-code composition turning UCA into a semantic god-object. A material finding resets the affected streak; otherwise advance only the explicitly eligible UCA local counter. Do not enter Planning C.
+The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 3 with **UI / Generated Experience / Low-code Builder**, use techniques materially different from Full Passes 1 and 2, and duplicate-screen against all **116** reusable ConflictPatterns, including `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`. Do not enter Planning C.
