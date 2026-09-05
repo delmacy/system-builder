@@ -26,7 +26,7 @@ The reusable catalogue is now **119 `G2-CONFLICT-PATTERN-*` families**.
 
 A researched pattern is not a concrete defect and does not authorize implementation. Default disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`.
 
-## Full Pass 3 — active revisit index
+## Full Pass 3 — completed revisit index
 
 | Capability | Revisit artifact | Pass-3 material result | Local streak after revisit | Cluster disposition |
 | --- | --- | --- | ---: | --- |
@@ -57,6 +57,7 @@ A researched pattern is not a concrete defect and does not authorize implementat
 | Provider / Binding / Capability Negotiation | `PROVIDER_BINDING_CAPABILITY_NEGOTIATION_FULL_PASS_3_REVISIT.md` | eligible no-new-material | **2** | Provider/Binding × external realizations remains **2** |
 | Standards / Interoperability / API Contracts | `STANDARDS_INTEROPERABILITY_API_CONTRACTS_FULL_PASS_3_REVISIT.md` | eligible no-new-material | **2** | mandatory clusters unchanged |
 | Lifecycle / Versioning / Evolution / Migration | `LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_FULL_PASS_3_REVISIT.md` | **MATERIAL**: `G2-EDGE-LIFECYCLE-008` + `G2-CONFLICT-PATTERN-COMPATIBILITY-DIRECTION-001` | **0** | local finding; no mandatory-cluster streak fabricated/reset |
+| Architecture Reconciliation as a Capability | `ARCHITECTURE_RECONCILIATION_FULL_PASS_3_REVISIT.md` | eligible no-new-material | **2** | no mandatory cluster changed; Full Pass 3 completed |
 
 ## Full-Pass-3 material chains
 
@@ -80,17 +81,27 @@ Research-only preventive invariant candidate: compatibility used for lifecycle d
 
 No `ConflictInstance` is asserted and no remediation is authorized.
 
+## Full Pass 4 — active revisit index
+
+| Capability | Revisit artifact | Pass-4 material result | Local streak after revisit | Cluster disposition |
+| --- | --- | --- | ---: | --- |
+| Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | no mandatory cluster counted; Identity × Authorization × Station × AGWS × AI remains **2** |
+
+The AGWS Pass-4 revisit duplicate-screened all **119** reusable ConflictPatterns, explicitly including presence semantics, trust-namespace collapse, cumulative privacy and compatibility direction. No material ID was added.
+
 ## Campaign state
 
-- completed full passes: **2/8 minimum**; target reference **12**, no maximum;
-- active full pass: **3**;
-- Full Pass 3: **27/28 capabilities + 12/12 mandatory clusters**;
+- completed full passes: **3/8 minimum**; target reference **12**, no maximum;
+- active full pass: **4**;
+- Full Pass 3: **28/28 capabilities + 12/12 mandatory clusters — complete**;
+- Full Pass 4: **1/28 capabilities + 0/12 mandatory clusters**;
 - material edge scenarios: **284**;
 - reusable ConflictPatterns: **119**;
 - combined material findings: **403**;
 - HIGH/CRITICAL without semantic owner/proof obligation/detection route: **0**;
+- AGWS local streak: **2**;
 - local streaks at 0 after material findings: UCA, UI, Integration, Enterprise Trust/PKI, Privacy and Lifecycle;
-- Identity, Authorization, Governance, Security, Notifications, Observability, Developer/Operator, Provider/Binding and Standards local streaks: **2**;
+- Identity, Authorization, Governance, Security, Notifications, Observability, Developer/Operator, Provider/Binding, Standards and Architecture Reconciliation local streaks: **2**;
 - mandatory cluster streaks: Identity × Authorization × Station × AGWS × AI **2**; Provider/Binding × external realizations **2**; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution **0**; other nine mandatory clusters **1**;
 - adversarial negative-space review: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
@@ -98,4 +109,4 @@ No `ConflictInstance` is asserted and no remediation is authorized.
 
 ## Next rotation
 
-The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 3 with **Architecture Reconciliation as a Capability**, duplicate-screen against all **119** reusable ConflictPatterns and explicitly challenge compatibility-direction when desired/declared state is compared with observed/effective cohorts. Do not enter Planning C.
+The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 4 with **Process & Application Modeling** and explicitly exercise **Process/Application × Workflow × Data/Schema**. Duplicate-screen against all **119** reusable ConflictPatterns. Do not enter Planning C.
