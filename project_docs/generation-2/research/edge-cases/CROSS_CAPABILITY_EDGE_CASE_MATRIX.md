@@ -34,15 +34,24 @@ Integration & Automation Pass 2 produced **no new material local or cross-capabi
 
 Identity / Authentication / Federation Pass 2 likewise produced **no new material local or cross-capability class** after namespace/reassignment mutation, assurance-vector fracture, issuer/client mix-up falsification, logout/revocation propagation-lag analysis, recovery identity mutation, IdP-substitution differential, correlation/privacy review, resource-pressure perturbation and AI/low-code evidence-misuse mutation. The revisit deepens Identity × Authorization × Station × AGWS × AI, Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution, Provider/Binding × external realizations and Observability × Security/Recovery × runtime truth. It is an eligible **local** no-material revisit only; mandatory-cluster streak counters remain unchanged.
 
+Authorization / Policy / Organization / Multitenancy Pass 2 produced **no new material local or cross-capability class** after policy-lattice mutation, consistency-mode differential, model-revision pin fracture, contextual-claim substitution, shared-cache scope perturbation, break-glass/delegation expiry races, cross-process self-dealing mutation, provider error-semantics differential, resource pressure and AI/low-code authority-delta composition. It deepens Identity × Authorization × Station × AGWS × AI, Provider/Binding × external realizations, Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution and Observability × Security/Recovery × runtime truth without counting as a second designated cluster revisit. Cluster streaks remain unchanged.
+
+Governance / Compliance / Audit Pass 2 produced **no new material local or cross-capability class** after obligation-lattice mutation, evidence-provenance fracture, waiver/currentness races, audit sequence/correction mutation, closure-state differential, inherited-scope/SoD mutation, provider-attestation substitution, distributed `PARTIAL/UNKNOWN`, residual/offline cohorts, cardinality pressure, objective inversion and AI/low-code authority/coverage-delta composition. It deepens policy/authority, Provider/Binding, Data/Privacy/Lifecycle, Observability/Security/Recovery and cross-process objective interaction families without constituting a designated second cluster rotation. Cluster streaks remain unchanged.
+
+Security / Resilience / Failure Recovery Pass 2 produced **no new material local or cross-capability class** after recovery-dependency cut mutation, incident-epoch braid analysis, evidence-horizon fracture, fencing-lease perturbation, restore-point contamination differential, persistent-commitment inversion, fail-open/fail-closed objective inversion, residual-cohort compromise mutation, resource/evidence-loss injection, cross-process recovery collision and AI/low-code playbook delta analysis. It deepens Observability × Security/Recovery × runtime truth, Secrets/Config × Runtime × Provider substitution, Provider/Binding × external realizations, Workflow × Integration × Messaging × external mutation, Identity × Authorization × Station × AGWS × AI and Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution. This is an eligible **local** no-material revisit only; mandatory-cluster streaks remain unchanged.
+
 ## Full Pass 2 campaign state
 
-- canonical capabilities revisited: **16/28**;
+- canonical capabilities revisited: **19/28**;
 - mandatory clusters revisited: **12/12**;
 - Identity × Authorization × Station × AGWS × AI streak: **1**;
 - Provider/Binding × external realizations streak: **1**;
 - other mandatory cluster streaks: **0**;
 - Integration & Automation local streak: **1**;
 - Identity / Authentication / Federation local streak: **1**;
+- Authorization / Policy / Organization / Multitenancy local streak: **1**;
+- Governance / Compliance / Audit local streak: **1**;
+- Security / Resilience / Failure Recovery local streak: **1**;
 - material edge scenarios: **278**;
 - reusable conflict patterns: **115**;
 - combined material findings: **393**;
@@ -54,3 +63,5 @@ Identity / Authentication / Federation Pass 2 likewise produced **no new materia
 - `PLANNING_C_TARGET_ARCHITECTURE`: BLOCKED.
 
 All mandatory clusters have now been revisited once in Full Pass 2. Full Pass 2 is not complete until all 28 canonical capabilities have also been revisited. Detailed scenario fields remain authoritative in linked registers and `EDGE_CASE_INDEX.md`; eligible no-material streaks advance only on revisits with no genuinely new material finding.
+
+Next local rotation: **Enterprise Trust / PKI / Certificate Lifecycle**.
