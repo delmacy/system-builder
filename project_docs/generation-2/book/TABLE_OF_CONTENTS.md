@@ -17,8 +17,8 @@ Numeração editorial estável a partir desta publicação. Versões indicadas s
 13. **Capítulo 13 — Versionamento, evolução, migração, coexistência e rollback — v1.0.0** — publicado
 14. **Capítulo 14 — Observabilidade, operação, incidentes e evidência — v1.0.0** — publicado
 15. **Capítulo 15 — Segurança, confiança, PKI, secrets e recuperação — v1.0.0** — publicado
-16. **Capítulo 16 — Commercial metering, entitlements, rating, billing e FinOps** — próximo
-17. **Capítulo 17 — O que são happy paths, edge cases, failure cases e outras famílias de teste**
+16. **Capítulo 16 — Commercial metering, entitlements, rating, billing e FinOps — v1.0.0** — publicado
+17. **Capítulo 17 — O que são happy paths, edge cases, failure cases e outras famílias de teste** — próximo
 18. **Capítulo 18 — Concorrência, retries, efeitos parciais, UNKNOWN e idempotência**
 19. **Capítulo 19 — Conflitos processuais e semânticos: quando partes corretas formam um processo errado**
 20. **Capítulo 20 — Técnicas adversariais: fuzzing, property-based, chaos, model checking, version-skew e negative-space**

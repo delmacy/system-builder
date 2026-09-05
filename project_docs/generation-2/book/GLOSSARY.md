@@ -20,6 +20,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 ## B
 
+**Billing / faturamento comercial** — estágio que organiza charges e adjustments em períodos, statements/invoices e obrigações comerciais segundo policy explícita. Billing não é rating e invoice emitida não prova payment settlement.
+
 **Binding** — vínculo qualificado, revisionado e scoped entre uma necessidade/capability do SB e uma realização/provider admitido. Um binding não torna automaticamente todos os recursos do provider parte da semântica canônica e não é apenas uma connection string.
 
 **Break-glass** — mecanismo de autoridade emergencial explicitamente governado, limitado por escopo, duração, origem, evidência e revisão. Não significa “ignorar todas as políticas”; é uma forma especializada de grant temporário.
@@ -43,6 +45,10 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Capability/Support Vector** — representação multidimensional que compara requisitos de uma capability com o suporte de uma realização/provider em dimensões relevantes, como semântica, limites, falhas, ordering, locality, lifecycle, offline e evidência. Evita reduzir portabilidade a `supported=true`.
 
 **Canonical / canônico** — aquilo que o SB reconhece como representação ou verdade normativa dentro de um domínio. Um dado externo pode ser evidência sem ser automaticamente canônico.
+
+**Charge / cobrança derivada** — fato comercial derivado produzido por rating qualificado, ligado a usage evidence, entitlement/subscription state, pricing policy revision, effective dates, currency/rounding e correction lineage. Não é apenas um número monetário sem provenance.
+
+**Chargeback / rateio com disposição interna** — no contexto FinOps, disposição governada de atribuição/transferência econômica interna baseada em evidência e policy explícitas. Não é customer billing nem statutory accounting.
 
 **Closure / fechamento** — conjunto que inclui um elemento e todas as dependências transitivas necessárias sob um perfil declarado. Uma closure correta precisa considerar condições, revisões e dependências que influenciam a execução ou materialização; não é apenas uma lista de imports diretos.
 
@@ -86,9 +92,13 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 ## E
 
+**Economic source evidence / evidência econômica de origem** — evidência qualificada usada por FinOps como base para normalização e avaliação econômica, podendo vir de provider billing, on-premises, rates internos ou outros owners. Ser recebida não a transforma automaticamente em custo canônico normalizado.
+
 **Edge case** — situação válida ou possível situada em limites, combinações incomuns ou condições difíceis do comportamento esperado. Não é necessariamente um bug; serve para testar se as premissas continuam verdadeiras fora do caminho comum.
 
 **Effective state / estado efetivo** — estado qualificado que realmente satisfaz a intenção operacional aplicável para os consumidores relevantes, considerando readiness, dependências, tráfego, currentness e demais evidências exigidas. Não é sinônimo de recurso simplesmente existente ou “running”.
+
+**Entitlement / direito comercial** — elegibilidade, allowance ou direito associado a uma relação comercial. Pode ser input para políticas, mas não é autorização operacional: `entitled != authorized`.
 
 **Environment / Operational Profile** — contexto operacional revisionado que reúne requisitos portáveis de runtime, configuração, bindings, trust, placement/residency, conectividade e outros constraints aplicáveis. O SB atual evidencia um `EnvironmentProfile` mais estreito; um Operational Profile geral permanece direção G2, não implementação já presumida.
 
@@ -105,6 +115,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Fallback qualification / qualificação de fallback** — verificação de que um provider ou caminho alternativo continua satisfazendo os requisitos semânticos, de autoridade, policy, estado e evidência aplicáveis no momento da troca. Fallback configurado não implica fallback qualificado.
 
 **Fencing / cercamento de autoridade** — mecanismo ou estado que impede um writer, controller, workload ou caminho superseded de continuar produzindo efeitos autoritativos durante failover, recovery ou coexistência. Subir um substituto sem fencing suficiente pode criar split-brain.
+
+**FinOps / governança econômica de tecnologia** — semantic owner G2 da interpretação provider-neutral de custos e valor tecnológico: normalização, allocation, rates/cost models, budgets, forecasts, commitment exposure, unit economics, showback e internal chargeback. Não é customer billing nem statutory accounting.
 
 **FormulaDefinition / definição de fórmula** — definição canônica/revisionável do que deve ser calculado sob determinado semantic owner. É distinta de uma execução concreta e de IDs/ASTs internos de provider.
 
@@ -154,6 +166,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **MaterializationPolicy / política de materialização** — política que define se, quando e sob quais condições um DerivedValue é apenas virtual, cacheado, persistido ou preservado como snapshot histórico. Materialização não transfere automaticamente semantic ownership.
 
+**Metering / medição comercial** — qualificação de uso para finalidade comercial sob subject/account, dimensão, unidade, janela, deduplicação/correção, source qualification e revisão explícitas. Raw telemetry ou ausência de registro não equivalem automaticamente a billable usage ou zero.
+
 **Minimal runtime closure** — fechamento mínimo de dependências que um workload precisa reter para executar corretamente sob determinado perfil operacional. “Mínimo” não autoriza remover policy, trust, configuração, schema ou outros requisitos necessários apenas para reduzir tamanho.
 
 **Money / CurrencyAmount** — valor monetário tipado que preserva magnitude e identidade de moeda. Um decimal sem currency não é semanticamente equivalente a dinheiro.
@@ -183,6 +197,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Qualified evidence envelope** — estrutura conceitual que preserva contexto necessário para interpretar evidência: provenance/origem, produtor e revisão, sujeito, aplicabilidade, freshness/currentness, cobertura, incerteza e horizonte relevante.
 
 ## R
+
+**Rating / precificação aplicada** — aplicação de uma pricing policy revision a usage/entitlement e contexto comercial qualificados, produzindo uma charge sob currency, effective interval, tier/bundle/allowance, proration e rounding aplicáveis. Metering e rating são fatos distintos.
 
 **Readiness / prontidão** — afirmação qualificada de que um workload está apto a assumir o trabalho pretendido sob critérios aplicáveis. Processo vivo ou provider readiness isolados podem ser evidências, mas não provam necessariamente dependências, tráfego e consumer-effective service.
 
@@ -236,6 +252,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Separation of Duty (SoD) / separação de funções** — controle que impede uma única pessoa ou principal efetivo de acumular responsabilidades incompatíveis, como solicitar e aprovar o mesmo pagamento. Pode depender do histórico e da composição entre processos, não apenas de Roles estáticos.
 
+**Showback / demonstrativo interno** — exposição de uma avaliação econômica interna para accountability sem necessariamente criar obrigação de transferência. Showback não é internal chargeback, customer billing nem statutory accounting.
+
 **Signal / sinal** — indício que pode justificar investigação ou avaliação. `Signal != ConfirmedConflict`: um detector não deve converter suspeita em fato sem evidência suficiente.
 
 **SLI (Service Level Indicator) / indicador de nível de serviço** — medida operacional revisionada usada para avaliar um aspecto de serviço sob população, janela, exclusions e measurement profile explícitos. O valor do indicador não é automaticamente uma verdade empresarial universal.
@@ -269,6 +287,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **TypedValue / valor tipado** — valor cujo tipo semântico relevante acompanha a magnitude/conteúdo, permitindo distinguir, por exemplo, money, unit, duration, percentage, null/unknown/error e outros casos que um escalar cru não expressa adequadamente.
 
 ## U
+
+**Unit economics / economia unitária tecnológica** — avaliação que relaciona technology-economic evidence a um denominador canônico de outro owner, como workflow, OS, cliente ou Station, sob scope, período e revision vector explícitos. FinOps não redefine o denominador para facilitar a conta.
 
 **UnitOfMeasure / unidade de medida** — identidade da unidade associada a uma quantidade, permitindo validar compatibilidade dimensional e conversões qualificadas em vez de tratar todos os números como escalares intercambiáveis.
 

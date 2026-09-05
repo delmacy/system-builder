@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_16 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial após segurança/recovery e necessidade de separar a cadeia comercial de uso/entitlement/rating/billing/payment da governança econômica interna de tecnologia/FinOps, evitando colapsar customer price, provider evidence, internal cost e statutory accounting.
+- **Resumo:** publicado o capítulo que explica `metering != entitlement != rating != billing != payment`, `entitled != authorized`, usage evidence qualificada, revisão de pricing/rating, charge lineage, billing periods, settlement e `UNKNOWN → reconcile-before-retry`; separa customer-commercial truth de Technology Economic Governance/FinOps e desenvolve economic normalization, allocation/conservation versus attribution, budget versus forecast, commitment exposure, unit economics, showback versus internal chargeback versus customer billing, provider substitution/residual commercial-economic cohorts, correction/supersession e IA/low-code sem amplificação. O texto distingue explicitamente essas fronteiras da situação atual do SB, em que ambos os canonical owners ainda não estão implementados e apenas primitives adjacentes são evidenciadas.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `PLANNING_A_COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_BOUNDARIES.md`, `PLANNING_B_COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_SB_CURRENT_STATE.md`, `PLANNING_A_TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_BOUNDARIES.md`, `PLANNING_B_TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_SB_CURRENT_STATE.md`, `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_FULL_PASS_3_REVISIT.md`, `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_FULL_PASS_3_REVISIT.md`.
+
 ### CHAPTER_15 — v1.0.0
 
 - **Versão anterior:** inexistente.
