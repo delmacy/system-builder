@@ -19,7 +19,7 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 
 ## Estado atual da narrativa
 
-- Capítulos 1–19: publicados em `v1.0.0`.
+- Capítulos 1–20: publicados em `v1.0.0`.
 - Capítulo 1: visão do System Builder e o problema que ele tenta resolver.
 - Capítulo 2: empresa como sistema versionado e semântica revisionada.
 - Capítulo 3: Capability, Provider, Binding e Semantic Owner.
@@ -39,7 +39,8 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 - Capítulo 17: happy paths, boundary/edge/failure cases, famílias de teste, properties/invariants e `Signal != ConfirmedConflict`.
 - Capítulo 18: concorrência, race conditions, retries, efeitos `APPLIED/NOT_APPLIED/PARTIAL/UNKNOWN`, reconciliation e idempotência qualificada.
 - Capítulo 19: conflitos processuais e semânticos, `ConflictPattern != ConflictInstance`, activation conditions, conflict assessment e conflitos entre partes localmente corretas.
-- Capítulo 20: próximo — técnicas adversariais: fuzzing, property-based, chaos, model checking, version-skew e negative-space.
+- Capítulo 20: fuzzing, property-based, mutation testing, model checking, fault injection/chaos, version-skew, differential, pairwise/N-wise, misuse e negative-space como técnicas complementares com limites de prova explícitos.
+- Capítulo 21: próximo — IA como arquiteta/assistente sem se tornar autoridade.
 - Glossário: evolutivo e didático; definições autoritativas continuam nos artefatos de pesquisa/planejamento.
 
-A pesquisa adversarial continua `ACTIVE / NOT_SATURATED`; no snapshot editorial revalidado em 2026-09-05, Full Passes 1, 2 e 3 estão completos e o Full Pass 4 está em 12/28 capabilities e 11/12 mandatory clusters, com 3/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
+A pesquisa adversarial continua `ACTIVE / NOT_SATURATED`; no snapshot editorial revalidado em 2026-09-05, Full Passes 1, 2 e 3 estão completos e o Full Pass 4 está em 16/28 capabilities e 12/12 mandatory clusters, com 3/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
