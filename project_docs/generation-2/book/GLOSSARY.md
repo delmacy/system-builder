@@ -40,6 +40,12 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Cumulative context / contexto acumulado** — contexto mínimo que precisa atravessar boundaries sucessivas para preservar identidade, revisão, lineage, constraints e evidência aplicáveis sem obrigar cada etapa a conhecer a implementação interna de todas as anteriores.
 
+## D
+
+**Durable history / histórico durável** — histórico suficiente para preservar progressão, tentativas, waits, efeitos e demais fatos necessários para retomada, reconciliação, auditoria, replay ou migração conforme o contrato aplicável. Não é sinônimo de log técnico infinito.
+
+**Durable wait / espera durável** — espera cujo significado e identidade precisam sobreviver a restart, substituição de worker e passagem do tempo, como aguardar sinal, prazo, tarefa humana ou condição externa.
+
 ## E
 
 **Edge case** — situação válida ou possível situada em limites, combinações incomuns ou condições difíceis do comportamento esperado. Não é necessariamente um bug; serve para testar se as premissas continuam verdadeiras fora do caminho comum.
@@ -55,6 +61,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## H
 
 **Happy path** — percurso em que entradas, dependências e participantes se comportam como esperado. É necessário, mas insuficiente para demonstrar robustez.
+
+**Human task / tarefa humana** — unidade durável de trabalho em que uma execução aguarda ação ou julgamento humano. Workflow possui seu lifecycle dentro da execução; quem pode vê-la, reivindicá-la ou concluí-la continua sujeito ao owner de autorização/policy.
 
 ## I
 
@@ -90,6 +98,10 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Reconcile-before-retry** — princípio segundo o qual um efeito mutante `UNKNOWN` deve ser reconciliado antes de uma repetição potencialmente insegura, salvo quando o contrato qualificado da operação prova que a repetição é segura.
 
+**Redrive** — nova tentativa governada de processamento de trabalho previamente falho, pendente ou desviado, preservando vínculo com as tentativas e disposições anteriores em vez de apagar a história.
+
+**Replay** — reconstrução ou reexecução controlada a partir de histórico/inputs registrados sob um contrato de determinismo e revisão. Replay de lógica não autoriza repetir automaticamente side effects externos.
+
 **Residual cohort / cohort residual** — população pertencente a uma realização/revisão anterior que ainda pode produzir efeitos relevantes ou autoritativos após um cutover, como sessões, workers, caches, callbacks, credenciais, filas ou clientes antigos.
 
 **Retained runtime closure / closure retida de runtime** — conjunto de artefatos, dependências runtime, configuração, trust, autoridade/policy local, schema/data compatibility, bindings e demais requisitos que precisam permanecer disponíveis para a operação permitida de um runtime, inclusive durante um horizonte desconectado quando esse perfil for suportado.
@@ -116,6 +128,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 ## T
 
+**Timer durável** — intenção temporal persistente cuja identidade e semântica sobrevivem a restart/substituição de worker; não é simplesmente manter uma thread dormindo.
+
 **Topology collapse / colapso de topologia** — realização em que múltiplas capabilities ou owners compartilham processo, host, banco ou outro substrato físico para reduzir complexidade operacional. Não implica colapso de identidade semântica, lifecycle ou autoridade.
 
 **Transitive dependency closure / fechamento transitivo de dependências** — operação de incluir recursivamente as dependências necessárias das dependências até que o conjunto esteja fechado para o perfil considerado, respeitando versões, condições e constraints aplicáveis.
@@ -127,3 +141,7 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## V
 
 **Version skew** — coexistência ou interação entre componentes/revisões que não estão na mesma versão. Pode ser legítima ou perigosa dependendo das relações de compatibilidade.
+
+## W
+
+**Workflow instance / instância de workflow** — identidade de uma execução concreta de uma definição executável admitida. É distinta de worker ID, container ID, provider run ID e da própria definição do processo.
