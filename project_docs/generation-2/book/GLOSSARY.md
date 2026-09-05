@@ -48,6 +48,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Canonical / canônico** — aquilo que o SB reconhece como representação ou verdade normativa dentro de um domínio. Um dado externo pode ser evidência sem ser automaticamente canônico.
 
+**Chaos testing/engineering** — uso deliberado e controlado de falhas ou degradações operacionais para testar hipóteses de resiliência, recovery e comportamento sob dependências instáveis. Um experimento de chaos produz evidência sobre os cenários injetados; não prova cobertura universal de falhas.
+
 **Charge / cobrança derivada** — fato comercial derivado produzido por rating qualificado, ligado a usage evidence, entitlement/subscription state, pricing policy revision, effective dates, currency/rounding e correction lineage. Não é apenas um número monetário sem provenance.
 
 **Chargeback / rateio com disposição interna** — no contexto FinOps, disposição governada de atribuição/transferência econômica interna baseada em evidência e policy explícitas. Não é customer billing nem statutory accounting.
@@ -132,6 +134,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **FormulaRevision / revisão de fórmula** — identidade imutável/revisionada de uma evolução de uma FormulaDefinition. A revisão atual não substitui silenciosamente a revisão historicamente aplicável.
 
+**Fuzzing** — técnica que gera ou muta grande volume de inputs para procurar crashes, violações de contrato, caminhos inesperados ou comportamento patológico. É especialmente útil em parsers, schemas, protocolos e limites, mas precisa de invariantes/oráculos para detectar muitos erros puramente semânticos.
+
 ## G
 
 **Governed population / população governada** — conjunto identificado de dados, cópias, replicas, backups, indexes, exports, caches, derivados ou downstream consumers que permanecem sujeitos a uma obrigação de privacy, retenção, hold, residency ou disposition.
@@ -180,7 +184,11 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Minimal runtime closure** — fechamento mínimo de dependências que um workload precisa reter para executar corretamente sob determinado perfil operacional. “Mínimo” não autoriza remover policy, trust, configuração, schema ou outros requisitos necessários apenas para reduzir tamanho.
 
+**Model checking** — técnica de verificação que explora sistematicamente estados/transições de um modelo para procurar violações de propriedades como safety, liveness, ausência de deadlock ou exclusão mútua. Suas garantias valem para o modelo e limites explorados; a correspondência com a implementação real continua sendo obrigação separada.
+
 **Money / CurrencyAmount** — valor monetário tipado que preserva magnitude e identidade de moeda. Um decimal sem currency não é semanticamente equivalente a dinheiro.
+
+**Mutation testing / teste por mutação** — técnica que introduz alterações artificiais e pequenas em regras ou implementação para verificar se a suíte de testes detecta a mudança. Ajuda a avaliar sensibilidade dos testes, mas uma boa taxa de detecção de mutações não prova cobertura arquitetural ou semântica completa.
 
 ## N
 
@@ -193,6 +201,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Offline authorization closure** — conjunto qualificado de políticas, relações, evidências e limites que um runtime pode reter para continuar decidindo certas operações durante desconexão/degradação. Não autoriza ampliar privilégio quando currentness necessária deixa de existir.
 
 ## P
+
+**Pairwise / N-wise combinatorial testing** — seleção sistemática de combinações para cobrir pares ou conjuntos de N fatores sem executar todo o produto cartesiano. Reduz a explosão combinatória, mas pode perder falhas que dependem de interação simultânea entre mais fatores do que o nível de cobertura escolhido.
 
 **PKI (Public Key Infrastructure) / infraestrutura de chaves públicas** — conjunto de identidades, chaves, certificados, emissores, trust anchors, políticas e mecanismos usados para estabelecer e qualificar relações de confiança baseadas em criptografia assimétrica. Possuir certificado ou chave não prova, por si só, confiança atual nem autorização empresarial.
 
@@ -279,6 +289,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **SLO (Service Level Objective) / objetivo de nível de serviço** — alvo definido sobre um SLI para determinado scope e horizonte. Observability pode possuir a semântica de medição/avaliação do SLO sem se tornar dona da obrigação empresarial ou governança que motivou o objetivo.
 
 **Stale / obsoleto para o contexto** — informação, proposta ou evidência que pode ter sido válida em uma revisão ou instante anterior, mas não pode ser assumida como atual para a decisão presente sem requalificação.
+
+**State-space explosion / explosão do espaço de estados** — crescimento combinatório do número de estados/interleavings possíveis à medida que variáveis, atores, revisões e eventos são adicionados a um modelo. É uma limitação central de model checking e exige abstração/priorização sem fingir cobertura irrestrita.
 
 **Station** — escopo organizacional/governado dentro da hierarquia `Enterprise → Station → Role → Person`, usado na pesquisa G2 para exposição de capabilities, administração delegada e limites de autoridade.
 
