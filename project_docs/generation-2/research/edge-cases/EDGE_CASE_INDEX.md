@@ -31,10 +31,13 @@ Full Pass 1 completed **28/28 capabilities** and **12/12 mandatory clusters**. T
 | UI / Generated Experience / Low-code Builder | `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_FULL_PASS_2_REVISIT.md` | `G2-EDGE-UI-008..010` | No new mandatory cluster; existing UI-linked clusters remain unchanged | 0 | unchanged |
 | Integration & Automation | `INTEGRATION_AUTOMATION_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; existing linked cluster streaks intentionally unchanged | 1 | unchanged |
 | Identity / Authentication / Federation | `IDENTITY_AUTHENTICATION_FEDERATION_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; Identity-linked cluster streaks intentionally unchanged | 1 | unchanged |
+| Authorization / Policy / Organization / Multitenancy | `AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; linked cluster streaks intentionally unchanged | 1 | unchanged |
+| Governance / Compliance / Audit | `GOVERNANCE_COMPLIANCE_AUDIT_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; linked cluster streaks intentionally unchanged | 1 | unchanged |
+| Security / Resilience / Failure Recovery | `SECURITY_RESILIENCE_FAILURE_RECOVERY_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; linked cluster streaks intentionally unchanged | 1 | unchanged |
 
 ## Pass-2 reusable ConflictPatterns
 
-Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin, Commercial Metering, FinOps, UCA, UI, Integration and Identity added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
+Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin, Commercial Metering, FinOps, UCA, UI, Integration, Identity, Authorization, Governance and Security added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
 
 Artifact/Release Pass 2 maps `G2-EDGE-ARTIFACT-008..009` and `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-005` to existing qualification-join, qualified-claim, revision-vector, currentness, effective-identity, provider-qualification, attestation-qualification, trust-authority, distribution-convergence and migration/coexistence patterns.
 
@@ -54,6 +57,12 @@ Integration Pass 2 admitted no new scenario or reusable pattern after compound-g
 
 Identity Pass 2 admitted no new scenario or reusable pattern after namespace/reassignment mutation, assurance-vector fracture, multi-issuer/client mix-up falsification, logout/revocation propagation-lag analysis, recovery identity mutation, IdP-substitution differential, correlation/privacy screening, resource-pressure perturbation and AI/low-code evidence-misuse mutation. The challenged mechanisms duplicate existing identity-mapping/effective-identity, authentication-currentness/qualified-claim/revision-vector, federation-coexistence/provider-qualification, residual-cohort/adoption-convergence, recovery-identity-authority, multitenant/privacy and authority non-amplification families. This is one eligible local no-material revisit only.
 
+Authorization Pass 2 admitted no new scenario or reusable pattern after policy-lattice mutation, consistency-mode differential, model-revision pin fracture, contextual-claim substitution, shared-cache scope perturbation, break-glass/delegation expiry races, cross-process self-dealing mutation, provider error-semantics differential, resource-pressure perturbation and AI/low-code authority-delta composition. Existing policy-precedence, authority-currentness, SoD/delegation, multitenant-scope, provider-qualification, revision-vector, residual-cohort and non-amplification families remain sufficient.
+
+Governance Pass 2 admitted no new scenario or reusable pattern after obligation-lattice mutation, evidence-provenance fracture, currentness-window perturbation, waiver lease races, audit sequence/correction mutation, closure-state differential, control-revision pin fracture, inherited-scope/SoD mutation, provider-attestation substitution, distributed `PARTIAL/UNKNOWN` thought experiments, residual-cohort/offline perturbation, cardinality pressure, objective inversion and AI/low-code authority/coverage-delta composition. Existing applicability/precedence, assessment-currentness, exception-control, audit-closure, revision-vector, SoD/authority, provider-qualification, residual-cohort, resource-boundedness and AI/low-code families remain sufficient.
+
+Security Pass 2 admitted no new scenario or reusable pattern after recovery-dependency cut mutation, incident-epoch braid analysis, evidence-horizon fracture, fencing-lease perturbation, restore-point contamination differential, persistent-commitment inversion, fail-open/fail-closed objective inversion, residual-cohort compromise mutation, resource/evidence-loss injection, cross-process recovery collision and AI/low-code playbook delta analysis. Existing `RECOVERY-QUALIFICATION`, `FENCING-RECOVERY`, `RECOVERY-CUT-EFFECT`, `DEGRADED-AUTHORITY`, currentness/revision-vector, residual-cohort, resource-boundedness, scheduling/structural conflict and authority non-amplification families remain sufficient. This is one eligible local no-material revisit only.
+
 ## Campaign state
 
 - material edge findings: **278**;
@@ -62,10 +71,13 @@ Identity Pass 2 admitted no new scenario or reusable pattern after namespace/rea
 - HIGH/CRITICAL without semantic owner or proof obligation/detection route: **0**;
 - Integration & Automation local no-material streak: **1**;
 - Identity / Authentication / Federation local no-material streak: **1**;
+- Authorization / Policy / Organization / Multitenancy local no-material streak: **1**;
+- Governance / Compliance / Audit local no-material streak: **1**;
+- Security / Resilience / Failure Recovery local no-material streak: **1**;
 - Identity × Authorization × Station × AGWS × AI cluster streak: **1**;
 - Provider/Binding × external realizations cluster streak: **1**;
 - other mandatory cluster streaks: **0**;
-- Full Pass 2 local coverage: **16/28 capabilities**;
+- Full Pass 2 local coverage: **19/28 capabilities**;
 - Full Pass 2 mandatory cluster coverage: **12/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
@@ -73,4 +85,4 @@ Identity Pass 2 admitted no new scenario or reusable pattern after namespace/rea
 - saturation: NOT SATURATED;
 - `PLANNING_C_TARGET_ARCHITECTURE`: BLOCKED.
 
-Next local rotation owner is maintained by `RESEARCH_PIPELINE_STATE.json` / `ADVERSARIAL_SATURATION_STATE.json`.
+Next local rotation owner is maintained by `RESEARCH_PIPELINE_STATE.json` / `ADVERSARIAL_SATURATION_STATE.json`: **Enterprise Trust / PKI / Certificate Lifecycle**.
