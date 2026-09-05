@@ -19,7 +19,7 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 
 ## Estado atual da narrativa
 
-- Capítulos 1–15: publicados em `v1.0.0`.
+- Capítulos 1–19: publicados em `v1.0.0`.
 - Capítulo 1: visão do System Builder e o problema que ele tenta resolver.
 - Capítulo 2: empresa como sistema versionado e semântica revisionada.
 - Capítulo 3: Capability, Provider, Binding e Semantic Owner.
@@ -35,7 +35,11 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 - Capítulo 13: versionamento, evolução, migração, coexistência, revision vectors e rollback eligibility.
 - Capítulo 14: observabilidade como evidência qualificada; telemetry, coverage/currentness, SLI/SLO, alerts, incidents, diagnosis, remediation evidence e limites de autoridade.
 - Capítulo 15: segurança, confiança e PKI; secret references/consumer currentness; failure/compromise, containment/fencing, recovery qualification, return-to-service e reprotection.
-- Capítulo 16: próximo — Commercial metering, entitlements, rating, billing e FinOps.
+- Capítulo 16: commercial metering, entitlements, rating, billing e FinOps, preservando a separação entre verdade comercial e governança econômica interna de tecnologia.
+- Capítulo 17: happy paths, boundary/edge/failure cases, famílias de teste, properties/invariants e `Signal != ConfirmedConflict`.
+- Capítulo 18: concorrência, race conditions, retries, efeitos `APPLIED/NOT_APPLIED/PARTIAL/UNKNOWN`, reconciliation e idempotência qualificada.
+- Capítulo 19: conflitos processuais e semânticos, `ConflictPattern != ConflictInstance`, activation conditions, conflict assessment e conflitos entre partes localmente corretas.
+- Capítulo 20: próximo — técnicas adversariais: fuzzing, property-based, chaos, model checking, version-skew e negative-space.
 - Glossário: evolutivo e didático; definições autoritativas continuam nos artefatos de pesquisa/planejamento.
 
-A pesquisa adversarial continua ativa; no snapshot editorial revalidado em 2026-09-05, Full Passes 1 e 2 estão completos e o Full Pass 3 está em 25/28 capabilities e 12/12 mandatory clusters, com 2/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
+A pesquisa adversarial continua `ACTIVE / NOT_SATURATED`; no snapshot editorial revalidado em 2026-09-05, Full Passes 1, 2 e 3 estão completos e o Full Pass 4 está em 12/28 capabilities e 11/12 mandatory clusters, com 3/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
