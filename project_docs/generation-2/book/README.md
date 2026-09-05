@@ -4,7 +4,7 @@ Este diretório transforma o conhecimento acumulado da Generation 2 em uma narra
 
 ## Como ler
 
-A sequência principal está em `TABLE_OF_CONTENTS.md`. Os primeiros capítulos constroem o modelo mental; os intermediários explicam capabilities e mecanismos; os últimos tratam falhas, técnicas adversariais, IA, o ciclo ponta a ponta e a passagem da pesquisa para arquitetura/construção.
+A sequência principal está em `TABLE_OF_CONTENTS.md`. Os primeiros capítulos constroem o modelo mental; os intermediários explicam capabilities e mecanismos; os últimos tratam falhas, técnicas adversariais, IA, o ciclo ponta a ponta, a passagem da pesquisa para arquitetura/construção e, por fim, um mapa mental integrador.
 
 Afirmações importantes podem receber marcadores editoriais:
 
@@ -19,10 +19,12 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 
 ## Estado atual da narrativa
 
-- Capítulos 1–23: publicados em `v1.0.0`.
+- Capítulos 1–24: publicados em `v1.0.0`.
 - Capítulos 1–22: constroem a visão, semantic owners, runtime, providers, lifecycle, operação, segurança, economia, testes adversariais, IA e o ciclo completo da intenção ao sistema operado.
 - Capítulo 23: explica a passagem governada `pesquisa → synthesis → boundaries → arquitetura alvo → dependency design → proof obligations → WBS → Work Packages → TASKs → Construction`, sem entrar em Planning C nem materializar arquitetura/WBS/trabalho executivo.
-- Capítulo 24: próximo — glossário comentado e mapa mental geral da Generation 2.
+- Capítulo 24: consolida o vocabulário e apresenta o mapa mental geral das 28 capabilities, primitives transversais, owners, providers, revisions, authority, evidence, lifecycle, operação e evolução.
 - Glossário: evolutivo e didático; definições autoritativas continuam nos artefatos de pesquisa/planejamento.
 
-A pesquisa adversarial continua `ACTIVE / NOT_SATURATED`; no snapshot editorial revalidado em 2026-09-05, Full Passes 1–4 estão completos e o Full Pass 5 está em 1/28 capabilities e 0/12 mandatory clusters, com 4/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
+A primeira sequência editorial está completa. A partir daqui, o modo normal passa a ser **manutenção editorial bounded**: revisar somente capítulos cujo entendimento realmente mudou, registrar PATCH/MINOR/MAJOR conforme impacto e criar apêndices apenas quando agregarem compreensão sem duplicar o corpo principal.
+
+A pesquisa adversarial continua `ACTIVE / NOT_SATURATED`; no snapshot editorial revalidado em 2026-09-05, Full Passes 1–4 estão completos e o Full Pass 5 está em 5/28 capabilities e 4/12 mandatory clusters, com 4/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
