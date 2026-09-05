@@ -4,7 +4,7 @@ Este diretório transforma o conhecimento acumulado da Generation 2 em uma narra
 
 ## Como ler
 
-A sequência principal está em `TABLE_OF_CONTENTS.md`. Os primeiros capítulos constroem o modelo mental; os intermediários explicam capabilities e mecanismos; os últimos tratam falhas, técnicas adversariais, IA e a passagem da pesquisa para arquitetura/construção.
+A sequência principal está em `TABLE_OF_CONTENTS.md`. Os primeiros capítulos constroem o modelo mental; os intermediários explicam capabilities e mecanismos; os últimos tratam falhas, técnicas adversariais, IA, o ciclo ponta a ponta e a passagem da pesquisa para arquitetura/construção.
 
 Afirmações importantes podem receber marcadores editoriais:
 
@@ -19,7 +19,7 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 
 ## Estado atual da narrativa
 
-- Capítulos 1–21: publicados em `v1.0.0`.
+- Capítulos 1–22: publicados em `v1.0.0`.
 - Capítulo 1: visão do System Builder e o problema que ele tenta resolver.
 - Capítulo 2: empresa como sistema versionado e semântica revisionada.
 - Capítulo 3: Capability, Provider, Binding e Semantic Owner.
@@ -41,7 +41,8 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 - Capítulo 19: conflitos processuais e semânticos, `ConflictPattern != ConflictInstance`, activation conditions, conflict assessment e conflitos entre partes localmente corretas.
 - Capítulo 20: fuzzing, property-based, mutation testing, model checking, fault injection/chaos, version-skew, differential, pairwise/N-wise, misuse e negative-space como técnicas complementares com limites de prova explícitos.
 - Capítulo 21: IA como mecanismo de análise, proposta, composição e atuação bounded; `model output != canonical truth`, materialização não implica admissão, tool capability não implica autoridade e AI/provider continuam submetidos a semantic owners, authorization e evidence/currentness.
-- Capítulo 22: próximo — o ciclo completo, da intenção humana ao sistema materializado e operado.
+- Capítulo 22: ciclo completo da intenção humana ao sistema operado, conectando modelagem semântica, composição, autoridade, qualification/binding, build, release, deployment, runtime efetivo, evidência, incident/recovery e evolução sem antecipar Planning C.
+- Capítulo 23: próximo — como transformar esta pesquisa em arquitetura alvo, WBS e construção sem permitir que o livro avance gates autoritativos.
 - Glossário: evolutivo e didático; definições autoritativas continuam nos artefatos de pesquisa/planejamento.
 
-A pesquisa adversarial continua `ACTIVE / NOT_SATURATED`; no snapshot editorial revalidado em 2026-09-05, Full Passes 1, 2 e 3 estão completos e o Full Pass 4 está em 21/28 capabilities e 12/12 mandatory clusters, com 3/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
+A pesquisa adversarial continua `ACTIVE / NOT_SATURATED`; no snapshot editorial revalidado em 2026-09-05, Full Passes 1, 2 e 3 estão completos e o Full Pass 4 está em 25/28 capabilities e 12/12 mandatory clusters, com 3/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
