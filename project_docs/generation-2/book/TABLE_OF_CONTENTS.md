@@ -15,8 +15,8 @@ Numeração editorial estável a partir desta publicação. Versões indicadas s
 11. **Capítulo 11 — Deployment, runtime autônomo, workload e escalabilidade — v1.0.0** — publicado
 12. **Capítulo 12 — Providers externos, substituição e anti-lock-in — v1.0.0** — publicado
 13. **Capítulo 13 — Versionamento, evolução, migração, coexistência e rollback — v1.0.0** — publicado
-14. **Capítulo 14 — Observabilidade, operação, incidentes e evidência** — próximo
-15. **Capítulo 15 — Segurança, confiança, PKI, secrets e recuperação**
+14. **Capítulo 14 — Observabilidade, operação, incidentes e evidência — v1.0.0** — publicado
+15. **Capítulo 15 — Segurança, confiança, PKI, secrets e recuperação** — próximo
 16. **Capítulo 16 — Commercial metering, entitlements, rating, billing e FinOps**
 17. **Capítulo 17 — O que são happy paths, edge cases, failure cases e outras famílias de teste**
 18. **Capítulo 18 — Concorrência, retries, efeitos parciais, UNKNOWN e idempotência**
