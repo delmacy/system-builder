@@ -4,6 +4,26 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_24 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** encerrar a primeira sequência editorial com um mapa mental integrador e um glossário comentado que permitam navegar pelas 28 capabilities, primitives transversais e separações semânticas sem transformar a camada didática em arquitetura alvo.
+- **Resumo:** publicado o capítulo que organiza as 28 capabilities em seis famílias, conecta semantic owner, provider, binding, identity, revision, evidence, authority, attempt/effect, process/workflow/integration, data/calculation, build/release/deployment/runtime, lifecycle, observability/recovery, segurança/trust, Commercial/FinOps, conflitos, técnicas adversariais, IA e a cadeia de governança da pesquisa; consolida desigualdades didáticas como `Capability != Module`, `Provider != Semantic Owner`, `Timeout != NOT_APPLIED`, `Build != Release != Deployment != Effective Runtime` e `Signal != ConfirmedConflict`.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `CAPABILITY_SYNTHESIS.md`, `PLANNING_A_UNIVERSAL_CAPABILITY_ARCHITECTURE_BOUNDARIES.md`, `POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md`, `PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md`.
+
+### CHAPTER_23 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** explicar como conhecimento de pesquisa pode ser transformado posteriormente em arquitetura alvo, dependency/migration design, proof obligations, WBS, Work Packages, TASKs e Construction sem permitir que o livro antecipe Planning C ou execute trabalho autoritativo.
+- **Resumo:** publicado o capítulo que estabelece `finding != backlog`, `Capability != module != package != service`, explica boundaries antes de estrutura de código, confronta synthesis/Planning A com Planning B, posiciona pesquisa adversarial antes da cristalização arquitetural, descreve proof obligations, WBS, dependency graph, Work Packages, TASKs, Construction, rastreabilidade bidirecional e architecture drift, sempre preservando os gates competentes.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `CAPABILITY_SYNTHESIS.md`, `PLANNING_A_UNIVERSAL_CAPABILITY_ARCHITECTURE_BOUNDARIES.md` e demais Planning A/B citados no capítulo.
+
 ### CHAPTER_22 — v1.0.0
 
 - **Versão anterior:** inexistente.
