@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_22 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** integrar os conceitos dos capítulos anteriores em uma narrativa ponta a ponta que explique como intenção humana, semântica, autoridade, providers, build, release, deployment, runtime efetivo, evidência, recovery e evolução se conectam sem colapsar seus semantic owners.
+- **Resumo:** publicado o capítulo que apresenta o ciclo `intenção → semântica → composição → autoridade → realização qualificada → build → release → deployment → runtime efetivo → evidência → evolução`, explica System Mirroring como ciclo de compreensão/materialização/aprendizado, preserva `build != release != deployment != runtime-effective`, `discovered != qualified != admitted != bound != effective`, `latest != applicable`, `UNKNOWN -> reconcile-before-retry` e mostra um exemplo completo de OS desde elicitação até operação/evolução.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `CAPABILITY_SYNTHESIS.md`, `PLANNING_A_PROCESS_APPLICATION_MODELING_BOUNDARIES.md`, `PLANNING_A_AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_BOUNDARIES.md`, `PLANNING_A_PROVIDER_BINDING_CAPABILITY_NEGOTIATION_BOUNDARIES.md`, `PLANNING_A_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_BOUNDARIES.md`, `PLANNING_A_ARTIFACT_RELEASE_SBOM_PROVENANCE_BOUNDARIES.md`, `PLANNING_A_DEPLOYMENT_ENVIRONMENT_RUNTIME_BOUNDARIES.md`, `PLANNING_A_LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_BOUNDARIES.md`.
+
 ### CHAPTER_21 — v1.0.0
 
 - **Versão anterior:** inexistente.
