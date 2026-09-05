@@ -40,9 +40,13 @@ Governance / Compliance / Audit Pass 2 produced **no new material local or cross
 
 Security / Resilience / Failure Recovery Pass 2 produced **no new material local or cross-capability class** after recovery-dependency cut mutation, incident-epoch braid analysis, evidence-horizon fracture, fencing-lease perturbation, restore-point contamination differential, persistent-commitment inversion, fail-open/fail-closed objective inversion, residual-cohort compromise mutation, resource/evidence-loss injection, cross-process recovery collision and AI/low-code playbook delta analysis. It deepens Observability × Security/Recovery × runtime truth, Secrets/Config × Runtime × Provider substitution, Provider/Binding × external realizations, Workflow × Integration × Messaging × external mutation, Identity × Authorization × Station × AGWS × AI and Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution. This is an eligible **local** no-material revisit only; mandatory-cluster streaks remain unchanged.
 
+Enterprise Trust / PKI / Certificate Lifecycle Pass 2 produced **no new material local or cross-capability class** after trust-anchor generation-cut mutation, certificate/issuer/consumer cohort braid analysis, revocation-horizon fracture, enrollment/account-key versus certificate-key identity differential, proof-of-possession ambiguity, federation bootstrap/current-bundle differential, emergency compromise-epoch mutation, provider semantic substitution, clock-boundary perturbation, ambiguous issuance/revocation effect analysis, resource exhaustion and AI/low-code trust-scope delta analysis. It deepens Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution, Identity × Authorization × Station × AGWS × AI and Provider/Binding interaction families without constituting a designated second cluster rotation. Cluster streaks remain unchanged.
+
+Privacy / Data Governance / Retention / Legal Hold / Residency Pass 2 produced **no new material local or cross-capability class** after purpose-stage differential, consent/legal-basis and policy-currentness mutation, retention/hold precedence lattice mutation, residual-population braid analysis, provider acknowledgement versus erasure-convergence differential, residency support-vector substitution, subject-linkage ambiguity, restore-versus-governance-history differential, offline evidence-horizon fracture, derived/inferred-data purpose-delta analysis, lineage-cardinality pressure and AI/low-code privacy-scope delta composition. It deepens Data/Schema × Privacy × Storage × Lifecycle, Provider/Binding × external realizations, Identity/Authorization, Security/Recovery and AI/low-code interaction families without constituting a designated second cluster rotation. Cluster streaks remain unchanged.
+
 ## Full Pass 2 campaign state
 
-- canonical capabilities revisited: **19/28**;
+- canonical capabilities revisited: **21/28**;
 - mandatory clusters revisited: **12/12**;
 - Identity × Authorization × Station × AGWS × AI streak: **1**;
 - Provider/Binding × external realizations streak: **1**;
@@ -52,6 +56,8 @@ Security / Resilience / Failure Recovery Pass 2 produced **no new material local
 - Authorization / Policy / Organization / Multitenancy local streak: **1**;
 - Governance / Compliance / Audit local streak: **1**;
 - Security / Resilience / Failure Recovery local streak: **1**;
+- Enterprise Trust / PKI / Certificate Lifecycle local streak: **1**;
+- Privacy / Data Governance / Retention / Legal Hold / Residency local streak: **1**;
 - material edge scenarios: **278**;
 - reusable conflict patterns: **115**;
 - combined material findings: **393**;
@@ -64,4 +70,4 @@ Security / Resilience / Failure Recovery Pass 2 produced **no new material local
 
 All mandatory clusters have now been revisited once in Full Pass 2. Full Pass 2 is not complete until all 28 canonical capabilities have also been revisited. Detailed scenario fields remain authoritative in linked registers and `EDGE_CASE_INDEX.md`; eligible no-material streaks advance only on revisits with no genuinely new material finding.
 
-Next local rotation: **Enterprise Trust / PKI / Certificate Lifecycle**.
+Next local rotation: **Notifications / Events / Messaging**.
