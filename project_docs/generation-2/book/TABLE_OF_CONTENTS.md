@@ -12,8 +12,8 @@ Numeração editorial estável a partir desta publicação. Versões indicadas s
 8. **Capítulo 08 — Dados, schema, documentos, storage, privacidade e retenção — v1.0.0** — publicado
 9. **Capítulo 09 — Cálculos, fórmulas, valores derivados e matemática empresarial — v1.0.0** — publicado
 10. **Capítulo 10 — Build, artefatos, releases, provenance, SBOM e repositórios do cliente — v1.0.0** — publicado
-11. **Capítulo 11 — Deployment, runtime autônomo, workload e escalabilidade** — próximo
-12. **Capítulo 12 — Providers externos, substituição e anti-lock-in**
+11. **Capítulo 11 — Deployment, runtime autônomo, workload e escalabilidade — v1.0.0** — publicado
+12. **Capítulo 12 — Providers externos, substituição e anti-lock-in** — próximo
 13. **Capítulo 13 — Versionamento, evolução, migração, coexistência e rollback**
 14. **Capítulo 14 — Observabilidade, operação, incidentes e evidência**
 15. **Capítulo 15 — Segurança, confiança, PKI, secrets e recuperação**
