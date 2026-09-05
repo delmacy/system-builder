@@ -36,6 +36,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Capability** — capacidade semanticamente coerente do sistema, com problema e responsabilidades próprios. Não é sinônimo de módulo de UI, pacote de código ou produto externo.
 
+**Capability laundering / lavagem de capability** — perda ou enfraquecimento de uma garantia material ao atravessar uma cadeia de providers, fallbacks, adapters ou composições localmente aceitas, enquanto o conjunto continua sendo apresentado como se preservasse a capability original por inteiro.
+
 **Capability/Support Vector** — representação multidimensional que compara requisitos de uma capability com o suporte de uma realização/provider em dimensões relevantes, como semântica, limites, falhas, ordering, locality, lifecycle, offline e evidência. Evita reduzir portabilidade a `supported=true`.
 
 **Canonical / canônico** — aquilo que o SB reconhece como representação ou verdade normativa dentro de um domínio. Um dado externo pode ser evidência sem ser automaticamente canônico.
@@ -94,6 +96,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 ## F
 
+**Fallback qualification / qualificação de fallback** — verificação de que um provider ou caminho alternativo continua satisfazendo os requisitos semânticos, de autoridade, policy, estado e evidência aplicáveis no momento da troca. Fallback configurado não implica fallback qualificado.
+
 **FormulaDefinition / definição de fórmula** — definição canônica/revisionável do que deve ser calculado sob determinado semantic owner. É distinta de uma execução concreta e de IDs/ASTs internos de provider.
 
 **FormulaDependencyGraph / grafo de dependências de fórmulas** — grafo que relaciona fórmulas e seus inputs/derivados para ordenar recomputação, detectar ciclos e estimar o blast radius de mudanças.
@@ -132,6 +136,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Lossy / com perda** — transformação ou mapeamento que não preserva integralmente a semântica da origem. Uma normalização lossy precisa permanecer explícita; não deve ser apresentada como equivalência perfeita.
 
+**Lowest-common-denominator abstraction / abstração do menor denominador comum** — abstração que tenta uniformizar providers expondo apenas o subconjunto mínimo comum e, com isso, pode esconder garantias ou diferenças semanticamente materiais. Portabilidade não deve ser obtida fingindo que capacidades ausentes são equivalentes.
+
 **Low-code** — abordagem de autoria que usa modelos, componentes, configurações e relações de alto nível para reduzir código manual. No contexto G2, low-code não elimina semantic owners, autoridade, revisionamento ou constraints; a interface pode simplificar sua exposição sem apagá-los.
 
 ## M
@@ -151,6 +157,10 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## P
 
 **Provider** — sistema, serviço, engine ou mecanismo especializado que realiza parte de uma capability. O SB procura delegar mecânicas maduras sem entregar automaticamente ao provider a propriedade da semântica empresarial.
+
+**Provider portability / portabilidade de provider** — capacidade qualificada de substituir, coexistir ou migrar entre realizações preservando as semânticas requeridas. É dependente de support vectors, estado, identidade, evidência, lifecycle e obrigações; não equivale a hot swap universal.
+
+**Provider withdrawal / retirada de provider** — estado governado em que uma realização antiga deixa de poder produzir novos efeitos autoritativos para o escopo aplicável após cutover, reconciliação e drainage dos cohorts relevantes, preservando lineage histórica necessária.
 
 **ProviderSemanticProfile / perfil semântico de provider** — declaração qualificada das semânticas que um evaluator/provider suporta em dimensões como números, falhas, money/rates, units, temporalidade, dependências, histórico, segurança, resource bounds, evidência e runtime mode.
 
@@ -175,6 +185,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Residual cohort / cohort residual** — população pertencente a uma realização/revisão anterior que ainda pode produzir efeitos relevantes ou autoritativos após um cutover, como sessões, workers, caches, callbacks, credenciais, filas ou clientes antigos.
 
 **Residual governed copy / cópia governada residual** — cópia de dado ou conteúdo que permanece materialmente existente, acessível ou sujeita a obrigação após cutover, logical deletion, migration ou disposition parcial. Não deixa de ser governada só porque a referência principal foi removida.
+
+**Residual provider cohort / cohort residual de provider** — subconjunto de sessões, workers, callbacks, subscriptions, credentials, jobs, queues, mappings, in-flight operations ou clientes ligados a um provider anterior que ainda pode produzir efeitos depois do cutover. Trocar routing não prova drainage completo desse cohort.
 
 **Residency / residência de dados** — conjunto de restrições qualificadas sobre onde dados e realizações relevantes podem residir ou ser processados. Não deve ser reduzido a comparar nomes de regiões de provider; backup, metadata, restore, replicas e derivados podem ter semantics diferentes.
 
@@ -212,9 +224,13 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **StoredFact / fato armazenado canônico** — fato persistido reconhecido por seu semantic owner como verdade canônica dentro de determinado escopo. Não é sinônimo de qualquer valor gravado em banco; um DerivedValue só se torna StoredFact por materialização governada.
 
+**Support qualification / qualificação de suporte** — comparação evidence-backed entre requirements e support vector de uma realização sob escopo, revisão e currentness definidos. Nome de feature, reachability ou compatibilidade de protocolo não bastam para provar suporte semântico.
+
 ## T
 
 **Timer durável** — intenção temporal persistente cuja identidade e semântica sobrevivem a restart/substituição de worker; não é simplesmente manter uma thread dormindo.
+
+**TOCTOU (time of check to time of use)** — classe de problema em que uma condição é verificada em um instante e muda antes do uso. Em Provider/Binding, qualificação, admission, policy, quota, binding ou currentness podem mudar entre check e actuation.
 
 **Topology collapse / colapso de topologia** — realização em que múltiplas capabilities ou owners compartilham processo, host, banco ou outro substrato físico para reduzir complexidade operacional. Não implica colapso de identidade semântica, lifecycle ou autoridade.
 
