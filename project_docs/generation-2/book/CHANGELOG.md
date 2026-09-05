@@ -2,6 +2,18 @@
 
 Este histórico registra versões do **texto editorial**. `ChapterVersion != ArchitectureRevision != SystemRevision`.
 
+## 2026-09-05
+
+### CHAPTER_09 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial e necessidade de explicar matemática empresarial como semântica transversal antes dos capítulos de build, lifecycle, providers, Commercial/FinOps e técnicas adversariais.
+- **Resumo:** publicado o capítulo que separa `StoredFact` de `DerivedValue`, `FormulaDefinition` de `FormulaEvaluation` e `CalculationResult`, explica identidade/revisão/aplicabilidade histórica de fórmulas, live recomputation versus snapshot histórico, decimal/money/rates/units/temporalidade, rounding, `Missing/Null/Unknown/Error`, `EvaluationContext`, pure evaluation versus side effects, `FormulaDependencyGraph`, circularidade, `MaterializationPolicy`, `CalculationEvidence`, qualificação provider-neutral por `ProviderSemanticProfile`, resource bounds, exemplos empresariais e IA/low-code sem amplificação de autoridade. O texto registra a decisão fechada de não criar uma 29ª capability e de manter cálculo como subcapability transversal sob UCA, com mechanics providerizáveis e semantic owners preservados.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `POST_PLANNING_B_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_RESEARCH.md`, `MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION_INCREMENT_3_FINAL_RECONCILIATION.md`, `MATHEMATICAL_CALCULATION_BOUNDED_SYNTHESIS_BACKFILL.md`, `PLANNING_A_MATHEMATICAL_CALCULATION_BOUNDED_BOUNDARY_BACKFILL.md`.
+
 ## 2026-09-04
 
 ### CHAPTER_01 — v1.0.0
