@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_21 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** explicar como IA pode ampliar análise, tradução, composição e atuação no System Builder sem receber implicitamente semantic ownership, autoridade canônica ou permissão de atuação.
+- **Resumo:** publicado o capítulo que separa `model output != canonical truth`, proposta de decisão, materialização de admissão e tool capability de delegated authority; desenvolve non-amplification, limites de human approval, confused deputy, evidence/currentness, generated-artifact lineage, AI/provider substitution e atuação bounded sob `Enterprise → Station → Role → Person`.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `PLANNING_A_AUTHORIZATION_POLICY_ORGANIZATION_MULTITENANCY_BOUNDARIES.md`, `PLANNING_A_UI_GENERATED_EXPERIENCE_LOW_CODE_BOUNDARIES.md`, `PLANNING_B_PROVIDER_BINDING_CAPABILITY_NEGOTIATION_SB_CURRENT_STATE.md`, `POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md`, `PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md`.
+
 ### CHAPTER_20 — v1.0.0
 
 - **Versão anterior:** inexistente.
