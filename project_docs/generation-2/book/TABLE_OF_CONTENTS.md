@@ -9,8 +9,8 @@ Numeração editorial estável a partir desta publicação. Versões indicadas s
 5. **Capítulo 05 — Low-code, Canvas e processos como grafos executáveis — v1.0.0** — publicado
 6. **Capítulo 06 — Workflow, ações, eventos, formulários e integrações — v1.0.0** — publicado
 7. **Capítulo 07 — Identidade, autorização, organização, Stations e least privilege — v1.0.0** — publicado
-8. **Capítulo 08 — Dados, schema, documentos, storage, privacidade e retenção** — próximo
-9. **Capítulo 09 — Cálculos, fórmulas, valores derivados e matemática empresarial**
+8. **Capítulo 08 — Dados, schema, documentos, storage, privacidade e retenção — v1.0.0** — publicado
+9. **Capítulo 09 — Cálculos, fórmulas, valores derivados e matemática empresarial** — próximo
 10. **Capítulo 10 — Build, artefatos, releases, provenance, SBOM e repositórios do cliente**
 11. **Capítulo 11 — Deployment, runtime autônomo, workload e escalabilidade**
 12. **Capítulo 12 — Providers externos, substituição e anti-lock-in**
