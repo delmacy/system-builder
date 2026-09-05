@@ -19,30 +19,10 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 
 ## Estado atual da narrativa
 
-- Capítulos 1–22: publicados em `v1.0.0`.
-- Capítulo 1: visão do System Builder e o problema que ele tenta resolver.
-- Capítulo 2: empresa como sistema versionado e semântica revisionada.
-- Capítulo 3: Capability, Provider, Binding e Semantic Owner.
-- Capítulo 4: composição modular, fechamento de dependências e runtime autônomo.
-- Capítulo 5: low-code, Canvas, grafos executáveis e admissibilidade de composição.
-- Capítulo 6: workflow durável, ações, eventos, formulários, integrações e efeitos ambíguos.
-- Capítulo 7: identidade, autenticação, autorização, Stations, least privilege e não amplificação de autoridade.
-- Capítulo 8: dados, schema, documentos/storage, privacidade, retenção, legal hold, residency e governed populations.
-- Capítulo 9: cálculos, fórmulas, valores derivados, revisões, units/money/time, failure algebra, dependency graphs, materialização e semântica provider-neutral.
-- Capítulo 10: build, artefatos, releases, provenance, SBOM e repositórios do cliente.
-- Capítulo 11: deployment, runtime autônomo, workload, desired/observed/effective state e escalabilidade.
-- Capítulo 12: providers externos, support vectors, qualification/admission/binding, coexistência, substituição, drainage e anti-lock-in.
-- Capítulo 13: versionamento, evolução, migração, coexistência, revision vectors e rollback eligibility.
-- Capítulo 14: observabilidade como evidência qualificada; telemetry, coverage/currentness, SLI/SLO, alerts, incidents, diagnosis, remediation evidence e limites de autoridade.
-- Capítulo 15: segurança, confiança e PKI; secret references/consumer currentness; failure/compromise, containment/fencing, recovery qualification, return-to-service e reprotection.
-- Capítulo 16: commercial metering, entitlements, rating, billing e FinOps, preservando a separação entre verdade comercial e governança econômica interna de tecnologia.
-- Capítulo 17: happy paths, boundary/edge/failure cases, famílias de teste, properties/invariants e `Signal != ConfirmedConflict`.
-- Capítulo 18: concorrência, race conditions, retries, efeitos `APPLIED/NOT_APPLIED/PARTIAL/UNKNOWN`, reconciliation e idempotência qualificada.
-- Capítulo 19: conflitos processuais e semânticos, `ConflictPattern != ConflictInstance`, activation conditions, conflict assessment e conflitos entre partes localmente corretas.
-- Capítulo 20: fuzzing, property-based, mutation testing, model checking, fault injection/chaos, version-skew, differential, pairwise/N-wise, misuse e negative-space como técnicas complementares com limites de prova explícitos.
-- Capítulo 21: IA como mecanismo de análise, proposta, composição e atuação bounded; `model output != canonical truth`, materialização não implica admissão, tool capability não implica autoridade e AI/provider continuam submetidos a semantic owners, authorization e evidence/currentness.
-- Capítulo 22: ciclo completo da intenção humana ao sistema operado, conectando modelagem semântica, composição, autoridade, qualification/binding, build, release, deployment, runtime efetivo, evidência, incident/recovery e evolução sem antecipar Planning C.
-- Capítulo 23: próximo — como transformar esta pesquisa em arquitetura alvo, WBS e construção sem permitir que o livro avance gates autoritativos.
+- Capítulos 1–23: publicados em `v1.0.0`.
+- Capítulos 1–22: constroem a visão, semantic owners, runtime, providers, lifecycle, operação, segurança, economia, testes adversariais, IA e o ciclo completo da intenção ao sistema operado.
+- Capítulo 23: explica a passagem governada `pesquisa → synthesis → boundaries → arquitetura alvo → dependency design → proof obligations → WBS → Work Packages → TASKs → Construction`, sem entrar em Planning C nem materializar arquitetura/WBS/trabalho executivo.
+- Capítulo 24: próximo — glossário comentado e mapa mental geral da Generation 2.
 - Glossário: evolutivo e didático; definições autoritativas continuam nos artefatos de pesquisa/planejamento.
 
-A pesquisa adversarial continua `ACTIVE / NOT_SATURATED`; no snapshot editorial revalidado em 2026-09-05, Full Passes 1, 2 e 3 estão completos e o Full Pass 4 está em 26/28 capabilities e 12/12 mandatory clusters, com 3/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
+A pesquisa adversarial continua `ACTIVE / NOT_SATURATED`; no snapshot editorial revalidado em 2026-09-05, Full Passes 1–4 estão completos e o Full Pass 5 está em 1/28 capabilities e 0/12 mandatory clusters, com 4/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
