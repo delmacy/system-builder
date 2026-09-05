@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_14 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial após lifecycle/versioning e necessidade de explicar como o SB pode produzir e qualificar evidência operacional sem transformar telemetry, dashboards, alerts ou incident records em verdade canônica dos semantic owners observados.
+- **Resumo:** publicado o capítulo que separa signal, telemetry, qualified evidence e operational assessment; explica canonical evidence identity versus provider IDs, freshness/currentness/coverage, `INCONCLUSIVE`, sampling/cardinality/truncation, correlação versus causalidade, SLI/SLO, alert versus incident, acknowledgement versus condition resolution, remediation coordination sem amplificação de autoridade, incident timeline e correction/supersession, relação com desired/observed/effective deployment state e Architecture Reconciliation, limites frente a Security/Compliance/Recovery, provider substitution de telemetry, clock/causal uncertainty, privacy leakage, AI/low-code operational assistance, foundations atuais do pacote `observe` e técnicas adversariais do Full Pass 2.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `PLANNING_A_OBSERVABILITY_OPERATIONS_INCIDENT_BOUNDARIES.md`, `PLANNING_B_OBSERVABILITY_OPERATIONS_INCIDENT_SB_CURRENT_STATE.md`, `OBSERVABILITY_OPERATIONS_INCIDENT_FULL_PASS_2_REVISIT.md`.
+
 ### CHAPTER_13 — v1.0.0
 
 - **Versão anterior:** inexistente.
