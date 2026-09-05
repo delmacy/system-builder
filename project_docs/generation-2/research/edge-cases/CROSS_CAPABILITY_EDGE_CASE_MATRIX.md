@@ -30,29 +30,38 @@ Full Pass 2 completed **28/28 capabilities and 12/12 mandatory clusters**. It en
 | 11 | Commercial Metering × Entitlements × Rating × Billing × Payment | COVERED / ELIGIBLE NO NEW MATERIAL | `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_FULL_PASS_3_REVISIT.md` | 0 new; streak **0 → 1** |
 | 8 | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps | COVERED / ELIGIBLE NO NEW MATERIAL | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_FULL_PASS_3_REVISIT.md` | 0 new; streak **0 → 1** |
 
-### Full-Pass-3 cluster challenge summary through FinOps
+## Cross-cutting interaction additions discovered during local rotation
 
-All twelve mandatory clusters have now been explicitly revisited in Full Pass 3. No new cross-capability scenario or reusable ConflictPattern survived duplicate screening in these revisits. This is saturation progress, not proof that concrete `ConflictInstance`s cannot occur.
+### `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001` — UCA × representation/profile consumers
 
-The FinOps cluster revisit specifically challenged individually valid but incompatible economic claims across formula, workflow, data, UI/form and commercial boundaries. Correction-style/generation mixing remains covered by `G2-EDGE-FINOPS-008`; value conservation with wrong temporal recipient attribution remains covered by `G2-EDGE-FINOPS-009`; and durable adoption of provisional derived economics remains covered by `G2-XEDGE-MATH-FINOPS-006`. Objective-priority conflicts between cost, resilience, security, privacy and SLA map to existing policy/objective/authority patterns and do not justify a new family.
+Origin: `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_3_REVISIT.md`.
+
+Cross-capability surfaces: UCA × Data/Schema × UI/Generated Experience × Workflow × Integration × Standards/Interoperability × Provider/Binding × Authorization/Policy × AI/low-code.
+
+Material interaction: each component can be locally valid while one layer treats a field as absent/unknown/not-applicable/redacted, another injects an explicit default, and another representation gives `null` mutation semantics such as delete. Composition can therefore create a fact, decision, authority or mutation that no semantic owner actually asserted.
+
+Detection route: presence-state compatibility matrix, schema/profile/operator revision comparison, round-trip semantic diff, default-injection mutation testing, raw-to-normalized provenance and information-loss non-strengthening property. Owner route: producing + consuming semantic owners, with UCA governing generic carriage and Standards/Provider realization owners governing translation. False-positive control: do not flag states that owners explicitly prove equivalent.
+
+Disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`. This is a reusable `ConflictPattern`, not a `ConflictInstance`; it does **not** create or advance a mandatory-cluster streak in this run.
 
 ## Current campaign state
 
 - completed full passes: **2/8 minimum**; target **12**, no maximum;
 - active full pass: **3**;
 - Full Pass 3 cluster coverage: **12/12 mandatory clusters**;
-- Full Pass 3 capability coverage: **12/28 canonical capabilities**;
-- material edge scenarios: **278**;
-- reusable ConflictPatterns: **115**;
-- combined material findings: **393**;
+- Full Pass 3 capability coverage: **13/28 canonical capabilities**;
+- material edge scenarios: **279**;
+- reusable ConflictPatterns: **116**;
+- combined material findings: **395**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
 - `Identity × Authorization × Station × AGWS × AI` streak: **2**;
 - `Provider/Binding × external realizations` streak: **2**;
 - each of the other ten mandatory cluster streaks: **1**;
+- UCA local streak: **0** after material finding;
 - negative-space review: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
 - `PLANNING_C_TARGET_ARCHITECTURE`: **BLOCKED**.
 
 ## Next explicit research rotation
 
-All required clusters are already covered for Full Pass 3, so the authoritative rotation continues locally with **Universal Capability Architecture** unless a genuinely new interaction class requires adding a cluster. Use techniques materially different from Full Passes 1 and 2 and duplicate-screen against all 115 reusable ConflictPatterns. Any material finding resets affected streaks. Do not enter Planning C.
+All required clusters are already covered for Full Pass 3, so the authoritative rotation continues locally with **UI / Generated Experience / Low-code Builder**. Use techniques materially different from Full Passes 1 and 2 and duplicate-screen against all **116** reusable ConflictPatterns, explicitly including `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`. Any material finding resets affected streaks. Do not enter Planning C.
