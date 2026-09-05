@@ -28,6 +28,10 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 ## C
 
+**CalculationEvidence / evidência de cálculo** — evidência suficiente para interpretar como um resultado foi produzido, incluindo quando material identidade/revisão da fórmula, revisões dos inputs/contexto, políticas de rounding/temporalidade, semantic profile do provider e disposição de falha/limite.
+
+**CalculationResult / resultado de cálculo** — resultado tipado de uma avaliação concreta. Não é sinônimo da própria fórmula nem se torna automaticamente StoredFact canônico.
+
 **Canvas** — superfície visual de autoria/composição usada para organizar componentes, nós, relações, formulários, ações ou partes de processos. No modelo didático G2, Canvas é meio de expressão e projeção; não se torna automaticamente a fonte canônica de processo, autorização, dados ou efeito.
 
 **Capability** — capacidade semanticamente coerente do sistema, com problema e responsabilidades próprios. Não é sinônimo de módulo de UI, pacote de código ou produto externo.
@@ -60,6 +64,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Delegation envelope / envelope de delegação** — contrato que delimita a autoridade que pode ser delegada: origem, destinatário, ações/recursos, scope, limites, validade, subdelegação e demais constraints. Delegação não é transitiva por padrão.
 
+**DerivedValue / valor derivado** — valor obtido por cálculo a partir de outros valores, regras e contexto. Pode ser virtual, cacheado ou materializado; sua existência matemática não lhe concede automaticamente autoridade para tornar-se fato canônico.
+
 **Disposition / disposição governada** — transição pela qual uma população de dados alcança um estado final permitido sob obrigações aplicáveis, como destruição, preservação, arquivamento ou outra destinação qualificada. Elegibilidade para disposition e execução física da disposition são fatos distintos.
 
 **Durable history / histórico durável** — histórico suficiente para preservar progressão, tentativas, waits, efeitos e demais fatos necessários para retomada, reconciliação, auditoria, replay ou migração conforme o contrato aplicável. Não é sinônimo de log técnico infinito.
@@ -70,9 +76,21 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Edge case** — situação válida ou possível situada em limites, combinações incomuns ou condições difíceis do comportamento esperado. Não é necessariamente um bug; serve para testar se as premissas continuam verdadeiras fora do caminho comum.
 
+**EvaluationContext / contexto de avaliação** — conjunto explicitamente admitido de inputs, revisões, unidades/moedas, contexto temporal e funções disponíveis a uma avaliação. Não equivale a acesso irrestrito ao sistema.
+
+**EvaluationPolicy / política de avaliação** — limites e regras operacionais da avaliação, incluindo quando relevante tamanho/profundidade de expressão, cardinalidade de inputs, custo, tempo, memória, DAG, bulk cardinality e comportamento de cancelamento/falha.
+
 **Evidence / evidência** — informação usada para sustentar uma afirmação. Para ser confiável arquiteturalmente, precisa ser qualificada quanto a sujeito, origem, revisão, aplicabilidade, atualidade, cobertura e incerteza quando relevantes.
 
 **Executable graph / grafo executável** — representação em nós e relações cuja estrutura participa da execução de comportamento, em vez de servir apenas como diagrama explicativo. Sua validade depende não só de conectividade, mas também de estados, guards, tipos, revisões, constraints, autoridade e efeitos aplicáveis.
+
+## F
+
+**FormulaDefinition / definição de fórmula** — definição canônica/revisionável do que deve ser calculado sob determinado semantic owner. É distinta de uma execução concreta e de IDs/ASTs internos de provider.
+
+**FormulaDependencyGraph / grafo de dependências de fórmulas** — grafo que relaciona fórmulas e seus inputs/derivados para ordenar recomputação, detectar ciclos e estimar o blast radius de mudanças.
+
+**FormulaRevision / revisão de fórmula** — identidade imutável/revisionada de uma evolução de uma FormulaDefinition. A revisão atual não substitui silenciosamente a revisão historicamente aplicável.
 
 ## G
 
@@ -83,6 +101,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## H
 
 **Happy path** — percurso em que entradas, dependências e participantes se comportam como esperado. É necessário, mas insuficiente para demonstrar robustez.
+
+**HistoricalApplicability / aplicabilidade histórica** — vínculo que determina quais revisões de fórmula, inputs e contexto eram aplicáveis a um cálculo/registro histórico. Evita usar implicitamente `latest` como regra de replay.
 
 **Human task / tarefa humana** — unidade durável de trabalho em que uma execução aguarda ação ou julgamento humano. Workflow possui seu lifecycle dentro da execução; quem pode vê-la, reivindicá-la ou concluí-la continua sujeito ao owner de autorização/policy.
 
@@ -108,7 +128,11 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 ## M
 
+**MaterializationPolicy / política de materialização** — política que define se, quando e sob quais condições um DerivedValue é apenas virtual, cacheado, persistido ou preservado como snapshot histórico. Materialização não transfere automaticamente semantic ownership.
+
 **Minimal runtime closure** — fechamento mínimo de dependências que um workload precisa reter para executar corretamente sob determinado perfil operacional. “Mínimo” não autoriza remover policy, trust, configuração, schema ou outros requisitos necessários apenas para reduzir tamanho.
+
+**Money / CurrencyAmount** — valor monetário tipado que preserva magnitude e identidade de moeda. Um decimal sem currency não é semanticamente equivalente a dinheiro.
 
 ## O
 
@@ -117,6 +141,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## P
 
 **Provider** — sistema, serviço, engine ou mecanismo especializado que realiza parte de uma capability. O SB procura delegar mecânicas maduras sem entregar automaticamente ao provider a propriedade da semântica empresarial.
+
+**ProviderSemanticProfile / perfil semântico de provider** — declaração qualificada das semânticas que um evaluator/provider suporta em dimensões como números, falhas, money/rates, units, temporalidade, dependências, histórico, segurança, resource bounds, evidência e runtime mode.
 
 ## Q
 
@@ -148,6 +174,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Revision vector / vetor de revisões** — conjunto das revisões relevantes de dimensões que evoluem independentemente. Evita presumir que uma única versão global descreva corretamente processo, schema, política, fórmula, runtime e provider ao mesmo tempo.
 
+**RoundingPolicy / política de arredondamento** — regra explícita de escala, ponto e modo de arredondamento aplicável a um cálculo. Não deve ser herdada silenciosamente do provider quando material para o negócio.
+
 **Runtime** — parte do sistema materializado que executa trabalho em operação. A visão G2 busca autonomia de runtime sem exigir dependência permanente do Builder para toda execução.
 
 **Runtime autonomy / autonomia de runtime** — capacidade de um runtime continuar operando dentro de uma retained closure e horizonte explicitamente qualificados sem depender continuamente do control plane do Builder. Não significa isolamento, operação offline eterna nem licença para inventar autoridade/currentness ausentes.
@@ -168,6 +196,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Station** — escopo organizacional/governado dentro da hierarquia `Enterprise → Station → Role → Person`, usado na pesquisa G2 para exposição de capabilities, administração delegada e limites de autoridade.
 
+**StoredFact / fato armazenado canônico** — fato persistido reconhecido por seu semantic owner como verdade canônica dentro de determinado escopo. Não é sinônimo de qualquer valor gravado em banco; um DerivedValue só se torna StoredFact por materialização governada.
+
 ## T
 
 **Timer durável** — intenção temporal persistente cuja identidade e semântica sobrevivem a restart/substituição de worker; não é simplesmente manter uma thread dormindo.
@@ -176,7 +206,11 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Transitive dependency closure / fechamento transitivo de dependências** — operação de incluir recursivamente as dependências necessárias das dependências até que o conjunto esteja fechado para o perfil considerado, respeitando versões, condições e constraints aplicáveis.
 
+**TypedValue / valor tipado** — valor cujo tipo semântico relevante acompanha a magnitude/conteúdo, permitindo distinguir, por exemplo, money, unit, duration, percentage, null/unknown/error e outros casos que um escalar cru não expressa adequadamente.
+
 ## U
+
+**UnitOfMeasure / unidade de medida** — identidade da unidade associada a uma quantidade, permitindo validar compatibilidade dimensional e conversões qualificadas em vez de tratar todos os números como escalares intercambiáveis.
 
 **Universal Capability Architecture (UCA)** — owner dos menores contratos estruturais reutilizáveis necessários para capabilities independentes se comporem, como formas de identidade, revisão, evidência, effect disposition e support vector. Não é dona dos predicados de negócio carregados por essas estruturas.
 
