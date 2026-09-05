@@ -24,85 +24,75 @@ Full Pass 2 completed **28/28 capabilities and 12/12 mandatory clusters**. It en
 | Provider/Binding × external realizations | no new in explicit revisit; streak **2** |
 | Secrets/Config × Runtime × Provider substitution | no new; streak **1** |
 | Build × Artifact/Release × Deployment × Runtime | no new; streak **1** |
-| Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution | **materially deepened later by `G2-EDGE-TRUST-008`; streak reset 1→0** |
+| Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution | later materially deepened by `G2-EDGE-TRUST-008`; streak **0** |
 | Observability × Security/Recovery × runtime truth | no new; streak **1** |
 | Extension/Plugin × authority × provider trust × lifecycle | no new; streak **1** |
 | Commercial Metering × Entitlements × Rating × Billing × Payment | no new; streak **1** |
 | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps | no new; streak **1** |
 
-## Cross-cutting interaction additions discovered during local rotation
+## Cross-cutting interaction additions discovered during Full Pass 3
 
 ### `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`
 
-Origin: `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_3_REVISIT.md`. Cross-capability surfaces include UCA × Data/Schema × UI × Workflow × Integration × Standards × Provider/Binding × Authorization/Policy × AI/low-code. Otherwise valid components can disagree on whether absence, explicit default, `null`, `UNKNOWN`, `NOT_APPLICABLE`, redaction or delete are values, lack of values or mutation operators. Detection candidates: presence-state compatibility matrix, schema/profile/operator revision comparison, round-trip semantic diff, default-injection mutation testing and raw-to-normalized provenance. Disposition remains research-only catalogue/classification/detection/future route.
+Origin: `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_3_REVISIT.md`.
 
-### `G2-EDGE-UI-011`
+Cross-capability surfaces: UCA × Data/Schema × UI × Workflow × Integration × Standards × Provider/Binding × Authorization/Policy × AI/low-code.
 
-A human can validly see/confirm value A; serialization omits it; a downstream owner validly interprets absence/default as B. This maps to the presence-semantics pattern and does not create a new mandatory cluster or reusable pattern.
+Otherwise valid components can disagree on whether absence, explicit default, `null`, `UNKNOWN`, `NOT_APPLICABLE`, redaction or delete are values, lack of values or mutation operators. `G2-EDGE-UI-011` and `G2-EDGE-INTEGRATION-008` are capability-specific manifestations. Detection candidates include presence-state compatibility matrices, schema/profile/operator revision comparison, round-trip semantic diff, default-injection mutation testing and raw-to-normalized provenance.
 
-### `G2-EDGE-INTEGRATION-008` — connector translation × presence/operator semantics
+Disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`.
 
-Origin: `INTEGRATION_AUTOMATION_FULL_PASS_3_REVISIT.md`.
-
-Cross-capability surfaces: Integration & Automation × UCA × Data/Schema × Standards/Interoperability × Provider/Binding × Workflow/Process × AI/low-code.
-
-Material interaction: a source automation can validly mean “preserve/no assertion”, “explicit null”, “default” or “delete”; a connector/profile can validly collapse/translate that representation; and the target owner can validly assign a different mutation operator to the translated state. The composed chain can therefore mutate a business fact differently from originating intent while each local contract remains internally valid.
-
-Detection route: source→canonical→provider presence-state compatibility matrix, round-trip semantic differential, omission/null/delete mutation fixtures, profile/revision qualification and intended-operator versus effective-operator comparison. Owner route: Integration for faithful intent/translation lineage; producing/consuming semantic owners for field meaning; Standards/Provider owners for representation realization; Workflow/Process where the field controls transition/effect. A mismatch is a `Signal`, not a `ConfirmedConflict`.
-
-Duplicate-screen: capability-specific manifestation of `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`; no new cross ID or reusable pattern.
-
-### `G2-EDGE-TRUST-008` / `G2-CONFLICT-PATTERN-TRUST-NAMESPACE-COLLAPSE-001` — trust partition × identity/artifact/provider namespace
+### `G2-EDGE-TRUST-008` / `G2-CONFLICT-PATTERN-TRUST-NAMESPACE-COLLAPSE-001`
 
 Origin: `ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE_FULL_PASS_3_REVISIT.md`.
 
-Cross-capability surfaces: Enterprise Trust/PKI × Identity/Federation × Artifact/Release signing trust × Provider/Binding × Standards/Interoperability × Authorization/Organization.
+Cross-capability surfaces: Enterprise Trust/PKI × Identity/Federation × Artifact/Release × Provider/Binding × Standards × Authorization.
 
-Material interaction: two trust bundles or anchor sets can each be correct for their own independently governed trust domain while a union/import/provider-consolidation/federation layer loses the domain→bundle ownership boundary. The resulting validator can accept a credential or signed subject from domain B in a relying namespace intended for domain A even though neither source owner granted that cross-domain authority. The risk therefore exists before downstream business authorization and cannot be reduced to `valid certificate != authorization` alone.
+Material interaction: independently valid trust bundles/anchor sets become jointly unsafe when union/import/provider consolidation loses the trust-domain→bundle ownership boundary and widens the namespace accepted by a validator. Detection route: trust-domain ownership graph, relying-namespace→qualified-bundle relation, federation/provider lineage and runtime accepted-subject/trust-path comparison. Explicit governed federation remains legitimate; inferred widening does not.
 
-Evidence anchor: SPIFFE Federation explicitly states that bundles from different trust domains must not be merged because doing so could allow one trust domain to forge identities belonging to another in the eyes of the validator using the unified bundle. RFC 5280 independently reinforces that path validation is trust-anchor-input scoped and that name constraints only constrain the name forms they cover.
+Cluster effect: `Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution` reset **1→0**. No `ConflictInstance`; no remediation.
 
-Detection route: trust-domain ownership/partition graph; relying-namespace→qualified-bundle/anchor relation; federation/provider mapping lineage; static union/broadening checks; pre-use trust relation qualification; runtime/audit comparison of accepted subject domain and actual trust path. A detector signal remains a signal until concrete activation evidence exists.
-
-Owner route: Enterprise Trust/PKI primary semantic owner; Identity/Federation and Authorization/Organization for downstream claims; Provider/Binding and Standards for realization/profile mapping.
-
-False-positive control: shared roots, cross-signing, deliberate federation or enterprise-wide trust can be legitimate when the broader relation is explicitly owner-qualified. The pattern rejects inferred widening, not explicit governed trust.
-
-Disposition: `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`. No `ConflictInstance` and no remediation implementation. Research-only preventive invariant candidate: trust-material composition must not widen namespace/authority merely through set union, import, provider co-location or representational compatibility.
-
-Cluster effect: `Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution` streak reset **1→0**. `Provider/Binding × external realizations` remains **2** because provider substitution is an activation surface rather than the semantic owner; its next explicit revisit must challenge the new pattern.
-
-### `G2-EDGE-PRIVACY-008` / `G2-CONFLICT-PATTERN-CUMULATIVE-PRIVACY-001` — privacy exposure emerges from release/query/inference composition
+### `G2-EDGE-PRIVACY-008` / `G2-CONFLICT-PATTERN-CUMULATIVE-PRIVACY-001`
 
 Origin: `PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY_FULL_PASS_3_REVISIT.md`.
 
-Cross-capability surfaces: Privacy / Data Governance × Data/Schema/analytics × Authorization/Policy/Governance × Process/external sharing × AI/low-code composition.
+Cross-capability surfaces: Privacy/Data Governance × Data/Schema/analytics × Authorization/Governance × Process/external sharing × AI/low-code.
 
-Material interaction: two or more datasets, query outputs, views, aggregates, pseudonymous releases, derived features or model outputs can each be valid under their own current purpose/access/privacy assessment while their combination gives the same recipient/system/agent materially greater identifying or inferential power. Where an explicitly differential-privacy mechanism applies, individually valid analyses can also consume an aggregate privacy-loss budget whose cumulative bound cannot be established by evaluating each analysis in isolation.
+Material interaction: multiple individually qualified releases, analyses, views or model outputs can jointly create materially greater identifying/inferential power or exceed an explicitly governed cumulative privacy-loss bound. Detection route is history/recipient/context-aware: release/query lineage, auxiliary-data inventory, linkability/mosaic analysis, cumulative output history, derived-data classification and mechanism-specific privacy-budget accounting where applicable.
 
-Why this is distinct: the source owners can be locally correct; subject identities can be unambiguous; representations and trust relations can remain correct; and there need be no policy-revision drift. The unsafe or inconclusive property emerges only at the N-wise/history/recipient-context join. Therefore this is not subsumed by purpose-use, identity-linkage, presence-semantics, resource-boundedness or trust-namespace families.
+No mandatory-cluster streak was fabricated from this local cross-cutting discovery. `Data/Schema × Privacy × Storage × Lifecycle` remains **1**.
 
-Detection route: release/query/derivation lineage; recipient/view-context graph; reasonably available auxiliary-data inventory; linkability/mosaic analysis; cumulative output history; derived/inferred-data classification and composition-level purpose/use qualification; AI/low-code plan-delta analysis for generated joins/inferences; differential-privacy composition/privacy-budget accounting only where DP semantics are explicitly applicable. A signal does not establish a `ConfirmedConflict` without owner/context evidence that the aggregate exposure is materially incompatible.
+### `G2-EDGE-LIFECYCLE-008` / `G2-CONFLICT-PATTERN-COMPATIBILITY-DIRECTION-001`
 
-Owner route: Privacy / Data Governance primary; relevant Data/Schema/analytics owners; Authorization/Governance/policy owners; process/external-sharing owner; AI authority/plan owner where applicable.
+Origin: `LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_FULL_PASS_3_REVISIT.md`.
 
-False-positive control: theoretical joinability alone is insufficient; combination may be deliberately owner-qualified; recipient holdings and auxiliary information must be contextually meaningful; differential-privacy budget semantics are mechanism-specific and are not promoted into a generic legal rule.
+Cross-capability surfaces: Lifecycle × Data/Schema × Runtime × Standards/API Contracts × Provider/Binding × Workflow/Integration × Recovery; overlays may also involve Trust, Privacy, Authority and AI/low-code.
 
-Disposition: `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`. No `ConflictInstance`, no automatic guard and no remediation implementation.
+Material interaction: two components/revisions can each be valid and a relation such as `A→B` for read/forward migration can be supported, while `B→A`, write, replay, rollback or another reachable topology is not. The conflict appears when composition stores or consumes that evidence as scalar/undirected `compatible(A,B)` and later exercises an unqualified direction or operation.
 
-Cluster effect: no mandatory-cluster streak changes. `Data/Schema × Privacy × Storage × Lifecycle` remains **1** because this local cross-cutting finding is not fabricated into a second explicit cluster revisit.
+Detection route: directed compatibility graph keyed by revisions/roles/operation/profile; reachable-peer/topology analysis; producer/consumer and reader/writer inversion tests; upgrade-order constraints; round-trip/forward-backward migration mutation; current evidence horizon. A mismatch remains a `Signal` until the concrete system/revision/topology establishes activation.
+
+Owner route: Lifecycle coordinates the relation/currentness join; Data/Schema, Runtime, Contract/Standards and Provider semantic owners define their directional/operation-specific support; Recovery consumes rather than invents compatibility. Provider or standards evidence is not automatically canonical semantic ownership.
+
+Severity/confidence: HIGH–CRITICAL / strongly supported. Blast radius workflow→enterprise/external; reversibility migration-required→potentially irreversible; time-to-harm immediate or latent; misuse plausible/likely during rolling migration, rollback or AI-generated evolution plans. False-positive control: deliberate one-way/forward-only compatibility is legitimate and must remain expressible.
+
+Future disposition: require additional relation evidence, reorder migration, constrain reachable topology, explicitly accept bounded asymmetry or route to owner reconciliation later. No implementation is authorized.
+
+Research-only PreventiveInvariantCandidate: compatibility used for lifecycle decisions must not be widened from a qualified directed/operation-specific relation into an undirected/global claim without semantic-owner evidence. This does not prohibit legitimate asymmetric compatibility.
+
+Cluster effect: no mandatory-cluster streak changes in this local revisit because no cluster-specific material scenario was independently established. The pattern is now a required duplicate-screen candidate for future explicit revisits of Data/Schema × Privacy × Storage × Lifecycle, Build × Artifact/Release × Deployment × Runtime, Provider/Binding × external realizations and other versioned compositions.
 
 ## Current campaign state
 
 - completed full passes: **2/8 minimum**; target **12**, no maximum;
 - active full pass: **3**;
 - Full Pass 3 cluster coverage: **12/12**;
-- Full Pass 3 capability coverage: **21/28**;
-- material edge scenarios: **283**;
-- reusable ConflictPatterns: **118**;
-- combined material findings: **401**;
+- Full Pass 3 capability coverage: **27/28**;
+- material edge scenarios: **284**;
+- reusable ConflictPatterns: **119**;
+- combined material findings: **403**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
-- local streaks reset by current material chain: UCA **0**, UI **0**, Integration **0**, Enterprise Trust/PKI **0**, Privacy **0**;
+- local streaks reset by material findings include UCA **0**, UI **0**, Integration **0**, Enterprise Trust/PKI **0**, Privacy **0**, Lifecycle **0**;
 - mandatory cluster streaks: Identity/Authorization/Station/AGWS/AI **2**; Provider/Binding/external realizations **2**; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution **0**; all other nine **1**;
 - negative-space: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
@@ -110,4 +100,4 @@ Cluster effect: no mandatory-cluster streak changes. `Data/Schema × Privacy × 
 
 ## Next explicit research rotation
 
-Continue locally with **Notifications / Events / Messaging** under the authoritative state. Duplicate-screen against all **118** reusable patterns, including cumulative privacy where event history, recipient fan-out or derived notifications aggregate knowledge. Do not enter Planning C.
+Continue locally with **Architecture Reconciliation as a Capability** under the authoritative state. Duplicate-screen against all **119** reusable ConflictPatterns, explicitly including compatibility-direction when desired/declared state is compared with observed/effective cohorts. Do not enter Planning C.
