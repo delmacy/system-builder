@@ -19,8 +19,8 @@ Numeração editorial estável a partir desta publicação. Versões indicadas s
 15. **Capítulo 15 — Segurança, confiança, PKI, secrets e recuperação — v1.0.0** — publicado
 16. **Capítulo 16 — Commercial metering, entitlements, rating, billing e FinOps — v1.0.0** — publicado
 17. **Capítulo 17 — O que são happy paths, edge cases, failure cases e outras famílias de teste — v1.0.0** — publicado
-18. **Capítulo 18 — Concorrência, retries, efeitos parciais, UNKNOWN e idempotência** — próximo
-19. **Capítulo 19 — Conflitos processuais e semânticos: quando partes corretas formam um processo errado**
+18. **Capítulo 18 — Concorrência, retries, efeitos parciais, UNKNOWN e idempotência — v1.0.0** — publicado
+19. **Capítulo 19 — Conflitos processuais e semânticos: quando partes corretas formam um processo errado** — próximo
 20. **Capítulo 20 — Técnicas adversariais: fuzzing, property-based, chaos, model checking, version-skew e negative-space**
 21. **Capítulo 21 — IA como arquiteta/assistente sem se tornar autoridade**
 22. **Capítulo 22 — O ciclo completo: da intenção humana ao sistema materializado e operado**
