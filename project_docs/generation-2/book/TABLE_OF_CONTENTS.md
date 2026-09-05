@@ -25,7 +25,11 @@ Numeração editorial estável a partir desta publicação. Versões indicadas s
 21. **Capítulo 21 — IA como arquiteta/assistente sem se tornar autoridade — v1.0.0** — publicado
 22. **Capítulo 22 — O ciclo completo: da intenção humana ao sistema materializado e operado — v1.0.0** — publicado
 23. **Capítulo 23 — Como transformar esta pesquisa em arquitetura alvo, WBS e construção — v1.0.0** — publicado
-24. **Capítulo 24 — Glossário comentado e mapa mental geral** — próximo
+24. **Capítulo 24 — Glossário comentado e mapa mental geral — v1.0.0** — publicado
+
+## Continuidade editorial
+
+A primeira sequência de 24 capítulos está publicada. Novas rodadas passam a priorizar revisões bounded motivadas por evolução material da pesquisa, dúvidas do idealizador e consolidação de apêndices realmente úteis, sem renumerar capítulos publicados.
 
 ## Apêndices previstos
 
