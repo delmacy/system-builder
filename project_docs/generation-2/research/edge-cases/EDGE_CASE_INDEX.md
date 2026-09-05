@@ -35,10 +35,11 @@ Full Pass 1 completed **28/28 capabilities** and **12/12 mandatory clusters**. T
 | Governance / Compliance / Audit | `GOVERNANCE_COMPLIANCE_AUDIT_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; linked cluster streaks intentionally unchanged | 1 | unchanged |
 | Security / Resilience / Failure Recovery | `SECURITY_RESILIENCE_FAILURE_RECOVERY_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; linked cluster streaks intentionally unchanged | 1 | unchanged |
 | Enterprise Trust / PKI / Certificate Lifecycle | `ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; linked cluster streaks intentionally unchanged | 1 | unchanged |
+| Privacy / Data Governance / Retention / Legal Hold / Residency | `PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY_FULL_PASS_2_REVISIT.md` | none — eligible no-new-material revisit after duplicate screen | No new mandatory cluster/cross scenario; linked cluster streaks intentionally unchanged | 1 | unchanged |
 
 ## Pass-2 reusable ConflictPatterns
 
-Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin, Commercial Metering, FinOps, UCA, UI, Integration, Identity, Authorization, Governance, Security and Enterprise Trust/PKI added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
+Full Pass 2 currently adds twelve reusable patterns: three from AGWS, three from Process/Application, two from Workflow, two from Data/Schema and two from Storage. Secrets/Config, Build, Artifact/Release, Deployment/Runtime, Extension/Plugin, Commercial Metering, FinOps, UCA, UI, Integration, Identity, Authorization, Governance, Security, Enterprise Trust/PKI and Privacy added no redundant reusable family after duplicate screening. The complete **115-pattern** inventory remains authoritative in originating registers and `ADVERSARIAL_SATURATION_STATE.json`/prior index history.
 
 Artifact/Release Pass 2 maps `G2-EDGE-ARTIFACT-008..009` and `G2-XEDGE-TRUST-IDENTITY-ARTIFACT-PROVIDER-005` to existing qualification-join, qualified-claim, revision-vector, currentness, effective-identity, provider-qualification, attestation-qualification, trust-authority, distribution-convergence and migration/coexistence patterns.
 
@@ -66,6 +67,8 @@ Security Pass 2 admitted no new scenario or reusable pattern after recovery-depe
 
 Enterprise Trust/PKI Pass 2 admitted no new scenario or reusable pattern after trust-anchor generation-cut mutation, certificate/issuer/consumer cohort braid analysis, revocation-horizon fracture, enrollment/account-key versus certificate-key identity differential, proof-of-possession ambiguity, federation bootstrap/current-bundle differential, emergency compromise-epoch mutation, provider semantic substitution, clock-boundary perturbation, ambiguous issuance/revocation effect analysis, resource exhaustion and AI/low-code trust-scope delta analysis. Existing `TRUST-CURRENTNESS`, `TRUST-COHORT`, `CRYPTO-AUTHORITY`, `TRUST-EMERGENCY`, ambiguous-effect/idempotency, provider-qualification, residual-cohort, currentness/revision-vector and authority non-amplification families remain sufficient. This is one eligible local no-material revisit only.
 
+Privacy Pass 2 admitted no new scenario or reusable pattern after purpose-stage differential across data/AI lifecycle, consent/legal-basis and policy-currentness mutation, retention/hold precedence lattice mutation, residual-population braid analysis, provider acknowledgement versus erasure-convergence differential, residency support-vector substitution, subject-linkage ambiguity, restore-versus-governance-history differential, offline evidence-horizon fracture, derived/inferred-data purpose-delta analysis, lineage-cardinality pressure and AI/low-code privacy-scope delta composition. Existing `PURPOSE-USE`, `PRESERVATION-DISPOSITION`, `RESIDENCY-PLACEMENT`, `ERASURE-RECOVERY`, identity/effective-linkage, residual-cohort, qualified-evidence/currentness, resource-boundedness and authority non-amplification families remain sufficient. This is one eligible local no-material revisit only.
+
 ## Campaign state
 
 - material edge findings: **278**;
@@ -78,10 +81,11 @@ Enterprise Trust/PKI Pass 2 admitted no new scenario or reusable pattern after t
 - Governance / Compliance / Audit local no-material streak: **1**;
 - Security / Resilience / Failure Recovery local no-material streak: **1**;
 - Enterprise Trust / PKI / Certificate Lifecycle local no-material streak: **1**;
+- Privacy / Data Governance / Retention / Legal Hold / Residency local no-material streak: **1**;
 - Identity × Authorization × Station × AGWS × AI cluster streak: **1**;
 - Provider/Binding × external realizations cluster streak: **1**;
 - other mandatory cluster streaks: **0**;
-- Full Pass 2 local coverage: **20/28 capabilities**;
+- Full Pass 2 local coverage: **21/28 capabilities**;
 - Full Pass 2 mandatory cluster coverage: **12/12**;
 - completed full passes: **1/8 minimum**;
 - active full pass: **2**;
@@ -89,4 +93,4 @@ Enterprise Trust/PKI Pass 2 admitted no new scenario or reusable pattern after t
 - saturation: NOT SATURATED;
 - `PLANNING_C_TARGET_ARCHITECTURE`: BLOCKED.
 
-Next local rotation owner is maintained by `RESEARCH_PIPELINE_STATE.json` / `ADVERSARIAL_SATURATION_STATE.json`: **Privacy / Data Governance / Retention / Legal Hold / Residency**.
+Next local rotation owner is maintained by `RESEARCH_PIPELINE_STATE.json` / `ADVERSARIAL_SATURATION_STATE.json`: **Notifications / Events / Messaging**.
