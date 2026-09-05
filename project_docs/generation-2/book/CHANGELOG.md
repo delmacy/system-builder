@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_12 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial após deployment/runtime, aprofundando como o SB pode usar serviços externos maduros sem transferir identidade, semântica, autoridade ou verdade empresarial aos providers.
+- **Resumo:** publicado o capítulo que explica anti-lock-in como portabilidade qualificada, não hot swap universal; distingue provider realization de semantic ownership; aprofunda canonical IDs versus provider-native IDs, `discovered → advertised → qualified → admitted → bound → effective`, support vectors, currentness/TOCTOU, fallback qualification, lowest-common-denominator abstractions, coexistência, cutover, residual provider cohorts, withdrawal, `UNKNOWN → reconcile-before-retry`, provider acceptance versus domain-effective success, extensions provider-specific e non-amplification por IA/low-code. O texto diferencia a seam provider-neutral já evidenciada no AI Gateway das lacunas G2 ainda não generalizadas.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `PLANNING_A_PROVIDER_BINDING_CAPABILITY_NEGOTIATION_BOUNDARIES.md`, `PLANNING_B_PROVIDER_BINDING_CAPABILITY_NEGOTIATION_SB_CURRENT_STATE.md`, `PROVIDER_BINDING_CAPABILITY_NEGOTIATION_FULL_PASS_2_REVISIT.md`, além do Capítulo 03 como dependência editorial.
+
 ### CHAPTER_11 — v1.0.0
 
 - **Versão anterior:** inexistente.
