@@ -19,7 +19,7 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 
 ## Estado atual da narrativa
 
-- Capítulos 1–9: publicados em `v1.0.0`.
+- Capítulos 1–12: publicados em `v1.0.0`.
 - Capítulo 1: visão do System Builder e o problema que ele tenta resolver.
 - Capítulo 2: empresa como sistema versionado e semântica revisionada.
 - Capítulo 3: Capability, Provider, Binding e Semantic Owner.
@@ -29,7 +29,10 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 - Capítulo 7: identidade, autenticação, autorização, Stations, least privilege e não amplificação de autoridade.
 - Capítulo 8: dados, schema, documentos/storage, privacidade, retenção, legal hold, residency e governed populations.
 - Capítulo 9: cálculos, fórmulas, valores derivados, revisões, units/money/time, failure algebra, dependency graphs, materialização e semântica provider-neutral.
-- Capítulo 10: próximo — build, artefatos, releases, provenance, SBOM e repositórios do cliente.
+- Capítulo 10: build, artefatos, releases, provenance, SBOM e repositórios do cliente.
+- Capítulo 11: deployment, runtime autônomo, workload, desired/observed/effective state e escalabilidade.
+- Capítulo 12: providers externos, support vectors, qualification/admission/binding, coexistência, substituição, drainage e anti-lock-in.
+- Capítulo 13: próximo — versionamento, evolução, migração, coexistência e rollback.
 - Glossário: evolutivo e didático; definições autoritativas continuam nos artefatos de pesquisa/planejamento.
 
-A pesquisa adversarial continua ativa; no snapshot editorial revalidado em 2026-09-05, Full Passes 1 e 2 estão completos e o Full Pass 3 está em 2/28 capabilities e 2/12 mandatory clusters, com 2/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
+A pesquisa adversarial continua ativa; no snapshot editorial revalidado em 2026-09-05, Full Passes 1 e 2 estão completos e o Full Pass 3 está em 14/28 capabilities e 12/12 mandatory clusters, com 2/8 full passes mínimos completos. Planning C permanece bloqueado. Por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
