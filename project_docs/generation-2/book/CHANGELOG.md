@@ -48,3 +48,13 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 - **Motivo:** continuidade do plano editorial e necessidade de explicar a diferença entre composição visual e semântica executável antes dos capítulos de workflow, integrações e conflitos processuais.
 - **Resumo:** publicado o capítulo sobre low-code, Canvas e grafos executáveis. O texto introduz nós, arestas, guards, estado, efeitos e constraints; separa Canvas, processo canônico e workflow durável; explica `PrimitiveValid != CompositionAdmissible != InvocationAuthorized != EffectQualified`; trata validade por partes, multi-step sem jointly qualified cut, offline replay de intenção superseded, omissão de qualificadores materiais, separação de funções, DerivedValue→StoredFact, ciclos legítimos versus amplificação, UI versus autorização e IA/low-code sem amplificação de autoridade. Também distingue a direção pesquisada do baseline atual de generated views e bindings já evidenciado no SB.
 - **Artefatos autoritativos relacionados:** `PLANNING_A_UI_GENERATED_EXPERIENCE_LOW_CODE_BOUNDARIES.md`, `PLANNING_B_UI_GENERATED_EXPERIENCE_LOW_CODE_SB_CURRENT_STATE.md`, `PLANNING_A_PROCESS_APPLICATION_MODELING_BOUNDARIES.md`, `PLANNING_A_WORKFLOW_DURABLE_EXECUTION_BOUNDARIES.md`, `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_EDGE_CASE_REGISTER.md`, `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_FULL_PASS_2_REVISIT.md`, `DEEP_RESEARCH_LOW_CODE_COMPOSITION_AUTHORITY_SEMANTIC_EFFECT_01.md`, `RESEARCH_PIPELINE_STATE.json`.
+
+### CHAPTER_06 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-04.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial e necessidade de explicar a progressão durável do trabalho antes dos capítulos de autorização, dados e evolução.
+- **Resumo:** publicado o capítulo que separa processo, workflow, interação, ação, formulário, evento, mensagem e integração; explica instância/histórico durável, waits/timers, human tasks, a cadeia `attempted → accepted → applied/effective → converged → validated`, `UNKNOWN`, reconcile-before-retry, retry/redrive, idempotência qualificada, replay e side-effect boundaries. O texto inclui um exemplo integrado de OS com compra externa e distingue explicitamente a direção pesquisada do baseline atual do workflow do SB, inclusive a exposição de split failure entre mutação e persistência de estado.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `PLANNING_A_WORKFLOW_DURABLE_EXECUTION_BOUNDARIES.md`, `PLANNING_B_WORKFLOW_DURABLE_EXECUTION_SB_CURRENT_STATE.md`, `PLANNING_A_INTEGRATION_AUTOMATION_BOUNDARIES.md`, `PLANNING_A_NOTIFICATIONS_EVENTS_MESSAGING_BOUNDARIES.md`.
