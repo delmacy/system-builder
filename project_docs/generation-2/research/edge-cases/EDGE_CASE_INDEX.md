@@ -56,34 +56,40 @@ Full Pass 3 completed **28/28 capabilities + 12/12 mandatory clusters**. Detaile
 | Process & Application Modeling | `PROCESS_APPLICATION_MODELING_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Process/Application × Workflow × Data/Schema **1→2** |
 | Workflow & Durable Execution | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Workflow × Integration × Messaging × external mutation **1→2** |
 | Data / Schema / Migrations | `DATA_SCHEMA_MIGRATIONS_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Data/Schema × Privacy × Storage × Lifecycle **1→2** |
+| Storage / Documents / Media | `STORAGE_DOCUMENTS_MEDIA_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Provider/Binding × external realizations explicitly exercised; streak remains **2** |
+| Secrets / Configuration / Environment Portability | `SECRETS_CONFIGURATION_ENVIRONMENT_PORTABILITY_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Secrets/Config × Runtime × Provider substitution **1→2** |
+| Build / Dependency Graph / Reproducibility | `BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Build × Artifact/Release × Deployment × Runtime **1→2** |
+| Artifact / Release / SBOM / Provenance | `ARTIFACT_RELEASE_SBOM_PROVENANCE_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution **0→1** |
+| Deployment / Runtime / Autonomous Operation | `DEPLOYMENT_RUNTIME_AUTONOMOUS_OPERATION_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Observability × Security/Recovery × runtime truth **1→2** |
+| Extension / Plugin / Marketplace Architecture | `EXTENSION_PLUGIN_MARKETPLACE_ARCHITECTURE_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Extension/Plugin × authority × provider trust × lifecycle **1→2** |
+| Commercial Metering / Entitlements / Rating / Billing / Payment | `COMMERCIAL_METERING_ENTITLEMENTS_RATING_BILLING_PAYMENT_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Commercial Metering × Entitlements × Rating × Billing × Payment **1→2** |
+| Technology Economic Governance / FinOps | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps **1→2** |
+| Universal Capability Architecture | `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **1** | no mandatory cluster counted |
 
-The four completed Pass-4 revisits duplicate-screened all **119** reusable ConflictPatterns, explicitly including presence semantics, trust-namespace collapse, cumulative privacy and compatibility direction. No material ID has been added in Full Pass 4 so far.
+All 13 completed Pass-4 revisits duplicate-screened all **119** reusable ConflictPatterns, explicitly including presence semantics, trust-namespace collapse, cumulative privacy and compatibility direction. No material ID has been added in Full Pass 4 so far.
 
-### Data / Schema / Migrations — Pass 4
+### Universal Capability Architecture — Pass 4
 
-The revisit challenged declared constraint versus historically validated invariant, multi-version semantic cuts, presence/default provenance, online schema changes crossing long writes, dual-write/CDC common-cut qualification, identity/key reuse, retention/legal-hold/residency intersections, correction after downstream adoption, restore of disposed obsolete cohorts, directed rollback compatibility, provider substitution with `PARTIAL/UNKNOWN`, resource/cardinality pressure and human/AI migration plans.
+The revisit used refinement/substitution laws, semantic non-interference, meet-versus-union authority metamorphics, stage-lattice mutation, semantic-type confusion probes, cardinality/resource shadowing and AI/low-code god-object pressure. Candidate failures reduced to existing qualified-claim/currentness, revision-vector, presence-semantics, semantic-ownership, effect/convergence, residual-cohort, compatibility-direction, provider/trust/privacy and authority non-amplification families.
 
-A strong industrial witness is PostgreSQL `NOT VALID`: a constraint can be declared and enforced for subsequent writes while historical rows have not yet been validated. This reinforces qualified-evidence/currentness/convergence semantics but does not create a new reusable family. PostgreSQL logical replication likewise separates replication transport from DDL/schema convergence. Duplicate-screen therefore found **0 new local edges, 0 new cross-capability scenarios and 0 new ConflictPatterns**.
-
-Data / Schema / Migrations local streak advances **1→2** and explicit Data/Schema × Privacy × Storage × Lifecycle cluster streak advances **1→2**. `Signal != ConfirmedConflict` remains mandatory.
+Current Kubernetes generation/observed-generation semantics, API round-trip preservation rules, OpenTelemetry scope-qualified requirement levels, RFC 8693 authority Cartesian-product semantics and Protocol Buffers presence semantics reinforce those existing families. Duplicate-screen therefore found **0 new local edges, 0 new cross-capability scenarios and 0 new ConflictPatterns**. UCA local streak advances **0→1**. No mandatory-cluster streak is advanced.
 
 ## Campaign state
 
 - completed full passes: **3/8 minimum**; target reference **12**, no maximum;
 - active full pass: **4**;
 - Full Pass 3: **28/28 capabilities + 12/12 mandatory clusters — complete**;
-- Full Pass 4: **4/28 capabilities + 3/12 mandatory clusters**;
+- Full Pass 4: **13/28 capabilities + 11/12 mandatory clusters**;
 - material edge scenarios: **284**;
 - reusable ConflictPatterns: **119**;
 - combined material findings: **403**;
 - HIGH/CRITICAL without semantic owner/proof obligation/detection route: **0**;
-- local streaks at **2** now include AGWS, Process, Workflow and Data plus the previously saturated local capabilities recorded in `ADVERSARIAL_SATURATION_STATE.json`;
-- local streaks at 0 after material findings: UCA, UI, Integration, Enterprise Trust/PKI, Privacy and Lifecycle;
-- mandatory cluster streaks at **2** include Identity × Authorization × Station × AGWS × AI, Process/Application × Workflow × Data/Schema, Workflow × Integration × Messaging × external mutation, Data/Schema × Privacy × Storage × Lifecycle and Provider/Binding × external realizations; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution remains **0**; remaining values are state-authoritative;
+- UCA local no-material streak: **1**;
+- mandatory cluster streak still below 2: Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution = **1**; all other cluster streak values remain state-authoritative;
 - adversarial negative-space review: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
 - `PLANNING_C_TARGET_ARCHITECTURE`: **BLOCKED**.
 
 ## Next rotation
 
-The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 4 with **Storage / Documents / Media** and explicitly exercise **Provider/Binding × external realizations** for this pass without inflating its already-satisfied streak beyond 2. Duplicate-screen against all **119** reusable ConflictPatterns. Do not enter Planning C.
+The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 4 with **UI / Generated Experience / Low-code Builder**, using techniques materially different from Full Passes 1–3 and duplicate-screen against all **119** reusable ConflictPatterns. Do not advance an unrelated mandatory-cluster streak. Do not enter Planning C.
