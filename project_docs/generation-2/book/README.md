@@ -19,13 +19,16 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 
 ## Estado atual da narrativa
 
-- Capítulos 1–5: publicados em `v1.0.0`.
+- Capítulos 1–8: publicados em `v1.0.0`.
 - Capítulo 1: visão do System Builder e o problema que ele tenta resolver.
 - Capítulo 2: empresa como sistema versionado e semântica revisionada.
 - Capítulo 3: Capability, Provider, Binding e Semantic Owner.
 - Capítulo 4: composição modular, fechamento de dependências e runtime autônomo.
 - Capítulo 5: low-code, Canvas, grafos executáveis e admissibilidade de composição.
-- Capítulo 6: próximo — Workflow, ações, eventos, formulários e integrações.
+- Capítulo 6: workflow durável, ações, eventos, formulários, integrações e efeitos ambíguos.
+- Capítulo 7: identidade, autenticação, autorização, Stations, least privilege e não amplificação de autoridade.
+- Capítulo 8: dados, schema, documentos/storage, privacidade, retenção, legal hold, residency e governed populations.
+- Capítulo 9: próximo — cálculos, fórmulas, valores derivados e matemática empresarial.
 - Glossário: evolutivo e didático; definições autoritativas continuam nos artefatos de pesquisa/planejamento.
 
 A pesquisa adversarial continua ativa; por isso, capítulos publicados podem receber revisões limitadas quando novos resultados alterarem materialmente o entendimento explicado.
