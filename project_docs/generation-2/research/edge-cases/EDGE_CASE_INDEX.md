@@ -17,10 +17,11 @@ Full Pass 2 completed **28/28 capabilities** and **12/12 mandatory clusters**. I
 
 ## Reusable ConflictPattern inventory
 
-The reusable catalogue is now **117 `G2-CONFLICT-PATTERN-*` families**.
+The reusable catalogue is now **118 `G2-CONFLICT-PATTERN-*` families**.
 
 - Full Pass 3 UCA added `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`, covering incompatible `ABSENT/UNSET/UNKNOWN/NOT_APPLICABLE/REDACTED/null/default/delete` interpretations across otherwise valid representation/profile boundaries.
 - Full Pass 3 Enterprise Trust / PKI added `G2-CONFLICT-PATTERN-TRUST-NAMESPACE-COLLAPSE-001`, covering composition where individually valid trust partitions become jointly unsafe because a union/import/provider/federation layer loses the domain→bundle/anchor-set ownership boundary and thereby widens the namespace accepted by a validator.
+- Full Pass 3 Privacy / Data Governance added `G2-CONFLICT-PATTERN-CUMULATIVE-PRIVACY-001`, covering N-wise/history-dependent composition where individually permissible releases, analyses, views or inferences jointly create material re-identification, sensitive inference or excessive explicitly governed cumulative privacy loss that no component-local qualification established.
 
 A researched pattern is not a concrete defect and does not authorize implementation. Default disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`.
 
@@ -48,6 +49,7 @@ A researched pattern is not a concrete defect and does not authorize implementat
 | Governance / Compliance / Audit | `GOVERNANCE_COMPLIANCE_AUDIT_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | **2** | mandatory cluster unchanged |
 | Security / Resilience / Failure Recovery | `SECURITY_RESILIENCE_FAILURE_RECOVERY_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | **2** | mandatory cluster unchanged |
 | Enterprise Trust / PKI / Certificate Lifecycle | `ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE_FULL_PASS_3_REVISIT.md` | **MATERIAL**: `G2-EDGE-TRUST-008` + `G2-CONFLICT-PATTERN-TRUST-NAMESPACE-COLLAPSE-001` | **0** | Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution reset **1→0** |
+| Privacy / Data Governance / Retention / Legal Hold / Residency | `PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY_FULL_PASS_3_REVISIT.md` | **MATERIAL**: `G2-EDGE-PRIVACY-008` + `G2-CONFLICT-PATTERN-CUMULATIVE-PRIVACY-001` | **0** | mandatory clusters unchanged; cross-cutting Privacy × Data/Analytics × AI/low-code linkage added |
 
 ### Full-Pass-3 presence-semantics material chain
 
@@ -59,22 +61,30 @@ A researched pattern is not a concrete defect and does not authorize implementat
 
 Research-only preventive invariant candidate: trust material composition must not widen namespace/authority merely by set union, import, provider co-location or representational compatibility; broader trust must be explicitly owner-qualified and still does not substitute for Identity/Authorization.
 
+### Full-Pass-3 cumulative-privacy composition finding
+
+`G2-EDGE-PRIVACY-008` and `G2-CONFLICT-PATTERN-CUMULATIVE-PRIVACY-001` capture a non-local privacy property: two or more releases, analyses, views, derived features or model outputs can each be individually qualified and still become jointly identifying, sensitively inferential or incompatible with an explicitly governed cumulative privacy-loss bound. The pattern is intentionally history/recipient/context-aware and is not reducible to purpose-use drift, subject-linkage ambiguity, presence semantics, resource boundedness or trust namespace.
+
+Detection candidates include release/query lineage, recipient/view-context and auxiliary-data inventory, linkability/mosaic analysis, cumulative output history, derived/inferred-data classification, N-wise AI/low-code composition tests, and privacy-loss budget/composition accounting only where explicit differential-privacy semantics apply. The detailed owner, severity, confidence, detectability, blast radius, reversibility, time-to-harm, misuse likelihood, currentness, false-positive and future-route fields are authoritative in `PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY_FULL_PASS_3_REVISIT.md`.
+
+No `ConflictInstance` is asserted and no remediation is authorized.
+
 ## Campaign state
 
 - completed full passes: **2/8 minimum**; target reference **12**, no maximum;
 - active full pass: **3**;
-- Full Pass 3: **20/28 capabilities + 12/12 mandatory clusters**;
-- material edge scenarios: **282**;
-- reusable ConflictPatterns: **117**;
-- combined material findings: **399**;
+- Full Pass 3: **21/28 capabilities + 12/12 mandatory clusters**;
+- material edge scenarios: **283**;
+- reusable ConflictPatterns: **118**;
+- combined material findings: **401**;
 - HIGH/CRITICAL without semantic owner/proof obligation/detection route: **0**;
-- UCA, UI, Integration and Enterprise Trust/PKI local no-material streaks: **0** after material findings;
+- UCA, UI, Integration, Enterprise Trust/PKI and Privacy local no-material streaks: **0** after material findings;
 - Identity, Authorization, Governance and Security local streaks: **2**;
-- mandatory cluster streaks: Identity × Authorization × Station × AGWS × AI **2**; Provider/Binding × external realizations **2**; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution **0** after the new material trust-namespace finding; other nine mandatory clusters **1**;
+- mandatory cluster streaks: Identity × Authorization × Station × AGWS × AI **2**; Provider/Binding × external realizations **2**; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution **0** after the trust-namespace finding; other nine mandatory clusters **1**;
 - adversarial negative-space review: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
 - `PLANNING_C_TARGET_ARCHITECTURE`: **BLOCKED**.
 
 ## Next rotation
 
-The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 3 with **Privacy / Data Governance / Retention / Legal Hold / Residency**, use techniques materially different from Full Passes 1 and 2, and duplicate-screen against all **117** reusable ConflictPatterns including presence semantics and trust-namespace collapse where applicable. Do not enter Planning C.
+The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 3 with **Notifications / Events / Messaging**, use techniques materially different from Full Passes 1 and 2, and duplicate-screen against all **118** reusable ConflictPatterns, including cumulative privacy where event history, recipient fan-out or derived notifications aggregate knowledge. Do not enter Planning C.
