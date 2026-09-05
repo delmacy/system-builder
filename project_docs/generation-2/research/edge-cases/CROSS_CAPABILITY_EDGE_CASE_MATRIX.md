@@ -32,13 +32,16 @@ Full Pass 2 completed **28/28 capabilities and 12/12 mandatory clusters**. Local
 
 | # | Cluster | Pass-3 status | Detailed artifact | Result / streak |
 | --- | --- | --- | --- | --- |
-| 3 | Identity × Authorization × Station × AGWS × AI | COVERED / ELIGIBLE NO NEW MATERIAL CLASS | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_3_REVISIT.md` | explicit revisit found 0 new cluster scenarios and 0 reusable patterns after duplicate screen; streak **1 → 2** |
+| 3 | Identity × Authorization × Station × AGWS × AI | COVERED / ELIGIBLE NO NEW MATERIAL CLASS | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_3_REVISIT.md` | explicit revisit found 0 new cluster scenarios and 0 reusable patterns; streak **1 → 2** |
+| 1 | Process/Application × Workflow × Data/Schema | COVERED / ELIGIBLE NO NEW MATERIAL CLASS | `PROCESS_APPLICATION_MODELING_FULL_PASS_3_REVISIT.md` | explicit revisit found 0 new cluster scenarios and 0 reusable patterns; streak **0 → 1** |
+| 2 | Workflow × Integration × Messaging × external mutation | COVERED / ELIGIBLE NO NEW MATERIAL CLASS | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_3_REVISIT.md` | explicit revisit found 0 new cluster scenarios and 0 reusable patterns; streak **0 → 1** |
+| 4 | Data/Schema × Privacy × Storage × Lifecycle | COVERED / ELIGIBLE NO NEW MATERIAL CLASS | `DATA_SCHEMA_MIGRATIONS_FULL_PASS_3_REVISIT.md` | explicit revisit found 0 new cluster scenarios and 0 reusable patterns after duplicate screen against 115 patterns; streak **0 → 1** |
 
-### Full-Pass-3 AGWS cluster challenge summary
+### Full-Pass-3 Data/Schema cluster challenge summary
 
-The explicit revisit varied evidence-state projection, instruction-set intersections, Person/Role/Station/tenant scope partitions, long-lived surface cuts across policy/workflow/schema/provider revisions, offline/resumed supersession, human/AI plan deltas, shared-versus-personal automation promotion, `PARTIAL/UNKNOWN/INCONCLUSIVE` presentation and resource/cardinality pressure.
+The explicit revisit used active-cohort semantic braids, evidence-cut subtraction, constraint-intersection mutation, long-write interleavings, correction-lineage inversion, restore/cohort resurrection, ambiguous migration-effect mutation, resource/graph pressure and AI/low-code plan mutation. It specifically challenged compositions in which schema, privacy, storage and lifecycle decisions are individually valid but do not share a qualified revision/policy/evidence cut.
 
-No genuinely new cross-capability class survived duplicate screening against the 115 reusable ConflictPatterns. Candidate mechanisms remained covered by existing multitenant-scope, effective-identity, permission/automation composition, qualified-claim/currentness, revision-vector, human-instruction, work-priority projection, presentation-authority, replay/supersession, ambiguous-effect/idempotency, resource-boundedness and AI/low-code non-amplification families.
+No genuinely new cross-capability class survived duplicate screening against the 115 reusable ConflictPatterns. Candidate mechanisms remained covered by schema-losslessness, default-materialization, policy precedence/preservation-disposition, qualified-currentness/convergence, migration/coexistence, residual-cohort, supersession-lineage, recovery-qualification, ambiguous-effect/idempotency, resource-boundedness and semantic/authority non-amplification families.
 
 This is an eligible no-new-material cluster revisit, not proof that no concrete `ConflictInstance` can occur. `Signal != ConfirmedConflict` remains mandatory.
 
@@ -46,13 +49,16 @@ This is an eligible no-new-material cluster revisit, not proof that no concrete 
 
 - completed full passes: **2/8 minimum**; target **12**, no maximum;
 - active full pass: **3**;
-- Full Pass 3 cluster coverage: **1/12 mandatory clusters**;
-- Full Pass 3 capability coverage: **1/28 canonical capabilities**;
+- Full Pass 3 cluster coverage: **4/12 mandatory clusters**;
+- Full Pass 3 capability coverage: **4/28 canonical capabilities**;
 - material edge scenarios: **278**;
 - reusable ConflictPatterns: **115**;
 - combined material findings: **393**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
 - `Identity × Authorization × Station × AGWS × AI` streak: **2**;
+- `Process/Application × Workflow × Data/Schema` streak: **1**;
+- `Workflow × Integration × Messaging × external mutation` streak: **1**;
+- `Data/Schema × Privacy × Storage × Lifecycle` streak: **1**;
 - `Provider/Binding × external realizations` streak: **1**;
 - all other mandatory cluster streaks: **0**;
 - negative-space review: `NOT_STARTED`;
@@ -61,4 +67,4 @@ This is an eligible no-new-material cluster revisit, not proof that no concrete 
 
 ## Next explicit cluster rotation
 
-Continue Full Pass 3 with **Process & Application Modeling** and explicitly revisit **Process/Application × Workflow × Data/Schema**. Use techniques materially different from Full Passes 1 and 2; challenge structural graph contradictions, state-transition incompatibility, semantic ownership collision, human-procedure versus executable graph, resource/fact contention, revision coexistence, compensation after downstream adoption, brownfield semantic collisions, objective/optimization conflict, pathological graph expansion and AI/low-code composition. Duplicate-screen against the 115 reusable ConflictPatterns. Any material finding resets the affected streak; otherwise advance only the explicitly eligible local/cluster counters. Do not enter Planning C.
+Continue Full Pass 3 with **Storage / Documents / Media** and explicitly revisit **Provider/Binding × external realizations**. Use techniques materially different from Full Passes 1 and 2; challenge byte identity versus semantic document identity, multipart/range partial effects, metadata/content revision divergence, immutable versions with mutable aliases, cross-tenant dedup/privacy, key/trust currentness, lifecycle/evidentiary retention, restore/hydration against current canonical revision, provider-specific ETag/version/checksum semantics, residual old-provider objects, cutover `PARTIAL/UNKNOWN`, resource exhaustion and AI/low-code transformations that change semantic ownership, retention, authority or evidentiary meaning. Duplicate-screen against the 115 reusable ConflictPatterns. Any material finding resets affected streak; otherwise advance only explicitly eligible local/cluster counters. Do not enter Planning C.
