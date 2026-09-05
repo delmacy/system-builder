@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_18 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial após o vocabulário de famílias de teste, aprofundando como concorrência, efeitos ambíguos, retry, reconciliation, idempotência, compensação e ordering afetam sistemas empresariais distribuídos.
+- **Resumo:** publicado o capítulo que explica concorrência como interleavings e invariants empresariais; distingue race condition, lost update, check-then-act/TOCTOU, double allocation, duplicate work e split-brain; desenvolve `APPLIED / NOT_APPLIED / PARTIAL / UNKNOWN`, `timeout != NOT_APPLIED`, `UNKNOWN → reconcile-before-retry`, retry eligibility versus original eligibility, idempotency qualification, attempt/business-intent/effect identity, reconciliation, partial effects, compensation, duplicate/out-of-order messages, optimistic concurrency, CAS/fencing, eventual consistency, retry storms/backoff/jitter/budgets e limites de locks/transactions. O capítulo também usa a exposição concreta do workflow atual — domain action aplicada antes de eventual falha na persistência do workflow state — como evidência de split failure sem prescrever arquitetura alvo.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md`, `PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md`, `PLANNING_A_WORKFLOW_DURABLE_EXECUTION_BOUNDARIES.md`, `PLANNING_B_WORKFLOW_DURABLE_EXECUTION_SB_CURRENT_STATE.md`.
+
 ### CHAPTER_17 — v1.0.0
 
 - **Versão anterior:** inexistente.
