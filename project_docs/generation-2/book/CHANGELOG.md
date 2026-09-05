@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_13 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial após providers/deployment e necessidade de explicar mudança empresarial como coexistência governada de revisões independentes, em vez de uma troca escalar `v1 → v2`.
+- **Resumo:** publicado o capítulo que explica revision vectors, aplicabilidade histórica, compatibilidade direcional, coexistência e cohorts, migration readiness/currentness, staged transition, cutover, residual authoritative cohorts e drainage, supersession/correction lineage, deprecation versus withdrawal, efeitos `APPLIED/NOT_APPLIED/PARTIAL/UNKNOWN`, rollback eligibility versus rollback actuation versus state recovery, roll-forward, version skew, stale-active e non-amplification por IA/low-code. O texto diferencia as fortes foundations atuais de process revision/lineage, release lifecycle e retained-history deployment proof do lifecycle transversal G2 ainda não generalizado.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `PLANNING_A_LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_BOUNDARIES.md`, `PLANNING_B_LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_SB_CURRENT_STATE.md`, `PLANNING_A_PROCESS_APPLICATION_MODELING_BOUNDARIES.md`, além dos capítulos anteriores como dependências editoriais.
+
 ### CHAPTER_12 — v1.0.0
 
 - **Versão anterior:** inexistente.
