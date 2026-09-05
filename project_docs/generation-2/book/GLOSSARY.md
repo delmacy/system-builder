@@ -40,6 +40,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Coexistência** — período ou condição em que múltiplas revisões, cohorts, providers, runtimes ou representações permanecem simultaneamente relevantes durante evolução/migração.
 
+**Common qualified cut / corte comum qualificado** — evidência de que múltiplos sistemas, sinks ou populações podem ser interpretados sob um estado conjunto coerente em revisões/aplicabilidades relevantes. Sinks individualmente válidos ou “recentes” não provam, por si só, que existe um estado composto verdadeiro.
+
 **Composition admissibility / admissibilidade da composição** — avaliação de se uma combinação de primitivas, ações, regras ou nós respeita as constraints materiais aplicáveis ao conjunto. É diferente de validar cada primitiva isoladamente e também não substitui autorização no momento da atuação ou qualificação do efeito.
 
 **ConflictInstance** — ocorrência concreta, observada ou reproduzível, de um conflito em um sistema/revisão/contexto específicos.
@@ -48,6 +50,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Confused deputy** — situação em que um componente com autoridade elevada é induzido a usar essa autoridade em favor de um solicitante que não possui o mesmo poder. A prevenção exige preservar quem pediu, em nome de quem se atua e qual delegação/escopo autoriza o efeito.
 
+**Content identity / identidade de conteúdo** — identidade usada para caracterizar uma revisão concreta de conteúdo, frequentemente por digest/hash quando byte-level equivalence importa. Não é automaticamente a identidade canônica do documento ou objeto empresarial.
+
 **Cumulative context / contexto acumulado** — contexto mínimo que precisa atravessar boundaries sucessivas para preservar identidade, revisão, lineage, constraints e evidência aplicáveis sem obrigar cada etapa a conhecer a implementação interna de todas as anteriores.
 
 **Currentness / atualidade qualificada** — propriedade de uma evidência ou decisão permanecer suficientemente atual para o uso em questão. Uma afirmação historicamente válida pode tornar-se stale após mudança de policy, membership, binding, trust, credential ou outra revisão aplicável.
@@ -55,6 +59,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## D
 
 **Delegation envelope / envelope de delegação** — contrato que delimita a autoridade que pode ser delegada: origem, destinatário, ações/recursos, scope, limites, validade, subdelegação e demais constraints. Delegação não é transitiva por padrão.
+
+**Disposition / disposição governada** — transição pela qual uma população de dados alcança um estado final permitido sob obrigações aplicáveis, como destruição, preservação, arquivamento ou outra destinação qualificada. Elegibilidade para disposition e execução física da disposition são fatos distintos.
 
 **Durable history / histórico durável** — histórico suficiente para preservar progressão, tentativas, waits, efeitos e demais fatos necessários para retomada, reconciliação, auditoria, replay ou migração conforme o contrato aplicável. Não é sinônimo de log técnico infinito.
 
@@ -69,6 +75,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Executable graph / grafo executável** — representação em nós e relações cuja estrutura participa da execução de comportamento, em vez de servir apenas como diagrama explicativo. Sua validade depende não só de conectividade, mas também de estados, guards, tipos, revisões, constraints, autoridade e efeitos aplicáveis.
 
 ## G
+
+**Governed population / população governada** — conjunto identificado de dados, cópias, replicas, backups, indexes, exports, caches, derivados ou downstream consumers que permanecem sujeitos a uma obrigação de privacy, retenção, hold, residency ou disposition.
 
 **Guard / guarda** — condição que torna uma transição, caminho ou ação elegível dentro de um processo/grafo. Uma guarda precisa preservar a semântica dos valores, regras e revisões que utiliza; expressão sintaticamente válida não garante decisão semanticamente válida.
 
@@ -89,6 +97,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## L
 
 **Least privilege / menor privilégio** — princípio segundo o qual pessoa, serviço, processo ou automação deve receber apenas a autoridade necessária ao trabalho, no scope e horizonte necessários. Seu objetivo é limitar blast radius sem inviabilizar responsabilidades legítimas.
+
+**Legal hold / retenção legal ou investigativa** — obrigação governada de preservação que pode impedir destruição ou outra disposition mesmo quando uma regra de retenção comum tenha expirado. Sua liberação não implica automaticamente elegibilidade de delete; exige nova qualificação das obrigações restantes.
 
 **Lineage / linhagem** — relação rastreável entre uma definição, dado, artefato ou evidência e suas origens, transformações, revisões, correções ou adoções. Ajuda a explicar de onde veio uma verdade e quais derivados podem ser afetados por uma mudança.
 
@@ -126,6 +136,12 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Residual cohort / cohort residual** — população pertencente a uma realização/revisão anterior que ainda pode produzir efeitos relevantes ou autoritativos após um cutover, como sessões, workers, caches, callbacks, credenciais, filas ou clientes antigos.
 
+**Residual governed copy / cópia governada residual** — cópia de dado ou conteúdo que permanece materialmente existente, acessível ou sujeita a obrigação após cutover, logical deletion, migration ou disposition parcial. Não deixa de ser governada só porque a referência principal foi removida.
+
+**Residency / residência de dados** — conjunto de restrições qualificadas sobre onde dados e realizações relevantes podem residir ou ser processados. Não deve ser reduzido a comparar nomes de regiões de provider; backup, metadata, restore, replicas e derivados podem ter semantics diferentes.
+
+**Retention / retenção** — obrigação ou política de preservar determinada informação por período, condição ou escopo aplicável. Expiração de retention não implica automaticamente autorização ou elegibilidade para deletion.
+
 **Retained runtime closure / closure retida de runtime** — conjunto de artefatos, dependências runtime, configuração, trust, autoridade/policy local, schema/data compatibility, bindings e demais requisitos que precisam permanecer disponíveis para a operação permitida de um runtime, inclusive durante um horizonte desconectado quando esse perfil for suportado.
 
 **Revision / revisão** — identidade de uma evolução de definição, política, schema, fórmula, artefato ou outro elemento. Diferentes elementos podem evoluir independentemente, razão pela qual a pesquisa trabalha também com revision vectors.
@@ -137,6 +153,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Runtime autonomy / autonomia de runtime** — capacidade de um runtime continuar operando dentro de uma retained closure e horizonte explicitamente qualificados sem depender continuamente do control plane do Builder. Não significa isolamento, operação offline eterna nem licença para inventar autoridade/currentness ausentes.
 
 ## S
+
+**Schema** — contrato estrutural que descreve entidades, campos, relações, tipos e constraints de uma representação de dados. Schema declarado, estrutura materializada pelo provider, população migrada e compatibilidade efetiva dos consumidores são fatos distintos.
 
 **Semantic god-object** — antipadrão no qual uma camada dita “universal” passa a decidir significados, políticas e estados pertencentes a múltiplos semantic owners. A UCA G2 deve compartilhar estruturas reutilizáveis sem assumir essa autoridade.
 
