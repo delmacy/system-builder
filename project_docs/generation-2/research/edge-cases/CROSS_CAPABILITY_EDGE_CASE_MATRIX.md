@@ -15,7 +15,7 @@ Full Pass 2 completed **28/28 capabilities and 12/12 mandatory clusters**. It en
 
 ## Full Pass 3 — mandatory-cluster revisits complete
 
-| Cluster | Pass-3 result / current streak |
+| Cluster | Pass-3 result / current streak before Pass 4 |
 | --- | --- |
 | Identity × Authorization × Station × AGWS × AI | no new in explicit revisit; streak **2** |
 | Process/Application × Workflow × Data/Schema | no new; streak **1** |
@@ -38,55 +38,55 @@ Origin: `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_3_REVISIT.md`.
 
 Cross-capability surfaces: UCA × Data/Schema × UI × Workflow × Integration × Standards × Provider/Binding × Authorization/Policy × AI/low-code.
 
-Otherwise valid components can disagree on whether absence, explicit default, `null`, `UNKNOWN`, `NOT_APPLICABLE`, redaction or delete are values, lack of values or mutation operators. `G2-EDGE-UI-011` and `G2-EDGE-INTEGRATION-008` are capability-specific manifestations. Detection candidates include presence-state compatibility matrices, schema/profile/operator revision comparison, round-trip semantic diff, default-injection mutation testing and raw-to-normalized provenance.
-
-Disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`.
+Otherwise valid components can disagree on whether absence, explicit default, `null`, `UNKNOWN`, `NOT_APPLICABLE`, redaction or delete are values, lack of values or mutation operators. Detection candidates include presence-state compatibility matrices, schema/profile/operator revision comparison, round-trip semantic diff, default-injection mutation testing and raw-to-normalized provenance.
 
 ### `G2-EDGE-TRUST-008` / `G2-CONFLICT-PATTERN-TRUST-NAMESPACE-COLLAPSE-001`
 
 Origin: `ENTERPRISE_TRUST_PKI_CERTIFICATE_LIFECYCLE_FULL_PASS_3_REVISIT.md`.
 
-Cross-capability surfaces: Enterprise Trust/PKI × Identity/Federation × Artifact/Release × Provider/Binding × Standards × Authorization.
-
-Material interaction: independently valid trust bundles/anchor sets become jointly unsafe when union/import/provider consolidation loses the trust-domain→bundle ownership boundary and widens the namespace accepted by a validator. Detection route: trust-domain ownership graph, relying-namespace→qualified-bundle relation, federation/provider lineage and runtime accepted-subject/trust-path comparison. Explicit governed federation remains legitimate; inferred widening does not.
-
-Cluster effect: `Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution` reset **1→0**. No `ConflictInstance`; no remediation.
+Cross-capability surfaces: Enterprise Trust/PKI × Identity/Federation × Artifact/Release × Provider/Binding × Standards × Authorization. Independently valid trust bundles/anchor sets become jointly unsafe when composition loses trust-domain→bundle ownership and widens accepted namespace. Cluster `Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution` reset to **0**.
 
 ### `G2-EDGE-PRIVACY-008` / `G2-CONFLICT-PATTERN-CUMULATIVE-PRIVACY-001`
 
 Origin: `PRIVACY_DATA_GOVERNANCE_RETENTION_LEGAL_HOLD_RESIDENCY_FULL_PASS_3_REVISIT.md`.
 
-Cross-capability surfaces: Privacy/Data Governance × Data/Schema/analytics × Authorization/Governance × Process/external sharing × AI/low-code.
-
-Material interaction: multiple individually qualified releases, analyses, views or model outputs can jointly create materially greater identifying/inferential power or exceed an explicitly governed cumulative privacy-loss bound. Detection route is history/recipient/context-aware: release/query lineage, auxiliary-data inventory, linkability/mosaic analysis, cumulative output history, derived-data classification and mechanism-specific privacy-budget accounting where applicable.
-
-No mandatory-cluster streak was fabricated from this local cross-cutting discovery. `Data/Schema × Privacy × Storage × Lifecycle` remains **1**.
+Cross-capability surfaces: Privacy/Data Governance × Data/Schema/analytics × Authorization/Governance × Process/external sharing × AI/low-code. Individually qualified releases or inferences can jointly create materially greater identifying/inferential power or exceed an explicitly governed cumulative privacy-loss bound.
 
 ### `G2-EDGE-LIFECYCLE-008` / `G2-CONFLICT-PATTERN-COMPATIBILITY-DIRECTION-001`
 
 Origin: `LIFECYCLE_VERSIONING_EVOLUTION_MIGRATION_FULL_PASS_3_REVISIT.md`.
 
-Cross-capability surfaces: Lifecycle × Data/Schema × Runtime × Standards/API Contracts × Provider/Binding × Workflow/Integration × Recovery; overlays may also involve Trust, Privacy, Authority and AI/low-code.
+Cross-capability surfaces: Lifecycle × Data/Schema × Runtime × Standards/API Contracts × Provider/Binding × Workflow/Integration × Recovery. A qualified relation such as `A→B` for read/forward migration becomes unsafe when composition stores it as scalar `compatible(A,B)` and later exercises `B→A`, write, replay, rollback or another unqualified direction/topology.
 
-Material interaction: two components/revisions can each be valid and a relation such as `A→B` for read/forward migration can be supported, while `B→A`, write, replay, rollback or another reachable topology is not. The conflict appears when composition stores or consumes that evidence as scalar/undirected `compatible(A,B)` and later exercises an unqualified direction or operation.
-
-Detection route: directed compatibility graph keyed by revisions/roles/operation/profile; reachable-peer/topology analysis; producer/consumer and reader/writer inversion tests; upgrade-order constraints; round-trip/forward-backward migration mutation; current evidence horizon. A mismatch remains a `Signal` until the concrete system/revision/topology establishes activation.
-
-Owner route: Lifecycle coordinates the relation/currentness join; Data/Schema, Runtime, Contract/Standards and Provider semantic owners define their directional/operation-specific support; Recovery consumes rather than invents compatibility. Provider or standards evidence is not automatically canonical semantic ownership.
-
-Severity/confidence: HIGH–CRITICAL / strongly supported. Blast radius workflow→enterprise/external; reversibility migration-required→potentially irreversible; time-to-harm immediate or latent; misuse plausible/likely during rolling migration, rollback or AI-generated evolution plans. False-positive control: deliberate one-way/forward-only compatibility is legitimate and must remain expressible.
-
-Future disposition: require additional relation evidence, reorder migration, constrain reachable topology, explicitly accept bounded asymmetry or route to owner reconciliation later. No implementation is authorized.
-
-Research-only PreventiveInvariantCandidate: compatibility used for lifecycle decisions must not be widened from a qualified directed/operation-specific relation into an undirected/global claim without semantic-owner evidence. This does not prohibit legitimate asymmetric compatibility.
-
-Cluster effect: no mandatory-cluster streak changes in this local revisit because no cluster-specific material scenario was independently established. The pattern is now a required duplicate-screen candidate for future explicit revisits of Data/Schema × Privacy × Storage × Lifecycle, Build × Artifact/Release × Deployment × Runtime, Provider/Binding × external realizations and other versioned compositions.
+Disposition for all patterns remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`; no `ConflictInstance` or implementation work is implied.
 
 ## Full Pass 4 — active mandatory-cluster rotation
 
-Full Pass 4 is currently at **0/12 mandatory clusters**. The completed AGWS local revisit did **not** count `Identity × Authorization × Station × AGWS × AI` again because that cluster was not independently exercised; its established streak remains **2**.
+| Mandatory cluster | Explicit Pass-4 revisit | Result | Current streak |
+| --- | --- | --- | ---: |
+| Process/Application × Workflow × Data/Schema | `PROCESS_APPLICATION_MODELING_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** |
+| Workflow × Integration × Messaging × external mutation | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** |
 
-The next explicit cluster selected by the authoritative state is **Process/Application × Workflow × Data/Schema**, currently at streak **1**. It must be challenged independently in the Process & Application Modeling Full-Pass-4 revisit before its counter may advance.
+The AGWS local Pass-4 revisit did not count the already-streak-2 `Identity × Authorization × Station × AGWS × AI` cluster because it was not independently exercised in that visit.
+
+### Workflow × Integration × Messaging × external mutation — Pass 4
+
+The explicit cluster revisit challenged:
+
+- durable history that remains structurally valid while current semantic eligibility changes;
+- acknowledgement, effect, correlation and canonical adoption as separate evidence surfaces;
+- cancellation/retry/compensation reorderings and delayed original/retry messages;
+- duplicate/out-of-order events and correlation cardinality;
+- provider substitution with residual queues/subscriptions/jobs;
+- directed workflow/provider compatibility under replay/rollback/reverse roles;
+- `ABSENT/null/default/delete` transformations in commands/events;
+- downstream cross-process adoption before compensation;
+- retry/fan-out/backlog/provider-quota composition;
+- AI/low-code aggregate plans that can create contradictory effects, unsafe retry loops or authority widening.
+
+Duplicate-screen against all **119** reusable ConflictPatterns found no new material interaction class. Candidate observations were absorbed by temporal/state-transition, correlation-cardinality, acknowledgement/effect, ambiguous-mutation/idempotency, provider-coexistence/residual-cohort, compatibility-direction, presence-semantics, cross-process compensation/adoption, scheduling-starvation/resource-boundedness and AI/low-code authority families.
+
+No new `G2-XEDGE-*` or `G2-CONFLICT-PATTERN-*` ID was warranted. Workflow × Integration × Messaging × external mutation therefore advances **1→2**. `Signal != ConfirmedConflict` remains mandatory for all detection candidates.
 
 ## Current campaign state
 
@@ -94,18 +94,17 @@ The next explicit cluster selected by the authoritative state is **Process/Appli
 - active full pass: **4**;
 - Full Pass 3 cluster coverage: **12/12 — complete**;
 - Full Pass 3 capability coverage: **28/28 — complete**;
-- Full Pass 4 cluster coverage: **0/12**;
-- Full Pass 4 capability coverage: **1/28**;
+- Full Pass 4 cluster coverage: **2/12**;
+- Full Pass 4 capability coverage: **3/28**;
 - material edge scenarios: **284**;
 - reusable ConflictPatterns: **119**;
 - combined material findings: **403**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
-- AGWS local streak: **2** after its Full-Pass-4 eligible no-new-material revisit;
-- mandatory cluster streaks: Identity/Authorization/Station/AGWS/AI **2**; Provider/Binding/external realizations **2**; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution **0**; all other nine **1**;
+- mandatory cluster streaks now include Identity/Authorization/Station/AGWS/AI **2**, Process/Application/Workflow/Data **2**, Workflow/Integration/Messaging/external mutation **2**, Provider/Binding/external realizations **2**; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution remains **0**; other state values are authoritative in `ADVERSARIAL_SATURATION_STATE.json`;
 - negative-space: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
 - Planning C: **BLOCKED**.
 
 ## Next explicit research rotation
 
-Continue with **Process & Application Modeling** and explicitly exercise **Process/Application × Workflow × Data/Schema** under the authoritative state. Duplicate-screen against all **119** reusable ConflictPatterns, including compatibility-direction, presence semantics, trust-namespace collapse and cumulative privacy where applicable. Do not enter Planning C.
+Continue with **Data / Schema / Migrations** and explicitly exercise **Data/Schema × Privacy × Storage × Lifecycle** under the authoritative state. Duplicate-screen against all **119** reusable ConflictPatterns, including compatibility-direction, presence semantics, trust-namespace collapse and cumulative privacy where applicable. Do not enter Planning C.
