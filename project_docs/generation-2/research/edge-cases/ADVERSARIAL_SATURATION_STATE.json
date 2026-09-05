@@ -25,7 +25,8 @@
     "Integration & Automation",
     "Identity / Authentication / Federation",
     "Authorization / Policy / Organization / Multitenancy",
-    "Governance / Compliance / Audit"
+    "Governance / Compliance / Audit",
+    "Security / Resilience / Failure Recovery"
   ],
   "required_clusters_covered_in_active_pass": [
     "Process/Application × Workflow × Data/Schema",
@@ -161,11 +162,11 @@
     "G2-EDGE-PRIVACY-008",
     "G2-EDGE-LIFECYCLE-008"
   ],
-  "conflict_pattern_inventory_authority": "EDGE_CASE_INDEX.md and originating registers/dossiers; 119 reusable patterns are authoritative. Full Pass 3 added presence-semantics, trust-namespace-collapse, cumulative-privacy and compatibility-direction patterns. Governance / Compliance / Audit Full Pass 4 duplicate-screened all 119 patterns and produced no new material edge, cross-capability scenario, reusable pattern or preventive invariant; local streak remains 2 (already satisfied).",
+  "conflict_pattern_inventory_authority": "EDGE_CASE_INDEX.md and originating registers/dossiers; 119 reusable patterns are authoritative. Full Pass 3 added presence-semantics, trust-namespace-collapse, cumulative-privacy and compatibility-direction patterns. Security / Resilience / Failure Recovery Full Pass 4 duplicate-screened all 119 patterns and produced no new material edge, cross-capability scenario, reusable pattern or preventive invariant; Security local streak remains 2 (already satisfied).",
   "negative_space_status": "NOT_STARTED",
   "saturation_status": "NOT_SATURATED",
-  "current_local_focus": "Security / Resilience / Failure Recovery — Full Pass 4 revisit",
+  "current_local_focus": "Enterprise Trust / PKI / Certificate Lifecycle — Full Pass 4 revisit",
   "current_cluster_focus": "All 12 mandatory clusters are explicitly covered in Full Pass 4. Do not increment already-satisfied cluster streaks incidentally; continue capability rotation and only reset/advance affected streaks on actual eligible evidence.",
-  "next_action": "Continue only RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION, Full Pass 4. Revisit Security / Resilience / Failure Recovery using techniques materially different from Full Passes 1-3 and duplicate-screen against all 119 reusable ConflictPatterns. Challenge threat/posture evidence currentness; prevention/detection/containment/recovery state separation; isolation/fencing races; degraded-mode authority; ambiguous security effects; recovery eligibility versus persistent commitments; containment versus business recovery; trust/secret/provider revision skew; compromised residual cohorts; offline horizons; backup/restore qualification; ABSENT/null/default security configuration semantics; fail-open/fail-closed misuse; resource exhaustion; human-procedure and cross-process recovery conflicts; objective/optimization conflicts; and AI/low-code compositions that weaken controls or fabricate recovery confidence. Preserve ConflictPattern != ConflictInstance, Signal != ConfirmedConflict and research-only disposition. A material finding resets affected streak(s); absent genuinely new material, preserve the already-satisfied Security local streak at 2 rather than inflating it. Full Pass 4 is at 18/28 capabilities and 12/12 mandatory clusters; completed full passes remain 3/8 minimum. Do not enter Planning C.",
-  "updated_at": "2026-09-05T11:16:00-03:00"
+  "next_action": "Continue only RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION, Full Pass 4. Revisit Enterprise Trust / PKI / Certificate Lifecycle using techniques materially different from Full Passes 1-3 and duplicate-screen against all 119 reusable ConflictPatterns, especially G2-CONFLICT-PATTERN-TRUST-NAMESPACE-COLLAPSE-001. Challenge trust-anchor/path/revocation currentness; issuance/renewal/rotation/revocation races; overlapping old/new certificate and trust-store cohorts; OCSP/CRL/staple/cache offline horizons; cryptographic validity versus organizational authorization; subject/SAN/issuer/provider identity drift; key compromise and emergency rotation; enrollment/proof-of-possession ambiguity; provider semantic mismatch/substitution; trust-store propagation and residual trust; clock/notBefore/notAfter boundaries; ABSENT/null/default trust configuration semantics; revocation/issuance effects PARTIAL/UNKNOWN; namespace/domain composition; resource exhaustion; human-procedure and cross-process trust conflicts; objective/optimization conflicts; and AI/low-code compositions that widen trust or treat cryptographic evidence as canonical authority. Preserve ConflictPattern != ConflictInstance, Signal != ConfirmedConflict and research-only disposition. A material finding resets affected streak(s); absent genuinely new material, eligible evidence may advance the Trust local streak from 0 toward 1 and the specifically exercised Trust/Identity/Artifact/provider cluster from 1 toward 2 only if that cluster is explicitly revisited rather than incidentally touched. Full Pass 4 is at 19/28 capabilities and 12/12 mandatory clusters; completed full passes remain 3/8 minimum. Do not enter Planning C.",
+  "updated_at": "2026-09-05T11:28:00-03:00"
 }
