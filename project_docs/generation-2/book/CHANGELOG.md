@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_17 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial após Commercial/FinOps e necessidade de estabelecer um vocabulário didático comum para famílias de teste antes dos capítulos de concorrência, conflitos semânticos e técnicas adversariais.
+- **Resumo:** publicado o capítulo que explica teste como pergunta contextualizada e distingue happy path, boundary case, edge case, invalid-input case, failure/partial-failure, concurrency/race, version-skew, misuse/abuse, adversarial case, property/invariant, negative test, negative-space, conflict case, regression, conformance, differential, recovery e scale/resource-exhaustion. O texto separa famílias de cenário de técnicas de exploração, preserva `TestPass != universal proof`, `Signal != ConfirmedConflict`, explicita a relação entre teste, evidence/currentness e coverage, e conecta o vocabulário à campanha adversarial sem transformar o livro em log de pesquisa.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md`, `PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md`, `EDGE_CASE_INDEX.md`.
+
 ### CHAPTER_16 — v1.0.0
 
 - **Versão anterior:** inexistente.
