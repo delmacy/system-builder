@@ -17,7 +17,7 @@ Full Pass 2 completed **28/28 capabilities** and **12/12 mandatory clusters**. I
 
 ## Reusable ConflictPattern inventory
 
-The reusable catalogue remains **116 `G2-CONFLICT-PATTERN-*` families**. Full Pass 3 UCA added `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`, covering incompatible `ABSENT/UNSET/UNKNOWN/NOT_APPLICABLE/REDACTED/null/default/delete` interpretations across otherwise valid representation/profile boundaries. The subsequent UI revisit found a new UI-specific manifestation of that family but did not justify a 117th reusable pattern. A researched pattern is not a concrete defect and does not authorize implementation. Default disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`.
+The reusable catalogue remains **116 `G2-CONFLICT-PATTERN-*` families**. Full Pass 3 UCA added `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`, covering incompatible `ABSENT/UNSET/UNKNOWN/NOT_APPLICABLE/REDACTED/null/default/delete` interpretations across otherwise valid representation/profile boundaries. Subsequent UI and Integration revisits found capability-specific manifestations of that family without justifying a 117th reusable pattern. A researched pattern is not a concrete defect and does not authorize implementation. Default disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`.
 
 ## Full Pass 3 — active revisit index
 
@@ -37,31 +37,27 @@ The reusable catalogue remains **116 `G2-CONFLICT-PATTERN-*` families**. Full Pa
 | Technology Economic Governance / FinOps | `TECHNOLOGY_ECONOMIC_GOVERNANCE_FINOPS_FULL_PASS_3_REVISIT.md` | eligible no-new-material; 0 / 0 / 0 | 1 | Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps: streak **1** |
 | Universal Capability Architecture | `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_3_REVISIT.md` | **MATERIAL**: `G2-EDGE-UCA-011` + `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001` | **0** | no mandatory cluster advanced; cross-cutting presence-semantics linkage added to matrix |
 | UI / Generated Experience / Low-code Builder | `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_FULL_PASS_3_REVISIT.md` | **MATERIAL**: `G2-EDGE-UI-011`; 0 new cross IDs / 0 new reusable patterns | **0** | no mandatory cluster advanced; presence-semantics linkage deepened only |
+| Integration & Automation | `INTEGRATION_AUTOMATION_FULL_PASS_3_REVISIT.md` | **MATERIAL**: `G2-EDGE-INTEGRATION-008`; 0 new cross IDs / 0 new reusable patterns | **0** | no mandatory cluster advanced; presence/operator translation linkage deepened only |
 
-### Full-Pass-3 UCA material result
+### Full-Pass-3 presence-semantics material chain
 
-Semantic-bottom mutation and representation-operator substitution found a class not reducible to qualifier loss/currentness alone: otherwise valid producers/consumers can disagree on whether absence, explicit default, `null`, `UNKNOWN`, `NOT_APPLICABLE`, redaction or delete are values, lack of values or mutation operators. Protocol Buffers explicit/implicit presence, JSON Merge Patch null deletion semantics and OpenTelemetry conditionally-required attributes provide concrete mature precedents for this distinction. The detailed activation, owner, detection, severity, false-positive and future-remediation fields are authoritative in `UNIVERSAL_CAPABILITY_ARCHITECTURE_FULL_PASS_3_REVISIT.md`.
-
-### Full-Pass-3 UI material result
-
-Rendered-versus-submitted semantic differential found `G2-EDGE-UI-011`: a generated surface can show a material value as fixed/confirmed, then omit it from the submitted representation while a downstream semantic owner validly applies a different absence/default interpretation. The new edge case survives local duplicate-screen because the earlier UI findings covered omission before presentation, stale revision cuts and DerivedValue materialization, not semantic loss **after human presentation/confirmation but before actuation**. It maps to the already-catalogued `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`, so no new reusable ConflictPattern is added. Detailed fields remain authoritative in `UI_GENERATED_EXPERIENCE_LOW_CODE_BUILDER_FULL_PASS_3_REVISIT.md`.
+`G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001` originated in the UCA revisit. `G2-EDGE-UI-011` then captured rendered/confirmed value loss before submission. `G2-EDGE-INTEGRATION-008` now captures connector/provider translation where `ABSENT/UNSET/null/default/delete` operator semantics change across otherwise locally valid profiles and produce a different canonical/external mutation from originating intent. The latter is a capability-specific manifestation, not a new reusable pattern. Detailed activation, incompatible claims, owners, severity, confidence, detectability, blast radius, reversibility, time-to-harm, misuse likelihood, currentness, false-positive controls and future-remediation route are authoritative in `INTEGRATION_AUTOMATION_FULL_PASS_3_REVISIT.md`.
 
 ## Campaign state
 
 - completed full passes: **2/8 minimum**; target reference **12**, no maximum;
 - active full pass: **3**;
-- Full Pass 3: **14/28 capabilities + 12/12 mandatory clusters**;
-- material edge scenarios: **280**;
+- Full Pass 3: **15/28 capabilities + 12/12 mandatory clusters**;
+- material edge scenarios: **281**;
 - reusable ConflictPatterns: **116**;
-- combined material findings: **396**;
+- combined material findings: **397**;
 - HIGH/CRITICAL without semantic owner/proof obligation/detection route: **0**;
-- UCA local no-material streak: **0** after material finding;
-- UI local no-material streak: **0** after material finding;
-- cluster streaks remain unchanged by this local revisit: Identity × Authorization × Station × AGWS × AI **2**; Provider/Binding × external realizations **2**; all ten other mandatory clusters **1**;
+- UCA, UI and Integration local no-material streaks: **0** after material findings;
+- cluster streaks unchanged by Integration local revisit: Identity × Authorization × Station × AGWS × AI **2**; Provider/Binding × external realizations **2**; all ten other mandatory clusters **1**;
 - adversarial negative-space review: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
 - `PLANNING_C_TARGET_ARCHITECTURE`: **BLOCKED**.
 
 ## Next rotation
 
-The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 3 with **Integration & Automation**, use techniques materially different from Full Passes 1 and 2, and duplicate-screen against all **116** reusable ConflictPatterns, including `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`. Do not enter Planning C.
+The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 3 with **Identity / Authentication / Federation**, use techniques materially different from Full Passes 1 and 2, and duplicate-screen against all **116** reusable ConflictPatterns including presence semantics. Do not enter Planning C.
