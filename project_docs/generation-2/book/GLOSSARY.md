@@ -10,9 +10,17 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **APPLIED / NOT_APPLIED / PARTIAL / UNKNOWN** — disposições usadas para descrever o que se sabe sobre um efeito, especialmente uma mutação remota. `UNKNOWN` é importante quando não há evidência suficiente para afirmar se o efeito ocorreu.
 
+**Assurance / garantia de autenticação** — grau e contexto de confiança que acompanham uma autenticação, incluindo método, fatores, freshness/currentness e demais evidências relevantes. Não deve ser reduzido a “usuário está logado”.
+
+**Authentication / autenticação** — processo de estabelecer, com evidência qualificada, que um principal corresponde à identidade apresentada em determinado contexto. Autenticação responde “quem/que principal é este e como isso foi comprovado?”, não “o que ele pode fazer?”.
+
+**Authorization / autorização** — avaliação de se um principal pode executar uma ação sobre um recurso em determinado escopo, sob políticas, delegações, relações organizacionais, revisões e evidências aplicáveis. Autenticação bem-sucedida não implica autorização.
+
 ## B
 
 **Binding** — vínculo qualificado, revisionado e scoped entre uma necessidade/capability do SB e uma realização/provider admitido. Um binding não torna automaticamente todos os recursos do provider parte da semântica canônica e não é apenas uma connection string.
+
+**Break-glass** — mecanismo de autoridade emergencial explicitamente governado, limitado por escopo, duração, origem, evidência e revisão. Não significa “ignorar todas as políticas”; é uma forma especializada de grant temporário.
 
 **Brownfield** — contexto em que a organização já possui sistemas, dados, integrações e processos que precisam coexistir com a evolução. Descobrir uma estrutura brownfield não significa adotá-la automaticamente como semântica canônica.
 
@@ -38,9 +46,15 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **ConflictPattern** — descrição reutilizável de uma composição potencialmente incompatível. Não prova, por si só, que um defeito está manifestado.
 
+**Confused deputy** — situação em que um componente com autoridade elevada é induzido a usar essa autoridade em favor de um solicitante que não possui o mesmo poder. A prevenção exige preservar quem pediu, em nome de quem se atua e qual delegação/escopo autoriza o efeito.
+
 **Cumulative context / contexto acumulado** — contexto mínimo que precisa atravessar boundaries sucessivas para preservar identidade, revisão, lineage, constraints e evidência aplicáveis sem obrigar cada etapa a conhecer a implementação interna de todas as anteriores.
 
+**Currentness / atualidade qualificada** — propriedade de uma evidência ou decisão permanecer suficientemente atual para o uso em questão. Uma afirmação historicamente válida pode tornar-se stale após mudança de policy, membership, binding, trust, credential ou outra revisão aplicável.
+
 ## D
+
+**Delegation envelope / envelope de delegação** — contrato que delimita a autoridade que pode ser delegada: origem, destinatário, ações/recursos, scope, limites, validade, subdelegação e demais constraints. Delegação não é transitiva por padrão.
 
 **Durable history / histórico durável** — histórico suficiente para preservar progressão, tentativas, waits, efeitos e demais fatos necessários para retomada, reconciliação, auditoria, replay ou migração conforme o contrato aplicável. Não é sinônimo de log técnico infinito.
 
@@ -74,6 +88,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 ## L
 
+**Least privilege / menor privilégio** — princípio segundo o qual pessoa, serviço, processo ou automação deve receber apenas a autoridade necessária ao trabalho, no scope e horizonte necessários. Seu objetivo é limitar blast radius sem inviabilizar responsabilidades legítimas.
+
 **Lineage / linhagem** — relação rastreável entre uma definição, dado, artefato ou evidência e suas origens, transformações, revisões, correções ou adoções. Ajuda a explicar de onde veio uma verdade e quais derivados podem ser afetados por uma mudança.
 
 **Lossy / com perda** — transformação ou mapeamento que não preserva integralmente a semântica da origem. Uma normalização lossy precisa permanecer explícita; não deve ser apresentada como equivalência perfeita.
@@ -83,6 +99,10 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## M
 
 **Minimal runtime closure** — fechamento mínimo de dependências que um workload precisa reter para executar corretamente sob determinado perfil operacional. “Mínimo” não autoriza remover policy, trust, configuração, schema ou outros requisitos necessários apenas para reduzir tamanho.
+
+## O
+
+**Offline authorization closure** — conjunto qualificado de políticas, relações, evidências e limites que um runtime pode reter para continuar decidindo certas operações durante desconexão/degradação. Não autoriza ampliar privilégio quando currentness necessária deixa de existir.
 
 ## P
 
@@ -102,6 +122,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Replay** — reconstrução ou reexecução controlada a partir de histórico/inputs registrados sob um contrato de determinismo e revisão. Replay de lógica não autoriza repetir automaticamente side effects externos.
 
+**Residual authority cohort / cohort residual de autoridade** — sessões, tokens, caches, workers, replicas, grants ou outros consumidores de autoridade antiga que ainda podem produzir efeitos após revogação, expiração ou mudança de policy. Precisam ser drenados, expirados, revogados ou requalificados para que a mudança seja efetivamente convergente.
+
 **Residual cohort / cohort residual** — população pertencente a uma realização/revisão anterior que ainda pode produzir efeitos relevantes ou autoritativos após um cutover, como sessões, workers, caches, callbacks, credenciais, filas ou clientes antigos.
 
 **Retained runtime closure / closure retida de runtime** — conjunto de artefatos, dependências runtime, configuração, trust, autoridade/policy local, schema/data compatibility, bindings e demais requisitos que precisam permanecer disponíveis para a operação permitida de um runtime, inclusive durante um horizonte desconectado quando esse perfil for suportado.
@@ -119,6 +141,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Semantic god-object** — antipadrão no qual uma camada dita “universal” passa a decidir significados, políticas e estados pertencentes a múltiplos semantic owners. A UCA G2 deve compartilhar estruturas reutilizáveis sem assumir essa autoridade.
 
 **Semantic owner** — capability ou domínio responsável pelo significado canônico e pelas invariantes de determinada informação/decisão. Um consumidor pode observar ou projetar esse significado sem automaticamente se tornar seu dono.
+
+**Separation of Duty (SoD) / separação de funções** — controle que impede uma única pessoa ou principal efetivo de acumular responsabilidades incompatíveis, como solicitar e aprovar o mesmo pagamento. Pode depender do histórico e da composição entre processos, não apenas de Roles estáticos.
 
 **Signal / sinal** — indício que pode justificar investigação ou avaliação. `Signal != ConfirmedConflict`: um detector não deve converter suspeita em fato sem evidência suficiente.
 
