@@ -58,6 +58,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Confused deputy** — situação em que um componente com autoridade elevada é induzido a usar essa autoridade em favor de um solicitante que não possui o mesmo poder. A prevenção exige preservar quem pediu, em nome de quem se atua e qual delegação/escopo autoriza o efeito.
 
+**Containment / contenção** — transição de segurança que limita a capacidade de um componente, caminho ou população suspeita/comprometida continuar propagando dano ou produzindo efeitos enquanto diagnóstico e recuperação prosseguem. Contenção não prova erradicação nem recuperação.
+
 **Content identity / identidade de conteúdo** — identidade usada para caracterizar uma revisão concreta de conteúdo, frequentemente por digest/hash quando byte-level equivalence importa. Não é automaticamente a identidade canônica do documento ou objeto empresarial.
 
 **Coverage / cobertura** — qualificação de qual população, cohort, região, tenant, Station, provider, revisão, rota, dispositivo ou horizonte foi realmente observado. Evidência correta para um subconjunto não autoriza inferir automaticamente verdade global.
@@ -101,6 +103,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 ## F
 
 **Fallback qualification / qualificação de fallback** — verificação de que um provider ou caminho alternativo continua satisfazendo os requisitos semânticos, de autoridade, policy, estado e evidência aplicáveis no momento da troca. Fallback configurado não implica fallback qualificado.
+
+**Fencing / cercamento de autoridade** — mecanismo ou estado que impede um writer, controller, workload ou caminho superseded de continuar produzindo efeitos autoritativos durante failover, recovery ou coexistência. Subir um substituto sem fencing suficiente pode criar split-brain.
 
 **FormulaDefinition / definição de fórmula** — definição canônica/revisionável do que deve ser calculado sob determinado semantic owner. É distinta de uma execução concreta e de IDs/ASTs internos de provider.
 
@@ -162,6 +166,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 ## P
 
+**PKI (Public Key Infrastructure) / infraestrutura de chaves públicas** — conjunto de identidades, chaves, certificados, emissores, trust anchors, políticas e mecanismos usados para estabelecer e qualificar relações de confiança baseadas em criptografia assimétrica. Possuir certificado ou chave não prova, por si só, confiança atual nem autorização empresarial.
+
 **Provider** — sistema, serviço, engine ou mecanismo especializado que realiza parte de uma capability. O SB procura delegar mecânicas maduras sem entregar automaticamente ao provider a propriedade da semântica empresarial.
 
 **Provider portability / portabilidade de provider** — capacidade qualificada de substituir, coexistir ou migrar entre realizações preservando as semânticas requeridas. É dependente de support vectors, estado, identidade, evidência, lifecycle e obrigações; não equivale a hot swap universal.
@@ -182,9 +188,15 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 
 **Reconcile-before-retry** — princípio segundo o qual um efeito mutante `UNKNOWN` deve ser reconciliado antes de uma repetição potencialmente insegura, salvo quando o contrato qualificado da operação prova que a repetição é segura.
 
+**Recovery Point Objective (RPO) / objetivo de ponto de recuperação** — objetivo que delimita, para uma população/serviço e condições explícitas, quanto de perda temporal de estado pode ser tolerado em uma recuperação. Configurar um RPO não prova que recovery points atuais o satisfazem.
+
+**Recovery Time Objective (RTO) / objetivo de tempo de recuperação** — objetivo de tempo para restabelecer uma capacidade dentro de um escopo definido. Não é necessariamente igual ao tempo para iniciar um processo; pode exigir convergência, validação e return-to-service.
+
 **Redrive** — nova tentativa governada de processamento de trabalho previamente falho, pendente ou desviado, preservando vínculo com as tentativas e disposições anteriores em vez de apagar a história.
 
 **Replay** — reconstrução ou reexecução controlada a partir de histórico/inputs registrados sob um contrato de determinismo e revisão. Replay de lógica não autoriza repetir automaticamente side effects externos.
+
+**Reprotection / reproteção** — qualificação de que o estado recuperado voltou a possuir as proteções exigidas, como backup, redundância, trust/credential currentness, monitoring ou outros mecanismos aplicáveis. Serviço restaurado sem reprotection não encerra necessariamente a recuperação.
 
 **Residual authority cohort / cohort residual de autoridade** — sessões, tokens, caches, workers, replicas, grants ou outros consumidores de autoridade antiga que ainda podem produzir efeitos após revogação, expiração ou mudança de policy. Precisam ser drenados, expirados, revogados ou requalificados para que a mudança seja efetivamente convergente.
 
@@ -199,6 +211,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Retention / retenção** — obrigação ou política de preservar determinada informação por período, condição ou escopo aplicável. Expiração de retention não implica automaticamente autorização ou elegibilidade para deletion.
 
 **Retained runtime closure / closure retida de runtime** — conjunto de artefatos, dependências runtime, configuração, trust, autoridade/policy local, schema/data compatibility, bindings e demais requisitos que precisam permanecer disponíveis para a operação permitida de um runtime, inclusive durante um horizonte desconectado quando esse perfil for suportado.
+
+**Return-to-service / retorno ao serviço** — qualificação de que um sistema restaurado pode voltar a atender trabalho real sob as invariantes de segurança, integridade, confiança, configuração, autoridade, compatibilidade, observabilidade e reprotection exigidas. Reachability ou restore success isolados não provam essa condição.
 
 **Revision / revisão** — identidade de uma evolução de definição, política, schema, fórmula, artefato ou outro elemento. Diferentes elementos podem evoluir independentemente, razão pela qual a pesquisa trabalha também com revision vectors.
 
@@ -249,6 +263,8 @@ Este glossário pertence à camada didática do livro. Definições autoritativa
 **Traffic effectiveness / efetividade de tráfego** — evidência de que os consumidores pretendidos estão efetivamente sendo encaminhados para a geração/target corretos. Uma configuração de rota aceita ou observada não prova, sozinha, comportamento de tráfego real.
 
 **Transitive dependency closure / fechamento transitivo de dependências** — operação de incluir recursivamente as dependências necessárias das dependências até que o conjunto esteja fechado para o perfil considerado, respeitando versões, condições e constraints aplicáveis.
+
+**Trust domain / domínio de confiança** — escopo no qual um conjunto de trust anchors, emissores, políticas e relações de confiança possui significado e aplicabilidade definidos. Compartilhar formato de certificado, subject string ou provider não prova que dois trust domains sejam semanticamente equivalentes.
 
 **TypedValue / valor tipado** — valor cujo tipo semântico relevante acompanha a magnitude/conteúdo, permitindo distinguir, por exemplo, money, unit, duration, percentage, null/unknown/error e outros casos que um escalar cru não expressa adequadamente.
 
