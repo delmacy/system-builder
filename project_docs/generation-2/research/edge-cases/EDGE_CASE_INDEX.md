@@ -75,7 +75,7 @@ A researched pattern is not a concrete defect and does not authorize implementat
 
 ### Compatibility direction
 
-`G2-EDGE-LIFECYCLE-008` / `G2-CONFLICT-PATTERN-COMPATIBILITY-DIRECTION-001` capture a distinct composition risk: a supported relation such as A→B/read/forward is promoted to a scalar pairwise compatibility claim and reused for B→A/write/rollback or another reachable cohort. Kubernetes version-skew rules and PostgreSQL ordered schema changes provide concrete evidence that support can be directional and topology/order dependent. The authoritative dossier records activation conditions, incompatible claims/actions/states, detection stages, owners, severity, confidence, detectability, blast radius, reversibility, time-to-harm, misuse likelihood, evidence currentness, false-positive controls, proof candidate and future remediation disposition.
+`G2-EDGE-LIFECYCLE-008` / `G2-CONFLICT-PATTERN-COMPATIBILITY-DIRECTION-001` capture a supported relation such as A→B/read/forward being promoted to a scalar pairwise compatibility claim and reused for B→A/write/rollback or another reachable cohort. The authoritative Lifecycle dossier records activation conditions, incompatible claims/actions/states, detection stages, owners, severity, confidence, detectability, blast radius, reversibility, time-to-harm, misuse likelihood, evidence currentness, false-positive controls, proof candidate and future remediation disposition.
 
 Research-only preventive invariant candidate: compatibility used for lifecycle decisions must not be widened from a qualified directed/operation-specific relation into an undirected/global claim without semantic-owner evidence. Legitimate asymmetric compatibility remains allowed.
 
@@ -86,27 +86,30 @@ No `ConflictInstance` is asserted and no remediation is authorized.
 | Capability | Revisit artifact | Pass-4 material result | Local streak after revisit | Cluster disposition |
 | --- | --- | --- | ---: | --- |
 | Adaptive Governed Work Surfaces | `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | no mandatory cluster counted; Identity × Authorization × Station × AGWS × AI remains **2** |
+| Process & Application Modeling | `PROCESS_APPLICATION_MODELING_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Process/Application × Workflow × Data/Schema **1→2** |
+| Workflow & Durable Execution | `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_4_REVISIT.md` | eligible no-new-material | **2** | Workflow × Integration × Messaging × external mutation **1→2** |
 
-The AGWS Pass-4 revisit duplicate-screened all **119** reusable ConflictPatterns, explicitly including presence semantics, trust-namespace collapse, cumulative privacy and compatibility direction. No material ID was added.
+The three completed Pass-4 revisits duplicate-screened all **119** reusable ConflictPatterns, explicitly including presence semantics, trust-namespace collapse, cumulative privacy and compatibility direction. No material ID was added in Full Pass 4 so far.
+
+Workflow Pass 4 additionally exercised durable-history/current-eligibility splice, acknowledgement/effect/correlation braid, cancellation-retry-compensation reorderings, residual provider cohorts, directed compatibility inversion, command/event presence mutations, cross-process adoption before compensation, resource/backlog stress and AI/low-code aggregate composition. Every candidate reduced to an existing material family with an owner and detection/future-remediation route.
 
 ## Campaign state
 
 - completed full passes: **3/8 minimum**; target reference **12**, no maximum;
 - active full pass: **4**;
 - Full Pass 3: **28/28 capabilities + 12/12 mandatory clusters — complete**;
-- Full Pass 4: **1/28 capabilities + 0/12 mandatory clusters**;
+- Full Pass 4: **3/28 capabilities + 2/12 mandatory clusters**;
 - material edge scenarios: **284**;
 - reusable ConflictPatterns: **119**;
 - combined material findings: **403**;
 - HIGH/CRITICAL without semantic owner/proof obligation/detection route: **0**;
-- AGWS local streak: **2**;
+- local streaks now at **2** for AGWS, Process and Workflow plus the previously saturated local capabilities recorded in `ADVERSARIAL_SATURATION_STATE.json`;
 - local streaks at 0 after material findings: UCA, UI, Integration, Enterprise Trust/PKI, Privacy and Lifecycle;
-- Identity, Authorization, Governance, Security, Notifications, Observability, Developer/Operator, Provider/Binding, Standards and Architecture Reconciliation local streaks: **2**;
-- mandatory cluster streaks: Identity × Authorization × Station × AGWS × AI **2**; Provider/Binding × external realizations **2**; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution **0**; other nine mandatory clusters **1**;
+- mandatory cluster streaks now include Identity × Authorization × Station × AGWS × AI **2**, Process/Application × Workflow × Data/Schema **2**, Workflow × Integration × Messaging × external mutation **2**, Provider/Binding × external realizations **2**; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution remains **0**; the remaining mandatory clusters retain their state-authoritative values;
 - adversarial negative-space review: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
 - `PLANNING_C_TARGET_ARCHITECTURE`: **BLOCKED**.
 
 ## Next rotation
 
-The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 4 with **Process & Application Modeling** and explicitly exercise **Process/Application × Workflow × Data/Schema**. Duplicate-screen against all **119** reusable ConflictPatterns. Do not enter Planning C.
+The authoritative next action is maintained by `RESEARCH_PIPELINE_STATE.json` and `ADVERSARIAL_SATURATION_STATE.json`: continue Full Pass 4 with **Data / Schema / Migrations** and explicitly exercise **Data/Schema × Privacy × Storage × Lifecycle**. Duplicate-screen against all **119** reusable ConflictPatterns. Do not enter Planning C.
