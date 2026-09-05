@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_10 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial e necessidade de explicar a cadeia source/materials → build → immutable artifact → release → distribution antes de deployment/runtime.
+- **Resumo:** publicado o capítulo que separa build result, released artifact, deployed state e runtime-effective state; explica build/material closure, determinismo versus reproducibility, hermeticity/controlled impurity, ArtifactIdentity versus ReleaseIdentity, content addressing, provenance, SBOM, release lifecycle, aliases, withdrawal/rollback eligibility, customer-owned repositories e anti-lock-in, caches, `UNKNOWN → reconcile-before-retry`, provider substitution e non-amplification por IA/low-code. O texto distingue a forte fundação atual do assembler/compiler e Artifact/Release do conjunto G2 ainda não evidenciado.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `PLANNING_A_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_BOUNDARIES.md`, `PLANNING_B_BUILD_DEPENDENCY_GRAPH_REPRODUCIBILITY_SB_CURRENT_STATE.md`, `PLANNING_A_ARTIFACT_RELEASE_SBOM_PROVENANCE_BOUNDARIES.md`, `PLANNING_B_ARTIFACT_RELEASE_SBOM_PROVENANCE_SB_CURRENT_STATE.md`.
+
 ### CHAPTER_09 — v1.0.0
 
 - **Versão anterior:** inexistente.
