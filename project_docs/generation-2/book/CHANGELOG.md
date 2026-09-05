@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_11 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** continuidade do plano editorial após a cadeia Build/Artifact/Release, para explicar quando uma release realmente se torna workload operacional efetivo e como autonomia, rollout, readiness, scaling e traffic se relacionam.
+- **Resumo:** publicado o capítulo que separa release, deployment e consumer/runtime-effective state; explica DeploymentIdentity versus IDs de realização, Environment/Operational Profile, desired/observed/effective state, deployment generations, workload, retained runtime closure, autonomia qualificada, active deployment versus processo efêmero, stale-writer protection, rollout, readiness, traffic effectiveness, scaling, placement, provider acknowledgement versus convergência, residual runtime cohorts, rollback actuation e escalabilidade com topologia física colapsável. O texto distingue a baseline single-host atualmente evidenciada no SB da semântica G2 distribuída ainda não implementada.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `PLANNING_A_DEPLOYMENT_ENVIRONMENT_RUNTIME_BOUNDARIES.md`, `PLANNING_B_DEPLOYMENT_ENVIRONMENT_RUNTIME_SB_CURRENT_STATE.md`, além das fronteiras adjacentes de Provider/Binding, Build, Artifact/Release, Lifecycle, Observability, Secrets/Configuration, Trust e Security/Resilience.
+
 ### CHAPTER_10 — v1.0.0
 
 - **Versão anterior:** inexistente.
