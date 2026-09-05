@@ -82,17 +82,25 @@ Research-only PreventiveInvariantCandidate: compatibility used for lifecycle dec
 
 Cluster effect: no mandatory-cluster streak changes in this local revisit because no cluster-specific material scenario was independently established. The pattern is now a required duplicate-screen candidate for future explicit revisits of Data/Schema × Privacy × Storage × Lifecycle, Build × Artifact/Release × Deployment × Runtime, Provider/Binding × external realizations and other versioned compositions.
 
+## Full Pass 4 — active mandatory-cluster rotation
+
+Full Pass 4 is currently at **0/12 mandatory clusters**. The completed AGWS local revisit did **not** count `Identity × Authorization × Station × AGWS × AI` again because that cluster was not independently exercised; its established streak remains **2**.
+
+The next explicit cluster selected by the authoritative state is **Process/Application × Workflow × Data/Schema**, currently at streak **1**. It must be challenged independently in the Process & Application Modeling Full-Pass-4 revisit before its counter may advance.
+
 ## Current campaign state
 
-- completed full passes: **2/8 minimum**; target **12**, no maximum;
-- active full pass: **3**;
-- Full Pass 3 cluster coverage: **12/12**;
-- Full Pass 3 capability coverage: **27/28**;
+- completed full passes: **3/8 minimum**; target **12**, no maximum;
+- active full pass: **4**;
+- Full Pass 3 cluster coverage: **12/12 — complete**;
+- Full Pass 3 capability coverage: **28/28 — complete**;
+- Full Pass 4 cluster coverage: **0/12**;
+- Full Pass 4 capability coverage: **1/28**;
 - material edge scenarios: **284**;
 - reusable ConflictPatterns: **119**;
 - combined material findings: **403**;
 - HIGH/CRITICAL without owner/proof/detection route: **0**;
-- local streaks reset by material findings include UCA **0**, UI **0**, Integration **0**, Enterprise Trust/PKI **0**, Privacy **0**, Lifecycle **0**;
+- AGWS local streak: **2** after its Full-Pass-4 eligible no-new-material revisit;
 - mandatory cluster streaks: Identity/Authorization/Station/AGWS/AI **2**; Provider/Binding/external realizations **2**; Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution **0**; all other nine **1**;
 - negative-space: `NOT_STARTED`;
 - saturation: `NOT_SATURATED`;
@@ -100,4 +108,4 @@ Cluster effect: no mandatory-cluster streak changes in this local revisit becaus
 
 ## Next explicit research rotation
 
-Continue locally with **Architecture Reconciliation as a Capability** under the authoritative state. Duplicate-screen against all **119** reusable ConflictPatterns, explicitly including compatibility-direction when desired/declared state is compared with observed/effective cohorts. Do not enter Planning C.
+Continue with **Process & Application Modeling** and explicitly exercise **Process/Application × Workflow × Data/Schema** under the authoritative state. Duplicate-screen against all **119** reusable ConflictPatterns, including compatibility-direction, presence semantics, trust-namespace collapse and cumulative privacy where applicable. Do not enter Planning C.
