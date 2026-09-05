@@ -95,15 +95,15 @@
     "target_full_passes": 12,
     "completed_full_passes": 3,
     "active_full_pass": 4,
-    "capabilities_covered_in_active_pass": 18,
+    "capabilities_covered_in_active_pass": 19,
     "required_clusters_covered_in_active_pass": 12,
     "material_findings_total": 403,
     "material_edge_findings_total": 284,
     "material_conflict_patterns_total": 119,
-    "latest_capability": "Governance / Compliance / Audit",
-    "latest_cluster": "All 12 mandatory clusters remain explicitly covered in Full Pass 4; no cluster streak was incremented incidentally during this local Governance revisit.",
-    "latest_register": "project_docs/generation-2/research/edge-cases/GOVERNANCE_COMPLIANCE_AUDIT_FULL_PASS_4_REVISIT.md",
-    "latest_result": "ELIGIBLE NO-NEW-MATERIAL — 0 new local edges, 0 new cross-capability scenarios, 0 new ConflictPatterns and 0 new preventive invariants after duplicate-screen against all 119 reusable patterns. Governance local streak remains 2 (already satisfied). No ConflictInstance, remediation or bounded Planning-A backfill created.",
+    "latest_capability": "Security / Resilience / Failure Recovery",
+    "latest_cluster": "All 12 mandatory clusters remain explicitly covered in Full Pass 4; no cluster streak was incremented incidentally during this local Security revisit.",
+    "latest_register": "project_docs/generation-2/research/edge-cases/SECURITY_RESILIENCE_FAILURE_RECOVERY_FULL_PASS_4_REVISIT.md",
+    "latest_result": "ELIGIBLE NO-NEW-MATERIAL — 0 new local edges, 0 new cross-capability scenarios, 0 new ConflictPatterns and 0 new preventive invariants after duplicate-screen against all 119 reusable patterns. Security local streak remains 2 (already satisfied; not inflated). No ConflictInstance, remediation or bounded Planning-A backfill created.",
     "saturation_rule": "Two consecutive eligible no-material revisits per capability and per high-risk cluster; material finding resets affected streak; no maximum pass count.",
     "planning_c_blocked_until_complete": true,
     "entry_gate": "SATISFIED — Planning B and math CLOSED/PASS; bounded math backfill COMPLETE/PASS"
@@ -115,7 +115,7 @@
     "PLANNING_A_TAXONOMY_BOUNDARIES": "CLOSED / PASS including bounded mathematical backfill",
     "PLANNING_B_SB_CURRENT_STATE_RECONCILIATION": "CLOSED / PASS — 28/28",
     "RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION": "CLOSED / PASS",
-    "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION": "ACTIVE / NOT_SATURATED — Full Passes 1, 2 and 3 complete; Full Pass 4 at 18/28 capabilities and 12/12 mandatory clusters; 284 edge scenarios + 119 conflict patterns = 403 material findings; Governance local streak remains 2; 3/8 minimum full passes complete; Planning C blocked.",
+    "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION": "ACTIVE / NOT_SATURATED — Full Passes 1, 2 and 3 complete; Full Pass 4 at 19/28 capabilities and 12/12 mandatory clusters; 284 edge scenarios + 119 conflict patterns = 403 material findings; Security local streak remains 2; 3/8 minimum full passes complete; Planning C blocked.",
     "PLANNING_C_TARGET_ARCHITECTURE": "BLOCKED — requires adversarial CLOSED / SATURATED / PASS"
   },
   "artifact_roots": {
@@ -125,9 +125,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION Full Pass 4. Governance / Compliance / Audit closed this revisit with no new material finding; local streak remains 2. Full Pass 4 is 18/28 capabilities and 12/12 mandatory clusters. Inventory remains 284 edges + 119 ConflictPatterns = 403. Planning C remains blocked. Next focus: Security / Resilience / Failure Recovery.",
-  "last_completed_artifact": "project_docs/generation-2/research/edge-cases/GOVERNANCE_COMPLIANCE_AUDIT_FULL_PASS_4_REVISIT.md",
+  "current_focus": "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION Full Pass 4. Security / Resilience / Failure Recovery closed this revisit with no new material finding; local streak remains 2 and was not inflated. Full Pass 4 is 19/28 capabilities and 12/12 mandatory clusters. Inventory remains 284 edges + 119 ConflictPatterns = 403. Planning C remains blocked. Next focus: Enterprise Trust / PKI / Certificate Lifecycle.",
+  "last_completed_artifact": "project_docs/generation-2/research/edge-cases/SECURITY_RESILIENCE_FAILURE_RECOVERY_FULL_PASS_4_REVISIT.md",
   "last_framework_artifact": "project_docs/generation-2/research/edge-cases/PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md",
-  "next_action": "Continue only RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION, Full Pass 4. Revisit Security / Resilience / Failure Recovery using techniques materially different from Full Passes 1-3 and duplicate-screen against all 119 reusable ConflictPatterns. Challenge threat/posture evidence currentness; prevention/detection/containment/recovery state separation; isolation/fencing races; degraded-mode authority; ambiguous security effects; recovery eligibility versus persistent commitments; containment versus business recovery; trust/secret/provider revision skew; compromised residual cohorts; offline horizons; backup/restore qualification; ABSENT/null/default security configuration semantics; fail-open/fail-closed misuse; resource exhaustion; human-procedure and cross-process recovery conflicts; objective/optimization conflicts; and AI/low-code compositions that weaken controls or fabricate recovery confidence. Preserve ConflictPattern != ConflictInstance, Signal != ConfirmedConflict and research-only disposition. A material finding resets affected streak(s); absent genuinely new material, preserve the already-satisfied Security local streak at 2 rather than inflating it. Full Pass 4 is at 18/28 capabilities and 12/12 mandatory clusters; completed full passes remain 3/8 minimum. Do not enter Planning C.",
-  "updated_at": "2026-09-05T11:20:00-03:00"
+  "next_action": "Continue only RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION, Full Pass 4. Revisit Enterprise Trust / PKI / Certificate Lifecycle using techniques materially different from Full Passes 1-3 and duplicate-screen against all 119 reusable ConflictPatterns, especially G2-CONFLICT-PATTERN-TRUST-NAMESPACE-COLLAPSE-001. Challenge trust-anchor/path/revocation currentness; issuance/renewal/rotation/revocation races; overlapping old/new certificate and trust-store cohorts; OCSP/CRL/staple/cache offline horizons; cryptographic validity versus organizational authorization; subject/SAN/issuer/provider identity drift; key compromise and emergency rotation; enrollment/proof-of-possession ambiguity; provider semantic mismatch/substitution; trust-store propagation and residual trust; clock/notBefore/notAfter boundaries; ABSENT/null/default trust configuration semantics; revocation/issuance effects PARTIAL/UNKNOWN; namespace/domain composition; resource exhaustion; human-procedure and cross-process trust conflicts; objective/optimization conflicts; and AI/low-code compositions that widen trust or treat cryptographic evidence as canonical authority. Preserve ConflictPattern != ConflictInstance, Signal != ConfirmedConflict and research-only disposition. A material finding resets affected streak(s); absent genuinely new material, eligible evidence may advance the Trust local streak from 0 toward 1 and the explicitly exercised Enterprise Trust/PKI × Identity × Artifact/Release × provider substitution cluster from 1 toward 2. Full Pass 4 is at 19/28 capabilities and 12/12 mandatory clusters; completed full passes remain 3/8 minimum. Do not enter Planning C.",
+  "updated_at": "2026-09-05T11:28:00-03:00"
 }
