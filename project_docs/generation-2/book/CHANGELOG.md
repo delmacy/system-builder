@@ -4,6 +4,16 @@ Este histórico registra versões do **texto editorial**. `ChapterVersion != Arc
 
 ## 2026-09-05
 
+### CHAPTER_20 — v1.0.0
+
+- **Versão anterior:** inexistente.
+- **Nova versão:** `1.0.0`.
+- **Data:** 2026-09-05.
+- **Tipo:** publicação inicial.
+- **Motivo:** estabelecer como técnicas adversariais complementares investigam classes diferentes de falha sem transformar volume de testes ou uma única técnica em prova de robustez/saturação.
+- **Resumo:** publicado o capítulo que explica fuzzing, property-based testing, mutation testing, model checking, fault injection/chaos, version-skew matrix, provider-differential analysis, pairwise/N-wise, negative-permission/misuse e negative-space; diferencia técnica de família de falha, explicita limites de prova e conecta findings a proof obligations e futuros testes/experimentos.
+- **Artefatos autoritativos relacionados:** `RESEARCH_PIPELINE_STATE.json`, `POST_MATH_ADVERSARIAL_EDGE_CASE_SATURATION_RESEARCH.md`, `PROCESSUAL_SEMANTIC_CONFLICT_CLASSIFICATION.md`, `EDGE_CASE_INDEX.md`, `CROSS_CAPABILITY_EDGE_CASE_MATRIX.md`.
+
 ### CHAPTER_19 — v1.0.0
 
 - **Versão anterior:** inexistente.
