@@ -43,16 +43,24 @@ Exercised bitemporal corrections; overlap/gap validity; constraint declaration v
 
 Result: **no-new-material / streak capped 2**. Existing `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001..005` remain sufficient. `constraint declared != constraint enforced != population validated != semantic invariant satisfied`; `canonical disposition != physical-copy convergence`; `lineage completeness unknown != no downstream copies`.
 
+### 5. Provider/Binding × external realizations — covered
+
+Authority: `STORAGE_DOCUMENTS_MEDIA_FULL_PASS_7_REVISIT.md`.
+
+Exercised canonical object versus provider realization/version/checksum identity, multipart acceptance versus complete/canonical adoption, temporal provider-binding validity, byte-equivalent copies with changed provider checksum/ETag, stale derived artifacts, retention/legal-hold scope, restore/hydration eligibility, residual providers, offline evidence reconnection, provider quota versus sustainable internal capacity and shared-infrastructure tenant attribution.
+
+Result: **no-new-material / streak capped 2**. Existing `G2-XEDGE-PROVIDER-STORAGE-001..004` remain sufficient. `checksum/ETag/integrity != canonical revision/equivalence`; `provider operation success != business adoption`; `current provider binding != historical pinned realization`; `shared infrastructure != shared truth/tenant authority`.
+
 ## Full Pass 7 coverage
 
-Mandatory clusters covered: **4/12**.
+Mandatory clusters covered: **5/12**.
 
 1. Process/Application × Workflow × Data/Schema — **covered / no-new-material / streak capped 2**
 2. Workflow × Integration × Messaging × external mutation — **covered / no-new-material / streak capped 2**
 3. Identity × Authorization × Station × AGWS × AI — **covered / no-new-material / streak capped 2**
 4. Data/Schema × Privacy × Storage × Lifecycle — **covered / no-new-material / streak capped 2**
 5. Build × Artifact/Release × Deployment × Runtime — pending
-6. Provider/Binding × external realizations — pending
+6. Provider/Binding × external realizations — **covered / no-new-material / streak capped 2**
 7. Secrets/Config × Runtime × Provider substitution — pending
 8. Mathematical Expressions × Workflow × Data × UI/Form × Commercial/FinOps — pending
 9. Observability × Security/Recovery × runtime truth — pending
@@ -64,8 +72,8 @@ Mandatory clusters covered: **4/12**.
 
 - completed full passes: **6/8 minimum**; target **12**, no maximum;
 - active full pass: **7**;
-- Full Pass 7 capability coverage: **4/28**;
-- Full Pass 7 cluster coverage: **4/12**;
+- Full Pass 7 capability coverage: **5/28**;
+- Full Pass 7 cluster coverage: **5/12**;
 - material edge scenarios: **284**;
 - reusable ConflictPatterns: **124**;
 - combined material findings: **408**;
@@ -76,4 +84,4 @@ Mandatory clusters covered: **4/12**.
 
 ## Next explicit research rotation
 
-Continue with **Storage / Documents / Media** and exercise `Provider/Binding × external realizations`. Challenge immutable/mutable artifact identity, version/ETag/checksum and provider-native IDs, multipart/partial object effects, derived previews/indexes/transcodes, deletion/retention/legal-hold propagation, offline evidence/export, queue/backpressure and I/O pressure, provider quota versus internal capacity, restore/hydration, residual provider cohorts, temporal provider-binding validity, cross-tenant fairness/isolation, causal non-strengthening and AI/low-code transforms. Duplicate-screen all 124 patterns. Fleet remains read/analysis and non-authoritative by default. Do not enter Planning C.
+Continue with **Secrets / Configuration / Environment Portability** and exercise `Secrets/Config × Runtime × Provider substitution`. Challenge typed secret/config identity, temporal validity, alias/latest versus pinned versions, rotation/revocation during autonomous/offline execution, bootstrap/recovery circularity, provider namespace/type mismatch, residual credential/config cohorts, local evidence without secret leakage, `ABSENT/null/default/delete`, `PARTIAL/UNKNOWN`, shared-infrastructure tenant attribution, queue/resource pressure, stale config projections, human runbooks and AI/low-code composition into aggregate/cross-tenant authority. Duplicate-screen all 124 patterns. Fleet remains read/analysis and non-authoritative by default. Do not enter Planning C.
