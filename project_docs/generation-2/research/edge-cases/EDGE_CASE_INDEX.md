@@ -66,12 +66,22 @@ PostgreSQL 18 temporal and `NOT ENFORCED` constraint semantics strengthen the di
 
 Existing Data IDs remain authoritative: `G2-EDGE-DATA-001..008` and `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001..005`; no new ID was warranted in this revisit. `Data/Schema × Privacy × Storage × Lifecycle` was materially exercised and remains streak-capped at 2.
 
+### Storage / Documents / Media
+
+Authority: `STORAGE_DOCUMENTS_MEDIA_FULL_PASS_7_REVISIT.md`.
+
+Result: eligible no-new-material. Full Pass 7 permuted byte identity against multipart layout, copy mechanics, checksum/ETag, provider version and canonical revision; challenged temporal provider-binding validity, partial multipart state, stale derived previews/indexes/transcodes, retention/legal-hold propagation, restore/hydration eligibility, queue/I/O stability, offline evidence splicing, cross-tenant realization aliasing and AI/low-code shape-preserving semantic changes.
+
+Fresh S3 evidence shows multipart ETag is not whole-object MD5 and that copy can change checksum while bytes remain unchanged. This strengthens `integrity/representation evidence != canonical semantic identity/equivalence`. Azure version/container-scoped immutability semantics strengthen scope-qualified retention/hold reasoning. No 125th pattern was warranted.
+
+Existing Storage IDs remain authoritative: `G2-EDGE-STORAGE-001..008` and `G2-XEDGE-PROVIDER-STORAGE-001..004`; no new ID was warranted. `Provider/Binding × external realizations` was materially exercised and remains streak-capped at 2.
+
 ## Campaign state
 
 - completed full passes: **6/8 minimum**; target **12**, no maximum;
 - active full pass: **7**;
-- Full Pass 7 capability coverage: **4/28**;
-- Full Pass 7 mandatory-cluster coverage: **4/12**;
+- Full Pass 7 capability coverage: **5/28**;
+- Full Pass 7 mandatory-cluster coverage: **5/12**;
 - material edge scenarios: **284**;
 - reusable ConflictPatterns: **124**;
 - combined material findings: **408**;
@@ -82,4 +92,4 @@ Existing Data IDs remain authoritative: `G2-EDGE-DATA-001..008` and `G2-XEDGE-DA
 
 ## Next rotation
 
-Continue Full Pass 7 with **Storage / Documents / Media** and explicitly exercise `Provider/Binding × external realizations`. Challenge immutable/mutable identity, version/ETag/checksum, provider-native identity, partial multipart/object effects, derived previews/indexes/transcodes, deletion/retention/legal hold, offline journals/exports, queue/backpressure/I/O pressure, provider quota versus internal capacity, restore/hydration, residual providers, temporal binding validity, cross-tenant fairness/isolation, causal non-strengthening and AI/low-code transformations. Duplicate-screen all 124 patterns. Do not inflate already-satisfied streaks absent material novelty. Do not enter Planning C.
+Continue Full Pass 7 with **Secrets / Configuration / Environment Portability** and explicitly exercise `Secrets/Config × Runtime × Provider substitution`. Challenge temporal validity, alias/latest versus pinned versions, rotation/revocation while autonomous/offline builds remain active, bootstrap/recovery circularity, provider namespace/type mismatch, residual credential/config cohorts, local evidence without secret leakage, `ABSENT/null/default/delete`, `PARTIAL/UNKNOWN`, shared-infrastructure tenant attribution, queue/resource pressure, stale config projections, human runbooks and AI/low-code composition of individually permitted references into aggregate or cross-tenant authority. Duplicate-screen all 124 patterns. Do not inflate already-satisfied streaks absent material novelty. Do not enter Planning C.
