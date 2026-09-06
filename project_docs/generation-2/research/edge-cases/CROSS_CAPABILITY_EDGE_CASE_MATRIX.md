@@ -3,7 +3,7 @@
 Status: ACTIVE
 Phase: `RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION`
 
-This matrix indexes detailed per-capability registers and mandatory-cluster revisits. It does not assert `ConflictInstance`s or authorize remediation. Preserve `ConflictPattern != ConflictInstance`, `Signal != ConfirmedConflict`, qualified evidence/currentness, provider IDs as non-canonical, `Enterprise → Station → Role → Person`, AI/AGWS non-amplification, `UNKNOWN → reconcile-before-retry`, and provenance/lineage != authority != causal proof.
+This matrix indexes detailed per-capability registers and mandatory-cluster revisits. It does not assert `ConflictInstance`s or authorize remediation. Preserve `ConflictPattern != ConflictInstance`, `Signal != ConfirmedConflict`, qualified evidence/currentness, provider IDs as non-canonical, AI/AGWS non-amplification, `UNKNOWN → reconcile-before-retry`, local evidence != Fleet aggregate, and provenance/lineage != authority != causal proof.
 
 ## Mandatory cluster history
 
@@ -11,46 +11,46 @@ Full Passes 1–6 completed **28/28 capabilities + 12/12 mandatory clusters** ea
 
 ## Reusable cross-cutting additions
 
-- `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`: UCA × Data/Schema × UI × Workflow × Integration × Standards × Provider/Binding × Authorization/Policy × AI/low-code.
-- `G2-CONFLICT-PATTERN-TRUST-NAMESPACE-COLLAPSE-001`: Enterprise Trust/PKI × Identity/Federation × Artifact/Release × Provider/Binding × Standards × Authorization.
-- `G2-CONFLICT-PATTERN-CUMULATIVE-PRIVACY-001`: Privacy/Data Governance × Data/Schema/analytics × Authorization/Governance × external sharing × AI/low-code.
-- `G2-CONFLICT-PATTERN-COMPATIBILITY-DIRECTION-001`: Lifecycle × Data/Schema × Runtime × Standards/API Contracts × Provider/Binding × Workflow/Integration × Recovery.
-- `G2-CONFLICT-PATTERN-PROOF-CLAIM-CONFLATION-001`: Workflow/Soundness × Artifact/Provenance × Governance/Audit × Runtime/External Effect × Fleet/Observability.
-- `G2-CONFLICT-PATTERN-FEDERATED-CONTINUITY-001`: Integration/Federation × Workflow × Messaging × Identity/Authorization × Provider/Binding × Recovery.
-- `G2-CONFLICT-PATTERN-CERTIFICATE-COMPOSITION-001`: Workflow/subworkflow × proof/evidence × revision/currentness × federation.
-- `G2-CONFLICT-PATTERN-ANALYTICAL-KIND-CONFLATION-001`: Mathematical/analytical semantics × Workflow × Data × UI × Commercial/FinOps × AI.
-- `G2-CONFLICT-PATTERN-PROVENANCE-EDGE-OVERATTRIBUTION-001`: UCA/Typed Graph × Data/field lineage × Workflow/Execution × Build/Artifact/Deployment provenance × Privacy/Governance × Commercial/FinOps × Federation × Fleet/Observability × causal/AI analysis.
+The reusable catalogue remains 124 patterns. Especially cross-cutting: `G2-CONFLICT-PATTERN-PRESENCE-SEMANTICS-001`, `TRUST-NAMESPACE-COLLAPSE-001`, `CUMULATIVE-PRIVACY-001`, `COMPATIBILITY-DIRECTION-001`, `PROOF-CLAIM-CONFLATION-001`, `FEDERATED-CONTINUITY-001`, `CERTIFICATE-COMPOSITION-001`, `ANALYTICAL-KIND-CONFLATION-001`, and `PROVENANCE-EDGE-OVERATTRIBUTION-001`.
 
 Default disposition remains `CATALOGUE + CLASSIFY + DETECTION_CANDIDATE + FUTURE_REMEDIATION_ROUTE`.
 
 ## Full Pass 7 — mandatory-cluster rotation
 
-### Identity × Authorization × Station × AGWS × AI — exercised
+### 1. Process/Application × Workflow × Data/Schema — covered
+
+Authority: `PROCESS_APPLICATION_MODELING_FULL_PASS_7_REVISIT.md`.
+
+Exercised temporal reachability, graph correction, uncertain predicates, nested queue networks, deadline/service-time feasibility, revision-pinned parent/child mappings, canonical-write non-commutativity, provenance exactness and graph-transformation proof invalidation. Result: **no-new-material / streak capped 2**.
+
+### 2. Workflow × Integration × Messaging × external mutation — covered
+
+Authority: `WORKFLOW_DURABLE_EXECUTION_FULL_PASS_7_REVISIT.md`.
+
+Exercised wait/subscription revision crossing, retry/event/effect identity, UNKNOWN external mutation, child-proof composition, late-child fan-in, cancellation/adoption, compensation eligibility and retry-storm/network instability. Result: **no-new-material / streak capped 2**.
+
+### 3. Identity × Authorization × Station × AGWS × AI — covered
 
 Authority: `ADAPTIVE_GOVERNED_WORK_SURFACES_FULL_PASS_7_REVISIT.md`.
 
-Full Pass 7 challenged the cluster through stale work-ranking/currentness, queue aging and fairness, tenant/client/build/deployment-qualified operational context, temporal graph slices, forecast/counterfactual versus observation, multiobjective/vector scalarization, out-of-order local/Fleet evidence, human-priority instruction conflicts and AI/low-code claim strengthening.
+Exercised stale ranking/currentness, queue aging/fairness, temporal graph slices, forecasts/counterfactuals, vector scalarization, out-of-order evidence and AI/low-code claim strengthening. Result: **no-new-material / streak capped 2**.
 
-Duplicate-screen result: **eligible no-new-material** against all **124** reusable ConflictPatterns. No `ConflictInstance`, remediation or preventive invariant is inferred. The cluster streak remains capped at **2**; it is not incremented further.
+### 4. Data/Schema × Privacy × Storage × Lifecycle — covered
 
-Cross-capability conclusions retained:
+Authority: `DATA_SCHEMA_MIGRATIONS_FULL_PASS_7_REVISIT.md`.
 
-- queue position or age does not create authority;
-- current utilization does not prove sustainable capacity or stability;
-- an optimizer/forecast/counterfactual result is not observation, causal proof or authorization;
-- shared infrastructure can couple capacity without merging tenant truth or authority;
-- Fleet aggregates remain non-authoritative by default;
-- graph/projection reachability used for action must preserve relevant temporal/revision/client context;
-- AI may summarize or rank but cannot strengthen evidence kind, erase uncertainty or invent policy precedence.
+Exercised bitemporal corrections; overlap/gap validity; constraint declaration versus enforcement/validation; snapshot/stream collisions during online migration; schema/key revision crossing; migration queue/backpressure; dimensional and uncertainty-kind preservation; `derivedFrom`/`causedBy`/`authorizedBy` separation; restore resurrection; local journal currentness; privacy/lifecycle copy completeness; offline exports; and AI/low-code shape-preserving semantic changes.
+
+Result: **no-new-material / streak capped 2**. Existing `G2-XEDGE-DATA-PRIVACY-STORAGE-LIFECYCLE-001..005` remain sufficient. `constraint declared != constraint enforced != population validated != semantic invariant satisfied`; `canonical disposition != physical-copy convergence`; `lineage completeness unknown != no downstream copies`.
 
 ## Full Pass 7 coverage
 
-Mandatory clusters covered: **1/12**.
+Mandatory clusters covered: **4/12**.
 
-1. Process/Application × Workflow × Data/Schema — pending
-2. Workflow × Integration × Messaging × external mutation — pending
+1. Process/Application × Workflow × Data/Schema — **covered / no-new-material / streak capped 2**
+2. Workflow × Integration × Messaging × external mutation — **covered / no-new-material / streak capped 2**
 3. Identity × Authorization × Station × AGWS × AI — **covered / no-new-material / streak capped 2**
-4. Data/Schema × Privacy × Storage × Lifecycle — pending
+4. Data/Schema × Privacy × Storage × Lifecycle — **covered / no-new-material / streak capped 2**
 5. Build × Artifact/Release × Deployment × Runtime — pending
 6. Provider/Binding × external realizations — pending
 7. Secrets/Config × Runtime × Provider substitution — pending
@@ -64,8 +64,8 @@ Mandatory clusters covered: **1/12**.
 
 - completed full passes: **6/8 minimum**; target **12**, no maximum;
 - active full pass: **7**;
-- Full Pass 7 capability coverage: **1/28**;
-- Full Pass 7 cluster coverage: **1/12**;
+- Full Pass 7 capability coverage: **4/28**;
+- Full Pass 7 cluster coverage: **4/12**;
 - material edge scenarios: **284**;
 - reusable ConflictPatterns: **124**;
 - combined material findings: **408**;
@@ -76,4 +76,4 @@ Mandatory clusters covered: **1/12**.
 
 ## Next explicit research rotation
 
-Continue with **Process & Application Modeling** and exercise `Process/Application × Workflow × Data/Schema`. Challenge process-graph evolution under in-flight instances, uncertain/stale predicate reachability, nested-workflow queue networks, deadline/service-time feasibility, fan-out/fan-in stability, parent↔child revision mappings, concurrent canonical writes, temporal schema applicability, provenance edge exactness, decision/calculation/workflow-kind separation, vector resource/risk constraints, shared bottlenecks, federated responsibility and AI/low-code compositions that are locally valid but globally unstable or contradictory. Duplicate-screen all **124** patterns. Do not enter Planning C.
+Continue with **Storage / Documents / Media** and exercise `Provider/Binding × external realizations`. Challenge immutable/mutable artifact identity, version/ETag/checksum and provider-native IDs, multipart/partial object effects, derived previews/indexes/transcodes, deletion/retention/legal-hold propagation, offline evidence/export, queue/backpressure and I/O pressure, provider quota versus internal capacity, restore/hydration, residual provider cohorts, temporal provider-binding validity, cross-tenant fairness/isolation, causal non-strengthening and AI/low-code transforms. Duplicate-screen all 124 patterns. Fleet remains read/analysis and non-authoritative by default. Do not enter Planning C.
