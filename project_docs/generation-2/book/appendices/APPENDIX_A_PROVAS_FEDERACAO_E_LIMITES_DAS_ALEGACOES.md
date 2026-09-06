@@ -248,9 +248,83 @@ edge exists
 
 O grafo pode tornar uma dependência visível. A validade da dependência continua pertencendo aos semantic owners, policies, revisões e evidências apropriados.
 
-## 8. O que estas descobertas mudam — e o que não mudam
+## 8. Provenance: observar os mesmos limites não prova todas as derivações
 
-Elas **ampliam** a compreensão dos Capítulos 19 e 20 ao fornecer quatro famílias concretas de conflito que atravessam workflow, evidência, federação e análise. Elas também aprofundam o Capítulo 22 ao mostrar que continuidade ponta a ponta precisa preservar o tipo exato de alegação transportada entre etapas e sistemas.
+**EM PESQUISA:** o Full Pass 6 acrescentou um refinamento importante ao tema de provas e grafos. Quando uma execução possui vários inputs e vários outputs, observar que todos apareceram na mesma fronteira não autoriza concluir que cada input produziu cada output.
+
+Imagine um processo de estoque que recebe três informações:
+
+```text
+entrada A = quantidade recebida
+entrada B = nome do fornecedor
+entrada C = observação do operador
+```
+
+E produz dois resultados:
+
+```text
+saída X = novo saldo
+saída Y = registro de auditoria
+```
+
+Uma representação ingênua poderia fazer isto:
+
+```text
+A ─┬─> X
+B ─┼─> X
+C ─┘
+A ─┬─> Y
+B ─┼─> Y
+C ─┘
+```
+
+Só porque A, B e C eram inputs e X e Y eram outputs do mesmo processamento. Essa expansão é um **produto cartesiano de lineage**: todas as entradas são tratadas como origem exata de todas as saídas.
+
+O grafo pode continuar perfeitamente válido do ponto de vista estrutural. Os identificadores existem, os tipos podem estar corretos e não há necessariamente uma aresta quebrada. O erro está na **alegação semântica contida na aresta**: uma derivação foi inventada sem evidência suficiente.
+
+A pesquisa catalogou esse risco como `G2-CONFLICT-PATTERN-PROVENANCE-EDGE-OVERATTRIBUTION-001`.
+
+A separação didática é:
+
+```text
+observado na mesma execução
+    != derivação exata
+
+coarse dependency
+    != exact lineage
+
+inferred edge
+    != asserted edge
+    != observed edge
+```
+
+Isso importa porque lineage não serve apenas para desenhar diagramas. Uma aresta falsa pode contaminar análise de impacto, privacidade, retenção e exclusão de dados, billing, auditoria e até alegações causais. Um sistema pode então tomar uma decisão correta sobre um grafo que contém uma relação que nunca foi realmente demonstrada.
+
+### Exemplo empresarial: exclusão de dados
+
+Suponha que um relatório receba `CPF`, `valor da OS` e `código da filial`, mas apenas o código da filial e o valor sejam usados para produzir uma estatística agregada. Se uma projeção inventar lineage exato de `CPF -> estatística`, uma futura análise de privacidade pode concluir que aquela estatística necessariamente deriva de dado pessoal identificável. O erro pode provocar retenção, exclusão ou bloqueio indevidos.
+
+O inverso também é perigoso: omitir uma derivação real pode esconder uma dependência que deveria participar de uma análise de impacto.
+
+Por isso, uma projeção ou IA deve preservar a **base epistemológica da relação**: ela foi declarada pelo produtor? observada diretamente? inferida? é apenas dependência grosseira da execução? está `UNKNOWN/INCONCLUSIVE`?
+
+### Provenance não vira causalidade nem autoridade
+
+Mesmo uma aresta de lineage exata não demonstra automaticamente que A foi a causa empresarial de B, nem que o ator que produziu B tinha autoridade para fazê-lo.
+
+```text
+provenance != authority
+provenance != causal proof
+exact lineage != semantic correctness
+```
+
+Esse refinamento conecta o apêndice diretamente aos Capítulos 14, 19, 20, 21 e 22: evidence precisa carregar o tipo da alegação; detectores não devem fortalecer evidência fraca; IA/low-code não devem fabricar lineage; e uma visão em Canvas ou Fleet continua sendo projeção, não nova fonte de verdade.
+
+**ABERTO/INCONCLUSIVO:** a pesquisa não decidiu aqui uma estrutura universal de armazenamento de lineage, um GraphDB, um verifier único ou uma arquitetura alvo. O finding apenas demonstra que qualquer solução futura precisa evitar transformar coocorrência em derivação exata.
+
+## 9. O que estas descobertas mudam — e o que não mudam
+
+Elas **ampliam** a compreensão dos Capítulos 14, 19, 20, 21 e 22 ao mostrar que não basta preservar “uma evidência”: é necessário preservar também **qual relação a evidência sustenta e com que força epistemológica**. Elas também aprofundam a distinção entre um grafo estruturalmente válido e um grafo semanticamente justificável.
 
 Elas **não** autorizam concluir que:
 
@@ -260,6 +334,8 @@ Elas **não** autorizam concluir que:
 - Planning C já decidiu um verifier universal;
 - todo workflow será formalmente provado;
 - sistemas federados compartilharão runtime ou estado;
+- toda fronteira precisará de lineage em nível de campo;
+- toda dependência grosseira é incorreta;
 - um `ConflictPattern` representa um bug observado.
 
 Os nomes de estruturas de prova continuam provisórios enquanto a pesquisa está ativa.
@@ -268,7 +344,7 @@ Os nomes de estruturas de prova continuam provisórios enquanto a pesquisa está
 
 A palavra “prova” só é segura quando dizemos **o que exatamente foi provado, sob quais hipóteses, em qual revisão e com qual evidência**.
 
-A continuidade entre sistemas autônomos exige contratos e responsabilidade explícitos, não uma falsa transação global. Uma prova de um subworkflow não pode ser promovida automaticamente para uma prova mais forte do workflow pai. E resultados determinísticos, estatísticos, de otimização, de IA e humanos precisam manter seus tipos semânticos distintos.
+A continuidade entre sistemas autônomos exige contratos e responsabilidade explícitos, não uma falsa transação global. Uma prova de um subworkflow não pode ser promovida automaticamente para uma prova mais forte do workflow pai. Resultados determinísticos, estatísticos, de otimização, de IA e humanos precisam manter seus tipos semânticos distintos. E observar inputs e outputs na mesma execução não autoriza fabricar todas as relações possíveis de derivação entre eles.
 
 Em forma compacta:
 
@@ -277,6 +353,8 @@ proof of X != proof of Y
 federation != shared state
 child proof != parent proof
 analysis result kind != another result kind
+co-occurrence != exact lineage
+provenance != authority != causal proof
 hypothesis != architecture decision
 ```
 
