@@ -24,13 +24,15 @@ Numeração editorial estável a partir desta publicação. Versões indicadas s
 20. **Capítulo 20 — Técnicas adversariais: fuzzing, property-based, chaos, model checking, version-skew e negative-space — v1.0.0** — publicado
 21. **Capítulo 21 — IA como arquiteta/assistente sem se tornar autoridade — v1.0.0** — publicado
 22. **Capítulo 22 — O ciclo completo: da intenção humana ao sistema materializado e operado — v1.0.0** — publicado
-23. **Capítulo 23 — Como transformar esta pesquisa em arquitetura alvo, WBS e construção — v1.0.0** — publicado
+23. **Capítulo 23 — Como transformar esta pesquisa em arquitetura alvo, WBS e construção — v1.1.0** — revisado
 24. **Capítulo 24 — Glossário comentado e mapa mental geral — v1.0.0** — publicado
 
 ## Continuidade editorial
 
-A primeira sequência de 24 capítulos está publicada. Novas rodadas passam a priorizar revisões bounded motivadas por evolução material da pesquisa, dúvidas do idealizador e consolidação de apêndices realmente úteis, sem renumerar capítulos publicados.
+A primeira sequência de 24 capítulos está publicada. Novas rodadas priorizam revisões bounded motivadas por evolução material dos artefatos autoritativos, dúvidas do idealizador e apêndices realmente úteis, sem renumerar capítulos publicados.
 
-## Apêndices previstos
+O Capítulo 23 foi revisado para refletir o fechamento de pesquisa adversarial, Planning C/D/E, Architecture Reconciliation, WBS Decomposition, WBS Dependency Graph, Work Package Design e o estado `READY_FOR_WORKER_HANDOFF`, preservando explicitamente que handoff não autoriza execução.
 
-Apêndices serão criados apenas quando ajudarem a leitura sem quebrar a sequência conceitual dos capítulos. Possíveis temas: mapa das 28 capabilities, catálogo didático de primitives, mapa de proof techniques e linha do tempo da evolução da Generation 2.
+## Apêndices
+
+Apêndices são criados apenas quando ajudam a leitura sem quebrar a sequência conceitual dos capítulos. Eles permanecem subordinados aos artefatos autoritativos e não substituem a versão dos capítulos.
