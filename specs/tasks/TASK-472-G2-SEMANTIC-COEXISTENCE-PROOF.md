@@ -4,6 +4,7 @@ title: Prove integrated G1/G2 semantic coexistence
 status: ready
 priority: 472
 milestone: G2
+model_tier: architecture
 risk: high
 architecture_impact: false
 executor_preference: any
@@ -44,8 +45,20 @@ validation:
 # Objective
 Close Construction B with one integrated deterministic proof that multiple existing G1 owners coexist directionally with the G2 semantic substrate without semantic or authority strengthening.
 
+# Context
+TASK-469..471 establish focused coexistence evidence for process-versioning, evidence-provenance and factory-boundary. The Sprint exit requires one coherent proof across those real public owner surfaces.
+
+# Current behavior
+No single integrated proof currently demonstrates all three G1 owners alongside the G2 substrate while preserving historical interpretability and non-strengthening semantics.
+
 # Required change
 Compose process-versioning, evidence-provenance and factory-boundary through their real public exports together with the integrated semantic-substrate surface. Add adversarial cases for owner/revision substitution, equal external/provider identity, stale/unknown currentness, relation reversal and accidental truth/authority promotion.
+
+# Inputs / contracts
+Outputs from TASK-469..471, public G1 owner exports and the integrated semantic-substrate public surface.
+
+# Outputs / contracts
+One deterministic multi-owner coexistence product proof suitable as Construction B closure evidence without changing canonical G1 contract meaning.
 
 # Acceptance criteria
 - at least three existing G1 owner surfaces are exercised in one coherent proof;
@@ -59,3 +72,9 @@ Compose process-versioning, evidence-provenance and factory-boundary through the
 
 # Non-goals
 Construction C hardening, package review, migration, runtime effects, persistence, provider support-vector implementation or universal semantic normalization.
+
+# Evidence expected
+One integrated happy/negative/adversarial product proof plus repository-wide deterministic and Heavy Product Tests on the exact final head.
+
+# Escalation
+Stop if the proof requires rewriting G1 canonical keys/evidence semantics, reverse authority, weakening currentness, destructive migration, universal normalization or L4 topology.
