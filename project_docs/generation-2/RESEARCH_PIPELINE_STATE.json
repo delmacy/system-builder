@@ -214,13 +214,16 @@
     "next_decision": "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE entry/proof framework"
   },
   "planning_e": {
-    "status": "ACTIVE / E0 COMPLETE",
+    "status": "ACTIVE / E1 COMPLETE",
     "entry_framework": "project_docs/generation-2/planning/PLANNING_E_PRODUCT_PROOF_ACCEPTANCE_ENTRY_FRAMEWORK.md",
     "entry_head": "d8ad2eba254c9b2097c6787af56becc27e40c48e",
-    "stage": "E0 CLOSED / PASS — proof constitution established; E1 authorized",
+    "stage": "E1 CLOSED / PASS — semantic/authority/revision/elicitation proof matrices established; E2 authorized",
     "e0_status": "DECIDED / PASS FOR E0",
     "e0_artifact": "project_docs/generation-2/planning/PLANNING_E_PRODUCT_PROOF_ACCEPTANCE_ENTRY_FRAMEWORK.md",
     "e0_decision_head": "d8ad2eba254c9b2097c6787af56becc27e40c48e",
+    "e1_status": "DECIDED / PASS FOR E1",
+    "e1_artifact": "project_docs/generation-2/planning/PLANNING_E_E1_SEMANTIC_AUTHORITY_REVISION_ELICITATION_PROOFS.md",
+    "e1_decision_head": "0c0b880b6cea75a9a2bde3aebb858184d60074d4",
     "canonical_capability_count": 28,
     "inherited_adversarial_findings": 408,
     "proof_decision_vocabulary": [
@@ -245,9 +248,9 @@
       "COST",
       "DOCUMENTATION"
     ],
-    "global_gate": "OPEN — E0 CLOSED/PASS; E1 authorized",
+    "global_gate": "OPEN — E0-E1 CLOSED/PASS; E2 authorized",
     "global_blocker": null,
-    "next_decision": "E1 — Semantic / Authority / Revision / Elicitation proofs"
+    "next_decision": "E2 — Data / Workflow / External-Effect / Messaging proofs"
   },
   "gates": {
     "RESEARCH_ELICITATION": "CLOSED",
@@ -259,7 +262,7 @@
     "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION": "CLOSED / SATURATED / PASS — Full Passes 1-8 complete; 28/28 capabilities + 12/12 mandatory clusters; 284 edge scenarios + 124 ConflictPatterns = 408 material findings; 0 HIGH/CRITICAL without owner/proof/detection route.",
     "PLANNING_C_TARGET_ARCHITECTURE": "CLOSED / PASS — C0/C1/C2 and C3.1-C3.28 coherent; inherited 408 adversarial findings retained as constraints/proof routes.",
     "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "CLOSED / PASS — D0-D8 coherent; Planning E authorized",
-    "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "ACTIVE — E0 CLOSED/PASS; E1 authorized"
+    "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "ACTIVE — E0-E1 CLOSED/PASS; E2 authorized"
   },
   "artifact_roots": {
     "research": "project_docs/generation-2/research/",
@@ -268,9 +271,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE is ACTIVE after E0 established a provider-neutral proof constitution. E0 defines typed proof obligations, evidence qualification, PASS/PARTIAL/INCONCLUSIVE/BLOCKED/FAIL/NOT_APPLICABLE/DEFERRED decisions, proof authority, positive/negative/adversarial/metamorphic/operational proof families, currentness/revision/population qualification, local/Station/Fleet boundaries, external-effect PARTIAL/UNKNOWN and reconcile-before-retry, residual-cohort and finite-drainability proofs, Elicitation/System Understanding no-false-complete, separate multidimensional Production Readiness Coverage, Brownfield evidence-first proof, bounded Physical/Peripheral integration, governance/privacy/commercial/FinOps/analytical non-strengthening and Architecture Reconciliation closure/reopen semantics. Planning C and D remain CLOSED/PASS. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict.",
-  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_E_PRODUCT_PROOF_ACCEPTANCE_ENTRY_FRAMEWORK.md",
+  "current_focus": "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE remains ACTIVE. E0 proof constitution and E1 Semantic/Authority/Revision/Elicitation proof matrices are CLOSED/PASS. E1 now explicitly proves typed semantic identity/graph/revision, EKB adaptive routing and epistemic taxonomy, contradiction preservation, stakeholder and negative-space coverage, cross-artifact traceability, no-false-complete, Identity/AuthN/Federation, Authorization/Policy/Organization/Multitenancy, Trust/PKI, Secrets/Configuration, Security/Resilience, authority non-amplification, revision/currentness/population/locality and separate multidimensional Production Readiness Coverage. Planning C and D remain CLOSED/PASS. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict.",
+  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_E_E1_SEMANTIC_AUTHORITY_REVISION_ELICITATION_PROOFS.md",
   "last_framework_artifact": "project_docs/generation-2/planning/PLANNING_E_PRODUCT_PROOF_ACCEPTANCE_ENTRY_FRAMEWORK.md",
-  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning E E1 — Semantic / Authority / Revision / Elicitation proofs. Translate applicable C0/C1/C3 and D1/D2 obligations into explicit proof matrices covering typed semantic identity/graph/revision; Elicitation Knowledge Base adaptive routing, evidence/currentness, epistemic taxonomy, contradiction preservation, traceability and no-false-complete; Identity/AuthN/Federation; Authorization/Policy/Organization/Multitenancy; Trust/PKI; Secrets/Configuration; Security/Resilience; and authority non-amplification. Include positive, negative, adversarial, revision/currentness/population and separate Production Readiness proof obligations. Preserve AI inference as candidate, Brownfield evidence-first assimilation, Station/local/Fleet boundaries, Research != remediation, ConflictPattern != ConflictInstance and Signal != ConfirmedConflict. Do not execute E2+, ARCHITECTURE_RECONCILIATION, WBS, Work Packages, executive TASKs, Construction, product code or executable tests in the same action.",
-  "updated_at": "2026-09-07T05:08:00-03:00"
+  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning E E2 — Data / Workflow / External-Effect / Messaging proofs. Translate applicable C3 and D3 obligations into explicit proof matrices covering Data/Schema/Migrations; Workflow/Durable Execution; Integration/Automation; Notifications/Events/Messaging; producing revision pinning for in-flight work; schema directional compatibility; source-of-truth movement and writer fencing; event/message/delivery/attempt identity versus business-effect identity; APPLIED/NOT_APPLIED/PARTIAL/UNKNOWN; UNKNOWN -> reconcile-before-retry; operation-qualified idempotency scope/horizon; batch partiality; replay/ordering/partition/epoch; provider ACK non-strengthening; residual cohorts; offline/Station/Fleet behavior; Brownfield evidence-first assimilation; queue/backpressure/finite drainability; and separate Production Readiness Coverage. Preserve E0/E1 semantic-owner/revision/currentness/population/no-scalar-masking rules, Research != remediation, ConflictPattern != ConflictInstance and Signal != ConfirmedConflict. Do not execute E3+, ARCHITECTURE_RECONCILIATION, WBS, Work Packages, executive TASKs, Construction, product code or executable tests in the same action.",
+  "updated_at": "2026-09-07T05:28:00-03:00"
 }
