@@ -150,7 +150,7 @@
     "status": "ACTIVE / OPEN",
     "entry_framework": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
     "entry_head": "9f4627261b7eb2a0649766e38da36f6ffcb8a6f4",
-    "stage": "D5 CLOSED / PASS — D6 EXPERIENCE DOCUMENTS OBSERVABILITY AND OPERATIONS NEXT",
+    "stage": "D6 CLOSED / PASS — D7 GOVERNANCE ECONOMICS AND ANALYTICAL DERIVATIONS NEXT",
     "d0_status": "DECIDED / PASS FOR D0",
     "d0_artifact": "project_docs/generation-2/planning/PLANNING_D_D0_MIGRATION_CONSTITUTION_CROSS_CUTTING_DEPENDENCY_GRAPH.md",
     "d0_decision_head": "cf6ae3a0f2bba2a1045a0957f7d7744d68d113a6",
@@ -169,14 +169,17 @@
     "d5_status": "DECIDED / PASS FOR D5",
     "d5_artifact": "project_docs/generation-2/planning/PLANNING_D_D5_BUILD_ARTIFACT_DEPLOYMENT_LIFECYCLE_SUPPLY_PATH.md",
     "d5_decision_head": "9a780e9ed7746ac285b87a3398ee0e17798770a1",
+    "d6_status": "DECIDED / PASS FOR D6",
+    "d6_artifact": "project_docs/generation-2/planning/PLANNING_D_D6_EXPERIENCE_DOCUMENTS_OBSERVABILITY_OPERATIONS.md",
+    "d6_decision_head": "b3e5dd2f86336a0e146b1342bb4421f96b9c1a58",
     "completed_capability_records": 0,
     "canonical_capability_count": 28,
     "inherited_adversarial_findings": 408,
     "migration_state_vocabulary": ["DISCOVERED","QUALIFIED","COEXISTENCE_READY","SHADOWING","PARTIAL_CUTOVER","CUTOVER","RESIDUAL_DRAIN","RECONCILED","CLOSED","BLOCKED","CONFLICTED","ABORTED","ROLLED_FORWARD","ROLLED_BACK_WHERE_REVERSIBLE","MANUAL_RECONCILIATION_REQUIRED"],
     "dependency_edge_kinds": ["SEMANTIC_PREREQUISITE","AUTHORITY_PREREQUISITE","REVISION_PREREQUISITE","EVIDENCE_PREREQUISITE","PROVIDER_PREREQUISITE","DATA_PREREQUISITE","OPERABILITY_PREREQUISITE","TRUST_PREREQUISITE","LOCALITY_PREREQUISITE"],
-    "global_gate": "OPEN — D0/D1/D2/D3/D4/D5 CLOSED/PASS; D6 experience/documents/observability/operations is next; Planning E remains blocked",
+    "global_gate": "OPEN — D0/D1/D2/D3/D4/D5/D6 CLOSED/PASS; D7 governance/economics/analytical derivations is next; Planning E remains blocked",
     "global_blocker": null,
-    "next_decision": "D6 — Experience, Documents, Observability and Operations"
+    "next_decision": "D7 — Governance, Economics and Analytical Derivations"
   },
   "gates": {
     "RESEARCH_ELICITATION": "CLOSED",
@@ -187,7 +190,7 @@
     "RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION": "CLOSED / PASS",
     "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION": "CLOSED / SATURATED / PASS — Full Passes 1-8 complete; 28/28 capabilities + 12/12 mandatory clusters; 284 edge scenarios + 124 ConflictPatterns = 408 material findings; 0 HIGH/CRITICAL without owner/proof/detection route.",
     "PLANNING_C_TARGET_ARCHITECTURE": "CLOSED / PASS — C0/C1/C2 and C3.1-C3.28 coherent; inherited 408 adversarial findings retained as constraints/proof routes.",
-    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "ACTIVE / OPEN — D0/D1/D2/D3/D4/D5 CLOSED/PASS; D6 experience/documents/observability/operations is next",
+    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "ACTIVE / OPEN — D0/D1/D2/D3/D4/D5/D6 CLOSED/PASS; D7 governance/economics/analytical derivations is next",
     "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "BLOCKED — Planning D must close first"
   },
   "artifact_roots": {
@@ -197,9 +200,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY remains ACTIVE / OPEN. D0 through D5 are CLOSED / PASS. D5 establishes a material-closure-first, evidence-qualified, immutable-artifact, cohort-aware supply-path migration from autonomous build inputs through material/toolchain qualification, reproducibility, artifact adoption, SBOM/provenance/trust qualification, release admission/distribution, deployment desired-versus-observed-versus-effective state, rollout/runtime cohorts, lifecycle revision vectors, rollback versus roll-forward, local/offline/Fleet currentness, residual build/artifact/runtime/config/secret/trust cohorts and finite queue/capacity drainage. D4 provider qualification/substitution, D3 external-effect identity and UNKNOWN discipline, D2 authority/trust prerequisites, D1 Elicitation/System Understanding no-false-complete and separate Production Readiness Coverage remain mandatory. Physical/Peripheral remains bounded to integration/governance; generic direct physical actuation is NOT ADMITTED. The next ordered action is D6 Experience, Documents, Observability and Operations. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict. Planning E and all later execution phases remain blocked.",
-  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_D_D5_BUILD_ARTIFACT_DEPLOYMENT_LIFECYCLE_SUPPLY_PATH.md",
+  "current_focus": "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY remains ACTIVE / OPEN. D0 through D6 are CLOSED / PASS. D6 establishes an additive, projection/evidence-first migration for generated UI/low-code, AGWS, Storage/Documents/Media, Observability/Operations/Incident and Developer/Operator/Self-hosting. Existing generated-view, ArtifactStore, Observe and FactoryOperatorBootstrap predecessors remain valid bounded profiles; they are not silently reinterpreted as full Generation 2 semantics. Experience projections preserve source revisions and residual client/session/offline cohorts; AGWS remains distinct from generic UI and cannot amplify authority; Storage preserves logical identity distinct from content/provider identity and requires explicit source-of-truth transfer plus residual-copy drainage; Observability preserves telemetry/evidence/assessment/signal/alert/incident separation with units/populations/windows/currentness; Operator Experience remains a no-shadow-truth plane over owner-qualified effects. D5 supply-path revisions, D4 provider qualification/substitution, D3 external-effect UNKNOWN discipline, D2 authority/trust and D1 Elicitation/System Understanding remain prerequisites. Physical/Peripheral remains bounded to integration/governance; generic direct physical actuation is NOT ADMITTED. The next ordered action is D7 Governance, Economics and Analytical Derivations. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict. Planning E and all later execution phases remain blocked.",
+  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_D_D6_EXPERIENCE_DOCUMENTS_OBSERVABILITY_OPERATIONS.md",
   "last_framework_artifact": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
-  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning D D6 — Experience, Documents, Observability and Operations. Plan generated UI/low-code and AGWS projection coexistence without authority amplification, Storage/Documents/Media logical identity and provider migration, Observability/Operations/Incident evidence/currentness and signal-condition-alert-incident separation, Developer/Operator Experience and self-hosting bootstrap/diagnostics/maintenance paths, local/offline/Fleet evidence, residual clients/documents/media/indexes/caches/telemetry/runbooks/tooling cohorts and queue/capacity. Preserve D5 supply-path revision/artifact/runtime semantics, D4 provider qualification/substitution and bounded Physical/Peripheral boundary, D3 effect/UNKNOWN discipline, D2 authority/trust prerequisites, and D1 adaptive Elicitation/System Understanding with separate Production Readiness Coverage. Carry Planning E proof routes only; do not execute D7+, Planning E, Architecture Reconciliation phase, WBS, Work Packages, executive TASKs, Construction or product code in the same action.",
-  "updated_at": "2026-09-07T04:15:00-03:00"
+  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning D D7 — Governance, Economics and Analytical Derivations. Plan Governance/Compliance/Audit; Privacy/Data Governance/Retention/Legal Hold/Residency; Commercial/Monetization/Entitlements; Technology Economic Governance/FinOps; and mathematical/analytical/temporal/vector/unit/uncertainty/transformation-derived semantics with typed dependencies, coexistence, source/currentness, correction/supersession, authority and evidence boundaries. Preserve D6 experience/document/observability/operator no-shadow-truth and residual-cohort semantics, D5 supply-path revision/artifact/runtime semantics, D4 provider qualification/substitution and bounded Physical/Peripheral boundary, D3 effect/UNKNOWN discipline, D2 authority/trust prerequisites, and D1 adaptive Elicitation/System Understanding with separate Production Readiness Coverage. Carry Planning E proof routes only; do not execute D8+, Planning E, Architecture Reconciliation phase, WBS, Work Packages, executive TASKs, Construction or product code in the same action.",
+  "updated_at": "2026-09-07T04:18:00-03:00"
 }
