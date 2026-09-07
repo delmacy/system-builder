@@ -20,6 +20,27 @@ export type RevisionVectorDimension = Readonly<{ revisionOwner: string; revision
 export type RevisionVector = readonly RevisionVectorDimension[];
 export type RevisionLineageRelation = "supersedes" | "corrects";
 export type RevisionLineage = Readonly<{ relation: RevisionLineageRelation; predecessor: DefinitionRevisionRef; successor: DefinitionRevisionRef }>;
+export type TemporalCoordinates = Readonly<{
+  occurredAt: string | null;
+  observedAt: string | null;
+  evaluatedAt: string | null;
+  effectiveFrom: string | null;
+  effectiveUntil: string | null;
+  reconciledAt: string | null;
+}>;
+export type CurrentnessState = "CURRENT" | "STALE" | "UNKNOWN" | "INSUFFICIENT";
+export type CurrentnessHorizon = Readonly<{ assessedAt: string; validUntil: string }>;
+export type CurrentnessQualification = Readonly<{
+  contractVersion: typeof SEMANTIC_SUBSTRATE_CONTRACT_VERSION;
+  subject: DefinitionRevisionRef;
+  revisionVector: RevisionVector;
+  temporal: TemporalCoordinates;
+  populationScope: string;
+  localityScope: string;
+  currentnessHorizon: CurrentnessHorizon;
+  state: CurrentnessState;
+  reason: string;
+}>;
 
 type UnknownRecord = Record<string, unknown>;
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -43,6 +64,14 @@ function semanticCoordinates(record: UnknownRecord) {
 }
 function canonicalFromRecord(record: UnknownRecord): CanonicalSemanticIdentityRef {
   return Object.freeze({ ...semanticCoordinates(record), canonicalRef: nonEmpty(record.canonicalRef, "canonicalRef") });
+}
+function timestamp(value: unknown, field: string): string {
+  const normalized = nonEmpty(value, field);
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(normalized) || Number.isNaN(Date.parse(normalized))) throw new Error(`${field} must be a valid UTC timestamp`);
+  return normalized;
+}
+function nullableTimestamp(value: unknown, field: string): string | null {
+  return value === null ? null : timestamp(value, field);
 }
 export function normalizeCanonicalSemanticIdentityRef(input: unknown): CanonicalSemanticIdentityRef {
   const record = asRecord(input, "canonical semantic identity");
@@ -92,4 +121,41 @@ export function normalizeRevisionLineage(input: unknown): RevisionLineage {
   const successor = normalizeDefinitionRevisionRef(record.successor);
   if (JSON.stringify(predecessor) === JSON.stringify(successor)) throw new Error("revision lineage successor must differ from predecessor");
   return Object.freeze({ relation: record.relation, predecessor, successor });
+}
+export function normalizeTemporalCoordinates(input: unknown): TemporalCoordinates {
+  const record = asRecord(input, "temporal coordinates");
+  const fields = ["occurredAt", "observedAt", "evaluatedAt", "effectiveFrom", "effectiveUntil", "reconciledAt"] as const;
+  assertExactFields(record, fields, "temporal coordinates");
+  const normalized = Object.freeze({
+    occurredAt: nullableTimestamp(record.occurredAt, "occurredAt"),
+    observedAt: nullableTimestamp(record.observedAt, "observedAt"),
+    evaluatedAt: nullableTimestamp(record.evaluatedAt, "evaluatedAt"),
+    effectiveFrom: nullableTimestamp(record.effectiveFrom, "effectiveFrom"),
+    effectiveUntil: nullableTimestamp(record.effectiveUntil, "effectiveUntil"),
+    reconciledAt: nullableTimestamp(record.reconciledAt, "reconciledAt"),
+  });
+  if (Object.values(normalized).every((value) => value === null)) throw new Error("temporal coordinates require at least one explicit role");
+  if (normalized.effectiveFrom !== null && normalized.effectiveUntil !== null && Date.parse(normalized.effectiveUntil) < Date.parse(normalized.effectiveFrom)) throw new Error("effectiveUntil must not precede effectiveFrom");
+  return normalized;
+}
+export function normalizeCurrentnessQualification(input: unknown): CurrentnessQualification {
+  const record = asRecord(input, "currentness qualification");
+  assertExactFields(record, ["contractVersion", "subject", "revisionVector", "temporal", "populationScope", "localityScope", "currentnessHorizon", "state", "reason"], "currentness qualification");
+  const horizon = asRecord(record.currentnessHorizon, "currentness horizon");
+  assertExactFields(horizon, ["assessedAt", "validUntil"], "currentness horizon");
+  const assessedAt = timestamp(horizon.assessedAt, "currentnessHorizon.assessedAt");
+  const validUntil = timestamp(horizon.validUntil, "currentnessHorizon.validUntil");
+  if (Date.parse(validUntil) < Date.parse(assessedAt)) throw new Error("currentness horizon validUntil must not precede assessedAt");
+  if (record.state !== "CURRENT" && record.state !== "STALE" && record.state !== "UNKNOWN" && record.state !== "INSUFFICIENT") throw new Error("currentness state must be CURRENT, STALE, UNKNOWN or INSUFFICIENT");
+  return Object.freeze({
+    contractVersion: version(record.contractVersion),
+    subject: normalizeDefinitionRevisionRef(record.subject),
+    revisionVector: normalizeRevisionVector(record.revisionVector),
+    temporal: normalizeTemporalCoordinates(record.temporal),
+    populationScope: nonEmpty(record.populationScope, "populationScope"),
+    localityScope: nonEmpty(record.localityScope, "localityScope"),
+    currentnessHorizon: Object.freeze({ assessedAt, validUntil }),
+    state: record.state,
+    reason: nonEmpty(record.reason, "reason"),
+  });
 }
