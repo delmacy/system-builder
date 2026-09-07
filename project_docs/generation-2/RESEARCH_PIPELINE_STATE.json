@@ -150,7 +150,7 @@
     "status": "ACTIVE / OPEN",
     "entry_framework": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
     "entry_head": "9f4627261b7eb2a0649766e38da36f6ffcb8a6f4",
-    "stage": "D3 CLOSED / PASS — D4 PROVIDER BINDING AND BOUNDED PHYSICAL/PERIPHERAL REALIZATION NEXT",
+    "stage": "D4 CLOSED / PASS — D5 BUILD ARTIFACT DEPLOYMENT AND LIFECYCLE SUPPLY PATH NEXT",
     "d0_status": "DECIDED / PASS FOR D0",
     "d0_artifact": "project_docs/generation-2/planning/PLANNING_D_D0_MIGRATION_CONSTITUTION_CROSS_CUTTING_DEPENDENCY_GRAPH.md",
     "d0_decision_head": "cf6ae3a0f2bba2a1045a0957f7d7744d68d113a6",
@@ -163,14 +163,17 @@
     "d3_status": "DECIDED / PASS FOR D3",
     "d3_artifact": "project_docs/generation-2/planning/PLANNING_D_D3_DATA_WORKFLOW_EXTERNAL_EFFECT_SEMANTICS.md",
     "d3_decision_head": "35a928e43f93c1068b6e7ee0ae2f55b2d0630748",
+    "d4_status": "DECIDED / PASS FOR D4",
+    "d4_artifact": "project_docs/generation-2/planning/PLANNING_D_D4_PROVIDER_BINDING_PHYSICAL_PERIPHERAL_REALIZATION.md",
+    "d4_decision_head": "6d525271d2ab29ae71d829c5a1ce87251390111d",
     "completed_capability_records": 0,
     "canonical_capability_count": 28,
     "inherited_adversarial_findings": 408,
     "migration_state_vocabulary": ["DISCOVERED","QUALIFIED","COEXISTENCE_READY","SHADOWING","PARTIAL_CUTOVER","CUTOVER","RESIDUAL_DRAIN","RECONCILED","CLOSED","BLOCKED","CONFLICTED","ABORTED","ROLLED_FORWARD","ROLLED_BACK_WHERE_REVERSIBLE","MANUAL_RECONCILIATION_REQUIRED"],
     "dependency_edge_kinds": ["SEMANTIC_PREREQUISITE","AUTHORITY_PREREQUISITE","REVISION_PREREQUISITE","EVIDENCE_PREREQUISITE","PROVIDER_PREREQUISITE","DATA_PREREQUISITE","OPERABILITY_PREREQUISITE","TRUST_PREREQUISITE","LOCALITY_PREREQUISITE"],
-    "global_gate": "OPEN — D0/D1/D2/D3 CLOSED/PASS; D4 provider/binding and bounded Physical/Peripheral realization is next; Planning E remains blocked",
+    "global_gate": "OPEN — D0/D1/D2/D3/D4 CLOSED/PASS; D5 build/artifact/deployment/lifecycle supply path is next; Planning E remains blocked",
     "global_blocker": null,
-    "next_decision": "D4 — Provider / Binding and bounded Physical / Peripheral Realization"
+    "next_decision": "D5 — Build, Artifact, Deployment and Lifecycle Supply Path"
   },
   "gates": {
     "RESEARCH_ELICITATION": "CLOSED",
@@ -181,7 +184,7 @@
     "RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION": "CLOSED / PASS",
     "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION": "CLOSED / SATURATED / PASS — Full Passes 1-8 complete; 28/28 capabilities + 12/12 mandatory clusters; 284 edge scenarios + 124 ConflictPatterns = 408 material findings; 0 HIGH/CRITICAL without owner/proof/detection route.",
     "PLANNING_C_TARGET_ARCHITECTURE": "CLOSED / PASS — C0/C1/C2 and C3.1-C3.28 coherent; inherited 408 adversarial findings retained as constraints/proof routes.",
-    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "ACTIVE / OPEN — D0/D1/D2/D3 CLOSED/PASS; D4 provider/binding and bounded Physical/Peripheral realization is next",
+    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "ACTIVE / OPEN — D0/D1/D2/D3/D4 CLOSED/PASS; D5 build/artifact/deployment/lifecycle supply path is next",
     "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "BLOCKED — Planning D must close first"
   },
   "artifact_roots": {
@@ -191,9 +194,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY remains ACTIVE / OPEN. D0, D1, D2 and D3 are CLOSED / PASS. D3 establishes revision-pinned, journal-first, effect-qualified coexistence for Data/Schema/Migrations, Workflow/Durable Execution, Integration/Automation and Notifications/Events/Messaging. It preserves source-of-truth movement with explicit writer fencing, producing revisions for in-flight work, ExecutionEnvelope/ExecutionState/ExecutionJournal separation, message/delivery/attempt identity distinct from canonical effect identity, APPLIED/NOT_APPLIED/PARTIAL/UNKNOWN with UNKNOWN -> reconcile-before-retry unless duplicate safety is independently proven, scoped idempotency horizons, replay/cursor/backfill/CDC semantics, residual queue/callback/in-flight cohorts, queue/backpressure/capacity, provider/binding prerequisites, Brownfield evidence-first assimilation, local/offline/Fleet currentness, C1 Elicitation/System Understanding and separate Production Readiness Coverage. The next ordered action is D4 provider/binding and bounded Physical/Peripheral realization. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict. Planning E and all later execution phases remain blocked.",
-  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_D_D3_DATA_WORKFLOW_EXTERNAL_EFFECT_SEMANTICS.md",
+  "current_focus": "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY remains ACTIVE / OPEN. D0, D1, D2, D3 and D4 are CLOSED / PASS. D4 establishes qualification-first, support-vector provider migration with explicit provider/profile/binding identities, authority/trust prerequisites, shadow/coexistence, explicit admission/cutover, old-provider fencing, residual callback/subscription/resource/session/queue drainage, APPLIED/NOT_APPLIED/PARTIAL/UNKNOWN external-effect qualification, UNKNOWN -> reconcile-before-retry, provider inventory/pagination and permission-drift currentness, local/offline/Fleet boundaries, queue/backpressure/capacity, Brownfield evidence-first assimilation, C1 Operability Elicitation and separate Production Readiness Coverage. Physical/Peripheral remains bounded to integration/governance; generic direct physical actuation is NOT ADMITTED. The next ordered action is D5 Build, Artifact, Deployment and Lifecycle Supply Path. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict. Planning E and all later execution phases remain blocked.",
+  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_D_D4_PROVIDER_BINDING_PHYSICAL_PERIPHERAL_REALIZATION.md",
   "last_framework_artifact": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
-  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning D D4 — Provider / Binding and bounded Physical / Peripheral Realization. Plan provider discovery/qualification/admission/binding/substitution/coexistence, support vectors, scope/currentness/evidence, residual provider cohorts, callback/subscription/resource drainage, rollback versus irreversible external effects, local/offline/Fleet provider currentness and bounded Physical/Peripheral integration/governance only. Preserve D3 effect identity, APPLIED/NOT_APPLIED/PARTIAL/UNKNOWN and reconcile-before-retry, D2 authority/trust prerequisites, D1 Elicitation/System Understanding no-false-complete and separate Production Readiness Coverage. Carry Planning E proof routes only; do not execute D5+, Planning E, Architecture Reconciliation phase, WBS, Work Packages, executive TASKs, Construction or product code in the same action.",
-  "updated_at": "2026-09-07T03:38:00-03:00"
+  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning D D5 — Build, Artifact, Deployment and Lifecycle Supply Path. Plan dependency/material identity, autonomous-build inputs and environment qualification, reproducibility/evidence, artifact/release/SBOM/provenance identity, deployment/environment/runtime desired-versus-observed/effective state, rollout/cohorts, rollback versus roll-forward, lifecycle/version coexistence, provider-qualified supply-path bindings, Fleet/local runtime currentness, residual artifacts/runtimes/config/secret cohorts and queue/capacity. Preserve D4 provider qualification/substitution and bounded Physical/Peripheral boundary, D3 external-effect identity and UNKNOWN discipline, D2 authority/trust prerequisites, D1 Elicitation/System Understanding no-false-complete and separate Production Readiness Coverage. Carry Planning E proof routes only; do not execute D6+, Planning E, Architecture Reconciliation phase, WBS, Work Packages, executive TASKs, Construction or product code in the same action.",
+  "updated_at": "2026-09-07T03:54:00-03:00"
 }
