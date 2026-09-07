@@ -150,18 +150,21 @@
     "status": "ACTIVE / OPEN",
     "entry_framework": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
     "entry_head": "9f4627261b7eb2a0649766e38da36f6ffcb8a6f4",
-    "stage": "D0 CLOSED / PASS — D1 SEMANTIC SUBSTRATE AND ELICITATION COEXISTENCE NEXT",
+    "stage": "D1 CLOSED / PASS — D2 AUTHORITY IDENTITY TRUST AND SECRETS PREREQUISITES NEXT",
     "d0_status": "DECIDED / PASS FOR D0",
     "d0_artifact": "project_docs/generation-2/planning/PLANNING_D_D0_MIGRATION_CONSTITUTION_CROSS_CUTTING_DEPENDENCY_GRAPH.md",
     "d0_decision_head": "cf6ae3a0f2bba2a1045a0957f7d7744d68d113a6",
+    "d1_status": "DECIDED / PASS FOR D1",
+    "d1_artifact": "project_docs/generation-2/planning/PLANNING_D_D1_SEMANTIC_SUBSTRATE_ELICITATION_COEXISTENCE.md",
+    "d1_decision_head": "c8b13aa6889c193ed37f33d3f9fd8d20d8b8506c",
     "completed_capability_records": 0,
     "canonical_capability_count": 28,
     "inherited_adversarial_findings": 408,
     "migration_state_vocabulary": ["DISCOVERED","QUALIFIED","COEXISTENCE_READY","SHADOWING","PARTIAL_CUTOVER","CUTOVER","RESIDUAL_DRAIN","RECONCILED","CLOSED","BLOCKED","CONFLICTED","ABORTED","ROLLED_FORWARD","ROLLED_BACK_WHERE_REVERSIBLE","MANUAL_RECONCILIATION_REQUIRED"],
     "dependency_edge_kinds": ["SEMANTIC_PREREQUISITE","AUTHORITY_PREREQUISITE","REVISION_PREREQUISITE","EVIDENCE_PREREQUISITE","PROVIDER_PREREQUISITE","DATA_PREREQUISITE","OPERABILITY_PREREQUISITE","TRUST_PREREQUISITE","LOCALITY_PREREQUISITE"],
-    "global_gate": "OPEN — D0 CLOSED/PASS; D1 semantic substrate and elicitation coexistence is next; Planning E remains blocked",
+    "global_gate": "OPEN — D0/D1 CLOSED/PASS; D2 authority, identity, trust and secrets prerequisites is next; Planning E remains blocked",
     "global_blocker": null,
-    "next_decision": "D1 — Semantic substrate and elicitation coexistence"
+    "next_decision": "D2 — Authority, Identity, Trust and Secrets prerequisites"
   },
   "gates": {
     "RESEARCH_ELICITATION": "CLOSED",
@@ -172,7 +175,7 @@
     "RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION": "CLOSED / PASS",
     "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION": "CLOSED / SATURATED / PASS — Full Passes 1-8 complete; 28/28 capabilities + 12/12 mandatory clusters; 284 edge scenarios + 124 ConflictPatterns = 408 material findings; 0 HIGH/CRITICAL without owner/proof/detection route.",
     "PLANNING_C_TARGET_ARCHITECTURE": "CLOSED / PASS — C0/C1/C2 and C3.1-C3.28 coherent; inherited 408 adversarial findings retained as constraints/proof routes.",
-    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "ACTIVE / OPEN — D0 CLOSED/PASS; D1 semantic substrate and elicitation coexistence is next",
+    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "ACTIVE / OPEN — D0/D1 CLOSED/PASS; D2 authority, identity, trust and secrets prerequisites is next",
     "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "BLOCKED — Planning D must close first"
   },
   "artifact_roots": {
@@ -182,9 +185,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY remains ACTIVE / OPEN. D0 is CLOSED / PASS and establishes the authoritative cross-cutting dependency/migration constitution across all 28 canonical capabilities plus C0/C1/C2. The next ordered action is D1 semantic substrate and elicitation coexistence. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict. Planning E and all later execution phases remain blocked.",
-  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_D_D0_MIGRATION_CONSTITUTION_CROSS_CUTTING_DEPENDENCY_GRAPH.md",
+  "current_focus": "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY remains ACTIVE / OPEN. D0 and D1 are CLOSED / PASS. D1 establishes incremental coexistence for owner-qualified semantic identity/revision/reference semantics and the versioned Elicitation Knowledge Base alongside free-form/Brownfield evidence, preserving typed information kinds, contradictions, provenance/currentness, adaptive-routing shadowing, owner-preserving cross-capability linkage, dimensional coverage and separate Production Readiness Coverage. The next ordered action is D2 authority, identity, trust and secrets prerequisites. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict. Planning E and all later execution phases remain blocked.",
+  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_D_D1_SEMANTIC_SUBSTRATE_ELICITATION_COEXISTENCE.md",
   "last_framework_artifact": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
-  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning D D1 — Semantic substrate and Elicitation/System Understanding coexistence. Plan coexistence and migration for owner-qualified canonical identity/revision/reference semantics, typed information kinds, the versioned Elicitation Knowledge Base, existing free-form/Brownfield evidence, contradictions/Unknown/Deferred/OutOfScope preservation, adaptive routing and owner-preserving question/capability linkage. Carry forward Operability Elicitation metadata and Production Readiness Coverage as separate from feature completeness. Preserve revision/history/in-flight semantics, no-false-complete gates, local/Station/Fleet boundaries, queue/currentness considerations and Planning E proof routes. Do not execute D2+, Planning E, Architecture Reconciliation phase, WBS, Work Packages, executive TASKs, Construction or product code in the same action.",
-  "updated_at": "2026-09-07T02:47:00-03:00"
+  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning D D2 — Authority, Identity, Trust and Secrets prerequisites. Plan coexistence/migration for Identity/Authentication/Federation, Authorization/Policy/Organization/Multitenancy, Enterprise Trust/PKI/Certificate Lifecycle, Secrets/Configuration/Environment Portability and Security/Resilience/Failure Recovery. Preserve non-amplifying authority, external identity/group/grant evidence versus canonical truth, session/token/credential/trust/config residual cohorts, revocation/rotation currentness, break-glass/delegation/SoD, provider mappings/support vectors, offline/local closure, PARTIAL/UNKNOWN, reconcile-before-retry where applicable, queue/backpressure/capacity, Elicitation/System Understanding coverage and separate Production Readiness Coverage. Carry Planning E proof routes only; do not execute D3+, Planning E, Architecture Reconciliation phase, WBS, Work Packages, executive TASKs, Construction or product code in the same action.",
+  "updated_at": "2026-09-07T03:12:00-03:00"
 }
