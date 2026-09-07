@@ -33,7 +33,7 @@ const evidenceInput = {
   evidenceId: "urn:system-builder:evidence:orders-observation",
   sources: [
     {
-      sourceId: "shared-provider-value",
+      sourceId: "urn:provider:shared-provider-value",
       sourceType: "provider-event",
       capturedAt: "2026-09-07T21:10:00Z",
       correlationRef: "urn:provider:event:orders:42",
@@ -44,7 +44,7 @@ const evidenceInput = {
     {
       descriptorId: "provider-normalization",
       descriptorVersion: "1.0.0",
-      provider: { id: "shared-provider-value" },
+      provider: { id: "urn:provider:shared-provider-value" },
     },
   ],
   lineage: { predecessorEvidenceIds: ["urn:system-builder:evidence:orders-prior"] },
