@@ -41,6 +41,23 @@ export type CurrentnessQualification = Readonly<{
   state: CurrentnessState;
   reason: string;
 }>;
+export type SemanticRelationKind = "references" | "depends_on" | "realizes" | "derives_from";
+export type SemanticMetadata = Readonly<Record<string, string>>;
+export type TypedSemanticNode = Readonly<{
+  ref: DefinitionRevisionRef;
+  metadata: SemanticMetadata;
+}>;
+export type TypedSemanticRelation = Readonly<{
+  relationKind: SemanticRelationKind;
+  source: DefinitionRevisionRef;
+  target: DefinitionRevisionRef;
+  metadata: SemanticMetadata;
+}>;
+export type TypedSemanticGraph = Readonly<{
+  contractVersion: typeof SEMANTIC_SUBSTRATE_CONTRACT_VERSION;
+  nodes: readonly TypedSemanticNode[];
+  relations: readonly TypedSemanticRelation[];
+}>;
 
 type UnknownRecord = Record<string, unknown>;
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -72,6 +89,20 @@ function timestamp(value: unknown, field: string): string {
 }
 function nullableTimestamp(value: unknown, field: string): string | null {
   return value === null ? null : timestamp(value, field);
+}
+function revisionKey(value: DefinitionRevisionRef): string {
+  return [value.semanticOwner, value.semanticKind, value.canonicalRef, value.definitionRef, value.revisionOwner, value.revisionDimension, value.revisionRef].join("\u0000");
+}
+function normalizeMetadata(input: unknown, label: string): SemanticMetadata {
+  const record = asRecord(input, label);
+  const reserved = new Set(["contractVersion", "semanticOwner", "semanticKind", "canonicalRef", "definitionRef", "revisionOwner", "revisionDimension", "revisionRef", "relationKind", "source", "target", "predicate", "lifecycle"]);
+  const entries = Object.entries(record).map(([key, value]) => {
+    if (reserved.has(key)) throw new Error(`${label} cannot redefine semantic field ${key}`);
+    if (typeof value !== "string") throw new Error(`${label}.${key} must be a string`);
+    return [nonEmpty(key, `${label} key`), value] as const;
+  });
+  entries.sort(([a], [b]) => a.localeCompare(b));
+  return Object.freeze(Object.fromEntries(entries));
 }
 export function normalizeCanonicalSemanticIdentityRef(input: unknown): CanonicalSemanticIdentityRef {
   const record = asRecord(input, "canonical semantic identity");
@@ -158,4 +189,41 @@ export function normalizeCurrentnessQualification(input: unknown): CurrentnessQu
     state: record.state,
     reason: nonEmpty(record.reason, "reason"),
   });
+}
+export function normalizeTypedSemanticGraph(input: unknown): TypedSemanticGraph {
+  const record = asRecord(input, "typed semantic graph");
+  assertExactFields(record, ["contractVersion", "nodes", "relations"], "typed semantic graph");
+  if (!Array.isArray(record.nodes)) throw new Error("typed semantic graph nodes must be an array");
+  if (!Array.isArray(record.relations)) throw new Error("typed semantic graph relations must be an array");
+  const nodeKeys = new Set<string>();
+  const nodes = record.nodes.map((value) => {
+    const node = asRecord(value, "typed semantic node");
+    assertExactFields(node, ["ref", "metadata"], "typed semantic node");
+    const ref = normalizeDefinitionRevisionRef(node.ref);
+    const key = revisionKey(ref);
+    if (nodeKeys.has(key)) throw new Error("typed semantic graph contains duplicate node identity");
+    nodeKeys.add(key);
+    return Object.freeze({ ref, metadata: normalizeMetadata(node.metadata, "typed semantic node metadata") });
+  });
+  nodes.sort((a, b) => revisionKey(a.ref).localeCompare(revisionKey(b.ref)));
+  const relationKinds = new Set<SemanticRelationKind>(["references", "depends_on", "realizes", "derives_from"]);
+  const relationKeys = new Set<string>();
+  const relations = record.relations.map((value) => {
+    const relation = asRecord(value, "typed semantic relation");
+    assertExactFields(relation, ["relationKind", "source", "target", "metadata"], "typed semantic relation");
+    if (typeof relation.relationKind !== "string" || !relationKinds.has(relation.relationKind as SemanticRelationKind)) throw new Error(`unknown semantic relation kind: ${String(relation.relationKind)}`);
+    const source = normalizeDefinitionRevisionRef(relation.source);
+    const target = normalizeDefinitionRevisionRef(relation.target);
+    const sourceKey = revisionKey(source);
+    const targetKey = revisionKey(target);
+    if (!nodeKeys.has(sourceKey)) throw new Error("typed semantic relation source does not exactly match a graph node revision");
+    if (!nodeKeys.has(targetKey)) throw new Error("typed semantic relation target does not exactly match a graph node revision");
+    const relationKind = relation.relationKind as SemanticRelationKind;
+    const edgeKey = `${relationKind}\u0000${sourceKey}\u0000${targetKey}`;
+    if (relationKeys.has(edgeKey)) throw new Error("typed semantic graph contains duplicate ambiguous relation");
+    relationKeys.add(edgeKey);
+    return Object.freeze({ relationKind, source, target, metadata: normalizeMetadata(relation.metadata, "typed semantic relation metadata") });
+  });
+  relations.sort((a, b) => `${a.relationKind}\u0000${revisionKey(a.source)}\u0000${revisionKey(a.target)}`.localeCompare(`${b.relationKind}\u0000${revisionKey(b.source)}\u0000${revisionKey(b.target)}`));
+  return Object.freeze({ contractVersion: version(record.contractVersion), nodes: Object.freeze(nodes), relations: Object.freeze(relations) });
 }
