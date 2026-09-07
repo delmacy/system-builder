@@ -65,7 +65,7 @@ test("federation preserves bilateral system revision, semantic ownership and ind
 
 test("fleet currentness cannot substitute for or silently strengthen station currentness", () => {
   const value = qualification();
-  value.producerCurrentness = currentness(fleetProjection, "fleet:global", "CURRENT") as never;
+  value.producerCurrentness = currentness(fleetProjection, "fleet:global", "CURRENT");
   assert.throws(
     () => normalizeFederatedSemanticEdgeQualification(value),
     /producer currentness must qualify the exact producer semantic revision/,
