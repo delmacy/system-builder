@@ -150,15 +150,18 @@
     "status": "ACTIVE / OPEN",
     "entry_framework": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
     "entry_head": "9f4627261b7eb2a0649766e38da36f6ffcb8a6f4",
-    "stage": "D0 MIGRATION CONSTITUTION / CROSS-CUTTING DEPENDENCY GRAPH",
+    "stage": "D0 CLOSED / PASS — D1 SEMANTIC SUBSTRATE AND ELICITATION COEXISTENCE NEXT",
+    "d0_status": "DECIDED / PASS FOR D0",
+    "d0_artifact": "project_docs/generation-2/planning/PLANNING_D_D0_MIGRATION_CONSTITUTION_CROSS_CUTTING_DEPENDENCY_GRAPH.md",
+    "d0_decision_head": "cf6ae3a0f2bba2a1045a0957f7d7744d68d113a6",
     "completed_capability_records": 0,
     "canonical_capability_count": 28,
     "inherited_adversarial_findings": 408,
     "migration_state_vocabulary": ["DISCOVERED","QUALIFIED","COEXISTENCE_READY","SHADOWING","PARTIAL_CUTOVER","CUTOVER","RESIDUAL_DRAIN","RECONCILED","CLOSED","BLOCKED","CONFLICTED","ABORTED","ROLLED_FORWARD","ROLLED_BACK_WHERE_REVERSIBLE","MANUAL_RECONCILIATION_REQUIRED"],
     "dependency_edge_kinds": ["SEMANTIC_PREREQUISITE","AUTHORITY_PREREQUISITE","REVISION_PREREQUISITE","EVIDENCE_PREREQUISITE","PROVIDER_PREREQUISITE","DATA_PREREQUISITE","OPERABILITY_PREREQUISITE","TRUST_PREREQUISITE","LOCALITY_PREREQUISITE"],
-    "global_gate": "OPEN — entry framework PASS; D0 dependency/migration matrix required next",
+    "global_gate": "OPEN — D0 CLOSED/PASS; D1 semantic substrate and elicitation coexistence is next; Planning E remains blocked",
     "global_blocker": null,
-    "next_decision": "D0 — Migration Constitution / Cross-Cutting Dependency Graph"
+    "next_decision": "D1 — Semantic substrate and elicitation coexistence"
   },
   "gates": {
     "RESEARCH_ELICITATION": "CLOSED",
@@ -169,7 +172,7 @@
     "RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION": "CLOSED / PASS",
     "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION": "CLOSED / SATURATED / PASS — Full Passes 1-8 complete; 28/28 capabilities + 12/12 mandatory clusters; 284 edge scenarios + 124 ConflictPatterns = 408 material findings; 0 HIGH/CRITICAL without owner/proof/detection route.",
     "PLANNING_C_TARGET_ARCHITECTURE": "CLOSED / PASS — C0/C1/C2 and C3.1-C3.28 coherent; inherited 408 adversarial findings retained as constraints/proof routes.",
-    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "ACTIVE / OPEN — entry framework established; D0 cross-cutting dependency/migration matrix is next",
+    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "ACTIVE / OPEN — D0 CLOSED/PASS; D1 semantic substrate and elicitation coexistence is next",
     "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "BLOCKED — Planning D must close first"
   },
   "artifact_roots": {
@@ -179,9 +182,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY is ACTIVE / OPEN. The entry framework establishes typed dependency edges, migration-slice records, coexistence-first source-of-truth movement, revision/history/in-flight preservation, residual-cohort drainage, provider qualification/substitution, UNKNOWN reconciliation, Brownfield/Mirroring evidence-first adoption, C1 Elicitation no-false-complete constraints, local/Station/Fleet autonomy, queue/backpressure/capacity and bounded Physical/Peripheral integration/governance. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict. Planning E and later phases remain blocked.",
-  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
+  "current_focus": "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY remains ACTIVE / OPEN. D0 is CLOSED / PASS and establishes the authoritative cross-cutting dependency/migration constitution across all 28 canonical capabilities plus C0/C1/C2. The next ordered action is D1 semantic substrate and elicitation coexistence. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict. Planning E and all later execution phases remain blocked.",
+  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_D_D0_MIGRATION_CONSTITUTION_CROSS_CUTTING_DEPENDENCY_GRAPH.md",
   "last_framework_artifact": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
-  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning D D0 — Migration Constitution / Cross-Cutting Dependency Graph. Materialize an authoritative dependency/migration matrix across the 28 canonical capabilities and cross-cutting C0/C1/C2 concerns, using typed prerequisite edges, explicit source-of-truth movement, coexistence rather than big-bang migration, revision/history/in-flight handling, residual cohorts, provider qualification/substitution, external-effect reconciliation, Brownfield/Mirroring evidence-first adoption, Elicitation coverage/contradiction gates, local/Station/Fleet autonomy, bounded Physical/Peripheral scope, queue/backpressure/capacity, rollback/abort/roll-forward and Planning E proof routes. Do not execute capability-specific D1+ records, Planning E, Architecture Reconciliation phase, WBS, Work Packages, executive TASKs, Construction or product code in the same action.",
-  "updated_at": "2026-09-07T02:34:00-03:00"
+  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning D D1 — Semantic substrate and Elicitation/System Understanding coexistence. Plan coexistence and migration for owner-qualified canonical identity/revision/reference semantics, typed information kinds, the versioned Elicitation Knowledge Base, existing free-form/Brownfield evidence, contradictions/Unknown/Deferred/OutOfScope preservation, adaptive routing and owner-preserving question/capability linkage. Carry forward Operability Elicitation metadata and Production Readiness Coverage as separate from feature completeness. Preserve revision/history/in-flight semantics, no-false-complete gates, local/Station/Fleet boundaries, queue/currentness considerations and Planning E proof routes. Do not execute D2+, Planning E, Architecture Reconciliation phase, WBS, Work Packages, executive TASKs, Construction or product code in the same action.",
+  "updated_at": "2026-09-07T02:47:00-03:00"
 }
