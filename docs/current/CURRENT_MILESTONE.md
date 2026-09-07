@@ -1,12 +1,23 @@
-# Current Execution Milestone — M19 Pre-Alpha Productization
+# Current Execution Milestone — Generation 2 / G2-WP-01
 
 ## Milestone state
-M17 Knowledge Boundary, M18 Process Versioning and M19 Pre-Alpha Productization are CLOSED.
+M17 Knowledge Boundary, M18 Process Versioning and M19 Pre-Alpha Productization remain canonically CLOSED. M19/P19 remains the integrated pre-alpha predecessor and is not reopened.
 
-`P19-PACKAGE-01 — Consolidated Pre-Alpha Productization` is CANONICALLY CLOSED / PRE-ALPHA. Construction Sprints 1–8 / WBS 19.1.1–19.3.2 are EXECUTED / REVIEWED / INTEGRATED. Sprint 9 `P19-PREALPHA-INTEGRATION-ACCEPTANCE-01` / WBS 19.3.3 acceptance integrated by PR #545 from exact reviewed head `3f8b3d8d7e00b98f3eb97c16846f67e62ea6cf19`, after Deterministic CI #1372 and Heavy Product Tests #842 PASS, producing accepted candidate main `ec07e0bc9c0ea1147da04d83c749cb49cde11fad` / tree `d25073f946c363f73a996da7914af9ab3b87f65e`.
+Generation 2 research/planning has reached `READY_FOR_WORKER_HANDOFF`: Research/Synthesis, Planning A-E, Architecture Reconciliation, WBS Decomposition, WBS Dependency Graph and Work Package Design are CLOSED/PASS. The owner has explicitly authorized execution of the designed `G2-WP-01..G2-WP-13` program subject to normal rolling-wave, dependency, review, L3/L4 and safety gates.
 
-Sprint 10 `P19-PREALPHA-DOCUMENTATION-CLOSURE-01` completed documentation/closure evidence on reviewed head `c676cd6bee7ce80aaf429505570630e82f8ccd88`. That exact head passed Deterministic CI #1379 and Heavy Product Tests #850, had no material review thread, and integrated through replacement review PR #547 with expected-head protection as merge-main `c132be6dae80e08ad166e7e357d2151a4f04ee86`.
+## Active Work Package
+`G2-WP-01 — Semantic Constitution & Federated Revision Base` is selected as the first dependency-safe Work Package because it owns `G2-WBS-01`, the Layer L0 constitutional semantic base.
 
-Reviewed closure head and merge-main share tree `80e8f66a550caedfdacfbad20b15253080424e32`, proving zero file drift. Immutable candidate evidence remains `P19-PREALPHA-CANDIDATE-01`, bound to accepted commit `ec07e0bc9c0ea1147da04d83c749cb49cde11fad` and tree `d25073f946c363f73a996da7914af9ab3b87f65e`; no external GitHub tag or Release was an implicit additional Exit requirement.
+Planning & Materialization is active from fresh main `d8760c7f08757bb164a758ae0c3f0a4a1752464b` on `sprint/G2-WP01-PLANNING-MATERIALIZATION-01`.
 
-P19 is therefore CLOSED / PRE-ALPHA. No successor Generation 2 scope is selected or materialized by this closure; any successor work requires fresh-main planning/revalidation under repository policy.
+Only the first Construction Sprint is materialized:
+
+- `G2-SEMANTIC-CONTRACT-FOUNDATION-01` — `COMMITTED / MATERIALIZED / NOT EXECUTED`;
+- TASK chain: `TASK-463 -> TASK-464 -> TASK-465 -> TASK-466 -> TASK-467 -> TASK-468`.
+
+Construction B `G2-SEMANTIC-CONSUMER-COEXISTENCE-01` remains FORECAST. Construction C `G2-SEMANTIC-HARDENING-01` remains OPTIONAL / FORECAST. `G2-WP-02..13` remain DESIGNED / NOT MATERIALIZED.
+
+## Current gate
+The Planning & Materialization Sprint must integrate first. After its exact reviewed head is merged, reconstruct fresh `main` and revalidate the G2 planning authority before creating `sprint/G2-SEMANTIC-CONTRACT-FOUNDATION-01` and executing TASK-463..468.
+
+No product code is authorized on the Planning branch. No Construction B/C or successor Work Package may be promoted by this Planning Sprint.
