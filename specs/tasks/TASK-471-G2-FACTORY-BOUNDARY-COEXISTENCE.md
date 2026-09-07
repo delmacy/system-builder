@@ -4,6 +4,7 @@ title: Prove factory-boundary coexistence with semantic substrate
 status: ready
 priority: 471
 milestone: G2
+model_tier: architecture
 risk: high
 architecture_impact: false
 executor_preference: any
@@ -37,8 +38,20 @@ validation:
 # Objective
 Prove that factory journey/boundary contracts can reference owner-qualified semantic subjects without transferring Builder/Runtime authority or rewriting existing lineage.
 
+# Context
+Construction A introduced owner-qualified semantic references while Factory/Compiler/Release/Runtime boundaries remain authoritative for their existing lifecycle semantics.
+
+# Current behavior
+Factory-boundary and semantic-substrate public surfaces coexist, but no focused proof demonstrates directional composition without authority or lineage strengthening.
+
 # Required change
 Compose real public factory-boundary exports with semantic-substrate references through the smallest additive directional seam or proof. Preserve Factory/Compiler/Release lineage ownership and published Runtime autonomy.
+
+# Inputs / contracts
+Public factory-boundary exports and integrated semantic identity, revision, relation and currentness contracts.
+
+# Outputs / contracts
+A directional consumer-side coexistence seam/proof demonstrating preserved factory lineage and Runtime autonomy.
 
 # Acceptance criteria
 - factory journey identities and lineage remain authoritative in factory-boundary/process-versioning owners;
@@ -50,3 +63,9 @@ Compose real public factory-boundary exports with semantic-substrate references 
 
 # Non-goals
 Factory orchestration changes, compiler/release/deploy/runtime behavior, provider abstraction or lifecycle migration.
+
+# Evidence expected
+Focused public-export product proof with authority/identity/currentness negative cases plus repository-wide architecture and deterministic gates.
+
+# Escalation
+Stop if coexistence requires Runtime->Builder dependency, lifecycle authority transfer, factory orchestration changes, destructive migration or L4 topology.
