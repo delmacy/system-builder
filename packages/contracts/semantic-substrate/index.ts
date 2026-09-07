@@ -6,7 +6,6 @@ export type CanonicalSemanticIdentityRef = Readonly<{
   semanticKind: string;
   canonicalRef: string;
 }>;
-
 export type DefinitionRef = Readonly<CanonicalSemanticIdentityRef & { definitionRef: string }>;
 export type OccurrenceRef = Readonly<CanonicalSemanticIdentityRef & { occurrenceRef: string }>;
 export type RealizationIdentityRef = Readonly<{
@@ -16,25 +15,11 @@ export type RealizationIdentityRef = Readonly<{
   realizationProvider: string;
   realizationRef: string;
 }>;
-
-export type DefinitionRevisionRef = Readonly<DefinitionRef & {
-  revisionOwner: string;
-  revisionDimension: string;
-  revisionRef: string;
-}>;
-
-export type RevisionVectorDimension = Readonly<{
-  revisionOwner: string;
-  revisionDimension: string;
-  revisionRef: string;
-}>;
+export type DefinitionRevisionRef = Readonly<DefinitionRef & { revisionOwner: string; revisionDimension: string; revisionRef: string }>;
+export type RevisionVectorDimension = Readonly<{ revisionOwner: string; revisionDimension: string; revisionRef: string }>;
 export type RevisionVector = readonly RevisionVectorDimension[];
 export type RevisionLineageRelation = "supersedes" | "corrects";
-export type RevisionLineage = Readonly<{
-  relation: RevisionLineageRelation;
-  predecessor: DefinitionRevisionRef;
-  successor: DefinitionRevisionRef;
-}>;
+export type RevisionLineage = Readonly<{ relation: RevisionLineageRelation; predecessor: DefinitionRevisionRef; successor: DefinitionRevisionRef }>;
 
 type UnknownRecord = Record<string, unknown>;
 function asRecord(value: unknown, label: string): UnknownRecord {
@@ -54,62 +39,43 @@ function version(value: unknown): typeof SEMANTIC_SUBSTRATE_CONTRACT_VERSION {
   return SEMANTIC_SUBSTRATE_CONTRACT_VERSION;
 }
 function semanticCoordinates(record: UnknownRecord) {
-  return Object.freeze({
-    contractVersion: version(record.contractVersion),
-    semanticOwner: nonEmpty(record.semanticOwner, "semanticOwner"),
-    semanticKind: nonEmpty(record.semanticKind, "semanticKind"),
-  });
+  return Object.freeze({ contractVersion: version(record.contractVersion), semanticOwner: nonEmpty(record.semanticOwner, "semanticOwner"), semanticKind: nonEmpty(record.semanticKind, "semanticKind") });
 }
-
+function canonicalFromRecord(record: UnknownRecord): CanonicalSemanticIdentityRef {
+  return Object.freeze({ ...semanticCoordinates(record), canonicalRef: nonEmpty(record.canonicalRef, "canonicalRef") });
+}
 export function normalizeCanonicalSemanticIdentityRef(input: unknown): CanonicalSemanticIdentityRef {
   const record = asRecord(input, "canonical semantic identity");
   assertExactFields(record, ["contractVersion", "semanticOwner", "semanticKind", "canonicalRef"], "canonical semantic identity");
-  return Object.freeze({ ...semanticCoordinates(record), canonicalRef: nonEmpty(record.canonicalRef, "canonicalRef") });
+  return canonicalFromRecord(record);
 }
 export function normalizeDefinitionRef(input: unknown): DefinitionRef {
   const record = asRecord(input, "semantic definition ref");
   assertExactFields(record, ["contractVersion", "semanticOwner", "semanticKind", "canonicalRef", "definitionRef"], "semantic definition ref");
-  const canonical = normalizeCanonicalSemanticIdentityRef(record);
-  return Object.freeze({ ...canonical, definitionRef: nonEmpty(record.definitionRef, "definitionRef") });
+  return Object.freeze({ ...canonicalFromRecord(record), definitionRef: nonEmpty(record.definitionRef, "definitionRef") });
 }
 export function normalizeOccurrenceRef(input: unknown): OccurrenceRef {
   const record = asRecord(input, "semantic occurrence ref");
   assertExactFields(record, ["contractVersion", "semanticOwner", "semanticKind", "canonicalRef", "occurrenceRef"], "semantic occurrence ref");
-  const canonical = normalizeCanonicalSemanticIdentityRef(record);
-  return Object.freeze({ ...canonical, occurrenceRef: nonEmpty(record.occurrenceRef, "occurrenceRef") });
+  return Object.freeze({ ...canonicalFromRecord(record), occurrenceRef: nonEmpty(record.occurrenceRef, "occurrenceRef") });
 }
 export function normalizeRealizationIdentityRef(input: unknown): RealizationIdentityRef {
   const record = asRecord(input, "semantic realization identity");
   assertExactFields(record, ["contractVersion", "semanticOwner", "semanticKind", "realizationProvider", "realizationRef"], "semantic realization identity");
   return Object.freeze({ ...semanticCoordinates(record), realizationProvider: nonEmpty(record.realizationProvider, "realizationProvider"), realizationRef: nonEmpty(record.realizationRef, "realizationRef") });
 }
-
 export function normalizeDefinitionRevisionRef(input: unknown): DefinitionRevisionRef {
   const record = asRecord(input, "definition revision ref");
   assertExactFields(record, ["contractVersion", "semanticOwner", "semanticKind", "canonicalRef", "definitionRef", "revisionOwner", "revisionDimension", "revisionRef"], "definition revision ref");
-  const definition = normalizeDefinitionRef({
-    contractVersion: record.contractVersion, semanticOwner: record.semanticOwner, semanticKind: record.semanticKind,
-    canonicalRef: record.canonicalRef, definitionRef: record.definitionRef,
-  });
-  return Object.freeze({
-    ...definition,
-    revisionOwner: nonEmpty(record.revisionOwner, "revisionOwner"),
-    revisionDimension: nonEmpty(record.revisionDimension, "revisionDimension"),
-    revisionRef: nonEmpty(record.revisionRef, "revisionRef"),
-  });
+  return Object.freeze({ ...canonicalFromRecord(record), definitionRef: nonEmpty(record.definitionRef, "definitionRef"), revisionOwner: nonEmpty(record.revisionOwner, "revisionOwner"), revisionDimension: nonEmpty(record.revisionDimension, "revisionDimension"), revisionRef: nonEmpty(record.revisionRef, "revisionRef") });
 }
-
 export function normalizeRevisionVector(input: unknown): RevisionVector {
   if (!Array.isArray(input)) throw new Error("revision vector must be an array");
   const seen = new Set<string>();
   const dimensions = input.map((value) => {
     const record = asRecord(value, "revision vector dimension");
     assertExactFields(record, ["revisionOwner", "revisionDimension", "revisionRef"], "revision vector dimension");
-    const normalized = Object.freeze({
-      revisionOwner: nonEmpty(record.revisionOwner, "revisionOwner"),
-      revisionDimension: nonEmpty(record.revisionDimension, "revisionDimension"),
-      revisionRef: nonEmpty(record.revisionRef, "revisionRef"),
-    });
+    const normalized = Object.freeze({ revisionOwner: nonEmpty(record.revisionOwner, "revisionOwner"), revisionDimension: nonEmpty(record.revisionDimension, "revisionDimension"), revisionRef: nonEmpty(record.revisionRef, "revisionRef") });
     const key = `${normalized.revisionOwner}\u0000${normalized.revisionDimension}`;
     if (seen.has(key)) throw new Error(`duplicate revision dimension: ${normalized.revisionOwner}/${normalized.revisionDimension}`);
     seen.add(key);
@@ -118,7 +84,6 @@ export function normalizeRevisionVector(input: unknown): RevisionVector {
   dimensions.sort((a, b) => a.revisionOwner.localeCompare(b.revisionOwner) || a.revisionDimension.localeCompare(b.revisionDimension));
   return Object.freeze(dimensions);
 }
-
 export function normalizeRevisionLineage(input: unknown): RevisionLineage {
   const record = asRecord(input, "revision lineage");
   assertExactFields(record, ["relation", "predecessor", "successor"], "revision lineage");
