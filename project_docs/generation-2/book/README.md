@@ -26,7 +26,10 @@ Quando uma conclusão evoluir, o livro deve explicar a evolução em vez de apag
 - Apêndice A: aprofunda provas, federação, provenance e limites das alegações.
 - Apêndice B: explica operabilidade e a separação entre feature completeness, production readiness, runtime health e business convergence.
 - Apêndice C: explica Elicitation & System Understanding como disciplina de reduzir incerteza sem confundir pergunta respondida, evidência suficiente, decisão e readiness.
-- Apêndice D: explica a passagem de hipótese para arquitetura ocorrida em Planning C C0/C1: Typed Semantic Graph, revision vectors, execução/effects, qualified evidence, provider/federation/locality, EKB, coverage e Production Readiness Coverage agora possuem decisões arquiteturais autoritativas no escopo decidido.
+- Apêndice D: explica a passagem de hipótese para arquitetura ocorrida em Planning C C0/C1.
+- Apêndice E: acompanha a passagem da semântica constitucional para capabilities e superfícies governadas em Planning C.
+- Apêndice F: explica Authorization como plano canônico de autoridade, currentness e convergência.
+- Apêndice G: explica Trust/PKI como plano provider-neutral, revision-qualified, temporal, evidenciado e population-aware.
 - Glossário: evolutivo e didático; definições autoritativas continuam nos artefatos de pesquisa/planejamento.
 
 A primeira sequência editorial está completa. O modo normal é **manutenção editorial bounded**: revisar somente capítulos cujo entendimento realmente mudou e registrar PATCH/MINOR/MAJOR conforme impacto.
@@ -46,13 +49,25 @@ saturação da pesquisa adversarial
       e carregar seus findings/obrigações para o próximo gate
 ```
 
-## Planning C agora está ativo — C0 e C1 decididos
+## Planning C ativo — C0/C1/C2 decididos e C3 em 11/28
 
-O estado autoritativo avançou materialmente desde o fechamento da pesquisa adversarial. `PLANNING_C_TARGET_ARCHITECTURE` está `ACTIVE / OPEN`: **C0 — Universal Capability Architecture / Semantic Substrate** e **C1 — Elicitation & System Understanding** estão `DECIDED / PASS`; C2 — Physical / Peripheral Integration boundary — é o próximo estágio. C3 e as 28 decisões alvo por capability ainda permanecem pendentes.
+O estado autoritativo avançou materialmente. `PLANNING_C_TARGET_ARCHITECTURE` permanece `ACTIVE / OPEN`: **C0 — Universal Capability Architecture / Semantic Substrate**, **C1 — Elicitation & System Understanding** e **C2 — Physical / Peripheral Integration boundary** estão `DECIDED / PASS`. A arquitetura alvo capability-by-capability de C3 chegou a **11/28**, com **Enterprise Trust / PKI / Certificate Lifecycle** como decisão mais recente. O próximo alvo autorizado é **C3.12 — Privacy / Data Governance / Retention / Legal Hold / Residency**. Planning D continua bloqueado até o fechamento de Planning C.
 
-Isso muda a leitura editorial de algumas ideias que antes eram apenas hipóteses. No escopo de C0, Typed Semantic Graph, `RevisionVector`, `ExecutionEnvelope`, `ExecutionState`, `ExecutionJournal`, `EffectDisposition`, qualified evidence/claims, proof-domain separation, provider support vectors, federation contract continuity, qualified local closure, non-amplifying authority e analytical-kind preservation passaram a compor a arquitetura alvo. No escopo de C1, EKB híbrida/versionada/auditável, `QuestionDefinition != QuestionOccurrence`, information kinds tipados, routing híbrido, contradições explícitas, coverage multidimensional, quatro gates de suficiência e Production Readiness Coverage também foram decididos.
+C0 promoveu Typed Semantic Graph, `RevisionVector`, `ExecutionEnvelope`, `ExecutionState`, `ExecutionJournal`, `EffectDisposition`, qualified evidence/claims, proof-domain separation, provider support vectors, federation contract continuity, qualified local closure, non-amplifying authority e analytical-kind preservation. C1 decidiu EKB híbrida/versionada/auditável, `QuestionDefinition != QuestionOccurrence`, information kinds tipados, routing híbrido, contradições explícitas, coverage multidimensional, quatro gates de suficiência e Production Readiness Coverage. C2 delimitou Physical/Peripheral como plano bounded de integração/governança sem inferir uma capability genérica de atuação física direta.
 
-A promoção é precisa:
+C3 já tornou concretas várias consequências dessas constituições. Em especial, C3.11 decidiu um **Canonical Enterprise Trust & PKI Plane** provider-neutral e qualificado por revisão. Trust passa a distinguir domínios/relações, anchor/bundle generations, issuer generations, logical key/certificate identities, emissão, distribuição, consumer-effective adoption, validação/currentness, revogação, residual cohorts, provider substitution, offline verification e recovery trust-epoch crossing.
+
+```text
+certificate chain valid != applicable policy/currentness satisfied
+issued != distributed != consumer-effective
+revocation unknown != valid
+signature verified != semantic truth
+restored trust material != currently qualified trust material
+```
+
+O Apêndice G explica esse delta pedagogicamente enquanto o Capítulo 15 aguarda uma revisão bounded. Sua tese central continua válida, mas alguns trechos que ainda classificam contratos de trust como hipótese deverão ser promovidos a `DECIDIDO` quando a revisão versionada for aplicada.
+
+A promoção epistemológica continua precisa:
 
 ```text
 hipótese de pesquisa
@@ -67,6 +82,4 @@ arquitetura alvo decidida
     != Planning C completo
 ```
 
-O Apêndice D registra essa transição de forma pedagógica enquanto os capítulos afetados aguardam revisão bounded. A incorporação aos capítulos deve preservar suas identidades e elevar versão apenas quando a revisão for efetivamente aplicada; não se deve fazer bump apenas porque a revisão foi identificada.
-
-Editorialmente, os candidatos mais diretamente afetados por C0/C1 são os Capítulos 02, 03, 05, 06, 07, 12, 13, 14, 18, 21, 22 e 23, além dos Apêndices A–C. Até a aplicação de cada revisão, suas versões publicadas continuam válidas como registro histórico de `v1.0.0`, mas trechos que chamam C0/C1 de hipótese devem ser lidos à luz das decisões autoritativas posteriores e serão reconciliados boundedmente.
+Editorialmente, os capítulos mais diretamente afetados pelas decisões já tomadas em Planning C devem ser revisados de forma bounded, sem bumps antecipados. A identidade de cada capítulo permanece estável e sua versão só muda quando a revisão for efetivamente aplicada.
