@@ -4,7 +4,13 @@ Status: `COMMITTED / PLANNING`
 
 Base: `d8760c7f08757bb164a758ae0c3f0a4a1752464b` (fresh `main`)
 
-Planning authority: exact reviewed `research/g2-capability-pipeline` artifacts at `READY_FOR_WORKER_HANDOFF`, especially `GENERATION_2_WBS_DECOMPOSITION.md`, `GENERATION_2_WBS_DEPENDENCY_GRAPH.md`, `GENERATION_2_WORK_PACKAGE_DESIGN.md`, and `GENERATION_2_READY_FOR_WORKER_HANDOFF.md`.
+Planning authority: exact reviewed `research/g2-capability-pipeline` revision `2ef10187d691666b45cba5978671570f0ff90c2a` at `READY_FOR_WORKER_HANDOFF`, specifically:
+
+- `project_docs/generation-2/RESEARCH_PIPELINE_STATE.json`;
+- `project_docs/generation-2/wbs/GENERATION_2_WBS_DECOMPOSITION.md`;
+- `project_docs/generation-2/wbs/GENERATION_2_WBS_DEPENDENCY_GRAPH.md`;
+- `project_docs/generation-2/packages/GENERATION_2_WORK_PACKAGE_DESIGN.md`;
+- `project_docs/generation-2/packages/GENERATION_2_READY_FOR_WORKER_HANDOFF.md`.
 
 Execution authorization: user-authorized `G2-WP-01..G2-WP-13`, bounded by the designed WPs/DAG and repository Sprint policy.
 
@@ -25,7 +31,7 @@ Deliver `G2-WBS-01` — the semantic substrate, revision and graph constitution 
 ## Predecessor/readiness
 
 - M19/P19 is canonically CLOSED / PRE-ALPHA on fresh main.
-- Generation 2 planning pipeline is `READY_FOR_WORKER_HANDOFF`.
+- Generation 2 planning pipeline is `READY_FOR_WORKER_HANDOFF` at the pinned authority revision above.
 - `G2-WP-01` has no predecessor Work Package; Architecture/WBS planning chain is CLOSED/PASS.
 - No open PR or same-head CI was present at planning start.
 
@@ -78,7 +84,7 @@ Committed TASK dependency order:
 4. `TASK-G2-004` — implement deterministic revision history/currentness resolution preserving historical addressability and `PARTIAL/UNKNOWN`.
 5. `TASK-G2-005` — extend the real product proof across identity -> revision -> typed graph contract, including provider/external-ID churn, stale/superseded revision, invalid owner/evidence/currentness and no authority strengthening.
 
-TASK specs are materialized under `project_docs/tasks/generation-2/` and are authoritative for paths/file limits/validation before implementation.
+TASK specs are materialized under `specs/tasks/` and are authoritative for paths/file limits/validation before implementation.
 
 Final Sprint validation: `npm run verify`; heavy tests apply only if the actual implementation crosses the repository heavy-test classifier boundary.
 
