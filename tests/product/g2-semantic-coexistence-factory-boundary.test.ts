@@ -8,7 +8,7 @@ import {
 import {
   SEMANTIC_SUBSTRATE_CONTRACT_VERSION,
   normalizeCurrentnessQualification,
-  normalizeSemanticIdentity,
+  normalizeDefinitionRevisionRef,
 } from "../../packages/contracts/semantic-substrate/index.js";
 
 const journey = {
@@ -28,11 +28,15 @@ const semanticSubject = {
   semanticOwner: "factory-boundary",
   semanticKind: "factory-journey",
   canonicalRef: "factory-journey:orders:r2",
+  definitionRef: "factory-journey:orders",
+  revisionOwner: "factory-boundary",
+  revisionDimension: "factory-journey",
+  revisionRef: "r2",
 } as const;
 
 function qualifyFactoryJourney(input: { journey: unknown; semanticSubject: unknown; currentness: unknown }) {
   const canonicalJourney = normalizeFactoryJourneyEnvelope(input.journey);
-  const subject = normalizeSemanticIdentity(input.semanticSubject);
+  const subject = normalizeDefinitionRevisionRef(input.semanticSubject);
   const currentness = normalizeCurrentnessQualification(input.currentness);
 
   if (subject.semanticOwner !== "factory-boundary") {
@@ -40,6 +44,9 @@ function qualifyFactoryJourney(input: { journey: unknown; semanticSubject: unkno
   }
   if (subject.semanticKind !== "factory-journey") {
     throw new Error("factory semantic subject must use factory-journey kind");
+  }
+  if (subject.revisionOwner !== "factory-boundary") {
+    throw new Error("factory semantic revision must remain owned by factory-boundary");
   }
   if (JSON.stringify(currentness.subject) !== JSON.stringify(subject)) {
     throw new Error("currentness subject must exactly match the factory semantic subject");
@@ -52,7 +59,13 @@ function currentness(state: "CURRENT" | "STALE" | "UNKNOWN") {
   return {
     contractVersion: SEMANTIC_SUBSTRATE_CONTRACT_VERSION,
     subject: semanticSubject,
-    revisionVector: [],
+    revisionVector: [
+      {
+        revisionOwner: semanticSubject.revisionOwner,
+        revisionDimension: semanticSubject.revisionDimension,
+        revisionRef: semanticSubject.revisionRef,
+      },
+    ],
     temporal: {
       occurredAt: null,
       observedAt: "2026-09-07T21:00:00Z",
@@ -79,30 +92,50 @@ test("factory journey lineage remains canonical while semantic qualification is 
   assert.equal(bound.canonicalJourney.stages[4]!.identityRef, "release:orders:r2");
   assert.equal(bound.canonicalJourney.stages[5]!.provenanceRef, "release:orders:r2");
   assert.equal(bound.subject.semanticOwner, "factory-boundary");
+  assert.equal(bound.subject.revisionOwner, "factory-boundary");
   assert.equal(bound.currentness.state, "CURRENT");
 });
 
 test("equal realization labels cannot collapse owner-qualified semantic identity", () => {
-  const factory = normalizeSemanticIdentity(semanticSubject);
-  const runtime = normalizeSemanticIdentity({
+  const factory = normalizeDefinitionRevisionRef(semanticSubject);
+  const runtime = normalizeDefinitionRevisionRef({
     ...semanticSubject,
     semanticOwner: "runtime-core",
     semanticKind: "runtime-realization",
+    revisionOwner: "runtime-core",
+    revisionDimension: "runtime-realization",
   });
 
   assert.equal(factory.canonicalRef, runtime.canonicalRef);
   assert.notDeepEqual(factory, runtime);
   assert.notEqual(factory.semanticOwner, runtime.semanticOwner);
+  assert.notEqual(factory.revisionOwner, runtime.revisionOwner);
 });
 
 test("owner substitution and mismatched currentness fail closed", () => {
   assert.throws(
-    () => qualifyFactoryJourney({ journey, semanticSubject: { ...semanticSubject, semanticOwner: "runtime-core" }, currentness: currentness("CURRENT") }),
+    () =>
+      qualifyFactoryJourney({
+        journey,
+        semanticSubject: { ...semanticSubject, semanticOwner: "runtime-core" },
+        currentness: {
+          ...currentness("CURRENT"),
+          subject: { ...semanticSubject, semanticOwner: "runtime-core" },
+        },
+      }),
     /must remain owned by factory-boundary/,
   );
 
   assert.throws(
-    () => qualifyFactoryJourney({ journey, semanticSubject, currentness: { ...currentness("CURRENT"), subject: { ...semanticSubject, canonicalRef: "factory-journey:other" } } }),
+    () =>
+      qualifyFactoryJourney({
+        journey,
+        semanticSubject,
+        currentness: {
+          ...currentness("CURRENT"),
+          subject: { ...semanticSubject, canonicalRef: "factory-journey:other" },
+        },
+      }),
     /currentness subject must exactly match/,
   );
 });
