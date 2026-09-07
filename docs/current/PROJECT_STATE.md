@@ -2,16 +2,18 @@
 
 Date: 2026-09-07
 
-## Generation 2 — EXECUTION AUTHORIZED / WP-01 PLANNING ACTIVE
+## Generation 2 — EXECUTION AUTHORIZED / WP-01 ACTIVE
 Generation 2 research/planning reached `READY_FOR_WORKER_HANDOFF` after Research/Synthesis, Planning A-E, Architecture Reconciliation, WBS Decomposition, WBS Dependency Graph and Work Package Design all CLOSED/PASS. The design contains 28 canonical capabilities, 26 WBS planning nodes and 13 macro Work Package design units. The repository owner explicitly authorized execution of `G2-WP-01..G2-WP-13` under the existing rolling-wave, dependency, review, L3/L4, safety and closure policies.
 
-Fresh `main` remains `d8760c7f08757bb164a758ae0c3f0a4a1752464b`, exactly the Planning B current-state evidence anchor. No product change has occurred after the canonical P19 closure.
+Fresh `main` is `0cdded2fe3d4ad021c16df6c010da7000943fac4`, the merge of G2-WP-01 Construction B PR #553. Exact reviewed head `e0b4b96c42da418f88f1658663704432df475694` passed Deterministic CI #1410, Heavy Product Tests #888 and Automation Handoff #999. Reviewed head and merge-main share the same tree, so integration introduced zero file drift.
 
-`G2-WP-01 — Semantic Constitution & Federated Revision Base` is the first selected dependency-safe Work Package because `G2-WBS-01` is the Layer L0 constitutional semantic base. Planning & Materialization is active on `sprint/G2-WP01-PLANNING-MATERIALIZATION-01`.
+`G2-WP-01 — Semantic Constitution & Federated Revision Base` remains ACTIVE and selected because `G2-WBS-01` is the Layer L0 constitutional semantic base.
 
-Only Construction A is materialized: `G2-SEMANTIC-CONTRACT-FOUNDATION-01` is `COMMITTED / MATERIALIZED / NOT EXECUTED` with TASK-463..468. Construction B remains FORECAST; Construction C remains OPTIONAL / FORECAST; `G2-WP-02..13` remain DESIGNED / NOT MATERIALIZED. No G2 product code is integrated in `main` yet.
+Construction A `G2-SEMANTIC-CONTRACT-FOUNDATION-01` / TASK-463..468 is EXECUTED / REVIEWED / INTEGRATED. Construction B `G2-SEMANTIC-CONSUMER-COEXISTENCE-01` / TASK-469..472 is EXECUTED / REVIEWED / INTEGRATED. Together they establish the additive owner-qualified semantic substrate and prove directional coexistence with the historically authoritative process-versioning, evidence-provenance and factory-boundary owners without rewriting historical identity, revision, evidence semantics or lifecycle authority.
 
-The first Construction slice is deliberately additive: a public structural contract family under `packages/contracts/semantic-substrate/**` may implement owner-qualified semantic identity, immutable sparse revision qualification, temporal/currentness coordinates, typed graph relations and bounded federation/locality. It must not replace existing G1 domain contracts, create a universal semantic owner/evaluator, introduce Runtime->Builder dependency or infer an L4 topology change.
+Fresh post-B conformance found no bounded remaining product gap required by the WP-01 Package Goal. Optional Construction C `G2-SEMANTIC-HARDENING-01` is therefore `NOT REQUIRED / NOT MATERIALIZED`; it is not promoted for cadence alone. Package Integration & Review is the next eligible WP-01 stage and remains `FORECAST / NOT MATERIALIZED` until its own bounded planning/materialization action. Documentation & Closure remains FORECAST. `G2-WP-02..13` remain DESIGNED / NOT MATERIALIZED.
+
+The integrated WP-01 product remains deliberately additive: public structural contracts under `packages/contracts/semantic-substrate/**` implement owner-qualified semantic identity, immutable sparse revision qualification, temporal/currentness coordinates, typed graph relations and bounded federation/locality. Existing G1 owners remain authoritative; the substrate does not create a universal semantic owner/evaluator, Runtime->Builder dependency, provider authority or implicit L4 topology change.
 
 ## Preserved predecessor truth
 M13, M14, M15, M16, M17, M18 and M19 remain CLOSED. PRE-M16 Contract Conformance Hardening is CLOSED. `P16-PACKAGE-01`, `P16-PACKAGE-02`, `P16-PACKAGE-03`, `P17-PACKAGE-01`, `P17-PACKAGE-02`, `P17-PACKAGE-03` and `P19-PACKAGE-01` remain CLOSED. TD-P13-01..04 remain carried unchanged.
@@ -38,4 +40,4 @@ Sprint 10 `P19-PREALPHA-DOCUMENTATION-CLOSURE-01` exact head `c676cd6bee7ce80aaf
 Immutable candidate evidence `P19-PREALPHA-CANDIDATE-01` remains bound to accepted candidate commit `ec07e0bc9c0ea1147da04d83c749cb49cde11fad`, tree `d25073f946c363f73a996da7914af9ab3b87f65e`. Existing P19 Factory/Compiler/Release/Deploy/Runtime/Observe owners remain authoritative predecessors for G2 and are not reopened by WP-01.
 
 ## Current execution gate
-Complete and integrate `G2-WP01-PLANNING-MATERIALIZATION-01`. After merge, reconstruct fresh `main` and revalidate the G2 planning source before creating `sprint/G2-SEMANTIC-CONTRACT-FOUNDATION-01`. Do not promote Construction B/C or another Work Package in the same action.
+Materialize at most the WP-01 Package Integration & Review stage from fresh `main` after revalidating the exact G2 planning authority and integrated Construction A/B evidence. Do not create optional Construction C without new bounded evidence proving it necessary, do not advance Documentation & Closure in the same promotion action, and do not materialize another Work Package as a side effect.
