@@ -1,9 +1,10 @@
 # G2-WP01-PLANNING-MATERIALIZATION-01 — Sprint Report
 
-Status: PLANNING COMPLETE / PR PENDING
+Status: PLANNING COMPLETE / PR #550 OPEN / EXACT-HEAD CI PENDING
 Date: 2026-09-07
 Fresh-main base: `d8760c7f08757bb164a758ae0c3f0a4a1752464b`
 Branch: `sprint/G2-WP01-PLANNING-MATERIALIZATION-01`
+Review PR: #550
 
 ## Outcome
 Planning & Materialization for `G2-WP-01 — Semantic Constitution & Federated Revision Base` completed without product-code implementation.
@@ -43,4 +44,4 @@ This Planning Sprint changes repository memory/specs only and does not claim loc
 No architecture contradiction or dependency blocker was found. No new canonical capability, L4 topology, migration, provider cutover or product behavior was introduced.
 
 ## Next gate
-Open the Planning Sprint PR to `main`. After required exact-head checks/review and integration, reconstruct fresh `main` before creating `sprint/G2-SEMANTIC-CONTRACT-FOUNDATION-01`. Do not execute TASK-463..468 from the Planning branch and do not promote Construction B in the same action.
+PR #550 must pass required exact-head checks/review and integrate to `main`. After merge, reconstruct fresh `main` before creating `sprint/G2-SEMANTIC-CONTRACT-FOUNDATION-01`. Do not execute TASK-463..468 from the Planning branch and do not promote Construction B in the same action.
