@@ -1,8 +1,8 @@
 # Generation 2 — Execution Handoff
 
-Status: EXECUTION AUTHORIZED / G2-WP-01 SELECTED / CONSTRUCTION A MATERIALIZED
+Status: EXECUTION AUTHORIZED / G2-WP-01 ACTIVE / CONSTRUCTIONS A+B INTEGRATED
 Date: 2026-09-07
-Fresh-main planning base: `d8760c7f08757bb164a758ae0c3f0a4a1752464b`
+Current fresh-main base: `0cdded2fe3d4ad021c16df6c010da7000943fac4`
 Planning-source branch revalidated: `research/g2-capability-pipeline` at `2ef10187d691666b45cba5978671570f0ff90c2a`
 
 ## Authority transition
@@ -11,14 +11,15 @@ The Generation 2 research/planning pipeline reached `READY_FOR_WORKER_HANDOFF` a
 This authorization enables Planning & Materialization and eligible Construction/review/closure transitions inside the designed Work Packages. It does not convert forecasts into committed work, bypass predecessor/readiness gates, authorize undeclared L4 changes, absorb unrelated findings/debt or weaken security/governance/architecture constraints.
 
 ## Current commitment horizon
-Only the following work is selected/materialized by this handoff:
+`G2-WP-01 — Semantic Constitution & Federated Revision Base` remains ACTIVE.
 
-- Work Package: `G2-WP-01 — Semantic Constitution & Federated Revision Base` — ACTIVE / PLANNED.
-- Planning Sprint: `G2-WP01-PLANNING-MATERIALIZATION-01` — ACTIVE on its planning branch.
-- First Construction Sprint: `G2-SEMANTIC-CONTRACT-FOUNDATION-01` — COMMITTED / MATERIALIZED / NOT EXECUTED.
-- Committed TASK set for Construction A: `TASK-463..TASK-468`.
+- Construction A `G2-SEMANTIC-CONTRACT-FOUNDATION-01` / TASK-463..468 is EXECUTED / REVIEWED / INTEGRATED. Exact reviewed head `39237d52a971399a767da911c1d94b9b72a68be7` passed Deterministic CI #1398 and Heavy Product Tests #874.
+- Construction B `G2-SEMANTIC-CONSUMER-COEXISTENCE-01` / TASK-469..472 is EXECUTED / REVIEWED / INTEGRATED. Exact reviewed head `e0b4b96c42da418f88f1658663704432df475694` passed Deterministic CI #1410, Heavy Product Tests #888 and Automation Handoff #999 and merged through PR #553 as fresh main `0cdded2fe3d4ad021c16df6c010da7000943fac4` with identical reviewed/merge tree.
+- Optional Construction C `G2-SEMANTIC-HARDENING-01` is NOT REQUIRED / NOT MATERIALIZED on current evidence; no bounded remaining product gap justifies its promotion.
+- Package Integration & Review is the next eligible WP-01 stage and remains FORECAST / NOT MATERIALIZED.
+- Documentation & Closure remains FORECAST.
 
-`G2-WP-02..G2-WP-13` remain DESIGNED / NOT MATERIALIZED. Construction B of WP-01 remains FORECAST. Construction C remains OPTIONAL / FORECAST.
+`G2-WP-02..G2-WP-13` remain DESIGNED / NOT MATERIALIZED. Selection of WP-01 review does not implicitly select another Work Package.
 
 ## Planning authorities carried forward
 Workers must revalidate the authoritative G2 planning source when beginning or promoting work, especially:
@@ -48,9 +49,9 @@ The research branch remains planning-source history; product execution branches 
 - `Research != remediation`, `ConflictPattern != ConflictInstance`, `Signal != ConfirmedConflict`.
 
 ## Execution protocol
-Follow `AGENTS.md`, `SPRINT_GENERATION_POLICY.md` and `SPRINT_MODE.md`. Only the active Sprint is committed. Every Construction Sprint uses one `sprint/<SPRINT-ID>` branch, committed TASKs in dependency order, one authoritative commit per TASK, declared validations, growing proof, repository-wide verification, one PR and exact-head CI/review before integration.
+Follow `AGENTS.md`, `SPRINT_GENERATION_POLICY.md` and `SPRINT_MODE.md`. Only a materialized Sprint/stage is committed. Every Construction Sprint uses one `sprint/<SPRINT-ID>` branch, committed TASKs in dependency order, one authoritative commit per TASK, declared validations, growing proof, repository-wide verification, one PR and exact-head CI/review before integration.
 
-After each merge reconstruct fresh `main` before promoting at most one successor Sprint. Construction C is promoted only when fresh evidence proves it necessary. Package Review and Documentation/Closure cannot hide missing product implementation.
+After each merge reconstruct fresh `main` before promoting at most one successor. Optional Construction C is promoted only when fresh evidence proves it necessary. Package Review and Documentation/Closure cannot hide missing product implementation.
 
 ## Current next action
-Integrate the Planning & Materialization Sprint. Then reconstruct fresh `main`; if no superseding authority/blocker exists, create `sprint/G2-SEMANTIC-CONTRACT-FOUNDATION-01` from that exact main and execute `TASK-463 -> TASK-468`. Do not start Construction B in the same promotion action.
+From fresh main `0cdded2fe3d4ad021c16df6c010da7000943fac4`, revalidate the exact planning source and integrated A/B evidence and materialize at most the bounded **G2-WP-01 Package Integration & Review** stage. Do not materialize optional Construction C without new bounded evidence, do not advance Documentation & Closure in the same promotion action, and do not select `G2-WP-02..13` as a side effect.
