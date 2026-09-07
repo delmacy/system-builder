@@ -150,21 +150,24 @@
     "status": "ACTIVE / OPEN",
     "entry_framework": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
     "entry_head": "9f4627261b7eb2a0649766e38da36f6ffcb8a6f4",
-    "stage": "D1 CLOSED / PASS — D2 AUTHORITY IDENTITY TRUST AND SECRETS PREREQUISITES NEXT",
+    "stage": "D2 CLOSED / PASS — D3 DATA WORKFLOW AND EXTERNAL-EFFECT SEMANTICS NEXT",
     "d0_status": "DECIDED / PASS FOR D0",
     "d0_artifact": "project_docs/generation-2/planning/PLANNING_D_D0_MIGRATION_CONSTITUTION_CROSS_CUTTING_DEPENDENCY_GRAPH.md",
     "d0_decision_head": "cf6ae3a0f2bba2a1045a0957f7d7744d68d113a6",
     "d1_status": "DECIDED / PASS FOR D1",
     "d1_artifact": "project_docs/generation-2/planning/PLANNING_D_D1_SEMANTIC_SUBSTRATE_ELICITATION_COEXISTENCE.md",
     "d1_decision_head": "c8b13aa6889c193ed37f33d3f9fd8d20d8b8506c",
+    "d2_status": "DECIDED / PASS FOR D2",
+    "d2_artifact": "project_docs/generation-2/planning/PLANNING_D_D2_AUTHORITY_IDENTITY_TRUST_SECRETS_PREREQUISITES.md",
+    "d2_decision_head": "6ef1b98f15224aafa266084c7b8729b0838fb5ee",
     "completed_capability_records": 0,
     "canonical_capability_count": 28,
     "inherited_adversarial_findings": 408,
     "migration_state_vocabulary": ["DISCOVERED","QUALIFIED","COEXISTENCE_READY","SHADOWING","PARTIAL_CUTOVER","CUTOVER","RESIDUAL_DRAIN","RECONCILED","CLOSED","BLOCKED","CONFLICTED","ABORTED","ROLLED_FORWARD","ROLLED_BACK_WHERE_REVERSIBLE","MANUAL_RECONCILIATION_REQUIRED"],
     "dependency_edge_kinds": ["SEMANTIC_PREREQUISITE","AUTHORITY_PREREQUISITE","REVISION_PREREQUISITE","EVIDENCE_PREREQUISITE","PROVIDER_PREREQUISITE","DATA_PREREQUISITE","OPERABILITY_PREREQUISITE","TRUST_PREREQUISITE","LOCALITY_PREREQUISITE"],
-    "global_gate": "OPEN — D0/D1 CLOSED/PASS; D2 authority, identity, trust and secrets prerequisites is next; Planning E remains blocked",
+    "global_gate": "OPEN — D0/D1/D2 CLOSED/PASS; D3 data, workflow and external-effect semantics is next; Planning E remains blocked",
     "global_blocker": null,
-    "next_decision": "D2 — Authority, Identity, Trust and Secrets prerequisites"
+    "next_decision": "D3 — Data, Workflow and External-Effect Semantics"
   },
   "gates": {
     "RESEARCH_ELICITATION": "CLOSED",
@@ -175,7 +178,7 @@
     "RESEARCH_MATHEMATICAL_EXPRESSIONS_RULES_CALCULATION": "CLOSED / PASS",
     "RESEARCH_ADVERSARIAL_EDGE_CASE_SATURATION": "CLOSED / SATURATED / PASS — Full Passes 1-8 complete; 28/28 capabilities + 12/12 mandatory clusters; 284 edge scenarios + 124 ConflictPatterns = 408 material findings; 0 HIGH/CRITICAL without owner/proof/detection route.",
     "PLANNING_C_TARGET_ARCHITECTURE": "CLOSED / PASS — C0/C1/C2 and C3.1-C3.28 coherent; inherited 408 adversarial findings retained as constraints/proof routes.",
-    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "ACTIVE / OPEN — D0/D1 CLOSED/PASS; D2 authority, identity, trust and secrets prerequisites is next",
+    "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY": "ACTIVE / OPEN — D0/D1/D2 CLOSED/PASS; D3 data, workflow and external-effect semantics is next",
     "PLANNING_E_PRODUCT_PROOF_ACCEPTANCE": "BLOCKED — Planning D must close first"
   },
   "artifact_roots": {
@@ -185,9 +188,9 @@
     "wbs": "project_docs/generation-2/wbs/",
     "packages": "project_docs/generation-2/packages/"
   },
-  "current_focus": "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY remains ACTIVE / OPEN. D0 and D1 are CLOSED / PASS. D1 establishes incremental coexistence for owner-qualified semantic identity/revision/reference semantics and the versioned Elicitation Knowledge Base alongside free-form/Brownfield evidence, preserving typed information kinds, contradictions, provenance/currentness, adaptive-routing shadowing, owner-preserving cross-capability linkage, dimensional coverage and separate Production Readiness Coverage. The next ordered action is D2 authority, identity, trust and secrets prerequisites. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict. Planning E and all later execution phases remain blocked.",
-  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_D_D1_SEMANTIC_SUBSTRATE_ELICITATION_COEXISTENCE.md",
+  "current_focus": "PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY remains ACTIVE / OPEN. D0, D1 and D2 are CLOSED / PASS. D2 establishes authority-first, trust-qualified and residual-aware coexistence for Identity/Authentication/Federation, Authorization/Policy/Organization/Multitenancy, Enterprise Trust/PKI/Certificate Lifecycle, Secrets/Configuration/Environment Portability and Security/Resilience/Failure Recovery. It preserves canonical identity versus provider evidence, non-amplifying authority, delegation/SoD/break-glass bounds, session/token/grant/credential/trust/config residual cohorts, end-to-end revoke/rotation/deprovision currentness, provider support vectors, offline/local closure, recovery re-protection and Elicitation/System Understanding plus separate Production Readiness Coverage. The next ordered action is D3 data, workflow and external-effect semantics. Research remains CLOSED/SATURATED/PASS and distinct from remediation; ConflictPattern remains distinct from ConflictInstance; Signal remains distinct from ConfirmedConflict. Planning E and all later execution phases remain blocked.",
+  "last_completed_artifact": "project_docs/generation-2/planning/PLANNING_D_D2_AUTHORITY_IDENTITY_TRUST_SECRETS_PREREQUISITES.md",
   "last_framework_artifact": "project_docs/generation-2/planning/PLANNING_D_DEPENDENCY_MIGRATION_STRATEGY_ENTRY_FRAMEWORK.md",
-  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning D D2 — Authority, Identity, Trust and Secrets prerequisites. Plan coexistence/migration for Identity/Authentication/Federation, Authorization/Policy/Organization/Multitenancy, Enterprise Trust/PKI/Certificate Lifecycle, Secrets/Configuration/Environment Portability and Security/Resilience/Failure Recovery. Preserve non-amplifying authority, external identity/group/grant evidence versus canonical truth, session/token/credential/trust/config residual cohorts, revocation/rotation currentness, break-glass/delegation/SoD, provider mappings/support vectors, offline/local closure, PARTIAL/UNKNOWN, reconcile-before-retry where applicable, queue/backpressure/capacity, Elicitation/System Understanding coverage and separate Production Readiness Coverage. Carry Planning E proof routes only; do not execute D3+, Planning E, Architecture Reconciliation phase, WBS, Work Packages, executive TASKs, Construction or product code in the same action.",
-  "updated_at": "2026-09-07T03:12:00-03:00"
+  "next_action": "Re-read project_docs/generation-2/RESEARCH_PIPELINE_STATE.json and branch head, then execute only Planning D D3 — Data, Workflow and External-Effect Semantics. Plan coexistence/migration for Data/Schema/Migrations, Workflow/Durable Execution, Integration/Automation and Notifications/Events/Messaging. Preserve in-flight producing revisions, ExecutionEnvelope/ExecutionState/ExecutionJournal, effect identity independent of message/delivery/attempt, APPLIED/NOT_APPLIED/PARTIAL/UNKNOWN, UNKNOWN -> reconcile-before-retry unless duplicate safety is independently proven, idempotency horizons, replay/cursor semantics, backfill/CDC and source-of-truth movement, queue/backpressure/capacity, provider/binding qualification, Brownfield evidence, local/offline/Fleet currentness, Elicitation/System Understanding coverage and separate Production Readiness Coverage. Carry Planning E proof routes only; do not execute D4+, Planning E, Architecture Reconciliation phase, WBS, Work Packages, executive TASKs, Construction or product code in the same action.",
+  "updated_at": "2026-09-07T03:23:00-03:00"
 }
