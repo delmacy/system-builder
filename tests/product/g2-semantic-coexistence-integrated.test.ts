@@ -260,8 +260,8 @@ test("typed edges are directional and do not imply reverse authority", () => {
   const edges = view.graph.relations.map((edge) => `${edge.source.semanticOwner}:${edge.relationKind}:${edge.target.semanticOwner}`);
 
   assert.deepEqual(edges, [
-    "evidence-provenance:derives_from:process-versioning",
     "factory-boundary:depends_on:process-versioning",
+    "evidence-provenance:derives_from:process-versioning",
   ]);
   assert.equal(edges.includes("process-versioning:depends_on:factory-boundary"), false);
   assert.equal(edges.includes("process-versioning:derives_from:evidence-provenance"), false);
