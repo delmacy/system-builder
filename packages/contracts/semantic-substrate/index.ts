@@ -227,3 +227,5 @@ export function normalizeTypedSemanticGraph(input: unknown): TypedSemanticGraph 
   relations.sort((a, b) => `${a.relationKind}\u0000${revisionKey(a.source)}\u0000${revisionKey(a.target)}`.localeCompare(`${b.relationKind}\u0000${revisionKey(b.source)}\u0000${revisionKey(b.target)}`));
   return Object.freeze({ contractVersion: version(record.contractVersion), nodes: Object.freeze(nodes), relations: Object.freeze(relations) });
 }
+
+export * from "./federation.js";
