@@ -1,10 +1,26 @@
-# Next Work — Post-M19 Fresh-Main Planning
+# Next Work — G2-WP-01 Planning Gate
 
-M19 Pre-Alpha Productization / `P19-PACKAGE-01` is CANONICALLY CLOSED / PRE-ALPHA. Sprint 10 closure exact head `c676cd6bee7ce80aaf429505570630e82f8ccd88` passed Deterministic CI #1379 and Heavy Product Tests #850 and integrated through replacement review PR #547 with expected-head protection as `c132be6dae80e08ad166e7e357d2151a4f04ee86`. Reviewed closure head and merge-main share tree `80e8f66a550caedfdacfbad20b15253080424e32`, proving zero file drift.
+Generation 2 execution is authorized, but rolling-wave commitment remains narrow.
 
-Immutable candidate evidence remains `P19-PREALPHA-CANDIDATE-01`, bound to accepted candidate commit `ec07e0bc9c0ea1147da04d83c749cb49cde11fad` / tree `d25073f946c363f73a996da7914af9ab3b87f65e` and Sprint 9 reviewed head `3f8b3d8d7e00b98f3eb97c16846f67e62ea6cf19`.
+## Active gate
+Integrate `G2-WP01-PLANNING-MATERIALIZATION-01` from fresh-main base `d8760c7f08757bb164a758ae0c3f0a4a1752464b`. The Planning Sprint has selected `G2-WP-01 — Semantic Constitution & Federated Revision Base`, persisted the G2 execution handoff and materialized only the first Construction Sprint.
 
-## Current gate
-Perform fresh-main planning/revalidation before selecting or materializing any successor milestone/package/Sprint. P19 closure does not itself authorize Generation 2 scope.
+## Next committed Sprint
+After Planning integration and fresh-main revalidation, create:
 
-Preserve canonical M15 `human-decision`, P18 process revision/lineage, existing Factory/Compiler/Release/Deploy/Runtime/Observe owners, immutable identity, external EnvironmentProfile/secrets, Builder-off Runtime, Observe fail-open semantics and last-known-good. TD-P13-01..04 and unrelated findings remain carried unless separately selected by future authority.
+`sprint/G2-SEMANTIC-CONTRACT-FOUNDATION-01`
+
+Execute only:
+
+`TASK-463 -> TASK-464 -> TASK-465 -> TASK-466 -> TASK-467 -> TASK-468`
+
+The Sprint establishes additive owner-qualified semantic identity, sparse immutable revision qualification, temporal/currentness coordinates, typed semantic graph relations and bounded federation/locality contracts with integrated in-memory product proof.
+
+## Still forecast / not authorized for immediate promotion
+- Construction B `G2-SEMANTIC-CONSUMER-COEXISTENCE-01`;
+- optional Construction C `G2-SEMANTIC-HARDENING-01`;
+- Package Integration & Review;
+- Documentation & Closure;
+- `G2-WP-02..G2-WP-13` execution materialization.
+
+Preserve M15 `human-decision`, P18 process-version/lineage and existing Factory/Compiler/Release/Deploy/Runtime/Observe owners. Existing bounded G1 contracts remain historically authoritative; G2 semantic substrate is additive and may not retroactively reinterpret them. TD-P13-01..04 and unrelated findings remain carried outside this scope.
