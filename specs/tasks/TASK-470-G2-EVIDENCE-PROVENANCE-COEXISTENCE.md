@@ -4,6 +4,7 @@ title: Prove evidence-provenance coexistence with semantic substrate
 status: ready
 priority: 470
 milestone: G2
+model_tier: architecture
 risk: high
 architecture_impact: false
 executor_preference: any
@@ -37,8 +38,20 @@ validation:
 # Objective
 Prove that existing evidence/provenance contracts can carry or reference semantic identity qualification additively without converting provenance into truth, currentness or authority.
 
+# Context
+Construction A established structural semantic qualification; evidence-provenance remains the historical owner of evidence identity and interpretation.
+
+# Current behavior
+The public evidence and semantic surfaces exist independently, but no focused coexistence proof currently demonstrates that semantic qualification cannot strengthen evidence meaning.
+
 # Required change
 Exercise real public evidence-provenance exports beside semantic-substrate references. Add only the smallest directional compatibility helper if direct composition is insufficient. Preserve existing binary/bounded evidence semantics exactly.
+
+# Inputs / contracts
+Public evidence-provenance exports plus integrated semantic identity, revision and currentness references.
+
+# Outputs / contracts
+A focused consumer-side coexistence seam/proof preserving evidence identity, payload interpretation and authority boundaries.
 
 # Acceptance criteria
 - provenance remains distinct from semantic truth/currentness/authority;
@@ -50,3 +63,9 @@ Exercise real public evidence-provenance exports beside semantic-substrate refer
 
 # Non-goals
 Evidence storage, new attestation authority, policy evaluation, migration or runtime effects.
+
+# Evidence expected
+Focused happy/negative/adversarial product proof plus repository-wide deterministic, task, architecture and type gates.
+
+# Escalation
+Stop if coexistence requires redefining evidence truth, introducing new attestation authority, reverse dependency, destructive migration or L4 topology.
