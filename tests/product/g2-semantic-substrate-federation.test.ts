@@ -86,9 +86,20 @@ test("remote stale or unknown qualification remains explicit and does not imply 
     value.consumerLocality = { scopeKind: "REMOTE", localityRef: "remote:fleet" };
     value.connectivity = state === "UNKNOWN" ? "UNKNOWN" : "DISCONNECTED";
     const normalized = normalizeFederatedSemanticEdgeQualification(value);
+
+    assert.equal(normalized.producerCurrentness.state, "STALE");
     assert.equal(normalized.consumerCurrentness.state, state);
+    assert.equal(normalized.producerCurrentness.subject.revisionRef, "station-r3");
+    assert.equal(normalized.consumerCurrentness.subject.revisionRef, "fleet-r8");
+    assert.equal(normalized.producerCurrentness.localityScope, "station:A");
+    assert.equal(normalized.consumerCurrentness.localityScope, "remote:fleet");
+    assert.equal(normalized.producerLocality.scopeKind, "STATION");
     assert.equal(normalized.consumerLocality.scopeKind, "REMOTE");
-    assert.notEqual(normalized.producerCurrentness.state, normalized.consumerCurrentness.state);
+    assert.notEqual(normalized.producerSystem.systemRef, normalized.consumerSystem.systemRef);
+    assert.notEqual(normalized.producerCurrentness.subject.semanticOwner, normalized.consumerCurrentness.subject.semanticOwner);
+    assert.notEqual(normalized.producerCurrentness.subject.revisionRef, normalized.consumerCurrentness.subject.revisionRef);
+    assert.notEqual(normalized.producerCurrentness.localityScope, normalized.consumerCurrentness.localityScope);
+    assert.notEqual(normalized.consumerCurrentness.state, "CURRENT");
   }
 });
 
