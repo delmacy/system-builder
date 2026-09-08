@@ -43,12 +43,16 @@ test("TASK-476 preserves competing records and external resolution authority", (
   assert.deepEqual(normalized.affectedGateRefs, ["gate:build-readiness"]);
 });
 
-test("TASK-476 rejects synthetic winner collapse and missing critical route", () => {
+test("TASK-476 rejects synthetic winner collapse and heuristic or AI closure", () => {
   assert.throws(() => normalizeEKBContradictionRecord({ ...contradiction, competingRecords: [contradiction.competingRecords[0]] }), /at least two/);
   assert.throws(() => normalizeEKBContradictionRecord({ ...contradiction, competingRecords: [contradiction.competingRecords[0], contradiction.competingRecords[0]] }), /distinct/);
   assert.throws(() => normalizeEKBContradictionRecord({ ...contradiction, resolutionAuthority: null, routeRef: null }), /requires an external resolution authority or explicit route/);
   assert.throws(() => normalizeEKBContradictionRecord({ ...contradiction, winnerRecordRef: "ekb:record:a" }), /unexpected field winnerRecordRef/);
   assert.throws(() => normalizeEKBContradictionRecord({ ...contradiction, confidence: 0.99 }), /unexpected field confidence/);
+  assert.throws(() => normalizeEKBContradictionRecord({ ...contradiction, newestRecordRef: "ekb:record:b" }), /unexpected field newestRecordRef/);
+  assert.throws(() => normalizeEKBContradictionRecord({ ...contradiction, repetitionCount: 7 }), /unexpected field repetitionCount/);
+  assert.throws(() => normalizeEKBContradictionRecord({ ...contradiction, summaryWinnerRef: "ekb:record:a" }), /unexpected field summaryWinnerRef/);
+  assert.throws(() => normalizeEKBContradictionRecord({ ...contradiction, aiResolvedRecordRef: "ekb:record:b" }), /unexpected field aiResolvedRecordRef/);
 });
 
 test("TASK-476 makes NOT_APPLICABLE evidence-bearing rather than a default", () => {
@@ -82,6 +86,7 @@ test("TASK-476 preserves unresolved and inconclusive outcomes without coercion",
       blockedGateRefs: [],
     });
     assert.equal(routed.outcome, outcome);
+    assert.throws(() => normalizeEKBRoutingRecord({ ...routed, outcome: "RESOLVED" }), /outcome must be one of/);
   }
 });
 
