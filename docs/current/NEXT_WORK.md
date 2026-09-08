@@ -1,19 +1,25 @@
-# Next Work — G2-WP-02 Construction A Gate
+# Next Work — G2-WP-02 Construction A / TASK-478
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
-## Materialized successor
-`G2-WP-02 — Elicitation Knowledge Base & System Understanding` is the first dependency-safe successor after canonical WP-01 closure. Planning authority remains exactly `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
+## Materialized work
+`G2-WP-02 — Elicitation Knowledge Base & System Understanding` remains the active Work Package. Planning authority remains exactly `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
-Planning & Materialization commits only `G2-EKB-CONTRACT-FOUNDATION-01` as Construction A, with chain:
+Construction A `G2-EKB-CONTRACT-FOUNDATION-01` is materialized with strict chain:
 
 `TASK-473 -> TASK-474 -> TASK-475 -> TASK-476 -> TASK-477 -> TASK-478`.
 
-The planned additive product boundary is `packages/contracts/elicitation-knowledge-base/**`, consuming public `semantic-substrate`, `knowledge-boundary` and `evidence-provenance` contracts directionally while preserving their ownership. Focused proof is bounded to `tests/product/g2-elicitation-knowledge-base*.test.ts`.
+TASK-473..477 are integrated on canonical `main`. TASK-478 is READY and is the sole next executive TASK.
 
 ## Active gate
-Do not execute TASK-473 from the Planning branch. First pass exact-head Deterministic CI/repository gates and review, integrate the materialization, reconstruct fresh `main`, and revalidate no relevant same-head CI or concurrent product mutation before the first Construction mutation.
+TASK-478 must close Construction A with one integrated deterministic Product Proof composed only from the public EKB surface produced by TASK-473..477 and immutable public predecessor contracts.
 
-When eligible, TASK-473 is the sole next executive TASK: revisioned `QuestionDefinition` plus context-bound `QuestionOccurrence` identity/lifecycle references with historical producing-revision preservation and negative proof for current-question substitution, owner/revision mismatch and identity-kind collapse.
+Required proof includes historical QuestionOccurrence pinning to producing QuestionDefinition revision/context; distinct governed information kinds and explicit Unknown/Deferred semantics; AI-origin material remaining candidate absent governed transition; provenance/evidence/currentness/locality remaining qualification rather than truth/authority amplification; contradiction and unresolved routes surviving normalization; cross-capability routing without owner cloning; and fail-closed multidimensional sufficiency where critical blocked/conflicted/unqualified coverage prevents PASS.
 
-Construction B/C, Package Review/Closure and `G2-WP-03..G2-WP-13` remain unmaterialized. Do not absorb persistence, UI/Wizard, AI/provider behavior, Brownfield import, domain adoption, authorization/trust, workflow, Production Readiness, TD-P13-01..04 or unrelated findings.
+Mandatory adversarial cases include current-question substitution, implicit information-kind promotion, Unknown coercion, contradiction winner-by-recency/confidence, N/A without rationale, stale-evidence PASS, owner cloning, scalar masking, Fleet/global-to-local strengthening and predecessor reverse dependency.
+
+Allowed work remains bounded to the TASK-478 EKB contract/proof/document paths already materialized. `semantic-substrate`, `knowledge-boundary` and `evidence-provenance` remain read-only predecessor authorities.
+
+Do not absorb persistence, Runtime/Builder topology, UI/Wizard, AI/provider mechanics, Brownfield import, domain adoption, destructive predecessor changes, Production Readiness claims or WP-03+ work. If TASK-478 exposes need for new authority ownership, persistence, destructive predecessor changes or L4 topology, stop and route a bounded follow-up rather than absorbing it.
+
+After TASK-478 passes exact-head Deterministic CI/Heavy/repository gates and integrates from fresh-main, the next eligible action is Construction A Package Integration & Review. Construction B/C and `G2-WP-03..G2-WP-13` remain unmaterialized until their own gate/materialization.
