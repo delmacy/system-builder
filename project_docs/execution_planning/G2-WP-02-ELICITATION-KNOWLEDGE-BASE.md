@@ -1,9 +1,9 @@
 # G2-WP-02 — Elicitation Knowledge Base & System Understanding
 
-Status: ACTIVE / CONSTRUCTIONS A+B INTEGRATED / PACKAGE REVIEW MATERIALIZED
+Status: ACTIVE / CONSTRUCTIONS A+B INTEGRATED / PACKAGE REVIEW PASS PENDING INTEGRATION
 Date: 2026-09-08
 Generation: Generation 2 — Capability Architecture & Symbiotic Platform Engineering
-Current review base: `1249c49328ce1b791049aaf13adc2a60ee13b108`
+Review execution base: `34cccdd40b5a9bd959e24260047c43d821af4462`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS authority: `G2-WBS-02 — Elicitation Knowledge Base and adaptive understanding`
 
@@ -15,9 +15,9 @@ The EKB owns elicitation metadata, question occurrence/revision, typed informati
 ## Integrated predecessor evidence
 `G2-WP-01` is canonically CLOSED.
 
-Construction A `G2-EKB-CONTRACT-FOUNDATION-01` executed `TASK-473..478`; TASK-478 integrated by PR #568 and closure reconciliation by PR #569. Construction A proved immutable question revisions/occurrences, the 12 information kinds, governed transition lineage, evidence/provenance/currentness/locality qualification, contradiction/unresolved routing, multidimensional stage sufficiency, historical revision pinning and fail-closed HIGH/CRITICAL behavior.
+Construction A `G2-EKB-CONTRACT-FOUNDATION-01` executed `TASK-473..478`; Construction B `G2-EKB-ADAPTIVE-UNDERSTANDING-01` executed `TASK-479..483`. Together they preserve immutable question revisions/occurrences, typed epistemic state, evidence/currentness/locality qualification, contradiction/unresolved routing, multidimensional sufficiency, adaptive follow-up, owner-preserving capability lenses, negative-space coverage, reference-only derived traceability and integrated adversarial/coexistence proof.
 
-Construction B `G2-EKB-ADAPTIVE-UNDERSTANDING-01` executed `TASK-479..483`. It adds gap/context-driven adaptive follow-up, capability-lens routing without semantic-owner cloning, explicit negative-space/stakeholder/source coverage, reference-only derived elicitation traceability and integrated adversarial/coexistence proof. TASK-482 integrated through PR #576 and TASK-483 through PR #577; exact-head Deterministic CI, Heavy Product Tests and Automation Handoff passed. Post-B reconciliation PR #578 integrated as fresh main `1249c49328ce1b791049aaf13adc2a60ee13b108`.
+Package-review materialization PR #579 integrated as fresh main `34cccdd40b5a9bd959e24260047c43d821af4462`; exact head `11b1752aad12208420576296bb7cb4aba71bb09f` passed Deterministic CI #1466, Heavy Product Tests #968 and Automation Handoff.
 
 ## Constitutional invariants
 - `QuestionDefinition != QuestionOccurrence != Answer != Finding != Decision`.
@@ -32,15 +32,17 @@ Construction B `G2-EKB-ADAPTIVE-UNDERSTANDING-01` executed `TASK-479..483`. It a
 - Fleet/global projections cannot strengthen Station/local truth.
 
 ## Optional Construction C decision
-Fresh-main review found no concrete unmet package obligation requiring optional Construction C. Construction C remains NOT PROMOTED / NOT REQUIRED on current evidence and must not be created for cadence alone. Only a bounded material discrepancy discovered by Package Review may reopen that decision.
+Construction C remains NOT PROMOTED / NOT REQUIRED. The executed Package Integration & Review found no concrete package-goal discrepancy requiring it.
 
-## Active package gate
-Package Integration & Review is `MATERIALIZED / NOT EXECUTED` on branch `review/G2-WP-02-package-integration`. Its authority is `project_docs/execution_planning/G2-WP-02.integration-review.md`, based on fresh main `1249c49328ce1b791049aaf13adc2a60ee13b108` and planning revision `2ef10187d691666b45cba5978671570f0ff90c2a`.
+## Package Integration & Review outcome
+The bounded review has been EXECUTED with outcome **PASS** on `review/G2-WP-02-package-integration-execution` from fresh-main base `34cccdd40b5a9bd959e24260047c43d821af4462`.
 
-The review must regress Construction A+B together, inspect the real EKB public-contract/proof path, verify immutable revision/currentness lineage, hybrid authority boundaries, conservative uncertainty/negative-space handling, HIGH/CRITICAL blockers, locality/population preservation, derived-traceability non-promotion, dependency direction, determinism/backward coexistence and Product Proof versus Production Readiness separation.
+The review regressed Construction A+B together and confirmed identity/revision/currentness lineage, hybrid EKB authority boundaries, conservative uncertainty/negative-space handling, HIGH/CRITICAL blockers, locality/population preservation, derived-traceability non-promotion, dependency direction, determinism/backward coexistence and Product Proof versus Production Readiness separation.
+
+No blocking discrepancy, carried-risk routing requirement, change-control condition or Construction C trigger was found. The review result remains PENDING exact-head CI/review/integration.
 
 ## Explicit non-goals
 Persistence/database design; UI/Master Wizard; AI/provider execution; Brownfield importer; canonical domain adoption; authorization/trust implementation; workflow execution; provider qualification; data migration; queue/capacity realization; Production Readiness closure; WP-03+ implementation; TD-P13-01..04; unrelated findings/DEFER/DO_NOT_BUILD.
 
 ## Gate after Package Review
-Allowed review outcomes are `PASS`, `PASS_WITH_CARRIED_RISK`, `REWORK_REQUIRED`, or `CHANGE_CONTROL_REQUIRED`. Documentation & Closure remains blocked until Package Review executes, exact-head required gates pass, the review PR integrates and fresh-main reconciliation confirms the result.
+Documentation & Closure remains blocked until this PASS result passes exact-head gates, integrates, and fresh-main reconciliation confirms the outcome. Only then materialize the smallest Documentation & Closure slice; do not promote G2-WP-03+ as a side effect.
