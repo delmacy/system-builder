@@ -46,6 +46,9 @@ TASK-479..482 materialize the four bounded Construction B concerns. This closure
 # Current behavior
 Before this task, the four Construction B concerns are independently specified/proved but there is no single integrated closure proof demonstrating that their composition preserves conservative states, lineage, ownership and dependency direction across adversarial combinations.
 
+# Required change
+Add the single integrated deterministic Construction B proof, plus only minimal additive EKB contract adjustments if the proof strictly requires them, to demonstrate composition of TASK-479..482 with the immutable Construction A and predecessor authorities while preserving fail-closed state, revision/currentness/locality and dependency direction.
+
 # Inputs / contracts
 - TASK-479 adaptive follow-up contract/proof;
 - TASK-480 capability-lens routing contract/proof;
@@ -74,5 +77,8 @@ The integrated proof must cover happy, negative, adversarial and recovery/coexis
 # Mandatory adversarial cases
 Missing context defaulting; owner cloning; first-match routing; missing stakeholder == N/A; no evidence == zero; stale source promoted; traceability == authority; latest-revision substitution; contradiction erased by summary; scalar completion masking.
 
+# Non-goals
+Persistence/database design, UI/Master Wizard implementation, AI/provider mechanics, Brownfield import, canonical domain adoption, authorization/trust implementation, workflow execution, provider qualification, Production Readiness closure, WP-03+ implementation, TD-P13-01..04 and unrelated findings.
+
 # Escalation
-Any need for new runtime/service topology, persistence owner, destructive predecessor edit or foreign semantic ownership must be recorded for later planning rather than absorbed.
+Any need for new runtime/service topology, persistence owner, destructive predecessor edit, foreign semantic ownership, provider qualification or Production Readiness semantics must be recorded for later planning rather than absorbed.
