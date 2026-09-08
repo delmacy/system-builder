@@ -23,9 +23,14 @@ export type QuestionOccurrenceContext = Readonly<{
   localityScope: string;
 }>;
 
+export type QuestionOccurrenceIdentity = Readonly<{
+  occurrence: OccurrenceRef;
+  producingDefinitionRevision: DefinitionRevisionRef;
+}>;
+
 export type QuestionOccurrence = Readonly<{
   contractVersion: typeof ELICITATION_KNOWLEDGE_BASE_CONTRACT_VERSION;
-  ref: OccurrenceRef;
+  ref: QuestionOccurrenceIdentity;
   definitionRevision: DefinitionRevisionRef;
   context: QuestionOccurrenceContext;
 }>;
@@ -54,6 +59,18 @@ function assertQuestionKind(ref: { semanticKind: string }, label: string): void 
   if (ref.semanticKind !== EKB_QUESTION_SEMANTIC_KIND) throw new Error(`${label}.semanticKind must be ${EKB_QUESTION_SEMANTIC_KIND}`);
 }
 
+function definitionRevisionKey(ref: DefinitionRevisionRef): string {
+  return [
+    ref.semanticOwner,
+    ref.semanticKind,
+    ref.canonicalRef,
+    ref.definitionRef,
+    ref.revisionOwner,
+    ref.revisionDimension,
+    ref.revisionRef,
+  ].join("\u0000");
+}
+
 export function normalizeQuestionDefinitionRevision(input: unknown): QuestionDefinitionRevision {
   const record = asRecord(input, "question definition revision");
   assertExactFields(record, ["contractVersion", "ref", "text"], "question definition revision");
@@ -80,15 +97,22 @@ export function normalizeQuestionOccurrenceContext(input: unknown): QuestionOccu
 export function normalizeQuestionOccurrence(input: unknown): QuestionOccurrence {
   const record = asRecord(input, "question occurrence");
   assertExactFields(record, ["contractVersion", "ref", "definitionRevision", "context"], "question occurrence");
-  const ref = normalizeOccurrenceRef(record.ref);
+  const identityRecord = asRecord(record.ref, "question occurrence identity");
+  assertExactFields(identityRecord, ["occurrence", "producingDefinitionRevision"], "question occurrence identity");
+  const occurrenceRef = normalizeOccurrenceRef(identityRecord.occurrence);
+  const producingDefinitionRevision = normalizeDefinitionRevisionRef(identityRecord.producingDefinitionRevision);
   const definitionRevision = normalizeDefinitionRevisionRef(record.definitionRevision);
-  assertQuestionKind(ref, "question occurrence ref");
+  assertQuestionKind(occurrenceRef, "question occurrence ref");
+  assertQuestionKind(producingDefinitionRevision, "question occurrence producing definition revision");
   assertQuestionKind(definitionRevision, "question occurrence definition revision");
-  if (ref.semanticOwner !== definitionRevision.semanticOwner) throw new Error("question occurrence owner must match definition revision owner");
-  if (ref.canonicalRef !== definitionRevision.canonicalRef) throw new Error("question occurrence canonical identity must match definition revision");
+  if (occurrenceRef.semanticOwner !== definitionRevision.semanticOwner) throw new Error("question occurrence owner must match definition revision owner");
+  if (occurrenceRef.canonicalRef !== definitionRevision.canonicalRef) throw new Error("question occurrence canonical identity must match definition revision");
+  if (definitionRevisionKey(producingDefinitionRevision) !== definitionRevisionKey(definitionRevision)) {
+    throw new Error("question occurrence definition revision must match producing revision pinned by occurrence identity");
+  }
   return Object.freeze({
     contractVersion: ekbVersion(record.contractVersion),
-    ref,
+    ref: Object.freeze({ occurrence: occurrenceRef, producingDefinitionRevision }),
     definitionRevision,
     context: normalizeQuestionOccurrenceContext(record.context),
   });
