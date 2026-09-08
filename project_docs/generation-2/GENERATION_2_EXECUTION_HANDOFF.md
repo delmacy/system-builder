@@ -1,8 +1,8 @@
 # Generation 2 — Execution Handoff
 
-Status: EXECUTION AUTHORIZED / G2-WP-01 CLOSED / G2-WP-02 CONSTRUCTION B ACTIVE
+Status: EXECUTION AUTHORIZED / G2-WP-01 CLOSED / G2-WP-02 CONSTRUCTION B INTEGRATED
 Date: 2026-09-08
-Current fresh-main execution base: `424ab976121226e6f660aebb334435321e8ecbfc`
+Current fresh-main execution base: `55fe7315fb94c7ed1327568137154d38d2c016a5`
 Planning-source branch revalidated historically: `research/g2-capability-pipeline` at `2ef10187d691666b45cba5978671570f0ff90c2a`
 
 ## Authority transition
@@ -11,15 +11,13 @@ The Generation 2 research/planning pipeline reached `READY_FOR_WORKER_HANDOFF` a
 This authorization enables Planning & Materialization and eligible Construction/review/closure transitions inside designed Work Packages. It does not convert forecasts into committed work, bypass predecessor/readiness gates, authorize undeclared L4 changes, absorb unrelated findings/debt/DEFER/DO_NOT_BUILD, or weaken security/governance/architecture constraints.
 
 ## Current commitment horizon
-`G2-WP-01 — Semantic Constitution & Federated Revision Base` is CANONICALLY CLOSED. Construction A and B are integrated; optional Construction C remains `NOT REQUIRED / NOT MATERIALIZED`. Product Proof for WP-01 remains distinct from Production Readiness Coverage.
+`G2-WP-01 — Semantic Constitution & Federated Revision Base` is CANONICALLY CLOSED. Construction A and B are integrated; optional Construction C was not required. Product Proof for WP-01 remains distinct from Production Readiness Coverage.
 
-`G2-WP-02 — Elicitation Knowledge Base & System Understanding` is ACTIVE. Construction A `G2-EKB-CONTRACT-FOUNDATION-01` executed and integrated `TASK-473..478`. Construction B `G2-EKB-ADAPTIVE-UNDERSTANDING-01` is COMMITTED / MATERIALIZED / PARTIALLY EXECUTED with strict chain:
+`G2-WP-02 — Elicitation Knowledge Base & System Understanding` is ACTIVE. Construction A `G2-EKB-CONTRACT-FOUNDATION-01` executed and integrated `TASK-473..478`. Construction B `G2-EKB-ADAPTIVE-UNDERSTANDING-01` executed and integrated the strict chain `TASK-479 -> TASK-480 -> TASK-481 -> TASK-482 -> TASK-483`.
 
-`TASK-479 -> TASK-480 -> TASK-481 -> TASK-482 -> TASK-483`.
+TASK-482 integrated by PR #576 from exact head `5d84b1cc8809d8c4507c16014992cfaf86350e9b` after Deterministic CI #1463, Heavy Product Tests #962 and Automation Handoff passed. TASK-483 integrated by PR #577 from exact head `de1a0efec9dfee5364e96bbcbea5885f93a261b5` after Deterministic CI #1464, Heavy Product Tests #964 and Automation Handoff #1228 passed. Fresh main after Construction B is `55fe7315fb94c7ed1327568137154d38d2c016a5`.
 
-TASK-479 integrated by PR #572 from exact head `81987a756fdbd6d11c0d47875626083bd4f2fb5a` into fresh main `424ab976121226e6f660aebb334435321e8ecbfc`; Deterministic CI #1450, Heavy Product Tests #944 and Automation Handoff passed on that exact head.
-
-Construction C remains OPTIONAL / FORECAST. Package Integration & Review and Documentation & Closure remain FORECAST. `G2-WP-03..G2-WP-13` remain DESIGNED / NOT MATERIALIZED.
+Fresh-main review found no concrete unmet package obligation requiring optional Construction C. Construction C is therefore NOT PROMOTED / NOT REQUIRED on current evidence. Package Integration & Review is the next eligible stage; Documentation & Closure remains blocked until review passes. `G2-WP-03..G2-WP-13` remain DESIGNED / NOT MATERIALIZED.
 
 ## Planning authorities carried forward
 Workers must revalidate the authoritative G2 planning source when beginning or promoting work, especially:
@@ -51,11 +49,11 @@ Preserve:
 - Product Proof distinct from Production Readiness Coverage.
 
 ## Execution protocol
-Follow `AGENTS.md`, `SPRINT_GENERATION_POLICY.md` and `SPRINT_MODE.md`. Only a materialized Sprint/stage is committed. Construction B remains bounded primarily to `packages/contracts/elicitation-knowledge-base/**` and focused `tests/product/g2-elicitation-knowledge-base*.test.ts`, consuming predecessor public contracts directionally without reverse authority.
+Follow `AGENTS.md`, `SPRINT_GENERATION_POLICY.md` and `SPRINT_MODE.md`. Only a materialized Sprint/stage is committed. Package Integration & Review is the next eligible WP-02 stage and must remain a regression/classification/review stage rather than overflow implementation.
 
-Every Construction Sprint uses one `sprint/<SPRINT-ID>` branch, committed TASKs in dependency order, one authoritative commit per TASK, declared validations, growing positive/negative/adversarial proof, repository-wide verification, one PR and exact-head CI/review before integration.
+The review must regress Construction A+B together, verify package-goal evidence, dependency direction, owner/revision/currentness/locality semantics and conservative unresolved behavior, classify any bounded findings/debt, and confirm Product Proof remains distinct from Production Readiness. Only bounded review corrections inside materialized scope may be executed.
 
 Do not absorb persistence, UI/Wizard implementation, AI/provider behavior, Brownfield import, domain adoption, workflow execution, provider qualification, finite-flow/capacity realization, Production Readiness closure, TD-P13-01..04 or unrelated findings.
 
 ## Current next action
-Reconstruct/revalidate fresh `main`, confirm no relevant queued/in-progress CI or concurrent product mutation, then execute only `TASK-480` if eligible. TASK-480 must preserve capability-lens identity/revision separately from semantic-owner identity, source occurrence, owner/revision, locality/population and explicit `MULTI_CANDIDATE/INCONCLUSIVE` ambiguity while rejecting owner cloning, first-match/confidence winners, feature-name equivalence and Fleet/global strengthening of Station/local truth. Do not promote `TASK-481+`, Construction C or `G2-WP-03+` before their predecessor gates.
+Reconstruct/revalidate fresh `main`, confirm no relevant queued/in-progress CI or concurrent mutation, then materialize only the smallest G2-WP-02 Package Integration & Review slice. Documentation & Closure follows only after that review passes. Do not promote `G2-WP-03+` before WP-02 review and closure gates.
