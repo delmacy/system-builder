@@ -1,14 +1,19 @@
-# Current Execution Milestone — Generation 2 / G2-WP-03 Planning
+# Current Execution Milestone — Generation 2 / G2-WP-03 Planning & Materialization
 
 ## Milestone state
-Generation 2 research/planning is `READY_FOR_WORKER_HANDOFF`; `G2-WP-01` and `G2-WP-02` are canonically CLOSED. Execution remains rolling-wave and dependency-safe.
+`G2-WP-01` and `G2-WP-02` are canonically CLOSED. Fresh `main` after PR #585 is `99e6b1c5dfd541b2514b571a6212272fc2a7258e`; the pinned Generation 2 planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
-## G2-WP-02 closure
-`G2-WP-02 — Elicitation Knowledge Base & System Understanding` completed Construction A `TASK-473..478`, Construction B `TASK-479..483`, Package Integration & Review PASS, and Documentation & Closure. Optional Construction C remains `NOT REQUIRED / NOT MATERIALIZED`.
+## Active package
+`G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics` is dependency-safe because WP-01 supplies semantic/revision prerequisites and WP-02 supplies the evidence prerequisite.
 
-Closure execution exact head `9177506fd94cb54f7b57941b67fbaf49f36df272` passed Deterministic CI #1475, Heavy Product Tests #980 and Automation Handoff and integrated through PR #584 as fresh main `c14ac1e24da05a298d81f6867f22e9a87e08eedc`.
+Planning & Materialization has selected one additive L3 public contract boundary under `packages/contracts/mathematical-semantics/**` and materialized only Construction A `G2-MATH-SEMANTIC-FOUNDATION-01`.
+
+Committed chain: `TASK-484 -> TASK-485 -> TASK-486 -> TASK-487 -> TASK-488 -> TASK-489`.
+
+Construction A covers revisioned analytical identity/input bindings, units/dimensions, precision/rounding/temporal windows, vector basis/order/dimension, conservative uncertainty and integrated foundation proof.
+
+## Forecast
+Construction B remains FORECAST for bounded rule/expression evaluation envelopes and owner-preserving analytical derivation/transform semantics. Construction C remains OPTIONAL / FORECAST and must be justified only after fresh-main Construction B evidence. Package Integration & Review and Documentation & Closure remain FORECAST.
 
 ## Current gate
-Fresh-main reconciliation confirms WP-02 canonically CLOSED and identifies `G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics` as the first dependency-safe successor.
-
-The next eligible action is separate Planning & Materialization of only the smallest coherent first Construction Sprint for G2-WP-03, beginning from fresh `main` and revalidating the pinned Generation 2 planning authority before any product mutation.
+Complete exact-head CI/review and integrate this Planning & Materialization Sprint. Only after fresh-main reconstruction may `sprint/G2-MATH-SEMANTIC-FOUNDATION-01` be created and TASK-484 begin. Do not execute product work from the Planning branch or materialize G2-WP-04+.
