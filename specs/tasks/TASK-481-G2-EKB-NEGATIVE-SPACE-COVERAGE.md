@@ -43,6 +43,9 @@ Construction A established multidimensional sufficiency and conservative coverag
 # Current behavior
 The EKB can represent coverage and unresolved obligations but does not yet have a dedicated record family for expected-but-unobserved stakeholder/source cohorts and negative-space discovery that preserves locality, population and applicability semantics.
 
+# Required change
+Add only the EKB-owned negative-space and stakeholder/source coverage records needed to represent expected populations, sources and applicable dimensions that are missing, stale, insufficient or conflicting, while preserving locality/population scope and qualified applicability without converting absence into a substantive answer.
+
 # Inputs / contracts
 - existing EKB coverage/sufficiency/currentness and contradiction references;
 - TASK-480 capability-lens routing context;
@@ -70,3 +73,6 @@ No response == false; no evidence == zero; missing stakeholder == not-applicable
 
 # Non-goals
 Survey/UI implementation, identity/auth implementation, persistence, analytics scoring, Production Readiness.
+
+# Escalation
+Any need to define identity/auth ownership, add analytics/scalar scoring, promote missing evidence to resolved truth, strengthen Fleet coverage into local coverage, or modify predecessor evidence/decision authority must stop this TASK and return to change-control.
