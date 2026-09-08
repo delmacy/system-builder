@@ -37,6 +37,26 @@ validation:
 # Objective
 Represent negative-space discovery and stakeholder/source coverage explicitly so missing voices, missing evidence and unasked applicable dimensions cannot be mistaken for zero, false, not-applicable or complete.
 
+# Context
+Construction A established multidimensional sufficiency and conservative coverage states, while TASK-480 adds capability-aware routing. This task materializes only the negative-space/stakeholder evidence shape needed to show what expected populations, sources or applicable dimensions remain unobserved.
+
+# Current behavior
+The EKB can represent coverage and unresolved obligations but does not yet have a dedicated record family for expected-but-unobserved stakeholder/source cohorts and negative-space discovery that preserves locality, population and applicability semantics.
+
+# Inputs / contracts
+- existing EKB coverage/sufficiency/currentness and contradiction references;
+- TASK-480 capability-lens routing context;
+- stakeholder/source population, locality and applicability references;
+- external evidence/decision semantics through existing predecessor references only.
+
+# Outputs / contracts
+- additive negative-space and stakeholder/source coverage record contract(s) under `packages/contracts/elicitation-knowledge-base/**`;
+- focused proof that missing, stale or insufficient evidence remains conservative and cannot manufacture completeness;
+- no survey UI, persistence, analytics scoring or identity/auth ownership.
+
+# Evidence expected
+Deterministic happy/negative/adversarial proof must cover explicit population/locality scope, UNKNOWN/PARTIAL/UNTOUCHED for expected-but-unobserved cohorts, qualified `NOT_APPLICABLE`, preservation of conflicting stakeholder claims, stale/insufficient evidence non-strengthening, HIGH/CRITICAL blockers, Fleet/local cohort separation and rejection of no-response/no-evidence coercions.
+
 # Acceptance criteria
 - stakeholder/source population and locality scopes are explicit;
 - expected-but-unobserved coverage is represented as UNKNOWN/PARTIAL/UNTOUCHED as applicable, never implicit zero;
