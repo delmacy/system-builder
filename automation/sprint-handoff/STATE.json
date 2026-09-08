@@ -4,17 +4,17 @@
   "claimed_by": null,
   "claim_until": null,
   "resume_worker": null,
-  "sequence": 647,
-  "updated_at": "2026-09-08T12:06:21.764Z",
+  "sequence": 648,
+  "updated_at": "2026-09-08T12:07:01.869Z",
   "active_pr": null,
   "active_branch": null,
   "active_head_sha": null,
   "checks": {
     "deterministic": "failure",
-    "heavy": "failure"
+    "heavy": "success"
   },
   "last_event": "CHECK_COMPLETED",
-  "reason": "CI_FAILED:Heavy Product Tests:cancelled",
+  "reason": "CI_FAILED:Heavy Product Tests:success",
   "owner": ":50",
   "resume_owner": null,
   "lease_until": null,
