@@ -38,6 +38,21 @@ validation:
 # Objective
 Introduce additive reusable `QuestionDefinition` revision and context-bound `QuestionOccurrence` identity contracts without turning questions, answers or EKB metadata into canonical domain truth.
 
+# Context
+G2-WP-02 Construction A establishes the additive elicitation knowledge-base contract foundation on top of the integrated semantic substrate while preserving predecessor ownership and historical knowledge-boundary semantics.
+
+# Current behavior
+The repository has semantic identity/revision primitives and knowledge-boundary contracts, but no dedicated EKB question definition/occurrence identity contract. Question wording and occurrences therefore have no G2-owned reusable representation yet.
+
+# Inputs / contracts
+Use only the public semantic-substrate identity/revision concepts, current repository planning authority for G2-WP-02, and existing knowledge-boundary contracts as immutable predecessor context.
+
+# Outputs / contracts
+Add the minimum public EKB question definition revision and occurrence identity contracts under `packages/contracts/elicitation-knowledge-base/**`, plus focused proof evidence within the declared paths.
+
+# Evidence expected
+Deterministic product/contract proof must show definition-versus-occurrence separation, exact historical revision pinning, explicit context, fail-closed malformed identity/owner/revision handling, and no mutation or authority absorption from predecessor contracts.
+
 # Required change
 Create the minimum deterministic EKB contract version and structural types/constructors/validators needed to distinguish stable question definition identity, immutable definition revision, occurrence identity and concrete occurrence context. Historical occurrences must remain pinned to the producing question revision; current wording cannot silently rewrite historical elicitation.
 
