@@ -118,13 +118,14 @@ export function normalizeEKBDerivedTraceabilityRecord(input: unknown): EKBDerive
 
 export function validateEKBDerivedTraceabilitySet(records: readonly EKBDerivedTraceabilityRecord[]): readonly EKBDerivedTraceabilityRecord[] {
   const traceRefs = new Set<string>();
-  const occurrenceTargets = new Set<string>();
+  const sourceOccurrenceRefs = new Set<string>();
   for (const record of records) {
     if (traceRefs.has(record.traceRef)) throw new Error(`duplicate traceRef ${record.traceRef}`);
     traceRefs.add(record.traceRef);
-    const occurrenceTargetKey = `${record.sourceOccurrenceRef}\u0000${record.targetArtifactRef}\u0000${record.targetRevisionRef}`;
-    if (occurrenceTargets.has(occurrenceTargetKey)) throw new Error("source occurrence cannot silently fan out duplicate canonical traceability");
-    occurrenceTargets.add(occurrenceTargetKey);
+    if (sourceOccurrenceRefs.has(record.sourceOccurrenceRef)) {
+      throw new Error("source occurrence cannot silently fan out to multiple canonical traceability targets");
+    }
+    sourceOccurrenceRefs.add(record.sourceOccurrenceRef);
   }
   return Object.freeze([...records]);
 }
