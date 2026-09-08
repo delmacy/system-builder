@@ -72,10 +72,12 @@ test("TASK-482 rejects traceability-as-authority, EKB target ownership and contr
   assert.equal(trace.negationRef, "negation:no-automatic-closure");
 });
 
-test("TASK-482 rejects duplicate canonical traceability for one occurrence/target revision", () => {
+test("TASK-482 rejects implicit canonical fan-out from one source occurrence", () => {
   const first = normalizeEKBDerivedTraceabilityRecord(base());
   const duplicate = normalizeEKBDerivedTraceabilityRecord({ ...base(), traceRef: "trace:duplicate" });
-  assert.throws(() => validateEKBDerivedTraceabilitySet([first, duplicate]), /silently fan out duplicate canonical traceability/);
+  assert.throws(() => validateEKBDerivedTraceabilitySet([first, duplicate]), /cannot silently fan out/);
   const distinctTarget = normalizeEKBDerivedTraceabilityRecord({ ...base(), traceRef: "trace:distinct", targetArtifactRef: "acceptance:maintenance-screen", targetRevisionRef: "revision:acceptance:r1", derivationKind: "ACCEPTANCE" });
-  assert.equal(validateEKBDerivedTraceabilitySet([first, distinctTarget]).length, 2);
+  assert.throws(() => validateEKBDerivedTraceabilitySet([first, distinctTarget]), /cannot silently fan out/);
+  const distinctOccurrence = normalizeEKBDerivedTraceabilityRecord({ ...base(), traceRef: "trace:distinct-occurrence", sourceOccurrenceRef: "occurrence:operator-interview:18", targetArtifactRef: "acceptance:maintenance-screen", targetRevisionRef: "revision:acceptance:r1", derivationKind: "ACCEPTANCE" });
+  assert.equal(validateEKBDerivedTraceabilitySet([first, distinctOccurrence]).length, 2);
 });
