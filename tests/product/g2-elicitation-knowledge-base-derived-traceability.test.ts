@@ -61,9 +61,12 @@ test("TASK-482 preserves historical supersession without latest-revision substit
   assert.throws(() => normalizeEKBDerivedTraceabilityRecord({ ...base(), traceState: "SUPERSEDED", supersedesTraceRef: null }), /requires supersedesTraceRef/);
 });
 
-test("TASK-482 rejects traceability-as-authority and contradiction/negation erasure", () => {
+test("TASK-482 rejects traceability-as-authority, EKB target ownership and contradiction/negation erasure", () => {
   assert.throws(() => normalizeEKBDerivedTraceabilityRecord({ ...base(), authorityMode: "AUTHORITATIVE" }), /reference-only/);
   assert.throws(() => normalizeEKBDerivedTraceabilityRecord({ ...base(), semanticOwnerRef: "owner:ekb" }), /unexpected field semanticOwnerRef/);
+  for (const targetSemanticOwnerRef of ["owner:ekb", "owner:ekb:derived", "owner:elicitation-knowledge-base", "owner:elicitation-knowledge-base:derived"] as const) {
+    assert.throws(() => normalizeEKBDerivedTraceabilityRecord({ ...base(), targetSemanticOwnerRef }), /must remain external/);
+  }
   const trace = normalizeEKBDerivedTraceabilityRecord(base());
   assert.deepEqual(trace.contradictionRefs, ["contradiction:operator-vs-supervisor"]);
   assert.equal(trace.negationRef, "negation:no-automatic-closure");
