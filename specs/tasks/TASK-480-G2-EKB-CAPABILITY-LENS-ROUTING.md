@@ -43,6 +43,9 @@ Construction B needs capability-aware elicitation without converting the EKB int
 # Current behavior
 The EKB can identify unresolved follow-up needs but has no dedicated capability-lens routing contract that distinguishes lens identity from semantic-owner identity or represents ambiguous multi-owner routing without choosing a winner.
 
+# Required change
+Add only the EKB-owned lens identity/revision and routing-reference contract needed to associate adaptive follow-up candidates with one or more external semantic-owner candidates, preserving source occurrence, owner/revision, locality and population qualifiers and failing explicitly when routing is ambiguous.
+
 # Inputs / contracts
 - TASK-479 adaptive follow-up references;
 - existing EKB occurrence/revision/context and locality/population references;
@@ -69,3 +72,6 @@ Owner cloning; first-match winner; feature-name parity used as semantic equivale
 
 # Non-goals
 Authorization policy, provider qualification, UI navigation, persistence, WP-03+ implementation.
+
+# Escalation
+Any need to create or migrate canonical semantic ownership, introduce authorization/provider policy, strengthen Fleet/global evidence into Station/local truth, or modify predecessor-owned contracts must stop this TASK and return to change-control.
