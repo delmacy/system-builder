@@ -42,6 +42,9 @@ Construction A already provides revision-pinned elicitation occurrences, typed i
 # Current behavior
 The EKB foundation can represent gaps and unresolved obligations but does not yet expose a dedicated deterministic follow-up-planning contract that preserves the triggering occurrence/revision/context and fails closed when routing inputs are insufficient.
 
+# Required change
+Add only the EKB-owned structural contract and focused proof needed to derive follow-up candidates from explicit unresolved gap, contradiction, context and stage-obligation inputs while preserving triggering occurrence/revision/locality/population identity and returning an explicit inconclusive or unresolved outcome when routing context is insufficient.
+
 # Inputs / contracts
 - existing `packages/contracts/elicitation-knowledge-base/**` Construction A contracts;
 - explicit unresolved gap/contradiction state and stage obligations;
@@ -69,3 +72,6 @@ Current-definition substitution; scalar masking; confidence-driven closure; stal
 
 # Non-goals
 Lens ownership, stakeholder coverage, derived traceability, UI/Wizard, AI execution, persistence, WP-03+ semantics.
+
+# Escalation
+Any need to invent a new semantic/decision owner, invoke AI/provider behavior, add persistence/runtime topology, or weaken unresolved/currentness/locality semantics must stop this TASK and return to change-control rather than being absorbed.
