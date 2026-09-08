@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { normalizeEKBRecordQualification } from "../packages/contracts/elicitation-knowledge-base/qualification.js";
+import { normalizeEKBRecordQualification } from "../../packages/contracts/elicitation-knowledge-base/qualification.js";
 
 const ownerRevision = {
   contractVersion: "1.0.0",
