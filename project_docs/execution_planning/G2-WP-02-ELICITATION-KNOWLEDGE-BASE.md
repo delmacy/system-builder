@@ -1,69 +1,47 @@
 # G2-WP-02 — Elicitation Knowledge Base & System Understanding
 
-Status: PLANNING & MATERIALIZATION / CONSTRUCTION A COMMITTED / NOT EXECUTED
+Status: ACTIVE / CONSTRUCTION A INTEGRATED / CONSTRUCTION B MATERIALIZED
 Date: 2026-09-08
 Generation: Generation 2 — Capability Architecture & Symbiotic Platform Engineering
-Fresh-main planning base: `b86a606834976444e4eb7c4f8605417b59e49620`
+Current planning base: `e4bc3ad324aea3aa0d3400dfb6a927ad9fd35ba8`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS authority: `G2-WBS-02 — Elicitation Knowledge Base and adaptive understanding`
 
 ## Package goal
-Introduce the minimum additive, versioned and auditable Elicitation Knowledge Base (EKB) contract substrate required by G2-WBS-02 without creating a 29th canonical capability, a monolithic questionnaire, an AI authority, a new domain truth owner or a storage/runtime topology.
+Introduce the minimum additive, versioned and auditable Elicitation Knowledge Base contract substrate and adaptive-understanding structures required by G2-WBS-02 without creating a 29th canonical capability, monolithic questionnaire, AI authority, storage/runtime topology or domain truth owner.
 
-The EKB is cross-cutting authoring/knowledge infrastructure over the integrated WP-01 semantic substrate. It owns question-definition/occurrence metadata, typed elicitation information records, routing/coverage/unresolved projections and traceability metadata needed to conduct elicitation. Business predicates discovered through elicitation remain owned by their canonical capability owners.
+The EKB owns elicitation metadata, question occurrence/revision, typed information state, routing/coverage/unresolved projections and traceability metadata. Business predicates remain owned by their canonical capability owners.
 
 ## Predecessor gate
-`G2-WP-01 — Semantic Constitution & Federated Revision Base` is canonically CLOSED on fresh `main` `b86a606834976444e4eb7c4f8605417b59e49620` after PR #560 closure reconciliation. WP-02 typed prerequisites `SEMANTIC_PREREQUISITE`, `REVISION_PREREQUISITE`, and `EVIDENCE_PREREQUISITE` are therefore satisfied.
+`G2-WP-01` is canonically CLOSED. Construction A `G2-EKB-CONTRACT-FOUNDATION-01` executed `TASK-473..478`; TASK-478 integrated by PR #568. PR #569 reconciled Construction A closure into fresh main `e4bc3ad324aea3aa0d3400dfb6a927ad9fd35ba8` after exact-head Deterministic CI, Heavy Product Tests and Automation Handoff passed.
 
-WP-03 and WP-04 remain DESIGNED / NOT MATERIALIZED. Their ability to elaborate later does not permit this package to pre-materialize their semantics.
+## Construction A evidence
+Construction A proved immutable question revisions/occurrences, the 12 information kinds, governed transition lineage, evidence/provenance/currentness/locality qualification, contradiction/unresolved routing, multidimensional stage sufficiency, historical revision pinning and fail-closed behavior for HIGH/CRITICAL unresolved obligations, scalar masking, stale evidence, owner cloning and Fleet/global strengthening.
 
-## Existing-owner reconciliation
-- `packages/contracts/semantic-substrate/**` remains owner of portable G2 semantic identity/revision/currentness/locality structures.
-- `packages/contracts/knowledge-boundary/**` remains the historical G1 owner of knowledge promotion/transformation controls and is not redefined as the EKB.
-- `packages/contracts/evidence-provenance/**` remains historical evidence/provenance authority.
-- M15 `human-decision` and existing decision-boundary contracts remain business promotion/rejection authority.
-- Existing process-versioning, Factory/Compiler/Release/Deploy/Runtime/Observe owners remain unchanged.
+## Construction B promotion evidence
+G2-WBS-02 and the Work Package Design require closure evidence beyond the foundation: adaptive follow-ups must be gap/context-driven; capability-specific lenses must route answers without duplicating semantic ownership; negative-space/stakeholder/source gaps must remain explicit; and derived story/use-case/scenario/requirement/acceptance/proof traceability must preserve owner/revision/evidence semantics. These obligations were not implemented by Construction A and form a bounded continuation inside the same EKB contract surface.
 
-Construction A may introduce an additive public structural contract family under `packages/contracts/elicitation-knowledge-base/**` that references these public owners directionally. It may not introduce reverse dependencies or reinterpret historical contracts as universal G2 truth.
+Construction B `G2-EKB-ADAPTIVE-UNDERSTANDING-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with chain:
+
+`TASK-479 -> TASK-480 -> TASK-481 -> TASK-482 -> TASK-483`.
 
 ## Constitutional invariants
 - `QuestionDefinition != QuestionOccurrence != Answer != Finding != Decision`.
 - `answered != understood != evidence sufficient != contradiction cleared != implementation-ready != production-ready`.
-- `Fact`, `Claim`, `Assumption`, `InferredCandidate`, `Decision`, `Requirement`, `Constraint`, `OpenQuestion`, `Conflict`, `Unknown`, `OutOfScope`, and `Deferred` remain distinct.
-- `AI inference = InferredCandidate`; AI cannot close mandatory gaps or choose contradiction winners.
+- all 12 C1 information kinds remain distinct; `AI inference = InferredCandidate`.
 - `observed behavior != intended process != approved canonical process`.
 - provenance != truth != currentness != authority.
-- `Unknown` cannot collapse to empty/null/false/zero when semantically material.
-- coverage is multidimensional and gate-relative, never an authoritative scalar completeness score.
-- HIGH/CRITICAL unresolved gaps, unowned critical contradictions, absent critical evidence/currentness or unjustified `NOT_APPLICABLE` block false completeness.
-- Production Readiness Coverage remains separate from elicitation/feature completeness and from Product Proof.
-- Fleet/global projection cannot strengthen Station/local evidence or completeness.
+- explicit UNKNOWN/PARTIAL/INSUFFICIENT/STALE states cannot be silently strengthened.
+- coverage is multidimensional and gate-relative, never scalar authority.
+- HIGH/CRITICAL unresolved obligations block false completeness.
+- Product Proof != Production Readiness Coverage.
+- Fleet/global projections cannot strengthen Station/local truth.
 
-## Committed construction horizon
-Only Construction A `G2-EKB-CONTRACT-FOUNDATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED.
-
-Committed dependency chain:
-
-`TASK-473 -> TASK-474 -> TASK-475 -> TASK-476 -> TASK-477 -> TASK-478`
-
-Construction B remains FORECAST and may address bounded coexistence/consumer integration only after A is reviewed/integrated and fresh-main reconciliation proves a concrete need. Construction C remains OPTIONAL / FORECAST. Package Integration & Review and Documentation & Closure remain FORECAST.
-
-## Construction A proof target
-The growing proof must demonstrate:
-1. immutable `QuestionDefinitionRevision` and context-bound `QuestionOccurrence` identities without historical rewriting;
-2. typed information kinds and explicit governed promotion lineage;
-3. evidence/provenance/currentness qualification without converting evidence into truth/authority;
-4. contradictions and unresolved questions preserved with explicit owner/evidence/decision routes;
-5. deterministic routing/applicability metadata that may fail `INCONCLUSIVE`/unresolved rather than fabricate closure;
-6. multidimensional coverage and stage-specific sufficiency where one critical blocked/conflicted dimension prevents false PASS;
-7. exact coexistence with semantic-substrate and historical knowledge/evidence owners;
-8. negative/adversarial proof for AI promotion, scalar masking, stale evidence, owner cloning, current-question substitution and local/Fleet strengthening.
+## Allowed continuation
+Construction B remains bounded to `packages/contracts/elicitation-knowledge-base/**`, focused product proofs and the materialized TASK/manifest evidence. `semantic-substrate`, `knowledge-boundary`, `evidence-provenance`, decision/human-decision and domain owners remain read-only predecessor authorities.
 
 ## Explicit non-goals
-Persistence/database design; UI/Master Wizard implementation; AI/provider mechanics; Brownfield importer; canonical domain adoption; authorization/trust implementation; workflow execution; provider qualification; data migration; queue/capacity realization; Production Readiness closure; WP-03+ implementation; TD-P13-01..04; unrelated findings/DEFER/DO_NOT_BUILD.
+Persistence/database design; UI/Master Wizard; AI/provider execution; Brownfield importer; canonical domain adoption; authorization/trust implementation; workflow execution; provider qualification; data migration; queue/capacity realization; Production Readiness closure; WP-03+ implementation; TD-P13-01..04; unrelated findings/DEFER/DO_NOT_BUILD.
 
-## Stop / change-control conditions
-Stop before implementation or successor promotion if the materialized work would require a new service/bounded-context/runtime topology, persistence ownership, destructive change to an existing public contract, EKB ownership of foreign domain truth, AI or scoring authority, generic business-decision authority, or any L4 topology decision not already authorized.
-
-## Completion definition
-WP-02 does not close with Construction A. A must first execute in dependency order, pass exact-head repository gates, undergo review/integration and fresh-main reconciliation. Only then may the next bounded Construction be materialized from actual evidence.
+## Gate after Construction B
+Construction C remains OPTIONAL / FORECAST and may be promoted only if fresh-main review after B proves a concrete unmet package obligation. Otherwise proceed to Package Integration & Review; do not use review/closure as overflow implementation.
