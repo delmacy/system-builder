@@ -51,6 +51,15 @@ function nullableString(value: unknown, field: string): string | null {
   return value === null ? null : nonEmpty(value, field);
 }
 
+function externalSemanticOwner(value: unknown): string {
+  const ownerRef = nonEmpty(value, "targetSemanticOwnerRef");
+  const normalized = ownerRef.toLowerCase();
+  if (normalized === "owner:ekb" || normalized.startsWith("owner:ekb:") || normalized === "owner:elicitation-knowledge-base" || normalized.startsWith("owner:elicitation-knowledge-base:")) {
+    throw new Error("target semantic owner must remain external to the elicitation knowledge base");
+  }
+  return ownerRef;
+}
+
 function oneOf<T extends readonly string[]>(value: unknown, allowed: T, field: string): T[number] {
   if (typeof value !== "string" || !allowed.includes(value)) throw new Error(`${field} must be one of ${allowed.join(", ")}`);
   return value as T[number];
@@ -95,7 +104,7 @@ export function normalizeEKBDerivedTraceabilityRecord(input: unknown): EKBDerive
     sourceCurrentness,
     targetArtifactRef: nonEmpty(record.targetArtifactRef, "targetArtifactRef"),
     targetRevisionRef: nonEmpty(record.targetRevisionRef, "targetRevisionRef"),
-    targetSemanticOwnerRef: nonEmpty(record.targetSemanticOwnerRef, "targetSemanticOwnerRef"),
+    targetSemanticOwnerRef: externalSemanticOwner(record.targetSemanticOwnerRef),
     derivationKind: oneOf(record.derivationKind, EKB_DERIVATION_KINDS, "derivationKind"),
     rationale: nonEmpty(record.rationale, "rationale"),
     evidenceRefs,
