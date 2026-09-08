@@ -1,9 +1,9 @@
 # G2-WP-02 — Elicitation Knowledge Base & System Understanding
 
-Status: CLOSURE EXECUTED / EFFECTIVE CLOSED ON GREEN INTEGRATION
+Status: CANONICALLY CLOSED
 Date: 2026-09-08
 Generation: Generation 2 — Capability Architecture & Symbiotic Platform Engineering
-Closure execution base: `798c5e3f0b42147b8b6f500fd57944d5f15dd348`
+Closure integration: PR #584 / exact head `9177506fd94cb54f7b57941b67fbaf49f36df272` / merge `c14ac1e24da05a298d81f6867f22e9a87e08eedc`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS authority: `G2-WBS-02 — Elicitation Knowledge Base and adaptive understanding`
 
@@ -15,11 +15,13 @@ Introduce the minimum additive, versioned and auditable Elicitation Knowledge Ba
 
 Package Integration & Review executed with outcome **PASS** on exact head `b0207d09b6111b74d5ad2608836a535c289eabfb`, passed Deterministic CI #1467, Heavy Product Tests #970 and Automation Handoff, and integrated through PR #580.
 
-Documentation & Closure materialization exact head `b39220f3d9065a3039df900e8ffa458ca9dc5e3c` passed Deterministic CI #1469, Heavy Product Tests #973 and Automation Handoff and integrated through PR #582 as fresh main `798c5e3f0b42147b8b6f500fd57944d5f15dd348`.
+Documentation & Closure materialization exact head `b39220f3d9065a3039df900e8ffa458ca9dc5e3c` passed Deterministic CI #1469, Heavy Product Tests #973 and Automation Handoff and integrated through PR #582.
+
+Closure execution exact head `9177506fd94cb54f7b57941b67fbaf49f36df272` passed Deterministic CI #1475, Heavy Product Tests #980 and Automation Handoff and integrated through PR #584, producing canonical fresh main `c14ac1e24da05a298d81f6867f22e9a87e08eedc`.
 
 Optional Construction C is `NOT REQUIRED / NOT MATERIALIZED`; review and fresh-main closure reconciliation found no concrete package-goal discrepancy requiring it.
 
-## Closed package truth upon integration
+## Closed package truth
 - `QuestionDefinition != QuestionOccurrence != Answer != Finding != Decision`.
 - `answered != understood != evidence sufficient != contradiction cleared != implementation-ready != production-ready`.
 - AI inference remains candidate; observed behavior remains distinct from intended and approved canonical process.
@@ -34,7 +36,4 @@ Optional Construction C is `NOT REQUIRED / NOT MATERIALIZED`; review and fresh-m
 Persistence/database design; UI/Master Wizard; AI/provider execution; Brownfield importer; canonical domain adoption; authorization/trust implementation; workflow execution; provider qualification; data migration; queue/capacity realization; Production Readiness closure; generic physical actuation authority; TD-P13-01..04; unrelated findings/DEFER/DO_NOT_BUILD.
 
 ## Successor
-Generation 2 DAG revalidation identifies `G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics` as the first dependency-safe successor. It remains DESIGNED / NOT MATERIALIZED; its Planning & Materialization is separate work from fresh main after this closure integrates.
-
-## Final gate
-This package record becomes canonically CLOSED only when the closure execution exact head passes required gates/review and integrates to `main`.
+Generation 2 DAG revalidation identifies `G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics` as the first dependency-safe successor. Its Planning & Materialization is separate work from fresh main and must materialize only the smallest coherent first Construction Sprint.
