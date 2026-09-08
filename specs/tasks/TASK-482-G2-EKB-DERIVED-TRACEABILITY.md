@@ -37,6 +37,25 @@ validation:
 # Objective
 Define portable traceability links from elicitation answers/findings to requirement/constraint/story/use-case/scenario/acceptance/proof references while preserving each artifact's owner, revision and epistemic status.
 
+# Context
+Construction B must carry elicited knowledge forward without allowing a trace edge to become semantic authority. This task builds on explicit revision/currentness/provenance and negative-space coverage while keeping every target artifact owned by its existing external domain or decision owner.
+
+# Current behavior
+The EKB foundation preserves answer/finding lineage but does not yet expose a dedicated derived-artifact traceability contract that carries source/target revisions, derivation rationale and unresolved/currentness state without promoting source epistemic status.
+
+# Inputs / contracts
+- existing EKB answer/finding, revision, provenance/currentness and contradiction references;
+- TASK-481 coverage and stakeholder/source evidence context;
+- external requirement/constraint/story/use-case/scenario/acceptance/proof identities as references only.
+
+# Outputs / contracts
+- additive derivation/traceability contract(s) under `packages/contracts/elicitation-knowledge-base/**`;
+- focused deterministic proof for revision pinning, epistemic preservation, supersession and stale/missing source handling;
+- no target domain artifact implementation, workflow tooling or owner migration.
+
+# Evidence expected
+Proof must exercise source/target identity and revision pinning, explicit derivation kind/rationale/evidence refs, non-promotion of Claim/Assumption/InferredCandidate, historical supersession preservation, unresolved/stale currentness behavior and adversarial rejection of traceability-as-authority, latest-revision substitution, contradiction/negation erasure and canonical fan-out.
+
 # Acceptance criteria
 - source and target artifact identities/revisions are explicit;
 - derivation kind and rationale/evidence refs are explicit;
