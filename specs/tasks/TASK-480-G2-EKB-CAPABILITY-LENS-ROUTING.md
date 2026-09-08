@@ -37,6 +37,25 @@ validation:
 # Objective
 Define capability-specific elicitation lenses and semantic routing that select relevant question families while preserving the external canonical owner of discovered predicates.
 
+# Context
+Construction B needs capability-aware elicitation without converting the EKB into a semantic owner. Routing must consume the adaptive follow-up foundation from TASK-479 while preserving existing owner, revision, locality and population boundaries.
+
+# Current behavior
+The EKB can identify unresolved follow-up needs but has no dedicated capability-lens routing contract that distinguishes lens identity from semantic-owner identity or represents ambiguous multi-owner routing without choosing a winner.
+
+# Inputs / contracts
+- TASK-479 adaptive follow-up references;
+- existing EKB occurrence/revision/context and locality/population references;
+- external semantic-owner references exposed by predecessor contracts without modifying those owners.
+
+# Outputs / contracts
+- additive capability-lens and routing contract(s) under `packages/contracts/elicitation-knowledge-base/**`;
+- focused deterministic product proof for owner preservation, ambiguity and locality behavior;
+- no canonical capability creation, authorization policy or foreign predicate ownership.
+
+# Evidence expected
+Focused proof must cover deterministic routing, lens revision identity, multiple candidate owners, cross-capability occurrence lineage, ambiguous `MULTI_CANDIDATE/INCONCLUSIVE` outcomes, locality preservation, and adversarial rejection of owner cloning, first-match/confidence winners, feature-name equivalence and Fleet-to-local strengthening.
+
 # Acceptance criteria
 - lens identity/revision is explicit and separate from semantic owner identity;
 - routing may reference multiple candidate owners without copying their business predicates into EKB ownership;
