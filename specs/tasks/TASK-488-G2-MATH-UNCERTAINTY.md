@@ -38,8 +38,20 @@ validation:
 # Objective
 Preserve uncertainty and epistemic incompleteness through analytical values without coercing them into false precision or authority.
 
+# Context
+TASK-487 completes the structural analytical value chain through explicit vector semantics; G2-WP-02 provides source evidence/currentness semantics. This TASK adds conservative value qualification only.
+
+# Current behavior
+The mathematical-semantics boundary has no first-class analytical qualification preserving KNOWN/PARTIAL/UNKNOWN/INCONCLUSIVE without strengthening source epistemic state.
+
 # Required change
 Define minimal analytical value qualification for `KNOWN`, `PARTIAL`, `UNKNOWN` and `INCONCLUSIVE` (or a justified conservative equivalent), explicit uncertainty/evidence references where known, and rules that prevent analytical mechanics from strengthening source epistemic state.
+
+# Inputs / contracts
+Consume source owner/revision/evidence/currentness/locality context from predecessor public contracts and the analytical value chain produced by TASK-484..487.
+
+# Outputs / contracts
+Produce additive uncertainty/epistemic qualification contracts and deterministic fail-closed validation with focused product proof.
 
 # Acceptance criteria
 - UNKNOWN/PARTIAL/INCONCLUSIVE remain distinguishable from precise known values;
@@ -54,3 +66,9 @@ Reject unknown-to-zero, partial-to-complete, confidence-to-authority, evidence o
 
 # Non-goals
 Statistical inference engines, AI confidence policy, causal inference, business decision authority, persistence.
+
+# Evidence expected
+Focused uncertainty product proof plus every validation command declared in frontmatter on the authoritative TASK head.
+
+# Escalation
+Stop if stronger epistemic disposition, business authority, causal inference, provider/AI policy, persistence or predecessor mutation becomes necessary.

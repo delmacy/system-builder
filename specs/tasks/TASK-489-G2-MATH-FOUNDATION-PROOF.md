@@ -42,8 +42,20 @@ validation:
 # Objective
 Close Construction A with deterministic integrated proof across the actual TASK-484..488 contract chain.
 
+# Context
+TASK-484..488 establish the complete materialized Construction A contract chain. This final TASK proves their coexistence and negative boundaries without importing Construction B behavior.
+
+# Current behavior
+Focused predecessor proofs may exist after TASK-484..488, but no integrated Construction A proof yet exercises the complete analytical lineage and conservative semantics end-to-end.
+
 # Required change
 Add only the focused integration/adversarial proof and bounded contract hardening necessary to demonstrate the complete foundation as one coherent public contract family. Do not add Construction B evaluation/transform behavior as overflow.
+
+# Inputs / contracts
+Consume the exact integrated `mathematical-semantics` contracts produced by TASK-484..488 plus public predecessor contracts only as read-only context.
+
+# Outputs / contracts
+Produce focused deterministic integrated/adversarial Product Proof and only bounded contract hardening required by that proof; no new package capability outside Construction A.
 
 # Acceptance criteria
 - one integrated scenario preserves analytical definition identity/revision, typed source input, unit/dimension, precision/rounding, temporal window, vector basis/order/dimension and uncertainty qualification;
@@ -60,3 +72,9 @@ Exercise revision substitution, owner strengthening, dimensional mismatch, tempo
 
 # Non-goals
 Rule/expression evaluator, graph-transform execution, statistical engines, persistence/runtime services, provider/AI execution, domain adoption, Construction B scope.
+
+# Evidence expected
+Focused integrated/adversarial Product Proof plus `npm run test:product`, `npm run test:product:heavy`, `npm run check:tasks`, `npm run check:architecture`, `npm run typecheck` and `npm run verify` on the exact authoritative TASK head.
+
+# Escalation
+Stop if satisfying the proof requires Construction B evaluation/transform behavior, provider/runtime/persistence/domain adoption, predecessor mutation, causal authority or any unmaterialized scope.

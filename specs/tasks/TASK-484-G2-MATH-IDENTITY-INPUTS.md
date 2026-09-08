@@ -37,8 +37,20 @@ validation:
 # Objective
 Introduce additive revisioned analytical-definition identity and explicit typed input bindings without acquiring source-domain truth authority.
 
+# Context
+G2-WP-01 provides semantic identity/revision/currentness/locality substrate and G2-WP-02 provides evidence semantics. This TASK is the first Construction A slice and may only add the mathematical-semantics public boundary declared by the materialized Sprint.
+
+# Current behavior
+No public mathematical-semantics contract family currently provides revisioned analytical definition identity and source-owner-preserving typed input bindings.
+
 # Required change
 Create the minimum public `mathematical-semantics` contract version and structural types/validators for stable analytical definition identity, immutable definition revision, definition kind (`EXPRESSION | RULE | MODEL | DERIVATION` or the minimum justified equivalent), and input bindings that reference explicit source identity/revision/owner and declared value type.
+
+# Inputs / contracts
+Consume only public semantic-substrate and elicitation-knowledge-base concepts needed to preserve source identity, revision, owner, evidence/currentness and locality. Do not mutate those predecessor contracts.
+
+# Outputs / contracts
+Produce additive `packages/contracts/mathematical-semantics/**` contracts plus focused deterministic proof for analytical definition identity/revision and typed source input bindings.
 
 # Acceptance criteria
 - definition identity and revision are distinct and historically addressable;
@@ -54,3 +66,9 @@ Reject omitted source owner/revision, producing-revision substitution, identity-
 
 # Non-goals
 Units, precision, temporal windows, vectors, uncertainty mechanics, evaluation runtime, persistence, AI/provider execution, causality.
+
+# Evidence expected
+Focused product proof plus `npm run test:product`, `npm run check:tasks`, `npm run check:architecture`, `npm run typecheck` and `npm run verify`, all against the authoritative TASK head.
+
+# Escalation
+Stop and request bounded change control if implementation requires mutation of predecessor contracts, a new persistence/runtime/provider boundary, causal authority, or any public architecture beyond the already materialized additive `mathematical-semantics` family.

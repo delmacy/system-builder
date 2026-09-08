@@ -37,8 +37,20 @@ validation:
 # Objective
 Make numeric precision/rounding and temporal observation windows explicit and deterministic.
 
+# Context
+TASK-485 supplies source-preserving unit/dimension semantics. This TASK adds precision and temporal qualification without introducing scheduling or runtime clock authority.
+
+# Current behavior
+The mathematical-semantics boundary has no explicit portable precision/scale, rounding or temporal-window policy.
+
 # Required change
 Define bounded portable contracts for precision/scale, rounding policy and temporal windows/anchors applicable to analytical values without inventing domain-specific clocks or runtime scheduling.
+
+# Inputs / contracts
+Consume TASK-485 value/unit/dimension lineage and the analytical/source revision context inherited from TASK-484.
+
+# Outputs / contracts
+Produce additive precision/scale, rounding-mode and temporal-window/anchor contracts with deterministic validation and focused proof.
 
 # Acceptance criteria
 - precision/scale and rounding mode are explicit when material;
@@ -53,3 +65,9 @@ Reject implicit rounding, materially ambiguous window bounds, stale/latest polic
 
 # Non-goals
 Schedulers, workflow timers, persistence, time-series storage, SLA/SLO ownership, vector semantics.
+
+# Evidence expected
+Focused precision/time product proof plus every validation command declared in frontmatter on the authoritative TASK head.
+
+# Escalation
+Stop if the change requires scheduler/runtime clock ownership, persistence/time-series topology, predecessor mutation or any architecture outside the materialized additive contract family.

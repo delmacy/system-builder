@@ -37,8 +37,20 @@ validation:
 # Objective
 Represent vector values with explicit basis, order and dimension so coordinate meaning cannot be silently lost.
 
+# Context
+TASK-486 establishes precision and temporal qualification over the source-preserving analytical value chain. This TASK adds only structural vector semantics.
+
+# Current behavior
+The mathematical-semantics boundary has no explicit vector basis identity/revision, coordinate ordering or dimension validation.
+
 # Required change
 Define the minimum portable vector contract and validation needed to bind coordinates to an explicit basis/order/dimension while carrying unit/precision/temporal qualification from predecessor TASKs where applicable.
+
+# Inputs / contracts
+Consume the analytical identity/source lineage from TASK-484 and the unit, precision and temporal qualification produced by TASK-485/486.
+
+# Outputs / contracts
+Produce additive vector basis/order/dimension contracts and deterministic validation inside `packages/contracts/mathematical-semantics/**` with focused proof.
 
 # Acceptance criteria
 - vector dimension is explicit and matches coordinate count;
@@ -53,3 +65,9 @@ Reject coordinate reorder, dimension mismatch, basis substitution, scalarization
 
 # Non-goals
 Geometry engines, linear algebra providers, physical actuation, aggregation ownership, runtime evaluation.
+
+# Evidence expected
+Focused vector product proof plus every validation command declared in frontmatter on the authoritative TASK head.
+
+# Escalation
+Stop if implementation needs aggregation/domain ownership, a linear-algebra provider/runtime service, physical actuation, predecessor mutation or architecture beyond this contract family.

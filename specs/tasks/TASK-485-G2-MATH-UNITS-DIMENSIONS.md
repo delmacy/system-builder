@@ -37,8 +37,20 @@ validation:
 # Objective
 Add explicit units and dimensional compatibility to the revisioned analytical substrate.
 
+# Context
+TASK-484 establishes analytical identity/revision and typed source bindings. This successor adds only unit and dimension semantics while preserving that source ownership and historical lineage.
+
+# Current behavior
+The new mathematical-semantics boundary has no materialized unit identity, dimensional signature or deterministic compatibility contract.
+
 # Required change
 Define the minimum deterministic contracts needed to represent unit identity/revision or portable unit reference, dimensional signature and value/unit binding, plus compatibility validation that fails closed on dimension mismatch or missing material unit semantics.
+
+# Inputs / contracts
+Consume TASK-484 analytical definition/input contracts and their exact source owner/revision lineage.
+
+# Outputs / contracts
+Produce additive unit/dimension references, value bindings and deterministic compatibility validation inside `packages/contracts/mathematical-semantics/**` with focused proof.
 
 # Acceptance criteria
 - unit and dimension are explicit rather than inferred from labels;
@@ -53,3 +65,9 @@ Reject label-based equivalence, incompatible-dimension arithmetic, unknown-unit 
 
 # Non-goals
 Provider unit libraries, domain-specific formula catalog, runtime evaluator, persistence, precision/rounding policy.
+
+# Evidence expected
+Focused unit/dimension product proof plus every validation command declared in frontmatter on the authoritative TASK head.
+
+# Escalation
+Stop if unit compatibility requires provider-owned catalogs, predecessor mutation, domain ownership, runtime evaluation, or architecture beyond the materialized mathematical-semantics boundary.
