@@ -36,6 +36,26 @@ validation:
 # Objective
 Define deterministic adaptive follow-up planning driven only by explicit unresolved gaps, contradiction state, context and stage obligations.
 
+# Context
+Construction A already provides revision-pinned elicitation occurrences, typed information states, provenance/currentness/locality, contradiction routing and multidimensional sufficiency. This task adds only the bounded planning contract that turns explicit unresolved state into follow-up candidates without creating a new semantic or decision authority.
+
+# Current behavior
+The EKB foundation can represent gaps and unresolved obligations but does not yet expose a dedicated deterministic follow-up-planning contract that preserves the triggering occurrence/revision/context and fails closed when routing inputs are insufficient.
+
+# Inputs / contracts
+- existing `packages/contracts/elicitation-knowledge-base/**` Construction A contracts;
+- explicit unresolved gap/contradiction state and stage obligations;
+- producing occurrence/revision identity and locality/population/context references;
+- read-only predecessor semantics from semantic-substrate, knowledge-boundary and evidence-provenance through their existing public references.
+
+# Outputs / contracts
+- additive EKB follow-up planning contract(s) under `packages/contracts/elicitation-knowledge-base/**`;
+- focused product proof under `tests/product/g2-elicitation-knowledge-base*.test.ts`;
+- no persistence, provider execution, runtime topology or foreign semantic ownership.
+
+# Evidence expected
+Focused deterministic proof must exercise happy, negative and adversarial cases for gap-driven follow-up identity, historical revision preservation, missing-context fail-closed behavior, scalar/confidence/repetition non-authority, stale evidence non-resolution and HIGH/CRITICAL unresolved obligations remaining actionable.
+
 # Acceptance criteria
 - follow-up identity preserves triggering gap/occurrence/revision/context;
 - no scalar completion/confidence/repetition may generate or suppress mandatory follow-up;
