@@ -36,9 +36,33 @@ test("TASK-481 requires qualified current evidence for NOT_APPLICABLE", () => {
   assert.throws(() => normalizeEKBNegativeSpaceCoverageRecord({ ...base(), state: "NOT_APPLICABLE", currentnessState: "STALE", evidenceRef: "evidence:old", applicabilityRef: "applicability:x" }), /CURRENT qualified/);
 });
 
-test("TASK-481 preserves conflicting stakeholder claims as routed contradiction references", () => {
-  const conflict = normalizeEKBNegativeSpaceCoverageRecord({ ...base(), state: "CONFLICTED", currentnessState: "CURRENT", evidenceRef: "evidence:interviews:station-a", contradictionRefs: ["contradiction:operator-vs-supervisor"] });
-  assert.deepEqual(conflict.contradictionRefs, ["contradiction:operator-vs-supervisor"]);
+test("TASK-481 preserves conflicting stakeholder claims as separate records routed through one contradiction", () => {
+  const contradictionRef = "contradiction:operator-vs-supervisor";
+  const operatorClaim = normalizeEKBNegativeSpaceCoverageRecord({
+    ...base(),
+    negativeSpaceRef: "negative-space:station-a:operators:operator-claim",
+    expectedRef: "stakeholder:operator",
+    state: "CONFLICTED",
+    currentnessState: "CURRENT",
+    evidenceRef: "evidence:interview:operator",
+    contradictionRefs: [contradictionRef],
+  });
+  const supervisorClaim = normalizeEKBNegativeSpaceCoverageRecord({
+    ...base(),
+    negativeSpaceRef: "negative-space:station-a:operators:supervisor-claim",
+    expectedRef: "stakeholder:supervisor",
+    state: "CONFLICTED",
+    currentnessState: "CURRENT",
+    evidenceRef: "evidence:interview:supervisor",
+    contradictionRefs: [contradictionRef],
+  });
+  assert.notEqual(operatorClaim.negativeSpaceRef, supervisorClaim.negativeSpaceRef);
+  assert.notEqual(operatorClaim.expectedRef, supervisorClaim.expectedRef);
+  assert.notEqual(operatorClaim.evidenceRef, supervisorClaim.evidenceRef);
+  assert.equal(operatorClaim.populationScope, supervisorClaim.populationScope);
+  assert.equal(operatorClaim.localityScope, supervisorClaim.localityScope);
+  assert.deepEqual(operatorClaim.contradictionRefs, [contradictionRef]);
+  assert.deepEqual(supervisorClaim.contradictionRefs, [contradictionRef]);
   assert.throws(() => normalizeEKBNegativeSpaceCoverageRecord({ ...base(), state: "CONFLICTED", contradictionRefs: [] }), /explicit contradiction references/);
   assert.throws(() => normalizeEKBNegativeSpaceCoverageRecord({ ...base(), winnerClaimRef: "claim:supervisor" }), /unexpected field winnerClaimRef/);
 });
