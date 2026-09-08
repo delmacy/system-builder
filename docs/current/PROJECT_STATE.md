@@ -12,13 +12,13 @@ Generation 2 research/planning is `READY_FOR_WORKER_HANDOFF`; execution of desig
 
 Construction A `G2-EKB-CONTRACT-FOUNDATION-01` is EXECUTED / INTEGRATED through `TASK-473..478`; TASK-478 integrated by PR #568 and the repository-memory reconciliation integrated by PR #569 into fresh main `e4bc3ad324aea3aa0d3400dfb6a927ad9fd35ba8` after exact-head Deterministic CI, Heavy Product Tests and Automation Handoff passed.
 
-Fresh-main review against G2-WBS-02 and G2-WP-02 authority confirms remaining bounded package obligations not covered by Construction A: gap/context-driven adaptive follow-up, capability-specific elicitation lenses with external semantic-owner routing, negative-space/stakeholder coverage, and derived story/use-case/scenario/requirement/acceptance/proof traceability. These obligations justify Construction B without expanding into persistence, UI/Wizard, AI/provider execution, domain adoption or runtime topology.
+Construction B `G2-EKB-ADAPTIVE-UNDERSTANDING-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with strict chain `TASK-479 -> TASK-480 -> TASK-481 -> TASK-482 -> TASK-483`. Its Planning & Materialization PR #570 integrated into fresh main `dbf8e928130ac0ebf132448628b1f25a0dad4cc5` from exact head `056a9ac8f7d1ef2a81f42280edcb8ad41db8d0a8`; that head passed Deterministic CI #1448, Heavy Product Tests #941 and Automation Handoff.
 
-Construction B `G2-EKB-ADAPTIVE-UNDERSTANDING-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with strict chain `TASK-479 -> TASK-480 -> TASK-481 -> TASK-482 -> TASK-483`. It remains bounded to `packages/contracts/elicitation-knowledge-base/**`, focused product proofs and its own planning/TASK evidence.
+Construction B remains bounded to gap/context-driven adaptive follow-up, capability-lens routing without semantic-owner cloning, negative-space/stakeholder/source coverage, derived elicitation traceability and one integrated proof. Product surface remains `packages/contracts/elicitation-knowledge-base/**` plus focused product tests; predecessor semantic/knowledge/evidence contracts are read-only.
 
 Construction C remains OPTIONAL / FORECAST; Package Integration & Review and Documentation & Closure remain FORECAST. `G2-WP-03..G2-WP-13` remain DESIGNED / NOT MATERIALIZED.
 
 Preserve `QuestionDefinition != QuestionOccurrence != Answer != Finding != Decision`; AI output remains candidate; provenance != truth != currentness != authority; `PARTIAL`, `UNKNOWN`, `INSUFFICIENT`, `STALE` and unresolved HIGH/CRITICAL obligations remain conservative; Product Proof remains distinct from Production Readiness Coverage.
 
 ## Current execution gate
-This branch contains Planning & Materialization only. It must pass exact-head CI/review and integrate before TASK-479 product execution. After merge, reconstruct fresh `main`, revalidate PR/head/concurrency and execute only the next eligible materialized TASK.
+Construction B materialization is integrated. Reconstruct fresh `main`, revalidate no same-head queued/in-progress CI or concurrent product mutation, and execute only `TASK-479` if eligible. Do not promote `TASK-480+`, Construction C, Package Review/Closure or `G2-WP-03+` before their predecessor gates.
