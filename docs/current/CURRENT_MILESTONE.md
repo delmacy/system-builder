@@ -10,11 +10,11 @@ Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba597867
 
 Construction A executed `TASK-473..478`; TASK-478 integrated by PR #568. Closure reconciliation integrated by PR #569 into fresh main `e4bc3ad324aea3aa0d3400dfb6a927ad9fd35ba8` after exact-head Deterministic CI, Heavy Product Tests and Automation Handoff passed.
 
-Fresh-main revalidation identified bounded remaining WP-02 obligations explicitly carried by WBS/Work Package authority: gap/context-driven adaptive follow-up, capability-specific lens routing, negative-space/stakeholder coverage and derived elicitation traceability. Construction B materializes only these obligations in strict chain `TASK-479 -> TASK-480 -> TASK-481 -> TASK-482 -> TASK-483`.
+Construction B materialization integrated by PR #570 from exact reviewed head `056a9ac8f7d1ef2a81f42280edcb8ad41db8d0a8` into fresh main `dbf8e928130ac0ebf132448628b1f25a0dad4cc5`. The materialized chain is `TASK-479 -> TASK-480 -> TASK-481 -> TASK-482 -> TASK-483`, bounded to adaptive follow-up, capability-specific lens routing, negative-space/stakeholder coverage, derived elicitation traceability and integrated proof.
 
 Construction C remains OPTIONAL / FORECAST. Package Integration & Review and Documentation & Closure remain FORECAST. `G2-WP-03..G2-WP-13` remain DESIGNED / NOT MATERIALIZED.
 
 ## Current gate
-This branch is Planning & Materialization only. Pass exact-head repository/CI review and integrate it before any TASK-479 product mutation. After integration reconstruct fresh `main`, revalidate concurrency/head/gates, then execute only TASK-479 if eligible.
+The Planning & Materialization gate is integrated. On fresh `main`, revalidate concurrency/head/gates and execute only `TASK-479` if eligible. `TASK-480+` remains blocked by the declared dependency chain until predecessor integration.
 
 Preserve conservative `PARTIAL`, `UNKNOWN`, `INSUFFICIENT`, `STALE`, owner/revision/currentness/locality and Product Proof != Production Readiness Coverage.
