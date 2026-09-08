@@ -38,6 +38,21 @@ validation:
 # Objective
 Preserve competing elicitation records and explicit unresolved state while defining deterministic owner/applicability/routing metadata that cannot silently manufacture resolution.
 
+# Context
+G2-WP-02 needs contradiction and routing records after EKB identity, information kinds and qualification are established, while foreign-domain truth and resolution authority remain external.
+
+# Current behavior
+The repository can represent predecessor semantic relationships, but EKB has no dedicated contradiction/unresolved record or deterministic applicability/routing outcome contract for elicitation state.
+
+# Inputs / contracts
+Consume TASK-475 qualified EKB records and public semantic-substrate references. Existing domain owners and research conflict concepts remain external and must not be cloned into EKB authority.
+
+# Outputs / contracts
+Add EKB contradiction/unresolved and routing/applicability record structures under the declared EKB contract surface, with focused deterministic proof.
+
+# Evidence expected
+Proof must preserve competing records, prevent recency/confidence/repetition winner selection, require rationale for `NOT_APPLICABLE`, preserve unresolved/inconclusive outcomes, and demonstrate cross-owner routing without ownership cloning.
+
 # Required change
 Add structural contradiction/unresolved records referencing competing information/evidence, subject/context, semantic owner or resolution authority reference, severity, affected gates/artifacts, route/disposition and supersession lineage. Add deterministic routing/applicability outcome types sufficient to represent routed, not-applicable-with-rationale, unresolved, blocked and inconclusive outcomes without AI authority.
 
