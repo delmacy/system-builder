@@ -37,6 +37,21 @@ validation:
 # Objective
 Represent C1 elicitation coverage dimensionally and define stage-specific sufficiency that fails closed on unresolved critical obligations rather than collapsing progress into a scalar score.
 
+# Context
+After contradiction/routing is explicit, G2-WP-02 requires EKB-owned multidimensional coverage and stage sufficiency without claiming Production Readiness or domain policy ownership.
+
+# Current behavior
+The repository has no G2 EKB contract that qualifies elicitation coverage by dimension/object/capability/revision and no stage-specific sufficiency result that remains blocked by material unresolved obligations.
+
+# Inputs / contracts
+Consume TASK-476 EKB contradiction/routing outputs plus public semantic references and currentness/evidence qualification already established in prior tasks. Production Readiness semantics remain outside this scope.
+
+# Outputs / contracts
+Add deterministic EKB coverage-state and stage-sufficiency contracts under the declared EKB surface, retaining explicit blocker reasons and qualification references.
+
+# Evidence expected
+Proof must preserve the eight coverage states, reject scalar masking and stage promotion, require rationale for N/A, reopen current coverage on stale/superseded evidence without rewriting history, and keep critical unresolved obligations fail-closed.
+
 # Required change
 Add deterministic structural coverage records using the C1 coverage states and explicit dimension/object/capability/revision qualification. Add stage-specific sufficiency evaluation for `SUFFICIENT_FOR_ABSTRACTION`, `SUFFICIENT_FOR_CANDIDATE_ARCHITECTURE`, `SUFFICIENT_FOR_IMPLEMENTATION`, and `SUFFICIENT_FOR_PUBLISH_OPERATION`, preserving explicit blocker reasons and evidence/currentness references.
 
