@@ -1,22 +1,15 @@
-# Next Work — G2-WP-02 Closure Integration
+# Next Work — G2-WP-03 Planning & Materialization
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
-## Closure state
-G2-WP-02 Construction A `TASK-473..478` and Construction B `TASK-479..483` are integrated. Optional Construction C remains `NOT REQUIRED / NOT MATERIALIZED`. Package Integration & Review is integrated with outcome PASS.
+## Closed predecessor
+G2-WP-02 is CANONICALLY CLOSED. Closure execution exact head `9177506fd94cb54f7b57941b67fbaf49f36df272` passed Deterministic CI #1475, Heavy Product Tests #980 and Automation Handoff and integrated through PR #584 as fresh main `c14ac1e24da05a298d81f6867f22e9a87e08eedc`.
 
-Documentation & Closure materialization PR #582 integrated after exact head `b39220f3d9065a3039df900e8ffa458ca9dc5e3c` passed Deterministic CI #1469, Heavy Product Tests #973 and Automation Handoff, producing fresh main `798c5e3f0b42147b8b6f500fd57944d5f15dd348`.
-
-The bounded closure execution has revalidated package truth and found no blocking package-goal discrepancy, hidden Construction debt, change-control trigger or carried-risk routing need.
+Construction A `TASK-473..478`, Construction B `TASK-479..483`, Package Integration & Review PASS and Documentation & Closure are integrated. Optional Construction C remains `NOT REQUIRED / NOT MATERIALIZED`.
 
 ## Active gate
-Validate, review and integrate only branch `closure/G2-WP-02-documentation-execution` from fresh-main base `798c5e3f0b42147b8b6f500fd57944d5f15dd348`.
+Revalidate the pinned Generation 2 planning authority and materialize only the smallest coherent first Construction Sprint for `G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics` from fresh `main`.
 
-Do not mutate product scope while exact-head CI is queued/in progress. Any failure/finding must be repaired only within closure documentation/repository-memory scope.
+Do not materialize the entire WP or later WPs at once. Sprint count must emerge from actual decomposition. Preserve owner/revision/currentness, `AI inference != authority`, conservative PARTIAL/UNKNOWN semantics, local/Station/Fleet boundaries and Product Proof distinct from Production Readiness.
 
-If fully green, integrate with expected-head protection and reconstruct fresh `main`; that integration makes G2-WP-02 canonically CLOSED.
-
-## Dependency-safe successor
-After fresh-main closure reconciliation, the first eligible successor is `G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics`. Its Planning & Materialization must be separate work and begin from that fresh main. Do not materialize G2-WP-03+ as part of WP-02 closure.
-
-Do not absorb authorization/trust implementation, provider qualification, persistence, UI, AI/provider execution, Brownfield import, workflow, domain adoption, Production Readiness, unrelated findings, DEFER or DO_NOT_BUILD scope.
+Do not absorb authorization/trust implementation, provider qualification, persistence, UI, AI/provider execution, Brownfield import, workflow, domain adoption, Production Readiness, generic physical actuation authority, unrelated findings, DEFER or DO_NOT_BUILD scope.
