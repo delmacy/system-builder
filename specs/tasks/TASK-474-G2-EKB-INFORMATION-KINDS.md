@@ -39,6 +39,21 @@ validation:
 # Objective
 Represent C1 information kinds as distinct portable EKB records and make kind promotion/correction lineage explicit without creating a new decision authority.
 
+# Context
+G2-WP-02 requires typed elicitation information state after TASK-473 establishes question identity, while existing knowledge-boundary and decision-boundary contracts retain their own authority.
+
+# Current behavior
+The repository has predecessor knowledge and decision contracts but no G2 EKB-owned portable record model covering the required C1 information kinds and their correction/promotion lineage.
+
+# Inputs / contracts
+Consume TASK-473 EKB question identity outputs and public predecessor knowledge-boundary/decision-boundary contracts only as external references; do not reimplement their authority.
+
+# Outputs / contracts
+Add deterministic EKB information-kind records and explicit transition/correction/supersession lineage under the declared EKB contract surface, with focused product proof.
+
+# Evidence expected
+Proof must preserve all 12 kinds distinctly, keep `Unknown` explicit, prevent implicit promotion by confidence/repetition/source count, preserve historical corrected/superseded records, and demonstrate predecessor authority remains external.
+
 # Required change
 Add deterministic structural support for `Fact`, `Claim`, `Assumption`, `InferredCandidate`, `Decision`, `Requirement`, `Constraint`, `OpenQuestion`, `Conflict`, `Unknown`, `OutOfScope`, and `Deferred`, plus explicit transition/correction/supersession references sufficient to prove that kind changes are governed and provenance-bearing.
 
