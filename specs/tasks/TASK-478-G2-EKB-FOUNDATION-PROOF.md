@@ -40,6 +40,21 @@ validation:
 # Objective
 Close Construction A with one integrated deterministic proof that the EKB foundation preserves question revision, typed information state, evidence/currentness, contradictions/routing and multidimensional sufficiency without absorbing predecessor or domain authority.
 
+# Context
+TASK-478 is the Construction A closure proof for G2-WP-02 and must compose only the public EKB surface produced by TASK-473..477 together with immutable predecessor contracts.
+
+# Current behavior
+Individual EKB capabilities are planned across TASK-473..477, but Construction A has no integrated growing proof yet demonstrating their coexistence, negative cases, deterministic normalization and predecessor boundary preservation.
+
+# Inputs / contracts
+Consume the public outputs of TASK-473..477 plus public semantic-substrate, knowledge-boundary and evidence-provenance contracts. Predecessor packages remain read-only authorities.
+
+# Outputs / contracts
+Expose a coherent public `elicitation-knowledge-base` contract surface and focused integrated product proof within the declared EKB/test paths; do not add runtime, persistence or provider topology.
+
+# Evidence expected
+Integrated deterministic proof must cover happy, negative and adversarial cases across historical revision pinning, information-kind preservation, explicit unknown/deferred state, evidence/currentness/locality, contradiction routing, fail-closed sufficiency and predecessor coexistence with no reverse dependency.
+
 # Required change
 Expose the coherent public `elicitation-knowledge-base` contract surface and add a focused growing product proof composed only from public contracts.
 
