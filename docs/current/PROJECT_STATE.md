@@ -12,13 +12,13 @@ Generation 2 research/planning is `READY_FOR_WORKER_HANDOFF`; execution of desig
 
 Construction A `G2-EKB-CONTRACT-FOUNDATION-01` is EXECUTED / INTEGRATED through `TASK-473..478`. Construction B `G2-EKB-ADAPTIVE-UNDERSTANDING-01` is EXECUTED / INTEGRATED through `TASK-479..483`. Optional Construction C remains NOT PROMOTED / NOT REQUIRED because no package-goal discrepancy required it.
 
-Package Integration & Review was materialized by PR #579 and its bounded execution result was integrated by PR #580. The exact reviewed head `b0207d09b6111b74d5ad2608836a535c289eabfb` passed Deterministic CI #1467, Heavy Product Tests #970 and Automation Handoff #1246. The resulting fresh `main` is `b39220f3d9065a3039df900e8ffa458ca9dc5e3c`.
+Package Integration & Review was materialized by PR #579 and its bounded execution result was integrated by PR #580. The exact reviewed head `b0207d09b6111b74d5ad2608836a535c289eabfb` passed Deterministic CI #1467, Heavy Product Tests #970 and Automation Handoff #1246.
+
+Documentation & Closure was materialized by PR #582 as fresh `main` `798c5e3f0b42147b8b6f500fd57944d5f15dd348`. The materialized closure requires documentation/repository-memory execution only: revalidate the integrated PASS, record the evidence chain and package truth, and defer canonical CLOSED status until the closure execution itself passes exact-head gates and integrates.
 
 The integrated Package Integration & Review outcome is **PASS**. It found no blocking package-goal discrepancy, carried-risk routing need, reverse dependency/authority takeover, Construction C obligation or change-control trigger. Identity/revision/currentness lineage, hybrid EKB authority boundaries, conservative uncertainty/negative-space behavior, HIGH/CRITICAL blockers, locality/population preservation, derived-traceability non-promotion, deterministic/backward coexistence and Product Proof != Production Readiness remain satisfied.
-
-Documentation & Closure is now the only active G2-WP-02 gate. Closure is bounded to recording the integrated review evidence, reconciling repository memory, preserving residual-risk routing, and closing the package without product mutation.
 
 Preserve `QuestionDefinition != QuestionOccurrence != Answer != Finding != Decision`; AI output remains candidate; provenance != truth != currentness != authority; `PARTIAL`, `UNKNOWN`, `INSUFFICIENT`, `STALE` and unresolved HIGH/CRITICAL obligations remain conservative; Product Proof remains distinct from Production Readiness Coverage.
 
 ## Current execution gate
-Validate and integrate only the bounded `G2-WP-02` Documentation & Closure evidence. Do not materialize or execute successor product scope until this closure integrates, fresh `main` is reconstructed, and the Generation 2 DAG is revalidated for the next eligible Work Package.
+Validate and integrate only the bounded `G2-WP-02` Documentation & Closure execution. Do not materialize or execute successor product scope until this closure integrates, fresh `main` is reconstructed, and the Generation 2 DAG is revalidated for the next eligible Work Package.
