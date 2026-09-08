@@ -43,6 +43,9 @@ Construction B must carry elicited knowledge forward without allowing a trace ed
 # Current behavior
 The EKB foundation preserves answer/finding lineage but does not yet expose a dedicated derived-artifact traceability contract that carries source/target revisions, derivation rationale and unresolved/currentness state without promoting source epistemic status.
 
+# Required change
+Add only the EKB-owned derivation/traceability references needed to connect elicitation sources to externally owned requirement, constraint, story, use-case, scenario, acceptance and proof identities while pinning source/target revisions and preserving provenance, currentness, contradiction and epistemic state without semantic promotion.
+
 # Inputs / contracts
 - existing EKB answer/finding, revision, provenance/currentness and contradiction references;
 - TASK-481 coverage and stakeholder/source evidence context;
@@ -69,3 +72,6 @@ Trace link treated as authority; latest-revision substitution; summary erases co
 
 # Non-goals
 Domain artifact implementation, backlog/workflow tooling, Product Proof execution, UI, persistence, WP-03+ semantics.
+
+# Escalation
+Any need to implement target domain artifacts, migrate their semantic ownership into EKB, introduce workflow/runtime/persistence behavior, or treat derivation as authority must stop this TASK and return to change-control.
