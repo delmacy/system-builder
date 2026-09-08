@@ -1,20 +1,22 @@
-# Next Work — G2-WP-02 Package Review Integration
+# Next Work — G2-WP-02 Closure Integration
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
-## Integrated predecessor
-Construction A `G2-EKB-CONTRACT-FOUNDATION-01` and Construction B `G2-EKB-ADAPTIVE-UNDERSTANDING-01` are integrated. Optional Construction C remains NOT PROMOTED / NOT REQUIRED.
+## Closure state
+G2-WP-02 Construction A `TASK-473..478` and Construction B `TASK-479..483` are integrated. Optional Construction C remains `NOT REQUIRED / NOT MATERIALIZED`. Package Integration & Review is integrated with outcome PASS.
 
-Package Integration & Review was materialized by PR #579 and integrated as fresh main `34cccdd40b5a9bd959e24260047c43d821af4462`; exact materialization head `11b1752aad12208420576296bb7cb4aba71bb09f` passed Deterministic CI #1466, Heavy Product Tests #968 and Automation Handoff.
+Documentation & Closure materialization PR #582 integrated after exact head `b39220f3d9065a3039df900e8ffa458ca9dc5e3c` passed Deterministic CI #1469, Heavy Product Tests #973 and Automation Handoff, producing fresh main `798c5e3f0b42147b8b6f500fd57944d5f15dd348`.
 
-## Executed review outcome
-The bounded G2-WP-02 Package Integration & Review has been EXECUTED with outcome **PASS**. No blocking discrepancy, carried-risk routing need, Construction C trigger or change-control condition was found. Product Proof remains explicitly distinct from Production Readiness Coverage.
+The bounded closure execution has revalidated package truth and found no blocking package-goal discrepancy, hidden Construction debt, change-control trigger or carried-risk routing need.
 
 ## Active gate
-Validate, review and integrate only branch `review/G2-WP-02-package-integration-execution` from base `34cccdd40b5a9bd959e24260047c43d821af4462`.
+Validate, review and integrate only branch `closure/G2-WP-02-documentation-execution` from fresh-main base `798c5e3f0b42147b8b6f500fd57944d5f15dd348`.
 
-Do not mutate product scope while exact-head CI is queued/in progress. If any gate/review finding fails, repair only the bounded Package Review documentation/evidence discrepancy. If fully green, integrate with expected-head protection and reconstruct fresh `main`.
+Do not mutate product scope while exact-head CI is queued/in progress. Any failure/finding must be repaired only within closure documentation/repository-memory scope.
 
-Only after that fresh-main reconciliation may the smallest `G2-WP-02` Documentation & Closure slice be materialized. `G2-WP-03..G2-WP-13` remain NOT MATERIALIZED.
+If fully green, integrate with expected-head protection and reconstruct fresh `main`; that integration makes G2-WP-02 canonically CLOSED.
 
-Do not absorb authorization policy, provider qualification, UI navigation, persistence, AI/provider execution, Brownfield import, workflow, domain adoption, Production Readiness, unrelated findings, DEFER or DO_NOT_BUILD scope.
+## Dependency-safe successor
+After fresh-main closure reconciliation, the first eligible successor is `G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics`. Its Planning & Materialization must be separate work and begin from that fresh main. Do not materialize G2-WP-03+ as part of WP-02 closure.
+
+Do not absorb authorization/trust implementation, provider qualification, persistence, UI, AI/provider execution, Brownfield import, workflow, domain adoption, Production Readiness, unrelated findings, DEFER or DO_NOT_BUILD scope.
