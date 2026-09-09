@@ -1,7 +1,7 @@
 ---
 id: TASK-493
 title: Define correlation and evidence association without causal authority
-status: ready
+status: verification
 priority: 493
 milestone: G2
 model_tier: architecture
