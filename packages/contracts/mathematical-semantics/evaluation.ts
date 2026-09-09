@@ -4,7 +4,9 @@ import {
   type AnalyticalDefinitionRevision,
 } from "./index.js";
 import {
+  assertAnalyticalTransformDoesNotStrengthen,
   normalizeAnalyticalValueQualification,
+  type AnalyticalEvidenceReference,
   type AnalyticalValueQualification,
 } from "./uncertainty.js";
 
@@ -19,6 +21,13 @@ export type AnalyticalEvaluationEnvelope = Readonly<{
   definition: AnalyticalDefinitionRevision;
   inputs: readonly EvaluationInputBinding[];
 }>;
+
+export type AnalyticalEvaluationOutcome =
+  | Readonly<{ kind: "RESOLVED"; evaluation: AnalyticalEvaluationEnvelope; value: AnalyticalValueQualification }>
+  | Readonly<{ kind: "UNRESOLVED"; evaluation: AnalyticalEvaluationEnvelope; reason: string; evidence: readonly AnalyticalEvidenceReference[] }>
+  | Readonly<{ kind: "ERROR"; evaluation: AnalyticalEvaluationEnvelope; errorCode: string; reason: string; evidence: readonly AnalyticalEvidenceReference[] }>;
+
+export type AnalyticalEvaluationOutcomeKind = AnalyticalEvaluationOutcome["kind"];
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -49,6 +58,21 @@ function definitionKey(value: AnalyticalDefinitionRevision): string {
   return stable(value);
 }
 
+function normalizeOutcomeEvidence(value: unknown): readonly AnalyticalEvidenceReference[] {
+  if (!Array.isArray(value)) throw new Error("evaluation outcome evidence must be an array");
+  const normalized = value.map((item, index) => {
+    const record = asRecord(item, `evaluation outcome evidence ${index}`);
+    exact(record, ["evidenceRef", "evidenceRevision", "evidenceOwner"], `evaluation outcome evidence ${index}`);
+    return Object.freeze({
+      evidenceRef: nonEmpty(record.evidenceRef, "evidenceRef"),
+      evidenceRevision: nonEmpty(record.evidenceRevision, "evidenceRevision"),
+      evidenceOwner: nonEmpty(record.evidenceOwner, "evidenceOwner"),
+    });
+  });
+  normalized.sort((left, right) => stable(left).localeCompare(stable(right)));
+  return Object.freeze(normalized);
+}
+
 export function normalizeAnalyticalEvaluationEnvelope(
   input: unknown,
   expectedDefinition: AnalyticalDefinitionRevision,
@@ -75,10 +99,7 @@ export function normalizeAnalyticalEvaluationEnvelope(
   for (const expectedInput of expectedInputs) {
     const inputRef = nonEmpty(expectedInput.inputRef, "expected inputRef");
     if (expectedByRef.has(inputRef)) throw new Error(`expected evaluation input ${inputRef} is duplicated`);
-    const qualification = normalizeAnalyticalValueQualification(
-      expectedInput.qualification,
-      expectedInput.qualification.vector,
-    );
+    const qualification = normalizeAnalyticalValueQualification(expectedInput.qualification, expectedInput.qualification.vector);
     expectedByRef.set(inputRef, qualification);
   }
 
@@ -92,10 +113,7 @@ export function normalizeAnalyticalEvaluationEnvelope(
 
     const expectedQualification = expectedByRef.get(inputRef);
     if (!expectedQualification) throw new Error(`evaluation input ${inputRef} is not explicitly declared`);
-    const qualification = normalizeAnalyticalValueQualification(
-      binding.qualification,
-      expectedQualification.vector,
-    );
+    const qualification = normalizeAnalyticalValueQualification(binding.qualification, expectedQualification.vector);
     if (stable(qualification) !== stable(expectedQualification)) {
       throw new Error(`evaluation input ${inputRef} must preserve source/value/producing revisions, owner, locality and qualification exactly`);
     }
@@ -112,5 +130,50 @@ export function normalizeAnalyticalEvaluationEnvelope(
     evaluationRef: nonEmpty(record.evaluationRef, "evaluationRef"),
     definition: expected,
     inputs: Object.freeze(normalizedInputs),
+  });
+}
+
+export function normalizeAnalyticalEvaluationOutcome(
+  input: unknown,
+  expectedEnvelope: AnalyticalEvaluationEnvelope,
+  expectedKind: AnalyticalEvaluationOutcomeKind,
+  expectedResolvedValue?: AnalyticalValueQualification,
+): AnalyticalEvaluationOutcome {
+  const record = asRecord(input, "analytical evaluation outcome");
+  if (record.kind !== expectedKind) throw new Error("evaluation outcome kind cannot be masked or substituted");
+  const evaluation = normalizeAnalyticalEvaluationEnvelope(record.evaluation, expectedEnvelope.definition, expectedEnvelope.inputs);
+  if (stable(evaluation) !== stable(expectedEnvelope)) throw new Error("evaluation outcome must preserve the exact evaluation envelope and historical lineage");
+
+  if (expectedKind === "RESOLVED") {
+    exact(record, ["kind", "evaluation", "value"], "resolved evaluation outcome");
+    if (!expectedResolvedValue) throw new Error("resolved evaluation outcome requires an explicitly expected qualified value");
+    const value = normalizeAnalyticalValueQualification(record.value, expectedResolvedValue.vector);
+    if (stable(value) !== stable(expectedResolvedValue)) {
+      throw new Error("resolved evaluation value must preserve exact source/currentness/locality qualification and revisions");
+    }
+    if (stable(value.vector.qualifiedValue.producingAnalyticalRevision) !== stable(evaluation.definition.ref)) {
+      throw new Error("resolved evaluation value producing revision must match the pinned analytical definition revision");
+    }
+    assertAnalyticalTransformDoesNotStrengthen(evaluation.inputs.map((binding) => binding.qualification), value);
+    return Object.freeze({ kind: "RESOLVED", evaluation, value });
+  }
+
+  if (expectedKind === "UNRESOLVED") {
+    exact(record, ["kind", "evaluation", "reason", "evidence"], "unresolved evaluation outcome");
+    return Object.freeze({
+      kind: "UNRESOLVED",
+      evaluation,
+      reason: nonEmpty(record.reason, "unresolved reason"),
+      evidence: normalizeOutcomeEvidence(record.evidence),
+    });
+  }
+
+  exact(record, ["kind", "evaluation", "errorCode", "reason", "evidence"], "error evaluation outcome");
+  return Object.freeze({
+    kind: "ERROR",
+    evaluation,
+    errorCode: nonEmpty(record.errorCode, "errorCode"),
+    reason: nonEmpty(record.reason, "error reason"),
+    evidence: normalizeOutcomeEvidence(record.evidence),
   });
 }

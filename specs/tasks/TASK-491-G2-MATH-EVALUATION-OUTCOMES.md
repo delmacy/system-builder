@@ -1,7 +1,7 @@
 ---
 id: TASK-491
 title: Define deterministic resolved unresolved and error outcomes
-status: ready
+status: verification
 priority: 491
 milestone: G2
 model_tier: architecture
