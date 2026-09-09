@@ -1,44 +1,38 @@
 # G2-MATH-SEMANTIC-FOUNDATION-01 — Construction A
 
-Status: COMMITTED / MATERIALIZED / NOT EXECUTED
+Status: CONSTRUCTED / INTEGRATED / SPRINT REVIEW PENDING
 Work Package: `G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics`
 Planning base: `99e6b1c5dfd541b2514b571a6212272fc2a7258e`
 Planning Sprint: `G2-WP03-PLANNING-MATERIALIZATION-01`
+Planning PR: `#586`
+Integrated fresh main after final TASK: `bd7d5bf7d40da81fda5b94f6042787bd31c7b1e0`
 
 ## Sprint goal
 Create the minimum additive public mathematical-semantics contract foundation needed for revisioned analytical definitions and typed values while preserving source-domain ownership, provenance/currentness and conservative uncertainty.
 
-## Committed dependency chain
+## Executed dependency chain
 `TASK-484 -> TASK-485 -> TASK-486 -> TASK-487 -> TASK-488 -> TASK-489`
 
-The six TASKs are split by distinct semantic/proof concerns, not model tier or quota.
+Integrated PRs: `#587 -> #588 -> #590 -> #591 -> #592 -> #593`. PR #589 was closed without merge during bounded reconciliation of TASK-486 to one authoritative commit.
 
-## TASKs
-- `TASK-484` — revisioned expression/model identity and typed input bindings.
+## Delivered concerns
+- `TASK-484` — revisioned analytical/model identity and typed input bindings.
 - `TASK-485` — units and dimensional compatibility semantics.
 - `TASK-486` — precision, scale, rounding and temporal-window semantics.
-- `TASK-487` — vector basis/order/dimension semantics.
+- `TASK-487` — vector basis/order/dimension/locality semantics.
 - `TASK-488` — uncertainty/UNKNOWN/PARTIAL/INCONCLUSIVE and source-preserving value qualification.
 - `TASK-489` — integrated foundation proof across the real predecessor chain.
 
-## Intended product boundary
-Additive contracts under `packages/contracts/mathematical-semantics/**` plus focused deterministic product proof under `tests/product/g2-mathematical-semantics*.test.ts`.
+## Product boundary
+Additive contracts under `packages/contracts/mathematical-semantics/**` plus focused deterministic Product Proof under `tests/product/g2-mathematical-semantics*.test.ts`.
 
-The Sprint may consume public `semantic-substrate` and `elicitation-knowledge-base` contracts but must not mutate their ownership or absorb source-domain semantics.
+The Sprint consumes public semantic substrate contracts without mutating source-domain ownership or promoting analytical inference to authority.
 
-## Forbidden scope
+## Preserved exclusions
 No persistence/runtime topology; no provider/AI execution; no authorization/trust behavior; no workflow or data-domain adoption; no commercial/FinOps ownership; no causal inference authority; no generic physical actuation; no Production Readiness implementation; no WP-04+ work.
 
-## Growing proof
-By Sprint exit, deterministic proof must establish:
-1. historical analytical identity/revision pinning;
-2. typed input binding with explicit source owner/revision/evidence context;
-3. dimensional mismatch rejection;
-4. explicit precision/rounding/window policy;
-5. vector basis/order/dimension preservation;
-6. uncertainty states never silently collapse into precise known values;
-7. integrated deterministic behavior across the actual TASK chain;
-8. no owner strengthening, latest-revision substitution, causal promotion or predecessor mutation.
+## Integrated evidence
+The final TASK-489 exact head `f6c6cba691126e011141cf8b457d8c65e753baba` passed Deterministic CI #1496, Heavy Product Tests #1009 and Automation Handoff and merged via PR #593 to fresh `main` `bd7d5bf7d40da81fda5b94f6042787bd31c7b1e0`.
 
-## Exit gate
-All TASKs complete in dependency order with one authoritative commit per TASK, declared validations green, exact-head Deterministic CI and Heavy Product Tests green, Sprint Review PASS and protected expected-head integration before Construction B can be promoted.
+## Remaining exit gate
+Construction A is not review-closed yet. Sprint Review must regress the integrated TASK-484..489 chain for determinism, revision/source-owner preservation, unit/dimension mismatch rejection, explicit precision/rounding/window policy, vector basis/order/locality preservation, uncertainty no-strengthening, correlation-without-causation, predecessor integrity and scope discipline. Any finding is blocker-first. Construction B cannot be promoted until Sprint Review PASS is integrated.
