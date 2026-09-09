@@ -1,6 +1,6 @@
 # G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics
 
-Status: ACTIVE / CONSTRUCTION A INTEGRATED / SPRINT REVIEW PENDING
+Status: ACTIVE / CONSTRUCTION A REVIEW-CLOSED / CONSTRUCTION B PLANNING ELIGIBLE
 Planning base: `99e6b1c5dfd541b2514b571a6212272fc2a7258e`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS owner: `G2-WBS-22`
@@ -26,15 +26,15 @@ Introduce portable cross-cutting analytical semantics for revisioned expressions
 - Product Proof remains distinct from Production Readiness.
 
 ## Construction state
-### Construction A — `G2-MATH-SEMANTIC-FOUNDATION-01` — CONSTRUCTED / INTEGRATED / SPRINT REVIEW PENDING
-TASK-484..489 are integrated through PRs #587, #588, #590, #591, #592 and #593. Fresh main after the final TASK is `bd7d5bf7d40da81fda5b94f6042787bd31c7b1e0`.
+### Construction A — `G2-MATH-SEMANTIC-FOUNDATION-01` — CONSTRUCTED / INTEGRATED / SPRINT REVIEW PASS
+TASK-484..489 are integrated through PRs #587, #588, #590, #591, #592 and #593. Sprint Review PR #595 exact head `9b59372e4395c5a0840ee1d664beda570c042ced` passed Deterministic CI #1498, Heavy Product Tests #1013 and Automation Handoff and integrated to fresh `main` `b9814e9065d0462e57d660dd1fae11e1dbb7dc76`.
 
-Delivered substrate covers identity/revision, typed inputs, units/dimensions, precision/rounding, temporal windows, vector coordinates/basis/locality, uncertainty states and integrated adversarial Product Proof. Sprint Review remains the mandatory exit gate before Construction B promotion.
+Delivered substrate covers identity/revision, typed inputs, units/dimensions, precision/rounding, temporal windows, vector coordinates/basis/locality, uncertainty states and integrated adversarial Product Proof. Semantic review found no remaining blocker inside Construction A scope.
 
-### Construction B — FORECAST / NOT MATERIALIZED
+### Construction B — FORECAST / NOT MATERIALIZED / PLANNING ELIGIBLE
 Goal: add rule/expression evaluation envelopes and owner-preserving analytical derivation/transform semantics over the Construction A substrate, including explicit unresolved/error outcomes and correlation-without-causation boundaries.
 
-Construction B may only be materialized after Construction A Sprint Review PASS is integrated and fresh `main` is reconstructed.
+Construction B may now be materialized boundedly from fresh `main`; no product mutation is authorized until committed Sprint/TASK specs declare dependencies, allowed/forbidden paths and validations.
 
 ### Construction C — OPTIONAL / FORECAST
 Promote only after fresh-main review of Construction B proves a bounded missing capability necessary for the package goal.
