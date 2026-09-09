@@ -1,7 +1,7 @@
 ---
 id: TASK-494
 title: Prove integrated evaluation derivation and non-causality semantics
-status: ready
+status: verification
 priority: 494
 milestone: G2
 model_tier: architecture
@@ -76,6 +76,11 @@ Exercise latest-revision substitution, missing-input defaulting, unresolved/erro
 - adversarial proof for latest-revision substitution, missing defaults, disposition masking, owner/currentness/locality strengthening, dropped lineage and causal/authority promotion;
 - repository diff evidence that Construction A predecessor files remain unchanged;
 - declared validation commands pass on the exact authoritative TASK head.
+
+# Verification evidence
+- integrated Product Proof: `tests/product/g2-mathematical-semantics-evaluation-derivation-proof.test.ts`;
+- no Construction A predecessor contract file is modified by TASK-494;
+- exact-head repository and Heavy Product gates are required before Sprint closure.
 
 # Non-goals
 Construction C, runtime engine, persistence, UI, provider/AI execution, provider qualification, workflow, causal inference, physical actuation, Production Readiness.
