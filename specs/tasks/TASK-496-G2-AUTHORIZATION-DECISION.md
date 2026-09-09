@@ -1,7 +1,7 @@
 ---
 id: TASK-496
 title: Define deterministic authorization decision envelope
-status: ready
+status: verification
 priority: 496
 milestone: G2
 model_tier: architecture
