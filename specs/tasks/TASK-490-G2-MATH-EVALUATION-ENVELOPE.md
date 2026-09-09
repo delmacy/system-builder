@@ -1,7 +1,7 @@
 ---
 id: TASK-490
 title: Define revision-pinned rule and expression evaluation envelopes
-status: ready
+status: verification
 priority: 490
 milestone: G2
 model_tier: architecture
