@@ -1,7 +1,7 @@
 ---
 id: TASK-494
 title: Prove integrated evaluation derivation and non-causality semantics
-status: ready
+status: verification
 priority: 494
 milestone: G2
 model_tier: architecture
