@@ -2,19 +2,19 @@
 
 Date: 2026-09-09
 
-## Generation 2 — EXECUTION AUTHORIZED / G2-WP-04 CONSTRUCTION A REVIEW-CLOSED
+## Generation 2 — EXECUTION AUTHORIZED / G2-WP-04 CONSTRUCTION B MATERIALIZED
 `G2-WP-01`, `G2-WP-02` and `G2-WP-03` are CANONICALLY CLOSED.
 
-Fresh `main@73a5de3cfa6fb2af057c1797a8cdf1ac5d3b98fe` includes the integrated Construction A Sprint Review via PR #619. Construction A `G2-IDENTITY-AUTHORITY-FOUNDATION-01` is MATERIALIZED / EXECUTED / EXACT-HEAD VERIFIED / SPRINT REVIEW PASS with the canonical dependency chain `TASK-495 -> TASK-496 -> TASK-497 -> TASK-498 -> TASK-499`.
+Fresh `main@ef992caa9a4bfe4ca33869e82af46be6be78580f` includes PR #620, the post-Construction A Sprint Review reconciliation. Construction A `G2-IDENTITY-AUTHORITY-FOUNDATION-01` is MATERIALIZED / EXECUTED / EXACT-HEAD VERIFIED / SPRINT REVIEW PASS with the canonical dependency chain `TASK-495 -> TASK-496 -> TASK-497 -> TASK-498 -> TASK-499`.
 
 Pinned Generation 2 authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
-DAG revalidation selected `G2-WP-04 — Identity, Authorization, Trust, Secrets & Recovery` as the first dependency-safe designed successor. Its typed prerequisites are WP-01 semantic/revision/locality and WP-02 evidence/authority discovery; both are closed. WP-03 is not a prerequisite.
+Fresh-main and DAG revalidation found no successor blocker or scope drift. The WBS-03 authority contract is stable enough to admit the minimum WBS-04 Construction B slice while preserving the typed qualification edge: WBS-04 may qualify authentication/federation/session trust realization but cannot own or strengthen authorization semantics.
 
-Construction B remains FORECAST for trust/PKI/secrets/config/recovery qualification and rotation/recovery. Construction C remains OPTIONAL / FORECAST.
+Construction B `G2-TRUST-SECRETS-RECOVERY-QUALIFICATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with dependency chain `TASK-500 -> TASK-501 -> TASK-502 -> TASK-503 -> TASK-504`. Construction C remains OPTIONAL / FORECAST. Package Integration & Review and Documentation & Closure remain FORECAST.
 
 ## Invariants
-Preserve `authentication != authorization`, exact identity/authority revisions, evidence/currentness/locality, no delegation/break-glass/provider authority amplification, explicit UNKNOWN/PARTIAL, residual session/token/cache/offline cohorts, and `acknowledgement != convergence`. WBS-03 remains owner of authorization semantics; WBS-04 trust realization cannot acquire that ownership.
+Preserve `authentication != authorization`, `cryptographic validity != trust/authorization`, `secret reference != secret value`, desired/materialized/consumer-effective state separation, exact revision/currentness/locality, no degraded-mode authority expansion, explicit UNKNOWN/PARTIAL/INCONCLUSIVE, residual consumer/verifier/security cohorts, `acknowledgement != convergence`, and `UNKNOWN -> reconcile-before-retry` for unsafe ambiguous effects. WBS-03 remains owner of authorization semantics; WBS-04 realization cannot acquire that ownership.
 
 ## Current gate
-Fresh-main reconciliation after Construction A Sprint Review. Revalidate the pinned Generation 2 state/WBS/dependency graph/Work Package Design/Ready for Worker Handoff against `main@73a5de3cfa6fb2af057c1797a8cdf1ac5d3b98fe`. If no blocker or scope drift is found, Planning & Materialization may promote only the minimum dependency-safe Construction B slice already forecast for G2-WP-04. Do not execute Construction B product work until that materialization is integrated and its exact-head gates pass.
+Exact-head verification and integration of the Construction B Planning & Materialization commit. Do not execute TASK-500 or any Construction B product work before this planning head passes required gates and integrates. After integration, reconstruct fresh main and execute only TASK-500 first.
