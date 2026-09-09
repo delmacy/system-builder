@@ -1,8 +1,8 @@
 # G2-WP-04 — Identity, Authorization, Trust, Secrets & Recovery
 
-Status: PLANNING / CONSTRUCTION A MATERIALIZED
+Status: CONSTRUCTION A EXECUTED / SPRINT REVIEW PENDING
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
-Fresh-main base: `358b5b61616ab72d556505d330c1c9552bdb7d6b`
+Fresh-main base: `5a2f7a6c66edbf412773f6486f56a9c8571b0749`
 
 ## Package goal
 Bind identity/authentication/federation/authorization to trust/PKI/secrets/config/security/recovery without collapsing semantic ownership. Preserve `authentication != authorization`, exact revision/currentness/locality, bounded delegation, explicit residual cohorts and non-resurrection of stale authority.
@@ -11,7 +11,7 @@ Bind identity/authentication/federation/authorization to trust/PKI/secrets/confi
 G2-WP-01 and G2-WP-02 are canonically closed and satisfy WP-04 semantic/revision/locality plus evidence/authority-discovery prerequisites. WP-03 is not a prerequisite. WBS-03 authority semantics precede WBS-04 trust/config closure; WBS-04 may qualify authentication/session trust but cannot own authorization semantics.
 
 ## Construction horizon
-Construction A `G2-IDENTITY-AUTHORITY-FOUNDATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED and owns additive L3 contracts only. Construction B remains FORECAST for trust/PKI/secrets/config/recovery qualification and rotation/recovery behavior. Construction C remains OPTIONAL / FORECAST.
+Construction A `G2-IDENTITY-AUTHORITY-FOUNDATION-01` is MATERIALIZED / EXECUTED / EXACT-HEAD VERIFIED with TASK-495..499 integrated in dependency order. Construction A Sprint Review is the current gate. Construction B remains FORECAST for trust/PKI/secrets/config/recovery qualification and rotation/recovery behavior. Construction C remains OPTIONAL / FORECAST.
 
 ## Proposed product boundary
 Additive public structural contracts under `packages/contracts/identity-authorization/**` plus focused Product Proof. Existing runtime identity/session/permission behavior is predecessor evidence only and must not be silently redefined.
@@ -21,3 +21,6 @@ No provider/SSO SDK selection, persistence, runtime topology, UI, workflow, Brow
 
 ## Closure obligations carried
 No authority amplification through authentication, delegation, break-glass or provider mapping; exact identity/authority revisions; locality-qualified decisions; revocation/deprovision leaves explicit residual session/token/cache/offline cohorts; desired trust/config state remains distinct from consumer-effective state; rotation/recovery cannot resurrect stale authority.
+
+## Current gate
+Construction A Sprint Review must reconcile TASK-495..499 authoritative commits, exact-head gate evidence, integrated Product Proof, adversarial/recovery coverage, residual cohorts, UNKNOWN/PARTIAL semantics and repository memory before Construction B may be materialized or executed.
