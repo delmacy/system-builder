@@ -1,8 +1,9 @@
 # G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics
 
-Status: ACTIVE / CONSTRUCTION A REVIEW-CLOSED / CONSTRUCTION B MATERIALIZED
+Status: ACTIVE / CONSTRUCTION A REVIEW-CLOSED / CONSTRUCTION B INTEGRATED / SPRINT REVIEW PENDING
 Planning base: `99e6b1c5dfd541b2514b571a6212272fc2a7258e`
 Construction B planning base: `fb001f27c1f1189c5d50bff7fbc2be28bf543d27`
+Construction B integrated main: `920b0fce3be3b8f21ebdf5c390feb2e48d17034c`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS owner: `G2-WBS-22`
 
@@ -28,20 +29,20 @@ Introduce portable cross-cutting analytical semantics for revisioned expressions
 
 ## Construction state
 ### Construction A — `G2-MATH-SEMANTIC-FOUNDATION-01` — CONSTRUCTED / INTEGRATED / SPRINT REVIEW PASS
-TASK-484..489 are integrated through PRs #587, #588, #590, #591, #592 and #593. Sprint Review PR #595 passed and PR #596 reconciled the review-closed state to fresh `main` `fb001f27c1f1189c5d50bff7fbc2be28bf543d27`.
+TASK-484..489 are integrated through PRs #587, #588, #590, #591, #592 and #593. Sprint Review PR #595 passed and PR #596 reconciled the review-closed state.
 
 Delivered substrate covers identity/revision, typed inputs, units/dimensions, precision/rounding, temporal windows, vector coordinates/basis/locality, uncertainty states and integrated adversarial Product Proof.
 
-### Construction B — `G2-MATH-EVALUATION-DERIVATION-01` — COMMITTED / MATERIALIZED / NOT EXECUTED
-Committed chain: `TASK-490 -> TASK-491 -> TASK-492 -> TASK-493 -> TASK-494`.
+### Construction B — `G2-MATH-EVALUATION-DERIVATION-01` — CONSTRUCTED / INTEGRATED / SPRINT REVIEW PENDING
+Integrated chain: `TASK-490 -> TASK-491 -> TASK-492 -> TASK-493 -> TASK-494` through PRs #598, #599, #600, #601 and #603. TASK-494 exact head `03ec0986b33f2750408e9cf1d06290135afadf56` passed Deterministic CI #1509, Heavy Product Tests #1032 and Automation Handoff #1433 before merge to fresh `main` `920b0fce3be3b8f21ebdf5c390feb2e48d17034c`.
 
-Goal: add revision-pinned rule/expression evaluation envelopes, explicit resolved/unresolved/error outcomes, owner-preserving analytical derivation/transform lineage and correlation-without-causation boundaries over the Construction A substrate. Product mutation remains unauthorized until this Planning & Materialization integrates and fresh `main` is reconstructed.
+Delivered semantics cover revision-pinned rule/expression evaluation envelopes, explicit resolved/unresolved/error outcomes, owner-preserving analytical derivation/transform lineage and correlation-without-causation boundaries over the Construction A substrate, with integrated Product Proof.
 
 ### Construction C — OPTIONAL / FORECAST
 Promote only after fresh-main Construction B Sprint Review proves a bounded missing capability necessary for the package goal.
 
 ## Package Integration & Review — FORECAST
-Regress the complete mathematical semantics chain for contract drift, determinism, owner/revision preservation, uncertainty handling, dimensional/vector correctness, forbidden causal strengthening and compatibility with source-domain contracts. It is not feature overflow.
+If Construction B Sprint Review proves Construction C unnecessary, this becomes the next eligible successor. Regress the complete mathematical semantics chain for contract drift, determinism, owner/revision preservation, uncertainty handling, dimensional/vector correctness, forbidden causal strengthening and compatibility with source-domain contracts. It is not feature overflow.
 
 ## Documentation & Closure — FORECAST
 Reconcile repository memory, package evidence, risks, WBS/DAG traceability and successor gates without introducing product behavior.
