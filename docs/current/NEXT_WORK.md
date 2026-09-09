@@ -1,16 +1,14 @@
-# Next Work — G2-WP-03 Documentation & Closure
+# Next Work — Generation 2 Successor Revalidation
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
-## Closed/reviewed predecessors
-G2-WP-01 and G2-WP-02 are CANONICALLY CLOSED. G2-WP-03 Construction A TASK-484..489 and Construction B TASK-490..494 are integrated and Sprint Review PASS.
+## Closed predecessors
+G2-WP-01, G2-WP-02 and G2-WP-03 are CANONICALLY CLOSED. G2-WP-03 Construction A TASK-484..489 and Construction B TASK-490..494 are integrated and Sprint Review PASS; Package Integration & Review and Documentation & Closure are integrated.
 
-## Fresh package-review base
-Package Integration & Review PR #608 exact head `9989f0ba7c9293e693e6b395239207d2a05140ac` passed Deterministic CI #1514, Heavy Product Tests #1041 and Automation Handoff #1460 and merged with expected-head protection to fresh `main` `aa79d0136ed33652e1fbcf471767898d64cbb050`.
+## Fresh closure base
+Documentation & Closure PR #609 exact head `d74d876d3777922a2395ce3651f83b52dc20cbdc` passed Deterministic CI #1515, Heavy Product Tests #1043 and Automation Handoff and merged to fresh `main` `bd6fd1d608fa21a24764c50a75a8df652e03cd09`.
 
 ## Next mandatory gate
-Execute only G2-WP-03 Documentation & Closure: reconcile repository memory, package evidence, WBS/DAG traceability, residual-risk/exclusion classification and successor eligibility. No product/contracts/runtime behavior is added by closure.
+Revalidate the pinned Generation 2 WBS decomposition/dependency graph, Work Package Design and Ready for Worker Handoff against this fresh main. Identify only the first dependency-safe successor beginning at G2-WP-04 or later, then perform its separate bounded Planning & Materialization.
 
-Construction C remains `OPTIONAL / NOT REQUIRED / NOT MATERIALIZED`. Do not absorb authorization/trust, provider qualification, persistence, UI, AI/provider execution, Brownfield, workflow, Production Readiness implementation, physical actuation, causality implementation or unrelated finding/DEFER/DO_NOT_BUILD scope.
-
-After closure exact-head gates pass and expected-head merge integrates, reconstruct fresh `main`, mark G2-WP-03 CANONICALLY CLOSED, and only then revalidate the exact Generation 2 DAG to determine the first dependency-safe successor. Successor materialization is separate work.
+Do not materialize multiple macro-WPs, absorb unrelated findings, DEFER/DO_NOT_BUILD, authorization/trust, persistence, UI, provider execution/qualification, Brownfield, workflow, Production Readiness, physical actuation or causality unless the owning successor Work Package explicitly materializes that scope.
