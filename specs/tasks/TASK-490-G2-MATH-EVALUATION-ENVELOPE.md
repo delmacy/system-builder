@@ -36,6 +36,22 @@ validation:
 # Objective
 Define the minimum deterministic public envelope for evaluating a revision-pinned rule or expression against explicit Construction A analytical inputs.
 
+# Context
+Construction A is review-closed and supplies revisioned analytical definitions and typed bindings together with unit/dimension, precision, temporal, vector/locality and uncertainty/evidence qualification. This first Construction B TASK consumes that substrate without mutating predecessor contracts.
+
+# Current behavior
+No Construction B evaluation-envelope contract exists yet. The repository therefore has no portable deterministic request shape that pins an exact analytical definition revision and explicit inputs while structurally refusing implicit latest-revision selection or missing-value defaults.
+
+# Inputs / contracts
+- review-closed `packages/contracts/mathematical-semantics/**` Construction A public contracts;
+- exact analytical definition identity and historical revision;
+- explicit bound analytical values with their source/value/producing revisions and existing currentness/locality/qualification metadata.
+
+# Outputs / contracts
+- additive evaluation request/envelope contracts under `packages/contracts/mathematical-semantics/**`;
+- deterministic normalization for exact definition/revision and explicit input bindings;
+- focused Product Proof under the declared test boundary showing predecessor lineage is preserved without runtime evaluation behavior.
+
 # Required change
 Add additive contracts/normalization for an evaluation request that pins analytical definition identity and revision, declares input bindings explicitly and carries source lineage/currentness/locality without silently resolving a latest revision or inventing missing values.
 
@@ -49,6 +65,11 @@ Add additive contracts/normalization for an evaluation request that pins analyti
 
 # Negative/adversarial proof
 Reject malformed or substituted definition revisions, duplicate/ambiguous bindings, owner/revision strengthening, missing-input defaulting and implicit latest-resolution behavior.
+
+# Evidence expected
+- focused positive proof for equivalent valid envelope normalization and exact historical revision pinning;
+- adversarial proof for malformed/substituted revisions, duplicate bindings, missing-input defaulting and owner/currentness/locality strengthening attempts;
+- declared validation commands pass on the exact authoritative TASK head.
 
 # Non-goals
 Evaluation-result policy, derivation/transform lineage, correlation semantics, AI/provider execution, causal inference, runtime engine, persistence, UI.

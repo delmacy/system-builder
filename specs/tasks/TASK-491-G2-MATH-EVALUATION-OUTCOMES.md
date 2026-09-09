@@ -36,6 +36,22 @@ validation:
 # Objective
 Represent evaluation disposition explicitly and deterministically without allowing uncertainty, missing evidence or execution errors to masquerade as resolved values.
 
+# Context
+TASK-490 introduces the revision-pinned evaluation request/envelope over the review-closed Construction A substrate. TASK-491 adds only the result-disposition semantics needed to preserve uncertainty, evidence and lineage through an evaluation boundary.
+
+# Current behavior
+Before this TASK there is no Construction B public outcome contract distinguishing a successfully resolved analytical value from an unresolved evaluation or an execution/error disposition. Collapsing these states would create false precision or default authority.
+
+# Inputs / contracts
+- the exact TASK-490 evaluation envelope identity, definition revision and bound-input lineage;
+- Construction A `KNOWN | PARTIAL | UNKNOWN | INCONCLUSIVE` qualification, evidence/currentness and locality semantics;
+- any bounded explicit reason/evidence needed to explain unresolved or error disposition without runtime orchestration.
+
+# Outputs / contracts
+- additive mutually exclusive `RESOLVED | UNRESOLVED | ERROR` outcome contracts and deterministic normalization;
+- resolved outputs that preserve exact definition/input/source/producing revisions and conservative qualification;
+- explicit unresolved/error reason semantics that cannot masquerade as a value.
+
 # Required change
 Add outcome contracts for `RESOLVED`, `UNRESOLVED` and `ERROR`, with explicit reason/evidence semantics and conservative qualification compatible with Construction A `KNOWN/PARTIAL/UNKNOWN/INCONCLUSIVE` states.
 
@@ -49,6 +65,11 @@ Add outcome contracts for `RESOLVED`, `UNRESOLVED` and `ERROR`, with explicit re
 
 # Negative/adversarial proof
 Reject unknown-to-resolved promotion, error-to-unresolved masking, missing-reason ambiguity, revision substitution and source/currentness/locality strengthening.
+
+# Evidence expected
+- positive proof for deterministic normalization of each explicit outcome kind while preserving predecessor lineage;
+- adversarial proof that unknown/partial/inconclusive, unresolved and error dispositions cannot be coerced, masked or strengthened;
+- declared validation commands pass on the exact authoritative TASK head.
 
 # Non-goals
 Runtime execution/retry orchestration, workflow error handling, persistence, UI, provider/AI execution, derivation semantics, causal inference.

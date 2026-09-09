@@ -36,6 +36,22 @@ validation:
 # Objective
 Provide explicit analytical evidence-association/correlation semantics while making causal interpretation and authority structurally unavailable.
 
+# Context
+TASK-492 establishes owner-preserving derivation lineage over exact evaluation outcomes. WP-03 also requires explicit association/correlation semantics while maintaining the package invariant `correlation != causation` and leaving causality research-only.
+
+# Current behavior
+The mathematical semantics substrate has no Construction B association/correlation descriptor that pins participant revisions and evidence while structurally excluding causal roles, intervention claims or authority transfer. Ad hoc interpretation would risk turning analytical association into domain authority.
+
+# Inputs / contracts
+- exact TASK-492 derived or source analytical value references and their historical revisions;
+- preserved source owner, currentness, locality, evidence and uncertainty qualification;
+- explicit analytical revision/evidence describing the bounded association/correlation observation.
+
+# Outputs / contracts
+- additive association/correlation descriptors with exact participant/source revisions;
+- deterministic normalization that preserves declared participant order/identity semantics;
+- a public shape in which causal labels, interventions, authority transfer and actuation rights are unavailable.
+
 # Required change
 Add only bounded association/correlation descriptors that pin participating value/source revisions and analytical revision/evidence. Allowed semantics must not expose causal labels, intervention claims, authority transfer or actuation rights.
 
@@ -49,6 +65,11 @@ Add only bounded association/correlation descriptors that pin participating valu
 
 # Negative/adversarial proof
 Reject causal-label promotion, authority claims, source revision substitution, unknown evidence strengthening and locality strengthening.
+
+# Evidence expected
+- positive proof for deterministic association/correlation normalization with exact participant and evidence revisions;
+- adversarial proof that causal labels/intervention/authority claims, revision substitution and evidence/locality strengthening are rejected or structurally unavailable;
+- declared validation commands pass on the exact authoritative TASK head.
 
 # Non-goals
 Causal inference, causal graphs, interventions, policy decisions, authorization/trust, physical actuation, AI/provider execution.
