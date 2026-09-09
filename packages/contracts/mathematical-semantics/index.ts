@@ -356,8 +356,16 @@ function utcInstant(value: unknown, field: string): string {
 function compareUtcInstants(left: string, right: string): number {
   const leftParts = utcInstantParts(left, "left UTC instant");
   const rightParts = utcInstantParts(right, "right UTC instant");
+  if (leftParts.wholeSecondKey.length !== rightParts.wholeSecondKey.length) {
+    throw new Error("UTC instant comparison keys must have matching lengths");
+  }
   for (let index = 0; index < leftParts.wholeSecondKey.length; index += 1) {
-    const delta = leftParts.wholeSecondKey[index] - rightParts.wholeSecondKey[index];
+    const leftValue = leftParts.wholeSecondKey[index];
+    const rightValue = rightParts.wholeSecondKey[index];
+    if (leftValue === undefined || rightValue === undefined) {
+      throw new Error("UTC instant comparison key is incomplete");
+    }
+    const delta = leftValue - rightValue;
     if (delta !== 0) return delta < 0 ? -1 : 1;
   }
 
