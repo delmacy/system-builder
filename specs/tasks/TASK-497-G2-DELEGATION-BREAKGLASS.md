@@ -1,7 +1,7 @@
 ---
 id: TASK-497
 title: Constrain delegation and break-glass authority without amplification
-status: ready
+status: verification
 priority: 497
 milestone: G2
 model_tier: architecture
