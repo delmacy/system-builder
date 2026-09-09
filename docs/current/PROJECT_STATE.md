@@ -2,24 +2,19 @@
 
 Date: 2026-09-09
 
-## Generation 2 — EXECUTION AUTHORIZED / G2-WP-03 CANONICALLY CLOSED
-Generation 2 research/planning remains `READY_FOR_WORKER_HANDOFF`; execution of designed `G2-WP-01..G2-WP-13` remains authorized subject to rolling-wave DAG, ownership, review, L3/L4, safety and closure policies.
+## Generation 2 — EXECUTION AUTHORIZED / G2-WP-04 PLANNING MATERIALIZED
+`G2-WP-01`, `G2-WP-02` and `G2-WP-03` are CANONICALLY CLOSED.
 
-`G2-WP-01 — Semantic Constitution & Federated Revision Base` is CANONICALLY CLOSED.
+Fresh `main@358b5b61616ab72d556505d330c1c9552bdb7d6b` includes PR #610 canonical-closure reconciliation for WP-03. Its exact head `2fca14f761aa5a07181888c57737943ba88203e0` passed Deterministic CI #1516, Heavy Product Tests #1045 and Automation Handoff before merge.
 
-`G2-WP-02 — Elicitation Knowledge Base & System Understanding` is CANONICALLY CLOSED.
+Pinned Generation 2 authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
-`G2-WP-03 — Mathematical, Rule, Temporal, Vector & Uncertainty Semantics` is CANONICALLY CLOSED.
+DAG revalidation selected `G2-WP-04 — Identity, Authorization, Trust, Secrets & Recovery` as the first dependency-safe designed successor. Its typed prerequisites are WP-01 semantic/revision/locality and WP-02 evidence/authority discovery; both are closed. WP-03 is not a prerequisite.
 
-## Closed package evidence
-Construction A TASK-484..489 and Construction B TASK-490..494 are integrated with Sprint Review PASS. Package Integration & Review PR #608 exact head `9989f0ba7c9293e693e6b395239207d2a05140ac` passed Deterministic CI #1514, Heavy Product Tests #1041 and Automation Handoff #1460 and merged to `main` `aa79d0136ed33652e1fbcf471767898d64cbb050`.
-
-Documentation & Closure PR #609 exact head `d74d876d3777922a2395ce3651f83b52dc20cbdc` passed Deterministic CI #1515, Heavy Product Tests #1043 and Automation Handoff #1467 and merged to fresh `main` `bd6fd1d608fa21a24764c50a75a8df652e03cd09`.
-
-Package Review found no bounded blocker requiring Construction C. Construction C remains `OPTIONAL / NOT REQUIRED / NOT MATERIALIZED`.
+Planning & Materialization has committed Construction A `G2-IDENTITY-AUTHORITY-FOUNDATION-01` as `TASK-495 -> TASK-496 -> TASK-497 -> TASK-498 -> TASK-499`, NOT EXECUTED. Construction B remains FORECAST for trust/PKI/secrets/config/recovery qualification and rotation/recovery; Construction C remains OPTIONAL / FORECAST.
 
 ## Invariants
-Preserve owner/revision/currentness and source evidence; mathematical mechanics do not become source-domain owners. Units/dimensions, precision/rounding, temporal windows, vector basis/order/dimension and uncertainty remain explicit. `UNKNOWN`, `PARTIAL` and `INCONCLUSIVE` are not coerced to false precision. Evaluation `UNRESOLVED` and `ERROR` remain explicit. `AI inference != authority`; `correlation != causation`; Product Proof remains distinct from Production Readiness.
+Preserve `authentication != authorization`, exact identity/authority revisions, evidence/currentness/locality, no delegation/break-glass/provider authority amplification, explicit UNKNOWN/PARTIAL, residual session/token/cache/offline cohorts, and `acknowledgement != convergence`. WBS-03 remains owner of authorization semantics; WBS-04 trust realization cannot acquire that ownership.
 
-## Current execution gate
-Revalidate the pinned Generation 2 DAG from fresh `main@bd6fd1d608fa21a24764c50a75a8df652e03cd09` and determine the first dependency-safe designed successor. Do not absorb exclusions, DEFER/DO_NOT_BUILD or materialize a successor as a side effect of this closure reconciliation.
+## Current gate
+Planning & Materialization exact-head CI/review and merge. Do not execute TASK-495 until the planning branch integrates and fresh main is reconstructed.
