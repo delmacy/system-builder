@@ -1,16 +1,14 @@
-# Next Work — G2-WP-03 Construction B Planning & Materialization
+# Next Work — G2-WP-03 Construction B / TASK-490
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
-## Closed predecessors
-G2-WP-01 and G2-WP-02 are CANONICALLY CLOSED.
+## Closed/reviewed predecessors
+G2-WP-01 and G2-WP-02 are CANONICALLY CLOSED. Construction A `G2-MATH-SEMANTIC-FOUNDATION-01` completed TASK-484..489 and Sprint Review PASS. Repository-memory reconciliation PR #596 integrated to fresh `main` `fb001f27c1f1189c5d50bff7fbc2be28bf543d27` after exact-head gates passed.
 
-## Review-closed Construction A
-`G2-MATH-SEMANTIC-FOUNDATION-01` completed TASK-484..489 and Sprint Review PR #595 integrated on exact reviewed head `9b59372e4395c5a0840ee1d664beda570c042ced`. Fresh `main` is `b9814e9065d0462e57d660dd1fae11e1dbb7dc76`. Deterministic CI #1498, Heavy Product Tests #1013 and Automation Handoff passed on the review head before merge.
+## Materialized successor
+Construction B `G2-MATH-EVALUATION-DERIVATION-01` is committed as `TASK-490 -> TASK-491 -> TASK-492 -> TASK-493 -> TASK-494` and remains NOT EXECUTED until this materialization integrates.
 
 ## Next mandatory gate
-Materialize only the minimum dependency-safe Construction B slice from the existing package forecast: rule/expression evaluation envelopes and owner-preserving analytical derivation/transform semantics over the Construction A substrate, including explicit unresolved/error outcomes and correlation-without-causation boundaries.
+After integration and fresh-main reconstruction, execute only `TASK-490 — Define revision-pinned rule and expression evaluation envelopes` from fresh main, respecting its allowed/forbidden paths, max-files and validations. Treat any CI/review/proof finding blocker-first before TASK-491.
 
-Planning must assign committed Sprint/TASK identities, dependency order, allowed/forbidden paths, max-files and validation/proof obligations before any product mutation. If planning reveals a blocker or missing prerequisite, resolve or stop boundedly before Construction.
-
-Do not materialize Construction C, G2-WP-04+ or absorb authorization/trust, provider qualification, persistence, UI, AI/provider execution, Brownfield, workflow, Production Readiness, physical actuation, causality implementation, unrelated finding/DEFER/DO_NOT_BUILD scope.
+Do not execute successor TASKs out of order. Do not materialize Construction C, G2-WP-04+ or absorb authorization/trust, provider qualification, persistence, UI, AI/provider execution, Brownfield, workflow, Production Readiness, physical actuation, causality implementation or unrelated finding/DEFER/DO_NOT_BUILD scope.
