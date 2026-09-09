@@ -1,7 +1,7 @@
 ---
 id: TASK-495
 title: Define revision-pinned identity and authentication boundary
-status: ready
+status: verification
 priority: 495
 milestone: G2
 model_tier: architecture
