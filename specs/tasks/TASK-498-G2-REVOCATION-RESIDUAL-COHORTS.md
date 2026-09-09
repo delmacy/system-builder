@@ -1,7 +1,7 @@
 ---
 id: TASK-498
 title: Model revocation deprovision and residual authority cohorts
-status: ready
+status: verification
 priority: 498
 milestone: G2
 model_tier: architecture
