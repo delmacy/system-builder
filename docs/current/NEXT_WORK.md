@@ -1,14 +1,14 @@
-# Next Work — G2-WP-03 Construction B Sprint Review
+# Next Work — G2-WP-03 Package Integration & Review
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
 ## Closed/reviewed predecessors
-G2-WP-01 and G2-WP-02 are CANONICALLY CLOSED. Construction A `G2-MATH-SEMANTIC-FOUNDATION-01` completed TASK-484..489 and Sprint Review PASS.
+G2-WP-01 and G2-WP-02 are CANONICALLY CLOSED. Construction A `G2-MATH-SEMANTIC-FOUNDATION-01` completed TASK-484..489 and Sprint Review PASS. Construction B `G2-MATH-EVALUATION-DERIVATION-01` completed TASK-490..494 and Sprint Review PR #605 PASS.
 
-## Integrated Construction B
-Construction B `G2-MATH-EVALUATION-DERIVATION-01` completed and integrated `TASK-490 -> TASK-491 -> TASK-492 -> TASK-493 -> TASK-494` through PRs #598, #599, #600, #601 and #603. TASK-494 exact head `03ec0986b33f2750408e9cf1d06290135afadf56` passed Deterministic CI #1509, Heavy Product Tests #1032 and Automation Handoff #1433. Fresh `main` is `920b0fce3be3b8f21ebdf5c390feb2e48d17034c`.
+## Fresh reviewed base
+PR #605 exact head `1d34d4c5c034697eacb977ae33cfde1034cd62ea` passed Deterministic CI #1511, Heavy Product Tests #1036 and Automation Handoff #1445 before protected merge. Fresh `main` is `a2913c1668c6a663dc42ebfd18f2f7d63781d3aa`.
 
 ## Next mandatory gate
-After this repository-memory reconciliation integrates and fresh `main` is reconstructed, perform Construction B Sprint Review. The review must verify exact revision pinning, explicit `RESOLVED | UNRESOLVED | ERROR`, conservative `UNKNOWN/PARTIAL/INCONCLUSIVE`, owner/source/currentness/locality preservation, complete derivation lineage, deterministic normalization, `correlation != causation`, `AI inference != authority`, and Product Proof != Production Readiness.
+After this repository-memory reconciliation integrates and fresh `main` is reconstructed, perform G2-WP-03 Package Integration & Review. Regress the integrated Construction A+B package surface for contract drift, determinism, owner/revision/currentness/evidence preservation, explicit uncertainty and evaluation dispositions, dimensional/temporal/vector correctness, correlation-without-causation, source-of-truth/coexistence and Product Proof versus Production Readiness. Classify only bounded residual findings/debt; Package Review is not feature overflow.
 
-Do not materialize Construction C before the review. Promote optional Construction C only if fresh-main review evidence proves a bounded missing capability necessary for the G2-WP-03 package goal; otherwise Package Integration & Review is the next eligible successor. Do not materialize G2-WP-04+ or absorb authorization/trust, provider qualification, persistence, UI, AI/provider execution, Brownfield, workflow, Production Readiness, physical actuation, causality implementation or unrelated finding/DEFER/DO_NOT_BUILD scope.
+Construction C remains OPTIONAL / FORECAST and was not required by Construction B review evidence. Do not materialize it unless a new bounded Package Review finding explicitly proves it necessary for the package goal. Do not materialize G2-WP-04+ or absorb authorization/trust, provider qualification, persistence, UI, AI/provider execution, Brownfield, workflow, Production Readiness implementation, physical actuation, causality implementation or unrelated finding/DEFER/DO_NOT_BUILD scope.
