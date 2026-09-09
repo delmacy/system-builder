@@ -1,7 +1,7 @@
 ---
 id: TASK-492
 title: Preserve owner and revision lineage across analytical derivations and transforms
-status: ready
+status: verification
 priority: 492
 milestone: G2
 model_tier: architecture
