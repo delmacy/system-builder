@@ -1,7 +1,7 @@
 ---
 id: TASK-499
 title: Prove integrated identity authorization and revocation semantics
-status: ready
+status: verification
 priority: 499
 milestone: G2
 model_tier: architecture
@@ -38,7 +38,7 @@ Close Construction A with integrated positive, negative and adversarial Product 
 The predecessor chain establishes identity/authentication separation, explicit authorization, bounded delegation/break-glass and revocation residual cohorts.
 
 # Current behavior
-No integrated G2 proof demonstrates those invariants together on exact revisions/localities/currentness.
+Integrated G2 Product Proof is now implemented and awaiting exact-head verification.
 
 # Inputs / contracts
 Canonical Construction A contracts from TASK-495..498 and predecessor WP-01/WP-02 identity/evidence primitives.
