@@ -1,9 +1,10 @@
 ---
 id: TASK-511
 title: Define evidence-first Brownfield inventory and assimilation
-status: planned
+status: blocked
 priority: 511
 milestone: G2
+model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
