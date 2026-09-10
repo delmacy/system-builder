@@ -1,7 +1,7 @@
 ---
 id: TASK-504
 title: Prove integrated trust secrets rotation and recovery semantics
-status: ready
+status: verification
 priority: 504
 milestone: G2
 model_tier: architecture
