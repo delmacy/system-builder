@@ -1,7 +1,8 @@
 # G2-WP-06 — Provider, Brownfield & Bounded Physical/Peripheral Integration
 
-Status: `CONSTRUCTION A ACTIVE / TASK-510 INTEGRATED / TASK-511 NEXT`
+Status: `CONSTRUCTION A ACTIVE / TASK-510 INTEGRATED / TASK-511 READY`
 Planning base: `main@74ea711940c36608cd2e351069b38f2d54807b37`
+Current product main: `main@5effbdb1ea949de591333457b53e8e8028092942`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS owners: `G2-WBS-09`, `G2-WBS-23`, `G2-WBS-10`
 
@@ -16,8 +17,8 @@ Dependency-safe chain:
 
 `TASK-510 -> TASK-511 -> TASK-512 -> TASK-513 -> TASK-514 -> TASK-515`
 
-- TASK-510: multidimensional provider/binding qualification and explicit unsupported/partial/unknown semantics — `INTEGRATED` by PR #655, authoritative head `40ace249747806b3c3d6c47bbea720a17e52154b`, exact-head Deterministic CI #1607 PASS, Heavy Product Tests #1179 PASS, Automation Handoff #1875 PASS; merged to `main@310a82827a97f829e87ffaa43ec5b3970740e424`.
-- TASK-511: evidence-first Brownfield inventory/assimilation with provenance, owner/revision/currentness and AI inference != authority — `NEXT AFTER POST-TASK-510 RECONCILIATION`.
+- TASK-510: multidimensional provider/binding qualification and explicit unsupported/partial/unknown semantics — `INTEGRATED` by PR #655, authoritative head `40ace249747806b3c3d6c47bbea720a17e52154b`, exact-head Deterministic CI #1607 PASS, Heavy Product Tests #1179 PASS, Automation Handoff #1875 PASS.
+- TASK-511: evidence-first Brownfield inventory/assimilation with provenance, owner/revision/currentness and AI inference != authority — `READY` after integrated post-TASK-510 reconciliation.
 - TASK-512: external identity reuse/rebinding protection and coexistence/source-of-truth lineage — predecessor-gated.
 - TASK-513: locality-aware local/Station/Fleet truth and reconciliation boundaries — predecessor-gated.
 - TASK-514: bounded Physical/Peripheral integration/governance contracts without generic actuation authority — predecessor-gated.
@@ -35,4 +36,4 @@ Brownfield discovery is evidence, not authority. External identifiers are reuse/
 No concrete vendor adapter, device driver, PLC/robotics/vehicle actuation, generic hardware control plane, deployment topology, production credentials, DB migration execution, UI, billing, unrelated WP-07+ work, or DEFER/DO_NOT_BUILD finding is absorbed.
 
 ## Gate
-Integrate this post-TASK-510 repository-memory reconciliation, reconstruct fresh main, then execute TASK-511 only. Preserve one authoritative commit per TASK where required.
+TASK-511 is the current dependency-safe Construction A gate. Execute only TASK-511 from fresh main and preserve one authoritative commit per TASK where required.
