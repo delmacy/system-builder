@@ -1,7 +1,7 @@
 ---
 id: TASK-500
 title: Define revision-qualified trust and credential qualification boundary
-status: ready
+status: verification
 priority: 500
 milestone: G2
 model_tier: architecture
