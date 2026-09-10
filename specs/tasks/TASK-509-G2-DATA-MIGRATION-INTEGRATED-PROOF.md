@@ -1,7 +1,7 @@
 ---
 id: TASK-509
 title: Prove integrated canonical data schema and source migration semantics
-status: blocked
+status: verification
 priority: 509
 milestone: G2
 model_tier: architecture
