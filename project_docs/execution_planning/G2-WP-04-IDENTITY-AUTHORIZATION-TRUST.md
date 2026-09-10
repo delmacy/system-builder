@@ -1,8 +1,8 @@
 # G2-WP-04 — Identity, Authorization, Trust, Secrets & Recovery
 
-Status: CONSTRUCTION A SPRINT REVIEW PASS / CONSTRUCTION B MATERIALIZED / NOT EXECUTED
+Status: CONSTRUCTION A SPRINT REVIEW PASS / CONSTRUCTION B EXECUTED / EXACT-HEAD VERIFIED / REVIEW GATE
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
-Fresh-main base: `ef992caa9a4bfe4ca33869e82af46be6be78580f`
+Fresh-main base: `9d77cd0f02728c5280c008658e6cb264c84741ff`
 
 ## Package goal
 Bind identity/authentication/federation/authorization to trust/PKI/secrets/config/security/recovery without collapsing semantic ownership. Preserve `authentication != authorization`, exact revision/currentness/locality, bounded delegation, explicit residual cohorts and non-resurrection of stale authority.
@@ -13,7 +13,7 @@ G2-WP-01 and G2-WP-02 are canonically closed and satisfy WP-04 semantic/revision
 ## Construction horizon
 Construction A `G2-IDENTITY-AUTHORITY-FOUNDATION-01` is MATERIALIZED / EXECUTED / EXACT-HEAD VERIFIED / SPRINT REVIEW PASS with TASK-495..499 integrated and review reconciliation integrated by PR #620.
 
-Construction B `G2-TRUST-SECRETS-RECOVERY-QUALIFICATION-01` is COMMITTED / MATERIALIZED / NOT EXECUTED with `TASK-500 -> TASK-501 -> TASK-502 -> TASK-503 -> TASK-504`. It covers only the minimum dependency-safe WBS-04 semantics: trust/PKI qualification; secret/config desired-versus-effective lineage and presence; rotation/revocation/adoption/drainage; degraded/recovery/fencing non-strengthening; and integrated Product Proof.
+Construction B `G2-TRUST-SECRETS-RECOVERY-QUALIFICATION-01` is COMMITTED / MATERIALIZED / EXECUTED / EXACT-HEAD VERIFIED with `TASK-500 -> TASK-501 -> TASK-502 -> TASK-503 -> TASK-504` integrated in dependency order. It covers only the minimum dependency-safe WBS-04 semantics: trust/PKI qualification; secret/config desired-versus-effective lineage and presence; rotation/revocation/adoption/drainage; degraded/recovery/fencing non-strengthening; and integrated Product Proof.
 
 Construction C remains OPTIONAL / FORECAST and must be justified by Construction B Sprint Review findings rather than assumed.
 
@@ -34,4 +34,4 @@ No provider/SSO/CA/Vault/KMS SDK selection, persistence, runtime topology, UI, w
 - Product Proof remains distinct from Production Readiness.
 
 ## Current gate
-Exact-head verification and integration of the Construction B Planning & Materialization commit. Product execution remains forbidden until that head is green and integrated; after fresh-main reconstruction, TASK-500 is the first eligible task.
+Construction B TASK-500..504 are integrated and exact-head verified; TASK-504 was integrated by PR #629 and repository memory was reconciled by PR #631. The next mandatory gate is Construction B Sprint Review across the authoritative TASK chain and proof obligations. Do not materialize or execute Construction C before that review passes and fresh-main revalidation proves it necessary for the Package Goal.
