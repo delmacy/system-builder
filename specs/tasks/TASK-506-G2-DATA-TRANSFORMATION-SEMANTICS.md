@@ -1,7 +1,7 @@
 ---
 id: TASK-506
 title: Qualify presence units precision defaults and lossy transformations
-status: blocked
+status: verification
 priority: 506
 milestone: G2
 model_tier: architecture
