@@ -1,9 +1,10 @@
 ---
 id: TASK-510
 title: Define multidimensional provider and binding qualification
-status: planned
+status: ready
 priority: 510
 milestone: G2
+model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
