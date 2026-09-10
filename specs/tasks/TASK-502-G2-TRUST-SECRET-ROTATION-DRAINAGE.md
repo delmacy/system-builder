@@ -1,7 +1,7 @@
 ---
 id: TASK-502
 title: Model trust and secret rotation adoption and residual drainage
-status: ready
+status: verification
 priority: 502
 milestone: G2
 model_tier: architecture
