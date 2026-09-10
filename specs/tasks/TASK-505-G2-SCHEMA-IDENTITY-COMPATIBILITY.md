@@ -1,7 +1,7 @@
 ---
 id: TASK-505
 title: Define canonical schema identity revision and directional compatibility
-status: ready
+status: verification
 priority: 505
 milestone: G2
 model_tier: architecture
