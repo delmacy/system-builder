@@ -1,7 +1,8 @@
 # G2-WP-05 — Canonical Data, Schema & Source-of-Truth Migration
 
-Status: PLANNED / CONSTRUCTION A MATERIALIZED / PRODUCT WORK NOT EXECUTED
+Status: PLANNED / CONSTRUCTION A MATERIALIZED AND INTEGRATED / PRODUCT WORK NOT EXECUTED
 Planning base: `main@6b0aebfade030088e412f3d8f70c1328b136370b`
+Integrated planning main: `main@6ba0bb96163425d1d36ab63a5ebc3c8243625428`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS owner: `G2-WBS-05`
 
@@ -20,6 +21,8 @@ Materialized DAG: `TASK-505 -> TASK-506 -> TASK-507 -> TASK-508 -> TASK-509`.
 - TASK-508: source-of-truth transfer, fencing, backfill/CDC/dual-write lineage and residual drainage.
 - TASK-509: integrated positive/negative/adversarial/recovery Product Proof for Construction A.
 
+Planning & Materialization PR #637 exact head `dfa4a665ffbc97e3223c20136334330f9bbd1bd9` passed Deterministic CI #1569, Heavy Product Tests #1123 and Automation Handoff #1707 and integrated as `main@6ba0bb96163425d1d36ab63a5ebc3c8243625428`. TASK-505 is therefore the first dependency-safe product task.
+
 Construction B/C are NOT MATERIALIZED. They may only be justified by a later Sprint Review from fresh-main evidence; they are not overflow.
 
 ## Invariants
@@ -29,4 +32,4 @@ Construction B/C are NOT MATERIALIZED. They may only be justified by a later Spr
 Concrete database migration execution, ORM/schema rollout, provider/brownfield integration, runtime topology, deployment, queues/workflows, UI, Production Readiness and WP-06+ semantics are excluded unless separately materialized.
 
 ## Gate
-This Planning & Materialization head must pass exact-head repository gates and integrate before TASK-505 executes.
+Planning & Materialization is exact-head verified and integrated. Execute only TASK-505 next; TASK-506+ remain predecessor-gated.
