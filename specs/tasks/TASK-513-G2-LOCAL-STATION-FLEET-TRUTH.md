@@ -34,6 +34,18 @@ validation:
 # Objective
 Define locality-qualified truth and reconciliation boundaries for local, Station and Fleet integration contexts.
 
+# Context
+TASK-513 follows external identity/coexistence lineage and constrains truth to explicit locality/currentness while preserving canonical source ownership.
+
+# Current behavior
+No G2 contract currently proves reconciliation among local, Station and Fleet observations without silently promoting partitioned or stale state to global truth.
+
+# Inputs / contracts
+TASK-512 lineage, locality scope, observation/currentness horizon, local authority, canonical source ownership, reconciliation state and conflict/partition evidence.
+
+# Outputs / contracts
+A locality-aware truth/reconciliation contract with explicit local/Station/Fleet scope, currentness, authority distinction, conflict state and residual lineage.
+
 # Required change
 Represent locality scope, observation/currentness horizon, local authority, upstream/downstream reconciliation state and conflict/partition uncertainty without assuming globally current truth.
 
@@ -46,6 +58,12 @@ Represent locality scope, observation/currentness horizon, local authority, upst
 
 # Negative/adversarial proof
 Reject local=>global, stale=>current, disconnected=>absent and UNKNOWN conflict=>resolved.
+
+# Evidence expected
+Product Proof covers current reconciled observations and adversarial stale, partitioned, disconnected and UNKNOWN-conflict cases; exact-head validations pass.
+
+# Escalation
+Escalate if resolution requires networking topology, scheduling or deployment behavior outside the contract; preserve locality-qualified UNKNOWN instead of manufacturing global truth.
 
 # Non-goals
 Networking topology, fleet scheduler, deployment, device driver or Production Readiness.
