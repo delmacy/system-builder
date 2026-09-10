@@ -36,6 +36,18 @@ validation:
 # Objective
 Close Construction A with integrated Product Proof across TASK-510..514 without new semantic ownership.
 
+# Context
+TASK-515 is the Construction A proof gate after TASK-510..514 and must integrate their already-owned semantics without adding product or Production Readiness scope.
+
+# Current behavior
+The individual contracts are planned, but Construction A requires one integrated proof across qualification, Brownfield assimilation, identity/coexistence, locality and bounded physical/peripheral governance.
+
+# Inputs / contracts
+The exact integrated contracts and Product Proof surfaces produced by TASK-510..514 plus pinned G2 authority and predecessor evidence/currentness/source-of-truth semantics.
+
+# Outputs / contracts
+Integrated positive, negative, adversarial and recovery Product Proof only; no new semantic ownership or production-readiness claim.
+
 # Required change
 Prove positive, negative, adversarial and recovery paths across provider qualification, Brownfield evidence, external identity reuse/rebinding, coexistence/source-of-truth, locality/currentness, local/Station/Fleet reconciliation and bounded Physical/Peripheral governance.
 
@@ -51,6 +63,12 @@ Prove positive, negative, adversarial and recovery paths across provider qualifi
 
 # Negative/adversarial proof
 Exercise parity=>support, inference=>authority, stale=>current, ID reuse=>same entity, dual truth, hidden residuals, local=>global, connected=>authorized and accepted-command=>effect.
+
+# Evidence expected
+Integrated product and heavy Product Proof demonstrate happy, negative, adversarial and recovery behavior across TASK-510..514; task/architecture/typecheck/verify gates pass on the exact head.
+
+# Escalation
+Escalate any discovered requirement for new semantic ownership, concrete adapters/devices, deployment, Production Readiness or WP-07+ work rather than absorbing it into this proof TASK.
 
 # Non-goals
 Production Readiness, concrete vendor/device adapters, deployment or WP-07+ work.
