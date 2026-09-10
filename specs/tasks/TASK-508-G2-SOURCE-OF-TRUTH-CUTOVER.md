@@ -1,7 +1,7 @@
 ---
 id: TASK-508
 title: Define source of truth transfer fencing and lineage preserving migration
-status: blocked
+status: verification
 priority: 508
 milestone: G2
 model_tier: architecture
