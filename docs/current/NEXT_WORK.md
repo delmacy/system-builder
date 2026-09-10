@@ -1,16 +1,14 @@
-# Next Work — G2-WP-05 Documentation & Closure
+# Next Work — G2-WP-05 Post-Closure Reconciliation -> G2-WP-06 Planning & Materialization
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
-## Closed/reviewed predecessors
-`G2-WP-01..G2-WP-04` are CANONICALLY CLOSED. G2-WP-05 Construction A `TASK-505 -> TASK-506 -> TASK-507 -> TASK-508 -> TASK-509` is integrated, exact-head verified and Sprint Review PASS. Construction B/C are `NOT REQUIRED / NOT MATERIALIZED` on current evidence.
+## Closed predecessors
+`G2-WP-01..G2-WP-05` are CANONICALLY CLOSED. G2-WP-05 Documentation & Closure PR #652 exact head `41e3014c4882859e5aac7f44fe97b9dd3d9e66d8` passed exact-head gates and integrated by expected-head-protected squash to fresh `main@6bb6f8d1a3bf77b003b2c467f309245e64021bd1`. Construction B/C remain `NOT REQUIRED / NOT MATERIALIZED`.
 
-## Fresh package-review base
-Package Integration & Review PR #651 exact head `d5bd30d5ee7ec98eed6f2ec7d055607d1e6a5605` passed Deterministic CI #1591, Heavy Product Tests #1159 and Automation Handoff #1819 and merged with expected-head protection to fresh `main@1d5e661def1b6d8a4192933144b74d24048bbe08`.
+## Revalidated authority
+Pinned authority is `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`. `RESEARCH_PIPELINE_STATE.json` is `READY_FOR_WORKER_HANDOFF`; WBS decomposition/dependency graph and Work Package Design are CLOSED/PASS for handoff. Work Package Design identifies `G2-WP-06 — Provider, Brownfield & Bounded Physical/Peripheral Integration` as the dependency-safe successor once WP-05 closes. WP-06 owns `G2-WBS-09`, `G2-WBS-23`, `G2-WBS-10` and depends on closed WP-01 semantic/revision, WP-02 evidence, WP-04 authority/trust and WP-05 data semantics for structured legacy assimilation.
 
 ## Next mandatory gate
-Execute only G2-WP-05 Documentation & Closure: reconcile repository memory, package evidence, WBS/DAG traceability, residual-risk/exclusion classification and successor eligibility. No product/contracts/runtime/provider/persistence behavior is added by closure.
+First integrate this bounded post-closure repository-memory reconciliation. Then reconstruct fresh main and execute `G2-WP-06 Planning & Materialization` only. Materialize its executable DAG from the exact pinned WBS/package authority without importing forecast work, DEFER/DO_NOT_BUILD findings or unrelated product scope.
 
-Construction B/C, concrete database/ORM migration execution, provider/brownfield integration, runtime topology, deployment, queues/workflows, UI, Production Readiness, WP-06+ implementation and unrelated DEFER/DO_NOT_BUILD findings remain excluded unless separately materialized.
-
-After closure exact-head gates pass and expected-head merge integrates, reconstruct fresh `main`, mark G2-WP-05 CANONICALLY CLOSED, and only then revalidate the exact pinned Generation 2 DAG to determine the first dependency-safe successor. Successor materialization is separate work.
+Preserve provider support as multidimensional qualification rather than API/feature parity, evidence-first Brownfield semantics, explicit coexistence/cutover/residual drainage, external-ID reuse protection, locality/currentness and Station/Fleet/local truth. Physical/Peripheral remains bounded to integration/governance; no generic physical actuation authority is inferred. Product Proof and Production Readiness remain separate.
