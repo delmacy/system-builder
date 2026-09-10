@@ -1,7 +1,7 @@
 ---
 id: TASK-503
 title: Constrain degraded recovery and fencing semantics without strengthening
-status: ready
+status: verification
 priority: 503
 milestone: G2
 model_tier: architecture
