@@ -1,16 +1,14 @@
-# Current Execution Milestone — Generation 2 / G2-WP-04 Construction B Review Gate
+# Current Execution Milestone — Generation 2 / G2-WP-04 Documentation & Closure
 
 ## Milestone state
 `G2-WP-01`, `G2-WP-02` and `G2-WP-03` are canonically CLOSED. Pinned Generation 2 authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
-Fresh main is `77d49a20ec934afbf995cca20fdac02667594449` after PR #629 integrated TASK-504.
+`G2-WP-04 — Identity, Authorization, Trust, Secrets & Recovery` completed Construction A TASK-495..499 and Construction B TASK-500..504 with Sprint Review PASS for both constructions. Construction C is `OPTIONAL / NOT REQUIRED / NOT MATERIALIZED`.
 
-Construction A `G2-IDENTITY-AUTHORITY-FOUNDATION-01` remains MATERIALIZED / EXECUTED / EXACT-HEAD VERIFIED / SPRINT REVIEW PASS with `TASK-495 -> TASK-496 -> TASK-497 -> TASK-498 -> TASK-499` integrated in dependency order.
+## Package review
+Package Integration & Review PR #634 exact head `ff4434c96f1c16cbd724498d250cf1ab0610e6c8` passed Deterministic CI #1566, Heavy Product Tests #1116 and Automation Handoff #1691 and merged with expected-head protection to fresh `main@625992142e64a03248d657e0b54d6668bddd16bd`.
 
-## Active construction slice
-Construction B `G2-TRUST-SECRETS-RECOVERY-QUALIFICATION-01` is COMMITTED / MATERIALIZED / EXECUTED / EXACT-HEAD VERIFIED with `TASK-500 -> TASK-501 -> TASK-502 -> TASK-503 -> TASK-504` integrated in dependency order.
-
-The slice remains bounded to WBS-04 trust/PKI, secrets/config, cohort-aware rotation/currentness, degraded/recovery semantics and integrated Product Proof while consuming WBS-03 authority without redefining it. TASK-504 explicitly preserves presence distinctions, UNKNOWN/PARTIAL/INCONCLUSIVE non-strengthening, residual cohorts and Product Proof != Production Readiness. Construction C remains OPTIONAL / FORECAST. Package Integration & Review and Documentation & Closure remain FORECAST.
+The package review found no bounded blocker and no need for Construction C. Product Proof remains distinct from Production Readiness; residual provider/runtime/storage/recovery realization stays excluded unless separately materialized.
 
 ## Current gate
-Repository memory must first be reconciled to the exact post-TASK-504 fresh main. After that reconciliation passes its own exact-head gates and integrates, reconstruct fresh main and execute Construction B Sprint Review. Do not materialize or execute Construction C before the review passes and successor eligibility is revalidated.
+Documentation & Closure is EXECUTED / PENDING INTEGRATION. Reconcile package evidence, repository memory, WBS/DAG traceability, residual exclusions and successor gating only. After exact-head gates pass and expected-head merge completes, reconstruct fresh `main`, mark G2-WP-04 canonically CLOSED and only then revalidate the Generation 2 DAG for the next dependency-safe package.

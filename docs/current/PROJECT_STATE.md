@@ -2,17 +2,21 @@
 
 Date: 2026-09-10
 
-## Generation 2 — EXECUTION AUTHORIZED / G2-WP-04 CONSTRUCTION B REVIEW GATE
+## Generation 2 — EXECUTION AUTHORIZED / G2-WP-04 DOCUMENTATION & CLOSURE
 `G2-WP-01`, `G2-WP-02` and `G2-WP-03` are CANONICALLY CLOSED.
 
-Fresh `main@77d49a20ec934afbf995cca20fdac02667594449` includes PR #629 and the complete Construction B dependency chain through TASK-504. Construction A `G2-IDENTITY-AUTHORITY-FOUNDATION-01` remains MATERIALIZED / EXECUTED / EXACT-HEAD VERIFIED / SPRINT REVIEW PASS with the canonical dependency chain `TASK-495 -> TASK-496 -> TASK-497 -> TASK-498 -> TASK-499`.
+`G2-WP-04 — Identity, Authorization, Trust, Secrets & Recovery` completed Construction A and Construction B with Sprint Review PASS. Construction C is `OPTIONAL / NOT REQUIRED / NOT MATERIALIZED` on current evidence.
+
+Package Integration & Review PR #634 exact head `ff4434c96f1c16cbd724498d250cf1ab0610e6c8` passed Deterministic CI #1566, Heavy Product Tests #1116 and Automation Handoff #1691 and merged with expected-head protection to fresh `main@625992142e64a03248d657e0b54d6668bddd16bd`.
 
 Pinned Generation 2 authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
-Construction B `G2-TRUST-SECRETS-RECOVERY-QUALIFICATION-01` is COMMITTED / MATERIALIZED / EXECUTED / EXACT-HEAD VERIFIED with dependency chain `TASK-500 -> TASK-501 -> TASK-502 -> TASK-503 -> TASK-504` integrated in dependency order. Construction B Sprint Review is the next mandatory gate. Construction C remains OPTIONAL / FORECAST and must not be materialized before this review. Package Integration & Review and Documentation & Closure remain FORECAST.
+## Package closure state
+Documentation & Closure is EXECUTED / PENDING INTEGRATION. Closure is documentation/repository-memory only and introduces no product/runtime/provider/persistence/UI/workflow behavior.
 
-## Invariants
-Preserve `authentication != authorization`, `cryptographic validity != trust/authorization`, `secret reference != secret value`, desired/materialized/consumer-effective state separation, exact revision/currentness/locality, no degraded-mode authority expansion, explicit UNKNOWN/PARTIAL/INCONCLUSIVE, residual consumer/verifier/security cohorts, `acknowledgement != convergence`, and `UNKNOWN -> reconcile-before-retry` for unsafe ambiguous effects. WBS-03 remains owner of authorization semantics; WBS-04 realization cannot acquire that ownership.
+The closed package preserves `authentication != authorization`, `cryptographic validity != authorization`, `secret reference != secret value`, explicit `VALUE_REF/ABSENT/NULL/DEFAULT/DELETE`, desired/materialized/consumer-effective separation, exact revision/currentness/locality, bounded delegation/break-glass, explicit residual cohorts, conservative `UNKNOWN/PARTIAL/INCONCLUSIVE`, non-strengthening degraded/recovery semantics, fencing/supersession, and `UNKNOWN -> reconcile-before-retry` for unsafe ambiguous effects.
+
+Residual provider SDK/admission/cutover, persistence, runtime topology/enforcement, trust-store/secret-store realization, certificate/key issuance, operational recovery/failover, UI/workflow/deployment and Production Readiness remain outside G2-WP-04 unless separately materialized by their owning packages/gates.
 
 ## Current gate
-TASK-504 is integrated by PR #629 on fresh main `77d49a20ec934afbf995cca20fdac02667594449` after exact-head Deterministic CI #1562 PASS, Heavy Product Tests #1108 PASS and Automation Handoff #1664 PASS. Reconcile repository memory to this exact state and then execute Construction B Sprint Review. Do not materialize or execute Construction C before that review passes and fresh-main reconciliation confirms the successor is dependency-safe.
+Run exact-head gates for this Documentation & Closure head. If green and review-clean, integrate with expected-head protection, reconstruct fresh `main`, mark G2-WP-04 CANONICALLY CLOSED, then revalidate the pinned Generation 2 DAG to determine the first dependency-safe successor. Do not materialize successor product work as a side effect of closure.
