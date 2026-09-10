@@ -1,13 +1,14 @@
-# Current Execution Milestone — Generation 2 / G2-WP-05 Package Integration & Review
+# Current Execution Milestone — Generation 2 / G2-WP-05 Documentation & Closure
 
 ## Milestone state
 `G2-WP-01..G2-WP-04` are canonically CLOSED. Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
-G2-WP-05 Planning & Materialization PR #637 integrated. Construction A `G2-CANONICAL-DATA-MIGRATION-FOUNDATION-01` executed `TASK-505 -> TASK-506 -> TASK-507 -> TASK-508 -> TASK-509` and all TASKs are integrated with exact-head CI/Heavy/Handoff evidence recorded in package memory.
+G2-WP-05 Construction A `G2-CANONICAL-DATA-MIGRATION-FOUNDATION-01` executed `TASK-505 -> TASK-506 -> TASK-507 -> TASK-508 -> TASK-509`; all TASKs are integrated and exact-head verified. Construction A Sprint Review passed and Construction B/C are `NOT REQUIRED / NOT MATERIALIZED` on current evidence.
 
-Construction A Sprint Review PR #649 exact head `3e91e9a72a3d0c10d6a9046745d975a2b118f9bb` passed Deterministic CI #1589, Heavy Product Tests #1155 and Automation Handoff #1806, found no blocking semantic finding, classified Construction B/C as NOT REQUIRED on current evidence, and integrated as fresh `main@4cb20da7b5c341fe30a81813605f9f5769336909`.
+## Package review
+Package Integration & Review PR #651 exact head `d5bd30d5ee7ec98eed6f2ec7d055607d1e6a5605` passed Deterministic CI #1591, Heavy Product Tests #1159 and Automation Handoff #1819 and merged with expected-head protection to fresh `main@1d5e661def1b6d8a4192933144b74d24048bbe08`.
 
-Preserve directional compatibility; historical/current populations; reader/writer coexistence; `ABSENT != NULL != DEFAULT != DELETE`; units/precision/lossiness; explicit source-of-truth fencing; lineage-preserving backfill/CDC/dual-write; residual cohorts; `PARTIAL/UNKNOWN/INCONCLUSIVE` non-strengthening; and `migration success != convergence`.
+The package review preserves directional READ/WRITE compatibility, historical producing revisions, explicit `ABSENT != NULL != DEFAULT != DELETE`, units/precision/lossiness, historical/current reader-writer coexistence, population/currentness/locality qualification, exactly one canonical source per scope/epoch, fencing against stale authority resurrection, BACKFILL/CDC/DUAL_WRITE lineage, explicit residual SOURCE/READER/WRITER/REPLICATION cohorts, conservative `PARTIAL/UNKNOWN/INCONCLUSIVE`, and `migration execution/success/ACK/adoption != convergence`.
 
 ## Current gate
-Execute G2-WP-05 Package Integration & Review from fresh `main@4cb20da7b5c341fe30a81813605f9f5769336909`. Regress the package, verify architecture/contracts/readiness classification, TASK/spec/commit lineage, integrated positive/negative/adversarial/recovery proof, source-of-truth/coexistence and repository-memory consistency. Package Review is not overflow: Construction B/C, WP-06+, concrete DB/provider/runtime migration, Production Readiness and DEFER/DO_NOT_BUILD findings remain excluded unless separately materialized.
+Documentation & Closure is EXECUTED / PENDING INTEGRATION. Reconcile package evidence, repository memory, WBS/DAG traceability, residual exclusions and successor gating only. After exact-head gates pass and expected-head merge completes, reconstruct fresh `main`, mark G2-WP-05 CANONICALLY CLOSED and only then revalidate the pinned Generation 2 DAG for the first dependency-safe successor.

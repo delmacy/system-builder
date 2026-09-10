@@ -2,15 +2,20 @@
 
 Date: 2026-09-10
 
-## Generation 2 — EXECUTION AUTHORIZED / G2-WP-05 PACKAGE REVIEW READY
-`G2-WP-01`, `G2-WP-02`, `G2-WP-03` and `G2-WP-04` are CANONICALLY CLOSED. Fresh product base is `main@4cb20da7b5c341fe30a81813605f9f5769336909`; pinned research authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
+## Generation 2 — EXECUTION AUTHORIZED / G2-WP-05 DOCUMENTATION & CLOSURE
+`G2-WP-01`, `G2-WP-02`, `G2-WP-03` and `G2-WP-04` are CANONICALLY CLOSED. Pinned research authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
 ## G2-WP-05
-G2-WP-05 owns G2-WBS-05. Planning & Materialization PR #637 integrated Construction A `G2-CANONICAL-DATA-MIGRATION-FOUNDATION-01` as `TASK-505 -> TASK-506 -> TASK-507 -> TASK-508 -> TASK-509`.
+G2-WP-05 owns `G2-WBS-05`. Construction A `G2-CANONICAL-DATA-MIGRATION-FOUNDATION-01` executed `TASK-505 -> TASK-506 -> TASK-507 -> TASK-508 -> TASK-509`; all TASKs are integrated with their exact-head CI/Heavy/Handoff evidence. Construction A Sprint Review disposition is PASS; Construction B/C are NOT REQUIRED on current evidence.
 
-TASK-505..509 are integrated with exact-head CI/Heavy/Handoff evidence recorded in the package records. The integrated scope preserves schema identity/revision, directional read/write compatibility, presence/unit/precision/lossiness semantics, historical/current populations, reader/writer coexistence, explicit source-of-truth authority/fencing, lineage-preserving backfill/CDC/dual-write, residual cohorts and `migration success != convergence`.
+Package Integration & Review PR #651 exact head `d5bd30d5ee7ec98eed6f2ec7d055607d1e6a5605` passed Deterministic CI #1591, Heavy Product Tests #1159 and Automation Handoff #1819 and merged with expected-head protection to fresh `main@1d5e661def1b6d8a4192933144b74d24048bbe08`.
 
-Construction A Sprint Review PR #649 exact head `3e91e9a72a3d0c10d6a9046745d975a2b118f9bb` passed Deterministic CI #1589, Heavy Product Tests #1155 and Automation Handoff #1806. Review disposition: PASS; Construction B NOT REQUIRED; Construction C NOT REQUIRED on current evidence. The review integrated as fresh `main@4cb20da7b5c341fe30a81813605f9f5769336909`.
+## Package closure state
+Documentation & Closure is EXECUTED / PENDING INTEGRATION. Closure is documentation/repository-memory only and introduces no product/runtime/provider/persistence/UI/workflow behavior.
+
+The package preserves schema identity/revision, directional compatibility, explicit presence/unit/precision/lossiness semantics, historical producing revisions, historical/current reader-writer coexistence, population/currentness/locality, exactly one canonical source per scope/epoch, fencing, lineage-preserving BACKFILL/CDC/DUAL_WRITE, explicit residual cohorts and conservative `PARTIAL/UNKNOWN/INCONCLUSIVE`. Migration execution/success/acknowledgement/adoption never proves convergence by itself.
+
+Residual concrete DB/ORM migrations, provider/brownfield integration, runtime topology, deployment, queues/workflows, UI and Production Readiness remain outside G2-WP-05. WP-06+ and DEFER/DO_NOT_BUILD findings remain unmaterialized here.
 
 ## Current gate
-G2-WP-05 Package Integration & Review is the next mandatory gate. It must regress the package and classify integration debt/readiness without introducing missing feature implementation. Construction B/C and later-package, concrete migration/runtime/provider, Production Readiness and unrelated DEFER/DO_NOT_BUILD scope remain NOT MATERIALIZED.
+Run exact-head gates for this Documentation & Closure head. If green and review-clean, integrate with expected-head protection, reconstruct fresh `main`, mark G2-WP-05 CANONICALLY CLOSED, then revalidate the pinned Generation 2 DAG to determine the first dependency-safe successor. Do not materialize successor product work as a side effect of closure.

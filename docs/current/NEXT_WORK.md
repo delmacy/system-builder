@@ -1,11 +1,16 @@
-# Next Work — G2-WP-05 Package Integration & Review
+# Next Work — G2-WP-05 Documentation & Closure
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
-## Integrated Construction A
-G2-WP-05 Construction A `G2-CANONICAL-DATA-MIGRATION-FOUNDATION-01` executed `TASK-505 -> TASK-506 -> TASK-507 -> TASK-508 -> TASK-509`; all TASKs are integrated and exact-head verified. Construction A Sprint Review PR #649 exact head `3e91e9a72a3d0c10d6a9046745d975a2b118f9bb` passed Deterministic CI #1589, Heavy Product Tests #1155 and Automation Handoff #1806, concluded SPRINT REVIEW PASS, and classified optional Construction B/C as NOT REQUIRED on current evidence. It integrated as fresh `main@4cb20da7b5c341fe30a81813605f9f5769336909`.
+## Closed/reviewed predecessors
+`G2-WP-01..G2-WP-04` are CANONICALLY CLOSED. G2-WP-05 Construction A `TASK-505 -> TASK-506 -> TASK-507 -> TASK-508 -> TASK-509` is integrated, exact-head verified and Sprint Review PASS. Construction B/C are `NOT REQUIRED / NOT MATERIALIZED` on current evidence.
 
-## Next mandatory work
-Execute G2-WP-05 Package Integration & Review from fresh main. Verify TASK/spec coverage and authoritative commit lineage; package-wide regression; positive/negative/adversarial/recovery Product Proof; revision/currentness/population semantics; source-of-truth, fencing, lineage and residual cohorts; `PARTIAL/UNKNOWN/INCONCLUSIVE`; coexistence/source-of-truth boundaries; architecture/contracts/readiness classification; and repository memory.
+## Fresh package-review base
+Package Integration & Review PR #651 exact head `d5bd30d5ee7ec98eed6f2ec7d055607d1e6a5605` passed Deterministic CI #1591, Heavy Product Tests #1159 and Automation Handoff #1819 and merged with expected-head protection to fresh `main@1d5e661def1b6d8a4192933144b74d24048bbe08`.
 
-Package Integration & Review is not overflow. Construction B/C, WP-06+, concrete DB/provider/runtime migration, Production Readiness and unrelated DEFER/DO_NOT_BUILD findings remain unmaterialized/excluded. After Package Review PASS and exact-head integration, reconstruct fresh main and proceed only to Documentation & Closure.
+## Next mandatory gate
+Execute only G2-WP-05 Documentation & Closure: reconcile repository memory, package evidence, WBS/DAG traceability, residual-risk/exclusion classification and successor eligibility. No product/contracts/runtime/provider/persistence behavior is added by closure.
+
+Construction B/C, concrete database/ORM migration execution, provider/brownfield integration, runtime topology, deployment, queues/workflows, UI, Production Readiness, WP-06+ implementation and unrelated DEFER/DO_NOT_BUILD findings remain excluded unless separately materialized.
+
+After closure exact-head gates pass and expected-head merge integrates, reconstruct fresh `main`, mark G2-WP-05 CANONICALLY CLOSED, and only then revalidate the exact pinned Generation 2 DAG to determine the first dependency-safe successor. Successor materialization is separate work.
