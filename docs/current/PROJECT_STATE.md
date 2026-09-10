@@ -2,15 +2,17 @@
 
 Date: 2026-09-10
 
-## Generation 2 — EXECUTION AUTHORIZED / G2-WP-05 CANONICALLY CLOSED
-`G2-WP-01..G2-WP-05` are CANONICALLY CLOSED. Pinned research/planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, whose `RESEARCH_PIPELINE_STATE.json` is `READY_FOR_WORKER_HANDOFF / PASS` and whose WBS decomposition, typed dependency graph, Work Package Design and Ready for Worker Handoff were revalidated after closure.
+## Generation 2 — EXECUTION AUTHORIZED / G2-WP-06 CONSTRUCTION A ACTIVE
+`G2-WP-01..G2-WP-05` are CANONICALLY CLOSED. Pinned research/planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, whose research state, WBS decomposition/dependency graph, Work Package Design and Ready for Worker Handoff remain `READY_FOR_WORKER_HANDOFF / PASS`.
 
-## G2-WP-05 closure
-G2-WP-05 owns `G2-WBS-05`. Construction A `G2-CANONICAL-DATA-MIGRATION-FOUNDATION-01` executed and integrated `TASK-505 -> TASK-506 -> TASK-507 -> TASK-508 -> TASK-509`; Sprint Review PASS. Construction B/C remain `NOT REQUIRED / NOT MATERIALIZED`.
+## G2-WP-06
+G2-WP-06 owns `G2-WBS-09`, `G2-WBS-23`, `G2-WBS-10`. Planning & Materialization is integrated. Construction A is materialized as `TASK-510 -> TASK-511 -> TASK-512 -> TASK-513 -> TASK-514 -> TASK-515`; Construction B/C are `NOT MATERIALIZED`.
 
-Package Integration & Review PR #651 exact head `d5bd30d5ee7ec98eed6f2ec7d055607d1e6a5605` passed its exact-head gates and integrated. Documentation & Closure PR #652 exact head `41e3014c4882859e5aac7f44fe97b9dd3d9e66d8` passed exact-head repository gates, was review-clean, and merged with expected-head protection by squash to fresh `main@6bb6f8d1a3bf77b003b2c467f309245e64021bd1`.
+TASK-510 (`Define multidimensional provider and binding qualification`) integrated by PR #655 from authoritative head `40ace249747806b3c3d6c47bbea720a17e52154b`. Exact-head Deterministic CI #1607, Heavy Product Tests #1179 and Automation Handoff #1875 passed before merge. Fresh product main is `310a82827a97f829e87ffaa43ec5b3970740e424` pending bounded repository-memory reconciliation.
 
-Package disposition: `PASS / INTEGRATED / CANONICALLY CLOSED`. Product Proof remains distinct from Production Readiness. Concrete DB/ORM migrations, provider/brownfield realization, runtime topology, deployment, queues/workflows, UI, Production Readiness and unrelated DEFER/DO_NOT_BUILD findings were not absorbed.
+TASK-510 establishes provider-neutral multidimensional qualification with revision/currentness-qualified evidence, explicit AUTHORITATIVE/OBSERVED/INFERRED evidence authority, conservative support states and provider-specific realization identity separation. `PARTIAL/UNKNOWN/INCONCLUSIVE` do not strengthen to support; stale/UNKNOWN authority-sensitive evidence requires reconciliation before retry.
 
 ## Current gate
-The exact pinned Work Package Design and WBS DAG make `G2-WP-06 — Provider, Brownfield & Bounded Physical/Peripheral Integration` the first dependency-safe successor after WP-05 closure. Its typed prerequisites are satisfied by canonically closed WP-01, WP-02, WP-04 and WP-05 for structured legacy assimilation. Begin only `G2-WP-06 Planning & Materialization` from fresh main after this post-closure repository-memory reconciliation integrates; do not materialize product work as a side effect of this reconciliation.
+Integrate post-TASK-510 repository-memory reconciliation, rebuild fresh main, then execute only TASK-511. TASK-511 covers evidence-first Brownfield inventory/assimilation with provenance, owner/revision/currentness and `AI inference != authority`.
+
+Concrete vendor/device adapters, credentials, deployment, DB migration execution, generic physical actuation, WP-07+, Production Readiness and DEFER/DO_NOT_BUILD findings remain excluded.

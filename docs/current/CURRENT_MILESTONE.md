@@ -1,11 +1,13 @@
-# Current Execution Milestone — Generation 2 / G2-WP-05 Post-Closure Reconciliation
+# Current Execution Milestone — Generation 2 / G2-WP-06 Construction A
 
 ## Milestone state
-`G2-WP-01..G2-WP-05` are canonically CLOSED. Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a` and was revalidated through `RESEARCH_PIPELINE_STATE.json`, WBS decomposition/dependency graph, Work Package Design and Ready for Worker Handoff.
+`G2-WP-01..G2-WP-05` are canonically CLOSED. Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a` and remains `READY_FOR_WORKER_HANDOFF / PASS` through the research state, WBS decomposition/dependency graph, Work Package Design and handoff artifacts.
 
-G2-WP-05 Construction A `TASK-505 -> TASK-506 -> TASK-507 -> TASK-508 -> TASK-509` is integrated/exact-head verified/Sprint Review PASS; Construction B/C remain `NOT REQUIRED / NOT MATERIALIZED`. Package Integration & Review passed and integrated. Documentation & Closure PR #652 exact head `41e3014c4882859e5aac7f44fe97b9dd3d9e66d8` passed exact-head gates, was review-clean and merged by expected-head-protected squash to `main@6bb6f8d1a3bf77b003b2c467f309245e64021bd1`.
+G2-WP-06 Planning & Materialization is integrated. Construction A is materialized as `TASK-510 -> TASK-511 -> TASK-512 -> TASK-513 -> TASK-514 -> TASK-515`; Construction B/C remain `NOT MATERIALIZED`.
+
+TASK-510 is integrated by PR #655. Its authoritative head `40ace249747806b3c3d6c47bbea720a17e52154b` passed Deterministic CI #1607, Heavy Product Tests #1179 and Automation Handoff #1875 before expected-head-protected merge to fresh `main@310a82827a97f829e87ffaa43ec5b3970740e424`.
 
 ## Current gate
-Repository-memory reconciliation is the only active gate. After its exact-head gates pass and it integrates, reconstruct fresh main and begin only `G2-WP-06 Planning & Materialization`.
+Repository-memory reconciliation after TASK-510 is the active gate. After this reconciliation passes exact-head gates and integrates, reconstruct fresh main and execute only TASK-511.
 
-The pinned package design assigns WP-06 to `G2-WBS-09`, `G2-WBS-23` and `G2-WBS-10`: provider/binding qualification, evidence-first Brownfield assimilation and bounded Physical/Peripheral integration. Preserve multidimensional provider qualification, `PARTIAL/UNKNOWN`, explicit provider cutover/residual drainage, external-ID historical non-reconnection, local/Station/Fleet truth and no generic direct physical actuation authority. Product Proof remains separate from Production Readiness.
+TASK-511 owns evidence-first Brownfield inventory/assimilation with explicit provenance, ownership, revision and currentness. Discovery and AI inference are evidence, not authority. Preserve `PARTIAL/UNKNOWN/INCONCLUSIVE`, provider qualification locality/currentness, external-ID reuse protection, source-of-truth/coexistence/residual drainage and local/Station/Fleet truth. Physical/Peripheral remains bounded integration/governance only; no generic physical actuation authority is inferred. Product Proof remains separate from Production Readiness.
