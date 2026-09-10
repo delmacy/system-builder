@@ -33,6 +33,18 @@ validation:
 # Objective
 Define Brownfield inventory/assimilation as evidence-first discovery with provenance, owner, revision, currentness and explicit uncertainty.
 
+# Context
+TASK-511 follows TASK-510 and applies the package evidence/currentness and authority boundaries to pre-existing systems and assets without treating discovery as canonical truth.
+
+# Current behavior
+No G2 Brownfield contract currently distinguishes observed, inferred and authoritative facts while preserving stale/conflicting/UNKNOWN evidence through reconciliation.
+
+# Inputs / contracts
+TASK-510 qualification semantics, pinned G2 evidence/currentness and authority contracts, discovered assets/bindings/configuration, provenance, owner, revision and locality evidence.
+
+# Outputs / contracts
+A Brownfield evidence/assimilation contract that records observations and inference separately from authoritative state and requires explicit reconciliation for authority-sensitive changes.
+
 # Required change
 Model discovered assets/bindings/configuration as evidence that can be reconciled into authoritative state only through explicit authority rules. Preserve PARTIAL/UNKNOWN and distinguish observed, inferred and authoritative facts.
 
@@ -45,6 +57,12 @@ Model discovered assets/bindings/configuration as evidence that can be reconcile
 
 # Negative/adversarial proof
 Reject scan=>authority, AI inference=>fact, stale observation=>current state and missing evidence=>absence.
+
+# Evidence expected
+Product Proof covers happy assimilation plus conflicting, stale, UNKNOWN, inferred and missing-evidence cases; exact-head validation commands pass.
+
+# Escalation
+Escalate if reconciliation requires a concrete scanner/importer, vendor API, migration execution or authority not already materialized. Preserve uncertainty rather than guessing.
 
 # Non-goals
 Concrete scanners/importers, vendor APIs, migration execution or Production Readiness.
