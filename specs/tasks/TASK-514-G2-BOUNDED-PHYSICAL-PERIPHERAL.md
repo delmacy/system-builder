@@ -34,6 +34,18 @@ validation:
 # Objective
 Define bounded Physical/Peripheral integration and governance contracts without creating generic physical actuation authority.
 
+# Context
+TASK-514 consumes provider qualification and locality-aware truth while keeping physical/peripheral integration inside observation, qualification and governance boundaries.
+
+# Current behavior
+No G2 contract currently proves that connectivity or provider capability cannot itself grant actuation authority or imply a confirmed physical effect.
+
+# Inputs / contracts
+TASK-513 locality/currentness, provider qualification, peripheral capability evidence, observation/control intent, external owning-domain authorization and effect confirmation.
+
+# Outputs / contracts
+A bounded physical/peripheral contract separating observation, requested intent, authorization and confirmed effect with conservative unsupported/PARTIAL/UNKNOWN states.
+
 # Required change
 Represent peripheral capability/qualification, observation/control intent boundaries, locality, authority requirements, safety/governance evidence and explicit unsupported/unknown states. Any actuation-capable intent must remain externally authorized by an owning domain rather than granted by this contract.
 
@@ -46,6 +58,12 @@ Represent peripheral capability/qualification, observation/control intent bounda
 
 # Negative/adversarial proof
 Reject connected=>authorized, command accepted=>effect, telemetry missing=>safe/absent and provider capability=>generic actuation authority.
+
+# Evidence expected
+Product Proof covers bounded observation/authorized intent and adversarial connectivity, accepted-command, missing-telemetry and capability-strengthening cases; exact-head validations pass.
+
+# Escalation
+Escalate any requirement for direct device actuation, safety certification, concrete drivers or hardware orchestration; do not infer authority from integration capability.
 
 # Non-goals
 PLC/robotics/vehicle control, safety certification, concrete drivers, hardware orchestration or Production Readiness.
