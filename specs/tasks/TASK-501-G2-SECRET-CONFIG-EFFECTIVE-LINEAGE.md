@@ -1,7 +1,7 @@
 ---
 id: TASK-501
 title: Define secret and configuration effective-state lineage
-status: ready
+status: verification
 priority: 501
 milestone: G2
 model_tier: architecture
