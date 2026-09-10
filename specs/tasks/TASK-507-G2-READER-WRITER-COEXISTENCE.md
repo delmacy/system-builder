@@ -1,7 +1,7 @@
 ---
 id: TASK-507
 title: Model historical current reader writer coexistence and populations
-status: blocked
+status: verification
 priority: 507
 milestone: G2
 model_tier: architecture
