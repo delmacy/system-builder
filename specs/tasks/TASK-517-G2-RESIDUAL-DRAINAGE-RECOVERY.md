@@ -42,6 +42,15 @@ Harden coexistence/rebinding recovery so stale authority stays fenced and residu
 # Context
 TASK-512 established provider/scope/revision/epoch-qualified external identity and residual visibility; TASK-513 established locality-qualified reconciliation. This task proves those boundaries survive recovery and rebinding rather than collapsing after transient conflict or reconnection.
 
+# Current behavior
+Construction A establishes canonical-truth uniqueness, stale-binding fencing, explicit rebinding lineage and visible residual cohorts, but Construction B must prove those invariants remain conservative across recovery and reconnection transitions.
+
+# Inputs / contracts
+The integrated external identity/coexistence and locality reconciliation contracts from TASK-512..513, plus TASK-516 recovery semantics once integrated and the pinned G2-WP-06 authority.
+
+# Outputs / contracts
+Bounded recovery semantics and Product Proof for rebinding, reconnection, stale-authority fencing, canonical-source uniqueness and residual drainage visibility; no persistence, adapter or runtime ownership.
+
 # Required change
 Define bounded recovery semantics for rebinding/coexistence transitions, preserving one canonical source-of-truth per scope/epoch, visible residual lineage, fencing of stale bindings, and locality/currentness-qualified reconciliation.
 
@@ -59,6 +68,9 @@ Exercise ID reuse after fencing, rebound-to-old epoch, residual hiding, dual-sou
 
 # Evidence expected
 Product Proof plus declared exact-head gates demonstrate fencing, residual visibility and deterministic recovery.
+
+# Escalation
+Escalate any requirement for concrete migration execution, persistence, provider/device adapters, physical actuation, deployment or Production Readiness instead of expanding this recovery boundary.
 
 # Non-goals
 Concrete migration execution, persistence, adapters, physical actuation, deployment or Production Readiness.
