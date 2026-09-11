@@ -1,7 +1,7 @@
 ---
 id: TASK-518
 title: Prove integrated recovery across provider Brownfield locality and bounded peripheral boundaries
-status: ready
+status: verification
 priority: 518
 milestone: G2
 model_tier: architecture
