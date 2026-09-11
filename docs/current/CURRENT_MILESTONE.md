@@ -1,15 +1,15 @@
-# Current Execution Milestone — Generation 2 / G2-WP-06 Construction B
+# Current Execution Milestone — Generation 2 / G2-WP-06 Package Integration & Review
 
 ## Milestone state
 `G2-WP-01..G2-WP-05` are canonically CLOSED. Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a` and remains `READY_FOR_WORKER_HANDOFF / PASS` through the research state, WBS decomposition/dependency graph, Work Package Design and handoff artifacts.
 
-G2-WP-06 Planning & Materialization and Construction A are integrated. Construction A `TASK-510 -> ... -> TASK-515` is complete.
+G2-WP-06 Planning & Materialization and Construction A are integrated and reviewed. Construction B `TASK-516 -> TASK-517 -> TASK-518` is integrated through fresh `main@8f6b35e20e6b87e0f67d2031ac1d83a6948369e1`.
 
-Construction B is materialized as `TASK-516 -> TASK-517 -> TASK-518`; Construction C remains `NOT MATERIALIZED`. TASK-516 is integrated by PR #670 as squash commit `36900a3dc059a78ac3e0c02e80a069f65fb9664a` after exact-head Deterministic CI #1635, Heavy Product Tests #1219 and Automation Handoff #1997 PASS. TASK-517 is integrated by PR #672 as squash commit `6ccc4c7f99e109de06f02778daa9d200fe04e99a` after exact-head Deterministic CI #1640, Heavy Product Tests #1225 and Automation Handoff #2017 PASS.
+Construction B Sprint Review: **PASS**. Optional Construction C: **NOT REQUIRED** on current evidence. The complete Construction A+B proof preserves conservative provider/Brownfield degradation, authoritative reconciliation before retry, stale-authority fencing, one canonical truth per scope/epoch, explicit residual drainage, Local/Station/Fleet locality boundaries, and Physical/Peripheral separation of connectivity/capability, owning-domain authorization and confirmed effect.
 
 ## Current gate
-After this repository-memory reconciliation is integrated from fresh `main@6ccc4c7f99e109de06f02778daa9d200fe04e99a`, execute **TASK-518** only.
+After this review/reconciliation head passes exact-head gates and integrates, reconstruct fresh main and execute **G2-WP-06 Package Integration & Review**.
 
-TASK-518 must close Construction B with integrated adversarial/recovery Product Proof across TASK-516..517 and Construction A contracts: degraded/UNKNOWN authority remains conservative until reconciliation; retry only after current authoritative evidence; stale/reused external identity cannot resurrect authority; residual cohorts remain visible until explicit drainage; recovery preserves one canonical truth per scope/epoch; Local/Station/Fleet recovery does not silently become global truth; and reconnect/connectivity does not grant actuation authority or manufacture confirmed physical effect. Product Proof remains separate from Production Readiness.
+Package Integration & Review must evaluate end-to-end regression, contract/schema drift and compatibility, architecture/dependency fitness, technical debt/duplication, security/trust and CI health, relevant performance, actual-vs-forecast effort, residual risks and closure readiness. It must not add missing product capability or absorb DEFER/DO_NOT_BUILD findings.
 
-Construction C is optional and may be materialized only after Construction B integration/review if fresh evidence shows additional bounded construction is necessary.
+Construction C remains not materialized and is not required unless new fresh integrated evidence demonstrates a bounded package-goal gap under repository change-control policy. Product Proof remains separate from Production Readiness.
