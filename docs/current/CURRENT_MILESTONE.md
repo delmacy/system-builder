@@ -5,11 +5,11 @@
 
 G2-WP-06 Planning & Materialization and Construction A are integrated. Construction A `TASK-510 -> ... -> TASK-515` is complete.
 
-Construction A Sprint Review against fresh `main@461ba9f20601aaf544b773d8f11a20dbac339e6d` identified dependency-safe recovery hardening within existing package scope. In accordance with the rolling-wave Sprint Generation Policy, Construction B is materialized as `TASK-516 -> TASK-517 -> TASK-518`; Construction C remains `NOT MATERIALIZED`.
+Construction B is materialized as `TASK-516 -> TASK-517 -> TASK-518`; Construction C remains `NOT MATERIALIZED`. TASK-516 is integrated by PR #670 as squash commit `36900a3dc059a78ac3e0c02e80a069f65fb9664a` after exact-head Deterministic CI #1635, Heavy Product Tests #1219 and Automation Handoff #1997 PASS.
 
 ## Current gate
-Integrate the Construction B materialization and execute **TASK-516** only from reconstructed fresh main. TASK-517 and TASK-518 remain predecessor-gated.
+After this repository-memory reconciliation is integrated from fresh `main@36900a3dc059a78ac3e0c02e80a069f65fb9664a`, execute **TASK-517** only. TASK-518 remains predecessor-gated.
 
-TASK-516 must preserve provider qualification, Brownfield evidence authority/provenance, owner/revision/currentness/locality, conservative `PARTIAL/UNKNOWN/INCONCLUSIVE`, `AI inference != authority`, and `UNKNOWN -> reconcile-before-retry`. Recovery after stale/unknown/conflicting evidence must not silently preserve or manufacture authority. Product Proof remains separate from Production Readiness.
+TASK-517 must preserve stale-authority fencing, canonical-truth uniqueness, provider/external identity boundaries, explicit residual cohort visibility until drainage/reconciliation evidence exists, locality/currentness-qualified reconciliation, conservative `PARTIAL/UNKNOWN/INCONCLUSIVE`, and `UNKNOWN/conflict -> reconcile-before-retry`. Local/Station/Fleet reconnection must not strengthen local state into global truth. Product Proof remains separate from Production Readiness.
 
 Construction C is optional and may be materialized only after Construction B integration/review if fresh evidence shows additional bounded construction is necessary.
