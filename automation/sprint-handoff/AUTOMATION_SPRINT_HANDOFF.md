@@ -3,8 +3,8 @@
 machine_state: ADVISORY_NEXT_10
 next_worker: :10
 last_worker: :50
-sequence: 1147
-updated_at: 2026-09-11T22:31:53.383Z
+sequence: 1148
+updated_at: 2026-09-11T23:14:03.692Z
 active_pr: null
 active_branch: null
 active_head_sha: null
