@@ -1,13 +1,15 @@
-# Current Execution Milestone — Generation 2 / G2-WP-06 Construction A Review
+# Current Execution Milestone — Generation 2 / G2-WP-06 Construction B
 
 ## Milestone state
 `G2-WP-01..G2-WP-05` are canonically CLOSED. Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a` and remains `READY_FOR_WORKER_HANDOFF / PASS` through the research state, WBS decomposition/dependency graph, Work Package Design and handoff artifacts.
 
-G2-WP-06 Planning & Materialization is integrated. Construction A is materialized as `TASK-510 -> TASK-511 -> TASK-512 -> TASK-513 -> TASK-514 -> TASK-515`; Construction B/C remain `NOT MATERIALIZED`.
+G2-WP-06 Planning & Materialization and Construction A are integrated. Construction A `TASK-510 -> ... -> TASK-515` is complete.
 
-TASK-510..515 are integrated. TASK-515 was integrated by PR #667 from exact head `aa75507cc0c0de25adc6d03d9a0f930e1c6f0b89`; Deterministic CI #1626, Heavy Product Tests #1209 and Automation Handoff #1966 passed before squash merge to authoritative main commit `cd6838ae77d35a4c38a63790c5d2ccbcbcb7e247`.
+Construction A Sprint Review against fresh `main@461ba9f20601aaf544b773d8f11a20dbac339e6d` identified dependency-safe recovery hardening within existing package scope. In accordance with the rolling-wave Sprint Generation Policy, Construction B is materialized as `TASK-516 -> TASK-517 -> TASK-518`; Construction C remains `NOT MATERIALIZED`.
 
 ## Current gate
-Construction A implementation is complete. Perform **Construction A Sprint Review** against fresh `main@cd6838ae77d35a4c38a63790c5d2ccbcbcb7e247` and the integrated evidence from TASK-510..515.
+Integrate the Construction B materialization and execute **TASK-516** only from reconstructed fresh main. TASK-517 and TASK-518 remain predecessor-gated.
 
-Review must preserve provider qualification, Brownfield evidence authority/provenance, external identity/coexistence, locality/currentness, bounded Physical/Peripheral governance, `PARTIAL/UNKNOWN`, `UNKNOWN -> reconcile-before-retry`, visible residual drainage and Product Proof != Production Readiness. Construction B/C may be materialized only if the review identifies dependency-safe work already authorized by the WP design and supported by fresh-main evidence; completion of Construction A alone is not such evidence.
+TASK-516 must preserve provider qualification, Brownfield evidence authority/provenance, owner/revision/currentness/locality, conservative `PARTIAL/UNKNOWN/INCONCLUSIVE`, `AI inference != authority`, and `UNKNOWN -> reconcile-before-retry`. Recovery after stale/unknown/conflicting evidence must not silently preserve or manufacture authority. Product Proof remains separate from Production Readiness.
+
+Construction C is optional and may be materialized only after Construction B integration/review if fresh evidence shows additional bounded construction is necessary.
