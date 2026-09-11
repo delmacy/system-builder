@@ -59,12 +59,15 @@ export function assessDurableExecution(
     if (entry.executionRef !== snapshot.executionRef) reasons.push("EXECUTION_LINEAGE_MISMATCH");
     if (!sameRevision(entry.producingRevision, snapshot.producingRevision)) reasons.push("PRODUCING_REVISION_MISMATCH");
     if (previousSequence !== undefined && entry.sequence <= previousSequence) reasons.push("NON_MONOTONIC_JOURNAL");
+    if ((entry.stage === "PROCESSED" || entry.stage === "CONVERGED") && entry.knowledge !== "KNOWN") {
+      reasons.push("NON_KNOWN_JOURNAL_CANNOT_STRENGTHEN_TERMINAL_STATE");
+    }
     previousSequence = entry.sequence;
   }
 
   const accepted = entries.some((entry) => entry.stage === "ACCEPTED");
-  const processed = entries.some((entry) => entry.stage === "PROCESSED");
-  const converged = entries.some((entry) => entry.stage === "CONVERGED");
+  const processed = entries.some((entry) => entry.stage === "PROCESSED" && entry.knowledge === "KNOWN");
+  const converged = entries.some((entry) => entry.stage === "CONVERGED" && entry.knowledge === "KNOWN");
 
   if (processed && !accepted) reasons.push("PROCESSED_WITHOUT_ACCEPTANCE");
   if (converged && !processed) reasons.push("CONVERGED_WITHOUT_PROCESSING");
