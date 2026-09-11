@@ -1,7 +1,7 @@
 ---
 id: TASK-514
 title: Define bounded Physical Peripheral integration governance
-status: blocked
+status: ready
 priority: 514
 milestone: G2
 model_tier: architecture
