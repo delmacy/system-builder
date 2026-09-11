@@ -8,11 +8,11 @@ Date: 2026-09-11
 ## G2-WP-07
 G2-WP-07 owns `G2-WBS-06`, `G2-WBS-08`, `G2-WBS-11` and consumes WP-01 semantic/revision identity, WP-03 semantic boundaries, WP-04 authority/trust, WP-05 data/coexistence semantics and WP-06 provider qualification only for provider-backed storage.
 
-Planning & Materialization is active from fresh post-WP-06 main. Construction A `G2-DURABLE-EXECUTION-FOUNDATION-01` is materialized as `TASK-519 -> TASK-520 -> TASK-521 -> TASK-522`; only TASK-519 is initially READY. Construction B storage/finite-flow integration is FORECAST / NOT MATERIALIZED. Optional Construction C, Package Integration & Review and Documentation & Closure are NOT MATERIALIZED.
+Planning & Materialization is integrated on fresh `main@909544a300417f65168d6f137dd104001b52be1d`; post-planning repository-memory reconciliation is integrated on `main@6893dc449849653cfdea3e099d59f795eefb4437`. Construction A `G2-DURABLE-EXECUTION-FOUNDATION-01` is materialized as `TASK-519 -> TASK-520 -> TASK-521 -> TASK-522`; only TASK-519 is READY. Construction B storage/finite-flow integration is FORECAST / NOT MATERIALIZED. Optional Construction C, Package Integration & Review and Documentation & Closure are NOT MATERIALIZED.
 
 Package invariants: in-flight work retains producing revision; `accepted != processed != converged`; effect identity != attempt/delivery identity; unsafe `UNKNOWN -> reconcile-before-retry`; idempotency scope/horizon is explicit; canonical document/object identity does not collapse to provider key/hash; queue capacity is units/population qualified and finite drainage must be demonstrated under declared assumptions.
 
 ## Current gate
-Complete exact-head validation and semantic review of G2-WP-07 Planning & Materialization. After integration, execute only TASK-519 from fresh main. TASK-520..522 remain predecessor-gated.
+Execute only TASK-519 from fresh `main@6893dc449849653cfdea3e099d59f795eefb4437`. TASK-520..522 remain predecessor-gated. Before any successor mutation, preserve exact-head validation, one authoritative commit per TASK when required, and blocker-first handling of CI/review/proof/memory drift.
 
 Concrete queue/storage vendor adapters, DB migration execution, messaging/notification semantics owned by WP-08, deployment, Production Readiness and DEFER/DO_NOT_BUILD findings remain excluded unless separately materialized and authorized.
