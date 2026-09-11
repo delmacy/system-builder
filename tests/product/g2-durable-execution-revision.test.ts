@@ -63,11 +63,28 @@ test("rejects latest-revision reinterpretation", () => {
   assert.ok(assessDurableExecution(drifted).reasons.includes("PRODUCING_REVISION_MISMATCH"));
 });
 
-test("PARTIAL or UNKNOWN cannot strengthen terminal state", () => {
+test("PARTIAL or UNKNOWN snapshot knowledge cannot strengthen terminal state", () => {
   for (const knowledge of ["PARTIAL", "UNKNOWN"] as const) {
     const result = assessDurableExecution(snapshot({ knowledge }));
     assert.equal(result.valid, false);
     assert.ok(result.reasons.includes("NON_KNOWN_CANNOT_STRENGTHEN_TERMINAL_STATE"));
+  }
+});
+
+test("PARTIAL or UNKNOWN journal evidence cannot strengthen processing or convergence", () => {
+  for (const knowledge of ["PARTIAL", "UNKNOWN"] as const) {
+    const result = assessDurableExecution(snapshot({
+      journal: [
+        { executionRef: "execution:1", producingRevision: revisionA, sequence: 1, stage: "ACCEPTED", knowledge: "KNOWN", evidenceRefs: ["accept:1"] },
+        { executionRef: "execution:1", producingRevision: revisionA, sequence: 2, stage: "PROCESSED", knowledge, evidenceRefs: ["process:uncertain"] },
+        { executionRef: "execution:1", producingRevision: revisionA, sequence: 3, stage: "CONVERGED", knowledge, evidenceRefs: ["converge:uncertain"] },
+      ],
+    }));
+    assert.equal(result.valid, false);
+    assert.equal(result.processed, false);
+    assert.equal(result.converged, false);
+    assert.ok(result.reasons.includes("NON_KNOWN_JOURNAL_CANNOT_STRENGTHEN_TERMINAL_STATE"));
+    assert.ok(result.reasons.includes("CONVERGED_WITHOUT_JOURNAL_EVIDENCE"));
   }
 });
 
