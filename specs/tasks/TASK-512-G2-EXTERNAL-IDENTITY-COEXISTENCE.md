@@ -1,7 +1,7 @@
 ---
 id: TASK-512
 title: Protect external identity reuse rebinding and coexistence lineage
-status: ready
+status: verification
 priority: 512
 milestone: G2
 model_tier: architecture
