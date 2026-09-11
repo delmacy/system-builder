@@ -50,7 +50,7 @@ const binding = (overrides: Record<string, unknown> = {}) => ({ bindingRef: "bin
 const coexistence = (drained = true) => ({
   contractVersion: EXTERNAL_IDENTITY_COEXISTENCE_CONTRACT_VERSION,
   sourceAuthorities: [authority("source-old", 1, false), authority("source-new", 2, true)],
-  bindings: [binding(), binding({ bindingRef: "binding-new", canonicalEntityRef: "asset-b", bindingRevision: "r2", epoch: 2, sourceRef: "source-new", fencingToken: "fence-2", evidenceRef: "new", state: "ACTIVE" })],
+  bindings: [binding({ state: drained ? "DRAINED" as const : "RESIDUAL" as const }), binding({ bindingRef: "binding-new", canonicalEntityRef: "asset-b", bindingRevision: "r2", epoch: 2, sourceRef: "source-new", fencingToken: "fence-2", evidenceRef: "new", state: "ACTIVE" })],
   rebindings: [{ rebindRef: "rebind-1", priorBindingRef: "binding-old", nextBindingRef: "binding-new", qualification: "CONFIRMED", evidenceRef: "rebinding-proof", evidenceAuthority: "AUTHORITATIVE" }],
   residualCohorts: [{ cohortRef: "residual-device-7", providerRef: "provider-a", scopeRef: "tenant-a/assets", externalId: "device-7", bindingRefs: ["binding-old"], completeness: "KNOWN", drained }],
 });
