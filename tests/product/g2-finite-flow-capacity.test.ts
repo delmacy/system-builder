@@ -14,6 +14,12 @@ const rateUnit: UnitReference = {
   unitRevision: "1",
   dimension: { terms: [{ axis: "item", exponent: 1 }, { axis: "time", exponent: -1 }] },
 };
+const incompatibleRateUnit: UnitReference = {
+  state: "KNOWN",
+  unitRef: "bytes-per-second",
+  unitRevision: "1",
+  dimension: { terms: [{ axis: "byte", exponent: 1 }, { axis: "time", exponent: -1 }] },
+};
 const unknownUnit: UnitReference = { state: "UNKNOWN", reason: "telemetry omitted unit" };
 const identity: FiniteFlowPopulationIdentity = { queueRef: "queue:orders", populationRef: "tenant:1:orders", scopeRef: "tenant:1" };
 const assumptions = (overrides: Partial<DrainageAssumptions> = {}): DrainageAssumptions => ({
@@ -40,6 +46,17 @@ test("rejects unitless capacity evidence", () => {
   assert.ok(result.reasons.includes("ARRIVAL_UNIT_NOT_KNOWN"));
 });
 
+test("incompatible rate dimensions cannot strengthen admission", () => {
+  const result = assessFiniteFlow(identity, assumptions({
+    backlog: { ...assumptions().backlog, items: 0 },
+    replay: { requestedItems: 0, maximumReplayItems: 0, deduplicationBoundItems: 0 },
+    service: { ...assumptions().service, unit: incompatibleRateUnit },
+  }));
+  assert.equal(result.admission, "CLOSED");
+  assert.equal(result.drainable, false);
+  assert.ok(result.reasons.includes("RATE_UNITS_INCOMPATIBLE"));
+});
+
 test("aggregate capacity cannot be strengthened into local population capacity", () => {
   const result = assessFiniteFlow(identity, assumptions({ service: { ...assumptions().service, populationRef: "all-tenants" } }));
   assert.equal(result.drainable, false);
@@ -54,9 +71,21 @@ test("missing telemetry never means zero backlog", () => {
 });
 
 test("replay cannot create work beyond the declared deduplication bound", () => {
-  const result = assessFiniteFlow(identity, assumptions({ replay: { requestedItems: 8, maximumReplayItems: 8, deduplicationBoundItems: 5 } }));
+  const result = assessFiniteFlow(identity, assumptions({
+    backlog: { ...assumptions().backlog, items: 0 },
+    replay: { requestedItems: 8, maximumReplayItems: 8, deduplicationBoundItems: 5 },
+  }));
   assert.equal(result.drainable, false);
+  assert.equal(result.admission, "CLOSED");
   assert.ok(result.reasons.includes("REPLAY_EXCEEDS_DEDUPLICATION_BOUND"));
+});
+
+test("bounded replay remains visible as admitted work", () => {
+  const result = assessFiniteFlow(identity, assumptions({
+    backlog: { ...assumptions().backlog, items: 0 },
+    replay: { requestedItems: 1, maximumReplayItems: 5, deduplicationBoundItems: 5 },
+  }));
+  assert.equal(result.admission, "BACKPRESSURE");
 });
 
 test("UNKNOWN capacity or drainage evidence cannot strengthen to healthy or drained", () => {
