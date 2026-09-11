@@ -5,11 +5,11 @@
 
 G2-WP-06 Planning & Materialization and Construction A are integrated. Construction A `TASK-510 -> ... -> TASK-515` is complete.
 
-Construction B is materialized as `TASK-516 -> TASK-517 -> TASK-518`; Construction C remains `NOT MATERIALIZED`. TASK-516 is integrated by PR #670 as squash commit `36900a3dc059a78ac3e0c02e80a069f65fb9664a` after exact-head Deterministic CI #1635, Heavy Product Tests #1219 and Automation Handoff #1997 PASS.
+Construction B is materialized as `TASK-516 -> TASK-517 -> TASK-518`; Construction C remains `NOT MATERIALIZED`. TASK-516 is integrated by PR #670 as squash commit `36900a3dc059a78ac3e0c02e80a069f65fb9664a` after exact-head Deterministic CI #1635, Heavy Product Tests #1219 and Automation Handoff #1997 PASS. TASK-517 is integrated by PR #672 as squash commit `6ccc4c7f99e109de06f02778daa9d200fe04e99a` after exact-head Deterministic CI #1640, Heavy Product Tests #1225 and Automation Handoff #2017 PASS.
 
 ## Current gate
-After this repository-memory reconciliation is integrated from fresh `main@36900a3dc059a78ac3e0c02e80a069f65fb9664a`, execute **TASK-517** only. TASK-518 remains predecessor-gated.
+After this repository-memory reconciliation is integrated from fresh `main@6ccc4c7f99e109de06f02778daa9d200fe04e99a`, execute **TASK-518** only.
 
-TASK-517 must preserve stale-authority fencing, canonical-truth uniqueness, provider/external identity boundaries, explicit residual cohort visibility until drainage/reconciliation evidence exists, locality/currentness-qualified reconciliation, conservative `PARTIAL/UNKNOWN/INCONCLUSIVE`, and `UNKNOWN/conflict -> reconcile-before-retry`. Local/Station/Fleet reconnection must not strengthen local state into global truth. Product Proof remains separate from Production Readiness.
+TASK-518 must close Construction B with integrated adversarial/recovery Product Proof across TASK-516..517 and Construction A contracts: degraded/UNKNOWN authority remains conservative until reconciliation; retry only after current authoritative evidence; stale/reused external identity cannot resurrect authority; residual cohorts remain visible until explicit drainage; recovery preserves one canonical truth per scope/epoch; Local/Station/Fleet recovery does not silently become global truth; and reconnect/connectivity does not grant actuation authority or manufacture confirmed physical effect. Product Proof remains separate from Production Readiness.
 
 Construction C is optional and may be materialized only after Construction B integration/review if fresh evidence shows additional bounded construction is necessary.
