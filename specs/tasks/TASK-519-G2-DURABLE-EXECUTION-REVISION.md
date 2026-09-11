@@ -1,7 +1,7 @@
 ---
 id: TASK-519
 title: Define durable execution identity and producing-revision pinning
-status: ready
+status: verification
 priority: 519
 milestone: G2
 model_tier: architecture
@@ -36,7 +36,7 @@ Define provider-neutral durable execution identity/state/journal semantics with 
 WP-07 begins from canonically closed WP-01..06 and owns G2-WBS-06/08/11. This TASK establishes only the durable execution semantic foundation required by Construction A.
 
 # Current behavior
-The repository lacks a G2 contract proving that in-flight execution remains bound to the semantic revision that produced it rather than being silently reinterpreted by latest revision.
+The repository lacked a G2 contract proving that in-flight execution remains bound to the semantic revision that produced it rather than being silently reinterpreted by latest revision.
 
 # Required change
 Represent execution identity, producing revision, state/journal lineage and conservative partial/unknown state so that acceptance, processing and convergence remain distinct.
