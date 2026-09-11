@@ -1,7 +1,7 @@
 # G2-WP-06 — Provider, Brownfield & Bounded Physical/Peripheral Integration
 
 Status: `CONSTRUCTION A ACTIVE / TASK-510..514 INTEGRATED / TASK-515 READY`
-Planning base: `main@74ea711940c3668f2d54807b37`
+Planning base: `main@74ea711940c36608cd2e351069b38f2d54807b37`
 Current product main: `main@6d55d9e665fe2fdb9be72534ff1f73e10fc520ce`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS owners: `G2-WBS-09`, `G2-WBS-23`, `G2-WBS-10`
