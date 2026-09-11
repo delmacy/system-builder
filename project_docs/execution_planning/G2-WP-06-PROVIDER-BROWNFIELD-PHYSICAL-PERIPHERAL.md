@@ -1,6 +1,6 @@
 # G2-WP-06 — Provider, Brownfield & Bounded Physical/Peripheral Integration
 
-Status: `DOCUMENTATION & CLOSURE / VERIFICATION`
+Status: `PASS / INTEGRATED / CANONICALLY CLOSED WHEN THIS CLOSURE COMMIT IS ON MAIN`
 Planning base: `main@74ea711940c36608cd2e351069b38f2d54807b37`
 Package-review base: `main@51d87b6d23739d857761a6874c00dbd6d8739f65`
 Package-review integrated main: `main@1c076e40215b29393aa1ca98a3859842d8348b97`
@@ -58,12 +58,12 @@ Closure is documentation-only and introduces no product behavior. Repository mem
 
 No blocker remains inside the G2-WP-06 Package Goal. Construction A+B and package-wide review provide the required predecessor-to-successor, currentness/locality, coexistence, stale-authority fencing, residual-drainage and Physical/Peripheral proof evidence. Construction C remains NOT REQUIRED.
 
-The first dependency-safe designed successor after canonical closure is `G2-WP-07 — Durable Execution, Storage & Finite-Flow Semantics`, owning `G2-WBS-06`, `G2-WBS-08`, `G2-WBS-11`. WP-07 consumes WP-06 only as `PROVIDER_PREREQUISITE` for provider-backed storage. This successor is forecast-only at this closure gate: it is not materialized here and no WP-07 product work or TASK is executed as a side effect of closure.
+The first dependency-safe designed successor after canonical closure is `G2-WP-07 — Durable Execution, Storage & Finite-Flow Semantics`, owning `G2-WBS-06`, `G2-WBS-08`, `G2-WBS-11`. WP-07 consumes WP-06 only as `PROVIDER_PREREQUISITE` for provider-backed storage. No WP-07 product work or TASK is materialized by this closure.
 
 ## Explicit exclusions and residual risk
 No concrete vendor adapter, device driver, PLC/robotics/vehicle actuation, generic hardware control plane, deployment topology, production credentials, DB migration execution, UI, billing, unrelated WP-07+ work, Production Readiness or DEFER/DO_NOT_BUILD finding is absorbed.
 
 Concrete realization, operational enforcement, safety qualification and Production Readiness remain future obligations only where separately materialized and authorized. The local parsing/normalization-helper duplication remains low-priority maintainability debt and is explicitly non-blocking.
 
-## Closure gate
-This Documentation & Closure head must pass exact-head repository gates and semantic review. Only after expected-head-protected integration may G2-WP-06 be marked `PASS / INTEGRATED / CANONICALLY CLOSED` on fresh main. Successor `G2-WP-07` Planning & Materialization is separate work and may begin only from that fresh post-closure main.
+## Closure disposition
+When this Documentation & Closure commit is integrated on fresh `main`, G2-WP-06 is `PASS / INTEGRATED / CANONICALLY CLOSED`. The only dependency-safe successor gate is G2-WP-07 Planning & Materialization from that fresh post-closure main; successor construction remains ineligible until separately materialized.
