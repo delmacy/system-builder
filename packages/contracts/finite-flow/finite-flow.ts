@@ -68,8 +68,9 @@ export function assessFiniteFlow(
 ): FiniteFlowAssessment {
   const reasons: string[] = [];
   const { arrival, service, backlog, replay } = assumptions;
+  const identityComplete = Boolean(identity.queueRef.trim() && identity.populationRef.trim() && identity.scopeRef.trim());
 
-  if (!identity.queueRef.trim() || !identity.populationRef.trim() || !identity.scopeRef.trim()) {
+  if (!identityComplete) {
     reasons.push("POPULATION_IDENTITY_INCOMPLETE");
   }
 
@@ -81,10 +82,12 @@ export function assessFiniteFlow(
     if (!knownUnit(rate.unit)) reasons.push(`${label}_UNIT_NOT_KNOWN`);
   }
 
+  let unitsCompatible = true;
   if (knownUnit(arrival.unit) && knownUnit(service.unit)) {
     try {
       assertCompatibleDimensions(arrival.unit, service.unit);
     } catch {
+      unitsCompatible = false;
       reasons.push("RATE_UNITS_INCOMPATIBLE");
     }
   }
@@ -96,19 +99,25 @@ export function assessFiniteFlow(
   if (!backlog.telemetryComplete) reasons.push("BACKLOG_TELEMETRY_INCOMPLETE");
   if (!positiveFinite(assumptions.horizonMs)) reasons.push("DRAINAGE_HORIZON_MUST_BE_POSITIVE");
 
-  if (!nonNegativeInteger(replay.requestedItems) || !nonNegativeInteger(replay.maximumReplayItems) || !nonNegativeInteger(replay.deduplicationBoundItems)) {
+  const replayIntegers = nonNegativeInteger(replay.requestedItems)
+    && nonNegativeInteger(replay.maximumReplayItems)
+    && nonNegativeInteger(replay.deduplicationBoundItems);
+  if (!replayIntegers) {
     reasons.push("REPLAY_BOUNDS_MUST_BE_NON_NEGATIVE_INTEGERS");
   }
   if (replay.requestedItems > replay.maximumReplayItems) reasons.push("REPLAY_EXCEEDS_DECLARED_MAXIMUM");
   if (replay.maximumReplayItems > replay.deduplicationBoundItems) reasons.push("REPLAY_EXCEEDS_DEDUPLICATION_BOUND");
 
   const knowledgeResolved = arrival.knowledge === "KNOWN" && service.knowledge === "KNOWN" && backlog.knowledge === "KNOWN" && backlog.telemetryComplete;
-  const comparable = knownUnit(arrival.unit) && knownUnit(service.unit) && arrival.windowMs === service.windowMs && samePopulation(identity, arrival) && samePopulation(identity, service) && samePopulation(identity, backlog);
-  const replayBounded = replay.requestedItems <= replay.maximumReplayItems && replay.maximumReplayItems <= replay.deduplicationBoundItems;
+  const rateShapeValid = positiveFinite(arrival.value) && positiveFinite(service.value) && positiveFinite(arrival.windowMs) && positiveFinite(service.windowMs);
+  const backlogShapeValid = nonNegativeInteger(backlog.items);
+  const comparable = knownUnit(arrival.unit) && knownUnit(service.unit) && unitsCompatible && arrival.windowMs === service.windowMs && samePopulation(identity, arrival) && samePopulation(identity, service) && samePopulation(identity, backlog);
+  const replayBounded = replayIntegers && replay.requestedItems <= replay.maximumReplayItems && replay.maximumReplayItems <= replay.deduplicationBoundItems;
+  const admissionEvidenceValid = identityComplete && knowledgeResolved && rateShapeValid && backlogShapeValid && comparable && replayBounded;
 
   let residualItemsUpperBound: number | null = null;
   let drainable = false;
-  if (knowledgeResolved && comparable && replayBounded && reasons.length === 0) {
+  if (admissionEvidenceValid && positiveFinite(assumptions.horizonMs) && reasons.length === 0) {
     const netServicePerWindow = service.value - arrival.value;
     if (netServicePerWindow <= 0) {
       reasons.push("SERVICE_DOES_NOT_EXCEED_ARRIVAL");
@@ -121,9 +130,9 @@ export function assessFiniteFlow(
     }
   }
 
-  const admission: AdmissionState = !knowledgeResolved || !comparable
+  const admission: AdmissionState = !admissionEvidenceValid
     ? "CLOSED"
-    : service.value <= arrival.value || backlog.items > 0
+    : service.value <= arrival.value || backlog.items > 0 || replay.requestedItems > 0
       ? "BACKPRESSURE"
       : "OPEN";
 
