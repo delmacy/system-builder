@@ -133,6 +133,27 @@ test("expired idempotency horizon blocks retry and therefore cannot strengthen f
   assert.equal(retry.retryAuthorized && finite.drainable, false);
 });
 
+test("stale effect currentness and idempotency scope mismatch both keep retry authority closed", () => {
+  const stale = assessExternalEffectRetry(
+    effectIdentity,
+    attempt({ currentnessRef: "current:41" }),
+    idempotency(),
+    candidate(),
+  );
+  const wrongScope = assessExternalEffectRetry(
+    effectIdentity,
+    attempt(),
+    idempotency({ scopeRef: "tenant:other" }),
+    candidate(),
+  );
+
+  assert.equal(stale.retryAuthorized, false);
+  assert.equal(stale.reconcileRequired, true);
+  assert.ok(stale.reasons.includes("RECONCILE_BEFORE_RETRY"));
+  assert.equal(wrongScope.retryAuthorized, false);
+  assert.ok(wrongScope.reasons.includes("IDEMPOTENCY_SCOPE_MISMATCH"));
+});
+
 test("population mismatch or telemetry gap keeps recovery closed even when effect retry is otherwise qualified", () => {
   const retry = assessExternalEffectRetry(effectIdentity, attempt(), idempotency(), candidate());
   const mismatched = assessFiniteFlow(population, flow({ service: { ...flow().service, populationRef: "all-tenants" } }));
