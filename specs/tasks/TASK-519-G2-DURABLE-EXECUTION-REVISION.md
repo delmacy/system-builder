@@ -1,7 +1,7 @@
 ---
 id: TASK-519
 title: Define durable execution identity and producing-revision pinning
-status: ready
+status: verification
 priority: 519
 milestone: G2
 model_tier: architecture
