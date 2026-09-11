@@ -1,7 +1,7 @@
 ---
 id: TASK-513
 title: Define local Station Fleet truth and reconciliation boundaries
-status: blocked
+status: ready
 priority: 513
 milestone: G2
 model_tier: architecture
