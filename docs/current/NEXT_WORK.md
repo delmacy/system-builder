@@ -13,11 +13,11 @@ G2-WP-07 Planning & Materialization is integrated on fresh `main@909544a300417f6
 
 `TASK-519 -> TASK-520 -> TASK-521 -> TASK-522`
 
-Only TASK-519 is READY. TASK-520..522 remain predecessor-gated.
+TASK-519 is integrated on fresh `main@6a3d342847dc2e4160f52e2103c7f873e5c4b89f` by PR #682; exact-head `f720c8682347b17556f20657697c32948caf8af3` passed Deterministic CI #1662, Heavy Product Tests #1247 and Automation Handoff. TASK-520 is READY. TASK-521..522 remain predecessor-gated.
 
 TASK-519 establishes durable execution identity/state/journal and producing-revision pinning. TASK-520 establishes external-effect identity, qualified idempotency and reconcile-before-retry. TASK-521 establishes units/population-qualified finite-flow capacity/backpressure/drainage. TASK-522 is integrated Product Proof only.
 
 ## Next mandatory gate
-Execute only TASK-519 from fresh `main@909544a300417f65168d6f137dd104001b52be1d`. After exact-head CI, semantic review and eligible integration, rebuild fresh main and reconcile repository memory before TASK-520 may become READY.
+Execute only TASK-520 from fresh `main@6a3d342847dc2e4160f52e2103c7f873e5c4b89f`. After exact-head CI, semantic review and eligible integration, rebuild fresh main and reconcile repository memory before TASK-521 may become READY.
 
 Construction B, optional Construction C, Package Integration & Review and Documentation & Closure remain NOT MATERIALIZED. Do not absorb storage Construction-B semantics early, concrete adapters, messaging/notification semantics owned by WP-08, DB/runtime/deployment work, Production Readiness or DEFER/DO_NOT_BUILD findings.
