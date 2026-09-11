@@ -1,7 +1,7 @@
 ---
 id: TASK-522
 title: Prove integrated durable execution external-effect and finite-flow semantics
-status: ready
+status: verification
 priority: 522
 milestone: G2
 model_tier: architecture
