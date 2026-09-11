@@ -1,7 +1,7 @@
 ---
 id: TASK-521
 title: Define units-qualified finite-flow capacity backpressure and drainage
-status: ready
+status: verification
 priority: 521
 milestone: G2
 model_tier: architecture
