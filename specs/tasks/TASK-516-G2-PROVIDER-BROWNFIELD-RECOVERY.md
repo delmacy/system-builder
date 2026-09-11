@@ -1,7 +1,7 @@
 ---
 id: TASK-516
 title: Harden provider Brownfield recovery on currentness degradation
-status: ready
+status: verification
 priority: 516
 milestone: G2
 model_tier: architecture
