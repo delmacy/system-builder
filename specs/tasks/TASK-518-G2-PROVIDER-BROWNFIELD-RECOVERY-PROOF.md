@@ -36,6 +36,18 @@ validation:
 # Objective
 Close Construction B with integrated adversarial/recovery Product Proof across TASK-516..517 and the Construction A contracts, without new semantic ownership.
 
+# Context
+Construction B hardens degradation, reconciliation, rebinding/reconnection fencing and residual drainage while preserving the Construction A provider/Brownfield/locality/physical-peripheral boundaries.
+
+# Current behavior
+TASK-516 and TASK-517 are the only materialized functional hardening steps for Construction B; this final task is the proof gate and must not create a new contract or semantic owner merely to satisfy integration coverage.
+
+# Inputs / contracts
+The exact integrated Construction A contracts and Product Proof from TASK-510..515 plus the authoritative integrated outputs of TASK-516 and TASK-517, under the pinned G2-WP-06 planning authority.
+
+# Outputs / contracts
+Integrated positive, negative, adversarial and recovery Product Proof only, demonstrating Construction A+B semantics without claiming Production Readiness or adding runtime/provider/device ownership.
+
 # Required change
 Prove recovery after currentness degradation, provider/Brownfield conflict, rebinding/fencing, residual drainage and Local/Station/Fleet reconnection while retaining the bounded Physical/Peripheral distinction between observation, requested intent, owning-domain authorization and confirmed effect.
 
@@ -54,6 +66,9 @@ Exercise retry-before-reconcile, inferred reconciliation, stale rebinding, hidde
 
 # Evidence expected
 Integrated core/heavy Product Proof and task/architecture/typecheck/verify gates pass on the exact head.
+
+# Escalation
+Escalate any finding that requires new semantic ownership, concrete adapters/devices, persistence/runtime/deployment behavior, safety certification or Production Readiness rather than absorbing it into this proof task.
 
 # Non-goals
 New contracts not needed by TASK-516..517, concrete adapters/devices, DB/runtime/deployment work, safety certification or Production Readiness.
