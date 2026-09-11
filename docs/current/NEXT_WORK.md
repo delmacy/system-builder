@@ -1,17 +1,24 @@
-# Next Work — G2-WP-06 Construction A Sprint Review
+# Next Work — G2-WP-06 Construction B / TASK-516
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
 ## Closed predecessors
-`G2-WP-01..G2-WP-05` are CANONICALLY CLOSED. G2-WP-06 Planning & Materialization is integrated. Construction A is materialized as `TASK-510 -> TASK-511 -> TASK-512 -> TASK-513 -> TASK-514 -> TASK-515`; Construction B/C remain `NOT MATERIALIZED`.
+`G2-WP-01..G2-WP-05` are CANONICALLY CLOSED. G2-WP-06 Planning & Materialization and Construction A are integrated. TASK-510..515 are integrated; TASK-515 closed Construction A by PR #667 after exact-head Deterministic CI #1626, Heavy Product Tests #1209 and Automation Handoff #1966 PASS.
 
-## Integrated Construction A
-TASK-510 is integrated by PR #655. TASK-511 is integrated by PR #658 from authoritative head `cfb1abd4a128d07a866a8e3e068f8b1da2b7d6f4`. TASK-512 is integrated by PR #660 from authoritative head `f626839f8982dabc93cf86cf76de087cfdf4fc0f`. TASK-513 is integrated by PR #662 from exact head `a0f2a6039de91383a5759a34a3145c73bcf06944`. TASK-514 is integrated by PR #665. TASK-515 is integrated by PR #667 from exact head `aa75507cc0c0de25adc6d03d9a0f930e1c6f0b89` after Deterministic CI #1626 PASS, Heavy Product Tests #1209 PASS and Automation Handoff #1966 PASS; squash integration produced authoritative main commit `cd6838ae77d35a4c38a63790c5d2ccbcbcb7e247`.
+## Construction A Sprint Review
+Review against fresh `main@461ba9f20601aaf544b773d8f11a20dbac339e6d` passed the foundation and established a real Construction B hardening need already inside WP-06: recovery when provider/Brownfield evidence loses currentness or conflicts, explicit reconciliation before retry, and preservation of fencing/residual visibility through rebinding/reconnection. This also satisfies the policy requirement that a new Work Package receive two bounded Construction Sprints rather than proceeding from Construction A directly to Package Review.
 
 ## Revalidated authority
-Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, with the Generation 2 research state and handoff authority at `READY_FOR_WORKER_HANDOFF / PASS`. WP-06 owns `G2-WBS-09`, `G2-WBS-23`, `G2-WBS-10` and consumes closed WP-01/WP-02/WP-04/WP-05 semantics.
+Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, `READY_FOR_WORKER_HANDOFF / PASS`. WP-06 continues to own `G2-WBS-09`, `G2-WBS-23`, `G2-WBS-10` and consumes closed WP-01/WP-02/WP-04/WP-05 semantics.
+
+## Materialized Construction B
+`TASK-516 -> TASK-517 -> TASK-518`
+
+- TASK-516 READY: currentness/revision/locality degradation recovery and authoritative reconcile-before-retry.
+- TASK-517 BLOCKED on TASK-516: rebinding/reconnection fencing, canonical-truth uniqueness and visible residual drainage through recovery.
+- TASK-518 BLOCKED on TASK-517: integrated adversarial/recovery Product Proof across Construction A+B and bounded Physical/Peripheral recovery boundaries.
 
 ## Next mandatory gate
-Perform **Construction A Sprint Review** against fresh `main@cd6838ae77d35a4c38a63790c5d2ccbcbcb7e247` and integrated TASK-510..515 evidence. Do not materialize Construction B/C unless that review produces fresh-main evidence for dependency-safe work already within the authorized WP design.
+Integrate this materialization from exact fresh main; reconstruct fresh main; execute only TASK-516. Do not execute TASK-517/518 early. Construction C remains `NOT MATERIALIZED` and Package Integration & Review remains ineligible until Construction B is integrated and reviewed.
 
-Preserve conservative `PARTIAL/UNKNOWN`, currentness/locality, AI/discovery evidence != authority, external-ID reuse/rebinding protection, single canonical truth with visible residual cohorts, Local/Station/Fleet boundaries, source-of-truth/coexistence/residual drainage, and the separation observation -> requested intent -> external authorization -> confirmed physical effect. Product Proof is not Production Readiness. Do not absorb concrete adapters/devices, deployment, WP-07+ or DEFER/DO_NOT_BUILD findings.
+Preserve owner/revision/currentness/locality, hybrid evidence semantics, `AI inference != authority`, conservative `PARTIAL/UNKNOWN/INCONCLUSIVE`, `UNKNOWN -> reconcile-before-retry`, source-of-truth/coexistence/residual drainage, provider qualification, Local/Station/Fleet boundaries, and Product Proof != Production Readiness. Do not absorb concrete adapters/devices, deployment, WP-07+ or DEFER/DO_NOT_BUILD findings.
