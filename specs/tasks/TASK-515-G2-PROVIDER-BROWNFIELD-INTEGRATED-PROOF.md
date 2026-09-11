@@ -1,7 +1,7 @@
 ---
 id: TASK-515
 title: Prove integrated provider Brownfield locality and bounded peripheral semantics
-status: ready
+status: verification
 priority: 515
 milestone: G2
 model_tier: architecture
