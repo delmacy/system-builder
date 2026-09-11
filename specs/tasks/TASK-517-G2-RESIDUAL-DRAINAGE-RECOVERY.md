@@ -1,7 +1,7 @@
 ---
 id: TASK-517
 title: Preserve residual drainage and stale-authority fencing through rebinding recovery
-status: ready
+status: verification
 priority: 517
 milestone: G2
 model_tier: architecture
