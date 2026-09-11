@@ -1,16 +1,17 @@
-# Current Execution Milestone — Generation 2 / G2-WP-07 Planning & Materialization Eligible
+# Current Execution Milestone — Generation 2 / G2-WP-07 Planning & Materialization
 
 ## Milestone state
-`G2-WP-01..G2-WP-06` are canonically CLOSED when this closure commit is present on `main`. Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a` and remains `READY_FOR_WORKER_HANDOFF / PASS` through the research state, WBS decomposition/dependency graph, Work Package Design and handoff artifacts.
+`G2-WP-01..G2-WP-06` are canonically CLOSED on fresh `main@a711231373c98b35b0338f70c20b99105ec30025`. Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a` and remains `READY_FOR_WORKER_HANDOFF / PASS` through research state, WBS decomposition/dependency graph, Work Package Design and handoff artifacts.
 
-G2-WP-06 Planning & Materialization, Construction A and Construction B are integrated and reviewed. Optional Construction C is **NOT REQUIRED** on current evidence.
-
-Package Integration & Review PR #677 exact head `1bcae81154f61d85f0085cb83788db2ff27c01ab` passed Deterministic CI #1646, Heavy Product Tests #1231 and Automation Handoff #2039/#2042 and integrated as `main@1c076e40215b29393aa1ca98a3859842d8348b97`.
-
-Documentation & Closure reconciles repository memory, package evidence, WBS/DAG/readiness/risks/lessons, traceability and successor eligibility without product behavior or successor/DEFER/DO_NOT_BUILD scope. Its integration is the canonical closure event for G2-WP-06.
+G2-WP-07 owns `G2-WBS-06`, `G2-WBS-08`, `G2-WBS-11`. Planning materializes only Construction A: `TASK-519 -> TASK-520 -> TASK-521 -> TASK-522`, with TASK-519 READY and successors predecessor-gated.
 
 ## Current gate
-The first dependency-safe successor is **G2-WP-07 — Durable Execution, Storage & Finite-Flow Semantics**. Only its Planning & Materialization is eligible next; no WP-07 product work is materialized by G2-WP-06 closure.
+Validate and integrate G2-WP-07 Planning & Materialization. After fresh-main reconciliation, TASK-519 is the only eligible product successor.
 
-## Successor boundary
-G2-WP-07 owns `G2-WBS-06`, `G2-WBS-08`, `G2-WBS-11` and consumes WP-06 as `PROVIDER_PREREQUISITE` for provider-backed storage. Planning & Materialization must start from fresh post-closure `main` and must preserve all existing DEFER/DO_NOT_BUILD and Production Readiness boundaries.
+## Forecast boundary
+Construction B — storage/document/media identity plus provider-copy lifecycle integrated with finite-flow constraints — remains FORECAST / NOT MATERIALIZED. Optional Construction C is promoted only by fresh evidence after Construction B. Package Integration & Review and Documentation & Closure remain NOT MATERIALIZED.
+
+## Package proof boundary
+Construction A must prove revision-pinned durable execution, external-effect identity distinct from attempt/delivery, authoritative reconcile-before-retry for unsafe UNKNOWN, qualified idempotency, units/population-qualified capacity/backpressure and finite residual drainage. Storage canonical identity is reserved for Construction B.
+
+No concrete queue/storage vendor adapter, messaging/notification semantics owned by WP-08, DB migration execution, deployment, Production Readiness or DEFER/DO_NOT_BUILD work is authorized by this materialization.
