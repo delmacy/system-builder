@@ -1,7 +1,7 @@
 ---
 id: TASK-520
 title: Define external-effect identity idempotency and reconcile-before-retry
-status: ready
+status: verification
 priority: 520
 milestone: G2
 model_tier: architecture
