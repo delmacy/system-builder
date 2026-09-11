@@ -50,15 +50,16 @@ export function assessDurableExecution(
   snapshot: DurableExecutionSnapshot,
 ): DurableExecutionAssessment {
   const reasons: string[] = [];
-  const entries = [...snapshot.journal].sort((a, b) => a.sequence - b.sequence);
+  const entries = [...snapshot.journal];
 
   if (entries.length === 0) reasons.push("MISSING_JOURNAL_EVIDENCE");
 
-  for (let index = 0; index < entries.length; index += 1) {
-    const entry = entries[index];
+  let previousSequence: number | undefined;
+  for (const entry of entries) {
     if (entry.executionRef !== snapshot.executionRef) reasons.push("EXECUTION_LINEAGE_MISMATCH");
     if (!sameRevision(entry.producingRevision, snapshot.producingRevision)) reasons.push("PRODUCING_REVISION_MISMATCH");
-    if (index > 0 && entry.sequence <= entries[index - 1].sequence) reasons.push("NON_MONOTONIC_JOURNAL");
+    if (previousSequence !== undefined && entry.sequence <= previousSequence) reasons.push("NON_MONOTONIC_JOURNAL");
+    previousSequence = entry.sequence;
   }
 
   const accepted = entries.some((entry) => entry.stage === "ACCEPTED");
