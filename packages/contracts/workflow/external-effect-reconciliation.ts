@@ -99,12 +99,22 @@ export function assessExternalEffectRetry(
   if (idempotency.payloadDigest !== candidate.payloadDigest) reasons.push("IDEMPOTENCY_PAYLOAD_MISMATCH");
   if (candidate.nowEpochMs > idempotency.validUntilEpochMs) reasons.push("IDEMPOTENCY_HORIZON_EXPIRED");
 
+  const retryBlockingReasons = new Set([
+    "ATTEMPT_OR_DELIVERY_ID_CANNOT_BE_EFFECT_ID",
+    "EFFECT_IDENTITY_MISMATCH",
+    "PRODUCING_REVISION_MISMATCH",
+    "IDEMPOTENCY_AUTHORITY_MISMATCH",
+    "IDEMPOTENCY_SCOPE_MISMATCH",
+    "IDEMPOTENCY_PAYLOAD_MISMATCH",
+    "IDEMPOTENCY_HORIZON_EXPIRED",
+  ]);
+
   const retryAuthorized =
     !effectConfirmed &&
     !reconcileRequired &&
     attempt.observation === "ABSENT" &&
     idempotencyQualified &&
-    reasons.every((reason) => !reason.endsWith("MISMATCH") && reason !== "IDEMPOTENCY_HORIZON_EXPIRED");
+    !reasons.some((reason) => retryBlockingReasons.has(reason));
 
   return {
     effectConfirmed,
