@@ -2,7 +2,7 @@
 
 Status: `CONSTRUCTION A ACTIVE / TASK-510..512 INTEGRATED / TASK-513 READY`
 Planning base: `main@74ea711940c36608cd2e351069b38f2d54807b37`
-Current product main: `main@a6250f5f4624d99da22f68b9a6b93efd1a727a94`
+Current product main: `main@56570e569eb5948cf8eb2dbf8e7b12f7609c4cfe`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS owners: `G2-WBS-09`, `G2-WBS-23`, `G2-WBS-10`
 
@@ -20,7 +20,7 @@ Dependency-safe chain:
 - TASK-510: multidimensional provider/binding qualification and explicit unsupported/partial/unknown semantics — `INTEGRATED` by PR #655.
 - TASK-511: evidence-first Brownfield inventory/assimilation with provenance, owner/revision/currentness and AI inference != authority — `INTEGRATED` by PR #658 from authoritative head `cfb1abd4a128d07a866a8e3e068f8b1da2b7d6f4`; exact-head Deterministic CI #1613 PASS and Heavy Product Tests #1188 PASS.
 - TASK-512: external identity reuse/rebinding protection and coexistence/source-of-truth lineage — `INTEGRATED` by PR #660 from authoritative head `f626839f8982dabc93cf86cf76de087cfdf4fc0f`; exact-head Deterministic CI #1616 PASS and Heavy Product Tests #1193 PASS.
-- TASK-513: locality-aware local/Station/Fleet truth and reconciliation boundaries — `READY` after TASK-512 integration.
+- TASK-513: locality-aware local/Station/Fleet truth and reconciliation boundaries — `READY` after TASK-512 integration and PR #661 ready-gate reconciliation.
 - TASK-514: bounded Physical/Peripheral integration/governance contracts without generic actuation authority — predecessor-gated.
 - TASK-515: integrated positive/negative/adversarial/recovery Product Proof across TASK-510..514 — predecessor-gated.
 
