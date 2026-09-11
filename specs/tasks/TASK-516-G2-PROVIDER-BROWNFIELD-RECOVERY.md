@@ -42,6 +42,15 @@ Harden the already-integrated provider/Brownfield contracts so loss of currentne
 # Context
 Construction A proves static and integrated invariants. Construction B is required by the rolling-wave cadence and uses fresh-main evidence to exercise the recovery boundary when previously-current provider or Brownfield evidence becomes STALE, UNKNOWN, conflicting, or revision-mismatched.
 
+# Current behavior
+Construction A preserves qualification, evidence authority/provenance, identity, locality and conservative UNKNOWN/PARTIAL semantics, but the materialized recovery sprint must make degradation after a previously-current state explicit before retry.
+
+# Inputs / contracts
+The integrated provider qualification, Brownfield assimilation and locality/currentness contracts from TASK-510..515, plus the pinned G2-WP-06 planning authority and their exact integrated Product Proof.
+
+# Outputs / contracts
+Only the minimum provider-neutral recovery/reconciliation semantics and Product Proof needed to represent degraded currentness, explicit authoritative reconciliation and retry eligibility without expanding runtime or provider ownership.
+
 # Required change
 Define the minimum provider-neutral recovery/reconciliation semantics needed to preserve owner/revision/currentness/locality and canonical authority while evidence degrades. Recovery must be retry-safe only after authoritative reconciliation; it must not infer support, canonical identity, or global truth from prior success.
 
@@ -58,6 +67,9 @@ Exercise stale-after-success, UNKNOWN-after-success, revision drift, locality dr
 
 # Evidence expected
 Core/heavy Product Proof plus task/architecture/typecheck/verify gates demonstrate deterministic conservative recovery on the exact head.
+
+# Escalation
+Escalate any need for new provider-specific ownership, persistence/runtime behavior, deployment, concrete adapters/devices or Production Readiness rather than absorbing it into recovery hardening.
 
 # Non-goals
 Concrete provider adapters, device control, DB changes, deployment, Production Readiness, or WP-07+ behavior.
