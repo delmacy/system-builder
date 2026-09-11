@@ -1,8 +1,8 @@
 # G2-WP-06 — Provider, Brownfield & Bounded Physical/Peripheral Integration
 
-Status: `CONSTRUCTION A REVIEWED / CONSTRUCTION B MATERIALIZED / TASK-516 READY`
+Status: `CONSTRUCTION A+B INTEGRATED / CONSTRUCTION B REVIEW PASS / PACKAGE INTEGRATION & REVIEW NEXT`
 Planning base: `main@74ea711940c36608cd2e351069b38f2d54807b37`
-Current product main: `main@461ba9f20601aaf544b773d8f11a20dbac339e6d`
+Current product main: `main@8f6b35e20e6b87e0f67d2031ac1d83a6948369e1`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS owners: `G2-WBS-09`, `G2-WBS-23`, `G2-WBS-10`
 
@@ -24,24 +24,29 @@ Review base: fresh `main@461ba9f20601aaf544b773d8f11a20dbac339e6d`.
 
 Result: `PASS WITH REQUIRED CONSTRUCTION-B HARDENING`.
 
-Fresh integrated evidence confirms the package foundation but leaves the recovery dimension to the second required Construction Sprint: authority/currentness may degrade after a previously valid state; provider/Brownfield evidence can conflict or become revision/locality-stale; rebinding and reconnection must retain fencing and residual visibility; retry must occur only after authoritative reconciliation. This is within existing WP-06 ownership and is not new capability scope.
-
-The repository Sprint Generation Policy requires two Construction Sprints by default/minimum and requires Construction Sprint 2 to be a bounded integrated increment derived from actual predecessor evidence. Construction B below is therefore materialized from the recovery/hardening evidence, not from task-count quota or forecast promotion.
+Fresh integrated evidence confirmed the package foundation and identified the second required Construction Sprint as recovery/hardening already within WP-06 ownership: authority/currentness degradation, provider/Brownfield evidence conflict or revision/locality staleness, rebinding/reconnection fencing, residual visibility and authoritative reconciliation before retry.
 
 ## Construction B — G2-PROVIDER-BROWNFIELD-RECOVERY-HARDENING-01
-Committed dependency-safe chain:
+Integrated dependency-safe chain:
 
 `TASK-516 -> TASK-517 -> TASK-518`
 
-- TASK-516: harden provider/Brownfield recovery when currentness, revision or locality degrades; `READY`.
-- TASK-517: preserve stale-authority fencing, canonical-truth uniqueness and visible residual drainage through rebinding/reconnection recovery; predecessor-gated.
-- TASK-518: integrated adversarial/recovery Product Proof across Construction A+B, including bounded Physical/Peripheral recovery boundaries; predecessor-gated.
+- TASK-516 integrated by PR #670 as squash commit `36900a3dc059a78ac3e0c02e80a069f65fb9664a` after exact-head Deterministic CI #1635, Heavy Product Tests #1219 and Automation Handoff #1997 PASS on head `7535d9ed646dce3b8c76f2f9b491c3e57521e5e0`.
+- TASK-517 integrated by PR #672 as squash commit `6ccc4c7f99e109de06f02778daa9d200fe04e99a` after exact-head Deterministic CI #1640, Heavy Product Tests #1225 and Automation Handoff #2017 PASS on head `e8c1edd2858e3761279b407cd3f7cef2821b29e9`.
+- TASK-518 integrated by PR #674 as squash commit `8f6b35e20e6b87e0f67d2031ac1d83a6948369e1` after replacement exact head `1a8fe3d2c9fcc3faec0c55c5fb04489cff662e16` passed Deterministic CI #1644, Heavy Product Tests #1229 and Automation Handoff #2031.
 
-Construction B goal: prove that loss and restoration of evidence/currentness cannot manufacture support, authority, canonical identity, global truth, drained residual state, actuation authority or confirmed physical effect.
+Construction B goal is satisfied: loss and restoration of evidence/currentness cannot manufacture support, authority, canonical identity, global truth, drained residual state, actuation authority or confirmed physical effect.
 
-Construction B exit proof: exact-head core/heavy Product Proof demonstrates conservative degradation, explicit reconciliation, retry-after-current-authority, stale fencing, residual visibility, one canonical truth per scope/epoch, locality-qualified recovery and Physical/Peripheral boundedness.
+### Construction B Sprint Review
+Review base: fresh `main@8f6b35e20e6b87e0f67d2031ac1d83a6948369e1`.
 
-Construction C remains `NOT MATERIALIZED`. After Construction B Sprint Review, reconstruct fresh main and materialize C only if fresh integrated evidence shows additional bounded construction is necessary for the package goal.
+Result: **PASS**.
+
+The integrated recovery path preserves exact identity/revision/currentness/locality, conservative `PARTIAL/UNKNOWN/INCONCLUSIVE`, authoritative reconcile-before-retry, stale-authority fencing, one canonical truth per scope/epoch, visible residual drainage, locality-qualified Local/Station/Fleet recovery and Physical/Peripheral authority/effect separation.
+
+TASK-518 initially exposed a deterministic Product Proof fixture inconsistency: an undrained residual cohort referenced a binding already marked `DRAINED`. The predecessor coexistence contract rejected that impossible state as designed. The bounded repair changed only the proof fixture so the open cohort carries a `RESIDUAL` binding; no product contract was weakened. The replacement head then passed all exact-head gates before integration.
+
+Optional Construction C: **NOT REQUIRED** on current evidence. No unresolved semantic proof obligation necessary to the package goal remains after Construction A+B. Construction C remains `NOT MATERIALIZED` and must not be used as overflow for concrete adapters/devices, runtime/persistence/deployment, generic physical actuation, Production Readiness, DEFER/DO_NOT_BUILD or successor-WP work.
 
 ## Integrated invariants
 Provider support is a multidimensional qualification vector, not parity inference. Evidence is binding-revision/currentness/locality-aware and distinguishes AUTHORITATIVE, OBSERVED and INFERRED. `PARTIAL/UNKNOWN/INCONCLUSIVE` do not strengthen. Stale/UNKNOWN authority-sensitive evidence requires reconcile-before-retry. Brownfield discovery remains evidence rather than authority. External IDs remain provider/scope/revision/epoch qualified; rebinding requires authoritative evidence; stale bindings cannot resurrect fenced authority; residual cohorts remain visible until drained/reconciled. Local/Station/Fleet state remains locality/currentness qualified and cannot silently become global truth. Physical/Peripheral connectivity/capability does not grant actuation authority; observation, requested intent, external owning-domain authorization and confirmed effect remain separate facts.
@@ -53,4 +58,4 @@ Coexistence preserves one canonical source-of-truth per scope/epoch and visible 
 No concrete vendor adapter, device driver, PLC/robotics/vehicle actuation, generic hardware control plane, deployment topology, production credentials, DB migration execution, UI, billing, unrelated WP-07+ work, or DEFER/DO_NOT_BUILD finding is absorbed.
 
 ## Gate
-Integrate this materialization from exact fresh main, then execute only TASK-516. TASK-517 and TASK-518 remain predecessor-gated. Construction C and Package Integration & Review are not execution-eligible before Construction B is integrated and reviewed.
+After the Construction B review/reconciliation head passes exact-head repository gates and integrates, reconstruct fresh main and execute `G2-WP-06 Package Integration & Review`. The package-level review must regress the complete package chain, inspect contract/schema drift and compatibility, architecture/dependency fitness, technical debt/duplication, security/trust and CI health, relevant performance, actual-vs-forecast effort, residual risk and Documentation & Closure readiness without adding unrelated product capability.
