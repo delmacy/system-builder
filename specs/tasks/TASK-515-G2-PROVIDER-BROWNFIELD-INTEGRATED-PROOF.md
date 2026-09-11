@@ -1,7 +1,7 @@
 ---
 id: TASK-515
 title: Prove integrated provider Brownfield locality and bounded peripheral semantics
-status: blocked
+status: ready
 priority: 515
 milestone: G2
 model_tier: architecture
@@ -40,7 +40,7 @@ Close Construction A with integrated Product Proof across TASK-510..514 without 
 TASK-515 is the Construction A proof gate after TASK-510..514 and must integrate their already-owned semantics without adding product or Production Readiness scope.
 
 # Current behavior
-The individual contracts are planned, but Construction A requires one integrated proof across qualification, Brownfield assimilation, identity/coexistence, locality and bounded physical/peripheral governance.
+TASK-510..514 are integrated; Construction A still requires one integrated proof across qualification, Brownfield assimilation, identity/coexistence, locality and bounded physical/peripheral governance.
 
 # Inputs / contracts
 The exact integrated contracts and Product Proof surfaces produced by TASK-510..514 plus pinned G2 authority and predecessor evidence/currentness/source-of-truth semantics.
