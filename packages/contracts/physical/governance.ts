@@ -58,6 +58,7 @@ export function normalizePhysicalPeripheralQualification(input: unknown): Physic
   const currentness = normalizeCurrentnessQualification(r.currentness);
   const state = capability(r.capability);
   if (revisionKey(currentness.subject) !== revisionKey(peripheral) || currentness.localityScope !== localityRef) throw new Error("physical currentness must qualify the exact peripheral revision and locality");
+  if (providerQualification.currentness.localityScope !== localityRef) throw new Error("provider qualification locality must match the physical peripheral locality");
   if (state === "SUPPORTED") {
     if (providerQualification.disposition !== "SUPPORTED") throw new Error("PARTIAL, UNKNOWN or unsupported provider capability cannot strengthen to physical SUPPORTED");
     if (currentness.state !== "CURRENT") throw new Error("stale or UNKNOWN physical evidence cannot strengthen to SUPPORTED");
