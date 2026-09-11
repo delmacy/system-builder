@@ -55,14 +55,19 @@ export function normalizeBrownfieldRecovery(input: unknown): BrownfieldRecovery 
     if (!cohort?.drained) throw new Error("drained binding must retain explicit drained residual lineage");
   }
 
+  const localityBinding = coexistence.bindings.find((item) => item.state === "ACTIVE" && item.canonicalEntityRef === locality.canonicalSource.canonicalRef && item.bindingRevision === locality.canonicalSource.revisionRef);
+  const localityIdentityMismatch = !localityBinding || locality.observations.some((item) => item.authority === "CANONICAL_SOURCE" && item.currentness.populationScope !== localityBinding.scopeRef);
   const unresolvedResidual = coexistence.residualCohorts.some((item) => !item.drained || item.completeness !== "KNOWN");
   const localityUnresolved = locality.reconciliation !== "RECONCILED" || locality.conflict !== "NONE" || locality.residuals.some((item) => item.state !== "DRAINED") || locality.observations.some((item) => item.currentness.state !== "CURRENT");
   const uncertainDrainage = drainageEvidence.some((item) => item.evidenceAuthority !== "AUTHORITATIVE" || item.completeness !== "KNOWN");
 
+  if (r.disposition === "RECOVERY_ELIGIBLE" && localityIdentityMismatch) {
+    throw new Error("recovery locality canonical identity/revision/scope must match an ACTIVE canonical binding");
+  }
   if (r.disposition === "RECOVERY_ELIGIBLE" && (unresolvedResidual || localityUnresolved || uncertainDrainage)) {
     throw new Error("UNKNOWN/conflict/residual state requires reconcile-before-retry");
   }
-  if ((unresolvedResidual || localityUnresolved) && r.disposition !== "RECONCILE_REQUIRED") {
+  if ((unresolvedResidual || localityUnresolved || localityIdentityMismatch) && r.disposition !== "RECONCILE_REQUIRED") {
     throw new Error("unresolved recovery state must remain RECONCILE_REQUIRED");
   }
 
