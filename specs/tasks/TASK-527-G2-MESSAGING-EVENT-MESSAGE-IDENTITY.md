@@ -1,7 +1,7 @@
 ---
 id: TASK-527
 title: Define event, message and subscription identity with occurrence lineage
-status: ready
+status: verification
 priority: 527
 milestone: G2
 model_tier: architecture
@@ -67,3 +67,6 @@ Stop and return to package review rather than broadening scope if satisfying ide
 
 # Non-goals
 Delivery retry/effect reconciliation, ordering/replay/DLQ, concrete brokers, persistence, notifications realization, deployment or Production Readiness.
+
+# Implementation evidence
+TASK implementation is bounded to a provider-neutral messaging identity contract plus deterministic Product Proof. The implementation keeps canonical occurrence/message/subscription identities explicit, pins producing revision and lineage across redelivery, treats provider message identifiers only as evidence, and prevents PARTIAL/UNKNOWN/stale evidence from strengthening currentness. Exact-head repository validation remains the verification gate.
