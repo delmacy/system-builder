@@ -45,7 +45,7 @@ const qualification = (canonicalRef: string, revisionRef: string, providerRealiz
     },
     evidenceAuthority: "AUTHORITATIVE" as const,
     dimensions: [{ dimension: "messaging", status: "SUPPORTED" as const, reason: "qualified messaging provider" }],
-    disposition: "SUPPORTED" as const,
+    disposition: state === "CURRENT" ? "SUPPORTED" as const : "UNKNOWN" as const,
   };
 };
 
