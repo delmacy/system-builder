@@ -13,11 +13,11 @@ Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5
 
 `TASK-523 -> TASK-524 -> TASK-525 -> TASK-526`
 
-TASK-523 is integrated by PR #694 on fresh `main@871e104354769b2022e679864e13fd13c1c8c53a`; exact-head `824c209b9c60b810d1a9576cdf2eb39cc2b1d6df` passed Deterministic CI #1681, Heavy Product Tests #1267 and Automation Handoff #2161. TASK-524 is integrated by PR #696 on fresh `main@cf023d742f0ebb90023b4bac51b96e1c2b5558e4`; exact-head `a3634e13a74205d8c0d133d820da41ab88d971d0` passed Deterministic CI #1686, Heavy Product Tests #1272 and Automation Handoff #2181. TASK-525 is READY. TASK-526 remains predecessor-gated.
+TASK-523 is integrated by PR #694 on fresh `main@871e104354769b2022e679864e13fd13c1c8c53a`; exact-head `824c209b9c60b810d1a9576cdf2eb39cc2b1d6df` passed Deterministic CI #1681, Heavy Product Tests #1267 and Automation Handoff #2161. TASK-524 is integrated by PR #696 on fresh `main@cf023d742f0ebb90023b4bac51b96e1c2b5558e4`; exact-head `a3634e13a74205d8c0d133d820da41ab88d971d0` passed Deterministic CI #1686, Heavy Product Tests #1272 and Automation Handoff #2181. TASK-525 is integrated by PR #698 on fresh `main@326377f1f91e4e3a1fc27186da2b0d37e9c052ec`; exact-head `d7aa947aca850b1a30ee856de0f2ec7ecf862955` passed Deterministic CI #1690, Heavy Product Tests #1277 and Automation Handoff #2192. TASK-526 is READY.
 
 TASK-523 establishes canonical document/media identity distinct from provider key/hash/copy identity. TASK-524 establishes provider-copy transfer/availability lifecycle with multipart/resumable/offline semantics and provider qualification. TASK-525 integrates disposition/residual-copy drainage with finite-flow constraints. TASK-526 is integrated Product Proof only.
 
 ## Next mandatory gate
-After this reconciliation passes exact-head CI and integrates, rebuild fresh main and execute only TASK-525. Do not absorb TASK-526 closure proof early.
+After this reconciliation passes exact-head CI and integrates, rebuild fresh main and execute only TASK-526. TASK-526 must remain Product Proof only and must not introduce a new contract, provider implementation or semantic owner.
 
 Optional Construction C, Package Integration & Review and Documentation & Closure remain NOT MATERIALIZED. Concrete vendor adapters, messaging/notification semantics owned by WP-08, DB/runtime/deployment work, Production Readiness and DEFER/DO_NOT_BUILD findings remain excluded.
