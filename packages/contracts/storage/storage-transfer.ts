@@ -91,7 +91,9 @@ const currentAt = (c: Currentness, at: number) => c.state === "CURRENT" && at >=
 export function assessQualifiedProviderCopyAvailability(e: StorageTransferEvidence, evaluatedAt: string): QualifiedAvailability {
   const at = Date.parse(ts(evaluatedAt, "evaluatedAt"));
   if (e.completeness !== "KNOWN" || !currentAt(e.currentness, at)) return "UNKNOWN";
-  if (e.providerQualification.state !== "QUALIFIED" || !currentAt(e.providerQualification.currentness, at)) return e.providerQualification.state === "UNQUALIFIED" ? "UNAVAILABLE" : "UNKNOWN";
+  if (!currentAt(e.providerQualification.currentness, at)) return "UNKNOWN";
+  if (e.providerQualification.state === "UNKNOWN") return "UNKNOWN";
+  if (e.providerQualification.state === "UNQUALIFIED") return "UNAVAILABLE";
   if (e.state === "FAILED") return "UNAVAILABLE";
   if (e.state !== "COMPLETED") return e.state === "UNKNOWN" || e.state === "PARTIAL" ? "UNKNOWN" : "INCONCLUSIVE";
   if (e.integrityVerified !== true || e.durabilityEvidenceRef === null) return "INCONCLUSIVE";
@@ -101,6 +103,7 @@ export function assessQualifiedProviderCopyAvailability(e: StorageTransferEviden
 export function retryDisposition(e: StorageTransferEvidence, evaluatedAt: string): RetryDisposition {
   const at = Date.parse(ts(evaluatedAt, "evaluatedAt"));
   if (e.completeness !== "KNOWN" || !currentAt(e.currentness, at) || e.state === "UNKNOWN" || e.state === "PARTIAL") return "RECONCILE_REQUIRED";
+  if (!currentAt(e.providerQualification.currentness, at) || e.providerQualification.state !== "QUALIFIED") return "RECONCILE_REQUIRED";
   if (assessQualifiedProviderCopyAvailability(e, evaluatedAt) === "AVAILABLE") return "DO_NOT_RETRY";
   return e.state === "FAILED" ? "SAFE_TO_RETRY" : "RECONCILE_REQUIRED";
 }
