@@ -1,7 +1,7 @@
 ---
 id: TASK-529
 title: Define ordering epochs, replay DLQ and batch partiality semantics
-status: ready
+status: verification
 priority: 529
 milestone: G2
 model_tier: architecture
