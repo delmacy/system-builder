@@ -140,3 +140,39 @@ test("TASK-526 rejects population/currentness gaps and replay beyond the qualifi
   assert.equal(replayResult.drainage, "INVALID");
   assert.ok(replayResult.reasons.includes("FINITE_FLOW_REPLAY_EXCEEDS_DEDUPLICATION_BOUND"));
 });
+
+test("TASK-526 telemetry gaps remain non-strengthening even when deletion was acknowledged", () => {
+  const telemetryGap = disposition([], {
+    residualCohorts: [{
+      cohortRef: "cohort:gap",
+      populationRef: population.populationRef,
+      scopeRef: population.scopeRef,
+      providerCopyRefs: [],
+      knowledge: "KNOWN",
+      telemetryComplete: false,
+    }],
+  });
+  const result = assessStorageDisposition(identity, telemetryGap, population, flow(0));
+  assert.equal(result.valid, false);
+  assert.equal(result.residualCopyCount, null);
+  assert.equal(result.drainage, "UNKNOWN");
+  assert.ok(result.reasons.includes("RESIDUAL_TELEMETRY_NOT_KNOWN"));
+});
+
+test("TASK-526 refuses finite drainage when unit or time assumptions are not qualified", () => {
+  const baseline = flow(1);
+  const unknownUnit: UnitReference = { state: "UNKNOWN", reason: "service unit is not qualified" };
+  const unitGap = assessStorageDisposition(identity, disposition(["copy:residual"]), population, {
+    ...baseline,
+    service: { ...baseline.service, unit: unknownUnit },
+  });
+  assert.equal(unitGap.drainage, "INVALID");
+  assert.ok(unitGap.reasons.includes("FINITE_FLOW_SERVICE_UNIT_NOT_KNOWN"));
+
+  const timeGap = assessStorageDisposition(identity, disposition(["copy:residual"]), population, {
+    ...baseline,
+    service: { ...baseline.service, windowMs: 500 },
+  });
+  assert.equal(timeGap.drainage, "INVALID");
+  assert.ok(timeGap.reasons.includes("FINITE_FLOW_RATE_WINDOWS_NOT_COMPARABLE"));
+});
