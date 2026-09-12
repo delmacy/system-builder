@@ -1,7 +1,7 @@
 ---
 id: TASK-531
 title: Define provider coexistence and substitution evidence semantics
-status: ready
+status: verification
 priority: 531
 milestone: G2
 model_tier: architecture
