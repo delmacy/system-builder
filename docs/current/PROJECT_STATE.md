@@ -2,23 +2,18 @@
 
 Date: 2026-09-12
 
-## Generation 2 — EXECUTION AUTHORIZED / G2-WP-08 DOCUMENTATION & CLOSURE
-`G2-WP-01..G2-WP-07` are CANONICALLY CLOSED. Pinned research/planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, `READY_FOR_WORKER_HANDOFF / PASS`.
+## Generation 2 — EXECUTION AUTHORIZED / G2-WP-08 CANONICALLY CLOSED / G2-WP-09 PLANNING NEXT
+`G2-WP-01..G2-WP-08` are CANONICALLY CLOSED. Pinned research/planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, `READY_FOR_WORKER_HANDOFF / PASS`.
 
 ## G2-WP-08
-G2-WP-08 owns only `G2-WBS-07` — Messaging, Events, Notifications & Integration Automation.
+G2-WP-08 owns only `G2-WBS-07` — Messaging, Events, Notifications & Integration Automation. Construction A `TASK-527 -> TASK-530`, Construction B `TASK-531 -> TASK-534`, Construction B Sprint Review, Package Integration & Review and Documentation & Closure are integrated.
 
-Construction A `TASK-527 -> TASK-530` is fully integrated. Fresh-main Construction A Sprint Review PR #714 passed and required Construction B.
+Documentation & Closure PR #725 is integrated as fresh `main@307f6c4a344cc38c59218ef542ea012097997f0f`. Final disposition: **PASS / INTEGRATED / CANONICALLY CLOSED**. Optional Construction C was NOT REQUIRED.
 
-Construction B `TASK-531 -> TASK-534` is fully integrated through PR #722. Fresh-main Construction B Sprint Review PR #723 passed and determined optional Construction C is NOT REQUIRED.
-
-Package Integration & Review PR #724 is PASS and integrated as fresh `main@c911c1a3e0a3c1ac704c73db3be644e5c729d2b9`. No blocking package debt, contract drift, architecture ownership drift or Product-Proof gap remains inside the materialized WP-08 Package Goal.
+No blocker remains inside the materialized G2-WP-08 Package Goal. Product Proof remains distinct from Production Readiness, and excluded realization/readiness concerns are not hidden package incompleteness.
 
 ## Current gate
-Execute G2-WP-08 Documentation & Closure only. Closure is repository-memory/WBS/DAG/readiness reconciliation and must not add product behavior. G2-WP-08 becomes canonically closed only after the exact closure head passes required gates and integrates.
-
-## Successor boundary
-After canonical closure, rebuild fresh main and revalidate the pinned DAG before selecting only the first dependency-safe G2-WP-09 Planning & Materialization gate. Do not pre-materialize G2-WP-09 Construction work.
+Revalidate the pinned Generation 2 WBS/dependency graph from fresh main and execute only the first dependency-safe **G2-WP-09 Planning & Materialization** gate. Planning may reconcile scope/WBS/dependencies and materialize only the first eligible Construction Sprint; it must not conceal product implementation.
 
 ## Preserved exclusions
-Concrete broker/provider SDK adapters, DB/persistence/runtime realization, apps/UI, deployment, production credentials, operational throughput/rate-limit tuning, concrete offline-buffer storage, Production Readiness, WP-09+ ownership and DEFER/DO_NOT_BUILD findings remain excluded unless separately materialized and authorized.
+No G2-WP-09 Construction TASK is eligible until Planning & Materialization explicitly commits it. Concrete broker/provider SDK adapters, DB/persistence/runtime realization, apps/UI, deployment, production credentials, operational throughput/rate-limit tuning, concrete offline-buffer storage, Production Readiness and DEFER/DO_NOT_BUILD findings remain excluded unless separately materialized and authorized.
