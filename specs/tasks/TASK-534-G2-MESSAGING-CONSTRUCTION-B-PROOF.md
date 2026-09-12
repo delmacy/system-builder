@@ -1,7 +1,7 @@
 ---
 id: TASK-534
 title: Prove integrated messaging provider callback notification residual semantics
-status: blocked
+status: ready
 priority: 534
 milestone: G2
 model_tier: architecture
