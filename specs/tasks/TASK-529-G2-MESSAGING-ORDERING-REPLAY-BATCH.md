@@ -1,7 +1,7 @@
 ---
 id: TASK-529
 title: Define ordering epochs, replay DLQ and batch partiality semantics
-status: blocked
+status: ready
 priority: 529
 milestone: G2
 model_tier: architecture
@@ -35,7 +35,7 @@ validation:
 Define explicit ordering scope/partition/epoch plus replay, DLQ and batch-partiality semantics integrated with finite-flow constraints.
 
 # Context
-TASK-529 consumes TASK-527 canonical occurrence/revision lineage, TASK-528 delivery/effect reconciliation, and the closed WP-07 units/population/time-qualified finite-flow semantics.
+TASK-529 consumes TASK-527 canonical occurrence/revision lineage, TASK-528 delivery/effect reconciliation, and the closed WP-07 units/population/time-qualified finite-flow semantics. TASK-528 is integrated on main `88f3381ad60e817e6a7485cac6da40a00c08e083` with exact-head Deterministic CI, Heavy Product Tests and Automation Handoff green.
 
 # Current behavior
 No bounded messaging contract currently composes scoped ordering epochs with replay/DLQ lineage, per-item batch partiality and finite-drainable residual backlog semantics without implying global order or treating missing telemetry as empty backlog.
