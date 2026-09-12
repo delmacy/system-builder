@@ -1,14 +1,16 @@
-# Current Execution Milestone — Generation 2 / G2-WP-08 Construction B
+# Current Execution Milestone — Generation 2 / G2-WP-08 Construction B Review
 
 ## Milestone state
 `G2-WP-01..G2-WP-07` are canonically CLOSED. Pinned planning authority is `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
 G2-WP-08 Construction A `TASK-527 -> TASK-528 -> TASK-529 -> TASK-530` is fully integrated. Fresh-main Sprint Review PR #714 passed and integrated as `main@04df60e4f3bd58f15e529bd2d5a56ef409c0cb0e`, finding Construction B required.
 
-Construction B materialization selects only `TASK-531 -> TASK-532 -> TASK-533 -> TASK-534`. Materialization PR #715 is integrated. TASK-531 is integrated by PR #716 as `main@875fadf1c874f5338c0099da663a4c3f0baf7ec2`. TASK-532 is integrated by PR #718 as `main@dfd96f28967797a37f1bdad1c3384049626f512e`. TASK-533 is integrated by PR #720 as `main@0708d1d5f9f4bb861fc140757cf4c32286531fc6`. TASK-534 is READY as the proof-only Construction B closure.
+Construction B `TASK-531 -> TASK-532 -> TASK-533 -> TASK-534` is fully integrated through PR #722. TASK-534 exact head `655fe627776decf5feed70ae0db6fb2c558a2197` passed Deterministic CI #1726, Heavy Product Tests #1314 and Automation Handoff #2327 before integration as fresh `main@490c55e80e47788cc6652f6171fe82ba05be82aa`.
+
+Fresh-main Construction B review is PASS. No evidence-supported residual WP-08 gap remains, so optional Construction C is NOT REQUIRED and remains unmaterialized.
 
 ## Current gate
-Integrate the bounded post-TASK-533 repository-memory reconciliation after exact-head gates pass. Then rebuild fresh main and execute only TASK-534. It may add integrated Product Proof only and must not create or modify semantic contracts.
+Integrate the bounded Construction B Sprint Review/reconciliation after exact-head gates pass. Then rebuild fresh main and execute G2-WP-08 Package Integration & Review only.
 
 ## Successor boundary
-Construction C remains optional/unmaterialized. Concrete provider SDKs, DB/runtime/deployment, apps/UI, Production Readiness and DEFER/DO_NOT_BUILD findings remain excluded.
+Package Integration & Review is review/regression/debt/architecture/readiness work, not overflow implementation. Concrete provider SDKs, DB/runtime/deployment, apps/UI, Production Readiness, WP-09+ ownership and DEFER/DO_NOT_BUILD findings remain excluded.
