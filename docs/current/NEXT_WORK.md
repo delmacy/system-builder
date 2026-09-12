@@ -1,23 +1,23 @@
-# Next Work — G2-WP-07 Construction A
+# Next Work — G2-WP-07 Construction B
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
 ## Closed predecessors
-`G2-WP-01..G2-WP-06` are CANONICALLY CLOSED.
+`G2-WP-01..G2-WP-06` are CANONICALLY CLOSED. G2-WP-07 Construction A `TASK-519 -> TASK-520 -> TASK-521 -> TASK-522` is integrated through PR #692 on fresh `main@c3f12800582f0f80ad7405c1457b59ff03ddf692`.
 
 ## Revalidated authority
-G2-WP-07 Planning & Materialization is integrated by PR #679. Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, `READY_FOR_WORKER_HANDOFF / PASS`. G2-WP-07 owns `G2-WBS-06`, `G2-WBS-08`, `G2-WBS-11` with typed prerequisites from closed WP-01/WP-03/WP-04/WP-05/WP-06.
+Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, `READY_FOR_WORKER_HANDOFF / PASS`. G2-WP-07 owns `G2-WBS-06`, `G2-WBS-08`, `G2-WBS-11`.
 
-## Materialized Construction A
-`G2-DURABLE-EXECUTION-FOUNDATION-01` is materialized as:
+## Materialized Construction B
+`G2-STORAGE-FINITE-FLOW-INTEGRATION-01` is materialized as:
 
-`TASK-519 -> TASK-520 -> TASK-521 -> TASK-522`
+`TASK-523 -> TASK-524 -> TASK-525 -> TASK-526`
 
-TASK-519 is integrated by PR #682. TASK-520 is integrated by PR #686. TASK-521 is integrated by PR #689 on fresh `main@493f51d65cc778c842526278cd574b99a15b572c`; exact-head `11a63d5ff791584fd6fa3ba63c1b333bf175fa03` passed Deterministic CI #1671, Heavy Product Tests #1256 and Automation Handoff #2122. TASK-522 is READY.
+TASK-523 is READY. TASK-524..526 remain predecessor-gated.
 
-TASK-519 establishes durable execution identity/state/journal and producing-revision pinning. TASK-520 establishes external-effect identity, qualified idempotency and reconcile-before-retry. TASK-521 establishes units/population-qualified finite-flow capacity/backpressure/drainage. TASK-522 is integrated Product Proof only.
+TASK-523 establishes canonical document/media identity distinct from provider key/hash/copy identity. TASK-524 establishes provider-copy transfer/availability lifecycle with multipart/resumable/offline semantics and provider qualification. TASK-525 integrates disposition/residual-copy drainage with finite-flow constraints. TASK-526 is integrated Product Proof only.
 
 ## Next mandatory gate
-Execute only TASK-522 from fresh `main@493f51d65cc778c842526278cd574b99a15b572c`. After exact-head CI, semantic review and eligible integration, rebuild fresh main and perform Construction A Sprint Review before any Construction B materialization.
+After this materialization PR passes exact-head CI and integrates, rebuild fresh main and execute only TASK-523. Do not absorb successor semantics early.
 
-Construction B, optional Construction C, Package Integration & Review and Documentation & Closure remain NOT MATERIALIZED. Do not absorb storage Construction-B semantics early, concrete adapters, messaging/notification semantics owned by WP-08, DB/runtime/deployment work, Production Readiness or DEFER/DO_NOT_BUILD findings.
+Optional Construction C, Package Integration & Review and Documentation & Closure remain NOT MATERIALIZED. Concrete vendor adapters, messaging/notification semantics owned by WP-08, DB/runtime/deployment work, Production Readiness and DEFER/DO_NOT_BUILD findings remain excluded.
