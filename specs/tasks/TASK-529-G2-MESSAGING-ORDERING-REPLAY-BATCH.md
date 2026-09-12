@@ -34,6 +34,20 @@ validation:
 # Objective
 Define explicit ordering scope/partition/epoch plus replay, DLQ and batch-partiality semantics integrated with finite-flow constraints.
 
+# Context
+TASK-529 consumes TASK-527 canonical occurrence/revision lineage, TASK-528 delivery/effect reconciliation, and the closed WP-07 units/population/time-qualified finite-flow semantics.
+
+# Current behavior
+No bounded messaging contract currently composes scoped ordering epochs with replay/DLQ lineage, per-item batch partiality and finite-drainable residual backlog semantics without implying global order or treating missing telemetry as empty backlog.
+
+# Inputs / contracts
+- TASK-527 canonical occurrence/message/subscription and producing-revision lineage;
+- TASK-528 delivery-attempt, provider-ACK and business-effect reconciliation semantics;
+- closed WP-07 finite-flow, residual cohort and telemetry qualification semantics.
+
+# Outputs / contracts
+Provider-neutral ordering scope/partition/epoch, replay/DLQ and batch-partiality messaging contracts plus Product Proof, preserving predecessor identity/effect truth and finite-flow qualifications.
+
 # Acceptance criteria
 - ordering claims name scope/partition/epoch and do not imply global order;
 - replay retains producing revision, canonical occurrence lineage and prior delivery evidence;
@@ -43,6 +57,12 @@ Define explicit ordering scope/partition/epoch plus replay, DLQ and batch-partia
 
 # Negative/adversarial proof
 Reject partition order=>global order, replay=>new occurrence, DLQ ACK=>resolved, partial batch=>whole success and telemetry gap=>empty backlog.
+
+# Evidence expected
+Deterministic Product Proof must exercise scoped ordering and epoch changes, replay preserving historical lineage/evidence, DLQ non-resolution, per-item PARTIAL/UNKNOWN visibility, telemetry gaps that cannot imply zero backlog, and units/population/time mismatches that cannot establish finite drainage.
+
+# Escalation
+Stop and return bounded findings to the owning predecessor/package gate if correctness requires concrete broker/DLQ APIs, persistence/runtime realization, reinterpretation of TASK-527/528 semantics, or unmaterialized provider/coexistence/offline/callback Construction B/C work.
 
 # Non-goals
 Concrete broker configuration, persistence, provider-specific DLQ APIs, notifications/callback realization, deployment or Production Readiness.
