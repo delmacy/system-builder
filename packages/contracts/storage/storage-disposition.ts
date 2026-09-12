@@ -153,11 +153,13 @@ export function assessStorageDisposition(
   if (!evidence.lifecycleEvidencePreserved) reasons.push("LIFECYCLE_EVIDENCE_NOT_PRESERVED");
   if (assumptions.replay.requestedItems > 0 && evidence.target.transferLineageRefs.length === 0) reasons.push("REPLAY_WITHOUT_TRANSFER_LINEAGE");
 
-  const residualEvidenceKnown = evidence.knowledge === "KNOWN" && evidence.residualCohorts.every((cohort) =>
-    cohort.knowledge === "KNOWN"
-      && cohort.telemetryComplete
-      && cohort.populationRef === evidence.target.populationRef
-      && cohort.scopeRef === evidence.target.scopeRef);
+  const residualEvidenceKnown = evidence.knowledge === "KNOWN"
+    && evidence.residualCohorts.length > 0
+    && evidence.residualCohorts.every((cohort) =>
+      cohort.knowledge === "KNOWN"
+        && cohort.telemetryComplete
+        && cohort.populationRef === evidence.target.populationRef
+        && cohort.scopeRef === evidence.target.scopeRef);
   if (!residualEvidenceKnown) reasons.push("RESIDUAL_TELEMETRY_NOT_KNOWN");
 
   const residualCopyCount = residualEvidenceKnown
