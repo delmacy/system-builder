@@ -78,7 +78,8 @@ export function businessEffectEvidenceIsAuthoritative(effect: BusinessEffectEvid
     && idempotencyComplete;
 }
 
-export function providerAckProvesBusinessEffect(_delivery: DeliveryAttemptEvidence): false {
+export function providerAckProvesBusinessEffect(delivery: DeliveryAttemptEvidence): false {
+  void delivery;
   return false;
 }
 
@@ -88,8 +89,14 @@ export function retryDisposition(
   evaluatedAt: string,
 ): RetryDisposition {
   if (delivery.occurrenceRef !== effect.occurrenceRef) throw new Error("delivery and effect must reference the same canonical occurrence");
-  if (businessEffectEvidenceIsAuthoritative(effect, evaluatedAt) && effect.state === "OBSERVED") return "DO_NOT_RETRY";
-  if (delivery.attemptOutcome === "REJECTED" && effect.state === "NOT_OBSERVED") return "SAFE_RETRY";
+  const authoritativeEffect = businessEffectEvidenceIsAuthoritative(effect, evaluatedAt);
+  if (authoritativeEffect && effect.state === "OBSERVED") return "DO_NOT_RETRY";
+  if (
+    delivery.attemptOutcome === "REJECTED"
+    && providerEvidenceIsCurrent(delivery, evaluatedAt)
+    && authoritativeEffect
+    && effect.state === "NOT_OBSERVED"
+  ) return "SAFE_RETRY";
   if (delivery.attemptOutcome === "TIMEOUT" || delivery.attemptOutcome === "UNKNOWN" || effect.state === "UNKNOWN") return "RECONCILE_BEFORE_RETRY";
   if (delivery.attemptOutcome === "ACKNOWLEDGED" && effect.state !== "OBSERVED") return "RECONCILE_BEFORE_RETRY";
   return "RECONCILE_BEFORE_RETRY";
