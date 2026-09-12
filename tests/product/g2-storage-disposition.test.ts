@@ -62,12 +62,21 @@ test("TASK-525 deletion ACK never proves residual provider copies drained", () =
   assert.notEqual(result.drainage, "DRAINED");
 });
 
-test("TASK-525 proves drained only from explicit zero residual population and finite-flow evidence", () => {
-  const evidence = disposition({ residualCohorts: [] });
+test("TASK-525 proves drained only from explicit zero residual reconciliation and finite-flow evidence", () => {
+  const evidence = disposition({
+    residualCohorts: [{ cohortRef: "cohort:zero", populationRef: population.populationRef, scopeRef: population.scopeRef, providerCopyRefs: [], knowledge: "KNOWN", telemetryComplete: true }],
+  });
   const result = assessStorageDisposition(identity, evidence, population, flow({ backlog: { populationRef: population.populationRef, scopeRef: population.scopeRef, items: 0, knowledge: "KNOWN", telemetryComplete: true } }));
   assert.equal(result.valid, true);
   assert.equal(result.residualCopyCount, 0);
   assert.equal(result.drainage, "DRAINED");
+});
+
+test("TASK-525 absence of residual reconciliation cannot manufacture zero residual population", () => {
+  const result = assessStorageDisposition(identity, disposition({ residualCohorts: [] }), population, flow({ backlog: { populationRef: population.populationRef, scopeRef: population.scopeRef, items: 0, knowledge: "KNOWN", telemetryComplete: true } }));
+  assert.equal(result.residualCopyCount, null);
+  assert.equal(result.drainage, "UNKNOWN");
+  assert.ok(result.reasons.includes("RESIDUAL_TELEMETRY_NOT_KNOWN"));
 });
 
 test("TASK-525 PARTIAL UNKNOWN or incomplete telemetry cannot manufacture zero residual population", () => {
