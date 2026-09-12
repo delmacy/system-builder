@@ -32,6 +32,20 @@ validation:
 # Objective
 Define provider-neutral event occurrence, message and subscription identity with explicit producing-revision and occurrence lineage.
 
+# Context
+G2-WP-08 Construction A establishes the semantic messaging core on top of canonically closed provider qualification/coexistence and durable execution/effect semantics from WP-06/WP-07.
+
+# Current behavior
+No bounded messaging contract currently establishes canonical event occurrence, message and subscription identity with explicit producing-revision and occurrence lineage while preventing transport/provider identifiers from becoming semantic authority.
+
+# Inputs / contracts
+- pinned G2-WP-08 planning authority and package invariants;
+- existing provider qualification/currentness semantics from WP-06;
+- existing semantic revision, provenance/currentness and durable execution/effect identity contracts from closed predecessors.
+
+# Outputs / contracts
+Provider-neutral messaging contracts and Product Proof that represent event occurrence, message and subscription identities, producing revision and occurrence lineage without introducing concrete provider/runtime/persistence ownership.
+
 # Required change
 Represent producer/source/subject, occurrence identity, message identity, subscription identity and lineage without allowing provider IDs, transport envelopes or redelivery to become canonical occurrence identity.
 
@@ -44,6 +58,12 @@ Represent producer/source/subject, occurrence identity, message identity, subscr
 
 # Negative/adversarial proof
 Reject provider-message-ID equality=>same canonical occurrence, redelivery=>new business occurrence, latest revision=>historical reinterpretation and missing lineage=>authoritative currentness.
+
+# Evidence expected
+Deterministic Product Proof must exercise positive identity/lineage construction plus adversarial provider-ID collision, redelivery, historical revision and missing/UNKNOWN currentness cases, with repository validation green on the exact TASK head.
+
+# Escalation
+Stop and return to package review rather than broadening scope if satisfying identity/lineage requires concrete broker IDs, persistence/runtime realization, reinterpretation of predecessor semantic owners, or any unmaterialized Construction B/C concern.
 
 # Non-goals
 Delivery retry/effect reconciliation, ordering/replay/DLQ, concrete brokers, persistence, notifications realization, deployment or Production Readiness.
