@@ -16,6 +16,12 @@ test("TASK-524 keeps transfer identity distinct from canonical object and provid
   const e = normalizeStorageTransferEvidence(base());
   assert.notEqual(e.transferRef, e.canonicalObjectRef); assert.notEqual(e.attemptRef, e.providerCopyRef);
   assert.equal(assessQualifiedProviderCopyAvailability(e, "2026-09-12T02:00:00Z"), "AVAILABLE");
+  for (const overrides of [
+    { transferRef: "object:1" },
+    { attemptRef: "copy:1" },
+    { transferRef: "attempt:1" },
+    { attemptRef: "object:1:r7" },
+  ]) assert.throws(() => normalizeStorageTransferEvidence(base(overrides)), /identity must remain distinct/);
 });
 
 test("TASK-524 provider ACK cannot manufacture durable integrity-qualified availability", () => {
@@ -37,6 +43,17 @@ test("TASK-524 preserves resume/replay lineage and rejects mismatches", () => {
   assert.doesNotThrow(() => assertTransferContinuation(first, resumed));
   const mismatched = normalizeStorageTransferEvidence(base({ transferRef: "transfer:3", attemptRef: "attempt:3", predecessorAttemptRef: "attempt:1", mode: "REPLAY", lineageRootRef: "other-lineage" }));
   assert.throws(() => assertTransferContinuation(first, mismatched), /lineageRootRef mismatch/);
+});
+
+test("TASK-524 covers complete, multipart and offline-reconciliation lifecycle without strengthening uncertain evidence", () => {
+  const complete = normalizeStorageTransferEvidence(base());
+  const multipart = normalizeStorageTransferEvidence(base({ transferRef: "transfer:multipart", attemptRef: "attempt:multipart", mode: "MULTIPART", state: "TRANSFERRING", acknowledgedAt: null, integrityVerified: null, durabilityEvidenceRef: null }));
+  const offline = normalizeStorageTransferEvidence(base({ transferRef: "transfer:offline", attemptRef: "attempt:offline", mode: "OFFLINE_RECONCILIATION", state: "UNKNOWN", acknowledgedAt: null, integrityVerified: null, durabilityEvidenceRef: null, completeness: "UNKNOWN" }));
+  assert.equal(assessQualifiedProviderCopyAvailability(complete, "2026-09-12T02:00:00Z"), "AVAILABLE");
+  assert.equal(assessQualifiedProviderCopyAvailability(multipart, "2026-09-12T02:00:00Z"), "INCONCLUSIVE");
+  assert.equal(retryDisposition(multipart, "2026-09-12T02:00:00Z"), "RECONCILE_REQUIRED");
+  assert.equal(assessQualifiedProviderCopyAvailability(offline, "2026-09-12T02:00:00Z"), "UNKNOWN");
+  assert.equal(retryDisposition(offline, "2026-09-12T02:00:00Z"), "RECONCILE_REQUIRED");
 });
 
 test("TASK-524 treats PARTIAL and UNKNOWN as reconcile-before-retry", () => {

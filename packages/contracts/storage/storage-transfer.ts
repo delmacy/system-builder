@@ -64,6 +64,13 @@ export function normalizeStorageTransferEvidence(input: unknown): StorageTransfe
   if (r.integrityVerified !== null && typeof r.integrityVerified !== "boolean") throw new Error("integrityVerified must be boolean or null");
   const q = qualification(r.providerQualification); const providerRef = str(r.providerRef, "providerRef");
   if (q.providerRef !== providerRef) throw new Error("provider qualification must match transfer provider");
+  const transferRef = str(r.transferRef, "transferRef");
+  const attemptRef = str(r.attemptRef, "attemptRef");
+  const canonicalObjectRef = str(r.canonicalObjectRef, "canonicalObjectRef");
+  const canonicalRevisionRef = str(r.canonicalRevisionRef, "canonicalRevisionRef");
+  const providerCopyRef = str(r.providerCopyRef, "providerCopyRef");
+  const identityRefs = [transferRef, attemptRef, canonicalObjectRef, canonicalRevisionRef, providerCopyRef];
+  if (new Set(identityRefs).size !== identityRefs.length) throw new Error("transfer/attempt identity must remain distinct from canonical object, revision and provider copy identity");
   const mode = en(r.mode, ["COMPLETE","MULTIPART","RESUMED","REPLAY","OFFLINE_RECONCILIATION"] as const, "transfer mode");
   const predecessorAttemptRef = nullableString(r.predecessorAttemptRef, "predecessorAttemptRef");
   const resumeCheckpointRef = nullableString(r.resumeCheckpointRef, "resumeCheckpointRef");
@@ -71,8 +78,8 @@ export function normalizeStorageTransferEvidence(input: unknown): StorageTransfe
   if (mode === "RESUMED" && resumeCheckpointRef === null) throw new Error("resumed transfer requires checkpoint evidence");
   return Object.freeze({
     contractVersion: STORAGE_TRANSFER_CONTRACT_VERSION,
-    transferRef: str(r.transferRef, "transferRef"), attemptRef: str(r.attemptRef, "attemptRef"), lineageRootRef: str(r.lineageRootRef, "lineageRootRef"), predecessorAttemptRef,
-    canonicalObjectRef: str(r.canonicalObjectRef, "canonicalObjectRef"), canonicalRevisionRef: str(r.canonicalRevisionRef, "canonicalRevisionRef"), providerCopyRef: str(r.providerCopyRef, "providerCopyRef"), providerRef,
+    transferRef, attemptRef, lineageRootRef: str(r.lineageRootRef, "lineageRootRef"), predecessorAttemptRef,
+    canonicalObjectRef, canonicalRevisionRef, providerCopyRef, providerRef,
     mode, state: en(r.state, ["PENDING","TRANSFERRING","ACKNOWLEDGED","COMPLETED","FAILED","PARTIAL","UNKNOWN"] as const, "transfer state"), acknowledgedAt: r.acknowledgedAt === null ? null : ts(r.acknowledgedAt, "acknowledgedAt"),
     integrityVerified: r.integrityVerified as boolean | null, durabilityEvidenceRef: nullableString(r.durabilityEvidenceRef, "durabilityEvidenceRef"), resumeCheckpointRef,
     completeness: en(r.completeness, ["KNOWN","PARTIAL","UNKNOWN"] as const, "evidence completeness"), currentness: currentness(r.currentness), providerQualification: q,
