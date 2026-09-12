@@ -1,7 +1,7 @@
 ---
 id: TASK-523
 title: Define canonical document media identity and provider-copy separation
-status: ready
+status: verification
 priority: 523
 milestone: G2
 model_tier: architecture
