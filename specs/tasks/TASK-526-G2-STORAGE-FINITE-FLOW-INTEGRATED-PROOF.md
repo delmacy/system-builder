@@ -1,7 +1,7 @@
 ---
 id: TASK-526
 title: Prove integrated storage identity provider-copy lifecycle and finite-flow semantics
-status: blocked
+status: ready
 priority: 526
 milestone: G2
 model_tier: architecture
