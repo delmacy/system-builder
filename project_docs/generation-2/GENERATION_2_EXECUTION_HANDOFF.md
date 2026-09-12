@@ -1,19 +1,19 @@
 # Generation 2 — Execution Handoff
 
-Status: EXECUTION AUTHORIZED / G2-WP-01..G2-WP-06 CLOSED / G2-WP-07 CLOSURE IN PROGRESS / G2-WP-08 NEXT AFTER CLOSURE
+Status: EXECUTION AUTHORIZED / G2-WP-01..G2-WP-07 CLOSED / G2-WP-08 PLANNING NEXT
 Date: 2026-09-12
-Current fresh-main execution base: `f6d6066fae77399d868b300063878f4da506c3ac`
+Current fresh-main execution base: `3d037c2f445fd420534d359d8214bf1a91ce2b5b`
 Planning-source branch: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 
 ## Authority transition
 Generation 2 remains `READY_FOR_WORKER_HANDOFF`; designed `G2-WP-01..G2-WP-13` remain authorized under rolling-wave DAG, ownership, review, L3/L4, safety and closure gates. Forecasts are not commitments and unrelated findings/DEFER/DO_NOT_BUILD remain excluded.
 
 ## Commitment horizon
-`G2-WP-01..G2-WP-06` are CANONICALLY CLOSED.
+`G2-WP-01..G2-WP-07` are CANONICALLY CLOSED.
 
-G2-WP-07 Planning & Materialization is integrated by PR #679; Construction A through PR #692; Construction B through PR #700; Construction B Sprint Review through PR #701; Package Integration & Review PASS through PR #702 on fresh `main@f6d6066fae77399d868b300063878f4da506c3ac`.
+G2-WP-07 Planning & Materialization is integrated by PR #679; Construction A through PR #692; Construction B through PR #700; Construction B Sprint Review through PR #701; Package Integration & Review through PR #702; Documentation & Closure through PR #703 as fresh `main@3d037c2f445fd420534d359d8214bf1a91ce2b5b`.
 
-G2-WP-07 Documentation & Closure is now the only active gate. Optional Construction C remains NOT REQUIRED. No G2-WP-08 product work is materialized by this closure.
+G2-WP-08 is the next designed package, but only its dependency-safe **Planning & Materialization** gate may be selected from fresh main. No G2-WP-08 product TASK is committed until that planning gate materializes it.
 
 ## Preserved truth
 - semantic revision/currentness/provenance remain explicit;
@@ -28,6 +28,6 @@ G2-WP-07 Documentation & Closure is now the only active gate. Optional Construct
 - Product Proof remains distinct from Production Readiness.
 
 ## Current next action
-Complete and integrate G2-WP-07 Documentation & Closure from the fresh execution base above. After canonical closure, reconstruct fresh `main`, revalidate the pinned planning DAG and select/materialize only the first dependency-safe G2-WP-08 Planning & Materialization gate.
+From the fresh execution base above, revalidate the pinned planning DAG and execute only G2-WP-08 Planning & Materialization. Materialize only the first dependency-safe Construction Sprint if the planning gate proves it eligible.
 
-Do not pre-materialize G2-WP-08 Construction work. Do not absorb concrete queue/storage vendor adapters, DB/runtime/deployment realization, Production Readiness, DEFER/DO_NOT_BUILD findings or unrelated work.
+Do not pre-materialize G2-WP-08 Construction work. Do not absorb concrete vendor adapters, DB/runtime/deployment realization, Production Readiness, DEFER/DO_NOT_BUILD findings or unrelated work.
