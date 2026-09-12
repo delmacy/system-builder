@@ -1,12 +1,17 @@
 # Current Execution Milestone — Generation 2 / G2-WP-09 Planning & Materialization
 
 ## Milestone state
-`G2-WP-01..G2-WP-08` are canonically CLOSED. Pinned planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, with research/WBS/Work Package/handoff authority `READY_FOR_WORKER_HANDOFF / PASS`.
+`G2-WP-01..G2-WP-08` are CANONICALLY CLOSED. Pinned planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, `READY_FOR_WORKER_HANDOFF / PASS`.
 
-G2-WP-08 Documentation & Closure is integrated by PR #725 as fresh `main@307f6c4a344cc38c59218ef542ea012097997f0f`; final disposition is **PASS / INTEGRATED / CANONICALLY CLOSED**. Optional Construction C was NOT REQUIRED.
+Fresh planning base: `main@20c428c5ad42a9cd37d1c445bdcd549dabefcb9d`.
 
 ## Current gate
-Revalidate the pinned Generation 2 dependency graph from fresh main and execute only **G2-WP-09 Planning & Materialization** if dependency-safe. Planning may materialize the first bounded Construction Sprint only after confirming WBS ownership, predecessors, allowed/forbidden paths and gate conditions.
+G2-WP-09 Planning & Materialization has materialized only Construction A / `G2-WBS-12` as `TASK-535 -> TASK-538`. Only TASK-535 is READY; successors are predecessor-gated.
 
-## Successor boundary
-No G2-WP-09 Construction TASK is committed merely by predecessor closure. Concrete provider/runtime/deployment realization, apps/UI, Production Readiness and DEFER/DO_NOT_BUILD work remain excluded unless separately materialized and authorized.
+Construction must not start until this exact planning/materialization head passes required gates and integrates, followed by fresh-main revalidation.
+
+## Rolling-wave boundary
+G2-WBS-13 artifact/release and G2-WBS-14 deployment/runtime are not materialized. Construction B/C remain forecast only pending fresh-main Construction A Sprint Review evidence.
+
+## Preserved exclusions
+Concrete CI/provider/registry/deployment realization, DB/persistence, apps/UI, Production Readiness, WP-10+ ownership and DEFER/DO_NOT_BUILD findings remain excluded.
