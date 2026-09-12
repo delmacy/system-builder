@@ -35,6 +35,15 @@ test("TASK-524 provider ACK cannot manufacture durable integrity-qualified avail
 test("TASK-524 requires current qualified provider evidence", () => {
   const stale = normalizeStorageTransferEvidence(base({ providerQualification: { providerRef: "provider:a", qualificationRevisionRef: "qualification:r1", state: "QUALIFIED", currentness: { state: "STALE", assessedAt: "2026-09-11T20:00:00Z", validUntil: "2026-09-12T03:00:00Z" } } }));
   assert.equal(assessQualifiedProviderCopyAvailability(stale, "2026-09-12T02:00:00Z"), "UNKNOWN");
+  assert.equal(retryDisposition(stale, "2026-09-12T02:00:00Z"), "RECONCILE_REQUIRED");
+
+  const staleUnqualified = normalizeStorageTransferEvidence(base({ state: "FAILED", integrityVerified: null, durabilityEvidenceRef: null, providerQualification: { providerRef: "provider:a", qualificationRevisionRef: "qualification:r1", state: "UNQUALIFIED", currentness: { state: "STALE", assessedAt: "2026-09-11T20:00:00Z", validUntil: "2026-09-12T03:00:00Z" } } }));
+  assert.equal(assessQualifiedProviderCopyAvailability(staleUnqualified, "2026-09-12T02:00:00Z"), "UNKNOWN");
+  assert.equal(retryDisposition(staleUnqualified, "2026-09-12T02:00:00Z"), "RECONCILE_REQUIRED");
+
+  const currentUnqualified = normalizeStorageTransferEvidence(base({ state: "FAILED", integrityVerified: null, durabilityEvidenceRef: null, providerQualification: { providerRef: "provider:a", qualificationRevisionRef: "qualification:r2", state: "UNQUALIFIED", currentness: { state: "CURRENT", assessedAt: "2026-09-12T00:00:00Z", validUntil: "2026-09-12T03:00:00Z" } } }));
+  assert.equal(assessQualifiedProviderCopyAvailability(currentUnqualified, "2026-09-12T02:00:00Z"), "UNAVAILABLE");
+  assert.equal(retryDisposition(currentUnqualified, "2026-09-12T02:00:00Z"), "RECONCILE_REQUIRED");
 });
 
 test("TASK-524 preserves resume/replay lineage and rejects mismatches", () => {
@@ -64,7 +73,7 @@ test("TASK-524 treats PARTIAL and UNKNOWN as reconcile-before-retry", () => {
   }
 });
 
-test("TASK-524 failed known current transfer may retry while available copy may not", () => {
+test("TASK-524 failed known current qualified transfer may retry while available copy may not", () => {
   assert.equal(retryDisposition(normalizeStorageTransferEvidence(base({ state: "FAILED", integrityVerified: null, durabilityEvidenceRef: null })), "2026-09-12T02:00:00Z"), "SAFE_TO_RETRY");
   assert.equal(retryDisposition(normalizeStorageTransferEvidence(base()), "2026-09-12T02:00:00Z"), "DO_NOT_RETRY");
 });
