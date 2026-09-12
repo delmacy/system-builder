@@ -1,7 +1,8 @@
 # G2-WP-07 — Durable Execution, Storage & Finite-Flow Semantics
 
-Status: `PLANNING / CONSTRUCTION A MATERIALIZED`
+Status: `CONSTRUCTION A INTEGRATED / CONSTRUCTION B MATERIALIZED`
 Planning base: `main@a711231373c98b35b0338f70c20b99105ec30025`
+Fresh materialization base: `main@c3f12800582f0f80ad7405c1457b59ff03ddf692`
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 WBS owners: `G2-WBS-06`, `G2-WBS-08`, `G2-WBS-11`
 
@@ -9,23 +10,25 @@ WBS owners: `G2-WBS-06`, `G2-WBS-08`, `G2-WBS-11`
 Establish durable workflow/external-effect semantics, canonical document/media identity across provider copies, and units/population-qualified finite-flow semantics without collapsing attempt/delivery into effect, provider keys/hashes into canonical identity, or queue aggregates into proof of drainability.
 
 ## Dependency and authority revalidation
-G2-WP-01..06 are canonically closed on fresh `main@a711231373c98b35b0338f70c20b99105ec30025`. WP-07 consumes WP-01 semantic/revision identity, WP-03 semantic analysis boundaries, WP-04 authority/trust, WP-05 canonical data/coexistence semantics, and WP-06 provider qualification only for provider-backed storage. Pinned Generation 2 authority remains `READY_FOR_WORKER_HANDOFF / PASS`.
+G2-WP-01..06 remain canonically closed. Pinned Generation 2 authority remains `READY_FOR_WORKER_HANDOFF / PASS`. WP-07 consumes WP-01 semantic/revision identity, WP-03 semantic analysis boundaries, WP-04 authority/trust, WP-05 canonical data/coexistence semantics, and WP-06 provider qualification only for provider-backed storage.
 
 ## Construction A — G2-DURABLE-EXECUTION-FOUNDATION-01
-Materialized dependency-safe chain:
+Integrated chain:
 
 `TASK-519 -> TASK-520 -> TASK-521 -> TASK-522`
 
-Goal: establish durable execution identity/revision pinning, external-effect identity and retry/reconciliation semantics, finite-flow capacity/drainability qualification, then close the increment with integrated Product Proof.
+TASK-522 integrated by PR #692 on `main@c3f12800582f0f80ad7405c1457b59ff03ddf692`; exact-head `e07ae86317baa354bca760872e5ffa8f3c8a4aeb` passed Deterministic CI #1675, Heavy Product Tests #1260 and Automation Handoff #2142.
 
-Exit proof: in-flight work retains producing revision; `accepted != processed != converged`; effect identity remains separate from attempt/delivery identity; unsafe `UNKNOWN` requires reconciliation before retry; idempotency scope/horizon is explicit; capacity is units/population qualified; replay/recovery cannot manufacture unbounded duplicate work; declared residual populations are demonstrably drainable under stated assumptions.
+Exit proof is satisfied for the Construction A boundary: producing revision remains pinned; `accepted != processed != converged`; effect identity is distinct from attempt/delivery; unsafe UNKNOWN reconciles before retry; idempotency is scope/horizon qualified; finite-flow capacity and residual drainage are units/population/time qualified. No storage semantic ownership was introduced early.
 
-Only TASK-519 is `ready` initially. TASK-520..522 remain predecessor-gated.
+## Construction B — G2-STORAGE-FINITE-FLOW-INTEGRATION-01
+Materialized dependency-safe chain:
 
-## Construction B forecast — G2-STORAGE-FINITE-FLOW-INTEGRATION-01
-Forecast only; NOT MATERIALIZED.
+`TASK-523 -> TASK-524 -> TASK-525 -> TASK-526`
 
-Goal: add canonical document/media identity and provider-copy lifecycle semantics, integrate multipart/resumable/offline transfer and disposition with provider qualification and finite-flow constraints, and extend the growing proof across WBS-06/08/11.
+Goal: add canonical document/media identity and provider-copy lifecycle semantics, integrate multipart/resumable/offline transfer and disposition with provider qualification and finite-flow constraints, then close with integrated Product Proof across WBS-06/08/11.
+
+TASK-523 alone is READY initially. TASK-524..526 are predecessor-gated.
 
 Expected exit proof: object key/hash/provider copy never becomes canonical object identity; upload ACK does not prove durable/integrity-qualified availability; dedup does not merge authority/lifecycle; deletion/disposition covers qualified populations and residual copies; storage transfer/replay remains bounded by explicit capacity/drainage assumptions.
 
@@ -50,4 +53,4 @@ NOT MATERIALIZED. Reconcile repository memory, WBS/DAG/readiness/risks/lessons, 
 - Product Proof remains distinct from Production Readiness.
 
 ## Explicit exclusions
-No concrete queue/storage vendor adapter, DB migration execution, deployment topology, messaging/notification semantics owned by WP-08, UI, billing, Production Readiness, or DEFER/DO_NOT_BUILD finding is absorbed. Construction B/C and later gates remain forecast until separately promoted by fresh evidence.
+No concrete queue/storage vendor adapter, DB migration execution, deployment topology, messaging/notification semantics owned by WP-08, UI, billing, Production Readiness, or DEFER/DO_NOT_BUILD finding is absorbed. Construction C and later gates remain forecast until separately promoted by fresh evidence.
