@@ -1,19 +1,17 @@
-# Next Work — G2-WP-08 Documentation & Closure
+# Next Work — G2-WP-09 Planning & Materialization eligibility
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
 ## Revalidated authority
-Pinned authority is `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`. G2-WP-08 owns `G2-WBS-07`; prerequisites from WP-06/WP-07 are canonically closed.
+Pinned authority is `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`. `G2-WP-01..G2-WP-08` are canonically closed.
 
-## Integrated package
-Construction A `TASK-527 -> TASK-530` and Construction B `TASK-531 -> TASK-534` are fully integrated. Construction B Sprint Review PR #723 is PASS and optional Construction C is NOT REQUIRED.
-
-Package Integration & Review PR #724 is PASS and integrated as fresh `main@c911c1a3e0a3c1ac704c73db3be644e5c729d2b9`.
+## Closed predecessor
+G2-WP-08 Documentation & Closure PR #725 passed exact-head Deterministic CI #1729, Heavy Product Tests #1317 and Automation Handoff #2339/#2342 and integrated as fresh `main@307f6c4a344cc38c59218ef542ea012097997f0f`.
 
 ## Current mandatory gate
-Execute **G2-WP-08 Documentation & Closure** only. Reconcile repository memory, package/WBS/DAG/readiness traceability, lessons/residual risks where applicable and successor eligibility. Closure must not add product behavior or absorb excluded work.
+Rebuild/revalidate fresh main against the pinned WBS decomposition, typed dependency graph, Work Package Design and Ready for Worker Handoff. If G2-WP-09 is dependency-safe, execute **G2-WP-09 Planning & Materialization only**.
 
-After exact-head closure gates and integration, rebuild fresh main and revalidate the DAG. Only the first dependency-safe **G2-WP-09 Planning & Materialization** gate may be selected; do not pre-materialize G2-WP-09 Construction work.
+Planning may materialize only the first eligible Construction Sprint emerging from the real package scope. Do not compress or inflate Sprint count, pre-materialize later Construction, or absorb unrelated DEFER/DO_NOT_BUILD/findings.
 
 ## Preserved exclusions
-Concrete broker/provider SDKs, DB/runtime/deployment realization, apps/UI, Production Readiness, WP-09+ product ownership and DEFER/DO_NOT_BUILD findings remain excluded unless separately materialized and authorized.
+No G2-WP-09 product implementation is authorized merely by this post-closure reconciliation; it requires explicit materialization under the Planning gate. Production Readiness and unrelated future ownership remain excluded unless separately materialized.
