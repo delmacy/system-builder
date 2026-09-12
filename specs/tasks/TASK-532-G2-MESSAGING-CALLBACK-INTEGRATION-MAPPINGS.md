@@ -1,7 +1,7 @@
 ---
 id: TASK-532
 title: Define callback and integration mapping reconciliation semantics
-status: ready
+status: verification
 priority: 532
 milestone: G2
 model_tier: architecture
