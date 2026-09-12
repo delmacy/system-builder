@@ -77,9 +77,16 @@ test("TASK-528 authoritative effect evidence is scope payload revision horizon q
   assert.equal(businessEffectEvidenceIsAuthoritative(effect({ state: "OBSERVED", idempotencyValidUntil: "2026-09-12T08:30:00Z" }), "2026-09-12T09:00:00Z"), false);
 });
 
-test("TASK-528 observed authoritative effect prevents duplicate retry while explicit rejection without effect is retryable", () => {
+test("TASK-528 observed authoritative effect prevents duplicate retry while explicit rejection with authoritative absence is retryable", () => {
   assert.equal(retryDisposition(delivery(), effect({ state: "OBSERVED" }), "2026-09-12T09:00:00Z"), "DO_NOT_RETRY");
   assert.equal(retryDisposition(delivery({ attemptOutcome: "REJECTED", providerAckRef: null }), effect({ state: "NOT_OBSERVED" }), "2026-09-12T09:00:00Z"), "SAFE_RETRY");
+});
+
+test("TASK-528 rejection cannot become safe retry from stale partial or non-authoritative evidence", () => {
+  const rejected = delivery({ attemptOutcome: "REJECTED", providerAckRef: null });
+  assert.equal(retryDisposition(rejected, effect({ state: "NOT_OBSERVED", currentness: currentness("STALE") }), "2026-09-12T09:00:00Z"), "RECONCILE_BEFORE_RETRY");
+  assert.equal(retryDisposition(rejected, effect({ state: "NOT_OBSERVED", completeness: "PARTIAL" }), "2026-09-12T09:00:00Z"), "RECONCILE_BEFORE_RETRY");
+  assert.equal(retryDisposition(delivery({ attemptOutcome: "REJECTED", providerAckRef: null, providerCurrentness: currentness("STALE") }), effect({ state: "NOT_OBSERVED" }), "2026-09-12T09:00:00Z"), "RECONCILE_BEFORE_RETRY");
 });
 
 test("TASK-528 rejects effect reconciliation across different canonical occurrences", () => {
