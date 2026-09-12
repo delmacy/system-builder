@@ -48,6 +48,9 @@ No bounded messaging contract currently separates delivery attempts and provider
 # Outputs / contracts
 Provider-neutral messaging delivery/attempt and acknowledgement/effect reconciliation contracts plus Product Proof, without concrete broker, runtime or persistence realization.
 
+# Required change
+Define delivery-attempt and acknowledgement evidence so transport/provider success remains distinct from business-effect truth, while ambiguous mutating outcomes preserve UNKNOWN and require reconciliation before any unsafe retry.
+
 # Acceptance criteria
 - delivery and attempt identities remain distinct from occurrence/message/effect identity;
 - provider ACK never proves business effect or convergence;
