@@ -34,6 +34,20 @@ validation:
 # Objective
 Define delivery/attempt acknowledgement and business-effect reconciliation semantics on TASK-527 identity lineage.
 
+# Context
+TASK-528 consumes TASK-527 canonical occurrence/message/subscription lineage together with closed WP-07 durable external-effect reconciliation/idempotency semantics and WP-06 provider qualification/currentness semantics.
+
+# Current behavior
+No bounded messaging contract currently separates delivery attempts and provider acknowledgements from business-effect truth while preserving unsafe ambiguous outcomes as UNKNOWN and requiring reconciliation before unsafe retry.
+
+# Inputs / contracts
+- TASK-527 event occurrence, message, subscription and producing-revision lineage;
+- closed WP-07 external-effect reconciliation, idempotency scope/horizon and reconcile-before-retry semantics;
+- closed WP-06 provider qualification and currentness semantics.
+
+# Outputs / contracts
+Provider-neutral messaging delivery/attempt and acknowledgement/effect reconciliation contracts plus Product Proof, without concrete broker, runtime or persistence realization.
+
 # Acceptance criteria
 - delivery and attempt identities remain distinct from occurrence/message/effect identity;
 - provider ACK never proves business effect or convergence;
@@ -43,6 +57,12 @@ Define delivery/attempt acknowledgement and business-effect reconciliation seman
 
 # Negative/adversarial proof
 Reject ACK=>effect, timeout=>safe retry, duplicate transport attempt=>duplicate business occurrence, stale provider evidence=>current effect.
+
+# Evidence expected
+Deterministic Product Proof must cover successful delivery evidence without effect strengthening, ACK/effect separation, ambiguous timeout/UNKNOWN reconcile-before-retry, duplicate attempt lineage, stale provider currentness and invalid or incomplete idempotency qualification.
+
+# Escalation
+Stop and return bounded findings to the owning predecessor/package gate if correctness requires changing TASK-527 identity semantics, concrete provider adapters, persistence/runtime realization, or ordering/replay/DLQ concerns reserved to TASK-529.
 
 # Non-goals
 Ordering/DLQ policy, concrete provider adapter, persistence, callback implementation, deployment or Production Readiness.
