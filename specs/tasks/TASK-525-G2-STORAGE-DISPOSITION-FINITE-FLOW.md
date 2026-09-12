@@ -1,7 +1,7 @@
 ---
 id: TASK-525
 title: Integrate storage disposition residual-copy drainage and finite-flow constraints
-status: ready
+status: verification
 priority: 525
 milestone: G2
 model_tier: architecture
