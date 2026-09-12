@@ -33,8 +33,28 @@ validation:
 # Objective
 Provide integrated Product Proof across TASK-531..533 without introducing new semantic ownership.
 
+# Context
+TASK-534 is the proof-only closure for Construction B after provider coexistence/substitution, callback mapping reconciliation and notification/offline residual drainage semantics integrate on top of the closed Construction A core.
+
+# Current behavior
+TASK-531..533 define bounded semantic layers independently. Construction B is not complete until one integrated Product Proof demonstrates their composition with Construction A identity/effect/replay/ordering invariants and WP-07 finite-flow evidence without inventing provider/runtime authority.
+
+# Inputs / contracts
+- integrated outputs of TASK-531, TASK-532 and TASK-533;
+- Construction A TASK-527..530 identity, effect reconciliation, replay/ordering and integrated proof;
+- closed WP-07 finite-flow/residual-cohort semantics.
+
+# Outputs / contracts
+Only integrated deterministic Product Proof across the Construction B predecessor contracts. TASK-534 must not create or modify semantic contracts.
+
+# Required change
+Add only integrated positive, negative, adversarial and recovery Product Proof composing provider coexistence/substitution, callbacks/integration mappings, notifications/offline buffering and residual drainage with the closed Construction A invariants.
+
 # Acceptance criteria
 Deterministic happy/negative/adversarial/recovery proof composes provider coexistence/substitution, callbacks/integration mappings, notifications/offline buffering and residual drainage with Construction A identity, ACK/effect, replay, ordering, PARTIAL/UNKNOWN and finite-flow invariants.
+
+# Evidence expected
+Integrated deterministic Product Proof must demonstrate historical lineage through provider substitution and callback replay, ACK/effect separation, reconcile-before-retry for ambiguous mutation, notification intent/delivery/effect separation, residual cohort visibility, and telemetry/currentness/population/units/time gaps preventing false drainage. Exact-head repository validation must remain green.
 
 # Proof obligations
 - provider substitution preserves historical occurrence/message/delivery lineage;

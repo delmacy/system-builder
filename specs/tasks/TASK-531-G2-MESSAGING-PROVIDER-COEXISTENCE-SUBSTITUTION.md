@@ -34,6 +34,21 @@ validation:
 # Objective
 Define provider-neutral coexistence/substitution evidence semantics for messaging without promoting provider state into business authority.
 
+# Context
+Construction A established canonical occurrence/message/subscription identity, delivery/effect reconciliation, replay/ordering and finite-flow semantics. TASK-531 consumes those closed semantics plus WP-06 provider qualification/currentness without changing provider ownership.
+
+# Current behavior
+Messaging identities and provider evidence are already distinct, but Construction B does not yet define how multiple qualified provider bindings may coexist or be substituted while preserving historical occurrence/message/delivery lineage and non-authoritative provider evidence.
+
+# Inputs / contracts
+- TASK-527 canonical event occurrence, message and subscription identity with producing-revision lineage;
+- TASK-528 delivery/attempt/provider-ACK versus business-effect reconciliation;
+- TASK-529 replay/ordering/batch semantics;
+- closed WP-06 provider qualification, binding and currentness semantics.
+
+# Outputs / contracts
+Provider-neutral messaging coexistence/substitution evidence semantics representing simultaneously valid bindings, qualification/currentness, substitution epochs and historical binding evidence without rewriting canonical identity or prior history.
+
 # Required change
 Represent multiple simultaneously valid provider bindings, qualification/currentness, substitution epochs and historical binding evidence while preserving canonical occurrence/message/subscription identity.
 
@@ -43,6 +58,9 @@ Represent multiple simultaneously valid provider bindings, qualification/current
 - substitution never rewrites prior occurrence/message/delivery history;
 - stale/PARTIAL/UNKNOWN provider evidence cannot strengthen availability or currentness;
 - old/new provider overlap is representable without implying duplicate business occurrence.
+
+# Evidence expected
+Deterministic Product Proof must cover qualified coexistence, bounded substitution and historical lineage preservation plus adversarial cases for provider-id equality, stale/PARTIAL/UNKNOWN qualification, historical rewrite and overlap incorrectly implying duplicate business effect. Exact-head repository validation must remain green.
 
 # Negative/adversarial proof
 Reject provider-id equality=>canonical identity, new binding=>historical rewrite, stale qualification=>current availability and overlap=>duplicate business effect.

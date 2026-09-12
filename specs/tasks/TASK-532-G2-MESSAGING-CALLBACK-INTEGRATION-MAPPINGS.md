@@ -33,6 +33,21 @@ validation:
 # Objective
 Define provider-neutral callback/integration mapping evidence and reconciliation semantics on top of the closed messaging semantic core.
 
+# Context
+TASK-532 follows TASK-531 and composes Construction A messaging identity/effect/replay semantics with provider coexistence evidence. It owns only callback/integration mapping semantics inside WP-08 and must not create concrete webhook or provider runtime behavior.
+
+# Current behavior
+The messaging core distinguishes transport evidence from business effect and preserves occurrence lineage, but callback identity, mapping revision and source/target reconciliation are not yet explicitly represented for historical and ambiguous mutating callbacks.
+
+# Inputs / contracts
+- TASK-527 canonical occurrence/message identity and producing-revision lineage;
+- TASK-528 provider ACK versus business-effect reconciliation and UNKNOWN -> reconcile-before-retry;
+- TASK-529 replay/redelivery and ordering lineage;
+- TASK-531 qualified provider coexistence/substitution evidence.
+
+# Outputs / contracts
+Provider-neutral callback identity and mapping-revision semantics with historically addressable source/target semantic references, delivery evidence and authoritative target-effect reconciliation.
+
 # Required change
 Represent callback identity, mapping revision, source/target semantic references, delivery evidence and business-effect reconciliation without equating callback transport acknowledgement with authoritative target effect.
 
@@ -42,6 +57,9 @@ Represent callback identity, mapping revision, source/target semantic references
 - ambiguous mutating callbacks route UNKNOWN -> reconcile-before-retry;
 - replay/redelivery preserves canonical occurrence and mapping lineage;
 - stale/PARTIAL/UNKNOWN mapping evidence cannot strengthen currentness.
+
+# Evidence expected
+Deterministic Product Proof must cover historical mapping resolution, callback redelivery with stable occurrence/mapping lineage, authoritative target-effect reconciliation and adversarial ACK, timeout, provider callback ID and stale/PARTIAL/UNKNOWN mapping cases. Exact-head repository validation must remain green.
 
 # Negative/adversarial proof
 Reject ACK=>business effect, latest mapping=>historical reinterpretation, timeout=>blind retry and provider callback ID=>canonical business identity.
