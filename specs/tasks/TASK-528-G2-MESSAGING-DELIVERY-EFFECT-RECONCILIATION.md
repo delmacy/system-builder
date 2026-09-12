@@ -69,3 +69,6 @@ Stop and return bounded findings to the owning predecessor/package gate if corre
 
 # Non-goals
 Ordering/DLQ policy, concrete provider adapter, persistence, callback implementation, deployment or Production Readiness.
+
+# Implementation evidence
+TASK implementation is bounded to the provider-neutral delivery/effect reconciliation contract plus deterministic Product Proof. It keeps delivery/attempt/provider acknowledgement evidence separate from canonical occurrence/message/business-effect truth, preserves UNKNOWN for ambiguous mutating outcomes with reconcile-before-retry, qualifies effect evidence by authority/revision/scope/payload/idempotency horizon, and keeps provider qualification/currentness non-authoritative for business truth. Exact-head repository validation remains the verification gate.
