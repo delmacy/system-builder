@@ -1,7 +1,7 @@
 ---
 id: TASK-528
 title: Separate delivery attempts and provider acknowledgements from business effects
-status: ready
+status: verification
 priority: 528
 milestone: G2
 model_tier: architecture
