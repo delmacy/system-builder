@@ -13,11 +13,11 @@ Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5
 
 `TASK-523 -> TASK-524 -> TASK-525 -> TASK-526`
 
-TASK-523 is READY. TASK-524..526 remain predecessor-gated.
+TASK-523 is integrated by PR #694 on fresh `main@871e104354769b2022e679864e13fd13c1c8c53a`; exact-head `824c209b9c60b810d1a9576cdf2eb39cc2b1d6df` passed Deterministic CI #1681, Heavy Product Tests #1267 and Automation Handoff #2161. TASK-524 is READY. TASK-525..526 remain predecessor-gated.
 
 TASK-523 establishes canonical document/media identity distinct from provider key/hash/copy identity. TASK-524 establishes provider-copy transfer/availability lifecycle with multipart/resumable/offline semantics and provider qualification. TASK-525 integrates disposition/residual-copy drainage with finite-flow constraints. TASK-526 is integrated Product Proof only.
 
 ## Next mandatory gate
-After this materialization PR passes exact-head CI and integrates, rebuild fresh main and execute only TASK-523. Do not absorb successor semantics early.
+After this reconciliation passes exact-head CI and integrates, rebuild fresh main and execute only TASK-524. Do not absorb successor semantics early.
 
 Optional Construction C, Package Integration & Review and Documentation & Closure remain NOT MATERIALIZED. Concrete vendor adapters, messaging/notification semantics owned by WP-08, DB/runtime/deployment work, Production Readiness and DEFER/DO_NOT_BUILD findings remain excluded.
