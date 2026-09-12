@@ -1,7 +1,7 @@
 ---
 id: TASK-530
 title: Prove integrated messaging semantic core
-status: ready
+status: verification
 priority: 530
 milestone: G2
 model_tier: architecture
