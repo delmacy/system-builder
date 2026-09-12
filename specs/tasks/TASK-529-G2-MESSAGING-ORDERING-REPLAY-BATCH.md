@@ -48,6 +48,9 @@ No bounded messaging contract currently composes scoped ordering epochs with rep
 # Outputs / contracts
 Provider-neutral ordering scope/partition/epoch, replay/DLQ and batch-partiality messaging contracts plus Product Proof, preserving predecessor identity/effect truth and finite-flow qualifications.
 
+# Required change
+Define scoped ordering epochs and replay/DLQ/batch semantics that preserve canonical historical lineage and per-item uncertainty while requiring residual backlog and recovery claims to remain units/population/time qualified and finite-drainable.
+
 # Acceptance criteria
 - ordering claims name scope/partition/epoch and do not imply global order;
 - replay retains producing revision, canonical occurrence lineage and prior delivery evidence;
