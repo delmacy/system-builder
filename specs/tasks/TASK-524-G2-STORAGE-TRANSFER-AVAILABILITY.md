@@ -1,7 +1,7 @@
 ---
 id: TASK-524
 title: Define qualified provider-copy transfer and availability lifecycle
-status: blocked
+status: ready
 priority: 524
 milestone: G2
 model_tier: architecture
