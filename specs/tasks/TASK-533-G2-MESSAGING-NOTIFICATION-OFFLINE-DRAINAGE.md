@@ -1,7 +1,7 @@
 ---
 id: TASK-533
 title: Define notification offline buffering and residual drainage semantics
-status: blocked
+status: ready
 priority: 533
 milestone: G2
 model_tier: architecture
