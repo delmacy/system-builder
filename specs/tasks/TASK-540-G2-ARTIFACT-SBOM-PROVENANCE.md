@@ -1,7 +1,7 @@
 ---
 id: TASK-540
 title: Define artifact SBOM and provenance evidence qualification
-status: blocked
+status: ready
 priority: 540
 milestone: G2
 model_tier: architecture
@@ -33,10 +33,10 @@ validation:
 Define revision/currentness-qualified SBOM and provenance evidence for canonical artifacts while preserving trust/admission as separate authority.
 
 # Context
-TASK-540 is predecessor-gated by TASK-539 and extends only the artifact-supply semantic owner created there.
+TASK-539 is integrated by PR #743. TASK-540 extends only the artifact-supply semantic owner created there.
 
 # Current behavior
-No integrated G2-WBS-13 contract yet qualifies SBOM/provenance evidence against canonical artifact identity while keeping trust/admission separate.
+Canonical artifact identity/adoption is integrated. G2-WBS-13 now requires SBOM/provenance evidence qualification against canonical artifact identity while keeping trust/admission separate.
 
 # Required change
 Add only SBOM/provenance evidence qualification semantics and adversarial Product Proof after TASK-539 integration.

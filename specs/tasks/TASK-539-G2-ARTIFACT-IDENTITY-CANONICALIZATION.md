@@ -1,7 +1,7 @@
 ---
 id: TASK-539
 title: Define canonical artifact identity and build-output adoption semantics
-status: verification
+status: completed
 priority: 539
 milestone: G2
 model_tier: architecture
@@ -37,7 +37,7 @@ Define provider-neutral canonical artifact identity and adoption from qualified 
 G2-WBS-12 is integrated. G2-WBS-13 is now the dependency-safe owner for artifact/release/SBOM/provenance lifecycle semantics.
 
 # Current behavior
-The repository has qualified build material, execution-context and reproducibility semantics, but no canonical artifact-supply owner yet.
+Integrated by PR #743 on `main@71745ce78d9e9b40760a0dadc1f5d31d573cc118`. Canonical artifact identity and qualified build-output adoption semantics are now present with deterministic Product Proof while preserving build output != canonical artifact != release and non-authoritative provider IDs/tags.
 
 # Required change
 Introduce only the provider-neutral artifact identity/adoption contract and its deterministic Product Proof within the declared ownership boundary.
