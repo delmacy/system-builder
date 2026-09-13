@@ -1,7 +1,7 @@
 ---
 id: TASK-544
 title: Define deployment actuation outcome and ambiguous mutation reconciliation
-status: blocked
+status: ready
 priority: 544
 milestone: G2
 model_tier: architecture
@@ -35,7 +35,7 @@ validation:
 Define provider-neutral deployment actuation outcome semantics that distinguish provider acknowledgement from effective truth and route ambiguous unsafe mutation through reconciliation before retry.
 
 # Context
-TASK-543 owns canonical deployment intent plus desired/observed/effective generation semantics. This TASK adds only the actuation-result and reconciliation seam required between canonical intent and later runtime-convergence evidence.
+TASK-543 owns canonical deployment intent plus desired/observed/effective generation semantics and is integrated by PR #754. This TASK adds only the actuation-result and reconciliation seam required between canonical intent and later runtime-convergence evidence.
 
 # Current behavior
 The KEEP baseline can initiate local deployment/runtime work and retain durable deployment truth, but the generalized G2-WBS-14 contract does not yet express provider-neutral actuation outcomes or an explicit policy for ambiguous unsafe mutation.
