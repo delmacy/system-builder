@@ -31,6 +31,22 @@ validation:
 # Objective
 Close the first G2-WBS-13 Construction B Sprint with integrated Product Proof across TASK-539..541 without creating new semantic ownership.
 
+# Context
+TASK-542 is proof-only and predecessor-gated by TASK-541. It composes the already-owned artifact identity, provenance and release lifecycle semantics.
+
+# Current behavior
+No integrated Construction B Product Proof exists yet for the first G2-WBS-13 sprint.
+
+# Required change
+Add one deterministic integrated Product Proof that composes TASK-539..541 semantics without adding a new contract owner.
+
+# Inputs / contracts
+- integrated outputs of TASK-539, TASK-540 and TASK-541;
+- closed identity/revision/evidence/provider/coexistence/population/currentness semantics.
+
+# Outputs / contracts
+Integrated deterministic Product Proof only; no new semantic contract ownership.
+
 # Acceptance criteria
 - build output, canonical artifact, release and deployed/effective runtime remain distinct;
 - artifact identity and provenance survive provider/registry substitution;
@@ -38,6 +54,9 @@ Close the first G2-WBS-13 Construction B Sprint with integrated Product Proof ac
 - release coexistence/residual cohorts require qualified population/currentness evidence before drainage;
 - PARTIAL/UNKNOWN remain non-strengthening;
 - Product Proof does not claim Production Readiness or G2-WBS-14 runtime realization.
+
+# Evidence expected
+One deterministic integrated Product Proof on the exact TASK head plus repository validation green.
 
 # Escalation
 Semantic gaps return as bounded rework to TASK-539..541 or Sprint Review; do not invent new owners in this proof TASK.

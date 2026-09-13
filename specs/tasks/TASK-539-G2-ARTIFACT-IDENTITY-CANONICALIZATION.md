@@ -36,6 +36,12 @@ Define provider-neutral canonical artifact identity and adoption from qualified 
 # Context
 G2-WBS-12 is integrated. G2-WBS-13 is now the dependency-safe owner for artifact/release/SBOM/provenance lifecycle semantics.
 
+# Current behavior
+The repository has qualified build material, execution-context and reproducibility semantics, but no canonical artifact-supply owner yet.
+
+# Required change
+Introduce only the provider-neutral artifact identity/adoption contract and its deterministic Product Proof within the declared ownership boundary.
+
 # Inputs / contracts
 - TASK-535..538 build material identity, execution qualification and reproducibility evidence;
 - closed identity/revision/evidence/provider/locality semantics.
@@ -51,6 +57,9 @@ A revisioned artifact-supply contract that keeps build output identity, canonica
 - PARTIAL/UNKNOWN never strengthens adoption;
 - unsafe mutating UNKNOWN routes to reconcile-before-retry where applicable;
 - Product Proof covers provider-ID/tag collisions, stale evidence and ambiguous adoption.
+
+# Evidence expected
+Deterministic Product Proof plus repository validation on the exact TASK head, without claiming Production Readiness.
 
 # Escalation
 Return to Sprint Review rather than adding concrete registry/provider realization, persistence or deployment/runtime ownership.
