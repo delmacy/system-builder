@@ -1,7 +1,7 @@
 ---
 id: TASK-540
 title: Define artifact SBOM and provenance evidence qualification
-status: ready
+status: verification
 priority: 540
 milestone: G2
 model_tier: architecture
