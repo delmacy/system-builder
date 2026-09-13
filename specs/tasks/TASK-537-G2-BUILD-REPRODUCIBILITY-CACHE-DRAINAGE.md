@@ -1,7 +1,7 @@
 ---
 id: TASK-537
 title: Define reproducibility claims, cache lineage and residual runner drainage
-status: blocked
+status: ready
 priority: 537
 milestone: G2
 model_tier: architecture
