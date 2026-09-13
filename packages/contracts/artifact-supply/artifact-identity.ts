@@ -70,7 +70,23 @@ export function evaluateArtifactAdoption(artifact: CanonicalArtifact, output: Qu
   return artifactPreservesBuildOutputLineage(artifact, output) ? "ADOPT" : "REJECT";
 }
 
-export function providerIdentityEstablishesCanonicalArtifactIdentity(_artifact: CanonicalArtifact): false { return false; }
-export function mutableTagEstablishesCanonicalArtifactIdentity(_artifact: CanonicalArtifact): false { return false; }
-export function buildOutputIsCanonicalArtifact(_output: QualifiedBuildOutput, _artifact: CanonicalArtifact): false { return false; }
-export function canonicalArtifactIsRelease(_artifact: CanonicalArtifact): false { return false; }
+export function providerIdentityEstablishesCanonicalArtifactIdentity(artifact: CanonicalArtifact): false {
+  void artifact;
+  return false;
+}
+
+export function mutableTagEstablishesCanonicalArtifactIdentity(artifact: CanonicalArtifact): false {
+  void artifact;
+  return false;
+}
+
+export function buildOutputIsCanonicalArtifact(output: QualifiedBuildOutput, artifact: CanonicalArtifact): false {
+  void output;
+  void artifact;
+  return false;
+}
+
+export function canonicalArtifactIsRelease(artifact: CanonicalArtifact): false {
+  void artifact;
+  return false;
+}
