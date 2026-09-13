@@ -1,7 +1,7 @@
 ---
 id: TASK-536
 title: Define build runner, toolchain and input-boundary qualification semantics
-status: blocked
+status: ready
 priority: 536
 milestone: G2
 model_tier: architecture
