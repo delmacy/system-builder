@@ -4,6 +4,7 @@ title: Prove integrated G2-WP-09 Construction B artifact and release semantics
 status: blocked
 priority: 542
 milestone: G2
+model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
