@@ -4,6 +4,7 @@ title: Define release adoption lifecycle and residual drainage semantics
 status: blocked
 priority: 541
 milestone: G2
+model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
