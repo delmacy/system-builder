@@ -1,8 +1,8 @@
 # Generation 2 — Execution Handoff
 
-Status: EXECUTION AUTHORIZED / G2-WP-01..G2-WP-08 CLOSED / G2-WP-09 CONSTRUCTION A MATERIALIZED
-Date: 2026-09-12
-Planning base: `main@20c428c5ad42a9cd37d1c445bdcd549dabefcb9d`
+Status: EXECUTION AUTHORIZED / G2-WP-01..G2-WP-08 CLOSED / G2-WP-09 CONSTRUCTION B PLANNING
+Date: 2026-09-13
+Current fresh main: `main@3e762b18f9c8396d6df30ce9a44c82f113f1c9c2`
 Planning-source branch: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 
 ## Authority transition
@@ -11,7 +11,9 @@ Generation 2 remains `READY_FOR_WORKER_HANDOFF`; G2-WP-01..G2-WP-13 are executio
 ## Commitment horizon
 G2-WP-01..G2-WP-08 are CANONICALLY CLOSED.
 
-G2-WP-09 Planning & Materialization revalidated WBS/DAG/package authority and materialized only Construction A / G2-WBS-12 as `TASK-535 -> TASK-536 -> TASK-537 -> TASK-538`. Only TASK-535 is READY. G2-WBS-13/G2-WBS-14 Construction is not materialized.
+G2-WP-09 Construction A / G2-WBS-12 is integrated as `TASK-535 -> TASK-536 -> TASK-537 -> TASK-538`. Fresh-main Construction A Sprint Review PR #738 is integrated with decision `PASS / CONSTRUCTION B REQUIRED`, no bounded rework requirement, and `G2-WBS-13` selected as the next dependency-safe target.
+
+Construction B TASKs are not yet materialized by this reconciliation. `G2-WBS-14` deployment/runtime remains not materialized.
 
 ## Preserved truth
 - declared dependency != resolved dependency != fetched material;
@@ -25,4 +27,4 @@ G2-WP-09 Planning & Materialization revalidated WBS/DAG/package authority and ma
 - Product Proof remains distinct from Production Readiness.
 
 ## Current next action
-After exact-head Planning & Materialization gates pass and the planning PR integrates, rebuild fresh main and execute only TASK-535. Treat any CI/review/spec drift blocker first. Do not pre-materialize artifact/release or deployment/runtime work before Construction A Sprint Review.
+From fresh main and the pinned planning source, perform rolling-wave Planning & Materialization for only the first dependency-safe `G2-WBS-13` Construction B Sprint. Treat any CI/review/spec drift blocker first. Do not pre-materialize `G2-WBS-14` deployment/runtime or absorb unrelated findings.
