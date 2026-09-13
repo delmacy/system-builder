@@ -4,6 +4,7 @@ title: Define canonical artifact identity and build-output adoption semantics
 status: ready
 priority: 539
 milestone: G2
+model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
