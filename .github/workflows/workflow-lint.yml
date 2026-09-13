@@ -44,5 +44,20 @@ jobs:
           grep "${archive}$" "${checksums}" | sha256sum -c -
           tar -xzf "${archive}" actionlint
           sudo install -m 0755 actionlint /usr/local/bin/actionlint
-      - name: Lint GitHub Actions workflows
-        run: actionlint -color
+      - name: Lint changed GitHub Actions workflows
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            git fetch --no-tags origin "$BASE_SHA"
+            mapfile -t files < <(git diff --name-only "$BASE_SHA...HEAD" -- '.github/workflows/*.yml' '.github/workflows/*.yaml')
+            if [ "${#files[@]}" -eq 0 ]; then
+              echo "No workflow files changed."
+              exit 0
+            fi
+            printf 'Linting %s\n' "${files[@]}"
+            actionlint -color "${files[@]}"
+          else
+            actionlint -color
+          fi
