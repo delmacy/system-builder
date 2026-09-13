@@ -1,6 +1,8 @@
 import { access, readFile, readdir } from "node:fs/promises";
 import { constants } from "node:fs";
 import path from "node:path";
+import process from "node:process";
+import console from "node:console";
 
 const root = process.cwd();
 const errors = [];
