@@ -1,22 +1,22 @@
-name: Deterministic CI
+name: Full Product Tests
 
 on:
-  pull_request:
-    branches:
-      - main
+  schedule:
+    - cron: "15 4 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: ci-exact-head-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  group: full-product-tests-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  exact-head:
-    name: exact-head
+  full:
+    name: full-main-proof
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     services:
       postgres:
         image: postgres:17.6-alpine
@@ -49,15 +49,15 @@ jobs:
       SYSTEM_BUILDER_TEST_POSTGRES_URL: postgres://system_builder@127.0.0.1:5432/system_builder
       SYSTEM_BUILDER_TEST_AUTH_POSTGRES_URL: postgres://deploy_auth:ci-test-password@127.0.0.1:5433/system_builder_auth
     steps:
-      - name: Checkout exact PR head
+      - name: Checkout scheduled revision
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
           persist-credentials: false
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Assert exact PR head identity
+          ref: ${{ github.sha }}
+      - name: Assert scheduled revision identity
         env:
-          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
+          EXPECTED_SHA: ${{ github.sha }}
         run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
       - name: Use Node.js 24
         uses: actions/setup-node@v7
@@ -66,5 +66,5 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci
-      - name: Run deterministic repository verification
-        run: npm run verify
+      - name: Run full product proof
+        run: npm run test:product:full
