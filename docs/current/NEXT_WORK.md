@@ -1,4 +1,4 @@
-# Next Work — G2-WP-09 Construction A / TASK-537
+# Next Work — G2-WP-09 Construction A / TASK-538
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
@@ -8,12 +8,14 @@ Pinned authority is `research/g2-capability-pipeline@2ef10187d691666b45cba597867
 ## Materialized Construction A
 `TASK-535 -> TASK-536 -> TASK-537 -> TASK-538`.
 
-TASK-535 is INTEGRATED by PR #729. TASK-536 is INTEGRATED by PR #731. TASK-537 is READY. TASK-538 remains blocked by its explicit predecessor.
+TASK-535 is INTEGRATED by PR #729. TASK-536 is INTEGRATED by PR #731. TASK-537 is INTEGRATED by PR #733 on `main@84e63a20f9dc8b11a59c3fb993351ebb2abcd47b`. TASK-538 is READY.
 
 ## Current mandatory gate
-From fresh `main@9d69511b4b83e59ec9ec7b6a02fdaa622ad5d685`, execute only TASK-537 — define qualified reproducibility claims, cache lineage and residual runner/cache drainage semantics while preserving TASK-535 material lineage and TASK-536 execution-context qualification.
+Execute only TASK-538 — integrated Construction A Product Proof across TASK-535..537. TASK-538 is proof-only and must not introduce new semantic ownership.
 
-Do not promote TASK-538 until TASK-537 passes its declared validations, exact-head gates and integration. Do not pre-materialize G2-WBS-13/G2-WBS-14 Construction work before fresh-main Construction A Sprint Review.
+Require its declared validations and exact-head Deterministic CI, Heavy Product Tests and Automation Handoff before integration. Any semantic gap discovered by TASK-538 returns as bounded rework to TASK-535..537 or Sprint Review.
+
+Do not pre-materialize G2-WBS-13/G2-WBS-14 Construction work before fresh-main Construction A Sprint Review.
 
 ## Preserved exclusions
 Concrete CI/build providers, registry/deployment adapters, DB/runtime realization, apps/UI, Production Readiness, WP-10+ ownership and DEFER/DO_NOT_BUILD findings remain excluded unless separately materialized.
