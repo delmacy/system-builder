@@ -1,7 +1,7 @@
 ---
 id: TASK-537
 title: Define reproducibility claims, cache lineage and residual runner drainage
-status: ready
+status: verification
 priority: 537
 milestone: G2
 model_tier: architecture
@@ -37,7 +37,7 @@ Define qualified reproducibility claims, cache lineage and residual runner/cache
 TASK-537 consumes TASK-535 material lineage and TASK-536 qualified execution context. A successful build or cache hit is insufficient proof of reproducibility and provider/runner substitution must retain residual populations until reconciled.
 
 # Current behavior
-No bounded contract represents reproducibility as a revision/environment/population-qualified claim while preserving cache provenance and residual runner/cache cohorts.
+Bounded contracts and deterministic Product Proof now represent reproducibility as a revision/environment/population-qualified claim while preserving cache provenance and residual runner/cache cohorts. Exact-head verification remains required before integration.
 
 # Inputs / contracts
 - TASK-535 dependency/material identity;
