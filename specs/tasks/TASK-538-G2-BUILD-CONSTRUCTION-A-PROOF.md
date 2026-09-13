@@ -1,7 +1,7 @@
 ---
 id: TASK-538
 title: Prove integrated G2-WP-09 Construction A build semantics
-status: ready
+status: verification
 priority: 538
 milestone: G2
 model_tier: architecture
