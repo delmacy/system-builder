@@ -1,7 +1,7 @@
 ---
 id: TASK-542
 title: Prove integrated G2-WP-09 Construction B artifact and release semantics
-status: blocked
+status: ready
 priority: 542
 milestone: G2
 model_tier: architecture
@@ -32,10 +32,10 @@ validation:
 Close the first G2-WBS-13 Construction B Sprint with integrated Product Proof across TASK-539..541 without creating new semantic ownership.
 
 # Context
-TASK-542 is proof-only and predecessor-gated by TASK-541. It composes the already-owned artifact identity, provenance and release lifecycle semantics.
+TASK-542 is proof-only. TASK-541 is integrated by PR #747, so its predecessor gate is satisfied.
 
 # Current behavior
-No integrated Construction B Product Proof exists yet for the first G2-WBS-13 sprint.
+TASK-539..541 semantic owners are integrated; no integrated Construction B Product Proof exists yet for the first G2-WBS-13 sprint.
 
 # Required change
 Add one deterministic integrated Product Proof that composes TASK-539..541 semantics without adding a new contract owner.

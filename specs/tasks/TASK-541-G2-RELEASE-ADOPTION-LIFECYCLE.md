@@ -1,7 +1,7 @@
 ---
 id: TASK-541
 title: Define release adoption lifecycle and residual drainage semantics
-status: verification
+status: completed
 priority: 541
 milestone: G2
 model_tier: architecture
@@ -33,13 +33,13 @@ validation:
 Define provider-neutral release adoption, coexistence and residual-release drainage without equating release publication with deployed/effective runtime.
 
 # Context
-TASK-540 is integrated by PR #745. TASK-541 owns only release lifecycle semantics inside G2-WBS-13.
+TASK-540 is integrated by PR #745. TASK-541 is integrated by PR #747 on `main@95220c90a33af801ff9f76bbae78f0694084a34a` and owns only release lifecycle semantics inside G2-WBS-13.
 
 # Current behavior
-Artifact identity and provenance are integrated predecessors. Provider-neutral release adoption/coexistence/residual drainage is implemented on this TASK head and awaits exact-head verification.
+Provider-neutral release adoption/coexistence/residual drainage and deterministic Product Proof are integrated and exact-head validated.
 
 # Required change
-Add only provider-neutral release adoption/coexistence/residual-drainage semantics and deterministic adversarial Product Proof after TASK-540 integration.
+Completed by PR #747: provider-neutral release adoption/coexistence/residual-drainage semantics and deterministic adversarial Product Proof after TASK-540 integration.
 
 # Inputs / contracts
 - canonical artifact identity/adoption from TASK-539;
@@ -59,7 +59,7 @@ A release lifecycle contract that keeps canonical artifact, release and deployed
 - Product Proof covers rollback/coexistence, stale channels, unknown population and residual cohorts.
 
 # Evidence expected
-Deterministic Product Proof plus repository validation on the exact TASK head, without claiming deployment/runtime convergence or Production Readiness.
+Satisfied by PR #747 exact-head gates: Deterministic CI #1758, Heavy Product Tests #1348 and Automation Handoff #2449 all succeeded on `8ddbd60f93d2daffc3808b3865b784666633dac1`.
 
 # Escalation
 Any need for deployment/runtime realization belongs to G2-WBS-14 and must wait for fresh-main Construction B Sprint Review.
