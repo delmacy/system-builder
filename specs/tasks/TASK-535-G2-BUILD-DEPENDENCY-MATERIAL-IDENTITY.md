@@ -1,7 +1,7 @@
 ---
 id: TASK-535
 title: Define build dependency and fetched-material identity with revision lineage
-status: ready
+status: verification
 priority: 535
 milestone: G2
 model_tier: architecture
