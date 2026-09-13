@@ -12,10 +12,10 @@ The authoritative internal order is build/material closure -> artifact/release a
 
 `TASK-535 -> TASK-536 -> TASK-537 -> TASK-538`
 
-TASK-535 is INTEGRATED by PR #729 on fresh `main@ca5a4bd1abe91ff138bd0db0e252df60d15bf714`. TASK-536 is READY; TASK-537..538 remain predecessor-gated.
+TASK-535 is INTEGRATED by PR #729. TASK-536 is INTEGRATED by PR #731 on fresh `main@9d69511b4b83e59ec9ec7b6a02fdaa622ad5d685`. TASK-537 is READY; TASK-538 remains predecessor-gated.
 
 ## Current gate
-Execute only TASK-536 — build runner, toolchain and input-boundary qualification semantics — from fresh main. Preserve TASK-535 material identity/provenance lineage and do not advance TASK-537 until TASK-536 passes exact-head verification and integrates.
+Execute only TASK-537 — reproducibility claims, cache lineage and residual runner/cache drainage semantics — from fresh main. Preserve TASK-535 material identity/provenance lineage and TASK-536 runner/toolchain/input-boundary qualification; do not advance TASK-538 until TASK-537 passes exact-head verification and integrates.
 
 ## Preserved truth
 Declared/resolved/fetched dependencies remain distinct; build success != reproducibility; cache hit != provenance/currentness; provider ACK != trust/admission/authority; `PARTIAL/UNKNOWN` remain non-strengthening; residual runner/cache cohorts remain visible until drained/reconciled; Product Proof remains distinct from Production Readiness.
