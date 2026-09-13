@@ -1,6 +1,6 @@
 # G2-WP-09 — Reproducible Build, Artifact Supply & Autonomous Deployment
 
-Status: CONSTRUCTION A INTEGRATED / CONSTRUCTION B INTEGRATED / REVIEW REQUIRED
+Status: CONSTRUCTION A INTEGRATED / CONSTRUCTION B INTEGRATED / CONSTRUCTION C ACTIVE
 Planning authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 Planning base: `main@d5478b4cb48c7b601ab151d2021d8bfca6ead8ff`
 WBS owners: G2-WBS-12, G2-WBS-13, G2-WBS-14
@@ -11,14 +11,17 @@ Establish provider-neutral, revisioned semantics for reproducible build, canonic
 ## Construction A — integrated
 G2-WBS-12 is integrated as TASK-535..538. Fresh-main Construction A Sprint Review PR #738 decided PASS / CONSTRUCTION B REQUIRED with no bounded rework.
 
-## Construction B — integrated first Sprint
-G2-WBS-13 first Sprint is integrated as `TASK-539 -> TASK-540 -> TASK-541 -> TASK-542`: canonical artifact identity/adoption; SBOM/provenance qualification; release adoption/coexistence/residual drainage; integrated Product Proof. TASK-539 integrated by PR #743, TASK-540 by PR #745, TASK-541 by PR #747, and proof-only TASK-542 by PR #749 on `main@cc533f119d37465d956f7a2d166b843dabdea7aa`.
+## Construction B — integrated
+G2-WBS-13 is integrated as `TASK-539 -> TASK-540 -> TASK-541 -> TASK-542`: canonical artifact identity/adoption; SBOM/provenance qualification; release adoption/coexistence/residual drainage; integrated Product Proof. Fresh-main Sprint Review PR #752 decided `PASS / CONSTRUCTION C REQUIRED`.
+
+## Construction C — active first Sprint
+G2-WBS-14 first Sprint is materialized as `TASK-543 -> TASK-544 -> TASK-545 -> TASK-546`. TASK-543 is integrated by PR #754 after bounded semantic repair that makes observed and effective currentness independently evidence-bearing. TASK-544 is the only READY successor; TASK-545..546 remain blocked by explicit predecessors.
 
 ## Preserved invariants
-Declared/resolved/fetched dependencies remain distinct; build success != reproducibility proof; build output != canonical artifact != release != deployed/effective runtime; signature != trust/admission; provider/runner/registry acknowledgement != qualified authority/currentness; identity, revision, provenance, trust, provider qualification and locality/currentness remain explicit; PARTIAL/UNKNOWN never strengthens a claim; unsafe mutating UNKNOWN routes to reconcile-before-retry where applicable; residual cohorts remain visible until population/currentness-qualified drainage/reconciliation; Product Proof remains separate from Production Readiness.
+Declared/resolved/fetched dependencies remain distinct; build success != reproducibility proof; build output != canonical artifact != release != deployment != observed runtime != effective/converged runtime; signature != trust/admission; provider/runner/registry acknowledgement != qualified authority/currentness/effective truth; identity, revision, provenance, trust, provider qualification and locality/currentness remain explicit; desired/observed/effective generation/currentness remain independently evidence-bearing; PARTIAL/UNKNOWN/INCONCLUSIVE never strengthens a claim; unsafe mutating UNKNOWN routes to reconcile-before-retry where applicable; rollback actuation != release rollback eligibility; residual cohorts remain visible until population/currentness-qualified drainage/reconciliation; Product Proof remains separate from Production Readiness.
 
 ## Rolling-wave boundary
-G2-WBS-14 deployment/runtime/autonomous lifecycle is NOT MATERIALIZED. Construction C remains optional/forecast until fresh-main Construction B Sprint Review evidence proves it necessary.
+Only the materialized TASK-543..546 Construction C Sprint is committed. TASK-544 may add only provider-neutral actuation outcome/reconciliation semantics. Concrete deployment providers, generalized topology/traffic/scaling infrastructure, hierarchical authority, DB/runtime-core rewrites, apps/UI, Production Readiness, WP-10+ ownership and DEFER/DO_NOT_BUILD findings remain outside scope.
 
-## Explicit exclusions
-No concrete CI/registry/signing/deployment provider realization, DB/persistence, apps/UI, production credentials, operational capacity tuning, Production Readiness implementation, WP-10+ ownership or DEFER/DO_NOT_BUILD finding is absorbed.
+## CI evidence model
+Exact-head evidence (`Deterministic CI`, `Heavy Product Tests`) and synthetic merge-candidate evidence (`Merge Candidate CI`) are separate obligations. A main advance invalidates an older merge-candidate proof. Workflow changes additionally require `Workflow Lint`; `npm run verify` includes `check:docs`.

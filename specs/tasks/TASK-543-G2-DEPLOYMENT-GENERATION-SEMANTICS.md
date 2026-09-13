@@ -1,7 +1,7 @@
 ---
 id: TASK-543
 title: Define canonical deployment intent and desired observed effective generation semantics
-status: verification
+status: completed
 priority: 543
 milestone: G2
 model_tier: architecture
@@ -60,10 +60,10 @@ A revisioned deployment-runtime semantic contract that keeps release identity, d
 - stale/PARTIAL/UNKNOWN/INCONCLUSIVE evidence never strengthens convergence;
 - provider substitution cannot rewrite canonical deployment identity;
 - existing single-host Deploy behavior remains compatible and is not replaced;
-- deterministic Product Proof covers generation mismatch, stale observation and provider-ID collision.
+- deterministic Product Proof covers generation mismatch, independently stale/unknown observed and effective currentness, and provider-ID collision.
 
 # Evidence expected
-Focused deterministic Product Proof plus exact-head repository validation, without claiming Production Readiness.
+Focused deterministic Product Proof plus exact-head repository validation, without claiming Production Readiness. Integrated by PR #754 from authoritative TASK head `67deda9789397a1645ef746a098604b345a3a5b9` after bounded semantic repair.
 
 # Escalation
 Return to Sprint Review rather than adding concrete deployment providers, persistence, topology/traffic infrastructure or runtime-core ownership.
