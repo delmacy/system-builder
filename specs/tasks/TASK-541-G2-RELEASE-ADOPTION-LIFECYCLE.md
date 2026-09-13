@@ -1,7 +1,7 @@
 ---
 id: TASK-541
 title: Define release adoption lifecycle and residual drainage semantics
-status: blocked
+status: ready
 priority: 541
 milestone: G2
 model_tier: architecture
@@ -33,10 +33,10 @@ validation:
 Define provider-neutral release adoption, coexistence and residual-release drainage without equating release publication with deployed/effective runtime.
 
 # Context
-TASK-541 is predecessor-gated by TASK-540 and owns only release lifecycle semantics inside G2-WBS-13.
+TASK-540 is integrated by PR #745. TASK-541 owns only release lifecycle semantics inside G2-WBS-13.
 
 # Current behavior
-Artifact identity and provenance are planned predecessors, but no integrated owner yet defines release adoption/coexistence/residual drainage while preserving runtime separation.
+Artifact identity and provenance are integrated predecessors. No integrated owner yet defines release adoption/coexistence/residual drainage while preserving runtime separation.
 
 # Required change
 Add only provider-neutral release adoption/coexistence/residual-drainage semantics and deterministic adversarial Product Proof after TASK-540 integration.

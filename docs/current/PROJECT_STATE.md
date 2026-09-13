@@ -8,7 +8,7 @@ G2-WP-01..G2-WP-08 are CANONICALLY CLOSED. Pinned authority remains `research/g2
 ## G2-WP-09
 G2-WP-09 owns G2-WBS-12, G2-WBS-13 and G2-WBS-14. Construction A / G2-WBS-12 is fully integrated as TASK-535..538 and fresh-main Sprint Review PR #738 decided `PASS / CONSTRUCTION B REQUIRED` with no bounded rework.
 
-Construction B first G2-WBS-13 Sprint is materialized dependency-safely as `TASK-539 -> TASK-540 -> TASK-541 -> TASK-542`. TASK-539 is INTEGRATED by PR #743 on `main@71745ce78d9e9b40760a0dadc1f5d31d573cc118`. TASK-540 is READY; TASK-541..542 remain predecessor-gated.
+Construction B first G2-WBS-13 Sprint is materialized dependency-safely as `TASK-539 -> TASK-540 -> TASK-541 -> TASK-542`. TASK-539 is INTEGRATED by PR #743. TASK-540 is INTEGRATED by PR #745 on `main@01dc3a984340438258204ea16e6dc907a49fdd18`. TASK-541 is READY; TASK-542 remains predecessor-gated.
 
 ## Preserved truth
 Declared/resolved/fetched dependencies remain distinct; build success != reproducibility; build output != canonical artifact != release != deployed/effective runtime; signature != trust/admission; provider/registry ACK != authority/currentness; identity, revision, provenance, locality/currentness remain explicit; PARTIAL/UNKNOWN remain non-strengthening; unsafe mutating UNKNOWN uses reconcile-before-retry where applicable; source-of-truth/coexistence/residual cohorts remain visible until qualified drainage; Product Proof remains distinct from Production Readiness.

@@ -1,7 +1,7 @@
 ---
 id: TASK-540
 title: Define artifact SBOM and provenance evidence qualification
-status: verification
+status: completed
 priority: 540
 milestone: G2
 model_tier: architecture
@@ -33,13 +33,13 @@ validation:
 Define revision/currentness-qualified SBOM and provenance evidence for canonical artifacts while preserving trust/admission as separate authority.
 
 # Context
-TASK-539 is integrated by PR #743. TASK-540 extends only the artifact-supply semantic owner created there.
+TASK-539 is integrated by PR #743. TASK-540 is integrated by PR #745 on `main@01dc3a984340438258204ea16e6dc907a49fdd18` and extends only the artifact-supply semantic owner created there.
 
 # Current behavior
-Canonical artifact identity/adoption is integrated. G2-WBS-13 now requires SBOM/provenance evidence qualification against canonical artifact identity while keeping trust/admission separate.
+Canonical artifact identity/adoption plus SBOM/provenance evidence qualification are integrated. G2-WBS-13 may advance only to TASK-541 release lifecycle semantics.
 
 # Required change
-Add only SBOM/provenance evidence qualification semantics and adversarial Product Proof after TASK-539 integration.
+Completed by PR #745: SBOM/provenance evidence qualification semantics and adversarial Product Proof after TASK-539 integration.
 
 # Inputs / contracts
 - canonical artifact identity/adoption semantics from TASK-539;
@@ -57,7 +57,7 @@ Revision/currentness-qualified SBOM/provenance evidence bound to canonical artif
 - adversarial proof covers mismatched artifact revisions, stale attestations, provider substitution and missing evidence.
 
 # Evidence expected
-Deterministic Product Proof plus repository validation on the exact TASK head, with no trust-policy or Production Readiness claim.
+Satisfied by exact-head Deterministic CI #1756, Heavy Product Tests #1346 and Automation Handoff #2441 on `beab587d62e102670a0c887362d4d29a360ec841`, followed by integration via PR #745.
 
 # Escalation
 Do not absorb trust policy, concrete signing services, registries, persistence, deployment or Production Readiness.
