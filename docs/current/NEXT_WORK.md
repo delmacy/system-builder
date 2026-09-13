@@ -1,21 +1,19 @@
-# Next Work — G2-WP-09 Construction A / TASK-538
+# Next Work — G2-WP-09 Construction A Sprint Review
 
 Generation 2 execution remains rolling-wave and dependency-safe.
 
 ## Revalidated authority
 Pinned authority is `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`. G2-WP-09 owns `G2-WBS-12`, `G2-WBS-13`, `G2-WBS-14`; closed prerequisites satisfy its package entry. Internal order remains build/material -> artifact/release -> deployment/runtime.
 
-## Materialized Construction A
+## Integrated Construction A
 `TASK-535 -> TASK-536 -> TASK-537 -> TASK-538`.
 
-TASK-535 is INTEGRATED by PR #729. TASK-536 is INTEGRATED by PR #731. TASK-537 is INTEGRATED by PR #733 on `main@84e63a20f9dc8b11a59c3fb993351ebb2abcd47b`. TASK-538 is READY.
+TASK-535 is INTEGRATED by PR #729. TASK-536 is INTEGRATED by PR #731. TASK-537 is INTEGRATED by PR #733. TASK-538 is INTEGRATED by PR #736 on `main@9226be8274878becf9172d43345430376923f513`.
 
 ## Current mandatory gate
-Execute only TASK-538 — integrated Construction A Product Proof across TASK-535..537. TASK-538 is proof-only and must not introduce new semantic ownership.
+Execute fresh-main Construction A Sprint Review. Confirm the G2-WBS-12 proof obligations from integrated evidence and decide PASS/bounded rework. Only a PASS may materialize the first dependency-safe G2-WBS-13 artifact/release slice.
 
-Require its declared validations and exact-head Deterministic CI, Heavy Product Tests and Automation Handoff before integration. Any semantic gap discovered by TASK-538 returns as bounded rework to TASK-535..537 or Sprint Review.
-
-Do not pre-materialize G2-WBS-13/G2-WBS-14 Construction work before fresh-main Construction A Sprint Review.
+Do not pre-materialize G2-WBS-14 deployment/runtime. Product Proof remains distinct from Production Readiness.
 
 ## Preserved exclusions
 Concrete CI/build providers, registry/deployment adapters, DB/runtime realization, apps/UI, Production Readiness, WP-10+ ownership and DEFER/DO_NOT_BUILD findings remain excluded unless separately materialized.

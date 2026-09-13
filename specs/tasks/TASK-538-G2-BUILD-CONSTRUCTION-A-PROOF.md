@@ -1,7 +1,7 @@
 ---
 id: TASK-538
 title: Prove integrated G2-WP-09 Construction A build semantics
-status: verification
+status: completed
 priority: 538
 milestone: G2
 model_tier: architecture
@@ -36,7 +36,7 @@ Close Construction A with integrated Product Proof across TASK-535..537 without 
 TASK-538 is proof-only. It composes the already-owned build dependency/material identity, runner/toolchain/input qualification and reproducibility/cache/residual-drainage semantics.
 
 # Current behavior
-TASK-535..537 are integrated. Construction A now requires only this integrated proof across identity, revision, provenance, currentness, provider/locality qualification, PARTIAL/UNKNOWN and residual drainage boundaries.
+Integrated by PR #736 on `main@9226be8274878becf9172d43345430376923f513`. The deterministic integrated Product Proof composes TASK-535..537 while preserving identity, revision, provenance, currentness, provider/locality qualification, PARTIAL/UNKNOWN and residual-drainage boundaries.
 
 # Inputs / contracts
 - integrated outputs of TASK-535, TASK-536 and TASK-537;
