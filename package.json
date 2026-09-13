@@ -26,6 +26,7 @@
     "pipeline:resume": "tsx tooling/agent-harness/src/supervisor-cli.ts resume",
     "check:tasks": "tsx tooling/agent-harness/src/cli.ts validate-tasks",
     "check:architecture": "tsx tooling/agent-harness/src/cli.ts architecture",
+    "check:docs": "node scripts/check-docs.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:unit": "tsx --env-file-if-exists=.env --test tooling/agent-harness/tests/*.test.ts && node --test scripts/handoff-state-machine.test.mjs",
@@ -34,7 +35,7 @@
     "test:product:full": "node scripts/run-product-tests.mjs full",
     "test": "npm run test:unit && npm run test:product",
     "build": "tsc -p tsconfig.build.json",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run check:tasks && npm run check:architecture && npm run build",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run check:tasks && npm run check:architecture && npm run check:docs && npm run build",
     "factory:e2e": "tsx scripts/factory-e2e.ts",
     "factory:bootstrap": "tsx scripts/factory-operator-bootstrap.ts"
   },
