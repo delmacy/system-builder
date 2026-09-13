@@ -1,14 +1,16 @@
-# Current Execution Milestone — Generation 2 / G2-WP-09 Planning & Materialization
+# Current Execution Milestone — Generation 2 / G2-WP-09 Construction A
 
 ## Milestone state
 `G2-WP-01..G2-WP-08` are CANONICALLY CLOSED. Pinned planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, `READY_FOR_WORKER_HANDOFF / PASS`.
 
-Fresh planning base: `main@20c428c5ad42a9cd37d1c445bdcd549dabefcb9d`.
+Fresh construction base: `main@ca5a4bd1abe91ff138bd0db0e252df60d15bf714` after TASK-535 integration by PR #729.
 
 ## Current gate
-G2-WP-09 Planning & Materialization has materialized only Construction A / `G2-WBS-12` as `TASK-535 -> TASK-538`. Only TASK-535 is READY; successors are predecessor-gated.
+Construction A / `G2-WBS-12` is materialized as `TASK-535 -> TASK-536 -> TASK-537 -> TASK-538`.
 
-Construction must not start until this exact planning/materialization head passes required gates and integrates, followed by fresh-main revalidation.
+TASK-535 is INTEGRATED. TASK-536 is READY. TASK-537..538 remain predecessor-gated.
+
+Execute only TASK-536 and require its declared validations plus exact-head Deterministic CI, Heavy Product Tests and Automation Handoff before integration and successor promotion.
 
 ## Rolling-wave boundary
 G2-WBS-13 artifact/release and G2-WBS-14 deployment/runtime are not materialized. Construction B/C remain forecast only pending fresh-main Construction A Sprint Review evidence.
