@@ -6,7 +6,7 @@ G2-WP-01..G2-WP-08 are CANONICALLY CLOSED. Pinned planning authority remains `re
 Construction A / G2-WBS-12 is integrated and PASS. The first dependency-safe G2-WBS-13 Construction B Sprint is materialized as `TASK-539 -> TASK-540 -> TASK-541 -> TASK-542`.
 
 ## Current gate
-Integrate this Planning & Materialization change after exact-head gates. Then rebuild fresh main and execute only TASK-539. Successors remain predecessor-gated.
+TASK-539 is INTEGRATED by PR #743 on fresh `main@71745ce78d9e9b40760a0dadc1f5d31d573cc118`. Execute only TASK-540 — artifact SBOM/provenance evidence qualification. TASK-541..542 remain predecessor-gated.
 
 ## Preserved invariants
 Build output != canonical artifact != release != deployed/effective runtime; signature != trust/admission; provider/registry acknowledgement != authority/currentness; PARTIAL/UNKNOWN never strengthens a claim; unsafe mutating UNKNOWN routes to reconcile-before-retry where applicable; residual cohorts remain visible until population/currentness-qualified drainage; Product Proof != Production Readiness.
