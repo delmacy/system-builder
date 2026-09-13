@@ -1,7 +1,7 @@
 ---
 id: TASK-543
 title: Define canonical deployment intent and desired observed effective generation semantics
-status: ready
+status: verification
 priority: 543
 milestone: G2
 model_tier: architecture
