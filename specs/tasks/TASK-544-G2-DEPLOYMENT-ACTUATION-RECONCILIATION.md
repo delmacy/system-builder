@@ -1,7 +1,7 @@
 ---
 id: TASK-544
 title: Define deployment actuation outcome and ambiguous mutation reconciliation
-status: ready
+status: verification
 priority: 544
 milestone: G2
 model_tier: architecture
@@ -41,10 +41,10 @@ TASK-543 owns canonical deployment intent plus desired/observed/effective genera
 The KEEP baseline can initiate local deployment/runtime work and retain durable deployment truth, but the generalized G2-WBS-14 contract does not yet express provider-neutral actuation outcomes or an explicit policy for ambiguous unsafe mutation.
 
 # Required change
-Add provider-neutral actuation outcome semantics that preserve applied/not-applied/partial/unknown distinctions, keep provider acknowledgement separate from effective runtime truth, and require reconciliation before retry when an unsafe mutation outcome is unknown.
+Add provider-neutral actuation outcome semantics that preserve applied/not-applied/partial/unknown distinctions, keep provider acknowledgement separate from effective runtime truth, preserve independent observed/effective currentness, and require reconciliation before retry when an unsafe mutation outcome is unknown. Qualified retry evidence must prove both current generations remain older than the still-current desired generation; evidence that a later generation is observed or effective must never authorize replay of an obsolete actuation.
 
 # Inputs / contracts
-- canonical deployment intent and generation/currentness semantics from TASK-543;
+- canonical deployment intent and independent observed/effective generation/currentness semantics from TASK-543;
 - existing DeploymentRecord/local Deploy behavior as KEEP baseline;
 - evidence semantics in which PARTIAL/UNKNOWN/INCONCLUSIVE never strengthen authority or convergence.
 
@@ -55,9 +55,10 @@ A revisioned deployment-actuation contract that records non-strengthening mutati
 - provider ACK never proves effective/converged runtime;
 - mutation outcomes preserve APPLIED / NOT_APPLIED / PARTIAL / UNKNOWN or equivalent non-strengthening distinctions;
 - unsafe UNKNOWN requires reconcile-before-retry;
-- retries cannot duplicate authority or advance effective generation without qualified observation;
+- observed and effective currentness remain independently qualified;
+- retries cannot duplicate authority, replay an obsolete desired generation, or advance effective generation without qualified observation;
 - rollback actuation is distinct from release rollback eligibility;
-- deterministic proof covers timeout-after-apply, partial actuation, stale ACK and duplicate retry.
+- deterministic proof covers timeout-after-apply, partial actuation, stale ACK, independently stale/unknown currentness, later-generation evidence and duplicate retry.
 
 # Non-goals
 Concrete providers, remote orchestration implementation, persistence, traffic management, runtime-core changes or Production Readiness.
