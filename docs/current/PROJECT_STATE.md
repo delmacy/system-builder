@@ -2,16 +2,16 @@
 
 Date: 2026-09-13
 
-## Generation 2 — EXECUTION AUTHORIZED / G2-WP-09 CONSTRUCTION B REVIEW GATE
+## Generation 2 — EXECUTION AUTHORIZED / G2-WP-09 CONSTRUCTION C MATERIALIZED
 G2-WP-01..G2-WP-08 are CANONICALLY CLOSED. Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, READY_FOR_WORKER_HANDOFF / PASS.
 
 ## G2-WP-09
-G2-WP-09 owns G2-WBS-12, G2-WBS-13 and G2-WBS-14. Construction A / G2-WBS-12 is fully integrated as TASK-535..538 and fresh-main Sprint Review PR #738 decided `PASS / CONSTRUCTION B REQUIRED` with no bounded rework.
+G2-WP-09 owns G2-WBS-12, G2-WBS-13 and G2-WBS-14. Construction A / G2-WBS-12 is integrated and PASS. Construction B / G2-WBS-13 is integrated as TASK-539..542 and fresh-main Sprint Review PR #752 decided `PASS / CONSTRUCTION C REQUIRED` with no bounded Construction B rework; PR #752 merged as `39a5c47d120b391b4abf5e5c137a43706c290a6f`.
 
-Construction B first G2-WBS-13 Sprint is fully integrated as `TASK-539 -> TASK-540 -> TASK-541 -> TASK-542`; TASK-542 proof-only integration completed by PR #749 on `main@cc533f119d37465d956f7a2d166b843dabdea7aa`. Fresh-main Construction B Sprint Review is now the active gate.
+Construction C first G2-WBS-14 Sprint is materialized as `TASK-543 -> TASK-544 -> TASK-545 -> TASK-546`. TASK-543 is READY; TASK-544..546 remain predecessor-gated.
 
 ## Preserved truth
-Declared/resolved/fetched dependencies remain distinct; build success != reproducibility; build output != canonical artifact != release != deployed/effective runtime; signature != trust/admission; provider/registry ACK != authority/currentness; identity, revision, provenance, locality/currentness remain explicit; PARTIAL/UNKNOWN remain non-strengthening; unsafe mutating UNKNOWN uses reconcile-before-retry where applicable; source-of-truth/coexistence/residual cohorts remain visible until qualified drainage; Product Proof remains distinct from Production Readiness.
+Declared/resolved/fetched dependencies remain distinct; build success != reproducibility; build output != canonical artifact != release != deployment != observed runtime != effective/converged runtime. Signature != trust/admission; provider acknowledgement != authority/currentness/effective truth. Canonical identity, revision, provenance, desired/observed/effective generation, locality/currentness and source-of-truth remain explicit. PARTIAL/UNKNOWN/INCONCLUSIVE remain non-strengthening; unsafe mutating UNKNOWN routes to reconcile-before-retry where applicable. Coexistence and residual release/runtime cohorts remain visible until qualified drainage/disposition. Product Proof remains distinct from Production Readiness.
 
 ## Not materialized
-G2-WBS-14 deployment/runtime/autonomous lifecycle remains forecast only pending Construction B Sprint Review. Concrete providers, registries, signing/deployment adapters, DB/runtime realization, apps/UI, Production Readiness, WP-10+ ownership and DEFER/DO_NOT_BUILD findings remain excluded.
+Concrete Kubernetes/cloud/serverless providers, generalized distributed topology/traffic/scaling infrastructure, hierarchical deployment authority, DB/runtime-core rewrites, apps/UI, Production Readiness, WP-10+ ownership and DEFER/DO_NOT_BUILD findings remain excluded.
