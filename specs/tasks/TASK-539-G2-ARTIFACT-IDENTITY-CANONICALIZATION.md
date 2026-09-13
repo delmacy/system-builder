@@ -1,7 +1,7 @@
 ---
 id: TASK-539
 title: Define canonical artifact identity and build-output adoption semantics
-status: ready
+status: verification
 priority: 539
 milestone: G2
 model_tier: architecture
