@@ -2,16 +2,16 @@
 
 Open, compatibility-first factory for process-driven business systems.
 
-The System Builder is a suite of interoperable tools that transforms operational knowledge into autonomous, versioned and deployable software. The project is designed to be useful first to its own maintainers and their client systems, then to other developers, consultants and software teams.
+System Builder is a suite of interoperable tools that transforms operational knowledge into autonomous, versioned and deployable software. The repository is intentionally repository-first: durable decisions must end as code, tests, contracts, ADRs, specifications or maintained documentation.
 
 ## Core idea
 
 ```text
 Real business
-  -> Mirror
+  -> Mirror / Elicitation
   -> Business Recipe
   -> Analysis
-  -> Design / System Definition
+  -> System Definition
   -> Assembly
   -> Validation
   -> Compiler
@@ -28,46 +28,66 @@ Real business
 - BusinessRecipe != SystemDefinition.
 - Builder != Runtime.
 - Published runtimes must remain operational without the Builder.
-- The suite is modular; no user is required to consume every SB module.
+- The suite is modular; no user is required to consume every System Builder module.
 - Open by architecture, not only by license.
-- Data, contracts and releases must be portable.
-- Agents execute bounded work; the repository is the project memory.
+- Data, contracts and release artifacts must be portable.
+- Agents execute bounded work; the repository is project memory.
 
-## Local bootstrap
+## Start here
 
-Prerequisites: Git, Node.js 24 and npm 11.
+For current development work, read in this order:
+
+1. `AGENTS.md` — repository-wide execution and architecture invariants.
+2. `docs/current/PROJECT_STATE.md` — integrated current state.
+3. `docs/current/CURRENT_MILESTONE.md` — current milestone/package gate.
+4. `docs/current/NEXT_WORK.md` — near-horizon next work.
+5. `project_docs/schedule/SPRINT_GENERATION_POLICY.md` — rolling-wave Work Package policy.
+6. `project_docs/schedule/SPRINT_MODE.md` — current product-development execution model.
+7. the active Work Package, Sprint manifest and TASK specifications.
+
+For documentation authority and historical classification, see `docs/README.md` and `docs/engineering/DOCUMENTATION_GOVERNANCE.md`.
+
+## Development model
+
+Normal product development uses Sprint Mode:
+
+```text
+fresh main
+  -> Planning & Materialization
+  -> Construction A
+  -> Construction B
+  -> [Construction C only when fresh evidence requires it]
+  -> Package Integration & Review
+  -> Documentation & Closure
+```
+
+A Construction Sprint uses one `sprint/<SPRINT-ID>` branch. Its committed TASKs execute in dependency order, with one authoritative commit per TASK, declared validations, repository-wide verification at Sprint completion and one Sprint PR to `main`.
+
+The normal local executor is `scripts/sprint-run-local.ps1`, which uses disposable OpenCode sessions per committed TASK. GitHub is source/history plus objective CI; hosted OpenCode generation/execution is not the default product executor.
+
+Do not use the legacy task-per-PR bootstrap flow as the normal development process. Older harness/orchestrator documents are retained only where explicitly classified as legacy, recovery or historical reference.
+
+## Local prerequisites
+
+Current repository guidance expects Git, Node.js 24 and npm 11 or newer.
 
 ```text
 git clone https://github.com/delmacy/system-builder.git
 cd system-builder
 npm install
-npm run task:next
-npm run task:branch -- TASK-002
-npm run task:prepare -- TASK-002
+npm run verify
 ```
 
-Give only `.agent/context/TASK-002/TASK_PACK.md` to the normal OpenCode executor. After implementation:
-
-```text
-npm run task:verify -- TASK-002
-npm run task:commit -- TASK-002
-npm run task:push -- TASK-002
-npm run task:pr -- TASK-002
-npm run task:close -- TASK-002
-```
-
-Merge only after deterministic CI and review. Then update local `main` and close the task. Review and integrate closure-state changes deliberately; the harness never auto-merges.
+Before running any development automation, read `AGENTS.md` and the active Sprint/TASK authority chain.
 
 ## Current phase
 
-M0 produced the durable project memory, evidence-backed legacy audit and local engineering harness. Product implementation has not started; M1 defines the public contract spine for one vertical proof.
+The project state changes quickly. Do not hard-code the current milestone from this README. The authoritative live status is always:
 
-Start with:
+- `docs/current/PROJECT_STATE.md`
+- `docs/current/CURRENT_MILESTONE.md`
+- `docs/current/NEXT_WORK.md`
 
-1. `AGENTS.md`
-2. `ARCHITECTURE.md`
-3. `docs/architecture/MASTER_BLUEPRINT.md`
-4. `docs/current/PROJECT_STATE.md`
-5. `docs/current/NEXT_WORK.md`
+## Legacy/reference repository
 
-The previous `delmacy/gestaotecnica` repository is a legacy/reference source. Reusable concepts and code may be extracted only through evidence-backed tasks; its old architecture is not authoritative for this repository.
+`delmacy/gestaotecnica` is a legacy/reference quarry, not an authority for this repository. Reusable concepts or code may be extracted only through evidence-backed, bounded work under current System Builder architecture and contracts.
