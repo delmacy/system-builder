@@ -35,6 +35,23 @@ validation:
 # Objective
 Close the first G2-WBS-14 Construction C Sprint with integrated Product Proof across TASK-543..545 without creating new semantic ownership.
 
+# Context
+TASK-543..545 provide the complete materialized Construction C semantic slice: deployment generation/currentness, ambiguous actuation reconciliation, and runtime convergence/autonomy/residual drainage. This TASK is proof-only.
+
+# Current behavior
+Before TASK-543..545 execute, no integrated Product Proof demonstrates the full G2-WBS-14 semantic chain while preserving release/deployment/runtime separation and the Production Readiness boundary.
+
+# Required change
+Add only the deterministic integrated proof necessary to exercise the already-owned TASK-543..545 semantics together; do not add contracts, providers, persistence or new semantic owners.
+
+# Inputs / contracts
+- TASK-543 canonical deployment and generation/currentness contracts;
+- TASK-544 actuation outcome and reconcile-before-retry contracts;
+- TASK-545 runtime convergence, autonomy/coexistence and residual-drainage contracts.
+
+# Outputs / contracts
+A deterministic integrated Product Proof demonstrating the Construction C semantic chain with no additional production authority or Production Readiness claim.
+
 # Acceptance criteria
 - compose desired/observed/effective generation semantics, ambiguous actuation reconciliation and runtime convergence/drainage in one deterministic proof;
 - prove release != deployment != observed runtime != effective runtime;
@@ -47,3 +64,9 @@ Close the first G2-WBS-14 Construction C Sprint with integrated Product Proof ac
 
 # Non-goals
 New contracts, providers, persistence, DB/runtime realization, apps/UI, Production Readiness or WP-10+ scope.
+
+# Evidence expected
+Deterministic integrated Product Proof plus exact-head repository validation, explicitly separated from Production Readiness evidence.
+
+# Escalation
+Return to Sprint Review for any missing semantic owner; do not expand this proof TASK into implementation, provider realization, persistence or WP-10+ scope.

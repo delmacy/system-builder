@@ -35,6 +35,23 @@ validation:
 # Objective
 Define provider-neutral effective runtime convergence, retained autonomy/coexistence and residual runtime cohort drainage semantics after deployment actuation.
 
+# Context
+TASK-543 establishes deployment generation/currentness and TASK-544 establishes actuation/reconciliation outcomes. This TASK owns only the semantic closure from qualified runtime observation to convergence, autonomy/coexistence and residual-cohort drainage.
+
+# Current behavior
+The repository preserves autonomous local runtime and failed-candidate/restart reconciliation behavior, but G2-WBS-14 does not yet provide a provider-neutral contract for effective convergence or for visibility/drainage of mixed-generation residual runtime cohorts.
+
+# Required change
+Add provider-neutral runtime-convergence semantics based on qualified observation/currentness, preserve retained runtime autonomy after convergence, model coexistence explicitly, and keep residual runtime cohorts visible until population/currentness-qualified drainage or disposition.
+
+# Inputs / contracts
+- canonical deployment intent and desired/observed/effective generation from TASK-543;
+- actuation outcome and reconcile-before-retry semantics from TASK-544;
+- existing autonomous single-host runtime behavior as KEEP baseline.
+
+# Outputs / contracts
+A revisioned runtime-convergence contract that distinguishes observed from effective state, represents retained autonomy/coexistence, and records residual cohort visibility/drainage without introducing concrete topology or traffic implementation.
+
 # Acceptance criteria
 - effective runtime is based on qualified observation/currentness rather than desired state or provider ACK;
 - runtime autonomy is represented as retained closure after successful realization, not permanent System Builder dependence;
@@ -46,3 +63,9 @@ Define provider-neutral effective runtime convergence, retained autonomy/coexist
 
 # Non-goals
 Concrete distributed topology, autoscaling, traffic router implementation, providers, persistence, apps/UI, runtime-core rewrite or Production Readiness.
+
+# Evidence expected
+Focused deterministic Product Proof covering convergence/currentness, mixed-generation coexistence, residual drainage and retained runtime autonomy plus exact-head repository validation.
+
+# Escalation
+Return to Sprint Review rather than adding concrete topology, scaling, routing, provider, persistence, runtime-core or Production Readiness ownership.
