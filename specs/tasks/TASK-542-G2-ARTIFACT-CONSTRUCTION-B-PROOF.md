@@ -1,7 +1,7 @@
 ---
 id: TASK-542
 title: Prove integrated G2-WP-09 Construction B artifact and release semantics
-status: verification
+status: completed
 priority: 542
 milestone: G2
 model_tier: architecture
@@ -32,10 +32,10 @@ validation:
 Close the first G2-WBS-13 Construction B Sprint with integrated Product Proof across TASK-539..541 without creating new semantic ownership.
 
 # Context
-TASK-542 is proof-only. TASK-541 is integrated by PR #747, so its predecessor gate is satisfied.
+TASK-542 is proof-only. TASK-541 is integrated by PR #747, so its predecessor gate is satisfied. TASK-542 itself is integrated by PR #749 on `main@cc533f119d37465d956f7a2d166b843dabdea7aa`.
 
 # Current behavior
-TASK-539..541 semantic owners are integrated; TASK-542 now supplies the integrated Construction B Product Proof for the first G2-WBS-13 sprint.
+TASK-539..541 semantic owners and TASK-542 integrated Product Proof are integrated; the next gate is the fresh-main Construction B Sprint Review.
 
 # Required change
 Add one deterministic integrated Product Proof that composes TASK-539..541 semantics without adding a new contract owner.
@@ -56,7 +56,7 @@ Integrated deterministic Product Proof only; no new semantic contract ownership.
 - Product Proof does not claim Production Readiness or G2-WBS-14 runtime realization.
 
 # Evidence expected
-One deterministic integrated Product Proof on the exact TASK head plus repository validation green.
+Integrated by PR #749 from exact head `1e7e1199710b31b59d8be31d6bdb880e3ac71b69`; Deterministic CI #1761, Heavy Product Tests #1351 and Automation Handoff #2460/#2463 passed before merge.
 
 # Escalation
 Semantic gaps return as bounded rework to TASK-539..541 or Sprint Review; do not invent new owners in this proof TASK.
