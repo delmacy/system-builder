@@ -1,7 +1,7 @@
 ---
 id: TASK-545
 title: Define runtime convergence autonomy coexistence and residual cohort drainage
-status: blocked
+status: ready
 priority: 545
 milestone: G2
 model_tier: architecture
@@ -36,7 +36,7 @@ validation:
 Define provider-neutral effective runtime convergence, retained autonomy/coexistence and residual runtime cohort drainage semantics after deployment actuation.
 
 # Context
-TASK-543 establishes deployment generation/currentness and TASK-544 establishes actuation/reconciliation outcomes. This TASK owns only the semantic closure from qualified runtime observation to convergence, autonomy/coexistence and residual-cohort drainage.
+TASK-543 establishes deployment generation/currentness and TASK-544 establishes actuation/reconciliation outcomes and is integrated by PR #758. This TASK owns only the semantic closure from qualified runtime observation to convergence, autonomy/coexistence and residual-cohort drainage.
 
 # Current behavior
 The repository preserves autonomous local runtime and failed-candidate/restart reconciliation behavior, but G2-WBS-14 does not yet provide a provider-neutral contract for effective convergence or for visibility/drainage of mixed-generation residual runtime cohorts.

@@ -1,7 +1,7 @@
 ---
 id: TASK-544
 title: Define deployment actuation outcome and ambiguous mutation reconciliation
-status: verification
+status: completed
 priority: 544
 milestone: G2
 model_tier: architecture
@@ -35,13 +35,13 @@ validation:
 Define provider-neutral deployment actuation outcome semantics that distinguish provider acknowledgement from effective truth and route ambiguous unsafe mutation through reconciliation before retry.
 
 # Context
-TASK-543 owns canonical deployment intent plus desired/observed/effective generation semantics and is integrated by PR #754. This TASK adds only the actuation-result and reconciliation seam required between canonical intent and later runtime-convergence evidence.
+TASK-543 owns canonical deployment intent plus desired/observed/effective generation semantics and is integrated by PR #754. TASK-544 was integrated by PR #758 after bounded semantic hardening that preserved independent observed/effective currentness and prevented obsolete-generation replay.
 
 # Current behavior
-The KEEP baseline can initiate local deployment/runtime work and retain durable deployment truth, but the generalized G2-WBS-14 contract does not yet express provider-neutral actuation outcomes or an explicit policy for ambiguous unsafe mutation.
+The KEEP baseline can initiate local deployment/runtime work and retain durable deployment truth, while the generalized G2-WBS-14 contract now expresses provider-neutral actuation outcomes and an explicit policy for ambiguous unsafe mutation.
 
 # Required change
-Add provider-neutral actuation outcome semantics that preserve applied/not-applied/partial/unknown distinctions, keep provider acknowledgement separate from effective runtime truth, preserve independent observed/effective currentness, and require reconciliation before retry when an unsafe mutation outcome is unknown. Qualified retry evidence must prove both current generations remain older than the still-current desired generation; evidence that a later generation is observed or effective must never authorize replay of an obsolete actuation.
+Completed by PR #758. Provider-neutral actuation outcome semantics preserve applied/not-applied/partial/unknown distinctions, keep provider acknowledgement separate from effective runtime truth, preserve independent observed/effective currentness, and require reconciliation before retry when an unsafe mutation outcome is unknown. Qualified retry evidence must prove both current generations remain older than the still-current desired generation; evidence that a later generation is observed or effective never authorizes replay of an obsolete actuation.
 
 # Inputs / contracts
 - canonical deployment intent and independent observed/effective generation/currentness semantics from TASK-543;
@@ -63,8 +63,8 @@ A revisioned deployment-actuation contract that records non-strengthening mutati
 # Non-goals
 Concrete providers, remote orchestration implementation, persistence, traffic management, runtime-core changes or Production Readiness.
 
-# Evidence expected
-Focused deterministic Product Proof for ambiguous actuation/reconciliation behavior plus exact-head repository validation; provider acknowledgement alone must never be accepted as effectiveness evidence.
+# Evidence
+PR #758 exact head `6af5158cb91f80ebf08c84d3552b2dc4238a5d11` passed Deterministic CI #1777 and Heavy Product Tests #1368/#1369. Merge Candidate CI #7 was green against the then-current main before merge. PR #758 merged as `6de7a01be4b073a231f001beb298a95bf5ecf64d`.
 
 # Escalation
-Return to Sprint Review rather than introducing provider-specific adapters, persistence, distributed topology/traffic ownership, runtime-core mutation or Production Readiness scope.
+Further semantics belong to TASK-545 or Sprint Review; do not introduce provider-specific adapters, persistence, distributed topology/traffic ownership, runtime-core mutation or Production Readiness scope here.
