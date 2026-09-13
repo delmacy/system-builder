@@ -3,14 +3,14 @@
 ## Milestone state
 `G2-WP-01..G2-WP-08` are CANONICALLY CLOSED. Pinned planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, `READY_FOR_WORKER_HANDOFF / PASS`.
 
-Fresh construction base: `main@9d69511b4b83e59ec9ec7b6a02fdaa622ad5d685` after TASK-536 integration by PR #731.
+Fresh construction base: `main@84e63a20f9dc8b11a59c3fb993351ebb2abcd47b` after TASK-537 integration by PR #733.
 
 ## Current gate
 Construction A / `G2-WBS-12` is materialized as `TASK-535 -> TASK-536 -> TASK-537 -> TASK-538`.
 
-TASK-535 and TASK-536 are INTEGRATED. TASK-537 is READY. TASK-538 remains predecessor-gated.
+TASK-535, TASK-536 and TASK-537 are INTEGRATED. TASK-538 is READY.
 
-Execute only TASK-537 and require its declared validations plus exact-head Deterministic CI, Heavy Product Tests and Automation Handoff before integration and successor promotion.
+Execute only TASK-538 as integrated Product Proof and require its declared validations plus exact-head Deterministic CI, Heavy Product Tests and Automation Handoff before integration. TASK-538 must not introduce new semantic ownership.
 
 ## Rolling-wave boundary
 G2-WBS-13 artifact/release and G2-WBS-14 deployment/runtime are not materialized. Construction B/C remain forecast only pending fresh-main Construction A Sprint Review evidence.
