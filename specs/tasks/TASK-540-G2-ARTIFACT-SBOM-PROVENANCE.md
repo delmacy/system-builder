@@ -4,6 +4,7 @@ title: Define artifact SBOM and provenance evidence qualification
 status: blocked
 priority: 540
 milestone: G2
+model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
