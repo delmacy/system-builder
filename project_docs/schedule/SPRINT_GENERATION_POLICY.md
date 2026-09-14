@@ -1,10 +1,15 @@
 # Sprint Generation Policy — rolling-wave + dependency safe
 
+Status: `CURRENT_AUTHORITY`
+Authority level: `planning-and-materialization-policy`
+Applies to: newly planned Work Packages and successor Sprint promotion
+Last reconciled: 2026-09-13
+
 ## Decision
 
 Do not close the whole project into detailed Sprints in advance. Keep the full baseline in WBS/Work Packages/DAG/milestones, maintain a short forecast horizon, and commit only the active Sprint.
 
-The default Work Package cadence is now:
+The default Work Package cadence is:
 
 `1 Planning Sprint -> 2 Construction Sprints -> optional 3rd Construction Sprint -> 1 Package Integration & Review Sprint -> 1 Documentation & Closure Sprint`
 
@@ -80,7 +85,9 @@ No new product behavior is introduced in Documentation & Closure. If documentati
 
 ## Construction Sprint sizing
 
-Construction Sprints should normally carry a bounded dependency-safe task set sized for reliable completion rather than an arbitrary quota. A common target remains roughly 10–15 TASKs when the decomposition naturally supports it, but the Sprint Goal and dependency graph are authoritative over task count.
+Construction Sprints must carry a bounded dependency-safe task set sized for reliable completion and coherent proof. **There is no numeric TASK quota or preferred count.** A Sprint with four semantically dense TASKs may be healthier than one with fifteen artificially fragmented TASKs.
+
+Size from the Sprint Goal, dependency graph, proof obligations, reviewability and bounded failure/recovery surface. Split work only when doing so creates a real independent semantic increment or reduces risk; do not inflate TASK count to satisfy an old planning target.
 
 ## Closing rule
 

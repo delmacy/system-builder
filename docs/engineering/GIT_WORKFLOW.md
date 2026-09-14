@@ -1,96 +1,115 @@
-# Git and GitHub Task Workflow
+# Git and GitHub Sprint Workflow
 
-## Purpose
+Status: `CURRENT_REFERENCE`
+Authority level: `engineering-reference`
+Applies to: Git/GitHub mechanics for current Sprint Mode
+Superseded process: legacy task-per-PR bootstrap workflow
+Last reconciled: 2026-09-13
 
-Move a bounded task from synchronized `main` to an auditable Pull Request without depending on an AI executor or provider. The harness invokes only Git and, for PR operations, the optional GitHub CLI.
+This document describes the Git/GitHub mechanics for the current repository development model. It is subordinate to `AGENTS.md`, `project_docs/schedule/SPRINT_GENERATION_POLICY.md`, `project_docs/schedule/SPRINT_MODE.md`, active Work Package/Sprint authority and committed TASK specifications.
 
-## Normal delivery sequence
+## Normal delivery unit
+
+The normal product delivery unit is the Sprint, not an individual TASK.
+
+```text
+fresh main
+  -> sprint/<SPRINT-ID>
+  -> committed TASKs in dependency order
+  -> one authoritative commit per TASK
+  -> repository-wide verification
+  -> one Sprint PR
+  -> exact-head CI/review
+  -> merge to main
+  -> fresh-main reconciliation
+```
+
+TASKs still remain bounded implementation units with their own scope, dependencies, path restrictions and validations. They do not normally receive independent branches/PRs inside Sprint Mode.
+
+## Start a Sprint branch
+
+Before product mutation:
+
+1. synchronize `main` without destructive recovery;
+2. confirm repository memory and active Sprint manifest are current;
+3. verify predecessor gates and committed TASK set;
+4. create/switch to the declared `sprint/<SPRINT-ID>` branch from the intended fresh-main base.
+
+Representative Git sequence:
 
 ```text
 git switch main
 git pull --ff-only origin main
-npm run task:next
-npm run task:branch -- TASK-ID
-npm run task:prepare -- TASK-ID
-[executor changes only allowed files]
-npm run task:status -- TASK-ID
-npm run task:verify -- TASK-ID
-npm run task:commit -- TASK-ID
-npm run task:push -- TASK-ID
-npm run task:pr -- TASK-ID
-[CI and human review]
-[merge without automatic force/rebase]
-git switch main
-git pull --ff-only origin main
-npm run task:close -- TASK-ID
+git switch -c sprint/<SPRINT-ID>
 ```
 
-`task:close` writes the completed task status, durable receipt and task ledger after confirming that the recorded PR was merged into synchronized `main`. These state changes require their own reviewed state-update commit/PR; the bootstrap intentionally does not commit directly on protected `main` or hide that second governance step.
+If the working tree is dirty, diverged or ambiguous, stop and inspect rather than resetting or deleting work merely to satisfy automation.
 
-## Commands and guarantees
+## TASK execution inside the Sprint
 
-### `task:branch`
+For each committed TASK, in dependency order:
 
-- requires a clean working tree, a ready/unblocked task and current branch `main`;
-- fetches `origin/main` and requires local/remote equality;
-- derives `task/NNN-title-slug`, refuses existing local/remote refs and never resets/overwrites;
-- writes ignored association metadata under `.agent/git/TASK-ID.json`.
+- read the TASK specification and all `context_paths`;
+- confirm `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validation commands;
+- implement only declared scope;
+- run TASK-declared validation;
+- correct bounded failures inside the same TASK scope;
+- create exactly one authoritative commit for that TASK when repository policy requires it.
 
-### `task:status`
+Preferred commit form:
 
-Read-only JSON containing task state, expected/current/associated branch, base/HEAD, clean/dirty state, ahead/behind, prepared/verified/committed/pushed flags and recorded PR.
+```text
+feat(TASK-NNN): <bounded outcome>
+```
 
-### `task:commit`
+The local executor `scripts/sprint-run-local.ps1` automates this loop with one disposable OpenCode session per committed TASK. A connected coding agent may execute elsewhere only if it obeys the same branch, TASK, validation and stop conditions.
 
-- runs only on the associated non-`main` branch;
-- requires a passing receipt tied to the unchanged Task Pack, task spec, base commit and content fingerprint;
-- rechecks the exact changed-file set and scans for known generated paths, credential files, private keys and common token formats;
-- stages only verified files and creates `TASK-ID: lower-case task title`;
-- never amends, rebases, resets or stages `.agent/context/**`.
+## Sprint completion
 
-### `task:push`
+After the final committed TASK:
 
-Pushes only the associated branch to `origin`, sets upstream when absent and verifies the resulting remote SHA. There is no force-push path.
+1. run repository-wide final validation (`npm run verify` unless stricter authority exists);
+2. reconcile required Sprint evidence/reports/documentation;
+3. push the Sprint branch without force;
+4. open one PR from `sprint/<SPRINT-ID>` to `main`;
+5. require the repository-defined exact-head GitHub checks;
+6. resolve review findings without broadening scope;
+7. merge only after the applicable Sprint Review/integration gate passes.
 
-### `task:pr`
+After merge, reconstruct fresh `main` before promoting or materializing successor work.
 
-Uses authenticated `gh` when available. It creates a PR from the task branch to `main` containing task metadata, objective, changed files, validation commands/results, base/head commits, evidence path, non-goals and escalation risks. If `gh` is missing or unauthenticated, it fails without changing Git history and prints the manual compare URL.
+## GitHub role
 
-## Task state vs delivery evidence
+GitHub is source/history plus objective CI/review evidence. GitHub Actions do not drive the normal OpenCode product executor.
 
-Public task states remain unchanged:
+Do not describe branch-only work as integrated. Distinguish at least:
 
-`draft -> ready -> running -> verification -> completed`
+```text
+IMPLEMENTED_ON_SPRINT_BRANCH
+CI_PASS
+MERGED
+```
 
-Git delivery stages are separate evidence:
+Only the integrated state on `main` is repository product truth.
 
-`prepared -> verified -> committed -> pushed -> PR opened -> merged`
+## Safety rules
 
-For tasks created through `task:branch`, closure requires the merged PR and synchronized `main`. Legacy tasks without Git association retain the TASK-001 local closure behavior for compatibility.
+- No autonomous direct product write to `main`.
+- No force push as normal recovery.
+- No `reset --hard`, `clean -fd` or destructive branch overwrite to manufacture a clean state.
+- No merge before required validations/review.
+- No successor Sprint promotion merely because it appears in forecast.
+- Re-fetch/reconcile `main` after every Sprint integration boundary.
+- Preserve one authoritative TASK commit when the active Sprint policy requires it.
 
-## Merge policy
+## Branch protection
 
-- No automatic merge is configured in this bootstrap.
-- `architecture` tasks always require human review.
-- `high` risk tasks always require human review.
-- Low-risk/free tasks may become eligible for a later policy, only through a separate accepted change.
-- Force pushes, branch deletion with unintegrated work and automatic rebase/reset recovery are outside the harness.
+Repository policy may treat `main` as protected semantically even when GitHub branch-protection settings are intentionally deferred. The absence of a server-side ruleset does not authorize bypassing PR/review/CI policy.
 
-## Recommended manual GitHub configuration
+## Legacy task harness
 
-Create a branch ruleset for `main`:
+The repository still contains the earlier `task:branch`, `task:prepare`, `task:verify`, `task:commit`, `task:push`, `task:pr`, `task:close`, `task:advance` and `task:run` harness lineage.
 
-1. require a Pull Request before merging;
-2. require at least one approval;
-3. require status check `validate` from workflow `Deterministic CI`;
-4. require conversation resolution;
-5. block force pushes and branch deletion;
-6. optionally require branches to be up to date before merge.
+That flow is retained for bootstrap compatibility, recovery/debugging and historical evidence where applicable. It is **not** the normal product-development workflow for newly planned Work Packages. Do not infer one-branch/one-PR-per-TASK behavior from legacy harness documentation when Sprint Mode authority is active.
 
-The repository does not configure branch protection through an API in this phase.
-
-## Recovery
-
-The harness does not run `reset --hard`, `clean -fd`, automatic rebase, branch overwrite/delete or force push. When status reports divergence or a dirty tree, inspect it and recover manually; do not delete work merely to satisfy the command.
-
-The optional `task:advance`/`task:run` layer composes this workflow and stops at CI/review/merge gates. After implementation merge it invokes `task:close` on fast-forwarded `main`, then delivers exactly the closure task spec, evidence and ledger through `state/TASK-ID-close`. State PRs also require human merge. See `docs/engineering/LOCAL_TASK_ORCHESTRATOR.md`.
+See `docs/engineering/LOCAL_TASK_ORCHESTRATOR.md` for the legacy orchestrator's bounded applicability.

@@ -1,8 +1,20 @@
 # Local Task Orchestrator v1
 
-## Purpose
+Status: `SUPERSEDED`
+Authority level: `legacy-engineering-reference`
+Applies to: legacy task-harness compatibility, recovery/debugging and historical bootstrap behavior
+Superseded by: `project_docs/schedule/SPRINT_MODE.md` + `scripts/sprint-run-local.ps1` for normal product development
+Last reconciled: 2026-09-13
 
-The Local Task Orchestrator automates mechanical transitions in the existing task lifecycle. It does not replace task scope checks, verification, Git guards, GitHub CI or human review.
+> **Do not use this document to select or authorize the normal product-development workflow.** Current product work uses Sprint Mode: one `sprint/<SPRINT-ID>` branch, multiple committed TASKs in dependency order, one authoritative commit per TASK, repository-wide Sprint verification and one Sprint PR. Read `AGENTS.md`, `project_docs/schedule/SPRINT_GENERATION_POLICY.md` and `project_docs/schedule/SPRINT_MODE.md` first.
+
+## Why this document remains
+
+The v1 Local Task Orchestrator is retained because the repository still contains task-harness code, evidence and recovery/debugging paths built around the earlier one-TASK delivery lifecycle. That historical mechanism remains useful when explicitly invoked for compatible legacy/bootstrap work, but it no longer defines the default delivery topology.
+
+## Historical purpose
+
+The orchestrator automated mechanical transitions in the earlier task lifecycle without replacing task scope checks, verification, Git guards, GitHub CI or human review.
 
 ```text
 task spec + observable repository/Git/GitHub facts
@@ -12,9 +24,9 @@ task spec + observable repository/Git/GitHub facts
   -> external/human gate or next safe transition
 ```
 
-The durable architecture and ownership decision is recorded in ADR-0008.
+The durable architecture/ownership decision for that mechanism is recorded in ADR-0008.
 
-## Commands
+## Historical commands
 
 ```text
 npm run task:advance -- TASK-ID
@@ -22,11 +34,9 @@ npm run task:run -- TASK-ID
 npm run task:run
 ```
 
-`task:advance` performs at most one action. `task:run` performs at most 32 immediately safe transitions and stops at a human gate, external wait, failure, blocker or completion. Without an ID, `task:run` uses the same safe priority/dependency selection as `task:next`.
+`task:advance` performed at most one state transition; `task:run` chained immediately safe transitions until a human/external gate, blocker or completion. These commands must not be interpreted as replacing the current Sprint executor.
 
-All existing manual commands remain supported and are the recovery/debugging path.
-
-## State machine
+## Historical state machine
 
 ```text
 READY -> BRANCHED -> PREPARED -> EXECUTING -> VERIFIED
@@ -36,62 +46,34 @@ READY -> BRANCHED -> PREPARED -> EXECUTING -> VERIFIED
  -> STATE_REVIEW_REQUIRED --human merge--> STATE_MERGED -> DONE
 ```
 
-Exceptional and authority gates:
+This topology predates the current Sprint branch / Sprint PR model. Do not copy its one-task delivery boundaries into a new Work Package.
 
-- `ARCHITECTURE_REVIEW_REQUIRED`: model tier is architecture, risk is high or architecture impact is true.
-- `EXECUTOR_REQUIRED`: no configured adapter may execute the task automatically.
-- `EXECUTOR_FAILED`: the executor failed before deterministic verification.
-- `VERIFY_FAILED`: `task:verify` rejected the implementation and bounded repair is available.
-- `BLOCKED`: three execution attempts were exhausted or a PR was closed without merge.
-- `CI_FAILED`: GitHub checks failed.
-- `REVIEW_CHANGES_REQUIRED`: a reviewer requested changes; v1 does not automatically interpret review authority.
+## Properties that remain useful as safety guidance
 
-## Resumability
+Even when using current Sprint Mode, the following safety lessons remain valid:
 
-Each invocation reconstructs delivery state from:
+- reconstruct state from repository/Git/GitHub facts rather than model memory;
+- verification evidence, not executor claims, establishes success;
+- retries/repair cannot enlarge TASK scope;
+- dirty/diverged Git state must stop for inspection rather than destructive reset;
+- no force push, hidden rebase/reset recovery or silent merge authority;
+- CI/review failures must be investigated and repaired rather than bypassed;
+- legacy state files cannot fabricate delivery progress.
 
-- the task specification and dependency catalog;
-- the deterministic branch association and refs;
-- Task Pack manifest and file;
-- changed paths and verification receipt;
-- recorded commit and remote push evidence;
-- live GitHub PR, checks, review and merge state;
-- durable closure evidence, completed task status and state-delivery record.
+## Current normal executor
 
-`.agent/orchestrator/TASK-ID.json` records only executor attempts and failure text, facts that cannot be reconstructed from Git. It cannot mark work verified, delivered, merged or closed. Deleting it loses retry history but cannot fabricate progress.
-
-After interruption, run `npm run task:status -- TASK-ID` for Git facts, then `npm run task:advance -- TASK-ID` to perform one controlled recovery step. A partially written implementation is treated as executor output and sent through `task:verify`; it is never committed merely because an attempt ran.
-
-## Executor ownership
-
-`ExecutorAdapter` exposes `canHandle`, `execute`, `repair` and `report`. The core is provider-neutral.
-
-The v1 OpenCode adapter invokes local non-interactive `opencode run --pure --format json --agent system-builder-bounded`, attaches the prepared Task Pack with `--file`, and sends deterministic constraints derived from task metadata. For each invocation it supplies an inline `OPENCODE_CONFIG_CONTENT` agent policy, supported by OpenCode 1.18.16, with deny-by-default shell/tool permissions. Edits are limited to task `allowed_paths`; external directories, web tools, subagents and skills are denied; only local Git inspection and the task's safe package-script validations are allowed. Git delivery and all `gh` commands are denied after the read allowlist, so denial does not depend on the prompt or interactive approval. `--auto` is never passed. OpenCode/provider credentials and model selection remain local:
+For current product development, use:
 
 ```text
-OPENCODE_EXECUTABLE=/path/to/opencode
-OPENCODE_MODEL=provider/model
+scripts/sprint-run-local.ps1 <SPRINT-ID> ...
 ```
 
-Only `free` or `cheap`, non-high-risk, non-architecture tasks whose executor preference allows OpenCode are eligible. Codex is not automated in v1.
+under the authority of the active Sprint manifest and committed TASK specifications. It executes one disposable OpenCode session per committed TASK, preserves one authoritative commit per TASK, performs Sprint closure and optionally opens the Sprint PR.
 
-## Verification and repair
+GitHub remains source/history plus objective CI. Hosted OpenCode execution is not the normal executor.
 
-`task:verify` remains the only success authority. On failure, the exact error is supplied to `repair` with the same task and Task Pack. The total execution/repair limit is three attempts. Scope, fingerprints and `max_files` are rechecked by the existing harness on every verification; repair cannot enlarge them.
+## Legacy/manual fallback
 
-## GitHub, review and merge
+If an explicitly compatible legacy/bootstrap path requires the old task harness, use `docs/engineering/GIT_WORKFLOW.md` only for current Git safety rules and inspect the relevant historical commit/ADR/task evidence before invoking task-harness commands.
 
-GitHub is observed once when state is inspected. Pending CI returns `CI_PENDING`; the command does not poll. Successful CI returns `REVIEW_REQUIRED` with the task, PR, commit, declared validations, risk, architecture impact and executor evidence in the JSON snapshot/journal.
-
-No implementation or state PR is auto-merged. After a human merges the implementation PR, a later run fast-forwards local `main`, invokes the existing `task:close`, creates `state/TASK-ID-close`, commits exactly the task spec, durable receipt and ledger, pushes without force and opens the state PR. After that PR is human-merged, another run fast-forwards `main` and returns `DONE`.
-
-## Troubleshooting and manual continuation
-
-- `OpenCode is unavailable`: install/configure it or set `OPENCODE_EXECUTABLE`; continue manually from the prepared Task Pack if desired.
-- `EXECUTOR_REQUIRED` or `ARCHITECTURE_REVIEW_REQUIRED`: use the executor/reviewer required by task metadata, then resume at `task:verify` or run the orchestrator again after implementation files exist.
-- `CI_FAILED`: inspect GitHub Actions; fix on the task branch using the declared scope, then run `task:verify` and the manual Git commands. V1 does not rewrite a committed delivery automatically.
-- `REVIEW_CHANGES_REQUIRED`: apply reviewed changes manually under the task contract; do not use automatic repair to reinterpret reviewer authority.
-- dirty/diverged Git state: stop and inspect. The orchestrator never resets, cleans, rebases, force-pushes or overwrites a branch.
-- lost ignored metadata: reconstruct or restore the checkout evidence manually before delivery. The orchestrator stops rather than inferring a write authority from ambiguous state.
-
-Manual fallback remains the sequence documented in `docs/engineering/GIT_WORKFLOW.md`.
+When legacy orchestration and current Sprint policy disagree, current Sprint policy wins. If a legacy tool cannot operate without violating current authority, stop rather than adapting policy around the tool.
