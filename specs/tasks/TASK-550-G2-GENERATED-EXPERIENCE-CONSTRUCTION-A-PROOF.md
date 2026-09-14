@@ -1,7 +1,7 @@
 ---
 id: TASK-550
 title: Prove generated experience Construction A semantics
-status: verification
+status: completed
 priority: 550
 milestone: G2
 model_tier: architecture
@@ -39,7 +39,7 @@ Close the first G2-WBS-15 Construction A Sprint with integrated Product Proof ac
 TASK-547..549 materialize the complete first G2-WBS-15 semantic slice: projection/currentness, visibility/authority/action separation, and unresolved-state/provenance lineage.
 
 # Current behavior
-The individual predecessor contracts are intended to be independently proven, but Construction A is not closed until their invariants are exercised together without creating a stronger generated source of truth.
+Construction A is integrated. TASK-550 Product Proof was merged through PR #780 after exact-head Deterministic CI and Heavy Product Tests plus current Merge Candidate CI.
 
 # Required change
 Add only deterministic integrated Product Proof that composes the already-owned TASK-547..549 semantics. Do not add new production contracts or semantic owners from this proof task.
