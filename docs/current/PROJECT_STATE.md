@@ -6,7 +6,7 @@ Date: 2026-09-14
 G2-WP-01..G2-WP-09 are CANONICALLY CLOSED. G2-WP-10 remains selected from the typed Work Package DAG under authority `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
 ## Current commitment horizon
-G2-WBS-15 Construction A (`TASK-547 -> TASK-548 -> TASK-549 -> TASK-550`) is integrated and accepted. G2-WBS-16 Construction B is materialized as `TASK-551 -> TASK-552 -> TASK-553 -> TASK-554`; only TASK-551 is READY.
+G2-WBS-15 Construction A (`TASK-547 -> TASK-548 -> TASK-549 -> TASK-550`) is integrated and accepted. G2-WBS-16 Construction B is materialized as `TASK-551 -> TASK-552 -> TASK-553 -> TASK-554`; TASK-551 is integrated and TASK-552 is now READY. TASK-553..554 remain blocked by explicit predecessors.
 
 ## Preserved truth
 Projection != canonical truth; visibility != authority != action eligibility; AI inference != authority. Source, candidate and canonical identity/revision/currentness remain distinct. Stale/PARTIAL/UNKNOWN/INCONCLUSIVE/CONFLICTED remain explicit and non-strengthening. Prompt/context/evidence/provider-binding provenance stays inspectable. Existing semantic, authority, data, workflow, provider and operability owners remain authoritative. Local/Station/Fleet qualification is preserved. Product Proof remains distinct from Production Readiness.

@@ -1,7 +1,7 @@
 ---
 id: TASK-552
 title: Define replaceable model provider binding qualification
-status: blocked
+status: ready
 priority: 552
 milestone: G2
 model_tier: architecture
@@ -35,10 +35,10 @@ validation:
 Define replaceable model/provider binding and qualification semantics without implementing or canonizing any concrete vendor.
 
 # Context
-G2-WBS-16 requires model/provider replaceability and qualification-aware use while preserving G2-WP-06 provider ownership and the non-authoritative character of AI inference.
+G2-WBS-16 requires model/provider replaceability and qualification-aware use while preserving G2-WP-06 provider ownership and the non-authoritative character of AI inference. TASK-551 is integrated on fresh `main` and provides the workspace/provenance predecessor contract.
 
 # Current behavior
-The materialized AI workspace may reference future model/provider execution, but there is no G2-WBS-16 binding contract that independently records binding identity/revision/currentness and qualification evidence without implying concrete provider support or authority.
+The integrated AI workspace can reference future model/provider execution, but there is no G2-WBS-16 binding contract that independently records binding identity/revision/currentness and qualification evidence without implying concrete provider support or authority.
 
 # Required change
 Add only provider-binding references, revision/currentness and qualification evidence required by the AI-mediated contract. A binding may describe eligibility to produce a candidate but must not imply provider support, authority or Production Readiness.
