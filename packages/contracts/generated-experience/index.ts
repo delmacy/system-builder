@@ -218,3 +218,81 @@ export function evaluateGeneratedExperienceActionSurface(
 
   return "ELIGIBLE";
 }
+
+export type GeneratedExperienceTruthState = "KNOWN" | "PARTIAL" | "UNKNOWN" | "INCONCLUSIVE" | "CONFLICTED";
+export type GeneratedExperienceEvidencePolarity = "AFFIRMS" | "NEGATES" | "CONTRADICTS" | "UNRESOLVED";
+
+export type GeneratedExperienceArtifactEvidenceRef = Readonly<{
+  evidenceRef: string;
+  evidenceRevisionRef: string;
+  sourceRef: string;
+  sourceRevisionRef: string;
+  polarity: GeneratedExperienceEvidencePolarity;
+}>;
+
+export type GeneratedExperienceArtifact = Readonly<{
+  artifactRef: string;
+  artifactRevisionRef: string;
+  generatedAt: string;
+  projectionRef: string;
+  projectionRevisionRef: string;
+  sourceRef: string;
+  sourceRevisionRef: string;
+  state: GeneratedExperienceTruthState;
+  currentness: GeneratedExperienceCurrentness;
+  evidence: readonly GeneratedExperienceArtifactEvidenceRef[];
+  predecessorArtifactRevisionRef: string | null;
+}>;
+
+export function generatedExperienceArtifactPreservesUnresolvedTruth(artifact: GeneratedExperienceArtifact): boolean {
+  const polarities = new Set(artifact.evidence.map((item) => item.polarity));
+  const hasConflict = polarities.has("CONTRADICTS") || (polarities.has("AFFIRMS") && polarities.has("NEGATES"));
+  const hasUnresolved = polarities.has("UNRESOLVED");
+  if (hasConflict && artifact.state !== "CONFLICTED") return false;
+  if (hasUnresolved && artifact.state === "KNOWN") return false;
+  return true;
+}
+
+export function generatedExperienceArtifactLineageIsComplete(artifact: GeneratedExperienceArtifact): boolean {
+  if (
+    !nonEmpty(artifact.artifactRef)
+    || !nonEmpty(artifact.artifactRevisionRef)
+    || !nonEmpty(artifact.projectionRef)
+    || !nonEmpty(artifact.projectionRevisionRef)
+    || !nonEmpty(artifact.sourceRef)
+    || !nonEmpty(artifact.sourceRevisionRef)
+    || !validTime(artifact.generatedAt)
+    || artifact.evidence.length === 0
+  ) return false;
+
+  return artifact.evidence.every((item) => nonEmpty(item.evidenceRef)
+    && nonEmpty(item.evidenceRevisionRef)
+    && nonEmpty(item.sourceRef)
+    && nonEmpty(item.sourceRevisionRef));
+}
+
+export function generatedExperienceArtifactIsBounded(artifact: GeneratedExperienceArtifact): boolean {
+  return generatedExperienceArtifactLineageIsComplete(artifact)
+    && generatedExperienceArtifactPreservesUnresolvedTruth(artifact);
+}
+
+export function generatedExperienceArtifactRegenerationPreservesHistory(
+  previous: GeneratedExperienceArtifact,
+  next: GeneratedExperienceArtifact,
+): boolean {
+  return generatedExperienceArtifactIsBounded(previous)
+    && generatedExperienceArtifactIsBounded(next)
+    && previous.artifactRef === next.artifactRef
+    && previous.artifactRevisionRef !== next.artifactRevisionRef
+    && next.predecessorArtifactRevisionRef === previous.artifactRevisionRef
+    && previous.projectionRef === next.projectionRef
+    && previous.sourceRef === next.sourceRef
+    && Date.parse(next.generatedAt) >= Date.parse(previous.generatedAt);
+}
+
+export function generatedExperienceArtifactAcceptanceEstablishesCanonicalTruth(
+  artifact: GeneratedExperienceArtifact,
+): false {
+  void artifact;
+  return false;
+}
