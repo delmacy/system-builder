@@ -1,7 +1,7 @@
 ---
 id: TASK-547
 title: Define generated experience projection identity and currentness semantics
-status: ready
+status: verification
 priority: 547
 milestone: G2
 model_tier: architecture
