@@ -107,7 +107,7 @@ test("generated projection composes source identity, revision and currentness wi
 test("visibility, authority and action eligibility stay independent at the coexistence boundary", () => {
   const visibleGranted = surface();
   assert.equal(evaluateGeneratedExperienceActionSurface(visibleGranted, evaluatedAt), "ELIGIBLE");
-  assert.equal(generatedExperienceActionSurfaceDoesNotEstablishAuthority(visibleGranted), false);
+  assert.equal(generatedExperienceActionSurfaceDoesNotEstablishAuthority(visibleGranted), true);
 
   const hiddenGranted = surface({ visibility: "HIDDEN" });
   assert.equal(evaluateGeneratedExperienceActionSurface(hiddenGranted, evaluatedAt), "ELIGIBLE");

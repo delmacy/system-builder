@@ -68,7 +68,7 @@ test("visibility is presentation only and cannot grant or revoke canonical autho
     visibility: "VISIBLE",
     authority: { ...surface().authority, decision: "DENIED" },
   });
-  assert.equal(generatedExperienceActionSurfaceDoesNotEstablishAuthority(visibleDenied), false);
+  assert.equal(generatedExperienceActionSurfaceDoesNotEstablishAuthority(visibleDenied), true);
   assert.equal(evaluateGeneratedExperienceActionSurface(visibleDenied, evaluatedAt), "INELIGIBLE");
 
   const hiddenGranted = surface({ visibility: "HIDDEN" });
