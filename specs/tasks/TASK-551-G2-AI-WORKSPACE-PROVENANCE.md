@@ -1,7 +1,7 @@
 ---
 id: TASK-551
 title: Establish AI workspace and provenance contracts
-status: ready
+status: completed
 priority: 551
 milestone: G2
 model_tier: architecture
