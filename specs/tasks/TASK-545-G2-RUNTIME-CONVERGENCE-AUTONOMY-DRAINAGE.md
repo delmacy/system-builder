@@ -1,7 +1,7 @@
 ---
 id: TASK-545
 title: Define runtime convergence autonomy coexistence and residual cohort drainage
-status: ready
+status: verification
 priority: 545
 milestone: G2
 model_tier: architecture
