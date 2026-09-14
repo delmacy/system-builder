@@ -4,7 +4,7 @@ import { reduceHandoffState, renderHandoffMarkdown, scheduledWorkerAfter } from 
 
 function baseState(overrides = {}) {
   return {
-    version: 3,
+    version: 4,
     next_worker: ":10",
     last_worker: null,
     claimed_by: null,
@@ -15,7 +15,7 @@ function baseState(overrides = {}) {
     active_pr: null,
     active_branch: null,
     active_head_sha: null,
-    checks: { deterministic: "pending", heavy: "pending" },
+    checks: { deterministic: "pending", heavy: "pending", merge_candidate: "pending" },
     last_event: "INIT",
     reason: null,
     ...overrides,
@@ -69,7 +69,7 @@ test("worker blocker is recorded without blocking later recurrences", () => {
   assert.equal(result.next.phase, "OBSERVING");
 });
 
-test("PR CI observation from any valid worker records exact-head evidence", () => {
+test("PR CI observation from any valid worker records complete managed-PR evidence", () => {
   const result = reduceHandoffState(baseState({ next_worker: ":10" }), {
     type: "PR_CI_STARTED",
     owner: ":50",
@@ -82,7 +82,28 @@ test("PR CI observation from any valid worker records exact-head evidence", () =
   assert.equal(result.next.last_worker, ":50");
   assert.equal(result.next.active_pr, 487);
   assert.equal(result.next.active_head_sha, "abc");
-  assert.deepEqual(result.next.checks, { deterministic: "pending", heavy: "pending" });
+  assert.deepEqual(result.next.checks, {
+    deterministic: "pending",
+    heavy: "pending",
+    merge_candidate: "pending",
+  });
+});
+
+test("required workflow results are ignored when no managed PR is active", () => {
+  const result = reduceHandoffState(baseState(), {
+    type: "CHECK_COMPLETED",
+    workflow: "Deterministic CI",
+    conclusion: "success",
+    head: "abc",
+    at: "2026-08-28T23:33:00.000Z",
+  });
+  assert.equal(result.accepted, false);
+  assert.equal(result.reason, "no active managed PR");
+  assert.deepEqual(result.next.checks, {
+    deterministic: "pending",
+    heavy: "pending",
+    merge_candidate: "pending",
+  });
 });
 
 test("required workflow failures are telemetry for repair, not queue locks", () => {
@@ -113,7 +134,7 @@ test("stale workflow results cannot overwrite exact-head telemetry", () => {
   assert.equal(result.next.checks.heavy, "pending");
 });
 
-test("successful exact-head checks clear prior CI failure telemetry", () => {
+test("successful required checks clear prior CI failure telemetry only after merge-candidate proof", () => {
   let state = baseState({ active_pr: 1, active_head_sha: "abc", reason: "CI_FAILED:Deterministic CI:failure" });
   state = reduceHandoffState(state, {
     type: "CHECK_COMPLETED",
@@ -129,11 +150,23 @@ test("successful exact-head checks clear prior CI failure telemetry", () => {
     head: "abc",
     at: "2026-08-28T23:37:00.000Z",
   }).next;
-  assert.deepEqual(state.checks, { deterministic: "success", heavy: "success" });
+  assert.equal(state.reason, "CI_FAILED:Deterministic CI:failure");
+  state = reduceHandoffState(state, {
+    type: "CHECK_COMPLETED",
+    workflow: "Merge Candidate CI",
+    conclusion: "success",
+    head: "abc",
+    at: "2026-08-28T23:38:00.000Z",
+  }).next;
+  assert.deepEqual(state.checks, {
+    deterministic: "success",
+    heavy: "success",
+    merge_candidate: "success",
+  });
   assert.equal(state.reason, null);
 });
 
-test("v2 state migrates to v3 without preserving a claim lock", () => {
+test("v2 state migrates to v4 and gains merge-candidate telemetry without preserving a claim lock", () => {
   const result = reduceHandoffState({
     version: 2,
     next_worker: ":30",
@@ -152,14 +185,18 @@ test("v2 state migrates to v3 without preserving a claim lock", () => {
     owner: ":50",
     at: "2026-08-28T23:41:00.000Z",
   });
-  assert.equal(result.next.version, 3);
+  assert.equal(result.next.version, 4);
   assert.equal(result.next.claimed_by, null);
   assert.equal(result.next.claim_until, null);
   assert.equal(result.next.phase, "OBSERVING");
+  assert.equal(result.next.checks.merge_candidate, "pending");
 });
 
-test("markdown states explicitly that state fields do not grant work authority", () => {
+test("markdown states that conditional telemetry does not grant work authority", () => {
   const markdown = renderHandoffMarkdown(baseState());
+  assert.match(markdown, /conditional recurring-worker telemetry only/);
   assert.match(markdown, /No state-machine field grants or denies permission to work/);
   assert.match(markdown, /next_worker is scheduling telemetry only/);
+  assert.match(markdown, /merge_candidate_ci: pending/);
+  assert.match(markdown, /active_pr\/head describe only explicitly managed recurring-worker PRs/);
 });
