@@ -1,14 +1,14 @@
-# Current Execution Milestone — Generation 2 / G2-WP-10 Construction A Sprint Review
+# Current Execution Milestone — Generation 2 / G2-WP-10 Construction B Planning & Materialization
 
 ## Milestone state
-Fresh-main authority revalidation selected G2-WP-10 from the typed dependency graph after G2-WP-01..G2-WP-09 canonical closure. G2-WBS-15 Construction A is now integrated through TASK-550.
+G2-WP-10 Construction A for G2-WBS-15 is integrated through TASK-550 and the fresh-main Construction A Sprint Review closed `PASS / CONSTRUCTION B REQUIRED`. The review found no bounded Construction A rework.
 
 ## Current gate
-Perform only the fresh-main Construction A Sprint Review over `TASK-547 -> TASK-548 -> TASK-549 -> TASK-550` and their integrated Product Proof.
+Perform only **G2-WP-10 Construction B Planning & Materialization** for `G2-WBS-16 — AGWS / AI-mediated generation and assistance` from fresh main and the exact current research authority.
 
-The review must verify projection/source separation, visibility/authority/action separation, uncertainty/conflict representation, generated artifact lineage, coexistence and residual findings. It may require bounded rework or, if clean and dependency-safe, materialize the next Construction slice. It must not use review as implementation overflow.
+The Planning & Materialization gate must derive the smallest dependency-safe TASK decomposition, dependencies, acceptance/proof obligations and allowed construction surfaces. It must not perform Construction B implementation as planning overflow.
 
 ## Preserved invariants
-Projection != source truth; visibility != authority != action eligibility; rendered/generated status cannot strengthen canonical status/currentness; stale/PARTIAL/UNKNOWN/INCONCLUSIVE/CONFLICTED remain explicit; generated artifacts retain source/evidence/revision lineage; Product Proof != Production Readiness.
+`AI inference/proposal != authority`; AI output remains candidate until governed owner/human disposition. Prompt/context/evidence provenance and currentness stay explicit. Summaries cannot erase negation, contradiction, uncertainty or unresolved critical coverage. Model/provider substitution requires qualification. Generated artifacts retain source/evidence/revision lineage. Hybrid versioned auditable EKB remains authoritative cross-cutting infrastructure. Product Proof != Production Readiness.
 
-G2-WBS-16 AI-mediated assistance, concrete AI/model providers, apps-wide redesign, persistence, runtime-core, WP-11+ and Production Readiness remain outside the current commitment horizon until separately materialized after review.
+Concrete AI/model providers, prompt-orchestration runtime mechanics, autonomous agent authority, apps-wide redesign, persistence/DB, runtime-core redesign, WP-11+ and Production Readiness remain outside the current commitment horizon unless the bounded Planning & Materialization gate explicitly materializes an allowed portion consistent with the research authority.
