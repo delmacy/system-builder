@@ -4,6 +4,10 @@ export type GeneratedExperienceEvidenceCompleteness = "KNOWN" | "PARTIAL" | "UNK
 export type GeneratedExperienceCurrentnessState = "CURRENT" | "STALE" | "UNKNOWN";
 export type GeneratedExperienceProjectionQualification = "CURRENT" | "PARTIAL" | "STALE" | "RECONCILE_BEFORE_RETRY" | "INVALID";
 export type GeneratedExperienceLocalityScope = "LOCAL" | "STATION" | "FLEET";
+export type GeneratedExperienceVisibility = "VISIBLE" | "HIDDEN";
+export type GeneratedExperienceAuthorityDecision = "GRANTED" | "DENIED" | "CONFLICTED" | "UNKNOWN" | "INCONCLUSIVE";
+export type GeneratedExperienceDomainEligibility = "ELIGIBLE" | "INELIGIBLE" | "UNKNOWN" | "INCONCLUSIVE";
+export type GeneratedExperienceActionQualification = "ELIGIBLE" | "INELIGIBLE" | "RECONCILE_BEFORE_RETRY" | "INVALID";
 
 export type GeneratedExperienceCurrentness = Readonly<{
   state: GeneratedExperienceCurrentnessState;
@@ -41,6 +45,30 @@ export type GeneratedExperienceProjection = Readonly<{
   lineage: GeneratedExperienceProjectionLineage;
 }>;
 
+export type GeneratedExperienceAuthorityEvidence = Readonly<{
+  authorityRef: string;
+  authorityRevisionRef: string;
+  decision: GeneratedExperienceAuthorityDecision;
+  currentness: GeneratedExperienceCurrentness;
+}>;
+
+export type GeneratedExperienceDomainActionEvidence = Readonly<{
+  actionContractRef: string;
+  actionContractRevisionRef: string;
+  effectRef: string;
+  eligibility: GeneratedExperienceDomainEligibility;
+  currentness: GeneratedExperienceCurrentness;
+}>;
+
+export type GeneratedExperienceActionSurface = Readonly<{
+  projection: GeneratedExperienceProjection;
+  actionSurfaceRef: string;
+  visibility: GeneratedExperienceVisibility;
+  authority: GeneratedExperienceAuthorityEvidence;
+  domainAction: GeneratedExperienceDomainActionEvidence;
+  presentedCompleteness: GeneratedExperienceEvidenceCompleteness;
+}>;
+
 const nonEmpty = (value: string): boolean => value.trim().length > 0;
 const validTime = (value: string): boolean => Number.isFinite(Date.parse(value));
 
@@ -53,6 +81,22 @@ function currentAt(currentness: GeneratedExperienceCurrentness, evaluatedAt: str
 function sameLocality(left: GeneratedExperienceLocality | null, right: GeneratedExperienceLocality | null): boolean {
   if (left === null || right === null) return left === right;
   return left.scope === right.scope && left.scopeRef === right.scopeRef && nonEmpty(left.scopeRef);
+}
+
+function completenessDoesNotStrengthen(
+  source: GeneratedExperienceEvidenceCompleteness,
+  presented: GeneratedExperienceEvidenceCompleteness,
+): boolean {
+  switch (source) {
+    case "KNOWN":
+      return true;
+    case "PARTIAL":
+      return presented !== "KNOWN";
+    case "UNKNOWN":
+      return presented === "UNKNOWN";
+    case "INCONCLUSIVE":
+      return presented === "INCONCLUSIVE" || presented === "UNKNOWN";
+  }
 }
 
 export function generatedExperienceProjectionIdentityIsDistinct(projection: GeneratedExperienceProjection): boolean {
@@ -69,16 +113,7 @@ export function generatedExperienceProjectionPreservesLocality(projection: Gener
 }
 
 export function generatedExperienceProjectionDoesNotStrengthenSource(projection: GeneratedExperienceProjection): boolean {
-  switch (projection.source.completeness) {
-    case "KNOWN":
-      return true;
-    case "PARTIAL":
-      return projection.completeness !== "KNOWN";
-    case "UNKNOWN":
-      return projection.completeness === "UNKNOWN";
-    case "INCONCLUSIVE":
-      return projection.completeness === "INCONCLUSIVE" || projection.completeness === "UNKNOWN";
-  }
+  return completenessDoesNotStrengthen(projection.source.completeness, projection.completeness);
 }
 
 export function evaluateGeneratedExperienceProjection(
@@ -137,4 +172,49 @@ export function generatedExperienceRegenerationPreservesLineage(
 export function generatedExperienceProjectionEstablishesCanonicalTruth(projection: GeneratedExperienceProjection): false {
   void projection;
   return false;
+}
+
+export function generatedExperienceActionSurfaceDoesNotEstablishAuthority(surface: GeneratedExperienceActionSurface): false {
+  void surface;
+  return false;
+}
+
+export function generatedExperienceActionSurfaceDoesNotStrengthenStatus(surface: GeneratedExperienceActionSurface): boolean {
+  return generatedExperienceProjectionDoesNotStrengthenSource(surface.projection)
+    && completenessDoesNotStrengthen(surface.projection.completeness, surface.presentedCompleteness);
+}
+
+export function evaluateGeneratedExperienceActionSurface(
+  surface: GeneratedExperienceActionSurface,
+  evaluatedAt: string,
+): GeneratedExperienceActionQualification {
+  if (
+    !nonEmpty(surface.actionSurfaceRef)
+    || !nonEmpty(surface.authority.authorityRef)
+    || !nonEmpty(surface.authority.authorityRevisionRef)
+    || !nonEmpty(surface.domainAction.actionContractRef)
+    || !nonEmpty(surface.domainAction.actionContractRevisionRef)
+    || !nonEmpty(surface.domainAction.effectRef)
+    || !generatedExperienceActionSurfaceDoesNotStrengthenStatus(surface)
+  ) return "INVALID";
+
+  const projectionQualification = evaluateGeneratedExperienceProjection(surface.projection, evaluatedAt);
+  if (projectionQualification === "INVALID") return "INVALID";
+  if (projectionQualification === "STALE" || projectionQualification === "RECONCILE_BEFORE_RETRY") return "RECONCILE_BEFORE_RETRY";
+
+  if (
+    surface.authority.decision === "CONFLICTED"
+    || surface.authority.decision === "UNKNOWN"
+    || surface.authority.decision === "INCONCLUSIVE"
+    || surface.domainAction.eligibility === "UNKNOWN"
+    || surface.domainAction.eligibility === "INCONCLUSIVE"
+  ) return "RECONCILE_BEFORE_RETRY";
+
+  if (!currentAt(surface.authority.currentness, evaluatedAt) || !currentAt(surface.domainAction.currentness, evaluatedAt)) {
+    return "RECONCILE_BEFORE_RETRY";
+  }
+
+  if (surface.authority.decision === "DENIED" || surface.domainAction.eligibility === "INELIGIBLE") return "INELIGIBLE";
+
+  return "ELIGIBLE";
 }
