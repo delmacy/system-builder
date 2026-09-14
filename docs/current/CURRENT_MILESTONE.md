@@ -1,14 +1,14 @@
-# Current Execution Milestone — Generation 2 / G2-WP-10 Construction A Sprint Review
+# Current Execution Milestone — Generation 2 / G2-WP-10 Construction B Planning & Materialization
 
 ## Milestone state
-Fresh-main authority revalidation selected G2-WP-10 from the typed dependency graph after G2-WP-01..G2-WP-09 canonical closure. G2-WBS-15 Construction A is now integrated through TASK-550.
+G2-WBS-15 Construction A is integrated and accepted after fresh-main Sprint Review and bounded repair of the TASK-548 authority invariant. G2-WP-10 remains the active package.
 
 ## Current gate
-Perform only the fresh-main Construction A Sprint Review over `TASK-547 -> TASK-548 -> TASK-549 -> TASK-550` and their integrated Product Proof.
+Perform only **Construction B Planning & Materialization for G2-WBS-16** from fresh `main` and the exact current Generation 2 planning authority. Materialize a dependency-ordered Construction B Sprint only if the typed DAG, owner/revision/currentness rules and Work Package Design still agree.
 
-The review must verify projection/source separation, visibility/authority/action separation, uncertainty/conflict representation, generated artifact lineage, coexistence and residual findings. It may require bounded rework or, if clean and dependency-safe, materialize the next Construction slice. It must not use review as implementation overflow.
+Planning must preserve AI inference as non-authoritative candidate evidence until governed human/owner disposition. It must keep model/provider binding replaceable and qualification-aware, preserve prompt/context/evidence provenance, keep uncertainty/conflict explicit, and preserve Local/Station/Fleet plus existing semantic/authority owners.
 
-## Preserved invariants
-Projection != source truth; visibility != authority != action eligibility; rendered/generated status cannot strengthen canonical status/currentness; stale/PARTIAL/UNKNOWN/INCONCLUSIVE/CONFLICTED remain explicit; generated artifacts retain source/evidence/revision lineage; Product Proof != Production Readiness.
+## Boundary
+Do not implement concrete vendor SDKs/providers, autonomous-agent authority, persistence/DB, runtime-core, apps-wide redesign, WP-11+, Production Readiness or DEFER/DO_NOT_BUILD findings unless separately materialized by repository authority.
 
-G2-WBS-16 AI-mediated assistance, concrete AI/model providers, apps-wide redesign, persistence, runtime-core, WP-11+ and Production Readiness remain outside the current commitment horizon until separately materialized after review.
+No Construction B TASK is READY until this Planning & Materialization gate is integrated.
