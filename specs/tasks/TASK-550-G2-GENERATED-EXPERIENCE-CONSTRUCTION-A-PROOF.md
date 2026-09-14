@@ -1,7 +1,7 @@
 ---
 id: TASK-550
 title: Prove generated experience Construction A semantics
-status: verification
+status: completed
 priority: 550
 milestone: G2
 model_tier: architecture
