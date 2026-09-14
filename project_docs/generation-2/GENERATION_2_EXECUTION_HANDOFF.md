@@ -11,7 +11,7 @@ G2-WP-10 — Generated Experience & AI-Mediated Assistance — is dependency-saf
 ## Current chain
 `TASK-547 -> TASK-548 -> TASK-549 -> TASK-550`.
 
-TASK-547 and TASK-548 are integrated. TASK-549 is READY. TASK-550 remains blocked by its explicit predecessor. Preserve one authoritative commit per TASK when required and revalidate fresh main/gates before promotion.
+TASK-547, TASK-548 and TASK-549 are integrated. TASK-550 is READY as the integrated Product Proof closure for Construction A. Preserve one authoritative commit per TASK when required and revalidate fresh main/gates before promotion.
 
 ## Semantic boundary
 Projection != canonical truth. Visibility != authority != action eligibility. Source and projection identity/revision/currentness remain distinct. Stale/PARTIAL/UNKNOWN/INCONCLUSIVE/CONFLICTED remain visible and non-strengthening. Generated artifacts preserve source/evidence/revision lineage. Existing semantic, identity/authorization, data, workflow, provider and operability owners remain authoritative.
