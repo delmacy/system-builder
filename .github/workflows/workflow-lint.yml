@@ -51,9 +51,17 @@ jobs:
           set -euo pipefail
           if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
             git fetch --no-tags origin "$BASE_SHA"
-            mapfile -t files < <(git diff --name-only "$BASE_SHA...HEAD" -- '.github/workflows/*.yml' '.github/workflows/*.yaml')
+            mapfile -t changed < <(git diff --name-only "$BASE_SHA...HEAD" -- '.github/workflows/*.yml' '.github/workflows/*.yaml')
+            files=()
+            for file in "${changed[@]}"; do
+              if [ -f "$file" ]; then
+                files+=("$file")
+              else
+                echo "Skipping deleted workflow: $file"
+              fi
+            done
             if [ "${#files[@]}" -eq 0 ]; then
-              echo "No workflow files changed."
+              echo "No existing changed workflow files to lint."
               exit 0
             fi
             printf 'Linting %s\n' "${files[@]}"

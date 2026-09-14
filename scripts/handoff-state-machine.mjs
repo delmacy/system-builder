@@ -2,13 +2,19 @@
 import { appendFileSync, readFileSync, writeFileSync } from "node:fs";
 import { argv, stdout } from "node:process";
 
-export const REQUIRED_CHECKS = ["Deterministic CI", "Heavy Product Tests"];
+export const REQUIRED_CHECKS = ["Deterministic CI", "Heavy Product Tests", "Merge Candidate CI"];
 export const WORKER_SLOTS = [
   { worker: ":10", minute: 10 },
   { worker: ":30", minute: 30 },
   { worker: ":50", minute: 50 },
 ];
 export const WORKERS = WORKER_SLOTS.map(({ worker }) => worker);
+
+const CHECK_KEYS = {
+  "Deterministic CI": "deterministic",
+  "Heavy Product Tests": "heavy",
+  "Merge Candidate CI": "merge_candidate",
+};
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -44,7 +50,7 @@ function normalizeOptionalWorker(worker) {
 
 function normalize(state) {
   const next = clone(state);
-  next.version = 3;
+  next.version = 4;
   next.next_worker = normalizeWorker(next.next_worker ?? state.owner ?? ":10");
   next.last_worker = normalizeOptionalWorker(next.last_worker ?? state.claimed_by ?? state.owner ?? null);
   next.claimed_by = null;
@@ -55,7 +61,12 @@ function normalize(state) {
   next.active_pr ??= null;
   next.active_branch ??= null;
   next.active_head_sha ??= null;
-  next.checks ??= { deterministic: "pending", heavy: "pending" };
+  const checks = next.checks ?? {};
+  next.checks = {
+    deterministic: checks.deterministic ?? "pending",
+    heavy: checks.heavy ?? "pending",
+    merge_candidate: checks.merge_candidate ?? "pending",
+  };
   next.reason ??= null;
   next.last_event ??= null;
   return syncLegacy(next);
@@ -88,8 +99,19 @@ function validWorkerEvent(state, event) {
   return null;
 }
 
+function allChecksSuccessful(checks) {
+  return Object.values(checks).every((status) => status === "success");
+}
+
+function firstFailedWorkflow(checks) {
+  for (const workflow of REQUIRED_CHECKS) {
+    if (checks[CHECK_KEYS[workflow]] === "failure") return workflow;
+  }
+  return null;
+}
+
 export function reduceHandoffState(rawState, event) {
-  if (!rawState || ![1, 2, 3].includes(rawState.version)) throw new Error("Unsupported handoff state version");
+  if (!rawState || ![1, 2, 3, 4].includes(rawState.version)) throw new Error("Unsupported handoff state version");
   if (!event || typeof event.type !== "string") throw new Error("Event type is required");
   const state = normalize(rawState);
 
@@ -126,7 +148,7 @@ export function reduceHandoffState(rawState, event) {
         next.active_pr = event.pr;
         next.active_branch = event.branch;
         next.active_head_sha = event.head;
-        next.checks = { deterministic: "pending", heavy: "pending" };
+        next.checks = { deterministic: "pending", heavy: "pending", merge_candidate: "pending" };
         next.reason = null;
         next.next_worker = scheduledWorkerAfter(event);
         return next;
@@ -137,15 +159,19 @@ export function reduceHandoffState(rawState, event) {
       if (!REQUIRED_CHECKS.includes(event.workflow)) {
         return ignored(state, "workflow is not a required handoff check");
       }
-      if (state.active_head_sha && state.active_head_sha !== event.head) {
+      if (!state.active_head_sha) {
+        return ignored(state, "no active managed PR");
+      }
+      if (state.active_head_sha !== event.head) {
         return ignored(state, "stale or unrelated check completion");
       }
       return accepted(state, event, (next) => {
-        const key = event.workflow === "Deterministic CI" ? "deterministic" : "heavy";
+        const key = CHECK_KEYS[event.workflow];
         next.checks[key] = event.conclusion === "success" ? "success" : "failure";
-        if (next.checks.deterministic === "failure" || next.checks.heavy === "failure") {
-          next.reason = `CI_FAILED:${event.workflow}:${event.conclusion ?? "unknown"}`;
-        } else if (next.checks.deterministic === "success" && next.checks.heavy === "success") {
+        const failedWorkflow = firstFailedWorkflow(next.checks);
+        if (failedWorkflow) {
+          next.reason = `CI_FAILED:${failedWorkflow}:failure`;
+        } else if (allChecksSuccessful(next.checks)) {
           next.reason = null;
         }
         return next;
@@ -158,7 +184,7 @@ export function reduceHandoffState(rawState, event) {
         next.active_pr = null;
         next.active_branch = null;
         next.active_head_sha = null;
-        next.checks = { deterministic: "pending", heavy: "pending" };
+        next.checks = { deterministic: "pending", heavy: "pending", merge_candidate: "pending" };
         next.reason = event.merged ? null : "ACTIVE_PR_CLOSED_UNMERGED";
         return next;
       });
@@ -187,10 +213,11 @@ export function renderHandoffMarkdown(state) {
     `active_head_sha: ${s.active_head_sha ?? "null"}\n` +
     `deterministic_ci: ${s.checks.deterministic}\n` +
     `heavy_product_tests: ${s.checks.heavy}\n` +
+    `merge_candidate_ci: ${s.checks.merge_candidate}\n` +
     `last_event: ${s.last_event ?? "null"}\n` +
     `reason: ${s.reason ?? "null"}\n\n` +
     `## Authority\n\n` +
-    `No state-machine field grants or denies permission to work. next_worker is scheduling telemetry only. Each recurring worker decides whether to mutate by revalidating live GitHub Actions, the exact PR/head, the latest materialized TASK and its required workflow evidence.\n`;
+    `This state machine is conditional recurring-worker telemetry only. No state-machine field grants or denies permission to work. next_worker is scheduling telemetry only. active_pr/head describe only explicitly managed recurring-worker PRs, not normal local-first Sprint PRs. Each enabled recurring worker must revalidate live GitHub Actions, the exact PR/head, the latest materialized TASK and its required workflow evidence before mutation.\n`;
 }
 
 export function renderEventLine(result, event) {
