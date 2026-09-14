@@ -6,7 +6,7 @@ Date: 2026-09-14
 G2-WP-01..G2-WP-09 are CANONICALLY CLOSED. G2-WP-10 remains selected from the typed Work Package DAG under authority `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
 ## Current commitment horizon
-G2-WBS-15 Construction A (`TASK-547 -> TASK-548 -> TASK-549 -> TASK-550`) is integrated and accepted. G2-WBS-16 Construction B is materialized as `TASK-551 -> TASK-552 -> TASK-553 -> TASK-554`; only TASK-551 is READY.
+G2-WBS-15 Construction A (`TASK-547 -> TASK-548 -> TASK-549 -> TASK-550`) is integrated and accepted. G2-WBS-16 Construction B is materialized as `TASK-551 -> TASK-552 -> TASK-553 -> TASK-554`; TASK-551 is integrated and only TASK-552 is READY.
 
 ## Preserved truth
 Projection != canonical truth; visibility != authority != action eligibility; AI inference != authority. Source, candidate and canonical identity/revision/currentness remain distinct. Stale/PARTIAL/UNKNOWN/INCONCLUSIVE/CONFLICTED remain explicit and non-strengthening. Prompt/context/evidence/provider-binding provenance stays inspectable. Existing semantic, authority, data, workflow, provider and operability owners remain authoritative. Local/Station/Fleet qualification is preserved. Product Proof remains distinct from Production Readiness.
@@ -15,4 +15,4 @@ Projection != canonical truth; visibility != authority != action eligibility; AI
 The materialized slice covers AI gateway/workspace contracts, replaceable model/provider binding and qualification references, prompt/context/evidence provenance, candidate generation, governed human/canonical-owner disposition and integrated Product Proof. Concrete vendor SDKs/providers/adapters, autonomous-agent authority, direct side effects, persistence/DB, runtime-core, apps-wide redesign, WP-11+, Production Readiness and unmaterialized DEFER/DO_NOT_BUILD findings remain excluded.
 
 ## CI evidence truth
-Deterministic CI and Heavy Product Tests prove the exact PR head. Merge Candidate CI separately proves the current GitHub synthetic merge revision against current `main`; a `main` advance stales prior merge-candidate proof. Workflow changes require Workflow Lint, and `npm run verify` includes `check:docs`.
+TASK-551 exact head `b6764bc79f0018555c74cf3416e1010a384a0184` passed Deterministic CI #1829 and Heavy Product Tests #1438/#1439; Merge Candidate CI #59 passed against then-current `main@d69a157445792151e5c8f323f09e1b2823f6054a`. TASK-551 integrated as `main@30c43dd9890822c76107319210f0aed9c87b89b7`. Deterministic CI and Heavy Product Tests prove the exact PR head. Merge Candidate CI separately proves the current GitHub synthetic merge revision against current `main`; a `main` advance stales prior merge-candidate proof. Workflow changes require Workflow Lint, and `npm run verify` includes `check:docs`.
