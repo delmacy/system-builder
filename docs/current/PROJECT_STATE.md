@@ -2,13 +2,13 @@
 
 Date: 2026-09-14
 
-## Generation 2 — EXECUTION AUTHORIZED / G2-WP-09 CONSTRUCTION C ACTIVE
+## Generation 2 — EXECUTION AUTHORIZED / G2-WP-09 PACKAGE REVIEW NEXT
 G2-WP-01..G2-WP-08 are CANONICALLY CLOSED. Pinned authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, READY_FOR_WORKER_HANDOFF / PASS.
 
 ## G2-WP-09
-G2-WP-09 owns G2-WBS-12, G2-WBS-13 and G2-WBS-14. Construction A / G2-WBS-12 is integrated and PASS. Construction B / G2-WBS-13 is integrated as TASK-539..542 and fresh-main Sprint Review PR #752 decided `PASS / CONSTRUCTION C REQUIRED` with no bounded Construction B rework.
+G2-WP-09 owns G2-WBS-12, G2-WBS-13 and G2-WBS-14. Construction A / G2-WBS-12 is integrated and PASS. Construction B / G2-WBS-13 is integrated and PASS. Construction C first G2-WBS-14 Sprint `TASK-543 -> TASK-544 -> TASK-545 -> TASK-546` is integrated; TASK-546 merged by PR #764 on fresh `main@50ff0dd8d00a37fceed73a21954cdb0f0edf62df`.
 
-Construction C first G2-WBS-14 Sprint is materialized as `TASK-543 -> TASK-544 -> TASK-545 -> TASK-546`. TASK-543 is integrated by PR #754 after bounded semantic repair separating observed and effective currentness. TASK-544 is integrated by PR #758 after exact-head and merge-candidate proof. TASK-545 is integrated by PR #761 after bounded semantic repair requiring explicit prior generation and directionally valid roll-forward/rollback coexistence. TASK-546 is now the only dependency-safe READY successor.
+Construction C Sprint Review decision is `PASS / PACKAGE INTEGRATION & REVIEW REQUIRED`: no bounded Construction C rework is identified, and no additional Construction C Sprint is materialized by this review. The next dependency-safe gate is G2-WP-09 Package Integration & Review.
 
 ## Preserved truth
 Declared/resolved/fetched dependencies remain distinct; build success != reproducibility; build output != canonical artifact != release != deployment != observed runtime != effective/converged runtime. Signature != trust/admission; provider acknowledgement != authority/currentness/effective truth. Canonical identity, revision, provenance, desired/observed/effective generation, locality/currentness and source-of-truth remain explicit. PARTIAL/UNKNOWN/INCONCLUSIVE remain non-strengthening; unsafe mutating UNKNOWN routes to reconcile-before-retry where applicable. Coexistence and residual release/runtime cohorts remain visible until qualified drainage/disposition. Product Proof remains distinct from Production Readiness.
