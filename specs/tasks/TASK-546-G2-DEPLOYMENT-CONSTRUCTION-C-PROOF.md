@@ -1,7 +1,7 @@
 ---
 id: TASK-546
 title: Prove integrated G2-WBS-14 Construction C deployment runtime semantics
-status: ready
+status: verification
 priority: 546
 milestone: G2
 model_tier: architecture
@@ -39,7 +39,7 @@ Close the first G2-WBS-14 Construction C Sprint with integrated Product Proof ac
 TASK-543..545 provide the complete materialized Construction C semantic slice: deployment generation/currentness, ambiguous actuation reconciliation, and runtime convergence/autonomy/residual drainage. This TASK is proof-only.
 
 # Current behavior
-Before TASK-543..545 execute, no integrated Product Proof demonstrates the full G2-WBS-14 semantic chain while preserving release/deployment/runtime separation and the Production Readiness boundary.
+TASK-543..545 are integrated. This TASK now supplies the integrated Product Proof for their already-owned semantics while preserving release/deployment/runtime separation and the Production Readiness boundary.
 
 # Required change
 Add only the deterministic integrated proof necessary to exercise the already-owned TASK-543..545 semantics together; do not add contracts, providers, persistence or new semantic owners.
@@ -67,6 +67,9 @@ New contracts, providers, persistence, DB/runtime realization, apps/UI, Producti
 
 # Evidence expected
 Deterministic integrated Product Proof plus exact-head repository validation, explicitly separated from Production Readiness evidence.
+
+# Verification state
+Integrated proof added at `tests/product/g2-deployment-construction-c-proof.test.ts`. Closure remains gated on exact-head validation, current merge-candidate validation and Sprint Review; no Production Readiness evidence is claimed here.
 
 # Escalation
 Return to Sprint Review for any missing semantic owner; do not expand this proof TASK into implementation, provider realization, persistence or WP-10+ scope.
