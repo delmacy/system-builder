@@ -174,9 +174,9 @@ export function generatedExperienceProjectionEstablishesCanonicalTruth(projectio
   return false;
 }
 
-export function generatedExperienceActionSurfaceDoesNotEstablishAuthority(surface: GeneratedExperienceActionSurface): false {
+export function generatedExperienceActionSurfaceDoesNotEstablishAuthority(surface: GeneratedExperienceActionSurface): true {
   void surface;
-  return false;
+  return true;
 }
 
 export function generatedExperienceActionSurfaceDoesNotStrengthenStatus(surface: GeneratedExperienceActionSurface): boolean {
