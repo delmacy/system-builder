@@ -1,7 +1,7 @@
 ---
 id: TASK-548
 title: Separate generated visibility from authority and action eligibility
-status: blocked
+status: ready
 priority: 548
 milestone: G2
 model_tier: architecture

@@ -1,6 +1,6 @@
 # Generation 2 — Execution Handoff
 
-Status: EXECUTION AUTHORIZED / G2-WP-01..G2-WP-09 CLOSED / G2-WP-10 CONSTRUCTION A MATERIALIZED
+Status: EXECUTION AUTHORIZED / G2-WP-01..G2-WP-09 CLOSED / G2-WP-10 CONSTRUCTION A ACTIVE
 Date: 2026-09-14
 Authority: `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`
 Planning base: `main@7785ea0620fa33d9c85b4dc5f33d5700a8e11897`
@@ -11,7 +11,7 @@ G2-WP-10 — Generated Experience & AI-Mediated Assistance — is dependency-saf
 ## Current chain
 `TASK-547 -> TASK-548 -> TASK-549 -> TASK-550`.
 
-TASK-547 is READY. TASK-548..550 are blocked by explicit predecessors. Preserve one authoritative commit per TASK when required and revalidate fresh main/gates before promotion.
+TASK-547 is integrated. TASK-548 is READY. TASK-549..550 are blocked by explicit predecessors. Preserve one authoritative commit per TASK when required and revalidate fresh main/gates before promotion.
 
 ## Semantic boundary
 Projection != canonical truth. Visibility != authority != action eligibility. Source and projection identity/revision/currentness remain distinct. Stale/PARTIAL/UNKNOWN/INCONCLUSIVE/CONFLICTED remain visible and non-strengthening. Generated artifacts preserve source/evidence/revision lineage. Existing semantic, identity/authorization, data, workflow, provider and operability owners remain authoritative.
