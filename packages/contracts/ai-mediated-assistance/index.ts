@@ -1,9 +1,11 @@
 import { createHash } from "node:crypto";
+import { normalizeProviderBindingQualification, type ProviderBindingQualification } from "../provider/qualification.js";
 
 export type AiMediatedCurrentness = "CURRENT" | "STALE" | "UNKNOWN" | "INCONCLUSIVE";
 export type AiMediatedCompleteness = "KNOWN" | "PARTIAL" | "UNKNOWN" | "INCONCLUSIVE" | "CONFLICTED";
 export type AiMediatedLocalityScope = "LOCAL" | "STATION" | "FLEET";
 export type AiMediatedProvenanceKind = "PROMPT" | "CONTEXT" | "EVIDENCE";
+export type AiMediatedBindingEligibility = "ELIGIBLE" | "DEGRADED" | "RECONCILE_BEFORE_RETRY" | "INELIGIBLE";
 
 export interface AiMediatedLocality {
   readonly scope: AiMediatedLocalityScope;
@@ -40,6 +42,15 @@ export interface AiMediatedWorkspaceSnapshot {
   readonly identity: AiMediatedWorkspaceIdentity;
   readonly provenance: readonly AiMediatedProvenanceRef[];
   readonly candidateLineage: AiMediatedCandidateLineage;
+}
+
+export interface AiMediatedProviderBinding {
+  readonly bindingRef: string;
+  readonly bindingRevisionRef: string;
+  readonly modelRef: string;
+  readonly modelRevisionRef: string;
+  readonly currentness: AiMediatedCurrentness;
+  readonly qualification: ProviderBindingQualification;
 }
 
 export type AiMediatedWorkspaceEvaluation =
@@ -121,6 +132,55 @@ export function assertAiMediatedWorkspaceSnapshot(snapshot: AiMediatedWorkspaceS
   if (candidateLineage.provenanceHash !== expectedHash) {
     throw new Error("AI_MEDIATED_PROVENANCE_INVALID:hash-mismatch");
   }
+}
+
+export function assertAiMediatedProviderBinding(binding: AiMediatedProviderBinding): ProviderBindingQualification {
+  assertNonEmpty(binding.bindingRef, "providerBinding.bindingRef");
+  assertNonEmpty(binding.bindingRevisionRef, "providerBinding.bindingRevisionRef");
+  assertNonEmpty(binding.modelRef, "providerBinding.modelRef");
+  assertNonEmpty(binding.modelRevisionRef, "providerBinding.modelRevisionRef");
+  const qualification = normalizeProviderBindingQualification(binding.qualification);
+  if (qualification.binding.canonicalRef !== binding.bindingRef || qualification.binding.revisionRef !== binding.bindingRevisionRef) {
+    throw new Error("AI_MEDIATED_PROVIDER_BINDING_INVALID:qualification-binding-mismatch");
+  }
+  return qualification;
+}
+
+export function evaluateAiMediatedProviderBinding(binding: AiMediatedProviderBinding): AiMediatedBindingEligibility {
+  const qualification = assertAiMediatedProviderBinding(binding);
+  if (qualification.disposition === "UNSUPPORTED") return "INELIGIBLE";
+  if (
+    binding.currentness === "UNKNOWN" ||
+    binding.currentness === "INCONCLUSIVE" ||
+    qualification.currentness.state === "UNKNOWN" ||
+    qualification.currentness.state === "INSUFFICIENT" ||
+    qualification.disposition === "UNKNOWN" ||
+    qualification.disposition === "INCONCLUSIVE"
+  ) {
+    return "RECONCILE_BEFORE_RETRY";
+  }
+  if (
+    binding.currentness === "STALE" ||
+    qualification.currentness.state === "STALE" ||
+    qualification.disposition === "PARTIAL"
+  ) {
+    return "DEGRADED";
+  }
+  return "ELIGIBLE";
+}
+
+export function aiMediatedProviderBindingEstablishesSupport(
+  binding: AiMediatedProviderBinding,
+): false {
+  void binding;
+  return false;
+}
+
+export function aiMediatedProviderBindingOwnsQualification(
+  binding: AiMediatedProviderBinding,
+): false {
+  void binding;
+  return false;
 }
 
 export function evaluateAiMediatedWorkspace(
