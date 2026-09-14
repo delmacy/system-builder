@@ -1,7 +1,7 @@
 ---
 id: TASK-549
 title: Preserve uncertain conflicted state and generated artifact lineage
-status: blocked
+status: ready
 priority: 549
 milestone: G2
 model_tier: architecture

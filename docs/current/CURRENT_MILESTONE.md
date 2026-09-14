@@ -6,7 +6,7 @@ Fresh-main authority revalidation selected G2-WP-10 from the typed dependency gr
 ## Current gate
 `TASK-547 -> TASK-548 -> TASK-549 -> TASK-550`.
 
-TASK-547 is integrated. TASK-548 is READY. TASK-549..550 are blocked by their explicit predecessor chain. Construction A must preserve projection/source separation, visibility/authority separation, uncertainty/conflict representation and generated artifact lineage.
+TASK-547 and TASK-548 are integrated. TASK-549 is READY. TASK-550 is blocked by its explicit predecessor. Construction A must preserve projection/source separation, visibility/authority separation, uncertainty/conflict representation and generated artifact lineage.
 
 ## Preserved invariants
 Projection != source truth; visibility != authority != action eligibility; rendered/generated status cannot strengthen canonical status/currentness; stale/PARTIAL/UNKNOWN/INCONCLUSIVE/CONFLICTED remain explicit; generated artifacts retain source/evidence/revision lineage; Product Proof != Production Readiness.
