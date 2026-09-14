@@ -1,6 +1,6 @@
 # OpenCode GitHub Work Package Factory
 
-> **DEPRECATED / HISTORICAL DESIGN — DO NOT EXECUTE.** This document describes a prior GitHub-hosted Work Package/Sprint automation model. It is retained for architecture and operational traceability only. Hosted generation/execution workflows named below are not the current default executor and this document must not be used to authorize or schedule work. Follow `AGENTS.md`, `docs/README.md`, current repository memory, `project_docs/schedule/SPRINT_GENERATION_POLICY.md`, `project_docs/schedule/SPRINT_MODE.md`, and the current local-first Sprint execution procedure.
+> **DEPRECATED / HISTORICAL DESIGN — DO NOT EXECUTE.** This document describes a prior GitHub-hosted Work Package/Sprint automation model. It is retained for architecture and operational traceability only. The hosted generation/execution workflows were removed from the executable `.github/workflows/` surface on 2026-09-14 to match the repository's local-first Sprint authority. Follow `AGENTS.md`, `docs/README.md`, current repository memory, `project_docs/schedule/SPRINT_GENERATION_POLICY.md`, `project_docs/schedule/SPRINT_MODE.md`, and the current local-first Sprint execution procedure.
 
 ## Historical purpose
 
@@ -18,16 +18,19 @@ That separation remains useful historical rationale, but the workflows and dispa
 
 ## Historical workflow model
 
-The design referenced hosted workflows including:
+The design referenced hosted workflows formerly located at:
 
+- `.github/workflows/opencode-work-package-planner-schedule.yml`;
 - `.github/workflows/opencode-work-package-planner.yml`;
 - `.github/workflows/opencode-work-package.yml`;
 - `.github/workflows/opencode-sprint-task-loop.yml`;
 - `.github/workflows/opencode-next-sprint-materialize.yml`.
 
-It projected Work Packages from WBS/repository evidence, required human review of planning, executed bounded TASK units in fresh sessions, integrated Sprint PRs only after objective gates, reconstructed fresh `main` between Sprints, and stopped at architecture/governance blockers.
+These files are no longer executable workflows. Their implementation history remains available through Git history when historical reconstruction or recovery analysis is required.
 
-These names are historical references, not instructions to dispatch those workflows now.
+The historical design projected Work Packages from WBS/repository evidence, required human review of planning, executed bounded TASK units in fresh sessions, integrated Sprint PRs only after objective gates, reconstructed fresh `main` between Sprints, and stopped at architecture/governance blockers.
+
+These names are historical references, not instructions to recreate or dispatch those workflows now.
 
 ## Historical safety properties
 
@@ -43,4 +46,4 @@ The original document used P10 SecretResolver/TLS sequencing to demonstrate that
 
 The durable lesson is repository-first governance: planning eligibility is not execution authority, forecast work is not committed work, and fresh integrated evidence must control successor promotion.
 
-For actual execution, ignore the hosted-dispatch procedure formerly documented here and use the current local-first Sprint model defined by repository authority.
+For actual execution, ignore the hosted-dispatch procedure formerly documented here and use the current local-first Sprint model defined by repository authority. GitHub Actions remains appropriate for objective CI, workflow lint, full product proof and conditional telemetry, not normal hosted OpenCode product execution.
