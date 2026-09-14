@@ -1,7 +1,7 @@
 ---
 id: TASK-546
 title: Prove integrated G2-WBS-14 Construction C deployment runtime semantics
-status: blocked
+status: ready
 priority: 546
 milestone: G2
 model_tier: architecture
