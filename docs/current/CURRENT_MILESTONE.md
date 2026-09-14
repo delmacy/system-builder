@@ -1,15 +1,15 @@
-# Current Execution Milestone — Generation 2 / G2-WP-09 Package Integration & Review
+# Current Execution Milestone — Generation 2 / G2-WP-09 Documentation & Closure
 
 ## Milestone state
 G2-WP-01..G2-WP-08 are CANONICALLY CLOSED. Pinned planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`, READY_FOR_WORKER_HANDOFF / PASS.
 
-Construction A / G2-WBS-12 is integrated and PASS. Construction B / G2-WBS-13 is integrated and PASS. Construction C / G2-WBS-14 materialized Sprint `TASK-543 -> TASK-544 -> TASK-545 -> TASK-546` is integrated; PR #764 merged TASK-546 on `main@50ff0dd8d00a37fceed73a21954cdb0f0edf62df`.
+G2-WP-09 Construction A / G2-WBS-12, Construction B / G2-WBS-13 and Construction C / G2-WBS-14 are integrated. Construction C Sprint Review is integrated by PR #767 on `main@5a19745acf9f58f8f3953caae178bc7650748277`. Fresh-main Package Integration & Review is PASS with no bounded product rework.
 
 ## Current gate
-Construction C Sprint Review is PASS with no bounded rework and promotes G2-WP-09 Package Integration & Review as the only next dependency-safe phase. Package Review must reconcile all three WBS owners and package-level proof without creating new production semantics or claiming Production Readiness.
+After this Package Review PR passes exact-head and current Merge Candidate CI and integrates, execute G2-WP-09 Documentation & Closure. Closure reconciles repository memory, WBS/DAG/readiness traceability, review evidence and successor eligibility; it must not create new runtime/product semantics or claim Production Readiness.
 
 ## Preserved invariants
-Release != deployment != observed runtime != effective/converged runtime; canonical deployment/environment identity != provider/process/resource IDs; desired/observed/effective generation/currentness remain distinct; provider acknowledgement != effective truth; PARTIAL/UNKNOWN/INCONCLUSIVE never strengthens a claim; unsafe mutating UNKNOWN routes to reconcile-before-retry where applicable; rollback actuation != release rollback eligibility; coexistence requires explicit prior/target generation identity and directionally valid transition semantics; residual runtime cohorts remain visible until population/currentness-qualified drainage/disposition; retained runtime autonomy does not require permanent System Builder availability; Product Proof != Production Readiness.
+Build success != reproducibility proof; build output != canonical artifact != release != deployment != observed runtime != effective/converged runtime; signature != trust/admission; desired/observed/effective generation/currentness remain distinct; provider acknowledgement != effective truth; PARTIAL/UNKNOWN/INCONCLUSIVE never strengthens a claim; unsafe mutating UNKNOWN routes to reconcile-before-retry where applicable; rollback actuation != release rollback eligibility; coexistence requires explicit prior/target generation identity and directionally valid transition semantics; residual artifact/release/runtime cohorts remain visible until qualified drainage/disposition; retained runtime autonomy does not require permanent System Builder availability; Product Proof != Production Readiness.
 
 ## Rolling-wave boundary
-No additional Construction C Sprint is materialized by this review. Concrete providers, generalized topology/traffic/scaling infrastructure, hierarchical authority, DB/runtime-core rewrites, apps/UI, Production Readiness, WP-10+ and DEFER/DO_NOT_BUILD findings remain outside the commitment horizon.
+Package Review does not materialize successor product work. Concrete providers, generalized topology/traffic/scaling infrastructure, hierarchical authority, DB/runtime-core rewrites, apps/UI, Production Readiness, WP-10+ and DEFER/DO_NOT_BUILD findings remain outside the commitment horizon.
