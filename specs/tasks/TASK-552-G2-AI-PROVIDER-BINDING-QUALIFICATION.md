@@ -1,7 +1,7 @@
 ---
 id: TASK-552
 title: Define replaceable model provider binding qualification
-status: blocked
+status: ready
 priority: 552
 milestone: G2
 model_tier: architecture
