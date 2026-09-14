@@ -5,10 +5,10 @@ G2-WP-01..G2-WP-08 are CANONICALLY CLOSED. Pinned planning authority remains `re
 
 Construction A / G2-WBS-12 and Construction B / G2-WBS-13 are integrated and PASS. Construction B Sprint Review PR #752 decided `PASS / CONSTRUCTION C REQUIRED` and merged on `main@39a5c47d120b391b4abf5e5c137a43706c290a6f`.
 
-Construction C / G2-WBS-14 first Sprint is materialized as `TASK-543 -> TASK-544 -> TASK-545 -> TASK-546`. TASK-543 is integrated by PR #754; TASK-544 is integrated by PR #758; TASK-545 is the only dependency-safe READY successor; TASK-546 remains predecessor-gated.
+Construction C / G2-WBS-14 first Sprint is materialized as `TASK-543 -> TASK-544 -> TASK-545 -> TASK-546`. TASK-543 is integrated by PR #754; TASK-544 is integrated by PR #758; TASK-545 is integrated by PR #761; TASK-546 is the only dependency-safe READY successor.
 
 ## Current gate
-Execute TASK-545 only from fresh main after this repository-memory reconciliation integrates. TASK-545 owns provider-neutral effective runtime convergence, retained runtime autonomy/coexistence and residual runtime cohort drainage; it must not infer convergence or drainage from desired state, provider acknowledgement, stale observation or PARTIAL/UNKNOWN evidence.
+Execute TASK-546 only from fresh main after this repository-memory reconciliation integrates. TASK-546 is proof-only: compose the already-owned TASK-543..545 semantics in one deterministic integrated Product Proof without adding production authority, providers, persistence or Production Readiness claims.
 
 ## Preserved invariants
 Release != deployment != observed runtime != effective/converged runtime; canonical deployment/environment identity != provider/process/resource IDs; desired/observed/effective generation/currentness remain distinct; provider acknowledgement != effective truth; PARTIAL/UNKNOWN/INCONCLUSIVE never strengthens a claim; unsafe mutating UNKNOWN routes to reconcile-before-retry where applicable; rollback actuation != release rollback eligibility; residual runtime cohorts remain visible until population/currentness-qualified drainage/disposition; retained runtime autonomy does not require permanent System Builder availability; Product Proof != Production Readiness.

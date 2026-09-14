@@ -1,7 +1,7 @@
 ---
 id: TASK-545
 title: Define runtime convergence autonomy coexistence and residual cohort drainage
-status: verification
+status: completed
 priority: 545
 milestone: G2
 model_tier: architecture
@@ -36,13 +36,13 @@ validation:
 Define provider-neutral effective runtime convergence, retained autonomy/coexistence and residual runtime cohort drainage semantics after deployment actuation.
 
 # Context
-TASK-543 establishes deployment generation/currentness and TASK-544 establishes actuation/reconciliation outcomes and is integrated by PR #758. This TASK owns only the semantic closure from qualified runtime observation to convergence, autonomy/coexistence and residual-cohort drainage.
+TASK-543 establishes deployment generation/currentness and TASK-544 establishes actuation/reconciliation outcomes and is integrated by PR #758. TASK-545 is integrated by PR #761 after bounded semantic hardening of explicit prior-generation and directionally valid roll-forward/rollback coexistence. This TASK owns only the semantic closure from qualified runtime observation to convergence, autonomy/coexistence and residual-cohort drainage.
 
 # Current behavior
-The repository preserves autonomous local runtime and failed-candidate/restart reconciliation behavior, but G2-WBS-14 does not yet provide a provider-neutral contract for effective convergence or for visibility/drainage of mixed-generation residual runtime cohorts.
+The repository now provides the provider-neutral G2-WBS-14 contract for effective convergence and for visibility/drainage of mixed-generation residual runtime cohorts while preserving autonomous local runtime behavior.
 
 # Required change
-Add provider-neutral runtime-convergence semantics based on qualified observation/currentness, preserve retained runtime autonomy after convergence, model coexistence explicitly, and keep residual runtime cohorts visible until population/currentness-qualified drainage or disposition.
+Completed by PR #761: provider-neutral runtime-convergence semantics based on qualified observation/currentness, retained runtime autonomy after convergence, explicit coexistence, and residual runtime cohorts visible until population/currentness-qualified drainage or disposition.
 
 # Inputs / contracts
 - canonical deployment intent and desired/observed/effective generation from TASK-543;
@@ -65,7 +65,7 @@ A revisioned runtime-convergence contract that distinguishes observed from effec
 Concrete distributed topology, autoscaling, traffic router implementation, providers, persistence, apps/UI, runtime-core rewrite or Production Readiness.
 
 # Evidence expected
-Focused deterministic Product Proof covering convergence/currentness, mixed-generation coexistence, residual drainage and retained runtime autonomy plus exact-head repository validation.
+Satisfied by PR #761 exact-head Deterministic CI + Heavy Product Tests and current Merge Candidate CI, with deterministic Product Proof covering convergence/currentness, mixed-generation coexistence, residual drainage and retained runtime autonomy.
 
 # Escalation
 Return to Sprint Review rather than adding concrete topology, scaling, routing, provider, persistence, runtime-core or Production Readiness ownership.
