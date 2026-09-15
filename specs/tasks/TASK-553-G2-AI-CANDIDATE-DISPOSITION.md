@@ -1,7 +1,7 @@
 ---
 id: TASK-553
 title: Govern AI candidate generation and owner disposition
-status: ready
+status: completed
 priority: 553
 milestone: G2
 model_tier: architecture
