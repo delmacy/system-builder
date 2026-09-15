@@ -1,4 +1,4 @@
-# Next Work — G2-WP-10 / Construction B Sprint Review
+# Next Work — G2-WP-10 / Package Integration & Review
 
 Generation 2 remains rolling-wave and dependency-safe.
 
@@ -6,12 +6,12 @@ Generation 2 remains rolling-wave and dependency-safe.
 G2-WP-01..G2-WP-09 are canonically closed. G2-WBS-15 Construction A is integrated and accepted.
 
 ## Integrated chain
-G2-WBS-16 Construction B (`TASK-551 -> TASK-552 -> TASK-553 -> TASK-554`) is fully integrated on fresh `main@51f83b5105f711d8b6031560fc2ca23882118f17`.
+G2-WBS-16 Construction B (`TASK-551 -> TASK-552 -> TASK-553 -> TASK-554`) is fully integrated. Its fresh-main Sprint Review is integrated on `main@5e079e61d8893125a87aa0ac637691656166d584` with outcome PASS and no bounded product rework required.
 
 ## Current mandatory gate
-Execute only the fresh-main Sprint Review for G2-WBS-16 Construction B. Revalidate the integrated AI-mediated assistance slice and its Product Proof against materialized ownership, compatibility, uncertainty/currentness and non-authority invariants. Any bounded finding inside the materialized slice must be repaired before successor work.
+Execute only **G2-WP-10 Package Integration & Review** on fresh main. Revalidate the package as an integrated whole against its materialized DAG, ownership and boundary contracts, including provenance/lineage, provider qualification, `AI inference != authority`, governed owner disposition, uncertainty/currentness non-strengthening, coexistence/manual paths, Local/Station/Fleet qualification where applicable, and Product Proof distinct from Production Readiness.
 
-After a PASS review revision integrates, proceed only to the next G2-WP-10 gate authorized by the package DAG. Do not absorb WP-11+ or successor implementation during review.
+Any bounded finding inside the materialized G2-WP-10 package must be repaired before closure. After a PASS package review revision integrates, proceed only through fresh-main repository-memory reconciliation to the next package gate defined by the materialized DAG. Do not absorb WP-11+ or successor implementation during review.
 
 ## Evidence model
 Exact-head proof (`Deterministic CI`, `Heavy Product Tests`) remains distinct from synthetic integration proof (`Merge Candidate CI`). If `main` advances, previous merge-candidate evidence is stale. Workflow changes additionally require `Workflow Lint`; `npm run verify` includes `check:docs`.
