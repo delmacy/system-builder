@@ -1,7 +1,7 @@
 ---
 id: TASK-554
 title: Prove AI-mediated assistance Construction B semantics
-status: blocked
+status: ready
 priority: 554
 milestone: G2
 model_tier: architecture
