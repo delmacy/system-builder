@@ -4,13 +4,20 @@ import {
   aiMediatedCandidateEstablishesCanonicalTruth,
   aiMediatedInferenceEstablishesAuthority,
   aiMediatedOrdinaryGenerationRemainsAvailable,
+  aiMediatedProviderBindingEstablishesSupport,
+  aiMediatedProviderBindingOwnsQualification,
   aiMediatedProvenanceReplayMatches,
+  assertAiMediatedProviderBinding,
   assertAiMediatedWorkspaceSnapshot,
   computeAiMediatedProvenanceHash,
+  evaluateAiMediatedProviderBinding,
   evaluateAiMediatedWorkspace,
+  type AiMediatedProviderBinding,
   type AiMediatedProvenanceRef,
   type AiMediatedWorkspaceSnapshot,
 } from "../../packages/contracts/ai-mediated-assistance/index.js";
+import type { ProviderBindingQualification, ProviderQualificationStatus } from "../../packages/contracts/provider/qualification.js";
+import type { CurrentnessState, DefinitionRevisionRef } from "../../packages/contracts/semantic-substrate/index.js";
 
 function provenance(
   overrides: Partial<AiMediatedProvenanceRef> = {},
@@ -64,6 +71,70 @@ function workspace(
       sourceRevisionRef: "workflow-revision:10",
       provenanceHash: computeAiMediatedProvenanceHash(refs),
     },
+  };
+}
+
+function revision(canonicalRef: string, revisionRef: string): DefinitionRevisionRef {
+  return {
+    contractVersion: "1.0.0",
+    semanticOwner: "provider",
+    semanticKind: "provider-binding",
+    canonicalRef,
+    definitionRef: `${canonicalRef}:definition`,
+    revisionOwner: "provider",
+    revisionDimension: "qualification",
+    revisionRef,
+  };
+}
+
+function providerQualification(
+  disposition: ProviderQualificationStatus = "SUPPORTED",
+  currentness: CurrentnessState = "CURRENT",
+  evidenceAuthority: ProviderBindingQualification["evidenceAuthority"] = "AUTHORITATIVE",
+): ProviderBindingQualification {
+  const binding = revision("provider-binding:replaceable", "provider-binding-revision:7");
+  const evidence = revision("provider-evidence:qualification", "provider-evidence-revision:12");
+  const dimensionStatus = disposition;
+  return {
+    contractVersion: "1.0.0",
+    binding,
+    providerRealizationRef: "provider-realization:opaque",
+    evidence,
+    currentness: {
+      contractVersion: "1.0.0",
+      subject: evidence,
+      revisionVector: [{ revisionOwner: "provider", revisionDimension: "qualification", revisionRef: evidence.revisionRef }],
+      temporal: {
+        occurredAt: null,
+        observedAt: "2026-09-14T20:00:00Z",
+        evaluatedAt: "2026-09-14T20:00:00Z",
+        effectiveFrom: "2026-09-14T20:00:00Z",
+        effectiveUntil: null,
+        reconciledAt: "2026-09-14T20:00:00Z",
+      },
+      populationScope: "provider-binding:replaceable",
+      localityScope: "FLEET",
+      currentnessHorizon: { assessedAt: "2026-09-14T20:00:00Z", validUntil: "2026-09-15T20:00:00Z" },
+      state: currentness,
+      reason: "explicit qualification evidence",
+    },
+    evidenceAuthority,
+    dimensions: [{ dimension: "candidate-generation", status: dimensionStatus, reason: "explicit qualification dimension" }],
+    disposition,
+  };
+}
+
+function providerBinding(
+  overrides: Partial<AiMediatedProviderBinding> = {},
+): AiMediatedProviderBinding {
+  return {
+    bindingRef: "provider-binding:replaceable",
+    bindingRevisionRef: "provider-binding-revision:7",
+    modelRef: "model-family:replaceable",
+    modelRevisionRef: "model-revision:2026-09",
+    currentness: "CURRENT",
+    qualification: providerQualification(),
+    ...overrides,
   };
 }
 
@@ -166,4 +237,41 @@ test("provenance replay is revision/currentness sensitive while ordinary generat
   const staleReplay = provenance({ currentness: "STALE" });
   assert.equal(aiMediatedProvenanceReplayMatches(snapshot, staleReplay), false);
   assert.equal(aiMediatedOrdinaryGenerationRemainsAvailable(evaluateAiMediatedWorkspace(snapshot)), true);
+});
+
+test("provider/model binding is replaceable, revision-aware, and qualification-owned elsewhere", () => {
+  const primary = providerBinding();
+  const replacement = providerBinding({
+    modelRef: "model-family:replacement",
+    modelRevisionRef: "model-revision:2026-10",
+  });
+  assert.doesNotThrow(() => assertAiMediatedProviderBinding(primary));
+  assert.equal(evaluateAiMediatedProviderBinding(primary), "ELIGIBLE");
+  assert.equal(evaluateAiMediatedProviderBinding(replacement), "ELIGIBLE");
+  assert.notEqual(primary.modelRef, replacement.modelRef);
+  assert.notEqual(primary.modelRevisionRef, replacement.modelRevisionRef);
+  assert.equal(aiMediatedProviderBindingEstablishesSupport(primary), false);
+  assert.equal(aiMediatedProviderBindingOwnsQualification(primary), false);
+});
+
+test("stale, PARTIAL, UNKNOWN, INCONCLUSIVE, and unsupported qualification never strengthen", () => {
+  assert.equal(evaluateAiMediatedProviderBinding(providerBinding({ currentness: "STALE" })), "DEGRADED");
+  assert.equal(evaluateAiMediatedProviderBinding(providerBinding({ qualification: providerQualification("PARTIAL", "CURRENT") })), "DEGRADED");
+  assert.equal(evaluateAiMediatedProviderBinding(providerBinding({ qualification: providerQualification("UNKNOWN", "UNKNOWN") })), "RECONCILE_BEFORE_RETRY");
+  assert.equal(evaluateAiMediatedProviderBinding(providerBinding({ qualification: providerQualification("INCONCLUSIVE", "CURRENT") })), "RECONCILE_BEFORE_RETRY");
+  assert.equal(evaluateAiMediatedProviderBinding(providerBinding({ qualification: providerQualification("UNSUPPORTED", "CURRENT") })), "INELIGIBLE");
+});
+
+test("qualification identity mismatch and inferred support are rejected instead of inferred from model parity", () => {
+  const mismatched = providerBinding({ bindingRevisionRef: "provider-binding-revision:999" });
+  assert.throws(
+    () => assertAiMediatedProviderBinding(mismatched),
+    /AI_MEDIATED_PROVIDER_BINDING_INVALID:qualification-binding-mismatch/,
+  );
+
+  const inferredSupport = providerBinding({ qualification: providerQualification("SUPPORTED", "CURRENT", "INFERRED") });
+  assert.throws(
+    () => assertAiMediatedProviderBinding(inferredSupport),
+    /observed or AI-inferred evidence cannot establish provider support authority/,
+  );
 });
