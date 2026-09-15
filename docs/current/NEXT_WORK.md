@@ -1,14 +1,14 @@
-# Next Work — G2-WP-10 / Package Integration & Review
+# Next Work — G2-WP-10 / Documentation & Closure
 
 Generation 2 remains rolling-wave and dependency-safe.
 
 ## Closed predecessor
-G2-WP-01..G2-WP-09 are canonically closed. G2-WBS-15 Construction A is integrated and accepted. G2-WBS-16 Construction B (`TASK-551 -> TASK-552 -> TASK-553 -> TASK-554`) is fully integrated and its fresh-main Sprint Review is PASS on `main@5e079e61d8893125a87aa0ac637691656166d584`.
+G2-WP-01..G2-WP-09 are canonically closed. G2-WBS-15 Construction A is integrated and accepted. G2-WBS-16 Construction B (`TASK-551 -> TASK-552 -> TASK-553 -> TASK-554`) is fully integrated and its fresh-main Sprint Review is PASS. G2-WP-10 Package Integration & Review is PASS and integrated on `main@37ab1863f93bd4265ba288c4bf22d2b181a4d2bd` via PR #802, with no bounded product rework and no Construction C required.
 
 ## Current mandatory gate
-Execute only **G2-WP-10 Package Integration & Review** on fresh main. Reconcile the accepted Construction A and Construction B evidence against package ownership, the materialized WBS/DAG, compatibility/currentness/non-authority invariants, source-of-truth/coexistence boundaries and residual risks. Any bounded finding inside the already-materialized G2-WP-10 slice must be repaired before package closure.
+Execute only **G2-WP-10 Documentation & Closure** on fresh main. Reconcile canonical package status, accepted Construction A/B evidence, Package Integration & Review PASS, residual risks and repository-memory/lifecycle surfaces required by the materialized DAG. Closure must not create successor product behavior.
 
-After a PASS Package Integration & Review revision integrates, proceed only to G2-WP-10 Documentation & Closure. Do not absorb WP-11+ or successor implementation during package review.
+Only after a PASS Documentation & Closure revision integrates may repository authority promote the next dependency-safe Generation 2 package. Do not absorb WP-11+ during WP-10 closure.
 
 ## Evidence model
 Exact-head proof (`Deterministic CI`, `Heavy Product Tests`) remains distinct from synthetic integration proof (`Merge Candidate CI`). If `main` advances, previous merge-candidate evidence is stale. Workflow changes additionally require `Workflow Lint`; `npm run verify` includes `check:docs`.
