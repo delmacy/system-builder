@@ -1,7 +1,7 @@
 ---
 id: TASK-553
 title: Govern AI candidate generation and owner disposition
-status: blocked
+status: ready
 priority: 553
 milestone: G2
 model_tier: architecture
@@ -36,10 +36,10 @@ validation:
 Represent AI-produced candidates and governed human/canonical-owner disposition without allowing inference to become authority by itself.
 
 # Context
-The authoritative G2-WBS-16 boundary permits candidate generation and governed disposition only. Existing semantic, authorization, workflow, data and provider owners remain canonical.
+The authoritative G2-WBS-16 boundary permits candidate generation and governed disposition only. Existing semantic, authorization, workflow, data and provider owners remain canonical. TASK-551 and TASK-552 are integrated and provide the provenance plus replaceable provider-binding qualification predecessors.
 
 # Current behavior
-Workspace provenance and provider-binding qualification can establish traceable inputs, but there is no dedicated G2-WBS-16 contract for candidate identity/revision and governed disposition that keeps model inference separate from canonical authority and side-effect eligibility.
+Workspace provenance and provider-binding qualification establish traceable inputs, but there is no dedicated G2-WBS-16 contract for candidate identity/revision and governed disposition that keeps model inference separate from canonical authority and side-effect eligibility.
 
 # Required change
 Add deterministic candidate/disposition contracts that preserve candidate identity/revision/provenance, explicit uncertainty/conflict, and the identity of the governing human or canonical owner disposition. UNKNOWN/conflict must remain reconcile-before-retry where applicable.
