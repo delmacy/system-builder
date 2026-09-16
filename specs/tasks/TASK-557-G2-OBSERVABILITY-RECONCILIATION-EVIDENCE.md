@@ -1,7 +1,7 @@
 ---
 id: TASK-557
 title: Define population-qualified reconciliation evidence semantics
-status: blocked
+status: completed
 priority: 557
 milestone: G2
 model_tier: architecture
