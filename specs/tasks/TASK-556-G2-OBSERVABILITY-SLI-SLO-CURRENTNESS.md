@@ -1,7 +1,7 @@
 ---
 id: TASK-556
 title: Define revisioned SLI SLO and telemetry currentness semantics
-status: blocked
+status: ready
 priority: 556
 milestone: G2
 model_tier: architecture
@@ -38,10 +38,10 @@ validation:
 Extend TASK-555 with revision-qualified SLI/SLO and telemetry currentness/gap semantics.
 
 ## Context
-This task follows TASK-555 and remains blocked until its identity semantics are completed. G2-WBS-17 requires revision-qualified observability without hiding stale, missing, partial or UNKNOWN evidence.
+This task follows completed TASK-555. G2-WBS-17 requires revision-qualified observability without hiding stale, missing, partial or UNKNOWN evidence.
 
 ## Current behavior
-Before this task, signal/condition/alert/incident identities may exist from TASK-555, but there is no G2-WBS-17 contract proving SLI/SLO revision history and telemetry currentness/gap semantics across populations.
+Signal/condition/alert/incident identities exist from TASK-555, but there is no G2-WBS-17 contract proving SLI/SLO revision history and telemetry currentness/gap semantics across populations.
 
 ## Required change
 Keep SLI definition/revision, SLO target/revision and observed evidence distinct. Telemetry loss, backpressure, stale windows, missing populations and UNKNOWN cohorts remain explicit. Aggregates must not manufacture completeness or hide stale/unknown cohorts.
