@@ -39,8 +39,29 @@ validation:
 # Objective
 Close the first G2-WP-11 Construction Sprint with deterministic integrated Product Proof across TASK-555..557 without introducing new semantic ownership.
 
-# Integrated proof obligations
-Prove `Signal != ConfirmedConflict`; signal/condition/alert/incident remain distinct; SLI/SLO history is revision-qualified; telemetry gaps/loss/backpressure/currentness and stale/UNKNOWN cohorts remain visible; aggregate views cannot strengthen partial evidence; reconciliation evidence is population/currentness/locality qualified; AI inference != authority and Product Proof remains distinct from Production Readiness.
+## Context
+This proof task is blocked by TASK-557 and integrates only already materialized G2-WBS-17 behavior. Product Proof remains distinct from Production Readiness.
 
-# Boundary
-This task is proof/integration for already materialized G2-WBS-17 behavior only. It must not materialize G2-WBS-18, WP-12/13, operator actuation, provider SDKs, persistence or Production Readiness.
+## Current behavior
+TASK-555..557 are designed to establish observability identity, revision/currentness and reconciliation evidence semantics, but Construction A is not complete until their obligations are proven together without semantic strengthening.
+
+## Required change
+Integrate proof that `Signal != ConfirmedConflict`; signal/condition/alert/incident remain distinct; SLI/SLO history is revision-qualified; telemetry gaps/loss/backpressure/currentness and stale/UNKNOWN cohorts remain visible; aggregates cannot strengthen partial evidence; reconciliation evidence is population/currentness/locality qualified; AI inference != authority.
+
+## Inputs / contracts
+Consume the completed outputs of TASK-555, TASK-556 and TASK-557 exactly as materialized, plus predecessor authority/evidence contracts by reference.
+
+## Outputs / contracts
+Provide integrated deterministic Product Proof in `tests/product/g2-observability-operations-proof.test.ts` and only bounded contract adjustments required to make the already-owned G2-WBS-17 semantics coherent.
+
+## Acceptance criteria
+All Construction A obligations are jointly proven; negative cases prevent stale, partial or inferred evidence from strengthening into authority, confirmed conflict or global convergence; all validation commands pass.
+
+## Non-goals
+No G2-WBS-18 materialization, WP-12/13, operator actuation, provider SDKs, persistence, new semantic ownership or Production Readiness claim.
+
+## Evidence expected
+Deterministic integrated positive/negative Product Proof across TASK-555..557 plus all frontmatter validation commands, with exact-head CI required before integration.
+
+## Escalation
+Any contradiction between predecessor semantics must remain explicit and bounded to G2-WBS-17 reconciliation; do not resolve ambiguity by inventing authority, suppressing UNKNOWN or absorbing forecast/deferred scope.
