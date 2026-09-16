@@ -36,13 +36,31 @@ validation:
 ---
 
 # Objective
-Define reconciliation-job and reconciliation-evidence contracts that qualify what population/locality/revision/currentness was actually checked.
+Define reconciliation-job and reconciliation-evidence contracts that qualify what population, locality, revision and currentness were actually checked.
 
-# Required behavior
+## Context
+This task follows TASK-556 and must preserve G2-WBS-17 non-strengthening semantics across Local/Station/Fleet, partial populations and stale/UNKNOWN observations.
+
+## Current behavior
+The preceding observability tasks establish identity and currentness semantics, but no G2-WBS-17 reconciliation evidence contract yet proves the exact population/locality/revision/currentness actually observed.
+
+## Required change
 A reconciliation result must not imply global convergence from partial coverage. Preserve Local/Station/Fleet distinctions, source/effect revisions, attempted/observed populations, gaps and UNKNOWN outcomes. Where ambiguity prevents safe retry or disposition, preserve `UNKNOWN -> reconcile-before-retry` semantics.
 
-# Proof
-Add deterministic positive/negative predecessor-integration tests for partial populations, stale evidence, locality mismatch and explicit unknown reconciliation outcomes.
+## Inputs / contracts
+Consume TASK-555 identity and TASK-556 SLI/SLO/currentness contracts plus predecessor authority/evidence/locality contracts by reference.
 
-# Boundary
-No actuation/remediation authority, persistence, provider-specific jobs or silent canonicalization.
+## Outputs / contracts
+Extend `packages/contracts/observability/**` with population/currentness/locality-qualified reconciliation-job and reconciliation-evidence contracts and extend deterministic Product Proof.
+
+## Acceptance criteria
+Partial populations, stale evidence, locality mismatch and UNKNOWN reconciliation outcomes remain explicit; no partial result implies global convergence; source/effect revisions remain attributable; predecessor-integration tests pass.
+
+## Non-goals
+No actuation/remediation authority, persistence, provider-specific jobs, silent canonicalization, WP-12/13 or Production Readiness claim.
+
+## Evidence expected
+Deterministic positive and negative tests for partial populations, stale evidence, locality mismatch and explicit unknown reconciliation outcomes plus all frontmatter validation commands.
+
+## Escalation
+When population, locality, revision or currentness is insufficient to support a safe disposition, return UNKNOWN and require reconciliation before retry; never infer convergence or authority.
