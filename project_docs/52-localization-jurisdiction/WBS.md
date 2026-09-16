@@ -7,9 +7,9 @@
 - **52.1.3** Integrar timezone/calendar/currency primitives.
 ### 52.2 Jurisdiction profiles
 - **52.2.1** Definir jurisdiction identity/effective-period/profile.
-- **52.2.2** Vincular applicable policies/compliance requirements.
-- **52.2.3** Separar rule source/version de application implementation.
+- **52.2.2** Vincular applicable policies/compliance requirements e resolver RulePacks através da capability 43, sem duplicar ownership normativo.
+- **52.2.3** Separar rule source/version, interpretation/applicability e application implementation.
 ### 52.3 Runtime/design application
 - **52.3.1** Resolver locale/jurisdiction por organization/user/process.
-- **52.3.2** Aplicar formatting/content/policy packs consistentemente.
-- **52.3.3** Testar fallback, jurisdiction change e cross-border scenarios.
+- **52.3.2** Aplicar formatting/content/policy/rule packs consistentemente, incluindo Template/Recipe overlays quando materializados.
+- **52.3.3** Testar fallback, jurisdiction change, cross-border scenarios e impacto de mudança normativa/aplicabilidade.
