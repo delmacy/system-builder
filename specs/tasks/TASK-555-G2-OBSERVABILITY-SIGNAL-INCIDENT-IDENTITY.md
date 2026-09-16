@@ -40,11 +40,29 @@ validation:
 # Objective
 Establish provider-neutral G2-WBS-17 contracts for telemetry signal, evaluated condition, alert and incident identities without collapsing one state into another or converting observed evidence into canonical conflict/authority.
 
-# Required behavior
-Represent source/producer identity, producing revision, observed/effective time, locality/population and currentness where applicable. Preserve `Signal != ConfirmedConflict` and `signal != condition != alert != incident`. Missing/stale/UNKNOWN evidence must remain explicit and non-strengthening.
+## Context
+G2-WP-11 consumes predecessor authority, evidence, trust, locality and operability contracts while preserving `AI inference != authority`, PARTIAL/UNKNOWN non-strengthening, Local/Station/Fleet and Product Proof != Production Readiness.
 
-# Proof
-Add deterministic positive and negative Product Proof showing distinct identities/transitions and rejection/non-strengthening of stale or insufficient evidence. Consume predecessor authority/evidence contracts by reference; do not duplicate their semantic ownership.
+## Current behavior
+The repository does not yet expose the G2-WBS-17 provider-neutral identity contracts required to distinguish telemetry signals, evaluated conditions, alerts and incidents with explicit provenance/currentness.
 
-# Boundary
+## Required change
+Represent source/producer identity, producing revision, observed/effective time, locality/population and currentness where applicable. Preserve `Signal != ConfirmedConflict` and `signal != condition != alert != incident`. Missing, stale or UNKNOWN evidence must remain explicit and non-strengthening.
+
+## Inputs / contracts
+Consume predecessor authority/evidence contracts under `packages/contracts/**` by reference. Treat observed telemetry and AI inference as evidence, never as authority or confirmed conflict by implication.
+
+## Outputs / contracts
+Provide provider-neutral observability identity contracts under `packages/contracts/observability/**` plus deterministic Product Proof in `tests/product/g2-observability-operations-proof.test.ts`.
+
+## Acceptance criteria
+Distinct signal, condition, alert and incident identities/transitions are represented; source/revision/time/locality/currentness remain explicit; stale or insufficient evidence cannot strengthen into confirmed conflict or authority; positive and negative Product Proof passes.
+
+## Non-goals
 No persistence, UI, concrete telemetry provider/SDK, autonomous remediation, generic side-effect authority, WP-12/13 or Production Readiness claim.
+
+## Evidence expected
+Deterministic positive and negative Product Proof plus all validation commands declared in frontmatter, including `npm run verify` and its documentation lifecycle check.
+
+## Escalation
+If predecessor authority/evidence semantics are ambiguous or evidence is stale/UNKNOWN, preserve UNKNOWN and reconcile before retry rather than inventing ownership, authority or a transition.
