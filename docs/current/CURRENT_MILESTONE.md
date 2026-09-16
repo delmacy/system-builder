@@ -1,17 +1,15 @@
-# Current Execution Milestone — Generation 2 / G2-WP-11 Planning & Materialization
+# Current Execution Milestone — Generation 2 / G2-WP-11 Construction A
 
 ## Milestone state
-G2-WP-01..G2-WP-10 are canonically closed. G2-WP-10 Documentation & Closure integrated via PR #804 and its bounded post-closure authority reconciliation integrated via PR #809 on `main@b95c90eed62f44667579565bb33ae1eaab0a6687`.
+G2-WP-01..G2-WP-10 are canonically closed. G2-WP-11 Planning & Materialization is integrated. Construction A owns `G2-WBS-17` and is materialized as `TASK-555 -> TASK-556 -> TASK-557 -> TASK-558`.
 
-## Fresh-main successor decision
-The authoritative planning ref `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a` was revalidated. It is an existing Git branch/ref; earlier attempts that treated `research/g2-capability-pipeline` as a directory on `main` were a path/ref interpretation error and do not require reconstruction of authority.
-
-`RESEARCH_PIPELINE_STATE.json` is `READY_FOR_WORKER_HANDOFF`. Work Package Design assigns G2-WP-11 to `G2-WBS-17` Observability/Incident/Reconciliation Operations and `G2-WBS-18` Developer/Operator/Self-hosting Surfaces. Its package prerequisites are WP-01, WP-04, WP-06, WP-07, WP-08 and WP-09, all canonically closed. The WBS dependency DAG independently confirms the evidence, locality, operability, authority and trust prerequisite routes into WBS-17/WBS-18.
+## Integrated progress
+TASK-555 is completed and integrated via PR #813 on fresh `main@75938b00fc7b7fc1f93c83effc79f9eb82b6043a`. Its exact PR head was `93b6ffb90b496a0b4c5fc2effc21809b51a00b15`.
 
 ## Current gate
-**G2-WP-11 Planning & Materialization is READY.** Derive the actual Construction Sprint/TASK decomposition from WBS-17/WBS-18 and current repository state. Materialize only dependency-safe work; make only the first eligible Construction TASK READY and leave explicit successors blocked by their predecessors.
+**TASK-556 is READY.** It is the first dependency-safe successor because its only declared predecessor, TASK-555, is completed and integrated. TASK-557 remains blocked by TASK-556; TASK-558 remains blocked by TASK-557. Do not advance Construction B / G2-WBS-18 from this reconciliation alone.
 
-No Construction starts from this reconciliation alone. Planning must preserve `Signal != ConfirmedConflict`, signal/condition/alert/incident distinctions, telemetry gap/currentness visibility, population-qualified reconciliation evidence, ACK != converged effect, and emergency/manual operator paths that preserve authority/evidence and reconnect reconciliation.
+TASK-556 must preserve the TASK-555 signal/condition/alert/incident identities while adding SLI/SLO/currentness semantics without treating telemetry absence, stale evidence, PARTIAL or UNKNOWN as healthy/converged/authoritative state.
 
 ## Boundary
-AI inference != authority. Preserve owner/revision/currentness, PARTIAL/UNKNOWN non-strengthening, reconcile-before-retry where applicable, source-of-truth/coexistence/residual drainage, replaceable provider qualification, Local/Station/Fleet semantics and Product Proof distinct from Production Readiness. Do not absorb G2-WP-12/13, autonomous-agent authority, direct side-effect authority, unmaterialized DEFER/DO_NOT_BUILD findings, or unrelated product scope.
+AI inference != authority. Preserve owner/revision/currentness, provenance and population qualification, PARTIAL/UNKNOWN non-strengthening, reconcile-before-retry where applicable, source-of-truth/coexistence/residual drainage, Local/Station/Fleet semantics and Product Proof distinct from Production Readiness. Do not absorb G2-WP-12/13, Production Readiness, autonomous-agent authority, direct side-effect authority, unmaterialized DEFER/DO_NOT_BUILD findings, or unrelated product scope.
