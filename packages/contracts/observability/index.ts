@@ -18,107 +18,83 @@ export type ObservabilityEvidence = Readonly<{
   evidenceState: ObservabilityEvidenceState;
 }>;
 
-export type TelemetrySignal = Readonly<{
-  kind: "signal";
-  signalId: string;
-  name: string;
-  evidence: ObservabilityEvidence;
-}>;
-
-export type EvaluatedCondition = Readonly<{
-  kind: "condition";
-  conditionId: string;
-  signalId: string;
-  evaluatorRevision: string;
-  outcome: "TRUE" | "FALSE" | "UNKNOWN";
-  evidence: ObservabilityEvidence;
-}>;
-
-export type ObservabilityAlert = Readonly<{
-  kind: "alert";
-  alertId: string;
-  conditionId: string;
-  policyRevision: string;
-  evidence: ObservabilityEvidence;
-}>;
-
-export type ObservabilityIncident = Readonly<{
-  kind: "incident";
-  incidentId: string;
-  alertIds: readonly string[];
-  authorityRef: string;
-  confirmedAt: string;
-}>;
-
+export type TelemetrySignal = Readonly<{ kind: "signal"; signalId: string; name: string; evidence: ObservabilityEvidence }>;
+export type EvaluatedCondition = Readonly<{ kind: "condition"; conditionId: string; signalId: string; evaluatorRevision: string; outcome: "TRUE" | "FALSE" | "UNKNOWN"; evidence: ObservabilityEvidence }>;
+export type ObservabilityAlert = Readonly<{ kind: "alert"; alertId: string; conditionId: string; policyRevision: string; evidence: ObservabilityEvidence }>;
+export type ObservabilityIncident = Readonly<{ kind: "incident"; incidentId: string; alertIds: readonly string[]; authorityRef: string; confirmedAt: string }>;
 export type ObservabilityIdentity = TelemetrySignal | EvaluatedCondition | ObservabilityAlert | ObservabilityIncident;
 
-export type ServiceLevelIndicatorDefinition = Readonly<{
-  sliId: string;
-  revision: string;
-  name: string;
-  unit: string;
-  populationRef: string;
-  locality: ObservabilityLocality;
-}>;
-
-export type ServiceLevelObjectiveTarget = Readonly<{
-  sloId: string;
-  revision: string;
-  sliId: string;
-  sliRevision: string;
-  target: number;
-  window: string;
-}>;
-
+export type ServiceLevelIndicatorDefinition = Readonly<{ sliId: string; revision: string; name: string; unit: string; populationRef: string; locality: ObservabilityLocality }>;
+export type ServiceLevelObjectiveTarget = Readonly<{ sloId: string; revision: string; sliId: string; sliRevision: string; target: number; window: string }>;
 export type TelemetryGapReason = "LOSS" | "BACKPRESSURE" | "MISSING_POPULATION" | "UNKNOWN";
+export type TelemetryGap = Readonly<{ gapId: string; populationRef: string; locality: ObservabilityLocality; reason: TelemetryGapReason; observedAt: string; currentness: EvidenceCurrentness }>;
+export type SliObservation = Readonly<{ observationId: string; sliId: string; sliRevision: string; value?: number; evidence: ObservabilityEvidence; gaps: readonly TelemetryGap[] }>;
+export type PopulationCoverage = Readonly<{ populationRef: string; locality: ObservabilityLocality; currentness: EvidenceCurrentness; evidenceState: ObservabilityEvidenceState }>;
 
-export type TelemetryGap = Readonly<{
-  gapId: string;
-  populationRef: string;
+export type ReconciliationDisposition = "CONVERGED" | "DIVERGED" | "UNKNOWN";
+export type ReconciliationJob = Readonly<{
+  reconciliationId: string;
+  sourceRevision: string;
+  effectRevision: string;
   locality: ObservabilityLocality;
-  reason: TelemetryGapReason;
-  observedAt: string;
-  currentness: EvidenceCurrentness;
+  intendedPopulation: readonly string[];
 }>;
-
-export type SliObservation = Readonly<{
-  observationId: string;
-  sliId: string;
-  sliRevision: string;
-  value?: number;
-  evidence: ObservabilityEvidence;
-  gaps: readonly TelemetryGap[];
-}>;
-
-export type PopulationCoverage = Readonly<{
-  populationRef: string;
+export type ReconciliationEvidence = Readonly<{
+  reconciliationId: string;
+  sourceRevision: string;
+  effectRevision: string;
   locality: ObservabilityLocality;
+  intendedPopulation: readonly string[];
+  attemptedPopulation: readonly string[];
+  observedPopulation: readonly string[];
   currentness: EvidenceCurrentness;
   evidenceState: ObservabilityEvidenceState;
+  disposition: ReconciliationDisposition;
 }>;
 
 export function canPromoteConditionToAlert(condition: EvaluatedCondition): boolean {
   return condition.outcome === "TRUE" && condition.evidence.currentness === "CURRENT" && condition.evidence.evidenceState === "KNOWN";
 }
-
 export function requireReconciliationBeforeRetry(evidence: ObservabilityEvidence): boolean {
   return evidence.currentness !== "CURRENT" || evidence.evidenceState !== "KNOWN";
 }
-
 export function isObservationComplete(observation: SliObservation): boolean {
   return observation.value !== undefined && observation.gaps.length === 0 && !requireReconciliationBeforeRetry(observation.evidence);
 }
-
 export function canAggregatePopulationCoverage(coverage: readonly PopulationCoverage[]): boolean {
   return coverage.length > 0 && coverage.every((entry) => entry.currentness === "CURRENT" && entry.evidenceState === "KNOWN");
 }
 
-export function assertSloTargetsSliRevision(slo: ServiceLevelObjectiveTarget, sli: ServiceLevelIndicatorDefinition): void {
-  if (slo.sliId !== sli.sliId || slo.sliRevision !== sli.revision) {
-    throw new TypeError("SLO target must reference the exact SLI id and revision");
-  }
+function samePopulation(expected: readonly string[], actual: readonly string[]): boolean {
+  if (expected.length !== actual.length) return false;
+  const expectedSet = new Set(expected);
+  return expectedSet.size === expected.length && actual.every((entry) => expectedSet.has(entry));
 }
 
+export function isReconciliationEvidenceComplete(job: ReconciliationJob, evidence: ReconciliationEvidence): boolean {
+  return evidence.reconciliationId === job.reconciliationId
+    && evidence.sourceRevision === job.sourceRevision
+    && evidence.effectRevision === job.effectRevision
+    && evidence.locality === job.locality
+    && evidence.currentness === "CURRENT"
+    && evidence.evidenceState === "KNOWN"
+    && samePopulation(job.intendedPopulation, evidence.intendedPopulation)
+    && samePopulation(job.intendedPopulation, evidence.attemptedPopulation)
+    && samePopulation(job.intendedPopulation, evidence.observedPopulation);
+}
+
+export function reconciliationDisposition(job: ReconciliationJob, evidence: ReconciliationEvidence): ReconciliationDisposition {
+  if (!isReconciliationEvidenceComplete(job, evidence)) return "UNKNOWN";
+  return evidence.disposition === "UNKNOWN" ? "UNKNOWN" : evidence.disposition;
+}
+
+export function reconciliationRequiresRetryGuard(job: ReconciliationJob, evidence: ReconciliationEvidence): boolean {
+  return reconciliationDisposition(job, evidence) === "UNKNOWN";
+}
+
+export function assertSloTargetsSliRevision(slo: ServiceLevelObjectiveTarget, sli: ServiceLevelIndicatorDefinition): void {
+  if (slo.sliId !== sli.sliId || slo.sliRevision !== sli.revision) throw new TypeError("SLO target must reference the exact SLI id and revision");
+}
 export function assertIncidentAuthority(incident: ObservabilityIncident): void {
   if (incident.alertIds.length === 0) throw new TypeError("incident requires at least one alert reference");
   if (!incident.authorityRef.trim()) throw new TypeError("incident requires explicit authorityRef");
