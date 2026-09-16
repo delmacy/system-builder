@@ -6,10 +6,10 @@ Generation 2 remains rolling-wave and dependency-safe.
 G2-WP-01..G2-WP-10 are canonically closed. G2-WP-11 Planning & Materialization is integrated, and Construction A / `G2-WBS-17` is materialized as `TASK-555 -> TASK-556 -> TASK-557 -> TASK-558`.
 
 ## Integrated progress
-TASK-555 is completed and integrated via PR #813 on `main@75938b00fc7b7fc1f93c83effc79f9eb82b6043a`. The merge has parents `7f49f652cf489e9d64d547523ef88aaa3429b465` and exact PR head `93b6ffb90b496a0b4c5fc2effc21809b51a00b15`.
+TASK-555 is completed and integrated via PR #813. TASK-556 is completed and integrated via PR #815 on `main@85ea814a7f4b9dc44253498bed14a9766603f211`. The TASK-556 exact PR head was `2f4f496af701f3786d939510e6a50074628878a7`; the merge has parents `710121559bafb0de470c5963d8d5fe67f3a9fd73` and that exact head.
 
 ## Current executable gate
-Execute **TASK-556 — G2 observability SLI/SLO/currentness** only. TASK-556 depends on completed TASK-555 and is therefore the first dependency-safe successor. TASK-557 and TASK-558 remain blocked by their explicit predecessors. G2-WBS-18 / Construction B remains outside the current Construction A horizon until promoted by its own gate.
+Execute **TASK-557** only. TASK-557 depends on completed TASK-556 and is therefore the first dependency-safe successor. TASK-558 remains blocked by TASK-557. G2-WBS-18 / Construction B remains outside the current Construction A horizon until promoted by its own gate.
 
 Preserve `Signal != ConfirmedConflict`; signal != condition != alert != incident; telemetry gaps/currentness remain visible; stale/PARTIAL/UNKNOWN evidence cannot strengthen state; provenance, population and Local/Station/Fleet qualification remain explicit.
 
