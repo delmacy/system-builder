@@ -1,7 +1,13 @@
 ---
 id: TASK-557
 title: Define population-qualified reconciliation evidence semantics
-status: BLOCKED
+status: blocked
+priority: 557
+milestone: G2
+model_tier: architecture
+risk: high
+architecture_impact: true
+executor_preference: any
 work_package: G2-WP-11
 wbs: G2-WBS-17
 sprint: G2-WP11-CONSTRUCTION-A-01
@@ -23,6 +29,9 @@ forbidden_paths:
 max_files: 8
 validation:
   - npm run test:product
+  - npm run check:tasks
+  - npm run check:architecture
+  - npm run typecheck
   - npm run verify
 ---
 
