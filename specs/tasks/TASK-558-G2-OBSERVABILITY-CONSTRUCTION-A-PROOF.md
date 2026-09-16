@@ -1,7 +1,7 @@
 ---
 id: TASK-558
 title: Close G2-WBS-17 Construction A integrated Product Proof
-status: ready
+status: completed
 priority: 558
 milestone: G2
 model_tier: architecture
