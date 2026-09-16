@@ -106,3 +106,21 @@ test("UNKNOWN reconciliation requires reconcile-before-retry", () => {
   assert.equal(canClaimReconciliationConvergence(reconciliationJob, unknown), false);
   assert.equal(requiresReconciliationBeforeDisposition(reconciliationJob, unknown), true);
 });
+
+test("Construction A integrated proof never strengthens uncertain evidence across identity, SLO, aggregation and reconciliation boundaries", () => {
+  const uncertainEvidence: ObservabilityEvidence = { ...knownEvidence, currentness: "UNKNOWN", evidenceState: "UNKNOWN" };
+  const uncertainCondition: EvaluatedCondition = { kind: "condition", conditionId: "condition:integrated", signalId: "signal:integrated", evaluatorRevision: "policy:cpu@3", outcome: "TRUE", evidence: uncertainEvidence };
+  assert.equal(canPromoteConditionToAlert(uncertainCondition), false);
+  assert.equal(requireReconciliationBeforeRetry(uncertainEvidence), true);
+
+  const sli: ServiceLevelIndicatorDefinition = { sliId: "sli:integrated", revision: "8", name: "integrated", unit: "ratio", populationRef: "fleet:integrated", locality: "FLEET" };
+  const slo: ServiceLevelObjectiveTarget = { sloId: "slo:integrated", revision: "2", sliId: sli.sliId, sliRevision: sli.revision, target: 0.99, window: "7d" };
+  assert.doesNotThrow(() => assertSloTargetsSliRevision(slo, sli));
+  assert.throws(() => assertSloTargetsSliRevision({ ...slo, sliRevision: "7" }, sli), /exact SLI id and revision/);
+
+  assert.equal(canAggregatePopulationCoverage([{ populationRef: "station:alpha", locality: "STATION", currentness: "CURRENT", evidenceState: "KNOWN" }, { populationRef: "station:beta", locality: "STATION", currentness: "UNKNOWN", evidenceState: "UNKNOWN" }]), false);
+
+  const partialReconciliation: ReconciliationEvidence = { ...reconciled, observedPopulationRefs: ["station:alpha"], currentness: "UNKNOWN", evidenceState: "PARTIAL", disposition: "UNKNOWN" };
+  assert.equal(canClaimReconciliationConvergence(reconciliationJob, partialReconciliation), false);
+  assert.equal(requiresReconciliationBeforeDisposition(reconciliationJob, partialReconciliation), true);
+});
