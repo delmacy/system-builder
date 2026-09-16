@@ -1,17 +1,17 @@
-# Next Work — G2-WP-10 / Documentation & Closure
+# Next Work — Generation 2 / post-G2-WP-10 successor reconciliation
 
 Generation 2 remains rolling-wave and dependency-safe.
 
-## Closed predecessor
-G2-WP-01..G2-WP-09 are canonically closed. G2-WBS-15 Construction A is integrated and accepted. G2-WBS-16 Construction B (`TASK-551 -> TASK-552 -> TASK-553 -> TASK-554`) is fully integrated and its fresh-main Sprint Review is PASS. G2-WP-10 Package Integration & Review is PASS and integrated on `main@37ab1863f93bd4265ba288c4bf22d2b181a4d2bd` via PR #802, with no bounded product rework and no Construction C required.
+## Canonically closed predecessor
+G2-WP-01..G2-WP-10 are canonically closed. G2-WP-10 Documentation & Closure integrated on `main@e93a548b14c183dbf48657d925fdf133a8096c6f` via PR #804 after its Package Integration & Review PASS. G2-WBS-15 Construction A and G2-WBS-16 Construction B (`TASK-551 -> TASK-552 -> TASK-553 -> TASK-554`) are accepted; the Construction B fresh-main Sprint Review is PASS; no bounded product rework and no Construction C remain for WP-10.
 
 ## Current mandatory gate
-Execute only **G2-WP-10 Documentation & Closure** on fresh main. Reconcile canonical package status, accepted Construction A/B evidence, Package Integration & Review PASS, residual risks and repository-memory/lifecycle surfaces required by the materialized DAG. Closure must not create successor product behavior.
+Revalidate the authoritative Generation 2 planning revision in `research/g2-capability-pipeline` — including `RESEARCH_PIPELINE_STATE.json`, WBS decomposition/dependency graph, Work Package Design and Ready for Worker Handoff — against this fresh main and promote **only the first dependency-safe successor Work Package** authorized by that DAG.
 
-Only after a PASS Documentation & Closure revision integrates may repository authority promote the next dependency-safe Generation 2 package. Do not absorb WP-11+ during WP-10 closure.
+Do not select a successor by numerical adjacency and do not execute or materialize successor product behavior until that exact planning authority establishes READY ownership/scope/dependencies. If the dependency-safe successor is G2-WP-11, its Planning & Materialization is the next executable gate only after that promotion is explicit.
 
 ## Evidence model
 Exact-head proof (`Deterministic CI`, `Heavy Product Tests`) remains distinct from synthetic integration proof (`Merge Candidate CI`). If `main` advances, previous merge-candidate evidence is stale. Workflow changes additionally require `Workflow Lint`; `npm run verify` includes `check:docs`.
 
 ## Boundary
-AI inference != authority. Preserve owner/revision/currentness, PARTIAL/UNKNOWN non-strengthening, reconcile-before-retry where applicable, replaceable provider qualification, coexistence/manual paths and Product Proof distinct from Production Readiness. Do not implement autonomous-agent authority, direct side effects, concrete UI, persistence/DB, runtime-core, vendor SDKs/providers/adapters, WP-11+, Production Readiness or unmaterialized DEFER/DO_NOT_BUILD findings.
+AI inference != authority. Preserve owner/revision/currentness, PARTIAL/UNKNOWN non-strengthening, reconcile-before-retry where applicable, replaceable provider qualification, coexistence/manual paths and Product Proof distinct from Production Readiness. Do not implement autonomous-agent authority, direct side effects, concrete UI, persistence/DB, runtime-core, vendor SDKs/providers/adapters, successor WP behavior, Production Readiness or unmaterialized DEFER/DO_NOT_BUILD findings before the successor is explicitly promoted by repository authority.
