@@ -64,6 +64,19 @@ test("population aggregation cannot manufacture completeness", () => {
 
 const reconciliationJob: ReconciliationJob = { jobId: "reconcile:1", reconcilerId: "reconciler:inventory", reconcilerRevision: "7", locality: "FLEET", intendedPopulationRefs: ["station:alpha", "station:beta"], sourceRevision: "inventory@12" };
 const reconciled: ReconciliationEvidence = { jobId: reconciliationJob.jobId, reconcilerRevision: reconciliationJob.reconcilerRevision, locality: "FLEET", sourceRevision: reconciliationJob.sourceRevision, effectRevision: "inventory@13", intendedPopulationRefs: reconciliationJob.intendedPopulationRefs, attemptedPopulationRefs: reconciliationJob.intendedPopulationRefs, observedPopulationRefs: ["station:alpha", "station:beta"], observedAt: "2026-09-16T10:00:00Z", currentness: "CURRENT", evidenceState: "KNOWN", disposition: "CONVERGED" };
+const withoutEffectRevision: ReconciliationEvidence = {
+  jobId: reconciled.jobId,
+  reconcilerRevision: reconciled.reconcilerRevision,
+  locality: reconciled.locality,
+  sourceRevision: reconciled.sourceRevision,
+  intendedPopulationRefs: reconciled.intendedPopulationRefs,
+  attemptedPopulationRefs: reconciled.attemptedPopulationRefs,
+  observedPopulationRefs: reconciled.observedPopulationRefs,
+  observedAt: reconciled.observedAt,
+  currentness: reconciled.currentness,
+  evidenceState: reconciled.evidenceState,
+  disposition: reconciled.disposition,
+};
 
 test("reconciliation convergence is qualified by exact intended, attempted and observed populations, locality and revisions", () => {
   assert.equal(isReconciliationPopulationComplete(reconciliationJob, reconciled), true);
@@ -85,11 +98,11 @@ test("stale, locality-mismatched or revision-mismatched evidence cannot converge
   assert.equal(canClaimReconciliationConvergence(reconciliationJob, { ...reconciled, currentness: "STALE" }), false);
   assert.equal(canClaimReconciliationConvergence(reconciliationJob, { ...reconciled, locality: "STATION" }), false);
   assert.equal(canClaimReconciliationConvergence(reconciliationJob, { ...reconciled, sourceRevision: "inventory@11" }), false);
-  assert.equal(canClaimReconciliationConvergence(reconciliationJob, { ...reconciled, effectRevision: undefined }), false);
+  assert.equal(canClaimReconciliationConvergence(reconciliationJob, withoutEffectRevision), false);
 });
 
 test("UNKNOWN reconciliation requires reconcile-before-retry", () => {
-  const unknown = { ...reconciled, disposition: "UNKNOWN" as const, currentness: "UNKNOWN" as const, evidenceState: "UNKNOWN" as const, effectRevision: undefined };
+  const unknown: ReconciliationEvidence = { ...withoutEffectRevision, disposition: "UNKNOWN", currentness: "UNKNOWN", evidenceState: "UNKNOWN" };
   assert.equal(canClaimReconciliationConvergence(reconciliationJob, unknown), false);
   assert.equal(requiresReconciliationBeforeDisposition(reconciliationJob, unknown), true);
 });
