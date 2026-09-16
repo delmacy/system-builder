@@ -1,7 +1,7 @@
 ---
 id: TASK-557
 title: Define population-qualified reconciliation evidence semantics
-status: blocked
+status: completed
 priority: 557
 milestone: G2
 model_tier: architecture
@@ -39,28 +39,13 @@ validation:
 Define reconciliation-job and reconciliation-evidence contracts that qualify what population, locality, revision and currentness were actually checked.
 
 ## Context
-This task follows TASK-556 and must preserve G2-WBS-17 non-strengthening semantics across Local/Station/Fleet, partial populations and stale/UNKNOWN observations.
+This task follows TASK-556 and preserves G2-WBS-17 non-strengthening semantics across Local/Station/Fleet, partial populations and stale/UNKNOWN observations.
 
-## Current behavior
-The preceding observability tasks establish identity and currentness semantics, but no G2-WBS-17 reconciliation evidence contract yet proves the exact population/locality/revision/currentness actually observed.
+## Implemented change
+Reconciliation jobs bind source/effect revisions, locality and intended population. Reconciliation evidence records intended, attempted and observed populations plus currentness, evidence state and disposition. Completeness requires exact job identity, revisions, locality, CURRENT/KNOWN evidence and full intended/attempted/observed population equality. Any mismatch, partial/stale evidence or UNKNOWN disposition yields UNKNOWN and requires reconcile-before-retry.
 
-## Required change
-A reconciliation result must not imply global convergence from partial coverage. Preserve Local/Station/Fleet distinctions, source/effect revisions, attempted/observed populations, gaps and UNKNOWN outcomes. Where ambiguity prevents safe retry or disposition, preserve `UNKNOWN -> reconcile-before-retry` semantics.
-
-## Inputs / contracts
-Consume TASK-555 identity and TASK-556 SLI/SLO/currentness contracts plus predecessor authority/evidence/locality contracts by reference.
-
-## Outputs / contracts
-Extend `packages/contracts/observability/**` with population/currentness/locality-qualified reconciliation-job and reconciliation-evidence contracts and extend deterministic Product Proof.
-
-## Acceptance criteria
-Partial populations, stale evidence, locality mismatch and UNKNOWN reconciliation outcomes remain explicit; no partial result implies global convergence; source/effect revisions remain attributable; predecessor-integration tests pass.
+## Acceptance evidence
+Deterministic Product Proof covers complete convergence, partial population, stale evidence, locality mismatch, revision mismatch and explicit UNKNOWN. No partial result implies global convergence and predecessor identity/currentness tests remain in the same proof suite.
 
 ## Non-goals
 No actuation/remediation authority, persistence, provider-specific jobs, silent canonicalization, WP-12/13 or Production Readiness claim.
-
-## Evidence expected
-Deterministic positive and negative tests for partial populations, stale evidence, locality mismatch and explicit unknown reconciliation outcomes plus all frontmatter validation commands.
-
-## Escalation
-When population, locality, revision or currentness is insufficient to support a safe disposition, return UNKNOWN and require reconciliation before retry; never infer convergence or authority.
