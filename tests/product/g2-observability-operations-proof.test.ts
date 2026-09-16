@@ -63,19 +63,22 @@ test("population aggregation cannot manufacture completeness", () => {
 });
 
 const reconciliationJob: ReconciliationJob = { jobId: "reconcile:1", reconcilerId: "reconciler:inventory", reconcilerRevision: "7", locality: "FLEET", intendedPopulationRefs: ["station:alpha", "station:beta"], sourceRevision: "inventory@12" };
-const reconciled: ReconciliationEvidence = { jobId: reconciliationJob.jobId, reconcilerRevision: reconciliationJob.reconcilerRevision, locality: "FLEET", sourceRevision: reconciliationJob.sourceRevision, effectRevision: "inventory@13", intendedPopulationRefs: reconciliationJob.intendedPopulationRefs, observedPopulationRefs: ["station:alpha", "station:beta"], observedAt: "2026-09-16T10:00:00Z", currentness: "CURRENT", evidenceState: "KNOWN", disposition: "CONVERGED" };
+const reconciled: ReconciliationEvidence = { jobId: reconciliationJob.jobId, reconcilerRevision: reconciliationJob.reconcilerRevision, locality: "FLEET", sourceRevision: reconciliationJob.sourceRevision, effectRevision: "inventory@13", intendedPopulationRefs: reconciliationJob.intendedPopulationRefs, attemptedPopulationRefs: reconciliationJob.intendedPopulationRefs, observedPopulationRefs: ["station:alpha", "station:beta"], observedAt: "2026-09-16T10:00:00Z", currentness: "CURRENT", evidenceState: "KNOWN", disposition: "CONVERGED" };
 
-test("reconciliation convergence is qualified by exact population, locality and revisions", () => {
+test("reconciliation convergence is qualified by exact intended, attempted and observed populations, locality and revisions", () => {
   assert.equal(isReconciliationPopulationComplete(reconciliationJob, reconciled), true);
   assert.equal(canClaimReconciliationConvergence(reconciliationJob, reconciled), true);
   assert.equal(requiresReconciliationBeforeDisposition(reconciliationJob, reconciled), false);
 });
 
-test("partial population cannot imply global convergence", () => {
+test("partial or unscoped population cannot imply global convergence", () => {
   const partial = { ...reconciled, observedPopulationRefs: ["station:alpha"], evidenceState: "PARTIAL" as const };
   assert.equal(isReconciliationPopulationComplete(reconciliationJob, partial), false);
   assert.equal(canClaimReconciliationConvergence(reconciliationJob, partial), false);
   assert.equal(requiresReconciliationBeforeDisposition(reconciliationJob, partial), true);
+  assert.equal(canClaimReconciliationConvergence(reconciliationJob, { ...reconciled, attemptedPopulationRefs: ["station:alpha"] }), false);
+  assert.equal(canClaimReconciliationConvergence(reconciliationJob, { ...reconciled, observedPopulationRefs: ["station:alpha", "station:beta", "station:gamma"] }), false);
+  assert.equal(canClaimReconciliationConvergence(reconciliationJob, { ...reconciled, intendedPopulationRefs: ["station:alpha"] }), false);
 });
 
 test("stale, locality-mismatched or revision-mismatched evidence cannot converge", () => {
