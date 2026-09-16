@@ -97,6 +97,32 @@ export type PopulationCoverage = Readonly<{
   evidenceState: ObservabilityEvidenceState;
 }>;
 
+export type ReconciliationDisposition = "CONVERGED" | "DIVERGED" | "UNKNOWN";
+
+export type ReconciliationJob = Readonly<{
+  jobId: string;
+  reconcilerId: string;
+  reconcilerRevision: string;
+  locality: ObservabilityLocality;
+  intendedPopulationRefs: readonly string[];
+  sourceRevision: string;
+}>;
+
+export type ReconciliationEvidence = Readonly<{
+  jobId: string;
+  reconcilerRevision: string;
+  locality: ObservabilityLocality;
+  sourceRevision: string;
+  effectRevision?: string;
+  intendedPopulationRefs: readonly string[];
+  attemptedPopulationRefs: readonly string[];
+  observedPopulationRefs: readonly string[];
+  observedAt: string;
+  currentness: EvidenceCurrentness;
+  evidenceState: ObservabilityEvidenceState;
+  disposition: ReconciliationDisposition;
+}>;
+
 export function canPromoteConditionToAlert(condition: EvaluatedCondition): boolean {
   return condition.outcome === "TRUE" && condition.evidence.currentness === "CURRENT" && condition.evidence.evidenceState === "KNOWN";
 }
@@ -111,6 +137,30 @@ export function isObservationComplete(observation: SliObservation): boolean {
 
 export function canAggregatePopulationCoverage(coverage: readonly PopulationCoverage[]): boolean {
   return coverage.length > 0 && coverage.every((entry) => entry.currentness === "CURRENT" && entry.evidenceState === "KNOWN");
+}
+
+function hasExactPopulation(expected: readonly string[], actual: readonly string[]): boolean {
+  if (expected.length === 0 || expected.length !== actual.length) return false;
+  const expectedSet = new Set(expected);
+  const actualSet = new Set(actual);
+  return expectedSet.size === expected.length && actualSet.size === actual.length && expectedSet.size === actualSet.size && [...expectedSet].every((populationRef) => actualSet.has(populationRef));
+}
+
+export function isReconciliationPopulationComplete(job: ReconciliationJob, evidence: ReconciliationEvidence): boolean {
+  if (job.jobId !== evidence.jobId || job.reconcilerRevision !== evidence.reconcilerRevision) return false;
+  if (job.locality !== evidence.locality || job.sourceRevision !== evidence.sourceRevision) return false;
+  if (evidence.currentness !== "CURRENT" || evidence.evidenceState !== "KNOWN") return false;
+  return hasExactPopulation(job.intendedPopulationRefs, evidence.intendedPopulationRefs)
+    && hasExactPopulation(job.intendedPopulationRefs, evidence.attemptedPopulationRefs)
+    && hasExactPopulation(job.intendedPopulationRefs, evidence.observedPopulationRefs);
+}
+
+export function canClaimReconciliationConvergence(job: ReconciliationJob, evidence: ReconciliationEvidence): boolean {
+  return evidence.disposition === "CONVERGED" && Boolean(evidence.effectRevision) && isReconciliationPopulationComplete(job, evidence);
+}
+
+export function requiresReconciliationBeforeDisposition(job: ReconciliationJob, evidence: ReconciliationEvidence): boolean {
+  return evidence.disposition === "UNKNOWN" || !isReconciliationPopulationComplete(job, evidence);
 }
 
 export function assertSloTargetsSliRevision(slo: ServiceLevelObjectiveTarget, sli: ServiceLevelIndicatorDefinition): void {
