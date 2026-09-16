@@ -106,3 +106,19 @@ test("UNKNOWN reconciliation requires reconcile-before-retry", () => {
   assert.equal(canClaimReconciliationConvergence(reconciliationJob, unknown), false);
   assert.equal(requiresReconciliationBeforeDisposition(reconciliationJob, unknown), true);
 });
+
+test("Construction A integrated proof preserves authority, revision, currentness and population boundaries together", () => {
+  const signal: TelemetrySignal = { kind: "signal", signalId: "signal:integrated", name: "availability.low", evidence: knownEvidence };
+  const uncertain: EvaluatedCondition = { kind: "condition", conditionId: "condition:integrated", signalId: signal.signalId, evaluatorRevision: "policy:availability@9", outcome: "TRUE", evidence: { ...knownEvidence, evidenceState: "PARTIAL" } };
+  const sli: ServiceLevelIndicatorDefinition = { sliId: "sli:integrated", revision: "12", name: "availability", unit: "ratio", populationRef: "fleet:integrated", locality: "FLEET" };
+  const slo: ServiceLevelObjectiveTarget = { sloId: "slo:integrated", revision: "3", sliId: sli.sliId, sliRevision: sli.revision, target: 0.999, window: "30d" };
+
+  assert.equal(signal.kind, "signal");
+  assert.equal(canPromoteConditionToAlert(uncertain), false);
+  assert.equal(requireReconciliationBeforeRetry(uncertain.evidence), true);
+  assert.doesNotThrow(() => assertSloTargetsSliRevision(slo, sli));
+  assert.equal(canAggregatePopulationCoverage([{ populationRef: "station:alpha", locality: "STATION", currentness: "CURRENT", evidenceState: "KNOWN" }, { populationRef: "station:beta", locality: "STATION", currentness: "UNKNOWN", evidenceState: "PARTIAL" }]), false);
+  assert.equal(canClaimReconciliationConvergence(reconciliationJob, { ...reconciled, currentness: "STALE" }), false);
+  assert.equal(requiresReconciliationBeforeDisposition(reconciliationJob, { ...withoutEffectRevision, disposition: "UNKNOWN", currentness: "UNKNOWN", evidenceState: "UNKNOWN" }), true);
+  assert.throws(() => assertIncidentAuthority({ kind: "incident", incidentId: "incident:inferred", alertIds: [], authorityRef: "", confirmedAt: knownEvidence.observedAt }), /alert reference|authorityRef/);
+});
