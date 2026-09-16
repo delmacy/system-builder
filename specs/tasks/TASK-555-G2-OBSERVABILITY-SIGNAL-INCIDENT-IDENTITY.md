@@ -1,7 +1,7 @@
 ---
 id: TASK-555
 title: Define observability signal condition alert and incident identity semantics
-status: ready
+status: completed
 priority: 555
 milestone: G2
 model_tier: architecture
