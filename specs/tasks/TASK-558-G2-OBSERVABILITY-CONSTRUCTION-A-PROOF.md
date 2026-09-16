@@ -1,7 +1,7 @@
 ---
 id: TASK-558
 title: Close G2-WBS-17 Construction A integrated Product Proof
-status: blocked
+status: ready
 priority: 558
 milestone: G2
 model_tier: architecture
@@ -40,10 +40,10 @@ validation:
 Close the first G2-WP-11 Construction Sprint with deterministic integrated Product Proof across TASK-555..557 without introducing new semantic ownership.
 
 ## Context
-This proof task is blocked by TASK-557 and integrates only already materialized G2-WBS-17 behavior. Product Proof remains distinct from Production Readiness.
+This proof task follows completed and integrated TASK-557 and integrates only already materialized G2-WBS-17 behavior. Product Proof remains distinct from Production Readiness.
 
 ## Current behavior
-TASK-555..557 are designed to establish observability identity, revision/currentness and reconciliation evidence semantics, but Construction A is not complete until their obligations are proven together without semantic strengthening.
+TASK-555..557 establish observability identity, revision/currentness and reconciliation evidence semantics, but Construction A is not complete until their obligations are proven together without semantic strengthening.
 
 ## Required change
 Integrate proof that `Signal != ConfirmedConflict`; signal/condition/alert/incident remain distinct; SLI/SLO history is revision-qualified; telemetry gaps/loss/backpressure/currentness and stale/UNKNOWN cohorts remain visible; aggregates cannot strengthen partial evidence; reconciliation evidence is population/currentness/locality qualified; AI inference != authority.
