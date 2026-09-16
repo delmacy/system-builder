@@ -37,11 +37,29 @@ validation:
 # Objective
 Extend TASK-555 with revision-qualified SLI/SLO and telemetry currentness/gap semantics.
 
-# Required behavior
+## Context
+This task follows TASK-555 and remains blocked until its identity semantics are completed. G2-WBS-17 requires revision-qualified observability without hiding stale, missing, partial or UNKNOWN evidence.
+
+## Current behavior
+Before this task, signal/condition/alert/incident identities may exist from TASK-555, but there is no G2-WBS-17 contract proving SLI/SLO revision history and telemetry currentness/gap semantics across populations.
+
+## Required change
 Keep SLI definition/revision, SLO target/revision and observed evidence distinct. Telemetry loss, backpressure, stale windows, missing populations and UNKNOWN cohorts remain explicit. Aggregates must not manufacture completeness or hide stale/unknown cohorts.
 
-# Proof
-Add deterministic positive/negative predecessor-integration tests covering revision changes, stale evidence and partial population coverage.
+## Inputs / contracts
+Consume TASK-555 observability identities and predecessor evidence/currentness contracts by reference; do not redefine their ownership.
 
-# Boundary
-No alerting vendor, dashboards, persistence, production threshold tuning or Production Readiness claim.
+## Outputs / contracts
+Extend `packages/contracts/observability/**` with revision-qualified SLI/SLO and currentness/gap contracts and extend deterministic Product Proof in `tests/product/g2-observability-operations-proof.test.ts`.
+
+## Acceptance criteria
+Revision changes remain attributable; stale evidence and telemetry gaps remain visible; partial population coverage cannot be strengthened by aggregates; positive and negative predecessor-integration tests pass.
+
+## Non-goals
+No alerting vendor, dashboards, persistence, production threshold tuning, autonomous remediation or Production Readiness claim.
+
+## Evidence expected
+Deterministic tests covering revision changes, stale evidence, loss/backpressure and partial population coverage plus all frontmatter validation commands.
+
+## Escalation
+If currentness, revision or population cannot be established, retain PARTIAL/UNKNOWN explicitly and reconcile before retry rather than manufacturing complete evidence.
