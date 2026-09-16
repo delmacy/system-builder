@@ -8,6 +8,8 @@ Esta árvore é separada da documentação constitucional/arquitetural original 
 
 A execução de produto usa `project_docs/schedule/SPRINT_MODE.md` como contrato operacional.
 
+Para sistemas-cliente, a capability futura `60-client-delivery-lifecycle-governance` reutiliza esses princípios como produto: gera um lifecycle proporcional ao contexto (`RAPID | STANDARD | ENTERPRISE | REGULATED`) e mantém separado o planejamento interno do próprio System Builder do plano de delivery de cada cliente.
+
 ## Níveis
 
 - L1 — capítulo/módulo;
@@ -43,6 +45,7 @@ A execução de produto usa `project_docs/schedule/SPRINT_MODE.md` como contrato
 8. Cada Sprint usa por padrão uma única branch `sprint/<SPRINT-ID>` e um único PR final para `main`.
 9. TASKs preservam contratos, validações e commits próprios mesmo quando compartilham a branch da Sprint.
 10. A revisão humana normal ocorre no encerramento da Sprint; exceções de arquitetura, segurança ou escopo continuam fail-closed.
+11. O lifecycle de delivery de sistemas-cliente é uma capability de produto separada; ele pode reutilizar WBS/DAG/Waves/Work Packages/Sprints/Tasks sem tornar a governança interna deste repositório um template obrigatório para todo cliente.
 
 ## Modelo operacional atual
 
@@ -53,3 +56,5 @@ OpenCode CLI é o executor local padrão. O runtime Supervisor/heartbeat/callbac
 ## Estado
 
 O planejamento estrutural permanece válido. O foco operacional passa a ser execução por Sprint do roadmap de produto, iniciando pela Vertical Contract Spine M1. A infraestrutura AgentFactory deixa de ser caminho crítico do desenvolvimento do produto.
+
+A capability 60 permanece `PLANNED`: sua presença no escopo não materializa Work Package, Sprint ou TASK e não altera a Generation 2 atualmente autorizada.
