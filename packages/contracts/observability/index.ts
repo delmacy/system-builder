@@ -115,6 +115,7 @@ export type ReconciliationEvidence = Readonly<{
   sourceRevision: string;
   effectRevision?: string;
   intendedPopulationRefs: readonly string[];
+  attemptedPopulationRefs: readonly string[];
   observedPopulationRefs: readonly string[];
   observedAt: string;
   currentness: EvidenceCurrentness;
@@ -138,12 +139,20 @@ export function canAggregatePopulationCoverage(coverage: readonly PopulationCove
   return coverage.length > 0 && coverage.every((entry) => entry.currentness === "CURRENT" && entry.evidenceState === "KNOWN");
 }
 
+function hasExactPopulation(expected: readonly string[], actual: readonly string[]): boolean {
+  if (expected.length === 0 || expected.length !== actual.length) return false;
+  const expectedSet = new Set(expected);
+  const actualSet = new Set(actual);
+  return expectedSet.size === expected.length && actualSet.size === actual.length && expectedSet.size === actualSet.size && [...expectedSet].every((populationRef) => actualSet.has(populationRef));
+}
+
 export function isReconciliationPopulationComplete(job: ReconciliationJob, evidence: ReconciliationEvidence): boolean {
   if (job.jobId !== evidence.jobId || job.reconcilerRevision !== evidence.reconcilerRevision) return false;
   if (job.locality !== evidence.locality || job.sourceRevision !== evidence.sourceRevision) return false;
   if (evidence.currentness !== "CURRENT" || evidence.evidenceState !== "KNOWN") return false;
-  const observed = new Set(evidence.observedPopulationRefs);
-  return job.intendedPopulationRefs.length > 0 && job.intendedPopulationRefs.every((populationRef) => observed.has(populationRef));
+  return hasExactPopulation(job.intendedPopulationRefs, evidence.intendedPopulationRefs)
+    && hasExactPopulation(job.intendedPopulationRefs, evidence.attemptedPopulationRefs)
+    && hasExactPopulation(job.intendedPopulationRefs, evidence.observedPopulationRefs);
 }
 
 export function canClaimReconciliationConvergence(job: ReconciliationJob, evidence: ReconciliationEvidence): boolean {
