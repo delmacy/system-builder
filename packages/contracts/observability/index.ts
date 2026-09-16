@@ -52,12 +52,71 @@ export type ObservabilityIncident = Readonly<{
 
 export type ObservabilityIdentity = TelemetrySignal | EvaluatedCondition | ObservabilityAlert | ObservabilityIncident;
 
+export type ServiceLevelIndicatorDefinition = Readonly<{
+  sliId: string;
+  revision: string;
+  name: string;
+  unit: string;
+  populationRef: string;
+  locality: ObservabilityLocality;
+}>;
+
+export type ServiceLevelObjectiveTarget = Readonly<{
+  sloId: string;
+  revision: string;
+  sliId: string;
+  sliRevision: string;
+  target: number;
+  window: string;
+}>;
+
+export type TelemetryGapReason = "LOSS" | "BACKPRESSURE" | "MISSING_POPULATION" | "UNKNOWN";
+
+export type TelemetryGap = Readonly<{
+  gapId: string;
+  populationRef: string;
+  locality: ObservabilityLocality;
+  reason: TelemetryGapReason;
+  observedAt: string;
+  currentness: EvidenceCurrentness;
+}>;
+
+export type SliObservation = Readonly<{
+  observationId: string;
+  sliId: string;
+  sliRevision: string;
+  value?: number;
+  evidence: ObservabilityEvidence;
+  gaps: readonly TelemetryGap[];
+}>;
+
+export type PopulationCoverage = Readonly<{
+  populationRef: string;
+  locality: ObservabilityLocality;
+  currentness: EvidenceCurrentness;
+  evidenceState: ObservabilityEvidenceState;
+}>;
+
 export function canPromoteConditionToAlert(condition: EvaluatedCondition): boolean {
   return condition.outcome === "TRUE" && condition.evidence.currentness === "CURRENT" && condition.evidence.evidenceState === "KNOWN";
 }
 
 export function requireReconciliationBeforeRetry(evidence: ObservabilityEvidence): boolean {
   return evidence.currentness !== "CURRENT" || evidence.evidenceState !== "KNOWN";
+}
+
+export function isObservationComplete(observation: SliObservation): boolean {
+  return observation.value !== undefined && observation.gaps.length === 0 && !requireReconciliationBeforeRetry(observation.evidence);
+}
+
+export function canAggregatePopulationCoverage(coverage: readonly PopulationCoverage[]): boolean {
+  return coverage.length > 0 && coverage.every((entry) => entry.currentness === "CURRENT" && entry.evidenceState === "KNOWN");
+}
+
+export function assertSloTargetsSliRevision(slo: ServiceLevelObjectiveTarget, sli: ServiceLevelIndicatorDefinition): void {
+  if (slo.sliId !== sli.sliId || slo.sliRevision !== sli.revision) {
+    throw new TypeError("SLO target must reference the exact SLI id and revision");
+  }
 }
 
 export function assertIncidentAuthority(incident: ObservabilityIncident): void {

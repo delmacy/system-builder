@@ -2,11 +2,17 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   assertIncidentAuthority,
+  assertSloTargetsSliRevision,
+  canAggregatePopulationCoverage,
   canPromoteConditionToAlert,
+  isObservationComplete,
   requireReconciliationBeforeRetry,
   type EvaluatedCondition,
   type ObservabilityEvidence,
   type ObservabilityIncident,
+  type ServiceLevelIndicatorDefinition,
+  type ServiceLevelObjectiveTarget,
+  type SliObservation,
   type TelemetrySignal,
 } from "../../packages/contracts/observability/index.js";
 
@@ -70,4 +76,51 @@ test("an incident requires explicit authority and cannot be inferred from a sign
   assert.doesNotThrow(() => assertIncidentAuthority(incident));
   assert.throws(() => assertIncidentAuthority({ ...incident, alertIds: [] }), /alert reference/);
   assert.throws(() => assertIncidentAuthority({ ...incident, authorityRef: "" }), /authorityRef/);
+});
+
+test("SLO targets are bound to an exact SLI revision", () => {
+  const sli: ServiceLevelIndicatorDefinition = {
+    sliId: "sli:availability",
+    revision: "4",
+    name: "availability",
+    unit: "ratio",
+    populationRef: "fleet:payments",
+    locality: "FLEET",
+  };
+  const slo: ServiceLevelObjectiveTarget = {
+    sloId: "slo:availability",
+    revision: "9",
+    sliId: sli.sliId,
+    sliRevision: sli.revision,
+    target: 0.999,
+    window: "30d",
+  };
+  assert.doesNotThrow(() => assertSloTargetsSliRevision(slo, sli));
+  assert.throws(() => assertSloTargetsSliRevision({ ...slo, sliRevision: "3" }, sli), /exact SLI id and revision/);
+});
+
+test("telemetry gaps and stale or partial cohorts remain incomplete", () => {
+  const complete: SliObservation = {
+    observationId: "obs:1",
+    sliId: "sli:availability",
+    sliRevision: "4",
+    value: 0.9995,
+    evidence: knownEvidence,
+    gaps: [],
+  };
+  assert.equal(isObservationComplete(complete), true);
+  assert.equal(isObservationComplete({ ...complete, evidence: { ...knownEvidence, currentness: "STALE" } }), false);
+  assert.equal(isObservationComplete({ ...complete, gaps: [{ gapId: "gap:1", populationRef: "station:beta", locality: "STATION", reason: "BACKPRESSURE", observedAt: knownEvidence.observedAt, currentness: "CURRENT" }] }), false);
+});
+
+test("population aggregation cannot manufacture completeness", () => {
+  assert.equal(canAggregatePopulationCoverage([
+    { populationRef: "station:alpha", locality: "STATION", currentness: "CURRENT", evidenceState: "KNOWN" },
+    { populationRef: "station:beta", locality: "STATION", currentness: "CURRENT", evidenceState: "KNOWN" },
+  ]), true);
+  assert.equal(canAggregatePopulationCoverage([
+    { populationRef: "station:alpha", locality: "STATION", currentness: "CURRENT", evidenceState: "KNOWN" },
+    { populationRef: "station:beta", locality: "STATION", currentness: "UNKNOWN", evidenceState: "PARTIAL" },
+  ]), false);
+  assert.equal(canAggregatePopulationCoverage([]), false);
 });
