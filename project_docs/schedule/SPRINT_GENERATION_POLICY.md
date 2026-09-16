@@ -139,3 +139,22 @@ A closed package must leave:
 - repository memory reconciled to integrated truth;
 - successor packages promoted/re-ranked only from real evidence;
 - no historical Sprint/package status left masquerading as current authority.
+
+## Mandatory post-WP13 Architecture Assurance planning
+
+`G2-WP-13` remains the currently designed Product Proof / Production Readiness / Architecture Reconciliation sink. Do not enlarge WP-13 merely to absorb standards work.
+
+After WP-13 is `PASS / INTEGRATED / CANONICALLY CLOSED`, the next fresh-main baseline planning pass must read `project_docs/schedule/POST_WP13_ARCHITECTURE_ASSURANCE_POLICY.md` and generate a dependency-safe Architecture Assurance / Standards Conformance program before the repository may claim architecture-standard conformance or external-audit readiness.
+
+That planning pass must:
+
+- revalidate the current published editions/supersession state of ISO/IEC/IEEE 42010, 42020, 42030 and ISO/IEC 25010;
+- create a requirement/applicability/evidence baseline rather than a generic checklist;
+- plan explicit coverage for architecture description, architecture processes, architecture evaluation, product-quality measurement and conformance-gap closure;
+- preserve existing semantic owners and route remediation back to owning capabilities/packages;
+- keep `Product Proof`, `Production Readiness`, `standards conformance` and `external certification` as distinct states;
+- materialize only the first dependency-safe assurance Work Package after fresh DAG revalidation; later assurance packages remain forecast;
+- avoid a false universal quality score: critical quality dimensions remain independently visible and cannot be averaged away;
+- require an auditable final dossier with bounded residual exceptions and reproducible evidence.
+
+The exact post-WP13 Work Package count/IDs are not predetermined by this policy. Planning may combine or split assurance packages according to real gaps, but every mandatory outcome in the post-WP13 policy must have an owner, dependency, exit proof and closure disposition.
