@@ -6,10 +6,10 @@ Generation 2 remains rolling-wave and dependency-safe.
 G2-WP-01..G2-WP-10 are canonically closed. G2-WP-11 Planning & Materialization is integrated, and Construction A / `G2-WBS-17`, materialized as `TASK-555 -> TASK-556 -> TASK-557 -> TASK-558`, is fully completed and integrated.
 
 ## Integrated progress
-TASK-555 is completed and integrated via PR #813. TASK-556 is completed and integrated via PR #815. TASK-557 is completed and integrated via PR #818. TASK-558 is completed and integrated via PR #820. TASK-559 is completed and integrated via PR #825. TASK-560 is completed and integrated via PR #826.
+TASK-555 is completed and integrated via PR #813. TASK-556 is completed and integrated via PR #815. TASK-557 is completed and integrated via PR #818. TASK-558 is completed and integrated via PR #820. TASK-559 is completed and integrated via PR #825. TASK-560 is completed and integrated via PR #826. TASK-561 is completed and integrated via PR #829.
 
 ## Current executable gate
-G2-WBS-18 / Construction B is materialized as `TASK-559 -> TASK-560 -> TASK-561 -> TASK-562`. TASK-559..560 are COMPLETED and integrated. Only TASK-561 is READY. TASK-562 remains blocked by its explicit predecessor.
+G2-WBS-18 / Construction B is materialized as `TASK-559 -> TASK-560 -> TASK-561 -> TASK-562`. TASK-559..561 are COMPLETED and integrated. Only TASK-562 is READY.
 
 TASK-559 establishes ACK != effect/convergence. TASK-560 preserves authority across operator surfaces. TASK-561 requires reconnect reconciliation before retry/convergence claims. TASK-562 closes integrated Product Proof for auditable manual/emergency paths. No concrete UI, persistence, provider SDK, workflow mutation, WP-12/13 or Production Readiness claim is included.
 
