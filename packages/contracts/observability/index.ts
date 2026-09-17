@@ -59,7 +59,7 @@ export type OperatorReconnectReconciliation = Readonly<{
   locality: ObservabilityLocality;
   populationRef: string;
   sourceRevision: string;
-  effectRevision?: string;
+  effectRevision?: string | undefined;
   currentness: EvidenceCurrentness;
   evidenceState: ObservabilityEvidenceState;
   disposition: ReconciliationDisposition;
