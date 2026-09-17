@@ -123,6 +123,28 @@ export type ReconciliationEvidence = Readonly<{
   disposition: ReconciliationDisposition;
 }>;
 
+export type OperatorRequestAcknowledgement = Readonly<{
+  requestId: string;
+  authorityRef: string;
+  ownerId: string;
+  requestedRevision: string;
+  locality: ObservabilityLocality;
+  populationRef: string;
+  acknowledgedAt: string;
+}>;
+
+export type OperatorEffectEvidence = Readonly<{
+  requestId: string;
+  authorityRef: string;
+  ownerId: string;
+  requestedRevision: string;
+  effectRevision?: string;
+  locality: ObservabilityLocality;
+  populationRef: string;
+  evidence: ObservabilityEvidence;
+  disposition: ReconciliationDisposition;
+}>;
+
 export function canPromoteConditionToAlert(condition: EvaluatedCondition): boolean {
   return condition.outcome === "TRUE" && condition.evidence.currentness === "CURRENT" && condition.evidence.evidenceState === "KNOWN";
 }
@@ -161,6 +183,17 @@ export function canClaimReconciliationConvergence(job: ReconciliationJob, eviden
 
 export function requiresReconciliationBeforeDisposition(job: ReconciliationJob, evidence: ReconciliationEvidence): boolean {
   return evidence.disposition === "UNKNOWN" || !isReconciliationPopulationComplete(job, evidence);
+}
+
+export function canClaimOperatorEffectConvergence(acknowledgement: OperatorRequestAcknowledgement, effect: OperatorEffectEvidence): boolean {
+  if (acknowledgement.requestId !== effect.requestId || acknowledgement.authorityRef !== effect.authorityRef || acknowledgement.ownerId !== effect.ownerId) return false;
+  if (acknowledgement.requestedRevision !== effect.requestedRevision || acknowledgement.locality !== effect.locality || acknowledgement.populationRef !== effect.populationRef) return false;
+  if (effect.evidence.source.locality !== effect.locality || effect.evidence.source.populationRef !== effect.populationRef) return false;
+  return effect.disposition === "CONVERGED" && Boolean(effect.effectRevision) && !requireReconciliationBeforeRetry(effect.evidence);
+}
+
+export function requiresOperatorEffectReconciliation(effect: OperatorEffectEvidence): boolean {
+  return effect.disposition === "UNKNOWN" || !effect.effectRevision || requireReconciliationBeforeRetry(effect.evidence);
 }
 
 export function assertSloTargetsSliRevision(slo: ServiceLevelObjectiveTarget, sli: ServiceLevelIndicatorDefinition): void {
