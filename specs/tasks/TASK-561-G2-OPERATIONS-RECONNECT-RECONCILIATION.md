@@ -1,7 +1,7 @@
 ---
 id: TASK-561
 title: Reconcile operator effects after reconnect
-status: blocked
+status: ready
 priority: 561
 milestone: G2
 model_tier: architecture
