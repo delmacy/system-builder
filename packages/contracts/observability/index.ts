@@ -64,6 +64,7 @@ export function canOperatorProjectionClaimConvergence(projection: OperatorAuthor
   if (projection.authorityRef !== effect.authorityRef || projection.ownerId !== effect.ownerId) return false;
   if (projection.locality !== effect.locality || projection.populationRef !== effect.populationRef) return false;
   if (projection.sourceId !== effect.evidence.source.sourceId || projection.sourceRevision !== effect.evidence.source.producerRevision) return false;
+  if (projection.sourceRevision !== effect.requestedRevision) return false;
   return effect.disposition === "CONVERGED" && Boolean(effect.effectRevision) && !requireReconciliationBeforeRetry(effect.evidence);
 }
 
