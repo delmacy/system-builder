@@ -138,7 +138,7 @@ export type OperatorEffectEvidence = Readonly<{
   authorityRef: string;
   ownerId: string;
   requestedRevision: string;
-  effectRevision?: string;
+  effectRevision?: string | undefined;
   locality: ObservabilityLocality;
   populationRef: string;
   evidence: ObservabilityEvidence;
