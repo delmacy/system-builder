@@ -5,9 +5,12 @@ import {
   assertSloTargetsSliRevision,
   canAggregatePopulationCoverage,
   canClaimOperatorEffectConvergence,
+  canClaimOperatorReconnectConvergence,
   canClaimReconciliationConvergence,
   canPromoteConditionToAlert,
+  canRetryOperatorRequestAfterReconnect,
   isObservationComplete,
+  isOperatorReconnectReconciliationQualified,
   isReconciliationPopulationComplete,
   requireReconciliationBeforeRetry,
   requiresOperatorEffectReconciliation,
@@ -16,6 +19,7 @@ import {
   type ObservabilityEvidence,
   type ObservabilityIncident,
   type OperatorEffectEvidence,
+  type OperatorReconnectReconciliation,
   type OperatorRequestAcknowledgement,
   type ReconciliationEvidence,
   type ReconciliationJob,
@@ -150,4 +154,59 @@ test("unknown or revisionless operator outcome requires reconcile-before-retry",
   assert.equal(canClaimOperatorEffectConvergence(operatorAck, unknown), false);
   assert.equal(requiresOperatorEffectReconciliation(unknown), true);
   assert.equal(canClaimOperatorEffectConvergence(operatorAck, revisionlessEffect), false);
+});
+
+const reconnectConverged: OperatorReconnectReconciliation = {
+  requestId: operatorAck.requestId, authorityRef: operatorAck.authorityRef, ownerId: operatorAck.ownerId, requestedRevision: operatorAck.requestedRevision,
+  locality: operatorAck.locality, populationRef: operatorAck.populationRef, sourceRevision: operatorAck.requestedRevision, effectRevision: "service@43",
+  currentness: "CURRENT", evidenceState: "KNOWN", disposition: "CONVERGED",
+};
+
+test("reconnect convergence requires a qualified authoritative reconciliation", () => {
+  assert.equal(isOperatorReconnectReconciliationQualified(operatorAck, reconnectConverged), true);
+  assert.equal(canClaimOperatorReconnectConvergence(operatorAck, reconnectConverged), true);
+  assert.equal(canRetryOperatorRequestAfterReconnect(operatorAck, reconnectConverged), false);
+});
+
+test("reconnect retry is allowed only after qualified reconciliation proves divergence", () => {
+  const diverged: OperatorReconnectReconciliation = { ...reconnectConverged, disposition: "DIVERGED", effectRevision: undefined };
+  assert.equal(isOperatorReconnectReconciliationQualified(operatorAck, diverged), true);
+  assert.equal(canRetryOperatorRequestAfterReconnect(operatorAck, diverged), true);
+  assert.equal(canClaimOperatorReconnectConvergence(operatorAck, diverged), false);
+});
+
+test("stale, PARTIAL and UNKNOWN reconnect evidence cannot authorize retry or convergence", () => {
+  for (const reconciliation of [
+    { ...reconnectConverged, currentness: "STALE" as const },
+    { ...reconnectConverged, evidenceState: "PARTIAL" as const },
+    { ...reconnectConverged, currentness: "UNKNOWN" as const, evidenceState: "UNKNOWN" as const, disposition: "UNKNOWN" as const, effectRevision: undefined },
+  ]) {
+    assert.equal(isOperatorReconnectReconciliationQualified(operatorAck, reconciliation), false);
+    assert.equal(canRetryOperatorRequestAfterReconnect(operatorAck, reconciliation), false);
+    assert.equal(canClaimOperatorReconnectConvergence(operatorAck, reconciliation), false);
+  }
+});
+
+test("reconnect evidence cannot cross authority, owner, revision, locality or population boundaries", () => {
+  const mismatches: readonly OperatorReconnectReconciliation[] = [
+    { ...reconnectConverged, authorityRef: "authority:other@1" },
+    { ...reconnectConverged, ownerId: "owner:other" },
+    { ...reconnectConverged, requestedRevision: "service@41" },
+    { ...reconnectConverged, sourceRevision: "service@41" },
+    { ...reconnectConverged, locality: "LOCAL" },
+    { ...reconnectConverged, populationRef: "station:beta" },
+  ];
+  for (const reconciliation of mismatches) {
+    assert.equal(isOperatorReconnectReconciliationQualified(operatorAck, reconciliation), false);
+    assert.equal(canRetryOperatorRequestAfterReconnect(operatorAck, reconciliation), false);
+    assert.equal(canClaimOperatorReconnectConvergence(operatorAck, reconciliation), false);
+  }
+});
+
+test("duplicate retry cannot be strengthened from unresolved reconnect outcome", () => {
+  const unresolved: OperatorReconnectReconciliation = { ...reconnectConverged, disposition: "UNKNOWN", effectRevision: undefined };
+  assert.equal(canRetryOperatorRequestAfterReconnect(operatorAck, unresolved), false);
+  assert.equal(canClaimOperatorReconnectConvergence(operatorAck, unresolved), false);
+  const staleDiverged: OperatorReconnectReconciliation = { ...unresolved, disposition: "DIVERGED", currentness: "STALE" };
+  assert.equal(canRetryOperatorRequestAfterReconnect(operatorAck, staleDiverged), false);
 });

@@ -51,6 +51,20 @@ export type OperatorAuthorityProjection = Readonly<{
   origin: OperatorProjectionOrigin;
 }>;
 
+export type OperatorReconnectReconciliation = Readonly<{
+  requestId: string;
+  authorityRef: string;
+  ownerId: string;
+  requestedRevision: string;
+  locality: ObservabilityLocality;
+  populationRef: string;
+  sourceRevision: string;
+  effectRevision?: string | undefined;
+  currentness: EvidenceCurrentness;
+  evidenceState: ObservabilityEvidenceState;
+  disposition: ReconciliationDisposition;
+}>;
+
 export function projectOperatorAuthority(authorityRef: string, ownerId: string, evidence: ObservabilityEvidence, origin: OperatorProjectionOrigin = "AUTHORITATIVE_SOURCE"): OperatorAuthorityProjection {
   return { projectionId: `${evidence.source.sourceId}@${evidence.source.producerRevision}`, authorityRef, ownerId, sourceId: evidence.source.sourceId, sourceRevision: evidence.source.producerRevision, locality: evidence.source.locality, populationRef: evidence.source.populationRef, currentness: evidence.currentness, evidenceState: evidence.evidenceState, origin };
 }
@@ -78,5 +92,18 @@ export function canClaimReconciliationConvergence(job: ReconciliationJob, eviden
 export function requiresReconciliationBeforeDisposition(job: ReconciliationJob, evidence: ReconciliationEvidence): boolean { return evidence.disposition === "UNKNOWN" || !isReconciliationPopulationComplete(job, evidence); }
 export function canClaimOperatorEffectConvergence(acknowledgement: OperatorRequestAcknowledgement, effect: OperatorEffectEvidence): boolean { if (acknowledgement.requestId !== effect.requestId || acknowledgement.authorityRef !== effect.authorityRef || acknowledgement.ownerId !== effect.ownerId) return false; if (acknowledgement.requestedRevision !== effect.requestedRevision || acknowledgement.locality !== effect.locality || acknowledgement.populationRef !== effect.populationRef) return false; if (effect.evidence.source.locality !== effect.locality || effect.evidence.source.populationRef !== effect.populationRef) return false; return effect.disposition === "CONVERGED" && Boolean(effect.effectRevision) && !requireReconciliationBeforeRetry(effect.evidence); }
 export function requiresOperatorEffectReconciliation(effect: OperatorEffectEvidence): boolean { return effect.disposition === "UNKNOWN" || !effect.effectRevision || requireReconciliationBeforeRetry(effect.evidence); }
+
+export function isOperatorReconnectReconciliationQualified(acknowledgement: OperatorRequestAcknowledgement, reconciliation: OperatorReconnectReconciliation): boolean {
+  return acknowledgement.requestId === reconciliation.requestId && acknowledgement.authorityRef === reconciliation.authorityRef && acknowledgement.ownerId === reconciliation.ownerId && acknowledgement.requestedRevision === reconciliation.requestedRevision && acknowledgement.locality === reconciliation.locality && acknowledgement.populationRef === reconciliation.populationRef && reconciliation.sourceRevision === acknowledgement.requestedRevision && reconciliation.currentness === "CURRENT" && reconciliation.evidenceState === "KNOWN" && reconciliation.disposition !== "UNKNOWN";
+}
+
+export function canRetryOperatorRequestAfterReconnect(acknowledgement: OperatorRequestAcknowledgement, reconciliation: OperatorReconnectReconciliation): boolean {
+  return isOperatorReconnectReconciliationQualified(acknowledgement, reconciliation) && reconciliation.disposition === "DIVERGED";
+}
+
+export function canClaimOperatorReconnectConvergence(acknowledgement: OperatorRequestAcknowledgement, reconciliation: OperatorReconnectReconciliation): boolean {
+  return isOperatorReconnectReconciliationQualified(acknowledgement, reconciliation) && reconciliation.disposition === "CONVERGED" && Boolean(reconciliation.effectRevision);
+}
+
 export function assertSloTargetsSliRevision(slo: ServiceLevelObjectiveTarget, sli: ServiceLevelIndicatorDefinition): void { if (slo.sliId !== sli.sliId || slo.sliRevision !== sli.revision) throw new TypeError("SLO target must reference the exact SLI id and revision"); }
 export function assertIncidentAuthority(incident: ObservabilityIncident): void { if (incident.alertIds.length === 0) throw new TypeError("incident requires at least one alert reference"); if (!incident.authorityRef.trim()) throw new TypeError("incident requires explicit authorityRef"); if (!incident.confirmedAt.trim()) throw new TypeError("incident requires explicit confirmedAt"); }
