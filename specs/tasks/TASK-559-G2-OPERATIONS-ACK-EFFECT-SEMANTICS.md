@@ -1,7 +1,7 @@
 ---
 id: TASK-559
 title: Separate operator acknowledgement from converged effect
-status: ready
+status: completed
 priority: 559
 milestone: G2
 model_tier: architecture
