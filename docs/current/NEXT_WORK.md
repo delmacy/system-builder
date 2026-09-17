@@ -1,4 +1,4 @@
-# Next Work — Generation 2 / G2-WP-11 Post-Construction-A Reconciliation
+# Next Work — Generation 2 / G2-WP-11 Construction B
 
 Generation 2 remains rolling-wave and dependency-safe.
 
@@ -6,10 +6,12 @@ Generation 2 remains rolling-wave and dependency-safe.
 G2-WP-01..G2-WP-10 are canonically closed. G2-WP-11 Planning & Materialization is integrated, and Construction A / `G2-WBS-17`, materialized as `TASK-555 -> TASK-556 -> TASK-557 -> TASK-558`, is fully completed and integrated.
 
 ## Integrated progress
-TASK-555 is completed and integrated via PR #813. TASK-556 is completed and integrated via PR #815. TASK-557 is completed and integrated via PR #818. TASK-558 is completed and integrated via PR #820 on `main@4d428dc3f81952f66c52a376c1649943e7e4c955`; the TASK-558 exact PR head was `df475495de208dfb79d381294652ccd2109d80fc`.
+TASK-555 is completed and integrated via PR #813. TASK-556 is completed and integrated via PR #815. TASK-557 is completed and integrated via PR #818. TASK-558 is completed and integrated via PR #820.
 
 ## Current executable gate
-Perform only the fresh-main post-Construction-A reconciliation and explicit promotion/materialization decision for **G2-WBS-18 / Construction B**. G2-WBS-18 remains FORECAST and is not executable until that separate gate is materialized and integrated. Do not treat completion of TASK-558 as implicit Construction B authority.
+G2-WBS-18 / Construction B is materialized as `TASK-559 -> TASK-560 -> TASK-561 -> TASK-562`. Only TASK-559 is READY. TASK-560..562 remain blocked by their explicit predecessors.
+
+TASK-559 establishes ACK != effect/convergence. TASK-560 preserves authority across operator surfaces. TASK-561 requires reconnect reconciliation before retry/convergence claims. TASK-562 closes integrated Product Proof for auditable manual/emergency paths. No concrete UI, persistence, provider SDK, workflow mutation, WP-12/13 or Production Readiness claim is included.
 
 Preserve `Signal != ConfirmedConflict`; signal != condition != alert != incident; telemetry gaps/currentness remain visible; stale/PARTIAL/UNKNOWN evidence cannot strengthen state; provenance, population and Local/Station/Fleet qualification remain explicit.
 
