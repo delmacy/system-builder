@@ -1,7 +1,7 @@
 ---
 id: TASK-562
 title: Prove auditable manual and emergency operator paths
-status: blocked
+status: ready
 priority: 562
 milestone: G2
 model_tier: architecture
