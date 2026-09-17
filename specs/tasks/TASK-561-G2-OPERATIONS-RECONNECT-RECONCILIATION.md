@@ -1,7 +1,7 @@
 ---
 id: TASK-561
 title: Reconcile operator effects after reconnect
-status: ready
+status: completed
 priority: 561
 milestone: G2
 model_tier: architecture
@@ -61,6 +61,9 @@ No transport/provider implementation, persistence, workflow changes, WP-12/13 or
 
 ## Evidence expected
 Deterministic Product Proof covers known convergence plus stale, PARTIAL and UNKNOWN reconnect outcomes, including duplicate/retry adversarial cases, and proves retry remains blocked until qualified reconciliation establishes authoritative disposition. Repository verification, task checks, architecture checks and typecheck remain green.
+
+## Completion evidence
+The bounded observability contract now qualifies reconnect reconciliation against request identity, authority, owner, requested/source revision, locality, population, currentness and evidence state. Product Proof covers converged and diverged authoritative outcomes plus stale, PARTIAL, UNKNOWN, cross-boundary and duplicate/retry adversarial cases. Retry remains false until a CURRENT/KNOWN qualified reconciliation establishes DIVERGED; convergence additionally requires CONVERGED with an explicit effect revision.
 
 ## Escalation
 Stop and fail closed if reconnect semantics require provider/transport/persistence/workflow authority, permit retry before authoritative reconciliation, strengthen stale/PARTIAL/UNKNOWN evidence, or cross G2-WBS-18 boundaries.
