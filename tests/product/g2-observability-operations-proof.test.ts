@@ -144,7 +144,8 @@ test("stale, PARTIAL and UNKNOWN operator effect evidence cannot prove convergen
 });
 
 test("unknown or revisionless operator outcome requires reconcile-before-retry", () => {
-  const { effectRevision: _effectRevision, ...revisionlessEffect } = convergedOperatorEffect;
+  const { effectRevision: omittedEffectRevision, ...revisionlessEffect } = convergedOperatorEffect;
+  assert.equal(omittedEffectRevision, "service@43");
   const unknown: OperatorEffectEvidence = { ...revisionlessEffect, disposition: "UNKNOWN", evidence: { ...knownEvidence, currentness: "UNKNOWN", evidenceState: "UNKNOWN" } };
   assert.equal(canClaimOperatorEffectConvergence(operatorAck, unknown), false);
   assert.equal(requiresOperatorEffectReconciliation(unknown), true);
