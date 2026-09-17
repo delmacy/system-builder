@@ -1,7 +1,7 @@
 ---
 id: TASK-560
 title: Preserve authority on operator surfaces
-status: blocked
+status: ready
 priority: 560
 milestone: G2
 model_tier: architecture
