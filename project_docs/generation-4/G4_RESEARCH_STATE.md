@@ -62,6 +62,10 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Correlation/trace context != identity or authority proof`.
 - `Message/broker acceptance != consumer/business effect`.
 - `Cross-capability reference != ownership transfer`.
+- `Compatibility is multidimensional`; a schema/version boolean cannot stand in for semantic, authority, currentness, delivery/effect, ordering, error, deadline or evidence compatibility.
+- `Provider advertisement != qualification proof`; binding eligibility is evaluated against a required contract guarantee profile.
+- `Version overlap != guarantee overlap`.
+- `Binding substitution != semantic equivalence by default`.
 
 ## Research progression
 
@@ -99,9 +103,29 @@ WBS / Work Packages / implementation
 - Lifecycle/Continuous Improvement: first deep evidence consolidation completed for incident/postmortem/action separation, work hierarchy vs semantic graph, multidimensional closure, outcome/effectiveness measurement and lesson lineage. Still `RESEARCH_ACTIVE`, not saturated.
 - Self-Hosting/Autonomic Evolution: first deep evidence consolidation completed for secure update trust, generation consistency, version skew, anti-rollback vs recovery, state/schema rollback, promotion evidence, reboot identity and failed-update-loop containment. Still `RESEARCH_ACTIVE`, not saturated.
 - Product UX/AI-native Builder: **first deep evidence consolidation completed** for semantic zoom/multiscale materialization, lens composition, disclosure/security, Explore-to-Act mode separation, Preview fidelity, evidence-linked AI proposal interaction, accessibility and interaction-workload performance. Still `RESEARCH_ACTIVE`, not saturated; user-role/task research and empirical prototypes remain open.
-- Shared Semantic Kernel / Capability Exchange Plane: **first deep evidence consolidation completed**. Research now separates capability business ownership from shared structural primitives; contract from interface/provider/binding/driver/adapter/gateway/controller; interaction semantics from transport; schema compatibility from semantic contract compatibility; and transport/broker acceptance from business effect. A logical exchange plane is supported as a hypothesis, not a central broker/module mandate. Family remains `RESEARCH_ACTIVE`, not saturated.
+- Shared Semantic Kernel / Capability Exchange Plane: **second deep evidence consolidation completed**, now covering multidimensional contract compatibility and negotiation in addition to the initial boundary/exchange model. Compatibility is modeled as a guarantee vector; required contract profiles are compared against provider/binding offers; version/schema acceptance is separated from semantic qualification; binding substitution requires contract-scoped evidence; direct/RPC/async mediation cannot collapse acceptance into effect; schema, contract and provider registries are distinct logical responsibilities; common semantic fixtures are the candidate portability proof across transports. Family remains `RESEARCH_ACTIVE`, not saturated.
 
 ## Material research log
+
+### 2026-09-18 — Capability Exchange contract compatibility and negotiation
+
+Evidence classes: Confluent Schema Registry compatibility/interoperability; AsyncAPI protocol bindings; CloudEvents Kafka/AMQP bindings; HTTP RFC 9110 idempotency semantics; gRPC deadlines/wait-for-ready; RabbitMQ acknowledgements/confirms; Kafka producer idempotence/transactions.
+
+Material delta:
+
+- replaced a boolean notion of compatibility with a multidimensional guarantee vector covering wire/schema, interaction kind, meaning, pre/postconditions, authority/policy, tenant/classification, currentness/time, delivery/effect, idempotency/dedup, ordering, error/UNKNOWN/conflict, deadline/cancellation, rate/backpressure/cost and evidence;
+- separated `RequiredContractProfile` from `ProviderOffer`, making binding eligibility a qualified proof relation rather than a provider/version-name match;
+- established `Version overlap != guarantee overlap` and required rolling-upgrade windows to be backed by tested producer/consumer/provider/binding relations;
+- classified transport substitution as contract-scoped equivalence, mediated equivalence, qualified degradation, incompatibility or unknown rather than assuming direct/RPC/async interchangeability;
+- identified synchronous-to-async false-success and async-to-synchronous loss-of-durability/offline-tolerance as first-class mediation adversarials;
+- required compatibility mediation evidence to enumerate preserved, degraded, unsupported and inferred semantics;
+- separated schema registry, contract registry and capability-provider registry as logical responsibilities without making any registry a business semantic owner;
+- proposed common semantic contract fixtures across in-process/RPC/async bindings plus realization-specific failure fixtures as the strongest candidate portability evidence;
+- strengthened autonomous-runtime behavior: locally pinned, still-valid qualification evidence may support operation during central registry/discovery outage within declared currentness/expiry limits.
+
+No registry, broker, RPC framework, schema system or negotiation protocol was selected as canonical.
+
+Highest-value remaining gap: empirical same-contract fixtures across in-process, RPC and asynchronous bindings, especially ambiguous timeout/retry/effect behavior and queued-command revocation/currentness.
 
 ### 2026-09-18 — Shared Semantic Kernel / Capability Exchange Plane foundations
 
@@ -124,8 +148,6 @@ Material delta:
 - added adversarials for shared-model monolith, shared database ownership, ESB/gateway business accumulation, service-mesh semantic overclaim, retry duplicates, version skew, schema-compatible semantic break, metadata loss, cross-capability ownership leakage and local/remote semantic drift.
 
 No broker, service mesh, RPC framework, schema registry, API gateway or event specification was selected as canonical.
-
-Highest-value remaining gaps: multidimensional contract-compatibility/negotiation; empirical same-contract fixtures across in-process/RPC/async realizations; revocation/currentness for queued work; long-partition federation; registry decomposition without central semantic ownership; reference lifecycle; gateway anti-ESB decomposition; provider capability negotiation; and common semantic contract tests across transports.
 
 ### 2026-09-18 — Authorization-aware data access
 
