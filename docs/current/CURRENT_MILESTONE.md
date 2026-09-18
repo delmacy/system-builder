@@ -1,16 +1,16 @@
-# Current Execution Milestone — Generation 2 / post-G2-WP-11 closure
+# Current Execution Milestone — Generation 2 / G2-WP-12 Construction A
 
 ## Milestone state
-G2-WP-01..G2-WP-11 are canonically closed. G2-WP-11 Planning & Materialization, Construction A / `G2-WBS-17`, Construction B / `G2-WBS-18`, Package Integration & Review and Documentation & Closure are completed and integrated. Closure integrated via PR #836 as `c12722d4f8d6455db0b20a91c7174ede2829aa95`.
+G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Planning & Materialization integrated via PR #839. Construction A / `G2-WBS-19` is the only committed Construction Sprint.
 
 ## Current executable gate
-Only **fresh-main successor reconciliation** is executable. Revalidate `main`, `AGENTS.md`, repository memory and exact G2 planning authority/WBS/DAG/readiness before selecting or materializing G2-WP-12. This gate introduces no product behavior.
+`TASK-563` — governance policy/decision/enforcement/evidence/assessment contract — is READY. `TASK-564` depends on TASK-563; `TASK-565` depends on TASK-564; `TASK-566` depends on TASK-565. Execute in dependency order on Sprint branch `sprint/G2-WP12-CONSTRUCTION-A-01`, preserving one authoritative commit per TASK and each TASK's declared paths/validations.
 
 ## Evidence
-Documentation & Closure exact head `07662354bd4fafdc4cc4290cbf592a71b635b17c` passed Deterministic CI #1936 and Heavy Product Tests #1577/#1578. Merge Candidate CI #166 separately passed for its synthetic merge candidate before PR #836 integrated.
+Planning exact head `4d4f4be924c64201f19703b4166a05ec6fbb4eec` passed Deterministic CI #1949 and Heavy Product Tests #1592/#1596. Merge Candidate CI #179 separately passed for the synthetic candidate before PR #839 integrated as `f8e58193451fe5e3fa47a853b6aefdb3a6970f76`.
 
 ## Successor horizon
-No Construction C is promoted by WP-11 evidence. G2-WP-12/13 remain outside the closed WP-11 boundary. Their eligibility is determined only by fresh-main planning authority, WBS/DAG/readiness and repository-memory reconciliation.
+Construction B / G2-WBS-20 remains FORECAST until Construction A integrates and fresh-main revalidation promotes it. G2-WBS-21 Construction C remains a FORECAST CANDIDATE and is not automatically promoted. G2-WP-13 remains excluded.
 
 ## Boundary
-AI inference != authority. Preserve owner/revision/currentness, provenance and population qualification, PARTIAL/UNKNOWN non-strengthening, reconcile-before-retry where applicable, source-of-truth/coexistence/residual drainage, Local/Station/Fleet semantics and Product Proof distinct from Production Readiness. ACK != effect/convergence and emergency execution != convergence remain explicit. No concrete UI, persistence, provider SDK, workflow mutation, G2-WP-12/13, Production Readiness, autonomous-agent authority, generic direct side-effect authority, unmaterialized DEFER/DO_NOT_BUILD findings or unrelated product scope is included in this reconciliation.
+Preserve policy != decision != enforcement != evidence != assessment; absence of evidence != compliance; authority revision/scope/effective-time/expiry qualification; PARTIAL/UNKNOWN non-strengthening; residual population visibility; provider qualification; source-of-truth/coexistence/residual drainage; Local/Station/Fleet semantics; AI inference != authority; Product Proof != Production Readiness. No persistence, UI, concrete provider SDK, commercial/FinOps implementation, WP-13, autonomous-agent authority, generic direct side-effect authority or unmaterialized DEFER/DO_NOT_BUILD scope is included.

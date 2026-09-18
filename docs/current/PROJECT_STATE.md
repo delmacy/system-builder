@@ -2,19 +2,17 @@
 
 Date: 2026-09-18
 
-## Generation 2 — post-G2-WP-11 closure
-G2-WP-01..G2-WP-11 are CANONICALLY CLOSED. G2-WP-11 Planning & Materialization, Construction A / `G2-WBS-17` (`TASK-555 -> TASK-556 -> TASK-557 -> TASK-558`), Construction B / `G2-WBS-18` (`TASK-559 -> TASK-560 -> TASK-561 -> TASK-562`), Package Integration & Review and Documentation & Closure are completed and integrated.
+## Generation 2 — G2-WP-12 active
+G2-WP-01..G2-WP-11 are CANONICALLY CLOSED. G2-WP-12 Planning & Materialization integrated via PR #839 as `main@f8e58193451fe5e3fa47a853b6aefdb3a6970f76` after revalidating planning authority `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
 ## Current commitment horizon
-TASK-555..562 are COMPLETED and integrated. Documentation & Closure exact head `07662354bd4fafdc4cc4290cbf592a71b635b17c` passed Deterministic CI #1936 and Heavy Product Tests #1577/#1578; Merge Candidate CI #166 separately passed for the synthetic candidate. PR #836 integrated as `c12722d4f8d6455db0b20a91c7174ede2829aa95`.
-
-No G2-WP-11 gate remains executable. Fresh-main successor reconciliation is required before selecting/materializing G2-WP-12: revalidate planning authority, WBS/DAG/readiness and current repository memory. G2-WP-12/13 product work is not implicitly promoted by WP-11 closure.
+G2-WP-12 owns `G2-WBS-19`, `G2-WBS-20`, and `G2-WBS-21`. Only Construction A / `G2-WBS-19` is committed. Its materialized dependency chain is `TASK-563 -> TASK-564 -> TASK-565 -> TASK-566`; TASK-563 is READY and TASK-564..566 remain blocked by their predecessors. Construction B / G2-WBS-20 remains FORECAST. G2-WBS-21 is a real package node but Construction C remains an optional FORECAST CANDIDATE requiring fresh-main promotion after Construction B.
 
 ## Preserved truth
-`Signal != ConfirmedConflict`; signal != condition != alert != incident. Telemetry gaps/currentness remain visible. Reconciliation evidence is population-qualified. Command/API/job ACK != converged effect. Emergency/manual operator paths preserve authority/evidence and reconnect reconciliation. Projection != canonical truth; visibility != authority != action eligibility; AI inference != authority. Source, candidate and canonical identity/revision/currentness remain distinct. Stale/PARTIAL/UNKNOWN/INCONCLUSIVE/CONFLICTED remain explicit and non-strengthening. Local/Station/Fleet qualification is preserved. Product Proof remains distinct from Production Readiness.
+Governance policy != decision != enforcement != evidence != assessment. Absence of evidence != compliance. Authority remains actor/scope/revision/effective-time/expiry qualified. PARTIAL/UNKNOWN and residual populations remain explicit and non-strengthening. Provider migration does not erase retention/legal-hold/residency/disposition obligations. Commercial entitlement != operational authorization. Product Proof remains distinct from Production Readiness.
 
 ## Package boundary
-G2-WP-11 is closed. G2-WP-12/13, autonomous-agent authority, generic direct side-effect authority, Production Readiness claims and unmaterialized DEFER/DO_NOT_BUILD findings remain excluded until independently materialized by successor authority.
+Do not absorb G2-WP-13, autonomous-agent authority, generic direct side-effect authority, Production Readiness claims, DEFER/DO_NOT_BUILD findings or unmaterialized research findings. Construction B/C are not executable until independently promoted by fresh-main authority.
 
 ## CI evidence truth
-TASK-562 exact PR head `b9ccf278a9fa84fedf075a0a19fcfcf87aa5f2b2` passed Deterministic CI #1922 and Heavy Product Tests #1561/#1564; Merge Candidate CI #152 separately passed. Package Review exact head `eb726041287b044257ba7f62e274fcc4e09b97e2` passed Deterministic CI #1935 and Heavy Product Tests #1575/#1576; Merge Candidate CI #165 separately passed. Documentation & Closure exact head `07662354bd4fafdc4cc4290cbf592a71b635b17c` passed Deterministic CI #1936 and Heavy Product Tests #1577/#1578; Merge Candidate CI #166 separately passed. This post-closure reconciliation requires its own exact-head and current merge-candidate evidence before integration.
+Planning PR #839 exact head `4d4f4be924c64201f19703b4166a05ec6fbb4eec` passed Deterministic CI #1949 and Heavy Product Tests #1592/#1596. Merge Candidate CI #179 separately passed for the synthetic candidate against the then-current main. Planning integrated as `f8e58193451fe5e3fa47a853b6aefdb3a6970f76`. The current planning-reconciliation revision that materializes TASK-563..566 and current authority requires its own exact-head and current merge-candidate evidence before integration.
