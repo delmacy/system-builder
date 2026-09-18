@@ -60,6 +60,12 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Deterministic technical winner != business truth`.
 - `Offline autonomy != indefinite delegated authority`.
 - `Metadata/data/authorization convergence are separate proof domains`.
+- `Trace/correlation != business causation != authority`.
+- `Workflow progress != transport progress`.
+- `Compensation != rollback/time reversal`; compensation is a new governed business effect.
+- `Reconnect order != causal/business order`.
+- `Orchestration/choreography != Exchange Plane ownership`.
+- `Cancel requested != downstream effect cancelled`.
 
 ## Research progression
 
@@ -83,9 +89,31 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** first deep evidence consolidation covers incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence. `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** first deep evidence consolidation covers secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment. `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** first deep evidence consolidation covers semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads. User/task research and empirical prototypes remain open. `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** **four deep evidence consolidations completed**: (1) minimal shared structural kernel and exchange-boundary vocabulary; (2) multidimensional contract compatibility/negotiation; (3) same-contract fixtures, delayed-command authority/currentness, ambiguous timeout/retry/effect, replay/dead-letter semantics; and (4) federated long-partition/reconnect reconciliation. Federation now separates transport reconnection from semantic convergence; backlog is classified before effect; disconnected conflicts remain representable; authority/contract/topology/checkpoint convergence are independently qualified; metadata/data/authorization convergence cannot be inferred from each other. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** **five deep evidence consolidations completed**: (1) minimal shared structural kernel and exchange-boundary vocabulary; (2) multidimensional contract compatibility/negotiation; (3) same-contract fixtures, delayed-command authority/currentness, ambiguous timeout/retry/effect, replay/dead-letter semantics; (4) federated long-partition/reconnect reconciliation; and (5) cross-capability causal/workflow/saga semantics. The fifth consolidation separates durable business causation from trace/correlation, workflow progress from transport progress, compensation from rollback, and orchestration/choreography from Exchange Plane ownership; it adds causal-frontier, pivot/irreversibility, cancellation races and in-flight authority/contract revision proof domains. `RESEARCH_ACTIVE`, not saturated.
 
 ## Material research log
+
+### 2026-09-18 — Cross-capability causal consistency, saga/workflow and compensation
+
+Evidence classes: AWS Prescriptive Guidance saga orchestration/choreography; Azure Architecture Center Saga and Compensating Transaction patterns; W3C Trace Context; OpenTelemetry context propagation/baggage; prior G4 temporal/federation findings.
+
+Material delta:
+
+- separated business process/saga ownership from Exchange Plane routing and delivery semantics;
+- separated correlation, trace lineage, durable business causation, workflow occurrence identity and authority;
+- required business causation needed for replay/compensation/audit to survive telemetry sampling/retention independently;
+- modeled long-lived workflow progress separately from broker/transport backlog progress;
+- treated compensation as a new domain-specific governed effect that can fail, race with concurrent work and require human reconciliation;
+- introduced pivot/irreversibility qualification and forward-recovery semantics rather than fictional rollback;
+- introduced a `CausalFrontier` research hypothesis for partition/reconnect without claiming a global serializable transaction;
+- required reconnect to reconcile predecessor/effect evidence before workflow continuation;
+- kept orchestration and choreography as business coordination patterns above the Exchange Plane;
+- added cancellation/supersession races and mid-workflow authority/contract revision as explicit adversarial/proof domains;
+- preserved autonomous runtime behavior and prohibited trace/baggage from becoming identity/authority proof.
+
+No workflow engine, saga framework, broker, tracing stack or orchestration topology was selected.
+
+Highest-value remaining gap: in-flight workflow definition/contract migration and causal-history compaction under finite retention/erasure, including retired compensation contracts without indefinite preservation of executable historical code or sensitive payloads.
 
 ### 2026-09-18 — Federated exchange after long partitions and reconnect
 
@@ -105,8 +133,6 @@ Material delta:
 - added federation adversarials for stale revocation, duplicate effects, checkpoint drift, metadata-without-data convergence, data-without-RBAC convergence, clock divergence, replication-agent configuration races, failover duplicates and erasure resurrection.
 
 No federation protocol, broker, conflict-resolution algorithm or replication technology was selected.
-
-Highest-value remaining gap: cross-capability causal consistency and saga/workflow semantics across federation, especially causation, compensation, partial completion and long-lived workflow state without making the Exchange Plane a business orchestrator.
 
 ### 2026-09-18 — Time-separated exchange fixtures and queued-command validity
 
@@ -170,6 +196,7 @@ Authenticity vs update authorization; threshold/root trust; generation consisten
 
 - no Rust rewrite decision;
 - no graph/vector/search/stream/service-mesh/central-exchange/etcd/Kubernetes adoption decision;
+- no workflow/saga engine adoption decision;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
