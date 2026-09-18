@@ -65,13 +65,36 @@ WBS / Work Packages / implementation
 
 ## Current maturity
 
-- Data/Persistence/Access: substantial backlog captured.
-- Data Treatment: substantial backlog captured.
-- Infrastructure Engineering: consolidated research backlog captured.
-- Computational Core/Performance: consolidated initial architecture and qualification rules captured.
-- Lifecycle/Continuous Improvement: consolidated initial lifecycle model captured.
-- Self-Hosting/Autonomic Evolution: consolidated guarded self-management architecture captured.
+- Data/Persistence/Access: substantial backlog captured; deep evidence consolidation still required.
+- Data Treatment: substantial backlog captured; deep evidence consolidation still required.
+- Infrastructure Engineering: consolidated research backlog captured; operational protocols/evidence still shallow.
+- Computational Core/Performance: consolidated initial architecture and qualification rules captured; workload benchmarks not yet materialized.
+- Lifecycle/Continuous Improvement: consolidated initial lifecycle model captured; cross-domain work-item semantics remain to be stress-tested.
+- Self-Hosting/Autonomic Evolution: **first deep evidence consolidation completed** for secure update trust, generation consistency, version skew, anti-rollback vs recovery, state/schema rollback, promotion evidence, reboot identity and failed-update-loop containment. Still `RESEARCH_ACTIVE`, not saturated.
 - Product UX/AI-native Builder: initial product R&D program captured; deeper usability research remains open.
+
+## Material research log
+
+### 2026-09-17 — Self-hosting secure-update protocol foundations
+
+Evidence classes: primary security/update specifications plus mature control-plane/host documentation (TUF, Uptane, Kubernetes, systemd).
+
+Material delta:
+
+- separated artifact authenticity from generation/update authorization;
+- introduced research requirement for threshold/role-separated root trust and out-of-band root recovery;
+- added complete-generation consistency to defend against partial and mix-and-match activation;
+- separated `CurrentGeneration`, `GoldenRecoveryGeneration` and `MinimumPermittedGeneration` so operational rollback does not silently defeat security anti-rollback;
+- introduced explicit compatibility/skew envelopes for independently upgradeable control components;
+- elevated durable-state/schema compatibility to a rollback proof obligation;
+- strengthened promotion from a liveness/health check to layered independent evidence;
+- distinguished host identity, boot epoch and service invocation across reboot;
+- added external failed-update/boot-attempt budget so a bad candidate cannot perpetuate its own restart loop;
+- added clock/freshness uncertainty to the update threat model.
+
+No provider, language, database, bootloader, orchestrator or update framework was selected.
+
+Next highest-value gap in this family: durable-state migration/rollback protocols and proof of downgrade readability. Cross-family priority may supersede this based on comparative maturity.
 
 ## Non-goals at this stage
 
