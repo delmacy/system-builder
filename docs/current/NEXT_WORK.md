@@ -1,22 +1,17 @@
-# Next Work — Generation 2 / G2-WP-11 Package Integration & Review
+# Next Work — Generation 2 / G2-WP-11 Documentation & Closure
 
 Generation 2 remains rolling-wave and dependency-safe.
 
 ## Canonically closed predecessors
-G2-WP-01..G2-WP-10 are canonically closed. G2-WP-11 Planning & Materialization is integrated. Construction A / `G2-WBS-17` and Construction B / `G2-WBS-18` are fully completed and integrated.
-
-## Integrated progress
-TASK-555 via PR #813; TASK-556 via PR #815; TASK-557 via PR #818; TASK-558 via PR #820; TASK-559 via PR #825; TASK-560 via PR #826; TASK-561 via PR #829; TASK-562 via PR #831. TASK-555..562 are COMPLETED.
+G2-WP-01..G2-WP-10 are canonically closed. G2-WP-11 Planning & Materialization, Construction A / `G2-WBS-17`, Construction B / `G2-WBS-18`, and Package Integration & Review are completed and integrated. TASK-555..562 are COMPLETED.
 
 ## Current executable gate
-The next mandatory gate is **G2-WP-11 Package Integration & Review** from fresh integrated `main`. Review must inspect the complete WBS-17/WBS-18 package surface, ownership/revision/currentness, Product Proof continuity, authority/evidence semantics, package debt and successor eligibility. It is not overflow implementation and must not absorb G2-WP-12/13 or unmaterialized findings.
+The only executable gate is **G2-WP-11 Documentation & Closure** from fresh integrated `main@7adf504ed794723b76de7f828a87ada12b3b26da`. Closure reconciles repository memory, Work Package/WBS/DAG/readiness traceability, review evidence, lessons/risks where applicable and successor eligibility. It must not add product behavior.
 
-No Construction C is promoted by current integrated evidence. Any newly discovered bounded blocker inside WP-11 must be handled blocker-first; otherwise the review should disposition the package for Documentation & Closure.
+Package Integration & Review passed via PR #835. Exact review head `eb726041287b044257ba7f62e274fcc4e09b97e2` passed Deterministic CI #1935 and Heavy Product Tests #1575/#1576. Merge Candidate CI #165 separately proved the synthetic candidate against the then-current `main`; PR #835 integrated as `7adf504ed794723b76de7f828a87ada12b3b26da`.
 
-Preserve `Signal != ConfirmedConflict`; signal != condition != alert != incident; telemetry gaps/currentness remain visible; stale/PARTIAL/UNKNOWN evidence cannot strengthen state; provenance, population and Local/Station/Fleet qualification remain explicit. ACK != effect/convergence; emergency execution != convergence; UNKNOWN remains reconcile-before-retry where applicable.
-
-## Evidence model
-TASK-562 exact-head proof is `b9ccf278a9fa84fedf075a0a19fcfcf87aa5f2b2`: Deterministic CI #1922 and Heavy Product Tests #1561/#1564 passed. Merge Candidate CI #152 separately proved the synthetic candidate against the then-current main before PR #831 integrated as `7161a571ab1e9c5b62dd82358dae60c6b2dbb2f0`. Future review/closure heads require their own exact-head and current merge-candidate evidence.
+## Successor rule
+Do not execute G2-WP-12/13 product work as a side effect of WP-11 closure. After this closure revision passes its own exact-head gates and current Merge Candidate CI and integrates, revalidate fresh `main`, planning authority, WBS/DAG/readiness and current repository memory to determine the next eligible successor. No Construction C is promoted by WP-11 evidence.
 
 ## Boundary
-AI inference != authority. Preserve owner/revision/currentness, PARTIAL/UNKNOWN non-strengthening, reconcile-before-retry where applicable, source-of-truth/coexistence/residual drainage, replaceable provider qualification, Local/Station/Fleet semantics and Product Proof distinct from Production Readiness. Do not absorb G2-WP-12/13, autonomous-agent authority, direct side-effect authority, unmaterialized DEFER/DO_NOT_BUILD findings, or unrelated product scope.
+Preserve `Signal != ConfirmedConflict`; signal != condition != alert != incident; owner/revision/currentness; PARTIAL/UNKNOWN non-strengthening; `UNKNOWN -> reconcile-before-retry` where applicable; source-of-truth/coexistence/residual drainage; replaceable provider qualification; Local/Station/Fleet semantics; ACK != effect/convergence; emergency execution != convergence; AI inference != authority; and Product Proof distinct from Production Readiness. Do not absorb autonomous-agent authority, generic direct side-effect authority, unmaterialized DEFER/DO_NOT_BUILD findings or unrelated product scope.
