@@ -1,0 +1,90 @@
+export const GOVERNANCE_CONTRACT_VERSION = "1.0.0" as const;
+
+export const GOVERNANCE_EVIDENCE_CURRENTNESS = ["CURRENT", "STALE", "UNKNOWN"] as const;
+export type GovernanceEvidenceCurrentness = (typeof GOVERNANCE_EVIDENCE_CURRENTNESS)[number];
+export const GOVERNANCE_EVIDENCE_POPULATION = ["COMPLETE", "PARTIAL", "UNKNOWN"] as const;
+export type GovernanceEvidencePopulation = (typeof GOVERNANCE_EVIDENCE_POPULATION)[number];
+export const GOVERNANCE_ASSESSMENT_OUTCOMES = ["SATISFIED", "NOT_SATISFIED", "INDETERMINATE"] as const;
+export type GovernanceAssessmentOutcome = (typeof GOVERNANCE_ASSESSMENT_OUTCOMES)[number];
+
+export type GovernancePolicy = Readonly<{
+  contractVersion: typeof GOVERNANCE_CONTRACT_VERSION;
+  policyId: string;
+  revisionRef: string;
+  effectiveAt: string;
+  scopeRef: string;
+}>;
+
+export type GovernanceDecision = Readonly<{
+  decisionId: string;
+  policyRef: string;
+  policyRevisionRef: string;
+  basisRefs: readonly string[];
+  authorityRef?: string;
+  inferenceRef?: string;
+}>;
+
+export type GovernanceEnforcementObservation = Readonly<{
+  enforcementId: string;
+  decisionRef: string;
+  observedAt: string;
+  result: "APPLIED" | "REJECTED" | "NOT_OBSERVED";
+}>;
+
+export type GovernanceEvidence = Readonly<{
+  evidenceId: string;
+  provenanceRef: string;
+  currentness: GovernanceEvidenceCurrentness;
+  population: GovernanceEvidencePopulation;
+  observedAt: string;
+}>;
+
+export type GovernanceAssessment = Readonly<{
+  assessmentId: string;
+  policyRef: string;
+  evidenceRefs: readonly string[];
+  outcome: GovernanceAssessmentOutcome;
+  assessedAt: string;
+}>;
+
+const TOKEN = /^\S+$/;
+const UTC = /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?Z$/;
+function token(value: unknown, path: string): string { if (typeof value !== "string" || !TOKEN.test(value)) throw new TypeError(`Invalid governance contract at ${path}`); return value; }
+function time(value: unknown, path: string): string { if (typeof value !== "string" || !UTC.test(value)) throw new TypeError(`Invalid governance contract at ${path}`); return value; }
+function record(value: unknown, path: string): Record<string, unknown> { if (!value || typeof value !== "object" || Array.isArray(value)) throw new TypeError(`Invalid governance contract at ${path}`); return value as Record<string, unknown>; }
+function keys(value: Record<string, unknown>, allowed: readonly string[], path: string): void { const set=new Set(allowed); const unexpected=Object.keys(value).filter(k=>!set.has(k)); if(unexpected.length) throw new TypeError(`Invalid governance contract at ${path}.${unexpected.sort()[0]}`); }
+function refs(value: unknown, path: string): readonly string[] { if(!Array.isArray(value)) throw new TypeError(`Invalid governance contract at ${path}`); const normalized=value.map((v,i)=>token(v,`${path}[${i}]`)); if(new Set(normalized).size!==normalized.length) throw new TypeError(`Invalid governance contract at ${path}: duplicate reference`); return [...normalized].sort(); }
+
+export function normalizeGovernancePolicy(input: unknown): GovernancePolicy {
+  const v=record(input,"$policy"); keys(v,["contractVersion","policyId","revisionRef","effectiveAt","scopeRef"],"$policy");
+  if(v.contractVersion!==GOVERNANCE_CONTRACT_VERSION) throw new TypeError("Invalid governance contract at $policy.contractVersion");
+  return {contractVersion:GOVERNANCE_CONTRACT_VERSION,policyId:token(v.policyId,"$policy.policyId"),revisionRef:token(v.revisionRef,"$policy.revisionRef"),effectiveAt:time(v.effectiveAt,"$policy.effectiveAt"),scopeRef:token(v.scopeRef,"$policy.scopeRef")};
+}
+
+export function normalizeGovernanceDecision(input: unknown): GovernanceDecision {
+  const v=record(input,"$decision"); keys(v,["decisionId","policyRef","policyRevisionRef","basisRefs","authorityRef","inferenceRef"],"$decision");
+  const out:{decisionId:string;policyRef:string;policyRevisionRef:string;basisRefs:readonly string[];authorityRef?:string;inferenceRef?:string}={decisionId:token(v.decisionId,"$decision.decisionId"),policyRef:token(v.policyRef,"$decision.policyRef"),policyRevisionRef:token(v.policyRevisionRef,"$decision.policyRevisionRef"),basisRefs:refs(v.basisRefs,"$decision.basisRefs")};
+  if(v.authorityRef!==undefined) out.authorityRef=token(v.authorityRef,"$decision.authorityRef");
+  if(v.inferenceRef!==undefined) out.inferenceRef=token(v.inferenceRef,"$decision.inferenceRef");
+  return out;
+}
+
+export function normalizeGovernanceEnforcement(input: unknown): GovernanceEnforcementObservation {
+  const v=record(input,"$enforcement"); keys(v,["enforcementId","decisionRef","observedAt","result"],"$enforcement");
+  if(v.result!=="APPLIED"&&v.result!=="REJECTED"&&v.result!=="NOT_OBSERVED") throw new TypeError("Invalid governance contract at $enforcement.result");
+  return {enforcementId:token(v.enforcementId,"$enforcement.enforcementId"),decisionRef:token(v.decisionRef,"$enforcement.decisionRef"),observedAt:time(v.observedAt,"$enforcement.observedAt"),result:v.result};
+}
+
+export function normalizeGovernanceEvidence(input: unknown): GovernanceEvidence {
+  const v=record(input,"$evidence"); keys(v,["evidenceId","provenanceRef","currentness","population","observedAt"],"$evidence");
+  if(!GOVERNANCE_EVIDENCE_CURRENTNESS.includes(v.currentness as GovernanceEvidenceCurrentness)) throw new TypeError("Invalid governance contract at $evidence.currentness");
+  if(!GOVERNANCE_EVIDENCE_POPULATION.includes(v.population as GovernanceEvidencePopulation)) throw new TypeError("Invalid governance contract at $evidence.population");
+  return {evidenceId:token(v.evidenceId,"$evidence.evidenceId"),provenanceRef:token(v.provenanceRef,"$evidence.provenanceRef"),currentness:v.currentness as GovernanceEvidenceCurrentness,population:v.population as GovernanceEvidencePopulation,observedAt:time(v.observedAt,"$evidence.observedAt")};
+}
+
+export function assessGovernance(input: Readonly<{assessmentId:unknown;policyRef:unknown;evidence:readonly GovernanceEvidence[];assertionSatisfied:unknown;assessedAt:unknown}>): GovernanceAssessment {
+  const evidence=input.evidence;
+  const strong=evidence.length>0&&evidence.every(e=>e.currentness==="CURRENT"&&e.population==="COMPLETE");
+  const outcome:GovernanceAssessmentOutcome=!strong?"INDETERMINATE":input.assertionSatisfied===true?"SATISFIED":input.assertionSatisfied===false?"NOT_SATISFIED":"INDETERMINATE";
+  return {assessmentId:token(input.assessmentId,"$assessment.assessmentId"),policyRef:token(input.policyRef,"$assessment.policyRef"),evidenceRefs:[...evidence.map(e=>e.evidenceId)].sort(),outcome,assessedAt:time(input.assessedAt,"$assessment.assessedAt")};
+}
