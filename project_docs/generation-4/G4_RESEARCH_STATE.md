@@ -44,6 +44,11 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Lease expiry != fencing`; stale actors may remain physically capable of producing effects.
 - `Leadership != universal authority`; authority remains scope/epoch/effect-boundary qualified.
 - `Coordination quorum != exclusive downstream reachability`.
+- `Geometric zoom != semantic zoom`; large canonical models should not imply render-all interfaces.
+- `Progressive disclosure != authorization`; disclosure must be enforced across graph/search/count/AI paths.
+- `Explore != Design != Simulate != Propose != Authorize != Act != Verify`.
+- `Preview passed != production will succeed`; preview fidelity and substitutions must be explicit.
+- `Fluent AI explanation != correctness/evidence/authority`.
 
 ## Research progression
 
@@ -80,9 +85,30 @@ WBS / Work Packages / implementation
 - Computational Core/Performance: consolidated initial architecture and qualification rules captured; workload benchmarks not yet materialized.
 - Lifecycle/Continuous Improvement: first deep evidence consolidation completed for incident/postmortem/action separation, work hierarchy vs semantic graph, multidimensional closure, outcome/effectiveness measurement and lesson lineage. Still `RESEARCH_ACTIVE`, not saturated.
 - Self-Hosting/Autonomic Evolution: first deep evidence consolidation completed for secure update trust, generation consistency, version skew, anti-rollback vs recovery, state/schema rollback, promotion evidence, reboot identity and failed-update-loop containment. Still `RESEARCH_ACTIVE`, not saturated.
-- Product UX/AI-native Builder: initial product R&D program captured; deeper usability research remains open.
+- Product UX/AI-native Builder: **first deep evidence consolidation completed** for semantic zoom/multiscale materialization, lens composition, disclosure/security, Explore-to-Act mode separation, Preview fidelity, evidence-linked AI proposal interaction, accessibility and interaction-workload performance. Still `RESEARCH_ACTIVE`, not saturated; user-role/task research and empirical prototypes remain open.
 
 ## Material research log
+
+### 2026-09-18 — Product UX semantic zoom, AI interaction and Preview safety
+
+Evidence classes: information-visualization/HCI research (multiscale information seeking and large-graph aggregation), production graph-renderer performance guidance, evidence-based Human-AI Interaction guidelines, mature server-side dry-run semantics and WCAG 2.2 interaction requirements.
+
+Material delta:
+
+- separated geometric zoom from semantic zoom and defined the Canvas as bounded query/materialization over canonical identity rather than a giant mutable graph document;
+- introduced research candidates `ViewportContext`, `LensDefinition`, `DisclosureEnvelope`, `PreviewEnvelope` and `AIInteractionEnvelope` without promoting them to canonical G3 concepts;
+- made lens composition semantics explicit and prohibited visual adjacency/containment/emphasis from silently implying dependency, ownership, authority or proof;
+- elevated progressive disclosure into a security problem covering graph traversal, counts, autocomplete, saved views and AI retrieval/explanation;
+- separated `Explore -> Design -> Simulate -> Propose -> Authorize -> Act -> Verify` and prohibited UI continuity from silently carrying authority between modes;
+- decomposed Preview into structural, interaction, validation-dry-run, sandbox and scoped compiled-equivalence classes, each requiring declared substitutions/divergences/currentness;
+- required AI-native interactions to expose interpreted scope, evidence, assumptions, unknowns, candidate plans and correction/dismissal paths before governed mutation;
+- treated accessibility as architectural for canvas interaction, including non-drag alternatives, keyboard focus/navigation and structured representations of graph relations;
+- defined UX performance as workload budgets over navigation, semantic transitions, lens changes, live deltas, preview and AI evidence highlighting rather than a single static node-count target;
+- added adversarials for unauthorized aggregate leakage, stale saved views, semantic-zoom identity confusion, simulation/action mode confusion, AI scope hallucination, preview overclaim, revision drift and focus loss during rematerialization.
+
+No graph library, rendering backend, AI model, component framework or preview provider was selected as canonical.
+
+Highest-value remaining UX gaps: user-role/task model, empirical semantic-zoom/lens prototypes on realistic SB graphs, collaborative editing/conflicting candidate changes, undo/redo boundary across draft vs effective change, dense-graph accessibility, information-density/currentness encoding, AI session-memory vs durable-memory boundaries and Preview equivalence strategy by capability class.
 
 ### 2026-09-18 — Infrastructure fencing, leadership and split-brain safety
 
