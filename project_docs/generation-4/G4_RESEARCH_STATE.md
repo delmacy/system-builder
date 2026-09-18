@@ -75,6 +75,10 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Deterministic replay != production equivalence`; simulation evidence is scoped to its model/environment.
 - `Fault injection != business oracle`; semantic faults include authority, contract, migration, retention and currentness changes.
 - `Checkpoint loads != checkpoint sufficient`; sufficiency is operation-specific.
+- `One interaction kind != one universal linearization point`; linearizability is a contract property, not an Exchange Plane default.
+- `Admission != durability != authoritative effect != caller observation != settlement != convergence` unless the contract proves equivalence for that interaction.
+- `Safety != liveness`; eventual progress requires declared assumptions and bounded-liveness claims require explicit time/resource/workload envelopes.
+- `UNKNOWN` is an evidence-domain disposition, not a generic transport failure or permission to guess.
 
 ## Research progression
 
@@ -98,30 +102,34 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** first deep evidence consolidation covers incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence. `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** first deep evidence consolidation covers secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment. `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** first deep evidence consolidation covers semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads. `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** **seven deep evidence consolidations completed**: minimal kernel/exchange vocabulary; multidimensional compatibility; same-contract delayed-command fixtures; federated reconnect; causal workflow/saga semantics; in-flight workflow migration + causal-history compaction; and semantic verification/fault-model strategy. The seventh consolidation turns prior fixtures into a layered verification model with transport-independent semantic histories/oracles, stateful generation, metamorphic binding conformance, fault-injected histories, operation-specific checkpoint sufficiency and privacy-aware counterexample retention. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** **eight deep evidence consolidations completed**: minimal kernel/exchange vocabulary; multidimensional compatibility; same-contract delayed-command fixtures; federated reconnect; causal workflow/saga semantics; in-flight workflow migration + causal-history compaction; semantic verification/fault-model strategy; and interaction-specific reference-model/effect-point/safety-liveness semantics. The eighth consolidation rejects a universal linearization point, separates admission/durability/effect/observation/settlement/convergence, defines proof domains for COMMAND, QUERY/RESPONSE, EVENT, STREAM, ARTIFACT_REF and NOTIFICATION, and makes safety/liveness/UNKNOWN explicit verification dimensions. `RESEARCH_ACTIVE`, not saturated.
 
 ## Material research log
+
+### 2026-09-18 — Interaction reference model, effect points and safety/liveness
+
+Evidence classes: Herlihy/Wing linearizability; gRPC unary/streaming ordering; Apache Kafka partition-scoped ordering; CloudEvents occurrence/event/message distinctions; RFC 9110 conditional requests; Amazon S3 conditional/integrity evidence; prior RabbitMQ/Pulsar/Kafka delivery/dedup findings.
+
+Material delta:
+
+- bounded linearizability to contracts that genuinely expose one atomic abstract effect instead of treating it as a default for every cross-capability interaction;
+- separated invocation/admission/durability/authoritative effect/caller observation/settlement/convergence-frontier proof positions;
+- introduced an implementation-independent `InteractionProofProfile` candidate;
+- defined distinct reference-model hypotheses for COMMAND, QUERY/RESPONSE, EVENT, STREAM, ARTIFACT_REF and weaker NOTIFICATION semantics;
+- separated safety, eventual-liveness and bounded-liveness/SLO properties and required explicit assumptions for liveness claims;
+- qualified `UNKNOWN` by unresolved evidence domain rather than treating it as generic transport failure;
+- constrained binding observation adapters so offsets, ACKs, ETags, checksums and RPC statuses cannot fabricate semantic guarantees;
+- preserved autonomy and portability without introducing a global serial history, central coordinator or mandatory broker.
+
+No consistency model, checker, broker, stream engine, RPC framework, object store or provider was selected.
+
+Highest-value remaining gap: effect-domain composition and commutativity/conflict rules across multi-capability effects without a global transaction: when operations commute, when causal ordering is required, when reservation/escrow/compensation is necessary, and how conflict can be detected without moving business ownership into the Exchange Plane.
 
 ### 2026-09-18 — Semantic verification, stateful fault model and checkpoint sufficiency
 
 Evidence classes: FoundationDB deterministic simulation/testing; Antithesis deterministic simulation/fault injection; Hypothesis rule-based state machines; Jepsen/Elle generated-history checking; prior G4 contract, federation, causal-workflow, migration and retention findings.
 
-Material delta:
-
-- replaced a flat list of same-contract examples with layered verification evidence: examples -> stateful model/property tests -> binding conformance -> fault-injected histories -> recovery/convergence checks -> production-assumption qualification;
-- introduced a transport-independent `SemanticHistoryRecord`/oracle boundary that records caller observation separately from transport disposition and authoritative effect evidence;
-- proposed metamorphic same-scenario qualification across local/RPC/async/federated bindings, comparing only dimensions promised equivalent by the `RequiredContractProfile`;
-- required stateful generation of histories combining timeout/UNKNOWN, partition, authority revision, contract upgrade, workflow migration, compaction, erasure, retry and reconnect;
-- separated infrastructure faults from semantic faults: healed network or available storage does not prove authority/currentness/contract/evidence convergence;
-- made ambiguous `UNKNOWN` windows intentional test targets rather than incidental failures;
-- converted `CausalCheckpoint` proof into an operation-sufficiency matrix for resume, retry/dedup, compensation, migration, federation, audit and erasure;
-- identified test seeds, minimized counterexamples, traces and snapshots as retention/erasure surfaces that must not become shadow archives of sensitive payloads;
-- bounded deterministic-simulation claims and required portable semantic scenarios/oracles so simulation and real multi-process evidence remain complementary;
-- added dependency/history checking and semantic-witness-preserving failure shrinking rather than timestamp-only ordering or lower-level assertion minimization.
-
-No property framework, simulator, checker, broker, workflow engine or provider was selected.
-
-Highest-value remaining gap: formalize the reference-model boundary and candidate linearization/effect points per interaction kind (`COMMAND`, `QUERY`, `EVENT`, `STREAM`, `ARTIFACT_REF`), distinguishing safety invariants from liveness/eventual assumptions and identifying where finite evidence requires a legitimate `UNKNOWN` rather than a universal single linearization point.
+Material delta: layered verification evidence; transport-independent semantic histories/oracles; metamorphic binding conformance; stateful fault generation; intentional UNKNOWN windows; operation-specific checkpoint sufficiency; privacy-aware counterexample retention; bounded deterministic-simulation claims; dependency/history checking.
 
 ### 2026-09-18 — In-flight workflow migration, contract retirement and causal-history compaction
 
@@ -169,6 +177,7 @@ Authorization-aware data access; Computational Core baseline qualification; Prod
 - no graph/vector/search/stream/service-mesh/central-exchange/etcd/Kubernetes adoption decision;
 - no workflow/saga/migration engine adoption decision;
 - no property-testing/deterministic-simulation/checker adoption decision;
+- no global serial-history/linearizability requirement for all exchange interactions;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
