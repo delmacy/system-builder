@@ -38,6 +38,9 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Temporal history != infinite retention`.
 - `Auditability != immutable personal data forever`.
 - intentional governed erasure may legitimately reduce future reproducibility, but must not be disguised as successful replay or silently rewritten history.
+- `Heartbeat/lease freshness != proof of semantic health or safe replacement`.
+- `Retry != resilience by default`; retries consume capacity and can amplify failure.
+- `Voluntary disruption budget != availability guarantee`.
 
 ## Research progression
 
@@ -70,13 +73,34 @@ WBS / Work Packages / implementation
 
 - Data/Persistence/Access: substantial backlog captured; deep evidence consolidation still required.
 - Data Treatment: **deep evidence consolidation now covers temporal/streaming/replay, temporal identity/interpretation revision, and retention/erasure/reproducibility boundaries**. Material findings include multidimensional time, scoped processing guarantees, correction/retraction, replay/backfill convergence, merge/split identity lineage, pinned-vs-current interpretation, finite reproducibility envelopes, distributed erasure convergence, derived-data deletion impact, backup restore reconciliation and explicit holds/exceptions. Other treatment vectors still require deep consolidation; family remains `RESEARCH_ACTIVE`, not saturated.
-- Infrastructure Engineering: consolidated research backlog captured; operational protocols/evidence still shallow.
+- Infrastructure Engineering: **first deep evidence consolidation completed for control-loop safety and failure semantics**. Provider/host/storage/workload/application/network/observability health are separated; heartbeat/lease freshness is not death/authority proof; reconciliation/retry requires bounded effect-aware policies; overload/retry amplification, graceful degradation, disruption envelopes, failover capacity/fencing and post-disruption effectiveness are explicit proof surfaces. Still `RESEARCH_ACTIVE`, not saturated.
 - Computational Core/Performance: consolidated initial architecture and qualification rules captured; workload benchmarks not yet materialized.
 - Lifecycle/Continuous Improvement: first deep evidence consolidation completed for incident/postmortem/action separation, work hierarchy vs semantic graph, multidimensional closure, outcome/effectiveness measurement and lesson lineage. Still `RESEARCH_ACTIVE`, not saturated.
 - Self-Hosting/Autonomic Evolution: first deep evidence consolidation completed for secure update trust, generation consistency, version skew, anti-rollback vs recovery, state/schema rollback, promotion evidence, reboot identity and failed-update-loop containment. Still `RESEARCH_ACTIVE`, not saturated.
 - Product UX/AI-native Builder: initial product R&D program captured; deeper usability research remains open.
 
 ## Material research log
+
+### 2026-09-18 — Infrastructure control-loop safety, health decomposition and disruption semantics
+
+Evidence classes: mature declarative controller/lease/disruption behavior (Kubernetes), provider-separated infrastructure health checks (Amazon EC2), and production retry/overload/degradation engineering (Google SRE and Amazon Builders' Library).
+
+Material delta:
+
+- separated provider, host, storage, workload, application, network and observability health rather than collapsing them into one status;
+- established heartbeat/lease as freshness-qualified evidence, not proof of semantic health, death or safe replacement;
+- required bounded controllers to declare semantic ownership, actuation boundary, currentness/convergence requirements and restart-safe operation identity;
+- introduced research candidate `RetryEnvelope` with effect/idempotency semantics, attempt budget, deadline, backoff, jitter, overload disposition and reconcile-on-UNKNOWN behavior;
+- made retry amplification/thundering-herd behavior an explicit control-plane adversarial surface;
+- separated degraded serving from full effectiveness and capacity presence from safe usable headroom;
+- introduced provider-neutral `DisruptionEnvelope` semantics for voluntary maintenance while preserving that involuntary failures can consume availability outside the budget;
+- strengthened reboot proof to require layered provider/host/storage/workload/application evidence after return;
+- modeled failover as a governed topology/state transition requiring target capacity/state eligibility and source fencing/reconciliation where effects may continue;
+- made RPO/RTO and recovery readiness evidence-backed claims rather than configuration truth.
+
+No Kubernetes, AWS, orchestrator, host-agent architecture or cloud provider was selected as canonical.
+
+Next highest-value infrastructure gaps: fencing/leases/split-brain under partial connectivity, cross-site autonomy/delayed reconciliation, disconnected PKI bootstrap/rotation, heterogeneous capacity modeling, storage durability/restore proof, supply-chain-to-running-artifact identity and decommission residual proof. Cross-family priority may supersede these.
 
 ### 2026-09-18 — Retention, erasure and reproducibility boundaries
 
