@@ -1,21 +1,37 @@
 # Generation 4 — System Builder Product R&D
 
-Status: `RESEARCH_BACKLOG_ONLY`
+Status: `RESEARCH_ACTIVE / NON_EXECUTABLE`
 
-Generation 4 is reserved for research and development of the **System Builder product itself** after Generation 3 scope closure/reconciliation. It does not reopen G3 and does not authorize product implementation, Work Packages, Sprints, TASKs, migrations, provider adoption, or architecture replacement.
+Generation 4 is the research-and-development layer for the **System Builder product itself** after Generation 3 architectural scope closure. It does not reopen G3 and does not authorize product implementation, Work Packages, Sprints, TASKs, migrations, provider adoption or architecture replacement.
 
 ## Purpose
 
-G3 answers primarily what must be representable, governed, traceable, executable and provable in the System Builder model. G4 investigates how the Builder product should realize those semantics with acceptable usability, performance, persistence, infrastructure access, operational cost and maintainability.
+G3 answers primarily what must be representable, governed, traceable, executable and provable in the System Builder model.
 
-Initial G4 R&D families include:
+G4 asks how the Builder product should realize that architecture with acceptable usability, performance, persistence, infrastructure engineering, operational safety, maintainability and product intelligence.
 
-- Human/System Interaction and Living Canvas productization.
-- AI-native Builder interaction and assisted engineering.
-- Computational Core & Performance Architecture, including measured TypeScript/Node hotspots and qualified Rust/WASM/native-engine candidates.
-- Data, Persistence & Access Engineering.
-- Infrastructure, Provider & Control Access Engineering.
-- Product experimentation, benchmarking and technology qualification.
+## Current research state
+
+See `G4_RESEARCH_STATE.md` for the consolidated research status, boundaries and maturity.
+
+## Active G4 research families
+
+1. **Product UX, Living Canvas & AI-Native Builder**
+   - `research/G4_PRODUCT_UX_AI_NATIVE_BUILDER.md`
+2. **Computational Core & Performance Engineering**
+   - `research/G4_COMPUTATIONAL_CORE_PERFORMANCE_ENGINEERING.md`
+3. **Data, Persistence, Access & Infrastructure Access**
+   - `research/G4_DATA_INFRA_ACCESS_ENGINEERING_BACKLOG.md`
+4. **Data Treatment Engineering**
+   - `research/G4_DATA_TREATMENT_ENGINEERING_BACKLOG.md`
+5. **Infrastructure Engineering & Control Plane**
+   - `research/G4_INFRASTRUCTURE_ENGINEERING_BACKLOG.md`
+6. **Engineering Lifecycle, Product Change & Continuous Improvement**
+   - `research/G4_ENGINEERING_LIFECYCLE_CONTINUOUS_IMPROVEMENT.md`
+7. **Self-Hosting, Autonomic Control & Bounded Self-Evolution**
+   - `research/G4_SELF_HOSTING_AUTONOMIC_EVOLUTION.md`
+
+These are research families, not committed product modules. Future synthesis may merge, split or providerize them.
 
 ## Governing rules
 
@@ -23,10 +39,41 @@ Initial G4 R&D families include:
 2. `Research candidate != implementation authority`.
 3. `Polyglot-ready != polyglot-from-day-one`.
 4. `Measured hotspot -> candidate specialization`; language or database preference alone does not justify migration.
-5. Canonical business/system meaning must remain portable across storage, query, index, runtime and infrastructure providers.
+5. Canonical meaning must remain portable across storage, query, index, runtime and infrastructure providers.
 6. Generated client runtimes remain autonomous from Builder availability.
-7. G4 findings should prefer provider-neutral contracts, migration paths, evidence, benchmarks and exit criteria before concrete adoption.
+7. G4 findings should prefer provider-neutral contracts, migration paths, evidence, benchmarks and exit criteria before adoption.
+8. `Self-managing != unrestricted self-modifying`.
+9. `Shared lifecycle semantics != shared authority`.
+10. UI/Canvas/AI/index/cache/telemetry remain projections or assistants, never silent canonical authority.
 
-## Current first research record
+## Product direction being researched
 
-See `research/G4_DATA_INFRA_ACCESS_ENGINEERING_BACKLOG.md` for the initial Data/Persistence/Access/Infrastructure research map.
+The Builder may evolve from a system generator into a broader **operational systems control substrate** capable of modeling, assembling, compiling, deploying, observing, operating and evolving systems — potentially including itself — while remaining above and interoperable with ordinary operating systems, cloud providers, container runtimes and external infrastructure.
+
+This is a research hypothesis, not a product claim or implementation authorization.
+
+## Research workflow
+
+```text
+G3 architecture closure
+        |
+        v
+G4 research inventory
+        |
+        v
+benchmarks / prototypes / adversarial cases
+        |
+        v
+implementation-independent product architecture
+        |
+        v
+provider / technology qualification
+        |
+        v
+explicit planning authorization
+        |
+        v
+WBS / Work Packages / implementation
+```
+
+Do not materialize G4 automatically from these documents.
