@@ -7,9 +7,9 @@ Parent family: Shared Semantic Kernel / Capability Exchange Plane / Inter-Capabi
 
 ## Purpose
 
-Deepen the eighth G4 family at the point where one business intent can touch several independently authoritative effect domains. This research asks when concurrent/cross-capability effects may proceed without coordination, when ordering or exclusion is required, when reservation/escrow can preserve an invariant with bounded autonomy, and when conflicts must remain explicit for capability-owned resolution.
+Deepen the eighth G4 family where one business intent can touch independently authoritative effect domains. This document asks when concurrent effects may proceed without coordination, when ordering/exclusion is required, when reservation/escrow can preserve bounded invariants with local autonomy, and how reservation rights survive transfer, revocation, federation and failure without turning the Exchange Plane or one allocator into business authority.
 
-This is a material subfront, not a ninth macro-family. It selects no transaction coordinator, database, CRDT library, broker, consensus system or conflict resolver and grants no implementation authority.
+This is a material subfront, not a ninth macro-family. It selects no transaction coordinator, database, CRDT library, broker, consensus system, lock service, lease system or conflict resolver and grants no implementation authority.
 
 Core rules:
 
@@ -19,23 +19,26 @@ Commutative representation != commutative business effect
 Same final value != same acceptable history
 Conflict detected != conflict semantically resolved
 Coordination avoided != correctness weakened silently
+Reservation allocation != business authority
+Lease expiry != fencing
+Right transfer ACK != old holder fenced
 Exchange Plane may carry coordination evidence; capability owns the invariant and business resolution
 ```
 
 ## Evidence classes reviewed
 
-- Bailis et al., *Coordination Avoidance in Database Systems* / invariant confluence (I-confluence): coordination-free execution is safe only when independently valid states can merge without violating the declared application invariant; serializable coordination is sufficient but not necessary for every invariant/workload.
-- Hellerstein/Alvaro CALM research: monotonic computation identifies an important class where coordination can be avoided; non-monotonic conclusions generally require coordination/qualification rather than wishful eventual consistency.
-- O'Neil escrow transactions and bounded-counter research: divisible rights/reservations can permit local nonblocking effects while preserving numeric bounds, with coordination shifted to allocation/rebalancing/exhaustion boundaries.
-- Google Spanner and CockroachDB serializable transaction documentation: strong serial/external-consistency semantics are realizable inside a declared transaction boundary but introduce coordination/contention/retry costs; that local proof does not automatically span external independently authoritative effects.
-- Azure Cosmos DB multi-region conflict-resolution documentation: concurrent multi-region writes can create insert/replace/delete conflicts; LWW is a deterministic convergence policy while custom resolution exists for application-defined semantics, demonstrating that convergence choice and business resolution are separate questions.
-- Infinispan cross-site merge-policy documentation: a merge function for concurrent site updates must be order-independent to avoid corruption, while custom merge policy is explicitly available for application needs; transport/storage convergence does not manufacture business semantics.
+- Bailis et al., invariant confluence / coordination avoidance: coordination-free execution is safe only where independently valid executions can combine without violating declared application invariants.
+- CALM / monotonicity research: useful boundary for coordination avoidance; non-monotonic conclusions need qualification/coordination rather than wishful eventual consistency.
+- O'Neil escrow transactions and Balegas et al. bounded-counter work: divisible rights can move synchronization from every decrement to rights allocation/transfer/exhaustion boundaries.
+- Shapiro et al., Just-Right Consistency: availability can be preserved for classes of invariants using causal/CRDT techniques and bounded counters rather than imposing one consistency level globally.
+- etcd API guarantees/current API: leases are TTL/liveness primitives; mutating KV operations have increasing revisions; client timeout/network disruption can leave operation outcome uncertain; watches require revision-aware reasoning and history is compactable.
+- Apache ZooKeeper recipes: ordered ephemeral/sequential coordination and explicit recoverable-error handling; create may succeed while the response is lost, requiring identity/reconciliation rather than assuming failure.
+- Fencing-token analysis: lease/lock ownership alone cannot stop a paused/stale holder from reaching an external resource; the protected effect boundary must reject stale epochs/tokens for fencing to be meaningful.
+- Google Spanner/CockroachDB transaction evidence and Cosmos DB/Infinispan conflict-resolution evidence remain comparison points for scoped serialization and deterministic-vs-business convergence.
 
 These sources constrain boundaries and proof obligations only.
 
 ## 1. Effect domains are the unit of composition
-
-The prior reference model allows a command to have one or several authoritative effect domains. Composition research makes that explicit.
 
 Candidate `EffectDomain` qualification:
 
@@ -54,19 +57,17 @@ compensation/recovery contract if any
 observation/evidence boundary
 ```
 
-An effect domain is semantic, not necessarily one table, service, database or provider. Two operations can touch different physical resources yet violate one shared business invariant; conversely, two operations can touch the same physical record while being semantically mergeable under a qualified operation algebra.
+An effect domain is semantic, not necessarily one table, service, database or provider. Different physical resources may participate in one invariant; the same physical resource may host operations that are safely mergeable under a qualified operation algebra.
 
-Invariants:
-
-- `Different provider != different invariant domain by definition`.
-- `Same database != one business transaction by definition`.
-- `Different rows != independent effects by definition`.
-- `Same key != necessarily conflicting business effects`.
-- `Effect domains identified != global transaction required`.
+```text
+Different provider != different invariant domain by definition
+Same database != one business transaction by definition
+Different rows != independent effects by definition
+Same key != necessarily conflicting business effects
+Effect domains identified != global transaction required
+```
 
 ## 2. Commutativity is contract- and invariant-relative
-
-Two operations commute only with respect to the semantic state and observations promised by the contract.
 
 Candidate relation:
 
@@ -74,20 +75,7 @@ Candidate relation:
 Commutes(opA, opB | invariant set I, observation model O)
 ```
 
-The useful question is not merely whether `apply(A); apply(B)` and `apply(B); apply(A)` produce byte-identical storage. The question is whether both orders preserve every required invariant and every contractually material observation/effect.
-
-Examples of dimensions that can make apparently commutative updates non-commutative:
-
-- uniqueness/exclusivity;
-- finite inventory/capacity/budget;
-- authority revision;
-- irreversible notification/payment/device effects;
-- lifecycle transitions with legal ordering;
-- temporal/currentness guarantees;
-- externally visible sequence numbers or evidence;
-- compensation obligations.
-
-Invariants:
+The relevant question is whether both orders preserve required invariants and contractually material observations/effects, not whether storage bytes end equal.
 
 ```text
 Same final bytes != commutative business history
@@ -99,9 +87,7 @@ Commutative(opA, opB) != causal independence by default
 
 ## 3. Invariant confluence gives a coordination boundary, not a product algorithm
 
-I-confluence provides a strong implementation-independent lens: if two independently reachable states each satisfy invariant `I`, and their permitted merge can violate `I`, then coordination-free execution is insufficient for that operation/invariant combination.
-
-Candidate G4 reasoning step:
+Technology-independent qualification:
 
 ```text
 Declare invariant I
@@ -114,26 +100,9 @@ Else
   -> coordination/reservation/ownership partition/rejection/reconciliation required
 ```
 
-This is a qualification method, not a mandate to implement an I-confluence analyzer.
-
-Important boundaries:
-
-- serializability may be sufficient but unnecessarily strong for some operation classes;
-- eventual convergence is insufficient evidence when the merged state can violate a business invariant;
-- one operation can be coordination-free under one invariant set and coordination-requiring under another;
-- adding a new invariant can invalidate a formerly safe concurrency policy.
-
-```text
-Invariant not modeled != invariant does not exist
-No storage conflict != no business conflict
-Coordination-free for R1 != coordination-free for R2
-```
+Serializability can be sufficient yet unnecessarily strong; eventual convergence is insufficient when merged state can violate the business invariant. Adding/revising an invariant can invalidate earlier concurrency qualification.
 
 ## 4. Candidate conflict/coordination classification
-
-A future contract/proof profile may classify concurrent effect relations rather than reducing them to `conflict=true`.
-
-Research vocabulary:
 
 ```text
 INDEPENDENT
@@ -148,13 +117,11 @@ MANUAL_BUSINESS_RESOLUTION_REQUIRED
 UNKNOWN
 ```
 
-These names are research-only. The key requirement is to expose why concurrency is safe or unsafe and who owns the decision.
+These are research vocabulary, not product enums.
 
 ## 5. Deterministic convergence is weaker than business correctness
 
-Cosmos DB and Infinispan provide useful mature failure evidence. A deterministic LWW or priority-based winner can make replicas converge, but it can discard a semantically material concurrent update. Custom merge policies can encode application meaning, but then the application/business owner is supplying that meaning.
-
-Therefore:
+A deterministic LWW/priority winner can converge replicas while discarding a semantically material concurrent update. Custom merge can encode application meaning, which demonstrates precisely that meaning belongs to the capability/business owner.
 
 ```text
 All replicas agree != business invariant satisfied
@@ -164,60 +131,247 @@ Deterministic merge != authorized merge
 Conflict feed empty != no business information lost
 ```
 
-Where a merge function is permitted, algebraic properties such as order independence/commutativity are useful technical safety requirements, but they do not prove that the merge policy represents the owning capability's business semantics.
-
-The Exchange Plane may preserve branches, conflict evidence, causation, revisions and routing to a resolver. It must not choose `latest timestamp wins` merely to achieve convergence.
-
 ## 6. Reservation/escrow can move coordination to rights allocation
 
-Escrow research demonstrates a middle ground between unrestricted local writes and coordination on every effect. A bounded resource can be represented as transferable rights/reservations whose total never exceeds the invariant budget.
-
-Conceptual example:
+A bounded resource may be represented by transferable rights whose total never exceeds the protected invariant budget.
 
 ```text
 Global capacity = 100
 rights A = 40
 rights B = 35
 rights C = 25
-
-A may consume locally while consumption <= rights A
-A cannot consume the 41st local unit without obtaining more rights
 ```
 
-This preserves a numeric bound without a global round trip for every local consumption. The trade-off is explicit: local false rejection/deferral can occur while unused rights exist elsewhere, and rights transfer/rebalancing itself needs a safe protocol.
+A may consume locally while consumption is within its valid local rights. It cannot infer permission to spend globally unused rights held elsewhere.
 
 Candidate `ReservationRight` dimensions:
 
 ```text
+rightId
 invariant/resource scope
-owner/holder
+semantic issuer/owner ref
+holder ref
 quantity or exclusive token
 issued revision/epoch
-validity/expiry
+parent/allocation lineage
+validity / admission horizon
 transferability
 consumption semantics
 return/release semantics
-authority
-fencing/currentness
+authority + contract revision
+fencing/currentness semantics
 reconciliation evidence
 ```
 
-Invariants:
+```text
+Reservation granted != business effect executed
+Unused global capacity != locally spendable capacity
+Escrow right != permanent ownership transfer
+Reservation expiry != external effect undone
+Rights sum within bound != every other business invariant satisfied
+```
 
-- `Reservation granted != business effect executed`.
-- `Unused global capacity != locally spendable capacity`.
-- `Escrow right != permanent ownership transfer`.
-- `Right transfer ACK != old holder fenced by definition`.
-- `Reservation expiry != external effect undone`.
-- `Rights sum within bound != every other business invariant satisfied`.
+Escrow is therefore a candidate only for invariants safely decomposable into rights. It is not a generic transaction replacement.
 
-Escrow is therefore a candidate only for invariants that can be decomposed into safely partitionable rights. It is not a generic replacement for transactions or business coordination.
+## 7. Reservation lifecycle: allocation, delegation and consumption are distinct
 
-## 7. Causal ordering is weaker than serialization but stronger than arbitrary arrival
+The tenth consolidation makes the lifecycle explicit:
 
-Some operations do not need one global serial order but do require predecessor relationships. Examples include `reserve -> consume`, `authorize -> effect`, `effect -> compensate`, or a workflow step whose precondition depends on a prior committed fact.
+```text
+UNALLOCATED CAPACITY
+   -> RIGHT ISSUED
+   -> HELD
+   -> [CONSUMED | SPLIT/TRANSFERRED | RETURNED | REVOKE_REQUESTED]
+   -> SETTLED / RECONCILIATION_REQUIRED / UNKNOWN
+```
+
+This is deliberately not a canonical state machine. The semantic separation matters:
+
+- allocation proves a holder may attempt a bounded class of effects under declared conditions;
+- consumption is a business/effect-domain action, not merely a ledger mutation;
+- transfer changes which holder may consume remaining rights but does not undo effects already consumed;
+- revocation changes future eligibility only when its effective/fencing semantics are satisfied;
+- recovery after holder loss is not equivalent to minting replacement capacity.
+
+```text
+Right exists != right currently spendable
+Right held != authority still current
+Right consumed locally != globally reconciled evidence available
+Revocation requested != old holder fenced
+Holder unreachable != rights safely recoverable
+```
+
+## 8. Transfer must be conservation-preserving and non-duplicating
+
+Bounded-counter research demonstrates rights transfer as a first-class operation constrained by local rights. For G4, the implementation-independent proof is stronger than `sender decremented; receiver incremented`: there must never be a semantic interval in which both old and new holders can validly spend the same transferred right.
+
+Candidate transfer evidence:
+
+```text
+transferId
+right scope + amount
+source holder
+target holder
+source epoch/revision
+target epoch/revision
+source disposition
+receiver admission evidence
+fencing/effect-boundary qualification
+settlement status
+UNKNOWN/conflict evidence
+```
+
+Required conservation property for a bounded invariant, conceptually:
+
+```text
+spendable rights
++ committed consumption
++ rights in explicitly UNKNOWN transfer/recovery
+<= invariant budget
+```
+
+`UNKNOWN` rights cannot be counted as freely spendable on either side merely to maximize availability.
+
+```text
+Transfer request sent != receiver owns right
+Receiver ACK != old holder unable to spend
+Source removed locally != transfer globally settled
+Retry transfer != mint another right
+```
+
+A safe design may temporarily sacrifice availability by quarantining ambiguous rights. False denial is preferable to silent over-allocation when the invariant is hard.
+
+## 9. Lease/currentness and fencing are separate proof domains
+
+etcd explicitly models leases as TTL-based client-liveness/coordination primitives, while revisions provide ordered KV evidence. Mature failure analysis shows why this distinction matters: a process can pause, lose a lease, and later resume with stale beliefs.
+
+Therefore:
+
+```text
+Lease valid recently != effect admitted now
+Lease expired != stale holder physically stopped
+Lease renewal ACK != protected resource fenced
+Current allocator view != stale holder incapable of effect
+```
+
+Fencing is effective only if the authoritative protected boundary can reject stale holder epochs/tokens (or an equivalent semantic successor mechanism). Generating a monotonically increasing token without an enforcing consumer is merely metadata.
 
 Candidate rule:
+
+```text
+old holder epoch E
+new holder epoch E+1
+
+if protected effect boundary can compare/enforce epoch:
+    effects from E after E+1 admission are rejected
+else:
+    hard stale-holder exclusion is not proven
+```
+
+This creates an important portability boundary: some external SaaS/device/human effect domains cannot validate a fence token. For those domains, G4 must not claim hard fencing. Alternatives may require idempotency, single-writer placement, explicit confirmation, delayed reuse, compensation/forward recovery, or `UNKNOWN/MANUAL` disposition.
+
+`Fencing token generated != fencing enforced`.
+
+## 10. Authority revocation and reservation revocation are not the same thing
+
+A reservation right may have been legitimately issued under authority revision A1 and contract C1. Later A2 may revoke the actor or C2 may change the invariant. That does not automatically tell us whether previously delegated rights remain valid.
+
+Every right profile therefore needs a declared revocation mode, such as research candidates:
+
+```text
+EFFECT_TIME_REVALIDATE
+DELEGATED_UNTIL_EXPLICIT_FENCE
+REVISION_PINNED_WITH_HORIZON
+NO_OFFLINE_DELEGATION
+```
+
+These are not canonical modes. The invariant is:
+
+```text
+Authority revoked centrally != old offline right automatically harmless
+Right issued while authorized != indefinitely authorized
+Contract revision changed != old right semantics silently upgraded
+```
+
+For sensitive effects, target/effect-time revalidation may be mandatory. For intentionally delegated offline capacity, the delegation horizon and revocation limitations must be explicit evidence, not hidden behavior.
+
+## 11. Federation and partition: local autonomy is bounded by pre-proven rights
+
+Autonomous runtimes may continue a subset of effects during Builder/central-service unavailability when they already possess valid local rights, authority and contract qualification. They may not create additional global capacity because a coordinator is unreachable.
+
+```text
+partition begins
+A holds 20 valid rights
+B holds 30 valid rights
+
+A may consume <= its qualified 20
+B may consume <= its qualified 30
+neither may infer the other's unused rights
+```
+
+During partition:
+
+- rights transfer that cannot settle becomes `UNKNOWN/IN_FLIGHT`, not duplicated capacity;
+- central revocation may be unobservable, so contracts must state offline authority horizon;
+- exhaustion may cause safe false rejection even while remote spare capacity exists;
+- local allocator loss does not imply global rights disappearance or recovery permission.
+
+After reconnect, reconcile allocation lineage, consumption evidence, transfer UNKNOWNs, authority/contract revisions and fences before making quarantined rights spendable.
+
+`Transport reconnected != rights reconciled`.
+
+## 12. Recovery after holder/node loss must not manufacture capacity
+
+The hardest recovery case is a holder that disappears after an effect may have occurred but before consumption evidence converges. Reissuing its rights immediately can double-spend the invariant.
+
+Candidate dispositions:
+
+```text
+PROVEN_UNCONSUMED -> eligible for governed recovery
+PROVEN_CONSUMED -> settle consumption
+PARTIALLY_CONSUMED -> recover only proven remainder
+UNKNOWN -> quarantine / reconcile / bounded manual recovery
+```
+
+Recovery evidence can come from capability-owned canonical effect state, fenced epochs, durable local ledgers, participant evidence or other contract-qualified sources. Absence of heartbeat is not evidence of absence of effect.
+
+```text
+Node dead != its effects did not happen
+Disk lost != rights never consumed
+Lease expired != capacity safely reusable
+No response != safe to reallocate
+```
+
+Where evidence is permanently insufficient, availability may be sacrificed or explicit business risk/manual resolution may be required. The Exchange Plane must not invent capacity to heal its ledger.
+
+## 13. Allocator topology is replaceable; semantic ownership is not centralized by mechanism
+
+A rights allocator may be centralized, sharded, consensus-backed, capability-local, hierarchical or replicated. No topology is selected here.
+
+The key separation is:
+
+```text
+Capability owner defines:
+  invariant/budget
+  allocation policy semantics
+  authority/revocation semantics
+  acceptable recovery risk
+
+Coordination realization provides:
+  ordering/atomicity/evidence needed by that policy
+  allocation/transfer mechanics
+  fencing epochs where enforceable
+```
+
+A highly available central allocator can improve utilization but becomes an operational dependency for rebalancing/new rights. Preallocated rights preserve partition autonomy but may strand capacity and cause false denial. Hierarchical allocation can reduce central traffic but creates nested conservation/recovery proof obligations.
+
+`Allocator decides next token != allocator owns business invariant`.
+
+`Central allocator unavailable != all runtime effects stop` only when valid local rights remain and the contract permits offline consumption.
+
+## 14. Causal ordering remains weaker than serialization
+
+Some operations require predecessor proof rather than a global serial order: `allocate -> consume`, `transfer -> receiver spend`, `revoke/fence -> reallocate`, `effect -> compensate`.
 
 ```text
 If B's semantic eligibility depends on A's effect,
@@ -225,18 +379,12 @@ B must prove A (or an explicitly acceptable successor state),
 not merely observe a later timestamp or transport position.
 ```
 
-Invariants:
+`Causal predecessor known != globally latest state known`.
+`Transport order preserved != causal eligibility proven`.
 
-- `Causal predecessor known != globally latest state known`.
-- `Causal order preserved != invariant automatically preserved`.
-- `Transport order preserved != causal eligibility proven`.
-- `Concurrent != conflicting by definition`.
+## 15. Multi-domain commands need an explicit composition policy
 
-This allows partial orders where safe and avoids forcing unrelated capabilities through a global sequencer.
-
-## 8. Multi-domain commands need a composition policy
-
-A command touching several authoritative domains needs an explicit composition model. Candidate strategies include:
+Candidate strategies remain:
 
 ```text
 ATOMIC_WITHIN_DECLARED_TRANSACTION_DOMAIN
@@ -249,159 +397,106 @@ PARALLEL_COMMUTATIVE_EFFECTS
 MANUAL_RECONCILIATION
 ```
 
-These are semantic strategies, not framework selections.
+A composition profile states participating domains, invariants, concurrency relation, admission revision, coordination/reservation boundary, effect points, partial/UNKNOWN representation and recovery route.
 
-A composition profile should state:
-
-```text
-participating effect domains
-required invariants
-allowed concurrency relation
-admission/precondition revision
-coordination/reservation boundary
-commit/effect points per domain
-partial-success representation
-UNKNOWN domains
-compensation/forward-recovery route
-settlement/convergence predicate
-```
-
-`All participants support transactions != one cross-participant transaction exists`.
 `Two local serializable commits != globally atomic effect`.
 
-Spanner/CockroachDB-style serializable guarantees are strong evidence inside their declared transaction scope; an external payment/device/SaaS effect remains a separate domain unless a stronger contract actually includes it.
+## 16. Authority and conflict ownership remain capability-local
 
-## 9. Authority and conflict ownership remain capability-local
-
-Conflict detection may be structural: overlapping invariant scopes, incompatible revisions, exhausted rights, missing predecessor, stale authority, competing exclusive claims. Conflict resolution is semantic.
-
-```text
-Exchange Plane may:
-  detect overlap/divergence
-  preserve branches/evidence
-  enforce declared coordination profile
-  route reservation/qualification metadata
-  quarantine incompatible effects
-  expose UNKNOWN/conflict disposition
-
-Capability/business owner must:
-  define invariant
-  define whether operations commute
-  define semantic winner/merge/supersession
-  authorize compensation/recovery
-  own canonical outcome
-```
+The Exchange Plane may detect overlap/divergence, preserve evidence, carry reservation/fencing metadata, quarantine incompatible effects and route reconciliation. The capability/business owner defines the invariant, whether operations commute, allocation/revocation semantics, semantic winner/merge and canonical outcome.
 
 `Exchange Plane detects conflict != Exchange Plane owns conflict meaning`.
 
-## 10. Coordination scope should be minimal and explicit
-
-Coordination has latency, availability and operational cost. Avoid both extremes: global serialization by convenience and unsafe coordination avoidance by ideology.
-
-Candidate decision ladder:
-
-```text
-1 identify semantic owner + invariant
-2 identify effect domains and overlap predicate
-3 prove independent/commutative/monotonic merge safety where possible
-4 if unsafe, test whether causal ordering is sufficient
-5 if bounded divisible invariant, evaluate reservation/escrow
-6 if exclusive invariant, evaluate scoped owner/fencing/serialization
-7 if multi-domain partial effects remain, define saga/compensation/forward recovery
-8 preserve UNKNOWN/conflict when proof is insufficient
-```
-
-The scope may be one entity, namespace, quota, workflow occurrence, tenant, resource, failure domain or another qualified invariant domain. `Global` is never the default scope.
-
-## 11. Topology and transport cannot change the concurrency semantics silently
-
-An in-process realization may accidentally serialize calls through one event loop or database transaction. A distributed/broker/federated realization may expose concurrency that the local implementation never exercised.
-
-Therefore same-contract portability must test concurrency explicitly:
-
-```text
-Local accidental serialization
-!= contract promise that operations are serial
-
-Remote concurrent arrival
-!= permission to violate a local-only hidden invariant
-```
-
-A binding is substitutable only if the required composition/coordination profile survives the topology change.
-
-## 12. Mandatory adversarial fixtures
+## 17. Mandatory adversarial fixtures
 
 1. Two capabilities perform disjoint row writes that jointly violate `at most N`.
-2. Two regions update the same object; LWW converges but discards a business-significant concurrent fact.
-3. Two operations produce the same final value in either order but one order emitted an irreversible external notification/payment.
-4. Local in-process binding serializes requests accidentally; RPC deployment permits concurrency and exposes a hidden invariant violation.
-5. Two CRDT/merge-safe updates converge structurally but violate a newly introduced business invariant.
-6. Reservation rights sum to the bound, but one site consumes after its rights were transferred because fencing/currentness was not enforced.
-7. A site exhausts local escrow while another has spare rights; system must reject/defer/rebalance rather than overspend.
-8. Rights transfer is UNKNOWN during partition and both old/new holders attempt consumption.
-9. Causal predecessor event is delayed while a later command arrives first; timestamp order would incorrectly admit it.
-10. Serializable local transaction commits, external effect times out UNKNOWN, and a concurrent compensating command begins.
-11. Custom merge function is technically commutative but violates a capability-specific legal/business precedence rule.
-12. Conflict detector sees overlapping keys and serializes two operations that actually commute, causing avoidable contention/liveness degradation.
-13. Conflict detector sees different keys and permits operations whose cross-key invariant conflicts.
-14. New contract revision adds an invariant while old provider qualification still advertises coordination-free behavior.
-15. Federation reconnect drains two independently valid branches whose merge is not invariant-confluent.
-16. Manual resolver chooses a winner but losing-branch evidence is erased before audit/compensation obligations settle.
+2. Two regions converge by LWW but lose a business-significant concurrent fact.
+3. Same final value in both orders, but one order emitted an irreversible external effect.
+4. Local binding accidentally serializes; distributed binding exposes hidden concurrency.
+5. New invariant invalidates old merge-safe qualification.
+6. A site consumes after its rights were transferred because the protected boundary did not enforce a newer epoch.
+7. Site exhausts local escrow while another has spare rights; safe false denial occurs rather than overspend.
+8. Transfer response is lost after source committed transfer; retry must not mint a second transfer.
+9. Receiver sees transfer while source remains partitioned and attempts stale consumption.
+10. Lease expires during GC pause; new holder is admitted; old holder resumes and protected resource either fences it or the system must expose that hard fencing is unavailable.
+11. Allocator revokes right while holder is offline; effect-time semantics decide whether later consumption is valid, stale or unknown.
+12. Contract revision changes the invariant while old rights remain outstanding.
+13. Holder dies after external effect but before consumption evidence; naive recovery would over-allocate.
+14. Holder disk is lost; absence of local ledger is incorrectly treated as unconsumed capacity.
+15. Two nested/hierarchical allocators each recover the same orphaned rights.
+16. Reconnect drains transfers before revocation/fence evidence and briefly makes both sides spendable.
+17. Fencing token is generated but target SaaS/device ignores it; system falsely reports stale-holder exclusion.
+18. Epoch comparison uses wall-clock timestamps under skew rather than a qualified ordered epoch.
+19. Rights ledger is compacted before outstanding transfer/recovery obligations settle.
+20. Allocator unavailable: runtime continues only prequalified local rights and explicitly rejects/defer effects requiring more rights.
+21. Authorization revoked but offline delegation horizon intentionally permits a bounded subset; system must distinguish intended delegation from stale authority.
+22. Recovery waits forever because evidence cannot converge; liveness policy must not silently weaken the hard invariant.
 
-## 13. Proof obligations
+## 18. Proof obligations
 
 Before implementation planning, prove or explicitly bound:
 
-1. every multi-domain effect identifies the semantic owner of each invariant it can affect;
-2. conflict/overlap is defined in semantic invariant terms rather than storage-key overlap alone;
-3. operations classified as coordination-free preserve declared invariants under every permitted independent execution/merge covered by the profile;
-4. commutativity claims state the observation/invariant profile under which order is irrelevant;
-5. deterministic convergence policy cannot substitute for capability-owned business merge/winner semantics;
-6. causal ordering requirements are explicit and do not become a hidden global total order;
-7. reservation/escrow is used only for decomposable invariants and total rights cannot exceed the protected bound;
-8. rights transfer/revocation has currentness/fencing/reconciliation semantics so old and new holders cannot both spend the same right silently;
-9. exhausted local rights produce explicit reject/defer/rebalance behavior rather than overspend;
-10. serializable/transactional guarantees state their exact effect domain and do not silently include external effects;
-11. partial success/UNKNOWN across effect domains remains representable and routes to compensation/forward/manual recovery according to the owning contract;
-12. topology/binding substitution re-runs concurrency/composition qualification rather than inheriting accidental local serialization;
-13. contract/invariant revision invalidates stale commutativity/coordination qualification when material;
-14. conflict evidence remains available long enough for declared reconciliation/audit/compensation obligations subject to retention/erasure policy;
-15. no coordination mechanism, reservation service, gateway, broker or Exchange Plane component becomes canonical business owner merely because it serializes or mediates effects;
-16. autonomous runtimes can continue the subset of effects for which they retain valid local rights/authority/contracts during Builder/central-service unavailability, while effects requiring unavailable coordination degrade explicitly rather than inventing authority.
+1. every multi-domain effect identifies semantic owner of each affected invariant;
+2. conflict/overlap is semantic, not storage-key-only;
+3. coordination-free operations preserve declared invariants under permitted independent executions/merge;
+4. commutativity claims state their invariant/observation profile;
+5. deterministic convergence cannot substitute for capability-owned business resolution;
+6. causal ordering does not become hidden global total order;
+7. reservation/escrow applies only to decomposable invariants and total issued/spendable rights cannot exceed the protected budget;
+8. every right has stable identity, scope, holder, lineage, authority/contract basis and explicit consumption semantics;
+9. transfer conserves rights and retries cannot mint duplicate rights;
+10. ambiguous transfer/recovery rights are quarantined or otherwise proven non-double-spendable;
+11. revocation defines when it becomes effective against an offline/stale holder;
+12. lease expiry/currentness is never treated as fencing by itself;
+13. where hard fencing is claimed, the authoritative protected effect boundary actually rejects stale epochs/tokens or an equivalent proof exists;
+14. external domains unable to enforce fencing receive an explicitly weaker recovery/UNKNOWN profile;
+15. holder/node loss cannot make rights reusable without evidence sufficient to exclude prior consumption;
+16. rights recovery distinguishes proven-unconsumed, proven-consumed, partial and UNKNOWN dispositions;
+17. authority/contract revision invalidates or requalifies outstanding rights according to declared semantics rather than silent inheritance;
+18. federation reconnect reconciles transfer, consumption, revocation and epoch evidence before quarantined rights become spendable;
+19. allocator topology can change without transferring business ownership or changing semantic right identity silently;
+20. allocator/registry/Builder outage still permits only the subset of effects covered by valid local rights/authority/contracts; exhaustion degrades explicitly;
+21. rights/transfer evidence retention outlives declared reconciliation/recovery obligations or the system records the resulting inability to prove recovery;
+22. no coordination mechanism, reservation service, gateway, broker or Exchange Plane component becomes canonical business truth merely because it serializes allocation;
+23. serializable/transactional guarantees state exact effect domain and do not silently include external effects;
+24. partial success/UNKNOWN remains representable and routes to capability-owned compensation/forward/manual recovery.
 
-## 14. Verification implications
+## 19. Verification implications
 
-The existing semantic verification harness should eventually generate **concurrent histories**, not only sequential fault histories. Candidate generator dimensions:
-
-```text
-operation pair/set
-invariant revision
-pre-state
-independent admission at sites/providers
-relative/partial order
-partition/reconnect
-rights allocation/transfer
-contract/authority revision
-external effect UNKNOWN
-merge/reconciliation policy
-```
-
-Checker outcomes should distinguish:
+Future semantic verification should generate concurrent, rights-bearing histories:
 
 ```text
-INVARIANT_PRESERVED
-COMMUTATIVE_FOR_PROFILE
-ORDERING_REQUIRED
-COORDINATION_REQUIRED
-RESERVATION_EXHAUSTED_SAFE
-CONFLICT_PRESERVED
-BUSINESS_RESOLUTION_REQUIRED
-UNKNOWN / ORACLE_INSUFFICIENT
+allocate
+split
+transfer
+lose response
+partition
+consume
+pause holder
+expire lease
+admit successor epoch
+revoke authority
+change contract/invariant
+crash/loss
+recover
+reconnect
+compact evidence
 ```
 
-A useful metamorphic test is to execute the same concurrent semantic scenario under local, RPC, async and federated bindings. Accidental serialization in one binding must not be treated as proof that another binding may safely expose concurrency.
+Key properties include:
 
-## 15. Portability / exit path
+```text
+CONSERVATION: no permitted history exceeds invariant budget
+NON_DUPLICATION: one transferred/recovered right cannot become spendable twice
+STALE_HOLDER_SAFETY: old epoch cannot affect a fenced domain after successor admission
+UNKNOWN_HONESTY: insufficient evidence never becomes free capacity
+BOUNDED_AUTONOMY: valid local rights remain usable under declared partition assumptions
+REVISION_SAFETY: stale authority/contract rights do not silently inherit new semantics
+```
+
+Metamorphic runs should compare local, RPC, async and federated bindings without accepting accidental local serialization as proof.
+
+## 20. Portability / exit path
 
 Portable artifacts should include:
 
@@ -409,45 +504,51 @@ Portable artifacts should include:
 EffectDomain identities
 Invariant definitions/revisions
 operation semantic identities
-commutativity/conflict relations + qualification evidence
+commutativity/conflict qualification
 coordination scope
-causal-order requirements
-reservation/right ledger semantics where used
+causal requirements
+ReservationRight identities + allocation lineage
+transfer/revocation/recovery evidence
+fencing/currentness requirements
 partial-effect/UNKNOWN evidence
 compensation/recovery contracts
-concurrency fixtures and counterexamples
+concurrency fixtures/counterexamples
 ```
 
-Provider-specific locks, transaction IDs, consensus terms, CRDT encodings, broker partitions or database conflict feeds are realizations/evidence, not the semantic model.
+Provider-specific lease IDs, etcd revisions, ZooKeeper zxids, database transaction IDs, broker offsets or lock-service tokens are realization evidence, not the semantic model. Replacing a provider requires requalification of conservation, transfer, fencing and recovery semantics.
 
-Replacing a provider requires requalification of the same invariant/composition profile; a new provider cannot inherit `safe concurrency` merely because it exposes the same API/schema.
+## 21. Trade-offs
 
-## 16. Material delta and maturity
+| Strategy | Availability | Safety burden | Operational burden | Typical cost |
+|---|---|---|---|---|
+| coordination-free/merge-safe | high | proof of invariant confluence | low-medium | conflict/merge reasoning |
+| causal ordering | high-medium | predecessor/currentness proof | medium | metadata/history |
+| preallocated escrow | high while local rights remain | conservation + transfer/recovery | medium-high | stranded capacity / false denial |
+| central allocation per effect | lower under partition | strong allocator correctness | medium-high | latency / central dependency |
+| hierarchical allocation | high-medium | nested conservation/fencing | high | recovery complexity |
+| scoped serialization | lower under contention | serializable/fencing boundary | medium-high | latency/retries |
+| compensation/manual recovery | high admission, weaker atomicity | business recovery correctness | high | partial-effect complexity |
 
-This round adds a **ninth deep evidence consolidation** to the eighth G4 family. Material delta:
+No row is a default.
 
-- makes effect domains and application invariants the unit of cross-capability composition;
-- makes commutativity relative to invariant + observation profile rather than storage/write-set equality;
-- imports invariant-confluence as a technology-independent test for when coordination-free execution is defensible;
-- separates deterministic convergence from business-correct conflict resolution;
-- introduces a qualified coordination spectrum: independent/commutative, causal ordering, reservation/escrow, scoped serialization/exclusive ownership, compensation/manual resolution;
-- adds reservation/right semantics as a bounded-autonomy candidate without turning escrow into a generic transaction replacement;
-- requires topology changes to requalify concurrency rather than inherit accidental in-process serialization;
-- extends verification toward concurrent histories and invariant-revision adversarials.
+## 22. Open gaps after this consolidation
 
-Family remains `RESEARCH_ACTIVE / NON_EXECUTABLE`, not saturated. No database consistency model, transaction coordinator, CRDT, escrow implementation, broker, consensus system or conflict resolver was selected.
+Highest-value remaining gaps:
 
-Highest-value remaining gap: **authority-preserving reservation/escrow lifecycle under federation and failure**, especially transfer/revocation of rights across partitions, stale-holder fencing, rights recovery after node loss, over-allocation prevention, and how reservation currentness interacts with authorization revocation and contract revision without creating a central mandatory allocator for autonomous runtimes.
+1. **Hierarchical/delegated rights and multi-level federation:** prove conservation when rights are recursively subdivided across organizations/runtimes and intermediate allocators fail or are retired.
+2. **External effect domains without enforceable fencing:** qualify when idempotency, reservation-at-target, delayed reuse, compensation or manual settlement is sufficient, and when a hard invariant cannot safely support offline transfer.
+3. **Invariant/rights evolution:** migration when the budget or decomposition changes while rights and UNKNOWN transfers remain outstanding.
+4. **Empirical verification:** property/state-machine histories for conservation, transfer ambiguity, stale-holder fencing and recovery under compaction/erasure.
+5. **Utilization/FinOps:** quantify stranded capacity, rebalancing cost and safe false-denial trade-offs against stronger coordination.
 
-## Sources / evidence class
+## Research position after consolidation
 
-- Bailis et al. — *Coordination Avoidance in Database Systems*, PVLDB 2015: https://amplab.cs.berkeley.edu/publication/coordination-avoidance-in-database-systems/
-- Hellerstein & Alvaro — *Keeping CALM: When Distributed Consistency Is Easy*, CACM 2020: https://doi.org/10.1145/3369736
-- O'Neil — *The Escrow Transactional Method*, ACM TODS 1986, DOI 10.1145/7239.7265.
-- Balegas et al. — *Extending Eventually Consistent Cloud Databases for Enforcing Numeric Invariants*, 2015: https://arxiv.org/abs/1503.09052
-- Google Cloud Spanner — transaction/serializable/external-consistency documentation: https://cloud.google.com/spanner/docs/transactions
-- CockroachDB — serializable transaction and contention/retry documentation: https://www.cockroachlabs.com/docs/stable/developer-basics.html
-- Azure Cosmos DB — multi-region conflict resolution policies: https://learn.microsoft.com/azure/cosmos-db/conflict-resolution-policies
-- Infinispan — cross-site replication/conflict merge policies: https://infinispan.org/docs/stable/titles/xsite/xsite.html
+Material delta exists. Reservation/escrow is no longer only a midpoint in the coordination spectrum: its lifecycle is now bounded by conservation, explicit transfer settlement, separate lease/currentness/fencing semantics, authority/contract revision, partition-safe local autonomy, evidence-based orphan recovery and replaceable allocator topology. The central new rule is:
 
-These sources constrain research boundaries only and do not authorize adoption.
+```text
+A right may enable offline/local progress only to the extent that
+its conservation, authority and stale-holder exclusion remain provable.
+Ambiguous rights reduce availability; they do not become new capacity.
+```
+
+This remains research, not implementation authority.
