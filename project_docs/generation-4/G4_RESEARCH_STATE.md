@@ -66,7 +66,7 @@ WBS / Work Packages / implementation
 ## Current maturity
 
 - Data/Persistence/Access: substantial backlog captured; deep evidence consolidation still required.
-- Data Treatment: substantial backlog captured; deep evidence consolidation still required.
+- Data Treatment: **first deep evidence consolidation completed** for temporal/streaming/replay semantics, including multidimensional time, watermark non-finality, scoped processing guarantees, correction/retraction, replay context, live/backfill convergence, CDC/outbox boundaries and ordering scope. Other treatment vectors still require deep consolidation; family remains `RESEARCH_ACTIVE`, not saturated.
 - Infrastructure Engineering: consolidated research backlog captured; operational protocols/evidence still shallow.
 - Computational Core/Performance: consolidated initial architecture and qualification rules captured; workload benchmarks not yet materialized.
 - Lifecycle/Continuous Improvement: **first deep evidence consolidation completed** for incident/postmortem/action separation, work hierarchy vs semantic graph, multidimensional closure, outcome/effectiveness measurement and lesson lineage. Still `RESEARCH_ACTIVE`, not saturated.
@@ -74,6 +74,27 @@ WBS / Work Packages / implementation
 - Product UX/AI-native Builder: initial product R&D program captured; deeper usability research remains open.
 
 ## Material research log
+
+### 2026-09-18 — Temporal, streaming and replay semantics
+
+Evidence classes: mature stream-processing models, messaging transaction semantics, CDC/outbox practice and relational transaction/time semantics (Apache Beam, Apache Flink, Apache Kafka, Debezium, PostgreSQL).
+
+Material delta:
+
+- separated occurrence/event time, business-valid time, observation, recording, ingestion, processing and publication time instead of relying on one generic timestamp;
+- established that watermark/window completion is a progress/completeness estimate and cannot become absolute source completeness;
+- introduced candidate temporal-materialization evidence so early/on-time/late/corrected results retain publication policy and completeness qualification;
+- made correction/retraction/supersession first-class rather than silently overwriting prior temporal evidence;
+- replaced generic `exactly once` claims with a scoped processing-guarantee envelope covering source replayability, processor state, checkpoint, sink behavior and external effects;
+- introduced explicit replay context because replay under changed code/schema/reference data is not equivalent to original execution;
+- required live/backfill overlap to have an explicit convergence contract and proof;
+- preserved CDC/outbox publication as distinct from canonical business truth and downstream effective state;
+- made ordering guarantees explicitly scoped and rejected timestamp comparison as causal proof;
+- required historical/as-of queries to declare temporal perspective rather than returning an unlabeled snapshot.
+
+No stream processor, broker, CDC platform or temporal database was selected as canonical.
+
+Next highest-value gap in this family: temporal identity under correction/entity-resolution revision plus schema/reference-data pinning versus reinterpretation during replay. Cross-family priority may supersede this based on comparative maturity.
 
 ### 2026-09-18 — Lifecycle learning and improvement-effectiveness semantics
 
