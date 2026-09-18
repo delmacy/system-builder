@@ -1,4 +1,4 @@
-export const GOVERNANCE_CONTRACT_VERSION = "1.0.0" as const;
+export const GOVERNANCE_CONTRACT_VERSION = "1.1.0" as const;
 
 export const GOVERNANCE_EVIDENCE_CURRENTNESS = ["CURRENT", "STALE", "UNKNOWN"] as const;
 export type GovernanceEvidenceCurrentness = (typeof GOVERNANCE_EVIDENCE_CURRENTNESS)[number];
@@ -6,13 +6,29 @@ export const GOVERNANCE_EVIDENCE_POPULATION = ["COMPLETE", "PARTIAL", "UNKNOWN"]
 export type GovernanceEvidencePopulation = (typeof GOVERNANCE_EVIDENCE_POPULATION)[number];
 export const GOVERNANCE_ASSESSMENT_OUTCOMES = ["SATISFIED", "NOT_SATISFIED", "INDETERMINATE"] as const;
 export type GovernanceAssessmentOutcome = (typeof GOVERNANCE_ASSESSMENT_OUTCOMES)[number];
+export const GOVERNANCE_AUTHORITY_STATES = ["CURRENT", "NOT_YET_EFFECTIVE", "EXPIRED", "REVOKED", "STALE", "CONFLICTED", "UNKNOWN"] as const;
+export type GovernanceAuthorityState = (typeof GOVERNANCE_AUTHORITY_STATES)[number];
 
 export type GovernancePolicy = Readonly<{
   contractVersion: typeof GOVERNANCE_CONTRACT_VERSION;
   policyId: string;
   revisionRef: string;
   effectiveAt: string;
+  effectiveUntil?: string;
+  supersedesRevisionRef?: string;
   scopeRef: string;
+}>;
+
+export type GovernanceWaiver = Readonly<{
+  waiverId: string;
+  policyRef: string;
+  policyRevisionRef: string;
+  issuerAuthorityRef: string;
+  scopeRef: string;
+  rationaleRef: string;
+  effectiveAt: string;
+  expiresAt: string;
+  revokedAt?: string;
 }>;
 
 export type GovernanceDecision = Readonly<{
@@ -50,15 +66,52 @@ export type GovernanceAssessment = Readonly<{
 const TOKEN = /^\S+$/;
 const UTC = /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?Z$/;
 function token(value: unknown, path: string): string { if (typeof value !== "string" || !TOKEN.test(value)) throw new TypeError(`Invalid governance contract at ${path}`); return value; }
-function time(value: unknown, path: string): string { if (typeof value !== "string" || !UTC.test(value)) throw new TypeError(`Invalid governance contract at ${path}`); return value; }
+function time(value: unknown, path: string): string { if (typeof value !== "string" || !UTC.test(value) || Number.isNaN(Date.parse(value))) throw new TypeError(`Invalid governance contract at ${path}`); return value; }
 function record(value: unknown, path: string): Record<string, unknown> { if (!value || typeof value !== "object" || Array.isArray(value)) throw new TypeError(`Invalid governance contract at ${path}`); return value as Record<string, unknown>; }
 function keys(value: Record<string, unknown>, allowed: readonly string[], path: string): void { const set=new Set(allowed); const unexpected=Object.keys(value).filter(k=>!set.has(k)); if(unexpected.length) throw new TypeError(`Invalid governance contract at ${path}.${unexpected.sort()[0]}`); }
 function refs(value: unknown, path: string): readonly string[] { if(!Array.isArray(value)) throw new TypeError(`Invalid governance contract at ${path}`); const normalized=value.map((v,i)=>token(v,`${path}[${i}]`)); if(new Set(normalized).size!==normalized.length) throw new TypeError(`Invalid governance contract at ${path}: duplicate reference`); return [...normalized].sort(); }
+function epoch(value:string):number { return Date.parse(value); }
 
 export function normalizeGovernancePolicy(input: unknown): GovernancePolicy {
-  const v=record(input,"$policy"); keys(v,["contractVersion","policyId","revisionRef","effectiveAt","scopeRef"],"$policy");
+  const v=record(input,"$policy"); keys(v,["contractVersion","policyId","revisionRef","effectiveAt","effectiveUntil","supersedesRevisionRef","scopeRef"],"$policy");
   if(v.contractVersion!==GOVERNANCE_CONTRACT_VERSION) throw new TypeError("Invalid governance contract at $policy.contractVersion");
-  return {contractVersion:GOVERNANCE_CONTRACT_VERSION,policyId:token(v.policyId,"$policy.policyId"),revisionRef:token(v.revisionRef,"$policy.revisionRef"),effectiveAt:time(v.effectiveAt,"$policy.effectiveAt"),scopeRef:token(v.scopeRef,"$policy.scopeRef")};
+  const effectiveAt=time(v.effectiveAt,"$policy.effectiveAt");
+  const out:{contractVersion:typeof GOVERNANCE_CONTRACT_VERSION;policyId:string;revisionRef:string;effectiveAt:string;effectiveUntil?:string;supersedesRevisionRef?:string;scopeRef:string}={contractVersion:GOVERNANCE_CONTRACT_VERSION,policyId:token(v.policyId,"$policy.policyId"),revisionRef:token(v.revisionRef,"$policy.revisionRef"),effectiveAt,scopeRef:token(v.scopeRef,"$policy.scopeRef")};
+  if(v.effectiveUntil!==undefined){ const until=time(v.effectiveUntil,"$policy.effectiveUntil"); if(epoch(until)<=epoch(effectiveAt)) throw new TypeError("Invalid governance contract at $policy.effectiveUntil"); out.effectiveUntil=until; }
+  if(v.supersedesRevisionRef!==undefined){ const previous=token(v.supersedesRevisionRef,"$policy.supersedesRevisionRef"); if(previous===out.revisionRef) throw new TypeError("Invalid governance contract at $policy.supersedesRevisionRef"); out.supersedesRevisionRef=previous; }
+  return out;
+}
+
+export function normalizeGovernanceWaiver(input: unknown): GovernanceWaiver {
+  const v=record(input,"$waiver"); keys(v,["waiverId","policyRef","policyRevisionRef","issuerAuthorityRef","scopeRef","rationaleRef","effectiveAt","expiresAt","revokedAt"],"$waiver");
+  const effectiveAt=time(v.effectiveAt,"$waiver.effectiveAt"); const expiresAt=time(v.expiresAt,"$waiver.expiresAt");
+  if(epoch(expiresAt)<=epoch(effectiveAt)) throw new TypeError("Invalid governance contract at $waiver.expiresAt");
+  const out:{waiverId:string;policyRef:string;policyRevisionRef:string;issuerAuthorityRef:string;scopeRef:string;rationaleRef:string;effectiveAt:string;expiresAt:string;revokedAt?:string}={waiverId:token(v.waiverId,"$waiver.waiverId"),policyRef:token(v.policyRef,"$waiver.policyRef"),policyRevisionRef:token(v.policyRevisionRef,"$waiver.policyRevisionRef"),issuerAuthorityRef:token(v.issuerAuthorityRef,"$waiver.issuerAuthorityRef"),scopeRef:token(v.scopeRef,"$waiver.scopeRef"),rationaleRef:token(v.rationaleRef,"$waiver.rationaleRef"),effectiveAt,expiresAt};
+  if(v.revokedAt!==undefined){ const revokedAt=time(v.revokedAt,"$waiver.revokedAt"); if(epoch(revokedAt)<epoch(effectiveAt)) throw new TypeError("Invalid governance contract at $waiver.revokedAt"); out.revokedAt=revokedAt; }
+  return out;
+}
+
+export function policyAuthorityState(policy:GovernancePolicy, at:string):GovernanceAuthorityState {
+  const t=epoch(time(at,"$at")); if(t<epoch(policy.effectiveAt)) return "NOT_YET_EFFECTIVE"; if(policy.effectiveUntil&&t>=epoch(policy.effectiveUntil)) return "EXPIRED"; return "CURRENT";
+}
+
+export function waiverAuthorityState(waiver:GovernanceWaiver, policy:GovernancePolicy, at:string):GovernanceAuthorityState {
+  const t=epoch(time(at,"$at"));
+  if(waiver.policyRef!==policy.policyId||waiver.policyRevisionRef!==policy.revisionRef||waiver.scopeRef!==policy.scopeRef) return "STALE";
+  if(policyAuthorityState(policy,at)!=="CURRENT") return "STALE";
+  if(t<epoch(waiver.effectiveAt)) return "NOT_YET_EFFECTIVE";
+  if(waiver.revokedAt&&t>=epoch(waiver.revokedAt)) return "REVOKED";
+  if(t>=epoch(waiver.expiresAt)) return "EXPIRED";
+  return "CURRENT";
+}
+
+export function selectCurrentPolicy(policies:readonly GovernancePolicy[], policyId:string, scopeRef:string, at:string):Readonly<{state:GovernanceAuthorityState;policy?:GovernancePolicy}> {
+  const candidates=policies.filter(p=>p.policyId===policyId&&p.scopeRef===scopeRef&&policyAuthorityState(p,at)==="CURRENT");
+  if(candidates.length===0) return {state:"UNKNOWN"};
+  const superseded=new Set(candidates.map(p=>p.supersedesRevisionRef).filter((v):v is string=>v!==undefined));
+  const leaves=candidates.filter(p=>!superseded.has(p.revisionRef));
+  if(leaves.length!==1) return {state:"CONFLICTED"};
+  return {state:"CURRENT",policy:leaves[0]};
 }
 
 export function normalizeGovernanceDecision(input: unknown): GovernanceDecision {
