@@ -38,6 +38,7 @@ See `G4_RESEARCH_STATE.md` for the consolidated research status, boundaries and 
    - `research/G4_CAPABILITY_EXCHANGE_CONTRACT_COMPATIBILITY.md`
    - `research/G4_CAPABILITY_EXCHANGE_CAUSAL_WORKFLOW_RESEARCH.md`
    - `research/G4_CAPABILITY_EXCHANGE_VERIFICATION_RESEARCH.md`
+   - `research/G4_CAPABILITY_EXCHANGE_REFERENCE_MODEL_RESEARCH.md`
 
 These are research families, not committed product modules. Future synthesis may merge, split or providerize them.
 
@@ -64,12 +65,14 @@ These are research families, not committed product modules. Future synthesis may
 19. `Compensation != rollback`; compensating work is a new governed effect with its own authority, currentness and evidence.
 20. `Workflow progress != transport progress`; orchestration/choreography remain business coordination semantics above the logical Exchange Plane.
 21. `Same happy-path output != semantic conformance`; binding qualification requires a transport-independent oracle, fault/currentness evidence and explicit treatment of `UNKNOWN`.
+22. `One interaction kind != one universal linearization point`; admission, durability, authoritative effect, caller observation, settlement and convergence are distinct proof positions unless a contract proves otherwise.
+23. `Safety != liveness`; eventual progress requires explicit environmental/fairness assumptions, while finite missing evidence may legitimately remain qualified `UNKNOWN`.
 
 ## Product direction being researched
 
 The Builder may evolve from a system generator into a broader **operational systems control substrate** capable of modeling, assembling, compiling, deploying, observing, operating and evolving systems — potentially including itself — while remaining above and interoperable with ordinary operating systems, cloud providers, container runtimes and external infrastructure.
 
-The Shared Semantic Kernel / Capability Exchange Plane hypothesis additionally explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is being researched as a guarantee vector rather than a schema/version boolean, so local, RPC, asynchronous and other bindings are substitutable only when the required semantic profile is preserved or an explicit qualified degradation is declared. Cross-capability workflow research further separates durable business causation, compensation and process ownership from transport routing/tracing so the Exchange Plane does not become an accidental business orchestrator. Verification research now treats semantic conformance as a layered evidence problem across stateful generation, binding conformance, fault-injected histories, reconciliation and retention/erasure rather than a set of happy-path integration tests.
+The Shared Semantic Kernel / Capability Exchange Plane hypothesis additionally explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is being researched as a guarantee vector rather than a schema/version boolean, so local, RPC, asynchronous and other bindings are substitutable only when the required semantic profile is preserved or an explicit qualified degradation is declared. Cross-capability workflow research further separates durable business causation, compensation and process ownership from transport routing/tracing so the Exchange Plane does not become an accidental business orchestrator. Verification research now treats semantic conformance as a layered evidence problem across stateful generation, binding conformance, fault-injected histories, reconciliation and retention/erasure rather than a set of happy-path integration tests. Reference-model research additionally separates interaction-specific proof domains: commands may have one or several authoritative effect domains, queries qualify observation/currentness rather than mutation, events separate occurrence from delivery/consumer effect, streams use scoped frontiers rather than one global point, and ArtifactRef separates reference/integrity from business interpretation.
 
 This is a research hypothesis, not a product claim or implementation authorization.
 
