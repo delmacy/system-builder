@@ -8,9 +8,6 @@ model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
-work_package: G2-WP-12
-wbs: G2-WBS-19
-sprint: G2-WP12-CONSTRUCTION-A-01
 depends_on:
   - TASK-563
 context_paths:
@@ -47,6 +44,12 @@ TASK-563 establishes the base governance semantic boundary but does not yet enco
 
 ## Required change
 Represent effective intervals, supersession lineage, waiver/exception issuer authority, scope, rationale/reference, expiry/revocation and currentness. Conflicting or stale revisions remain explicit and non-strengthening.
+
+## Inputs / contracts
+Consume TASK-563 governance identity/revision/currentness semantics and predecessor authority contracts by reference; do not duplicate producer ownership.
+
+## Outputs / contracts
+Extend provider-neutral governance contracts and the cumulative Product Proof with effective-dated waiver/exception and supersession semantics.
 
 ## Acceptance criteria
 Policy revisions and supersession are deterministic; waiver/exception authority is bounded by issuer/scope/revision/time/expiry; ACK or evidence cannot create a waiver; expired/revoked/stale authority cannot silently remain effective.
