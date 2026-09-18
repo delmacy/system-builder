@@ -79,6 +79,11 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Admission != durability != authoritative effect != caller observation != settlement != convergence` unless the contract proves equivalence for that interaction.
 - `Safety != liveness`; eventual progress requires declared assumptions and bounded-liveness claims require explicit time/resource/workload envelopes.
 - `UNKNOWN` is an evidence-domain disposition, not a generic transport failure or permission to guess.
+- `Convergence != invariant preservation`; deterministic agreement is not business correctness by itself.
+- `Commutativity is contract/invariant-relative`; same final bytes, disjoint writes or mergeability do not prove business effects commute.
+- `Coordination-free != correctness-free`; an operation/invariant pair needs proof that permitted independent executions and merge preserve the invariant.
+- `Reservation/escrow != global transaction replacement`; rights are useful only for safely decomposable invariants and require transfer/currentness/fencing semantics.
+- `Serializable local domain != atomic external multi-domain effect`.
 
 ## Research progression
 
@@ -102,28 +107,34 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** first deep evidence consolidation covers incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence. `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** first deep evidence consolidation covers secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment. `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** first deep evidence consolidation covers semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads. `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** **eight deep evidence consolidations completed**: minimal kernel/exchange vocabulary; multidimensional compatibility; same-contract delayed-command fixtures; federated reconnect; causal workflow/saga semantics; in-flight workflow migration + causal-history compaction; semantic verification/fault-model strategy; and interaction-specific reference-model/effect-point/safety-liveness semantics. The eighth consolidation rejects a universal linearization point, separates admission/durability/effect/observation/settlement/convergence, defines proof domains for COMMAND, QUERY/RESPONSE, EVENT, STREAM, ARTIFACT_REF and NOTIFICATION, and makes safety/liveness/UNKNOWN explicit verification dimensions. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** **nine deep evidence consolidations completed**: minimal kernel/exchange vocabulary; multidimensional compatibility; same-contract delayed-command fixtures; federated reconnect; causal workflow/saga semantics; in-flight workflow migration + causal-history compaction; semantic verification/fault-model strategy; interaction-specific reference-model/effect-point/safety-liveness semantics; and effect-domain composition/commutativity/coordination boundaries. The ninth consolidation makes application invariants the unit of concurrency qualification, separates deterministic convergence from business correctness, introduces invariant-confluence reasoning, and distinguishes coordination-free/causal/reservation/scoped-serialization/compensation paths without creating a global transaction or Exchange Plane business owner. `RESEARCH_ACTIVE`, not saturated.
 
 ## Material research log
+
+### 2026-09-18 — Effect-domain composition, commutativity and coordination boundaries
+
+Evidence classes: Bailis et al. invariant confluence; CALM/monotonicity research; O'Neil escrow transactions and bounded-counter research; Google Spanner/CockroachDB serializable transaction boundaries; Azure Cosmos DB multi-region conflict resolution; Infinispan cross-site merge policies; prior G4 reference-model/federation/verification findings.
+
+Material delta:
+
+- made semantic effect domains + application invariants the unit of composition rather than storage keys/services;
+- defined commutativity relative to invariant and observation profiles rather than final-byte equality;
+- imported invariant-confluence as a technology-independent criterion for defensible coordination avoidance;
+- separated deterministic replica convergence from capability-owned business conflict resolution;
+- established a coordination spectrum: independent/commutative, causal ordering, reservation/escrow, scoped exclusive/serializable, compensation/forward/manual recovery;
+- qualified escrow/reservation as bounded autonomy for decomposable invariants, with explicit false-denial/rebalance/fencing/currentness trade-offs;
+- required topology/binding changes to requalify concurrency rather than inherit accidental local serialization;
+- extended future verification toward concurrent histories, rights transfer and invariant-revision counterexamples.
+
+No transaction coordinator, consistency model, CRDT, escrow implementation, database, broker, consensus system or conflict resolver was selected.
+
+Highest-value remaining gap: authority-preserving reservation/escrow lifecycle under federation and failure — rights transfer/revocation across partitions, stale-holder fencing, rights recovery after node loss, over-allocation prevention and interaction with authorization/contract revisions without imposing one mandatory central allocator.
 
 ### 2026-09-18 — Interaction reference model, effect points and safety/liveness
 
 Evidence classes: Herlihy/Wing linearizability; gRPC unary/streaming ordering; Apache Kafka partition-scoped ordering; CloudEvents occurrence/event/message distinctions; RFC 9110 conditional requests; Amazon S3 conditional/integrity evidence; prior RabbitMQ/Pulsar/Kafka delivery/dedup findings.
 
-Material delta:
-
-- bounded linearizability to contracts that genuinely expose one atomic abstract effect instead of treating it as a default for every cross-capability interaction;
-- separated invocation/admission/durability/authoritative effect/caller observation/settlement/convergence-frontier proof positions;
-- introduced an implementation-independent `InteractionProofProfile` candidate;
-- defined distinct reference-model hypotheses for COMMAND, QUERY/RESPONSE, EVENT, STREAM, ARTIFACT_REF and weaker NOTIFICATION semantics;
-- separated safety, eventual-liveness and bounded-liveness/SLO properties and required explicit assumptions for liveness claims;
-- qualified `UNKNOWN` by unresolved evidence domain rather than treating it as generic transport failure;
-- constrained binding observation adapters so offsets, ACKs, ETags, checksums and RPC statuses cannot fabricate semantic guarantees;
-- preserved autonomy and portability without introducing a global serial history, central coordinator or mandatory broker.
-
-No consistency model, checker, broker, stream engine, RPC framework, object store or provider was selected.
-
-Highest-value remaining gap: effect-domain composition and commutativity/conflict rules across multi-capability effects without a global transaction: when operations commute, when causal ordering is required, when reservation/escrow/compensation is necessary, and how conflict can be detected without moving business ownership into the Exchange Plane.
+Material delta: bounded linearizability to genuine atomic abstract effects; separated admission/durability/effect/observation/settlement/convergence; interaction-specific proof models; safety/liveness/UNKNOWN qualification.
 
 ### 2026-09-18 — Semantic verification, stateful fault model and checkpoint sufficiency
 
@@ -178,6 +189,8 @@ Authorization-aware data access; Computational Core baseline qualification; Prod
 - no workflow/saga/migration engine adoption decision;
 - no property-testing/deterministic-simulation/checker adoption decision;
 - no global serial-history/linearizability requirement for all exchange interactions;
+- no global transaction/coordination requirement for all cross-capability effects;
+- no CRDT/escrow/reservation adoption decision;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
