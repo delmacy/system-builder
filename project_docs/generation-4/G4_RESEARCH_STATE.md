@@ -71,6 +71,10 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Historical semantic evidence != historical executable artifact != historical sensitive payload`.
 - `History compacted != history never happened`; `Current state reconstructable != causal proof sufficient`.
 - `Deprecated for new work != safe to delete for in-flight obligations`.
+- `Same happy-path output != semantic conformance`; a binding must be checked against the required semantic profile.
+- `Deterministic replay != production equivalence`; simulation evidence is scoped to its model/environment.
+- `Fault injection != business oracle`; semantic faults include authority, contract, migration, retention and currentness changes.
+- `Checkpoint loads != checkpoint sufficient`; sufficiency is operation-specific.
 
 ## Research progression
 
@@ -94,30 +98,36 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** first deep evidence consolidation covers incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence. `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** first deep evidence consolidation covers secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment. `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** first deep evidence consolidation covers semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads. `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** **six deep evidence consolidations completed**: minimal kernel/exchange vocabulary; multidimensional compatibility; same-contract delayed-command fixtures; federated reconnect; causal workflow/saga semantics; and in-flight workflow migration + causal-history compaction under finite retention. The sixth consolidation treats migration as a semantic transformation, separates pinning from migration, separates semantic evidence/executable artifacts/sensitive payloads, introduces causal checkpoints and admission-vs-obligation retirement horizons, and explicitly allows qualified loss of reproducibility when retention/erasure requires it. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** **seven deep evidence consolidations completed**: minimal kernel/exchange vocabulary; multidimensional compatibility; same-contract delayed-command fixtures; federated reconnect; causal workflow/saga semantics; in-flight workflow migration + causal-history compaction; and semantic verification/fault-model strategy. The seventh consolidation turns prior fixtures into a layered verification model with transport-independent semantic histories/oracles, stateful generation, metamorphic binding conformance, fault-injected histories, operation-specific checkpoint sufficiency and privacy-aware counterexample retention. `RESEARCH_ACTIVE`, not saturated.
 
 ## Material research log
+
+### 2026-09-18 — Semantic verification, stateful fault model and checkpoint sufficiency
+
+Evidence classes: FoundationDB deterministic simulation/testing; Antithesis deterministic simulation/fault injection; Hypothesis rule-based state machines; Jepsen/Elle generated-history checking; prior G4 contract, federation, causal-workflow, migration and retention findings.
+
+Material delta:
+
+- replaced a flat list of same-contract examples with layered verification evidence: examples -> stateful model/property tests -> binding conformance -> fault-injected histories -> recovery/convergence checks -> production-assumption qualification;
+- introduced a transport-independent `SemanticHistoryRecord`/oracle boundary that records caller observation separately from transport disposition and authoritative effect evidence;
+- proposed metamorphic same-scenario qualification across local/RPC/async/federated bindings, comparing only dimensions promised equivalent by the `RequiredContractProfile`;
+- required stateful generation of histories combining timeout/UNKNOWN, partition, authority revision, contract upgrade, workflow migration, compaction, erasure, retry and reconnect;
+- separated infrastructure faults from semantic faults: healed network or available storage does not prove authority/currentness/contract/evidence convergence;
+- made ambiguous `UNKNOWN` windows intentional test targets rather than incidental failures;
+- converted `CausalCheckpoint` proof into an operation-sufficiency matrix for resume, retry/dedup, compensation, migration, federation, audit and erasure;
+- identified test seeds, minimized counterexamples, traces and snapshots as retention/erasure surfaces that must not become shadow archives of sensitive payloads;
+- bounded deterministic-simulation claims and required portable semantic scenarios/oracles so simulation and real multi-process evidence remain complementary;
+- added dependency/history checking and semantic-witness-preserving failure shrinking rather than timestamp-only ordering or lower-level assertion minimization.
+
+No property framework, simulator, checker, broker, workflow engine or provider was selected.
+
+Highest-value remaining gap: formalize the reference-model boundary and candidate linearization/effect points per interaction kind (`COMMAND`, `QUERY`, `EVENT`, `STREAM`, `ARTIFACT_REF`), distinguishing safety invariants from liveness/eventual assumptions and identifying where finite evidence requires a legitimate `UNKNOWN` rather than a universal single linearization point.
 
 ### 2026-09-18 — In-flight workflow migration, contract retirement and causal-history compaction
 
 Evidence classes: Camunda 8 process-instance migration/versioning/data-migration limitations/data retention; Apache Kafka log compaction; GDPR Article 5 storage limitation/data minimisation; prior G4 causal-workflow and retention/erasure research.
 
-Material delta:
-
-- established `Definition deployable != in-flight occurrence migratable` and required migration proof across active state, completed effects, pending intents, causal frontier, contracts, compensation, authority and data transformation;
-- prohibited migration from retroactively changing the semantics under which already-effective work occurred;
-- separated legitimate pin-until-terminal and migrate/mediate/forward-recover strategies instead of requiring universal live migration;
-- separated historical semantic evidence, historical executable artifacts and sensitive workflow payloads so old code/data need not be retained forever by convenience;
-- introduced candidate causal checkpoint/history summary with proof obligations for retry/dedup, compensation, federation reconciliation, migration, audit/explanation and erasure;
-- established that compaction may reduce replay/reproducibility but must not falsify history or silently substitute missing evidence;
-- introduced definition/contract `admission horizon` versus `obligation horizon`, including outstanding compensation/recovery obligations after new admissions stop;
-- required retired compensation semantics to have an explicit successor/mediation, bounded preserved executor, forward/manual recovery or incompatibility disposition rather than silently invoking current behavior;
-- integrated finite retention/erasure with safe continuation: if required data must be erased, the workflow surfaces a governed conflict/degradation rather than hiding retention;
-- added adversarials for migration during partition/UNKNOWN effects, security-driven executor retirement, compacted dedup history, retroactive compensation semantics and history summaries that remain sensitive.
-
-No workflow engine, migration framework, broker, event store, compaction algorithm or retention provider was selected.
-
-Highest-value remaining gap: empirical/property-based migration and compaction fixtures across local/RPC/async/federated bindings, especially migration during UNKNOWN effects/partitions and proof that a compacted checkpoint remains sufficient for retry, compensation, reconciliation and erasure without retaining forbidden payloads.
+Material delta: migration is a semantic transformation; pinning and migration have distinct risks; semantic evidence/executables/sensitive payloads have distinct retention; causal checkpoints preserve only qualified future proof; admission and obligation retirement horizons differ; retention may intentionally reduce reproducibility without falsifying history.
 
 ### 2026-09-18 — Cross-capability causal consistency, saga/workflow and compensation
 
@@ -158,6 +168,7 @@ Authorization-aware data access; Computational Core baseline qualification; Prod
 - no Rust rewrite decision;
 - no graph/vector/search/stream/service-mesh/central-exchange/etcd/Kubernetes adoption decision;
 - no workflow/saga/migration engine adoption decision;
+- no property-testing/deterministic-simulation/checker adoption decision;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
