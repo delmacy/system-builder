@@ -32,7 +32,7 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Provider ACK != effective state`.
 - `AI inference != authority`.
 - `Self-managing != unrestricted self-modifying`.
-- `Temporal history != infinite retention` and `Auditability != immutable personal data forever`.
+- `Temporal history != infinite retention`; `Auditability != immutable personal data forever`.
 - `Heartbeat/lease freshness != proof of semantic health or safe replacement`.
 - `Retry != resilience by default`.
 - `Lease expiry != fencing`; `Leadership != universal authority`.
@@ -66,6 +66,11 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Reconnect order != causal/business order`.
 - `Orchestration/choreography != Exchange Plane ownership`.
 - `Cancel requested != downstream effect cancelled`.
+- `Definition deployable != in-flight occurrence migratable`.
+- `Workflow migration != version reassignment`; migration is a qualified semantic transformation.
+- `Historical semantic evidence != historical executable artifact != historical sensitive payload`.
+- `History compacted != history never happened`; `Current state reconstructable != causal proof sufficient`.
+- `Deprecated for new work != safe to delete for in-flight obligations`.
 
 ## Research progression
 
@@ -82,69 +87,61 @@ G3 CLOSED/FROZEN
 
 ## Current maturity
 
-- **Data/Persistence/Access:** first deep evidence consolidation completed for authorization-aware data access. Authorization is part of query semantics; data currentness and authorization currentness are independent; RLS/provider controls remain enforcement layers. Long-running revocation/currentness and empirical search/list/graph/vector leakage tests remain open. `RESEARCH_ACTIVE`, not saturated.
-- **Data Treatment:** deep evidence consolidation covers temporal/streaming/replay, temporal identity/interpretation revision and retention/erasure/reproducibility. Other treatment vectors remain open. `RESEARCH_ACTIVE`, not saturated.
+- **Data/Persistence/Access:** first deep evidence consolidation completed for authorization-aware data access. Long-running revocation/currentness and empirical leakage tests remain open. `RESEARCH_ACTIVE`, not saturated.
+- **Data Treatment:** deep evidence consolidation covers temporal/streaming/replay, temporal identity/interpretation revision and retention/erasure/reproducibility. `RESEARCH_ACTIVE`, not saturated.
 - **Infrastructure Engineering:** two deep evidence consolidations cover decomposed health/control-loop safety and leadership/lease/fencing/split-brain coordination. `RESEARCH_ACTIVE`, not saturated.
 - **Computational Core/Performance:** first deep evidence consolidation covers workload envelopes, TypeScript/Node baseline instrumentation, worker/serialization boundaries, specialization crossover, native isolation and WASM qualification. Representative SB empirical benchmarks remain absent. `RESEARCH_ACTIVE`, not saturated.
 - **Lifecycle/Continuous Improvement:** first deep evidence consolidation covers incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence. `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** first deep evidence consolidation covers secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment. `RESEARCH_ACTIVE`, not saturated.
-- **Product UX/AI-native Builder:** first deep evidence consolidation covers semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads. User/task research and empirical prototypes remain open. `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** **five deep evidence consolidations completed**: (1) minimal shared structural kernel and exchange-boundary vocabulary; (2) multidimensional contract compatibility/negotiation; (3) same-contract fixtures, delayed-command authority/currentness, ambiguous timeout/retry/effect, replay/dead-letter semantics; (4) federated long-partition/reconnect reconciliation; and (5) cross-capability causal/workflow/saga semantics. The fifth consolidation separates durable business causation from trace/correlation, workflow progress from transport progress, compensation from rollback, and orchestration/choreography from Exchange Plane ownership; it adds causal-frontier, pivot/irreversibility, cancellation races and in-flight authority/contract revision proof domains. `RESEARCH_ACTIVE`, not saturated.
+- **Product UX/AI-native Builder:** first deep evidence consolidation covers semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** **six deep evidence consolidations completed**: minimal kernel/exchange vocabulary; multidimensional compatibility; same-contract delayed-command fixtures; federated reconnect; causal workflow/saga semantics; and in-flight workflow migration + causal-history compaction under finite retention. The sixth consolidation treats migration as a semantic transformation, separates pinning from migration, separates semantic evidence/executable artifacts/sensitive payloads, introduces causal checkpoints and admission-vs-obligation retirement horizons, and explicitly allows qualified loss of reproducibility when retention/erasure requires it. `RESEARCH_ACTIVE`, not saturated.
 
 ## Material research log
 
-### 2026-09-18 — Cross-capability causal consistency, saga/workflow and compensation
+### 2026-09-18 — In-flight workflow migration, contract retirement and causal-history compaction
 
-Evidence classes: AWS Prescriptive Guidance saga orchestration/choreography; Azure Architecture Center Saga and Compensating Transaction patterns; W3C Trace Context; OpenTelemetry context propagation/baggage; prior G4 temporal/federation findings.
+Evidence classes: Camunda 8 process-instance migration/versioning/data-migration limitations/data retention; Apache Kafka log compaction; GDPR Article 5 storage limitation/data minimisation; prior G4 causal-workflow and retention/erasure research.
 
 Material delta:
 
-- separated business process/saga ownership from Exchange Plane routing and delivery semantics;
-- separated correlation, trace lineage, durable business causation, workflow occurrence identity and authority;
-- required business causation needed for replay/compensation/audit to survive telemetry sampling/retention independently;
-- modeled long-lived workflow progress separately from broker/transport backlog progress;
-- treated compensation as a new domain-specific governed effect that can fail, race with concurrent work and require human reconciliation;
-- introduced pivot/irreversibility qualification and forward-recovery semantics rather than fictional rollback;
-- introduced a `CausalFrontier` research hypothesis for partition/reconnect without claiming a global serializable transaction;
-- required reconnect to reconcile predecessor/effect evidence before workflow continuation;
-- kept orchestration and choreography as business coordination patterns above the Exchange Plane;
-- added cancellation/supersession races and mid-workflow authority/contract revision as explicit adversarial/proof domains;
-- preserved autonomous runtime behavior and prohibited trace/baggage from becoming identity/authority proof.
+- established `Definition deployable != in-flight occurrence migratable` and required migration proof across active state, completed effects, pending intents, causal frontier, contracts, compensation, authority and data transformation;
+- prohibited migration from retroactively changing the semantics under which already-effective work occurred;
+- separated legitimate pin-until-terminal and migrate/mediate/forward-recover strategies instead of requiring universal live migration;
+- separated historical semantic evidence, historical executable artifacts and sensitive workflow payloads so old code/data need not be retained forever by convenience;
+- introduced candidate causal checkpoint/history summary with proof obligations for retry/dedup, compensation, federation reconciliation, migration, audit/explanation and erasure;
+- established that compaction may reduce replay/reproducibility but must not falsify history or silently substitute missing evidence;
+- introduced definition/contract `admission horizon` versus `obligation horizon`, including outstanding compensation/recovery obligations after new admissions stop;
+- required retired compensation semantics to have an explicit successor/mediation, bounded preserved executor, forward/manual recovery or incompatibility disposition rather than silently invoking current behavior;
+- integrated finite retention/erasure with safe continuation: if required data must be erased, the workflow surfaces a governed conflict/degradation rather than hiding retention;
+- added adversarials for migration during partition/UNKNOWN effects, security-driven executor retirement, compacted dedup history, retroactive compensation semantics and history summaries that remain sensitive.
 
-No workflow engine, saga framework, broker, tracing stack or orchestration topology was selected.
+No workflow engine, migration framework, broker, event store, compaction algorithm or retention provider was selected.
 
-Highest-value remaining gap: in-flight workflow definition/contract migration and causal-history compaction under finite retention/erasure, including retired compensation contracts without indefinite preservation of executable historical code or sensitive payloads.
+Highest-value remaining gap: empirical/property-based migration and compaction fixtures across local/RPC/async/federated bindings, especially migration during UNKNOWN effects/partitions and proof that a compacted checkpoint remains sufficient for retry, compensation, reconciliation and erasure without retaining forbidden payloads.
+
+### 2026-09-18 — Cross-capability causal consistency, saga/workflow and compensation
+
+Evidence classes: AWS saga orchestration/choreography; Azure Saga/Compensating Transaction; W3C Trace Context; OpenTelemetry; prior G4 temporal/federation findings.
+
+Material delta: business causation separated from trace/correlation; workflow progress separated from transport progress; compensation treated as new governed effect; pivot/irreversibility and causal-frontier semantics added; orchestration/choreography kept above Exchange Plane; cancellation and mid-workflow authority/contract revision added as proof domains.
 
 ### 2026-09-18 — Federated exchange after long partitions and reconnect
 
-Evidence classes: Apache CouchDB disconnected replication/conflict model; Apache Kafka MirrorMaker 2 cross-cluster replication/checkpoints/configuration; Azure Service Bus/Event Hubs geo-replication, failover, checkpoint and RBAC behavior.
+Evidence classes: CouchDB disconnected replication/conflicts; Kafka MirrorMaker 2; Azure Service Bus/Event Hubs geo-replication/failover.
 
-Material delta:
-
-- established `Transport reconnected != semantic convergence` and separated data, exchange, authority, contract and topology convergence;
-- proposed partition/reconnect lineage and scoped high-water/checkpoint evidence without selecting a protocol;
-- required reconnect negotiation/reconciliation before backlog drain;
-- classified backlog into safe fact import, reinterpret/revalidate, stale intent, conflict, incompatibility, quarantine, UNKNOWN or effect eligibility rather than generic replay;
-- preserved disconnected divergent histories and prohibited deterministic storage winners/last-write-wins from becoming business truth by default;
-- required authority-sensitive queued work to revalidate after partition unless explicit durable delegation says otherwise;
-- required old-revision queued work to qualify against current contract/provider guarantees before mediation/effect;
-- separated endpoint/topology continuity from semantic identity, state continuity and authority continuity;
-- assigned exchange-state classification/evidence to the Exchange Plane while retaining business merge/effect authority in the owning capability;
-- added federation adversarials for stale revocation, duplicate effects, checkpoint drift, metadata-without-data convergence, data-without-RBAC convergence, clock divergence, replication-agent configuration races, failover duplicates and erasure resurrection.
-
-No federation protocol, broker, conflict-resolution algorithm or replication technology was selected.
+Material delta: transport reconnect separated from semantic convergence; backlog classification/revalidation; conflict preservation; authority-sensitive queued work revalidation; exchange-state classification remains separate from business merge/effect authority.
 
 ### 2026-09-18 — Time-separated exchange fixtures and queued-command validity
 
 Evidence classes: gRPC deadlines; RabbitMQ TTL/dead-lettering; Kafka transaction boundaries; Amazon EventBridge replay.
 
-Material delta: same-contract fixtures now observe caller result, transport evidence, authoritative effect and reconciliation; delayed command validity is separate from TTL; effect-time authority/currentness revalidation is explicit; ambiguous timeout/retry/external-effect is mandatory; replay is a new qualified delivery context; dead-letter is unresolved exchange disposition; dedup retention is reasoned against duplicate/replay horizon.
+Material delta: same-contract fixtures observe caller result, transport evidence, authoritative effect and reconciliation; delayed command validity separated from TTL; ambiguous timeout/retry/external-effect made mandatory; replay is a qualified delivery context.
 
 ### 2026-09-18 — Capability Exchange contract compatibility and negotiation
 
 Evidence classes: schema-registry compatibility; AsyncAPI/CloudEvents bindings; HTTP idempotency; gRPC deadlines; RabbitMQ confirms; Kafka idempotence/transactions.
 
-Material delta: compatibility became a multidimensional guarantee vector; `RequiredContractProfile` is compared to `ProviderOffer`; version/schema acceptance is separated from semantic qualification; transport substitution is classified; mediation must disclose preserved/degraded/unsupported semantics; schema/contract/provider registries are distinct responsibilities; common semantic fixtures are the candidate portability proof.
+Material delta: compatibility became a multidimensional guarantee vector; `RequiredContractProfile` compared to `ProviderOffer`; transport substitution classified; schema/contract/provider registries separated; common semantic fixtures proposed as portability proof.
 
 ### 2026-09-18 — Shared Semantic Kernel / Capability Exchange Plane foundations
 
@@ -152,51 +149,15 @@ Evidence classes: DDD/ACL; Ports & Adapters; CloudEvents; AsyncAPI; gRPC; Kafka;
 
 Material delta: minimal shared structural kernel; logical non-central Exchange Plane; explicit role vocabulary; interaction taxonomy; exchange envelope; semantic mediation/lossiness; ACK/delivery/effect separation; authorization/currentness/rate/backpressure propagation; autonomous runtimes without mandatory central broker/ESB.
 
-### 2026-09-18 — Authorization-aware data access
+### Earlier 2026-09-18 consolidations
 
-Authorization moved into query semantics; `DISCOVER/READ/TRAVERSE/EXPORT/MUTATE` are distinguished; authorization currentness is independent from data currentness; storage-native controls are defense-in-depth; list/search/graph/vector authorization is distinct from point checks.
-
-### 2026-09-18 — Computational Core baseline qualification
-
-End-to-end workload envelope; optimization ladder before specialization; worker boundary costs; workload-specific specialization crossover; native in-process vs daemon/service isolation; WASM portability/sandbox separated from speed.
-
-### 2026-09-18 — Product UX semantic zoom, AI interaction and Preview safety
-
-Semantic vs geometric zoom; bounded Canvas materialization; lens semantics; progressive-disclosure security; Explore-to-Act separation; Preview fidelity classes; evidence-linked AI; accessibility and interaction-workload budgets.
-
-### 2026-09-18 — Infrastructure fencing, leadership and split-brain safety
-
-Leadership separated from effect authority; lease expiry separated from fencing; authority epochs/fencing; quorum vs downstream reachability; revision-qualified reconnect and stale-work quarantine.
-
-### 2026-09-18 — Infrastructure control-loop safety
-
-Provider/host/storage/workload/application/network health separation; heartbeat currentness; bounded retries; overload; disruption envelope; reboot proof; governed failover; evidence-backed RPO/RTO.
-
-### 2026-09-18 — Retention, erasure and reproducibility
-
-Finite retention; distributed erasure convergence; reproducibility envelope; derived-data erasure; restore reconciliation; explicit holds; replay/backfill cannot silently republish erased data.
-
-### 2026-09-18 — Temporal identity and replay interpretation
-
-Source identity vs subject identity/resolution revision; merge/split lineage; source snapshot vs interpretation snapshot; forensic reproduction vs current reinterpretation.
-
-### 2026-09-18 — Temporal, streaming and replay semantics
-
-Multidimensional time; watermark limitations; scoped exactly-once; replay context; live/backfill convergence; CDC/outbox boundaries; scoped ordering.
-
-### 2026-09-18 — Lifecycle learning and improvement effectiveness
-
-Incident/postmortem/findings/actions separation; hierarchy vs N:N lifecycle graph; multidimensional closure; improvement-effect evidence; lesson lineage/supersession.
-
-### 2026-09-17 — Self-hosting secure-update foundations
-
-Authenticity vs update authorization; threshold/root trust; generation consistency; anti-rollback vs recovery; compatibility/skew; state/schema rollback; promotion evidence; reboot identity; failed-update-loop containment.
+Authorization-aware data access; Computational Core baseline qualification; Product UX semantic zoom/AI/Preview safety; Infrastructure fencing/leadership/split-brain; Infrastructure control-loop safety; Retention/erasure/reproducibility; Temporal identity/replay interpretation; Temporal/streaming/replay semantics; Lifecycle learning/improvement effectiveness; Self-hosting secure-update foundations.
 
 ## Non-goals
 
 - no Rust rewrite decision;
 - no graph/vector/search/stream/service-mesh/central-exchange/etcd/Kubernetes adoption decision;
-- no workflow/saga engine adoption decision;
+- no workflow/saga/migration engine adoption decision;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
