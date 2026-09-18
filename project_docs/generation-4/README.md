@@ -35,6 +35,7 @@ See `G4_RESEARCH_STATE.md` for the consolidated research status, boundaries and 
    - `research/G4_SELF_HOSTING_AUTONOMIC_EVOLUTION.md`
 8. **Shared Semantic Kernel / Capability Exchange Plane / Inter-Capability Boundary Model**
    - `research/G4_CAPABILITY_EXCHANGE_PLANE_RESEARCH.md`
+   - `research/G4_CAPABILITY_EXCHANGE_CONTRACT_COMPATIBILITY.md`
 
 These are research families, not committed product modules. Future synthesis may merge, split or providerize them.
 
@@ -55,12 +56,14 @@ These are research families, not committed product modules. Future synthesis may
 13. `Interface compatibility != contract compatibility`.
 14. Drivers/adapters/gateways may mediate mechanisms or semantics only within declared guarantees; they must not fabricate equivalence or become accidental canonical business owners.
 15. Exchange semantics may be shared; business semantics and business ownership remain capability-local.
+16. `Compatibility is multidimensional`; schema/version acceptance alone does not prove semantic, authority, delivery, ordering, temporal or operational substitutability.
+17. Provider/binding capability advertisement is an offer requiring qualification against the required contract profile.
 
 ## Product direction being researched
 
 The Builder may evolve from a system generator into a broader **operational systems control substrate** capable of modeling, assembling, compiling, deploying, observing, operating and evolving systems — potentially including itself — while remaining above and interoperable with ordinary operating systems, cloud providers, container runtimes and external infrastructure.
 
-The Shared Semantic Kernel / Capability Exchange Plane hypothesis additionally explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB.
+The Shared Semantic Kernel / Capability Exchange Plane hypothesis additionally explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is being researched as a guarantee vector rather than a schema/version boolean, so local, RPC, asynchronous and other bindings are substitutable only when the required semantic profile is preserved or an explicit qualified degradation is declared.
 
 This is a research hypothesis, not a product claim or implementation authorization.
 
