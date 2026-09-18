@@ -8,9 +8,6 @@ model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
-work_package: G2-WP-12
-wbs: G2-WBS-19
-sprint: G2-WP12-CONSTRUCTION-A-01
 depends_on:
   - TASK-565
 context_paths:
@@ -49,6 +46,12 @@ TASK-563..565 define the bounded semantic surface incrementally; Construction A 
 
 ## Required change
 Complete the cumulative Product Proof for policy/decision/enforcement/evidence/assessment separation, effective-dated waiver/supersession, privacy retention/legal hold/residency/disposition, provider migration and residual cohorts.
+
+## Inputs / contracts
+Consume the completed TASK-563..565 governance/privacy contracts and cumulative proof surface without adding successor feature scope.
+
+## Outputs / contracts
+Produce cumulative deterministic Product Proof covering the committed G2-WBS-19 Construction A semantics and adversarial non-strengthening cases.
 
 ## Acceptance criteria
 Proof demonstrates absence of evidence != compliance; evidence/ACK != authority; stale/expired/revoked authority is non-effective; PARTIAL/UNKNOWN does not strengthen; legal hold and residency remain population-qualified; provider migration preserves residual obligations. Product Proof remains explicitly distinct from Production Readiness.
