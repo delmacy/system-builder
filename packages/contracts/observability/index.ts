@@ -65,6 +65,17 @@ export type OperatorReconnectReconciliation = Readonly<{
   disposition: ReconciliationDisposition;
 }>;
 
+export type OperatorExecutionMode = "MANUAL" | "EMERGENCY";
+export type OperatorManualEmergencyDisposition = Readonly<{
+  dispositionId: string;
+  mode: OperatorExecutionMode;
+  actorId: string;
+  requestedAction: string;
+  acknowledgement: OperatorRequestAcknowledgement;
+  effect?: OperatorEffectEvidence | undefined;
+  reconnectReconciliation?: OperatorReconnectReconciliation | undefined;
+}>;
+
 export function projectOperatorAuthority(authorityRef: string, ownerId: string, evidence: ObservabilityEvidence, origin: OperatorProjectionOrigin = "AUTHORITATIVE_SOURCE"): OperatorAuthorityProjection {
   return { projectionId: `${evidence.source.sourceId}@${evidence.source.producerRevision}`, authorityRef, ownerId, sourceId: evidence.source.sourceId, sourceRevision: evidence.source.producerRevision, locality: evidence.source.locality, populationRef: evidence.source.populationRef, currentness: evidence.currentness, evidenceState: evidence.evidenceState, origin };
 }
@@ -103,6 +114,25 @@ export function canRetryOperatorRequestAfterReconnect(acknowledgement: OperatorR
 
 export function canClaimOperatorReconnectConvergence(acknowledgement: OperatorRequestAcknowledgement, reconciliation: OperatorReconnectReconciliation): boolean {
   return isOperatorReconnectReconciliationQualified(acknowledgement, reconciliation) && reconciliation.disposition === "CONVERGED" && Boolean(reconciliation.effectRevision);
+}
+
+export function isOperatorManualEmergencyDispositionAuditable(record: OperatorManualEmergencyDisposition): boolean {
+  if (!record.dispositionId.trim() || !record.actorId.trim() || !record.requestedAction.trim()) return false;
+  const acknowledgement = record.acknowledgement;
+  if (!acknowledgement.requestId.trim() || !acknowledgement.authorityRef.trim() || !acknowledgement.ownerId.trim() || !acknowledgement.requestedRevision.trim()) return false;
+  if (record.effect && (record.effect.requestId !== acknowledgement.requestId || record.effect.authorityRef !== acknowledgement.authorityRef || record.effect.ownerId !== acknowledgement.ownerId || record.effect.requestedRevision !== acknowledgement.requestedRevision || record.effect.locality !== acknowledgement.locality || record.effect.populationRef !== acknowledgement.populationRef)) return false;
+  if (record.reconnectReconciliation && !isOperatorReconnectReconciliationQualified(acknowledgement, record.reconnectReconciliation)) return false;
+  return true;
+}
+
+export function canClaimOperatorManualEmergencyConvergence(record: OperatorManualEmergencyDisposition): boolean {
+  if (!isOperatorManualEmergencyDispositionAuditable(record) || !record.effect) return false;
+  return canClaimOperatorEffectConvergence(record.acknowledgement, record.effect);
+}
+
+export function canRetryOperatorManualEmergencyAfterReconnect(record: OperatorManualEmergencyDisposition): boolean {
+  if (!isOperatorManualEmergencyDispositionAuditable(record) || !record.reconnectReconciliation) return false;
+  return canRetryOperatorRequestAfterReconnect(record.acknowledgement, record.reconnectReconciliation);
 }
 
 export function assertSloTargetsSliRevision(slo: ServiceLevelObjectiveTarget, sli: ServiceLevelIndicatorDefinition): void { if (slo.sliId !== sli.sliId || slo.sliRevision !== sli.revision) throw new TypeError("SLO target must reference the exact SLI id and revision"); }

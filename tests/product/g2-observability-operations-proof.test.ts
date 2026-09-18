@@ -5,11 +5,14 @@ import {
   assertSloTargetsSliRevision,
   canAggregatePopulationCoverage,
   canClaimOperatorEffectConvergence,
+  canClaimOperatorManualEmergencyConvergence,
   canClaimOperatorReconnectConvergence,
   canClaimReconciliationConvergence,
   canPromoteConditionToAlert,
+  canRetryOperatorManualEmergencyAfterReconnect,
   canRetryOperatorRequestAfterReconnect,
   isObservationComplete,
+  isOperatorManualEmergencyDispositionAuditable,
   isOperatorReconnectReconciliationQualified,
   isReconciliationPopulationComplete,
   requireReconciliationBeforeRetry,
@@ -19,6 +22,7 @@ import {
   type ObservabilityEvidence,
   type ObservabilityIncident,
   type OperatorEffectEvidence,
+  type OperatorManualEmergencyDisposition,
   type OperatorReconnectReconciliation,
   type OperatorRequestAcknowledgement,
   type ReconciliationEvidence,
@@ -209,4 +213,62 @@ test("duplicate retry cannot be strengthened from unresolved reconnect outcome",
   assert.equal(canClaimOperatorReconnectConvergence(operatorAck, unresolved), false);
   const staleDiverged: OperatorReconnectReconciliation = { ...unresolved, disposition: "DIVERGED", currentness: "STALE" };
   assert.equal(canRetryOperatorRequestAfterReconnect(operatorAck, staleDiverged), false);
+});
+
+const manualDisposition: OperatorManualEmergencyDisposition = {
+  dispositionId: "operator-disposition:manual-1",
+  mode: "MANUAL",
+  actorId: "operator:alice",
+  requestedAction: "restart service",
+  acknowledgement: operatorAck,
+  effect: convergedOperatorEffect,
+};
+
+test("manual and emergency paths preserve explicit actor, action and authority lineage", () => {
+  assert.equal(isOperatorManualEmergencyDispositionAuditable(manualDisposition), true);
+  assert.equal(canClaimOperatorManualEmergencyConvergence(manualDisposition), true);
+  const emergency: OperatorManualEmergencyDisposition = { ...manualDisposition, dispositionId: "operator-disposition:emergency-1", mode: "EMERGENCY", actorId: "operator:on-call" };
+  assert.equal(isOperatorManualEmergencyDispositionAuditable(emergency), true);
+  assert.equal(canClaimOperatorManualEmergencyConvergence(emergency), true);
+  assert.equal(isOperatorManualEmergencyDispositionAuditable({ ...manualDisposition, actorId: "" }), false);
+  assert.equal(isOperatorManualEmergencyDispositionAuditable({ ...manualDisposition, requestedAction: "" }), false);
+});
+
+test("emergency execution or acknowledgement alone never implies convergence", () => {
+  const emergencyWithoutEffect: OperatorManualEmergencyDisposition = { ...manualDisposition, dispositionId: "operator-disposition:emergency-2", mode: "EMERGENCY", effect: undefined };
+  assert.equal(isOperatorManualEmergencyDispositionAuditable(emergencyWithoutEffect), true);
+  assert.equal(canClaimOperatorManualEmergencyConvergence(emergencyWithoutEffect), false);
+  assert.equal("effectRevision" in emergencyWithoutEffect.acknowledgement, false);
+});
+
+test("manual and emergency convergence reject stale, PARTIAL, UNKNOWN and lineage mismatches", () => {
+  for (const evidence of [
+    { ...knownEvidence, currentness: "STALE" as const },
+    { ...knownEvidence, evidenceState: "PARTIAL" as const },
+    { ...knownEvidence, currentness: "UNKNOWN" as const, evidenceState: "UNKNOWN" as const },
+  ]) {
+    assert.equal(canClaimOperatorManualEmergencyConvergence({ ...manualDisposition, mode: "EMERGENCY", effect: { ...convergedOperatorEffect, evidence } }), false);
+  }
+  for (const effect of [
+    { ...convergedOperatorEffect, authorityRef: "authority:other@1" },
+    { ...convergedOperatorEffect, ownerId: "owner:other" },
+    { ...convergedOperatorEffect, requestedRevision: "service@41" },
+    { ...convergedOperatorEffect, locality: "LOCAL" as const },
+    { ...convergedOperatorEffect, populationRef: "station:beta" },
+  ]) {
+    const record: OperatorManualEmergencyDisposition = { ...manualDisposition, effect };
+    assert.equal(isOperatorManualEmergencyDispositionAuditable(record), false);
+    assert.equal(canClaimOperatorManualEmergencyConvergence(record), false);
+  }
+});
+
+test("manual and emergency retry remains reconcile-before-retry and cannot strengthen UNKNOWN", () => {
+  const diverged: OperatorReconnectReconciliation = { ...reconnectConverged, disposition: "DIVERGED", effectRevision: undefined };
+  const retryable: OperatorManualEmergencyDisposition = { ...manualDisposition, mode: "EMERGENCY", effect: undefined, reconnectReconciliation: diverged };
+  assert.equal(isOperatorManualEmergencyDispositionAuditable(retryable), true);
+  assert.equal(canRetryOperatorManualEmergencyAfterReconnect(retryable), true);
+  const unknown: OperatorReconnectReconciliation = { ...diverged, disposition: "UNKNOWN", currentness: "UNKNOWN", evidenceState: "UNKNOWN" };
+  assert.equal(canRetryOperatorManualEmergencyAfterReconnect({ ...retryable, reconnectReconciliation: unknown }), false);
+  assert.equal(canRetryOperatorManualEmergencyAfterReconnect({ ...retryable, reconnectReconciliation: { ...diverged, authorityRef: "authority:other@1" } }), false);
+  assert.equal(canRetryOperatorManualEmergencyAfterReconnect({ ...retryable, reconnectReconciliation: { ...diverged, currentness: "STALE" } }), false);
 });
