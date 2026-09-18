@@ -49,6 +49,9 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Explore != Design != Simulate != Propose != Authorize != Act != Verify`.
 - `Preview passed != production will succeed`; preview fidelity and substitutions must be explicit.
 - `Fluent AI explanation != correctness/evidence/authority`.
+- `Fast kernel != fast operation`; performance qualification includes query/I/O/serialization/queue/memory/GC/boundary costs.
+- `Microbenchmark win != product workload win`.
+- `WASM/native/worker availability != specialization authority`; a measured workload crossover and portability/rollback proof are required.
 
 ## Research progression
 
@@ -82,12 +85,32 @@ WBS / Work Packages / implementation
 - Data/Persistence/Access: substantial backlog captured; deep evidence consolidation still required.
 - Data Treatment: **deep evidence consolidation covers temporal/streaming/replay, temporal identity/interpretation revision, and retention/erasure/reproducibility boundaries**. Material findings include multidimensional time, scoped processing guarantees, correction/retraction, replay/backfill convergence, merge/split identity lineage, pinned-vs-current interpretation, finite reproducibility envelopes, distributed erasure convergence, derived-data deletion impact, backup restore reconciliation and explicit holds/exceptions. Other treatment vectors still require deep consolidation; family remains `RESEARCH_ACTIVE`, not saturated.
 - Infrastructure Engineering: **two deep evidence consolidations completed**. Control-loop safety now covers decomposed health, leases/currentness, bounded retries, overload, disruption, failover and recovery evidence. Coordination safety now separates leadership, lease, fencing and downstream effect authority; models partial-connectivity split-brain, authority epochs, revision-qualified watch/reconnect, mixed-version leadership eligibility and stale-work quarantine. Still `RESEARCH_ACTIVE`, not saturated.
-- Computational Core/Performance: consolidated initial architecture and qualification rules captured; workload benchmarks not yet materialized.
+- Computational Core/Performance: **first deep evidence consolidation completed** for end-to-end workload envelopes, TypeScript/Node baseline instrumentation, worker/serialization boundaries, specialization crossover economics, native ABI/isolation trade-offs and WASM/parallelism qualification. Representative SB workload fixtures and empirical benchmarks are still absent; family remains `RESEARCH_ACTIVE`, not saturated.
 - Lifecycle/Continuous Improvement: first deep evidence consolidation completed for incident/postmortem/action separation, work hierarchy vs semantic graph, multidimensional closure, outcome/effectiveness measurement and lesson lineage. Still `RESEARCH_ACTIVE`, not saturated.
 - Self-Hosting/Autonomic Evolution: first deep evidence consolidation completed for secure update trust, generation consistency, version skew, anti-rollback vs recovery, state/schema rollback, promotion evidence, reboot identity and failed-update-loop containment. Still `RESEARCH_ACTIVE`, not saturated.
 - Product UX/AI-native Builder: **first deep evidence consolidation completed** for semantic zoom/multiscale materialization, lens composition, disclosure/security, Explore-to-Act mode separation, Preview fidelity, evidence-linked AI proposal interaction, accessibility and interaction-workload performance. Still `RESEARCH_ACTIVE`, not saturated; user-role/task research and empirical prototypes remain open.
 
 ## Material research log
+
+### 2026-09-18 — Computational Core baseline qualification and specialization economics
+
+Evidence classes: primary Node.js runtime documentation for Worker Threads, structured clone/transfer/shared memory, performance/event-loop instrumentation, V8 heap diagnostics and Node-API ABI guarantees; mature SPEC benchmark run rules; empirical WebAssembly-vs-native performance research.
+
+Material delta:
+
+- replaced the implicit `benchmark Node then consider native` rule with a reproducible end-to-end `PerformanceWorkloadEnvelope` that records workload/data shape, environment, cold/warm mode, correctness oracle, latency distribution, throughput, CPU, memory/GC, event-loop, I/O, serialization/transfer, queueing and cost;
+- established an optimization ladder that fixes algorithm/query/data-shape pathologies before worker/native/WASM specialization;
+- qualified Worker Threads as CPU-concurrency candidates with explicit pool/startup, structured-clone/transfer/shared-memory, per-worker memory, queue and failure costs rather than free parallelism;
+- introduced the concept of a workload-specific specialization **crossover region** where compute savings exceed boundary and operational costs, instead of a universal language/runtime speed claim;
+- separated in-process native locality from daemon/service fault isolation and required both to include versioning, failure, rollback, deployment and observability costs;
+- treated Node-API ABI stability as narrower than whole native dependency/platform portability;
+- rejected `WASM == native speed`, preserving WASM as a candidate whose portability/sandbox properties and host-boundary costs require independent measurement;
+- required parallel-scaling sweeps and shared-resource saturation evidence rather than assuming linear speedup;
+- made correctness/equivalence, adversarial input distributions, tail latency and memory behavior part of performance evidence.
+
+No Rust, WASM runtime, Node native addon framework, worker-pool library, benchmark framework or specialized engine was selected as canonical.
+
+Highest-value remaining Computational Core gaps: representative SB graph/impact/diff/compiler/simulation/reconciliation workload families, interactive/analytical/batch budgets, empirical TypeScript/Node baselines, cancellation/preemption/resource budgets, deterministic parallelism and cost evidence for persistent worker/service realizations.
 
 ### 2026-09-18 — Product UX semantic zoom, AI interaction and Preview safety
 
