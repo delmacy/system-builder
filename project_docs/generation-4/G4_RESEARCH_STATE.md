@@ -1,6 +1,6 @@
 # G4 Research State — System Builder Product R&D
 
-Date: 2026-09-17
+Date: 2026-09-18
 Status: `RESEARCH_ACTIVE / NON_EXECUTABLE`
 Execution authority: NONE
 
@@ -69,11 +69,30 @@ WBS / Work Packages / implementation
 - Data Treatment: substantial backlog captured; deep evidence consolidation still required.
 - Infrastructure Engineering: consolidated research backlog captured; operational protocols/evidence still shallow.
 - Computational Core/Performance: consolidated initial architecture and qualification rules captured; workload benchmarks not yet materialized.
-- Lifecycle/Continuous Improvement: consolidated initial lifecycle model captured; cross-domain work-item semantics remain to be stress-tested.
+- Lifecycle/Continuous Improvement: **first deep evidence consolidation completed** for incident/postmortem/action separation, work hierarchy vs semantic graph, multidimensional closure, outcome/effectiveness measurement and lesson lineage. Still `RESEARCH_ACTIVE`, not saturated.
 - Self-Hosting/Autonomic Evolution: **first deep evidence consolidation completed** for secure update trust, generation consistency, version skew, anti-rollback vs recovery, state/schema rollback, promotion evidence, reboot identity and failed-update-loop containment. Still `RESEARCH_ACTIVE`, not saturated.
 - Product UX/AI-native Builder: initial product R&D program captured; deeper usability research remains open.
 
 ## Material research log
+
+### 2026-09-18 — Lifecycle learning and improvement-effectiveness semantics
+
+Evidence classes: mature SRE incident-learning practice, empirical software-delivery research and modern issue/work hierarchy documentation (Google SRE, DORA, GitHub Issues).
+
+Material delta:
+
+- separated incident occurrence, postmortem/review evidence, findings, action candidates and authorized work items;
+- established that parent/sub-issue hierarchy is a planning/decomposition view and cannot replace typed N:N lifecycle/causal relationships;
+- introduced multidimensional closure: work completion, resolution, effectiveness and learning may disagree;
+- strengthened continuous improvement so `change deployed != improvement achieved`;
+- introduced candidate `ImprovementEffectEvidence` with hypothesis, metric definition, population/scope, baseline/observation windows, confounders, measurements, uncertainty and conclusion;
+- required `INCONCLUSIVE` as a legitimate effectiveness result rather than forced success/failure;
+- added lesson lineage and supersession so a learned rule remains tied to evidence and can be revised;
+- added proof obligations for hierarchy projection, review authority separation, effectiveness evidence and AI non-authority.
+
+No issue tracker, ITSM framework, metric suite or workflow product was selected as canonical.
+
+Next highest-value gap in this family: primitive-vs-view work-item taxonomy and causal reasoning boundaries. Cross-family priority may supersede this based on comparative maturity.
 
 ### 2026-09-17 — Self-hosting secure-update protocol foundations
 
