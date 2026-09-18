@@ -6,9 +6,7 @@ Execution authority: NONE
 
 ## Purpose
 
-Generation 4 is the product R&D layer that follows G3 architectural closure. G3 defines the implementation-independent semantic/operational substrate; G4 studies how the System Builder product should realize that substrate with usable interaction, measurable performance, robust data/infrastructure engineering, controlled lifecycle management, bounded self-management and interoperable capability boundaries.
-
-G4 does not reopen G3 and does not authorize implementation, WBS, Work Packages, Sprints, TASKs, migrations or provider adoption.
+Generation 4 follows G3 architectural closure and studies how the System Builder product should realize that semantic substrate with usable interaction, measurable performance, robust data/infrastructure engineering, controlled lifecycle management, bounded self-management and interoperable capability boundaries. G4 does not reopen G3 and does not authorize implementation, WBS, Work Packages, Sprints, TASKs, migrations or provider adoption.
 
 ## Current research families
 
@@ -29,30 +27,21 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Research candidate != implementation authority`.
 - `Polyglot-ready != Polyglot-from-day-one`.
 - `Measured bottleneck -> qualified specialization candidate`.
-- `Technology preference -> no migration authority`.
 - `Builder != Runtime`; published client runtimes remain autonomous.
 - `Projection/index/cache/vector/telemetry != canonical truth`.
 - `Provider ACK != effective state`.
 - `AI inference != authority`.
-- self-management must remain governed, reversible and externally recoverable.
-- every durable technology binding requires an exit/migration path compatible with anti-lock-in goals.
-- `Temporal history != infinite retention`.
-- `Auditability != immutable personal data forever`.
-- intentional governed erasure may legitimately reduce future reproducibility, but must not be disguised as successful replay or silently rewritten history.
+- `Self-managing != unrestricted self-modifying`.
+- `Temporal history != infinite retention` and `Auditability != immutable personal data forever`.
 - `Heartbeat/lease freshness != proof of semantic health or safe replacement`.
-- `Retry != resilience by default`; retries consume capacity and can amplify failure.
-- `Voluntary disruption budget != availability guarantee`.
-- `Lease expiry != fencing`; stale actors may remain physically capable of producing effects.
-- `Leadership != universal authority`; authority remains scope/epoch/effect-boundary qualified.
-- `Coordination quorum != exclusive downstream reachability`.
-- `Geometric zoom != semantic zoom`; large canonical models should not imply render-all interfaces.
-- `Progressive disclosure != authorization`; disclosure must be enforced across graph/search/count/AI paths.
+- `Retry != resilience by default`.
+- `Lease expiry != fencing`; `Leadership != universal authority`.
+- `Geometric zoom != semantic zoom`; `Progressive disclosure != authorization`.
 - `Explore != Design != Simulate != Propose != Authorize != Act != Verify`.
-- `Preview passed != production will succeed`; preview fidelity and substitutions must be explicit.
+- `Preview passed != production will succeed`.
 - `Fluent AI explanation != correctness/evidence/authority`.
-- `Fast kernel != fast operation`; performance qualification includes query/I/O/serialization/queue/memory/GC/boundary costs.
-- `Microbenchmark win != product workload win`.
-- `WASM/native/worker availability != specialization authority`; a measured workload crossover and portability/rollback proof are required.
+- `Fast kernel != fast operation`; `Microbenchmark win != product workload win`.
+- `WASM/native/worker availability != specialization authority`.
 - `Shared primitives != shared business ownership`.
 - `Logical Exchange Plane != single broker`.
 - `Interface compatibility != contract compatibility`.
@@ -62,175 +51,131 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Correlation/trace context != identity or authority proof`.
 - `Message/broker acceptance != consumer/business effect`.
 - `Cross-capability reference != ownership transfer`.
-- `Compatibility is multidimensional`; a schema/version boolean cannot stand in for semantic, authority, currentness, delivery/effect, ordering, error, deadline or evidence compatibility.
-- `Provider advertisement != qualification proof`; binding eligibility is evaluated against a required contract guarantee profile.
-- `Version overlap != guarantee overlap`.
+- `Compatibility is multidimensional`; schema/version acceptance cannot stand in for semantic, authority, currentness, delivery/effect, ordering, error, deadline or evidence compatibility.
+- `Provider advertisement != qualification proof`; `Version overlap != guarantee overlap`.
 - `Binding substitution != semantic equivalence by default`.
+- `Transport reconnected != semantic convergence`.
+- `Backlog present != backlog executable`.
+- `Replication checkpoint != business convergence`.
+- `Deterministic technical winner != business truth`.
+- `Offline autonomy != indefinite delegated authority`.
+- `Metadata/data/authorization convergence are separate proof domains`.
 
 ## Research progression
 
 ```text
 G3 CLOSED/FROZEN
-      |
-      v
-G4 research inventory
-      |
-      v
-workload / user / operational evidence
-      |
-      v
-benchmarks + prototypes + failure cases
-      |
-      v
-implementation-independent product architecture
-      |
-      v
-provider/technology comparison
-      |
-      v
-explicit planning authorization
-      |
-      v
-WBS / Work Packages / implementation
+ -> G4 research inventory
+ -> workload / user / operational evidence
+ -> benchmarks + prototypes + failure cases
+ -> implementation-independent product architecture
+ -> provider/technology comparison
+ -> explicit planning authorization
+ -> WBS / Work Packages / implementation
 ```
 
 ## Current maturity
 
-- Data/Persistence/Access: **first deep evidence consolidation completed** for authorization-aware data access. Authorization is now treated as part of query semantics rather than a post-filter; data currentness and authorization currentness are independent; RLS/provider controls remain enforcement layers rather than global semantic authority. Long-running revocation/currentness and empirical search/list/graph/vector leakage tests remain open. Family is `RESEARCH_ACTIVE`, not saturated.
-- Data Treatment: **deep evidence consolidation covers temporal/streaming/replay, temporal identity/interpretation revision, and retention/erasure/reproducibility boundaries**. Material findings include multidimensional time, scoped processing guarantees, correction/retraction, replay/backfill convergence, merge/split identity lineage, pinned-vs-current interpretation, finite reproducibility envelopes, distributed erasure convergence, derived-data deletion impact, backup restore reconciliation and explicit holds/exceptions. Other treatment vectors still require deep consolidation; family remains `RESEARCH_ACTIVE`, not saturated.
-- Infrastructure Engineering: **two deep evidence consolidations completed**. Control-loop safety covers decomposed health, leases/currentness, bounded retries, overload, disruption, failover and recovery evidence. Coordination safety separates leadership, lease, fencing and downstream effect authority; models partial-connectivity split-brain, authority epochs, revision-qualified watch/reconnect, mixed-version leadership eligibility and stale-work quarantine. Still `RESEARCH_ACTIVE`, not saturated.
-- Computational Core/Performance: **first deep evidence consolidation completed** for end-to-end workload envelopes, TypeScript/Node baseline instrumentation, worker/serialization boundaries, specialization crossover economics, native ABI/isolation trade-offs and WASM/parallelism qualification. Representative SB workload fixtures and empirical benchmarks are still absent; family remains `RESEARCH_ACTIVE`, not saturated.
-- Lifecycle/Continuous Improvement: first deep evidence consolidation completed for incident/postmortem/action separation, work hierarchy vs semantic graph, multidimensional closure, outcome/effectiveness measurement and lesson lineage. Still `RESEARCH_ACTIVE`, not saturated.
-- Self-Hosting/Autonomic Evolution: first deep evidence consolidation completed for secure update trust, generation consistency, version skew, anti-rollback vs recovery, state/schema rollback, promotion evidence, reboot identity and failed-update-loop containment. Still `RESEARCH_ACTIVE`, not saturated.
-- Product UX/AI-native Builder: **first deep evidence consolidation completed** for semantic zoom/multiscale materialization, lens composition, disclosure/security, Explore-to-Act mode separation, Preview fidelity, evidence-linked AI proposal interaction, accessibility and interaction-workload performance. Still `RESEARCH_ACTIVE`, not saturated; user-role/task research and empirical prototypes remain open.
-- Shared Semantic Kernel / Capability Exchange Plane: **second deep evidence consolidation completed**, now covering multidimensional contract compatibility and negotiation in addition to the initial boundary/exchange model. Compatibility is modeled as a guarantee vector; required contract profiles are compared against provider/binding offers; version/schema acceptance is separated from semantic qualification; binding substitution requires contract-scoped evidence; direct/RPC/async mediation cannot collapse acceptance into effect; schema, contract and provider registries are distinct logical responsibilities; common semantic fixtures are the candidate portability proof across transports. Family remains `RESEARCH_ACTIVE`, not saturated.
+- **Data/Persistence/Access:** first deep evidence consolidation completed for authorization-aware data access. Authorization is part of query semantics; data currentness and authorization currentness are independent; RLS/provider controls remain enforcement layers. Long-running revocation/currentness and empirical search/list/graph/vector leakage tests remain open. `RESEARCH_ACTIVE`, not saturated.
+- **Data Treatment:** deep evidence consolidation covers temporal/streaming/replay, temporal identity/interpretation revision and retention/erasure/reproducibility. Other treatment vectors remain open. `RESEARCH_ACTIVE`, not saturated.
+- **Infrastructure Engineering:** two deep evidence consolidations cover decomposed health/control-loop safety and leadership/lease/fencing/split-brain coordination. `RESEARCH_ACTIVE`, not saturated.
+- **Computational Core/Performance:** first deep evidence consolidation covers workload envelopes, TypeScript/Node baseline instrumentation, worker/serialization boundaries, specialization crossover, native isolation and WASM qualification. Representative SB empirical benchmarks remain absent. `RESEARCH_ACTIVE`, not saturated.
+- **Lifecycle/Continuous Improvement:** first deep evidence consolidation covers incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence. `RESEARCH_ACTIVE`, not saturated.
+- **Self-Hosting/Autonomic Evolution:** first deep evidence consolidation covers secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment. `RESEARCH_ACTIVE`, not saturated.
+- **Product UX/AI-native Builder:** first deep evidence consolidation covers semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads. User/task research and empirical prototypes remain open. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** **four deep evidence consolidations completed**: (1) minimal shared structural kernel and exchange-boundary vocabulary; (2) multidimensional contract compatibility/negotiation; (3) same-contract fixtures, delayed-command authority/currentness, ambiguous timeout/retry/effect, replay/dead-letter semantics; and (4) federated long-partition/reconnect reconciliation. Federation now separates transport reconnection from semantic convergence; backlog is classified before effect; disconnected conflicts remain representable; authority/contract/topology/checkpoint convergence are independently qualified; metadata/data/authorization convergence cannot be inferred from each other. `RESEARCH_ACTIVE`, not saturated.
 
 ## Material research log
 
-### 2026-09-18 — Capability Exchange contract compatibility and negotiation
+### 2026-09-18 — Federated exchange after long partitions and reconnect
 
-Evidence classes: Confluent Schema Registry compatibility/interoperability; AsyncAPI protocol bindings; CloudEvents Kafka/AMQP bindings; HTTP RFC 9110 idempotency semantics; gRPC deadlines/wait-for-ready; RabbitMQ acknowledgements/confirms; Kafka producer idempotence/transactions.
+Evidence classes: Apache CouchDB disconnected replication/conflict model; Apache Kafka MirrorMaker 2 cross-cluster replication/checkpoints/configuration; Azure Service Bus/Event Hubs geo-replication, failover, checkpoint and RBAC behavior.
 
 Material delta:
 
-- replaced a boolean notion of compatibility with a multidimensional guarantee vector covering wire/schema, interaction kind, meaning, pre/postconditions, authority/policy, tenant/classification, currentness/time, delivery/effect, idempotency/dedup, ordering, error/UNKNOWN/conflict, deadline/cancellation, rate/backpressure/cost and evidence;
-- separated `RequiredContractProfile` from `ProviderOffer`, making binding eligibility a qualified proof relation rather than a provider/version-name match;
-- established `Version overlap != guarantee overlap` and required rolling-upgrade windows to be backed by tested producer/consumer/provider/binding relations;
-- classified transport substitution as contract-scoped equivalence, mediated equivalence, qualified degradation, incompatibility or unknown rather than assuming direct/RPC/async interchangeability;
-- identified synchronous-to-async false-success and async-to-synchronous loss-of-durability/offline-tolerance as first-class mediation adversarials;
-- required compatibility mediation evidence to enumerate preserved, degraded, unsupported and inferred semantics;
-- separated schema registry, contract registry and capability-provider registry as logical responsibilities without making any registry a business semantic owner;
-- proposed common semantic contract fixtures across in-process/RPC/async bindings plus realization-specific failure fixtures as the strongest candidate portability evidence;
-- strengthened autonomous-runtime behavior: locally pinned, still-valid qualification evidence may support operation during central registry/discovery outage within declared currentness/expiry limits.
+- established `Transport reconnected != semantic convergence` and separated data, exchange, authority, contract and topology convergence;
+- proposed partition/reconnect lineage and scoped high-water/checkpoint evidence without selecting a protocol;
+- required reconnect negotiation/reconciliation before backlog drain;
+- classified backlog into safe fact import, reinterpret/revalidate, stale intent, conflict, incompatibility, quarantine, UNKNOWN or effect eligibility rather than generic replay;
+- preserved disconnected divergent histories and prohibited deterministic storage winners/last-write-wins from becoming business truth by default;
+- required authority-sensitive queued work to revalidate after partition unless explicit durable delegation says otherwise;
+- required old-revision queued work to qualify against current contract/provider guarantees before mediation/effect;
+- separated endpoint/topology continuity from semantic identity, state continuity and authority continuity;
+- assigned exchange-state classification/evidence to the Exchange Plane while retaining business merge/effect authority in the owning capability;
+- added federation adversarials for stale revocation, duplicate effects, checkpoint drift, metadata-without-data convergence, data-without-RBAC convergence, clock divergence, replication-agent configuration races, failover duplicates and erasure resurrection.
 
-No registry, broker, RPC framework, schema system or negotiation protocol was selected as canonical.
+No federation protocol, broker, conflict-resolution algorithm or replication technology was selected.
 
-Highest-value remaining gap: empirical same-contract fixtures across in-process, RPC and asynchronous bindings, especially ambiguous timeout/retry/effect behavior and queued-command revocation/currentness.
+Highest-value remaining gap: cross-capability causal consistency and saga/workflow semantics across federation, especially causation, compensation, partial completion and long-lived workflow state without making the Exchange Plane a business orchestrator.
+
+### 2026-09-18 — Time-separated exchange fixtures and queued-command validity
+
+Evidence classes: gRPC deadlines; RabbitMQ TTL/dead-lettering; Kafka transaction boundaries; Amazon EventBridge replay.
+
+Material delta: same-contract fixtures now observe caller result, transport evidence, authoritative effect and reconciliation; delayed command validity is separate from TTL; effect-time authority/currentness revalidation is explicit; ambiguous timeout/retry/external-effect is mandatory; replay is a new qualified delivery context; dead-letter is unresolved exchange disposition; dedup retention is reasoned against duplicate/replay horizon.
+
+### 2026-09-18 — Capability Exchange contract compatibility and negotiation
+
+Evidence classes: schema-registry compatibility; AsyncAPI/CloudEvents bindings; HTTP idempotency; gRPC deadlines; RabbitMQ confirms; Kafka idempotence/transactions.
+
+Material delta: compatibility became a multidimensional guarantee vector; `RequiredContractProfile` is compared to `ProviderOffer`; version/schema acceptance is separated from semantic qualification; transport substitution is classified; mediation must disclose preserved/degraded/unsupported semantics; schema/contract/provider registries are distinct responsibilities; common semantic fixtures are the candidate portability proof.
 
 ### 2026-09-18 — Shared Semantic Kernel / Capability Exchange Plane foundations
 
-Evidence classes: DDD/Anti-Corruption Layer practice; CloudEvents; AsyncAPI 3; gRPC retry/status semantics; Kafka delivery/transaction boundaries; RabbitMQ confirms/acknowledgements; transactional outbox; Envoy circuit breaking/external authorization; mature schema-registry compatibility models.
+Evidence classes: DDD/ACL; Ports & Adapters; CloudEvents; AsyncAPI; gRPC; Kafka; RabbitMQ; transactional outbox; Envoy; schema registries.
 
-Material delta:
-
-- established a research hypothesis for a minimal `Shared Semantic Kernel` containing only unusually stable cross-cutting structural primitives, with explicit exclusion of domain-owned business entities;
-- established `Capability Exchange Plane` as a logical responsibility set for exchange semantics, routing/binding, policy context, delivery/currentness/provenance/evidence/reconciliation, explicitly not a required broker/process/ESB or business semantic owner;
-- proposed `Capability Core -> Ports -> Contracts -> Exchange Policies -> Exchange Plane -> Binding/Transport -> Target Boundary` without framework binding;
-- separated Capability, Contract, Interface, Provider, Binding, Driver, Adapter, Gateway and Controller roles and prohibited superficial synonymy;
-- separated COMMAND, QUERY, RESPONSE, EVENT, NOTIFICATION, STREAM and ARTIFACT_REF interaction semantics from generic transport messages;
-- proposed a transport-neutral `ExchangeEnvelope` carrying contract revision, producer/target, refs, time/currentness, correlation/causation/trace, provenance/evidence, tenant/classification/authority and delivery-related qualifiers as required by the interaction;
-- required semantic translation/ACL mediation to declare lossiness, unsupported/defaulted concepts and preserved authority/currentness/provenance instead of inventing equivalence;
-- established that direct/in-process, IPC/RPC, broker/queue, stream/log, file/artifact and gateway/adapter are replaceable realizations only when the promised contract remains true;
-- scoped ACK, delivery, consumer acceptance and effective business convergence as separate states and retained UNKNOWN/conflicted outcomes;
-- separated schema readability compatibility from semantic/authority/delivery/ordering/currentness contract compatibility;
-- required authorization/revocation, tenant/classification metadata, rate/cost/backpressure and long-lived queued-work semantics at the corridor;
-- preserved autonomous client runtimes by rejecting a mandatory Builder-central exchange service or single-broker topology;
-- added adversarials for shared-model monolith, shared database ownership, ESB/gateway business accumulation, service-mesh semantic overclaim, retry duplicates, version skew, schema-compatible semantic break, metadata loss, cross-capability ownership leakage and local/remote semantic drift.
-
-No broker, service mesh, RPC framework, schema registry, API gateway or event specification was selected as canonical.
+Material delta: minimal shared structural kernel; logical non-central Exchange Plane; explicit role vocabulary; interaction taxonomy; exchange envelope; semantic mediation/lossiness; ACK/delivery/effect separation; authorization/currentness/rate/backpressure propagation; autonomous runtimes without mandatory central broker/ESB.
 
 ### 2026-09-18 — Authorization-aware data access
 
-Evidence classes: PostgreSQL Row-Level Security, OpenFGA immutable/versioned models, contextual tuples, consistency modes and mature Zanzibar-family authorization patterns.
+Authorization moved into query semantics; `DISCOVER/READ/TRAVERSE/EXPORT/MUTATE` are distinguished; authorization currentness is independent from data currentness; storage-native controls are defense-in-depth; list/search/graph/vector authorization is distinct from point checks.
 
-Material delta: authorization moved into query semantics; `DISCOVER/READ/TRAVERSE/EXPORT/MUTATE` are distinguished; authorization currentness is independent from data currentness; historical authorization explanation pins model/context state; contextual facts remain bounded; storage-native controls are defense-in-depth; list/search/graph/vector authorization is separated from point checks; failure retains UNKNOWN/fail-closed semantics. No authorization engine was selected.
+### 2026-09-18 — Computational Core baseline qualification
 
-### 2026-09-18 — Computational Core baseline qualification and specialization economics
-
-Evidence classes: Node.js Worker Threads/transfer/performance/V8/Node-API documentation; SPEC benchmark run rules; empirical WebAssembly-vs-native research.
-
-Material delta: end-to-end `PerformanceWorkloadEnvelope`; optimization ladder before specialization; worker boundary costs; workload-specific specialization crossover; native in-process vs daemon/service isolation; narrower Node-API portability claim; WASM portability/sandbox separated from speed; parallel-scaling and correctness/tail/memory evidence required.
+End-to-end workload envelope; optimization ladder before specialization; worker boundary costs; workload-specific specialization crossover; native in-process vs daemon/service isolation; WASM portability/sandbox separated from speed.
 
 ### 2026-09-18 — Product UX semantic zoom, AI interaction and Preview safety
 
-Evidence classes: information-visualization/HCI research, large-graph aggregation, production renderer guidance, Human-AI Interaction research, mature dry-run semantics and WCAG 2.2.
-
-Material delta: semantic vs geometric zoom; bounded Canvas materialization; lens semantics; progressive-disclosure security; `Explore -> Design -> Simulate -> Propose -> Authorize -> Act -> Verify`; Preview fidelity classes; evidence-linked AI interaction; accessibility and interaction-workload budgets.
+Semantic vs geometric zoom; bounded Canvas materialization; lens semantics; progressive-disclosure security; Explore-to-Act separation; Preview fidelity classes; evidence-linked AI; accessibility and interaction-workload budgets.
 
 ### 2026-09-18 — Infrastructure fencing, leadership and split-brain safety
 
-Evidence classes: Kubernetes Lease/leader-election semantics, etcd revision/transaction/watch guarantees and distributed-systems fencing analysis.
+Leadership separated from effect authority; lease expiry separated from fencing; authority epochs/fencing; quorum vs downstream reachability; revision-qualified reconnect and stale-work quarantine.
 
-Material delta: leadership separated from effect authority; lease expiry separated from fencing; `LeadershipEpoch`, `FencingToken`, compatibility-qualified eligibility; quorum vs downstream reachability; split-brain as competing effect capability; revision/currentness-qualified coordination; stale-work quarantine after reconnect.
+### 2026-09-18 — Infrastructure control-loop safety
 
-### 2026-09-18 — Infrastructure control-loop safety, health decomposition and disruption semantics
+Provider/host/storage/workload/application/network health separation; heartbeat currentness; bounded retries; overload; disruption envelope; reboot proof; governed failover; evidence-backed RPO/RTO.
 
-Evidence classes: Kubernetes reconciliation/leases/disruption, Amazon EC2 health checks, Google SRE and Amazon Builders' Library.
+### 2026-09-18 — Retention, erasure and reproducibility
 
-Material delta: provider/host/storage/workload/application/network/observability health separation; heartbeat as freshness evidence; bounded retry envelope; retry amplification; degraded serving; disruption envelope; reboot proof; governed failover; evidence-backed RPO/RTO.
+Finite retention; distributed erasure convergence; reproducibility envelope; derived-data erasure; restore reconciliation; explicit holds; replay/backfill cannot silently republish erased data.
 
-### 2026-09-18 — Retention, erasure and reproducibility boundaries
+### 2026-09-18 — Temporal identity and replay interpretation
 
-Evidence classes: EU GDPR Article 17, W3C PROV and Apache Iceberg snapshot/time-travel lifecycle.
-
-Material delta: finite retention; visibility/invalidation/physical erasure/recovery separation; distributed erasure convergence; `ReproducibilityEnvelope`; derived-data erasure impact; restore reconciliation; explicit holds; identity-lineage deletion scope; replay/backfill cannot silently republish erased data.
-
-### 2026-09-18 — Temporal identity, merge/split lineage and replay interpretation
-
-Evidence classes: W3C PROV, HL7 FHIR and Apache Iceberg.
-
-Material delta: source-record identity vs subject identity/resolution revision; merge/split lineage; downstream reconciliation after split; source snapshot vs interpretation snapshot; `InterpretationContext`; forensic reproduction vs current reinterpretation; derived-generation interpretation lineage.
+Source identity vs subject identity/resolution revision; merge/split lineage; source snapshot vs interpretation snapshot; forensic reproduction vs current reinterpretation.
 
 ### 2026-09-18 — Temporal, streaming and replay semantics
 
-Evidence classes: Apache Beam, Apache Flink, Apache Kafka, Debezium and PostgreSQL.
+Multidimensional time; watermark limitations; scoped exactly-once; replay context; live/backfill convergence; CDC/outbox boundaries; scoped ordering.
 
-Material delta: multidimensional time; watermark not absolute completeness; scoped exactly-once; replay context; live/backfill convergence; CDC/outbox vs canonical/effective-state boundaries; scoped ordering; declared temporal perspective for historical queries.
+### 2026-09-18 — Lifecycle learning and improvement effectiveness
 
-### 2026-09-18 — Lifecycle learning and improvement-effectiveness semantics
+Incident/postmortem/findings/actions separation; hierarchy vs N:N lifecycle graph; multidimensional closure; improvement-effect evidence; lesson lineage/supersession.
 
-Evidence classes: Google SRE, DORA and GitHub Issues.
+### 2026-09-17 — Self-hosting secure-update foundations
 
-Material delta: incident/postmortem/findings/actions/work separation; hierarchy vs N:N lifecycle graph; multidimensional closure; `ImprovementEffectEvidence`; preserved `INCONCLUSIVE`; lesson lineage/supersession; review/effectiveness/AI non-authority proof obligations.
+Authenticity vs update authorization; threshold/root trust; generation consistency; anti-rollback vs recovery; compatibility/skew; state/schema rollback; promotion evidence; reboot identity; failed-update-loop containment.
 
-### 2026-09-17 — Self-hosting secure-update protocol foundations
+## Non-goals
 
-Evidence classes: TUF, Uptane, Kubernetes and systemd.
-
-Material delta: authenticity vs update authorization; threshold/role-separated root trust; complete-generation consistency; anti-rollback vs recovery; compatibility/skew envelopes; durable-state rollback obligations; layered promotion evidence; reboot identity; external failed-update-loop containment.
-
-## Non-goals at this stage
-
-- no decision to rewrite the Builder in Rust;
-- no decision to introduce a graph database, vector database, search cluster, stream broker, service mesh, central exchange daemon, etcd or Kubernetes;
-- no decision to make the Builder an operating system;
-- no autonomous self-modification without external trust/recovery boundaries;
-- no shared business model/database merely to simplify capability integration;
-- no mandatory central broker/ESB for client runtimes;
-- no replacement of the current G2 execution plan;
+- no Rust rewrite decision;
+- no graph/vector/search/stream/service-mesh/central-exchange/etcd/Kubernetes adoption decision;
+- no decision to make Builder an operating system;
+- no unrestricted autonomous self-modification;
+- no shared business model/database for integration convenience;
+- no mandatory central broker/ESB;
 - no G4 implementation before explicit planning authorization.
 
-## Closure target for G4 research
+## Closure target
 
-G4 research should eventually produce:
-
-1. a deduplicated product capability map;
-2. workload and interaction profiles;
-3. performance and scale budgets;
-4. data/infrastructure/lifecycle/self-hosting/exchange proof obligations;
-5. implementation-independent target product architecture;
-6. technology/provider qualification matrices;
-7. prototype evidence for high-risk interaction, exchange or performance choices;
-8. G3 -> G4 traceability;
-9. gap against the then-current System Builder;
-10. a planning handoff, without materializing work automatically.
+G4 should eventually produce a deduplicated capability map; workload/interaction profiles; performance/scale budgets; proof obligations; implementation-independent target product architecture; provider qualification matrices; prototype evidence for high-risk choices; G3->G4 traceability; gap against current SB; and a planning handoff without automatically materializing implementation work.
