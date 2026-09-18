@@ -44,48 +44,21 @@ Evidence classes reviewed: mature declarative reconciliation/control loops and n
 
 `Infrastructure State != Host Configuration State != Workload State != Network State != Storage State != Application State != Observability State`.
 
-A valid combined observation may be:
+Do not collapse provider, host, storage, workload, application, network and observability into one opaque status.
 
-```text
-Provider: RUNNING
-Host: REACHABLE
-Storage: REACHABLE
-Runtime: RUNNING
-Workload: DEGRADED
-Application: PARTIAL
-Network: PARTIAL
-Observability: STALE
-```
-
-Do not collapse this into one opaque status. Mature EC2 status checks independently expose system, instance, attached-storage and optional application health; Kubernetes separately models Node conditions and heartbeat freshness. The SB model should preserve the same principle without inheriting either provider's exact status vocabulary.
-
-New invariants:
+Invariants:
 
 - `Provider running != host healthy`.
 - `Host reachable != workload ready`.
 - `Workload running != application effective`.
 - `Storage attached != storage I/O healthy`.
 - `Heartbeat current != all host subsystems healthy`.
-- `Observability stale != observed failure`; absence/freshness loss must remain UNKNOWN where appropriate.
+- `Observability stale != observed failure`; absence/freshness loss remains UNKNOWN where appropriate.
 - `Aggregate healthy != every constituent healthy` unless the aggregation contract proves that implication.
 
 ### Observation freshness, leases and authority
 
-A heartbeat/lease is evidence of recent contact under a declared timeout policy, not timeless truth. A control plane must retain observer identity, observation time, expiry/freshness policy and population/locality qualification.
-
-```text
-Observation
-  observer
-  subject
-  observedAt
-  receivedAt
-  freshnessPolicy
-  expiresAt / lease semantics
-  locality / population
-  evidence revision
-```
-
-Kubernetes uses lightweight Lease renewals independently from less-frequent Node status updates. This is useful evidence for separating liveness/freshness transport from richer health state.
+A heartbeat/lease is evidence of recent contact under a declared timeout policy, not timeless truth. Retain observer identity, observation time, expiry/freshness policy and population/locality qualification.
 
 Invariants:
 
@@ -94,8 +67,6 @@ Invariants:
 - `No heartbeat != safe replacement`.
 - `Unreachable != terminated`.
 - `Reconnect != reconciliation complete`.
-
-For stateful or externally effective operations, an unreachable controller/host creates an uncertainty problem. Replacement, retry or failover may require fencing/reconciliation rather than interpreting timeout as absence.
 
 ### Reconciliation loop and controller boundaries
 
@@ -112,11 +83,7 @@ Prefer multiple bounded controllers over one monolithic daemon. A controller sho
 
 `Reconcile requested != reconcile executed != convergence proven`.
 
-Controller restarts must not erase durable operation identity or cause blind duplicate side effects. A controller may compute a candidate action from stale observations only as a proposal; eligibility for actuation depends on the applicable authority/currentness gates.
-
 ### Retry, timeout and amplification safety
-
-Mature SRE practice shows that retries can amplify overload and cascading failure. Automatic infrastructure reconciliation therefore needs an explicit retry policy rather than a generic "eventually retry" rule.
 
 Candidate `RetryEnvelope` research fields:
 
@@ -141,24 +108,9 @@ Invariants:
 - `Independent retries at every layer != resilience`; they may multiply load.
 - `Backoff without jitter != desynchronized recovery`.
 
-The control plane should model retry budgets and overload/load-shedding semantics at bounded choke points. Recovery work itself consumes capacity and can worsen an incident.
-
 ### Capacity, degradation and criticality
 
-Capacity cannot be reduced to a single QPS or CPU threshold. Work units may have materially different cost and criticality. Research should preserve at least:
-
-```text
-CapacityObservation
-  resource dimensions
-  saturation / queue pressure
-  workload class
-  criticality
-  locality / failure domain
-  currentness
-  headroom policy
-```
-
-Graceful degradation and load shedding are controlled operational modes, not silent success. A degraded response or reduced feature set must remain observable as degraded effectiveness.
+Capacity cannot be reduced to a single QPS or CPU threshold. Preserve resource dimensions, saturation/queue pressure, workload class, criticality, locality/failure domain, currentness and headroom policy.
 
 - `Serving != full-quality service`.
 - `Capacity available != capacity safe to consume`.
@@ -168,21 +120,7 @@ Graceful degradation and load shedding are controlled operational modes, not sil
 
 ### Disruption budgets and maintenance safety
 
-Mature orchestrators distinguish voluntary from involuntary disruption and allow budgets for controlled maintenance. This supports a provider-neutral SB concept of a `DisruptionEnvelope` rather than adopting Kubernetes PDB semantics directly.
-
-Candidate dimensions:
-
-```text
-population / workload scope
-minimum effective capacity or maximum voluntary disruption
-failure-domain constraints
-maintenance window
-current involuntary impairment
-criticality
-exception / break-glass authority
-```
-
-Important boundary: a disruption budget can govern voluntary action but cannot guarantee availability against involuntary failure.
+A provider-neutral `DisruptionEnvelope` may include population/workload scope, minimum effective capacity or maximum voluntary disruption, failure-domain constraints, maintenance window, current involuntary impairment, criticality and exception/break-glass authority.
 
 - `Within disruption budget != availability guaranteed`.
 - `Drain permitted != drain completed`.
@@ -201,8 +139,6 @@ request -> impact analysis -> disruption/capacity gate -> maintenance/security g
 ```
 
 `Connection lost after reboot command != reboot succeeded`.
-
-A host returning network reachability is insufficient; post-reboot proof must distinguish provider/system health, host identity/boot generation, storage I/O, runtime/workload readiness and application effectiveness.
 
 ### Failure-domain and failover semantics
 
@@ -227,6 +163,197 @@ FailureObservation
 
 RPO/RTO remain objectives/claims requiring evidence from drills and actual recovery, not configuration values that become truth by declaration.
 
+## Second deep evidence consolidation — fencing, leadership and split-brain safety
+
+Evidence classes reviewed: Kubernetes Lease/leader-election semantics, etcd revision/transaction/watch guarantees, and distributed-systems fencing analysis. These are evidence sources, not selected dependencies.
+
+### Leadership is scoped authority, not global health
+
+Leader election answers a bounded coordination question: which participant currently holds a leadership role according to a coordination authority. It does not prove that the leader is healthy in every subsystem, has current domain state, or remains authorized to mutate every downstream resource.
+
+Candidate `LeadershipEpoch` research dimensions:
+
+```text
+coordinationDomain
+leaderIdentity
+term / epoch / monotonic generation
+acquiredAt
+renewedAt
+freshness/expiry policy
+coordinationAuthority
+scope of permitted effects
+compatibility / version qualification
+```
+
+Invariants:
+
+- `Elected leader != globally authoritative actor`.
+- `Leader lease current != downstream effect authority accepted`.
+- `Leader reachable != leader state sufficiently current`.
+- `Leadership acquired != predecessor effects fenced`.
+- `Leadership transition != business/infrastructure convergence`.
+- `One elected leader in coordination store != one actor capable of producing external effects`.
+
+Kubernetes demonstrates a practical Lease-based election with holder identity, renewal time, lease duration and transition count; optimistic concurrency prevents concurrent acquisition in the coordination store. That is useful coordination evidence, but G4 must preserve a separate downstream-effect safety boundary.
+
+### Lease and fencing are different mechanisms
+
+A lease bounds coordination ownership in time. Fencing protects a resource from stale actors that resume after losing coordination ownership. Time-based expiry alone cannot prevent a paused or partitioned former leader from later issuing a delayed write.
+
+Candidate `FencingToken` semantics:
+
+```text
+coordinationDomain
+resource/effect scope
+epoch/token
+issuedBy
+issuedAt
+predecessor relation
+minimumAcceptedEpoch at effect sink
+```
+
+Required property for correctness-sensitive effects: the downstream effect authority/sink must reject operations carrying an epoch older than the greatest epoch it has already accepted for that scope.
+
+Invariants:
+
+- `Lease expired != stale actor physically stopped`.
+- `New leader elected != old leader unable to write`.
+- `Unique lock token != monotonically ordered fencing token`.
+- `Fencing token issued != fencing enforced`.
+- `Client-side fencing check != sink-side stale-write rejection`.
+- `Clock expiry != monotonic authority epoch`.
+
+A fencing token is therefore useful only when the resource or an authoritative mediation layer participates in validation. If an external provider/device cannot enforce fencing, the system must classify the weaker guarantee and use another safe transition mechanism rather than claim split-brain exclusion.
+
+### Partial connectivity and quorum asymmetry
+
+A partition can create asymmetric knowledge: one side may retain coordination quorum while another side still has network access to an external resource. Therefore quorum leadership and effect reachability are separate dimensions.
+
+```text
+Site A ---- coordination quorum ----> authority epoch 42
+  |
+  X partition
+  |
+Site B ---- still reaches device/provider ----> stale epoch 41
+```
+
+Safe operation requires the effect boundary to distinguish epoch 42 from 41, or to establish an equivalent exclusive/fenced transition.
+
+Invariants:
+
+- `Lost quorum != lost external reachability`.
+- `Has external reachability != has current authority`.
+- `Majority partition != every minority-side effect automatically impossible`.
+- `Network healing != authority reconciliation complete`.
+- `Same desired state on both sides != safe concurrent actuation`.
+
+This also means split-brain is not merely two leaders in one database. It is any state in which multiple actors can plausibly produce mutually incompatible effects for the same exclusive authority domain.
+
+### Coordination revision, watch and currentness
+
+etcd provides ordered revisions and resumable/reliable watch semantics within retained history, while documenting that watch delivery itself is not linearizable. G4 should therefore avoid treating an event stream/watch as a current authority read without revision qualification.
+
+Candidate coordination observation should preserve:
+
+```text
+coordinationRevision
+observedLeaderEpoch
+watch/read mode
+lastAppliedRevision
+history-window / compaction disposition
+freshness
+```
+
+Invariants:
+
+- `Watch event received != latest authoritative state read`.
+- `Ordered watch history != linearizable current read`.
+- `Watch resumed != no reconciliation needed`.
+- `Compacted history != safe assumption about omitted transitions`.
+- `Local cache current by timestamp != coordination revision current`.
+
+A controller reconnecting after loss of watch/history must reconcile authoritative state before resuming correctness-sensitive actuation.
+
+### Leadership during rolling upgrades
+
+Kubernetes coordinated leader election explicitly includes candidate version/emulation information to make leadership selection compatible with version-skew constraints. The provider-neutral lesson is that leadership eligibility can depend on protocol/semantic compatibility, not only liveness.
+
+Candidate `LeadershipEligibility` may therefore include:
+
+```text
+role/capability compatibility
+protocol revision
+semantic contract revision
+state/schema readability
+minimum/maximum supported peer generation
+security posture
+locality/failure-domain policy
+```
+
+Invariants:
+
+- `Alive candidate != eligible leader`.
+- `Newest binary != safest leader during mixed-version transition`.
+- `Leadership handoff != protocol compatibility proof`.
+- `Version-compatible leader != rollback-safe durable state`.
+
+This connects Infrastructure Engineering with Self-Hosting update/skew research without merging their semantic ownership.
+
+### Authority loss must stop new exclusive effects
+
+For a correctness-sensitive exclusive controller, losing the ability to renew/verify authority must cause it to stop initiating new exclusive effects before another epoch can safely take over. This is a fail-closed authority rule, not necessarily a requirement to stop autonomous client runtimes or read-only/degraded local operation.
+
+Candidate dispositions after authority uncertainty:
+
+```text
+READ_ONLY / OBSERVE_ONLY
+LOCAL_NON_EXCLUSIVE
+DEGRADED_BOUNDED_AUTONOMY
+RECONCILE_REQUIRED
+FENCED
+```
+
+Exact vocabulary remains research-only.
+
+- `Control-plane authority lost != client runtime must stop`.
+- `Local autonomy != permission for globally exclusive mutation`.
+- `Previously authorized operation != indefinitely authorized operation` when its authority envelope expires.
+- `Read availability != write authority`.
+
+### Rejoin and delayed-command quarantine
+
+When a previously isolated actor returns, delayed commands, queued retries and cached desired state must not be replayed blindly. Rejoin requires authority-epoch comparison, operation identity reconciliation and downstream-effect inspection where outcome was uncertain.
+
+```text
+reconnect
+ -> establish current coordination epoch/revision
+ -> quarantine stale queued work
+ -> reconcile in-flight operation identities/effects
+ -> classify obsolete vs still-eligible intent
+ -> reacquire authority if required
+ -> resume bounded actuation
+```
+
+Invariants:
+
+- `Reconnect != resume old queue`.
+- `Intent still desired != old command still eligible`.
+- `Old command idempotent != old authority still valid`.
+- `Reissued under new epoch != previous UNKNOWN effect disappeared`.
+
+### Updated adversarial cases for split-brain
+
+- leader pauses past lease expiry, successor acquires leadership, predecessor resumes and reaches the external resource;
+- minority partition loses quorum but retains access to a device/provider while majority elects a successor;
+- fencing token is generated but the downstream provider ignores it;
+- leader loses coordination connectivity but retains local cached lease state and continues exclusive writes;
+- watch stream reconnects after compaction and controller resumes from an incomplete local view;
+- two sites have identical desired state but independently issue non-commutative effects;
+- rolling upgrade elects a candidate that is alive but cannot safely read/write the durable state revision;
+- old queued operation arrives after a newer leadership epoch has already converged the resource;
+- coordination clocks skew while token epochs remain ordered, proving why time expiry and fencing are distinct;
+- network heals and both sites immediately drain queued work before authority/effect reconciliation.
+
 ## Updated proof obligations
 
 1. Provider ACK cannot become effective truth.
@@ -245,33 +372,26 @@ RPO/RTO remain objectives/claims requiring evidence from drills and actual recov
 14. Failover proves source fencing/reconciliation where needed, target state eligibility, target capacity and post-cutover effectiveness.
 15. Load shedding/degraded operation remains visible and cannot be promoted to full effectiveness.
 16. RPO/RTO and recovery readiness are supported by drill/operation evidence, not configuration alone.
-
-## Adversarial cases now required
-
-- provider says RUNNING while host kernel/filesystem is impaired;
-- host heartbeat is current while attached storage or application is failing;
-- heartbeat expires during a network partition but workload continues producing effects;
-- controller restarts after ACK but before effect observation and considers retry;
-- multiple controller/provider layers each retry and amplify an overloaded dependency;
-- fleet-wide periodic reconciliation synchronizes after outage and creates a thundering herd;
-- maintenance drain begins while unrelated involuntary failures already consumed the disruption envelope;
-- failover target is reachable but stale or lacks capacity for recovered traffic;
-- source region becomes unreachable, target activates, then source returns without fencing/reconciliation;
-- autoscaler ACKs scale-out but capacity arrives too late to prevent overload;
-- observability becomes stale and automation incorrectly interprets missing failures as healthy;
-- degraded mode serves reduced semantics while UI/API reports ordinary success.
+17. Correctness-sensitive exclusive effects carry a current authority epoch/fencing mechanism, or explicitly declare the weaker guarantee when the sink cannot enforce fencing.
+18. Leadership acquisition proves predecessor fencing/effect exclusion before exclusive actuation where concurrent stale effects are possible.
+19. Coordination/watch observations retain revision/currentness semantics; reconnect after history loss requires authoritative reconciliation.
+20. Leadership eligibility during mixed-version operation is compatibility-qualified rather than liveness-only.
+21. Rejoining actors quarantine stale queued work and reconcile UNKNOWN/in-flight effects before resuming authority-bound actuation.
+22. Loss of global coordination authority does not silently terminate autonomous runtimes, but does bound or stop globally exclusive control-plane mutation.
 
 ## Portability / exit path
 
-The research target remains provider-neutral contracts around resource identity, observations, operations, retry/disruption envelopes, capacity, topology/failure domains and evidence. Kubernetes Leases/PDBs/controllers, EC2 status checks and cloud-specific recovery APIs are reference implementations/pattern evidence only. No Kubernetes, AWS, agent architecture or orchestrator is selected by this document.
+The research target remains provider-neutral contracts around resource identity, observations, operations, retry/disruption envelopes, capacity, topology/failure domains, leadership epochs, fencing and evidence. Kubernetes Leases/leader election, etcd revisions/transactions/watches and fencing-token patterns are reference evidence only. No Kubernetes, etcd, consensus library, host-agent architecture, cloud provider or distributed-lock implementation is selected by this document.
+
+A provider that cannot expose/enforce fencing may still be supported, but the System Builder must preserve that limitation as a qualified capability/guarantee rather than silently projecting stronger semantics.
 
 ## Remaining high-value gaps
 
-- fencing tokens, leases, split-brain and leader-election safety under partial connectivity;
-- cross-region/site autonomy and delayed reconciliation;
+- cross-region/site autonomy and delayed reconciliation after long partitions;
 - infrastructure identity/PKI bootstrap and rotation under disconnected operation;
 - capacity models across heterogeneous work units and cost constraints;
 - storage durability/replication proof and restore correctness;
 - supply-chain-to-running-artifact identity;
 - decommission/wipe/residual-resource proof;
-- recovery game-days and simulation evidence contracts.
+- recovery game-days and simulation evidence contracts;
+- formal classification of effect sinks by fencing capability and compensability.
