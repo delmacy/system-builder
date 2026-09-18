@@ -22,14 +22,19 @@ See `G4_RESEARCH_STATE.md` for the consolidated research status, boundaries and 
    - `research/G4_COMPUTATIONAL_CORE_PERFORMANCE_ENGINEERING.md`
 3. **Data, Persistence, Access & Infrastructure Access**
    - `research/G4_DATA_INFRA_ACCESS_ENGINEERING_BACKLOG.md`
+   - `research/G4_AUTHORIZATION_AWARE_DATA_ACCESS.md`
 4. **Data Treatment Engineering**
    - `research/G4_DATA_TREATMENT_ENGINEERING_BACKLOG.md`
+   - `research/G4_DATA_TEMPORAL_STREAMING_SEMANTICS.md`
+   - `research/G4_DATA_RETENTION_ERASURE_REPRODUCIBILITY.md`
 5. **Infrastructure Engineering & Control Plane**
    - `research/G4_INFRASTRUCTURE_ENGINEERING_BACKLOG.md`
 6. **Engineering Lifecycle, Product Change & Continuous Improvement**
    - `research/G4_ENGINEERING_LIFECYCLE_CONTINUOUS_IMPROVEMENT.md`
 7. **Self-Hosting, Autonomic Control & Bounded Self-Evolution**
    - `research/G4_SELF_HOSTING_AUTONOMIC_EVOLUTION.md`
+8. **Shared Semantic Kernel / Capability Exchange Plane / Inter-Capability Boundary Model**
+   - `research/G4_CAPABILITY_EXCHANGE_PLANE_RESEARCH.md`
 
 These are research families, not committed product modules. Future synthesis may merge, split or providerize them.
 
@@ -45,10 +50,17 @@ These are research families, not committed product modules. Future synthesis may
 8. `Self-managing != unrestricted self-modifying`.
 9. `Shared lifecycle semantics != shared authority`.
 10. UI/Canvas/AI/index/cache/telemetry remain projections or assistants, never silent canonical authority.
+11. `Shared primitives != shared business ownership`.
+12. `Logical Exchange Plane != single broker`.
+13. `Interface compatibility != contract compatibility`.
+14. Drivers/adapters/gateways may mediate mechanisms or semantics only within declared guarantees; they must not fabricate equivalence or become accidental canonical business owners.
+15. Exchange semantics may be shared; business semantics and business ownership remain capability-local.
 
 ## Product direction being researched
 
 The Builder may evolve from a system generator into a broader **operational systems control substrate** capable of modeling, assembling, compiling, deploying, observing, operating and evolving systems — potentially including itself — while remaining above and interoperable with ordinary operating systems, cloud providers, container runtimes and external infrastructure.
+
+The Shared Semantic Kernel / Capability Exchange Plane hypothesis additionally explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB.
 
 This is a research hypothesis, not a product claim or implementation authorization.
 
