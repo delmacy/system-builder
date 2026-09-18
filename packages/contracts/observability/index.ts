@@ -2,13 +2,28 @@ export type ObservabilityLocality = "LOCAL" | "STATION" | "FLEET";
 export type EvidenceCurrentness = "CURRENT" | "STALE" | "UNKNOWN";
 export type ObservabilityEvidenceState = "KNOWN" | "PARTIAL" | "UNKNOWN";
 
-export type ObservabilitySource = Readonly<{ sourceId: string; producerId: string; producerRevision: string; locality: ObservabilityLocality; populationRef: string }>;
-export type ObservabilityEvidence = Readonly<{ source: ObservabilitySource; observedAt: string; effectiveAt?: string; currentness: EvidenceCurrentness; evidenceState: ObservabilityEvidenceState }>;
+export type ObservabilitySource = Readonly<{
+  sourceId: string;
+  producerId: string;
+  producerRevision: string;
+  locality: ObservabilityLocality;
+  populationRef: string;
+}>;
+
+export type ObservabilityEvidence = Readonly<{
+  source: ObservabilitySource;
+  observedAt: string;
+  effectiveAt?: string;
+  currentness: EvidenceCurrentness;
+  evidenceState: ObservabilityEvidenceState;
+}>;
+
 export type TelemetrySignal = Readonly<{ kind: "signal"; signalId: string; name: string; evidence: ObservabilityEvidence }>;
 export type EvaluatedCondition = Readonly<{ kind: "condition"; conditionId: string; signalId: string; evaluatorRevision: string; outcome: "TRUE" | "FALSE" | "UNKNOWN"; evidence: ObservabilityEvidence }>;
 export type ObservabilityAlert = Readonly<{ kind: "alert"; alertId: string; conditionId: string; policyRevision: string; evidence: ObservabilityEvidence }>;
 export type ObservabilityIncident = Readonly<{ kind: "incident"; incidentId: string; alertIds: readonly string[]; authorityRef: string; confirmedAt: string }>;
 export type ObservabilityIdentity = TelemetrySignal | EvaluatedCondition | ObservabilityAlert | ObservabilityIncident;
+
 export type ServiceLevelIndicatorDefinition = Readonly<{ sliId: string; revision: string; name: string; unit: string; populationRef: string; locality: ObservabilityLocality }>;
 export type ServiceLevelObjectiveTarget = Readonly<{ sloId: string; revision: string; sliId: string; sliRevision: string; target: number; window: string }>;
 export type TelemetryGapReason = "LOSS" | "BACKPRESSURE" | "MISSING_POPULATION" | "UNKNOWN";
@@ -21,9 +36,34 @@ export type ReconciliationEvidence = Readonly<{ jobId: string; reconcilerRevisio
 
 export type OperatorRequestAcknowledgement = Readonly<{ requestId: string; authorityRef: string; ownerId: string; requestedRevision: string; locality: ObservabilityLocality; populationRef: string; acknowledgedAt: string }>;
 export type OperatorEffectEvidence = Readonly<{ requestId: string; authorityRef: string; ownerId: string; requestedRevision: string; effectRevision?: string | undefined; locality: ObservabilityLocality; populationRef: string; evidence: ObservabilityEvidence; disposition: ReconciliationDisposition }>;
+
 export type OperatorProjectionOrigin = "AUTHORITATIVE_SOURCE" | "AI_INFERENCE" | "PRESENTATION_DERIVATION";
-export type OperatorAuthorityProjection = Readonly<{ projectionId: string; authorityRef: string; ownerId: string; sourceId: string; sourceRevision: string; locality: ObservabilityLocality; populationRef: string; currentness: EvidenceCurrentness; evidenceState: ObservabilityEvidenceState; origin: OperatorProjectionOrigin }>;
-export type OperatorReconnectReconciliation = Readonly<{ requestId: string; authorityRef: string; ownerId: string; requestedRevision: string; locality: ObservabilityLocality; populationRef: string; sourceRevision: string; effectRevision?: string | undefined; currentness: EvidenceCurrentness; evidenceState: ObservabilityEvidenceState; disposition: ReconciliationDisposition }>;
+export type OperatorAuthorityProjection = Readonly<{
+  projectionId: string;
+  authorityRef: string;
+  ownerId: string;
+  sourceId: string;
+  sourceRevision: string;
+  locality: ObservabilityLocality;
+  populationRef: string;
+  currentness: EvidenceCurrentness;
+  evidenceState: ObservabilityEvidenceState;
+  origin: OperatorProjectionOrigin;
+}>;
+
+export type OperatorReconnectReconciliation = Readonly<{
+  requestId: string;
+  authorityRef: string;
+  ownerId: string;
+  requestedRevision: string;
+  locality: ObservabilityLocality;
+  populationRef: string;
+  sourceRevision: string;
+  effectRevision?: string | undefined;
+  currentness: EvidenceCurrentness;
+  evidenceState: ObservabilityEvidenceState;
+  disposition: ReconciliationDisposition;
+}>;
 
 export type OperatorExecutionMode = "MANUAL" | "EMERGENCY";
 export type OperatorManualEmergencyDisposition = Readonly<{
@@ -36,9 +76,23 @@ export type OperatorManualEmergencyDisposition = Readonly<{
   reconnectReconciliation?: OperatorReconnectReconciliation | undefined;
 }>;
 
-export function projectOperatorAuthority(authorityRef: string, ownerId: string, evidence: ObservabilityEvidence, origin: OperatorProjectionOrigin = "AUTHORITATIVE_SOURCE"): OperatorAuthorityProjection { return { projectionId: `${evidence.source.sourceId}@${evidence.source.producerRevision}`, authorityRef, ownerId, sourceId: evidence.source.sourceId, sourceRevision: evidence.source.producerRevision, locality: evidence.source.locality, populationRef: evidence.source.populationRef, currentness: evidence.currentness, evidenceState: evidence.evidenceState, origin }; }
-export function isOperatorProjectionAuthoritative(projection: OperatorAuthorityProjection): boolean { return projection.origin === "AUTHORITATIVE_SOURCE" && Boolean(projection.authorityRef.trim()) && Boolean(projection.ownerId.trim()) && projection.currentness === "CURRENT" && projection.evidenceState === "KNOWN"; }
-export function canOperatorProjectionClaimConvergence(projection: OperatorAuthorityProjection, effect: OperatorEffectEvidence): boolean { if (!isOperatorProjectionAuthoritative(projection)) return false; if (projection.authorityRef !== effect.authorityRef || projection.ownerId !== effect.ownerId) return false; if (projection.locality !== effect.locality || projection.populationRef !== effect.populationRef) return false; if (projection.sourceId !== effect.evidence.source.sourceId || projection.sourceRevision !== effect.evidence.source.producerRevision) return false; if (projection.sourceRevision !== effect.requestedRevision) return false; return effect.disposition === "CONVERGED" && Boolean(effect.effectRevision) && !requireReconciliationBeforeRetry(effect.evidence); }
+export function projectOperatorAuthority(authorityRef: string, ownerId: string, evidence: ObservabilityEvidence, origin: OperatorProjectionOrigin = "AUTHORITATIVE_SOURCE"): OperatorAuthorityProjection {
+  return { projectionId: `${evidence.source.sourceId}@${evidence.source.producerRevision}`, authorityRef, ownerId, sourceId: evidence.source.sourceId, sourceRevision: evidence.source.producerRevision, locality: evidence.source.locality, populationRef: evidence.source.populationRef, currentness: evidence.currentness, evidenceState: evidence.evidenceState, origin };
+}
+
+export function isOperatorProjectionAuthoritative(projection: OperatorAuthorityProjection): boolean {
+  return projection.origin === "AUTHORITATIVE_SOURCE" && Boolean(projection.authorityRef.trim()) && Boolean(projection.ownerId.trim()) && projection.currentness === "CURRENT" && projection.evidenceState === "KNOWN";
+}
+
+export function canOperatorProjectionClaimConvergence(projection: OperatorAuthorityProjection, effect: OperatorEffectEvidence): boolean {
+  if (!isOperatorProjectionAuthoritative(projection)) return false;
+  if (projection.authorityRef !== effect.authorityRef || projection.ownerId !== effect.ownerId) return false;
+  if (projection.locality !== effect.locality || projection.populationRef !== effect.populationRef) return false;
+  if (projection.sourceId !== effect.evidence.source.sourceId || projection.sourceRevision !== effect.evidence.source.producerRevision) return false;
+  if (projection.sourceRevision !== effect.requestedRevision) return false;
+  return effect.disposition === "CONVERGED" && Boolean(effect.effectRevision) && !requireReconciliationBeforeRetry(effect.evidence);
+}
+
 export function canPromoteConditionToAlert(condition: EvaluatedCondition): boolean { return condition.outcome === "TRUE" && condition.evidence.currentness === "CURRENT" && condition.evidence.evidenceState === "KNOWN"; }
 export function requireReconciliationBeforeRetry(evidence: ObservabilityEvidence): boolean { return evidence.currentness !== "CURRENT" || evidence.evidenceState !== "KNOWN"; }
 export function isObservationComplete(observation: SliObservation): boolean { return observation.value !== undefined && observation.gaps.length === 0 && !requireReconciliationBeforeRetry(observation.evidence); }
@@ -49,16 +103,25 @@ export function canClaimReconciliationConvergence(job: ReconciliationJob, eviden
 export function requiresReconciliationBeforeDisposition(job: ReconciliationJob, evidence: ReconciliationEvidence): boolean { return evidence.disposition === "UNKNOWN" || !isReconciliationPopulationComplete(job, evidence); }
 export function canClaimOperatorEffectConvergence(acknowledgement: OperatorRequestAcknowledgement, effect: OperatorEffectEvidence): boolean { if (acknowledgement.requestId !== effect.requestId || acknowledgement.authorityRef !== effect.authorityRef || acknowledgement.ownerId !== effect.ownerId) return false; if (acknowledgement.requestedRevision !== effect.requestedRevision || acknowledgement.locality !== effect.locality || acknowledgement.populationRef !== effect.populationRef) return false; if (effect.evidence.source.locality !== effect.locality || effect.evidence.source.populationRef !== effect.populationRef) return false; return effect.disposition === "CONVERGED" && Boolean(effect.effectRevision) && !requireReconciliationBeforeRetry(effect.evidence); }
 export function requiresOperatorEffectReconciliation(effect: OperatorEffectEvidence): boolean { return effect.disposition === "UNKNOWN" || !effect.effectRevision || requireReconciliationBeforeRetry(effect.evidence); }
-export function isOperatorReconnectReconciliationQualified(acknowledgement: OperatorRequestAcknowledgement, reconciliation: OperatorReconnectReconciliation): boolean { return acknowledgement.requestId === reconciliation.requestId && acknowledgement.authorityRef === reconciliation.authorityRef && acknowledgement.ownerId === reconciliation.ownerId && acknowledgement.requestedRevision === reconciliation.requestedRevision && acknowledgement.locality === reconciliation.locality && acknowledgement.populationRef === reconciliation.populationRef && reconciliation.sourceRevision === acknowledgement.requestedRevision && reconciliation.currentness === "CURRENT" && reconciliation.evidenceState === "KNOWN" && reconciliation.disposition !== "UNKNOWN"; }
-export function canRetryOperatorRequestAfterReconnect(acknowledgement: OperatorRequestAcknowledgement, reconciliation: OperatorReconnectReconciliation): boolean { return isOperatorReconnectReconciliationQualified(acknowledgement, reconciliation) && reconciliation.disposition === "DIVERGED"; }
-export function canClaimOperatorReconnectConvergence(acknowledgement: OperatorRequestAcknowledgement, reconciliation: OperatorReconnectReconciliation): boolean { return isOperatorReconnectReconciliationQualified(acknowledgement, reconciliation) && reconciliation.disposition === "CONVERGED" && Boolean(reconciliation.effectRevision); }
+
+export function isOperatorReconnectReconciliationQualified(acknowledgement: OperatorRequestAcknowledgement, reconciliation: OperatorReconnectReconciliation): boolean {
+  return acknowledgement.requestId === reconciliation.requestId && acknowledgement.authorityRef === reconciliation.authorityRef && acknowledgement.ownerId === reconciliation.ownerId && acknowledgement.requestedRevision === reconciliation.requestedRevision && acknowledgement.locality === reconciliation.locality && acknowledgement.populationRef === reconciliation.populationRef && reconciliation.sourceRevision === acknowledgement.requestedRevision && reconciliation.currentness === "CURRENT" && reconciliation.evidenceState === "KNOWN" && reconciliation.disposition !== "UNKNOWN";
+}
+
+export function canRetryOperatorRequestAfterReconnect(acknowledgement: OperatorRequestAcknowledgement, reconciliation: OperatorReconnectReconciliation): boolean {
+  return isOperatorReconnectReconciliationQualified(acknowledgement, reconciliation) && reconciliation.disposition === "DIVERGED";
+}
+
+export function canClaimOperatorReconnectConvergence(acknowledgement: OperatorRequestAcknowledgement, reconciliation: OperatorReconnectReconciliation): boolean {
+  return isOperatorReconnectReconciliationQualified(acknowledgement, reconciliation) && reconciliation.disposition === "CONVERGED" && Boolean(reconciliation.effectRevision);
+}
 
 export function isOperatorManualEmergencyDispositionAuditable(record: OperatorManualEmergencyDisposition): boolean {
   if (!record.dispositionId.trim() || !record.actorId.trim() || !record.requestedAction.trim()) return false;
-  const ack = record.acknowledgement;
-  if (!ack.requestId.trim() || !ack.authorityRef.trim() || !ack.ownerId.trim() || !ack.requestedRevision.trim()) return false;
-  if (record.effect && (record.effect.requestId !== ack.requestId || record.effect.authorityRef !== ack.authorityRef || record.effect.ownerId !== ack.ownerId || record.effect.requestedRevision !== ack.requestedRevision || record.effect.locality !== ack.locality || record.effect.populationRef !== ack.populationRef)) return false;
-  if (record.reconnectReconciliation && !isOperatorReconnectReconciliationQualified(ack, record.reconnectReconciliation)) return false;
+  const acknowledgement = record.acknowledgement;
+  if (!acknowledgement.requestId.trim() || !acknowledgement.authorityRef.trim() || !acknowledgement.ownerId.trim() || !acknowledgement.requestedRevision.trim()) return false;
+  if (record.effect && (record.effect.requestId !== acknowledgement.requestId || record.effect.authorityRef !== acknowledgement.authorityRef || record.effect.ownerId !== acknowledgement.ownerId || record.effect.requestedRevision !== acknowledgement.requestedRevision || record.effect.locality !== acknowledgement.locality || record.effect.populationRef !== acknowledgement.populationRef)) return false;
+  if (record.reconnectReconciliation && !isOperatorReconnectReconciliationQualified(acknowledgement, record.reconnectReconciliation)) return false;
   return true;
 }
 
