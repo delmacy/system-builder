@@ -6,7 +6,7 @@ Last evidence consolidation: 2026-09-18
 
 ## Purpose
 
-Deepen the temporal/streaming portion of Data Treatment without selecting a stream processor, broker or database. The goal is to preserve meaning, currentness and replay safety across event time, processing time, late data, CDC, checkpoints and external effects.
+Deepen the temporal/streaming portion of Data Treatment without selecting a stream processor, broker or database. The goal is to preserve meaning, currentness and replay safety across event time, processing time, late data, CDC, checkpoints, identity correction and external effects.
 
 This file is a focused evidence consolidation for the broader `G4_DATA_TREATMENT_ENGINEERING_BACKLOG.md`; it is not a new G4 macro-family.
 
@@ -19,6 +19,9 @@ Primary/mature references examined in this consolidation:
 - Apache Kafka design: transactional producer/consumer-offset coupling and the bounded conditions under which exactly-once processing is obtained.
 - Debezium Outbox Event Router: transactional-outbox pattern, stable event IDs and CDC publication without dual-writing application state and messages.
 - PostgreSQL transaction/time semantics: transaction, statement and wall-clock time are distinct; snapshot visibility depends on isolation level.
+- W3C PROV: changing things can be represented by distinct provenance entities linked through specialization/alternate/derivation rather than destructive identity collapse.
+- HL7 FHIR Patient linking: mature operational evidence that duplicate/same-subject records may remain separately addressable while `replaces`, `replaced-by`, `refer` and `seealso` express different identity-resolution dispositions.
+- Apache Iceberg snapshot/time-travel semantics: a historical snapshot can carry its own schema, while branch-oriented access may use the current table schema, demonstrating that historical bytes and interpretation schema are separable choices.
 
 These systems are evidence sources, not provider choices.
 
@@ -48,11 +51,9 @@ Invariants:
 - `Later arrival != later occurrence`.
 - `Current row != truth as-of arbitrary historical time`.
 
-PostgreSQL itself distinguishes transaction start, statement start and actual wall-clock time, which is useful evidence that even one database process has multiple legitimate notions of "now".
-
 ## 2. Event-time completeness is an estimate
 
-Beam and Flink treat watermarks as progress/completeness mechanisms for event time; data may arrive out of order or after a watermark/window boundary. Therefore SB must not translate a watermark into semantic certainty.
+Watermarks are progress/completeness mechanisms for event time; data may arrive out of order or after a watermark/window boundary. SB must not translate a watermark into semantic certainty.
 
 Candidate distinction:
 
@@ -77,7 +78,7 @@ A result may need a disposition such as `PRELIMINARY`, `ON_TIME`, `CORRECTED`, `
 
 ## 3. Completeness, latency and cost are explicit trade-offs
 
-Beam's trigger model makes a useful product-independent point: early/on-time/late firings trade completeness against latency and compute cost. SB should preserve the policy that produced a materialized result rather than presenting every aggregation as equally final.
+Early/on-time/late publication trades completeness against latency and compute cost. SB should preserve the policy that produced a materialized result rather than presenting every aggregation as equally final.
 
 Candidate `TemporalMaterializationEvidence`:
 
@@ -93,8 +94,6 @@ supersedes result revision?
 completeness qualification
 ```
 
-A dashboard value emitted early can be useful without being promoted to authoritative final evidence.
-
 ## 4. Correction and retraction are first-class
 
 Late data, backdated business facts and source corrections can change previously published derivations. The architecture should support revision rather than silent overwrite.
@@ -107,8 +106,6 @@ source event/fact
  -> R2 supersedes/corrects R1
 ```
 
-Preserve both the old evidence and the correction relationship where audit/history requires it.
-
 Invariants:
 
 - `Correction != deletion of prior evidence`.
@@ -118,9 +115,7 @@ Invariants:
 
 ## 5. Exactly-once must be scoped
 
-Flink explicitly distinguishes exactly-once managed state from end-to-end effects; end-to-end exactly-once requires replayable sources and transactional or idempotent sinks. Kafka obtains its transactional processing guarantee by atomically coupling produced records with consumed offsets under specific consumer/producer/isolation behavior.
-
-Therefore SB should never expose an unqualified `exactlyOnce: true`.
+Exactly-once managed state is not automatically end-to-end exactly-once. SB should never expose an unqualified `exactlyOnce: true`.
 
 Candidate guarantee envelope:
 
@@ -146,11 +141,9 @@ Invariants:
 - `Message delivered once != business effect applied once`.
 - `Idempotency key present != operation proven idempotent`.
 
-For email, payments, device commands or arbitrary provider APIs, uncertain outcomes remain `UNKNOWN` until reconciliation proves effect; a stream framework cannot erase that boundary.
-
 ## 6. Replay is a new execution context, not time travel
 
-Flink recovery and event-log systems depend on replay, but replay occurs later, often under changed code, schemas, reference data and external environments. SB should qualify replay context explicitly.
+Replay occurs later, often under changed code, schemas, reference data and external environments. SB should qualify replay context explicitly.
 
 Candidate `ReplayContext`:
 
@@ -160,6 +153,7 @@ original processing revision
 replay processing revision
 schema/contract revisions
 reference-data revision policy
+identity-resolution revision policy
 side-effect mode
 output namespace/generation
 replay reason
@@ -191,28 +185,20 @@ catch up / reconcile
 promote derived generation
 ```
 
-Required research questions include event identity, source offsets/checkpoints, ordering scope, overlap ownership, tombstones/corrections and whether derived outputs are replaceable generations or in-place mutations.
-
 `Backfill finished != live/backfill convergence proven`.
 
 ## 8. CDC publication is not canonical business truth
 
-Debezium's outbox pattern is useful evidence for avoiding application dual writes: business state and an outbox record can share the local database transaction, then CDC publishes the event. The outbox event ID can support consumer deduplication.
-
-But:
+Transactional outbox is useful evidence for avoiding application dual writes, but publication remains distinct from downstream effect and business authority.
 
 - `Outbox committed != consumer applied effect`.
 - `CDC record != business semantic event by default`.
 - `Database row change != domain event`.
 - `Stable event ID != global semantic identity`.
 
-Research should distinguish raw change capture, integration publication and intentionally modeled business events.
-
 ## 9. Ordering is scoped, not global
 
-Stream systems commonly provide ordering only within a partition/key or another bounded channel. SB should state ordering scope explicitly and avoid inventing a total order from timestamps.
-
-Candidate fields:
+Ordering guarantees must state scope explicitly.
 
 ```text
 orderingDomain
@@ -223,20 +209,11 @@ occurredAt
 recordedAt
 ```
 
-Where cross-stream causality matters, explicit causal references/evidence are stronger than timestamp comparison alone.
-
 `Timestamp A < Timestamp B != A caused B`.
 
 ## 10. Temporal queries need declared perspective
 
-"What was true at T?" is ambiguous. It may mean:
-
-1. what the business considered effective at T;
-2. what the system had recorded by T;
-3. what an observer knew by T;
-4. what today's corrected knowledge says was effective at T.
-
-This motivates bitemporal/as-of research without requiring a universal bitemporal table for every entity.
+"What was true at T?" may mean what was business-effective, recorded, observed, or what today's corrected knowledge says was effective then.
 
 Candidate query qualification:
 
@@ -247,59 +224,185 @@ TemporalPerspective
   observation cutoff
   correction policy
   source/revision scope
+  interpretation policy
+  identity-resolution policy
 ```
 
 Historical reconstruction should state its perspective instead of returning an unlabeled snapshot.
 
-## 11. Failure/adversarial cases
+## 11. Temporal identity must preserve record history across resolution
+
+Entity resolution is itself a revisioned interpretation. Two records believed to represent different subjects at T1 may later be merged; one record may later be split after evidence shows that observations belonged to different subjects. Historical source/evidence identity must not be destructively rewritten to match the current resolution.
+
+W3C PROV provides a useful provider-neutral precedent: multiple provenance entities may represent fixed aspects/versions/perspectives of an underlying changing thing and can be related through specialization, alternate and derivation relationships. HL7 FHIR provides an operational precedent in which duplicate/same-person patient records remain separately identifiable while links express `replaces`, `replaced-by`, `refer` or `seealso`; the relationship does not require erasing the historical record.
+
+Candidate distinction:
+
+```text
+SourceRecordIdentity      stable identity of the observed/received record
+SubjectIdentity           domain subject asserted by an authority
+ResolutionAssertion       evidence-backed relation among identities
+ResolutionRevision        version of the resolution graph/policy
+CanonicalSubjectView      current projection under a declared revision
+```
+
+A resolution assertion should carry at least provenance/evidence, authority, effective/recorded time, confidence/disposition where applicable, revision, and supersession/correction lineage.
+
+Invariants:
+
+- `Same-subject assertion != same record identity`.
+- `Merge != destruction of predecessor identities`.
+- `Current canonical subject != only historical subject interpretation`.
+- `Split != retroactive deletion of the former merge decision`.
+- `Entity-resolution revision != source-data mutation`.
+- `Duplicate record != duplicate event/fact by default`.
+- `Canonical identity redirect != evidence rewrite`.
+
+For current operational views, an old identity may redirect to a replacement. Historical/audit views must still be able to explain which identity and resolution revision were in force when a decision/effect occurred.
+
+### Merge and split are asymmetric changes
+
+A merge can often be represented as several historical identities resolving to one current subject while retaining aliases/predecessors. A later split is harder: downstream aggregates, permissions, decisions or effects may already have been computed under the merged identity. Therefore a split requires impact analysis and selective recomputation/reconciliation rather than a simple pointer reversal.
+
+```text
+A ----\
+       > Resolution R7 -> Subject X
+B ----/
+
+later evidence:
+
+Resolution R8
+A -> Subject X1
+B -> Subject X2
+
+R8 supersedes R7
+but R7 remains historical evidence
+```
+
+`Resolution corrected != all downstream consequences automatically corrected`.
+
+## 12. Replay must declare interpretation policy
+
+Historical bytes alone do not determine historical meaning. Schema, reference/master data, rules and identity-resolution state may have changed since original processing.
+
+Apache Iceberg offers a concrete mature example of this distinction: time travel to a snapshot can use that snapshot's schema, while branch-oriented access can use the table's current schema. The important SB lesson is not Iceberg adoption; it is that **data revision and interpretation revision are separate axes**.
+
+Candidate `InterpretationContext`:
+
+```text
+schemaRevision
+contractRevision
+referenceDataRevision
+masterDataRevision
+identityResolutionRevision
+rule/policyRevision
+transformationRevision
+mode: PINNED | CURRENT | EXPLICIT_MIXED
+justification
+```
+
+Three replay intents should remain distinguishable:
+
+```text
+FORENSIC_REPRODUCTION
+  use historically pinned interpretation where available
+  answer: "what would/ did the system conclude then?"
+
+CURRENT_REINTERPRETATION
+  apply current approved interpretation to historical source
+  answer: "what do we conclude now about then?"
+
+CONTROLLED_MIXED
+  explicit revision selection per dependency
+  requires stronger provenance because it did not exist as one historical execution context
+```
+
+Invariants:
+
+- `Historical source snapshot != historical interpretation snapshot`.
+- `Current schema over old data != historical reproduction`.
+- `Pinned schema != pinned reference/master data`.
+- `Same source bytes + different reference data may yield different meaning`.
+- `Current reinterpretation != correction of original observation`.
+- `Replay result != original result even when source range is identical` unless the complete interpretation context is equivalent and deterministic proof holds.
+
+A replay that cannot recover a required historical dependency revision must report degraded/inconclusive reproducibility rather than silently substituting the current revision.
+
+## 13. Derived generations need interpretation lineage
+
+Every rebuildable projection/aggregate/index that can influence decisions should be able to identify not just its source range but the interpretation context that produced it.
+
+Candidate lineage:
+
+```text
+DerivedGeneration
+  source identities/range
+  source checkpoint/snapshot
+  interpretation context
+  treatment/transformation revision
+  producedAt
+  completeness qualification
+  supersedes generation?
+```
+
+This permits two derived generations over the same source data to coexist legitimately when one is a forensic reconstruction and another is a current reinterpretation.
+
+`Same source range != same derived generation semantics`.
+
+## 14. Failure/adversarial cases
 
 - a late event changes a previously invoiced aggregate;
-- watermark advances because one source appears idle, then old events resume;
-- clock skew makes processing timestamps appear before occurrence timestamps;
 - replay under a new transformation revision changes historical derived output;
 - backfill and live stream both write the same projection range;
 - checkpoint restores processor state but an external API call had already succeeded;
-- consumer retries a payment/email/device command after uncertain ACK;
-- outbox event is published twice after connector recovery;
 - schema/reference data changed between original execution and replay;
-- tombstone/correction arrives before the original event on another partition;
 - a dashboard treats an early pane as final business evidence;
-- a global ordering claim is inferred from per-partition offsets.
+- two customer records are merged, then later evidence requires a split;
+- permissions granted to a merged subject must be re-evaluated after split;
+- an old identifier redirects to a new canonical subject and audit code accidentally rewrites historical attribution;
+- replay pins schema but silently uses today's tax/routing/reference table;
+- forensic replay cannot retrieve an expired historical reference-data revision;
+- current reinterpretation is mislabeled as the original historical decision;
+- identity resolution changes while a backfill is in progress, producing mixed-resolution output;
+- dedup logic treats two records resolved to one subject as duplicate business events and drops a legitimate occurrence.
 
-## 12. Proof obligations
+## 15. Proof obligations
 
-1. Every material timestamp has declared semantics; generic `createdAt` is insufficient where multiple clocks matter.
+1. Every material timestamp has declared semantics where multiple clocks matter.
 2. Historical/as-of queries declare temporal perspective and revision/correction policy.
 3. Late/correcting input cannot silently rewrite prior evidence without lineage/supersession.
 4. Watermark/window completion cannot be promoted to absolute source completeness.
 5. Processing guarantees state source, processor-state, sink and external-effect boundaries.
-6. Replay declares code/schema/reference-data revisions and side-effect policy.
+6. Replay declares code/schema/reference-data/identity-resolution revisions and side-effect policy.
 7. Backfill/live overlap has explicit ownership, deduplication and convergence proof.
 8. CDC/outbox publication remains distinct from consumer effect and canonical business authority.
 9. Ordering guarantees declare their scope; timestamps alone do not create causality.
 10. Projection rebuild/replay can be performed without re-triggering business side effects unless separately authorized.
 11. UNKNOWN outcome after uncertain external effect survives retries/replay until reconciliation.
 12. Temporal materializations expose whether they are preliminary, corrected, superseded or final-by-policy where material.
+13. Merge/split/canonicalization preserves predecessor record identities and resolution lineage.
+14. Historical decisions/effects can state which identity-resolution revision they relied on.
+15. A split identifies downstream derivations/effects requiring recomputation or reconciliation; pointer reversal alone is insufficient proof.
+16. Replay states whether interpretation is historically pinned, current, or explicitly mixed.
+17. Missing historical schema/reference/master/rule/resolution revisions cannot be silently replaced by current versions when forensic reproduction is claimed.
+18. Derived generations preserve source range plus interpretation/treatment revision lineage.
+19. Current reinterpretation cannot overwrite or masquerade as original historical observation/evidence.
+20. Deduplication remains scoped to event/fact identity rules and cannot infer duplicate occurrence solely from merged subject identity.
 
-## 13. Technology/provider posture
+## 16. Technology/provider posture
 
-No decision is made to adopt Beam, Flink, Kafka, Debezium or a dedicated temporal database. Their models are evidence for requirements and failure modes.
+No decision is made to adopt Beam, Flink, Kafka, Debezium, Iceberg, FHIR, W3C PROV storage, a master-data product or a dedicated temporal database. Their models are evidence for requirements and failure modes.
 
-Initial product research should prefer:
-
-- explicit temporal semantics in provider-neutral contracts;
-- PostgreSQL/outbox/ordinary job mechanisms where workloads permit;
-- replayable/rebuildable projections;
-- idempotent/reconciled consumers;
-- specialized stream infrastructure only after measured latency/volume/state requirements justify it.
+Initial product research should prefer explicit provider-neutral temporal/identity contracts, PostgreSQL/outbox/ordinary job mechanisms where workloads permit, replayable projections, and specialized infrastructure only after measured requirements justify it.
 
 `Streaming semantics != requirement for a streaming platform`.
+`Temporal provenance != requirement for a temporal database`.
+`Identity-resolution semantics != requirement for an MDM product`.
 
-## 14. Next research gaps
+## 17. Next research gaps
 
-- temporal identity under corrections, merges/splits and entity-resolution revisions;
-- schema/reference-data version pinning versus reinterpretation during replay;
-- deletion/retention interaction with replay and historical reconstruction;
+- deletion/retention interaction with replay, identity lineage and historical reconstruction;
 - cross-region/offline clocks, causality and reconciliation;
-- property-based/adversarial test model for late/out-of-order/replayed data;
-- workload thresholds that justify a dedicated streaming engine over PostgreSQL/outbox/jobs.
+- property-based/adversarial test model for late/out-of-order/replayed/merge-split data;
+- workload thresholds that justify a dedicated streaming engine over PostgreSQL/outbox/jobs;
+- retention strategy for historical interpretation dependencies without violating privacy/deletion obligations.
