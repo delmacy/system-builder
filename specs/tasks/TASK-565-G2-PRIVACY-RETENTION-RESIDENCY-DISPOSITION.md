@@ -8,9 +8,6 @@ model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
-work_package: G2-WP-12
-wbs: G2-WBS-19
-sprint: G2-WP12-CONSTRUCTION-A-01
 depends_on:
   - TASK-564
 context_paths:
@@ -48,6 +45,12 @@ Governance policy semantics do not yet represent data population obligations and
 
 ## Required change
 Represent classification and policy revision, qualified population/cohort, retention interval, legal-hold precedence, residency constraints, disposition eligibility/result, provider/source lineage and residual populations. Missing inventory or incomplete migration must remain PARTIAL/UNKNOWN rather than complete.
+
+## Inputs / contracts
+Consume TASK-563/564 governance authority and predecessor provider/population/currentness contracts by reference.
+
+## Outputs / contracts
+Extend provider-neutral governance contracts and cumulative Product Proof with privacy classification, retention, legal-hold, residency, disposition and residual-population semantics.
 
 ## Acceptance criteria
 Legal hold prevents incompatible disposition; residency/retention decisions are revision/population qualified; provider migration does not erase obligations or residual cohorts; incomplete population evidence cannot strengthen into complete compliance/disposition.
