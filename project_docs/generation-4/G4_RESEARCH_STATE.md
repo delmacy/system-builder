@@ -41,6 +41,9 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Heartbeat/lease freshness != proof of semantic health or safe replacement`.
 - `Retry != resilience by default`; retries consume capacity and can amplify failure.
 - `Voluntary disruption budget != availability guarantee`.
+- `Lease expiry != fencing`; stale actors may remain physically capable of producing effects.
+- `Leadership != universal authority`; authority remains scope/epoch/effect-boundary qualified.
+- `Coordination quorum != exclusive downstream reachability`.
 
 ## Research progression
 
@@ -72,8 +75,8 @@ WBS / Work Packages / implementation
 ## Current maturity
 
 - Data/Persistence/Access: substantial backlog captured; deep evidence consolidation still required.
-- Data Treatment: **deep evidence consolidation now covers temporal/streaming/replay, temporal identity/interpretation revision, and retention/erasure/reproducibility boundaries**. Material findings include multidimensional time, scoped processing guarantees, correction/retraction, replay/backfill convergence, merge/split identity lineage, pinned-vs-current interpretation, finite reproducibility envelopes, distributed erasure convergence, derived-data deletion impact, backup restore reconciliation and explicit holds/exceptions. Other treatment vectors still require deep consolidation; family remains `RESEARCH_ACTIVE`, not saturated.
-- Infrastructure Engineering: **first deep evidence consolidation completed for control-loop safety and failure semantics**. Provider/host/storage/workload/application/network/observability health are separated; heartbeat/lease freshness is not death/authority proof; reconciliation/retry requires bounded effect-aware policies; overload/retry amplification, graceful degradation, disruption envelopes, failover capacity/fencing and post-disruption effectiveness are explicit proof surfaces. Still `RESEARCH_ACTIVE`, not saturated.
+- Data Treatment: **deep evidence consolidation covers temporal/streaming/replay, temporal identity/interpretation revision, and retention/erasure/reproducibility boundaries**. Material findings include multidimensional time, scoped processing guarantees, correction/retraction, replay/backfill convergence, merge/split identity lineage, pinned-vs-current interpretation, finite reproducibility envelopes, distributed erasure convergence, derived-data deletion impact, backup restore reconciliation and explicit holds/exceptions. Other treatment vectors still require deep consolidation; family remains `RESEARCH_ACTIVE`, not saturated.
+- Infrastructure Engineering: **two deep evidence consolidations completed**. Control-loop safety now covers decomposed health, leases/currentness, bounded retries, overload, disruption, failover and recovery evidence. Coordination safety now separates leadership, lease, fencing and downstream effect authority; models partial-connectivity split-brain, authority epochs, revision-qualified watch/reconnect, mixed-version leadership eligibility and stale-work quarantine. Still `RESEARCH_ACTIVE`, not saturated.
 - Computational Core/Performance: consolidated initial architecture and qualification rules captured; workload benchmarks not yet materialized.
 - Lifecycle/Continuous Improvement: first deep evidence consolidation completed for incident/postmortem/action separation, work hierarchy vs semantic graph, multidimensional closure, outcome/effectiveness measurement and lesson lineage. Still `RESEARCH_ACTIVE`, not saturated.
 - Self-Hosting/Autonomic Evolution: first deep evidence consolidation completed for secure update trust, generation consistency, version skew, anti-rollback vs recovery, state/schema rollback, promotion evidence, reboot identity and failed-update-loop containment. Still `RESEARCH_ACTIVE`, not saturated.
@@ -81,53 +84,44 @@ WBS / Work Packages / implementation
 
 ## Material research log
 
+### 2026-09-18 — Infrastructure fencing, leadership and split-brain safety
+
+Evidence classes: Kubernetes Lease/leader-election semantics, etcd revision/transaction/watch guarantees, and distributed-systems fencing analysis.
+
+Material delta:
+
+- separated elected leadership from global semantic/effect authority;
+- separated lease expiry from downstream fencing and required stale-epoch rejection at the effect sink or an authoritative mediation boundary for correctness-sensitive exclusive effects;
+- introduced research candidates `LeadershipEpoch`, `FencingToken` and compatibility-qualified `LeadershipEligibility`;
+- established that quorum possession and downstream resource reachability are independent under partial connectivity;
+- defined split-brain operationally as multiple actors plausibly capable of incompatible exclusive effects, not merely duplicate leaders in one coordination database;
+- required coordination observations to retain revision/currentness semantics and rejected watch delivery as a substitute for authoritative current reads;
+- required reconnect after history loss/compaction to reconcile before correctness-sensitive actuation;
+- linked rolling-upgrade leadership eligibility to protocol/semantic/state compatibility without merging Infrastructure and Self-Hosting ownership;
+- required authority loss to bound/stop new globally exclusive mutation while preserving autonomous runtimes and explicitly permitted degraded/local non-exclusive behavior;
+- required rejoining actors to quarantine stale queued work and reconcile UNKNOWN/in-flight effects before resuming authority-bound actuation.
+
+No Kubernetes, etcd, consensus implementation, distributed-lock library or cloud provider was selected as canonical.
+
+Next highest-value infrastructure gaps: cross-site autonomy/delayed reconciliation after long partitions, disconnected PKI bootstrap/rotation, heterogeneous capacity modeling, storage durability/restore proof, supply-chain-to-running-artifact identity, decommission residual proof and classification of effect sinks by fencing capability/compensability. Cross-family priority may supersede these.
+
 ### 2026-09-18 — Infrastructure control-loop safety, health decomposition and disruption semantics
 
 Evidence classes: mature declarative controller/lease/disruption behavior (Kubernetes), provider-separated infrastructure health checks (Amazon EC2), and production retry/overload/degradation engineering (Google SRE and Amazon Builders' Library).
 
-Material delta:
-
-- separated provider, host, storage, workload, application, network and observability health rather than collapsing them into one status;
-- established heartbeat/lease as freshness-qualified evidence, not proof of semantic health, death or safe replacement;
-- required bounded controllers to declare semantic ownership, actuation boundary, currentness/convergence requirements and restart-safe operation identity;
-- introduced research candidate `RetryEnvelope` with effect/idempotency semantics, attempt budget, deadline, backoff, jitter, overload disposition and reconcile-on-UNKNOWN behavior;
-- made retry amplification/thundering-herd behavior an explicit control-plane adversarial surface;
-- separated degraded serving from full effectiveness and capacity presence from safe usable headroom;
-- introduced provider-neutral `DisruptionEnvelope` semantics for voluntary maintenance while preserving that involuntary failures can consume availability outside the budget;
-- strengthened reboot proof to require layered provider/host/storage/workload/application evidence after return;
-- modeled failover as a governed topology/state transition requiring target capacity/state eligibility and source fencing/reconciliation where effects may continue;
-- made RPO/RTO and recovery readiness evidence-backed claims rather than configuration truth.
-
-No Kubernetes, AWS, orchestrator, host-agent architecture or cloud provider was selected as canonical.
-
-Next highest-value infrastructure gaps: fencing/leases/split-brain under partial connectivity, cross-site autonomy/delayed reconciliation, disconnected PKI bootstrap/rotation, heterogeneous capacity modeling, storage durability/restore proof, supply-chain-to-running-artifact identity and decommission residual proof. Cross-family priority may supersede these.
+Material delta: separated provider/host/storage/workload/application/network/observability health; established heartbeat/lease as freshness evidence rather than death/authority proof; introduced bounded `RetryEnvelope`; made retry amplification explicit; separated degraded serving from full effectiveness; introduced provider-neutral disruption semantics; strengthened reboot proof; modeled failover as governed topology transition; and made RPO/RTO evidence-backed claims.
 
 ### 2026-09-18 — Retention, erasure and reproducibility boundaries
 
 Evidence classes: data-protection regulation, provenance standard and mature snapshot/time-travel lifecycle behavior (EU GDPR Article 17, W3C PROV, Apache Iceberg).
 
-Material delta:
-
-- established that audit/replay requirements do not imply infinite retention and that governed erasure may legitimately reduce future reproducibility;
-- separated logical visibility, semantic invalidation, physical erasure and recovery disposition;
-- modeled erasure as population-qualified distributed convergence rather than primary-store delete ACK;
-- required residual provenance/disposition evidence to be minimized and non-reconstructive under applicable policy rather than assuming metadata/hashes/embeddings are harmless;
-- introduced candidate `ReproducibilityEnvelope` so historical replay capability has explicit retention horizons for source and interpretation dependencies;
-- required derived-data lineage to support erase/rebuild/invalidate impact across search, graph, vector, cache, aggregate and model-feature surfaces;
-- established `Restored backup != authorized resurrection of erased data` and requires post-restore erasure reconciliation before authoritative promotion where applicable;
-- made retention holds/exceptions explicit governed authority with scope, permitted use and lifecycle;
-- linked merge/split identity lineage to deletion-scope reasoning without treating historical same-subject assertions as permanent identity equivalence;
-- prohibited replay/backfill from silently republishing intentionally erased data.
-
-No privacy platform, provenance store, lakehouse, event-sourcing architecture or jurisdiction-specific policy engine was selected as canonical.
-
-Next highest-value gaps: cross-region/offline erasure convergence, cryptographic erasure/key lifecycle, immutable/signed evidence under retention holds, and adversarial replay/restore/delete proofs. Cross-family priority may supersede these based on comparative maturity.
+Material delta: rejected infinite-retention assumptions; separated logical visibility, semantic invalidation, physical erasure and recovery disposition; modeled erasure as distributed convergence; introduced `ReproducibilityEnvelope`; required derived-data erasure impact; required post-restore erasure reconciliation; made holds explicit authority; linked identity lineage to deletion scope; and prohibited replay/backfill from silently republishing erased data.
 
 ### 2026-09-18 — Temporal identity, merge/split lineage and replay interpretation
 
-Evidence classes: provenance standard, mature cross-record identity-link semantics and snapshot/schema time-travel behavior (W3C PROV, HL7 FHIR, Apache Iceberg).
+Evidence classes: W3C PROV, HL7 FHIR and Apache Iceberg.
 
-Material delta: separated source-record identity from subject identity and resolution revision; preserved merge/split lineage; required impact/reconciliation after split; separated source snapshot from interpretation snapshot; introduced `InterpretationContext`; distinguished forensic reproduction, current reinterpretation and controlled mixed replay; required degraded/inconclusive reproducibility when historical interpretation dependencies are unavailable; and required derived generations to preserve interpretation/treatment lineage.
+Material delta: separated source-record identity from subject identity and resolution revision; preserved merge/split lineage; required impact/reconciliation after split; separated source snapshot from interpretation snapshot; introduced `InterpretationContext`; distinguished forensic reproduction, current reinterpretation and controlled mixed replay; and required derived generations to preserve interpretation/treatment lineage.
 
 ### 2026-09-18 — Temporal, streaming and replay semantics
 
@@ -150,7 +144,7 @@ Material delta: separated authenticity from update authorization; introduced thr
 ## Non-goals at this stage
 
 - no decision to rewrite the Builder in Rust;
-- no decision to introduce a graph database, vector database, search cluster, stream broker or Kubernetes;
+- no decision to introduce a graph database, vector database, search cluster, stream broker, etcd or Kubernetes;
 - no decision to make the Builder an operating system;
 - no autonomous self-modification without external trust/recovery boundaries;
 - no replacement of the current G2 execution plan;
