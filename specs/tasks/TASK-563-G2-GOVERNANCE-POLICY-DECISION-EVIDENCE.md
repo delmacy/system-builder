@@ -8,9 +8,6 @@ model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
-work_package: G2-WP-12
-wbs: G2-WBS-19
-sprint: G2-WP12-CONSTRUCTION-A-01
 depends_on: []
 context_paths:
   - AGENTS.md
