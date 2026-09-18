@@ -66,7 +66,7 @@ WBS / Work Packages / implementation
 ## Current maturity
 
 - Data/Persistence/Access: substantial backlog captured; deep evidence consolidation still required.
-- Data Treatment: **first deep evidence consolidation completed** for temporal/streaming/replay semantics, including multidimensional time, watermark non-finality, scoped processing guarantees, correction/retraction, replay context, live/backfill convergence, CDC/outbox boundaries and ordering scope. Other treatment vectors still require deep consolidation; family remains `RESEARCH_ACTIVE`, not saturated.
+- Data Treatment: **deep evidence consolidation now covers temporal/streaming/replay plus temporal identity and interpretation revision**: multidimensional time, watermark non-finality, scoped processing guarantees, correction/retraction, replay context, live/backfill convergence, CDC/outbox boundaries, ordering scope, merge/split identity lineage, and pinned-vs-current replay interpretation. Other treatment vectors still require deep consolidation; family remains `RESEARCH_ACTIVE`, not saturated.
 - Infrastructure Engineering: consolidated research backlog captured; operational protocols/evidence still shallow.
 - Computational Core/Performance: consolidated initial architecture and qualification rules captured; workload benchmarks not yet materialized.
 - Lifecycle/Continuous Improvement: **first deep evidence consolidation completed** for incident/postmortem/action separation, work hierarchy vs semantic graph, multidimensional closure, outcome/effectiveness measurement and lesson lineage. Still `RESEARCH_ACTIVE`, not saturated.
@@ -74,6 +74,27 @@ WBS / Work Packages / implementation
 - Product UX/AI-native Builder: initial product R&D program captured; deeper usability research remains open.
 
 ## Material research log
+
+### 2026-09-18 — Temporal identity, merge/split lineage and replay interpretation
+
+Evidence classes: provenance standard, mature cross-record identity-link semantics and snapshot/schema time-travel behavior (W3C PROV, HL7 FHIR, Apache Iceberg).
+
+Material delta:
+
+- separated stable source-record identity from asserted subject identity, identity-resolution assertions/revisions and current canonical subject projection;
+- established that merge/canonicalization must preserve predecessor identities and evidence rather than destructively rewriting historical records;
+- treated split/unmerge as a new resolution revision with downstream impact/reconciliation obligations, not pointer reversal;
+- required historical decisions/effects to retain the identity-resolution revision on which they relied when material;
+- strengthened dedup boundaries so same-subject resolution cannot by itself prove duplicate event/fact identity;
+- separated historical source snapshot from historical interpretation snapshot;
+- introduced candidate `InterpretationContext` spanning schema, contract, reference/master data, identity resolution, rule/policy and transformation revisions;
+- distinguished `FORENSIC_REPRODUCTION`, `CURRENT_REINTERPRETATION` and explicit controlled mixed-revision replay intents;
+- required degraded/inconclusive reproducibility when a historically required interpretation dependency is unavailable instead of silently substituting current state;
+- required derived generations to preserve source range plus interpretation/treatment lineage.
+
+No provenance store, MDM system, FHIR model, Iceberg/lakehouse or temporal database was selected as canonical.
+
+Next highest-value gap in this family: deletion/retention interaction with replay, identity lineage and historical reconstruction, especially the conflict between reproducibility evidence and privacy/deletion obligations. Cross-family priority may supersede this based on comparative maturity.
 
 ### 2026-09-18 — Temporal, streaming and replay semantics
 
@@ -93,8 +114,6 @@ Material delta:
 - required historical/as-of queries to declare temporal perspective rather than returning an unlabeled snapshot.
 
 No stream processor, broker, CDC platform or temporal database was selected as canonical.
-
-Next highest-value gap in this family: temporal identity under correction/entity-resolution revision plus schema/reference-data pinning versus reinterpretation during replay. Cross-family priority may supersede this based on comparative maturity.
 
 ### 2026-09-18 — Lifecycle learning and improvement-effectiveness semantics
 
