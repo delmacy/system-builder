@@ -1,7 +1,7 @@
 ---
 id: TASK-566
 title: Prove cumulative G2-WBS-19 governance privacy semantics
-status: blocked
+status: ready
 priority: 566
 milestone: G2
 model_tier: architecture
