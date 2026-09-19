@@ -1,7 +1,7 @@
 ---
 id: TASK-568
 title: Define subscription and commercial entitlement semantics
-status: blocked
+status: ready
 priority: 568
 milestone: G2
 model_tier: architecture
