@@ -1,7 +1,7 @@
 ---
 id: TASK-570
 title: Prove cumulative G2-WBS-20 commercial entitlement semantics
-status: blocked
+status: ready
 priority: 570
 milestone: G2
 model_tier: architecture
