@@ -1,7 +1,7 @@
 ---
 id: TASK-569
 title: Define usage rating billing invoice and payment lineage
-status: ready
+status: completed
 priority: 569
 milestone: G2
 model_tier: architecture
@@ -40,16 +40,16 @@ Define the bounded metering-to-payment evidence chain for G2-WBS-20 while keepin
 TASK-569 follows qualified catalog/contract and subscription/entitlement semantics. It models commercial evidence lineage only; provider acknowledgements and settlement observations remain evidence rather than customer-commercial truth.
 
 ## Current behavior
-Before this task, G2-WBS-20 has no cumulative contract separating measurement, qualification, rating, charge, invoice and payment evidence with explicit correction/rerating ancestry.
+G2-WBS-20 now has explicit measured, qualified, rated, charged, invoiced and paid evidence stages with predecessor lineage.
 
 ## Required change
-Model meter/usage measurement, qualification, rating, charge, billing/invoice and payment/settlement evidence as separate revision/provenance-qualified stages. Preserve effective-dated pricing references, corrections and rerating lineage without destructive rewrite of prior evidence.
+Implemented separate usage evidence stages, conservative qualification, sequential stage advancement, correction/rerating ancestry and provider-evidence references without money movement or provider authority promotion.
 
 ## Inputs / contracts
-Consume qualified price/contract revisions from TASK-567 and subscription/entitlement facts from TASK-568. Usage observations, provider evidence and correction reasons must retain provenance, revision and effective-time qualification.
+Qualified price/contract revisions and subscription/entitlement facts remain upstream authority. Usage observations and provider evidence retain provenance, revision and effective-time qualification.
 
 ## Outputs / contracts
-Produce deterministic commercial evidence contracts for measured, qualified, rated, charged, invoiced and paid stages, including predecessor references for corrections/rerating and explicit PARTIAL/UNKNOWN states.
+Deterministic commercial evidence contracts preserve measured != qualified != rated != billed != invoiced != paid, predecessor/correction references and PARTIAL/UNKNOWN fail-closed behavior.
 
 ## Acceptance criteria
 Measured != qualified != rated != billed != invoiced != paid. Missing usage != zero. Corrections/rerating preserve predecessor lineage and reason/provenance. Provider or settlement ACK remains provider evidence and cannot silently become customer-commercial truth. PARTIAL/UNKNOWN does not strengthen any stage.
@@ -58,7 +58,7 @@ Measured != qualified != rated != billed != invoiced != paid. Missing usage != z
 No payment SDK/provider implementation, money movement, accounting ledger, tax engine, collections, FinOps cost allocation, persistence/UI, WP-13 or Production Readiness claim.
 
 ## Evidence expected
-Deterministic Product Proof for normal, missing, duplicate/corrected/rerated and provider-ACK cases plus declared validations.
+Product Proof covers normal lineage, missing usage, PARTIAL/UNKNOWN, skipped-stage rejection, correction/rerating ancestry and provider-ACK adversarial behavior. Declared repository validations remain CI authority.
 
 ## Escalation
 Escalate rather than infer if implementation requires money movement, concrete payment/provider integration, accounting/tax/collections, FinOps/G2-WBS-21, persistence/UI, WP-13 or any unmaterialized scope.

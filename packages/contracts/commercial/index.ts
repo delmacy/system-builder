@@ -1,79 +1,23 @@
-export const COMMERCIAL_CONTRACT_VERSION = "1.1.0" as const;
+export const COMMERCIAL_CONTRACT_VERSION = "1.2.0" as const;
 
 export type CommercialFactState = "CURRENT" | "NOT_YET_EFFECTIVE" | "EXPIRED" | "STALE" | "CONFLICTED" | "UNKNOWN";
 export type CommercialFactCurrentness = "CURRENT" | "STALE" | "UNKNOWN";
 export type CommercialFactPopulation = "COMPLETE" | "PARTIAL" | "UNKNOWN";
+export type CommercialRevision = Readonly<{ id:string; revisionRef:string; scopeRef:string; provenanceRef:string; effectiveAt:string; effectiveUntil?:string; supersedesRevisionRef?:string; currentness:CommercialFactCurrentness; population:CommercialFactPopulation }>;
+export type CommercialProduct=CommercialRevision&Readonly<{kind:"PRODUCT"}>; export type CommercialOffer=CommercialRevision&Readonly<{kind:"OFFER";productRef:string}>; export type CommercialPlan=CommercialRevision&Readonly<{kind:"PLAN";offerRef:string}>; export type CommercialPrice=CommercialRevision&Readonly<{kind:"PRICE";planRef:string;amountMinor:number;currency:string}>; export type CustomerContract=CommercialRevision&Readonly<{kind:"CONTRACT";customerRef:string;offerRef:string;planRef:string;priceRef:string;priceRevisionRef:string;priceProvenanceRef:string}>;
+export type SubscriptionState="ACTIVE"|"SUSPENDED"|"CANCELLED"; export type CommercialSubscription=CommercialRevision&Readonly<{kind:"SUBSCRIPTION";customerRef:string;contractRef:string;contractRevisionRef:string;state:SubscriptionState}>; export type EntitlementGrantState="GRANTED"|"REVOKED"; export type CommercialEntitlement=CommercialRevision&Readonly<{kind:"ENTITLEMENT";subscriptionRef:string;capabilityRef:string;grantState:EntitlementGrantState}>; export type CommercialEntitlementDecision=Readonly<{state:"ENTITLED"|"NOT_ENTITLED"|"UNKNOWN";entitlementRevisionRef?:string;reason:string;operationalAuthorization:false}>;
 
-export type CommercialRevision = Readonly<{
-  id: string;
-  revisionRef: string;
-  scopeRef: string;
-  provenanceRef: string;
-  effectiveAt: string;
-  effectiveUntil?: string;
-  supersedesRevisionRef?: string;
-  currentness: CommercialFactCurrentness;
-  population: CommercialFactPopulation;
-}>;
+export type UsageEvidenceState="MEASURED"|"QUALIFIED"|"RATED"|"CHARGED"|"INVOICED"|"PAID"|"UNKNOWN";
+export type CommercialUsageEvidence=CommercialRevision&Readonly<{kind:"USAGE_EVIDENCE";stage:UsageEvidenceState;usageRef:string;predecessorRevisionRef?:string;correctionOfRevisionRef?:string;correctionReason?:string;priceRevisionRef?:string;amountMinor?:number;currency?:string;providerEvidenceRef?:string}>;
+export type UsageQualification=Readonly<{state:"QUALIFIED"|"UNKNOWN";evidence?:CommercialUsageEvidence;reason:string}>;
 
-export type CommercialProduct = CommercialRevision & Readonly<{ kind: "PRODUCT" }>;
-export type CommercialOffer = CommercialRevision & Readonly<{ kind: "OFFER"; productRef: string }>;
-export type CommercialPlan = CommercialRevision & Readonly<{ kind: "PLAN"; offerRef: string }>;
-export type CommercialPrice = CommercialRevision & Readonly<{ kind: "PRICE"; planRef: string; amountMinor: number; currency: string }>;
-export type CustomerContract = CommercialRevision & Readonly<{ kind: "CONTRACT"; customerRef: string; offerRef: string; planRef: string; priceRef: string; priceRevisionRef: string; priceProvenanceRef: string }>;
-export type SubscriptionState = "ACTIVE" | "SUSPENDED" | "CANCELLED";
-export type CommercialSubscription = CommercialRevision & Readonly<{ kind: "SUBSCRIPTION"; customerRef: string; contractRef: string; contractRevisionRef: string; state: SubscriptionState }>;
-export type EntitlementGrantState = "GRANTED" | "REVOKED";
-export type CommercialEntitlement = CommercialRevision & Readonly<{ kind: "ENTITLEMENT"; subscriptionRef: string; capabilityRef: string; grantState: EntitlementGrantState }>;
-export type CommercialEntitlementDecision = Readonly<{ state: "ENTITLED" | "NOT_ENTITLED" | "UNKNOWN"; entitlementRevisionRef?: string; reason: string; operationalAuthorization: false }>;
-
-const TOKEN = /^\S+$/;
-const UTC = /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?Z$/;
-function token(value: unknown, path: string): string { if (typeof value !== "string" || !TOKEN.test(value)) throw new TypeError(`Invalid commercial contract at ${path}`); return value; }
-function time(value: unknown, path: string): string { if (typeof value !== "string" || !UTC.test(value) || !Number.isFinite(Date.parse(value))) throw new TypeError(`Invalid commercial contract at ${path}`); return value; }
-function epoch(value: string): number { return Date.parse(value); }
-
-export function commercialRevisionState(revision: CommercialRevision, at: string): CommercialFactState {
-  const instant = epoch(time(at, "$at"));
-  if (revision.currentness !== "CURRENT" || revision.population !== "COMPLETE") return revision.currentness === "STALE" ? "STALE" : "UNKNOWN";
-  const effectiveAt = epoch(time(revision.effectiveAt, "$revision.effectiveAt"));
-  if (instant < effectiveAt) return "NOT_YET_EFFECTIVE";
-  if (revision.effectiveUntil !== undefined && instant >= epoch(time(revision.effectiveUntil, "$revision.effectiveUntil"))) return "EXPIRED";
-  return "CURRENT";
-}
-
-export function selectCommercialRevision<T extends CommercialRevision>(revisions: readonly T[], id: string, scopeRef: string, at: string): Readonly<{ state: CommercialFactState; revision?: T }> {
-  const candidates = revisions.filter(r => r.id === id && r.scopeRef === scopeRef && commercialRevisionState(r, at) === "CURRENT");
-  if (candidates.length === 0) return { state: "UNKNOWN" };
-  const superseded = new Set(candidates.map(r => r.supersedesRevisionRef).filter((value): value is string => value !== undefined));
-  const leaves = candidates.filter(r => !superseded.has(r.revisionRef));
-  if (leaves.length !== 1) return { state: "CONFLICTED" };
-  const revision = leaves[0];
-  return revision === undefined ? { state: "UNKNOWN" } : { state: "CURRENT", revision };
-}
-
-export function bindCustomerContract(input: Readonly<{ contract: Omit<CustomerContract, "kind" | "priceRef" | "priceRevisionRef" | "priceProvenanceRef">; price: CommercialPrice; at: string }>): CustomerContract {
-  const priceState = commercialRevisionState(input.price, input.at);
-  if (priceState !== "CURRENT") throw new TypeError(`Cannot bind customer contract from ${priceState} price`);
-  if (input.contract.planRef !== input.price.planRef || input.contract.scopeRef !== input.price.scopeRef) throw new TypeError("Cannot bind customer contract to unrelated price");
-  token(input.contract.customerRef, "$contract.customerRef");
-  token(input.price.provenanceRef, "$price.provenanceRef");
-  return { ...input.contract, kind: "CONTRACT", priceRef: input.price.id, priceRevisionRef: input.price.revisionRef, priceProvenanceRef: input.price.provenanceRef };
-}
-
-export function evaluateCommercialEntitlement(input: Readonly<{ subscription: CommercialSubscription; entitlement: CommercialEntitlement; capabilityRef: string; at: string }>): CommercialEntitlementDecision {
-  const subscriptionState = commercialRevisionState(input.subscription, input.at);
-  const entitlementState = commercialRevisionState(input.entitlement, input.at);
-  if (subscriptionState !== "CURRENT" || entitlementState !== "CURRENT") return { state: "UNKNOWN", reason: `commercial-facts-${subscriptionState.toLowerCase()}-${entitlementState.toLowerCase()}`, operationalAuthorization: false };
-  if (input.subscription.state !== "ACTIVE") return { state: "NOT_ENTITLED", reason: `subscription-${input.subscription.state.toLowerCase()}`, operationalAuthorization: false };
-  if (input.entitlement.subscriptionRef !== input.subscription.id || input.entitlement.scopeRef !== input.subscription.scopeRef || input.entitlement.capabilityRef !== input.capabilityRef) return { state: "NOT_ENTITLED", reason: "scope-or-reference-mismatch", operationalAuthorization: false };
-  if (input.entitlement.grantState !== "GRANTED") return { state: "NOT_ENTITLED", entitlementRevisionRef: input.entitlement.revisionRef, reason: "entitlement-revoked", operationalAuthorization: false };
-  return { state: "ENTITLED", entitlementRevisionRef: input.entitlement.revisionRef, reason: "qualified-commercial-grant", operationalAuthorization: false };
-}
-
-export function validateCommercialRevision(revision: CommercialRevision): CommercialRevision {
-  token(revision.id, "$revision.id"); token(revision.revisionRef, "$revision.revisionRef"); token(revision.scopeRef, "$revision.scopeRef"); token(revision.provenanceRef, "$revision.provenanceRef"); time(revision.effectiveAt, "$revision.effectiveAt");
-  if (revision.effectiveUntil !== undefined && epoch(time(revision.effectiveUntil, "$revision.effectiveUntil")) <= epoch(revision.effectiveAt)) throw new TypeError("Invalid commercial contract at $revision.effectiveUntil");
-  if (revision.supersedesRevisionRef !== undefined) token(revision.supersedesRevisionRef, "$revision.supersedesRevisionRef");
-  return revision;
-}
+const TOKEN=/^\S+$/; const UTC=/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?Z$/;
+function token(value:unknown,path:string):string{if(typeof value!=="string"||!TOKEN.test(value))throw new TypeError(`Invalid commercial contract at ${path}`);return value;} function time(value:unknown,path:string):string{if(typeof value!=="string"||!UTC.test(value)||!Number.isFinite(Date.parse(value)))throw new TypeError(`Invalid commercial contract at ${path}`);return value;} function epoch(value:string):number{return Date.parse(value);}
+export function commercialRevisionState(revision:CommercialRevision,at:string):CommercialFactState{const instant=epoch(time(at,"$at"));if(revision.currentness!=="CURRENT"||revision.population!=="COMPLETE")return revision.currentness==="STALE"?"STALE":"UNKNOWN";const start=epoch(time(revision.effectiveAt,"$revision.effectiveAt"));if(instant<start)return"NOT_YET_EFFECTIVE";if(revision.effectiveUntil!==undefined&&instant>=epoch(time(revision.effectiveUntil,"$revision.effectiveUntil")))return"EXPIRED";return"CURRENT";}
+export function selectCommercialRevision<T extends CommercialRevision>(revisions:readonly T[],id:string,scopeRef:string,at:string):Readonly<{state:CommercialFactState;revision?:T}>{const candidates=revisions.filter(r=>r.id===id&&r.scopeRef===scopeRef&&commercialRevisionState(r,at)==="CURRENT");if(candidates.length===0)return{state:"UNKNOWN"};const superseded=new Set(candidates.map(r=>r.supersedesRevisionRef).filter((v):v is string=>v!==undefined));const leaves=candidates.filter(r=>!superseded.has(r.revisionRef));if(leaves.length!==1)return{state:"CONFLICTED"};const revision=leaves[0];return revision===undefined?{state:"UNKNOWN"}:{state:"CURRENT",revision};}
+export function bindCustomerContract(input:Readonly<{contract:Omit<CustomerContract,"kind"|"priceRef"|"priceRevisionRef"|"priceProvenanceRef">;price:CommercialPrice;at:string}>):CustomerContract{const s=commercialRevisionState(input.price,input.at);if(s!=="CURRENT")throw new TypeError(`Cannot bind customer contract from ${s} price`);if(input.contract.planRef!==input.price.planRef||input.contract.scopeRef!==input.price.scopeRef)throw new TypeError("Cannot bind customer contract to unrelated price");token(input.contract.customerRef,"$contract.customerRef");token(input.price.provenanceRef,"$price.provenanceRef");return{...input.contract,kind:"CONTRACT",priceRef:input.price.id,priceRevisionRef:input.price.revisionRef,priceProvenanceRef:input.price.provenanceRef};}
+export function evaluateCommercialEntitlement(input:Readonly<{subscription:CommercialSubscription;entitlement:CommercialEntitlement;capabilityRef:string;at:string}>):CommercialEntitlementDecision{const s=commercialRevisionState(input.subscription,input.at),e=commercialRevisionState(input.entitlement,input.at);if(s!=="CURRENT"||e!=="CURRENT")return{state:"UNKNOWN",reason:`commercial-facts-${s.toLowerCase()}-${e.toLowerCase()}`,operationalAuthorization:false};if(input.subscription.state!=="ACTIVE")return{state:"NOT_ENTITLED",reason:`subscription-${input.subscription.state.toLowerCase()}`,operationalAuthorization:false};if(input.entitlement.subscriptionRef!==input.subscription.id||input.entitlement.scopeRef!==input.subscription.scopeRef||input.entitlement.capabilityRef!==input.capabilityRef)return{state:"NOT_ENTITLED",reason:"scope-or-reference-mismatch",operationalAuthorization:false};if(input.entitlement.grantState!=="GRANTED")return{state:"NOT_ENTITLED",entitlementRevisionRef:input.entitlement.revisionRef,reason:"entitlement-revoked",operationalAuthorization:false};return{state:"ENTITLED",entitlementRevisionRef:input.entitlement.revisionRef,reason:"qualified-commercial-grant",operationalAuthorization:false};}
+export function qualifyUsageEvidence(evidence:CommercialUsageEvidence,at:string):UsageQualification{if(commercialRevisionState(evidence,at)!=="CURRENT")return{state:"UNKNOWN",reason:"usage-evidence-not-current"};if(evidence.stage!=="MEASURED")return{state:"UNKNOWN",reason:"expected-measured-evidence"};return{state:"QUALIFIED",evidence:{...evidence,revisionRef:`${evidence.revisionRef}:qualified`,stage:"QUALIFIED",predecessorRevisionRef:evidence.revisionRef,supersedesRevisionRef:undefined},reason:"measurement-qualified"};}
+export function advanceUsageEvidence(input:Readonly<{evidence:CommercialUsageEvidence;to:Exclude<UsageEvidenceState,"MEASURED"|"QUALIFIED"|"UNKNOWN">;revisionRef:string;provenanceRef:string;priceRevisionRef?:string;amountMinor?:number;currency?:string;providerEvidenceRef?:string}>):CommercialUsageEvidence{const order:UsageEvidenceState[]=["MEASURED","QUALIFIED","RATED","CHARGED","INVOICED","PAID"];if(input.evidence.currentness!=="CURRENT"||input.evidence.population!=="COMPLETE")throw new TypeError("Cannot strengthen partial or unknown commercial evidence");if(order.indexOf(input.to)!==order.indexOf(input.evidence.stage)+1)throw new TypeError("Commercial evidence stages cannot be skipped or conflated");return{...input.evidence,stage:input.to,revisionRef:token(input.revisionRef,"$revisionRef"),provenanceRef:token(input.provenanceRef,"$provenanceRef"),predecessorRevisionRef:input.evidence.revisionRef,priceRevisionRef:input.priceRevisionRef??input.evidence.priceRevisionRef,amountMinor:input.amountMinor??input.evidence.amountMinor,currency:input.currency??input.evidence.currency,providerEvidenceRef:input.providerEvidenceRef};}
+export function correctUsageEvidence(input:Readonly<{evidence:CommercialUsageEvidence;revisionRef:string;provenanceRef:string;reason:string}>):CommercialUsageEvidence{return{...input.evidence,revisionRef:token(input.revisionRef,"$revisionRef"),provenanceRef:token(input.provenanceRef,"$provenanceRef"),correctionOfRevisionRef:input.evidence.revisionRef,predecessorRevisionRef:input.evidence.predecessorRevisionRef,correctionReason:token(input.reason,"$reason")};}
+export function validateCommercialRevision(revision:CommercialRevision):CommercialRevision{token(revision.id,"$revision.id");token(revision.revisionRef,"$revision.revisionRef");token(revision.scopeRef,"$revision.scopeRef");token(revision.provenanceRef,"$revision.provenanceRef");time(revision.effectiveAt,"$revision.effectiveAt");if(revision.effectiveUntil!==undefined&&epoch(time(revision.effectiveUntil,"$revision.effectiveUntil"))<=epoch(revision.effectiveAt))throw new TypeError("Invalid commercial contract at $revision.effectiveUntil");if(revision.supersedesRevisionRef!==undefined)token(revision.supersedesRevisionRef,"$revision.supersedesRevisionRef");return revision;}
