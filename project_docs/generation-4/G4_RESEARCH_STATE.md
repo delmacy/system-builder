@@ -78,6 +78,11 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Append-only transparency != non-equivocation by itself`.
 - `Liability accountability != holder identity disclosure`.
 - `Duplicate observation != proven holder abuse`.
+- `k-of-n signatures != k independent trust failures`; witness quorum security depends on declared correlated-failure assumptions.
+- `New witness policy valid != old/new histories joined`; witness-generation rotation needs qualified transition continuity.
+- `Checkpoint non-equivocation != witness-policy non-equivocation`; policy lineage is a separate trust/currentness surface.
+- `Quorum-valid checkpoint != sufficiently current checkpoint`; offline validity and freshness are independent.
+- `Witness consistency approval != semantic/content monitoring`; witnessing does not confer business authority.
 
 ## Research progression
 
@@ -101,34 +106,35 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** twenty-two material deep-evidence consolidations are represented across the family artifacts, now extending through federated anonymous-budget conservation into privacy-preserving issuer accountability/compromise containment. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** twenty-three material deep-evidence consolidations are represented across the family artifacts, now extending through privacy-preserving issuer accountability into witness/log governance and correlated-compromise containment. `RESEARCH_ACTIVE`, not saturated.
 
 ## Latest material consolidation — 2026-09-19
 
-### Privacy-preserving issuer accountability & compromise containment
+### Witness/log governance & correlated compromise under autonomous federation
 
-Evidence classes: IETF RFC 9576/RFC 9578 Privacy Pass; RFC 9162 Certificate Transparency v2; C2SP transparency-log witness/cosignature work; compact e-cash research; prior G4 hierarchical-rights, evidence-minimal, privacy/collusion, abuse-governance and anonymous-budget findings.
+Evidence classes: C2SP tlog witness/cosignature/policy/proof specifications; RFC 9162 Certificate Transparency v2; Transparency.dev witness implementations/operations; CoSi decentralized witness-cosigning research; Mog/gossip client-audit research; prior G4 issuer-accountability, privacy/collusion, offline-security and evidence-minimal findings.
 
 Material delta:
 
-- separated preventive conservation from retrospective detection: transparency/commitments can expose violations but cannot retroactively preserve a hard budget;
-- decomposed issuer accountability into authorization, conservation, completeness and non-equivocation propositions;
-- established `Aggregate arithmetic proof valid != issuance ledger complete`: arithmetic over issuer-selected commitments needs a separately qualified completeness property;
-- established `Append-only transparency != non-equivocation by itself`: isolated verifiers may accept distinct locally consistent histories until checkpoints cross an independent observer/witness boundary;
-- classified anti-equivocation mechanisms by observer assumptions rather than treating one global log as mandatory;
-- established `Liability accountability != holder identity disclosure`: aggregate outstanding liability/checkpoints may be governed without publishing subject-level issuance histories;
-- added exculpability: duplicate redemption/effect observation is not sufficient evidence of malicious holder double spending;
-- separated compromise, revocation-effective and observer-knowledge times and preserved outstanding liability across issuer/key rotation;
-- required rotation/compromise containment not to widen holder correlation silently;
-- retained runtime autonomy: offline redemption/currentness behavior follows declared checkpoint/security horizons rather than live Builder reachability.
+- established `k-of-n signatures != k independent trust failures`: quorum count alone does not prove organizational, administrative, software, key-custody, deployment or network independence;
+- narrowed witness semantics: a cosignature proves consistency with that witness's qualified remembered frontier, not global latest state, completeness, business correctness or issuer conservation;
+- made correlated compromise an explicit bound of the anti-equivocation guarantee rather than an assumed-away failure;
+- separated fork prevention under a declared quorum-compromise bound, later fork detection on observer intersection, and global-latest knowledge;
+- established `New witness policy valid != old/new histories joined`: witness rotation needs overlap, bridge evidence, independent anchoring or explicit quarantine/incompatibility;
+- established `Checkpoint non-equivocation != witness-policy non-equivocation`: policy distribution/lineage itself can split-brain;
+- established `Quorum-valid checkpoint != sufficiently current checkpoint`: timestamp/freshness/currentness is application policy and remains representable as stale/UNKNOWN during partition;
+- preserved runtime autonomy through locally durable policy/frontier/freshness state and bounded stale behavior rather than live Builder/witness dependency per effect;
+- separated witness availability, witness compromise and monitor semantics;
+- added witness policy/cosignature topology to the privacy correlation budget;
+- preserved `Logical Exchange Plane != one global transparency service`.
 
-No credential scheme, zero-knowledge/range-proof system, commitment construction, transparency log, witness topology, threshold protocol, consensus service, issuer implementation or provider was selected.
+No transparency log, witness network, quorum algorithm, consensus protocol, gossip implementation, hardware witness, confidential-computing platform, cloud/HSM/KMS, external anchor or provider was selected.
 
-Highest-value remaining gap: **witness/log governance and correlated compromise under autonomous federation** — determine quorum/witness independence assumptions, witness rotation and split-brain behavior, privacy leakage from checkpoint topology, how offline runtimes decide which checkpoint/witness set is sufficiently current, and which anti-equivocation guarantees survive correlated compromise or long partitions without making one global transparency service a runtime dependency.
+Highest-value remaining gap: **anti-equivocation policy composition across multiple autonomous transparency domains** — determine how capability-local, issuer-local and security/update evidence compose when their witness policies, currentness horizons and partitions differ; prevent `all green locally` from being mistaken for globally compatible state; and define reconciliation when one domain forks or becomes stale while others continue safely.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; and federated anonymous budget conservation/Sybil resistance.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; and privacy-preserving issuer accountability/compromise containment.
 
 ## Non-goals
 
@@ -137,7 +143,7 @@ Detailed durable evidence remains in the family documents indexed by `README.md`
 - no workflow/saga/migration engine adoption decision;
 - no property-testing/deterministic-simulation/checker adoption decision;
 - no global serial-history/linearizability or global transaction requirement for all exchange interactions;
-- no CRDT/escrow/reservation/anonymous-credential/nullifier/threshold-issuance/transparency-log adoption decision;
+- no CRDT/escrow/reservation/anonymous-credential/nullifier/threshold-issuance/transparency-log/witness-network adoption decision;
 - no central allocator, universal identity graph or mandatory global witness service requirement;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
