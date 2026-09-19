@@ -46,14 +46,15 @@ export function normalizePrivacyPopulation(input: unknown): PrivacyPopulation {
 
 export function assessPrivacyDisposition(population: PrivacyPopulation, at: string, observedResidencyRef?: string): PrivacyDispositionAssessment {
   const instant=Date.parse(time(at,"$at"));
+  const result=(state:PrivacyDispositionState,reasons:readonly string[]):PrivacyDispositionAssessment=>({populationId:population.populationId,policyRef:population.policyRef,policyRevisionRef:population.policyRevisionRef,state,reasons,residualPopulationRefs:population.residualPopulationRefs});
+  if(population.legalHoldRefs.length>0) return result("BLOCKED",["LEGAL_HOLD"]);
+  if(instant<Date.parse(population.retainedUntil)) return result("BLOCKED",["RETENTION_ACTIVE"]);
+  if(observedResidencyRef!==undefined&&!population.residencyRefs.includes(observedResidencyRef)) return result("BLOCKED",["RESIDENCY_VIOLATION"]);
   const reasons:string[]=[];
   if(population.inventoryCoverage!=="COMPLETE") reasons.push(`INVENTORY_${population.inventoryCoverage}`);
   if(population.migrationCoverage!=="COMPLETE") reasons.push(`MIGRATION_${population.migrationCoverage}`);
   if(population.residualPopulationRefs.length>0) reasons.push("RESIDUAL_POPULATIONS");
   if(observedResidencyRef===undefined) reasons.push("RESIDENCY_UNKNOWN");
-  else if(!population.residencyRefs.includes(observedResidencyRef)) reasons.push("RESIDENCY_VIOLATION");
-  if(reasons.length>0) return {populationId:population.populationId,policyRef:population.policyRef,policyRevisionRef:population.policyRevisionRef,state:"INDETERMINATE",reasons,residualPopulationRefs:population.residualPopulationRefs};
-  if(population.legalHoldRefs.length>0) return {populationId:population.populationId,policyRef:population.policyRef,policyRevisionRef:population.policyRevisionRef,state:"BLOCKED",reasons:["LEGAL_HOLD"],residualPopulationRefs:[]};
-  if(instant<Date.parse(population.retainedUntil)) return {populationId:population.populationId,policyRef:population.policyRef,policyRevisionRef:population.policyRevisionRef,state:"BLOCKED",reasons:["RETENTION_ACTIVE"],residualPopulationRefs:[]};
-  return {populationId:population.populationId,policyRef:population.policyRef,policyRevisionRef:population.policyRevisionRef,state:"ELIGIBLE",reasons:[],residualPopulationRefs:[]};
+  if(reasons.length>0) return result("INDETERMINATE",reasons);
+  return result("ELIGIBLE",[]);
 }
