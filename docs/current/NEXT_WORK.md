@@ -3,10 +3,10 @@
 Generation 2 remains rolling-wave and dependency-safe.
 
 ## Canonically closed predecessors
-G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Planning & Materialization integrated via PR #839. Construction A / `G2-WBS-19` is integrated through TASK-566. TASK-566 closed cumulative governance/privacy Product Proof via PR #850 as `main@02f87b5befd1b564447c5b8da6adec55135c7756`; its exact head `6f9fa97f067eda9d80fb7e74ce9401e19c5c40b2` passed Deterministic CI #2009 and Heavy Product Tests #1662/#1664, while Merge Candidate CI #239 separately passed for the then-current synthetic merge candidate.
+G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Planning & Materialization integrated via PR #839. Construction A / `G2-WBS-19` is integrated through TASK-566. TASK-566 closed cumulative governance/privacy Product Proof via PR #850; its exact head `6f9fa97f067eda9d80fb7e74ce9401e19c5c40b2` passed Deterministic CI #2009 and Heavy Product Tests #1662/#1664, while Merge Candidate CI #239 separately passed for the then-current synthetic merge candidate. Post-Construction-A authority reconciliation integrated via PR #851 as fresh `main@c80f41d3fa62f280f4d466d82bc06a85c898eb16`; PR #851 exact head `0af32399ad338fe1572322cd3717d15fccf3dcba` passed Deterministic CI #2011 and Heavy Product Tests #1665/#1669, while Merge Candidate CI #241 separately passed.
 
 ## Current executable gate
-Construction A is complete. Fresh-main revalidation promotes G2-WBS-20 / Construction B to the next planning/materialization gate. Materialize Construction B from fresh `main@02f87b5befd1b564447c5b8da6adec55135c7756` using the exact G2 planning authority and package boundaries before executing any Construction B TASK.
+Construction A is complete. Fresh-main revalidation promotes G2-WBS-20 / Construction B to the next planning/materialization gate. Materialize Construction B from fresh `main@c80f41d3fa62f280f4d466d82bc06a85c898eb16` using the exact G2 planning authority and package boundaries before executing any Construction B TASK.
 
 Construction B owns bounded commercial, monetization and entitlement semantics: preserve product/offer/plan/price/contract/subscription/entitlement/meter/usage/rating/charge/invoice/payment distinctions, effective-dated pricing and correction/rerating lineage.
 
