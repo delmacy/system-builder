@@ -105,6 +105,21 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Counterexample absence != proof` unless translation/search completeness is established for the declared scope.
 - `Formalizable predicate != shared business ownership`; capability-owned business semantics remain capability-owned.
 
+### Proof-carrying policy / runtime verification boundaries
+
+- `Proof verification != re-solving`; consumer-side proof checking is distinct from replaying the producer's solver search.
+- `Producer signature/provenance != semantic proof`; origin/authorization evidence and derivational evidence are separate.
+- `Proof valid != translation correct`; a sound checker can validate a proof of a mistranslated proposition.
+- `Proof-to-policy binding != proof-to-policy-bytes-only binding`; schema, predicate, guarantee and engine-semantic dependencies participate.
+- `Proof bytes parse successfully != proof semantics understood`; calculus/rule-set/theory versions are explicit compatibility dimensions.
+- `Proof file accepted by tooling != fully independently justified derivation`; trusted/hole/unsupported steps remain visible in the assurance claim.
+- `Separate process != independent verification boundary`; a checker that reuses the same unqualified translator/solver remains in the same effective TCB.
+- `Producer/checker separation without trust-root separation != compromise containment`.
+- `Offline proof verification != infinite proof/dependency currentness`; verifier/security/schema/predicate horizons remain independent.
+- `Proof replay != proof requalification`; changed dependencies require invalidation or a new qualification.
+- `Proof semantically valid != operationally admissible under every runtime budget`; proof checking needs bounded CPU/memory/size/depth profiles.
+- `Proof artifact != policy authority/business truth/currentness authority`; proofs remain evidence about identified canonical/contract artifacts.
+
 ## Research progression
 
 ```text
@@ -127,36 +142,39 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** twenty-six material deep-evidence consolidations are represented across the family artifacts, now extending multi-domain evidence composition through composition-policy lifecycle into semantic non-downgrade/policy-diff proof. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** twenty-seven material deep-evidence consolidations are represented across the family artifacts, now extending semantic non-downgrade/policy-diff proof into proof-carrying policy and autonomous runtime verification. `RESEARCH_ACTIVE`, not saturated.
 
 ## Latest material consolidation — 2026-09-19
 
-### Semantic non-downgrade / policy-diff proof
+### Proof-carrying exchange policy / runtime verification boundary
 
-Evidence classes: Cedar policy language/reference and validation soundness documentation; Amazon Science SymCert verified SMT-based Cedar analyses (FMCAD 2026); Open Policy Agent partial-evaluation and translatable-fragment documentation; USENIX OSDI 2022 Blockaid; prior G4 composition-policy lifecycle, multi-domain evidence, contract-compatibility and security-floor research.
+Evidence classes: Necula Proof-Carrying Code and proof-carrying code with untrusted proof rules; cvc5 proof production plus Alethe/LFSC external proof formats/checkers; LFSC proof-signature compatibility; Cedar SymCert/SymCC verified symbolic translation; CompCert verified-compilation lessons; prior G4 semantic policy-diff, composition-policy lifecycle, security-floor and runtime-autonomy research.
 
 Material delta:
 
-- defined restrictive/expansive/equivalent/incomparable as implication relations over a declared request/state universe rather than syntax/AST edit size;
-- established that SMT/SAT results prove properties only inside the modeled semantics and assumptions; a naked `UNSAT` is not universal business/security preservation;
-- separated schema/type validation from semantic transition proof;
-- made policy-set combining/default/error semantics part of the comparison rather than classifying rules independently;
-- established a mechanically provable subset boundary: unknown/custom predicates degrade to conditional/unproven instead of being ignored or fabricated as equivalent;
-- promoted `CONDITIONALLY_SAFE` to a first-class transition result carrying prerequisite evidence such as security floors/provider qualification;
-- established that proof scope includes language semantics, schema, request universe, custom-predicate contracts, security/authority/currentness assumptions and time/error semantics;
-- established that same allow/deny set does not prove preservation of the guarantee vector; security/authority/currentness quality can downgrade while happy-path decisions remain unchanged;
-- treated concrete counterexamples as durable proof/review artifacts and distinguished `no counterexample found` from a completeness-backed proof;
-- preserved capability ownership of business predicates and required explicit incompatibility rather than centralizing domain semantics into the shared kernel;
-- treated policy-engine migration and proof caching as semantic dependency problems requiring conformance/invalidation evidence;
-- preserved runtime autonomy: qualified proof/policy artifacts may be verified locally within declared horizons without live Builder/solver dependency.
+- separated proof verification from re-solving and from producer signatures/provenance attestations;
+- defined the proof-carrying value proposition as replacing trust in a large producer/solver stack with a smaller qualified consumer verifier only for the covered formal subset;
+- established that a portable proof must bind the exact proposition plus policy, schema, custom-predicate, guarantee, time/error and other semantic dependencies, not policy bytes alone;
+- promoted policy-to-formal-model translation correctness to a first-class proof boundary; a valid proof of a mistranslated formula is not a policy proof;
+- distinguished verified translation, translation-validation evidence, conformance/differential evidence and producer attestation as different assurance classes;
+- made proof language/calculus, rule/signature version and theory profile explicit compatibility dimensions;
+- required trusted/hole/unsupported proof steps to remain visible rather than being silently upgraded to fully independent verification;
+- kept verifier bugs, verifier version skew and verifier security retirement inside the TCB/currentness model;
+- established that producer compromise containment requires semantic and trust-root independence between producer and verifier, not merely separate processes;
+- preserved capability ownership of business predicates and prohibited centralization merely to make proof generation convenient;
+- preserved runtime autonomy through local verification of already-qualified artifacts within declared dependency/currentness horizons;
+- separated proof replay after restart from requalification after semantic/security dependency changes;
+- decomposed portability into proposition, semantic-model, proof-language and verifier portability;
+- added proof-check resource budgets as operational semantics and kept resource rejection distinct from proof invalidity/abuse attribution;
+- retained proof artifacts as evidence/projections rather than canonical policy/business/currentness authority.
 
-No Cedar/Rego/OPA adoption, SMT solver, theorem prover, policy engine, proof format, gateway, broker or provider was selected.
+No policy language, solver, theorem prover, proof format, proof checker, compiler, gateway, broker or provider was selected.
 
-Highest-value remaining gap: **proof-carrying exchange policy and runtime verification boundary** — determine the minimal portable proof/evidence artifact a runtime needs to verify a policy transition locally without trusting the Builder or a specific solver; distinguish proof replay/verification from re-solving; qualify proof-engine/compiler bugs and version skew; and determine when proof-carrying artifacts materially reduce runtime trust versus merely moving trust into the proof producer/compiler.
+Highest-value remaining gap: **proof-verifier trust continuity and diverse-verifier equivalence** — determine how verifier/kernel upgrades are authorized and anti-rollback protected; whether independently implemented verifiers can be qualified as accepting the same proof language/proposition without circular reliance on one common implementation; how differential verification, verified kernels, reproducible builds and proof corpora contribute; and how runtimes transition between verifier generations without requiring a permanent old verifier or accepting proofs under an unqualified new interpretation.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; and composition-policy lifecycle/downgrade/rollback safety.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; and semantic non-downgrade/policy-diff proof.
 
 ## Non-goals
 
@@ -167,7 +185,7 @@ Detailed durable evidence remains in the family documents indexed by `README.md`
 - no global serial-history/linearizability or global transaction requirement for all exchange interactions;
 - no CRDT/escrow/reservation/anonymous-credential/nullifier/threshold-issuance/transparency-log/witness-network adoption decision;
 - no central allocator, universal identity graph or mandatory global witness/composition service requirement;
-- no Cedar/Rego/OPA/SMT/theorem-prover/policy-engine adoption decision;
+- no Cedar/Rego/OPA/SMT/theorem-prover/policy-engine/proof-format/proof-checker adoption decision;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
