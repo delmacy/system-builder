@@ -84,6 +84,16 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Quorum-valid checkpoint != sufficiently current checkpoint`; offline validity and freshness are independent.
 - `Witness consistency approval != semantic/content monitoring`; witnessing does not confer business authority.
 
+### Multi-domain evidence-composition boundaries
+
+- `All domains locally valid != cross-domain compatible state`; a boolean AND over independently green proofs is insufficient.
+- `Cross-domain composition != synthetic global revision number`; autonomous proof domains retain independent lineage/currentness.
+- `Domain checkpoint valid != composition predicate satisfied`; evolution evidence and cross-domain admissibility are distinct proof objects.
+- `Multiple valid transparency domains != one atomic semantic state`; redundancy/diversity is not semantic atomicity.
+- `One stale/forked domain != every domain invalid`; blast radius follows declared proof dependencies.
+- `Evidence aggregation != semantic compatibility fabrication`; gateway/adapter mediation cannot invent missing compatibility.
+- `Joint hard invariant != global transaction requirement`; preventive coordination is scoped to the named invariant.
+
 ## Research progression
 
 ```text
@@ -106,35 +116,36 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** twenty-three material deep-evidence consolidations are represented across the family artifacts, now extending through privacy-preserving issuer accountability into witness/log governance and correlated-compromise containment. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** twenty-four material deep-evidence consolidations are represented across the family artifacts, now extending witness/log governance into composition of multiple autonomous evidence/transparency domains. `RESEARCH_ACTIVE`, not saturated.
 
 ## Latest material consolidation — 2026-09-19
 
-### Witness/log governance & correlated compromise under autonomous federation
+### Multi-domain evidence / anti-equivocation composition
 
-Evidence classes: C2SP tlog witness/cosignature/policy/proof specifications; RFC 9162 Certificate Transparency v2; Transparency.dev witness implementations/operations; CoSi decentralized witness-cosigning research; Mog/gossip client-audit research; prior G4 issuer-accountability, privacy/collusion, offline-security and evidence-minimal findings.
+Evidence classes: C2SP checkpoint/policy/witness/mirror specifications; RFC 9162 Certificate Transparency v2; The Update Framework snapshot/timestamp metadata model; Sigstore/Rekor sharding/security documentation; prior G4 witness-governance, issuer-accountability, offline-security, in-flight-evolution and evidence-reconciliation findings.
 
 Material delta:
 
-- established `k-of-n signatures != k independent trust failures`: quorum count alone does not prove organizational, administrative, software, key-custody, deployment or network independence;
-- narrowed witness semantics: a cosignature proves consistency with that witness's qualified remembered frontier, not global latest state, completeness, business correctness or issuer conservation;
-- made correlated compromise an explicit bound of the anti-equivocation guarantee rather than an assumed-away failure;
-- separated fork prevention under a declared quorum-compromise bound, later fork detection on observer intersection, and global-latest knowledge;
-- established `New witness policy valid != old/new histories joined`: witness rotation needs overlap, bridge evidence, independent anchoring or explicit quarantine/incompatibility;
-- established `Checkpoint non-equivocation != witness-policy non-equivocation`: policy distribution/lineage itself can split-brain;
-- established `Quorum-valid checkpoint != sufficiently current checkpoint`: timestamp/freshness/currentness is application policy and remains representable as stale/UNKNOWN during partition;
-- preserved runtime autonomy through locally durable policy/frontier/freshness state and bounded stale behavior rather than live Builder/witness dependency per effect;
-- separated witness availability, witness compromise and monitor semantics;
-- added witness policy/cosignature topology to the privacy correlation budget;
-- preserved `Logical Exchange Plane != one global transparency service`.
+- established `All domains locally valid != cross-domain compatible state`: independently valid/current capability, issuer, security and authority evidence can still be mutually incompatible;
+- replaced a synthetic global revision hypothesis with a qualified evidence vector plus explicit, revisioned compatibility predicates owned by the relevant interaction/capability contract;
+- separated domain checkpoint/evolution proof from cross-domain composition proof;
+- used TUF snapshot only as evidence for an intentionally authored consistent-set relation, while rejecting one global snapshot/transaction as the default across autonomous domains;
+- established `Multiple valid transparency domains != one atomic semantic state`: multiple logs can provide evidence diversity without semantic atomicity;
+- kept currentness domain-relative and interaction-contract-relative instead of collapsing freshness into one timestamp;
+- established that failure blast radius follows declared proof-dependency edges, so one stale/forked domain does not automatically invalidate unrelated capabilities;
+- preserved `UNKNOWN`, effective/observation time and historical evidence vectors during reconnect/reconciliation rather than rewriting history to latest state;
+- established that cross-domain compatibility may be directional and non-transitive;
+- limited preventive joint coordination to transitions that actually protect a named hard invariant;
+- preserved runtime autonomy through cached qualified evidence/composition policy within declared horizons rather than live Builder/global-composition-service dependence;
+- preserved `Logical Exchange Plane != one global transparency/composition service` and `Shared primitives != shared business ownership`.
 
-No transparency log, witness network, quorum algorithm, consensus protocol, gossip implementation, hardware witness, confidential-computing platform, cloud/HSM/KMS, external anchor or provider was selected.
+No transparency log, witness network, TUF/Sigstore adoption, composition database, consensus protocol, global snapshot service, broker, service mesh, gateway or provider was selected.
 
-Highest-value remaining gap: **anti-equivocation policy composition across multiple autonomous transparency domains** — determine how capability-local, issuer-local and security/update evidence compose when their witness policies, currentness horizons and partitions differ; prevent `all green locally` from being mistaken for globally compatible state; and define reconciliation when one domain forks or becomes stale while others continue safely.
+Highest-value remaining gap: **composition-policy lifecycle and downgrade/rollback safety** — determine how composition predicates/manifests themselves evolve across autonomous runtimes, how old/new generations overlap without admitting forbidden combinations, how emergency security changes supersede cached composition rules, and how to preserve offline autonomy without allowing stale composition policy to bypass newer domain security floors.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; and privacy-preserving issuer accountability/compromise containment.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; and witness/log governance/correlated compromise.
 
 ## Non-goals
 
@@ -144,7 +155,7 @@ Detailed durable evidence remains in the family documents indexed by `README.md`
 - no property-testing/deterministic-simulation/checker adoption decision;
 - no global serial-history/linearizability or global transaction requirement for all exchange interactions;
 - no CRDT/escrow/reservation/anonymous-credential/nullifier/threshold-issuance/transparency-log/witness-network adoption decision;
-- no central allocator, universal identity graph or mandatory global witness service requirement;
+- no central allocator, universal identity graph or mandatory global witness/composition service requirement;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
