@@ -27,8 +27,7 @@ These families may later be deduplicated or recomposed. A research family is not
 
 ### Constitutional / product boundaries
 
-- `G3 semantic decision != G4 technology binding`.
-- `Research candidate != implementation authority`.
+- `G3 semantic decision != G4 technology binding`; `Research candidate != implementation authority`.
 - `Polyglot-ready != Polyglot-from-day-one`; `Measured bottleneck -> qualified specialization candidate`.
 - `Builder != Runtime`; published client runtimes remain autonomous.
 - `Projection/index/cache/vector/telemetry != canonical truth`; `AI inference != authority`.
@@ -44,7 +43,7 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Trace/correlation != business causation != authority`; `Cross-capability reference != ownership transfer`.
 - `Workflow progress != transport progress`; `Compensation != rollback/time reversal`.
 - `UNKNOWN` is an evidence-domain disposition, not permission to guess.
-- `One interaction kind != one universal linearization point`; admission, durability, authoritative effect, caller observation, settlement and convergence remain distinct unless proven equivalent.
+- `One interaction kind != one universal linearization point`.
 - `Safety != liveness`; `Convergence != invariant preservation`; `Commutativity is contract/invariant-relative`.
 - Coordination scope follows the invariant; reservation/escrow is not a universal transaction replacement.
 - `Idempotency != fencing`; `Target-local atomicity != cross-domain atomicity`.
@@ -66,18 +65,19 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Proof continuity != global identity continuity`; `Dedup scope != global correlation scope`.
 - `Proof of predicate != disclosure of source record`; `Federation != trust-domain collapse`.
 - `Cryptographic key rotation != semantic identity rotation != correlation-reference rotation`.
-- `Cryptographically unlinkable != operationally unlinkable`; timing, routing, trace, size, issuer/configuration and status-query metadata remain correlation surfaces.
-- Privacy guarantees require explicit observer/collusion assumptions; payload privacy does not imply telemetry privacy.
+- `Cryptographically unlinkable != operationally unlinkable`; privacy guarantees require explicit observer/collusion assumptions.
 - `Backpressure != abuse attribution`; rate, quota, cost, concurrency and capacity are distinct dimensions.
 - `Accountability for bounded resource consumption != global subject linkability`.
-- `Unlinkable presentations != unlimited presentations`; budget metadata itself belongs to the correlation budget.
 - `No token replay != no Sybil/grant multiplication`; issuance/admission and redemption/spend are separate proof domains.
-- `Anonymous right != unaccounted right`; offline spend remains bounded by conserved delegated capacity.
-- `Privacy mechanism != conservation mechanism`; unlinkable grants still need qualified issuance authority against a shared invariant.
-- `Anonymous redemption != anonymous minting authority`; offline issuers consume predelegated issuance authority rather than future global budget.
-- `Per-issuer uniqueness != federation-wide uniqueness`; anti-Sybil claims must name the uniqueness proposition and scope actually proven.
-- `Token cryptographically valid != issuer remained within issuance authority`; issuer compromise/over-minting is independent from token-format validity.
-- `UNKNOWN issuance != free budget`; ambiguous allocation/grant capacity is consumed or quarantined until settlement.
+- `Privacy mechanism != conservation mechanism`; `Anonymous redemption != anonymous minting authority`.
+- `Per-issuer uniqueness != federation-wide uniqueness`; anti-Sybil claims must name the proposition and scope actually proven.
+- `Token cryptographically valid != issuer remained within issuance authority`.
+- `UNKNOWN issuance != free budget`.
+- `After-the-fact auditability != pre-issuance conservation`.
+- `Aggregate arithmetic proof valid != issuance ledger complete`.
+- `Append-only transparency != non-equivocation by itself`.
+- `Liability accountability != holder identity disclosure`.
+- `Duplicate observation != proven holder abuse`.
 
 ## Research progression
 
@@ -94,43 +94,41 @@ G3 CLOSED/FROZEN
 
 ## Current maturity
 
-- **Data/Persistence/Access:** authorization-aware access deeply consolidated; long-running revocation/currentness and empirical leakage tests remain open. `RESEARCH_ACTIVE`, not saturated.
-- **Data Treatment:** temporal/streaming/replay, temporal identity/interpretation revision and retention/erasure/reproducibility consolidated. `RESEARCH_ACTIVE`, not saturated.
-- **Infrastructure Engineering:** decomposed health/control-loop safety and leadership/lease/fencing/split-brain coordination consolidated. `RESEARCH_ACTIVE`, not saturated.
-- **Computational Core/Performance:** workload envelopes, TypeScript/Node baseline instrumentation, worker/serialization boundaries, specialization crossover, native isolation and WASM qualification consolidated; representative SB empirical benchmarks remain absent. `RESEARCH_ACTIVE`, not saturated.
-- **Lifecycle/Continuous Improvement:** incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence consolidated. `RESEARCH_ACTIVE`, not saturated.
-- **Self-Hosting/Autonomic Evolution:** secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment consolidated. `RESEARCH_ACTIVE`, not saturated.
-- **Product UX/AI-native Builder:** semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads consolidated. `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** twenty-one material deep-evidence consolidations are represented across the family artifacts, progressing from exchange foundations and multidimensional compatibility through causal workflow, verification, effect composition, hierarchical rights, non-fenceable/heterogeneous effects, in-flight evolution, security retirement/offline floors, evidence-minimal reconciliation, privacy-preserving federation, collusion/metadata side channels, privacy-preserving abuse governance and federated anonymous budget conservation. `RESEARCH_ACTIVE`, not saturated.
+- **Data/Persistence/Access:** `RESEARCH_ACTIVE`, not saturated.
+- **Data Treatment:** `RESEARCH_ACTIVE`, not saturated.
+- **Infrastructure Engineering:** `RESEARCH_ACTIVE`, not saturated.
+- **Computational Core/Performance:** representative SB empirical benchmarks remain absent. `RESEARCH_ACTIVE`, not saturated.
+- **Lifecycle/Continuous Improvement:** `RESEARCH_ACTIVE`, not saturated.
+- **Self-Hosting/Autonomic Evolution:** `RESEARCH_ACTIVE`, not saturated.
+- **Product UX/AI-native Builder:** `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** twenty-two material deep-evidence consolidations are represented across the family artifacts, now extending through federated anonymous-budget conservation into privacy-preserving issuer accountability/compromise containment. `RESEARCH_ACTIVE`, not saturated.
 
 ## Latest material consolidation — 2026-09-19
 
-### Federated anonymous budget conservation & Sybil resistance
+### Privacy-preserving issuer accountability & compromise containment
 
-Evidence classes: IETF RFC 9576 Privacy Pass Architecture; current Privacy Pass ARC Internet-Draft; 2026 CFRG Anonymous Credit Tokens Internet-Draft; current CFRG BBS per-verifier linkability work; Walfish et al. distributed quota-enforcement research; prior G4 reservation/escrow, hierarchical-rights, privacy-federation, collusion/metadata and abuse-governance findings.
+Evidence classes: IETF RFC 9576/RFC 9578 Privacy Pass; RFC 9162 Certificate Transparency v2; C2SP transparency-log witness/cosignature work; compact e-cash research; prior G4 hierarchical-rights, evidence-minimal, privacy/collusion, abuse-governance and anonymous-budget findings.
 
 Material delta:
 
-- established that a privacy mechanism is not a conservation mechanism: unlinkable grants do not solve who is authorized to mint shared budget;
-- separated anonymous redemption from anonymous minting authority;
-- formalized the hard-partition boundary: exact shared global conservation across independent offline issuers requires preallocated/conserved issuance rights, shared admission coordination, disjoint scopes or an explicitly weaker bounded-oversubscription contract;
-- separated per-issuer uniqueness from federation-wide uniqueness and required the exact anti-Sybil proposition (`human`, `device`, `account`, `organization`, etc.) to be named;
-- qualified federation-scoped nullifiers/pseudonyms as correlation-budget consumers rather than free privacy primitives;
-- carried existing rights-transfer/fencing obligations into issuer allocation/rebalancing and required outstanding anonymous grants to remain accounted for after allocation reduction;
-- introduced `UNKNOWN issuance != free budget` for ambiguous allocation/grant delivery and crash recovery;
-- separated token cryptographic validity from evidence that an issuer remained inside delegated minting authority;
-- identified issuer identity/configuration diversity itself as an anonymity-set partitioning/fingerprinting surface;
-- retained runtime autonomy: offline issuers/runtimes may consume predelegated rights without Builder availability, but cannot infer or mint unobserved future global remainder.
+- separated preventive conservation from retrospective detection: transparency/commitments can expose violations but cannot retroactively preserve a hard budget;
+- decomposed issuer accountability into authorization, conservation, completeness and non-equivocation propositions;
+- established `Aggregate arithmetic proof valid != issuance ledger complete`: arithmetic over issuer-selected commitments needs a separately qualified completeness property;
+- established `Append-only transparency != non-equivocation by itself`: isolated verifiers may accept distinct locally consistent histories until checkpoints cross an independent observer/witness boundary;
+- classified anti-equivocation mechanisms by observer assumptions rather than treating one global log as mandatory;
+- established `Liability accountability != holder identity disclosure`: aggregate outstanding liability/checkpoints may be governed without publishing subject-level issuance histories;
+- added exculpability: duplicate redemption/effect observation is not sufficient evidence of malicious holder double spending;
+- separated compromise, revocation-effective and observer-knowledge times and preserved outstanding liability across issuer/key rotation;
+- required rotation/compromise containment not to widen holder correlation silently;
+- retained runtime autonomy: offline redemption/currentness behavior follows declared checkpoint/security horizons rather than live Builder reachability.
 
-No anonymous-credential scheme, allocator, issuer topology, consensus service, identity system, nullifier construction, threshold scheme, broker or provider was selected.
+No credential scheme, zero-knowledge/range-proof system, commitment construction, transparency log, witness topology, threshold protocol, consensus service, issuer implementation or provider was selected.
 
-Highest-value remaining gap: **privacy-preserving issuer accountability and compromise containment without subject-level disclosure** — determine what aggregate/commitment/transparency evidence can prove that an issuer stayed within delegated minting authority; prevent issuer equivocation across disconnected verifiers; rotate/revoke a compromised issuer without deanonymizing historical holders; and classify which guarantees require online/shared state versus can be verified after the fact.
+Highest-value remaining gap: **witness/log governance and correlated compromise under autonomous federation** — determine quorum/witness independence assumptions, witness rotation and split-brain behavior, privacy leakage from checkpoint topology, how offline runtimes decide which checkpoint/witness set is sufficiently current, and which anti-equivocation guarantees survive correlated compromise or long partitions without making one global transparency service a runtime dependency.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow lifecycle and fencing; effect-domain composition and invariant-relative commutativity; interaction reference models and safety/liveness; semantic verification/stateful fault models; workflow migration/history compaction; causal saga/compensation semantics; long-partition federation/reconnect; queued-command validity; multidimensional contract compatibility; Shared Semantic Kernel/Exchange Plane foundations; hierarchical rights; non-fenceable effects; heterogeneous provider composition; in-flight contract evolution; security retirement; offline security-floor propagation; evidence-minimal reconciliation under erasure; privacy-preserving evidence/currentness federation; collusion/metadata-side-channel analysis; and privacy-preserving abuse/rate/cost governance.
-
-This compact index replaces duplicated log prose in this state file; it does not supersede or erase the detailed research artifacts.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; and federated anonymous budget conservation/Sybil resistance.
 
 ## Non-goals
 
@@ -138,10 +136,9 @@ This compact index replaces duplicated log prose in this state file; it does not
 - no graph/vector/search/stream/service-mesh/central-exchange/etcd/Kubernetes adoption decision;
 - no workflow/saga/migration engine adoption decision;
 - no property-testing/deterministic-simulation/checker adoption decision;
-- no global serial-history/linearizability requirement for all exchange interactions;
-- no global transaction/coordination requirement for all cross-capability effects;
-- no CRDT/escrow/reservation/anonymous-credential/nullifier/threshold-issuance adoption decision;
-- no central allocator or universal identity graph requirement;
+- no global serial-history/linearizability or global transaction requirement for all exchange interactions;
+- no CRDT/escrow/reservation/anonymous-credential/nullifier/threshold-issuance/transparency-log adoption decision;
+- no central allocator, universal identity graph or mandatory global witness service requirement;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
