@@ -45,6 +45,7 @@ See `G4_RESEARCH_STATE.md` for the consolidated research status, boundaries and 
    - `research/G4_CAPABILITY_EXCHANGE_HETEROGENEOUS_EFFECT_COMPOSITION_RESEARCH.md`
    - `research/G4_CAPABILITY_EXCHANGE_INFLIGHT_CONTRACT_EVOLUTION_RESEARCH.md`
    - `research/G4_CAPABILITY_EXCHANGE_OFFLINE_SECURITY_FLOORS_RESEARCH.md`
+   - `research/G4_CAPABILITY_EXCHANGE_EVIDENCE_MINIMAL_SECURITY_RECONCILIATION.md`
 
 These are research families, not committed product modules. Future synthesis may merge, split or providerize them.
 
@@ -89,12 +90,16 @@ These are research families, not committed product modules. Future synthesis may
 37. `Security currentness != business authority currentness`; each is an independent proof domain required according to the interaction contract.
 38. `Revocation effective time != runtime observation time`; reconnect must preserve both and reconcile stale-window effects without rewriting history.
 39. `Golden/A-B rollback != security-floor rollback`; anti-rollback trust state must survive every recovery boundary for which that guarantee is claimed.
+40. `Evidence sufficient != payload retained`; security reconciliation should preserve the minimum policy-authorized witness for declared proof purposes rather than full business history by default.
+41. `Security evidence store != retention exemption`; audit/security witnesses remain sensitive governed data with their own retention, access and erasure semantics.
+42. `No witness != no effect`; expired, erased or unavailable evidence must preserve qualified uncertainty instead of fabricating absence.
+43. `Signed/tamper-evident != non-sensitive/permanently retainable`; witness integrity, confidentiality, currentness and retention are independent proof domains.
 
 ## Product direction being researched
 
 The Builder may evolve from a system generator into a broader **operational systems control substrate** capable of modeling, assembling, compiling, deploying, observing, operating and evolving systems — potentially including itself — while remaining above and interoperable with ordinary operating systems, cloud providers, container runtimes and external infrastructure.
 
-The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage: routing or deployment changes for new work must not silently rewrite historical effect semantics, especially across `UNKNOWN`, provider substitution, compensation changes or irreversible effects. Security support is an independent horizon: preserving historical meaning must not require indefinite execution of a vulnerable historical implementation. Autonomous runtime security further requires locally durable trust continuity, bounded security-policy freshness and explicit reconciliation after disconnection; it must not depend on live Builder reachability for every effect or pretend that arbitrary future revocations can be known while indefinitely offline.
+The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage: routing or deployment changes for new work must not silently rewrite historical effect semantics, especially across `UNKNOWN`, provider substitution, compensation changes or irreversible effects. Security support is an independent horizon: preserving historical meaning must not require indefinite execution of a vulnerable historical implementation. Autonomous runtime security further requires locally durable trust continuity, bounded security-policy freshness and explicit reconciliation after disconnection; it must not depend on live Builder reachability for every effect or pretend that arbitrary future revocations can be known while indefinitely offline. Late security reconciliation should retain only purpose-qualified witness material: artifact/security revision/effect evidence may survive after business payload erasure, but security/audit evidence is not exempt from minimization, retention or erasure governance.
 
 This is a research hypothesis, not a product claim or implementation authorization.
 
@@ -107,7 +112,7 @@ G3 architecture closure
 G4 research inventory
         |
         v
-benchmarks / prototypes / adversarial cases
+benchmarks / prototypes / failure cases
         |
         v
 implementation-independent product architecture
