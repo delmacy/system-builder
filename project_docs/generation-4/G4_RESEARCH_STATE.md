@@ -60,95 +60,64 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Evidence sufficient != payload retained`; security evidence is not a retention exemption.
 - Historical semantic interpretation, continuation authority and new-effect admissibility remain distinct.
 
-### Privacy / federation / resource-governance boundaries
+### Privacy / federation / proof boundaries
 
 - `Proof continuity != global identity continuity`; `Dedup scope != global correlation scope`.
 - `Proof of predicate != disclosure of source record`; `Federation != trust-domain collapse`.
 - `Cryptographically unlinkable != operationally unlinkable`; privacy guarantees name observer/collusion assumptions.
-- `Backpressure != abuse attribution`; rate, quota, cost, concurrency and capacity are distinct.
-- `No token replay != no Sybil/grant multiplication`; issuance/admission and redemption/spend are separate proof domains.
-- `Privacy mechanism != conservation mechanism`; anonymous redemption does not imply anonymous minting authority.
-- `Token cryptographically valid != issuer remained within issuance authority`; `UNKNOWN issuance != free budget`.
-- `After-the-fact auditability != pre-issuance conservation`.
-- `Append-only transparency != non-equivocation by itself`.
-- `k-of-n signatures != k independent trust failures`; witness security depends on correlated-failure assumptions.
-- `Quorum-valid checkpoint != sufficiently current checkpoint`; consistency approval is not semantic/content monitoring.
-
-### Multi-domain evidence / composition-policy boundaries
-
-- `All domains locally valid != cross-domain compatible state`.
-- `Cross-domain composition != synthetic global revision number`; autonomous domains retain independent lineage/currentness.
-- `Domain checkpoint valid != composition predicate satisfied`.
-- `Multiple valid transparency domains != one atomic semantic state`.
-- `Evidence aggregation != semantic compatibility fabrication`.
-- `Joint hard invariant != global transaction requirement`; preventive coordination is scoped to the named invariant.
-- `Anti-rollback != anti-downgrade`; monotonic revision does not prove semantic safety.
-- `Old/new policy coexistence != union(old permissions, new permissions)`.
-- `Unknown policy semantics != permission to ignore`.
-
-### Proof / verifier / normative-semantics boundaries
-
-- `Text/AST diff != semantic policy diff`; proof results carry explicit modeled scope and assumptions.
-- `Same admitted request set != same guarantee vector`.
-- `Proof verification != re-solving`; producer provenance is distinct from semantic derivation.
-- `Proof valid != translation correct`; translation is a qualified proof boundary.
-- `Proof file accepted != fully independently justified derivation`; trusted/hole/unsupported steps remain visible.
-- `Separate process != independent TCB`; compromise containment requires qualified trust-root/semantic separation.
-- `Offline proof verification != infinite dependency currentness`.
-- Proof artifacts remain evidence/projections, not policy authority, business truth or currentness authority.
-- `Verifier installed != verifier qualified`; replacement is a TCB/trust transition.
-- `Two verifiers agree != proposition semantically valid`; diversity is relative to normative semantics/profile.
-- `Differential disagreement != majority truth`.
-- `Passes common corpus != semantic equivalence for all proofs`.
-- `Verified implementation != independent implementation`; formal verification and diversity cover different failures.
-- `Reproducible build != semantic correctness != verifier diversity`.
-- `Verifier upgrade != proof reinterpretation permission`.
+- Rate, quota, cost, concurrency, capacity, issuance, redemption and anti-Sybil guarantees remain separately scoped.
+- `Append-only transparency != non-equivocation`; quorum validity does not imply currentness.
+- `All domains locally valid != cross-domain compatible state`; evidence aggregation cannot fabricate semantic compatibility.
+- `Anti-rollback != anti-downgrade`; old/new policy coexistence is not permission union.
+- `Text/AST diff != semantic policy diff`; `Same admitted request set != same guarantee vector`.
+- `Proof verification != re-solving`; `Proof valid != translation correct`; producer provenance is distinct from semantic derivation.
+- `Verifier installed != verifier qualified`; verifier replacement is a TCB/trust transition.
+- `Two verifiers agree != proposition semantically valid`; differential disagreement is evidence, not majority truth.
 - `Latest semantics != historical semantics`; proofs bind immutable semantic snapshots.
-- `Erratum recorded != historical semantics rewritten`.
-- `Reference implementation behavior != normative semantics`; tests/implementations are qualification evidence.
-- `Semantic resolvability != current admissibility`.
-- `Mutable alias != semantic identity`.
+- `Semantic resolvability != current admissibility`; mutable aliases are not semantic identities.
 
 ### Profile negotiation / lifecycle boundaries
 
 - `Supported profile != admissible profile for this interaction`; support, admissibility and preference are distinct.
-- `Anti-downgrade != always choose numerically newest`.
-- `No common admissible profile != fallback to any common supported profile`.
+- `Anti-downgrade != always choose numerically newest`; no common admissible profile does not permit fallback to arbitrary support intersection.
 - Negotiation binds immutable semantic identity, peer/trust identity, interaction scope and security/currentness context.
 - `Negotiated semantics != transport negotiation`; topology substitution preserves selected semantic identity.
-- `Version skew allowance = relationship-specific contract`.
-- Gateways/meshes/brokers cannot silently weaken semantic guarantees.
 - `Discovered support != negotiated contract`; advertisement is not proof of executed semantics.
-- `Consistent profile view != sufficiently current profile view`.
-- `Network endpoint reached != intended semantic peer authenticated`.
 - `Previously negotiated != indefinitely admissible`; cached evidence has identity/policy/floor/currentness horizons.
 - `Negotiated once != admissible forever`; negotiation evidence has declared pinning scope/lifecycle.
-- `Selected profile for admitted scope != mutable deployment default`.
-- `Stream continuity != invisible semantic mutation`.
-- `Queued work admission semantics != delivery-time execution admissibility`.
+- `Stream continuity != invisible semantic mutation`; queued-work admission semantics remain distinct from delivery-time execution admissibility.
 - `Retry/redelivery/failover != new semantic admission`.
 - `New implementation present != new semantic profile activated`.
 - `Implementation rollback != semantic-profile rollback != security-floor rollback`.
 - `Floor publication time != floor effective time != runtime observation time != effect time` where material.
-- `Profile change != global stop-the-world`; revalidation is scoped to changed invariants and pending obligations.
 - `Topology/path migration != semantic occurrence migration`.
 - `Admission drained != effect obligations drained != historical interpretation drained`.
 
 ### Semantic generation handoff / partial-order boundaries
 
-- `Occurrence identity != one global semantic generation`; one occurrence may legitimately contain independently pinned branches.
-- `Per-branch order != global order`; partition/stream/mailbox ordering cannot be extrapolated into a total business order.
-- `No declared predecessor relation != permission to fabricate global order`.
-- `Cutover scope follows the protected invariant`; independent branches may advance separately, shared hard invariants require shared qualification.
-- `All branch messages arrived != join predicate satisfied`; joins name required effect/settlement/currentness semantics.
-- `Generation marker observed != old generation fenced`.
-- `Queue drained != old generation fenced`; conflicting new effect rights require invariant-qualified exclusion/settlement evidence.
+- `Occurrence identity != one global semantic generation`; one occurrence may contain independently pinned branches.
+- `Per-branch order != global order`; transport-local ordering cannot be extrapolated into total business order.
+- `Cutover scope follows the protected invariant`; independent branches may advance separately.
+- `All branch messages arrived != join predicate satisfied`; joins name effect/settlement/currentness requirements.
+- `Generation marker observed != old generation fenced`; `Queue drained != old generation fenced`.
 - `Batch transport boundary != semantic generation boundary`; batching does not create business atomicity.
-- `Connection generation != stream/branch semantic generation`; multiplexing scope does not dictate semantic cutover scope.
+- `Connection generation != stream/branch semantic generation`.
 - `Delivery attempt generation != obligation semantic generation`; retry/redelivery retains lineage absent explicit migration/re-admission.
 - Mixed-generation joins require semantic compatibility and authority/currentness qualification, not schema readability alone.
-- `One branch pinned != whole occurrence pinned`; liveness may progress independently where the protected invariants are independent.
 - Failure during handoff preserves a representable partial frontier rather than false completion.
+
+### Handoff recovery / evidence-compaction boundaries
+
+- `Recoverable state != retained full history`; a compacted frontier may replace detailed history only when every still-live safety/recovery question remains answerable.
+- `Compaction != semantic forgetting`; missing detail cannot become proof that an effect/right/obligation never existed.
+- A participant below the retained frontier receives explicit below-compaction-floor semantics rather than fabricated continuity.
+- Transport replay horizon, deduplication horizon, semantic resolvability horizon and authority/security horizon are independent.
+- `Dedup window expired != old obligation became new`; late work preserves lineage or becomes explicitly below-floor/unknown.
+- `Checkpoint complete != external effects settled`; snapshot scope cannot manufacture settlement of external effects.
+- `Compaction floor != security floor`; historical interpretation and current effect admissibility remain independently governed.
+- Negative/revocation/fencing evidence must outlive every path that could otherwise resurrect stale positive state, or be subsumed by a stronger durable fence.
+- `Compacted delivery history != semantic re-admission`; current deployment defaults cannot reinterpret old delayed work.
+- Recovery evidence remains purpose-minimal; recovery does not justify indefinite payload retention or cross-capability canonical ownership.
 
 ## Research progression
 
@@ -172,53 +141,45 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** thirty-two material deep-evidence consolidations are represented across the family artifacts, now extending negotiation-evidence lifecycle into semantic-generation handoff across multiplexed, parallel and partially ordered exchanges. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** thirty-three material deep-evidence consolidations are represented across the family artifacts, now extending semantic-generation handoff into crash/partition recovery and proof-preserving compaction of generation-frontier evidence. `RESEARCH_ACTIVE`, not saturated.
 
 ## Latest material consolidation — 2026-09-19
 
-### Semantic generation handoff for multiplexed and partially ordered exchanges
+### Handoff recovery and compaction of generation-frontier evidence
 
-Evidence classes: Apache Kafka per-partition ordering and parallel consumer model; gRPC per-stream ordering, independent bidirectional streams and flow-control semantics; RabbitMQ orthogonal publisher-confirm/consumer-ack semantics, concurrent in-flight delivery, requeue/redelivery and batch acknowledgements; Akka sender-relative mailbox ordering; prior G4 causal workflow, effect composition, in-flight contract evolution, profile negotiation and negotiation-evidence lifecycle research.
+Evidence classes: Apache Kafka log compaction/tombstone retention; Apache Pulsar retention, expiry and per-key topic compaction; etcd MVCC history compaction and explicit compacted-revision behavior; Apache Flink aligned checkpoint/recovery semantics and external-sink qualification; RabbitMQ quorum-queue log truncation, redelivery/dead-letter and delivery-limit behavior; prior G4 effect-composition, causal-workflow, in-flight evolution, negotiation lifecycle and semantic-generation handoff research.
 
 Material delta:
 
-- replaced an implicit occurrence-wide cutover assumption with branch/lane/invariant-scoped semantic generations;
-- made partial order first-class and prohibited transport-local ordering from becoming accidental global business order;
-- introduced a research-only generation-handoff frontier carrying branch lineage, predecessor frontier, old-generation effect rights and settlement/reconciliation evidence;
-- made joins explicit semantic boundaries that qualify mixed-generation predecessor effects rather than simple scheduler barriers;
-- identified old-generation effect-right fencing as the decisive safety boundary before conflicting new-generation rights are admitted;
-- established that queue drain, stream completion, generation-marker observation and batch acknowledgement do not by themselves prove fencing or business settlement;
-- separated connection/transport generation from stream/branch semantic generation in multiplexed transports;
-- preserved original semantic lineage across retry/redelivery/failover unless explicit migration/re-admission occurs;
-- allowed independent branches to progress without global lockstep when they do not share the changed hard invariant;
-- required transport substitution to preserve the declared semantic partial order or expose incompatibility/qualified mediation.
+- defined recovery sufficiency as a durable semantic cut/frontier rather than indefinite full event-history retention;
+- made compaction proof-preserving summarization: discarded detail must be subsumed by sufficient summary or produce explicit below-floor behavior;
+- separated transport replay, deduplication, semantic resolvability and authority/security horizons;
+- established that expiry of direct dedup state cannot make an old obligation fresh if any legitimate replay path remains;
+- separated checkpoint/state recovery from settlement of external effects and required unresolved effects to survive as `UNKNOWN`/pending evidence;
+- made compaction floors scope-qualified rather than a synthetic platform-wide revision and kept them independent from security floors;
+- required late delivery after compaction to resolve through durable lineage/fence evidence or fail closed/revalidate, never inherit current deployment defaults;
+- identified negative/revocation/fencing evidence as subject to a resurrection-safety horizon: it cannot disappear while stale positive state can still return and produce an effect;
+- introduced a qualified snapshot-plus-tail recovery hypothesis while explicitly rejecting an event-sourcing requirement or Exchange Plane business ownership;
+- made compaction eligibility dependency-based: pending joins, unresolved rights/effects, replay paths, normative semantic resolvability, privacy/erasure and audit obligations constrain when detail can disappear.
 
-No Kafka, RabbitMQ, gRPC, actor framework, broker, stream platform, workflow engine, gateway, service mesh or provider was selected.
+No Kafka, Pulsar, etcd, Flink, RabbitMQ, event store, checkpoint format, broker, archive, workflow engine, gateway, service mesh or provider was selected.
 
-Highest-value remaining gap: **handoff recovery and compaction of generation-frontier evidence** — determine the minimum durable evidence needed to recover a partially completed multi-branch handoff after crash/partition, the retention/resolvability horizon for old generation and fencing evidence, and safe compaction rules that do not make late redelivery, replay or settlement indistinguishable from fresh work.
+Highest-value remaining gap: **cross-runtime frontier transfer and disaster recovery under independent retention domains** — determine how a runtime proves/transfers a compacted frontier to a replacement host/region or autonomous peer whose replay windows, archives and security floors differ, without turning Builder/shared archive into mandatory runtime authority or accepting an incomplete frontier as current truth.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; normative proof-semantics governance/ambiguity containment; downgrade-resistant proof-semantics profile negotiation; and negotiation-evidence lifecycle across rollout, partitions and rollback.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; normative proof-semantics governance/ambiguity containment; downgrade-resistant proof-semantics profile negotiation; negotiation-evidence lifecycle across rollout, partitions and rollback; and semantic-generation handoff across multiplexed/partially ordered exchanges.
 
 ## Non-goals
 
 - no Rust rewrite decision;
 - no graph/vector/search/stream/service-mesh/central-exchange/etcd/Kubernetes adoption decision;
-- no workflow/saga/migration engine adoption decision;
-- no property-testing/deterministic-simulation/checker adoption decision;
+- no workflow/saga/migration/checkpoint/event-store engine adoption decision;
 - no global serial-history/linearizability or global transaction requirement for all exchange interactions;
-- no CRDT/escrow/reservation/anonymous-credential/nullifier/threshold-issuance/transparency-log/witness-network adoption decision;
-- no central allocator, universal identity graph or mandatory global witness/composition service requirement;
-- no Cedar/Rego/OPA/SMT/theorem-prover/policy-engine/proof-format/proof-checker adoption decision;
-- no TUF/Lean/Alethe/LFSC/Carcara/seL4/reproducible-build/DDC adoption decision;
-- no W3C/RFC/SMT-LIB/WebAssembly governance or semantics format adoption decision;
-- no TLS/QUIC/SPIFFE/HTTP negotiation/Kubernetes skew-policy adoption decision;
-- no Kafka/RabbitMQ/gRPC/Akka lifecycle or generation-handoff mechanism adoption decision;
+- no mandatory central broker/ESB/shared archive;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
-- no mandatory central broker/ESB;
 - no G4 implementation before explicit planning authorization.
 
 ## Closure target
