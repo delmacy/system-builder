@@ -1,7 +1,7 @@
 ---
 id: TASK-567
 title: Define commercial catalog pricing and contract revision semantics
-status: ready
+status: completed
 priority: 567
 milestone: G2
 model_tier: architecture
@@ -61,3 +61,6 @@ Deterministic Product Proof for revision/effective-time selection and negative/a
 
 ## Escalation
 Escalate rather than infer if implementation would require operational authorization ownership, persistence/UI, provider SDKs, FinOps/G2-WBS-21, WP-13, or any unmaterialized DEFER/DO_NOT_BUILD scope.
+
+## Completion evidence
+Implemented bounded commercial revision contracts and deterministic effective-time selection in `packages/contracts/commercial/index.ts`, with Product Proof in `tests/product/g2-commercial-entitlement-proof.test.ts`. Customer contracts pin the qualified price revision so later catalog changes cannot silently rewrite agreement truth. `PARTIAL`, `UNKNOWN`, stale, future and conflicting facts remain non-strengthening. This is Product Proof only, not Production Readiness.
