@@ -44,6 +44,7 @@ See `G4_RESEARCH_STATE.md` for the consolidated research status, boundaries and 
    - `research/G4_CAPABILITY_EXCHANGE_NON_FENCEABLE_EFFECTS_RESEARCH.md`
    - `research/G4_CAPABILITY_EXCHANGE_HETEROGENEOUS_EFFECT_COMPOSITION_RESEARCH.md`
    - `research/G4_CAPABILITY_EXCHANGE_INFLIGHT_CONTRACT_EVOLUTION_RESEARCH.md`
+   - `research/G4_CAPABILITY_EXCHANGE_OFFLINE_SECURITY_FLOORS_RESEARCH.md`
 
 These are research families, not committed product modules. Future synthesis may merge, split or providerize them.
 
@@ -83,12 +84,17 @@ These are research families, not committed product modules. Future synthesis may
 32. `Historical semantic continuity != historical executable continuity`; an old contract/effect may remain interpretable after its vulnerable executable is revoked.
 33. `Security retirement != semantic settlement`; revoking an artifact/provider stops future execution but does not erase prior effects or outstanding obligations.
 34. `Signature/provenance valid != currently security-admissible`; rollback/freeze protection and security floors remain independent from historical artifact identity.
+35. `Previously trusted != indefinitely security-admissible`; offline runtimes require bounded security currentness rather than perpetual trust in historical signatures.
+36. `Offline autonomy != unlimited stale-security operation`; maximum disconnected security horizon and stale-operation policy must be explicit.
+37. `Security currentness != business authority currentness`; each is an independent proof domain required according to the interaction contract.
+38. `Revocation effective time != runtime observation time`; reconnect must preserve both and reconcile stale-window effects without rewriting history.
+39. `Golden/A-B rollback != security-floor rollback`; anti-rollback trust state must survive every recovery boundary for which that guarantee is claimed.
 
 ## Product direction being researched
 
 The Builder may evolve from a system generator into a broader **operational systems control substrate** capable of modeling, assembling, compiling, deploying, observing, operating and evolving systems — potentially including itself — while remaining above and interoperable with ordinary operating systems, cloud providers, container runtimes and external infrastructure.
 
-The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage: routing or deployment changes for new work must not silently rewrite historical effect semantics, especially across `UNKNOWN`, provider substitution, compensation changes or irreversible effects. Security support is an independent horizon: preserving historical meaning must not require indefinite execution of a vulnerable historical implementation.
+The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage: routing or deployment changes for new work must not silently rewrite historical effect semantics, especially across `UNKNOWN`, provider substitution, compensation changes or irreversible effects. Security support is an independent horizon: preserving historical meaning must not require indefinite execution of a vulnerable historical implementation. Autonomous runtime security further requires locally durable trust continuity, bounded security-policy freshness and explicit reconciliation after disconnection; it must not depend on live Builder reachability for every effect or pretend that arbitrary future revocations can be known while indefinitely offline.
 
 This is a research hypothesis, not a product claim or implementation authorization.
 
