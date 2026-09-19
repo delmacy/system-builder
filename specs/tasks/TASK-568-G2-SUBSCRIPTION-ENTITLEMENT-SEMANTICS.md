@@ -36,8 +36,20 @@ validation:
 # Objective
 Extend G2-WBS-20 with revision/scope/currentness-qualified subscription and commercial entitlement contracts without acquiring operational authorization ownership.
 
+## Context
+TASK-568 follows the qualified catalog/pricing/contract boundary from TASK-567 and must preserve the pre-existing governance/currentness separation between evidence and authority.
+
+## Current behavior
+Before this task, G2-WBS-20 has no materialized subscription/entitlement contract proving that a commercial grant remains distinct from runtime operational authorization.
+
 ## Required change
 Define subscription state and entitlement grant/restriction semantics tied to qualified customer contract facts. Preserve effective time, revision, scope and provenance; expired, revoked, stale, conflicting, PARTIAL or UNKNOWN entitlement evidence must not strengthen access.
+
+## Inputs / contracts
+Consume qualified customer-contract facts from TASK-567 plus governance/currentness facts. Expiry, revocation, scope, revision, provenance and effective-time qualification are mandatory inputs where applicable.
+
+## Outputs / contracts
+Produce deterministic subscription and commercial-entitlement contracts/evaluations that expose conservative status without issuing or replacing operational authorization decisions.
 
 ## Acceptance criteria
 Contract != subscription != entitlement and commercial entitlement != operational authorization. Entitlement evaluation is deterministic, revision/scope/currentness qualified and conservative for PARTIAL/UNKNOWN. Provider or billing evidence cannot silently become authorization authority.
@@ -47,3 +59,6 @@ No runtime authorization/enforcement engine, identity/RBAC replacement, usage ra
 
 ## Evidence expected
 Positive, negative and adversarial Product Proof including expiry/revocation, stale/conflicting revisions and explicit proof that commercial entitlement cannot directly authorize an operation.
+
+## Escalation
+Escalate rather than infer if the work would require operational authorization/enforcement ownership, identity replacement, provider SDKs, persistence/UI, FinOps/G2-WBS-21, WP-13 or other unmaterialized scope.
