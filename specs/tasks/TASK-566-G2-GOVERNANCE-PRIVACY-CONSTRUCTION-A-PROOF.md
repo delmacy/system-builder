@@ -1,7 +1,7 @@
 ---
 id: TASK-566
 title: Prove cumulative G2-WBS-19 governance privacy semantics
-status: ready
+status: completed
 priority: 566
 milestone: G2
 model_tier: architecture
@@ -55,6 +55,9 @@ Produce cumulative deterministic Product Proof covering the committed G2-WBS-19 
 
 ## Acceptance criteria
 Proof demonstrates absence of evidence != compliance; evidence/ACK != authority; stale/expired/revoked authority is non-effective; PARTIAL/UNKNOWN does not strengthen; legal hold and residency remain population-qualified; provider migration preserves residual obligations. Product Proof remains explicitly distinct from Production Readiness.
+
+## Closure evidence
+The cumulative Product Proof is `tests/product/g2-governance-privacy-proof.test.ts`. It composes the TASK-563..565 contracts and covers positive, negative, and adversarial cases for policy/decision/enforcement/evidence/assessment separation, missing/stale/PARTIAL/UNKNOWN evidence, effective-dated supersession, bounded waiver authority, AI inference non-authority, retention, legal-hold precedence, residency, provider lineage, migration coverage, and residual populations. This closes Product Proof only and makes no Production Readiness claim.
 
 ## Non-goals
 No new feature family, persistence, UI, provider SDK, commercial/FinOps implementation, WP-13 or Production Readiness claim.
