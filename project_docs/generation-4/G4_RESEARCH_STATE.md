@@ -25,93 +25,59 @@ These families may later be deduplicated or recomposed. A research family is not
 
 ## Cross-cutting rules
 
+### Constitutional / product boundaries
+
 - `G3 semantic decision != G4 technology binding`.
 - `Research candidate != implementation authority`.
-- `Polyglot-ready != Polyglot-from-day-one`.
-- `Measured bottleneck -> qualified specialization candidate`.
+- `Polyglot-ready != Polyglot-from-day-one`; `Measured bottleneck -> qualified specialization candidate`.
 - `Builder != Runtime`; published client runtimes remain autonomous.
-- `Projection/index/cache/vector/telemetry != canonical truth`.
-- `Provider ACK != effective state`.
-- `AI inference != authority`.
+- `Projection/index/cache/vector/telemetry != canonical truth`; `AI inference != authority`.
 - `Self-managing != unrestricted self-modifying`.
-- `Temporal history != infinite retention`; `Auditability != immutable personal data forever`.
-- `Heartbeat/lease freshness != proof of semantic health or safe replacement`.
-- `Retry != resilience by default`.
-- `Lease expiry != fencing`; `Leadership != universal authority`.
-- `Geometric zoom != semantic zoom`; `Progressive disclosure != authorization`.
-- `Explore != Design != Simulate != Propose != Authorize != Act != Verify`.
-- `Preview passed != production will succeed`.
-- `Fluent AI explanation != correctness/evidence/authority`.
-- `Fast kernel != fast operation`; `Microbenchmark win != product workload win`.
-- `WASM/native/worker availability != specialization authority`.
-- `Shared primitives != shared business ownership`.
-- `Logical Exchange Plane != single broker`.
-- `Interface compatibility != contract compatibility`.
-- `Driver may normalize mechanism but must not fabricate semantic equivalence`.
-- `Exchange Plane owns exchange semantics; capability owns business semantics`.
-- `Schema compatibility != semantic contract compatibility`.
-- `Correlation/trace context != identity or authority proof`.
-- `Message/broker acceptance != consumer/business effect`.
-- `Cross-capability reference != ownership transfer`.
-- `Compatibility is multidimensional`; schema/version acceptance cannot stand in for semantic, authority, currentness, delivery/effect, ordering, error, deadline or evidence compatibility.
-- `Provider advertisement != qualification proof`; `Version overlap != guarantee overlap`.
-- `Binding substitution != semantic equivalence by default`.
-- `Transport reconnected != semantic convergence`.
-- `Backlog present != backlog executable`.
-- `Replication checkpoint != business convergence`.
-- `Deterministic technical winner != business truth`.
-- `Offline autonomy != indefinite delegated authority`.
-- `Metadata/data/authorization convergence are separate proof domains`.
-- `Trace/correlation != business causation != authority`.
-- `Workflow progress != transport progress`.
-- `Compensation != rollback/time reversal`; compensation is a new governed business effect.
-- `Reconnect order != causal/business order`.
-- `Orchestration/choreography != Exchange Plane ownership`.
-- `Cancel requested != downstream effect cancelled`.
-- `Definition deployable != in-flight occurrence migratable`.
-- `Workflow migration != version reassignment`; migration is a qualified semantic transformation.
-- `Historical semantic evidence != historical executable artifact != historical sensitive payload`.
-- `History compacted != history never happened`; `Current state reconstructable != causal proof sufficient`.
-- `Deprecated for new work != safe to delete for in-flight obligations`.
-- `Same happy-path output != semantic conformance`; a binding must be checked against the required semantic profile.
-- `Deterministic replay != production equivalence`; simulation evidence is scoped to its model/environment.
-- `Fault injection != business oracle`; semantic faults include authority, contract, migration, retention and currentness changes.
-- `Checkpoint loads != checkpoint sufficient`; sufficiency is operation-specific.
-- `One interaction kind != one universal linearization point`; linearizability is a contract property, not an Exchange Plane default.
-- `Admission != durability != authoritative effect != caller observation != settlement != convergence` unless the contract proves equivalence for that interaction.
-- `Safety != liveness`; eventual progress requires declared assumptions and bounded-liveness claims require explicit time/resource/workload envelopes.
-- `UNKNOWN` is an evidence-domain disposition, not a generic transport failure or permission to guess.
-- `Convergence != invariant preservation`; deterministic agreement is not business correctness by itself.
-- `Commutativity is contract/invariant-relative`; same final bytes, disjoint writes or mergeability do not prove business effects commute.
-- `Coordination-free != correctness-free`; an operation/invariant pair needs proof that permitted independent executions and merge preserve the invariant.
-- `Reservation/escrow != global transaction replacement`; rights are useful only for safely decomposable invariants and require transfer/currentness/fencing semantics.
-- `Serializable local domain != atomic external multi-domain effect`.
-- `Reservation allocation != business authority`; the capability owns the invariant and allocation policy semantics.
-- `Right transfer ACK != old holder fenced`; transfer settlement and stale-holder exclusion are separate proof domains.
-- `Fencing token generated != fencing enforced`; the protected effect boundary must reject stale epochs or an explicitly weaker profile applies.
-- `Holder/node loss != rights safely recoverable`; recovery requires evidence excluding prior consumption.
-- `Ambiguous rights != free capacity`; UNKNOWN transfer/recovery reduces availability rather than weakening a hard invariant.
-- `Idempotency != fencing`; retry safety does not prove stale-holder exclusion or conflicting-intent ordering.
-- `Target-local atomicity != cross-domain atomicity`.
-- `Latest deployment != in-flight semantic migration`.
-- `Schema compatibility != obligation compatibility`.
-- `Historical semantic continuity != historical executable continuity`.
-- `Security retirement != semantic settlement`.
-- `Signature/provenance valid != currently security-admissible`.
-- `Previously trusted != indefinitely security-admissible`.
-- `Offline autonomy != unlimited stale-security operation`.
-- `Security currentness != business authority currentness`.
-- `Revocation effective time != runtime observation time`.
-- `Golden/A-B rollback != security-floor rollback`.
-- `Evidence sufficient != payload retained`.
-- `Security evidence store != retention exemption`.
-- `No witness != no effect`.
-- `Signed/tamper-evident != non-sensitive/permanently retainable`.
-- `Proof continuity != global identity continuity`.
-- `Dedup scope != global correlation scope`.
-- `Proof of predicate != disclosure of source record`.
-- `Federation != trust-domain collapse`.
+- `Shared primitives != shared business ownership`; `Shared lifecycle semantics != shared authority`.
+- `Logical Exchange Plane != single broker`; `Exchange Plane owns exchange semantics; capability owns business semantics`.
+- `Interface compatibility != contract compatibility`; compatibility is multidimensional.
+- Drivers/adapters/gateways may normalize or mediate only declared semantics; they must not fabricate equivalence or become accidental canonical owners.
+
+### Exchange / effect boundaries
+
+- `Provider ACK != effective state`; `Message/broker acceptance != consumer/business effect`.
+- `Trace/correlation != business causation != authority`; `Cross-capability reference != ownership transfer`.
+- `Workflow progress != transport progress`; `Compensation != rollback/time reversal`.
+- `UNKNOWN` is an evidence-domain disposition, not permission to guess.
+- `One interaction kind != one universal linearization point`; admission, durability, authoritative effect, caller observation, settlement and convergence remain distinct unless proven equivalent.
+- `Safety != liveness`; `Convergence != invariant preservation`; `Commutativity is contract/invariant-relative`.
+- Coordination scope follows the invariant; reservation/escrow is not a universal transaction replacement.
+- `Idempotency != fencing`; `Target-local atomicity != cross-domain atomicity`.
+- `Right transfer ACK != old holder fenced`; `Fencing token generated != fencing enforced`.
+- `Ambiguous rights != free capacity`; holder/node loss does not prove rights safely recoverable.
+
+### Evolution / security / evidence boundaries
+
+- `Latest deployment != in-flight semantic migration`; `Schema compatibility != obligation compatibility`.
+- `Historical semantic continuity != historical executable continuity`; `Security retirement != semantic settlement`.
+- `Signature/provenance valid != currently security-admissible`; `Previously trusted != indefinitely security-admissible`.
+- `Offline autonomy != unlimited stale-security operation`; `Security currentness != business authority currentness`.
+- `Revocation effective time != runtime observation time`; `Golden/A-B rollback != security-floor rollback`.
+- `Evidence sufficient != payload retained`; `Security evidence store != retention exemption`.
+- `No witness != no effect`; `Signed/tamper-evident != non-sensitive/permanently retainable`.
+
+### Privacy / federation / resource-governance boundaries
+
+- `Proof continuity != global identity continuity`; `Dedup scope != global correlation scope`.
+- `Proof of predicate != disclosure of source record`; `Federation != trust-domain collapse`.
 - `Cryptographic key rotation != semantic identity rotation != correlation-reference rotation`.
+- `Cryptographically unlinkable != operationally unlinkable`; timing, routing, trace, size, issuer/configuration and status-query metadata remain correlation surfaces.
+- Privacy guarantees require explicit observer/collusion assumptions; payload privacy does not imply telemetry privacy.
+- `Backpressure != abuse attribution`; rate, quota, cost, concurrency and capacity are distinct dimensions.
+- `Accountability for bounded resource consumption != global subject linkability`.
+- `Unlinkable presentations != unlimited presentations`; budget metadata itself belongs to the correlation budget.
+- `No token replay != no Sybil/grant multiplication`; issuance/admission and redemption/spend are separate proof domains.
+- `Anonymous right != unaccounted right`; offline spend remains bounded by conserved delegated capacity.
+- `Privacy mechanism != conservation mechanism`; unlinkable grants still need qualified issuance authority against a shared invariant.
+- `Anonymous redemption != anonymous minting authority`; offline issuers consume predelegated issuance authority rather than future global budget.
+- `Per-issuer uniqueness != federation-wide uniqueness`; anti-Sybil claims must name the uniqueness proposition and scope actually proven.
+- `Token cryptographically valid != issuer remained within issuance authority`; issuer compromise/over-minting is independent from token-format validity.
+- `UNKNOWN issuance != free budget`; ambiguous allocation/grant capacity is consumed or quarantined until settlement.
 
 ## Research progression
 
@@ -128,42 +94,41 @@ G3 CLOSED/FROZEN
 
 ## Current maturity
 
-- **Data/Persistence/Access:** first deep evidence consolidation completed for authorization-aware data access. Long-running revocation/currentness and empirical leakage tests remain open. `RESEARCH_ACTIVE`, not saturated.
-- **Data Treatment:** deep evidence consolidation covers temporal/streaming/replay, temporal identity/interpretation revision and retention/erasure/reproducibility. `RESEARCH_ACTIVE`, not saturated.
-- **Infrastructure Engineering:** deep evidence consolidations cover decomposed health/control-loop safety and leadership/lease/fencing/split-brain coordination. `RESEARCH_ACTIVE`, not saturated.
-- **Computational Core/Performance:** deep evidence consolidation covers workload envelopes, TypeScript/Node baseline instrumentation, worker/serialization boundaries, specialization crossover, native isolation and WASM qualification. Representative SB empirical benchmarks remain absent. `RESEARCH_ACTIVE`, not saturated.
-- **Lifecycle/Continuous Improvement:** deep evidence consolidation covers incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence. `RESEARCH_ACTIVE`, not saturated.
-- **Self-Hosting/Autonomic Evolution:** deep evidence consolidation covers secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment. `RESEARCH_ACTIVE`, not saturated.
-- **Product UX/AI-native Builder:** deep evidence consolidation covers semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads. `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** eighteen material deep-evidence consolidations are represented across the family artifacts: foundations; multidimensional compatibility; time-separated exchange; federated reconnect; causal workflow/saga; in-flight workflow migration/history compaction; semantic verification; interaction-specific reference model; effect-domain composition/commutativity; reservation/escrow lifecycle; hierarchical/delegated rights; non-fenceable external effects; heterogeneous cross-provider effect composition; in-flight contract evolution; security retirement/remediation; offline security floors; evidence-minimal security reconciliation; and privacy-preserving evidence/currentness federation. `RESEARCH_ACTIVE`, not saturated.
+- **Data/Persistence/Access:** authorization-aware access deeply consolidated; long-running revocation/currentness and empirical leakage tests remain open. `RESEARCH_ACTIVE`, not saturated.
+- **Data Treatment:** temporal/streaming/replay, temporal identity/interpretation revision and retention/erasure/reproducibility consolidated. `RESEARCH_ACTIVE`, not saturated.
+- **Infrastructure Engineering:** decomposed health/control-loop safety and leadership/lease/fencing/split-brain coordination consolidated. `RESEARCH_ACTIVE`, not saturated.
+- **Computational Core/Performance:** workload envelopes, TypeScript/Node baseline instrumentation, worker/serialization boundaries, specialization crossover, native isolation and WASM qualification consolidated; representative SB empirical benchmarks remain absent. `RESEARCH_ACTIVE`, not saturated.
+- **Lifecycle/Continuous Improvement:** incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence consolidated. `RESEARCH_ACTIVE`, not saturated.
+- **Self-Hosting/Autonomic Evolution:** secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment consolidated. `RESEARCH_ACTIVE`, not saturated.
+- **Product UX/AI-native Builder:** semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads consolidated. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** twenty-one material deep-evidence consolidations are represented across the family artifacts, progressing from exchange foundations and multidimensional compatibility through causal workflow, verification, effect composition, hierarchical rights, non-fenceable/heterogeneous effects, in-flight evolution, security retirement/offline floors, evidence-minimal reconciliation, privacy-preserving federation, collusion/metadata side channels, privacy-preserving abuse governance and federated anonymous budget conservation. `RESEARCH_ACTIVE`, not saturated.
 
 ## Latest material consolidation — 2026-09-19
 
-### Privacy-preserving evidence/currentness federation
+### Federated anonymous budget conservation & Sybil resistance
 
-Evidence classes: NIST SP 800-63C-4 federation and pairwise pseudonymous identifiers; W3C Data Integrity BBS selective-disclosure/unlinkable-proof work; W3C Bitstring Status List privacy/currentness patterns; SPIFFE federation/trust-domain bundle isolation and rotation; RFC 9449 DPoP sender-constrained proof-of-possession; prior G4 evidence-minimal/offline-security/Exchange Plane findings.
+Evidence classes: IETF RFC 9576 Privacy Pass Architecture; current Privacy Pass ARC Internet-Draft; 2026 CFRG Anonymous Credit Tokens Internet-Draft; current CFRG BBS per-verifier linkability work; Walfish et al. distributed quota-enforcement research; prior G4 reservation/escrow, hierarchical-rights, privacy-federation, collusion/metadata and abuse-governance findings.
 
 Material delta:
 
-- made **purpose-bounded linkability** the target rather than universal unlinkability or universal correlation;
-- separated proof continuity from global subject identity continuity;
-- introduced explicit `CorrelationScope` and `DedupScope`, requiring dedup correlation not to exceed the privacy scope authorized by the contract;
-- established `Proof of predicate != disclosure of source record` as a cross-capability evidence boundary;
-- qualified pairwise/verifier-specific evidence references as a candidate way to preserve local reconciliation without global stable handles;
-- recognized status/currentness query patterns, timing, cache misses and endpoint structure as privacy leakage channels independent of payload disclosure;
-- separated proof-of-possession from business identity, authority and currentness;
-- preserved issuer/trust-domain bindings across federation instead of pooling trust authorities;
-- separated cryptographic key rotation, semantic identity continuity and correlation-reference rotation;
-- defined reconnect after long partitions as selective reconciliation of required effect scopes, not authority to reconstruct a global identity graph;
-- added explicit adversarials for colluding issuer/verifier, global IDs leaking through broker/trace metadata, pairwise refs relinked by stable digests, and dedup implementations that retain broader identity maps than their horizon requires.
+- established that a privacy mechanism is not a conservation mechanism: unlinkable grants do not solve who is authorized to mint shared budget;
+- separated anonymous redemption from anonymous minting authority;
+- formalized the hard-partition boundary: exact shared global conservation across independent offline issuers requires preallocated/conserved issuance rights, shared admission coordination, disjoint scopes or an explicitly weaker bounded-oversubscription contract;
+- separated per-issuer uniqueness from federation-wide uniqueness and required the exact anti-Sybil proposition (`human`, `device`, `account`, `organization`, etc.) to be named;
+- qualified federation-scoped nullifiers/pseudonyms as correlation-budget consumers rather than free privacy primitives;
+- carried existing rights-transfer/fencing obligations into issuer allocation/rebalancing and required outstanding anonymous grants to remain accounted for after allocation reduction;
+- introduced `UNKNOWN issuance != free budget` for ambiguous allocation/grant delivery and crash recovery;
+- separated token cryptographic validity from evidence that an issuer remained inside delegated minting authority;
+- identified issuer identity/configuration diversity itself as an anonymity-set partitioning/fingerprinting surface;
+- retained runtime autonomy: offline issuers/runtimes may consume predelegated rights without Builder availability, but cannot infer or mint unobserved future global remainder.
 
-No identity system, credential format, cryptosuite, status mechanism, federation framework, broker, PKI or provider was selected.
+No anonymous-credential scheme, allocator, issuer topology, consensus service, identity system, nullifier construction, threshold scheme, broker or provider was selected.
 
-Highest-value remaining gap: **privacy-preserving reconciliation under multi-party collusion and metadata side channels** — determine which privacy guarantees survive issuer/verifier/gateway/broker collusion; formalize correlation budgets across timing, routing, trace, size and status-query metadata; and identify when a cryptographically unlinkable/pairwise design remains operationally linkable.
+Highest-value remaining gap: **privacy-preserving issuer accountability and compromise containment without subject-level disclosure** — determine what aggregate/commitment/transparency evidence can prove that an issuer stayed within delegated minting authority; prevent issuer equivocation across disconnected verifiers; rotate/revoke a compromised issuer without deanonymizing historical holders; and classify which guarantees require online/shared state versus can be verified after the fact.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow lifecycle and fencing; effect-domain composition and invariant-relative commutativity; interaction reference models and safety/liveness; semantic verification/stateful fault models; workflow migration/history compaction; causal saga/compensation semantics; long-partition federation/reconnect; queued-command validity; multidimensional contract compatibility; Shared Semantic Kernel/Exchange Plane foundations; hierarchical rights; non-fenceable effects; heterogeneous provider composition; in-flight contract evolution; security retirement; offline security-floor propagation; and evidence-minimal reconciliation under erasure.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow lifecycle and fencing; effect-domain composition and invariant-relative commutativity; interaction reference models and safety/liveness; semantic verification/stateful fault models; workflow migration/history compaction; causal saga/compensation semantics; long-partition federation/reconnect; queued-command validity; multidimensional contract compatibility; Shared Semantic Kernel/Exchange Plane foundations; hierarchical rights; non-fenceable effects; heterogeneous provider composition; in-flight contract evolution; security retirement; offline security-floor propagation; evidence-minimal reconciliation under erasure; privacy-preserving evidence/currentness federation; collusion/metadata-side-channel analysis; and privacy-preserving abuse/rate/cost governance.
 
 This compact index replaces duplicated log prose in this state file; it does not supersede or erase the detailed research artifacts.
 
@@ -175,10 +140,8 @@ This compact index replaces duplicated log prose in this state file; it does not
 - no property-testing/deterministic-simulation/checker adoption decision;
 - no global serial-history/linearizability requirement for all exchange interactions;
 - no global transaction/coordination requirement for all cross-capability effects;
-- no CRDT/escrow/reservation adoption decision;
-- no central allocator requirement;
-- no identity/credential/selective-disclosure/status-list framework adoption decision;
-- no global stable identity/evidence-reference requirement;
+- no CRDT/escrow/reservation/anonymous-credential/nullifier/threshold-issuance adoption decision;
+- no central allocator or universal identity graph requirement;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
