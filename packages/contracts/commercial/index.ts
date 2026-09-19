@@ -1,4 +1,4 @@
-export const COMMERCIAL_CONTRACT_VERSION = "1.0.0" as const;
+export const COMMERCIAL_CONTRACT_VERSION = "1.1.0" as const;
 
 export type CommercialFactState = "CURRENT" | "NOT_YET_EFFECTIVE" | "EXPIRED" | "STALE" | "CONFLICTED" | "UNKNOWN";
 export type CommercialFactCurrentness = "CURRENT" | "STALE" | "UNKNOWN";
@@ -21,6 +21,11 @@ export type CommercialOffer = CommercialRevision & Readonly<{ kind: "OFFER"; pro
 export type CommercialPlan = CommercialRevision & Readonly<{ kind: "PLAN"; offerRef: string }>;
 export type CommercialPrice = CommercialRevision & Readonly<{ kind: "PRICE"; planRef: string; amountMinor: number; currency: string }>;
 export type CustomerContract = CommercialRevision & Readonly<{ kind: "CONTRACT"; customerRef: string; offerRef: string; planRef: string; priceRef: string; priceRevisionRef: string; priceProvenanceRef: string }>;
+export type SubscriptionState = "ACTIVE" | "SUSPENDED" | "CANCELLED";
+export type CommercialSubscription = CommercialRevision & Readonly<{ kind: "SUBSCRIPTION"; customerRef: string; contractRef: string; contractRevisionRef: string; state: SubscriptionState }>;
+export type EntitlementGrantState = "GRANTED" | "REVOKED";
+export type CommercialEntitlement = CommercialRevision & Readonly<{ kind: "ENTITLEMENT"; subscriptionRef: string; capabilityRef: string; grantState: EntitlementGrantState }>;
+export type CommercialEntitlementDecision = Readonly<{ state: "ENTITLED" | "NOT_ENTITLED" | "UNKNOWN"; entitlementRevisionRef?: string; reason: string; operationalAuthorization: false }>;
 
 const TOKEN = /^\S+$/;
 const UTC = /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?Z$/;
@@ -54,6 +59,16 @@ export function bindCustomerContract(input: Readonly<{ contract: Omit<CustomerCo
   token(input.contract.customerRef, "$contract.customerRef");
   token(input.price.provenanceRef, "$price.provenanceRef");
   return { ...input.contract, kind: "CONTRACT", priceRef: input.price.id, priceRevisionRef: input.price.revisionRef, priceProvenanceRef: input.price.provenanceRef };
+}
+
+export function evaluateCommercialEntitlement(input: Readonly<{ subscription: CommercialSubscription; entitlement: CommercialEntitlement; capabilityRef: string; at: string }>): CommercialEntitlementDecision {
+  const subscriptionState = commercialRevisionState(input.subscription, input.at);
+  const entitlementState = commercialRevisionState(input.entitlement, input.at);
+  if (subscriptionState !== "CURRENT" || entitlementState !== "CURRENT") return { state: "UNKNOWN", reason: `commercial-facts-${subscriptionState.toLowerCase()}-${entitlementState.toLowerCase()}`, operationalAuthorization: false };
+  if (input.subscription.state !== "ACTIVE") return { state: "NOT_ENTITLED", reason: `subscription-${input.subscription.state.toLowerCase()}`, operationalAuthorization: false };
+  if (input.entitlement.subscriptionRef !== input.subscription.id || input.entitlement.scopeRef !== input.subscription.scopeRef || input.entitlement.capabilityRef !== input.capabilityRef) return { state: "NOT_ENTITLED", reason: "scope-or-reference-mismatch", operationalAuthorization: false };
+  if (input.entitlement.grantState !== "GRANTED") return { state: "NOT_ENTITLED", entitlementRevisionRef: input.entitlement.revisionRef, reason: "entitlement-revoked", operationalAuthorization: false };
+  return { state: "ENTITLED", entitlementRevisionRef: input.entitlement.revisionRef, reason: "qualified-commercial-grant", operationalAuthorization: false };
 }
 
 export function validateCommercialRevision(revision: CommercialRevision): CommercialRevision {
