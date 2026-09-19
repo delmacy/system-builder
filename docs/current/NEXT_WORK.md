@@ -1,17 +1,21 @@
-# Next Work — Generation 2 / G2-WP-12 Construction B promotion
+# Next Work — Generation 2 / G2-WP-12 Construction B
 
 Generation 2 remains rolling-wave and dependency-safe.
 
 ## Canonically closed predecessors
-G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Planning & Materialization integrated via PR #839. Construction A / `G2-WBS-19` is integrated through TASK-566. TASK-566 closed cumulative governance/privacy Product Proof via PR #850; its exact head `6f9fa97f067eda9d80fb7e74ce9401e19c5c40b2` passed Deterministic CI #2009 and Heavy Product Tests #1662/#1664, while Merge Candidate CI #239 separately passed for the then-current synthetic merge candidate. Post-Construction-A authority reconciliation PR #851 integrated as `main@c80f41d3fa62f280f4d466d82bc06a85c898eb16`; PR #851 exact head `0af32399ad338fe1572322cd3717d15fccf3dcba` passed Deterministic CI #2011 and Heavy Product Tests #1665/#1669, while Merge Candidate CI #241 separately passed. The `c80f41d3...` SHA is historical evidence for #851, not a perpetual current-main assertion.
+G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Construction A / `G2-WBS-19` is integrated through TASK-566. Construction B / `G2-WBS-20` was materialized from live `main@6e4050a82dcc085f17df5791cd8ec97323fd8db5` against exact planning authority `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
 
 ## Current executable gate
-Construction A is complete. Fresh-main revalidation promotes G2-WBS-20 / Construction B to the next planning/materialization gate. Immediately before materialization, resolve the live `main` SHA and materialize Construction B from that exact live SHA using the exact G2 planning authority and package boundaries. Do not reuse a previously recorded main SHA as currentness evidence.
+TASK-567 is the sole dependency-safe Construction B product task. Execute it from fresh main only after this materialization PR's exact-head and current merge-candidate gates are green and the materialization is integrated. TASK-568 depends on TASK-567; TASK-569 depends on TASK-568; TASK-570 depends on TASK-569 and is cumulative Product Proof closure.
 
-Construction B owns bounded commercial, monetization and entitlement semantics: preserve product/offer/plan/price/contract/subscription/entitlement/meter/usage/rating/charge/invoice/payment distinctions, effective-dated pricing and correction/rerating lineage.
+## Materialized chain
+- TASK-567 — product/offer/plan/price/contract revision and effective-time semantics — READY.
+- TASK-568 — subscription and commercial entitlement semantics — BLOCKED_BY TASK-567.
+- TASK-569 — meter/usage/rating/charge/invoice/payment evidence and correction/rerating lineage — BLOCKED_BY TASK-568.
+- TASK-570 — cumulative G2-WBS-20 Product Proof — BLOCKED_BY TASK-569.
 
 ## Successor rule
-Do not execute Construction B product work until its TASKs are materialized and dependency-safe. Do not promote Construction C automatically; G2-WBS-21 remains only a forecast candidate until Construction B integrates and fresh-main evidence proves it necessary. Do not absorb G2-WP-13.
+Do not promote Construction C automatically; G2-WBS-21 remains a forecast candidate until Construction B integrates and fresh-main evidence proves it necessary. Do not absorb G2-WP-13.
 
 ## Boundary
-Preserve governance evidence != authority/compliance truth; commercial entitlement != operational authorization; measured != qualified != rated != billed != invoiced != paid; missing usage != zero; settlement/provider ACK != customer-commercial truth; PARTIAL/UNKNOWN non-strengthening; revision/scope/currentness/provenance; residual populations and provider-migration obligations; source-of-truth/coexistence/residual drainage; replaceable provider qualification; Local/Station/Fleet semantics; AI inference != authority; Product Proof distinct from Production Readiness. Do not absorb autonomous-agent authority, generic direct side-effect authority, unmaterialized DEFER/DO_NOT_BUILD findings or unrelated product scope.
+Preserve governance evidence != authority/compliance truth; commercial entitlement != operational authorization; measured != qualified != rated != billed != invoiced != paid; missing usage != zero; settlement/provider ACK != customer-commercial truth; PARTIAL/UNKNOWN non-strengthening; effective-dated revision/scope/currentness/provenance; correction/rerating lineage; residual populations and provider-migration obligations; source-of-truth/coexistence/residual drainage; replaceable provider qualification; Local/Station/Fleet semantics; AI inference != authority; Product Proof distinct from Production Readiness. Do not absorb FinOps/G2-WBS-21, autonomous-agent authority, generic direct side-effect authority, unmaterialized DEFER/DO_NOT_BUILD findings or unrelated product scope.
