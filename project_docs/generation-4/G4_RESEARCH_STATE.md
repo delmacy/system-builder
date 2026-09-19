@@ -93,7 +93,7 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Topology/path migration != semantic occurrence migration`.
 - `Admission drained != effect obligations drained != historical interpretation drained`.
 
-### Semantic generation handoff / partial-order boundaries
+### Semantic generation handoff / recovery boundaries
 
 - `Occurrence identity != one global semantic generation`; one occurrence may contain independently pinned branches.
 - `Per-branch order != global order`; transport-local ordering cannot be extrapolated into total business order.
@@ -105,19 +105,43 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Delivery attempt generation != obligation semantic generation`; retry/redelivery retains lineage absent explicit migration/re-admission.
 - Mixed-generation joins require semantic compatibility and authority/currentness qualification, not schema readability alone.
 - Failure during handoff preserves a representable partial frontier rather than false completion.
+- `Recoverable state != retained full history`; compacted frontiers may replace detail only when live safety/recovery questions remain answerable.
+- `Compaction != semantic forgetting`; below-floor references require explicit behavior rather than fabricated absence.
+- Transport replay, deduplication, semantic resolvability and authority/security horizons are independent.
+- `Dedup window expired != old obligation became new`.
+- `Checkpoint complete != external effects settled`.
+- Negative/revocation/fencing evidence outlives resurrection paths or is subsumed by a stronger durable fence.
 
-### Handoff recovery / evidence-compaction boundaries
+### Cross-runtime DR / split-brain boundaries
 
-- `Recoverable state != retained full history`; a compacted frontier may replace detailed history only when every still-live safety/recovery question remains answerable.
-- `Compaction != semantic forgetting`; missing detail cannot become proof that an effect/right/obligation never existed.
-- A participant below the retained frontier receives explicit below-compaction-floor semantics rather than fabricated continuity.
-- Transport replay horizon, deduplication horizon, semantic resolvability horizon and authority/security horizon are independent.
-- `Dedup window expired != old obligation became new`; late work preserves lineage or becomes explicitly below-floor/unknown.
-- `Checkpoint complete != external effects settled`; snapshot scope cannot manufacture settlement of external effects.
-- `Compaction floor != security floor`; historical interpretation and current effect admissibility remain independently governed.
-- Negative/revocation/fencing evidence must outlive every path that could otherwise resurrect stale positive state, or be subsumed by a stronger durable fence.
-- `Compacted delivery history != semantic re-admission`; current deployment defaults cannot reinterpret old delayed work.
-- Recovery evidence remains purpose-minimal; recovery does not justify indefinite payload retention or cross-capability canonical ownership.
+- `Frontier transferred != frontier admissible here`; evidence coverage across payload, progress, semantics, effects, authority, negative evidence and topology is multidimensional.
+- `Replica complete for bytes != complete for semantic recovery`; provider-local cursor/checkpoint progress cannot manufacture effect settlement.
+- `Endpoint moved != old effect authority fenced`; promotion is an authority transition where conflicting effects can occur.
+- `RPO/RTO != semantic safety proof`; expected loss windows do not justify guessing a missing effect's disposition.
+- `Failback != undo failover`; divergent post-promotion histories require reconciliation.
+- `Connectivity restored != authority reconciled`; reconnection does not make either local latest state globally authoritative.
+- `Histories mergeable != effects jointly admissible`; convergent data and irreversible/non-commutative side effects use different reconciliation laws.
+- `Leader/lease elected != stale holder externally fenced`; effect-side exclusion must be enforced where the effect occurs or independently proven.
+- `Latest timestamp != semantic winner`; wall-clock recency cannot invent ownership, conservation, settlement or security authority.
+- Conflict resolution never erases historical external effects; dual-side effects remain facts with provenance/remediation obligations.
+- Rejoin admission follows invariant-scoped authority reconciliation; independent invariants need not share a global barrier.
+
+### Partition policy / degraded-mode boundaries
+
+- `Capability degraded != every operation degraded identically`; degraded behavior is operation/interaction/invariant-scoped.
+- `Dependency reachable != operation semantically admissible`; reachability, provider health, contract/profile compatibility, currentness, authority, effect rights and settlement are distinct dimensions.
+- `Dependency unreachable != every operation must stop`; bounded stale reads, local convergence, preallocated rights or queue-without-effect may remain safe when explicitly contracted.
+- `Health check green != operation admissible`; infrastructure health is not semantic/security authority.
+- `Circuit open != business permission denied`; resilience path state is operational evidence, not canonical policy truth.
+- `Graceful degradation != guarantee weakening by surprise`; hard safety/security/ownership invariants cannot be silently relaxed for availability.
+- `Failover target healthy != failover target contract-compatible`; routing failover preserves or explicitly requalifies negotiated semantics.
+- `Control plane unavailable != data plane must stop`; statically stable runtime operation may continue from locally durable state within declared currentness/security horizons.
+- `Cached control-plane state != indefinitely current authority`; autonomy remains bounded by freshness/security policy.
+- `Resource overload != semantic incompatibility`; load shedding and semantic admission are separate dimensions.
+- `Borrowable execution capacity != borrowable authority/quota/effect rights`; resource scheduling cannot transfer business rights.
+- `Dependency fallback succeeded != caller's original contract satisfied`; downstream degradation/lossiness propagates as qualified evidence through dependency composition.
+- `Dependency healthy again != degraded obligations settled`; recovery requalifies queued, divergent, stale and unknown work.
+- No central availability/health oracle becomes mandatory semantic authority for autonomous runtimes.
 
 ## Research progression
 
@@ -141,42 +165,42 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** thirty-three material deep-evidence consolidations are represented across the family artifacts, now extending semantic-generation handoff into crash/partition recovery and proof-preserving compaction of generation-frontier evidence. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** thirty-six material deep-evidence consolidations are represented across the family artifacts, now extending generation-frontier recovery through cross-runtime DR, split-brain authority rejoin and operation-scoped degraded-mode capability contracts. `RESEARCH_ACTIVE`, not saturated.
 
 ## Latest material consolidation — 2026-09-19
 
-### Handoff recovery and compaction of generation-frontier evidence
+### Partition-policy qualification and degraded-mode capability contracts
 
-Evidence classes: Apache Kafka log compaction/tombstone retention; Apache Pulsar retention, expiry and per-key topic compaction; etcd MVCC history compaction and explicit compacted-revision behavior; Apache Flink aligned checkpoint/recovery semantics and external-sink qualification; RabbitMQ quorum-queue log truncation, redelivery/dead-letter and delivery-limit behavior; prior G4 effect-composition, causal-workflow, in-flight evolution, negotiation lifecycle and semantic-generation handoff research.
+Evidence classes: AWS Well-Architected graceful degradation, static stability and cell/data-plane continuity; Google SRE load shedding/cascading-failure guidance; Kubernetes API Priority and Fairness and PodDisruptionBudget; Envoy overload manager; Istio locality failover/outlier detection; Azure Bulkhead and Circuit Breaker patterns; prior G4 offline-security, negotiation lifecycle, handoff, DR and split-brain research.
 
 Material delta:
 
-- defined recovery sufficiency as a durable semantic cut/frontier rather than indefinite full event-history retention;
-- made compaction proof-preserving summarization: discarded detail must be subsumed by sufficient summary or produce explicit below-floor behavior;
-- separated transport replay, deduplication, semantic resolvability and authority/security horizons;
-- established that expiry of direct dedup state cannot make an old obligation fresh if any legitimate replay path remains;
-- separated checkpoint/state recovery from settlement of external effects and required unresolved effects to survive as `UNKNOWN`/pending evidence;
-- made compaction floors scope-qualified rather than a synthetic platform-wide revision and kept them independent from security floors;
-- required late delivery after compaction to resolve through durable lineage/fence evidence or fail closed/revalidate, never inherit current deployment defaults;
-- identified negative/revocation/fencing evidence as subject to a resurrection-safety horizon: it cannot disappear while stale positive state can still return and produce an effect;
-- introduced a qualified snapshot-plus-tail recovery hypothesis while explicitly rejecting an event-sourcing requirement or Exchange Plane business ownership;
-- made compaction eligibility dependency-based: pending joins, unresolved rights/effects, replay paths, normative semantic resolvability, privacy/erasure and audit obligations constrain when detail can disappear.
+- made degraded behavior operation/interaction/invariant-scoped instead of a coarse service/node state;
+- introduced implementation-independent classes for stop/fail-closed, bounded stale read, local convergence, preallocated rights, reconcile-later, partial result, queue-without-effect and shedding;
+- decomposed dependency availability into transport reachability, health/capacity, contract/profile compatibility, data currentness, authority/security, effect rights and settlement/reconciliation capability;
+- established that dependency degradation composes as end-to-end guarantee constraints: a successful fallback does not imply the caller's original guarantee remains satisfied;
+- rejected a central availability oracle as semantic authority; each capability boundary evaluates operation-specific evidence while observability remains advisory/projection;
+- connected runtime autonomy to static stability: locally durable control-plane state can support bounded data-plane continuation, but never infinite stale authority;
+- separated resource overload/load shedding from semantic incompatibility/admission and prohibited compute/concurrency borrowing from becoming business-right transfer;
+- made infrastructure failover conditional on semantic/profile/currentness/authority qualification, preventing healthy endpoint routing from becoming silent semantic downgrade;
+- required degraded-mode transitions and exits to preserve evidence, scope, hysteresis where needed, queued/divergent obligations and requalification rather than flag-reset semantics;
+- required degraded paths to be tested under dependency loss, stale evidence, overload, partial recovery and oscillation because rarely exercised failure paths are themselves a reliability risk.
 
-No Kafka, Pulsar, etcd, Flink, RabbitMQ, event store, checkpoint format, broker, archive, workflow engine, gateway, service mesh or provider was selected.
+No AWS cell implementation, Kubernetes APF/PDB, Envoy, Istio, Azure resilience pattern, service mesh, circuit-breaker library, scheduler, broker or provider was selected.
 
-Highest-value remaining gap: **cross-runtime frontier transfer and disaster recovery under independent retention domains** — determine how a runtime proves/transfers a compacted frontier to a replacement host/region or autonomous peer whose replay windows, archives and security floors differ, without turning Builder/shared archive into mandatory runtime authority or accepting an incomplete frontier as current truth.
+Highest-value remaining gap: **degraded-mode dependency graph and end-to-end guarantee synthesis** — determine how a multi-capability operation derives its effective guarantee when several dependencies independently enter different degraded classes, how to identify hard/minimal-cut dependencies versus optional enrichment, and how to prevent cyclic fallback/retry amplification without creating a central orchestration or availability authority.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; normative proof-semantics governance/ambiguity containment; downgrade-resistant proof-semantics profile negotiation; negotiation-evidence lifecycle across rollout, partitions and rollback; and semantic-generation handoff across multiplexed/partially ordered exchanges.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; normative proof-semantics governance/ambiguity containment; downgrade-resistant proof-semantics profile negotiation; negotiation-evidence lifecycle; semantic-generation handoff; handoff recovery/compaction; cross-runtime frontier transfer/disaster recovery; and split-brain authority rejoin after mutually progressing runtimes.
 
 ## Non-goals
 
 - no Rust rewrite decision;
 - no graph/vector/search/stream/service-mesh/central-exchange/etcd/Kubernetes adoption decision;
-- no workflow/saga/migration/checkpoint/event-store engine adoption decision;
+- no workflow/saga/migration/checkpoint/event-store/circuit-breaker engine adoption decision;
 - no global serial-history/linearizability or global transaction requirement for all exchange interactions;
-- no mandatory central broker/ESB/shared archive;
+- no mandatory central broker/ESB/shared archive/availability oracle;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
