@@ -20,7 +20,7 @@ export type CommercialProduct = CommercialRevision & Readonly<{ kind: "PRODUCT" 
 export type CommercialOffer = CommercialRevision & Readonly<{ kind: "OFFER"; productRef: string }>;
 export type CommercialPlan = CommercialRevision & Readonly<{ kind: "PLAN"; offerRef: string }>;
 export type CommercialPrice = CommercialRevision & Readonly<{ kind: "PRICE"; planRef: string; amountMinor: number; currency: string }>;
-export type CustomerContract = CommercialRevision & Readonly<{ kind: "CONTRACT"; customerRef: string; offerRef: string; planRef: string; priceRef: string; priceRevisionRef: string }>;
+export type CustomerContract = CommercialRevision & Readonly<{ kind: "CONTRACT"; customerRef: string; offerRef: string; planRef: string; priceRef: string; priceRevisionRef: string; priceProvenanceRef: string }>;
 
 const TOKEN = /^\S+$/;
 const UTC = /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?Z$/;
@@ -46,12 +46,13 @@ export function selectCommercialRevision<T extends CommercialRevision>(revisions
   return revision === undefined ? { state: "UNKNOWN" } : { state: "CURRENT", revision };
 }
 
-export function bindCustomerContract(input: Readonly<{ contract: Omit<CustomerContract, "kind" | "priceRef" | "priceRevisionRef">; price: CommercialPrice; at: string }>): CustomerContract {
+export function bindCustomerContract(input: Readonly<{ contract: Omit<CustomerContract, "kind" | "priceRef" | "priceRevisionRef" | "priceProvenanceRef">; price: CommercialPrice; at: string }>): CustomerContract {
   const priceState = commercialRevisionState(input.price, input.at);
   if (priceState !== "CURRENT") throw new TypeError(`Cannot bind customer contract from ${priceState} price`);
   if (input.contract.planRef !== input.price.planRef || input.contract.scopeRef !== input.price.scopeRef) throw new TypeError("Cannot bind customer contract to unrelated price");
   token(input.contract.customerRef, "$contract.customerRef");
-  return { ...input.contract, kind: "CONTRACT", priceRef: input.price.id, priceRevisionRef: input.price.revisionRef };
+  token(input.price.provenanceRef, "$price.provenanceRef");
+  return { ...input.contract, kind: "CONTRACT", priceRef: input.price.id, priceRevisionRef: input.price.revisionRef, priceProvenanceRef: input.price.provenanceRef };
 }
 
 export function validateCommercialRevision(revision: CommercialRevision): CommercialRevision {
