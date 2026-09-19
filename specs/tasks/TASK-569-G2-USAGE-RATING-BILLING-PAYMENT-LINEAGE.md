@@ -1,7 +1,7 @@
 ---
 id: TASK-569
 title: Define usage rating billing invoice and payment lineage
-status: blocked
+status: ready
 priority: 569
 milestone: G2
 model_tier: architecture
