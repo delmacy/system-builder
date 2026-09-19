@@ -80,12 +80,15 @@ These are research families, not committed product modules. Future synthesis may
 29. Non-fenceable external domains must reduce autonomy, quarantine uncertainty or reject offline delegation/reallocation when no target-side equivalent can preserve the required hard invariant.
 30. `Latest deployment != in-flight semantic migration`; running obligations remain on their qualified historical basis until explicit pinning, mediation, migration, forward recovery or manual settlement changes that basis.
 31. `Schema compatibility != obligation compatibility`; authority, effect identity, idempotency/reservation namespace, compensation and settlement semantics must be qualified independently.
+32. `Historical semantic continuity != historical executable continuity`; an old contract/effect may remain interpretable after its vulnerable executable is revoked.
+33. `Security retirement != semantic settlement`; revoking an artifact/provider stops future execution but does not erase prior effects or outstanding obligations.
+34. `Signature/provenance valid != currently security-admissible`; rollback/freeze protection and security floors remain independent from historical artifact identity.
 
 ## Product direction being researched
 
 The Builder may evolve from a system generator into a broader **operational systems control substrate** capable of modeling, assembling, compiling, deploying, observing, operating and evolving systems — potentially including itself — while remaining above and interoperable with ordinary operating systems, cloud providers, container runtimes and external infrastructure.
 
-The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage: routing or deployment changes for new work must not silently rewrite historical effect semantics, especially across `UNKNOWN`, provider substitution, compensation changes or irreversible effects.
+The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage: routing or deployment changes for new work must not silently rewrite historical effect semantics, especially across `UNKNOWN`, provider substitution, compensation changes or irreversible effects. Security support is an independent horizon: preserving historical meaning must not require indefinite execution of a vulnerable historical implementation.
 
 This is a research hypothesis, not a product claim or implementation authorization.
 
