@@ -25,14 +25,15 @@ export type CustomerContract = CommercialRevision & Readonly<{ kind: "CONTRACT";
 const TOKEN = /^\S+$/;
 const UTC = /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?Z$/;
 function token(value: unknown, path: string): string { if (typeof value !== "string" || !TOKEN.test(value)) throw new TypeError(`Invalid commercial contract at ${path}`); return value; }
-function time(value: unknown, path: string): string { if (typeof value !== "string" || !UTC.test(value)) throw new TypeError(`Invalid commercial contract at ${path}`); return value; }
+function time(value: unknown, path: string): string { if (typeof value !== "string" || !UTC.test(value) || !Number.isFinite(Date.parse(value))) throw new TypeError(`Invalid commercial contract at ${path}`); return value; }
 function epoch(value: string): number { return Date.parse(value); }
 
 export function commercialRevisionState(revision: CommercialRevision, at: string): CommercialFactState {
   const instant = epoch(time(at, "$at"));
   if (revision.currentness !== "CURRENT" || revision.population !== "COMPLETE") return revision.currentness === "STALE" ? "STALE" : "UNKNOWN";
-  if (instant < epoch(revision.effectiveAt)) return "NOT_YET_EFFECTIVE";
-  if (revision.effectiveUntil !== undefined && instant >= epoch(revision.effectiveUntil)) return "EXPIRED";
+  const effectiveAt = epoch(time(revision.effectiveAt, "$revision.effectiveAt"));
+  if (instant < effectiveAt) return "NOT_YET_EFFECTIVE";
+  if (revision.effectiveUntil !== undefined && instant >= epoch(time(revision.effectiveUntil, "$revision.effectiveUntil"))) return "EXPIRED";
   return "CURRENT";
 }
 
