@@ -52,6 +52,7 @@ See `G4_RESEARCH_STATE.md` for the consolidated research status, boundaries and 
    - `research/G4_CAPABILITY_EXCHANGE_FEDERATED_ANONYMOUS_BUDGET_CONSERVATION.md`
    - `research/G4_CAPABILITY_EXCHANGE_PRIVACY_PRESERVING_ISSUER_ACCOUNTABILITY.md`
    - `research/G4_CAPABILITY_EXCHANGE_WITNESS_GOVERNANCE_CORRELATED_COMPROMISE.md`
+   - `research/G4_CAPABILITY_EXCHANGE_MULTI_DOMAIN_EVIDENCE_COMPOSITION.md`
 
 These are research families, not committed product modules. Future synthesis may merge, split or providerize them.
 
@@ -123,12 +124,19 @@ These are research families, not committed product modules. Future synthesis may
 64. `Checkpoint non-equivocation != witness-policy non-equivocation`; policy lineage/distribution is its own split-view surface.
 65. `Quorum-valid checkpoint != sufficiently current checkpoint`; validity and freshness/currentness remain independent proof domains.
 66. `Witness consistency approval != semantic/content monitoring`; witnesses do not become business authority by observing a consistent checkpoint.
+67. `All domains locally valid != cross-domain compatible state`; independent proof validity is not a composition proof.
+68. `Cross-domain composition != synthetic global revision number`; autonomous proof domains retain independent lineage/currentness.
+69. `Domain checkpoint valid != composition predicate satisfied`; domain evolution evidence and cross-domain admissibility are distinct proof objects.
+70. `Multiple valid transparency domains != one atomic semantic state`; evidence diversity does not create semantic atomicity.
+71. `One stale/forked domain != every domain invalid`; failure blast radius follows declared proof dependencies.
+72. `Evidence aggregation != semantic compatibility fabrication`; gateways/adapters cannot invent missing composition guarantees.
+73. `Joint hard invariant != global transaction requirement`; coordinate only the domains required by the named invariant.
 
 ## Product direction being researched
 
 The Builder may evolve from a system generator into a broader **operational systems control substrate** capable of modeling, assembling, compiling, deploying, observing, operating and evolving systems — potentially including itself — while remaining above and interoperable with ordinary operating systems, cloud providers, container runtimes and external infrastructure.
 
-The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage. Security support is an independent horizon. Autonomous runtime security requires locally durable trust continuity, bounded security-policy freshness and explicit reconciliation after disconnection. Late security reconciliation should retain only purpose-qualified witness material. Federated evidence exchange needs purpose-bounded correlation. Privacy-preserving resource governance must distinguish issuance conservation from redemption privacy. Issuer accountability separates preventive conservation from retrospective detection. Witness governance further makes quorum security conditional on declared correlated-failure assumptions, requires explicit continuity across witness-policy generations, and keeps checkpoint validity distinct from currentness without imposing one global transparency service on runtimes.
+The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage. Security support is an independent horizon. Autonomous runtime security requires locally durable trust continuity, bounded security-policy freshness and explicit reconciliation after disconnection. Late security reconciliation should retain only purpose-qualified witness material. Federated evidence exchange needs purpose-bounded correlation. Privacy-preserving resource governance must distinguish issuance conservation from redemption privacy. Issuer accountability separates preventive conservation from retrospective detection. Witness governance makes quorum security conditional on declared correlated-failure assumptions. Multi-domain evidence composition additionally keeps independently valid capability/issuer/security/authority evidence as a qualified vector with explicit compatibility predicates rather than fabricating one global revision or transaction.
 
 This is a research hypothesis, not a product claim or implementation authorization.
 
