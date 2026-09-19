@@ -1,7 +1,7 @@
 ---
 id: TASK-568
 title: Define subscription and commercial entitlement semantics
-status: ready
+status: completed
 priority: 568
 milestone: G2
 model_tier: architecture
@@ -62,3 +62,6 @@ Positive, negative and adversarial Product Proof including expiry/revocation, st
 
 ## Escalation
 Escalate rather than infer if the work would require operational authorization/enforcement ownership, identity replacement, provider SDKs, persistence/UI, FinOps/G2-WBS-21, WP-13 or other unmaterialized scope.
+
+## Completion evidence
+Implemented subscription and commercial-entitlement contracts/evaluation in `packages/contracts/commercial/index.ts` with Product Proof in `tests/product/g2-commercial-entitlement-proof.test.ts`. Commercial entitlement decisions always expose `operationalAuthorization: false`; suspended/cancelled subscriptions, revoked grants, scope/reference mismatch, expired/stale/PARTIAL/UNKNOWN evidence cannot strengthen access. This is Product Proof only and does not claim Production Readiness.
