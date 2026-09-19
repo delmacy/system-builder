@@ -151,6 +151,23 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Semantic resolvability != current admissibility`; local possession of old semantics does not defeat security/currentness floors.
 - `Mutable alias != semantic identity`; routing/discovery pointers cannot replace immutable proof/profile references.
 
+### Proof-semantics profile negotiation / downgrade-resistance boundaries
+
+- `Supported profile != admissible profile for this interaction`; support, admissibility and preference are distinct sets.
+- `Anti-downgrade != always choose numerically newest`; selection prevents unauthorized weakening relative to declared policy/floors.
+- `No common admissible profile != fallback to any common supported profile`; incompatibility/qualified mediation remains explicit.
+- Negotiation binds immutable semantic identity, peer/trust identity, interaction scope and relevant security/currentness context.
+- `Negotiated semantics != transport negotiation`; transport/topology substitution must preserve selected semantic identity.
+- `Version skew allowance = relationship-specific contract`; skew is bounded and asymmetric where declared, not accidental tolerance.
+- Gateways/meshes/brokers may carry negotiation context but cannot silently weaken semantic guarantees.
+- Unsupported theories/extensions require explicit incompatibility or qualified mediation; protocol translation cannot fabricate semantic equivalence.
+- `Discovered support != negotiated contract`; registry/discovery advertisements are claims, not canonical truth.
+- `Peer advertises profile != effect executed under profile`; negotiation evidence remains separate from effect evidence.
+- `Consistent profile view != sufficiently current profile view`; consistency and freshness are independent.
+- `Network endpoint reached != intended semantic peer authenticated`; topology redirection cannot substitute semantic authority silently.
+- `Previously negotiated != indefinitely admissible`; cached negotiation evidence is bounded by identity, policy, floor and currentness horizons.
+- Profile negotiation remains distinct from command ACK, business effect and convergence.
+
 ## Research progression
 
 ```text
@@ -173,38 +190,40 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** twenty-nine material deep-evidence consolidations are represented across the family artifacts, now extending verifier trust continuity into immutable normative proof-semantics governance, ambiguity containment and correction/supersession semantics. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** thirty material deep-evidence consolidations are represented across the family artifacts, now extending immutable normative proof-semantics governance into downgrade-resistant profile negotiation, bounded version skew and rolling-upgrade semantics. `RESEARCH_ACTIVE`, not saturated.
 
 ## Latest material consolidation — 2026-09-19
 
-### Normative proof-semantics governance and ambiguity containment
+### Proof-semantics profile negotiation and downgrade-resistant federation
 
-Evidence classes: W3C Process/errata/version-management rules; RFC Editor immutable-publication and errata model; SMT-LIB versioned language/theory/logic/profile practices and benchmark ecosystem; WebAssembly normative formal semantics, versioned releases and SpecTec authoring model; prior G4 proof-carrying and verifier trust-continuity research.
+Evidence classes: TLS 1.3 authenticated version negotiation/downgrade protection; QUIC compatible version negotiation and staged Acceptable/Offered/Fully-Deployed rollout; Kubernetes bounded role-specific version skew and upgrade ordering; TUF snapshot/currentness separation; SPIFFE federation trust-domain/profile binding; HTTP/RFC 6906 profile/content negotiation as a non-security baseline; prior G4 compatibility, in-flight evolution, security-floor and normative-semantics research.
 
 Material delta:
 
-- promoted proof semantics/profile from an implicit verifier dependency to a first-class immutable governed artifact;
-- separated immutable semantic snapshot identity from mutable `latest/current` governance pointers;
-- established that errata, ambiguity resolution and substantive correction do not silently rewrite historical proof meaning;
-- separated historical semantic truth from current security admissibility so an unsafe interpretation can be retired for new effects without falsifying audit history;
-- prohibited reference implementations and conformance corpora from becoming accidental normative authority;
-- required explicit precedence/derivation semantics when prose and formal representations coexist;
-- separated language, calculus/rule set, theory set and extension set as independent profile dimensions;
-- required custom/theory extensions to have explicit identity, dependencies, maturity, compatibility and security status;
-- classified conservative extension as a preservation proposition requiring evidence rather than a versioning label;
-- introduced explicit semantic-transition classes for editorial change, clarification, conservative extension, semantic correction, breaking change and security supersession;
-- established that a `clarification` can be semantically breaking when it changes conformance/accepted proof sets;
-- preserved `UNKNOWN_HISTORICAL_INTERPRETATION` rather than projecting current semantics backward;
-- preserved capability-local business semantic ownership and autonomous runtime operation through locally resolvable immutable semantics snapshots;
-- separated semantic resolvability from current admissibility/security floors.
+- separated locally supported profiles from profiles admissible for a specific interaction under contract/security/currentness policy;
+- established that arbitrary support-set intersection is insufficient for security-sensitive semantic negotiation;
+- defined downgrade resistance as preservation of the result honest peers would select absent attacker manipulation, rather than `choose newest`;
+- required explicit incompatibility or qualified mediation when no common admissible profile exists;
+- required negotiation to preserve the full immutable semantics identity and rule/theory/extension dimensions rather than a scalar version;
+- introduced staged deployment-state distinctions inspired by mature rolling-upgrade protocols so acceptable/offered/preferred/fully-deployed/retiring/historical-only/security-revoked are not collapsed into `supported`;
+- classified version-skew allowance as a relationship/interaction-specific contract rather than a global tolerance number;
+- required selected semantic identity to survive direct-call/RPC/broker/stream/file transport substitution;
+- prohibited gateways, service meshes and brokers from becoming implicit semantic renegotiators;
+- required unsupported theories/extensions to remain explicit rather than being silently approximated by adapters/drivers;
+- bound negotiation evidence to peer/trust identity and interaction scope, preserving tenant/classification/authority context;
+- separated peer support advertisement from proof that an effect executed under the selected profile;
+- separated coherent profile/dependency view from sufficient currentness;
+- preserved autonomous runtime operation through locally qualified cached negotiation/profile evidence within explicit horizons;
+- required cached negotiation invalidation on peer identity, policy, security floor, dependency or deployment-scope changes;
+- preserved `profile negotiated != command accepted != business effect != convergence`.
 
-No proof language, semantics format, standards process, verifier, theorem prover, solver, gateway, broker or provider was selected.
+No negotiation protocol, proof language, verifier, service mesh, broker, RPC stack, gateway or provider was selected.
 
-Highest-value remaining gap: **proof-semantics profile negotiation and downgrade-resistant federation** — determine how autonomous capabilities/runtimes negotiate immutable proof-semantics profiles across version skew without attacker-driven downgrade; how unsupported theories/extensions yield explicit incompatibility or qualified mediation; how transport changes preserve selected semantic identity; and how rolling upgrades avoid global lockstep while preventing selection of weaker-but-supported semantics for security-sensitive exchange.
+Highest-value remaining gap: **negotiation evidence lifecycle under concurrent rollout, partition and rollback** — determine how an already-selected profile behaves when a peer advances or retires semantics mid-session/mid-workflow; how long-lived streams and queued asynchronous work pin or renegotiate profiles; how partitioned runtimes reconcile after security-floor advancement; and how rollback/recovery avoids both global lockstep and silent reinterpretation of in-flight obligations.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; and verifier trust continuity/diversity.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; and normative proof-semantics governance/ambiguity containment.
 
 ## Non-goals
 
@@ -218,6 +237,7 @@ Detailed durable evidence remains in the family documents indexed by `README.md`
 - no Cedar/Rego/OPA/SMT/theorem-prover/policy-engine/proof-format/proof-checker adoption decision;
 - no TUF/Lean/Alethe/LFSC/Carcara/seL4/reproducible-build/DDC adoption decision;
 - no W3C/RFC/SMT-LIB/WebAssembly governance or semantics format adoption decision;
+- no TLS/QUIC/SPIFFE/HTTP negotiation/Kubernetes skew-policy adoption decision;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
