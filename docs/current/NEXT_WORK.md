@@ -3,10 +3,10 @@
 Generation 2 remains rolling-wave and dependency-safe.
 
 ## Canonically closed predecessors
-G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Planning & Materialization integrated via PR #839. TASK-563 and TASK-564 are integrated in Construction A.
+G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Planning & Materialization integrated via PR #839. TASK-563 and TASK-564 are integrated in Construction A. The TASK-565 executable-status reconciliation integrated via PR #845 as `main@d33f779c3c44830b6815832d00db95c071699c4e`.
 
 ## Current executable gate
-Only G2-WP-12 Construction A / `G2-WBS-19` is committed. Execute `TASK-565` next from fresh `main@73b05c31fb9569e738b23bf5ebba006ffe1f51e6`, subject to this authority reconciliation integrating first. Then, only after TASK-565 validation and authoritative commit, proceed to TASK-566.
+Only G2-WP-12 Construction A / `G2-WBS-19` is committed. Execute `TASK-565` next from fresh `main@d33f779c3c44830b6815832d00db95c071699c4e`. Then, only after TASK-565 validation and authoritative commit, proceed to TASK-566.
 
 TASK-565 adds privacy classification, retention/legal-hold/residency/disposition population semantics. TASK-566 closes Construction A with cumulative positive/negative/adversarial Product Proof.
 
