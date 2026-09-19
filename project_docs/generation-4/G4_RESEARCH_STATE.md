@@ -168,6 +168,24 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Previously negotiated != indefinitely admissible`; cached negotiation evidence is bounded by identity, policy, floor and currentness horizons.
 - Profile negotiation remains distinct from command ACK, business effect and convergence.
 
+### Negotiation-evidence lifecycle / rollout-partition-rollback boundaries
+
+- `Negotiated once != admissible forever`; negotiation evidence has a declared pinning scope and lifecycle.
+- `Selected profile for admitted scope != mutable deployment default`; rollout does not silently reinterpret admitted work.
+- `Historical semantic continuity != continuation authority != new-effect admissibility`.
+- `Stream continuity != invisible semantic mutation`; material profile changes require an explicit generation/transition boundary unless preservation is qualified.
+- `Queued work admission semantics != delivery-time execution admissibility`; both bases remain representable.
+- `Retry/redelivery/failover != new semantic admission`; delivery machinery cannot silently renegotiate meaning.
+- `New implementation present != new semantic profile activated`; implementation rollout and semantic activation are separate phases.
+- `Implementation rollback != semantic-profile rollback != security-floor rollback`; rollback availability is phase- and dependency-specific.
+- `Floor publication time != floor effective time != runtime observation time != effect time` where those distinctions are material.
+- Partition reconciliation preserves action-time evidence and classifies later conflict/currentness without rewriting historical profile identity.
+- `Profile change != global stop-the-world`; revalidation is scoped to changed invariants and still-pending obligations.
+- `Cached profile evidence != freshly revalidated profile evidence`; provisional reuse requires explicit risk/currentness/replay qualification.
+- `Topology/path migration != semantic occurrence migration`; provider/host/path changes preserve profile lineage or trigger explicit transition.
+- `Admission drained != effect obligations drained != historical interpretation drained`; retirement names the horizon being closed.
+- Intermediaries that buffer/reroute work preserve required profile/tenant/classification/authority/currentness evidence or expose qualified lossiness/incompatibility.
+
 ## Research progression
 
 ```text
@@ -190,40 +208,39 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** thirty material deep-evidence consolidations are represented across the family artifacts, now extending immutable normative proof-semantics governance into downgrade-resistant profile negotiation, bounded version skew and rolling-upgrade semantics. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** thirty-one material deep-evidence consolidations are represented across the family artifacts, now extending downgrade-resistant profile negotiation into negotiation-evidence lifecycle across concurrent rollout, queue/stream delay, partition reconciliation and rollback. `RESEARCH_ACTIVE`, not saturated.
 
 ## Latest material consolidation — 2026-09-19
 
-### Proof-semantics profile negotiation and downgrade-resistant federation
+### Negotiation evidence lifecycle under concurrent rollout, partition and rollback
 
-Evidence classes: TLS 1.3 authenticated version negotiation/downgrade protection; QUIC compatible version negotiation and staged Acceptable/Offered/Fully-Deployed rollout; Kubernetes bounded role-specific version skew and upgrade ordering; TUF snapshot/currentness separation; SPIFFE federation trust-domain/profile binding; HTTP/RFC 6906 profile/content negotiation as a non-security baseline; prior G4 compatibility, in-flight evolution, security-floor and normative-semantics research.
+Evidence classes: QUIC connection-version commitment/path migration/0-RTT remembered-parameter behavior; QUIC compatible-version staged fleet rollout; Apache Kafka staged binary/protocol rolling upgrades and phase-dependent downgrade limits; Kubernetes Deployment revision rollback as an operational deployment mechanism; TUF rollback/freeze/currentness threat model; prior G4 in-flight contract evolution, offline security floors, evidence reconciliation, composition-policy anti-rollback, normative semantics and downgrade-resistant negotiation research.
 
 Material delta:
 
-- separated locally supported profiles from profiles admissible for a specific interaction under contract/security/currentness policy;
-- established that arbitrary support-set intersection is insufficient for security-sensitive semantic negotiation;
-- defined downgrade resistance as preservation of the result honest peers would select absent attacker manipulation, rather than `choose newest`;
-- required explicit incompatibility or qualified mediation when no common admissible profile exists;
-- required negotiation to preserve the full immutable semantics identity and rule/theory/extension dimensions rather than a scalar version;
-- introduced staged deployment-state distinctions inspired by mature rolling-upgrade protocols so acceptable/offered/preferred/fully-deployed/retiring/historical-only/security-revoked are not collapsed into `supported`;
-- classified version-skew allowance as a relationship/interaction-specific contract rather than a global tolerance number;
-- required selected semantic identity to survive direct-call/RPC/broker/stream/file transport substitution;
-- prohibited gateways, service meshes and brokers from becoming implicit semantic renegotiators;
-- required unsupported theories/extensions to remain explicit rather than being silently approximated by adapters/drivers;
-- bound negotiation evidence to peer/trust identity and interaction scope, preserving tenant/classification/authority context;
-- separated peer support advertisement from proof that an effect executed under the selected profile;
-- separated coherent profile/dependency view from sufficient currentness;
-- preserved autonomous runtime operation through locally qualified cached negotiation/profile evidence within explicit horizons;
-- required cached negotiation invalidation on peer identity, policy, security floor, dependency or deployment-scope changes;
-- preserved `profile negotiated != command accepted != business effect != convergence`.
+- made negotiation evidence lifecycle-scoped rather than a timeless compatibility result;
+- introduced explicit pinning scope for exchange/session/workflow obligation/stream generation/queued occurrence semantics;
+- separated valid historical admission, continuation authority and admissibility of new effects;
+- required long-lived streams to expose semantic generation boundaries for material profile changes unless preservation is explicitly qualified;
+- required queued work to retain admission-time profile/policy/floor evidence while separately evaluating delivery-time execution admissibility;
+- prohibited retries, redelivery and failover from silently becoming fresh semantic negotiation;
+- separated implementation rollout from semantic-profile activation and added the in-flight/drain dimension to staged deployment;
+- established rollback as multidimensional and potentially asymmetric: implementation rollback does not imply semantic or security-floor rollback;
+- required partitioned runtimes to preserve action-time local basis and later reconcile against successor floors without rewriting history;
+- separated floor publication, effective, observation and effect times where policy semantics require them;
+- scoped revalidation to changed invariants/obligations instead of global lockstep;
+- distinguished cached/provisional negotiation reuse from freshly revalidated evidence;
+- required topology/path/provider migration to preserve occurrence/profile lineage or record an explicit qualified transition;
+- separated admission drain, outstanding effect-obligation drain and historical interpretation horizon;
+- required gateways/brokers/meshes/adapters that buffer or reroute work to preserve lifecycle evidence or expose explicit lossiness/incompatibility.
 
-No negotiation protocol, proof language, verifier, service mesh, broker, RPC stack, gateway or provider was selected.
+No broker, RPC stack, workflow engine, service mesh, verifier, update framework, deployment mechanism or provider was selected.
 
-Highest-value remaining gap: **negotiation evidence lifecycle under concurrent rollout, partition and rollback** — determine how an already-selected profile behaves when a peer advances or retires semantics mid-session/mid-workflow; how long-lived streams and queued asynchronous work pin or renegotiate profiles; how partitioned runtimes reconcile after security-floor advancement; and how rollback/recovery avoids both global lockstep and silent reinterpretation of in-flight obligations.
+Highest-value remaining gap: **semantic generation handoff for multiplexed and partially ordered exchanges** — determine how one logical occurrence containing parallel branches, multiple streams, batched commands or actor/mailbox traffic crosses a profile-generation boundary without assuming one global cutover point; how per-branch pinning composes at joins; and how revalidation/settlement evidence proves that no old-generation effect right leaks across a cutover while preserving autonomous progress where branches are independent.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; and normative proof-semantics governance/ambiguity containment.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; normative proof-semantics governance/ambiguity containment; and downgrade-resistant proof-semantics profile negotiation.
 
 ## Non-goals
 
@@ -238,6 +255,7 @@ Detailed durable evidence remains in the family documents indexed by `README.md`
 - no TUF/Lean/Alethe/LFSC/Carcara/seL4/reproducible-build/DDC adoption decision;
 - no W3C/RFC/SMT-LIB/WebAssembly governance or semantics format adoption decision;
 - no TLS/QUIC/SPIFFE/HTTP negotiation/Kubernetes skew-policy adoption decision;
+- no Kafka/Kubernetes/TUF/QUIC lifecycle mechanism adoption decision;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
