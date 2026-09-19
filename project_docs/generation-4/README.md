@@ -53,6 +53,8 @@ See `G4_RESEARCH_STATE.md` for the consolidated research status, boundaries and 
    - `research/G4_CAPABILITY_EXCHANGE_PRIVACY_PRESERVING_ISSUER_ACCOUNTABILITY.md`
    - `research/G4_CAPABILITY_EXCHANGE_WITNESS_GOVERNANCE_CORRELATED_COMPROMISE.md`
    - `research/G4_CAPABILITY_EXCHANGE_MULTI_DOMAIN_EVIDENCE_COMPOSITION.md`
+   - `research/G4_CAPABILITY_EXCHANGE_COMPOSITION_POLICY_LIFECYCLE_RESEARCH.md`
+   - `research/G4_CAPABILITY_EXCHANGE_SEMANTIC_POLICY_DIFF_PROOF.md`
 
 These are research families, not committed product modules. Future synthesis may merge, split or providerize them.
 
@@ -131,12 +133,21 @@ These are research families, not committed product modules. Future synthesis may
 71. `One stale/forked domain != every domain invalid`; failure blast radius follows declared proof dependencies.
 72. `Evidence aggregation != semantic compatibility fabrication`; gateways/adapters cannot invent missing composition guarantees.
 73. `Joint hard invariant != global transaction requirement`; coordinate only the domains required by the named invariant.
+74. `Anti-rollback != anti-downgrade`; monotonic revision does not prove semantic safety.
+75. `Old/new policy coexistence != union(old permissions, new permissions)`; overlap must itself be qualified.
+76. `Fresh composition policy != fresh dependent security evidence`; proof horizons remain independent.
+77. `Unknown policy semantics != permission to ignore`; unsupported successor predicates require explicit incompatibility, quarantine or bounded fallback.
+78. `Text/AST diff != semantic policy diff`; policy change classification is a relation over qualified decisions and guarantees.
+79. `UNSAT in a modeled semantics != universal business/security preservation`; solver proofs carry explicit scope and assumptions.
+80. `Policy validates != policy is semantically correct/equivalent`; schema validation and policy-transition proof are distinct.
+81. `Same admitted request set != same guarantee vector`; non-downgrade must compare protected security/authority/currentness guarantees as well as allow/deny decisions.
+82. `Unknown/custom predicate != semantic equality`; unmodeled semantics degrade proof to conditional/unproven rather than fabricated equivalence.
 
 ## Product direction being researched
 
 The Builder may evolve from a system generator into a broader **operational systems control substrate** capable of modeling, assembling, compiling, deploying, observing, operating and evolving systems — potentially including itself — while remaining above and interoperable with ordinary operating systems, cloud providers, container runtimes and external infrastructure.
 
-The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage. Security support is an independent horizon. Autonomous runtime security requires locally durable trust continuity, bounded security-policy freshness and explicit reconciliation after disconnection. Late security reconciliation should retain only purpose-qualified witness material. Federated evidence exchange needs purpose-bounded correlation. Privacy-preserving resource governance must distinguish issuance conservation from redemption privacy. Issuer accountability separates preventive conservation from retrospective detection. Witness governance makes quorum security conditional on declared correlated-failure assumptions. Multi-domain evidence composition additionally keeps independently valid capability/issuer/security/authority evidence as a qualified vector with explicit compatibility predicates rather than fabricating one global revision or transaction.
+The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage. Security support is an independent horizon. Autonomous runtime security requires locally durable trust continuity, bounded security-policy freshness and explicit reconciliation after disconnection. Late security reconciliation should retain only purpose-qualified witness material. Federated evidence exchange needs purpose-bounded correlation. Privacy-preserving resource governance must distinguish issuance conservation from redemption privacy. Issuer accountability separates preventive conservation from retrospective detection. Witness governance makes quorum security conditional on declared correlated-failure assumptions. Multi-domain evidence composition keeps independently valid evidence as a qualified vector. Composition-policy lifecycle adds anti-rollback, semantic non-downgrade and bounded overlap. Semantic policy-diff proof further requires decision/guarantee implication over an explicit proof scope rather than syntax or solver results detached from their assumptions.
 
 This is a research hypothesis, not a product claim or implementation authorization.
 
