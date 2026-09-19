@@ -38,8 +38,20 @@ validation:
 # Objective
 Close G2-WBS-20 Construction B with cumulative deterministic Product Proof over TASK-567..569 and the governance/currentness boundaries consumed from Construction A.
 
+## Context
+TASK-570 is a proof-closure task after TASK-567..569. It may consolidate deterministic evidence for already materialized Construction B semantics but must not create a successor feature family or claim Production Readiness.
+
+## Current behavior
+Before closure, TASK-567..569 provide staged commercial contracts/proofs but Construction B lacks one cumulative adversarial proof demonstrating their boundaries survive composition.
+
 ## Required change
 Complete cumulative positive, negative and adversarial proof across catalog/pricing/contract, subscription/entitlement and meter/usage/rating/charge/invoice/payment lineage without adding successor feature scope.
+
+## Inputs / contracts
+Consume the integrated contracts and Product Proof from TASK-567..569 together with Construction A governance/currentness semantics, including revision, scope, provenance, effective time and PARTIAL/UNKNOWN handling.
+
+## Outputs / contracts
+Produce cumulative deterministic Product Proof showing the composed Construction B boundary and its negative/adversarial cases. Any contract adjustment must remain strictly bounded to proof-discovered defects in TASK-567..569 semantics.
 
 ## Acceptance criteria
 Proof demonstrates product != offer != plan != price != contract != subscription != entitlement; commercial entitlement != operational authorization; measured != qualified != rated != billed != invoiced != paid; missing usage != zero; effective-dated pricing and correction/rerating lineage survive composition; provider/settlement ACK != customer-commercial truth; PARTIAL/UNKNOWN and stale/conflicting evidence never strengthen. Product Proof remains explicitly distinct from Production Readiness.
@@ -49,3 +61,6 @@ No new feature family, provider SDK, persistence/UI, FinOps/G2-WBS-21 implementa
 
 ## Evidence expected
 Cumulative positive, negative and adversarial Product Proof plus all declared validations and repository-wide npm run verify.
+
+## Escalation
+Escalate any proof failure that would require successor feature scope, FinOps/G2-WBS-21, provider SDKs, persistence/UI, WP-13, Production Readiness work or unmaterialized DEFER/DO_NOT_BUILD findings rather than absorbing it into this closure.
