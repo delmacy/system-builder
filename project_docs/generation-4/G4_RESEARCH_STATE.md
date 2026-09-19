@@ -1,12 +1,14 @@
 # G4 Research State — System Builder Product R&D
 
-Date: 2026-09-18
+Date: 2026-09-19
 Status: `RESEARCH_ACTIVE / NON_EXECUTABLE`
 Execution authority: NONE
 
 ## Purpose
 
 Generation 4 follows G3 architectural closure and studies how the System Builder product should realize that semantic substrate with usable interaction, measurable performance, robust data/infrastructure engineering, controlled lifecycle management, bounded self-management and interoperable capability boundaries. G4 does not reopen G3 and does not authorize implementation, WBS, Work Packages, Sprints, TASKs, migrations or provider adoption.
+
+This file is the compact consolidated state. Detailed evidence, adversarials, trade-offs and source-specific findings live in the dedicated documents under `project_docs/generation-4/research/`; compaction here does not supersede those durable research artifacts.
 
 ## Current research families
 
@@ -89,6 +91,27 @@ These families may later be deduplicated or recomposed. A research family is not
 - `Fencing token generated != fencing enforced`; the protected effect boundary must reject stale epochs or an explicitly weaker profile applies.
 - `Holder/node loss != rights safely recoverable`; recovery requires evidence excluding prior consumption.
 - `Ambiguous rights != free capacity`; UNKNOWN transfer/recovery reduces availability rather than weakening a hard invariant.
+- `Idempotency != fencing`; retry safety does not prove stale-holder exclusion or conflicting-intent ordering.
+- `Target-local atomicity != cross-domain atomicity`.
+- `Latest deployment != in-flight semantic migration`.
+- `Schema compatibility != obligation compatibility`.
+- `Historical semantic continuity != historical executable continuity`.
+- `Security retirement != semantic settlement`.
+- `Signature/provenance valid != currently security-admissible`.
+- `Previously trusted != indefinitely security-admissible`.
+- `Offline autonomy != unlimited stale-security operation`.
+- `Security currentness != business authority currentness`.
+- `Revocation effective time != runtime observation time`.
+- `Golden/A-B rollback != security-floor rollback`.
+- `Evidence sufficient != payload retained`.
+- `Security evidence store != retention exemption`.
+- `No witness != no effect`.
+- `Signed/tamper-evident != non-sensitive/permanently retainable`.
+- `Proof continuity != global identity continuity`.
+- `Dedup scope != global correlation scope`.
+- `Proof of predicate != disclosure of source record`.
+- `Federation != trust-domain collapse`.
+- `Cryptographic key rotation != semantic identity rotation != correlation-reference rotation`.
 
 ## Research progression
 
@@ -107,92 +130,42 @@ G3 CLOSED/FROZEN
 
 - **Data/Persistence/Access:** first deep evidence consolidation completed for authorization-aware data access. Long-running revocation/currentness and empirical leakage tests remain open. `RESEARCH_ACTIVE`, not saturated.
 - **Data Treatment:** deep evidence consolidation covers temporal/streaming/replay, temporal identity/interpretation revision and retention/erasure/reproducibility. `RESEARCH_ACTIVE`, not saturated.
-- **Infrastructure Engineering:** two deep evidence consolidations cover decomposed health/control-loop safety and leadership/lease/fencing/split-brain coordination. `RESEARCH_ACTIVE`, not saturated.
-- **Computational Core/Performance:** first deep evidence consolidation covers workload envelopes, TypeScript/Node baseline instrumentation, worker/serialization boundaries, specialization crossover, native isolation and WASM qualification. Representative SB empirical benchmarks remain absent. `RESEARCH_ACTIVE`, not saturated.
-- **Lifecycle/Continuous Improvement:** first deep evidence consolidation covers incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence. `RESEARCH_ACTIVE`, not saturated.
-- **Self-Hosting/Autonomic Evolution:** first deep evidence consolidation covers secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment. `RESEARCH_ACTIVE`, not saturated.
-- **Product UX/AI-native Builder:** first deep evidence consolidation covers semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads. `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** **ten deep evidence consolidations completed**: minimal kernel/exchange vocabulary; multidimensional compatibility; same-contract delayed-command fixtures; federated reconnect; causal workflow/saga semantics; in-flight workflow migration + causal-history compaction; semantic verification/fault-model strategy; interaction-specific reference-model/effect-point/safety-liveness semantics; effect-domain composition/commutativity/coordination boundaries; and authority-preserving reservation/escrow lifecycle under federation/failure. The tenth consolidation separates allocation, transfer, consumption, revocation and recovery; requires conservation across ambiguous transfers; distinguishes leases/currentness from effect-boundary fencing; prevents node loss from minting replacement capacity; and preserves autonomous runtime progress only within prequalified local rights/authority/contracts. `RESEARCH_ACTIVE`, not saturated.
+- **Infrastructure Engineering:** deep evidence consolidations cover decomposed health/control-loop safety and leadership/lease/fencing/split-brain coordination. `RESEARCH_ACTIVE`, not saturated.
+- **Computational Core/Performance:** deep evidence consolidation covers workload envelopes, TypeScript/Node baseline instrumentation, worker/serialization boundaries, specialization crossover, native isolation and WASM qualification. Representative SB empirical benchmarks remain absent. `RESEARCH_ACTIVE`, not saturated.
+- **Lifecycle/Continuous Improvement:** deep evidence consolidation covers incident/postmortem/action separation, semantic lifecycle graph, multidimensional closure and improvement-effect evidence. `RESEARCH_ACTIVE`, not saturated.
+- **Self-Hosting/Autonomic Evolution:** deep evidence consolidation covers secure update trust, generation consistency, version skew, anti-rollback/recovery, durable-state rollback, promotion evidence and failed-update-loop containment. `RESEARCH_ACTIVE`, not saturated.
+- **Product UX/AI-native Builder:** deep evidence consolidation covers semantic zoom, lens composition, disclosure security, Explore-to-Act separation, Preview fidelity, evidence-linked AI, accessibility and interaction workloads. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** eighteen material deep-evidence consolidations are represented across the family artifacts: foundations; multidimensional compatibility; time-separated exchange; federated reconnect; causal workflow/saga; in-flight workflow migration/history compaction; semantic verification; interaction-specific reference model; effect-domain composition/commutativity; reservation/escrow lifecycle; hierarchical/delegated rights; non-fenceable external effects; heterogeneous cross-provider effect composition; in-flight contract evolution; security retirement/remediation; offline security floors; evidence-minimal security reconciliation; and privacy-preserving evidence/currentness federation. `RESEARCH_ACTIVE`, not saturated.
 
-## Material research log
+## Latest material consolidation — 2026-09-19
 
-### 2026-09-18 — Reservation/escrow lifecycle, fencing and failure recovery
+### Privacy-preserving evidence/currentness federation
 
-Evidence classes: Balegas et al. bounded-counter/rights-transfer research; Shapiro et al. Just-Right Consistency; etcd API guarantees, revisions and leases; Apache ZooKeeper ordered coordination/recoverable-error recipes; fencing-token stale-holder analysis; prior G4 effect-composition/federation/authority findings.
+Evidence classes: NIST SP 800-63C-4 federation and pairwise pseudonymous identifiers; W3C Data Integrity BBS selective-disclosure/unlinkable-proof work; W3C Bitstring Status List privacy/currentness patterns; SPIFFE federation/trust-domain bundle isolation and rotation; RFC 9449 DPoP sender-constrained proof-of-possession; prior G4 evidence-minimal/offline-security/Exchange Plane findings.
 
 Material delta:
 
-- separated right allocation, holding, consumption, transfer, revocation and recovery rather than treating escrow as a static quota;
-- made rights conservation/non-duplication explicit across `UNKNOWN` transfer/recovery windows;
-- separated lease/currentness evidence from hard fencing and required the protected effect boundary to enforce stale epochs when hard fencing is claimed;
-- classified external domains that cannot enforce fences as requiring weaker explicit recovery/UNKNOWN semantics rather than fabricated exclusion;
-- required authority/contract revision semantics for outstanding offline rights;
-- bounded partition autonomy to pre-proven local rights and accepted safe false denial when remote capacity cannot be safely acquired;
-- made orphan recovery evidence-based: node death, disk loss, lease expiry or silence do not prove rights unconsumed;
-- kept allocator topology replaceable and prevented allocation mechanism from becoming canonical business owner;
-- extended verification toward transfer-response loss, stale-holder effects, orphan recovery, revocation during partition and evidence compaction.
+- made **purpose-bounded linkability** the target rather than universal unlinkability or universal correlation;
+- separated proof continuity from global subject identity continuity;
+- introduced explicit `CorrelationScope` and `DedupScope`, requiring dedup correlation not to exceed the privacy scope authorized by the contract;
+- established `Proof of predicate != disclosure of source record` as a cross-capability evidence boundary;
+- qualified pairwise/verifier-specific evidence references as a candidate way to preserve local reconciliation without global stable handles;
+- recognized status/currentness query patterns, timing, cache misses and endpoint structure as privacy leakage channels independent of payload disclosure;
+- separated proof-of-possession from business identity, authority and currentness;
+- preserved issuer/trust-domain bindings across federation instead of pooling trust authorities;
+- separated cryptographic key rotation, semantic identity continuity and correlation-reference rotation;
+- defined reconnect after long partitions as selective reconciliation of required effect scopes, not authority to reconstruct a global identity graph;
+- added explicit adversarials for colluding issuer/verifier, global IDs leaking through broker/trace metadata, pairwise refs relinked by stable digests, and dedup implementations that retain broader identity maps than their horizon requires.
 
-No allocator, lock service, lease system, consensus protocol, CRDT, database or fencing-token implementation was selected.
+No identity system, credential format, cryptosuite, status mechanism, federation framework, broker, PKI or provider was selected.
 
-Highest-value remaining gap: hierarchical/delegated rights across multi-level federation and intermediate allocator failure/retirement, followed closely by external effect domains that cannot enforce fencing and invariant/budget evolution while rights remain outstanding.
+Highest-value remaining gap: **privacy-preserving reconciliation under multi-party collusion and metadata side channels** — determine which privacy guarantees survive issuer/verifier/gateway/broker collusion; formalize correlation budgets across timing, routing, trace, size and status-query metadata; and identify when a cryptographically unlinkable/pairwise design remains operationally linkable.
 
-### 2026-09-18 — Effect-domain composition, commutativity and coordination boundaries
+## Prior material progression — compact index
 
-Evidence classes: Bailis et al. invariant confluence; CALM/monotonicity research; O'Neil escrow transactions and bounded-counter research; Google Spanner/CockroachDB serializable transaction boundaries; Azure Cosmos DB multi-region conflict resolution; Infinispan cross-site merge policies; prior G4 reference-model/federation/verification findings.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include: reservation/escrow lifecycle and fencing; effect-domain composition and invariant-relative commutativity; interaction reference models and safety/liveness; semantic verification/stateful fault models; workflow migration/history compaction; causal saga/compensation semantics; long-partition federation/reconnect; queued-command validity; multidimensional contract compatibility; Shared Semantic Kernel/Exchange Plane foundations; hierarchical rights; non-fenceable effects; heterogeneous provider composition; in-flight contract evolution; security retirement; offline security-floor propagation; and evidence-minimal reconciliation under erasure.
 
-Material delta: semantic effect domains + application invariants became the unit of composition; commutativity became invariant/observation-relative; invariant-confluence reasoning bounded coordination avoidance; deterministic convergence was separated from business resolution; and reservation/escrow was introduced as bounded autonomy for decomposable invariants.
-
-### 2026-09-18 — Interaction reference model, effect points and safety/liveness
-
-Evidence classes: Herlihy/Wing linearizability; gRPC unary/streaming ordering; Apache Kafka partition-scoped ordering; CloudEvents occurrence/event/message distinctions; RFC 9110 conditional requests; Amazon S3 conditional/integrity evidence; prior RabbitMQ/Pulsar/Kafka delivery/dedup findings.
-
-Material delta: bounded linearizability to genuine atomic abstract effects; separated admission/durability/effect/observation/settlement/convergence; interaction-specific proof models; safety/liveness/UNKNOWN qualification.
-
-### 2026-09-18 — Semantic verification, stateful fault model and checkpoint sufficiency
-
-Evidence classes: FoundationDB deterministic simulation/testing; Antithesis deterministic simulation/fault injection; Hypothesis rule-based state machines; Jepsen/Elle generated-history checking; prior G4 contract, federation, causal-workflow, migration and retention findings.
-
-Material delta: layered verification evidence; transport-independent semantic histories/oracles; metamorphic binding conformance; stateful fault generation; intentional UNKNOWN windows; operation-specific checkpoint sufficiency; privacy-aware counterexample retention; bounded deterministic-simulation claims; dependency/history checking.
-
-### 2026-09-18 — In-flight workflow migration, contract retirement and causal-history compaction
-
-Evidence classes: Camunda 8 process-instance migration/versioning/data-migration limitations/data retention; Apache Kafka log compaction; GDPR Article 5 storage limitation/data minimisation; prior G4 causal-workflow and retention/erasure research.
-
-Material delta: migration is a semantic transformation; pinning and migration have distinct risks; semantic evidence/executables/sensitive payloads have distinct retention; causal checkpoints preserve only qualified future proof; admission and obligation retirement horizons differ; retention may intentionally reduce reproducibility without falsifying history.
-
-### 2026-09-18 — Cross-capability causal consistency, saga/workflow and compensation
-
-Evidence classes: AWS saga orchestration/choreography; Azure Saga/Compensating Transaction; W3C Trace Context; OpenTelemetry; prior G4 temporal/federation findings.
-
-Material delta: business causation separated from trace/correlation; workflow progress separated from transport progress; compensation treated as new governed effect; pivot/irreversibility and causal-frontier semantics added; orchestration/choreography kept above Exchange Plane; cancellation and mid-workflow authority/contract revision added as proof domains.
-
-### 2026-09-18 — Federated exchange after long partitions and reconnect
-
-Evidence classes: CouchDB disconnected replication/conflicts; Kafka MirrorMaker 2; Azure Service Bus/Event Hubs geo-replication/failover.
-
-Material delta: transport reconnect separated from semantic convergence; backlog classification/revalidation; conflict preservation; authority-sensitive queued work revalidation; exchange-state classification remains separate from business merge/effect authority.
-
-### 2026-09-18 — Time-separated exchange fixtures and queued-command validity
-
-Evidence classes: gRPC deadlines; RabbitMQ TTL/dead-lettering; Kafka transaction boundaries; Amazon EventBridge replay.
-
-Material delta: same-contract fixtures observe caller result, transport evidence, authoritative effect and reconciliation; delayed command validity separated from TTL; ambiguous timeout/retry/external-effect made mandatory; replay is a qualified delivery context.
-
-### 2026-09-18 — Capability Exchange contract compatibility and negotiation
-
-Evidence classes: schema-registry compatibility; AsyncAPI/CloudEvents bindings; HTTP idempotency; gRPC deadlines; RabbitMQ confirms; Kafka idempotence/transactions.
-
-Material delta: compatibility became a multidimensional guarantee vector; `RequiredContractProfile` compared to `ProviderOffer`; transport substitution classified; schema/contract/provider registries separated; common semantic fixtures proposed as portability proof.
-
-### 2026-09-18 — Shared Semantic Kernel / Capability Exchange Plane foundations
-
-Evidence classes: DDD/ACL; Ports & Adapters; CloudEvents; AsyncAPI; gRPC; Kafka; RabbitMQ; transactional outbox; Envoy; schema registries.
-
-Material delta: minimal shared structural kernel; logical non-central Exchange Plane; explicit role vocabulary; interaction taxonomy; exchange envelope; semantic mediation/lossiness; ACK/delivery/effect separation; authorization/currentness/rate/backpressure propagation; autonomous runtimes without mandatory central broker/ESB.
-
-### Earlier 2026-09-18 consolidations
-
-Authorization-aware data access; Computational Core baseline qualification; Product UX semantic zoom/AI/Preview safety; Infrastructure fencing/leadership/split-brain; Infrastructure control-loop safety; Retention/erasure/reproducibility; Temporal identity/replay interpretation; Temporal/streaming/replay semantics; Lifecycle learning/improvement effectiveness; Self-hosting secure-update foundations.
+This compact index replaces duplicated log prose in this state file; it does not supersede or erase the detailed research artifacts.
 
 ## Non-goals
 
@@ -204,6 +177,8 @@ Authorization-aware data access; Computational Core baseline qualification; Prod
 - no global transaction/coordination requirement for all cross-capability effects;
 - no CRDT/escrow/reservation adoption decision;
 - no central allocator requirement;
+- no identity/credential/selective-disclosure/status-list framework adoption decision;
+- no global stable identity/evidence-reference requirement;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
