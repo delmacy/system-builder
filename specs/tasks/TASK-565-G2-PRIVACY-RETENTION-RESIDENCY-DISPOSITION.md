@@ -1,7 +1,7 @@
 ---
 id: TASK-565
 title: Define privacy classification retention legal hold residency and disposition population semantics
-status: blocked
+status: ready
 priority: 565
 milestone: G2
 model_tier: architecture
