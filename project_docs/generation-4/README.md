@@ -6,33 +6,19 @@ Generation 4 is the research-and-development layer for the **System Builder prod
 
 ## Purpose
 
-G3 answers primarily what must be representable, governed, traceable, executable and provable in the System Builder model.
+G3 answers primarily what must be representable, governed, traceable, executable and provable in the System Builder model. G4 asks how the Builder product should realize that architecture with acceptable usability, performance, persistence, infrastructure engineering, operational safety, maintainability and product intelligence.
 
-G4 asks how the Builder product should realize that architecture with acceptable usability, performance, persistence, infrastructure engineering, operational safety, maintainability and product intelligence.
-
-## Current research state
-
-See `G4_RESEARCH_STATE.md` for the consolidated research status, boundaries and maturity.
+See `G4_RESEARCH_STATE.md` for consolidated status, boundaries and maturity.
 
 ## Active G4 research families
 
-1. **Product UX, Living Canvas & AI-Native Builder**
-   - `research/G4_PRODUCT_UX_AI_NATIVE_BUILDER.md`
-2. **Computational Core & Performance Engineering**
-   - `research/G4_COMPUTATIONAL_CORE_PERFORMANCE_ENGINEERING.md`
-3. **Data, Persistence, Access & Infrastructure Access**
-   - `research/G4_DATA_INFRA_ACCESS_ENGINEERING_BACKLOG.md`
-   - `research/G4_AUTHORIZATION_AWARE_DATA_ACCESS.md`
-4. **Data Treatment Engineering**
-   - `research/G4_DATA_TREATMENT_ENGINEERING_BACKLOG.md`
-   - `research/G4_DATA_TEMPORAL_STREAMING_SEMANTICS.md`
-   - `research/G4_DATA_RETENTION_ERASURE_REPRODUCIBILITY.md`
-5. **Infrastructure Engineering & Control Plane**
-   - `research/G4_INFRASTRUCTURE_ENGINEERING_BACKLOG.md`
-6. **Engineering Lifecycle, Product Change & Continuous Improvement**
-   - `research/G4_ENGINEERING_LIFECYCLE_CONTINUOUS_IMPROVEMENT.md`
-7. **Self-Hosting, Autonomic Control & Bounded Self-Evolution**
-   - `research/G4_SELF_HOSTING_AUTONOMIC_EVOLUTION.md`
+1. **Product UX, Living Canvas & AI-Native Builder** — `research/G4_PRODUCT_UX_AI_NATIVE_BUILDER.md`
+2. **Computational Core & Performance Engineering** — `research/G4_COMPUTATIONAL_CORE_PERFORMANCE_ENGINEERING.md`
+3. **Data, Persistence, Access & Infrastructure Access** — `research/G4_DATA_INFRA_ACCESS_ENGINEERING_BACKLOG.md`, `research/G4_AUTHORIZATION_AWARE_DATA_ACCESS.md`
+4. **Data Treatment Engineering** — `research/G4_DATA_TREATMENT_ENGINEERING_BACKLOG.md`, `research/G4_DATA_TEMPORAL_STREAMING_SEMANTICS.md`, `research/G4_DATA_RETENTION_ERASURE_REPRODUCIBILITY.md`
+5. **Infrastructure Engineering & Control Plane** — `research/G4_INFRASTRUCTURE_ENGINEERING_BACKLOG.md`
+6. **Engineering Lifecycle, Product Change & Continuous Improvement** — `research/G4_ENGINEERING_LIFECYCLE_CONTINUOUS_IMPROVEMENT.md`
+7. **Self-Hosting, Autonomic Control & Bounded Self-Evolution** — `research/G4_SELF_HOSTING_AUTONOMIC_EVOLUTION.md`
 8. **Shared Semantic Kernel / Capability Exchange Plane / Inter-Capability Boundary Model**
    - `research/G4_CAPABILITY_EXCHANGE_PLANE_RESEARCH.md`
    - `research/G4_CAPABILITY_EXCHANGE_CONTRACT_COMPATIBILITY.md`
@@ -55,99 +41,48 @@ See `G4_RESEARCH_STATE.md` for the consolidated research status, boundaries and 
    - `research/G4_CAPABILITY_EXCHANGE_MULTI_DOMAIN_EVIDENCE_COMPOSITION.md`
    - `research/G4_CAPABILITY_EXCHANGE_COMPOSITION_POLICY_LIFECYCLE_RESEARCH.md`
    - `research/G4_CAPABILITY_EXCHANGE_SEMANTIC_POLICY_DIFF_PROOF.md`
+   - `research/G4_CAPABILITY_EXCHANGE_PROOF_CARRYING_POLICY_RUNTIME_VERIFICATION.md`
 
 These are research families, not committed product modules. Future synthesis may merge, split or providerize them.
 
 ## Governing rules
 
-1. `G3 semantic decision != G4 technology binding`.
-2. `Research candidate != implementation authority`.
-3. `Polyglot-ready != polyglot-from-day-one`.
-4. `Measured hotspot -> candidate specialization`; language or database preference alone does not justify migration.
-5. Canonical meaning must remain portable across storage, query, index, runtime and infrastructure providers.
-6. Generated client runtimes remain autonomous from Builder availability.
-7. G4 findings should prefer provider-neutral contracts, migration paths, evidence, benchmarks and exit criteria before adoption.
-8. `Self-managing != unrestricted self-modifying`.
-9. `Shared lifecycle semantics != shared authority`.
-10. UI/Canvas/AI/index/cache/telemetry remain projections or assistants, never silent canonical authority.
-11. `Shared primitives != shared business ownership`.
-12. `Logical Exchange Plane != single broker`.
-13. `Interface compatibility != contract compatibility`.
-14. Drivers/adapters/gateways may mediate mechanisms or semantics only within declared guarantees; they must not fabricate equivalence or become accidental canonical business owners.
-15. Exchange semantics may be shared; business semantics and business ownership remain capability-local.
-16. `Compatibility is multidimensional`; schema/version acceptance alone does not prove semantic, authority, delivery, ordering, temporal or operational substitutability.
-17. Provider/binding capability advertisement is an offer requiring qualification against the required contract profile.
-18. `Trace/correlation != business causation != authority`; observability propagation cannot become business proof by convenience.
-19. `Compensation != rollback`; compensating work is a new governed effect with its own authority, currentness and evidence.
-20. `Workflow progress != transport progress`; orchestration/choreography remain business coordination semantics above the logical Exchange Plane.
-21. `Same happy-path output != semantic conformance`; binding qualification requires a transport-independent oracle, fault/currentness evidence and explicit treatment of `UNKNOWN`.
-22. `One interaction kind != one universal linearization point`; admission, durability, authoritative effect, caller observation, settlement and convergence are distinct proof positions unless a contract proves otherwise.
-23. `Safety != liveness`; eventual progress requires explicit environmental/fairness assumptions, while finite missing evidence may legitimately remain qualified `UNKNOWN`.
-24. `Convergence != invariant preservation`; deterministic replica agreement cannot substitute for capability-owned business correctness.
-25. `Commutativity is contract/invariant-relative`; same final bytes, disjoint writes or mergeability do not prove business effects commute.
-26. Coordination scope must follow the invariant: independent/commutative execution, causal ordering, reservation/escrow, scoped serialization or compensation/manual reconciliation are qualified alternatives rather than one global default.
-27. `Idempotency != fencing`; retry safety does not prove stale-holder exclusion, conflicting-intent ordering or exclusive reservation ownership.
-28. `Target-local atomicity != cross-domain atomicity`; conditional writes, one-shot tokens or target reservations qualify only the effect/invariant scope they actually enforce.
-29. Non-fenceable external domains must reduce autonomy, quarantine uncertainty or reject offline delegation/reallocation when no target-side equivalent can preserve the required hard invariant.
-30. `Latest deployment != in-flight semantic migration`; running obligations remain on their qualified historical basis until explicit pinning, mediation, migration, forward recovery or manual settlement changes that basis.
-31. `Schema compatibility != obligation compatibility`; authority, effect identity, idempotency/reservation namespace, compensation and settlement semantics must be qualified independently.
-32. `Historical semantic continuity != historical executable continuity`; an old contract/effect may remain interpretable after its vulnerable executable is revoked.
-33. `Security retirement != semantic settlement`; revoking an artifact/provider stops future execution but does not erase prior effects or outstanding obligations.
-34. `Signature/provenance valid != currently security-admissible`; rollback/freeze protection and security floors remain independent from historical artifact identity.
-35. `Previously trusted != indefinitely security-admissible`; offline runtimes require bounded security currentness rather than perpetual trust in historical signatures.
-36. `Offline autonomy != unlimited stale-security operation`; maximum disconnected security horizon and stale-operation policy must be explicit.
-37. `Security currentness != business authority currentness`; each is an independent proof domain required according to the interaction contract.
-38. `Revocation effective time != runtime observation time`; reconnect must preserve both and reconcile stale-window effects without rewriting history.
-39. `Golden/A-B rollback != security-floor rollback`; anti-rollback trust state must survive every recovery boundary for which that guarantee is claimed.
-40. `Evidence sufficient != payload retained`; security reconciliation should preserve the minimum policy-authorized witness for declared proof purposes rather than full business history by default.
-41. `Security evidence store != retention exemption`; audit/security witnesses remain sensitive governed data with their own retention, access and erasure semantics.
-42. `No witness != no effect`; expired, erased or unavailable evidence must preserve qualified uncertainty instead of fabricating absence.
-43. `Signed/tamper-evident != non-sensitive/permanently retainable`; witness integrity, confidentiality, currentness and retention are independent proof domains.
-44. `Proof continuity != global identity continuity`; cross-runtime reconciliation should use the narrowest correlation scope that satisfies the declared proof purpose.
-45. `Dedup scope != global correlation scope`; recognizing sameness for retry/reconciliation does not justify a platform-wide stable identifier.
-46. `Proof of predicate != disclosure of source record`; selective evidence may satisfy a contract without exposing unrelated business/tenant metadata.
-47. `Federation != trust-domain collapse`; issuer/trust-domain bindings and authority scopes remain distinct across federated verification.
-48. `Cryptographic key rotation != semantic identity rotation != correlation-reference rotation`; each has separate continuity and erasure obligations.
-49. `Cryptographically unlinkable != operationally unlinkable`; timing, routing, trace, size, status queries and issuer/configuration metadata remain correlation surfaces.
-50. `Backpressure != abuse attribution`; capacity pressure and malicious/business abuse are separate proof domains.
-51. `Accountability for bounded resource consumption != global subject linkability`; privacy-preserving spend may be bounded without universal subject correlation.
-52. `Privacy mechanism != conservation mechanism`; unlinkable grants still require qualified issuance authority when they consume a shared invariant budget.
-53. `Anonymous redemption != anonymous minting authority`; offline issuers may spend only predelegated issuance capacity unless the contract explicitly allows oversubscription.
-54. `Per-issuer uniqueness != federation-wide uniqueness`; anti-Sybil claims must name the uniqueness proposition and federation scope they actually prove.
-55. `Token cryptographically valid != issuer remained within issuance authority`; issuer compromise and over-minting are independent from token-format validity.
-56. `UNKNOWN issuance != free budget`; ambiguous grant/allocation consumes or quarantines capacity until settlement.
-57. `After-the-fact auditability != pre-issuance conservation`; detection evidence cannot retroactively preserve a hard budget.
-58. `Aggregate arithmetic proof valid != issuance ledger complete`; completeness needs an independently qualified issuance-path property.
-59. `Append-only transparency != non-equivocation by itself`; isolated observers may accept different locally consistent histories unless the observer model exposes forks.
-60. `Liability accountability != holder identity disclosure`; aggregate outstanding liability may be governed without a universal subject graph.
-61. `Duplicate observation != proven holder abuse`; attribution requires a declared evidence/exculpability contract.
-62. `k-of-n signatures != k independent trust failures`; quorum arithmetic must not fabricate witness independence.
-63. `New witness policy valid != old/new histories joined`; witness-generation rotation needs explicit transition continuity.
-64. `Checkpoint non-equivocation != witness-policy non-equivocation`; policy lineage/distribution is its own split-view surface.
-65. `Quorum-valid checkpoint != sufficiently current checkpoint`; validity and freshness/currentness remain independent proof domains.
-66. `Witness consistency approval != semantic/content monitoring`; witnesses do not become business authority by observing a consistent checkpoint.
-67. `All domains locally valid != cross-domain compatible state`; independent proof validity is not a composition proof.
-68. `Cross-domain composition != synthetic global revision number`; autonomous proof domains retain independent lineage/currentness.
-69. `Domain checkpoint valid != composition predicate satisfied`; domain evolution evidence and cross-domain admissibility are distinct proof objects.
-70. `Multiple valid transparency domains != one atomic semantic state`; evidence diversity does not create semantic atomicity.
-71. `One stale/forked domain != every domain invalid`; failure blast radius follows declared proof dependencies.
-72. `Evidence aggregation != semantic compatibility fabrication`; gateways/adapters cannot invent missing composition guarantees.
-73. `Joint hard invariant != global transaction requirement`; coordinate only the domains required by the named invariant.
-74. `Anti-rollback != anti-downgrade`; monotonic revision does not prove semantic safety.
-75. `Old/new policy coexistence != union(old permissions, new permissions)`; overlap must itself be qualified.
-76. `Fresh composition policy != fresh dependent security evidence`; proof horizons remain independent.
-77. `Unknown policy semantics != permission to ignore`; unsupported successor predicates require explicit incompatibility, quarantine or bounded fallback.
-78. `Text/AST diff != semantic policy diff`; policy change classification is a relation over qualified decisions and guarantees.
-79. `UNSAT in a modeled semantics != universal business/security preservation`; solver proofs carry explicit scope and assumptions.
-80. `Policy validates != policy is semantically correct/equivalent`; schema validation and policy-transition proof are distinct.
-81. `Same admitted request set != same guarantee vector`; non-downgrade must compare protected security/authority/currentness guarantees as well as allow/deny decisions.
-82. `Unknown/custom predicate != semantic equality`; unmodeled semantics degrade proof to conditional/unproven rather than fabricated equivalence.
+The detailed cumulative boundary set is canonicalized in `G4_RESEARCH_STATE.md` and in the dedicated research artifacts. The following constitutional rules govern every G4 round and must not be weakened by compaction:
+
+- `G3 semantic decision != G4 technology binding`; `Research candidate != implementation authority`.
+- `Polyglot-ready != polyglot-from-day-one`; `Measured hotspot -> candidate specialization`.
+- Canonical meaning remains portable across storage, query, index, runtime and infrastructure providers.
+- Generated client runtimes remain autonomous from Builder availability.
+- `Self-managing != unrestricted self-modifying`; `Shared lifecycle semantics != shared authority`.
+- UI/Canvas/AI/index/cache/telemetry remain projections or assistants, never silent canonical authority.
+- `Shared primitives != shared business ownership`; `Logical Exchange Plane != single broker`.
+- `Interface compatibility != contract compatibility`; compatibility is multidimensional.
+- Drivers/adapters/gateways may mediate only declared guarantees and must not fabricate semantic equivalence or become canonical business owners.
+- Exchange semantics may be shared; business semantics and business ownership remain capability-local.
+- `Trace/correlation != business causation != authority`; `Compensation != rollback`; `Workflow progress != transport progress`.
+- `UNKNOWN` is a qualified evidence disposition, never permission to guess.
+- Coordination scope follows the named invariant; idempotency, fencing, reservation, convergence and atomicity are not synonyms.
+- Historical semantic continuity, executable continuity, security admissibility and settlement remain independent dimensions.
+- Offline autonomy is bounded by explicit security/currentness horizons and cannot imply perpetual trust.
+- Privacy, identity, correlation, deduplication, conservation, admission, redemption and anti-Sybil guarantees remain separately scoped.
+- Transparency, witness quorum, currentness and semantic/content monitoring remain separate proof domains.
+- Multi-domain evidence composition does not create a synthetic global revision or global transaction requirement.
+- `Anti-rollback != anti-downgrade`; old/new policy coexistence is not the union of their permissions.
+- `Text/AST diff != semantic policy diff`; solver results are scoped to their modeled semantics and assumptions.
+- `Same admitted request set != same guarantee vector`; unknown/custom predicates degrade proof rather than fabricate equivalence.
+- `Proof verification != re-solving`; a runtime proof checker verifies a derivation rather than trusting or replaying the producer's search process.
+- `Producer signature/provenance != semantic proof`; origin/authorization and machine-checkable derivation are separate evidence domains.
+- `Proof valid != translation correct`; policy-to-formal-model translation is itself a qualified proof boundary.
+- `Proof file accepted != fully independently justified derivation`; unsupported/trusted/hole steps must remain visible in the assurance claim.
+- `Separate producer/checker process != independent TCB`; compromise containment requires qualified semantic and trust-root separation.
+- `Offline proof verification != infinite dependency currentness`; verifier, security floor, schema and predicate dependencies retain independent horizons.
+- Proof artifacts remain evidence/projections, not canonical policy authority, business truth or currentness authority.
 
 ## Product direction being researched
 
 The Builder may evolve from a system generator into a broader **operational systems control substrate** capable of modeling, assembling, compiling, deploying, observing, operating and evolving systems — potentially including itself — while remaining above and interoperable with ordinary operating systems, cloud providers, container runtimes and external infrastructure.
 
-The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage. Security support is an independent horizon. Autonomous runtime security requires locally durable trust continuity, bounded security-policy freshness and explicit reconciliation after disconnection. Late security reconciliation should retain only purpose-qualified witness material. Federated evidence exchange needs purpose-bounded correlation. Privacy-preserving resource governance must distinguish issuance conservation from redemption privacy. Issuer accountability separates preventive conservation from retrospective detection. Witness governance makes quorum security conditional on declared correlated-failure assumptions. Multi-domain evidence composition keeps independently valid evidence as a qualified vector. Composition-policy lifecycle adds anti-rollback, semantic non-downgrade and bounded overlap. Semantic policy-diff proof further requires decision/guarantee implication over an explicit proof scope rather than syntax or solver results detached from their assumptions.
+The Shared Semantic Kernel / Capability Exchange Plane hypothesis explores whether replaceable suite capabilities can share a very small structural language and explicit interaction contracts while remaining independently owned and deployable. The logical plane is not a requirement for a central broker, shared database or ESB. Contract compatibility is a guarantee vector rather than a schema/version boolean. Long-lived occurrences additionally require per-obligation contract lineage. Security support is an independent horizon. Autonomous runtime security requires locally durable trust continuity, bounded security-policy freshness and explicit reconciliation after disconnection. Late security reconciliation should retain only purpose-qualified witness material. Federated evidence exchange needs purpose-bounded correlation. Privacy-preserving resource governance must distinguish issuance conservation from redemption privacy. Issuer accountability separates preventive conservation from retrospective detection. Witness governance makes quorum security conditional on declared correlated-failure assumptions. Multi-domain evidence composition keeps independently valid evidence as a qualified vector. Composition-policy lifecycle adds anti-rollback, semantic non-downgrade and bounded overlap. Semantic policy-diff proof requires decision/guarantee implication over an explicit proof scope. Proof-carrying policy research adds the consumer verification boundary: a runtime may verify a qualified derivation locally, but only when proposition/dependency binding, translation assurance, proof calculus/rules, trusted steps, verifier TCB/currentness and resource bounds are explicit.
 
 This is a research hypothesis, not a product claim or implementation authorization.
 
