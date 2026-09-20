@@ -9,7 +9,7 @@ export type NormalizedCostEvidence = Readonly<{ kind: "NORMALIZED_COST_EVIDENCE"
 export type CostNormalizationResult = Readonly<{ state: "NORMALIZED"; evidence: NormalizedCostEvidence; reason: string }> | Readonly<{ state: "UNKNOWN"; reason: string }>;
 
 export type AllocationTarget = Readonly<{ dimensionRef: string; targetRef: string; weight: number }>;
-export type CostAllocationEvidence = Readonly<{ kind: "COST_ALLOCATION_EVIDENCE"; revisionRef: string; sourceEvidenceRevisionRef: string; scopeRef: string; currency: string; sourceAmountMinor: number; allocations: ReadonlyArray<Readonly<{ dimensionRef: string; targetRef: string; amountMinor: number }>>; roundingResidualMinor: number; provenanceRef: string; currentness: "CURRENT"; population: "COMPLETE" }>;
+export type CostAllocationEvidence = Readonly<{ kind: "COST_ALLOCATION_EVIDENCE"; revisionRef: string; sourceEvidenceRevisionRef: string; sourceProvenanceRef: string; scopeRef: string; currency: string; sourceAmountMinor: number; allocations: ReadonlyArray<Readonly<{ dimensionRef: string; targetRef: string; amountMinor: number }>>; roundingResidualMinor: number; provenanceRef: string; currentness: "CURRENT"; population: "COMPLETE" }>;
 export type CostAllocationResult = Readonly<{ state: "ALLOCATED"; evidence: CostAllocationEvidence; reason: string }> | Readonly<{ state: "UNKNOWN"; reason: string }>;
 
 export type PlanningEvidenceKind = "BUDGET" | "FORECAST" | "COMMITMENT";
@@ -51,7 +51,7 @@ export function allocateNormalizedCost(input: Readonly<{ source?: NormalizedCost
   const totalWeight = targets.reduce((sum, target) => sum + target.weight, 0); if (!Number.isSafeInteger(totalWeight)) throw new TypeError("FinOps allocation weight exceeds safe integer range");
   const allocations = targets.map((target) => ({ dimensionRef: target.dimensionRef, targetRef: target.targetRef, amountMinor: Math.floor((source.amountMinor * target.weight) / totalWeight) }));
   const allocatedMinor = allocations.reduce((sum, item) => sum + item.amountMinor, 0); const roundingResidualMinor = source.amountMinor - allocatedMinor;
-  return { state: "ALLOCATED", reason: "qualified-cost-conservatively-allocated", evidence: { kind: "COST_ALLOCATION_EVIDENCE", revisionRef: token(input.revisionRef, "$revisionRef"), sourceEvidenceRevisionRef: source.revisionRef, scopeRef: source.scopeRef, currency: source.currency, sourceAmountMinor: source.amountMinor, allocations, roundingResidualMinor, provenanceRef: token(input.provenanceRef, "$provenanceRef"), currentness: "CURRENT", population: "COMPLETE" } };
+  return { state: "ALLOCATED", reason: "qualified-cost-conservatively-allocated", evidence: { kind: "COST_ALLOCATION_EVIDENCE", revisionRef: token(input.revisionRef, "$revisionRef"), sourceEvidenceRevisionRef: source.revisionRef, sourceProvenanceRef: source.provenanceRef, scopeRef: source.scopeRef, currency: source.currency, sourceAmountMinor: source.amountMinor, allocations, roundingResidualMinor, provenanceRef: token(input.provenanceRef, "$provenanceRef"), currentness: "CURRENT", population: "COMPLETE" } };
 }
 
 export function qualifyPlanningCost(input: PlanningCostEvidence | NormalizedCostEvidence): QualifiedCostPosition | Readonly<{ kind: "UNKNOWN"; reason: string }> {
