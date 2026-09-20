@@ -1,17 +1,17 @@
-# Next Work — Generation 2 / G2-WP-12 Documentation & Closure
+# Next Work — Generation 2 / post G2-WP-12 closure
 
 Generation 2 remains rolling-wave and dependency-safe.
 
 ## Integrated predecessors
-G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Construction A / `G2-WBS-19` is integrated through TASK-566, Construction B / `G2-WBS-20` through TASK-570, promoted Construction C / `G2-WBS-21` through TASK-574, and Package Integration & Review is integrated via PR #878. Fresh main is `d5e46e83452b0cde9e0eee7c5621dc6c1bbba41f`.
+G2-WP-01..G2-WP-12 are canonically closed. G2-WP-12 Construction A / `G2-WBS-19` is integrated through TASK-566, Construction B / `G2-WBS-20` through TASK-570, promoted Construction C / `G2-WBS-21` through TASK-574, Package Integration & Review via PR #878, and Documentation & Closure via PR #880. Fresh main after closure is `f1464180fdc6bde2b86387873802a6cf5d55d2b8`.
 
 ## Current executable gate
-G2-WP-12 Documentation & Closure is the sole package-successor gate. Closure is repository-memory reconciliation only; it is not functional overflow.
+No G2-WP-13 product or construction gate is promoted by this reconciliation. The next executable work is only an already-materialized successor identified by the authoritative G2 WBS/DAG/readiness artifacts. Do not infer successor authority from package numbering.
 
-Package Integration & Review PR #878 exact-head `a400e34b22c2a99473ee920672ead610a525aa7c` passed Deterministic CI #2123 and Heavy Product Tests #1797/#1799. Distinct Merge Candidate CI #353 passed before integration.
+Documentation & Closure PR #880 exact-head `18100f850c5b82bac29776a00426f27e4dbdb1ff` passed its required exact-head evidence and distinct current Merge Candidate CI before integration; the GitHub-verified merge produced the fresh main above.
 
 ## Successor rule
-After Documentation & Closure passes exact-head gates and the current Merge Candidate CI and integrates, revalidate fresh `main`, `AGENTS.md`, current repository memory and the exact planning authority/WBS/DAG/readiness artifacts. Promote G2-WP-13 only if that revalidation identifies it as the next eligible materialized successor; do not guess successor authority from package numbering alone.
+Revalidate `AGENTS.md`, current repository memory and the exact planning authority/WBS/DAG/readiness artifacts before promoting any successor. Promote G2-WP-13 only if those artifacts materialize it as the next eligible successor. Until then, G2-WP-12 is closed and there is no guessed successor execution.
 
 ## Boundary
 Preserve provider invoice != normalized cost evidence != customer-commercial truth; currency/rates/effective time/provenance explicit; allocation conservation including rounding residual; budget != forecast != commitment != actual; multidimensional fact-derived complexity without universal scalar quality/risk/complexity truth; commercial entitlement != operational authorization; PARTIAL/UNKNOWN non-strengthening; AI inference != authority; Product Proof distinct from Production Readiness. Do not absorb provider SDK/money movement, persistence/UI, autonomous authority, generic direct side effects, WP-13 or unmaterialized DEFER/DO_NOT_BUILD findings.
