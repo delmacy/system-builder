@@ -1,7 +1,7 @@
 ---
 id: TASK-573
 title: Define unit economics and multidimensional operational complexity evidence
-status: ready
+status: completed
 priority: 573
 milestone: G2
 model_tier: architecture
@@ -18,6 +18,7 @@ context_paths:
 allowed_paths:
   - packages/contracts/finops/**
   - tests/product/g2-finops-economic-governance-proof.test.ts
+  - tests/product/g2-finops-unit-economics-complexity-proof.test.ts
   - specs/tasks/TASK-573-G2-FINOPS-UNIT-ECONOMICS-COMPLEXITY.md
 forbidden_paths:
   - apps/**
@@ -40,7 +41,7 @@ Define bounded unit-economics derivations and auditable multidimensional operati
 TASK-573 follows the normalized-cost and allocation/planning contracts from TASK-571..572 and realizes the remaining bounded analytical derivations of G2-WBS-21.
 
 ## Current behavior
-The package has commercial evidence and, after its predecessors, qualified cost/allocation evidence, but no package-owned unit-economics or multidimensional operational-complexity contract.
+The package now owns qualified unit-economics and multidimensional operational-complexity contracts over predecessor evidence.
 
 ## Required change
 Define revision/scope/time/provenance-qualified unit-economics derivations from qualified cost and compatible commercial evidence. Define operational-complexity profiles as named dimensions backed by auditable architectural/operational facts, preserving UNKNOWN/PARTIAL dimensions and source ancestry.
@@ -58,7 +59,7 @@ Unit economics retain numerator/denominator identity, period, scope and provenan
 No pricing optimizer, automated commercial decision, customer entitlement enforcement, persistence/UI, WP-13 or Production Readiness claim.
 
 ## Evidence expected
-Deterministic Product Proof for compatible derivation, scope/period mismatch rejection, provenance preservation and non-strengthening multidimensional UNKNOWN/PARTIAL cases.
+Deterministic Product Proof covers compatible derivation, scope/period mismatch rejection, provenance preservation and non-strengthening multidimensional UNKNOWN/PARTIAL cases.
 
 ## Escalation
 Stop and escalate rather than inventing a universal score or widening into pricing optimization, commercial authority, persistence/UI, WP-13, or Production Readiness.
