@@ -1,4 +1,5 @@
-import { describe, expect, it } from "vitest";
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import { normalizeTechnologyCost, type ProviderCostEvidence } from "../../packages/contracts/finops/index.js";
 
 const source: ProviderCostEvidence = {
@@ -35,8 +36,19 @@ describe("G2 FinOps economic-governance Product Proof", () => {
       },
     });
 
-    expect(result.state).toBe("NORMALIZED");
-    expect(result.evidence).toMatchObject({
+    assert.equal(result.state, "NORMALIZED");
+    if (result.state !== "NORMALIZED") throw new Error("expected normalized cost evidence");
+    assert.deepEqual({
+      sourceEvidenceRevisionRef: result.evidence.sourceEvidenceRevisionRef,
+      sourceRef: result.evidence.sourceRef,
+      scopeRef: result.evidence.scopeRef,
+      sourceCurrency: result.evidence.sourceCurrency,
+      currency: result.evidence.currency,
+      amountMinor: result.evidence.amountMinor,
+      conversionRevisionRef: result.evidence.conversionRevisionRef,
+      conversionProvenanceRef: result.evidence.conversionProvenanceRef,
+      customerCommercialTruth: result.evidence.customerCommercialTruth,
+    }, {
       sourceEvidenceRevisionRef: "provider-cost-r1",
       sourceRef: "provider-invoice:1",
       scopeRef: "tenant:alpha",
@@ -49,24 +61,29 @@ describe("G2 FinOps economic-governance Product Proof", () => {
     });
   });
 
-  it.each([
-    ["PARTIAL", "CURRENT"],
-    ["UNKNOWN", "CURRENT"],
-    ["COMPLETE", "STALE"],
-    ["COMPLETE", "UNKNOWN"],
-  ] as const)("does not strengthen %s/%s source evidence", (population, currentness) => {
-    const result = normalizeTechnologyCost({
-      source: { ...source, population, currentness },
-      targetCurrency: "USD",
-      revisionRef: "normalized-r2",
-      provenanceRef: "normalizer-policy-r1",
-    });
-    expect(result).toEqual({ state: "UNKNOWN", reason: "source-cost-evidence-not-qualified" });
+  it("does not strengthen partial, unknown, or stale source evidence", () => {
+    const cases: ReadonlyArray<readonly [ProviderCostEvidence["population"], ProviderCostEvidence["currentness"]]> = [
+      ["PARTIAL", "CURRENT"],
+      ["UNKNOWN", "CURRENT"],
+      ["COMPLETE", "STALE"],
+      ["COMPLETE", "UNKNOWN"],
+    ];
+    for (const [population, currentness] of cases) {
+      const result = normalizeTechnologyCost({
+        source: { ...source, population, currentness },
+        targetCurrency: "USD",
+        revisionRef: "normalized-r2",
+        provenanceRef: "normalizer-policy-r1",
+      });
+      assert.deepEqual(result, { state: "UNKNOWN", reason: "source-cost-evidence-not-qualified" });
+    }
   });
 
   it("does not infer a missing currency conversion", () => {
-    expect(normalizeTechnologyCost({ source, targetCurrency: "BRL", revisionRef: "normalized-r3", provenanceRef: "normalizer-policy-r1" }))
-      .toEqual({ state: "UNKNOWN", reason: "missing-currency-conversion" });
+    assert.deepEqual(
+      normalizeTechnologyCost({ source, targetCurrency: "BRL", revisionRef: "normalized-r3", provenanceRef: "normalizer-policy-r1" }),
+      { state: "UNKNOWN", reason: "missing-currency-conversion" },
+    );
   });
 
   it("does not strengthen partial conversion evidence", () => {
@@ -87,6 +104,6 @@ describe("G2 FinOps economic-governance Product Proof", () => {
         population: "PARTIAL",
       },
     });
-    expect(result).toEqual({ state: "UNKNOWN", reason: "currency-conversion-not-qualified" });
+    assert.deepEqual(result, { state: "UNKNOWN", reason: "currency-conversion-not-qualified" });
   });
 });
