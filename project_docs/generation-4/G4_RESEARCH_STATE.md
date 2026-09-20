@@ -161,6 +161,25 @@ These families may later be deduplicated or recomposed. A research family is not
 - Distributed/local admission from immutable contracts and locally sufficient evidence remains valid; no central graph/availability oracle is mandatory for autonomous runtimes.
 - Recovery requalifies queued/retry obligations and drains backlog under bounded resource budgets rather than blindly reopening all paths.
 
+### Distributed guarantee evidence cache / invalidation boundaries
+
+- `Cache hit != current/admissible evidence`; reuse is scoped to the exact claim, operation, tenant/trust/classification, profile and authority context.
+- `Same dependency != same cache key`; catalog currentness, provider health, authorization, effect settlement and profile compatibility are distinct claims.
+- `Cache entry fresh for dimension X != fresh for dimension Y`; semantic, identity, security, business-currentness, effect and settlement horizons remain independent.
+- `Invalidation sent != invalidation observed everywhere`; correctness for revocation/security-sensitive claims cannot rely solely on broadcast invalidation delivery.
+- `Stale-but-allowed != current`; bounded stale use remains explicit in the root guarantee and may be prohibited by claim class.
+- `Cached absence != proof of non-occurrence`; negative evidence is claim-scoped, bounded and distinct from `UNKNOWN`.
+- A required minimum revision/currentness/security floor defeats cached evidence below that floor regardless of TTL.
+- `Meets dependency floor != globally latest`; dependency-local tokens never create a synthetic global platform revision.
+- `Older fetched evidence != permission to roll back local floor`; monotonic security/profile observations survive refresh/restart/rollback.
+- Trust material from independent trust domains remains domain-qualified and cannot be merged for cache convenience.
+- Derived/root evidence retains enough input lineage to detect material dependency supersession without requiring a central graph oracle.
+- `Dependency changed != global cache flush`; only proof lineage materially dependent on the changed evidence is invalidated/lowered.
+- `Cache stampede control != permission to extend semantic freshness`; coalescing, jitter and background refresh are operational containment.
+- Offline cache reuse remains bounded by claim-specific horizons and locally sufficient security/currentness evidence.
+- Provider/transport substitution requalifies provider-specific claims while independently immutable evidence may remain reusable when justified.
+- Cache persistence/recovery cannot resurrect revoked or superseded evidence.
+
 ## Research progression
 
 ```text
@@ -183,36 +202,37 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** thirty-seven material deep-evidence consolidations are represented across the family artifacts, now extending degraded-mode capability contracts into dependency-claim graphs, invariant-specific minimal semantic cut sets, end-to-end guarantee synthesis and bounded retry/fallback amplification control. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** thirty-eight material deep-evidence consolidations are represented across the family artifacts, now extending end-to-end guarantee synthesis into claim-scoped distributed evidence reuse, multidimensional freshness, negative-evidence discipline, floor-aware revalidation and stampede containment without a central guarantee oracle. `RESEARCH_ACTIVE`, not saturated.
 
 ## Latest material consolidation — 2026-09-19
 
-### Degraded-mode dependency graph and end-to-end guarantee synthesis
+### Distributed guarantee evidence caching and invalidation under high fan-out
 
-Evidence classes: AWS Builders' Library timeout/retry/backoff/jitter and Well-Architected retry guidance; Azure Bulkhead, Circuit Breaker, Retry Storm and Gateway Aggregation patterns; Google Aequitas distributed RPC admission-control research; Google CAPA containment/regulation research; prior G4 effect-composition, causal-workflow, compatibility, negotiation, handoff, DR, split-brain and degraded-mode artifacts.
+Evidence classes: RFC 9111 HTTP Caching; RFC 5861 stale-while-revalidate/stale-if-error; RFC 2308 DNS negative caching; Google Zanzibar (USENIX ATC 2019); SPIFFE Federation and Trust Domain/Bundle specifications; Open Policy Agent bundle management; AWS IAM distributed-consistency guidance; prior G4 guarantee-synthesis, profile-negotiation, offline-security-floor, handoff/recovery, DR and split-brain artifacts.
 
 Material delta:
 
-- promoted dependency composition from coarse service health/call topology to an operation-scoped **dependency-claim graph** whose edges name the guarantee they contribute without transferring business ownership;
-- distinguished hard, optional-enrichment, alternative, conditional, effect-settlement, currentness/authority and resource-guard relations, preventing one caller's optionality from becoming a global property of a capability;
-- introduced **minimal semantic cut sets** per protected invariant/guarantee, explicitly separating them from latency critical paths, topology centrality or slowest dependencies;
-- defined end-to-end guarantee synthesis as a multidimensional evidence vector over completeness, currentness, semantic compatibility, authority/security, effect rights, ordering/delivery, settlement, resource budgets, provenance and reconciliation obligations;
-- established that fallback is contract substitution rather than routing substitution: same schema/interface or healthy endpoint is insufficient when guarantee vectors differ;
-- prohibited guarantee strengthening during composition: partial/stale/unknown downstream evidence cannot be silently relabeled complete/current/settled upstream;
-- made retry ownership and retry/fallback budgets end-to-end concerns so nested layers cannot multiply attempts, deadlines, concurrency or cost independently;
-- expanded cycle analysis beyond static dependency DAGs to dynamic retry, fallback, queue, health-flap and recovery feedback loops;
-- separated bulkheads, breakers, timeouts, backoff/jitter and admission controls as complementary operational containment mechanisms rather than semantic authority;
-- required fan-out/fan-in joins to use declared branch requirements and dispositions instead of response counts or accidental quorum semantics;
-- preserved autonomous runtime operation: guarantee evaluation may be distributed/local from immutable contracts and sufficient local evidence, without mandatory Builder or central availability/graph oracle;
-- made recovery obligation-aware: queued/retry work is requalified against current security/profile/currentness/effect evidence and backlog drain remains resource-bounded to avoid a second recovery storm.
+- changed the cache unit from coarse service health to a **qualified claim** keyed by all material operation, tenant/trust/classification, profile, authority and provenance dimensions;
+- established multidimensional freshness: semantic/profile, identity/trust, security/revocation, business currentness, provider health, effect rights, settlement and negative evidence may have different horizons;
+- made invalidation advisory/accelerating rather than omniscient: correctness cannot require every cache to receive a revocation broadcast, so floors/revisions/horizons/revalidation remain necessary for sensitive claims;
+- separated bounded negative evidence from `UNKNOWN` and from proof of non-occurrence; cache expiry or miss never implies the opposite proposition;
+- required stale reuse to remain visible in the synthesized guarantee and allowed claim classes such as authority/security to forbid stale use entirely;
+- introduced dependency-local minimum revision/currentness/floor witnesses without creating a global revision across autonomous capabilities;
+- preserved monotonic locally observed security/profile floors against older fetched/cache-restored evidence;
+- kept federated trust caches domain-qualified rather than merging roots for convenience;
+- used revision-aware cheap revalidation as a performance technique without turning the revalidation endpoint or Exchange Plane into semantic authority;
+- added bounded refresh authority, request coalescing/single-flight, jitter and refresh budgets to prevent cache stampedes during high fan-out degradation;
+- required derived/root guarantee evidence to retain sufficient input lineage for selective dependency invalidation rather than global cache flushes;
+- made provider/transport substitution invalidate only provider-specific claims while preserving independently immutable evidence when justified;
+- preserved autonomous runtime operation through claim-specific offline horizons and locally sufficient evidence closure rather than mandatory Builder/central cache validation.
 
-No AWS retry stack, Azure resilience pattern, Aequitas implementation, CAPA implementation, graph engine, workflow engine, circuit-breaker library, service mesh, gateway, broker or provider was selected.
+No HTTP cache implementation, DNS cache, Zanzibar implementation, SPIFFE/SPIRE, OPA, AWS IAM mechanism, Redis/CDN, graph engine, service mesh, broker or provider was selected.
 
-Highest-value remaining gap: **distributed guarantee evidence caching and invalidation under high fan-out** — determine how runtimes can cache dependency qualification/cut-set evidence without consulting every capability on every operation, while preventing stale authority/currentness/profile claims from creating false admissibility; define cache-key scope, dependency invalidation, negative evidence, stampede control and offline behavior without a central guarantee oracle.
+Highest-value remaining gap: **cache invalidation across derived evidence DAGs under revocation storms and correlated control-plane partitions** — determine how floor/revocation advancement propagates through deeply derived guarantee evidence without O(N) synchronous fan-out, while preventing stale derived proofs, preserving bounded offline autonomy and avoiding a central invalidation authority.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; normative proof-semantics governance/ambiguity containment; downgrade-resistant proof-semantics profile negotiation; negotiation-evidence lifecycle; semantic-generation handoff; handoff recovery/compaction; cross-runtime frontier transfer/disaster recovery; split-brain authority rejoin after mutually progressing runtimes; and operation-scoped degraded-mode capability contracts.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; normative proof-semantics governance/ambiguity containment; downgrade-resistant proof-semantics profile negotiation; negotiation-evidence lifecycle; semantic-generation handoff; handoff recovery/compaction; cross-runtime frontier transfer/disaster recovery; split-brain authority rejoin after mutually progressing runtimes; operation-scoped degraded-mode capability contracts; and degraded dependency-graph/end-to-end guarantee synthesis.
 
 ## Non-goals
 
@@ -220,7 +240,7 @@ Detailed durable evidence remains in the family documents indexed by `README.md`
 - no graph/vector/search/stream/service-mesh/central-exchange/etcd/Kubernetes adoption decision;
 - no workflow/saga/migration/checkpoint/event-store/circuit-breaker engine adoption decision;
 - no global serial-history/linearizability or global transaction requirement for all exchange interactions;
-- no mandatory central broker/ESB/shared archive/availability/guarantee oracle;
+- no mandatory central broker/ESB/shared archive/availability/guarantee/cache oracle;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
