@@ -1,24 +1,17 @@
-# Next Work — Generation 2 / G2-WP-12 Construction C
+# Next Work — Generation 2 / G2-WP-12 Package Integration & Review
 
 Generation 2 remains rolling-wave and dependency-safe.
 
 ## Integrated predecessors
-G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Construction A / `G2-WBS-19` is integrated through TASK-566 and Construction B / `G2-WBS-20` through TASK-570. Post-Construction-B reconciliation is integrated at fresh `main@f917174aba90b5dc3be9538828939bd729576d57`.
-
-## Promotion decision
-Fresh-main revalidation promotes optional Construction C because the existing G2-WP-12 Package Goal explicitly requires FinOps derivations and G2-WBS-21 is the package-owned WBS node that supplies them. This is a bounded realization of already-planned package scope, not scope expansion.
+G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Construction A / `G2-WBS-19` is integrated through TASK-566, Construction B / `G2-WBS-20` through TASK-570, and promoted Construction C / `G2-WBS-21` through TASK-574. Fresh main after TASK-574 is `ae26e53e49fb34fc6ca7a394898a3bb0d3df8875`.
 
 ## Current executable gate
-TASK-571 is the sole dependency-safe Construction C product task after this materialization PR passes exact-head and current merge-candidate gates and integrates. TASK-572 depends on TASK-571; TASK-573 depends on TASK-572; TASK-574 depends on TASK-573 and is cumulative Product Proof closure.
+G2-WP-12 Package Integration & Review is the sole package-successor gate. The review reconciles integrated evidence and current repository authority; it is not functional overflow.
 
-## Materialized chain
-- TASK-571 — normalized technology-cost evidence and provider-invoice separation — READY.
-- TASK-572 — allocation conservation and budget/forecast/commitment/actual semantics — BLOCKED_BY TASK-571.
-- TASK-573 — unit economics and multidimensional operational-complexity evidence — BLOCKED_BY TASK-572.
-- TASK-574 — cumulative G2-WBS-21 Product Proof — BLOCKED_BY TASK-573.
+The final Construction C revision was PR #877 exact-head `3f6a65922edd9579b6c1e5f745e344c57c92868b`, proven by Deterministic CI #2122 and Heavy Product Tests #1796. Distinct Merge Candidate CI #352 passed before integration.
 
 ## Successor rule
-After TASK-574 integrates, proceed to G2-WP-12 Package Integration & Review; do not use review as overflow. G2-WP-13 remains excluded until package closure/successor authority.
+After the Package Integration & Review revision passes exact-head gates and the current Merge Candidate CI and integrates, proceed to G2-WP-12 Documentation & Closure. Documentation & Closure is repository-memory reconciliation only. G2-WP-13 remains excluded until WP-12 closure/successor authority.
 
 ## Boundary
-Preserve provider invoice != normalized cost evidence != customer-commercial truth; currency/rates/effective time/provenance explicit; allocation conservation including rounding residual; budget != forecast != commitment != actual; multidimensional fact-derived complexity without universal scalar quality/risk/complexity truth; commercial entitlement != operational authorization; PARTIAL/UNKNOWN non-strengthening; Product Proof distinct from Production Readiness. Do not absorb provider SDK/money movement, persistence/UI, autonomous authority, generic direct side effects, WP-13 or unmaterialized DEFER/DO_NOT_BUILD findings.
+Preserve provider invoice != normalized cost evidence != customer-commercial truth; currency/rates/effective time/provenance explicit; allocation conservation including rounding residual; budget != forecast != commitment != actual; multidimensional fact-derived complexity without universal scalar quality/risk/complexity truth; commercial entitlement != operational authorization; PARTIAL/UNKNOWN non-strengthening; AI inference != authority; Product Proof distinct from Production Readiness. Do not absorb provider SDK/money movement, persistence/UI, autonomous authority, generic direct side effects, WP-13 or unmaterialized DEFER/DO_NOT_BUILD findings.
