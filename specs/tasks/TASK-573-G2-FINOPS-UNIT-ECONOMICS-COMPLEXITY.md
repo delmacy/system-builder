@@ -1,7 +1,7 @@
 ---
 id: TASK-573
 title: Define unit economics and multidimensional operational complexity evidence
-status: blocked
+status: ready
 priority: 573
 milestone: G2
 model_tier: architecture
