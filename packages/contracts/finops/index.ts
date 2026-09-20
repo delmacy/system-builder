@@ -115,7 +115,8 @@ export function normalizeTechnologyCost(input: Readonly<{
     if (currency(conversion.fromCurrency, "$conversion.fromCurrency") !== sourceCurrency || currency(conversion.toCurrency, "$conversion.toCurrency") !== targetCurrency) return { state: "UNKNOWN", reason: "currency-conversion-mismatch" };
     token(conversion.revisionRef, "$conversion.revisionRef");
     token(conversion.provenanceRef, "$conversion.provenanceRef");
-    time(conversion.effectiveAt, "$conversion.effectiveAt");
+    const conversionEffectiveAt = time(conversion.effectiveAt, "$conversion.effectiveAt");
+    if (conversionEffectiveAt !== source.effectiveAt) return { state: "UNKNOWN", reason: "currency-conversion-effective-time-conflict" };
     if (!Number.isSafeInteger(conversion.numerator) || conversion.numerator <= 0 || !Number.isSafeInteger(conversion.denominator) || conversion.denominator <= 0) throw new TypeError("Invalid FinOps conversion ratio");
     amountMinor = Math.round((source.amountMinor * conversion.numerator) / conversion.denominator);
     if (!Number.isSafeInteger(amountMinor)) throw new TypeError("Normalized FinOps amount exceeds safe integer range");
