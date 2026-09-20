@@ -31,7 +31,7 @@ describe("G2 FinOps economic-governance Product Proof", () => {
     assert.equal(result.state, "ALLOCATED"); if (result.state !== "ALLOCATED") throw new Error("expected allocation evidence");
     const allocated = result.evidence.allocations.reduce((sum, item) => sum + item.amountMinor, 0);
     assert.equal(allocated + result.evidence.roundingResidualMinor, result.evidence.sourceAmountMinor);
-    assert.equal(result.evidence.roundingResidualMinor, 1); assert.equal(result.evidence.scopeRef, "tenant:alpha"); assert.equal(result.evidence.provenanceRef, "allocation-policy-r1");
+    assert.equal(result.evidence.roundingResidualMinor, 1); assert.equal(result.evidence.scopeRef, "tenant:alpha"); assert.equal(result.evidence.sourceProvenanceRef, "normalizer-policy-r1"); assert.equal(result.evidence.provenanceRef, "allocation-policy-r1");
     assert.deepEqual(result.evidence.allocations.map(({ dimensionRef, targetRef }) => ({ dimensionRef, targetRef })), [{ dimensionRef: "station", targetRef: "station:a" }, { dimensionRef: "station", targetRef: "station:b" }, { dimensionRef: "station", targetRef: "station:c" }]);
   });
 
