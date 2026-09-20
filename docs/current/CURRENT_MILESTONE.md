@@ -1,19 +1,18 @@
-# Current Execution Milestone — Generation 2 / G2-WP-12 post-Construction-B reconciliation
+# Current Execution Milestone — Generation 2 / G2-WP-12 Construction C
 
 ## Milestone state
-G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Construction A / `G2-WBS-19` is integrated and Product-Proof closed through TASK-566. Construction B / `G2-WBS-20` is integrated and cumulative Product-Proof closed through TASK-570 on fresh `main@517c4feccbcf1f2e4530bc2757e816086e6e4434`.
+G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Construction A / `G2-WBS-19` and Construction B / `G2-WBS-20` are integrated and Product-Proof closed through TASK-570. Post-Construction-B reconciliation is integrated at fresh `main@f917174aba90b5dc3be9538828939bd729576d57`.
+
+Fresh-main revalidation after Construction B found Construction C necessary: the already-materialized G2-WP-12 Package Goal explicitly includes FinOps derivations, while G2-WBS-21 is the package-owned node for those semantics. Skipping it would leave the Package Goal incomplete.
 
 ## Current executable gate
-TASK-567..570 are completed. There is no currently materialized Construction C product TASK. The next dependency-safe action is Planning & Materialization for G2-WBS-21 from fresh main; product implementation must not begin until that materialization commits an explicit TASK DAG, allowed paths, validations and proof obligations.
+Construction C / `G2-WBS-21` is PROMOTED and materialized as `TASK-571 -> TASK-572 -> TASK-573 -> TASK-574`. TASK-571 is READY; successors remain blocked by their declared predecessor. Product work must preserve each task's allowed paths, validations and acceptance criteria.
 
-## Why Construction C is necessary
-The G2-WP-12 package goal owns governance/privacy, commercial semantics and FinOps derivations, and the Work Package Design assigns the remaining technology-economic-governance/FinOps dimension to `G2-WBS-21`. Construction A and B close G2-WBS-19 and G2-WBS-20 but do not satisfy that remaining package-goal dimension. Fresh-main evidence therefore promotes the optional third Construction Sprint rather than proceeding directly to Package Integration & Review.
-
-## Construction C planning boundary
-Materialization may cover only the already-owned G2-WBS-21 slice: normalized cost evidence, provider-invoice separation, allocation conservation, budgets/forecasts/commitments, unit economics and bounded multidimensional operational-complexity profiles, as supported by existing planning authority. It must preserve producer ownership and qualified derivation semantics and must not invent payment-provider money movement or customer-commercial truth.
+## Construction C scope
+TASK-571 establishes normalized technology-cost evidence and provider-invoice separation. TASK-572 adds conserved allocations and budget/forecast/commitment/actual distinctions. TASK-573 adds qualified unit economics and bounded multidimensional operational-complexity evidence. TASK-574 closes cumulative Product Proof without functional overflow.
 
 ## Successor horizon
-Package Integration & Review follows only after promoted Construction C integrates and its cumulative Product Proof is green. G2-WP-13 remains excluded until G2-WP-12 reaches its own review/closure gates.
+After Construction C integrates, G2-WP-12 must proceed to Package Integration & Review and then Documentation & Closure. G2-WP-13 remains excluded until the package gates permit its successor planning.
 
 ## Boundary
-Preserve governance evidence != authority/compliance truth; commercial entitlement != operational authorization; measured != qualified != rated != billed != invoiced != paid; missing usage != zero; settlement/provider ACK != customer-commercial truth; PARTIAL/UNKNOWN non-strengthening; revision/scope/currentness/provenance; residual populations and provider-migration obligations; source-of-truth/coexistence/residual drainage; provider qualification; Local/Station/Fleet semantics; AI inference != authority; FinOps qualified derivation != customer-commercial truth; Product Proof != Production Readiness. Do not absorb persistence/UI, concrete payment/provider SDK money movement, G2-WP-13, autonomous-agent authority, generic direct side-effect authority or unmaterialized DEFER/DO_NOT_BUILD scope.
+Preserve provider invoice != normalized cost evidence != customer-commercial truth; explicit currency/rate/effective-time/provenance; allocation conservation including rounding residual; budget != forecast != commitment != actual; no universal scalar quality/risk/complexity score; commercial entitlement != operational authorization; PARTIAL/UNKNOWN non-strengthening; source-of-truth/coexistence/residual drainage; provider qualification; Local/Station/Fleet semantics; AI inference != authority; Product Proof != Production Readiness. No provider SDK/money movement, persistence/UI, WP-13, autonomous-agent authority, generic direct side-effect authority or unmaterialized DEFER/DO_NOT_BUILD scope is included.

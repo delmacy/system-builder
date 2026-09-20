@@ -1,18 +1,24 @@
-# Next Work — Generation 2 / G2-WP-12 Construction C Planning & Materialization
+# Next Work — Generation 2 / G2-WP-12 Construction C
 
 Generation 2 remains rolling-wave and dependency-safe.
 
 ## Integrated predecessors
-G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Construction A / `G2-WBS-19` is integrated through TASK-566. Construction B / `G2-WBS-20` is integrated through TASK-570 on fresh `main@517c4feccbcf1f2e4530bc2757e816086e6e4434`; TASK-567..570 are completed and their cumulative Product Proof is integrated.
+G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Construction A / `G2-WBS-19` is integrated through TASK-566 and Construction B / `G2-WBS-20` through TASK-570. Post-Construction-B reconciliation is integrated at fresh `main@f917174aba90b5dc3be9538828939bd729576d57`.
+
+## Promotion decision
+Fresh-main revalidation promotes optional Construction C because the existing G2-WP-12 Package Goal explicitly requires FinOps derivations and G2-WBS-21 is the package-owned WBS node that supplies them. This is a bounded realization of already-planned package scope, not scope expansion.
 
 ## Current executable gate
-The next dependency-safe work is Planning & Materialization of G2-WP-12 Construction C / `G2-WBS-21`. Fresh-main reconciliation proves Construction C necessary because the package goal still includes the technology-economic-governance/FinOps derivation dimension owned by G2-WBS-21. No Construction C product TASK is READY until materialization defines the bounded TASK DAG and first eligible task.
+TASK-571 is the sole dependency-safe Construction C product task after this materialization PR passes exact-head and current merge-candidate gates and integrates. TASK-572 depends on TASK-571; TASK-573 depends on TASK-572; TASK-574 depends on TASK-573 and is cumulative Product Proof closure.
 
-## Materialization target
-Materialize only the existing G2-WBS-21 package-owned slice from fresh main and the existing planning authority. The bounded scope may include normalized cost evidence, provider-invoice separation, allocation conservation, budgets/forecasts/commitments, unit economics and bounded multidimensional operational-complexity profiles. Materialization must define dependencies, allowed/forbidden paths, max-files constraints, validations, positive/negative/adversarial/recovery proof obligations and cumulative Product Proof without functional overflow.
+## Materialized chain
+- TASK-571 — normalized technology-cost evidence and provider-invoice separation — READY.
+- TASK-572 — allocation conservation and budget/forecast/commitment/actual semantics — BLOCKED_BY TASK-571.
+- TASK-573 — unit economics and multidimensional operational-complexity evidence — BLOCKED_BY TASK-572.
+- TASK-574 — cumulative G2-WBS-21 Product Proof — BLOCKED_BY TASK-573.
 
 ## Successor rule
-After Construction C integrates, perform fresh-main Package Integration & Review for G2-WP-12; Documentation & Closure follows only after review findings are resolved. Do not promote or absorb G2-WP-13 before WP-12 closure gates permit it.
+After TASK-574 integrates, proceed to G2-WP-12 Package Integration & Review; do not use review as overflow. G2-WP-13 remains excluded until package closure/successor authority.
 
 ## Boundary
-Preserve governance evidence != authority/compliance truth; commercial entitlement != operational authorization; measured != qualified != rated != billed != invoiced != paid; missing usage != zero; settlement/provider ACK != customer-commercial truth; PARTIAL/UNKNOWN non-strengthening; effective-dated revision/scope/currentness/provenance; correction/rerating lineage; residual populations and provider-migration obligations; source-of-truth/coexistence/residual drainage; replaceable provider qualification; Local/Station/Fleet semantics; AI inference != authority; FinOps qualified derivation != customer-commercial truth; Product Proof distinct from Production Readiness. Do not absorb concrete payment/provider money movement, autonomous-agent authority, generic direct side-effect authority, G2-WP-13, unmaterialized DEFER/DO_NOT_BUILD findings or unrelated product scope.
+Preserve provider invoice != normalized cost evidence != customer-commercial truth; currency/rates/effective time/provenance explicit; allocation conservation including rounding residual; budget != forecast != commitment != actual; multidimensional fact-derived complexity without universal scalar quality/risk/complexity truth; commercial entitlement != operational authorization; PARTIAL/UNKNOWN non-strengthening; Product Proof distinct from Production Readiness. Do not absorb provider SDK/money movement, persistence/UI, autonomous authority, generic direct side effects, WP-13 or unmaterialized DEFER/DO_NOT_BUILD findings.
