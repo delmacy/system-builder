@@ -1,7 +1,7 @@
 ---
 id: TASK-572
 title: Define cost allocation budget forecast and commitment semantics
-status: blocked
+status: ready
 priority: 572
 milestone: G2
 model_tier: architecture
