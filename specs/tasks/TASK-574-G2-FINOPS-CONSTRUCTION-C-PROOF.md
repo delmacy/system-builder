@@ -1,7 +1,7 @@
 ---
 id: TASK-574
 title: Prove cumulative G2-WBS-21 technology economic governance semantics
-status: blocked
+status: ready
 priority: 574
 milestone: G2
 model_tier: architecture
