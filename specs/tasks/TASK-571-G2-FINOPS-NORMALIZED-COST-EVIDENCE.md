@@ -1,7 +1,7 @@
 ---
 id: TASK-571
 title: Define normalized technology cost evidence semantics
-status: ready
+status: completed
 priority: 571
 milestone: G2
 model_tier: architecture
