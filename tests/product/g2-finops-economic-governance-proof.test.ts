@@ -106,4 +106,25 @@ describe("G2 FinOps economic-governance Product Proof", () => {
     });
     assert.deepEqual(result, { state: "UNKNOWN", reason: "currency-conversion-not-qualified" });
   });
+
+  it("fails closed when conversion effective time conflicts with source evidence", () => {
+    const result = normalizeTechnologyCost({
+      source,
+      targetCurrency: "BRL",
+      revisionRef: "normalized-r5",
+      provenanceRef: "normalizer-policy-r1",
+      conversion: {
+        revisionRef: "fx-r3",
+        fromCurrency: "USD",
+        toCurrency: "BRL",
+        numerator: 5,
+        denominator: 1,
+        effectiveAt: "2026-09-19T00:00:00Z",
+        provenanceRef: "fx-source-r3",
+        currentness: "CURRENT",
+        population: "COMPLETE",
+      },
+    });
+    assert.deepEqual(result, { state: "UNKNOWN", reason: "currency-conversion-effective-time-conflict" });
+  });
 });
