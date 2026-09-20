@@ -47,11 +47,16 @@ export type NormalizedCostEvidence = Readonly<{
   customerCommercialTruth: false;
 }>;
 
-export type CostNormalizationResult = Readonly<{
-  state: "NORMALIZED" | "UNKNOWN";
-  evidence?: NormalizedCostEvidence;
-  reason: string;
-}>;
+export type CostNormalizationResult =
+  | Readonly<{
+      state: "NORMALIZED";
+      evidence: NormalizedCostEvidence;
+      reason: string;
+    }>
+  | Readonly<{
+      state: "UNKNOWN";
+      reason: string;
+    }>;
 
 const TOKEN = /^\S+$/;
 const CURRENCY = /^[A-Z]{3}$/;
