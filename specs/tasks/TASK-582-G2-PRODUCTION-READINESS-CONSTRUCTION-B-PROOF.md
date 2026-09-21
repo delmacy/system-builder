@@ -1,7 +1,7 @@
 ---
 id: TASK-582
 title: Close G2-WBS-25 with cumulative Production Readiness Coverage proof
-status: review
+status: completed
 priority: 582
 milestone: G2
 model_tier: architecture
