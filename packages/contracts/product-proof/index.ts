@@ -7,6 +7,19 @@ export const PRODUCT_PROOF_STATES = [
 
 export type ProductProofState = (typeof PRODUCT_PROOF_STATES)[number];
 
+export const PRODUCT_PROOF_QUALIFICATION_STATES = [
+  "PASS",
+  "PARTIAL",
+  "INCONCLUSIVE",
+  "BLOCKED",
+  "FAIL",
+  "NA",
+  "DEFERRED",
+] as const;
+
+export type ProductProofQualificationState =
+  (typeof PRODUCT_PROOF_QUALIFICATION_STATES)[number];
+
 export const PRODUCT_PROOF_CLASSES = [
   "POSITIVE",
   "NEGATIVE",
@@ -55,6 +68,31 @@ export interface ProductProofObservation {
   evidenceRevision?: string;
 }
 
+export interface ProductProofEvidenceQualification {
+  evidenceRevision: string;
+  populationId: string;
+  locality: string;
+  provenance: string;
+  producer: ProductProofProducerRef;
+  state: ProductProofQualificationState;
+  current: boolean;
+}
+
+export interface ProductProofQualificationTarget {
+  evidenceRevision: string;
+  populationId: string;
+  locality: string;
+  producer: ProductProofProducerRef;
+}
+
+export interface QualifiedProductProofObservation extends ProductProofObservation {
+  qualificationState: ProductProofQualificationState | "UNKNOWN";
+  current: boolean;
+  populationId?: string;
+  locality?: string;
+  provenance?: string;
+}
+
 /**
  * Resolves only routing/availability. The producer remains the semantic owner of
  * the evidence and its meaning. A design or acceptance target is never promoted
@@ -90,5 +128,44 @@ export function observeProductProof(
     state: route.observedState,
     evidenceRef: route.evidenceRef,
     evidenceRevision: route.evidenceRevision,
+  };
+}
+
+/**
+ * Qualifies already-routed producer evidence. Qualification may weaken usability,
+ * but never strengthens the producer-owned observation or fabricates evidence.
+ */
+export function qualifyProductProofEvidence(
+  observation: ProductProofObservation,
+  qualification: ProductProofEvidenceQualification | undefined,
+  target: ProductProofQualificationTarget,
+): QualifiedProductProofObservation {
+  const compatible =
+    observation.evidenceRevision !== undefined &&
+    qualification !== undefined &&
+    qualification.evidenceRevision === observation.evidenceRevision &&
+    qualification.evidenceRevision === target.evidenceRevision &&
+    qualification.populationId === target.populationId &&
+    qualification.locality === target.locality &&
+    qualification.producer.ownerId === observation.producer.ownerId &&
+    qualification.producer.producerId === observation.producer.producerId &&
+    qualification.producer.revision === observation.producer.revision &&
+    qualification.producer.ownerId === target.producer.ownerId &&
+    qualification.producer.producerId === target.producer.producerId &&
+    qualification.producer.revision === target.producer.revision;
+
+  if (!compatible) {
+    return { ...observation, state: "UNKNOWN", qualificationState: "UNKNOWN", current: false };
+  }
+
+  const usable = qualification.current && qualification.state === "PASS";
+  return {
+    ...observation,
+    state: usable ? observation.state : observation.state === "FAIL" ? "FAIL" : "PARTIAL",
+    qualificationState: qualification.state,
+    current: qualification.current,
+    populationId: qualification.populationId,
+    locality: qualification.locality,
+    provenance: qualification.provenance,
   };
 }
