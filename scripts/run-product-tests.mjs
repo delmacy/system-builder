@@ -2,7 +2,6 @@
 import { spawnSync } from "node:child_process";
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
-import { fileURLToPath } from "node:url";
 
 const HEAVY = new Set([
   "active-runtime-promotion.test.ts",
