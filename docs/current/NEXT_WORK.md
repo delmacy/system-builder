@@ -1,17 +1,18 @@
-# Next Work — Generation 2 / G2-WP-12 Documentation & Closure
+# Next Work — Generation 2 / G2-WP-13 Construction A
 
 Generation 2 remains rolling-wave and dependency-safe.
 
 ## Integrated predecessors
-G2-WP-01..G2-WP-11 are canonically closed. G2-WP-12 Construction A / `G2-WBS-19` is integrated through TASK-566, Construction B / `G2-WBS-20` through TASK-570, promoted Construction C / `G2-WBS-21` through TASK-574, and Package Integration & Review is integrated via PR #878. Fresh main is `d5e46e83452b0cde9e0eee7c5621dc6c1bbba41f`.
+G2-WP-01..G2-WP-12 are canonically closed. G2-WP-12 Documentation & Closure integrated via PR #880; fresh planning base is `main@f1464180fdc6bde2b86387873802a6cf5d55d2b8`.
 
 ## Current executable gate
-G2-WP-12 Documentation & Closure is the sole package-successor gate. Closure is repository-memory reconciliation only; it is not functional overflow.
+Execute TASK-575 — producer-owned Product Proof obligation/evidence-route contract. TASK-576 depends on TASK-575, TASK-577 on TASK-576, and TASK-578 on TASK-577. Do not execute a blocked successor early.
 
-Package Integration & Review PR #878 exact-head `a400e34b22c2a99473ee920672ead610a525aa7c` passed Deterministic CI #2123 and Heavy Product Tests #1797/#1799. Distinct Merge Candidate CI #353 passed before integration.
+## Construction A exit
+Close G2-WBS-24 with cumulative Product Proof showing obligation identity/producer ownership, revision/population/currentness/locality qualification, explicit proof states and end-to-end elicitation-to-acceptance-to-proof traceability without evidence strengthening.
 
 ## Successor rule
-After Documentation & Closure passes exact-head gates and the current Merge Candidate CI and integrates, revalidate fresh `main`, `AGENTS.md`, current repository memory and the exact planning authority/WBS/DAG/readiness artifacts. Promote G2-WP-13 only if that revalidation identifies it as the next eligible materialized successor; do not guess successor authority from package numbering alone.
+After TASK-575..578 integrate and Construction A closes, revalidate fresh main before materializing Construction B / G2-WBS-25. Construction C / G2-WBS-26 is not automatically promoted.
 
 ## Boundary
-Preserve provider invoice != normalized cost evidence != customer-commercial truth; currency/rates/effective time/provenance explicit; allocation conservation including rounding residual; budget != forecast != commitment != actual; multidimensional fact-derived complexity without universal scalar quality/risk/complexity truth; commercial entitlement != operational authorization; PARTIAL/UNKNOWN non-strengthening; AI inference != authority; Product Proof distinct from Production Readiness. Do not absorb provider SDK/money movement, persistence/UI, autonomous authority, generic direct side effects, WP-13 or unmaterialized DEFER/DO_NOT_BUILD findings.
+Product Proof != Production Readiness. Acceptance criterion != full Product Proof. Preserve hybrid EKB, AI inference != authority, PARTIAL/UNKNOWN, owner/revision/currentness/provenance, source-of-truth/coexistence/residual drainage, provider qualification and local/Station/Fleet truth. Do not absorb Architecture Assurance/standards, silent architecture remediation/canonicalization, provider SDK/deployment, autonomous authority, generic direct side effects or unmaterialized DEFER/DO_NOT_BUILD findings.
