@@ -51,6 +51,6 @@ if (selected.length === 0) {
 const result = spawnSync(
   "npx",
   ["tsx", "--env-file-if-exists=.env", "--test", ...selected.map((file) => join("tests", "product", file))],
-  { stdio: "inherit", shell: true },
+  { stdio: "inherit", shell: false },
 );
 process.exit(result.status ?? 1);
