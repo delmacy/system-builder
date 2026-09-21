@@ -1,7 +1,7 @@
 ---
 id: TASK-575
 title: Establish producer-owned Product Proof obligation and evidence-route contracts
-status: ready
+status: completed
 priority: 575
 milestone: G2
 model_tier: architecture
