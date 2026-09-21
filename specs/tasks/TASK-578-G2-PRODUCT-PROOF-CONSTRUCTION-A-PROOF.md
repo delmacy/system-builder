@@ -34,8 +34,20 @@ validation:
 # Objective
 Close Construction A with cumulative adversarial Product Proof across TASK-575..577 and integrated producer-owned evidence boundaries.
 
+## Context
+TASK-578 is the Construction A closure task and is executable only after TASK-575..577 complete their bounded registry, qualification and traceability contracts.
+
+## Current behavior
+The preceding slices may be individually proven, but Construction A lacks one cumulative proof composing registry ownership, evidence qualification and traceability boundaries.
+
 ## Required change
 Compose obligation registry, evidence qualification and end-to-end traceability into a deterministic cumulative proof without introducing new functional scope.
+
+## Inputs / contracts
+Completed TASK-575..577 contracts and evidence plus integrated producer-owned evidence boundaries needed for cumulative positive and adversarial composition.
+
+## Outputs / contracts
+A cumulative deterministic Product Proof for G2-WBS-24 Construction A that exercises registry, qualification and traceability composition without introducing functional scope.
 
 ## Acceptance criteria
 Product Proof design != executed proof; acceptance criterion != full Product Proof; PASS/PARTIAL/INCONCLUSIVE/BLOCKED/FAIL/NA/DEFERRED remain explicit; revision/population/currentness/locality mismatches cannot strengthen evidence; unresolved critical proof obligations block acceptance; producer ownership/provenance survives composition. Product Proof remains distinct from Production Readiness.
