@@ -1,7 +1,7 @@
 ---
 id: TASK-580
 title: Preserve critical Production Readiness failures without aggregate masking
-status: blocked
+status: completed
 priority: 580
 milestone: G2
 model_tier: architecture
