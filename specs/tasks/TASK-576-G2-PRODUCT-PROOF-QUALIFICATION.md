@@ -35,8 +35,20 @@ validation:
 # Objective
 Add evidence qualification semantics required by G2-WBS-24 without strengthening producer truth.
 
+## Context
+TASK-576 follows the producer-owned obligation/evidence-route registry and qualifies routed evidence without taking semantic ownership from its producer.
+
+## Current behavior
+TASK-575 establishes the registry boundary, but evidence still needs explicit revision, population, currentness, locality and provenance qualification before it can support stronger claims.
+
 ## Required change
 Qualify proof evidence by revision, population, currentness, locality and provenance; preserve PASS/PARTIAL/INCONCLUSIVE/BLOCKED/FAIL/NA/DEFERRED explicitly and reject stale, mismatched or underqualified evidence for stronger claims.
+
+## Inputs / contracts
+TASK-575 obligation/evidence-route contracts and producer-owned evidence carrying its original identity, revision, provenance and authority status.
+
+## Outputs / contracts
+Deterministic evidence-qualification contracts that expose compatibility/currentness/locality outcomes without strengthening producer truth or fabricating missing evidence.
 
 ## Acceptance criteria
 Evidence from one revision/population/locality cannot prove another by implication. PARTIAL/UNKNOWN/INCONCLUSIVE remain non-strengthening. Stale evidence is visible. Owner authority and provenance survive routing. Unresolved critical proof obligations block acceptance.
@@ -46,3 +58,6 @@ No readiness score, architecture remediation, deployment or canonicalization of 
 
 ## Evidence expected
 Positive and adversarial Product Proof for stale, mismatched, partial and unknown evidence qualification.
+
+## Escalation
+Any qualification need requiring a readiness score, inferred-evidence canonicalization, deployment, architecture remediation or scope outside G2-WBS-24 must remain a finding for explicit materialization.
