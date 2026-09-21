@@ -1,7 +1,7 @@
 ---
 id: TASK-581
 title: Compose producer-owned readiness evidence without Product Proof substitution
-status: blocked
+status: completed
 priority: 581
 milestone: G2
 model_tier: architecture
@@ -41,7 +41,7 @@ Compose producer-owned readiness evidence across dimensions while preserving Pro
 Construction B may consume Product Proof references, but functional/Product Proof success cannot substitute for operability/readiness proof.
 
 ## Current behavior
-TASK-579..580 establish dimensions and critical gates; cross-evidence composition still needs explicit non-substitution and qualification behavior.
+TASK-579..580 establish dimensions and critical gates; TASK-581 now adds explicit evidence composition without changing source ownership or authority.
 
 ## Required change
 Model readiness evidence references with producer/revision/population/environment/currentness/provenance qualification and explicit relationship to Product Proof references, without re-owning or promoting source evidence.
@@ -55,11 +55,11 @@ Bounded readiness evidence-composition semantics plus positive, negative and adv
 ## Acceptance criteria
 Readiness evidence remains producer-owned and qualified. Product Proof references remain distinguishable and cannot alone satisfy a readiness dimension. Stale, mismatched, PARTIAL or UNKNOWN evidence remains non-strengthened and visible.
 
+## Evidence expected
+Product proof covers qualified composition, producer/revision/provenance preservation, Product Proof non-substitution, stale/mismatched weakening and PARTIAL/UNKNOWN non-strengthening. Repository CI remains the authoritative execution evidence for this exact revision.
+
 ## Non-goals
 No generic evidence lake, semantic god-object, deployment, provider SDK, persistence/UI, architecture remediation or autonomous authority.
-
-## Evidence expected
-Tests proving qualified composition, Product Proof non-substitution and stale/mismatched evidence behavior.
 
 ## Escalation
 Any need to canonicalize producer evidence or repair another owner's state is routed outside this TASK.
