@@ -1,7 +1,7 @@
 ---
 id: TASK-579
 title: Establish independent Production Readiness dimension and qualification contracts
-status: ready
+status: completed
 priority: 579
 milestone: G2
 model_tier: architecture
@@ -39,10 +39,10 @@ Establish G2-WBS-25 Production Readiness as independent, qualified dimensions wi
 Construction A closed Product Proof architecture. Construction B must model operability/readiness independently while consuming producer-owned evidence by reference.
 
 ## Current behavior
-Product Proof contracts preserve producer ownership and evidence qualification, but no bounded G2-WBS-25 contract represents independent readiness dimensions.
+Production Readiness now exposes eleven independently evaluable dimensions, explicit population/environment/currentness qualification and producer-owned evidence references.
 
 ## Required change
-Model OBSERVABILITY, OWNERSHIP, FAILURE_HANDLING, RECOVERY, CAPACITY, CURRENTNESS, SECURITY, RECONCILIATION, CHANGE_SAFETY, COST and DOCUMENTATION as independently evaluable readiness dimensions with population/environment/currentness qualification and producer-owned evidence references.
+Completed: OBSERVABILITY, OWNERSHIP, FAILURE_HANDLING, RECOVERY, CAPACITY, CURRENTNESS, SECURITY, RECONCILIATION, CHANGE_SAFETY, COST and DOCUMENTATION are independently represented. PASS is weakened to UNKNOWN when qualification/evidence is absent, stale or mismatched; non-PASS epistemic states are preserved.
 
 ## Inputs / contracts
 Integrated Product Proof contracts and G2-WP-13 planning authority. Product Proof evidence may be referenced but cannot substitute for readiness evidence.
