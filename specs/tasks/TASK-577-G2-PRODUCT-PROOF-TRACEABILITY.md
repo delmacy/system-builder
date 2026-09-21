@@ -35,8 +35,20 @@ validation:
 # Objective
 Represent G2-WBS-24 traceability from elicitation evidence through governed semantic artifacts and acceptance criteria to Product Proof while preserving every producer boundary.
 
+## Context
+TASK-577 follows qualified Product Proof evidence and adds explicit trace continuity across the elicitation-to-runtime evidence chain without changing authority or epistemic status.
+
+## Current behavior
+Producer evidence and qualification can be represented, but the repository lacks the G2-WBS-24 typed end-to-end trace contract that exposes continuity and gaps without fabricating links.
+
 ## Required change
 Provide typed trace links for Elicitation Evidence -> Finding/Answer -> Requirement/Constraint -> Story/Use Case/Scenario -> Semantic Model -> Capability/Workflow/Data/etc. -> Acceptance Criterion -> Product Proof -> Runtime Evidence, allowing explicit gaps rather than fabricated continuity.
+
+## Inputs / contracts
+TASK-575..576 registry and qualification contracts plus existing producer-owned semantic artifacts and evidence references.
+
+## Outputs / contracts
+Typed trace-link contracts preserving source identity/revision/provenance/owner references and explicit gap states through Product Proof and runtime-evidence references.
 
 ## Acceptance criteria
 Trace links retain identity/revision/provenance and owner references. Missing links remain explicit gaps. AI inference/proposal is never authority. Traceability does not re-own source artifacts or strengthen their epistemic/authority status.
@@ -46,3 +58,6 @@ No Product Proof execution engine, Production Readiness aggregation, persistence
 
 ## Evidence expected
 Deterministic positive and broken-chain/adversarial Product Proof demonstrating trace continuity and explicit gaps.
+
+## Escalation
+Any trace requirement needing execution-engine behavior, Production Readiness aggregation, persistence/UI, remediation, deployment or another semantic owner remains an explicit finding for separate materialization.
