@@ -1,7 +1,7 @@
 ---
 id: TASK-577
 title: Establish end-to-end elicitation-to-acceptance-to-Product-Proof traceability
-status: blocked
+status: completed
 priority: 577
 milestone: G2
 model_tier: architecture
@@ -39,7 +39,7 @@ Represent G2-WBS-24 traceability from elicitation evidence through governed sema
 TASK-577 follows qualified Product Proof evidence and adds explicit trace continuity across the elicitation-to-runtime evidence chain without changing authority or epistemic status.
 
 ## Current behavior
-Producer evidence and qualification can be represented, but the repository lacks the G2-WBS-24 typed end-to-end trace contract that exposes continuity and gaps without fabricating links.
+TASK-575..576 establish producer-owned proof routing and evidence qualification; TASK-577 adds typed end-to-end trace continuity and explicit gap representation without fabricating missing links.
 
 ## Required change
 Provide typed trace links for Elicitation Evidence -> Finding/Answer -> Requirement/Constraint -> Story/Use Case/Scenario -> Semantic Model -> Capability/Workflow/Data/etc. -> Acceptance Criterion -> Product Proof -> Runtime Evidence, allowing explicit gaps rather than fabricated continuity.
@@ -48,7 +48,7 @@ Provide typed trace links for Elicitation Evidence -> Finding/Answer -> Requirem
 TASK-575..576 registry and qualification contracts plus existing producer-owned semantic artifacts and evidence references.
 
 ## Outputs / contracts
-Typed trace-link contracts preserving source identity/revision/provenance/owner references and explicit gap states through Product Proof and runtime-evidence references.
+Typed trace-link contracts preserve source identity/revision/provenance/owner references and explicit gap states through Product Proof and runtime-evidence references. Continuity assessment only inspects represented links/gaps and does not create semantic authority.
 
 ## Acceptance criteria
 Trace links retain identity/revision/provenance and owner references. Missing links remain explicit gaps. AI inference/proposal is never authority. Traceability does not re-own source artifacts or strengthen their epistemic/authority status.
@@ -57,7 +57,7 @@ Trace links retain identity/revision/provenance and owner references. Missing li
 No Product Proof execution engine, Production Readiness aggregation, persistence/UI, remediation or deployment.
 
 ## Evidence expected
-Deterministic positive and broken-chain/adversarial Product Proof demonstrating trace continuity and explicit gaps.
+Deterministic positive and broken-chain/adversarial Product Proof demonstrates trace continuity and explicit gaps.
 
 ## Escalation
 Any trace requirement needing execution-engine behavior, Production Readiness aggregation, persistence/UI, remediation, deployment or another semantic owner remains an explicit finding for separate materialization.
