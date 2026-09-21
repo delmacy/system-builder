@@ -31,12 +31,21 @@ export interface ProductionReadinessQualification {
   currentness: "CURRENT" | "STALE" | "UNKNOWN";
 }
 
+export interface ProductProofReadinessRef {
+  kind: "PRODUCT_PROOF";
+  id: string;
+  revision: string;
+  producer: string;
+  provenance: string;
+}
+
 export interface ProductionReadinessEvidenceRef {
   id: string;
   revision: string;
   producer: string;
   provenance: string;
   qualification: ProductionReadinessQualification;
+  relatedProductProof?: ProductProofReadinessRef;
 }
 
 export interface ProductionReadinessDimensionAssessment {
@@ -73,6 +82,16 @@ const CRITICAL_BLOCKING_STATES: ReadonlySet<ProductionReadinessState> = new Set(
   "INCONCLUSIVE",
 ]);
 
+function evidenceMatchesQualification(
+  evidence: ProductionReadinessEvidenceRef,
+  expected: ProductionReadinessQualification,
+): boolean {
+  return evidence.qualification.population === expected.population &&
+    evidence.qualification.environment === expected.environment &&
+    evidence.qualification.currentness === "CURRENT" &&
+    expected.currentness === "CURRENT";
+}
+
 export function qualifyProductionReadinessDimension(
   assessment: ProductionReadinessDimensionAssessment,
   expected: ProductionReadinessQualification,
@@ -84,10 +103,7 @@ export function qualifyProductionReadinessDimension(
     expected.currentness === "CURRENT";
 
   const evidenceQualified = assessment.evidence.length > 0 && assessment.evidence.every(
-    (evidence) =>
-      evidence.qualification.population === expected.population &&
-      evidence.qualification.environment === expected.environment &&
-      evidence.qualification.currentness === "CURRENT",
+    (evidence) => evidenceMatchesQualification(evidence, expected),
   );
 
   if (assessment.state === "PASS" && (!qualificationMatches || !evidenceQualified)) {
@@ -95,6 +111,29 @@ export function qualifyProductionReadinessDimension(
   }
 
   return assessment;
+}
+
+/**
+ * Composes references only. Producer ownership, revision and provenance remain
+ * untouched, and a related Product Proof reference is context rather than
+ * readiness evidence. Composition can weaken PASS but never strengthen state.
+ */
+export function composeProductionReadinessEvidence(
+  assessment: ProductionReadinessDimensionAssessment,
+  expected: ProductionReadinessQualification,
+): ProductionReadinessDimensionAssessment {
+  const readinessEvidence = assessment.evidence.filter((evidence) =>
+    evidence.id.length > 0 && evidence.revision.length > 0 && evidence.producer.length > 0 && evidence.provenance.length > 0,
+  );
+  const qualified = readinessEvidence.length > 0 && readinessEvidence.every((evidence) =>
+    evidenceMatchesQualification(evidence, expected),
+  );
+
+  if (assessment.state === "PASS" && !qualified) {
+    return { ...assessment, state: "UNKNOWN", evidence: readinessEvidence };
+  }
+
+  return { ...assessment, evidence: readinessEvidence };
 }
 
 export function hasIndependentReadinessDimensions(
