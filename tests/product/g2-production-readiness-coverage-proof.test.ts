@@ -28,9 +28,11 @@ const assessment = (dimension: ProductionReadinessDimensionAssessment["dimension
   }],
 });
 
+const completeReadiness = () => PRODUCTION_READINESS_DIMENSIONS.map(assessment);
+
 describe("G2 Production Readiness coverage", () => {
   it("keeps all eleven readiness dimensions independently represented", () => {
-    const dimensions = PRODUCTION_READINESS_DIMENSIONS.map(assessment);
+    const dimensions = completeReadiness();
     assert.equal(hasIndependentReadinessDimensions({ revision: "r1", owner: "readiness-owner", dimensions }), true);
     assert.equal(new Set(dimensions.map((entry) => entry.dimension)).size, 11);
   });
@@ -63,7 +65,7 @@ describe("G2 Production Readiness coverage", () => {
 
   it("blocks a positive conclusion for every unresolved critical state", () => {
     for (const state of ["FAIL", "BLOCKED", "UNKNOWN", "PARTIAL", "INCONCLUSIVE"] as const) {
-      const dimensions = PRODUCTION_READINESS_DIMENSIONS.map(assessment);
+      const dimensions = completeReadiness();
       const critical = { ...assessment("SECURITY"), state };
       const input = dimensions.map((entry) => entry.dimension === "SECURITY" ? critical : entry);
       const result = evaluateProductionReadinessCriticalGates(
@@ -76,7 +78,7 @@ describe("G2 Production Readiness coverage", () => {
   });
 
   it("does not let successful noncritical siblings compensate for a critical failure", () => {
-    const dimensions = PRODUCTION_READINESS_DIMENSIONS.map(assessment).map((entry) =>
+    const dimensions = completeReadiness().map((entry) =>
       entry.dimension === "RECOVERY" ? { ...entry, state: "FAIL" as const } : entry,
     );
     const result = evaluateProductionReadinessCriticalGates(
@@ -88,7 +90,7 @@ describe("G2 Production Readiness coverage", () => {
   });
 
   it("does not invent scalar or percentage authority for gate evaluation", () => {
-    const dimensions = PRODUCTION_READINESS_DIMENSIONS.map(assessment);
+    const dimensions = completeReadiness();
     const result = evaluateProductionReadinessCriticalGates(
       { revision: "r1", owner: "readiness-owner", dimensions },
       { criticality: { SECURITY: "CRITICAL", RECOVERY: "CRITICAL" } },
@@ -136,5 +138,73 @@ describe("G2 Production Readiness coverage", () => {
     for (const state of ["PARTIAL", "UNKNOWN"] as const) {
       assert.equal(composeProductionReadinessEvidence({ ...assessment("OWNERSHIP"), state }, current).state, state);
     }
+  });
+
+  it("closes the positive cumulative path only when every readiness dimension stays independently evidenced", () => {
+    const dimensions = completeReadiness().map((entry) => composeProductionReadinessEvidence(entry, current));
+    assert.equal(dimensions.length, 11);
+    assert.equal(dimensions.every((entry) => entry.state === "PASS"), true);
+    assert.equal(hasIndependentReadinessDimensions({ revision: "r1", owner: "readiness-owner", dimensions }), true);
+    const result = evaluateProductionReadinessCriticalGates(
+      { revision: "r1", owner: "readiness-owner", dimensions },
+      { criticality: Object.fromEntries(PRODUCTION_READINESS_DIMENSIONS.map((dimension) => [dimension, "CRITICAL"])) },
+    );
+    assert.equal(result.conclusion, "PASS");
+    assert.deepEqual(result.blockingDimensions, []);
+  });
+
+  it("keeps qualification failures visible across the cumulative gate", () => {
+    const mismatched = completeReadiness().map((entry) =>
+      entry.dimension === "CAPACITY"
+        ? composeProductionReadinessEvidence(entry, { ...current, environment: "staging" })
+        : composeProductionReadinessEvidence(entry, current),
+    );
+    const result = evaluateProductionReadinessCriticalGates(
+      { revision: "r1", owner: "readiness-owner", dimensions: mismatched },
+      { criticality: { CAPACITY: "CRITICAL" } },
+    );
+    assert.equal(mismatched.find((entry) => entry.dimension === "CAPACITY")?.state, "UNKNOWN");
+    assert.equal(result.conclusion, "BLOCKED");
+    assert.equal(result.blockingDimensions[0]?.dimension, "CAPACITY");
+  });
+
+  it("preserves adversarial unresolved states through composition and the cumulative gate", () => {
+    for (const state of ["UNKNOWN", "PARTIAL", "INCONCLUSIVE", "BLOCKED"] as const) {
+      const dimensions = completeReadiness().map((entry) =>
+        entry.dimension === "CHANGE_SAFETY"
+          ? composeProductionReadinessEvidence({ ...entry, state }, current)
+          : composeProductionReadinessEvidence(entry, current),
+      );
+      const unresolved = dimensions.find((entry) => entry.dimension === "CHANGE_SAFETY");
+      assert.equal(unresolved?.state, state);
+      const result = evaluateProductionReadinessCriticalGates(
+        { revision: "r1", owner: "readiness-owner", dimensions },
+        { criticality: { CHANGE_SAFETY: "CRITICAL" } },
+      );
+      assert.equal(result.conclusion, "BLOCKED");
+      assert.equal(result.blockingDimensions[0]?.state, state);
+    }
+  });
+
+  it("supports recovery only after readiness evidence itself becomes current and qualified", () => {
+    const staleRecovery = {
+      ...assessment("RECOVERY"),
+      evidence: [{ ...assessment("RECOVERY").evidence[0]!, qualification: { ...current, currentness: "STALE" as const } }],
+    };
+    const before = composeProductionReadinessEvidence(staleRecovery, current);
+    assert.equal(before.state, "UNKNOWN");
+    const beforeGate = evaluateProductionReadinessCriticalGates(
+      { revision: "r1", owner: "readiness-owner", dimensions: completeReadiness().map((entry) => entry.dimension === "RECOVERY" ? before : entry) },
+      { criticality: { RECOVERY: "CRITICAL" } },
+    );
+    assert.equal(beforeGate.conclusion, "BLOCKED");
+
+    const recovered = composeProductionReadinessEvidence(assessment("RECOVERY"), current);
+    assert.equal(recovered.state, "PASS");
+    const afterGate = evaluateProductionReadinessCriticalGates(
+      { revision: "r1", owner: "readiness-owner", dimensions: completeReadiness().map((entry) => entry.dimension === "RECOVERY" ? recovered : entry) },
+      { criticality: { RECOVERY: "CRITICAL" } },
+    );
+    assert.equal(afterGate.conclusion, "PASS");
   });
 });
