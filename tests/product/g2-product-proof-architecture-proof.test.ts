@@ -146,3 +146,65 @@ describe("G2 Product Proof obligation registry", () => {
     ]);
   });
 });
+
+describe("G2-WBS-24 cumulative Construction A Product Proof", () => {
+  it("composes registry qualification and traceability without strengthening evidence", () => {
+    const routed = observeProductProof(obligation, {
+      routeId: "route-cumulative",
+      obligationId: obligation.obligationId,
+      obligationRevision: obligation.revision,
+      producer: obligation.producer,
+      evidenceRef: "proof://REQ-42/cumulative",
+      evidenceRevision: target.evidenceRevision,
+      observedState: "PASS",
+    });
+    const qualified = qualifyProductProofEvidence(routed, qualification, target);
+    const trace = assessProductProofTrace(fullTrace);
+    assert.equal(qualified.state, "PASS");
+    assert.equal(qualified.qualificationState, "PASS");
+    assert.equal(qualified.producer, obligation.producer);
+    assert.equal(qualified.provenance, qualification.provenance);
+    assert.equal(trace.continuous, true);
+  });
+
+  it("blocks acceptance when a critical proof obligation has no executed evidence", () => {
+    const unresolved = observeProductProof({ ...obligation, proofClass: "NEGATIVE" });
+    assert.equal(unresolved.state, "UNKNOWN");
+    assert.notEqual(unresolved.state, "PASS");
+  });
+
+  it("keeps adversarial mismatch and stale evidence non-strengthening through composition", () => {
+    const mismatched = qualifyProductProofEvidence(observation, qualification, { ...target, locality: "station:beta" });
+    const stale = qualifyProductProofEvidence(observation, { ...qualification, current: false }, target);
+    assert.equal(mismatched.state, "UNKNOWN");
+    assert.equal(mismatched.qualificationState, "UNKNOWN");
+    assert.equal(stale.state, "PARTIAL");
+    assert.equal(stale.current, false);
+    assert.equal(assessProductProofTrace(fullTrace).continuous, true);
+  });
+
+  it("preserves explicit non-pass qualification states including recovery-oriented evidence", () => {
+    for (const state of ["PARTIAL", "INCONCLUSIVE", "BLOCKED", "FAIL", "NA", "DEFERRED"] as const) {
+      const result = qualifyProductProofEvidence(observation, { ...qualification, state }, target);
+      assert.equal(result.qualificationState, state);
+      assert.notEqual(result.state, "PASS");
+    }
+    const recovery = observeProductProof({ ...obligation, proofClass: "RECOVERY" }, {
+      routeId: "route-recovery",
+      obligationId: obligation.obligationId,
+      obligationRevision: obligation.revision,
+      producer: obligation.producer,
+      evidenceRef: "proof://REQ-42/recovery",
+      evidenceRevision: "proof-recovery-r1",
+      observedState: "PARTIAL",
+    });
+    assert.equal(recovery.proofClass, "RECOVERY");
+    assert.equal(recovery.state, "PARTIAL");
+  });
+
+  it("keeps Product Proof separate from Production Readiness by exposing only producer proof facts", () => {
+    const qualified = qualifyProductProofEvidence(observation, qualification, target);
+    assert.equal("productionReadiness" in qualified, false);
+    assert.equal("deploymentReady" in qualified, false);
+  });
+});
