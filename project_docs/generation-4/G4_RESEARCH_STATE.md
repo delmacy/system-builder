@@ -1,6 +1,6 @@
 # G4 Research State — System Builder Product R&D
 
-Date: 2026-09-19
+Date: 2026-09-21
 Status: `RESEARCH_ACTIVE / NON_EXECUTABLE`
 Execution authority: NONE
 
@@ -180,6 +180,21 @@ These families may later be deduplicated or recomposed. A research family is not
 - Provider/transport substitution requalifies provider-specific claims while independently immutable evidence may remain reusable when justified.
 - Cache persistence/recovery cannot resurrect revoked or superseded evidence.
 
+### Delegation semantic-mapping boundaries
+
+- `Protocol/credential translation != semantic authority translation proof`; heterogeneous permission models require a qualified semantic relation, not a name conversion.
+- Attenuation is directional containment over an explicit protected-effect/resource/context universe: every target-reachable protected effect must imply source permission; equality is not required unless separately contracted.
+- `Role/scope name equality != authorization semantic equivalence`; effective authority includes material allow/deny, conditions, resource hierarchy, session/resource policies, boundaries and principal semantics.
+- `Target grants fewer labels != target authority is weaker`; resource breadth, audience, impersonation and meta-capability closure can make it stronger.
+- Material source deny/boundary/condition semantics must survive translation, be restored by complete mediation, be structurally excluded, or yield `PARTIAL/UNKNOWN/INCOMPATIBLE`.
+- `Unknown/unsupported provider semantics != allow`; adapter normalization cannot strengthen evidence.
+- `Target re-authorization != attenuation`; independently granted target authority creates a new authority/currentness/revocation edge.
+- Mapping proof includes material meta-capability/acquisition closure; inability to execute an effect directly does not prove inability to acquire it.
+- `Mapping unchanged != mapping proof current`; provider/API permission-universe growth, managed-role changes or evaluation-rule changes can defeat prior evidence.
+- Simulator/conformance results are bounded qualification/counterexample evidence, not an omniscient live semantic oracle.
+- Provider-specific authorization vocabularies may remain provider-specific; portability is in proof obligations/evidence vocabulary, not a mandatory universal authorization language.
+- Adapter/gateway/Exchange Plane may transport or verify mapping evidence but do not become canonical owners of either domain's business authority.
+
 ## Research progression
 
 ```text
@@ -202,37 +217,34 @@ G3 CLOSED/FROZEN
 - **Lifecycle/Continuous Improvement:** `RESEARCH_ACTIVE`, not saturated.
 - **Self-Hosting/Autonomic Evolution:** `RESEARCH_ACTIVE`, not saturated.
 - **Product UX/AI-native Builder:** `RESEARCH_ACTIVE`, not saturated.
-- **Shared Semantic Kernel / Capability Exchange Plane:** thirty-eight material deep-evidence consolidations are represented across the family artifacts, now extending end-to-end guarantee synthesis into claim-scoped distributed evidence reuse, multidimensional freshness, negative-evidence discipline, floor-aware revalidation and stampede containment without a central guarantee oracle. `RESEARCH_ACTIVE`, not saturated.
+- **Shared Semantic Kernel / Capability Exchange Plane:** material deep-evidence consolidation now extends through heterogeneous delegation semantic-mapping proof: directional effective-authority containment, deny/condition/resource/principal/meta-capability preservation, provider permission-universe version binding, explicit mediated/target-reauthorized/unknown outcomes and autonomous-runtime evidence closure without a universal authorization language or central semantic IAM oracle. `RESEARCH_ACTIVE`, not saturated.
 
-## Latest material consolidation — 2026-09-19
+## Latest material consolidation — 2026-09-21
 
-### Distributed guarantee evidence caching and invalidation under high fan-out
+### Delegation semantic-mapping proof across heterogeneous permission models
 
-Evidence classes: RFC 9111 HTTP Caching; RFC 5861 stale-while-revalidate/stale-if-error; RFC 2308 DNS negative caching; Google Zanzibar (USENIX ATC 2019); SPIFFE Federation and Trust Domain/Bundle specifications; Open Policy Agent bundle management; AWS IAM distributed-consistency guidance; prior G4 guarantee-synthesis, profile-negotiation, offline-security-floor, handoff/recovery, DR and split-brain artifacts.
+Evidence classes: AWS IAM primary documentation on effective policy evaluation, permissions boundaries, resource/session policy interaction and simulator limitations; Google Cloud IAM primary documentation on deny policies, Principal Access Boundaries, enforcement versions and policy evaluation; prior G4 semantic-policy proof, complete-mediation, effect-path, capability-envelope and offline-delegation research.
 
 Material delta:
 
-- changed the cache unit from coarse service health to a **qualified claim** keyed by all material operation, tenant/trust/classification, profile, authority and provenance dimensions;
-- established multidimensional freshness: semantic/profile, identity/trust, security/revocation, business currentness, provider health, effect rights, settlement and negative evidence may have different horizons;
-- made invalidation advisory/accelerating rather than omniscient: correctness cannot require every cache to receive a revocation broadcast, so floors/revisions/horizons/revalidation remain necessary for sensitive claims;
-- separated bounded negative evidence from `UNKNOWN` and from proof of non-occurrence; cache expiry or miss never implies the opposite proposition;
-- required stale reuse to remain visible in the synthesized guarantee and allowed claim classes such as authority/security to forbid stale use entirely;
-- introduced dependency-local minimum revision/currentness/floor witnesses without creating a global revision across autonomous capabilities;
-- preserved monotonic locally observed security/profile floors against older fetched/cache-restored evidence;
-- kept federated trust caches domain-qualified rather than merging roots for convenience;
-- used revision-aware cheap revalidation as a performance technique without turning the revalidation endpoint or Exchange Plane into semantic authority;
-- added bounded refresh authority, request coalescing/single-flight, jitter and refresh budgets to prevent cache stampedes during high fan-out degradation;
-- required derived/root guarantee evidence to retain sufficient input lineage for selective dependency invalidation rather than global cache flushes;
-- made provider/transport substitution invalidate only provider-specific claims while preserving independently immutable evidence when justified;
-- preserved autonomous runtime operation through claim-specific offline horizons and locally sufficient evidence closure rather than mandatory Builder/central cache validation.
+- reframed heterogeneous delegation translation as a directional implication/containment proof: target-reachable protected effects must imply source permission over a declared principal/resource/context universe;
+- separated isolated role/scope mapping from **effective authority**, which may depend on allow/deny, boundaries, session/resource policies, hierarchy, conditions and principal shape;
+- made source deny/condition semantics first-class: a target unable to represent a material restriction cannot receive an unqualified attenuation claim;
+- introduced explicit outcomes `PROVEN_ATTENUATED`, `MEDIATED_ATTENUATION`, `TARGET_REAUTHORIZATION`, `PARTIAL/UNKNOWN` and `INCOMPATIBLE` rather than treating adapter success as semantic success;
+- bound mapping evidence to provider/API/permission-universe semantics because managed-role contents and newly introduced permissions can defeat a prior proof without changing credential text;
+- extended containment to meta-capability/acquisition closure so bind/escalate/impersonate/mint paths cannot escape the source authority envelope;
+- preserved unknown/opaque provider semantics rather than converting schema compatibility or simulator output into invented equivalence;
+- required complete-mediation evidence when an external gate restores a restriction absent from the target permission model;
+- preserved autonomous runtime operation by making mapping proof/evidence locally carryable for declared horizons rather than requiring Builder/Exchange Plane online authorization;
+- kept adapters, gateways and IAM providers as translation/enforcement mechanisms rather than semantic owners of business authority.
 
-No HTTP cache implementation, DNS cache, Zanzibar implementation, SPIFFE/SPIRE, OPA, AWS IAM mechanism, Redis/CDN, graph engine, service mesh, broker or provider was selected.
+No AWS IAM, Google Cloud IAM/PAB, universal authorization language, policy engine, solver, gateway, adapter framework or provider was selected.
 
-Highest-value remaining gap: **cache invalidation across derived evidence DAGs under revocation storms and correlated control-plane partitions** — determine how floor/revocation advancement propagates through deeply derived guarantee evidence without O(N) synchronous fan-out, while preventing stale derived proofs, preserving bounded offline autonomy and avoiding a central invalidation authority.
+Highest-value remaining gap: **mapping-proof maintenance under opaque managed-role/provider-policy evolution** — determine how autonomous runtimes detect and requalify semantic drift when provider-managed roles, undocumented service authorization behavior, resource-policy layers or permission catalogs change without a local artifact revision, combining provider changelogs/catalogs, differential probes/simulators, runtime evidence, attestations and conservative floors without treating provider documentation or a central scanner as an omniscient semantic oracle.
 
 ## Prior material progression — compact index
 
-Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; normative proof-semantics governance/ambiguity containment; downgrade-resistant proof-semantics profile negotiation; negotiation-evidence lifecycle; semantic-generation handoff; handoff recovery/compaction; cross-runtime frontier transfer/disaster recovery; split-brain authority rejoin after mutually progressing runtimes; operation-scoped degraded-mode capability contracts; and degraded dependency-graph/end-to-end guarantee synthesis.
+Detailed durable evidence remains in the family documents indexed by `README.md`. Prior material deltas include reservation/escrow and fencing; effect composition; interaction reference models; semantic verification; causal workflow; multidimensional compatibility; hierarchical rights; non-fenceable/heterogeneous effects; in-flight evolution; security retirement/offline floors; evidence-minimal reconciliation; privacy-preserving evidence federation; collusion/metadata side channels; privacy-preserving abuse/rate/cost governance; federated anonymous budget conservation/Sybil resistance; privacy-preserving issuer accountability/compromise containment; witness/log governance/correlated compromise; multi-domain evidence composition; composition-policy lifecycle/downgrade/rollback safety; semantic non-downgrade/policy-diff proof; proof-carrying runtime verification; verifier trust continuity/diversity; normative proof-semantics governance/ambiguity containment; downgrade-resistant proof-semantics profile negotiation; negotiation-evidence lifecycle; semantic-generation handoff; handoff recovery/compaction; cross-runtime frontier transfer/disaster recovery; split-brain authority rejoin; operation-scoped degraded-mode capability contracts; degraded dependency-graph/end-to-end guarantee synthesis; distributed guarantee-evidence caching; revocation-storm/partition requalification; multi-domain invalidation algebra; in-flight policy composition change; effect-gate complete mediation; dynamic effect-path universe discovery; effect-capability privilege drift; offline delegation attenuation/revocation; and heterogeneous delegation semantic-mapping proof.
 
 ## Non-goals
 
@@ -240,7 +252,7 @@ Detailed durable evidence remains in the family documents indexed by `README.md`
 - no graph/vector/search/stream/service-mesh/central-exchange/etcd/Kubernetes adoption decision;
 - no workflow/saga/migration/checkpoint/event-store/circuit-breaker engine adoption decision;
 - no global serial-history/linearizability or global transaction requirement for all exchange interactions;
-- no mandatory central broker/ESB/shared archive/availability/guarantee/cache oracle;
+- no mandatory central broker/ESB/shared archive/availability/guarantee/cache/IAM oracle;
 - no decision to make Builder an operating system;
 - no unrestricted autonomous self-modification;
 - no shared business model/database for integration convenience;
