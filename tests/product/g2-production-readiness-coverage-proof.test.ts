@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   PRODUCTION_READINESS_DIMENSIONS,
+  composeProductionReadinessEvidence,
   evaluateProductionReadinessCriticalGates,
   hasIndependentReadinessDimensions,
   qualifyProductionReadinessDimension,
@@ -96,5 +97,44 @@ describe("G2 Production Readiness coverage", () => {
     assert.deepEqual(result.blockingDimensions, []);
     assert.equal("score" in result, false);
     assert.equal("percentage" in result, false);
+  });
+
+  it("composes qualified producer-owned readiness evidence without re-owning it", () => {
+    const input = assessment("OBSERVABILITY");
+    const result = composeProductionReadinessEvidence(input, current);
+    assert.equal(result.state, "PASS");
+    assert.deepEqual(result.evidence, input.evidence);
+    assert.equal(result.evidence[0]?.producer, "producer-owned");
+    assert.equal(result.evidence[0]?.revision, "r1");
+    assert.equal(result.evidence[0]?.provenance, "runtime-evidence");
+  });
+
+  it("keeps Product Proof references distinct and unable to substitute for readiness evidence", () => {
+    const productProofOnly = { ...assessment("RECOVERY"), evidence: [] };
+    assert.equal(composeProductionReadinessEvidence(productProofOnly, current).state, "UNKNOWN");
+    const related = {
+      ...assessment("RECOVERY"),
+      evidence: [{
+        ...assessment("RECOVERY").evidence[0]!,
+        relatedProductProof: { kind: "PRODUCT_PROOF" as const, id: "proof:recovery", revision: "proof-r1", producer: "product-proof-owner", provenance: "product-proof" },
+      }],
+    };
+    const composed = composeProductionReadinessEvidence(related, current);
+    assert.equal(composed.state, "PASS");
+    assert.equal(composed.evidence[0]?.relatedProductProof?.kind, "PRODUCT_PROOF");
+    assert.equal(composed.evidence[0]?.producer, "producer-owned");
+  });
+
+  it("weakens stale or mismatched PASS evidence and never strengthens PARTIAL or UNKNOWN", () => {
+    const stale = {
+      ...assessment("CURRENTNESS"),
+      evidence: [{ ...assessment("CURRENTNESS").evidence[0]!, qualification: { ...current, currentness: "STALE" as const } }],
+    };
+    assert.equal(composeProductionReadinessEvidence(stale, current).state, "UNKNOWN");
+    const mismatch = assessment("SECURITY");
+    assert.equal(composeProductionReadinessEvidence(mismatch, { ...current, population: "fleet" }).state, "UNKNOWN");
+    for (const state of ["PARTIAL", "UNKNOWN"] as const) {
+      assert.equal(composeProductionReadinessEvidence({ ...assessment("OWNERSHIP"), state }, current).state, state);
+    }
   });
 });
