@@ -1,7 +1,7 @@
 ---
 id: TASK-582
 title: Close G2-WBS-25 with cumulative Production Readiness Coverage proof
-status: blocked
+status: completed
 priority: 582
 milestone: G2
 model_tier: architecture
@@ -54,6 +54,9 @@ Cumulative deterministic proof sufficient to close G2-WBS-25 without introducing
 
 ## Acceptance criteria
 All eleven dimensions are represented independently. A failed/unresolved critical dimension cannot be masked. Population/environment/currentness qualification is enforced. Product Proof cannot substitute for readiness evidence. Negative, adversarial and recovery-oriented cases preserve UNKNOWN/PARTIAL/INCONCLUSIVE/BLOCKED without strengthening.
+
+## Evidence materialized
+The cumulative Product Proof now exercises the all-eleven positive path, qualification mismatch at the aggregate gate, adversarial UNKNOWN/PARTIAL/INCONCLUSIVE/BLOCKED preservation, and recovery from stale evidence only after readiness evidence itself becomes current and qualified. Existing negative coverage continues to prove missing/stale/mismatched evidence, non-maskable critical gates, producer ownership and Product Proof non-substitution.
 
 ## Non-goals
 No G2-WBS-26 realization, Package Review overflow, deployment gate, UI/persistence, provider SDK or architecture remediation.
