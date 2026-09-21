@@ -1,4 +1,5 @@
-import { describe, expect, it } from "vitest";
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import {
   PRODUCT_PROOF_CLASSES,
   observeProductProof,
@@ -15,7 +16,7 @@ const obligation: ProductProofObligation = {
 
 describe("G2 Product Proof obligation registry", () => {
   it("keeps the four proof classes distinguishable", () => {
-    expect(PRODUCT_PROOF_CLASSES).toEqual([
+    assert.deepEqual(PRODUCT_PROOF_CLASSES, [
       "POSITIVE",
       "NEGATIVE",
       "ADVERSARIAL",
@@ -24,15 +25,17 @@ describe("G2 Product Proof obligation registry", () => {
   });
 
   it("keeps missing evidence UNKNOWN rather than promoting design or acceptance to PASS", () => {
-    expect(observeProductProof(obligation)).toMatchObject({
+    assert.deepEqual(observeProductProof(obligation), {
       obligationId: obligation.obligationId,
       obligationRevision: "r7",
+      producer: obligation.producer,
+      proofClass: "POSITIVE",
       state: "UNKNOWN",
     });
   });
 
   it("rejects evidence routed from a different producer revision", () => {
-    expect(
+    assert.equal(
       observeProductProof(obligation, {
         routeId: "route-1",
         obligationId: obligation.obligationId,
@@ -42,7 +45,8 @@ describe("G2 Product Proof obligation registry", () => {
         evidenceRevision: "proof-r1",
         observedState: "PASS",
       }).state,
-    ).toBe("UNKNOWN");
+      "UNKNOWN",
+    );
   });
 
   it("references producer-owned executed evidence without taking semantic ownership", () => {
@@ -56,7 +60,7 @@ describe("G2 Product Proof obligation registry", () => {
       observedState: "PARTIAL",
     });
 
-    expect(observation).toEqual({
+    assert.deepEqual(observation, {
       obligationId: obligation.obligationId,
       obligationRevision: "r7",
       producer: obligation.producer,
