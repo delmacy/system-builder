@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   PRODUCTION_READINESS_DIMENSIONS,
+  evaluateProductionReadinessCriticalGates,
   hasIndependentReadinessDimensions,
   qualifyProductionReadinessDimension,
   type ProductionReadinessDimensionAssessment,
@@ -57,5 +58,43 @@ describe("G2 Production Readiness coverage", () => {
       const input = { ...assessment("DOCUMENTATION"), state };
       assert.equal(qualifyProductionReadinessDimension(input, current).state, state);
     }
+  });
+
+  it("blocks a positive conclusion for every unresolved critical state", () => {
+    for (const state of ["FAIL", "BLOCKED", "UNKNOWN", "PARTIAL", "INCONCLUSIVE"] as const) {
+      const dimensions = PRODUCTION_READINESS_DIMENSIONS.map(assessment);
+      const critical = { ...assessment("SECURITY"), state };
+      const input = dimensions.map((entry) => entry.dimension === "SECURITY" ? critical : entry);
+      const result = evaluateProductionReadinessCriticalGates(
+        { revision: "r1", owner: "readiness-owner", dimensions: input },
+        { criticality: { SECURITY: "CRITICAL" } },
+      );
+      assert.equal(result.conclusion, "BLOCKED");
+      assert.deepEqual(result.blockingDimensions, [critical]);
+    }
+  });
+
+  it("does not let successful noncritical siblings compensate for a critical failure", () => {
+    const dimensions = PRODUCTION_READINESS_DIMENSIONS.map(assessment).map((entry) =>
+      entry.dimension === "RECOVERY" ? { ...entry, state: "FAIL" as const } : entry,
+    );
+    const result = evaluateProductionReadinessCriticalGates(
+      { revision: "r1", owner: "readiness-owner", dimensions },
+      { criticality: { RECOVERY: "CRITICAL" } },
+    );
+    assert.equal(result.conclusion, "BLOCKED");
+    assert.equal(result.blockingDimensions[0]?.dimension, "RECOVERY");
+  });
+
+  it("does not invent scalar or percentage authority for gate evaluation", () => {
+    const dimensions = PRODUCTION_READINESS_DIMENSIONS.map(assessment);
+    const result = evaluateProductionReadinessCriticalGates(
+      { revision: "r1", owner: "readiness-owner", dimensions },
+      { criticality: { SECURITY: "CRITICAL", RECOVERY: "CRITICAL" } },
+    );
+    assert.equal(result.conclusion, "PASS");
+    assert.deepEqual(result.blockingDimensions, []);
+    assert.equal("score" in result, false);
+    assert.equal("percentage" in result, false);
   });
 });
