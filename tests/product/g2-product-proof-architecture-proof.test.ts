@@ -2,10 +2,14 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   PRODUCT_PROOF_CLASSES,
+  PRODUCT_PROOF_TRACE_STAGES,
+  assessProductProofTrace,
   qualifyProductProofEvidence,
   observeProductProof,
   type ProductProofEvidenceQualification,
   type ProductProofObligation,
+  type ProductProofTraceArtifactRef,
+  type ProductProofTrace,
 } from "../../packages/contracts/product-proof";
 
 const obligation: ProductProofObligation = {
@@ -38,6 +42,23 @@ const qualification: ProductProofEvidenceQualification = {
   provenance: "producer://requirements/run-7",
   state: "PASS",
   current: true,
+};
+
+const traceRef = (stage: ProductProofTraceArtifactRef["stage"], index: number): ProductProofTraceArtifactRef => ({
+  stage,
+  artifactId: `${stage.toLowerCase()}-${index}`,
+  revision: `r${index}`,
+  provenance: `producer://${stage.toLowerCase()}/${index}`,
+  owner: { ownerId: stage.toLowerCase(), producerId: `producer-${index}`, revision: `r${index}` },
+});
+
+const fullTrace: ProductProofTrace = {
+  traceId: "trace-REQ-42",
+  segments: PRODUCT_PROOF_TRACE_STAGES.slice(0, -1).map((stage, index) => ({
+    kind: "LINK" as const,
+    from: traceRef(stage, index),
+    to: traceRef(PRODUCT_PROOF_TRACE_STAGES[index + 1]!, index + 1),
+  })),
 };
 
 describe("G2 Product Proof obligation registry", () => {
@@ -94,5 +115,34 @@ describe("G2 Product Proof obligation registry", () => {
       assert.equal(result.state, "PARTIAL");
       assert.equal(result.qualificationState, state);
     }
+  });
+
+  it("preserves producer-owned identity revision provenance and owner refs across a complete trace", () => {
+    const assessment = assessProductProofTrace(fullTrace);
+    assert.equal(assessment.continuous, true);
+    assert.deepEqual(assessment.gaps, []);
+    const first = fullTrace.segments[0];
+    assert.equal(first?.kind, "LINK");
+    if (first?.kind === "LINK") {
+      assert.equal(first.from.revision, "r0");
+      assert.equal(first.from.provenance, "producer://elicitation_evidence/0");
+      assert.equal(first.from.owner.ownerId, "elicitation_evidence");
+    }
+  });
+
+  it("keeps broken-chain evidence as an explicit gap instead of fabricating continuity", () => {
+    const broken: ProductProofTrace = {
+      traceId: "trace-broken",
+      segments: [
+        ...fullTrace.segments.slice(0, 3),
+        { kind: "GAP", fromStage: "STORY_USE_CASE_OR_SCENARIO", toStage: "SEMANTIC_MODEL", reason: "UNKNOWN" },
+        ...fullTrace.segments.slice(4),
+      ],
+    };
+    const assessment = assessProductProofTrace(broken);
+    assert.equal(assessment.continuous, false);
+    assert.deepEqual(assessment.gaps, [
+      { kind: "GAP", fromStage: "STORY_USE_CASE_OR_SCENARIO", toStage: "SEMANTIC_MODEL", reason: "UNKNOWN" },
+    ]);
   });
 });

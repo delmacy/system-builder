@@ -93,6 +93,80 @@ export interface QualifiedProductProofObservation extends ProductProofObservatio
   provenance?: string;
 }
 
+export const PRODUCT_PROOF_TRACE_STAGES = [
+  "ELICITATION_EVIDENCE",
+  "FINDING_OR_ANSWER",
+  "REQUIREMENT_OR_CONSTRAINT",
+  "STORY_USE_CASE_OR_SCENARIO",
+  "SEMANTIC_MODEL",
+  "CAPABILITY_WORKFLOW_OR_DATA",
+  "ACCEPTANCE_CRITERION",
+  "PRODUCT_PROOF",
+  "RUNTIME_EVIDENCE",
+] as const;
+
+export type ProductProofTraceStage = (typeof PRODUCT_PROOF_TRACE_STAGES)[number];
+
+export interface ProductProofTraceArtifactRef {
+  stage: ProductProofTraceStage;
+  artifactId: string;
+  revision: string;
+  provenance: string;
+  owner: ProductProofProducerRef;
+}
+
+export interface ProductProofTraceLink {
+  kind: "LINK";
+  from: ProductProofTraceArtifactRef;
+  to: ProductProofTraceArtifactRef;
+}
+
+export interface ProductProofTraceGap {
+  kind: "GAP";
+  fromStage: ProductProofTraceStage;
+  toStage: ProductProofTraceStage;
+  reason: "MISSING" | "UNKNOWN" | "PARTIAL" | "INCONCLUSIVE" | "BLOCKED";
+}
+
+export type ProductProofTraceSegment = ProductProofTraceLink | ProductProofTraceGap;
+
+export interface ProductProofTrace {
+  traceId: string;
+  segments: readonly ProductProofTraceSegment[];
+}
+
+export interface ProductProofTraceAssessment {
+  continuous: boolean;
+  gaps: readonly ProductProofTraceGap[];
+}
+
+/** Inspects continuity only; it never creates links or changes producer authority. */
+export function assessProductProofTrace(trace: ProductProofTrace): ProductProofTraceAssessment {
+  const gaps = trace.segments.filter((segment): segment is ProductProofTraceGap => segment.kind === "GAP");
+  const linkedStages = new Set<ProductProofTraceStage>();
+  for (const segment of trace.segments) {
+    if (segment.kind === "LINK") {
+      linkedStages.add(segment.from.stage);
+      linkedStages.add(segment.to.stage);
+    }
+  }
+  const implicitGaps: ProductProofTraceGap[] = [];
+  for (let index = 0; index < PRODUCT_PROOF_TRACE_STAGES.length - 1; index += 1) {
+    const fromStage = PRODUCT_PROOF_TRACE_STAGES[index]!;
+    const toStage = PRODUCT_PROOF_TRACE_STAGES[index + 1]!;
+    const represented = trace.segments.some((segment) =>
+      segment.kind === "LINK"
+        ? segment.from.stage === fromStage && segment.to.stage === toStage
+        : segment.fromStage === fromStage && segment.toStage === toStage,
+    );
+    if (!represented && (linkedStages.has(fromStage) || linkedStages.has(toStage))) {
+      implicitGaps.push({ kind: "GAP", fromStage, toStage, reason: "MISSING" });
+    }
+  }
+  const allGaps = [...gaps, ...implicitGaps];
+  return { continuous: allGaps.length === 0 && trace.segments.length === PRODUCT_PROOF_TRACE_STAGES.length - 1, gaps: allGaps };
+}
+
 /**
  * Resolves only routing/availability. The producer remains the semantic owner of
  * the evidence and its meaning. A design or acceptance target is never promoted
