@@ -1765,3 +1765,229 @@ This would preserve the suite principle:
 8. Generated systems need only carry inventory/runtime material for their dependency closure unless explicitly configured otherwise.
 9. Component catalog metadata does not become canonical business truth.
 10. The Componentes page can serve as a regression and design-review surface for future UI development.
+
+
+## Frontend stack decision — Next.js ecosystem
+
+Decision status: `DECIDED FOR G4 FRONTEND DIRECTION`
+
+The frontend/UI platform will remain in the **Next.js / React / TypeScript ecosystem**.
+
+Primary implementation direction:
+
+```text
+Next.js
++ React
++ TypeScript
++ Tailwind CSS
++ shadcn/ui or equivalent source-owned React components
++ accessible React primitives
++ JS/TS-native graph/canvas/rendering libraries as qualified
+```
+
+WebAssembly is **not** part of the frontend architecture target.
+
+If future benchmark evidence reveals a computational hotspot, the preferred escalation order is:
+
+```text
+React/TypeScript
+  -> algorithm/data-structure improvement
+  -> virtualization / bounded rendering
+  -> Web Worker / off-main-thread JS
+  -> renderer specialization (SVG/Canvas/WebGL)
+  -> only then consider isolated non-UI computational specialization
+```
+
+Such specialization must remain behind a contract and must not redefine the frontend stack or component model.
+
+`Rendering technology != computation technology`.
+
+`Complex UI != justification for WASM`.
+
+## Product-development priority order
+
+The primary goal of frontend engineering is not visual polish. It is to produce correct, consistent and composable interaction behavior.
+
+Priority order:
+
+```text
+1. FUNCTION
+2. STATE
+3. TRANSITION
+4. COMPOSITION
+5. CONSISTENCY
+6. REPRESENTATION
+7. ACCESSIBILITY
+8. PERFORMANCE
+9. VISUAL REFINEMENT
+```
+
+Visual refinement remains important, but it is deliberately treated as a human-guided iterative layer after functional and semantic behavior is stable enough to evaluate.
+
+### Functional-first rule
+
+For every UI element, define before visual refinement:
+
+```text
+what it does
+what inputs it accepts
+what outputs/effects it produces
+what states it can enter
+what transitions are valid
+what transitions are invalid
+how it fails
+how it recovers
+what authority is required
+what data/currentness it represents
+how it composes with other elements
+what accessibility behavior is required
+```
+
+Only then refine:
+
+```text
+spacing
+colors
+shadows
+radius
+animation amplitude
+icon treatment
+visual hierarchy
+brand personality
+micro-interaction polish
+```
+
+### State-first component contract
+
+Every reusable component should eventually have an explicit interaction contract:
+
+```text
+ComponentContract
+  purpose
+  inputs
+  outputs
+  events
+  states
+  transitions
+  guards
+  invalidTransitions
+  asyncSemantics
+  failureSemantics
+  recoverySemantics
+  authorityRequirements
+  accessibilityBehavior
+  compositionRules
+  representationRules
+```
+
+This is a UI/product contract, not business-domain canonical authority.
+
+### Representation consistency
+
+A semantic state should not be represented differently without reason across modules.
+
+Examples:
+
+```text
+STALE
+  -> same semantic meaning everywhere
+
+UNKNOWN
+  -> never rendered as ordinary success
+
+BLOCKED
+  -> distinct from DISABLED
+
+PENDING
+  -> distinct from EFFECTIVE
+
+SELECTED
+  -> distinct from FOCUSED
+
+READ_ONLY
+  -> distinct from PERMISSION_DENIED
+```
+
+Components may vary visually by context, but the semantic meaning must remain stable.
+
+### Composition consistency
+
+A composed element may add states and transitions, but it must not silently redefine the state contracts of its primitives.
+
+```text
+Primitive semantics
+  -> preserved inside Pattern
+  -> preserved inside Block
+  -> preserved inside Module Component
+  -> preserved inside Tool
+  -> preserved inside Workspace
+```
+
+Higher-level composition may constrain or specialize behavior, but must do so explicitly.
+
+### Human visual refinement loop
+
+The intended workflow is:
+
+```text
+functional component
+  -> state/transition validation
+  -> composition validation
+  -> interaction review
+  -> accessibility review
+  -> visual review with human
+  -> refinement
+  -> regression evidence
+```
+
+The user/designer may iteratively tune the visual system after the behavior is concrete.
+
+This preserves the rule:
+
+`Visual preference may change without invalidating interaction semantics`.
+
+## Consequence for Componentes
+
+The mandatory **Componentes** page becomes the primary validation surface for this functional-first approach.
+
+Every item should emphasize, in this order:
+
+```text
+Purpose
+Behavior
+States
+Transitions
+Failure/Recovery
+Composition
+Accessibility
+Representation
+Variants
+Visual styling
+```
+
+The page should make it possible to inspect a component before visual polish is final.
+
+Candidate maturity model:
+
+```text
+FUNCTIONALLY_DEFINED
+STATE_DEFINED
+COMPOSITION_VALIDATED
+ACCESSIBILITY_VALIDATED
+VISUALLY_REFINED
+STABLE
+```
+
+This maturity model is separate from business/system runtime state.
+
+## Frontend invariants added by this decision
+
+- `Frontend platform = Next.js/React/TypeScript ecosystem`.
+- `WASM != frontend requirement`.
+- `Functionality before ornament`.
+- `State semantics before visual treatment`.
+- `Composition must preserve lower-level interaction contracts`.
+- `Visual inconsistency must not imply semantic inconsistency`.
+- `Semantic consistency may survive visual redesign`.
+- `Human visual refinement != architecture rewrite`.
+- `Component complete != visually polished`.
