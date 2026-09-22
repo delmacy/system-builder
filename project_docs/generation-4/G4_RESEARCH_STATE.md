@@ -350,3 +350,18 @@ The OS-like frontend research now treats **Puter**, **OS.js** and **daedalOS** a
 - daedalOS: rich desktop-in-browser behavior, context menus, drag/drop and multi-window interaction.
 
 They are research references only: \`Benchmark != adoption\`, \`Similar interaction != copied visual identity\`, and external framework constraints do not define System Builder architecture.
+
+
+## Research addition — frontend base vs web-desktop runtime ownership
+
+G4 Frontend must now explicitly research whether OS-like windowing should be:
+
+- implemented as System Builder-owned React/TypeScript infrastructure;
+- delegated to a replaceable external windowing/desktop adapter while React/Next remains the base;
+- or, only if evidence justifies it, hosted by an external desktop framework that owns the shell.
+
+The current decision remains \`Next.js + React + TypeScript\` as frontend base. Puter, OS.js and daedalOS are benchmarks, not implementation authorities.
+
+Research must compare ownership, lifecycle, performance, session restore, accessibility, React/Next integration, routing/SSR implications, Command Registry/Ribbon/Inspector integration, 3D WorkSurface embedding, Factory Module compatibility, testability, replaceability and lock-in.
+
+Invariants: \`Desktop metaphor != desktop framework dependency\`, \`Window Manager != UI framework\`, \`React renderer != semantic authority\`, and \`External window library != ModuleDefinition/ModuleWindow/RuntimeInstance owner\`.
