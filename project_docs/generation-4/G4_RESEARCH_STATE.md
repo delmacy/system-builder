@@ -23,6 +23,37 @@ This file is the compact consolidated state. Detailed evidence, adversarials, tr
 
 These families may later be deduplicated or recomposed. A research family is not automatically a product module.
 
+### Active product-interface consolidation
+
+The Product UX / Living Canvas family now has a dedicated research artifact:
+`research/G4_MAIN_COMPOSITION_CANVAS_3D_RESEARCH.md`.
+
+Current interface hypothesis being researched:
+
+- stable React/DOM shell with Office-style Ribbon, Tool Rail, WorkSurface, Inspector and Status/Activity bar;
+- semantic 3D WorkSurface rather than decorative 3D;
+- multiple projections of the same canonical model rather than one universal canvas;
+- modules represented as flexible-height towers/pillars according to floor participation;
+- floor manifestations as context-specific projections of one module identity;
+- bounded context as semantic envelope plus internal onion/radial depth;
+- capability participation as a cross-cutting axis/shaft, not ownership hierarchy;
+- contracts as formal semantics/guarantees of access, exposed through ports/entry points;
+- doors/counters as interaction metaphors for admissible boundaries and request/action surfaces;
+- workflow/data-flow as trajectories through module structure rather than mandatory onion rings;
+- vertical, horizontal and lateral hubs as primary structural interconnection primitives;
+- handoffs/gates/evidence and designed-vs-observed conformance as operational overlays;
+- server/host basements as deployment foundations from which runtime/module towers emerge;
+- twin towers/availability groups for multiple manifestations of one logical module identity;
+- explicit separation of visual grouping, semantic grouping and actual deployment mutation;
+- desired/observed/effective placement remaining distinct;
+- guided 3D navigation, semantic zoom, LOD, clustering, render-on-demand and non-3D accessibility fallbacks;
+- permanent `Componentes` inventory/state-lab coverage for reusable canvas/topology elements.
+
+Key research invariants added by this consolidation include `3D semantic != 3D decorative`, `Module Identity != Deployment Placement != Runtime Instance`, `Capability participation != semantic ownership`, `Visual connectability != semantic compatibility`, `Visual proximity != deployment merge`, `Arrange != Group != Deploy`, `Desired != Observed != Effective`, `Transport != Contract`, `Aggregation != silent omission` and `3D mode != mandatory interaction mode`.
+
+This remains research-only and does not authorize renderer/package adoption or frontend implementation.
+
+
 ## Cross-cutting rules
 
 ### Constitutional / product boundaries
