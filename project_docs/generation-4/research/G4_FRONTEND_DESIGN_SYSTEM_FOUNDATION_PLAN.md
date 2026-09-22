@@ -2832,3 +2832,20 @@ Research mature-tool reuse explicitly:
 - analogous mature tools for observability, databases, storage and other infrastructure domains where appropriate.
 
 Never weaken CSP/origin/auth boundaries merely to force an external UI into a window. Prefer official APIs/documented integration surfaces and deep-link fallbacks over private/fragile UI reuse.
+
+
+## Primary navigation candidate — Client -> Workspace -> Desktop Sphere
+
+Near-term G4 frontend planning should prioritize:
+
+~~~
+Client -> Workspace -> Desktop Sphere -> Application -> Window
+~~~
+
+over a mandatory global 3D navigation surface.
+
+Desktop Spheres are stable functional areas with lazy-loaded application catalogs. Candidate spheres: System Design; Infrastructure & Runtime; Security/Identity/Governance; Data & Information; Process & Automation; Experience/Views/Forms/Reporting; Integrations & Exchange; Operations & Observability; Delivery & Lifecycle.
+
+Planning must support desktop-level lazy loading; desktop close/suspend/hibernate; application code loaded on demand; selective live subscriptions; cross-desktop preservation of client/system/revision/environment/organizational scope; multiple saved workspaces; permission/provider/applicability states; and desktop-specific responsive behavior.
+
+3D is retained as an optional later application/projection inside an appropriate desktop, not required as the first navigation foundation.
