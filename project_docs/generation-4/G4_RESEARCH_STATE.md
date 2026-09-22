@@ -505,3 +505,128 @@ It is distinct from the compact Desktop Observatory, the Operations Desktop and 
 These surfaces should preserve layout/bindings and currentness semantics while using shared/suspendable telemetry rather than independent polling per widget.
 
 Hard boundaries: fixed layout != static data; pinned != semantic priority; monitoring surface != management application; visible widget != current evidence.
+
+
+## G4 Web Desktop & Application Environment — formal research program
+
+Status: ACTIVE_RESEARCH_PROGRAM / NON_EXECUTABLE
+
+All recent interface concepts are now one explicit G4 research program. User examples/names are treated as exploratory hypotheses unless explicitly promoted to firm decisions.
+
+### Program thesis
+
+The System Builder frontend is researched as a web-based engineering operating environment rather than a conventional page-oriented SaaS.
+
+Primary interaction hierarchy:
+
+~~~
+Builder Home / Factory
+-> Client
+-> Workspace
+-> Desktop Sphere
+-> Application
+-> Window
+-> View / Tab / Tool
+~~~
+
+3D is preserved as optional future projection/application research, not the mandatory navigation foundation.
+
+### Mandatory research streams
+
+1. Builder Home / client tenancy / delegated client access.
+2. Workspace semantics: system, revision, environment, organizational/filial scope, saved context.
+3. Desktop Spheres and stable application placement.
+4. Window Manager: window roles, lifecycle, focus, z-order, minimize/maximize/restore, docking, snap, split, tab groups, detached windows and recovery.
+5. Extended/multi-display desktop: one logical workspace across multiple browser display surfaces with shared window registry and context continuity.
+6. Desktop Observatory: compact contextual operational summary.
+7. Pinned Monitoring Surfaces / monitor walls: persistent configurable observability mosaics, editor, locking and secondary-display use.
+8. Application Portfolio: native, API-backed, hybrid, embedded, proxied, deep-link and native-bridge applications.
+9. Application Manager: catalog, install-new, adopt-existing, discovery, registration, ownership/management modes, upgrade/unregister/uninstall semantics.
+10. Control Center: unified configuration, settings, policies, provider/bindings, secret references, environments, enablement, lifecycle and configuration search.
+11. Declarative Service Deployment: schema-driven configuration, environment defaults, auto-binding, Vault references, network/storage/service identity and generated provider artifacts.
+12. Hosting/placement profiles and shared/dedicated/external/existing service-placement hypotheses without prematurely freezing naming or commercial packaging.
+13. External mature-tool integration research: Docker/Portainer, n8n, Cockpit/NetworkManager, Grafana/observability, database/storage/admin tools and analogous products.
+14. Proprietary SB application family: Workflow Designer, Component Editor, View/Page Builder, Form Builder, Rules/Decision Editor, System/Module Designer, Elicitation, Preview/Sandbox, Revision/Diff.
+15. Shared editor foundation: selection, outliner/tree, inspector, command registry, undo/redo, history/revision, diff, canvas/graph, bindings, expression/rule editor, state matrix, validation/findings, preview, evidence and accessibility.
+16. Workflow/View/Form/Component semantic bridge: task/form/view/action/command/permission/workflow/evidence integration without collapsing semantic ownership.
+17. Declarative + opinionated/guided authoring: make valid composition easier than invalid composition while preserving bounded flexibility and inspectable automation.
+18. Performance/resource model: desktop/app/window lazy loading, suspension/hibernation, telemetry sharing, background throttling, graphics budgets and recovery.
+19. Componentes catalog/playground coverage for shell, windows, applications, monitoring surfaces, editors, states, transitions and composition lineage.
+20. Open-source/extensibility boundaries: application/plugin manifests, adapters/providers, replacement, version compatibility and anti-lock-in.
+
+### Desktop Sphere hypotheses to research
+
+- System Design;
+- Infrastructure & Runtime;
+- Security / Identity / Governance;
+- Data & Information;
+- Process & Automation;
+- Experience / Views / Forms / Reporting;
+- Integrations & Exchange;
+- Operations & Observability;
+- Delivery & Lifecycle.
+
+Taxonomy is a research candidate, not a frozen product naming decision.
+
+### Cross-cutting invariants
+
+- Client != Workspace != Desktop != Application != Window.
+- Workspace scope != Desktop sphere.
+- Module != Capability != Application != Window.
+- Window/session lifecycle != service/runtime lifecycle.
+- Close/minimize UI != stop/disable/undeploy service.
+- Desktop presence != application loaded.
+- Application availability != applicability != active state.
+- Unified configuration UI != one semantic owner or one physical store.
+- SecretRef != secret value.
+- Policy != configuration.
+- Desired != observed != effective.
+- Configured != applied != effective.
+- Install != Adopt.
+- Register != Deploy.
+- Connect != Own.
+- Discovered != Verified.
+- Remove from Desktop != Uninstall.
+- YAML/provider artifact != canonical semantic definition.
+- Automatic != hidden.
+- Deployment Unit != physical server.
+- Service identity != raw IP.
+- Desktop widget != management application.
+- Observatory != Monitoring Surface != Operations Desktop.
+- Pinned != semantic priority.
+- Display Surface != Workspace.
+- Window movement/docking != semantic relation.
+- Browser tab != System Builder tab.
+- 3D projection != navigation foundation.
+- View != Workflow Activity.
+- Form != Workflow State.
+- Button != Domain Command.
+- Component event != authorized business action.
+- Adapter normalization != fabricated semantic equivalence.
+
+### Required research outputs before implementation planning
+
+- Web Desktop architecture decision record;
+- Desktop Sphere taxonomy/boundary study;
+- Window Manager contract and state machine;
+- multi-display/session synchronization model;
+- Application Portfolio Matrix;
+- external-app integration/security matrix;
+- Application Manager lifecycle model;
+- Control Center configuration/inheritance/provenance model;
+- declarative deployment/service-definition model;
+- Vault/secret auto-binding and environment-binding model;
+- Monitoring Surface/Observatory component and telemetry model;
+- proprietary editor shared-primitives architecture;
+- Workflow/View/Form/Component binding model;
+- accessibility and small-screen equivalent-operation model;
+- performance budgets and suspension/resource lifecycle;
+- failure/recovery/session restore model;
+- adversarial scenario/proof-obligation matrix;
+- componentization/complexity map suitable for later WBS.
+
+### Research method
+
+Use current external evidence from mature systems, documentation and papers where relevant. Benchmark interaction grammar and architectural patterns rather than copying branding or proprietary implementation.
+
+Test contradictory evidence and alternatives. Research continues until material gaps show saturation; no research result by itself grants implementation authority.
