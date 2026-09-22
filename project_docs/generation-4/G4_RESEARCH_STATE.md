@@ -314,3 +314,15 @@ Detailed durable evidence remains in the family documents indexed by `README.md`
 ## Closure target
 
 G4 should eventually produce a deduplicated capability map; workload/interaction profiles; performance/scale budgets; proof obligations; implementation-independent target product architecture; provider qualification matrices; prototype evidence for high-risk choices; G3->G4 traceability; gap against current SB; and a planning handoff without automatically materializing implementation work.
+
+## Scope addition — OS-style screen/window assembly
+
+G4 Product UX / Frontend now explicitly includes research of a **System Builder Operating Environment** with operating-system-like screen and window composition.
+
+In-scope research includes ModuleLauncher, WindowManager, ModuleWindow, ScreenComposer, WorkspaceComposer, taskbar/open-window state, docking/snapping/splitting, multiple windows per module, saved/restored layouts, suspend/hibernate/lazy-loading behavior, cross-window revision/currentness/conflict semantics, and synchronization with the semantic 3D System Map.
+
+This extends rather than replaces the existing Ribbon, Tool Rail, Inspector, Command Registry, Componentes inventory, semantic 3D, floors/towers/onion/hubs and deployment-topology research.
+
+New performance/lifecycle rules include \`Module installed != Module loaded\`, \`Module loaded != Module rendered\`, \`Module rendered != actively updating\`, \`Window open != full processing active\`, \`Installed complexity != runtime UI cost\` and \`Inactive workspace -> suspend / aggregate / unload where safe\`.
+
+This remains research-only; it does not authorize implementation or adoption of a specific windowing/rendering framework.
