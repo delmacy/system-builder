@@ -399,3 +399,22 @@ Each Client Builder Desktop may contain many specialized applications and saved 
 Deployment becomes a dedicated application capable of selecting qualified target profiles such as SB-managed server, container/Docker, orchestrated runtime, native server process, native desktop, edge host or external provider. Containerization is not mandatory semantics.
 
 The generated/published client system remains an autonomous runtime, typically accessed conventionally through its own web endpoint/domain and using standardized System Builder-generated forms/views/components. Builder offline != Client Runtime offline.
+
+
+## Direction update — Client -> Workspace -> Desktop Spheres; 3D deferred
+
+The preferred G4 interaction hierarchy is now:
+
+~~~
+Client -> Workspace -> Desktop Sphere -> Application -> Window
+~~~
+
+Each Desktop Sphere represents a functional work area and exposes a stable catalog of relevant applications. Candidate spheres: System Design; Infrastructure & Runtime; Security/Identity/Governance; Data & Information; Process & Automation; Experience/Views/Forms/Reporting; Integrations & Exchange; Operations & Observability; Delivery & Lifecycle.
+
+A workspace preserves client/system/revision/environment/organizational context across desktop switches. Desktops are UI/resource scopes, not business branches and not semantic owners.
+
+Desktop taxonomy may be stable while actual application use remains dynamic: available != enabled != applicable != loaded != active.
+
+Performance direction: load desktop shell/manifests first, lazy-load applications/windows, subscribe selectively, suspend/hibernate inactive work and unload closed desktop resources where safe. Close Desktop != stop service/runtime.
+
+The semantic 3D work remains preserved but is deferred from the primary navigation model. Future 3D can return as an optional System Map/Topology application inside a desktop. 3D Projection != navigation foundation.
