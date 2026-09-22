@@ -2394,3 +2394,301 @@ ApplicationManager, ApplicationCatalog, ApplicationCatalogEntry, ApplicationInst
 - SB-managed != externally managed.
 - External installation != unsupported installation.
 - Discovery != authorization.
+
+
+## Control Center — unified configuration, policy, secret references and application governance
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+The System Builder Operating Environment should include a first-class **Control Center / Configuration Manager** that provides a unified view and editing surface for configuration across the client environment without requiring the operator to open every application individually.
+
+The unification is a control-plane experience, not a claim that every external product shares one native configuration model.
+
+~~~
+Unified configuration surface
+!= single semantic owner
+!= single physical configuration store
+~~~
+
+### Purpose
+
+The Control Center should let privileged operators inspect and govern, from one place:
+- application settings;
+- provider/binding configuration;
+- enablement/disablement;
+- policies;
+- permissions/authority configuration;
+- secret and credential references;
+- environment bindings;
+- endpoints/ports/hosts;
+- feature flags/entitlements where applicable;
+- integration modes;
+- lifecycle/update policy;
+- observability/currentness settings;
+- desktop/app visibility;
+- defaults and overrides.
+
+An individual application may still expose its own specialized settings window, but the Control Center is the primary cross-application configuration surface.
+
+### Configuration scopes
+
+Research a scoped hierarchy such as:
+
+~~~
+Builder / Factory
+  -> Client Organization
+      -> Client System
+          -> Environment
+              -> Workspace context
+                  -> Desktop Sphere
+                      -> Application
+                          -> Application Instance
+                              -> Provider / Binding
+~~~
+
+Not every setting applies to every scope. Scope eligibility must be declared per setting.
+
+### Inheritance and overrides
+
+Candidate precedence:
+
+~~~
+platform default
+-> template default
+-> client default
+-> system override
+-> environment override
+-> desktop/application override
+-> instance override
+~~~
+
+Precedence alone is insufficient; each effective value should retain provenance.
+
+Candidate record:
+
+~~~
+ConfigurationValue {
+  key
+  schema
+  scope
+  declaredValue
+  inheritedFrom?
+  effectiveValue
+  source
+  owner
+  revision
+  environment
+  currentness
+  secretRef?
+  providerBinding?
+  validationState
+  desiredState?
+  observedState?
+  effectiveState?
+}
+~~~
+
+Hard rules:
+- inherited != explicitly set;
+- default != policy;
+- configured != applied;
+- applied != effective;
+- secret reference != secret value;
+- same key name != same semantics.
+
+### Unified schema via application/provider adapters
+
+Each application/provider integration should expose a qualified settings contract to the Control Center.
+
+Candidate:
+
+~~~
+ApplicationSettingsProvider {
+  applicationType
+  supportedVersions
+  settingsSchema
+  scopes
+  readCurrentConfiguration()
+  validateDesiredConfiguration()
+  planChange()
+  applyChange()
+  observeAppliedConfiguration()
+  reconcile()
+  rollbackCapabilities
+}
+~~~
+
+This allows n8n, Portainer, Cockpit, Grafana, Docker, databases and native SB applications to participate in one UI while preserving provider-specific semantics.
+
+Adapter normalization must never invent equivalence between unrelated settings.
+
+### Categories in the Control Center
+
+Candidate navigation:
+
+1. General / Identity
+2. Applications
+3. Desktops & Visibility
+4. Providers & Bindings
+5. Network / Endpoints
+6. Authentication & Access
+7. Policies & Governance
+8. Secrets & Credentials
+9. Environments
+10. Deployment Defaults
+11. Observability
+12. Updates / Lifecycle
+13. Feature Flags / Entitlements
+14. Audit / Configuration History
+
+### Secrets
+
+The Control Center should unify secret governance without making secret values broadly visible.
+
+Example:
+
+~~~
+n8n
+  database password -> secret://client-a/prod/n8n-db
+  encryption key    -> secret://client-a/prod/n8n-key
+
+Portainer
+  API token         -> secret://client-a/prod/portainer-api
+~~~
+
+The default UI should show metadata such as owner, scope, provider, rotation state, last update and usage references.
+
+~~~
+Secret metadata != Secret value
+Can bind secret != Can reveal secret
+Can rotate secret != Can read secret
+~~~
+
+### Policies and enablement
+
+Policies should also be visible cross-application.
+
+Examples:
+- which apps are permitted in Production;
+- which providers are allowed;
+- whether external deep links are allowed;
+- whether an app can be client-administered;
+- whether a deployment target is permitted;
+- update channels;
+- secret-rotation rules;
+- required TLS/security floors;
+- maintenance windows;
+- allowed authentication methods.
+
+Policy must remain distinct from current configuration:
+
+~~~
+Policy = what is permitted/required
+Configuration = what is desired
+Observed = what currently exists
+Effective = what is actually in effect
+~~~
+
+### Desired / observed / effective configuration
+
+For managed/external tools the Control Center must distinguish:
+
+~~~
+DESIRED_CONFIGURATION
+OBSERVED_CONFIGURATION
+EFFECTIVE_CONFIGURATION
+~~~
+
+Possible states:
+- IN_SYNC;
+- PENDING;
+- DRIFT;
+- PARTIAL;
+- UNKNOWN;
+- BLOCKED;
+- RECONCILIATION_REQUIRED;
+- EXTERNALLY_MANAGED.
+
+Example:
+
+~~~
+Portainer endpoint
+desired: https://portainer.internal:9443
+observed: https://10.0.0.12:9443
+effective: reachable through SB gateway
+state: DRIFT / QUALIFIED
+~~~
+
+### Change planning
+
+Cross-application changes can have large blast radius. The Control Center should preview:
+- affected applications;
+- affected hosts/environments;
+- required restarts/redeployments;
+- dependent workflows/services;
+- credential changes;
+- incompatible versions;
+- downtime/reconciliation expectations;
+- rollback availability.
+
+Changing a setting should not silently restart or redeploy a service unless the setting contract explicitly requires and the operator authorizes that action.
+
+### Individual vs unified settings
+
+Both should coexist:
+
+~~~
+Control Center
+= cross-application overview, governance, defaults, policy, bindings and common configuration
+
+Application Settings
+= specialized provider/application-specific controls and advanced options
+~~~
+
+A deep-link/open action should take the user from a global setting to the corresponding app/instance settings when deeper specialization is required.
+
+### Desktop configuration
+
+Each Desktop Sphere can also have a bounded configuration section for:
+- enabled/visible applications;
+- Observatory widgets;
+- layout presets;
+- provider defaults;
+- resource/suspension policy;
+- permissions/roles;
+- contextual shortcuts;
+- environment-specific defaults.
+
+However, Desktop settings must not become a hidden second source of truth for application/provider configuration.
+
+### Configuration search
+
+Because configuration volume may become large, the Control Center should support:
+- global search;
+- filter by application/provider/environment/host;
+- show only overrides;
+- show only drift;
+- show only secrets metadata;
+- show policy violations;
+- show pending changes;
+- compare environments;
+- compare revisions;
+- diff before apply.
+
+### Componentes additions
+
+ControlCenter, ConfigurationExplorer, ConfigurationSearch, ConfigurationScopeTree, ConfigurationMatrix, EffectiveValueInspector, InheritanceIndicator, OverrideIndicator, DesiredObservedEffectiveConfig, ConfigDriftIndicator, PolicyPanel, SecretReferencePanel, ProviderSettingsAdapterState, ConfigurationDiff, ConfigurationChangePlan, ConfigurationImpactPreview, ConfigurationHistory, ReconcileConfigurationAction and OpenApplicationSettingsAction.
+
+### Invariants
+
+- Unified settings UI != unified semantic owner.
+- Unified settings UI != single physical store.
+- Secret reference != secret value.
+- Policy != configuration.
+- Desired != observed != effective.
+- Configured != applied != effective.
+- Inherited != explicitly set.
+- Same key name != same semantics.
+- Global change != implicit restart/redeploy.
+- Application settings != duplicate source of truth.
+- Adapter normalization != fabricated semantic equivalence.
