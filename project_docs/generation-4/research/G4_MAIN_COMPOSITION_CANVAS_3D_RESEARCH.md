@@ -1465,3 +1465,334 @@ Never disable a mature product's security headers by default merely to satisfy t
 ### Research outcome
 
 G4 should produce an **Application Portfolio Matrix** describing which System Builder tasks become native applications, API-backed native applications, hybrid applications, supported embedded external applications, deep-linked external applications or native-bridge applications.
+
+
+## Builder Home, Client Desktops and Delegated Construction
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+The Builder-side product experience should research a Windows-like top-level **Builder Home / Factory Desktop** from which privileged Builder operators create and enter client organizations, systems and delegated construction environments.
+
+### Identity hierarchy
+
+Do not collapse user identity into customer identity.
+
+~~~
+Builder Operator
+-> Client Organization / Tenant
+   -> Client Users
+      -> Roles / Privileges
+   -> Client Systems
+      -> Builder Desktop
+      -> Published Runtime(s)
+~~~
+
+Hard distinction:
+
+~~~
+User != Client
+Client Organization != Client System
+Client System != Builder Desktop
+Builder Desktop != Published Runtime
+~~~
+
+A Builder may create a client organization, then provision one or more users for that client. A client user may be granted bounded construction/administration privileges.
+
+### Builder Home
+
+Candidate top-level experience:
+
+~~~
+SYSTEM BUILDER HOME
+
+Clients
+Templates
+Factory
+Root Services
+Applications
+Jobs
+Incidents
+Settings
+
+Client A
+Client B
+Client C
+...
+~~~
+
+Selecting a client opens that client's Builder Desktop.
+
+### Client Builder Desktop
+
+Each client organization/system can have a dedicated desktop-like engineering environment.
+
+Candidate structure:
+
+~~~
+Client A Desktop
+├─ Applications
+│  ├─ System Map
+│  ├─ Workflow Designer
+│  ├─ Data Modeler
+│  ├─ Auth / Identity
+│  ├─ Deploy
+│  ├─ Network
+│  ├─ Docker / Containers
+│  ├─ Observability
+│  ├─ Logs
+│  ├─ Documentation
+│  └─ ...
+├─ Workspaces
+├─ Shared context
+├─ Client-scoped permissions
+└─ System/revision/environment context
+~~~
+
+The desktop is a **construction and administration environment**, not the end-user application itself.
+
+### Delegated client access
+
+A Builder may grant client users access to the Builder Desktop.
+
+Candidate roles include:
+
+- VIEWER;
+- REVIEWER;
+- CLIENT_ADMIN;
+- AUTHOR;
+- OPERATOR;
+- DEPLOY_OPERATOR;
+- SECURITY_ADMIN;
+- FACTORY_OPERATOR;
+- ROOT_ADMIN / BUILDER_ONLY.
+
+Exact taxonomy remains research.
+
+Delegation must be explicit and scoped.
+
+~~~
+Can access Client Desktop
+!= can modify SystemDefinition
+
+Can modify SystemDefinition
+!= can publish
+
+Can publish
+!= can deploy
+
+Can deploy
+!= can access root services
+
+Can operate runtime
+!= can access Builder-only secrets
+~~~
+
+Client delegation never silently grants Builder-global authority.
+
+### Workspace model
+
+The desktop may contain multiple workspaces.
+
+Examples:
+- architecture;
+- workflow;
+- data;
+- deployment;
+- operations;
+- branch/filial-focused working context;
+- audit/review.
+
+A workspace may focus on one organizational branch/filial, but:
+
+~~~
+Workspace != Branch / Filial
+~~~
+
+A branch/filial is a business/domain object. A workspace is a saved UI/context composition.
+
+Candidate context:
+
+~~~
+WorkspaceContext {
+  client
+  system
+  revision
+  environment
+  organizationalScope?
+  branchOrUnitFilter?
+  applications[]
+  windows[]
+  layout
+  selection
+  permissionsView
+}
+~~~
+
+This preserves the ability to have multiple workspaces for one branch or one workspace spanning several branches.
+
+### Deployment application
+
+Deployment should be a dedicated application rather than one generic settings page.
+
+It should model target execution profiles, not assume Docker-only deployment.
+
+Candidate target types:
+
+~~~
+SB_MANAGED_SERVER
+CONTAINER
+DOCKER
+KUBERNETES_ORCHESTRATED
+NATIVE_SERVER_PROCESS
+NATIVE_DESKTOP
+EDGE_HOST
+EXTERNAL_PROVIDER
+OTHER_QUALIFIED_TARGET
+~~~
+
+The Deployment App should show the selected/default System Builder deployment path and qualified external/provider alternatives.
+
+~~~
+Deployment target
+!= module semantics
+
+Containerization
+!= deployment requirement
+
+Desktop target
+!= client Builder Desktop
+~~~
+
+A client may request a native desktop/runtime target, but the product should keep server-hosted/web operation as a first-class/default deployment profile where appropriate because it reduces dependence on one end-user physical machine.
+
+### Published client runtime
+
+The generated/published client system remains separate.
+
+Example:
+
+~~~
+Builder Control Plane
+  builder.example
+  -> Client A Desktop
+     -> design/configure/review/deploy
+
+Published Client Runtime
+  www.client-a.com
+  -> forms
+  -> views
+  -> workflows
+  -> client-facing components
+  -> operational application
+~~~
+
+The runtime may have a standardized design system and generated application shell while remaining autonomous from the Builder.
+
+Hard rules:
+
+~~~
+Builder offline
+!= Client Runtime offline
+
+Client Runtime
+!= Builder Desktop
+
+Builder application catalog
+!= Client Runtime dependency closure
+~~~
+
+### Runtime presentation
+
+Generated client systems should be consistent enough to avoid incoherent ad-hoc UI while still allowing bounded branding/customization.
+
+Research should distinguish:
+- platform design-system defaults;
+- template-level design;
+- client branding;
+- module-specific views;
+- generated forms;
+- generated dashboards;
+- client-specific extensions.
+
+### Client desktop as "company operating environment"
+
+The useful metaphor is that a privileged Builder/client administrator can enter the **operating environment of that client's system** and use specialized applications to inspect, design, configure, deploy and operate it.
+
+The metaphor must not imply the Builder Desktop is the actual client operating system kernel.
+
+~~~
+Client Builder Desktop
+= engineering/control environment
+
+Client Runtime
+= autonomous operational system
+~~~
+
+### Security and tenant boundaries
+
+The desktop must remain client-scoped.
+
+- client A context must not leak client B data;
+- switching clients must switch authority/context explicitly;
+- cross-client Factory views are Builder/factory-only unless explicitly delegated;
+- root services stay separately protected;
+- secrets may expose metadata without exposing secret values;
+- client users cannot inherit Builder-global permissions through shared applications.
+
+### Candidate Componentes additions
+
+- BuilderHome
+- ClientOrganizationTile
+- ClientSystemTile
+- ClientDesktop
+- ClientDesktopSwitcher
+- ClientContextIndicator
+- DelegatedAccessBadge
+- ClientRoleBadge
+- WorkspaceLauncher
+- WorkspaceScopeIndicator
+- DeploymentApp
+- DeploymentTargetProfile
+- RuntimeEndpointCard
+- PublishVsDeployIndicator
+- BuilderVsRuntimeContextIndicator
+
+### Adversarial cases
+
+1. client user is confused with client organization identity.
+2. client desktop is mistaken for published runtime.
+3. workspace is modeled as the business branch itself.
+4. Builder-global root service becomes visible through a client desktop.
+5. deploy operator can read root secrets.
+6. client administrator can publish globally because they can edit locally.
+7. switching client keeps previous client's selection/secret/context.
+8. generated runtime starts depending on Builder availability.
+9. Docker/container profile becomes mandatory architecture.
+10. native desktop deployment is confused with the web Builder desktop.
+11. client branding forks the design system into incompatible UI.
+12. one client desktop exposes another client's modules/telemetry through shared caches.
+
+### Product synthesis
+
+The resulting product model is:
+
+~~~
+BUILDER HOME / FACTORY
+   |
+   +-- Client A
+   |    +-- Client Builder Desktop
+   |    |    +-- Apps
+   |    |    +-- Workspaces
+   |    |    +-- Revisions
+   |    |    +-- Deploy/Operate
+   |    |
+   |    +-- Published Runtime(s)
+   |
+   +-- Client B
+   |    +-- Client Builder Desktop
+   |    +-- Published Runtime(s)
+   |
+   +-- Root Services / Factory-only surfaces
+~~~
+
+This preserves the OS-like interaction model on the Builder side while keeping generated client systems conventional, autonomous web/runtime products.
