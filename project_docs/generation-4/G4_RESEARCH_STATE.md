@@ -455,3 +455,16 @@ The Control Center should expose application settings, provider/bindings, enable
 Configuration remains scoped and provenance-aware across platform/client/system/environment/desktop/application/instance. Individual advanced settings remain available inside each application.
 
 Key boundaries: unified settings UI != single semantic owner/store; secret reference != secret value; policy != configuration; desired != observed != effective; configured != applied != effective; inherited != explicitly set; global change != implicit restart/redeploy.
+
+
+## Research addition — Declarative Service Deployment and auto-binding
+
+G4 deployment UX now favors schema-driven service configuration over raw YAML/manifests.
+
+Selecting a deployable service such as PostgreSQL should expose a typed configuration tree for version, storage, network, credentials, resources, health, observability, backup, placement and lifecycle. Environment context can automatically resolve network, internal hostname/service identity, secret namespace, storage defaults, observability and policy.
+
+System-generated/provider-native YAML, Compose, Helm or service files are compiled/exportable artifacts, not the primary semantic authoring model.
+
+Secrets are generated/imported through Vault policy and injected through SecretRef bindings. Deployment may be partitioned into multiple Deployment Units/placement groups rather than one giant manifest.
+
+Preserve YAML/provider artifact != semantic definition; SecretRef != secret value; Automatic != hidden; Deployment Unit != physical server; Provider ACK != effective service.
