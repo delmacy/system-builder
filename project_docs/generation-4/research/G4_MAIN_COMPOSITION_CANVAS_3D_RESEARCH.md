@@ -247,3 +247,254 @@ Before these patterns can be considered mature, research/prototype evidence must
 ## Maturity
 
 This front remains `RESEARCH_ACTIVE / NON_EXECUTABLE`. The authority-transfer and partition-ownership model materially reduces the previous gap around shard rebalance/fencing, but exact SharedContractSurface compatibility algebra and complete cross-workspace recovery orchestration remain open research vectors.
+
+## OS-style Screen & Window Composition Scope
+
+Decision status: \`IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE\`
+
+The G4 frontend scope now explicitly includes the design of a **screen/window composition environment inspired by desktop operating systems**.
+
+This is not merely a visual metaphor. It is a product-interaction capability to be researched and planned.
+
+### Scope
+
+Research the composition of module UIs as independent but coordinated application-like windows inside the System Builder Operating Environment.
+
+The composition system must cover:
+
+- creating/opening module windows;
+- multiple windows from the same module;
+- moving, resizing and arranging windows;
+- minimize, maximize, restore and close;
+- floating, docking, snapping and split layouts;
+- tabbed/docked window groups where useful;
+- z-order and focused-window management;
+- persistent workspace/window layouts;
+- restore after reload/session recovery;
+- saved workspace presets;
+- module launcher / application catalog;
+- taskbar/open-window indicators;
+- background/suspended windows;
+- window-to-window comparison;
+- cross-window drag/copy/reference where semantically valid;
+- multi-window revision/currentness handling;
+- integration with Ribbon, Command Registry, Tool Rail, Inspector and Status/Activity;
+- integration between ModuleWindow and System Map / 3D Canvas;
+- responsive degradation on smaller displays;
+- keyboard and non-drag alternatives;
+- lifecycle/performance management for inactive windows.
+
+### Screen composition
+
+Research a **Screen Composer / Workspace Composer** able to assemble complete working screens from reusable primitives and module windows.
+
+Candidate hierarchy:
+
+~~~
+Token / Primitive
+-> Component
+-> Module Component
+-> Tool
+-> Module Window
+-> Window Group / Dock
+-> Workspace
+-> Complete Screen
+-> Saved Workspace Layout
+-> System Desktop
+~~~
+
+A complete screen may therefore be a composition of several module windows rather than one monolithic route/page.
+
+Example:
+
+~~~
+OPERATIONS WORKSPACE
+
++-------------------------+-------------------------+
+| Helpdesk                | Workflow                |
+| Ticket / Queue          | Flow / Gates            |
++-------------------------+-------------------------+
+| Observability           | Evidence / History      |
+| Metrics / Alerts        | Audit / Currentness     |
++-------------------------+-------------------------+
+~~~
+
+The composition is a UI arrangement, not a new semantic owner.
+
+~~~
+Screen composition
+!= semantic aggregation
+!= module ownership merge
+~~~
+
+### Window state model
+
+Candidate state vocabulary:
+
+~~~
+CLOSED
+OPENING
+OPEN
+FOCUSED
+UNFOCUSED
+MINIMIZED
+MAXIMIZED
+FLOATING
+DOCKED
+SNAPPED
+SPLIT
+BACKGROUND
+SUSPENDED
+HIBERNATED
+RESTORING
+RECOVERING
+DIRTY
+STALE_CONTEXT
+READ_ONLY
+BLOCKED
+~~~
+
+These states must be decomposed where necessary rather than forced into one scalar enum.
+
+### Performance lifecycle
+
+Research explicit resource lifecycle:
+
+~~~
+UNLOADED
+-> LOADING
+-> ACTIVE
+-> BACKGROUND
+-> SUSPENDED
+-> HIBERNATED
+-> RESTORING
+~~~
+
+Hard rules:
+
+- \`Module installed != Module loaded\`.
+- \`Module loaded != Module rendered\`.
+- \`Module rendered != actively updating\`.
+- \`Window open != full processing active\`.
+- \`Inactive workspace -> suspend / aggregate / unload where safe\`.
+- \`Installed complexity != runtime UI cost\`.
+- \`Visible complexity != active computation cost\`.
+
+The shell should own shared infrastructure such as commands, notifications, selection/context, layout persistence, jobs and window management so that each module does not become an independent SPA inside the Builder.
+
+### Window manager boundaries
+
+~~~
+Window layout
+!= system topology
+
+Dock/Snap
+!= semantic relation
+
+Focused Window
+!= selected semantic object
+
+Window Z-order
+!= architectural priority
+
+Close Window
+!= disable module
+!= uninstall module
+!= undeploy runtime
+~~~
+
+### Cross-window synchronization
+
+Research must define how windows coordinate:
+
+- same semantic object in different projections;
+- shared vs local selection;
+- focused-window context;
+- revision binding;
+- environment binding;
+- dirty edits;
+- autosave;
+- conflict detection;
+- stale-window detection;
+- live update;
+- explicit reconciliation;
+- safe close with unsaved/unknown state;
+- restoration after crash/reload.
+
+A window restored from a saved workspace must not silently attach to a newer revision/environment without qualification.
+
+### Module-window contracts
+
+Candidate ModuleWindow contract must declare:
+
+- module identity;
+- supported window/workspace kinds;
+- initial projection;
+- commands contributed;
+- contextual Ribbon tabs;
+- inspector sections;
+- selection contract;
+- local/transient state;
+- canonical/editable state boundaries;
+- persistence/restore contract;
+- suspend/resume behavior;
+- live-subscription policy;
+- failure/recovery states;
+- performance budget;
+- accessibility equivalents.
+
+### Componentes additions
+
+The permanent Componentes inventory must include at least:
+
+- SystemDesktop;
+- ScreenComposer;
+- WorkspaceComposer;
+- WindowManager;
+- ModuleLauncher;
+- ModuleAppTile;
+- ModuleWindow;
+- ModuleWindowFrame;
+- ModuleWindowTitleBar;
+- WindowResizeHandle;
+- WindowDockTarget;
+- WindowSnapZone;
+- WindowSplitLayout;
+- WindowTabGroup;
+- Taskbar;
+- OpenWindowIndicator;
+- BackgroundWindowIndicator;
+- WorkspaceSwitcher;
+- SavedWorkspaceLayout;
+- WindowComparisonLayout;
+- WindowRestoreState;
+- WindowSuspensionIndicator;
+- WindowContextDriftIndicator;
+- LocateInSystemMapAction;
+- ModuleContextualRibbon.
+
+### Adversarial/proof obligations
+
+Research must test at least:
+
+1. ten or more installed modules with only two active windows;
+2. many open windows with inactive ones suspended;
+3. two windows editing the same module/revision;
+4. two windows bound to different revisions;
+5. restored workspace after revision/environment changed;
+6. dirty window closed accidentally;
+7. minimized window containing a critical finding;
+8. dock/snap mistaken for semantic relationship;
+9. module window closed while runtime remains healthy/effective;
+10. module installed but never loaded;
+11. background module generates notification/job result without foreground window;
+12. 3D System Map and ModuleWindow disagree on selection/currentness;
+13. crash/reload restores layout but not stale authority as current;
+14. mobile/small-screen fallback cannot support arbitrary floating windows;
+15. resource pressure suspends windows without losing dirty work;
+16. window explosion recreates cognitive overload;
+17. each module attempts to create its own command/store/polling/window infrastructure instead of using shell services.
+
+### Scope conclusion
+
+The target is not merely a collection of web pages. The G4 UI should research a **composable operating environment** in which modules can be installed like applications and their working surfaces assembled as windows/screens/workspaces, while all architectural truth remains outside the window-manager metaphor.
