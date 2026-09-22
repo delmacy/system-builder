@@ -2738,3 +2738,38 @@ Future planning/research packets involving topology/deployment must evaluate:
 8. shared service/crown and contract-surface aggregation rules;
 9. inter-host/intra-host/external/cross-system hubs;
 10. LOD/aggregation behavior for large replica groups.
+
+
+## Explicit scope — OS-style screen/window composition
+
+The frontend planning scope includes a dedicated **Window & Screen Composition System**.
+
+Future research/planning must decompose and qualify:
+
+- SystemDesktop and ModuleLauncher;
+- WindowManager;
+- ModuleWindow contract;
+- open/close/minimize/maximize/restore;
+- move/resize;
+- dock/snap/split/tab groups;
+- multiple windows per module;
+- taskbar/open-window/background indicators;
+- ScreenComposer and WorkspaceComposer;
+- saved/restorable workspace layouts;
+- cross-window revision/currentness/dirty-state rules;
+- Ribbon/Inspector/Command Registry integration;
+- System Map / 3D Canvas synchronization;
+- suspend/hibernate/lazy-load lifecycle;
+- responsive/small-screen fallback;
+- accessibility and non-drag equivalents;
+- performance budgets and resource-pressure behavior.
+
+Planning must preserve:
+
+\`Module installed != Module loaded != Module rendered != actively updating\`.
+
+\`Window layout != semantic topology\`.
+
+\`UI lifecycle != module lifecycle != deployment lifecycle\`.
+
+A complete task surface may be composed from multiple module windows instead of one monolithic route/page.
