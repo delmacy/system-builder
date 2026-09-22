@@ -365,3 +365,22 @@ The current decision remains \`Next.js + React + TypeScript\` as frontend base. 
 Research must compare ownership, lifecycle, performance, session restore, accessibility, React/Next integration, routing/SSR implications, Command Registry/Ribbon/Inspector integration, 3D WorkSurface embedding, Factory Module compatibility, testability, replaceability and lock-in.
 
 Invariants: \`Desktop metaphor != desktop framework dependency\`, \`Window Manager != UI framework\`, \`React renderer != semantic authority\`, and \`External window library != ModuleDefinition/ModuleWindow/RuntimeInstance owner\`.
+
+
+## Research addition — Application Portfolio / mature external tool reuse
+
+G4 Frontend now includes explicit research of an **Application Catalog and Application Portfolio Matrix**.
+
+The System Builder OS-like shell may contain many specialized applications, similar to a professional software suite. However:
+
+~~~
+Module != Capability != Application != Window
+~~~
+
+Research classes include native SB apps, API-backed SB apps, supported embedded external apps, proxied external apps, deep-linked apps, native-bridge apps and hybrids.
+
+Priority infrastructure applications include Network Configurator, Docker/Container Manager, Task/Process Manager, Server Manager, Storage Manager, Terminal, Logs and Observability. Research should prefer official/versioned APIs and documented external components over reimplementing mature operational behavior.
+
+Current evidence makes integration mode product-specific: Docker Engine has a versioned API with negotiation; Portainer exposes an API but blocks iframe embedding by default through CSP; Cockpit explicitly supports embedding/integrating documented components under same-origin/frame-security constraints.
+
+Invariants include External tool != System Builder semantic owner, Embed capability != integration correctness, Official API compatibility != full feature equivalence, Deep link != failed integration, and Adapter normalization != fabricated semantic equivalence.
