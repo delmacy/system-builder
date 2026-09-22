@@ -2896,3 +2896,14 @@ Research scoped configuration across Builder/Factory -> Client -> System -> Envi
 Individual application settings remain available for specialized controls, while the Control Center provides common settings, defaults, policy, visibility, bindings, secrets metadata, drift, comparison and change planning.
 
 Preserve Unified settings UI != unified semantic owner; Secret reference != secret value; Policy != configuration; Desired != observed != effective; Configured != applied != effective; Global change != implicit restart/redeploy.
+
+
+## Windowing and multi-display planning
+
+Frontend planning should include standardized window roles, tab groups, docking/snap/split, linked-context groups, unified taskbar/window registry, suspendable heavy windows, saved layouts and crash/restore semantics.
+
+Support an Extended Desktop model where one logical Workspace/Desktop can span multiple browser top-level surfaces on multiple monitors. Treat those surfaces as coordinated DisplaySurfaces, preserving client/system/revision/environment/authority and a shared window registry.
+
+Provide explicit Move to Display / Detach / Reattach commands rather than assuming arbitrary native drag between browser windows is always available.
+
+Preserve Window != Application != Runtime Service; Browser Tab != SB Tab; Display Surface != Workspace; Window movement != semantic movement.
