@@ -1,5 +1,7 @@
 # G4 — Frontend Design System & UI Foundation Research Plan
 
+> Detailed semantic 3D composition, tower/floor/onion, hub/handoff and deployment-topology research is consolidated in `G4_MAIN_COMPOSITION_CANVAS_3D_RESEARCH.md`. This plan retains planning obligations; the dedicated artifact carries the cumulative research vocabulary, invariants, adversarials and open questions.
+
 Status: `RESEARCH_PLAN / NON_EXECUTABLE`
 Execution authority: NONE
 Date: 2026-09-21
