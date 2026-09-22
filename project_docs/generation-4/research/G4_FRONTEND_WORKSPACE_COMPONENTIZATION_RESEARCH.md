@@ -4,233 +4,312 @@ Status: `RESEARCH_ACTIVE / NON_EXECUTABLE`
 Execution authority: NONE
 Date: 2026-09-22
 
-> NOTE: Existing findings F1–F27 and the C0–C11 complexity ladder remain authoritative research context. This revision records the next material delta: focus/navigation ownership across a dockable shell. Historical source/evidence sections remain available in Git history and sibling research artifacts.
+> NOTE: Existing findings F1–F33 and the C0–C11 complexity ladder remain authoritative research context. This revision records the next material delta after focus routing: command concurrency/cancellation and accessible announcement ownership. Historical evidence and earlier detailed sections remain available in Git history and sibling research artifacts.
 
-## Research delta — Focus Routing & Visibility Contract
+## Research delta — Command Concurrency, Cancellation & Announcement Ownership
 
 ### Problem
 
-The stable shell now contains several independently interactive composites: Ribbon, Tool Rail, WorkSurface, Inspector/PanelDock, Status/Activity, command palette, Module Workbox faces and accessible peer projections. Existing research distinguishes `SELECTED != FOCUSED`, but it did not yet define who owns focus when selection is preserved across panels, workspace switches, projection handoffs, camera/LOD changes, dialogs or responsive panel collapse.
+The stable shell permits the same semantic command to be invoked from Ribbon, context menu, shortcut, Command Palette or Inspector while async work, live updates, projection handoffs and effect verification may still be active. Existing research establishes command identity and `ACK != effect`, but not who owns an in-flight invocation, what a second invocation means, how cancellation differs from rollback, or how status changes are announced without notification overload.
 
-This is a material gap because semantic continuity can succeed while keyboard continuity fails: the same canonical object may remain selected but the DOM focus can land on a removed node, hidden panel, stale projection proxy or body/root after a transition.
+This is material at Tool/Workspace/Task Page level: without an invocation contract, two UI regions can race the same operation, stale completions can overwrite newer state, and accessibility feedback can become either silent or excessively interruptive.
 
-### Evidence
+### Evidence reviewed
 
-Primary accessibility evidence reviewed in this round:
+- DOM/MDN `AbortController`/`AbortSignal`: cancellation is a signal to an underlying asynchronous operation; Promise itself has no first-class cancellation. An abort can carry a reason, and combined cancellation sources are possible. This supports separating invocation cancellation from semantic rollback/effect compensation.
+- Fluent 2 Toast guidance: assertive live announcements interrupt screen-reader output and should not be overloaded; similar concurrent processes should be summarized rather than producing many repetitive toasts.
+- Fluent 2 Skeleton guidance: live regions can become disruptive when overused; `aria-busy` can defer announcement until a larger region reaches a coherent state, and loading transitions should not disrupt keyboard focus.
+- React Spectrum Toast: notifications form a navigable region, actionable notifications should not auto-dismiss, and focus restoration is explicit. This supports persistent/reviewable notification surfaces for consequential states rather than ephemeral-only feedback.
 
-- W3C WCAG 2.2, SC 2.4.11/2.4.12: author-created sticky/floating UI must not obscure the focused component; user-movable content has a specific conformance qualification, but initial layout still matters.
-- WAI-ARIA APG keyboard-interface practice: a composite normally contributes one tab stop; once inside, internal navigation uses the composite's established keyboard grammar. Re-entry commonly restores the previously focused or selected item.
-- WAI-ARIA APG Treegrid: focus movement and selection are distinct operations, reinforcing the existing G4 invariant `SELECTED != FOCUSED`.
-- Native HTML modal-dialog semantics make the rest of the document inert while modal; `inert` suppresses interaction/focus and assistive-technology traversal. Therefore a panel that merely *looks* modal must not accidentally behave as a non-modal dock, and vice versa.
+These are interaction evidence, not provider selections.
 
-### F28 — Focus is a routed workspace resource, not a side effect of selection
+### F34 — Semantic command identity and invocation identity are distinct
 
 Candidate research contract:
 
 ```text
-FocusRoute
-  semanticTarget?          // canonical identity when focus represents an object
-  surfaceId                // ribbon/toolrail/worksurface/inspector/status/dialog/peer-view
-  compositeId?
-  localFocusKey?           // stable key inside the composite, never canonical identity
-  reason                   // pointer | keyboard | command | handoff | restore | recovery
-  returnAnchor?
-  revision/currentness?
-  visibilityDisposition
+CommandInvocation
+  invocationId
+  commandId
+  semanticTargets[]
+  sourceSurface
+  sourceFocusReturnAnchor?
+  revision/currentnessBasis
+  environment/mode
+  authoritySnapshot
+  idempotencyClass
+  concurrencyPolicy
+  cancellationPolicy
+  effectVerificationPolicy
+  startedAt
+  status
 ```
+
+`commandId` remains identical across Ribbon/context menu/shortcut/palette/Inspector, but every execution receives a distinct `invocationId`.
 
 Rules:
 
 ```text
-selection change MAY request focus movement
-selection preservation MUST NOT require focus preservation
-focus movement MUST NOT mutate canonical selection unless the command grammar says so
-camera movement MUST NOT steal DOM focus
-LOD aggregation MUST preserve a valid focus representative or transfer focus explicitly
-panel collapse MUST transfer focus to a declared return anchor
-workspace/projection handoff MUST resolve both semantic target and focus destination
+same command presentation != same invocation
+same target + same command MAY deduplicate only when contract declares it safe
+second invocation MUST NOT implicitly cancel first
+cancel request != rollback
+transport abort != proof that server-side/effect work did not occur
+late completion MUST be correlated to its invocation/revision basis
 ```
 
-`FocusRoute != SelectionContext != ProjectionHandoff`, but ProjectionHandoff may carry a FocusRoute/return-anchor request.
+### F35 — Concurrency must be policy-qualified, not inferred from disabled UI
 
-### F29 — Every composite surface needs an explicit focus-entry/focus-exit policy
-
-Candidate shell matrix:
-
-| Surface | Entry | Internal navigation | Exit/close |
-|---|---|---|---|
-| Ribbon | one tab stop / remembered command group | arrow-key grammar per chosen ribbon pattern | return to invoking surface or next shell region |
-| Tool Rail | remembered tool or selected tool | arrow keys | WorkSurface anchor when tool invocation moves task focus |
-| WorkSurface 3D/2D/Graph | semantic viewport anchor, not every rendered object in global tab order | surface-specific keyboard navigation | shell region / Inspector / peer representation |
-| Inspector | selected-object heading/first meaningful control, not unconditional autofocus | normal form/composite grammar | return to selected object's surface representative |
-| Module Workbox | active applicable face | tabs/tree/face-local grammar | ModuleNode/Inspector return anchor |
-| Command Palette | modal or explicitly non-modal semantics, never ambiguous | listbox/command navigation | invoker return anchor |
-| Accessible Tree/Treegrid/List peer | selected semantic identity when representable | APG-compatible grammar | WorkSurface semantic anchor |
-
-This avoids a large-scene anti-pattern where hundreds or thousands of Canvas objects become top-level tab stops.
-
-### F30 — Cross-projection navigation needs a two-phase handoff: semantic resolution then focus materialization
-
-Candidate sequence:
+Candidate policies:
 
 ```text
-Open in Workflow/Data/Capability/Deployment/Infra/Evidence
-  1. capture ProjectionHandoff + ReturnAnchor
-  2. resolve canonical target in destination projection
-  3. materialize PRESENT / AGGREGATED / FILTERED / NOT_MATERIALIZED / STALE / NO_LONGER_ADMISSIBLE
-  4. choose destination focus representative
-  5. ensure representative is visible and not obscured
-  6. move DOM/accessibility focus
-  7. announce disposition when representation differs from source
+SINGLE_FLIGHT_PER_TARGET
+DEDUPE_EQUIVALENT
+SUPERSEDE_OLDER_LOCAL_READ
+QUEUE_ORDERED
+ALLOW_PARALLEL
+REJECT_WHILE_PENDING
+SERIALIZE_BY_SCOPE
 ```
 
-A semantic target may be represented by an aggregate cluster at current LOD. Focus may legitimately land on that aggregate **only if** the UI communicates that the selected canonical object is inside the aggregate and offers deterministic reveal/detail navigation.
+A command may remain visually enabled while policy decides that a second invocation is queued, deduplicated or rejected with explanation. Conversely, disabling every command during any pending work is unacceptable because `BLOCKED != DISABLED` and unrelated operations may remain valid.
 
-`Aggregated focus representative != canonical object replacement`.
+For mutation commands, superseding a request is particularly dangerous once ACK may already have occurred. `SUPERSEDE` therefore cannot mean “pretend the earlier effect never happened”.
 
-### F31 — Docking, sticky Ribbon/Status bars and responsive collapse create a Focus-Not-Obscured proof obligation
-
-The Office-style shell intentionally introduces sticky/docked regions. WCAG 2.2 specifically calls out sticky headers/footers and non-modal overlays as risks to visible focus. Therefore responsive/density testing cannot stop at “all commands remain reachable”. It must verify:
+### F36 — Cancellation has four semantically different outcomes
 
 ```text
-focused target visible after:
-  Ribbon expand/collapse
-  Inspector open/resize/dock
-  Tool drawer open
-  Status/Activity expansion
-  command palette/dialog close
-  viewport pan/zoom
-  semantic zoom/cluster expansion
-  responsive panel replacement
+CANCEL_REQUESTED
+LOCAL_WAIT_ABORTED
+REMOTE_STATUS_UNKNOWN
+EFFECT_CONFIRMED_NOT_APPLIED
 ```
 
-Candidate shell behavior: when layout changes would completely obscure the focused representative, the owning surface must reveal/scroll/pan to it or move focus to an explicit visible anchor without altering semantic selection.
-
-### F32 — Fatal WorkSurface recovery must restore three independent continuities
-
-Existing recovery research preserves draft/semantic state. The UI additionally needs:
+and, where supported separately:
 
 ```text
-RecoveryEnvelope
-  DraftRecoveryRef
-  SelectionContext
-  ProjectionHandoff/current workspace context
-  FocusReturnAnchor
+COMPENSATION_REQUESTED
+COMPENSATED
+COMPENSATION_FAILED
 ```
 
-Recovery order:
+The UI must not collapse these into `CANCELLED` unless the effect contract actually proves non-application. If the client stops waiting after a remote ACK, the honest state may be `UNKNOWN / verification required`.
+
+This directly reinforces `ACK != effect`, `UNKNOWN != SUCCESS` and `PENDING != EFFECTIVE`.
+
+### F37 — Shell regions need an Operation Registry, not independent spinners
+
+Candidate workspace-level projection:
 
 ```text
-restore recoverable draft
--> requalify revision/currentness/authority
--> materialize projection
--> restore semantic selection if still admissible
--> resolve visible focus representative
--> restore focus
+OperationRegistry
+  activeInvocations[]
+  recentlyCompleted[]
+  failedOrUnknown[]
+  targetLocks/serializationScopes[]
+  verificationPending[]
+  recoveryActions[]
 ```
 
-If the previous representative no longer exists, focus goes to the nearest declared recovery anchor and the user receives a non-success disposition. Never silently focus a different semantic object.
+Ribbon, Inspector, Status/Activity and WorkSurface project the same invocation state. They do not each own separate loading truth.
 
-### F33 — `Componentes` needs focus-route scenarios above primitive level
+Consequences:
 
-Add research metadata candidates for C2+ components:
+- Inspector save and Ribbon save cannot create unrelated pending states for the same invocation.
+- Status/Activity becomes the durable location for background/long-running/unknown operations.
+- WorkSurface may show local progress overlays without becoming effect authority.
+- projection/workspace switch does not orphan an operation; its semantic target and invocation remain discoverable.
+
+### F38 — Async announcements need semantic priority and aggregation
+
+Candidate announcement classes:
 
 ```text
-focusEntryPolicy
-focusExitPolicy
-returnAnchorPolicy
-focusVsSelectionPolicy
-obscurationRisks[]
-projectionFocusMapping?
-aggregationFocusMapping?
-recoveryFocusPolicy?
+SILENT_VISUAL
+POLITE_STATUS
+ASSERTIVE_FAILURE
+PERSISTENT_REVIEW_REQUIRED
 ```
 
-Proof depth by complexity:
+Suggested qualification:
 
 ```text
-C1 primitive
-  visible focus + keyboard operation
-C2 composite
-  single-tab-stop/internal navigation + re-entry
-C5 Module Workbox
-  face switch/applicability + focus restoration
-C6 tools
-  panel open/close/dock/resize + return anchor
-C7 WorkSurface
-  semantic navigation + LOD/aggregation focus mapping
-C8 workspace
-  cross-region focus routing + sticky/docked obscuration
-C9 task page
-  async/dialog/error/recovery focus continuity
-C10 system view
-  cross-workspace ProjectionHandoff + alternate-representation focus continuity
+routine loading/progress -> usually visual or bounded polite status
+successful autosave -> avoid repetitive assertive announcement
+user-requested command completion -> polite when useful
+validation/rejection needing immediate correction -> contextual + qualified assertive
+UNKNOWN effect / authority-sensitive failure / reconciliation required -> persistent review surface; announcement according to urgency
+many similar operations -> aggregate summary, not N announcements
 ```
 
-### Complete-task scenario additions
+No important state may exist only in a transient toast. Toast/announcement is a projection of operation state, not its storage.
+
+### F39 — Announcement ownership follows semantic change, not rendering frequency
+
+Large-scene Canvas updates, live telemetry and observed-path movement can render many times per second. Assistive announcements must be generated from qualified semantic transitions rather than frame/render events.
+
+Examples:
 
 ```text
-S-FR-01
-select Module A in 3D
--> open Inspector
--> edit
--> close Inspector
-=> Module A remains selected; focus returns to a visible Module A representative or declared viewport anchor
-
-S-FR-02
-focus relation candidate
--> semantic zoom aggregates neighborhood
-=> relation identity remains selected; focus moves to qualified aggregate representative with reveal path
-
-S-FR-03
-Open in Deployment
--> target is FILTERED_OUT
-=> selection identity preserved in handoff; focus lands on visible disposition/reveal control, not an unrelated deployment object
-
-S-FR-04
-Ribbon expands while keyboard focus is near top of WorkSurface
-=> focused control/object is not completely obscured
-
-S-FR-05
-fatal 3D renderer failure while Module A draft is dirty
--> fallback Treegrid materializes
-=> draft preserved; Module A semantic selection preserved if admissible; focus resolves to Module A peer row or recovery anchor
-
-S-FR-06
-modal authorization closes after rejection
-=> focus returns to invoker/qualified replacement; rejection does not mutate to DISABLED or SUCCESS
+rendered position changed -> no announcement by default
+selection changed by user -> contextual announcement where useful
+Gate PENDING -> PASS -> one qualified transition announcement
+100 work items progress -> aggregate progress/status, not 100 live-region events
+current revision becomes STALE -> announce once and expose persistent reconciliation state
+observed deviation appears -> persistent finding + bounded announcement
 ```
 
-### Adversarial additions
+This prevents performance rendering cadence from becoming accessibility notification cadence.
 
-1. Camera transition steals focus from Inspector input.
-2. Inspector closes and focus falls to `body` while selection remains hidden in 3D.
-3. LOD removes the focused object without explicit focus transfer.
-4. Aggregate receives focus and is announced as though it were the canonical object.
-5. Sticky Ribbon or Status bar completely covers focused Canvas peer control.
-6. Workspace switch restores selection but focuses a different semantic identity.
-7. Modal-looking panel leaves background keyboard-operable, or non-modal Inspector makes the workspace inert.
-8. Fatal renderer recovery restores data but loses keyboard position/context.
+### F40 — Cross-workspace handoff must preserve operation observability
+
+`ProjectionHandoff` should not carry ownership of operations, but destination workspaces need enough correlation to surface operations affecting the handed-off identity.
+
+Candidate relation:
+
+```text
+ProjectionHandoff.semanticTarget
+  -> query OperationRegistry by canonical target/scope
+  -> destination renders relevant pending/unknown/reconciliation markers
+```
+
+A user who starts publish in one projection and opens Deployment before verification completes must see `verification pending`, not infer success from navigation or from the existence of a downstream deployment object.
+
+### F41 — Multi-selection needs scope-qualified command semantics before UI batching
+
+A remaining adjacency to concurrency is multi-selection. Research candidate:
+
+```text
+SelectionSet
+  canonicalIds[]
+  primaryId?
+  aggregateRepresentative?
+  revisionBasisPerTarget
+```
+
+A command over a selection set must declare:
+
+```text
+ALL_OR_NOTHING
+BEST_EFFORT_PARTIAL
+SERIAL_PER_TARGET
+PARALLEL_BOUNDED
+PREVIEW_THEN_APPLY
+```
+
+Partial success is therefore an operation outcome, not a generic success toast. Aggregated Canvas representation cannot erase per-target failure/unknown states; Inspector/Activity must permit drill-down.
+
+## Complete-task scenario additions
+
+```text
+S-CC-01 — duplicate save surfaces
+Inspector Save starts invocation X
+-> Ribbon Save invoked before X completes
+=> policy deduplicates/queues/rejects explicitly; no second hidden mutation
+
+S-CC-02 — publish after ACK
+Publish -> ACK -> verification pending
+-> user requests cancel
+=> local waiting may abort, but UI does not claim unpublished until effect is verified
+
+S-CC-03 — stale late completion
+edit revision R1 -> save X
+-> external R2 arrives -> reconcile to R3
+-> late completion for X arrives
+=> X cannot overwrite R3; completion remains correlated to R1 basis
+
+S-CC-04 — cross-workspace pending effect
+publish from Main Composition
+-> Open in Deployment before verification
+=> destination shows same operation/effect status; downstream object is not proof of effectiveness
+
+S-CC-05 — 200 similar operations
+bulk action on 200 modules
+=> bounded concurrency; aggregate progress; partial/unknown targets remain inspectable; no 200 assertive announcements
+
+S-CC-06 — live conformance burst
+many observed path events arrive
+=> renderer updates may batch; semantic gate/deviation transitions remain durable and announcements are aggregated by priority
+
+S-CC-07 — fatal surface failure during operation
+3D WorkSurface fails while mutation is pending
+=> OperationRegistry survives; accessible peer projection exposes pending/unknown state and recovery action
+```
+
+## Componentes impact
+
+Add research metadata candidates for C3+ command-capable components:
+
+```text
+commandIds[]
+invocationOwnership
+concurrencyPolicy
+idempotencyClass
+cancellationPolicy
+effectVerificationPolicy
+operationRegistryProjection?
+announcementPolicy
+aggregationPolicy
+lateCompletionPolicy
+multiSelectionPolicy?
+```
+
+Proof depth:
+
+```text
+C1/C2
+  pending presentation + focus stability
+C3/C4
+  semantic target/revision correlation
+C5/C6
+  same command identity across faces/tools; duplicate invocation tests
+C7
+  renderer failure/live-update independence from operation ownership
+C8
+  workspace OperationRegistry + cross-region consistency
+C9
+  end-to-end ACK/verify/cancel/partial/reconcile/recover
+C10
+  cross-workspace operation observability and late-result safety
+C11
+  bounded bulk concurrency + announcement aggregation under stress
+```
 
 ## Complexity impact
 
-This finding does **not** add a new complexity class. It introduces a cross-cutting dependency from C2 upward:
+No new C-class is required, but command concurrency becomes a dependency before C6/C8 can be considered mature:
 
 ```text
-C0/C1 visual + primitive focus semantics
-  -> C2 composite keyboard grammar
-  -> C3 identity/selection/projection contracts
-  -> FocusRoute / ReturnAnchor qualification
-  -> C5/C6 module + tool focus composition
-  -> C7 WorkSurface semantic focus mapping
-  -> C8 workspace routing/obscuration proof
-  -> C9/C10 recovery and cross-workspace proof
+C3 identity/currentness
+ -> CommandInvocation qualification
+ -> C5 semantic target operations
+ -> C6 command surfaces
+ -> OperationRegistry
+ -> C8 workspace orchestration
+ -> C9 complete-task effects/recovery
+ -> C10 cross-workspace observability
+ -> C11 bulk/stress proof
 ```
 
-The important planning consequence is that focus routing cannot be postponed to final accessibility polish; it becomes structurally expensive if added only after docking, WorkSurface switching and ProjectionHandoff are frozen.
+Planning implication: do not freeze Ribbon/Inspector command behavior merely from visual Command Registry identity. Invocation/concurrency/effect semantics must be defined first.
+
+## Adversarial additions
+
+1. Ribbon and Inspector launch duplicate mutation because each owns its own spinner.
+2. User aborts HTTP wait after ACK and UI reports semantic cancellation.
+3. Late R1 completion overwrites reconciled R3 state.
+4. Workspace switch hides an UNKNOWN effect and destination appears successful.
+5. Bulk partial success is summarized as green success.
+6. Every telemetry/render event becomes a live-region announcement.
+7. Assertive toast storm interrupts task completion.
+8. Important UNKNOWN/reconciliation state disappears when toast auto-dismisses.
+9. Disabling the whole Ribbon is used as a substitute for concurrency policy.
+10. Aggregate cluster hides one failed target in a successful majority.
 
 ## Maturity / next vector
 
 Material delta: **YES**.
 
-This round closes one previously implicit gap: semantic continuity and keyboard continuity are now modeled as related but independent concerns. Remaining high-value vectors include command concurrency/cancellation across shell regions, multi-selection focus behavior under aggregation, and announcement strategy for async/currentness/conformance changes without notification overload.
+The research now distinguishes command definition, invocation, cancellation, effect verification and announcement ownership. This closes a major orchestration gap between Tool/Workspace and Complete Task Page levels.
+
+Highest-value remaining vectors: multi-selection semantics under heterogeneous revisions/authority (F41 is only an initial boundary), notification history/reconciliation UX for long-lived operations, and empirical performance budgets for 3D picking/LOD/labels at 200 vs ~1000 modules.
