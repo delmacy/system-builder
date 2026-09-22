@@ -418,3 +418,16 @@ Desktop taxonomy may be stable while actual application use remains dynamic: ava
 Performance direction: load desktop shell/manifests first, lazy-load applications/windows, subscribe selectively, suspend/hibernate inactive work and unload closed desktop resources where safe. Close Desktop != stop service/runtime.
 
 The semantic 3D work remains preserved but is deferred from the primary navigation model. Future 3D can return as an optional System Map/Topology application inside a desktop. 3D Projection != navigation foundation.
+
+
+
+## Direction addition — Desktop Observatory
+
+Each Client Desktop Sphere now includes a fixed, high-signal **Desktop Observatory** surface. It is not a Windows system tray and not a free-form widget canvas.
+
+The Observatory gives contextual operational summaries for the active sphere: hosts, Docker daemons, containers, Portainer/provider availability, network/security/data/workflow/runtime state, incidents, jobs, drift and currentness.
+
+Widgets provide summary and drill-down; full management remains in specialized applications.
+
+Key distinctions: Running != healthy != ready != effective; No alert != healthy; Summary != canonical truth; Desktop widget != management application. Telemetry should be shared, scoped and suspendable rather than implemented as independent polling per widget.
+
