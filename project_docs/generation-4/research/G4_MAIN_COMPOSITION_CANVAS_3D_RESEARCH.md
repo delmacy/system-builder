@@ -1,987 +1,279 @@
 # G4 — Main Composition Canvas 3D, Towers, Floors, Hubs & Deployment Topology Research
 
-Status: RESEARCH_ACTIVE / NON_EXECUTABLE
+Status: `RESEARCH_ACTIVE / NON_EXECUTABLE`
 Authority: research only; no product implementation authority
-Branch: research/g4-product-rnd-foundations
+Branch: `research/g4-product-rnd-foundations`
 
 ## Purpose
 
-This artifact consolidates the current Generation 4 research direction for the System Builder main composition interface.
-
-The goal is not decorative 3D. The goal is a semantic engineering workspace capable of showing the same system through multiple coherent projections while preserving identity, authority, revision, currentness, evidence and deployment truth.
-
-~~~
-3D semantic
-!=
-3D decorative
-~~~
-
-The interface is a projection and interaction surface, never canonical business truth.
-
-~~~
-Canvas / View / Map
-!=
-Canonical Model
-~~~
-
-## Stable shell hypothesis
-
-The global application shell remains ordinary accessible React/DOM UI.
-
-~~~
-APP BAR
-  System / Revision / Environment / Search / User
-
-RIBBON TAB ROW
-  collapsible Office-style command surface
-
-RIBBON CONTENT
-  temporary / pinned / contextual
-
-Tool Rail | Main WorkSurface | Inspector / Properties
-
-STATUS / ACTIVITY BAR
-~~~
-
-The 3D renderer is restricted to the WorkSurface.
-
-Candidate frontend direction remains Next.js + React + TypeScript + a React-compatible specialized 3D renderer. Three.js / React Three Fiber are research candidates, not adoption decisions.
-
-## Projection family
-
-No single map should become the universal view.
-
-Candidate projections:
-
-- 2D Composition View
-- 3D Building / Towers / Onion View
-- Floor View
-- Capability Map
-- Relation Graph
-- Workflow Canvas
-- Corridor / Handoff / Conformance View
-- Deployment / Topology View
-- Infrastructure View
-- Observability View
-- Evidence / Audit View
-
-All projections should preserve semantic identity.
-
-~~~
-Same object
--> different projection
--> same semantic identity
-~~~
-
-## Workspace context
-
-Candidate context envelope:
-
-~~~
-WorkspaceContext {
-  system
-  revision
-  environment
-  workspace
-  projection
-  selection
-  module
-  floor
-  capability
-  lens
-  currentness
-}
-~~~
-
-Switching projection must not silently create a new object identity.
-
-## Global spatial grammar
-
-The current 3D research hypothesis uses three complementary dimensions.
-
-### Horizontal dimension
-
-X represents module/context composition, same-floor relationships and horizontal hubs.
-
-### Vertical dimension
-
-Y represents floors / system spheres.
-
-Candidate floors are not yet an immutable taxonomy, but may include:
-
-- Business / Domain Core
-- Application / View
-- Workflow / Process
-- Data
-- Security / Governance
-- Runtime
-- Deployment
-- Infrastructure
-- Observability / Operations
-
-Not every module participates in every floor.
-
-### Radial / semantic-depth dimension
-
-Z or radial depth represents internal distance from semantic core toward external realization.
-
-~~~
-DOMAIN CORE
-  Entities
-  Values
-  Rules
-  State
-
-        ↓
-
-DOMAIN / APPLICATION BEHAVIOR
-  Services
-  Use Cases
-  Decisions
-  Orchestration
-
-        ↓
-
-CONTRACT BOUNDARY
-  Contracts
-  Ports
-  Inputs
-  Outputs
-
-        ↓
-
-REALIZATION BOUNDARY
-  Providers
-  Bindings
-  Adapters
-  Drivers
-  Gateways
-  Views
-  External integrations
-~~~
-
-A bounded context is better treated as the semantic envelope, not as one of the rings.
-
-~~~
-Bounded Context
-= semantic envelope
-
-Onion rings
-= internal semantic depth
-~~~
-
-## Modules as towers / pillars
-
-A module is not required to contain an identical set of layers.
-
-~~~
-Shared structural vocabulary
-!=
-identical module anatomy
-~~~
-
-A module may participate in a variable set of floors. Its 3D projection may therefore appear as a tower/pillar of flexible height.
-
-Examples:
-
-- Auth may manifest across almost every floor.
-- Deployment may predominantly manifest in runtime/deployment/infrastructure floors.
-- Observability may manifest across runtime-facing floors as an observer without owning the business execution path.
-
-Presence in a floor does not imply ownership or execution participation.
-
-~~~
-Floor participation
-!=
-semantic ownership
-!=
-workflow participation
-~~~
-
-## Floor manifestations
-
-A tower is a projection of a module's participation across floors.
-
-Each intersection is a Floor Manifestation.
-
-Candidate model:
-
-~~~
-ModuleManifestation {
-  module
-  floor
-  role
-  capabilities[]
-  contracts[]
-  ports[]
-  services[]
-  inputs[]
-  outputs[]
-  adapters[]
-  providers[]
-  policies[]
-  evidence[]
-}
-~~~
-
-Fields are optional/contextual; not every manifestation must have all categories.
-
-A floor manifestation may expose only the slice relevant to that sphere.
-
-## Module internal onion
-
-Selecting a module/floor manifestation may open a radial/internal view.
-
-~~~
-BOUNDED CONTEXT / MODULE
-  outer: adapters / views / gateways
-  next: contracts / ports / input-output
-  next: services / use cases / orchestration
-  core: domain entities / values / rules / state
-~~~
-
-Not all floors require all rings.
-
-~~~
-Shared onion grammar
-!=
-all rings mandatory
-~~~
-
-## Workflow and data flow are not necessarily rings
-
-Workflow and data flow are often better understood as trajectories through the structure.
-
-Data flow:
-
-~~~
-Input
- -> Contract
- -> Service
- -> Core
- -> Repository Port
- -> Adapter
- -> Storage
-~~~
-
-Workflow:
-
-~~~
-Command
- -> Contract
- -> Use Case
- -> Domain Transition
- -> Event
- -> Outbound Contract
-~~~
-
-Therefore:
-
-~~~
-Onion
-= structure
-
-Workflow
-= behavior traversing structure
-
-Data Flow
-= information traversing structure
-~~~
-
-## Capability, contract, port and realization
-
-Research vocabulary:
-
-~~~
-Capability
-= what must be possible
-
-Contract
-= promises, requirements and guarantees for using/providing it
-
-Port / Entry Point
-= where the contract is exposed
-
-Input / Output
-= what crosses the boundary
-
-Provider
-= who offers the capability
-
-Binding
-= which provider is selected in context
-
-Adapter / Driver / Gateway
-= concrete realization / translation / access mechanism
-~~~
-
-Important distinction:
-
-~~~
-Contract
-!= physical access point
-
-Contract
-= formal semantics of access
-
-Port / Entry Point
-= exposed access location/interface
-~~~
-
-## Door and counter metaphor
-
-Candidate visual metaphor:
-
-~~~
-Door
-= admissible boundary / port
-
-Counter / Desk
-= operation/service/request surface exposed at that boundary
-~~~
-
-A counter may expose REQUEST, COMMAND, QUERY, EVENT or HANDOFF.
-
-Candidate contract metadata includes operation, required/optional data, actor requirements, authority requirements, preconditions, validations, evidence requirements, acknowledgement policy, completion semantics, timeout, retry, escalation, rejection and recovery.
-
-The same semantic counter can be represented through a human form, API, workflow, AI/automation, import or another capability.
-
-~~~
-View
-!=
-Capability Entry Point
-~~~
+This artifact consolidates the current Generation 4 research direction for the System Builder main composition interface. It is a semantic engineering workspace hypothesis, not decorative 3D and not canonical authority.
+
+The shell remains accessible React/DOM around a specialized WorkSurface. 2D Composition, semantic 3D Building/Onion, Floor, Capability, Relation Graph, Workflow, Corridor/Handoff, Deployment/Topology, Infrastructure, Observability and Evidence/Audit are peer projections of the same semantic substrate.
+
+## Stable invariants
+
+- `3D semantic != 3D decorative`.
+- `Canvas / View / Map != Canonical Model`.
+- `Semantic identity survives projection changes`.
+- `Module Identity != Deployment Placement != Runtime Instance != Render Instance`.
+- `Capability participation != semantic ownership`.
+- `Horizontal composition != vertical manifestation`.
+- `Visual connectability != semantic compatibility`.
+- `Visual proximity != deployment merge`.
+- `Visual similarity != semantic equivalence`.
+- `Arrange != Group != Deploy`.
+- `Desired != Observed != Effective`.
+- `Transport != Contract`.
+- `Aggregation != silent omission`.
+- `ACK != effect`.
+- `3D mode != mandatory interaction mode`.
+
+## Spatial and semantic grammar
+
+The 3D hypothesis uses X for horizontal module/context composition, Y for typed floors/spheres and Z/radial depth for module-internal semantic depth. Global floors remain distinct from module-internal onion layers. Capability shafts express cross-cutting participation, not ownership. Hubs are structural interconnections; flows are movement; corridors project expected/allowed progression.
+
+A module may appear as a flexible-height tower across floors. Each module-floor intersection is a manifestation, not a duplicate module. A manifestation may expose a partial internal onion containing core/domain state, services/use cases/orchestration, contracts/ports/input-output and provider/binding/adapter/gateway realization where applicable.
+
+`+ horizontal` proposes a qualified relation/composition. `+ vertical` proposes or exposes another floor manifestation only when cardinality and eligibility permit it. Geometry never proves cardinality or compatibility.
+
+## Access and circulation grammar
+
+```text
+Capability = what must be possible
+Contract = guarantees/requirements
+Port / Door = where a contract is exposed/admitted
+Counter = operation/service/action entry surface
+Input/Output = what crosses the boundary
+Provider/Binding = selected realization source
+Adapter/Driver/Gateway = concrete translation/realization
+```
+
+`Contract != physical access point`.
+
+Designed and observed progression remain separate. Downstream state never proves an upstream required gate passed. Bypass requires explicit authority/evidence. Acceptance, ACK, execution and effective outcome remain separately representable.
 
 ## Module Workbox
 
-Clicking a module should expand a contextual Module Workbox, not replace the user's identity/context.
+Selecting a module can reveal a contextual Module Workbox with applicable faces such as Overview, Capabilities/Services, Entry Points/Counters, Contracts/Ports, Dependencies/Relations, Providers/Bindings, Adapters/Drivers, Plugins/Extensions, Configuration, Data, Events/Workflow, Security/Authority, Runtime/Deployment, Observability and Evidence/History. Face applicability is semantic and contextual; permission-limited is not the same as non-applicable.
 
-Candidate faces:
+## Deployment basements and towers
 
-- Overview
-- Capabilities / Services
-- Entry Points / Counters
-- Contracts / Ports
-- Dependencies / Relations
-- Providers / Bindings
-- Adapters / Drivers
-- Plugins / Extensions
-- Configuration
-- Data
-- Events / Workflow
-- Security / Authority
-- Runtime / Deployment
-- Observability
-- Evidence / History
+Servers/hosts may be projected as deployment foundations/basements from which deployment towers emerge. A basement split/reveal may show CPU, memory, runtime, network, storage, region/zone, deployment unit, health/capacity and placement evidence. These are infrastructure/deployment facts, not ownership of the logical module.
 
-Only applicable faces should appear.
+The same logical module/service can have multiple deployment manifestations and runtime instances. A runtime restart can replace instance identity while preserving logical module/service identity and possibly deployment-manifestation lineage.
 
-~~~
-Module face availability
-!=
-fixed universal tabs
-~~~
+### External benchmark: logical service vs instance identity
 
-## Horizontal and vertical plus semantics
+OpenTelemetry semantic conventions independently distinguish a logical `service.name` from `service.instance.id`: horizontally scaled instances share the service name while each simultaneous service instance has a distinct instance id. OpenTelemetry also warns observers not to set an instance id when they cannot unambiguously determine the generating instance.
 
-~~~
-+ horizontal
-= qualified relationship/composition opportunity with another module
+Portable SB rule:
 
-+ vertical
-= expose/add another floor manifestation of the same module
-~~~
+```text
+same logical service != same runtime instance
 
-Important:
+observer cannot disambiguate instance
+=> instance identity UNKNOWN / unresolved
+=> never mint a convenient synthetic identity as observed truth
+```
 
-~~~
-Horizontal composition
-!=
-vertical manifestation
-~~~
+Observability joins inherit this rule: telemetry that proves only logical-service identity must not be rendered as instance-specific health/effect evidence.
 
-A horizontal plus must not mean connect anything to anything.
+## Availability grouping is policy-relative, not symmetry-relative
 
-~~~
-Visual connectability
-!=
-semantic compatibility
-~~~
+The `TwinTowerGroup` metaphor is useful only as one projection of a broader qualified availability/replica relation.
 
-## Towers and capability shafts
+Kubernetes topology-spread constraints provide an important contradictory benchmark to a naive twin-pair model: replicas may intentionally be distributed across failure domains such as hosts, zones and regions, and multiple spread constraints can apply together. High availability can therefore depend on **separation**, not visual adjacency or pair symmetry.
 
-The visual metaphor should distinguish module towers from cross-cutting capability participation.
+Consequences:
 
-A capability may behave like a shaft/elevator that crosses floors.
+```text
+Twin-looking geometry != HA proof
+same host != useful failure-domain redundancy
+same zone != cross-zone resilience
+spread across zones != failover/effect compatibility
+replica count != availability guarantee
+```
 
-~~~
-Capability participation
-!=
-semantic ownership
-~~~
+A grouping qualification must name the protected failure domain and policy. Candidate dimensions now include:
 
-## Hubs replace corridor as the primary structural metaphor
+- logical module/service identity;
+- contract set/revision and guarantee vector;
+- authority model/currentness;
+- configuration class;
+- tenant/classification/disclosure scope;
+- deployment role;
+- provider/binding compatibility;
+- state synchronization model/currentness;
+- failover semantics;
+- data/effect settlement guarantees;
+- host/node identity;
+- zone/region/failure-domain identity;
+- anti-affinity/spread requirement where applicable;
+- health/availability evidence currentness.
 
-The earlier corridor metaphor remains useful as a route/conformance projection, but the more general structural concept is Hub.
+`GroupingCompatibilityVector` is therefore policy/invariant-relative and cannot flatten dimensions by majority vote. Candidate per-dimension dispositions remain `COMPATIBLE`, `INCOMPATIBLE`, `UNKNOWN`, `NOT_APPLICABLE`, each with evidence/currentness.
 
-Vertical Hub = cross-floor interaction.
+### Group kind does not imply guarantee
 
-Horizontal Hub = same-floor composition/exchange.
-
-Lateral Hub = cross-context, cross-system or external exchange without implying floor hierarchy.
-
-~~~
-Hub
-= structure
-
-Flow
-= movement
-
-Corridor Map
-= route projection
-~~~
-
-## Handoffs, gates and work items
-
-~~~
-WorkItem
-= item/request/effect/document/entity reference being progressed
-
-Handoff
-= explicit transfer of responsibility/control/context
-
-Gate
-= prerequisite evaluation before progression
-
-Evidence
-= proof that passage/acceptance/effect occurred
-~~~
-
-Candidate gate states:
-
-- PASS
-- FAIL
-- BLOCKED
-- PENDING
-- UNKNOWN
-- STALE
-- BYPASSED_WITH_AUTHORITY
-
-Bypass must be explicit, authorized and evidenced.
-
-~~~
-Bypass
-!=
-ordinary pass
-~~~
-
-## Designed vs observed flow
-
-The system should be able to show designed/expected and observed/actual progress separately.
-
-~~~
-Expected:
-A -> B -> C -> D
-
-Observed:
-A -> B ------> D
-~~~
-
-Candidate interpretation:
-
-- C = SKIPPED_REQUIRED_STAGE
-- B -> D = NONCONFORMANT_TRANSITION
-- D = downstream state with missing prerequisite evidence
-
-Never infer upstream completion from downstream existence.
-
-~~~
-Downstream state
-!=
-proof that upstream required gate passed
-~~~
-
-## Server / basement deployment projection
-
-In topology/deployment views, servers/hosts may act as basements/foundations.
-
-~~~
-SERVER / HOST
-= deployment foundation
-
-DEPLOYMENT TOWER
-= module/runtime manifestation on that host
-~~~
-
-A basement may split/reveal CPU, memory, runtime, network, storage, region/zone, placement, deployment-unit identity, health and capacity.
-
-This projection helps answer what runs where without changing module identity.
-
-~~~
-Module Identity
-!=
-Deployment Placement
-!=
-Runtime Instance
-~~~
-
-## Twin towers / availability groups
-
-The same logical module may have multiple deployment/runtime manifestations.
-
-Candidate group types:
-
-- AVAILABILITY_PAIR
-- ACTIVE_ACTIVE
-- ACTIVE_PASSIVE
-- REPLICA_SET
-- WORKER_POOL
-- SHARD_GROUP
-- REGIONAL_REPLICA_GROUP
-- VISUAL_GROUP_ONLY
-
-Important:
-
-~~~
-Visual proximity
-!=
-deployment merge
-
-Visual similarity
-!=
-semantic equivalence
-~~~
-
-## Compatibility before grouping
-
-Before offering semantic twin/availability grouping, candidate compatibility dimensions include:
-
-- module identity
-- contract set/revision
-- authority model
-- configuration class
-- tenant/classification scope
-- deployment role
-- provider/binding
-- state synchronization model
-- failover semantics
-- data/currentness guarantees
-
-Candidate drift states:
-
-- CONTRACT_DRIFT
-- REVISION_DRIFT
-- CONFIGURATION_DRIFT
-- AUTHORITY_DRIFT
-- PLACEMENT_DRIFT
-- HEALTH_DRIFT
-- STATE_SYNC_UNKNOWN
-- INCOMPATIBLE_FOR_TWIN_GROUP
+`AVAILABILITY_PAIR`, `ACTIVE_ACTIVE`, `ACTIVE_PASSIVE`, `REPLICA_SET`, `WORKER_POOL`, `SHARD_GROUP`, `REGIONAL_REPLICA_GROUP` and `VISUAL_GROUP_ONLY` are candidate relation kinds. Their labels do not themselves prove availability, failover, synchronization or contract equivalence. A group carries an explicit guarantee/policy qualification rather than deriving it from the group kind.
 
 ## Logical crown and shared contract surface
 
-Multiple runtime instances may be visually grouped under one logical module/service identity.
+`LogicalServiceCrown` projects one logical identity above multiple manifestations/instances. It is not a runtime owner.
 
-Candidate UI concept: LogicalServiceCrown.
+`SharedContractSurface` is stricter: it may aggregate a contract surface only when relevant guarantee dimensions are qualified as equivalent/compatible for the declared consumer context. Same schema, endpoint shape or service name is insufficient. Contract, authority, configuration, currentness or effect drift must split/qualify the surface or yield `UNKNOWN/PARTIAL` rather than preserve a false common façade.
 
-A shared contract surface may be aggregated only when contract/guarantee compatibility is qualified.
+## Desired, observed and effective topology
 
-Contract drift must break or qualify this aggregation.
+Placement truth remains a vector:
 
-## Drag semantics
+```text
+DESIRED_PLACEMENT
+OBSERVED_PLACEMENT
+EFFECTIVE_PLACEMENT
+```
 
-Drag-and-drop must have explicit intention.
+with evidence/currentness per dimension and derived states such as `PLACEMENT_PENDING`, `PLACEMENT_EFFECTIVE`, `PLACEMENT_DRIFT`, `PARTIAL_PLACEMENT`, `UNKNOWN_EFFECT`, `RECONCILIATION_REQUIRED`.
 
-~~~
-DRAG_TO_ARRANGE
-= visual layout only
+A scheduler/provider ACK is not effect evidence. A host observation is not necessarily effective business readiness. A healthy runtime is not necessarily semantically admissible.
 
-DRAG_TO_GROUP
-= explicit grouping proposal
+## Drag and direct manipulation
 
-DRAG_TO_DEPLOY
-= desired placement/topology mutation
-~~~
+Typed intent precedes semantic action:
 
-Hard invariant:
+- `DRAG_TO_ARRANGE`: presentation only;
+- `DRAG_TO_GROUP`: explicit grouping proposal followed by qualification;
+- `DRAG_TO_DEPLOY`: desired-placement mutation proposal followed by impact/review.
 
-~~~
-Arrange
-!=
-Group
-!=
-Deploy
-~~~
+Pointer movement or proximity never selects one of these intents implicitly.
 
-Proximity must never mutate topology.
+WCAG 2.2 SC 2.5.7 strengthens the accessibility requirement: functionality implemented by dragging needs a single-pointer alternative that does not require dragging. Keyboard equivalence alone is insufficient. Each topology drag action therefore needs keyboard/command access **and** a click/tap path, e.g. `Arrange…`, `Add to group…`, `Move/Deploy to…` through pickers/menus/dialogs.
 
-Deployment changes require impact preview, explicit action and confirmation/review.
+## Accessibility peer projection
 
-## Placement truth
+Every decision-relevant 3D identity/relation requires a peer non-spatial representation. Tree/treegrid/list/table/graph projections preserve semantic selection while keeping DOM focus distinct. ARIA treegrid practice independently reinforces that navigation focus and selection are separate dimensions.
 
-Topology UI must preserve at least:
+Required properties:
 
-- DESIRED_PLACEMENT
-- OBSERVED_PLACEMENT
-- EFFECTIVE_PLACEMENT
+- selected semantic identity can be focused/inspected without free-camera manipulation;
+- focus movement does not silently alter semantic selection;
+- arrange/group/deploy have keyboard and single-pointer non-drag paths;
+- compatibility/drift is not color-only;
+- aggregate groups can disclose critical members without spatial dexterity;
+- reduced motion removes travel/animation, not semantic feedback;
+- basement split/reveal has a DOM disclosure equivalent.
 
-Candidate additional states:
+## Hub locality and transport
 
-- PLACEMENT_PENDING
-- PLACEMENT_EFFECTIVE
-- PLACEMENT_DRIFT
-- PARTIAL_PLACEMENT
-- UNKNOWN_EFFECT
-- RECONCILIATION_REQUIRED
+Candidate topology hub classes remain `INTRA_HOST_HUB`, `INTER_HOST_HUB`, `EXTERNAL_PROVIDER_HUB`, `CROSS_SYSTEM_HUB`.
 
-~~~
-Desired
-!=
-Observed
-!=
-Effective
-~~~
+Placement can change realization (in-process, IPC, HTTP/gRPC, queue/broker, stream, artifact exchange) without redefining the contract. Operational consequences such as latency, failure domain, ordering or delivery guarantees remain visible evidence, but `Transport != Contract`.
 
-## Hub locality in deployment
+## Arrangement, LOD and performance
 
-Candidate topology-specific hub classes:
+Topology can be arranged by Server/Host, Module, Capability, Availability Group, Environment, Region/Zone, System or Deployment Unit. Arrangement changes representation, not identity.
 
-- INTRA_HOST_HUB
-- INTER_HOST_HUB
-- EXTERNAL_PROVIDER_HUB
-- CROSS_SYSTEM_HUB
+At distance, replica groups may collapse into aggregate cards/towers. Near/selected views may explode members/basements. Aggregation must preserve a representation floor for selected/focused identity, critical drift, UNKNOWN effect/currentness and disclosure-safe navigation.
 
-Placement may change transport realization.
+Preferred rendering research remains simple geometry, selective labels, semantic zoom, instancing, LOD, clustering/aggregation, culling, render-on-demand, label virtualization and workers for heavy layout/analysis before specialization. Renderer performance state is distinct from system health. Environment/viewport/DPR/browser/refresh/cold-warm/degradation are benchmark evidence dimensions; no global FPS number defines semantic qualification.
 
-Possible realizations include in-process, IPC, HTTP, gRPC, queue, broker, stream and file/artifact exchange.
+## Componentization map
 
-But:
+```text
+C0 tokens
+-> C1 atomic primitives
+-> C2 compound navigation/input
+-> C3 semantic projection primitives
+-> C4 domain-semantic building blocks
+-> C5 module components
+-> C6 tools
+-> C7 specialized WorkSurfaces
+-> C8 workspace shell/orchestration
+-> C9 complete task pages
+-> C10 system/cross-workspace views
+-> C11 scale/conformance hardening (cross-cutting)
+```
 
-~~~
-Transport
-!=
-Contract
-~~~
+Topology-specific placement:
 
-## Arrangement modes
+- C3: `DeploymentManifestationRef`, `HostPlacementRef`, `PlacementStateVector`, `GroupingCompatibilityVector`, `TopologyDragIntent`;
+- C4: `ServerBasement`, `DeploymentTower`, `TowerReplica`, `GroupingCandidate`, `PlacementLink`, `PlacementDriftIndicator`;
+- C5/C6: `GroupingCompatibilityInspector`, `DeploymentImpactPreview`, topology-aware Inspector/commands;
+- C7: Topology WorkSurface;
+- C8+: complete topology workspace/task orchestration;
+- cross-cutting successor patterns: `TwinTowerGroup`, `AvailabilityGroup`, `LogicalServiceCrown`, `SharedContractSurface` only after lower contracts qualify them.
 
-The same topology/system can be rearranged by projection without changing truth.
+## Componentes impact
 
-Candidate arrangements:
+The permanent Componentes research inventory must include state/scenario records for ServerBasement/ServerBasementSplit, DeploymentTower/TowerReplica, TwinTowerGroup/AvailabilityGroup, LogicalServiceCrown/SharedContractSurface, PlacementLink and Desired/Observed/Effective indicators, PlacementDriftIndicator, GroupingCandidate/GroupingCompatibilityInspector, DeploymentImpactPreview, TopologyDragIntent and non-drag command alternatives, aggregate/LOD representation, ambiguous runtime-instance identity, failure-domain grouping qualification, cross-zone/cross-region grouping, stale compatibility evidence, telemetry resolved only to logical service, and renderer pressure/fallback/recovery.
 
-- By Server / Host
-- By Module
-- By Capability
-- By Availability Group
-- By Environment
-- By Region / Zone
-- By System
-- By Deployment Unit
+Metadata/evidence preserves component identity, composition level, states/transitions, `composedOf/usedBy`, revision/source/test evidence, environment profile where performance-relevant and scenario-specific proof disposition.
 
-Rearrangement changes representation only.
+## New adversarial cases
 
-## Guided 3D navigation
-
-Normal use should not require CAD/game navigation expertise.
-
-Candidate camera modes:
-
-- ISOMETRIC
-- TOP
-- FRONT
-- FLOOR
-- MODULE
-- CAPABILITY
-- CORRIDOR
-- TOPOLOGY
-
-Free orbit may exist as advanced exploration, not as a mandatory task mechanism.
-
-The user should retain orientation through breadcrumbs, selected-object persistence, floor/module/capability context, minimap/overview, camera-mode indicator and deterministic return-to-context behavior.
-
-## Semantic zoom / progressive disclosure
-
-Candidate LOD:
-
-DISTANT: silhouettes, aggregate status and module identity.
-
-MID: capabilities, floor participation and primary relations.
-
-NEAR: ports, counters, contracts, hubs, gates and handoffs.
-
-SELECTED: detailed inspector-backed semantics.
-
-Replica groups may collapse at distance and explode near/selected.
-
-~~~
-Aggregation
-!=
-silent omission
-~~~
-
-Critical gates/findings/currentness cannot disappear semantically because of LOD.
-
-## Performance research
-
-Preferred strategy:
-
-~~~
-simple geometry
--> selective labels
--> semantic zoom
--> instancing
--> LOD
--> clustering/aggregation
--> frustum/viewport culling
--> render-on-demand
--> Web Worker for heavy layout/analysis
--> renderer specialization only if measured
-~~~
-
-Avoid by default heavy reflections, volumetric lighting, particles, depth of field, motion blur, complex PBR, dynamic shadows everywhere and continuous decorative animation.
-
-Initial research scenarios:
-
-NORMAL: 50-200 modules, 5-10 floors, hundreds of relations/hubs/ports/handoffs and thousands of simple visible primitives.
-
-STRESS: about 1000 modules, several thousand relations, mandatory clustering/aggregation.
-
-## Accessibility
-
-3D must never become the only way to understand or operate the system.
-
-Required research targets:
-
-- keyboard-reachable selection;
-- non-drag alternatives;
-- textual relation/route representation;
-- list/table/tree/graph equivalents;
-- non-color semantic redundancy;
-- reduced-motion behavior;
-- DOM focus management;
-- predictable focus restoration;
-- accessible command surfaces;
-- no requirement for free camera control to complete a core task.
-
-~~~
-3D mode
-!=
-mandatory interaction mode
-~~~
-
-## Componentes inventory
-
-The permanent Componentes workspace should catalog and test reusable 3D and topology elements.
-
-Candidate inventory:
-
-- ModuleNode
-- ModuleWorkbox
-- ModuleFace
-- FloorManifestation
-- HorizontalRelationPort
-- VerticalFloorPort
-- CapabilityShaft
-- Door
-- Counter
-- Hub
-- VerticalHub
-- HorizontalHub
-- LateralHub
-- Gate
-- HandoffMarker
-- WorkItemMarker
-- DeviationMarker
-- 3DSelectionIndicator
-- CameraModeControl
-- ServerBasement
-- ServerBasementSplit
-- DeploymentTower
-- TowerReplica
-- TwinTowerGroup
-- AvailabilityGroup
-- LogicalServiceCrown
-- SharedContractSurface
-- PlacementLink
-- DesiredPlacementIndicator
-- ObservedPlacementIndicator
-- EffectivePlacementIndicator
-- PlacementDriftIndicator
-- GroupingCandidate
-- GroupingCompatibilityInspector
-- DeploymentImpactPreview
-- LODRepresentation
-- AggregationRepresentation
-
-Each should have explicit state matrices, interaction playback and alternate representations.
-
-## Command surface integration
-
-Canvas behavior must use the common Command Registry.
-
-~~~
-Command Registry
-  -> Ribbon
-  -> Context Menu
-  -> Shortcut
-  -> Command Palette
-  -> Inspector
-~~~
-
-A command does not get reimplemented separately per surface.
-
-Candidate contextual command families include Module, Floor, Capability, Contract, Hub, Gate, Handoff, Topology, Deployment, Availability and Evidence.
-
-## Core invariants
-
-- 3D semantic != 3D decorative.
-- 3D Canvas != canonical authority.
-- Map / Projection != canonical truth.
-- Semantic identity survives projection changes.
-- Module Identity != Deployment Placement != Runtime Instance.
-- Shared structural vocabulary != identical module anatomy.
-- Bounded Context = envelope; onion rings = semantic depth.
-- Capability participation != semantic ownership.
-- Floor participation != execution ownership.
-- Contract != physical access point.
-- Port/Entry Point exposes a contract.
-- View != capability entry point.
-- Workflow != onion ring.
-- Data Flow != onion ring.
-- Hub = structure; Flow = movement; Corridor Map = route projection.
-- Visual connectability != semantic compatibility.
-- Horizontal composition != vertical manifestation.
-- Bypass != ordinary pass.
-- Downstream state != proof of upstream gate passage.
-- ACK != effect.
-- Designed != observed != effective.
-- Visual proximity != deployment merge.
-- Visual similarity != semantic equivalence.
-- Arrange != Group != Deploy.
-- Drag proximity must not mutate topology.
-- Desired placement != observed placement != effective placement.
-- Shared contract surface requires qualified compatibility.
-- Availability grouping != ownership merge.
-- Transport != Contract.
-- Aggregation != silent omission.
-- 3D mode != mandatory interaction mode.
-- Rendering technology != computation technology.
-
-## Adversarial cases
-
-Research must attack at least:
-
-1. 3D becomes decorative/gimmicky and reduces task clarity.
-2. User gets lost after camera/projection change.
-3. LOD hides a critical gate/finding/currentness state.
-4. Same semantic object receives different identity across projections.
-5. Drag-only operation prevents accessible completion.
-6. Tiny 3D ports become unusable.
-7. Visual adjacency is misread as semantic compatibility.
-8. Module Workbox duplicates semantic ownership.
-9. Contract is confused with concrete transport.
-10. Counter is confused with one specific form/view.
-11. Capability shaft implies ownership hierarchy.
-12. Observability presence is misread as execution ownership.
-13. Downstream state is used to infer skipped upstream proof.
-14. Handoff ACK is shown as completed business effect.
-15. Twin towers are grouped despite contract/authority/config drift.
-16. Proximity silently changes deployment.
-17. Desired placement is displayed as already effective.
-18. Cluster aggregation hides degraded/unknown instance state.
-19. Shared contract surface masks guarantee differences.
-20. Cross-view navigation loses revision/currentness context.
-21. 3D performance collapse freezes inspection/selection.
-22. Stress-scene optimization silently omits semantic objects.
-23. Basement/host representation becomes canonical infrastructure authority.
-24. Runtime instance identity is confused with module identity.
-25. Same module on two hosts is treated as two semantic modules.
-
-## Research benchmarks
-
-Research sources/benchmarks should include, as relevant:
-
-- DDD bounded contexts and context mapping;
-- Hexagonal Architecture / Ports & Adapters;
-- Onion/Clean Architecture concepts;
-- BPMN sequence/message flow, choreography, pools/lanes;
-- Petri nets/token-flow semantics;
-- process mining and conformance checking;
-- event sourcing/audit lineage;
-- human task claim/accept/reassign/escalate;
-- four-eyes / dual-control patterns;
-- n8n / Node-RED / workflow editors;
-- Photoshop / Office interaction shells;
-- Canva / Budibase progressive disclosure;
-- Blender/CAD/architecture viewers for guided 3D navigation;
-- Kubernetes/topology/runtime/deployment visualization patterns;
-- Three.js / React Three Fiber scene graph/performance techniques;
-- accessible graph/canvas alternatives.
-
-Benchmarking extracts interaction/semantic patterns, not branding/trade dress and not implementation authority.
-
-## Open research questions
-
-Key unresolved questions include:
-
-- What is the final floor taxonomy, and which floors are universal vs optional?
-- Which tower represents Module, Capability or Deployment Manifestation in each projection?
-- How should towers with non-contiguous floor participation be represented?
-- Which internal onion rings are universal primitives vs contextual categories?
-- How are services/use cases distinguished from workflow activities in visual grammar?
-- When should a contract surface aggregate across replicas?
-- What exact compatibility vector qualifies twin/availability grouping?
-- How should sharding differ visually from replication?
-- How should stateful vs stateless replicas be represented?
-- How should placement groups interact with regions/zones and failover?
-- How should hubs represent sync, async, stream and artifact exchange without becoming transport-specific?
-- What minimum evidence is needed to declare a handoff/gate EFFECTIVE?
-- How should conformance overlay scale to large workflows?
-- How much 3D freedom is useful before orientation cost exceeds value?
-- What performance budget should become a hard design target?
-- How are accessibility-equivalent operations proven complete?
-- How should the System Builder generate equivalent 2D representations from the same semantic scene model?
-
-## Research maturity criteria
-
-This front should not be considered mature merely because the metaphor is visually attractive.
-
-Material maturity requires convergence on:
-
-- stable object vocabulary;
-- stable identity rules;
-- floor/tower/onion semantics;
-- contract/port/counter distinctions;
-- hub/flow/handoff/gate semantics;
-- deployment placement semantics;
-- replica/availability-group semantics;
-- desired/observed/effective distinctions;
-- cross-projection identity behavior;
-- command/interaction contracts;
-- accessibility alternatives;
-- performance degradation strategy;
-- Componentes inventory/state coverage;
-- adversarial/proof obligations.
-
-If new research only adds visual examples without changing these contracts, record NO_MATERIAL_DELTA rather than expanding scope.
-
-## Working conclusion
-
-The current hypothesis is a fractal, multi-projection engineering interface:
-
-~~~
-System
-  -> floors / spheres
-  -> module towers
-  -> floor manifestations
-  -> internal onion depth
-  -> contracts / ports / counters
-  -> hubs / flows / handoffs / gates
-  -> deployment basements / runtime instances
-  -> availability groups / twin towers
-  -> evidence / conformance / currentness
-~~~
-
-The key design objective is that the user can move from a high-level system map down to module internals, workflow/data trajectories, deployment placement and runtime evidence without losing semantic identity.
-
-The visual language should make complex architecture understandable while remaining subordinate to the canonical model.
+1. Two replicas on the same host are shown as a high-availability pair.
+2. Two replicas in different zones are labeled failover-compatible solely because they are spread.
+3. Replica count is rendered as availability guarantee.
+4. Logical-service telemetry is incorrectly attributed to one runtime instance.
+5. Observer fabricates an instance id to make a tower look resolved.
+6. Runtime restart is rendered as a new logical module.
+7. Shared contract crown remains unified after guarantee/authority drift.
+8. `DRAG_TO_DEPLOY` is keyboard accessible but has no click/tap non-drag alternative.
+9. Visual rearrangement accidentally mutates desired placement.
+10. Provider ACK is shown as effective placement.
+11. Aggregate cluster says healthy while one material member is UNKNOWN/stale.
+12. Group qualification ignores failure-domain policy.
+13. Same service name across incompatible tenant/classification scopes is grouped.
+14. Basement/host becomes semantic owner of the module.
+15. Cross-region placement changes transport characteristics and UI incorrectly reports a contract change.
+
+## Proof obligations added by this synthesis
+
+1. Logical service/module identity remains stable across multiple simultaneous runtime instances.
+2. Runtime instance identity is never invented when observation cannot disambiguate it.
+3. Instance-specific evidence cannot be derived from logical-service-only telemetry.
+4. Availability/group compatibility names the protected failure-domain/policy; geometry and replica count are insufficient.
+5. Distribution across nodes/zones/regions does not itself prove failover, synchronization or effect compatibility.
+6. Shared contract aggregation requires qualified guarantee compatibility, not schema/name similarity.
+7. Desired/observed/effective placement remain separately evidenced through ACK, observation and verification.
+8. Every drag semantic has keyboard and single-pointer non-drag equivalents.
+9. Focus and semantic selection remain separate in non-spatial peer projections.
+10. Aggregation/LOD preserves selected and critical incompatible/unknown members.
+11. Renderer degradation/fallback never changes topology semantics.
+12. Host placement never transfers module ownership.
+13. Group-kind labels never become guarantee proof.
+14. Runtime restart/re-instancing preserves resolvable logical/manifestation identity lineage without preserving a false instance identity.
+15. Compatibility evidence is invalidated/requalified when material revision/currentness/failure-domain facts change.
+
+## Complete-task scenarios to retain
+
+Research continues testing create/edit/review/simulate/authorize/publish/operate/audit/recover, including:
+
+- propose placement -> review impact -> commit desired -> provider ACK -> observed -> effective verification;
+- group replicas -> compatibility qualification -> drift after qualification -> invalidate/reconcile;
+- move from same-host replicas to zone-spread replicas without falsely declaring HA before failover proof;
+- runtime restart -> new instance identity -> logical crown continuity;
+- telemetry ambiguity -> instance UNKNOWN -> operator resolves/refreshes without fabricated certainty;
+- offline/stale topology -> reconnect -> requalify desired/observed/effective and group compatibility;
+- partial deployment success -> preserve desired/observed split and unknown effects;
+- renderer failure -> 2D/textual fallback -> preserve selection/draft -> recover 3D;
+- cross-projection handoff Topology <-> Module <-> Evidence preserving identity/revision/currentness;
+- large replica set -> aggregate -> inspect critical member -> explode/reaggregate without semantic omission.
+
+## Maturity / saturation
+
+- Semantic 3D vocabulary: advancing, not saturated.
+- Cross-projection identity: advancing; executable proof remains future work.
+- Deployment identity/placement: material semantics identified, not saturated.
+- Availability grouping: **not saturated**; failure-domain and guarantee-policy qualification are now explicit, while stateful quorum/sharding/leader-election semantics remain open.
+- Accessibility: advancing; drag alternatives are stricter, but peer-projection completeness remains open.
+- Performance: environment/threshold methodology is stronger; empirical SB traces remain absent.
+- Componentization: dependency map is substantially clearer; higher-level workspaces/task pages remain intentionally unqualified.
+
+## Highest-value remaining vectors
+
+1. Stateful replica groups: leader/follower, quorum, shard ownership, split-brain and how these differ from stateless replica/worker-pool grouping.
+2. SharedContractSurface qualification under rolling upgrades where contract/profile revisions coexist.
+3. Topology disclosure/security: what host/zone/instance/group membership may be shown to each authority/classification scope without leaking infrastructure.
+4. Empirical Componentes scenarios proving selection/focus/identity continuity across aggregate/explode/fallback.
+5. Live occurrence + deployment evolution: how pinned in-flight obligations interact with runtime placement/failover and successor design revisions.
