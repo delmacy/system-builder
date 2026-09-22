@@ -2244,3 +2244,153 @@ Factory Module
 - Observability surface != unrestricted free-form desktop.
 - Currentness must survive aggregation.
 
+
+
+## Application Manager — install, adopt, discover and govern external applications
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+The System Builder Operating Environment should research a first-class Application Manager responsible for installing, adopting, discovering, configuring and governing applications used by Client Desktops.
+
+### Primary flows
+
+~~~
+NEW INSTALLATION
+-> choose application
+-> choose target host/server/environment
+-> inspect prerequisites
+-> resolve official/qualified installation source
+-> configure ports/storage/network/credentials
+-> preview impact
+-> install
+-> verify service
+-> register application instance
+-> expose appropriate Desktop application/window
+-> begin observability
+~~~
+
+and:
+
+~~~
+ADOPT EXISTING
+-> choose application type
+-> discover or enter endpoint/host
+-> authenticate
+-> inspect version/capabilities
+-> verify compatibility
+-> map permissions/credentials
+-> register existing instance
+-> attach observability/control provider
+-> expose appropriate Desktop application/window
+~~~
+
+Install != Adopt. Adopt != Reinstall. Register != Deploy. Connect != Own.
+
+### Discovery
+
+Where the System Builder already manages or observes infrastructure, the Application Manager should attempt bounded discovery of existing compatible services through known hosts, deployment manifests, container runtimes, Docker metadata, Kubernetes resources, reverse proxies/service catalogs, DNS/service discovery, host agents/bridges, registered providers, declared endpoints or user-supplied host/IP/URL.
+
+Discovery produces candidates, not authority:
+
+~~~
+Discovered service != verified service != managed application
+~~~
+
+### Installation sources
+
+A new installation may originate from an official container image, official repository/release artifact, vendor package, qualified Helm chart/operator, system package manager, SB-maintained installer/adapter, local/native executable/package or custom enterprise package.
+
+Research should prefer official, versioned and verifiable sources. The manager must not blindly fetch and execute code without provenance, version, integrity and lifecycle qualification.
+
+Candidate install metadata includes application type, source type, version, digest/checksum/signature when available, license, target requirements, ports, volumes, network/runtime requirements, bootstrap config, health probe, upgrade strategy and rollback strategy.
+
+### Existing-instance registration
+
+For an existing application, collect only the information required for the chosen integration mode: endpoint/URL, host/IP, port, app/version, TLS expectations, authentication method, credential reference, OAuth/OIDC binding, SSH/agent/bridge data, tenant/project/namespace/context and provider-specific identifiers.
+
+Credentials belong to the System Builder secrets/credential boundary, not ordinary application records.
+
+Application record != secret storage.
+
+### Managed application identity
+
+ApplicationDefinition != ApplicationInstallation != ApplicationInstance != ApplicationRegistration != ApplicationWindow != ExternalServiceProcess.
+
+An application can be known in catalog but uninstalled; installed by SB; externally installed but adopted; reachable but unmanaged; registered but unavailable; managed on multiple hosts; or represented by multiple windows.
+
+### Management modes
+
+Candidate modes:
+SB_MANAGED
+EXTERNALLY_MANAGED
+CO_MANAGED
+OBSERVE_ONLY
+DISCOVERED_UNREGISTERED
+
+The UI must make ownership explicit.
+
+### Installation wizard
+
+Candidate wizard:
+1. Select application.
+2. Select New Installation or Existing Instance.
+3. Select client/system/environment/workspace scope.
+4. Select target host/server or discovery candidate.
+5. Detect prerequisites.
+6. Select version/channel.
+7. Configure runtime/network/storage.
+8. Configure integration mode.
+9. Bind authentication/credential reference.
+10. Preview ports, resources, dependencies and blast radius.
+11. Install/register.
+12. Verify health/version/API compatibility.
+13. Register observability.
+14. Add application to the appropriate Desktop Sphere.
+15. Produce evidence/audit record.
+
+### Catalog metadata
+
+Each catalog entry should declare supported install methods, supported adoption methods, compatible versions, supported OS/runtimes, integration class, provider adapters, observability/control capabilities, required permissions, Desktop Sphere, licensing notes and lifecycle support.
+
+### Lifecycle and removal
+
+Candidate lifecycle:
+AVAILABLE -> INSTALL_PLANNED -> INSTALLING -> INSTALLED -> VERIFYING -> REGISTERED -> READY -> DEGRADED/UNREACHABLE -> UPDATE_AVAILABLE -> UPGRADING -> ROLLBACK_AVAILABLE -> DISABLED -> UNREGISTERING -> UNINSTALLED.
+
+Adopted applications may enter through DISCOVERED -> VERIFYING -> REGISTERED -> READY.
+
+Distinguish:
+Remove from Desktop != Unregister != Disconnect != Stop Service != Uninstall != Delete Data.
+Update integration adapter != Upgrade external application.
+
+### Security
+
+Research per-client scoping, host/deployment authority, credential isolation, secret references, least privilege, install-source integrity, supply-chain evidence, TLS verification, audit trail, safe uninstall, data-preservation defaults, command confirmation and blast radius.
+
+### Desktop integration examples
+
+Portainer -> Infrastructure & Runtime
+n8n -> Process & Automation
+Grafana -> Operations & Observability
+Cockpit -> Infrastructure & Runtime
+pgAdmin -> Data & Information
+
+The Application Manager itself is likely a privileged Builder/Infrastructure application.
+
+### Componentes additions
+
+ApplicationManager, ApplicationCatalog, ApplicationCatalogEntry, ApplicationInstallWizard, ApplicationAdoptWizard, ApplicationDiscoveryPanel, DiscoveredApplicationCandidate, ApplicationPrerequisiteCheck, ApplicationInstallPlan, ApplicationInstallProgress, ApplicationCompatibilityCheck, ApplicationRegistration, ManagementModeBadge, ApplicationInstanceCard, ApplicationSourceVerifier, CredentialBindingStep, InstallImpactPreview, ApplicationUpgradePanel, ApplicationUninstallPanel and ApplicationEvidencePanel.
+
+### Invariants
+
+- Install != Adopt.
+- Register != Deploy.
+- Connect != Own.
+- Discovered != Verified.
+- Application record != secret storage.
+- Remove from Desktop != Uninstall.
+- Unregister != Stop Service.
+- Adapter update != external app upgrade.
+- SB-managed != externally managed.
+- External installation != unsupported installation.
+- Discovery != authorization.
