@@ -2907,3 +2907,14 @@ Support an Extended Desktop model where one logical Workspace/Desktop can span m
 Provide explicit Move to Display / Detach / Reattach commands rather than assuming arbitrary native drag between browser windows is always available.
 
 Preserve Window != Application != Runtime Service; Browser Tab != SB Tab; Display Surface != Workspace; Window movement != semantic movement.
+
+
+## Pinned monitoring surface planning
+
+Frontend planning should include a persistent Monitoring Surface/Monitor Wall model inside Desktop Spheres.
+
+Plan a mosaic editor with widget add/remove/resize/reorder, binding to hosts/services/metrics, presets, edit vs monitor mode, layout locking, full-screen and secondary-display modes.
+
+Preserve Desktop Observatory as the compact contextual summary and Pinned Monitoring Surface as the larger persistent operational composition.
+
+Resource planning must use shared telemetry, bounded refresh/currentness and background throttling.
