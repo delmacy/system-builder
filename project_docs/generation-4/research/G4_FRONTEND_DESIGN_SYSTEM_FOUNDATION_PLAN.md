@@ -2849,3 +2849,24 @@ Desktop Spheres are stable functional areas with lazy-loaded application catalog
 Planning must support desktop-level lazy loading; desktop close/suspend/hibernate; application code loaded on demand; selective live subscriptions; cross-desktop preservation of client/system/revision/environment/organizational scope; multiple saved workspaces; permission/provider/applicability states; and desktop-specific responsive behavior.
 
 3D is retained as an optional later application/projection inside an appropriate desktop, not required as the first navigation foundation.
+
+
+
+## Desktop observability surface
+
+Each Desktop Sphere should plan a fixed **Desktop Observatory** region containing compact context-aware widgets.
+
+The surface is guided and bounded, not an unrestricted Windows/Linux-style desktop or system tray.
+
+Research must cover desktop-specific widget sets, status matrices, host/service/runtime summaries, desired/observed/effective state, currentness, drift, incidents, jobs and drill-down into the appropriate application.
+
+Preserve:
+- Desktop widget != management application.
+- Running != healthy != ready != effective.
+- No alert != healthy.
+- Summary != canonical truth.
+- Hidden widget != service stopped.
+- Widget visible != dedicated polling loop.
+
+Inactive desktops should reduce or suspend telemetry work and explicitly show stale/currentness state on restore.
+
