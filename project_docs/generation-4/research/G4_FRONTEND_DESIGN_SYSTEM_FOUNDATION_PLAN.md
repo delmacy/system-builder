@@ -2885,3 +2885,14 @@ Adopt Existing discovers or accepts endpoint/host/IP/URL, authenticates, inspect
 Preserve Install != Adopt; Register != Deploy; Connect != Own; Discovered != Verified; Remove from Desktop != Uninstall; Unregister != Stop Service; Application record != secret storage.
 
 Research management modes SB_MANAGED, EXTERNALLY_MANAGED, CO_MANAGED, OBSERVE_ONLY and DISCOVERED_UNREGISTERED.
+
+
+## Control Center / unified configuration research
+
+Add a first-class Control Center that provides cross-application configuration, policy, secret-reference, provider/binding and lifecycle governance.
+
+Research scoped configuration across Builder/Factory -> Client -> System -> Environment -> Desktop -> Application -> Instance/Provider, with explicit inheritance, provenance, overrides and desired/observed/effective state.
+
+Individual application settings remain available for specialized controls, while the Control Center provides common settings, defaults, policy, visibility, bindings, secrets metadata, drift, comparison and change planning.
+
+Preserve Unified settings UI != unified semantic owner; Secret reference != secret value; Policy != configuration; Desired != observed != effective; Configured != applied != effective; Global change != implicit restart/redeploy.
