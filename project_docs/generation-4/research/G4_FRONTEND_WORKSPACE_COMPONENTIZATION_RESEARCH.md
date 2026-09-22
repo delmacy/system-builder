@@ -4,365 +4,342 @@ Status: `RESEARCH_ACTIVE / NON_EXECUTABLE`
 Execution authority: NONE
 Date: 2026-09-22
 
-> NOTE: Existing findings F1–F41 and the C0–C11 complexity ladder remain authoritative research context. This revision records the next material delta after command concurrency/cancellation: heterogeneous multi-selection, bulk eligibility and aggregate-state preservation. Historical evidence and earlier detailed sections remain available in Git history and sibling research artifacts.
+> NOTE: Earlier findings remain available in Git history and sibling G4 research artifacts. This revision records the next material delta after heterogeneous multi-selection: query/filter-scoped selection whose semantic membership exceeds the materialized scene.
 
-## Research delta — Heterogeneous Multi-selection, Bulk Eligibility & Aggregate Truth
+## Research delta — Query-scoped Selection, Unmaterialized Membership & Bulk Snapshot Semantics
 
 ### Problem
 
-F41 established that selection-set commands need explicit batch semantics, but it did not yet define how a set behaves when targets differ by revision/currentness, authority, semantic compatibility, projection visibility, applicability, operation state or disclosure. This is a material gap from compound component through System View: a visual multi-selection can be valid as a selection while still being invalid, partially eligible or indeterminate for a particular command.
+The previous delta established that selection membership, focus, primary target and command eligibility are distinct. A remaining gap appears when `Select All` means more than the objects currently loaded/rendered. In a large System View, Treegrid, filtered list, topology projection or 3D aggregate, the user may intend “all objects matching this qualified scope”, while only a bounded subset is materialized.
 
-A bulk toolbar must therefore never derive command eligibility from `selection.count > 0` alone, and a 3D aggregate/cluster must not turn a heterogeneous set into a fictitious homogeneous object.
+A frontend that expands this intent into the currently visible IDs silently changes meaning. Conversely, a frontend that stores an unqualified live query risks mutating a moving population after the user previews an operation.
+
+Therefore:
+
+```text
+VISIBLE != MATERIALIZED != MATCHING_SCOPE != SELECTED
+Select All != Select Rendered
+query-scoped selection != enumerated selection
+```
 
 ### Evidence reviewed
 
-- W3C WAI-ARIA APG Tree/Treegrid/Listbox patterns: in multi-select composites, focus is independent of selection; selected state persists while focus moves, and keyboard models explicitly support toggling/range selection. This reinforces `SELECTED != FOCUSED` and makes selection-set identity independent from the currently focused representative.
-- W3C APG also recommends explicit Select All/Unselect All controls when those functions matter, rather than relying exclusively on hidden modifier-key conventions.
-- Carbon Data Table: selection is a distinct table variant; batch-action mode appears after rows are selected and can be exited by cancel/deselect. This is useful evidence for a contextual bulk-command projection, but not evidence that every selected target is eligible for every action.
-- Fluent Toolbar: commands are logically grouped, overflow rather than wrap, and destructive/status-changing actions should be separated. This supports projecting bulk commands from the same Command Registry rather than inventing a second bulk command identity.
-- Atlassian progress guidance: progress should communicate concrete subprocess state (for example, completed count), supporting per-target/aggregate operation truth rather than an undifferentiated spinner.
+- W3C WAI-ARIA APG Listbox permits explicit Select All / Unselect All and recommends separate controls when those functions are important; this supports making selection scope explicit rather than hiding it behind modifier keys.
+- MUI X Data Grid distinguishes selecting all rows from selecting only currently visible rows and uses an include/exclude row-selection model; it also documents preservation of selected rows not currently present under server-side pagination.
+- TanStack Table documents that with manual pagination the materialized selected-row model only contains current-page rows even though selection state may contain IDs absent from the loaded data.
 
-These are interaction evidence, not provider selections.
+These are interaction/data-model evidence, not provider selections.
 
-### F42 — Selection membership, primary target and command eligibility are three separate relations
-
-Candidate contract:
-
-```text
-SelectionSet
-  selectionSetId
-  members[]
-    canonicalId
-    representativeId?
-    revisionBasis
-    currentness
-    disclosureState
-    projectionDisposition
-  primaryId?
-  focusRoute?
-  anchorId?
-  selectionMode
-```
-
-A target can be selected without being the primary target, focused target or eligible target for a command.
-
-```text
-SELECTED != PRIMARY
-SELECTED != FOCUSED
-SELECTED != COMMAND_ELIGIBLE
-VISIBLE REPRESENTATIVE != SEMANTIC MEMBER
-```
-
-The primary target is useful for Inspector ordering/default context but does not grant semantic precedence over other selected targets.
-
-### F43 — Bulk commands require an eligibility partition, not one boolean
-
-Before execution, a command should qualify the selection into partitions:
-
-```text
-BulkEligibility
-  eligible[]
-  ineligible[]
-    reason: INAPPLICABLE | AUTHORITY_DENIED | READ_ONLY |
-            STALE | CONFLICTED | BLOCKED | INCOMPATIBLE |
-            ALREADY_PENDING | DISCLOSURE_LIMITED | UNKNOWN
-  requiresRefresh[]
-  requiresReconciliation[]
-  unknown[]
-```
-
-The command then declares what partitions it permits:
-
-```text
-ALL_OR_NOTHING
-ELIGIBLE_SUBSET_WITH_PREVIEW
-BEST_EFFORT_PARTIAL
-SERIAL_PER_TARGET
-PARALLEL_BOUNDED
-PREVIEW_THEN_APPLY
-```
-
-`AUTHORITY_DENIED` must not be rendered as `DISABLED`; `STALE` must not be silently refreshed and executed; `UNKNOWN` must not be counted as eligible success.
-
-### F44 — Heterogeneous revision/currentness must be explicit before mutation
-
-A bulk selection can contain R5 current, R4 stale and a target whose currentness cannot be established. The set does not have one truthful `revision` field.
+### F51 — Selection representation needs ENUMERATED and QUERY_SCOPED forms
 
 Candidate:
 
 ```text
-SelectionRevisionBasis
-  perTarget[]
-    canonicalId
-    revisionId
-    currentness
-    checkedAt
-  aggregateCurrentness:
-    ALL_CURRENT | MIXED | ALL_STALE | UNKNOWN
+SelectionExpression
+  ENUMERATED
+    includeIds[]
+
+  QUERY_SCOPED
+    scopeRef
+    queryFingerprint
+    queryRevision?
+    includeExceptions[]
+    excludeExceptions[]
+    estimatedCount?
+    exactCount?
+    establishedAt
 ```
 
-Mutation proof must bind each target to its own basis. If a refresh changes membership/eligibility, the UI must show the changed partition before applying a command that was previewed against the old set.
+`QUERY_SCOPED` means semantic membership is defined by a qualified scope, not by currently rendered representatives. Include/exclude exceptions support “all matching except these few” without enumerating thousands of IDs.
 
-This prevents a bulk operation from laundering stale targets through one fresh primary target.
+This mirrors a useful large-data pattern evidenced by MUI's include/exclude selection model while keeping SB semantics independent of a UI provider.
 
-### F45 — Authority is evaluated per target and per command, never inherited from selection or workspace
+### F52 — Select All requires an explicit scope contract
 
-Candidate aggregate authority state:
+Candidate scopes:
 
 ```text
-ALL_AUTHORIZED
-MIXED_AUTHORITY
-NONE_AUTHORIZED
-AUTHORITY_UNKNOWN
+VISIBLE_REPRESENTATIVES
+CURRENT_PROJECTION_MATERIALIZED
+CURRENT_FILTER_MATCHES
+CURRENT_QUERY_MATCHES
+CURRENT_GROUP
+SYSTEM_SCOPE
 ```
 
-A workspace preset, selected cluster or primary item cannot confer authority to other members. For `ELIGIBLE_SUBSET_WITH_PREVIEW`, the UI may offer the authorized subset only after explaining exclusions. For `ALL_OR_NOTHING`, one denied/unknown required target blocks invocation, but the command remains semantically `BLOCKED/INELIGIBLE`, not visually-equated to a disabled control.
-
-### F46 — Aggregate visual state must preserve minority critical states
-
-For clusters and large scenes, majority voting is unsafe.
-
-Candidate aggregate summaries:
+The command surface must state scope when ambiguity matters, e.g.:
 
 ```text
-AggregateSemanticState
-  memberCount
+Select 48 visible
+Select all 1,842 matching current filter
+Select all 6,210 modules in system scope
+```
+
+A checkbox cannot silently switch between these meanings because pagination, virtualization, clustering or LOD changed.
+
+Accessibility peer representations must expose equivalent explicit scope controls; 3D lasso remains an enumerated/geometric selection gesture unless explicitly promoted to a semantic query scope.
+
+### F53 — Query-scoped selection must distinguish LIVE membership from SNAPSHOT membership
+
+A live filter can change after selection because of external updates, currentness refresh or the user's own edits. Mutation commands therefore cannot blindly execute against “whatever matches later”.
+
+Candidate:
+
+```text
+SelectionMembershipPolicy
+  LIVE_VIEW
+  SNAPSHOT_FOR_COMMAND
+```
+
+`LIVE_VIEW` is suitable for navigation/exploration. A mutating bulk command creates a bounded snapshot/qualification basis:
+
+```text
+BulkTargetSnapshot
+  selectionExpressionRef
+  resolvedAt
+  queryFingerprint
+  targetSetDigest
+  resolvedCount
+  perTargetRevisionBasis or qualificationToken
+  disclosure/authority qualification summary
+```
+
+If the population materially changes between preview and execution, the command must requalify or disclose the delta. This prevents a user previewing 1,842 targets and unintentionally mutating 1,913 because new objects entered the filter.
+
+### F54 — Unknown total count is a first-class state
+
+Server-side/system-scale queries may initially know only a lower bound or estimate.
+
+```text
+SelectionCardinality
+  EXACT(n)
+  ESTIMATED(n)
+  AT_LEAST(n)
+  UNKNOWN
+```
+
+`UNKNOWN` must not be formatted as an exact count. Destructive/authority-sensitive operations may require exact resolution before confirmation, while non-mutating navigation may tolerate an estimate.
+
+This preserves `UNKNOWN != SUCCESS/KNOWN` at selection level.
+
+### F55 — Eligibility over query-scoped selections is a server/domain qualification problem, not a renderer loop
+
+For 1,000+ objects, the renderer should not have to materialize every object merely to determine command eligibility.
+
+Candidate aggregate qualification:
+
+```text
+QueryBulkEligibility
+  scopeCount
   eligibleCount
-  blockedCount
+  ineligibleCount
   staleCount
   unknownCount
-  pendingCount
-  failedCount
-  criticalFindingCount
-  mixedState: boolean
+  disclosureLimitedCount
+  representativeReasons[]
+  exactness
+  qualificationRef
 ```
 
-Rules:
+The UI can request/drill into excluded subsets without loading the entire scene. Execution still preserves per-target evidence where effects matter.
+
+This separates semantic qualification from 3D picking/rendering and supports `3D Canvas != authority`.
+
+### F56 — Filter changes must not silently rewrite an established semantic selection
+
+When a QUERY_SCOPED selection exists and the user changes filters, the UI must follow an explicit policy:
 
 ```text
-999 SUCCESS + 1 UNKNOWN != SUCCESS
-999 CURRENT + 1 STALE != CURRENT
-999 PASS + 1 skipped-required-gate != PASS
-aggregate label suppression MUST NOT suppress critical minority markers
+KEEP_ORIGINAL_SCOPE
+REBASE_TO_NEW_SCOPE_WITH_CONFIRMATION
+CLEAR_SELECTION
 ```
 
-At LOD0/LOD1 the cluster can show a bounded critical-state summary; Inspector/List/Treegrid provides drill-down. This operationalizes `Aggregation != silent omission` for multi-selection and stress scenes.
+The default cannot be accidental mutation caused by a React re-render or a grid provider's local behavior. A preserved original scope should be visibly summarized even if many members are now filtered out.
 
-### F47 — Selection across projections needs membership continuity without geometric continuity
+Cross-view navigation carries the SelectionExpression itself, not merely the visible representatives.
 
-A lasso selection in 3D may map to non-contiguous rows in Treegrid or multiple groups in Deployment. `ProjectionHandoff` therefore preserves canonical membership, not screen geometry.
+### F57 — Cross-projection handoff needs scope disposition as well as member disposition
 
-Destination dispositions are per member:
+For enumerated sets, per-member dispositions remain useful. For query-scoped sets with thousands of members, handoff additionally needs:
 
 ```text
-PRESENT
-AGGREGATED
-FILTERED_OUT
-NOT_MATERIALIZED
-STALE_REFERENCE
-DISCLOSURE_LIMITED
-NO_LONGER_ADMISSIBLE
+ProjectionSelectionDisposition
+  FULLY_REPRESENTABLE
+  REPRESENTABLE_AS_AGGREGATES
+  PARTIALLY_REPRESENTABLE
+  QUERY_ONLY
+  DISCLOSURE_LIMITED
+  UNSUPPORTED_SCOPE
 ```
 
-The destination reports a selection summary such as `18 preserved / 3 aggregated / 2 disclosure-limited`, and never silently shrinks the semantic selection because some representatives are unavailable.
+Example: “all modules with deployment drift” may open from System View into Deployment as aggregates/query-backed list without instantiating every module in 3D. The semantic set survives even if geometric representation is bounded.
 
-A user may explicitly normalize the set to visible/eligible members, but that is a new selection action.
+### F58 — Selection exceptions need stable identity and currentness handling
 
-### F48 — Inspector behavior for multi-selection needs common, mixed and non-applicable values
+In `all matching except X,Y`, exclusions refer to canonical identities. If X is deleted, inaccessible or no longer matches the scope, that exception becomes non-contributing but should remain explainable until the selection is rebased/cleared.
 
-A multi-selection Inspector should not pretend that heterogeneous values are one value.
+Likewise, an explicitly included target that no longer matches the query is not silently discarded if the selection contract permits include exceptions. This avoids selection changing underneath the user without an explicit transition.
 
-Candidate field projection:
+### F59 — Bulk result lineage must reference both selection intent and resolved target snapshot
 
-```text
-COMMON(value)
-MIXED
-NOT_APPLICABLE_TO_SOME
-UNAVAILABLE_BY_DISCLOSURE
-UNKNOWN
-CONFLICTED
-```
-
-Editing a `MIXED` field is a bulk command proposal against eligible targets, not an immediate local assignment to one synthetic aggregate object. Faces themselves may be:
-
-```text
-APPLIES_TO_ALL
-APPLIES_TO_SUBSET(n/N)
-APPLIES_TO_NONE
-DISCLOSURE_LIMITED
-```
-
-This preserves one semantic identity per module and prevents Module Workbox faces from inventing an aggregate owner.
-
-### F49 — Bulk execution needs a durable result matrix
-
-Candidate operation result:
+Candidate:
 
 ```text
 BulkOperationResult
   invocationId
-  requestedTargets[]
-  startedTargets[]
-  notStarted[] + reason
-  perTarget[]
-    ACK?
-    verificationState
-    effectState
-    evidenceRef?
-    reconciliationRequired?
-  aggregate:
-    ALL_EFFECTIVE | PARTIAL | NONE_EFFECTIVE | UNKNOWN
+  selectionExpressionRef
+  targetSnapshotRef
+  requestedScopeSummary
+  resolvedTargetCount
+  perTarget/evidence outcome
+  retryOf?
+  reconciliationOf?
 ```
 
-A `BEST_EFFORT_PARTIAL` command can legitimately complete as PARTIAL. The Activity/Status surface must retain the result matrix; a toast may summarize but cannot be the only record.
+A retry of four failures from an original 1,842-target operation is a new enumerated/subset invocation linked to the original snapshot, not a re-execution of the now-live filter. This preserves auditability when query membership changes later.
 
-Progress text should be semantically useful (`143/200 verified; 4 failed; 3 unknown`) rather than merely `73%` when target-level outcomes matter.
+### F60 — Large-scene selection must not force large-scene rendering
 
-### F50 — Selection and operation lifetimes are independent
-
-Deselecting a target after a bulk invocation starts does not cancel its operation. Likewise, switching projection or replacing the selection does not orphan invocation evidence.
+A query-scoped selection can contain 10,000 semantic members while the WorkSurface displays clusters/representatives. Selection visualization becomes aggregate truth:
 
 ```text
-selection membership lifetime != invocation lifetime
-focus lifetime != selection lifetime
-projection representative lifetime != semantic target lifetime
+cluster selected summary
+  selectedMatchingCount
+  selectedCriticalCount
+  selectedUnknownCount
+  selectionExactness
 ```
 
-The Operation Registry remains target-correlated and lets later selections rediscover relevant pending/unknown/reconciliation state.
+No requirement exists to instantiate geometry for every selected member. Inspector/List/Treegrid provide drill-down. Critical minority states remain visible under aggregation.
+
+This directly supports:
+
+```text
+Large-scene degradation -> aggregation, not silent omission
+semantic selection scale != rendered geometry scale
+```
 
 ## Complete-task scenario additions
 
 ```text
-S-MS-01 — mixed revision bulk edit
-select A@R5 CURRENT, B@R4 STALE, C@UNKNOWN
--> edit common configuration
-=> preview partitions A eligible, B reconcile/refresh, C unknown;
-   no command reports all three ready
+S-QS-01 — visible vs all matching
+48 representatives visible; filter matches 1,842 modules
+-> Select All
+=> UI distinguishes “48 visible” from “1,842 matching”; no ambiguous checkbox semantics
 
-S-MS-02 — mixed authority
-select 20 modules, authorize operation
-=> 17 authorized, 2 denied, 1 unknown;
-   ALL_OR_NOTHING blocks with reasons;
-   eligible-subset mode requires explicit preview/confirmation
+S-QS-02 — snapshot before mutation
+select all 1,842 matching -> preview bulk configuration
+-> 71 new modules enter filter before Apply
+=> execution does not silently expand to 1,913; requalification/delta disclosure required
 
-S-MS-03 — aggregate minority failure
-cluster represents 1000 modules; one required gate failed
-=> cluster remains visibly mixed/critical; drill-down locates failure;
-   LOD cannot report PASS
+S-QS-03 — unknown cardinality
+server-side scope count unavailable
+=> selection reports UNKNOWN/AT_LEAST, never an invented exact count;
+   destructive operation can require exact resolution
 
-S-MS-04 — cross-projection set
-lasso 23 modules in 3D -> Open in Deployment
-=> canonical 23-member selection preserved;
-   destination reports present/aggregated/disclosure-limited dispositions
+S-QS-04 — filter change
+query-scoped selection established -> user changes filter
+=> original selection is kept, rebased with explicit confirmation, or cleared by declared policy;
+   never silently rewritten
 
-S-MS-05 — mixed Inspector value
-select modules with timeout 30s, 30s, 60s
-=> field is MIXED; entering 45s creates qualified bulk proposal,
-   not mutation of a synthetic aggregate object
+S-QS-05 — cross-view query set
+“All modules with deployment drift” -> Open in Deployment
+=> semantic SelectionExpression preserved; destination may aggregate/query-list targets;
+   geometric non-materialization does not shrink membership
 
-S-MS-06 — partial effect
-200-target operation -> 193 effective, 4 failed, 3 unknown
-=> aggregate outcome PARTIAL; per-target matrix persists;
-   retry/reconcile can target subsets without losing original evidence
+S-QS-06 — exception model
+select all matching -> exclude 3 modules -> include one exceptional target
+=> selection remains compact and auditable without enumerating entire population
 
-S-MS-07 — deselect while running
-start bulk publish -> select unrelated module
-=> operation continues in Operation Registry; new selection does not inherit pending state,
-   but selecting an affected target later reveals correlation
+S-QS-07 — partial retry lineage
+1,842-target publish -> 4 failed
+-> retry failed
+=> retry resolves exactly the failed subset and links to original target snapshot;
+   it does not rerun current live filter
 
-S-MS-08 — keyboard peer representation
-multi-select in Tree/Treegrid using explicit keyboard selection model
-=> focus moves independently; selection persists; bulk command surface reflects same canonical set as 3D
+S-QS-08 — stress representation
+10,000 semantic members selected while 120 clusters are rendered
+=> no forced geometry explosion; aggregate selected/critical/unknown truth remains visible
 ```
 
 ## Componentes impact
 
-Add candidates for selection-capable C2+ components:
+Add to selection-capable C2+ entries:
 
 ```text
-selectionMode
-primaryTargetPolicy
-focusSelectionIndependence
-rangeSelectionPolicy
-selectAllScope
-selectionPersistence
-bulkEligibilityProjection
-mixedValueProjection
-aggregateCriticalStatePolicy
-crossProjectionSelectionPolicy
+selectionRepresentation: ENUMERATED | QUERY_SCOPED
+selectAllScopes[]
+selectionCardinalityModel
+filterChangeSelectionPolicy
+selectionExceptionPolicy
 ```
 
-For command-capable C5+ components additionally:
+For C6+ command surfaces:
 
 ```text
-bulkExecutionPolicy
-perTargetRevisionBasis
-perTargetAuthorityQualification
-partialOutcomeModel
-resultMatrixProjection
-retrySubsetPolicy
+bulkSnapshotPolicy
+queryEligibilityProjection
+populationDeltaDisclosure
+exactCountRequirement
 ```
 
-Proof depth:
+For C7–C10 projections/workspaces:
 
 ```text
-C2
-  keyboard multi-selection; focus != selection; explicit clear/select-all where applicable
-C3/C4
-  canonical membership survives projection/aggregation
-C5
-  Module Workbox common/mixed/subset-applicable faces
-C6
-  contextual bulk command surface from same Command Registry
-C7
-  3D/graph/list peer selection equivalence
-C8
-  workspace selection summary + Operation Registry continuity
-C9
-  preview/partial/retry/reconcile complete-task behavior
-C10
-  cross-workspace per-member disposition and disclosure safety
-C11
-  1000-member aggregate truth + bounded command execution
+querySelectionRepresentation
+scopeDisposition
+aggregateSelectionTruth
+crossProjectionScopeHandoff
+```
+
+Proof obligations:
+
+```text
+C2  explicit visible/all-matching semantics + keyboard-accessible controls
+C3  SelectionExpression canonicalization and exceptions
+C6  command preview against qualified scope, not rendered IDs
+C7  query-backed selection without geometry explosion
+C8  filter/pagination/workspace transitions preserve declared scope
+C9  preview -> snapshot -> execute -> partial -> retry lineage
+C10 cross-workspace scope continuity
+C11 10k semantic selection / bounded rendered representatives stress proof
 ```
 
 ## Complexity impact
 
-No new C-class. Multi-selection is a cross-cutting dependency that begins at C2 but becomes semantically expensive at C5+:
+No new complexity class. Query-scoped selection strengthens the existing cross-cutting dependency:
 
 ```text
-C2 selection grammar
- -> C3 canonical SelectionSet + per-member currentness
- -> C4 aggregate/critical markers
- -> C5 mixed-value Module Workbox
- -> C6 bulk Command Registry projection
- -> C8 workspace selection/operation orchestration
- -> C9 bulk task outcome/retry/reconcile
- -> C10 cross-workspace membership continuity
- -> C11 stress/aggregation proof
+C2 explicit Select All scope
+ -> C3 SelectionExpression
+ -> C6 query-aware command eligibility
+ -> C7 bounded projection/aggregation
+ -> C8 workspace/filter persistence
+ -> C9 target snapshot + operation lineage
+ -> C10 cross-workspace scope handoff
+ -> C11 semantic-selection scale independent of render scale
 ```
 
-Planning implication: do not estimate multi-select as an atomic checkbox feature. Its UI primitive is low complexity; its semantic orchestration is HIGH/VERY HIGH once revision, authority, partial outcomes and cross-projection continuity are included.
+The visual checkbox remains LOW complexity; safe query-backed bulk orchestration is VERY HIGH/EXTREME because it couples scope identity, currentness, authority, snapshotting, partial effects and evidence lineage.
 
 ## Adversarial additions
 
-1. Primary selected module's authority is applied to all members.
-2. One current primary target makes a mixed stale set look current.
-3. Bulk action silently excludes ineligible targets.
-4. `999 success + 1 unknown` renders as success.
-5. LOD cluster drops the only failed required gate.
-6. Cross-view handoff shrinks selection to visible representatives without notice.
-7. Inspector writes a MIXED field as though an aggregate object owned the value.
-8. Deselecting targets is treated as cancelling their in-flight operations.
-9. Select All means only currently rendered/virtualized rows without stating scope.
-10. Permission denied is represented as ordinary disabled batch action.
-11. Retry of failed subset loses evidence linking it to the original bulk invocation.
-12. Keyboard focus movement destroys multi-selection unexpectedly.
+1. “Select all” selects only virtualized/rendered rows without saying so.
+2. Changing page/filter silently clears or rewrites a semantic selection.
+3. A live query gains targets between preview and execution and they are mutated without disclosure.
+4. Estimated cardinality is displayed as exact.
+5. 3D renderer materializes every selected member and collapses under query-scale selection.
+6. Cross-view handoff keeps only visible representatives.
+7. Excluded exceptions lose canonical identity after filtering.
+8. Retry uses the current live filter rather than the failed target snapshot.
+9. Eligibility requires loading every object into the browser/renderer.
+10. Query selection is treated as authority over all matching targets.
 
 ## Maturity / next vector
 
 Material delta: **YES**.
 
-The research now distinguishes selection membership, primary/focus, per-command eligibility, per-target revision/currentness and authority, aggregate critical truth, cross-projection membership continuity and durable partial-result matrices. This materially closes F41's open boundary and raises the expected complexity of multi-selection from a component feature to a workspace/task orchestration concern.
+This closes the previously identified `Select All` / unmaterialized-set gap. Selection now has a research path from explicit IDs through query-scoped intent, cardinality exactness, command snapshots, per-scope eligibility and cross-projection preservation without forcing render materialization.
 
-Highest-value remaining vectors: long-lived operation history/reconciliation UX (including retries/compensation lineage), empirical picking/LOD/label budgets for 50–200 versus ~1000 modules, and selection semantics when query/filter-based `Select All` represents an unmaterialized set larger than the currently loaded scene.
+Highest-value remaining vectors are now: (1) long-lived operation lineage/compensation/reconciliation UX beyond retry, especially when observed effects diverge after the originating workspace closes; (2) empirical performance budgets and benchmark methodology for picking/labels/relations/LOD at 50–200 and ~1000 modules; and (3) disclosure-safe query selection where the system can know aggregate counts but cannot reveal member identities.
