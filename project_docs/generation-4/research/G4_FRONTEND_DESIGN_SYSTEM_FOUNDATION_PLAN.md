@@ -912,3 +912,544 @@ Builder-specific engineering surfaces
 ```
 
 The desired result is a suite with very broad available capability while each system/user sees only the interface required by the active task and context.
+
+
+## Reference-product synthesis — Photoshop, Budibase, n8n and Canva
+
+This section captures an initial UX/componentization synthesis from four mature visual builders/editors. The goal is not visual imitation; it is extraction of reusable interaction structures for the System Builder.
+
+### Photoshop — workspace, tools, panels and layers
+
+Photoshop provides a strong reference for the **editor workspace** itself:
+
+```text
+Application bar
++ tool palette
++ contextual options bar
++ central document/work surface
++ dockable panels
++ layer stack
++ saved workspaces
+```
+
+Research takeaways:
+
+- tools are compact, persistent and grouped by function;
+- selecting a tool changes the contextual options surface rather than permanently expanding the main UI;
+- panels can be docked, grouped, collapsed, reordered or floated;
+- layers make independently controllable elements visible, reorderable and hideable;
+- saved workspace layouts let different jobs expose different tool/panel combinations.
+
+Candidate SB translation:
+
+```text
+TOOL PALETTE
+  Select / Pan / Connect / Add / Inspect / Simulate / Measure / Comment
+
+CONTEXT TOOLBAR
+  options for the selected tool/object/mode
+
+CENTRAL WORKSPACE
+  system composition / view / preview
+
+RIGHT DOCK
+  properties / evidence / history / dependencies / layers
+
+LAYER STACK
+  architecture/business/system views and editable overlays
+
+WORKSPACE PRESETS
+  Frontend / Workflow / Data / Infrastructure / Operations / Audit
+```
+
+Important boundary:
+
+`Layer != canonical ownership`.
+
+A Photoshop-like layer metaphor is useful for visibility, composition, ordering and focus, but SB layers may represent **lenses/projections/planes** rather than literal z-order.
+
+### Budibase — component tree, blocks and ejectability
+
+Budibase is a strong reference for **component-to-block composition**:
+
+```text
+Primitive Component
+      ↓
+nested component tree
+      ↓
+Block (prebuilt composition)
+      ↓
+Screen
+      ↓
+Application
+```
+
+The notable pattern is that a Block can encapsulate multiple components for speed while still allowing an advanced user to "eject" or expose the constituent components for finer control.
+
+Candidate SB translation:
+
+```text
+Primitive
+  Button / Input / Card / Grid / Text / Select
+
+Block
+  SearchBar / DataTable / LoginForm / EntityEditor
+
+Module block
+  TicketBoard / AssetPanel / AvailabilityBoard
+
+Tool surface
+  Frontend Builder / Workflow Builder / Data Modeler
+```
+
+Candidate invariant:
+
+`Convenience composition != hidden irreversible abstraction`.
+
+Where practical, higher-level visual blocks should remain inspectable/decomposable into their owned lower-level UI composition, while preserving semantic constraints that cannot be safely edited as arbitrary presentation.
+
+### n8n — nodes, connectors, groups and contextual node catalog
+
+n8n is a strong reference for **graph composition**:
+
+```text
+Node catalog
+   ↓
+Node
+   ↓
+Ports/connectors
+   ↓
+Connected chain / graph
+   ↓
+Canvas Group
+   ↓
+Workflow
+```
+
+Research takeaways:
+
+- the next component can be discovered directly from the current connection point;
+- the node catalog changes contextually;
+- nodes expose compact hover actions instead of permanently visible controls;
+- related connected nodes can be grouped and collapsed;
+- groups improve readability without replacing constituent nodes;
+- direct canvas editing and focused parameter editing can coexist.
+
+Candidate SB translation:
+
+```text
+Component/Capability catalog
+        ↓
+drag/click to place
+        ↓
+ports declare eligible relations
+        ↓
+connect
+        ↓
+group into block/module/process boundary
+        ↓
+collapse/semantic zoom
+```
+
+Potential examples:
+
+```text
+FormSubmit
+   -> Validation
+   -> WorkflowAction
+   -> DatabaseWrite
+   -> Notification
+
+or
+
+UserView
+   -> Query
+   -> DataProjection
+   -> TableComponent
+```
+
+The SB must be stricter than n8n where a connection carries domain/authority/contract semantics:
+
+`Visual connectability != semantic compatibility`.
+
+### Canva — contextual simplicity and progressive disclosure
+
+Canva is a strong reference for making a powerful editor approachable:
+
+```text
+persistent side tools
++ central design surface
++ selection
++ contextual quick toolbar
++ deeper edit panel only when requested
++ layers/grouping when needed
+```
+
+Research takeaways:
+
+- selecting an element exposes only the actions that matter for that element;
+- a compact contextual toolbar provides common edits;
+- deeper configuration opens in a dedicated side panel;
+- tools/content libraries remain searchable and category-based;
+- grouping and layers are available without forcing layer management into every simple task;
+- modes such as Edit / Comment / View separate interaction intent.
+
+Candidate SB translation:
+
+```text
+Select object
+   ↓
+Quick actions
+   ↓
+Context toolbar
+   ↓
+Optional deep inspector
+```
+
+A novice should be able to place a form, table or workflow block without seeing every provider, contract, evidence and deployment property. An expert can open progressively deeper inspectors.
+
+## Proposed SB creative-workspace model
+
+The four references suggest a common product structure:
+
+```text
+                    SYSTEM BUILDER WORKSPACE
+
+┌─────────────────────────────────────────────────────────────┐
+│ App/System │ Mode │ Revision │ Search │ Run/Preview │ User  │
+├──────┬───────────────────────────────────────────┬──────────┤
+│      │ Contextual tool/options bar               │          │
+│ TOOL ├───────────────────────────────────────────┤ PANEL    │
+│ BOX  │                                           │ DOCK     │
+│      │                                           │          │
+│ UI   │              WORKSPACE / CANVAS           │ Props    │
+│ WF   │                                           │ Layers   │
+│ DB   │                                           │ Data     │
+│ ...  │                                           │ Evidence │
+│      │                                           │ History  │
+├──────┴───────────────────────────────────────────┴──────────┤
+│ status / validation / currentness / background activity    │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Toolbox categories
+
+The left-side toolbox is not one flat component list. Candidate top-level tools:
+
+```text
+SELECT / NAVIGATE
+
+FRONTEND
+  components
+  blocks
+  forms
+  views
+  layouts
+
+WORKFLOW / PROCESS
+  triggers
+  activities
+  decisions
+  waits
+  events
+  effects
+
+BUSINESS CORE
+  entities
+  rules
+  calculations
+  actors
+  authority
+
+DATA
+  entities/tables
+  relations
+  queries
+  projections
+  transformations
+  data flows
+
+CAPABILITIES / MODULES
+  capability instances
+  providers/bindings
+  module blocks
+
+INFRASTRUCTURE
+  host/server
+  container
+  runtime
+  storage
+  network
+  gateway
+  external provider
+
+DEPLOYMENT
+  release
+  deployment unit
+  placement
+  environment
+
+OBSERVABILITY / OPERATIONS
+  metrics
+  logs
+  traces
+  health
+  incidents
+
+DOCUMENTATION / EVIDENCE
+  notes
+  evidence
+  requirements
+  decisions
+```
+
+Each category can expose a searchable component palette. The toolbox remains small; the catalog may be large.
+
+### Component-to-tool hierarchy
+
+The editor should preserve a coherent compositional ascent:
+
+```text
+TOKEN
+  ↓
+PRIMITIVE
+  ↓
+COMPONENT
+  ↓
+BLOCK
+  ↓
+MODULE BUILDING BLOCK
+  ↓
+TOOL
+  ↓
+WORKSPACE
+  ↓
+SYSTEM VIEW
+```
+
+Example:
+
+```text
+Button + Input + Label
+        ↓
+FormField
+        ↓
+FormSection
+        ↓
+EntityForm Block
+        ↓
+Frontend/Form Tool
+        ↓
+View Workspace
+```
+
+Another:
+
+```text
+Port + NodeCard + StatusBadge
+        ↓
+WorkflowNode
+        ↓
+Decision Block
+        ↓
+Workflow Tool
+        ↓
+Process Workspace
+```
+
+### Layer model hypothesis
+
+The user-facing metaphor may use a Photoshop-like Layers panel, but SB needs typed layer semantics.
+
+Candidate families:
+
+```text
+SYSTEM LAYERS
+  Business Core
+  Process / Workflow
+  Capabilities / Modules
+  Frontend / Views
+  Data / Data Flow
+  Integration / Exchange
+  Deployment
+  Infrastructure
+  Observability
+
+OVERLAY LENSES
+  Security
+  Authority
+  Cost
+  Capacity
+  Evidence
+  Currentness
+  Complexity
+  Change/Diff
+```
+
+Critical distinction:
+
+```text
+System Layer
+!= visual z-index
+!= database layer
+!= deployment layer
+!= semantic owner
+```
+
+The Layers panel may control visibility/focus/navigation and potentially scoped editing modes, but it must not invent a false universal hierarchy between concepts whose real relation is graph-like.
+
+### Layer interaction candidates
+
+Each layer/lens row may eventually support:
+
+```text
+visible / hidden
+focus
+lock editing
+solo/isolate
+opacity/emphasis (visual only)
+current revision
+findings count
+currentness/status
+expand/collapse
+filter
+open in dedicated tool
+```
+
+Avoid Photoshop-style arbitrary reordering where order has no semantic meaning. Reordering should only exist for collections where order is genuinely modeled.
+
+### Tool selection and context
+
+Borrowing the Photoshop/Canva pattern:
+
+```text
+Selected tool
+    +
+Selected object(s)
+    +
+Active system layer
+    +
+Current mode
+    ↓
+Contextual toolbar
+    +
+Inspector schema
+```
+
+Example:
+
+```text
+Tool: Form
+Selected: CustomerForm
+Layer: Frontend
+Mode: Design
+
+Context toolbar:
+  Layout | Fields | Validation | Data Binding | Preview
+```
+
+Example:
+
+```text
+Tool: Container
+Selected: Runtime A
+Layer: Deployment
+Mode: Inspect
+
+Context toolbar:
+  Definition | Placement | Resources | Health | Logs
+```
+
+This reduces permanent UI noise while retaining deep capability.
+
+## Workspace presets hypothesis
+
+Photoshop's task-oriented workspaces suggest presets rather than one immutable layout.
+
+Candidate SB presets:
+
+```text
+APPLICATION DESIGN
+  Components + Views + Forms + Data Binding
+
+PROCESS DESIGN
+  Workflow nodes + process layers + execution inspector
+
+DATA MODELING
+  Entities + relations + queries + data flow
+
+SYSTEM ARCHITECTURE
+  Capabilities + modules + providers + contracts
+
+DEPLOYMENT / INFRA
+  Releases + deployment units + hosts + network
+
+OPERATIONS
+  Runtime + observability + incidents + currentness
+
+REVIEW / AUDIT
+  Diff + evidence + authority + history
+
+FULL ENGINEERING
+  user-customized advanced workspace
+```
+
+Presets change the visible tool/panel arrangement, not canonical content.
+
+`Workspace preset != permission grant`.
+
+## Research directions derived from these references
+
+Recurring frontend research should now explicitly test:
+
+1. Photoshop-like persistent toolbox vs searchable command palette vs hybrid.
+2. Dockable/collapsible panels and whether floating panels are valuable or produce layout chaos in a web product.
+3. Typed SB Layers model vs generic Photoshop-style layer list.
+4. Workspace presets and user-saved workspace layouts.
+5. Budibase-like component tree and whether blocks should support controlled eject/decompose.
+6. n8n-like contextual add-node/add-component interaction directly from ports or insertion points.
+7. n8n-style collapsible connected groups for workflows/modules, including semantic-boundary constraints.
+8. Canva-style quick contextual toolbar + deeper inspector pattern.
+9. Multi-selection, grouping and alignment across frontend composition.
+10. The relationship between component tree, graph/canvas and typed Layers panel so they do not become three contradictory sources of structure.
+11. Searchable component/tool catalog with contextual ranking.
+12. Whether one central canvas can switch between Frontend/Workflow/Data/Infra layers or whether some layers require specialized work surfaces sharing the same shell.
+13. Semantic zoom from System -> layer -> module/block -> component.
+14. Keyboard/tool shortcuts inspired by creative software without making discoverability dependent on shortcuts.
+15. Inspect/Edit/Simulate/Preview/Operate/Audit workspace modes and safe transitions.
+16. User-role-specific workspace presets without confusing role visibility with authorization.
+
+## Initial synthesis
+
+The strongest candidate is **not** one universal free-form canvas.
+
+It is a Photoshop-like **stable editor shell** containing multiple specialized but interoperable tools:
+
+```text
+Stable Workspace Shell
+       +
+Toolbox
+       +
+Context Toolbar
+       +
+Dockable Panels
+       +
+Typed Layers/Lenses
+       +
+Specialized Work Surface
+       +
+Component/Block Catalog
+```
+
+The central work surface can behave differently depending on the active tool:
+
+```text
+Frontend      -> layout/component canvas
+Workflow      -> graph canvas
+Data          -> entity/relation/data-flow surface
+Architecture  -> capability/module graph
+Deployment    -> topology/placement surface
+Operations    -> observability/runtime surface
+```
+
+This preserves one learnable product workspace while avoiding the false assumption that every System Builder concern should use the same interaction grammar.
