@@ -2190,3 +2190,286 @@ responsive
 ```
 
 The ribbon is a compositional tool surface built from lower-level primitives, not a one-off shell implementation.
+
+## Main Composition Canvas — semantic 3D direction
+
+Decision status: `PLANNED G4 FRONTEND DIRECTION`
+
+The future main composition canvas should support a **semantic, guided and performance-bounded 3D mode**.
+
+The goal is architectural comprehension, not visual spectacle.
+
+`3D semantic != 3D decorative`.
+
+### Architectural split
+
+```text
+Next.js / React / TypeScript shell
+  ├─ Application Bar / Ribbon / Tool Rail / Inspector / Status Bar -> DOM
+  └─ Main Work Surface -> specialized 2D or 3D projection
+```
+
+The surrounding UI remains ordinary accessible React UI. The 3D renderer is limited to the work surface.
+
+### 3D semantic mapping
+
+Candidate geometric semantics:
+
+```text
+X axis
+  = module/context composition and horizontal relationships
+
+Y axis
+  = system floors/spheres
+    Business/Core
+    Workflow/Process
+    Data
+    Security/Governance
+    Deployment/Runtime
+    Infrastructure
+    Observability/Operations
+
+Z axis / radial depth
+  = semantic distance from the core
+    Core
+    Contracts/Ports
+    Providers/Bindings
+    Adapters/Drivers
+    Gateways/Views/External Providers
+```
+
+Cross-cutting capabilities may be represented as vertical shafts/elevators traversing several floors.
+
+Work progression and handoffs may be represented as corridors connecting valid doors/counters/gates.
+
+### Module representation
+
+A module remains one semantic identity.
+
+Candidate module interaction:
+
+```text
+Module Node
+  -> click
+Expanded Module Workbox
+  -> faces such as
+     Overview
+     Capabilities/Services
+     Entry Points/Counters
+     Contracts/Ports
+     Dependencies/Relations
+     Providers/Bindings
+     Adapters/Drivers
+     Plugins/Extensions
+     Configuration
+     Data
+     Events/Workflow
+     Security/Authority
+     Runtime/Deployment
+     Observability
+     Evidence/History
+```
+
+Horizontal `+` ports represent qualified composition/relationship opportunities with other modules.
+
+Vertical `+` ports represent additional manifestations of the same module across floors/spheres.
+
+`Horizontal composition != vertical manifestation`.
+
+### Doors, counters, corridors and gates
+
+```text
+Door
+  = admissible boundary / contract entry
+
+Counter
+  = service/action request surface exposed by the capability/module
+
+Corridor
+  = allowed or expected work progression
+
+Handoff
+  = explicit transfer of responsibility/control/context
+
+Gate
+  = prerequisite verification before progression
+
+Evidence
+  = proof that a required passage, acceptance or effect occurred
+```
+
+The 3D mode should be capable of showing these semantics without requiring all details to be rendered simultaneously.
+
+### Guided navigation
+
+The default 3D interaction should be guided rather than unrestricted CAD/game navigation.
+
+Candidate camera/view modes:
+
+```text
+ISOMETRIC
+TOP
+FRONT
+FLOOR
+MODULE
+CAPABILITY
+CORRIDOR
+```
+
+Orbit/free navigation may exist as an advanced mode, but should not be required for normal use.
+
+Selection and semantic identity must survive view changes.
+
+### Projection parity
+
+3D does not replace other maps.
+
+```text
+2D Composition
+3D Building/Onion
+Relation Graph
+Capability Map
+Corridor/Handoff Map
+Workflow Canvas
+Topology Map
+Floor View
+```
+
+All should remain projections of the same canonical model.
+
+`3D Canvas != canonical authority`.
+
+### Performance strategy
+
+Performance should be designed from the start around a bounded engineering visualization workload.
+
+Preferred escalation order:
+
+```text
+simple geometry
+-> selective labels/details
+-> semantic zoom / progressive disclosure
+-> instancing for repeated geometry
+-> level of detail
+-> clustering/aggregation
+-> viewport/frustum culling
+-> render-on-demand / minimal animation
+-> Web Worker for heavy layout/analysis
+-> renderer specialization only when measured
+```
+
+Explicitly avoid as default:
+
+```text
+realistic reflections
+volumetric lighting
+heavy particles
+depth of field
+motion blur
+complex PBR materials
+dynamic shadows everywhere
+continuous decorative animation
+```
+
+### Progressive disclosure
+
+Candidate detail levels:
+
+```text
+DISTANT
+  module/context silhouette and high-level status
+
+MID
+  module identity, capability participation, principal relations
+
+NEAR
+  doors, counters, ports, contracts, handoffs, gates, labels and state detail
+
+SELECTED
+  full inspector-backed semantic detail
+```
+
+Do not force all detail into the 3D surface. Deep configuration remains in the React inspector/right panel.
+
+### Candidate implementation research direction
+
+Stay inside the frontend decision:
+
+```text
+Next.js
++ React
++ TypeScript
++ specialized React-compatible 3D renderer
+```
+
+Candidate technologies may include Three.js / React Three Fiber, subject to benchmark and accessibility/maintainability review.
+
+This does not authorize package adoption or implementation.
+
+### Initial benchmark scenarios
+
+Research and prototype planning should include at least:
+
+```text
+NORMAL SCENE
+  50-200 modules
+  5-10 floors
+  hundreds of relations
+  hundreds of ports/handoffs
+  thousands of simple visible primitives
+
+STRESS SCENE
+  ~1000 modules
+  several thousand relations
+  forced aggregation/clustering
+```
+
+Desired UX properties:
+
+- navigation remains smooth enough for engineering work;
+- selection response feels immediate;
+- inspector response is immediate after selection;
+- hidden/reduced detail does not change semantics;
+- large scenes degrade through aggregation rather than interaction failure.
+
+### Accessibility and alternate representations
+
+Every meaningful 3D relationship must have a non-3D equivalent representation where practical.
+
+Provide:
+
+- keyboard-reachable selection;
+- textual/list representation of selected relations;
+- non-color semantic indicators;
+- alternate 2D/graph/table views;
+- meaningful focus behavior in the surrounding DOM UI;
+- no requirement for free-form camera control to complete a core task.
+
+### New planning invariants
+
+- `3D semantic != 3D decorative`.
+- `3D Canvas != canonical authority`.
+- `Rendering technology != computation technology`.
+- `3D mode != mandatory interaction mode`.
+- `Semantic identity survives projection changes`.
+- `Horizontal composition != vertical manifestation`.
+- `Capability shaft != ownership hierarchy`.
+- `Corridor != generic edge`.
+- `Door/Counter != arbitrary connection point`.
+- `Detail level may change; semantic meaning may not`.
+- `Large-scene degradation -> aggregation, not silent omission`.
+
+### Planning consequence
+
+Future frontend research packets should explicitly evaluate:
+
+1. 3D scene graph semantics for module/floor/radial depth representation.
+2. How module Workboxes expand without visual overload.
+3. Horizontal module ports vs vertical floor-manifestation ports.
+4. Doors/counters/corridors/gates/handoffs in 3D.
+5. Capability shafts across floors.
+6. Cross-projection identity preservation.
+7. Guided camera/navigation modes.
+8. LOD, instancing, clustering, culling and render-on-demand strategy.
+9. Accessibility and 2D/list fallbacks.
+10. Normal/stress performance benchmark definitions.
