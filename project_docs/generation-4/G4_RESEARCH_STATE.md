@@ -492,3 +492,16 @@ The most engineering-intensive frontend work is expected in proprietary System B
 Workflow, views, forms and components must share semantic bindings rather than becoming isolated visual editors. Preserve View != Workflow Activity; Form != Workflow State; Button != Domain Command; Component event != authorized action.
 
 Future WBS should avoid one monolithic frontend package and instead plan shared shell/primitives first, then proprietary application families, then cross-editor semantic integration and hardening.
+
+
+## Research addition — Pinned Monitoring Surfaces
+
+G4 now includes persistent desktop-resident monitoring surfaces for client/workspace-local observability.
+
+A Pinned Monitoring Surface is a configurable mosaic of widgets that can remain fixed inside a Desktop Sphere, with explicit edit/lock/minimize/maximize/fullscreen/secondary-display controls.
+
+It is distinct from the compact Desktop Observatory, the Operations Desktop and ordinary application windows.
+
+These surfaces should preserve layout/bindings and currentness semantics while using shared/suspendable telemetry rather than independent polling per widget.
+
+Hard boundaries: fixed layout != static data; pinned != semantic priority; monitoring surface != management application; visible widget != current evidence.
