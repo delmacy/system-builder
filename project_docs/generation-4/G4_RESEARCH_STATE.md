@@ -326,3 +326,16 @@ This extends rather than replaces the existing Ribbon, Tool Rail, Inspector, Com
 New performance/lifecycle rules include \`Module installed != Module loaded\`, \`Module loaded != Module rendered\`, \`Module rendered != actively updating\`, \`Window open != full processing active\`, \`Installed complexity != runtime UI cost\` and \`Inactive workspace -> suspend / aggregate / unload where safe\`.
 
 This remains research-only; it does not authorize implementation or adoption of a specific windowing/rendering framework.
+
+
+## Scope addition — Factory Module as dense fleet operations console
+
+G4 Product UX / Frontend now explicitly includes a **Factory Module** optimized for high-density multi-client operations rather than design-centric visualization.
+
+The Factory Module is researched as a combined fleet console, operations console and factory-governance surface. It should emphasize virtualized tables/treegrids, compact status matrices/heatmaps, filtering/grouping, exception-first triage, drill-down, bulk selection and bounded operational commands across clients, systems, environments, modules, hosts, deployments and root services.
+
+In-scope control research includes start/stop/restart, module/runtime restart, host stop/restart where supported, cordon/drain, enable/disable, pause/resume workers, scale, redeploy, rollback, reconcile, maintenance mode, quarantine/isolation, and qualified failover/promotion workflows. All actions remain provider/runtime-qualified and authority-bounded.
+
+Factory control preserves \`Observe != Control != Change != Deploy\`, \`Operation ACK != Operational Effect != Business Readiness\`, \`Bulk request != atomic fleet transaction\`, \`Aggregate health != every member healthy/current\`, \`Cross-client visibility != cross-client authority\`, \`Secret metadata != secret value\`, \`Can operate != can read credential\`, \`Root Service != Client Module\` and \`Factory control plane != client semantic owner\`.
+
+Detailed semantics, component inventory, bulk-action states, blast-radius preview, root-service handling and scale/performance hypotheses are maintained in \`research/G4_MAIN_COMPOSITION_CANVAS_3D_RESEARCH.md\`.
