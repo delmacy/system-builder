@@ -339,3 +339,14 @@ In-scope control research includes start/stop/restart, module/runtime restart, h
 Factory control preserves \`Observe != Control != Change != Deploy\`, \`Operation ACK != Operational Effect != Business Readiness\`, \`Bulk request != atomic fleet transaction\`, \`Aggregate health != every member healthy/current\`, \`Cross-client visibility != cross-client authority\`, \`Secret metadata != secret value\`, \`Can operate != can read credential\`, \`Root Service != Client Module\` and \`Factory control plane != client semantic owner\`.
 
 Detailed semantics, component inventory, bulk-action states, blast-radius preview, root-service handling and scale/performance hypotheses are maintained in \`research/G4_MAIN_COMPOSITION_CANVAS_3D_RESEARCH.md\`.
+
+
+## Benchmark addition — web desktop reference systems
+
+The OS-like frontend research now treats **Puter**, **OS.js** and **daedalOS** as priority external benchmarks.
+
+- Puter: modern web-desktop experience and window/taskbar/app integration.
+- OS.js: architectural benchmark for web-desktop window manager, application APIs, lifecycle/session services and React-capable app integration.
+- daedalOS: rich desktop-in-browser behavior, context menus, drag/drop and multi-window interaction.
+
+They are research references only: \`Benchmark != adoption\`, \`Similar interaction != copied visual identity\`, and external framework constraints do not define System Builder architecture.
