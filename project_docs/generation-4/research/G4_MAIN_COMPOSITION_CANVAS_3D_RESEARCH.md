@@ -402,3 +402,523 @@ Research continues testing create/edit/review/simulate/authorize/publish/operate
 3. Topology disclosure/security: what host/zone/instance/group membership may be shown to each authority/classification scope without leaking infrastructure.
 4. Empirical Componentes scenarios proving selection/focus/identity continuity across aggregate/explode/fallback.
 5. Live occurrence + deployment evolution: how pinned in-flight obligations interact with runtime placement/failover and successor design revisions.
+
+
+## OS-like product shell — modules as installed applications and windows
+
+Decision status: \`RESEARCH_DIRECTION / NON_EXECUTABLE\`
+
+The existing UI direction should be preserved, but the **product-shell metaphor should evolve toward an operating-system-like workspace**.
+
+This means an OS-style interaction model, not a decision to turn System Builder into an operating-system kernel.
+
+~~~
+OS-like interaction shell
+!=
+Operating-system kernel
+~~~
+
+The System Builder may present a persistent **System Desktop** in which modules behave like installed applications and each open module is represented by one or more windows.
+
+### Semantic separation
+
+The following identities must remain distinct:
+
+~~~
+ModuleDefinition
+!= ModuleInstallation
+!= ModuleActivation
+!= ModuleWindow
+!= DeploymentManifestation
+!= RuntimeInstance
+~~~
+
+Candidate meanings:
+
+~~~
+ModuleDefinition
+= semantic/product definition of the module/capability package
+
+ModuleInstallation
+= module admitted/available in the current Builder/system composition context
+
+ModuleActivation
+= module enabled/bound/configured for a SystemDefinition/revision
+
+ModuleWindow
+= interactive UI projection/session for working with that module
+
+DeploymentManifestation
+= realization of that module in a deployment topology
+
+RuntimeInstance
+= observed/effective execution instance
+~~~
+
+Closing a window must never uninstall, disable or undeploy the module.
+
+~~~
+Close Window
+!= Disable Module
+!= Uninstall Module
+!= Undeploy Runtime
+~~~
+
+### System Desktop
+
+Candidate shell:
+
+~~~
+APP BAR / GLOBAL COMMANDS
+RIBBON / CONTEXTUAL TABS
+
+┌─────────────────────────────────────────────────────────┐
+│ MODULE LAUNCHER / DOCK                                  │
+│                                                         │
+│  [Auth] [Workflow] [Data] [Documents] [Deployment]      │
+│                                                         │
+│        ┌──────────── Auth Window ────────────┐           │
+│        │                                     │           │
+│        │  module work surface / inspector    │           │
+│        └─────────────────────────────────────┘           │
+│                                                         │
+│   ┌──────── Workflow Window ────────┐                    │
+│   │                                │                    │
+│   └────────────────────────────────┘                    │
+│                                                         │
+│                 SYSTEM DESKTOP                          │
+└─────────────────────────────────────────────────────────┘
+
+TASKBAR / OPEN WINDOWS / BACKGROUND JOBS / STATUS
+~~~
+
+The current Ribbon, Tool Rail, Inspector and Status/Activity concepts remain valid.
+
+The OS-like shell changes how modules are **opened, arranged and switched**, not their semantic definitions.
+
+### Module Launcher / application catalog
+
+Installed modules may be discoverable through a launcher/catalog.
+
+Candidate states:
+
+~~~
+AVAILABLE
+INSTALLED
+ENABLED
+DISABLED
+CONFIGURATION_REQUIRED
+UPDATE_AVAILABLE
+INCOMPATIBLE
+DEPRECATED
+BLOCKED_BY_POLICY
+~~~
+
+These states must not be collapsed into deployment/runtime states.
+
+An installed module can be enabled in one system/revision and absent from another.
+
+### Module window
+
+Clicking a module from the launcher, tower, graph or relation surface may open a ModuleWindow.
+
+Candidate window anatomy:
+
+~~~
+TITLE BAR
+  module identity
+  system/revision context
+  floor/projection context
+  qualified lifecycle/currentness state
+
+LOCAL TOOL STRIP / CONTEXT
+  module-specific quick actions
+
+WORK SURFACE
+  Overview
+  Capabilities / Services
+  Contracts / Ports
+  Entry Points / Counters
+  Workflow
+  Data
+  Security
+  Runtime / Deployment
+  Observability
+  Evidence
+
+INSPECTOR / PROPERTIES
+  contextual detail
+
+STATUS
+  dirty / saving / stale / blocked / findings / jobs
+~~~
+
+A ModuleWindow is a projection. It does not own the module's canonical state.
+
+### Multiple windows of the same module
+
+A module may have several simultaneous windows where useful.
+
+Example:
+
+~~~
+Auth
+├─ Window A: Security / Policies
+├─ Window B: Workflow participation
+└─ Window C: Deployment topology
+~~~
+
+All windows reference the same module identity but may hold different workspace contexts.
+
+~~~
+Same Module
++ multiple ModuleWindows
+= multiple projections
+not multiple semantic modules
+~~~
+
+Cross-window updates must preserve revision/currentness semantics and must not overwrite dirty work silently.
+
+### Window manager semantics
+
+Candidate window states:
+
+~~~
+OPEN
+FOCUSED
+UNFOCUSED
+MINIMIZED
+MAXIMIZED
+DOCKED
+FLOATING
+SNAPPED
+SPLIT
+PINNED
+BACKGROUND
+RESTORING
+RECOVERING
+STALE_CONTEXT
+DIRTY
+READ_ONLY
+BLOCKED
+~~~
+
+Important:
+
+~~~
+Focused Window
+!= Selected Semantic Object
+
+Window Z-order
+!= Architectural priority
+
+Minimized
+!= Inactive module
+
+Closed
+!= Module stopped
+
+Pinned
+!= Authority elevation
+~~~
+
+### Docking, snapping and comparison
+
+The OS-like shell should support professional multi-window work.
+
+Candidate operations:
+
+- snap two module windows side by side;
+- dock a module window into a workspace;
+- compare two modules or two revisions;
+- keep an Inspector synchronized with the active window;
+- pin evidence/history alongside a working window;
+- drag a module window between workspaces without changing semantic ownership;
+- save/restore workspace layouts.
+
+Example:
+
+~~~
+┌──────────── Auth ────────────┬──────── Workflow ────────┐
+│ Contracts / Authority       │ Activities / Gates       │
+│                              │                          │
+├──────────────────────────────┼──────────────────────────┤
+│ Evidence / Currentness       │ Data Flow / Effects      │
+└──────────────────────────────┴──────────────────────────┘
+~~~
+
+### Ribbon integration
+
+The Office-style Ribbon remains global to the shell.
+
+The active/focused ModuleWindow contributes contextual tabs/commands.
+
+~~~
+Global Ribbon
+  +
+Focused Module Context
+  ->
+Contextual Ribbon Tabs
+~~~
+
+Example:
+
+~~~
+Focused Auth Window
+-> contextual tabs:
+   Auth
+   Contracts
+   Policies
+   Providers
+   Evidence
+
+Focused Workflow Window
+-> contextual tabs:
+   Workflow
+   Conditions
+   Effects
+   Recovery
+   Simulation
+~~~
+
+The same command must continue to come from the Command Registry.
+
+### 3D Canvas as desktop/system-map surface
+
+The semantic 3D canvas is preserved.
+
+It may operate as:
+
+1. a dedicated System Map application/window;
+2. a background spatial desktop mode;
+3. a docked workspace inside the shell;
+4. a topology/deployment projection opened alongside module windows.
+
+A tower click can open/focus the corresponding ModuleWindow.
+
+A ModuleWindow can offer:
+
+~~~
+Locate in 3D
+Open Floor
+Open Onion
+Open Dependencies
+Open Topology
+Open Evidence
+~~~
+
+Selection and identity remain synchronized between map and windows.
+
+~~~
+Tower
+<-> ModuleWindow
+<-> Graph Node
+<-> Workflow Projection
+<-> Deployment Manifestation
+~~~
+
+No projection becomes the canonical owner.
+
+### Installed-app metaphor and generated systems
+
+The installed-application metaphor should be evaluated at two levels:
+
+~~~
+Builder module installation
+!=
+generated client runtime dependency closure
+~~~
+
+The Builder may have a rich catalog of installed modules while a generated client system receives only the capabilities/dependencies required by its resolved SystemDefinition.
+
+Therefore:
+
+~~~
+Builder App Catalog breadth
+!= Client Runtime breadth
+~~~
+
+This preserves anti-lock-in and autonomous generated systems.
+
+### Module lifecycle vs UI lifecycle
+
+Candidate module lifecycle:
+
+~~~
+AVAILABLE
+-> INSTALLED
+-> CONFIGURED
+-> ENABLED
+-> BOUND
+-> READY
+-> UPDATED / MIGRATING
+-> DISABLED
+-> UNINSTALLED
+~~~
+
+This remains separate from window lifecycle:
+
+~~~
+CLOSED
+-> OPENING
+-> OPEN
+-> MINIMIZED / DOCKED / FLOATING
+-> CLOSING
+-> CLOSED
+~~~
+
+And separate from deployment lifecycle:
+
+~~~
+PLANNED
+-> DESIRED
+-> APPLYING
+-> OBSERVED
+-> EFFECTIVE
+-> DEGRADED / DRIFTED
+-> RECONCILING
+-> RETIRED
+~~~
+
+### Workspaces / virtual desktops
+
+The shell may research virtual-desktop-like workspace presets such as:
+
+~~~
+APPLICATION DESIGN
+PROCESS DESIGN
+DATA
+SECURITY
+DEPLOYMENT
+INFRASTRUCTURE
+OPERATIONS
+AUDIT / REVIEW
+FULL ENGINEERING
+~~~
+
+A workspace controls layout and visible tools/windows.
+
+~~~
+Workspace preset
+!= permission grant
+~~~
+
+The same module window may move between workspaces while preserving semantic identity.
+
+### Background modules and services
+
+Not every module requires a permanently visible window.
+
+Some modules may primarily expose background services/capabilities.
+
+The launcher can still represent them as installed applications, while opening their window reveals configuration, status, contracts, evidence and topology.
+
+~~~
+No foreground window
+!= module absent
+!= module inactive
+~~~
+
+### Notifications and background jobs
+
+The shell may include OS-like notification and background-job surfaces for:
+
+- builds;
+- validation;
+- reconciliation;
+- deployment;
+- imports/exports;
+- long-running workflow simulation;
+- provider checks;
+- module update/migration;
+- findings/evidence changes.
+
+Notification state must remain evidence-aware and must not imply business completion from transport/job ACK.
+
+### Candidate Componentes inventory additions
+
+Research and catalog:
+
+- SystemDesktop
+- ModuleLauncher
+- ModuleAppTile
+- ModuleInstallationBadge
+- ModuleWindow
+- ModuleWindowTitleBar
+- ModuleWindowDockTarget
+- ModuleWindowSnapZone
+- ModuleWindowTabs
+- ModuleWindowStatus
+- Taskbar
+- OpenWindowIndicator
+- BackgroundModuleIndicator
+- WorkspaceSwitcher
+- SavedWorkspaceLayout
+- WindowComparisonLayout
+- LocateInSystemMapAction
+- ModuleContextualRibbon
+- ModuleLifecycleIndicator
+
+### OS-like shell invariants
+
+- \`OS-like interaction shell != operating-system kernel\`.
+- \`ModuleDefinition != ModuleInstallation != ModuleWindow != RuntimeInstance\`.
+- \`Close Window != Disable != Uninstall != Undeploy\`.
+- \`Focused Window != Selected Semantic Object\`.
+- \`Window Z-order != Architectural priority\`.
+- \`Workspace preset != permission grant\`.
+- \`No foreground window != module inactive\`.
+- \`Builder App Catalog breadth != Client Runtime breadth\`.
+- \`Same Module + multiple windows != multiple semantic modules\`.
+- \`Window layout != system topology\`.
+- \`Dock/Snap != semantic relation\`.
+- \`UI lifecycle != module lifecycle != deployment lifecycle\`.
+
+### Adversarial cases for OS-like shell
+
+Research must attack:
+
+1. user closes a window and believes the module was stopped;
+2. minimizing a module hides a critical operational state;
+3. multiple windows edit different revisions of the same module;
+4. active window context silently changes the canonical revision;
+5. drag/snap is mistaken for semantic composition;
+6. window focus is confused with semantic selection;
+7. module installation is confused with deployment;
+8. rich Builder module catalog leaks into generated runtime dependency closure;
+9. background module has no visible operational/status entry point;
+10. module update changes contracts while old windows remain open;
+11. restored workspace opens stale revision/context;
+12. one window overwrites dirty work from another;
+13. permissions differ across windows but shell visually implies identical authority;
+14. taskbar status strengthens UNKNOWN/PARTIAL into healthy;
+15. too many windows recreate the same cognitive overload the canvas was meant to solve.
+
+### Working synthesis
+
+The interface can evolve into a **System Builder Operating Environment**:
+
+~~~
+SYSTEM BUILDER OPERATING ENVIRONMENT
+
+System Desktop
+├─ Installed Module Apps
+│  ├─ Module Windows
+│  ├─ Contextual Ribbon
+│  ├─ Work Surfaces
+│  └─ Inspector / Evidence
+│
+├─ System Map / 3D Canvas
+│  ├─ Floors
+│  ├─ Towers
+│  ├─ Onion
+│  ├─ Hubs
+│  └─ Deployment Basements
+│
+├─ Workspaces
+├─ Taskbar / Background Jobs
+├─ Notifications
+└─ Global Command Registry
+~~~
+
+This preserves all previous UI concepts while giving the suite a stronger, coherent interaction model: **modules are installed like applications, opened as windows, composed through explicit semantics, and projected into the shared system map without confusing UI layout with architectural truth**.
