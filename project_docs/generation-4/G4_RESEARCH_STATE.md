@@ -468,3 +468,16 @@ System-generated/provider-native YAML, Compose, Helm or service files are compil
 Secrets are generated/imported through Vault policy and injected through SecretRef bindings. Deployment may be partitioned into multiple Deployment Units/placement groups rather than one giant manifest.
 
 Preserve YAML/provider artifact != semantic definition; SecretRef != secret value; Automatic != hidden; Deployment Unit != physical server; Provider ACK != effective service.
+
+
+## Research addition — guided windowing and extended multi-display desktop
+
+G4 windowing now explicitly supports standardized application windows, tab groups, docking/snap/split layouts, linked-context window groups and saved layouts.
+
+Primary hierarchy remains Client -> Workspace -> Desktop Sphere -> Application -> Window -> View/Tab/Tool.
+
+A logical Workspace/Desktop may span multiple browser top-level surfaces/displays. Secondary browser windows/tabs act as DisplaySurfaces sharing the same workspace session, context and window registry, enabling dual-monitor workflows without treating each browser tab as an independent desktop.
+
+Window movement/detachment is presentation/session behavior only; it must not change client/system/revision/environment/authority. Closing/minimizing a window changes UI resource lifecycle, not the external service/runtime lifecycle.
+
+Preserve Desktop metaphor != unrestricted window chaos; Browser tab != SB tab; Display surface != Workspace; Docking != semantic dependency; Saved layout != permission grant.
