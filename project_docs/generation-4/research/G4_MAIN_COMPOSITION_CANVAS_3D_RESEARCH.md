@@ -3364,3 +3364,196 @@ Candidate sequence:
 10. Hardening, accessibility, performance and evidence.
 
 This ordering is research guidance, not an implementation authorization or fixed schedule.
+
+
+## Pinned Monitoring Surfaces — persistent observability mosaics inside a Desktop
+
+Decision status: ACTIVE_G4_RESEARCH / NON_EXECUTABLE
+
+The System Builder Desktop should support persistent monitoring surfaces designed to remain visible inside a client/workspace desktop for long-running local observability.
+
+This surface is distinct from a normal application window, browser page or transient dashboard.
+
+Candidate identity:
+
+~~~
+PinnedMonitoringSurface
+= persistent desktop-resident observability composition
+~~~
+
+Typical use:
+- local client health;
+- host/server health;
+- runtime/process state;
+- Docker/container state;
+- service availability;
+- storage/capacity;
+- network/VPN/DNS;
+- incidents/alerts;
+- workflow/job health;
+- database/queue/backlog;
+- deployment/currentness/drift.
+
+### Interaction model
+
+The user can open the monitoring surface from a desktop icon/application and compose it as a mosaic of observability widgets.
+
+Candidate behavior:
+
+~~~
+open Monitoring Surface
+-> compose widgets
+-> arrange mosaic
+-> save layout
+-> pin surface to Desktop
+-> keep visible/persistent
+~~~
+
+Once pinned, ordinary window activity should not accidentally hide or destroy it.
+
+Minimize/maximize/restore/detach should require an explicit control or menu action appropriate to the monitoring surface.
+
+### Persistent but not immutable
+
+Fixed means layout and presence are intentionally persistent, not that the content is static.
+
+~~~
+fixed position/layout
++ dynamic telemetry
++ live state/currentness
+~~~
+
+The user may edit the surface through a dedicated edit mode.
+
+### Monitoring Surface Editor
+
+Research a dedicated editor for these mosaics.
+
+Candidate capabilities:
+- add/remove widget;
+- resize widget;
+- reorder/layout;
+- bind widget to host/service/app/metric;
+- choose aggregation;
+- choose refresh/currentness policy;
+- set thresholds/severity presentation;
+- save presets;
+- clone layout;
+- switch between edit and monitor mode;
+- lock layout;
+- full-screen mode;
+- dual-display placement;
+- permissions for editing vs viewing.
+
+### Display modes
+
+Candidate modes:
+- PINNED_DESKTOP;
+- MAXIMIZED;
+- FULLSCREEN;
+- SECONDARY_DISPLAY;
+- MINIMIZED;
+- BACKGROUND;
+- EDIT_MODE.
+
+### Relationship to Desktop Observatory
+
+Preserve two levels:
+
+~~~
+Desktop Observatory
+= compact always-visible contextual summary
+
+Pinned Monitoring Surface
+= larger persistent configurable mosaic
+~~~
+
+The Observatory provides quick context. The Monitoring Surface provides a sustained operational view.
+
+### Relationship to Operations Desktop
+
+A monitoring surface can live inside any Desktop Sphere where local health matters, while Operations & Observability remains the dedicated deep-analysis desktop.
+
+Therefore:
+
+~~~
+Pinned Monitoring Surface
+!= Operations Desktop
+!= Observatory strip
+!= management application
+~~~
+
+### Example
+
+~~~
+INFRASTRUCTURE DESKTOP
+
++--------------------------------------------------+
+| Server Manager | Docker | Network | ...          |
+|                                                  |
+| +---------------- MONITOR WALL ----------------+ |
+| | Host A OK       Host B DEGRADED              | |
+| | Docker 12/12    Storage 71%                  | |
+| | VPN OK          DNS OK                       | |
+| | DB READY        n8n 3 running / 1 failed    | |
+| +----------------------------------------------+ |
+|                                                  |
+| Desktop Observatory: short contextual summary   |
++--------------------------------------------------+
+~~~
+
+### Persistence
+
+Monitoring layout should be restorable per client/workspace/desktop and optionally per user.
+
+Persist:
+- widget composition;
+- bindings;
+- layout;
+- display mode;
+- pinned state;
+- selected time range where relevant;
+- display assignment;
+- locked/unlocked state.
+
+Do not persist telemetry snapshots as if they were canonical truth.
+
+### Currentness and evidence
+
+Every widget must preserve currentness and evidence semantics.
+
+~~~
+VISIBLE widget != current data
+PINNED != continuously refreshed
+NO ALERT != healthy
+LAST KNOWN GOOD != current
+~~~
+
+Inactive/hidden surfaces may reduce telemetry refresh, but the UI must show STALE/UNKNOWN where evidence is no longer current.
+
+### Performance
+
+Because monitoring surfaces can remain open for long periods:
+- shared telemetry subscriptions;
+- aggregation;
+- bounded refresh;
+- virtualized/high-volume lists;
+- render throttling;
+- pause offscreen animations;
+- background resource policy;
+- avoid one polling loop per widget.
+
+### Componentes additions
+
+PinnedMonitoringSurface, MonitoringSurfaceEditor, MonitoringMosaic, MonitoringWidgetSlot, MonitoringLayoutPreset, MonitoringEditMode, MonitoringLockState, MonitoringDisplayAssignment, MonitoringFullscreenMode, MonitoringCurrentnessOverlay and MonitoringSurfaceLauncher.
+
+### Invariants
+
+- Pinned != semantic priority.
+- Fixed layout != static data.
+- Pinned surface != service runtime.
+- Monitoring surface != management application.
+- Observatory summary != monitoring mosaic.
+- Hidden/minimized surface != stopped telemetry source.
+- Saved monitoring layout != canonical operational state.
+- Visible widget != current evidence.
