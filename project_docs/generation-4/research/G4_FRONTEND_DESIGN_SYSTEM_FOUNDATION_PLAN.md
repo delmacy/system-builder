@@ -2809,3 +2809,26 @@ Preserve:
 \`React renderer != module/window semantic authority\`.
 
 \`External window library != System Builder semantic owner\`.
+
+
+## Research obligation — application portfolio and mature-tool reuse
+
+Frontend planning must produce an **Application Portfolio Matrix** instead of assuming every capability becomes a page or every module becomes exactly one application.
+
+Required distinctions:
+
+~~~
+Module != Capability != Application != Window
+~~~
+
+Classify candidates as NATIVE_SB_APP, API_BACKED_SB_APP, EMBEDDED_EXTERNAL_APP, PROXIED_EXTERNAL_APP, DEEPLINK_EXTERNAL_APP, NATIVE_BRIDGE_APP or HYBRID_APP.
+
+Priority candidate applications include System Map, Workflow Designer, Data Modeler, API/Contract Explorer, Identity & Access, Secrets, Network Configurator, Docker/Container Manager, Task/Process Manager, Server Manager, Storage Manager, Database Administration, Terminal, Logs, Observability, Deployment/Release Manager, Build/Artifacts, Factory/Fleet, Templates and Root Services.
+
+Research mature-tool reuse explicitly:
+- Docker Engine API/SDK and version negotiation;
+- Portainer API/provider and safe UI/deep-link integration;
+- Cockpit/NetworkManager/system administration components and supported embedding;
+- analogous mature tools for observability, databases, storage and other infrastructure domains where appropriate.
+
+Never weaken CSP/origin/auth boundaries merely to force an external UI into a window. Prefer official APIs/documented integration surfaces and deep-link fallbacks over private/fragile UI reuse.
