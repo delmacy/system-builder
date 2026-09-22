@@ -1499,3 +1499,269 @@ Additional proof obligations:
 5. Adaptive ranking cannot silently reorder stable user landmarks or move focus.
 6. Essential graph relations have a non-spatial inspection/navigation path.
 7. Primitive-base exceptions require documented coverage evidence.
+
+
+## Mandatory Component Inventory Page
+
+The future System Builder frontend must maintain a first-class page named **Componentes**.
+
+This is not only documentation. It is the canonical **UI inventory / component catalog surface** for every reusable visual element already created in the product, from the smallest primitive to complete composed work surfaces.
+
+Candidate route/name:
+
+```text
+Componentes
+```
+
+Possible technical route later:
+
+```text
+/components
+```
+
+The route is not binding yet; the product-facing name **Componentes** is.
+
+### Purpose
+
+```text
+Discover
+Inspect
+Compare
+Test
+Reuse
+Compose
+Verify
+Document
+```
+
+The page should answer:
+
+- What UI elements already exist?
+- At what composition level?
+- Which variants/states exist?
+- Which modules/workspaces use them?
+- What can be composed from them?
+- What is stable, experimental, deprecated or superseded?
+- What are the accessibility and interaction expectations?
+- What theme/motion/icon tokens does the element consume?
+
+### Inventory hierarchy
+
+The page must preserve the UI composition ladder:
+
+```text
+L0 TOKENS
+L1 PRIMITIVES
+L2 COMPONENTS / PATTERNS
+L3 DOMAIN BUILDING BLOCKS
+L4 MODULE COMPONENTS
+L5 TOOLS / WORKSPACES / CANVASES
+```
+
+Examples:
+
+```text
+Badge
+StatusBadge
+Button
+Input
+Card
+Panel
+FormField
+FormSection
+EntityForm
+DataTable
+Inspector
+Toolbox
+WorkflowNode
+WorkflowCanvas
+TopologyWorkspace
+SystemMap
+```
+
+A complete Canvas/Workspace is still a component in the broad inventory sense and must remain inspectable from the same catalog, even if it is rendered through a dedicated preview surface.
+
+### Component record
+
+Every reusable UI element should eventually expose metadata similar to:
+
+```text
+ComponentRecord
+  id
+  name
+  category
+  compositionLevel
+  status
+  description
+  visualPreview
+  variants[]
+  states[]
+  dependencies[]
+  tokenRefs[]
+  iconRefs[]
+  accessibilityNotes[]
+  usedBy[]
+  composedOf[]
+  relatedComponents[]
+  version/revision
+  sourceLocation
+  testEvidence[]
+```
+
+This metadata is a UI/documentation registry and does not become business-domain canonical truth.
+
+### Page interaction
+
+Candidate layout:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ Componentes | Search | Level | Category | Status | Theme   │
+├──────────────┬──────────────────────────────┬───────────────┤
+│ Inventory    │ Preview / Gallery            │ Inspector     │
+│              │                              │               │
+│ Tokens       │ selected component rendered  │ metadata      │
+│ Primitives   │ all states/variants          │ usage         │
+│ Patterns     │ interaction demo             │ composition   │
+│ Blocks       │ responsive/dark/light        │ a11y/tests    │
+│ Modules      │                              │ source refs   │
+│ Workspaces   │                              │               │
+└──────────────┴──────────────────────────────┴───────────────┘
+```
+
+The user should be able to:
+
+```text
+search
+filter
+group
+preview
+toggle light/dark
+toggle density
+toggle reduced motion
+inspect all states
+inspect responsive behavior
+see composed-of / used-by
+open source/registry metadata
+copy/use the element in an eligible composition context
+```
+
+### Component lineage
+
+The inventory should make composition lineage visible:
+
+```text
+Button
+ + Input
+ + Label
+    ↓
+FormField
+    ↓
+FormSection
+    ↓
+EntityForm
+    ↓
+Frontend Form Tool
+    ↓
+Application Workspace
+```
+
+And in graph tooling:
+
+```text
+Port
+ + NodeCard
+ + StatusBadge
+    ↓
+WorkflowNode
+    ↓
+DecisionBlock
+    ↓
+WorkflowCanvas
+```
+
+This enables developers and users to understand how complex tools are built from smaller reusable units.
+
+### UI Lab relationship
+
+The previously proposed `UI Lab` should not become a separate competing concept.
+
+Candidate resolution:
+
+```text
+Componentes
+  ├ Catalog
+  ├ Gallery
+  ├ Playground
+  ├ States
+  ├ Accessibility
+  ├ Responsive
+  ├ Theme
+  └ Composition lineage
+```
+
+In other words, **Componentes becomes the permanent product-facing evolution of the UI Lab idea**.
+
+### Governance
+
+Rules:
+
+```text
+New reusable UI element
+  -> register in Componentes inventory
+
+New variant/state
+  -> visible in Componentes
+
+New composed block
+  -> composedOf lineage visible
+
+New module component
+  -> usedBy/owner metadata visible
+
+Deprecated component
+  -> never silently disappears from inventory history
+```
+
+Candidate lifecycle:
+
+```text
+EXPERIMENTAL
+CANDIDATE
+STABLE
+DEPRECATED
+SUPERSEDED
+```
+
+Component lifecycle status is about the UI artifact, not business-system runtime status.
+
+### Generated systems
+
+Research whether generated client systems should optionally expose a **Componentes** page in development/admin mode.
+
+Possible model:
+
+```text
+System Builder
+  -> complete component inventory
+
+Generated runtime (development/admin)
+  -> only component dependency closure used by that system
+```
+
+This would preserve the suite principle:
+
+`Available Component Set != Runtime Component Set`.
+
+### Proof obligations
+
+1. Every reusable component can be discovered from the Componentes inventory.
+2. The inventory spans primitive -> component -> block -> module -> workspace/canvas.
+3. Component previews do not become separate production implementations.
+4. Previewed state matches the actual component implementation/revision being cataloged.
+5. Deprecated/superseded UI elements remain traceable.
+6. Theme, density, responsive and reduced-motion behaviors are testable from the inventory.
+7. Composition lineage remains inspectable.
+8. Generated systems need only carry inventory/runtime material for their dependency closure unless explicitly configured otherwise.
+9. Component catalog metadata does not become canonical business truth.
+10. The Componentes page can serve as a regression and design-review surface for future UI development.
