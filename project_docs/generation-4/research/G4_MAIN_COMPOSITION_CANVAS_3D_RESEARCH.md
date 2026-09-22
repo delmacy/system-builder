@@ -900,3 +900,118 @@ Research:
 - bounded live telemetry.
 
 The Factory Module should remain usable as the estate grows from tens to hundreds or thousands of client systems without requiring all detailed telemetry to be mounted simultaneously.
+
+
+## Priority benchmarks — Puter, OS.js and daedalOS
+
+Decision status: \`PRIORITY_RESEARCH_BENCHMARKS / NOT TECHNOLOGY SELECTION\`
+
+The OS-like frontend research should explicitly benchmark **Puter**, **OS.js** and **daedalOS**.
+
+These references are used to extract portable interaction/architecture patterns. They do not authorize copying trade dress, adopting their architecture wholesale, or selecting their code/frameworks.
+
+### Puter — modern web-desktop experience benchmark
+
+Research role:
+
+- modern browser-desktop interaction;
+- window creation and management;
+- resizable windows;
+- minimize/maximize/title/taskbar behavior;
+- desktop integration;
+- app-like launch model;
+- notifications/dialogs;
+- multi-window experience;
+- perceived responsiveness and progressive loading.
+
+Primary evidence indicates Puter exposes UI APIs for creating windows with title/head, resize, positioning and taskbar representation, making it a useful benchmark for the System Builder ModuleWindow/WindowManager interaction contract.
+
+SB research questions:
+
+- what interaction grammar makes windows feel native without becoming a fake OS?
+- how does taskbar/window discoverability scale?
+- how should multi-window state be persisted/restored?
+- which window controls belong to the global shell vs module?
+- how should background apps/windows expose notifications and jobs?
+- what can be learned without coupling SB to Puter runtime semantics?
+
+### OS.js — architecture/window-manager benchmark
+
+Research role:
+
+- open-source web-desktop platform architecture;
+- window manager;
+- application APIs;
+- GUI toolkit;
+- application lifecycle;
+- service/provider structure;
+- session/application restoration;
+- window containers hosting arbitrary DOM/framework content;
+- React integration patterns;
+- shared shell services.
+
+OS.js documentation explicitly describes a web desktop platform with window manager, application APIs, GUI toolkit and filesystem abstractions; its application/window APIs and React examples make it a priority architectural benchmark.
+
+SB research questions:
+
+- how should ModuleWindow be separated from ModuleDefinition/ModuleInstallation?
+- which services belong to the shell rather than every module?
+- how should process/application lifecycle differ from window lifecycle?
+- how should session restore bind revision/environment/currentness?
+- how should module packages register commands/windows/components?
+- which OS.js concepts are too OS-specific for SB and must not be imported?
+
+### daedalOS — interaction richness / desktop-behavior benchmark
+
+Research role:
+
+- browser desktop behavior;
+- task/window interaction;
+- context menus;
+- file/app association analogies;
+- drag/drop;
+- multiple application windows;
+- desktop navigation;
+- visual density;
+- realistic end-user desktop feel.
+
+The project identifies itself as a desktop environment in the browser and provides rich desktop/app interaction patterns.
+
+SB research questions:
+
+- which behaviors improve discoverability and spatial memory?
+- which behaviors create novelty but not engineering value?
+- how should context menus/window chrome remain consistent?
+- how should desktop freedom degrade on small screens?
+- what interaction patterns become cognitive overload in a professional engineering environment?
+
+### Comparative benchmark matrix
+
+The research should maintain a comparison across at least:
+
+| Dimension | Puter | OS.js | daedalOS | SB implication |
+| --- | --- | --- | --- | --- |
+| Window manager behavior | research | research | research | ModuleWindow contract |
+| App/module launcher | research | research | research | ModuleLauncher |
+| Taskbar/open windows | research | research | research | Taskbar |
+| Multiple windows/app | research | research | research | same module, multiple projections |
+| Session/layout restore | research | research | research | revision-safe restore |
+| Background app behavior | research | research | research | suspend/jobs/notifications |
+| React/framework integration | inspect | strong benchmark | inspect | shell/module integration |
+| Desktop navigation | strong benchmark | architectural | strong benchmark | SystemDesktop |
+| Performance/lazy loading | inspect | inspect | inspect | lifecycle budgets |
+| Accessibility | inspect critically | inspect critically | inspect critically | SB must exceed benchmark where needed |
+| Small-screen fallback | inspect | inspect | inspect | tabs/stacks instead of free windows |
+| Extensibility/app registration | inspect | strong benchmark | inspect | module installation model |
+
+### Benchmark rules
+
+- \`Benchmark != adoption\`.
+- \`Similar interaction != copied visual identity\`.
+- \`Web desktop behavior != semantic authority\`.
+- \`App lifecycle != module lifecycle != deployment lifecycle\`.
+- \`Window manager convenience != permission model\`.
+- \`Desktop freedom != mandatory free-form layout\`.
+- \`External framework limitation != SB architectural limitation\`.
+
+Research should extract principles, state machines, lifecycle patterns, failure cases, performance strategies and accessibility gaps, then reconcile them with the existing System Builder invariants.
