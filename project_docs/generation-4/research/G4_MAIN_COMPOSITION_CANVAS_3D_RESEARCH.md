@@ -117,6 +117,99 @@ A grouping qualification must name the protected failure domain and policy. Cand
 
 `AVAILABILITY_PAIR`, `ACTIVE_ACTIVE`, `ACTIVE_PASSIVE`, `REPLICA_SET`, `WORKER_POOL`, `SHARD_GROUP`, `REGIONAL_REPLICA_GROUP` and `VISUAL_GROUP_ONLY` are candidate relation kinds. Their labels do not themselves prove availability, failover, synchronization or contract equivalence. A group carries an explicit guarantee/policy qualification rather than deriving it from the group kind.
 
+## Stateful groups require role/identity/consensus semantics
+
+External evidence sharpens the distinction between stateless replicas and stateful members. Kubernetes StatefulSet preserves sticky per-member identity, stable network/storage identity and ordered deployment/update behavior; its members are explicitly not interchangeable in the same way as ordinary stateless replicas. Partitioned rolling updates can intentionally keep lower ordinals on an old version while higher ordinals run a new version. A ZooKeeper ensemble further demonstrates that a set of healthy-looking members is not enough for write availability: leader election and quorum are required before writes can be acknowledged/visible.
+
+Portable UI consequence:
+
+```text
+STATELESS_REPLICA_SET
+!=
+STATEFUL_MEMBER_SET
+!=
+QUORUM_GROUP
+!=
+SHARD_GROUP
+```
+
+A stateful topology group therefore needs candidate dimensions beyond replica compatibility:
+
+- `memberIdentity` / ordinal or equivalent stable role identity;
+- `storageIdentity` and attachment/currentness where relevant;
+- `role`: LEADER / FOLLOWER / CANDIDATE / LEARNER / UNKNOWN / provider-specific qualified role;
+- `termEpochGeneration` where the protocol exposes one;
+- `votingEligibility`;
+- `quorumRequirement` and current quorum evidence;
+- `writeAuthority` / effect authority;
+- `readAdmissibility` and consistency profile;
+- `replicationProgress` / lag / UNKNOWN;
+- `shardOwnership` / partition ownership where applicable;
+- `fencingEvidence` for displaced leaders/owners;
+- `memberRevision` / contract profile / semantic generation;
+- `memberHealth` separately from semantic role/admissibility.
+
+Hard rules:
+
+```text
+READY != VOTING
+HEALTHY != LEADER
+LEADER_LABEL != CURRENT_WRITE_AUTHORITY
+REPLICA_PRESENT != QUORUM
+QUORUM != ALL_MEMBERS_CURRENT
+STABLE_MEMBER_IDENTITY != RUNTIME_PROCESS_IDENTITY
+SHARD_MEMBERSHIP != SHARD_OWNERSHIP
+FAILOVER != SAFE_PROMOTION
+```
+
+The Canvas should therefore avoid rendering a stateful group as symmetric twin towers unless the chosen projection intentionally suppresses role differences and a peer representation exposes them. A candidate `StatefulGroupCrown` may show logical group identity while member crowns/badges expose role, epoch/currentness and storage/shard attachment. The crown remains projection, never consensus authority.
+
+### Split-brain and promotion
+
+When evidence indicates two simultaneous leaders/owners for a single-writer invariant, the UI must not pick a winner from recency, geometry or health. Candidate disposition: `CONFLICTING_AUTHORITY / SPLIT_BRAIN_SUSPECTED`, with explicit fencing/reconciliation required. If authority evidence is incomplete, use `UNKNOWN_AUTHORITY`, not a green leader badge.
+
+Promotion sequence must remain evidence-separated:
+
+```text
+PROMOTION_DESIRED
+-> PROMOTION_ACKNOWLEDGED
+-> OLD_AUTHORITY_FENCED ?
+-> NEW_ROLE_OBSERVED
+-> QUORUM/REPLICATION QUALIFIED ?
+-> EFFECTIVE_WRITE_AUTHORITY
+```
+
+No intermediate state implies the final one.
+
+## Rolling coexistence changes SharedContractSurface semantics
+
+Partitioned/staged StatefulSet updates provide a concrete benchmark for mixed revisions intentionally coexisting inside one logical group. Therefore a logical crown may remain shared while a contract surface must be revision/profile-qualified.
+
+Candidate rule:
+
+```text
+same logical group/service
++ mixed implementation/member revisions
+=> LogicalServiceCrown may remain unified
+=> SharedContractSurface only remains unified for the declared common admissible guarantee/profile intersection
+```
+
+If consumers are pinned to different semantic profiles, the UI should split or facet the contract surface by profile rather than imply one current surface. `Latest member revision` is not automatically the group's effective contract. A rolling update may be `PARTIAL_ROLLOUT` while service remains effective for an older common profile.
+
+Candidate rolling states:
+
+- `ROLLOUT_STAGED`;
+- `ROLLOUT_IN_PROGRESS`;
+- `MIXED_REVISION_EFFECTIVE`;
+- `PARTIAL_ROLLOUT`;
+- `ROLLOUT_BLOCKED`;
+- `ROLLBACK_REQUIRED`;
+- `ROLLBACK_IN_PROGRESS`;
+- `ROLLOUT_RECONCILED`;
+- `CONTRACT_PROFILE_DRIFT`.
+
+A failed member becoming non-ready can halt an ordered rollout; rollback itself may require additional repair. UI recovery semantics therefore cannot reduce rollback to a single reversible animation.
+
 ## Logical crown and shared contract surface
 
 `LogicalServiceCrown` projects one logical identity above multiple manifestations/instances. It is not a runtime owner.
@@ -163,6 +256,8 @@ Required properties:
 - reduced motion removes travel/animation, not semantic feedback;
 - basement split/reveal has a DOM disclosure equivalent.
 
+Stateful-group peer representations must additionally expose member identity, role, revision/profile, storage/shard attachment, quorum contribution and authority/currentness without relying on tower position or color. Treegrid remains a candidate because navigation focus and selection can be modeled separately; role/action cells need explicit editing/action mode rather than stealing navigation keys.
+
 ## Hub locality and transport
 
 Candidate topology hub classes remain `INTRA_HOST_HUB`, `INTER_HOST_HUB`, `EXTERNAL_PROVIDER_HUB`, `CROSS_SYSTEM_HUB`.
@@ -174,6 +269,8 @@ Placement can change realization (in-process, IPC, HTTP/gRPC, queue/broker, stre
 Topology can be arranged by Server/Host, Module, Capability, Availability Group, Environment, Region/Zone, System or Deployment Unit. Arrangement changes representation, not identity.
 
 At distance, replica groups may collapse into aggregate cards/towers. Near/selected views may explode members/basements. Aggregation must preserve a representation floor for selected/focused identity, critical drift, UNKNOWN effect/currentness and disclosure-safe navigation.
+
+For stateful groups, aggregate LOD must preserve at least: conflicting/unknown authority, quorum loss/unknown, mixed revision/profile, material replication lag/unknown, shard ownership conflict and fencing-required status. A green aggregate cannot be computed from majority health if a protected invariant is violated.
 
 Preferred rendering research remains simple geometry, selective labels, semantic zoom, instancing, LOD, clustering/aggregation, culling, render-on-demand, label virtualization and workers for heavy layout/analysis before specialization. Renderer performance state is distinct from system health. Environment/viewport/DPR/browser/refresh/cold-warm/degradation are benchmark evidence dimensions; no global FPS number defines semantic qualification.
 
@@ -196,16 +293,16 @@ C0 tokens
 
 Topology-specific placement:
 
-- C3: `DeploymentManifestationRef`, `HostPlacementRef`, `PlacementStateVector`, `GroupingCompatibilityVector`, `TopologyDragIntent`;
-- C4: `ServerBasement`, `DeploymentTower`, `TowerReplica`, `GroupingCandidate`, `PlacementLink`, `PlacementDriftIndicator`;
-- C5/C6: `GroupingCompatibilityInspector`, `DeploymentImpactPreview`, topology-aware Inspector/commands;
+- C3: `DeploymentManifestationRef`, `HostPlacementRef`, `PlacementStateVector`, `GroupingCompatibilityVector`, `TopologyDragIntent`, `StatefulMemberRef`, `RoleAuthorityState`, `QuorumState`, `RevisionProfileFacet`;
+- C4: `ServerBasement`, `DeploymentTower`, `TowerReplica`, `GroupingCandidate`, `PlacementLink`, `PlacementDriftIndicator`, `StatefulMemberTower`, `ShardOwnershipIndicator`, `AuthorityConflictIndicator`;
+- C5/C6: `GroupingCompatibilityInspector`, `DeploymentImpactPreview`, `StatefulGroupInspector`, `PromotionImpactPreview`, topology-aware Inspector/commands;
 - C7: Topology WorkSurface;
 - C8+: complete topology workspace/task orchestration;
-- cross-cutting successor patterns: `TwinTowerGroup`, `AvailabilityGroup`, `LogicalServiceCrown`, `SharedContractSurface` only after lower contracts qualify them.
+- cross-cutting successor patterns: `TwinTowerGroup`, `AvailabilityGroup`, `LogicalServiceCrown`, `SharedContractSurface`, `StatefulGroupCrown` only after lower contracts qualify them.
 
 ## Componentes impact
 
-The permanent Componentes research inventory must include state/scenario records for ServerBasement/ServerBasementSplit, DeploymentTower/TowerReplica, TwinTowerGroup/AvailabilityGroup, LogicalServiceCrown/SharedContractSurface, PlacementLink and Desired/Observed/Effective indicators, PlacementDriftIndicator, GroupingCandidate/GroupingCompatibilityInspector, DeploymentImpactPreview, TopologyDragIntent and non-drag command alternatives, aggregate/LOD representation, ambiguous runtime-instance identity, failure-domain grouping qualification, cross-zone/cross-region grouping, stale compatibility evidence, telemetry resolved only to logical service, and renderer pressure/fallback/recovery.
+The permanent Componentes research inventory must include state/scenario records for ServerBasement/ServerBasementSplit, DeploymentTower/TowerReplica, TwinTowerGroup/AvailabilityGroup, LogicalServiceCrown/SharedContractSurface, PlacementLink and Desired/Observed/Effective indicators, PlacementDriftIndicator, GroupingCandidate/GroupingCompatibilityInspector, DeploymentImpactPreview, TopologyDragIntent and non-drag command alternatives, aggregate/LOD representation, ambiguous runtime-instance identity, failure-domain grouping qualification, cross-zone/cross-region grouping, stale compatibility evidence, telemetry resolved only to logical service, renderer pressure/fallback/recovery, StatefulMemberRef/StatefulMemberTower, RoleAuthorityState, QuorumState, ShardOwnershipIndicator, AuthorityConflictIndicator, RevisionProfileFacet, StatefulGroupInspector and PromotionImpactPreview.
 
 Metadata/evidence preserves component identity, composition level, states/transitions, `composedOf/usedBy`, revision/source/test evidence, environment profile where performance-relevant and scenario-specific proof disposition.
 
@@ -226,6 +323,16 @@ Metadata/evidence preserves component identity, composition level, states/transi
 13. Same service name across incompatible tenant/classification scopes is grouped.
 14. Basement/host becomes semantic owner of the module.
 15. Cross-region placement changes transport characteristics and UI incorrectly reports a contract change.
+16. Stateful members are rendered as interchangeable stateless replicas despite stable storage/network identity.
+17. Healthy follower is rendered as write-authoritative.
+18. Leader label from stale evidence is treated as current write authority.
+19. Majority member health is rendered as quorum despite voting/role uncertainty.
+20. Two leaders are resolved visually by newest timestamp rather than explicit fencing/reconciliation evidence.
+21. Shard membership is rendered as ownership.
+22. Mixed rolling revisions are flattened into one latest SharedContractSurface.
+23. Rollout ACK/progress is rendered as semantic-profile activation for all members.
+24. Rollback animation implies old authority/security/profile automatically restored.
+25. Aggregate LOD hides quorum loss, authority conflict or mixed-profile state.
 
 ## Proof obligations added by this synthesis
 
@@ -244,6 +351,16 @@ Metadata/evidence preserves component identity, composition level, states/transi
 13. Group-kind labels never become guarantee proof.
 14. Runtime restart/re-instancing preserves resolvable logical/manifestation identity lineage without preserving a false instance identity.
 15. Compatibility evidence is invalidated/requalified when material revision/currentness/failure-domain facts change.
+16. Stateful stable member identity remains distinct from transient runtime/process identity and host placement.
+17. Role/leader observation never becomes write authority without current authority/fencing/quorum qualification required by the protected invariant.
+18. Replica/member presence or health never fabricates quorum.
+19. Split-brain/conflicting ownership remains explicitly representable and cannot be visually auto-resolved.
+20. Shard ownership is separately evidenced from group membership.
+21. Rolling coexistence can preserve one logical crown while exposing multiple revision/profile facets.
+22. SharedContractSurface exposes only a qualified common admissible guarantee/profile; it does not inherit the numerically latest member revision.
+23. Rollout/rollback progress remains separate from effective semantic-profile and authority transitions.
+24. Stateful-group aggregate LOD preserves quorum/authority/shard/revision conflicts and UNKNOWN states.
+25. Non-spatial peer projections expose stateful member role, identity, revision/profile and authority without color/position-only meaning.
 
 ## Complete-task scenarios to retain
 
@@ -258,22 +375,30 @@ Research continues testing create/edit/review/simulate/authorize/publish/operate
 - partial deployment success -> preserve desired/observed split and unknown effects;
 - renderer failure -> 2D/textual fallback -> preserve selection/draft -> recover 3D;
 - cross-projection handoff Topology <-> Module <-> Evidence preserving identity/revision/currentness;
-- large replica set -> aggregate -> inspect critical member -> explode/reaggregate without semantic omission.
+- large replica set -> aggregate -> inspect critical member -> explode/reaggregate without semantic omission;
+- stateful leader fails -> promotion desired -> old authority fencing unknown -> remain non-effective/blocked rather than declaring success;
+- quorum loss with healthy minority -> preserve health facts while write admissibility becomes blocked/unknown;
+- shard move -> membership changes -> ownership transfer remains pending until authority/fencing/effect evidence qualifies it;
+- partitioned rolling update -> old/new member revisions coexist -> logical crown stable -> SharedContractSurface facets by common/qualified profile;
+- failed ordered rollout -> rollout blocked -> rollback requested -> repair required -> reconciled, without pretending rollback is instantaneous reversal;
+- split-brain observation -> conflicting authority indicator survives aggregation and 3D-to-list fallback.
 
 ## Maturity / saturation
 
 - Semantic 3D vocabulary: advancing, not saturated.
 - Cross-projection identity: advancing; executable proof remains future work.
 - Deployment identity/placement: material semantics identified, not saturated.
-- Availability grouping: **not saturated**; failure-domain and guarantee-policy qualification are now explicit, while stateful quorum/sharding/leader-election semantics remain open.
+- Availability grouping: advancing; failure-domain and guarantee-policy qualification are explicit.
+- Stateful topology grouping: **materially advanced, not saturated**; stable member identity, quorum/role/authority, split-brain and rolling mixed-revision semantics are now explicit, while provider-independent consensus/shard transfer proof vocabulary remains open.
+- SharedContractSurface during rolling evolution: materially advanced; common-profile/faceted projection rule identified, exact profile compatibility algebra remains open.
 - Accessibility: advancing; drag alternatives are stricter, but peer-projection completeness remains open.
 - Performance: environment/threshold methodology is stronger; empirical SB traces remain absent.
 - Componentization: dependency map is substantially clearer; higher-level workspaces/task pages remain intentionally unqualified.
 
 ## Highest-value remaining vectors
 
-1. Stateful replica groups: leader/follower, quorum, shard ownership, split-brain and how these differ from stateless replica/worker-pool grouping.
-2. SharedContractSurface qualification under rolling upgrades where contract/profile revisions coexist.
+1. Provider-independent shard/partition ownership transfer and rebalancing semantics, including fencing and partial transfer.
+2. Exact SharedContractSurface compatibility algebra under mixed semantic profiles, especially old/new consumers during staged rollout.
 3. Topology disclosure/security: what host/zone/instance/group membership may be shown to each authority/classification scope without leaking infrastructure.
 4. Empirical Componentes scenarios proving selection/focus/identity continuity across aggregate/explode/fallback.
 5. Live occurrence + deployment evolution: how pinned in-flight obligations interact with runtime placement/failover and successor design revisions.
