@@ -2692,3 +2692,280 @@ ControlCenter, ConfigurationExplorer, ConfigurationSearch, ConfigurationScopeTre
 - Global change != implicit restart/redeploy.
 - Application settings != duplicate source of truth.
 - Adapter normalization != fabricated semantic equivalence.
+
+
+## Declarative Service Deployment — schema-driven configuration, auto-binding and generated deployment artifacts
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+The deployment/configuration experience should avoid making YAML or provider-specific manifests the primary authoring interface.
+
+Preferred model:
+
+~~~
+Service/Application Catalog Entry
+-> typed deployment/configuration schema
+-> user selects applicable options
+-> System Builder resolves environment/defaults/bindings/secrets/network/storage
+-> validates dependencies and placement
+-> produces Deployment Plan
+-> compiles provider-specific artifacts
+-> applies through qualified provider
+-> observes/reconciles effective state
+~~~
+
+Therefore:
+
+~~~
+YAML/Compose/Helm/etc.
+= compiled/exportable artifact
+!= primary user authoring model
+~~~
+
+### Example — PostgreSQL
+
+Selecting PostgreSQL in the Deployment/Infrastructure desktop should open a schema-driven configuration tree instead of a raw manifest editor.
+
+Candidate sections:
+- target deployment unit/server;
+- image/version/channel;
+- CPU/memory limits and reservations;
+- persistent volume/storage class/path;
+- internal network;
+- service/internal hostname;
+- exposed ports only when needed;
+- database/user/bootstrap options;
+- secret bindings;
+- backup/restore policy;
+- health/readiness probes;
+- observability/metrics;
+- replication/HA profile when selected;
+- maintenance/update policy;
+- environment applicability;
+- lifecycle/recovery settings.
+
+Some values can be automatically resolved from context.
+
+Examples:
+
+~~~
+network -> inherited/resolved from Environment
+internal host -> generated from service identity + deployment scope
+database password -> generated/reused through Vault policy
+TLS secret -> bound from Security/Vault scope
+backup target -> inherited from Environment/Storage policy
+observability -> inherited from Desktop/System policy
+~~~
+
+User interaction becomes selecting/confirming qualified options rather than manually wiring every field.
+
+### Auto-provisioned platform services
+
+When a Client/System/Environment is provisioned, the System Builder may automatically create or register required platform foundations such as:
+- Vault/secret namespace;
+- deployment network(s);
+- internal service-discovery namespace;
+- environment credential scope;
+- default storage/backup bindings;
+- observability bindings;
+- deployment runner/provider binding;
+- policy defaults;
+- audit/evidence channel.
+
+Auto-created resources must remain explicit and inspectable.
+
+~~~
+Automatic != hidden
+Automatic != irreversible
+Automatic != unowned
+~~~
+
+### Vault and secret auto-binding
+
+Secrets should be generated, imported or selected through policy, then referenced by stable secret identities.
+
+Example:
+
+~~~
+postgres-prod
+  POSTGRES_PASSWORD -> secret://client-a/prod/postgres/admin-password
+  app_user_password -> secret://client-a/prod/postgres/app-user
+~~~
+
+The deployment model stores SecretRef values, never plaintext secret material.
+
+Potential flow:
+
+~~~
+service requires credential
+-> search compatible existing secret in scope
+-> reuse if policy allows
+   OR generate new secret
+-> persist in Vault
+-> bind SecretRef
+-> inject through deployment provider
+-> verify binding/currentness
+~~~
+
+### Environment binding
+
+Environment context should resolve reusable infrastructure facts:
+
+~~~
+Environment
+├─ network profile
+├─ DNS/service-discovery domain
+├─ secret namespace
+├─ storage defaults
+├─ deployment providers
+├─ observability endpoints
+├─ TLS/CA policy
+├─ backup policy
+└─ resource/placement defaults
+~~~
+
+Selecting a service therefore starts with meaningful defaults already bound from the Environment.
+
+### Deployment Units / placement groups
+
+Instead of one giant deployment manifest, the system should support multiple deployment units/groups.
+
+Example:
+
+~~~
+DEPLOYMENT A — data services
+  PostgreSQL
+  Redis
+
+DEPLOYMENT B — application services
+  API
+  workers
+
+DEPLOYMENT C — automation/operations
+  n8n
+  observability agents
+~~~
+
+A deployment unit can target one or more qualified hosts/providers and carry its own placement/resource/network policy.
+
+Hard distinction:
+
+~~~
+Deployment Unit
+!= physical server
+!= application
+!= environment
+~~~
+
+### Generated service identity and internal addressing
+
+Where supported, the System Builder should generate stable internal service identities rather than require operators to memorize raw IPs.
+
+Candidate:
+
+~~~
+service identity
+-> internal hostname/service name
+-> provider-specific endpoint resolution
+~~~
+
+Raw IP remains observable evidence/implementation detail when required, not necessarily the authored dependency.
+
+### APIs and control surfaces
+
+Installing/deploying a service should also register qualified management/control surfaces when available:
+- provider API;
+- health endpoint;
+- metrics endpoint;
+- admin endpoint;
+- lifecycle operations;
+- backup/restore operations;
+- version/compatibility metadata.
+
+These are registered through the Application Manager/Provider Adapter model and become available to the relevant application and Control Center.
+
+### Schema-driven UI
+
+Each deployable application/service should contribute a version-qualified configuration schema.
+
+Candidate:
+
+~~~
+DeployableServiceDefinition {
+  serviceType
+  supportedVersions
+  requiredInputs[]
+  optionalFeatures[]
+  dependencies[]
+  ports[]
+  volumes[]
+  networkRequirements
+  secretRequirements[]
+  healthContract
+  observabilityContract
+  backupContract?
+  placementConstraints?
+  providerProfiles[]
+  generatedDefaults[]
+  validationRules[]
+}
+~~~
+
+The frontend can render this as a tree/form/stepper with checkboxes, selects and advanced sections.
+
+### Dependency auto-linking
+
+Dependencies should be linked through typed references where possible.
+
+Example:
+
+~~~
+Application API
+  database -> PostgreSQLServiceRef
+
+PostgreSQL
+  network -> EnvironmentNetworkRef
+  credentials -> VaultSecretRefs
+  storage -> VolumeBindingRef
+~~~
+
+This prevents repetitive copy/paste of hostnames, ports and secrets.
+
+### Desired -> compiled -> applied -> effective
+
+Keep stages distinct:
+
+~~~
+Service Configuration
+-> Deployment Intent
+-> Compiled Provider Artifact
+-> Apply Requested
+-> Provider ACK
+-> Observed Runtime
+-> Health/Readiness Evidence
+-> Effective Service
+~~~
+
+Provider artifacts may include Docker Compose, Kubernetes manifests, systemd/native service files, environment files or other provider-specific outputs.
+
+### Escape hatch
+
+Advanced users may inspect/export/override provider-native artifacts when policy allows, but raw artifact editing should be an explicit advanced mode with drift/reconciliation consequences.
+
+~~~
+Generated artifact
+!= canonical semantic definition
+~~~
+
+### Invariants
+
+- YAML/provider manifest != primary semantic model.
+- Automatic != hidden.
+- SecretRef != secret value.
+- Internal service identity != raw IP.
+- Deployment Unit != physical server.
+- Default != explicit override.
+- Generated config != effective config.
+- Provider ACK != effective service.
+- Auto-binding != fabricated compatibility.
+- Raw manifest override != silent semantic change.
