@@ -2786,3 +2786,26 @@ Frontend research/planning must explicitly benchmark:
 These are benchmarks only.
 
 Planning must extract portable primitives/contracts/states and reject incompatible assumptions. No benchmark is an implementation authority or automatic dependency choice.
+
+
+## Research obligation — React/Next base vs desktop/windowing frameworks
+
+Planning must compare three strategies before implementation:
+
+1. System Builder-owned WindowManager on \`Next.js + React + TypeScript\`;
+2. external web-desktop/windowing engine behind an SB-owned adapter/contract;
+3. external desktop framework owning the shell, used only as a comparison baseline unless evidence strongly justifies the ownership shift.
+
+The current frontend base remains \`Next.js + React + TypeScript\`.
+
+Required comparison dimensions: startup/bundle/memory, lazy loading, background/suspended windows, focus/z-order, docking/snap/split, session restore, crash recovery, accessibility, small screens, React/Next integration, routing/SSR boundaries, Command Registry/Ribbon/Inspector integration, 3D WorkSurface embedding, Factory Module compatibility, theming, testing, replaceability, lock-in and security boundaries.
+
+Preserve:
+
+\`Desktop metaphor != desktop framework dependency\`.
+
+\`Window Manager != UI framework\`.
+
+\`React renderer != module/window semantic authority\`.
+
+\`External window library != System Builder semantic owner\`.
