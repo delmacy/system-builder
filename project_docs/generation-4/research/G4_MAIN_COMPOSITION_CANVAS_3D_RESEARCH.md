@@ -1178,3 +1178,290 @@ OS-like windowing
 ~~~
 
 A future decision may retain, adapt or replace windowing mechanics without redefining module semantics.
+
+
+## Application Composition — native apps, wrapped tools and proven external consoles
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+The OS-like System Builder should not treat every capability as one giant screen. It should research an **Application Catalog / Application Composition Model** similar in spirit to professional suites with many specialized applications.
+
+Preferred principle:
+
+~~~
+Reuse proven operational semantics where possible.
+Adapt the surface.
+Do not casually reimplement mature behavior.
+~~~
+
+This does not mean copying proprietary UI or source. Prefer official APIs, supported embedding, official components/plugins or deep-link integration over recreating mature operational machinery.
+
+### Application integration classes
+
+~~~
+NATIVE_SB_APP
+API_BACKED_SB_APP
+EMBEDDED_EXTERNAL_APP
+PROXIED_EXTERNAL_APP
+DEEPLINK_EXTERNAL_APP
+NATIVE_BRIDGE_APP
+HYBRID_APP
+~~~
+
+Meaning:
+
+- NATIVE_SB_APP: System Builder-owned UI and behavior.
+- API_BACKED_SB_APP: SB-owned UI using an official/versioned external API.
+- EMBEDDED_EXTERNAL_APP: original external web UI/component embedded when officially supported.
+- PROXIED_EXTERNAL_APP: external UI served through a controlled same-origin/reverse-proxy boundary when supported and secure.
+- DEEPLINK_EXTERNAL_APP: SB window acts as launcher/context holder while the canonical external UI opens separately.
+- NATIVE_BRIDGE_APP: SB window controls a native/local tool through a qualified bridge/agent.
+- HYBRID_APP: lightweight SB-native overview/control plus deep link/embed to the original advanced surface.
+
+No class is universally preferred.
+
+### Core distinctions
+
+~~~
+Module != Application
+Capability != Application
+Application != Window
+Application can open multiple windows
+Window can project one bounded task/context of an application
+~~~
+
+Also:
+
+~~~
+Application window != capability ownership
+External application != semantic owner
+Original tool UI != System Builder canonical truth
+~~~
+
+The System Builder owns orchestration/context/authority contracts of its window. The external product may remain owner of its own operational state.
+
+### Candidate application catalog
+
+Research which concerns deserve dedicated applications:
+
+- System Map / Architecture Designer
+- Workflow Designer
+- Data Modeler
+- API / Contract Explorer
+- Identity & Access
+- Secrets / Credentials Governance
+- Network Configurator
+- Container / Docker Manager
+- Task / Process Manager
+- Host / Server Manager
+- Storage Manager
+- Database Administration
+- Terminal
+- Logs / Journal
+- Observability
+- Incident / Findings
+- Deployment / Release Manager
+- Build / Artifact Manager
+- Factory / Fleet
+- Template Catalog
+- Root Services
+- Documentation / Knowledge
+- Git / Repository Workspace
+- Settings / Policy Administration
+
+Final split follows task cohesion, authority boundaries, performance, mature-tool availability and cognitive load rather than arbitrary module count.
+
+### Docker / container management strategy
+
+Prefer research in this order:
+
+1. official Docker Engine API/SDK as compatibility boundary for SB-native or hybrid control;
+2. Portainer API as a higher-level management provider where Portainer is installed;
+3. original Portainer UI only through a supported and secure integration mode;
+4. deep-link to Portainer when embedding would require weakening security.
+
+Docker Engine exposes a versioned REST API and version negotiation. This is a strong candidate for a provider/adapter boundary because compatibility can be qualified explicitly.
+
+Portainer exposes a REST API and can proxy Docker/Kubernetes API operations. Portainer API permissions follow its user/token permissions.
+
+Important constraint: Portainer defaults to a CSP that blocks iframe embedding. Disabling CSP solely to fit Portainer inside an SB window must not become the normal integration pattern.
+
+~~~
+Portainer available
+!= Portainer UI safely embeddable
+
+Portainer API available
+!= Portainer semantic owner
+
+Docker API compatible
+!= every Portainer feature available
+~~~
+
+Candidate hybrid:
+
+~~~
+Docker Manager
+├─ SB-native fleet/summary/control
+├─ Docker Engine provider
+├─ optional Portainer provider
+└─ Open advanced manager -> original Portainer UI
+~~~
+
+### Network Configurator / host administration
+
+Cockpit is a priority benchmark/provider candidate for host administration because it intentionally works with Linux system APIs/commands and supports modular applications including networking and storage.
+
+Cockpit networking uses NetworkManager/DBus and permission enforcement through PolicyKit. Its developer documentation supports embedding the whole interface or documented components subject to same-origin/frame-security requirements, commonly via a reverse proxy.
+
+Candidate hybrid:
+
+~~~
+Network Configurator
+├─ SB host/context/evidence shell
+├─ documented Cockpit component when qualified
+├─ NetworkManager-native provider where appropriate
+└─ deep-link fallback
+~~~
+
+Possible companion applications:
+
+- Server Manager
+- Network Configurator
+- Storage Manager
+- Logs
+- Terminal
+- Services / systemd
+- Task / Process Manager
+
+Undocumented Cockpit internals must not be treated as stable APIs.
+
+### Compatibility-first reuse
+
+Research rule:
+
+~~~
+Official API / supported component
+> replicated private behavior
+~~~
+
+when authority, security, UX and lifecycle requirements are satisfied.
+
+But:
+
+~~~
+Mature external tool
+!= automatic dependency
+~~~
+
+Compare compatibility, feature coverage, API/version stability, authentication, authorization mapping, CSP/frame restrictions, same-origin/reverse-proxy requirements, WebSockets, latency, offline behavior, licensing, upgrade coupling, visual consistency, accessibility, failure/recovery, audit/evidence and replaceability.
+
+### Candidate application manifest
+
+~~~
+BuilderApplicationManifest {
+  id
+  name
+  category
+  integrationClass
+  semanticScope
+  authorityScope
+  supportedProviders[]
+  requiredCapabilities[]
+  supportedTargets[]
+  versionCompatibility
+  windowKinds[]
+  defaultWindow
+  commands[]
+  contextualRibbonTabs[]
+  inspectorContributions[]
+  embedPolicy
+  authBinding
+  permissionMapping
+  lifecycle
+  suspendPolicy
+  healthProbe
+  currentnessPolicy
+  evidencePolicy
+  deepLinks[]
+  fallbacks[]
+}
+~~~
+
+Candidate only; not implementation authority.
+
+### Suite analogy boundary
+
+The useful suite analogy is many specialized applications sharing identity, design language, context and services.
+
+SB applications may share System Builder identity/context/commands while keeping bounded task purposes. Applications can pass semantic references without silently taking ownership of one another's domain state. Shared shell services should prevent every app from becoming its own independent SPA.
+
+### External UI embedding safety
+
+Qualify each external product:
+
+~~~
+EMBED_ALLOWED
+EMBED_REQUIRES_SAME_ORIGIN
+EMBED_REQUIRES_REVERSE_PROXY
+EMBED_UNSUPPORTED
+DEEPLINK_ONLY
+API_ONLY
+NATIVE_BRIDGE_ONLY
+~~~
+
+Never disable a mature product's security headers by default merely to satisfy the desktop metaphor.
+
+### Componentes additions
+
+- ApplicationCatalog
+- ApplicationLauncher
+- BuilderApplicationManifestView
+- NativeAppWindow
+- ExternalAppWindow
+- HybridAppWindow
+- EmbeddedToolFrame
+- ExternalToolDeepLink
+- ProviderBadge
+- CompatibilityBadge
+- VersionNegotiationState
+- IntegrationModeIndicator
+- ExternalAuthBinding
+- ExternalPermissionMapping
+- AppHealthIndicator
+- AppUpgradeDriftIndicator
+- AppFallbackAction
+
+### New invariants
+
+- Module != Application != Window.
+- Capability != Application.
+- External tool != System Builder semantic owner.
+- Original UI reuse != permission bypass.
+- Embed capability != integration correctness.
+- Official API compatibility != full feature equivalence.
+- Deep link != failed integration; it may be the safest supported mode.
+- Reverse proxy != permission authority.
+- External auth != SB authority equivalence.
+- Adapter normalization != fabricated semantic equivalence.
+- Reuse proven behavior != copy proprietary implementation.
+
+### Adversarial cases
+
+1. Portainer iframe is enabled by disabling CSP globally just for visual convenience.
+2. Docker daemon API is exposed insecurely to the browser.
+3. SB user has lower authority than an embedded external session and gains unintended control.
+4. external UI and SB show different target environment/tenant.
+5. external tool upgrade breaks private/undocumented integration.
+6. API version mismatch silently drops a capability.
+7. embedded app loses authentication and displays misleading stale state.
+8. deep-linked app loses semantic context/revision/target.
+9. one external tool becomes mandatory for all deployments and creates lock-in.
+10. native replacement drifts from the underlying official API.
+11. multiple apps issue conflicting operations against the same target.
+12. reverse proxy weakens CSP, cookie or origin boundaries.
+13. external UI reports provider ACK while SB marks business effect effective.
+14. application proliferation creates dozens of tiny apps with no coherent task boundary.
+
+### Research outcome
+
+G4 should produce an **Application Portfolio Matrix** describing which System Builder tasks become native applications, API-backed native applications, hybrid applications, supported embedded external applications, deep-linked external applications or native-bridge applications.
