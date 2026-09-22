@@ -1,22 +1,18 @@
 # G4 — Workspace Command Surface & Higher-Level Interaction — Construction B
 
-Status: `BLOCKED_BY_CONSTRUCTION_A / NON_EXECUTABLE`
+Status: `WAITING_FOR_CONSTRUCTION_A_PACKET_03 / NON_EXECUTABLE`
 Execution authority: NONE
 Date: 2026-09-22
 
 ## Purpose
 
-Construction B integrates Construction A contracts upward through:
+Construction B integrates Construction A contracts upward without inventing lower-level semantics. Repository truth has advanced since the previous blocked reconciliation: Planning :50 has now materialized `G4_FRONTEND_PACKET_03_SEMANTIC_PROJECTION_PRIMITIVES.md`, but the latest Construction A artifact still predates that packet and remains a blocked reconciliation.
 
-```text
-MODULE COMPONENT -> TOOL -> WORKSPACE -> COMPLETE TASK PAGE -> SYSTEM VIEW
-```
-
-It must not invent lower-level semantics when the required Planning/Construction A predecessor chain is absent, stale or contradictory.
+This round therefore performs bounded predecessor reconciliation only.
 
 ## Predecessor reconciliation
 
-Repository truth was revalidated against:
+Revalidated:
 
 - `AGENTS.md`;
 - `docs/architecture/MASTER_BLUEPRINT.md`;
@@ -25,191 +21,206 @@ Repository truth was revalidated against:
 - `research/G4_PRODUCT_UX_AI_NATIVE_BUILDER.md`;
 - `research/G4_FRONTEND_DESIGN_SYSTEM_FOUNDATION_PLAN.md`;
 - `research/G4_UI_INTERACTION_STATE_MATRIX_RESEARCH.md`;
+- `research/G4_FRONTEND_PACKET_03_SEMANTIC_PROJECTION_PRIMITIVES.md`;
 - `research/G4_FRONTEND_CONSTRUCTION_A_RECONCILIATION_2026-09-22.md`.
 
-Construction A is explicitly `BLOCKED_BY_MISSING_PLANNING_PACKET / NON_EXECUTABLE` and records `BLOCKER-G4-FE-CA-001`: no latest materialized `G4 Frontend Planning :50` packet was found. It also explicitly instructs Construction B not to infer a component slice from the reconciliation artifact.
+### Planning state
 
-Therefore this Construction B round is bounded reconciliation only.
-
-## Correction to the earlier Construction B draft
-
-An earlier revision of this artifact described candidate higher-level shell/workspace contracts despite the missing predecessor packet. Those ideas remain useful **research candidates already represented elsewhere in the frontend research corpus**, but they are not accepted Construction B output for this predecessor chain.
-
-This revision withdraws any implication that Construction B promoted, accepted or integrated those candidates from Construction A.
-
-No lower-level primitive, component, pattern, block, state or transition is redefined here.
-
-## Durable higher-level hypotheses preserved, not promoted
-
-The following remain pre-existing research hypotheses and must be reconsidered only after a valid predecessor handoff:
+`G4_FRONTEND_PACKET_03_SEMANTIC_PROJECTION_PRIMITIVES.md` resolves the former missing-Planning condition and explicitly bounds the next lower/middle slice to:
 
 ```text
-stable workspace shell + specialized work surfaces
+ProjectionIdentityRef
+SelectionBridge
+QualifiedRelationPort
+FloorManifestationPort
+CriticalStateMarker
 ```
 
-Candidate surfaces remain research-only:
+It also explicitly limits Construction B to exactly two bounded patterns after A materializes those contracts:
 
 ```text
-Frontend layout/component canvas
-Workflow graph
-Data entity/relation/data-flow
-Architecture capability/module graph
-Deployment topology/placement
-Operations runtime/observability
+Pattern 1: ModuleProjectionTile
+Pattern 2: ProjectionHandoff
 ```
 
-The current frontend research corpus also contains candidate shell ideas such as collapsible command/ribbon surfaces, tool rails, inspectors/panel docks and status/activity surfaces. This blocked round does not promote their exact composition, naming or state contracts.
+Packet 03 explicitly forbids B from promoting a complete Tool/Workspace/Main Canvas in that round.
 
-## Semantic invariants preserved
+### Construction A state
 
-No delta is introduced to these established invariants:
+The latest A artifact remains `G4_FRONTEND_CONSTRUCTION_A_RECONCILIATION_2026-09-22.md`, status `BLOCKED_BY_MISSING_PLANNING_PACKET / NON_EXECUTABLE`. It contains no materialized contracts for the five Packet 03 elements and explicitly says B must not infer a component slice from that reconciliation.
 
-- `STALE` retains its qualified currentness meaning;
-- `UNKNOWN` is never visually or semantically strengthened;
+Therefore the old blocker is partially resolved:
+
+```text
+Missing Planning packet        -> RESOLVED by Packet 03
+Missing Construction A output  -> STILL OPEN
+```
+
+## Construction B decision
+
+Do **not** execute the user's broader Main Composition Workspace request yet.
+
+The governing fresh Planning packet is narrower and authoritative for this research cadence. B may not skip the lower-level progression or silently reinterpret Packet 03 into a complete Canvas.
+
+No ModuleNode, ModuleWorkbox, Door/Counter/Corridor/Handoff/Gate family, Ribbon shell, camera contract, complete task page or System View is promoted in this round.
+
+## Exact successor integration contract
+
+Once Construction A materializes Packet 03, B must integrate only:
+
+### Pattern 1 — ModuleProjectionTile
+
+Candidate composition to verify, not pre-accept:
+
+```text
+ModuleProjectionTile
+  -> ProjectionIdentityRef
+  -> SelectionBridge
+  -> QualifiedRelationPort
+  -> FloorManifestationPort
+  -> CriticalStateMarker
+```
+
+Required composed-state scenarios:
+
+- normal detailed representation;
+- selected identity across semantic zoom/aggregate substitution;
+- focus without selection;
+- horizontal relation visually available but semantically INELIGIBLE;
+- relation qualification UNKNOWN;
+- relation eligibility invalidated by revision/currentness drift;
+- target-floor eligibility invalidated after proposal;
+- ACK with effect still UNKNOWN/PARTIAL;
+- critical BLOCKED/UNKNOWN/MISSING_EVIDENCE marker preserved under aggregation;
+- keyboard/non-drag equivalent path.
+
+The pattern must not own canonical semantic state merely because it composes projections.
+
+### Pattern 2 — ProjectionHandoff
+
+Purpose: transfer one selected semantic identity between projections such as:
+
+```text
+3D -> 2D -> list/table -> graph
+```
+
+while preserving qualified identity/currentness and explicitly representing:
+
+```text
+REPRESENTABLE
+NOT_REPRESENTABLE_CURRENT_VIEW
+HIDDEN_BY_DISCLOSURE
+FILTERED/OUT_OF_SCOPE where semantically distinct
+STALE
+UNKNOWN
+```
+
+Required proof cases:
+
+- renderer instance disappears but semantic selection survives;
+- selected member becomes represented only by an aggregate/marker;
+- destination projection cannot represent the identity;
+- destination is accessible only through textual/list equivalent;
+- revision/currentness changes during handoff;
+- permission/disclosure change prevents destination representation without fabricating deletion;
+- focus restoration does not imply selection mutation.
+
+## Higher-level Main Canvas obligations retained for later packets
+
+The requested Main Composition Canvas remains a valid research direction, but Packet 03 intentionally defers it. Later Planning packets must promote it progressively from qualified primitives/patterns.
+
+Deferred obligations remain:
+
+```text
+stable React/DOM shell
+Office-style collapsible Ribbon
+left Tool Rail
+semantic guided 3D WorkSurface
+right Inspector/PanelDock
+Status/Activity bar
+ModuleNode -> ModuleWorkbox
+horizontal module composition
+vertical floor manifestation
+capability shafts
+core-to-boundary depth
+Door/Counter
+Corridor/Handoff/Gate overlays
+cross-view Open in Workflow/Data/Capability/Deployment/Infra/Evidence
+guided camera modes
+semantic zoom
+normal/stress aggregation behavior
+complete task flows
+```
+
+These are not accepted B output from Packet 03.
+
+## Consistency preserved
+
+No delta is introduced to:
+
+- `STALE != CURRENT`;
+- `UNKNOWN != SUCCESS`;
 - `BLOCKED != DISABLED`;
 - `PENDING != EFFECTIVE`;
 - `SELECTED != FOCUSED`;
 - `READ_ONLY != PERMISSION_DENIED`;
-- `Workspace preset != permission grant`;
 - `Visual connectability != semantic compatibility`;
 - `ACK != effect`;
-- `Canvas/graph/system view != canonical truth`;
-- `System Layers/Lenses` remain typed projections rather than a universal z-order.
+- `designed != observed`;
+- `capability participation != ownership`;
+- `3D Canvas != authority`;
+- `representation substitution != semantic identity substitution`;
+- `Large-scene degradation -> aggregation, not silent omission`.
 
-## Requested composed-state integration — deferred
+## Performance/accessibility carry-forward
 
-The requested Construction B work includes composition across:
+Packet 03 already requires identity and critical-state semantics to survive instancing, LOD, aggregation/clustering, label/geometry suppression and render-on-demand. B must not make renderer/component lifetime a semantic requirement.
 
-```text
-load
-selection
-focus
-editing/dirty
-validation
-async execution
-authority
-currentness/revision
-connectivity
-degraded/offline
-panel/layout persistence
-recovery
-```
-
-Construction B cannot bind those dimensions into new Module Component/Tool/Workspace contracts until Construction A supplies the bounded lower/middle-level contracts selected by Planning.
-
-This avoids silently deciding, for example, whether a specific lower-level element owns `BLOCKED`, merely projects it, derives it, or receives it from a parent composition.
-
-## Tools / workspaces / task pages — coverage status
-
-Requested targets are acknowledged but not materialized in this blocked round:
-
-```text
-Toolbox / ToolRail
-Context Toolbar / contextual command surface
-WorkSurface
-Inspector / PanelDock
-Status / Activity bar
-Frontend editor
-Workflow graph
-Data model/data-flow
-Architecture capability/module graph
-Deployment topology
-Operations/observability
-Complete create/edit/review/simulate/authorize/publish/operate/audit/recover pages
-System-level views
-```
-
-No complete-page happy-path contract is fabricated without predecessor state/transition contracts.
-
-## Cross-workspace findings preserved for successor integration
-
-Successor Construction B must test, not assume:
-
-1. semantic identity continuity when switching specialized workspaces;
-2. explicit inability to represent a selected identity in a destination workspace;
-3. revision/currentness drift during workspace switch;
-4. preservation of dirty/recoverable state across navigation;
-5. persisted layout without persisted authority grants;
-6. focus restoration after modal/panel/context-surface transitions;
-7. responsive overflow without removal of critical/authority-sensitive actions;
-8. visual relation affordance without semantic-edge fabrication.
-
-These are proof obligations, not accepted contracts in this round.
-
-## Complete-task scenario obligations preserved
-
-When predecessor materialization exists, Construction B must derive at minimum:
-
-```text
-cold-open -> load -> select -> edit -> dirty -> autosave -> conflict -> reconcile -> saved
-
-drag -> invalid target -> explain/recover -> valid target
-
-publish -> authority qualification -> request -> ACK -> verification pending -> EFFECTIVE|PARTIAL|FAILED|UNKNOWN
-
-offline -> local draft -> reconnect -> revision/currentness compare -> reconcile
-
-bulk action -> mixed outcomes -> partial success -> inspect/retry/reconcile
-
-review -> live revision drift -> preserve local review context -> requalify/reconcile
-
-fatal child-surface failure -> preserve recoverable draft/context -> restore/export recovery evidence
-```
-
-Regression proof must preserve the fixed distinctions above and must include keyboard/non-drag alternatives where direct manipulation exists.
+Likewise, 3D cannot be the sole semantic accessibility tree. ProjectionHandoff must treat textual/list/table/graph alternatives as peer projections of the same identity, with keyboard/non-drag operation and non-color critical-state meaning.
 
 ## Componentes impact
 
-No new inventory artifact is promoted in this blocked round.
+No higher-level Componentes entry is promoted in this waiting round.
 
-Once unblocked, Construction B should integrate Construction A outputs upward and then determine which higher-level entries are justified, potentially including tool/workspace/page scenarios. Exact candidates must be derived from the predecessor packet rather than inferred here.
-
-Required Componentes proof categories for the future handoff remain:
+After A succeeds, B should add scenario/integration candidates for exactly:
 
 ```text
-composed state reproduction
-selection vs focus
-multi-selection mixed values
-read-only vs permission-limited
-pending vs effective
-stale / partial / unknown
-revision drift/conflict
-offline/reconnect/recovery
-partial bulk result
-fatal recoverable failure
-responsive command reachability
-keyboard/direct-manipulation equivalence
+ModuleProjectionTile
+ProjectionHandoff
 ```
+
+and preserve the five A elements as their lower-level dependencies rather than duplicating their state ownership.
 
 ## Blocker
 
-`BLOCKER-G4-FE-CB-001`: Construction A has no executable/materialized lower/middle-level slice because `BLOCKER-G4-FE-CA-001` remains unresolved.
+`BLOCKER-G4-FE-CB-002`: Planning Packet 03 exists, but Construction A has not yet materialized its five named lower/middle contracts.
 
-Construction B cannot legitimately consume and elevate a predecessor contract that does not exist.
+The previous `BLOCKER-G4-FE-CB-001` (missing Planning packet through A) is superseded by this narrower blocker.
+
+This is a sequencing blocker, not a semantic contradiction. The recurring B lane should remain active because the next successful A pass can unblock it.
 
 ## Exact handoff
 
 ```text
-G4 Frontend Planning :50
-  -> materialize bounded packet with named lower/middle-level slice
+Construction A :00
+  -> consume G4_FRONTEND_PACKET_03_SEMANTIC_PROJECTION_PRIMITIVES.md
+  -> materialize ProjectionIdentityRef
+  -> materialize SelectionBridge
+  -> materialize QualifiedRelationPort
+  -> materialize FloorManifestationPort
+  -> materialize CriticalStateMarker
+  -> record state/transition/evidence/accessibility/performance contracts
 
-G4 Frontend Construction A :00
-  -> execute that packet
-  -> materialize state / transition / composition / evidence contracts
-  -> explicitly hand off named contracts to Construction B
+Construction B :10
+  -> consume that fresh A artifact
+  -> materialize ModuleProjectionTile
+  -> materialize ProjectionHandoff
+  -> execute Packet 03 adversarial/composed-state scenarios
+  -> update Componentes integration scenarios
+  -> do NOT promote complete Main Canvas yet
 
-G4 Frontend Construction B :10
-  -> consume only that handoff
-  -> elevate MODULE COMPONENT -> TOOL -> WORKSPACE -> COMPLETE TASK PAGE -> SYSTEM VIEW
-  -> derive composed-state and complete-task regression obligations
-  -> reconcile Componentes higher-level inventory impact
-
-Documentation
-  -> only after successful B integration, normalize terminology and durable research memory without promoting research to implementation authority
+Planning/Consolidation
+  -> after B evidence, decide whether the next bounded packet can promote ModuleNode/ModuleWorkbox or must close remaining projection primitive gaps
 ```
 
-## Documentation handoff for this blocked round
-
-Documentation should record only the blocker chain and the correction that the earlier Construction B draft was premature. It should **not** normalize the withdrawn draft as accepted higher-level contract material.
-
-No product code, package metadata, G2/G3 material, WBS, Work Package, Sprint, TASK, provider or migration was changed.
+No product code, G2/G3, package metadata, apps/packages, WBS, Work Package, Sprint, TASK, provider or migration was changed.
