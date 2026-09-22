@@ -384,3 +384,18 @@ Priority infrastructure applications include Network Configurator, Docker/Contai
 Current evidence makes integration mode product-specific: Docker Engine has a versioned API with negotiation; Portainer exposes an API but blocks iframe embedding by default through CSP; Cockpit explicitly supports embedding/integrating documented components under same-origin/frame-security constraints.
 
 Invariants include External tool != System Builder semantic owner, Embed capability != integration correctness, Official API compatibility != full feature equivalence, Deep link != failed integration, and Adapter normalization != fabricated semantic equivalence.
+
+
+## Research addition — Builder Home and per-client Builder Desktops
+
+G4 Product UX now includes a top-level Windows-like Builder Home / Factory Desktop from which Builder operators create/select client organizations and enter each client's dedicated Builder Desktop.
+
+Identity must remain separated: User != Client Organization != Client System != Builder Desktop != Published Runtime.
+
+A client organization may contain client users with delegated construction/administration privileges. Access to the Client Builder Desktop is separately scoped from edit, publish, deploy, operate, root-service and secret authority.
+
+Each Client Builder Desktop may contain many specialized applications and saved workspaces. A workspace can focus on a branch/filial or organizational unit, but Workspace != Branch/Filial.
+
+Deployment becomes a dedicated application capable of selecting qualified target profiles such as SB-managed server, container/Docker, orchestrated runtime, native server process, native desktop, edge host or external provider. Containerization is not mandatory semantics.
+
+The generated/published client system remains an autonomous runtime, typically accessed conventionally through its own web endpoint/domain and using standardized System Builder-generated forms/views/components. Builder offline != Client Runtime offline.
