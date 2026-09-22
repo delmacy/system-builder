@@ -481,3 +481,14 @@ A logical Workspace/Desktop may span multiple browser top-level surfaces/display
 Window movement/detachment is presentation/session behavior only; it must not change client/system/revision/environment/authority. Closing/minimizing a window changes UI resource lifecycle, not the external service/runtime lifecycle.
 
 Preserve Desktop metaphor != unrestricted window chaos; Browser tab != SB tab; Display surface != Workspace; Docking != semantic dependency; Saved layout != permission grant.
+
+
+## Research addition — declarative/opinionated UX and proprietary editor family
+
+G4 frontend direction now explicitly distinguishes declarative behavior from unrestricted freedom. Users express desired state and intent; the platform guides valid sequencing, compatibility and provider realization.
+
+The most engineering-intensive frontend work is expected in proprietary System Builder applications such as Workflow Designer, View/Form Builder, Component Editor, System/Module Designer, Rules/Decision Editor and Preview/Sandbox.
+
+Workflow, views, forms and components must share semantic bindings rather than becoming isolated visual editors. Preserve View != Workflow Activity; Form != Workflow State; Button != Domain Command; Component event != authorized action.
+
+Future WBS should avoid one monolithic frontend package and instead plan shared shell/primitives first, then proprietary application families, then cross-editor semantic integration and hardening.
