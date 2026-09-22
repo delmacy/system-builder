@@ -53,6 +53,28 @@ Key research invariants added by this consolidation include `3D semantic != 3D d
 
 This remains research-only and does not authorize renderer/package adoption or frontend implementation.
 
+### OS-like shell evolution — modules as installed applications/windows
+
+The existing frontend research direction is preserved and extended with an **OS-like operating-environment interaction model**.
+
+Current hypothesis:
+
+- the System Builder exposes a persistent System Desktop / workspace environment;
+- modules behave like installed applications in the Builder;
+- opening a module creates a ModuleWindow projection;
+- the same module may have multiple simultaneous windows with different workspace/floor/projection contexts;
+- the Office-style Ribbon remains global and receives contextual tabs from the focused ModuleWindow;
+- Tool Rail, Inspector, Command Registry, Status/Activity and the permanent Componentes inventory remain valid;
+- the semantic 3D canvas remains the System Map and can be opened as a dedicated window, docked workspace or spatial desktop projection;
+- launcher/catalog, taskbar/open-window indicators, window docking/snapping/splitting, saved workspaces and background-module status become research candidates;
+- module installation, module activation, window lifecycle, deployment manifestation and runtime instance remain distinct;
+- Builder module-catalog breadth does not imply generated client runtime breadth.
+
+New invariants include \`OS-like interaction shell != operating-system kernel\`, \`ModuleDefinition != ModuleInstallation != ModuleActivation != ModuleWindow != DeploymentManifestation != RuntimeInstance\`, \`Close Window != Disable != Uninstall != Undeploy\`, \`Focused Window != Selected Semantic Object\`, \`Window Z-order != architectural priority\`, \`Dock/Snap != semantic relation\`, \`UI lifecycle != module lifecycle != deployment lifecycle\` and \`Builder App Catalog breadth != Client Runtime breadth\`.
+
+Detailed research is maintained in \`research/G4_MAIN_COMPOSITION_CANVAS_3D_RESEARCH.md\`.
+
+
 
 ## Cross-cutting rules
 
