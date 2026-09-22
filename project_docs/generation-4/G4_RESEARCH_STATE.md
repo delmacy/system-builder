@@ -431,3 +431,16 @@ Widgets provide summary and drill-down; full management remains in specialized a
 
 Key distinctions: Running != healthy != ready != effective; No alert != healthy; Summary != canonical truth; Desktop widget != management application. Telemetry should be shared, scoped and suspendable rather than implemented as independent polling per widget.
 
+
+
+## Research addition — Application Manager
+
+G4 now includes a first-class Application Manager for lifecycle management of external/embedded applications.
+
+Core flows:
+- New Installation: choose app -> target -> prerequisites -> source/version -> runtime/network/storage/credentials -> install -> verify -> register -> observe -> expose in Desktop.
+- Adopt Existing: discover or enter endpoint/host -> authenticate -> inspect version/capabilities -> verify compatibility -> register -> attach observability/control.
+
+The manager must distinguish SB-managed, externally managed, co-managed, observe-only and discovered-unregistered instances.
+
+Hard boundaries: Install != Adopt; Register != Deploy; Connect != Own; Discovered != Verified; Remove from Desktop != Uninstall; Unregister != Stop Service; Application record != secret storage.
