@@ -1991,3 +1991,202 @@ This maturity model is separate from business/system runtime state.
 - `Semantic consistency may survive visual redesign`.
 - `Human visual refinement != architecture rewrite`.
 - `Component complete != visually polished`.
+
+## Shell command surface decision — collapsible Office-style ribbon
+
+Decision status: `DECIDED FOR G4 FRONTEND DIRECTION`
+
+The System Builder shell should use a **compact, collapsible Office-style ribbon** rather than a permanently expanded wall of commands.
+
+### Structure
+
+```text
+Application Bar
+  System / Revision / Environment / Global Search / User
+
+Ribbon Tabs
+  Arquivo
+  Início
+  Inserir
+  Organizar
+  Relacionar
+  Ferramentas
+  Sistema
+  Executar
+  Revisar
+  Exibir
+  Janela
+  Ajuda
+
+Contextual Tabs
+  appear only when the current selection/tool/workspace requires them
+
+Ribbon Content
+  grouped commands for the active tab
+
+Tool Rail
+  compact vertical icon rail on the left
+
+Work Surface
+  center
+
+Inspector / Properties
+  right
+
+Status Bar
+  bottom
+```
+
+### Ribbon behavior
+
+Required states/behaviors:
+
+```text
+EXPANDED
+COLLAPSED
+AUTO_OPEN_ON_TAB
+PINNED
+CONTEXTUAL_TAB_ACTIVE
+KEYBOARD_NAVIGATION
+COMMAND_SEARCH
+```
+
+Working hypothesis:
+
+- the tab row remains visible;
+- ribbon command content may collapse to maximize canvas area;
+- clicking a tab temporarily opens its command groups;
+- the user may pin the ribbon open;
+- contextual tabs appear only when relevant;
+- a command may also be reachable from context menu, shortcut or command palette through the same command registry;
+- keyboard navigation and visible focus are mandatory.
+
+### Candidate tabs and groups
+
+**Arquivo** — novo, abrir/trocar sistema, duplicar, importar, exportar, snapshots, documentação, configurações do sistema.
+
+**Início** — clipboard, undo/redo, selection, quick insert, group/ungroup, delete, common validation and common view controls.
+
+**Inserir** — components, blocks, capabilities, workflow nodes, entities, relations, APIs, providers, infrastructure elements, notes and groups.
+
+**Organizar** — align, distribute, group, semantic order where meaningful, lock, isolate, snap/grid and auto-layout.
+
+**Relacionar** — connect, relation, handoff, data binding, dependency, dependents and dependencies.
+
+**Ferramentas** — select, pan, connect, inspect, measure, comment, validate, simulate and compare.
+
+**Sistema** — SystemDefinition, revision, environment, diff, validation, preview, build configuration, capability resolution and provider/binding views.
+
+**Executar** — validate, dry-run, simulate, run selected, reconcile, cancel, build candidate and publish candidate.
+
+**Revisar** — findings, candidate changes, evidence, comments, diff, approvals, conflicts and currentness.
+
+**Exibir** — zoom, grid, snap, labels, minimap, layers, lenses, connection types, density and full screen.
+
+**Janela** — Properties, Layers/Lenses, History, Evidence, Dependencies, Activity, Notifications, diagnostics and saved workspace layouts.
+
+**Ajuda** — documentation, shortcuts, command reference, diagnostics and about.
+
+`Arquivo` may later use a Backstage-like full surface if project-level operations prove too dense for an ordinary ribbon dropdown.
+
+### Contextual tabs
+
+Contextual tabs are a core rule.
+
+```text
+Selected: Form
+  -> Formulário
+     Fields | Layout | Binding | Validation | Events | Permissions | Preview
+
+Selected: Workflow node
+  -> Workflow
+     Inputs | Outputs | Conditions | Retry | Failure | Effects | Simulation
+
+Selected: Entity
+  -> Dados
+     Fields | Relations | Constraints | Queries | Lineage | Quality
+
+Selected: Container/Host
+  -> Deployment / Infra
+     Placement | Resources | Network | Secrets | Health | Cost | Logs
+```
+
+### Command registry requirement
+
+Ribbon items must not own behavior independently.
+
+```text
+Command Registry
+  -> Ribbon
+  -> Context Menu
+  -> Shortcut
+  -> Command Palette
+  -> Inspector Action
+```
+
+One command identity may appear in multiple surfaces but must preserve one guard/state/execution contract.
+
+Candidate command states:
+
+```text
+ENABLED
+DISABLED
+BLOCKED
+PENDING
+HIDDEN_BY_CONTEXT
+```
+
+A blocked command should provide a discoverable reason when possible.
+
+### UX invariants
+
+- `Ribbon tab != permission grant`.
+- `Collapsed ribbon != action removal`.
+- `Contextual tab != semantic ownership`.
+- `Same command identity != duplicated behavior implementation`.
+- `Hidden by context != unauthorized`.
+- `Disabled != blocked`.
+- `Toolbar presence != action eligibility`.
+- `Visual grouping != business-domain ownership`.
+
+### Componentes inventory impact
+
+The **Componentes** page must catalog and test:
+
+```text
+Ribbon
+RibbonTab
+RibbonGroup
+RibbonCommand
+RibbonDropdown
+RibbonSplitButton
+RibbonContextTab
+RibbonCollapseControl
+CommandPalette
+ContextMenu
+ShortcutHint
+CommandStateIndicator
+```
+
+Required states include:
+
+```text
+default
+hover
+focus-visible
+active-tab
+expanded
+collapsed
+pinned
+temporary-open
+disabled
+blocked
+pending
+hidden-by-context
+overflowed
+keyboard-navigation
+reduced-motion
+responsive
+```
+
+The ribbon is a compositional tool surface built from lower-level primitives, not a one-off shell implementation.
