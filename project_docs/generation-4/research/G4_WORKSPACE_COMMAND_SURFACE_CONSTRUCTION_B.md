@@ -1,578 +1,215 @@
 # G4 — Workspace Command Surface & Higher-Level Interaction — Construction B
 
-Status: `RESEARCH_ACTIVE / NON_EXECUTABLE`
+Status: `BLOCKED_BY_CONSTRUCTION_A / NON_EXECUTABLE`
 Execution authority: NONE
 Date: 2026-09-22
 
 ## Purpose
 
-Elevate the existing primitive/state research into a coherent higher-level interaction contract for System Builder tools, workspaces and complete task pages.
-
-This Construction B artifact does **not** authorize product code. It integrates the established frontend direction:
+Construction B integrates Construction A contracts upward through:
 
 ```text
-Next.js + React + TypeScript ecosystem
-FUNCTION -> STATE -> TRANSITION -> COMPOSITION -> CONSISTENCY
--> REPRESENTATION -> ACCESSIBILITY -> PERFORMANCE -> VISUAL REFINEMENT
+MODULE COMPONENT -> TOOL -> WORKSPACE -> COMPLETE TASK PAGE -> SYSTEM VIEW
 ```
 
-with the product hypothesis:
+It must not invent lower-level semantics when the required Planning/Construction A predecessor chain is absent, stale or contradictory.
+
+## Predecessor reconciliation
+
+Repository truth was revalidated against:
+
+- `AGENTS.md`;
+- `docs/architecture/MASTER_BLUEPRINT.md`;
+- `project_docs/generation-4/README.md`;
+- `project_docs/generation-4/G4_RESEARCH_STATE.md`;
+- `research/G4_PRODUCT_UX_AI_NATIVE_BUILDER.md`;
+- `research/G4_FRONTEND_DESIGN_SYSTEM_FOUNDATION_PLAN.md`;
+- `research/G4_UI_INTERACTION_STATE_MATRIX_RESEARCH.md`;
+- `research/G4_FRONTEND_CONSTRUCTION_A_RECONCILIATION_2026-09-22.md`.
+
+Construction A is explicitly `BLOCKED_BY_MISSING_PLANNING_PACKET / NON_EXECUTABLE` and records `BLOCKER-G4-FE-CA-001`: no latest materialized `G4 Frontend Planning :50` packet was found. It also explicitly instructs Construction B not to infer a component slice from the reconciliation artifact.
+
+Therefore this Construction B round is bounded reconciliation only.
+
+## Correction to the earlier Construction B draft
+
+An earlier revision of this artifact described candidate higher-level shell/workspace contracts despite the missing predecessor packet. Those ideas remain useful **research candidates already represented elsewhere in the frontend research corpus**, but they are not accepted Construction B output for this predecessor chain.
+
+This revision withdraws any implication that Construction B promoted, accepted or integrated those candidates from Construction A.
+
+No lower-level primitive, component, pattern, block, state or transition is redefined here.
+
+## Durable higher-level hypotheses preserved, not promoted
+
+The following remain pre-existing research hypotheses and must be reconsidered only after a valid predecessor handoff:
 
 ```text
 stable workspace shell + specialized work surfaces
 ```
 
-and the latest interaction direction: a professional desktop-style command surface using an **Office-like collapsible tab/ribbon model**, rather than a permanently expanded toolbar or a dashboard-style page header.
-
-## 1. Stable workspace shell
-
-Candidate shell:
+Candidate surfaces remain research-only:
 
 ```text
-Application / document context bar
-Collapsible tab/ribbon command surface
-------------------------------------------------------------
-Tool rail | Specialized WorkSurface | Inspector / PanelDock
-------------------------------------------------------------
-Status / Activity bar
+Frontend layout/component canvas
+Workflow graph
+Data entity/relation/data-flow
+Architecture capability/module graph
+Deployment topology/placement
+Operations runtime/observability
 ```
 
-The shell remains stable while the active work surface specializes for frontend layout, workflow graph, data model/flow, architecture/capability graph, deployment topology and operations/observability.
+The current frontend research corpus also contains candidate shell ideas such as collapsible command/ribbon surfaces, tool rails, inspectors/panel docks and status/activity surfaces. This blocked round does not promote their exact composition, naming or state contracts.
 
-`Same shell != same work surface`.
+## Semantic invariants preserved
 
-`Workspace consistency != one universal canvas`.
+No delta is introduced to these established invariants:
 
-## 2. Office-like collapsible command tabs
+- `STALE` retains its qualified currentness meaning;
+- `UNKNOWN` is never visually or semantically strengthened;
+- `BLOCKED != DISABLED`;
+- `PENDING != EFFECTIVE`;
+- `SELECTED != FOCUSED`;
+- `READ_ONLY != PERMISSION_DENIED`;
+- `Workspace preset != permission grant`;
+- `Visual connectability != semantic compatibility`;
+- `ACK != effect`;
+- `Canvas/graph/system view != canonical truth`;
+- `System Layers/Lenses` remain typed projections rather than a universal z-order.
 
-The command surface should use top-level tabs that organize commands by intent. A tab can be expanded, temporarily opened, pinned open, or collapsed to maximize workspace area.
+## Requested composed-state integration — deferred
 
-Candidate stable tabs:
-
-```text
-Arquivo
-Início
-Inserir
-Editar
-Organizar
-Relacionar
-Exibir
-Revisar
-Executar
-Sistema
-Ajuda
-```
-
-Workspace-specific/contextual tabs may appear only when relevant:
+The requested Construction B work includes composition across:
 
 ```text
-Workflow
-Dados
-Frontend
-Capability
-Deployment
-Infraestrutura
-Observabilidade
-Seleção
-Formato
-```
-
-The contextual tab is not a new authority boundary. It is a command projection over current context.
-
-### Ribbon states
-
-```text
-COLLAPSED
-TEMPORARILY_EXPANDED
-PINNED_EXPANDED
-KEYBOARD_NAVIGATION
-CONTEXT_TAB_AVAILABLE
-CONTEXT_TAB_ACTIVE
-COMMAND_PENDING
-COMMAND_BLOCKED
-PERMISSION_LIMITED
-```
-
-The collapse/expand preference may be persisted as workspace presentation state, but:
-
-`Ribbon persistence != permission persistence`.
-
-### Candidate tab responsibilities
-
-`Arquivo`: system/document lifecycle, import/export, snapshots, revisions, close/switch.
-
-`Início`: common edit/selection/navigation commands and high-frequency safe actions.
-
-`Inserir`: elements eligible for the current work surface; insertion availability is context- and authority-qualified.
-
-`Editar`: undo/redo, duplicate, remove, properties, edit-mode commands.
-
-`Organizar`: group, align, distribute, arrange, layout, lock/isolate where semantically valid.
-
-`Relacionar`: create/inspect relations, ports, dependencies, handoffs, bindings; visual connectability never implies semantic compatibility.
-
-`Exibir`: zoom, semantic level, grid/snap, minimap, labels, lenses, layers, panel visibility, saved views.
-
-`Revisar`: diff, findings, comments, evidence, currentness, impact and candidate-change review.
-
-`Executar`: validation, simulation, dry-run, reconciliation and qualified execution entry points. Commands must expose `ACK != effect` semantics.
-
-`Sistema`: revision/environment/definition context, preview/build/release configuration and system-wide qualified operations.
-
-`Ajuda`: documentation, shortcuts, command discovery, diagnostics and accessibility help.
-
-## 3. Command Registry contract
-
-Menus, ribbon controls, context menus, keyboard shortcuts and command palette should project the same command definitions rather than implementing independent behavior.
-
-Candidate research contract:
-
-```text
-CommandDefinition
-  id
-  label
-  description
-  iconRef?
-  commandGroup
-  eligibleWorkspaces[]
-  eligibleObjectTypes[]
-  modes[]
-  selectionRequirements
-  authorityRequirements
-  currentnessRequirements
-  guard
-  shortcut?
-  destructive?
-  asyncSemantics
-  effectSemantics
-  recoverySemantics
-  discoverability
-```
-
-Candidate command presentation state:
-
-```text
-HIDDEN_BY_CONTEXT
-AVAILABLE
-FOCUSED
-ARMED
-PENDING
-BLOCKED
-PERMISSION_DENIED
-UNSUPPORTED
-FAILED
-UNKNOWN_OUTCOME
-```
-
-A disabled-looking command alone is insufficient. The UI should make the reason discoverable where useful.
-
-One command may project into several surfaces:
-
-```text
-command.delete
-  -> ribbon
-  -> context menu
-  -> keyboard shortcut
-  -> command palette
-```
-
-This prevents semantic drift.
-
-## 4. Left tool rail
-
-The left edge should remain narrow and icon-oriented, closer to a professional creation tool than an administrative navigation sidebar.
-
-Candidate categories:
-
-```text
-Select / Navigate
-Systems
-Layers / Lenses
-Capabilities
-Frontend
-Workflow
-Data
-Integrations
-Security
-Deployment
-Infrastructure
-Observability
-Insert
-Search
-More
-```
-
-Activating a category may open a temporary/pinnable drawer containing eligible elements. The drawer is an inventory/projection surface, not canonical ownership.
-
-Tool-rail states:
-
-```text
-IDLE
-HOVER
-FOCUSED
-ACTIVE_TOOL
-DRAWER_OPEN
-DRAWER_PINNED
-DRAG_SOURCE
-CONTEXT_UNAVAILABLE
-PERMISSION_LIMITED
-```
-
-Keyboard and non-drag insertion paths are mandatory.
-
-## 5. Inspector / PanelDock
-
-The right side is a persistent contextual inspection/configuration area. It changes content according to semantic selection while preserving predictable panel mechanics.
-
-Candidate common tabs:
-
-```text
-Geral
-Estado
-Relacionamentos
-Regras
-Authority
-Evidence
-Histórico
-```
-
-Specialized examples:
-
-```text
-Frontend component:
-  Geral / Aparência / Binding / Eventos / Estados / Acessibilidade
-
-Workflow activity:
-  Geral / Inputs / Outputs / Rules / Effects / Failure / Authority / Evidence
-
-Host/container:
-  Geral / Resources / Network / Placement / Capacity / Observability / Costs / Evidence
-```
-
-Inspector state must distinguish:
-
-```text
-NO_SELECTION
-SINGLE_SELECTION
-MULTI_SELECTION_COMMON_PROPERTIES
-MIXED_VALUE
-READ_ONLY
-PERMISSION_LIMITED
-DIRTY
-VALIDATING
-SAVING
-CONFLICT
-STALE_SELECTION
-SELECTION_SUPERSEDED
-```
-
-`Mixed value != empty value`.
-
-## 6. Specialized WorkSurfaces
-
-### Frontend work surface
-
-Manipulates layout/component projections and bindings. Candidate interactions: select, place, resize, group, align, responsive breakpoint inspection, component state preview, binding and event configuration.
-
-### Workflow work surface
-
-Manipulates workflow nodes/edges/ports and simulation overlays. Connection gestures require valid/invalid target feedback and a keyboard-accessible relation creation alternative.
-
-### Data work surface
-
-Supports entity/relation modeling plus typed data-flow projections. Schema relation and runtime data flow remain distinct representations.
-
-### Architecture / Capability work surface
-
-Supports capability/module/system projections, dependencies, handoffs and lenses. Visual containment does not establish ownership.
-
-### Deployment / Infrastructure work surface
-
-Supports candidate placement/topology views. Dragging a module between hosts creates a candidate change, not an immediate production effect.
-
-### Operations / Observability work surface
-
-Primarily inspect/operate rather than free-form design. Observed runtime state, currentness and evidence remain explicit.
-
-## 7. Composed state behavior
-
-A workspace state is a composition of independent dimensions rather than one scalar status.
-
-Candidate shape:
-
-```text
-WorkspaceState
-  loadState
-  mode
-  selectionState
-  focusState
-  editState
-  validationState
-  asyncState
-  authorityState
-  currentnessState
-  connectivityState
-  revisionState
-  panelLayoutState
-  recoveryState
-```
-
-Examples:
-
-```text
-READY + DESIGN + SELECTED + DIRTY + CURRENT + ONLINE
-READY + EXPLORE + READ_ONLY + STALE + ONLINE
-READY + SIMULATE + PENDING + CURRENT + ONLINE
-DEGRADED + DESIGN + DIRTY + OFFLINE_CACHED
-READY + REVIEW + REVISION_DRIFT + MERGE_REQUIRED
-```
-
-Do not flatten these into `workspace.status`.
-
-## 8. Complete task flows
-
-### Create / edit
-
-```text
-cold-open
- -> loading-definition
- -> ready
- -> select/insert
- -> dirty
- -> validating
- -> autosaving/saving
- -> saved
-```
-
-Conflict path:
-
-```text
-dirty
- -> external-change-detected
- -> revision-drift
- -> merge-required
- -> reconcile
- -> saved
-```
-
-### Simulate
-
-```text
-candidate definition
- -> validate
- -> simulation pending
- -> simulation result
- -> inspect evidence/findings
-```
-
-Simulation never silently promotes to action.
-
-### Authorize / publish / act / verify
-
-```text
-candidate
- -> review
- -> authority check
- -> authorization pending/qualified
- -> execution requested
- -> ACK
- -> verification pending
- -> EFFECTIVE | PARTIAL | FAILED | UNKNOWN
- -> reconcile when needed
-```
-
-The command surface must visually and semantically preserve these boundaries.
-
-### Offline recovery
-
-```text
-online dirty
- -> connectivity lost
- -> offline draft
- -> reconnect
- -> compare revision/currentness
- -> reconcile or conflict
- -> saved
-```
-
-A reconnect must not overwrite dirty local state automatically.
-
-## 9. Cross-workspace semantic navigation
-
-Navigation should preserve semantic identity when the same object can be projected through multiple workspaces.
-
-Example:
-
-```text
-Workflow: TicketFlow
- -> Data: entities touched by TicketFlow
- -> Deployment: runtime placement for TicketFlow
- -> Observability: observed execution for TicketFlow
-```
-
-Candidate `WorkspaceContext`:
-
-```text
-systemIdentity
-revision
-mode
-workspace
-semanticSelection[]
-primarySelection?
-activeLens[]
-environment?
-currentness
-```
-
-Rules:
-
-- workspace switch attempts to preserve semantic selection when representable;
-- if the destination cannot represent the selection, it must expose that fact rather than silently selecting another object;
-- revision/currentness drift during navigation is surfaced;
-- persisted layout does not persist stale authority decisions;
-- search/command navigation carries identity, not merely a screen URL.
-
-## 10. Status / Activity bar
-
-The bottom bar exposes ambient workspace facts rather than primary actions.
-
-Candidate fields:
-
-```text
-mode
-selection summary
-revision
-currentness
-validation/findings
-background jobs
+load
+selection
+focus
+editing/dirty
+validation
+async execution
+authority
+currentness/revision
 connectivity
-zoom / semantic level
-coordinates where relevant
+degraded/offline
+panel/layout persistence
+recovery
 ```
 
-Ambient status must not replace detailed evidence or authority explanation.
+Construction B cannot bind those dimensions into new Module Component/Tool/Workspace contracts until Construction A supplies the bounded lower/middle-level contracts selected by Planning.
 
-## 11. Componentes impact
+This avoids silently deciding, for example, whether a specific lower-level element owns `BLOCKED`, merely projects it, derives it, or receives it from a parent composition.
 
-The `Componentes` inventory should add higher-level artifacts and scenarios:
+## Tools / workspaces / task pages — coverage status
+
+Requested targets are acknowledged but not materialized in this blocked round:
 
 ```text
-CommandTabBar
-RibbonPanel
-RibbonGroup
-RibbonCommand
-ContextualTab
-ToolRail
-ToolDrawer
-InspectorPanel
-PanelDock
-StatusBar
-WorkspaceShell
-FrontendWorkSurface
-WorkflowWorkSurface
-DataWorkSurface
-ArchitectureWorkSurface
-TopologyWorkSurface
-OperationsWorkSurface
-CompleteTaskPage scenarios
+Toolbox / ToolRail
+Context Toolbar / contextual command surface
+WorkSurface
+Inspector / PanelDock
+Status / Activity bar
+Frontend editor
+Workflow graph
+Data model/data-flow
+Architecture capability/module graph
+Deployment topology
+Operations/observability
+Complete create/edit/review/simulate/authorize/publish/operate/audit/recover pages
+System-level views
 ```
 
-For `WorkspaceShell`, Componentes should reproduce at least:
+No complete-page happy-path contract is fabricated without predecessor state/transition contracts.
+
+## Cross-workspace findings preserved for successor integration
+
+Successor Construction B must test, not assume:
+
+1. semantic identity continuity when switching specialized workspaces;
+2. explicit inability to represent a selected identity in a destination workspace;
+3. revision/currentness drift during workspace switch;
+4. preservation of dirty/recoverable state across navigation;
+5. persisted layout without persisted authority grants;
+6. focus restoration after modal/panel/context-surface transitions;
+7. responsive overflow without removal of critical/authority-sensitive actions;
+8. visual relation affordance without semantic-edge fabrication.
+
+These are proof obligations, not accepted contracts in this round.
+
+## Complete-task scenario obligations preserved
+
+When predecessor materialization exists, Construction B must derive at minimum:
 
 ```text
-ribbon collapsed
-ribbon temporary expanded
-ribbon pinned
-contextual tab appears/disappears
-single selection
+cold-open -> load -> select -> edit -> dirty -> autosave -> conflict -> reconcile -> saved
+
+drag -> invalid target -> explain/recover -> valid target
+
+publish -> authority qualification -> request -> ACK -> verification pending -> EFFECTIVE|PARTIAL|FAILED|UNKNOWN
+
+offline -> local draft -> reconnect -> revision/currentness compare -> reconcile
+
+bulk action -> mixed outcomes -> partial success -> inspect/retry/reconcile
+
+review -> live revision drift -> preserve local review context -> requalify/reconcile
+
+fatal child-surface failure -> preserve recoverable draft/context -> restore/export recovery evidence
+```
+
+Regression proof must preserve the fixed distinctions above and must include keyboard/non-drag alternatives where direct manipulation exists.
+
+## Componentes impact
+
+No new inventory artifact is promoted in this blocked round.
+
+Once unblocked, Construction B should integrate Construction A outputs upward and then determine which higher-level entries are justified, potentially including tool/workspace/page scenarios. Exact candidates must be derived from the predecessor packet rather than inferred here.
+
+Required Componentes proof categories for the future handoff remain:
+
+```text
+composed state reproduction
+selection vs focus
 multi-selection mixed values
-read-only
-permission limited
-dirty/autosave
-revision drift
-conflict
-simulation running
-offline draft
-fatal child-surface error with recoverable shell
+read-only vs permission-limited
+pending vs effective
+stale / partial / unknown
+revision drift/conflict
+offline/reconnect/recovery
+partial bulk result
+fatal recoverable failure
+responsive command reachability
+keyboard/direct-manipulation equivalence
 ```
 
-## 12. Accessibility and responsive proof obligations
+## Blocker
 
-- top tabs/ribbon are keyboard navigable and expose active/expanded state;
-- collapsing ribbon does not remove command reachability;
-- command palette provides expert discovery but is not the only path for required operations;
-- tool rail has accessible names and non-drag insertion alternatives;
-- panel open/close restores focus predictably;
-- docked/floating panels preserve logical focus order;
-- responsive reduction moves commands into discoverable overflow rather than deleting them;
-- destructive/authority-sensitive commands require understandable qualification;
-- canvas/graph relations have non-pointer alternatives;
-- reduced motion does not remove pending/currentness meaning.
+`BLOCKER-G4-FE-CB-001`: Construction A has no executable/materialized lower/middle-level slice because `BLOCKER-G4-FE-CA-001` remains unresolved.
 
-## 13. Adversarial scenarios
+Construction B cannot legitimately consume and elevate a predecessor contract that does not exist.
 
-1. Ribbon collapses while a command is pending: pending state remains observable.
-2. Contextual tab disappears because selection changes while keyboard focus is inside it: focus returns predictably.
-3. Multi-selection has mixed property values: inspector never renders them as empty/default.
-4. Live update arrives while inspector is dirty: local edit is preserved and revision drift exposed.
-5. Workspace switch during dirty state: semantic selection and unsaved-work boundary are explicit.
-6. Dragging appears to permit an invalid semantic relation: drop is rejected with reason and alternative relation path.
-7. Deployment drag creates candidate placement but UI accidentally displays production success: prohibited.
-8. Execute receives ACK then loses observation: state becomes verification-pending/unknown, never effective.
-9. Responsive collapse hides the only authorization action: prohibited.
-10. Fatal work-surface renderer failure: shell retains recoverable draft/context and offers recovery/export evidence path.
-11. Offline reconnect sees a newer revision: reconcile before overwrite.
-12. Command available from shortcut but blocked in ribbon: prohibited semantic drift; all projections consume the same guard/state.
-
-## 14. Regression scenario candidates
+## Exact handoff
 
 ```text
-cold-open -> load -> select -> edit -> dirty -> autosave -> saved
+G4 Frontend Planning :50
+  -> materialize bounded packet with named lower/middle-level slice
 
-dirty -> external update -> revision drift -> conflict -> reconcile -> saved
+G4 Frontend Construction A :00
+  -> execute that packet
+  -> materialize state / transition / composition / evidence contracts
+  -> explicitly hand off named contracts to Construction B
 
-insert -> drag -> invalid target -> explain -> valid target -> candidate relation
+G4 Frontend Construction B :10
+  -> consume only that handoff
+  -> elevate MODULE COMPONENT -> TOOL -> WORKSPACE -> COMPLETE TASK PAGE -> SYSTEM VIEW
+  -> derive composed-state and complete-task regression obligations
+  -> reconcile Componentes higher-level inventory impact
 
-simulate -> pending -> result -> findings -> return to design
-
-publish -> authority check -> request -> ACK -> verify -> effective
-
-publish -> ACK -> observation lost -> unknown -> reconcile -> effective
-
-offline -> local draft -> reconnect -> newer revision -> merge -> saved
-
-multi-select -> mixed inspector -> bulk edit -> partial success -> inspect failures
-
-workspace A selection -> workspace B same identity -> stale revision detected -> refresh/reconcile
+Documentation
+  -> only after successful B integration, normalize terminology and durable research memory without promoting research to implementation authority
 ```
 
-## 15. Construction B conclusion
+## Documentation handoff for this blocked round
 
-The higher-level UI should behave like one professional creation/engineering application, not a collection of unrelated dashboards.
+Documentation should record only the blocker chain and the correction that the earlier Construction B draft was premature. It should **not** normalize the withdrawn draft as accepted higher-level contract material.
 
-The strongest current candidate is:
-
-```text
-stable shell
-+ Office-like collapsible command tabs/ribbon
-+ narrow left tool rail and drawers
-+ specialized work surfaces
-+ contextual right inspector/panel dock
-+ ambient status/activity bar
-+ shared command registry
-+ semantic cross-workspace identity
-```
-
-This remains a research contract. Exact visual styling, tab density, command grouping and pixel layout require human-guided refinement and later implementation authority.
-
-## Handoff to Documentation
-
-Documentation should next:
-
-1. reconcile this command-surface model with `G4_FRONTEND_DESIGN_SYSTEM_FOUNDATION_PLAN.md` application-shell terminology;
-2. replace any implication of a permanently expanded generic toolbar with the collapsible tab/ribbon candidate;
-3. normalize `Toolbox`, `ToolRail`, `ContextBar`, `Ribbon`, `InspectorPanel`, `PanelDock`, `WorkSurface` and `StatusBar` vocabulary;
-4. ensure `G4_UI_INTERACTION_STATE_MATRIX_RESEARCH.md` gains ribbon/context-tab/command-registry state scenarios without duplicating primitive state definitions;
-5. register the higher-level artifacts in the future `Componentes` inventory model;
-6. preserve `Explore != Design != Simulate != Propose != Authorize != Act != Verify` and `ACK != effect` throughout command semantics;
-7. keep exact visual refinement explicitly human-guided and non-binding at this research stage.
+No product code, package metadata, G2/G3 material, WBS, Work Package, Sprint, TASK, provider or migration was changed.
