@@ -444,3 +444,14 @@ Core flows:
 The manager must distinguish SB-managed, externally managed, co-managed, observe-only and discovered-unregistered instances.
 
 Hard boundaries: Install != Adopt; Register != Deploy; Connect != Own; Discovered != Verified; Remove from Desktop != Uninstall; Unregister != Stop Service; Application record != secret storage.
+
+
+## Research addition — Control Center / unified configuration
+
+G4 now includes a first-class Control Center for unified cross-application configuration and governance.
+
+The Control Center should expose application settings, provider/bindings, enablement, policies, secret/credential references, environments, endpoints, lifecycle/update rules, observability settings and desktop/app visibility without forcing users to configure every product separately.
+
+Configuration remains scoped and provenance-aware across platform/client/system/environment/desktop/application/instance. Individual advanced settings remain available inside each application.
+
+Key boundaries: unified settings UI != single semantic owner/store; secret reference != secret value; policy != configuration; desired != observed != effective; configured != applied != effective; inherited != explicitly set; global change != implicit restart/redeploy.
