@@ -14,354 +14,41 @@ Current shell hypothesis is preserved:
 
 3D is an optional future projection/application, not a mandatory shell. This research does not select providers or authorize implementation.
 
-## Evidence reviewed
+## Consolidated findings F1–F20
 
-- Camunda 8 user-task/form documentation: a user task may reference a form but is not identical to it; task input/output mappings reshape process variables; linked forms support independent version binding (`latest`, `deployment`, `versionTag`).
-- Camunda form-linking guidance: linked forms are recommended over embedding because independent lifecycle/versioning is easier to maintain; the workflow element carries a reference rather than absorbing form ownership.
-- Storybook Controls/stories: component inputs can be manipulated independently and stories represent discrete component states in an isolated preview, supporting an executable state-lab concept without making preview canonical runtime truth.
-- Mature editor patterns already captured in sibling G4 research: command registry, selection/focus separation, query-scoped selection, inspector/outliner, operation registry, projection handoff, autosave/conflict/reconciliation and accessibility peers.
+The prior research established the following high-confidence foundation:
 
-These are pattern evidence, not adoption decisions.
+- proprietary apps need a `SharedEditorFoundation`, not a shared domain model;
+- every editor session carries document identity, base revision/currentness, local draft, authority/disclosure context, canonical selection/focus and operation refs;
+- editor undo/redo is draft-intent history, not rollback of publish/runtime/business effects;
+- Selection + Outliner + Inspector form a reusable triad over canonical identity;
+- Binding Browser and Expression/Rule infrastructure are shared hosts with typed domain adapters;
+- validation is layered (`STRUCTURAL`, `TYPE_SCHEMA`, `BINDING`, `REACHABILITY`, `PERMISSION_AUTHORITY`, `CURRENTNESS`, `WORKFLOW_CONFORMANCE`, `ACCESSIBILITY`, `RESPONSIVE`, `RUNTIME_PREVIEW`, `PUBLISH_READINESS`);
+- Workflow owns activity/control-flow semantics while Form/View are independently versioned references;
+- View/Page owns composition while UI events bind to Commands/Actions rather than becoming commands;
+- Form owns capture/local validation, not Workflow or Domain State;
+- Componentes needs distinct Definition Editor and State/Evidence Lab roles;
+- Decision result, command authorization and effective business state are separate;
+- System/Module Designer is an integration/reference editor, not owner of child artifacts;
+- Elicitation/Requirements owns traceability/proposals, not authoritative mutation;
+- Preview/Sandbox consumes an explicit revision bundle and declares substitutions/unsupported behavior; `Preview != effective runtime`;
+- Revision/Diff must be semantic-aware across structure, bindings, state machines, authority, schema, actions, reachability, accessibility and evidence;
+- the semantic bridge is typed references: `Workflow Activity -> Form/View -> Component Event -> Command/Action -> Permission/Policy -> Domain State -> Evidence`;
+- composition validity should be proactive through compatibility filtering, prerequisites and findings;
+- stable command identity may be shared across editors while eligibility/effect remains document/domain specific;
+- fatal editor failure must preserve a recoverable draft envelope and offline reconnect must requalify revision/authority/bindings.
 
-## F1 — The proprietary apps need a Shared Editor Foundation, not a shared domain model
-
-The reusable layer should own editor mechanics while each application owns its semantics.
-
-```text
-SharedEditorFoundation
-  EditorDocumentSession
-  CanonicalSelection
-  FocusRoute
-  OutlinerProjection
-  InspectorHost
-  WorkSurfaceHost
-  CommandRegistryProjection
-  OperationRegistryProjection
-  UndoRedoCoordinator
-  DirtyAutosaveConflictCoordinator
-  RevisionHistoryProjection
-  DiffProjectionHost
-  ValidationFindingsSurface
-  BindingBrowserHost
-  ExpressionEditorHost
-  PreviewHost
-  EvidencePanelHost
-  KeyboardDragAlternative
-```
-
-It must not own WorkflowActivity, View, Form, Component, DomainCommand, Permission or DomainState semantics.
-
-Invariant: `shared editor mechanics != shared business ownership`.
-
-## F2 — Every editor session needs a document/revision basis
-
-Candidate:
-
-```text
-EditorDocumentSession
-  documentIdentity
-  documentKind
-  baseRevision
-  currentness
-  localDraftRevision
-  dirtyState
-  saveState
-  conflictState
-  authorityContext
-  disclosureContext
-  environmentContext?
-  selectionContext
-  focusRoute
-  operationRefs[]
-```
-
-This is reusable across Workflow, View, Form, Component, Rules, Module, Requirements and Revision/Diff. A view switch must not silently replace the revision basis.
-
-State candidates:
-
-`CLEAN | DIRTY | SAVING | SAVE_FAILED | EXTERNAL_CHANGE_DETECTED | CONFLICTED | RECONCILING | READ_ONLY | PERMISSION_DENIED | STALE`.
-
-## F3 — Undo/redo is editor-intent history, not authoritative business rollback
-
-Undo/redo should operate on reversible editor mutations inside a bounded draft/revision session. It cannot imply reversal of published/runtime/domain effects.
-
-Candidate command metadata:
-
-```text
-EditorMutation
-  mutationId
-  semanticIntent
-  targetIdentity
-  baseRevision
-  inverseStrategy
-  merge/coalesce policy
-  validationImpact
-  externalEffect = NONE | REQUIRES_SEPARATE_OPERATION
-```
-
-`Undo edit != rollback publish != compensate business effect`.
-
-## F4 — Selection/Outliner/Inspector form one reusable triad
-
-Across graph, page, form, component and module editors:
-
-- WorkSurface projects the selected object;
-- Outliner projects structural/semantic containment or ordering appropriate to that editor;
-- Inspector projects qualified properties/actions for the same canonical identity.
-
-The Outliner must not invent containment where the domain has only references/relations. The Inspector cannot maintain a shadow semantic model.
-
-## F5 — Binding Browser is a shared infrastructure component with typed adapters
-
-Bindings recur across View, Form, Component, Workflow and Rules but their source/target contracts differ.
-
-```text
-BindingCandidate
-  sourceIdentity
-  sourceKind
-  sourceRevision/currentness
-  value/schema contract
-  targetRequirement
-  compatibility
-  conversionCandidate?
-  authority/disclosure qualification
-  evidence
-```
-
-Compatibility filtering should make valid composition easier than invalid composition. Missing binding, stale binding, schema mismatch, permission mismatch and unknown compatibility remain distinct findings.
-
-## F6 — Expression/Rule Editor can share syntax infrastructure without collapsing rule ownership
-
-Reusable infrastructure may include parsing surface, completion, type/schema hints, diagnostics, references, test fixtures and evaluation preview. Domain-specific adapters define permitted functions, facts, authority and effect semantics.
-
-`Expression parses != rule valid`; `rule evaluates in preview != authorized/effective business decision`.
-
-## F7 — Validation needs layered findings
-
-Candidate layers:
-
-```text
-STRUCTURAL
-TYPE_SCHEMA
-BINDING
-REACHABILITY
-PERMISSION_AUTHORITY
-CURRENTNESS
-WORKFLOW_CONFORMANCE
-ACCESSIBILITY
-RESPONSIVE
-RUNTIME_PREVIEW
-PUBLISH_READINESS
-```
-
-A finding has severity, target identity, revision basis, evidence, remediation candidate and whether it blocks a particular operation. `BLOCKED != DISABLED`: a command may remain discoverable while explaining why execution is blocked.
-
-## F8 — Workflow Designer owns activity/control-flow semantics; forms/views are references
-
-A workflow activity may require human interaction and bind a Form/View/Application, but:
+Core invariants remain:
 
 `View != Workflow Activity`
 `Form != Workflow State`
+`Button != Domain Command`
+`Component event != authorized action`
+`visual transition != business transition`
+`Undo edit != rollback publish != compensate business effect`
+`Preview != effective runtime`
 
-Camunda provides strong pattern evidence: user tasks have assignments, variable mappings and a form reference; forms may be independently version-bound. Therefore SB should research a typed binding such as:
-
-```text
-HumanInteractionBinding
-  activityRef
-  interactionResourceRef
-  resourceKind = FORM | VIEW | APPLICATION_ROUTE
-  bindingPolicy
-  inputMapping
-  outputMapping
-  completionContract
-  permissionRequirements
-```
-
-The workflow remains owner of activity lifecycle; the form/view remains owner of presentation/input composition.
-
-## F9 — View/Page Builder owns composition/layout; actions are references
-
-A Button or component event should bind to a Command/Action candidate, never become the command itself.
-
-```text
-InteractionBinding
-  componentEventRef
-  actionRef
-  argumentMapping
-  eligibilityProjection
-  authorityRequirement
-  confirmationPolicy
-  async/effect projection
-```
-
-`Button != Domain Command` and `Component event != authorized action`.
-
-A control without an authorized command is a validation finding, not permission to fabricate one.
-
-## F10 — Form Builder owns capture/validation composition, not workflow/domain state
-
-Form fields bind to typed data requirements. Form-local validation may reject malformed input, while business validation/authority remains external.
-
-Schema evolution must produce impact findings:
-
-`schema changed -> binding requalification -> broken/convertible/compatible/unknown`.
-
-A workflow state cannot be inferred from whether a form happens to be visible or valid.
-
-## F11 — Component Editor / Componentes needs two coupled but distinct modes
-
-1. **Definition editor**: variants, interaction states, slots/props, responsive rules, accessibility, events, bindings and permission-aware presentation.
-2. **State lab / evidence catalog**: discrete scenarios, fixtures, interaction tests, accessibility checks, visual evidence and usage references.
-
-Storybook is useful evidence for isolated states and controllable inputs, but SB's Componentes must additionally model semantic states such as `STALE`, `READ_ONLY`, `BLOCKED`, `PERMISSION_DENIED`, `PENDING`, `EFFECTIVE` only where applicable and must record impossible combinations.
-
-Candidate ComponentDefinition facets:
-
-```text
-visual variants
-interaction states
-semantic states
-async states
-data bindings
-validation
-permissions/disclosure
-events/action bindings
-workflow bindings
-visibility rules
-responsive/density rules
-accessibility contract
-evidence/test refs
-composedOf / usedBy
-```
-
-## F12 — Rules/Decision Editor should separate decision definition, invocation and effect
-
-The editor may provide tables/graphs/expressions and simulation fixtures, but a decision result is not automatically an authorized action or effective state change.
-
-`Decision result != command authorization != effect`.
-
-Cross-app bindings must show which workflow/activity/action consumes the decision and at which revision/binding policy.
-
-## F13 — System/Module Designer is an integration editor, not owner of child artifacts
-
-It composes module identity, capabilities/services, ports/contracts, dependencies, providers/bindings, adapters/extensions, configuration/data/workflow/security/runtime/observability/evidence references. Opening a child artifact delegates to its specialized editor while preserving object/revision/environment context.
-
-The module editor may surface impact/findings across children but must not clone child identity into module-local copies.
-
-## F14 — Elicitation/Requirements needs traceability rather than direct code ownership
-
-Candidate trace chain:
-
-```text
-Requirement / constraint / acceptance criterion
-  -> proposed semantic artifact(s)
-  -> decision/rationale
-  -> validation/proof obligation
-  -> implementation/published evidence later
-```
-
-Requirements can propose or constrain Workflow/View/Form/Component/Command relationships but cannot silently mutate authoritative artifacts. AI suggestions remain proposals with provenance.
-
-## F15 — Preview/Sandbox is an interpreter/projection with declared equivalence scope
-
-Preview should consume a declared revision bundle and sandbox adapters/fixtures. It must report which behaviors are previewable, simulated, unavailable or substituted.
-
-```text
-PreviewSession
-  revisionBundle
-  environment/sandbox profile
-  fixture/data profile
-  authority simulation policy
-  provider substitution map
-  unsupportedBehaviors[]
-  evidenceRefs[]
-```
-
-`Preview != effective runtime`.
-
-Mismatch between PreviewBehavior and compiled/runtime behavior is a first-class finding, not something hidden by visual similarity.
-
-## F16 — Revision/Diff must be semantic-aware and cross-artifact
-
-Text/JSON diff is insufficient for editor artifacts. Candidate semantic diff classes:
-
-```text
-STRUCTURE
-BINDING
-STATE_MACHINE
-PERMISSION_AUTHORITY
-SCHEMA
-COMMAND_ACTION
-WORKFLOW_REACHABILITY
-RESPONSIVE_ACCESSIBILITY
-EVIDENCE_PROOF
-```
-
-A cross-artifact change impact graph is required for cases such as schema change -> form binding break -> workflow human-task risk -> preview mismatch.
-
-`Text diff != semantic diff`; `same rendering != same semantics`.
-
-## F17 — Semantic Bridge should use references/contracts, not merged ownership
-
-Research bridge:
-
-```text
-Workflow Activity
-  --HumanInteractionBinding--> Form/View
-Form/View Component Event
-  --InteractionBinding--> Command/Action
-Command/Action
-  --AuthorityQualification--> Permission/Policy
-Command/Action
-  --Precondition/EffectContract--> Domain State
-Occurrence/Effect
-  --EvidenceReference--> Evidence
-```
-
-Each edge is independently versioned/qualified. The bridge allows navigation and impact analysis without turning the chain into one mega-document.
-
-## F18 — Composition validity should be proactive
-
-Guided/opinionated composition should provide:
-
-- compatibility-filtered candidate pickers;
-- prerequisites before insertion/binding;
-- typed port/binding affordances;
-- missing-binding detection;
-- orphan component/state detection;
-- unreachable workflow-state/activity detection;
-- required-input diagnostics;
-- permission/authority mismatch diagnostics;
-- currentness/schema mismatch diagnostics;
-- preview coverage/mismatch diagnostics.
-
-Drag/drop remains a convenience projection. Keyboard/picker flows must expose the same compatibility qualification. A visually accepted drop is never semantic proof.
-
-## F19 — Cross-editor command registry needs stable intent, editor-specific eligibility
-
-Commands such as Save, Undo, Redo, Validate, Preview, Compare, Open Referenced Artifact, Inspect Evidence and Publish Candidate can share stable identities/presentation conventions. Their eligibility and effect remain editor/document specific.
-
-The Desktop/Application shell projects commands from the focused Window/View but `Focused Window != selected semantic object` and command visibility never grants authority.
-
-## F20 — Proprietary editors share failure/recovery requirements
-
-Minimum recovery envelope:
-
-```text
-RecoverableEditorState
-  document identity + base revision
-  local draft mutations/snapshot
-  dirty/conflict state
-  selection
-  focus return anchor
-  open panels/view
-  operation refs
-  unresolved findings
-```
-
-Fatal renderer/editor failure should permit reopening in an alternate representation where possible. Offline edits require local draft lineage and requalification on reconnect; they cannot assume old permissions/currentness remain valid.
-
-## Editor-specific findings matrix
+## Editor-specific ownership matrix
 
 | Editor | Owns | Reuses heavily | Highest-risk semantic boundary |
 |---|---|---|---|
@@ -378,86 +65,331 @@ Fatal renderer/editor failure should permit reopening in an alternate representa
 ## Shared primitive -> infrastructure -> app -> integration decomposition
 
 ### P0 — Shared primitives — LOW/MEDIUM
-
 Selection/focus, tree/outliner row, inspector field/group, command presentation, finding marker, revision badge, binding candidate, evidence reference, keyboard reorder/move, diff marker, state chip.
 
 ### P1 — Editor infrastructure — MEDIUM/HIGH
-
 EditorDocumentSession, WorkSurfaceHost, OutlinerProjection, InspectorHost, CommandRegistryProjection, UndoRedoCoordinator, Autosave/Conflict/Reconcile, BindingBrowser, ExpressionEditorHost, ValidationFindings, RevisionHistory, DiffProjection, PreviewHost, EvidencePanel.
 
 ### P2 — Proprietary app semantics — HIGH/VERY HIGH
-
 Workflow graph semantics, Component state/variant model, Page/View composition grammar, Form/schema grammar, Rule/Decision semantics, Module integration model, Requirement trace model, Preview interpreter, semantic diff adapters.
 
 ### P3 — Cross-app semantic integration — VERY HIGH/EXTREME
-
 Typed versioned bindings across Workflow <-> View/Form <-> Component <-> Command/Action <-> Permission <-> Domain State <-> Evidence; impact propagation; cross-editor currentness/conflict; publish/revision bundle qualification; preview equivalence evidence.
 
-Complexity hotspot: P3 should not be hidden inside generic UI components. It is where independent ownership, revisioning, authority and effect semantics meet.
+Complexity hotspot: P3 must not be hidden inside generic React components.
 
-## Mandatory adversarial scenarios / proof obligations
+---
 
-1. Workflow activity requires a form; form revision changes after workflow review -> binding policy determines whether new instances use latest/pinned version; no silent mutation of historical occurrence.
-2. Domain command exists with no UI binding -> remains valid command; UI reports unbound discoverability finding only if policy requires presentation.
-3. UI Button exists with action binding but current actor lacks authority -> button presentation reflects qualification; event cannot bypass authorization.
-4. Schema field removed/changed -> Form binding becomes broken/convertible/unknown; workflow state is not inferred from rendering success.
-5. Permission changes while View is open -> currentness/authority requalification; dirty draft is preserved but effect execution may become blocked.
-6. Two editors modify same artifact revision -> external-change detected; reconcile/compare rather than last-writer visual overwrite.
-7. Offline draft reconnects -> base revision, authority and bindings requalified before save/publish.
-8. Preview passes but provider/runtime behavior differs -> mismatch finding/evidence; Preview cannot mark production EFFECTIVE.
-9. Drag relation rejected semantically -> equivalent keyboard/picker path exposes compatibility reasons.
-10. Component has LOADING/EMPTY/ERROR variants but domain command is BLOCKED -> component state and command eligibility remain separate dimensions.
-11. Rule evaluates true but command permission denied -> no effect occurs.
-12. Form is valid but workflow completion prerequisites are unmet -> form validity does not advance workflow.
-13. View is deleted while workflow references it -> unresolved reference finding; workflow activity is not silently deleted.
-14. Revision diff shows identical visual output but permission binding changed -> semantic diff must expose authority change.
-15. Preview resource uses latest binding while reviewed workflow expected deployment-pinned resource -> currentness/binding mismatch must be visible.
+## Deep-research continuation — publish bundles, revision pinning and multi-document draft semantics
 
-## Componentes impact
+### Additional evidence reviewed
 
-`Componentes` should catalog both reusable editor infrastructure and domain components. New metadata candidates:
+- Camunda 8 resource-binding guidance distinguishes `latest`, `deployment`, and `versionTag` bindings for linked forms/processes/decisions. Its guidance explicitly warns that `latest` can resolve an incompatible future resource and recommends stable version binding for predictable behavior. Linked forms are independently deployed, which is direct evidence that reference integration does not require lifecycle collapse.
+- GitHub pull requests and compare views treat a proposed change as a reviewable set of commits/files while preserving the individual file identities and history; merge strategies show that grouping changes for review/integration does not require treating the files as one document.
+- Yjs `UndoManager` supports selective undo scoped to shared types and transaction origins, evidence that undo can be origin/scope-aware rather than a single global stack. This is pattern evidence only; it is not a provider decision.
+
+### F21 — Publish Bundle is a qualified release manifest, not a mega-document
+
+A publish candidate spanning Workflow, View, Form, Component and Rule artifacts should preserve each artifact's independent identity/revision and bind them through an immutable candidate manifest.
+
+Candidate:
 
 ```text
-editorRoles[]
-documentKinds[]
-semanticOwner
-bindingKinds[]
-revisionBehavior
-undoability
-previewability
-validationLayers[]
-stateDimensions[]
-impossibleStateCombinations[]
-keyboardEquivalent
-responsive/density behavior
-evidence/test refs
-crossAppUsedBy[]
+PublishBundleCandidate
+  bundleId
+  purpose / target environment
+  createdFromDraftGroup?
+  members[]
+    artifactIdentity
+    artifactKind
+    candidateRevision
+    baseRevision
+    currentnessAtQualification
+    content/evidence digest
+  bindings[]
+    bindingIdentity
+    sourceMember/ref
+    targetMember/ref
+    resolutionPolicy
+    resolvedTargetRevision
+  qualificationSnapshot
+  validationFindingRefs[]
+  previewEvidenceRefs[]
+  authorityQualificationRefs[]
+  dependencyClosure
+  unresolvedExternalDependencies[]
+  generatedAt
 ```
 
-Componentes itself becomes both a proprietary Component Editor and the executable evidence/state catalog; these roles should remain explicit rather than conflated.
+The bundle is a **manifest over autonomous artifacts**. Publishing the bundle must not rewrite child ownership into bundle ownership.
 
-## Maturity / saturation
+`PublishBundle != EditorDocument != DomainAggregate`.
+
+### F22 — Reference policy and release resolution must be separate concepts
+
+A design-time binding may express a policy such as `LATEST_COMPATIBLE`, `PINNED_REVISION`, `RELEASE_TAG`, or `SAME_RELEASE_BUNDLE`, but a publish candidate needs to record the concrete target revision resolved during qualification.
+
+This avoids a critical ambiguity:
+
+```text
+design-time policy: latest compatible Form A
+qualification result: Form A @ revision 41
+published evidence: bundle resolved Form A @ revision 41
+future Form A @ revision 42 does not rewrite historical evidence
+```
+
+Camunda's `latest`/`deployment`/`versionTag` trade-off is strong external evidence for this separation: runtime resolution policy affects predictability and compatibility.
+
+### F23 — Qualification should freeze evidence, not necessarily freeze all future authoring
+
+Once a candidate bundle is qualified, its member revisions and dependency resolutions should be immutable for that candidate. Editors may continue producing later revisions, but those later revisions belong to a new candidate or require explicit requalification.
+
+Candidate state machine:
+
+```text
+DRAFT_BUNDLE
+  -> RESOLVING_DEPENDENCIES
+  -> QUALIFYING
+  -> QUALIFIED
+  -> AUTHORIZATION_PENDING
+  -> AUTHORIZED
+  -> PUBLISHING
+  -> ACKNOWLEDGED
+  -> VERIFICATION_PENDING
+  -> EFFECTIVE | PARTIAL | FAILED | UNKNOWN
+
+Any member/dependency mutation after QUALIFIED
+  -> STALE_CANDIDATE / REQUALIFICATION_REQUIRED
+```
+
+`ACKNOWLEDGED != EFFECTIVE` remains mandatory.
+
+### F24 — Dependency closure must distinguish bundled, external-pinned and dynamic dependencies
+
+A publish candidate should classify every dependency edge:
+
+```text
+BUNDLED_EXACT
+EXTERNAL_PINNED
+EXTERNAL_POLICY_RESOLVED
+DYNAMIC_RUNTIME
+OPTIONAL
+UNRESOLVED
+DISCLOSURE_LIMITED
+```
+
+This allows a Workflow + Form + Rule bundle to be self-consistent while still referring to a shared Command contract or provider outside the bundle. `UNRESOLVED`, `UNKNOWN`, and `DISCLOSURE_LIMITED` cannot be silently converted to success.
+
+### F25 — Cross-artifact validation is a qualification graph, not a global boolean
+
+Qualification should preserve per-member and per-edge findings:
+
+```text
+Workflow@17
+  HumanInteractionBinding -> Form@41      PASS
+  RuleBinding -> Decision@9               PASS
+Form@41
+  ComponentBinding -> Component@12        PASS
+Component@12
+  InteractionBinding -> Command@7         PASS
+Command@7
+  AuthorityPolicy -> Policy@5             UNKNOWN
+```
+
+The bundle can therefore be `BLOCKED_BY_UNKNOWN_AUTHORITY` without pretending all other checks failed. This is important for review UX and targeted remediation.
+
+### F26 — Multi-document Draft Group coordinates intent without merging documents
+
+Some authoring actions legitimately span artifacts: creating a Workflow human task may create a Form, bind it, and add a View route. The reusable foundation needs a coordination object, not a merged document.
+
+Candidate:
+
+```text
+DraftGroup
+  groupId
+  semanticIntent
+  participants[]
+    EditorDocumentSessionRef
+    baseRevision
+    localDraftRevision
+  crossArtifactMutations[]
+  dependency/binding mutations[]
+  validationImpact
+  savePolicy
+  conflictState
+  recoveryEnvelope
+```
+
+Each participant retains its own dirty/save/conflict state. Group state is derived from participants plus cross-artifact constraints.
+
+`DraftGroup != shared revision number`.
+
+### F27 — Cross-document Undo should be semantic-intent scoped and best-effort only while reversible
+
+Yjs demonstrates selective undo by scope/origin. For SB, a multi-document editor gesture may create several local mutations sharing one `intentId`.
+
+Candidate:
+
+```text
+CrossArtifactEditorIntent
+  intentId
+  participantMutations[]
+  reversibleUntil
+  inversePlan[]
+  conflictPreconditions[]
+  externalEffects = NONE
+```
+
+Undo can reverse the group only while all participant mutations remain locally reversible against their expected bases. If one participant has been independently reconciled/published or its inverse precondition no longer holds, the UI must not claim atomic undo. It should offer a qualified remediation/revert proposal.
+
+`grouped undo != distributed transaction`.
+
+### F28 — Save semantics should permit partial persistence without pretending group success
+
+A Draft Group may save Form@draft while Workflow save fails. This must produce a durable partial result:
+
+```text
+DraftGroupSaveResult
+  participantResults[]
+    SAVED | SAVE_FAILED | CONFLICTED | STALE | PERMISSION_DENIED | UNKNOWN
+  bindingResults[]
+  overall = COMPLETE | PARTIAL | FAILED | UNKNOWN
+  recoveryActions[]
+```
+
+The group remains recoverable and can retry only failed participants after requalification. Silent rollback of already-saved autonomous documents is unsafe unless the domain explicitly supports it.
+
+### F29 — Reconcile is three-way and participant-aware
+
+For each conflicting artifact, reconciliation needs at least:
+
+`base revision -> local draft -> current remote revision`.
+
+Cross-artifact reconciliation then re-runs impacted binding/schema/authority/reachability checks. A visually clean merge can still invalidate a Form binding or permission reference.
+
+Therefore:
+
+`text merge success != semantic reconciliation success`.
+
+### F30 — Publish authorization must bind to the qualified manifest
+
+An approval should identify the exact bundle candidate/digests/revisions it authorized. If any member or resolved dependency changes afterward, the prior authorization cannot automatically cover the new candidate unless policy explicitly permits that class of change.
+
+Candidate:
+
+```text
+PublishAuthorization
+  authorizationId
+  bundleId
+  qualifiedManifestDigest
+  scope
+  actor/authority evidence
+  constraints
+  expiresAt?
+```
+
+This prevents a dangerous UX where a reviewer approves Workflow@17 + Form@41 and the system later publishes Workflow@17 + Form@42 under the old approval.
+
+### F31 — Preview evidence must be attached to the same resolved candidate
+
+A Preview/Sandbox run should reference the candidate bundle manifest/digest and report provider substitutions/unsupported behaviors. If the bundle changes, preview evidence becomes stale for publish qualification.
+
+`Preview passed for candidate A != Preview passed for candidate B`.
+
+This creates a clean chain:
+
+`DraftGroup -> PublishBundleCandidate -> qualification -> preview/evidence -> authorization -> publish -> effect verification`.
+
+### F32 — Revision/Diff needs a bundle-level impact projection without losing per-document diffs
+
+Bundle diff should answer both:
+
+1. **What changed inside each artifact?**
+2. **What changed in cross-artifact behavior because references resolved differently?**
+
+Candidate layers:
+
+```text
+MEMBER_ADDED_REMOVED
+MEMBER_REVISION_CHANGED
+BINDING_TARGET_CHANGED
+RESOLUTION_POLICY_CHANGED
+SCHEMA_COMPATIBILITY_CHANGED
+AUTHORITY_POLICY_CHANGED
+WORKFLOW_REACHABILITY_CHANGED
+PREVIEW_COVERAGE_CHANGED
+EVIDENCE_CURRENTNESS_CHANGED
+```
+
+A Form can be byte-identical while a Workflow's binding policy changes from pinned to latest; bundle semantic diff must still flag the behavioral risk.
+
+### F33 — Componentes should catalog editor transaction/release behavior explicitly
+
+New metadata candidates for shared editor infrastructure and proprietary app components:
+
+```text
+editorMutationScope = SINGLE_DOCUMENT | CROSS_DOCUMENT
+undoScope
+saveAtomicity = SINGLE_DOCUMENT | GROUP_PARTIAL_AWARE
+publishParticipation
+revisionPinningSupport
+bindingResolutionPolicies[]
+qualificationLayers[]
+reconciliationStrategy
+previewEvidenceCoupling
+recoveryEnvelope
+```
+
+This prevents a generic `Undo` or `Publish` affordance from implying semantics the underlying editor/app cannot guarantee.
+
+## New adversarial scenarios / proof obligations
+
+16. Workflow@17 is reviewed with Form@41; Form@42 appears before publish -> candidate remains pinned to 41 or becomes stale; never silently substitutes 42.
+17. Binding policy is `latest`; qualification resolves revision 41; revision 42 appears before effect -> runtime policy and evidence must expose whether late resolution is intentionally dynamic or publish must requalify.
+18. Multi-document gesture creates Form + Workflow binding; Form saves but Workflow conflicts -> overall PARTIAL, Form is not silently deleted, and recovery targets the failed participant.
+19. User invokes Undo after one participant was externally reconciled -> no fake atomic undo; show qualified inverse/remediation plan.
+20. Preview passed for bundle digest A; one Rule revision changes -> preview evidence becomes STALE for candidate B.
+21. Reviewer authorizes candidate digest A; dependency resolution changes -> authorization is not reused silently.
+22. Text merge succeeds in Form but removed schema field makes Workflow output mapping invalid -> semantic reconciliation remains BLOCKED.
+23. Bundle contains a disclosure-limited external policy dependency -> UI must preserve `DISCLOSURE_LIMITED/UNKNOWN` rather than reporting all-green qualification.
+24. One bundle member is READ_ONLY while others are editable -> Draft Group may coordinate inspection but cannot infer write authority from editable peers.
+25. Bundle publish ACK succeeds for all members but verification finds one unavailable resource -> result is PARTIAL/verification finding, not EFFECTIVE.
+26. Reverting a published Form revision does not imply compensation of workflow instances that already consumed the newer Form.
+27. A bundle-level diff with identical rendered UI but changed permission/binding resolution must surface semantic risk.
+
+## Componentization complexity impact
+
+The new findings sharpen the earlier P0–P3 ladder:
+
+- **P0 LOW/MEDIUM:** revision badges, candidate/member markers, partial-result chips, stale-evidence markers.
+- **P1 MEDIUM/HIGH:** DraftGroupCoordinator, qualification graph projection, bundle diff host, recovery/reconcile surfaces, scoped undo coordinator.
+- **P2 HIGH/VERY HIGH:** each proprietary app supplies artifact-specific validation, semantic diff, binding and preview adapters.
+- **P3 EXTREME:** immutable publish manifest, cross-artifact dependency closure, authorization binding, candidate/evidence currentness, partial publish/effect verification.
+
+Important dependency hotspot: do not freeze a global Undo/Redo, Save All, Preview All or Publish UX before P3 semantics are understood. These apparently simple shell commands are projections over different atomicity/currentness/effect guarantees.
+
+## Research maturity / saturation
 
 `PROPRIETARY_EDITOR_SHARED_FOUNDATION = ADVANCED_EMERGING / MATERIAL_DELTA`.
 
-High-confidence direction:
+High-confidence after this continuation:
 
-- shared editor infrastructure is justified;
-- domain ownership remains in specialized applications;
-- typed/versioned references are preferable to embedding/copying across editors;
-- revision/currentness/authority must travel through bindings;
-- preview and semantic diff are cross-cutting infrastructure, not late polish;
-- Componentes needs definition-editor and state/evidence-lab roles.
+- Shared Editor Foundation should coordinate autonomous documents, never create a hidden mega-document.
+- Publish Bundle should be an immutable qualified manifest over exact member revisions/resolutions.
+- Design-time reference policy and concrete release resolution are distinct.
+- Multi-document draft grouping is useful, but save/undo/reconcile must be partial-aware rather than pretending distributed ACID semantics.
+- Preview evidence and authorization must bind to the exact candidate they justify.
+- Semantic bundle diff is required in addition to per-document diff.
 
 Remaining material gaps:
 
-1. exact semantic contract for publish bundles spanning independently versioned Workflow/View/Form/Component/Rule artifacts;
-2. cross-artifact undo boundaries and whether multi-document edits require transactional draft groups or compensating editor mutations;
-3. semantic impact graph incremental recomputation and stale-finding invalidation;
-4. expression language capability/security sandboxing and explainability;
-5. preview equivalence taxonomy and evidence thresholds;
-6. detailed Revision/Diff UX for large dependency cuts;
-7. empirical keyboard/drag parity studies for graph/page/form composition;
-8. shared editor performance budgets for very large outliners/graphs and diff sets.
+1. incremental semantic impact-graph recomputation and invalidation of stale findings/evidence;
+2. expression/rule capability security, sandboxing and explainability;
+3. preview equivalence taxonomy and proof thresholds by behavior class;
+4. detailed Revision/Diff UX for very large dependency cuts;
+5. empirical keyboard/drag parity for graph/page/form composition;
+6. shared editor performance budgets for large outliners, graphs, binding browsers and diff sets;
+7. lifecycle/retention policy for abandoned Draft Groups and recovery envelopes;
+8. whether environment promotion should reuse an immutable qualified bundle or require environment-specific requalification of authority/providers.
 
-Next research vector: **publish-bundle qualification + cross-artifact revision pinning + multi-document draft/undo semantics**, because this is the point where the shared editor foundation meets autonomous artifact lifecycles and can otherwise accidentally create a hidden mega-document.
+Next research vector: **incremental impact graph + stale finding/evidence invalidation + environment promotion semantics**, because publish qualification now has a bounded candidate model and the next risk is keeping its proofs/currentness truthful as independently versioned artifacts continue evolving.
