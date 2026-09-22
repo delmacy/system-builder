@@ -1968,3 +1968,279 @@ DesktopSphere, DesktopSphereDefinition, DesktopSwitcher, DesktopLauncher, Deskto
 - Fixed Desktop taxonomy != fixed client configuration.
 - 3D Projection != navigation foundation.
 - Deferred 3D != discarded semantic model.
+
+
+
+## Desktop Observatory — fixed contextual observability surface
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+Each Client Desktop Sphere should include a **fixed observability surface** appropriate to that sphere. This is not a Windows/Linux-style system tray and not a free-form desktop widget area. It is a guided, high-signal operational surface that keeps important runtime/currentness information visible while the user works.
+
+Candidate placement:
+
+~~~
+CLIENT / WORKSPACE CONTEXT HEADER
+DESKTOP NAVIGATION
+
++-------------------------------------------------------+
+|                 ACTIVE APPLICATION WINDOWS            |
+|                                                       |
+|                                                       |
++-------------------------------------------------------+
+|                 DESKTOP OBSERVATORY                   |
+| Docker A: RUNNING | Docker B: STOPPED | Host A: OK   |
+| Portainer: READY  | Containers: 12/12 | VPN: OK      |
++-------------------------------------------------------+
+~~~
+
+The exact position may vary by responsive layout, but the Observatory should be visually persistent and distinct from transient application windows.
+
+### Purpose
+
+The Observatory should answer, without opening a management application:
+
+- what is currently healthy, degraded, stopped, unknown or stale?
+- which hosts/servers are affected?
+- which runtime/provider is being observed?
+- how current is the evidence?
+- is there drift between desired and observed/effective state?
+- are there active incidents, pending jobs, reconciliations or maintenance conditions?
+
+It should provide summary/triage, while deep control remains in dedicated applications.
+
+### Desktop-scoped observability
+
+Widgets are selected by Desktop Sphere.
+
+Examples:
+
+INFRASTRUCTURE & RUNTIME
+- Host health
+- Docker daemon state by host
+- container counts/state
+- Portainer availability
+- CPU/memory/storage pressure
+- network/VPN/firewall/DNS status
+- deployment/runtime status
+
+SECURITY
+- auth provider health
+- policy/currentness drift
+- certificate/credential expiry
+- suspicious access findings
+- pending access reviews
+
+PROCESS & AUTOMATION
+- workflow executions
+- stuck/blocked work
+- queue/backlog
+- scheduled jobs
+- retry/dead-letter state
+
+DATA
+- database reachability
+- replication/migration state
+- storage capacity
+- backup freshness
+- indexing/search currentness
+
+OPERATIONS
+- incidents
+- alerts
+- SLO/SLA indicators
+- runtime health
+- reconciliation state
+- active maintenance
+
+### Widget model
+
+Candidate widgets should be compact, composable and context-bound rather than arbitrary mini-applications.
+
+Candidate types:
+
+- StatusTile
+- HostStatusGrid
+- ServiceStateMatrix
+- ResourceGauge
+- RuntimeCount
+- DriftIndicator
+- CurrentnessIndicator
+- IncidentSummary
+- JobSummary
+- DeploymentSummary
+- DependencyHealth
+- CapacityPressure
+- QueueBacklog
+- MaintenanceIndicator
+
+Widgets should be configurable within bounded slots/regions. The user may reorder, hide or pin qualified widgets, but the desktop remains guided rather than a free-form canvas.
+
+### Example — Docker / host observability
+
+~~~
+DOCKER
+
+Host A
+  daemon: RUNNING
+  containers: 12 running / 1 stopped
+  Portainer: READY
+  observed: 4s ago
+
+Host B
+  daemon: STOPPED
+  containers: UNKNOWN
+  Portainer: UNREACHABLE
+  observed: 18s ago
+
+Host C
+  daemon: RUNNING
+  containers: 8 running
+  version drift: DETECTED
+~~~
+
+The widget may allow a bounded action such as "Open Docker Manager", but should not become the full Docker management UI.
+
+### State semantics
+
+Avoid binary green/red simplification.
+
+Candidate states:
+
+~~~
+RUNNING
+STOPPED
+STARTING
+STOPPING
+DEGRADED
+UNREACHABLE
+UNKNOWN
+STALE
+DRIFT
+PARTIAL
+MAINTENANCE
+RECONCILIATION_REQUIRED
+~~~
+
+Preserve evidence/currentness.
+
+Hard rules:
+
+~~~
+RUNNING process
+!= application healthy
+
+Container running
+!= service ready
+
+Host reachable
+!= workload healthy
+
+Provider ACK
+!= effective state
+
+No alert
+!= healthy
+
+Observed state
+!= desired state
+
+Green aggregate
+!= every member healthy/current
+~~~
+
+### Widget evidence contract
+
+Candidate summary:
+
+~~~
+DesktopWidgetObservation {
+  widget
+  subject
+  scope
+  source
+  desired?
+  observed?
+  effective?
+  state
+  evidenceRef?
+  observedAt
+  currentness
+  severity?
+  drillDownTarget?
+}
+~~~
+
+A widget cannot strengthen UNKNOWN or STALE evidence merely for visual simplicity.
+
+### Background updates and performance
+
+Observability must not make every desktop expensive.
+
+Research:
+
+- desktop-scoped subscriptions;
+- visible-widget priority;
+- aggregation;
+- bounded refresh intervals;
+- event-driven updates where supported;
+- suspension for inactive desktops;
+- stale/currentness indication after suspension;
+- shared telemetry/cache infrastructure;
+- no per-widget independent websocket/polling when avoidable.
+
+~~~
+Widget visible
+!= dedicated polling loop
+
+Desktop inactive
+-> reduced/suspended telemetry
+-> explicit stale/currentness on restore
+~~~
+
+### Cross-desktop overview
+
+The current desktop shows sphere-specific observability. A separate Operations/Factory surface can aggregate across spheres/clients.
+
+Therefore:
+
+~~~
+Desktop Observatory
+= contextual summary
+
+Operations Desktop
+= system-wide operational analysis
+
+Factory Module
+= cross-client fleet operations
+~~~
+
+### Componentes additions
+
+- DesktopObservatory
+- DesktopObservatoryRegion
+- ObservatoryWidget
+- ServiceStatusTile
+- HostStatusGrid
+- ServiceStateMatrix
+- CurrentnessBadge
+- DriftBadge
+- IncidentWidget
+- JobWidget
+- RuntimeSummaryWidget
+- WidgetDrillDownAction
+- WidgetStaleState
+- ObservatoryLayoutPreset
+
+### Invariants
+
+- Desktop widget != management application.
+- Summary state != canonical truth.
+- Running != healthy != ready != effective.
+- No alert != healthy.
+- Widget position != architectural importance.
+- Hidden widget != service stopped.
+- Desktop close != telemetry source stopped.
+- Observability surface != unrestricted free-form desktop.
+- Currentness must survive aggregation.
+
