@@ -2969,3 +2969,256 @@ Generated artifact
 - Provider ACK != effective service.
 - Auto-binding != fabricated compatibility.
 - Raw manifest override != silent semantic change.
+
+
+## Windowing model — guided desktop, tab groups, docking and extended multi-display workspaces
+
+Decision status: ACTIVE_G4_RESEARCH / NON_EXECUTABLE
+
+Interpretation rule: exploratory user examples are hypotheses/design probes unless explicitly promoted to a firm decision.
+
+The System Builder Operating Environment should use familiar desktop/window interactions while remaining more structured than a general-purpose OS.
+
+Primary hierarchy:
+
+~~~
+Client
+-> Workspace
+-> Desktop Sphere
+-> Application
+-> Window
+-> View / Tab / Tool
+~~~
+
+### Window roles
+
+Research several window roles instead of one generic frame:
+- PRIMARY_APP_WINDOW: main working surface of an application;
+- AUXILIARY_WINDOW: inspectors, logs, preview, diff, details;
+- DOCUMENT_WINDOW: workflow/model/form/revision/document being edited;
+- MONITOR_WINDOW: live observability/status;
+- TOOL_WINDOW: terminal, query console, command surface;
+- DIALOG_WINDOW: bounded transactional interaction;
+- POPOVER/PANEL: lightweight contextual interaction.
+
+### Window frame
+
+A standardized SB window frame should provide:
+- title/app identity;
+- client/workspace/desktop context indicator when relevant;
+- minimize/maximize/restore;
+- close;
+- dock/snap;
+- tab/group support;
+- detach/reattach;
+- pin/always-visible where qualified;
+- currentness/dirty/read-only/blocked indicators;
+- contextual commands;
+- overflow menu;
+- keyboard-accessible equivalents.
+
+Application-specific content lives inside the standardized frame.
+
+### Tabs inside windows
+
+Support tabs for closely related working contexts, for example:
+
+~~~
+Workflow Designer
+  [Onboarding] [Billing] [Support]
+
+Database Manager
+  [Main DB] [Analytics] [Audit]
+~~~
+
+Tabs should not be used to hide unrelated applications merely to reduce window count.
+
+Hard distinction:
+
+~~~
+Application Window != Tab
+Tab != Browser Tab
+Browser Tab != Workspace
+~~~
+
+### Window groups
+
+Windows may be grouped intentionally:
+- tabbed group;
+- split group;
+- docked group;
+- comparison group;
+- linked-context group.
+
+A linked-context group can share selection/revision/environment while preserving independent application state.
+
+### Snap / split / docking
+
+Candidate layouts:
+
+~~~
+50 / 50
+33 / 67
+25 / 50 / 25
+main + inspector
+main + bottom console
+quad comparison
+~~~
+
+Docking must be presentation only unless an explicit semantic relation is created.
+
+### Extended Desktop / multi-display workspace
+
+Support one logical Workspace/Desktop stretched across multiple browser surfaces/displays.
+
+Conceptual model:
+
+~~~
+WorkspaceSession
+  -> DisplaySurface A
+  -> DisplaySurface B
+  -> DisplaySurface C
+~~~
+
+Each DisplaySurface may be a browser tab/window placed on another monitor while sharing the same logical workspace session.
+
+Candidate behavior:
+- drag/move a System Builder window from one display surface to another through an explicit transfer action;
+- open selected app/window on another display;
+- preserve shared client/system/revision/environment context;
+- optionally share semantic selection;
+- independent zoom/layout per display;
+- one taskbar/window registry across the logical workspace;
+- recover if one browser surface closes/crashes.
+
+Research implementation candidates include coordinated browser windows/tabs using a shared server session plus browser-side channels where available; the semantic model must not depend on one particular browser primitive.
+
+### Multi-display interaction model
+
+Example:
+
+~~~
+MONITOR 1 — Infrastructure Desktop
++-------------------------------+
+| Server Manager | Docker       |
+|                               |
+| Desktop Observatory           |
++-------------------------------+
+
+MONITOR 2 — same Workspace/Desktop
++-------------------------------+
+| Logs | Terminal | Metrics     |
+|                               |
+| Incident / detail window      |
++-------------------------------+
+~~~
+
+The two displays are not two independent desktops unless the user explicitly opens different Desktop Spheres.
+
+### Cross-display window movement
+
+Because browser security/platform constraints may prevent arbitrary native drag across browser windows, the UX should support explicit commands such as:
+- Move to Display 1/2;
+- Open on another screen;
+- Detach window;
+- Send to secondary surface;
+- Reattach to workspace.
+
+The user experience may look continuous even if implementation uses separate browser top-level windows/tabs.
+
+### Taskbar / window registry
+
+Each logical workspace should maintain a unified registry of open application windows regardless of display.
+
+Candidate registry state:
+
+~~~
+WindowSession {
+  id
+  application
+  windowKind
+  workspace
+  desktopSphere
+  displaySurface
+  tabGroup?
+  dockState?
+  bounds?
+  contextBinding
+  dirtyState
+  currentness
+  resourceState
+}
+~~~
+
+### Resource lifecycle
+
+Window visibility should influence UI resource consumption without changing service/runtime state.
+
+~~~
+VISIBLE -> ACTIVE
+OBSCURED -> BACKGROUND
+MINIMIZED -> SUSPEND_CANDIDATE
+CLOSED -> UI_SESSION_CLOSED
+~~~
+
+Heavy windows such as graphs, editors, logs and future 3D surfaces should be suspendable independently.
+
+### Context continuity
+
+A window opened from one desktop should retain explicit context:
+- client;
+- system;
+- environment;
+- revision;
+- selected semantic object;
+- authority scope.
+
+Moving/docking/detaching must not silently change that context.
+
+### Saved layouts
+
+Users should be able to save layouts such as:
+- Development;
+- Incident response;
+- Deployment review;
+- Database maintenance;
+- Security audit;
+- Dual-monitor operations.
+
+A saved layout stores window/display composition, not business truth or permissions.
+
+### Failure/recovery
+
+Research:
+- browser refresh restore;
+- accidental tab close recovery;
+- secondary-display loss;
+- stale context after long suspension;
+- app crash isolation;
+- unsaved/dirty work recovery;
+- version/revision mismatch on restore.
+
+### Window overload controls
+
+To prevent the desktop metaphor from becoming chaotic:
+- app/window count indicators;
+- group related document windows;
+- minimize/background/suspend policies;
+- workspace presets;
+- command palette/window search;
+- close-all-by-app;
+- show only current desktop;
+- restore last useful arrangement.
+
+### Invariants
+
+- Desktop metaphor != unrestricted window chaos.
+- Window != application != runtime service.
+- Browser tab != System Builder tab.
+- Window movement != semantic movement.
+- Docking != dependency.
+- Display surface != separate workspace unless explicit.
+- Same workspace across displays != duplicated business state.
+- Saved layout != permission grant.
+- Closed/minimized window != stopped external service.
+- Cross-display continuity must preserve revision/environment/context.
