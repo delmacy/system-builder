@@ -2870,3 +2870,18 @@ Preserve:
 
 Inactive desktops should reduce or suspend telemetry work and explicitly show stale/currentness state on restore.
 
+
+
+## Application Manager research
+
+Add a first-class Application Manager to the frontend/application portfolio research.
+
+It must support two explicit onboarding flows: New Installation and Adopt Existing.
+
+New Installation qualifies source/version, chooses target host/server/environment, checks prerequisites, configures runtime/network/storage/credentials, previews impact, installs, verifies, registers observability and exposes the app in the appropriate Desktop Sphere.
+
+Adopt Existing discovers or accepts endpoint/host/IP/URL, authenticates, inspects version/capabilities, verifies compatibility, maps permissions/credentials, registers the instance and attaches observability/control without reinstalling it.
+
+Preserve Install != Adopt; Register != Deploy; Connect != Own; Discovered != Verified; Remove from Desktop != Uninstall; Unregister != Stop Service; Application record != secret storage.
+
+Research management modes SB_MANAGED, EXTERNALLY_MANAGED, CO_MANAGED, OBSERVE_ONLY and DISCOVERED_UNREGISTERED.
