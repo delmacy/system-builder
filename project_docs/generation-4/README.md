@@ -12,7 +12,7 @@ See `G4_RESEARCH_STATE.md` for consolidated status, boundaries and maturity.
 
 ## Active G4 research families
 
-1. **Product UX, Living Canvas & AI-Native Builder** — `research/G4_PRODUCT_UX_AI_NATIVE_BUILDER.md`
+1. **Product UX, Living Canvas & AI-Native Builder** — `research/G4_PRODUCT_UX_AI_NATIVE_BUILDER.md`; frontend/design-system foundation plan — `research/G4_FRONTEND_DESIGN_SYSTEM_FOUNDATION_PLAN.md`
 2. **Computational Core & Performance Engineering** — `research/G4_COMPUTATIONAL_CORE_PERFORMANCE_ENGINEERING.md`
 3. **Data, Persistence, Access & Infrastructure Access** — `research/G4_DATA_INFRA_ACCESS_ENGINEERING_BACKLOG.md`, `research/G4_AUTHORIZATION_AWARE_DATA_ACCESS.md`
 4. **Data Treatment Engineering** — `research/G4_DATA_TREATMENT_ENGINEERING_BACKLOG.md`, `research/G4_DATA_TEMPORAL_STREAMING_SEMANTICS.md`, `research/G4_DATA_RETENTION_ERASURE_REPRODUCIBILITY.md`
