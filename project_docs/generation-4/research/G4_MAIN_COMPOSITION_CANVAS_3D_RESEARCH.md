@@ -1796,3 +1796,175 @@ BUILDER HOME / FACTORY
 ~~~
 
 This preserves the OS-like interaction model on the Builder side while keeping generated client systems conventional, autonomous web/runtime products.
+
+
+## Desktop Spheres — Client -> Workspace -> Desktop as the primary G4 navigation model
+
+Decision status: PRIMARY_G4_UI_DIRECTION_CANDIDATE / 3D_DEFERRED_AS_OPTIONAL_ENHANCEMENT
+
+The preferred near-term interaction model is simplified from a mandatory semantic 3D composition space into:
+
+~~~
+Client
+  -> Workspace
+      -> Desktop Sphere
+          -> Application
+              -> Window
+~~~
+
+Meaning:
+- Client = tenant/customer context and authority boundary.
+- Workspace = saved working context: system, revision, environment, organizational/filial scope, task purpose and layout.
+- Desktop = stable functional sphere of work with a curated application catalog.
+- Application = specialized coherent job.
+- Window = interactive session/projection of an application.
+
+Hard distinctions:
+
+~~~
+Client != Workspace
+Workspace != Desktop
+Desktop != Application
+Application != Window
+Workspace scope != Desktop sphere
+~~~
+
+### Why Desktop Spheres
+
+The desktop becomes the primary way to separate system spheres instead of requiring all spheres to coexist in one 3D surface. Expected benefits: lower cognitive load, lower rendering/subscription cost, simpler permissions, clearer application discovery, easier suspension/unloading and better small-screen fallback.
+
+### Candidate Desktop Sphere catalog
+
+1. SYSTEM DESIGN — System Explorer/2D Map, Capability Catalog, Module Composer, Contract/API Explorer, Requirements/Elicitation, Templates/Blueprints, Dependency Graph, Revision/Diff, Preview/Sandbox, Documentation/Evidence.
+
+2. INFRASTRUCTURE & RUNTIME — Deployment Manager, Server/Host Manager, Docker/Container Manager, Linux/Host Configuration, Network Configurator, Firewall, VPN, DNS, Reverse Proxy/Gateway, Storage, Backup/Restore, TLS/Certificates, Runtime/Services Manager and Terminal.
+
+3. SECURITY, IDENTITY & GOVERNANCE — Users/Identity, Authentication, Roles/Permissions, Policy Manager, Secrets metadata/Credential Governance, Access Reviews, Audit, Compliance/Governance and Security Findings.
+
+4. DATA & INFORMATION — Entity/Data Modeler, Database Manager, Schema/Migration, Query Explorer, Documents, Object/File Storage, Search/Index, Data Lineage, Import/Export, Retention/Archive and Data Quality.
+
+5. PROCESS & AUTOMATION — Workflow Designer, Rules/Decisions, Actions, Schedules, Jobs, Queues, Human Tasks, Events, Simulation, Conformance/Process Evidence and automation-provider integrations.
+
+6. EXPERIENCE — VIEWS, FORMS & REPORTING — Page/View Builder, Form Builder, Dashboard Builder, Navigation/Menu Builder, Reports, Tables/Lists, Search UX, Branding/Theme, Responsive Preview, Accessibility Review and Componentes.
+
+7. INTEGRATIONS & EXCHANGE — API Manager, Webhooks, Connector Catalog, Provider Bindings, Messaging/Broker, Exchange/Integration Flows, External System Registry, credential references, Contract Compatibility and Integration Tests/Probes.
+
+8. OPERATIONS & OBSERVABILITY — Operations Overview, Task/Process Manager, Health, Metrics, Logs, Traces, Incidents, Alerts, Runtime Controls, Capacity, Cost/Usage, Reconciliation and Maintenance Windows.
+
+9. DELIVERY & LIFECYCLE — Validation, Build, Artifact Manager, Release Manager, Version/Revision Manager, Publish, Promotion, Rollback, Migration, Environment Manager, Change Review and Product Proof/Readiness Evidence.
+
+The exact boundary between Infrastructure/Runtime and Delivery/Lifecycle remains researchable: deployment execution may be Infrastructure while release/promotion policy may be Delivery.
+
+### Stable desktop, variable application use
+
+A fixed desktop means stable taxonomy and predictable placement, not forced use or eager loading.
+
+~~~
+Desktop catalog presence
+!= application enabled
+!= application applicable
+!= application loaded
+!= application visible
+!= application actively computing
+~~~
+
+Candidate application states include AVAILABLE, ENABLED, NOT_CONFIGURED, NOT_APPLICABLE, DISABLED_BY_POLICY, PERMISSION_RESTRICTED, PROVIDER_MISSING, READY, ACTIVE, BACKGROUND and SUSPENDED.
+
+### Resource isolation by desktop
+
+Candidate behavior:
+
+~~~
+open Workspace
+-> enter one Desktop Sphere
+-> load desktop shell + lightweight app manifests
+-> load application code only when opened
+-> subscribe only to relevant/visible data
+-> suspend inactive windows
+-> unload closed desktop resources where safe
+~~~
+
+Closing a desktop is only a UI/resource lifecycle action:
+
+~~~
+Close Desktop
+!= Disable Capability
+!= Stop Service
+!= Undeploy Runtime
+~~~
+
+Candidate desktop lifecycle: CLOSED -> OPENING -> ACTIVE -> BACKGROUND -> SUSPENDED -> HIBERNATED -> RESTORING -> ACTIVE.
+
+### Workspace semantics
+
+A workspace preserves the same client/system/revision/environment/organizational context across several desktops.
+
+Example:
+
+~~~
+Workspace: Client A / Production / Matriz
+
+SYSTEM DESIGN
+INFRASTRUCTURE
+SECURITY
+DATA
+PROCESS
+EXPERIENCE
+INTEGRATIONS
+OPERATIONS
+DELIVERY
+~~~
+
+Switching desktops should preserve client, system, revision, environment, organizational/filial scope, permission context, semantic selection where meaningful and currentness/evidence context.
+
+A client can have many workspaces, such as Production/Matriz, Production/Filial Canoas, Homologation, Major Upgrade, Security Review, Incident workspace or New Branch Rollout. Workspaces are saved contexts, not copies of the system.
+
+### 3D status
+
+The semantic 3D model is preserved as future/optional visualization research, but is deferred from being the primary navigation shell.
+
+Possible future placement:
+
+~~~
+SYSTEM DESIGN Desktop
+  -> System Map 3D
+
+OPERATIONS Desktop
+  -> Topology 3D
+~~~
+
+Therefore 3D becomes an application/projection inside the desktop model rather than the organizing shell of the entire product.
+
+~~~
+3D Projection != navigation foundation
+Deferred 3D != discarded semantic model
+~~~
+
+### Performance principle
+
+Resource budgets should be reasoned per active desktop:
+
+~~~
+Many desktops defined != many desktops loaded
+Many applications available != many applications mounted
+Closed desktop -> no active rendering and no unnecessary live subscriptions
+~~~
+
+This is especially important for graphics-heavy tools, monitoring feeds, large tables, diagrams and future 3D surfaces.
+
+### Componentes additions
+
+DesktopSphere, DesktopSphereDefinition, DesktopSwitcher, DesktopLauncher, DesktopAppCatalog, DesktopContextHeader, DesktopResourceState, DesktopLoadingBoundary, DesktopSuspensionIndicator, DesktopEmptyState, DesktopPermissionState, DesktopProviderRequirement, WorkspaceDesktopState and CrossDesktopSelectionBridge.
+
+### New invariants
+
+- Client != Workspace != Desktop != Application != Window.
+- Workspace scope != Desktop sphere.
+- Desktop sphere != module ownership.
+- Desktop presence != app loading.
+- App availability != app applicability.
+- Close Desktop != stop runtime.
+- Switch Desktop != change revision/environment unless explicit.
+- Fixed Desktop taxonomy != fixed client configuration.
+- 3D Projection != navigation foundation.
+- Deferred 3D != discarded semantic model.
