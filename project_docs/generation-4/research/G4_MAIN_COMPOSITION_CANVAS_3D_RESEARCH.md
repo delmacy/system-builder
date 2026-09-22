@@ -498,3 +498,405 @@ Research must test at least:
 ### Scope conclusion
 
 The target is not merely a collection of web pages. The G4 UI should research a **composable operating environment** in which modules can be installed like applications and their working surfaces assembled as windows/screens/workspaces, while all architectural truth remains outside the window-manager metaphor.
+
+
+## Factory Module — Fleet Operations, Dense Control & Root-Service Administration
+
+Decision status: \`IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE\`
+
+The **Factory Module** should intentionally differ from design-oriented workspaces.
+
+Its primary workload is not visual composition of one system. It is **high-density supervision and bounded operational control across many client systems, environments, modules, hosts and root services**.
+
+### Interaction profile
+
+The Factory Module should optimize for:
+
+- many rows/entities visible at once;
+- fast filtering/search;
+- grouping by client, environment, module, region, host, version and health state;
+- exception-first triage;
+- bulk selection;
+- compact status/state visualization;
+- operational commands;
+- auditability;
+- blast-radius awareness;
+- low navigation cost between fleet -> client -> system -> module -> instance -> evidence.
+
+Therefore:
+
+~~~
+Factory Module
+!= Design Canvas
+
+Factory Module
+= Fleet Console
++ Operations Console
++ Factory Governance Surface
+~~~
+
+The semantic 3D/System Map may still be reachable for drill-down, but should not be the default representation for fleet-scale operations.
+
+### Candidate Factory windows/views
+
+- Factory Overview
+- Client Fleet
+- Client System Detail
+- Module Fleet
+- Host / Server Fleet
+- Deployment Fleet
+- Root Services
+- Root Service Detail
+- Incident / Finding Queue
+- Jobs / Operations Queue
+- Version / Drift Matrix
+- Capacity / Resource View
+- Provider / Binding Fleet
+- Secrets Metadata / Credential Governance
+- Audit / Evidence
+- Maintenance / Change Windows
+
+### Dense representations
+
+Candidate default representations include:
+
+- sortable/filterable tables;
+- tree grids;
+- compact cards;
+- status matrices;
+- heatmaps;
+- sparklines;
+- grouped counters;
+- drill-down side panels;
+- batch-selection toolbars;
+- exception queues.
+
+~~~
+Fleet density
+> decorative representation
+~~~
+
+The goal is to inspect a large estate without opening one graphical workspace per client.
+
+### Fleet hierarchy
+
+Candidate hierarchy:
+
+~~~
+Factory
+-> Client
+-> Client System
+-> Environment
+-> Module / Capability
+-> Deployment Manifestation
+-> Runtime Instance
+-> Host / Server
+-> Provider / Root Service
+-> Evidence / Currentness
+~~~
+
+The user must be able to move both top-down and bottom-up.
+
+Examples:
+
+~~~
+Client -> all systems -> all unhealthy modules
+
+Module -> all clients using it -> versions/drift
+
+Host -> all client workloads placed on it
+
+Root Service -> all dependent client systems
+~~~
+
+### Operational control surface
+
+The Factory Module is not observation-only.
+
+Research and planning must include bounded operational actions such as:
+
+- start / stop / restart service;
+- restart module runtime;
+- stop / restart host/server where supported;
+- cordon / drain host where topology allows;
+- disable / enable module;
+- pause/resume worker or queue consumer;
+- scale up/down;
+- redeploy;
+- rollback to qualified release;
+- reconcile;
+- failover / promote where contracts permit;
+- enter/exit maintenance mode;
+- isolate/quarantine;
+- acknowledge/assign incident or finding;
+- rotate/revoke credentials through qualified root-service workflows;
+- cancel/retry bounded background jobs.
+
+These are candidate action classes, not universal guarantees; provider/runtime capability determines actual support.
+
+### Control safety
+
+Operational control must distinguish:
+
+~~~
+Observe
+!= Control
+!= Change
+!= Deploy
+!= Destructive Action
+~~~
+
+Every action should carry qualified scope and authority.
+
+Candidate command envelope:
+
+~~~
+FactoryOperation {
+  action
+  targetType
+  targetIds[]
+  environment
+  requestedBy
+  authorityContext
+  desiredState
+  preconditions
+  blastRadius
+  dependencyImpact
+  confirmationPolicy
+  executionMode
+  timeout
+  rollbackOrRecovery
+  evidenceRequirements
+}
+~~~
+
+### Desired / acknowledged / observed / effective control
+
+A command being accepted is not proof of effect.
+
+Example restart:
+
+~~~
+RESTART_REQUESTED
+-> COMMAND_ACCEPTED
+-> STOP_OBSERVED
+-> START_REQUESTED
+-> PROCESS_OBSERVED
+-> HEALTH_CHECK_PASSED
+-> SEMANTIC_READINESS_QUALIFIED
+-> RESTART_EFFECTIVE
+~~~
+
+Hard invariant:
+
+~~~
+Operation ACK
+!= Operational Effect
+!= Business Readiness
+~~~
+
+### Bulk actions
+
+Fleet-scale operation requires bulk actions, but bulk must not hide partial outcomes.
+
+Candidate states:
+
+- BULK_PENDING
+- BULK_RUNNING
+- PARTIAL_SUCCESS
+- PARTIAL_FAILURE
+- MIXED_EFFECT
+- UNKNOWN_EFFECT
+- RECONCILIATION_REQUIRED
+- COMPLETE
+
+~~~
+100 selected targets
+!= one atomic operation
+~~~
+
+The UI must preserve per-target disposition/evidence.
+
+### Blast radius and dependency impact
+
+Before high-impact control, the Factory Module should research an impact preview.
+
+Candidate questions:
+
+- how many clients are affected?
+- which environments?
+- which dependent modules?
+- which active workflows?
+- which root services depend on the target?
+- is there redundancy/failover?
+- is there unsaved/in-flight work?
+- what authority/security floor is required?
+- what rollback/recovery exists?
+- what evidence will prove success?
+
+Candidate UI: \`FactoryOperationImpactPreview\`.
+
+### Client fleet / capability matrix
+
+A dense matrix may be useful:
+
+~~~
+                 Auth   Workflow   Data   Obs   Deploy
+Client A          OK      OK       OK    WARN    OK
+Client B          OK     DEG       OK     OK      OK
+Client C         DRIFT    OK      UNK     OK     PEND
+Client D          OK      OK       OK     OK      OK
+~~~
+
+But color/status aggregation must never erase:
+
+- UNKNOWN;
+- stale evidence;
+- authority drift;
+- contract/revision drift;
+- partial rollout;
+- placement drift;
+- unresolved effect.
+
+### Module fleet view
+
+A module-first view should answer:
+
+- which clients use this module?
+- which versions?
+- which contract profiles?
+- where deployed?
+- health/currentness?
+- incompatible versions?
+- rollout/update candidates?
+- dependent systems?
+- operational incidents?
+
+This supports fleet maintenance as the customer count grows.
+
+### Root services
+
+Root services remain builder/factory-only or otherwise highly privileged.
+
+Examples include deployment secrets, signing, artifact registry, provisioning, global observability/control, provider credentials and factory orchestration.
+
+The Factory Module may expose:
+
+- metadata;
+- health;
+- dependency fan-out;
+- rotation/currentness;
+- access policy;
+- provider binding;
+- incidents;
+- maintenance state;
+- operational commands.
+
+It should not imply that privileged secret values are routinely viewable.
+
+~~~
+Secret metadata
+!= Secret value
+
+Can operate dependent service
+!= can read root credential
+~~~
+
+### Client isolation
+
+Factory operators may see/manage multiple clients, but multi-client visibility must preserve tenant boundaries.
+
+Candidate rules:
+
+- cross-client aggregation uses only fields allowed for factory scope;
+- drill-down requires qualified authority;
+- one client's data must not leak into another client's context;
+- bulk actions must show target tenants explicitly;
+- filtering/grouping does not weaken tenant isolation;
+- root-service access remains separately authorized.
+
+### Factory window profile
+
+Candidate window layout:
+
+~~~
+┌ Factory Toolbar / Filters / Search / Bulk Actions ──────┐
+│ Client | Env | Module | Version | Health | Region | ... │
+├───────────────────────┬──────────────────────────────────┤
+│ Dense Fleet Grid      │ Context / Impact / Evidence     │
+│                       │ Inspector                        │
+│                       │                                  │
+├───────────────────────┴──────────────────────────────────┤
+│ Jobs / Incidents / Background Operations / Audit        │
+└──────────────────────────────────────────────────────────┘
+~~~
+
+The Ribbon remains available, but the dominant interaction is fleet filtering, selection, drill-down and bounded operational command execution.
+
+### Componentes additions
+
+Research/catalog:
+
+- FactoryModuleWindow
+- FactoryOverview
+- ClientFleetGrid
+- ClientSystemRow
+- ModuleFleetGrid
+- HostFleetGrid
+- DeploymentFleetGrid
+- RootServiceFleetGrid
+- FleetFilterBar
+- FleetGroupByControl
+- FleetStatusMatrix
+- FleetHeatmap
+- FleetBulkSelection
+- FleetBulkActionBar
+- FactoryOperationCommand
+- FactoryOperationImpactPreview
+- FactoryOperationProgress
+- PerTargetOperationResult
+- MaintenanceModeIndicator
+- CordonDrainControl
+- RestartControl
+- StopStartControl
+- ReconcileControl
+- RollbackControl
+- IncidentQueue
+- DriftMatrix
+- RootServiceDependencyView
+- SecretMetadataRecord
+
+### Factory invariants
+
+- \`Factory Module != Design Canvas\`.
+- \`Fleet density > decorative representation\`.
+- \`Observe != Control != Change != Deploy\`.
+- \`Operation ACK != Operational Effect != Business Readiness\`.
+- \`Bulk request != atomic fleet transaction\`.
+- \`Aggregate health != every member healthy/current\`.
+- \`Cross-client visibility != cross-client authority\`.
+- \`Secret metadata != secret value\`.
+- \`Can operate != can read credential\`.
+- \`Stop window != stop module != stop runtime\`.
+- \`Factory grouping/filtering != tenant merge\`.
+- \`Root Service != Client Module\`.
+- \`Factory control plane != client semantic owner\`.
+
+### Performance / scale hypothesis
+
+Factory UI should scale primarily through virtualization and aggregation rather than rich per-row rendering.
+
+Research:
+
+- virtualized tables/treegrids;
+- incremental/paginated data loading;
+- server-side filtering/sorting where needed;
+- cached aggregate counters with currentness;
+- selective subscriptions;
+- event-driven refresh;
+- priority updates for visible/critical rows;
+- lazy drill-down;
+- background reconciliation;
+- bounded live telemetry.
+
+The Factory Module should remain usable as the estate grows from tens to hundreds or thousands of client systems without requiring all detailed telemetry to be mounted simultaneously.
