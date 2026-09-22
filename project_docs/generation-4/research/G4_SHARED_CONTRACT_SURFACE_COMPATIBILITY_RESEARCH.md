@@ -253,15 +253,299 @@ Before this model is mature, prototype/research evidence must prove:
 
 This artifact does not redefine profile negotiation, authority/fencing, desired/observed/effective placement or generic window lifecycle already present in G4. It consumes those dimensions as qualification inputs and focuses only on the previously open SharedContractSurface compatibility algebra.
 
+## Deepening — consumer-qualified surfaces and conditional guarantee algebra
+
+### Evidence delta
+
+Primary official documentation adds three useful constraints to the previous algebra:
+
+- Protocol Buffers explicitly permits old code to read newer messages when compatible evolution rules are followed, while warning that newly added optional fields are absent from old messages and that presence may need explicit tracking. This demonstrates that wire readability and guarantee availability are consumer-generation dependent.
+- Kubernetes documents asymmetric version-skew support among API server, kubelet, controllers and `kubectl`; when several API-server versions coexist, the admissible version range for a component can narrow to the intersection imposed by all reachable servers. This is a production example of compatibility being directional, role-specific and route-set dependent rather than a property of a version pair alone.
+- Kubernetes API evolution preserves compatibility for GA APIs while allowing new resources/fields to be added and older versions eventually to be deprecated/removed. Thus a capability may be additive for one consumer generation while unavailable or inadmissible for another.
+
+Evidence class: `PRIMARY_OFFICIAL_DOCUMENTATION`. GraphQL nullability/evolution material was reviewed as supporting evidence for directional value-set compatibility, but the core candidate algebra below does not depend on GraphQL-specific semantics.
+
+### Consumer-specific compatibility is a ternary relation
+
+The previous `Compatible(requirement, profile, context)` model is retained but refined: a SharedContractSurface shown without a named consumer class can only claim guarantees common to the declared consumer population. Compatibility is not a unary provider property.
+
+Candidate records:
+
+```text
+ConsumerProfile {
+  semanticIdentity
+  generation/revision
+  requiredOperations
+  requiredGuarantees
+  understoodOptionalGuarantees
+  acceptedAlternatives
+  requestProductionProfile
+  responseConsumptionProfile
+  securityRequirements
+  currentnessRequirements
+  authorityRequirements
+}
+
+ConsumerCohort {
+  cohortIdentity
+  consumerProfiles[]
+  routingScope
+  populationScope
+  currentness
+  evidence
+}
+```
+
+Candidate relation:
+
+```text
+Compatible(consumer, provider, interaction, context)
+= RequestProducedBy(consumer) is admissible to provider
+  AND ResponseProducedBy(provider) is consumable by consumer
+  AND every REQUIRED guarantee is satisfied
+  AND every selected CONDITIONAL guarantee has its predicate satisfied
+  AND at least one branch of every REQUIRED_ALTERNATIVE set is qualified
+  AND authority/security/currentness constraints are satisfied
+```
+
+Therefore:
+
+```text
+PROVIDER_SUPPORTS != CONSUMER_CAN_USE
+WIRE_READABLE != CONSUMER_SEMANTICS_SATISFIED
+OPTIONAL_FOR_PROVIDER != OPTIONAL_FOR_CONSUMER
+ADDITIVE_FIELD != UNIVERSALLY_USABLE_GUARANTEE
+NEW_CONSUMER_COMPATIBLE != OLD_CONSUMER_COMPATIBLE
+```
+
+### Guarantee cardinality and modality
+
+A flat set intersection is insufficient. Candidate guarantee terms need modality:
+
+```text
+GuaranteeTerm {
+  guaranteeIdentity
+  modality: REQUIRED | OPTIONAL | CONDITIONAL | ALTERNATIVE
+  predicate?                 // for CONDITIONAL
+  alternativeSetIdentity?    // for ALTERNATIVE
+  semanticScope
+  interactionKind
+  direction: REQUEST | RESPONSE | EFFECT | EVIDENCE
+  currentnessRequirement
+  evidenceRef
+}
+```
+
+Interpretation:
+
+- `REQUIRED`: absence or incompatibility makes the relevant consumer/provider interaction incompatible or blocked.
+- `OPTIONAL`: absence does not invalidate the base interaction; presence must never silently strengthen the group-wide surface for consumers that cannot use it.
+- `CONDITIONAL`: material only when its declared predicate is true; an unknown predicate produces `UNKNOWN_CONDITION`, not optimistic compatibility.
+- `ALTERNATIVE`: one qualified member of a declared alternative set is sufficient only if the consumer accepts that alternative and the selected branch preserves the required guarantee vector.
+
+Hard rules:
+
+```text
+OPTIONAL != IRRELEVANT
+CONDITIONAL != OPTIONAL
+ALTERNATIVE != FALLBACK_BY_GUESS
+PREDICATE_UNKNOWN != PREDICATE_FALSE
+ONE_ALTERNATIVE_AVAILABLE != ALL_CONSUMERS_COMPATIBLE
+```
+
+### Surface derivation across consumer cohorts
+
+For provider group `G`, consumer cohort `K`, interaction `I` and context `C`:
+
+```text
+ConsumerSurface(G, K, I, C)
+= QualifiedIntersection(
+    EffectiveGuarantees(providerMember, consumerProfile, I, C)
+    for every legitimately routable providerMember
+    and every consumerProfile included by cohort policy
+  )
+```
+
+A system-wide surface that spans multiple consumer generations is therefore conservative unless explicitly faceted:
+
+```text
+SharedContractSurface
+  BaseSurface(all admitted consumer cohorts)
+  ConsumerFacet(legacy cohort)
+  ConsumerFacet(current cohort)
+  ConsumerFacet(canary/new cohort)
+  RouteFacet(...)
+```
+
+The UI MAY expose a stronger consumer-specific facet when the consumer identity/cohort and routing scope are explicit. It MUST NOT promote that facet to the logical service crown as a universal guarantee.
+
+### Conditional evaluation state machine
+
+Candidate semantic/evidence states:
+
+```text
+CONDITION_NOT_APPLICABLE
+CONDITION_PENDING_EVIDENCE
+CONDITION_SATISFIED
+CONDITION_UNSATISFIED
+CONDITION_UNKNOWN
+CONDITION_STALE
+```
+
+Candidate transition:
+
+```text
+UNASSESSED
+-> PREDICATE_EVALUATING
+-> CONDITION_NOT_APPLICABLE
+ | CONDITION_SATISFIED
+ | CONDITION_UNSATISFIED
+ | CONDITION_UNKNOWN
+ | CONDITION_STALE
+```
+
+`CONDITION_UNSATISFIED` means the conditional guarantee is not activated by context; it does not by itself mean provider failure. `CONDITION_UNKNOWN` means compatibility that depends on the term cannot be proven.
+
+### Alternative-set state machine
+
+```text
+ALTERNATIVE_SET_UNASSESSED
+-> ALTERNATIVES_QUALIFYING
+-> ALTERNATIVE_SELECTED_QUALIFIED
+ | MULTIPLE_ALTERNATIVES_QUALIFIED
+ | NO_ACCEPTABLE_ALTERNATIVE
+ | ALTERNATIVE_UNKNOWN
+ | ALTERNATIVE_STALE
+```
+
+Selection is evidence-bearing and consumer-scoped. A fallback chosen operationally is not automatically contract-equivalent.
+
+### New compatibility dispositions
+
+Add candidate dispositions without collapsing the existing surface states:
+
+- `CONSUMER_SCOPED_COMPATIBLE`
+- `CONSUMER_COHORT_PARTIAL`
+- `LEGACY_CONSUMER_BLOCKED`
+- `NEW_CONSUMER_BLOCKED`
+- `OPTIONAL_GUARANTEE_AVAILABLE`
+- `CONDITIONAL_GUARANTEE_ACTIVE`
+- `CONDITIONAL_GUARANTEE_UNKNOWN`
+- `ALTERNATIVE_QUALIFIED`
+- `NO_ACCEPTABLE_ALTERNATIVE`
+
+These are semantic/evidence dispositions, not colors or badges.
+
+### Componentes impact — delta
+
+Primitive / semantic records:
+
+- `ConsumerProfileRef`
+- `ConsumerCohortRef`
+- `GuaranteeTermRef`
+- `GuaranteeModalityRef`
+- `ConditionEvidenceRef`
+- `AlternativeSetRef`
+
+Compound/domain building blocks:
+
+- `ConsumerScopeIndicator`
+- `GuaranteeModalityIndicator`
+- `ConditionalGuaranteeIndicator`
+- `AlternativeQualificationIndicator`
+- `ConsumerCompatibilityFacet`
+
+Tool/module components:
+
+- `ConsumerCompatibilityMatrix`
+- `GuaranteeTermInspector`
+- `ConditionalGuaranteeInspector`
+- `AlternativeSetInspector`
+- `ConsumerCohortImpactPreview`
+
+Workspace/system views consume these rather than inventing separate compatibility semantics.
+
+### Interaction / accessibility / projection contract
+
+Selecting a consumer facet changes the compatibility lens, not the logical service identity. The Inspector must expose the active consumer cohort, route scope, guarantee modality, condition/alternative evidence and currentness. Keyboard/list/table users must be able to perform the same `inspect consumer compatibility`, `compare cohorts`, `show blocked consumers`, `inspect condition`, and `inspect alternatives` commands available from spatial projections.
+
+Projection switching preserves at minimum:
+
+```text
+logicalServiceIdentity
+consumerCohortIdentity
+providerCohort/routeScope
+interactionIdentity
+guaranteeIdentity/modality
+revision/environment
+compatibilityDisposition
+evidenceCurrentness
+```
+
+Color, depth, animation and spatial proximity remain supplementary.
+
+### LOD / aggregation rules — consumer dimension
+
+At NORMAL and STRESS scale:
+
+```text
+ANY admitted consumer cohort materially INCOMPATIBLE
+  -> aggregate cannot claim UNIVERSALLY_COMPATIBLE
+
+ANY required conditional predicate UNKNOWN
+  -> dependent aggregate cannot claim PROVEN_COMPATIBLE
+
+ONLY new cohort supports optional guarantee
+  -> aggregate may show AVAILABLE_TO_SUBSET, never UNIVERSAL
+
+NO common acceptable alternative across admitted cohorts
+  -> aggregate cannot collapse alternatives into SUCCESS
+
+CONSUMER FACET hidden by LOD
+  -> aggregate retains count/severity/disposition and drill-down path
+```
+
+Aggregation may compress cohort/member detail but cannot erase compatibility asymmetry.
+
+### Required scenarios — delta
+
+13. legacy and current consumers simultaneously route to a mixed provider group;
+14. new provider adds an optional response field that legacy consumer ignores safely but new consumer requires semantically;
+15. wire-compatible message is semantically insufficient because a consumer requires explicit field presence;
+16. conditional guarantee applies only for a regulated tenant/environment and its predicate evidence becomes stale;
+17. two alternative profiles exist but only one is acceptable to the legacy cohort;
+18. canary consumers and canary providers are mutually compatible while the general population is not;
+19. a rollout changes the reachable provider set and thereby narrows the admissible consumer range;
+20. partial bulk consumer migration reports cohort-specific success/failure without universal-success leakage;
+21. offline/reconnect restores a compatibility review with consumer cohort and condition evidence intact;
+22. fatal workspace recovery preserves unresolved alternative selection and authorization context.
+
+### Proof obligations — delta
+
+11. the same provider group can correctly yield different compatibility dispositions for two consumer cohorts without changing logical identity;
+12. optional provider capability never becomes a required universal guarantee by aggregation;
+13. unknown/stale conditional evidence prevents dependent compatibility from becoming proven success;
+14. alternative qualification proves at least one consumer-accepted branch rather than choosing any available branch;
+15. mixed consumer generations can be represented in 3D, 2D, graph, list and table without hiding blocked legacy/new cohorts;
+16. LOD at ~1000 modules preserves material consumer incompatibility through aggregate disposition and drill-down;
+17. projection/workspace switches preserve consumer cohort, route scope, guarantee modality and evidence currentness;
+18. rollback/reconnect cannot silently substitute a different consumer profile or alternative branch;
+19. partial bulk migration remains partial at aggregate level;
+20. Componentes scenarios distinguish interaction selection/focus from consumer-compatibility semantics.
+
+### Deduplication delta
+
+This deepening does not redefine the Capability Exchange Plane's negotiation/admissibility model. It consumes support/admissibility/currentness as evidence inputs and specifies how frontend contract surfaces represent compatibility across simultaneously admitted consumer cohorts. It also does not redefine generic UI state families; consumer/condition/alternative dispositions compose with the existing interaction-state matrix.
+
 ## Maturity and next vector
 
-This closes a substantial portion of the `exact SharedContractSurface compatibility algebra` gap, but remains `RESEARCH_ACTIVE / NON_EXECUTABLE`.
+The exact SharedContractSurface algebra is now materially stronger for mixed provider revisions, mixed consumer generations, optional guarantees, conditional guarantees and explicit alternative sets. Status remains `RESEARCH_ACTIVE / NON_EXECUTABLE` because empirical UI proof and recovery continuity remain open.
 
 Remaining material gaps:
 
-- formal treatment of optional/conditional guarantees and alternative profiles under one surface;
-- consumer-specific compatibility when several consumer generations coexist;
-- cross-workspace recovery orchestration preserving compatibility-review intent, dirty state, evidence and authorization context;
-- empirical prototype proof for aggregation/readability at NORMAL and STRESS scale.
+- cross-workspace recovery orchestration preserving review intent, dirty state, evidence, authorization context, consumer facet and selected alternative;
+- empirical prototype proof for compatibility matrices and aggregate readability at NORMAL and STRESS scale;
+- policy for presenting very high-dimensional consumer/provider matrices without false scalarization;
+- evidence-expiry behavior during long-running review/authorization sessions.
 
-Next research vector: consumer-specific compatibility and optional/conditional guarantee algebra, then cross-workspace recovery continuity.
+Next research vector: cross-workspace recovery continuity for compatibility/change review, followed by empirical high-dimensional matrix/LOD proof.
