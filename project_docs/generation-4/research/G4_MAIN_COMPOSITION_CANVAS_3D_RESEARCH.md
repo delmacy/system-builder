@@ -3222,3 +3222,145 @@ To prevent the desktop metaphor from becoming chaotic:
 - Saved layout != permission grant.
 - Closed/minimized window != stopped external service.
 - Cross-display continuity must preserve revision/environment/context.
+
+
+## Declarative and opinionated interaction model — proprietary design applications
+
+Decision status: ACTIVE_G4_RESEARCH / NON_EXECUTABLE
+
+The System Builder interaction model should be described as both **declarative** and **opinionated/guided**.
+
+Declarative means the user expresses desired state, intent, structure and constraints while the platform determines qualified execution steps and provider-specific realization.
+
+Opinionated/guided means the product constrains invalid or incoherent compositions, recommends safe sequencing and presents task-specific workflows rather than offering an unrestricted free-form surface.
+
+~~~
+Declarative != arbitrary freedom
+Guided != hard-coded inflexibility
+Opinionated != hidden authority
+Desired intent != imperative execution script
+~~~
+
+### Frontend engineering consequence
+
+The major frontend cost is expected to concentrate in proprietary System Builder applications where no mature external UI can be reused directly.
+
+Priority proprietary applications include:
+- Workflow Designer;
+- View / Page Builder;
+- Form Builder;
+- Component Editor / Componentes;
+- System / Module Designer;
+- Elicitation / Requirements workspace;
+- Rules / Decision editor;
+- Preview / Sandbox;
+- Revision / Diff / Controlled Change surfaces.
+
+These applications should be planned as independent product-grade tools sharing one shell, state model, command registry, selection/context model, design system and evidence semantics.
+
+### Component Editor
+
+The Component Editor must be stronger than a visual property panel because a component can participate in state, validation, permissions, data binding, workflow transitions and runtime behavior.
+
+Candidate component model:
+
+~~~
+ComponentDefinition {
+  identity
+  type
+  props
+  visualVariants
+  interactionStates
+  dataBindings
+  validationRules
+  permissions
+  events
+  actions
+  workflowBindings
+  visibilityRules
+  responsiveRules
+  accessibility
+  evidence/testRefs
+}
+~~~
+
+Candidate states include normal interaction states plus domain-aware conditions such as LOADING, EMPTY, ERROR, STALE, READ_ONLY, DISABLED, BLOCKED, PERMISSION_DENIED, PENDING and EFFECTIVE where applicable.
+
+### Workflow / View / Form semantic bridge
+
+Workflow, forms and views must not become isolated editors.
+
+Research a shared semantic binding model:
+
+~~~
+Workflow Activity
+  -> requires input
+  -> opens/uses View or Form
+  -> emits Action/Event
+  -> updates domain state
+  -> transitions Workflow
+  -> produces Evidence
+~~~
+
+A form or view can be referenced by workflow/task semantics without becoming the semantic owner of the workflow.
+
+Hard distinctions:
+
+~~~
+View != Workflow Activity
+Form != Workflow State
+Button != Domain Command
+Visual transition != Business transition
+Component event != automatically authorized action
+~~~
+
+### Guided authoring
+
+Editors should make valid composition easier than invalid composition.
+
+Examples:
+- only show compatible bindings for the current context;
+- derive available actions from declared contracts/capabilities;
+- surface missing prerequisites before publish;
+- show workflow/form/view linkage graph;
+- warn about unreachable states and orphan components;
+- validate permissions and data requirements;
+- distinguish visual preview from executable/effective behavior.
+
+### Shared editor primitives
+
+Research reusable primitives across proprietary apps:
+- selection model;
+- tree/outliner;
+- property inspector;
+- command palette;
+- undo/redo;
+- history/revision;
+- diff;
+- graph/canvas selection;
+- drag/drop with semantic validation;
+- bindings browser;
+- expression/rule editor;
+- state matrix;
+- validation/finding panel;
+- preview;
+- evidence panel;
+- keyboard/navigation model.
+
+### Frontend planning principle
+
+Do not schedule 'the frontend' as one monolithic work package. Plan by shared shell/primitives first, then proprietary application families, then cross-application semantic integration.
+
+Candidate sequence:
+1. Shell / Desktop / Window infrastructure.
+2. Shared design system and Componentes catalog.
+3. Shared editor primitives.
+4. Component Editor.
+5. View/Form Builder.
+6. Workflow Designer.
+7. Rules/Decision editor.
+8. Cross-editor semantic bindings.
+9. Preview/Sandbox.
+10. Hardening, accessibility, performance and evidence.
+
+This ordering is research guidance, not an implementation authorization or fixed schedule.
