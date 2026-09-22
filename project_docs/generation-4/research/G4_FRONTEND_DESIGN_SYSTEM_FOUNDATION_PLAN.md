@@ -1453,3 +1453,49 @@ Operations    -> observability/runtime surface
 ```
 
 This preserves one learnable product workspace while avoiding the false assumption that every System Builder concern should use the same interaction grammar.
+
+## Research delta — projection navigation and high-cardinality collections (2026-09-22)
+
+Dedicated artifact: `G4_FRONTEND_PROJECTION_NAVIGATION_CONTRACT_RESEARCH.md`.
+
+Material refinements:
+
+- `Inventory / Catalog -> Map / System Slice -> Graph / Relations -> Inspector` is now a candidate **shared navigation protocol**, not four independent selection models.
+- Existing `ViewportContext` remains the bounded semantic materialization concept; a candidate navigation context expresses user focus/navigation intent and composes into materialization rather than replacing it.
+- `System Slice` is explicitly a UI projection taxonomy and must not become a new Master Blueprint plane, bounded context, deployment boundary or semantic owner.
+- `Lens != filter != authorization != slice membership`.
+- `Workspace` is a task-oriented tool/panel/surface arrangement; `Saved View` is a persisted projection preference. Both re-evaluate authorization/disclosure/currentness when reopened.
+- collection surfaces must distinguish `focus`, `selection`, `primary semantic focus`, `activation` and `hover`.
+- Grid/List/Inspector are candidate projections over one catalog collection identity model; changing browse mode cannot change canonical status/eligibility/currentness truth.
+- stable taxonomy/pins must remain separate from adaptive suggestions/recent/context ranking so recommendation updates do not destroy spatial memory or steal focus.
+- contextual eligibility should research `ELIGIBLE / INELIGIBLE(reason) / UNKNOWN` rather than binary hide/show where disclosure permits.
+- large catalogs should use collection navigation and bounded/incremental materialization rather than one page tab stop per item.
+- n8n Canvas Groups provide useful evidence for separating durable/shared grouping from user-local collapsed/expanded projection state.
+
+Candidate scale scenarios to prototype, not fixed thresholds:
+
+```text
+~20 items
+  labeled grid/cards
+
+~100 items
+  grid/list + search/filter + stable categories
+
+~500 items
+  list/search dominant + virtualization/incremental materialization
+
+~2,000 items
+  search/command/context insertion dominant + bounded query-backed results
+```
+
+Primitive-base qualification must now score **simple primitives**, **collection primitives** and **engineering surfaces** separately. Current shadcn evidence (July 2026) makes Base UI the leading new-project default candidate; React Aria is first-class and has especially explicit collection semantics; Radix remains supported and mature. The design-system direction remains one default base plus evidence-backed exceptions, not provider-by-widget mixing.
+
+Additional proof obligations:
+
+1. Cross-surface navigation preserves canonical identity while re-evaluating disclosure/currentness.
+2. Saved Views cannot preserve stale authorization as visibility.
+3. Focus and selection remain visually/programmatically distinct in grid/list/tree/graph surfaces.
+4. High-cardinality catalogs remain keyboard navigable without tab-stop explosion.
+5. Adaptive ranking cannot silently reorder stable user landmarks or move focus.
+6. Essential graph relations have a non-spatial inspection/navigation path.
+7. Primitive-base exceptions require documented coverage evidence.
