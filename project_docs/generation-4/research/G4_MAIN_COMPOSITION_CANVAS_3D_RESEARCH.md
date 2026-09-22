@@ -1015,3 +1015,166 @@ The research should maintain a comparison across at least:
 - \`External framework limitation != SB architectural limitation\`.
 
 Research should extract principles, state machines, lifecycle patterns, failure cases, performance strategies and accessibility gaps, then reconcile them with the existing System Builder invariants.
+
+
+## React/Next base vs external web-desktop shell — architecture research
+
+Decision status: \`RESEARCH_REQUIRED / CURRENT_BASE_REMAINS_NEXT_REACT_TS\`
+
+The OS-like shell research must explicitly compare three architectural strategies without treating the benchmarks as automatic dependencies.
+
+### Strategy A — System Builder-owned windowing on React/Next
+
+~~~
+Next.js + React + TypeScript
+  -> System Builder Shell
+     -> WindowManager
+     -> WorkspaceManager
+     -> Dock/Snap/Taskbar/Launcher
+     -> ModuleWindow
+        -> React module content
+~~~
+
+Research whether the System Builder should own its windowing primitives/contracts directly while borrowing only interaction patterns from Puter, OS.js and daedalOS.
+
+Candidate benefits:
+- maximum semantic control;
+- no external desktop runtime as product authority;
+- easier alignment with Command Registry, Ribbon, Inspector, Componentes and SB lifecycle semantics;
+- direct control over performance/suspension/currentness behavior;
+- lower conceptual coupling to another platform.
+
+Candidate risks:
+- more custom engineering;
+- window manager edge cases;
+- focus/z-order/docking/restore/accessibility complexity;
+- risk of rebuilding mature interaction machinery poorly.
+
+### Strategy B — external desktop/window manager as bounded infrastructure
+
+~~~
+Next.js + React + TypeScript
+  -> SB semantic shell/services
+  -> Desktop/Windowing Adapter
+     -> external window manager/runtime
+  -> ModuleWindow content remains React
+~~~
+
+Research whether an external windowing implementation can be treated as a bounded infrastructure/provider behind System Builder contracts.
+
+Requirements:
+- SB retains semantic ownership of ModuleWindow identity, revision/currentness, authority, commands and persistence contracts;
+- external library owns only presentation/window mechanics;
+- replaceability must be realistic;
+- window lifecycle events must be normalized without inventing semantic equivalence;
+- no provider may become canonical module/runtime/deployment authority.
+
+### Strategy C — external desktop framework owns the shell
+
+~~~
+External Desktop Framework Core
+  -> Window Manager
+  -> Session/Application Runtime
+  -> System Builder module windows
+       -> React content
+~~~
+
+Research this only as a comparison baseline. It changes architectural ownership materially and must be justified by evidence.
+
+Questions:
+- does it force its own process/application model over SB modules?
+- does it constrain routing, SSR, authentication, accessibility or deployment?
+- does it introduce lock-in in session/window persistence?
+- can SB preserve autonomous module/window contracts?
+- does it complicate Factory View density and specialized 3D WorkSurface integration?
+- does it improve enough lifecycle/windowing behavior to offset ownership cost?
+
+### Key separation
+
+~~~
+React / Next.js
+= component/rendering/application framework layer
+
+Window Manager
+= interaction/orchestration infrastructure
+
+Module semantics
+= System Builder canonical product semantics
+~~~
+
+Therefore:
+
+- \`Desktop metaphor != desktop framework dependency\`.
+- \`Window Manager != UI framework\`.
+- \`React renderer != window lifecycle authority\`.
+- \`External window library != module semantic owner\`.
+- \`Framework adoption != benchmark learning\`.
+
+### Research obligations
+
+Benchmark/prototype comparison should evaluate:
+
+- bundle/startup cost;
+- memory use;
+- lazy-loading behavior;
+- suspended/background windows;
+- many-window behavior;
+- window creation/destruction cost;
+- docking/snapping/splitting;
+- z-order/focus;
+- persistence/session restore;
+- crash/reload recovery;
+- keyboard/accessibility;
+- small-screen fallback;
+- React integration friction;
+- Next.js integration friction;
+- routing implications;
+- SSR/client-boundary implications;
+- module/plugin registration;
+- Command Registry integration;
+- Ribbon contextual integration;
+- Inspector synchronization;
+- 3D WorkSurface embedding;
+- Factory Module dense-table compatibility;
+- theming/design-system control;
+- testability;
+- replaceability;
+- lock-in surface;
+- maintenance/community maturity;
+- security boundary implications.
+
+### Candidate architecture if React remains base
+
+Research a dedicated windowing package family such as:
+
+~~~
+packages/windowing
+  WindowManager
+  WindowRegistry
+  WorkspaceManager
+  DockManager
+  SnapManager
+  WindowLifecycle
+  WindowPersistence
+  WindowFocusManager
+  WindowResourceController
+  DesktopAdapter?
+~~~
+
+Names are provisional and do not authorize implementation.
+
+### Decision gate
+
+No external desktop framework/library should be selected before comparative evidence shows it improves the System Builder against the custom/bounded-adapter alternatives.
+
+Current direction remains:
+
+~~~
+Next.js + React + TypeScript
+= frontend base
+
+OS-like windowing
+= researchable infrastructure layer
+~~~
+
+A future decision may retain, adapt or replace windowing mechanics without redefining module semantics.
