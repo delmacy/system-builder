@@ -2773,3 +2773,16 @@ Planning must preserve:
 \`UI lifecycle != module lifecycle != deployment lifecycle\`.
 
 A complete task surface may be composed from multiple module windows instead of one monolithic route/page.
+
+
+## Priority external benchmarks for OS-like shell
+
+Frontend research/planning must explicitly benchmark:
+
+- **Puter** for modern web-desktop UX, window/taskbar/app-launch behavior and desktop integration;
+- **OS.js** for window-manager/application architecture, application APIs, session restore, shared services and React-capable application/window integration;
+- **daedalOS** for rich browser-desktop interaction, context menus, drag/drop, multi-window behavior and desktop spatial navigation.
+
+These are benchmarks only.
+
+Planning must extract portable primitives/contracts/states and reject incompatible assumptions. No benchmark is an implementation authority or automatic dependency choice.
