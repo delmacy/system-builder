@@ -638,3 +638,457 @@ Why not mature yet:
 3. Research **inventory-style navigation** for very large capability/tool catalogs: category tabs, slot/card density, quick actions, search, recent/favorites, context eligibility and progressive detail, borrowing interaction ideas from high-item-count inventory UIs without game-like semantic distortion.
 4. Research docking/panel-layout constraints and reset/preset behavior for web, small screens and supportability.
 5. Define the UI Lab state matrix and minimum proof set before any component implementation is authorized.
+
+
+---
+
+## Deep-research continuation — complete workspace composition and complexity plan (2026-09-22)
+
+This continuation deliberately does **not** wait for a Construction-A packet. It is research/planning material, not promotion of executable contracts. Its purpose is to map the whole frontend problem so later bounded packets can be cut from an explicit dependency graph instead of discovering the upper levels piecemeal.
+
+Additional primary-source evidence reviewed in this continuation:
+
+- Microsoft Fluent 2 Toolbar/Layout/Accessibility guidance and Windows Ribbon contextual-tab guidance;
+- W3C WAI-ARIA APG Treegrid and Dialog patterns;
+- React Flow accessibility guidance for keyboard-operable nodes/edges and focus-driven viewport movement;
+- React Aria accessible interaction/collection patterns;
+- Figma component-properties, selection/layers and Dev Mode inspection guidance;
+- Blender workspace model (3D Viewport + Outliner + Properties + Timeline);
+- Three.js InstancedMesh guidance for reducing draw calls for repeated geometry;
+- Cytoscape.js large-graph performance guidance;
+- Storybook interaction/visual/accessibility testing and Playwright accessibility testing.
+
+These sources strengthen the existing hypothesis rather than selecting a provider.
+
+### F16 — Main Composition is a workspace composition, not a monolithic Canvas component
+
+The useful unit is:
+
+```text
+MainCompositionWorkspace
+  App/Document context
+  Collapsible Ribbon
+  Tool Rail
+  WorkSurface host
+    Semantic3DProjection
+    2DProjection
+    GraphProjection
+    List/Table fallback
+  Inspector / PanelDock
+  Status / Activity bar
+```
+
+Blender's default workspace similarly combines distinct editors around a 3D viewport, while Fluent emphasizes stable toolbar grouping/overflow and contextual commands. Therefore shell, command system, projection host and semantic projection renderer should have separate contracts.
+
+`Workspace != WorkSurface != renderer`.
+
+### F17 — Command identity must be independent of command placement
+
+Windows Ribbon contextual tabs show commands according to selected object/context. Fluent requires logical toolbar grouping and overflow without losing commands. The SB therefore needs one semantic command identity projected into Ribbon, context menu, shortcut, Command Palette and Inspector.
+
+Candidate:
+
+```text
+CommandDefinition
+  commandId
+  semanticIntent
+  applicableTo
+  eligibility
+  authorityRequirement
+  modeRequirement
+  effectClass
+  confirmationPolicy
+  async/effectVerificationPolicy
+  alternatePresentation[]
+```
+
+A command disappearing because of responsive overflow must remain reachable by another declared presentation. A command being visible does not grant authority.
+
+### F18 — Module Workbox is a conditional face host, not fifteen permanently rendered tabs
+
+Figma consolidates intended component properties in the right panel while still preserving deeper layer inspection. Translate this to the Module Workbox as progressive semantic disclosure.
+
+Candidate face registry:
+
+```text
+Overview
+Capabilities / Services
+Entry Points / Counters
+Contracts / Ports
+Dependencies / Relations
+Providers / Bindings
+Adapters / Drivers
+Plugins / Extensions
+Configuration
+Data
+Events / Workflow
+Security / Authority
+Runtime / Deployment
+Observability
+Evidence / History
+```
+
+Each face declares `applicability(identity, mode, revision, disclosure)`. Non-applicable faces are absent for semantic reasons; permission-limited faces must not be misrepresented as non-applicable. The Workbox owns navigation/composition only; face-specific semantics remain in their domain contracts.
+
+### F19 — Door/Counter should project one operation contract to many consumer modalities
+
+A Door/Counter is a semantic entry-point projection, not a duplicated endpoint per UI/API/AI/workflow consumer.
+
+```text
+EntryPointIdentity
+  operation/request contract
+  requirements
+  authority/policy
+  input/output/effect qualification
+  evidence obligations
+  consumer modalities[]
+    HUMAN_VIEW
+    API
+    WORKFLOW
+    AI_AUTOMATION
+    CAPABILITY
+```
+
+Selecting the Door/Counter should move the Inspector to the same contract identity. Consumer-specific adapters may differ without cloning the operation contract.
+
+### F20 — Corridor/Handoff is a conformance surface, not merely an edge animation
+
+A corridor needs two distinguishable projections:
+
+```text
+DESIGNED PATH
+OBSERVED PATH
+```
+
+with qualified stages for queue/waiting, acceptance, rejection, needs-information, timeout, escalation, authorized bypass, missing evidence, skipped required stage, partial effect, unknown effect and reconciliation.
+
+Downstream progress is not proof that an upstream gate passed. A skipped gate remains a finding even when later stages exist.
+
+### F21 — semantic zoom must change representation, not semantic truth
+
+For 50–200 modules / 5–10 floors, the normal workspace may retain module-level geometry and selected labels while progressively suppressing nonessential labels/details. Near ~1000 modules, the default strategy should be aggregation/clustering and details-on-demand rather than render-all.
+
+Candidate LOD:
+
+```text
+LOD0 SYSTEM
+  domains/groups + critical markers + selected identity
+
+LOD1 NEIGHBORHOOD
+  modules + qualified external relations
+
+LOD2 MODULE
+  module geometry + applicable faces/ports summaries
+
+LOD3 CONTRACT
+  selected doors/ports/contracts + relation qualification
+
+LOD4 DETAIL
+  Inspector-driven full detail/evidence
+```
+
+Three.js instancing can reduce draw calls for repeated geometry; Cytoscape.js documents that large graph cost rises with element count, rich styles and especially edges. These are implementation evidence only. The semantic contract is:
+
+`Large-scene degradation -> aggregation, not silent omission`.
+
+Critical gates, BLOCKED/UNKNOWN/MISSING_EVIDENCE, selected identity and currentness cannot disappear merely to meet frame budgets.
+
+### F22 — 3D camera state is navigational state, never architecture state
+
+Candidate guided modes:
+
+```text
+OVERVIEW
+FOCUS_SELECTION
+FLOOR
+CAPABILITY_SHAFT
+RELATION_NEIGHBORHOOD
+CORRIDOR_TRACE
+CORE_TO_BOUNDARY
+COMPARE
+```
+
+Transitions preserve `SelectionContext` and provide a return anchor. Camera coordinates may be persisted as convenience but are not shareable semantic identity. A user must be able to reach the same semantic target through 2D/list/table/graph navigation.
+
+### F23 — cross-view navigation is one ProjectionHandoff family
+
+Commands such as:
+
+```text
+Open in Workflow
+Open in Data
+Open in Capability
+Open in Deployment
+Open in Infra
+Open Evidence
+```
+
+should not each invent navigation semantics. They specialize one `ProjectionHandoff` carrying canonical object/relation identity, selection context, capability context, revision/currentness, environment, lenses, disclosure context and return anchor.
+
+A destination can answer `PRESENT`, `NOT_MATERIALIZED`, `FILTERED_OUT`, `COLLAPSED`, `STALE_REFERENCE`, `NO_LONGER_ADMISSIBLE` or a disclosure-safe unresolved disposition. It must never fabricate deletion because an object cannot be represented in that projection.
+
+### F24 — 3D accessibility requires a peer semantic representation
+
+React Flow demonstrates keyboard-focusable/selectable/movable nodes and edges, but the SB cannot assume a 3D renderer exposes an adequate accessibility tree. WAI-ARIA patterns distinguish focus from selection, and Fluent requires responsive reflow without losing information.
+
+Therefore every decision-relevant 3D identity/relation requires a peer non-spatial representation such as Tree/Treegrid/RelationTable/List. Pointer drag operations require command/picker equivalents. Closing a dialog/Inspector transition must restore meaningful focus. Reduced motion may remove camera animation but not semantic transition feedback.
+
+### F25 — Inspector is a semantic projection boundary, not a second source of truth
+
+The Inspector may edit a qualified draft/proposal but must bind to the same identity/revision/eligibility contracts as the Canvas. It cannot maintain an independent shadow model that diverges from the selected Canvas object.
+
+Required conflict sequence:
+
+```text
+select -> inspect -> edit -> dirty
+  -> external revision arrives
+  -> external-change-detected
+  -> reconcile/compare
+  -> save candidate
+  -> verify currentness
+```
+
+A live update cannot silently overwrite dirty local state.
+
+### F26 — complete task pages need orchestration contracts above component state
+
+Minimum end-to-end scenario family:
+
+```text
+CREATE MODULE
+  insert -> qualify defaults -> place -> inspect -> save
+
+CONNECT
+  select source -> choose relation -> target candidate
+  -> semantic qualification -> valid/invalid/unknown
+  -> commit candidate -> verify
+
+DEFINE ENTRY POINT
+  select module -> entry face -> define operation contract
+  -> requirements -> consumers/adapters -> validate
+
+REQUEST/HANDOFF
+  submit -> ACK -> queued/waiting -> accepted/rejected/needs-info
+  -> gate -> downstream -> effect verification
+
+OBSERVED DEVIATION
+  designed path != observed path
+  -> finding -> inspect evidence -> reconcile/escalate
+
+PROJECTION SWITCH
+  select identity -> handoff -> materialize equivalent/aggregate
+  -> restore focus -> preserve revision/environment
+
+FAILURE RECOVERY
+  dirty draft -> fatal surface failure
+  -> preserve recoverable state
+  -> reopen -> requalify authority/currentness
+  -> reconcile -> continue
+```
+
+### F27 — UI proof should scale with componentization complexity
+
+Storybook supports isolated state stories and interaction tests; Playwright/axe catches only a subset of accessibility problems. Therefore proof depth should rise with semantic composition depth rather than applying one test recipe to everything.
+
+```text
+primitive -> state/keyboard/a11y/visual
+pattern -> composition + transition
+domain block -> semantic eligibility + negative states
+module component -> cross-contract scenarios
+tool -> multi-panel orchestration + recovery
+workspace -> identity/currentness/authority continuity
+task page -> end-to-end task outcome + partial/failure
+system view -> cross-workspace consistency + scale + disclosure
+```
+
+## Complexity-oriented componentization plan
+
+This is a research decomposition plan, not an implementation WBS. Complexity is architectural/interaction complexity, not estimated coding hours.
+
+### C0 — Semantic design tokens — VERY LOW
+
+Examples: spacing/density tokens, typography, elevation, focus ring, status tone, selected/focused/blocked/stale/unknown markers, motion/reduced-motion tokens.
+
+Exit proof: semantic meaning never depends on hue alone; density does not redefine global spacing semantics.
+
+### C1 — Atomic interaction primitives — LOW
+
+Examples: Button, IconButton, Toggle, Checkbox, Input, Select, Tabs, Tooltip, Popover, Dialog, Menu, Separator, Badge, Progress, Skeleton.
+
+State burden: focus, hover, pressed, disabled, read-only where applicable, pending/loading, validation, destructive, permission/policy explanation hooks.
+
+Exit proof: keyboard/focus/a11y contract stable; `BLOCKED != DISABLED`.
+
+### C2 — Composite navigation/input patterns — LOW–MEDIUM
+
+Examples: Toolbar, CommandGroup, CommandPalette, Search/Filter, Breadcrumb, Tree, Treegrid, DataTable, SplitPane, DockPanel, ResizablePanel, ActionBar, contextual toolbar.
+
+Exit proof: selection/focus/multi-selection, overflow, responsive reachability, focus restoration, virtualization and permission-limited states.
+
+### C3 — Semantic projection primitives — MEDIUM
+
+Examples: `ProjectionIdentityRef`, `SelectionBridge`, `CriticalStateMarker`, `QualifiedRelationPort`, `FloorManifestationPort`, `ReturnAnchor`, `ProjectionHandoff`.
+
+Exit proof: same identity survives renderer substitution, LOD, filtering, stale/currentness changes and accessible alternate projection.
+
+### C4 — Domain-semantic building blocks — MEDIUM–HIGH
+
+Examples: ModuleProjectionTile, RelationCard/Row, EntryPoint/Door, ContractPort, FloorManifestation, CapabilityShaftMarker, GateMarker, EvidenceMarker, CorridorStage, HandoffState, AggregateCluster.
+
+Exit proof: visual connectability never implies semantic compatibility; critical state survives collapse/aggregation.
+
+### C5 — Module Components — HIGH
+
+Examples: ModuleNode, ModuleWorkbox, face registry, relation composer, entry-point editor, dependency view, provider/binding view, security/authority face, runtime/deployment face, evidence/history face.
+
+Exit proof: face applicability is qualified; one module identity is not duplicated per face; multi-face edits share revision/currentness.
+
+### C6 — Tool components — HIGH
+
+Examples: Toolbox/Inventory, contextual Ribbon projection, Inspector, Layer/Lens panel, Relation explorer, Evidence explorer, Activity/Status surface, semantic camera controls.
+
+Exit proof: one Command Registry identity across Ribbon/context menu/shortcut/palette/Inspector; persisted tool layout does not grant permission.
+
+### C7 — Specialized WorkSurfaces — VERY HIGH
+
+Separate components/contracts for:
+- Main semantic 3D composition;
+- Workflow graph;
+- Data entity/relation/data-flow;
+- Architecture capability/module graph;
+- Deployment topology/placement;
+- Operations runtime/observability;
+- Frontend layout/component canvas.
+
+Exit proof: each surface declares its interaction grammar and alternate representation; no one-canvas-fits-all assumption.
+
+### C8 — Stable Workspace Shell — VERY HIGH
+
+```text
+MainCompositionWorkspace
+  Ribbon
+  Tool Rail
+  WorkSurfaceHost
+  Inspector/PanelDock
+  Status/Activity
+  navigation/history
+  persisted layout
+  responsive/density behavior
+```
+
+Exit proof: workspace switching preserves semantic identity; responsive collapse never removes a critical action; read-only and permission-denied remain distinct; fatal WorkSurface failure does not destroy recoverable draft state.
+
+### C9 — Complete Task Pages — EXTREME
+
+Task pages for `create/edit/review/simulate/authorize/publish/operate/audit/recover`.
+
+Exit proof: complete scenarios include async orchestration, partial success, live updates, revision drift, offline/degraded/recovery and effect verification. `ACK != effect`, `PENDING != EFFECTIVE`.
+
+### C10 — System Views / Cross-workspace orchestration — EXTREME
+
+System overview, typed System Slices/Lenses, cross-workspace navigation, designed-vs-observed overlays, global evidence/currentness and projection history.
+
+Exit proof: system view remains a projection rather than canonical truth; capability participation does not become ownership; cross-view handoff preserves object/selection/capability/revision/environment context.
+
+### C11 — Scale/conformance hardening — EXTREME / CROSS-CUTTING
+
+Normal scene: 50–200 modules / 5–10 floors.
+Stress research target: ~1000 modules.
+
+Required behavior:
+- semantic zoom and clustering;
+- bounded relation materialization;
+- label suppression by priority;
+- details-on-demand in Inspector;
+- instancing/render-on-demand candidates;
+- selected/critical/currentness markers survive degradation;
+- 2D/list/table/graph fallback remains available;
+- no silent omission of gates/findings because of performance.
+
+## Recommended dependency order for future bounded packets
+
+```text
+C0/C1
+  -> C2
+  -> C3 identity/projection contracts
+  -> C4 relation/floor/gate/corridor building blocks
+  -> C5 ModuleNode + ModuleWorkbox
+  -> C6 command/inspector/tool family
+  -> C7 one specialized WorkSurface at a time
+  -> C8 workspace orchestration
+  -> C9 complete task pages
+  -> C10 cross-workspace/system views
+  -> C11 scale/conformance hardening continuously, with final stress proof
+```
+
+Parallelizable research after C3:
+- Ribbon/Command Registry;
+- Module Workbox face taxonomy;
+- Corridor/Gate conformance;
+- semantic camera/LOD;
+- accessibility alternate projections;
+- performance benchmark harness;
+- UI Lab scenario taxonomy.
+
+Non-parallelizable semantic gates:
+- do not freeze ModuleWorkbox before identity/revision/selection contracts;
+- do not freeze relation gestures before relation qualification;
+- do not freeze 3D aggregation before critical-state preservation;
+- do not freeze complete task pages before async/effect/currentness orchestration;
+- do not freeze System View before cross-workspace handoff/disclosure behavior.
+
+## Componentes inventory impact
+
+Componentes should ultimately index all C0–C10 artifacts with:
+
+```text
+complexity class
+composition lineage
+canonical identity ownership
+variants
+interaction states
+semantic states
+async states
+failure/recovery states
+responsive/density
+accessibility alternate
+performance/LOD behavior
+commands exposed
+used by
+scenario fixtures
+proof evidence
+known invalid combinations
+```
+
+For C5+ entries, static stories are insufficient; Componentes should expose complete scenario playback and cross-surface handoff fixtures.
+
+## Adversarial regression set
+
+1. Visually connectable relation is semantically invalid.
+2. Gate is skipped but downstream state exists.
+3. Timeout occurs and flow continues silently.
+4. ACK is shown as effect.
+5. UNKNOWN/PARTIAL becomes success under aggregation.
+6. Critical gate disappears at stress LOD.
+7. Workspace switch loses canonical selection.
+8. Camera transition loses orientation/return anchor.
+9. Inspector edits a stale revision while Canvas shows current.
+10. Live update overwrites dirty edit.
+11. Responsive collapse removes authorize/recover action.
+12. Read-only is rendered as permission denied or vice versa.
+13. Hidden-by-disclosure is rendered as deleted.
+14. Module face creates a second module identity.
+15. Drag-only connection has no keyboard/picker path.
+16. 3D renderer failure destroys recoverable draft.
+17. Persisted workspace preset reopens as if it granted authority.
+18. Designed corridor is displayed as observed execution.
+19. Capability shaft implies ownership instead of participation.
+20. Optimization silently drops evidence/findings.
+
+## Research maturity after continuation
+
+`FRONTEND_WORKSPACE_COMPONENTIZATION = ADVANCED_EMERGING / MATERIAL_DELTA`.
+
+The research now has a complete componentization ladder from tokens through System Views and a dependency-oriented plan. Remaining uncertainty is concentrated in empirical prototype validation, exact provider qualification, performance budgets, camera/LOD thresholds, docking constraints and detailed semantic contracts for corridor/gate/effect reconciliation.
+
+This continuation does not supersede bounded Construction packets; it gives Planning a complete map from which to cut them.
