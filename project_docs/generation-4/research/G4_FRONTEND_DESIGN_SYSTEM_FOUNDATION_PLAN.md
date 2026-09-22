@@ -2473,3 +2473,266 @@ Future frontend research packets should explicitly evaluate:
 8. LOD, instancing, clustering, culling and render-on-demand strategy.
 9. Accessibility and 2D/list fallbacks.
 10. Normal/stress performance benchmark definitions.
+
+## Deployment Topology Extension — Basement Split, Twin Towers & Placement Grouping
+
+Decision status: `PLANNED G4 FRONTEND DIRECTION`
+
+The 3D Main Composition Canvas should support a deployment/topology projection in which **server/host foundations act as basements** and module/runtime manifestations rise from them as towers.
+
+### Semantic distinction
+
+```text
+Module Identity
+!= Deployment Placement
+!= Runtime Instance
+!= Visual Grouping
+```
+
+A module remains one semantic identity even when materialized on multiple hosts.
+
+### Server / basement representation
+
+A server/host may be represented as the physical/logical foundation from which deployed module manifestations emerge.
+
+```text
+SERVER / HOST
+  = deployment foundation / basement
+
+TOWER
+  = deployed manifestation of a module/capability on that host
+
+FLOOR MANIFESTATION
+  = sphere-specific face of that deployed manifestation
+```
+
+The basement may be visually split/revealed to expose relevant infrastructure/runtime data such as CPU, memory, runtime, network, storage, placement, region/zone and deployment-unit identity.
+
+### Twin towers / availability grouping
+
+When the same logical module/capability is deployed on multiple hosts for availability or scale, the canvas may visually approximate/group those towers.
+
+Candidate semantic group types:
+
+```text
+AVAILABILITY_PAIR
+ACTIVE_ACTIVE
+ACTIVE_PASSIVE
+REPLICA_SET
+WORKER_POOL
+SHARD_GROUP
+REGIONAL_REPLICA_GROUP
+VISUAL_GROUP_ONLY
+```
+
+`Visual proximity != deployment merge`.
+
+`Visual similarity != semantic equivalence`.
+
+Grouping two towers must never silently imply they are equivalent, synchronized, failover-compatible or authoritative peers.
+
+### Compatibility before semantic grouping
+
+Before offering an availability/twin grouping, research whether the following must be compatible or explicitly qualified:
+
+```text
+semantic module identity
+contract set / contract revision
+authority model
+configuration class
+tenant / classification scope
+deployment role
+provider/binding compatibility
+state synchronization expectations
+failover semantics
+data/currentness guarantees
+```
+
+If two towers look alike but differ semantically, the canvas should represent the drift rather than flatten it.
+
+Candidate drift states:
+
+```text
+CONTRACT_DRIFT
+REVISION_DRIFT
+CONFIGURATION_DRIFT
+AUTHORITY_DRIFT
+PLACEMENT_DRIFT
+HEALTH_DRIFT
+STATE_SYNC_UNKNOWN
+INCOMPATIBLE_FOR_TWIN_GROUP
+```
+
+### Shared logical crown / service identity
+
+Research a compact representation where multiple runtime towers can share one logical module/service identity above them.
+
+```text
+Logical Module / Service Identity
+          |
+      +---+---+
+      |       |
+ Instance A  Instance B
+      |       |
+ Server A   Server B
+```
+
+This is a projection only. The visual crown must not become canonical ownership.
+
+### Shared contract surface
+
+When multiple instances genuinely expose the same qualified contract surface, the UI may aggregate that contract surface visually above the instances.
+
+```text
+Shared Contract Surface
+        |
+   +----+----+
+   |         |
+Instance A Instance B
+```
+
+If contract revisions/guarantees differ, aggregation must break or become explicitly qualified.
+
+### Drag semantics
+
+Drag-and-drop in deployment/topology views must distinguish at least three intentions:
+
+```text
+DRAG_TO_ARRANGE
+  = changes visual layout only
+
+DRAG_TO_GROUP
+  = proposes/creates an explicit semantic or visual grouping
+
+DRAG_TO_DEPLOY
+  = changes desired placement/topology
+```
+
+`Arrange != Group != Deploy`.
+
+`Drag proximity must not mutate topology`.
+
+Deployment mutation requires explicit action/confirmation and impact review.
+
+### Desired / observed / effective placement
+
+Placement views should preserve:
+
+```text
+DESIRED_PLACEMENT
+OBSERVED_PLACEMENT
+EFFECTIVE_PLACEMENT
+```
+
+A desired move/group must not be rendered as effective before verification/reconciliation.
+
+Candidate states include:
+
+```text
+PLACEMENT_PENDING
+PLACEMENT_EFFECTIVE
+PLACEMENT_DRIFT
+RECONCILIATION_REQUIRED
+UNKNOWN_EFFECT
+PARTIAL_PLACEMENT
+```
+
+### Hub locality
+
+Research hub classification by topology:
+
+```text
+INTRA_HOST_HUB
+INTER_HOST_HUB
+EXTERNAL_PROVIDER_HUB
+CROSS_SYSTEM_HUB
+```
+
+Transport may vary by placement, but:
+
+`Transport != Contract`.
+
+The same logical contract may be realized through in-process call, IPC, HTTP/gRPC, broker, stream or other qualified transport without changing semantic identity, while still exposing operational differences that matter.
+
+### Layout projections
+
+The same deployment truth may be arranged by:
+
+```text
+Server / Host
+Module
+Capability
+Availability Group
+Environment
+Region / Zone
+System
+Deployment Unit
+```
+
+Changing arrangement changes projection, not semantic identity.
+
+### Progressive disclosure / LOD
+
+At distance, replica groups may collapse into aggregate towers/cards such as:
+
+```text
+AUTH
+x4 instances
+3 healthy / 1 degraded
+availability group
+```
+
+Near/selected views may explode the group into individual towers and basement placement.
+
+`Aggregation != silent omission`.
+
+### Componentes impact
+
+Plan inventory/state coverage for at least:
+
+```text
+ServerBasement
+ServerBasementSplit
+DeploymentTower
+TowerReplica
+TwinTowerGroup
+AvailabilityGroup
+LogicalServiceCrown
+SharedContractSurface
+PlacementLink
+DesiredPlacementIndicator
+ObservedPlacementIndicator
+EffectivePlacementIndicator
+PlacementDriftIndicator
+GroupingCandidate
+GroupingCompatibilityInspector
+DeploymentImpactPreview
+```
+
+### New invariants
+
+- `Module Identity != Deployment Placement != Runtime Instance`.
+- `Visual proximity != deployment merge`.
+- `Visual similarity != semantic equivalence`.
+- `Arrange != Group != Deploy`.
+- `Drag proximity must not mutate topology`.
+- `Desired placement != observed placement != effective placement`.
+- `Shared contract surface requires qualified compatibility`.
+- `Availability grouping != ownership merge`.
+- `Transport != Contract`.
+- `Aggregation != silent omission`.
+
+### Planning obligations
+
+Future planning/research packets involving topology/deployment must evaluate:
+
+1. basement/server split grammar;
+2. module tower placement on hosts;
+3. twin/replica grouping compatibility;
+4. availability/HA semantics;
+5. desired/observed/effective placement visualization;
+6. drag-to-arrange vs drag-to-group vs drag-to-deploy;
+7. contract/config/authority/version drift between replicas;
+8. shared service/crown and contract-surface aggregation rules;
+9. inter-host/intra-host/external/cross-system hubs;
+10. LOD/aggregation behavior for large replica groups.
