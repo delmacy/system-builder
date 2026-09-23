@@ -74,11 +74,11 @@ export function projectPointerGeometry(
     y: session.startGeometry.y,
     width:
       session.edge === "E" || session.edge === "SE"
-        ? session.startGeometry.width + dx
+        ? Math.max(definition.minSize.width, session.startGeometry.width + dx)
         : session.startGeometry.width,
     height:
       session.edge === "S" || session.edge === "SE"
-        ? session.startGeometry.height + dy
+        ? Math.max(definition.minSize.height, session.startGeometry.height + dy)
         : session.startGeometry.height,
   };
 
