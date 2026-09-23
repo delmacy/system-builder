@@ -1,0 +1,72 @@
+name: Station Next.js CI
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "apps/station/**"
+      - "packages/ui-core/**"
+      - "packages/ui-icons/**"
+      - "packages/station-interaction/**"
+      - "packages/station-windowing/**"
+      - "packages/station-app-runtime/**"
+      - "packages/station-settings/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig*.json"
+      - ".github/workflows/station-next-ci.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/station/**"
+      - "packages/ui-core/**"
+      - "packages/ui-icons/**"
+      - "packages/station-interaction/**"
+      - "packages/station-windowing/**"
+      - "packages/station-app-runtime/**"
+      - "packages/station-settings/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig*.json"
+      - ".github/workflows/station-next-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: station-next-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  next-build:
+    name: next-build (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout tested revision
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build Station with Next.js
+        run: npm run station:build
