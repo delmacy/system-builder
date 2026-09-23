@@ -12,7 +12,6 @@ depends_on:
   - TASK-588
 context_paths:
   - docs/architecture/STATION_FRONTEND_FOUNDATION.md
-  - project_docs/generation-4/research/G4_FRONTEND_DESIGN_SYSTEM_FOUNDATION_PLAN.md
 allowed_paths:
   - packages/ui-core/**
   - apps/station/**
