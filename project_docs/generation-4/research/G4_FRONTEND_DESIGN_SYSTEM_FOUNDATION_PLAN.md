@@ -3769,3 +3769,148 @@ Potential visual separation should reduce accidental operations caused by stale 
 - Builder-only integration != client-visible application.
 - Shared infrastructure != shared authority.
 - Emergency access != ordinary workflow.
+
+
+## Support Intervention Window — scoped proactive client operations
+
+Decision status: STRONG_G4_DIRECTION / NON_EXECUTABLE
+
+The Builder/Fleet Desktop should support a scoped Support Intervention Window so operators can perform bounded corrective actions on a client without loading the entire client Desktop.
+
+Primary use cases:
+- inspect a degraded service;
+- restart/stop/start a service;
+- rerun health verification;
+- inspect logs/evidence;
+- reconcile a failed deployment;
+- trigger a bounded recovery action;
+- rotate/rebind a credential where specifically authorized;
+- perform proactive maintenance before the client reports an incident.
+
+### Scope model
+
+~~~
+Fleet finding
+-> select Client / Environment / Target
+-> open Support Intervention Window
+-> inspect evidence
+-> request step-up authorization if mutation is needed
+-> execute bounded action
+-> verify result
+-> notify/audit
+~~~
+
+The window does not automatically load the full client workspace and does not grant general client-admin authority.
+
+### Step-up authentication
+
+Sensitive mutations should require step-up authentication/re-authentication according to policy, for example password re-entry, MFA, passkey/security key or another strong factor.
+
+Step-up is distinct from ordinary login/session authentication and should be scoped by action/risk/time.
+
+~~~
+Logged in as Builder
+!= currently authorized for client mutation
+
+Step-up approved
+!= unrestricted client admin
+~~~
+
+### Intervention context
+
+The window should clearly display:
+- client;
+- environment;
+- target service/object;
+- current health/currentness;
+- intended action;
+- blast radius;
+- operator identity;
+- authority scope;
+- reason/incident reference;
+- whether client notification will be sent;
+- elevation expiry where applicable.
+
+### Client notification
+
+Research client-facing notices for real interventions, for example:
+- support operator accessed service diagnostics;
+- proactive intervention started;
+- service restarted/reconciled;
+- maintenance completed;
+- intervention failed/needs follow-up.
+
+Notifications should avoid leaking unnecessary security detail or secrets while still being transparent about who acted, why, what target was affected and the resulting status.
+
+Candidate notification fields:
+- operator/support identity;
+- client/system/environment;
+- target;
+- reason category / free-text justification;
+- action category;
+- start/end time;
+- outcome;
+- evidence/audit reference;
+- optional customer-visible note.
+
+### Audit/evidence
+
+Every mutating intervention should produce immutable/auditable records sufficient to reconstruct:
+- who;
+- when;
+- why;
+- what was observed before;
+- what action was requested;
+- what authority allowed it;
+- what actually executed;
+- provider ACK;
+- observed/effective result after verification;
+- notification delivery status.
+
+### Action classes
+
+Research risk-tiered actions:
+
+~~~
+LOW
+read logs / run health check / refresh evidence
+
+MEDIUM
+restart service / retry bounded job / reconcile binding
+
+HIGH
+redeploy / rotate credential / network-policy change / destructive operation
+~~~
+
+Each tier can require different confirmation, step-up, dual control, client notice and evidence.
+
+### UI principle
+
+The support operator should be able to act quickly from fleet observability without losing context, while the product makes accidental cross-client intervention difficult.
+
+Example:
+
+~~~
+Client B / Production / PostgreSQL
+Status: DEGRADED
+
+[View evidence]
+[Open logs]
+[Run health check]
+[Restart service]  -> requires step-up
+
+Reason: proactive remediation of failed health probe
+Client notification: ON
+~~~
+
+### Invariants
+
+- Fleet visibility != client mutation authority.
+- Support Intervention Window != Client Desktop.
+- Step-up authentication != unrestricted authority.
+- Read access != mutation access.
+- Notification != authorization.
+- Good-faith/support intent != sufficient authority by itself.
+- Provider ACK != verified recovery.
+- Intervention record != secret disclosure.
+- Proactive support must remain attributable and auditable.
