@@ -1,7 +1,7 @@
 # Palantir Transferable Pattern Register
 
 Date: 2026-09-23
-Status: `RESEARCH_ACTIVE`
+Status: `RESEARCH_ACTIVE / DEFERRED_IMPROVEMENT_SOURCE`
 
 | ID | Public mechanism | Universal primitive | SB disposition | Main caution / proof obligation |
 |---|---|---|---|---|
@@ -25,6 +25,12 @@ Status: `RESEARCH_ACTIVE`
 | PT-18 | Data Connection Agent | separate private connectivity/worker role | `OPEN QUESTION` | decide whether SB Host Agent splits tunnel/connectivity from executor |
 | PT-19 | webhook/writeback/side effects | external effect distinct from local state mutation | `ALREADY COVERED` | UNKNOWN/reconciliation/effect identity |
 | PT-20 | Foundry-as-backend OSDK | platform-backed application model | `AVOID AS CLIENT-RUNTIME DEFAULT` | violates SB runtime-autonomy goal if adopted literally |
+
+## Sequencing rule
+
+All entries in this register are research findings. For implementation sequencing, they are treated as `DEFERRED_IMPROVEMENT` until the Station visual/application milestone is materially established and a later Planning & Materialization gate explicitly promotes selected items. Research classification such as `ADOPT PRINCIPLE` or `ADAPT` means architectural relevance, not immediate execution priority.
+
+See `PALANTIR_DEFERRED_IMPROVEMENT_BACKLOG.md`.
 
 ## Highest-value architecture questions generated
 
