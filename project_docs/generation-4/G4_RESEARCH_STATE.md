@@ -672,3 +672,14 @@ The same catalog should support install-new, adopt-existing and recognition duri
 Mirroring is modeled as the inverse path of assembly: observed existing state -> identify/classify -> map bindings/contracts -> infer candidates -> human validation -> candidate semantic definition. Preserve Observed != Intended != Approved Canonical; Discovered != Verified != Adopted; AI/heuristic inference != authority.
 
 Future research should treat reusable installer primitives and reverse-recognition signatures as compounding assets: first integrations are expensive, later integrations should reuse established schemas/adapters rather than duplicate mechanics.
+
+
+## Research addition — Builder Desktop / guarded fleet authority
+
+G4 now includes a dedicated Builder/master Desktop for fleet-wide and Builder-platform observability.
+
+Default posture for client-owned operational state is read-only/restricted. Client mutations should normally require explicit entry into the client/workspace/environment context, with authority/currentness re-evaluated there.
+
+Research a guarded break-glass/elevation flow for exceptional intervention with explicit target, reason, blast-radius confirmation, time-bounded authority, audit/evidence and post-action verification.
+
+Preserve Builder profile != omnipotent mutation session; Fleet scope != client scope; Observability != control; cross-client visibility != secret visibility or mutation authority.
