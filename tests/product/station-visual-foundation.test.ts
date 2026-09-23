@@ -17,7 +17,8 @@ test("Station visual foundation composes the committed M1 substrate", () => {
   assert.match(source, /type: "SET_BOUNDS"/);
   assert.match(source, /h-\[100dvh\] w-screen/);
   assert.match(source, /createBrowserLocalPresentationStorage\(window\.localStorage\)/);
-  assert.match(source, /Core: Disconnected/);
+  assert.match(source, /<StationNavbar/);
+  assert.match(source, /connection="disconnected"/);
   assert.match(source, /data-slot="station-taskbar"/);
   assert.match(source, /data-slot="taskbar-windows"/);
   assert.match(source, /registry\.list\(\)\.map/);
