@@ -170,7 +170,7 @@ function system(options: Readonly<{ protocolVersions?: readonly string[] }> = {}
     {
       stationRef: "station:desktop-a",
       stationVersion: "0.1.0",
-      supportedProtocolVersions: options.protocolVersions,
+      ...(options.protocolVersions === undefined ? {} : { supportedProtocolVersions: options.protocolVersions }),
     },
     new GatewayTransport(gateway),
   );
