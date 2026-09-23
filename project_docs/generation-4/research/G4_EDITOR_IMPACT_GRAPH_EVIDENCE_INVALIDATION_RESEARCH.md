@@ -10,7 +10,7 @@ Continuation of `G4_PROPRIETARY_EDITOR_SHARED_FOUNDATION_RESEARCH.md`. This arti
 
 No implementation, provider selection, WBS, Work Package, Sprint or TASK authority is created here.
 
-## Consolidated findings F34–F48
+## Consolidated findings F34–F64
 
 Prior rounds established:
 
@@ -28,346 +28,355 @@ Prior rounds established:
 - dynamic bindings create continuing currentness obligations;
 - Revision/Diff exposes impact delta;
 - Elicitation consumes impact evidence without becoming mutation authority;
-- Componentes catalogs invalidation behavior.
+- Componentes catalogs invalidation behavior;
+- qualification reuse uses semantic/contextual proof keys with completeness qualification;
+- runtime effect lineage is rooted in immutable publish identity while occurrences remain independent;
+- retry, compensation and reconciliation are distinct operations;
+- asynchronous causal links do not imply one synchronous transaction;
+- runtime evidence can stale current claims without rewriting historical design evidence;
+- editor/session lifetime does not bound durable operation/evidence lifetime.
 
 ## Evidence classes reviewed in this continuation
 
-- SLSA Provenance: reproducibility depends on explicit materials/digests and completeness of environment/material declarations. This supports content-addressed qualification basis and explicit completeness rather than cache reuse from artifact bytes alone.
-- OpenTelemetry Trace API/overview: immutable propagated context, causal parent/child relationships and Links across separate/asynchronous traces provide mature pattern evidence for joining authoring/publish/runtime/reconciliation lineage without forcing all events into one transaction or one trace.
-- Existing G4 contracts: `ACK != EFFECTIVE`, claim-relative evidence currentness, immutable PublishBundleCandidate, exact revision resolution, environment-bound qualification and partial/unknown outcomes remain authoritative research constraints.
+- OpenTelemetry sampling: traces may intentionally not be processed/exported. Therefore absence of trace evidence cannot prove absence of a business effect.
+- OpenTelemetry signals/observability model: traces, metrics and logs are observation signals. They are valuable supporting evidence but are not automatically canonical business truth.
+- Camunda BPMN compensation documentation/workflow patterns: compensation is modeled as an explicit activity/handler associated with completed work, including service tasks, human tasks and subprocesses. This reinforces compensation as a new business action rather than history erasure or technical rollback.
+- Process Mining conformance literature/tooling: conformance checking compares observed behavior/event logs with an expected process model; mapping between model tasks and observed events is explicit, and alignments distinguish observed/model-only moves. This supports a revision-pinned designed-vs-observed projection rather than treating telemetry labels as workflow identity.
+- Existing G4 contracts: `ACK != EFFECTIVE`, `Trace/correlation != business causation != authority`, `Compensation != rollback/time reversal`, claim-relative evidence currentness, immutable PublishBundleCandidate, exact revision resolution, environment-bound qualification and partial/unknown outcomes remain constraints.
 
 These are pattern sources only; no provider adoption is implied.
 
-## F49 — Qualification reuse requires a semantic proof key, not a file/content cache key
+## F49–F64 — prior continuation summary
+
+F49–F64 established semantic proof cache keys/completeness, proof reuse dispositions, validator compatibility, immutable publish-to-runtime lineage, occurrence identity, typed causal links, retry/compensation/reconciliation separation, Effect Lineage projection, promotion/runtime distinction, disclosure-safe lineage, runtime invalidation of design assumptions and durable operation/evidence identity.
+
+## F65 — Effect verification authority is claim-specific, not a universal source priority
+
+A fixed hierarchy such as `provider response > read model > telemetry` is unsafe because authority depends on the effect contract. Instead define a claim-specific verification contract.
 
 Candidate:
 
 ```text
-QualificationCacheKey
-  claimKind
-  subjectSemanticDigest
-  resolvedDependencyClosureDigest
-  validatorIdentity
-  validatorVersion
-  validatorConfigDigest
-  authorityPolicyDigest
-  disclosureContextClass
-  environmentFactDigest?       // required for environment-bound/hybrid proof
-  previewSubstitutionDigest?   // when preview participates in claim
-  qualificationContractVersion
+EffectVerificationContract
+  effectKind
+  successPredicate
+  failurePredicate
+  authoritativeEvidenceKinds[]
+  corroboratingEvidenceKinds[]
+  inadmissibleAsProofKinds[]
+  requiredFreshness/currentness
+  requiredIdentity/correlation dimensions
+  quorum/combination rule?
+  contradictionPolicy
+  timeoutDisposition
+  reconciliationPolicyRef
 ```
-
-A byte-identical Form under a different permission policy, validator version, resolved dynamic dependency or target environment is not the same proof input.
-
-`same artifact bytes != same qualification basis`.
-
-## F50 — Cache-key completeness must itself be qualified
-
-SLSA distinguishes declared materials/environment from claims that those sets are complete. Apply the same principle to editor qualification.
-
-Candidate:
-
-```text
-QualificationBasisCompleteness
-  dependencyClosure = COMPLETE | PARTIAL | UNKNOWN
-  environmentFacts = COMPLETE | PARTIAL | UNKNOWN | NOT_APPLICABLE
-  authorityFacts = COMPLETE | PARTIAL | UNKNOWN
-  disclosureImpact = NONE | BOUNDED | UNKNOWN
-  validatorInputs = COMPLETE | UNKNOWN
-```
-
-A cache hit is reusable only if every dimension required by the claim is complete enough for that claim. Missing provenance cannot be encoded as an empty digest and accidentally collide with a genuinely empty dependency set.
-
-## F51 — Proof reuse should return a disposition, not boolean hit/miss
-
-Candidate:
-
-```text
-ProofReuseDisposition
-  EXACT_REUSE
-  REUSE_WITH_ENVIRONMENT_REQUALIFICATION
-  REUSE_WITH_AUTHORITY_REQUALIFICATION
-  REUSE_AS_HISTORICAL_ONLY
-  REQUIRES_PARTIAL_REQUALIFICATION
-  REQUIRES_FULL_REQUALIFICATION
-  UNKNOWN
-```
-
-This supports promotion and cross-editor workflows without converting every change into global recomputation or every cache hit into current truth.
-
-## F52 — Validator compatibility is a declared contract
-
-Validator version changes do not automatically imply either safe reuse or total invalidation.
-
-Candidate:
-
-```text
-ValidatorCompatibility
-  validatorIdentity
-  fromVersion
-  toVersion
-  compatibleClaimKinds[]
-  invalidatedClaimKinds[]
-  requiresMigration/requalification
-  compatibilityEvidenceRef
-```
-
-Absent a qualified compatibility declaration, prior PASS remains historical evidence and the current claim is requalified.
-
-## F53 — Runtime effect lineage starts from the immutable publish candidate
-
-Authoring history and runtime execution must join without becoming one ownership domain.
-
-Candidate:
-
-```text
-EffectLineageRoot
-  publishBundleManifestDigest
-  authorizationRef
-  publishOperationRef
-  targetEnvironmentRef
-  exactArtifactResolutions[]
-  qualificationBasisRef
-```
-
-Runtime occurrences link back to this root. They do not mutate the historical PublishBundle or authoring revisions.
-
-## F54 — Runtime occurrence identity is separate from semantic command identity
-
-One Command/Action definition can execute many times.
-
-```text
-EffectOccurrence
-  occurrenceId
-  command/action identity
-  lineageRootRef
-  invocationRef
-  actor/authorityEvidenceRef
-  inputDigest/redactedEvidenceRef
-  startedAt
-  ackAt?
-  verificationEvents[]
-  effectStatus
-    PENDING
-    EFFECTIVE
-    PARTIAL
-    FAILED
-    UNKNOWN
-  runtimeEvidenceRefs[]
-```
-
-`CommandDefinition != EffectOccurrence` and `ACK != EFFECTIVE`.
-
-## F55 — Causal links are preferable to fake transaction ancestry for asynchronous reconciliation
-
-OpenTelemetry distinguishes parent/child from Links and explicitly supports linking causally related asynchronous work across separate traces. SB should similarly permit a later verification, reconciliation or compensation operation to link to the originating effect occurrence without pretending it was a synchronous child transaction.
-
-Candidate relation kinds:
-
-```text
-INITIATED_BY
-VERIFIES
-RETRIES
-COMPENSATES
-RECONCILES
-SUPERSEDES
-CAUSED_BY_DRIFT
-```
-
-Each relation is typed and evidence-bearing.
-
-## F56 — Retry creates a new occurrence with lineage; it does not rewrite history
-
-A retry must preserve the failed/unknown original occurrence.
-
-```text
-Occurrence A -> FAILED
-Occurrence B --RETRIES--> A -> EFFECTIVE
-```
-
-Revision/Diff and Evidence can therefore answer both “what is effective now?” and “what actually happened?”. Replacing A with B would destroy audit/conformance evidence.
-
-## F57 — Compensation is a new authorized business effect, not undo
-
-`Undo editor != rollback publish != compensation`.
-
-Candidate:
-
-```text
-CompensationOccurrence
-  compensatesOccurrenceRef
-  compensationCommandRef
-  authorityEvidenceRef
-  preconditionEvidenceRef
-  resultStatus
-  effectVerificationRef
-```
-
-Compensation may itself fail, be partial or become UNKNOWN. A successful compensation does not erase the original effect; it changes effective state through another evidenced action.
-
-## F58 — Reconciliation resolves knowledge/currentness; it need not create a business effect
-
-A reconciliation operation may inspect external state and convert an `UNKNOWN` occurrence into `EFFECTIVE` or `FAILED` without issuing a compensating or repeated command.
-
-This distinction prevents the UI from offering “Retry” when the correct action is “Verify/Reconcile”.
-
-## F59 — Revision/Diff needs an Effect Lineage projection
-
-Alongside Artifact Diff and Impact Diff, expose:
-
-```text
-Effect Lineage
-  bundle/revision basis
-  publish/authorization
-  occurrences
-  ACK/verification/effect transitions
-  retries
-  compensations
-  reconciliations
-  runtime drift
-  evidence currentness
-```
-
-This is a projection over linked records, not ownership transfer from runtime into Revision/Diff.
-
-## F60 — Elicitation/Requirements can trace runtime proof back to requirement claims
-
-A requirement may be supported by design-time proof and later runtime evidence. Runtime drift or failed effects may stale the requirement's evidence claim, but Elicitation remains traceability/proposal authority only.
-
-`runtime finding != permission for Elicitation to mutate Workflow/Command`.
-
-## F61 — Promotion must distinguish reusable proof from inherited runtime truth
-
-Promoting an exact bundle from TEST to PROD may reuse portable artifact proofs, but TEST runtime effects are not evidence that PROD effects occurred. PROD receives a new `EffectLineageRoot`/environment qualification and new occurrences.
-
-`same bundle != same runtime occurrence`.
-
-## F62 — Disclosure-safe lineage may preserve causality without exposing payload/identity
-
-Cross-app Evidence/Revision views may be allowed to know that a dependency/effect exists while lacking permission to reveal its subject or payload. Candidate projection states:
-
-```text
-VISIBLE
-REDACTED_IDENTITY
-REDACTED_PAYLOAD
-AGGREGATED
-DISCLOSURE_LIMITED
-UNKNOWN
-```
-
-A disclosure-limited edge must not become “no dependency/no effect”. Cache keys include disclosure context class when disclosure changes what can be qualified.
-
-## F63 — Runtime evidence can invalidate design-time assumptions without rewriting design history
 
 Examples:
 
-- provider drift invalidates an environment compatibility claim;
-- repeated permission denial may expose policy/config drift;
-- runtime schema rejection can stale a compatibility proof;
-- observed workflow bypass can create a conformance finding against the designed path.
+- a provider-generated immutable settlement receipt may be authoritative for provider settlement but not for downstream domain projection;
+- a domain aggregate committed state may be authoritative for local business state but not for an external payment effect;
+- a read model may be eventually consistent and therefore corroborating only;
+- a trace/span is normally observational evidence and may be sampled.
 
-Historical design evidence remains explainable for its original basis, while currentness changes.
+`source type != universal authority`.
 
-## F64 — Long-lived lineage needs retention/reference stability independent of editor session lifetime
+## F66 — Verification must distinguish effect truth from observation completeness
 
-Closing Workspace/Application/Desktop Sphere cannot orphan a pending publish/effect/reconciliation. The durable identity belongs to the operation/evidence layer; editor windows merely project it.
+Candidate dimensions:
 
-This extends the earlier `OperationRegistry` principle into post-publish runtime evidence.
+```text
+EffectVerificationResult
+  effectDisposition = EFFECTIVE | FAILED | PARTIAL | UNKNOWN
+  observationCompleteness = COMPLETE | PARTIAL | UNKNOWN
+  evidenceCurrentness = CURRENT | STALE | UNKNOWN
+  contradictions[]
+  verifiedAt
+  verifierIdentity/version
+  basisRefs[]
+```
+
+An EFFECTIVE result can be supported by an authoritative receipt even when telemetry is partial. Conversely, complete telemetry cannot manufacture business effect truth if the effect contract requires another authority.
+
+## F67 — Telemetry absence is explicitly non-negative evidence unless the contract says otherwise
+
+OpenTelemetry supports sampling in which non-sampled traces are not processed/exported. Therefore:
+
+`no trace != no invocation != no effect`.
+
+Negative proof requires a source/contract capable of proving non-occurrence within a declared scope and horizon. A sampled trace store cannot silently become that source.
+
+This turns adversarial obligation 21 into a formal verification rule.
+
+## F68 — Contradictory evidence produces a contradiction state, not majority voting
+
+When provider receipt, domain state, read model and telemetry disagree, the UI/engine should preserve contradiction explicitly.
+
+Candidate:
+
+```text
+EvidenceContradiction
+  claimRef
+  evidenceRefs[]
+  contradictionKind
+  materiality
+  authorityComparison
+  currentnessComparison
+  resolutionStatus = OPEN | RECONCILING | RESOLVED | ACCEPTED_WITH_AUTHORITY
+  resolutionEvidenceRef?
+```
+
+Two weak sources agreeing do not automatically defeat one authoritative contradictory source. `evidence count != semantic truth`.
+
+## F69 — Reconciliation is selected by uncertainty class
+
+Candidate taxonomy:
+
+```text
+ReconciliationPolicy
+  QUERY_AUTHORITATIVE_STATE
+  REPLAY_VERIFICATION_ONLY
+  WAIT_FOR_SETTLEMENT
+  CORRELATE_EXTERNAL_RECEIPT
+  HUMAN_ATTESTATION
+  MANUAL_INVESTIGATION
+  DOMAIN_SPECIFIC_RECONSTRUCTION
+```
+
+The policy must declare whether it is observation-only or may issue a new business effect. Observation-only reconciliation cannot silently mutate domain state merely to make projections agree.
+
+## F70 — Compensation capability is declared per effect; reversibility is not assumed
+
+Candidate:
+
+```text
+CompensationPolicy
+  effectKind
+  compensationMode = AUTOMATIC | AUTHORIZED | HUMAN_REQUIRED | EXTERNAL_PROCEDURE | NONE
+  reversibility = REVERSIBLE | SEMANTICALLY_COMPENSABLE | MITIGATABLE_ONLY | IRREVERSIBLE | UNKNOWN
+  compensationCommandRef?
+  authorityRequirement
+  preconditions[]
+  deadline/horizon?
+  downstreamObligations[]
+  verificationContractRef
+```
+
+A refund is not time reversal of a charge; a notification cannot be unsent; a human decision may require correction/supersession rather than reversal. The UI must not render a generic Undo for these cases.
+
+## F71 — Human tasks require explicit correction/attestation semantics
+
+For human work, compensation may be impossible or semantically misleading. Candidate remediation kinds:
+
+```text
+HUMAN_REVIEW
+CORRECTIVE_TASK
+SUPERSEDING_DECISION
+ATTESTATION
+EXCEPTION_ACCEPTANCE
+EXTERNAL_REMEDIATION
+```
+
+A completed human approval that later proves wrong remains a historical fact. A new decision may supersede it, but must not rewrite the original occurrence.
+
+## F72 — Designed Workflow and observed execution join through a versioned Observation Mapping
+
+Process-mining evidence requires explicit mapping between observed event classes and model activities. SB should preserve this mapping as a qualified artifact rather than infer identity from labels.
+
+Candidate:
+
+```text
+ObservationMapping
+  workflowRevisionRef
+  mappingRevision
+  activityMappings[]
+    activitySemanticId
+    observableEventPredicate
+    lifecycleMapping
+    correlation/case identity rule
+    confidence/qualification
+  invisibleActivities[]
+  intentionallyUnobservedActivities[]
+  unmappedObservedEventPolicy
+```
+
+`same label != same activity`; `event correlation != workflow ownership`.
+
+## F73 — Conformance evidence is revision-pinned and cannot silently compare against latest Workflow
+
+Candidate:
+
+```text
+ConformanceRun
+  workflowRevisionRef
+  observationMappingRevisionRef
+  eventLogBasisRef
+  caseScope
+  algorithm/validator identity+version
+  completeness/currentness
+  findings[]
+```
+
+If Workflow revision 42 changes after cases executed under revision 41, those historical cases remain evaluated against 41 unless an explicit counterfactual/requalification analysis is requested.
+
+`latest workflow != historical execution semantics`.
+
+## F74 — Conformance findings distinguish model-only, observed-only and ordering/guard/effect deviations
+
+Candidate finding classes:
+
+```text
+EXPECTED_ACTIVITY_MISSING
+UNEXPECTED_OBSERVED_ACTIVITY
+ORDER_DEVIATION
+REQUIRED_GATE_BYPASSED
+HANDOFF_MISMATCH
+AUTHORITY_DEVIATION
+EFFECT_VERIFICATION_MISSING
+TIMEOUT/SLA_DEVIATION
+MAPPING_AMBIGUITY
+OBSERVATION_INCOMPLETE
+```
+
+This is richer than a binary conformant/non-conformant badge and prevents observation gaps from being mislabeled as business violations.
+
+## F75 — Conformance does not become mutation authority
+
+Observed deviations may create findings, proposals or Elicitation inputs, but cannot automatically rewrite Workflow, Rule, Permission or Command definitions.
+
+`frequent observed path != approved designed path`.
+
+A process-mining recommendation can suggest change; authorization/publish remains under the existing editor/revision contracts.
+
+## F76 — Conformance and effect verification meet at gates/handoffs without collapsing
+
+A workflow may appear structurally conformant while an external effect remains UNKNOWN. Conversely, an effect may be verified even if the path violated a required gate.
+
+Therefore preserve two axes:
+
+```text
+PathConformance = CONFORMANT | DEVIATED | UNKNOWN
+EffectDisposition = EFFECTIVE | FAILED | PARTIAL | UNKNOWN
+```
+
+Never derive one from the other. A case can be `DEVIATED + EFFECTIVE` and still require remediation/audit.
+
+## F77 — Preview/Sandbox evidence cannot satisfy runtime verification by resemblance
+
+Preview may validate binding, state transitions and simulated effect contracts, but runtime effect verification requires runtime-authoritative evidence according to the effect contract.
+
+`preview success != runtime effect evidence`.
+
+This closes a cross-app semantic bridge between Preview, Workflow, Command and Evidence while preserving ownership.
+
+## F78 — Revision/Diff gains a designed-vs-observed projection alongside Effect Lineage
+
+Candidate projections now become:
+
+```text
+Artifact Diff
+Impact Diff
+Effect Lineage
+Designed vs Observed
+```
+
+Designed vs Observed pins Workflow revision, mapping revision, observation basis and conformance findings. It may link to Effect Lineage for a selected occurrence/case, but neither projection owns the other's truth.
 
 ## Complete-task scenarios added
 
-### Safe proof reuse
+### Provider ACK but no authoritative effect proof
 
-`Component revision unchanged -> validator/config/dependency/authority/environment digests equal -> completeness sufficient -> EXACT_REUSE -> evidence remains CURRENT`.
+`Command -> provider ACK -> trace success -> effect contract requires settlement receipt -> receipt absent -> EffectDisposition UNKNOWN -> Reconcile/Wait for settlement; UI must not show EFFECTIVE`.
 
-### Unsafe apparent cache hit
+### Authoritative receipt with sampled telemetry
 
-`Form bytes unchanged -> Permission policy changed -> authorityPolicyDigest differs -> authority proof requalified while unrelated portable proof may reuse`.
+`Command -> authoritative settlement receipt EFFECTIVE -> trace absent because unsampled -> effect EFFECTIVE + observationCompleteness PARTIAL; missing trace is not contradiction`.
 
-### Validator upgrade
+### Read-model disagreement
 
-`validator v3 PASS -> v4 installed -> no compatibility declaration -> historical PASS retained -> current claim REQUIRES_REQUALIFICATION`.
+`authoritative domain state EFFECTIVE -> read model still old -> contradiction classified as projection lag -> effect remains EFFECTIVE while read-model currentness is STALE/UNKNOWN -> reconciliation waits/rebuilds projection`.
 
-### Publish then asynchronous verification
+### Irreversible effect
 
-`qualified bundle -> authorization -> publish ACK -> editor closes -> runtime verification later links to EffectLineageRoot -> EFFECTIVE -> Revision/Diff and Evidence projections update without reopening original editor`.
+`notification delivered -> later rule violation found -> CompensationPolicy IRREVERSIBLE/MITIGATABLE_ONLY -> no Undo -> corrective notification or human remediation creates a new occurrence`.
 
-### Unknown then reconcile
+### Human approval corrected
 
-`command ACK -> transport lost -> effect UNKNOWN -> Reconcile queries authoritative external state -> links to occurrence -> EFFECTIVE; no retry was issued`.
+`approval A completed -> audit finds invalid basis -> corrective human task B -> B supersedes decision semantics where authorized -> A remains historical evidence`.
 
-### Failed then compensate
+### Designed-vs-observed gate bypass
 
-`effect A EFFECTIVE -> later unacceptable downstream state -> authorized compensation B COMPENSATES A -> B EFFECTIVE -> both occurrences preserved`.
+`case executes under Workflow rev 41 -> observed mapping shows required gate G absent -> REQUIRED_GATE_BYPASSED -> effect nevertheless verified EFFECTIVE -> case = DEVIATED + EFFECTIVE -> finding/audit, no automatic Workflow mutation`.
 
-### Promotion
+### Workflow changes after execution
 
-`TEST exact bundle + portable proof -> PROD environment requalification -> new lineage root -> publish/verify in PROD; TEST occurrence IDs never become PROD occurrence evidence`.
+`cases ran under rev 41 -> designer publishes rev 42 -> historical ConformanceRun stays pinned to 41 -> optional explicit counterfactual comparison to 42 is separately labeled`.
 
 ## Adversarial proof obligations added
 
-13. Same artifact digest, different authority policy: cache must not reuse authority proof.
-14. Missing dependency provenance encoded as empty set: cache reuse must be rejected.
-15. Same bundle, different target environment: environment-bound proof must requalify.
-16. Validator upgraded with no compatibility contract: old PASS cannot become current PASS.
-17. Retry succeeds: original failure remains visible and auditable.
-18. Compensation succeeds: original effect is not deleted/relabelled as never happened.
-19. Reconciliation confirms effect after timeout: UI must not claim a retry caused it.
-20. Workspace closes after ACK: later verification still resolves durable occurrence.
-21. Runtime trace sampled/partial: absence of telemetry cannot prove absence of effect; effect remains UNKNOWN unless authoritative verification exists.
-22. Disclosure hides target identity: causality remains represented as disclosure-limited rather than deleted.
-23. TEST execution passed: PROD publish cannot inherit TEST effect truth.
-24. Runtime observed path bypasses required gate: design history remains intact while conformance evidence records deviation.
+25. Provider ACK and successful trace but no authoritative effect evidence: remain UNKNOWN.
+26. Trace missing due to sampling but authoritative receipt exists: do not downgrade verified effect merely because observability is incomplete.
+27. Two telemetry signals disagree with authoritative domain state: do not majority-vote truth.
+28. Read model lags authoritative aggregate: classify projection currentness separately from effect truth.
+29. Compensation unavailable for irreversible effect: UI must not expose generic Undo.
+30. Human task corrected later: original completion remains immutable historical evidence.
+31. Event label matches activity name but mapping revision differs: do not infer semantic identity from text.
+32. Observed log is incomplete: missing activity cannot automatically become business violation without observation-completeness qualification.
+33. Workflow latest revision differs from execution revision: conformance remains pinned to execution semantics.
+34. Required gate bypassed but downstream effect succeeded: path remains deviated; success cannot erase bypass.
+35. Structurally conformant path with UNKNOWN external effect: conformance cannot manufacture EFFECTIVE.
+36. Preview passes simulated provider effect: runtime verification remains required.
 
 ## Componentization impact
 
-- **P0 LOW/MEDIUM — shared primitives:** proof-currentness marker, reuse-disposition badge, effect-status marker, lineage relation marker, disclosure-safe evidence reference.
-- **P1 MEDIUM/HIGH — editor infrastructure:** QualificationBasis builder, cache/reuse registry, validator compatibility registry, EffectLineage viewer, durable operation/evidence projection.
-- **P2 HIGH/VERY HIGH — proprietary apps:** editors emit exact semantic digests/change kinds and domain validators; Revision/Diff adds Effect Lineage; Preview/Evidence distinguishes historical/current/runtime proof; Elicitation consumes traced claims.
-- **P3 EXTREME — cross-app integration:** safe cache-key completeness, environment/authority/disclosure-sensitive reuse, immutable publish-to-runtime lineage, compensation/reconciliation semantics and long-lived evidence currentness.
+- **P0 LOW/MEDIUM — shared primitives:** effect-verification disposition, observation-completeness marker, contradiction badge, compensation/reconciliation policy marker, conformance deviation marker.
+- **P1 MEDIUM/HIGH — editor infrastructure:** EffectVerificationContract browser, EvidenceContradiction projection, reconciliation action resolver, ObservationMapping editor/viewer, revision-pinned ConformanceRun viewer.
+- **P2 HIGH/VERY HIGH — proprietary apps:** Workflow Designer exposes observability mapping/gate semantics; Rules/Decision and Command surfaces expose effect/compensation policies; Preview declares simulation boundaries; Revision/Diff exposes Designed-vs-Observed; Evidence joins effect/conformance without taking ownership.
+- **P3 EXTREME — cross-app integration:** claim-specific authoritative verification, contradiction resolution, non-reversible/human remediation, revision-pinned observed-vs-designed alignment and dual-axis path/effect truth.
 
-Dependency hotspot: content-addressing is insufficient unless semantic dependency closure, validator inputs and context completeness are trustworthy. Runtime observability is supporting evidence, not automatically authoritative effect verification.
+Dependency hotspot: no universal verifier hierarchy is safe. Authority belongs to the effect contract/claim and may require different sources for different dimensions. Likewise conformance quality depends on mapping and observation completeness, not merely event-log availability.
 
 ## Componentes metadata impact
 
 Add candidates:
 
 ```text
-qualificationInputKinds[]
-qualificationKeyDimensions[]
-requiredCompletenessDimensions[]
-proofReusePolicy
-validatorCompatibilityPolicy
-runtimeEvidenceKinds[]
-effectLineageRelationKinds[]
-compensationSemantics?
-reconciliationSemantics?
-disclosureProjectionPolicy
-historicalVsCurrentProofBehavior
+effectVerificationContractRef?
+authoritativeEvidenceKinds[]
+corroboratingEvidenceKinds[]
+negativeEvidencePolicy
+contradictionPolicy
+reconciliationPolicyRef?
+compensationPolicyRef?
+observationMappingKinds[]
+conformanceFindingKinds[]
+pathConformanceProjection?
+runtimeVerificationRequired?
 ```
 
 ## Research maturity / saturation
 
-`EDITOR_IMPACT_GRAPH_EVIDENCE_INVALIDATION = ADVANCED_EMERGING / MATERIAL_DELTA`.
+`EDITOR_IMPACT_GRAPH_EVIDENCE_INVALIDATION = ADVANCED / MATERIAL_DELTA`.
 
-High-confidence additions:
+High-confidence additions from this round:
 
-- proof cache keys must include semantic/contextual qualification basis, not only artifact digest;
-- completeness of the cache basis is itself a proof obligation;
-- proof reuse needs qualified dispositions rather than boolean cache hit;
-- runtime effect lineage is rooted in an immutable publish candidate but owns separate occurrence identities;
-- retry, compensation and reconciliation are distinct operations;
-- asynchronous causal links should not be forced into fake synchronous ancestry;
-- runtime evidence may change currentness without rewriting historical design evidence;
-- editor/session lifetime must not bound long-lived operation/evidence lifetime.
+- authoritative effect verification is claim/effect-contract specific rather than one global source hierarchy;
+- observability completeness and effect truth are independent dimensions;
+- sampled telemetry absence cannot prove effect absence;
+- contradictions remain explicit and are not resolved by source-count majority;
+- compensation is effect-specific and may be semantic mitigation rather than reversal;
+- human-task correction preserves original history;
+- designed-vs-observed conformance requires versioned activity/event mapping and workflow-revision pinning;
+- path conformance and effect disposition are orthogonal;
+- Preview evidence never substitutes for runtime-authoritative effect verification.
 
 Remaining gaps:
 
 1. empirical fan-out/cycle budgets and incremental graph storage/index strategy at large scale;
-2. exact authoritative-verification hierarchy when telemetry, provider response and domain read-model disagree;
-3. UX summarization for thousands of stale claims/lineage occurrences without alert fatigue;
-4. retention/privacy policy for runtime evidence and redacted lineage;
-5. compensation policy discovery for non-reversible effects and human tasks;
-6. formal relationship between observed conformance/process-mining evidence and designed Workflow revision.
+2. exact UX summarization for thousands of contradictions/stale claims/conformance findings without alert fatigue;
+3. retention/privacy policy for runtime evidence, human-task evidence and redacted lineage;
+4. domain-specific authoritative verifier discovery/qualification lifecycle and verifier replacement;
+5. counterfactual conformance semantics when intentionally comparing historical cases to a newer Workflow revision;
+6. quantitative thresholds for when conformance alignment becomes too expensive for interactive use and must become asynchronous/background analysis.
 
-Next research vector: **authoritative effect verification hierarchy + compensation/reconciliation policy taxonomy + designed-vs-observed conformance linkage**, then empirical graph-scale budgets.
+Next research vector: **verifier qualification/replacement lifecycle + evidence retention/privacy + scalable conformance/impact UX**, then empirical graph-scale budgets.
