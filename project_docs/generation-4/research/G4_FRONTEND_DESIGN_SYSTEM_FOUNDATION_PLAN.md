@@ -3462,3 +3462,186 @@ The operator should be able to provision a coherent infrastructure baseline with
 - Security-by-default != uninspectable automation.
 - Vault compartment != shared plaintext/password bucket.
 - Secret reference != secret value.
+
+
+## Installer Catalog Repository + Mirroring Desktop
+
+Decision status: STRONG_G4_DIRECTION / NON_EXECUTABLE
+
+### Installer Catalog Repository
+
+Research a versioned repository/catalog of declarative installer definitions for supported applications/services. YAML may be one serialization format, but the semantic model is authoritative over raw YAML text.
+
+Candidate flow:
+
+~~~
+Installer Definition
+-> validate schema/provenance/version
+-> resolve prerequisites/dependencies
+-> generate guided wizard
+-> resolve placement/network/storage/secrets
+-> compile provider-specific artifacts
+-> apply
+-> verify
+-> register instance
+-> attach observability/application integration
+~~~
+
+Examples can include containerized services such as APIs, Redis-like caches, browser-based IDEs, workflow tools, observability products and other supported infrastructure/application packages.
+
+Candidate installer manifest semantics:
+- stable installer/package identity;
+- display metadata/category;
+- supported versions/channels;
+- source/provenance/integrity;
+- runtime/container/package requirements;
+- dependencies;
+- required/optional capabilities;
+- ports/endpoints;
+- volumes/storage;
+- network requirements;
+- secret requirements;
+- environment variables/settings schema;
+- placement constraints;
+- resource defaults/limits;
+- health/readiness contract;
+- observability contract;
+- backup/restore contract;
+- install/upgrade/rollback/uninstall semantics;
+- migration/version compatibility;
+- Application Manager integration;
+- Desktop/Application exposure;
+- licensing/terms metadata where relevant;
+- evidence/proof obligations.
+
+Preserve:
+
+~~~
+Installer YAML != arbitrary shell script
+Installer YAML != canonical runtime truth
+Catalog entry != installed instance
+Package version != application instance revision
+Successful command != effective service
+~~~
+
+Shell/scripts, Compose, Helm, provider API calls or host-agent commands are generated/execution mechanisms behind qualified adapters.
+
+### Catalog compounding effect
+
+The first qualified integrations are expected to be expensive because they establish reusable primitives for secrets, networking, storage, health, lifecycle, placement, versions and UI integration. Later installers should increasingly compose the same primitives and require mostly package-specific schema/adapters rather than new platform mechanics.
+
+Research measurable reuse dimensions and a template/conformance model so installer growth does not become copy-pasted YAML drift.
+
+### Mirroring Desktop
+
+Add a dedicated Desktop Sphere / specialized workspace for brownfield/system mirroring.
+
+Purpose:
+- discover existing hosts/services/apps/configurations;
+- inventory runtime topology;
+- identify known catalog products/versions;
+- inspect endpoints, networks, storage and configuration metadata;
+- map existing data/process/application structures;
+- associate observed elements with modules/capabilities/providers/bindings;
+- reconstruct candidate SystemDefinition/BusinessRecipe structures;
+- expose UNKNOWN/conflicts/missing evidence;
+- adopt/register existing instances where appropriate;
+- compare observed reality with desired/canonical definitions;
+- support gradual brownfield assimilation rather than forced reinstall.
+
+Canonical inverse relationship:
+
+~~~
+ASSEMBLY / INSTALLATION
+Desired semantic definition
+-> plan
+-> materialize
+-> observe effective state
+
+MIRRORING
+Observed existing state
+-> identify/classify
+-> map contracts/bindings
+-> infer candidates
+-> human validation
+-> candidate semantic definition
+~~~
+
+Critical invariant:
+
+~~~
+Observed != Intended != Approved Canonical
+AI/heuristic inference != authority
+Discovered != Verified != Adopted
+Mirrored candidate != SystemDefinition authority
+~~~
+
+### Catalog + Mirroring synergy
+
+The installer catalog should also serve as a recognition/qualification knowledge base for mirroring.
+
+Example:
+
+~~~
+Mirroring discovers container/image/config
+-> matches qualified catalog signature
+-> identifies candidate service type/version
+-> extracts known ports/volumes/secret slots/health endpoints
+-> proposes bindings
+-> user validates
+-> register/adopt without reinstall
+~~~
+
+This creates a shared lifecycle:
+
+~~~
+CATALOG
+  ├─ install new
+  ├─ adopt existing
+  ├─ recognize during mirroring
+  ├─ upgrade
+  ├─ reconcile
+  └─ uninstall/retire
+~~~
+
+### Mirroring Desktop candidate applications
+
+- Discovery Scanner;
+- Infrastructure Inventory;
+- Service Recognizer;
+- Existing Application Adopter;
+- Topology Mapper;
+- Data/Schema Inspector;
+- Process/Workflow Discovery;
+- Mapping Workbench;
+- Conflict/Unknown Inbox;
+- Desired vs Observed Diff;
+- Evidence/Provenance Inspector;
+- Mirroring Session History.
+
+These are candidate applications, not frozen names.
+
+### Research questions
+
+- how much discovery can be agentless vs host-agent based;
+- how to recognize services safely without over-privilege;
+- catalog signature/version matching;
+- secrets/config redaction during discovery;
+- mapping confidence/currentness/provenance;
+- brownfield partial ownership;
+- coexistence with unmanaged components;
+- incremental adoption without big-bang migration;
+- drift/reconciliation after adoption;
+- how to mirror business process/data semantics beyond infrastructure;
+- how to reuse installer schemas as reverse-recognition schemas.
+
+### Invariants
+
+- Mirroring != cloning blindly.
+- Mirroring != automatic authority.
+- Discovery != adoption.
+- Recognized product != compatible integration.
+- Existing config != desired policy.
+- Installer catalog != arbitrary marketplace execution.
+- Catalog growth must preserve provenance, compatibility and conformance.
+- Reverse recognition must not expose secret values by default.
