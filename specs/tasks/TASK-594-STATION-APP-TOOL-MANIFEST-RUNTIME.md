@@ -16,6 +16,12 @@ allowed_paths:
   - packages/station-app-runtime/**
   - tests/product/station-app-runtime.test.ts
   - specs/tasks/TASK-594-STATION-APP-TOOL-MANIFEST-RUNTIME.md
+forbidden_paths:
+  - apps/station-gateway/**
+  - packages/runtime-core/**
+  - packages/deploy/**
+  - packages/compiler/**
+  - .github/workflows/**
 max_files: 14
 validation:
   - npm run lint

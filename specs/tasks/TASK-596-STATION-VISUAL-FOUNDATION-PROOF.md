@@ -4,7 +4,7 @@ title: Integrate Station visual foundation and prove empty desktop host
 status: blocked
 priority: 596
 milestone: STATION-VISUAL-M1
-model_tier: strong
+model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
@@ -23,6 +23,12 @@ allowed_paths:
   - packages/station-settings/**
   - tests/product/station-visual-foundation.test.ts
   - specs/tasks/TASK-596-STATION-VISUAL-FOUNDATION-PROOF.md
+forbidden_paths:
+  - apps/station-gateway/**
+  - packages/runtime-core/**
+  - packages/deploy/**
+  - packages/compiler/**
+  - .github/workflows/**
 max_files: 20
 validation:
   - npm run lint

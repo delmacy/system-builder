@@ -4,7 +4,7 @@ title: Adapt bounded daedalOS window interaction patterns into SB window surface
 status: blocked
 priority: 593
 milestone: STATION-VISUAL-M1
-model_tier: strong
+model_tier: architecture
 risk: high
 architecture_impact: true
 executor_preference: any
@@ -20,6 +20,12 @@ allowed_paths:
   - docs/third-party/**
   - tests/product/station-window-surface.test.ts
   - specs/tasks/TASK-593-STATION-DAEDALOS-WINDOW-ADAPTER.md
+forbidden_paths:
+  - apps/station-gateway/**
+  - packages/runtime-core/**
+  - packages/deploy/**
+  - packages/compiler/**
+  - .github/workflows/**
 max_files: 18
 validation:
   - npm run lint

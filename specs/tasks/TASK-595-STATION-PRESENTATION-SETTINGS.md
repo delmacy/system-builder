@@ -4,7 +4,7 @@ title: Implement versioned Station presentation settings and local persistence a
 status: blocked
 priority: 595
 milestone: STATION-VISUAL-M1
-model_tier: strong
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
@@ -16,6 +16,12 @@ allowed_paths:
   - packages/station-settings/**
   - tests/product/station-settings.test.ts
   - specs/tasks/TASK-595-STATION-PRESENTATION-SETTINGS.md
+forbidden_paths:
+  - apps/station-gateway/**
+  - packages/runtime-core/**
+  - packages/deploy/**
+  - packages/compiler/**
+  - .github/workflows/**
 max_files: 14
 validation:
   - npm run lint

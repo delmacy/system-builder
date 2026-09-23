@@ -16,6 +16,12 @@ allowed_paths:
   - packages/station-windowing/**
   - tests/product/station-windowing.test.ts
   - specs/tasks/TASK-592-STATION-WINDOWING-MODEL.md
+forbidden_paths:
+  - apps/station-gateway/**
+  - packages/runtime-core/**
+  - packages/deploy/**
+  - packages/compiler/**
+  - .github/workflows/**
 max_files: 16
 validation:
   - npm run lint

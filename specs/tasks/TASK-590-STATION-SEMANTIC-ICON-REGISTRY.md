@@ -4,7 +4,7 @@ title: Add semantic Station icon registry
 status: blocked
 priority: 590
 milestone: STATION-VISUAL-M1
-model_tier: standard
+model_tier: architecture
 risk: low
 architecture_impact: false
 executor_preference: any
@@ -16,6 +16,12 @@ allowed_paths:
   - packages/ui-icons/**
   - tests/product/station-icon-registry.test.ts
   - specs/tasks/TASK-590-STATION-SEMANTIC-ICON-REGISTRY.md
+forbidden_paths:
+  - apps/station-gateway/**
+  - packages/runtime-core/**
+  - packages/deploy/**
+  - packages/compiler/**
+  - .github/workflows/**
 max_files: 10
 validation:
   - npm run lint

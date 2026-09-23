@@ -3,26 +3,17 @@
 Date: 2026-09-23
 Planning base: `main@ebb35401990d4fcebabf1008ebf5db878a26dbba`
 Architecture authority: ADR-0016
-Status: PLANNING & MATERIALIZATION / CONSTRUCTION A COMMITTED
+Status: PAUSED AFTER CONSTRUCTION A / CONSTRUCTION B DEFERRED
 
 ## Goal
 
 Create the smallest stable boundary that allows an installable Station to communicate with System Builder Core capabilities exclusively through a Station Gateway, without moving canonical domain ownership into the Station or Gateway.
 
-## Predecessor/readiness gates
+## Integrated outcome
 
-- G2-WP-13 closure PR #898 is integrated and its closure conditions are satisfied.
-- ADR-0016 accepts the Station/Core/Gateway topology.
-- Existing `identity-authorization`, `generated-experience`, semantic-substrate and domain contracts remain authoritative inputs.
-- No existing package is reclassified as the Station itself.
+Construction A / TASK-583..587 integrated through PR #901 at `main@e0602eb51b1c8a4cee5bf4b89c0a1cfba26e9258`.
 
-## Construction A — protocol + thin boundaries — COMMITTED
-
-Materialized as `STATION-CONSTRUCTION-A-01`, TASK-583..587.
-
-Goal: define the transport-agnostic protocol, create Station Gateway and Station SDK/application scaffolds, and prove one end-to-end in-memory vertical slice.
-
-Exit proof:
+Proven path:
 
 ```text
 Station -> SDK -> Station Gateway -> injected Core port
@@ -31,26 +22,25 @@ Station -> SDK -> Station Gateway -> injected Core port
   query/projection
   command/receipt
   event/replay
+  disconnect/reconnect
 ```
 
-with deterministic compatibility/diagnostic behavior and no Core-internal import shortcut.
+The in-memory proof preserves Core-side canonical ownership and Station non-authority.
 
-## Construction B — real Core adapter + session/event transport — FORECAST
+## Construction B — real Core adapter + session/event transport — DEFERRED FORECAST
 
-After Construction A integration and fresh-main revalidation, connect the Gateway to selected existing Core/domain public contracts and add one real transport/session implementation. Keep business authorization and domain eligibility in their owners.
+This forecast remains valid but is intentionally deferred by repository-owner sequencing dated 2026-09-23. Visual Station work is prioritized first.
 
-## Construction C — optional desktop runtime foundation — FORECAST CANDIDATE
+No real transport, Core adapter or session persistence work is authorized by this package while deferred.
 
-Promote only if fresh evidence shows it is required to close the package goal. Candidate scope includes process/window lifecycle and tool-host primitives, not a full daedalOS fork or broad UI catalog.
+## Construction C — optional desktop runtime foundation — SUPERSEDED AS FORECAST LOCATION
 
-## Package Integration & Review
+Visual desktop/windowing work is now planned independently under `STATION-VISUAL-WP-01` and ADR-0017 rather than being hidden inside this package.
 
-Regress protocol compatibility, dependency direction, authority boundaries, reconnect/replay semantics, local-vs-remote equivalence and runtime-autonomy invariants. Missing product capability must return to construction rather than being hidden in review.
+## Package state
 
-## Documentation & Closure
+This package is not canonically closed. It has no active Sprint. Its remaining connectivity work may resume only through fresh-main revalidation and explicit successor materialization after the visual priority allows it.
 
-Reconcile repository memory, contracts, ADR links and successor readiness. No new product behavior.
+## Preserved boundaries
 
-## Non-goals
-
-No daedalOS/Tauri selection, no final installer, no provider-specific UI, no Core federation, no API Gateway unification, no database migration, no runtime dependency on Station/Gateway, no repository split.
+Station does not own canonical truth. Gateway does not own business semantics. Published client runtime autonomy remains independent from Station/Core availability.

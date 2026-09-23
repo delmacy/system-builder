@@ -17,6 +17,12 @@ allowed_paths:
   - packages/station-interaction/**
   - tests/product/station-interaction.test.ts
   - specs/tasks/TASK-591-STATION-INTERACTION-COMMAND-RUNTIME.md
+forbidden_paths:
+  - apps/station-gateway/**
+  - packages/runtime-core/**
+  - packages/deploy/**
+  - packages/compiler/**
+  - .github/workflows/**
 max_files: 14
 validation:
   - npm run lint

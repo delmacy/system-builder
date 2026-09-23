@@ -4,7 +4,7 @@ title: Establish Station UI core tokens and accessible primitives
 status: blocked
 priority: 589
 milestone: STATION-VISUAL-M1
-model_tier: strong
+model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
@@ -18,6 +18,12 @@ allowed_paths:
   - apps/station/**
   - tests/product/station-ui-core.test.ts
   - specs/tasks/TASK-589-STATION-UI-CORE-TOKENS-PRIMITIVES.md
+forbidden_paths:
+  - apps/station-gateway/**
+  - packages/runtime-core/**
+  - packages/deploy/**
+  - packages/compiler/**
+  - .github/workflows/**
 max_files: 18
 validation:
   - npm run lint
