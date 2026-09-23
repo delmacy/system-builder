@@ -53,6 +53,10 @@ Visual Station milestone
 | IMP-PAL-023 | Upgrade Host Agents through explicit maintenance admission and staggered redundant cohorts | Data Connection automatic/staggered upgrade windows | Bounds update disruption and fleet blast radius | MEDIUM | Fleet lifecycle planning |
 | IMP-PAL-024 | Model in-flight work interruption during Agent upgrade/restart and require retry/effect reconciliation | Data Connection upgrade terminates running jobs | Prevents infrastructure restart from silently duplicating business effects | HIGH | Effect/retry hardening |
 | IMP-PAL-025 | Make secret/key custody and recovery continuity explicit in Host Agent identity model | agent-worker local encryption-key migration | Prevents backup/reinstall mechanics from silently cloning authority or losing provider access | HIGH | Enrollment/secrets architecture |
+| IMP-PAL-026 | Model declared-state authority independently from connectivity/observation authority and require an explicit authority transition before imported state may become locally editable | Apollo Environment edit source (`Edit on this Hub` / `Edit on another Hub` / `Copy of another Hub`) | Prevents a replica/read-only control plane from silently becoming a writer after partition, failover or bundle import | HIGH | Multi-Core/DR authority planning |
+| IMP-PAL-027 | Make disconnected import an admission workflow: validate bundle provenance/currentness, compute proposed changes, require policy/human approval where applicable, then emit local ChangePlans | Apollo Source/Target Hub export-import + import change requests/approvals | Prevents possession or successful parsing of a transferred bundle from becoming execution authority | HIGH | Offline bundle/admission planning |
+| IMP-PAL-028 | Preserve artifact availability as a qualified precondition distinct from release metadata availability | Apollo bundles may contain only metadata when Source Hub cannot access artifact store; Target Hub then relies on separately delivered images | Prevents metadata-complete disconnected deployments from being presented as executable when artifact closure is missing | MEDIUM | Release artifact/offline planning |
+| IMP-PAL-029 | Treat emergency authority takeover as an explicit, audited authority transition with reconciliation obligations | Apollo `Copy of another Hub` can be reconnected and switched to `Edit on this Hub`; `Edit on another Hub` permits bounded break-glass config | Prevents disaster recovery from normalizing implicit split-brain writers | HIGH | DR/break-glass governance |
 
 ## Immediate visual-work implications
 
@@ -65,6 +69,8 @@ Only representational constraints directly relevant to Station may be consumed n
 5. Visual application/tool architecture must keep room for future Host Agent, release-channel, package/dependency and reconciliation surfaces without implementing those backends now.
 6. Relayed/imported state must be visually distinguishable from live/direct state; visibility must not imply command authority.
 7. Software-version freshness must not be collapsed into health/readiness or semantic compatibility.
+8. A control-plane surface must distinguish `authoritative/editable`, `upstream-managed`, and `read-only copy`; connectivity alone must not visually imply declared-state authority.
+9. A transferred/imported bundle must be represented as pending/proposed/admitted/applied states rather than visually collapsing file arrival into effective deployment.
 
 No finding in the current round establishes a correctness/security blocker that requires displacing the Station visual milestone.
 
