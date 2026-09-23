@@ -40,6 +40,12 @@
       ],
       "@system-builder/station-sdk": [
         "packages/station-sdk/index.ts"
+      ],
+      "@system-builder/station-interaction": [
+        "packages/station-interaction/index.ts"
+      ],
+      "@system-builder/ui-icons": [
+        "packages/ui-icons/index.ts"
       ]
     },
     "strict": true,
