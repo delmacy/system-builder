@@ -37,7 +37,9 @@ Status: `RESEARCH_ACTIVE / DEFERRED_IMPROVEMENT_SOURCE`
 | PT-30 | break-glass / edit-source takeover | explicit emergency authority transition | `ADAPT` | `DEFERRED_IMPROVEMENT` | takeover can create split-brain; require audit, fencing and reconciliation |
 | PT-31 | organization workflow + project role required for Agent creation | bootstrap authority != lifecycle/use authority | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | creation privilege must not imply permanent executor/resource control |
 | PT-32 | credentials encrypted to each assigned agent public key | executor membership change != implicit secret inheritance | `ADAPT` | `DEFERRED_IMPROVEMENT` | recipient-set changes require explicit re-encryption/re-authorization; recovery key must not clone authority |
-| PT-33 | Apollo CLI Bundle signing operations | signature evidence != complete admission evidence | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | public evidence reviewed confirms signing exists, but not destination binding/replay/expiry semantics; keep these as independent proof obligations |
+| PT-33 | Apollo CLI Bundle signing operations | signature evidence != complete admission evidence | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | public evidence reviewed confirms signing exists, but not destination binding/replay/expiry semantics |
+| PT-34 | Action local ACID + writeback/side-effect ordering + retry suppression around external calls | local transaction != distributed transaction; retryability is part of effect contract | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | external success/local failure and local success/external failure both exist; at-least-once replay requires idempotency/effect identity/reconciliation |
+| PT-35 | branch Actions suppress webhooks by default | projection/branch execution authority != production effect authority | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | safe preview can hide integration gaps; explicit live-effect opt-in needs visible destination/authority evidence |
 
 ## Sequencing rule
 
@@ -51,7 +53,7 @@ All entries are research findings and remain `DEFERRED_IMPROVEMENT` until the St
 4. How should a Release promotion gate combine operational health with semantic compatibility, authority/security floors and evidence currentness?
 5. Can the SB Compiler generate typed SDKs without making generated code depend on Builder APIs at runtime?
 6. What is the explicit portability proof suite for Recipe, SystemDefinition, source, artifact, data, runtime and operations?
-7. How are partial external effects represented when provider success and canonical commit/observation disagree?
+7. What durable effect identity and reconciliation evidence survives `external succeeded / canonical failed`, acknowledgement loss and at-least-once replay without assuming retry is safe?
 8. How does cross-resource branching handle Recipe/SystemDefinition/schema/UI/workflow revisions without pretending they are one atomic transaction?
 9. What is the SB disconnected-bundle admission protocol for signature, destination, dependency closure, replay, expiry/security floor and imported evidence freshness?
 10. Can Host Agent recovery preserve required secrets without permitting copied recovery material to create two authoritative hosts?
@@ -60,7 +62,8 @@ All entries are research findings and remain `DEFERRED_IMPROVEMENT` until the St
 13. Should disconnected release admission require independent proofs for bundle authenticity, declared-state authority, artifact closure, policy approval and currentness rather than one `valid bundle` boolean?
 14. Which authority may create/enroll a Host Agent, which may attach capabilities/providers, and which may deliver secrets after enrollment? These must not be one implicit privilege.
 15. When executor membership changes, can provider credentials be rewrapped without exposing plaintext to Core, while still requiring explicit authorization for the new recipient set?
+16. How must Station represent preview/simulated/suppressed effects so projected local success can never be mistaken for an externally effective operation?
 
 ## Saturation
 
-Not saturated. This pass materially deepened enrollment authority separation, executor-recipient secret envelopes and the limits of what public Bundle-signing evidence proves. Multi-Hub authority is nearing conceptual saturation. Next pass should prioritize precise Bundle signature verification/destination/replay semantics if public documentation exposes them, then Agent revocation/compromise recovery, secrets/JIT access, AIP classification propagation, and lineage/writeback failure semantics.
+Not saturated. This pass materially closed the previously open external-effect failure-semantics vector: public Palantir documentation explicitly exposes both divergence directions, disables automatic Action retry by default around external calls, and documents at-least-once Automate effects. It also adds branch-side-effect suppression as a concrete preview-safety pattern. Next pass should prioritize AIP classification propagation/log authority and exact provenance/currentness semantics; Bundle verification/replay remains open if stronger primary evidence appears.
