@@ -6,355 +6,368 @@ Date: 2026-09-22
 
 ## Scope
 
-Continuation of `G4_PROPRIETARY_EDITOR_SHARED_FOUNDATION_RESEARCH.md`. This artifact studies the next cross-app hotspot after DraftGroup / PublishBundle: incremental impact propagation, stale findings/evidence, and environment promotion while preserving autonomous Workflow/View/Form/Component/Rule artifacts.
+Continuation of `G4_PROPRIETARY_EDITOR_SHARED_FOUNDATION_RESEARCH.md`. This artifact studies cross-app incremental impact propagation, evidence currentness, safe qualification reuse, environment promotion, and post-publish runtime effect lineage while preserving autonomous Workflow/View/Form/Component/Rule artifacts.
 
 No implementation, provider selection, WBS, Work Package, Sprint or TASK authority is created here.
 
-## Evidence classes reviewed
+## Consolidated findings F34–F48
 
-- Nx `affected` / project graph: a changed node plus dependency graph can determine the minimum affected project subset rather than recomputing the entire workspace; cached graph analysis reinforces incremental recomputation as a mature pattern.
-- Storybook change detection: Git diff plus module import graph identifies stories related to changed files; test tags allow selective proof execution. Pattern evidence only, not a provider decision.
-- Camunda 8 resource binding: `latest`, `deployment`, and `versionTag` make resolution policy materially affect compatibility and reproducibility across linked processes/forms/decisions; `versionTag` is recommended for stable shared dependencies.
+Prior rounds established:
 
-These sources support incremental impact analysis, but SB needs richer semantic edge types than source-code import graphs.
+- cross-editor impact is a typed semantic graph, not generic `dependsOn`;
+- saved/reconciled revisions emit semantic change sets;
+- evidence currentness is claim-relative rather than artifact-global;
+- findings carry validator identity/version, basis revisions/digests and invalidation reasons;
+- incremental qualification is an optimization over truth and widens to UNKNOWN/full qualification when completeness is not provable;
+- propagation is directional and qualification-layer aware;
+- affected slices must be explainable;
+- selective Preview rerun is safe only with complete scenario dependency provenance;
+- PublishBundle qualification snapshots dependency/evidence/validator basis;
+- promotion preserves exact artifact identity but requalifies environment-bound facts;
+- evidence is PORTABLE_ARTIFACT_PROOF, ENVIRONMENT_BOUND_PROOF or HYBRID_PROOF;
+- dynamic bindings create continuing currentness obligations;
+- Revision/Diff exposes impact delta;
+- Elicitation consumes impact evidence without becoming mutation authority;
+- Componentes catalogs invalidation behavior.
 
-## F34 — Cross-editor impact must be a typed semantic graph
+## Evidence classes reviewed in this continuation
 
-Candidate:
+- SLSA Provenance: reproducibility depends on explicit materials/digests and completeness of environment/material declarations. This supports content-addressed qualification basis and explicit completeness rather than cache reuse from artifact bytes alone.
+- OpenTelemetry Trace API/overview: immutable propagated context, causal parent/child relationships and Links across separate/asynchronous traces provide mature pattern evidence for joining authoring/publish/runtime/reconciliation lineage without forcing all events into one transaction or one trace.
+- Existing G4 contracts: `ACK != EFFECTIVE`, claim-relative evidence currentness, immutable PublishBundleCandidate, exact revision resolution, environment-bound qualification and partial/unknown outcomes remain authoritative research constraints.
 
-```text
-ArtifactImpactGraph
-  nodes[]
-    artifactIdentity
-    artifactKind
-    revision
-    semanticDigest
-  edges[]
-    edgeIdentity
-    source
-    target
-    edgeKind
-    resolutionPolicy
-    dependencyStrength
-    qualificationLayers[]
-```
+These are pattern sources only; no provider adoption is implied.
 
-Candidate edge kinds include:
-
-```text
-WORKFLOW_FORM_BINDING
-WORKFLOW_RULE_BINDING
-VIEW_COMPONENT_COMPOSITION
-FORM_SCHEMA_BINDING
-COMPONENT_COMMAND_BINDING
-COMMAND_PERMISSION_BINDING
-COMMAND_DOMAIN_EFFECT
-VISIBILITY_RULE_BINDING
-PREVIEW_FIXTURE_DEPENDENCY
-EVIDENCE_PROVES_CLAIM
-REQUIREMENT_TRACES_TO_ARTIFACT
-DEPLOYMENT/PUBLISH_DEPENDENCY
-```
-
-An untyped `dependsOn` graph is insufficient because a schema change and a permission change invalidate different proofs.
-
-## F35 — Change classification should drive affected-proof calculation
-
-Each saved/reconciled revision should expose a semantic change set, not only a text diff.
-
-```text
-SemanticChangeSet
-  artifact
-  fromRevision
-  toRevision
-  changes[]
-    STRUCTURE
-    SCHEMA
-    BINDING
-    COMMAND_CONTRACT
-    AUTHORITY_POLICY
-    DOMAIN_EFFECT
-    WORKFLOW_REACHABILITY
-    VISIBILITY_RULE
-    RESPONSIVE_RULE
-    ACCESSIBILITY_CONTRACT
-    PREVIEW_SUBSTITUTION
-    EVIDENCE_REFERENCE
-```
-
-Impact traversal combines `changeKind x edgeKind x proofKind`. A cosmetic layout change should not automatically invalidate authority evidence; a permission-binding change should.
-
-## F36 — Evidence currentness is claim-relative, not artifact-global
-
-A single artifact revision may have several independent proofs. Therefore `artifact evidence = stale/current` is too coarse.
+## F49 — Qualification reuse requires a semantic proof key, not a file/content cache key
 
 Candidate:
 
 ```text
-EvidenceClaim
-  claimId
-  subjectRef
+QualificationCacheKey
   claimKind
-  evidenceRef
-  evidenceBasis[]
-    artifactRevision/digest
-    bindingResolution
-    environmentFacts
-    provider/substitution facts
-  currentness
-    CURRENT
-    STALE
-    UNKNOWN
-    NOT_APPLICABLE
-  invalidatedBy[]
+  subjectSemanticDigest
+  resolvedDependencyClosureDigest
+  validatorIdentity
+  validatorVersion
+  validatorConfigDigest
+  authorityPolicyDigest
+  disclosureContextClass
+  environmentFactDigest?       // required for environment-bound/hybrid proof
+  previewSubstitutionDigest?   // when preview participates in claim
+  qualificationContractVersion
 ```
 
-Example: changing a button label may stale a visual snapshot but leave command-authority proof current. Changing the Command binding may stale interaction, authority, preview and publish-readiness evidence while leaving unrelated responsive proof current.
+A byte-identical Form under a different permission policy, validator version, resolved dynamic dependency or target environment is not the same proof input.
 
-## F37 — Findings need provenance and invalidation reasons
+`same artifact bytes != same qualification basis`.
 
-A finding is not merely open/closed.
+## F50 — Cache-key completeness must itself be qualified
+
+SLSA distinguishes declared materials/environment from claims that those sets are complete. Apply the same principle to editor qualification.
+
+Candidate:
 
 ```text
-Finding
-  findingId
-  rule/validator identity + version
-  subject/binding edge
-  basis revisions/digests
-  status
-    OPEN
-    RESOLVED
-    WAIVED_WITH_AUTHORITY
-    STALE
-    UNKNOWN
-  invalidationReason?
-  supersededBy?
+QualificationBasisCompleteness
+  dependencyClosure = COMPLETE | PARTIAL | UNKNOWN
+  environmentFacts = COMPLETE | PARTIAL | UNKNOWN | NOT_APPLICABLE
+  authorityFacts = COMPLETE | PARTIAL | UNKNOWN
+  disclosureImpact = NONE | BOUNDED | UNKNOWN
+  validatorInputs = COMPLETE | UNKNOWN
 ```
 
-If the basis changes, a previous PASS or RESOLVED result can become `STALE`; it must not silently remain green.
+A cache hit is reusable only if every dimension required by the claim is complete enough for that claim. Missing provenance cannot be encoded as an empty digest and accidentally collide with a genuinely empty dependency set.
 
-`previous PASS != current PASS`.
+## F51 — Proof reuse should return a disposition, not boolean hit/miss
 
-## F38 — Incremental qualification needs conservative fallback
+Candidate:
 
-Affected-set calculation is an optimization over truth, not truth itself. If edge provenance is missing, validator version changed, graph completeness is unknown, or disclosure prevents dependency resolution, the system must widen the affected set or return `UNKNOWN/REQUIRES_FULL_QUALIFICATION`.
+```text
+ProofReuseDisposition
+  EXACT_REUSE
+  REUSE_WITH_ENVIRONMENT_REQUALIFICATION
+  REUSE_WITH_AUTHORITY_REQUALIFICATION
+  REUSE_AS_HISTORICAL_ONLY
+  REQUIRES_PARTIAL_REQUALIFICATION
+  REQUIRES_FULL_REQUALIFICATION
+  UNKNOWN
+```
 
-`cannot prove unaffected != unaffected`.
+This supports promotion and cross-editor workflows without converting every change into global recomputation or every cache hit into current truth.
 
-This prevents an optimization bug from becoming a conformance bug.
+## F52 — Validator compatibility is a declared contract
 
-## F39 — Impact propagation should be directional and layer-aware
+Validator version changes do not automatically imply either safe reuse or total invalidation.
 
-Not every dependency invalidates in both directions.
+Candidate:
+
+```text
+ValidatorCompatibility
+  validatorIdentity
+  fromVersion
+  toVersion
+  compatibleClaimKinds[]
+  invalidatedClaimKinds[]
+  requiresMigration/requalification
+  compatibilityEvidenceRef
+```
+
+Absent a qualified compatibility declaration, prior PASS remains historical evidence and the current claim is requalified.
+
+## F53 — Runtime effect lineage starts from the immutable publish candidate
+
+Authoring history and runtime execution must join without becoming one ownership domain.
+
+Candidate:
+
+```text
+EffectLineageRoot
+  publishBundleManifestDigest
+  authorizationRef
+  publishOperationRef
+  targetEnvironmentRef
+  exactArtifactResolutions[]
+  qualificationBasisRef
+```
+
+Runtime occurrences link back to this root. They do not mutate the historical PublishBundle or authoring revisions.
+
+## F54 — Runtime occurrence identity is separate from semantic command identity
+
+One Command/Action definition can execute many times.
+
+```text
+EffectOccurrence
+  occurrenceId
+  command/action identity
+  lineageRootRef
+  invocationRef
+  actor/authorityEvidenceRef
+  inputDigest/redactedEvidenceRef
+  startedAt
+  ackAt?
+  verificationEvents[]
+  effectStatus
+    PENDING
+    EFFECTIVE
+    PARTIAL
+    FAILED
+    UNKNOWN
+  runtimeEvidenceRefs[]
+```
+
+`CommandDefinition != EffectOccurrence` and `ACK != EFFECTIVE`.
+
+## F55 — Causal links are preferable to fake transaction ancestry for asynchronous reconciliation
+
+OpenTelemetry distinguishes parent/child from Links and explicitly supports linking causally related asynchronous work across separate traces. SB should similarly permit a later verification, reconciliation or compensation operation to link to the originating effect occurrence without pretending it was a synchronous child transaction.
+
+Candidate relation kinds:
+
+```text
+INITIATED_BY
+VERIFIES
+RETRIES
+COMPENSATES
+RECONCILES
+SUPERSEDES
+CAUSED_BY_DRIFT
+```
+
+Each relation is typed and evidence-bearing.
+
+## F56 — Retry creates a new occurrence with lineage; it does not rewrite history
+
+A retry must preserve the failed/unknown original occurrence.
+
+```text
+Occurrence A -> FAILED
+Occurrence B --RETRIES--> A -> EFFECTIVE
+```
+
+Revision/Diff and Evidence can therefore answer both “what is effective now?” and “what actually happened?”. Replacing A with B would destroy audit/conformance evidence.
+
+## F57 — Compensation is a new authorized business effect, not undo
+
+`Undo editor != rollback publish != compensation`.
+
+Candidate:
+
+```text
+CompensationOccurrence
+  compensatesOccurrenceRef
+  compensationCommandRef
+  authorityEvidenceRef
+  preconditionEvidenceRef
+  resultStatus
+  effectVerificationRef
+```
+
+Compensation may itself fail, be partial or become UNKNOWN. A successful compensation does not erase the original effect; it changes effective state through another evidenced action.
+
+## F58 — Reconciliation resolves knowledge/currentness; it need not create a business effect
+
+A reconciliation operation may inspect external state and convert an `UNKNOWN` occurrence into `EFFECTIVE` or `FAILED` without issuing a compensating or repeated command.
+
+This distinction prevents the UI from offering “Retry” when the correct action is “Verify/Reconcile”.
+
+## F59 — Revision/Diff needs an Effect Lineage projection
+
+Alongside Artifact Diff and Impact Diff, expose:
+
+```text
+Effect Lineage
+  bundle/revision basis
+  publish/authorization
+  occurrences
+  ACK/verification/effect transitions
+  retries
+  compensations
+  reconciliations
+  runtime drift
+  evidence currentness
+```
+
+This is a projection over linked records, not ownership transfer from runtime into Revision/Diff.
+
+## F60 — Elicitation/Requirements can trace runtime proof back to requirement claims
+
+A requirement may be supported by design-time proof and later runtime evidence. Runtime drift or failed effects may stale the requirement's evidence claim, but Elicitation remains traceability/proposal authority only.
+
+`runtime finding != permission for Elicitation to mutate Workflow/Command`.
+
+## F61 — Promotion must distinguish reusable proof from inherited runtime truth
+
+Promoting an exact bundle from TEST to PROD may reuse portable artifact proofs, but TEST runtime effects are not evidence that PROD effects occurred. PROD receives a new `EffectLineageRoot`/environment qualification and new occurrences.
+
+`same bundle != same runtime occurrence`.
+
+## F62 — Disclosure-safe lineage may preserve causality without exposing payload/identity
+
+Cross-app Evidence/Revision views may be allowed to know that a dependency/effect exists while lacking permission to reveal its subject or payload. Candidate projection states:
+
+```text
+VISIBLE
+REDACTED_IDENTITY
+REDACTED_PAYLOAD
+AGGREGATED
+DISCLOSURE_LIMITED
+UNKNOWN
+```
+
+A disclosure-limited edge must not become “no dependency/no effect”. Cache keys include disclosure context class when disclosure changes what can be qualified.
+
+## F63 — Runtime evidence can invalidate design-time assumptions without rewriting design history
 
 Examples:
 
-- Form schema change can invalidate Workflow mappings that consume it.
-- Workflow control-flow change does not necessarily invalidate the Form's local accessibility proof.
-- Permission-policy change can invalidate a View/Component action eligibility proof without changing visual composition.
-- Component accessibility-contract change can affect every View/Form composing it even if the component API is otherwise compatible.
+- provider drift invalidates an environment compatibility claim;
+- repeated permission denial may expose policy/config drift;
+- runtime schema rejection can stale a compatibility proof;
+- observed workflow bypass can create a conformance finding against the designed path.
 
-The graph therefore needs edge direction plus qualification-layer semantics.
+Historical design evidence remains explainable for its original basis, while currentness changes.
 
-## F40 — Requalification should produce an explainable affected slice
+## F64 — Long-lived lineage needs retention/reference stability independent of editor session lifetime
 
-The editor should answer:
+Closing Workspace/Application/Desktop Sphere cannot orphan a pending publish/effect/reconciliation. The durable identity belongs to the operation/evidence layer; editor windows merely project it.
 
-```text
-Changed: Form CustomerEdit@42
-Affected:
-  Workflow Onboarding@17
-    because OUTPUT_MAPPING consumes removed field customer.taxId
-  View CustomerReview@9
-    because ComponentBinding references changed Form section
-Unaffected proof examples:
-  Command authority proof C-17
-  Deployment placement proof D-4
-```
+This extends the earlier `OperationRegistry` principle into post-publish runtime evidence.
 
-This is crucial for guided UX: the user sees what must be repaired and why rather than receiving a global `bundle invalid` state.
+## Complete-task scenarios added
 
-## F41 — Preview should rerun only impacted scenarios when completeness is provable
+### Safe proof reuse
 
-Preview/Evidence Lab may maintain scenario-to-semantic-dependency links. A changed Command binding should rerun scenarios exercising that binding; unrelated visual-state stories can remain current if their evidence basis excludes it.
+`Component revision unchanged -> validator/config/dependency/authority/environment digests equal -> completeness sufficient -> EXACT_REUSE -> evidence remains CURRENT`.
 
-Storybook's change-detection and selective test patterns provide evidence for affected-test UX, but SB requires semantic dependency provenance beyond file imports.
+### Unsafe apparent cache hit
 
-If scenario dependency coverage is incomplete, selective rerun is not enough; qualification must mark coverage `UNKNOWN` or widen execution.
+`Form bytes unchanged -> Permission policy changed -> authorityPolicyDigest differs -> authority proof requalified while unrelated portable proof may reuse`.
 
-## F42 — PublishBundle qualification should snapshot the impact graph slice
+### Validator upgrade
 
-The immutable candidate manifest should include or digest the relevant dependency closure and validator/evidence versions. Otherwise later graph changes can make it impossible to explain why candidate A was qualified.
+`validator v3 PASS -> v4 installed -> no compatibility declaration -> historical PASS retained -> current claim REQUIRES_REQUALIFICATION`.
 
-Candidate addition:
+### Publish then asynchronous verification
 
-```text
-qualificationBasis
-  dependencyClosureDigest
-  validatorSetDigest
-  evidenceBasisDigest
-  environmentQualificationRef
-  affectedSliceRef
-```
+`qualified bundle -> authorization -> publish ACK -> editor closes -> runtime verification later links to EffectLineageRoot -> EFFECTIVE -> Revision/Diff and Evidence projections update without reopening original editor`.
 
-Historical qualification remains reproducible without pretending it is current for candidate B.
+### Unknown then reconcile
 
-## F43 — Environment promotion must preserve artifact identity while requalifying environment facts
+`command ACK -> transport lost -> effect UNKNOWN -> Reconcile queries authoritative external state -> links to occurrence -> EFFECTIVE; no retry was issued`.
 
-Promotion should not mean `copy whatever is latest`.
+### Failed then compensate
 
-Candidate:
-
-```text
-PromotionCandidate
-  sourceEnvironment
-  targetEnvironment
-  publishBundleManifestDigest
-  exact member revisions/resolutions
-  portableEvidenceRefs[]
-  environmentBoundEvidenceRefs[]
-  targetQualification
-```
-
-Artifact revisions can remain exact across DEV -> TEST -> PROD while environment-bound facts (provider availability, secrets/config presence, authority policy, topology, runtime compatibility) require target requalification.
-
-`same artifact bundle != same environment qualification`.
-
-## F44 — Evidence portability needs an explicit class
-
-Candidate:
-
-```text
-PORTABLE_ARTIFACT_PROOF
-  schema/type/static accessibility/semantic reachability where basis is environment-independent
-
-ENVIRONMENT_BOUND_PROOF
-  provider reachability/runtime integration/deployment/topology/secret presence
-
-HYBRID_PROOF
-  artifact behavior plus environment-specific adapter/provider facts
-```
-
-Promotion may reuse portable evidence only when its exact basis/digest remains unchanged. Environment-bound evidence cannot be inherited merely because the source environment passed.
-
-## F45 — Dynamic runtime bindings create a continuing currentness obligation
-
-A `latest`-style binding intentionally resolves after publish and may change without a new authoring revision. Camunda's documentation demonstrates the compatibility risk of this policy. Therefore a dynamic binding must be represented as a runtime currentness obligation, not frozen evidence.
-
-Candidate:
-
-```text
-DynamicBindingObligation
-  bindingRef
-  compatibilityContract
-  lastResolvedTarget
-  lastVerifiedAt
-  monitoring/reverification policy
-  currentness = CURRENT | STALE | UNKNOWN
-```
-
-A publish candidate may be valid while explicitly carrying such an obligation; it cannot claim immutable behavioral equivalence.
-
-## F46 — Revision/Diff should expose impact delta, not only artifact delta
-
-Add an `Impact Diff` projection:
-
-```text
-newly affected artifacts
-no-longer affected artifacts
-new stale evidence
-revalidated evidence
-new unresolved dependencies
-changed qualification scope
-changed environment-bound obligations
-```
-
-This is especially valuable when the changed artifact itself looks small but its semantic blast radius is large.
-
-## F47 — Elicitation/Requirements can consume impact evidence without becoming authority
-
-Requirements may trace from a requirement to artifact/binding/evidence nodes and surface that a requirement's proof became stale after a semantic change. It must not mutate authoritative Workflow/Form/Command state merely to clear the trace finding.
-
-`traceability finding != authoritative repair`.
-
-## F48 — Componentes should catalog invalidation behavior
-
-Additional metadata candidates:
-
-```text
-semanticDependencyKinds[]
-emittedChangeKinds[]
-proofKinds[]
-evidencePortability
-impactPropagationRules[]
-fullRequalificationTriggers[]
-dynamicCurrentnessObligations[]
-validatorIdentity/version requirements
-```
-
-This lets Componentes prove that an editor component participates correctly in impact/currentness semantics rather than only rendering its states.
-
-## Complete-task implications
-
-### Schema change breaking Form/Workflow
-
-`edit schema -> semantic change set -> affected graph -> Form binding finding STALE/OPEN -> Workflow mapping finding STALE/OPEN -> targeted repair -> rerun impacted validation/preview -> new evidence -> publish candidate`.
-
-### Permission change affecting View
-
-`Policy revision -> permission edge affected -> Component/View action eligibility evidence stale -> UI remains inspectable but action state requalified -> no visual-only PASS`.
-
-### Preview mismatch
-
-`preview evidence CURRENT for bundle A -> provider/runtime fact changes in target environment -> environment-bound proof STALE/UNKNOWN -> artifact proof may remain CURRENT -> publish/effect status not inferred from preview`.
+`effect A EFFECTIVE -> later unacceptable downstream state -> authorized compensation B COMPENSATES A -> B EFFECTIVE -> both occurrences preserved`.
 
 ### Promotion
 
-`qualified bundle in TEST -> exact manifest promoted -> portable evidence checked for identical basis -> PROD environment facts qualified -> authorization bound to PROD candidate -> publish ACK -> effect verification`.
+`TEST exact bundle + portable proof -> PROD environment requalification -> new lineage root -> publish/verify in PROD; TEST occurrence IDs never become PROD occurrence evidence`.
 
-## Adversarial proof obligations
+## Adversarial proof obligations added
 
-1. A one-line schema rename invalidates only relevant mappings, but missing provenance forces conservative wider qualification.
-2. A permission change leaves pixels identical; authority evidence still becomes stale.
-3. A component visual variant changes; unrelated domain-effect evidence remains current.
-4. Validator implementation/version changes; cached PASS cannot be reused without policy-qualified compatibility.
-5. Dependency graph edge is disclosure-limited; system reports UNKNOWN/widens scope rather than unaffected.
-6. Preview scenario dependency metadata omits a binding; selective rerun cannot claim complete coverage.
-7. TEST passed provider integration; PROD provider is absent; promotion is blocked/unknown despite identical artifact digest.
-8. Dynamic `latest` binding resolves a newer incompatible Form after publish; obligation surfaces drift/currentness rather than preserving historical green state.
-9. Requirement proof references stale evidence; Elicitation surfaces it but cannot mutate Workflow to clear it.
-10. Bundle A was qualified yesterday; graph evolved today; historical qualification remains explainable but is not reused as current proof for bundle B.
-11. Impact traversal cycles through Workflow/View/Command references; traversal terminates by identity/revision while preserving all affected proof layers.
-12. Cached result exists for same artifact bytes but different environment or authority context; cache key mismatch prevents unsafe reuse.
+13. Same artifact digest, different authority policy: cache must not reuse authority proof.
+14. Missing dependency provenance encoded as empty set: cache reuse must be rejected.
+15. Same bundle, different target environment: environment-bound proof must requalify.
+16. Validator upgraded with no compatibility contract: old PASS cannot become current PASS.
+17. Retry succeeds: original failure remains visible and auditable.
+18. Compensation succeeds: original effect is not deleted/relabelled as never happened.
+19. Reconciliation confirms effect after timeout: UI must not claim a retry caused it.
+20. Workspace closes after ACK: later verification still resolves durable occurrence.
+21. Runtime trace sampled/partial: absence of telemetry cannot prove absence of effect; effect remains UNKNOWN unless authoritative verification exists.
+22. Disclosure hides target identity: causality remains represented as disclosure-limited rather than deleted.
+23. TEST execution passed: PROD publish cannot inherit TEST effect truth.
+24. Runtime observed path bypasses required gate: design history remains intact while conformance evidence records deviation.
 
-## Componentization complexity
+## Componentization impact
 
-- **P0 LOW/MEDIUM — shared primitives:** currentness marker, impact badge, evidence portability marker, provenance link, affected-count summary.
-- **P1 MEDIUM/HIGH — editor infrastructure:** ImpactGraph projection, affected-slice browser, EvidenceCurrentness registry, selective validation coordinator, provenance inspector, stale-finding reconciliation.
-- **P2 HIGH/VERY HIGH — proprietary apps:** each editor emits typed semantic changes and dependency edges and supplies domain-specific validators/semantic diff adapters.
-- **P3 EXTREME — cross-app integration:** graph completeness, cross-artifact invalidation, qualification-basis digests, dynamic-binding obligations, environment promotion and evidence portability.
+- **P0 LOW/MEDIUM — shared primitives:** proof-currentness marker, reuse-disposition badge, effect-status marker, lineage relation marker, disclosure-safe evidence reference.
+- **P1 MEDIUM/HIGH — editor infrastructure:** QualificationBasis builder, cache/reuse registry, validator compatibility registry, EffectLineage viewer, durable operation/evidence projection.
+- **P2 HIGH/VERY HIGH — proprietary apps:** editors emit exact semantic digests/change kinds and domain validators; Revision/Diff adds Effect Lineage; Preview/Evidence distinguishes historical/current/runtime proof; Elicitation consumes traced claims.
+- **P3 EXTREME — cross-app integration:** safe cache-key completeness, environment/authority/disclosure-sensitive reuse, immutable publish-to-runtime lineage, compensation/reconciliation semantics and long-lived evidence currentness.
 
-Dependency hotspot: incremental recomputation is safe only after dependency provenance and conservative fallback semantics are trustworthy. Performance optimization must not precede correctness of invalidation.
+Dependency hotspot: content-addressing is insufficient unless semantic dependency closure, validator inputs and context completeness are trustworthy. Runtime observability is supporting evidence, not automatically authoritative effect verification.
+
+## Componentes metadata impact
+
+Add candidates:
+
+```text
+qualificationInputKinds[]
+qualificationKeyDimensions[]
+requiredCompletenessDimensions[]
+proofReusePolicy
+validatorCompatibilityPolicy
+runtimeEvidenceKinds[]
+effectLineageRelationKinds[]
+compensationSemantics?
+reconciliationSemantics?
+disclosureProjectionPolicy
+historicalVsCurrentProofBehavior
+```
 
 ## Research maturity / saturation
 
 `EDITOR_IMPACT_GRAPH_EVIDENCE_INVALIDATION = ADVANCED_EMERGING / MATERIAL_DELTA`.
 
-High-confidence:
+High-confidence additions:
 
-- affected-subgraph qualification is preferable to global recomputation when dependency provenance is complete;
-- evidence currentness is claim-relative;
-- finding status needs basis/provenance;
-- environment promotion preserves exact artifact identity but requalifies environment-bound facts;
-- dynamic runtime bindings create ongoing currentness obligations;
-- inability to prove `unaffected` must widen scope or remain UNKNOWN.
+- proof cache keys must include semantic/contextual qualification basis, not only artifact digest;
+- completeness of the cache basis is itself a proof obligation;
+- proof reuse needs qualified dispositions rather than boolean cache hit;
+- runtime effect lineage is rooted in an immutable publish candidate but owns separate occurrence identities;
+- retry, compensation and reconciliation are distinct operations;
+- asynchronous causal links should not be forced into fake synchronous ancestry;
+- runtime evidence may change currentness without rewriting historical design evidence;
+- editor/session lifetime must not bound long-lived operation/evidence lifetime.
 
 Remaining gaps:
 
-1. exact cache-key semantics for qualification/evidence reuse across revision, validator version, authority/disclosure and environment;
-2. cycles and fan-out budgets in very large cross-editor impact graphs;
-3. promotion policy for partial/unknown environment qualification;
-4. UX for thousands of affected claims without alert fatigue;
-5. how compensation/reconciliation lineage joins post-publish runtime evidence back into Revision/Diff and Elicitation.
+1. empirical fan-out/cycle budgets and incremental graph storage/index strategy at large scale;
+2. exact authoritative-verification hierarchy when telemetry, provider response and domain read-model disagree;
+3. UX summarization for thousands of stale claims/lineage occurrences without alert fatigue;
+4. retention/privacy policy for runtime evidence and redacted lineage;
+5. compensation policy discovery for non-reversible effects and human tasks;
+6. formal relationship between observed conformance/process-mining evidence and designed Workflow revision.
 
-Next research vector: **qualification/evidence cache keys + runtime effect lineage/compensation/reconciliation**, then empirical impact-graph scale budgets.
+Next research vector: **authoritative effect verification hierarchy + compensation/reconciliation policy taxonomy + designed-vs-observed conformance linkage**, then empirical graph-scale budgets.
