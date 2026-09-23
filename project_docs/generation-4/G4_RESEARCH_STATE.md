@@ -650,3 +650,12 @@ G4 now includes a persistent Start-style launcher paired with the Desktop select
 Service categories can mix native SB capabilities and external supported products behind a coherent install/adopt/configure/bind/validate/open flow.
 
 Preserve CatalogApplicationDefinition != InstalledApplicationInstance != RunningWindow; Desktop context != application identity; menu visibility != permission grant.
+
+
+## Research addition — Infrastructure Bootstrap Wizard
+
+G4 now includes a multi-service Infrastructure Bootstrap Wizard for provisioning baseline infrastructure in one guided flow. Users select services and placement preference; the Builder resolves dependencies, placement, networks, firewall/VPN/DNS/storage/secrets, generates a visible Deployment Plan, applies through qualified providers and verifies effective state.
+
+Research placement policies such as AUTO_PLACE, PACK, SPREAD, KEEP_RESERVE, PINNED and HYBRID. Multi-service execution must preserve PARTIAL/UNKNOWN/reconciliation semantics and provider ACK != effective state.
+
+Vault research now includes logical secret compartments/domains with distinct authorities; prefer identity/role/policy-based access rather than assuming one human password per compartment. Preserve can-bind != can-reveal and can-rotate != can-read.
