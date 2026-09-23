@@ -57,6 +57,9 @@ Visual Station milestone
 | IMP-PAL-027 | Make disconnected import an admission workflow: validate bundle provenance/currentness, compute proposed changes, require policy/human approval where applicable, then emit local ChangePlans | Apollo Source/Target Hub export-import + import change requests/approvals | Prevents possession or successful parsing of a transferred bundle from becoming execution authority | HIGH | Offline bundle/admission planning |
 | IMP-PAL-028 | Preserve artifact availability as a qualified precondition distinct from release metadata availability | Apollo bundles may contain only metadata when Source Hub cannot access artifact store; Target Hub then relies on separately delivered images | Prevents metadata-complete disconnected deployments from being presented as executable when artifact closure is missing | MEDIUM | Release artifact/offline planning |
 | IMP-PAL-029 | Treat emergency authority takeover as an explicit, audited authority transition with reconciliation obligations | Apollo `Copy of another Hub` can be reconnected and switched to `Edit on this Hub`; `Edit on another Hub` permits bounded break-glass config | Prevents disaster recovery from normalizing implicit split-brain writers | HIGH | DR/break-glass governance |
+| IMP-PAL-030 | Separate Agent enrollment/bootstrap authority from later resource edit/use/assignment authority | Data Connection agent creation requires organization workflow/role plus project Editor/Owner; later project roles govern view/modify/delete/assignment | Prevents one bootstrap privilege from becoming perpetual fleet/resource authority | HIGH | Host Agent enrollment/RBAC planning |
+| IMP-PAL-031 | Bind stored provider credentials to explicit executor recipients and force re-authorization/re-encryption when executor membership changes | agent-worker browser-side encryption to each assigned Agent public key; adding/reprovisioning Agents requires credential re-entry or key recovery | Makes secret recipient-set changes explicit and prevents silent credential inheritance by newly attached executors | HIGH | Secrets/provider credential architecture |
+| IMP-PAL-032 | Treat disconnected bundle signing as one proof dimension, not a complete admission verdict | Apollo CLI publicly supports Bundle signing operations and SSO authentication for signing, while public evidence reviewed here does not establish replay/expiry/destination semantics | Prevents a valid signature from being visually or operationally collapsed into current, destination-correct, policy-approved execution authority | HIGH | Offline bundle/admission planning |
 
 ## Immediate visual-work implications
 
@@ -71,6 +74,7 @@ Only representational constraints directly relevant to Station may be consumed n
 7. Software-version freshness must not be collapsed into health/readiness or semantic compatibility.
 8. A control-plane surface must distinguish `authoritative/editable`, `upstream-managed`, and `read-only copy`; connectivity alone must not visually imply declared-state authority.
 9. A transferred/imported bundle must be represented as pending/proposed/admitted/applied states rather than visually collapsing file arrival into effective deployment.
+10. A future signed-artifact surface must not present `signature valid` as synonymous with `current`, `destination-valid`, `policy-approved`, or `safe to execute`.
 
 No finding in the current round establishes a correctness/security blocker that requires displacing the Station visual milestone.
 
