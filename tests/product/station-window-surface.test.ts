@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 import {
@@ -53,13 +54,16 @@ test("WindowFrame renders from SB WindowInstance state and shadcn-based chrome",
   state = reduceWindowRuntime(state, { type: "OPEN", definitionRef: "settings" });
 
   const html = renderToStaticMarkup(
-    WindowFrame({
-      definition,
-      instance: state.instances[0]!,
-      bounds: state.bounds,
-      dispatch: () => undefined,
-      children: "Settings body",
-    }),
+    createElement(
+      WindowFrame,
+      {
+        definition,
+        instance: state.instances[0]!,
+        bounds: state.bounds,
+        dispatch: () => undefined,
+      },
+      "Settings body",
+    ),
   );
 
   assert.match(html, /data-slot="window-frame"/);
@@ -77,12 +81,14 @@ test("window surface contract only emits presentation WindowAction values", () =
   let state = createWindowRuntimeState([definition], { width: 1200, height: 800 });
   state = reduceWindowRuntime(state, { type: "OPEN", definitionRef: "settings" });
 
-  WindowFrame({
-    definition,
-    instance: state.instances[0]!,
-    bounds: state.bounds,
-    dispatch: (action) => actions.push(action),
-  });
+  renderToStaticMarkup(
+    createElement(WindowFrame, {
+      definition,
+      instance: state.instances[0]!,
+      bounds: state.bounds,
+      dispatch: (action: WindowAction) => actions.push(action),
+    }),
+  );
 
   assert.equal(actions.length, 0);
   assert.equal("canonicalState" in state.instances[0]!, false);
