@@ -1,7 +1,7 @@
 ---
 id: TASK-593
 title: Adapt bounded daedalOS window interaction patterns into SB window surface
-status: blocked
+status: completed
 priority: 593
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -15,6 +15,8 @@ context_paths:
   - docs/architecture/STATION_FRONTEND_FOUNDATION.md
   - docs/third-party/**
 allowed_paths:
+  - tsconfig.build.json
+  - tsconfig.json
   - packages/station-windowing/**
   - packages/ui-core/**
   - docs/third-party/**
@@ -44,7 +46,7 @@ daedalOS provides mature MIT-licensed window interaction patterns and uses react
 Windowing is state-only after TASK-592.
 
 # Required change
-Implement a WindowFrame/WindowSurface adapter supporting focus and geometry updates with the chosen bounded provider. Reconcile the TASK-588 adoption matrix; preserve/extend MIT attribution for copied/substantially derived code.
+Implement a source-owned WindowFrame and native Pointer Events interaction adapter supporting focus and geometry updates through WindowAction only. Use the daedalOS controlled drag/resize/focus pattern as reference, but do not import its process/session/filesystem contexts or source code. Reconcile the TASK-588 adoption matrix and record the exact upstream files inspected. Add the public @system-builder/ui-core alias required by repository architecture checks, and enable repository-level TSX compilation (`jsx: react-jsx`, package/app TSX includes) now that WindowFrame is a shared package surface.
 
 # Inputs / contracts
 station-windowing model, ui-core, daedalOS adoption record.
@@ -59,7 +61,7 @@ Renderer cannot mutate canonical system state; drag/resize emits presentation in
 No taskbar, launcher, final shell styling or domain window content.
 
 # Evidence expected
-Window surface interaction tests and dependency scan.
+Window surface render tests, pointer geometry projection tests, emitted presentation-intent tests, dependency/architecture scan, and updated daedalOS adoption record.
 
 # Escalation
 Stop if bounded adaptation would require carrying daedalOS process/filesystem/session contexts.

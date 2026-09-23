@@ -1,7 +1,7 @@
 ---
 id: TASK-596
 title: Integrate Station visual foundation and prove empty desktop host
-status: blocked
+status: completed
 priority: 596
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -45,7 +45,7 @@ Close Construction A with the real frontend packages composed through the Statio
 TASK-588..595 establish each reusable visual foundation independently.
 
 # Current behavior
-Before this task, individual packages exist but the Station host has no cumulative foundation proof.
+The Station host now composes the committed visual packages into a cumulative empty-desktop proof.
 
 # Required change
 Compose the actual packages so Station boots disconnected, renders the empty desktop surface, loads utility manifests, opens at least one manifest-driven WindowFrame and applies presentation settings through the real settings provider.
@@ -64,6 +64,9 @@ No Navbar/Toolbar/Taskbar completion, multi-window milestone journey, Settings p
 
 # Evidence expected
 Build + deterministic integration proof and runnable empty desktop.
+
+# Completion evidence
+The Station page is now a client-side empty desktop foundation backed by M1 utility manifests, station-windowing WindowFrame/reducer, ui-core, semantic icons transitively through WindowFrame, and station-settings local presentation storage. Product proof asserts the composition and presentation-only boundary. CI validation is required on this exact authoritative task head before Construction A integration.
 
 # Escalation
 Stop if composition requires collapsing package boundaries, inventing Core data or importing forbidden domain internals.

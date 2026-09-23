@@ -1,7 +1,7 @@
 ---
 id: TASK-592
 title: Implement Station window model lifecycle and deterministic reducer
-status: blocked
+status: completed
 priority: 592
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -13,6 +13,7 @@ depends_on:
 context_paths:
   - docs/architecture/STATION_FRONTEND_FOUNDATION.md
 allowed_paths:
+  - tsconfig.json
   - packages/station-windowing/**
   - tests/product/station-windowing.test.ts
   - specs/tasks/TASK-592-STATION-WINDOWING-MODEL.md
@@ -41,7 +42,7 @@ Window state is disposable Station presentation state and must not imply app/mod
 No WindowDefinition/WindowInstance manager exists.
 
 # Required change
-Implement window definition/instance schemas, deterministic reducer/manager, geometry bounds, focus/z-order, open/close/minimize/maximize/restore and optional snap metadata. Expose commands through station-interaction.
+Implement provider-neutral WindowDefinition/WindowInstance schemas, deterministic reducer runtime, normalized desktop geometry bounds, focus/z-order, singleton vs multi-instance open policy, close/minimize/maximize/restore, LEFT/RIGHT snap metadata and geometry, plus presentation command definitions consumed by station-interaction. Window close/minimize state remains presentation-only and cannot imply module, deployment or runtime lifecycle.
 
 # Inputs / contracts
 ADR-0017 and station-interaction.
@@ -56,7 +57,7 @@ Close Window != disable/uninstall/undeploy; focus/z-order is deterministic; mult
 No drag/resize React surface yet, no persistence provider and no business resource state.
 
 # Evidence expected
-Lifecycle/state-transition tests including multi-window focus and invalid geometry.
+Lifecycle/state-transition tests including singleton reopen, multi-instance identity, deterministic focus/z-order, invalid geometry normalization, maximize/snap/restore, non-resizable movement, presentation-only close semantics and command-registry integration. Architecture verification additionally requires public package aliases for station-interaction and ui-icons; this bounded task therefore includes the root TypeScript path map.
 
 # Escalation
 Stop if window lifecycle becomes app/business/runtime lifecycle or requires canonical Core persistence.

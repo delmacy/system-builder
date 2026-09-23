@@ -40,6 +40,18 @@
       ],
       "@system-builder/station-sdk": [
         "packages/station-sdk/index.ts"
+      ],
+      "@system-builder/station-interaction": [
+        "packages/station-interaction/index.ts"
+      ],
+      "@system-builder/ui-icons": [
+        "packages/ui-icons/index.ts"
+      ],
+      "@system-builder/ui-core": [
+        "packages/ui-core/index.ts"
+      ],
+      "@system-builder/station-windowing": [
+        "packages/station-windowing/index.ts"
       ]
     },
     "strict": true,
@@ -50,12 +62,15 @@
     "skipLibCheck": true,
     "types": [
       "node"
-    ]
+    ],
+    "jsx": "react-jsx"
   },
   "include": [
     "tooling/agent-harness/**/*.ts",
     "packages/**/*.ts",
     "apps/**/*.ts",
-    "tests/product/**/*.ts"
+    "tests/product/**/*.ts",
+    "packages/**/*.tsx",
+    "apps/**/*.tsx"
   ]
 }

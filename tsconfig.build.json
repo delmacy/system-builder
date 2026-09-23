@@ -8,7 +8,9 @@
   "include": [
     "tooling/agent-harness/src/**/*.ts",
     "packages/**/*.ts",
-    "apps/**/*.ts"
+    "apps/**/*.ts",
+    "packages/**/*.tsx",
+    "apps/**/*.tsx"
   ],
   "exclude": [
     "tooling/agent-harness/tests",

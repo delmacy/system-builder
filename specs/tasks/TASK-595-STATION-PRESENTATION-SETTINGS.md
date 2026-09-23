@@ -1,7 +1,7 @@
 ---
 id: TASK-595
 title: Implement versioned Station presentation settings and local persistence adapter
-status: blocked
+status: completed
 priority: 595
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -40,7 +40,7 @@ M1 must adjust and restore visual state without turning browser storage into can
 No Station presentation settings model exists.
 
 # Required change
-Add schemaVersion, defaults, normalization/migration and storage adapter interface plus browser-local implementation for theme, density, motion, accent, navbar/toolbar/taskbar visibility, taskbar auto-hide, snap enabled and reset.
+Add schemaVersion, frozen defaults, fail-safe normalization/migration, bounded update/reset helpers, a replaceable storage interface and browser-local implementation for theme, density, motion, accent, navbar/toolbar/taskbar visibility, taskbar auto-hide and snap enabled. Unknown/future schema versions and malformed storage degrade to defaults rather than becoming authoritative.
 
 # Inputs / contracts
 ADR-0017 and Station frontend state model.
@@ -55,7 +55,7 @@ Malformed/old state fails safe to normalized defaults; reset is bounded to prese
 No Core-synced preferences, account settings, business configuration or window layout persistence yet.
 
 # Evidence expected
-Normalization/migration/reset/storage tests.
+Normalization/migration/update/reset/storage round-trip tests, corrupt-storage fallback proof and assertions that authorization/secrets/business data are absent from the presentation contract.
 
 # Escalation
 Stop if a requested setting requires canonical Core state or security-sensitive persistence.

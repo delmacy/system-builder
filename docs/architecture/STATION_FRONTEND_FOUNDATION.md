@@ -37,7 +37,7 @@ Existing `StationApplication` and `station-sdk` remain the connection boundary a
 ## Package responsibilities
 
 ### `packages/ui-core`
-Owns design tokens and source-owned primitives. Initial primitive set: Button, IconButton, Toggle, Select, Input, Separator, Tooltip, Menu surface, Panel, ScrollArea, Badge and focus ring utilities.
+Owns the Station design tokens and source-owned primitives. **shadcn/ui is the default source/design baseline**: semantic OKLCH variables, Tailwind v4 composition, `data-slot` anatomy and restrained accessible states. Initial primitive set: Button, IconButton, Toggle, Select, Input, Separator, Tooltip, Menu surface, Panel, ScrollArea, Badge and focus-ring utilities. SB owns the exported source/API; shadcn is not a runtime authority. For complex future composites, Base UI is the preferred first headless provider behind SB-owned components, with Radix kept replaceable.
 
 ### `packages/ui-icons`
 Owns semantic `IconToken` -> provider mapping. Consumers never import Lucide symbols directly outside the adapter.
@@ -59,6 +59,23 @@ Composes Global Navbar, Toolbar/Command Bar, Desktop, Taskbar, Launcher and wind
 
 ### `apps/station`
 Owns the executable host, providers, route/bootstrap and composition. Product behavior belongs in packages rather than ad-hoc page components.
+
+## Visual design-source policy
+
+```text
+Desktop/window mechanics  <- daedalOS patterns + bounded providers
+Visual component grammar  <- shadcn/ui open-code baseline
+Semantic icons            <- SB IconRegistry (initial provider decided separately)
+Product semantics         <- SB contracts
+```
+
+Rules:
+
+- Station shell controls should use `ui-core` rather than ad-hoc styled HTML when a primitive exists.
+- Product code does not depend on shadcn CLI output paths or Base UI/Radix identities.
+- Simple primitives remain dependency-light; headless providers are introduced only where behavior/accessibility justifies them.
+- Current shadcn source conventions such as semantic tokens and `data-slot` are adopted where they improve consistency, but SB may diverge intentionally.
+- Any substantially copied MIT source receives the applicable third-party notice; conceptually similar reimplementations are still documented as shadcn-derived design work.
 
 ## Presentation state
 

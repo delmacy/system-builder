@@ -1,7 +1,7 @@
 ---
 id: TASK-588
 title: Bootstrap Station frontend host and qualify daedalOS extraction boundary
-status: ready
+status: completed
 priority: 588
 milestone: STATION-VISUAL-M1
 model_tier: architecture
