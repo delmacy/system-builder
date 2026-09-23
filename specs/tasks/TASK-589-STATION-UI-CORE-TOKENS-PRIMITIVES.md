@@ -1,7 +1,7 @@
 ---
 id: TASK-589
 title: Establish Station UI core tokens and accessible primitives
-status: blocked
+status: completed
 priority: 589
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -41,7 +41,7 @@ G4 research requires semantic tokens, light/dark support, visible focus, reduced
 No Station design system exists.
 
 # Required change
-Add semantic CSS variables/tokens and the bounded primitive set required by M1: Button, IconButton, Toggle, Select, Input, Separator, Tooltip/Menu surface, Panel, ScrollArea and Badge/focus utilities. Preserve provider replaceability.
+Adopt shadcn/ui as the explicit open-code visual/source baseline for M1 while keeping SB ownership. Add shadcn-compatible semantic OKLCH CSS variables/tokens, `data-slot` anatomy and the bounded dependency-light primitive set required by M1: Button, IconButton, Toggle, native Select, Input, Separator, Tooltip surface, Menu surface, Panel, ScrollArea and Badge/focus utilities. Keep complex headless behavior providerized for later Base UI/Radix use rather than pulling it into M1 prematurely. Preserve provider replaceability.
 
 # Inputs / contracts
 ADR-0017 and G4 frontend research.
@@ -50,7 +50,7 @@ ADR-0017 and G4 frontend research.
 `ui-core` public exports and a rendered primitive smoke surface.
 
 # Acceptance criteria
-No product component hardcodes raw domain/status colors; light/dark render; focus is visible; reduced motion has a static equivalent; primitives are reusable outside Station shell.
+No product component hardcodes raw domain/status colors; light/dark/system-compatible tokens render; focus is visible; reduced motion has a static equivalent; primitives expose stable SB-owned APIs and `data-slot` hooks; Station smoke UI uses the actual primitives; no shadcn/Base UI/Radix runtime identity leaks into product semantics.
 
 # Non-goals
 No bespoke final brand, Canvas, Grid, data forms, Workflow components or generated client design system.
@@ -59,4 +59,4 @@ No bespoke final brand, Canvas, Grid, data forms, Workflow components or generat
 Token normalization tests, render/type proof and component-state inventory hooks.
 
 # Escalation
-Stop if a primitive library forces opaque runtime ownership or prevents source-level adaptation/accessibility correction.
+Stop if shadcn/Base UI/Radix would force opaque runtime ownership, prevent source-level adaptation/accessibility correction, or require the Station shell to depend on provider-specific identities.

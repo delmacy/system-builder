@@ -53,7 +53,9 @@ For M1, use:
 - React + Next.js as the visual host;
 - semantic CSS variables / OKLCH tokens;
 - Tailwind CSS v4 as the utility/style composition baseline;
-- source-owned shadcn-style accessible primitives where useful;
+- **shadcn/ui is the default visual/source baseline** for Station primitives and shell chrome; components are copied/adapted into SB-owned source rather than consumed as an opaque runtime widget library;
+- Base UI is the preferred initial headless primitive provider for future composed shadcn components when a real behavioral primitive is required; Radix remains a replaceable qualified alternative;
+- shadcn CLI/registry tooling is authoring tooling only and never a Station runtime authority;
 - Lucide behind a semantic `IconRegistry`;
 - `react-rnd` as the initial window geometry interaction provider unless the extraction spike disproves fit;
 - React reducer/context style state for the bounded M1 runtime; no global state library is mandatory;
@@ -61,6 +63,26 @@ For M1, use:
 - an internal Component Lab window rather than Storybook as the first component inventory.
 
 Exact compatible dependency versions are pinned during Construction A and must pass repository verification.
+
+### 3.1. Visual grammar ownership
+
+The M1 shell uses shadcn/ui's current open-code component grammar as its default visual language: semantic OKLCH tokens, Tailwind v4 composition, `data-slot` component anatomy, restrained surfaces, focus-visible states and source ownership. The SB `ui-core` package owns the resulting components and public API.
+
+This means:
+
+```text
+shadcn/ui reference/source grammar
+        -> SB ui-core source
+        -> Station shell/apps
+```
+
+not:
+
+```text
+Station -> opaque shadcn runtime authority
+```
+
+daedalOS remains limited to desktop/window interaction evidence. It does not define buttons, forms, menus, settings styling or the Station design language.
 
 ### 4. State ownership
 
