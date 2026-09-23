@@ -8,7 +8,7 @@ import type {
 } from "./types.js";
 
 export type PointerPoint = Readonly<{ x: number; y: number }>;
-export type ResizeEdge = "E" | "S" | "SE";
+export type ResizeEdge = "N" | "S" | "E" | "W" | "NE" | "NW" | "SE" | "SW";
 
 export type WindowPointerSession =
   | Readonly<{
@@ -69,21 +69,48 @@ export function projectPointerGeometry(
     );
   }
 
-  const requested: Partial<WindowGeometry> = {
-    x: session.startGeometry.x,
-    y: session.startGeometry.y,
-    width:
-      session.edge === "E" || session.edge === "SE"
-        ? Math.max(definition.minSize.width, session.startGeometry.width + dx)
-        : session.startGeometry.width,
-    height:
-      session.edge === "S" || session.edge === "SE"
-        ? Math.max(definition.minSize.height, session.startGeometry.height + dy)
-        : session.startGeometry.height,
-  };
+  const start = session.startGeometry;
+  const startRight = start.x + start.width;
+  const startBottom = start.y + start.height;
+  const minWidth = Math.min(definition.minSize.width, bounds.width);
+  const minHeight = Math.min(definition.minSize.height, bounds.height);
+
+  let left = start.x;
+  let top = start.y;
+  let right = startRight;
+  let bottom = startBottom;
+
+  if (session.edge.includes("W")) {
+    left = Math.min(
+      Math.max(0, start.x + dx),
+      startRight - minWidth,
+    );
+  } else if (session.edge.includes("E")) {
+    right = Math.max(
+      start.x + minWidth,
+      Math.min(bounds.width, startRight + dx),
+    );
+  }
+
+  if (session.edge.includes("N")) {
+    top = Math.min(
+      Math.max(0, start.y + dy),
+      startBottom - minHeight,
+    );
+  } else if (session.edge.includes("S")) {
+    bottom = Math.max(
+      start.y + minHeight,
+      Math.min(bounds.height, startBottom + dy),
+    );
+  }
 
   return normalizeGeometry(
-    requested,
+    {
+      x: left,
+      y: top,
+      width: right - left,
+      height: bottom - top,
+    },
     bounds,
     definition.minSize,
     session.startGeometry,

@@ -49,6 +49,36 @@ test("pointer adapter projects bounded move and resize geometry without canonica
   assert.deepEqual(start, { x: 100, y: 80, width: 500, height: 320 });
 });
 
+test("resize supports every edge and corner while preserving the opposite edge", () => {
+  const bounds = { width: 1000, height: 700 };
+  const start = { x: 100, y: 80, width: 500, height: 320 };
+
+  assert.deepEqual(
+    projectPointerGeometry(beginResize("W", { x: 0, y: 0 }, start), { x: 50, y: 0 }, bounds, definition),
+    { x: 150, y: 80, width: 450, height: 320 },
+  );
+  assert.deepEqual(
+    projectPointerGeometry(beginResize("N", { x: 0, y: 0 }, start), { x: 0, y: 40 }, bounds, definition),
+    { x: 100, y: 120, width: 500, height: 280 },
+  );
+  assert.deepEqual(
+    projectPointerGeometry(beginResize("E", { x: 0, y: 0 }, start), { x: 900, y: 0 }, bounds, definition),
+    { x: 100, y: 80, width: 900, height: 320 },
+  );
+  assert.deepEqual(
+    projectPointerGeometry(beginResize("S", { x: 0, y: 0 }, start), { x: 0, y: 500 }, bounds, definition),
+    { x: 100, y: 80, width: 500, height: 620 },
+  );
+  assert.deepEqual(
+    projectPointerGeometry(beginResize("NW", { x: 0, y: 0 }, start), { x: -500, y: -500 }, bounds, definition),
+    { x: 0, y: 0, width: 600, height: 400 },
+  );
+  assert.deepEqual(
+    projectPointerGeometry(beginResize("SW", { x: 0, y: 0 }, start), { x: 400, y: 500 }, bounds, definition),
+    { x: 240, y: 80, width: 360, height: 620 },
+  );
+});
+
 test("WindowFrame renders from SB WindowInstance state and shadcn-based chrome", () => {
   let state = createWindowRuntimeState([definition], { width: 1200, height: 800 });
   state = reduceWindowRuntime(state, { type: "OPEN", definitionRef: "settings" });
@@ -73,6 +103,7 @@ test("WindowFrame renders from SB WindowInstance state and shadcn-based chrome",
   assert.match(html, /data-slot="window-controls"/);
   assert.match(html, /data-slot="window-content"/);
   assert.match(html, /data-slot="window-resize-handle"/);
+  assert.equal((html.match(/data-resize-edge=/g) ?? []).length, 8);
   assert.match(html, /data-icon-token="settings"/);
   assert.match(html, /Settings body/);
   assert.doesNotMatch(html, /daedalos/i);
