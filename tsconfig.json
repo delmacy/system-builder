@@ -59,12 +59,15 @@
     "skipLibCheck": true,
     "types": [
       "node"
-    ]
+    ],
+    "jsx": "react-jsx"
   },
   "include": [
     "tooling/agent-harness/**/*.ts",
     "packages/**/*.ts",
     "apps/**/*.ts",
-    "tests/product/**/*.ts"
+    "tests/product/**/*.ts",
+    "packages/**/*.tsx",
+    "apps/**/*.tsx"
   ]
 }
