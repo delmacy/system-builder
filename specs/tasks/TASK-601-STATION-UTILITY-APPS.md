@@ -17,11 +17,14 @@ context_paths:
 allowed_paths:
   - apps/station/**
   - packages/station-shell/**
-  - packages/station-settings/**
   - packages/station-app-runtime/**
-  - packages/ui-core/**
+  - packages/station-windowing/**
+  - packages/station-interaction/**
+  - packages/station-settings/**
   - packages/ui-icons/**
+  - packages/ui-core/**
   - tests/product/**
+  - tests/e2e/**
   - specs/tasks/TASK-601-STATION-UTILITY-APPS.md
 forbidden_paths:
   - apps/station-gateway/**
@@ -42,19 +45,13 @@ validation:
 Implement the first useful Settings UI and expand Component Lab into the M1 design-system inspection surface.
 
 # Current behavior
-Utility manifests and placeholder bodies exist. Settings currently toggles density only; Component Lab currently lists a few badges.
+Utility manifests and placeholder bodies exist; Settings toggles density only and Component Lab is only a small badge inventory.
 
 # Required change
-Implement only the bounded delta needed to satisfy this task on top of current main. Preserve already integrated behavior rather than replaying it.
+Implement only the bounded delta on current main; do not replay already integrated work.
 
 # Acceptance criteria
-Settings controls theme system/light/dark, density comfortable/compact, motion full/reduced, navbar/toolbar/taskbar visibility, taskbar auto-hide when supported, and snap enabled. Component Lab exposes ui-core primitives/states, semantic icons/tokens, focus, reduced-motion and density demonstrations.
+Settings controls theme, density, motion, navbar/toolbar/taskbar visibility, taskbar auto-hide when contracted, and snap. Component Lab exposes ui-core primitives/states, semantic icons/tokens, focus, reduced-motion and density.
 
 # Non-goals
 No canonical Station DB/files, Core authorization decisions, business workflows, provider effects, deploy engine, Host Agent execution, schedulers, agents or invented domain state.
-
-# Evidence expected
-Task-local regression proof plus exact-head repository validation appropriate to the changed surface.
-
-# Escalation
-Stop if the task requires moving canonical truth/authority/effects into Station or expanding into a deferred subsystem.
