@@ -683,3 +683,12 @@ Default posture for client-owned operational state is read-only/restricted. Clie
 Research a guarded break-glass/elevation flow for exceptional intervention with explicit target, reason, blast-radius confirmation, time-bounded authority, audit/evidence and post-action verification.
 
 Preserve Builder profile != omnipotent mutation session; Fleet scope != client scope; Observability != control; cross-client visibility != secret visibility or mutation authority.
+
+
+## Research addition — Support Intervention Window
+
+G4 now includes a scoped Support Intervention Window launched from Builder/Fleet observability. It allows bounded proactive client operations without loading the full client Desktop.
+
+Mutating actions should require policy-driven step-up authentication and explicit target/reason/blast-radius context. Client-facing notifications and immutable audit/evidence records should make support intervention transparent and attributable.
+
+Research action risk tiers and corresponding confirmation/MFA/dual-control/notification requirements. Preserve Fleet visibility != client mutation authority; Support Intervention Window != Client Desktop; notification != authorization; provider ACK != verified recovery.
