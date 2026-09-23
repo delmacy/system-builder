@@ -17,10 +17,16 @@ context_paths:
 allowed_paths:
   - apps/station/**
   - packages/station-shell/**
+  - packages/station-app-runtime/**
+  - packages/station-windowing/**
   - packages/station-interaction/**
-  - packages/ui-core/**
+  - packages/station-settings/**
   - packages/ui-icons/**
+  - packages/ui-core/**
   - tests/product/**
+  - tests/e2e/**
+  - project_docs/execution_planning/**
+  - docs/current/NEXT_WORK.md
   - specs/tasks/TASK-597-STATION-NAVBAR.md
 forbidden_paths:
   - apps/station-gateway/**
@@ -38,22 +44,16 @@ validation:
 ---
 
 # Objective
-Compose the global Navbar across the shell. It must expose System Builder/Home, current shell context, Search/Command/Settings access and only indicators derived from actually known Station state.
+Compose the global Navbar with System Builder/Home, current shell context and Search/Command/Settings access.
 
 # Current behavior
-The current top strip only identifies Station and explicit Core: Disconnected. It is not yet the committed Navbar surface.
+Current main has a truthful top strip with Core: Disconnected, but not the committed Navbar.
 
 # Required change
-Implement only the bounded delta needed to satisfy this task on top of current main. Preserve already integrated behavior rather than replaying it.
+Implement only the bounded delta on current main; do not replay already integrated work.
 
 # Acceptance criteria
-Navbar spans the shell width, uses semantic ui-core/ui-icons, keeps Core disconnected truth explicit, provides accessible Home/Search/Command/Settings affordances, and does not invent Core/client/domain status.
+Navbar spans the shell, uses ui-core/ui-icons, exposes accessible Home/Search/Command/Settings affordances and invents no Core/client/domain status.
 
 # Non-goals
 No canonical Station DB/files, Core authorization decisions, business workflows, provider effects, deploy engine, Host Agent execution, schedulers, agents or invented domain state.
-
-# Evidence expected
-Task-local regression proof plus exact-head repository validation appropriate to the changed surface.
-
-# Escalation
-Stop if the task requires moving canonical truth/authority/effects into Station or expanding into a deferred subsystem.
