@@ -1,14 +1,8 @@
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
 import type { NextConfig } from "next";
-
-const appDirectory = dirname(fileURLToPath(import.meta.url));
-const repositoryRoot = resolve(appDirectory, "../../..");
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  outputFileTracingRoot: repositoryRoot,
+  outputFileTracingRoot: process.cwd(),
   webpack(config) {
     config.resolve.extensionAlias = {
       ...config.resolve.extensionAlias,
