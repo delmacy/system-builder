@@ -1,7 +1,7 @@
 ---
 id: TASK-594
 title: Create Station AppManifest ToolManifest and utility app registry
-status: blocked
+status: completed
 priority: 594
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -13,6 +13,7 @@ depends_on:
 context_paths:
   - docs/architecture/STATION_FRONTEND_FOUNDATION.md
 allowed_paths:
+  - tsconfig.json
   - packages/station-app-runtime/**
   - tests/product/station-app-runtime.test.ts
   - specs/tasks/TASK-594-STATION-APP-TOOL-MANIFEST-RUNTIME.md
@@ -41,7 +42,7 @@ M1 needs utility windows now and reusable app/tool discovery later.
 No manifest runtime exists.
 
 # Required change
-Add AppManifest, ToolManifest, app registry, launch policy and mapping from app launch to WindowDefinitions. Register bounded M1 utility definitions for Welcome, Component Lab and Settings without implementing their final UI.
+Add strict AppManifest/ToolManifest schemas, StationAppRegistry, launch policy and mapping from app launch to provider-neutral WindowDefinitions. Register bounded M1 utility definitions for Welcome, Component Lab and Settings without implementing their final UI. Reject unknown fields so manifests cannot silently grow module/deployment/capability authority. Add the public @system-builder/station-windowing alias required by repository architecture checks.
 
 # Inputs / contracts
 station-windowing, station-interaction, semantic IconToken.
@@ -56,7 +57,7 @@ Shell can discover/launch apps from registry; manifest identity is stable and di
 No marketplace, install/uninstall, real domain apps, capability resolution or Core-backed app catalog.
 
 # Evidence expected
-Manifest validation, duplicate identity, singleton/multi-instance and launch tests.
+Manifest unknown-field/ownership validation, duplicate identity, utility discovery, singleton/multi-instance launch mapping and authority-boundary tests.
 
 # Escalation
 Stop if AppManifest becomes a canonical module/deployment descriptor or starts owning business capability truth.

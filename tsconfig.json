@@ -49,6 +49,9 @@
       ],
       "@system-builder/ui-core": [
         "packages/ui-core/index.ts"
+      ],
+      "@system-builder/station-windowing": [
+        "packages/station-windowing/index.ts"
       ]
     },
     "strict": true,
