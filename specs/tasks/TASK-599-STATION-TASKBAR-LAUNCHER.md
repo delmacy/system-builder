@@ -17,11 +17,14 @@ context_paths:
 allowed_paths:
   - apps/station/**
   - packages/station-shell/**
-  - packages/station-windowing/**
   - packages/station-app-runtime/**
-  - packages/ui-core/**
+  - packages/station-windowing/**
+  - packages/station-interaction/**
+  - packages/station-settings/**
   - packages/ui-icons/**
+  - packages/ui-core/**
   - tests/product/**
+  - tests/e2e/**
   - specs/tasks/TASK-599-STATION-TASKBAR-LAUNCHER.md
 forbidden_paths:
   - apps/station-gateway/**
@@ -39,22 +42,16 @@ validation:
 ---
 
 # Objective
-Finish the M1 Taskbar/Launcher as a projection of AppManifest discovery and window runtime state.
+Finish Taskbar/Launcher as a projection of manifests and window runtime.
 
 # Current behavior
-PR #910 already added launcher buttons, running/minimized window projection and taskbar focus/restore. This task must preserve that work and complete only missing M1 shell/keyboard/settings semantics.
+PR #910 already added launcher buttons, running/minimized projection and focus/restore; preserve it.
 
 # Required change
-Implement only the bounded delta needed to satisfy this task on top of current main. Preserve already integrated behavior rather than replaying it.
+Implement only the bounded delta on current main; do not replay already integrated work.
 
 # Acceptance criteria
-Welcome, Component Lab and Settings launch from manifests; singleton behavior is respected; taskbar reflects open/minimized windows and restores/focuses them; presentation visibility/autohide contract is honored when enabled; no process/runtime lifecycle is inferred.
+Welcome, Component Lab and Settings launch from manifests; singleton behavior is respected; taskbar reflects open/minimized windows and restores/focuses them without inferring process/runtime lifecycle.
 
 # Non-goals
 No canonical Station DB/files, Core authorization decisions, business workflows, provider effects, deploy engine, Host Agent execution, schedulers, agents or invented domain state.
-
-# Evidence expected
-Task-local regression proof plus exact-head repository validation appropriate to the changed surface.
-
-# Escalation
-Stop if the task requires moving canonical truth/authority/effects into Station or expanding into a deferred subsystem.
