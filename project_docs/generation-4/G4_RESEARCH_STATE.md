@@ -630,3 +630,14 @@ Taxonomy is a research candidate, not a frozen product naming decision.
 Use current external evidence from mature systems, documentation and papers where relevant. Benchmark interaction grammar and architectural patterns rather than copying branding or proprietary implementation.
 
 Test contradictory evidence and alternatives. Research continues until material gaps show saturation; no research result by itself grants implementation authority.
+
+
+## Research addition — unified assembly grammar
+
+G4 now treats install/configure/bind/validate as a general interaction grammar for infrastructure services and semantic building blocks alike: modules, capabilities, gateways, providers, workflow/data/UI packages and integrations.
+
+Normal flow: `ADD/INSTALL -> CONFIGURE -> BIND/CONNECT -> VALIDATE -> APPLY -> OBSERVE -> TUNE/EVOLVE`.
+
+Research typed connection points/`sockets` so the UI can surface compatible bindings and guide assembly without making visual connection itself semantic authority.
+
+Preserve `Installed != Configured != Bound != Verified != Effective` and GUI/Wizard/declarative-first with terminal/raw config as advanced escape hatches.
