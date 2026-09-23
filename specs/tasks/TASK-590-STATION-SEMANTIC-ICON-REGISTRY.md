@@ -1,7 +1,7 @@
 ---
 id: TASK-590
 title: Add semantic Station icon registry
-status: blocked
+status: completed
 priority: 590
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -40,7 +40,7 @@ Icons are replaceable visual providers. Semantic action/resource/status identity
 No icon system exists.
 
 # Required change
-Define initial IconToken vocabulary and Lucide adapter for M1 navigation, window, settings, command and status semantics.
+Define the initial IconToken vocabulary and a bounded Lucide adapter for M1 navigation, window, settings, command and status semantics. Keep the provider source-owned for M1 by embedding only the required upstream SVG geometry with attribution rather than adding a package dependency before it is needed.
 
 # Inputs / contracts
 ADR-0017 and ui-core.
@@ -55,7 +55,7 @@ M1 consumers can request semantic tokens without importing Lucide directly; unkn
 No exhaustive domain icon catalog or custom illustration set.
 
 # Evidence expected
-Registry completeness/unknown-token tests and render smoke proof.
+Registry completeness/unknown-token tests, accessibility/render smoke proof, and preserved Lucide/Feather attribution.
 
 # Escalation
 Stop if icon provider choice leaks into AppManifest/WindowDefinition public semantics.
