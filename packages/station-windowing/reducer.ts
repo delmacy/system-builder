@@ -247,6 +247,53 @@ export function reduceWindowRuntime(
   action: WindowAction,
 ): WindowRuntimeState {
   switch (action.type) {
+    case "SET_BOUNDS": {
+      const bounds = normalizeBounds(action.bounds);
+      if (
+        bounds.width === state.bounds.width &&
+        bounds.height === state.bounds.height
+      ) {
+        return state;
+      }
+
+      const instances = state.instances.map((instance) => {
+        const definition = definitionFor(state, instance.definitionRef);
+        const restoreGeometry =
+          instance.restoreGeometry === null
+            ? null
+            : normalizeGeometry(
+                instance.restoreGeometry,
+                bounds,
+                definition.minSize,
+                instance.restoreGeometry,
+              );
+
+        const geometry =
+          instance.mode === "MAXIMIZED"
+            ? maximizeGeometry(bounds)
+            : instance.mode === "SNAPPED" && instance.snap !== null
+              ? snapGeometry(instance.snap, bounds, definition.minSize)
+              : normalizeGeometry(
+                  instance.geometry,
+                  bounds,
+                  definition.minSize,
+                  instance.geometry,
+                );
+
+        return Object.freeze({
+          ...instance,
+          geometry,
+          restoreGeometry,
+        });
+      });
+
+      return Object.freeze({
+        ...state,
+        bounds,
+        instances: Object.freeze(instances),
+      });
+    }
+
     case "OPEN":
       return openWindow(state, action);
 

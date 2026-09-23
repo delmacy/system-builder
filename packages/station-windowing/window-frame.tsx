@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from "react";
 
-import { IconButton } from "@system-builder/ui-core";
+import { IconButton, cn } from "@system-builder/ui-core";
 import { StationIcon } from "@system-builder/ui-icons";
 
 import {
@@ -112,7 +112,12 @@ export function WindowFrame({
       data-window-ref={instance.windowRef}
       data-window-mode={instance.mode}
       data-window-focused={instance.focused ? "true" : "false"}
-      className="overflow-hidden rounded-xl border bg-[var(--sb-window)] text-card-foreground shadow-xl"
+      className={cn(
+        "overflow-hidden bg-[var(--sb-window)] text-card-foreground",
+        instance.mode === "MAXIMIZED"
+          ? "rounded-none border-0 shadow-none"
+          : "rounded-xl border shadow-xl",
+      )}
       role="dialog"
       style={style}
       onPointerDown={() =>
@@ -121,7 +126,7 @@ export function WindowFrame({
     >
       <header
         data-slot="window-titlebar"
-        className="flex h-10 shrink-0 select-none items-center gap-2 border-b bg-[var(--sb-window-titlebar)] px-2"
+        className="flex h-11 min-h-11 shrink-0 touch-none select-none items-center gap-2 border-b bg-[var(--sb-window-titlebar)] px-3"
         onPointerDown={(event) =>
           beginSession(
             event,
@@ -135,13 +140,13 @@ export function WindowFrame({
           setPreview(null);
         }}
       >
-        <StationIcon token={definition.icon} aria-hidden />
-        <span className="min-w-0 flex-1 truncate text-sm font-medium">
+        <StationIcon className="shrink-0" token={definition.icon} aria-hidden />
+        <span className="min-w-0 flex-1 truncate text-sm font-medium leading-none">
           {definition.title}
         </span>
 
         <div
-          className="flex items-center gap-1"
+          className="flex shrink-0 items-center gap-1"
           data-slot="window-controls"
           onPointerDown={(event) => event.stopPropagation()}
         >

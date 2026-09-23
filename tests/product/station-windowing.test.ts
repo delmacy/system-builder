@@ -125,6 +125,47 @@ test("geometry is normalized into desktop bounds and minimum size", () => {
   });
 });
 
+test("desktop bounds updates keep windows flush with the measured workspace", () => {
+  let state = reduceWindowRuntime(initial(), {
+    type: "OPEN",
+    definitionRef: "settings",
+    geometry: { x: 900, y: 650, width: 500, height: 300 },
+  });
+  const ref = state.instances[0]!.windowRef;
+
+  state = reduceWindowRuntime(state, {
+    type: "SET_BOUNDS",
+    bounds: { width: 1000, height: 700 },
+  });
+
+  assert.deepEqual(state.bounds, { width: 1000, height: 700 });
+  assert.deepEqual(state.instances[0]!.geometry, {
+    x: 500,
+    y: 400,
+    width: 500,
+    height: 300,
+  });
+
+  state = reduceWindowRuntime(state, { type: "MAXIMIZE", windowRef: ref });
+  assert.deepEqual(state.instances[0]!.geometry, {
+    x: 0,
+    y: 0,
+    width: 1000,
+    height: 700,
+  });
+
+  state = reduceWindowRuntime(state, {
+    type: "SET_BOUNDS",
+    bounds: { width: 1366, height: 768 },
+  });
+  assert.deepEqual(state.instances[0]!.geometry, {
+    x: 0,
+    y: 0,
+    width: 1366,
+    height: 768,
+  });
+});
+
 test("maximize snap restore and non-resizable movement preserve presentation semantics", () => {
   let state = reduceWindowRuntime(initial(), {
     type: "OPEN",
