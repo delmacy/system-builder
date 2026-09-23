@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 
 import { Badge, Button } from "../../../../packages/ui-core/index";
+import { StationIcon } from "../../../../packages/ui-icons/index";
 import {
   M1_UTILITY_APPS,
   StationAppRegistry,
@@ -11,6 +12,8 @@ import {
   WindowFrame,
   createWindowRuntimeState,
   reduceWindowRuntime,
+  type WindowDefinition,
+  type WindowInstance,
 } from "../../../../packages/station-windowing/index";
 import {
   DEFAULT_STATION_PRESENTATION_STATE,
@@ -22,7 +25,7 @@ import {
 const registry = new StationAppRegistry(M1_UTILITY_APPS);
 const welcome = registry.launch("app:welcome");
 const definitions = registry.list().flatMap((app) => registry.launch(app.id).windowDefinitions);
-const initialBounds = Object.freeze({ width: 1280, height: 720 });
+const initialBounds = Object.freeze({ width: 1280, height: 672 });
 
 function initialWindows() {
   const base = createWindowRuntimeState(definitions, initialBounds);
@@ -31,6 +34,13 @@ function initialWindows() {
     definitionRef: welcome.windowDefinitions[0]!.id,
     presentationPayload: { source: "manifest" },
   });
+}
+
+function definitionFor(
+  instance: WindowInstance,
+  allDefinitions: readonly WindowDefinition[],
+) {
+  return allDefinitions.find((candidate) => candidate.id === instance.definitionRef);
 }
 
 export function StationFoundationClient() {
@@ -85,11 +95,85 @@ export function StationFoundationClient() {
     storage?.save(next);
   };
 
-  const active = windows.instances.find((instance) => instance.lifecycle === "OPEN");
-  const definition =
-    active === undefined
-      ? undefined
-      : windows.definitions.find((candidate) => candidate.id === active.definitionRef);
+  const resetPresentation = () => {
+    const next = storage?.reset() ?? DEFAULT_STATION_PRESENTATION_STATE;
+    setPresentation(next);
+  };
+
+  const openApp = (appId: string) => {
+    const launched = registry.launch(appId);
+    const definition = launched.windowDefinitions[0];
+    if (definition === undefined) return;
+
+    dispatch({
+      type: "OPEN",
+      definitionRef: definition.id,
+      presentationPayload: { source: "taskbar-launcher", appRef: appId },
+    });
+  };
+
+  const activateWindow = (instance: WindowInstance) => {
+    dispatch({
+      type: instance.lifecycle === "MINIMIZED" ? "RESTORE" : "FOCUS",
+      windowRef: instance.windowRef,
+    });
+  };
+
+  const renderWindowBody = (definition: WindowDefinition) => {
+    switch (definition.id) {
+      case "settings":
+        return (
+          <div className="space-y-4 p-6">
+            <h1 className="text-2xl font-semibold">Settings</h1>
+            <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+              Station presentation preferences remain local and disposable.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <Button onClick={setDensity} variant="outline">
+                Density: {presentation.appearance.density}
+              </Button>
+              <Button onClick={resetPresentation} variant="ghost">
+                Reset presentation
+              </Button>
+            </div>
+          </div>
+        );
+
+      case "component-lab":
+        return (
+          <div className="space-y-4 p-6">
+            <h1 className="text-2xl font-semibold">Component Lab</h1>
+            <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+              M1 utility surface for inspecting Station-owned primitives and interaction states.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <Badge>Button</Badge>
+              <Badge>Badge</Badge>
+              <Badge>WindowFrame</Badge>
+              <Badge>Semantic icons</Badge>
+            </div>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="space-y-4 p-6">
+            <h1 className="text-2xl font-semibold">Welcome</h1>
+            <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+              This utility window is resolved from AppManifest → WindowDefinition → WindowFrame.
+              Station presentation state remains local and disposable; no Core truth is inferred.
+            </p>
+          </div>
+        );
+    }
+  };
+
+  const visibleWindows = windows.instances.filter(
+    (instance) => instance.lifecycle !== "CLOSED",
+  );
+  const openWindows = windows.instances.filter(
+    (instance) => instance.lifecycle === "OPEN",
+  );
 
   return (
     <main
@@ -102,7 +186,7 @@ export function StationFoundationClient() {
           <div className="flex min-w-0 items-center gap-3">
             <Badge className="shrink-0">System Builder Station</Badge>
             <span className="truncate text-sm text-muted-foreground">
-              Empty desktop foundation
+              Multi-window desktop foundation
             </span>
           </div>
           <Badge className="shrink-0 bg-muted text-muted-foreground">
@@ -112,46 +196,82 @@ export function StationFoundationClient() {
 
         <section
           ref={desktopRef}
-          aria-label="Station empty desktop"
+          aria-label="Station desktop"
           className="relative min-h-0 min-w-0 flex-1 overflow-hidden bg-[var(--sb-desktop)]"
           data-app-count={registry.list().length}
           data-window-bounds={`${windows.bounds.width}x${windows.bounds.height}`}
         >
-          {active !== undefined && definition !== undefined ? (
-            <WindowFrame
-              bounds={windows.bounds}
-              definition={definition}
-              dispatch={dispatch}
-              instance={active}
-            >
-              <div className="space-y-4 p-6">
-                <h1 className="text-2xl font-semibold">Welcome</h1>
-                <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-                  This utility window is resolved from AppManifest → WindowDefinition → WindowFrame.
-                  Station presentation state remains local and disposable; no Core truth is inferred.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <Button onClick={setDensity} variant="outline">
-                    Density: {presentation.appearance.density}
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      const next = storage?.reset() ?? DEFAULT_STATION_PRESENTATION_STATE;
-                      setPresentation(next);
-                    }}
-                    variant="ghost"
-                  >
-                    Reset presentation
-                  </Button>
-                </div>
-              </div>
-            </WindowFrame>
-          ) : (
+          {openWindows.length === 0 ? (
             <div className="grid h-full w-full place-items-center text-sm text-muted-foreground">
-              Empty desktop — no open windows
+              Empty desktop — launch an app from the taskbar
             </div>
-          )}
+          ) : null}
+
+          {openWindows.map((instance) => {
+            const definition = definitionFor(instance, windows.definitions);
+            if (definition === undefined) return null;
+
+            return (
+              <WindowFrame
+                key={instance.windowRef}
+                bounds={windows.bounds}
+                definition={definition}
+                dispatch={dispatch}
+                instance={instance}
+              >
+                {renderWindowBody(definition)}
+              </WindowFrame>
+            );
+          })}
         </section>
+
+        <footer
+          data-slot="station-taskbar"
+          className="flex h-12 shrink-0 items-center gap-2 border-t bg-[var(--sb-taskbar)] px-3"
+        >
+          <div className="flex shrink-0 items-center gap-1 border-r pr-2">
+            {registry.list().map((app) => (
+              <Button
+                key={app.id}
+                aria-label={`Launch ${app.name}`}
+                size="icon"
+                variant="ghost"
+                onClick={() => openApp(app.id)}
+              >
+                <StationIcon token={app.icon} />
+              </Button>
+            ))}
+          </div>
+
+          <div
+            className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto"
+            data-slot="taskbar-windows"
+          >
+            {visibleWindows.map((instance) => {
+              const definition = definitionFor(instance, windows.definitions);
+              if (definition === undefined) return null;
+
+              return (
+                <Button
+                  key={instance.windowRef}
+                  className="max-w-56 justify-start"
+                  data-window-active={windows.activeWindowRef === instance.windowRef ? "true" : "false"}
+                  data-window-lifecycle={instance.lifecycle}
+                  variant={
+                    windows.activeWindowRef === instance.windowRef &&
+                    instance.lifecycle === "OPEN"
+                      ? "secondary"
+                      : "ghost"
+                  }
+                  onClick={() => activateWindow(instance)}
+                >
+                  <StationIcon token={definition.icon} />
+                  <span className="truncate">{definition.title}</span>
+                </Button>
+              );
+            })}
+          </div>
+        </footer>
       </section>
     </main>
   );
