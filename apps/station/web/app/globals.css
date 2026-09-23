@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --station-bg: oklch(0.16 0.015 255);
+  --station-panel: oklch(0.21 0.015 255);
+  --station-border: oklch(0.36 0.02 255);
+  --station-fg: oklch(0.94 0.01 255);
+  --station-muted: oklch(0.72 0.02 255);
+  --station-accent: oklch(0.72 0.14 240);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--station-bg);
+  color: var(--station-fg);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}

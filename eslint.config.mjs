@@ -14,6 +14,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ["dist/**", "node_modules/**", ".agent/**"],
+    ignores: ["dist/**", "node_modules/**", ".agent/**", "**/.next/**"],
   },
 );
