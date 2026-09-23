@@ -10,19 +10,7 @@ The current product priority is the **Station visual/application environment**. 
 
 Research may continue. Implementation promotion is deferred until the visual milestone is materially established and a separate planning gate explicitly promotes an improvement.
 
-Invariant:
-
-```text
-Research finding
-  != immediate implementation
-  != new Work Package
-  != authority to refactor Core/Agent
-
-Visual Station milestone
-  -> review deferred improvements
-  -> prioritize
-  -> materialize only selected items
-```
+Invariant: `Research finding != immediate implementation != new Work Package != authority to refactor Core/Agent`.
 
 ## Deferred improvements
 
@@ -31,64 +19,50 @@ Visual Station milestone
 | IMP-PAL-001 | Host Agent secure enrollment with host/Core identity, certificate rotation, revocation, recovery and clone detection | Apollo outbound Agent + environment certificate | Strengthens remote-host control without normalizing inbound root/SSH administration | HIGH | Host Agent planning |
 | IMP-PAL-002 | Outbound-only authenticated Agent channel as preferred remote-control topology | Apollo Agent connectivity | Reduces exposed host attack surface and supports NAT/private networks | HIGH | Host Agent/connectivity architecture |
 | IMP-PAL-003 | Explicit ChangePlan + Constraints contract before host mutation | Apollo Plan + Constraints | Makes deployment/host changes revision-pinned, auditable and rejectable when stale | HIGH | Core-to-Agent command planning |
-| IMP-PAL-004 | Model connectivity separately from health/currentness: CONNECTED / INTERMITTENT / EXPECTED_OFFLINE / RELAYED | Apollo environment connection modes | Prevents offline from being misclassified as failed and preserves stale/unknown semantics | MEDIUM | Agent/Observe model |
+| IMP-PAL-004 | Model connectivity separately from health/currentness | Apollo environment connection modes | Prevents offline from being misclassified as failed | MEDIUM | Agent/Observe model |
 | IMP-PAL-005 | Staged release channels, cohort ramp-up, recall and bounded blast radius | Apollo release channels | Improves deployment safety and fleet rollout | HIGH | Deployment hardening |
-| IMP-PAL-006 | Separate Host Execution capability from Connectivity/Tunnel capability, even if initially shipped in one daemon | Data Connection thin proxy vs worker | Avoids one oversized privileged Agent and supports least privilege | MEDIUM | Host Agent architecture review |
-| IMP-PAL-007 | Typed generated SDKs over stable semantic identities | OSDK | Improves Station/app/tool developer experience without exposing Core internals | MEDIUM | SDK/tool-platform planning |
-| IMP-PAL-008 | Enforce `semantic identity != API/display/provider name` and explicit remapping/version coexistence | OSDK/API-name and interface evolution cases | Avoids brittle cross-environment installs and accidental identity coupling | HIGH | Contract/versioning review |
-| IMP-PAL-009 | Cross-resource isolated change set / branch model for coordinated system edits | Global Branching | Useful for Recipe/SystemDefinition/schema/UI/workflow coordinated edits without pretending global atomicity | MEDIUM | Change-governance planning |
-| IMP-PAL-010 | Dependency-graph-aware package/install closure | Marketplace dependencies | Strengthens capability/app installation, prerequisites and uninstall safety | MEDIUM | Application Manager/package planning |
-| IMP-PAL-011 | Explicit external-effect reconciliation when provider effect and canonical commit/observation diverge | webhook/writeback failure semantics | Reinforces UNKNOWN, effect identity, reconciliation and non-transactional external effects | HIGH | Effect/reconciliation hardening |
-| IMP-PAL-012 | AI action execution remains scoped to user/project authority and can require human review | AIP Logic / Pilot | Reinforces `AI inference != authority` with operational execution boundaries | HIGH | AI/Agent execution planning |
-| IMP-PAL-013 | Propagate classification/security metadata through derived data, AI context/output, logs, traces and evidence | AIP observability/security caveats | Prevents protected source data from leaking through derived artifacts/telemetry | HIGH | Security/data-governance hardening |
-| IMP-PAL-014 | Probabilistic behavior qualification with multidimensional Evals, never one scalar safety score | AIP Evals | Improves AI feature qualification without hiding critical failures | MEDIUM | AI product-proof planning |
-| IMP-PAL-015 | Formal portability/exit proof suite for Recipe, SystemDefinition, source, artifact, data, runtime and operations | Palantir platform-centric portability comparison | Converts SB anti-lock-in into testable evidence rather than an architectural slogan | HIGH | Portability/product-proof phase |
-| IMP-PAL-016 | Air-gap/disconnected update bundle semantics and explicit stale-policy/security horizons | Apollo Payload Bundler + disconnected environment modes | Supports remote/offline installations without silently treating old policy as current | MEDIUM | Offline/edge planning |
-| IMP-PAL-017 | Agent self-update/version-skew/compromise recovery model | Data Connection version-stale metrics + maintenance windows | Needed before large remote fleets; separates software freshness from compatibility/admissibility | MEDIUM | Fleet/Agent hardening |
-| IMP-PAL-018 | Preserve `reported != observed != effective` in host/deployment state surfaces | Reported State | Prevents UI/operations from presenting agent reports as proof of business effect | HIGH | Visual observability surfaces |
-| IMP-PAL-019 | SuperRepo-style co-versioned developer workspace only as authoring convenience, without collapsing Recipe/Definition/artifact boundaries | SuperRepo | Could improve developer workflow while preserving SB semantic separation | LOW | Developer-experience review |
-| IMP-PAL-020 | Maintain autonomous client runtime as an explicit divergence: generated client apps must not require Builder/Core as backend by default | Foundry-as-backend OSDK model | Preserves core SB anti-lock-in/runtime-autonomy objective | CONSTITUTIONAL | Continuous architecture conformance |
-| IMP-PAL-021 | Treat relayed/imported environment state as read-only evidence unless independent command authority exists | Apollo `Relayed from another Hub` | Prevents multi-control-plane visibility from silently becoming mutation authority | HIGH | Multi-Core/Agent planning |
-| IMP-PAL-022 | Add independent host-local egress/target policy that the Agent process cannot rewrite | Data Connection local agent-proxy allowlist + host firewall | Limits blast radius if central policy or Agent process is compromised | HIGH | Host Agent security hardening |
-| IMP-PAL-023 | Upgrade Host Agents through explicit maintenance admission and staggered redundant cohorts | Data Connection automatic/staggered upgrade windows | Bounds update disruption and fleet blast radius | MEDIUM | Fleet lifecycle planning |
-| IMP-PAL-024 | Model in-flight work interruption during Agent upgrade/restart and require retry/effect reconciliation | Data Connection upgrade terminates running jobs | Prevents infrastructure restart from silently duplicating business effects | HIGH | Effect/retry hardening |
-| IMP-PAL-025 | Make secret/key custody and recovery continuity explicit in Host Agent identity model | agent-worker local encryption-key migration | Prevents backup/reinstall mechanics from silently cloning authority or losing provider access | HIGH | Enrollment/secrets architecture |
-| IMP-PAL-026 | Model declared-state authority independently from connectivity/observation authority and require an explicit authority transition before imported state may become locally editable | Apollo Environment edit source | Prevents a replica/read-only control plane from silently becoming a writer after partition, failover or bundle import | HIGH | Multi-Core/DR authority planning |
-| IMP-PAL-027 | Make disconnected import an admission workflow: validate bundle provenance/currentness, compute proposed changes, require policy/human approval where applicable, then emit local ChangePlans | Apollo Source/Target Hub export-import | Prevents possession or successful parsing of a transferred bundle from becoming execution authority | HIGH | Offline bundle/admission planning |
-| IMP-PAL-028 | Preserve artifact availability as a qualified precondition distinct from release metadata availability | Apollo metadata-only bundle case | Prevents metadata-complete disconnected deployments from being presented as executable when artifact closure is missing | MEDIUM | Release artifact/offline planning |
-| IMP-PAL-029 | Treat emergency authority takeover as an explicit, audited authority transition with reconciliation obligations | Apollo edit-source takeover/break-glass | Prevents disaster recovery from normalizing implicit split-brain writers | HIGH | DR/break-glass governance |
-| IMP-PAL-030 | Separate Agent enrollment/bootstrap authority from later resource edit/use/assignment authority | Data Connection agent creation permissions | Prevents one bootstrap privilege from becoming perpetual fleet/resource authority | HIGH | Host Agent enrollment/RBAC planning |
-| IMP-PAL-031 | Bind stored provider credentials to explicit executor recipients and force re-authorization/re-encryption when executor membership changes | agent-worker recipient encryption | Prevents silent credential inheritance by newly attached executors | HIGH | Secrets/provider credential architecture |
-| IMP-PAL-032 | Treat disconnected bundle signing as one proof dimension, not a complete admission verdict | Apollo CLI Bundle signing | Prevents a valid signature from collapsing currentness, destination, approval and execution authority | HIGH | Offline bundle/admission planning |
-| IMP-PAL-033 | Make effect retryability/idempotency/reconciliation an explicit capability/provider contract dimension, with durable effect identity across process/transport retries | Actions suppress automatic retries around external calls; Automate documents at-least-once effect execution | Prevents acknowledgement loss, transient retry, Agent restart or scheduler redelivery from silently duplicating irreversible business effects | HIGH | Effect/reconciliation hardening |
-| IMP-PAL-034 | Default preview/branch/simulation execution to no production external effects; require explicit authority and destination evidence to enable them | Branch Actions suppress webhooks by default | Preserves `projection != canonical truth` and prevents Station/app-builder previews from mutating real providers | HIGH | Station preview/effect-authority design |
+| IMP-PAL-006 | Separate Host Execution capability from Connectivity/Tunnel capability | Data Connection thin proxy vs worker | Supports least privilege | MEDIUM | Host Agent architecture review |
+| IMP-PAL-007 | Typed generated SDKs over stable semantic identities | OSDK | Improves developer experience without exposing Core internals | MEDIUM | SDK/tool-platform planning |
+| IMP-PAL-008 | Enforce semantic identity != API/display/provider name | OSDK/interface evolution | Avoids brittle installs and identity coupling | HIGH | Contract/versioning review |
+| IMP-PAL-009 | Cross-resource isolated change set / branch model | Global Branching | Supports coordinated edits without fake global atomicity | MEDIUM | Change-governance planning |
+| IMP-PAL-010 | Dependency-graph-aware package/install closure | Marketplace dependencies | Strengthens installation and uninstall safety | MEDIUM | Application Manager/package planning |
+| IMP-PAL-011 | Explicit external-effect reconciliation | webhook/writeback failure semantics | Reinforces UNKNOWN, effect identity and reconciliation | HIGH | Effect/reconciliation hardening |
+| IMP-PAL-012 | AI action execution scoped to explicit principal and human review | AIP Logic / Pilot | Reinforces AI inference != authority | HIGH | AI/Agent execution planning |
+| IMP-PAL-013 | Propagate classification/security metadata through derived data, AI context/output, logs, traces and evidence | AIP observability/security caveats | Prevents restricted source data leaking through derived artifacts/telemetry | HIGH | Security/data-governance hardening |
+| IMP-PAL-014 | Multidimensional probabilistic Evals | AIP Evals | Improves AI qualification without scalar safety collapse | MEDIUM | AI product-proof planning |
+| IMP-PAL-015 | Formal portability/exit proof suite | platform-centric portability comparison | Makes anti-lock-in testable | HIGH | Portability/product-proof phase |
+| IMP-PAL-016 | Air-gap update bundle semantics and stale-policy horizons | Apollo Payload Bundler | Supports disconnected installations safely | MEDIUM | Offline/edge planning |
+| IMP-PAL-017 | Agent self-update/version-skew/compromise recovery model | version-stale metrics + maintenance windows | Separates freshness from compatibility/admissibility | MEDIUM | Fleet/Agent hardening |
+| IMP-PAL-018 | Preserve reported != observed != effective | Reported State | Prevents UI from presenting reports as proof | HIGH | Visual observability surfaces |
+| IMP-PAL-019 | Co-versioned developer workspace without collapsing Recipe/Definition/artifact boundaries | SuperRepo | Developer workflow convenience | LOW | Developer-experience review |
+| IMP-PAL-020 | Generated client apps must not require Builder/Core as backend by default | Foundry-as-backend OSDK model | Preserves runtime autonomy | CONSTITUTIONAL | Continuous architecture conformance |
+| IMP-PAL-021 | Relayed/imported state is read-only evidence absent command authority | Relayed from another Hub | Visibility != mutation authority | HIGH | Multi-Core/Agent planning |
+| IMP-PAL-022 | Independent host-local egress/target policy Agent cannot rewrite | agent-proxy allowlist + firewall | Limits compromised Agent blast radius | HIGH | Host Agent security hardening |
+| IMP-PAL-023 | Explicit maintenance admission and staggered Agent upgrades | upgrade windows | Bounds disruption | MEDIUM | Fleet lifecycle planning |
+| IMP-PAL-024 | Model in-flight interruption during Agent restart and reconcile retries/effects | upgrade terminates jobs | Avoids duplicate effects | HIGH | Effect/retry hardening |
+| IMP-PAL-025 | Explicit secret/key custody and recovery continuity | agent-worker key migration | Prevents authority cloning/lost provider access | HIGH | Enrollment/secrets architecture |
+| IMP-PAL-026 | Declared-state authority independent from connectivity/observation | Environment edit source | Prevents replica silently becoming writer | HIGH | Multi-Core/DR authority planning |
+| IMP-PAL-027 | Disconnected import as admission workflow before local ChangePlans | Hub export-import | Bundle possession != execution authority | HIGH | Offline bundle/admission planning |
+| IMP-PAL-028 | Artifact availability distinct from release metadata availability | metadata-only bundle | Prevents false executable state | MEDIUM | Release artifact/offline planning |
+| IMP-PAL-029 | Emergency takeover as explicit audited authority transition | edit-source takeover | Prevents implicit split-brain writers | HIGH | DR/break-glass governance |
+| IMP-PAL-030 | Enrollment/bootstrap authority distinct from resource edit/use authority | Agent creation permissions | Prevents perpetual bootstrap privilege | HIGH | Host Agent enrollment/RBAC planning |
+| IMP-PAL-031 | Provider credentials bound to explicit executor recipients | recipient encryption | Prevents silent secret inheritance | HIGH | Secrets/provider credential architecture |
+| IMP-PAL-032 | Bundle signing is one proof dimension, not admission verdict | Bundle signing | Signature != currentness/destination/approval | HIGH | Offline bundle/admission planning |
+| IMP-PAL-033 | Retryability/idempotency/reconciliation as provider contract dimensions | Actions/Automate effect semantics | Prevents duplicate irreversible effects | HIGH | Effect/reconciliation hardening |
+| IMP-PAL-034 | Preview/branch/simulation defaults to no production effects | Branch Actions | Preserves projection != canonical truth | HIGH | Station preview/effect-authority design |
+| IMP-PAL-035 | Derived-observability classification policy must conservatively cover every data class a workflow can reach and be requalified when reach changes | AIP/Ontology log markings are explicitly configured and are not inherited from executor/input/accessed data | Prevents prompts, completions, object values and user inputs from leaking through under-classified telemetry | HIGH | Security/observability governance |
+| IMP-PAL-036 | Separate workflow execution authority, telemetry-inspection authority and telemetry-policy administration/export authority | AIP observability log-access requirements | Prevents ability to run or edit a workflow from silently becoming blanket access to derived sensitive telemetry | HIGH | Observe/RBAC architecture |
 
 ## Immediate visual-work implications
 
-Only representational constraints directly relevant to Station may be consumed now:
+Only representational constraints directly relevant to Station may be consumed now. Existing requirements remain: currentness/evidence distinct from effective truth; connectivity distinct from health; AI suggestion distinct from authorization/effect; semantic identity distinct from display/API names; relayed/imported state distinct from live/direct authority; version freshness distinct from readiness; imported bundles represented through transfer/admission/application states; signature validity distinct from currentness/approval; preview effects visibly suppressed/attempted/observed.
 
-1. UI must show **currentness and evidence** instead of treating reported state as effective truth.
-2. Connectivity state and health must be different visual concepts.
-3. AI-suggested actions must remain visibly distinct from authorized/effective actions.
-4. Station surfaces must not encode mutable display/API names as canonical semantic identity.
-5. Visual application/tool architecture must keep room for future Host Agent, release-channel, package/dependency and reconciliation surfaces without implementing those backends now.
-6. Relayed/imported state must be visually distinguishable from live/direct state; visibility must not imply command authority.
-7. Software-version freshness must not be collapsed into health/readiness or semantic compatibility.
-8. A control-plane surface must distinguish `authoritative/editable`, `upstream-managed`, and `read-only copy`; connectivity alone must not visually imply declared-state authority.
-9. A transferred/imported bundle must be represented as pending/proposed/admitted/applied states rather than visually collapsing file arrival into effective deployment.
-10. A future signed-artifact surface must not present `signature valid` as synonymous with `current`, `destination-valid`, `policy-approved`, or `safe to execute`.
-11. Preview/branch/simulation surfaces must visibly distinguish `projected/local change`, `external effect suppressed`, `external effect attempted`, and `externally observed/effective`; a green preview must never imply a production side effect occurred.
+This round adds two representation constraints only: future observability surfaces should distinguish `may execute` from `may inspect telemetry`, and any log/trace/search surface whose absence could be interpreted as proof should expose relevant freshness/retention scope. These are not implementation promotions.
 
 No finding in the current round establishes a correctness/security blocker that requires displacing the Station visual milestone.
 
 ## Promotion rule
 
-A deferred improvement moves to executable scope only after:
-
-1. visual/Station milestone evidence exists;
-2. fresh repository state is revalidated;
-3. the improvement is deduplicated against existing SB capability/contracts;
-4. impact and dependency analysis is performed;
-5. explicit Planning & Materialization creates bounded authority.
+A deferred improvement moves to executable scope only after: (1) visual/Station milestone evidence exists; (2) fresh repository state is revalidated; (3) deduplication against existing SB contracts; (4) impact/dependency analysis; and (5) explicit Planning & Materialization creates bounded authority.
 
 Until then, all entries are `DEFERRED_IMPROVEMENT`.
