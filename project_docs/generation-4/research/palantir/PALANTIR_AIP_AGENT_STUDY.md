@@ -87,7 +87,7 @@ AIP and Pilot operate against Ontology entities/actions rather than treating fre
 ### P-AIP07 — Telemetry retention/currentness is not business evidence retention/currentness
 **Source/date:** Palantir official docs, Log search / Execution history, reviewed 2026-09-23.
 
-**Palantir mechanism:** log search and execution history expose bounded recent windows (documented as 30 days for these surfaces); log search is not live and requires refresh for newer entries.
+**Palantir mechanism:** log search and execution history expose bounded recent windows; log search is not live and requires refresh for newer entries.
 
 **Problem solved:** bounds operational telemetry storage and search cost.
 
@@ -105,6 +105,69 @@ AIP and Pilot operate against Ontology entities/actions rather than treating fre
 
 **Classification:** `ALREADY COVERED` with concrete benchmark evidence. **Implementation:** `DEFERRED_IMPROVEMENT`.
 
+### P-AIP08 — The model proposes tool use; the governed executor performs it
+**Source/date:** Palantir official AIP Logic Blocks and AIP Chatbot Studio Tools documentation, reviewed 2026-09-23.
+
+**Palantir mechanism:** AIP Logic states that LLMs do not directly access tools: the model requests tool use and AIP Logic executes the call under the invoking user's permissions. Chatbot Studio separately configures concrete Action, Object query, Function, application-variable and Command tools.
+
+**Problem solved:** keeps probabilistic tool selection separate from the security principal and deterministic platform enforcement that actually reads or mutates enterprise state.
+
+**Universal primitive:** `model selected tool != tool execution authority`; tool proposal, argument construction, admission and effect execution are separate stages.
+
+**Preconditions:** tools have typed/bounded contracts; the execution layer independently authenticates/authorizes every call; effective principal is known at execution time.
+
+**Trade-offs:** explicit mediation improves least privilege and auditability but adds latency, failure states and policy complexity; project/service execution can legitimately differ from invoking-user authority and therefore must remain visible.
+
+**Failure modes:** prompt injection selects an allowed but dangerous tool; stale tool/resource configuration grants unintended reach; project-scoped executor has broader rights than UI user; tool implementation trusts model-generated authorization claims; nested agent/function calls obscure the effective principal.
+
+**Lock-in boundary:** AIP Logic/Chatbot tool registries and Ontology permissions are Palantir-specific. The transferable requirement is a provider-neutral `candidate -> admitted tool invocation -> authorized executor -> observed effect` boundary.
+
+**SB relation:** directly reinforces `AI inference != authority`, capability/provider separation, workflow/action/policy engines and Station/Core/Agent boundaries. An AI candidate may select a capability but cannot manufacture provider credentials, Host Agent rights or canonical authorization.
+
+**Classification:** `ADOPT PRINCIPLE`. **Implementation:** `DEFERRED_IMPROVEMENT`.
+
+### P-AIP09 — Human confirmation is an independent effect-admission policy
+**Source/date:** Palantir official AIP Chatbot Studio Tools / Commands-as-tools and AI FDE Security and governance documentation, reviewed 2026-09-23.
+
+**Palantir mechanism:** Chatbot Actions can be configured to execute automatically or after user confirmation; Commands ask the user to review payload data and approve/reject by default. AI FDE uses an additional approval layer for mutating operations, with conservative defaults and branch/project-scoped session approvals where applicable.
+
+**Problem solved:** permits AI-assisted mutation without treating model intent or possession of a mutating tool as sufficient authorization to produce the effect.
+
+**Universal primitive:** `tool available != effect admitted`; `human approval != model correctness proof`; approval is a separately scoped authority decision over a concrete proposed effect.
+
+**Preconditions:** the approver sees the material target/arguments/scope; approval binds to an immutable or revalidated proposal; server-side permission checks still execute after approval.
+
+**Trade-offs:** confirmation reduces autonomous throughput and can cause approval fatigue; session-wide grants improve usability but enlarge temporal/blast-radius scope.
+
+**Failure modes:** approval UI omits consequential arguments; payload changes after approval; session approval silently applies to a broader branch/project/tool version; user approves a semantically stale proposal; confirmation is mistaken for proof that the effect succeeded.
+
+**Lock-in boundary:** Palantir's confirmation widgets and AI FDE approval categories are product-specific. SB should preserve approval as an explicit portable admission/evidence primitive rather than couple authority to one UI or AI provider.
+
+**SB relation:** strengthens AI candidate-vs-authority and future Station review surfaces. The visual layer may display a candidate and collect approval, but canonical admission belongs to the authoritative policy/action boundary; Station approval UI is not itself execution authority.
+
+**Classification:** `ADOPT PRINCIPLE`. **Implementation:** `DEFERRED_IMPROVEMENT`.
+
+### P-AIP10 — Deterministic tool inputs can fence model discretion, but only within their pinning scope
+**Source/date:** Palantir official AIP Chatbot Studio Application state documentation, reviewed 2026-09-23.
+
+**Palantir mechanism:** Action and Function tools can receive predetermined values from application variables instead of model-generated inputs. These deterministic inputs are pinned to the variables' initial values at the start of the reasoning loop, so changes made by earlier tool calls in the same query are not reflected in those pinned values.
+
+**Problem solved:** reduces model discretion over sensitive tool arguments and improves consistency/token efficiency.
+
+**Universal primitive:** `deterministic input source != current input forever`; a pinned value has an explicit snapshot/currentness boundary.
+
+**Preconditions:** the pinned variable itself is authorized and current for the intended operation; consumers understand whether later state changes require revalidation.
+
+**Trade-offs:** deterministic inputs reduce hallucinated arguments but may intentionally become stale inside a multi-step reasoning loop.
+
+**Failure modes:** a prior tool mutates state but a later effect uses the initial pinned value; UI presents a current variable while execution uses the initial snapshot; a deterministic value is mistaken for authorized value.
+
+**Lock-in boundary:** application-variable mechanics are Palantir-specific. The transferable requirement is immutable argument provenance/currentness and explicit revalidation rules.
+
+**SB relation:** aligns with revision-pinned candidates, `projection != canonical truth` and currentness semantics. Future Station review should show which values are model-generated, user-provided or revision-pinned rather than flattening them into one payload.
+
+**Classification:** `ADAPT`. **Implementation:** `DEFERRED_IMPROVEMENT`.
+
 ## Adversarial requirements for SB
 
 - AI proposes an action outside the invoking user's authority -> reject/escalate; never inherit model/service authority silently.
@@ -117,15 +180,19 @@ AIP and Pilot operate against Ontology entities/actions rather than treating fre
 - User may execute an AI workflow but is not entitled to inspect another user's prompts/results -> execution and telemetry-inspection authority remain separate.
 - Observability export reaches a third-party backend -> export must not silently erase classification, tenant, retention or disclosure constraints.
 - Log entry is absent after retention expiry or search snapshot is stale -> absence cannot prove non-execution/non-effect.
+- Prompt injection or model error chooses a configured mutating tool -> executor still resolves principal, permission, policy and effect admission independently.
+- User approves a proposed command but target/arguments/revision change before execution -> stale approval must not authorize a materially different effect.
+- Session-wide approval exists for a tool but branch/project/context changes -> approval scope must not silently expand.
+- Deterministic tool argument was pinned at reasoning-loop start and underlying state changes -> expose/revalidate snapshot semantics before consequential effect.
 
 ## Station sequencing implications
 
-No finding above is a correctness/security blocker requiring displacement of the current visual milestone. Only representation constraints may be consumed now: future Station observability surfaces should distinguish execution authority from log-inspection authority, expose freshness/retention when material, and avoid presenting trace/log availability as canonical business truth.
+No finding above is a correctness/security blocker requiring displacement of the current visual milestone. Only representation constraints may be consumed now: future Station AI/review surfaces should distinguish model proposal, tool selection, effective execution principal, human approval/admission, execution/effect evidence, and argument provenance/currentness. These are representation constraints, not implementation promotion.
 
 ## Remaining gaps
 
-Next passes should inspect public AIP Agent tool permissioning and delegation, human review modes, telemetry export policy propagation, prompt/output classification outside logs, MCP proposal flows, model adapters, and exact tool side-effect semantics. The log-classification vector is now materially evidenced and should not be repeatedly rediscovered unless primary documentation changes.
+Next passes should inspect telemetry-export policy propagation, prompt/output classification outside logs, MCP proposal/apply flows, nested agent/function principal propagation, model adapters, and whether public docs establish approval binding/revalidation semantics across tool/version changes. The basic tool-delegation/human-confirmation vector is now materially evidenced and should not be repeatedly rediscovered unless primary documentation changes.
 
 ## Sources
 
-Official Palantir docs reviewed 2026-09-23: AIP Logic core concepts; Pilot Ontology tab; Architecture Center Ontology system; Ontology and AIP observability — Log permissions, Trace views, Service logs and debugging, Log search, Execution history; Administration — Configure logging.
+Official Palantir docs reviewed 2026-09-23: AIP Logic core concepts and Blocks; AIP Chatbot Studio Tools, Commands as tools and Application state; AI FDE Security and governance; Pilot Ontology tab; Architecture Center Ontology system; Ontology and AIP observability documentation.
