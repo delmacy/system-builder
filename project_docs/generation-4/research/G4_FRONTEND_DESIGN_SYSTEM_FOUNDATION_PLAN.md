@@ -3281,3 +3281,184 @@ Global search should find applications/services regardless of desktop while indi
 - Hidden by desktop context != unavailable globally.
 - Shared/global app != global authority.
 - Category grouping != semantic ownership.
+
+
+## Infrastructure Bootstrap Wizard — multi-service guided foundation install
+
+Decision status: STRONG_G4_DIRECTION / NON_EXECUTABLE
+
+The Infrastructure Desktop should support a single guided wizard capable of provisioning a complete baseline infrastructure bundle instead of forcing operators to install each service manually.
+
+Canonical flow:
+
+~~~
+Select baseline services
+-> choose target environment/hosts or allow guided placement
+-> resolve dependencies
+-> resolve placement
+-> resolve network/firewall/VPN/DNS/storage/secrets
+-> preview plan
+-> apply
+-> verify
+-> register applications/services
+-> attach observability
+-> expose shortcuts
+~~~
+
+Example selection:
+- PostgreSQL;
+- VPN;
+- Firewall;
+- DNS;
+- reverse proxy/gateway;
+- storage;
+- observability;
+- automation service;
+- secret management foundations.
+
+### Placement modes
+
+Research user choices such as:
+- AUTO_PLACE: Builder selects qualified hosts based on policy/capacity/isolation;
+- PACK: consolidate workloads onto fewer hosts where allowed;
+- SPREAD: distribute across hosts;
+- KEEP_RESERVE: intentionally leave qualified host capacity unused;
+- PINNED: user explicitly selects service-to-host placement;
+- HYBRID: user pins some services and lets Builder place the rest.
+
+Placement recommendations are advisory unless an explicit autoplace policy grants execution authority.
+
+### Plan before apply
+
+The wizard should always compile a visible Deployment Plan before execution.
+
+~~~
+PostgreSQL -> Host A
+VPN        -> Host B
+Firewall   -> Host B
+DNS        -> Host B
+
+Networks:
+  production-net
+  management-net
+
+Secrets:
+  generated/reused references
+
+Security:
+  firewall policy
+  TLS/certificate bindings
+  least-privilege service identities
+~~~
+
+The user can inspect, change placement, override defaults when authorized, and then apply.
+
+### Under the hood
+
+Execution may compile to provider-specific scripts, APIs, Compose/Helm manifests, package-manager operations or host-agent commands. These are generated artifacts, not the canonical user-authored source of truth.
+
+~~~
+Declarative Foundation Definition
+-> Planner
+-> Deployment Plan
+-> provider-specific execution artifacts
+-> execution
+-> verification
+~~~
+
+### Security-by-default
+
+The bootstrap should automatically create or bind:
+- least-privilege service accounts;
+- segmented networks where policy requires;
+- firewall defaults;
+- TLS/certificate bindings;
+- Vault/secret references;
+- credential rotation metadata;
+- observability/health probes;
+- backup/recovery defaults where applicable;
+- audit/evidence records.
+
+Automatic security setup must remain inspectable and overridable only within authority/policy.
+
+### Vault compartments / secret domains
+
+Research a compartment model for credentials rather than one undifferentiated vault namespace.
+
+Candidate hierarchy:
+
+~~~
+Vault / Secret Domain
+├─ Infrastructure
+├─ Databases
+├─ Integrations
+├─ Applications
+└─ Break-glass / restricted
+~~~
+
+These may map to logical namespaces, separate vaults, separate encryption domains or provider-specific partitions depending on security architecture.
+
+Do not assume each compartment should have a shared human password. Prefer identity/role/policy-based access where possible; human passphrases may protect local/bootstrap/break-glass material when justified.
+
+Preserve:
+- Can bind secret != can reveal secret;
+- Can rotate secret != can read secret;
+- Secret compartment != application ownership;
+- Secret location != authorization policy;
+- one vault UI != one encryption/security domain.
+
+### Progressive disclosure
+
+The common happy path should require very few inputs:
+1. service bundle;
+2. environment;
+3. placement preference (automatic or manual);
+4. optional security/storage/profile choices;
+5. review;
+6. install.
+
+Advanced pages expose network topology, ports, resource limits, backup, secret source, provider versions, update channels, affinity/anti-affinity, lifecycle and recovery.
+
+### Presets / foundation profiles
+
+Research reusable profiles such as:
+- Minimal Local Foundation;
+- Single Server Foundation;
+- Two-Host Resilient Foundation;
+- Managed Shared Foundation;
+- Isolated Client Foundation;
+- Development/Test Foundation.
+
+Profiles are starting points, not hidden architecture decisions.
+
+### Failure semantics
+
+Multi-service installation must model partial success explicitly.
+
+~~~
+PLANNED
+-> APPLYING
+-> PARTIAL
+-> VERIFYING
+-> EFFECTIVE
+or
+-> RECONCILIATION_REQUIRED
+~~~
+
+Never report success merely because install commands returned ACK. Preserve provider ACK != effective service.
+
+### UX objective
+
+The operator should be able to provision a coherent infrastructure baseline with a Windows-installer-like experience while retaining advanced inspection, auditability and escape hatches.
+
+### Invariants
+
+- One wizard != one giant imperative script.
+- Bundle selection != immediate execution.
+- Auto-placement != hidden authority.
+- Generated shell/script != canonical semantic definition.
+- Installed != configured != verified != effective.
+- Partial success != success.
+- Security-by-default != uninspectable automation.
+- Vault compartment != shared plaintext/password bucket.
+- Secret reference != secret value.
