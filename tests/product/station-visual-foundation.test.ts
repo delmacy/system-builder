@@ -18,6 +18,11 @@ test("Station visual foundation composes the committed M1 substrate", () => {
   assert.match(source, /h-\[100dvh\] w-screen/);
   assert.match(source, /createBrowserLocalPresentationStorage\(window\.localStorage\)/);
   assert.match(source, /Core: Disconnected/);
+  assert.match(source, /data-slot="station-taskbar"/);
+  assert.match(source, /data-slot="taskbar-windows"/);
+  assert.match(source, /registry\.list\(\)\.map/);
+  assert.match(source, /instance\.lifecycle === "MINIMIZED" \? "RESTORE" : "FOCUS"/);
+  assert.match(source, /openWindows\.map/);
   assert.match(source, /no Core truth is inferred/);
 });
 
