@@ -3,6 +3,7 @@ import {
   type ButtonHTMLAttributes,
   type HTMLAttributes,
   type InputHTMLAttributes,
+  type MouseEventHandler,
   type ReactNode,
   type SelectHTMLAttributes,
 } from "react";
@@ -105,16 +106,18 @@ export function Toggle({
   type = "button",
   ...props
 }: ToggleProps) {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    onClick?.(event);
+    if (!event.defaultPrevented) onPressedChange?.(!pressed);
+  };
+
   return createElement("button", {
     ...props,
     type,
     "data-slot": "toggle",
     "data-state": pressed ? "on" : "off",
     "aria-pressed": pressed,
-    onClick: (event) => {
-      onClick?.(event);
-      if (!event.defaultPrevented) onPressedChange?.(!pressed);
-    },
+    onClick: handleClick,
     className: cn(
       "inline-flex h-9 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-muted hover:text-muted-foreground data-[state=on]:bg-accent data-[state=on]:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-ring/40",
       className,
