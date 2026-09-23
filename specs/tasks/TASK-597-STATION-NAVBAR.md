@@ -1,7 +1,7 @@
 ---
 id: TASK-597
 title: Compose Station Navbar and truthful shell context
-status: ready
+status: completed
 priority: 597
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -72,3 +72,6 @@ Task-local regression coverage, repository verification, architecture checks and
 
 # Escalation
 Stop if completion requires canonical truth, authorization decisions, provider/domain effects, deploy/storage/workflow/agent implementation, or bypassing the declared package layering.
+
+# Completion evidence
+Implemented source-owned `packages/station-shell` Navbar and composed it from `apps/station`. Current context is derived from the active WindowDefinition (or Desktop), Core remains explicitly disconnected, Home/Settings are presentation launch actions, and Search/Commands are visible but disabled until TASK-598 supplies their presentation command surface. Product proof guards semantic icons, chrome slots and forbidden authority imports.
