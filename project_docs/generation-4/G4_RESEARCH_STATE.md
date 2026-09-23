@@ -10,6 +10,18 @@ Generation 4 follows G3 architectural closure and studies how the System Builder
 
 This file is the compact consolidated state. Detailed evidence, adversarials, trade-offs and source-specific findings live in the dedicated documents under `project_docs/generation-4/research/`; compaction here does not supersede those durable research artifacts.
 
+## Implementation sequencing directive
+
+Repository-owner direction dated 2026-09-23:
+
+- the immediate product priority is the **Station visual/application environment**;
+- Palantir-derived and other newly discovered architecture/operations enhancements are recorded as **deferred improvements** unless they expose a correctness/security blocker for the visual work;
+- research may continue, but research findings do not self-promote into implementation authority;
+- deferred Core/Agent/infra improvements are reconsidered only after the visual milestone through a fresh Planning & Materialization gate;
+- the Palantir-specific backlog is `research/palantir/PALANTIR_DEFERRED_IMPROVEMENT_BACKLOG.md`.
+
+This directive changes sequencing, not constitutional architecture. Existing runtime autonomy, anti-lock-in, authority, currentness and evidence invariants remain binding.
+
 ## Current research families
 
 1. Product UX, Living Canvas & AI-native Builder interaction.
