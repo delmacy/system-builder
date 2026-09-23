@@ -28,6 +28,32 @@ No daedalOS source code is copied by TASK-588. If a later task copies or substan
 | daedalOS visual identity/theme | DISCARD | SB semantic design tokens own product identity |
 | daedalOS backend assumptions | DISCARD | Station uses Station SDK/Gateway/Core boundaries |
 
-## Revalidation gate
+## TASK-593 revalidation
 
-TASK-593 must re-read this record, inspect the exact upstream files/patterns it intends to adapt and update attribution before importing any upstream code.
+Inspected against upstream `main` on 2026-09-23:
+
+- `components/system/Window/RndWindow/index.tsx`
+- `components/system/Window/RndWindow/useRnd.ts`
+- `components/system/Window/RndWindow/useDraggable.ts`
+- `components/system/Window/RndWindow/useResizable.ts`
+- `components/system/Window/index.tsx`
+
+Observed transferable patterns:
+
+- controlled window position/size;
+- drag and resize interaction translated into state updates;
+- focus coupled to foreground/z-order interaction;
+- bounds validation before state commit;
+- minimized windows removed from interaction/render participation.
+
+TASK-593 **does not copy upstream daedalOS source**. It reimplements these interaction ideas against SB `WindowInstance` / `WindowAction` contracts using native Pointer Events. `react-rnd` therefore remains a deferred provider candidate rather than an M1 dependency.
+
+Explicitly rejected from the inspected upstream path:
+
+- `useProcess` / process authority;
+- `useSessionActions` / session-owned window truth;
+- filesystem/app semantics;
+- styled-components theme identity;
+- iframe/process element linking.
+
+Because no daedalOS source is copied or substantially derived in TASK-593, no additional MIT source notice is required beyond this adoption record. Any future copied code must carry the applicable upstream notice.
