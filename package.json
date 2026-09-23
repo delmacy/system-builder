@@ -38,14 +38,14 @@
     "verify": "npm run lint && npm run typecheck && npm run test && npm run check:tasks && npm run check:architecture && npm run check:docs && npm run build",
     "factory:e2e": "tsx scripts/factory-e2e.ts",
     "factory:bootstrap": "tsx scripts/factory-operator-bootstrap.ts",
-    "station:dev": "next dev apps/station/web",
-    "station:build": "next build apps/station/web",
+    "station:dev": "next dev apps/station/web --webpack",
+    "station:build": "next build apps/station/web --webpack",
     "station:start": "next start apps/station/web"
   },
   "dependencies": {
     "yaml": "^2.8.1",
     "zod": "^4.0.0",
-    "next": "15.5.9",
+    "next": "16.3.6",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
