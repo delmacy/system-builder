@@ -326,7 +326,8 @@ export function normalizeStationProjection(input: unknown, expectedQuery?: Stati
   return normalized;
 }
 
-export function stationProjectionEstablishesCanonicalTruth(_projection: StationProjection): false {
+export function stationProjectionEstablishesCanonicalTruth(projection: StationProjection): false {
+  void projection;
   return false;
 }
 
