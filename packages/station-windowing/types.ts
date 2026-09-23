@@ -1,4 +1,4 @@
-import type { IconToken } from "../ui-icons/index.js";
+import type { IconToken } from "@system-builder/ui-icons";
 
 export type WindowLifecycle = "OPEN" | "MINIMIZED" | "CLOSED";
 export type WindowMode = "NORMAL" | "MAXIMIZED" | "SNAPPED";
