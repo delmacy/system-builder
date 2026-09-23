@@ -1,7 +1,7 @@
 ---
 id: TASK-591
 title: Establish Station command shortcut focus and selection runtime
-status: blocked
+status: completed
 priority: 591
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -42,7 +42,7 @@ All shell controls should invoke commands; visibility does not grant Core author
 Station has protocol operations but no UI command registry or shortcut/focus model.
 
 # Required change
-Add CommandDefinition/Registry, execution context, availability predicate, keyboard shortcut mapping, focus identity and minimal selection context for presentation commands.
+Add a PresentationCommandDefinition/Registry, execution context, fail-closed availability predicate, deterministic keyboard shortcut mapping, focus identity and minimal selection context for presentation commands. Define CoreCommandIntent only as a non-executable future routing descriptor so presentation controls cannot bypass Station SDK/Core authority.
 
 # Inputs / contracts
 ADR-0017; existing StationApplication remains separate for Core work.
@@ -57,7 +57,7 @@ Multiple controls can invoke the same command; unavailable command cannot be str
 No business authorization engine, Undo/Redo semantics, command palette UI or AI invocation.
 
 # Evidence expected
-Registry, availability and shortcut conflict tests.
+Registry invocation/availability tests, shortcut normalization/conflict tests, focus/selection normalization tests, and explicit rejection of Core intents by the presentation registry.
 
 # Escalation
 Stop if the UI command layer begins deciding business authorization or bypassing Station SDK.
