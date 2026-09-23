@@ -4,13 +4,24 @@ import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 
 import { Badge, Button } from "../../../../packages/ui-core/index";
 import { StationIcon } from "../../../../packages/ui-icons/index";
-import { StationNavbar } from "../../../../packages/station-shell/index";
+import {
+  StationCommandSurface,
+  StationNavbar,
+  type CommandSurfaceMode,
+} from "../../../../packages/station-shell/index";
+import {
+  PresentationCommandRegistry,
+  focusTarget,
+  interactionContext,
+  selectionContext,
+} from "../../../../packages/station-interaction/index";
 import {
   M1_UTILITY_APPS,
   StationAppRegistry,
 } from "../../../../packages/station-app-runtime/index";
 import {
   WindowFrame,
+  createWindowPresentationCommands,
   createWindowRuntimeState,
   reduceWindowRuntime,
   type WindowDefinition,
@@ -49,7 +60,18 @@ export function StationFoundationClient() {
   const [presentation, setPresentation] = useState<StationPresentationState>(
     DEFAULT_STATION_PRESENTATION_STATE,
   );
+  const [commandSurfaceExpanded, setCommandSurfaceExpanded] = useState(false);
+  const [commandSurfaceMode, setCommandSurfaceMode] =
+    useState<CommandSurfaceMode>("commands");
   const desktopRef = useRef<HTMLElement | null>(null);
+  const commandRegistry = useMemo(() => {
+    const commands = new PresentationCommandRegistry();
+    for (const command of createWindowPresentationCommands(dispatch)) {
+      commands.register(command);
+    }
+    return commands;
+  }, [dispatch]);
+
   const storage = useMemo(
     () =>
       typeof window === "undefined"
@@ -186,6 +208,19 @@ export function StationFoundationClient() {
       ? undefined
       : definitionFor(activeWindow, windows.definitions);
   const currentContext = activeDefinition?.title ?? "Desktop";
+  const commandContext = interactionContext({
+    focus:
+      activeWindow === undefined
+        ? null
+        : focusTarget("window", activeWindow.windowRef),
+    selection: selectionContext(),
+    surfaceRef: "station:desktop",
+  });
+
+  const openCommandSurface = (mode: CommandSurfaceMode) => {
+    setCommandSurfaceMode(mode);
+    setCommandSurfaceExpanded(true);
+  };
 
   return (
     <main
@@ -198,8 +233,23 @@ export function StationFoundationClient() {
           <StationNavbar
             connection="disconnected"
             contextLabel={currentContext}
+            commandAvailable
+            searchAvailable
+            onCommand={() => openCommandSurface("commands")}
             onHome={() => openApp("app:welcome")}
+            onSearch={() => openCommandSurface("search")}
             onSettings={() => openApp("app:settings")}
+          />
+        ) : null}
+
+        {presentation.shell.toolbarVisible ? (
+          <StationCommandSurface
+            connection="disconnected"
+            context={commandContext}
+            expanded={commandSurfaceExpanded}
+            mode={commandSurfaceMode}
+            onExpandedChange={setCommandSurfaceExpanded}
+            registry={commandRegistry}
           />
         ) : null}
 
