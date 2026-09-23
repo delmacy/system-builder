@@ -6,360 +6,273 @@ Date: 2026-09-23
 
 ## Scope
 
-Continuation of `G4_EDITOR_IMPACT_GRAPH_EVIDENCE_INVALIDATION_RESEARCH.md`, focused on three remaining cross-app gaps: verifier qualification/replacement, evidence retention/privacy, and scalable findings/contradiction/conformance UX. This is P&D documentation only. It creates no implementation, provider, WBS, Work Package, Sprint or TASK authority.
+Continuation of `G4_EDITOR_IMPACT_GRAPH_EVIDENCE_INVALIDATION_RESEARCH.md`, focused on cross-app verifier qualification/replacement, evidence retention/privacy, scalable findings/conformance UX, privacy-safe correlation, retention-policy conflicts, and verifier trust-root/bootstrap. This is P&D documentation only. It creates no implementation, provider, WBS, Work Package, Sprint or TASK authority.
 
-The findings preserve the current Builder UX hierarchy `Builder Home/Factory -> Client -> Workspace -> Desktop Sphere -> Application -> Window -> View/Tab/Tool`, with 3D as an optional future projection/application rather than a mandatory shell.
+The findings preserve `Builder Home/Factory -> Client -> Workspace -> Desktop Sphere -> Application -> Window -> View/Tab/Tool`; 3D remains an optional future projection/application rather than mandatory shell.
 
-## Evidence classes reviewed
+## Established findings F79–F92 (retained)
 
-- OpenTelemetry guidance on sensitive data: telemetry can contain PII, credentials, tokens, financial, health and behavior data; collection should be purpose-limited and minimized, with filtering/redaction/transformation where needed.
-- W3C WCAG/WAI status-message guidance: `role=status` is polite/advisory, errors may use alert/live-region mechanisms, and excessive live-region use can make applications too chatty. Dynamic status should be programmatically determinable without forcing focus changes.
-- Privacy-preserving process-mining literature: event logs and case attributes can expose sensitive information; privacy-preserving transformations are an active research area. This reinforces that conformance evidence is not a retention exemption.
-- Existing G4 invariants: `Verifier installed != verifier qualified`, verifier replacement is a trust transition; `Evidence sufficient != payload retained`; `Proof verification != re-solving`; `UNKNOWN` is not permission to guess; effect truth, observation completeness and path conformance remain separate.
+The preceding research established: verifier identity/version/currentness is a qualified semantic dependency; verifier replacement is a trust transition; historical interpretation, current admissibility and requalification are separate; evidence retention is claim/purpose-scoped; disclosure views distinguish `REDACTED`, `NOT_RETAINED`, `UNKNOWN`, `NOT_APPLICABLE`, `NOT_AUTHORIZED_TO_VIEW`; deletion may preserve a minimal proof envelope; human-task evidence requires field-level minimization; conformance datasets are derived evidence products; findings use attention semantics and minority-critical aggregation; Status/Activity is durable while toast/live-region is transient; finding lifecycle includes supersession/stale basis; counterfactual conformance never overwrites historical conformance.
 
-These sources are pattern evidence only; no technology/provider adoption is implied.
+## Additional evidence reviewed
 
-## F79 — Verifier identity is a qualified semantic dependency, not an implementation detail
+- Process-mining privacy research reports substantial re-identification risk because event traces, timestamps and attributes can be linkable even after obvious identifiers are removed. Therefore pseudonymization alone is not proof of anonymity.
+- Privacy-preserving process-mining research uses approaches such as differential privacy/subsampling, reinforcing that analytical utility and identity disclosure are separate dimensions.
+- Records-management guidance treats legal hold as a scoped suspension of ordinary disposition, not as a permanent exemption from minimization/deletion; release of the hold must restore ordinary lifecycle handling.
+- Attestation/provenance patterns distinguish signed claim/envelope from the trust anchor used to decide whether an issuer/verifier is acceptable. Trust anchors are scope-bound and require lifecycle/revocation semantics.
 
-A validator/verifier that can turn evidence into `PASS`, `EFFECTIVE`, `CONFORMANT` or another authoritative disposition belongs to the trusted qualification basis.
+These are pattern evidence only; no vendor, legal regime or implementation is adopted by this research.
 
-Candidate:
+## F93 — Correlation identity is a governed capability, not a harmless technical key
 
-```text
-VerifierQualification
-  verifierSemanticId
-  implementationDigest
-  contractVersion
-  supportedClaimKinds[]
-  acceptedInputEvidenceKinds[]
-  outputDispositionKinds[]
-  trustDomain
-  qualificationBasisRefs[]
-  qualificationScope
-  effectiveFrom
-  effectiveUntil?
-  status = CANDIDATE | QUALIFIED | RESTRICTED | SUSPENDED | RETIRED | UNKNOWN
-```
-
-`verifier executable != verifier qualified`.
-
-The editor infrastructure may discover/install an implementation, but that event cannot silently authorize its outputs as proof.
-
-## F80 — Verifier replacement is a trust transition with explicit proof-compatibility semantics
-
-Replacing V1 with V2 does not automatically stale every historical proof, nor may V2 silently reinterpret V1 results.
-
-Candidate compatibility:
+A stable case identifier that allows Workflow, Effect Lineage, Forms and Evidence to be joined can itself create linkability. Correlation therefore needs an explicit contract.
 
 ```text
-VerifierTransition
-  fromVerifierRef
-  toVerifierRef
-  relation = OUTPUT_EQUIVALENT_FOR_SCOPE |
-             STRICTER |
-             WEAKER |
-             INCOMPARABLE |
-             BUGFIX_REQUIRES_REQUALIFICATION |
-             UNKNOWN
-  claimScope
-  evidenceMigrationPolicy
-  historicalInterpretationPolicy
-  newAdmissionPolicy
-```
-
-Historical evidence remains bound to the verifier that produced it. New qualification may require V2 without rewriting history. If equivalence cannot be proven, disposition widens to requalification/UNKNOWN rather than assumed compatibility.
-
-## F81 — Verifier qualification itself requires evidence and currentness
-
-A verifier can become inadmissible because trust material expires, a vulnerability is discovered, policy changes, its semantic contract is superseded, or a defect is found.
-
-Candidate:
-
-```text
-VerifierCurrentness
-  qualificationRef
-  securityCurrentness
-  semanticCurrentness
-  policyCurrentness
-  trustMaterialCurrentness
-  defectAdvisories[]
-  disposition = CURRENT | STALE | REVOKED | UNKNOWN
-```
-
-This creates a recursive-looking problem, but not an infinite regress: the trust root/qualification authority must be explicit and bounded by policy. UI must show the basis rather than pretending that every verifier proves itself.
-
-## F82 — Historical interpretation, current admissibility and requalification are three separate questions
-
-For an old proof produced by V1:
-
-1. **Historical interpretation:** what did V1 claim under the then-current contract?
-2. **Current admissibility:** may that proof still satisfy today's gate/policy?
-3. **Requalification:** can retained evidence be evaluated by V2 without recollecting sensitive/raw payload?
-
-`historically valid != currently admissible`.
-
-This matters to Revision/Diff, Publish qualification, Effect Lineage and Designed-vs-Observed.
-
-## F83 — Evidence retention is claim/purpose-scoped; evidence sufficiency does not imply raw-payload retention
-
-Introduce a retention contract separate from truth semantics.
-
-```text
-EvidenceRetentionContract
-  evidenceKind
-  purpose/claimKinds[]
-  classification
-  retentionHorizon
-  minimumRequiredFields[]
-  prohibitedFields[]
-  redaction/pseudonymizationPolicy
-  aggregationPolicy?
-  legalHoldPolicy?
-  deletion/tombstoneSemantics
-  disclosurePolicy
-  requalificationRequirements
-```
-
-A conformance proof may need semantic activity identity, ordering and timestamps without retaining free-text human-task notes. An effect proof may retain receipt identity/digest and authoritative disposition without retaining an entire provider payload.
-
-`proof continuity != payload continuity`.
-
-## F84 — Evidence projections use disclosure views rather than mutating canonical historical facts
-
-Revision/Diff, Effect Lineage, Designed-vs-Observed, Inspector and Elicitation may expose different disclosure-safe projections of the same evidence reference.
-
-Candidate:
-
-```text
-EvidenceDisclosureView
-  evidenceRef
-  viewerContext
-  allowedClaims[]
-  disclosedFields[]
-  redactedFields[]
-  aggregateOnlyFields[]
-  reasonCodes[]
-```
-
-Redaction does not mean the hidden value is null/absent. UI must distinguish `REDACTED`, `NOT_RETAINED`, `UNKNOWN`, `NOT_APPLICABLE` and `NOT_AUTHORIZED_TO_VIEW`.
-
-## F85 — Deletion can preserve a proof envelope without preserving sensitive payload
-
-Where policy permits, deletion may leave a minimal tombstone/proof envelope:
-
-```text
-EvidenceTombstone
-  formerEvidenceSemanticId
-  claimKinds[]
-  retainedDigest?
-  dispositionAtDeletion?
-  verifierRef?
-  deletionReason
-  deletedAt
-  retentionPolicyRef
-  requalificationPossible = YES | NO | PARTIAL | UNKNOWN
-```
-
-This supports auditability of why a historical decision existed without claiming the deleted payload remains available. If a future validator needs fields that were legitimately deleted, requalification becomes `IMPOSSIBLE_FROM_RETAINED_EVIDENCE` rather than fabricating currentness.
-
-## F86 — Human-task evidence requires field-level minimization and purpose separation
-
-Human tasks are especially likely to contain free text, identity, attachments and sensitive context. The Workflow Designer should declare required evidence fields separately from optional operator notes and UI convenience metadata.
-
-Candidate classes:
-
-```text
-DECISION_FACT
-AUTHORITY_ATTESTATION
-REQUIRED_JUSTIFICATION
-OPTIONAL_NOTE
-ATTACHMENT
-IDENTITY_REFERENCE
-TIMING_EVIDENCE
-```
-
-Only claim-required classes should automatically enter durable proof lineage. `human task completed != retain every UI field forever`.
-
-## F87 — Process-mining/conformance datasets are derived evidence products with their own privacy basis
-
-`event log != raw runtime exhaust`.
-
-A `ConformanceDataset` should declare extraction basis, mapping revision, included fields, case/correlation strategy, pseudonymization/aggregation, observation completeness and retention horizon. This prevents a convenient process-mining export from becoming an unbounded secondary archive of production data.
-
-## F88 — Findings UX needs an attention model independent of finding count
-
-Thousands of stale claims or conformance deviations cannot become thousands of toasts/live announcements.
-
-Candidate:
-
-```text
-AttentionDisposition
-  SILENT_INDEXED
-  SUMMARY_STATUS
-  REVIEW_REQUIRED
-  BLOCKING_ACTION_REQUIRED
-  IMMEDIATE_CRITICAL
-```
-
-Classification uses materiality, actionability, authority, currentness, novelty and scope. Count alone does not determine urgency.
-
-`many findings != many interruptions`.
-
-W3C guidance supports polite status updates for advisory state and warns against overly chatty live-region usage. Critical errors can use assertive/error mechanisms; ordinary background recomputation should be summarized.
-
-## F89 — Finding aggregation preserves minority-critical truth
-
-Aggregation dimensions may include claim kind, root cause, semantic owner, revision, workspace/app, affected scope, remediation kind and currentness.
-
-Rules:
-
-- `999 PASS + 1 BLOCKING != PASS`;
-- `1000 stale findings caused by one schema revision` should surface the root cause plus affected-set drill-down;
-- aggregation may compress presentation, never semantic disposition;
-- hidden/redacted affected members contribute to aggregate severity without disclosing identities;
-- deduplication uses semantic finding identity/basis, not message text.
-
-This extends `Aggregation != silent omission` from scene rendering into validation/conformance UX.
-
-## F90 — Status/Activity is the durable attention surface; toast/live region is a transient projection
-
-Cross-app operations, qualification runs and conformance analyses should project into a durable Status/Activity model. Toasts and ARIA announcements are derived delivery channels.
-
-Candidate announcement policy:
-
-```text
-AnnouncementPolicy
-  SILENT
-  POLITE_SUMMARY
-  ASSERTIVE_FAILURE
-  PERSISTENT_REVIEW_REQUIRED
-```
-
-Progress can update visually at high frequency while assistive announcements are rate-limited/coalesced to semantically meaningful transitions. Focus should not be stolen merely because a background qualification changed state.
-
-## F91 — Findings carry lifecycle and supersession, not only open/closed
-
-Candidate:
-
-```text
-FindingLifecycle
-  OPEN
-  ACKNOWLEDGED
-  REMEDIATING
-  RESOLVED
-  SUPERSEDED
-  ACCEPTED_EXCEPTION
-  STALE_BASIS
-  UNKNOWN
-```
-
-Resolution evidence is retained separately from finding identity. A later validator revision may supersede a finding without erasing that it affected a prior publish decision.
-
-## F92 — Counterfactual conformance must never overwrite historical conformance
-
-Comparing cases executed under Workflow rev 41 against rev 42 is a new analytical product:
-
-```text
-CounterfactualConformanceRun
-  historicalRunRef
-  targetWorkflowRevisionRef
-  targetObservationMappingRevisionRef
+CorrelationContract
+  correlationSemanticId
   purpose
-  assumptions[]
-  comparabilityQualification
-  findings[]
+  sourceDomains[]
+  targetAnalyses[]
+  keyDerivationClass = DIRECT | PSEUDONYMOUS | SCOPED_TOKEN | EPHEMERAL | AGGREGATE_ONLY
+  scope
+  rotationPolicy?
+  joinPermissions[]
+  disclosurePolicy
+  retentionHorizon
+  reidentificationRiskClass
 ```
 
-It answers “how would these historical observations align with rev 42?” rather than “what was true when they ran?”. This may support Elicitation, but does not rewrite original Effect Lineage or conformance truth.
+`pseudonymous != anonymous` and `joinable != authorized-to-join`.
 
-## Cross-app semantic bridge impact
+The Workflow Designer may declare semantic case/correlation requirements, but Evidence/Conformance infrastructure owns privacy-safe realization. UI must not encourage copying production identifiers into arbitrary analysis exports.
 
-The bridge becomes:
+## F94 — Correlation should be purpose- and domain-scoped by default
+
+A universal cross-system correlation ID makes analysis easy but creates an unnecessary identity graph. Prefer scoped tokens whose equality is meaningful only inside an authorized purpose/domain boundary.
+
+Examples:
+
+- operational Workflow correlation may need durable case continuity;
+- conformance analysis may use a derived case token;
+- aggregate UX metrics may require no per-case join at all;
+- external evidence may retain a receipt digest/link without exposing customer identity.
+
+Cross-purpose linking becomes an explicit privileged operation with evidence of basis, not an accidental property of identifiers.
+
+## F95 — Correlation currentness and observation completeness are separate
+
+A valid correlation mapping can still be incomplete, and a complete-looking dataset can use stale mapping semantics.
+
+```text
+CorrelationQualification
+  mappingRevisionRef
+  basisRevisionRefs[]
+  coverage = COMPLETE | PARTIAL | ESTIMATED | UNKNOWN
+  currentness = CURRENT | STALE | UNKNOWN
+  ambiguityCount?
+  unresolvedCount?
+  disclosureLimitedCount?
+```
+
+`correlated != complete`, `uncorrelated != absent`, and `UNKNOWN correlation != different case`.
+
+This protects Designed-vs-Observed from manufacturing deviations when events simply could not be safely or unambiguously correlated.
+
+## F96 — Privacy-safe conformance needs a linkability budget, not only field redaction
+
+Removing names while retaining rare event sequences, exact timestamps, resources and attributes may leave cases re-identifiable. A `ConformanceDataset` therefore needs a disclosure/linkability assessment in addition to a field allowlist.
+
+Candidate dimensions include timestamp precision, rare-trace exposure, attribute uniqueness, cross-dataset joinability, cohort size and whether case tokens are reusable outside the analysis scope.
+
+The editor UX should show `analysis utility` and `disclosure risk` as independent qualifications. High utility does not imply acceptable disclosure.
+
+## F97 — Retention conflicts require an explicit policy-resolution artifact
+
+Legal hold, ordinary retention, privacy deletion requests, contractual proof obligations and security preservation can legitimately point in different directions. The frontend must not resolve that conflict by whichever job executes last.
+
+```text
+RetentionDecision
+  evidenceRef/affectedSet
+  applicablePolicyRefs[]
+  requestedDisposition
+  resolvedDisposition = DELETE | REDACT | DEIDENTIFY | RETAIN_SCOPED | HOLD | UNKNOWN
+  authorityBasisRef
+  scope
+  effectiveFrom
+  review/releaseCondition?
+  decisionEvidenceRef
+```
+
+This is governance evidence, not legal advice. The system records the basis supplied by the governing policy/authority rather than inventing legal precedence.
+
+## F98 — Legal hold overlays normal lifecycle; it does not rewrite the original retention contract
+
+A hold suspends affected disposition while active. It should be scope-bound, attributable, reviewable and releasable. When released, the underlying retention/deletion lifecycle resumes; the held object does not silently acquire indefinite retention.
+
+`HOLD != RETAIN_FOREVER`.
+
+A hold may preserve only a subset of fields/evidence when the governing basis permits. Unrelated data remains subject to its own minimization lifecycle.
+
+## F99 — Deletion request and proof obligation can produce partial disposition rather than binary keep/delete
+
+Where policy permits, a proof envelope may survive while payload/identity/free text is deleted or deidentified. Conversely, if a claim genuinely requires retained source material, deleting it can make future requalification impossible.
+
+The UI must expose both outcomes:
+
+- `payload removed; historical proof envelope retained`;
+- `requalification no longer possible from retained evidence`.
+
+A digest is evidence of integrity/identity only to the extent its provenance and binding are known; `digest retained != semantic proof retained`.
+
+## F100 — Trust bootstrap must terminate in explicit trust anchors and policy, not verifier self-assertion
+
+Verifier qualification cannot recurse forever. The chain terminates at configured trust anchors/qualification authorities whose acceptance is itself governed by policy.
+
+```text
+VerifierTrustDomain
+  trustDomainId
+  anchorRefs[]
+  acceptedCredential/attestationKinds[]
+  acceptedIssuerScopes[]
+  revocation/currentnessPolicy
+  delegationDepthPolicy
+  crossDomainBridgePolicies[]
+  effectiveWindow
+```
+
+`signature valid != issuer trusted != claim authorized-for-scope`.
+
+A verifier can be cryptographically authentic yet not qualified to decide a particular claim kind.
+
+## F101 — Cross-trust-domain qualification is a bridge, not transitive trust by default
+
+If Client A trusts verifier VA and Factory trusts verifier VF, acceptance of VA output by Factory requires an explicit bridge policy describing claim scope, issuer/verifier constraints, currentness and evidence requirements.
+
+```text
+TrustBridgeQualification
+  sourceTrustDomain
+  targetTrustDomain
+  acceptedClaimKinds[]
+  acceptedVerifierScopes[]
+  transformation/reverificationRequirements[]
+  currentnessPolicy
+  status = QUALIFIED | RESTRICTED | SUSPENDED | REVOKED | UNKNOWN
+```
+
+`A trusts B && B trusts C` does not imply `A trusts C` unless policy explicitly grants that transitivity.
+
+## F102 — Revocation is time-sensitive and claim-relative
+
+A trust anchor, verifier credential or bridge can be revoked for future admission without erasing what was historically accepted. Conversely, compromise may require retrospective review for a bounded interval.
+
+Candidate disposition:
+
+```text
+TrustRevocationImpact
+  affectedTrustRef
+  effectiveAt
+  reasonClass
+  newAdmission = REJECT | RESTRICT | UNKNOWN
+  historicalReviewWindow?
+  affectedClaimKinds[]
+  requalificationPolicy
+```
+
+Revision/Diff and Findings should explain whether an old proof is merely no longer admissible for new publication or is actively under retrospective review.
+
+## F103 — Shared editor infrastructure needs a Trust/Evidence Inspector, not trust logic duplicated per app
+
+Workflow, Componentes, Form, View, Rules, Preview and Revision/Diff all need to answer variants of: which verifier proved this, under which trust domain, with what evidence/currentness/disclosure? This should be a shared inspector/projection contract.
+
+It must remain projection-only: Workflow does not become owner of verifier trust; Componentes does not become owner of retention; Preview does not become authority.
+
+## F104 — Accessibility and non-drag operation apply to trust/privacy remediation too
+
+High-risk findings such as ambiguous correlation, expired verifier qualification, held evidence or disclosure-limited proof must be operable through keyboard/list/tree/Inspector flows. Drag/drop cannot be the exclusive means to rebind evidence, move a finding to a remediation set or inspect a trust chain.
+
+Focus restoration must target the semantic finding/evidence/trust object after filtering or reconciliation, not a vanished visual row.
+
+## Semantic-bridge impact
+
+The cross-app chain now becomes:
 
 ```text
 Artifact revisions
-  -> typed bindings
-  -> PublishBundle qualification
-  -> qualified verifier set
-  -> Preview/authorization evidence
-  -> publish/effect occurrences
-  -> runtime authoritative verification
-  -> retention/disclosure-safe evidence
-  -> Designed-vs-Observed / conformance
-  -> findings/attention projections
-  -> Elicitation proposals
+ -> typed bindings
+ -> PublishBundle qualification
+ -> VerifierTrustDomain / qualified verifier set
+ -> Preview/authorization evidence
+ -> publish/effect occurrences
+ -> authoritative effect verification
+ -> EvidenceRetentionContract + RetentionDecision
+ -> privacy-safe CorrelationContract
+ -> ConformanceDataset / Designed-vs-Observed
+ -> findings/attention projections
+ -> Elicitation proposals
 ```
 
-Ownership remains separated:
+Ownership remains separated. Workflow owns process semantics and declares correlation/evidence requirements; interaction editors own their artifacts; Command/Action owns effect intent; Permission/Policy owns authority; trust-domain policy determines verifier admissibility; Evidence owns proof lineage subject to retention/disclosure; Conformance consumes purpose-scoped derived datasets; Revision/Diff projects history/impact/effect/conformance; Elicitation may propose changes but cannot mutate owners automatically.
 
-- Workflow owns designed process semantics;
-- View/Form/Component own interaction artifacts;
-- Command/Action owns effect intent/contract;
-- Permission/Policy owns authority semantics;
-- verifier qualification governs which verifier outputs are admissible for which claims;
-- Evidence stores/projections preserve proof lineage subject to retention/disclosure policy;
-- Revision/Diff projects history/impact/effect/conformance;
-- Elicitation may consume findings but does not mutate owners automatically.
+## New adversarial/proof scenarios
 
-## Complete-task/adversarial scenarios
-
-1. **Verifier security retirement:** V1 produced historical PASS; V1 later revoked for new admission. Historical record stays attributable to V1; current publish gate requires V2/requalification.
-2. **Verifier semantic change:** V2 changes a rule and finds a former PASS invalid. The old decision remains historical; affected current claims become stale/requalified rather than history being rewritten.
-3. **Evidence deleted before new verifier:** V2 requires a field legitimately removed by retention policy. Result is `IMPOSSIBLE_FROM_RETAINED_EVIDENCE`/UNKNOWN, not reconstructed fiction.
-4. **Human approval with sensitive note:** approval identity/time/authority are durable evidence; optional free-text note expires earlier. Effect lineage remains interpretable without retaining the note indefinitely.
-5. **Conformance export:** process-mining dataset includes only declared case/activity/lifecycle/timing fields; raw form payload and unrelated identity attributes are excluded.
-6. **10,000 stale claims from one schema change:** UI shows one root-cause summary with exact/qualified affected scope and drill-down, not 10,000 notifications.
-7. **One blocking contradiction among 999 informational findings:** aggregate remains blocking/review-required; minority critical state is not averaged away.
-8. **Background qualification completes while editing:** Status/Activity updates and polite summary may announce completion; editor focus/draft remain untouched.
-9. **Disclosure-limited affected set:** reviewer sees `37 affected / 5 identities restricted`; restricted members still influence severity and qualification.
-10. **Counterfactual workflow comparison:** historical cases from rev 41 are compared to rev 42 only in a separately labeled counterfactual run; original conformance remains pinned to 41.
+1. Two datasets use the same pseudonymous case token and unexpectedly become cross-joinable: disclosure qualification must detect linkability rather than calling both anonymous.
+2. A conformance event has no safe correlation candidate: classify unresolved/UNKNOWN; do not invent a process deviation.
+3. A deletion request arrives while a scoped legal hold is active: create a RetentionDecision showing held scope and continue deletion/minimization for unrelated fields where policy permits.
+4. A hold is released after normal retention already expired: disposition resumes immediately according to underlying policy; do not start a fresh full retention period silently.
+5. Only a digest/tombstone remains: integrity of the former evidence reference may be checkable while semantic requalification is impossible.
+6. Verifier binary has a valid signature from an unaccepted issuer: authentic implementation, unqualified proof producer.
+7. Verifier is trusted for accessibility claims but not authority/effect claims: acceptance is claim-scoped.
+8. Client trust domain accepts a verifier that Factory does not: cross-domain bridge must qualify or result remains restricted/UNKNOWN.
+9. Trust credential is revoked today after historical proofs: new admission fails; historical records remain attributable, with retrospective review only if policy requires it.
+10. Correlation mapping revision changes after a conformance run: historical run stays pinned; new mapping creates a new/counterfactual run.
+11. Rare workflow trace is uniquely identifying despite removed names: export requires aggregation/generalization or is blocked by disclosure policy.
+12. Privacy remediation removes optional human-task notes while retaining decision/authority/time proof classes: workflow audit remains interpretable without the free text.
 
 ## Componentization / complexity impact
 
-- **P0 LOW/MEDIUM — shared primitives:** verifier/currentness badges, redacted/not-retained/unknown distinctions, finding severity/lifecycle, attention disposition.
-- **P1 MEDIUM/HIGH — editor infrastructure:** VerifierQualification browser, retention/disclosure projection, findings aggregation/index, Status/Activity announcement policy, counterfactual-run viewer.
-- **P2 HIGH/VERY HIGH — proprietary apps:** Workflow declares evidence requirements/observation mappings; Componentes catalogs proof/test refs without retaining unnecessary payload; Preview exposes verifier/basis; Revision/Diff projects verifier transition, retention gaps and counterfactual conformance.
-- **P3 EXTREME — cross-app semantic integration:** verifier trust transition, selective requalification after verifier change, proof continuity across deletion/redaction, privacy-safe process mining, minority-critical aggregation and current admissibility of historical evidence.
+- **P0 LOW/MEDIUM — shared primitives:** correlation coverage/currentness, trust badges, hold/deletion/redaction distinctions, linkability-risk indicators.
+- **P1 MEDIUM/HIGH — editor infrastructure:** Trust/Evidence Inspector, Correlation Browser, RetentionDecision projection, disclosure-risk summary, trust-chain/revocation viewer.
+- **P2 HIGH/VERY HIGH — proprietary apps:** Workflow declares correlation/evidence requirements; Preview shows trust/evidence basis and simulation substitutions; Revision/Diff projects trust transitions/retention decisions; Elicitation consumes privacy/conformance findings without auto-mutation.
+- **P3 EXTREME — cross-app semantic integration:** privacy-safe correlation across domains, policy-conflict resolution evidence, trust bootstrap/bridges/revocation, historical-vs-current admissibility, requalification after minimization/deletion.
 
-Hotspots for future WBS (not executable planning): verifier trust-root boundaries; compatibility proof between verifier versions; requalification when source evidence has expired; privacy-safe correlation; aggregation semantics under disclosure restrictions; high-cardinality finding indexes.
+Hotspots for future WBS, still non-executable: scoped-token lifecycle/rotation; correlation ambiguity at scale; policy precedence supplied by governance; trust-anchor rollover/recovery; cross-domain bridge explosion; revocation fan-out; disclosure-risk estimation.
 
-## Componentes metadata candidates
+## Componentes metadata candidates — delta
 
 ```text
-verifierRequirementRefs[]
-verifierCompatibilityPolicy?
-evidenceRetentionContractRef?
-evidenceDisclosurePolicyRef?
-requiredEvidenceFieldClasses[]
-attentionDispositionPolicy?
-findingAggregationDimensions[]
-announcementPolicy?
-counterfactualAnalysisSupported?
+correlationRequirementRefs[]
+correlationPurposeScopes[]
+linkabilityRiskPolicyRef?
+trustDomainRequirementRefs[]
+acceptedVerifierClaimScopes[]
+retentionConflictPolicyRef?
+proofEnvelopePolicyRef?
 ```
+
+These augment rather than duplicate the previously identified verifier/evidence/attention metadata.
 
 ## Research maturity / saturation
 
-`EDITOR_VERIFIER_PRIVACY_FINDINGS_UX = ADVANCED_EMERGING / MATERIAL_DELTA`.
+`EDITOR_VERIFIER_PRIVACY_FINDINGS_UX = ADVANCED / MATERIAL_DELTA`.
 
-High-confidence findings:
+New high-confidence conclusions:
 
-- verifier replacement is a trust transition, not a package upgrade;
-- historical proof interpretation and current admissibility are independent;
-- evidence retention is claim/purpose scoped and raw payload is not automatically durable proof;
-- redacted, not-retained, unknown and unauthorized-to-view are distinct states;
-- conformance datasets are derived evidence products with explicit privacy/retention basis;
-- findings need durable aggregation/attention semantics separate from notification delivery;
-- aggregation preserves minority-critical truth;
-- counterfactual conformance is a separate analysis and never rewrites historical conformance.
+- correlation identity is itself privacy-sensitive and must be purpose/domain scoped;
+- pseudonymization does not by itself remove re-identification/linkability risk;
+- legal hold is an overlay on lifecycle, not permanent retention semantics;
+- deletion/proof conflict can yield scoped partial disposition and explicit loss of requalification capability;
+- verifier trust terminates at explicit policy/trust anchors;
+- cryptographic authenticity, trust and claim-scope authorization are separate;
+- cross-domain trust is not automatically transitive;
+- revocation must distinguish new admission from historical interpretation/retrospective review.
 
 Remaining gaps:
 
-1. empirical graph/finding cardinality budgets and index strategy for 10^3–10^6 claims/findings;
-2. formal verifier trust-root/bootstrap and cross-trust-domain qualification;
-3. retention-policy conflict resolution across legal hold, privacy deletion and proof obligations;
-4. privacy-safe case correlation/linkability boundaries for process mining;
-5. quantitative announcement/coalescing thresholds validated with assistive-technology user testing;
-6. exact semantics for qualification when evidence exists only as a cryptographic digest/tombstone;
-7. editor UX for explaining why a proof is historically valid but no longer currently admissible.
+1. empirical graph/finding/correlation cardinality budgets and index strategy for `10^3–10^6` claims/findings/events;
+2. trust-anchor rollover, disaster recovery and split-brain trust-domain scenarios;
+3. quantitative linkability-risk thresholds and acceptable utility/privacy trade-offs by analysis purpose;
+4. exact UX for policy conflicts requiring human authority without presenting legal conclusions;
+5. cryptographic-digest/tombstone semantics under key rotation or hash-algorithm retirement;
+6. announcement/coalescing thresholds validated with assistive-technology user testing.
 
-Next research vector: **privacy-safe correlation + retention-policy conflicts + verifier trust-root/bootstrap**, followed by empirical scale budgets for impact/conformance/findings indexes.
+Next research vector: **empirical scale budgets for impact/conformance/findings/correlation indexes + trust-anchor rollover/split-brain recovery**, then digest/tombstone longevity under cryptographic agility.
