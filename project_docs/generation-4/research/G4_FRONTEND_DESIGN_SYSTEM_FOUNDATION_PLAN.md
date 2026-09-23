@@ -3156,3 +3156,128 @@ Common tasks should be GUI-first, wizard-first and declarative-first. Terminal/r
 - Binding UI != semantic authority.
 - Wizard convenience != hidden irreversible automation.
 - Terminal availability != terminal requirement.
+
+
+## Desktop-aware Start/Application Hub
+
+Decision status: STRONG_G4_DIRECTION / NON_EXECUTABLE
+
+The Web Desktop should expose a persistent Start-style launcher at the left side of the shell and a Desktop selector nearby. The launcher is one consistent mechanism whose catalog/featured content adapts to the active Desktop Sphere.
+
+~~~
+[Start] [Desktop: Infrastructure v]
+~~~
+
+### Contextual launcher
+
+The Start/Application Hub opens as a compact rectangular panel similar in interaction familiarity to Windows, but organized around System Builder semantics.
+
+Candidate structure:
+
+~~~
+Start / Application Hub
+├─ Search
+├─ Installed
+├─ Catalog
+├─ Favorites / Recent
+├─ Contextual service categories
+└─ Shared/global applications
+~~~
+
+Desktop-specific service categories are hypotheses and can include, for Infrastructure for example:
+- Database Services;
+- VPN Services;
+- Network Services;
+- DNS Services;
+- Storage Services;
+- Observability Services;
+- Automation Services.
+
+Each category may contain:
+- native System Builder applications/services where building natively is justified;
+- supported external products where reuse is preferable;
+- installed instances;
+- installable catalog entries;
+- adopt/connect-existing actions.
+
+Examples are illustrative, not frozen choices: PostgreSQL, Cloudflare, WireGuard, Neutron-like network services, n8n and analogous products.
+
+### Shared/global applications
+
+Some applications should remain discoverable across Desktop Spheres, for example:
+- Control Center / Control Panel;
+- Configuration Manager;
+- Application Manager;
+- Search;
+- Help/Documentation;
+- potentially File Explorer and Terminal depending on authority/policy.
+
+Desktop context may change ranking/visibility/default landing category without creating duplicate application identities.
+
+### Desktop-specific adaptation
+
+~~~
+Infrastructure Desktop
+Start -> Database | VPN | Network | DNS | Storage | Hosts
+
+Experience Desktop
+Start -> Components | Pages | Forms | Themes | Preview
+
+Process Desktop
+Start -> Workflows | Rules | Actions | Jobs | Human Tasks
+
+Data Desktop
+Start -> Databases | Models | Migrations | Documents | Search/Index
+~~~
+
+### Catalog item vs installed instance
+
+Preserve:
+
+~~~
+CatalogApplicationDefinition
+!= InstalledApplicationInstance
+!= RunningWindow
+~~~
+
+A catalog card may show states/actions such as:
+- INSTALL;
+- ADOPT EXISTING;
+- CONFIGURE;
+- OPEN;
+- UPDATE AVAILABLE;
+- DISABLED;
+- UNAVAILABLE IN CURRENT CONTEXT;
+- REQUIRES BINDING;
+- DEGRADED / UNKNOWN where instance state applies.
+
+### Native vs external
+
+The launcher should not make native/external a primary complexity burden for the user. It may expose a subtle source/integration badge and advanced details, while the interaction remains coherent:
+
+~~~
+Select service
+-> Install or Adopt
+-> Configure
+-> Bind
+-> Validate
+-> Open
+~~~
+
+Integration class remains explicit internally (`NATIVE_SB_APP`, `API_BACKED_SB_APP`, `HYBRID_APP`, `EMBEDDED_EXTERNAL_APP`, `PROXIED_EXTERNAL_APP`, `DEEPLINK_EXTERNAL_APP`, `NATIVE_BRIDGE_APP`).
+
+### Search and discoverability
+
+Global search should find applications/services regardless of desktop while indicating the natural Desktop Sphere and current applicability. The UI may offer `Open here`, `Switch to Desktop`, or `Install/Configure` depending on context.
+
+### Invariants
+
+- Desktop context != application identity.
+- Same app shown in multiple desktops != duplicated app.
+- Catalog entry != installed instance.
+- Installed instance != open window.
+- External app != lower authority requirements.
+- Start menu visibility != permission grant.
+- Hidden by desktop context != unavailable globally.
+- Shared/global app != global authority.
+- Category grouping != semantic ownership.
