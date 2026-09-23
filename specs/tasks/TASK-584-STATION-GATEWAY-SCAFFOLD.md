@@ -1,7 +1,7 @@
 ---
 id: TASK-584
 title: Create Station Gateway application scaffold and Core port
-status: blocked
+status: completed
 priority: 584
 milestone: STATION-WP-01
 model_tier: architecture
