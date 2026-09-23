@@ -99,7 +99,8 @@ test("Station connects and keeps only disposable session/context state", async (
     coreRef: "core:local",
   });
   assert.equal(handshake.ok, true);
-  assert.deepEqual(station.state, {
+  const connectedState = station.state;
+  assert.deepEqual(connectedState, {
     connected: true,
     coreRef: "core:local",
     sessionRef: "session:1",
@@ -112,7 +113,8 @@ test("Station connects and keeps only disposable session/context state", async (
     systemRef: "system:erp",
     environmentRef: "env:dev",
   });
-  assert.equal(station.state.context?.systemRef, "system:erp");
+  const contextualState = station.state;
+  assert.equal(contextualState.context?.systemRef, "system:erp");
 });
 
 test("Station issues reads and effects only through StationClient", async () => {
