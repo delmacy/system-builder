@@ -31,6 +31,10 @@ Status: `RESEARCH_ACTIVE / DEFERRED_IMPROVEMENT_SOURCE`
 | PT-24 | multiple agents + staggered upgrades | redundant executor cohort + staggered mutation | `ADAPT` | `DEFERRED_IMPROVEMENT` | correlated defects; retry safety and external-effect duplication |
 | PT-25 | host-local proxy allowlist non-writable by agent | independent local policy enforcement | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | central policy state != local enforcement state; protect policy writer authority |
 | PT-26 | agent-worker local encryption-key continuity | secret custody is part of recovery identity | `ADAPT` | `DEFERRED_IMPROVEMENT` | lost key vs cloned authority; backup != execution authorization |
+| PT-27 | Environment edit-source modes | declared-state authority independent from connectivity and observation | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | imported/copy state must not silently acquire write authority |
+| PT-28 | Source Hub -> Bundle -> Target Hub -> local Plans | transfer artifact separated from local execution admission | `ADAPT` | `DEFERRED_IMPROVEMENT` | import success != execution authority; approvals/currentness remain local obligations |
+| PT-29 | metadata-only bundle when artifact store is unreachable | metadata closure != executable artifact closure | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | target must prove required artifact availability before effective deployment |
+| PT-30 | break-glass / edit-source takeover | explicit emergency authority transition | `ADAPT` | `DEFERRED_IMPROVEMENT` | takeover can create split-brain; require audit, fencing and reconciliation |
 
 ## Sequencing rule
 
@@ -49,7 +53,9 @@ All entries are research findings and remain `DEFERRED_IMPROVEMENT` until the St
 9. What is the SB disconnected-bundle admission protocol for signature, destination, dependency closure, replay, expiry/security floor and imported evidence freshness?
 10. Can Host Agent recovery preserve required secrets without permitting copied recovery material to create two authoritative hosts?
 11. Which Station visual states must distinguish `CONNECTED`, `EXPECTED_OFFLINE`, `RELAYED`, `STALE`, `UNHEALTHY`, `VERSION_STALE`, and `NO_COMMAND_AUTHORITY` without exposing backend implementation assumptions?
+12. What durable evidence fences an old Core/Hub before an offline/read-only copy may become authoritative, and how are divergent local emergency edits reconciled after rejoin?
+13. Should disconnected release admission require independent proofs for bundle authenticity, declared-state authority, artifact closure, policy approval and currentness rather than one `valid bundle` boolean?
 
 ## Saturation
 
-Not saturated. This pass materially deepened disconnected bundles, relayed multi-Hub semantics, Data Connection thin-proxy versus worker boundaries, local enforcement, agent software freshness/update disruption and secret-recovery custody. Next pass should prioritize Apollo multi-Hub authority/export/import integrity, Agent enrollment/revocation/compromise evidence, secrets/JIT access, AIP classification propagation, and lineage/writeback failure semantics.
+Not saturated. This pass materially deepened Source/Target Hub authority, explicit edit-source ownership, disconnected import admission, metadata-versus-artifact closure and emergency authority takeover. Next pass should prioritize bundle signing/integrity/replay evidence, Agent enrollment/revocation/compromise recovery, secrets/JIT access, AIP classification propagation, and lineage/writeback failure semantics.
