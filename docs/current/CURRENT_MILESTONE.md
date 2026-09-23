@@ -1,33 +1,42 @@
-# Current Execution Milestone — Station Foundation Planning & Materialization
+# Current Execution Milestone — Station Visual Planning & Materialization
 
 Date: 2026-09-23
 
-## Predecessor state
+## Integrated predecessor
 
-Generation 2 / G2-WP-01..G2-WP-13 is canonically closed. G2-WP-13 closure PR #898 is integrated at `ebb35401990d4fcebabf1008ebf5db878a26dbba`; closure head CI evidence satisfied the recorded gate.
+Station Construction A integrated through PR #901 at `main@e0602eb51b1c8a4cee5bf4b89c0a1cfba26e9258`.
 
-## Architecture decision
+## Owner priority
 
-ADR-0016 establishes:
+Implement the Station visual/application environment before resuming deferred Core/Agent improvements.
+
+## Architecture
+
+ADR-0017 establishes a source-owned Station shell with daedalOS used only as a bounded MIT-licensed donor/reference.
 
 ```text
-Station -> Station Gateway -> Core/domain owners
+apps/station
+  -> station-shell
+  -> station-app-runtime
+  -> station-windowing
+  -> station-interaction
+  -> station-settings
+  -> ui-icons
+  -> ui-core
 ```
 
-Station owns interaction/presentation only. Station Gateway owns Station protocol/session/routing/composition only. Canonical state, authorization, domain eligibility and effects remain Core/domain responsibilities.
+## Target milestone
 
-## Current executable gate
+`STATION-VISUAL-M1-EMPTY-SHELL`
 
-After this Planning & Materialization Sprint integrates, execute `STATION-CONSTRUCTION-A-01` on fresh `main` in dependency order:
+The Station must launch visibly with Navbar, Toolbar/Command Bar, Desktop, Taskbar/Launcher, multiple utility windows, semantic icons and a Settings/Config Panel that changes presentation settings live.
 
-`TASK-583 -> TASK-584 + TASK-585 -> TASK-586 -> TASK-587`
+## Current gate
 
-The final proof is an in-memory end-to-end slice covering handshake, context, projection query, command receipt, event/replay and reconnect.
+Integrate the Planning & Materialization PR. Then start only `STATION-VISUAL-CONSTRUCTION-A-01` from fresh main.
 
-## Assurance lane
+Construction B remains forecast until Construction A is integrated and revalidated.
 
-The mandatory post-WP13 Architecture Assurance program is generated and AA-WP-01 is materialized but not the active Sprint. No architecture-standard conformance claim is authorized.
+## Non-goals
 
-## Boundary
-
-Do not select/implement daedalOS, Tauri/Electron, final installer, real network transport, federation or provider-specific UI in Construction A. Do not import Core/domain internals into Station as a shortcut.
+No File Manager, Workflow Studio, Canvas/3D, real Core transport, Host Agent, infrastructure/deployment UI, native wrapper or generated client UI in this milestone.
