@@ -1,7 +1,7 @@
 ---
 id: TASK-587
 title: Prove Station to Gateway to Core-port vertical slice
-status: blocked
+status: completed
 priority: 587
 milestone: STATION-WP-01
 model_tier: architecture

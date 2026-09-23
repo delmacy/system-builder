@@ -26,6 +26,9 @@
       "@system-builder/contracts/decision-boundary": [
         "packages/contracts/decision-boundary/index.ts"
       ],
+      "@system-builder/contracts/station-core": [
+        "packages/contracts/station-core/index.ts"
+      ],
       "@system-builder/deterministic": [
         "packages/deterministic/index.ts"
       ],
@@ -34,6 +37,9 @@
       ],
       "@system-builder/postgres": [
         "packages/postgres/index.ts"
+      ],
+      "@system-builder/station-sdk": [
+        "packages/station-sdk/index.ts"
       ]
     },
     "strict": true,
@@ -42,11 +48,14 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
   "include": [
     "tooling/agent-harness/**/*.ts",
     "packages/**/*.ts",
+    "apps/**/*.ts",
     "tests/product/**/*.ts"
   ]
 }

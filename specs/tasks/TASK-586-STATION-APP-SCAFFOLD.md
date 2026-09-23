@@ -1,7 +1,7 @@
 ---
 id: TASK-586
 title: Create thin Station application scaffold
-status: blocked
+status: completed
 priority: 586
 milestone: STATION-WP-01
 model_tier: architecture

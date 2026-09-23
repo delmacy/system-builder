@@ -1,7 +1,7 @@
 ---
 id: TASK-585
 title: Create reusable Station SDK client boundary
-status: blocked
+status: completed
 priority: 585
 milestone: STATION-WP-01
 model_tier: architecture

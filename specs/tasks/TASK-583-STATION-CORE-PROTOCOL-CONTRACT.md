@@ -1,7 +1,7 @@
 ---
 id: TASK-583
 title: Establish transport-agnostic Station/Core protocol contract
-status: ready
+status: completed
 priority: 583
 milestone: STATION-WP-01
 model_tier: architecture
