@@ -8,35 +8,23 @@ Architecture authority: ADR-0017
 Milestone: STATION-VISUAL-M1
 
 ## Goal
-Create the reusable frontend substrate and deliver the first executable visual Station desktop shell with source-owned design primitives, semantic commands/icons, windowing, shell chrome, Settings and Component Lab.
-
-## Owner sequencing decision
-Visual Station work has priority here. Real Core connectivity, Agent/provider execution and deferred Studios remain outside this Work Package.
+Deliver the first executable source-owned Station desktop shell with semantic design primitives, commands/icons, windowing, shell chrome, Settings and Component Lab.
 
 ## WBS
-### WBS-V1 — Host and visual substrate
-Station Next/React host/scripts; semantic OKLCH tokens/theme; source-owned accessible primitives; semantic icons.
-
-### WBS-V2 — Interaction runtime
-Command registry/shortcuts; focus and semantic selection separation; AppManifest/ToolManifest; window state/lifecycle/geometry; bounded daedalOS reference/adaptation.
-
-### WBS-V3 — Shell composition
-Navbar; contextual Toolbar/Command Surface; Desktop; Taskbar/Launcher; running-window projection.
-
-### WBS-V4 — Presentation configuration
-Versioned local presentation settings; Settings UI; live theme/density/motion/chrome/snap controls; local persistence/reset; saved presentation layout.
-
-### WBS-V5 — Qualification
-Component Lab; keyboard/focus/accessibility baseline; browser/cross-platform milestone proof; architecture/dependency checks.
+- V1 Host/substrate: Next/React, OKLCH tokens, ui-core, semantic icons.
+- V2 Interaction: commands/shortcuts, focus vs semantic selection, manifests, window lifecycle/geometry.
+- V3 Shell: Navbar, contextual Toolbar/Command Surface, Desktop, Taskbar/Launcher.
+- V4 Presentation: versioned local settings, live theme/density/motion/chrome/snap, layout persistence/reset.
+- V5 Qualification: Component Lab, keyboard/accessibility, browser/cross-platform proof, architecture checks.
 
 ## Construction A — INTEGRATED
-Sprint `STATION-VISUAL-CONSTRUCTION-A-01`, TASK-588..596, PR #903. Bounded fixes and foundation extensions through PR #910 are part of current main and must not be reimplemented.
+TASK-588..596, PR #903. Bounded fixes/extensions through PR #910 are current main and must not be reimplemented.
 
 ## Construction B — COMMITTED
-Sprint `STATION-VISUAL-CONSTRUCTION-B-01`, TASK-597..605. It completes M1 shell composition from the current main rather than replaying already integrated interaction work.
+TASK-597..605 completes M1 composition from the fresh main.
 
-## Construction C — Optional
-Only bounded qualification/hardening demonstrated necessary by fresh evidence after Construction B. No new domain application scope.
+## Construction C — OPTIONAL
+Only bounded qualification/hardening shown necessary by fresh evidence.
 
 ## Non-goals
-Canonical Station database/files, Core authorization decisions, business workflows, provider effects, deploy engine, Host Agent implementation, schedulers, agents, File Manager, Workflow Studio, generic Canvas, 3D System Map, real Core transport, native wrapper, multi-Core or generated client UI.
+Canonical Station DB/files, Core authorization/business workflows/provider effects/deploy, Host Agent execution, schedulers/agents, File Manager, Workflow Studio, Canvas/3D, real Core transport, native wrapper, multi-Core or generated client UI.
