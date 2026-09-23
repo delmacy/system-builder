@@ -16,10 +16,15 @@ context_paths:
   - project_docs/execution_planning/STATION-VISUAL-CONSTRUCTION-B-01.md
 allowed_paths:
   - apps/station/**
-  - packages/station-settings/**
-  - packages/station-windowing/**
   - packages/station-shell/**
+  - packages/station-app-runtime/**
+  - packages/station-windowing/**
+  - packages/station-interaction/**
+  - packages/station-settings/**
+  - packages/ui-icons/**
+  - packages/ui-core/**
   - tests/product/**
+  - tests/e2e/**
   - specs/tasks/TASK-602-STATION-PRESENTATION-LAYOUT-PERSISTENCE.md
 forbidden_paths:
   - apps/station-gateway/**
@@ -40,19 +45,13 @@ validation:
 Complete live presentation preference application plus bounded local layout persistence/reset.
 
 # Current behavior
-station-settings already persists normalized presentation preferences locally; window layout is runtime-only and reset currently targets settings only.
+station-settings already persists normalized presentation preferences locally; window layout is runtime-only.
 
 # Required change
-Implement only the bounded delta needed to satisfy this task on top of current main. Preserve already integrated behavior rather than replaying it.
+Implement only the bounded delta on current main; do not replay already integrated work.
 
 # Acceptance criteria
-Presentation settings apply live and survive reload; the M1-approved window layout survives reload locally; malformed/future data fails safe; reset clears/restores only presentation/layout state; no canonical/domain/authorization data is accepted.
+Presentation settings and approved layout survive reload locally; malformed/future data fails safe; reset affects only presentation/layout; no canonical/domain/authorization data is accepted.
 
 # Non-goals
 No canonical Station DB/files, Core authorization decisions, business workflows, provider effects, deploy engine, Host Agent execution, schedulers, agents or invented domain state.
-
-# Evidence expected
-Task-local regression proof plus exact-head repository validation appropriate to the changed surface.
-
-# Escalation
-Stop if the task requires moving canonical truth/authority/effects into Station or expanding into a deferred subsystem.
