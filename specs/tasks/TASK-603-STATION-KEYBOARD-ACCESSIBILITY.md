@@ -1,0 +1,57 @@
+---
+id: TASK-603
+title: Add Station keyboard navigation focus and accessibility baseline
+status: ready
+priority: 603
+milestone: STATION-VISUAL-M1
+model_tier: architecture
+risk: high
+architecture_impact: false
+executor_preference: any
+depends_on:
+  - TASK-602
+context_paths:
+  - docs/adr/ADR-0017-station-visual-shell-foundation.md
+  - docs/architecture/STATION_FRONTEND_FOUNDATION.md
+  - project_docs/execution_planning/STATION-VISUAL-CONSTRUCTION-B-01.md
+allowed_paths:
+  - apps/station/**
+  - packages/station-shell/**
+  - packages/station-app-runtime/**
+  - packages/station-windowing/**
+  - packages/station-interaction/**
+  - packages/station-settings/**
+  - packages/ui-icons/**
+  - packages/ui-core/**
+  - tests/product/**
+  - tests/e2e/**
+  - specs/tasks/TASK-603-STATION-KEYBOARD-ACCESSIBILITY.md
+forbidden_paths:
+  - apps/station-gateway/**
+  - packages/runtime-core/**
+  - packages/deploy/**
+  - packages/compiler/**
+  - .github/workflows/**
+max_files: 24
+validation:
+  - npm run lint
+  - npm run typecheck
+  - npm run test:product
+  - npm run check:architecture
+  - npm run verify
+---
+
+# Objective
+Make launcher, window switching, Settings and basic command access keyboard-operable with visible focus.
+
+# Current behavior
+The primitives and command foundation exist, but the composed shell lacks the complete keyboard journey.
+
+# Required change
+Implement only the bounded delta on current main; do not replay already integrated work.
+
+# Acceptance criteria
+Keyboard reaches launcher/chrome, switches/focuses windows, opens Settings/basic command access and restores minimized windows; focus is visible and reduced motion is honored.
+
+# Non-goals
+No canonical Station DB/files, Core authorization decisions, business workflows, provider effects, deploy engine, Host Agent execution, schedulers, agents or invented domain state.
