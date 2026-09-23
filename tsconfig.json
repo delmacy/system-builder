@@ -26,6 +26,9 @@
       "@system-builder/contracts/decision-boundary": [
         "packages/contracts/decision-boundary/index.ts"
       ],
+      "@system-builder/contracts/station-core": [
+        "packages/contracts/station-core/index.ts"
+      ],
       "@system-builder/deterministic": [
         "packages/deterministic/index.ts"
       ],
