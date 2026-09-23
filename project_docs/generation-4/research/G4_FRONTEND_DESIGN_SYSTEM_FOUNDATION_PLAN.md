@@ -3645,3 +3645,127 @@ These are candidate applications, not frozen names.
 - Installer catalog != arbitrary marketplace execution.
 - Catalog growth must preserve provenance, compatibility and conformance.
 - Reverse recognition must not expose secret values by default.
+
+
+## Builder Desktop — fleet observability with guarded client intervention
+
+Decision status: STRONG_G4_DIRECTION / NON_EXECUTABLE
+
+The top-level Builder/master profile should have its own Desktop distinct from client-scoped Desktops.
+
+Primary purpose:
+- cross-client/fleet observability;
+- Builder platform health;
+- shared infrastructure health;
+- server/host inventory;
+- service/integration status;
+- installer/catalog health;
+- managed provider health;
+- operational findings and alerts;
+- high-level capacity/currentness/drift visibility.
+
+Default posture should be read-only or strongly restricted for client-owned operational state.
+
+~~~
+Builder Desktop
+= fleet awareness
+!= implicit authority to mutate every client
+~~~
+
+### Scope transition
+
+Operational mutation of a client system should normally require an explicit scope transition into that Client/Workspace/Environment context.
+
+~~~
+Builder Fleet View
+-> select Client
+-> enter Client Context
+-> authority/currentness re-evaluation
+-> perform permitted operation
+~~~
+
+This should be visually obvious so operators always know whether they are in fleet scope or client scope.
+
+### Guarded intervention
+
+For exceptional cross-client intervention, research a guarded elevation / break-glass flow:
+- explicit action;
+- reason/purpose;
+- target client/environment/object;
+- confirmation proportional to blast radius;
+- time-bounded elevated session;
+- least-privilege action scope;
+- strong audit/evidence;
+- post-action verification;
+- automatic expiry/revocation.
+
+Do not rely on generic confirmation dialogs for high-impact operations.
+
+### Read-only fleet windows
+
+Candidate Builder Desktop applications:
+- Fleet Overview;
+- Server/Host Monitor;
+- Shared Infrastructure Monitor;
+- Client Health Matrix;
+- Deployment/Runtime Fleet Status;
+- Alert/Incident Inbox;
+- Capacity/Cost Overview;
+- Catalog/Installer Health;
+- Provider/Integration Health;
+- Global Search/Inventory;
+- Client Context Launcher.
+
+These can aggregate client health without exposing secrets or unsafe controls.
+
+### Server monitoring example
+
+~~~
+SERVER FLEET
+
+Host A   Client A   HEALTHY
+Host B   Client B   DEGRADED
+Host C   Shared     HEALTHY
+
+[Open client context]
+[View evidence]
+[View topology]
+~~~
+
+Direct actions such as restart/delete/redeploy/rotate secret should be absent, disabled, or guarded according to authority and policy.
+
+### Shared/global service integrations
+
+The Builder Desktop may expose Builder-only integrations or fleet-wide shared services that are not automatically available inside every client desktop. Client visibility/use can be enabled by explicit configuration and authority.
+
+Preserve:
+- Builder-only availability != client entitlement;
+- shared service != shared client authority;
+- fleet visibility != secret visibility;
+- cross-client observability != cross-client mutation authority.
+
+### Context and UI safety
+
+The shell should make authority/scope visible:
+- profile: BUILDER vs CLIENT;
+- current client (if any);
+- environment;
+- authority mode;
+- read-only/elevated state;
+- time-bounded elevation indicator;
+- currentness of fleet data.
+
+Potential visual separation should reduce accidental operations caused by stale or ambiguous context.
+
+### Invariants
+
+- Builder profile != omnipotent mutation session.
+- Fleet scope != client scope.
+- Observability != control.
+- Read-only view != permission to act.
+- Entering client context != permission elevation by itself.
+- Elevated authority must be explicit, bounded and auditable.
+- Cross-client aggregate != canonical truth for each client.
+- Builder-only integration != client-visible application.
+- Shared infrastructure != shared authority.
+- Emergency access != ordinary workflow.
