@@ -35,6 +35,9 @@ Status: `RESEARCH_ACTIVE / DEFERRED_IMPROVEMENT_SOURCE`
 | PT-28 | Source Hub -> Bundle -> Target Hub -> local Plans | transfer artifact separated from local execution admission | `ADAPT` | `DEFERRED_IMPROVEMENT` | import success != execution authority; approvals/currentness remain local obligations |
 | PT-29 | metadata-only bundle when artifact store is unreachable | metadata closure != executable artifact closure | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | target must prove required artifact availability before effective deployment |
 | PT-30 | break-glass / edit-source takeover | explicit emergency authority transition | `ADAPT` | `DEFERRED_IMPROVEMENT` | takeover can create split-brain; require audit, fencing and reconciliation |
+| PT-31 | organization workflow + project role required for Agent creation | bootstrap authority != lifecycle/use authority | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | creation privilege must not imply permanent executor/resource control |
+| PT-32 | credentials encrypted to each assigned agent public key | executor membership change != implicit secret inheritance | `ADAPT` | `DEFERRED_IMPROVEMENT` | recipient-set changes require explicit re-encryption/re-authorization; recovery key must not clone authority |
+| PT-33 | Apollo CLI Bundle signing operations | signature evidence != complete admission evidence | `ADOPT PRINCIPLE` | `DEFERRED_IMPROVEMENT` | public evidence reviewed confirms signing exists, but not destination binding/replay/expiry semantics; keep these as independent proof obligations |
 
 ## Sequencing rule
 
@@ -55,7 +58,9 @@ All entries are research findings and remain `DEFERRED_IMPROVEMENT` until the St
 11. Which Station visual states must distinguish `CONNECTED`, `EXPECTED_OFFLINE`, `RELAYED`, `STALE`, `UNHEALTHY`, `VERSION_STALE`, and `NO_COMMAND_AUTHORITY` without exposing backend implementation assumptions?
 12. What durable evidence fences an old Core/Hub before an offline/read-only copy may become authoritative, and how are divergent local emergency edits reconciled after rejoin?
 13. Should disconnected release admission require independent proofs for bundle authenticity, declared-state authority, artifact closure, policy approval and currentness rather than one `valid bundle` boolean?
+14. Which authority may create/enroll a Host Agent, which may attach capabilities/providers, and which may deliver secrets after enrollment? These must not be one implicit privilege.
+15. When executor membership changes, can provider credentials be rewrapped without exposing plaintext to Core, while still requiring explicit authorization for the new recipient set?
 
 ## Saturation
 
-Not saturated. This pass materially deepened Source/Target Hub authority, explicit edit-source ownership, disconnected import admission, metadata-versus-artifact closure and emergency authority takeover. Next pass should prioritize bundle signing/integrity/replay evidence, Agent enrollment/revocation/compromise recovery, secrets/JIT access, AIP classification propagation, and lineage/writeback failure semantics.
+Not saturated. This pass materially deepened enrollment authority separation, executor-recipient secret envelopes and the limits of what public Bundle-signing evidence proves. Multi-Hub authority is nearing conceptual saturation. Next pass should prioritize precise Bundle signature verification/destination/replay semantics if public documentation exposes them, then Agent revocation/compromise recovery, secrets/JIT access, AIP classification propagation, and lineage/writeback failure semantics.
