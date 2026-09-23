@@ -641,3 +641,12 @@ Normal flow: `ADD/INSTALL -> CONFIGURE -> BIND/CONNECT -> VALIDATE -> APPLY -> O
 Research typed connection points/`sockets` so the UI can surface compatible bindings and guide assembly without making visual connection itself semantic authority.
 
 Preserve `Installed != Configured != Bound != Verified != Effective` and GUI/Wizard/declarative-first with terminal/raw config as advanced escape hatches.
+
+
+## Research addition — Desktop-aware Start/Application Hub
+
+G4 now includes a persistent Start-style launcher paired with the Desktop selector. The launcher is context-aware: its categories, ranking and featured applications adapt to the active Desktop Sphere while shared/global applications such as Control Center/Configuration Manager/Application Manager remain consistently discoverable.
+
+Service categories can mix native SB capabilities and external supported products behind a coherent install/adopt/configure/bind/validate/open flow.
+
+Preserve CatalogApplicationDefinition != InstalledApplicationInstance != RunningWindow; Desktop context != application identity; menu visibility != permission grant.
