@@ -13,9 +13,7 @@ Compose `Navbar -> Toolbar/Command Surface -> Desktop Sphere -> Windows -> Taskb
 Next.js 16.3.6 + explicit Webpack; Windows/Ubuntu Station CI; fullscreen/measured desktop bounds; SET_BOUNDS/maximize/collision/titlebar fixes; vertical WindowFrame; move/focus/minimize/maximize/restore/close; full resize; initial multi-window/taskbar/launcher from PR #910.
 
 ## TASK chain
-```text
-TASK-597 -> TASK-598 -> TASK-599 -> TASK-600 -> TASK-601 -> TASK-602 -> TASK-603 -> TASK-604 -> TASK-605
-```
+`TASK-597 -> TASK-598 -> TASK-599 -> TASK-600 -> TASK-601 -> TASK-602 -> TASK-603 -> TASK-604 -> TASK-605`.
 
 ## Layering
 `apps/station -> station-shell -> station-app-runtime -> station-windowing -> station-interaction -> station-settings -> ui-icons -> ui-core`. `apps/station` remains composition root.
