@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import test from "node:test";
 
 const source = readFileSync(
-  new URL("../../apps/station/web/app/station-foundation-client.tsx", import.meta.url),
+  resolve(process.cwd(), "apps/station/web/app/station-foundation-client.tsx"),
   "utf8",
 );
 
