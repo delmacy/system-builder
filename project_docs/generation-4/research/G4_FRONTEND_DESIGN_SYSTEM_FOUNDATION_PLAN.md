@@ -3043,3 +3043,116 @@ Taxonomy is a research candidate, not a frozen product naming decision.
 Use current external evidence from mature systems, documentation and papers where relevant. Benchmark interaction grammar and architectural patterns rather than copying branding or proprietary implementation.
 
 Test contradictory evidence and alternatives. Research continues until material gaps show saturation; no research result by itself grants implementation authority.
+
+
+## Install / Configure / Bind / Validate — unified assembly grammar
+
+Decision status: STRONG_G4_DIRECTION / NON_EXECUTABLE
+
+The System Builder should use an installation/assembly metaphor not only for infrastructure software, but also for semantic building blocks such as modules, capabilities, gateways, providers, workflow packs, data-facing components and integration packages.
+
+Canonical interaction grammar:
+
+~~~
+ADD / INSTALL
+-> CONFIGURE
+-> BIND / CONNECT
+-> VALIDATE
+-> APPLY
+-> OBSERVE
+-> TUNE / EVOLVE
+~~~
+
+The user should normally work through guided GUI/Wizard surfaces rather than imperative terminal steps.
+
+Examples:
+
+~~~
+Install PostgreSQL
+-> choose placement
+-> choose network/storage/secrets
+-> validate
+-> deploy
+
+Install Customer Management module
+-> choose system/workspace
+-> resolve required capabilities
+-> configure entity/data bindings
+-> connect workflow/view/forms
+-> validate contracts
+-> activate
+
+Install Payment Gateway capability
+-> select provider
+-> bind secrets
+-> bind network/API contract
+-> configure policies
+-> validate compatibility
+-> activate
+~~~
+
+### Assembly semantics
+
+Installation does not imply copying binaries only. In G4 it can mean materializing a declared semantic building block into the current system context.
+
+~~~
+Package / Module / Capability Definition
+-> prerequisites
+-> required contracts
+-> offered contracts
+-> compatible bindings
+-> configuration schema
+-> authority requirements
+-> lifecycle
+-> evidence / proof obligations
+~~~
+
+### Encaixes / sockets
+
+Research a first-class guided binding model where modules/capabilities expose typed connection points and the UI offers only compatible candidate bindings.
+
+~~~
+Module A
+  requires Database
+  requires Auth
+  exposes Orders
+
+Module B
+  provides Database
+
+Provider X
+  provides Auth
+~~~
+
+The user can visually select and bind compatible pieces while the Builder validates contract compatibility, authority, environment, revision and currentness.
+
+### Progressive configuration
+
+Configuration can happen in stages:
+- initial required configuration;
+- binding of dependencies;
+- optional capabilities/features;
+- environment-specific settings;
+- operational tuning;
+- later controlled evolution.
+
+Therefore `Installed != fully configured != validated != effective`.
+
+### GUI principle
+
+Common tasks should be GUI-first, wizard-first and declarative-first. Terminal/raw manifests remain advanced escape hatches, never the primary happy path.
+
+### Invariants
+
+- Install != Activate.
+- Install != Effective.
+- Added != Compatible.
+- Compatible != Bound.
+- Bound != Verified.
+- Configured != Applied.
+- Applied != Effective.
+- Module installation != module ownership transfer.
+- Capability participation != capability ownership.
+- Binding UI != semantic authority.
+- Wizard convenience != hidden irreversible automation.
+- Terminal availability != terminal requirement.
