@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @source "../../../../packages/ui-core";
+@source "../../../../packages/station-shell";
 
 :root {
   color-scheme: light;
