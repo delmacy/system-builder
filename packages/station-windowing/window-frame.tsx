@@ -194,24 +194,38 @@ export function WindowFrame({
       </div>
 
       {definition.resizable && instance.mode === "NORMAL" ? (
-        <button
-          aria-label="Resize window"
-          data-slot="window-resize-handle"
-          className="absolute bottom-0 right-0 size-4 cursor-se-resize touch-none bg-transparent"
-          type="button"
-          onPointerDown={(event) =>
-            beginSession(
-              event,
-              beginResize("SE", point(event), geometry),
-            )
-          }
-          onPointerMove={updateSession}
-          onPointerUp={finishSession}
-          onPointerCancel={() => {
-            sessionRef.current = null;
-            setPreview(null);
-          }}
-        />
+        <>
+          {[
+            ["N", "absolute left-3 right-3 top-0 h-2 cursor-n-resize"],
+            ["S", "absolute bottom-0 left-3 right-3 h-2 cursor-s-resize"],
+            ["E", "absolute bottom-3 right-0 top-3 w-2 cursor-e-resize"],
+            ["W", "absolute bottom-3 left-0 top-3 w-2 cursor-w-resize"],
+            ["NE", "absolute right-0 top-0 size-3 cursor-ne-resize"],
+            ["NW", "absolute left-0 top-0 size-3 cursor-nw-resize"],
+            ["SE", "absolute bottom-0 right-0 size-3 cursor-se-resize"],
+            ["SW", "absolute bottom-0 left-0 size-3 cursor-sw-resize"],
+          ].map(([edge, className]) => (
+            <div
+              key={edge}
+              aria-hidden="true"
+              data-slot="window-resize-handle"
+              data-resize-edge={edge}
+              className={`${className} z-20 touch-none bg-transparent`}
+              onPointerDown={(event) =>
+                beginSession(
+                  event,
+                  beginResize(edge as import("./pointer-adapter.js").ResizeEdge, point(event), geometry),
+                )
+              }
+              onPointerMove={updateSession}
+              onPointerUp={finishSession}
+              onPointerCancel={() => {
+                sessionRef.current = null;
+                setPreview(null);
+              }}
+            />
+          ))}
+        </>
       ) : null}
     </section>
   );
