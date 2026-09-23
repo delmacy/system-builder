@@ -659,3 +659,16 @@ G4 now includes a multi-service Infrastructure Bootstrap Wizard for provisioning
 Research placement policies such as AUTO_PLACE, PACK, SPREAD, KEEP_RESERVE, PINNED and HYBRID. Multi-service execution must preserve PARTIAL/UNKNOWN/reconciliation semantics and provider ACK != effective state.
 
 Vault research now includes logical secret compartments/domains with distinct authorities; prefer identity/role/policy-based access rather than assuming one human password per compartment. Preserve can-bind != can-reveal and can-rotate != can-read.
+
+
+## Research addition — Installer Catalog Repository + Mirroring Desktop
+
+G4 now includes research for a versioned declarative Installer Catalog Repository and a dedicated Mirroring Desktop/workspace.
+
+Installer definitions may serialize as YAML but should represent typed semantic package definitions rather than arbitrary shell scripts. The catalog covers dependencies, placement, network/storage/secrets, health, lifecycle, upgrade/rollback/uninstall, observability and application exposure.
+
+The same catalog should support install-new, adopt-existing and recognition during brownfield mirroring.
+
+Mirroring is modeled as the inverse path of assembly: observed existing state -> identify/classify -> map bindings/contracts -> infer candidates -> human validation -> candidate semantic definition. Preserve Observed != Intended != Approved Canonical; Discovered != Verified != Adopted; AI/heuristic inference != authority.
+
+Future research should treat reusable installer primitives and reverse-recognition signatures as compounding assets: first integrations are expensive, later integrations should reuse established schemas/adapters rather than duplicate mechanics.
