@@ -13,6 +13,7 @@ depends_on:
 context_paths:
   - docs/architecture/STATION_FRONTEND_FOUNDATION.md
 allowed_paths:
+  - tsconfig.json
   - packages/station-windowing/**
   - tests/product/station-windowing.test.ts
   - specs/tasks/TASK-592-STATION-WINDOWING-MODEL.md
@@ -56,7 +57,7 @@ Close Window != disable/uninstall/undeploy; focus/z-order is deterministic; mult
 No drag/resize React surface yet, no persistence provider and no business resource state.
 
 # Evidence expected
-Lifecycle/state-transition tests including singleton reopen, multi-instance identity, deterministic focus/z-order, invalid geometry normalization, maximize/snap/restore, non-resizable movement, presentation-only close semantics and command-registry integration.
+Lifecycle/state-transition tests including singleton reopen, multi-instance identity, deterministic focus/z-order, invalid geometry normalization, maximize/snap/restore, non-resizable movement, presentation-only close semantics and command-registry integration. Architecture verification additionally requires public package aliases for station-interaction and ui-icons; this bounded task therefore includes the root TypeScript path map.
 
 # Escalation
 Stop if window lifecycle becomes app/business/runtime lifecycle or requires canonical Core persistence.
