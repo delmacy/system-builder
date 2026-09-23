@@ -67,6 +67,7 @@ test("WindowFrame renders from SB WindowInstance state and shadcn-based chrome",
   );
 
   assert.match(html, /data-slot="window-frame"/);
+  assert.match(html, /flex-direction:column/);
   assert.match(html, /data-slot="window-titlebar"/);
   assert.match(html, /h-11 min-h-11/);
   assert.match(html, /data-slot="window-controls"/);
