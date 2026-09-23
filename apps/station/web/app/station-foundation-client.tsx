@@ -4,6 +4,7 @@ import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 
 import { Badge, Button } from "../../../../packages/ui-core/index";
 import { StationIcon } from "../../../../packages/ui-icons/index";
+import { StationNavbar } from "../../../../packages/station-shell/index";
 import {
   M1_UTILITY_APPS,
   StationAppRegistry,
@@ -174,6 +175,17 @@ export function StationFoundationClient() {
   const openWindows = windows.instances.filter(
     (instance) => instance.lifecycle === "OPEN",
   );
+  const activeWindow =
+    windows.activeWindowRef === null
+      ? undefined
+      : windows.instances.find(
+          (instance) => instance.windowRef === windows.activeWindowRef,
+        );
+  const activeDefinition =
+    activeWindow === undefined
+      ? undefined
+      : definitionFor(activeWindow, windows.definitions);
+  const currentContext = activeDefinition?.title ?? "Desktop";
 
   return (
     <main
@@ -182,17 +194,14 @@ export function StationFoundationClient() {
       data-station-core="disconnected"
     >
       <section className="flex h-full w-full flex-col overflow-hidden bg-card text-card-foreground">
-        <header className="flex h-11 shrink-0 items-center justify-between gap-4 border-b px-4">
-          <div className="flex min-w-0 items-center gap-3">
-            <Badge className="shrink-0">System Builder Station</Badge>
-            <span className="truncate text-sm text-muted-foreground">
-              Multi-window desktop foundation
-            </span>
-          </div>
-          <Badge className="shrink-0 bg-muted text-muted-foreground">
-            Core: Disconnected
-          </Badge>
-        </header>
+        {presentation.shell.navbarVisible ? (
+          <StationNavbar
+            connection="disconnected"
+            contextLabel={currentContext}
+            onHome={() => openApp("app:welcome")}
+            onSettings={() => openApp("app:settings")}
+          />
+        ) : null}
 
         <section
           ref={desktopRef}
