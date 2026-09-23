@@ -37,6 +37,9 @@
       ],
       "@system-builder/postgres": [
         "packages/postgres/index.ts"
+      ],
+      "@system-builder/station-sdk": [
+        "packages/station-sdk/index.ts"
       ]
     },
     "strict": true,
