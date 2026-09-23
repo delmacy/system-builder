@@ -1,15 +1,27 @@
 # Project State
 
-Date: 2026-09-21
+Date: 2026-09-23
 
-## Generation 2 — G2-WP-13 Documentation & Closure
-G2-WP-01..G2-WP-12 are CANONICALLY CLOSED. G2-WP-13 Construction A / `G2-WBS-24` is integrated through TASK-575..578; Construction B / `G2-WBS-25` is integrated through TASK-579..582. Package Integration & Review integrated via PR #896 from exact head `73b01495adb67857f8855e64bba47f714898d13b`, producing fresh `main@9c352bdfc087d6246577a497c63249e99d72357a`; Deterministic CI #2183, Heavy Product Tests #1873/#1875 and Merge Candidate CI #413 are green. Exact Generation-2 planning authority remains `research/g2-capability-pipeline@2ef10187d691666b45cba5978671570f0ff90c2a`.
+## Generation 2 — CANONICALLY CLOSED
+
+G2-WP-01..G2-WP-13 are CANONICALLY CLOSED. G2-WP-13 Documentation & Closure PR #898 integrated at `main@ebb35401990d4fcebabf1008ebf5db878a26dbba`. Its exact head `5ab591a62c6759e2b6a24a9e14429146bd4d7f9a` passed Deterministic CI #2186, Heavy Product Tests #1877/#1879 and Merge Candidate CI #416, satisfying the closure candidate's recorded condition.
+
+Construction C / G2-WBS-26 was not promoted because fresh evidence did not establish it as necessary.
+
+## Post-G2 planning
+
+The mandatory post-WP13 Architecture Assurance program has been generated under `POST-WP13-ARCHITECTURE-ASSURANCE-BASELINE-01.md`; AA-WP-01 is materialized but not active. No standards-conformance or certification claim is made.
+
+Repository-owner authority dated 2026-09-23 establishes the next product package: `STATION-WP-01`, governed by ADR-0016. Construction A is materialized as TASK-583..587.
 
 ## Current commitment horizon
-Construction A and B and Package Integration & Review are integrated. Fresh-main evidence does not establish a materialized closure obligation for Construction C / `G2-WBS-26`; it remains an unpromoted forecast candidate. The sole executable G2-WP-13 gate is Documentation & Closure. This is the final Work Package in the currently authorized G2-WP-01..G2-WP-13 horizon; closure does not authorize a guessed successor.
+
+Active after planning integration: `STATION-CONSTRUCTION-A-01`.
+
+Goal: establish the transport-agnostic Station/Core protocol plus thin Station Gateway, Station SDK and Station application boundaries, ending in one in-memory end-to-end proof. No daedalOS/UI-heavy implementation is in the committed horizon.
 
 ## Preserved truth
-Product Proof design != executed proof != Production Readiness. Acceptance criterion != full Product Proof. Production Readiness dimensions remain independent: OBSERVABILITY, OWNERSHIP, FAILURE_HANDLING, RECOVERY, CAPACITY, CURRENTNESS, SECURITY, RECONCILIATION, CHANGE_SAFETY, COST and DOCUMENTATION. No aggregate percentage may mask a failed critical dimension. Readiness evidence remains population/environment/currentness and producer/revision/provenance qualified. The hybrid EKB remains cross-cutting; AI inference != authority; PARTIAL/UNKNOWN never strengthens truth; UNKNOWN -> reconcile-before-retry; source-of-truth/coexistence/residual drainage, provider qualification and local/Station/Fleet boundaries remain preserved.
 
-## Package boundary
-Documentation & Closure is repository-memory reconciliation only. Do not absorb Architecture Assurance/standards work, silent remediation/canonicalization, autonomous-agent authority, generic direct physical/side-effect authority, provider SDKs, deployment, DEFER/DO_NOT_BUILD findings or unmaterialized research findings.
+Product Proof != Production Readiness != standards conformance != certification. AI inference != authority. Projection != canonical truth. Visibility != authority != domain eligibility. PARTIAL/UNKNOWN never strengthens truth; UNKNOWN remains reconcile-before-retry where applicable. Published runtime autonomy remains mandatory.
+
+Station and Station Gateway are consumers/coordinators of Core-owned truth. They must not become new canonical business owners.
