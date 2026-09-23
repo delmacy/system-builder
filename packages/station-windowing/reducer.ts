@@ -342,8 +342,8 @@ export function reduceWindowRuntime(
       const requested = definition.resizable
         ? action.geometry
         : {
-            x: action.geometry.x,
-            y: action.geometry.y,
+            ...(action.geometry.x === undefined ? {} : { x: action.geometry.x }),
+            ...(action.geometry.y === undefined ? {} : { y: action.geometry.y }),
             width: instance.geometry.width,
             height: instance.geometry.height,
           };
