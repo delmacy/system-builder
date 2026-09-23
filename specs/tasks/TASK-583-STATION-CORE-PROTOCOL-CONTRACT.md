@@ -38,11 +38,29 @@ validation:
 # Objective
 Define the stable Station/Core semantic protocol without selecting HTTP, WebSocket, SSE or IPC.
 
-## Required change
+# Context
+ADR-0016 separates Station, Station Gateway and Core/domain ownership. Existing identity/authorization and generated-experience contracts already encode actor, currentness, projection and authority invariants that the Station protocol must carry by reference without weakening.
+
+# Current behavior
+The repository has domain-specific public contracts but no shared Station handshake, session/context, query, command, event or compatibility envelope. No Station-specific TypeScript path alias exists.
+
+# Required change
 Add a versioned `station-core` contract family covering handshake/compatibility, Station session/context references, query/projection envelopes, command/receipt envelopes, event/subscription/replay envelopes and deterministic diagnostics.
 
-## Acceptance criteria
-Contracts are immutable/provider-neutral; unsupported protocol versions fail deterministically; projection identity/revision/currentness can be preserved without becoming canonical truth; commands carry actor/context/target/expected-revision information by reference; events have monotonic replay position within a subscription stream.
+# Inputs / contracts
+ADR-0016; `identity-authorization`; `generated-experience`; `semantic-substrate`. Reuse their identity/revision/currentness/authority concepts by reference rather than redefining semantic ownership.
 
-## Non-goals
-No network server/client, no authentication provider, no domain command implementation, no persistence and no UI.
+# Outputs / contracts
+`packages/contracts/station-core/**`, its public TypeScript alias, and deterministic product tests for normalization/validation and compatibility behavior.
+
+# Acceptance criteria
+Contracts are immutable/provider-neutral; unsupported protocol versions fail deterministically; projection identity/revision/currentness is preserved without becoming canonical truth; commands carry actor/context/target/expected-revision information by reference; events have monotonic replay position within a subscription stream.
+
+# Non-goals
+No network server/client, authentication provider, domain command implementation, persistence, Station UI or Core implementation changes.
+
+# Evidence expected
+Positive and negative deterministic tests for compatible/incompatible handshakes, malformed context, stale/mismatched projection metadata, command revision references and monotonic event replay positions.
+
+# Escalation
+Stop if the protocol requires new canonical domain authority, a mandatory physical transport, Builder/Runtime ownership changes or edits to existing domain contracts outside the declared paths.

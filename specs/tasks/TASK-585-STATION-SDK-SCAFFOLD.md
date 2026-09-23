@@ -35,11 +35,29 @@ validation:
 # Objective
 Give Station code one reusable client abstraction over the Station protocol.
 
-## Required change
-Add `packages/station-sdk/**` with a transport interface and client methods for handshake, context, query, command and subscription/replay. The SDK must not know domain implementation internals.
+# Context
+Station must remain independent of Core/domain implementation details and should speak only the versioned Station protocol through an injectable transport.
 
-## Acceptance criteria
-A deterministic in-memory transport can exercise every Construction-A protocol primitive; compatibility and diagnostics are preserved; no canonical state is stored by the SDK.
+# Current behavior
+No Station client package or transport abstraction exists.
 
-## Non-goals
-No WebSocket/HTTP implementation, retries beyond protocol-defined replay semantics, auth provider or UI state.
+# Required change
+Add `packages/station-sdk/**` with a transport interface and client methods for handshake, context, query, command and subscription/replay.
+
+# Inputs / contracts
+TASK-583 `station-core` public contract.
+
+# Outputs / contracts
+A reusable Station SDK package and deterministic tests using an in-memory transport.
+
+# Acceptance criteria
+An in-memory transport exercises every Construction-A protocol primitive; compatibility and diagnostics are preserved end to end; no canonical state is stored by the SDK; the SDK imports no domain implementation package.
+
+# Non-goals
+No WebSocket/HTTP implementation, auth provider, domain rule, persistence or desktop/UI state.
+
+# Evidence expected
+Tests prove request/response typing, event subscription/replay forwarding, incompatible handshake propagation and transport substitution.
+
+# Escalation
+Stop if the SDK needs knowledge of domain internals, canonical persistence, authority decisions or a specific physical transport.
