@@ -1,18 +1,29 @@
-# Next Work — Generation 2 / G2-WP-13 Documentation & Closure
+# Next Work — STATION-WP-01 Construction A
 
-Generation 2 remains dependency-safe.
+Date: 2026-09-23
 
-## Integrated predecessors
-G2-WP-01..G2-WP-12 are canonically closed. G2-WP-13 Construction A / G2-WBS-24 integrated TASK-575..578. Construction B / G2-WBS-25 integrated TASK-579..582. Package Integration & Review integrated via PR #896 from exact head `73b01495adb67857f8855e64bba47f714898d13b`, producing fresh `main@9c352bdfc087d6246577a497c63249e99d72357a` after Deterministic CI #2183, Heavy Product Tests #1873/#1875 and Merge Candidate CI #413 passed.
+## Integrated predecessor
 
-## Construction C decision
-Fresh-main revalidation found no materialized closure obligation requiring G2-WBS-26 realization. Construction C remains an unpromoted forecast candidate; closure must not convert forecast into authority.
+G2-WP-13 Documentation & Closure PR #898 integrated at `main@ebb35401990d4fcebabf1008ebf5db878a26dbba`. Its exact head passed Deterministic CI #2186, Heavy Product Tests #1877/#1879 and Merge Candidate CI #416. Generation 2 is canonically closed.
 
-## Current executable gate
-Perform G2-WP-13 Documentation & Closure as repository-memory reconciliation only. It may record integrated evidence and closure disposition but must not add product behavior or absorb unmaterialized work.
+## Planning authority
 
-## Successor rule
-After the closure candidate passes its own exact-head gates and current Merge Candidate CI and integrates, revalidate fresh `main`. G2-WP-13 is the final Work Package in the currently authorized G2-WP-01..G2-WP-13 horizon; no successor product work is implied or authorized by closure.
+ADR-0016 and `STATION-WP-01-FOUNDATION.md` define the new Core/Station/Station Gateway boundary. The post-WP13 Architecture Assurance program is separately materialized and does not authorize any conformance claim.
+
+## Next committed Sprint
+
+`STATION-CONSTRUCTION-A-01`
+
+1. TASK-583 — Station/Core protocol contract.
+2. TASK-584 — Station Gateway scaffold/Core port.
+3. TASK-585 — Station SDK.
+4. TASK-586 — thin Station app scaffold.
+5. TASK-587 — full in-memory vertical-slice proof.
+
+## Required exit
+
+A Station can negotiate protocol compatibility, establish context, query a projection, submit a command, receive a receipt, receive/replay events after reconnect and remain non-authoritative.
 
 ## Boundary
-Product Proof != Production Readiness. Preserve hybrid EKB, AI inference != authority, PARTIAL/UNKNOWN, UNKNOWN -> reconcile-before-retry, owner/revision/currentness/provenance, source-of-truth/coexistence/residual drainage, provider qualification and local/Station/Fleet truth. Do not absorb Architecture Assurance/standards, silent architecture remediation/canonicalization, provider SDK/deployment, autonomous authority, generic direct side effects or unmaterialized DEFER/DO_NOT_BUILD scope.
+
+No heavy desktop UI, daedalOS fork, real transport, provider-specific behavior, Core federation, repository split or client-runtime dependency on Station/Gateway.
