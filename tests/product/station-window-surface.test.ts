@@ -68,6 +68,7 @@ test("WindowFrame renders from SB WindowInstance state and shadcn-based chrome",
 
   assert.match(html, /data-slot="window-frame"/);
   assert.match(html, /data-slot="window-titlebar"/);
+  assert.match(html, /h-11 min-h-11/);
   assert.match(html, /data-slot="window-controls"/);
   assert.match(html, /data-slot="window-content"/);
   assert.match(html, /data-slot="window-resize-handle"/);
@@ -94,4 +95,24 @@ test("window surface contract only emits presentation WindowAction values", () =
   assert.equal("canonicalState" in state.instances[0]!, false);
   assert.equal("session" in state.instances[0]!, false);
   assert.equal("process" in state.instances[0]!, false);
+});
+
+test("maximized WindowFrame removes outer radius and border", () => {
+  let state = createWindowRuntimeState([definition], { width: 1200, height: 800 });
+  state = reduceWindowRuntime(state, { type: "OPEN", definitionRef: "settings" });
+  state = reduceWindowRuntime(state, {
+    type: "MAXIMIZE",
+    windowRef: state.instances[0]!.windowRef,
+  });
+
+  const html = renderToStaticMarkup(
+    createElement(WindowFrame, {
+      definition,
+      instance: state.instances[0]!,
+      bounds: state.bounds,
+      dispatch: () => undefined,
+    }),
+  );
+
+  assert.match(html, /rounded-none border-0 shadow-none/);
 });

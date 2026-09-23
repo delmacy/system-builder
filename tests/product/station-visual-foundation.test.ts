@@ -10,9 +10,12 @@ const source = readFileSync(
 
 test("Station visual foundation composes the committed M1 substrate", () => {
   assert.match(source, /StationAppRegistry\(M1_UTILITY_APPS\)/);
-  assert.match(source, /createWindowRuntimeState\(definitions, bounds\)/);
+  assert.match(source, /createWindowRuntimeState\(definitions, initialBounds\)/);
   assert.match(source, /definitionRef: welcome\.windowDefinitions\[0\]!\.id/);
   assert.match(source, /<WindowFrame/);
+  assert.match(source, /ResizeObserver/);
+  assert.match(source, /type: "SET_BOUNDS"/);
+  assert.match(source, /h-\[100dvh\] w-screen/);
   assert.match(source, /createBrowserLocalPresentationStorage\(window\.localStorage\)/);
   assert.match(source, /Core: Disconnected/);
   assert.match(source, /no Core truth is inferred/);

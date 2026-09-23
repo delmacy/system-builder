@@ -70,4 +70,5 @@ export type WindowAction =
       windowRef: string;
       geometry: Partial<WindowGeometry>;
     }>
-  | Readonly<{ type: "SNAP"; windowRef: string; snap: WindowSnap }>;
+  | Readonly<{ type: "SNAP"; windowRef: string; snap: WindowSnap }>
+  | Readonly<{ type: "SET_BOUNDS"; bounds: WindowBounds }>;
