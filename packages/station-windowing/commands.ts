@@ -3,7 +3,7 @@ import {
   unavailable,
   type PresentationCommandDefinition,
   type StationInteractionContext,
-} from "../station-interaction/index.js";
+} from "@system-builder/station-interaction";
 
 import type { WindowAction } from "./types.js";
 
