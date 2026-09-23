@@ -58,6 +58,7 @@ export function WindowFrame({
       height: geometry.height,
       zIndex: instance.zOrder,
       display: instance.lifecycle === "OPEN" ? "flex" : "none",
+      flexDirection: "column",
     }),
     [geometry, instance.lifecycle, instance.zOrder],
   );
