@@ -1024,3 +1024,201 @@ R. AI-assisted generation/completion
 ```
 
 This dependency closure should be treated as the next planning/construction horizon after the M1 shell. No editor specialization should bypass the shared foundations above.
+
+
+## Local UI review workspace — AI draft → human-approved repo delta
+
+AI-generated frontend material must be reviewable and editable locally without requiring a full repository checkout or mutating the original AI-produced tree in place.
+
+Use a dedicated **UI Review Workspace** backed by Git and repository-relative path mirroring.
+
+### Core principle
+
+Keep two path-identical trees:
+
+```text
+ui_review/
+├── incoming/                 # immutable material fetched from AI/source branch
+│   └── <repository-relative path tree>
+└── approved/                 # human-edited/approved mirror
+    └── <repository-relative path tree>
+```
+
+A product-facing/local name such as `ui_review_approved` may be used for the approved tree; the important invariant is that both trees preserve the exact same repository-relative path structure.
+
+Example:
+
+```text
+ui_review/incoming/
+└── packages/ui-core/components/card.tsx
+
+ui_review/approved/
+└── packages/ui-core/components/card.tsx
+```
+
+The incoming tree is evidence of what the AI produced. The approved tree is the only human-authoritative staging tree.
+
+### Selective Git fetch/checkout
+
+The local review flow should avoid pulling unrelated repository material.
+
+Use a Git-backed selective workspace, preferably through sparse-checkout/worktree semantics or an equivalent bounded adapter, so the workstation materializes only the path closure relevant to the current UI review.
+
+Conceptual flow:
+
+```text
+remote AI branch/commit
+→ fetch
+→ resolve approved review paths
+→ sparse materialization
+→ ui_review/incoming/<relative paths>
+```
+
+The review workspace records the exact source repository, branch/ref and commit SHA. Never review against an ambiguous moving HEAD.
+
+### Editing rule
+
+Do not edit `incoming` in place.
+
+On first human edit/approval:
+
+```text
+incoming/<path>
+→ copy/materialize same relative path
+→ approved/<path>
+→ editor writes only approved/<path>
+```
+
+This provides a stable three-way model:
+
+```text
+base repo revision
+AI incoming revision
+human approved revision
+```
+
+and makes diff/rebase/conflict handling deterministic.
+
+### Approval manifest
+
+The workspace should maintain a machine-readable review manifest containing at least:
+
+- repository identity;
+- base commit;
+- AI/source commit;
+- reviewed path roots;
+- approved relative paths;
+- rejected/unchanged paths where useful;
+- editor/save revision identifiers;
+- approving user identity/reference where available;
+- timestamps;
+- content hashes;
+- review status.
+
+Approval metadata must not replace Git history; it complements it.
+
+### Push-back semantics
+
+The approved directory is a staging mirror, **not** the canonical destination path in the repository.
+
+When the user explicitly approves/synchronizes:
+
+```text
+ui_review/approved/<repo-relative path>
+→ validate against incoming/base
+→ map back to <repo-relative path>
+→ apply to bounded Git worktree/branch
+→ run relevant qualification
+→ commit
+→ push review branch
+→ PR / merge gate
+```
+
+Do not commit a duplicated `ui_review_approved/` hierarchy into the product tree merely to publish changes, unless a future explicit archival policy requires it.
+
+### Conflict/rebase behavior
+
+Before push-back, verify that the repository base has not drifted incompatibly.
+
+If source main/target changed:
+
+```text
+base
+├── AI incoming
+├── human approved
+└── current target
+```
+
+perform an explicit bounded reconciliation. Never silently overwrite newer canonical UI work.
+
+Conflicts should be surfaced by repository-relative path and component identity.
+
+### Editor integration
+
+The Composition Editor Engine should consume a workspace provider rather than raw filesystem paths.
+
+Candidate contract:
+
+```text
+UiReviewWorkspace
+├── sourceRef/baseCommit
+├── incomingRoot
+├── approvedRoot
+├── listReviewPaths()
+├── openIncoming(path)
+├── openApproved(path)
+├── ensureApprovedCopy(path)
+├── diff(path)
+├── validate(path)
+├── markApproved(path)
+└── prepareRepoDelta()
+```
+
+Component Editor and Window/View Editor both use the same provider.
+
+### Human approval boundary
+
+AI may generate/update the incoming review branch/tree, but **AI-generated frontend changes do not become canonical merely because they render successfully**.
+
+Canonical repository mutation requires the approved path:
+
+```text
+AI generated
+→ local incoming
+→ human visual adjustment/review
+→ approved mirror
+→ validation
+→ explicit push-back
+→ repository review/merge gates
+```
+
+This preserves the desired human visual authority while keeping the workflow automatable.
+
+### Relationship to Save Changes
+
+Inside an editor:
+
+```text
+Save Changes
+→ normalize declarative composition
+→ write approved mirror
+→ update local draft/review manifest
+```
+
+This does not itself merge to the canonical repository.
+
+A separate action such as `Approve & Prepare Repo Update` or equivalent performs the repository delta preparation after validation.
+
+### Qualification before push
+
+At minimum, push-back should verify:
+
+- composition contract validity;
+- grid/slot/layout constraints;
+- accessibility findings;
+- schema/version compatibility;
+- deterministic serialization;
+- relevant component tests;
+- browser/render smoke for affected views where economical.
+
+The review workspace should remain recoverable even if qualification fails.
