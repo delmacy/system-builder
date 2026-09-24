@@ -10,6 +10,9 @@ architecture_impact: true
 executor_preference: any
 depends_on:
   - TASK-607
+context_paths:
+  - project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md
+  - project_docs/execution_planning/STATION-COMPOSITION-CONSTRUCTION-A-01.md
 allowed_paths:
   - packages/station-composition/**
   - tests/product/**
@@ -40,7 +43,6 @@ Tests prove valid spans, invalid spans, slot acceptance/rejection and nested lay
 
 # Non-goals
 No responsive breakpoint editor, freeform x/y layout or drag-resize implementation.
-
 
 # Context
 TASK-607 provides the registry/contracts that discrete layout and slot compatibility must extend without reusing WindowGeometry as view composition state.
