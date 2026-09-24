@@ -2,7 +2,7 @@
 
 Date: 2026-09-24
 Planning base: `main@1b99786354979cb27728bde9e6b46aa7158c652e`
-Status: PLANNING / NOT MATERIALIZED
+Status: ROADMAP ACTIVE / SPRINT 1 MATERIALIZED
 Predecessor: STATION-VISUAL-WP-01 (M1 integrated by PR #911)
 Architecture authority: ADR-0017 and `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
 
@@ -1235,3 +1235,103 @@ Load
 ```
 
 No typography designer, theme designer, free-form canvas or arbitrary CSS editor is required for the first editor milestone.
+
+
+## M2 sprint roadmap — demarcated horizon
+
+The Station M2 composition/editor horizon is provisionally divided into six dependency-ordered sprints. This is a roadmap boundary, not permission to pre-materialize downstream work or bypass gates.
+
+Task numbering is intentionally assigned only when each sprint is actually materialized from the then-current repository state. Do not reserve speculative TASK ids in advance. Continue from the next repository-wide available TASK id at materialization time.
+
+### Sprint 1 — Composition foundation
+
+Status: MATERIALIZED / ACTIVE  
+Work Package: `STATION-COMPOSITION-CONSTRUCTION-A-01`  
+Current task count: **5**
+
+- TASK-606 — Component inventory + taxonomy
+- TASK-607 — Composition contracts + Component Registry
+- TASK-608 — Grid/span + nested-slot validation
+- TASK-609 — ButtonGroup composite
+- TASK-610 — Component Lab cumulative proof
+
+Exit intent: prove the smallest executable constrained composition substrate.
+
+### Sprint 2 — Inspector, Layers Tree and Composition Graph
+
+Status: PLANNED HORIZON / NOT MATERIALIZED  
+Task count: **TBD at sprint materialization**
+
+Expected scope:
+- generic Inspector foundations;
+- Layers/Component Tree;
+- canonical Composition Graph;
+- validation integration;
+- only dependency-closed collection/layout gaps required by those surfaces.
+
+### Sprint 3 — Transactions, Draft/Save and Preview
+
+Status: PLANNED HORIZON / NOT MATERIALIZED  
+Task count: **TBD at sprint materialization**
+
+Expected scope:
+- editor transaction/history model;
+- undo/redo and dirty state;
+- normalize/save/draft pipeline;
+- schema/version handling required by persistence;
+- isolated preview sandbox.
+
+### Sprint 4 — Shared Composition Editor Engine
+
+Status: PLANNED HORIZON / NOT MATERIALIZED  
+Task count: **TBD at sprint materialization**
+
+Expected scope:
+- shared Composition Canvas;
+- grid/span controller;
+- slot resolver;
+- placement validator;
+- selection/focus integration;
+- Inspector/Layers integration;
+- qualification hooks.
+
+Exit intent: one reusable editing engine exists before editor specializations.
+
+### Sprint 5 — Component Editor and Template Library
+
+Status: PLANNED HORIZON / NOT MATERIALIZED  
+Task count: **TBD at sprint materialization**
+
+Expected scope:
+- Component Editor specialization;
+- internal slots/sub-grids;
+- constrained property/variant editing;
+- template save/apply/variant flows;
+- compatibility/provenance checks;
+- lightweight Load → Save → Approve Git-backed human review flow where dependency-safe.
+
+### Sprint 6 — Window/View Editor and M2 integration
+
+Status: PLANNED HORIZON / NOT MATERIALIZED  
+Task count: **TBD at sprint materialization**
+
+Expected scope:
+- View Tree;
+- selected-view Component/Layers Tree;
+- component/template palette;
+- constrained view/window composition;
+- preview;
+- Save separated from Publish;
+- cumulative M2 integration and qualification.
+
+Exit intent: a usable constrained Window/View Editor built on the same shared composition grammar and editor engine.
+
+### Roadmap rules
+
+- Six sprints is the current planning horizon, not an immutable implementation count.
+- A sprint may be split or merged only when repository evidence and dependency closure justify it.
+- Do not assign downstream TASK numbers until that sprint is materialized.
+- When a sprint is materialized, replace its `TBD` task count with the factual count and list the assigned TASK ids.
+- TASK ids remain repository-global and sequential from the next available id; they are not restarted per sprint.
+- No downstream sprint may bypass the shared foundations established by earlier sprints.
+- Window/View Editor remains the M2 culmination, not an excuse to skip Component Registry, graph, transactions, save/draft, preview or the shared editor engine.
