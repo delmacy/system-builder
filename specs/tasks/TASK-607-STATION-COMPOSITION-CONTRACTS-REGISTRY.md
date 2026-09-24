@@ -45,3 +45,19 @@ Registry supports register/get/list; duplicate IDs fail deterministically; contr
 
 # Non-goals
 No editor, persistence, bindings, business commands or dynamic plugin loading.
+
+
+# Context
+TASK-606 established the taxonomy and identified station-composition as the bounded owner for reusable composition metadata.
+
+# Inputs / contracts
+TASK-606 inventory, ADR-0017, Station frontend foundation, and the Construction A composition plan.
+
+# Outputs / contracts
+Serializable ComponentDescriptor/Slot/Layout/ChildPolicy/Constraints contracts and a deterministic stable-id ComponentRegistry independent of AppManifest and editor UI.
+
+# Evidence expected
+Product tests prove required-field validation, register/get/list behavior, duplicate rejection, family representation, and deterministic ordering.
+
+# Escalation
+Stop if the registry needs Core/business authority, dynamic plugin loading, arbitrary pixel geometry, or application/editor-specific state.

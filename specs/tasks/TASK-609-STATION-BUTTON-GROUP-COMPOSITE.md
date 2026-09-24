@@ -40,3 +40,19 @@ Five icon buttons can be rendered as one group; invalid child kinds are rejected
 
 # Non-goals
 No toolbar-specific business behavior, theme controls or arbitrary styling API.
+
+
+# Context
+TASK-608 makes nested-slot validation executable; this task proves it with one real semantic composite built from existing UI primitives.
+
+# Inputs / contracts
+TASK-608 slot/span validation, ui-core Button/IconButton primitives, semantic ui-icons, and canonical Station theme/typography tokens.
+
+# Outputs / contracts
+A reusable ButtonGroup occupying one outer composition block while owning deterministic internal ButtonSlots and token-based micro-layout.
+
+# Evidence expected
+Tests/render proof show five semantic icon buttons in one group, deterministic slot semantics, invalid-child rejection, and no arbitrary pixel sizing API.
+
+# Escalation
+Stop if the composite needs toolbar/business semantics, theme controls, unrestricted styling, or private Core/domain imports.

@@ -40,3 +40,19 @@ Tests prove valid spans, invalid spans, slot acceptance/rejection and nested lay
 
 # Non-goals
 No responsive breakpoint editor, freeform x/y layout or drag-resize implementation.
+
+
+# Context
+TASK-607 provides the registry/contracts that discrete layout and slot compatibility must extend without reusing WindowGeometry as view composition state.
+
+# Inputs / contracts
+TASK-607 composition contracts and registry plus the Construction A grid/span and nested-slot rules.
+
+# Outputs / contracts
+Discrete row/column span constraints, named-slot compatibility, allowed-parent/layout validation, and explicit nested layout ownership.
+
+# Evidence expected
+Product tests prove accepted/rejected spans, accepted/rejected slot placement, and nested layout ownership with no canonical raw pixel sizing.
+
+# Escalation
+Stop if validation requires freeform x/y geometry, responsive editor behavior, window lifecycle authority, or Core/domain state.

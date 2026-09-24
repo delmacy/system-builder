@@ -47,3 +47,19 @@ No runtime code or editor UI.
 
 # Closure
 Completed on branch `sprint/STATION-COMPOSITION-CONSTRUCTION-A-01` with `STATION-COMPONENT-INVENTORY-01.md`. The inventory confirms a new bounded `station-composition` ownership layer and the minimum executable chain taxonomy → registry/contracts → grid/slot validation → ButtonGroup → Component Lab proof.
+
+
+# Context
+Construction A needs a repository-owned inventory before executable composition contracts can be introduced.
+
+# Inputs / contracts
+ADR-0017, Station frontend foundation, the composition plan, and the existing Station/ui package boundaries.
+
+# Outputs / contracts
+An authoritative inventory and taxonomy describing ownership, composition family, immediate need, and deferred scope without creating runtime authority.
+
+# Evidence expected
+The inventory document classifies the existing substrate and records the minimum dependency closure for TASK-607..610.
+
+# Escalation
+Stop if classification requires changing Core/runtime ownership, application semantics, or introducing editor behavior.
