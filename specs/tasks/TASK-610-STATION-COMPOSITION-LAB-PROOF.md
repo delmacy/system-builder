@@ -10,6 +10,9 @@ architecture_impact: false
 executor_preference: any
 depends_on:
   - TASK-609
+context_paths:
+  - project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md
+  - project_docs/execution_planning/STATION-COMPOSITION-CONSTRUCTION-A-01.md
 allowed_paths:
   - apps/station/web/**
   - packages/station-composition/**
@@ -47,7 +50,6 @@ The proof uses real package APIs, not mock-only local types; one canonical theme
 
 # Non-goals
 No Component Editor, Window/View Editor, persistence or AI generation.
-
 
 # Context
 TASK-609 completes the minimum source-owned substrate; Component Lab must prove the cumulative composition behavior without becoming an editor.
