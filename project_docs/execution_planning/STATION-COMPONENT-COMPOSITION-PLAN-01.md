@@ -152,19 +152,20 @@ Reusable editor chrome providing:
 - dirty/draft state;
 - save/preview hooks.
 
-## Level 6 — first general application: Window/View Editor
+## Level 6 — shared editor foundation and first editor specializations
 
-The first general post-component application is the **Window/View Editor**.
+The first post-component goal is not a monolithic application; it is the reusable **Composition Editor Engine** and its specializations.
 
-Its purpose is to let a user visually organize Station/application views using the same reusable components that the System Builder itself exposes.
+The first specialization is the **Component Editor**, used to refine reusable primitives/composites, internal slots, variants and proportional sub-grids.
 
-Initial usable scope:
+The first general application-level specialization is the **Window/View Editor**, used to organize Station/application views from those reusable pieces.
+
+Initial Window/View Editor scope:
 
 - select a view/window;
-- move components;
-- resize components;
-- align/snap;
-- order/layer;
+- reposition components only through valid grid slots/layout regions;
+- resize through discrete row/column span changes, never arbitrary canonical pixel dimensions;
+- align/order through declared layout rules;
 - inspect/edit presentation properties;
 - save changes;
 - preview;
@@ -172,14 +173,13 @@ Initial usable scope:
 
 Progressive scope:
 
-- palette of registered components;
-- drag/drop insertion;
+- palette of registered components/templates;
+- constrained insertion into compatible slots;
 - component/layers tree;
-- layout constraints;
 - responsive/layout variants;
 - bindings/events/commands only after the presentation model is stable.
 
-The editor must edit a declarative model, not arbitrary HTML/CSS.
+The editors must edit a declarative composition graph, not arbitrary HTML/CSS.
 
 ## View and component trees
 
@@ -356,13 +356,21 @@ Expected succession after component stabilization:
 ```text
 Primitive inventory/completion
         ↓
+Composition contracts + grid/slot rules
+        ↓
 Collections + selection/navigation
         ↓
-Inspector + generic editor surfaces
+Inspector + Layers Tree + generic editor surfaces
         ↓
-Window/View Editor          ← first general application
+Composition Graph + validation + save pipeline
+        ↓
+Shared Composition Editor Engine
+        ↓
+Component Editor
         ↓
 Template Library/Manager
+        ↓
+Window/View Editor          ← first general application-level editor
         ↓
 ResourceExplorer
         ↓
