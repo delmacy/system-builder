@@ -4,7 +4,7 @@ title: Prove LEGO composition foundation in Component Lab
 status: blocked
 priority: 610
 milestone: STATION-COMPOSITION-A
-model_tier: implementation
+model_tier: cheap
 risk: medium
 architecture_impact: false
 executor_preference: any
