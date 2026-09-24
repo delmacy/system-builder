@@ -1,9 +1,15 @@
 "use client";
 
-import type { AppManifest } from "@system-builder/station-app-runtime";
 import type { WindowDefinition, WindowInstance } from "@system-builder/station-windowing";
 import { Button, cn } from "@system-builder/ui-core";
-import { StationIcon } from "@system-builder/ui-icons";
+import { StationIcon, type IconToken } from "@system-builder/ui-icons";
+
+export type StationLauncherApp = Readonly<{
+  id: string;
+  name: string;
+  description?: string;
+  icon: IconToken;
+}>;
 
 export type StationTaskbarWindow = Readonly<{
   instance: WindowInstance;
@@ -11,7 +17,7 @@ export type StationTaskbarWindow = Readonly<{
 }>;
 
 export type StationTaskbarProps = Readonly<{
-  apps: readonly AppManifest[];
+  apps: readonly StationLauncherApp[];
   windows: readonly StationTaskbarWindow[];
   activeWindowRef: string | null;
   launcherOpen: boolean;
