@@ -556,3 +556,312 @@ View grid
 The same pattern should generalize beyond buttons to compact control groups, segmented controls, toolbar clusters, status clusters and similar micro-compositions.
 
 Rule: the page/view grid manages meaningful layout blocks; component-internal micro-layout is owned by the component's own constrained sub-grid.
+
+
+## Composition contracts — LEGO-style assembly semantics
+
+To make constrained visual assembly concrete, every reusable component must declare how it participates in composition. Not every component is a group, but every component must declare its composition contract.
+
+Core contract vocabulary:
+
+- `Component`: reusable visual/interaction unit.
+- `Slot`: named insertion point exposed by a component.
+- `Layout`: outer placement model and internal arrangement model.
+- `ChildPolicy`: whether/how the component accepts children.
+- `Constraints`: allowed spans, placements and proportional bounds.
+- optional `Variant`: standardized presentation/behavior variant.
+- optional `Binding`: declarative data/state connection.
+- optional `Command`: declarative action/intent connection.
+
+### Component families
+
+Use the following taxonomy to avoid unnecessary grouping.
+
+#### Atomic primitives
+
+Examples: Button, IconButton, Input, Badge, Label.
+
+These may occupy a slot directly when semantically valid. They do not need a dedicated group unless several primitives form one meaningful local unit.
+
+#### Collections
+
+Examples: List, Grid, Table, Tree.
+
+Collections are already meaningful composites. They normally occupy one outer grid span and manage their own items internally. Do not introduce redundant wrappers such as ListGroup unless a distinct semantic need exists.
+
+#### Local semantic composites
+
+Examples: ButtonGroup, FilterBar, Toolbar, Card, FormSection, StatusCluster.
+
+These exist when multiple lower-level pieces form one meaningful unit or need a constrained micro-layout.
+
+#### Layout containers
+
+Examples: Row, Column, Grid, Split, Stack, Dock, Tabs.
+
+These own arrangement rather than business/content semantics.
+
+### ChildPolicy
+
+Standardize child behavior:
+
+```text
+none      — does not accept compositional children
+single    — accepts one child/slot content
+multiple  — accepts multiple children
+managed   — accepts children but owns their internal arrangement/slotting
+```
+
+Examples:
+
+```text
+Button       → none
+Panel        → multiple
+Tabs         → managed
+List         → managed
+ButtonGroup  → managed
+```
+
+### Slot contracts
+
+A composite exposes named slots and allowed child kinds.
+
+Example:
+
+```text
+Card
+├── header
+├── content
+└── actions
+```
+
+The `actions` slot may accept Button, ButtonGroup or Menu, while rejecting unrelated components such as Table.
+
+Slots are the primary 'LEGO joints': composition freedom is constrained by compatible insertion contracts.
+
+### Layout ownership
+
+Layout authority must be explicit at each nesting level.
+
+Example:
+
+```text
+ViewGrid
+→ owns ResourceList outer span
+
+ResourceList
+→ owns ListItem arrangement
+
+ListItem
+→ owns its own internal micro-layout
+```
+
+This prevents parent grids from micromanaging internal component geometry.
+
+### Placement and proportional constraints
+
+Each component should declare compatible parent/layout contexts and discrete span bounds, e.g.:
+
+```yaml
+component: ResourceList
+placement:
+  allowedIn: [grid, split, panel]
+layout:
+  minColumns: 3
+  maxColumns: 12
+  minRows: 2
+children:
+  policy: managed
+  accepts: [ListItem]
+```
+
+A component can also expose recommended spans without reducing sizing to XS/S/M/L presets.
+
+### Composition validation
+
+The editor must validate a composition before save:
+
+- child kind is accepted by the destination slot;
+- parent layout supports the component;
+- spans satisfy constraints;
+- required slots are satisfied;
+- managed children obey the component-local grid;
+- no unsupported nesting cycles;
+- variants/bindings/commands use declared contracts.
+
+Invalid compositions should be blocked or surfaced as explicit validation findings rather than silently persisted.
+
+## Editor architecture — shared Composition Editor Engine
+
+Component Editor and Window/View Editor must not be separate editing engines.
+
+Create a shared **Composition Editor Engine** built from reusable pieces:
+
+```text
+Composition Editor Engine
+├── Composition Canvas
+├── Grid/Span Controller
+├── Slot Resolver
+├── Placement Validator
+├── Selection/Focus
+├── Layers/Component Tree
+├── Inspector
+├── Variant Editor
+├── Undo/Redo
+├── Preview
+├── Draft/Dirty State
+├── Save Pipeline
+└── Qualification hooks
+```
+
+The engine edits a declarative composition graph subject to the composition contracts above.
+
+### Composition graph
+
+Canonical editing model should distinguish:
+
+```text
+CompositionNode
+├── componentRef
+├── variantRef?
+├── outerLayout
+│   ├── columnSpan
+│   ├── rowSpan
+│   └── placement metadata
+├── slot assignments
+├── properties
+├── bindings?
+├── commands?
+└── child nodes
+```
+
+The graph should preserve semantic layout rather than arbitrary pixel geometry.
+
+## Component Editor plan
+
+The **Component Editor** is the first specialization of the shared engine for reusable pieces and composites.
+
+Initial goals:
+
+- open a reusable component/composite definition;
+- inspect its component tree;
+- add/remove/reorder compatible children through slots;
+- change row/column spans using discrete units;
+- edit internal grids/subslots;
+- edit standard gap/padding/alignment/distribution tokens;
+- edit variants such as compact/pulse/dense where declared;
+- preview states;
+- save a new draft revision;
+- save/create a reusable variant;
+- save as a reusable template where appropriate.
+
+Example target:
+
+```text
+ActionCard
+└── ButtonGroup
+    ├── IconButton
+    ├── IconButton
+    ├── IconButton
+    ├── IconButton
+    └── IconButton
+```
+
+The outer View grid sees ActionCard/ButtonGroup as meaningful blocks; the Component Editor exposes the internal sub-grid.
+
+## Window/View Editor plan
+
+The **Window/View Editor** is the second specialization of the same engine and remains the first general application target.
+
+It operates at view/page/window composition level.
+
+Required surfaces:
+
+- View Tree: application pages/windows/dialogs/panels;
+- Component/Layers Tree: selected view composition;
+- Composition Canvas;
+- Inspector;
+- component/template palette;
+- preview;
+- Save Changes;
+- Publish as a separate action.
+
+Sizing/placement remains grid-constrained:
+
+- +1/-1 column;
+- +1/-1 row;
+- approved spans;
+- layout switches such as grid/split/stack/tabs;
+- no canonical arbitrary pixel resize.
+
+## Template tool integration
+
+Template Library/Manager must consume the same composition contracts and graph format.
+
+Template categories may include:
+
+- component;
+- local composite;
+- section;
+- page/view;
+- application shell;
+- later subsystem composition.
+
+A template is therefore a reusable, versioned composition graph with provenance, not copied markup.
+
+## Construction ordering for the editors
+
+Do not materialize editor applications before the shared dependency closure exists.
+
+Recommended planning/build order:
+
+```text
+A. Component inventory + taxonomy
+        ↓
+B. Composition contract schema
+   Component / Slot / Layout / ChildPolicy / Constraints
+        ↓
+C. Grid/span + nested-slot primitives
+        ↓
+D. Collection and layout primitives
+        ↓
+E. Generic Inspector + Layers Tree
+        ↓
+F. Composition Graph + validator
+        ↓
+G. Save/normalize/draft pipeline
+        ↓
+H. Shared Composition Editor Engine
+        ↓
+I. Component Editor
+        ↓
+J. Template Library/Manager
+        ↓
+K. Window/View Editor
+        ↓
+L. Artifact-backed persistence/publication integration
+        ↓
+M. AI-assisted generation/completion
+```
+
+The exact order of I/J/K may be adjusted by the dependency graph, but no specialization may bypass H.
+
+## AI-assisted authoring flow
+
+Once the editors and contracts exist, AI-assisted construction should follow:
+
+```text
+intent/domain model
+→ AI proposes valid composition graph
+→ user adjusts through constrained editor
+→ Save Changes
+→ normalized declarative revision
+→ AI reads final composition
+→ proposes/completes bindings, commands, validation, APIs and backend logic
+→ qualification
+→ Publish
+```
+
+The AI must generate only contract-valid pieces/spans/slots rather than arbitrary CSS geometry.
+
+This makes the human adjustment itself an authoritative input to downstream backend/logical completion.
