@@ -46,6 +46,12 @@ validation:
 # Objective
 Close Construction B only after the complete M1 shell and architecture boundary are demonstrated.
 
+# Current behavior
+TASK-597..604 are complete and the predecessor exact head `5cd2c9600a4e2784ebe26984771f5fb559123da2` carries the cumulative Station M1 implementation and browser/cross-platform proof. Construction B now requires only its bounded cumulative closure record and exact-head verification before integration.
+
+# Required change
+Record the cumulative M1 closure without changing product behavior, authority, runtime lifecycle, canonical truth or deferred subsystem scope. Preserve the established Station presentation boundaries and obtain exact-head CI evidence for this documentation-only closure commit before integration.
+
 # Closure
 Construction B is cumulatively proven through TASK-604 exact-head evidence. The M1 shell boots explicitly disconnected; Navbar, Toolbar/Command Surface, Desktop Sphere and Taskbar/Launcher compose; Welcome, Component Lab and Settings are usable as presentation applications; multi-window focus/minimize/restore/snap behavior is bounded to interaction state; presentation preferences/layout persist locally and reset without mutating Core truth; primary shell journeys have keyboard/browser proof; semantic icons and ui-core remain source-owned.
 
