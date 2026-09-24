@@ -48,7 +48,26 @@ export function StationFoundationClient() {
   const activeWindow = windows.activeWindowRef === null ? undefined : windows.instances.find((instance) => instance.windowRef === windows.activeWindowRef); const activeDefinition = activeWindow === undefined ? undefined : definitionFor(activeWindow, windows.definitions);
   const taskbarWindows = visibleWindows.flatMap((instance) => { const definition = definitionFor(instance, windows.definitions); return definition === undefined ? [] : [{ instance, definition }]; });
   const commandContext = interactionContext({ focus: activeWindow === undefined ? null : focusTarget("window", activeWindow.windowRef), selection: selectionContext(), surfaceRef: "station:desktop" });
-  const openCommandSurface = (mode: CommandSurfaceMode) => { setCommandSurfaceMode(mode); setCommandSurfaceExpanded(true); };
+  const openCommandSurface = useCallback((mode: CommandSurfaceMode) => { setCommandSurfaceMode(mode); setCommandSurfaceExpanded(true); }, []);
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const modifier = event.ctrlKey || event.metaKey;
+      if (modifier && event.code === "Space") { event.preventDefault(); setLauncherOpen((open) => !open); return; }
+      if (modifier && event.key.toLowerCase() === "k") { event.preventDefault(); openCommandSurface("commands"); return; }
+      if (modifier && event.key === ",") { event.preventDefault(); openApp("app:settings"); return; }
+      if (event.altKey && event.key === "Tab") {
+        event.preventDefault();
+        if (visibleWindows.length === 0) return;
+        const activeIndex = visibleWindows.findIndex((instance) => instance.windowRef === windows.activeWindowRef);
+        const direction = event.shiftKey ? -1 : 1;
+        const nextIndex = activeIndex < 0 ? 0 : (activeIndex + direction + visibleWindows.length) % visibleWindows.length;
+        const next = visibleWindows[nextIndex];
+        if (next !== undefined) dispatch({ type: next.lifecycle === "MINIMIZED" ? "RESTORE" : "FOCUS", windowRef: next.windowRef });
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [dispatch, openCommandSurface, visibleWindows, windows.activeWindowRef]);
   return <main className="h-[100dvh] w-screen overflow-hidden bg-[var(--sb-desktop)]" data-density={presentation.appearance.density} data-motion={presentation.appearance.motion} data-theme={presentation.appearance.theme} data-station-core="disconnected"><section className="flex h-full w-full flex-col overflow-hidden bg-card text-card-foreground">
     {presentation.shell.navbarVisible ? <StationNavbar connection="disconnected" contextLabel={activeDefinition?.title ?? "Desktop"} commandAvailable searchAvailable onCommand={() => openCommandSurface("commands")} onHome={() => openApp("app:welcome")} onSearch={() => openCommandSurface("search")} onSettings={() => openApp("app:settings")} /> : null}
     {presentation.shell.toolbarVisible ? <StationCommandSurface connection="disconnected" context={commandContext} expanded={commandSurfaceExpanded} mode={commandSurfaceMode} onExpandedChange={setCommandSurfaceExpanded} registry={commandRegistry} /> : null}
