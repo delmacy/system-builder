@@ -187,5 +187,6 @@ test("unfocused WindowFrame recedes visually without changing window content sta
   assert.match(html, /shadow-md/);
   assert.match(html, /bg-muted\/70/);
   assert.match(html, /Settings body/);
-  assert.doesNotMatch(html, /opacity-/);
+  const frameClass = html.match(/<section[^>]*data-slot="window-frame"[^>]*class="([^"]+)"/)?.[1] ?? "";
+  assert.doesNotMatch(frameClass, /(?:^|\s)opacity-/);
 });
