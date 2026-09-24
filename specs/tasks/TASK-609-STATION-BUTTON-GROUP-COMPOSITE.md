@@ -4,7 +4,7 @@ title: Implement first nested-slot ButtonGroup composite
 status: blocked
 priority: 609
 milestone: STATION-COMPOSITION-A
-model_tier: implementation
+model_tier: cheap
 risk: medium
 architecture_impact: false
 executor_preference: any
