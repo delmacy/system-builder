@@ -1,7 +1,7 @@
 ---
 id: TASK-603
 title: Add Station keyboard navigation focus and accessibility baseline
-status: ready
+status: completed
 priority: 603
 milestone: STATION-VISUAL-M1
 model_tier: architecture
