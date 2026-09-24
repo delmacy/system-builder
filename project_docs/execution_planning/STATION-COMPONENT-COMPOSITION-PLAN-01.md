@@ -873,3 +873,154 @@ intent/domain model
 The AI must generate only contract-valid pieces/spans/slots rather than arbitrary CSS geometry.
 
 This makes the human adjustment itself an authoritative input to downstream backend/logical completion.
+
+
+## Missing cross-cutting editor foundations
+
+The editor chain also requires the following transverse foundations before specialization is considered complete.
+
+### Component Registry
+
+Provide a source-owned registry for every composable component and composite. It should expose:
+
+- stable component id;
+- display name/category;
+- composition family;
+- icon token;
+- supported parent/layout contexts;
+- slot definitions;
+- child policy;
+- layout constraints;
+- editable properties;
+- declared variants;
+- supported bindings/commands;
+- schema/version metadata.
+
+The editor palette, validator, inspector and AI authoring flow should resolve capabilities from this registry rather than hard-coded per-editor branches.
+
+### Schema versioning and migration
+
+Composition definitions, component contracts, templates and saved views need explicit schema versions.
+
+Required capabilities:
+
+- detect old schema versions;
+- deterministic migration to current schema;
+- preserve unsupported/unknown data safely or reject explicitly;
+- migration tests/fixtures;
+- prevent silent destructive rewrite on save.
+
+### Responsive policy
+
+The grid model must define responsive behavior rather than leave it to arbitrary CSS.
+
+Planning must cover:
+
+- supported breakpoints;
+- span remapping per breakpoint;
+- minimum viable width/height constraints;
+- overflow/collapse behavior;
+- component-specific responsive policies;
+- preview at supported breakpoints.
+
+Responsive behavior must remain token/grid based.
+
+### Accessibility contracts
+
+Composable components must declare and preserve accessibility semantics.
+
+Planning must include:
+
+- keyboard navigation;
+- focus order;
+- semantic roles/labels;
+- minimum interaction target guidance;
+- reduced motion;
+- contrast/token conformance;
+- validation for invalid nesting or missing accessible labels where applicable.
+
+The editor must not allow a visually valid composition to become structurally inaccessible without surfacing findings.
+
+### Editor transaction and history model
+
+Undo/redo should be based on editor transactions, not incidental React state.
+
+Define:
+
+- atomic edit operations;
+- grouped transactions;
+- dirty state;
+- undo/redo stack;
+- reset/revert;
+- conflict handling when underlying definitions change;
+- deterministic serialization after history operations.
+
+### Preview sandbox
+
+Provide an isolated preview surface for draft compositions.
+
+The sandbox should support:
+
+- current draft render;
+- breakpoint preview;
+- presentation variants;
+- sample/mock data where allowed;
+- no accidental Core/business side effects;
+- deterministic refresh/reload.
+
+### Template and variant compatibility
+
+Before applying a template or variant, validate compatibility with:
+
+- destination component kind;
+- required slots;
+- schema version;
+- layout constraints;
+- supported bindings/commands;
+- component versions.
+
+Applying incompatible templates must produce explicit findings rather than partial silent mutation.
+
+## Revised editor dependency closure
+
+The complete dependency chain for editor materialization is now:
+
+```text
+A. Component inventory + taxonomy
+        ↓
+B. Component Registry
+        ↓
+C. Composition contract schema
+        ↓
+D. Grid/span + nested-slot + responsive policy
+        ↓
+E. Collection/layout primitives
+        ↓
+F. Accessibility contracts
+        ↓
+G. Inspector + Layers Tree
+        ↓
+H. Composition Graph + validator
+        ↓
+I. Schema versioning + migration
+        ↓
+J. Editor transaction/history model
+        ↓
+K. Save/normalize/draft pipeline
+        ↓
+L. Preview sandbox
+        ↓
+M. Shared Composition Editor Engine
+        ↓
+N. Component Editor
+        ↓
+O. Template Library/Manager + compatibility
+        ↓
+P. Window/View Editor
+        ↓
+Q. Artifact-backed persistence/publication
+        ↓
+R. AI-assisted generation/completion
+```
+
+This dependency closure should be treated as the next planning/construction horizon after the M1 shell. No editor specialization should bypass the shared foundations above.
