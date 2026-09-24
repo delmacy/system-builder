@@ -19,10 +19,11 @@ test("Station visual foundation composes the committed M1 substrate", () => {
   assert.match(source, /createBrowserLocalPresentationStorage\(window\.localStorage\)/);
   assert.match(source, /<StationNavbar/);
   assert.match(source, /connection="disconnected"/);
-  assert.match(source, /data-slot="station-taskbar"/);
-  assert.match(source, /data-slot="taskbar-windows"/);
-  assert.match(source, /registry\.list\(\)\.map/);
-  assert.match(source, /instance\.lifecycle === "MINIMIZED" \? "RESTORE" : "FOCUS"/);
+  assert.match(source, /<StationTaskbar/);
+  assert.match(source, /apps=\{registry\.list\(\)\}/);
+  assert.match(source, /windows=\{taskbarWindows\}/);
+  assert.match(source, /onLauncherOpenChange=\{setLauncherOpen\}/);
+  assert.match(source, /instance\.lifecycle === "MINIMIZED"/);
   assert.match(source, /openWindows\.map/);
   assert.match(source, /no Core truth is inferred/);
 });
