@@ -10,6 +10,9 @@ architecture_impact: false
 executor_preference: any
 depends_on:
   - TASK-608
+context_paths:
+  - project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md
+  - project_docs/execution_planning/STATION-COMPOSITION-CONSTRUCTION-A-01.md
 allowed_paths:
   - packages/ui-core/**
   - packages/ui-icons/**
@@ -40,7 +43,6 @@ Five icon buttons can be rendered as one group; invalid child kinds are rejected
 
 # Non-goals
 No toolbar-specific business behavior, theme controls or arbitrary styling API.
-
 
 # Context
 TASK-608 makes nested-slot validation executable; this task proves it with one real semantic composite built from existing UI primitives.
