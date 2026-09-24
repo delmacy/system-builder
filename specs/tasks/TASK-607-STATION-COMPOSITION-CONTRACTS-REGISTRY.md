@@ -1,7 +1,7 @@
 ---
 id: TASK-607
 title: Implement Station composition contracts and component registry
-status: blocked
+status: ready
 priority: 607
 milestone: STATION-COMPOSITION-A
 model_tier: architecture
