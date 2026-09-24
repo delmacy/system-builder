@@ -1026,199 +1026,115 @@ R. AI-assisted generation/completion
 This dependency closure should be treated as the next planning/construction horizon after the M1 shell. No editor specialization should bypass the shared foundations above.
 
 
-## Local UI review workspace — AI draft → human-approved repo delta
+## Lightweight local UI load/review flow
 
-AI-generated frontend material must be reviewable and editable locally without requiring a full repository checkout or mutating the original AI-produced tree in place.
+Keep this flow intentionally simple. The editor does not need a heavyweight review workspace abstraction for the first implementation.
 
-Use a dedicated **UI Review Workspace** backed by Git and repository-relative path mirroring.
+### Load
 
-### Core principle
+The editor exposes actions such as:
 
-Keep two path-identical trees:
+- Load Component
+- Load View/Window
+
+Under the hood, the Station/tooling resolves the selected repository-relative path and uses Git to materialize only the relevant UI path closure locally.
+
+Conceptually:
 
 ```text
-ui_review/
-├── incoming/                 # immutable material fetched from AI/source branch
-│   └── <repository-relative path tree>
-└── approved/                 # human-edited/approved mirror
-    └── <repository-relative path tree>
+Load Component/View
+→ Git fetch/checkout of selected UI path(s)
+→ local bounded folder
+→ editor browses only that folder/tree
 ```
 
-A product-facing/local name such as `ui_review_approved` may be used for the approved tree; the important invariant is that both trees preserve the exact same repository-relative path structure.
+The editor should not expose unrelated repository paths while working on a selected component/view.
+
+### Edit and Save
+
+The user navigates the loaded local tree, opens the component/view and edits it through the constrained Composition Editor.
+
+`Save` means:
+
+```text
+editor state
+→ normalized declarative/code output
+→ write/update local loaded path
+```
+
+Saving alone does not mean human approval.
+
+### Human approval
+
+A separate explicit `Approve` action marks the current saved state as the user-approved version.
+
+On approval:
+
+```text
+saved local component/view
+→ map to identical repository-relative path
+→ write to human-approved Git target
+→ git add/commit
+→ git push
+```
+
+Use a clearly named human-reviewed target such as a dedicated branch/ref (preferred) or bounded review namespace, for example:
+
+```text
+human-approved/<review-id>
+```
+
+The approved target preserves the exact repository-relative path tree of the source material. Do not invent a second internal path model.
 
 Example:
 
 ```text
-ui_review/incoming/
-└── packages/ui-core/components/card.tsx
+source:
+packages/ui-core/components/action-card.tsx
 
-ui_review/approved/
-└── packages/ui-core/components/card.tsx
+approved target:
+packages/ui-core/components/action-card.tsx
 ```
 
-The incoming tree is evidence of what the AI produced. The approved tree is the only human-authoritative staging tree.
+The difference is the Git ref/branch and approval state, not the product path.
 
-### Selective Git fetch/checkout
+### Minimal state
 
-The local review flow should avoid pulling unrelated repository material.
+For the first implementation, keep only what is needed:
 
-Use a Git-backed selective workspace, preferably through sparse-checkout/worktree semantics or an equivalent bounded adapter, so the workstation materializes only the path closure relevant to the current UI review.
+- repository/ref;
+- source commit;
+- selected root path;
+- local loaded folder;
+- saved/dirty state;
+- approved/not-approved state;
+- approved commit/push result.
 
-Conceptual flow:
+Do not introduce complex manifests, three-way review engines or generalized workspace abstractions unless later evidence requires them.
+
+### Editor UX
+
+Target interaction:
 
 ```text
-remote AI branch/commit
-→ fetch
-→ resolve approved review paths
-→ sparse materialization
-→ ui_review/incoming/<relative paths>
+[Load Component] / [Load View]
+        ↓
+browse bounded local tree
+        ↓
+open/edit
+        ↓
+[Save]
+        ↓
+saved locally
+        ↓
+[Approve]
+        ↓
+commit + push to human-approved Git target
 ```
 
-The review workspace records the exact source repository, branch/ref and commit SHA. Never review against an ambiguous moving HEAD.
+Once approved, that component/view is explicitly the human-authoritative visual result for downstream integration.
 
-### Editing rule
+### Integration rule
 
-Do not edit `incoming` in place.
+AI may continue generating candidate UI elsewhere, but downstream integration should prefer the human-approved ref for any component/view that has been explicitly approved.
 
-On first human edit/approval:
-
-```text
-incoming/<path>
-→ copy/materialize same relative path
-→ approved/<path>
-→ editor writes only approved/<path>
-```
-
-This provides a stable three-way model:
-
-```text
-base repo revision
-AI incoming revision
-human approved revision
-```
-
-and makes diff/rebase/conflict handling deterministic.
-
-### Approval manifest
-
-The workspace should maintain a machine-readable review manifest containing at least:
-
-- repository identity;
-- base commit;
-- AI/source commit;
-- reviewed path roots;
-- approved relative paths;
-- rejected/unchanged paths where useful;
-- editor/save revision identifiers;
-- approving user identity/reference where available;
-- timestamps;
-- content hashes;
-- review status.
-
-Approval metadata must not replace Git history; it complements it.
-
-### Push-back semantics
-
-The approved directory is a staging mirror, **not** the canonical destination path in the repository.
-
-When the user explicitly approves/synchronizes:
-
-```text
-ui_review/approved/<repo-relative path>
-→ validate against incoming/base
-→ map back to <repo-relative path>
-→ apply to bounded Git worktree/branch
-→ run relevant qualification
-→ commit
-→ push review branch
-→ PR / merge gate
-```
-
-Do not commit a duplicated `ui_review_approved/` hierarchy into the product tree merely to publish changes, unless a future explicit archival policy requires it.
-
-### Conflict/rebase behavior
-
-Before push-back, verify that the repository base has not drifted incompatibly.
-
-If source main/target changed:
-
-```text
-base
-├── AI incoming
-├── human approved
-└── current target
-```
-
-perform an explicit bounded reconciliation. Never silently overwrite newer canonical UI work.
-
-Conflicts should be surfaced by repository-relative path and component identity.
-
-### Editor integration
-
-The Composition Editor Engine should consume a workspace provider rather than raw filesystem paths.
-
-Candidate contract:
-
-```text
-UiReviewWorkspace
-├── sourceRef/baseCommit
-├── incomingRoot
-├── approvedRoot
-├── listReviewPaths()
-├── openIncoming(path)
-├── openApproved(path)
-├── ensureApprovedCopy(path)
-├── diff(path)
-├── validate(path)
-├── markApproved(path)
-└── prepareRepoDelta()
-```
-
-Component Editor and Window/View Editor both use the same provider.
-
-### Human approval boundary
-
-AI may generate/update the incoming review branch/tree, but **AI-generated frontend changes do not become canonical merely because they render successfully**.
-
-Canonical repository mutation requires the approved path:
-
-```text
-AI generated
-→ local incoming
-→ human visual adjustment/review
-→ approved mirror
-→ validation
-→ explicit push-back
-→ repository review/merge gates
-```
-
-This preserves the desired human visual authority while keeping the workflow automatable.
-
-### Relationship to Save Changes
-
-Inside an editor:
-
-```text
-Save Changes
-→ normalize declarative composition
-→ write approved mirror
-→ update local draft/review manifest
-```
-
-This does not itself merge to the canonical repository.
-
-A separate action such as `Approve & Prepare Repo Update` or equivalent performs the repository delta preparation after validation.
-
-### Qualification before push
-
-At minimum, push-back should verify:
-
-- composition contract validity;
-- grid/slot/layout constraints;
-- accessibility findings;
-- schema/version compatibility;
-- deterministic serialization;
-- relevant component tests;
-- browser/render smoke for affected views where economical.
-
-The review workspace should remain recoverable even if qualification fails.
