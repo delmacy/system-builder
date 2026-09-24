@@ -188,12 +188,13 @@ Next planning/materialization gates:
 10. editor transaction/history model;
 11. normalize/save/draft pipeline;
 12. preview sandbox;
-13. shared Composition Editor Engine;
-14. Component Editor;
-15. Template Library/Manager with compatibility validation;
-16. Window/View Editor;
-17. artifact-backed persistence/publication integration;
-18. AI-assisted generation/completion.
+13. local Git-backed UI Review Workspace (incoming + approved mirrored trees, selective checkout, approval manifest and push-back delta);
+14. shared Composition Editor Engine;
+15. Component Editor;
+16. Template Library/Manager with compatibility validation;
+17. Window/View Editor;
+18. artifact-backed persistence/publication integration;
+19. AI-assisted generation/completion.
 
 The next Work Package should be materialized from fresh main around the earliest dependency-closed subset of this chain, rather than around an application-sized feature.
 
