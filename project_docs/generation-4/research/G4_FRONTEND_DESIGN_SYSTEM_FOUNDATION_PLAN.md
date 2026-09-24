@@ -3914,3 +3914,115 @@ Client notification: ON
 - Provider ACK != verified recovery.
 - Intervention record != secret disclosure.
 - Proactive support must remain attributable and auditable.
+
+
+## Guarded Client Intervention Window — proactive support without full desktop takeover
+
+Decision status: STRONG_G4_DIRECTION / NON_EXECUTABLE
+
+The Builder Desktop should support opening a scoped intervention window for a client/service without loading or impersonating the client's full Desktop.
+
+Purpose:
+- proactive remediation of detected incidents/degradation;
+- bounded operational actions;
+- clear operator accountability;
+- explicit client visibility/audit;
+- minimal context switch and reduced accidental cross-client mutation.
+
+Candidate flow:
+
+~~~
+Fleet alert / degraded service
+-> open Client Intervention Window
+-> re-authenticate / step-up authentication
+-> show target client/environment/service
+-> enter reason / incident context
+-> inspect evidence/currentness
+-> execute bounded action
+-> verify result
+-> audit + notify client
+~~~
+
+### Window contents
+
+Candidate elements:
+- client/system/environment identity;
+- target service/host/application;
+- current health/currentness/evidence;
+- incident/finding context;
+- allowed actions for this intervention;
+- blast-radius warning;
+- step-up authentication state;
+- reason / operator note;
+- action progress/result;
+- post-action verification;
+- audit trail;
+- notification status.
+
+### Step-up authentication
+
+High-impact or client-affecting actions may require re-authentication or stronger authentication even when the Builder user is already logged in.
+
+Examples:
+- password confirmation;
+- MFA/second factor;
+- hardware/security key where configured;
+- policy-based approval for sensitive actions.
+
+Authentication strength should be proportional to action risk, not a blanket repeated-password rule.
+
+### Notifications and transparency
+
+Research client-facing notifications such as:
+
+~~~
+System Builder Support accessed operational controls
+Operator: <authorized identity>
+Reason: degraded database service detected
+Actions: restarted database worker
+Result: service healthy
+Time: ...
+~~~
+
+Notification channels may include in-product activity feed, email or configured operational channels.
+
+Notifications should avoid exposing internal secrets or sensitive diagnostic data.
+
+### Action classes
+
+Candidate bounded actions:
+- restart service;
+- stop/start service;
+- redeploy same approved revision;
+- rotate/rebind qualified credential where authority allows;
+- failover/reconcile;
+- clear/retry bounded queue/job;
+- run health/diagnostic action.
+
+Destructive/data-changing actions require stronger guards and may be unavailable from this surface.
+
+### Proactive support
+
+The Builder may surface a problem before the client reports it. This intervention model supports proactive support while preserving explicit scope, evidence and accountability.
+
+### No impersonation by default
+
+Opening an intervention window should not imply logging in as the client user or inheriting the client's UI session.
+
+Preserve:
+- Builder operator identity remains explicit;
+- client/user identity is not impersonated silently;
+- all actions are attributed to the actual operator/service principal;
+- client context is scoped to the intervention target.
+
+### Invariants
+
+- Intervention window != client desktop takeover.
+- Step-up authentication != unlimited authority.
+- Notification != authorization.
+- Operator reason != proof of legitimacy by itself.
+- Proactive support != silent mutation.
+- Restart success != incident resolved until verification.
+- Builder identity must remain attributable.
+- Client transparency must not leak secrets.
+- Bounded intervention != persistent elevation.
