@@ -18,6 +18,8 @@ test("Station M1 remains presentation-only through the primary browser journey",
 
   await page.keyboard.press("Alt+Tab");
   await expect(page.locator('[data-slot="window-frame"][data-window-focused="true"]')).toHaveCount(1);
+  await page.keyboard.press("Shift+Alt+Tab");
+  await expect(settings).toHaveAttribute("data-window-focused", "true");
 
   await settings.getByRole("button", { name: "Theme: system" }).click();
   await expect(settings.getByRole("button", { name: "Theme: light" })).toBeVisible();
