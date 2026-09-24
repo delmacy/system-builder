@@ -3,10 +3,10 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 
 import { Badge, Button } from "../../../../packages/ui-core/index";
-import { StationIcon } from "../../../../packages/ui-icons/index";
 import {
   StationCommandSurface,
   StationNavbar,
+  StationTaskbar,
   type CommandSurfaceMode,
 } from "../../../../packages/station-shell/index";
 import {
@@ -63,6 +63,7 @@ export function StationFoundationClient() {
   const [commandSurfaceExpanded, setCommandSurfaceExpanded] = useState(false);
   const [commandSurfaceMode, setCommandSurfaceMode] =
     useState<CommandSurfaceMode>("commands");
+  const [launcherOpen, setLauncherOpen] = useState(false);
   const desktopRef = useRef<HTMLElement | null>(null);
   const commandRegistry = useMemo(() => {
     const commands = new PresentationCommandRegistry();
@@ -136,8 +137,17 @@ export function StationFoundationClient() {
   };
 
   const activateWindow = (instance: WindowInstance) => {
+    const isActive =
+      windows.activeWindowRef === instance.windowRef &&
+      instance.lifecycle === "OPEN";
+
     dispatch({
-      type: instance.lifecycle === "MINIMIZED" ? "RESTORE" : "FOCUS",
+      type:
+        instance.lifecycle === "MINIMIZED"
+          ? "RESTORE"
+          : isActive
+            ? "MINIMIZE"
+            : "FOCUS",
       windowRef: instance.windowRef,
     });
   };
@@ -207,6 +217,10 @@ export function StationFoundationClient() {
     activeWindow === undefined
       ? undefined
       : definitionFor(activeWindow, windows.definitions);
+  const taskbarWindows = visibleWindows.flatMap((instance) => {
+    const definition = definitionFor(instance, windows.definitions);
+    return definition === undefined ? [] : [{ instance, definition }];
+  });
   const currentContext = activeDefinition?.title ?? "Desktop";
   const commandContext = interactionContext({
     focus:
@@ -284,53 +298,15 @@ export function StationFoundationClient() {
           })}
         </section>
 
-        <footer
-          data-slot="station-taskbar"
-          className="flex h-12 shrink-0 items-center gap-2 border-t bg-[var(--sb-taskbar)] px-3"
-        >
-          <div className="flex shrink-0 items-center gap-1 border-r pr-2">
-            {registry.list().map((app) => (
-              <Button
-                key={app.id}
-                aria-label={`Launch ${app.name}`}
-                size="icon"
-                variant="ghost"
-                onClick={() => openApp(app.id)}
-              >
-                <StationIcon token={app.icon} />
-              </Button>
-            ))}
-          </div>
-
-          <div
-            className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto"
-            data-slot="taskbar-windows"
-          >
-            {visibleWindows.map((instance) => {
-              const definition = definitionFor(instance, windows.definitions);
-              if (definition === undefined) return null;
-
-              return (
-                <Button
-                  key={instance.windowRef}
-                  className="max-w-56 justify-start"
-                  data-window-active={windows.activeWindowRef === instance.windowRef ? "true" : "false"}
-                  data-window-lifecycle={instance.lifecycle}
-                  variant={
-                    windows.activeWindowRef === instance.windowRef &&
-                    instance.lifecycle === "OPEN"
-                      ? "secondary"
-                      : "ghost"
-                  }
-                  onClick={() => activateWindow(instance)}
-                >
-                  <StationIcon token={definition.icon} />
-                  <span className="truncate">{definition.title}</span>
-                </Button>
-              );
-            })}
-          </div>
-        </footer>
+        <StationTaskbar
+          activeWindowRef={windows.activeWindowRef}
+          apps={registry.list()}
+          launcherOpen={launcherOpen}
+          windows={taskbarWindows}
+          onActivateWindow={activateWindow}
+          onLaunchApp={openApp}
+          onLauncherOpenChange={setLauncherOpen}
+        />
       </section>
     </main>
   );
