@@ -704,3 +704,12 @@ G4 now includes a scoped Support Intervention Window launched from Builder/Fleet
 Mutating actions should require policy-driven step-up authentication and explicit target/reason/blast-radius context. Client-facing notifications and immutable audit/evidence records should make support intervention transparent and attributable.
 
 Research action risk tiers and corresponding confirmation/MFA/dual-control/notification requirements. Preserve Fleet visibility != client mutation authority; Support Intervention Window != Client Desktop; notification != authorization; provider ACK != verified recovery.
+
+
+## Research addition — Guarded Client Intervention Window
+
+G4 now includes a scoped Client Intervention Window from the Builder Desktop. It enables proactive client/service remediation without opening or impersonating the client's full Desktop.
+
+High-impact operations can require step-up authentication, explicit target/reason, bounded authority, post-action verification, audit evidence and client-facing notification/activity records.
+
+Preserve Intervention Window != client desktop takeover; proactive support != silent mutation; step-up authentication != unlimited authority; actual Builder operator identity remains attributable.
