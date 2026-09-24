@@ -1,7 +1,7 @@
 ---
 id: TASK-600
 title: Complete M1 multi-window journey and bounded snap
-status: ready
+status: running
 priority: 600
 milestone: STATION-VISUAL-M1
 model_tier: architecture
