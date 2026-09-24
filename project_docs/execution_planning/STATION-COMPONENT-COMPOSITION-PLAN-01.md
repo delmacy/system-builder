@@ -484,3 +484,75 @@ The Component Editor and Window/View Editor should therefore expose controls suc
 - breakpoint-specific spans where appropriate.
 
 This constrained system is intentional: the editor is a composition tool over a design grammar, not a free-form drawing canvas.
+
+
+## Nested slot composition for small controls
+
+Small controls such as icon buttons should not consume first-class layout grid cells individually when they logically belong to one control cluster.
+
+Introduce reusable grouped composites such as `ButtonGroup`.
+
+Primary model:
+
+```text
+Outer View Grid
+└── ButtonGroup   ← occupies one outer slot/span
+    ├── ButtonSlot
+    ├── ButtonSlot
+    ├── ButtonSlot
+    └── ...
+```
+
+The outer grid controls the group's placement and proportional footprint. The group owns an internal standardized sub-grid for its buttons.
+
+### ButtonGroup contract
+
+A ButtonGroup should define, at minimum:
+
+- outer `columnSpan` / `rowSpan`;
+- internal slot count or capacity;
+- direction: row / column / wrapped where explicitly supported;
+- standardized internal gap token;
+- alignment / distribution;
+- button size preset;
+- optional compact/icon-only mode;
+- overflow behavior when capacity is exceeded.
+
+Individual icon buttons should normally occupy `ButtonSlot` units inside the group rather than arbitrary dimensions in the page/view grid.
+
+Example:
+
+```yaml
+component: ButtonGroup
+layout:
+  columnSpan: 3
+  rowSpan: 1
+internalGrid:
+  slots: 5
+  gap: 1
+  buttonSize: compact
+children:
+  - component: IconButton
+    slot: 1
+  - component: IconButton
+    slot: 2
+  - component: IconButton
+    slot: 3
+  - component: IconButton
+    slot: 4
+  - component: IconButton
+    slot: 5
+```
+
+This establishes nested composition:
+
+```text
+View grid
+→ composite slot
+→ component-local grid
+→ primitive controls
+```
+
+The same pattern should generalize beyond buttons to compact control groups, segmented controls, toolbar clusters, status clusters and similar micro-compositions.
+
+Rule: the page/view grid manages meaningful layout blocks; component-internal micro-layout is owned by the component's own constrained sub-grid.
