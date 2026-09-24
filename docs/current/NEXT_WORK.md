@@ -170,22 +170,32 @@ The user's visual adjustment becomes authoritative input to downstream implement
 
 ## Next eligible planning work
 
-Do **not** materialize Component Editor, Window/View Editor, File Manager or Workflow Studio Construction yet.
+This editor-foundation horizon is now the **next planned stage after M1**.
 
-Next planning gates:
+Do **not** jump directly to Component Editor, Window/View Editor, File Manager or Workflow Studio Construction. Materialize the shared dependency closure first.
 
-1. repository-wide Component Inventory;
-2. classify existing components as atomic primitive, collection, local semantic composite or layout container;
-3. build the Composition/Dependency Graph;
-4. identify duplicate/ad-hoc components and missing reusable primitives;
-5. define the executable Composition Contract schema;
-6. define grid/span, nested-slot and layout-ownership contracts;
-7. define Composition Graph + validator;
-8. reconcile Inspector/Layers Tree with current Station interaction/windowing/app-runtime contracts;
-9. define minimal normalize/save/draft revision boundary;
-10. identify the minimum dependency closure for the shared Composition Editor Engine;
-11. define deterministic/component/browser qualification;
-12. only then materialize the next Work Package from fresh main.
+Next planning/materialization gates:
+
+1. repository-wide Component Inventory and taxonomy;
+2. Component Registry contract;
+3. Composition Contract schema;
+4. grid/span, nested-slot, layout-ownership and responsive policy;
+5. collection/layout primitives;
+6. accessibility contracts;
+7. Inspector + Layers Tree;
+8. Composition Graph + validator;
+9. schema versioning + migration;
+10. editor transaction/history model;
+11. normalize/save/draft pipeline;
+12. preview sandbox;
+13. shared Composition Editor Engine;
+14. Component Editor;
+15. Template Library/Manager with compatibility validation;
+16. Window/View Editor;
+17. artifact-backed persistence/publication integration;
+18. AI-assisted generation/completion.
+
+The next Work Package should be materialized from fresh main around the earliest dependency-closed subset of this chain, rather than around an application-sized feature.
 
 ## Deferred but coordinated direction
 
