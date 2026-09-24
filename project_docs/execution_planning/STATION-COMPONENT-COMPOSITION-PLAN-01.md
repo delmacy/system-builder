@@ -400,3 +400,87 @@ Before materializing the next Work Package:
 - No arbitrary HTML/CSS page builder.
 - No business-domain authority in Station.
 - No premature task numbering or application-sized Construction package before the composition graph is complete.
+
+
+## Grid-constrained visual editing
+
+The visual editors must intentionally limit free-form layout freedom.
+
+Primary rule:
+
+> Resize and placement are grid-constrained, not arbitrary pixel manipulation.
+
+The editor should use standardized layout units so components keep proportional, predictable dimensions across views and applications.
+
+### Resize model
+
+Do not use free drag-resize as the canonical interaction for component sizing.
+
+Resize should operate by adding/removing predefined grid units:
+
+- columns;
+- rows;
+- approved spans;
+- predefined spacing steps.
+
+Conceptually:
+
+```text
+width  = N columns
+height = M rows
+gap    = spacing token
+```
+
+Examples:
+
+```text
+Card
+columnSpan: 4
+rowSpan: 3
+
+ButtonGroup
+columnSpan: 4
+rowSpan: 1
+gap: 1
+```
+
+The visual editor may expose handles, but a handle must snap to discrete row/column boundaries and emit grid-span changes rather than arbitrary pixel dimensions.
+
+### Layout constraints
+
+Prefer standardized layout systems:
+
+- grid;
+- row;
+- column;
+- split;
+- stack;
+- dock;
+- tabs.
+
+Absolute positioning is exceptional and must not be the default authoring model.
+
+### Proportional dimensions
+
+Component sizes should be derived from shared grid/tokens so that:
+
+- sibling components align naturally;
+- spacing remains consistent;
+- responsive variants can remap spans predictably;
+- templates remain portable;
+- AI-generated views inherit the same visual grammar;
+- manual adjustments do not degrade into arbitrary one-off dimensions.
+
+### Editor behavior
+
+The Component Editor and Window/View Editor should therefore expose controls such as:
+
+- +1 / -1 column;
+- +1 / -1 row;
+- span presets;
+- alignment;
+- distribution;
+- standard gap/padding tokens;
+- breakpoint-specific spans where appropriate.
+
+This constrained system is intentional: the editor is a composition tool over a design grammar, not a free-form drawing canvas.
