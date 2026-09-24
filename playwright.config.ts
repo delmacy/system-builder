@@ -1,7 +1,6 @@
 // @ts-nocheck
-import { defineConfig } from "@playwright/test";
 
-export default defineConfig({
+export default {
   testDir: "./tests/e2e",
   timeout: 30_000,
   expect: { timeout: 5_000 },
@@ -10,10 +9,16 @@ export default defineConfig({
     headless: true,
     trace: "retain-on-failure",
   },
+  projects: [
+    {
+      name: "chromium",
+      use: { browserName: "chromium" },
+    },
+  ],
   webServer: {
     command: "npm run station:start -- --hostname 127.0.0.1 --port 3000",
     url: "http://127.0.0.1:3000",
     reuseExistingServer: false,
     timeout: 30_000,
   },
-});
+};
