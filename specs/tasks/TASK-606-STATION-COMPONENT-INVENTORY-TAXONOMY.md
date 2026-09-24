@@ -1,7 +1,7 @@
 ---
 id: TASK-606
 title: Inventory and classify Station composable components
-status: ready
+status: completed
 priority: 606
 milestone: STATION-COMPOSITION-A
 model_tier: architecture
@@ -44,3 +44,6 @@ The inventory identifies existing primitives, candidate missing primitives, comp
 
 # Non-goals
 No runtime code or editor UI.
+
+# Closure
+Completed on branch `sprint/STATION-COMPOSITION-CONSTRUCTION-A-01` with `STATION-COMPONENT-INVENTORY-01.md`. The inventory confirms a new bounded `station-composition` ownership layer and the minimum executable chain taxonomy → registry/contracts → grid/slot validation → ButtonGroup → Component Lab proof.
