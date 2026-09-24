@@ -1,21 +1,89 @@
-# Next Work — STATION-VISUAL-WP-01 Construction B
+# Next Work — STATION Component Composition Planning
 
 Date: 2026-09-24
+Planning base: `main@87d3a28f5a2c18f9261a9607f0b79422477600e5`
 
-## Planning authority
-ADR-0017, `STATION_FRONTEND_FOUNDATION.md`, `STATION-VISUAL-WP-01.md`, `STATION-VISUAL-M1-EMPTY-SHELL.md` and `STATION-VISUAL-CONSTRUCTION-B-01.md`.
+## Current state
 
-## Fresh-main basis
-Construction A (`TASK-588..596`) is integrated by PR #903. Bounded post-A work through PR #910 is already integrated. Construction B was materialized from `main@4434f21acc532a5481bb5412fcf228af11083458`; already integrated resize/taskbar/multi-window behavior remains authoritative and was not replayed.
+STATION-VISUAL-WP-01 / M1 is integrated by PR #911. The source-owned shell, windowing, interaction, app-runtime, settings and browser proof are complete enough to begin the next planning horizon.
 
-## Construction B status
-`TASK-597 -> TASK-598 -> TASK-599 -> TASK-600 -> TASK-601 -> TASK-602 -> TASK-603 -> TASK-604 -> TASK-605` is complete. TASK-604 predecessor exact head `5cd2c9600a4e2784ebe26984771f5fb559123da2` is green across the relevant CI/browser gates. TASK-605 is the cumulative closure record.
+The post-M1 direction is governed by:
+- `docs/architecture/STATION_FRONTEND_FOUNDATION.md`;
+- `project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md`.
 
-## Next eligible work
-No further Construction B product TASK is materialized after TASK-605. The only eligible action is exact-head validation of the TASK-605 closure commit and, if green, Integration/Review of PR #911 according to the existing Work Package gates. Do not invent or absorb a next feature TASK.
+## Development principle
 
-## M1 exit demonstrated
-Station boots explicitly disconnected; Navbar/Toolbar/Desktop/Taskbar compose; Welcome/Component Lab/Settings are usable; presentation preferences/layout persist locally; reset is presentation-only; primary shell journeys are keyboard-accessible and browser-proven on the dedicated Windows/Ubuntu Station gate.
+Proceed from the simplest reusable objects to progressively richer compositions:
 
-## Boundaries
-Station remains perception/interaction only. No canonical DB/files, authorization decisions, business workflows, provider effects, deploy engine, schedulers, agents or invented domain truth. Real Core transport, Host Agent, File Manager, Workflow Studio, Canvas/3D and deferred runtimes remain out of scope.
+```text
+tokens/icons
+→ UI primitives
+→ interaction primitives
+→ collections
+→ navigation/editing components
+→ generic composites
+→ domain composites
+→ applications
+→ studios
+→ subsystem/system compositions
+```
+
+Primary rule: **develop once, compose many, run/recycle anywhere**.
+
+Before creating an application-specific component, first test whether it can be expressed as a composition or specialization of a lower-level reusable component.
+
+## First general application target
+
+The first general application target is the **Window/View Editor**, but it is not yet a Construction package.
+
+It should ultimately provide:
+- a View Tree for application pages/windows/dialogs/panels;
+- a Component/Layers Tree for the selected view;
+- visual move/resize;
+- alignment/snap/order;
+- Inspector-driven properties;
+- preview;
+- `Save Changes` into a normalized declarative draft revision;
+- separate Publish semantics;
+- progressive palette/drag-drop/layout constraints.
+
+The editor edits declarative composition, not arbitrary HTML/CSS.
+
+## Reuse tool
+
+A sibling **Template Library / Template Manager** is planned for reusable component/section/page/application-shell compositions, including Save as Template, variants, provenance, compare/apply/reset semantics and later compatible template updates.
+
+## Semantic filesystem/artifact direction
+
+Future managed artifacts follow:
+
+```text
+System
+└── Subsystem
+    └── Artifact
+        └── Revision
+            └── Publication
+```
+
+Subsystems remain isolated by default. Cross-subsystem reuse is explicit through import/derive/reference capabilities. Users do not create arbitrary raw files; applications import/create managed artifact kinds such as future `.wkfw` workflows. Extension is UX identity/filtering; semantic kind/schema is authoritative.
+
+The existing `packages/artifact-store` is release-artifact hash/payload infrastructure and must not be mistaken for the future semantic Artifact Repository, though its immutable/hash-verification primitives may be reusable.
+
+## Next eligible planning work
+
+Do **not** materialize File Manager, Workflow Studio or Window/View Editor Construction yet.
+
+Next:
+1. repository-wide Component Inventory;
+2. classify current components by composition level;
+3. build a Composition/Dependency Graph;
+4. identify duplication and missing generic primitives/composites;
+5. identify the minimum dependency closure needed for Window/View Editor;
+6. reconcile ViewDefinition/ComponentTree with existing AppManifest, WindowDefinition, interaction and windowing contracts;
+7. define the minimal save/draft/revision boundary needed by the editor;
+8. define qualification strategy;
+9. only then materialize the next Work Package from fresh main.
+
+## Boundary
+
+Station remains presentation/composition-oriented until explicit Core/domain authority contracts are introduced. Do not smuggle business truth, unrestricted filesystem authority or application-local duplicate primitives into the frontend.
