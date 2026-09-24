@@ -1,7 +1,7 @@
 ---
 id: TASK-602
 title: Persist and reset only Station presentation state and layout
-status: ready
+status: completed
 priority: 602
 milestone: STATION-VISUAL-M1
 model_tier: architecture
