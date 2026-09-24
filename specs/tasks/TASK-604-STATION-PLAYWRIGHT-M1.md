@@ -1,7 +1,7 @@
 ---
 id: TASK-604
 title: Prove Station M1 browser and cross-platform shell behavior
-status: ready
+status: completed
 priority: 604
 milestone: STATION-VISUAL-M1
 model_tier: architecture
