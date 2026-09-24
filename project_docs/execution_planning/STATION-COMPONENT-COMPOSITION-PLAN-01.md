@@ -1138,3 +1138,100 @@ Once approved, that component/view is explicitly the human-authoritative visual 
 
 AI may continue generating candidate UI elsewhere, but downstream integration should prefer the human-approved ref for any component/view that has been explicitly approved.
 
+
+
+## Primitive-phase UI discipline
+
+The current Station/editor phase is intentionally primitive and must remain simple while the reusable composition language is still being established.
+
+### Human visual adjustment is required
+
+AI-generated UI may provide the initial composition, but final visual acceptance requires a human adjustment surface.
+
+The editor exists primarily to let the user correct:
+
+- relative size;
+- grid span;
+- spacing;
+- ordering;
+- grouping;
+- basic alignment;
+- component choice/variant where already supported.
+
+The first editor is not a general-purpose design tool.
+
+### Limited resize freedom
+
+Keep resizing deliberately constrained.
+
+Prefer:
+- +1 / -1 column;
+- +1 / -1 row;
+- a small set of valid span combinations;
+- standard gap/padding tokens;
+- layout switches only where already defined.
+
+Avoid:
+- free pixel resize;
+- arbitrary x/y positioning;
+- per-screen one-off dimensions;
+- excessive breakpoint-specific overrides in the first phase.
+
+The goal is visual correction within a consistent grammar, not unrestricted visual authorship.
+
+### Typography lock
+
+Typography should remain centrally controlled in the primitive phase.
+
+Use:
+- one primary font family;
+- a small centrally defined type scale;
+- weight as the primary emphasis mechanism;
+- fixed line-height/spacing tokens associated with the type scale.
+
+Do not expose arbitrary font-family, font-size or line-height controls in Component Editor or Window/View Editor initially.
+
+Candidate emphasis vocabulary may be expressed semantically (for example regular/medium/semibold/bold) rather than exposing raw numeric weights to normal authoring.
+
+### Theme lock
+
+Use one canonical visual theme during the primitive/editor foundation phase.
+
+Do not make theme design part of the initial editor scope.
+
+Later, once composition/layout primitives are stable, add a bounded theme layer with a small curated set (for example 5–6 themes) that changes tokens without changing component geometry or composition contracts.
+
+Theme variation must not become a source of per-view layout divergence.
+
+### Consistency objective
+
+The primitive phase optimizes for:
+
+```text
+few choices
++ predictable geometry
++ shared typography
++ shared spacing
++ constrained variants
+= consistent generated UI
+```
+
+A component/view that needs exceptional visual treatment should first be challenged as a possible missing reusable primitive/composite rather than solved through arbitrary local styling.
+
+### First editor UX target
+
+The first usable editing surface should remain small:
+
+```text
+Load
+→ select component/view
+→ inspect tree
+→ adjust spans
+→ adjust gap/alignment
+→ choose supported variant
+→ preview
+→ Save
+→ Approve
+```
+
+No typography designer, theme designer, free-form canvas or arbitrary CSS editor is required for the first editor milestone.
