@@ -1,7 +1,7 @@
 ---
 id: TASK-601
 title: Implement useful Settings M1 and Component Lab inspection surface
-status: ready
+status: completed
 priority: 601
 milestone: STATION-VISUAL-M1
 model_tier: architecture
