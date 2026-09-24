@@ -1,61 +1,195 @@
 # Next Work — STATION Component Composition Planning
 
 Date: 2026-09-24
-Planning base: `main@87d3a28f5a2c18f9261a9607f0b79422477600e5`
+Planning base: `main@6ef02605f7c34fb35039a1c300a80dea98a6aa07`
 
 ## Current state
 
-STATION-VISUAL-WP-01 / M1 is integrated by PR #911. The source-owned shell, windowing, interaction, app-runtime, settings and browser proof are complete enough to begin the next planning horizon.
-
-The post-M1 direction is governed by:
+STATION-VISUAL-WP-01 / M1 is integrated by PR #911. The next horizon is component-first composition planning, governed by:
 - `docs/architecture/STATION_FRONTEND_FOUNDATION.md`;
 - `project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md`.
 
-## Development principle
+## Design principle
 
 Proceed from the simplest reusable objects to progressively richer compositions:
 
 ```text
 tokens/icons
-→ UI primitives
+→ primitives
 → interaction primitives
 → collections
-→ navigation/editing components
+→ navigation/editing pieces
 → generic composites
-→ domain composites
-→ applications
-→ studios
-→ subsystem/system compositions
+→ shared editor engine
+→ component editor
+→ templates
+→ window/view editor
+→ domain applications/studios
 ```
 
 Primary rule: **develop once, compose many, run/recycle anywhere**.
 
-Before creating an application-specific component, first test whether it can be expressed as a composition or specialization of a lower-level reusable component.
+The composition model is intentionally LEGO-like: standardized pieces, constrained joints, combinatorial freedom.
 
-## First general application target
+## Composition contracts
 
-The first general application target is the **Window/View Editor**, but it is not yet a Construction package.
+Every reusable component must declare how it can participate in composition.
 
-It should ultimately provide:
-- a View Tree for application pages/windows/dialogs/panels;
-- a Component/Layers Tree for the selected view;
-- visual move/resize;
-- alignment/snap/order;
-- Inspector-driven properties;
+Required vocabulary:
+- Component;
+- Slot;
+- Layout;
+- ChildPolicy;
+- Constraints.
+
+Optional extensions:
+- Variant;
+- Binding;
+- Command.
+
+Not every component is a group. Collections such as List/Grid/Table/Tree are meaningful composites that manage their own items. Groups such as ButtonGroup exist only when several small controls form one semantic unit or need a constrained internal micro-grid.
+
+## Grid discipline
+
+Do not use arbitrary canonical pixel sizing.
+
+The editor works with:
+- column spans;
+- row spans;
+- standardized spacing tokens;
+- compatible slots;
+- grid/row/column/split/stack/dock/tabs layouts.
+
+A visual resize handle may exist, but crossing a boundary must emit a discrete span change such as `columnSpan 3 → 4`, not an arbitrary width.
+
+Avoid XS/S/M/L sizing as the main contract. Prefer combinable discrete units with min/max/recommended spans.
+
+Nested micro-layout is owned locally by the component. Example:
+
+```text
+View grid
+└── ButtonGroup   ← one outer block/span
+    ├── ButtonSlot
+    ├── ButtonSlot
+    └── ButtonSlot
+```
+
+The page grid manages meaningful blocks; each component manages its own constrained internal layout.
+
+## Editor path
+
+Do not build independent editor implementations.
+
+First create the reusable **Composition Editor Engine**:
+
+```text
+Composition Editor Engine
+├── Composition Canvas
+├── Grid/Span Controller
+├── Slot Resolver
+├── Placement Validator
+├── Selection/Focus
+├── Layers/Component Tree
+├── Inspector
+├── Variant Editor
+├── Undo/Redo
+├── Preview
+├── Draft/Dirty State
+└── Save Pipeline
+```
+
+Then specialize it.
+
+### Component Editor
+
+First editor specialization. It edits reusable pieces/composites:
+- internal slots/sub-grids;
+- child composition;
+- row/column spans;
+- gap/padding/alignment;
+- declared variants;
 - preview;
-- `Save Changes` into a normalized declarative draft revision;
-- separate Publish semantics;
-- progressive palette/drag-drop/layout constraints.
+- draft/save;
+- save as template where appropriate.
 
-The editor edits declarative composition, not arbitrary HTML/CSS.
+### Template Library / Manager
 
-## Reuse tool
+Uses the same composition graph/contracts for reusable:
+- component compositions;
+- sections;
+- views/pages;
+- application shells;
+- later subsystem compositions.
 
-A sibling **Template Library / Template Manager** is planned for reusable component/section/page/application-shell compositions, including Save as Template, variants, provenance, compare/apply/reset semantics and later compatible template updates.
+### Window/View Editor
 
-## Semantic filesystem/artifact direction
+First general application-level editor. It provides:
+- View Tree for pages/windows/dialogs/panels;
+- separate Component/Layers Tree for the selected view;
+- constrained placement on grid/layout regions;
+- +1/-1 row/column sizing;
+- Inspector;
+- component/template palette;
+- preview;
+- Save Changes to a normalized declarative draft revision;
+- Publish as a separate action.
 
-Future managed artifacts follow:
+The editor does not author arbitrary HTML/CSS.
+
+## Save model
+
+```text
+Working Composition
+→ validate slots/layout/constraints
+→ normalize
+→ canonical Composition Graph
+→ Draft Revision
+→ Publish
+→ Active View/Component
+```
+
+Save must preserve semantic layout rather than raw arbitrary geometry.
+
+## AI-assisted flow
+
+Once the shared contracts/editors exist:
+
+```text
+intent/domain model
+→ AI proposes contract-valid composition
+→ user adjusts visually within grid/slot rules
+→ Save Changes
+→ normalized declarative revision
+→ AI reads the final composition
+→ completes/proposes bindings, commands, validation, APIs and backend logic
+→ qualification
+→ Publish
+```
+
+The user's visual adjustment becomes authoritative input to downstream implementation.
+
+## Next eligible planning work
+
+Do **not** materialize Component Editor, Window/View Editor, File Manager or Workflow Studio Construction yet.
+
+Next planning gates:
+
+1. repository-wide Component Inventory;
+2. classify existing components as atomic primitive, collection, local semantic composite or layout container;
+3. build the Composition/Dependency Graph;
+4. identify duplicate/ad-hoc components and missing reusable primitives;
+5. define the executable Composition Contract schema;
+6. define grid/span, nested-slot and layout-ownership contracts;
+7. define Composition Graph + validator;
+8. reconcile Inspector/Layers Tree with current Station interaction/windowing/app-runtime contracts;
+9. define minimal normalize/save/draft revision boundary;
+10. identify the minimum dependency closure for the shared Composition Editor Engine;
+11. define deterministic/component/browser qualification;
+12. only then materialize the next Work Package from fresh main.
+
+## Deferred but coordinated direction
+
+The later semantic artifact/filesystem model remains:
 
 ```text
 System
@@ -65,25 +199,8 @@ System
             └── Publication
 ```
 
-Subsystems remain isolated by default. Cross-subsystem reuse is explicit through import/derive/reference capabilities. Users do not create arbitrary raw files; applications import/create managed artifact kinds such as future `.wkfw` workflows. Extension is UX identity/filtering; semantic kind/schema is authoritative.
-
-The existing `packages/artifact-store` is release-artifact hash/payload infrastructure and must not be mistaken for the future semantic Artifact Repository, though its immutable/hash-verification primitives may be reusable.
-
-## Next eligible planning work
-
-Do **not** materialize File Manager, Workflow Studio or Window/View Editor Construction yet.
-
-Next:
-1. repository-wide Component Inventory;
-2. classify current components by composition level;
-3. build a Composition/Dependency Graph;
-4. identify duplication and missing generic primitives/composites;
-5. identify the minimum dependency closure needed for Window/View Editor;
-6. reconcile ViewDefinition/ComponentTree with existing AppManifest, WindowDefinition, interaction and windowing contracts;
-7. define the minimal save/draft/revision boundary needed by the editor;
-8. define qualification strategy;
-9. only then materialize the next Work Package from fresh main.
+Subsystems are isolated by default; cross-subsystem reuse is explicit. The existing `packages/artifact-store` remains release-artifact hash/payload infrastructure until planning proves which lower-level primitives should be reused by the future semantic Artifact Repository.
 
 ## Boundary
 
-Station remains presentation/composition-oriented until explicit Core/domain authority contracts are introduced. Do not smuggle business truth, unrestricted filesystem authority or application-local duplicate primitives into the frontend.
+Station remains presentation/composition-oriented until explicit Core/domain authority contracts are introduced. Do not smuggle business truth, unrestricted filesystem authority, arbitrary pixel layouts or application-local duplicate primitives into the frontend.
