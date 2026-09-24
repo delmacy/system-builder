@@ -1,6 +1,6 @@
-// @ts-nocheck
+import { defineConfig } from "@playwright/test";
 
-export default {
+export default defineConfig({
   testDir: "./tests/e2e",
   timeout: 30_000,
   expect: { timeout: 5_000 },
@@ -21,4 +21,4 @@ export default {
     reuseExistingServer: false,
     timeout: 30_000,
   },
-};
+});
