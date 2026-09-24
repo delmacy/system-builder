@@ -1,7 +1,7 @@
 ---
 id: TASK-600
 title: Complete M1 multi-window journey and bounded snap
-status: ready
+status: completed
 priority: 600
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -67,6 +67,9 @@ Only the bounded Station presentation/interaction delta described by this task, 
 
 # Evidence expected
 Task-local regression coverage, repository verification, architecture checks and exact-head CI evidence appropriate to the changed surface.
+
+# Completion evidence
+Bounded titlebar edge snap now routes through existing presentation-only `SNAP` reducer semantics and is gated by local `presentation.windowing.snapEnabled`; familiar titlebar double-click maximize/restore is presentation-only. No Core/runtime authority was introduced.
 
 # Escalation
 Stop if completion requires canonical truth, authorization decisions, provider/domain effects, deploy/storage/workflow/agent implementation, or bypassing the declared package layering.

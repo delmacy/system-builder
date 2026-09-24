@@ -1,7 +1,7 @@
 ---
 id: TASK-599
 title: Complete Station Taskbar Launcher and running-window projection
-status: ready
+status: completed
 priority: 599
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -48,10 +48,10 @@ Finish Taskbar/Launcher as a projection of manifests and window runtime.
 PR #910 already added launcher buttons, running/minimized projection and focus/restore; preserve it.
 
 # Required change
-Implement only the bounded delta on current main; do not replay already integrated work.
+Implement only the bounded delta on current main; do not replay already integrated work. As part of the running-window projection, make the focused window visually distinct from unfocused windows using the existing `WindowInstance.focused` truth. The treatment must be restrained and desktop-familiar: stronger active border/ring/shadow and active titlebar emphasis, with inactive chrome visually receding without dimming window content.
 
 # Acceptance criteria
-Welcome, Component Lab and Settings launch from manifests; singleton behavior is respected; taskbar reflects open/minimized windows and restores/focuses them without inferring process/runtime lifecycle.
+Welcome, Component Lab and Settings launch from manifests; singleton behavior is respected; taskbar reflects open/minimized windows and restores/focuses them without inferring process/runtime lifecycle. The active/focused window is immediately distinguishable from inactive windows, and the distinction is derived only from `WindowInstance.focused` rather than semantic selection or invented shell state.
 
 # Non-goals
 No canonical Station DB/files, Core authorization decisions, business workflows, provider effects, deploy engine, Host Agent execution, schedulers, agents or invented domain state.
@@ -70,3 +70,7 @@ Task-local regression coverage, repository verification, architecture checks and
 
 # Escalation
 Stop if completion requires canonical truth, authorization decisions, provider/domain effects, deploy/storage/workflow/agent implementation, or bypassing the declared package layering.
+
+
+# Completion evidence
+Completed the source-owned Station Taskbar/Launcher on the qualified Construction B head. The launcher projects M1 utility applications from the Station app registry and launches only manifest-declared apps. Running/minimized windows are projected from WindowRuntime; clicking a minimized window restores it, clicking an inactive open window focuses it, and clicking the active open taskbar entry minimizes it for familiar Windows/Ubuntu desktop behavior. Active window chrome is derived only from `WindowInstance.focused`, with stronger border/ring/shadow and receded inactive chrome without dimming content. The shell does not infer process/runtime lifecycle, Core truth, filesystem state, authorization or provider effects. Exact-head evidence before closure: Deterministic CI, Merge Candidate CI, Heavy Product Tests and Station Next.js CI (Windows + Ubuntu) all PASS on `35816783f3209aa97b7f7ae926efb8e389af1f61`.

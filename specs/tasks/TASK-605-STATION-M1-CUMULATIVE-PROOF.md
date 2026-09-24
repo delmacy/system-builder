@@ -1,7 +1,7 @@
 ---
 id: TASK-605
 title: Close Construction B with cumulative M1 shell proof
-status: ready
+status: completed
 priority: 605
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -47,28 +47,34 @@ validation:
 Close Construction B only after the complete M1 shell and architecture boundary are demonstrated.
 
 # Current behavior
-Construction B is incomplete until all preceding tasks and relevant exact-head/browser/cross-platform evidence are green.
+TASK-597..604 are complete and the predecessor exact head `5cd2c9600a4e2784ebe26984771f5fb559123da2` carries the cumulative Station M1 implementation and browser/cross-platform proof. Construction B now requires only its bounded cumulative closure record and exact-head verification before integration.
 
 # Required change
-Implement only the bounded delta on current main; do not replay already integrated work.
+Record the cumulative M1 closure without changing product behavior, authority, runtime lifecycle, canonical truth or deferred subsystem scope. Preserve the established Station presentation boundaries and obtain exact-head CI evidence for this documentation-only closure commit before integration.
+
+# Closure
+Construction B is cumulatively proven through TASK-604 exact-head evidence. The M1 shell boots explicitly disconnected; Navbar, Toolbar/Command Surface, Desktop Sphere and Taskbar/Launcher compose; Welcome, Component Lab and Settings are usable as presentation applications; multi-window focus/minimize/restore/snap behavior is bounded to interaction state; presentation preferences/layout persist locally and reset without mutating Core truth; primary shell journeys have keyboard/browser proof; semantic icons and ui-core remain source-owned.
+
+# Architecture boundary proof
+`Station presentation state != Core truth`, `Window lifecycle != runtime lifecycle`, and `Focused Window != Selected Semantic Object` remain preserved. No canonical Station DB/files, Core authorization decisions, business workflows, provider effects, deploy/storage/workflow runtime, Host Agent execution, schedulers, agents, Canvas/3D or invented domain state were absorbed.
 
 # Acceptance criteria
-Station starts explicitly disconnected; Navbar/Toolbar/Desktop/Taskbar compose; utility apps/window/settings/persistence/reset/keyboard pass; semantic icons/ui-core remain source-owned; no Core/Agent/provider/deploy/workflow/storage truth moved into Station.
+Satisfied by the cumulative TASK-597..604 implementation plus exact-head Deterministic CI, Merge Candidate CI, Heavy Product Tests, Station Next.js CI Windows/Ubuntu and browser M1 journey evidence on predecessor head `5cd2c9600a4e2784ebe26984771f5fb559123da2`.
 
 # Non-goals
 No canonical Station DB/files, Core authorization decisions, business workflows, provider effects, deploy engine, Host Agent execution, schedulers, agents or invented domain state.
 
 # Context
-This task is part of STATION-VISUAL-CONSTRUCTION-B-01 on the fresh-main baseline after PR #910. Existing integrated shell behavior is authoritative current behavior and is not to be replayed.
+This task closes `STATION-VISUAL-CONSTRUCTION-B-01` on the fresh-main baseline after PR #910. Existing integrated shell behavior is authoritative current behavior and was not replayed.
 
 # Inputs / contracts
-ADR-0017, STATION_FRONTEND_FOUNDATION, the Construction B manifest, source-owned ui-core/ui-icons, Station interaction/window/app/settings contracts, and the immediately preceding TASK output.
+ADR-0017, STATION_FRONTEND_FOUNDATION, the Construction B manifest, source-owned ui-core/ui-icons, Station interaction/window/app/settings contracts, and TASK-604 exact-head browser/cross-platform proof.
 
 # Outputs / contracts
-Only the bounded Station presentation/interaction delta described by this task, exposed through the existing package layering and composition root.
+A bounded cumulative closure record only; no new product authority or deferred subsystem implementation.
 
 # Evidence expected
-Task-local regression coverage, repository verification, architecture checks and exact-head CI evidence appropriate to the changed surface.
+Task-local closure record plus exact-head CI evidence for this documentation-only closure commit before integration.
 
 # Escalation
-Stop if completion requires canonical truth, authorization decisions, provider/domain effects, deploy/storage/workflow/agent implementation, or bypassing the declared package layering.
+Stop if integration requires canonical truth, authorization decisions, provider/domain effects, deploy/storage/workflow/agent implementation, or bypassing the declared package layering.

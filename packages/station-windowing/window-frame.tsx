@@ -31,6 +31,7 @@ export type WindowFrameProps = Readonly<{
   instance: WindowInstance;
   bounds: WindowBounds;
   dispatch: (action: WindowAction) => void;
+  snapEnabled?: boolean;
   children?: ReactNode;
 }>;
 
@@ -43,6 +44,7 @@ export function WindowFrame({
   instance,
   bounds,
   dispatch,
+  snapEnabled = true,
   children,
 }: WindowFrameProps) {
   const [preview, setPreview] = useState<WindowGeometry | null>(null);
@@ -68,7 +70,6 @@ export function WindowFrame({
     session: WindowPointerSession,
   ) => {
     if (instance.lifecycle !== "OPEN" || instance.mode !== "NORMAL") return;
-
     event.currentTarget.setPointerCapture(event.pointerId);
     sessionRef.current = session;
     dispatch({ type: "FOCUS", windowRef: instance.windowRef });
@@ -77,31 +78,31 @@ export function WindowFrame({
   const updateSession = (event: ReactPointerEvent<HTMLElement>) => {
     const session = sessionRef.current;
     if (session === null) return;
-
-    setPreview(
-      projectPointerGeometry(session, point(event), bounds, definition),
-    );
+    setPreview(projectPointerGeometry(session, point(event), bounds, definition));
   };
 
   const finishSession = (event: ReactPointerEvent<HTMLElement>) => {
     const session = sessionRef.current;
     if (session === null) return;
-
-    const next = projectPointerGeometry(
-      session,
-      point(event),
-      bounds,
-      definition,
-    );
-
+    const next = projectPointerGeometry(session, point(event), bounds, definition);
     sessionRef.current = null;
     setPreview(null);
 
-    dispatch({
-      type: "SET_GEOMETRY",
-      windowRef: instance.windowRef,
-      geometry: next,
-    });
+    if (session.kind === "move" && snapEnabled) {
+      const startedAwayFromLeft = session.startGeometry.x > 0;
+      const startedAwayFromRight =
+        session.startGeometry.x + session.startGeometry.width < bounds.width;
+      if (startedAwayFromLeft && next.x === 0) {
+        dispatch({ type: "SNAP", windowRef: instance.windowRef, snap: "LEFT" });
+        return;
+      }
+      if (startedAwayFromRight && next.x + next.width === bounds.width) {
+        dispatch({ type: "SNAP", windowRef: instance.windowRef, snap: "RIGHT" });
+        return;
+      }
+    }
+
+    dispatch({ type: "SET_GEOMETRY", windowRef: instance.windowRef, geometry: next });
   };
 
   if (instance.lifecycle !== "OPEN") return null;
@@ -113,27 +114,34 @@ export function WindowFrame({
       data-window-ref={instance.windowRef}
       data-window-mode={instance.mode}
       data-window-focused={instance.focused ? "true" : "false"}
+      data-snap-enabled={snapEnabled ? "true" : "false"}
       className={cn(
         "overflow-hidden bg-[var(--sb-window)] text-card-foreground",
         instance.mode === "MAXIMIZED"
           ? "rounded-none border-0 shadow-none"
-          : "rounded-xl border shadow-xl",
+          : instance.focused
+            ? "rounded-xl border border-ring/55 shadow-2xl ring-1 ring-ring/30"
+            : "rounded-xl border border-border/70 shadow-md",
       )}
       role="dialog"
       style={style}
-      onPointerDown={() =>
-        dispatch({ type: "FOCUS", windowRef: instance.windowRef })
-      }
+      onPointerDown={() => dispatch({ type: "FOCUS", windowRef: instance.windowRef })}
     >
       <header
         data-slot="window-titlebar"
-        className="flex h-11 min-h-11 shrink-0 touch-none select-none items-center gap-2 border-b bg-[var(--sb-window-titlebar)] px-3"
-        onPointerDown={(event) =>
-          beginSession(
-            event,
-            beginMove(point(event), geometry),
-          )
+        className={cn(
+          "flex h-11 min-h-11 shrink-0 touch-none select-none items-center gap-2 border-b px-3",
+          instance.focused
+            ? "bg-[var(--sb-window-titlebar)] text-card-foreground"
+            : "bg-muted/70 text-muted-foreground",
+        )}
+        onDoubleClick={() =>
+          dispatch({
+            type: instance.mode === "NORMAL" ? "MAXIMIZE" : "RESTORE",
+            windowRef: instance.windowRef,
+          })
         }
+        onPointerDown={(event) => beginSession(event, beginMove(point(event), geometry))}
         onPointerMove={updateSession}
         onPointerUp={finishSession}
         onPointerCancel={() => {
@@ -142,56 +150,30 @@ export function WindowFrame({
         }}
       >
         <StationIcon className="shrink-0" token={definition.icon} aria-hidden />
-        <span className="min-w-0 flex-1 truncate text-sm font-medium leading-none">
-          {definition.title}
-        </span>
-
+        <span className="min-w-0 flex-1 truncate text-sm font-medium leading-none">{definition.title}</span>
         <div
           className="flex shrink-0 items-center gap-1"
           data-slot="window-controls"
+          onDoubleClick={(event) => event.stopPropagation()}
           onPointerDown={(event) => event.stopPropagation()}
         >
-          <IconButton
-            label="Minimize window"
-            variant="ghost"
-            onClick={() =>
-              dispatch({ type: "MINIMIZE", windowRef: instance.windowRef })
-            }
-          >
+          <IconButton label="Minimize window" variant="ghost" onClick={() => dispatch({ type: "MINIMIZE", windowRef: instance.windowRef })}>
             <StationIcon token="window.minimize" />
           </IconButton>
-
           <IconButton
             label={instance.mode === "NORMAL" ? "Maximize window" : "Restore window"}
             variant="ghost"
-            onClick={() =>
-              dispatch({
-                type: instance.mode === "NORMAL" ? "MAXIMIZE" : "RESTORE",
-                windowRef: instance.windowRef,
-              })
-            }
+            onClick={() => dispatch({ type: instance.mode === "NORMAL" ? "MAXIMIZE" : "RESTORE", windowRef: instance.windowRef })}
           >
             <StationIcon token="window.maximize" />
           </IconButton>
-
-          <IconButton
-            label="Close window"
-            variant="ghost"
-            onClick={() =>
-              dispatch({ type: "CLOSE", windowRef: instance.windowRef })
-            }
-          >
+          <IconButton label="Close window" variant="ghost" onClick={() => dispatch({ type: "CLOSE", windowRef: instance.windowRef })}>
             <StationIcon token="window.close" />
           </IconButton>
         </div>
       </header>
 
-      <div
-        data-slot="window-content"
-        className="min-h-0 min-w-0 flex-1 overflow-auto bg-card"
-      >
-        {children}
-      </div>
+      <div data-slot="window-content" className="min-h-0 min-w-0 flex-1 overflow-auto bg-card">{children}</div>
 
       {definition.resizable && instance.mode === "NORMAL" ? (
         <>
@@ -211,12 +193,7 @@ export function WindowFrame({
               data-slot="window-resize-handle"
               data-resize-edge={edge}
               className={`${className} z-20 touch-none bg-transparent`}
-              onPointerDown={(event) =>
-                beginSession(
-                  event,
-                  beginResize(edge as import("./pointer-adapter.js").ResizeEdge, point(event), geometry),
-                )
-              }
+              onPointerDown={(event) => beginSession(event, beginResize(edge as import("./pointer-adapter.js").ResizeEdge, point(event), geometry))}
               onPointerMove={updateSession}
               onPointerUp={finishSession}
               onPointerCancel={() => {

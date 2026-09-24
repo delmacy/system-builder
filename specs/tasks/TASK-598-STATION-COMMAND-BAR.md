@@ -1,7 +1,7 @@
 ---
 id: TASK-598
 title: Compose contextual Station Toolbar and Command Surface
-status: ready
+status: completed
 priority: 598
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -70,3 +70,6 @@ Task-local regression coverage, repository verification, architecture checks and
 
 # Escalation
 Stop if completion requires canonical truth, authorization decisions, provider/domain effects, deploy/storage/workflow/agent implementation, or bypassing the declared package layering.
+
+# Completion evidence
+Added the source-owned contextual Toolbar/Command Surface. Presentation commands are projected from `PresentationCommandRegistry` against explicit focus/selection/surface context and execute only through that presentation registry. Core Command Intents have a separate projection with `authorization: core-required`; disconnected intents are not requestable and the Station never converts visibility into authorization. Navbar Search/Commands now open the surface while semantic selection remains independent from focused-window identity.
