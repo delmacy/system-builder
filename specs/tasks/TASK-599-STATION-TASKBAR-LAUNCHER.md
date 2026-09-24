@@ -1,7 +1,7 @@
 ---
 id: TASK-599
 title: Complete Station Taskbar Launcher and running-window projection
-status: running
+status: completed
 priority: 599
 milestone: STATION-VISUAL-M1
 model_tier: architecture
@@ -70,3 +70,7 @@ Task-local regression coverage, repository verification, architecture checks and
 
 # Escalation
 Stop if completion requires canonical truth, authorization decisions, provider/domain effects, deploy/storage/workflow/agent implementation, or bypassing the declared package layering.
+
+
+# Completion evidence
+Completed the source-owned Station Taskbar/Launcher on the qualified Construction B head. The launcher projects M1 utility applications from the Station app registry and launches only manifest-declared apps. Running/minimized windows are projected from WindowRuntime; clicking a minimized window restores it, clicking an inactive open window focuses it, and clicking the active open taskbar entry minimizes it for familiar Windows/Ubuntu desktop behavior. Active window chrome is derived only from `WindowInstance.focused`, with stronger border/ring/shadow and receded inactive chrome without dimming content. The shell does not infer process/runtime lifecycle, Core truth, filesystem state, authorization or provider effects. Exact-head evidence before closure: Deterministic CI, Merge Candidate CI, Heavy Product Tests and Station Next.js CI (Windows + Ubuntu) all PASS on `35816783f3209aa97b7f7ae926efb8e389af1f61`.
