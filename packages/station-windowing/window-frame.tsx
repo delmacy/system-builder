@@ -117,7 +117,9 @@ export function WindowFrame({
         "overflow-hidden bg-[var(--sb-window)] text-card-foreground",
         instance.mode === "MAXIMIZED"
           ? "rounded-none border-0 shadow-none"
-          : "rounded-xl border shadow-xl",
+          : instance.focused
+            ? "rounded-xl border border-ring/55 shadow-2xl ring-1 ring-ring/30"
+            : "rounded-xl border border-border/70 shadow-md",
       )}
       role="dialog"
       style={style}
@@ -127,7 +129,12 @@ export function WindowFrame({
     >
       <header
         data-slot="window-titlebar"
-        className="flex h-11 min-h-11 shrink-0 touch-none select-none items-center gap-2 border-b bg-[var(--sb-window-titlebar)] px-3"
+        className={cn(
+          "flex h-11 min-h-11 shrink-0 touch-none select-none items-center gap-2 border-b px-3",
+          instance.focused
+            ? "bg-[var(--sb-window-titlebar)] text-card-foreground"
+            : "bg-muted/70 text-muted-foreground",
+        )}
         onPointerDown={(event) =>
           beginSession(
             event,

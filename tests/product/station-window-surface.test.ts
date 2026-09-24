@@ -100,6 +100,10 @@ test("WindowFrame renders from SB WindowInstance state and shadcn-based chrome",
   assert.match(html, /flex-direction:column/);
   assert.match(html, /data-slot="window-titlebar"/);
   assert.match(html, /h-11 min-h-11/);
+  assert.match(html, /data-window-focused="true"/);
+  assert.match(html, /border-ring\/55/);
+  assert.match(html, /ring-ring\/30/);
+  assert.match(html, /shadow-2xl/);
   assert.match(html, /data-slot="window-controls"/);
   assert.match(html, /data-slot="window-content"/);
   assert.match(html, /data-slot="window-resize-handle"/);
@@ -147,4 +151,41 @@ test("maximized WindowFrame removes outer radius and border", () => {
   );
 
   assert.match(html, /rounded-none border-0 shadow-none/);
+});
+
+
+test("unfocused WindowFrame recedes visually without changing window content state", () => {
+  let state = createWindowRuntimeState([definition], { width: 1200, height: 800 });
+  state = reduceWindowRuntime(state, { type: "OPEN", definitionRef: "settings" });
+
+  const focusedRef = state.instances[0]!.windowRef;
+  state = {
+    ...state,
+    activeWindowRef: null,
+    instances: state.instances.map((instance) =>
+      instance.windowRef === focusedRef
+        ? { ...instance, focused: false }
+        : instance,
+    ),
+  };
+
+  const html = renderToStaticMarkup(
+    createElement(
+      WindowFrame,
+      {
+        definition,
+        instance: state.instances[0]!,
+        bounds: state.bounds,
+        dispatch: () => undefined,
+      },
+      "Settings body",
+    ),
+  );
+
+  assert.match(html, /data-window-focused="false"/);
+  assert.match(html, /border-border\/70/);
+  assert.match(html, /shadow-md/);
+  assert.match(html, /bg-muted\/70/);
+  assert.match(html, /Settings body/);
+  assert.doesNotMatch(html, /opacity-/);
 });
