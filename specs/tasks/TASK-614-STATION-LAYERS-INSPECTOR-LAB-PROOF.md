@@ -39,17 +39,45 @@ validation:
 ## Objective
 Compose the real generic Tree/selection and Property Inspector surfaces in Component Lab against a declarative sample component hierarchy, proving the reusable editor substrate visually without creating an editor application.
 
-## Allowed
-- `apps/station/web/app/station-foundation-client.tsx`
-- source-owned generic components created by TASK-611..613 only as needed for integration
-- bounded product tests
-- this TASK spec/current-work documentation
+## Context
+TASK-611..613 establish stable generic selection, accessible Tree navigation and presentation-only Property Inspector primitives. Construction B needs one cumulative visual proof that these primitives compose around the same stable selected component reference before the slice can close.
 
-## Forbidden
-Component Editor or Window/View Editor application, Launcher editor entry, persistence/save/draft/publish, File Manager, Workflow Studio, Core/business authority.
+## Current behavior
+Construction A exposes Component Lab and the constrained composition substrate, but it does not yet show the Construction B Layers Tree and Property Inspector working together over a declarative component hierarchy.
 
-## max_files
-6 implementation/test/current-work files excluding this TASK spec.
+## Required change
+Wire the source-owned generic Tree/selection and Property Inspector surfaces into Component Lab using a bounded declarative sample hierarchy. Both surfaces must share the same stable selected reference. Changing selection may change only explicitly declared presentation inspection, and invalid references must fail safely.
 
-## Acceptance
-Component Lab visibly shows a Layers Tree and Inspector driven by the same stable selected component reference; changing selection changes only explicitly declared presentation inspection; invalid references fail safely; deterministic/product checks prove the integration.
+## Inputs / contracts
+- TASK-611 generic collection and single-selection contracts.
+- TASK-612 accessible generic Tree/TreeItem navigation.
+- TASK-613 presentation-only Property Inspector primitives.
+- Existing Component Lab surface in `apps/station/web/app/station-foundation-client.tsx`.
+- Canonical Station theme, typography and Construction A composition invariants.
+
+## Outputs / contracts
+- A visually testable Component Lab proof showing Layers Tree + Property Inspector over one declarative sample component hierarchy.
+- Shared stable selection identity between Tree and Inspector without coupling to window focus, AppManifest or Core/business truth.
+- Deterministic product evidence for selection changes and safe invalid-reference behavior.
+
+## Acceptance criteria
+1. Component Lab visibly shows Layers Tree and Property Inspector driven by the same stable selected component reference.
+2. Changing Tree selection changes only explicitly declared presentation inspection for that reference.
+3. Invalid or unknown selected references fail safely and do not invent component or domain truth.
+4. Keyboard/accessibility behavior inherited from the generic Tree remains usable in the integrated proof.
+5. `ComponentRegistry != AppManifest`, `WindowGeometry != composition grid`, and Station remains presentation/composition-only.
+6. Required exact-head product, architecture and repository checks pass within allowed paths and max-files constraints.
+
+## Non-goals
+- Component Editor or Window/View Editor application.
+- Launcher editor entry.
+- Composition Graph persistence/save/draft/publish.
+- File Manager, Workflow Studio, Canvas/3D or semantic Artifact Repository.
+- Deploy/provider runtime or Core/business authority.
+- Arbitrary pixel geometry, arbitrary CSS/HTML authoring or a parallel theme/type system.
+
+## Evidence expected
+Visual Component Lab proof plus happy, negative/adversarial, invalid-reference and selection-integration product regression coverage. Exact-head lint, typecheck, product tests, architecture check and repository verification must pass. Preserve one authoritative implementation commit for TASK-614 when applicable.
+
+## Escalation
+Stop and escalate rather than broadening scope if the cumulative proof requires persistence, editor-application authority, Core/business semantics, forbidden paths, arbitrary geometry, or ownership changes to ComponentRegistry, AppManifest, WindowGeometry or composition-grid contracts.
