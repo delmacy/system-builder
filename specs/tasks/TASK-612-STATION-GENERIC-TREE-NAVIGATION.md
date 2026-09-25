@@ -1,7 +1,7 @@
 ---
 id: TASK-612
 title: STATION generic Tree navigation surface
-status: ready
+status: completed
 priority: 612
 milestone: STATION-COMPOSITION-B
 model_tier: architecture

@@ -1,7 +1,7 @@
 ---
 id: TASK-613
 title: STATION Property Inspector primitives
-status: blocked
+status: ready
 priority: 613
 milestone: STATION-COMPOSITION-B
 model_tier: architecture

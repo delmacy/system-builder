@@ -1,7 +1,7 @@
 # Next Work — STATION Composition Construction B
 
 Date: 2026-09-25
-Execution base: `main@d2226397852f7e362e016975859e69909e11d002`
+Execution base: `main@0a898ad71327bb39e366e26944dadfc6785fd4d6`
 Status: CONSTRUCTION ACTIVE
 
 ## Authority
@@ -10,21 +10,21 @@ Status: CONSTRUCTION ACTIVE
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
 
 ## Predecessor truth
-`STATION-COMPOSITION-CONSTRUCTION-A-01` / TASK-606..610 was integrated by PR #912. Construction B materialization was integrated by PR #913. TASK-611 generic SelectionModel + collection contracts was implemented and integrated by PR #914 onto fresh main.
+`STATION-COMPOSITION-CONSTRUCTION-A-01` / TASK-606..610 was integrated by PR #912. Construction B materialization was integrated by PR #913. TASK-611 generic SelectionModel + collection contracts was implemented and integrated by PR #914. TASK-612 generic Tree/TreeItem navigation was implemented and integrated by PR #915 onto fresh main.
 
 ## Active chain
 
 ```text
 TASK-611  Generic SelectionModel + collection contracts — COMPLETED / INTEGRATED
    ↓
-TASK-612  Generic Tree/TreeItem navigation — READY
+TASK-612  Generic Tree/TreeItem navigation — COMPLETED / INTEGRATED
    ↓
-TASK-613  Property Inspector primitives
+TASK-613  Property Inspector primitives — READY
    ↓
 TASK-614  Layers Tree + Inspector Component Lab proof
 ```
 
-TASK-612 is the next eligible task.
+TASK-613 is the next eligible task.
 
 ## Construction target
 Prove the generic navigation/editing surfaces required immediately before the Composition Graph and shared editor engine. This slice deliberately stops before an editor application.
