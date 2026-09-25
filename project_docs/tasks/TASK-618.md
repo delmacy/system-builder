@@ -1,6 +1,6 @@
 # TASK-618 — Component Lab validated draft graph proof
 
-Status: blocked
+Status: ready
 Sprint: `STATION-COMPOSITION-CONSTRUCTION-C-01`
 Depends on: TASK-617
 
