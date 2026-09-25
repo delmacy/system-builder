@@ -1,7 +1,7 @@
 ---
 id: TASK-607
 title: Implement Station composition contracts and component registry
-status: ready
+status: completed
 priority: 607
 milestone: STATION-COMPOSITION-A
 model_tier: architecture
@@ -45,7 +45,6 @@ Registry supports register/get/list; duplicate IDs fail deterministically; contr
 
 # Non-goals
 No editor, persistence, bindings, business commands or dynamic plugin loading.
-
 
 # Context
 TASK-606 established the taxonomy and identified station-composition as the bounded owner for reusable composition metadata.
