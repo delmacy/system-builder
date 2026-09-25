@@ -1,7 +1,7 @@
 ---
 id: TASK-608
 title: Add discrete grid span and nested slot validation
-status: ready
+status: completed
 priority: 608
 milestone: STATION-COMPOSITION-A
 model_tier: architecture
@@ -55,6 +55,9 @@ Discrete row/column span constraints, named-slot compatibility, allowed-parent/l
 
 # Evidence expected
 Product tests prove accepted/rejected spans, accepted/rejected slot placement, and nested layout ownership with no canonical raw pixel sizing.
+
+# Completion evidence
+`station-composition` now validates integer row/column spans against descriptor constraints, named-slot family/layout compatibility, optional allowed-parent families, and explicit self-ownership for nested local layouts. Product tests cover accepted/rejected spans, incompatible placement and nested ownership without introducing raw pixel geometry or WindowGeometry coupling.
 
 # Escalation
 Stop if validation requires freeform x/y geometry, responsive editor behavior, window lifecycle authority, or Core/domain state.

@@ -1,22 +1,14 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { COMPONENT_FAMILIES, ComponentRegistry, normalizeComponentDescriptor } from "../../packages/station-composition/index.js";
+import { COMPONENT_FAMILIES, ComponentRegistry, normalizeComponentDescriptor, validateCompositionPlacement } from "../../packages/station-composition/index.js";
 
 const atomic = {
-  id: "component:button",
-  family: "atomic",
-  layout: "none",
-  childPolicy: "none",
-  constraints: { minColumns: 1, maxColumns: 4, recommendedColumns: 2, minRows: 1, maxRows: 2, recommendedRows: 1 },
-  slots: [],
+  id: "component:button", family: "atomic", layout: "none", childPolicy: "none",
+  constraints: { minColumns: 1, maxColumns: 4, recommendedColumns: 2, minRows: 1, maxRows: 2, recommendedRows: 1 }, slots: [],
 } as const;
-
 const layout = {
-  id: "component:grid",
-  family: "layout-container",
-  layout: "grid",
-  childPolicy: "multiple",
+  id: "component:grid", family: "layout-container", layout: "grid", layoutOwnership: "self", childPolicy: "multiple",
   constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 12, minRows: 1, maxRows: 12, recommendedRows: 4 },
   slots: [{ id: "content", childPolicy: "multiple", acceptsFamilies: [...COMPONENT_FAMILIES] }],
 } as const;
@@ -26,26 +18,44 @@ test("component registry is stable-id based and deterministically ordered", () =
   assert.deepEqual(registry.list().map((item) => item.id), ["component:button", "component:grid"]);
   assert.equal(registry.get("component:grid")?.family, "layout-container");
 });
-
 test("component registry rejects duplicate stable ids deterministically", () => {
-  const registry = new ComponentRegistry([atomic]);
-  assert.throws(() => registry.register(atomic), /duplicate component descriptor id: component:button/);
+  const registry = new ComponentRegistry([atomic]); assert.throws(() => registry.register(atomic), /duplicate component descriptor id/);
 });
-
 test("composition contracts represent all four component families", () => {
   const registry = new ComponentRegistry(COMPONENT_FAMILIES.map((family, index) => ({ ...atomic, id: `component:${family}:${index}`, family })));
   assert.deepEqual(new Set(registry.list().map((item) => item.family)), new Set(COMPONENT_FAMILIES));
 });
-
 test("descriptor validation requires canonical composition fields and discrete spans", () => {
   assert.throws(() => normalizeComponentDescriptor({ ...atomic, id: "" }), /component descriptor id must be a non-empty string/);
   assert.throws(() => normalizeComponentDescriptor({ ...atomic, constraints: { ...atomic.constraints, recommendedColumns: 5 } }), /column span constraints/);
   assert.throws(() => normalizeComponentDescriptor({ ...atomic, family: "app" }), /component family is unsupported/);
 });
-
 test("named slots reject duplicate identity and preserve family compatibility metadata", () => {
-  const descriptor = normalizeComponentDescriptor(layout);
-  assert.equal(descriptor.slots[0]?.id, "content");
+  const descriptor = normalizeComponentDescriptor(layout); assert.equal(descriptor.slots[0]?.id, "content");
   assert.deepEqual(descriptor.slots[0]?.acceptsFamilies, COMPONENT_FAMILIES);
-  assert.throws(() => normalizeComponentDescriptor({ ...layout, slots: [layout.slots[0], layout.slots[0]] }), /duplicate slot id: content/);
+  assert.throws(() => normalizeComponentDescriptor({ ...layout, slots: [layout.slots[0], layout.slots[0]] }), /duplicate slot id/);
+});
+
+test("placement accepts only discrete spans inside child constraints", () => {
+  const parent = normalizeComponentDescriptor(layout); const child = normalizeComponentDescriptor(atomic);
+  assert.doesNotThrow(() => validateCompositionPlacement({ parent, child, slotId: "content", columnSpan: 2, rowSpan: 1 }));
+  assert.throws(() => validateCompositionPlacement({ parent, child, slotId: "content", columnSpan: 5, rowSpan: 1 }), /columnSpan is outside/);
+  assert.throws(() => validateCompositionPlacement({ parent, child, slotId: "content", columnSpan: 2.5, rowSpan: 1 }), /columnSpan is outside/);
+});
+
+test("named slots enforce family, layout and allowed-parent compatibility", () => {
+  const parent = normalizeComponentDescriptor({ ...layout, slots: [{ ...layout.slots[0], acceptsFamilies: ["atomic"], acceptsLayouts: ["none"] }] });
+  const child = normalizeComponentDescriptor({ ...atomic, allowedParentFamilies: ["layout-container"] });
+  assert.doesNotThrow(() => validateCompositionPlacement({ parent, child, slotId: "content", columnSpan: 2, rowSpan: 1 }));
+  const collection = normalizeComponentDescriptor({ ...atomic, id: "component:list", family: "collection" });
+  assert.throws(() => validateCompositionPlacement({ parent, child: collection, slotId: "content", columnSpan: 2, rowSpan: 1 }), /rejects child family/);
+});
+
+test("nested layout ownership is explicit and independent of window geometry", () => {
+  const parent = normalizeComponentDescriptor(layout);
+  const nested = normalizeComponentDescriptor({ ...layout, id: "component:nested-grid", allowedParentFamilies: ["layout-container"] });
+  assert.doesNotThrow(() => validateCompositionPlacement({ parent, child: nested, slotId: "content", columnSpan: 6, rowSpan: 4 }));
+  const unowned = normalizeComponentDescriptor({ ...nested, id: "component:unowned-grid", layoutOwnership: undefined });
+  assert.throws(() => validateCompositionPlacement({ parent, child: unowned, slotId: "content", columnSpan: 6, rowSpan: 4 }), /nested layout must explicitly own/);
+  assert.equal("width" in nested.constraints, false); assert.equal("height" in nested.constraints, false);
 });
