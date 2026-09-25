@@ -1,7 +1,7 @@
 ---
 id: TASK-608
 title: Add discrete grid span and nested slot validation
-status: blocked
+status: ready
 priority: 608
 milestone: STATION-COMPOSITION-A
 model_tier: architecture
