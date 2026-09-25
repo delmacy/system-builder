@@ -1,7 +1,7 @@
 ---
 id: TASK-610
 title: Prove LEGO composition foundation in Component Lab
-status: blocked
+status: ready
 priority: 610
 milestone: STATION-COMPOSITION-A
 model_tier: cheap
