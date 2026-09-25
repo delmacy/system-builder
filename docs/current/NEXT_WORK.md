@@ -1,58 +1,43 @@
-# Next Work — STATION Composition Construction A
+# Next Work — STATION Composition Construction B
 
-Date: 2026-09-24
-Materialization base: `main@1804c2e5b5eacd677ed3a2c2808e383fb42e2144`
-Execution branch: `sprint/STATION-COMPOSITION-CONSTRUCTION-A-01`
+Date: 2026-09-25
+Materialization base: `main@880953ecc04fe4e0a08146d44fa7b12dec7e356d`
+Execution branch: `planning/STATION-COMPOSITION-CONSTRUCTION-B-01`
 Status: COMMITTED / READY TO CONSTRUCT
 
 ## Authority
 - `project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md`
-- `project_docs/execution_planning/STATION-COMPOSITION-CONSTRUCTION-A-01.md`
-- ADR-0017 / Station frontend foundation
+- `project_docs/execution_planning/STATION-COMPOSITION-CONSTRUCTION-B-01.md`
+- ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
+
+## Predecessor truth
+`STATION-COMPOSITION-CONSTRUCTION-A-01` / TASK-606..610 was integrated by PR #912. The repository now has the constrained LEGO composition substrate: Component Registry, composition contracts, grid/span validation, nested slots, ButtonGroup and Component Lab proof.
 
 ## Active chain
 
 ```text
-TASK-606  Component inventory + taxonomy
+TASK-611  Generic SelectionModel + collection contracts
    ↓
-TASK-607  Composition contracts + Component Registry
+TASK-612  Generic Tree/TreeItem navigation
    ↓
-TASK-608  Grid/span + nested-slot validation
+TASK-613  Property Inspector primitives
    ↓
-TASK-609  ButtonGroup composite
-   ↓
-TASK-610  Component Lab cumulative proof
+TASK-614  Layers Tree + Inspector Component Lab proof
 ```
 
-TASK-606 is the next eligible task.
+TASK-611 is the next eligible task.
 
 ## Construction target
+Prove the generic navigation/editing surfaces required immediately before the Composition Graph and shared editor engine. This slice deliberately stops before an editor application.
 
-Prove the smallest executable LEGO-style composition substrate before building the editors.
-
-The package must establish:
-- standardized component families;
-- stable composition contracts;
-- deterministic registry;
-- proportional span constraints;
-- named compatible slots;
-- nested local micro-layout;
-- one real reusable composite;
-- visible Component Lab proof.
-
-## Primitive-phase constraints
-- one canonical theme;
-- one centrally controlled font family/type scale;
-- emphasis through bounded semantic weights;
-- no arbitrary CSS authoring;
-- no canonical pixel resize;
-- no XS/S/M/L sizing contract;
-- no editor application yet;
-- no Core/business truth.
+## Constraints
+- `ComponentRegistry != AppManifest`;
+- `WindowGeometry != view composition grid`;
+- Station remains presentation/composition-only;
+- canonical theme/typography only;
+- no arbitrary pixel geometry or XS/S/M/L sizing contract;
+- no Component Editor/Window Editor application yet;
+- no File Manager, Workflow Studio, semantic Artifact Repository or Core/business authority.
 
 ## Succession after this package
-
-If Construction A closes green, the next planning/materialization slice may move into:
-Inspector/Layers Tree → Composition Graph/Validator → transactions/save/draft/preview → shared Composition Editor Engine → Component Editor.
-
-Do not jump directly to Window/View Editor or File Manager.
+If Construction B closes green, materialize the next dependency-safe slice for Composition Graph + validation + transaction/save/draft/preview semantics. Then proceed to the shared Composition Editor Engine and Component Editor specialization. A visible Launcher entry for the editor becomes eligible only when that application slice is materialized and proven.
