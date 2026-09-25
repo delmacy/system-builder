@@ -41,11 +41,12 @@ function constraints(input: unknown): SpanConstraints {
 function slot(input: unknown): SlotDescriptor {
   const value = record(input, "slot");
   if (!Array.isArray(value.acceptsFamilies)) throw new Error("slot.acceptsFamilies must be an array");
+  const acceptsLayouts = optionalList<LayoutKind>(value.acceptsLayouts, LAYOUT_KINDS, "slot layout");
   return Object.freeze({
     id: token(value.id, "slot.id"),
     childPolicy: oneOf(value.childPolicy, CHILD_POLICIES, "slot.childPolicy"),
     acceptsFamilies: Object.freeze(value.acceptsFamilies.map((family) => oneOf<ComponentFamily>(family, COMPONENT_FAMILIES, "slot family"))),
-    acceptsLayouts: optionalList<LayoutKind>(value.acceptsLayouts, LAYOUT_KINDS, "slot layout"),
+    ...(acceptsLayouts === undefined ? {} : { acceptsLayouts }),
   });
 }
 
@@ -58,15 +59,17 @@ export function normalizeComponentDescriptor(input: unknown): ComponentDescripto
     if (ids.has(item.id)) throw new Error(`duplicate slot id: ${item.id}`);
     ids.add(item.id);
   }
+  const layoutOwnership = value.layoutOwnership === undefined ? undefined : oneOf(value.layoutOwnership, LAYOUT_OWNERSHIP, "layout ownership");
+  const allowedParentFamilies = optionalList<ComponentFamily>(value.allowedParentFamilies, COMPONENT_FAMILIES, "allowed parent family");
   return Object.freeze({
     id: token(value.id, "component descriptor id"),
     family: oneOf<ComponentFamily>(value.family, COMPONENT_FAMILIES, "component family"),
     layout: oneOf<LayoutKind>(value.layout, LAYOUT_KINDS, "layout kind"),
-    layoutOwnership: value.layoutOwnership === undefined ? undefined : oneOf(value.layoutOwnership, LAYOUT_OWNERSHIP, "layout ownership"),
+    ...(layoutOwnership === undefined ? {} : { layoutOwnership }),
     childPolicy: oneOf(value.childPolicy, CHILD_POLICIES, "child policy"),
     constraints: constraints(value.constraints),
     slots: Object.freeze(slots),
-    allowedParentFamilies: optionalList<ComponentFamily>(value.allowedParentFamilies, COMPONENT_FAMILIES, "allowed parent family"),
+    ...(allowedParentFamilies === undefined ? {} : { allowedParentFamilies }),
   });
 }
 
