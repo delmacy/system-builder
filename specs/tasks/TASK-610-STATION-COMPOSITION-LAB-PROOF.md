@@ -1,7 +1,7 @@
 ---
 id: TASK-610
 title: Prove LEGO composition foundation in Component Lab
-status: ready
+status: completed
 priority: 610
 milestone: STATION-COMPOSITION-A
 model_tier: cheap
@@ -62,6 +62,9 @@ A visible bounded proof of registered components, proportional spans, nested But
 
 # Evidence expected
 Product/architecture/verify and relevant browser evidence pass using real package APIs, canonical theme/font, spans/tokens, and no mock-only composition types.
+
+# Completion evidence
+Component Lab now consumes the real `station-composition` registry, descriptor and placement validator, renders the source-owned ButtonGroup with five semantic icon buttons, shows a 5/12 + 7/12 proportional span proof and exposes deterministic valid/invalid slot outcomes. The proof adds no editor, persistence, Core/business authority, arbitrary pixel geometry or XS/S/M/L composition sizing contract. Product regression source proof guards those boundaries; exact-head CI is required before integration.
 
 # Escalation
 Stop if closure requires Component Editor, Window/View Editor, persistence, AI generation, semantic Artifact Repository, or Core/business authority.
