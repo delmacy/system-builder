@@ -1,44 +1,45 @@
-# Next Work — STATION Composition Construction C
+# Next Work — STATION Shared Composition Editor Engine
 
 Date: 2026-09-25
-Execution base: `main@6c3e13f868854f041a25da9185a479c540cb003c`
+Execution base: `main@5253f8f3516f121ff457a32dd97f30ff9d12936a`
 Status: MATERIALIZED / READY TO CONSTRUCT
 
 ## Authority
 - `project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md`
-- `project_docs/execution_planning/STATION-COMPOSITION-CONSTRUCTION-C-01.md`
+- `project_docs/execution_planning/STATION-COMPOSITION-EDITOR-ENGINE-01.md`
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
 
 ## Predecessor truth
-Construction A / TASK-606..610 was integrated by PR #912. Construction B materialization was integrated by PR #913; TASK-611 by PR #914; TASK-612 by PR #915; TASK-613 by PR #916; TASK-614 cumulative Layers Tree + Property Inspector proof by PR #917. Construction B is therefore closed on `main@6c3e13f868854f041a25da9185a479c540cb003c`.
+Construction A / TASK-606..610 was integrated by PR #912. Construction B / TASK-611..614 closed by PR #917. Construction C / TASK-615..618 is closed: TASK-615 #920, TASK-616 #921, TASK-617 #922 and TASK-618 cumulative validated draft graph proof #923. Fresh main after #923 is `5253f8f3516f121ff457a32dd97f30ff9d12936a`.
 
 ## Active chain
 
 ```text
-TASK-615  Declarative Composition Graph contracts — READY
+TASK-619  Generic EditorShell surface — READY
    ↓
-TASK-616  Composition Graph validator
+TASK-620  Shared CompositionEditorEngine controller
    ↓
-TASK-617  Local draft transaction + preview semantics
+TASK-621  Accessibility/adversarial hardening
    ↓
-TASK-618  Component Lab validated draft graph proof
+TASK-622  Component Lab shared editor engine proof
 ```
 
-TASK-615 is the next eligible task.
+TASK-619 is the next eligible task.
 
 ## Construction target
-Implement the forecasted Composition Graph + validator + local transaction/draft/preview slice without persistence or business authority. Keep the result visibly provable in Component Lab before moving to the shared Composition Editor Engine.
+Build the reusable domain-neutral Composition Editor Engine over the already-integrated Composition Graph, validator, local draft/preview semantics, Layers and Inspector. Keep each increment bounded and visibly provable in Component Lab before specializing the engine as a Component Editor.
 
 ## Constraints
 - `ComponentRegistry != AppManifest`;
-- `WindowGeometry != view composition grid`;
+- `WindowGeometry != composition grid`;
 - Station remains presentation/composition-only;
-- canonical theme/typography only;
-- discrete grid/span/named slots only;
+- named slots and discrete grid/span rules remain authoritative;
+- invalid references/mutations fail deterministically without silent repair;
 - no arbitrary pixel geometry or XS/S/M/L sizing contract;
-- no Component Editor/Window Editor application yet;
+- no Component Editor application/Launcher entry yet;
+- no Window/View Editor;
 - no remote persistence/publish/deploy/provider runtime;
 - no File Manager, Workflow Studio, semantic Artifact Repository or Core/business authority.
 
 ## Succession after this package
-If Construction C closes green, materialize the shared Composition Editor Engine slice, followed dependency-safely by Component Editor specialization and its visible Launcher/AppManifest entry when explicitly included in that materialized application slice.
+If Construction D closes green, materialize the Component Editor specialization dependency-safely. A visible Launcher/AppManifest entry belongs only to the explicitly materialized application slice, not to the shared engine.
