@@ -35,40 +35,43 @@ validation:
 
 # TASK-611 — STATION generic selection + collection contracts
 
-## Objective
-Establish the minimal reusable selection/collection contracts required by Layers Tree and later generic editor surfaces, without introducing editor-application or domain semantics.
+## Context
+Construction A established the constrained component-composition substrate. Layers Tree and later generic editor surfaces now need reusable item identity, collection lookup and selection semantics before any editor application is introduced.
 
-## Allowed
-- `packages/station-interaction/**`
-- `packages/ui-core/**` only when a domain-neutral primitive gap is strictly required
-- `tests/product/**` bounded regression for this TASK
-- this TASK spec
+## Current behavior
+Station interaction owns focus/selection context for presentation commands, but there is no generic collection contract that binds stable semantic item references to deterministic single-selection behavior for tree/editor surfaces.
 
-## Forbidden
-- Station app/launcher wiring
-- Component Editor / Window/View Editor
-- Composition Graph persistence/save/draft/publish
-- File Manager / Workflow Studio / semantic Artifact Repository
-- Core/business/domain authority
-- arbitrary pixel geometry or local theme/type system
+## Required change
+Add the minimal domain-neutral collection item and selection contracts needed by Layers Tree: stable semantic item identity independent of array/DOM position, explicit empty selection, deterministic select/clear/query behavior, and safe handling of unknown references. Keep the contract generic over payload/domain and separate from window focus/z-order and ComponentRegistry.
 
-## max_files
-6 implementation/test files excluding this TASK spec.
+## Inputs / contracts
+- Existing `packages/station-interaction/**` interaction/selection primitives.
+- Construction A composition boundaries and ADR-0017.
+- Stable semantic item references supplied by presentation/editor consumers.
 
-## Required behavior
-- stable semantic item identity independent of array/DOM position;
-- single-selection baseline with explicit empty selection;
-- deterministic select/clear/query behavior;
-- unknown item references fail safely and cannot silently become selection truth;
-- contracts remain generic over item payload/domain;
-- no ownership overlap with window focus/z-order or ComponentRegistry.
+## Outputs / contracts
+- Generic collection item descriptor/normalization or equivalent bounded contract.
+- Deterministic single-selection state operations for known stable item references.
+- Explicit safe outcome for unknown item references; no invented selection truth.
+- Product regression evidence covering identity stability and separation from window focus.
 
-## Acceptance
-1. generic collection item descriptors can be normalized/queried deterministically;
-2. selection state can select and clear a known stable item reference;
-3. an unknown item reference is rejected or produces an explicit safe no-op/result, never an invented selected item;
-4. tests prove deterministic behavior and separation from Station window focus;
-5. repository checks relevant to changed files pass.
+## Acceptance criteria
+1. Generic collection item descriptors can be normalized and queried deterministically.
+2. Selection state can select and clear a known stable item reference with explicit empty selection.
+3. An unknown item reference is rejected or produces an explicit safe no-op/result, never an invented selected item.
+4. Tests prove deterministic behavior, stable identity independent of position and separation from Station window focus.
+5. Repository checks relevant to changed files pass.
 
-## Proof
-Provide happy, negative and identity-stability regression coverage. One authoritative implementation commit for TASK-611 when applicable.
+## Non-goals
+- Station app/launcher wiring.
+- Component Editor or Window/View Editor.
+- Composition Graph persistence/save/draft/publish.
+- File Manager, Workflow Studio or semantic Artifact Repository.
+- Core/business/domain authority.
+- Arbitrary pixel geometry or a local theme/type system.
+
+## Evidence expected
+Happy, negative and identity-stability product regression coverage plus successful declared validation commands on the exact implementation head. Preserve one authoritative implementation commit for TASK-611 when applicable.
+
+## Escalation
+Escalate instead of broadening scope if the required behavior cannot be expressed within `station-interaction` plus an unavoidable domain-neutral `ui-core` primitive, or if satisfying it would require editor-app wiring, Core/business semantics, composition persistence, arbitrary geometry, or ownership changes to ComponentRegistry/window focus.
