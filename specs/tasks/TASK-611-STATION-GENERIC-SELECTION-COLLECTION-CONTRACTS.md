@@ -35,6 +35,9 @@ validation:
 
 # TASK-611 — STATION generic selection + collection contracts
 
+## Objective
+Add the minimal domain-neutral collection item and deterministic single-selection contracts required by Layers Tree while keeping selection independent from window focus, ComponentRegistry and domain authority.
+
 ## Context
 Construction A established the constrained component-composition substrate. Layers Tree and later generic editor surfaces now need reusable item identity, collection lookup and selection semantics before any editor application is introduced.
 
