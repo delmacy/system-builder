@@ -1,7 +1,7 @@
 ---
 id: TASK-614
 title: STATION Layers Tree and Inspector Component Lab proof
-status: blocked
+status: ready
 priority: 614
 milestone: STATION-COMPOSITION-B
 model_tier: architecture
