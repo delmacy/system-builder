@@ -1,7 +1,7 @@
 ---
 id: TASK-609
 title: Implement first nested-slot ButtonGroup composite
-status: ready
+status: completed
 priority: 609
 milestone: STATION-COMPOSITION-A
 model_tier: cheap
@@ -55,6 +55,9 @@ A reusable ButtonGroup occupying one outer composition block while owning determ
 
 # Evidence expected
 Tests/render proof show five semantic icon buttons in one group, deterministic slot semantics, invalid-child rejection, and no arbitrary pixel sizing API.
+
+# Completion evidence
+`ui-core` now owns a presentation-only ButtonGroup surface with canonical token classes and no sizing contract. `station-composition` owns the semantic-composite descriptor with five deterministic atomic ButtonSlots, self-owned row micro-layout, discrete spans and no raw pixel geometry. Product tests prove all five slots accept atomic buttons and reject non-atomic children.
 
 # Escalation
 Stop if the composite needs toolbar/business semantics, theme controls, unrestricted styling, or private Core/domain imports.
