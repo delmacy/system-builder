@@ -1,8 +1,39 @@
-# TASK-611 — STATION generic selection + collection contracts
+---
+id: TASK-611
+title: STATION generic selection and collection contracts
+status: ready
+priority: 611
+milestone: STATION-COMPOSITION-B
+model_tier: architecture
+risk: medium
+architecture_impact: false
+executor_preference: any
+depends_on:
+  - TASK-610
+context_paths:
+  - project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md
+  - project_docs/execution_planning/STATION-COMPOSITION-CONSTRUCTION-B-01.md
+  - packages/station-interaction/**
+allowed_paths:
+  - packages/station-interaction/**
+  - packages/ui-core/**
+  - tests/product/**
+  - specs/tasks/TASK-611-STATION-GENERIC-SELECTION-COLLECTION-CONTRACTS.md
+forbidden_paths:
+  - packages/runtime-core/**
+  - packages/deploy/**
+  - packages/compiler/**
+  - apps/station/web/**
+max_files: 7
+validation:
+  - npm run lint
+  - npm run typecheck
+  - npm run test:product
+  - npm run check:architecture
+  - npm run verify
+---
 
-Status: READY
-Sprint: `STATION-COMPOSITION-CONSTRUCTION-B-01`
-Depends on: `TASK-610` / Construction A integrated
+# TASK-611 — STATION generic selection + collection contracts
 
 ## Objective
 Establish the minimal reusable selection/collection contracts required by Layers Tree and later generic editor surfaces, without introducing editor-application or domain semantics.
