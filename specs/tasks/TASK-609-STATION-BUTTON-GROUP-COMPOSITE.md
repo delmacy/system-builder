@@ -1,7 +1,7 @@
 ---
 id: TASK-609
 title: Implement first nested-slot ButtonGroup composite
-status: blocked
+status: ready
 priority: 609
 milestone: STATION-COMPOSITION-A
 model_tier: cheap
