@@ -1,9 +1,8 @@
 # Next Work — STATION Composition Construction B
 
 Date: 2026-09-25
-Materialization base: `main@880953ecc04fe4e0a08146d44fa7b12dec7e356d`
-Execution branch: `planning/STATION-COMPOSITION-CONSTRUCTION-B-01`
-Status: COMMITTED / READY TO CONSTRUCT
+Execution base: `main@d2226397852f7e362e016975859e69909e11d002`
+Status: CONSTRUCTION ACTIVE
 
 ## Authority
 - `project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md`
@@ -11,21 +10,21 @@ Status: COMMITTED / READY TO CONSTRUCT
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
 
 ## Predecessor truth
-`STATION-COMPOSITION-CONSTRUCTION-A-01` / TASK-606..610 was integrated by PR #912. The repository now has the constrained LEGO composition substrate: Component Registry, composition contracts, grid/span validation, nested slots, ButtonGroup and Component Lab proof.
+`STATION-COMPOSITION-CONSTRUCTION-A-01` / TASK-606..610 was integrated by PR #912. Construction B materialization was integrated by PR #913. TASK-611 generic SelectionModel + collection contracts was implemented and integrated by PR #914 onto fresh main.
 
 ## Active chain
 
 ```text
-TASK-611  Generic SelectionModel + collection contracts
+TASK-611  Generic SelectionModel + collection contracts — COMPLETED / INTEGRATED
    ↓
-TASK-612  Generic Tree/TreeItem navigation
+TASK-612  Generic Tree/TreeItem navigation — READY
    ↓
 TASK-613  Property Inspector primitives
    ↓
 TASK-614  Layers Tree + Inspector Component Lab proof
 ```
 
-TASK-611 is the next eligible task.
+TASK-612 is the next eligible task.
 
 ## Construction target
 Prove the generic navigation/editing surfaces required immediately before the Composition Graph and shared editor engine. This slice deliberately stops before an editor application.

@@ -1,7 +1,7 @@
 ---
 id: TASK-611
 title: STATION generic selection and collection contracts
-status: ready
+status: completed
 priority: 611
 milestone: STATION-COMPOSITION-B
 model_tier: architecture
