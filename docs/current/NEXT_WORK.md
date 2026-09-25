@@ -1,42 +1,44 @@
-# Next Work — STATION Composition Construction B
+# Next Work — STATION Composition Construction C
 
 Date: 2026-09-25
-Execution base: `main@0a898ad71327bb39e366e26944dadfc6785fd4d6`
-Status: CONSTRUCTION ACTIVE
+Execution base: `main@6c3e13f868854f041a25da9185a479c540cb003c`
+Status: MATERIALIZED / READY TO CONSTRUCT
 
 ## Authority
 - `project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md`
-- `project_docs/execution_planning/STATION-COMPOSITION-CONSTRUCTION-B-01.md`
+- `project_docs/execution_planning/STATION-COMPOSITION-CONSTRUCTION-C-01.md`
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
 
 ## Predecessor truth
-`STATION-COMPOSITION-CONSTRUCTION-A-01` / TASK-606..610 was integrated by PR #912. Construction B materialization was integrated by PR #913. TASK-611 generic SelectionModel + collection contracts was implemented and integrated by PR #914. TASK-612 generic Tree/TreeItem navigation was implemented and integrated by PR #915 onto fresh main.
+Construction A / TASK-606..610 was integrated by PR #912. Construction B materialization was integrated by PR #913; TASK-611 by PR #914; TASK-612 by PR #915; TASK-613 by PR #916; TASK-614 cumulative Layers Tree + Property Inspector proof by PR #917. Construction B is therefore closed on `main@6c3e13f868854f041a25da9185a479c540cb003c`.
 
 ## Active chain
 
 ```text
-TASK-611  Generic SelectionModel + collection contracts — COMPLETED / INTEGRATED
+TASK-615  Declarative Composition Graph contracts — READY
    ↓
-TASK-612  Generic Tree/TreeItem navigation — COMPLETED / INTEGRATED
+TASK-616  Composition Graph validator
    ↓
-TASK-613  Property Inspector primitives — READY
+TASK-617  Local draft transaction + preview semantics
    ↓
-TASK-614  Layers Tree + Inspector Component Lab proof
+TASK-618  Component Lab validated draft graph proof
 ```
 
-TASK-613 is the next eligible task.
+TASK-615 is the next eligible task.
 
 ## Construction target
-Prove the generic navigation/editing surfaces required immediately before the Composition Graph and shared editor engine. This slice deliberately stops before an editor application.
+Implement the forecasted Composition Graph + validator + local transaction/draft/preview slice without persistence or business authority. Keep the result visibly provable in Component Lab before moving to the shared Composition Editor Engine.
 
 ## Constraints
 - `ComponentRegistry != AppManifest`;
 - `WindowGeometry != view composition grid`;
 - Station remains presentation/composition-only;
 - canonical theme/typography only;
+- discrete grid/span/named slots only;
 - no arbitrary pixel geometry or XS/S/M/L sizing contract;
 - no Component Editor/Window Editor application yet;
+- no remote persistence/publish/deploy/provider runtime;
 - no File Manager, Workflow Studio, semantic Artifact Repository or Core/business authority.
 
 ## Succession after this package
-If Construction B closes green, materialize the next dependency-safe slice for Composition Graph + validation + transaction/save/draft/preview semantics. Then proceed to the shared Composition Editor Engine and Component Editor specialization. A visible Launcher entry for the editor becomes eligible only when that application slice is materialized and proven.
+If Construction C closes green, materialize the shared Composition Editor Engine slice, followed dependency-safely by Component Editor specialization and its visible Launcher/AppManifest entry when explicitly included in that materialized application slice.
