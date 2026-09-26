@@ -9,7 +9,7 @@ describe("Component Editor component surface", () => {
   it("keeps selection, draft, preview and discard synchronized", () => {
     render(<ComponentLabEditorProof />);
 
-    expect(screen.getByRole("region", { name: "Component Editor" })).toBeTruthy();
+    expect(screen.getByRole("main", { name: "Component Editor" })).toBeTruthy();
     expect(screen.getByText("dirty:no")).toBeTruthy();
     expect(screen.getByText("validation:valid")).toBeTruthy();
 
