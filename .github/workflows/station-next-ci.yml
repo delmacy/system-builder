@@ -83,3 +83,21 @@ jobs:
 
       - name: Prove Station M1 browser journey
         run: npx playwright test tests/e2e/station-m1.spec.mjs --project=chromium
+
+      - name: Upload Playwright HTML report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: station-playwright-report-${{ matrix.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: playwright-report/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload Playwright diagnostic evidence
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: station-playwright-failure-${{ matrix.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: test-results/
+          if-no-files-found: warn
+          retention-days: 30
