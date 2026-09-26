@@ -5,7 +5,7 @@ import { Badge, Button, EditorShell, PropertyInspector, Tree, type PropertyGroup
 import {
   BUTTON_GROUP_DESCRIPTOR,
   ComponentRegistry,
-  createCompositionEditorState,
+  createComponentEditorState,
   defineCompositionGraph,
   discardCompositionEditorDraft,
   mutateCompositionEditor,
@@ -35,6 +35,7 @@ const baseGraph = defineCompositionGraph({
     { ref: "layer:button-2", componentRef: atomicButton.id, placement: { parentRef: "layer:button-group", slotRef: "button-2", columnSpan: 2, rowSpan: 1 } },
   ],
 });
+const componentDefinition = Object.freeze({ descriptor: BUTTON_GROUP_DESCRIPTOR, variants: Object.freeze(["default", "compact"]) });
 const layers: readonly TreeNode[] = [{ ref: "layer:button-group", label: "ButtonGroup", children: [
   { ref: "layer:button-1", label: "Button 1" },
   { ref: "layer:button-2", label: "Button 2" },
@@ -58,7 +59,7 @@ function groups(selection: SelectionState): readonly PropertyGroupDefinition[] {
 }
 
 export function ComponentLabEditorProof() {
-  const [editor, setEditor] = useState<CompositionEditorState>(() => selectCompositionEditorNode(createCompositionEditorState(baseGraph, registry), "layer:button-group"));
+  const [editor, setEditor] = useState<CompositionEditorState>(() => selectCompositionEditorNode(createComponentEditorState(componentDefinition, baseGraph, registry).composition, "layer:button-group"));
   const [findings, setFindings] = useState<readonly CompositionGraphFinding[]>([]);
   const preview = useMemo(() => projectCompositionEditorPreview(editor), [editor]);
   const validation = useMemo(() => validateCompositionGraph(editor.transaction.draft, registry), [editor]);
@@ -81,12 +82,12 @@ export function ComponentLabEditorProof() {
 
   return <EditorShell
     className="min-h-[28rem] rounded-lg border"
-    aria-label="Shared composition editor proof"
-    toolbar={<div className="flex flex-wrap gap-2 p-2"><Button variant="outline" onClick={toggleSpan}>Toggle button-1 span</Button><Button variant="ghost" onClick={discard}>Discard / reset</Button><Button variant="ghost" onClick={rejectInvalid}>Prove invalid rejection</Button></div>}
-    palette={<div className="space-y-2 p-3"><p className="text-xs font-semibold">Palette</p>{registry.list().map((component) => <Badge key={component.id}>{component.id}</Badge>)}</div>}
-    layers={<div className="p-3"><Tree nodes={layers} collection={layerCollection} selection={selection} expandedRefs={expanded} onSelectionChange={select} ariaLabel="Shared editor layers" /></div>}
-    workArea={<div className="space-y-3 p-4"><h3 className="text-sm font-semibold">Preview</h3><div className="flex flex-wrap gap-2">{preview.nodes.map((node) => <Badge key={node.ref}>{node.ref}</Badge>)}</div><p className="text-xs text-muted-foreground">Preview projects the validated local draft; base remains {editor.transaction.base.nodes.length} nodes.</p></div>}
-    inspector={<div className="p-3"><PropertyInspector groups={groups(selection)} empty="No valid component selected" aria-label="Shared editor properties" /></div>}
-    status={<div className="flex flex-wrap gap-2 p-2" role="status"><Badge>selection:{editor.selectedNodeRef ?? "none"}</Badge><Badge>validation:{validation.length === 0 ? "valid" : `${validation.length} findings`}</Badge><Badge>dirty:{editor.transaction.dirty ? "yes" : "no"}</Badge><Badge>preview:{preview.nodes.length}</Badge>{findings.length > 0 ? <span className="text-xs text-muted-foreground">Rejected safely: {findings[0]?.message}. Base/draft preserved.</span> : null}</div>}
+    aria-label="Component Editor"
+    toolbar={<div className="flex flex-wrap items-center gap-2 p-2"><strong className="mr-auto text-sm">Component Editor · {componentDefinition.descriptor.id}</strong><Button variant="outline" onClick={toggleSpan}>Toggle button-1 span</Button><Button variant="ghost" onClick={discard}>Discard / reset</Button><Button variant="ghost" onClick={rejectInvalid}>Prove invalid rejection</Button></div>}
+    palette={<div className="space-y-2 p-3"><p className="text-xs font-semibold">Palette</p>{registry.list().map((component) => <Badge key={component.id}>{component.id}</Badge>)}<p className="pt-2 text-xs text-muted-foreground">Variants: {componentDefinition.variants.join(" · ")}</p></div>}
+    layers={<div className="p-3"><Tree nodes={layers} collection={layerCollection} selection={selection} expandedRefs={expanded} onSelectionChange={select} ariaLabel="Component Editor layers" /></div>}
+    workArea={<div className="space-y-3 p-4"><h3 className="text-sm font-semibold">Component preview</h3><div className="flex flex-wrap gap-2">{preview.nodes.map((node) => <Badge key={node.ref}>{node.ref}</Badge>)}</div><p className="text-xs text-muted-foreground">Preview projects the validated local draft; base remains {editor.transaction.base.nodes.length} nodes.</p></div>}
+    inspector={<div className="p-3"><PropertyInspector groups={groups(selection)} empty="No valid component selected" aria-label="Component Editor properties" /></div>}
+    status={<div className="flex flex-wrap gap-2 p-2" role="status"><Badge>child-policy:{componentDefinition.descriptor.childPolicy}</Badge><Badge>selection:{editor.selectedNodeRef ?? "none"}</Badge><Badge>validation:{validation.length === 0 ? "valid" : `${validation.length} findings`}</Badge><Badge>dirty:{editor.transaction.dirty ? "yes" : "no"}</Badge><Badge>preview:{preview.nodes.length}</Badge>{findings.length > 0 ? <span className="text-xs text-muted-foreground">Rejected safely: {findings[0]?.message}. Base/draft preserved.</span> : null}</div>}
   />;
 }
