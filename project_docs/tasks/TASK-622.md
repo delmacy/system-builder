@@ -1,6 +1,6 @@
 # TASK-622 — Component Lab shared editor engine proof
 
-Status: blocked
+Status: running
 Depends on: TASK-621
 
 ## Allowed
