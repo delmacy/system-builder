@@ -1,6 +1,6 @@
 # TASK-621 — Composition editor accessibility and adversarial hardening
 
-Status: blocked
+Status: running
 Depends on: TASK-620
 
 ## Allowed
