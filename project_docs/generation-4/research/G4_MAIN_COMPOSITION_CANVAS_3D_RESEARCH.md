@@ -1,0 +1,3559 @@
+# G4 — Main Composition Canvas 3D, Towers, Floors, Hubs & Deployment Topology Research
+
+Status: `RESEARCH_ACTIVE / NON_EXECUTABLE`
+Authority: research only; no product implementation authority
+Branch: `research/g4-product-rnd-foundations`
+
+## Purpose
+
+This artifact consolidates the current Generation 4 research direction for the System Builder main composition interface. It is a semantic engineering workspace hypothesis, not decorative 3D and not canonical authority.
+
+The shell remains accessible React/DOM around a specialized WorkSurface. 2D Composition, semantic 3D Building/Onion, Floor, Capability, Relation Graph, Workflow, Corridor/Handoff, Deployment/Topology, Infrastructure, Observability and Evidence/Audit are peer projections of the same semantic substrate.
+
+## Stable invariants
+
+- `3D semantic != 3D decorative`.
+- `Canvas / View / Map != Canonical Model`.
+- `Semantic identity survives projection changes`.
+- `Module Identity != Deployment Placement != Runtime Instance != Render Instance`.
+- `Capability participation != semantic ownership`.
+- `Horizontal composition != vertical manifestation`.
+- `Visual connectability != semantic compatibility`.
+- `Visual proximity != deployment merge`.
+- `Visual similarity != semantic equivalence`.
+- `Arrange != Group != Deploy`.
+- `Desired != Observed != Effective`.
+- `Transport != Contract`.
+- `Aggregation != silent omission`.
+- `ACK != effect`.
+- `3D mode != mandatory interaction mode`.
+
+## Spatial and semantic grammar
+
+The 3D hypothesis uses X for horizontal module/context composition, Y for typed floors/spheres and Z/radial depth for module-internal semantic depth. Global floors remain distinct from module-internal onion layers. Capability shafts express cross-cutting participation, not ownership. Hubs are structural interconnections; flows are movement; corridors project expected/allowed progression.
+
+A module may appear as a flexible-height tower across floors. Each module-floor intersection is a manifestation, not a duplicate module. A manifestation may expose a partial internal onion containing core/domain state, services/use cases/orchestration, contracts/ports/input-output and provider/binding/adapter/gateway realization where applicable.
+
+`+ horizontal` proposes a qualified relation/composition. `+ vertical` proposes or exposes another floor manifestation only when cardinality and eligibility permit it. Geometry never proves cardinality or compatibility.
+
+## Access and circulation grammar
+
+```text
+Capability = what must be possible
+Contract = guarantees/requirements
+Port / Door = where a contract is exposed/admitted
+Counter = operation/service/action entry surface
+Input/Output = what crosses the boundary
+Provider/Binding = selected realization source
+Adapter/Driver/Gateway = concrete translation/realization
+```
+
+`Contract != physical access point`.
+
+Designed and observed progression remain separate. Downstream state never proves an upstream required gate passed. Bypass requires explicit authority/evidence. Acceptance, ACK, execution and effective outcome remain separately representable.
+
+## Module Workbox
+
+Selecting a module can reveal a contextual Module Workbox with applicable faces such as Overview, Capabilities/Services, Entry Points/Counters, Contracts/Ports, Dependencies/Relations, Providers/Bindings, Adapters/Drivers, Plugins/Extensions, Configuration, Data, Events/Workflow, Security/Authority, Runtime/Deployment, Observability and Evidence/History. Face applicability is semantic and contextual; permission-limited is not the same as non-applicable.
+
+## Deployment basements and towers
+
+Servers/hosts may be projected as deployment foundations/basements from which deployment towers emerge. A basement split/reveal may show CPU, memory, runtime, network, storage, region/zone, deployment unit, health/capacity and placement evidence. These are infrastructure/deployment facts, not ownership of the logical module.
+
+The same logical module/service can have multiple deployment manifestations and runtime instances. A runtime restart can replace instance identity while preserving logical module/service identity and possibly deployment-manifestation lineage.
+
+## Availability and stateful grouping
+
+Availability grouping is policy-relative, not visual-symmetry-relative. Stateless replicas, stateful members, quorum groups and shard groups remain distinct. Stateful members may carry stable member/storage identity, role, epoch/generation, voting eligibility, quorum evidence, write authority, read admissibility, replication progress, shard ownership, fencing evidence, revision/profile and health as separate dimensions.
+
+Hard rules include:
+
+```text
+READY != VOTING
+HEALTHY != LEADER
+LEADER_LABEL != CURRENT_WRITE_AUTHORITY
+REPLICA_PRESENT != QUORUM
+QUORUM != ALL_MEMBERS_CURRENT
+SHARD_MEMBERSHIP != SHARD_OWNERSHIP
+FAILOVER != SAFE_PROMOTION
+```
+
+## Authority transfer, leases and fencing evidence
+
+External distributed-systems evidence adds a stronger contract than the earlier generic promotion sequence. Kubernetes Lease records distinguish holder identity, acquisition/renewal time, lease duration and transition count; leader acquisition is concurrency-qualified rather than inferred from liveness. etcd election ownership is tied to an election key/revision and lease, and its failure documentation shows an election interval in which writes cannot proceed even though a replacement leader may soon emerge.
+
+Portable UI consequence: **authority is an evidence-bearing temporal claim**, not a role label.
+
+Candidate authority evidence vector:
+
+```text
+AuthorityEvidence {
+  subjectOrPartition
+  holderIdentity
+  authorityKind
+  epochTermGeneration
+  leaseOrOwnershipToken
+  acquiredAt
+  renewedAt
+  validUntilOrExpiryBasis
+  transitionCounter
+  source
+  observedAt
+  currentness
+  fencingDisposition
+}
+```
+
+The exact fields are provider-dependent; absence is represented as UNKNOWN/NOT_APPLICABLE rather than fabricated.
+
+Candidate authority states:
+
+- `NO_AUTHORITY_OBSERVED`;
+- `AUTHORITY_CANDIDATE`;
+- `AUTHORITY_ACQUIRING`;
+- `AUTHORITY_OBSERVED_UNVERIFIED`;
+- `AUTHORITY_EFFECTIVE`;
+- `AUTHORITY_EXPIRING`;
+- `AUTHORITY_EXPIRED`;
+- `AUTHORITY_TRANSFER_PENDING`;
+- `AUTHORITY_TRANSFER_GAP`;
+- `AUTHORITY_CONFLICT`;
+- `AUTHORITY_UNKNOWN`;
+- `FENCING_REQUIRED`;
+- `FENCING_VERIFIED`.
+
+A safe transfer is therefore not simply `old -> new`:
+
+```text
+TRANSFER_DESIRED
+-> TRANSFER_ACKNOWLEDGED
+-> OLD_AUTHORITY_RELINQUISHING / EXPIRING
+-> OLD_AUTHORITY_FENCED_OR_EXPIRED ?
+-> NEW_AUTHORITY_ACQUIRED
+-> NEW_AUTHORITY_VERIFIED
+-> EFFECTIVE_AUTHORITY
+```
+
+Depending on protocol, acquisition and old-holder expiry/fencing can be coordinated differently; the UI must preserve the provider evidence rather than force one universal ordering. What is universal is that `ACK`, candidate status, liveness and a displayed leader role are insufficient to prove effective exclusive authority.
+
+### Authority gap is not failure equivalence
+
+etcd documents a leader-election interval during which writes cannot be processed while a new leader is being elected. This motivates a first-class `AUTHORITY_TRANSFER_GAP` / `WRITE_UNAVAILABLE_DURING_ELECTION` representation rather than immediately classifying the system as split brain or generic failure.
+
+```text
+no current writer
+!= conflicting writers
+!= healthy effective writer
+```
+
+Read behavior may remain separately admissible according to the declared consistency profile; the UI must not generalize write unavailability to all operations without evidence.
+
+### Fencing is a proof obligation
+
+When a single-writer/owner invariant applies, promotion is not safely effective merely because a new candidate reports leader/owner. The UI needs a fencing disposition for the displaced authority. Candidate dispositions:
+
+- `NOT_REQUIRED_BY_PROTOCOL`;
+- `REQUIRED_UNVERIFIED`;
+- `VERIFIED_EXPIRED`;
+- `VERIFIED_REVOKED`;
+- `VERIFIED_TOKEN_SUPERSEDED`;
+- `CONFLICTING_EVIDENCE`;
+- `UNKNOWN`.
+
+This is intentionally abstract: lease expiry, revision/token supersession, storage fencing or provider-specific mechanisms are realizations, not the semantic contract itself.
+
+### Partition/shard ownership transfer
+
+Shard/partition movement needs two independent axes: **data movement/readiness** and **authority ownership**.
+
+Candidate transfer state machine:
+
+```text
+OWNERSHIP_STABLE_OLD
+-> TARGET_PREPARING
+-> DATA_SYNCING / CATCHING_UP
+-> TARGET_READY_FOR_TRANSFER
+-> TRANSFER_DESIRED
+-> TRANSFER_ACKNOWLEDGED
+-> OLD_OWNER_FENCED_OR_OWNERSHIP_REVOKED ?
+-> NEW_OWNER_OBSERVED
+-> NEW_OWNER_AUTHORITY_VERIFIED
+-> OWNERSHIP_EFFECTIVE_NEW
+-> OLD_COPY_RETIRABLE
+```
+
+Recovery branches include `SYNC_STALLED`, `TARGET_NOT_READY`, `TRANSFER_BLOCKED`, `AUTHORITY_GAP`, `CONFLICTING_OWNERSHIP`, `ROLLBACK_TO_OLD_OWNER`, `RECONCILIATION_REQUIRED` and `UNKNOWN_EFFECT`.
+
+Hard rules:
+
+```text
+DATA_COPIED != OWNERSHIP_TRANSFERRED
+TARGET_READY != TARGET_AUTHORIZED
+TRANSFER_ACK != OWNERSHIP_EFFECTIVE
+OLD_COPY_PRESENT != OLD_COPY_AUTHORIZED
+NEW_OWNER_LABEL != EXCLUSIVE_OWNERSHIP_PROOF
+PARTIAL_REBALANCE != WHOLE_GROUP_SUCCESS
+```
+
+For multi-partition rebalance, each partition/shard retains its own transfer disposition. Aggregate success is derived only when the declared batch policy is satisfied; partial completion remains explicit and actionable.
+
+## Rolling coexistence and SharedContractSurface
+
+Mixed revisions can intentionally coexist inside one logical group. A LogicalServiceCrown may remain unified while SharedContractSurface only aggregates the declared common admissible guarantee/profile intersection. Latest member revision is not automatically the group's effective contract. Contract-profile drift must facet/split the surface or produce UNKNOWN/PARTIAL.
+
+## Desired, observed and effective topology
+
+Placement truth remains a vector: desired, observed and effective placement are separate, with evidence/currentness per dimension. Scheduler/provider ACK is not effect evidence; host observation is not necessarily effective business readiness; healthy runtime is not necessarily semantically admissible.
+
+## Drag, accessibility and peer representations
+
+Typed intent precedes semantic action: arrange, group and deploy are distinct. Pointer proximity never chooses intent. Every decision-relevant 3D identity/relation requires a peer non-spatial representation. Focus and selection remain distinct. Drag operations require non-drag pointer and keyboard alternatives. Compatibility, drift, authority and currentness are never color-only.
+
+Authority and ownership transfer peer representations must expose holder/owner identity, partition/shard scope, authority state, currentness, fencing disposition, target readiness and recovery actions without requiring tower position, animation or free-camera control.
+
+## Arrangement, LOD and performance
+
+Topology arrangement changes representation, not identity. Aggregation must preserve selected/focused identity and critical drift/UNKNOWN state. Stateful aggregate LOD must preserve conflicting/unknown authority, quorum loss/unknown, mixed revision/profile, material lag/unknown, shard ownership conflict and fencing-required status. A green aggregate cannot be computed from majority health when a protected invariant is violated.
+
+Preferred rendering research remains simple geometry, selective labels, semantic zoom, instancing, LOD, clustering/aggregation, culling, render-on-demand, label virtualization and workers for heavy layout/analysis before renderer specialization.
+
+## Componentization map and Componentes impact
+
+Existing topology primitives remain, with these additions:
+
+- C3 primitive/semantic records: `AuthorityEvidenceRef`, `FencingDisposition`, `OwnershipTransferState`, `PartitionTransferRef`;
+- C4 domain building blocks: `AuthorityBadge`, `AuthorityGapIndicator`, `FencingIndicator`, `PartitionOwnershipIndicator`, `TransferProgressIndicator`;
+- C5/C6 module/tool components: `AuthorityEvidenceInspector`, `OwnershipTransferInspector`, `RebalanceBatchInspector`, `FencingProofPanel`;
+- C7 Topology WorkSurface overlays: per-partition transfer path and aggregate rebalance disclosure;
+- C8+ workspace/task orchestration: transfer review/authorize/operate/audit/recover flows with preserved evidence/currentness.
+
+Componentes scenarios must include: old authority expires before replacement; candidate alive but authority unknown; new authority acquired while old fencing unknown; conflicting holders; transfer ACK without effect; data synced but ownership unchanged; partial rebalance success; rollback to old owner; stale authority evidence; authority gap during election; aggregate LOD containing one conflicting partition; projection switch preserving partition identity and authority evidence.
+
+## Proof obligations
+
+Before these patterns can be considered mature, research/prototype evidence must prove:
+
+1. no role/liveness badge can strengthen UNKNOWN authority into effective authority;
+2. authority gap and authority conflict remain visually/semantically distinct in every projection;
+3. fencing evidence survives 3D/2D/list/table/topology projection switches;
+4. per-partition partial rebalance cannot collapse to whole-group success;
+5. LOD aggregation preserves any conflicting/unknown authority or fencing-required member;
+6. ACK, observed holder and effective authority remain separately inspectable;
+7. recovery/rollback does not erase evidence of the failed transfer attempt;
+8. non-spatial users can review and authorize/recover transfers without 3D interaction;
+9. stale lease/ownership evidence cannot appear current solely because the runtime is healthy;
+10. provider-specific fencing mechanisms map to the common semantic dispositions without the UI pretending all protocols have identical ordering.
+
+## Maturity
+
+This front remains `RESEARCH_ACTIVE / NON_EXECUTABLE`. The authority-transfer and partition-ownership model materially reduces the previous gap around shard rebalance/fencing, but exact SharedContractSurface compatibility algebra and complete cross-workspace recovery orchestration remain open research vectors.
+
+## OS-style Screen & Window Composition Scope
+
+Decision status: \`IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE\`
+
+The G4 frontend scope now explicitly includes the design of a **screen/window composition environment inspired by desktop operating systems**.
+
+This is not merely a visual metaphor. It is a product-interaction capability to be researched and planned.
+
+### Scope
+
+Research the composition of module UIs as independent but coordinated application-like windows inside the System Builder Operating Environment.
+
+The composition system must cover:
+
+- creating/opening module windows;
+- multiple windows from the same module;
+- moving, resizing and arranging windows;
+- minimize, maximize, restore and close;
+- floating, docking, snapping and split layouts;
+- tabbed/docked window groups where useful;
+- z-order and focused-window management;
+- persistent workspace/window layouts;
+- restore after reload/session recovery;
+- saved workspace presets;
+- module launcher / application catalog;
+- taskbar/open-window indicators;
+- background/suspended windows;
+- window-to-window comparison;
+- cross-window drag/copy/reference where semantically valid;
+- multi-window revision/currentness handling;
+- integration with Ribbon, Command Registry, Tool Rail, Inspector and Status/Activity;
+- integration between ModuleWindow and System Map / 3D Canvas;
+- responsive degradation on smaller displays;
+- keyboard and non-drag alternatives;
+- lifecycle/performance management for inactive windows.
+
+### Screen composition
+
+Research a **Screen Composer / Workspace Composer** able to assemble complete working screens from reusable primitives and module windows.
+
+Candidate hierarchy:
+
+~~~
+Token / Primitive
+-> Component
+-> Module Component
+-> Tool
+-> Module Window
+-> Window Group / Dock
+-> Workspace
+-> Complete Screen
+-> Saved Workspace Layout
+-> System Desktop
+~~~
+
+A complete screen may therefore be a composition of several module windows rather than one monolithic route/page.
+
+Example:
+
+~~~
+OPERATIONS WORKSPACE
+
++-------------------------+-------------------------+
+| Helpdesk                | Workflow                |
+| Ticket / Queue          | Flow / Gates            |
++-------------------------+-------------------------+
+| Observability           | Evidence / History      |
+| Metrics / Alerts        | Audit / Currentness     |
++-------------------------+-------------------------+
+~~~
+
+The composition is a UI arrangement, not a new semantic owner.
+
+~~~
+Screen composition
+!= semantic aggregation
+!= module ownership merge
+~~~
+
+### Window state model
+
+Candidate state vocabulary:
+
+~~~
+CLOSED
+OPENING
+OPEN
+FOCUSED
+UNFOCUSED
+MINIMIZED
+MAXIMIZED
+FLOATING
+DOCKED
+SNAPPED
+SPLIT
+BACKGROUND
+SUSPENDED
+HIBERNATED
+RESTORING
+RECOVERING
+DIRTY
+STALE_CONTEXT
+READ_ONLY
+BLOCKED
+~~~
+
+These states must be decomposed where necessary rather than forced into one scalar enum.
+
+### Performance lifecycle
+
+Research explicit resource lifecycle:
+
+~~~
+UNLOADED
+-> LOADING
+-> ACTIVE
+-> BACKGROUND
+-> SUSPENDED
+-> HIBERNATED
+-> RESTORING
+~~~
+
+Hard rules:
+
+- \`Module installed != Module loaded\`.
+- \`Module loaded != Module rendered\`.
+- \`Module rendered != actively updating\`.
+- \`Window open != full processing active\`.
+- \`Inactive workspace -> suspend / aggregate / unload where safe\`.
+- \`Installed complexity != runtime UI cost\`.
+- \`Visible complexity != active computation cost\`.
+
+The shell should own shared infrastructure such as commands, notifications, selection/context, layout persistence, jobs and window management so that each module does not become an independent SPA inside the Builder.
+
+### Window manager boundaries
+
+~~~
+Window layout
+!= system topology
+
+Dock/Snap
+!= semantic relation
+
+Focused Window
+!= selected semantic object
+
+Window Z-order
+!= architectural priority
+
+Close Window
+!= disable module
+!= uninstall module
+!= undeploy runtime
+~~~
+
+### Cross-window synchronization
+
+Research must define how windows coordinate:
+
+- same semantic object in different projections;
+- shared vs local selection;
+- focused-window context;
+- revision binding;
+- environment binding;
+- dirty edits;
+- autosave;
+- conflict detection;
+- stale-window detection;
+- live update;
+- explicit reconciliation;
+- safe close with unsaved/unknown state;
+- restoration after crash/reload.
+
+A window restored from a saved workspace must not silently attach to a newer revision/environment without qualification.
+
+### Module-window contracts
+
+Candidate ModuleWindow contract must declare:
+
+- module identity;
+- supported window/workspace kinds;
+- initial projection;
+- commands contributed;
+- contextual Ribbon tabs;
+- inspector sections;
+- selection contract;
+- local/transient state;
+- canonical/editable state boundaries;
+- persistence/restore contract;
+- suspend/resume behavior;
+- live-subscription policy;
+- failure/recovery states;
+- performance budget;
+- accessibility equivalents.
+
+### Componentes additions
+
+The permanent Componentes inventory must include at least:
+
+- SystemDesktop;
+- ScreenComposer;
+- WorkspaceComposer;
+- WindowManager;
+- ModuleLauncher;
+- ModuleAppTile;
+- ModuleWindow;
+- ModuleWindowFrame;
+- ModuleWindowTitleBar;
+- WindowResizeHandle;
+- WindowDockTarget;
+- WindowSnapZone;
+- WindowSplitLayout;
+- WindowTabGroup;
+- Taskbar;
+- OpenWindowIndicator;
+- BackgroundWindowIndicator;
+- WorkspaceSwitcher;
+- SavedWorkspaceLayout;
+- WindowComparisonLayout;
+- WindowRestoreState;
+- WindowSuspensionIndicator;
+- WindowContextDriftIndicator;
+- LocateInSystemMapAction;
+- ModuleContextualRibbon.
+
+### Adversarial/proof obligations
+
+Research must test at least:
+
+1. ten or more installed modules with only two active windows;
+2. many open windows with inactive ones suspended;
+3. two windows editing the same module/revision;
+4. two windows bound to different revisions;
+5. restored workspace after revision/environment changed;
+6. dirty window closed accidentally;
+7. minimized window containing a critical finding;
+8. dock/snap mistaken for semantic relationship;
+9. module window closed while runtime remains healthy/effective;
+10. module installed but never loaded;
+11. background module generates notification/job result without foreground window;
+12. 3D System Map and ModuleWindow disagree on selection/currentness;
+13. crash/reload restores layout but not stale authority as current;
+14. mobile/small-screen fallback cannot support arbitrary floating windows;
+15. resource pressure suspends windows without losing dirty work;
+16. window explosion recreates cognitive overload;
+17. each module attempts to create its own command/store/polling/window infrastructure instead of using shell services.
+
+### Scope conclusion
+
+The target is not merely a collection of web pages. The G4 UI should research a **composable operating environment** in which modules can be installed like applications and their working surfaces assembled as windows/screens/workspaces, while all architectural truth remains outside the window-manager metaphor.
+
+
+## Factory Module — Fleet Operations, Dense Control & Root-Service Administration
+
+Decision status: \`IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE\`
+
+The **Factory Module** should intentionally differ from design-oriented workspaces.
+
+Its primary workload is not visual composition of one system. It is **high-density supervision and bounded operational control across many client systems, environments, modules, hosts and root services**.
+
+### Interaction profile
+
+The Factory Module should optimize for:
+
+- many rows/entities visible at once;
+- fast filtering/search;
+- grouping by client, environment, module, region, host, version and health state;
+- exception-first triage;
+- bulk selection;
+- compact status/state visualization;
+- operational commands;
+- auditability;
+- blast-radius awareness;
+- low navigation cost between fleet -> client -> system -> module -> instance -> evidence.
+
+Therefore:
+
+~~~
+Factory Module
+!= Design Canvas
+
+Factory Module
+= Fleet Console
++ Operations Console
++ Factory Governance Surface
+~~~
+
+The semantic 3D/System Map may still be reachable for drill-down, but should not be the default representation for fleet-scale operations.
+
+### Candidate Factory windows/views
+
+- Factory Overview
+- Client Fleet
+- Client System Detail
+- Module Fleet
+- Host / Server Fleet
+- Deployment Fleet
+- Root Services
+- Root Service Detail
+- Incident / Finding Queue
+- Jobs / Operations Queue
+- Version / Drift Matrix
+- Capacity / Resource View
+- Provider / Binding Fleet
+- Secrets Metadata / Credential Governance
+- Audit / Evidence
+- Maintenance / Change Windows
+
+### Dense representations
+
+Candidate default representations include:
+
+- sortable/filterable tables;
+- tree grids;
+- compact cards;
+- status matrices;
+- heatmaps;
+- sparklines;
+- grouped counters;
+- drill-down side panels;
+- batch-selection toolbars;
+- exception queues.
+
+~~~
+Fleet density
+> decorative representation
+~~~
+
+The goal is to inspect a large estate without opening one graphical workspace per client.
+
+### Fleet hierarchy
+
+Candidate hierarchy:
+
+~~~
+Factory
+-> Client
+-> Client System
+-> Environment
+-> Module / Capability
+-> Deployment Manifestation
+-> Runtime Instance
+-> Host / Server
+-> Provider / Root Service
+-> Evidence / Currentness
+~~~
+
+The user must be able to move both top-down and bottom-up.
+
+Examples:
+
+~~~
+Client -> all systems -> all unhealthy modules
+
+Module -> all clients using it -> versions/drift
+
+Host -> all client workloads placed on it
+
+Root Service -> all dependent client systems
+~~~
+
+### Operational control surface
+
+The Factory Module is not observation-only.
+
+Research and planning must include bounded operational actions such as:
+
+- start / stop / restart service;
+- restart module runtime;
+- stop / restart host/server where supported;
+- cordon / drain host where topology allows;
+- disable / enable module;
+- pause/resume worker or queue consumer;
+- scale up/down;
+- redeploy;
+- rollback to qualified release;
+- reconcile;
+- failover / promote where contracts permit;
+- enter/exit maintenance mode;
+- isolate/quarantine;
+- acknowledge/assign incident or finding;
+- rotate/revoke credentials through qualified root-service workflows;
+- cancel/retry bounded background jobs.
+
+These are candidate action classes, not universal guarantees; provider/runtime capability determines actual support.
+
+### Control safety
+
+Operational control must distinguish:
+
+~~~
+Observe
+!= Control
+!= Change
+!= Deploy
+!= Destructive Action
+~~~
+
+Every action should carry qualified scope and authority.
+
+Candidate command envelope:
+
+~~~
+FactoryOperation {
+  action
+  targetType
+  targetIds[]
+  environment
+  requestedBy
+  authorityContext
+  desiredState
+  preconditions
+  blastRadius
+  dependencyImpact
+  confirmationPolicy
+  executionMode
+  timeout
+  rollbackOrRecovery
+  evidenceRequirements
+}
+~~~
+
+### Desired / acknowledged / observed / effective control
+
+A command being accepted is not proof of effect.
+
+Example restart:
+
+~~~
+RESTART_REQUESTED
+-> COMMAND_ACCEPTED
+-> STOP_OBSERVED
+-> START_REQUESTED
+-> PROCESS_OBSERVED
+-> HEALTH_CHECK_PASSED
+-> SEMANTIC_READINESS_QUALIFIED
+-> RESTART_EFFECTIVE
+~~~
+
+Hard invariant:
+
+~~~
+Operation ACK
+!= Operational Effect
+!= Business Readiness
+~~~
+
+### Bulk actions
+
+Fleet-scale operation requires bulk actions, but bulk must not hide partial outcomes.
+
+Candidate states:
+
+- BULK_PENDING
+- BULK_RUNNING
+- PARTIAL_SUCCESS
+- PARTIAL_FAILURE
+- MIXED_EFFECT
+- UNKNOWN_EFFECT
+- RECONCILIATION_REQUIRED
+- COMPLETE
+
+~~~
+100 selected targets
+!= one atomic operation
+~~~
+
+The UI must preserve per-target disposition/evidence.
+
+### Blast radius and dependency impact
+
+Before high-impact control, the Factory Module should research an impact preview.
+
+Candidate questions:
+
+- how many clients are affected?
+- which environments?
+- which dependent modules?
+- which active workflows?
+- which root services depend on the target?
+- is there redundancy/failover?
+- is there unsaved/in-flight work?
+- what authority/security floor is required?
+- what rollback/recovery exists?
+- what evidence will prove success?
+
+Candidate UI: \`FactoryOperationImpactPreview\`.
+
+### Client fleet / capability matrix
+
+A dense matrix may be useful:
+
+~~~
+                 Auth   Workflow   Data   Obs   Deploy
+Client A          OK      OK       OK    WARN    OK
+Client B          OK     DEG       OK     OK      OK
+Client C         DRIFT    OK      UNK     OK     PEND
+Client D          OK      OK       OK     OK      OK
+~~~
+
+But color/status aggregation must never erase:
+
+- UNKNOWN;
+- stale evidence;
+- authority drift;
+- contract/revision drift;
+- partial rollout;
+- placement drift;
+- unresolved effect.
+
+### Module fleet view
+
+A module-first view should answer:
+
+- which clients use this module?
+- which versions?
+- which contract profiles?
+- where deployed?
+- health/currentness?
+- incompatible versions?
+- rollout/update candidates?
+- dependent systems?
+- operational incidents?
+
+This supports fleet maintenance as the customer count grows.
+
+### Root services
+
+Root services remain builder/factory-only or otherwise highly privileged.
+
+Examples include deployment secrets, signing, artifact registry, provisioning, global observability/control, provider credentials and factory orchestration.
+
+The Factory Module may expose:
+
+- metadata;
+- health;
+- dependency fan-out;
+- rotation/currentness;
+- access policy;
+- provider binding;
+- incidents;
+- maintenance state;
+- operational commands.
+
+It should not imply that privileged secret values are routinely viewable.
+
+~~~
+Secret metadata
+!= Secret value
+
+Can operate dependent service
+!= can read root credential
+~~~
+
+### Client isolation
+
+Factory operators may see/manage multiple clients, but multi-client visibility must preserve tenant boundaries.
+
+Candidate rules:
+
+- cross-client aggregation uses only fields allowed for factory scope;
+- drill-down requires qualified authority;
+- one client's data must not leak into another client's context;
+- bulk actions must show target tenants explicitly;
+- filtering/grouping does not weaken tenant isolation;
+- root-service access remains separately authorized.
+
+### Factory window profile
+
+Candidate window layout:
+
+~~~
+┌ Factory Toolbar / Filters / Search / Bulk Actions ──────┐
+│ Client | Env | Module | Version | Health | Region | ... │
+├───────────────────────┬──────────────────────────────────┤
+│ Dense Fleet Grid      │ Context / Impact / Evidence     │
+│                       │ Inspector                        │
+│                       │                                  │
+├───────────────────────┴──────────────────────────────────┤
+│ Jobs / Incidents / Background Operations / Audit        │
+└──────────────────────────────────────────────────────────┘
+~~~
+
+The Ribbon remains available, but the dominant interaction is fleet filtering, selection, drill-down and bounded operational command execution.
+
+### Componentes additions
+
+Research/catalog:
+
+- FactoryModuleWindow
+- FactoryOverview
+- ClientFleetGrid
+- ClientSystemRow
+- ModuleFleetGrid
+- HostFleetGrid
+- DeploymentFleetGrid
+- RootServiceFleetGrid
+- FleetFilterBar
+- FleetGroupByControl
+- FleetStatusMatrix
+- FleetHeatmap
+- FleetBulkSelection
+- FleetBulkActionBar
+- FactoryOperationCommand
+- FactoryOperationImpactPreview
+- FactoryOperationProgress
+- PerTargetOperationResult
+- MaintenanceModeIndicator
+- CordonDrainControl
+- RestartControl
+- StopStartControl
+- ReconcileControl
+- RollbackControl
+- IncidentQueue
+- DriftMatrix
+- RootServiceDependencyView
+- SecretMetadataRecord
+
+### Factory invariants
+
+- \`Factory Module != Design Canvas\`.
+- \`Fleet density > decorative representation\`.
+- \`Observe != Control != Change != Deploy\`.
+- \`Operation ACK != Operational Effect != Business Readiness\`.
+- \`Bulk request != atomic fleet transaction\`.
+- \`Aggregate health != every member healthy/current\`.
+- \`Cross-client visibility != cross-client authority\`.
+- \`Secret metadata != secret value\`.
+- \`Can operate != can read credential\`.
+- \`Stop window != stop module != stop runtime\`.
+- \`Factory grouping/filtering != tenant merge\`.
+- \`Root Service != Client Module\`.
+- \`Factory control plane != client semantic owner\`.
+
+### Performance / scale hypothesis
+
+Factory UI should scale primarily through virtualization and aggregation rather than rich per-row rendering.
+
+Research:
+
+- virtualized tables/treegrids;
+- incremental/paginated data loading;
+- server-side filtering/sorting where needed;
+- cached aggregate counters with currentness;
+- selective subscriptions;
+- event-driven refresh;
+- priority updates for visible/critical rows;
+- lazy drill-down;
+- background reconciliation;
+- bounded live telemetry.
+
+The Factory Module should remain usable as the estate grows from tens to hundreds or thousands of client systems without requiring all detailed telemetry to be mounted simultaneously.
+
+
+## Priority benchmarks — Puter, OS.js and daedalOS
+
+Decision status: \`PRIORITY_RESEARCH_BENCHMARKS / NOT TECHNOLOGY SELECTION\`
+
+The OS-like frontend research should explicitly benchmark **Puter**, **OS.js** and **daedalOS**.
+
+These references are used to extract portable interaction/architecture patterns. They do not authorize copying trade dress, adopting their architecture wholesale, or selecting their code/frameworks.
+
+### Puter — modern web-desktop experience benchmark
+
+Research role:
+
+- modern browser-desktop interaction;
+- window creation and management;
+- resizable windows;
+- minimize/maximize/title/taskbar behavior;
+- desktop integration;
+- app-like launch model;
+- notifications/dialogs;
+- multi-window experience;
+- perceived responsiveness and progressive loading.
+
+Primary evidence indicates Puter exposes UI APIs for creating windows with title/head, resize, positioning and taskbar representation, making it a useful benchmark for the System Builder ModuleWindow/WindowManager interaction contract.
+
+SB research questions:
+
+- what interaction grammar makes windows feel native without becoming a fake OS?
+- how does taskbar/window discoverability scale?
+- how should multi-window state be persisted/restored?
+- which window controls belong to the global shell vs module?
+- how should background apps/windows expose notifications and jobs?
+- what can be learned without coupling SB to Puter runtime semantics?
+
+### OS.js — architecture/window-manager benchmark
+
+Research role:
+
+- open-source web-desktop platform architecture;
+- window manager;
+- application APIs;
+- GUI toolkit;
+- application lifecycle;
+- service/provider structure;
+- session/application restoration;
+- window containers hosting arbitrary DOM/framework content;
+- React integration patterns;
+- shared shell services.
+
+OS.js documentation explicitly describes a web desktop platform with window manager, application APIs, GUI toolkit and filesystem abstractions; its application/window APIs and React examples make it a priority architectural benchmark.
+
+SB research questions:
+
+- how should ModuleWindow be separated from ModuleDefinition/ModuleInstallation?
+- which services belong to the shell rather than every module?
+- how should process/application lifecycle differ from window lifecycle?
+- how should session restore bind revision/environment/currentness?
+- how should module packages register commands/windows/components?
+- which OS.js concepts are too OS-specific for SB and must not be imported?
+
+### daedalOS — interaction richness / desktop-behavior benchmark
+
+Research role:
+
+- browser desktop behavior;
+- task/window interaction;
+- context menus;
+- file/app association analogies;
+- drag/drop;
+- multiple application windows;
+- desktop navigation;
+- visual density;
+- realistic end-user desktop feel.
+
+The project identifies itself as a desktop environment in the browser and provides rich desktop/app interaction patterns.
+
+SB research questions:
+
+- which behaviors improve discoverability and spatial memory?
+- which behaviors create novelty but not engineering value?
+- how should context menus/window chrome remain consistent?
+- how should desktop freedom degrade on small screens?
+- what interaction patterns become cognitive overload in a professional engineering environment?
+
+### Comparative benchmark matrix
+
+The research should maintain a comparison across at least:
+
+| Dimension | Puter | OS.js | daedalOS | SB implication |
+| --- | --- | --- | --- | --- |
+| Window manager behavior | research | research | research | ModuleWindow contract |
+| App/module launcher | research | research | research | ModuleLauncher |
+| Taskbar/open windows | research | research | research | Taskbar |
+| Multiple windows/app | research | research | research | same module, multiple projections |
+| Session/layout restore | research | research | research | revision-safe restore |
+| Background app behavior | research | research | research | suspend/jobs/notifications |
+| React/framework integration | inspect | strong benchmark | inspect | shell/module integration |
+| Desktop navigation | strong benchmark | architectural | strong benchmark | SystemDesktop |
+| Performance/lazy loading | inspect | inspect | inspect | lifecycle budgets |
+| Accessibility | inspect critically | inspect critically | inspect critically | SB must exceed benchmark where needed |
+| Small-screen fallback | inspect | inspect | inspect | tabs/stacks instead of free windows |
+| Extensibility/app registration | inspect | strong benchmark | inspect | module installation model |
+
+### Benchmark rules
+
+- \`Benchmark != adoption\`.
+- \`Similar interaction != copied visual identity\`.
+- \`Web desktop behavior != semantic authority\`.
+- \`App lifecycle != module lifecycle != deployment lifecycle\`.
+- \`Window manager convenience != permission model\`.
+- \`Desktop freedom != mandatory free-form layout\`.
+- \`External framework limitation != SB architectural limitation\`.
+
+Research should extract principles, state machines, lifecycle patterns, failure cases, performance strategies and accessibility gaps, then reconcile them with the existing System Builder invariants.
+
+
+## React/Next base vs external web-desktop shell — architecture research
+
+Decision status: \`RESEARCH_REQUIRED / CURRENT_BASE_REMAINS_NEXT_REACT_TS\`
+
+The OS-like shell research must explicitly compare three architectural strategies without treating the benchmarks as automatic dependencies.
+
+### Strategy A — System Builder-owned windowing on React/Next
+
+~~~
+Next.js + React + TypeScript
+  -> System Builder Shell
+     -> WindowManager
+     -> WorkspaceManager
+     -> Dock/Snap/Taskbar/Launcher
+     -> ModuleWindow
+        -> React module content
+~~~
+
+Research whether the System Builder should own its windowing primitives/contracts directly while borrowing only interaction patterns from Puter, OS.js and daedalOS.
+
+Candidate benefits:
+- maximum semantic control;
+- no external desktop runtime as product authority;
+- easier alignment with Command Registry, Ribbon, Inspector, Componentes and SB lifecycle semantics;
+- direct control over performance/suspension/currentness behavior;
+- lower conceptual coupling to another platform.
+
+Candidate risks:
+- more custom engineering;
+- window manager edge cases;
+- focus/z-order/docking/restore/accessibility complexity;
+- risk of rebuilding mature interaction machinery poorly.
+
+### Strategy B — external desktop/window manager as bounded infrastructure
+
+~~~
+Next.js + React + TypeScript
+  -> SB semantic shell/services
+  -> Desktop/Windowing Adapter
+     -> external window manager/runtime
+  -> ModuleWindow content remains React
+~~~
+
+Research whether an external windowing implementation can be treated as a bounded infrastructure/provider behind System Builder contracts.
+
+Requirements:
+- SB retains semantic ownership of ModuleWindow identity, revision/currentness, authority, commands and persistence contracts;
+- external library owns only presentation/window mechanics;
+- replaceability must be realistic;
+- window lifecycle events must be normalized without inventing semantic equivalence;
+- no provider may become canonical module/runtime/deployment authority.
+
+### Strategy C — external desktop framework owns the shell
+
+~~~
+External Desktop Framework Core
+  -> Window Manager
+  -> Session/Application Runtime
+  -> System Builder module windows
+       -> React content
+~~~
+
+Research this only as a comparison baseline. It changes architectural ownership materially and must be justified by evidence.
+
+Questions:
+- does it force its own process/application model over SB modules?
+- does it constrain routing, SSR, authentication, accessibility or deployment?
+- does it introduce lock-in in session/window persistence?
+- can SB preserve autonomous module/window contracts?
+- does it complicate Factory View density and specialized 3D WorkSurface integration?
+- does it improve enough lifecycle/windowing behavior to offset ownership cost?
+
+### Key separation
+
+~~~
+React / Next.js
+= component/rendering/application framework layer
+
+Window Manager
+= interaction/orchestration infrastructure
+
+Module semantics
+= System Builder canonical product semantics
+~~~
+
+Therefore:
+
+- \`Desktop metaphor != desktop framework dependency\`.
+- \`Window Manager != UI framework\`.
+- \`React renderer != window lifecycle authority\`.
+- \`External window library != module semantic owner\`.
+- \`Framework adoption != benchmark learning\`.
+
+### Research obligations
+
+Benchmark/prototype comparison should evaluate:
+
+- bundle/startup cost;
+- memory use;
+- lazy-loading behavior;
+- suspended/background windows;
+- many-window behavior;
+- window creation/destruction cost;
+- docking/snapping/splitting;
+- z-order/focus;
+- persistence/session restore;
+- crash/reload recovery;
+- keyboard/accessibility;
+- small-screen fallback;
+- React integration friction;
+- Next.js integration friction;
+- routing implications;
+- SSR/client-boundary implications;
+- module/plugin registration;
+- Command Registry integration;
+- Ribbon contextual integration;
+- Inspector synchronization;
+- 3D WorkSurface embedding;
+- Factory Module dense-table compatibility;
+- theming/design-system control;
+- testability;
+- replaceability;
+- lock-in surface;
+- maintenance/community maturity;
+- security boundary implications.
+
+### Candidate architecture if React remains base
+
+Research a dedicated windowing package family such as:
+
+~~~
+packages/windowing
+  WindowManager
+  WindowRegistry
+  WorkspaceManager
+  DockManager
+  SnapManager
+  WindowLifecycle
+  WindowPersistence
+  WindowFocusManager
+  WindowResourceController
+  DesktopAdapter?
+~~~
+
+Names are provisional and do not authorize implementation.
+
+### Decision gate
+
+No external desktop framework/library should be selected before comparative evidence shows it improves the System Builder against the custom/bounded-adapter alternatives.
+
+Current direction remains:
+
+~~~
+Next.js + React + TypeScript
+= frontend base
+
+OS-like windowing
+= researchable infrastructure layer
+~~~
+
+A future decision may retain, adapt or replace windowing mechanics without redefining module semantics.
+
+
+## Application Composition — native apps, wrapped tools and proven external consoles
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+The OS-like System Builder should not treat every capability as one giant screen. It should research an **Application Catalog / Application Composition Model** similar in spirit to professional suites with many specialized applications.
+
+Preferred principle:
+
+~~~
+Reuse proven operational semantics where possible.
+Adapt the surface.
+Do not casually reimplement mature behavior.
+~~~
+
+This does not mean copying proprietary UI or source. Prefer official APIs, supported embedding, official components/plugins or deep-link integration over recreating mature operational machinery.
+
+### Application integration classes
+
+~~~
+NATIVE_SB_APP
+API_BACKED_SB_APP
+EMBEDDED_EXTERNAL_APP
+PROXIED_EXTERNAL_APP
+DEEPLINK_EXTERNAL_APP
+NATIVE_BRIDGE_APP
+HYBRID_APP
+~~~
+
+Meaning:
+
+- NATIVE_SB_APP: System Builder-owned UI and behavior.
+- API_BACKED_SB_APP: SB-owned UI using an official/versioned external API.
+- EMBEDDED_EXTERNAL_APP: original external web UI/component embedded when officially supported.
+- PROXIED_EXTERNAL_APP: external UI served through a controlled same-origin/reverse-proxy boundary when supported and secure.
+- DEEPLINK_EXTERNAL_APP: SB window acts as launcher/context holder while the canonical external UI opens separately.
+- NATIVE_BRIDGE_APP: SB window controls a native/local tool through a qualified bridge/agent.
+- HYBRID_APP: lightweight SB-native overview/control plus deep link/embed to the original advanced surface.
+
+No class is universally preferred.
+
+### Core distinctions
+
+~~~
+Module != Application
+Capability != Application
+Application != Window
+Application can open multiple windows
+Window can project one bounded task/context of an application
+~~~
+
+Also:
+
+~~~
+Application window != capability ownership
+External application != semantic owner
+Original tool UI != System Builder canonical truth
+~~~
+
+The System Builder owns orchestration/context/authority contracts of its window. The external product may remain owner of its own operational state.
+
+### Candidate application catalog
+
+Research which concerns deserve dedicated applications:
+
+- System Map / Architecture Designer
+- Workflow Designer
+- Data Modeler
+- API / Contract Explorer
+- Identity & Access
+- Secrets / Credentials Governance
+- Network Configurator
+- Container / Docker Manager
+- Task / Process Manager
+- Host / Server Manager
+- Storage Manager
+- Database Administration
+- Terminal
+- Logs / Journal
+- Observability
+- Incident / Findings
+- Deployment / Release Manager
+- Build / Artifact Manager
+- Factory / Fleet
+- Template Catalog
+- Root Services
+- Documentation / Knowledge
+- Git / Repository Workspace
+- Settings / Policy Administration
+
+Final split follows task cohesion, authority boundaries, performance, mature-tool availability and cognitive load rather than arbitrary module count.
+
+### Docker / container management strategy
+
+Prefer research in this order:
+
+1. official Docker Engine API/SDK as compatibility boundary for SB-native or hybrid control;
+2. Portainer API as a higher-level management provider where Portainer is installed;
+3. original Portainer UI only through a supported and secure integration mode;
+4. deep-link to Portainer when embedding would require weakening security.
+
+Docker Engine exposes a versioned REST API and version negotiation. This is a strong candidate for a provider/adapter boundary because compatibility can be qualified explicitly.
+
+Portainer exposes a REST API and can proxy Docker/Kubernetes API operations. Portainer API permissions follow its user/token permissions.
+
+Important constraint: Portainer defaults to a CSP that blocks iframe embedding. Disabling CSP solely to fit Portainer inside an SB window must not become the normal integration pattern.
+
+~~~
+Portainer available
+!= Portainer UI safely embeddable
+
+Portainer API available
+!= Portainer semantic owner
+
+Docker API compatible
+!= every Portainer feature available
+~~~
+
+Candidate hybrid:
+
+~~~
+Docker Manager
+├─ SB-native fleet/summary/control
+├─ Docker Engine provider
+├─ optional Portainer provider
+└─ Open advanced manager -> original Portainer UI
+~~~
+
+### Network Configurator / host administration
+
+Cockpit is a priority benchmark/provider candidate for host administration because it intentionally works with Linux system APIs/commands and supports modular applications including networking and storage.
+
+Cockpit networking uses NetworkManager/DBus and permission enforcement through PolicyKit. Its developer documentation supports embedding the whole interface or documented components subject to same-origin/frame-security requirements, commonly via a reverse proxy.
+
+Candidate hybrid:
+
+~~~
+Network Configurator
+├─ SB host/context/evidence shell
+├─ documented Cockpit component when qualified
+├─ NetworkManager-native provider where appropriate
+└─ deep-link fallback
+~~~
+
+Possible companion applications:
+
+- Server Manager
+- Network Configurator
+- Storage Manager
+- Logs
+- Terminal
+- Services / systemd
+- Task / Process Manager
+
+Undocumented Cockpit internals must not be treated as stable APIs.
+
+### Compatibility-first reuse
+
+Research rule:
+
+~~~
+Official API / supported component
+> replicated private behavior
+~~~
+
+when authority, security, UX and lifecycle requirements are satisfied.
+
+But:
+
+~~~
+Mature external tool
+!= automatic dependency
+~~~
+
+Compare compatibility, feature coverage, API/version stability, authentication, authorization mapping, CSP/frame restrictions, same-origin/reverse-proxy requirements, WebSockets, latency, offline behavior, licensing, upgrade coupling, visual consistency, accessibility, failure/recovery, audit/evidence and replaceability.
+
+### Candidate application manifest
+
+~~~
+BuilderApplicationManifest {
+  id
+  name
+  category
+  integrationClass
+  semanticScope
+  authorityScope
+  supportedProviders[]
+  requiredCapabilities[]
+  supportedTargets[]
+  versionCompatibility
+  windowKinds[]
+  defaultWindow
+  commands[]
+  contextualRibbonTabs[]
+  inspectorContributions[]
+  embedPolicy
+  authBinding
+  permissionMapping
+  lifecycle
+  suspendPolicy
+  healthProbe
+  currentnessPolicy
+  evidencePolicy
+  deepLinks[]
+  fallbacks[]
+}
+~~~
+
+Candidate only; not implementation authority.
+
+### Suite analogy boundary
+
+The useful suite analogy is many specialized applications sharing identity, design language, context and services.
+
+SB applications may share System Builder identity/context/commands while keeping bounded task purposes. Applications can pass semantic references without silently taking ownership of one another's domain state. Shared shell services should prevent every app from becoming its own independent SPA.
+
+### External UI embedding safety
+
+Qualify each external product:
+
+~~~
+EMBED_ALLOWED
+EMBED_REQUIRES_SAME_ORIGIN
+EMBED_REQUIRES_REVERSE_PROXY
+EMBED_UNSUPPORTED
+DEEPLINK_ONLY
+API_ONLY
+NATIVE_BRIDGE_ONLY
+~~~
+
+Never disable a mature product's security headers by default merely to satisfy the desktop metaphor.
+
+### Componentes additions
+
+- ApplicationCatalog
+- ApplicationLauncher
+- BuilderApplicationManifestView
+- NativeAppWindow
+- ExternalAppWindow
+- HybridAppWindow
+- EmbeddedToolFrame
+- ExternalToolDeepLink
+- ProviderBadge
+- CompatibilityBadge
+- VersionNegotiationState
+- IntegrationModeIndicator
+- ExternalAuthBinding
+- ExternalPermissionMapping
+- AppHealthIndicator
+- AppUpgradeDriftIndicator
+- AppFallbackAction
+
+### New invariants
+
+- Module != Application != Window.
+- Capability != Application.
+- External tool != System Builder semantic owner.
+- Original UI reuse != permission bypass.
+- Embed capability != integration correctness.
+- Official API compatibility != full feature equivalence.
+- Deep link != failed integration; it may be the safest supported mode.
+- Reverse proxy != permission authority.
+- External auth != SB authority equivalence.
+- Adapter normalization != fabricated semantic equivalence.
+- Reuse proven behavior != copy proprietary implementation.
+
+### Adversarial cases
+
+1. Portainer iframe is enabled by disabling CSP globally just for visual convenience.
+2. Docker daemon API is exposed insecurely to the browser.
+3. SB user has lower authority than an embedded external session and gains unintended control.
+4. external UI and SB show different target environment/tenant.
+5. external tool upgrade breaks private/undocumented integration.
+6. API version mismatch silently drops a capability.
+7. embedded app loses authentication and displays misleading stale state.
+8. deep-linked app loses semantic context/revision/target.
+9. one external tool becomes mandatory for all deployments and creates lock-in.
+10. native replacement drifts from the underlying official API.
+11. multiple apps issue conflicting operations against the same target.
+12. reverse proxy weakens CSP, cookie or origin boundaries.
+13. external UI reports provider ACK while SB marks business effect effective.
+14. application proliferation creates dozens of tiny apps with no coherent task boundary.
+
+### Research outcome
+
+G4 should produce an **Application Portfolio Matrix** describing which System Builder tasks become native applications, API-backed native applications, hybrid applications, supported embedded external applications, deep-linked external applications or native-bridge applications.
+
+
+## Builder Home, Client Desktops and Delegated Construction
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+The Builder-side product experience should research a Windows-like top-level **Builder Home / Factory Desktop** from which privileged Builder operators create and enter client organizations, systems and delegated construction environments.
+
+### Identity hierarchy
+
+Do not collapse user identity into customer identity.
+
+~~~
+Builder Operator
+-> Client Organization / Tenant
+   -> Client Users
+      -> Roles / Privileges
+   -> Client Systems
+      -> Builder Desktop
+      -> Published Runtime(s)
+~~~
+
+Hard distinction:
+
+~~~
+User != Client
+Client Organization != Client System
+Client System != Builder Desktop
+Builder Desktop != Published Runtime
+~~~
+
+A Builder may create a client organization, then provision one or more users for that client. A client user may be granted bounded construction/administration privileges.
+
+### Builder Home
+
+Candidate top-level experience:
+
+~~~
+SYSTEM BUILDER HOME
+
+Clients
+Templates
+Factory
+Root Services
+Applications
+Jobs
+Incidents
+Settings
+
+Client A
+Client B
+Client C
+...
+~~~
+
+Selecting a client opens that client's Builder Desktop.
+
+### Client Builder Desktop
+
+Each client organization/system can have a dedicated desktop-like engineering environment.
+
+Candidate structure:
+
+~~~
+Client A Desktop
+├─ Applications
+│  ├─ System Map
+│  ├─ Workflow Designer
+│  ├─ Data Modeler
+│  ├─ Auth / Identity
+│  ├─ Deploy
+│  ├─ Network
+│  ├─ Docker / Containers
+│  ├─ Observability
+│  ├─ Logs
+│  ├─ Documentation
+│  └─ ...
+├─ Workspaces
+├─ Shared context
+├─ Client-scoped permissions
+└─ System/revision/environment context
+~~~
+
+The desktop is a **construction and administration environment**, not the end-user application itself.
+
+### Delegated client access
+
+A Builder may grant client users access to the Builder Desktop.
+
+Candidate roles include:
+
+- VIEWER;
+- REVIEWER;
+- CLIENT_ADMIN;
+- AUTHOR;
+- OPERATOR;
+- DEPLOY_OPERATOR;
+- SECURITY_ADMIN;
+- FACTORY_OPERATOR;
+- ROOT_ADMIN / BUILDER_ONLY.
+
+Exact taxonomy remains research.
+
+Delegation must be explicit and scoped.
+
+~~~
+Can access Client Desktop
+!= can modify SystemDefinition
+
+Can modify SystemDefinition
+!= can publish
+
+Can publish
+!= can deploy
+
+Can deploy
+!= can access root services
+
+Can operate runtime
+!= can access Builder-only secrets
+~~~
+
+Client delegation never silently grants Builder-global authority.
+
+### Workspace model
+
+The desktop may contain multiple workspaces.
+
+Examples:
+- architecture;
+- workflow;
+- data;
+- deployment;
+- operations;
+- branch/filial-focused working context;
+- audit/review.
+
+A workspace may focus on one organizational branch/filial, but:
+
+~~~
+Workspace != Branch / Filial
+~~~
+
+A branch/filial is a business/domain object. A workspace is a saved UI/context composition.
+
+Candidate context:
+
+~~~
+WorkspaceContext {
+  client
+  system
+  revision
+  environment
+  organizationalScope?
+  branchOrUnitFilter?
+  applications[]
+  windows[]
+  layout
+  selection
+  permissionsView
+}
+~~~
+
+This preserves the ability to have multiple workspaces for one branch or one workspace spanning several branches.
+
+### Deployment application
+
+Deployment should be a dedicated application rather than one generic settings page.
+
+It should model target execution profiles, not assume Docker-only deployment.
+
+Candidate target types:
+
+~~~
+SB_MANAGED_SERVER
+CONTAINER
+DOCKER
+KUBERNETES_ORCHESTRATED
+NATIVE_SERVER_PROCESS
+NATIVE_DESKTOP
+EDGE_HOST
+EXTERNAL_PROVIDER
+OTHER_QUALIFIED_TARGET
+~~~
+
+The Deployment App should show the selected/default System Builder deployment path and qualified external/provider alternatives.
+
+~~~
+Deployment target
+!= module semantics
+
+Containerization
+!= deployment requirement
+
+Desktop target
+!= client Builder Desktop
+~~~
+
+A client may request a native desktop/runtime target, but the product should keep server-hosted/web operation as a first-class/default deployment profile where appropriate because it reduces dependence on one end-user physical machine.
+
+### Published client runtime
+
+The generated/published client system remains separate.
+
+Example:
+
+~~~
+Builder Control Plane
+  builder.example
+  -> Client A Desktop
+     -> design/configure/review/deploy
+
+Published Client Runtime
+  www.client-a.com
+  -> forms
+  -> views
+  -> workflows
+  -> client-facing components
+  -> operational application
+~~~
+
+The runtime may have a standardized design system and generated application shell while remaining autonomous from the Builder.
+
+Hard rules:
+
+~~~
+Builder offline
+!= Client Runtime offline
+
+Client Runtime
+!= Builder Desktop
+
+Builder application catalog
+!= Client Runtime dependency closure
+~~~
+
+### Runtime presentation
+
+Generated client systems should be consistent enough to avoid incoherent ad-hoc UI while still allowing bounded branding/customization.
+
+Research should distinguish:
+- platform design-system defaults;
+- template-level design;
+- client branding;
+- module-specific views;
+- generated forms;
+- generated dashboards;
+- client-specific extensions.
+
+### Client desktop as "company operating environment"
+
+The useful metaphor is that a privileged Builder/client administrator can enter the **operating environment of that client's system** and use specialized applications to inspect, design, configure, deploy and operate it.
+
+The metaphor must not imply the Builder Desktop is the actual client operating system kernel.
+
+~~~
+Client Builder Desktop
+= engineering/control environment
+
+Client Runtime
+= autonomous operational system
+~~~
+
+### Security and tenant boundaries
+
+The desktop must remain client-scoped.
+
+- client A context must not leak client B data;
+- switching clients must switch authority/context explicitly;
+- cross-client Factory views are Builder/factory-only unless explicitly delegated;
+- root services stay separately protected;
+- secrets may expose metadata without exposing secret values;
+- client users cannot inherit Builder-global permissions through shared applications.
+
+### Candidate Componentes additions
+
+- BuilderHome
+- ClientOrganizationTile
+- ClientSystemTile
+- ClientDesktop
+- ClientDesktopSwitcher
+- ClientContextIndicator
+- DelegatedAccessBadge
+- ClientRoleBadge
+- WorkspaceLauncher
+- WorkspaceScopeIndicator
+- DeploymentApp
+- DeploymentTargetProfile
+- RuntimeEndpointCard
+- PublishVsDeployIndicator
+- BuilderVsRuntimeContextIndicator
+
+### Adversarial cases
+
+1. client user is confused with client organization identity.
+2. client desktop is mistaken for published runtime.
+3. workspace is modeled as the business branch itself.
+4. Builder-global root service becomes visible through a client desktop.
+5. deploy operator can read root secrets.
+6. client administrator can publish globally because they can edit locally.
+7. switching client keeps previous client's selection/secret/context.
+8. generated runtime starts depending on Builder availability.
+9. Docker/container profile becomes mandatory architecture.
+10. native desktop deployment is confused with the web Builder desktop.
+11. client branding forks the design system into incompatible UI.
+12. one client desktop exposes another client's modules/telemetry through shared caches.
+
+### Product synthesis
+
+The resulting product model is:
+
+~~~
+BUILDER HOME / FACTORY
+   |
+   +-- Client A
+   |    +-- Client Builder Desktop
+   |    |    +-- Apps
+   |    |    +-- Workspaces
+   |    |    +-- Revisions
+   |    |    +-- Deploy/Operate
+   |    |
+   |    +-- Published Runtime(s)
+   |
+   +-- Client B
+   |    +-- Client Builder Desktop
+   |    +-- Published Runtime(s)
+   |
+   +-- Root Services / Factory-only surfaces
+~~~
+
+This preserves the OS-like interaction model on the Builder side while keeping generated client systems conventional, autonomous web/runtime products.
+
+
+## Desktop Spheres — Client -> Workspace -> Desktop as the primary G4 navigation model
+
+Decision status: PRIMARY_G4_UI_DIRECTION_CANDIDATE / 3D_DEFERRED_AS_OPTIONAL_ENHANCEMENT
+
+The preferred near-term interaction model is simplified from a mandatory semantic 3D composition space into:
+
+~~~
+Client
+  -> Workspace
+      -> Desktop Sphere
+          -> Application
+              -> Window
+~~~
+
+Meaning:
+- Client = tenant/customer context and authority boundary.
+- Workspace = saved working context: system, revision, environment, organizational/filial scope, task purpose and layout.
+- Desktop = stable functional sphere of work with a curated application catalog.
+- Application = specialized coherent job.
+- Window = interactive session/projection of an application.
+
+Hard distinctions:
+
+~~~
+Client != Workspace
+Workspace != Desktop
+Desktop != Application
+Application != Window
+Workspace scope != Desktop sphere
+~~~
+
+### Why Desktop Spheres
+
+The desktop becomes the primary way to separate system spheres instead of requiring all spheres to coexist in one 3D surface. Expected benefits: lower cognitive load, lower rendering/subscription cost, simpler permissions, clearer application discovery, easier suspension/unloading and better small-screen fallback.
+
+### Candidate Desktop Sphere catalog
+
+1. SYSTEM DESIGN — System Explorer/2D Map, Capability Catalog, Module Composer, Contract/API Explorer, Requirements/Elicitation, Templates/Blueprints, Dependency Graph, Revision/Diff, Preview/Sandbox, Documentation/Evidence.
+
+2. INFRASTRUCTURE & RUNTIME — Deployment Manager, Server/Host Manager, Docker/Container Manager, Linux/Host Configuration, Network Configurator, Firewall, VPN, DNS, Reverse Proxy/Gateway, Storage, Backup/Restore, TLS/Certificates, Runtime/Services Manager and Terminal.
+
+3. SECURITY, IDENTITY & GOVERNANCE — Users/Identity, Authentication, Roles/Permissions, Policy Manager, Secrets metadata/Credential Governance, Access Reviews, Audit, Compliance/Governance and Security Findings.
+
+4. DATA & INFORMATION — Entity/Data Modeler, Database Manager, Schema/Migration, Query Explorer, Documents, Object/File Storage, Search/Index, Data Lineage, Import/Export, Retention/Archive and Data Quality.
+
+5. PROCESS & AUTOMATION — Workflow Designer, Rules/Decisions, Actions, Schedules, Jobs, Queues, Human Tasks, Events, Simulation, Conformance/Process Evidence and automation-provider integrations.
+
+6. EXPERIENCE — VIEWS, FORMS & REPORTING — Page/View Builder, Form Builder, Dashboard Builder, Navigation/Menu Builder, Reports, Tables/Lists, Search UX, Branding/Theme, Responsive Preview, Accessibility Review and Componentes.
+
+7. INTEGRATIONS & EXCHANGE — API Manager, Webhooks, Connector Catalog, Provider Bindings, Messaging/Broker, Exchange/Integration Flows, External System Registry, credential references, Contract Compatibility and Integration Tests/Probes.
+
+8. OPERATIONS & OBSERVABILITY — Operations Overview, Task/Process Manager, Health, Metrics, Logs, Traces, Incidents, Alerts, Runtime Controls, Capacity, Cost/Usage, Reconciliation and Maintenance Windows.
+
+9. DELIVERY & LIFECYCLE — Validation, Build, Artifact Manager, Release Manager, Version/Revision Manager, Publish, Promotion, Rollback, Migration, Environment Manager, Change Review and Product Proof/Readiness Evidence.
+
+The exact boundary between Infrastructure/Runtime and Delivery/Lifecycle remains researchable: deployment execution may be Infrastructure while release/promotion policy may be Delivery.
+
+### Stable desktop, variable application use
+
+A fixed desktop means stable taxonomy and predictable placement, not forced use or eager loading.
+
+~~~
+Desktop catalog presence
+!= application enabled
+!= application applicable
+!= application loaded
+!= application visible
+!= application actively computing
+~~~
+
+Candidate application states include AVAILABLE, ENABLED, NOT_CONFIGURED, NOT_APPLICABLE, DISABLED_BY_POLICY, PERMISSION_RESTRICTED, PROVIDER_MISSING, READY, ACTIVE, BACKGROUND and SUSPENDED.
+
+### Resource isolation by desktop
+
+Candidate behavior:
+
+~~~
+open Workspace
+-> enter one Desktop Sphere
+-> load desktop shell + lightweight app manifests
+-> load application code only when opened
+-> subscribe only to relevant/visible data
+-> suspend inactive windows
+-> unload closed desktop resources where safe
+~~~
+
+Closing a desktop is only a UI/resource lifecycle action:
+
+~~~
+Close Desktop
+!= Disable Capability
+!= Stop Service
+!= Undeploy Runtime
+~~~
+
+Candidate desktop lifecycle: CLOSED -> OPENING -> ACTIVE -> BACKGROUND -> SUSPENDED -> HIBERNATED -> RESTORING -> ACTIVE.
+
+### Workspace semantics
+
+A workspace preserves the same client/system/revision/environment/organizational context across several desktops.
+
+Example:
+
+~~~
+Workspace: Client A / Production / Matriz
+
+SYSTEM DESIGN
+INFRASTRUCTURE
+SECURITY
+DATA
+PROCESS
+EXPERIENCE
+INTEGRATIONS
+OPERATIONS
+DELIVERY
+~~~
+
+Switching desktops should preserve client, system, revision, environment, organizational/filial scope, permission context, semantic selection where meaningful and currentness/evidence context.
+
+A client can have many workspaces, such as Production/Matriz, Production/Filial Canoas, Homologation, Major Upgrade, Security Review, Incident workspace or New Branch Rollout. Workspaces are saved contexts, not copies of the system.
+
+### 3D status
+
+The semantic 3D model is preserved as future/optional visualization research, but is deferred from being the primary navigation shell.
+
+Possible future placement:
+
+~~~
+SYSTEM DESIGN Desktop
+  -> System Map 3D
+
+OPERATIONS Desktop
+  -> Topology 3D
+~~~
+
+Therefore 3D becomes an application/projection inside the desktop model rather than the organizing shell of the entire product.
+
+~~~
+3D Projection != navigation foundation
+Deferred 3D != discarded semantic model
+~~~
+
+### Performance principle
+
+Resource budgets should be reasoned per active desktop:
+
+~~~
+Many desktops defined != many desktops loaded
+Many applications available != many applications mounted
+Closed desktop -> no active rendering and no unnecessary live subscriptions
+~~~
+
+This is especially important for graphics-heavy tools, monitoring feeds, large tables, diagrams and future 3D surfaces.
+
+### Componentes additions
+
+DesktopSphere, DesktopSphereDefinition, DesktopSwitcher, DesktopLauncher, DesktopAppCatalog, DesktopContextHeader, DesktopResourceState, DesktopLoadingBoundary, DesktopSuspensionIndicator, DesktopEmptyState, DesktopPermissionState, DesktopProviderRequirement, WorkspaceDesktopState and CrossDesktopSelectionBridge.
+
+### New invariants
+
+- Client != Workspace != Desktop != Application != Window.
+- Workspace scope != Desktop sphere.
+- Desktop sphere != module ownership.
+- Desktop presence != app loading.
+- App availability != app applicability.
+- Close Desktop != stop runtime.
+- Switch Desktop != change revision/environment unless explicit.
+- Fixed Desktop taxonomy != fixed client configuration.
+- 3D Projection != navigation foundation.
+- Deferred 3D != discarded semantic model.
+
+
+
+## Desktop Observatory — fixed contextual observability surface
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+Each Client Desktop Sphere should include a **fixed observability surface** appropriate to that sphere. This is not a Windows/Linux-style system tray and not a free-form desktop widget area. It is a guided, high-signal operational surface that keeps important runtime/currentness information visible while the user works.
+
+Candidate placement:
+
+~~~
+CLIENT / WORKSPACE CONTEXT HEADER
+DESKTOP NAVIGATION
+
++-------------------------------------------------------+
+|                 ACTIVE APPLICATION WINDOWS            |
+|                                                       |
+|                                                       |
++-------------------------------------------------------+
+|                 DESKTOP OBSERVATORY                   |
+| Docker A: RUNNING | Docker B: STOPPED | Host A: OK   |
+| Portainer: READY  | Containers: 12/12 | VPN: OK      |
++-------------------------------------------------------+
+~~~
+
+The exact position may vary by responsive layout, but the Observatory should be visually persistent and distinct from transient application windows.
+
+### Purpose
+
+The Observatory should answer, without opening a management application:
+
+- what is currently healthy, degraded, stopped, unknown or stale?
+- which hosts/servers are affected?
+- which runtime/provider is being observed?
+- how current is the evidence?
+- is there drift between desired and observed/effective state?
+- are there active incidents, pending jobs, reconciliations or maintenance conditions?
+
+It should provide summary/triage, while deep control remains in dedicated applications.
+
+### Desktop-scoped observability
+
+Widgets are selected by Desktop Sphere.
+
+Examples:
+
+INFRASTRUCTURE & RUNTIME
+- Host health
+- Docker daemon state by host
+- container counts/state
+- Portainer availability
+- CPU/memory/storage pressure
+- network/VPN/firewall/DNS status
+- deployment/runtime status
+
+SECURITY
+- auth provider health
+- policy/currentness drift
+- certificate/credential expiry
+- suspicious access findings
+- pending access reviews
+
+PROCESS & AUTOMATION
+- workflow executions
+- stuck/blocked work
+- queue/backlog
+- scheduled jobs
+- retry/dead-letter state
+
+DATA
+- database reachability
+- replication/migration state
+- storage capacity
+- backup freshness
+- indexing/search currentness
+
+OPERATIONS
+- incidents
+- alerts
+- SLO/SLA indicators
+- runtime health
+- reconciliation state
+- active maintenance
+
+### Widget model
+
+Candidate widgets should be compact, composable and context-bound rather than arbitrary mini-applications.
+
+Candidate types:
+
+- StatusTile
+- HostStatusGrid
+- ServiceStateMatrix
+- ResourceGauge
+- RuntimeCount
+- DriftIndicator
+- CurrentnessIndicator
+- IncidentSummary
+- JobSummary
+- DeploymentSummary
+- DependencyHealth
+- CapacityPressure
+- QueueBacklog
+- MaintenanceIndicator
+
+Widgets should be configurable within bounded slots/regions. The user may reorder, hide or pin qualified widgets, but the desktop remains guided rather than a free-form canvas.
+
+### Example — Docker / host observability
+
+~~~
+DOCKER
+
+Host A
+  daemon: RUNNING
+  containers: 12 running / 1 stopped
+  Portainer: READY
+  observed: 4s ago
+
+Host B
+  daemon: STOPPED
+  containers: UNKNOWN
+  Portainer: UNREACHABLE
+  observed: 18s ago
+
+Host C
+  daemon: RUNNING
+  containers: 8 running
+  version drift: DETECTED
+~~~
+
+The widget may allow a bounded action such as "Open Docker Manager", but should not become the full Docker management UI.
+
+### State semantics
+
+Avoid binary green/red simplification.
+
+Candidate states:
+
+~~~
+RUNNING
+STOPPED
+STARTING
+STOPPING
+DEGRADED
+UNREACHABLE
+UNKNOWN
+STALE
+DRIFT
+PARTIAL
+MAINTENANCE
+RECONCILIATION_REQUIRED
+~~~
+
+Preserve evidence/currentness.
+
+Hard rules:
+
+~~~
+RUNNING process
+!= application healthy
+
+Container running
+!= service ready
+
+Host reachable
+!= workload healthy
+
+Provider ACK
+!= effective state
+
+No alert
+!= healthy
+
+Observed state
+!= desired state
+
+Green aggregate
+!= every member healthy/current
+~~~
+
+### Widget evidence contract
+
+Candidate summary:
+
+~~~
+DesktopWidgetObservation {
+  widget
+  subject
+  scope
+  source
+  desired?
+  observed?
+  effective?
+  state
+  evidenceRef?
+  observedAt
+  currentness
+  severity?
+  drillDownTarget?
+}
+~~~
+
+A widget cannot strengthen UNKNOWN or STALE evidence merely for visual simplicity.
+
+### Background updates and performance
+
+Observability must not make every desktop expensive.
+
+Research:
+
+- desktop-scoped subscriptions;
+- visible-widget priority;
+- aggregation;
+- bounded refresh intervals;
+- event-driven updates where supported;
+- suspension for inactive desktops;
+- stale/currentness indication after suspension;
+- shared telemetry/cache infrastructure;
+- no per-widget independent websocket/polling when avoidable.
+
+~~~
+Widget visible
+!= dedicated polling loop
+
+Desktop inactive
+-> reduced/suspended telemetry
+-> explicit stale/currentness on restore
+~~~
+
+### Cross-desktop overview
+
+The current desktop shows sphere-specific observability. A separate Operations/Factory surface can aggregate across spheres/clients.
+
+Therefore:
+
+~~~
+Desktop Observatory
+= contextual summary
+
+Operations Desktop
+= system-wide operational analysis
+
+Factory Module
+= cross-client fleet operations
+~~~
+
+### Componentes additions
+
+- DesktopObservatory
+- DesktopObservatoryRegion
+- ObservatoryWidget
+- ServiceStatusTile
+- HostStatusGrid
+- ServiceStateMatrix
+- CurrentnessBadge
+- DriftBadge
+- IncidentWidget
+- JobWidget
+- RuntimeSummaryWidget
+- WidgetDrillDownAction
+- WidgetStaleState
+- ObservatoryLayoutPreset
+
+### Invariants
+
+- Desktop widget != management application.
+- Summary state != canonical truth.
+- Running != healthy != ready != effective.
+- No alert != healthy.
+- Widget position != architectural importance.
+- Hidden widget != service stopped.
+- Desktop close != telemetry source stopped.
+- Observability surface != unrestricted free-form desktop.
+- Currentness must survive aggregation.
+
+
+
+## Application Manager — install, adopt, discover and govern external applications
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+The System Builder Operating Environment should research a first-class Application Manager responsible for installing, adopting, discovering, configuring and governing applications used by Client Desktops.
+
+### Primary flows
+
+~~~
+NEW INSTALLATION
+-> choose application
+-> choose target host/server/environment
+-> inspect prerequisites
+-> resolve official/qualified installation source
+-> configure ports/storage/network/credentials
+-> preview impact
+-> install
+-> verify service
+-> register application instance
+-> expose appropriate Desktop application/window
+-> begin observability
+~~~
+
+and:
+
+~~~
+ADOPT EXISTING
+-> choose application type
+-> discover or enter endpoint/host
+-> authenticate
+-> inspect version/capabilities
+-> verify compatibility
+-> map permissions/credentials
+-> register existing instance
+-> attach observability/control provider
+-> expose appropriate Desktop application/window
+~~~
+
+Install != Adopt. Adopt != Reinstall. Register != Deploy. Connect != Own.
+
+### Discovery
+
+Where the System Builder already manages or observes infrastructure, the Application Manager should attempt bounded discovery of existing compatible services through known hosts, deployment manifests, container runtimes, Docker metadata, Kubernetes resources, reverse proxies/service catalogs, DNS/service discovery, host agents/bridges, registered providers, declared endpoints or user-supplied host/IP/URL.
+
+Discovery produces candidates, not authority:
+
+~~~
+Discovered service != verified service != managed application
+~~~
+
+### Installation sources
+
+A new installation may originate from an official container image, official repository/release artifact, vendor package, qualified Helm chart/operator, system package manager, SB-maintained installer/adapter, local/native executable/package or custom enterprise package.
+
+Research should prefer official, versioned and verifiable sources. The manager must not blindly fetch and execute code without provenance, version, integrity and lifecycle qualification.
+
+Candidate install metadata includes application type, source type, version, digest/checksum/signature when available, license, target requirements, ports, volumes, network/runtime requirements, bootstrap config, health probe, upgrade strategy and rollback strategy.
+
+### Existing-instance registration
+
+For an existing application, collect only the information required for the chosen integration mode: endpoint/URL, host/IP, port, app/version, TLS expectations, authentication method, credential reference, OAuth/OIDC binding, SSH/agent/bridge data, tenant/project/namespace/context and provider-specific identifiers.
+
+Credentials belong to the System Builder secrets/credential boundary, not ordinary application records.
+
+Application record != secret storage.
+
+### Managed application identity
+
+ApplicationDefinition != ApplicationInstallation != ApplicationInstance != ApplicationRegistration != ApplicationWindow != ExternalServiceProcess.
+
+An application can be known in catalog but uninstalled; installed by SB; externally installed but adopted; reachable but unmanaged; registered but unavailable; managed on multiple hosts; or represented by multiple windows.
+
+### Management modes
+
+Candidate modes:
+SB_MANAGED
+EXTERNALLY_MANAGED
+CO_MANAGED
+OBSERVE_ONLY
+DISCOVERED_UNREGISTERED
+
+The UI must make ownership explicit.
+
+### Installation wizard
+
+Candidate wizard:
+1. Select application.
+2. Select New Installation or Existing Instance.
+3. Select client/system/environment/workspace scope.
+4. Select target host/server or discovery candidate.
+5. Detect prerequisites.
+6. Select version/channel.
+7. Configure runtime/network/storage.
+8. Configure integration mode.
+9. Bind authentication/credential reference.
+10. Preview ports, resources, dependencies and blast radius.
+11. Install/register.
+12. Verify health/version/API compatibility.
+13. Register observability.
+14. Add application to the appropriate Desktop Sphere.
+15. Produce evidence/audit record.
+
+### Catalog metadata
+
+Each catalog entry should declare supported install methods, supported adoption methods, compatible versions, supported OS/runtimes, integration class, provider adapters, observability/control capabilities, required permissions, Desktop Sphere, licensing notes and lifecycle support.
+
+### Lifecycle and removal
+
+Candidate lifecycle:
+AVAILABLE -> INSTALL_PLANNED -> INSTALLING -> INSTALLED -> VERIFYING -> REGISTERED -> READY -> DEGRADED/UNREACHABLE -> UPDATE_AVAILABLE -> UPGRADING -> ROLLBACK_AVAILABLE -> DISABLED -> UNREGISTERING -> UNINSTALLED.
+
+Adopted applications may enter through DISCOVERED -> VERIFYING -> REGISTERED -> READY.
+
+Distinguish:
+Remove from Desktop != Unregister != Disconnect != Stop Service != Uninstall != Delete Data.
+Update integration adapter != Upgrade external application.
+
+### Security
+
+Research per-client scoping, host/deployment authority, credential isolation, secret references, least privilege, install-source integrity, supply-chain evidence, TLS verification, audit trail, safe uninstall, data-preservation defaults, command confirmation and blast radius.
+
+### Desktop integration examples
+
+Portainer -> Infrastructure & Runtime
+n8n -> Process & Automation
+Grafana -> Operations & Observability
+Cockpit -> Infrastructure & Runtime
+pgAdmin -> Data & Information
+
+The Application Manager itself is likely a privileged Builder/Infrastructure application.
+
+### Componentes additions
+
+ApplicationManager, ApplicationCatalog, ApplicationCatalogEntry, ApplicationInstallWizard, ApplicationAdoptWizard, ApplicationDiscoveryPanel, DiscoveredApplicationCandidate, ApplicationPrerequisiteCheck, ApplicationInstallPlan, ApplicationInstallProgress, ApplicationCompatibilityCheck, ApplicationRegistration, ManagementModeBadge, ApplicationInstanceCard, ApplicationSourceVerifier, CredentialBindingStep, InstallImpactPreview, ApplicationUpgradePanel, ApplicationUninstallPanel and ApplicationEvidencePanel.
+
+### Invariants
+
+- Install != Adopt.
+- Register != Deploy.
+- Connect != Own.
+- Discovered != Verified.
+- Application record != secret storage.
+- Remove from Desktop != Uninstall.
+- Unregister != Stop Service.
+- Adapter update != external app upgrade.
+- SB-managed != externally managed.
+- External installation != unsupported installation.
+- Discovery != authorization.
+
+
+## Control Center — unified configuration, policy, secret references and application governance
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+The System Builder Operating Environment should include a first-class **Control Center / Configuration Manager** that provides a unified view and editing surface for configuration across the client environment without requiring the operator to open every application individually.
+
+The unification is a control-plane experience, not a claim that every external product shares one native configuration model.
+
+~~~
+Unified configuration surface
+!= single semantic owner
+!= single physical configuration store
+~~~
+
+### Purpose
+
+The Control Center should let privileged operators inspect and govern, from one place:
+- application settings;
+- provider/binding configuration;
+- enablement/disablement;
+- policies;
+- permissions/authority configuration;
+- secret and credential references;
+- environment bindings;
+- endpoints/ports/hosts;
+- feature flags/entitlements where applicable;
+- integration modes;
+- lifecycle/update policy;
+- observability/currentness settings;
+- desktop/app visibility;
+- defaults and overrides.
+
+An individual application may still expose its own specialized settings window, but the Control Center is the primary cross-application configuration surface.
+
+### Configuration scopes
+
+Research a scoped hierarchy such as:
+
+~~~
+Builder / Factory
+  -> Client Organization
+      -> Client System
+          -> Environment
+              -> Workspace context
+                  -> Desktop Sphere
+                      -> Application
+                          -> Application Instance
+                              -> Provider / Binding
+~~~
+
+Not every setting applies to every scope. Scope eligibility must be declared per setting.
+
+### Inheritance and overrides
+
+Candidate precedence:
+
+~~~
+platform default
+-> template default
+-> client default
+-> system override
+-> environment override
+-> desktop/application override
+-> instance override
+~~~
+
+Precedence alone is insufficient; each effective value should retain provenance.
+
+Candidate record:
+
+~~~
+ConfigurationValue {
+  key
+  schema
+  scope
+  declaredValue
+  inheritedFrom?
+  effectiveValue
+  source
+  owner
+  revision
+  environment
+  currentness
+  secretRef?
+  providerBinding?
+  validationState
+  desiredState?
+  observedState?
+  effectiveState?
+}
+~~~
+
+Hard rules:
+- inherited != explicitly set;
+- default != policy;
+- configured != applied;
+- applied != effective;
+- secret reference != secret value;
+- same key name != same semantics.
+
+### Unified schema via application/provider adapters
+
+Each application/provider integration should expose a qualified settings contract to the Control Center.
+
+Candidate:
+
+~~~
+ApplicationSettingsProvider {
+  applicationType
+  supportedVersions
+  settingsSchema
+  scopes
+  readCurrentConfiguration()
+  validateDesiredConfiguration()
+  planChange()
+  applyChange()
+  observeAppliedConfiguration()
+  reconcile()
+  rollbackCapabilities
+}
+~~~
+
+This allows n8n, Portainer, Cockpit, Grafana, Docker, databases and native SB applications to participate in one UI while preserving provider-specific semantics.
+
+Adapter normalization must never invent equivalence between unrelated settings.
+
+### Categories in the Control Center
+
+Candidate navigation:
+
+1. General / Identity
+2. Applications
+3. Desktops & Visibility
+4. Providers & Bindings
+5. Network / Endpoints
+6. Authentication & Access
+7. Policies & Governance
+8. Secrets & Credentials
+9. Environments
+10. Deployment Defaults
+11. Observability
+12. Updates / Lifecycle
+13. Feature Flags / Entitlements
+14. Audit / Configuration History
+
+### Secrets
+
+The Control Center should unify secret governance without making secret values broadly visible.
+
+Example:
+
+~~~
+n8n
+  database password -> secret://client-a/prod/n8n-db
+  encryption key    -> secret://client-a/prod/n8n-key
+
+Portainer
+  API token         -> secret://client-a/prod/portainer-api
+~~~
+
+The default UI should show metadata such as owner, scope, provider, rotation state, last update and usage references.
+
+~~~
+Secret metadata != Secret value
+Can bind secret != Can reveal secret
+Can rotate secret != Can read secret
+~~~
+
+### Policies and enablement
+
+Policies should also be visible cross-application.
+
+Examples:
+- which apps are permitted in Production;
+- which providers are allowed;
+- whether external deep links are allowed;
+- whether an app can be client-administered;
+- whether a deployment target is permitted;
+- update channels;
+- secret-rotation rules;
+- required TLS/security floors;
+- maintenance windows;
+- allowed authentication methods.
+
+Policy must remain distinct from current configuration:
+
+~~~
+Policy = what is permitted/required
+Configuration = what is desired
+Observed = what currently exists
+Effective = what is actually in effect
+~~~
+
+### Desired / observed / effective configuration
+
+For managed/external tools the Control Center must distinguish:
+
+~~~
+DESIRED_CONFIGURATION
+OBSERVED_CONFIGURATION
+EFFECTIVE_CONFIGURATION
+~~~
+
+Possible states:
+- IN_SYNC;
+- PENDING;
+- DRIFT;
+- PARTIAL;
+- UNKNOWN;
+- BLOCKED;
+- RECONCILIATION_REQUIRED;
+- EXTERNALLY_MANAGED.
+
+Example:
+
+~~~
+Portainer endpoint
+desired: https://portainer.internal:9443
+observed: https://10.0.0.12:9443
+effective: reachable through SB gateway
+state: DRIFT / QUALIFIED
+~~~
+
+### Change planning
+
+Cross-application changes can have large blast radius. The Control Center should preview:
+- affected applications;
+- affected hosts/environments;
+- required restarts/redeployments;
+- dependent workflows/services;
+- credential changes;
+- incompatible versions;
+- downtime/reconciliation expectations;
+- rollback availability.
+
+Changing a setting should not silently restart or redeploy a service unless the setting contract explicitly requires and the operator authorizes that action.
+
+### Individual vs unified settings
+
+Both should coexist:
+
+~~~
+Control Center
+= cross-application overview, governance, defaults, policy, bindings and common configuration
+
+Application Settings
+= specialized provider/application-specific controls and advanced options
+~~~
+
+A deep-link/open action should take the user from a global setting to the corresponding app/instance settings when deeper specialization is required.
+
+### Desktop configuration
+
+Each Desktop Sphere can also have a bounded configuration section for:
+- enabled/visible applications;
+- Observatory widgets;
+- layout presets;
+- provider defaults;
+- resource/suspension policy;
+- permissions/roles;
+- contextual shortcuts;
+- environment-specific defaults.
+
+However, Desktop settings must not become a hidden second source of truth for application/provider configuration.
+
+### Configuration search
+
+Because configuration volume may become large, the Control Center should support:
+- global search;
+- filter by application/provider/environment/host;
+- show only overrides;
+- show only drift;
+- show only secrets metadata;
+- show policy violations;
+- show pending changes;
+- compare environments;
+- compare revisions;
+- diff before apply.
+
+### Componentes additions
+
+ControlCenter, ConfigurationExplorer, ConfigurationSearch, ConfigurationScopeTree, ConfigurationMatrix, EffectiveValueInspector, InheritanceIndicator, OverrideIndicator, DesiredObservedEffectiveConfig, ConfigDriftIndicator, PolicyPanel, SecretReferencePanel, ProviderSettingsAdapterState, ConfigurationDiff, ConfigurationChangePlan, ConfigurationImpactPreview, ConfigurationHistory, ReconcileConfigurationAction and OpenApplicationSettingsAction.
+
+### Invariants
+
+- Unified settings UI != unified semantic owner.
+- Unified settings UI != single physical store.
+- Secret reference != secret value.
+- Policy != configuration.
+- Desired != observed != effective.
+- Configured != applied != effective.
+- Inherited != explicitly set.
+- Same key name != same semantics.
+- Global change != implicit restart/redeploy.
+- Application settings != duplicate source of truth.
+- Adapter normalization != fabricated semantic equivalence.
+
+
+## Declarative Service Deployment — schema-driven configuration, auto-binding and generated deployment artifacts
+
+Decision status: IN_SCOPE_FOR_G4_RESEARCH / NON_EXECUTABLE
+
+The deployment/configuration experience should avoid making YAML or provider-specific manifests the primary authoring interface.
+
+Preferred model:
+
+~~~
+Service/Application Catalog Entry
+-> typed deployment/configuration schema
+-> user selects applicable options
+-> System Builder resolves environment/defaults/bindings/secrets/network/storage
+-> validates dependencies and placement
+-> produces Deployment Plan
+-> compiles provider-specific artifacts
+-> applies through qualified provider
+-> observes/reconciles effective state
+~~~
+
+Therefore:
+
+~~~
+YAML/Compose/Helm/etc.
+= compiled/exportable artifact
+!= primary user authoring model
+~~~
+
+### Example — PostgreSQL
+
+Selecting PostgreSQL in the Deployment/Infrastructure desktop should open a schema-driven configuration tree instead of a raw manifest editor.
+
+Candidate sections:
+- target deployment unit/server;
+- image/version/channel;
+- CPU/memory limits and reservations;
+- persistent volume/storage class/path;
+- internal network;
+- service/internal hostname;
+- exposed ports only when needed;
+- database/user/bootstrap options;
+- secret bindings;
+- backup/restore policy;
+- health/readiness probes;
+- observability/metrics;
+- replication/HA profile when selected;
+- maintenance/update policy;
+- environment applicability;
+- lifecycle/recovery settings.
+
+Some values can be automatically resolved from context.
+
+Examples:
+
+~~~
+network -> inherited/resolved from Environment
+internal host -> generated from service identity + deployment scope
+database password -> generated/reused through Vault policy
+TLS secret -> bound from Security/Vault scope
+backup target -> inherited from Environment/Storage policy
+observability -> inherited from Desktop/System policy
+~~~
+
+User interaction becomes selecting/confirming qualified options rather than manually wiring every field.
+
+### Auto-provisioned platform services
+
+When a Client/System/Environment is provisioned, the System Builder may automatically create or register required platform foundations such as:
+- Vault/secret namespace;
+- deployment network(s);
+- internal service-discovery namespace;
+- environment credential scope;
+- default storage/backup bindings;
+- observability bindings;
+- deployment runner/provider binding;
+- policy defaults;
+- audit/evidence channel.
+
+Auto-created resources must remain explicit and inspectable.
+
+~~~
+Automatic != hidden
+Automatic != irreversible
+Automatic != unowned
+~~~
+
+### Vault and secret auto-binding
+
+Secrets should be generated, imported or selected through policy, then referenced by stable secret identities.
+
+Example:
+
+~~~
+postgres-prod
+  POSTGRES_PASSWORD -> secret://client-a/prod/postgres/admin-password
+  app_user_password -> secret://client-a/prod/postgres/app-user
+~~~
+
+The deployment model stores SecretRef values, never plaintext secret material.
+
+Potential flow:
+
+~~~
+service requires credential
+-> search compatible existing secret in scope
+-> reuse if policy allows
+   OR generate new secret
+-> persist in Vault
+-> bind SecretRef
+-> inject through deployment provider
+-> verify binding/currentness
+~~~
+
+### Environment binding
+
+Environment context should resolve reusable infrastructure facts:
+
+~~~
+Environment
+├─ network profile
+├─ DNS/service-discovery domain
+├─ secret namespace
+├─ storage defaults
+├─ deployment providers
+├─ observability endpoints
+├─ TLS/CA policy
+├─ backup policy
+└─ resource/placement defaults
+~~~
+
+Selecting a service therefore starts with meaningful defaults already bound from the Environment.
+
+### Deployment Units / placement groups
+
+Instead of one giant deployment manifest, the system should support multiple deployment units/groups.
+
+Example:
+
+~~~
+DEPLOYMENT A — data services
+  PostgreSQL
+  Redis
+
+DEPLOYMENT B — application services
+  API
+  workers
+
+DEPLOYMENT C — automation/operations
+  n8n
+  observability agents
+~~~
+
+A deployment unit can target one or more qualified hosts/providers and carry its own placement/resource/network policy.
+
+Hard distinction:
+
+~~~
+Deployment Unit
+!= physical server
+!= application
+!= environment
+~~~
+
+### Generated service identity and internal addressing
+
+Where supported, the System Builder should generate stable internal service identities rather than require operators to memorize raw IPs.
+
+Candidate:
+
+~~~
+service identity
+-> internal hostname/service name
+-> provider-specific endpoint resolution
+~~~
+
+Raw IP remains observable evidence/implementation detail when required, not necessarily the authored dependency.
+
+### APIs and control surfaces
+
+Installing/deploying a service should also register qualified management/control surfaces when available:
+- provider API;
+- health endpoint;
+- metrics endpoint;
+- admin endpoint;
+- lifecycle operations;
+- backup/restore operations;
+- version/compatibility metadata.
+
+These are registered through the Application Manager/Provider Adapter model and become available to the relevant application and Control Center.
+
+### Schema-driven UI
+
+Each deployable application/service should contribute a version-qualified configuration schema.
+
+Candidate:
+
+~~~
+DeployableServiceDefinition {
+  serviceType
+  supportedVersions
+  requiredInputs[]
+  optionalFeatures[]
+  dependencies[]
+  ports[]
+  volumes[]
+  networkRequirements
+  secretRequirements[]
+  healthContract
+  observabilityContract
+  backupContract?
+  placementConstraints?
+  providerProfiles[]
+  generatedDefaults[]
+  validationRules[]
+}
+~~~
+
+The frontend can render this as a tree/form/stepper with checkboxes, selects and advanced sections.
+
+### Dependency auto-linking
+
+Dependencies should be linked through typed references where possible.
+
+Example:
+
+~~~
+Application API
+  database -> PostgreSQLServiceRef
+
+PostgreSQL
+  network -> EnvironmentNetworkRef
+  credentials -> VaultSecretRefs
+  storage -> VolumeBindingRef
+~~~
+
+This prevents repetitive copy/paste of hostnames, ports and secrets.
+
+### Desired -> compiled -> applied -> effective
+
+Keep stages distinct:
+
+~~~
+Service Configuration
+-> Deployment Intent
+-> Compiled Provider Artifact
+-> Apply Requested
+-> Provider ACK
+-> Observed Runtime
+-> Health/Readiness Evidence
+-> Effective Service
+~~~
+
+Provider artifacts may include Docker Compose, Kubernetes manifests, systemd/native service files, environment files or other provider-specific outputs.
+
+### Escape hatch
+
+Advanced users may inspect/export/override provider-native artifacts when policy allows, but raw artifact editing should be an explicit advanced mode with drift/reconciliation consequences.
+
+~~~
+Generated artifact
+!= canonical semantic definition
+~~~
+
+### Invariants
+
+- YAML/provider manifest != primary semantic model.
+- Automatic != hidden.
+- SecretRef != secret value.
+- Internal service identity != raw IP.
+- Deployment Unit != physical server.
+- Default != explicit override.
+- Generated config != effective config.
+- Provider ACK != effective service.
+- Auto-binding != fabricated compatibility.
+- Raw manifest override != silent semantic change.
+
+
+## Windowing model — guided desktop, tab groups, docking and extended multi-display workspaces
+
+Decision status: ACTIVE_G4_RESEARCH / NON_EXECUTABLE
+
+Interpretation rule: exploratory user examples are hypotheses/design probes unless explicitly promoted to a firm decision.
+
+The System Builder Operating Environment should use familiar desktop/window interactions while remaining more structured than a general-purpose OS.
+
+Primary hierarchy:
+
+~~~
+Client
+-> Workspace
+-> Desktop Sphere
+-> Application
+-> Window
+-> View / Tab / Tool
+~~~
+
+### Window roles
+
+Research several window roles instead of one generic frame:
+- PRIMARY_APP_WINDOW: main working surface of an application;
+- AUXILIARY_WINDOW: inspectors, logs, preview, diff, details;
+- DOCUMENT_WINDOW: workflow/model/form/revision/document being edited;
+- MONITOR_WINDOW: live observability/status;
+- TOOL_WINDOW: terminal, query console, command surface;
+- DIALOG_WINDOW: bounded transactional interaction;
+- POPOVER/PANEL: lightweight contextual interaction.
+
+### Window frame
+
+A standardized SB window frame should provide:
+- title/app identity;
+- client/workspace/desktop context indicator when relevant;
+- minimize/maximize/restore;
+- close;
+- dock/snap;
+- tab/group support;
+- detach/reattach;
+- pin/always-visible where qualified;
+- currentness/dirty/read-only/blocked indicators;
+- contextual commands;
+- overflow menu;
+- keyboard-accessible equivalents.
+
+Application-specific content lives inside the standardized frame.
+
+### Tabs inside windows
+
+Support tabs for closely related working contexts, for example:
+
+~~~
+Workflow Designer
+  [Onboarding] [Billing] [Support]
+
+Database Manager
+  [Main DB] [Analytics] [Audit]
+~~~
+
+Tabs should not be used to hide unrelated applications merely to reduce window count.
+
+Hard distinction:
+
+~~~
+Application Window != Tab
+Tab != Browser Tab
+Browser Tab != Workspace
+~~~
+
+### Window groups
+
+Windows may be grouped intentionally:
+- tabbed group;
+- split group;
+- docked group;
+- comparison group;
+- linked-context group.
+
+A linked-context group can share selection/revision/environment while preserving independent application state.
+
+### Snap / split / docking
+
+Candidate layouts:
+
+~~~
+50 / 50
+33 / 67
+25 / 50 / 25
+main + inspector
+main + bottom console
+quad comparison
+~~~
+
+Docking must be presentation only unless an explicit semantic relation is created.
+
+### Extended Desktop / multi-display workspace
+
+Support one logical Workspace/Desktop stretched across multiple browser surfaces/displays.
+
+Conceptual model:
+
+~~~
+WorkspaceSession
+  -> DisplaySurface A
+  -> DisplaySurface B
+  -> DisplaySurface C
+~~~
+
+Each DisplaySurface may be a browser tab/window placed on another monitor while sharing the same logical workspace session.
+
+Candidate behavior:
+- drag/move a System Builder window from one display surface to another through an explicit transfer action;
+- open selected app/window on another display;
+- preserve shared client/system/revision/environment context;
+- optionally share semantic selection;
+- independent zoom/layout per display;
+- one taskbar/window registry across the logical workspace;
+- recover if one browser surface closes/crashes.
+
+Research implementation candidates include coordinated browser windows/tabs using a shared server session plus browser-side channels where available; the semantic model must not depend on one particular browser primitive.
+
+### Multi-display interaction model
+
+Example:
+
+~~~
+MONITOR 1 — Infrastructure Desktop
++-------------------------------+
+| Server Manager | Docker       |
+|                               |
+| Desktop Observatory           |
++-------------------------------+
+
+MONITOR 2 — same Workspace/Desktop
++-------------------------------+
+| Logs | Terminal | Metrics     |
+|                               |
+| Incident / detail window      |
++-------------------------------+
+~~~
+
+The two displays are not two independent desktops unless the user explicitly opens different Desktop Spheres.
+
+### Cross-display window movement
+
+Because browser security/platform constraints may prevent arbitrary native drag across browser windows, the UX should support explicit commands such as:
+- Move to Display 1/2;
+- Open on another screen;
+- Detach window;
+- Send to secondary surface;
+- Reattach to workspace.
+
+The user experience may look continuous even if implementation uses separate browser top-level windows/tabs.
+
+### Taskbar / window registry
+
+Each logical workspace should maintain a unified registry of open application windows regardless of display.
+
+Candidate registry state:
+
+~~~
+WindowSession {
+  id
+  application
+  windowKind
+  workspace
+  desktopSphere
+  displaySurface
+  tabGroup?
+  dockState?
+  bounds?
+  contextBinding
+  dirtyState
+  currentness
+  resourceState
+}
+~~~
+
+### Resource lifecycle
+
+Window visibility should influence UI resource consumption without changing service/runtime state.
+
+~~~
+VISIBLE -> ACTIVE
+OBSCURED -> BACKGROUND
+MINIMIZED -> SUSPEND_CANDIDATE
+CLOSED -> UI_SESSION_CLOSED
+~~~
+
+Heavy windows such as graphs, editors, logs and future 3D surfaces should be suspendable independently.
+
+### Context continuity
+
+A window opened from one desktop should retain explicit context:
+- client;
+- system;
+- environment;
+- revision;
+- selected semantic object;
+- authority scope.
+
+Moving/docking/detaching must not silently change that context.
+
+### Saved layouts
+
+Users should be able to save layouts such as:
+- Development;
+- Incident response;
+- Deployment review;
+- Database maintenance;
+- Security audit;
+- Dual-monitor operations.
+
+A saved layout stores window/display composition, not business truth or permissions.
+
+### Failure/recovery
+
+Research:
+- browser refresh restore;
+- accidental tab close recovery;
+- secondary-display loss;
+- stale context after long suspension;
+- app crash isolation;
+- unsaved/dirty work recovery;
+- version/revision mismatch on restore.
+
+### Window overload controls
+
+To prevent the desktop metaphor from becoming chaotic:
+- app/window count indicators;
+- group related document windows;
+- minimize/background/suspend policies;
+- workspace presets;
+- command palette/window search;
+- close-all-by-app;
+- show only current desktop;
+- restore last useful arrangement.
+
+### Invariants
+
+- Desktop metaphor != unrestricted window chaos.
+- Window != application != runtime service.
+- Browser tab != System Builder tab.
+- Window movement != semantic movement.
+- Docking != dependency.
+- Display surface != separate workspace unless explicit.
+- Same workspace across displays != duplicated business state.
+- Saved layout != permission grant.
+- Closed/minimized window != stopped external service.
+- Cross-display continuity must preserve revision/environment/context.
+
+
+## Declarative and opinionated interaction model — proprietary design applications
+
+Decision status: ACTIVE_G4_RESEARCH / NON_EXECUTABLE
+
+The System Builder interaction model should be described as both **declarative** and **opinionated/guided**.
+
+Declarative means the user expresses desired state, intent, structure and constraints while the platform determines qualified execution steps and provider-specific realization.
+
+Opinionated/guided means the product constrains invalid or incoherent compositions, recommends safe sequencing and presents task-specific workflows rather than offering an unrestricted free-form surface.
+
+~~~
+Declarative != arbitrary freedom
+Guided != hard-coded inflexibility
+Opinionated != hidden authority
+Desired intent != imperative execution script
+~~~
+
+### Frontend engineering consequence
+
+The major frontend cost is expected to concentrate in proprietary System Builder applications where no mature external UI can be reused directly.
+
+Priority proprietary applications include:
+- Workflow Designer;
+- View / Page Builder;
+- Form Builder;
+- Component Editor / Componentes;
+- System / Module Designer;
+- Elicitation / Requirements workspace;
+- Rules / Decision editor;
+- Preview / Sandbox;
+- Revision / Diff / Controlled Change surfaces.
+
+These applications should be planned as independent product-grade tools sharing one shell, state model, command registry, selection/context model, design system and evidence semantics.
+
+### Component Editor
+
+The Component Editor must be stronger than a visual property panel because a component can participate in state, validation, permissions, data binding, workflow transitions and runtime behavior.
+
+Candidate component model:
+
+~~~
+ComponentDefinition {
+  identity
+  type
+  props
+  visualVariants
+  interactionStates
+  dataBindings
+  validationRules
+  permissions
+  events
+  actions
+  workflowBindings
+  visibilityRules
+  responsiveRules
+  accessibility
+  evidence/testRefs
+}
+~~~
+
+Candidate states include normal interaction states plus domain-aware conditions such as LOADING, EMPTY, ERROR, STALE, READ_ONLY, DISABLED, BLOCKED, PERMISSION_DENIED, PENDING and EFFECTIVE where applicable.
+
+### Workflow / View / Form semantic bridge
+
+Workflow, forms and views must not become isolated editors.
+
+Research a shared semantic binding model:
+
+~~~
+Workflow Activity
+  -> requires input
+  -> opens/uses View or Form
+  -> emits Action/Event
+  -> updates domain state
+  -> transitions Workflow
+  -> produces Evidence
+~~~
+
+A form or view can be referenced by workflow/task semantics without becoming the semantic owner of the workflow.
+
+Hard distinctions:
+
+~~~
+View != Workflow Activity
+Form != Workflow State
+Button != Domain Command
+Visual transition != Business transition
+Component event != automatically authorized action
+~~~
+
+### Guided authoring
+
+Editors should make valid composition easier than invalid composition.
+
+Examples:
+- only show compatible bindings for the current context;
+- derive available actions from declared contracts/capabilities;
+- surface missing prerequisites before publish;
+- show workflow/form/view linkage graph;
+- warn about unreachable states and orphan components;
+- validate permissions and data requirements;
+- distinguish visual preview from executable/effective behavior.
+
+### Shared editor primitives
+
+Research reusable primitives across proprietary apps:
+- selection model;
+- tree/outliner;
+- property inspector;
+- command palette;
+- undo/redo;
+- history/revision;
+- diff;
+- graph/canvas selection;
+- drag/drop with semantic validation;
+- bindings browser;
+- expression/rule editor;
+- state matrix;
+- validation/finding panel;
+- preview;
+- evidence panel;
+- keyboard/navigation model.
+
+### Frontend planning principle
+
+Do not schedule 'the frontend' as one monolithic work package. Plan by shared shell/primitives first, then proprietary application families, then cross-application semantic integration.
+
+Candidate sequence:
+1. Shell / Desktop / Window infrastructure.
+2. Shared design system and Componentes catalog.
+3. Shared editor primitives.
+4. Component Editor.
+5. View/Form Builder.
+6. Workflow Designer.
+7. Rules/Decision editor.
+8. Cross-editor semantic bindings.
+9. Preview/Sandbox.
+10. Hardening, accessibility, performance and evidence.
+
+This ordering is research guidance, not an implementation authorization or fixed schedule.
+
+
+## Pinned Monitoring Surfaces — persistent observability mosaics inside a Desktop
+
+Decision status: ACTIVE_G4_RESEARCH / NON_EXECUTABLE
+
+The System Builder Desktop should support persistent monitoring surfaces designed to remain visible inside a client/workspace desktop for long-running local observability.
+
+This surface is distinct from a normal application window, browser page or transient dashboard.
+
+Candidate identity:
+
+~~~
+PinnedMonitoringSurface
+= persistent desktop-resident observability composition
+~~~
+
+Typical use:
+- local client health;
+- host/server health;
+- runtime/process state;
+- Docker/container state;
+- service availability;
+- storage/capacity;
+- network/VPN/DNS;
+- incidents/alerts;
+- workflow/job health;
+- database/queue/backlog;
+- deployment/currentness/drift.
+
+### Interaction model
+
+The user can open the monitoring surface from a desktop icon/application and compose it as a mosaic of observability widgets.
+
+Candidate behavior:
+
+~~~
+open Monitoring Surface
+-> compose widgets
+-> arrange mosaic
+-> save layout
+-> pin surface to Desktop
+-> keep visible/persistent
+~~~
+
+Once pinned, ordinary window activity should not accidentally hide or destroy it.
+
+Minimize/maximize/restore/detach should require an explicit control or menu action appropriate to the monitoring surface.
+
+### Persistent but not immutable
+
+Fixed means layout and presence are intentionally persistent, not that the content is static.
+
+~~~
+fixed position/layout
++ dynamic telemetry
++ live state/currentness
+~~~
+
+The user may edit the surface through a dedicated edit mode.
+
+### Monitoring Surface Editor
+
+Research a dedicated editor for these mosaics.
+
+Candidate capabilities:
+- add/remove widget;
+- resize widget;
+- reorder/layout;
+- bind widget to host/service/app/metric;
+- choose aggregation;
+- choose refresh/currentness policy;
+- set thresholds/severity presentation;
+- save presets;
+- clone layout;
+- switch between edit and monitor mode;
+- lock layout;
+- full-screen mode;
+- dual-display placement;
+- permissions for editing vs viewing.
+
+### Display modes
+
+Candidate modes:
+- PINNED_DESKTOP;
+- MAXIMIZED;
+- FULLSCREEN;
+- SECONDARY_DISPLAY;
+- MINIMIZED;
+- BACKGROUND;
+- EDIT_MODE.
+
+### Relationship to Desktop Observatory
+
+Preserve two levels:
+
+~~~
+Desktop Observatory
+= compact always-visible contextual summary
+
+Pinned Monitoring Surface
+= larger persistent configurable mosaic
+~~~
+
+The Observatory provides quick context. The Monitoring Surface provides a sustained operational view.
+
+### Relationship to Operations Desktop
+
+A monitoring surface can live inside any Desktop Sphere where local health matters, while Operations & Observability remains the dedicated deep-analysis desktop.
+
+Therefore:
+
+~~~
+Pinned Monitoring Surface
+!= Operations Desktop
+!= Observatory strip
+!= management application
+~~~
+
+### Example
+
+~~~
+INFRASTRUCTURE DESKTOP
+
++--------------------------------------------------+
+| Server Manager | Docker | Network | ...          |
+|                                                  |
+| +---------------- MONITOR WALL ----------------+ |
+| | Host A OK       Host B DEGRADED              | |
+| | Docker 12/12    Storage 71%                  | |
+| | VPN OK          DNS OK                       | |
+| | DB READY        n8n 3 running / 1 failed    | |
+| +----------------------------------------------+ |
+|                                                  |
+| Desktop Observatory: short contextual summary   |
++--------------------------------------------------+
+~~~
+
+### Persistence
+
+Monitoring layout should be restorable per client/workspace/desktop and optionally per user.
+
+Persist:
+- widget composition;
+- bindings;
+- layout;
+- display mode;
+- pinned state;
+- selected time range where relevant;
+- display assignment;
+- locked/unlocked state.
+
+Do not persist telemetry snapshots as if they were canonical truth.
+
+### Currentness and evidence
+
+Every widget must preserve currentness and evidence semantics.
+
+~~~
+VISIBLE widget != current data
+PINNED != continuously refreshed
+NO ALERT != healthy
+LAST KNOWN GOOD != current
+~~~
+
+Inactive/hidden surfaces may reduce telemetry refresh, but the UI must show STALE/UNKNOWN where evidence is no longer current.
+
+### Performance
+
+Because monitoring surfaces can remain open for long periods:
+- shared telemetry subscriptions;
+- aggregation;
+- bounded refresh;
+- virtualized/high-volume lists;
+- render throttling;
+- pause offscreen animations;
+- background resource policy;
+- avoid one polling loop per widget.
+
+### Componentes additions
+
+PinnedMonitoringSurface, MonitoringSurfaceEditor, MonitoringMosaic, MonitoringWidgetSlot, MonitoringLayoutPreset, MonitoringEditMode, MonitoringLockState, MonitoringDisplayAssignment, MonitoringFullscreenMode, MonitoringCurrentnessOverlay and MonitoringSurfaceLauncher.
+
+### Invariants
+
+- Pinned != semantic priority.
+- Fixed layout != static data.
+- Pinned surface != service runtime.
+- Monitoring surface != management application.
+- Observatory summary != monitoring mosaic.
+- Hidden/minimized surface != stopped telemetry source.
+- Saved monitoring layout != canonical operational state.
+- Visible widget != current evidence.
