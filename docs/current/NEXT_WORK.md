@@ -1,45 +1,34 @@
-# Next Work — STATION Shared Composition Editor Engine
+# Next Work — STATION M2 closed / M3 research handoff
 
-Date: 2026-09-25
-Execution base: `main@5253f8f3516f121ff457a32dd97f30ff9d12936a`
-Status: MATERIALIZED / READY TO CONSTRUCT
+Date: 2026-09-26
+Fresh-main closure base: `main@8fb4907e24bf3e3d92d2930d01fc04df36a359e2`
+Status: M2 INTEGRATED / DOCUMENTATION CLOSURE
 
 ## Authority
 - `project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md`
 - `project_docs/execution_planning/STATION-COMPOSITION-EDITOR-ENGINE-01.md`
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
 
-## Predecessor truth
-Construction A / TASK-606..610 was integrated by PR #912. Construction B / TASK-611..614 closed by PR #917. Construction C / TASK-615..618 is closed: TASK-615 #920, TASK-616 #921, TASK-617 #922 and TASK-618 cumulative validated draft graph proof #923. Fresh main after #923 is `5253f8f3516f121ff457a32dd97f30ff9d12936a`.
+## M2 closure truth
+Construction A / TASK-606..610 integrated by PR #912. Construction B / TASK-611..614 closed by PR #917. Construction C / TASK-615..618 closed through PR #923. Construction D / TASK-619..622 is integrated; the final cumulative Component Lab proof landed through PR #929 with exact implementation head `de8d86bd6d24fb53695f8ada04f10f967a2c6e35` and fresh-main merge commit `8fb4907e24bf3e3d92d2930d01fc04df36a359e2`.
 
-## Active chain
+The final exact-head evidence was green for Merge Candidate CI, Deterministic CI, Heavy Product Tests, Station Next.js CI and Automation Handoff.
 
-```text
-TASK-619  Generic EditorShell surface — READY
-   ↓
-TASK-620  Shared CompositionEditorEngine controller
-   ↓
-TASK-621  Accessibility/adversarial hardening
-   ↓
-TASK-622  Component Lab shared editor engine proof
-```
+## Integrated M2 capability
+The reusable Station composition/editor foundation now provides registry-driven composition contracts, named slots and constrained grid/span rules, collection/navigation/editor primitives, Composition Graph validation, local draft/preview semantics, EditorShell, shared CompositionEditorEngine, Layers/stable selection, Property Inspector integration, deterministic invalid-edit rejection and a cumulative visible Component Lab proof.
 
-TASK-619 is the next eligible task.
-
-## Construction target
-Build the reusable domain-neutral Composition Editor Engine over the already-integrated Composition Graph, validator, local draft/preview semantics, Layers and Inspector. Keep each increment bounded and visibly provable in Component Lab before specializing the engine as a Component Editor.
-
-## Constraints
+## Preserved boundaries
 - `ComponentRegistry != AppManifest`;
 - `WindowGeometry != composition grid`;
 - Station remains presentation/composition-only;
 - named slots and discrete grid/span rules remain authoritative;
 - invalid references/mutations fail deterministically without silent repair;
 - no arbitrary pixel geometry or XS/S/M/L sizing contract;
-- no Component Editor application/Launcher entry yet;
-- no Window/View Editor;
-- no remote persistence/publish/deploy/provider runtime;
-- no File Manager, Workflow Studio, semantic Artifact Repository or Core/business authority.
+- no remote persistence/publish/deploy/provider runtime was introduced;
+- no File Manager, Workflow Studio, semantic Artifact Repository or Core/business authority was absorbed.
 
-## Succession after this package
-If Construction D closes green, materialize the Component Editor specialization dependency-safely. A visible Launcher/AppManifest entry belongs only to the explicitly materialized application slice, not to the shared engine.
+## Visual proof
+Component Lab composes EditorShell + shared CompositionEditorEngine + Layers + Property Inspector and exposes local bounded edit, preview, discard/reset, validation state and visible safe rejection of invalid mutation. Keyboard/focus remains delegated to the established accessible primitives.
+
+## Successor
+Do not reopen M2 for successor product scope. The next authorized planning/research direction is M3 component escalation: primitive inventory/parity, complementary library research, compound/collection/capability composition, patterns/views/tools and progressive complexity toward specialized Studios. Construction specialization must be materialized dependency-safely from fresh main under its own scope.
