@@ -1,47 +1,42 @@
-# Next Work — STATION Component Editor Specialization
+# Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-09-26
-Repository truth base: `main@31413f84aa3ed4e8782057a5826e4ee95cc58331`
-Status: M2 / CONSTRUCTION E — CLOSED
+Repository truth base: `main@04394f17497c13e572b487e6192edf7c7ae9c026`
+Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R1 NEXT
 
-> Closure record. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Historical status text elsewhere does not override this file plus fresh repository/PR truth.
+> Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
 ## Authority
 - `docs/DOCUMENT_AUTHORITY.md`
-- `project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md`
-- `project_docs/execution_planning/STATION-COMPOSITION-EDITOR-ENGINE-01.md`
-- `project_docs/execution_planning/STATION-COMPONENT-EDITOR-01.md`
+- `docs/contracts/001-station-component-grammar/ADDENDUM.md`
+- `project_docs/execution_planning/STATION-S3-COMPONENT-GRAMMAR-PLAN-01.md`
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
+- M2 accepted contracts/plans only where explicitly preserved by the addendum
 
-## Integrated truth
-Construction A / TASK-606..610, Construction B / TASK-611..614, Construction C / TASK-615..618 and Construction D / TASK-619..622 are integrated.
+## Predecessor closure
 
-Construction E materialization integrated through PR #932. TASK-623 integrated through PR #933. TASK-624 integrated through PR #934. TASK-625 integrated through PR #936. TASK-626 product closure integrated through PR #947 at merge `510b47aa53ea0f0b64db2dd31bd0d34377af5595`; cumulative adversarial/architecture proof integrated through PR #949 at merge `e913483771fac664c3d403c3479e5239d5e072ac`.
+Station M2 Component Composition/Editor is CLOSED. TASK-623..626 and cumulative proof are integrated; final closure merged through PR #952. Do not reopen M2 except for a bounded defect discovered against its accepted contracts.
 
-## Closed chain
+## Current phase
 
-```text
-TASK-623  Component Editor specialization model + adapter — INTEGRATED
-TASK-624  Component Editor Station surface                 — INTEGRATED
-TASK-625  Component contract/slot/variant editing proof    — INTEGRATED
-TASK-626  Component Editor cumulative integration + closure — COMPLETED
-```
+Begin **S3-R1 — Census & parity**.
 
-Exact product head `c4a7b3627175986cd28f291859ffe125f4aaabb1` passed Deterministic CI #2620, Merge Candidate CI #850, Station Next.js CI #77, Heavy Product Tests #2324 and Automation Handoff #6255. Exact cumulative proof head `2ea0827acf5429304e49fa792cac81219798889c` additionally passed Deterministic CI #2622, Merge Candidate CI #852, Heavy Product Tests #2326/#2327 and Automation Handoff #6263/#6267/#6268 before PR #949 integration.
+R1 must inventory current System Builder/Station component primitives and contracts, compare them against representative mature component ecosystems, and classify each gap/overlap as `own`, `adapt`, `adopt-pattern`, or `defer`. Research is evidence only; R1 does not itself authorize product mutation.
 
-The cumulative `/component-editor` proof includes component selection, contract/slot/variant editing, validation, graph/contract dirty state, graph discard, whole-component reset and preview, plus adversarial invalid-slot rejection without draft corruption and explicit AppManifest/WindowGeometry separation.
+Dependency forecast:
+
+`R1 census -> R2 compounds/collections -> R3 interaction capabilities -> R4 regions/patterns -> R5 templates/views -> R6 tool families -> R7 studio-readiness + Core projection census -> synthesis -> Construction materialization`
 
 ## Preserved constraints
 - `ComponentRegistry != AppManifest`;
 - `WindowGeometry != composition grid`;
-- Station remains presentation/composition-only;
-- canonical theme/typography and named-slot/discrete-grid rules remain authoritative;
-- invalid references/mutations fail deterministically without silent repair;
-- no arbitrary pixel geometry or arbitrary HTML/CSS;
-- no implicit Launcher/AppManifest authority;
-- no Window/View Editor unless separately materialized;
-- no remote persistence/publish/deploy/provider runtime;
-- no Template Manager, File Manager, Workflow Studio, semantic Artifact Repository or Core/business authority.
+- Station remains presentation/composition-oriented;
+- identity != placement != presentation != action semantics;
+- constrained variants/patterns over arbitrary HTML/CSS;
+- span/discrete composition authoring with responsive execution;
+- research cannot silently create Core/business authority;
+- do not construct specialized Studios before research/synthesis/materialization gates.
 
-## Closure
-M2 / Construction E has no remaining authorized product or documentation slice. TASK-626 is completed and the cumulative proof is integrated. Do not materialize successor scope from this file: any post-M2 work requires fresh authority/materialization under the normal process.
+## Next eligible work
+
+Produce the S3-R1 research census and evidence matrix. No successor Construction TASK is eligible until the research chain and synthesis satisfy the S3 planning exit gate.
