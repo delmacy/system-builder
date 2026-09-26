@@ -6,18 +6,20 @@ This repository is the canonical source of truth. Do not rely on chat history, m
 
 Read, in order:
 
-1. `docs/current/PROJECT_STATE.md`
-2. `docs/current/CURRENT_MILESTONE.md`
-3. `project_docs/schedule/SPRINT_GENERATION_POLICY.md` when planning/selecting product Sprints or Work Packages
-4. `project_docs/schedule/SPRINT_MODE.md` when executing product work
-5. the active Work Package/Sprint Package when one exists
-6. the active Sprint definition
-7. the task specification being executed
-8. every applicable path declared in that TASK's `context_paths`
-9. the affected module/package documentation and WBS
-10. relevant contracts
-11. applicable accepted ADRs
-12. `docs/architecture/MASTER_BLUEPRINT.md` when architecture is involved
+1. `docs/DOCUMENT_AUTHORITY.md`;
+2. `docs/contracts/CONTRACT_INDEX.md` when scope provenance matters;
+3. `docs/current/NEXT_WORK.md` as the single live execution pointer;
+4. the authority documents explicitly cited by `NEXT_WORK.md`;
+5. the active Work Package/Sprint Package when one exists;
+6. the active Sprint definition;
+7. the task specification being executed;
+8. every applicable path declared in that TASK's `context_paths`;
+9. the affected module/package documentation and WBS;
+10. relevant contracts and accepted contract increment(s);
+11. applicable accepted ADRs;
+12. `docs/architecture/MASTER_BLUEPRINT.md` when architecture is involved.
+
+Historical execution plans, research, reports, archived status files and old `ACTIVE`/`READY`/`NEXT` tokens are evidence/context only unless the live authority chain explicitly cites them. Milestones, Work Packages, sprints and TASKs decompose admitted scope; they do not silently create scope.
 
 Before editing, explicitly confirm the TASK's `allowed_paths`, `forbidden_paths`, `max_files`, dependencies and validation commands.
 
