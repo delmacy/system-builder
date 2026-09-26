@@ -1,6 +1,6 @@
 # TASK-624 — Component Editor Station surface
 
-Status: blocked
+Status: running
 Depends on: TASK-623
 
 ## Allowed
