@@ -25,6 +25,8 @@ A composition describes at minimum:
 
 Pixels/rem/vw/etc. are renderer implementation details, not the primary Builder composition language.
 
+Presentation variants such as `compact`, `iconOnly`, `comfortable` or density choices MAY exist where semantically useful, but they MUST NOT become an alternative structural sizing language. Geometry remains span/constraint-driven; variants govern bounded presentation or component-internal behavior.
+
 ## 2. Grid profiles
 
 The exact grid density MUST NOT be hard-coded into the conceptual contract prematurely. Use named Grid Profiles so empirical UX work can select suitable densities without changing the composition language.
@@ -44,26 +46,48 @@ More vertical rows than horizontal columns are expected to be useful for desktop
 
 A profile defines logical proportions. It does not require physically square cells.
 
-## 3. Runtime projection and resize
+Grid profiles SHOULD be versionable or otherwise explicitly identifiable so a profile refinement cannot silently reinterpret an existing composition revision.
 
-Runtime windows remain freely resizable within their constraints. The renderer projects the canonical span composition into available physical geometry.
+## 3. Authoring resize versus runtime resize
+
+Two different resize operations exist and MUST NOT be conflated.
+
+### Authoring/component resize
+
+Inside Component Editor or future Window/View Editor, resize changes canonical composition intent. A visual handle MAY be continuous while dragged, but a committed authoring mutation MUST resolve to valid discrete span/constraint changes such as `columnSpan: 3 -> 4`. It MUST NOT persist arbitrary pixel width/height as canonical composition geometry.
+
+### Runtime/window resize
+
+A running Station window remains freely resizable within `station-windowing` constraints. Runtime resize changes physical `WindowGeometry`; it does not rewrite canonical composition spans merely because the physical window changed.
 
 Conceptually:
 
 ```text
-authoring span model
-        -> canonical composition
-        -> runtime projection
-        -> physical window geometry
+AUTHORING
+visual gesture
+    -> snap/resolve
+    -> validated span mutation
+    -> canonical composition
+
+RUNTIME
+canonical composition
+    -> projection
+    -> current WindowGeometry
+    -> physical rendering
 ```
 
-Changing physical window size MUST NOT silently rewrite canonical span intent.
+Therefore:
 
-Typography is not required to scale linearly with window geometry. Typography should remain governed by legibility/tokens and bounded adaptations.
+- `WindowGeometry != composition grid` remains authoritative;
+- runtime physical resize MUST NOT silently mutate the canonical composition revision;
+- authoring resize MUST NOT smuggle arbitrary pixel geometry into the composition model;
+- a deliberate editor command that changes spans is a composition mutation and follows draft/validate/apply semantics.
+
+Typography is not required to scale linearly with window geometry. Typography remains governed by legibility/tokens and bounded adaptations.
 
 ## 4. Constrained adaptation
 
-When a composition can no longer preserve usable structure at a smaller geometry, adaptation SHOULD occur through declared discrete composition states/constraints rather than arbitrary pixel breakpoints where practical.
+When a composition can no longer preserve usable structure at a smaller geometry, adaptation SHOULD occur through declared discrete composition states/constraints rather than arbitrary one-off pixel behavior where practical.
 
 Examples include:
 
@@ -72,6 +96,8 @@ Examples include:
 - content region consumes remaining spans;
 - minimum viable window/composition size;
 - fixed semantic rails where later evidence shows they are preferable to consuming ordinary grid rows.
+
+Adaptation is a renderer/presentation decision constrained by declared component/composition contracts. It MUST NOT silently rewrite canonical authoring intent.
 
 Exact adaptation rules require later component/pattern materialization.
 
@@ -94,17 +120,24 @@ one macro span
 
 This preserves a coarse, understandable page/window grammar while allowing dense toolbars and action groups.
 
-## 6. Structure, order and depth are separate
+A compact/icon-only ButtonGroup variant describes presentation/internal arrangement; it does not replace the outer `columnSpan`/`rowSpan` contract.
+
+## 6. Structure, order, composition depth and window z-order are separate
 
 Do not conflate:
 
 - **structure** — parent / child / named slot;
 - **order** — sequence among siblings/container children;
-- **depth** — front/back semantic layer.
+- **composition depth** — front/back semantic layer inside a composition;
+- **window z-order** — runtime stacking between Station windows, owned by `station-windowing`.
 
-The human Layers view SHOULD present front-most/highest semantic depth first because it answers "what is in front of what?". The Structure view SHOULD present parent-to-child containment.
+The human Layers view SHOULD present front-most/highest composition depth first because it answers "what is in front of what?". The Structure view SHOULD present parent-to-child containment.
 
-Prefer semantic layers over arbitrary user-authored z-index values. Exact layer families are to be materialized separately.
+Prefer semantic composition layers over arbitrary user-authored z-index values. Exact layer families are to be materialized separately.
+
+A composition layer MUST NOT acquire authority over `WindowInstance.zOrder`, focus, activation or other runtime window-stacking semantics. Conversely, window z-order MUST NOT be serialized as component composition depth.
+
+Where a component legitimately renders an overlay, dialog-like surface, popover or floating child, its layer relationship MUST be expressed through a declared semantic layer/slot contract rather than arbitrary z-index escape hatches.
 
 ## 7. One canonical model, multiple projections
 
@@ -124,6 +157,10 @@ Technical instance identity, human label, semantic reference and placement conte
 
 Text/declarative editing SHOULD use draft -> validate -> preview/apply/discard semantics so an incomplete YAML edit cannot corrupt committed canonical state.
 
+No projection is privileged as a second source of truth. YAML/JSON is a human/machine-friendly representation of the same canonical model, not an independent configuration store.
+
+Projection updates SHOULD carry revision identity/version information sufficient to detect stale edits and prevent one surface from overwriting a newer canonical revision without explicit reconciliation.
+
 ## 8. Structural verification invariants
 
 Future verification SHOULD make structural correctness the primary oracle rather than relying on screenshots alone.
@@ -136,10 +173,13 @@ For every applicable region/component, automatically verify properties such as:
 - sibling ordering is deterministic;
 - prohibited overlaps do not occur;
 - allowed overlays use compatible semantic layers;
+- composition depth does not mutate runtime window z-order;
 - references are resolvable;
 - technical identity remains stable across moves/resizes when identity should be preserved;
 - canonical state is not mutated by invalid/rejected drafts;
-- every projection reports the same canonical revision or explicitly marked preview revision.
+- runtime physical resize does not rewrite canonical span intent;
+- every projection reports the same canonical revision or explicitly marked preview revision;
+- stale projection edits cannot silently overwrite a newer canonical revision.
 
 ## 9. Projection equivalence tests
 
@@ -164,6 +204,8 @@ Representative journey:
 
 A disagreement such as `Canvas=modal` while committed `YAML=floating` for the same property/revision is a test failure.
 
+Tests SHOULD also prove stale-edit rejection/reconciliation when two projections begin from different revision identities.
+
 ## 10. Resize verification
 
 Future browser/integration verification SHOULD include resize sweeps, not only fixed screenshots.
@@ -176,9 +218,13 @@ For representative windows/patterns, progressively resize across supported physi
 - no unexpected disappearance;
 - no content escapes its container without a declared overflow behavior;
 - compact groups remain internally valid;
-- layers do not change accidentally;
+- composition layers do not change accidentally;
+- window z-order/focus does not change except through explicit window interaction;
 - constraints/adaptation transitions occur only at declared states;
+- runtime resize does not mutate canonical spans;
 - typography remains usable according to its separate contract.
+
+Authoring-resize tests are separate: they MUST verify snapping/resolution to legal spans, validation, draft semantics and rejection of illegal span changes.
 
 The target defect class is structural distortion during interaction/resize, not minor aesthetic preference.
 
@@ -192,11 +238,16 @@ Useful properties include:
 serialize(canonical) -> deserialize -> equivalent canonical
 valid mutation -> valid canonical
 invalid mutation -> rejection + previous canonical preserved
-resize projection -> topology/invariants preserved
+runtime resize projection -> topology/invariants preserved + canonical unchanged
+authoring resize -> discrete valid span mutation or deterministic rejection
 move/reorder -> identity/reference invariants preserved
+projection A mutation -> canonical draft -> projection B/C/D equivalence
+stale revision mutation -> rejection/reconciliation, never silent overwrite
 ```
 
 Generated cases may cover add/remove/move/reorder/resize/layer/variant/undo/redo and legal/illegal slot combinations.
+
+Property generation MUST remain bounded enough for CI. Larger combinatorial/fuzz suites may run in scheduled/heavy verification rather than every fast gate.
 
 ## 12. Test hierarchy and delta responsibility
 
@@ -205,12 +256,15 @@ Verification should remain layered:
 - Grid Profile contracts test projection mathematics/constraints deeply;
 - component contracts test component behavior deeply;
 - composition/pattern tests prove the delta introduced by composition;
-- boundary/integration tests prove communication between bounded subsystems;
+- boundary/integration tests prove communication between bounded subsystems, including Station/front-end adapters and Core-facing boundaries where authorized;
+- contract tests verify payload/schema/version/error semantics without requiring every UI journey;
 - E2E browser journeys prove selected real user flows;
 - visual regression catches unintended appearance changes;
 - human acceptance governs subjective aesthetics/intent.
 
 Do not retest every primitive behavior on every instance. Instances primarily need composition/reference/configuration validation; critical actions and journeys receive their own behavioral verification.
+
+Front/Core communication verification MUST respect authority boundaries: Station tests may prove that presentation-side requests/adapters emit and consume the authorized contract correctly, but Station composition tests MUST NOT invent Core/business truth or bypass the established StationApplication/station-sdk boundary.
 
 ## 13. Constrained personalization
 
@@ -218,21 +272,44 @@ Initial Station authoring SHOULD favor constrained composition over arbitrary de
 
 This reduces invalid state space, improves harmony across generated systems, and makes verification reusable.
 
-## 14. Materialization obligations
+Aesthetic freedom MAY expand later through additional approved tokens/variants/profiles without weakening structural contracts. New freedom should enlarge the declarative grammar deliberately rather than introduce arbitrary escape hatches.
+
+## 14. Compatibility and authority rules
+
+These directives refine, rather than replace, the existing Station composition architecture.
+
+The following earlier invariants remain authoritative unless a later explicit ADR changes them:
+
+- `ComponentRegistry != AppManifest`;
+- `WindowGeometry != composition grid`;
+- Station remains presentation/composition-only unless a separately authorized boundary says otherwise;
+- shared `EditorShell` / `CompositionEditorEngine` mechanisms are reused rather than forked;
+- named slots and discrete span rules remain authoritative;
+- invalid references/mutations fail deterministically without silent repair;
+- no arbitrary HTML/CSS or arbitrary canonical pixel geometry;
+- runtime window lifecycle/focus/z-order remains owned by `station-windowing`;
+- Core/business authority remains outside Station composition.
+
+If an implementation appears to require violating one of these invariants, it MUST be treated as an architecture/materialization question rather than silently implemented as a local exception.
+
+## 15. Materialization obligations
 
 Before implementation, planning must elaborate at least:
 
-1. candidate Grid Profile(s) and empirical rationale;
+1. candidate Grid Profile(s), profile identity/versioning and empirical rationale;
 2. canonical span/grid schema;
-3. runtime projection rules and constraints;
-4. semantic layer contract;
-5. compact internal composition contract (`ButtonGroup` or equivalent);
-6. canonical <-> declarative serialization contract;
-7. draft/preview/apply/discard behavior for declarative editing;
-8. universal structural validator invariants;
-9. resize-sweep verification strategy;
-10. projection-equivalence tests;
-11. property-based generation strategy and bounded CI cadence;
-12. evidence/reporting integration with existing Station test infrastructure.
+3. explicit authoring-resize contract;
+4. runtime projection/resize rules and constraints;
+5. semantic composition-layer contract and its hard boundary from window z-order;
+6. compact internal composition contract (`ButtonGroup` or equivalent), including presentation variant versus geometry semantics;
+7. canonical <-> declarative serialization contract;
+8. canonical revision identity/stale-edit behavior across projections;
+9. draft/preview/apply/discard behavior for declarative editing;
+10. universal structural validator invariants;
+11. resize-sweep verification strategy for runtime and authoring resize;
+12. projection-equivalence tests;
+13. property-based generation strategy and bounded CI cadence;
+14. boundary/contract verification strategy for future Station <-> Core communication without authority leakage;
+15. evidence/reporting integration with existing Station test infrastructure.
 
 These items should be decomposed dependency-safely into future materialized work rather than smuggled into an unrelated active TASK.
