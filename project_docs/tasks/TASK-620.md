@@ -1,6 +1,6 @@
 # TASK-620 — Shared CompositionEditorEngine controller
 
-Status: blocked
+Status: running
 Depends on: TASK-619
 
 ## Allowed
