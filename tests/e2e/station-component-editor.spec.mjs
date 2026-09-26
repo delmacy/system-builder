@@ -4,7 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 test("Component Editor works as a real browser journey", async ({ page }) => {
   await page.goto("/component-editor");
 
-  const editor = page.getByRole("region", { name: "Component Editor" });
+  const editor = page.getByRole("main", { name: "Component Editor" });
   await expect(editor).toBeVisible();
   await expect(page.getByText("validation:valid")).toBeVisible();
   await expect(page.getByText("dirty:no")).toBeVisible();
@@ -29,7 +29,7 @@ test("Component Editor works as a real browser journey", async ({ page }) => {
 
 test("Component Editor has no automatically detectable accessibility violations", async ({ page }) => {
   await page.goto("/component-editor");
-  await expect(page.getByRole("region", { name: "Component Editor" })).toBeVisible();
+  await expect(page.getByRole("main", { name: "Component Editor" })).toBeVisible();
 
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
@@ -37,7 +37,7 @@ test("Component Editor has no automatically detectable accessibility violations"
 
 test("Component Editor preserves keyboard focus and layout landmarks", async ({ page }) => {
   await page.goto("/component-editor");
-  const editor = page.getByRole("region", { name: "Component Editor" });
+  const editor = page.getByRole("main", { name: "Component Editor" });
   await expect(editor).toBeVisible();
 
   await page.keyboard.press("Tab");
