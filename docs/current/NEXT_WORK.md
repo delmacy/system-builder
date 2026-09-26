@@ -1,7 +1,7 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-09-26
-Repository truth base: `main@04394f17497c13e572b487e6192edf7c7ae9c026`
+Repository truth base: `main@868785466a2cd6dc4c4d2fa6e7124fe95ebdcf1c`
 Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R1 NEXT
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
