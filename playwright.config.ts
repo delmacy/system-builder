@@ -1,13 +1,19 @@
 import { defineConfig } from "@playwright/test";
 
+const isCI = Boolean(process.env.CI);
+
 export default defineConfig({
   testDir: "./tests/e2e",
   timeout: 30_000,
   expect: { timeout: 5_000 },
+  reporter: isCI ? [["html", { outputFolder: "playwright-report", open: "never" }], ["list"]] : "list",
+  outputDir: "test-results",
   use: {
     baseURL: "http://127.0.0.1:3000",
-    headless: true,
+    headless: isCI,
     trace: "retain-on-failure",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure",
   },
   projects: [
     {
@@ -18,7 +24,7 @@ export default defineConfig({
   webServer: {
     command: "npm run station:start -- --hostname 127.0.0.1 --port 3000",
     url: "http://127.0.0.1:3000",
-    reuseExistingServer: false,
+    reuseExistingServer: !isCI,
     timeout: 30_000,
   },
 });
