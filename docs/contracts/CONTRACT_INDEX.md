@@ -11,6 +11,7 @@ The repository predates the contract-increment model. Existing scope history wil
 | Increment | Kind | Admission | Scope | State | Evidence |
 |---|---|---|---|---|---|
 | `000-base` | Base contract | reconstructed / pending materialization | Original System Builder project scope and durable founding boundaries | migration pending | existing architecture, ADRs, bootstrap and early plans |
+| `001-station-component-grammar` | Addendum | 2026-09-26 explicit post-M2 continuation | Station component grammar/catalog research and materialization from primitives through Studio-readiness, with Core reuse/projection census | accepted / planning | `docs/contracts/001-station-component-grammar/ADDENDUM.md` |
 | subsequent | Addenda | chronological | Material scope additions accepted after the base | materialize incrementally | source request + accepted repository artifact |
 
 ## Admission invariant
