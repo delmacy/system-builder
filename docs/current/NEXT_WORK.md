@@ -1,7 +1,7 @@
-# Next Work — STATION Shared Composition Editor Engine
+# Next Work — STATION Component Editor Specialization
 
-Date: 2026-09-25
-Execution base: `main@5253f8f3516f121ff457a32dd97f30ff9d12936a`
+Date: 2026-09-26
+Execution base: `main@8fb4907e24bf3e3d92d2930d01fc04df36a359e2`
 Status: MATERIALIZED / READY TO CONSTRUCT
 
 ## Authority
@@ -10,36 +10,37 @@ Status: MATERIALIZED / READY TO CONSTRUCT
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
 
 ## Predecessor truth
-Construction A / TASK-606..610 was integrated by PR #912. Construction B / TASK-611..614 closed by PR #917. Construction C / TASK-615..618 is closed: TASK-615 #920, TASK-616 #921, TASK-617 #922 and TASK-618 cumulative validated draft graph proof #923. Fresh main after #923 is `5253f8f3516f121ff457a32dd97f30ff9d12936a`.
+Construction A / TASK-606..610, Construction B / TASK-611..614, Construction C / TASK-615..618 and Construction D / TASK-619..622 are integrated. Construction D closed by PR #929 from exact head `de8d86bd6d24fb53695f8ada04f10f967a2c6e35`; fresh main is `8fb4907e24bf3e3d92d2930d01fc04df36a359e2`. Its Component Lab proof integrates EditorShell + shared CompositionEditorEngine + selection + validated local draft mutations + discard/reset + preview while preserving Station presentation/composition-only authority.
 
 ## Active chain
 
 ```text
-TASK-619  Generic EditorShell surface — READY
+TASK-623  Component Editor specialization adapter — READY
    ↓
-TASK-620  Shared CompositionEditorEngine controller
+TASK-624  Constrained component property/variant editing
    ↓
-TASK-621  Accessibility/adversarial hardening
+TASK-625  Internal slot/sub-grid specialization hardening
    ↓
-TASK-622  Component Lab shared editor engine proof
+TASK-626  Component Lab cumulative specialization proof
 ```
 
-TASK-619 is the next eligible task.
+TASK-623 is the next eligible task.
 
 ## Construction target
-Build the reusable domain-neutral Composition Editor Engine over the already-integrated Composition Graph, validator, local draft/preview semantics, Layers and Inspector. Keep each increment bounded and visibly provable in Component Lab before specializing the engine as a Component Editor.
+Specialize the already-integrated domain-neutral Composition Editor Engine for reusable component definitions without duplicating the engine or crossing into application/runtime authority. The specialization may interpret component descriptors, named internal slots, discrete sub-grid/span constraints and explicitly declared presentation properties/variants. It remains local/draft-first and visibly provable in Component Lab.
 
 ## Constraints
 - `ComponentRegistry != AppManifest`;
 - `WindowGeometry != composition grid`;
 - Station remains presentation/composition-only;
+- reuse the shared CompositionEditorEngine; do not fork/reimplement it;
 - named slots and discrete grid/span rules remain authoritative;
 - invalid references/mutations fail deterministically without silent repair;
 - no arbitrary pixel geometry or XS/S/M/L sizing contract;
-- no Component Editor application/Launcher entry yet;
+- no Launcher/AppManifest entry in this Construction;
 - no Window/View Editor;
 - no remote persistence/publish/deploy/provider runtime;
 - no File Manager, Workflow Studio, semantic Artifact Repository or Core/business authority.
 
 ## Succession after this package
-If Construction D closes green, materialize the Component Editor specialization dependency-safely. A visible Launcher/AppManifest entry belongs only to the explicitly materialized application slice, not to the shared engine.
+After TASK-623..626 close green, revalidate fresh main and materialize the next dependency-safe M2 slice. A visible Component Editor Launcher/AppManifest entry is a separate explicitly materialized application slice and must not be smuggled into the specialization.
