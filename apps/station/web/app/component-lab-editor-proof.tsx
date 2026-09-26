@@ -62,9 +62,13 @@ export function ComponentLabEditorProof() {
   const [findings, setFindings] = useState<readonly CompositionGraphFinding[]>([]);
   const preview = useMemo(() => projectCompositionEditorPreview(editor), [editor]);
   const validation = useMemo(() => validateCompositionGraph(editor.transaction.draft, registry), [editor]);
-  const selection: SelectionState = { selectedRef: editor.selectedNodeRef ?? null };
+  const selection: SelectionState = editor.selectedNodeRef === undefined
+    ? { selectedRef: null }
+    : { selectedRef: editor.selectedNodeRef };
 
-  const select = (next: SelectionState) => setEditor((current) => selectCompositionEditorNode(current, next.selectedRef ?? undefined));
+  const select = (next: SelectionState) => setEditor((current) => next.selectedRef === null
+    ? selectCompositionEditorNode(current)
+    : selectCompositionEditorNode(current, next.selectedRef));
   const toggleSpan = () => setEditor((current) => {
     const node = current.transaction.draft.nodes.find((candidate) => candidate.ref === "layer:button-1");
     if (node === undefined) return current;
