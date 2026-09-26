@@ -7,6 +7,7 @@ import {
   mutateCompositionEditor,
   projectCompositionEditorPreview,
   selectCompositionEditorNode,
+  validateCompositionGraph,
 } from "../../packages/station-composition/index.js";
 
 const atomic = { id: "component:button", family: "atomic", layout: "none", childPolicy: "none", constraints: { minColumns: 1, maxColumns: 4, recommendedColumns: 2, minRows: 1, maxRows: 2, recommendedRows: 1 }, slots: [] } as const;
@@ -45,4 +46,20 @@ test("incompatible slot/span mutation is rejected without corrupting selection o
   assert.equal(result.state.selectedNodeRef, "node:button");
   assert.equal(result.state.transaction.dirty, false);
   assert.ok(result.findings.length > 0);
+});
+
+test("duplicate and dangling graph references fail safely and deterministically", () => {
+  const malformed = {
+    rootRef: "node:root",
+    nodes: [
+      { ref: "node:root", componentRef: "component:grid" },
+      { ref: "node:duplicate", componentRef: "component:button", placement: { parentRef: "node:missing", slotRef: "content", columnSpan: 1, rowSpan: 1 } },
+      { ref: "node:duplicate", componentRef: "component:button", placement: { parentRef: "node:root", slotRef: "content", columnSpan: 1, rowSpan: 1 } },
+    ],
+  } as const;
+  const first = validateCompositionGraph(malformed, registry);
+  const second = validateCompositionGraph(malformed, registry);
+  assert.deepEqual(first, second);
+  assert.ok(first.some((finding) => finding.code === "duplicate-node-ref" && finding.nodeRef === "node:duplicate"));
+  assert.ok(first.some((finding) => finding.code === "dangling-parent-ref" && finding.nodeRef === "node:duplicate"));
 });
