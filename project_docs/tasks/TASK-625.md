@@ -1,6 +1,6 @@
 # TASK-625 — Component contract/slot/variant editing proof
 
-Status: blocked
+Status: running
 Depends on: TASK-624
 
 ## Allowed
