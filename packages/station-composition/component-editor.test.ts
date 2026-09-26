@@ -39,6 +39,34 @@ test("component contract mutations remain constrained to presentation compositio
   assert.strictEqual(result.state.composition, state.composition);
 });
 
+test("cumulative component contract editing preserves composition and discrete layout authority", () => {
+  const state = fixture();
+  const policy = mutateComponentEditorContract(state, { kind: "set-child-policy", childPolicy: "single" });
+  assert.equal(policy.ok, true);
+  if (!policy.ok) return;
+
+  const slots = mutateComponentEditorContract(policy.state, {
+    kind: "set-slots",
+    slots: [{ id: "body", childPolicy: "single", acceptsFamilies: ["atomic"] }],
+  });
+  assert.equal(slots.ok, true);
+  if (!slots.ok) return;
+
+  const constraints = mutateComponentEditorContract(slots.state, {
+    kind: "set-constraints",
+    constraints: { minColumns: 2, maxColumns: 8, recommendedColumns: 6, minRows: 1, maxRows: 6, recommendedRows: 2 },
+  });
+  assert.equal(constraints.ok, true);
+  if (!constraints.ok) return;
+
+  assert.equal(constraints.state.definition.descriptor.childPolicy, "single");
+  assert.deepEqual(constraints.state.definition.descriptor.slots.map((slot) => slot.id), ["body"]);
+  assert.equal(constraints.state.definition.descriptor.constraints.recommendedColumns, 6);
+  assert.strictEqual(constraints.state.composition, state.composition);
+  assert.equal("appManifest" in constraints.state.definition, false);
+  assert.equal("windowGeometry" in constraints.state.definition, false);
+});
+
 test("invalid specialization input fails deterministically without corrupting editor state", () => {
   const state = fixture();
   const first = mutateComponentEditorContract(state, { kind: "set-variants", variants: ["default", "default"] });
@@ -50,4 +78,17 @@ test("invalid specialization input fails deterministically without corrupting ed
   assert.strictEqual(second.state, state);
   assert.equal(first.error, second.error);
   assert.deepEqual(state.definition.variants, ["default", "compact"]);
+});
+
+test("invalid named-slot edits are rejected without changing contract or composition draft", () => {
+  const state = fixture();
+  const result = mutateComponentEditorContract(state, {
+    kind: "set-slots",
+    slots: [...state.definition.descriptor.slots, { id: "", childPolicy: "single", acceptsFamilies: ["atomic"] }],
+  });
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.strictEqual(result.state, state);
+  assert.strictEqual(result.state.composition, state.composition);
+  assert.deepEqual(result.state.definition.descriptor.slots, state.definition.descriptor.slots);
 });
