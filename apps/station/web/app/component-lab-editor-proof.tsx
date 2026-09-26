@@ -8,7 +8,7 @@ import {
   createComponentEditorState,
   defineCompositionGraph,
   discardCompositionEditorDraft,
-  mutateComponentEditor,
+  mutateCompositionEditor,
   mutateComponentEditorContract,
   normalizeComponentDescriptor,
   projectCompositionEditorPreview,
@@ -85,7 +85,7 @@ export function ComponentLabEditorProof() {
   const toggleSpan = () => updateComposition((current) => {
     const node = current.transaction.draft.nodes.find((candidate) => candidate.ref === "layer:button-1");
     if (node === undefined) return current;
-    const result = mutateComponentEditor(current, { type: "replace-node", node: { ...node, placement: { parentRef: "layer:button-group", slotRef: "button-1", columnSpan: node.placement?.columnSpan === 3 ? 2 : 3, rowSpan: 1 } } }, registry);
+    const result = mutateCompositionEditor(current, { type: "replace-node", node: { ...node, placement: { parentRef: "layer:button-group", slotRef: "button-1", columnSpan: node.placement?.columnSpan === 3 ? 2 : 3, rowSpan: 1 } } }, registry);
     if (!result.ok) { setFindings(result.findings); return result.state; }
     setFindings([]); return result.state;
   });
@@ -102,7 +102,7 @@ export function ComponentLabEditorProof() {
   };
   const rejectInvalidSlot = () => mutateContract({ kind: "set-slots", slots: [...component.definition.descriptor.slots, { id: "", childPolicy: "single" }] }, "Unexpected slot acceptance");
   const rejectInvalid = () => updateComposition((current) => {
-    const result = mutateComponentEditor(current, { type: "replace-node", node: { ref: "layer:invalid", componentRef: "component:missing", placement: { parentRef: "layer:button-group", slotRef: "button-3", columnSpan: 2, rowSpan: 1 } } }, registry);
+    const result = mutateCompositionEditor(current, { type: "replace-node", node: { ref: "layer:invalid", componentRef: "component:missing", placement: { parentRef: "layer:button-group", slotRef: "button-3", columnSpan: 2, rowSpan: 1 } } }, registry);
     if (!result.ok) setFindings(result.findings);
     return result.state;
   });
