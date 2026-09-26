@@ -40,7 +40,10 @@
     "factory:bootstrap": "tsx scripts/factory-operator-bootstrap.ts",
     "station:dev": "next dev apps/station/web --webpack",
     "station:build": "next build apps/station/web --webpack",
-    "station:start": "next start apps/station/web"
+    "station:start": "next start apps/station/web",
+    "test:station:ui": "playwright test tests/e2e/station-component-editor.spec.mjs --project=chromium --ui",
+    "test:station:headed": "playwright test tests/e2e/station-component-editor.spec.mjs --project=chromium --headed",
+    "test:station:browser": "playwright test tests/e2e/station-m1.spec.mjs tests/e2e/station-component-editor.spec.mjs --project=chromium"
   },
   "dependencies": {
     "yaml": "^2.8.1",
