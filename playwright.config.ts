@@ -4,10 +4,14 @@ export default defineConfig({
   testDir: "./tests/e2e",
   timeout: 30_000,
   expect: { timeout: 5_000 },
+  reporter: [["html", { outputFolder: "playwright-report", open: "never" }], ["list"]],
+  outputDir: "test-results",
   use: {
     baseURL: "http://127.0.0.1:3000",
     headless: true,
     trace: "retain-on-failure",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure",
   },
   projects: [
     {
