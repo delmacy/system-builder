@@ -50,20 +50,19 @@ Current family vocabulary is `atomic | collection | semantic-composite | layout-
 ## Mature ecosystem evidence
 
 ### Radix Primitives
-Primary docs describe Radix as low-level, unstyled, accessible primitives with WAI-ARIA behavior, focus management, keyboard navigation, typed APIs, composable parts and incremental adoption. Its composition model allows a primitive behavior to be projected onto a consumer-owned element with `asChild`; multiple trigger behaviors can be composed while accessibility responsibility remains explicit. Toolbar separately demonstrates group-level focus semantics (roving tabindex, arrow/Home/End navigation) rather than treating a row of buttons as merely visual adjacency.
+Radix documents low-level, accessible primitives with focus/keyboard behavior and composable parts. Its trigger composition and Toolbar group behavior are evidence for separating visual identity from reusable interaction contracts.
 
-R1 implication: **adopt-pattern**, not provider authority. Station should preserve behavioral/accessibility expectations as capabilities/contracts while keeping presentation/provider replaceable. A slottable/composable contract is evidence for separating visual identity from behavior, but Station should not copy `asChild` as canonical syntax.
+R1 implication: **adopt-pattern**, not provider authority. Preserve behavioral/accessibility expectations as capabilities/contracts while keeping presentation/provider replaceable.
 
 Sources:
 - https://www.radix-ui.com/primitives/docs/components
-- https://www.radix-ui.com/primitives/docs/overview/introduction
 - https://www.radix-ui.com/primitives/docs/guides/composition
 - https://www.radix-ui.com/primitives/docs/components/toolbar
 
 ### shadcn/ui
-The official catalog spans low-level controls and higher compositions: Button/Button Group, Input/Input Group, Field, Item, Card, Breadcrumb, Calendar, Carousel, Chart, Combobox, Command, Data Table, Date Picker, Drawer, Empty, Pagination, Resizable, Sheet, Sidebar, Table and Typography in addition to many Radix-like controls. shadcn also explicitly distinguishes reusable components from larger Blocks, and its registry model is source-owned/copyable rather than a mandatory opaque runtime.
+The official catalog spans low-level controls and larger compositions/Blocks, while its registry is source-owned/copyable rather than a mandatory opaque runtime.
 
-R1 implication: useful parity source for **compound/collection breadth** and source-owned adaptation, but registry/provider mechanics must not become Station identity authority.
+R1 implication: parity evidence for compound/collection breadth and source-owned adaptation; registry/provider mechanics must not become Station identity authority.
 
 Sources:
 - https://ui.shadcn.com/docs/components
@@ -71,9 +70,9 @@ Sources:
 - https://ui.shadcn.com/docs/components-json
 
 ### MUI / MUI X
-MUI positions Material UI as a production-ready component library, MUI X for advanced/complex use cases, and Templates as a distinct higher-level layer. MUI's current structural customization model exposes a `root` slot plus named interior slots, allows slot replacement, and passes slot-specific properties through `slotProps`. This is independent evidence that complex components benefit from an explicit named-slot contract rather than arbitrary descendant mutation.
+MUI separates core components, advanced MUI X components and templates. Its structural customization exposes a root plus named interior slots and slot-specific props.
 
-R1 implication: **adopt-pattern** for complexity separation and named-slot/schema-driven customization; do not import Material visual semantics or MUI's prop API as canonical Station presentation. Station's existing `SlotDescriptor` is directionally aligned and should be strengthened rather than replaced.
+R1 implication: **adopt-pattern** for complexity separation and named-slot/schema-driven customization. Station's existing `SlotDescriptor` should be strengthened rather than replaced.
 
 Sources:
 - https://mui.com/
@@ -81,15 +80,43 @@ Sources:
 - https://mui.com/x/common-concepts/custom-components/
 
 ### PatternFly
-PatternFly's current action guidance distinguishes component-level actions from page-wide actions and locates actions near the object they affect. Its Button guidance preserves semantic button-vs-link distinctions and explicit toggle/icon accessibility requirements. Toolbar guidance limits surfaced actions and moves excess actions into overflow; Button guidance also treats responsive overflow as a presentation/layout response while preserving primary-action priority.
+PatternFly distinguishes component-level actions from page-wide actions, locates actions near affected objects, and treats group focus/overflow as behavior/presentation concerns rather than business-action identity.
 
-R1 implication: **adopt-pattern** for action scope, semantic control type, responsive action grouping and group-level presentation constraints. These findings challenge any model in which a Button owns business action semantics or a ButtonGroup is merely a fixed visual row. Action scope/target belongs to interaction contracts; overflow/persistence belongs to presentation/layout policy.
+R1 implication: **adopt-pattern** for action scope, semantic control type, responsive action grouping and group-level presentation constraints.
 
 Sources:
 - https://www.patternfly.org/patterns/actions/
 - https://www.patternfly.org/components/button/design-guidelines/
-- https://www.patternfly.org/components/button/html/
 - https://www.patternfly.org/components/toolbar/design-guidelines/
+
+### Base UI
+Base UI explicitly describes its APIs as open/composable: consumers can add/remove/wrap parts, and its `render` composition mechanism can project a trigger onto a consumer-owned button. It separately treats ARIA roles, pointer interactions, keyboard navigation and focus management as accessibility behavior, while leaving visual focus indication/styling to the consumer.
+
+R1 implication: **adopt-pattern** for behavior/presentation separation and bounded part composition. This independently reinforces Station's direction that a primitive can host activation/focus behavior without owning business command semantics, and that presentation-provider substitution must preserve behavioral proofs. Do not copy Base UI's `render` syntax as canonical Station grammar.
+
+Sources:
+- https://base-ui.com/react/overview/about
+- https://base-ui.com/react/overview/accessibility
+- https://base-ui.com/react/handbook/composition
+
+### Carbon Design System
+Carbon's Button accessibility guidance treats standard keyboard activation as component-level evidence and explicitly models menu-opening buttons as distinct menu-button/overflow compositions with their own focus transfer, arrow navigation, Escape restoration and ARIA contracts. Carbon also publishes accessibility-test status by default state, advanced states, keyboard navigation and manual screen-reader testing, including explicit `Not available` rather than silently treating missing evidence as pass.
+
+R1 implication: **adopt-pattern** for proof-status vocabulary, component-vs-capability delta proofs and menu/overflow interaction semantics. Carbon's evidence strongly supports the S3 rule that missing evidence stays a gap, primitive Button proofs are inherited, and adding menu behavior creates new proof obligations instead of redefining Button identity.
+
+Sources:
+- https://carbondesignsystem.com/components/button/accessibility/
+- https://carbondesignsystem.com/components/menu-buttons/accessibility/
+- https://carbondesignsystem.com/components/overview/accessibility-status/
+- https://carbondesignsystem.com/components/overflow-menu/usage/
+
+### Chakra UI
+Chakra's Slot Recipes declare named component parts, base styles per slot, variants, defaults and compound variants, and recommend a compound-component context for multi-part components.
+
+R1 implication: **adopt-pattern** only for the distinction between stable structural slots and presentation recipes. Station should not collapse `SlotDescriptor` into styling: structural compatibility remains canonical composition grammar, while token/variant recipes are presentation projections layered over declared slots.
+
+Source:
+- https://chakra-ui.com/docs/theming/slot-recipes
 
 ## Preliminary parity matrix
 
@@ -98,60 +125,65 @@ Classification is intentionally conservative; R2+ owns promotion of compounds/ca
 | Candidate semantic primitive/family | Station now | Mature parity | Classification | Notes |
 |---|---|---|---|---|
 | Button | implied atomic usage | universal | own | semantic action remains separate from visual variant |
-| Label | no explicit descriptor found | Radix/shadcn | adapt | native semantics/accessibility first |
-| Text/Input/Textarea | no explicit catalog descriptor found | shadcn/MUI | adapt | field assembly belongs R2 |
-| Checkbox/Switch/Radio | no explicit catalog descriptor found | Radix/shadcn/MUI | adapt | state/action contract belongs R3 |
-| Select/Combobox | no explicit catalog descriptor found | Radix/shadcn/MUI | adapt | Combobox likely compound/capability-backed, not atomic |
-| Separator | no explicit descriptor found | Radix/shadcn | adopt-pattern | presentation primitive with semantic option |
-| Progress/Spinner | no explicit descriptor found | Radix/shadcn/MUI | adapt | status semantics separate from domain status |
-| Avatar/Badge | no explicit descriptor found | Radix/shadcn/MUI | adapt | presentation identity must not imply business identity |
-| Tooltip | no explicit descriptor found | Radix/shadcn/MUI | adopt-pattern | overlay/focus behavior is capability-backed |
-| Dialog/Popover | no explicit descriptor found | Radix/shadcn/MUI | adopt-pattern | layering/focus/dismissal must be reusable capability |
-| Tabs | layout kind exists | Radix/shadcn/MUI | own + adapt | layout identity exists; interaction semantics need R3 |
+| Label | no explicit descriptor found | Radix/shadcn/Base UI | adapt | native semantics/accessibility first |
+| Text/Input/Textarea | no explicit catalog descriptor found | shadcn/MUI/Base UI | adapt | field assembly belongs R2 |
+| Checkbox/Switch/Radio | no explicit catalog descriptor found | broad convergence | adapt | state/action contract belongs R3 |
+| Select/Combobox | no explicit catalog descriptor found | broad convergence | adapt | Combobox likely compound/capability-backed, not atomic |
+| Separator | no explicit descriptor found | broad convergence | adopt-pattern | presentation primitive with semantic option |
+| Progress/Spinner | no explicit descriptor found | broad convergence | adapt | status semantics separate from domain status |
+| Avatar/Badge | no explicit descriptor found | broad convergence | adapt | presentation identity must not imply business identity |
+| Tooltip | no explicit descriptor found | Radix/MUI/Base UI | adopt-pattern | overlay/focus behavior is capability-backed |
+| Dialog/Popover | no explicit descriptor found | Radix/MUI/Base UI | adopt-pattern | layering/focus/dismissal must be reusable capability |
+| Tabs | layout kind exists | broad convergence | own + adapt | layout identity exists; interaction semantics need R3 |
 | ScrollArea | no explicit descriptor found | Radix/shadcn | adopt-pattern | prefer native behavior with bounded enhancement |
-| ButtonGroup | implemented semantic-composite | Radix/PatternFly/shadcn/MUI | own + adapt | group-level focus, action scope and responsive overflow are distinct contracts |
-| named slots | SlotDescriptor exists | MUI/Radix | own + adopt-pattern | preserve explicit slot identity; investigate schema-driven inspector in R2/R3 |
-| Table/DataTable | no explicit descriptor found | shadcn/MUI | defer to R2 collection | collection semantics, selection/sort capabilities |
-| Toolbar/Menu | no explicit descriptor found | Radix/PatternFly/shadcn/MUI | defer to R2/R3 | compound plus command/focus/action-scope capability |
+| ButtonGroup | implemented semantic-composite | broad convergence | own + adapt | group focus, action scope and responsive overflow are distinct contracts |
+| named slots | SlotDescriptor exists | MUI/Chakra/Base UI/Radix | own + adopt-pattern | structural slots != presentation recipes; investigate schema-driven Inspector |
+| Table/DataTable | no explicit descriptor found | broad convergence | defer to R2 collection | collection semantics, selection/sort capabilities |
+| Toolbar/Menu | no explicit descriptor found | Radix/PatternFly/Carbon | defer to R2/R3 | compound plus command/focus/action-scope capability |
 | Sidebar | no explicit descriptor found | shadcn | defer to R4 region/pattern | too structural for primitive tier |
 | Card | no explicit descriptor found | shadcn/MUI | defer classification | likely compound/pattern depending semantics |
 
 ## Findings / dedup
 
-1. The existing Station descriptor is already stronger than a flat component-name catalog: it models family, parent compatibility, slots and discrete spans. Preserve it instead of replacing it with a third-party registry.
-2. `ComponentFamily` and the S3 complexity ladder are related but not identical. `atomic/collection/semantic-composite/layout-container` are compatibility families; Token..Studio is a complexity/ownership ladder. Do **not** collapse them into one enum without synthesis evidence.
-3. Accessibility and interaction behavior should not be encoded by multiplying visual primitive variants. Radix demonstrates that keyboard/focus/dismissal behavior is a reusable contract dimension.
-4. shadcn's Component vs Block separation and MUI's Core vs X vs Templates reinforce Station's tiered catalog rather than a monolithic component list.
-5. `tabs` already exists as a layout kind, but mature ecosystems treat Tabs as an interactive pattern with keyboard/activation semantics. R3 must decide how layout identity projects interaction capability without conflating placement and action.
-6. ButtonGroup is a valid R2 seed, but its fixed five slots are implementation evidence, not yet a universal action-group grammar. Radix and PatternFly add independent evidence that group-level focus, command scope and responsive overflow must be modeled separately from button visual identity.
-7. MUI's named slots and Radix's composable trigger model converge with Station's existing SlotDescriptor: customization should occur through bounded declared attachment points. This supports a future contract/schema-driven Inspector while arguing against arbitrary descendant editing as the default.
-8. PatternFly's component-level versus page-wide action distinction supports explicit `target/scope` in the future Interaction Grammar. `Button` should emit/host activation; command target and business consequence remain elsewhere.
-9. Responsive overflow is not a new command and should not clone actions. A single semantic action may project as visible button or overflow-menu item according to presentation constraints.
+1. Existing Station descriptors are already stronger than a flat component-name catalog: preserve family, compatibility, slots and discrete spans rather than replacing them with a provider registry.
+2. `ComponentFamily` and the S3 complexity ladder are orthogonal dimensions. Do not collapse them into one enum without synthesis evidence.
+3. Accessibility and interaction behavior should not multiply visual primitive variants. Radix/Base UI/Carbon independently support behavior contracts layered over primitives.
+4. shadcn's Component/Block and MUI's Core/X/Templates reinforce a tiered catalog rather than a monolithic list.
+5. `tabs` exists as a layout kind, while mature ecosystems add keyboard/activation semantics. R3 must project interaction capability without conflating placement and action.
+6. ButtonGroup is a valid R2 seed, but its five slots are implementation evidence, not universal action-group grammar. Group focus, command scope and responsive overflow remain separate contracts.
+7. MUI, Chakra, Base UI and Radix converge on explicit component parts/slots. Station should preserve bounded attachment points; structural slot compatibility must remain distinct from style recipes.
+8. PatternFly's action-scope distinction supports explicit `target/scope` in future Interaction Grammar. `Button` hosts activation; command target and business consequence remain elsewhere.
+9. Responsive overflow is not a new command. A semantic action may project as visible Button or overflow MenuItem without cloning identity/authority/evidence.
+10. Carbon's Button vs menu-button distinction supplies a useful promotion criterion: when composition introduces a materially new interaction state machine (focus transfer, open/close, roving navigation, restoration), it may justify a C2/C4 contract, but not a new business-specific primitive.
+11. Carbon's explicit unavailable accessibility status aligns with `unproven-gap`; evidence absence must remain visible in the Station proof ledger.
+12. Chakra's slot recipes reveal a dedup hazard: structural slots and visual variants are related but not identical. Styling variants must not become composition authority.
 
 ## Proof obligations / inherited proofs emerging from R1
 
 These are research candidates, not accepted product gates yet.
 
-- **Primitive semantic proof:** a Button projected through provider/presentation still exposes correct native/ARIA role, accessible name, keyboard activation and disabled semantics. Inherit this proof wherever Button is reused; do not re-prove it per business command.
-- **Slot compatibility proof:** a named slot accepts only declared child families/kinds and rejects incompatible placement deterministically. Existing composition validation is inherited evidence; future schema-driven Inspector must not bypass it.
-- **Behavior-composition delta proof:** composing trigger/focus/overlay capabilities onto a visual primitive must preserve each inherited accessibility contract and expose conflicts rather than silently overriding handlers/state.
-- **Action-scope proof:** component-level/page-level/selection-level action target is explicit and cannot be inferred solely from visual proximity.
-- **Responsive projection proof:** moving an action from visible group to overflow changes presentation/placement only; command identity, target, authority and evidence requirements remain invariant.
-- **Projection-convergence proof:** Inspector/Layers/Graph/source/Preview edits must converge on one canonical model; no projection may become a second state authority.
+- **Primitive semantic proof:** a Button projected through provider/presentation still exposes correct native/ARIA role, accessible name, keyboard activation and disabled semantics. Inherit wherever Button is reused; do not re-prove per business command.
+- **Slot compatibility proof:** a named slot accepts only declared child families/kinds and rejects incompatible placement deterministically. Future schema-driven Inspector must not bypass it.
+- **Behavior-composition delta proof:** composing trigger/focus/overlay capabilities onto a visual primitive preserves inherited accessibility contracts and exposes conflicts rather than silently overriding handlers/state.
+- **Menu/overflow delta proof:** adding menu capability proves open/close state, focus entry, roving/arrow navigation, activation, Escape dismissal/restoration and accessible relationship while inheriting primitive trigger activation.
+- **Action-scope proof:** component/page/selection action target is explicit and cannot be inferred solely from visual proximity.
+- **Responsive projection proof:** moving an action from visible group to overflow changes presentation/placement only; command identity, target, authority and evidence remain invariant.
+- **Structural-slot vs presentation-recipe proof:** changing theme/variant recipes cannot alter slot acceptance, component identity or action authority.
+- **Projection-convergence proof:** Inspector/Layers/Graph/source/Preview edits converge on one canonical model; no projection becomes a second state authority.
 
-Coverage state for these new obligations is currently `unproven-gap` unless inherited repository evidence is explicitly cited; absence of a failing test is not PASS.
+Coverage state for these obligations is `unproven-gap` unless inherited repository evidence is explicitly cited. Absence of a failing test is not PASS.
 
 ## Gaps carried forward
 
-- Complete repository-wide primitive census beyond `station-composition` (especially any Station UI wrappers/source-owned controls) before declaring primitive absence.
+- Complete repository-wide primitive census beyond `station-composition`, especially Station UI wrappers/source-owned controls.
 - Token census: typography, spacing, radius, elevation, motion and semantic color ownership.
 - Accessibility contract shape: focus, keyboard, labelling, modality, dismissal, RTL and assistive-technology expectations.
 - Overlay/layer capability ownership for Dialog/Popover/Tooltip/Menu.
 - Collection semantics for Table/List/Tree/Grid and virtualization boundaries.
-- Decide which candidates are true C1 primitives versus C2 compounds; do not promote from ecosystem naming alone.
-- Provider parity still needs Base UI, React Aria, Fluent, Carbon, Chakra and Ant evidence before R1 closure. PatternFly is now represented.
-- Reconcile this research branch with fresh `main@868785466a2cd6dc4c4d2fa6e7124fe95ebdcf1c`; current branch divergence must not be mistaken for fresh-main integration proof.
+- Decide which candidates are true C1 primitives versus C2 compounds; ecosystem naming alone cannot promote them.
+- Provider parity still needs React Aria, Fluent and Ant evidence before R1 closure. Base UI, Carbon and Chakra are now represented.
+- Reconcile this branch with fresh `main@868785466a2cd6dc4c4d2fa6e7124fe95ebdcf1c`; branch divergence is not fresh-main integration proof.
 
 ## R1 disposition
 
-R1 remains **in progress**. This document now carries primary-source parity evidence for Radix, shadcn/ui, MUI and PatternFly, with stronger findings around named slots, behavior composition, action scope, group-level focus and responsive projection. No Construction slice is eligible. Next research delta: extend parity across Base UI, React Aria, Fluent, Carbon, Chakra and Ant; complete repository-wide dedup; reconcile the branch with fresh main; close R1 only when the census is sufficient to feed R2 without provider lock-in.
+R1 remains **in progress**. Primary-source parity now covers Radix, shadcn/ui, MUI, PatternFly, Base UI, Carbon and Chakra with convergent evidence around named parts, behavior composition, action scope, proof inheritance/status and responsive projection. No Construction slice is eligible. Next dependency-safe delta: cover React Aria, Fluent and Ant; complete repository-wide dedup/token census; reconcile the branch against fresh main; close R1 only when the census can feed R2 without provider lock-in.
