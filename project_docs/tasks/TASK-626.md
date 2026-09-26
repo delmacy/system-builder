@@ -1,6 +1,6 @@
 # TASK-626 — Component Editor cumulative integration + closure
 
-Status: blocked
+Status: running
 Depends on: TASK-625
 
 ## Allowed
