@@ -1,6 +1,6 @@
 # TASK-623 — Component Editor specialization model + adapter
 
-Status: ready
+Status: running
 Depends on: TASK-622
 
 ## Allowed
