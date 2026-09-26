@@ -1,3 +1,13 @@
+# Archived Current Milestone Snapshot — 2026-09-23
+
+Status: ARCHIVED / NON-AUTHORITATIVE
+Archived: 2026-09-26
+Reason: M1 milestone/gate narrative was superseded by later integrated Station work and could be mistaken for current execution authority.
+
+This file preserves the former `docs/current/CURRENT_MILESTONE.md` snapshot. It MUST NOT be used as current scheduling authority. See `docs/DOCUMENT_AUTHORITY.md` and `docs/current/NEXT_WORK.md`.
+
+---
+
 # Current Execution Milestone — Station Visual Planning & Materialization
 
 Date: 2026-09-23

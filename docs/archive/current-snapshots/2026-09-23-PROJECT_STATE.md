@@ -1,3 +1,13 @@
+# Archived Project State Snapshot — 2026-09-23
+
+Status: ARCHIVED / NON-AUTHORITATIVE
+Archived: 2026-09-26
+Reason: superseded live-state narrative could conflict with current M2 execution truth.
+
+This file preserves the former `docs/current/PROJECT_STATE.md` snapshot. It MUST NOT be used as current scheduling or execution authority. See `docs/DOCUMENT_AUTHORITY.md` and `docs/current/NEXT_WORK.md`.
+
+---
+
 # Project State
 
 Date: 2026-09-23

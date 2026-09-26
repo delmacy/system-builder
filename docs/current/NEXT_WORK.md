@@ -1,46 +1,51 @@
 # Next Work — STATION Component Editor Specialization
 
 Date: 2026-09-26
-Execution base: `main@8fb4907e24bf3e3d92d2930d01fc04df36a359e2`
-Status: MATERIALIZED / READY TO CONSTRUCT
+Repository truth base: `main@253b50a4b43cc51213d6ac214e596888b8265ae1`
+Status: CONSTRUCTION E / TASK-626 NEXT AFTER TASK-625 INTEGRATION
+
+> Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Historical status text elsewhere does not override this file plus fresh repository/PR truth.
 
 ## Authority
+- `docs/DOCUMENT_AUTHORITY.md`
 - `project_docs/execution_planning/STATION-COMPONENT-COMPOSITION-PLAN-01.md`
 - `project_docs/execution_planning/STATION-COMPOSITION-EDITOR-ENGINE-01.md`
 - `project_docs/execution_planning/STATION-COMPONENT-EDITOR-01.md`
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
 
-## Predecessor truth
-Construction A / TASK-606..610, Construction B / TASK-611..614, Construction C / TASK-615..618 and Construction D / TASK-619..622 are integrated. Construction D closed through PR #929; exact implementation head `de8d86bd6d24fb53695f8ada04f10f967a2c6e35` passed Deterministic CI, Merge Candidate CI, Heavy Product Tests, Station Next.js CI and Automation Handoff before merge. Fresh main after #929 is `8fb4907e24bf3e3d92d2930d01fc04df36a359e2`.
+## Integrated truth
+Construction A / TASK-606..610, Construction B / TASK-611..614, Construction C / TASK-615..618 and Construction D / TASK-619..622 are integrated.
+
+Construction E materialization integrated through PR #932. TASK-623 integrated through PR #933. TASK-624 integrated through PR #934. TASK-625 integrated through PR #936. Fresh `main` after PR #936 is `253b50a4b43cc51213d6ac214e596888b8265ae1`.
 
 ## Active chain
 
 ```text
-TASK-623  Component Editor specialization model + adapter — READY
-   ↓
-TASK-624  Component Editor Station surface
-   ↓
-TASK-625  Component contract/slot/variant editing proof
-   ↓
-TASK-626  Component Editor cumulative integration + closure
+TASK-623  Component Editor specialization model + adapter — INTEGRATED
+TASK-624  Component Editor Station surface                 — INTEGRATED
+TASK-625  Component contract/slot/variant editing proof    — INTEGRATED
+TASK-626  Component Editor cumulative integration + closure — NEXT ELIGIBLE
 ```
 
-TASK-623 is the next eligible task.
+TASK-626 is the next product task in this materialized chain. Revalidate fresh main and exact task authority before mutation.
+
+## Parallel non-product work
+Documentation/research/CI PRs may exist in parallel. They do not become product execution authority merely by being open, and must not silently expand TASK-626 scope. Merge/rebase qualification remains independent.
 
 ## Construction target
-Specialize the shared Composition Editor Engine for reusable component authoring while keeping the Station presentation/composition-only. Reuse EditorShell, CompositionEditorEngine, Composition Graph, validator, draft/preview transaction, Layers and Inspector. Do not fork those mechanisms locally.
+Close the Component Editor specialization cumulatively over the shared Composition Editor Engine while keeping Station presentation/composition-only. Reuse EditorShell, CompositionEditorEngine, Composition Graph, validator, draft/preview transaction, Layers and Inspector. Do not fork those mechanisms locally.
 
-## Constraints
+## Preserved constraints
 - `ComponentRegistry != AppManifest`;
 - `WindowGeometry != composition grid`;
 - Station remains presentation/composition-only;
 - canonical theme/typography and named-slot/discrete-grid rules remain authoritative;
 - invalid references/mutations fail deterministically without silent repair;
 - no arbitrary pixel geometry or arbitrary HTML/CSS;
-- no Launcher/AppManifest entry in Construction E;
-- no Window/View Editor yet;
+- no implicit Launcher/AppManifest authority;
+- no Window/View Editor unless separately materialized;
 - no remote persistence/publish/deploy/provider runtime;
 - no Template Manager, File Manager, Workflow Studio, semantic Artifact Repository or Core/business authority.
 
-## Succession after this package
-If Construction E closes green, reconcile fresh main and materialize only the next dependency-safe M2 slice from the composition roadmap. Application exposure/Launcher registration and Window/View Editor remain separate explicitly materialized slices.
+## Succession
+After TASK-626 closes green and is integrated, reconcile this file from fresh main before materializing another slice. Research findings and forecast work remain non-authoritative until explicitly promoted through the normal materialization/architecture process.
