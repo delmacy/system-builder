@@ -100,7 +100,7 @@ export function ComponentLabEditorProof() {
     const current = component.definition.descriptor.constraints;
     mutateContract({ kind: "set-constraints", constraints: { ...current, recommendedColumns: current.recommendedColumns === 6 ? 5 : 6 } }, "Discrete constraints updated in local contract draft");
   };
-  const rejectInvalidSlot = () => mutateContract({ kind: "set-slots", slots: [...component.definition.descriptor.slots, { id: "", childPolicy: "single" }] }, "Unexpected slot acceptance");
+  const rejectInvalidSlot = () => mutateContract({ kind: "set-slots", slots: [...component.definition.descriptor.slots, { id: "", childPolicy: "single", acceptsFamilies: ["atomic"] }] }, "Unexpected slot acceptance");
   const rejectInvalid = () => updateComposition((current) => {
     const result = mutateCompositionEditor(current, { type: "replace-node", node: { ref: "layer:invalid", componentRef: "component:missing", placement: { parentRef: "layer:button-group", slotRef: "button-3", columnSpan: 2, rowSpan: 1 } } }, registry);
     if (!result.ok) setFindings(result.findings);
