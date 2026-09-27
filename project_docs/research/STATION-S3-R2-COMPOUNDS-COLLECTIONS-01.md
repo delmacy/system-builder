@@ -79,22 +79,20 @@ Fresh-main product tests prove more than the first R2 census credited:
 Reclassification: **structural child compatibility is PROVEN for the existing descriptor vocabulary**. This does not prove semantic interaction compatibility (for example, whether an embedded editable control may safely participate in a roving-focus collection). That narrower interaction-compatibility obligation remains `unproven-gap`.
 
 ### CollectionIndex / SelectionState
-`station-interaction/selection.ts` currently owns only:
-- ordered `items` plus `byRef` lookup;
-- duplicate-ref rejection during index creation;
-- `SelectionState.selectedRef` as a single nullable ref;
-- fail-closed `selectKnownRef` for unknown refs.
+`station-interaction/selection.ts` currently owns only ordered `items` plus `byRef` lookup, duplicate-ref rejection during index creation, `SelectionState.selectedRef` as a single nullable ref, and fail-closed `selectKnownRef` for unknown refs. It does not model focus, active/highlighted item, multiple/range selection, expansion, navigation, dismissal or restoration.
 
-It does **not** model focus, active/highlighted item, multiple/range selection, expansion, navigation, dismissal or restoration.
+Historical TASK-611 acceptance required deterministic collection normalization/query, known-ref selection/clear, safe rejection/no-op for unknown refs, stable identity independent of position, and separation from Station window focus. Source inspection confirms the implementation invariants.
 
-The historical TASK-611 acceptance contract explicitly required deterministic collection normalization/query, known-ref selection/clear, safe rejection/no-op for unknown refs, stable identity independent of position, and separation from Station window focus. Source inspection confirms the implementation invariants, but this R2 pass did not locate a dedicated executable test by symbol/name for every SelectionState invariant. Therefore source/task acceptance is evidence, not a blanket executable PASS.
+**Executable-evidence census (2026-09-27):** bounded repository code searches for `selectKnownRef`/`CollectionIndex` test usage and for SelectionState unknown-ref assertions returned no executable test hit on fresh default-branch search. This is evidence of a searched coverage gap, not proof that no test can exist anywhere. Status remains `implementation/task evidence + executable unproven-gap`; absence is never PASS.
 
-Finding: do not overload `selectedRef` into a generic current-item state. R2 should treat current `SelectionState` as a bounded single-selection contract and preserve future focus/active/expansion as orthogonal relations. This is a contract gap, not authorization to mutate it during research.
+Finding: do not overload `selectedRef` into a generic current-item state. Treat current `SelectionState` as a bounded single-selection contract and preserve future focus/active/expansion as orthogonal relations. This is a contract gap, not authorization to mutate it during research.
 
 ### Tree
 Current `ui-core/Tree` owns real C3 behavior: hierarchical nodes, visible flattening based on expansion, `tree/treeitem` semantics, `aria-level`, `aria-selected`, `aria-expanded`, roving `tabIndex`, ArrowUp/Down/Home/End traversal and ArrowLeft/Right expansion/collapse.
 
-Historical TASK-612 required stable identity, deterministic expansion, accessible keyboard navigation/selection and safe empty/unknown refs while consuming TASK-611 selection rather than creating parallel authority. Source behavior aligns with that intent, but this pass still did not locate direct executable Tree keyboard/focus assertions. Consequently Tree traversal/expansion remains **implementation present + executable evidence gap**, not PASS.
+Historical TASK-612 required stable identity, deterministic expansion, accessible keyboard navigation/selection and safe empty/unknown refs while consuming TASK-611 selection rather than creating parallel authority. Source behavior aligns with that intent.
+
+**Executable-evidence census (2026-09-27):** bounded repository search for Tree keyboard assertions using ArrowDown/ArrowRight/`aria-expanded` + test vocabulary returned no executable hit on fresh default-branch search. Therefore keyboard traversal/focus/expansion remains `implementation present + executable unproven-gap`; the research does not infer PASS from implementation.
 
 Important mismatch: keyboard traversal currently calls `select(target.ref)` rather than moving a separately modeled focus/active cursor. Therefore focus/navigation and selection are coupled in the implementation. This is not automatically wrong for every single-select tree, but it is insufficient as the generic Collection grammar because benchmarks independently demonstrate cases where focus, selection and active state diverge.
 
@@ -104,26 +102,21 @@ Classification: **C3 Collection implementation with a bounded coupling gap**. Pr
 Remains a surface/compound until item collection, navigation/focus ownership, activation, dismissal and focus restoration are owned and proven. Do not promote based on `role` or visual similarity alone.
 
 ### Toolbar / Tabs / Table / List
-No generic Station-owned C3 contract was established by this bounded census. Absence is recorded as `unproven-gap`, not proof that implementation is required. R2 should promote only relations justified by concrete Station use and synthesis.
+No generic Station-owned C3 contract was established by this bounded census. Absence is `unproven-gap`, not proof that implementation is required. Promote only relations justified by concrete Station use and synthesis.
 
 ## C2 → C3 promotion boundary
 
-**C2 Compound**: composes children/anatomy and may own bounded grouping/slot/cardinality rules, but does not own a cross-child interaction state machine.
+**C2 Compound** composes children/anatomy and may own bounded grouping/slot/cardinality rules, but does not own a cross-child interaction state machine.
 
-**C3 Collection**: owns at least one reusable cross-child semantic relation/state machine whose correctness requires independent proof, such as traversal/focus ownership, selection policy, active-item policy, expansion hierarchy, typeahead, ordered mutation, dismissal/restoration, or contextual child-interaction arbitration.
+**C3 Collection** owns at least one reusable cross-child semantic relation/state machine whose correctness requires independent proof, such as traversal/focus ownership, selection policy, active-item policy, expansion hierarchy, typeahead, ordered mutation, dismissal/restoration, or contextual child-interaction arbitration.
 
-A C3 Collection inherits C1/C2 proofs and proves only its relation delta. Visual grouping, domain naming, border/layout, responsive relocation or wrapper reuse do not promote identity.
+C3 inherits C1/C2 proofs and proves only its relation delta. Visual grouping, domain naming, border/layout, responsive relocation or wrapper reuse do not promote identity.
 
 ## Promotion/dedup tests
 
-A wrapper does NOT become C2/C3 merely because it contains children, has a border, uses flex/grid, has a domain name, or relocates children responsively.
+A wrapper does NOT become C2/C3 merely because it contains children, has a border, uses flex/grid, has a domain name, or relocates children responsively. Promotion requires at least one reusable child relation with independent proof obligations.
 
-Promotion is justified when the wrapper owns at least one reusable child relation with independent proof obligations. Consequences:
-- ButtonGroup remains C2 while it only groups children.
-- Toolbar becomes C3 only when it owns traversal/focus or another cross-child relation.
-- Tree is C3 because it owns hierarchy, traversal and expansion/selection relations.
-- MenuSurface remains only a surface until Menu owns its interaction machine.
-- responsive overflow is a projection of the same semantic children/commands, not a second collection identity by default.
+Consequences: ButtonGroup remains C2 while it only groups children; Toolbar becomes C3 only when it owns traversal/focus or another cross-child relation; Tree is C3 because it owns hierarchy, traversal and expansion/selection relations; MenuSurface remains only a surface until Menu owns its interaction machine; responsive overflow is a projection of the same semantic children/commands, not a second collection identity by default.
 
 ## Proof Grammar — R2 delta
 
@@ -134,21 +127,21 @@ Inherited C1 primitive proofs are not repeated.
 | C2 grouping/anatomy | proven | ButtonGroup role/grouping plus deterministic descriptor slots |
 | structural slot compatibility | proven | product tests enforce family/layout/allowed-parent compatibility and reject non-atomic ButtonGroup children |
 | discrete placement / geometry separation | proven | span validation exists; nested composition does not import pixel WindowGeometry |
-| CollectionIndex duplicate-ref rejection | implementation proven; executable coverage unproven-gap | deterministic fail-closed invariant exists in source |
-| unknown-ref selection fail-closed | implementation/task evidence; executable coverage unproven-gap | do not upgrade to PASS without direct evidence |
+| CollectionIndex duplicate-ref rejection | implementation/task evidence; executable unproven-gap | bounded test search found no direct executable hit |
+| unknown-ref selection fail-closed | implementation/task evidence; executable unproven-gap | bounded test search found no direct executable hit |
 | semantic interaction child compatibility | unproven-gap | structural compatibility is not enough for keyboard/focus arbitration |
 | focus ownership | unproven-gap | exactly one owner per interaction context; delegation explicit |
-| roving traversal | implementation exists in Tree; executable evidence gap | Arrow/Home/End behavior must be proven without re-proving primitives |
+| roving traversal | implementation exists in Tree; executable unproven-gap | bounded keyboard-test search found no direct hit |
 | focus != selection != active | failed as generic abstraction / gap exposed | current Tree traversal couples navigation to selection; generic grammar must not assume equivalence |
-| expansion relation | implementation exists; executable evidence gap | Tree owns hierarchical expansion delta |
+| expansion relation | implementation exists; executable unproven-gap | Tree owns hierarchical expansion delta but direct test evidence was not located |
 | embedded interactive child arbitration | unproven-gap | collection keys must not steal child editing/navigation |
-| contextual command availability | inherited/adopt-pattern | VS Code independently supports context-gated command projection; Station command authority remains separate |
-| dismissal/focus restoration | unproven-gap for transient collections | workstation evidence supports explicit restoration semantics, but Station proof absent |
+| contextual command availability | inherited/adopt-pattern | command authority remains separate |
+| dismissal/focus restoration | unproven-gap for transient collections | explicit restoration semantics required when promoted |
 | representation invariance | unproven-gap | toolbar/menu/context/shortcut/overflow projection must preserve semantic command/item identity |
 | primitive semantics | inherited | do not retest Button/Input semantics wholesale |
 | Station/Core command boundary | inherited proven | collection must not acquire business authority |
 
-`failed as generic abstraction` above does not mean the current Tree product behavior is declared defective. It means the hypothesis that one `selectedRef` can stand for focus + active + selection across the reusable grammar is contradicted by the required semantic breadth and benchmark evidence.
+`failed as generic abstraction` does not declare current Tree defective. It rejects the hypothesis that one `selectedRef` can universally stand for focus + active + selection across the reusable grammar.
 
 ## Proof inheritance rule
 
@@ -156,14 +149,14 @@ C2 inherits child primitive role/name/activation proofs and adds only compositio
 
 ## Contextual arbitration candidate
 
-R2 now has sufficient independent evidence to reject a single global keyboard owner. Candidate rule for synthesis:
-1. the focused interaction context determines the navigation owner;
-2. a collection may own traversal keys only while focus is in its collection-navigation context;
-3. an embedded interactive child may temporarily own keys required by its own editing/navigation contract;
+R2 has sufficient independent evidence to reject a single global keyboard owner. Candidate rule for synthesis:
+1. focused interaction context determines navigation owner;
+2. a collection owns traversal keys only while focus is in its collection-navigation context;
+3. an embedded interactive child may temporarily own keys required by its editing/navigation contract;
 4. exiting the child returns to a defined collection/workbench focus context;
 5. activation resolves semantic command identity separately and revalidates command conditions/authority at execution time.
 
-This is an **adopt-pattern candidate**, not authority. Its proof delta would require focus-entry, ownership-transfer, no-key-stealing, restoration and command-identity invariance cases.
+This is an **adopt-pattern candidate**, not authority. Proof delta: focus-entry, ownership-transfer, no-key-stealing, restoration and command-identity invariance.
 
 ## Failure/recovery implications
 
@@ -171,7 +164,7 @@ Collection state and command execution are separate. A selected/active item may 
 
 ## Inspector implications
 
-A contract-driven Inspector should derive fields from relations actually owned. Selecting ButtonGroup should expose grouping/slot constraints but not fake selection/expansion controls. Selecting Tree may expose selection, expansion and navigation policies. This provides a concrete anti-hardcode test for the future Inspector schema.
+A contract-driven Inspector should derive fields from relations actually owned. Selecting ButtonGroup should expose grouping/slot constraints but not fake selection/expansion controls. Selecting Tree may expose selection, expansion and navigation policies. This is a concrete anti-hardcode test for the future Inspector schema.
 
 ## Dedup / adoption disposition
 
@@ -180,18 +173,26 @@ A contract-driven Inspector should derive fields from relations actually owned. 
 - **adopt-pattern**: explicit separation of focus/selection/active/expansion; contextual navigation arbitration; context-gated command projection; responsive projection preserving semantic identity.
 - **defer**: generic Toolbar/Tabs/Table/List/Menu construction until a later research finding demonstrates a real grammar gap and synthesis promotes it.
 
-## R2 sufficiency gaps after this pass
+## R2 sufficiency / exit matrix
 
-Resolved/reclassified:
-1. existing slot/cardinality/placement validators are mapped: structural compatibility is already proven for current descriptor vocabulary;
-2. workstation benchmarks now independently support contextual focus ownership and projection-independent action identity.
+| Question | State | Exit implication |
+|---|---|---|
+| C2 vs C3 promotion boundary | candidate sufficiently evidenced | carry to synthesis/R3; not authority yet |
+| structural child compatibility | proven for existing descriptor vocabulary | inherit; do not retest wholesale |
+| semantic interaction compatibility | unproven-gap | R3 must model capability/interaction delta before Construction |
+| focus/selection/active/expansion orthogonality | benchmark convergence + Station coupling gap | promote as synthesis candidate |
+| Selection executable coverage | searched; unproven-gap | record proof debt; do not block research progression by pretending PASS |
+| Tree keyboard/focus/expansion executable coverage | searched; unproven-gap | record proof debt; future Construction materialization must include minimum delta proofs |
+| contextual keyboard arbitration | adopt-pattern candidate | R3 Interaction Capabilities should refine intent/command/target/conditions relation |
+| projection identity invariance | unproven-gap | carry forward to capability/projection research |
+| failure/recovery ownership | separated from collection state | carry to R3 command/capability semantics |
+| provider independence | preserved | no benchmark provider becomes authority/runtime dependency |
 
-Still material:
-1. locate or explicitly record absence of executable SelectionState/CollectionIndex tests for duplicate/unknown refs;
-2. locate or explicitly record absence of direct Tree keyboard/focus/expansion tests;
-3. refine semantic child-interaction compatibility and contextual arbitration into an R2 finding with proof cases, without constructing it;
-4. evaluate Figma/Framer only if they answer a remaining collection-ownership question rather than broadening scope;
-5. produce R2 exit matrix/handoff to R3 Interaction Capabilities from a branch reconciled with fresh main.
+## Current blocker before R2 handoff
+
+Fresh compare on 2026-09-27 reports the R2 branch **diverged: 3 commits ahead / 4 behind `main`**, merge-base `88e47f4b...`; fresh main is `6fd82b0b...`. Therefore R2 is not declared closed from a stale branch. Reconcile the research branch with fresh main (or create a clean handoff branch from fresh main as done for R1), revalidate the consolidated finding, then materialize R2 handoff before making R3 eligible.
+
+`docs/current/NEXT_WORK.md` on fresh main still textually says `R1 NEXT` and names the old repository truth SHA. Per `DOCUMENT_AUTHORITY.md`, fresh repository/PR truth must be reconciled rather than propagating a stale claim. This is a documentation-currentness gap; it does not authorize skipping the research dependency chain.
 
 ## Gate
 
