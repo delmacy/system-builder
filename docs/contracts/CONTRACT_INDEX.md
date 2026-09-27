@@ -11,7 +11,7 @@ The repository predates the contract-increment model. Existing scope history is 
 | Increment | Kind | Admission | Scope | State | Evidence |
 |---|---|---|---|---|---|
 | `000-base` | Base contract | reconstructed 2026-09-26 | Original System Builder project identity and durable founding boundaries | reconstructed / accepted baseline | `docs/contracts/000-base/README.md`, `docs/contracts/000-base/PROVENANCE.md`, accepted constitutional authority |
-| `001-station-component-grammar` | Addendum | 2026-09-26 explicit post-M2 continuation | Station component grammar/catalog research and materialization from primitives through Studio-readiness, with Core reuse/projection census | accepted / planning | `docs/contracts/001-station-component-grammar/ADDENDUM.md` |
+| `001-station-component-grammar` | Addendum | 2026-09-26 explicit post-M2 continuation | Station component grammar/catalog research and materialization from primitives through Studio-readiness, with Core reuse/projection census | accepted / planning | `docs/contracts/001-station-component-grammar/ADDENDUM.md`, `docs/contracts/001-station-component-grammar/PROVENANCE.md`, `docs/contracts/001-station-component-grammar/TRACEABILITY.md` |
 | subsequent | Addenda | chronological | Material scope additions accepted after the base | materialize incrementally | source request + accepted repository artifact |
 
 ## Admission invariant
