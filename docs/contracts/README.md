@@ -18,18 +18,19 @@ This gives a traceable answer to: what was requested, when it entered scope, wha
 
 ## Canonical shape
 
+The semantic shape is canonical; reconstructed historical increments may use a compact equivalent file layout when provenance is clearer that way. The current reconstructed base intentionally uses `README.md` + `PROVENANCE.md`; new increments should use the fuller shape below unless an accepted reason is recorded.
+
 ```text
 docs/contracts/
   README.md
   CONTRACT_INDEX.md
   000-base/
-    SCOPE.md
-    DIRECTIVES.md
-    TRACEABILITY.md
+    README.md
+    PROVENANCE.md
   001-<scope-addition>/
     ADDENDUM.md
-    DIRECTIVES.md
-    TRACEABILITY.md
+    DIRECTIVES.md          # optional when directives are fully contained in ADDENDUM.md
+    TRACEABILITY.md        # optional when traceability is fully contained in ADDENDUM.md
   002-<scope-addition>/
     ...
 ```
