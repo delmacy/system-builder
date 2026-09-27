@@ -88,6 +88,59 @@ New delta proofs if durable save/publish/version is promoted later:
 
 Coverage for all of these remains `unproven-gap` until executable evidence exists.
 
+## Delta 04 — placement sufficiency and existing version/currentness contracts
+
+### Station current -> question
+
+Can future semantic reparent be represented without inventing a second identity model, and does the repository already own reusable persistence/currentness semantics that R3 should project rather than replace?
+
+### Repository evidence
+
+`CompositionNode` has stable `ref` and independent `componentRef`; `CompositionNodePlacement` contains `parentRef`, `slotRef`, `columnSpan`, and `rowSpan`. Graph validation resolves the parent by node ref, resolves both component descriptors through `ComponentRegistry`, and applies slot/span compatibility. Root placement, missing parent, unknown component, duplicate node ref and invalid placement are explicit findings.
+
+Therefore a future **reparent can plausibly be expressed as a replacement of placement while preserving node `ref`**. This is a strong representation-sufficiency finding, not authorization to implement reparent now. The present model does **not** contain sibling order/rank/index. Array position exists physically in `nodes`, but R3 must not silently promote incidental serialization order into semantic ordering authority. Reparent and reorder must remain distinct until synthesis decides whether ordered collections need an explicit relation.
+
+The wider repository also already owns durable artifact concepts that invalidate the earlier idea that version/currentness is wholly absent. ADR-0009 defines provider-neutral logical artifact identity, independent artifact/schema/envelope versions, immutable published identity tuples, provenance, compatibility and migration-as-new-version. `process-versioning` separately proves stable artifact identity vs immutable revision identity, predecessor lineage and published-overwrite conflict/idempotency. `artifact-supply/artifact-identity` already represents evidence completeness and `CURRENT | STALE | UNKNOWN` currentness and requires qualified/current evidence for adoption.
+
+These contracts are **reuse census evidence**, not permission to bind Station composition directly to process-versioning or artifact-supply. Their semantic separation is valuable; the exact owning bounded context for a future Station-authored artifact remains a synthesis/R7 question.
+
+### Independent workstation evidence
+
+VS Code permits View Containers to be relocated by users while preserving the contributed view/container identity. JetBrains independently supports moving tool windows by drag or explicit `Move to`, keyboard resizing, saved layouts and restoring layouts. The interaction surface differs, but both converge on **stable semantic thing + mutable placement/layout projection**, and JetBrains additionally demonstrates pointer and command/keyboard routes to the same layout intent.
+
+This supports `identity != placement` and input-technique independence. It does not justify importing IDE docking/window geometry into the composition graph.
+
+### Candidate findings / classification
+
+1. **own/adapt — placement-preserving reparent representation:** preserve `CompositionNode.ref`; change only admitted placement relation after deterministic target resolution and graph validation.
+2. **defer — semantic sibling ordering:** do not treat `CompositionGraph.nodes[]` serialization order as product semantics. Promote explicit order only if C3/C4 use cases require it and define a proof delta.
+3. **adopt-pattern/reuse-census — immutable revision/currentness semantics:** future save/version/publish design must first evaluate ADR-0009, process-versioning and artifact-supply contracts before inventing Station-local versions, stale flags or publication evidence.
+4. **forbid-by-default — authority leakage:** Station may project revision/currentness/evidence but cannot become the canonical owner merely because Inspector or source/YAML edits a draft.
+
+### Proof obligations from delta 04
+
+Inherited: unique node ref, root/parent validation, component/slot compatibility, discrete spans, immutable draft base, invalid mutation fail-closed, identity/placement separation.
+
+Delta proof for future reparent:
+- same node `ref` before/after move;
+- exactly one admitted parent/slot relation after commit;
+- root cannot become a child accidentally and non-root cannot become parentless;
+- cycles must be impossible or explicitly rejected before reparent can be considered proven (current graph validation has no located cycle finding, so this is `unproven-gap`);
+- unrelated node identity/placement remains unchanged;
+- pointer/tree/source routes, when supported, resolve the same semantic placement mutation.
+
+Delta proof for future durable boundary:
+- stable logical artifact identity is distinct from revision identity;
+- a published immutable identity cannot be silently overwritten;
+- stale/unknown currentness does not become successful adoption/publish presentation;
+- provenance/evidence is traceability, not authorization;
+- Station projection round-trips owner-provided identity/version/currentness without loss or reinterpretation;
+- provider-local IDs/tags/paths never become canonical identity by accident.
+
+### Dedup consequence
+
+Do not create `ReparentedNode`, `MovedButton`, `PublishedView`, `StaleInspector`, or per-provider save capabilities. Reparent is a semantic mutation over existing node identity and placement. Currentness/version/evidence belong to reusable boundary contracts/owners and should be projected. A new C4 capability is justified only by a reusable transition/authority/result contract plus an independent proof delta.
+
 ## Inspector/schema consequence
 
 Framer Property Controls independently demonstrates contract-declared controls appearing contextually for a selected component. Station should adopt only the pattern: Inspector fields derive from selected artifact/component/capability contracts and declared schemas, not hardcoded feature screens. This reinforces the future requirement that Inspector, Layers, Graph and source/YAML mutate/project the same canonical artifact authority.
@@ -108,9 +161,9 @@ Promote C4 only for reusable semantic behavior above component/collection mechan
 
 Coverage vocabulary remains `proven | failed | unproven-gap | not-applicable`; absence of evidence never becomes PASS.
 
-Proven/inherited: presentation command unique identity; invocation-time presentation availability; shortcut conflict fail-closed; bounded multi-projection command identity; focus/selection context normalization; Core intent rejected by presentation registry; immutable composition base; validation before admitted mutation; invalid mutation fail-closed; dirty/discard; bounded preview=same draft; bounded window move/resize evidence.
+Proven/inherited: presentation command unique identity; invocation-time presentation availability; shortcut conflict fail-closed; bounded multi-projection command identity; focus/selection context normalization; Core intent rejected by presentation registry; immutable composition base; validation before admitted mutation; invalid mutation fail-closed; dirty/discard; bounded preview=same draft; bounded window move/resize evidence; stable composition node identity distinct from placement; parent/slot/span validation; provider-neutral artifact identity/version semantics exist elsewhere in repository; immutable process publication overwrite guard and artifact currentness qualification exist in their owning bounded contracts.
 
-Unproven gaps: generic drag/drop target negotiation; reparent/order; generic undo/redo; durable history/versioning; save/publish authority; target currentness beyond presentation context; conditions-vs-authority separation; authoritative stale-state rejection; accepted-vs-effective; partial effect; retry/idempotency; compensation; result evidence/currentness; contextual keyboard ownership; broad projection round-trip identity; schema-driven Inspector conformance.
+Unproven gaps: generic drag/drop target negotiation; semantic reparent operation; graph cycle rejection for future reparent; explicit semantic sibling order; generic undo/redo; durable Station-authoring history/version owner; Station save/publish authority; target currentness beyond presentation context; conditions-vs-authority separation; authoritative stale-state rejection at the eventual composition persistence boundary; accepted-vs-effective; partial effect; retry/idempotency; compensation; result evidence/currentness projection; contextual keyboard ownership; broad projection round-trip identity; schema-driven Inspector conformance.
 
 ## Smallest future proofs
 
@@ -124,12 +177,13 @@ Approval, ticketing, CRUD, operational dashboard and deployment configuration mu
 
 - **own**: Station semantic contracts, canonical artifact mutation/validation, presentation-command identity/context, composition draft transaction, proof inheritance.
 - **adapt**: mature pointer/keyboard authoring mechanics, contextual focus and local history mechanisms where required.
-- **adopt-pattern**: one semantic command across projections; one artifact across canvas/tree/Inspector/source; explicit nesting target; separate edit/history/publish authorities; invocation-time revalidation.
-- **defer**: generic drag/drop/reorder engine, generic undo framework, durable version/publish schema, generic Core executor, compensation engine, AI/MCP generation, product-specific capability catalog.
+- **adopt-pattern**: one semantic command across projections; one artifact across canvas/tree/Inspector/source; explicit nesting target; stable identity with mutable placement; separate edit/history/publish authorities; invocation-time revalidation.
+- **reuse-census before new contract**: ADR-0009 artifact identity/version/provenance, process-versioning immutable revision/lineage, artifact-supply currentness/evidence where semantically applicable and owned by the correct bounded context.
+- **defer**: generic drag/drop/reorder engine, generic undo framework, Station-specific durable version/publish schema, generic Core executor, compensation engine, AI/MCP generation, product-specific capability catalog.
 
 ## Current R3 gaps / next work
 
-1. Inspect graph/placement contracts to determine whether parent/slot/order semantics already suffice for a future semantic reparent mutation without adding identity concepts.
-2. Census concrete persistence/file/version boundaries before naming save/publish schemas.
+1. Inspect graph cycle/reachability behavior and existing tests before any reparent promotion; cycle safety is now the first blocker for claiming placement sufficiency.
+2. Census the actual persistence/release owners that consume ADR-0009/process-versioning/artifact-supply so R3/R7 can distinguish reusable semantics from wrong-boundary coupling.
 3. Extend benchmark only against unresolved target/currentness and multi-projection questions.
 4. Keep R4 blocked until R3 handoff bounds capability ownership and proof debt.
