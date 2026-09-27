@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
-Date: 2026-09-26
-Repository truth base: `main@868785466a2cd6dc4c4d2fa6e7124fe95ebdcf1c`
-Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R1 NEXT
+Date: 2026-09-27
+Repository truth base: `main@f02f2fadda553bbe285ac0ab10ecbf2f8cb2cb3a`
+Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R2 IN PROGRESS
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -15,13 +15,13 @@ Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R1 NEXT
 
 ## Predecessor closure
 
-Station M2 Component Composition/Editor is CLOSED. TASK-623..626 and cumulative proof are integrated; final closure merged through PR #952. Do not reopen M2 except for a bounded defect discovered against its accepted contracts.
+Station M2 Component Composition/Editor is CLOSED. TASK-623..626 and cumulative proof are integrated; final closure merged through PR #952. Historical stale task markers identified by the documentation-normalization pass have been reconciled through PR #964. Do not reopen M2 except for a bounded defect discovered against its accepted contracts.
 
 ## Current phase
 
-Begin **S3-R1 — Census & parity**.
+**S3-R1 — Census & parity is complete as research evidence. S3-R2 — Compounds & collections is in progress in draft PR #962.**
 
-R1 must inventory current System Builder/Station component primitives and contracts, compare them against representative mature component ecosystems, and classify each gap/overlap as `own`, `adapt`, `adopt-pattern`, or `defer`. Research is evidence only; R1 does not itself authorize product mutation.
+R2 studies compound/collection promotion, child compatibility, interaction-state ownership, responsive representation invariance, and delta-only Proof Grammar. R1/R2 research is evidence only; neither research PR nor this live pointer authorizes product mutation or creates a successor contract increment.
 
 Dependency forecast:
 
@@ -39,4 +39,4 @@ Dependency forecast:
 
 ## Next eligible work
 
-Produce the S3-R1 research census and evidence matrix. No successor Construction TASK is eligible until the research chain and synthesis satisfy the S3 planning exit gate.
+Continue S3-R2 research and evidence synthesis under the accepted `001-station-component-grammar` scope. No successor Construction TASK is eligible until the research chain and synthesis satisfy the S3 planning exit gate.
