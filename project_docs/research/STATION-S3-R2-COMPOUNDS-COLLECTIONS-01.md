@@ -1,7 +1,7 @@
 # Station S3-R2 — Compounds & Collections 01
 
 Date: 2026-09-27
-Base: fresh `main@88e47f4b8f266b84b66c95865fc3bfc86d835778`
+Base: research branch from `main@88e47f4b8f266b84b66c95865fc3bfc86d835778`; revalidated against fresh `main@6fd82b0b0d1835e6f8b19bab59debe393999beec`
 Status: RESEARCH EVIDENCE — NOT PRODUCT AUTHORITY
 
 ## Question
@@ -34,6 +34,16 @@ Component instances preserve main-component structure while props alter bounded 
 
 Finding: Station should keep definition, instance, slot compatibility and variant/presentation dimensions distinct. Instance customization alone is not promotion to a new component type.
 
+### VS Code — workbench arbitration and contextual command availability
+VS Code exposes commands independently from their UI projections and uses context/`when` clauses to determine when commands, keybindings, menus and views are enabled. Its accessibility model also treats workbench parts, toolbars and tab lists as focus scopes: Tab reaches the group while arrow keys traverse within a toolbar/tab list, and F6/Shift+F6 move among workbench parts.
+
+Finding: collection navigation ownership should be contextual rather than globally attached to a visual container. Command availability remains a command/context concern; collection focus does not grant command authority. A collection may own traversal within its scope while activation still resolves through the same semantic command and revalidates conditions.
+
+### JetBrains workstations — focus restoration and projection independence
+JetBrains tool windows are independently showable/hideable/movable/detachable workbench regions. Escape can return focus from a tool window to the editor, F12 can return to the last tool window, and actions exposed in a tool-window toolbar are commonly also available from menus/context menus/shortcuts. Tree/list/table tool windows additionally support keyboard-oriented navigation/search.
+
+Finding: focus location and action projection are separate state dimensions. Moving an action among toolbar/menu/context/shortcut surfaces should not create a second action identity. Workbench focus restoration is a region/workspace concern above the primitive action itself, supporting the Station separation between collection relation ownership and command authority.
+
 ## Candidate C2/C3 grammar
 
 A compound/collection candidate should expose only the relations it owns:
@@ -50,12 +60,23 @@ A compound/collection candidate should expose only the relations it owns:
 
 These names are research vocabulary, not schema authority.
 
-## Repository relation census — fresh main
+## Repository relation census — fresh-main revalidation
 
 ### ButtonGroup
 Current `ui-core` ButtonGroup is a `div` with `role="group"`, `data-slot="button-group"` and visual inline-flex layout. It owns no roving focus, selection, active item, expansion, ordering mutation or command authority.
 
 Classification: **C2 Compound**, not C3 Collection. Its current proof delta is grouping/anatomy + child/slot compatibility. Promotion to C3 would require a new reusable child relation/state machine; adding domain naming or styling is insufficient.
+
+### Existing composition compatibility proofs
+Fresh-main product tests prove more than the first R2 census credited:
+- named slots reject duplicate slot identity;
+- slot placement enforces accepted component family and layout metadata;
+- child `allowedParentFamilies` participates in compatibility;
+- ButtonGroup exposes five deterministic named slots and rejects non-atomic children;
+- placement remains discrete-span based and independent of pixel/window geometry;
+- graph validation reports duplicate refs, invalid placement, unknown component refs and dangling parent refs deterministically.
+
+Reclassification: **structural child compatibility is PROVEN for the existing descriptor vocabulary**. This does not prove semantic interaction compatibility (for example, whether an embedded editable control may safely participate in a roving-focus collection). That narrower interaction-compatibility obligation remains `unproven-gap`.
 
 ### CollectionIndex / SelectionState
 `station-interaction/selection.ts` currently owns only:
@@ -66,10 +87,14 @@ Classification: **C2 Compound**, not C3 Collection. Its current proof delta is g
 
 It does **not** model focus, active/highlighted item, multiple/range selection, expansion, navigation, dismissal or restoration.
 
+The historical TASK-611 acceptance contract explicitly required deterministic collection normalization/query, known-ref selection/clear, safe rejection/no-op for unknown refs, stable identity independent of position, and separation from Station window focus. Source inspection confirms the implementation invariants, but this R2 pass did not locate a dedicated executable test by symbol/name for every SelectionState invariant. Therefore source/task acceptance is evidence, not a blanket executable PASS.
+
 Finding: do not overload `selectedRef` into a generic current-item state. R2 should treat current `SelectionState` as a bounded single-selection contract and preserve future focus/active/expansion as orthogonal relations. This is a contract gap, not authorization to mutate it during research.
 
 ### Tree
 Current `ui-core/Tree` owns real C3 behavior: hierarchical nodes, visible flattening based on expansion, `tree/treeitem` semantics, `aria-level`, `aria-selected`, `aria-expanded`, roving `tabIndex`, ArrowUp/Down/Home/End traversal and ArrowLeft/Right expansion/collapse.
+
+Historical TASK-612 required stable identity, deterministic expansion, accessible keyboard navigation/selection and safe empty/unknown refs while consuming TASK-611 selection rather than creating parallel authority. Source behavior aligns with that intent, but this pass still did not locate direct executable Tree keyboard/focus assertions. Consequently Tree traversal/expansion remains **implementation present + executable evidence gap**, not PASS.
 
 Important mismatch: keyboard traversal currently calls `select(target.ref)` rather than moving a separately modeled focus/active cursor. Therefore focus/navigation and selection are coupled in the implementation. This is not automatically wrong for every single-select tree, but it is insufficient as the generic Collection grammar because benchmarks independently demonstrate cases where focus, selection and active state diverge.
 
@@ -106,17 +131,20 @@ Inherited C1 primitive proofs are not repeated.
 
 | Obligation | Evidence state | Notes |
 |---|---|---|
-| C2 grouping/anatomy | proven implementation / proof breadth partial | ButtonGroup owns `role=group` + stable slot; semantic child compatibility remains gap |
-| CollectionIndex duplicate-ref rejection | proven by implementation; executable proof must be mapped before closure | deterministic invariant |
-| unknown-ref selection fail-closed | proven by implementation; executable proof previously identified in R1 | preserve state on invalid ref |
-| child compatibility/cardinality | unproven-gap | reject semantically invalid nesting, not only invalid render types |
+| C2 grouping/anatomy | proven | ButtonGroup role/grouping plus deterministic descriptor slots |
+| structural slot compatibility | proven | product tests enforce family/layout/allowed-parent compatibility and reject non-atomic ButtonGroup children |
+| discrete placement / geometry separation | proven | span validation exists; nested composition does not import pixel WindowGeometry |
+| CollectionIndex duplicate-ref rejection | implementation proven; executable coverage unproven-gap | deterministic fail-closed invariant exists in source |
+| unknown-ref selection fail-closed | implementation/task evidence; executable coverage unproven-gap | do not upgrade to PASS without direct evidence |
+| semantic interaction child compatibility | unproven-gap | structural compatibility is not enough for keyboard/focus arbitration |
 | focus ownership | unproven-gap | exactly one owner per interaction context; delegation explicit |
 | roving traversal | implementation exists in Tree; executable evidence gap | Arrow/Home/End behavior must be proven without re-proving primitives |
 | focus != selection != active | failed as generic abstraction / gap exposed | current Tree traversal couples navigation to selection; generic grammar must not assume equivalence |
 | expansion relation | implementation exists; executable evidence gap | Tree owns hierarchical expansion delta |
 | embedded interactive child arbitration | unproven-gap | collection keys must not steal child editing/navigation |
-| dismissal/focus restoration | unproven-gap | Menu/transient collections only |
-| representation invariance | unproven-gap | visible/overflow/alternate projection preserves semantic command/item identity |
+| contextual command availability | inherited/adopt-pattern | VS Code independently supports context-gated command projection; Station command authority remains separate |
+| dismissal/focus restoration | unproven-gap for transient collections | workstation evidence supports explicit restoration semantics, but Station proof absent |
+| representation invariance | unproven-gap | toolbar/menu/context/shortcut/overflow projection must preserve semantic command/item identity |
 | primitive semantics | inherited | do not retest Button/Input semantics wholesale |
 | Station/Core command boundary | inherited proven | collection must not acquire business authority |
 
@@ -125,6 +153,17 @@ Inherited C1 primitive proofs are not repeated.
 ## Proof inheritance rule
 
 C2 inherits child primitive role/name/activation proofs and adds only composition/anatomy/compatibility delta. C3 inherits C2 + child primitive proofs and adds only cross-child relation/state-machine proofs. A lower-level `unproven-gap` remains a gap; inheritance never upgrades it to PASS.
+
+## Contextual arbitration candidate
+
+R2 now has sufficient independent evidence to reject a single global keyboard owner. Candidate rule for synthesis:
+1. the focused interaction context determines the navigation owner;
+2. a collection may own traversal keys only while focus is in its collection-navigation context;
+3. an embedded interactive child may temporarily own keys required by its own editing/navigation contract;
+4. exiting the child returns to a defined collection/workbench focus context;
+5. activation resolves semantic command identity separately and revalidates command conditions/authority at execution time.
+
+This is an **adopt-pattern candidate**, not authority. Its proof delta would require focus-entry, ownership-transfer, no-key-stealing, restoration and command-identity invariance cases.
 
 ## Failure/recovery implications
 
@@ -137,18 +176,22 @@ A contract-driven Inspector should derive fields from relations actually owned. 
 ## Dedup / adoption disposition
 
 - **own**: Station C2/C3 semantic contracts, relation ownership, proof inheritance, source-owned Tree/selection contracts.
-- **adapt**: mature roving-focus, tree/menu/toolbar interaction patterns where Station semantics require them.
-- **adopt-pattern**: explicit separation of focus/selection/active/expansion; contextual navigation arbitration; responsive projection preserving semantic identity.
+- **adapt**: mature roving-focus, tree/menu/toolbar interaction mechanisms only where Station semantics require them.
+- **adopt-pattern**: explicit separation of focus/selection/active/expansion; contextual navigation arbitration; context-gated command projection; responsive projection preserving semantic identity.
 - **defer**: generic Toolbar/Tabs/Table/List/Menu construction until a later research finding demonstrates a real grammar gap and synthesis promotes it.
 
-## R2 sufficiency gaps
+## R2 sufficiency gaps after this pass
 
-R2 cannot close yet because the following remain material:
-1. map existing composition slot/cardinality validators to semantic child compatibility;
-2. map executable tests for CollectionIndex/SelectionState and Tree rather than inferring PASS from code;
-3. determine contextual arbitration for interactive descendants;
-4. benchmark higher-complexity editor/workstation collections (Figma/Webflow/Framer and VS Code/JetBrains) only against these open questions;
-5. produce an R2 exit matrix and handoff to R3 Interaction Capabilities without constructing product.
+Resolved/reclassified:
+1. existing slot/cardinality/placement validators are mapped: structural compatibility is already proven for current descriptor vocabulary;
+2. workstation benchmarks now independently support contextual focus ownership and projection-independent action identity.
+
+Still material:
+1. locate or explicitly record absence of executable SelectionState/CollectionIndex tests for duplicate/unknown refs;
+2. locate or explicitly record absence of direct Tree keyboard/focus/expansion tests;
+3. refine semantic child-interaction compatibility and contextual arbitration into an R2 finding with proof cases, without constructing it;
+4. evaluate Figma/Framer only if they answer a remaining collection-ownership question rather than broadening scope;
+5. produce R2 exit matrix/handoff to R3 Interaction Capabilities from a branch reconciled with fresh main.
 
 ## Gate
 
