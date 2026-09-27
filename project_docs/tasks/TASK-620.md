@@ -1,6 +1,7 @@
 # TASK-620 — Shared CompositionEditorEngine controller
 
-Status: running
+Status: completed
+Historical status note: normalized after M2 closure; implementation evidence is commit `0c187226d6d13255f288b2696ee871703830d356`. This file is not an operational pointer; see `docs/current/NEXT_WORK.md`.
 Depends on: TASK-619
 
 ## Allowed
