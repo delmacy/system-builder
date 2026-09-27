@@ -1,8 +1,10 @@
 # TASK-618 — Component Lab validated draft graph proof
 
-Status: running
+Status: completed
 Sprint: `STATION-COMPOSITION-CONSTRUCTION-C-01`
 Depends on: TASK-617
+
+Historical closure provenance: integrated by PR #923 / merge commit `5253f8f3516f121ff457a32dd97f30ff9d12936a`. This task file is a historical record; `docs/current/NEXT_WORK.md` remains the sole live operational pointer.
 
 ## Goal
 Visibly prove the validated Composition Graph and local draft/preview transaction in Component Lab, reusing Layers selection and Property Inspector from Construction B.

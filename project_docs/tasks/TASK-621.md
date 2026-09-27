@@ -1,7 +1,9 @@
 # TASK-621 — Composition editor accessibility and adversarial hardening
 
-Status: running
+Status: completed
 Depends on: TASK-620
+
+Historical closure provenance: integrated by PR #928 / merge commit `e61ec77bbd5860dae0298890114275794a2d024a`. This task file is a historical record; `docs/current/NEXT_WORK.md` remains the sole live operational pointer.
 
 ## Allowed
 - `packages/station-composition/**`
