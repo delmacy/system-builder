@@ -59,6 +59,14 @@ Station consequence: `pending/loading` must not be promoted into universal comma
 
 Proof delta: repeated activation policy while pending; focus/accessibility behavior belongs to the projection/component contract; command identity/result semantics remain unchanged.
 
+### Webflow collaboration/preview and JetBrains Local History — history is not one universal capability
+
+Independent editor evidence challenges a single global `undo/history` abstraction. Webflow documents per-collaborator undo/redo while multiple people edit the same artifact and keeps preview as a distinct interactive projection. JetBrains separates immediate Undo from Local History and VCS rollback; Local History retains revisions independently from source-control commits and can restore a bounded prior state.
+
+Station consequence: `undo`, draft discard, durable history/versioning, and authoritative compensation are different contracts. A local composition draft may own reversible mutations without implying that a Core/business effect is compensatable. Preview may project the same draft without becoming another state authority.
+
+Proof delta: mutation scope/owner identity; undo only reverses admitted local mutations; discard restores the draft base; preview is observational over the same draft; durable history and authoritative compensation require separate evidence.
+
 ## Candidate Interaction Grammar
 
 Research candidate only; field names are not schema authority.
@@ -71,6 +79,42 @@ Research candidate only; field names are not schema authority.
 6. **Effects** — requested/observed state changes. `accepted` is not equivalent to `effective`.
 7. **Result** — typed execution outcome/evidence envelope sufficient to distinguish at least rejected/unavailable, accepted/pending, effective/succeeded, failed, partial/indeterminate where semantics require them. Exact vocabulary remains synthesis work.
 8. **Presentation consequences** — disabled/pending/error/success/navigation/focus/toast/etc. derived for a projection; they do not become effect authority.
+
+## Station capability ownership census — delta 02
+
+### Composition draft / dirty / validation — existing bounded capability, not a component variant
+
+`packages/station-composition/draft-transaction.ts` already models an immutable valid base, a mutable-by-replacement draft snapshot, validation findings and explicit `dirty`. Every admitted mutation is validated before it can replace the draft. Invalid mutation returns the unchanged transaction plus findings. `discardCompositionDraft` restores the base and clears dirty; `projectCompositionPreview` snapshots the same draft.
+
+Existing product tests prove the bounded invariants: a valid mutation changes preview while preserving base, dirty becomes true, discard restores base and dirty=false, and an invalid root-removal is rejected without corrupting base or draft.
+
+Classification: **own / already implemented** as a composition-level editing transaction. It is reusable C4-like behavior over a composition artifact, but it does not justify `DirtyButton`, `ValidationPane` or another component identity. Dirty and findings are state/consequences of the draft transaction.
+
+Inherited proof: immutable base, admitted valid mutation, explicit dirty transition, discard restoration, invalid mutation fail-closed.
+
+Remaining gap: there is no demonstrated generic undo/redo stack, durable history, concurrent merge semantics, or save/publish authority in this transaction. Those remain `unproven-gap`, not implied by dirty/discard.
+
+### Window move/resize/snap — windowing-owned capability, not composition-grid authority
+
+`packages/station-windowing/window-frame.tsx` owns pointer sessions for move/resize, preview geometry during the pointer session, pointer capture, bounds projection, optional edge snap, and final `SET_GEOMETRY`. The window reducer separately owns `SET_BOUNDS` and geometry normalization. Product tests exercise measured bounds/windowing behavior.
+
+Classification: **own / existing specialized capability** at the windowing boundary. It must not be generalized into composition-grid placement merely because both use spatial terms. `WindowGeometry != composition grid` remains intact.
+
+Inherited proof: bounded window geometry and existing move/resize/bounds behavior where product tests cover it.
+
+Remaining gap: generic drag/drop semantics, reorder semantics, keyboard resize, drop-target negotiation and composition authoring drag are not proven by window movement. Reusing pointer mechanics may be considered later; reusing window authority would be incorrect.
+
+### Ordering/layering — do not promote from incidental z-order
+
+Window instances possess z-order/focus behavior, but this does not prove a reusable collection ordering capability. C3 ordered traversal and future composition/layer ordering have different ownership and mutation semantics.
+
+Classification: **defer generic ordering capability** until an artifact actually requires reusable move-before/move-after/reparent semantics and their proof delta.
+
+### Core result/effect schema census
+
+Repository search reconfirms `CoreCommandIntent` as deliberately non-executable by `PresentationCommandRegistry`, and existing tests prove that projection of Core intents never becomes Station authorization. No existing generic cross-boundary `accepted/effective/partial/retry/compensation/currentness` result contract was located by targeted symbol/vocabulary search in this R3 census.
+
+This negative census is not proof that no domain-specific result type exists anywhere. It is sufficient to block invention of a generic schema here: R3 should carry these concepts as obligations/vocabulary until a concrete authoritative boundary is selected in synthesis/Construction.
 
 ## Failure/recovery semantics
 
@@ -94,6 +138,8 @@ Do **not** create a new capability merely for another button label/icon/color, a
 
 `ApproveDocumentButton` remains a rejected direction when `Button + binding -> approve command + document target + conditions/authority` expresses the case. A genuinely distinct approval capability is justified only by distinct reusable semantic/authority/effect obligations, not by its visual trigger.
 
+Additional dedup rule from the census: a state bit is not automatically a Capability. `dirty` is derived from draft/base difference; validation findings are output of composition validation; pointer preview is transient windowing state. Promote only when there is a reusable owner, transition contract and proof delta.
+
 ## Proof Grammar — inherited vs R3 delta
 
 Coverage vocabulary: `proven | failed | unproven-gap | not-applicable`. Absence of evidence is never PASS.
@@ -106,6 +152,16 @@ Coverage vocabulary: `proven | failed | unproven-gap | not-applicable`. Absence 
 | shortcut conflict fail-closed | proven | inherit existing Station test |
 | focus/selection presentation-context normalization | proven | inherit existing Station test |
 | Core intent cannot execute in presentation registry | proven | inherit authority-boundary test |
+| composition draft preserves immutable base | proven | inherit composition-draft test |
+| admitted composition mutation is validated | proven | inherit composition-draft test |
+| invalid composition mutation fails closed without corrupting draft | proven | inherit composition-draft test |
+| dirty transition + discard restoration | proven | inherit composition-draft test |
+| preview projects same draft rather than second authority | proven, bounded | inherit draft snapshot/preview test; broader multi-projection round-trip remains gap |
+| window move/resize/bounds behavior | proven, bounded | inherit windowing/product evidence; does not transfer to composition placement |
+| generic drag/drop target negotiation | unproven-gap | future authoring capability proof |
+| generic ordering/reparenting | unproven-gap | future artifact-specific proof |
+| generic undo/redo | unproven-gap | draft discard is not undo stack |
+| durable history/versioning | unproven-gap | separate from local undo/draft |
 | target identity/currentness beyond presentation context | unproven-gap | R3/synthesis delta |
 | conditions vs authority separation | unproven-gap | R3/synthesis delta |
 | stale-state rejection at authoritative boundary | unproven-gap | future boundary proof where applicable |
@@ -124,6 +180,8 @@ Future Construction should not build a giant end-to-end suite for every command.
 
 - command registry: identity/conflict/availability transition unit tests;
 - binding/projection: one test that multiple surfaces resolve the same semantic command and preserve target;
+- composition draft: inherit current base/dirty/discard/invalid-mutation tests; add only undo/history delta if such a contract is promoted;
+- drag/drop/reorder: prove target compatibility and mutation semantics at the artifact owner, not via window movement tests;
 - authoritative boundary: stale/unauthorized request fails closed without claiming effect;
 - asynchronous effect contract where applicable: accepted/pending is distinguishable from effective/final;
 - retry/compensation only when admitted by the capability contract;
@@ -137,17 +195,19 @@ The future sufficiency test should attempt the same small Interaction Grammar ag
 
 A domain-specific button/component created only to make an exemplar fit counts as a dedup/sufficiency warning, not success.
 
+The draft census adds a concrete sufficiency constraint: CRUD/editor exemplars should reuse the same base/draft/validation/dirty semantics when applicable rather than inventing per-tool dirty components. Approval/deployment exemplars must not reuse draft discard as if it were compensation for an authoritative external effect.
+
 ## Disposition
 
-- **own**: Station presentation-command identity/context contracts; proof inheritance; provider-independent capability vocabulary.
-- **adapt**: mature context gating, focus arbitration and result/pending representation mechanisms only where accepted semantics require them.
-- **adopt-pattern**: one semantic command across projections; invocation-time revalidation; separation of navigation/focus from activation; pending as presentation consequence rather than authority.
-- **defer**: generic Core executor, transaction engine, retry framework, compensation engine, AI/MCP command generation, or product-specific capability catalog.
+- **own**: Station presentation-command identity/context contracts; composition draft transaction; windowing-local move/resize; proof inheritance; provider-independent capability vocabulary.
+- **adapt**: mature context gating, focus arbitration, local undo/history mechanics and result/pending representation mechanisms only where accepted semantics require them.
+- **adopt-pattern**: one semantic command across projections; invocation-time revalidation; separation of navigation/focus from activation; pending as presentation consequence rather than authority; explicit separation of undo, draft discard, durable history and authoritative compensation.
+- **defer**: generic Core executor, transaction engine, generic ordering/reparenting, generic undo framework, compensation engine, AI/MCP command generation, or product-specific capability catalog.
 
 ## Current R3 gaps / next work
 
-1. Census existing Station dirty/validation/drag-drop/resize/ordering capabilities and classify component-owned vs shared service vs projection.
-2. Search existing Core contracts before proposing any cross-boundary result/effect schema.
-3. Benchmark editor/workstation command models only against concrete open questions: target resolution, contextual enablement, undo/redo ownership, async result/currentness and projection invariance.
+1. Census any existing composition insertion/reparent/reorder and validation finding contracts before proposing drag/drop authoring grammar.
+2. Inspect existing Station save/persistence/versioning boundaries to separate local draft from durable artifact authority.
+3. Benchmark editor/workstation models only against remaining concrete questions: target resolution, contextual enablement, undo scope, async result/currentness and projection invariance.
 4. Extend proof matrix for each promotable capability; do not convert implementation presence to PASS.
 5. Keep R4 blocked until R3 handoff bounds capability ownership and proof debt.
