@@ -1,6 +1,7 @@
 # TASK-622 — Component Lab shared editor engine proof
 
-Status: running
+Status: completed
+Historical status note: normalized after integration through PR #929 / merge commit `8fb4907e24bf3e3d92d2930d01fc04df36a359e2`. This file is not an operational pointer; see `docs/current/NEXT_WORK.md`.
 Depends on: TASK-621
 
 ## Allowed
