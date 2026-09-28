@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-09-28
-Repository truth base: `main@d76a5a38abb7158c1b2577fddee391fd24843361`
-Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R6 IN PROGRESS
+Repository truth base: `main@1ad0f77c6e15482e2706c530e7c61f4305e585d1`
+Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R7 IN PROGRESS
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -15,17 +15,17 @@ Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R6 IN PROGRESS
 
 ## Predecessor closure
 
-Station M2 Component Composition/Editor is CLOSED. S3-R1 census/parity, S3-R2 compounds/collections, S3-R3 interaction capabilities, S3-R4 Pane/Region & Patterns, and S3-R5 Templates/Full Views are complete as research evidence. R5 handoff merged through PR #969 at `main@d76a5a38`. Research evidence remains non-authoritative until S3 synthesis/materialization.
+Station M2 Component Composition/Editor is CLOSED. S3-R1 census/parity, S3-R2 compounds/collections, S3-R3 interaction capabilities, S3-R4 Pane/Region & Patterns, S3-R5 Templates/Full Views, and S3-R6 Tool-level compositions are complete as research evidence. R6 handoff merged through PR #970 at `main@3365cf3d`; subsequent main documentation advanced to `main@1ad0f77c`. Research evidence remains non-authoritative until S3 synthesis/materialization.
 
 ## Current phase
 
-**S3-R6 — Tool-level compositions is in research/documentation on branch `station-s3-r6-tool-compositions`.**
+**S3-R7 — Application/Studio-readiness + Core projection census is in research/documentation on branch `station-s3-r7-studio-readiness`.**
 
-R6 studies C8 Tool promotion: reusable orchestration of C7 views/templates, panes/regions, commands/capabilities and presentation state into a coherent manual deterministic work surface without acquiring Core/business authority. Primary questions are Tool identity vs configured application instance, workspace/view ownership, command/context routing, persistence/restoration boundaries, multi-view consequences, failure/recovery presentation, accessibility/focus, provider-independent extension seams, and delta-only Proof Grammar.
+R7 studies C9 Application and C10 Studio promotion without constructing a specialized Studio. It must determine what is genuinely new above C8 Tool, what remains AppManifest/configuration, how multiple Tools may cooperate around one canonical work artifact/context without duplicated authority, and which Core contracts are reused/projected rather than copied into Station. The Core Contract Reuse & Station Projection Census is mandatory before any proposed new cross-boundary contract.
 
 Dependency forecast:
 
-`R1 census -> R2 compounds/collections -> R3 interaction capabilities -> R4 regions/patterns -> R5 templates/views -> R6 tool families -> R7 studio-readiness + Core projection census -> synthesis -> Construction materialization`
+`R1 census -> R2 compounds/collections -> R3 interaction capabilities -> R4 regions/patterns -> R5 templates/views -> R6 tool families -> R7 application/studio-readiness + Core projection census -> synthesis -> Construction materialization`
 
 ## Preserved constraints
 - `ComponentRegistry != AppManifest`;
@@ -40,8 +40,9 @@ Dependency forecast:
 - semantic reparent/order remains blocked by its R3 proof gaps rather than being smuggled into Layers/drag UX;
 - projection identity/revision never becomes canonical artifact authority;
 - C7 source/YAML, Inspector/Layers/Graph and multi-projection gaps remain explicit until proved;
+- C8 active-context/restoration/multi-view/extension obligations remain explicit until proved;
 - no specialized Studios and no AI/MCP foundation before research/synthesis/materialization gates.
 
 ## Next eligible work
 
-Continue S3-R6 blocker-first: census existing tool/workbench/editor compositions and executable evidence; compare mature IDE/workstation families (VS Code/JetBrains, Adobe, Blender, CAD/engineering tools) for tool identity, workspace/view composition, command/context routing, panes/tabs/inspectors/explorers, restoration, failure/recovery presentation, keyboard/focus and extension boundaries. Derive C8 promotion/dedup criteria, proof inheritance/delta obligations, representative journeys and Grammar Sufficiency coverage. Explicitly carry R3-R5 gaps without converting missing evidence to PASS. R7 is not eligible until the R6 handoff is integrated/recorded. No Construction TASK is eligible until R6-R7, synthesis, Test Review/Hardening planning, QA Coverage/Evidence Review planning, and explicit Construction materialization satisfy the S3 planning exit gate.
+Continue S3-R7 blocker-first: census existing Application/AppManifest/workspace/artifact/context/Core projection contracts and executable evidence; compare mature IDE/workstation families only where they answer C9/C10 questions about application identity, multi-tool workspace/context, artifact lifecycle, restoration, cross-tool consequences and extension boundaries. Derive C9/C10 promotion/dedup criteria, proof inheritance/delta obligations, representative journeys, Core reuse/projection gaps and Grammar Sufficiency coverage. Explicitly distinguish Application identity from AppManifest configuration and Studio semantics from a mere collection of Tools. Do not construct Studios. Synthesis is not eligible until the R7 handoff is integrated/recorded. No Construction TASK is eligible until R7, synthesis, Test Review/Hardening planning, QA Coverage/Evidence Review planning, and explicit Construction materialization satisfy the S3 planning exit gate.
