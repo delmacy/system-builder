@@ -185,12 +185,78 @@ Current role vocabulary can describe these layouts without domain-specific pane 
 
 These journeys describe human expectation and do not themselves establish machine conformance or product authority.
 
+## Executable-evidence census — R4 delta 02
+
+Fresh-main census separates code shape, executable proof and future obligation instead of treating an implemented surface as automatically proven.
+
+### EditorShell
+
+`packages/ui-core/editor-shell.test.ts` provides executable bounded proof that the current shell renders the seven accessible named regions (`toolbar`, navigation, palette, layers, work area, inspector, status) even with empty slots, and that partial caller-owned content can be composed. This upgrades the current named-region anatomy from implementation-only evidence to `proven/bounded` for the exact current shell contract. It does **not** prove generic Pane relocation, visibility state, focus restoration, local resize semantics or arbitrary nesting.
+
+The negative assertion that rendered markup does not contain the strings `ComponentRegistry`, `AppManifest` or `WindowGeometry` is useful regression evidence against accidental coupling in that fixture, but it is not a proof that the shell can never acquire semantic authority. Authority separation remains established primarily by contract/API ownership and architecture, with tests as conformance evidence.
+
+### PropertyInspector
+
+The current implementation has a fail-safe rendering rule: a row is read-only by default and any `known:false` row is forced read-only. That is implementation evidence consistent with TASK-613's historical acceptance contract. The repository census did not find a dedicated `property-inspector.test.*`; therefore neutral rendering is `proven/bounded` only to the extent exercised by cumulative product/CI evidence, while the specific unknown/read-only rule remains an explicit **proof gap** until a focused executable assertion exists. Most importantly, there is still no contract/schema resolver: caller-supplied groups are not evidence of schema-driven Inspector behavior.
+
+### Component Lab / projections
+
+`component-lab-editor-proof.tsx` visibly uses one `ComponentEditorState` for canonical composition transaction, selected node, preview and Inspector input, but its `layers` tree and `layerCollection` are static parallel constants. `groups(selection,state)` also manually assembles Inspector rows. This is executable product surface evidence for a bounded same-state journey, not proof of derived projections. No search result establishes a focused executable test proving `canonical graph -> Layers` derivation or Inspector mutation -> one canonical mutation -> all projections refresh. Those remain `unproven-gap`.
+
+The current PR head has successful Merge Candidate CI, Heavy Product Tests, Deterministic CI and Automation Handoff workflows. Green CI establishes that the research/documentation delta does not break the declared repository gates; it does not promote any missing R4 semantic proof to PASS.
+
+## Benchmark delta — pane state and input-route equivalence
+
+Independent workstation evidence sharpens C5 without expanding scope:
+
+- JetBrains tool windows can be moved by pointer or command, resized by pointer or keyboard, hidden and later focused again; layouts can remember placement/size. The Station extraction is not “implement docking”: it is that **placement mutation and input route are separable from semantic pane identity**, and where multiple routes are admitted they should converge on the same presentation mutation and restoration policy.
+- Blender Area maximize/focus modes hide secondary regions and later restore the prior layout. The useful extraction is **visibility/focus mode may suppress a projection without mutating the editor/artifact identity**. Split/join/floating remain deferred.
+- VS Code Views retain declared view identity while being hosted by View Containers and may be moved among supported containers. The extraction is `view identity != container placement`; provider contribution schemas remain non-authoritative.
+
+Classification remains `adopt-pattern` for identity/placement separation, restoration semantics and equivalent input routes; `defer/not-applicable` for unrestricted docking/floating and provider-specific extension models.
+
+### Proof consequences
+
+If C5 later admits pane relocation/show-hide/resize, the minimum delta proof is:
+1. the same `paneRef` survives admitted placement/visibility changes;
+2. pointer and keyboard/command routes, when both exist, resolve the same presentation mutation rather than duplicate owners;
+3. hiding/focusing/restoring a pane does not mutate canonical artifact/business state;
+4. restoration uses declared presentation state and cannot silently resurrect stale canonical content;
+5. contextual shortcuts are active only in their declared region/context and do not steal keys outside it.
+
+These are C5 delta proofs. Primitive focus/button/keyboard mechanics already proven below C5 are inherited, not replayed.
+
+## C5/C6 exit matrix — working handoff candidate
+
+| Finding | Level | Classification | Coverage now | Inherited proof | Smallest future delta proof / gap |
+| --- | --- | --- | --- | --- | --- |
+| named editor region anatomy | C5 | own/adapt current Station | proven/bounded | C0-C3 composition + EditorShell executable test | generic pane identity/placement still separate gap |
+| region identity != placement | C5 | adopt-pattern | unproven-gap generically | R3 identity/placement discipline | stable `paneRef` across admitted relocation |
+| contextual focus/show-hide/restoration | C5 | adopt-pattern | unproven-gap | lower focus mechanics | deterministic entry/exit/restoration; artifact unchanged |
+| unrestricted docking/floating | C5 | defer | not-applicable foundation | none | only admit if a later requirement creates scope |
+| neutral Inspector renderer | C5 | own current Station | proven/bounded implementation seam | PropertyGroup/Row contract | focused unknown/read-only executable assertion remains gap |
+| contract/schema -> Inspector projection | C5/C6 | own/adapt | unproven-gap | ComponentRegistry + selection + neutral renderer | two schemas yield different fields without feature hardcode; unknown fails closed |
+| Layers derived from canonical graph | C5/C6 | own/adapt | unproven-gap | graph identity + selection | graph mutation updates structural projection with no second authority |
+| multi-projection synchronization | C6 | own/adapt | unproven-gap broad | preview=same draft bounded proof | one admitted mutation observed by Inspector/Layers/preview through canonical state |
+| action-pattern command reuse | C6 | own/adapt | candidate/inherited | R3 command/target/authority/result grammar | same semantic command projected by multiple participant roles without identity/result strengthening |
+| Form/Confirmation/Destructive Actions | C6 | adopt-pattern candidate | unproven-gap as promoted patterns | C2/C3 action grouping + C4 command grammar | cross-domain participant substitutions + journey delta; no domain authority |
+| semantic reparent/order through Layers | C6 | blocked | unproven-gap | placement validation only | R3 cycle/reachability + ordering authority must close first |
+| source/YAML round-trip | R5 input | defer to R5 | unproven-gap | none sufficient | serialization/view contract and round-trip proof in R5 |
+
+No row is promoted because a benchmark has it. `proven/bounded` means only the named current contract is evidenced; generic promotion still requires the listed delta.
+
+## R4 sufficiency / dedup checkpoint
+
+The five-role vocabulary (`command/toolbar`, `navigation`, `work/editor`, `inspector/context`, `status/result`) remains sufficient as a **working grammar** for the five representative systems without requiring `ApproveDocumentPane`, `TicketInspector`, `DeploymentRetryToolbar` or domain-specific region classes. No independent proof delta has yet justified splitting `status/result` into another C5 type; keep it configuration/subrole until evidence says otherwise.
+
+The remaining sufficiency gaps are not “missing component names”: they are contract-to-Inspector projection, canonical graph-to-Layers derivation, broad multi-projection synchronization, C6 cross-participant journeys, and inherited R3 reparent/order blockers. This is the desired shape of the phase: grammar gaps remain explicit rather than being papered over by adding components.
+
 ## Current gaps / next research
 
-1. Census current tests for EditorShell/PropertyInspector/Component Lab to classify which bounded region/projection obligations are executable versus implementation-only evidence.
-2. Research Layers/tree projection synchronization and mature editor mutation semantics without importing provider trees as authority.
-3. Determine whether current five-role vocabulary is sufficient or whether result/details deserves a distinct C5 role based on reuse/proof delta rather than layout.
-4. Derive C5/C6 exit/proof matrix after the test census.
+1. Focus next on Layers/tree projection synchronization and mature editor mutation semantics without importing provider trees as authority.
+2. Search for any existing repository projection/adapter patterns that can derive Layers and Inspector descriptors from canonical graph/registry contracts before proposing a new Station contract.
+3. Keep the five-role C5 vocabulary unless an independent reuse/proof delta justifies another role.
+4. Close the C5/C6 Exit/Proof Matrix only after projection derivation and C6 representative journeys are classified.
 5. Carry source/YAML round-trip explicitly into R5; do not fake R4 completion by declaring it proven.
 
 R5, Construction, Studios and AI/MCP remain blocked until R4 handoff and dependency gates.
