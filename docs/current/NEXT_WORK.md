@@ -1,7 +1,7 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-09-28
-Repository truth base: `main@1ad0f77c6e15482e2706c530e7c61f4305e585d1`
+Repository truth base: `main@1dbb6d4076ad89a0b0d9b2d704c6b2fdc39185dd`
 Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R7 IN PROGRESS
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
@@ -25,7 +25,7 @@ R7 studies C9 Application and C10 Studio promotion without constructing a specia
 
 Dependency forecast:
 
-`R1 census -> R2 compounds/collections -> R3 interaction capabilities -> R4 regions/patterns -> R5 templates/views -> R6 tool families -> R7 application/studio-readiness + Core projection census -> synthesis -> Construction materialization`
+`R1 census -> R2 compounds/collections -> R3 interaction capabilities -> R4 regions/patterns -> R5 templates/views -> R6 tool families -> R7 application/studio-readiness + Core projection census -> R7B engineering workbench/product-factory benchmark -> synthesis + Decision Graph -> Construction materialization`
 
 ## Preserved constraints
 - `ComponentRegistry != AppManifest`;
@@ -45,4 +45,4 @@ Dependency forecast:
 
 ## Next eligible work
 
-Continue S3-R7 blocker-first: census existing Application/AppManifest/workspace/artifact/context/Core projection contracts and executable evidence; compare mature IDE/workstation families only where they answer C9/C10 questions about application identity, multi-tool workspace/context, artifact lifecycle, restoration, cross-tool consequences and extension boundaries. Derive C9/C10 promotion/dedup criteria, proof inheritance/delta obligations, representative journeys, Core reuse/projection gaps and Grammar Sufficiency coverage. Explicitly distinguish Application identity from AppManifest configuration and Studio semantics from a mere collection of Tools. Do not construct Studios. Synthesis is not eligible until the R7 handoff is integrated/recorded. No Construction TASK is eligible until R7, synthesis, Test Review/Hardening planning, QA Coverage/Evidence Review planning, and explicit Construction materialization satisfy the S3 planning exit gate.
+Continue S3-R7 blocker-first: census existing Application/AppManifest/workspace/artifact/context/Core projection contracts and executable evidence; compare mature IDE/workstation families only where they answer C9/C10 questions about application identity, multi-tool workspace/context, artifact lifecycle, restoration, cross-tool consequences and extension boundaries. Derive C9/C10 promotion/dedup criteria, proof inheritance/delta obligations, representative journeys, Core reuse/projection gaps and Grammar Sufficiency coverage. Explicitly distinguish Application identity from AppManifest configuration and Studio semantics from a mere collection of Tools. Do not construct Studios. R7B is not eligible until the R7 handoff is integrated/recorded. Synthesis is not eligible until R7B is complete and must materialize the Decision Graph required by the current S3 plan. No Construction TASK is eligible until R7, R7B, synthesis/Decision Graph, Test Review/Hardening planning, QA Coverage/Evidence Review planning, and explicit Construction materialization satisfy the S3 planning exit gate.
