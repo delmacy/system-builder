@@ -75,6 +75,33 @@ Do not promote `Builder Tool`, `Runtime Tool` or `Shared Tool` to new grammar le
 
 Do not promote Studio from Tool count, workspace richness or editing alone.
 
+## Late R7 pressure case — tenant portability / anti-lock-in
+
+A late R7 review input adds tenant portability as a bounded R7B/synthesis pressure case. This does **not** authorize a storage topology, tenancy primitive, deployment product, or new Core contract.
+
+The adversarial question is whether tenant ownership/portability can remain invariant while physical isolation changes among shared database/shared schema, shared cluster/isolated schema, dedicated database, and dedicated deployment. Topology must not silently become ownership semantics.
+
+Candidate obligations to carry into R7B/synthesis, all `unproven-gap` until the Core/authority census finds reusable contracts or proves a genuine gap:
+
+- Tenant Isolation Proof — a tenant-scoped operation cannot resolve or mutate another tenant's canonical state;
+- Cross-Tenant Leakage Proof — export/readback/logging/projection paths contain zero foreign-tenant payload;
+- Export Completeness Proof — all admitted tenant-owned domain data/assets/configuration required by the versioned export contract are represented;
+- Import + Referential Integrity Proof — clean-target import preserves admitted canonical identities/references or applies an explicit deterministic migration mapping;
+- Version Compatibility/Migration Proof — incompatible model/schema versions fail closed or execute an explicit governed migration;
+- Round-Trip Proof — tenant A -> export -> clean target -> import yields semantic equivalence under the declared contract while including zero tenant-B data;
+- Secret Boundary Proof — platform/provider/other-tenant credentials are neither exported nor inferred as tenant-owned payload;
+- Isolation Promotion Proof — moving a tenant to stronger physical isolation does not require application/domain redesign and does not change tenant/domain ownership semantics.
+
+Human-readable acceptance journeys:
+
+- export tenant A from shared infrastructure -> versioned tenant package is produced -> package contains the declared A-owned state and zero B-owned state;
+- import that package into a clean compatible target -> import validates version/integrity/references -> resulting tenant state is semantically equivalent to the declared source snapshot;
+- import into an incompatible target -> compatibility check fails or governed migration runs -> no partial silent canonical mutation;
+- promote tenant A from shared topology to dedicated database/deployment -> topology changes -> tenant/application/domain identities and ownership semantics remain stable;
+- request full system handoff -> tenant data/runtime/configuration/integrity manifest are separated from secrets/provider credentials -> no platform or foreign-tenant secret crosses the boundary.
+
+R7B must benchmark portability/isolation approaches only to challenge these invariants. Synthesis decides whether topology is deployment metadata, domain metadata, or a distinct governed concern. Missing repository evidence must remain a gap; external precedent cannot create Core authority.
+
 ## R7B challenge contract
 
 R7B is the next research gate after this handoff is integrated. It must use Unreal-like engineering workbenches, CAD/CAE, JetBrains MPS, Eclipse Sirius, Palantir Foundry, Mendix and only non-duplicative IDE/Blender evidence to challenge:
@@ -86,7 +113,9 @@ R7B is the next research gate after this handoff is integrated. It must use Unre
 - Tool destination as metadata versus grammar;
 - save/readback/regeneration/currentness;
 - extension/plugin boundaries and provider independence;
-- proof/validation/recovery hooks.
+- proof/validation/recovery hooks;
+- tenant ownership versus physical isolation topology;
+- versioned tenant export/import, round-trip integrity, migration compatibility and secret boundaries.
 
 Every finding must answer an open Station question or challenge a hypothesis, record independent convergence/divergence, classify adopt/adapt/reference-only/reject-defer, state inherited proofs, derive delta proof obligations, and preserve unresolved gaps.
 
