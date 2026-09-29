@@ -178,6 +178,3 @@ S3 Planning/Research is ready for Construction materialization only when:
 - new Core/business authority;
 - remote publish/deploy/provider runtime scope not separately admitted;
 - silent replacement of existing M2 contracts;
-- treating a generated test or QA recommendation as product authority by itself;
-- copying external CAD/game-engine/low-code architecture without System Builder-specific evidence and authority;
-- treating the Decision Graph as a mechanism for silently creating contract scope.
