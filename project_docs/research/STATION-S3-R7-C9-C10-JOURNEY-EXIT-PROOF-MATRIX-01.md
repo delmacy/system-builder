@@ -28,6 +28,29 @@ C10 remains a promotion hypothesis, not an automatic requirement. Shared work co
 
 The smallest C10 proof is that multiple Tools resolve one canonical work reference/revision and one authoritative result drives affected projections without duplicated truth or local strengthening.
 
+## C9 Application versus C10 Studio authoring-regime hypothesis
+
+R7 records a sharper adversarial hypothesis for R7B: the promotion boundary may be a change in **work regime over the artifact**, not Tool count, visual richness, or domain naming.
+
+- C9 Application may primarily consume, present, execute or perform bounded interventions on an artifact/context (reader/player/runner behavior can still include annotations, metadata edits, print/export or other bounded commands).
+- Candidate C10 Studio may represent a coordinated authoring work context in which multiple reusable Tools structurally transform one versioned working artifact/definition and materialize a new revision.
+- Tool count is explicitly non-discriminating: a feature-rich reader remains C9 if the authoring invariant is absent; a smaller workbench may qualify for C10 only if the invariant is proved.
+- Editing alone is non-discriminating. A single annotation, rename or metadata update does not promote C10.
+- Candidate C10 delta to falsify in R7B: shared working artifact/context + structural mutation + coordinated multi-Tool editing + authoring history/version lifecycle + materialization/publication of a new revision.
+- Useful heuristic, not a contract: an Application often operates the object; a Studio may operate the object's editable definition/structure. CAD/media cases must challenge this wording because direct artifact editing may still be Studio-like.
+- Reader/Player/Runner/Worker/Editor/Versioner remain roles or capability envelopes unless materially distinct identity/lifecycle/ownership/proof invariants force promotion. Do not create new grammar levels from these names.
+
+Candidate acceptance journeys:
+
+- open artifact@R17 -> reader projection resolves R17 -> navigation/annotation/print changes only declared bounded state and never silently creates authoring authority.
+- open artifact@R17 for authoring -> one working context is established -> all participating Tools resolve the same working identity/revision.
+- Tool A structurally edits the working artifact -> one admitted authoring mutation/revision occurs -> Tool B/Layers/Inspector/Preview invalidate or regenerate from that same revision.
+- undo/redo request -> authoring history owner applies or rejects it -> projections converge without treating business compensation as editor undo.
+- publish/save materialization -> owning contract validates currentness -> artifact@R18 is produced or rejection remains explicit; no visual success substitutes for authoritative result.
+- rearrange/hide/restore Studio Tools -> presentation changes -> working artifact identity, revision and authority remain unchanged; restored projections revalidate currentness.
+
+This is research evidence only. R7B must actively seek counterexamples in PDF/document editors, IDEs, CAD/CAE, media editors, Unreal-like workbenches, MPS/Sirius and low-code/modeling environments. If C9 + Tool/configuration already expresses the full regime without a reusable semantic delta, C10 must not be promoted.
+
 ## Client-deliverable Tool pressure
 
 R7 must test an operational Work Order Workspace composed from reusable C8 Tool families such as Asset Explorer, Document Viewer, Annotation, Checklist, Measurement, Diagnostic and Timeline. This challenges the assumption that produced systems are only transactional pages/forms.
