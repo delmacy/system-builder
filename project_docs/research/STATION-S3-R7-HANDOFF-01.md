@@ -102,6 +102,68 @@ Human-readable acceptance journeys:
 
 R7B must benchmark portability/isolation approaches only to challenge these invariants. Synthesis decides whether topology is deployment metadata, domain metadata, or a distinct governed concern. Missing repository evidence must remain a gap; external precedent cannot create Core authority.
 
+
+## Late R7 pressure case — horizontal provider catalog / open-source-first platform composition
+
+A late R7 review input adds a horizontal provider-catalog pressure case for R7B/synthesis. This does **not** authorize a default stack, installation topology, provider lock-in, or replacement of existing Core/Station contracts.
+
+The bounded question is whether System Builder can prefer mature horizontal infrastructure/platform providers for non-differentiating capabilities while preserving one canonical SB capability contract, producer/produced independence, replaceability and an explicit exit path. Vertical/domain applications such as helpdesk, ERP, CRM or DMS products are out of scope for this infrastructure-provider catalog; they remain possible client systems, integrations or benchmarks rather than SB platform dependencies.
+
+R7B/synthesis must distinguish:
+
+- **default provider** — preferred implementation for one capability when no existing compatible provider is supplied;
+- **alternative provider** — mutually substitutable implementation of the same capability, not installed in parallel by default;
+- **complementary provider** — implementation of a distinct capability that may legitimately coexist in the same stack;
+- **existing provider binding** — compatible infrastructure already owned/operated by the customer, reused instead of reinstalled;
+- **deferred/enterprise-only provider** — useful only when scale, compliance, HA or workload evidence justifies the additional operational weight.
+
+Candidate capability families to research, without freezing product choices:
+
+- compute/cloud/virtualization;
+- database/persistence;
+- durable workflow execution;
+- identity/authentication;
+- authorization/policy;
+- secrets;
+- artifact/object storage;
+- cache/ephemeral state;
+- messaging/event transport;
+- networking/edge;
+- telemetry/metrics/logs/traces;
+- infrastructure provisioning/configuration;
+- source/package/container registries;
+- backup/recovery;
+- PKI/certificates;
+- security/scanning/supply-chain controls.
+
+Every provider candidate must be evaluated by factual criteria rather than popularity alone:
+
+- license and commercial/self-host redistribution compatibility;
+- active maintenance and operational maturity;
+- API/automation surface;
+- self-hosting viability;
+- multi-tenant/isolation support where relevant;
+- HA/backup/restore support where relevant;
+- resource footprint and dependency weight;
+- observability/health surface;
+- export/import and data/config portability;
+- replacement cost and explicit exit path;
+- overlap with already-selected providers;
+- whether the capability is actually required by a deployment.
+
+Candidate Proof Grammar / governance obligations, all `unproven-gap` until evidence is integrated:
+
+- **Provider Substitution Proof** — replacing one implementation behind an unchanged admitted capability contract does not require client-domain redesign;
+- **No Duplicate Default Proof** — two providers for the same capability are not activated by default without an explicit workload/policy reason;
+- **Capability Necessity Proof** — a provider is provisioned only when an admitted system/platform capability requires it;
+- **Existing Infrastructure Reuse Proof** — compatible customer-owned infrastructure can be bound without reinstalling the SB default;
+- **Provider Exit Proof** — state/configuration required by the capability can be exported, migrated or explicitly classified non-portable before adoption;
+- **License Compatibility Proof** — default installation/redistribution/commercial use is compatible with the declared license model;
+- **Producer Independence Proof** — no provider selected for building/management makes System Builder itself a mandatory runtime dependency of a produced client system;
+- **Horizontal Scope Proof** — the provider supplies a reusable platform/infrastructure capability rather than silently importing a vertical client-domain application into the SB foundation.
+
+R7B should compare mature open-source-first candidates only where doing so answers these capability/overlap questions. Synthesis must produce a Provider Catalog decision surface that records at least `capability`, `default|alternative|complementary|deferred`, license, footprint, portability/exit path, and install-when-needed policy. Missing evidence remains a gap; external product precedent does not create SB authority.
+
 ## R7B challenge contract
 
 R7B is the next research gate after this handoff is integrated. It must use Unreal-like engineering workbenches, CAD/CAE, JetBrains MPS, Eclipse Sirius, Palantir Foundry, Mendix and only non-duplicative IDE/Blender evidence to challenge:
@@ -115,7 +177,8 @@ R7B is the next research gate after this handoff is integrated. It must use Unre
 - extension/plugin boundaries and provider independence;
 - proof/validation/recovery hooks;
 - tenant ownership versus physical isolation topology;
-- versioned tenant export/import, round-trip integrity, migration compatibility and secret boundaries.
+- versioned tenant export/import, round-trip integrity, migration compatibility and secret boundaries;
+- horizontal provider capability boundaries, default-vs-alternative overlap, license/footprint/portability, existing-infrastructure reuse and explicit provider exit paths.
 
 Every finding must answer an open Station question or challenge a hypothesis, record independent convergence/divergence, classify adopt/adapt/reference-only/reject-defer, state inherited proofs, derive delta proof obligations, and preserve unresolved gaps.
 
