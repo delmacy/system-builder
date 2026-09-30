@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
-Date: 2026-09-28
-Repository truth base: `main@1dbb6d4076ad89a0b0d9b2d704c6b2fdc39185dd`
-Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R7 IN PROGRESS
+Date: 2026-09-30
+Repository truth base: `main@d2cd9b404501781de90564b2029277efdfcb023f`
+Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R7B IN PROGRESS
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -19,9 +19,9 @@ Station M2 Component Composition/Editor is CLOSED. S3-R1 census/parity, S3-R2 co
 
 ## Current phase
 
-**S3-R7 — Application/Studio-readiness + Core projection census is in research/documentation on branch `station-s3-r7-studio-readiness`.**
+**S3-R7B — engineering workbench/product-factory benchmark is in research/documentation on branch `station-s3-r7b-engineering-benchmark`.**
 
-R7 studies C9 Application and C10 Studio promotion without constructing a specialized Studio. It must determine what is genuinely new above C8 Tool, what remains AppManifest/configuration, how multiple Tools may cooperate around one canonical work artifact/context without duplicated authority, and which Core contracts are reused/projected rather than copied into Station. The Core Contract Reuse & Station Projection Census is mandatory before any proposed new cross-boundary contract.
+R7 is integrated through PR #972 at `main@d2cd9b404501781de90564b2029277efdfcb023f`. R7B now falsifies the accumulated C0→C10 grammar against mature engineering workbenches/product factories without constructing a specialized Studio or promoting research to authority. Matrices 01–03 cover structured-model/multi-projection workbenches, CAD/CAE dependency-regeneration pressure, and ontology-backed operational applications.
 
 Dependency forecast:
 
@@ -45,4 +45,4 @@ Dependency forecast:
 
 ## Next eligible work
 
-Continue S3-R7 blocker-first: census existing Application/AppManifest/workspace/artifact/context/Core projection contracts and executable evidence; compare mature IDE/workstation families only where they answer C9/C10 questions about application identity, multi-tool workspace/context, artifact lifecycle, restoration, cross-tool consequences and extension boundaries. Derive C9/C10 promotion/dedup criteria, proof inheritance/delta obligations, representative journeys, Core reuse/projection gaps and Grammar Sufficiency coverage. Explicitly distinguish Application identity from AppManifest configuration and Studio semantics from a mere collection of Tools. Do not construct Studios. R7B is not eligible until the R7 handoff is integrated/recorded. Synthesis is not eligible until R7B is complete and must materialize the Decision Graph required by the current S3 plan. No Construction TASK is eligible until R7, R7B, synthesis/Decision Graph, Test Review/Hardening planning, QA Coverage/Evidence Review planning, and explicit Construction materialization satisfy the S3 planning exit gate.
+Continue S3-R7B blocker-first. Benchmark provider/tenant portability only where it adds non-duplicative evidence to the Producer Independence Profile from Matrix 01: build-time, runtime, management-plane, data/config portability, provider substitution and exit/rebuild. Preserve identity != placement != presentation != action; semantic patterns above primitives; span/discrete composition; one authority/many projections; and no Core/business authority in Station. Do not construct Studios. Synthesis is not eligible until R7B is complete and must materialize the Decision Graph required by the current S3 plan. No Construction TASK is eligible until R7, R7B, synthesis/Decision Graph, Test Review/Hardening planning, QA Coverage/Evidence Review planning, and explicit Construction materialization satisfy the S3 planning exit gate.
