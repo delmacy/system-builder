@@ -2,7 +2,7 @@
 
 Date: 2026-09-30
 Repository truth base: `main@d2cd9b404501781de90564b2029277efdfcb023f`
-Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R7B IN PROGRESS
+Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R7B COMPLETE; SYNTHESIS NEXT
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -19,9 +19,9 @@ Station M2 Component Composition/Editor is CLOSED. S3-R1 census/parity, S3-R2 co
 
 ## Current phase
 
-**S3-R7B — engineering workbench/product-factory benchmark is in research/documentation on branch `station-s3-r7b-engineering-benchmark`.**
+**S3-R7B — engineering workbench/product-factory benchmark is research-complete on branch `station-s3-r7b-engineering-benchmark`; synthesis + Decision Graph is the next eligible research/documentation phase.**
 
-R7 is integrated through PR #972 at `main@d2cd9b404501781de90564b2029277efdfcb023f`. R7B now falsifies the accumulated C0→C10 grammar against mature engineering workbenches/product factories without constructing a specialized Studio or promoting research to authority. Matrices 01–03 cover structured-model/multi-projection workbenches, CAD/CAE dependency-regeneration pressure, and ontology-backed operational applications.
+R7 is integrated through PR #972 at `main@d2cd9b404501781de90564b2029277efdfcb023f`. R7B falsified the accumulated C0→C10 grammar against mature engineering workbenches/product factories without constructing a specialized Studio or promoting research to authority. Matrices 01–05 cover structured-model/multi-projection workbenches, CAD/CAE dependency-regeneration pressure, ontology-backed operational applications, provider/tenant portability, and tenant export/import falsification. Closure Audit/Handoff 06 deduplicates the evidence and marks benchmark expansion research-complete while preserving all unresolved proof obligations as UNPROVEN.
 
 Dependency forecast:
 
@@ -45,4 +45,4 @@ Dependency forecast:
 
 ## Next eligible work
 
-Continue S3-R7B blocker-first. Benchmark provider/tenant portability only where it adds non-duplicative evidence to the Producer Independence Profile from Matrix 01: build-time, runtime, management-plane, data/config portability, provider substitution and exit/rebuild. Preserve identity != placement != presentation != action; semantic patterns above primitives; span/discrete composition; one authority/many projections; and no Core/business authority in Station. Do not construct Studios. Synthesis is not eligible until R7B is complete and must materialize the Decision Graph required by the current S3 plan. No Construction TASK is eligible until R7, R7B, synthesis/Decision Graph, Test Review/Hardening planning, QA Coverage/Evidence Review planning, and explicit Construction materialization satisfy the S3 planning exit gate.
+Stop benchmark expansion. The next eligible work is S3 synthesis + Decision Graph, consuming R1→R7B as research evidence while preserving every unresolved obligation as UNPROVEN. Synthesis must deduplicate the C0→C10 grammar, record adopted/adapted/rejected/deferred decisions with provenance and supersession, and materialize the required proof/test matrix: contract/unit, schema/composition invariants, component interaction, Playwright journeys, visual/structural regression, accessibility, and Station/Core integration contracts. Preserve identity != placement != presentation != action; semantic patterns above primitives; span/discrete composition; one authority/many projections; and no Core/business authority in Station. Do not construct Studios. No Construction TASK is eligible until synthesis/Decision Graph, Test Review/Hardening planning, QA Coverage/Evidence Review planning, and explicit Construction materialization satisfy the S3 planning exit gate.
