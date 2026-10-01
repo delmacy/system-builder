@@ -3,7 +3,7 @@
 Date: 2026-09-30
 Status: RESEARCH / SYNTHESIS — NON-AUTHORITATIVE
 Truth base: main@d2cd9b404501781de90564b2029277efdfcb023f
-Evidence line: R1→R7 + R7B Matrices 01–05 + Closure Audit/Handoff 06
+Evidence line: R1→R7 + R7B Matrices 01–05 + Closure Audit/Handoff 06 + Synthesis Decision Graph Audit 02 reconciliation
 
 ## Guardrail
 This document synthesizes research evidence. It does not materialize Construction, create product semantics, or create Core/business authority. Missing executable evidence remains UNPROVEN.
@@ -24,19 +24,22 @@ This document synthesizes research evidence. It does not materialize Constructio
 | DG-10 | Studio promotion requires a reusable semantic delta beyond C9 + Tools/config | DEFER / UNPROVEN | candidate delta: shared working artifact/context + coordinated structural authoring + revision/history/currentness + materialization/reopen |
 | DG-11 | Provider, tenant and deployment topology are bindings/topology, not grammar primitives | ADOPT | producer independence is tested separately from UI grammar |
 | DG-12 | Station remains presentation/composition; existing Core/business authority is not duplicated | ADOPT | Station requests/projects outcomes and preserves owner semantics |
+| DG-13 | Focus, selection, active item and expansion are orthogonal contextual states; keyboard ownership is contextual | ADOPT | embedded controls may capture keys only with explicit exit/restoration; focus/selection never imply authority |
+| DG-14 | Result projections are non-strengthening and recovery remains owner-controlled | ADOPT | PARTIAL/UNKNOWN/STALE/reconcile-required survive projection unchanged; retry/compensation/rollback require owner semantics + currentness revalidation; UI undo/discard != business rollback |
+| DG-15 | Registry/contribution activation is isolated from component species and business authority | ADOPT | AppManifest/Tool contributions cannot mutate ComponentRegistry, bypass command/capability registries, or create Core/business authority; incompatible contributions fail before activation |
 
 ## C0→C10 proof obligations
 
 - C0 — stable semantic identity and deterministic references; IDs must not encode location.
 - C1 — primitive semantics, bounded visual variants/states, keyboard/focus/name-role-state.
 - C2 — typed slots, span/local composition, incompatible slot/variant fail closed.
-- C3 — keyed membership/topology/order; visual order does not imply semantic order.
-- C4 — intent → capability/command → target → currentness/conditions → authority → effect → result/evidence; accepted does not imply effective.
+- C3 — keyed membership/topology/order; visual order does not imply semantic order; focus, selection, active item and expansion remain orthogonal unless an admitted contract explicitly couples them.
+- C4 — intent → capability/command → target → currentness/conditions → authority → effect → result/evidence; accepted does not imply effective; result projections cannot strengthen owner-qualified PARTIAL/UNKNOWN/STALE/reconcile-required states or invent retry/compensation semantics.
 - C5 — Pane/Region role independent from placement; visibility/focus/restoration and responsive compatibility.
 - C6 — reusable semantic arrangements with substitutable participants and lower-level authority preserved.
 - C7 — Template/View definition-instance identity, canonical revision, projection currentness, source/YAML round-trip and responsive semantic preservation.
 - C8 — Tool identity, participant roles, active-context routing, cross-surface command convergence, restoration/multi-view consequence consistency.
-- C9 — Application identity, manifest/reference integrity, compatible Tool contributions, deterministic entry/context, lifecycle/currentness, contribution isolation; AppManifest != ComponentRegistry.
+- C9 — Application identity, manifest/reference integrity, compatible Tool contributions, deterministic entry/context, lifecycle/currentness, contribution isolation; AppManifest != ComponentRegistry and contribution activation cannot mutate component species or bypass command/capability authority boundaries.
 - C10 — only if coordinated structural authoring over one shared working artifact/context proves an independent lifecycle/authority-neutral semantic delta. UNPROVEN.
 
 ## Seven-axis test matrix
@@ -76,7 +79,7 @@ Failure criterion: if a case cannot be expressed with C0→C9 composition/capabi
 
 ## Remaining gaps
 
-UNPROVEN: invalid slot/variant executable admission; semantic reparent/order/cycle/reachability; responsive deformation + focus/a11y; YAML/Layers/Inspector/Preview round-trip/currentness; C8 restoration/multi-view; C9 save/reopen/version/contribution isolation; provider substitution/exit; tenant isolation/portability; C10 delta proof.
+UNPROVEN: invalid slot/variant executable admission; semantic reparent/order/cycle/reachability; responsive deformation + focus/a11y; contextual keyboard capture/exit/restoration journeys; YAML/Layers/Inspector/Preview round-trip/currentness; owner-qualified result/recovery non-strengthening journeys; C8 restoration/multi-view; C9 save/reopen/version/contribution isolation including registry-bypass rejection; provider substitution/exit; tenant isolation/portability; C10 delta proof.
 
 ## Next eligible work
 
