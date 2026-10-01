@@ -2,7 +2,7 @@
 
 Date: 2026-09-30
 Repository truth base: `main@d2cd9b404501781de90564b2029277efdfcb023f`
-Status: S3 / PLANNING & MATERIALIZATION — R1→R7B + SYNTHESIS SATURATED; WP1 PLANNING MATERIALIZED; TASK RECONCILIATION NEXT
+Status: S3 / WP1 — CONSTRUCTION A / TASK-615 ELIGIBLE AFTER EXACT-HEAD REVALIDATION
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -66,8 +66,10 @@ This directive is sequencing/planning guidance only. It does not make Constructi
 
 ## Next eligible work
 
-Stop benchmark/synthesis expansion for the admitted C0→C9 question. Scope baseline, WBS/EAP and WP1 planning are now materialized in `project_docs/execution_planning/STATION-S3-SCOPE-WBS-WP1-PLAN-01.md`.
+Stop benchmark/synthesis expansion for the admitted C0→C9 question. Scope baseline, WBS/EAP and WP1 planning are materialized in `project_docs/execution_planning/STATION-S3-SCOPE-WBS-WP1-PLAN-01.md`.
 
-Next: revalidate exact branch HEAD and reconcile/rematerialize `TASK-615` against that WP1 baseline. Confirm its exact-head precondition, C01-only allowed/forbidden paths, Construction A proof obligations, file bound and Test Review/Hardening exit gate. Then reconcile this live pointer to make WP1 Construction A eligible. No product code mutation is eligible before that documentation handoff is coherent.
+The documentation handoff was revalidated at `station-s3-synthesis-decision-graph@4b18b297f229c3e8d30f7552484181203c56c850` over fresh `main@d2cd9b404501781de90564b2029277efdfcb023f`. `TASK-615` is reconciled to WP1 Construction A with C01-only scope, explicit allowed/forbidden paths, `max_files: 12`, focused proof obligations, Test Review/Hardening and QA Coverage/Evidence gates. The branch delta at that bound remains documentation/planning only; no product mutation has occurred.
+
+**Next eligible execution is WP1 Construction A / `TASK-615 — STATION S3 C01 Admission & Schema Contracts`.** Before the first product mutation, revalidate the resulting exact branch HEAD against fresh `main` and confirm that no intervening commit changes authority, dependencies, allowed/forbidden paths, file bound or proof scope. Then execute blocker-first and remain inside the TASK bound. If any forbidden path, C02+ semantic, new owner/Core contract, or >12-file delta becomes necessary, stop and rematerialize instead of widening scope.
 
 After Construction A, evidence—not elapsed phases—decides whether Construction B or an additional C...N phase is needed. Preserve QA gates, authority boundaries, explicit UNPROVEN gaps, and C10 Studio DEFER/UNPROVEN. Do not broaden research merely to consume time.
