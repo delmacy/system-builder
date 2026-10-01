@@ -43,6 +43,27 @@ Dependency forecast:
 - C8 active-context/restoration/multi-view/extension obligations remain explicit until proved;
 - no specialized Studios and no AI/MCP foundation before research/synthesis/materialization gates.
 
+
+## Post-synthesis project-management directive
+
+When S3 synthesis/Decision Graph and the required Test Review/Hardening and QA Coverage/Evidence Review planning gates are closed, Construction materialization must enter a project-management decomposition gate before broad implementation.
+
+Required sequence:
+
+`closed/baselined scope -> WBS/EAP -> Work Packages -> milestone/end-state obligations -> Work Package planning -> Construction A -> Construction B -> Construction C...N as required -> documentation/evidence -> closure`
+
+Rules:
+- close/baseline scope before execution decomposition; scope changes after baseline must be explicit rather than silently absorbed by sprints;
+- WBS/EAP decomposes the approved scope; Work Packages are bounded deliverable/proof units derived from that decomposition;
+- milestones are verifiable target states/outcomes and may span one or more Work Packages; they are not merely dates or sprint boundaries;
+- define the starting state and especially the required end-state/milestone first; intermediate execution may adapt so long as it remains dependency-safe and converges on the fixed acceptance/proof obligations;
+- sprints organize execution time and do not redefine WBS scope, Work Package ownership, milestone acceptance, or authority;
+- each Work Package receives a planning phase followed by as many bounded Construction phases as required (`Construction A`, `B`, `C` ... `N`), rather than assuming a fixed number of implementation passes;
+- the final phase is documentation/evidence and formal closure, with unresolved obligations remaining explicit rather than being converted to PASS by completion of tasks;
+- preserve the existing exact-head, dependency, authority, QA, provenance, and PROVEN/UNPROVEN discipline throughout this decomposition.
+
+This directive is sequencing/planning guidance only. It does not make Construction eligible, alter S3 authority, or authorize Studio implementation before the existing materialization gates are satisfied.
+
 ## Next eligible work
 
 Stop benchmark expansion. The next eligible work is S3 synthesis + Decision Graph, consuming R1→R7B as research evidence while preserving every unresolved obligation as UNPROVEN. Synthesis must deduplicate the C0→C10 grammar, record adopted/adapted/rejected/deferred decisions with provenance and supersession, and materialize the required proof/test matrix: contract/unit, schema/composition invariants, component interaction, Playwright journeys, visual/structural regression, accessibility, and Station/Core integration contracts. Preserve identity != placement != presentation != action; semantic patterns above primitives; span/discrete composition; one authority/many projections; and no Core/business authority in Station. Do not construct Studios. No Construction TASK is eligible until synthesis/Decision Graph, Test Review/Hardening planning, QA Coverage/Evidence Review planning, and explicit Construction materialization satisfy the S3 planning exit gate.
