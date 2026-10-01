@@ -17,6 +17,7 @@ context_paths:
   - docs/adr/ADR-0017-station-visual-shell-foundation.md
   - project_docs/execution_planning/STATION-S3-COMPONENT-GRAMMAR-PLAN-01.md
   - project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md
+  - project_docs/execution_planning/STATION-S3-SCOPE-WBS-WP1-PLAN-01.md
   - packages/station-composition/types.ts
   - packages/station-composition/validation.ts
   - packages/station-composition/registry.ts
@@ -31,6 +32,7 @@ allowed_paths:
   - specs/tasks/TASK-615-STATION-S3-C01-ADMISSION-SCHEMA-CONTRACTS.md
   - docs/current/NEXT_WORK.md
   - project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md
+  - project_docs/execution_planning/STATION-S3-SCOPE-WBS-WP1-PLAN-01.md
 forbidden_paths:
   - packages/runtime-core/**
   - packages/deploy/**
@@ -50,9 +52,15 @@ validation:
 
 ## Exact-head authority
 
-Materialized from `station-s3-synthesis-decision-graph@666241e6164d0ed5a3a7d154d6aaf9490b87bd43` over fresh `main@d2cd9b404501781de90564b2029277efdfcb023f`.
+Reconciled/rematerialized for WP1 from `station-s3-synthesis-decision-graph@269d9a2da0ece1f5a6d4305e931871bd4183abe0` over fresh `main@d2cd9b404501781de90564b2029277efdfcb023f`. This exact-head reconciliation incorporates `STATION-S3-SCOPE-WBS-WP1-PLAN-01.md`; no product mutation occurred during rematerialization.
 
 If either authority head changes before Construction begins, revalidate the diff and this bound before mutation. Do not silently widen paths or proof scope.
+
+## WP1 / Construction A bound
+
+This TASK is the materialized execution record for **WP1 — C01 Admission & Schema Contracts / Construction A**. Its milestone is the WP1 end-state in `STATION-S3-SCOPE-WBS-WP1-PLAN-01.md`; TASK completion alone cannot close WP1.
+
+Construction A is limited to the admission/schema contract surface plus focused executable proofs. Schema-driven Inspector integration is permitted only where it is the smallest adapter necessary to prove C01; broader Inspector integration belongs to Construction B after evidence review. If the delta requires a forbidden path, more than 12 changed files, C02+ semantics, or a new owner/Core contract, stop and rematerialize rather than widening this TASK.
 
 ## Objective
 
