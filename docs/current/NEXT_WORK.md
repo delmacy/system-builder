@@ -2,7 +2,7 @@
 
 Date: 2026-09-30
 Repository truth base: `main@d2cd9b404501781de90564b2029277efdfcb023f`
-Status: S3 / PLANNING & MATERIALIZATION — R1→R7B + SYNTHESIS PLANNING SATURATED; WP DECOMPOSITION NEXT
+Status: S3 / PLANNING & MATERIALIZATION — R1→R7B + SYNTHESIS SATURATED; WP1 PLANNING MATERIALIZED; TASK RECONCILIATION NEXT
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -19,7 +19,7 @@ Station M2 Component Composition/Editor is CLOSED. S3-R1 census/parity, S3-R2 co
 
 ## Current phase
 
-**S3-R7B benchmark expansion and S3 synthesis planning are research-complete for the admitted C0→C9 question. Decision Graph 01, Grammar Sufficiency Coverage Matrix 01, QA Gates Plan 01, and Construction Materialization 01 are materialized on this branch; C10 Studio remains DEFER/UNPROVEN. The next eligible work is project-management decomposition of the first bounded Construction Work Package, not additional benchmark expansion or product mutation.**
+**S3-R7B benchmark expansion and S3 synthesis planning are research-complete for the admitted C0→C9 question. Decision Graph 01, Grammar Sufficiency Coverage Matrix 01, QA Gates Plan 01, Construction Materialization 01, and Scope/WBS/WP1 Plan 01 are materialized on this branch; C10 Studio remains DEFER/UNPROVEN. WP1 is now baselined/planned around C01 admission/schema. The next eligible work is documentation-only reconciliation/rematerialization of TASK-615 against the exact branch HEAD and WP1 boundaries; product mutation remains blocked until that handoff is coherent.**
 
 R7 is integrated through PR #972 at `main@d2cd9b404501781de90564b2029277efdfcb023f`. R7B falsified the accumulated C0→C10 grammar against mature engineering workbenches/product factories without constructing a specialized Studio or promoting research to authority. Matrices 01–05 cover structured-model/multi-projection workbenches, CAD/CAE dependency-regeneration pressure, ontology-backed operational applications, provider/tenant portability, and tenant export/import falsification. Closure Audit/Handoff 06 deduplicates the evidence and marks benchmark expansion research-complete while preserving all unresolved proof obligations as UNPROVEN.
 
@@ -66,8 +66,8 @@ This directive is sequencing/planning guidance only. It does not make Constructi
 
 ## Next eligible work
 
-Stop benchmark/synthesis expansion for the admitted C0→C9 question. Revalidate fresh main + exact branch HEAD, then enter the post-synthesis project-management gate already defined above:
+Stop benchmark/synthesis expansion for the admitted C0→C9 question. Scope baseline, WBS/EAP and WP1 planning are now materialized in `project_docs/execution_planning/STATION-S3-SCOPE-WBS-WP1-PLAN-01.md`.
 
-`scope baseline -> WBS/EAP -> Work Packages -> milestone/end-state -> WP1 planning -> Construction A...N -> documentation/evidence -> closure`
+Next: revalidate exact branch HEAD and reconcile/rematerialize `TASK-615` against that WP1 baseline. Confirm its exact-head precondition, C01-only allowed/forbidden paths, Construction A proof obligations, file bound and Test Review/Hardening exit gate. Then reconcile this live pointer to make WP1 Construction A eligible. No product code mutation is eligible before that documentation handoff is coherent.
 
-WP1 should derive from the already-materialized C01 admission/schema bounding unless fresh decomposition proves a smaller predecessor. Treat TASK-615 as preparatory material: revalidate/rematerialize it against the exact HEAD and WP1 boundaries before any code mutation. Construction remains blocked until that bounded WP1/TASK handoff is reconciled in this live pointer. Preserve the QA gates, authority boundaries, explicit UNPROVEN gaps, and C10 Studio DEFER/UNPROVEN. Do not broaden research merely to consume time.
+After Construction A, evidence—not elapsed phases—decides whether Construction B or an additional C...N phase is needed. Preserve QA gates, authority boundaries, explicit UNPROVEN gaps, and C10 Studio DEFER/UNPROVEN. Do not broaden research merely to consume time.
