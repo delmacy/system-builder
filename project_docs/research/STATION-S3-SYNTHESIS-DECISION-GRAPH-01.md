@@ -39,6 +39,9 @@ Scope: R1→R7B synthesis only. This artifact records research decisions/gaps; i
 | D19 | Export success is not portability proof; portability requires scoped capture, dependencies, import/rebind and semantic verification/rebuild. | adapt | R7B export/import falsification | Portability remains UNPROVEN where round-trip evidence is absent. |
 | D20 | Pair Component Grammar with Proof Grammar; every promotion inherits valid lower proofs and adds level-specific delta obligations. | own | Addendum + R1→R7B | No evidence → UNPROVEN. |
 | D21 | Decision Graph is canonical research-decision representation; trees/handoffs are projections where useful. | own | S3 plan | Must preserve provenance, supersession, rejected/deferred alternatives and eligible work. |
+| D22 | Treat focus, selection, active item and expansion as orthogonal contextual interaction states; keyboard ownership may transfer to embedded interactive children only with explicit capture, exit and restoration. | own + adopt-pattern | R2/R3 interaction evidence + Audit 02 O1 | Must prove contextual arbitration/restoration and must not infer semantic/business authority from interaction state. |
+| D23 | Preserve owner-qualified result semantics without strengthening: accepted/acknowledged != effective; REJECTED/PARTIAL/UNKNOWN/stale/reconcile-required remain distinct; retry/compensation/rollback remain owner-declared and currentness-revalidated. | own + adopt-pattern | R3/R6/R7 + Audit 02 O2 | Editor undo/discard must not imply business compensation/rollback; projections must preserve uncertainty/failure states. |
+| D24 | Keep AppManifest/contribution activation isolated from ComponentRegistry and authority registries. Contributions cannot create component species, bypass command/capability admission, or acquire Core/business authority. | own | R7 executable evidence + Audit 02 O3 | Requires E2E incompatible-contribution rejection before activation and registry-isolation proof. |
 
 ## Proof/test matrix
 
@@ -46,25 +49,26 @@ Scope: R1→R7B synthesis only. This artifact records research decisions/gaps; i
 |---|---|
 | C0–C1 | deterministic contracts, variants/states; interaction/a11y where interactive |
 | C2 | slot/parent compatibility and compound interaction beyond inherited primitive proofs |
-| C3 | collection ordering/selection/focus/keyboard and adversarial states |
+| C3 | collection ordering/selection/focus/keyboard and adversarial states; contextual keyboard arbitration, embedded-control capture, exit/restoration |
 | C4 | reusable state-transition capability, invalid transitions, dispatch/focus/validation/dirty semantics |
 | C5 | region boundaries, named slots, structural/layout invariants |
 | C6 | semantic pattern journeys; action meaning independent of visual primitive |
 | C7 | schema/composition invariants, responsive spans, multi-projection convergence, visual/structural regression |
 | C8 | tool context/lifecycle, restoration, multi-view/extension and critical journeys |
-| C9 | application identity, multi-Tool routing/context, artifact lifecycle/save-readback/restoration |
+| C9 | application identity, multi-Tool routing/context, artifact lifecycle/save-readback/restoration; contribution isolation before activation |
 | C10 | C10 Delta: shared Working Revision, cross-Tool consequences/currentness, materialization/reopen |
-| Station/Core | contract reuse/projection compatibility; no duplicated authority |
+| Station/Core | contract reuse/projection compatibility; no duplicated authority; owner-qualified result non-strengthening and recovery/compensation ownership |
 | Artifact Authority candidate | single-working-revision admission; concurrent-producer ordering; mutation-capability enforcement; checkpoint/recovery; journal replay equivalence; atomic materialization; integrity failure; crash-before/after-commit; reopen equivalence |
 
 ## Deduplicated gap families
 1. Projection convergence/currentness: source/YAML, Inspector, Layers, Graph, preview.
 2. Structural consequence/revision: semantic reparent/order, dependencies, stale/regeneration semantics.
-3. Action/surface: identity/action dispatch independent of presentation/placement.
-4. C8/C9/C10 promotion: context/restoration, routing/readback, C10 Delta.
-5. Working Artifact Authority: admission, ordering, capability enforcement, journal/recovery, integrity, atomicity, reopen.
-6. Producer independence/portability: multi-axis dependency and export/import/rebind/rebuild evidence.
-7. Decision/Proof infrastructure: provenance/supersession plus explicit PROVEN/FAILED/N/A/UNPROVEN evidence state.
+3. Action/surface and contextual interaction: identity/action dispatch independent of presentation/placement; focus/selection/active/expansion orthogonality and keyboard ownership/restoration.
+4. Result/recovery non-strengthening: owner-qualified REJECTED/PARTIAL/UNKNOWN/stale/reconcile-required plus retry/compensation ownership.
+5. C8/C9/C10 promotion: context/restoration, routing/readback, contribution isolation, C10 Delta.
+6. Working Artifact Authority: admission, ordering, capability enforcement, journal/recovery, integrity, atomicity, reopen.
+7. Producer independence/portability: multi-axis dependency and export/import/rebind/rebuild evidence.
+8. Decision/Proof infrastructure: provenance/supersession plus explicit PROVEN/FAILED/N/A/UNPROVEN evidence state.
 
 ## External evidence disposition
 R1 parity ecosystems (Radix/Base/React Aria, shadcn, MUI, Fluent, Carbon, PatternFly, Chakra, Ant) remain comparative evidence, not authority. R7B transversal evidence includes Unreal/MPS/Sirius/Mendix, CAD/CAE families, Foundry, OpenTofu/Crossplane, Kubernetes/Keycloak/PostgreSQL. Reusable concepts are classified here as own/adapt/adopt-pattern/defer; no external provider taxonomy or implementation is copied wholesale.
@@ -77,4 +81,4 @@ R1 parity ecosystems (Radix/Base/React Aria, shadcn, MUI, Fluent, Carbon, Patter
 - provider-specific authority in Station.
 
 ## Dependency-safe handoff
-Next: audit D01–D21 against R1→R7B for omitted/superseded decisions, then materialize Test Review/Hardening planning and QA Coverage/Evidence Review planning. Construction remains ineligible until those gates and explicit Construction materialization are satisfied.
+Audit D01–D21 is materialized in `STATION-S3-SYNTHESIS-DECISION-GRAPH-AUDIT-02.md`; D22–D24 close its three explicit omissions. Next: materialize Test Review/Hardening planning and QA Coverage/Evidence Review planning. Construction remains ineligible until those gates and explicit Construction materialization are satisfied.
