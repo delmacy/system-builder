@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-02
-Repository truth base: `main@6d82e1f2f9394ac019d07d91ab56db76a1281815`
-Status: S3 / WP3 C03 MATERIALIZATION — TASK-617 GATE PENDING
+Repository truth base: `main@5aedbe43edeb8c0ff2c00721051b90c053fdd6d8`
+Status: S3 / WP3 C03 — TASK-617 CONSTRUCTION / EXACT-HEAD GATES PENDING
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -18,39 +18,43 @@ Status: S3 / WP3 C03 MATERIALIZATION — TASK-617 GATE PENDING
 
 ## Fresh-main / predecessor truth
 
-PR #978 merged as `main@6d82e1f2f9394ac019d07d91ab56db76a1281815`, reconciling C02 closure. TASK-616/C02 and TASK-615/C01 are CLOSED / PROVEN.
+PR #979 merged as `main@5aedbe43edeb8c0ff2c00721051b90c053fdd6d8`, formally integrating TASK-617 materialization. TASK-616/C02 and TASK-615/C01 remain CLOSED / PROVEN.
 
 Preserve throughout S3: `ComponentRegistry != AppManifest`; identity != placement != presentation != action; semantic patterns above generic primitives; discrete/span composition distinct from WindowGeometry; Station presentation/composition-only with no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## WP3 / C03 owner-reuse census
+## TASK-617 Construction delta
 
-Fresh-main census confirms `PresentationCommandRegistry` already owns unique semantic presentation-command identity and recomputes availability immediately before `execute()`. `StationInteractionContext` keeps focus, selection and surface explicit. `CoreCommandIntent` is deliberately non-executable by the presentation registry. Existing Station/Core contracts already own target + expected-revision protocol and authoritative stale rejection; those contracts are reuse evidence, not Station authority.
+Branch `sprint/station-s3-wp3-c03-construction-a` starts exactly from fresh main. The bounded delta adds only Station-local owner-qualified command projection vocabulary in `packages/station-interaction/types.ts` plus focused product proof in `tests/product/station-interaction.test.ts`. Existing `PresentationCommandRegistry` remains the owner of presentation-command identity and invocation-time availability revalidation; no registry/Core/AppManifest/runtime mutation was required.
 
-The C4 research matrix is evidence only but aligns with the accepted S3 boundary: accepted/acknowledged is not necessarily effective; partial/unknown/stale are not success; retry and compensation remain owner-qualified. C03 therefore needs a bounded Station projection/adaptation delta, not a universal result/retry/compensation engine and not a Core contract change.
+Projection carries explicit `ownerRef`, `targetRef`, `currentness`, optional owner result classification, and optional explicit retry/compensation affordances. It does not derive target from focus/selection, does not convert presentation availability into business authorization, does not collapse accepted/partial/unknown/stale into effective success, and leaves retry/compensation absent unless owner-supplied.
 
-## Materialized TASK
+## Test Review / Hardening
 
-TASK-617 — C03 Command Currentness & Result Projection is materialized on branch `planning/station-s3-wp3-c03-materialization` with `max_files: 6`. Allowed product paths are bounded to `packages/station-interaction/**` and, only if required by the projection adapter, `packages/station-shell/command-surface.tsx`, plus focused product tests. Core contracts, runtime/deploy/compiler/station-app-runtime and `apps/station/**` are forbidden.
+- duplicate identity hidden by relocation: inherited existing semantic-id/duplicate-id proofs; unchanged preconditions;
+- TOCTOU availability: inherited invocation-time revalidation proof; unchanged registry;
+- focus/selection treated as target: new projection accepts owner target directly and has no interaction-context input;
+- result strengthening: focused proof preserves `partial`, `accepted`, `stale`/`unknown` currentness as supplied;
+- inferred retry/compensation: focused proof verifies affordances absent by default and preserved only when explicit;
+- CoreCommandIntent executable: inherited fail-closed registry proof; registry unchanged.
 
-Construction behavior obligations: stable semantic command identity across projections; stale rendered availability cannot dispatch because invocation revalidates; owner target/currentness is projected without becoming Station authority; owner result semantics are not strengthened (`accepted != effective`, partial/unknown/stale != success); retry/compensation is absent unless explicitly owner-declared; CoreCommandIntent remains non-executable by PresentationCommandRegistry.
+These are implementation-level proofs only until exact-head repository gates pass.
 
-## Test Review / Hardening plan
+## QA Coverage / Evidence Review
 
-Challenge duplicate identity hidden by relocation; TOCTOU availability; focus/selection accidentally treated as authoritative target; result-state strengthening; retry/compensation inferred from UI state; CoreCommandIntent accidentally executable. Coverage vocabulary is `proven | failed | unproven-gap | not-applicable`.
-
-## QA Coverage / Evidence Review plan
-
-Focused evidence must prove the C03 delta and predecessor integration. Existing registry and Station/Core proofs may be inherited only with unchanged preconditions. Core stale-revision evidence proves its owner boundary, not a new Station authority. Missing owner semantics remain `unproven-gap`; human acceptance remains separate. Exact-head repository gates are required before closure.
+Focused proof is present for the new projection contract and predecessor proofs are reused only where implementation/preconditions are unchanged. Exact-head `lint`, `typecheck`, product tests, architecture and repository verification remain UNPROVEN-GAP until CI executes on the final head. Human product acceptance remains separate. No C04+ obligation is claimed.
 
 ## Gates / blockers
 
-This materialization branch/PR must be integrated and fresh main revalidated before product mutation. Until then TASK-617 is materialized but Construction is not yet eligible. C04+, AppManifest/C06, provider/runtime/deploy, Core/business authority, universal result/retry/compensation engines and C10/Studio remain ineligible.
+TASK-617 remains open. Required next action is exact-head CI and bounded correction only if a concrete TASK-617 failure appears. The branch currently contains multiple mechanical commits because the repository write interface commits per file; repository policy requiring one authoritative Construction commit must be normalized before merge. Do not treat this as closure evidence.
+
+C04+, AppManifest/C06, provider/runtime/deploy, Core/business authority, universal result/retry/compensation engines and C10/Studio remain ineligible.
 
 ## Handoff
 
-Branch: `planning/station-s3-wp3-c03-materialization`.
+Branch: `sprint/station-s3-wp3-c03-construction-a`.
 TASK: TASK-617 only.
-Truth base: `main@6d82e1f2f9394ac019d07d91ab56db76a1281815`.
-Files changed by this materialization: `specs/tasks/TASK-617-STATION-S3-C03-COMMAND-CURRENTNESS-RESULT-PROJECTION.md`, `docs/current/NEXT_WORK.md` only.
-Proof status: planning/materialization obligations explicit; executable C03 proof remains UNPROVEN-GAP until Construction. No product code changed.
-Next eligible work: validate/merge this materialization; after integration, revalidate fresh main and execute only TASK-617 behavior + smallest focused proof within its bounds.
+Truth base: `main@5aedbe43edeb8c0ff2c00721051b90c053fdd6d8`.
+Files changed: `packages/station-interaction/types.ts`, `tests/product/station-interaction.test.ts`, `docs/current/NEXT_WORK.md`.
+Proof status: focused C03 behavior proof authored; exact-head repository gates UNPROVEN-GAP.
+Blockers: exact-head CI pending; normalize multiple mechanical commits to one authoritative TASK commit before merge.
+Next eligible work: open/validate the bounded TASK-617 PR, collect exact-head gates, correct only proven bounded failures, normalize commit shape, then close/merge only when all required evidence is green. C04 remains ineligible.

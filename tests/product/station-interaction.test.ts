@@ -6,6 +6,7 @@ import {
   PresentationCommandRegistry,
   ShortcutRegistry,
   available,
+  commandOwnerProjection,
   focusTarget,
   interactionContext,
   normalizeShortcut,
@@ -80,6 +81,37 @@ test("multiple controls can resolve to one semantic command", async () => {
   await registry.invoke(toolbarCommand!.id, interactionContext());
   await registry.invoke(menuCommand!.id, interactionContext());
   assert.equal(executions, 2);
+});
+
+test("owner-qualified projection preserves indeterminate states and explicit affordances", () => {
+  const projected = commandOwnerProjection({
+    ownerRef: "core:workflow",
+    targetRef: "workflow:42",
+    currentness: "stale",
+    result: "partial",
+  });
+
+  assert.deepEqual(projected, {
+    ownerRef: "core:workflow",
+    targetRef: "workflow:42",
+    currentness: "stale",
+    result: "partial",
+  });
+  assert.equal(projected.affordances, undefined);
+
+  const retryable = commandOwnerProjection({
+    ownerRef: "core:workflow",
+    targetRef: "workflow:42",
+    currentness: "unknown",
+    result: "accepted",
+    affordances: ["retry"],
+  });
+  assert.equal(retryable.result, "accepted");
+  assert.deepEqual(retryable.affordances, ["retry"]);
+  assert.throws(
+    () => commandOwnerProjection({ ownerRef: " ", targetRef: "workflow:42", currentness: "current" }),
+    /ownerRef must be non-empty/,
+  );
 });
 
 test("shortcut normalization and conflicts are deterministic", () => {
