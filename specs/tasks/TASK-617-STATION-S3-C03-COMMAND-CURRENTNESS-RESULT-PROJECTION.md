@@ -51,7 +51,11 @@ validation:
 
 Materialize the smallest Station-local C03 delta that preserves stable presentation-command identity across projections, revalidates presentation availability at invocation, and projects owner-qualified currentness/result semantics without turning Station availability into business authorization or strengthening owner results.
 
-## Fresh-main census
+## Context
+
+TASK-616/C02 is CLOSED/PROVEN. C03 follows the fresh-main owner/reuse census and must reuse existing Station presentation-command and Station/Core boundary contracts rather than invent duplicate authority.
+
+## Current behavior
 
 Fresh `main@6d82e1f2f9394ac019d07d91ab56db76a1281815` already owns semantic presentation command identity and invocation-time availability revalidation in `PresentationCommandRegistry`; `StationInteractionContext` keeps focus, selection and surface explicit; `CoreCommandIntent` is deliberately non-executable by the presentation registry. Existing Station/Core contracts own target + expected revision and authoritative stale rejection. Research evidence records `accepted/ack != effective`, `partial/unknown != success`, and retry/compensation as owner-qualified semantics.
 
@@ -65,6 +69,14 @@ Therefore this TASK must adapt/project existing ownership rather than create a u
 4. Projection must preserve indeterminate/non-success owner states. It must not infer `accepted == effective`, `partial/unknown/stale == success`, or business authorization from presentation availability.
 5. Retry/compensation affordance may be projected only when explicitly supplied by the authoritative owner; Station must not derive it.
 6. Keep `CoreCommandIntent` non-executable by `PresentationCommandRegistry`; no Core/business authority moves into Station.
+
+## Inputs / contracts
+
+Existing `PresentationCommandRegistry`, `StationInteractionContext`, non-executable `CoreCommandIntent`, Station/Core target plus expected-revision/currentness contracts, and owner-qualified result/retry/compensation semantics are inputs. Their authority boundaries are preserved.
+
+## Outputs / contracts
+
+The output is only a Station-local projection/adaptation contract for stable semantic command identity, invocation-time presentation availability, owner-qualified target/currentness and non-strengthened owner result/affordance data. It creates no Core/business authority and no universal command/result/retry/compensation engine.
 
 ## Acceptance criteria
 
