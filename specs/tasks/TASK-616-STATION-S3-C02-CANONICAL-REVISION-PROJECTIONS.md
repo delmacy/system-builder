@@ -1,7 +1,7 @@
 ---
 id: TASK-616
 title: STATION S3 C02 Canonical Revision and Projection Currentness
-status: verification
+status: completed
 priority: 616
 milestone: STATION-S3-COMPONENT-GRAMMAR
 model_tier: architecture
