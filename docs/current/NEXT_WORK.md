@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
-Date: 2026-09-28
-Repository truth base: `main@1dbb6d4076ad89a0b0d9b2d704c6b2fdc39185dd`
-Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R7 IN PROGRESS
+Date: 2026-10-02
+Repository truth base: `main@d2cd9b404501781de90564b2029277efdfcb023f`
+Status: S3 / WP1 — CONSTRUCTION A / TASK-615 READY FOR CLOSURE — EXACT-HEAD GATES PROVEN
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -10,39 +10,55 @@ Status: S3 / PLANNING & MATERIALIZATION — RESEARCH R7 IN PROGRESS
 - `docs/DOCUMENT_AUTHORITY.md`
 - `docs/contracts/001-station-component-grammar/ADDENDUM.md`
 - `project_docs/execution_planning/STATION-S3-COMPONENT-GRAMMAR-PLAN-01.md`
+- `project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md`
+- `project_docs/execution_planning/STATION-S3-SCOPE-WBS-WP1-PLAN-01.md`
+- `specs/tasks/TASK-615-STATION-S3-C01-ADMISSION-SCHEMA-CONTRACTS.md`
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
-- M2 accepted contracts/plans only where explicitly preserved by the addendum
 
-## Predecessor closure
+## Current phase / handoff
 
-Station M2 Component Composition/Editor is CLOSED. S3-R1 census/parity, S3-R2 compounds/collections, S3-R3 interaction capabilities, S3-R4 Pane/Region & Patterns, S3-R5 Templates/Full Views, and S3-R6 Tool-level compositions are complete as research evidence. R6 handoff merged through PR #970 at `main@3365cf3d`; subsequent main documentation advanced to `main@1ad0f77c`. Research evidence remains non-authoritative until S3 synthesis/materialization.
+**WP1 Construction A / TASK-615 is ready for closure on draft PR #973, branch `station-s3-wp1-construction-a`.** Fresh main remains `d2cd9b404501781de90564b2029277efdfcb023f`. Exact tested predecessor head is `f167070951d1166d12501805a355c5e4fbc49c94`.
 
-## Current phase
+The earlier deterministic failure was a bounded task-contract parser defect, not a C01 product behavior defect. Commit `4a5ec1ffe7a4af516f4c806f53cafa79448dd2cf` repaired the TASK-615 canonical headings inside the declared task-spec path. On successor exact head `f167070951d1166d12501805a355c5e4fbc49c94`, all required workflows completed successfully.
 
-**S3-R7 — Application/Studio-readiness + Core projection census is in research/documentation on branch `station-s3-r7-studio-readiness`.**
+This handoff update is documentation-only and therefore creates a successor branch head. The next Construction slot must revalidate that new exact head and its merge-candidate lineage before merge; do not reuse `f167070...` as evidence for a changed product delta.
 
-R7 studies C9 Application and C10 Studio promotion without constructing a specialized Studio. It must determine what is genuinely new above C8 Tool, what remains AppManifest/configuration, how multiple Tools may cooperate around one canonical work artifact/context without duplicated authority, and which Core contracts are reused/projected rather than copied into Station. The Core Contract Reuse & Station Projection Census is mandatory before any proposed new cross-boundary contract.
-
-Dependency forecast:
-
-`R1 census -> R2 compounds/collections -> R3 interaction capabilities -> R4 regions/patterns -> R5 templates/views -> R6 tool families -> R7 application/studio-readiness + Core projection census -> R7B engineering workbench/product-factory benchmark -> synthesis + Decision Graph -> Construction materialization`
-
-## Preserved constraints
+## Preserved conformance constraints
 - `ComponentRegistry != AppManifest`;
-- `WindowGeometry != composition grid`;
-- Station remains presentation/composition-oriented;
 - identity != placement != presentation != action semantics;
-- constrained variants/patterns over arbitrary HTML/CSS;
-- span/discrete composition authoring with responsive execution;
-- lower-level proofs are inherited only when their preconditions remain unchanged; missing evidence is never PASS;
-- human acceptance remains distinct from machine conformance;
-- research/QA cannot silently create Core/business/product authority;
-- semantic reparent/order remains blocked by its R3 proof gaps rather than being smuggled into Layers/drag UX;
-- projection identity/revision never becomes canonical artifact authority;
-- C7 source/YAML, Inspector/Layers/Graph and multi-projection gaps remain explicit until proved;
-- C8 active-context/restoration/multi-view/extension obligations remain explicit until proved;
-- no specialized Studios and no AI/MCP foundation before research/synthesis/materialization gates.
+- semantic patterns remain above generic primitives;
+- span/discrete composition remains distinct from window geometry;
+- Station remains presentation/composition-oriented and does not acquire Core/business authority;
+- proof inheritance remains valid only while its preconditions remain unchanged;
+- C10 Studio remains DEFER/UNPROVEN in WP1.
 
-## Next eligible work
+## TASK-615 bounded delta
 
-Continue S3-R7 blocker-first: census existing Application/AppManifest/workspace/artifact/context/Core projection contracts and executable evidence; compare mature IDE/workstation families only where they answer C9/C10 questions about application identity, multi-tool workspace/context, artifact lifecycle, restoration, cross-tool consequences and extension boundaries. Derive C9/C10 promotion/dedup criteria, proof inheritance/delta obligations, representative journeys, Core reuse/projection gaps and Grammar Sufficiency coverage. Explicitly distinguish Application identity from AppManifest configuration and Studio semantics from a mere collection of Tools. Do not construct Studios. R7B is not eligible until the R7 handoff is integrated/recorded. Synthesis is not eligible until R7B is complete and must materialize the Decision Graph required by the current S3 plan. No Construction TASK is eligible until R7, R7B, synthesis/Decision Graph, Test Review/Hardening planning, QA Coverage/Evidence Review planning, and explicit Construction materialization satisfy the S3 planning exit gate.
+Product/test delta remains three files: `packages/station-composition/admission.ts`, `packages/station-composition/index.ts`, and `tests/product/station-composition.test.ts`. The bounded task-contract repair adds only `specs/tasks/TASK-615-STATION-S3-C01-ADMISSION-SCHEMA-CONTRACTS.md`; this file is the operational pointer. All remain inside TASK-615 allowed paths and below `max_files: 12`. No AppManifest, Core/runtime/deploy/provider/Studio path is admitted.
+
+## Evidence classification
+
+For exact tested head `f167070951d1166d12501805a355c5e4fbc49c94`:
+- Station Frontend Quality: **PASS / PROVEN**;
+- Heavy Product Tests: **PASS / PROVEN**;
+- Automation Handoff State Machine: **PASS / PROVEN**;
+- Deterministic CI: **PASS / PROVEN**;
+- Merge Candidate CI: **PASS / PROVEN**;
+- bounded task-contract repair: **PASS / PROVEN** by successor workflow completion;
+- TASK-615 product/test delta: **PASS / PROVEN** to the extent exercised by the required exact-head gates;
+- TASK-615 closure: **READY**, subject only to successor exact-head/merge-candidate revalidation caused by this documentation-only handoff;
+- Construction B/successor: **NOT YET MATERIALIZED** and must not start before TASK-615 merge/closure truth is recorded.
+
+### Test Review / Hardening
+
+No remaining evidence points to a C01 product behavior defect. The parser blocker is closed on the tested predecessor head. Do not mutate `admission.ts` or broaden the C01 proof surface unless successor exact-head evidence exposes a new bounded defect. Lower-level proofs remain inherited; do not re-test primitive behavior without changed preconditions.
+
+### QA Coverage / Evidence Review
+
+Required exact-head workflows are proven on `f167070...`; absence of evidence was not treated as PASS. Human acceptance remains separate from machine conformance, and QA does not create product authority. Because this pointer commit changes the branch SHA, closure still requires a final no-delta/successor revalidation before merge.
+
+## Handoff to next Construction slot
+
+Predecessor truth: TASK-615 implementation and bounded task-contract repair are complete on the tested predecessor lineage; all required workflows are green there. Authorization: **closure/merge work for TASK-615 only**. Allowed: re-read fresh main, exact PR head, PR mergeability/merge candidate and required workflows; correct only a newly exposed bounded TASK-615 defect inside its declared allowed paths. Forbidden: Construction B/C02+, AppManifest/runtime/deploy/provider/Core/business authority, C10 Studio, AI/MCP, scope expansion or >12-file TASK delta.
+
+Acceptance/proof obligation for closure: current exact head and current merge-candidate lineage must have required gates PASS/PROVEN with no changed product semantics; if any required evidence is failed/pending/unproven, do not merge. If all remain proven, close/merge TASK-615, reconcile NEXT_WORK to merged-main truth, then materialize only the smallest dependency-safe Construction B lot according to rolling-wave planning. Do not materialize the remainder of WP1/program in advance.
