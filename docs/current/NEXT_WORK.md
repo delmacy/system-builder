@@ -2,7 +2,7 @@
 
 Date: 2026-10-02
 Repository truth base: `main@d2cd9b404501781de90564b2029277efdfcb023f`
-Status: S3 / WP1 — CONSTRUCTION A / TASK-615 IN PROGRESS — TASK CONTRACT REPAIR APPLIED; EXACT-HEAD GATES PENDING
+Status: S3 / WP1 — CONSTRUCTION A / TASK-615 READY FOR CLOSURE — EXACT-HEAD GATES PROVEN
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -17,11 +17,11 @@ Status: S3 / WP1 — CONSTRUCTION A / TASK-615 IN PROGRESS — TASK CONTRACT REP
 
 ## Current phase / handoff
 
-**WP1 Construction A / TASK-615 remains BLOCKER-FIRST on draft PR #973, branch `station-s3-wp1-construction-a`.** Fresh main remains `d2cd9b404501781de90564b2029277efdfcb023f`.
+**WP1 Construction A / TASK-615 is ready for closure on draft PR #973, branch `station-s3-wp1-construction-a`.** Fresh main remains `d2cd9b404501781de90564b2029277efdfcb023f`. Exact tested predecessor head is `f167070951d1166d12501805a355c5e4fbc49c94`.
 
-The previously opaque deterministic failure on exact head `10c3a8cf27eb323e01556efbeb5f891967f56671` is now diagnosed from the full GitHub Actions job log. `npm run lint` and `npm run typecheck` passed; `npm run test` reached `test:unit` and failed four task-catalog tests because `TASK-615-STATION-S3-C01-ADMISSION-SCHEMA-CONTRACTS.md` did not contain the exact task-parser section headings: `Context`, `Current behavior`, `Required change`, `Inputs / contracts`, `Outputs / contracts`, `Acceptance criteria`, and `Evidence expected`.
+The earlier deterministic failure was a bounded task-contract parser defect, not a C01 product behavior defect. Commit `4a5ec1ffe7a4af516f4c806f53cafa79448dd2cf` repaired the TASK-615 canonical headings inside the declared task-spec path. On successor exact head `f167070951d1166d12501805a355c5e4fbc49c94`, all required workflows completed successfully.
 
-This is a bounded TASK-615 task-contract defect, not a product/C01 behavior failure. The smallest repair was applied inside the declared allowed path `specs/tasks/TASK-615-STATION-S3-C01-ADMISSION-SCHEMA-CONTRACTS.md` in commit `4a5ec1ffe7a4af516f4c806f53cafa79448dd2cf`, preserving the existing C01 semantics and adding the parser-required canonical sections. This handoff update creates a successor documentation-only head; revalidate that exact head before any further mutation or closure claim.
+This handoff update is documentation-only and therefore creates a successor branch head. The next Construction slot must revalidate that new exact head and its merge-candidate lineage before merge; do not reuse `f167070...` as evidence for a changed product delta.
 
 ## Preserved conformance constraints
 - `ComponentRegistry != AppManifest`;
@@ -29,36 +29,36 @@ This is a bounded TASK-615 task-contract defect, not a product/C01 behavior fail
 - semantic patterns remain above generic primitives;
 - span/discrete composition remains distinct from window geometry;
 - Station remains presentation/composition-oriented and does not acquire Core/business authority;
+- proof inheritance remains valid only while its preconditions remain unchanged;
 - C10 Studio remains DEFER/UNPROVEN in WP1.
 
 ## TASK-615 bounded delta
 
-Product/test delta remains three files: `packages/station-composition/admission.ts`, `packages/station-composition/index.ts`, and `tests/product/station-composition.test.ts`. The bounded task-contract repair adds only the TASK spec itself; this handoff updates `docs/current/NEXT_WORK.md`. All remain inside TASK-615 allowed paths and below `max_files: 12`. No AppManifest, Core/runtime/deploy/provider/Studio path is admitted.
+Product/test delta remains three files: `packages/station-composition/admission.ts`, `packages/station-composition/index.ts`, and `tests/product/station-composition.test.ts`. The bounded task-contract repair adds only `specs/tasks/TASK-615-STATION-S3-C01-ADMISSION-SCHEMA-CONTRACTS.md`; this file is the operational pointer. All remain inside TASK-615 allowed paths and below `max_files: 12`. No AppManifest, Core/runtime/deploy/provider/Studio path is admitted.
 
 ## Evidence classification
 
-For pre-repair exact head `10c3a8cf27eb323e01556efbeb5f891967f56671`:
+For exact tested head `f167070951d1166d12501805a355c5e4fbc49c94`:
 - Station Frontend Quality: **PASS / PROVEN**;
 - Heavy Product Tests: **PASS / PROVEN**;
 - Automation Handoff State Machine: **PASS / PROVEN**;
-- `npm run lint`: **PASS / PROVEN** within Deterministic CI log;
-- `npm run typecheck`: **PASS / PROVEN** within Deterministic CI log;
-- `npm run test:unit`: **FAILED**, specifically four task-catalog tests due to TASK-615 missing canonical parser headings;
-- later `verify` subgates: **NOT REACHED / UNPROVEN**;
-- Deterministic CI: **FAILED**;
-- Merge Candidate CI: **FAILED**;
-- TASK-615 closure: **BLOCKED pending successor exact-head evidence**;
-- merge: **NOT AUTHORIZED**;
-- Construction B/successor: **NOT ELIGIBLE**.
+- Deterministic CI: **PASS / PROVEN**;
+- Merge Candidate CI: **PASS / PROVEN**;
+- bounded task-contract repair: **PASS / PROVEN** by successor workflow completion;
+- TASK-615 product/test delta: **PASS / PROVEN** to the extent exercised by the required exact-head gates;
+- TASK-615 closure: **READY**, subject only to successor exact-head/merge-candidate revalidation caused by this documentation-only handoff;
+- Construction B/successor: **NOT YET MATERIALIZED** and must not start before TASK-615 merge/closure truth is recorded.
 
 ### Test Review / Hardening
 
-The blocker is documentation/task-schema conformance. No evidence points to a C01 product behavior defect. Do not mutate `admission.ts` or broaden tests to compensate for the task parser. Existing C01 focused proofs remain the intended proof surface; their final classification must be made only on the successor exact head after deterministic verification completes.
+No remaining evidence points to a C01 product behavior defect. The parser blocker is closed on the tested predecessor head. Do not mutate `admission.ts` or broaden the C01 proof surface unless successor exact-head evidence exposes a new bounded defect. Lower-level proofs remain inherited; do not re-test primitive behavior without changed preconditions.
 
 ### QA Coverage / Evidence Review
 
-The previous `UNPROVEN` failure cause is now **PROVEN** by full job log. The repair itself is not yet proven until the successor exact-head CI executes. Absence of a new failure is not PASS. Required final evidence remains Deterministic CI, Merge Candidate CI, Heavy Product Tests and applicable Station quality/doc gates on the same current lineage.
+Required exact-head workflows are proven on `f167070...`; absence of evidence was not treated as PASS. Human acceptance remains separate from machine conformance, and QA does not create product authority. Because this pointer commit changes the branch SHA, closure still requires a final no-delta/successor revalidation before merge.
 
-## Next eligible work
+## Handoff to next Construction slot
 
-Continue **TASK-615 only**. Revalidate the successor exact branch head produced by this handoff and collect its workflows. If deterministic verification passes, perform final Test Review/Hardening + QA Coverage/Evidence classification and close/merge TASK-615 only when every required exact-head/merge-candidate gate is proven. If a new failure appears, correct only the smallest bounded defect inside TASK-615 allowed paths. Do not start Construction B while TASK-615 closure remains failed, pending or unproven.
+Predecessor truth: TASK-615 implementation and bounded task-contract repair are complete on the tested predecessor lineage; all required workflows are green there. Authorization: **closure/merge work for TASK-615 only**. Allowed: re-read fresh main, exact PR head, PR mergeability/merge candidate and required workflows; correct only a newly exposed bounded TASK-615 defect inside its declared allowed paths. Forbidden: Construction B/C02+, AppManifest/runtime/deploy/provider/Core/business authority, C10 Studio, AI/MCP, scope expansion or >12-file TASK delta.
+
+Acceptance/proof obligation for closure: current exact head and current merge-candidate lineage must have required gates PASS/PROVEN with no changed product semantics; if any required evidence is failed/pending/unproven, do not merge. If all remain proven, close/merge TASK-615, reconcile NEXT_WORK to merged-main truth, then materialize only the smallest dependency-safe Construction B lot according to rolling-wave planning. Do not materialize the remainder of WP1/program in advance.
