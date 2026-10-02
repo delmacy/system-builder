@@ -6,5 +6,6 @@ export * from "./button-group.js";
 export * from "./graph.js";
 export * from "./graph-validation.js";
 export * from "./draft-transaction.js";
+export * from "./canonical-revision.js";
 export * from "./editor-engine.js";
 export * from "./component-editor.js";
