@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-02
-Repository truth base: `main@0cce86af8e2f57dc4a182ad45fb05ecfa08ee4e6`
-Status: S3 / WP2 C02 CLOSED-PROVEN — WP3 C03 MATERIALIZATION NEXT
+Repository truth base: `main@6d82e1f2f9394ac019d07d91ab56db76a1281815`
+Status: S3 / WP2 C02 CLOSED-PROVEN — WP3 TASK-617 C03 MATERIALIZED / CONSTRUCTION NEXT
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -15,48 +15,49 @@ Status: S3 / WP2 C02 CLOSED-PROVEN — WP3 C03 MATERIALIZATION NEXT
 - `project_docs/execution_planning/STATION-S3-QA-GATES-PLAN-01.md`
 - `specs/tasks/TASK-615-STATION-S3-C01-ADMISSION-SCHEMA-CONTRACTS.md`
 - `specs/tasks/TASK-616-STATION-S3-C02-CANONICAL-REVISION-PROJECTIONS.md`
+- `specs/tasks/TASK-617-STATION-S3-C03-COMMAND-PROJECTION-CURRENTNESS.md`
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
 
 ## Fresh-main / predecessor truth
 
-PR #975 merged as `main@0cce86af8e2f57dc4a182ad45fb05ecfa08ee4e6` with one authoritative TASK-616 commit and five changed files. TASK-616/C02 is CLOSED / PROVEN. TASK-615/C01 remains CLOSED / PROVEN.
+Fresh `main@6d82e1f2f9394ac019d07d91ab56db76a1281815` reconciles TASK-616/C02 closure after merged PR #975. TASK-616/C02 and TASK-615/C01 are CLOSED / PROVEN. No open C03 PR existed at census time.
 
 Preserve throughout S3: `ComponentRegistry != AppManifest`; identity != placement != presentation != action; semantic patterns above generic primitives; discrete/span composition distinct from WindowGeometry; Station presentation/composition-only with no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## C02 closure evidence
+## C03 owner/reuse census
 
-Exact PR head `92af31fd96558b737697e887adc6752cf44303c9` passed Deterministic CI, Merge Candidate CI, Heavy Product Tests, Station Frontend Quality and Automation Handoff State Machine before merge. The merged delta establishes one Station-local canonical composition revision owner, immutable projection snapshots/currentness and stale expected-revision rejection without giving projections mutation authority.
+Fresh-main code confirms `packages/station-interaction` already owns `PresentationCommandRegistry`, semantic presentation-command IDs, explicit `StationInteractionContext` (focus/selection/surface), and invocation-time availability revalidation. `CoreCommandIntent` is explicitly non-executable and leaves authority with Core/domain owners. Existing shell command surfaces are projection consumers and are not eligible mutation owners in the first C03 lot.
 
-### Test Review / Hardening
+Research/owner evidence requires accepted/ack != effect and forbids strengthening partial/unknown/stale/reconcile-required into success. No bounded Station-local executable owner for generic result/retry/compensation semantics was identified that should be expanded in this first lot; those obligations remain UNPROVEN-GAP rather than being invented.
 
-Reviewed obligations: off-by-one revision advance; invalid/no-op increments; stale-write escape; projection alias/currentness false positives; accidental projection authority. Focused C02 product evidence plus exact-head repository gates are PROVEN. No bounded residual product defect was identified at closure. C01 proofs are inherited because their preconditions were unchanged.
+## WP3 / TASK-617 materialization
 
-### QA Coverage / Evidence Review
+TASK-617 is the smallest dependency-safe C03 lot: immutable presentation-command projection/currentness only. It may preserve semantic command identity and explicit presentation-context qualifiers and prove that stale rendered availability cannot dispatch because registry invocation revalidates current context.
 
-- canonical revision ownership / one state-changing mutation -> one increment: PROVEN;
-- invalid/no-op mutation does not advance: PROVEN;
-- projection snapshot carries owner revision and remains derived: PROVEN;
-- current/stale classification and stale-write rejection: PROVEN;
-- multiple projection labels converge on one canonical revision without authority: PROVEN;
-- human product acceptance: separate from machine conformance;
-- C03+ obligations: UNPROVEN-GAP / not part of C02.
+Allowed product path: `packages/station-interaction/**`; focused product tests plus TASK/NEXT_WORK documentation are bounded by the task. `max_files: 6`.
 
-## WP3 / C03 materialization gate
+Forbidden: `packages/station-shell/**`, `apps/station/**`, runtime-core/deploy/compiler/station-app-runtime/ui-core, executable Core intents, business authorization, generic accepted/effective result engines, retry/compensation, C04+, AppManifest/provider/runtime/deploy, C10/Studio and AI/MCP.
 
-Planned dependency order makes C03 Command Currentness / Result Semantics the next candidate only after C02 closure. Construction is **not yet eligible** until a fresh-main census materializes the smallest C03 TASK with explicit `allowed_paths`, `forbidden_paths`, `max_files`, dependencies, validations and proof obligations.
+## Acceptance / proof obligations for :10
 
-The census must reuse existing repository owners before inventing contracts. Known inherited evidence includes `PresentationCommandRegistry` semantic identity and invocation-time availability revalidation, explicit Station interaction context, non-executable `CoreCommandIntent`, and existing owner-qualified target/revision/result/currentness semantics. C03 must not create a universal result/retry/compensation engine, infer business authorization from presentation availability, or strengthen owner `accepted/partial/unknown/stale/reconcile-required` states.
-
-Initial C03 proof questions to materialize, not yet PASS: stable semantic command identity across projections; target/currentness qualifier preserved from its owner; stale rendered availability cannot dispatch because invocation revalidates; owner result semantics survive projection without `accepted == effective` or partial/unknown/stale becoming success; retry/compensation exposed only when the authoritative owner explicitly declares them. Reuse inherited proofs where preconditions are unchanged.
+- same registered semantic command projected twice retains one command identity;
+- projection carries explicit Station interaction qualifier without feature-name hardcode;
+- rendered availability is advisory, never dispatch authority;
+- stale rendered availability is rejected when invocation-time context becomes unavailable, before execute;
+- CoreCommandIntent remains non-executable and no Core/business authorization is inferred;
+- no owner result state is strengthened and no result/retry/compensation engine is invented;
+- inherited C01/C02 and existing registry proofs are reused where preconditions are unchanged;
+- focused SHA-scoped evidence plus repository gates are required for closure; missing evidence remains `unproven-gap`.
 
 ## Blockers and next eligible work
 
-No product mutation is eligible from this handoff alone. Next dependency-safe work is documentation/planning only: perform the fresh-main C03 owner/reuse census, materialize one bounded WP3/TASK, include its Test Review/Hardening and QA Coverage/Evidence obligations, and update this pointer. Only after that materialization is integrated/revalidated may the first C03 Construction TASK mutate product code. C04+, AppManifest/C06, provider/runtime/deploy, Core/business authority and C10/Studio remain ineligible.
+No bounded blocker prevents Construction after exact-head revalidation. Construction :10 is authorized for TASK-617 only, from the materialization branch/head, after confirming fresh main has not semantically invalidated the census. If implementation needs a forbidden path, >6 files, shell/UI changes, Core/business authority, executable Core intents, or result/retry/compensation invention, STOP and rematerialize instead of expanding scope.
 
 ## Handoff
 
-Closure reconciliation branch: `planning/station-s3-c02-closure-reconcile`.
-Truth base: `main@0cce86af8e2f57dc4a182ad45fb05ecfa08ee4e6`.
-Closed work: TASK-616 / C02 via merged PR #975; exact PR head `92af31fd96558b737697e887adc6752cf44303c9`; required gates PASS.
-Files changed by this reconciliation: `specs/tasks/TASK-616-STATION-S3-C02-CANONICAL-REVISION-PROJECTIONS.md`, `docs/current/NEXT_WORK.md` only.
-Next eligible work: bounded C03 owner/reuse census + formal TASK materialization; no C03 implementation before that gate.
+Materialization branch: `planning/station-s3-c03-materialization`.
+Predecessor truth: `main@6d82e1f2f9394ac019d07d91ab56db76a1281815`.
+Closed work: TASK-615/C01 and TASK-616/C02, PROVEN.
+Active/next work: TASK-617 / WP3 C03 Command Projection Currentness, materialized and authorized for bounded Construction after exact-head/fresh-main revalidation.
+Allowed/forbidden and `max_files: 6` are authoritative in TASK-617.
+Next action: Construction :10 revalidates branch exact head + fresh main, implements only the smallest TASK-617 delta, runs focused proof and declared gates, and leaves broader C03 result semantics UNPROVEN-GAP unless separately rematerialized by rolling-wave.
