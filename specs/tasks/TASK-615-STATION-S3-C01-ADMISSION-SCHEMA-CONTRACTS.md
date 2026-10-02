@@ -1,7 +1,7 @@
 ---
 id: TASK-615
 title: STATION S3 C01 Admission and Schema Contracts
-status: ready
+status: done
 priority: 615
 milestone: STATION-S3-COMPONENT-GRAMMAR
 model_tier: architecture
@@ -49,6 +49,14 @@ validation:
 ---
 
 # TASK-615 — STATION S3 C01 Admission & Schema Contracts
+
+## Closure disposition — 2026-10-02
+
+TASK-615 is **DONE / PROVEN** after post-merge conformance reconciliation.
+
+The merged PR #973 contained 16 files relative to its old base `main@d2cd9b404501781de90564b2029277efdfcb023f`, but that comparison included research/planning lineage already present on the materialization branch before TASK-615 execution. The TASK exact-head authority was `station-s3-synthesis-decision-graph@269d9a2da0ece1f5a6d4305e931871bd4183abe0`; comparing that task predecessor to merged PR head `9a058fa170e09b01012e330645e62d4645acba98` yields **5 changed files**, so the declared `max_files: 12` bound is satisfied. No retroactive weakening of the bound is required.
+
+Exact PR-head required workflows were green before merge. PR #973 merged as `main@5ed671270e1e2dcd02b528673e7487e1e6b8f933`. The subsequent post-merge blocker record was documentation-only and did not alter C01 product semantics. C01 evidence may be inherited by the next lot; C02+ must prove only its own delta.
 
 ## Context
 
