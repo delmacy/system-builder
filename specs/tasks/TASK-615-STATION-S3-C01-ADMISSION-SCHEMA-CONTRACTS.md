@@ -1,7 +1,7 @@
 ---
 id: TASK-615
 title: STATION S3 C01 Admission and Schema Contracts
-status: done
+status: completed
 priority: 615
 milestone: STATION-S3-COMPONENT-GRAMMAR
 model_tier: architecture
