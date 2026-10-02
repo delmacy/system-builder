@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
-Date: 2026-09-30
+Date: 2026-10-01
 Repository truth base: `main@d2cd9b404501781de90564b2029277efdfcb023f`
-Status: S3 / WP1 — CONSTRUCTION A / TASK-615 ELIGIBLE AFTER EXACT-HEAD REVALIDATION
+Status: S3 / WP1 — CONSTRUCTION A / TASK-615 IN PROGRESS — EXACT-HEAD GATES PENDING
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -10,22 +10,22 @@ Status: S3 / WP1 — CONSTRUCTION A / TASK-615 ELIGIBLE AFTER EXACT-HEAD REVALID
 - `docs/DOCUMENT_AUTHORITY.md`
 - `docs/contracts/001-station-component-grammar/ADDENDUM.md`
 - `project_docs/execution_planning/STATION-S3-COMPONENT-GRAMMAR-PLAN-01.md`
+- `project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md`
+- `project_docs/execution_planning/STATION-S3-SCOPE-WBS-WP1-PLAN-01.md`
+- `specs/tasks/TASK-615-STATION-S3-C01-ADMISSION-SCHEMA-CONTRACTS.md`
 - ADR-0017 / `docs/architecture/STATION_FRONTEND_FOUNDATION.md`
-- M2 accepted contracts/plans only where explicitly preserved by the addendum
 
 ## Predecessor closure
 
-Station M2 Component Composition/Editor is CLOSED. S3-R1 census/parity, S3-R2 compounds/collections, S3-R3 interaction capabilities, S3-R4 Pane/Region & Patterns, S3-R5 Templates/Full Views, and S3-R6 Tool-level compositions are complete as research evidence. R6 handoff merged through PR #970 at `main@3365cf3d`; subsequent main documentation advanced to `main@1ad0f77c`. Research evidence remains non-authoritative until S3 synthesis/materialization.
+Station M2 Component Composition/Editor is CLOSED. S3-R1 through R7 and R7B are research-complete for the admitted C0→C9 question. S3 synthesis/Decision Graph, QA Gates, Construction Materialization and Scope/WBS/WP1 planning are materialized on the predecessor branch. C10 Studio remains DEFER/UNPROVEN. Research evidence does not independently create product or Core authority.
 
 ## Current phase
 
-**S3-R7B benchmark expansion and S3 synthesis planning are research-complete for the admitted C0→C9 question. Decision Graph 01, Grammar Sufficiency Coverage Matrix 01, QA Gates Plan 01, Construction Materialization 01, and Scope/WBS/WP1 Plan 01 are materialized on this branch; C10 Studio remains DEFER/UNPROVEN. WP1 is now baselined/planned around C01 admission/schema. The next eligible work is documentation-only reconciliation/rematerialization of TASK-615 against the exact branch HEAD and WP1 boundaries; product mutation remains blocked until that handoff is coherent.**
+**WP1 Construction A / TASK-615 — C01 Admission & Schema Contracts is in progress on `station-s3-wp1-construction-a`.**
 
-R7 is integrated through PR #972 at `main@d2cd9b404501781de90564b2029277efdfcb023f`. R7B falsified the accumulated C0→C10 grammar against mature engineering workbenches/product factories without constructing a specialized Studio or promoting research to authority. Matrices 01–05 cover structured-model/multi-projection workbenches, CAD/CAE dependency-regeneration pressure, ontology-backed operational applications, provider/tenant portability, and tenant export/import falsification. Closure Audit/Handoff 06 deduplicates the evidence and marks benchmark expansion research-complete while preserving all unresolved proof obligations as UNPROVEN.
+Construction materialization was revalidated from `station-s3-synthesis-decision-graph@1f63a4031cb386321e7464ed6f428e620efb74bf` over fresh `main@d2cd9b404501781de90564b2029277efdfcb023f`. No intervening authority, dependency, path-bound, file-bound or proof-scope change was found before the first product mutation.
 
-Dependency forecast:
-
-`R1 census -> R2 compounds/collections -> R3 interaction capabilities -> R4 regions/patterns -> R5 templates/views -> R6 tool families -> R7 application/studio-readiness + Core projection census -> R7B engineering workbench/product-factory benchmark -> synthesis + Decision Graph -> Construction materialization`
+Draft PR: #973. Current implementation head before this handoff update: `7350fd664195758beeba6a02c1c12b3f6ce8859f`.
 
 ## Preserved constraints
 - `ComponentRegistry != AppManifest`;
@@ -34,42 +34,33 @@ Dependency forecast:
 - identity != placement != presentation != action semantics;
 - constrained variants/patterns over arbitrary HTML/CSS;
 - span/discrete composition authoring with responsive execution;
+- semantic patterns remain above generic primitives;
 - lower-level proofs are inherited only when their preconditions remain unchanged; missing evidence is never PASS;
 - human acceptance remains distinct from machine conformance;
 - research/QA cannot silently create Core/business/product authority;
-- semantic reparent/order remains blocked by its R3 proof gaps rather than being smuggled into Layers/drag UX;
-- projection identity/revision never becomes canonical artifact authority;
-- C7 source/YAML, Inspector/Layers/Graph and multi-projection gaps remain explicit until proved;
-- C8 active-context/restoration/multi-view/extension obligations remain explicit until proved;
-- no specialized Studios and no AI/MCP foundation before research/synthesis/materialization gates.
+- no specialized Studios, no C10 promotion, and no AI/MCP foundation in WP1.
 
+## TASK-615 delta and evidence state
 
-## Post-synthesis project-management directive
+Changed by Construction A so far:
+- `packages/station-composition/admission.ts` — Station-owned, domain-neutral C01 admission/schema contract; validates component/parent/slot/span/variant/schema-field compatibility before returning an admitted contract; no mutation or Core/business authority;
+- `packages/station-composition/index.ts` — exports the C01 contract;
+- `tests/product/station-composition.test.ts` — focused valid, negative/adversarial, determinism, zero-caller-mutation, family/span compatibility, schema-driven Inspector-field availability, action-vs-presentation and stable-identity proofs.
 
-When S3 synthesis/Decision Graph and the required Test Review/Hardening and QA Coverage/Evidence Review planning gates are closed, Construction materialization must enter a project-management decomposition gate before broad implementation.
+The TASK delta is 3 files, inside `max_files: 12` and allowed paths. No forbidden path, C02+ semantic, AppManifest, runtime, deploy, provider, Core/business or Studio change has been introduced.
 
-Required sequence:
+### Test Review / Hardening
 
-`closed/baselined scope -> WBS/EAP -> Work Packages -> milestone/end-state obligations -> Work Package planning -> Construction A -> Construction B -> Construction C...N as required -> documentation/evidence -> closure`
+Static review of the focused evidence finds explicit coverage for unknown component/slot/variant/schema field, incompatible family/span, repeated valid admission determinism, caller state preservation on rejection, schema-driven field selection, action tokens absent from the admitted presentation variants, and identity independence from placement/presentation. The contract is pure/fail-closed: callers receive an admitted immutable value only after all checks pass. Exact-head execution is still required; until CI executes, these obligations remain `unproven-gap`, not PASS.
 
-Rules:
-- close/baseline scope before execution decomposition; scope changes after baseline must be explicit rather than silently absorbed by sprints;
-- WBS/EAP decomposes the approved scope; Work Packages are bounded deliverable/proof units derived from that decomposition;
-- milestones are verifiable target states/outcomes and may span one or more Work Packages; they are not merely dates or sprint boundaries;
-- define the starting state and especially the required end-state/milestone first; intermediate execution may adapt so long as it remains dependency-safe and converges on the fixed acceptance/proof obligations;
-- sprints organize execution time and do not redefine WBS scope, Work Package ownership, milestone acceptance, or authority;
-- each Work Package receives a planning phase followed by as many bounded Construction phases as required (`Construction A`, `B`, `C` ... `N`), rather than assuming a fixed number of implementation passes;
-- the final phase is documentation/evidence and formal closure, with unresolved obligations remaining explicit rather than being converted to PASS by completion of tasks;
-- preserve the existing exact-head, dependency, authority, QA, provenance, and PROVEN/UNPROVEN discipline throughout this decomposition.
+Potential hardening follow-up after exact-head test execution: if CI or review exposes a false-positive around malformed schema shape or unsupported field metadata, fix only inside TASK-615 bounds. Do not broaden into C02 or Inspector UX.
 
-This directive is sequencing/planning guidance only. It does not make Construction eligible, alter S3 authority, or authorize Studio implementation before the existing materialization gates are satisfied.
+### QA Coverage / Evidence
+
+Machine evidence is not yet complete. GitHub reported no workflow runs for implementation head `7350fd664195758beeba6a02c1c12b3f6ce8859f` immediately after draft PR creation. Therefore `lint`, `typecheck`, `test:product`, `check:architecture`, `verify`, Heavy Product Tests and doc-lint remain PENDING/UNPROVEN. No merge or closure is authorized from absence of evidence.
 
 ## Next eligible work
 
-Stop benchmark/synthesis expansion for the admitted C0→C9 question. Scope baseline, WBS/EAP and WP1 planning are materialized in `project_docs/execution_planning/STATION-S3-SCOPE-WBS-WP1-PLAN-01.md`.
+Continue **TASK-615 only**, blocker-first, on the current PR/head lineage. Revalidate the exact branch head and fresh main, then obtain objective exact-head gates. If CI reports a bounded TASK-615 failure, correct it inside the declared allowed paths and rerun the gates. Perform the final Test Review/Hardening and QA Coverage/Evidence classification against the tested exact head.
 
-The documentation handoff was revalidated at `station-s3-synthesis-decision-graph@4b18b297f229c3e8d30f7552484181203c56c850` over fresh `main@d2cd9b404501781de90564b2029277efdfcb023f`. `TASK-615` is reconciled to WP1 Construction A with C01-only scope, explicit allowed/forbidden paths, `max_files: 12`, focused proof obligations, Test Review/Hardening and QA Coverage/Evidence gates. The branch delta at that bound remains documentation/planning only; no product mutation has occurred.
-
-**Next eligible execution is WP1 Construction A / `TASK-615 — STATION S3 C01 Admission & Schema Contracts`.** Before the first product mutation, revalidate the resulting exact branch HEAD against fresh `main` and confirm that no intervening commit changes authority, dependencies, allowed/forbidden paths, file bound or proof scope. Then execute blocker-first and remain inside the TASK bound. If any forbidden path, C02+ semantic, new owner/Core contract, or >12-file delta becomes necessary, stop and rematerialize instead of widening scope.
-
-After Construction A, evidence—not elapsed phases—decides whether Construction B or an additional C...N phase is needed. Preserve QA gates, authority boundaries, explicit UNPROVEN gaps, and C10 Studio DEFER/UNPROVEN. Do not broaden research merely to consume time.
+Do not merge while required gates are pending. Do not start Construction B merely because Construction A code exists. Evidence after TASK-615 decides whether WP1 needs Construction B/C...N. If a forbidden path, C02+ semantic, new owner/Core contract or >12-file TASK delta becomes necessary, stop and rematerialize rather than widening scope.
