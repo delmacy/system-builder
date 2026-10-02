@@ -5,6 +5,7 @@ export * from "./admission.js";
 export * from "./button-group.js";
 export * from "./graph.js";
 export * from "./graph-validation.js";
+export * from "./responsive-projection.js";
 export * from "./draft-transaction.js";
 export * from "./canonical-revision.js";
 export * from "./editor-engine.js";
