@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-02
-Repository truth base: `main@189857d31f5b3aeaf7f9f3e34c46a949e59ec9d0`
-Status: S3 / WP4 C04 — TASK-618 CONSTRUCTION IMPLEMENTED / EXACT-HEAD GATES PENDING
+Repository truth base: `main@08ca0e81dcb80d274659d7590e12fc861cd62a74`
+Status: S3 / WP4 C04 — TASK-618 CLOSED / PROVEN; WP5 C05 MATERIALIZATION NEXT
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -18,35 +18,30 @@ Status: S3 / WP4 C04 — TASK-618 CONSTRUCTION IMPLEMENTED / EXACT-HEAD GATES PE
 
 ## Fresh-main / predecessor truth
 
-Fresh main before this Construction delta is `189857d31f5b3aeaf7f9f3e34c46a949e59ec9d0`; it reconciles the C04 materialization handoff after PR #982 merged. TASK-617/C03, TASK-616/C02 and TASK-615/C01 remain CLOSED / PROVEN. TASK-618/C04 is the sole executable Construction slice.
+PR #983 merged TASK-618/C04 from exact head `749a131e5c89ccef5dcfd241c4ed817e3c8d6717` as merge commit `603f2c1b4549849aeb872ac824ed9904d65db6c8`. Closure reconciliation then marked TASK-618 completed at `08ca0e81dcb80d274659d7590e12fc861cd62a74`. TASK-615/C01, TASK-616/C02, TASK-617/C03 and TASK-618/C04 are CLOSED / PROVEN.
 
 Preserve throughout S3: `ComponentRegistry != AppManifest`; identity != placement != presentation != action; semantic patterns above generic primitives; discrete/span composition distinct from WindowGeometry; Station presentation/composition-only with no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## C04 Construction delta
+## C04 closure evidence
 
-TASK-618 adds a pure Station-composition responsive projection. It selects owner-validated placement/span overrides by bounded width conditions without mutating the canonical graph, preserves node/component identity and canonical semantic order metadata, deterministically falls back to canonical placement, and rejects malformed/overlapping definitions or invalid owner placement fail-closed. It creates no focus, selection, command, AppManifest, Core/business, provider/runtime/deploy or WindowGeometry authority.
+TASK-618 implemented a pure Station-composition responsive projection in 4 allowed files <= `max_files: 6`, with no forbidden-path mutation. It preserves canonical node/component identity and semantic order metadata, leaves the canonical graph/placement unchanged, falls back deterministically, and rejects malformed/overlapping definitions and invalid owner-qualified slot/span data fail-closed. It introduces no focus, selection, command, AppManifest, Core/business, provider/runtime/deploy or WindowGeometry authority.
+
+Exact-head `749a131e5c89ccef5dcfd241c4ed817e3c8d6717` passed Deterministic CI, Heavy Product Tests, Station Frontend Quality, Automation Handoff State Machine and Merge Candidate CI. The GitHub merge-candidate identity observed for that exact head was `b66545bf7c1014b9ad22a67888b8f2fdac138d87`; mergeability was true before merge. Exact-head and merge-candidate evidence are distinct and must not be reused after a future head/main advance.
 
 ## Test Review / Hardening
 
-Focused proof covers visual-placement change with stable semantic order/identity, canonical graph immutability, canonical fallback, boundary overlap rejection, invalid slot rejection, invalid span rejection, and absence of focus/selection/command/business authority in the projection. Existing graph/placement validation is reused rather than duplicated. Hidden/collapsed behavior is not introduced by this contract, so leakage through such state is not applicable to this delta. C05+ remains outside scope.
-
-## QA Coverage / Evidence Review
-
-`proven`: source-level focused proof is authored for identity/order preservation, canonical immutability/fallback, ambiguous boundary fail-closed, and owner-qualified invalid slot/span rejection. `not-applicable`: hidden/collapsed presentation state because TASK-618 projection defines no visibility state. `unproven-gap`: execution of repository/product validation and exact-head/merge-candidate workflows until observed on the final Construction SHA. Human acceptance remains separate from machine conformance.
+PROVEN: visual-placement change with stable semantic order/identity; canonical graph immutability; deterministic canonical fallback; malformed/overlapping condition rejection; unknown-node rejection; invalid slot/span rejection through existing owner validation; no focus/selection/command/business-authority derivation. NOT-APPLICABLE: hidden/collapsed leakage because C04 introduces no visibility state. No material FAILED or UNPROVEN C04 obligation remains.
 
 ## Gates / blockers
 
-TASK-618 remains bounded by `max_files: 6`; this Construction delta changes 4 allowed files and no forbidden path. Closure/merge is forbidden until current exact-head mandatory gates and current merge-candidate are GREEN. Do not reuse PR #982 materialization evidence as product proof.
+C04 has no residual bounded blocker. C05+ product mutation is not authorized by C04 closure. The next dependency-safe action is fresh-main census and materialization of the smallest WP5/C05 TASK, with explicit allowed/forbidden paths, max_files, validations and proof obligations before Construction.
 
-C05+, AppManifest/C06, provider/runtime/deploy, Core/business authority and C10/Studio remain ineligible.
+AppManifest/C06, provider/runtime/deploy, Core/business authority and C10/Studio remain ineligible unless and until their own dependency-safe materialization is integrated.
 
-## Handoff :10
+## Handoff :50
 
-Branch: `sprint/station-s3-wp4-c04-construction-a`.
-PR: #983 (draft).
-Truth base: `main@189857d31f5b3aeaf7f9f3e34c46a949e59ec9d0`.
-TASK: TASK-618 Construction only.
-Files changed: `packages/station-composition/responsive-projection.ts`, `packages/station-composition/index.ts`, `tests/product/station-s3-c04-responsive.test.ts`, `docs/current/NEXT_WORK.md`.
-Proof status: focused C04 behavior/proof authored; exact-head CI/QA and merge-candidate evidence remain UNPROVEN/PENDING until observed.
-Blockers: obtain fresh exact-head required workflows and merge-candidate GREEN; correct only bounded proven failures. Do not close or merge on red/pending evidence.
-Next eligible work: verification/closure of TASK-618 only. Do not execute/materialize C05+ and do not absorb C10/DEFER.
+Closure/merge status: PR #983 MERGED; TASK-618/C04 CLOSED / PROVEN.
+Fresh-main observed after merge and TASK status reconciliation: `08ca0e81dcb80d274659d7590e12fc861cd62a74`; this handoff write advances main once more and must itself be revalidated as the new fresh-main before downstream work.
+Evidence: exact head `749a131e5c89ccef5dcfd241c4ed817e3c8d6717` GREEN on mandatory exact-head workflows; merge-candidate `b66545bf7c1014b9ad22a67888b8f2fdac138d87` GREEN; merge commit `603f2c1b4549849aeb872ac824ed9904d65db6c8`; 4 allowed files <= 6; semantic/architecture/accessibility review PASS.
+Residual debt: none bounded to C04. C05 and later obligations remain unmaterialized, not inherited as proven.
+Next dependency-safe work: WP5/C05 fresh-main owner/reuse census and TASK materialization only. Do not begin C05 product mutation before that materialization is integrated; do not absorb C06/AppManifest, Core/business authority, provider/runtime/deploy or C10/Studio.
