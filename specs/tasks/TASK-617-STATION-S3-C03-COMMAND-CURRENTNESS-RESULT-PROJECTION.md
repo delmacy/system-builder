@@ -1,7 +1,7 @@
 ---
 id: TASK-617
 title: STATION S3 C03 Command Currentness and Result Projection
-status: ready
+status: completed
 priority: 617
 milestone: STATION-S3-COMPONENT-GRAMMAR
 model_tier: architecture
@@ -100,6 +100,10 @@ Before closure challenge: duplicate command identity hidden by relocation; time-
 ## QA Coverage / Evidence Review
 
 Closure requires exact-head focused evidence plus declared repository gates. Inherited proof is valid only with unchanged preconditions. Missing target/result owner semantics remain `unproven-gap`, never PASS. Human product acceptance remains separate from machine conformance.
+
+## Closure evidence
+
+PR #980 merged after exact-head `29584496e33191c084dce94848aa67526eecc1bb` passed Deterministic CI, Merge Candidate CI, Heavy Product Tests, Station Frontend Quality, Station Next.js CI and Automation Handoff State Machine. The PR was normalized to one authoritative TASK commit before merge. Test Review/Hardening and QA Coverage/Evidence Review are reconciled in `docs/current/NEXT_WORK.md`; all bounded C03 obligations are PROVEN under unchanged inherited-proof preconditions.
 
 ## Non-goals
 
