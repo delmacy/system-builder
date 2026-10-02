@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-02
-Repository truth base: `main@6ebdc87e2af55bd6c7a3c81493aada46a0209e37`
-Status: S3 / WP4 C04 — TASK-618 MATERIALIZED / CONSTRUCTION ELIGIBLE
+Repository truth base: `main@189857d31f5b3aeaf7f9f3e34c46a949e59ec9d0`
+Status: S3 / WP4 C04 — TASK-618 CONSTRUCTION IMPLEMENTED / EXACT-HEAD GATES PENDING
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
 
@@ -18,36 +18,35 @@ Status: S3 / WP4 C04 — TASK-618 MATERIALIZED / CONSTRUCTION ELIGIBLE
 
 ## Fresh-main / predecessor truth
 
-C04 materialization PR #982 is integrated as `main@6ebdc87e2af55bd6c7a3c81493aada46a0209e37`. Its exact-head was `7f9eba466062947caf2534a99e1c4b2f75f332f1`; Deterministic CI, Merge Candidate CI, Heavy Product Tests and Automation Handoff State Machine were GREEN before merge. PR #982 changed 2 files against `max_files: 6` and contained no product mutation. TASK-617/C03, TASK-616/C02 and TASK-615/C01 remain CLOSED / PROVEN. TASK-618 is now the next dependency-safe Construction slice; its new behavior/evidence remains UNPROVEN-GAP until Construction evidence exists.
+Fresh main before this Construction delta is `189857d31f5b3aeaf7f9f3e34c46a949e59ec9d0`; it reconciles the C04 materialization handoff after PR #982 merged. TASK-617/C03, TASK-616/C02 and TASK-615/C01 remain CLOSED / PROVEN. TASK-618/C04 is the sole executable Construction slice.
 
 Preserve throughout S3: `ComponentRegistry != AppManifest`; identity != placement != presentation != action; semantic patterns above generic primitives; discrete/span composition distinct from WindowGeometry; Station presentation/composition-only with no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## C04 owner / reuse census
+## C04 Construction delta
 
-Fresh main already owns canonical composition identity and discrete placement in `packages/station-composition/graph.ts`: `CompositionNode.ref`/`componentRef` are independent from `CompositionNodePlacement`, whose fields are `parentRef`, `slotRef`, `columnSpan`, and `rowSpan`. Existing graph validation checks placement through the ComponentRegistry. Lower-layer primitive/focus/keyboard proofs remain inherited only where their contracts and preconditions are unchanged.
-
-TASK-618 bounds C04 to a Station-local responsive structural projection over canonical composition placement. It must preserve canonical/semantic order and identity, must not mutate canonical placement merely to render a responsive view, and must not acquire focus/command/Core/business authority.
+TASK-618 adds a pure Station-composition responsive projection. It selects owner-validated placement/span overrides by bounded width conditions without mutating the canonical graph, preserves node/component identity and canonical semantic order metadata, deterministically falls back to canonical placement, and rejects malformed/overlapping definitions or invalid owner placement fail-closed. It creates no focus, selection, command, AppManifest, Core/business, provider/runtime/deploy or WindowGeometry authority.
 
 ## Test Review / Hardening
 
-Construction must prove visual-vs-semantic reorder preservation, deterministic breakpoint behavior, rejection of invalid span/slot bypass, no canonical graph mutation, identity preservation across responsive placement, no hidden/collapsed presentation leakage into focus/command target semantics, and non-pixel-only semantic evidence. Negative/adversarial/recovery obligations remain mandatory; inherited evidence is reusable only with unchanged preconditions.
+Focused proof covers visual-placement change with stable semantic order/identity, canonical graph immutability, canonical fallback, boundary overlap rejection, invalid slot rejection, invalid span rejection, and absence of focus/selection/command/business authority in the projection. Existing graph/placement validation is reused rather than duplicated. Hidden/collapsed behavior is not introduced by this contract, so leakage through such state is not applicable to this delta. C05+ remains outside scope.
 
 ## QA Coverage / Evidence Review
 
-Coverage vocabulary remains `proven | failed | unproven-gap | not-applicable`. Construction must record inherited proofs with unchanged preconditions, focused C04 delta evidence, exact-head freshness and explicit gaps. Accessibility/semantic order is a first-class proof obligation. Human acceptance remains separate from machine conformance. No C05+ obligation is claimed.
+`proven`: source-level focused proof is authored for identity/order preservation, canonical immutability/fallback, ambiguous boundary fail-closed, and owner-qualified invalid slot/span rejection. `not-applicable`: hidden/collapsed presentation state because TASK-618 projection defines no visibility state. `unproven-gap`: execution of repository/product validation and exact-head/merge-candidate workflows until observed on the final Construction SHA. Human acceptance remains separate from machine conformance.
 
 ## Gates / blockers
 
-Materialization blocker is cleared. TASK-618 is bounded with `max_files: 6`, allowed/forbidden paths, dependency on TASK-617, validation expectations and proof obligations. Construction may mutate only within TASK-618 bounds. Closure/merge remains forbidden on any FAILED/UNPROVEN material obligation, forbidden-path drift, stale candidate, incomplete proof, or red gate.
-
-For any Construction merge, require the current exact-head mandatory gates GREEN and the current merge-candidate GREEN, recording their respective SHAs rather than inheriting PR #982 evidence.
+TASK-618 remains bounded by `max_files: 6`; this Construction delta changes 4 allowed files and no forbidden path. Closure/merge is forbidden until current exact-head mandatory gates and current merge-candidate are GREEN. Do not reuse PR #982 materialization evidence as product proof.
 
 C05+, AppManifest/C06, provider/runtime/deploy, Core/business authority and C10/Studio remain ineligible.
 
-## Handoff :50
+## Handoff :10
 
-Closure/merge status: PR #982 materialization MERGED; TASK-618 behavior is NOT CLOSED and remains UNPROVEN-GAP pending bounded Construction.
-Fresh-main observed before this handoff write: `6ebdc87e2af55bd6c7a3c81493aada46a0209e37`.
-Materialization evidence: PR #982 exact-head `7f9eba466062947caf2534a99e1c4b2f75f332f1`; merge commit `6ebdc87e2af55bd6c7a3c81493aada46a0209e37`; 2 changed files <= `max_files: 6`; required observed workflows GREEN; no product mutation.
-Residual debt: all new C04 responsive structural/accessibility behavior and its negative/adversarial/recovery evidence remain UNPROVEN-GAP by design until Construction. Do not reinterpret materialization CI as product proof.
-Next dependency-safe work: execute only TASK-618 Construction behavior plus the smallest adequate focused proof inside its allowed paths/max-files, then perform semantic/architecture/accessibility review and obtain fresh exact-head + merge-candidate evidence before closure. Do not execute C05+ or absorb DEFER.
+Branch: `sprint/station-s3-wp4-c04-construction-a`.
+PR: #983 (draft).
+Truth base: `main@189857d31f5b3aeaf7f9f3e34c46a949e59ec9d0`.
+TASK: TASK-618 Construction only.
+Files changed: `packages/station-composition/responsive-projection.ts`, `packages/station-composition/index.ts`, `tests/product/station-s3-c04-responsive.test.ts`, `docs/current/NEXT_WORK.md`.
+Proof status: focused C04 behavior/proof authored; exact-head CI/QA and merge-candidate evidence remain UNPROVEN/PENDING until observed.
+Blockers: obtain fresh exact-head required workflows and merge-candidate GREEN; correct only bounded proven failures. Do not close or merge on red/pending evidence.
+Next eligible work: verification/closure of TASK-618 only. Do not execute/materialize C05+ and do not absorb C10/DEFER.
