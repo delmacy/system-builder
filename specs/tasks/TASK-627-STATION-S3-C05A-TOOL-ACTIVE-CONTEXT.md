@@ -1,7 +1,7 @@
 ---
 id: TASK-627
 title: STATION S3 C05A Tool Identity Participant Roles and Active Context
-status: ready
+status: completed
 priority: 627
 milestone: STATION-S3-COMPONENT-GRAMMAR
 model_tier: architecture
