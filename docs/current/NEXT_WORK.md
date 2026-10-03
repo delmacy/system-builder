@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-03
-Repository truth base: `main@dd822b2196c1b759164e71f32b31f9024a6d4149`
-Status: S3 / WP6 C06A — TASK-630 CONSTRUCTION CLOSED / PROVEN / INTEGRATED
+Repository truth base: `main@88337cddfc7d87b50b0a422487974c8f9d40dd70`
+Status: S3 / WP6 C06B — TASK-631 MATERIALIZED / INTEGRATION GATES PENDING / CONSTRUCTION BLOCKED
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -12,27 +12,22 @@ Status: S3 / WP6 C06A — TASK-630 CONSTRUCTION CLOSED / PROVEN / INTEGRATED
 - `project_docs/execution_planning/STATION-S3-COMPONENT-GRAMMAR-PLAN-01.md`
 - `project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md`
 - `project_docs/execution_planning/STATION-S3-QA-GATES-PLAN-01.md`
-- `specs/tasks/TASK-630-STATION-S3-C06A-APPLICATION-MANIFEST-INTEGRITY.md`
+- `specs/tasks/TASK-631-STATION-S3-C06B-APPLICATION-LIFECYCLE-CURRENTNESS.md`
 
 ## Predecessor truth
-TASK-627/C05A, TASK-628/C05B and TASK-629/C05C are CLOSED / PROVEN under unchanged owners/preconditions. TASK-630 materialization and Construction are CLOSED / PROVEN / INTEGRATED. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
+TASK-627/C05A, TASK-628/C05B, TASK-629/C05C and TASK-630/C06A are CLOSED / PROVEN / INTEGRATED under unchanged owners/preconditions. C06A exact-head evidence belongs only to TASK-630 and is not inherited as proof of the C06B delta. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## TASK-630 Construction closure
-C06A has a bounded Station-owned `packages/station-application/index.ts` AppManifest integrity boundary plus focused executable proof. Application identity is explicit and distinct from ComponentRegistry and declared Tool identities. Tool declarations and contribution refs are normalized, validated before manifest creation, sorted for deterministic/order-independent composition, frozen, and isolated so a contribution cannot overwrite or impersonate Application/registry/Tool identity. Unknown/stale Tool refs and incompatible Tool identities fail closed. No command execution, authorization, business result/currentness, provider/runtime, persistence/storage/version or UI authority was introduced.
+## Fresh-main census / rolling-wave decision
+The authoritative dependency order places Application manifest/lifecycle isolation before C07 provider-independence. QA C9 requires AppManifest integrity, Tool-contribution isolation, save/reopen/version/currentness. C06A proved only manifest integrity/contribution isolation. Therefore the smallest mandatory successor is C06B Application lifecycle/currentness; C07 is not yet eligible.
 
-Files changed remained bounded to `packages/station-application/index.ts`, `tests/product/station-s3-c06-application-manifest.test.ts`, and repository memory; 3/6 allowed files. No forbidden owner was mutated.
+## TASK-631 C06B materialization
+Materialized only the residual Application-owned lifecycle/currentness tranche: deterministic in-memory save/snapshot→reopen round-trip, explicit version/revision currentness, stale lifecycle rejection and preservation of C06A integrity. Durable persistence/storage, migration, provider/runtime/deploy and business/command authority remain forbidden.
 
-## Test Review / Hardening
-Focused proof covers positive deterministic composition, order independence/idempotent reconstruction, stable/distinct identity, normalized duplicate Tool/contribution refs, ambiguous Tool identities, malformed refs, unknown/stale refs, incompatible Tool identity, impersonation attempts, rejection without input mutation, and absence of authority-strengthening fields. Existing C05 Tool semantics are consumed only as declared identity references and were not mutated. Accessibility remains `not-applicable`: no UI/DOM/focus/keyboard behavior exists in this delta.
+Allowed product after materialization integration: `packages/station-application/**`; focused proof: `tests/product/station-s3-c06*.test.ts`; bounded task/memory only; `max_files: 6`.
 
-## QA Coverage / Evidence Review
-Final Construction exact-head `eb58d89281d79cacb500ac0aa10919f774f5a3d8` is PROVEN: Deterministic CI GREEN, Heavy Product Tests GREEN, Station Frontend Quality GREEN, Automation Handoff State Machine GREEN, and Merge Candidate CI GREEN. Merge Candidate CI checked out the GitHub synthetic merge candidate, asserted its identity, installed locked dependencies and ran deterministic repository verification successfully. Exact-head and merge-candidate are distinct identities; do not reuse this evidence for successor work. Earlier failed/stale heads remain non-authoritative.
+Acceptance/proof obligations: stable Application + version/revision identity; deterministic/idempotent snapshot/reopen round-trip; explicit currentness comparison; stale/unknown/malformed/ambiguous/incompatible refs fail closed before canonical mutation; zero partial mutation; unchanged C06A AppManifest/Tool-isolation semantics; no strengthening into command/business/persistence/provider/Core authority; exact-head and distinct current merge-candidate GREEN before closure.
 
-## Handoff :50 — Hardening & Sprint Closure Lead
-Closure/merge status: TASK-630 C06A product CLOSED / PROVEN / INTEGRATED. PR #994 merged with expected exact-head `eb58d89281d79cacb500ac0aa10919f774f5a3d8`; merge commit/fresh-main immediately after merge was `dd822b2196c1b759164e71f32b31f9024a6d4149`.
+Forbidden: `packages/core/**`, `packages/station-tool/**`, `packages/station-app-runtime/**`, `apps/station/**`, station shell/interaction/composition/ui-core, durable persistence/storage/database/filesystem ownership, provider/runtime/deploy/secrets, C07+, C10/Studio, AI/MCP, UI/DOM/accessibility.
 
-Evidence: mandatory exact-head workflows are GREEN on `eb58d892...`; Merge Candidate CI is GREEN for the current synthetic merge candidate and its job explicitly passed checkout, identity assertion and deterministic repository verification. Semantic/architecture review found no Core/business/command/persistence/provider/runtime authority, no C05 owner mutation and no C06B/C07/C10 expansion. Negative/adversarial proof covers normalized duplicate/malformed/ambiguous/stale/unknown/incompatible/impersonating refs and zero input mutation on rejection. Recovery beyond fail-closed admission is deferred. Accessibility N/A because no UI/DOM/focus/keyboard surface exists.
-
-Residual debt: C05 retry/compensation, failure/recovery presentation and extension seams remain DEFER/UNPROVEN. C06B lifecycle/save-reopen/version/currentness, C07+, Core/business/command authority, provider/runtime/deploy, C10/Studio and AI/MCP remain NOT ELIGIBLE / DEFER until dependency order and a new bounded TASK authorize them.
-
-Next dependency-safe work: revalidate fresh main after this repository-memory write, then perform a fresh-main census against the authoritative C0→C10 plan and QA obligations to determine the smallest mandatory successor after C06A. Materialize that successor as a new bounded TASK with explicit allowed/forbidden paths, max_files and proof obligations before any product mutation. Do not silently advance into C06B/C07+ merely because C06A is closed.
+## Handoff to Construction :10
+Construction is BLOCKED until this materialization itself is exact-head/current, bounded, GREEN and integrated into fresh main. Next action: validate this branch/PR against `main@88337cdd...`, require materialization exact-head gates plus a distinct merge-candidate GREEN, integrate only if current, then reconcile NEXT_WORK on post-merge fresh main. Only after that is TASK-631 product mutation authorized. Do not materialize C07 concurrently.
