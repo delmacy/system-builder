@@ -53,11 +53,26 @@ Truth base: `main@d719442a620a4a5824386e423fbc274ab54e8bc0`
 ## Context
 C01–C06 are closed/proven under their recorded owner contracts. The authoritative next Construction slice is C07 provider-independence/portability evidence. This first rolling-wave tranche materializes only a Station-owned provider-neutral declarative boundary; it does not implement provider runtimes, deployment, secrets, storage, business execution, or Studio behavior.
 
+## Current behavior
+C01–C06 establish component, Tool and Application owner contracts, including Application lifecycle/currentness, but do not prove a provider-neutral Station binding or provider substitution/exit semantics. Provider portability therefore remains an explicit UNPROVEN-GAP; no concrete provider behavior may be treated as canonical authority by inheritance.
+
 ## Objective
 Prove that Station-owned configuration can identify a provider-neutral capability binding, substitute a compatible provider reference deterministically, and represent portability/exit intent without changing canonical Application/Tool semantics or acquiring provider/runtime authority.
 
 ## Required change
 Add only the smallest declarative/in-memory provider-neutral binding/substitution boundary needed for executable portability evidence. Unknown, stale, malformed, duplicate, ambiguous, or incompatible provider references must fail closed before canonical mutation. Substitution must be deterministic/idempotent and preserve canonical semantic identity. No provider SDK/API call, deployment, secret resolution, durable storage, command execution, or Core/business result is admitted.
+
+## Inputs / contracts
+- Accepted C01–C06 Station owner contracts under unchanged preconditions.
+- Provider-neutral binding identity plus declarative compatibility/substitution references owned by the new Station boundary.
+- Explicit portability/exit intent represented without concrete provider runtime, SDK, API, network discovery, secret or deployment dependency.
+- Adversarial malformed/unknown/stale/duplicate/ambiguous/incompatible references used only to prove fail-closed admission.
+
+## Outputs / contracts
+- Deterministic in-memory provider-neutral binding/substitution result with stable identity and no mutation of Application/Tool/Component owners.
+- Explicit portability/exit representation that does not promote a concrete provider to canonical semantic or business meaning.
+- Deterministic rejection before canonical mutation for invalid/incompatible references, with zero partial mutation.
+- No runtime/deploy/secrets/storage/command/Core/business/UI authority and no claim beyond the focused C07A proof boundary.
 
 ## Acceptance criteria
 1. Provider-neutral binding identity is stable and distinct from Application, Tool, ComponentRegistry, presentation, command, and provider-runtime identity.
@@ -68,6 +83,12 @@ Add only the smallest declarative/in-memory provider-neutral binding/substitutio
 6. Binding/substitution metadata cannot create provider runtime/deploy/secrets authority, durable persistence/storage, executable command authorization, business result/currentness, Core authority, UI authority, C10/Studio, or AI/MCP authority.
 7. Focused executable proof covers positive substitution/round-trip plus adversarial unknown/stale/malformed/duplicate/ambiguous/incompatible and mutation-on-rejection cases.
 8. Exact-head deterministic/product/architecture gates and a current distinct merge-candidate must be GREEN before closure/merge.
+
+## Test Review / Hardening
+Review the focused C07A proof against each acceptance criterion and explicitly distinguish what the proof establishes from what remains UNPROVEN. Positive substitution alone is insufficient: rejection paths must demonstrate pre-mutation failure and zero partial mutation, and regression review must confirm unchanged C01–C06 owner boundaries. Any evidence that depends on a concrete provider SDK/runtime or broadens authority is invalid for this TASK.
+
+## QA Coverage / Evidence Review
+Coverage must include stable identity, deterministic compatible substitution, idempotence, semantically irrelevant ordering, portability/exit representation, malformed/unknown/stale/duplicate/ambiguous/incompatible rejection, and mutation-on-rejection. Exact-head repository gates and a distinct current merge-candidate must refer to the final evidence identity; predecessor or pre-amendment GREEN runs are stale and cannot close the TASK.
 
 ## Evidence expected
 - Focused C07 executable proof for provider-neutral identity, deterministic compatible substitution, idempotence and portability/exit representation.
