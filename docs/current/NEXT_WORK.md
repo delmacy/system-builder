@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-03
-Repository truth base: `main@818ed5fb9d4a9074a341e3fceaddd19ad2fbcfe8`
-Status: S3 / WP5 C05C — TASK-629 CLOSED / PROVEN
+Repository truth base: `main@4f0424e9c721e7608fbe0e1f38678bce2dd4208f`
+Status: S3 / WP6 C06A — TASK-630 MATERIALIZATION NORMALIZED / EXACT-HEAD GATES REQUIRED
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -12,23 +12,27 @@ Status: S3 / WP5 C05C — TASK-629 CLOSED / PROVEN
 - `project_docs/execution_planning/STATION-S3-COMPONENT-GRAMMAR-PLAN-01.md`
 - `project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md`
 - `project_docs/execution_planning/STATION-S3-QA-GATES-PLAN-01.md`
-- `specs/tasks/TASK-629-STATION-S3-C05C-TOOL-MULTIVIEW-CONVERGENCE.md`
+- `specs/tasks/TASK-630-STATION-S3-C06A-APPLICATION-MANIFEST-INTEGRITY.md`
 
-## Closure truth
-TASK-627/C05A, TASK-628/C05B and TASK-629/C05C are CLOSED / PROVEN. C01-C04 and C05A/C05B proofs remain inherited only where owner contracts and preconditions remain unchanged. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; semantic patterns above primitives; discrete/span composition ownership; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
+## Predecessor truth
+TASK-627/C05A, TASK-628/C05B and TASK-629/C05C are CLOSED / PROVEN. Fresh-main census finds the mandatory C05 Tool obligation complete for active-context, restoration/rebind and multi-view convergence. Residual retry/compensation, failure/recovery presentation and extension seams remain explicit DEFER/UNPROVEN and are not promoted by inheritance. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## TASK-629 closure / merge evidence
-PR #992 was normalized to one authoritative TASK-629 commit and remained bounded to `packages/station-tool/multiview.ts`, `tests/product/station-s3-c05-tool-multiview.test.ts`, and repository memory: 3/6 files, no forbidden-owner drift. Exact-head `41f8f26c82f1fd11b521cd2536f9a85d15fc31c4` obtained current GREEN gates, including Merge Candidate CI. The merge-candidate workflow checked out the GitHub pull-request merge candidate, asserted `HEAD == github.sha`, and ran deterministic `npm run verify` successfully. Exact-head and merge-candidate identities were distinct at eligibility; the current candidate identity observed for the final PR state was `cf9eb0c28b38517b3fc8a847dcf63b8f4c9d69a3`. PR #992 then merged as `8306b8fea8d22b623ef439823b3b596022d700bd` with parents `main@64640417f4c7d9990c3bacbadfe61bd7c8f51d0b` and exact-head `41f8f26c82f1fd11b521cd2536f9a85d15fc31c4`. Repository memory subsequently marked TASK-629 `completed` in `818ed5fb9d4a9074a341e3fceaddd19ad2fbcfe8`.
+## TASK-630 contract
+C06A is only AppManifest identity/integrity plus Tool-contribution isolation. Allowed Construction after materialization integration: new `packages/station-application/**`; focused `tests/product/station-s3-c06*.test.ts`; bounded repository memory; `max_files: 6`. Forbidden: Core/business/command authority; mutation of station-tool/interaction/composition/shell/ui-core/apps/runtime; persistence/storage/save-reopen/version/currentness lifecycle; provider/runtime/deploy/secrets; C07; C10/Studio; AI/MCP; UI/DOM/accessibility behavior.
 
-## Semantic / architecture review
-Multi-view projection remains derived from one canonical Station-owned Tool state. Context switching converges deterministically across declared compatible views; projection is deterministic/idempotent and preserves Tool/participant/context/view identity. Duplicate, stale, unknown, malformed and incompatible declarations fail closed, including the previously found incompatible-active-context false positive, with zero canonical Tool mutation on rejection. No per-view semantic authority, command execution/authorization, persistence/storage, lower-owner mutation, AppManifest, Core/business authority, provider/runtime/deploy or C10 authority was introduced.
+Acceptance/proof obligations remain: stable Application identity distinct from Tool and ComponentRegistry; deterministic/idempotent contribution admission and isolation; normalized duplicate/malformed/unknown/stale/ambiguous/incompatible refs fail closed before canonical mutation; zero partial mutation on rejection; unchanged C05 Tool semantics; no executable command/authorization/business-result/currentness/provider/persistence authority; focused positive/adversarial proof; exact-head and distinct current merge-candidate GREEN before integration/closure.
 
-## Negative / adversarial / recovery / accessibility
-Focused proof covers one-authority/many-view convergence before/after context switch, projection order/idempotence, duplicate normalized refs, unknown/stale/malformed/incompatible bindings, zero mutation on rejection, and absence of command/effect authority surfaces. Recovery beyond deterministic reprojection is not a C05C closure obligation. Accessibility is `not-applicable`: TASK-629 introduces no UI/DOM/focus/keyboard surface.
+## Test Review / Hardening
+Materialization explicitly requires positive composition plus adversarial normalized identity collision, duplicate/unknown/stale/ambiguous/incompatible Tool refs, order dependence, overwrite/impersonation attempts and zero partial mutation on rejection. Recovery beyond deterministic fail-closed admission is outside C06A. Accessibility is `not-applicable` because this tranche admits no UI/DOM/focus/keyboard behavior; crossing that boundary requires STOP/rematerialize.
 
-## Handoff :50
-Closure/merge status: TASK-629 / C05C CLOSED / PROVEN; PR #992 MERGED.
-Fresh-main after product merge: `8306b8fea8d22b623ef439823b3b596022d700bd`; repository-memory closure commit: `818ed5fb9d4a9074a341e3fceaddd19ad2fbcfe8`. Revalidate the branch tip after this handoff write before beginning successor work.
-Evidence: exact-head `41f8f26c82f1fd11b521cd2536f9a85d15fc31c4` GREEN; distinct final merge-candidate `cf9eb0c28b38517b3fc8a847dcf63b8f4c9d69a3` GREEN; merged product commit `8306b8fea8d22b623ef439823b3b596022d700bd`; TASK status reconciled to `completed`.
-Residual debt: retry/compensation, failure/recovery presentation and extension seams remain explicit DEFER/UNPROVEN. They are not silently inherited as proven by C05C.
-Next dependency-safe work: perform a fresh-main census against the S3 plan/QA obligations to determine whether C05 has any remaining mandatory closure obligation. Only if C05 is fully closed may the next worker materialize the smallest C06/AppManifest tranche as a new TASK with explicit allowed/forbidden paths, max_files and proof obligations before any product mutation. Do not create Core/business authority, provider/runtime/deploy authority or C10/Studio work; preserve C0→C10 ordering and all S3 boundaries.
+## QA Coverage / Evidence Review
+The previously accumulated planning head `fe751994319f5eb9c7876121fdf8a5c6415375d2` obtained GREEN Deterministic CI, Merge Candidate CI, Heavy Product Tests and Automation Handoff State Machine, but its eight-commit shape is not authoritative for TASK closure. That evidence is stale after normalization. The two-file materialization is therefore normalized directly on fresh `main@4f0424e9c721e7608fbe0e1f38678bce2dd4208f` as one authoritative TASK-630 commit. Current exact-head mandatory gates and a distinct current merge-candidate remain `unproven-gap` until workflows publish for the normalized head.
+
+## Handoff :10
+Fresh main: `4f0424e9c721e7608fbe0e1f38678bce2dd4208f`.
+Branch/PR: `planning/station-s3-wp6-c06a-appmanifest-materialization` / PR #993 (draft).
+Head: single authoritative TASK-630 materialization commit containing this handoff; resolve exact SHA from the branch/PR after ref update and use only that SHA for gates.
+TASK: TASK-630 / C06A Application Manifest Integrity — MATERIALIZED BUT BLOCKED FOR INTEGRATION PENDING CURRENT EVIDENCE.
+Files changed: `specs/tasks/TASK-630-STATION-S3-C06A-APPLICATION-MANIFEST-INTEGRITY.md`, `docs/current/NEXT_WORK.md`; 2 files, zero product mutation.
+Blockers: exact-head and distinct merge-candidate evidence for the normalized head are UNPROVEN. Do not reuse GREEN from `fe751994...`.
+Next dependency-safe work: collect mandatory exact-head GREEN plus distinct current merge-candidate GREEN for the normalized head; correct only bounded proven failures; merge materialization only then; revalidate fresh main before any product mutation. C06B/C07+, Core/business authority, provider/runtime/deploy and C10/Studio remain NOT ELIGIBLE / DEFER.
