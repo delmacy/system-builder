@@ -2,7 +2,7 @@
 
 Date: 2026-10-03
 Repository truth base: `main@d719442a620a4a5824386e423fbc274ab54e8bc0`
-Status: S3 / WP7 C07A — TASK-632 MATERIALIZED / MATERIALIZATION EVIDENCE PENDING; Construction BLOCKED
+Status: S3 / WP7 C07A — TASK-632 MATERIALIZED / MATERIALIZATION BLOCKED; Construction BLOCKED
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -19,7 +19,7 @@ C01–C05 are PROVEN under unchanged recorded preconditions. C06A/TASK-630 and C
 
 ## TASK-632 / C07A materialization
 Branch: `planning/station-s3-wp7-c07a-provider-portability-materialization`.
-Start truth: `main@d719442a620a4a5824386e423fbc274ab54e8bc0`.
+Start/fresh-main truth: `main@d719442a620a4a5824386e423fbc274ab54e8bc0`.
 Materialized scope: smallest Station-owned provider-neutral binding/substitution/portability evidence boundary only.
 Construction: BLOCKED until this materialization is current, bounded, GREEN, integrated, and fresh-main pointer reconciled.
 
@@ -37,9 +37,15 @@ Forbidden: `packages/core/**`, `packages/station-application/**`, `packages/stat
 - focused positive + adversarial executable proof;
 - current exact-head mandatory gates plus a distinct current merge-candidate GREEN before materialization integration/Construction admission.
 
-## :10 handoff
-Predecessor truth: `C01–C05 PROVEN → C06A CLOSED/PROVEN/INTEGRATED → C06B CLOSED/PROVEN/INTEGRATED → C06 census CLOSED → main@d719442a → TASK-632/C07A materialized on planning branch → materialization evidence/integration PENDING`.
+## :50 hardening / closure handoff
+Fresh main revalidated: `d719442a620a4a5824386e423fbc274ab54e8bc0`; materialization base is current and not stale.
 
-Authorization: materialization hardening/validation only. Product Construction is NOT authorized yet.
+PR #999 remained a bounded two-file planning delta (`TASK-632` + `NEXT_WORK`), within materialization authorization. Semantic/architecture review found no product mutation, no lower-owner mutation, no provider runtime/deploy/secrets/storage/command/Core/business/UI/C10/AI-MCP authority, and no accessibility surface; accessibility is N/A for this planning-only delta.
 
-Next action: revalidate fresh main against the materialization base; inspect the bounded two-file documentation delta; obtain current exact-head mandatory gates and a distinct merge-candidate for the final materialization identity; fix only bounded documentation/conformance blockers; integrate only when GREEN/current; then reconcile NEXT_WORK on the new fresh main. Do not implement C07 product or materialize another tranche before that admission completes.
+Blocker-first evidence on predecessor exact-head `0f831bb95fb8e88d8453ba65561a21d0069dde77`: Heavy Product Tests GREEN and Automation Handoff State Machine GREEN, but Deterministic CI exact-head FAILED during deterministic repository verification and Merge Candidate CI FAILED during deterministic repository verification. Checkout and identity assertions passed in both workflows. Therefore predecessor evidence is not merge-eligible and its merge-candidate must not be reused. The available workflow metadata does not expose the failing verification subcommand/output, so no speculative scope-changing repair was made.
+
+This :50 memory-only write creates a new exact-head identity and intentionally makes all predecessor gate evidence stale. Closure/merge status: BLOCKED / UNPROVEN; no merge performed; Construction remains unauthorized.
+
+Residual debt: identify the deterministic verification failure from the new/current run evidence, repair only a bounded documentation/conformance defect if one is demonstrated, then require final exact-head mandatory GREEN and a distinct current merge-candidate GREEN. Provider substitution/exit product obligations remain UNPROVEN-GAP until later Construction; recovery beyond deterministic fail-closed admission remains deferred.
+
+Next dependency-safe action: inspect the current exact-head run produced by this handoff; if FAILED, use its concrete failing verification output to repair only TASK-632/NEXT_WORK conformance and rerun. If GREEN, require and record a distinct current merge-candidate GREEN, integrate materialization, revalidate fresh main, and reconcile repository memory. Do not implement C07 product, advance C07B/C08+, or acquire any forbidden authority before that admission completes.
