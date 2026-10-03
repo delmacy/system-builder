@@ -31,6 +31,13 @@ export type ToolState = Readonly<{
   activeContextRef: string;
 }>;
 
+export type ToolRestorationSnapshot = Readonly<{
+  toolId: string;
+  participants: readonly Readonly<{ ref: string; role: ToolParticipantRole }>[];
+  contexts: readonly Readonly<{ ref: string; participantRef: string; routeRefs: readonly string[] }>[];
+  activeContextRef: string;
+}>;
+
 function nonEmpty(value: string, label: string): string {
   const normalized = value.trim();
   if (normalized.length === 0) throw new Error(`${label} must be non-empty`);
@@ -90,4 +97,59 @@ export function qualifyToolCommand(tool: ToolState, routeRef: string): ToolComma
   const route = active.routes[nonEmpty(routeRef, "tool route ref")];
   if (!route) throw new Error("tool route is not declared for active context");
   return route;
+}
+
+export function snapshotToolForRestoration(tool: ToolState): ToolRestorationSnapshot {
+  return Object.freeze({
+    toolId: tool.id,
+    participants: Object.freeze(tool.participants.map(({ ref, role }) => Object.freeze({ ref, role }))),
+    contexts: Object.freeze(tool.contexts.map(({ ref, participantRef, routes }) => Object.freeze({
+      ref,
+      participantRef,
+      routeRefs: Object.freeze(Object.keys(routes).sort()),
+    }))),
+    activeContextRef: tool.activeContextRef,
+  });
+}
+
+export function restoreToolContext(tool: ToolState, snapshot: ToolRestorationSnapshot): ToolState {
+  const toolId = nonEmpty(snapshot.toolId, "restoration tool id");
+  if (toolId !== tool.id) throw new Error("restoration snapshot references a stale tool identity");
+
+  const participantRefs = new Set<string>();
+  for (const participant of snapshot.participants) {
+    const ref = nonEmpty(participant.ref, "restoration participant ref");
+    const role = nonEmpty(participant.role, "restoration participant role");
+    if (participantRefs.has(ref)) throw new Error("restoration participant refs must be unique");
+    participantRefs.add(ref);
+    const declared = tool.participants.find((candidate) => candidate.ref === ref);
+    if (!declared || declared.role !== role) throw new Error("restoration participant is stale or incompatible");
+  }
+  if (participantRefs.size !== tool.participants.length) throw new Error("restoration participant set is incomplete");
+
+  const contextRefs = new Set<string>();
+  for (const context of snapshot.contexts) {
+    const ref = nonEmpty(context.ref, "restoration context ref");
+    const participantRef = nonEmpty(context.participantRef, "restoration context participant ref");
+    if (contextRefs.has(ref)) throw new Error("restoration context refs must be unique");
+    contextRefs.add(ref);
+    const declared = tool.contexts.find((candidate) => candidate.ref === ref);
+    if (!declared || declared.participantRef !== participantRef) throw new Error("restoration context is stale or incompatible");
+
+    const routeRefs = context.routeRefs.map((routeRef) => nonEmpty(routeRef, "restoration route ref"));
+    if (new Set(routeRefs).size !== routeRefs.length) throw new Error("restoration route refs must be unique");
+    const declaredRouteRefs = Object.keys(declared.routes).sort();
+    if (routeRefs.length !== declaredRouteRefs.length || [...routeRefs].sort().some((routeRef, index) => routeRef !== declaredRouteRefs[index])) {
+      throw new Error("restoration routes are stale or incompatible");
+    }
+  }
+  if (contextRefs.size !== tool.contexts.length) throw new Error("restoration context set is incomplete");
+
+  const activeContextRef = nonEmpty(snapshot.activeContextRef, "restoration active context ref");
+  if (!contextRefs.has(activeContextRef) || !tool.contexts.some(({ ref }) => ref === activeContextRef)) {
+    throw new Error("restoration active context is stale or unknown");
+  }
+
+  if (tool.activeContextRef === activeContextRef) return tool;
+  return Object.freeze({ ...tool, activeContextRef });
 }

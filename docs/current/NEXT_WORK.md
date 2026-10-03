@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-03
-Repository truth base: `main@3459acb44414cf8f8724ad84f4ae5cc2ed6fede7`
-Status: S3 / WP5 C05B — TASK-628 MATERIALIZED / CONSTRUCTION ELIGIBLE
+Repository truth base: `main@93b41083f02ebab1a7820f8428fbdf87f9210ab9`
+Status: S3 / WP5 C05B — TASK-628 CONSTRUCTION / CLOSURE GATES REQUIRED
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -15,18 +15,18 @@ Status: S3 / WP5 C05B — TASK-628 MATERIALIZED / CONSTRUCTION ELIGIBLE
 - `specs/tasks/TASK-628-STATION-S3-C05B-TOOL-RESTORATION-REBIND.md`
 
 ## Predecessor truth
-TASK-627/C05A is CLOSED / PROVEN. TASK-628/C05B materialization PR #987 was exact-head GREEN and integrated into `main` as `3459acb44414cf8f8724ad84f4ae5cc2ed6fede7`. C01-C04 and C05A proofs remain inherited only where owner contracts and preconditions remain unchanged. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
+TASK-627/C05A is CLOSED / PROVEN. TASK-628/C05B materialization PR #987 was integrated. Fresh main is `93b41083f02ebab1a7820f8428fbdf87f9210ab9`. C01-C04 and C05A proofs remain inherited only where owner contracts and preconditions remain unchanged. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
 ## Current tranche
-TASK-628/C05B is the sole Construction-eligible tranche: Tool restoration/rebind by stable declared identity. Allowed paths remain `packages/station-tool/**`, focused `tests/product/station-s3-c05*.test.ts`, TASK-628 spec and this bounded pointer, with `max_files: 6`. Forbidden boundaries remain persistence/storage ownership; lower-owner interaction/composition/shell/ui-core/apps mutation; executable command/business authority; AppManifest/C06; provider/runtime/deploy; multi-view propagation; retry/compensation; failure/recovery presentation; extension seams; C10/Studio; AI/MCP.
+PR #989 / TASK-628/C05B is the sole Construction tranche: Tool restoration/rebind by stable declared identity. Delta remains bounded to `packages/station-tool/index.ts`, focused `tests/product/station-s3-c05-tool-restoration.test.ts`, and this pointer (3/6 files). Forbidden boundaries remain persistence/storage ownership; lower-owner interaction/composition/shell/ui-core/apps mutation; executable command/business authority; AppManifest/C06; provider/runtime/deploy; multi-view propagation; retry/compensation; failure/recovery presentation; extension seams; C10/Studio; AI/MCP.
 
 ## Proof obligations
-Construction must prove deterministic valid rebind; idempotence; Tool/participant/view/component identity preservation; fail-closed stale/unknown/ambiguous/duplicate/incompatible refs; zero mutation on rejection; no authority strengthening. Accessibility is N/A unless Construction introduces UI; if UI is required, STOP/rematerialize.
+Construction must prove deterministic valid rebind; repeated-rebind idempotence; Tool/participant/context identity preservation; fail-closed stale/unknown/ambiguous/duplicate/incompatible refs before canonical mutation; zero mutation on rejection; no command/business authority strengthening. Accessibility is N/A because this delta introduces no UI/DOM/focus/keyboard surface.
 
 ## Handoff :50
-Materialization closure: PR #987 integrated. Materialization exact-head `98893538940c493f809a1e87cd845a36aaf192e5` was GREEN for Deterministic CI, Merge Candidate CI, Heavy Product Tests and Automation Handoff State Machine before protected exact-head merge.
-Integrated predecessor main: `3459acb44414cf8f8724ad84f4ae5cc2ed6fede7`.
-TASK-628 status: MATERIALIZED / CONSTRUCTION ELIGIBLE; C05B remains UNPROVEN until Construction exact-head evidence and integration close the task.
-Evidence/review: materialization was documentation/task-only; no product/lower-owner mutation; allowed/forbidden scope and `max_files: 6` remain conformant; semantic boundary remains restoration/rebind by stable declared identity only.
-Residual blocker: none known before Construction. Construction must establish its own exact-head evidence; materialization proof does not prove product behavior.
-Next dependency-safe work: from fresh main after this bounded pointer commit, create/revalidate the TASK-628 Construction branch and implement only the smallest C05B restoration/rebind delta with focused proof. If implementation requires a forbidden owner/boundary, UI, persistence ownership, multi-view propagation, or >6 files, STOP/rematerialize. Do not materialize C05C/C06+ until TASK-628 closes.
+Fresh main: `93b41083f02ebab1a7820f8428fbdf87f9210ab9`.
+Prior Construction head `2065e535663bfd30baf0d641743795c768373b9a` had fresh GREEN mandatory workflows after its focused-test TypeScript blocker was corrected, but main advanced afterward and that evidence is stale for closure.
+This reconciled Construction candidate preserves the product/test delta exactly while rebasing it onto fresh main and normalizing the complete bounded delta to one authoritative TASK-628 commit. Its resulting SHA is a new evidence identity and MUST receive fresh exact-head mandatory gates plus a distinct current merge-candidate GREEN before closure.
+Decision Graph static review remains PASS: identity != placement != presentation != action; ComponentRegistry != AppManifest; semantic patterns above primitives; discrete/span owners untouched; focus != selection != active != expansion; no accepted/acknowledged -> effective promotion; restoration snapshot/state carries Station-owned references only and cannot strengthen executable/Core/business authority.
+Residual blocker: fresh exact-head and merge-candidate evidence for the reconciled SHA are UNPROVEN until workflows publish. Do not merge on predecessor evidence.
+Next dependency-safe work: collect fresh Deterministic CI, Heavy Product Tests, Station Frontend Quality, Automation Handoff State Machine, and current Merge Candidate CI. Resolve only bounded proven failures. Merge TASK-628 only when both evidence identities are GREEN and main/head remain unchanged. C05C/C06+ remain NOT ELIGIBLE; C10 remains UNPROVEN/DEFER.
