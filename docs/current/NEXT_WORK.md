@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-03
-Repository truth base: `main@7275563ebaafe178f84cad9cfcea01e588d7b008`
-Status: S3 / WP6 C06 — CLOSED / PROVEN / INTEGRATED; C07 rolling-wave materialization is next
+Repository truth base: `main@d719442a620a4a5824386e423fbc274ab54e8bc0`
+Status: S3 / WP7 C07A — TASK-632 MATERIALIZED / MATERIALIZATION EVIDENCE PENDING; Construction BLOCKED
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -12,28 +12,34 @@ Status: S3 / WP6 C06 — CLOSED / PROVEN / INTEGRATED; C07 rolling-wave material
 - `project_docs/execution_planning/STATION-S3-COMPONENT-GRAMMAR-PLAN-01.md`
 - `project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md`
 - `project_docs/execution_planning/STATION-S3-QA-GATES-PLAN-01.md`
-- `specs/tasks/TASK-631-STATION-S3-C06B-APPLICATION-LIFECYCLE-CURRENTNESS.md`
+- `specs/tasks/TASK-632-STATION-S3-C07A-PROVIDER-PORTABILITY-BOUNDARY.md`
 
 ## Predecessor truth
-C01–C05 are PROVEN under their recorded owner contracts and unchanged preconditions. TASK-630/C06A AppManifest integrity + Tool-contribution isolation is CLOSED / PROVEN / INTEGRATED. TASK-631/C06B Application lifecycle/currentness is CLOSED / PROVEN / INTEGRATED; construction exact-head `2118f59d6d5ffeb966e418d8dc9d7d1fedda9865` merged at `af9ac043a541f4a8dc72b404f53d62ef640f4dfb`. Repository-memory reconciliation is complete at `7275563e...`; that memory-only commit creates no new product proof.
+C01–C05 are PROVEN under unchanged recorded preconditions. C06A/TASK-630 and C06B/TASK-631 are CLOSED / PROVEN / INTEGRATED. The C06 census found all accepted mandatory C9/Application obligations closed; durable persistence/storage and recovery beyond deterministic fail-closed admission remain explicit non-goals/deferred rather than hidden closure gaps. C07 evidence starts UNPROVEN-GAP.
 
-## C06 census
-The mandatory C9/Application obligations named by the QA plan are closed across C06A+C06B: AppManifest integrity, Tool-contribution isolation, save/snapshot→reopen lifecycle, explicit version/revision currentness, fail-closed stale/malformed/ambiguous/mismatched admission, idempotence and zero partial mutation. Durable persistence/storage and recovery beyond deterministic fail-closed admission remain explicitly DEFER/UNPROVEN because they are outside the accepted C06 boundary, not missing C06 closure evidence.
+## TASK-632 / C07A materialization
+Branch: `planning/station-s3-wp7-c07a-provider-portability-materialization`.
+Start truth: `main@d719442a620a4a5824386e423fbc274ab54e8bc0`.
+Materialized scope: smallest Station-owned provider-neutral binding/substitution/portability evidence boundary only.
+Construction: BLOCKED until this materialization is current, bounded, GREEN, integrated, and fresh-main pointer reconciled.
 
-No accepted mandatory C06 obligation remains open that blocks dependency progression. Proof inheritance remains conditional on unchanged preconditions; C06 evidence does not prove C07 provider-independence/portability.
+Allowed product after admission: `packages/station-provider-boundary/**` plus focused `tests/product/station-s3-c07*.test.ts` and bounded TASK/NEXT_WORK memory; `max_files: 6`.
 
-## Next dependency-safe work
-Per the authoritative materialization order, the next tranche is C07 provider-independence/portability evidence boundary. Materialize only the smallest first C07 TASK from this fresh main; do not implement product in the handoff/materialization slot. Construction remains blocked until that materialization has bounded scope, allowed/forbidden paths, explicit proof obligations, current exact-head gates, distinct merge-candidate evidence, integration, and a reconciled fresh-main pointer.
+Forbidden: `packages/core/**`, `packages/station-application/**`, `packages/station-tool/**`, app-runtime/apps/shell/interaction/composition/ui-core, concrete `provider/**`, `runtime/**`, `deploy/**`, provider SDK/API/network discovery, secrets resolution, durable persistence/storage/database/filesystem ownership, executable command authorization, Core/business result/currentness, UI/DOM/a11y, C10/Studio and AI/MCP.
 
-C07 must remain a Station-owned provider-neutral binding/substitution/portability evidence boundary. It must not acquire provider runtime/deploy/secrets ownership, durable persistence/storage, executable command authorization, Core/business authority, C10/Studio, or AI/MCP authority. Provider substitution/exit evidence begins UNPROVEN-GAP and must be proved by its own focused executable evidence.
+## Acceptance / proof obligations
+- stable provider-neutral binding identity distinct from Application/Tool/Component/presentation/command/runtime identity;
+- deterministic compatible substitution, idempotence, and order-independence where ordering is semantically irrelevant;
+- explicit portability/exit representation with no concrete provider promoted to canonical business meaning;
+- unknown/stale/malformed/duplicate/ambiguous/incompatible refs fail closed before canonical mutation with zero partial mutation;
+- C01–C06 owner contracts preserved; inheritance only under unchanged preconditions;
+- no provider runtime/deploy/secrets, persistence/storage, command/business/Core, UI, Studio or AI/MCP authority;
+- focused positive + adversarial executable proof;
+- current exact-head mandatory gates plus a distinct current merge-candidate GREEN before materialization integration/Construction admission.
 
 ## :10 handoff
-Predecessor truth: `C01–C05 PROVEN → C06A CLOSED/PROVEN/INTEGRATED → C06B/TASK-631 CLOSED/PROVEN/INTEGRATED → C06 census CLOSED → fresh main after this memory-only reconciliation → C07 materialization next`.
+Predecessor truth: `C01–C05 PROVEN → C06A CLOSED/PROVEN/INTEGRATED → C06B CLOSED/PROVEN/INTEGRATED → C06 census CLOSED → main@d719442a → TASK-632/C07A materialized on planning branch → materialization evidence/integration PENDING`.
 
-Authorization: materialization/planning only for the smallest C07 tranche. Product Construction is NOT yet authorized.
+Authorization: materialization hardening/validation only. Product Construction is NOT authorized yet.
 
-Allowed for materialization: one bounded TASK specification plus the minimum live-pointer memory needed to make C07 scope executable and auditable. Forbidden: product implementation, Core/business authority, provider/runtime/deploy/secrets implementation, durable persistence/storage, C10/Studio, AI/MCP, or broad program materialization.
-
-Acceptance/proof obligations to bind in the C07 TASK: provider-neutral identity/binding; deterministic substitution without canonical semantic drift; explicit portability/exit representation; fail-closed unknown/stale/malformed/ambiguous/incompatible provider refs before canonical mutation; zero partial mutation; unchanged C01–C06 owner contracts; no strengthening into provider runtime/deploy/secrets, command/business/Core, persistence, UI, or Studio authority.
-
-Next action: materialize only the first bounded C07 tranche from fresh main, then require current materialization gates and integration before Construction :10 may implement it.
+Next action: revalidate fresh main against the materialization base; inspect the bounded two-file documentation delta; obtain current exact-head mandatory gates and a distinct merge-candidate for the final materialization identity; fix only bounded documentation/conformance blockers; integrate only when GREEN/current; then reconcile NEXT_WORK on the new fresh main. Do not implement C07 product or materialize another tranche before that admission completes.
