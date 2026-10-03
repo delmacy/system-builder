@@ -54,6 +54,10 @@ Materialize the smallest first C05 tranche: a pure Station Tool contract that in
 
 Materialized from fresh `main@d885e4a16d524f97ad465a73b5780f59bda9232e` after TASK-618/C04 closure. Historical `project_docs/tasks/TASK-619..626` already exist from M2, so the next collision-free S3 task id is TASK-627. Research establishes that EditorShell is layout-only and that no existing concrete editor/domain surface is authoritative as the C8/C05 Tool abstraction. C05 must therefore own only the reusable Tool invariant and inherit lower-layer proofs where preconditions remain unchanged.
 
+## Current behavior
+
+C01-C04 provide component identity, composition/currentness, interaction command qualification, and responsive structural projection, but the repository has no authoritative reusable Tool abstraction that owns stable Tool identity, semantic participant-role compatibility, or active-context routing. Existing EditorShell is layout-only chrome and concrete editor/domain surfaces are not grammar authority. Construction is blocked until this bounded C05A contract is integrated.
+
 ## Required change
 
 1. Define stable Tool identity independent of participant placement/presentation.
@@ -64,6 +68,22 @@ Materialized from fresh `main@d885e4a16d524f97ad465a73b5780f59bda9232e` after TA
 6. Do not mutate or duplicate Station composition, interaction, shell, EditorShell, registry, or business state.
 7. Keep restoration, multi-view consequence propagation, retry/compensation, failure/recovery presentation and extension seams explicitly deferred to later C05 tranche(s) unless needed to prove this bounded invariant.
 
+## Inputs / contracts
+
+- Stable participant/component/view identities supplied by existing Station owners; placement or presentation is not identity.
+- Existing interaction command identity/target/currentness contracts remain authoritative for command semantics and execution eligibility.
+- Existing composition and responsive projection contracts remain authoritative for placement/span and visual structure.
+- C01-C04 proof may be inherited only where owner contracts and preconditions remain unchanged.
+- Declared Tool participant roles and active-context selection are Station presentation/orchestration inputs only and carry no Core/business authority.
+
+## Outputs / contracts
+
+- A stable Tool identity that does not regenerate when active context changes.
+- Deterministic admission/rejection of declared participant-role bindings, failing closed before canonical Tool-state mutation on incompatible or ambiguous bindings.
+- Deterministic active-context qualification of an already-declared command identity/target contract without executing the command or strengthening authority.
+- Stable participant/view/component identity across active-context changes.
+- No mutation or duplication of composition, interaction, shell, EditorShell, AppManifest, persistence, runtime/deploy/provider, Core, or business owners.
+
 ## Acceptance criteria
 
 - Tool identity remains stable while active participant/context changes.
@@ -73,17 +93,13 @@ Materialized from fresh `main@d885e4a16d524f97ad465a73b5780f59bda9232e` after TA
 - Participant/view/component identity is preserved; no placement/presentation change becomes semantic identity.
 - No Core/business, AppManifest, runtime/deploy/provider, shell, composition, interaction, persistence or EditorShell authority is introduced.
 
-## Evidence expected
-
-Focused product proof for stable Tool identity, participant-role compatibility/fail-closed admission, deterministic active-context routing, same-command identity convergence, identity preservation, and absence of authority strengthening. C01-C04 and lower-layer interaction/composition proofs are inherited only where owners/contracts and preconditions remain unchanged. All new C05A obligations begin `unproven-gap` until observed on the final exact head.
-
-## Test Review / Hardening
-
-Challenge active context accidentally becoming authorization; visible/focused participant becoming command owner; duplicate/ambiguous role admission; feature-name branching; identity regeneration on context switch; mutation of lower-layer composition/interaction state; and hidden reliance on concrete EditorShell/domain applications. Classify each obligation `proven | failed | unproven-gap | not-applicable`.
-
 ## Non-goals
 
 Restoration serialization/rebind; multi-view consequence propagation; retry/compensation; failure/recovery semantics; extension/plugin seams; AppManifest/C06; provider/runtime/deploy; C10/Studio; AI/MCP; Core/business authority.
+
+## Evidence expected
+
+Focused product proof for stable Tool identity, participant-role compatibility/fail-closed admission, deterministic active-context routing, same-command identity convergence, identity preservation, and absence of authority strengthening. Challenge active context accidentally becoming authorization; visible/focused participant becoming command owner; duplicate/ambiguous role admission; feature-name branching; identity regeneration on context switch; mutation of lower-layer composition/interaction state; and hidden reliance on concrete EditorShell/domain applications. Classify each obligation `proven | failed | unproven-gap | not-applicable`. C01-C04 and lower-layer interaction/composition proofs are inherited only where owners/contracts and preconditions remain unchanged. All new C05A obligations begin `unproven-gap` until observed on the final exact head.
 
 ## Escalation
 
