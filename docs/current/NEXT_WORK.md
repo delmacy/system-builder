@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-03
-Repository truth base: `main@64640417f4c7d9990c3bacbadfe61bd7c8f51d0b`
-Status: S3 / WP5 C05C — TASK-629 RENORMALIZED / EXACT-HEAD GATES REQUIRED
+Repository truth base: `main@818ed5fb9d4a9074a341e3fceaddd19ad2fbcfe8`
+Status: S3 / WP5 C05C — TASK-629 CLOSED / PROVEN
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -14,24 +14,21 @@ Status: S3 / WP5 C05C — TASK-629 RENORMALIZED / EXACT-HEAD GATES REQUIRED
 - `project_docs/execution_planning/STATION-S3-QA-GATES-PLAN-01.md`
 - `specs/tasks/TASK-629-STATION-S3-C05C-TOOL-MULTIVIEW-CONVERGENCE.md`
 
-## Predecessor truth
-TASK-627/C05A and TASK-628/C05B are CLOSED / PROVEN. TASK-629/C05C materialization is integrated. C01-C04 and C05A/C05B proofs remain inherited only where owner contracts and preconditions remain unchanged. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; semantic patterns above primitives; discrete/span composition ownership; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
+## Closure truth
+TASK-627/C05A, TASK-628/C05B and TASK-629/C05C are CLOSED / PROVEN. C01-C04 and C05A/C05B proofs remain inherited only where owner contracts and preconditions remain unchanged. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; semantic patterns above primitives; discrete/span composition ownership; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## Construction / hardening truth
-PR #992 carries only the bounded TASK-629 C05C delta: `packages/station-tool/multiview.ts`, `tests/product/station-s3-c05-tool-multiview.test.ts`, and this handoff; 3/6 paths and no forbidden-owner drift. Semantic hardening rejects a declared view whose contexts exclude the canonical active context before projection. Multi-view projections remain Station-owned and carry no command execution, authorization, persistence or business authority. Accessibility is `not-applicable`: no UI/DOM/focus/keyboard surface is introduced.
+## TASK-629 closure / merge evidence
+PR #992 was normalized to one authoritative TASK-629 commit and remained bounded to `packages/station-tool/multiview.ts`, `tests/product/station-s3-c05-tool-multiview.test.ts`, and repository memory: 3/6 files, no forbidden-owner drift. Exact-head `41f8f26c82f1fd11b521cd2536f9a85d15fc31c4` obtained current GREEN gates, including Merge Candidate CI. The merge-candidate workflow checked out the GitHub pull-request merge candidate, asserted `HEAD == github.sha`, and ran deterministic `npm run verify` successfully. Exact-head and merge-candidate identities were distinct at eligibility; the current candidate identity observed for the final PR state was `cf9eb0c28b38517b3fc8a847dcf63b8f4c9d69a3`. PR #992 then merged as `8306b8fea8d22b623ef439823b3b596022d700bd` with parents `main@64640417f4c7d9990c3bacbadfe61bd7c8f51d0b` and exact-head `41f8f26c82f1fd11b521cd2536f9a85d15fc31c4`. Repository memory subsequently marked TASK-629 `completed` in `818ed5fb9d4a9074a341e3fceaddd19ad2fbcfe8`.
 
-## Test Review / Hardening
-Focused proof covers one-authority/many-view convergence before/after canonical context switch, deterministic/idempotent projection, view/participant identity preservation, zero mutation of the canonical Tool, duplicate/stale/unknown/malformed/incompatible declarations fail-closed, and absence of `commandId`, `targetRef`, `authorized` or `execute` surfaces. The incompatible-active-context false positive found during semantic review is explicitly rejected and tested.
+## Semantic / architecture review
+Multi-view projection remains derived from one canonical Station-owned Tool state. Context switching converges deterministically across declared compatible views; projection is deterministic/idempotent and preserves Tool/participant/context/view identity. Duplicate, stale, unknown, malformed and incompatible declarations fail closed, including the previously found incompatible-active-context false positive, with zero canonical Tool mutation on rejection. No per-view semantic authority, command execution/authorization, persistence/storage, lower-owner mutation, AppManifest, Core/business authority, provider/runtime/deploy or C10 authority was introduced.
 
-## QA Coverage / Evidence Review
-Prior GREEN evidence belongs to superseded heads and is stale for closure. The complete bounded TASK-629 delta has now been renormalized as one authoritative commit directly on fresh `main@64640417f4c7d9990c3bacbadfe61bd7c8f51d0b`. Exact-head lint/typecheck/product/architecture/verify and a distinct current merge-candidate remain `unproven-gap` until workflows publish for the renormalized branch head. Do not merge or close C05C before current evidence is GREEN.
+## Negative / adversarial / recovery / accessibility
+Focused proof covers one-authority/many-view convergence before/after context switch, projection order/idempotence, duplicate normalized refs, unknown/stale/malformed/incompatible bindings, zero mutation on rejection, and absence of command/effect authority surfaces. Recovery beyond deterministic reprojection is not a C05C closure obligation. Accessibility is `not-applicable`: TASK-629 introduces no UI/DOM/focus/keyboard surface.
 
-## Handoff :10
-Fresh main used for renormalization: `64640417f4c7d9990c3bacbadfe61bd7c8f51d0b`.
-Branch/PR: `sprint/station-s3-wp5-c05c-construction` / PR #992 (draft).
-Head: the single authoritative TASK-629 commit containing this handoff; resolve the exact SHA from the branch/PR ref after ref update and use only that SHA for gates.
-TASK: TASK-629 / C05C Tool Multi-view Convergence — ACTIVE / BLOCKED FOR CLOSURE PENDING CURRENT EVIDENCE.
-Files changed: `packages/station-tool/multiview.ts`, `tests/product/station-s3-c05-tool-multiview.test.ts`, `docs/current/NEXT_WORK.md`; 3/6 files. No Core/business authority, AppManifest/C06, shell/interaction/composition/ui-core, provider/runtime/deploy, persistence/storage, executable command authorization or C10/Studio mutation.
-Proof state: focused behavior/adversarial proof is present; exact-head and merge-candidate evidence are UNPROVEN until current workflows publish. Accessibility N/A.
-Residual debt: retry/compensation, failure/recovery presentation and extension seams remain explicit DEFER/UNPROVEN; C06/AppManifest remains dependency-blocked by C05C closure.
-Next dependency-safe work: collect mandatory GREEN exact-head gates for the renormalized head plus a distinct current GREEN merge-candidate; perform final semantic/conformance review; merge only then and revalidate fresh main. C06/AppManifest, Core/business authority, provider/runtime/deploy and C10/Studio remain NOT ELIGIBLE / DEFER.
+## Handoff :50
+Closure/merge status: TASK-629 / C05C CLOSED / PROVEN; PR #992 MERGED.
+Fresh-main after product merge: `8306b8fea8d22b623ef439823b3b596022d700bd`; repository-memory closure commit: `818ed5fb9d4a9074a341e3fceaddd19ad2fbcfe8`. Revalidate the branch tip after this handoff write before beginning successor work.
+Evidence: exact-head `41f8f26c82f1fd11b521cd2536f9a85d15fc31c4` GREEN; distinct final merge-candidate `cf9eb0c28b38517b3fc8a847dcf63b8f4c9d69a3` GREEN; merged product commit `8306b8fea8d22b623ef439823b3b596022d700bd`; TASK status reconciled to `completed`.
+Residual debt: retry/compensation, failure/recovery presentation and extension seams remain explicit DEFER/UNPROVEN. They are not silently inherited as proven by C05C.
+Next dependency-safe work: perform a fresh-main census against the S3 plan/QA obligations to determine whether C05 has any remaining mandatory closure obligation. Only if C05 is fully closed may the next worker materialize the smallest C06/AppManifest tranche as a new TASK with explicit allowed/forbidden paths, max_files and proof obligations before any product mutation. Do not create Core/business authority, provider/runtime/deploy authority or C10/Studio work; preserve C0→C10 ordering and all S3 boundaries.
