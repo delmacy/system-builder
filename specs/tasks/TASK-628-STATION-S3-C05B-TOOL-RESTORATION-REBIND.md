@@ -1,7 +1,7 @@
 ---
 id: TASK-628
 title: STATION S3 C05B Tool Restoration and Rebind
-status: planned
+status: ready
 priority: 628
 milestone: STATION-S3-COMPONENT-GRAMMAR
 model_tier: architecture
