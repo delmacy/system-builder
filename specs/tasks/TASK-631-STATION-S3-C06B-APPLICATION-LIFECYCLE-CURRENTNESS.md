@@ -1,7 +1,7 @@
 ---
 id: TASK-631
 title: STATION S3 C06B Application Lifecycle Currentness
-status: closed
+status: completed
 priority: 631
 milestone: STATION-S3-COMPONENT-GRAMMAR
 model_tier: architecture
