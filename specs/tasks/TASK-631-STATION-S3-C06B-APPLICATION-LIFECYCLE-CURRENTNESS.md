@@ -52,14 +52,25 @@ Construction exact-head: `2118f59d6d5ffeb966e418d8dc9d7d1fedda9865`
 Merge commit: `af9ac043a541f4a8dc72b404f53d62ef640f4dfb`
 Closure reconciliation base: `main@3cf0773ead562ea10a7788cbfbe2ad9a63bf080b`
 
-## Closure
-C06B is closed. Construction remained bounded to Station-owned in-memory Application lifecycle/currentness and was merged to main. Exact-head mandatory evidence was GREEN on the producing identity, with a distinct merge-candidate preserved by the producing handoff/workflow; post-merge component/browser/handoff evidence was GREEN. This status reconciliation is repository memory only and does not create new product proof.
+## Objective
+Preserve the completed C06B proof that Station-owned Application lifecycle/currentness is deterministic, idempotent and fail-closed without acquiring authority outside the accepted C06 boundary.
 
-Proven delta: stable Application/version/revision lifecycle identity; deterministic/idempotent same-version/revision snapshot→reopen; explicit lifecycle currentness comparison; fail-closed stale/malformed/ambiguous/mismatched identity admission; frozen returned state and zero mutation on rejection; preservation of C06A AppManifest integrity and Tool-contribution isolation under unchanged preconditions.
+## Context
+C06B followed TASK-630/C06A and was integrated after bounded Construction. This file is now repository memory for that completed proof and remains machine-readable by the task catalog.
 
-Explicit non-authority: no durable persistence/storage/database/filesystem ownership; no command/authorization or Core/business-result currentness; no provider/runtime/deploy/secrets; no UI/DOM/focus/keyboard; no C07 portability implementation; no C10/Studio or AI/MCP authority. Recovery beyond deterministic fail-closed admission remains DEFER/UNPROVEN.
+## Current behavior
+C06B is closed. Construction remained bounded to Station-owned in-memory Application lifecycle/currentness and was merged to main. Exact-head mandatory evidence was GREEN on the producing identity, with a distinct merge-candidate preserved by the producing handoff/workflow; post-merge component/browser/handoff evidence was GREEN.
 
-## Acceptance disposition
+## Required change
+No product change remains in TASK-631. Preserve its completed proof, owner boundaries and machine-readable task-contract shape; repository-memory reconciliation must not manufacture new product proof.
+
+## Inputs / contracts
+C01–C05 and C06A owner contracts under unchanged preconditions; the integrated C06B Application/version/revision lifecycle identity and focused executable evidence.
+
+## Outputs / contracts
+Stable Application/version/revision lifecycle identity; deterministic/idempotent same-version/revision snapshot→reopen; explicit lifecycle currentness comparison; fail-closed stale/malformed/ambiguous/mismatched identity admission; frozen returned state and zero mutation on rejection.
+
+## Acceptance criteria
 1. Stable Application plus explicit version/revision identity: PROVEN.
 2. Deterministic snapshot/reopen round-trip preserving canonical AppManifest/Tool contributions: PROVEN.
 3. Explicit lifecycle currentness and fail-closed stale/malformed/ambiguous/mismatched admission: PROVEN.
@@ -68,6 +79,15 @@ Explicit non-authority: no durable persistence/storage/database/filesystem owner
 6. No strengthening into command/business/persistence/provider/Core authority: PROVEN by bounded shape/semantic review plus repository gates.
 7. Focused adversarial lifecycle proof: PROVEN.
 8. Exact-head mandatory evidence plus distinct current merge-candidate before merge: PROVEN by producing workflow/handoff; merge integrated at `af9ac043...`.
+
+## Non-goals
+No durable persistence/storage/database/filesystem ownership; no command/authorization or Core/business-result currentness; no provider/runtime/deploy/secrets; no UI/DOM/focus/keyboard; no C07 portability implementation; no C10/Studio or AI/MCP authority. Recovery beyond deterministic fail-closed admission remains DEFER/UNPROVEN.
+
+## Evidence expected
+The authoritative completed evidence remains the producing C06B exact-head `2118f59d6d5ffeb966e418d8dc9d7d1fedda9865`, its distinct merge-candidate recorded by the producing workflow/handoff, merge `af9ac043a541f4a8dc72b404f53d62ef640f4dfb`, focused lifecycle/adversarial proof and post-merge regression evidence. This documentation normalization creates no new product proof.
+
+## Escalation
+Fail closed if a successor attempts to reuse C06B evidence to claim C07 portability, durable persistence, provider runtime/deploy/secrets, command/business/Core authority, UI authority, C10/Studio or AI/MCP behavior, or if C01–C06 owner preconditions have changed.
 
 ## Proof inheritance
 C01–C05 and C06A proofs remain inherited only where their owner contracts and preconditions are unchanged. C06B adds only the Application-owned in-memory lifecycle/currentness delta above. No evidence from this TASK may be reused to claim C07 provider-independence/portability or C10 Studio behavior.
