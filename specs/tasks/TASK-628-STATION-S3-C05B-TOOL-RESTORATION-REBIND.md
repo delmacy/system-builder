@@ -47,8 +47,23 @@ validation:
 ## Objective
 Materialize only the next dependency-safe C05 tranche after proven TASK-627: deterministic restoration/rebind of Station Tool presentation/orchestration state without acquiring persistence storage, command, composition, AppManifest, Core, or business authority.
 
-## Predecessor truth
-TASK-627/C05A is CLOSED/PROVEN. Its stable Tool identity, participant-role admission, active-context selection and deterministic route qualification are inherited only under unchanged preconditions. This tranche does not reopen those owners.
+## Context
+TASK-627/C05A is CLOSED/PROVEN. Its stable Tool identity, participant-role admission, active-context selection and deterministic route qualification are inherited only under unchanged preconditions. C05 precedes C06 in the S3 construction sequence, so restoration/rebind is the next bounded dependency-safe Tool obligation.
+
+## Current behavior
+C05A proves Station-local Tool identity, participant admission, active-context selection and command/target qualification. Restoration/rebind is not yet proven: there is no C05B contract demonstrating deterministic reconstruction of Station-owned Tool context from stable declared references while rejecting stale or incompatible references before canonical Tool-state mutation.
+
+## Inputs / contracts
+- Current declared Tool contract and stable Tool identity from C05A.
+- A bounded restorable Tool snapshot containing only Station-owned Tool/context references required to rebind already-declared participants and routes.
+- Stable participant, context, route, view and component references where applicable; no presentation/placement-derived semantic identity.
+- Existing C01-C04/C05A owner contracts only under unchanged preconditions.
+
+## Outputs / contracts
+- Deterministically rebound Station Tool presentation/orchestration state for a valid compatible snapshot.
+- Idempotent result for the same valid snapshot plus declaration.
+- Explicit fail-closed rejection for stale, unknown, ambiguous, duplicate or incompatible references, with zero canonical Tool-state mutation.
+- No persistence/storage transport, command execution/authorization, lower-owner mutation, AppManifest/C06, Core/business authority, provider/runtime/deploy or C10 authority.
 
 ## Required change
 1. Define a bounded restorable Tool snapshot containing only Station-owned Tool identity/context references needed to rebind already-declared participants/routes.
