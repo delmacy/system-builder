@@ -1,10 +1,10 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-02
-Repository truth base: `main@53af4c5460f34a5805b52d8658eee1c18995c1c4`
-Status: S3 / WP5 C05A — TASK-627 MATERIALIZED / CONSTRUCTION ELIGIBLE
+Repository truth base: `main@f1511e8462bbec712aa2b7073658ef83d9149a61`
+Status: S3 / WP5 C05A — TASK-627 IMPLEMENTED / CLOSURE BLOCKED
 
-> Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`. Station-local `S3` deliberately avoids collision with the repository's historical/global milestone named `M3`.
+> Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
 ## Authority
 - `docs/DOCUMENT_AUTHORITY.md`
@@ -17,37 +17,39 @@ Status: S3 / WP5 C05A — TASK-627 MATERIALIZED / CONSTRUCTION ELIGIBLE
 
 ## Fresh-main / predecessor truth
 
-Fresh main is `53af4c5460f34a5805b52d8658eee1c18995c1c4`, the integrated TASK-627 C05A materialization commit. Its parent is `d885e4a16d524f97ad465a73b5780f59bda9232e`, the documentation-only C04-to-C05 handoff. TASK-615/C01, TASK-616/C02, TASK-617/C03 and TASK-618/C04 remain CLOSED / PROVEN. Their proofs are inherited only where implementation owners/contracts and preconditions remain unchanged.
+Fresh main is `f1511e8462bbec712aa2b7073658ef83d9149a61`, a documentation-only reconciliation whose parent is integrated TASK-627 materialization `53af4c5460f34a5805b52d8658eee1c18995c1c4`. TASK-615/C01 through TASK-618/C04 remain CLOSED / PROVEN only under unchanged owner/precondition inheritance. PR #985/TASK-619 remains closed as a colliding, non-authoritative duplicate and grants no product authority.
 
 Preserve throughout S3: `ComponentRegistry != AppManifest`; identity != placement != presentation != action; semantic patterns above generic primitives; discrete/span composition distinct from WindowGeometry; Station presentation/orchestration-only with no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## C05 fresh-main census
+## TASK-627 Construction delta
 
-The repository has no authoritative reusable Tool abstraction. Existing `EditorShell` is domain-neutral layout-only chrome and explicitly leaves graph, selection, command, persistence and business authority with callers. C05 research identifies the smallest reusable Tool invariant as stable Tool identity + participant-role contract + active-context routing, with commands/capabilities separately identified and owner-revalidated. Concrete Component Editor, Window/View Editor, Workflow Studio and other domain surfaces are not promoted to grammar authority.
+PR #986 / branch `sprint/station-s3-wp5-c05a-construction` implements only C05A in new `packages/station-tool/index.ts` plus focused `tests/product/station-s3-c05-tool-active-context.test.ts` and this operational handoff. Tool identity is stable; required participant roles admit exactly one participant and reject ambiguity before Tool state exists; active context selects only declared participants/routes; routing returns command identity + target qualification and never executes, authorizes, retries, compensates, persists, restores or mutates lower-layer owners.
 
-Historical `project_docs/tasks/TASK-619..626` already occupy those task ids from M2. To avoid task-id collision/stale references, this rolling-wave C05 tranche is TASK-627.
+The same semantic command id can qualify to different declared targets across active contexts without domain-name branching. Participant refs and Tool id remain stable across context activation. Composition/interaction/shell/ui-core/apps/Core/runtime/provider/deploy paths are untouched.
 
-## Materialized tranche
+Restoration, multi-view consequence propagation, retry/compensation, failure/recovery presentation, extension seams, AppManifest/C06 and C10 remain carried gaps/non-goals.
 
-TASK-627 is C05A only: stable Tool identity, explicit participant-role compatibility and deterministic active-context command/target qualification. It must not execute commands, infer authority from visibility/focus/enabled state, mutate lower-layer composition/interaction owners, or introduce persistence/restoration/AppManifest/Core/business semantics.
+## Test Review / Hardening
 
-Allowed product path is new `packages/station-tool/**` plus focused `tests/product/station-s3-c05*.test.ts`; task/NEXT_WORK documentation is allowed. `max_files: 6`. Existing `packages/station-interaction/**`, `packages/station-composition/**`, `packages/station-shell/**`, `packages/ui-core/**`, `apps/station/**`, Core, app-runtime, provider/runtime/deploy are forbidden for this tranche.
+Focused proof covers stable Tool/participant identity across context switch; same-command deterministic target qualification; ambiguous required-role rejection without input mutation; unknown participant/context rejection; undeclared-route rejection; normalized route-ref ambiguity rejection; and absence of `authorized`/`execute` authority on Tool state. Semantic/architecture review found no Core/business authority, lower-owner mutation or domain-name branching. Accessibility is NOT-APPLICABLE to this non-UI C05A package; no accessibility claim is inherited or expanded.
 
-Restoration, multi-view consequence propagation, retry/compensation, failure/recovery presentation and extension seams remain explicit C05 carried gaps for later rolling-wave materialization; they are not silently claimed by C05A.
+## QA Coverage / Evidence Review
 
-## Acceptance / proof obligations
-
-All new C05A obligations remain `unproven-gap` until Construction evidence exists. Required delta proof: Tool identity survives active-context changes; participant-role incompatibility/ambiguity rejects before mutation; active context deterministically qualifies the same command identity/target contract without domain-name branching; participant/view/component identity remains stable; active context never becomes command/business authority. Lower-layer command currentness, `availability != authority`, result non-strengthening and C01-C04 proofs are inherited only under unchanged preconditions.
+PROVISIONAL-PROVEN by focused source proof: identity preservation, fail-closed role admission, deterministic active-context qualification, normalized-route adversarial rejection and no executable/authorization surface. UNPROVEN-GAP for closure: current exact-head CI/repository architecture/predecessor regression has not been observed on the latest head. NOT-APPLICABLE in C05A: persistence/restoration, retry/compensation, failure/recovery and multi-view consequence propagation because TASK-627 explicitly defers them.
 
 ## Gates / blockers
 
-The materialization PR #984 was integrated at `53af4c5460f34a5805b52d8658eee1c18995c1c4` after its exact-head materialization gates were GREEN. Construction is therefore eligible from this predecessor. There is no known bounded blocker before Construction. Any need for >6 files, mutation of a forbidden owner, executable command authority, persistence/restoration, AppManifest/C06, provider/runtime/deploy, Core/business authority, C10/Studio or AI/MCP is STOP/rematerialize.
+Fresh main advanced to `f1511e8462bbec712aa2b7073658ef83d9149a61`. PR #986 then advanced through the bounded normalized-route hardening to exact-head `cca7673ddd3486f05c78bffdb9fe504c827bd866`; at hardening review time GitHub exposed no check runs/workflow runs for that head, so prior GREEN evidence is stale and cannot close the TASK. PR history also contains three Construction commits (`dc9b712...`, `441dee60...`, `cca7673...`) rather than the required one authoritative TASK commit. This handoff write is operational repository memory only and must be included in the eventual normalization rather than treated as another authoritative Construction unit.
+
+Do not merge while either blocker remains. Normalize the complete bounded delta onto current fresh main as one authoritative TASK-627 commit, then require the resulting exact-head mandatory gates GREEN and a current merge-candidate GREEN, recording their distinct SHAs. If normalization changes the exact-head, all earlier head evidence is stale by definition.
+
+C05B/C06+, AppManifest, provider/runtime/deploy, Core/business authority, C10/Studio and AI/MCP remain ineligible.
 
 ## Handoff :50
 
-Predecessor truth: `main@53af4c5460f34a5805b52d8658eee1c18995c1c4` -> TASK-627 C05A MATERIALIZED / INTEGRATED -> Construction eligible.
-Authorization: Construction may implement only the smallest TASK-627 delta.
-Allowed: new `packages/station-tool/**`, focused `tests/product/station-s3-c05*.test.ts`, bounded operational docs, <=6 files total.
-Forbidden: existing composition/interaction/shell/ui-core owners, apps/station, Core/business authority, AppManifest/C06, provider/runtime/deploy, restoration/multi-view/retry/compensation, C10/Studio, AI/MCP.
-Acceptance/proof: stable Tool identity across active-context changes; fail-closed incompatible/ambiguous participant-role admission before mutation; deterministic owner-qualified command/target qualification without domain-name branching; stable participant/view/component identity; active context never becomes command/business authority; inherit lower-layer proofs only under unchanged preconditions.
-Next action: Construction :10 branches from this integrated predecessor and implements the smallest TASK-627 product delta plus focused proof. If any forbidden owner or scope expansion becomes necessary, STOP/rematerialize instead of broadening silently.
+Closure/merge: BLOCKED; PR #986 remains draft/open and TASK-627 is not CLOSED.
+Fresh main: `f1511e8462bbec712aa2b7073658ef83d9149a61`.
+Reviewed Construction head before this handoff write: `cca7673ddd3486f05c78bffdb9fe504c827bd866`.
+Evidence: 3 bounded changed paths before handoff; product delta only in `packages/station-tool/index.ts`; focused proof only in `tests/product/station-s3-c05-tool-active-context.test.ts`; no forbidden owner mutation; negative/adversarial fail-closed coverage includes ambiguous roles, unknown participant/context, undeclared route and normalized-route ambiguity; accessibility N/A because no UI surface is introduced.
+Residual debt/blockers: normalize branch history to one authoritative TASK-627 commit on current fresh main; rerun/reconfirm mandatory exact-head gates on the normalized SHA; separately reconfirm current merge-candidate GREEN and record its SHA; only then may PR #986 become merge-eligible.
+Next dependency-safe work: TASK-627 normalization/gate collection/hardening/closure only. Do not start C05B or C06+ before TASK-627 is exact-head GREEN, merge-candidate GREEN, integrated, fresh-main revalidated and repository memory reconciled.
