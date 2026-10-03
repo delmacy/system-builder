@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-03
-Repository truth base: `main@c44e2c83bfe1c5e59a3823ee568a658a33b7f5f1`
-Status: S3 / WP5 C05B — TASK-628 CLOSED / PROVEN
+Repository truth base: `main@2bdd95b5c1e0812a64b17f63fc79b259ba38fb12`
+Status: S3 / WP5 C05C — TASK-629 MATERIALIZATION / CONSTRUCTION BLOCKED
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -12,20 +12,20 @@ Status: S3 / WP5 C05B — TASK-628 CLOSED / PROVEN
 - `project_docs/execution_planning/STATION-S3-COMPONENT-GRAMMAR-PLAN-01.md`
 - `project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md`
 - `project_docs/execution_planning/STATION-S3-QA-GATES-PLAN-01.md`
-- `specs/tasks/TASK-628-STATION-S3-C05B-TOOL-RESTORATION-REBIND.md`
+- `specs/tasks/TASK-629-STATION-S3-C05C-TOOL-MULTIVIEW-PROPAGATION.md`
 
 ## Predecessor truth
-TASK-627/C05A remains CLOSED / PROVEN. TASK-628/C05B Construction PR #989 is integrated. C01-C04 and C05A proofs remain inherited only where owner contracts and preconditions remain unchanged. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
+TASK-627/C05A and TASK-628/C05B are CLOSED / PROVEN. PR #989 merged C05B at `c44e2c83bfe1c5e59a3823ee568a658a33b7f5f1`; bounded closure-memory commit `2bdd95b5c1e0812a64b17f63fc79b259ba38fb12` is fresh main at materialization start. C01-C04/C05A/C05B proof inheritance is valid only under unchanged owners/preconditions. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## Closure
-PR #989 / TASK-628/C05B closed the bounded Tool restoration/rebind tranche. Exact-head `3983758adf357e597e01ed314c8cb6ef3b24eb3f` was one authoritative TASK-628 commit and 3/6 files. Deterministic CI, Heavy Product Tests, Station Frontend Quality, Automation Handoff State Machine and Merge Candidate CI were GREEN on the current candidate. Merge Candidate CI checked out and asserted the synthetic merge-candidate identity and passed deterministic repository verification. GitHub synthetic merge-candidate SHA before merge was `36ccc122a6b559b58bb6cf712f67b5af16c36a81`; exact-head and merge-candidate identities are deliberately distinct. Merge commit is `c44e2c83bfe1c5e59a3823ee568a658a33b7f5f1`.
+## Current tranche
+TASK-629/C05C materializes only deterministic Tool multi-view consequence propagation. Max files: 6. Allowed product: `packages/station-tool/**`; focused proof: `tests/product/station-s3-c05*.test.ts`; bounded TASK/NEXT_WORK reconciliation. New C05C obligations are UNPROVEN-GAP until Construction evidence exists.
 
-## Proof disposition
-PROVEN for this tranche: deterministic valid rebind; repeated-rebind idempotence; Tool/participant/context identity preservation; stale/unknown/duplicate/incompatible restoration refs fail closed before canonical mutation; zero mutation on rejection; restoration snapshot contains Station-owned references only and does not serialize executable command authority. Static architecture review remains PASS: identity != placement != presentation != action; ComponentRegistry != AppManifest; semantic patterns above primitives; discrete/span owners untouched; focus != selection != active != expansion; no accepted/acknowledged -> effective promotion; no persistence/storage, lower-owner mutation, AppManifest/C06, Core/business authority, provider/runtime/deploy or C10. Accessibility is N/A because no UI/DOM/focus/keyboard surface was introduced.
+## Blockers / gates
+Construction is BLOCKED until this planning-only materialization is exact-head GREEN and integrated into fresh main. Do not treat planning evidence as product proof. Do not materialize C06 or another C05 successor while TASK-629 is open.
 
-## Handoff :50
-Closure/merge status: TASK-628/C05B CLOSED / PROVEN; PR #989 MERGED.
-Fresh-main after merge: `c44e2c83bfe1c5e59a3823ee568a658a33b7f5f1` before this bounded repository-memory reconciliation commit.
-Evidence identities: exact-head `3983758adf357e597e01ed314c8cb6ef3b24eb3f`; synthetic merge-candidate `36ccc122a6b559b58bb6cf712f67b5af16c36a81`; merge `c44e2c83bfe1c5e59a3823ee568a658a33b7f5f1`.
-Residual debt: multi-view propagation, retry/compensation, failure/recovery presentation and extension seams remain explicitly UNPROVEN/deferred; none is silently inherited from C05B.
-Next dependency-safe work: revalidate fresh main after this repository-memory commit, census the remaining C05 obligations, and materialize only the smallest next C05 tranche with explicit allowed/forbidden paths, max_files and proof obligations. Do not begin product mutation for a successor before materialization. C06/AppManifest, Core/business authority, provider/runtime/deploy and C10/Studio remain NOT ELIGIBLE / DEFER.
+## Allowed / forbidden
+Allowed and acceptance obligations are authoritative in TASK-629. Forbidden: persistence/storage authority; lower-owner interaction/composition/shell/ui-core/apps/Core mutation; command execution/authorization or business authority; AppManifest/C06+; provider/runtime/deploy; retry/compensation; failure/recovery presentation; extension seams; C10/Studio; AI/MCP.
+
+## Handoff :10
+Predecessor truth: C01-C04 + C05A + C05B PROVEN; fresh base `main@2bdd95b5...`; TASK-629/C05C is materialization-only and Construction is NOT YET AUTHORIZED.
+Next action: revalidate fresh main/base/head and exact-head mandatory gates for the TASK-629 materialization; correct only bounded documentary conformance defects if found; integrate only when GREEN. After integration, reconcile the operational pointer and authorize exactly TASK-629 Construction. STOP/rematerialize if implementation would cross forbidden owners, introduce UI/accessibility surface, or exceed 6 files.
