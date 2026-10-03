@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-03
-Repository truth base: `main@37d919414f2c9fdcbca11346f91fc57b1dc843cf`
-Status: S3 / WP5 C05A — TASK-627 CLOSED / PROVEN
+Repository truth base: `main@ce0ee654ac71df796a82c4315fb26af0e1c5f197`
+Status: S3 / WP5 C05B — TASK-628 MATERIALIZATION PENDING INTEGRATION
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -13,30 +13,39 @@ Status: S3 / WP5 C05A — TASK-627 CLOSED / PROVEN
 - `project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md`
 - `project_docs/execution_planning/STATION-S3-QA-GATES-PLAN-01.md`
 - `project_docs/research/STATION-S3-R6-C8-REPOSITORY-EVIDENCE-AND-PROOF-MATRIX-01.md`
-- `specs/tasks/TASK-627-STATION-S3-C05A-TOOL-ACTIVE-CONTEXT.md`
+- `specs/tasks/TASK-628-STATION-S3-C05B-TOOL-RESTORATION-MULTIVIEW.md`
 
-## Closure truth
+## Fresh-main / predecessor truth
 
-PR #986 was normalized to one authoritative TASK-627 Construction commit and merged. Exact-head: `9f286faaeda04d721610a0d23b4b15195857665a`. Current merge-candidate proven GREEN: `1efae3c57fdd3fcb5868b8b1d9fd4dbd9043e0d3`, generated from base `f1511e8462bbec712aa2b7073658ef83d9149a61` plus that exact head. Merge commit: `a25ba8b5c9a7feb7a24e7c5e817a5829b330cecc`. TASK repository status was then reconciled to completed at `37d919414f2c9fdcbca11346f91fc57b1dc843cf`.
-
-Mandatory exact-head workflows were GREEN: Deterministic CI, Merge Candidate CI, Heavy Product Tests, Station Frontend Quality and Automation Handoff State Machine. Merge-candidate deterministic repository verification was GREEN. No unresolved review threads remained.
-
-## Semantic / architecture review
-
-The bounded delta is three paths, within `max_files: 6`: product only in `packages/station-tool/index.ts`, focused proof in `tests/product/station-s3-c05-tool-active-context.test.ts`, plus operational repository memory. Forbidden lower owners were untouched. Stable Tool/participant identity, exact-one required-role admission, active-context selection and deterministic command/target qualification are Station-local presentation/orchestration semantics only. Routing does not execute, authorize, retry, compensate, persist, restore, mutate composition/interaction owners, or create Core/business authority. Normalized route-ref ambiguity fails closed.
-
-Negative/adversarial proof covers ambiguous required roles, unknown participant/context, undeclared route and normalized-route collision. Accessibility is NOT-APPLICABLE for this non-UI tranche; no accessibility proof is silently inherited or expanded.
+Fresh main is `ce0ee654ac71df796a82c4315fb26af0e1c5f197`. TASK-627 / C05A is CLOSED / PROVEN: PR #986 merged after one authoritative Construction commit, exact-head GREEN and distinct merge-candidate GREEN. Its bounded Tool identity, exact-one participant-role admission and deterministic active-context command/target qualification are the inherited owner base only while preconditions remain unchanged.
 
 Preserve throughout S3: `ComponentRegistry != AppManifest`; identity != placement != presentation != action; semantic patterns above generic primitives; discrete/span composition distinct from WindowGeometry; Station presentation/orchestration-only with no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## Residual debt / carried gaps
+## C05B census / materialization
 
-No bounded blocker remains for C05A. Restoration/rebind, multi-view consequence propagation, retry/compensation, failure/recovery presentation and extension seams remain explicit C05 carried gaps and are not claimed by TASK-627. C06/AppManifest, provider/runtime/deploy, Core/business authority, C10/Studio and AI/MCP remain ineligible unless separately materialized in dependency order.
+The S3 Construction plan orders C05 Tool active-context/restoration/multi-view before C06 Application manifest/lifecycle isolation. C05A proved active-context qualification only. The explicit carried C05 gaps are restoration/rebind and multi-view consequence propagation; therefore C06 is not yet the next dependency-safe product mutation.
 
-## Handoff :50
+TASK-628 materializes only those two C05 obligations. Owner is `packages/station-tool/**`; lower owners (`station-interaction`, `station-composition`, `ui-core`, shell/apps/Core) are read/reuse-only and forbidden for mutation. `max_files: 6`. No persistence, execution/authorization, retry/compensation, AppManifest, provider/runtime/deploy, Core/business authority or C10 is admitted.
 
-Closure/merge: TASK-627 / C05A CLOSED / PROVEN; PR #986 merged.
-Fresh-main closure base: `37d919414f2c9fdcbca11346f91fc57b1dc843cf` after TASK status reconciliation; revalidate main before any next write.
-Evidence: exact-head `9f286faaeda04d721610a0d23b4b15195857665a` GREEN; merge-candidate `1efae3c57fdd3fcb5868b8b1d9fd4dbd9043e0d3` GREEN; merge `a25ba8b5c9a7feb7a24e7c5e817a5829b330cecc`; one authoritative Construction commit; 3 changed paths; allowed/forbidden paths conformant; focused negative/adversarial proof present; accessibility N/A.
-Residual debt: only explicitly deferred C05 capabilities above; none may be silently promoted to PROVEN.
-Next dependency-safe work: fresh-main census against the S3 C0→C10 plan, then materialize exactly the next authorized C05 tranche if the plan requires closing carried C05 obligations before C06. Do not mutate product until that TASK defines allowed/forbidden paths, max_files, acceptance and proof obligations. Do not skip to C06/AppManifest or C10.
+## Test Review / Hardening
+
+TASK-628 requires adversarial review for stale restoration, partial rebind, missing/unknown/ambiguous refs, normalized view-ref collision, view-local state overriding canonical active context, divergent multi-view consequences, identity regeneration and accidental persistence/retry semantics. Accessibility/keyboard is NOT-APPLICABLE unless an interactive UI surface is introduced; this tranche must not introduce one.
+
+## QA Coverage / Evidence Review
+
+All C05B obligations begin `UNPROVEN-GAP`. Focused proof must establish valid identity-preserving rebind, fail-closed invalid restoration with zero partial mutation, deterministic multi-view consequences from one canonical Tool context, consistent context-switch propagation, malformed/duplicate view rejection, and absence of executable/authorization/persistence/Core/business-authority surfaces. Exact-head and merge-candidate evidence is required before promotion to PROVEN.
+
+## Gates / blockers
+
+Construction materialization is not authoritative until the TASK-628 materialization PR is exact-head GREEN and integrated into fresh `main`. Do not mutate product merely because the TASK exists on an unmerged planning branch. Any SHA change invalidates stale exact-head evidence.
+
+C06/AppManifest, provider/runtime/deploy, Core/business authority, C10/Studio and AI/MCP remain ineligible.
+
+## Handoff
+
+Branch: `planning/station-s3-wp5-c05b-materialization`.
+Base: `main@ce0ee654ac71df796a82c4315fb26af0e1c5f197`.
+TASK: TASK-628 / C05B Tool Restoration / Multi-view.
+Files changed by materialization: `specs/tasks/TASK-628-STATION-S3-C05B-TOOL-RESTORATION-MULTIVIEW.md`, `docs/current/NEXT_WORK.md` only; zero product mutation.
+Gate state: materialization PR/exact-head CI still required; C05B Construction is not yet eligible.
+Next eligible work: collect materialization exact-head gates, correct only proven bounded defects, normalize materialization history if required by repository policy, integrate it, revalidate fresh main, then execute only TASK-628 behavior plus its smallest adequate proof. Do not skip to C06/AppManifest or C10.
