@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-03
-Repository truth base: `main@93b41083f02ebab1a7820f8428fbdf87f9210ab9`
-Status: S3 / WP5 C05B — TASK-628 CONSTRUCTION / CLOSURE GATES REQUIRED
+Repository truth base: `main@c44e2c83bfe1c5e59a3823ee568a658a33b7f5f1`
+Status: S3 / WP5 C05B — TASK-628 CLOSED / PROVEN
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -15,18 +15,17 @@ Status: S3 / WP5 C05B — TASK-628 CONSTRUCTION / CLOSURE GATES REQUIRED
 - `specs/tasks/TASK-628-STATION-S3-C05B-TOOL-RESTORATION-REBIND.md`
 
 ## Predecessor truth
-TASK-627/C05A is CLOSED / PROVEN. TASK-628/C05B materialization PR #987 was integrated. Fresh main is `93b41083f02ebab1a7820f8428fbdf87f9210ab9`. C01-C04 and C05A proofs remain inherited only where owner contracts and preconditions remain unchanged. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
+TASK-627/C05A remains CLOSED / PROVEN. TASK-628/C05B Construction PR #989 is integrated. C01-C04 and C05A proofs remain inherited only where owner contracts and preconditions remain unchanged. Preserve `ComponentRegistry != AppManifest`; identity != placement != presentation != action; Station presentation/orchestration-only; no Core/business authority; C10 Studio DEFER/UNPROVEN.
 
-## Current tranche
-PR #989 / TASK-628/C05B is the sole Construction tranche: Tool restoration/rebind by stable declared identity. Delta remains bounded to `packages/station-tool/index.ts`, focused `tests/product/station-s3-c05-tool-restoration.test.ts`, and this pointer (3/6 files). Forbidden boundaries remain persistence/storage ownership; lower-owner interaction/composition/shell/ui-core/apps mutation; executable command/business authority; AppManifest/C06; provider/runtime/deploy; multi-view propagation; retry/compensation; failure/recovery presentation; extension seams; C10/Studio; AI/MCP.
+## Closure
+PR #989 / TASK-628/C05B closed the bounded Tool restoration/rebind tranche. Exact-head `3983758adf357e597e01ed314c8cb6ef3b24eb3f` was one authoritative TASK-628 commit and 3/6 files. Deterministic CI, Heavy Product Tests, Station Frontend Quality, Automation Handoff State Machine and Merge Candidate CI were GREEN on the current candidate. Merge Candidate CI checked out and asserted the synthetic merge-candidate identity and passed deterministic repository verification. GitHub synthetic merge-candidate SHA before merge was `36ccc122a6b559b58bb6cf712f67b5af16c36a81`; exact-head and merge-candidate identities are deliberately distinct. Merge commit is `c44e2c83bfe1c5e59a3823ee568a658a33b7f5f1`.
 
-## Proof obligations
-Construction must prove deterministic valid rebind; repeated-rebind idempotence; Tool/participant/context identity preservation; fail-closed stale/unknown/ambiguous/duplicate/incompatible refs before canonical mutation; zero mutation on rejection; no command/business authority strengthening. Accessibility is N/A because this delta introduces no UI/DOM/focus/keyboard surface.
+## Proof disposition
+PROVEN for this tranche: deterministic valid rebind; repeated-rebind idempotence; Tool/participant/context identity preservation; stale/unknown/duplicate/incompatible restoration refs fail closed before canonical mutation; zero mutation on rejection; restoration snapshot contains Station-owned references only and does not serialize executable command authority. Static architecture review remains PASS: identity != placement != presentation != action; ComponentRegistry != AppManifest; semantic patterns above primitives; discrete/span owners untouched; focus != selection != active != expansion; no accepted/acknowledged -> effective promotion; no persistence/storage, lower-owner mutation, AppManifest/C06, Core/business authority, provider/runtime/deploy or C10. Accessibility is N/A because no UI/DOM/focus/keyboard surface was introduced.
 
 ## Handoff :50
-Fresh main: `93b41083f02ebab1a7820f8428fbdf87f9210ab9`.
-Prior Construction head `2065e535663bfd30baf0d641743795c768373b9a` had fresh GREEN mandatory workflows after its focused-test TypeScript blocker was corrected, but main advanced afterward and that evidence is stale for closure.
-This reconciled Construction candidate preserves the product/test delta exactly while rebasing it onto fresh main and normalizing the complete bounded delta to one authoritative TASK-628 commit. Its resulting SHA is a new evidence identity and MUST receive fresh exact-head mandatory gates plus a distinct current merge-candidate GREEN before closure.
-Decision Graph static review remains PASS: identity != placement != presentation != action; ComponentRegistry != AppManifest; semantic patterns above primitives; discrete/span owners untouched; focus != selection != active != expansion; no accepted/acknowledged -> effective promotion; restoration snapshot/state carries Station-owned references only and cannot strengthen executable/Core/business authority.
-Residual blocker: fresh exact-head and merge-candidate evidence for the reconciled SHA are UNPROVEN until workflows publish. Do not merge on predecessor evidence.
-Next dependency-safe work: collect fresh Deterministic CI, Heavy Product Tests, Station Frontend Quality, Automation Handoff State Machine, and current Merge Candidate CI. Resolve only bounded proven failures. Merge TASK-628 only when both evidence identities are GREEN and main/head remain unchanged. C05C/C06+ remain NOT ELIGIBLE; C10 remains UNPROVEN/DEFER.
+Closure/merge status: TASK-628/C05B CLOSED / PROVEN; PR #989 MERGED.
+Fresh-main after merge: `c44e2c83bfe1c5e59a3823ee568a658a33b7f5f1` before this bounded repository-memory reconciliation commit.
+Evidence identities: exact-head `3983758adf357e597e01ed314c8cb6ef3b24eb3f`; synthetic merge-candidate `36ccc122a6b559b58bb6cf712f67b5af16c36a81`; merge `c44e2c83bfe1c5e59a3823ee568a658a33b7f5f1`.
+Residual debt: multi-view propagation, retry/compensation, failure/recovery presentation and extension seams remain explicitly UNPROVEN/deferred; none is silently inherited from C05B.
+Next dependency-safe work: revalidate fresh main after this repository-memory commit, census the remaining C05 obligations, and materialize only the smallest next C05 tranche with explicit allowed/forbidden paths, max_files and proof obligations. Do not begin product mutation for a successor before materialization. C06/AppManifest, Core/business authority, provider/runtime/deploy and C10/Studio remain NOT ELIGIBLE / DEFER.
