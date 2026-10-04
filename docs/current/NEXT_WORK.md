@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-04
-Repository truth base: `main@f3ea20145790d797eef8fbe616405bc3b3a5c029`
-Status: S3 / WP8 — TASK-633 GATE B EXECUTED / CLOSURE BLOCKED BY C3 COLLECTION UNPROVEN-GAP
+Repository truth base: `main@9bdcc9b65ec718f38e77cf9a1d5368856e3b7977`
+Status: S3 / WP8 — TASK-633 GATE B INTEGRATED / TASK-634 C3 COLLECTION PROOF FOLLOW-UP MATERIALIZATION PENDING GATES
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -14,41 +14,36 @@ Status: S3 / WP8 — TASK-633 GATE B EXECUTED / CLOSURE BLOCKED BY C3 COLLECTION
 - `project_docs/execution_planning/STATION-S3-SCOPE-WBS-WP1-PLAN-01.md`
 - `specs/tasks/TASK-633-STATION-S3-QA-COVERAGE-EVIDENCE-REVIEW.md`
 - `project_docs/execution_planning/STATION-S3-TASK-633-GATE-B-COVERAGE-REVIEW-01.md`
+- `specs/tasks/TASK-634-STATION-S3-C3-COLLECTION-PROOF-GAP.md`
 
 ## Predecessor truth
-C01–C05 remain PROVEN under unchanged recorded preconditions. C06A/TASK-630 and C06B/TASK-631 are CLOSED / PROVEN / INTEGRATED. C07A/TASK-632 is CLOSED / PROVEN / INTEGRATED. No C07B/C08 product successor is inferred. C10 remains deferred/unproven.
+C01–C05 remain PROVEN under unchanged recorded preconditions. C06A/TASK-630, C06B/TASK-631 and C07A/TASK-632 are CLOSED / PROVEN / INTEGRATED. C10 remains deferred/unproven.
 
-TASK-633 materialization PR #1002 is integrated. Its materialization exact head `ad7a2624cc902bee8ffcaecf46e1089a88a1f653` had current GREEN Deterministic CI, Heavy Product Tests, Automation Handoff and distinct Merge Candidate CI. That evidence admits Gate B only and is not reused as Gate B review proof.
+TASK-633 Gate B review PR #1003 is integrated. Gate B exact head `78a20f3c526e1aba1424b93be4607f590e7560f9` had current GREEN Deterministic CI, Heavy Product Tests, Automation Handoff and distinct Merge Candidate CI before merge. Its semantic result remains closure-blocking: C3 Collection and the Ticketing pressure case are `unproven-gap` because representative executable keyed membership/topology/order plus `visual order != semantic order` evidence is absent.
 
-## TASK-633 Gate B execution
-Gate B was executed from fresh `main@f3ea20145790d797eef8fbe616405bc3b3a5c029` on branch `review/station-s3-task633-gate-b`. Product mutation is zero. The review records explicit producer evidence identities for C01-C07, inherited-proof preconditions, promoted C0-C9 accounting, all six pressure-case dispositions, and C10 deferred/unproven state.
+## BLOCKER-FIRST materialization
+Only the smallest dependency-safe follow-up is admitted for materialization: TASK-634 C3 Collection Proof Gap. This is not a Ticketing product and does not authorize generic DnD/reparent behavior.
 
-Integrated Construction slices C01, C02, C03, C04, C05A, C05B, C05C, C06A, C06B and C07A are `proven` under unchanged owner contracts/preconditions. C5 Pane/Region and C6 Pattern are `not-applicable` to promotion because no new C5/C6 contract was promoted by the admitted C01-C07 Construction slices; research does not become proof by this review. C10 remains `unproven-gap` / deferred and blocks only C10 promotion.
+Materialization branch: `planning/station-s3-c3-collection-proof-followup`.
+Materialization base: `main@9bdcc9b65ec718f38e77cf9a1d5368856e3b7977`.
+TASK: `TASK-634-STATION-S3-C3-COLLECTION-PROOF-GAP.md`.
+Allowed future Construction owner: `packages/station-composition/**`, focused `tests/product/station-s3-c03*.test.ts`, TASK-634 and this pointer; `max_files: 6`.
 
-## BLOCKER-FIRST finding
-Gate B is NOT fully proven. The QA plan explicitly requires representative executable Ticketing evidence for keyed Collection membership/topology/order plus visual-order != semantic-order/reorder distinction. Repository search found planning/research requirements but no representative executable C3 Collection proof. C04 semantic-order preservation under responsive projection does not prove keyed Collection reorder semantics. Therefore:
+Construction is NOT yet authorized. The materialization must first obtain current exact-head repository verification and a distinct current Merge Candidate CI, integrate, and be reconciled from fresh main.
 
-- C3 Collection: `unproven-gap`;
-- Ticketing pressure case: `unproven-gap`;
-- no integrated C01-C07 slice is `failed`;
-- S3 closure is blocked;
-- missing evidence is not converted to PASS.
+## Test Review / Hardening admission
+TASK-634 requires challenge of identity/index coupling, rendered-order-only false positives, visual reorder silently mutating semantic order, duplicate/unknown/stale/ambiguous references, and partial mutation on rejection. Missing evidence remains `unproven-gap`.
 
-The other pressure cases are dispositioned `proven`: Document Approval through C01+C03 owner-qualified stale/result semantics; CRUD through C01+C02 admission/currentness; Operational Dashboard through C02+C04 freshness/structural preservation; Deployment Configuration through C07A+C03 portability/result-boundary evidence; Work Order Workspace through C05A/B/C active-context/restoration/multi-view convergence.
+## QA Coverage / Evidence Review admission
+TASK-634 must account specifically for C3 keyed membership/topology/order and `visual order != semantic order`, reuse C02 currentness only under unchanged preconditions, and map the final exact evidence to the Ticketing representative obligation without claiming a Ticketing product or promoting unrelated grammar levels.
 
-## Test Review / Hardening
-Evidence inheritance was challenged against changed owners/preconditions, stale identities, false-positive semantic coverage and authority expansion. Producer exact-head identities remain inheritable because later S3 slices did not mutate those owners. Materialization CI, research convergence and generic later CI were not promoted into missing semantic proof. No product defect was repaired inside TASK-633.
-
-## QA Coverage / Evidence Review
-The authoritative review artifact is `project_docs/execution_planning/STATION-S3-TASK-633-GATE-B-COVERAGE-REVIEW-01.md`. TASK-633 remains open until this documentation-only review revision itself obtains current exact-head repository verification plus a distinct current merge-candidate. Even after those gates are GREEN, the semantic result remains closure-blocking until the C3 gap is closed and Gate B is rerun/reconciled.
+## Boundaries
+Preserve C0→C10; identity != placement != presentation != action; ComponentRegistry != AppManifest; semantic patterns remain above primitives; composition remains span/discrete; Station remains presentation/composition-oriented with no Core/business/command authority. Forbidden remain provider/runtime/deploy/secrets, durable persistence/storage, Tool/Application owner mutation, C07B/C08 invention, C10/Studio and AI/MCP.
 
 ## Handoff
-Branch: `review/station-s3-task633-gate-b`.
-Base: `main@f3ea20145790d797eef8fbe616405bc3b3a5c029`.
-TASK: TASK-633 Gate B only.
-Allowed delta: review artifact + this live pointer, within TASK-633 `max_files: 4`; zero product files.
-Forbidden remains: all `packages/**` / `apps/**` product mutation in TASK-633; Core/business/command authority; provider runtime/deploy/secrets; persistence/storage; C07B/C08 invention; C10/Studio; AI/MCP.
-
-Current blocker before integration: obtain current exact-head Deterministic CI / required repository gates and a distinct current Merge Candidate CI for the final Gate B head. Correct only a bounded documentation/conformance failure if one appears.
-
-Next eligible work after this Gate B record is exact-head GREEN and integrated: revalidate fresh main, then materialize only the smallest dependency-safe C3 Collection follow-up needed to prove keyed membership/topology/order and visual-order != semantic-order/reorder distinction with focused executable evidence. Reuse C02 currentness only where its preconditions remain unchanged. Do not build a Ticketing product, generic DnD/reparent engine, C07B/C08, C10/Studio, or any Core/business authority as part of that follow-up.
+Branch: `planning/station-s3-c3-collection-proof-followup`.
+Base: `main@9bdcc9b65ec718f38e77cf9a1d5368856e3b7977`.
+TASK: TASK-634 materialization only.
+Files changed by this materialization: `specs/tasks/TASK-634-STATION-S3-C3-COLLECTION-PROOF-GAP.md` and `docs/current/NEXT_WORK.md`.
+Current blocker: obtain exact-head Deterministic/required repository gates plus a distinct Merge Candidate CI for the final materialization head. Do not implement product before integration and fresh-main reconciliation.
+Next eligible work after materialization is GREEN and integrated: execute only the smallest TASK-634 in-memory Collection behavior + focused executable proof, then perform its Test Review/Hardening and QA Coverage/Evidence Review. After that evidence integrates, rerun/reconcile Gate B; do not infer C07B/C08/C10 work.
