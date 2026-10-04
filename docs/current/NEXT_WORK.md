@@ -1,35 +1,37 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-04
-Repository truth base: `main@2e6ec54b0c3b49a1cef1c6e583aa1494b385ca27`
-Status: S3 / WP8 — TASK-633 GATE-B RE-ACCOUNTING ACTIVE; INTEGRATION GATES PENDING
+Repository truth predecessor: `main@6352743253949e223e76e2c8c532a8c684b43e9f`
+Status: S3 / WP8 — TASK-633 CLOSED / PROVEN / INTEGRATED; FINAL DOCUMENTATION / S3 CONSTRUCTION CLOSURE CENSUS ELIGIBLE
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
 ## Predecessor truth
-C01–C07 admitted Construction slices remain PROVEN / INTEGRATED under unchanged recorded preconditions. TASK-634 is CLOSED / PROVEN / INTEGRATED by PR #1006, exact product head `bff9df643d67ebdeb0ba3971c0254c40e03397bd`, merge `438a272475a73bf9eff78958446e7dc1b09352d9`. Its repository memory is reconciled. C10 remains deferred/unproven.
+C01–C07 admitted Construction slices remain PROVEN / INTEGRATED under unchanged recorded preconditions. TASK-634 is CLOSED / PROVEN / INTEGRATED by PR #1006. TASK-633 Gate B re-accounting is CLOSED / PROVEN / INTEGRATED: PR #1007 exact head `5867d538a66386619c7900cd7a7c1303e6247a1c`, merge `540c487913b6652d2c653d04cc25433c4ed2893a`. Repository task catalog now records TASK-633 completed. C10 remains deliberately deferred/unproven and is not promoted by this closure.
 
-## Gate B re-accounting
-The previous TASK-633 Gate B result had one C0→C9 closure blocker: C3 Collection / Ticketing representative executable proof. TASK-634 supplies exactly that missing bounded evidence: stable keyed membership/topology/canonical semantic order, explicit visual-order separation, deterministic semantic reorder, and fail-closed invalid/stale references with zero partial canonical mutation.
+## Closure / merge status
+The former C0→C9 closure blocker, C3 Collection / Ticketing representative executable proof, is discharged by TASK-634. Final Gate B accounting records no admitted C0→C9 slice as `failed` or `unproven-gap`. Proof inheritance remains valid only under the recorded unchanged owner contracts/preconditions.
 
-The refreshed Gate B record now classifies C3 Collection and Ticketing as `proven`; all other prior C0→C9 dispositions remain unchanged because their owners/preconditions were not mutated by TASK-634. No admitted slice is `failed`. C10 remains `unproven-gap` by deliberate defer and is not a C0→C9 Construction closure defect.
-
-This semantic result is not yet integration authority. Branch `review/station-s3-task633-gate-b-reaccount` must obtain fresh exact-head mandatory repository/handoff gates and a distinct current merge-candidate GREEN before merge. Any head move invalidates that admission evidence.
+TASK-633 integration is complete. This pointer reconciliation is repository-memory-only and does not itself close S3. S3 remains OPEN until the final bounded documentation / S3 Construction closure census confirms current repository memory, task/accounting consistency, and applicable closure gates without material FAILED/UNPROVEN findings.
 
 ## Allowed
-TASK-633 Gate B documentation/evidence accounting only under its existing allowed paths, max_files 4. No product mutation.
+Only the smallest final S3 documentation / Construction closure lot: closure census, task/repository-memory reconciliation, evidence identity/freshness accounting, and closure report under already-authorized documentation paths. No product mutation.
 
 ## Forbidden
-All `packages/**` and `apps/**` mutation; Core/business/command authority; provider runtime/deploy/secrets; persistence/storage; C07B/C08 invention; C10/Studio; AI/MCP; converting stale/missing evidence into proof.
+All `packages/**` and `apps/**` mutation; Core/business/command authority; provider runtime/deploy/secrets; persistence/storage; C07B/C08 invention; C10/Studio promotion; AI/MCP; converting stale/missing evidence into proof; broad cleanup unrelated to closure.
 
-## Acceptance / proof obligations
-The re-accounting must retain exact evidence identity/freshness, proof inheritance only under invariant preconditions, explicit six-pressure-case disposition, explicit C10 defer, and no authority expansion. Current exact-head deterministic repository verification plus distinct current merge-candidate must be GREEN before integration.
+## Closure proof obligations
+Revalidate fresh main; reconcile TASKs planned vs executed and commits; confirm allowed/forbidden path compliance; retain exact evidence identities and inheritance preconditions; confirm negative/adversarial/recovery obligations are either proven by their admitted owner evidence or explicitly bounded/deferred; accessibility remains N/A where no UI surface was introduced; confirm repository memory no longer describes obsolete active gates. Any material FAILED/UNPROVEN finding blocks closure and must be repaired only by the smallest bounded follow-up.
 
-## Handoff to Construction :10
-Predecessor truth: C01–C07 PROVEN/INTEGRATED; TASK-634 CLOSED/PROVEN/INTEGRATED; prior sole Gate-B C3/Ticketing gap is discharged by TASK-634 evidence; C10 deferred/unproven.
+For any merge-bearing closure revision, require mandatory exact-head GREEN and a distinct current merge-candidate GREEN, recording both SHAs. Any head move invalidates that admission evidence. After merge, revalidate fresh main before declaring S3 closed.
 
-Current state: TASK-633 Gate-B re-accounting is ACTIVE on `review/station-s3-task633-gate-b-reaccount`; semantic review result is C0→C9 PROVEN, but integration admission is PENDING current gates. S3 remains OPEN until that revision is GREEN and integrated.
+## Handoff to :50
+Closure/merge status: TASK-633 Gate B is CLOSED / PROVEN / INTEGRATED; TASK-634 is CLOSED / PROVEN / INTEGRATED; S3 itself remains OPEN pending final bounded closure census.
 
-Authorization: do not implement product. :10 may only validate/review the current TASK-633 re-accounting head and, if all required exact-head + distinct merge-candidate evidence is GREEN/current, integrate it and reconcile fresh main. If a gate fails, correct only the demonstrated bounded documentation/conformance blocker. Do not materialize a successor before integration.
+Fresh-main evidence entering this reconciliation: `6352743253949e223e76e2c8c532a8c684b43e9f`, commit `docs(station): close TASK-633 after Gate B integration`, parent `540c487913b6652d2c653d04cc25433c4ed2893a`.
 
-Next dependency-safe work after successful integration: mark TASK-633 completed and materialize only the smallest S3 Construction documentation/closure lot according to rolling-wave. Do not advance to C10 or invent C07B/C08 scope.
+Evidence: TASK-633 task catalog records C0→C9 closure obligations PROVEN after TASK-634, six-pressure-case accounting discharged including C3/Ticketing, C10 explicitly deferred, and no new product/Core/business/provider/runtime/persistence authority. The TASK-633 integration record states its exact-head Deterministic CI, Heavy Product Tests, Automation Handoff State Machine and distinct current Merge Candidate CI were GREEN before integration.
+
+Residual debt: this live pointer was stale after Gate B integration and is reconciled by this handoff commit. Current-main post-pointer CI has not been promoted to closure evidence; absence of current status evidence must not be called GREEN. C10 remains deferred/unproven by design.
+
+Next dependency-safe work: run only the final S3 documentation / Construction closure census. If and only if no material FAILED/UNPROVEN blocker remains and applicable exact-head plus distinct merge-candidate gates are current GREEN, integrate the closure lot, revalidate fresh main, and then mark S3 closed. Otherwise materialize only the smallest demonstrated bounded follow-up. Do not advance to C10 or invent C07B/C08 scope.
