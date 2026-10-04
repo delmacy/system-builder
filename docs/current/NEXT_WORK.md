@@ -1,40 +1,36 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-03
-Repository truth base: `main@0755715af5c23e5845fb04b5aa8022783b5bcdf6`
-Status: S3 / WP7 C07A — TASK-632 CONSTRUCTION CLOSED / PROVEN / INTEGRATED
+Repository truth base: `main@753db658dbc5cbce220bee3ef587ae2d5e8db617`
+Status: S3 / WP8 — TASK-633 QA COVERAGE / EVIDENCE REVIEW MATERIALIZED; EXECUTION BLOCKED PENDING MATERIALIZATION ADMISSION
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
 ## Authority
 - `docs/DOCUMENT_AUTHORITY.md`
-- `docs/contracts/001-station-component-grammar/ADDENDUM.md`
-- `project_docs/execution_planning/STATION-S3-COMPONENT-GRAMMAR-PLAN-01.md`
-- `project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md`
 - `project_docs/execution_planning/STATION-S3-QA-GATES-PLAN-01.md`
-- `specs/tasks/TASK-632-STATION-S3-C07A-PROVIDER-PORTABILITY-BOUNDARY.md`
+- `project_docs/execution_planning/STATION-S3-CONSTRUCTION-MATERIALIZATION-01.md`
+- `project_docs/execution_planning/STATION-S3-SCOPE-WBS-WP1-PLAN-01.md`
+- `specs/tasks/TASK-633-STATION-S3-QA-COVERAGE-EVIDENCE-REVIEW.md`
 
 ## Predecessor truth
-C01–C05 remain PROVEN under unchanged recorded preconditions. C06A/TASK-630 and C06B/TASK-631 are CLOSED / PROVEN / INTEGRATED. TASK-632/C07A materialization and Construction are now CLOSED / PROVEN / INTEGRATED. Durable persistence/storage and recovery beyond deterministic fail-closed admission remain explicit DEFER/non-goals.
+C01–C05 remain PROVEN under unchanged recorded preconditions. C06A/TASK-630 and C06B/TASK-631 are CLOSED / PROVEN / INTEGRATED. C07A/TASK-632 Construction is CLOSED / PROVEN / INTEGRATED via PR #1001 and merge `0755715af5c23e5845fb04b5aa8022783b5bcdf6`; its task-catalog state is reconciled to `completed` on fresh `main@753db658dbc5cbce220bee3ef587ae2d5e8db617`. No C07B/C08 product successor is inferred.
 
-## TASK-632 / C07A closure
-Construction base: `main@a3449d964688654e681905e770774b69943197fb`.
-Final exact-head: `d3bf3cf9e8f3eb0e0642c2e501053453405445a1`.
-Construction PR: #1001.
-Integration merge: `0755715af5c23e5845fb04b5aa8022783b5bcdf6`, with parents `a3449d964688654e681905e770774b69943197fb` and `d3bf3cf9e8f3eb0e0642c2e501053453405445a1`.
-Allowed delta remained bounded to `packages/station-provider-boundary/index.ts`, focused `tests/product/station-s3-c07-provider-portability.test.ts`, and repository memory, within `max_files: 6`.
-Forbidden owners remained untouched: Core, Application/Tool owners, app-runtime/apps/shell/interaction/composition/ui-core, concrete provider/runtime/deploy, SDK/API/network discovery, secrets, durable persistence/storage, executable command/business authority, UI/a11y, C10/Studio and AI/MCP.
+## C07 census result
+The authoritative Construction materialization plan lists the planned dependency order through C07 provider-independence/portability evidence boundary and does not define a further C07 product tranche. The S3 WBS requires cross-package Test Review/Hardening, then QA Coverage / Evidence Review, then documentation/S3 Construction closure. Gate B in the QA plan is required after integration evidence and before S3 closure. Therefore the smallest mandatory successor after TASK-632 is TASK-633 QA Coverage / Evidence Review, not new product implementation.
 
-## Closure evidence
-Final exact-head mandatory gates were GREEN before merge, including deterministic repository verification, heavy product proof, handoff/reducer conformance and merge-candidate verification. Exact-head identity and merge-candidate identity were treated as distinct evidence; predecessor/stale candidates were not reused. PR #1001 was merged with expected-head protection at the final exact-head.
+## TASK-633 materialization
+Branch: `planning/station-s3-wp8-qa-coverage-evidence-review`.
+Materialization base: `main@753db658dbc5cbce220bee3ef587ae2d5e8db617`.
+Scope is proof-accounting/documentation only, max_files: 4. Product mutation is forbidden.
 
-Semantic/architecture review: provider-neutral binding identity remains distinct from Application/Tool/Component/presentation/command/runtime identity; compatible substitution is deterministic/idempotent and candidate-order independent where order is semantically irrelevant; portability/exit is explicit without concrete provider becoming canonical business meaning. Malformed, unknown, stale, incompatible, duplicate and ambiguous refs fail closed before canonical mutation with zero partial mutation. C01–C06 owner contracts remain unchanged. No provider runtime/deploy/secrets, persistence/storage, Core/business/command, UI, Studio or AI/MCP authority was introduced.
+Acceptance: coverage rows for integrated C01–C07 and relevant promoted C0→C9 obligations; inherited proof only with unchanged preconditions; explicit evidence identity/freshness; six pressure cases dispositioned with exactly `proven | failed | unproven-gap | not-applicable`; C10 remains deferred/unproven; no Station/Core/business/provider/runtime/persistence authority expansion. Any missing/stale evidence stays `unproven-gap`; any `failed` obligation blocks closure and yields only the smallest bounded follow-up.
 
-Negative/adversarial proof covers malformed, unknown, stale, incompatible, duplicate and ambiguous refs, plus rejection immutability. Recovery beyond deterministic fail-closed admission remains DEFER rather than silently PROVEN. Accessibility is N/A because C07A introduces no UI/DOM/focus/keyboard surface.
+## :50 handoff to :10
+BLOCKER-FIRST disposition: TASK-632 task-catalog status was stale (`ready`) despite authoritative closure. It has been normalized to `completed` on fresh main without changing product or proof truth. The C07 census shows no mandatory C07B/C08 product lot; Gate B QA Coverage / Evidence Review is the dependency-safe successor.
 
-## :50 closure handoff
-BLOCKER-FIRST disposition: no material FAILED/UNPROVEN closure blocker remained on the final exact-head. The current merge-candidate was GREEN and distinct from the exact-head; stale predecessor evidence was not used. TASK-632 planned scope versus executed delta remained within the admitted owner/path/file-count boundaries. PR #1001 integrated successfully and fresh main was revalidated immediately at `0755715af5c23e5845fb04b5aa8022783b5bcdf6`.
+TASK-633 is MATERIALIZED but not yet admitted. Execution remains BLOCKED until this materialization exact head obtains mandatory repository verification plus a distinct current merge-candidate GREEN and is integrated against the unchanged fresh-main base. Materialization evidence cannot be reused as QA review evidence.
 
-Residual debt: provider SDK/runtime/deploy/secrets, durable persistence/storage, migration/recovery beyond fail-closed, Core/business authority, C07B/C08+, C10/Studio and AI/MCP remain DEFER/inelegible until separately admitted and proven.
+Allowed after admission: bounded evidence/accounting work under the TASK-633 documentation paths only. Forbidden: all `packages/**` and `apps/**` product mutation, Core/business/command authority, provider/runtime/deploy/secrets, persistence/storage, C10/Studio, AI/MCP, and inventing C07B/C08 work.
 
-Next dependency-safe action: revalidate fresh main including this pointer-only closure commit, reconcile TASK-632/task-catalog state to completed if any authoritative surface is still stale, then perform a C07 census against the execution/QA plans to identify the smallest mandatory successor. Materialize that successor before any product mutation. Do not assume C07B/C08 eligibility without that census, and preserve C0→C10 sequencing and all S3 owner boundaries.
+Next action: validate the TASK-633 materialization exact head and merge-candidate. If GREEN/current, integrate it, revalidate fresh main, then execute only Gate B coverage/evidence review. If any gate fails, correct only the demonstrated bounded documentation/conformance blocker; do not implement product.
