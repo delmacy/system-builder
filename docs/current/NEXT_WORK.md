@@ -1,8 +1,8 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-03
-Repository truth base: `main@a3449d964688654e681905e770774b69943197fb`
-Status: S3 / WP7 C07A — TASK-632 CONSTRUCTION IMPLEMENTED / PRODUCT UNPROVEN-GAP PENDING EXACT-HEAD GATES
+Repository truth base: `main@0755715af5c23e5845fb04b5aa8022783b5bcdf6`
+Status: S3 / WP7 C07A — TASK-632 CONSTRUCTION CLOSED / PROVEN / INTEGRATED
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -15,31 +15,26 @@ Status: S3 / WP7 C07A — TASK-632 CONSTRUCTION IMPLEMENTED / PRODUCT UNPROVEN-G
 - `specs/tasks/TASK-632-STATION-S3-C07A-PROVIDER-PORTABILITY-BOUNDARY.md`
 
 ## Predecessor truth
-C01–C05 are PROVEN under unchanged recorded preconditions. C06A/TASK-630 and C06B/TASK-631 are CLOSED / PROVEN / INTEGRATED. TASK-632/C07A materialization is CLOSED / PROVEN / INTEGRATED. Durable persistence/storage and recovery beyond deterministic fail-closed admission remain explicit DEFER/non-goals.
+C01–C05 remain PROVEN under unchanged recorded preconditions. C06A/TASK-630 and C06B/TASK-631 are CLOSED / PROVEN / INTEGRATED. TASK-632/C07A materialization and Construction are now CLOSED / PROVEN / INTEGRATED. Durable persistence/storage and recovery beyond deterministic fail-closed admission remain explicit DEFER/non-goals.
 
-## TASK-632 / C07A Construction admission
-Materialization PR #999 merged as `053f11e64f6e4e4726383a69f1925a702b6dc6ac`; pointer reconciliation produced fresh Construction base `main@a3449d964688654e681905e770774b69943197fb`.
-Allowed product: `packages/station-provider-boundary/**` plus focused `tests/product/station-s3-c07*.test.ts` and bounded TASK/NEXT_WORK memory; `max_files: 6`.
-Forbidden: Core, Application/Tool owners, app-runtime/apps/shell/interaction/composition/ui-core, concrete provider/runtime/deploy, SDK/API/network discovery, secrets, durable persistence/storage, executable command/business authority, UI/a11y, C10/Studio and AI/MCP.
+## TASK-632 / C07A closure
+Construction base: `main@a3449d964688654e681905e770774b69943197fb`.
+Final exact-head: `d3bf3cf9e8f3eb0e0642c2e501053453405445a1`.
+Construction PR: #1001.
+Integration merge: `0755715af5c23e5845fb04b5aa8022783b5bcdf6`, with parents `a3449d964688654e681905e770774b69943197fb` and `d3bf3cf9e8f3eb0e0642c2e501053453405445a1`.
+Allowed delta remained bounded to `packages/station-provider-boundary/index.ts`, focused `tests/product/station-s3-c07-provider-portability.test.ts`, and repository memory, within `max_files: 6`.
+Forbidden owners remained untouched: Core, Application/Tool owners, app-runtime/apps/shell/interaction/composition/ui-core, concrete provider/runtime/deploy, SDK/API/network discovery, secrets, durable persistence/storage, executable command/business authority, UI/a11y, C10/Studio and AI/MCP.
 
-## Acceptance / proof obligations
-- stable provider-neutral binding identity distinct from Application/Tool/Component/presentation/command/runtime identity;
-- deterministic compatible substitution, idempotence, and order-independence where ordering is semantically irrelevant;
-- explicit portability/exit representation without concrete provider as canonical business meaning;
-- unknown/stale/malformed/duplicate/ambiguous/incompatible refs fail closed before canonical mutation with zero partial mutation;
-- C01–C06 owner contracts preserved under unchanged preconditions;
-- no provider runtime/deploy/secrets, persistence/storage, command/business/Core, UI, Studio or AI/MCP authority;
-- focused positive + adversarial executable proof;
-- current exact-head mandatory gates plus distinct current merge-candidate GREEN before integration.
+## Closure evidence
+Final exact-head mandatory gates were GREEN before merge, including deterministic repository verification, heavy product proof, handoff/reducer conformance and merge-candidate verification. Exact-head identity and merge-candidate identity were treated as distinct evidence; predecessor/stale candidates were not reused. PR #1001 was merged with expected-head protection at the final exact-head.
 
-## Construction :10 handoff
-Branch: `sprint/station-s3-wp7-c07a-construction`.
-TASK: TASK-632 / C07A.
-Fresh base: `main@a3449d964688654e681905e770774b69943197fb`.
-Delta: `packages/station-provider-boundary/index.ts` implements only an in-memory provider-neutral binding, deterministic compatible substitution and explicit exit intent; `tests/product/station-s3-c07-provider-portability.test.ts` supplies focused positive/adversarial proof. This pointer is the third changed file; total remains within 3/6.
+Semantic/architecture review: provider-neutral binding identity remains distinct from Application/Tool/Component/presentation/command/runtime identity; compatible substitution is deterministic/idempotent and candidate-order independent where order is semantically irrelevant; portability/exit is explicit without concrete provider becoming canonical business meaning. Malformed, unknown, stale, incompatible, duplicate and ambiguous refs fail closed before canonical mutation with zero partial mutation. C01–C06 owner contracts remain unchanged. No provider runtime/deploy/secrets, persistence/storage, Core/business/command, UI, Studio or AI/MCP authority was introduced.
 
-Test Review/Hardening: positive proof covers stable identity, semantically irrelevant candidate-order independence, compatible substitution, substitution idempotence, frozen canonical result and exit-intent idempotence. Adversarial proof covers malformed, unknown, stale, incompatible, duplicate and ambiguous refs plus zero mutation on rejection. Shape inspection asserts absence of Application/Tool/ComponentRegistry, command, runtime/deploy/secrets/storage/persistence/SDK/endpoint and business-result authority fields.
+Negative/adversarial proof covers malformed, unknown, stale, incompatible, duplicate and ambiguous refs, plus rejection immutability. Recovery beyond deterministic fail-closed admission remains DEFER rather than silently PROVEN. Accessibility is N/A because C07A introduces no UI/DOM/focus/keyboard surface.
 
-QA Coverage/Evidence Review: behavior and focused proof are IMPLEMENTED but remain UNPROVEN-GAP until the final one-commit exact-head receives current repository gates and a distinct current merge-candidate GREEN. No local execution is claimed. C01–C06 proofs are inherited only under unchanged owner contracts. Accessibility is N/A because no UI/DOM/interaction owner is touched. Provider SDK/runtime/deploy/secrets, durable persistence/storage, migration/recovery beyond fail-closed, Core/business authority, C07B/C08+ and C10/Studio remain DEFER/inelegible.
+## :50 closure handoff
+BLOCKER-FIRST disposition: no material FAILED/UNPROVEN closure blocker remained on the final exact-head. The current merge-candidate was GREEN and distinct from the exact-head; stale predecessor evidence was not used. TASK-632 planned scope versus executed delta remained within the admitted owner/path/file-count boundaries. PR #1001 integrated successfully and fresh main was revalidated immediately at `0755715af5c23e5845fb04b5aa8022783b5bcdf6`.
 
-BLOCKER-FIRST next action: normalize the TASK-632 Construction tree to exactly one authoritative commit on this fresh base, open the Construction PR, and collect exact-head mandatory gates plus merge-candidate evidence. Correct only bounded TASK-632 failures. Do not merge or declare C07A PROVEN before those final-head gates are GREEN; do not advance C07B/C08+ meanwhile.
+Residual debt: provider SDK/runtime/deploy/secrets, durable persistence/storage, migration/recovery beyond fail-closed, Core/business authority, C07B/C08+, C10/Studio and AI/MCP remain DEFER/inelegible until separately admitted and proven.
+
+Next dependency-safe action: revalidate fresh main including this pointer-only closure commit, reconcile TASK-632/task-catalog state to completed if any authoritative surface is still stale, then perform a C07 census against the execution/QA plans to identify the smallest mandatory successor. Materialize that successor before any product mutation. Do not assume C07B/C08 eligibility without that census, and preserve C0→C10 sequencing and all S3 owner boundaries.
