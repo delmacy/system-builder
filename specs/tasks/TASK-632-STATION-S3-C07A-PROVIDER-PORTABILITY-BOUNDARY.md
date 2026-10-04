@@ -1,7 +1,7 @@
 ---
 id: TASK-632
 title: STATION S3 C07A Provider Portability Boundary
-status: ready
+status: completed
 priority: 632
 milestone: STATION-S3-COMPONENT-GRAMMAR
 model_tier: architecture
@@ -45,7 +45,7 @@ validation:
 
 # TASK-632 — Station S3 C07A Provider Portability Boundary
 
-Status: ready / materialized; Construction blocked pending materialization integration
+Status: CLOSED / PROVEN / INTEGRATED
 Date: 2026-10-03
 Predecessor: TASK-631 / C06B CLOSED / PROVEN / INTEGRATED
 Truth base: `main@d719442a620a4a5824386e423fbc274ab54e8bc0`
