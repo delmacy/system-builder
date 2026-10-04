@@ -1,34 +1,30 @@
 # Next Work — STATION S3 Component Grammar & Catalog
 
 Date: 2026-10-04
-Repository truth base: `main@c2d44197798eb65fb3dec34905b8d925d08d2fe1`
-Status: S3 / WP8 — TASK-633 + TASK-634 CLOSED / PROVEN / INTEGRATED; TASK-635 closure lot INTEGRATED; S3 FINAL CLOSURE CANDIDATE ACTIVE
+Repository closure merge: `main@29793bbadc31a20e83c2310c8f206e80917afac2`
+Status: S3 CONSTRUCTION CLOSED / PROVEN / INTEGRATED; TASK-633 + TASK-634 + TASK-635 CLOSED / PROVEN / INTEGRATED; C10 DEFERRED / UNPROVEN
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
 ## Closure truth
-C01–C07 admitted Construction slices remain PROVEN / INTEGRATED under their recorded unchanged preconditions. TASK-634 discharged the C3 Collection / Ticketing representative proof gap. TASK-633 Gate B re-accounting is CLOSED / PROVEN / INTEGRATED. TASK-635 final documentation / Construction closure lot was integrated at merge `47837349936197fc388662a977005afec1f77b8f`. C10 remains deliberately deferred/unproven and is not promoted by this closure.
+C01–C07 admitted Construction slices remain PROVEN / INTEGRATED under their recorded unchanged preconditions. TASK-634 discharged the C3 Collection / Ticketing representative proof gap. TASK-633 Gate B re-accounting is CLOSED / PROVEN / INTEGRATED. TASK-635 final documentation / Construction closure is CLOSED / PROVEN / INTEGRATED. C10 remains deliberately deferred/unproven and is not promoted by this closure.
 
-Fresh `main@c2d44197798eb65fb3dec34905b8d925d08d2fe1` has current exact-head full product proof GREEN: GitHub Actions `full-main-proof` completed successfully after asserting the scheduled revision identity and running `npm run test:product:full`; 1943 tests passed, 0 failed, 0 skipped. This evidence is exact-head evidence for `c2d44197...` only.
+Final closure candidate PR #1010 used exact head `cb9a8acd1997a67a730a562af08fe685f74374a0` over predecessor `main@c2d44197798eb65fb3dec34905b8d925d08d2fe1`. Deterministic CI, Heavy Product Tests, Automation Handoff State Machine and the distinct Merge Candidate CI completed GREEN on that exact candidate. PR #1010 merged without head movement as `29793bbadc31a20e83c2310c8f206e80917afac2`. Fresh main was revalidated at that merge before this post-closure memory reconciliation.
 
-## Closure / merge status
-No material FAILED / UNPROVEN-GAP is known in admitted C0→C9 obligations after TASK-634 and Gate B. Negative/adversarial/recovery obligations remain bound to their admitted owner evidence and unchanged preconditions. Accessibility is N/A for this documentation-only closure reconciliation; existing Station accessibility/product tests remain part of repository proof but no new UI surface is introduced here.
+## Closure status
+No material FAILED / UNPROVEN-GAP remains known in admitted C0→C9 obligations under their recorded unchanged owner contracts/preconditions. Negative/adversarial/recovery obligations remain bound to their admitted owner evidence. Accessibility is N/A for this documentation-only closure reconciliation; no new UI surface is introduced.
 
-The current exact-head proof does not itself satisfy the repository rule requiring a distinct current merge-candidate GREEN for a merge-bearing closure revision. Therefore S3 remains OPEN until this final pointer/closure candidate obtains mandatory exact-head GREEN and a distinct current merge-candidate GREEN, with both SHAs recorded, then merges and fresh main is revalidated.
+S3 Construction is CLOSED. This closure does not authorize C10/Studio or any unmaterialized successor. Any future work must begin from fresh-main planning/materialization authority and preserve rolling-wave boundaries.
 
-## Allowed
-Only this smallest final S3 closure evidence/repository-memory reconciliation under already-authorized documentation paths. No product mutation.
+## Allowed next work
+None inside S3 Construction. Only fresh-main planning/materialization of an explicitly authorized successor may proceed.
 
 ## Forbidden
-All `packages/**` and `apps/**` mutation; Core/business/command authority; provider runtime/deploy/secrets; persistence/storage; C07B/C08 invention; C10/Studio promotion; AI/MCP; converting stale/missing evidence into proof; broad cleanup unrelated to closure.
+All implicit continuation of S3; `packages/**` and `apps/**` mutation without a newly admitted task; Core/business/command authority; provider runtime/deploy/secrets; persistence/storage; C07B/C08 invention; C10/Studio promotion without explicit materialization; AI/MCP; converting stale/missing evidence into proof.
 
-## Handoff to :50
-Closure/merge status: TASK-633 and TASK-634 are CLOSED / PROVEN / INTEGRATED. TASK-635 is INTEGRATED. S3 remains OPEN solely pending current admission evidence for this final documentation closure candidate.
+## Handoff to :10
+Predecessor truth: C01–C07 PROVEN/INTEGRATED; TASK-633 CLOSED/PROVEN/INTEGRATED; TASK-634 CLOSED/PROVEN/INTEGRATED; TASK-635 CLOSED/PROVEN/INTEGRATED; final closure PR #1010 exact head `cb9a8acd...` mandatory exact-head/handoff/merge-candidate evidence GREEN; merged as `29793bb...`; fresh main revalidated; S3 Construction CLOSED.
 
-Fresh-main base: `c2d44197798eb65fb3dec34905b8d925d08d2fe1`.
+Authorization: no Construction successor is authorized by this pointer. C10 remains deferred/unproven. Do not invent C07B/C08 or cross into Core/business authority.
 
-Evidence: `full-main-proof` on exact head `c2d44197798eb65fb3dec34905b8d925d08d2fe1` completed GREEN after exact revision identity assertion; full product proof reported 1943 pass / 0 fail / 0 skipped. C3 Collection proof is present and passing, including keyed topology, semantic-vs-visual order, deterministic revisioned reorder, and fail-closed invalid/stale/malformed/ambiguous references with zero canonical mutation. C07A provider portability boundary is also passing and remains non-authoritative for runtime, command, persistence, and business semantics.
-
-Residual debt: distinct current merge-candidate evidence for this merge-bearing closure revision is not yet established. Do not close S3 from exact-head proof alone. Repository-wide npm audit also reports pre-existing dependency advisories during install; they are not introduced by this documentation-only delta and are not promoted into S3 product authority, but remain repository debt outside this bounded closure.
-
-Next dependency-safe work: run/reconfirm mandatory gates on this exact closure-candidate head and its distinct current merge-candidate. If both are GREEN, merge with expected-head protection, revalidate fresh main, reconcile this pointer to CLOSED, and stop S3 work. If any gate fails, repair only the smallest demonstrated closure/conformance defect. Do not advance to C10 or invent C07B/C08 scope.
+Next action: stop S3 Construction execution. If program planning explicitly authorizes the next phase, materialize only its smallest dependency-safe rolling-wave lot from then-fresh main, with its own allowed/forbidden boundaries and proof obligations.
