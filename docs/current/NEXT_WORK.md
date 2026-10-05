@@ -1,8 +1,8 @@
 # Next Work — STATION S4 Visual Factory Foundation
 
 Date: 2026-10-05
-Base: `main@31a926a538b442649c382d95a1e800e86ba1ceac`
-Status: S4 WP1 MATERIALIZATION INTEGRATED; CI RESPONSIBILITY NORMALIZATION INTEGRATED; TASK-636 READY FOR CONSTRUCTION
+Base: `main@8130b9b0d67fbb89403f1fd25882ace17a9dfae7`
+Status: S4 WP1 MATERIALIZATION INTEGRATED; TASK-636 PROOF PATH CONFORMANCE INTEGRATED; TASK-636 READY FOR CONSTRUCTION
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -36,16 +36,18 @@ Each tranche declares proof obligations before implementation. Negative/adversar
 
 ## Hardening closure handoff to :50
 
-PR #1013 (`chore/s4-ci-responsibility-normalization`) is **MERGED / INTEGRATED**. It normalized Station workflow responsibility without product-scope expansion. Exact PR head `985f0cb1deac14e344064a3491a5a7bc524e8bc1` completed its relevant exact-head workflows GREEN. The distinct Merge Candidate CI proved synthetic merge candidate `4ef0c23f7c50301cf9c5e41b5a85b53cbd10d2b3` against then-current `main@2fd40ac2a053e40bfd279e83a6b0d86f5815d050`, including merge-candidate identity assertion and deterministic repository verification. PR #1013 then merged as `31a926a538b442649c382d95a1e800e86ba1ceac`, whose parents are `2fd40ac2a053e40bfd279e83a6b0d86f5815d050` and `985f0cb1deac14e344064a3491a5a7bc524e8bc1`.
+PR #1014 (`planning/station-s4-task636-proof-path-conformance`) is **MERGED / INTEGRATED**. It corrected a material proof-path conformance gap in TASK-636 authority: the task required focused executable proof but its allowed paths had excluded the repository product-test harness. The bounded correction admitted exactly `tests/product/station-editor-session.test.ts`; it introduced no product implementation and no parallel TASK.
 
-Semantic/architecture review found no S4 scope expansion in #1013: the delta is confined to `.github/workflows/station-frontend-quality.yml` and `.github/workflows/station-next-ci.yml`; it strengthens exact-head identity and separates cross-platform build from frontend interaction/browser/accessibility/visual evidence. It creates no Core/business authority, provider/runtime/deploy/secrets, persistence/storage, C10/Studio promotion, or new product semantics.
+The distinct identities are preserved. Exact PR head `29f6c2207222da744a2f7ff7384e7ad80ee0e54b` completed Deterministic CI, Heavy Product Tests and Automation Handoff State Machine GREEN. Merge Candidate CI was also GREEN for the current candidate against predecessor `main@a1b05fc39ea7f74b9bf7d430d59284f7fa2497c0`. PR #1014 merged as `8130b9b0d67fbb89403f1fd25882ace17a9dfae7`, whose parents are `a1b05fc39ea7f74b9bf7d430d59284f7fa2497c0` and exact head `29f6c2207222da744a2f7ff7384e7ad80ee0e54b`.
 
-TASK-636 remains the sole materialized dependency-safe Construction lot. Its allowed/forbidden paths, `max_files: 8`, contract-only accessibility N/A, and malformed/stale/unknown/duplicate/incompatible fail-closed/currentness/zero-partial-mutation proof obligations remain unchanged. No TASK-636 product implementation is present yet, so there is no Sprint closure to declare and no WP1-B authority to materialize from this :40 pass.
+Semantic/architecture review: the delta only widens TASK-636 proof authority by one focused test path. `max_files: 8`, dependencies and product paths remain otherwise unchanged. C0→C9 and `identity != placement != presentation != action` remain preserved; C10 remains DEFERRED/UNPROVEN. No Core/business/command authority, durable persistence/storage, provider/runtime/deploy/secrets, arbitrary pixel positioning, Layers/Inspector/Preview implementation, or WP1-B+ authority was admitted.
 
-This handoff update itself advances `main` beyond merge commit `31a926a...`; therefore the #1013 exact-head and merge-candidate evidence must not be misrepresented as exact-head proof of the documentation-only successor. The next worker must revalidate the resulting fresh main/current repository memory before Construction and honor any repository gate applicable to this documentation reconciliation.
+TASK-636 remains the sole materialized dependency-safe Construction lot. Required proofs remain deterministic/idempotent initialization; editor-session identity distinct from component/composition/application; explicit base/draft revision and currentness; discrete grid/span invariants; malformed/stale/unknown/duplicate/incompatible fail closed with zero partial draft/canonical mutation; draft/projection never canonical/business authority. Accessibility remains N/A for TASK-636 because this tranche is contract-only; it becomes mandatory with the first UI/DOM/focus surface.
 
-Residual debt: pre-existing dependency advisories remain repository-level debt and are not silently promoted into TASK-636 scope. No new S4 product debt was admitted in this hardening pass.
+No TASK-636 product implementation is present yet, so there is no Sprint closure to declare and WP1-B remains blocked. Pre-existing dependency advisories remain repository-level debt and are not promoted into TASK-636 scope.
+
+This handoff reconciliation itself advances `main` beyond merge commit `8130b9b0...`; therefore #1014 evidence must not be misrepresented as exact-head proof of the documentation-only successor. `:50` must revalidate the resulting fresh main/current repository memory before handing Construction to `:10`.
 
 ## Next action
 
-`:50` must revalidate fresh main after this handoff reconciliation. If no current repository blocker exists, hand off TASK-636 as the sole dependency-safe Construction lot to `:10`. TASK-636 must implement only the Station-owned editor-session/projection contract plus focused executable proof within its allowed paths. Do not materialize or start WP1-B until TASK-636 is implemented, proven, integrated on fresh main, and repository memory is reconciled.
+`:50` must revalidate fresh main after this handoff reconciliation. If no current repository blocker exists, release exactly TASK-636 to Construction `:10`. TASK-636 may implement only the Station-owned editor-session/draft/projection contract plus focused executable proof in its explicitly admitted paths. Do not materialize or start WP1-B until TASK-636 is implemented, proven, integrated on fresh main, and repository memory is reconciled.
