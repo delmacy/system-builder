@@ -1,8 +1,8 @@
 # Next Work — STATION S4 Visual Factory Foundation
 
 Date: 2026-10-05
-Base: `main@9ce17e247b0fac6280c75777f9efffc04239cf1a`
-Status: S4 WP1 MATERIALIZATION INTEGRATED; TASK-636 READY FOR CONSTRUCTION
+Base: `main@31a926a538b442649c382d95a1e800e86ba1ceac`
+Status: S4 WP1 MATERIALIZATION INTEGRATED; CI RESPONSIBILITY NORMALIZATION INTEGRATED; TASK-636 READY FOR CONSTRUCTION
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -36,16 +36,16 @@ Each tranche declares proof obligations before implementation. Negative/adversar
 
 ## Hardening closure handoff to :50
 
-PR #1012 is **MERGED / MATERIALIZATION INTEGRATED**. Its exact task/materialization head was `d1aa01cddb9f3f6ca6aa6c7dd6b68d397e0a80e7`; the distinct merge candidate observed before integration was `c938e69d1d16205a2d9eb28203a891d904e76b22`. The prior TASK-636 task-harness defect was repaired before integration: admitted `status: ready`, required task sections present, dependency on completed TASK-635 retained, and negative/adversarial zero-mutation obligations explicit.
+PR #1013 (`chore/s4-ci-responsibility-normalization`) is **MERGED / INTEGRATED**. It normalized Station workflow responsibility without product-scope expansion. Exact PR head `985f0cb1deac14e344064a3491a5a7bc524e8bc1` completed its relevant exact-head workflows GREEN. The distinct Merge Candidate CI proved synthetic merge candidate `4ef0c23f7c50301cf9c5e41b5a85b53cbd10d2b3` against then-current `main@2fd40ac2a053e40bfd279e83a6b0d86f5815d050`, including merge-candidate identity assertion and deterministic repository verification. PR #1013 then merged as `31a926a538b442649c382d95a1e800e86ba1ceac`, whose parents are `2fd40ac2a053e40bfd279e83a6b0d86f5815d050` and `985f0cb1deac14e344064a3491a5a7bc524e8bc1`.
 
-Post-merge fresh main was revalidated at `9ce17e247b0fac6280c75777f9efffc04239cf1a`. The full-main-proof run on that exact revision is GREEN: deterministic repository verification completed successfully and the full test suite reported `1943 PASS`, `0 FAIL`, `0 skipped`. No material semantic/architecture finding was observed that requires C10, Core/business authority, durable persistence, provider runtime or scope expansion.
+Semantic/architecture review found no S4 scope expansion in #1013: the delta is confined to `.github/workflows/station-frontend-quality.yml` and `.github/workflows/station-next-ci.yml`; it strengthens exact-head identity and separates cross-platform build from frontend interaction/browser/accessibility/visual evidence. It creates no Core/business authority, provider/runtime/deploy/secrets, persistence/storage, C10/Studio promotion, or new product semantics.
 
-Review of integrated TASK-636 confirms its allowed paths remain bounded to Station composition/editor + its task/planning/current-memory surfaces; forbidden paths retain `apps/**`, `packages/core/**`, provider/runtime/deploy; `max_files: 8`. TASK-636 remains contract-only, so accessibility is N/A for this tranche. Its required negative/adversarial/recovery semantics remain malformed/stale/unknown/duplicate/incompatible fail-closed, explicit currentness, and zero partial draft/canonical mutation on rejection.
+TASK-636 remains the sole materialized dependency-safe Construction lot. Its allowed/forbidden paths, `max_files: 8`, contract-only accessibility N/A, and malformed/stale/unknown/duplicate/incompatible fail-closed/currentness/zero-partial-mutation proof obligations remain unchanged. No TASK-636 product implementation is present yet, so there is no Sprint closure to declare and no WP1-B authority to materialize from this :40 pass.
 
-Repository-memory drift from the merged planning wording has been reconciled by this documentation-only commit. Because this handoff write advances `main`, predecessor exact-head proof must not be represented as proof of this new documentation head; the next worker must revalidate fresh main/current docs before product Construction and honor any repository gate that applies to the reconciliation commit.
+This handoff update itself advances `main` beyond merge commit `31a926a...`; therefore the #1013 exact-head and merge-candidate evidence must not be misrepresented as exact-head proof of the documentation-only successor. The next worker must revalidate the resulting fresh main/current repository memory before Construction and honor any repository gate applicable to this documentation reconciliation.
 
-Residual debt: no new S4 product debt is admitted by materialization. Pre-existing dependency advisories remain repository-level debt and are not silently promoted into TASK-636 scope.
+Residual debt: pre-existing dependency advisories remain repository-level debt and are not silently promoted into TASK-636 scope. No new S4 product debt was admitted in this hardening pass.
 
 ## Next action
 
-`:50` must revalidate the fresh main produced by this repository-memory reconciliation. If current repository gates show no blocker, hand off TASK-636 as the sole dependency-safe Construction lot to `:10`. TASK-636 must implement only the Station-owned editor-session/projection contract plus focused executable proof within its allowed paths. Do not materialize or start WP1-B until TASK-636 is integrated on fresh main and repository memory is reconciled.
+`:50` must revalidate fresh main after this handoff reconciliation. If no current repository blocker exists, hand off TASK-636 as the sole dependency-safe Construction lot to `:10`. TASK-636 must implement only the Station-owned editor-session/projection contract plus focused executable proof within its allowed paths. Do not materialize or start WP1-B until TASK-636 is implemented, proven, integrated on fresh main, and repository memory is reconciled.
