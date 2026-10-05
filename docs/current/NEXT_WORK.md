@@ -1,30 +1,39 @@
-# Next Work — STATION S3 Component Grammar & Catalog
+# Next Work — STATION S4 Visual Factory Foundation
 
 Date: 2026-10-04
-Repository closure merge: `main@29793bbadc31a20e83c2310c8f206e80917afac2`
-Status: S3 CONSTRUCTION CLOSED / PROVEN / INTEGRATED; TASK-633 + TASK-634 + TASK-635 CLOSED / PROVEN / INTEGRATED; C10 DEFERRED / UNPROVEN
+Base: `main@746496432748b27b2a51f096fb989b25f5327643`
+Status: S4 WP1 PLANNING & MATERIALIZATION; predecessor S3 CLOSED / PROVEN / INTEGRATED
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
-## Closure truth
-C01–C07 admitted Construction slices remain PROVEN / INTEGRATED under their recorded unchanged preconditions. TASK-634 discharged the C3 Collection / Ticketing representative proof gap. TASK-633 Gate B re-accounting is CLOSED / PROVEN / INTEGRATED. TASK-635 final documentation / Construction closure is CLOSED / PROVEN / INTEGRATED. C10 remains deliberately deferred/unproven and is not promoted by this closure.
+## Authority
 
-Final closure candidate PR #1010 used exact head `cb9a8acd1997a67a730a562af08fe685f74374a0` over predecessor `main@c2d44197798eb65fb3dec34905b8d925d08d2fe1`. Deterministic CI, Heavy Product Tests, Automation Handoff State Machine and the distinct Merge Candidate CI completed GREEN on that exact candidate. PR #1010 merged without head movement as `29793bbadc31a20e83c2310c8f206e80917afac2`. Fresh main was revalidated at that merge before this post-closure memory reconciliation.
+Scope increment: `docs/contracts/002-station-visual-factory/ADDENDUM.md`.
+WP plan: `project_docs/execution_planning/STATION-S4-VISUAL-FACTORY-WP1-PLAN-01.md`.
+First eligible Construction task after this materialization integrates: `TASK-636-STATION-S4-WP1A-EDITOR-SESSION-PROJECTION.md`.
 
-## Closure status
-No material FAILED / UNPROVEN-GAP remains known in admitted C0→C9 obligations under their recorded unchanged owner contracts/preconditions. Negative/adversarial/recovery obligations remain bound to their admitted owner evidence. Accessibility is N/A for this documentation-only closure reconciliation; no new UI surface is introduced.
+The user explicitly authorized the next Work Package. This materialization freezes WP1 as the shared visual editor foundation built on the proven C0→C9 grammar. C10 remains deferred/unproven.
 
-S3 Construction is CLOSED. This closure does not authorize C10/Studio or any unmaterialized successor. Any future work must begin from fresh-main planning/materialization authority and preserve rolling-wave boundaries.
+## WP1 milestone
 
-## Allowed next work
-None inside S3 Construction. Only fresh-main planning/materialization of an explicitly authorized successor may proceed.
+One admitted composition can be opened in a shared Station editor workbench, inspected through Layers and Inspector, edited through constrained grid/span semantics, observed through synchronized Preview, validated fail-closed, and explicitly saved/discarded as Station-owned draft state without acquiring Core/business authority.
 
-## Forbidden
-All implicit continuation of S3; `packages/**` and `apps/**` mutation without a newly admitted task; Core/business/command authority; provider runtime/deploy/secrets; persistence/storage; C07B/C08 invention; C10/Studio promotion without explicit materialization; AI/MCP; converting stale/missing evidence into proof.
+## Rolling-wave execution
 
-## Handoff to :10
-Predecessor truth: C01–C07 PROVEN/INTEGRATED; TASK-633 CLOSED/PROVEN/INTEGRATED; TASK-634 CLOSED/PROVEN/INTEGRATED; TASK-635 CLOSED/PROVEN/INTEGRATED; final closure PR #1010 exact head `cb9a8acd...` mandatory exact-head/handoff/merge-candidate evidence GREEN; merged as `29793bb...`; fresh main revalidated; S3 Construction CLOSED.
+WP1 decomposition is `A Editor Session/Projection -> B Layers/Selection -> C Inspector/Edit Intent -> D Grid/Span Validation -> E Preview Convergence -> F Save/Discard -> G Integrated Journey -> H Hardening/Coverage/Closure`.
 
-Authorization: no Construction successor is authorized by this pointer. C10 remains deferred/unproven. Do not invent C07B/C08 or cross into Core/business authority.
+Only WP1-A / TASK-636 is materialized for immediate Construction. Later slices remain forecast until their predecessor is integrated and fresh main is revalidated.
 
-Next action: stop S3 Construction execution. If program planning explicitly authorizes the next phase, materialize only its smallest dependency-safe rolling-wave lot from then-fresh main, with its own allowed/forbidden boundaries and proof obligations.
+## Boundaries
+
+Preserve `identity != placement != presentation != action`, `ComponentRegistry != AppManifest`, projection != authority, accepted/acknowledged != effective, and UI discard != business rollback/compensation. Layers/Inspector/Preview are projections of one composition model, not canonical competitors. Stale/unknown/partial state must not be strengthened.
+
+Forbidden without new authority: C10/Studio promotion; Core/business/command authority; provider/runtime/deploy/secrets; durable persistence/storage; arbitrary HTML/CSS/pixel positioning; specialized managers/editors; AI/MCP; hidden scope expansion.
+
+## Proof discipline
+
+Each tranche declares proof obligations before implementation. Negative/adversarial/recovery cases are mandatory where applicable. Accessibility/keyboard proof becomes mandatory with the first UI/DOM/focus surface; it is N/A only for TASK-636 because WP1-A is contract-only. Exact-head evidence becomes stale whenever HEAD changes.
+
+## Next action
+
+Integrate this planning/materialization candidate through normal exact-head + merge-candidate gates. After fresh-main revalidation, execute TASK-636 boundedly. Do not start WP1-B in parallel.
