@@ -18,6 +18,7 @@ context_paths:
 allowed_paths:
   - packages/station-composition/**
   - packages/station-editor/**
+  - tests/product/station-editor-session.test.ts
   - specs/tasks/TASK-636-STATION-S4-WP1A-EDITOR-SESSION-PROJECTION.md
   - project_docs/execution_planning/STATION-S4-**
   - docs/current/NEXT_WORK.md
@@ -86,7 +87,11 @@ No Layers UI, Inspector UI, Preview UI, grid editor, drag/drop, save persistence
 
 ## Evidence expected
 
-Focused executable proof must cover valid initialization, idempotence, identity separation, revision/currentness, malformed/stale/unknown/duplicate/incompatible inputs, zero-mutation rejection and absence of business/command/persistence authority. `npm run verify` must pass on the exact task head; integration additionally requires the current merge-candidate gate.
+Focused executable proof must cover valid initialization, idempotence, identity separation, revision/currentness, malformed/stale/unknown/duplicate/incompatible inputs, zero-mutation rejection and absence of business/command/persistence authority. The focused proof is materialized at `tests/product/station-editor-session.test.ts`, matching the repository's executable product-test harness. `npm run verify` must pass on the exact task head; integration additionally requires the current merge-candidate gate.
+
+## Conformance handoff — 2026-10-05
+
+Fresh-main revalidation at `a1b05fc39ea7f74b9bf7d430d59284f7fa2497c0` found the TASK proof obligation inconsistent with its allowed paths: `scripts/run-product-tests.mjs` executes product proof only from `tests/product/*.test.ts`, while TASK-636 previously allowed no `tests/product/**` path. Full Product Tests run `37303257376` is GREEN on that exact fresh-main head, so this is a materialization/conformance blocker rather than a product failure. This bounded correction admits exactly one focused proof file and does not widen product semantics, max-files, architecture, or WP authority. Product implementation remains blocked until this correction is integrated with current exact-head/merge-candidate gates. Next eligible work after integration remains TASK-636 only; WP1-B remains forecast.
 
 ## Escalation
 
