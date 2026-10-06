@@ -16,6 +16,7 @@ context_paths:
   - docs/current/NEXT_WORK.md
   - project_docs/execution_planning/STATION-S4-VISUAL-FACTORY-WP1-PLAN-01.md
 allowed_paths:
+  - tsconfig.json
   - packages/station-composition/**
   - packages/station-editor/**
   - tests/product/station-editor-session.test.ts

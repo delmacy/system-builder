@@ -1,8 +1,8 @@
 # Next Work — STATION S4 Visual Factory Foundation
 
-Date: 2026-10-05
-Base: `main@8130b9b0d67fbb89403f1fd25882ace17a9dfae7`
-Status: S4 WP1 MATERIALIZATION INTEGRATED; TASK-636 PROOF PATH CONFORMANCE INTEGRATED; TASK-636 READY FOR CONSTRUCTION
+Date: 2026-10-06
+Base: `main@e300490d626843d4b3aec954e4d15fdf14394cf7`
+Status: TASK-636 CONSTRUCTION IMPLEMENTED; PR #1015 OPEN; EXACT-HEAD PROOF PENDING
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -10,7 +10,7 @@ Status: S4 WP1 MATERIALIZATION INTEGRATED; TASK-636 PROOF PATH CONFORMANCE INTEG
 
 Scope increment: `docs/contracts/002-station-visual-factory/ADDENDUM.md`.
 WP plan: `project_docs/execution_planning/STATION-S4-VISUAL-FACTORY-WP1-PLAN-01.md`.
-First eligible Construction task: `TASK-636-STATION-S4-WP1A-EDITOR-SESSION-PROJECTION.md`.
+Current Construction task: `TASK-636-STATION-S4-WP1A-EDITOR-SESSION-PROJECTION.md`.
 
 The user explicitly authorized the next Work Package. WP1 is the shared visual editor foundation built on the proven C0→C9 grammar. C10 remains deferred/unproven.
 
@@ -22,7 +22,7 @@ One admitted composition can be opened in a shared Station editor workbench, ins
 
 WP1 decomposition is `A Editor Session/Projection -> B Layers/Selection -> C Inspector/Edit Intent -> D Grid/Span Validation -> E Preview Convergence -> F Save/Discard -> G Integrated Journey -> H Hardening/Coverage/Closure`.
 
-Only WP1-A / TASK-636 is materialized for immediate Construction. Later slices remain forecast until their predecessor is integrated and fresh main is revalidated.
+Only WP1-A / TASK-636 is materialized. Later slices remain forecast until their predecessor is integrated and fresh main is revalidated.
 
 ## Boundaries
 
@@ -32,22 +32,18 @@ Forbidden without new authority: C10/Studio promotion; Core/business/command aut
 
 ## Proof discipline
 
-Each tranche declares proof obligations before implementation. Negative/adversarial/recovery cases are mandatory where applicable. Accessibility/keyboard proof becomes mandatory with the first UI/DOM/focus surface; it is N/A only for TASK-636 because WP1-A is contract-only. Exact-head evidence becomes stale whenever HEAD changes.
+Each tranche declares proof obligations before implementation. Negative/adversarial/recovery cases are mandatory where applicable. Accessibility/keyboard proof becomes mandatory with the first UI/DOM/focus surface; it is N/A for TASK-636 because WP1-A is contract-only. Exact-head evidence becomes stale whenever HEAD changes.
 
-## Hardening closure handoff to :50
+## Construction handoff to :30 — TASK-636
 
-PR #1014 (`planning/station-s4-task636-proof-path-conformance`) is **MERGED / INTEGRATED**. It corrected a material proof-path conformance gap in TASK-636 authority: the task required focused executable proof but its allowed paths had excluded the repository product-test harness. The bounded correction admitted exactly `tests/product/station-editor-session.test.ts`; it introduced no product implementation and no parallel TASK.
+Fresh main was revalidated at `e300490d626843d4b3aec954e4d15fdf14394cf7`. The prior proof-path conformance correction is integrated and the documentation-only reconciliation head is not treated as a synthetic blocker to already-materialized Construction.
 
-The distinct identities are preserved. Exact PR head `29f6c2207222da744a2f7ff7384e7ad80ee0e54b` completed Deterministic CI, Heavy Product Tests and Automation Handoff State Machine GREEN. Merge Candidate CI was also GREEN for the current candidate against predecessor `main@a1b05fc39ea7f74b9bf7d430d59284f7fa2497c0`. PR #1014 merged as `8130b9b0d67fbb89403f1fd25882ace17a9dfae7`, whose parents are `a1b05fc39ea7f74b9bf7d430d59284f7fa2497c0` and exact head `29f6c2207222da744a2f7ff7384e7ad80ee0e54b`.
+TASK-636 has been implemented on branch `sprint/station-s4-wp1a-task-636` in PR #1015. The authoritative TASK commit is the sole commit over fresh main and changes four admitted paths: `packages/station-editor/session.ts`, `packages/station-editor/index.ts`, `tests/product/station-editor-session.test.ts`, and this live handoff. The implementation establishes Station-owned editor-session identity, explicit base/draft revision and currentness, deterministic/idempotent initialization, fail-closed malformed/colliding/stale/unknown/invalid/incompatible input handling, bounded validated draft mutation, stale-draft rejection with zero partial mutation, and explicit `station-draft-projection` authority only.
 
-Semantic/architecture review: the delta only widens TASK-636 proof authority by one focused test path. `max_files: 8`, dependencies and product paths remain otherwise unchanged. C0→C9 and `identity != placement != presentation != action` remain preserved; C10 remains DEFERRED/UNPROVEN. No Core/business/command authority, durable persistence/storage, provider/runtime/deploy/secrets, arbitrary pixel positioning, Layers/Inspector/Preview implementation, or WP1-B+ authority was admitted.
+Required acceptance/proof for :30: verify the exact PR head with `npm run verify`/Deterministic CI and focused product proof; semantically review identity separation and no authority strengthening; confirm negative/adversarial zero-mutation behavior; then require the current Merge Candidate CI before integration. Accessibility remains N/A because TASK-636 introduces no DOM/UI/focus surface.
 
-TASK-636 remains the sole materialized dependency-safe Construction lot. Required proofs remain deterministic/idempotent initialization; editor-session identity distinct from component/composition/application; explicit base/draft revision and currentness; discrete grid/span invariants; malformed/stale/unknown/duplicate/incompatible fail closed with zero partial draft/canonical mutation; draft/projection never canonical/business authority. Accessibility remains N/A for TASK-636 because this tranche is contract-only; it becomes mandatory with the first UI/DOM/focus surface.
-
-No TASK-636 product implementation is present yet, so there is no Sprint closure to declare and WP1-B remains blocked. Pre-existing dependency advisories remain repository-level debt and are not promoted into TASK-636 scope.
-
-This handoff reconciliation itself advances `main` beyond merge commit `8130b9b0...`; therefore #1014 evidence must not be misrepresented as exact-head proof of the documentation-only successor. `:50` must revalidate the resulting fresh main/current repository memory before handing Construction to `:10`.
+No WP1-B implementation or authority has been admitted. C0→C9 remain preserved; C10 remains DEFERRED/UNPROVEN. No Core/business/command authority, durable persistence/storage, provider/runtime/deploy/secrets, arbitrary HTML/CSS/free drag, Layers/Inspector/Preview UI, or Studio was introduced.
 
 ## Next action
 
-`:50` must revalidate fresh main after this handoff reconciliation. If no current repository blocker exists, release exactly TASK-636 to Construction `:10`. TASK-636 may implement only the Station-owned editor-session/draft/projection contract plus focused executable proof in its explicitly admitted paths. Do not materialize or start WP1-B until TASK-636 is implemented, proven, integrated on fresh main, and repository memory is reconciled.
+`:30` owns exact-head verification and bounded correction of PR #1015. If the current implementation head passes semantic review and required proofs, hand it to `:50` for merge-candidate validation/integration. Only after TASK-636 is integrated and fresh main/repository memory are reconciled may the next dependency-safe WP1-B slice be materialized.

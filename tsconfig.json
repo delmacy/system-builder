@@ -52,6 +52,9 @@
       ],
       "@system-builder/station-windowing": [
         "packages/station-windowing/index.ts"
+      ],
+      "@system-builder/station-composition": [
+        "packages/station-composition/index.ts"
       ]
     },
     "strict": true,
