@@ -1,8 +1,8 @@
 # Next Work — STATION S4 Visual Factory Foundation
 
-Date: 2026-10-06
-Base: `main@e300490d626843d4b3aec954e4d15fdf14394cf7`
-Status: TASK-636 CONSTRUCTION IMPLEMENTED; PR #1015 OPEN; EXACT-HEAD PROOF PENDING
+Date: 2026-10-07
+Base: `main@26a6732293a374736438cd9c223ff8f32b6d2d0b`
+Status: TASK-636 INTEGRATED; WP1-B / TASK-637 MATERIALIZED AND READY
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -10,40 +10,30 @@ Status: TASK-636 CONSTRUCTION IMPLEMENTED; PR #1015 OPEN; EXACT-HEAD PROOF PENDI
 
 Scope increment: `docs/contracts/002-station-visual-factory/ADDENDUM.md`.
 WP plan: `project_docs/execution_planning/STATION-S4-VISUAL-FACTORY-WP1-PLAN-01.md`.
-Current Construction task: `TASK-636-STATION-S4-WP1A-EDITOR-SESSION-PROJECTION.md`.
+Current task: `TASK-637-STATION-S4-WP1B-LAYERS-SELECTION.md`.
 
-The user explicitly authorized the next Work Package. WP1 is the shared visual editor foundation built on the proven C0→C9 grammar. C10 remains deferred/unproven.
+WP1 remains continuously authorized in dependency order `A -> B -> C -> D -> E -> F -> G -> H`. C10 remains DEFERRED/UNPROVEN.
 
-## WP1 milestone
+## Fresh-main reconciliation
 
-One admitted composition can be opened in a shared Station editor workbench, inspected through Layers and Inspector, edited through constrained grid/span semantics, observed through synchronized Preview, validated fail-closed, and explicitly saved/discarded as Station-owned draft state without acquiring Core/business authority.
+TASK-636 / WP1-A is integrated on fresh main at `26a6732293a374736438cd9c223ff8f32b6d2d0b`. The integrated implementation establishes the shared Station-owned editor session/draft projection and public Station Composition package boundary. Repository memory from the pre-integration handoff was stale and is reconciled here rather than reopening TASK-636.
 
-## Rolling-wave execution
+## Current dependency-safe slice — WP1-B
 
-WP1 decomposition is `A Editor Session/Projection -> B Layers/Selection -> C Inspector/Edit Intent -> D Grid/Span Validation -> E Preview Convergence -> F Save/Discard -> G Integrated Journey -> H Hardening/Coverage/Closure`.
+TASK-637 materializes Layers projection + selection only. It must derive hierarchy from the existing editor-session draft, preserve stable composition-node refs, provide deterministic empty/single selection with safe unknown-ref rejection, and keep selection orthogonal to focus, active context and expansion state.
 
-Only WP1-A / TASK-636 is materialized. Later slices remain forecast until their predecessor is integrated and fresh main is revalidated.
+This tranche remains contract-only: no DOM/UI is introduced, so accessibility/keyboard proof is N/A here. Existing generic `station-interaction` selection primitives should be reused where they fit rather than creating competing selection authority.
 
 ## Boundaries
 
-Preserve `identity != placement != presentation != action`, `ComponentRegistry != AppManifest`, projection != authority, accepted/acknowledged != effective, and UI discard != business rollback/compensation. Layers/Inspector/Preview are projections of one composition model, not canonical competitors. Stale/unknown/partial state must not be strengthened.
+Preserve `identity != placement != presentation != action`, `ComponentRegistry != AppManifest`, projection != authority, and selection != focus != active != expansion. Layers is a projection of the editor-session composition draft, not a canonical competitor. Stale/unknown/invalid state must fail closed.
 
-Forbidden without new authority: C10/Studio promotion; Core/business/command authority; provider/runtime/deploy/secrets; durable persistence/storage; arbitrary HTML/CSS/pixel positioning; specialized managers/editors; AI/MCP; hidden scope expansion.
+Forbidden without new authority: C10/Studio promotion; Core/business/command authority; provider/runtime/deploy/secrets; durable persistence/storage; arbitrary HTML/CSS/pixel positioning; Inspector/Preview implementation; hidden scope expansion.
 
 ## Proof discipline
 
-Each tranche declares proof obligations before implementation. Negative/adversarial/recovery cases are mandatory where applicable. Accessibility/keyboard proof becomes mandatory with the first UI/DOM/focus surface; it is N/A for TASK-636 because WP1-A is contract-only. Exact-head evidence becomes stale whenever HEAD changes.
-
-## Construction handoff to :30 — TASK-636
-
-Fresh main was revalidated at `e300490d626843d4b3aec954e4d15fdf14394cf7`. The prior proof-path conformance correction is integrated and the documentation-only reconciliation head is not treated as a synthetic blocker to already-materialized Construction.
-
-TASK-636 has been implemented on branch `sprint/station-s4-wp1a-task-636` in PR #1015. The authoritative TASK commit is the sole commit over fresh main and changes four admitted paths: `packages/station-editor/session.ts`, `packages/station-editor/index.ts`, `tests/product/station-editor-session.test.ts`, and this live handoff. The implementation establishes Station-owned editor-session identity, explicit base/draft revision and currentness, deterministic/idempotent initialization, fail-closed malformed/colliding/stale/unknown/invalid/incompatible input handling, bounded validated draft mutation, stale-draft rejection with zero partial mutation, and explicit `station-draft-projection` authority only.
-
-Required acceptance/proof for :30: verify the exact PR head with `npm run verify`/Deterministic CI and focused product proof; semantically review identity separation and no authority strengthening; confirm negative/adversarial zero-mutation behavior; then require the current Merge Candidate CI before integration. Accessibility remains N/A because TASK-636 introduces no DOM/UI/focus surface.
-
-No WP1-B implementation or authority has been admitted. C0→C9 remain preserved; C10 remains DEFERRED/UNPROVEN. No Core/business/command authority, durable persistence/storage, provider/runtime/deploy/secrets, arbitrary HTML/CSS/free drag, Layers/Inspector/Preview UI, or Studio was introduced.
+TASK-637 requires focused happy/negative/adversarial proof, including deterministic hierarchy, stable identity independent of array position, malformed/unknown fail-closed behavior, selection preservation on rejection, and zero editor-draft mutation. `npm run verify` must pass on the exact implementation head; integration additionally requires the current merge-candidate gate.
 
 ## Next action
 
-`:30` owns exact-head verification and bounded correction of PR #1015. If the current implementation head passes semantic review and required proofs, hand it to `:50` for merge-candidate validation/integration. Only after TASK-636 is integrated and fresh main/repository memory are reconciled may the next dependency-safe WP1-B slice be materialized.
+Implement TASK-637 on a branch from fresh `main@26a6732293a374736438cd9c223ff8f32b6d2d0b`, one authoritative TASK commit. After exact-head proof and semantic review, integrate only if the current merge-candidate proof is green. Then revalidate fresh main and materialize WP1-C; do not wait for a nominal worker role.
