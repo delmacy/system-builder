@@ -2,7 +2,7 @@
 
 Date: 2026-10-06
 Base: `main@e300490d626843d4b3aec954e4d15fdf14394cf7`
-Status: TASK-636 CONSTRUCTION IMPLEMENTED; PR #1015 OPEN; EXACT-HEAD PROOF PENDING
+Status: TASK-636 CONSTRUCTION IMPLEMENTED; PR #1016 OPEN; R2 CONFORMANCE FIX APPLIED; EXACT-HEAD PROOF REQUIRED
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -38,7 +38,7 @@ Each tranche declares proof obligations before implementation. Negative/adversar
 
 Fresh main was revalidated at `e300490d626843d4b3aec954e4d15fdf14394cf7`. The prior proof-path conformance correction is integrated and the documentation-only reconciliation head is not treated as a synthetic blocker to already-materialized Construction.
 
-TASK-636 has been implemented on branch `sprint/station-s4-wp1a-task-636` in PR #1015. The authoritative TASK commit is the sole commit over fresh main and changes four admitted paths: `packages/station-editor/session.ts`, `packages/station-editor/index.ts`, `tests/product/station-editor-session.test.ts`, and this live handoff. The implementation establishes Station-owned editor-session identity, explicit base/draft revision and currentness, deterministic/idempotent initialization, fail-closed malformed/colliding/stale/unknown/invalid/incompatible input handling, bounded validated draft mutation, stale-draft rejection with zero partial mutation, and explicit `station-draft-projection` authority only.
+TASK-636 has been implemented on branch `sprint/station-s4-wp1a-task-636-r2` in PR #1016. The authoritative TASK commit is the sole commit over fresh main and changes four admitted paths: `packages/station-editor/session.ts`, `packages/station-editor/index.ts`, `tests/product/station-editor-session.test.ts`, and this live handoff. The implementation establishes Station-owned editor-session identity, explicit base/draft revision and currentness, deterministic/idempotent initialization, fail-closed malformed/colliding/stale/unknown/invalid/incompatible input handling, bounded validated draft mutation, stale-draft rejection with zero partial mutation, and explicit `station-draft-projection` authority only.
 
 Required acceptance/proof for :30: verify the exact PR head with `npm run verify`/Deterministic CI and focused product proof; semantically review identity separation and no authority strengthening; confirm negative/adversarial zero-mutation behavior; then require the current Merge Candidate CI before integration. Accessibility remains N/A because TASK-636 introduces no DOM/UI/focus surface.
 
@@ -46,4 +46,8 @@ No WP1-B implementation or authority has been admitted. C0→C9 remain preserved
 
 ## Next action
 
-`:30` owns exact-head verification and bounded correction of PR #1015. If the current implementation head passes semantic review and required proofs, hand it to `:50` for merge-candidate validation/integration. Only after TASK-636 is integrated and fresh main/repository memory are reconciled may the next dependency-safe WP1-B slice be materialized.
+Current authoritative lane is PR #1016 (`sprint/station-s4-wp1a-task-636-r2`), superseding #1015. It preserves TASK-636 semantics and corrects the package-boundary conformance blocker by consuming `station-composition` through `@system-builder/station-composition` with the public path registered in `tsconfig.json`. Any evidence from the prior head is stale for this R2 head.
+
+## Next action
+
+Verify the exact current PR #1016 head with Deterministic CI/focused product proof and a distinct current Merge Candidate CI. If semantic review remains clean and all required gates are GREEN, integrate #1016 with expected-head protection, revalidate fresh main, close WP1-A, and materialize only WP1-B Layers/Selection. Do not wait for a nominal worker slot. Accessibility remains N/A until the first UI/DOM/focus surface.
