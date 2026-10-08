@@ -43,6 +43,28 @@ Date: 2026-10-07
 
 Materialize the next dependency-safe WP1 slice: derive a deterministic Layers hierarchy from the shared Station editor-session draft and bind explicit single-selection state to stable composition-node references without coupling selection to focus, active context, expansion state, ComponentRegistry identity or AppManifest identity.
 
+## Context
+
+Station S4 WP1-B builds on the integrated WP1-A editor session and its Station-owned draft. The Layers contract must read that same draft and cannot create a second canonical composition store.
+
+## Current behavior
+
+WP1-A exposes a validated editor session and a composition draft transaction. Before WP1-B there is no public deterministic Layers projection or explicit Layers selection contract.
+
+## Inputs / contracts
+
+- An existing `EditorSession` with its current `transaction.draft` composition graph.
+- Stable composition-node refs, placement parent refs and component refs from the draft.
+- A previous Layers selection and a requested node ref or `null` to clear it.
+- No Core, AppManifest, DOM focus, active context or expansion authority.
+
+## Outputs / contracts
+
+- Deterministic rooted Layers hierarchy and stable node-ref index, or a fail-closed invalid-hierarchy result.
+- Immutable empty/single selection and accepted/rejected selection results.
+- Unknown refs preserve prior selection; neither projection nor selection mutates the editor draft.
+- Selection does not imply focus, active context, expansion, persistence or business authority.
+
 ## Required change
 
 - project the current editor-session draft into one deterministic Layers hierarchy rooted at the composition root;
