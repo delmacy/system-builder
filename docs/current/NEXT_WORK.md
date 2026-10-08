@@ -2,7 +2,7 @@
 
 Date: 2026-10-07
 Base: `main@26a6732293a374736438cd9c223ff8f32b6d2d0b`
-Status: TASK-636 INTEGRATED; WP1-B / TASK-637 MATERIALIZED AND READY
+Status: TASK-636 INTEGRATED; WP1-B / TASK-637 CONSTRUCTION IMPLEMENTED, QA IN PROGRESS
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -33,6 +33,16 @@ Forbidden without new authority: C10/Studio promotion; Core/business/command aut
 ## Proof discipline
 
 TASK-637 requires focused happy/negative/adversarial proof, including deterministic hierarchy, stable identity independent of array position, malformed/unknown fail-closed behavior, selection preservation on rejection, and zero editor-draft mutation. `npm run verify` must pass on the exact implementation head; integration additionally requires the current merge-candidate gate.
+
+## Current sprint and handoff (2026-10-08)
+
+Work Package: Station S4 WP1, milestone Visual Factory Foundation. Current sprint: Construction A (WP1-B Layers projection and selection contract); next gate: risk-based intermediate QA, then integration. PR #1018 is DRAFT at implementation head `3b7b5f925858fee0c31554bbd01be2264631a171`. State: IMPLEMENTED, not yet PROVEN or INTEGRATED.
+
+Focused product tests were added. The previous head failed Deterministic CI and Merge Candidate CI because TASK-637 lacked mandatory catalog headings, not because of a reported Layers product assertion. Those headings were corrected at current head. Automation Handoff passed; remaining current-head CI must be checked fresh.
+
+Sprint framework: Planning defines the WP milestone and acceptance; Construction A/B/C... produces bounded increments; intermediate QA is risk/dependency-based and required before successors rely on unproven contracts; integrated QA validates the complete WP; Documentation & Closure records proven outcome in natural language. Tasks are bounded obligations, not recurring-worker assignments. All :10/:30/:50 workers execute the same continuous next eligible action.
+
+Next worker: fetch PR #1018 and exact-head workflow runs; diagnose any failure; review semantic correctness; only mark ready/integrate after all required exact-head and current merge-candidate proofs. After merge reconcile fresh main and proceed dependency-safe to WP1-C. Do not claim the full WP milestone complete.
 
 ## Next action
 
