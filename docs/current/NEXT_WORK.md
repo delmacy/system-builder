@@ -1,8 +1,8 @@
 # Next Work — STATION S4 Visual Factory Foundation
 
-Date: 2026-10-07
-Base: `main@26a6732293a374736438cd9c223ff8f32b6d2d0b`
-Status: TASK-636 INTEGRATED; WP1-B / TASK-637 CONSTRUCTION IMPLEMENTED, QA IN PROGRESS
+Date: 2026-10-08
+Base: `main@27fd112fbc63428dedf32bbddc296fa8acce9684`
+Status: TASK-636 and TASK-637 INTEGRATED; WP1-C planning next
 
 > Live execution pointer. Interpret with `docs/DOCUMENT_AUTHORITY.md`.
 
@@ -36,14 +36,12 @@ TASK-637 requires focused happy/negative/adversarial proof, including determinis
 
 ## Current sprint and handoff (2026-10-08)
 
-Work Package: Station S4 WP1, milestone Visual Factory Foundation. Current sprint: Construction A (WP1-B Layers projection and selection contract); next gate: risk-based intermediate QA, then integration. PR #1018 is DRAFT at implementation head `3b7b5f925858fee0c31554bbd01be2264631a171`. State: IMPLEMENTED, not yet PROVEN or INTEGRATED.
+WP1-B TASK-637 Layers projection and selection was integrated via squash PR #1018, main commit `27fd112fbc63428dedf32bbddc296fa8acce9684`. Exact-head `3525886fa6c2bacbcf430f853a25225243a2e320` passed six GitHub Actions workflows: Deterministic CI, Merge Candidate CI, Heavy Product Tests, Station Frontend Quality, Station Cross-Platform Build, Automation Handoff State Machine. WP1-B state: INTEGRATED; do not reopen absent a regression.
 
-Focused product tests were added. The previous head failed Deterministic CI and Merge Candidate CI because TASK-637 lacked mandatory catalog headings, not because of a reported Layers product assertion. Those headings were corrected at current head. Automation Handoff passed; remaining current-head CI must be checked fresh.
+Current sprint: WP1-C Planning (Inspector & Edit Intent). Before coding, inspect the WP plan, editor session contract and Layers projection, and create bounded TASK-638 with mandatory catalog headings (Context, Current behavior, Inputs / contracts, Outputs / contracts) plus risk-based acceptance, allowlist and proof. Preserve Station-only draft intent and transaction authority; no Core/business or persistence, no free-form placement. Next worker may execute planning and construction independently after reconciling fresh main. All :10/:30/:50 workers are interchangeable continuous executors.
 
-Sprint framework: Planning defines the WP milestone and acceptance; Construction A/B/C... produces bounded increments; intermediate QA is risk/dependency-based and required before successors rely on unproven contracts; integrated QA validates the complete WP; Documentation & Closure records proven outcome in natural language. Tasks are bounded obligations, not recurring-worker assignments. All :10/:30/:50 workers execute the same continuous next eligible action.
-
-Next worker: fetch PR #1018 and exact-head workflow runs; diagnose any failure; review semantic correctness; only mark ready/integrate after all required exact-head and current merge-candidate proofs. After merge reconcile fresh main and proceed dependency-safe to WP1-C. Do not claim the full WP milestone complete.
+Sprint framework: Planning establishes milestone and gates; Construction A/B/C... materializes bounded scope; intermediate QA before dependent increments when risk requires; integrated WP QA at closure; Documentation & Closure records outcomes in natural language. Task completion is not a reason to disable recurring execution.
 
 ## Next action
 
-Implement TASK-637 on a branch from fresh `main@26a6732293a374736438cd9c223ff8f32b6d2d0b`, one authoritative TASK commit. After exact-head proof and semantic review, integrate only if the current merge-candidate proof is green. Then revalidate fresh main and materialize WP1-C; do not wait for a nominal worker role.
+Materialize WP1-C TASK-638 Inspector & Edit Intent planning and its bounded acceptance contract, then continue dependency-safe construction with exact-head verification and current merge-candidate CI. Do not claim the overall WP1 milestone complete.
