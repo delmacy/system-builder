@@ -105,6 +105,10 @@ export function applyEditorStructuralEditIntent(
       return Object.freeze({ accepted: true, changed: false, session });
     }
 
+    // A changed edit must never overflow the safe-integer draft revision range.
+    // Equivalent no-ops above remain valid because they do not increment revision.
+    if (session.draftRevision === Number.MAX_SAFE_INTEGER) return reject(session, "invalid-session");
+
     const result = applyEditorSessionMutation(session, intent.expectedDraftRevision, {
       type: "replace-node", node: { ...node, placement },
     }, registry);

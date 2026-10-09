@@ -163,3 +163,30 @@ test("TASK-639 rejection recovery, replay stale and deterministic no-op", () => 
   assert.strictEqual(noop.session, accepted.session);
   assert.equal(noop.session.draftRevision, 8);
 });
+
+test("TASK-639 revision ceiling rejects changed edit without unsafe increment and preserves no-op", () => {
+  const original = session();
+  const high = { ...original, draftRevision: Number.MAX_SAFE_INTEGER } as EditorSession;
+  const selected = selection(high, "node:a");
+  const proposal = { ...span(original, selected, 3, 2), expectedDraftRevision: Number.MAX_SAFE_INTEGER };
+  const before = structuredClone(high.transaction.draft);
+  const rejectedEdit = applyEditorStructuralEditIntent(high, selected, proposal, registry);
+  assert.equal(rejectedEdit.accepted, false);
+  if (!rejectedEdit.accepted) assert.equal(rejectedEdit.reason, "invalid-session");
+  assert.strictEqual(rejectedEdit.session, high);
+  assert.deepEqual(high.transaction.draft, before);
+  assert.equal(high.draftRevision, Number.MAX_SAFE_INTEGER);
+
+  const unchanged = { ...proposal, columnSpan: 2, rowSpan: 1 };
+  const noop = applyEditorStructuralEditIntent(high, selected, unchanged, registry);
+  assert.equal(noop.accepted, true);
+  if (noop.accepted) {
+    assert.equal(noop.changed, false);
+    assert.strictEqual(noop.session, high);
+    assert.equal(noop.session.draftRevision, Number.MAX_SAFE_INTEGER);
+  }
+
+  const recovery = applyEditorStructuralEditIntent(original, selected, span(original, selected, 3, 2), registry);
+  assert.equal(recovery.accepted, true);
+  if (recovery.accepted) assert.equal(recovery.session.draftRevision, 8);
+});
