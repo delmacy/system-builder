@@ -1,8 +1,8 @@
 # Next Work — STATION S4 Visual Factory Foundation
 
 Date: 2026-10-09
-Reconciled base: `main@44f22b4d0ccfa82dc95dbe230ac3731c2e9fd015`
-Status: WP1-A/B/C/D INTEGRATED; WP1-E/TASK-640 MATERIALIZED FOR CONSTRUCTION (after planning integration)
+Reconciled base: `main@46a9cf0e72726a4b667a096051b1cb5e0a95795d`
+Status: WP1-A/B/C/D INTEGRATED; WP1-E/TASK-640 CONSTRUCTION IN PROGRESS (not integrated)
 
 > Single live execution pointer under `docs/DOCUMENT_AUTHORITY.md`. Revalidate fresh main, branches, PRs and CI before each action; historical SHAs are clues, not authority.
 
@@ -10,22 +10,22 @@ Status: WP1-A/B/C/D INTEGRATED; WP1-E/TASK-640 MATERIALIZED FOR CONSTRUCTION (af
 
 Scope: `docs/contracts/002-station-visual-factory/ADDENDUM.md`.
 WP1 plan: `project_docs/execution_planning/STATION-S4-VISUAL-FACTORY-WP1-PLAN-01.md`.
-Active successor: `specs/tasks/TASK-640-STATION-S4-WP1E-PREVIEW-CONVERGENCE.md`.
+Active TASK: `specs/tasks/TASK-640-STATION-S4-WP1E-PREVIEW-CONVERGENCE.md`.
 
 Admitted dependency sequence: A -> B -> C -> D -> E -> F -> G -> H. C10 remains DEFERRED/UNPROVEN.
 
 ## Reconciled handoff
 
-WP1-A/TASK-636, WP1-B/TASK-637 and WP1-C/TASK-638 are integrated. WP1-D planning PR #1021 merged by squash at `d05454e115fb7845773950895b08e9647f360904`; TASK-639 construction PR #1023 merged by squash on 2026-10-09 at `44f22b4d0ccfa82dc95dbe230ac3731c2e9fd015`, after one-commit/allowlist/review/exact-head/merge-candidate checks. Superseded draft #1022 was closed unmerged.
+WP1-A/TASK-636, WP1-B/TASK-637 and WP1-C/TASK-638 are integrated. WP1-D planning PR #1021 merged at `d05454e115fb7845773950895b08e9647f360904`; TASK-639 construction PR #1023 squash-integrated on 2026-10-09 at `44f22b4d0ccfa82dc95dbe230ac3731c2e9fd015`. Superseded two-commit draft #1022 was closed without merge.
 
-WP1-E/TASK-640 is the next dependency-safe lot. Materialize the Preview projection from the existing Station-owned editor draft/revision; ensure Layers/Inspector/Preview converge deterministically after accepted WP1-D edits and reject malformed, stale or incompatible states without partial projection. No DOM/UI or separate Preview store is authorized in this tranche.
+WP1-E/TASK-640 planning PR #1024 integrated by squash on 2026-10-09 at `46a9cf0e72726a4b667a096051b1cb5e0a95795d`. Construction proceeds on `sprint/station-s4-wp1e-task-640-preview-convergence` with one authoritative implementation commit, bounded to the five-file allowlist. This pointer does not imply construction integration. Preview must remain a deterministic, read-only projection of the existing Station draft/revision, converging with Layers and Inspector after accepted WP1-D edits.
 
 ## Next executable action
 
-1. Verify whether WP1-E planning PR is integrated; review and integrate only when eligible. Do not duplicate planning.
-2. From fresh main, implement TASK-640 on a separate Sprint branch with one authoritative TASK commit, respecting five-file allowlist and forbidden paths.
-3. Prove positive, negative, adversarial, recovery and predecessor-integration cases; run focused tests and exact-head `npm run verify`, current merge-candidate CI and semantic/architecture review before integration.
-4. Only after WP1-E is IMPLEMENTED, PROVEN and INTEGRATED, materialize WP1-F Save/Discard Draft Boundary.
+1. Revalidate TASK-640 construction branch/PR against fresh main; resolve real blockers before adding scope.
+2. Complete deterministic Preview projection, fail-closed malformed/stale/incompatible validation, selection correlation and predecessor integration without a second store or DOM.
+3. Run focused positive/negative/adversarial/recovery tests and `npm run verify` on exact implementation HEAD; verify current merge-candidate CI, semantic review, one commit and file allowlist before integration.
+4. Only after WP1-E is IMPLEMENTED, PROVEN and INTEGRATED, materialize WP1-F Save/Discard Draft Boundary from fresh main.
 
 ## Invariants and evidence
 
