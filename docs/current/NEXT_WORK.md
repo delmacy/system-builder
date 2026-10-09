@@ -1,29 +1,35 @@
 # Next Work — STATION S4 Visual Factory Foundation
 
 Date: 2026-10-08
-Base: `main@fa67eeff3955df4b748a9e79429ba703d0165234`
-Status: WP1-A/TASK-636 and WP1-B/TASK-637 INTEGRATED; WP1-C/TASK-638 CONSTRUCTION IN REVIEW, PROOF PENDING
+Reconciled base: `main@60b93c4d5e2d390e7ea251d68347c779d9a8e219`
+Status: WP1-A/B/C INTEGRATED; WP1-D/TASK-639 MATERIALIZED FOR CONSTRUCTION (after planning merge)
 
-> Live execution pointer; interpret with `docs/DOCUMENT_AUTHORITY.md`. Revalidate fresh GitHub state before action.
+> Single live execution pointer under `docs/DOCUMENT_AUTHORITY.md`. Every worker must verify fresh main, branches/PRs and CI; recorded SHAs are historical clues, never permission to skip checks.
 
 ## Authority
+
 Scope: `docs/contracts/002-station-visual-factory/ADDENDUM.md`.
-Plan: `project_docs/execution_planning/STATION-S4-VISUAL-FACTORY-WP1-PLAN-01.md`.
-Active task: `specs/tasks/TASK-638-STATION-S4-WP1C-INSPECTOR-INTENT.md`.
+WP1 plan: `project_docs/execution_planning/STATION-S4-VISUAL-FACTORY-WP1-PLAN-01.md`.
+Active successor: `specs/tasks/TASK-639-STATION-S4-WP1D-GRID-SPAN-VALIDATION.md`.
 
-WP1 remains authorized in dependency order A → B → C → D → E → F → G → H; C10 remains DEFERRED/UNPROVEN.
+The admitted dependency sequence is A -> B -> C -> D -> E -> F -> G -> H. C10 remains DEFERRED/UNPROVEN.
 
-## Current work and handoff
-WP1-A editor session and WP1-B Layers/selection are integrated and not to be reopened absent regression.
-WP1-C planning PR #1019 integrated on 2026-10-08 at `fa67eeff3955df4b748a9e79429ba703d0165234`.
-Construction branch: `sprint/station-s4-wp1c-task-638-inspector`.
-TASK-638 implements immutable selected-node Inspector projection and typed set-span/set-placement **proposals only** with explicit draft revision and selection. No mutation, UI, persistence or Core authority is admitted.
-Focused proof: `tests/product/station-editor-inspector-intent.test.ts`.
+## Reconciled handoff
 
-**IMPLEMENTED != PROVEN != INTEGRATED.** Construction must be reviewed against TASK-638, prove `npm run verify` and relevant focused tests on exact PR head, inspect negative/adversarial/recovery and zero-mutation behavior, then verify the **current** Merge Candidate CI before merge. CI not yet claimed here. If any gate fails, correct boundedly and reprove; do not advance to WP1-D until WP1-C is integrated.
+WP1-A/TASK-636 and WP1-B/TASK-637 are integrated; do not reopen without regression.
+WP1-C/TASK-638 planning PR #1019 integrated at `fa67eeff3955df4b748a9e79429ba703d0165234`. Construction PR #1020 was merged by squash on 2026-10-08 at `60b93c4d5e2d390e7ea251d68347c779d9a8e219`. The Inspector is a read-only projection; its typed intents are **proposals**, not applied mutations.
 
-## Architectural invariants
-Preserve `identity != placement != presentation != action`, `ComponentRegistry != AppManifest`, `selection != focus != active != expansion`, discrete grid/span and a single Station-owned draft. Layers/Inspector/Preview are projections, never competing canonical state. No C10/Studio, Core/business/command authority, provider/runtime/deploy/secrets, durable persistence, arbitrary HTML/CSS/pixel authoring or scope expansion. Keyboard/focus/accessibility are N/A to this contract-only tranche, mandatory for UI.
+WP1-D/TASK-639 is the next dependency-safe lot. Its planning materialization must integrate before construction. It adds validated, fail-closed application of set-span/set-placement to the existing Station-owned draft, with exact session/selection/revision binding, registry compatibility, cycle checks and explicit accepted/rejected result. No UI, Preview, save/discard, Core/business or persistence authority.
 
 ## Next executable action
-Inspect TASK-638 construction PR/HEAD and CI. Resolve any failed gate, perform semantic/architecture review, integrate only if proven and mergeable, revalidate fresh main and immediately materialize WP1-D dependency-safe.
+
+1. Check whether TASK-639 planning branch/PR has already been integrated. If open, review its bounded task spec and this pointer, then integrate only when eligible. If integrated, do not duplicate it.
+2. From fresh main, implement TASK-639 in a separate Sprint branch with one authoritative TASK commit, respecting the five-file allowlist and forbidden paths.
+3. Prove positive, negative, adversarial, recovery and predecessor-integration cases; run focused test and exact-head `npm run verify`; check current merge-candidate CI and review before merging.
+4. Only after WP1-D is IMPLEMENTED, PROVEN **and** INTEGRATED, materialize WP1-E Preview Convergence.
+
+## Invariants and evidence
+
+`identity != placement != presentation != action`; `ComponentRegistry != AppManifest`; `selection != focus != active != expansion`; discrete grid/span; single Station-owned draft; Layers/Inspector/Preview are projections. C0-C9 preserved, C10 DEFERRED. No Core/business/command, durable persistence, provider/runtime/deploy/secrets or arbitrary HTML/CSS/pixel authoring. Keyboard/focus/accessibility is N/A to the current contract-only tranche, mandatory for introduced UI. An implementation commit is not proof; an exact-head pass is not a current merge-candidate pass.
+
+Handoff after every action: WP/sprint/TASK, fresh main/HEAD, PR, tests/gates, real blocker and next executable action.
