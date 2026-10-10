@@ -1,7 +1,7 @@
 ---
 id: TASK-642
 title: STATION S4 WP1-G Integrated Editor Journey
-status: ready
+status: completed
 priority: 642
 milestone: STATION-S4-VISUAL-FACTORY-WP1
 model_tier: architecture
@@ -91,3 +91,6 @@ If the public APIs cannot prove the admitted integrated journey without new pack
 
 ## Execution evidence - 2026-10-10
 Manual shared-worktree checkpoint: focused journey 6/6 and predecessor journey 38/38 PASS; malformed spans, foreign identities, injected fields and recovery covered. Harness 333/333, handoff 11/11, task catalog 635, architecture, docs and build PASS. npm run verify exit 1 at Windows product-runner command-length limit; full product proof UNPROVEN. PR #1029 old HEAD exact-head/merge-candidate failed required task sections, corrected in this local spec. IMPLEMENTED API proof, partially PROVEN local gates, NOT INTEGRATED. No DOM/keyboard/a11y proof; C10 DEFERRED. See live handoff for log paths and next gate.
+
+## Integrated disposition - 2026-10-10
+IMPLEMENTED / PROVEN / INTEGRATED for the bounded API tranche. PR #1029 squash merge `d41085c6747dfceffc5b7b83d8f06cfda61dd651`; tested head `53d6df8972f007390916168072df85ba4d7cf797`. Full repository verify passed in exact-head run 38049443498 and merge-candidate run 38049443470; heavy 38049443490 and handoff 38049443502 also passed. Earlier local failure remains historical Windows environment evidence. This does not close WP1 or prove DOM, keyboard or visual accessibility.
