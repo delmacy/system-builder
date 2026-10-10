@@ -1,7 +1,7 @@
 ---
 id: TASK-655
 title: Station S4 WP3 Package Integration Review
-status: ready
+status: verification
 priority: 655
 milestone: STATION-S4-WP3-LOCAL-ARTIFACT
 model_tier: architecture

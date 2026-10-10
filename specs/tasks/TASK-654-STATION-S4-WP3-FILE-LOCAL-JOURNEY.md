@@ -1,7 +1,7 @@
 ---
 id: TASK-654
 title: Station S4 WP3 File and Local Artifact Journey
-status: verification
+status: completed
 priority: 654
 milestone: STATION-S4-WP3-LOCAL-ARTIFACT
 model_tier: architecture
@@ -94,3 +94,6 @@ Stop for forbidden path, worker collision, required contract/ADR changes or fail
 
 ## Implementation checkpoint
 IMPLEMENTED_ON_SPRINT_BRANCH; focused codec/store/workflow tests passed 13/13 locally. Final exact-head Actions/build/Chromium proof and integration required.
+
+## Integrated completion
+TASK-654 IMPLEMENTED / PROVEN / INTEGRATED through #1047 at 4a749f6b; final head 0ec0159e, seven workflows and 21/21 Chromium journeys passed. Earlier checkpoints are historical.

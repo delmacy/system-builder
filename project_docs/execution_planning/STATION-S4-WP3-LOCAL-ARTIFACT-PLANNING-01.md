@@ -2,7 +2,7 @@
 
 Date: 2026-10-10
 Predecessor: WP2 CLOSED through PR #1039, merge 9768c06e0eeabdf89ee0c3eeeada63908a3fb000.
-State: admitted bounded scope via #1043; Construction A materialized on validated readiness-resolution integration; no implementation or WP3 closure.
+State: bounded goal IMPLEMENTED / PROVEN / INTEGRATED through A #1046 and B #1047; Package Review on Sprint branch; closure remains forecast. Historical planning forecasts below are not live authority.
 
 ## Goal and arrival milestone
 

@@ -3,7 +3,7 @@
 Date: 2026-10-10
 TASK: TASK-654
 Base: main@1c39ee81dfa5f46861c6239fd3b4c35a22510c7e
-State: IMPLEMENTED_ON_SPRINT_BRANCH; exact-head Actions/PR integration pending
+State: IMPLEMENTED / PROVEN / INTEGRATED via #1047 at 4a749f6b
 
 ## Integrated increment
 Separate origin-local artifact provider with whole-document setItem and expected-text conflict detection; explicit Save locally/Open saved, Save As file/Open file; real codec/source registry before replacement. Dirty/applied/session-accepted/unapplied fields receive explicit replacement confirmation, with cancellation/focus restoration and read-sequence/session guards. Local failure preserves prior saved bytes and dirty session. Unchanged identity/version/inert metadata is retained; changed meaning advances caller patch/provenance; Save As forks a new identity and does not clean the draft or claim a disk receipt.
@@ -22,3 +22,6 @@ After all exact-head/current-base workflows pass and B integrates, reconstruct f
 Initial head a4c5318f passed Windows/Ubuntu builds, frontend quality, heavy and handoff. Browser run 38076413861 passed 18/21: old session footer wording assertion and two cancel-focus failures; focus was requested before the disabled originating button was re-enabled. The bounded fix defers restoration until the pending-state DOM commit, updates the predecessor wording assertion, and restores exact mandatory TASK section headings rejected by deterministic/merge-candidate CI. The authoritative TASK implementation commit remains a4c5318f; this is a scoped correction, not a second implementation TASK. All gates must pass on the replacement head.
 
 Correction validation: focused workbench/browser lint, final typecheck, task catalog 4/4 and documentation check passed locally. Corrected Station build/full/browser attempts are still subject to exact-head Actions before integration.
+
+## Integrated checkpoint
+Final head 0ec0159e passed all seven workflows: exact-head 38076637593, merge-candidate 38076637683, heavy 38076637616, browser 38076637656 (21/21, artifact 11679256267), Windows/Ubuntu builds 38076637627, frontend 38076637601, handoff 38076637734. Corrected local Station build passed; clean local final verify again passed lint/types and was blocked at tsx IPC. Optional C is not promoted; Package Review is committed. Original pending/successor instructions are historical checkpoints.

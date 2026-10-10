@@ -1,7 +1,7 @@
 ---
 id: TASK-653
 title: Station S4 WP3 Public Envelope Composition Codec
-status: verification
+status: completed
 priority: 653
 milestone: STATION-S4-WP3-LOCAL-ARTIFACT
 model_tier: architecture
@@ -93,3 +93,6 @@ One authoritative TASK implementation commit (all allowed implementation/report/
 
 ## Escalation
 Stop for forbidden paths, worker collision, failure requiring new dependencies/schema/ADR or relaxation of contract admission. Record adjacent discoveries; do not broaden this TASK.
+
+## Integrated completion
+TASK-653 IMPLEMENTED / PROVEN / INTEGRATED through #1046 at 1c39ee81; seven final-head workflows passed. Earlier checkpoints are historical.
