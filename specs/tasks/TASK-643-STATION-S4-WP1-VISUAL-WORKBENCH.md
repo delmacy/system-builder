@@ -1,7 +1,7 @@
 ---
 id: TASK-643
 title: STATION S4 WP1 Corrective Visual Workbench
-status: verification
+status: completed
 priority: 643
 milestone: STATION-S4-VISUAL-FACTORY-WP1
 model_tier: architecture
@@ -104,3 +104,6 @@ If existing public APIs cannot support the admitted route or shared primitives r
 
 ## Construction checkpoint - 2026-10-10
 PR #1031 implements the bounded route and four actual browser journeys. Initial implementation head bf25208f passed browser 4/4 and named gates recorded in the construction report. Corrected evidence output/upload paths after discovering no artifact was retained. This final checkpoint is VERIFICATION, not yet INTEGRATED; require fresh-head full checks plus retained browser artifacts before squash. No package closure claim.
+
+## Integrated evidence reconciliation — 2026-10-10
+Final reviewed head `3d52143a6111f783e7441f36bbbbedb8f52e4a61` passed all ten checks. PR #1031 squash-integrated at `a2300c32c0f414a9bbbaabeeb10800f617f59b05`. Exact-head 38050455399; merge-candidate 38050455389; heavy 38050455378; handoff 38050455390; workflow lint 38050455384; Ubuntu/Windows build 38050455385; frontend quality 38050455382; editor browser 38050455437 (4/4). Retained artifact 11668948873 contains the HTML report and reviewed screenshot. Earlier checkpoint language above is historical. IMPLEMENTED / PROVEN for the exercised scope / INTEGRATED; WP1 remains open pending TASK-644 review and separate closure.
