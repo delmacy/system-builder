@@ -25,3 +25,6 @@ Every Sprint runs npm run verify; construction also station:build and real Chrom
 
 ## Risks and explicit deferrals
 50 snapshots per mounted editor with installed three-node graphs; no unbounded provenance or persisted history. Pure snapshot validation must preserve saved baseline and safe revisions. Undo at unapplied fields is blocked; native text editing remains browser-owned. Structural authoring/File Manager/.process/server/Core/sync/deploy stay deferred. Revalidate fresh main before every successor; never manufacture a task from a forecast.
+
+## Rolling-wave checkpoint — Construction B
+A #1051 passed all seven workflows, Windows/Ubuntu builds and all 21 predecessor Chromium journeys and integrated. Fresh-main B/TASK-659 only is COMMITTED; optional C/review/closure remain forecast. Earlier planning labels are historical checkpoints.
