@@ -202,6 +202,84 @@ test("switching nodes isolates applied edits and unapplied fields; reload resets
   await expect(first).toHaveAttribute("aria-selected", "false");
 });
 
+test("source-owned button group uses its own hierarchy, bounds, and session projections", async ({ page }, testInfo) => {
+  const catalog = page.getByLabel("Composition", { exact: true });
+  await catalog.selectOption("composition:button-group");
+  await expect(catalog).toHaveValue("composition:button-group");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
+  const root = page.getByRole("treeitem", { name: "Button Group", exact: true });
+  const child = page.getByRole("treeitem", { name: "Group Button 1", exact: true });
+  await expect(root).toHaveAttribute("aria-level", "1");
+  await expect(child).toHaveAttribute("aria-level", "2");
+  await child.click();
+  await expect(page.locator("#span-help")).toContainText("1–4 columns and 1–1 row");
+  const item = preview(page, "Group Button 1");
+  await expect(item).toHaveAttribute("data-parent-ref", "layer:button-group");
+  await expect(item).toHaveAttribute("data-slot-ref", "button-1");
+  await span(page, "4", "1");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "8");
+  await expect(item).toHaveAttribute("data-column-span", "4");
+  await page.getByRole("button", { name: "Save changes", exact: true }).click();
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "9");
+  for (const [columns, rows] of [["5", "1"], ["4", "2"], ["1.5", "1"]]) {
+    await span(page, columns!, rows!);
+    await expect(editor(page)).toHaveAttribute("data-draft-revision", "9");
+    await expect(item).toHaveAttribute("data-column-span", "4");
+    await expect(page.getByRole("status")).toContainText("unchanged");
+  }
+  await span(page, "3", "1");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "10");
+  await page.getByRole("button", { name: "Discard changes", exact: true }).click();
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "11");
+  await expect(item).toHaveAttribute("data-column-span", "4");
+  await page.screenshot({ path: testInfo.outputPath("button-group-save-discard.png"), fullPage: true });
+});
+
+test("dirty switch cancellation preserves input, selection and draft; explicit discard starts clean", async ({ page }) => {
+  const catalog = page.getByLabel("Composition", { exact: true });
+  const first = page.getByRole("treeitem", { name: "Button 1", exact: true });
+  await first.click();
+  await span(page, "3", "1");
+  await page.getByLabel("Columns", { exact: true }).fill("999");
+  await catalog.selectOption("composition:button-group");
+  await expect(page.getByRole("group", { name: "Unsaved composition switch" })).toBeVisible();
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "8");
+  await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+  await page.getByRole("button", { name: "Cancel switch" }).click();
+  await expect(catalog).toBeFocused();
+  await expect(catalog).toHaveValue("composition:example");
+  await expect(page.getByLabel("Columns", { exact: true })).toHaveValue("999");
+  await expect(first).toHaveAttribute("aria-selected", "true");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "8");
+  await catalog.selectOption("composition:button-group");
+  await expect(page.getByRole("group", { name: "Unsaved composition switch" })).toBeVisible();
+  await page.getByRole("button", { name: "Discard changes and open" }).click();
+  await expect(catalog).toHaveValue("composition:button-group");
+  await expect(page.getByTestId("draft-state")).toHaveText("All changes saved");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
+  await expect(page.getByRole("treeitem", { name: "Group Button 1" })).toHaveAttribute("aria-selected", "false");
+  await expect(page.getByLabel("Columns", { exact: true })).toBeDisabled();
+  await expect(page.getByRole("group", { name: "Unsaved composition switch" })).toHaveCount(0);
+});
+
+test("clean catalog switching resets sessions and retains accessible keyboard tree", async ({ page }) => {
+  const catalog = page.getByLabel("Composition", { exact: true });
+  await catalog.selectOption("composition:button-group");
+  const root = page.getByRole("treeitem", { name: "Button Group", exact: true });
+  await tabTo(page, root);
+  await page.keyboard.press("ArrowRight");
+  const first = page.getByRole("treeitem", { name: "Group Button 1", exact: true });
+  await expect(first).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(first).toHaveAttribute("aria-selected", "true");
+  await catalog.selectOption("composition:example");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
+  await expect(page.getByRole("treeitem", { name: "Grid" })).toHaveAttribute("aria-selected", "false");
+  await catalog.selectOption("composition:button-group");
+  await expect(first).toHaveAttribute("aria-selected", "false");
+  await expect(preview(page, "Group Button 1")).toHaveAttribute("data-column-span", "2");
+});
+
 test.describe("Station launcher and window lifecycle", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
