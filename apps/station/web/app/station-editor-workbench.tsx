@@ -1,27 +1,35 @@
 "use client";
 
-import { useReducer, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useReducer, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Button } from "../../../../packages/ui-core/index";
-import { DEFAULT_COMPOSITION_REF, initializeCatalogEditorSession, listEditorCatalog, type EditorCatalogEntry } from "./station-editor-catalog";
+import { DEFAULT_COMPOSITION_REF, initializeCatalogEditorSession, listEditorCatalog, resolveEditorCatalogEntry, type EditorCatalogEntry } from "./station-editor-catalog";
+import { prepareEditorArtifact, readEditorArtifact, requestArtifactDownload, sameEditorArtifactGraph } from "./station-editor-files";
 import type { EditorLayer } from "../../../../packages/station-editor/index";
 import {
   projectEditorLayers, selectEditorLayer,
   projectEditorInspector, projectEditorPreview, createEditorSetSpanIntent,
   applyEditorStructuralEditIntent, acceptEditorDraft, discardEditorDraft,
-  type EditorSession, type LayersSelection,
+  initializeEditorSession, openStoredArtifact, saveStoredArtifact,
+  type EditorSession, type LayersSelection, type CompositionArtifact,
 } from "../../../../packages/station-editor/index";
 
 type State = Readonly<{
   entry: EditorCatalogEntry; session: EditorSession; selection: LayersSelection;
   pendingRef: string | null;
   columns: string; rows: string; message: string; invalid: boolean;
+  document: CompositionArtifact | null; savedText: string | null;
+  pendingArtifact: Readonly<{ document: CompositionArtifact; savedText: string | null }> | null;
 }>;
 type Action =
   | { type: "select"; ref: string }
   | { type: "field"; field: "columns" | "rows"; value: string }
   | { type: "apply" | "save" | "discard" }
   | { type: "request-switch"; ref: string }
-  | { type: "cancel-switch" | "confirm-switch" };
+  | { type: "cancel-switch" | "confirm-switch" }
+  | { type: "feedback"; message: string; invalid: boolean; expectedSession: EditorSession }
+  | { type: "request-open"; document: CompositionArtifact; savedText: string | null; expectedSession: EditorSession }
+  | { type: "cancel-open" | "confirm-open" }
+  | { type: "saved-artifact"; document: CompositionArtifact; savedText: string; expectedSession: EditorSession };
 
 function fields(session: EditorSession, selection: LayersSelection) {
   const result = projectEditorInspector(session, selection, session.draftRevision);
@@ -32,7 +40,22 @@ function initialState(ref: string): State | null {
   const result = initializeCatalogEditorSession(ref, "session:visual-workbench");
   if (!result.accepted) return null;
   return { entry: result.entry, session: result.session, selection: { selectedRef: null },
-    columns: "", rows: "", message: "Select a layer to edit its size.", invalid: false, pendingRef: null };
+    columns: "", rows: "", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
+    document: null, savedText: null, pendingArtifact: null };
+}
+function replaceArtifact(state: State, candidate: { document: CompositionArtifact; savedText: string | null }): State {
+  const entry = resolveEditorCatalogEntry(candidate.document.payload.compositionRef);
+  if (!entry) return { ...state, pendingArtifact: null, invalid: true, message: "Composition unavailable. Your session is unchanged." };
+  const result = initializeEditorSession({ sessionRef: "session:visual-workbench", base: {
+    applicationRef: entry.applicationRef, compositionRef: entry.compositionRef, revision: entry.revision, currentness: "current" },
+    composition: candidate.document.payload.graph }, entry.registry);
+  if (!result.accepted) return { ...state, pendingArtifact: null, invalid: true, message: "Unable to open the artifact. Your session is unchanged." };
+  const selectedRef = state.entry.compositionRef === entry.compositionRef &&
+    result.session.transaction.draft.nodes.some(node => node.ref === state.selection.selectedRef) ? state.selection.selectedRef : null;
+  const selection = { selectedRef };
+  return { ...state, entry, session: result.session, selection, ...fields(result.session, selection),
+    document: candidate.document, savedText: candidate.savedText, pendingRef: null, pendingArtifact: null,
+    invalid: false, message: "Composition opened. Edit it or save a new version." };
 }
 function sizeHelp(state: State): string {
   const node = state.session.transaction.draft.nodes.find(item => item.ref === state.selection.selectedRef);
@@ -41,6 +64,26 @@ function sizeHelp(state: State): string {
 }
 function reducer(state: State | null, action: Action): State | null {
   if (!state) return null;
+  if (action.type === "feedback") return action.expectedSession === state.session
+    ? { ...state, message: action.message, invalid: action.invalid } : state;
+  if (action.type === "request-open") {
+    if (action.expectedSession !== state.session) return state;
+    const candidate = { document: action.document, savedText: action.savedText };
+    const currentFields = fields(state.session, state.selection);
+    return state.session.transaction.dirty || state.columns !== currentFields.columns || state.rows !== currentFields.rows ||
+      !sameEditorArtifactGraph(state.session.transaction.draft, state.document?.payload.graph ?? state.entry.composition)
+      ? { ...state, pendingArtifact: candidate, pendingRef: null }
+      : replaceArtifact(state, candidate);
+  }
+  if (action.type === "cancel-open") return { ...state, pendingArtifact: null };
+  if (action.type === "confirm-open") return state.pendingArtifact ? replaceArtifact(state, state.pendingArtifact) : state;
+  if (action.type === "saved-artifact") {
+    if (action.expectedSession !== state.session) return state;
+    const result = acceptEditorDraft(state.session, state.session.draftRevision, state.entry.registry);
+    if (!result.accepted) return { ...state, invalid: true, message: "File retained locally, but this session could not be accepted." };
+    return { ...state, session: result.session, document: action.document, savedText: action.savedText,
+      ...fields(result.session, state.selection), invalid: false, message: "Composition saved locally in this browser." };
+  }
   if (action.type === "request-switch") {
     if (action.ref === state.entry.compositionRef) return state;
     if (state.session.transaction.dirty) return { ...state, pendingRef: action.ref };
@@ -94,6 +137,59 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const [expanded, setExpanded] = useState(() => new Set([state.session.transaction.draft.rootRef]));
   const [focusedRef, setFocusedRef] = useState(state.session.transaction.draft.rootRef);
   const items = useRef(new Map<string, HTMLButtonElement>());
+  const fileInput = useRef<HTMLInputElement>(null);
+  const workbench = useRef<HTMLElement>(null);
+  const returnFocus = useRef<"file" | "saved">("file");
+  const restoreOpenFocus = useRef(false);
+  useEffect(() => {
+    if (state.pendingArtifact === null && restoreOpenFocus.current) {
+      restoreOpenFocus.current = false;
+      workbench.current?.querySelector<HTMLButtonElement>(`[data-artifact-open="${returnFocus.current}"]`)?.focus();
+    }
+  }, [state.pendingArtifact]);
+  const readSequence = useRef(0);
+  const latestState = useRef(state); latestState.current = state;
+  const feedback = (message: string, invalid: boolean, expectedSession = state.session) =>
+    dispatch({ type: "feedback", message, invalid, expectedSession });
+  const operation = () => ({ artifactId: `urn:uuid:${crypto.randomUUID()}`, createdAt: new Date().toISOString() });
+  const saveLocal = () => {
+    try {
+      const prepared = prepareEditorArtifact(state.entry.compositionRef, state.session.transaction.draft, state.document, operation());
+      if (!prepared.accepted) { feedback("Unable to prepare this composition. Your session is unchanged.", true); return; }
+      const saved = saveStoredArtifact(window.localStorage, prepared.document, state.savedText, resolveEditorCatalogEntry);
+      if (!saved.accepted) { feedback(saved.reason === "storage-conflict"
+        ? "A saved artifact already exists or changed. Open saved before replacing it. Your draft is unchanged."
+        : "Local storage is unavailable or full. Your draft and prior saved artifact are unchanged.", true); return; }
+      dispatch({ type: "saved-artifact", document: saved.document, savedText: saved.storedText, expectedSession: state.session });
+    } catch { feedback("Local storage is unavailable. Your draft is unchanged.", true); }
+  };
+  const openSaved = () => {
+    readSequence.current++; returnFocus.current = "saved";
+    try {
+      const result = openStoredArtifact(window.localStorage, state.entry.compositionRef, resolveEditorCatalogEntry);
+      if (!result.accepted) { feedback(result.reason === "not-found" ? "No composition has been saved locally."
+        : "Unable to open the saved artifact. Your session is unchanged.", true); return; }
+      dispatch({ type: "request-open", document: result.document, savedText: result.storedText, expectedSession: state.session });
+    } catch { feedback("Local storage is unavailable. Your session is unchanged.", true); }
+  };
+  const saveFile = () => {
+    try {
+      const prepared = prepareEditorArtifact(state.entry.compositionRef, state.session.transaction.draft, state.document, operation(), true);
+      if (!prepared.accepted) { feedback("Unable to prepare this composition file. Your session is unchanged.", true); return; }
+      requestArtifactDownload(prepared.text, state.entry.compositionRef);
+      feedback("Download requested. Keep the file to reopen it; your draft remains unchanged.", false);
+    } catch { feedback("Unable to request the download. Your draft is unchanged.", true); }
+  };
+  const openFile = async (file: File) => {
+    const sequence = ++readSequence.current; const expected = state;
+    returnFocus.current = "file";
+    const result = await readEditorArtifact(file);
+    if (sequence !== readSequence.current || latestState.current !== expected) {
+      feedback("File opening was superseded by a newer interaction. Your session is unchanged.", false, latestState.current.session); return;
+    }
+    if (!result.accepted) { feedback("Unable to open this composition file. Your session is unchanged.", true, expected.session); return; }
+    dispatch({ type: "request-open", document: result.document, savedText: null, expectedSession: expected.session });
+  };
   const layers = projectEditorLayers(state.session);
   const inspector = projectEditorInspector(state.session, state.selection, state.session.draftRevision);
   const preview = projectEditorPreview(state.session, state.entry.registry, state.selection);
@@ -151,11 +247,12 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       {state.entry.labels[node.nodeRef] ?? node.nodeRef}{children.length ? <div className={container}>{children}</div> : null}
     </div>;
   };
-  return <section aria-label="Composition editor" data-draft-revision={state.session.draftRevision}
+  return <section ref={workbench} aria-label="Composition editor" data-draft-revision={state.session.draftRevision}
     data-base-revision={state.session.base.revision} className="overflow-hidden rounded-xl border bg-card shadow-sm">
     <header className="flex flex-wrap items-center gap-3 border-b p-4">
       <div className="mr-auto"><label htmlFor="editor-composition" className="mb-1 block text-sm">Composition</label>
         <select id="editor-composition" ref={catalogSelect} value={state.entry.compositionRef}
+          disabled={state.pendingArtifact !== null}
           onChange={event => dispatch({ type: "request-switch", ref: event.target.value })}
           className="rounded-md border bg-background p-2">{listEditorCatalog().map(item =>
             <option key={item.compositionRef} value={item.compositionRef}>{item.title}</option>)}</select></div>
@@ -164,7 +261,18 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       </span>
       <Button aria-disabled={!state.session.transaction.dirty} onClick={() => dispatch({ type: "save" })}>Save changes</Button>
       <Button variant="outline" aria-disabled={!state.session.transaction.dirty} onClick={() => dispatch({ type: "discard" })}>Discard changes</Button>
+      <Button variant="outline" onClick={saveLocal} disabled={state.pendingArtifact !== null}>Save locally</Button>
+      <Button variant="outline" data-artifact-open="saved" onClick={openSaved} disabled={state.pendingArtifact !== null}>Open saved</Button>
+      <Button variant="outline" onClick={saveFile}>Save As file</Button>
+      <Button variant="outline" data-artifact-open="file" onClick={() => fileInput.current?.click()} disabled={state.pendingArtifact !== null}>Open file</Button>
+      <input ref={fileInput} type="file" accept=".composition.json,.json,application/json" aria-label="Composition file" className="sr-only"
+        onChange={event => { const file = event.target.files?.[0]; event.target.value = ""; if (file) void openFile(file); }} />
     </header>
+    {state.pendingArtifact ? <div className="flex flex-wrap items-center gap-3 border-b p-4" role="group" aria-label="Unsaved artifact open">
+      <p>Unsaved changes. Discard them and open this composition artifact?</p>
+      <Button variant="outline" onClick={() => { restoreOpenFocus.current = true; dispatch({ type: "cancel-open" }); }}>Cancel open</Button>
+      <Button onClick={() => dispatch({ type: "confirm-open" })}>Discard changes and open file</Button>
+    </div> : null}
     {state.pendingRef ? <div className="flex flex-wrap items-center gap-3 border-b p-4" role="group" aria-label="Unsaved composition switch">
       <p>Unsaved changes. Discard them and open the selected composition?</p>
       <Button variant="outline" onClick={() => { dispatch({ type: "cancel-switch" }); catalogSelect.current?.focus(); }}>Cancel switch</Button>
@@ -218,8 +326,8 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     </div>
     <footer className="border-t p-4">
       <p id="editor-feedback" role="status" aria-live="polite" aria-atomic="true" className="text-sm">{state.message}</p>
-      <p className="mt-2 text-xs text-muted-foreground">Changes are kept for this session. Reloading starts a new example.</p>
-      <p className="text-xs text-muted-foreground">Switching compositions starts a new session; saved changes are not retained.</p>
+      <p className="mt-2 text-xs text-muted-foreground">Save changes accepts this session. Save locally retains a separate copy in this browser; use Open saved after reload.</p>
+      <p className="text-xs text-muted-foreground">Save As file requests a portable download. Browser storage can be cleared; keep exported files for retention.</p>
     </footer>
   </section>;
 }

@@ -1,4 +1,5 @@
 import { test, expect, type Page, type Locator } from "@playwright/test";
+import { readFile } from "node:fs/promises";
 
 const editor = (page: Page) => page.getByRole("region", { name: "Composition editor", exact: true });
 const preview = (page: Page, name = "Button 1") => page.getByRole("img", { name: name + " preview", exact: true });
@@ -193,7 +194,7 @@ test("switching nodes isolates applied edits and unapplied fields; reload resets
   await expect(preview(page)).toHaveAttribute("data-column-span", "3");
   await expect(preview(page, "Button 2")).toHaveAttribute("data-column-span", "4");
   await expect(preview(page, "Button 2")).toHaveAttribute("data-row-span", "2");
-  await expect(page.getByText("Changes are kept for this session. Reloading starts a new example.", { exact: true })).toBeVisible();
+  await expect(page.getByText("Save changes accepts this session. Save locally retains a separate copy in this browser; use Open saved after reload.", { exact: true })).toBeVisible();
   await page.reload();
   await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
   await expect(preview(page)).toHaveAttribute("data-column-span", "2");
@@ -346,4 +347,191 @@ test.describe("Station launcher and window lifecycle", () => {
     await expect(restored.getByLabel("Composition", { exact: true })).toHaveValue("composition:example");
     await expect(restored.getByRole("region", { name: "Composition editor", exact: true })).toHaveAttribute("data-draft-revision", "7");
   });
+});
+
+async function downloadedComposition(page: Page): Promise<Buffer> {
+  const ready = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Save As file", exact: true }).click();
+  const download = await ready;
+  expect(download.suggestedFilename()).toMatch(/\.composition\.json$/);
+  expect(await download.failure()).toBeNull();
+  return readFile((await download.path())!);
+}
+
+test("WP3 explicit local retention survives reload and restores a selected projection", async ({ page }, testInfo) => {
+  await page.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+  await span(page, "3");
+  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  await expect(page.getByRole("status")).toHaveText("Composition saved locally in this browser.");
+  await expect(page.getByTestId("draft-state")).toHaveText("All changes saved");
+  await page.reload();
+  await expect(preview(page)).toHaveAttribute("data-column-span", "2");
+  await page.getByRole("button", { name: "Open saved", exact: true }).click();
+  await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+  await page.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+  await expect(page.getByLabel("Columns", { exact: true })).toHaveValue("3");
+  await page.screenshot({ path: testInfo.outputPath("wp3-local-reopened.png"), fullPage: true });
+});
+
+test("WP3 actual downloaded artifact reopens in a fresh browser origin context", async ({ page, browser }, testInfo) => {
+  await page.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+  await span(page, "4", "2");
+  const bytes = await downloadedComposition(page);
+  await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+  const document = JSON.parse(bytes.toString()) as { artifactId: string; payload: { graph: unknown } };
+  expect(document.artifactId).toMatch(/^urn:uuid:/);
+  const fresh = await browser.newContext();
+  try {
+    const other = await fresh.newPage(); await other.goto(page.url());
+    await other.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "portable.composition.json", mimeType: "application/json", buffer: bytes });
+    await expect(preview(other)).toHaveAttribute("data-column-span", "4");
+    await expect(preview(other)).toHaveAttribute("data-row-span", "2");
+    await other.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+    await expect(other.getByLabel("Columns", { exact: true })).toHaveValue("4");
+    const retained = await other.evaluate(() => Object.keys(localStorage).filter(key => key.startsWith("station:composition-artifact:v1:")));
+    expect(retained).toEqual([]);
+    await other.screenshot({ path: testInfo.outputPath("wp3-file-reopened.png"), fullPage: true });
+  } finally { await fresh.close(); }
+});
+
+test("WP3 dirty saved-open cancel retains fields/selection/focus, confirm replaces atomically", async ({ page }) => {
+  await page.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+  await span(page, "3"); await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  await span(page, "4"); await page.getByLabel("Columns", { exact: true }).fill("999");
+  await page.getByRole("button", { name: "Open saved", exact: true }).click();
+  await expect(page.getByRole("group", { name: "Unsaved artifact open" })).toBeVisible();
+  await page.getByRole("button", { name: "Cancel open", exact: true }).click();
+  await expect(page.getByLabel("Columns", { exact: true })).toHaveValue("999");
+  await expect(preview(page)).toHaveAttribute("data-column-span", "4");
+  await expect(page.getByRole("treeitem", { name: "Button 1", exact: true })).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByRole("button", { name: "Open saved", exact: true })).toBeFocused();
+  await page.getByRole("button", { name: "Open saved", exact: true }).click();
+  await page.getByRole("button", { name: "Discard changes and open file", exact: true }).click();
+  await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+  await expect(page.getByLabel("Columns", { exact: true })).toHaveValue("3");
+});
+
+test("WP3 corrupt/version/script/size inputs preserve current draft and permit recovery", async ({ page }) => {
+  const valid = await downloadedComposition(page);
+  const document = JSON.parse(valid.toString());
+  await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3");
+  const invalid = [Buffer.from("{"), Buffer.from(JSON.stringify({ ...document, envelopeVersion: "2.0.0" })),
+    Buffer.from(JSON.stringify({ ...document, payload: { ...document.payload, baseRevision: 6 } })),
+    Buffer.from(JSON.stringify({ ...document, payload: { ...document.payload, script: "window.PWNED=true" } })),
+    Buffer.alloc(1_048_577, 32)];
+  for (const bytes of invalid) {
+    await page.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "bad.json", mimeType: "application/json", buffer: bytes });
+    await expect(page.getByRole("status")).toContainText("Unable to open");
+    await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+    await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+    await expect(page.getByRole("group", { name: "Unsaved artifact open" })).toHaveCount(0);
+  }
+  expect(await page.evaluate(() => Object.hasOwn(window, "PWNED"))).toBe(false);
+  await page.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "good.json", mimeType: "application/json", buffer: valid });
+  await expect(page.getByRole("group", { name: "Unsaved artifact open" })).toBeVisible();
+  await page.getByRole("button", { name: "Cancel open", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Open file", exact: true })).toBeFocused();
+  await page.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "good.json", mimeType: "application/json", buffer: valid });
+  await page.getByRole("button", { name: "Discard changes and open file", exact: true }).click();
+  await expect(preview(page)).toHaveAttribute("data-column-span", "2");
+});
+
+test("WP3 quota failure preserves prior bytes and dirty draft; stale local copy cannot be overwritten", async ({ page }) => {
+  await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3");
+  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  const key = "station:composition-artifact:v1:composition%3Aexample";
+  const before = await page.evaluate(key => localStorage.getItem(key), key);
+  await span(page, "4");
+  await page.evaluate(() => {
+    const original = Storage.prototype.setItem;
+    Object.assign(window, { wp3RestoreStorage: () => { Storage.prototype.setItem = original; } });
+    Storage.prototype.setItem = function(key, value) {
+      if (key.startsWith("station:composition-artifact:v1:")) throw new DOMException("full", "QuotaExceededError");
+      original.call(this, key, value);
+    };
+  });
+  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("unavailable or full");
+  expect(await page.evaluate(key => localStorage.getItem(key), key)).toBe(before);
+  await expect(preview(page)).toHaveAttribute("data-column-span", "4");
+  await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+  await page.evaluate(() => { (window as unknown as { wp3RestoreStorage(): void }).wp3RestoreStorage(); });
+  await page.evaluate(key => localStorage.setItem(key, "{corrupt"), key);
+  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("already exists or changed");
+  expect(await page.evaluate(key => localStorage.getItem(key), key)).toBe("{corrupt");
+  await page.getByRole("button", { name: "Open saved", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("Unable to open");
+  await expect(preview(page)).toHaveAttribute("data-column-span", "4");
+});
+
+test("WP3 independent composition keys and versioned metadata retention", async ({ page }) => {
+  const bytes = await downloadedComposition(page);
+  const imported = JSON.parse(bytes.toString()); imported.extensions = { "com.example.qa": { note: "preserve" } };
+  await page.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "metadata.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(imported)) });
+  await expect(page.getByRole("status")).toContainText("Composition opened");
+  await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3");
+  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  const key = "station:composition-artifact:v1:composition%3Aexample";
+  const first = JSON.parse((await page.evaluate(key => localStorage.getItem(key), key))!);
+  expect(first.artifactId).toBe(imported.artifactId); expect(first.artifactVersion).toBe("1.0.1"); expect(first.extensions).toEqual(imported.extensions);
+  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  expect(JSON.parse((await page.evaluate(key => localStorage.getItem(key), key))!).artifactVersion).toBe("1.0.1");
+  await page.getByLabel("Composition", { exact: true }).selectOption("composition:button-group");
+  await page.getByRole("treeitem", { name: "Group Button 1", exact: true }).click(); await span(page, "4");
+  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  await page.reload(); await page.getByRole("button", { name: "Open saved", exact: true }).click();
+  await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+  await page.getByLabel("Composition", { exact: true }).selectOption("composition:button-group");
+  await page.getByRole("button", { name: "Open saved", exact: true }).click();
+  await expect(preview(page, "Group Button 1")).toHaveAttribute("data-column-span", "4");
+});
+
+test("WP3 session-only acceptance still warns before opening a retained file; stale read cannot replace newer edits", async ({ page }) => {
+  const bytes = await downloadedComposition(page);
+  await page.evaluate(() => {
+    const original = File.prototype.text;
+    Object.assign(window, { wp3RestoreFileRead: () => { File.prototype.text = original; } });
+    File.prototype.text = () => new Promise<string>(resolve => { Object.assign(window, { wp3ResolveFileRead: resolve }); });
+  });
+  await page.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "delayed.json", mimeType: "application/json", buffer: bytes });
+  await page.waitForFunction(() => Object.hasOwn(window, "wp3ResolveFileRead"));
+  await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3");
+  await page.evaluate(text => {
+    (window as unknown as { wp3ResolveFileRead(text: string): void }).wp3ResolveFileRead(text);
+  }, bytes.toString());
+  await expect(page.getByRole("status")).toContainText("superseded");
+  await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+  await page.evaluate(() => { (window as unknown as { wp3RestoreFileRead(): void }).wp3RestoreFileRead(); });
+  await page.getByRole("button", { name: "Save changes", exact: true }).click();
+  await expect(page.getByTestId("draft-state")).toHaveText("All changes saved");
+  await page.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "retained.json", mimeType: "application/json", buffer: bytes });
+  await expect(page.getByRole("group", { name: "Unsaved artifact open" })).toBeVisible();
+  await page.getByRole("button", { name: "Cancel open", exact: true }).click();
+  await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+});
+
+test("WP3 download failure preserves the draft and does not claim a filesystem receipt", async ({ page }) => {
+  await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3");
+  await page.evaluate(() => { URL.createObjectURL = () => { throw new Error("download unavailable"); }; });
+  await page.getByRole("button", { name: "Save As file", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("Unable to request the download");
+  await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+  await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+});
+
+test("WP3 Station window retention is separate from window preferences", async ({ page }, testInfo) => {
+  await page.goto("/"); await page.getByRole("button", { name: "Open applications" }).click();
+  await page.locator('[data-app-ref="app:composition-editor"]').click();
+  const window = page.getByRole("dialog", { name: "Composition Editor", exact: true });
+  await window.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+  await window.getByLabel("Columns", { exact: true }).fill("3"); await window.getByRole("button", { name: "Apply size", exact: true }).click();
+  await window.getByRole("button", { name: "Save locally", exact: true }).click();
+  await expect(window.getByRole("status")).toContainText("saved locally");
+  const layout = await page.evaluate(() => localStorage.getItem("system-builder.station.layout.v1"));
+  expect(layout).not.toContain("node:button-1"); expect(layout).not.toContain("payload");
+  await page.reload(); await expect(window).toBeVisible();
+  await window.getByRole("button", { name: "Open saved", exact: true }).click();
+  await expect(window.getByRole("img", { name: "Button 1 preview", exact: true })).toHaveAttribute("data-column-span", "3");
+  await page.screenshot({ path: testInfo.outputPath("wp3-station-retained.png"), fullPage: true });
 });
