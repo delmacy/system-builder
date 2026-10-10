@@ -2,7 +2,7 @@
 
 Date: 2026-10-10
 Fresh predecessor: main@07482ac1cdeba16b10c594b35a57a74905ddfb57
-Status: WP1 CLOSED / INTEGRATED; WP2 Construction A / TASK-646 IMPLEMENTED ON BRANCH, VERIFICATION
+Status: WP1 CLOSED / INTEGRATED; WP2 Construction A / TASK-646 PROVEN, TASK-647 IMPLEMENTED ON BRANCH; final verification pending
 
 ## Authority
 
@@ -18,7 +18,7 @@ WP1 closure PR #1034 merged at 1c2625acacf2e161e388b031026da3766a84902d. Final h
 
 ## Next eligible action
 
-Planning PR #1035 integrated at 07482ac1cdeba16b10c594b35a57a74905ddfb57. TASK-646 source catalog and pure tests are on sprint/station-s4-wp2-construction-a, pending observed verify/build. After predecessor gates pass, execute TASK-647 on the same branch; see project_docs/execution_planning/STATION-S4-WP2-CONSTRUCTION-A-01.report.md. Keep TASK-646 and TASK-647 commits distinct through ordinary Sprint PR merge. Require full verify/build/browser, all triggered checks and retained artifacts before integration.
+Planning PR #1035 integrated at 07482ac1cdeba16b10c594b35a57a74905ddfb57. TASK-646 passed exact-head verify and Station build on sprint/station-s4-wp2-construction-a. TASK-647 catalog workbench and actual browser journeys are committed on the same branch, pending final exact-head gates; see project_docs/execution_planning/STATION-S4-WP2-CONSTRUCTION-A-01.report.md. Keep TASK-646 and TASK-647 commits distinct through ordinary Sprint PR merge. Require full verify/build/browser, all triggered checks and retained artifacts before integration.
 
 Construction B (Station launcher/window journey), optional C, review and closure remain FORECAST. Materialize B only after integrated A and fresh readiness review. No deployment/user preview is claimed or implicitly authorized as product scope.
 

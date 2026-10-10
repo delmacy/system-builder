@@ -1,7 +1,7 @@
 ---
 id: TASK-647
 title: Station S4 WP2 Catalog Workbench and Safe Switching
-status: ready
+status: verification
 priority: 647
 milestone: STATION-S4-WP2-EDITOR-OPERATIONAL
 model_tier: architecture
@@ -92,3 +92,6 @@ Positive, negative and predecessor-integration evidence; exact-head/base and CI/
 ## Escalation
 
 Stop for missing public capability, forbidden-path requirement, undeclared L3/L4 or scope drift. Record the precise correction; do not expand this TASK silently.
+
+## Implementation checkpoint — 2026-10-10
+Catalog workbench, safe draft switching and expanded Chromium journeys committed; exact-head proof and integration gated on Actions.
