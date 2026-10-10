@@ -1,3 +1,4 @@
+import path from "node:path";
 import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
@@ -7,8 +8,8 @@ export default defineConfig({
   workers: 1,
   retries: 0,
   timeout: 30_000,
-  reporter: [["list"], ["html", { outputFolder: "playwright-report", open: "never" }]],
-  outputDir: "test-results",
+  reporter: [["list"], ["html", { outputFolder: path.resolve("playwright-report"), open: "never" }]],
+  outputDir: path.resolve("test-results"),
   use: { baseURL: "http://127.0.0.1:3100", browserName: "chromium",
     viewport: { width: 1280, height: 800 }, trace: "retain-on-failure", screenshot: "only-on-failure" },
   webServer: { command: "npm run station:start -- --hostname 127.0.0.1 --port 3100",
