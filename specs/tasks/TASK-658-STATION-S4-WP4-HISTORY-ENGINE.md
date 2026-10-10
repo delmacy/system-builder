@@ -87,3 +87,6 @@ Stop for conflicting authority, worker collision, forbidden path, undeclared L3/
 
 ## Implementation checkpoint
 Pure history and eight real-catalog tests implemented on this Sprint branch. Exact-head Actions and validated integration remain required; B is not yet committed.
+
+## Integrated completion
+TASK-658 IMPLEMENTED / PROVEN / INTEGRATED through #1051; all seven final-head workflows passed, including Windows/Ubuntu and actual Chromium regression. Prior branch checkpoints are historical.

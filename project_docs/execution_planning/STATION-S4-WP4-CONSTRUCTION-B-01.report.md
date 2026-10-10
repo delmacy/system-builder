@@ -14,3 +14,6 @@ Eight existing focused history tests and focused lint passed. Final declared npm
 
 ## Debt and successor
 Generated local Playwright report JavaScript polluted a first local lint attempt; removed only disposable generated outputs and repeated clean verification. Record ignored-output configuration as nonblocking backlog, without changing forbidden tooling/workflows. All source-bound limits and WP3 residuals preserved. No latency/comprehensive assistive-technology certification or complete Component Editor claim. After validated B integration reconstruct fresh main, decide optional C from actual proof and materialize Package Review separately; do not hide missing product capability in review/closure.
+
+## Validated integration
+#1052 integrated; exact head 8d33477d6352d1c8fda7fcb5f4794eafc5a22ca4; workflow evidence: Heavy Product Tests 38081144288 PASS, Automation Handoff State Machine 38081144266 PASS, Station Cross-Platform Build 38081144308 PASS, Station Frontend Quality 38081144283 PASS, Station Editor Browser Journey 38081144318 PASS, Deterministic CI 38081144322 PASS, Merge Candidate CI 38081144280 PASS. Browser 29/29; artifact 11680811300. Earlier local-environment failures are not CI product failures.

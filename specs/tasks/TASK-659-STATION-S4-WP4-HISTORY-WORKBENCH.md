@@ -90,3 +90,6 @@ Stop for conflicting authority, worker collision, forbidden path, undeclared L3/
 
 ## Implementation checkpoint
 History controls, scoped shortcuts and checkpoint lifecycle implemented on this branch. All 29 real Chromium journeys and exact-head CI required before integration.
+
+## Integrated completion
+TASK-659 IMPLEMENTED / PROVEN / INTEGRATED through #1052; all seven final-head workflows passed, including Windows/Ubuntu and actual Chromium regression. Prior branch checkpoints are historical.

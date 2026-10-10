@@ -12,3 +12,6 @@ Eight focused real-catalog tests pass for both installed compositions, synchroni
 
 ## Review and residuals
 Six exact permitted paths. No dependencies/graph/session/envelope schema change. History validation is bounded O(50 snapshots) for installed three-node graphs; no performance benchmark or generic structural authoring claim. B UI/checkpoint/keyboard remains forecast and must be separately materialized from fresh integrated A. Preserve unrelated PRs and legacy ledger.
+
+## Validated integration
+#1051 integrated; exact head 5653731dfec91b6b372c2aa631c2da3a523caf52; workflow evidence: Automation Handoff State Machine 38080780615 PASS, Heavy Product Tests 38080780602 PASS, Station Cross-Platform Build 38080780669 PASS, Station Editor Browser Journey 38080780497 PASS, Station Frontend Quality 38080780591 PASS, Deterministic CI 38080780498 PASS, Merge Candidate CI 38080780471 PASS. Browser 21/21; artifact retained by workflow. Earlier local-environment failures are not CI product failures.
