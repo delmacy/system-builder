@@ -1,7 +1,7 @@
 # Station S4 — Visual Factory Foundation — WP1 Plan 01
 
 Date: 2026-10-04
-Status: PLANNING & MATERIALIZATION
+Status: CLOSED — bounded WP1 slice; effective on validated TASK-645 integration
 Scope authority: `docs/contracts/002-station-visual-factory/ADDENDUM.md`
 Predecessor: Station S3 — CLOSED / PROVEN / INTEGRATED
 Base: `main@746496432748b27b2a51f096fb989b25f5327643`
@@ -66,3 +66,11 @@ Every construction tranche must declare proof obligations before implementation,
 ## Closure condition
 
 WP1 closes only when the complete milestone journey is executable and current evidence proves cross-projection convergence, fail-closed invalid edits, deterministic save/discard of Station-owned drafts, structural grid/span constraints, and applicable accessibility/keyboard obligations without crossing the admitted authority boundary.
+
+## Final package disposition — 2026-10-10
+
+The materially executed A–H cadence is grandfathered. A–F public APIs and G integrated API journey were followed by explicit corrective visual TASK-643 construction (PR #1031), H review TASK-644 (PR #1033), and separate documentation closure TASK-645. Historical first-lot instructions above describe the original plan and are no longer a scheduler.
+
+Final reviewed head `65ad0646e22f17bf786edda5494d11e95ea73b7e`, base f3b326dd95da0d1ec05d9380de9aed1a5d62c572: exact verify [38051674657](https://github.com/delmacy/system-builder/actions/runs/38051674657), merge candidate [38051674714](https://github.com/delmacy/system-builder/actions/runs/38051674714), heavy 38051674669, handoff 38051674734 and Station production build/browser [38051674737](https://github.com/delmacy/system-builder/actions/runs/38051674737) all PASS. Browser 7/7 in 7.6s; artifact 11668994656 retrieved, HTML report retained, screenshot visually reviewed with no clipped panes. PR #1033 integrated at `cbdbc8f6b37fe258a109a5900e9b1ca327dd5743`.
+
+WP1 closes only its accepted smallest editor foundation: representative composition, session-backed Layers/Inspector/Preview, constrained spans, validation/recovery and in-memory save/discard. Exercised keyboard/labels/roles/focus are proven; screen-reader, Firefox/WebKit and general accessibility certification remain unproven. No arbitrary project loader, durable persistence, desktop-launcher integration or product-wide editor completeness is implied. Documentation closure must pass its own final-head gates and merge before this status is effective. See STATION-S4-WP1-CLOSURE-01.report.md for traceability, risks and handoff.
