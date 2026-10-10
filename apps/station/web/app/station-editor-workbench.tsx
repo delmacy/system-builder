@@ -3,7 +3,7 @@
 import { useReducer, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Button } from "../../../../packages/ui-core/index";
 import { DEFAULT_COMPOSITION_REF, initializeCatalogEditorSession, listEditorCatalog, type EditorCatalogEntry } from "./station-editor-catalog";
-import type { EditorLayer, EditorPreviewNode } from "../../../../packages/station-editor/index";
+import type { EditorLayer } from "../../../../packages/station-editor/index";
 import {
   projectEditorLayers, selectEditorLayer,
   projectEditorInspector, projectEditorPreview, createEditorSetSpanIntent,
