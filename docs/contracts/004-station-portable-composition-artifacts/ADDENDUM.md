@@ -1,7 +1,7 @@
 # Contract Addendum 004 — Station Portable Composition Artifacts (Proposal)
 
 Date: 2026-10-10
-Status: PROPOSED — NOT ACCEPTED until scope registry + review/CI integration
+Status: ACCEPTED ONLY ON VALIDATED ADMISSION PR INTEGRATION
 Predecessor: WP2 closed through PR #1039; WP3 planning PR #1040 and readiness PR #1041 integrated.
 
 ## Proposed bounded scope
@@ -28,4 +28,4 @@ A strict JSON object with fields: `format` (fixed identifier), `schemaVersion` (
 Arbitrary external component installation, JS execution, HTML/CSS import, Core business persistence, multi-tenant permissions, full File Manager, Studio-specific documents, `.process` canonical format, AI authoring, network sync, publishing and deployment.
 
 ## Admission gate
-This proposal records an explicit owner-requested progression into WP3 but is **not accepted yet**. Review compatibility with `docs/DOCUMENT_AUTHORITY.md`, `docs/contracts/CONTRACT_INDEX.md`, existing file/resource formats, `packages/station-composition` and the actual editor. Set accepted status, register increment and materialize implementation TASKs only after resolving these gates and CI.
+Scope admission is effective only after validation and merge of the admission PR. Existing `packages/station-composition/graph.ts` defines rootRef/nodes/ref/componentRef/placement; `graph-validation.ts` requires additional caller-side guards against cycles and strict external JSON shape. WP2 catalog supplies source-owned registry and identity. Codec implementation must be separately validated and integrated; no functionality is claimed here.
