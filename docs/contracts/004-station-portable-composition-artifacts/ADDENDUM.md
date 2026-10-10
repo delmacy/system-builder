@@ -1,18 +1,18 @@
-# Contract Addendum 004 — Station Portable Composition Artifacts (Proposal)
+# Contract Addendum 004 — Station Portable Composition Artifacts
 
 Date: 2026-10-10
-Status: ACCEPTED ONLY ON VALIDATED ADMISSION PR INTEGRATION
+Status: ACCEPTED via PR #1043 at e9750fe4; envelope resolution effective on its validated PR integration
 Predecessor: WP2 closed through PR #1039; WP3 planning PR #1040 and readiness PR #1041 integrated.
 
-## Proposed bounded scope
+## Admitted bounded scope
 Admit one portable, versioned, *data-only* composition artifact codec for the existing Station editor and source-owned catalog. A serialized artifact is an untrusted document, never a component/provider definition, executable script, business command, Core record, or window setting. The user explicitly exports and imports it. A future Construction B may add local durable storage and Save As/Open UI only after the codec is proven.
 
-## Envelope proposal (subject to contract review)
-A strict JSON object with fields: `format` (fixed identifier), `schemaVersion` (initial 1), `applicationRef`, `compositionRef`, `baseRevision`, and `graph` (root and nodes containing only canonical ref/componentRef/placement fields). No author-supplied descriptors, labels, registry, code, HTML, CSS, secrets, focus, selection or window coordinates. Adopt a file extension only after existing file/resource contract inventory. JSON object keys and nesting are fixed; all unknown fields reject rather than silently migrate.
+## Envelope resolution
+Public interchange uses the accepted ADR-0009 envelope and existing common schema. The earlier flat envelope proposal is superseded by `RESOLUTION-01.md`: applicationRef/compositionRef/baseRevision/graph are strict payload fields; identity/SemVer/schema/provenance remain common-envelope fields. Preserve optional inert extensions/provenance per ADR-0009 and reject unsupported required semantics. Unknown payload/graph fields reject; no ADR exception. Exact versions, source compatibility, codec budgets, deterministic metadata handling and compound .composition.json hint are normative in RESOLUTION-01 after validated integration.
 
 ## Trust and version gates
-- Parse untrusted bytes with explicit maximum byte length and bounded node count before graph normalization; bounds must be established from existing repository validation constraints, documented and tested.
-- Reject duplicate refs, prototype-unsafe keys, unknown component references, incorrect root/parent/slot, invalid spans, cycles, unknown format/schemaVersion, foreign application identity and incompatible revision.
+- Parse untrusted bytes with explicit maximum byte length and bounded node count before graph normalization; use RESOLUTION-01's documented codec-specific admission budgets with N-1/N/N+1 tests; do not claim them as pre-existing repository-wide limits.
+- Reject duplicate refs, prototype-unsafe keys, unknown component references, incorrect root/parent/slot, invalid spans, cycles, unsupported envelope/payload schema versions, foreign application identity and incompatible revision.
 - Resolve component registry from the **installed source-owned catalog**, not the incoming payload. The codec may not grant capabilities or instantiate arbitrary components.
 - Preserve prior editor session and stored artifact on every failure; replacement is atomic only after full validation and explicit user action.
 - Export deterministically from an accepted graph and verify round trips; no implicit migration or overwrite of newer revisions. Proven changes must not weaken existing WP1/WP2 protections.
@@ -29,3 +29,6 @@ Arbitrary external component installation, JS execution, HTML/CSS import, Core b
 
 ## Admission gate
 Scope admission is effective only after validation and merge of the admission PR. Existing `packages/station-composition/graph.ts` defines rootRef/nodes/ref/componentRef/placement; `graph-validation.ts` requires additional caller-side guards against cycles and strict external JSON shape. WP2 catalog supplies source-owned registry and identity. Codec implementation must be separately validated and integrated; no functionality is claimed here.
+
+## Admission checkpoint
+PR #1043 passed all five triggered workflows and merged; scope admission is effective. Resolution applies ADR-0009 rather than changing it. No codec or persistence implementation is claimed by admission/readiness documents.

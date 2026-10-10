@@ -1,8 +1,8 @@
-# Station S4 — WP3 Planning Baseline (proposed)
+# Station S4 — WP3 Planning Baseline
 
 Date: 2026-10-10
 Predecessor: WP2 CLOSED through PR #1039, merge 9768c06e0eeabdf89ee0c3eeeada63908a3fb000.
-State: PLANNING PROPOSAL; not an accepted contract, not product implementation or WP3 closure.
+State: admitted bounded scope via #1043; Construction A materialized on validated readiness-resolution integration; no implementation or WP3 closure.
 
 ## Goal and arrival milestone
 
@@ -24,12 +24,13 @@ Advance the Composition Editor from session-only Save to an explicitly user-cont
 5. **Package Integration & Review**: end-to-end Chromium journey plus accessibility, no-data-loss, exact-head and merge-candidate verification; production builds on Windows and Ubuntu.
 6. **Documentation & Closure**: reconcile evidence and debt, owner-run instructions, package state and next pointer; close only after validated merge.
 
-## Decisions required before Construction A
+## Readiness decisions and construction commitment
 
-- Confirm exact persistence target and security model (explicit downloaded files vs origin-local storage, or both); do not infer server-backed storage.
-- Choose file extension and versioned canonical envelope only after checking existing repository file/resource contracts; preserve the earlier portable-process / multi-Studio roadmap without prematurely adopting a `.process` contract.
-- Establish graph/schema migration and ownership rules before accepting imported files.
-- Inspect current task locks and current main at start of every construction sprint; preserve shared worktree and other workers.
+TASK-652 inventories the existing public envelope, graph, catalog and editor boundaries. `docs/contracts/004-station-portable-composition-artifacts/RESOLUTION-01.md` resolves public interchange by using ADR-0009, with strict composition payload, source topology/span scope, explicit caller metadata and conservative codec limits. No new architecture exception or shared schema change.
+
+On validated readiness-resolution PR integration, only Construction A is COMMITTED: `project_docs/execution_planning/STATION-S4-WP3-CONSTRUCTION-A-01.md` / TASK-653. Codec package implementation and real-catalog/editor proof are separate from these planning changes. Existing source examples have three nodes; do not claim generic structural authoring.
+
+Construction B remains FORECAST: explicit file download/upload UI, dirty-state/recovery proof and persistence choice are revalidated after A integrates. No origin storage or server-backed provider is chosen here; pure codec readiness does not depend on a storage provider. .composition.json is an interchange filename hint; .process remains deferred. Revalidate fresh main and worker locks before every construction sprint.
 
 ## Mandatory exit proof
 
