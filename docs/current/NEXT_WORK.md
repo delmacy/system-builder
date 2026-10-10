@@ -1,33 +1,32 @@
-# Next Work — Station S4 WP3 Codec Readiness
+# Next Work — Station S4 WP3 Construction A
 
 Date: 2026-10-10
-Fresh predecessor: main@e9750fe4ebfc75a31ce84edd4984042edcd48ce4
-Status: WP2 CLOSED; WP3 planning/readiness and Addendum 004 admission INTEGRATED; product Construction A not yet materialized
+Base: main@5300763aafa3aac162d1a3e59535bc8a256545ac
+Status: readiness/resolution/materialization on branch; effective only after validated PR integration
 
 ## Authority
+- AGENTS.md and docs/DOCUMENT_AUTHORITY.md.
+- docs/contracts/CONTRACT_INDEX.md and docs/contracts/004-station-portable-composition-artifacts/ADDENDUM.md.
+- docs/contracts/004-station-portable-composition-artifacts/RESOLUTION-01.md.
+- Accepted docs/adr/ADR-0009-public-artifact-envelope.md and specs/contracts/artifact-envelope/artifact-envelope.schema.json.
+- project_docs/execution_planning/STATION-S4-WP3-LOCAL-ARTIFACT-PLANNING-01.md.
+- project_docs/execution_planning/STATION-S4-WP3-CONSTRUCTION-A-01.md.
+- specs/tasks/TASK-653-STATION-S4-WP3-PUBLIC-ENVELOPE-CODEC.md and every declared context_path.
+- project_docs/schedule/SPRINT_MODE.md and SPRINT_GENERATION_POLICY.md.
 
-- Document policy: `docs/DOCUMENT_AUTHORITY.md`.
-- Admitted scope: `docs/contracts/004-station-portable-composition-artifacts/ADDENDUM.md`, registered in `docs/contracts/CONTRACT_INDEX.md`.
-- WP3 planning baseline: `project_docs/execution_planning/STATION-S4-WP3-LOCAL-ARTIFACT-PLANNING-01.md`.
-- Readiness TASK: `specs/tasks/TASK-652-STATION-S4-WP3-ARTIFACT-CODEC-READINESS.md`.
-- Sprint discipline: `project_docs/schedule/SPRINT_MODE.md`.
+## Integrated predecessors and present proof
+WP2 closure #1039 merged at 9768c06e. WP3 planning #1040, readiness #1041, proposal #1042 and admission #1043 are integrated; #1043 merged at e9750fe4 after five passing workflows. Live pointer reconciliation #1044 merged at 5300763a after exact-head 38072814873, merge-candidate 38072815081, heavy 38072815017, browser 38072814890 and handoff 38072814982 succeeded. These are predecessor/documentation proofs, not codec proof.
 
-## Integrated predecessor evidence
+TASK-652's distinct readiness commit changes only its permitted specification. It inventories common-envelope compatibility, source graph/session boundaries and new bounded-input policies. Contract resolution conforms to ADR-0009: public envelope plus strict composition payload, lossless inert optional metadata and unsupported required-extension rejection. No new ADR/architecture exception. Planning reconciliation materializes only Construction A; all remain branch-only until this resolution PR validates and merges.
 
-WP2 closure PR #1039 merged at 9768c06e0eeabdf89ee0c3eeeada63908a3fb000 after A #1036, B #1037 and review #1038. Closure-era pending labels in its plan/report/TASK are historical pre-merge checkpoints, not live gates. Browser B/review evidence covers twelve journeys; Save remains session-only.
+## Next eligible execution
+After validated resolution integration, reconstruct fresh main and competing PR/worker state, then execute TASK-653 on sprint/station-s4-wp3-construction-a. Confirm its seven exact allowed paths, forbidden shared contracts/settings/composition/workflow/provider/runtime/deploy paths, dependency TASK-652 and declared validations before writing. No code under TASK-652; no forecast promotion.
 
-WP3 planning #1040, readiness #1041 and contract proposal #1042 are integrated. Admission PR #1043 merged at e9750fe4ebfc75a31ce84edd4984042edcd48ce4 with head f5c9c8af7b5cd77acb813314d3d6ef77df19f9d0. Observed exact-head workflows all completed successfully: Deterministic CI 38070666674, Merge Candidate CI 38070666595, Heavy Product Tests 38070666640, Station Editor Browser Journey 38070666561 and Automation Handoff 38070666583. The Addendum's conditional admission is therefore effective. This proves documentation admission and predecessor regression, not an implemented codec.
+Implement pure package codec with app-local source-catalog adapter; explicit caller artifact metadata; strict input budgets/schema/source compatibility; cycles/connectivity/slot occupancy; deterministic serialization; immutable typed rejection/success. Growing proof must use the real catalog and editor mutation/session APIs. One authoritative TASK commit and one Construction A PR; attach report and observed Actions/build/browser evidence.
 
-## Next eligible work
+Declared validations: npm run verify; npm run station:build; npx playwright test --config tests/browser/station-editor.playwright.config.ts. Require all triggered exact-head/current-base checks before merge. No unobserved local execution claim.
 
-Finish the bounded TASK-652 readiness inventory against fresh main: existing file/resource formats, graph/registry validation, external-input limits and identity/revision policy. TASK-652 permits only its own specification (max_files 1); apps/packages/tests/workflows/provider/runtime/deploy remain forbidden for this TASK. Validation: `npm run verify`, with observed Actions evidence when executing through GitHub.
-
-Readiness finding: accepted `docs/adr/ADR-0009-public-artifact-envelope.md` and `specs/contracts/artifact-envelope/artifact-envelope.schema.json` require the public envelope for artifacts crossing bounded-context boundaries, including artifact identity, SemVer, schema and provenance. Addendum 004's simplified envelope is still explicitly a proposal subject to contract review. Before declaring codec readiness, document whether this is a Station-internal document or a public boundary artifact; if public, reuse the envelope with the composition graph as payload. Do not silently treat admission as an ADR exception. Resolve through the applicable contract/ADR review before product code. Existing graph validation also lacks cycle/connectivity and collection-wide single-slot occupancy checks; caller-side strict external validation must cover them. No repository-wide byte/node ceiling was established by the inspected graph/catalog APIs; proposed limits require explicit justification and boundary tests.
-
-Before any product write, materialize a separate Construction A Sprint manifest and implementation TASK with exact allowed paths, dependencies, maximum files, validation commands and report obligations. Reuse installed source-owned catalog/graph contracts; strict unknown-field, unsafe-key, cycle, size/node-count, version and revision rejection; deterministic round trips and atomic failure recovery are mandatory. Do not infer an implementation TASK from the readiness title.
-
-Construction B persistence/UI stays forecast until codec proof and its own readiness gates pass. No durable Save/Open, full File Manager, .process format, Core business persistence, publish/deploy or complete Component Editor is implemented by this handoff.
+Construction B UI/persistence remains FORECAST until A integrates and fresh readiness decides provider/file workflow. Save still session-only. No codec, durable Save/Open, File Manager, .process, Core persistence or WP3 completion is claimed by this planning handoff.
 
 ## Coordination
-
-Owner authorized serial direct GitHub work and bounded commits/merges with Actions. Preserve other open PRs and worker history. The shared Windows worktree was not inspected or changed in this GitHub-only reconciliation; old clean/lock observations are historical and must be revalidated before local execution. No force/reset or direct main writes. Recheck fresh main and competing PRs before each mutation. Report IMPLEMENTED, PROVEN, INTEGRATED and CLOSED separately.
+Owner authorized serial direct GitHub commits/merges. No competing open WP3 PR was found at planning start. Shared Windows worktree was not inspected/changed; historical clean/lock statements are not current proof. Recheck remote main/open PRs and applicable locks before product writes. No force/reset/direct main writes; preserve unrelated worker history. Separate IMPLEMENTED, PROVEN, INTEGRATED and CLOSED.
