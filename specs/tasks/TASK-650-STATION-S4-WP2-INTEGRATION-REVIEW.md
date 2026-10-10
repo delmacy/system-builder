@@ -1,7 +1,7 @@
 ---
 id: TASK-650
 title: Station S4 WP2 Package Integration Review
-status: ready
+status: verification
 priority: 650
 milestone: STATION-S4-WP2-EDITOR-OPERATIONAL
 model_tier: architecture
@@ -83,3 +83,6 @@ Review commit/PR, exact-head/base, CI runs and explicit IMPLEMENTED/PROVEN/INTEG
 ## Escalation
 
 Stop and return to construction for a missing product capability; stop for L3/L4 drift, forbidden path, failing proof or conflicting writer.
+
+## Review checkpoint — 2026-10-10
+Integrated A/B scope, CI, trust, accessibility, debt and documentation readiness classified in the Sprint report. Optional C skipped; review exact-head checks and integration pending.
