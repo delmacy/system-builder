@@ -4,3 +4,4 @@ export * from "./inspector.js";
 export * from "./edit.js";
 export * from "./preview.js";
 export * from "./draft-boundary.js";
+export * from "./artifact-codec.js";

@@ -1,7 +1,7 @@
 ---
 id: TASK-653
 title: Station S4 WP3 Public Envelope Composition Codec
-status: draft
+status: verification
 priority: 653
 milestone: STATION-S4-WP3-LOCAL-ARTIFACT
 model_tier: architecture
@@ -54,7 +54,7 @@ validation:
 
 # TASK-653 — WP3 Construction A: public-envelope composition codec
 
-State: COMMITTED only after validated readiness-resolution PR integration; no product implementation yet.
+State: IMPLEMENTED_ON_SPRINT_BRANCH; exact-head Actions and validated integration required.
 Scope provenance: Addendum 004 and RESOLUTION-01; no ADR/schema changes.
 
 ## Objective
