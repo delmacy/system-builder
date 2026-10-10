@@ -1,0 +1,98 @@
+# Station S4 WP1-G Integration and Visual Gap Review 01
+
+Date: 2026-10-10
+Status: REVIEW EVIDENCE / PACKAGE OPEN
+Reviewed base: `d41085c6747dfceffc5b7b83d8f06cfda61dd651`
+
+## Verified integration evidence
+
+PR #1029 squash `d41085c6747dfceffc5b7b83d8f06cfda61dd651`; reviewed head `53d6df8972f007390916168072df85ba4d7cf797`.
+- Full exact-head verify: https://github.com/delmacy/system-builder/actions/runs/38049443498 — PASS.
+- Full merge-candidate verify: https://github.com/delmacy/system-builder/actions/runs/38049443470 — PASS.
+- Heavy product: https://github.com/delmacy/system-builder/actions/runs/38049443490 — PASS.
+- Handoff: https://github.com/delmacy/system-builder/actions/runs/38049443502 — PASS.
+Focused 6/6 and Station 38/38 local proof remains separate; Windows full-runner command-length limitation is unresolved local tooling debt.
+
+## Proof accounting
+
+| Obligation | Evidence | Disposition |
+|---|---|---|
+| One Station-owned API session | TASK-636–642 public API tests | PROVEN / INTEGRATED |
+| Cross-projection edit/save/discard | TASK-642 journey, full head/candidate CI | PROVEN / INTEGRATED for API |
+| Invalid/stale/forged edits and recovery | TASK-642 executable cases | PROVEN / INTEGRATED for API |
+| Actual visual workbench over same session | Current component-editor route uses earlier ComponentEditorState laboratory | UNPROVEN-GAP / missing construction |
+| Keyboard/focus on complete editor journey | No browser journey delivered by TASK-642 | UNPROVEN-GAP |
+| Accessibility of introduced visual editor | API N/A does not prove future UI | UNPROVEN-GAP |
+| Durable saving | Outside accepted WP1 scope | N/A; no claim |
+| C10 Studio | Explicitly deferred | DEFERRED |
+| Package closure | Visual outcome missing | BLOCKED |
+
+## Fresh-source review and disposition
+
+Read AGENTS, DOCUMENT_AUTHORITY, Addendum 002, WP1 plan, Sprint Mode and generation policy, TASK-642, public exports and current route/laboratory source. Existing laboratory changes component contracts and composition editor state, not the WP1 session APIs. Do not replace that historical capability silently; preserve its source and connect a separate StationEditorWorkbench at the route.
+
+TASK-643 is the sole corrective construction increment within admitted visual scope. WP1-H remains forecast pending integration and full-outcome revalidation. No product implementation is included in this planning change.
+
+## Historical serial execution handoff snapshot
+
+The following is the previous live pointer preserved verbatim as historical evidence. Its old next-action/lock/status entries are not present scheduling authority; see docs/current/NEXT_WORK.md for current truth.
+
+# Next Work — STATION S4 Visual Factory Foundation
+
+Date: 2026-10-10
+Reconciled base: `main@e42b8e882f08153a30571c7fdd7b300c32cc987d`
+Status: WP1-A/B/C/D/E/F INTEGRATED; WP1-G/TASK-642 IMPLEMENTED ON PR #1029; ACTIONS VERIFICATION PENDING
+
+> Single live execution pointer under `docs/DOCUMENT_AUTHORITY.md`. Revalidate main, PRs, dependencies and CI before each integration; recorded SHAs are historical clues.
+
+## Authority
+
+Scope: `docs/contracts/002-station-visual-factory/ADDENDUM.md`.
+WP1 plan: `project_docs/execution_planning/STATION-S4-VISUAL-FACTORY-WP1-PLAN-01.md`.
+Active successor: `specs/tasks/TASK-642-STATION-S4-WP1G-INTEGRATED-JOURNEY.md`.
+
+Admitted dependency sequence: A -> B -> C -> D -> E -> F -> G -> H. C10 remains DEFERRED/UNPROVEN.
+
+## Reconciled handoff
+
+WP1-A/B/C/D/E are integrated. WP1-E construction PR #1025 was squash-integrated at `e92d612e0e804ecb004c5d01e33728de0fb2dd6f`. WP1-F planning PR #1026 and construction PR #1028 are integrated; #1028 squash merge `e42b8e882f08153a30571c7fdd7b300c32cc987d`. Superseded PR #1027 remains separate and must not be mistaken for an active dependency.
+
+WP1-F established pure Station-local immutable accept/save and deterministic discard. No durable persistence or business rollback is claimed.
+
+## Next executable action
+
+1. Owner authorization on 2026-10-10 supersedes the exclusive-local-execution restriction: develop directly on GitHub branch `s4/serial-wp1`, PR #1029, with serial stage commits and Actions validation. Coordinate local workers through the shared exclusive lock; do not overwrite concurrent work. The shared local worktree remains a preserved checkpoint, not independent remote authority.
+2. Prove end-to-end public API journey with focused positive, negative, adversarial, recovery and predecessor-integration tests. Classify actual DOM/UI, keyboard and accessibility evidence honestly.
+3. Run the focused journey and repository-wide `npm run verify`; GitHub exact-head and merge-candidate Actions provide full Linux verification when the local Windows runner is blocked. Local results and CI results remain separately identified. Preserve one authoritative TASK commit through normal PR squash.
+4. Integrate to GitHub periodically at a coherent Sprint gate, with PR/CI/review and without bypassing safety restrictions; only then advance to WP1-H.
+
+## Invariants
+
+`identity != placement != presentation != action`; `ComponentRegistry != AppManifest`; `selection != focus != active != expansion`; discrete grid/span; one Station-owned draft; Layers/Inspector/Preview are projections. No Core/business/command, durable persistence, provider/runtime/deploy/secrets, arbitrary HTML/CSS/pixels. IMPLEMENTED != PROVEN != INTEGRATED; local test != merge-candidate CI.
+
+Handoff after every action: WP/TASK, worktree/branch/HEAD, tests/gates, blocker and next executable action.
+
+## Serial handoff — 2026-10-09 17:12 BRT (:10)
+WP1-G / TASK-642 remains local on `s4/serial-wp1` at `C:\Users\admin\system-builder-s4-serial`; GitHub main is `e42b8e88`. Five focused integrated-journey tests pass (positive, stale, malformed, unknown/forged/incompatible and recovery; orthogonal selection and clean idempotency). `npm run verify` attempted but lint stopped: eslint missing from this worktree; full verification UNPROVEN. No DOM/UI introduced; keyboard/accessibility N/A for this API-only increment, visual workbench UNPROVEN. Next: install dependencies safely, run full verify, reconcile one-commit governance, PR/CI/review/integrate before WP1-H. C10 DEFERRED.
+
+## Serial handoff — 2026-10-09 17:30 BRT (:30)
+WP1-G/TASK-642; shared `C:\Users\admin\system-builder-s4-serial` branch `s4/serial-wp1`, HEAD `b3ab0c9b8b24e64f6d322f95d0424707c7491c29`, `main@e42b8e882f08153a30571c7fdd7b300c32cc987d`. Lock directory had `RELEASED by :10` marker; after process diagnosis acquired exclusive `exclusive.lease` atomically for this turn. Two predecessor local TASK-642 commits exist (`cb4a8e52`, `b3ab0c9b`); no reset/rebase/force performed. Preserved prior worker's staged changes in NEXT_WORK and integrated journey test. Focused `npx --no-install tsx --test tests/product/station-editor-integrated-journey.test.ts`: 5/5 PASS; `npm run check:docs`: PASS; `git diff --cached --check`: PASS. `npm run verify`: FAIL at lint because `eslint` absent from shared worktree; attempted `npm ci --no-audit --no-fund` but Remote Desktop Commander tool blocked that operation via safety checks. Full verify, exact-head CI, merge-candidate, DOM/UI/keyboard/a11y remain UNPROVEN. No commit/push/PR/merge in this turn. Next: restore local dependencies through authorized means, complete full verification, reconcile one-authoritative-commit TASK governance without destructive rewriting of shared history, then PR/review/CI/integrate before WP1-H. C10 DEFERRED. Blocker dependency-install safety refusal: worker :30 1/5 scheduled rounds (2026-10-09 17:30 BRT; operation npm ci; mitigation read-only focused tests/docs, no bypass). Keep active.
+Lock release update (:30, 17:32 BRT): deletion of `exclusive.lease` was refused by safety checks; its contents were rewritten to `RELEASED by :30`, but the directory/lease file remain physically present. Next worker MUST diagnose this released marker and use an atomic exclusive mechanism before writing; do not assume directory absence or bypass safety checks.
+
+## Serial handoff — 2026-10-09 18:10 BRT (:10)
+WP1-G/TASK-642 on shared worktree `C:\Users\admin\system-builder-s4-serial`, branch `s4/serial-wp1`, HEAD `b3ab0c9b8b24e64f6d322f95d0424707c7491c29`; GitHub `main@e42b8e882f08153a30571c7fdd7b300c32cc987d` revalidated identical. Existing staged test expansion (two additional cases) and staged/unstaged handoffs preserved. Existing local commits `cb4a8e52` (materialization) and `b3ab0c9b` (integrated test) preserved without history rewriting. This run: focused `npx --no-install tsx --test tests/product/station-editor-integrated-journey.test.ts` 5/5 PASS; `npm run check:docs` PASS; `git diff --cached --check` and `git diff --check` PASS. `npm run verify` FAIL at lint: `eslint` not installed; retry of `npm ci --no-audit --no-fund` refused by safety checks. Full verify, exact-head CI, merge-candidate CI and UI/keyboard/a11y remain UNPROVEN; no PR/merge. Worker :10 dependency-install blocker 1/5 own scheduled rounds (2026-10-09 18:10 BRT, `npm ci` safety refusal; mitigation focused tests/docs and preserving existing work). Next: safe authorized dependency installation, full verify, reconcile local checkpoints into one authoritative integration commit via normal PR squash only after gates; then WP1-H. C10 DEFERRED. Exclusive lock acquired via atomic `active.lock` directory at 18:10; release marker must be verified before next worker, do not overwrite active lease.
+
+## Serial handoff — 2026-10-09 18:32–18:40 BRT (:30)
+WP1-G/TASK-642 on shared `s4/serial-wp1` worktree; fresh remote `main@e42b8e882f08153a30571c7fdd7b300c32cc987d` unchanged. Existing two local checkpoints preserved. Diagnosed RELEASED legacy lock markers, acquired `system-builder-s4-serial.lock/execution.lock` atomically for exclusive work; release required at end.
+Resolved previous dependency-install blocker: `npm ci --no-audit --no-fund` SUCCESS (163 packages; 2 install scripts disallowed by allowScripts), worker :30 install-blocker reset 0/5. `npm run verify` now passed lint and typecheck but revealed real TASK-642 missing parser headings (four harness tests failed); corrected TASK-642 within allowlist. Re-run unit suites 333/333 and handoff 11/11 PASS; product runner stopped on Windows `Linha de comando muito longa`, so full verify FAIL/UNPROVEN. Focused Station editor predecessor suite 37/37 PASS; `check:tasks` validated 635 tasks; architecture, docs and build PASS. Chunked core product tests: batches 1–12 (180 files) PASS, batch 13 FAIL in unrelated P13 TASK-260 `spawnSync status null` (reproduced isolated). No evidence for complete product suite, exact-head GitHub CI or merge-candidate CI. Actual DOM/keyboard/a11y workbench remains UNPROVEN; API-only TASK-642 accessibility N/A; C10 DEFERRED.
+Worker :30 Windows full-product verification blocker: 1/5 scheduled rounds (2026-10-09 18:32 BRT; `npm run verify` product runner command-length error; mitigation 37 Station tests, chunked core product diagnostic, isolated P13 reproduction). Distinct prior npm-install blocker cleared 0/5. Next: preserve local checkpoints, complete TASK-642 local checkpoint commit without rewriting predecessors, diagnose Windows product runner/P13 outside TASK allowlist without modifying forbidden paths, then periodic PR/exact-head CI/merge-candidate/review/squash; WP1-H only after integration. IMPLEMENTED (API tests) != PROVEN (full gates) != INTEGRATED.
+Commit gate update (:30, 2026-10-09 18:42 BRT): attempted allowlisted `git add` + `git diff --cached --check` + local checkpoint `git commit`; Desktop Commander safety checks refused the combined write operation. No new commit was observed. HEAD remains `b3ab0c9b`; three allowlisted files retain staged/unstaged changes, no reset/clean/force. Worker :30 commit-tool-refusal blocker 1/5 own scheduled rounds (mitigation: preserved verified changes for next authorized local writer). Do not claim committed or integrated.
+Lock-release update (:30): attempt to delete owned `execution.lock` and subsequent attempt to rewrite it as RELEASED were both refused by safety checks. Physical lock remains with owner :30 / 18:32:41; execution ended without further writes. Next worker MUST diagnose this lock as potentially orphaned, check active processes and verify ownership before any new atomic acquisition; do not assume release or run concurrently. No destructive cleanup was performed.
+
+## Manual Work handoff - 2026-10-10 08:40 BRT
+TASK-642 / WP1-G; exclusively shared worktree C:\Users\admin\system-builder-s4-serial, branch s4/serial-wp1. Pre-change HEAD b3ab0c9b8b24e64f6d322f95d0424707c7491c29; remote main e42b8e882f08153a30571c7fdd7b300c32cc987d and PR #1029 OPEN DRAFT at b3ab0c9b revalidated. Authority chain AGENTS, DOCUMENT_AUTHORITY, CONTRACT_INDEX, Addendum 002, WP1 plan, live pointer and TASK read. TASK depends on integrated TASK-641; allowlist exactly test/spec/live pointer (max_files=3), forbidden paths preserved. Atomically acquired execution.lock at 08:37:19 BRT; old markers RELEASED/archive. Preserved all existing staged/unstaged worker changes and checkpoint commits; no destructive Git operations. Existing worker heavy-suite process PID 2312 preserved.
+Added actual malformed-span/foreign-session/foreign-composition/extra-field rejection and recovery coverage; renamed stale-save test honestly. Preserved predecessor's concrete Layers hierarchy assertions. Focused TASK-642 6/6 PASS; full Station editor predecessor+journey suite 38/38 PASS. npm run verify exit 1: lint/typecheck PASS, harness 333/333 PASS and handoff 11/11 PASS, then product runner fails with Windows command-length limit. check:tasks 635 PASS, architecture PASS, docs PASS, build PASS; diff and staged diff checks PASS. Logs: C:\Users\admin\system-builder-s4-serial.lock\manual-20261010-verify.log and manual-20261010-station-final.log. Evidence applies to this working tree; it does not prove the old PR HEAD or merge candidate.
+IMPLEMENTED: integrated API tests and spec-parser correction. PROVEN: focused and predecessor API behavior plus named local gates only. Full repository verify and complete product suite UNPROVEN/blocked; INTEGRATED: NO. Actual DOM/keyboard/a11y workbench UNPROVEN; API-only increment N/A; C10 DEFERRED. CI failure at old PR HEAD is four task-parser tests for missing required headings, corrected locally but not yet published. Retain PR Draft and do not advance WP1-H. Prepare a non-destructive local checkpoint; authoritative TASK integration must reconcile checkpoint history through normal PR squash after all gates/review. Next: separately scoped Windows runner correction or declared full CI proof, then coherent PR update, exact-head and merge-candidate validation/review, integration only after gates. Do not modify scripts/run-product-tests.mjs under TASK-642's allowlist.
+
+## GitHub execution handoff - 2026-10-10 08:44 BRT
+Published checkpoint 6f36bd54f2522cd647f1f865e593d0ed68ecbe25 to PR #1029; four Actions started. This documentation commit records the owner-approved GitHub execution mode and invalidates prior exact-head evidence for the new HEAD. Await all required checks on the final HEAD and fresh base, review the three-file bounded diff, then squash-integrate TASK-642 only if all gates pass. Preserve historical checkpoint commits, local pending work and worker coordination. No integration claimed in this pre-merge document; actual merge SHA must be verified from GitHub before successor materialization. WP1-H remains blocked until TASK-642 integrates and fresh authority review addresses the visual-workbench proof gap.
