@@ -1,7 +1,7 @@
 # Station S4 WP2 — Editor Operational Journey — Plan 01
 
 Date: 2026-10-10
-Status: Construction A and B integrated; optional C skipped on fresh-main review; package review on branch, closure forecast
+Status: Construction A/B and Package Review integrated; optional C skipped; Documentation & Closure on validated Sprint branch
 Base: main@1c2625acacf2e161e388b031026da3766a84902d
 Scope: docs/contracts/003-station-editor-operational-journey/ADDENDUM.md
 Predecessor: WP1 CLOSED / bounded PROVEN / INTEGRATED; PR #1034
@@ -26,8 +26,8 @@ Planning -> A1 catalog/session input adapter (TASK-646) -> A2 reusable catalog w
 | Construction A | INTEGRATED PR #1036 | Source-owned catalog, validated session input, descriptor-aware spans/hierarchy, safe switching; real route browser edit/save/discard plus negative/recovery and all WP1 regression |
 | Construction B | INTEGRATED PR #1037 | Ordinary launcher/window integration, independent editing context, minimize/restore preservation, close/reopen semantics; real Station-to-editor E2E |
 | Construction C | SKIPPED after fresh-main goal review | Promote only if fresh A+B evidence reveals a bounded unmet package goal; otherwise skip |
-| Package Integration & Review | COMMITTED | Review full chain, trust/contracts/debt/accessibility/CI/readiness; missing features return to construction |
-| Documentation & Closure | FORECAST | Reconcile actual integrated outcomes/risks/traceability and close only bounded scope |
+| Package Integration & Review | INTEGRATED PR #1038 | Review full chain, trust/contracts/debt/accessibility/CI/readiness; missing features return to construction |
+| Documentation & Closure | COMMITTED; closure on validated PR merge | Reconcile actual integrated outcomes/risks/traceability and close only bounded scope |
 
 ## Architecture / risk disposition
 
@@ -37,4 +37,4 @@ App-local adapter types and existing public editor/composition/app/window contra
 
 Serial owner-authorized direct GitHub commits, one Sprint branch/PR, one distinct authoritative commit per TASK. Construction A has two TASK commits; integrate with a merge method preserving both, never squash them into a single multi-TASK commit. Run npm run verify, npm run station:build, npx playwright test --config tests/browser/station-editor.playwright.config.ts. All triggered exact-head, current merge-candidate, heavy/handoff, builds/frontend/browser checks and retained artifacts must pass before integration. No local execution claim without observed results.
 
-Construction A and B integrated under separate Sprint PRs with full exact-head proof. Fresh main@22d0ad7 shows the bounded goal covered; optional C is skipped. TASK-650 review executes separately; Documentation & Closure remains forecast until review integrates. Preserve shared local checkpoint and historical branches.
+Construction A and B integrated under separate Sprint PRs with full exact-head proof. Fresh main@22d0ad7 shows the bounded goal covered; optional C is skipped. TASK-650 review integrated through PR #1038 at f6888d9, with GO for closure. TASK-651 reconciles package memory; bounded WP2 closure is effective only after exact-head closure PR integration. Preserve shared local checkpoint and historical branches.

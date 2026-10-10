@@ -240,3 +240,13 @@ M1 is small, but establishes rules:
 ## Post-M1 succession
 
 After M1, likely next visual packages are File Manager/Resource Explorer, generic Explorer+Inspector, then first real Studio. These are not executable scope of this milestone.
+
+## Station S4 WP2 operational Composition Editor
+
+Addendum 003's bounded implementation uses an app-local normalized `app:composition-editor` manifest registered with the ordinary StationAppRegistry. Station's launcher opens one `composition-editor` WindowDefinition; the workbench uses the source-owned catalog and public editor/composition session APIs. The two admitted entries are the default grid/two-button example and Station ButtonGroup with actual typed slots. Layers, Inspector and Preview derive from one Station-owned draft; descriptor bounds constrain spans. Dirty catalog switching requires explicit Cancel or Discard-and-open.
+
+The window host retains minimized WindowFrame children mounted and hidden; restoring reveals that same in-memory editor draft, fields and selection. Closing unmounts the window; reopening or reloading starts a fresh editor session. Browser local layout storage records presentation-only window identity/lifecycle/geometry; it does not store graphs, drafts or accepted edits. The earlier Component Lab proof's display-only Layers fixture is separate and is not an editor graph.
+
+To run the integrated UI locally with Node 24 and npm 11: `npm ci`, `npm run station:build`, then `npm run station:start -- --hostname 127.0.0.1 --port 3100`. Open `http://127.0.0.1:3100/`, choose Open applications in the taskbar, then Composition Editor. The standalone `/component-editor` route exercises the same workbench. To verify, run `npm run verify` and `npx playwright test --config tests/browser/station-editor.playwright.config.ts` after installing Playwright Chromium as needed; the browser config starts the built Station server and includes twelve route/window journeys. CI artifact 11673633215 from Construction B contains the browser report and screenshots. This is a local production build, not a deployed user environment. Save/discard is session-local and is not durable persistence.
+
+See `project_docs/execution_planning/STATION-S4-WP2-DOCUMENTATION-CLOSURE-01.report.md` for integrated PR/CI traceability and residual limits. The M1 foundation and diagrams above remain historical design context.

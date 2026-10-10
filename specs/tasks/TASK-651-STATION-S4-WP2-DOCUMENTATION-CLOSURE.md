@@ -1,7 +1,7 @@
 ---
 id: TASK-651
 title: Station S4 WP2 Documentation Closure
-status: ready
+status: verification
 priority: 651
 milestone: STATION-S4-WP2-EDITOR-OPERATIONAL
 model_tier: architecture
@@ -85,3 +85,6 @@ One TASK commit, PR, CI artifact references and a verifiable external handoff wi
 ## Escalation
 
 Stop if documentation uncovers a missing bounded product goal, forbidden path, L3/L4 drift, conflicting writer or failing proof.
+
+## Closure checkpoint — 2026-10-10
+Repository memory, integrated traceability, local run instructions and bounded limitations reconciled on closure branch; exact-head CI and PR integration pending.
