@@ -5,7 +5,6 @@ status: verification
 priority: 648
 milestone: STATION-S4-WP2-EDITOR-OPERATIONAL
 model_tier: architecture
-executor_preference: any
 risk: medium
 architecture_impact: false
 depends_on:
@@ -42,3 +41,45 @@ Register an app-local normalized AppManifest with window definition for ordinary
 
 ## Implementation checkpoint — 2026-10-10
 App-local normalized manifest and product tests committed; exact-head verify/build pending.
+
+## Objective
+
+Register the Composition Editor as an ordinary source-owned Station app.
+
+## Context
+
+Construction A PR #1036 integrated at main@399db219 with exact-head verify/build/browser. This TASK executes under Addendum 003 and the committed Construction B manifest.
+
+## Current behavior
+
+The reusable editor exists at /component-editor but the launcher has no app definition for it.
+
+## Required change
+
+Define and test a normalized app-local manifest with a singleton editor window, known identity and unknown-app rejection. Do not wire desktop yet.
+
+## Inputs / contracts
+
+Existing public StationAppRegistry, WindowDefinition, WindowFrame and Station editor/workbench APIs. No schema change.
+
+## Outputs / contracts
+
+A bounded Station-local app/window editing journey with one session per mounted window; no Core or durable composition authority.
+
+## Acceptance criteria
+
+- The declared positive, negative and predecessor integration behaviors pass real tests.
+- All declared validation commands pass before successor work and final exact-head checks pass before merge.
+- All changes stay inside allowed_paths and max_files.
+
+## Non-goals
+
+No external files/JSON, provider, durable editor persistence, Core/business, deploy, C10, public API/schema or workflow change.
+
+## Evidence expected
+
+TASK commit, actual verify/build/browser run IDs, retained report/screenshots, Sprint report and separate IMPLEMENTED/PROVEN/INTEGRATED claims.
+
+## Escalation
+
+Stop for forbidden path, unavailable public capability, L3/L4 contract/architecture drift, conflicting writer or failing proof; do not silently expand this TASK.
