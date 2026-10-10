@@ -1,7 +1,7 @@
 ---
 id: TASK-643
 title: STATION S4 WP1 Corrective Visual Workbench
-status: ready
+status: verification
 priority: 643
 milestone: STATION-S4-VISUAL-FACTORY-WP1
 model_tier: architecture
@@ -101,3 +101,6 @@ Playwright positive/negative/recovery and keyboard/focus journeys, production bu
 ## Escalation
 
 If existing public APIs cannot support the admitted route or shared primitives require changes outside the allowlist, record the exact gap and materialize a separately bounded correction before changing forbidden paths. Never close WP1 with static markup or API-only success.
+
+## Construction checkpoint - 2026-10-10
+PR #1031 implements the bounded route and four actual browser journeys. Initial implementation head bf25208f passed browser 4/4 and named gates recorded in the construction report. Corrected evidence output/upload paths after discovering no artifact was retained. This final checkpoint is VERIFICATION, not yet INTEGRATED; require fresh-head full checks plus retained browser artifacts before squash. No package closure claim.
