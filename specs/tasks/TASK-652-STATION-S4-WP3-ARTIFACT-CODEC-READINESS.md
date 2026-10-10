@@ -1,7 +1,7 @@
 ---
 id: TASK-652
 title: Station S4 WP3 Portable Composition Codec Readiness
-status: planned
+status: draft
 priority: 652
 milestone: STATION-S4-WP3-LOCAL-ARTIFACT
 model_tier: architecture
