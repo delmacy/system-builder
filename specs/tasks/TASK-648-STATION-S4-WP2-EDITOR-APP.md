@@ -5,6 +5,7 @@ status: verification
 priority: 648
 milestone: STATION-S4-WP2-EDITOR-OPERATIONAL
 model_tier: architecture
+executor_preference: any
 risk: medium
 architecture_impact: false
 depends_on:
