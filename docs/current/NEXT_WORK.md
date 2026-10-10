@@ -1,14 +1,15 @@
-# Next Work — Station S4 WP4 Edit History
+# Next Work — after Station S4 WP4
 Date: 2026-10-10
-Revalidated base: main@979b1a502893e18f6b4572e69e911669f4088ffb
-Status: WP3 CLOSED through #1049; WP4 Planning integrated #1050; A #1051 and B #1052 integrated; Package Review/TASK-660 implemented on branch; closure GO conditional
-Next eligible gate: validate/integrate Package Review/TASK-660, then fresh-main Closure materialization
+Status: WP4 CLOSED effective on validated STATION-S4-WP4-DOCUMENTATION-CLOSURE-01 integration; before merge only closure validation/integration remains
+Next eligible gate: fresh-main scope/dependency/readiness planning; no successor Sprint/TASK committed
 
-## Authority
-Read AGENTS.md, docs/DOCUMENT_AUTHORITY.md, docs/contracts/CONTRACT_INDEX.md, docs/contracts/005-station-edit-history/ADDENDUM.md, project_docs/execution_planning/STATION-S4-WP4-PLAN-01.md and STATION-S4-WP4-CONSTRUCTION-A-01.md, then specs/tasks/TASK-658-STATION-S4-WP4-HISTORY-ENGINE.md and every context_path. TASK-657/Planning #1050 passed all five workflows and integrated; Addendum 005 admission and A commitment are effective. A #1051 passed all seven workflows and integrated. Read STATION-S4-WP4-CONSTRUCTION-B-01.md and specs/tasks/TASK-659-STATION-S4-WP4-HISTORY-WORKBENCH.md plus every context_path. B #1052 passed all seven workflows and 29 Chromium journeys and integrated. Read STATION-S4-WP4-INTEGRATION-REVIEW-01.md, specs/tasks/TASK-660-STATION-S4-WP4-PACKAGE-REVIEW.md and every context_path. Review only is committed; optional C NOT PROMOTED; Closure remains forecast.
+## Authority and effective outcome
+AGENTS.md, docs/DOCUMENT_AUTHORITY.md and docs/contracts/CONTRACT_INDEX.md govern. Addendum 005 admitted bounded ephemeral span-edit history; unchanged C0→C9/EditorSession/source topology/ADR-0009 and Addenda 002/003/004 boundaries remain. Read project_docs/execution_planning/STATION-S4-WP4-PLAN-01.md and STATION-S4-WP4-DOCUMENTATION-CLOSURE-01.report.md for outcome/evidence. Before closure merge its manifest and TASK-661 govern only final validation/integration.
 
-## Goal and boundaries
-Bounded 50-entry ephemeral undo/redo for installed span edits, with monotonic draft revision, no data loss, synchronized projections and explicit checkpoint lifecycle. Source topology, public artifact envelope, Station/Core boundary and preferences stay unchanged. Optional C NOT PROMOTED; Closure remains FORECAST. Do not restart WP3 or infer construction from historical ACTIVE tokens.
+WP2 #1039 and WP3 #1049 closed. WP4 planning #1050, A #1051, B #1052 and review #1053 integrated. Undo/redo, 50-edit limit, monotonic revision/dirty baseline, native-text-safe shortcuts and explicit checkpoint/cancel/failure/window lifecycle implemented/proven; B passed seven workflows, Windows/Ubuntu and 29 Chromium journeys, review repeated 29/29 and five workflows. Optional C unnecessary and not promoted. Closing declaration effective only at validated closure integration, never branch-only work.
 
-## Execution
-Owner continuation/conclusion and commit/merge authorization covers deterministic eligible Sprint progression only after their declared gates. Revalidate fresh main/open PRs/locks before every Sprint. Preserve unrelated PRs and legacy ledger. No complete Component Editor, structural authoring, File Manager, .process, Core/server/sync/Studio/deploy claim. WP3 residuals remain in docs/current/RISKS.md and closure report.
+## Next planning boundary
+After closure reconstruct fresh main/relevant PRs/contracts/WBS/dependencies/risks/readiness before proposing the smallest eligible package. Preserve unrelated PRs/research and legacy ledger; do not restart WP4 TASKs. No successor materialized. Structural authoring, File Manager, canonical .process, Core/server persistence, sync, Studios/AI/deployment remain separately gated. No old ACTIVE/READY token or forecast authorizes construction.
+
+## Operation and residuals
+See docs/architecture/STATION_FRONTEND_FOUNDATION.md for actual run/build/test, save/open and undo/redo usage. History is mounted-session-only and resets at successful checkpoints/open/reload/close; native text undo remains separate and unapplied text blocks graph undo without loss. Generated-report lint and larger-graph snapshot measurement remain backlog; WP3 origin/quota/conflict/download/corrupt-slot limits unchanged. See docs/current/RISKS.md and review/closure reports. No complete Component Editor or deployment claim.

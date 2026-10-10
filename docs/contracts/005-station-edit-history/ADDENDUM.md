@@ -1,6 +1,6 @@
 # Contract Addendum 005 — Station Edit History
 Date: 2026-10-10
-Status: admission effective only after validated Planning PR integration
+Status: ACCEPTED through #1050; WP4 CLOSED effective only on validated Documentation & Closure integration
 Admission source: owner continuation/conclusion after verified WP3 closure (#1049), 2026-10-10. This increment selects the smallest reversible-edit improvement; it does not admit a complete Component Editor.
 
 ## Scope and boundaries
@@ -19,3 +19,6 @@ Planning -> pure engine Construction A -> UI/browser Construction B -> optional 
 
 ## Exclusions
 Structural component authoring, File Manager, .process, Core/server/sync, remote publish/deploy, AI authoring, new providers/dependencies, shared envelope/ADR/schema changes remain separately gated.
+
+## Delivery checkpoint
+Planning #1050, engine A #1051, UI B #1052 and Package Review #1053 validated and integrated. Normative behavior and source/schema/ADR boundaries above are unchanged. Twenty-nine actual browser journeys and Windows/Ubuntu builds prove the bounded goal; no complete editor claim. Documentation & Closure report maps delivery/residuals. Closure declaration activates only on validated closure PR integration.
