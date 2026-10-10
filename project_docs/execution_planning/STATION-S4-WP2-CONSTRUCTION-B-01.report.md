@@ -15,6 +15,10 @@ App-local normalized Composition Editor manifest registered independently of M1 
 
 Station registry consumes the app-local editor manifest; desktop renders the workbench in an ordinary WindowFrame. Minimized instances remain mounted but display:none, while closed instances unmount. Actual browser tests cover launcher, edit/minimize/restore, close/reopen, negative descriptor bound, dirty switch cancellation and presentation-only layout storage; existing ten route regressions remain. Final exact-head verification, screenshot artifact and integration pending.
 
-## CI correction
+## Final branch proof on 0ef275c98e3de559352ef3e2e7c0c4ff6adfbae3
 
-Initial TASK-649 browser 9/9 omitted three A regressions; correction 3fcbb164 restored all 12 and browser run 38062491125 passed (artifact 11673098769; restored window screenshot inspected). Exact verify on 3fcbb164 rejected an old source-assertion requiring OPEN-only rendering; bounded task path change 2d3eb28 admits updating that assertion to the mounted minimized model. Final gates still pending.
+TASK-648 authoritative 48b50d731a220aa0f0e82cb4a8a13acf93f2a313, TASK-649 authoritative 999b03df9409b38a03b22d2248bb87e28a459564; metadata and regression/source-assertion corrections remain separate history (245f41e, 6e97158, 454ef35, 3fcbb16, 2d3eb28, 0ef275c). No force/rebase.
+
+Exact-head npm run verify 38062712751 PASS; merge-candidate 38062712740 PASS; heavy 38062712694 PASS; handoff/reduce 38062712682 PASS; Station Next builds Ubuntu/Windows 38062712690 PASS; frontend browser a11y/visual and component 38062712706 PASS; Station browser 38062712684 PASS (12/12; ten Construction A regressions and two desktop journeys). Retained screenshot/report artifact 11673293820; restored editor screenshot from code-identical prior artifact 11673098769 inspected visually. Store boundary test confirms window presentation payload excludes graph/draft; reload starts a fresh editor session. These observations are branch PROVEN, not integrated until PR merge. No desktop deploy or durable save claim.
+
+This documentation proof checkpoint itself requires final exact-head checks. Construction C remains conditional; package review/closure forecast.
