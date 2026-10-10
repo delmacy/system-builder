@@ -20,3 +20,6 @@ Thirteen focused history plus file/store predecessor cases, docs/task-catalog/ar
 
 ## Explicit deferrals
 Full Component Editor, structural add/remove/reparent/reorder, File Manager/.process, Core/server/sync/Studio/AI/deployment remain outside this package. No successor is committed by review. Preserve unrelated open research/PRs and legacy ledger.
+
+## Validated review integration
+#1053 integrated after exact head bf2fdab0937b068309bdc17a45d5de8d3fa5e324 passed Automation Handoff State Machine 38081433805, Heavy Product Tests 38081433817, Station Editor Browser Journey 38081433908, Merge Candidate CI 38081433800, Deterministic CI 38081433839. Browser 29/29 repeated. Closure GO effective; prior conditional gate is historical.

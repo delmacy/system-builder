@@ -1,6 +1,6 @@
 # Station S4 WP4 — Edit History Plan 01
 Date: 2026-10-10
-State: Planning on Sprint branch; admission and A commitment effective only on validated integration
+State: A/B/review IMPLEMENTED / PROVEN / INTEGRATED; WP4 CLOSED declaration effective only on validated Documentation & Closure integration. Prior checkpoints are historical; NEXT_WORK is the live pointer.
 Base: main@2cf4ad958257615d9fd45cdc4c6d05d0c5b5b529 (#1049)
 Authority: Addendum 005; WBS 21.2.1/21.2.3; unchanged Addenda 002/003/004, ADR-0009 and Station foundation
 
@@ -34,3 +34,6 @@ B #1052 integrated at 979b1a502893e18f6b4572e69e911669f4088ffb; all seven workfl
 
 ## Rolling-wave checkpoint — Documentation & Closure
 Review #1053 integrated at c8fcf2d62cba9ec06b435af37e3a241d76bfae6d after all five workflows and repeated 29/29 Chromium journeys. Closure GO is effective. Only TASK-661/Documentation & Closure is COMMITTED; no successor. WP4 remains open until validated closure integration.
+
+## Final package disposition
+Bounded applied-span undo/redo goal delivered. Two Construction Sprints plus Package Review and Documentation & Closure; optional C not needed. WBS 21.2.1/21.2.3 slice only, not whole WBS closure. Contracts/dependencies/risks/operations reconciled; legacy ledger and unrelated PRs unchanged. Closed declaration effective at validated closure merge. No successor committed; fresh-main scope/readiness planning is next eligible gate.

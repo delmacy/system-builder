@@ -1,7 +1,7 @@
 ---
 id: TASK-661
 title: Station S4 WP4 DOCUMENTATION-CLOSURE
-status: ready
+status: completed
 priority: 661
 milestone: STATION-S4-WP4-EDIT-HISTORY
 model_tier: architecture
@@ -89,3 +89,6 @@ One authoritative TASK commit, Sprint report, one PR; observed declared local va
 
 ## Escalation
 Stop for conflicting authority, worker collision, forbidden path, undeclared L3/L4/dependency change or proof requiring scope relaxation. Preserve unrelated PRs and legacy ledger.
+
+## Closure checkpoint
+Memory reconciled; WP4 CLOSED declaration activates only on validated closure PR integration. No successor committed.

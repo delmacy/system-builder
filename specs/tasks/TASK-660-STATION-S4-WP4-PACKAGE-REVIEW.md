@@ -90,3 +90,6 @@ Stop for conflicting authority, worker collision, forbidden path, undeclared L3/
 
 ## Review checkpoint
 Package bounded goal met; optional C not promoted. Closure GO effective only after this review Sprint validates and integrates.
+
+## Integrated completion
+TASK-660 IMPLEMENTED / PROVEN / INTEGRATED through #1053; all five triggered workflows and 29/29 browser regression passed. Closure GO is effective.

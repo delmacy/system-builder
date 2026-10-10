@@ -80,3 +80,6 @@ One authoritative TASK commit, Sprint report, one PR; observed declared local va
 
 ## Escalation
 Stop for conflicting authority, worker collision, forbidden path, undeclared L3/L4/dependency change or proof requiring scope relaxation. Preserve unrelated PRs and legacy ledger.
+
+## Integrated completion
+TASK-657 IMPLEMENTED / PROVEN / INTEGRATED through #1050; five workflows passed. Addendum 005 admission effective; later phases did not retroactively broaden planning scope.
