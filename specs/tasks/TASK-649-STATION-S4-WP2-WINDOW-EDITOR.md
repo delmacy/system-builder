@@ -1,7 +1,7 @@
 ---
 id: TASK-649
 title: Station S4 WP2 Window Editor Journey
-status: ready
+status: verification
 priority: 649
 milestone: STATION-S4-WP2-EDITOR-OPERATIONAL
 model_tier: architecture
@@ -84,3 +84,6 @@ TASK commit, actual verify/build/browser run IDs, retained report/screenshots, S
 ## Escalation
 
 Stop for forbidden path, unavailable public capability, L3/L4 contract/architecture drift, conflicting writer or failing proof; do not silently expand this TASK.
+
+## Implementation checkpoint — 2026-10-10
+Desktop launcher/window lifecycle and actual browser journeys committed; exact-head proof pending.
