@@ -1,7 +1,7 @@
 ---
 id: TASK-648
 title: Station S4 WP2 Editor App Manifest
-status: ready
+status: verification
 priority: 648
 milestone: STATION-S4-WP2-EDITOR-OPERATIONAL
 model_tier: architecture
@@ -38,3 +38,6 @@ validation:
 # TASK-648 — Station Editor App Manifest
 
 Register an app-local normalized AppManifest with window definition for ordinary StationAppRegistry launch. Use source-owned identity and existing WindowDefinition, no new shared contract. Positive and negative product tests prove valid launch, singleton/known identity and rejection of unknown application without modifying the existing M1 inventory. Do not wire desktop in this TASK. Run declared validations before TASK-649.
+
+## Implementation checkpoint — 2026-10-10
+App-local normalized manifest and product tests committed; exact-head verify/build pending.
