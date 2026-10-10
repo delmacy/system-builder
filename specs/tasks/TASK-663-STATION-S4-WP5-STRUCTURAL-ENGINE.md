@@ -30,6 +30,8 @@ allowed_paths:
 - packages/station-editor/index.ts
 - tests/product/station-editor-structure.test.ts
 - tests/product/station-editor-artifact-codec.test.ts
+- tests/product/station-editor-layers-selection.test.ts
+- tests/product/station-editor-preview-convergence.test.ts
 - project_docs/execution_planning/STATION-S4-WP5-CONSTRUCTION-A-01.report.md
 forbidden_paths:
 - docs/adr/**
@@ -41,12 +43,12 @@ forbidden_paths:
 - provider/**
 - runtime/**
 - deploy/**
-max_files: 8
+max_files: 10
 validation:
 - npm run verify
 ---
 
-Implement only Addendum 006 pure bounded operations, history, ordering and codec compatibility. Confirm eight allowed paths, forbidden paths, predecessor and validation. Tests invoke actual catalog/editor/projections/codec; include immutable failures, stale/root/foreign refs/cardinality/bounds/no-op/revision overflow and v1/v2. No UI change. Final Station build and all 29 predecessor browser journeys required.
+Implement only Addendum 006 pure bounded operations, history, ordering and codec compatibility. Confirm ten allowed paths, forbidden paths, predecessor and validation. Tests invoke actual catalog/editor/projections/codec; include immutable failures, stale/root/foreign refs/cardinality/bounds/no-op/revision overflow and v1/v2. No UI change. Final Station build and all 29 predecessor browser journeys required.
 
 ## Objective
 Deliver the declared bounded WP5 Sprint goal.
@@ -68,3 +70,6 @@ External components, reparenting, free drag, Core/server/File Manager/.process/s
 One authoritative TASK commit, Sprint report, one PR and observed exact-head/current-base checks.
 ## Escalation
 Stop for collision, conflicting authority, forbidden paths, undeclared L3/L4 or security weakening.
+
+## Bounded operational change control
+Real regression exposed three assertions for the superseded alphabetical/array-order-independent projection behavior. Addendum 006 explicitly makes node array order meaningful. Permit only the two affected predecessor test files to assert authored sibling order while preserving identity/selection/ancestry/immutability proof. No new capability or architecture change.
