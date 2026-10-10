@@ -2,7 +2,7 @@
 
 Date: 2026-10-10
 Base: main@5300763aafa3aac162d1a3e59535bc8a256545ac
-Status: readiness integrated through #1045 at eaad7ef3; TASK-653 implemented on Construction A branch, validation/integration pending
+Status: Construction A INTEGRATED #1046; Construction B COMMITTED, implementation pending
 
 ## Authority
 - AGENTS.md and docs/DOCUMENT_AUTHORITY.md.
@@ -20,13 +20,8 @@ WP2 closure #1039 merged at 9768c06e. WP3 planning #1040, readiness #1041, propo
 TASK-652's distinct readiness commit changes only its permitted specification. It inventories common-envelope compatibility, source graph/session boundaries and new bounded-input policies. Contract resolution conforms to ADR-0009: public envelope plus strict composition payload, lossless inert optional metadata and unsupported required-extension rejection. No new ADR/architecture exception. Readiness-resolution #1045 passed all five triggered workflows and merged at eaad7ef3. Construction A is now executing under TASK-653; predecessor conditional labels are historical checkpoints.
 
 ## Next eligible execution
-After validated resolution integration, reconstruct fresh main and competing PR/worker state, then execute TASK-653 on sprint/station-s4-wp3-construction-a. Confirm its seven exact allowed paths, forbidden shared contracts/settings/composition/workflow/provider/runtime/deploy paths, dependency TASK-652 and declared validations before writing. No code under TASK-652; no forecast promotion.
+Construction A #1046 merged at 1c39ee81 with all seven exact-head workflows passed. Construction B is COMMITTED under explicit owner authorization to conclude WP3: project_docs/execution_planning/STATION-S4-WP3-CONSTRUCTION-B-01.md and TASK-654-STATION-S4-WP3-FILE-LOCAL-JOURNEY.md. Provider/file policy is docs/contracts/004-station-portable-composition-artifacts/RESOLUTION-02.md; common public envelope is unchanged.
 
-Implement pure package codec with app-local source-catalog adapter; explicit caller artifact metadata; strict input budgets/schema/source compatibility; cycles/connectivity/slot occupancy; deterministic serialization; immutable typed rejection/success. Growing proof must use the real catalog and editor mutation/session APIs. One authoritative TASK commit and one Construction A PR; attach report and observed Actions/build/browser evidence.
+Execute TASK-654 on sprint/station-s4-wp3-construction-b, confirming all nine allowed paths, forbidden paths, dependency TASK-653 and declared validations before code. Run npm run verify, npm run station:build and npx playwright test --config tests/browser/station-editor.playwright.config.ts; require exact-head/current-base CI and build/browser evidence before merge. Extend real codec proof through actual downloads, reload/Open saved, dirty cancellation, corrupt input, metadata versioning and storage failure. Shared Windows worktree was not changed and local locks are not claimed inspected. Preserve other PRs/history; no force/reset/direct main writes.
 
-Declared validations: npm run verify; npm run station:build; npx playwright test --config tests/browser/station-editor.playwright.config.ts. Require all triggered exact-head/current-base checks before merge. No unobserved local execution claim.
-
-Construction A codec is branch-only until validated merge. Construction B remains FORECAST until A integrates and fresh readiness materializes its provider/file workflow. Save remains session-only; no durable Save/Open, File Manager, .process, Core persistence or WP3 completion is claimed.
-
-## Coordination
-Owner authorized serial direct GitHub commits/merges. No competing open WP3 PR was found at planning start. Shared Windows worktree was not inspected/changed; historical clean/lock statements are not current proof. Recheck remote main/open PRs and applicable locks before product writes. No force/reset/direct main writes; preserve unrelated worker history. Separate IMPLEMENTED, PROVEN, INTEGRATED and CLOSED.
+B implementation/integration is pending. Optional C, Package Review and Documentation & Closure remain FORECAST until predecessor gates pass. Save still session-only until B integrates; no WP3 completion is claimed.

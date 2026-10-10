@@ -43,3 +43,6 @@ Core-side persistence, multi-tenant authorization, File Manager, Studio-specific
 ## Execution discipline
 
 Planning -> approved scope/readiness -> separate construction PRs and TASK commits -> integration review -> closure. Do not claim IMPLEMENTED or PROVEN from this planning document. GitHub Actions on this planning PR are required before integration. No force pushes or destructive Git operations.
+
+## Rolling-wave checkpoint — 2026-10-10
+Construction A #1046 integrated at 1c39ee81 with seven passing workflows. Construction B materialized under TASK-654/RESOLUTION-02: explicit origin-local artifacts separate from preferences and portable file download/open. Only B is now COMMITTED; optional C/review/closure remain forecast. Historical conditional/planning labels above describe prior checkpoints, not live execution.
