@@ -1,3 +1,36 @@
+---
+id: TASK-652
+title: Station S4 WP3 Portable Composition Codec Readiness
+status: planned
+priority: 652
+milestone: STATION-S4-WP3-LOCAL-ARTIFACT
+model_tier: architecture
+risk: medium
+architecture_impact: false
+executor_preference: any
+depends_on:
+  - TASK-651
+context_paths:
+  - AGENTS.md
+  - docs/DOCUMENT_AUTHORITY.md
+  - docs/contracts/CONTRACT_INDEX.md
+  - project_docs/execution_planning/STATION-S4-WP3-LOCAL-ARTIFACT-PLANNING-01.md
+  - apps/station/web/app/station-editor-catalog.ts
+allowed_paths:
+  - specs/tasks/TASK-652-STATION-S4-WP3-ARTIFACT-CODEC-READINESS.md
+forbidden_paths:
+  - apps/**
+  - packages/**
+  - tests/**
+  - .github/**
+  - provider/**
+  - runtime/**
+  - deploy/**
+max_files: 1
+validation:
+  - npm run verify
+---
+
 # TASK-652 — Station S4 WP3: Portable Composition Codec Readiness
 
 State: PLANNED (not implemented)
