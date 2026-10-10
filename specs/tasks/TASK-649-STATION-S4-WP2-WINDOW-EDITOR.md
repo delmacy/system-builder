@@ -23,6 +23,7 @@ allowed_paths:
   - apps/station/web/app/station-foundation-client.tsx
   - packages/station-windowing/window-frame.tsx
   - tests/browser/station-editor-workbench.spec.ts
+  - tests/product/station-visual-foundation.test.ts
   - specs/tasks/TASK-649-STATION-S4-WP2-WINDOW-EDITOR.md
   - project_docs/execution_planning/STATION-S4-WP2-CONSTRUCTION-B-01.report.md
 forbidden_paths:
@@ -32,7 +33,7 @@ forbidden_paths:
   - provider/**
   - runtime/**
   - deploy/**
-max_files: 5
+max_files: 6
 validation:
   - npm run verify
   - npm run station:build
@@ -87,3 +88,6 @@ Stop for forbidden path, unavailable public capability, L3/L4 contract/architect
 
 ## Implementation checkpoint — 2026-10-10
 Desktop launcher/window lifecycle and actual browser journeys committed; exact-head proof pending.
+
+## Bounded change control — 2026-10-10
+The existing product source-assertion test assumes only OPEN windows are rendered and must be updated to assert the admitted minimized-mounted lifecycle. Its path is added to allowed_paths and max_files before mutation; no new behavior or package scope is introduced.

@@ -16,7 +16,7 @@ Register a normal Station Editor app/window through the existing manifest regist
 
 Construction A merged as PR #1036 at 399db219; final exact-head verify 38061333787, merge candidate 38061333815, Station builds 38061333954 and browser 38061333870 (10/10, artifact 11672844879). Main and Windows shared worktree/locks revalidated. This Sprint uses the app-local manifest, existing StationAppRegistry, WindowDefinition, WindowFrame and editor workbench. WindowFrame may keep minimized children mounted while hidden; closed instances unmount. No public API/schema change, no persistent drafts or Core/business behavior. The separate Component Lab proof remains unchanged.
 
-TASK-648 allows app-local manifest, product test, TASK, Sprint report and live pointer (max 5). TASK-649 allows Station foundation client, WindowFrame, actual browser spec, TASK and Sprint report (max 5). Neither permits workflows, external providers, deploy, persistence or public contracts. A package-internal rendering lifecycle correction is L2 and does not change public types.
+TASK-648 allows app-local manifest, product test, TASK, Sprint report and live pointer (max 5). TASK-649 allows Station foundation client, WindowFrame, actual browser spec, existing foundation product test, TASK and Sprint report (max 6). Neither permits workflows, external providers, deploy, persistence or public contracts. A package-internal rendering lifecycle correction is L2 and does not change public types.
 
 ## Exit
 
