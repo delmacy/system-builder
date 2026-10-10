@@ -51,14 +51,15 @@ function forged(editor: EditorSession, nodes: unknown[]): EditorSession {
     draft: { ...editor.transaction.draft, nodes } } } as EditorSession;
 }
 
-test("TASK-640 deterministic root-first Preview matches Layers across graph array order", () => {
+test("TASK-640 WP5 deterministic root-first Preview preserves authored sibling order", () => {
   const first = session();
   const reordered = session([b, inner, root, a, panel]);
   const left = accepted(first);
   const right = accepted(reordered);
-  assert.deepEqual(left, right);
+  assert.deepEqual(right.nodes.map(node => node.nodeRef), ["node:root", "node:b", "node:a", "node:panel", "node:inner"]);
+  assert.deepEqual(accepted(first), left);
   assert.deepEqual(left.nodes.map((node) => node.nodeRef),
-    ["node:root", "node:a", "node:b", "node:panel", "node:inner"]);
+    ["node:root", "node:panel", "node:inner", "node:a", "node:b"]);
   assert.equal(left.draftRevision, 7);
   assert.equal(left.baseRevision, 7);
   assert.equal(left.nodes[0]?.kind, "root");
@@ -125,7 +126,7 @@ test("TASK-640 accepted placement edit preserves identities and converges struct
   assert.equal(moved?.columnSpan, 1);
   assert.equal(moved?.selected, true);
   assert.deepEqual(preview.nodes.map((node) => node.nodeRef),
-    ["node:root", "node:b", "node:panel", "node:a", "node:inner"]);
+    ["node:root", "node:panel", "node:inner", "node:a", "node:b"]);
   assert.equal(projectEditorLayers(result.session).accepted, true);
 });
 

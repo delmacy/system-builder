@@ -5,6 +5,8 @@ import type { EditorStructuralEditIntent } from "./inspector.js";
 import type { LayersSelection } from "./layers.js";
 import type { EditorSession } from "./session.js";
 
+import { applyEditorStructure, validateEditorAuthoredGraph, type EditorStructureIntent } from "./structure.js";
+
 export const EDITOR_HISTORY_LIMIT = 50;
 /** Mounted-session presentation state only; never part of a portable artifact. */
 export interface EditorHistory {
@@ -20,10 +22,6 @@ const wrap = (session: EditorSession, past: readonly CompositionGraph[], future:
   Object.freeze({ session, past: Object.freeze([...past]), future: Object.freeze([...future]) });
 /** Call after a successful explicit checkpoint/open; failed operations keep the previous wrapper. */
 export function createEditorHistory(session: EditorSession): EditorHistory { return wrap(session, [], []); }
-function topology(graph: CompositionGraph): string {
-  return JSON.stringify({ rootRef: graph.rootRef, nodes: graph.nodes.map(node => ({ ref: node.ref,
-    componentRef: node.componentRef, ...(node.placement ? { parentRef: node.placement.parentRef, slotRef: node.placement.slotRef } : {}) })) });
-}
 function restored(session: EditorSession, graph: CompositionGraph, registry: ComponentRegistry, revision: number): EditorSession {
   const draft = createCompositionDraftTransaction(graph, registry).draft;
   return Object.freeze({ ...session, draftRevision: revision, transaction: Object.freeze({
@@ -36,10 +34,9 @@ function valid(history: EditorHistory, registry: ComponentRegistry): boolean {
       history.past.length + history.future.length > EDITOR_HISTORY_LIMIT ||
       !acceptEditorDraft(history.session, history.session?.draftRevision, registry).accepted) return false;
   const session = history.session;
-  const expected = topology(session.transaction.base);
-  if (topology(session.transaction.draft) !== expected) return false;
+  if (!validateEditorAuthoredGraph(session.transaction.draft, session, registry)) return false;
   for (const graph of [...history.past, ...history.future]) {
-    if (topology(graph) !== expected) return false;
+    if (!validateEditorAuthoredGraph(graph, session, registry)) return false;
     // Validate the original snapshot before snapshotting can drop unknown fields.
     const candidate = { ...session, transaction: { base: session.transaction.base, draft: graph,
       findings: [], dirty: !same(session.transaction.base, graph) } } as EditorSession;
@@ -79,5 +76,17 @@ export function moveEditorHistory(history: EditorHistory, direction: "undo" | "r
     return accepted(direction === "undo"
       ? wrap(next, history.past.slice(0, -1), [...history.future, session.transaction.draft])
       : wrap(next, [...history.past, session.transaction.draft], history.future.slice(0, -1)), true);
+  } catch { return rejected(history, "invalid-history"); }
+}
+
+/** Structural commands share exactly the same ephemeral history/checkpoint lifecycle as span edits. */
+export function applyEditorHistoryStructure(history: EditorHistory, intent: EditorStructureIntent,
+  registry: ComponentRegistry): EditorHistoryResult {
+  try {
+    if (!valid(history, registry)) return rejected(history, "invalid-history");
+    const result = applyEditorStructure(history.session, intent, registry);
+    if (!result.accepted) return rejected(history, result.reason);
+    if (!result.changed) return accepted(history, false);
+    return accepted(wrap(result.session, [...history.past, history.session.transaction.draft].slice(-EDITOR_HISTORY_LIMIT), []), true);
   } catch { return rejected(history, "invalid-history"); }
 }

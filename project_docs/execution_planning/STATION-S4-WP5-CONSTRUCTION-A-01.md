@@ -10,3 +10,5 @@ Goal: pure add/remove-subtree/reorder and 50-entry history, ordered projections,
 Exit: real catalog/projections/codec positive and negative tests, stale/no-op/overflow/cardinality/root and bounds; all 29 predecessor browser journeys.
 Validation: npm run verify; npm run station:build; full Chromium suite and triggered exact-head/current-base/heavy/handoff/build/quality checks.
 Stop: worker collision, conflicting scope, forbidden paths, undeclared L3/L4/dependencies or required security weakening. B/review/closure remain forecast until fresh-main promotion.
+
+Operational change control: TASK-663 ten exact paths; only two predecessor test assertion updates for admitted array-order semantics, no scope extension.

@@ -7,3 +7,4 @@ export * from "./draft-boundary.js";
 export * from "./artifact-codec.js";
 export * from "./artifact-store.js";
 export * from "./history.js";
+export * from "./structure.js";

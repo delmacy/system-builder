@@ -16,10 +16,11 @@ function session(nodes = [root, a, b]) {
   if (!result.accepted) throw Error("invalid fixture");
   return result.session;
 }
-test("TASK-637 deterministic Layers hierarchy independent of node array order", () => {
+test("TASK-637 WP5 ordered Layers hierarchy preserves graph sibling order", () => {
   const first = projectEditorLayers(session());
   const reordered = projectEditorLayers(session([b, root, a]));
-  assert.deepEqual(first, reordered);
+  assert.equal(reordered.accepted, true);
+  if (reordered.accepted) assert.deepEqual(reordered.root.children.map(child => child.nodeRef), ["node:b", "node:a"]);
   assert.equal(first.accepted, true);
   if (!first.accepted) return;
   assert.deepEqual(first.root.children.map(child => child.nodeRef), ["node:a", "node:b"]);
