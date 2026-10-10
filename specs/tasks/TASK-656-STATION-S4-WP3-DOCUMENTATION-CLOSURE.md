@@ -1,7 +1,7 @@
 ---
 id: TASK-656
 title: Station S4 WP3 Documentation and Closure
-status: ready
+status: completed
 priority: 656
 milestone: STATION-S4-WP3-LOCAL-ARTIFACT
 model_tier: cheap
@@ -86,3 +86,6 @@ Final closure report with goal/WBS-to-PR/test/CI traceability, reconciled docs, 
 
 ## Escalation
 Stop for missing required bounded capability, conflict, forbidden path, undeclared L3/L4 change or failing proof; route functional gaps to explicit construction/change control.
+
+## Documentation completion and integration gate
+Bounded documentation work is complete on the Sprint branch. This task status records document implementation; package CLOSED and integrated completion become effective only after all closure-head checks pass and the closure PR merges. No branch-only closure claim.

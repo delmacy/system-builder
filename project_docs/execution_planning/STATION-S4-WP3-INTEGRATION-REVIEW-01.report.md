@@ -3,7 +3,7 @@
 Date: 2026-10-10
 TASK: TASK-655
 Base: main@4a749f6b4c18fe769d30c1c034280f134fb6b79d
-State: review IMPLEMENTED_ON_SPRINT_BRANCH; GO for Documentation & Closure effective after validated review PR integration; WP3 OPEN
+State: review IMPLEMENTED / PROVEN / INTEGRATED via #1048 at 00a37c76; GO effective
 
 ## Integrated traceability and goal
 WP2 closure #1039 precedes WP3 planning/readiness/admission #1040–1045. Scope is accepted Addendum 004, ADR-0009 composition payload RESOLUTION-01 and explicit origin-local/file decision RESOLUTION-02.
@@ -42,3 +42,6 @@ None is an unmet bounded Package Goal; no blocker observed. Optional Constructio
 Fresh-main focused codec/file/store tests passed locally 13/13. Documentation check and task catalog validation passed. Declared npm run verify passed lint/typecheck, then failed at tsx CLI IPC binding with EPERM; this is not a local full-verify pass. Full current review-head Actions/browser regression remain required before merge. Product code is byte-identical to integrated B, so its Windows/Ubuntu proof remains applicable.
 
 GO to Documentation & Closure after this review's validated merge. Closure must update contract registry delivery status, current handoff/risks, module/owner instructions and final package traceability; PROJECT_STATE/CURRENT_MILESTONE are absent, and legacy TASK_LEDGER remains a byte-preserved compatibility fixture per docs/README.md. No future package is automatically materialized. Any required capability discovered by review or closure returns to explicit construction/change control.
+
+## Integrated review checkpoint
+Review head 07ce9b45 passed all five workflows: exact-head 38077056136, merge-candidate 38077056224, heavy 38077056011, browser 38077056098 (21/21, artifact 11679646414), handoff 38077056036. #1048 merged at 00a37c76. Earlier pending statements are historical branch checkpoints; documentation closure is the sole current Sprint until its validated integration.

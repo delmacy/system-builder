@@ -1,6 +1,8 @@
 # Current Risks
 
-Date: 2026-08-23
+Date: 2026-10-10
+
+Horizon note: R1–R12 retain older P13 risk evidence; their task/sprint directives are historical context and do not select current work. No old risk/debt closure is implied. NEXT_WORK is the sole execution pointer.
 
 This register tracks risks that are materially current for the integrated repository horizon. Historical bootstrap/AgentFactory risks belong in historical evidence, not in this current-state document.
 
@@ -51,3 +53,9 @@ Provider cost/usage and some production-hardening signals may remain unavailable
 ## R12 — Narrative repository memory can lag a just-completed gate
 
 Repository-memory documents are intentionally reconciled at defined Sprint/package transitions rather than rewritten by every low-level action. Mitigation: after accepted integration, reconstruct fresh `main` and reconcile `PROJECT_STATE`, `CURRENT_MILESTONE` and `NEXT_WORK` before successor materialization/execution when policy requires it.
+
+## Station S4 WP3 — current scoped dispositions
+
+WP3 bounded delivery has integrated codec/file/local-store proof through #1046/#1047/#1048; closure becomes effective on validated documentation Sprint integration. No bounded goal blocker observed. Browser-native origin storage can be denied, quota-limited or cleared (WP3-L1); explicit portable files are the independent retained copy. Expected stored text prevents stale replacement but is not a cross-tab transaction (WP3-L2). Requested download is not proof of a filesystem receipt (WP3-L3).
+
+Nonblocking backlog WP3-D1: corrupted/existing local slots are conservatively preserved; export current applied draft to a portable file when local recovery cannot open valid data. WP3-D2: synchronous bounded codec/storage/provenance growth needs quantitative proof before larger catalogs; 1 MiB/depth/node/token gates reject safely and no latency guarantee is claimed. Inherited minimized-mounted editor memory lifetime is unchanged. Structural authoring/File Manager/.process/Core/server/sync/deploy remain future admitted scope, not current defects or automatic successors. Detailed classifications: project_docs/execution_planning/STATION-S4-WP3-INTEGRATION-REVIEW-01.report.md.

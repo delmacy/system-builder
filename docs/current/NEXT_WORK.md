@@ -1,13 +1,17 @@
-# Next Work — Station S4 WP3 Documentation & Closure
+# Next Work — after Station S4 WP3
 
 Date: 2026-10-10
-Base: main@00a37c765be146c48fed5bd2fab50b87dfc89bfe
-Status: A/B and Package Review INTEGRATED; Documentation & Closure COMMITTED; WP3 OPEN until validated closure integration
+Revalidated base: main@00a37c765be146c48fed5bd2fab50b87dfc89bfe
+Status: WP3 CLOSED effective on validated integration of STATION-S4-WP3-DOCUMENTATION-CLOSURE-01; before that merge only closure validation/integration remains
+Next eligible gate: fresh-main scope/dependency/readiness planning; no successor Sprint/TASK committed
 
-## Authority and active Sprint
-Read AGENTS.md, docs/DOCUMENT_AUTHORITY.md, docs/contracts/CONTRACT_INDEX.md, Addendum 004 and RESOLUTION-01/02; ADR-0009 is unchanged. Read project_docs/execution_planning/STATION-S4-WP3-LOCAL-ARTIFACT-PLANNING-01.md, STATION-S4-WP3-DOCUMENTATION-CLOSURE-01.md and specs/tasks/TASK-656-STATION-S4-WP3-DOCUMENTATION-CLOSURE.md with all context_paths.
+## Authority and effective outcome
+AGENTS.md, docs/DOCUMENT_AUTHORITY.md and docs/contracts/CONTRACT_INDEX.md govern scope/execution. Addendum 004 with RESOLUTION-01/02 and unchanged ADR-0009 admitted the bounded portable composition goal. Read project_docs/execution_planning/STATION-S4-WP3-LOCAL-ARTIFACT-PLANNING-01.md and STATION-S4-WP3-DOCUMENTATION-CLOSURE-01.report.md for closure evidence; the closure manifest/TASK-656 governs only final validation/integration before merge.
 
-## Integrated proof / next gate
-A #1046, B #1047 and review #1048 are integrated. B passed seven workflows including Windows/Ubuntu; review head 07ce9b45 passed all five triggered workflows and 21/21 Chromium journeys (artifact 11679646414). Review GO is effective; optional Construction C not promoted.
+WP2 #1039 is closed. WP3 A #1046, B #1047 and review #1048 are integrated. Codec, explicit separate origin-local retention and actual portable file download/open are implemented/proven; final B passed seven workflows, Windows/Ubuntu and 21 Chromium journeys; review repeated 21/21 with all five workflows passed. Optional C was not necessary and was not promoted. Closing declaration is activated only by validated closure PR integration, never branch-only work.
 
-Execute TASK-656 on sprint/station-s4-wp3-documentation-closure within twelve documentation/status paths; no product or contract-semantic changes. Require declared validations, all triggered exact-head/current-base/browser Actions and closure PR integration before WP3 CLOSED. Owner authorization covers this final transition. After closure the next eligible work is fresh-main scope/dependency/readiness planning only; no new package is materialized. Preserve unrelated PRs, historical evidence, legacy ledger and shared Windows worktree.
+## Next planning boundary
+After closure reconstruct fresh main and relevant PR/contract/WBS/dependency/readiness truth before proposing the next smallest admitted package. User authorization here concludes WP3; it does not materialize later scope. File Manager, structural component authoring, canonical .process, Core/server storage, sync, Studio and deploy remain separately gated. No forecast or old ACTIVE/READY token authorizes construction. Preserve unrelated research/open PRs and legacy ledger; do not restart completed WP3 TASKs.
+
+## Operations and residuals
+See docs/architecture/STATION_FRONTEND_FOUNDATION.md for run/build/test and actual Save locally/Open saved/Save As file/Open file usage. Origin storage can be cleared/denied/quota-limited; keep portable files. Expected-text conflict detection is not cross-tab transactional sync and a requested download is not a disk-save receipt. See docs/current/RISKS.md and the package review for explicit limitations/debt. No product deployment or full Component Editor claim.
