@@ -41,7 +41,6 @@ export function projectEditorLayers(session: EditorSession): LayersProjectionRes
     if (typeof parent !== "string" || !nodes.has(parent) || parent === node.ref) return invalid();
     children.get(parent)!.push(node.ref);
   }
-  for (const refs of children.values()) refs.sort();
   const visited = new Set<string>();
   const visiting = new Set<string>();
   const build = (ref: string): EditorLayer | null => {

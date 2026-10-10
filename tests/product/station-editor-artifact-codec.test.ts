@@ -73,7 +73,7 @@ test("malformed bytes, unsupported versions, missing fields and identities rejec
   reject({ ...doc, envelopeVersion: "2.0.0" }, "unsupported-version");
   reject({ ...doc, artifactId: "a/file/path" }, "invalid-envelope");
   reject({ ...doc, artifactVersion: "01.0.0" }, "invalid-envelope");
-  reject({ ...doc, schema: { id: doc.schema.id, version: "2.0.0" } }, "unsupported-version");
+  reject({ ...doc, schema: { id: doc.schema.id, version: "3.0.0" } }, "unsupported-version");
   reject({ ...doc, provenance: { ...metadata.provenance, createdAt: "wrong" } }, "invalid-envelope");
   reject({ ...doc, provenance: { ...metadata.provenance, createdAt: "2026-02-30T00:00:00Z" } }, "invalid-envelope");
   reject({ ...doc, payload: { ...doc.payload, applicationRef: "app:foreign" } }, "identity-mismatch");

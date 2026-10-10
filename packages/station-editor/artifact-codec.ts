@@ -91,7 +91,7 @@ function checkEnvelope(input: unknown): asserts input is CompositionArtifact {
     ["envelopeVersion", "artifactType", "artifactId", "artifactVersion", "schema", "provenance", "payload", "requiredExtensions", "extensions"].includes(key)), "invalid-envelope");
   requireValue(input.artifactType === COMPOSITION_ARTIFACT_TYPE, "invalid-envelope");
   requireValue(object(input.schema) && Object.keys(input.schema).length === 2 &&
-    input.schema.id === COMPOSITION_PAYLOAD_SCHEMA && input.schema.version === "1.0.0", "unsupported-version");
+    input.schema.id === COMPOSITION_PAYLOAD_SCHEMA && ["1.0.0", "2.0.0"].includes(input.schema.version as string), "unsupported-version");
   if (input.requiredExtensions !== undefined) {
     requireValue(Array.isArray(input.requiredExtensions) && input.requiredExtensions.every(nonblank) &&
       new Set(input.requiredExtensions).size === input.requiredExtensions.length, "invalid-envelope");
@@ -111,7 +111,7 @@ function checkEnvelope(input: unknown): asserts input is CompositionArtifact {
       /^[A-Za-z0-9._-]+$/.test(reference.digest.algorithm) && typeof reference.digest.value === "string" && reference.digest.value.length > 0, "invalid-envelope");
   }
 }
-function checkGraph(value: unknown, source: ArtifactSource): asserts value is CompositionGraph {
+function checkGraph(value: unknown, source: ArtifactSource, schemaVersion: string): asserts value is CompositionGraph {
   keys(value, ["rootRef", "nodes"]); token(value.rootRef);
   requireValue(Array.isArray(value.nodes) && value.nodes.length > 0, "invalid-graph");
   requireValue(value.nodes.length <= ARTIFACT_LIMITS.nodes, "node-limit");
@@ -151,7 +151,10 @@ function checkGraph(value: unknown, source: ArtifactSource): asserts value is Co
     }
   }
   requireValue(validateCompositionGraph(value as unknown as CompositionGraph, source.registry).length === 0, "invalid-graph");
-  requireValue(value.rootRef === source.composition.rootRef && value.nodes.length === source.composition.nodes.length, "incompatible-source");
+  const sourceRoot = source.composition.nodes.find(node => node.ref === source.composition.rootRef);
+  requireValue(value.rootRef === source.composition.rootRef && root.componentRef === sourceRoot?.componentRef, "incompatible-source");
+  if (schemaVersion === "2.0.0") return;
+  requireValue(value.nodes.length === source.composition.nodes.length, "incompatible-source");
   value.nodes.forEach((node: Record<string, unknown>, index: number) => {
     const expected = source.composition.nodes[index]!;
     requireValue(node.ref === expected.ref && node.componentRef === expected.componentRef, "incompatible-source");
@@ -168,7 +171,7 @@ function validate(input: unknown, resolve: ArtifactSourceResolver): ArtifactResu
     const source = resolve(payload.compositionRef); requireValue(source, "unknown-composition");
     requireValue(payload.applicationRef === source.applicationRef && payload.compositionRef === source.compositionRef, "identity-mismatch");
     requireValue(Number.isSafeInteger(payload.baseRevision) && payload.baseRevision >= 0 && payload.baseRevision === source.revision, "revision-mismatch");
-    checkGraph(payload.graph, source);
+    checkGraph(payload.graph, source, input.schema.version);
     const text = canonical(input);
     requireValue(new TextEncoder().encode(text).length <= ARTIFACT_LIMITS.bytes, "size-limit");
     return Object.freeze({ accepted: true, document: freeze(JSON.parse(text) as CompositionArtifact), text });
@@ -179,7 +182,7 @@ export function encodeCompositionArtifact(document: unknown, resolve: ArtifactSo
 export function createCompositionArtifact(graph: CompositionGraph, source: ArtifactSource, metadata: ArtifactMetadata): ArtifactResult {
   return validate({ envelopeVersion: "1.0.0", artifactType: COMPOSITION_ARTIFACT_TYPE,
     artifactId: metadata.artifactId, artifactVersion: metadata.artifactVersion,
-    schema: { id: COMPOSITION_PAYLOAD_SCHEMA, version: "1.0.0" }, provenance: metadata.provenance,
+    schema: { id: COMPOSITION_PAYLOAD_SCHEMA, version: compositionPayloadVersion(graph, source) }, provenance: metadata.provenance,
     ...(metadata.extensions === undefined ? {} : { extensions: metadata.extensions }),
     payload: { applicationRef: source.applicationRef, compositionRef: source.compositionRef, baseRevision: source.revision, graph } },
   ref => ref === source.compositionRef ? source : null);
@@ -199,4 +202,15 @@ export function decodeCompositionArtifact(text: string, resolve: ArtifactSourceR
     try { input = JSON.parse(text) as unknown; } catch { throw new Rejection("malformed-json"); }
     return validate(input, resolve);
   } catch (error) { return Object.freeze({ accepted: false, reason: error instanceof Rejection ? error.reason : "malformed-json" }); }
+}
+
+/** Choose a payload major explicitly; envelope/version metadata remains caller-owned. */
+export function compositionPayloadVersion(graph: CompositionGraph, source: ArtifactSource): "1.0.0" | "2.0.0" {
+  const original = source.composition;
+  return graph.rootRef === original.rootRef && graph.nodes.length === original.nodes.length &&
+    graph.nodes.every((node, index) => {
+      const expected = original.nodes[index]!;
+      return node.ref === expected.ref && node.componentRef === expected.componentRef &&
+        node.placement?.parentRef === expected.placement?.parentRef && node.placement?.slotRef === expected.placement?.slotRef;
+    }) ? "1.0.0" : "2.0.0";
 }
