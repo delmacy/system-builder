@@ -1,8 +1,8 @@
 # Next Work — STATION S4 Visual Factory Foundation
 
 Date: 2026-10-10
-Reconciled base: `main@a2300c32c0f414a9bbbaabeeb10800f617f59b05`
-Status: WP1-A–G and TASK-643 INTEGRATED; WP1-H REVIEW MATERIALIZED; WP1 OPEN
+Reconciled base: `main@f3b326dd95da0d1ec05d9380de9aed1a5d62c572`
+Status: WP1-A–G and TASK-643 INTEGRATED; TASK-644 REVIEW IMPLEMENTED / FINAL VERIFICATION; WP1 OPEN
 
 ## Authority
 
@@ -18,7 +18,7 @@ TASK-642 integrated in PR #1029 at d41085c6. Corrective visual TASK-643 integrat
 
 ## Next executable action
 
-Integrate this review materialization first, then reconstruct fresh main and execute TASK-644 on sprint/station-s4-wp1h-review. Review all nine scope obligations and expand bounded browser coverage of existing behavior. Run full verify/build/browser gates on final head; retain artifacts. Record GO/NO-GO for separate Documentation & Closure. Missing required product capability returns to explicit construction. WP1 is not closed.
+Planning PR #1032 integrated at f3b326dd. TASK-644 reviews the nine scope obligations and expands browser coverage from four to seven tests on sprint/station-s4-wp1h-review. Require full verify/build/browser gates on the final head and retained artifacts before merge. Review report: project_docs/execution_planning/STATION-S4-WP1H-REVIEW-01.report.md. Conditional GO for separate Documentation & Closure depends on those gates and fresh-main reconstruction. Missing required product capability returns to explicit construction. WP1 is not closed.
 
 ## Execution coordination
 
