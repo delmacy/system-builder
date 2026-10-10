@@ -1,15 +1,15 @@
 ---
-id: TASK-663
-title: Station S4 WP5 STRUCTURAL ENGINE
-status: completed
-priority: 663
+id: TASK-664
+title: Station S4 WP5 STRUCTURAL UI
+status: ready
+priority: 664
 milestone: STATION-S4-WP5-STRUCTURAL-AUTHORING
 model_tier: architecture
 risk: medium
 architecture_impact: false
 executor_preference: any
 depends_on:
-- TASK-662
+- TASK-663
 context_paths:
 - AGENTS.md
 - docs/DOCUMENT_AUTHORITY.md
@@ -23,16 +23,11 @@ context_paths:
 - docs/adr/ADR-0009-public-artifact-envelope.md
 - docs/architecture/STATION_FRONTEND_FOUNDATION.md
 allowed_paths:
-- packages/station-editor/structure.ts
-- packages/station-editor/history.ts
-- packages/station-editor/layers.ts
-- packages/station-editor/artifact-codec.ts
-- packages/station-editor/index.ts
-- tests/product/station-editor-structure.test.ts
-- tests/product/station-editor-artifact-codec.test.ts
-- tests/product/station-editor-layers-selection.test.ts
-- tests/product/station-editor-preview-convergence.test.ts
-- project_docs/execution_planning/STATION-S4-WP5-CONSTRUCTION-A-01.report.md
+- apps/station/web/app/station-editor-workbench.tsx
+- apps/station/web/app/station-editor-files.ts
+- tests/browser/station-editor-workbench.spec.ts
+- tests/product/station-editor-artifact-files.test.ts
+- project_docs/execution_planning/STATION-S4-WP5-CONSTRUCTION-B-01.report.md
 forbidden_paths:
 - docs/adr/**
 - specs/contracts/**
@@ -43,12 +38,12 @@ forbidden_paths:
 - provider/**
 - runtime/**
 - deploy/**
-max_files: 10
+max_files: 5
 validation:
 - npm run verify
 ---
 
-Implement only Addendum 006 pure bounded operations, history, ordering and codec compatibility. Confirm ten allowed paths, forbidden paths, predecessor and validation. Tests invoke actual catalog/editor/projections/codec; include immutable failures, stale/root/foreign refs/cardinality/bounds/no-op/revision overflow and v1/v2. No UI change. Final Station build and all 29 predecessor browser journeys required.
+Integrate installed component/parent/slot palette and add/remove-subtree/reorder controls. Repair deleted selection through structure/history/discard; preserve pending text/cancel/failure/window lifetime. Choose declared payload major when updating retained documents. Five exact allowed paths. Actual UI/download/local-file/keyboard/narrow/Station proof plus all 29 predecessor journeys. Final npm run verify, Station build and all triggered checks required.
 
 ## Objective
 Deliver the declared bounded WP5 Sprint goal.
@@ -70,8 +65,3 @@ External components, reparenting, free drag, Core/server/File Manager/.process/s
 One authoritative TASK commit, Sprint report, one PR and observed exact-head/current-base checks.
 ## Escalation
 Stop for collision, conflicting authority, forbidden paths, undeclared L3/L4 or security weakening.
-
-## Bounded operational change control
-Real regression exposed three assertions for the superseded alphabetical/array-order-independent projection behavior. Addendum 006 explicitly makes node array order meaningful. Permit only the two affected predecessor test files to assert authored sibling order while preserving identity/selection/ancestry/immutability proof. No new capability or architecture change.
-
-Integrated through #1056 f54cc33c after seven passing workflows, Windows/Ubuntu builds and 29/29 Chromium journeys.
