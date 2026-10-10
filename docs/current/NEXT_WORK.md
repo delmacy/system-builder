@@ -1,8 +1,8 @@
 # Next Work — STATION S4 Visual Factory Foundation
 
-Date: 2026-10-09
+Date: 2026-10-10
 Reconciled base: `main@e42b8e882f08153a30571c7fdd7b300c32cc987d`
-Status: WP1-A/B/C/D/E/F INTEGRATED; WP1-G/TASK-642 MATERIALIZED LOCALLY FOR CONSTRUCTION
+Status: WP1-A/B/C/D/E/F INTEGRATED; WP1-G/TASK-642 IMPLEMENTED ON PR #1029; ACTIONS VERIFICATION PENDING
 
 > Single live execution pointer under `docs/DOCUMENT_AUTHORITY.md`. Revalidate main, PRs, dependencies and CI before each integration; recorded SHAs are historical clues.
 
@@ -22,9 +22,9 @@ WP1-F established pure Station-local immutable accept/save and deterministic dis
 
 ## Next executable action
 
-1. Execute TASK-642 in the shared local serial worktree `C:\Users\admin\system-builder-s4-serial`, branch `s4/serial-wp1`; three workers (:10/:30/:50) form one serial handoff chain, never parallel writers.
+1. Owner authorization on 2026-10-10 supersedes the exclusive-local-execution restriction: develop directly on GitHub branch `s4/serial-wp1`, PR #1029, with serial stage commits and Actions validation. Coordinate local workers through the shared exclusive lock; do not overwrite concurrent work. The shared local worktree remains a preserved checkpoint, not independent remote authority.
 2. Prove end-to-end public API journey with focused positive, negative, adversarial, recovery and predecessor-integration tests. Classify actual DOM/UI, keyboard and accessibility evidence honestly.
-3. Run `npx tsx --test tests/product/station-editor-integrated-journey.test.ts` and `npm run verify`; preserve exact local HEAD evidence and one authoritative TASK commit.
+3. Run the focused journey and repository-wide `npm run verify`; GitHub exact-head and merge-candidate Actions provide full Linux verification when the local Windows runner is blocked. Local results and CI results remain separately identified. Preserve one authoritative TASK commit through normal PR squash.
 4. Integrate to GitHub periodically at a coherent Sprint gate, with PR/CI/review and without bypassing safety restrictions; only then advance to WP1-H.
 
 ## Invariants
@@ -54,3 +54,6 @@ Lock-release update (:30): attempt to delete owned `execution.lock` and subseque
 TASK-642 / WP1-G; exclusively shared worktree C:\Users\admin\system-builder-s4-serial, branch s4/serial-wp1. Pre-change HEAD b3ab0c9b8b24e64f6d322f95d0424707c7491c29; remote main e42b8e882f08153a30571c7fdd7b300c32cc987d and PR #1029 OPEN DRAFT at b3ab0c9b revalidated. Authority chain AGENTS, DOCUMENT_AUTHORITY, CONTRACT_INDEX, Addendum 002, WP1 plan, live pointer and TASK read. TASK depends on integrated TASK-641; allowlist exactly test/spec/live pointer (max_files=3), forbidden paths preserved. Atomically acquired execution.lock at 08:37:19 BRT; old markers RELEASED/archive. Preserved all existing staged/unstaged worker changes and checkpoint commits; no destructive Git operations. Existing worker heavy-suite process PID 2312 preserved.
 Added actual malformed-span/foreign-session/foreign-composition/extra-field rejection and recovery coverage; renamed stale-save test honestly. Preserved predecessor's concrete Layers hierarchy assertions. Focused TASK-642 6/6 PASS; full Station editor predecessor+journey suite 38/38 PASS. npm run verify exit 1: lint/typecheck PASS, harness 333/333 PASS and handoff 11/11 PASS, then product runner fails with Windows command-length limit. check:tasks 635 PASS, architecture PASS, docs PASS, build PASS; diff and staged diff checks PASS. Logs: C:\Users\admin\system-builder-s4-serial.lock\manual-20261010-verify.log and manual-20261010-station-final.log. Evidence applies to this working tree; it does not prove the old PR HEAD or merge candidate.
 IMPLEMENTED: integrated API tests and spec-parser correction. PROVEN: focused and predecessor API behavior plus named local gates only. Full repository verify and complete product suite UNPROVEN/blocked; INTEGRATED: NO. Actual DOM/keyboard/a11y workbench UNPROVEN; API-only increment N/A; C10 DEFERRED. CI failure at old PR HEAD is four task-parser tests for missing required headings, corrected locally but not yet published. Retain PR Draft and do not advance WP1-H. Prepare a non-destructive local checkpoint; authoritative TASK integration must reconcile checkpoint history through normal PR squash after all gates/review. Next: separately scoped Windows runner correction or declared full CI proof, then coherent PR update, exact-head and merge-candidate validation/review, integration only after gates. Do not modify scripts/run-product-tests.mjs under TASK-642's allowlist.
+
+## GitHub execution handoff - 2026-10-10 08:44 BRT
+Published checkpoint 6f36bd54f2522cd647f1f865e593d0ed68ecbe25 to PR #1029; four Actions started. This documentation commit records the owner-approved GitHub execution mode and invalidates prior exact-head evidence for the new HEAD. Await all required checks on the final HEAD and fresh base, review the three-file bounded diff, then squash-integrate TASK-642 only if all gates pass. Preserve historical checkpoint commits, local pending work and worker coordination. No integration claimed in this pre-merge document; actual merge SHA must be verified from GitHub before successor materialization. WP1-H remains blocked until TASK-642 integrates and fresh authority review addresses the visual-workbench proof gap.
