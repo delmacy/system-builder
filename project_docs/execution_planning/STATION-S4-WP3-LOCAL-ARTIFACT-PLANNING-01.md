@@ -49,3 +49,6 @@ Construction A #1046 integrated at 1c39ee81 with seven passing workflows. Constr
 
 ## Rolling-wave checkpoint — Package Review
 Construction B #1047 integrated at 4a749f6b4c18fe769d30c1c034280f134fb6b79d with seven passing final-head workflows, 21 Chromium journeys and Windows/Ubuntu builds. Optional C is not promoted: no missing bounded goal capability observed. Only Package Review/TASK-655 is now COMMITTED under full WP3 owner authorization. Documentation & Closure remains forecast; WP3 remains open.
+
+## Rolling-wave checkpoint — Documentation & Closure
+Review #1048 integrated at 00a37c765be146c48fed5bd2fab50b87dfc89bfe with all five workflows and 21/21 Chromium journeys passed. Review GO is effective. Only Documentation & Closure/TASK-656 is now COMMITTED; no successor package. WP3 closes only on validated closure PR integration.

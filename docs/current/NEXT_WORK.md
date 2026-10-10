@@ -1,15 +1,13 @@
-# Next Work — Station S4 WP3 Package Review
+# Next Work — Station S4 WP3 Documentation & Closure
 
 Date: 2026-10-10
-Base: main@4a749f6b4c18fe769d30c1c034280f134fb6b79d
-Status: Construction A/B INTEGRATED; Package Review IMPLEMENTED_ON_SPRINT_BRANCH; CI/integration pending; WP3 OPEN
+Base: main@00a37c765be146c48fed5bd2fab50b87dfc89bfe
+Status: A/B and Package Review INTEGRATED; Documentation & Closure COMMITTED; WP3 OPEN until validated closure integration
 
-## Authority and active execution
-AGENTS.md, docs/DOCUMENT_AUTHORITY.md, docs/contracts/CONTRACT_INDEX.md, Addendum 004 and RESOLUTION-01/02 govern the bounded portable composition goal. ADR-0009/common envelope unchanged. Read project_docs/execution_planning/STATION-S4-WP3-LOCAL-ARTIFACT-PLANNING-01.md, STATION-S4-WP3-INTEGRATION-REVIEW-01.md and specs/tasks/TASK-655-STATION-S4-WP3-PACKAGE-REVIEW.md plus every declared context_path.
+## Authority and active Sprint
+Read AGENTS.md, docs/DOCUMENT_AUTHORITY.md, docs/contracts/CONTRACT_INDEX.md, Addendum 004 and RESOLUTION-01/02; ADR-0009 is unchanged. Read project_docs/execution_planning/STATION-S4-WP3-LOCAL-ARTIFACT-PLANNING-01.md, STATION-S4-WP3-DOCUMENTATION-CLOSURE-01.md and specs/tasks/TASK-656-STATION-S4-WP3-DOCUMENTATION-CLOSURE.md with all context_paths.
 
-## Integrated truth and next gate
-WP2 #1039 is closed. A #1046 and B #1047 integrated; final B head 0ec0159e passed all seven workflows, 21 Chromium journeys, Windows/Ubuntu builds and retained artifact 11679256267. Codec, explicit origin-local artifacts and actual portable file open/download are implemented/proven/integrated. Preferences remain separate; no Core/server/structural authoring scope.
+## Integrated proof / next gate
+A #1046, B #1047 and review #1048 are integrated. B passed seven workflows including Windows/Ubuntu; review head 07ce9b45 passed all five triggered workflows and 21/21 Chromium journeys (artifact 11679646414). Review GO is effective; optional Construction C not promoted.
 
-Execute TASK-655 on sprint/station-s4-wp3-integration-review within its eight documentation paths. Optional C NOT PROMOTED because no bounded goal gap remains. Require review regression/CI/PR integration before materializing Documentation & Closure; owner authorization covers both transitions. Closure remains FORECAST. No WP3 CLOSED claim before validated documentation closure integration. Preserve unrelated open PRs; no force/direct main or shared Windows worktree mutation.
-
-Review outcome is GO to documentation closure, effective only after validated review merge. See STATION-S4-WP3-INTEGRATION-REVIEW-01.report.md for traceability, optional C decision and classified residuals.
+Execute TASK-656 on sprint/station-s4-wp3-documentation-closure within twelve documentation/status paths; no product or contract-semantic changes. Require declared validations, all triggered exact-head/current-base/browser Actions and closure PR integration before WP3 CLOSED. Owner authorization covers this final transition. After closure the next eligible work is fresh-main scope/dependency/readiness planning only; no new package is materialized. Preserve unrelated PRs, historical evidence, legacy ledger and shared Windows worktree.
