@@ -1,7 +1,7 @@
 # Station composition files and local retention — resolution 02
 
 Date: 2026-10-10
-State: owner-authorized bounded Construction B after validated Construction A #1046
+State: EFFECTIVE via validated Construction B #1047 at 4a749f6b after proven A #1046; reviewed through #1048
 Authority: Addendum 004, RESOLUTION-01, explicit owner authorization to complete WP3
 
 ## Provider and trust boundary

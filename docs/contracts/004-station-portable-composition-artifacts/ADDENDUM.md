@@ -1,11 +1,11 @@
 # Contract Addendum 004 — Station Portable Composition Artifacts
 
 Date: 2026-10-10
-Status: ACCEPTED via PR #1043 at e9750fe4; envelope resolution effective on its validated PR integration
+Status: ACCEPTED via #1043; RESOLUTION-01 effective via #1045; A/B/review integrated; bounded WP3 CLOSED on validated Documentation & Closure integration
 Predecessor: WP2 closed through PR #1039; WP3 planning PR #1040 and readiness PR #1041 integrated.
 
 ## Admitted bounded scope
-Admit one portable, versioned, *data-only* composition artifact codec for the existing Station editor and source-owned catalog. A serialized artifact is an untrusted document, never a component/provider definition, executable script, business command, Core record, or window setting. The user explicitly exports and imports it. A future Construction B may add local durable storage and Save As/Open UI only after the codec is proven.
+Admit one portable, versioned, *data-only* composition artifact codec for the existing Station editor and source-owned catalog. A serialized artifact is an untrusted document, never a component/provider definition, executable script, business command, Core record, or window setting. The user explicitly exports and imports it. The separately gated Construction B origin-local retention and Save As/Open workflow are resolved in RESOLUTION-02 and integrated through #1047 after proven codec #1046.
 
 ## Envelope resolution
 Public interchange uses the accepted ADR-0009 envelope and existing common schema. The earlier flat envelope proposal is superseded by `RESOLUTION-01.md`: applicationRef/compositionRef/baseRevision/graph are strict payload fields; identity/SemVer/schema/provenance remain common-envelope fields. Preserve optional inert extensions/provenance per ADR-0009 and reject unsupported required semantics. Unknown payload/graph fields reject; no ADR exception. Exact versions, source compatibility, codec budgets, deterministic metadata handling and compound .composition.json hint are normative in RESOLUTION-01 after validated integration.
@@ -32,3 +32,6 @@ Scope admission is effective only after validation and merge of the admission PR
 
 ## Admission checkpoint
 PR #1043 passed all five triggered workflows and merged; scope admission is effective. Resolution applies ADR-0009 rather than changing it. No codec or persistence implementation is claimed by admission/readiness documents.
+
+## Delivery checkpoint
+A #1046, B #1047 and review #1048 implement/prove/integrate the admitted bounded goal. RESOLUTION-01/02 are effective; shared envelope/ADR semantics remain unchanged. WP3 CLOSED becomes effective on validated STATION-S4-WP3-DOCUMENTATION-CLOSURE-01 integration. Closure report maps scope to real codec/store/browser/CI evidence and residual limits; original admission-only statements describe the historical admission gate.

@@ -1,7 +1,7 @@
 # Station portable composition artifact — contract resolution 01
 
 Date: 2026-10-10
-State: effective only on validated resolution PR integration
+State: EFFECTIVE via validated #1045 at eaad7ef3; implemented/proven/integrated by A #1046
 Authority: accepted ADR-0009; Addendum 004; TASK-652 readiness inventory
 Base: main@5300763aafa3aac162d1a3e59535bc8a256545ac
 
