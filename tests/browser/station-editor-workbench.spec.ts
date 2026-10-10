@@ -194,7 +194,7 @@ test("switching nodes isolates applied edits and unapplied fields; reload resets
   await expect(preview(page)).toHaveAttribute("data-column-span", "3");
   await expect(preview(page, "Button 2")).toHaveAttribute("data-column-span", "4");
   await expect(preview(page, "Button 2")).toHaveAttribute("data-row-span", "2");
-  await expect(page.getByText("Changes are kept for this session. Reloading starts a new example.", { exact: true })).toBeVisible();
+  await expect(page.getByText("Save changes accepts this session. Save locally retains a separate copy in this browser; use Open saved after reload.", { exact: true })).toBeVisible();
   await page.reload();
   await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
   await expect(preview(page)).toHaveAttribute("data-column-span", "2");

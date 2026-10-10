@@ -17,3 +17,8 @@ Local npm run verify is invoked but tsx CLI IPC binding is restricted in this en
 Nine implementation paths only, after separate B materialization commit. No shared codec/schema/ADR/settings/composition/workflow changes. Origin storage is explicit/disposable, separate from window layout; no automatic saving/loading. Expected text detects stale reads but does not provide transactional multi-tab synchronization. Download request is not proof of filesystem retention. No Core, network upload, File Manager, structural authoring, .process or deployment.
 
 After all exact-head/current-base workflows pass and B integrates, reconstruct fresh main to decide optional C from bounded unmet goal evidence, then materialize Package Review and Documentation & Closure separately. WP3 remains open.
+
+## Bounded CI correction
+Initial head a4c5318f passed Windows/Ubuntu builds, frontend quality, heavy and handoff. Browser run 38076413861 passed 18/21: old session footer wording assertion and two cancel-focus failures; focus was requested before the disabled originating button was re-enabled. The bounded fix defers restoration until the pending-state DOM commit, updates the predecessor wording assertion, and restores exact mandatory TASK section headings rejected by deterministic/merge-candidate CI. The authoritative TASK implementation commit remains a4c5318f; this is a scoped correction, not a second implementation TASK. All gates must pass on the replacement head.
+
+Correction validation: focused workbench/browser lint, final typecheck, task catalog 4/4 and documentation check passed locally. Corrected Station build/full/browser attempts are still subject to exact-head Actions before integration.

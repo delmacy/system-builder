@@ -1,6 +1,6 @@
 "use client";
 
-import { useReducer, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useReducer, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Button } from "../../../../packages/ui-core/index";
 import { DEFAULT_COMPOSITION_REF, initializeCatalogEditorSession, listEditorCatalog, resolveEditorCatalogEntry, type EditorCatalogEntry } from "./station-editor-catalog";
 import { prepareEditorArtifact, readEditorArtifact, requestArtifactDownload, sameEditorArtifactGraph } from "./station-editor-files";
@@ -140,6 +140,13 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const fileInput = useRef<HTMLInputElement>(null);
   const workbench = useRef<HTMLElement>(null);
   const returnFocus = useRef<"file" | "saved">("file");
+  const restoreOpenFocus = useRef(false);
+  useEffect(() => {
+    if (state.pendingArtifact === null && restoreOpenFocus.current) {
+      restoreOpenFocus.current = false;
+      workbench.current?.querySelector<HTMLButtonElement>(`[data-artifact-open="${returnFocus.current}"]`)?.focus();
+    }
+  }, [state.pendingArtifact]);
   const readSequence = useRef(0);
   const latestState = useRef(state); latestState.current = state;
   const feedback = (message: string, invalid: boolean, expectedSession = state.session) =>
@@ -263,8 +270,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     </header>
     {state.pendingArtifact ? <div className="flex flex-wrap items-center gap-3 border-b p-4" role="group" aria-label="Unsaved artifact open">
       <p>Unsaved changes. Discard them and open this composition artifact?</p>
-      <Button variant="outline" onClick={() => { dispatch({ type: "cancel-open" });
-        workbench.current?.querySelector<HTMLButtonElement>(`[data-artifact-open="${returnFocus.current}"]`)?.focus(); }}>Cancel open</Button>
+      <Button variant="outline" onClick={() => { restoreOpenFocus.current = true; dispatch({ type: "cancel-open" }); }}>Cancel open</Button>
       <Button onClick={() => dispatch({ type: "confirm-open" })}>Discard changes and open file</Button>
     </div> : null}
     {state.pendingRef ? <div className="flex flex-wrap items-center gap-3 border-b p-4" role="group" aria-label="Unsaved composition switch">
