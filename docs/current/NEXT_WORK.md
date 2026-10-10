@@ -1,29 +1,29 @@
-# Next Work — Station S4 after WP1
+# Next Work — Station S4 WP2 Editor Operational Journey
 
 Date: 2026-10-10
-Reconciled product/review base: `main@cbdbc8f6b37fe258a109a5900e9b1ca327dd5743`
-Status: WP1 CLOSED upon validated TASK-645 integration; no successor TASK committed
+Fresh predecessor: main@1c2625acacf2e161e388b031026da3766a84902d
+Status: WP1 CLOSED / INTEGRATED; WP2 PLANNING; Construction A executable only after planning integration
 
-## Authority and effective status
+## Authority
 
-- Scope: `docs/contracts/002-station-visual-factory/ADDENDUM.md`.
-- Grandfathered WP1 baseline: `project_docs/execution_planning/STATION-S4-VISUAL-FACTORY-WP1-PLAN-01.md`.
-- Closure manifest/TASK: `project_docs/execution_planning/STATION-S4-WP1-CLOSURE-01.md`, `specs/tasks/TASK-645-STATION-S4-WP1-DOCUMENTATION-CLOSURE.md`.
-- Final dossier: `project_docs/execution_planning/STATION-S4-WP1-CLOSURE-01.report.md`.
-- Coverage/limits: `project_docs/execution_planning/STATION-S4-WP1H-REVIEW-01.report.md`.
+- Scope: `docs/contracts/003-station-editor-operational-journey/ADDENDUM.md` (extends usability while preserving Addendum 002 boundaries).
+- WP2 baseline: `project_docs/execution_planning/STATION-S4-WP2-EDITOR-OPERATIONAL-PLAN-01.md`.
+- First Construction Sprint: `project_docs/execution_planning/STATION-S4-WP2-CONSTRUCTION-A-01.md`.
+- TASK order: `specs/tasks/TASK-646-STATION-S4-WP2-CATALOG-SESSION-INPUT.md` -> `specs/tasks/TASK-647-STATION-S4-WP2-CATALOG-WORKBENCH.md`.
+- Planning findings/evidence: `project_docs/execution_planning/STATION-S4-WP2-PLANNING-01.report.md`.
 
-On the closure branch this is a proposal: require all final-head exact/merge-candidate/heavy/handoff and Station build/seven browser gates, retained artifact and actual merge. On main after validated TASK-645 integration, the bounded WP1 is closed. Consult the closure PR/commit receipt for its final SHA; do not confuse this known predecessor base with that final integration.
+## Integrated predecessor
 
-## Delivered truth
-
-Visual TASK-643 integrated in PR #1031. Whole-package TASK-644 review integrated in PR #1033 at cbdbc8f6b37fe258a109a5900e9b1ca327dd5743. Seven real Chromium journeys passed at 65ad0646; full verify exact 38051674657 / merge 38051674714, heavy 38051674669, handoff 38051674734, build/browser 38051674737 all passed. Artifact 11668994656 retrieved and screenshot reviewed. One session drives Layers/Inspector/Preview; discrete span rejection/recovery and in-memory save/discard are proven for the exercised slice.
+WP1 closure PR #1034 merged at 1c2625acacf2e161e388b031026da3766a84902d. Final head 4fc480f5 passed exact verify 38052042744, merge verify 38052042773, heavy 38052042752, handoff 38052042750 and Station build/browser 38052042748 (7/7; retained artifact 11669826207). This confirms bounded WP1 completion, not complete future Component Editor or WP2 proof.
 
 ## Next eligible action
 
-If closure has not merged, finish its final gates and integration first. Otherwise perform fresh-main successor scope/readiness planning. No new product TASK is executable merely from forecast. Broader editor composition input, Station navigation and user testing environment are candidate priorities; materialize bounded authority before construction. Persistence/deploy/C10 are not admitted automatically.
+Finish planning PR checks/integration first. Then reconstruct actual main, revalidate TASK context/path constraints and exclusive lease, and execute TASK-646 followed by TASK-647 on sprint/station-s4-wp2-construction-a. A commits must remain distinct through ordinary Sprint PR merge. Require full verify/build/browser, all triggered checks and retained artifacts before integration.
 
-## Coordination and limits
+Construction B (Station launcher/window journey), optional C, review and closure remain FORECAST. Materialize B only after integrated A and fresh readiness review. No deployment/user preview is claimed or implicitly authorized as product scope.
 
-Serial GitHub commits/PRs and gated merges are owner-authorized. Preserve C:\Users\admin\system-builder-s4-serial at 6f36bd54 and historical s4/serial-wp1; no force/reset/rebase or overwrite. Re-read authority, fresh refs/check receipts, pending work and execution.lock before writing; never steal a lease.
+## Coordination / boundaries
 
-WP1 closure covers the smallest representative editor, not the complete future Component Editor. Save is page-session acceptance; reload resets. Fixed example, English labels, dynamic/deep hierarchy, launcher and broader input remain future debt. Screen-reader, Firefox/WebKit and general accessibility certification remain UNPROVEN. No currently running preview/deployment is claimed. Core/business/provider/runtime/secrets/persistence stay outside WP1; C10 DEFERRED.
+Owner-authorized serial direct GitHub work, Actions evidence and gated merges continue. Preserve shared Windows worktree clean at 6f36bd54f2522cd647f1f865e593d0ed68ecbe25 and historical s4/serial-wp1; no reset/rebase/force or overwriting other workers. Read remote refs/pending work and execution.lock before writes; never steal a lease.
+
+Catalog is source-owned admitted graph data, not external file/business truth. One Station-owned session; projections share it. Safe explicit dirty switching; save remains in-memory. Public package/schema changes, Core/business, external providers/files/JSON, persistence, publish/deploy/secrets, arbitrary HTML/CSS/pixels and C10 remain outside this package. Report IMPLEMENTED, bounded PROVEN and INTEGRATED separately.
