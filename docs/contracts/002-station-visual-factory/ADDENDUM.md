@@ -1,7 +1,7 @@
 # Contract Addendum 002 — Station Visual Factory Foundation
 
 Date: 2026-10-04
-Status: ACCEPTED / MATERIALIZING
+Status: ACCEPTED / WP1 bounded delivery closed upon validated TASK-645 integration
 Admission source: explicit user authorization to begin the next Work Package after Station S3 closure.
 Predecessor: Station S3 Component Grammar & Catalog — CLOSED / PROVEN / INTEGRATED.
 
@@ -46,3 +46,7 @@ Specialized Studios; broad Tool families; provider managers; server/user/git/ris
 ## Execution rule
 
 Materialize only the first dependency-safe Work Package from fresh main. Construction requires its own bounded TASKs, allowed/forbidden paths and exact-head evidence. A forecast is not authority for later Work Packages.
+
+## Lifecycle reconciliation — 2026-10-10
+
+WP1's accepted smallest slice is delivered and reviewed through PRs #1031 and #1033; documentation closure is recorded in project_docs/execution_planning/STATION-S4-WP1-CLOSURE-01.report.md. This is lifecycle metadata only: all scope, proof obligations and durable boundaries above remain unchanged. Bounded Chromium evidence does not constitute general accessibility certification or admit any deferred scope. Closure becomes effective on validated TASK-645 integration.

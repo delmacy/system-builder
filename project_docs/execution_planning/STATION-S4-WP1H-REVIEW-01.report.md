@@ -3,8 +3,8 @@
 Date: 2026-10-10
 TASK: TASK-644
 Execution base: `f3b326dd95da0d1ec05d9380de9aed1a5d62c572` (planning PR #1032)
-State: REVIEW IMPLEMENTED / FINAL-HEAD EXECUTION PENDING / NOT INTEGRATED
-Disposition: conditional GO for documentation/closure only after all gates and artifact review; WP1 remains OPEN.
+State: REVIEW IMPLEMENTED / BOUNDED EVIDENCE PROVEN / INTEGRATED
+Disposition: GO for separately materialized Documentation & Closure; this review did not close WP1.
 
 ## Reviewed implementation and scope
 
@@ -14,17 +14,17 @@ Addendum 002 and the WP1 plan require the smallest slice that loads a valid comp
 
 ## Nine-obligation coverage matrix
 
-| Obligation | Executable evidence | Limit / state before this head executes |
+| Obligation | Executable evidence | Bounded final evidence / limit |
 |---|---|---|
-| One composition drives all surfaces | integrated journey plus real browser edit/save/discard and cross-node isolation | Existing construction PROVEN; expanded regression pending |
+| One composition drives all surfaces | integrated journey plus real browser edit/save/discard and cross-node isolation | Construction and seven-test review regression PROVEN |
 | Selection/focus/context orthogonal | Layers API tests and keyboard/expansion browser journey | Actual DOM focus tested; no active-context control introduced (N/A) |
-| Valid edits converge | integrated journey, rendered width/spans/revisions, new minimum/maximum cases | Final browser execution pending |
+| Valid edits converge | integrated journey, rendered width/spans/revisions, new minimum/maximum cases | PROVEN on reviewed head |
 | Malformed/stale/incompatible/duplicate/unknown reject without mutation | session, grid-span, draft-boundary, integrated adversarial/recovery product tests; browser invalid sizes | Domain-typed API cases; no arbitrary external JSON loader exists |
 | Discrete grid/span only | typed intent validation, forbidden-extra-field cases, browser 0/1/4/5 columns and 0/1/2/3 rows | No free pixels/HTML/CSS controls |
-| Discard restores accepted composition | API immutability and browser edit/save/edit/discard plus both-node restore | Final expanded browser execution pending |
+| Discard restores accepted composition | API immutability and browser edit/save/edit/discard plus both-node restore | PROVEN on reviewed head |
 | Save is explicit Station acceptance | draft-boundary result tests; clean no-ops and reload reset browser proof | In-memory only; no persistence claim |
 | Introduced keyboard/focus/accessibility | real keyboard-only Layers, fields, Apply/Save/Discard, native labels, roles, error/status and focus preservation | Exercised Chromium behavior; screen reader, Firefox/WebKit, general WCAG certification UNPROVEN |
-| Current negative/adversarial/recovery evidence | full exact-head verify and expanded production-route browser Action | Must pass on this final head and retain artifacts |
+| Current negative/adversarial/recovery evidence | full exact-head verify and expanded production-route browser Action | Final head PASS; artifact 11668994656 retained |
 
 ## Bounded review changes
 
@@ -46,3 +46,8 @@ Adds three real browser tests (seven total): immediate span boundaries with unch
 Require full npm run verify on exact head and current merge candidate, heavy/handoff, Station build and seven browser tests with retained HTML/screenshot artifact. Record final head, run IDs, artifact and actual integration in PR/commit evidence after completion. Do not self-reference future commit SHA or claim unobserved execution in this pre-validation report. Any commit invalidates previous exact-head proof.
 
 Conditional GO means only readiness for a separately materialized Documentation & Closure Sprint, after merge and fresh-main reconstruction. No package closure or successor construction is claimed here. If any introduced browser assertion reveals a required product defect, record NO-GO and explicit corrective construction; forbidden product paths remain untouched.
+
+## Final observed review execution
+
+Final reviewed head `65ad0646e22f17bf786edda5494d11e95ea73b7e`, base f3b326dd95da0d1ec05d9380de9aed1a5d62c572: exact verify [38051674657](https://github.com/delmacy/system-builder/actions/runs/38051674657), merge candidate [38051674714](https://github.com/delmacy/system-builder/actions/runs/38051674714), heavy 38051674669, handoff 38051674734 and Station production build/browser [38051674737](https://github.com/delmacy/system-builder/actions/runs/38051674737) all PASS. Browser 7/7 in 7.6s; artifact 11668994656 retrieved, HTML report retained, screenshot visually reviewed with no clipped panes. PR #1033 integrated at `cbdbc8f6b37fe258a109a5900e9b1ca327dd5743`.
+Earlier exit/pending wording above is the declared pre-execution gate, not the current scheduler. All nine obligations are covered for the typed-domain and representative Chromium slice with the listed limits. No product capability gap was identified for the admitted minimum; future external-input loading requires separate hardening. GO is limited to documentation/closure.
