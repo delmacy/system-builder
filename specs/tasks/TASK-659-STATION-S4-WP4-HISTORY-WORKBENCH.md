@@ -1,7 +1,7 @@
 ---
 id: TASK-659
 title: Station S4 WP4 HISTORY-WORKBENCH
-status: ready
+status: completed
 priority: 659
 milestone: STATION-S4-WP4-EDIT-HISTORY
 model_tier: architecture
@@ -87,3 +87,6 @@ One authoritative TASK commit, Sprint report, one PR; observed declared local va
 
 ## Escalation
 Stop for conflicting authority, worker collision, forbidden path, undeclared L3/L4/dependency change or proof requiring scope relaxation. Preserve unrelated PRs and legacy ledger.
+
+## Implementation checkpoint
+History controls, scoped shortcuts and checkpoint lifecycle implemented on this branch. All 29 real Chromium journeys and exact-head CI required before integration.

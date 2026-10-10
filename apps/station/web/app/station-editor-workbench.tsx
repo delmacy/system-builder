@@ -8,13 +8,13 @@ import type { EditorLayer } from "../../../../packages/station-editor/index";
 import {
   projectEditorLayers, selectEditorLayer,
   projectEditorInspector, projectEditorPreview, createEditorSetSpanIntent,
-  applyEditorStructuralEditIntent, acceptEditorDraft, discardEditorDraft,
+  applyEditorHistoryEdit, createEditorHistory, moveEditorHistory, acceptEditorDraft, discardEditorDraft,
   initializeEditorSession, openStoredArtifact, saveStoredArtifact,
-  type EditorSession, type LayersSelection, type CompositionArtifact,
+  type EditorSession, type EditorHistory, type LayersSelection, type CompositionArtifact,
 } from "../../../../packages/station-editor/index";
 
 type State = Readonly<{
-  entry: EditorCatalogEntry; session: EditorSession; selection: LayersSelection;
+  entry: EditorCatalogEntry; history: EditorHistory; selection: LayersSelection;
   pendingRef: string | null;
   columns: string; rows: string; message: string; invalid: boolean;
   document: CompositionArtifact | null; savedText: string | null;
@@ -23,7 +23,7 @@ type State = Readonly<{
 type Action =
   | { type: "select"; ref: string }
   | { type: "field"; field: "columns" | "rows"; value: string }
-  | { type: "apply" | "save" | "discard" }
+  | { type: "apply" | "save" | "discard" | "undo" | "redo" }
   | { type: "request-switch"; ref: string }
   | { type: "cancel-switch" | "confirm-switch" }
   | { type: "feedback"; message: string; invalid: boolean; expectedSession: EditorSession }
@@ -39,7 +39,7 @@ function fields(session: EditorSession, selection: LayersSelection) {
 function initialState(ref: string): State | null {
   const result = initializeCatalogEditorSession(ref, "session:visual-workbench");
   if (!result.accepted) return null;
-  return { entry: result.entry, session: result.session, selection: { selectedRef: null },
+  return { entry: result.entry, history: createEditorHistory(result.session), selection: { selectedRef: null },
     columns: "", rows: "", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
     document: null, savedText: null, pendingArtifact: null };
 }
@@ -53,74 +53,87 @@ function replaceArtifact(state: State, candidate: { document: CompositionArtifac
   const selectedRef = state.entry.compositionRef === entry.compositionRef &&
     result.session.transaction.draft.nodes.some(node => node.ref === state.selection.selectedRef) ? state.selection.selectedRef : null;
   const selection = { selectedRef };
-  return { ...state, entry, session: result.session, selection, ...fields(result.session, selection),
+  return { ...state, entry, history: createEditorHistory(result.session), selection, ...fields(result.session, selection),
     document: candidate.document, savedText: candidate.savedText, pendingRef: null, pendingArtifact: null,
     invalid: false, message: "Composition opened. Edit it or save a new version." };
 }
 function sizeHelp(state: State): string {
-  const node = state.session.transaction.draft.nodes.find(item => item.ref === state.selection.selectedRef);
+  const node = state.history.session.transaction.draft.nodes.find(item => item.ref === state.selection.selectedRef);
   const bounds = node && state.entry.registry.get(node.componentRef)?.constraints;
   return bounds ? `${bounds.minColumns}–${bounds.maxColumns} columns and ${bounds.minRows}–${bounds.maxRows} ${bounds.maxRows === 1 ? "row" : "rows"}` : "1–4 columns and 1–2 rows";
 }
+function historyBlocked(state: State): boolean {
+  const applied = fields(state.history.session, state.selection);
+  return state.pendingArtifact !== null || state.pendingRef !== null ||
+    state.columns !== applied.columns || state.rows !== applied.rows;
+}
 function reducer(state: State | null, action: Action): State | null {
   if (!state) return null;
-  if (action.type === "feedback") return action.expectedSession === state.session
+  if (action.type === "feedback") return action.expectedSession === state.history.session
     ? { ...state, message: action.message, invalid: action.invalid } : state;
   if (action.type === "request-open") {
-    if (action.expectedSession !== state.session) return state;
+    if (action.expectedSession !== state.history.session) return state;
     const candidate = { document: action.document, savedText: action.savedText };
-    const currentFields = fields(state.session, state.selection);
-    return state.session.transaction.dirty || state.columns !== currentFields.columns || state.rows !== currentFields.rows ||
-      !sameEditorArtifactGraph(state.session.transaction.draft, state.document?.payload.graph ?? state.entry.composition)
+    const currentFields = fields(state.history.session, state.selection);
+    return state.history.session.transaction.dirty || state.columns !== currentFields.columns || state.rows !== currentFields.rows ||
+      !sameEditorArtifactGraph(state.history.session.transaction.draft, state.document?.payload.graph ?? state.entry.composition)
       ? { ...state, pendingArtifact: candidate, pendingRef: null }
       : replaceArtifact(state, candidate);
   }
   if (action.type === "cancel-open") return { ...state, pendingArtifact: null };
   if (action.type === "confirm-open") return state.pendingArtifact ? replaceArtifact(state, state.pendingArtifact) : state;
   if (action.type === "saved-artifact") {
-    if (action.expectedSession !== state.session) return state;
-    const result = acceptEditorDraft(state.session, state.session.draftRevision, state.entry.registry);
+    if (action.expectedSession !== state.history.session) return state;
+    const result = acceptEditorDraft(state.history.session, state.history.session.draftRevision, state.entry.registry);
     if (!result.accepted) return { ...state, invalid: true, message: "File retained locally, but this session could not be accepted." };
-    return { ...state, session: result.session, document: action.document, savedText: action.savedText,
+    return { ...state, history: createEditorHistory(result.session), document: action.document, savedText: action.savedText,
       ...fields(result.session, state.selection), invalid: false, message: "Composition saved locally in this browser." };
   }
   if (action.type === "request-switch") {
     if (action.ref === state.entry.compositionRef) return state;
-    if (state.session.transaction.dirty) return { ...state, pendingRef: action.ref };
+    if (state.history.session.transaction.dirty) return { ...state, pendingRef: action.ref };
     return initialState(action.ref) ?? { ...state, invalid: true, message: "Composition unavailable. Your session is unchanged." };
   }
   if (action.type === "cancel-switch") return { ...state, pendingRef: null };
   if (action.type === "confirm-switch") {
     if (!state.pendingRef) return state;
-    const discarded = discardEditorDraft(state.session, state.session.draftRevision, state.entry.registry);
+    const discarded = discardEditorDraft(state.history.session, state.history.session.draftRevision, state.entry.registry);
     if (!discarded.accepted) return { ...state, invalid: true, message: "Unable to switch. Your session is unchanged." };
     return initialState(state.pendingRef) ?? { ...state, pendingRef: null, invalid: true,
       message: "Composition unavailable. Your session is unchanged." };
   }
   if (action.type === "field") return { ...state, [action.field]: action.value, invalid: false };
   if (action.type === "select") {
-    const result = selectEditorLayer(projectEditorLayers(state.session), state.selection, action.ref);
+    const result = selectEditorLayer(projectEditorLayers(state.history.session), state.selection, action.ref);
     if (!result.accepted) return { ...state, message: "This layer is unavailable.", invalid: true };
-    return { ...state, selection: result.selection, ...fields(state.session, result.selection),
-      message: action.ref === state.session.transaction.draft.rootRef ? "The root is read-only." : "Layer selected.", invalid: false };
+    return { ...state, selection: result.selection, ...fields(state.history.session, result.selection),
+      message: action.ref === state.history.session.transaction.draft.rootRef ? "The root is read-only." : "Layer selected.", invalid: false };
+  }
+  if (action.type === "undo" || action.type === "redo") {
+    if (historyBlocked(state)) return { ...state, invalid: false,
+      message: "Apply or restore the Inspector fields and finish the pending open before undo or redo." };
+    const result = moveEditorHistory(state.history, action.type, state.history.session.draftRevision, state.entry.registry);
+    if (!result.accepted) return { ...state, invalid: true, message: "Unable to change history. Your composition is unchanged." };
+    return { ...state, history: result.history, ...fields(result.history.session, state.selection), invalid: false,
+      message: result.changed ? (action.type === "undo" ? "Size change undone." : "Size change redone.") : "No size changes to " + action.type + "." };
   }
   if (action.type === "apply") {
-    const proposal = createEditorSetSpanIntent(state.session, state.selection, state.session.draftRevision,
+    const proposal = createEditorSetSpanIntent(state.history.session, state.selection, state.history.session.draftRevision,
       { columnSpan: Number(state.columns), rowSpan: Number(state.rows) });
     if (!proposal.accepted) return { ...state, invalid: true,
       message: `Enter whole numbers: ${sizeHelp(state)}. The composition is unchanged.` };
-    const result = applyEditorStructuralEditIntent(state.session, state.selection, proposal.intent, state.entry.registry);
+    const result = applyEditorHistoryEdit(state.history, state.selection, proposal.intent, state.entry.registry);
     if (!result.accepted) return { ...state, invalid: true,
       message: `This size is not allowed. Use ${sizeHelp(state)}. The composition is unchanged.` };
-    return { ...state, session: result.session, invalid: false,
+    return { ...state, history: result.history, invalid: false,
       message: result.changed ? "Size updated. Save or discard your changes." : "The size is already applied." };
   }
   const result = action.type === "save"
-    ? acceptEditorDraft(state.session, state.session.draftRevision, state.entry.registry)
-    : discardEditorDraft(state.session, state.session.draftRevision, state.entry.registry);
+    ? acceptEditorDraft(state.history.session, state.history.session.draftRevision, state.entry.registry)
+    : discardEditorDraft(state.history.session, state.history.session.draftRevision, state.entry.registry);
   if (!result.accepted) return { ...state, invalid: true,
     message: "The changes could not be accepted. Your composition is unchanged." };
-  return { ...state, session: result.session, ...fields(result.session, state.selection), invalid: false,
+  return { ...state, history: createEditorHistory(result.session), ...fields(result.session, state.selection), invalid: false,
     message: action.type === "save"
       ? (result.changed ? "Changes saved for this session." : "No changes to save.")
       : (result.changed ? "Changes discarded." : "No changes to discard.") };
@@ -134,8 +147,8 @@ export function StationEditorWorkbench({ initialCompositionRef = DEFAULT_COMPOSI
 }
 function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dispatch: (action: Action) => void;
   catalogSelect: React.RefObject<HTMLSelectElement | null> }) {
-  const [expanded, setExpanded] = useState(() => new Set([state.session.transaction.draft.rootRef]));
-  const [focusedRef, setFocusedRef] = useState(state.session.transaction.draft.rootRef);
+  const [expanded, setExpanded] = useState(() => new Set([state.history.session.transaction.draft.rootRef]));
+  const [focusedRef, setFocusedRef] = useState(state.history.session.transaction.draft.rootRef);
   const items = useRef(new Map<string, HTMLButtonElement>());
   const fileInput = useRef<HTMLInputElement>(null);
   const workbench = useRef<HTMLElement>(null);
@@ -149,18 +162,18 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   }, [state.pendingArtifact]);
   const readSequence = useRef(0);
   const latestState = useRef(state); latestState.current = state;
-  const feedback = (message: string, invalid: boolean, expectedSession = state.session) =>
+  const feedback = (message: string, invalid: boolean, expectedSession = state.history.session) =>
     dispatch({ type: "feedback", message, invalid, expectedSession });
   const operation = () => ({ artifactId: `urn:uuid:${crypto.randomUUID()}`, createdAt: new Date().toISOString() });
   const saveLocal = () => {
     try {
-      const prepared = prepareEditorArtifact(state.entry.compositionRef, state.session.transaction.draft, state.document, operation());
+      const prepared = prepareEditorArtifact(state.entry.compositionRef, state.history.session.transaction.draft, state.document, operation());
       if (!prepared.accepted) { feedback("Unable to prepare this composition. Your session is unchanged.", true); return; }
       const saved = saveStoredArtifact(window.localStorage, prepared.document, state.savedText, resolveEditorCatalogEntry);
       if (!saved.accepted) { feedback(saved.reason === "storage-conflict"
         ? "A saved artifact already exists or changed. Open saved before replacing it. Your draft is unchanged."
         : "Local storage is unavailable or full. Your draft and prior saved artifact are unchanged.", true); return; }
-      dispatch({ type: "saved-artifact", document: saved.document, savedText: saved.storedText, expectedSession: state.session });
+      dispatch({ type: "saved-artifact", document: saved.document, savedText: saved.storedText, expectedSession: state.history.session });
     } catch { feedback("Local storage is unavailable. Your draft is unchanged.", true); }
   };
   const openSaved = () => {
@@ -169,12 +182,12 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       const result = openStoredArtifact(window.localStorage, state.entry.compositionRef, resolveEditorCatalogEntry);
       if (!result.accepted) { feedback(result.reason === "not-found" ? "No composition has been saved locally."
         : "Unable to open the saved artifact. Your session is unchanged.", true); return; }
-      dispatch({ type: "request-open", document: result.document, savedText: result.storedText, expectedSession: state.session });
+      dispatch({ type: "request-open", document: result.document, savedText: result.storedText, expectedSession: state.history.session });
     } catch { feedback("Local storage is unavailable. Your session is unchanged.", true); }
   };
   const saveFile = () => {
     try {
-      const prepared = prepareEditorArtifact(state.entry.compositionRef, state.session.transaction.draft, state.document, operation(), true);
+      const prepared = prepareEditorArtifact(state.entry.compositionRef, state.history.session.transaction.draft, state.document, operation(), true);
       if (!prepared.accepted) { feedback("Unable to prepare this composition file. Your session is unchanged.", true); return; }
       requestArtifactDownload(prepared.text, state.entry.compositionRef);
       feedback("Download requested. Keep the file to reopen it; your draft remains unchanged.", false);
@@ -185,14 +198,14 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     returnFocus.current = "file";
     const result = await readEditorArtifact(file);
     if (sequence !== readSequence.current || latestState.current !== expected) {
-      feedback("File opening was superseded by a newer interaction. Your session is unchanged.", false, latestState.current.session); return;
+      feedback("File opening was superseded by a newer interaction. Your session is unchanged.", false, latestState.current.history.session); return;
     }
-    if (!result.accepted) { feedback("Unable to open this composition file. Your session is unchanged.", true, expected.session); return; }
-    dispatch({ type: "request-open", document: result.document, savedText: null, expectedSession: expected.session });
+    if (!result.accepted) { feedback("Unable to open this composition file. Your session is unchanged.", true, expected.history.session); return; }
+    dispatch({ type: "request-open", document: result.document, savedText: null, expectedSession: expected.history.session });
   };
-  const layers = projectEditorLayers(state.session);
-  const inspector = projectEditorInspector(state.session, state.selection, state.session.draftRevision);
-  const preview = projectEditorPreview(state.session, state.entry.registry, state.selection);
+  const layers = projectEditorLayers(state.history.session);
+  const inspector = projectEditorInspector(state.history.session, state.selection, state.history.session.draftRevision);
+  const preview = projectEditorPreview(state.history.session, state.entry.registry, state.selection);
   const selected = inspector.accepted && inspector.snapshot.kind === "node" ? inspector.snapshot : null;
   const editable = selected?.editable === true;
   const visible: { node: EditorLayer; level: number; position: number; siblings: number }[] = [];
@@ -203,7 +216,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   };
   if (layers.accepted) walk(layers.root, 1, 1, 1);
   const focusable = visible.some(item => item.node.nodeRef === focusedRef)
-    ? focusedRef : state.session.transaction.draft.rootRef;
+    ? focusedRef : state.history.session.transaction.draft.rootRef;
   const focus = (ref: string) => { setFocusedRef(ref); items.current.get(ref)?.focus(); };
   const navigate = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     const node = visible[index]?.node;
@@ -247,8 +260,22 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       {state.entry.labels[node.nodeRef] ?? node.nodeRef}{children.length ? <div className={container}>{children}</div> : null}
     </div>;
   };
-  return <section ref={workbench} aria-label="Composition editor" data-draft-revision={state.session.draftRevision}
-    data-base-revision={state.session.base.revision} className="overflow-hidden rounded-xl border bg-card shadow-sm">
+  const blocked = historyBlocked(state);
+  const canUndo = !blocked && state.history.past.length > 0;
+  const canRedo = !blocked && state.history.future.length > 0;
+  const historyShortcut = (event: KeyboardEvent<HTMLElement>) => {
+    const target = event.target;
+    if (event.defaultPrevented || event.repeat || event.altKey || event.nativeEvent.isComposing ||
+      !(event.ctrlKey || event.metaKey) || !(target instanceof HTMLElement) ||
+      target.isContentEditable || target.closest("input,textarea,select")) return;
+    const key = event.key.toLowerCase();
+    const direction = key === "z" ? (event.shiftKey ? "redo" : "undo") :
+      key === "y" && event.ctrlKey && !event.metaKey && !event.shiftKey ? "redo" : null;
+    if (!direction) return;
+    event.preventDefault(); dispatch({ type: direction });
+  };
+  return <section ref={workbench} onKeyDown={historyShortcut} aria-label="Composition editor" data-draft-revision={state.history.session.draftRevision}
+    data-base-revision={state.history.session.base.revision} className="overflow-hidden rounded-xl border bg-card shadow-sm">
     <header className="flex flex-wrap items-center gap-3 border-b p-4">
       <div className="mr-auto"><label htmlFor="editor-composition" className="mb-1 block text-sm">Composition</label>
         <select id="editor-composition" ref={catalogSelect} value={state.entry.compositionRef}
@@ -257,10 +284,14 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
           className="rounded-md border bg-background p-2">{listEditorCatalog().map(item =>
             <option key={item.compositionRef} value={item.compositionRef}>{item.title}</option>)}</select></div>
       <span data-testid="draft-state" className="text-sm text-muted-foreground">
-        {state.session.transaction.dirty ? "Unsaved changes" : "All changes saved"}
+        {state.history.session.transaction.dirty ? "Unsaved changes" : "All changes saved"}
       </span>
-      <Button aria-disabled={!state.session.transaction.dirty} onClick={() => dispatch({ type: "save" })}>Save changes</Button>
-      <Button variant="outline" aria-disabled={!state.session.transaction.dirty} onClick={() => dispatch({ type: "discard" })}>Discard changes</Button>
+      <Button variant="outline" aria-disabled={!canUndo} aria-keyshortcuts="Control+z Meta+z"
+        onClick={() => dispatch({ type: "undo" })}>Undo</Button>
+      <Button variant="outline" aria-disabled={!canRedo} aria-keyshortcuts="Control+Shift+z Meta+Shift+z Control+y"
+        onClick={() => dispatch({ type: "redo" })}>Redo</Button>
+      <Button aria-disabled={!state.history.session.transaction.dirty} onClick={() => dispatch({ type: "save" })}>Save changes</Button>
+      <Button variant="outline" aria-disabled={!state.history.session.transaction.dirty} onClick={() => dispatch({ type: "discard" })}>Discard changes</Button>
       <Button variant="outline" onClick={saveLocal} disabled={state.pendingArtifact !== null}>Save locally</Button>
       <Button variant="outline" data-artifact-open="saved" onClick={openSaved} disabled={state.pendingArtifact !== null}>Open saved</Button>
       <Button variant="outline" onClick={saveFile}>Save As file</Button>
@@ -326,7 +357,8 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     </div>
     <footer className="border-t p-4">
       <p id="editor-feedback" role="status" aria-live="polite" aria-atomic="true" className="text-sm">{state.message}</p>
-      <p className="mt-2 text-xs text-muted-foreground">Save changes accepts this session. Save locally retains a separate copy in this browser; use Open saved after reload.</p>
+      <p className="mt-2 text-xs text-muted-foreground">Undo/Redo keeps up to 50 applied size edits in this session. Saving, discarding or opening a composition clears history.</p>
+      <p className="text-xs text-muted-foreground">Save changes accepts this session. Save locally retains a separate copy in this browser; use Open saved after reload.</p>
       <p className="text-xs text-muted-foreground">Save As file requests a portable download. Browser storage can be cleared; keep exported files for retention.</p>
     </footer>
   </section>;

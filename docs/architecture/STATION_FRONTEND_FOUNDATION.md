@@ -264,3 +264,13 @@ Addendum 004/RESOLUTION-01/02 use the existing ADR-0009 public envelope with a s
 6. Quota/denial/conflict/corrupt input returns an error without cleaning the draft or replacing prior bytes. If a saved artifact already exists/changed, retain current work with Save As file before Open saved and explicit replacement. A corrupt saved slot is conservatively preserved; use portable export/open for recovery rather than treating failed local saving as success. Browser data may be cleared or origin-specific. Expected-text checking is not transactional synchronization between concurrent tabs.
 
 The package review and closure reports under project_docs/execution_planning/STATION-S4-WP3-* map accepted delivery to actual API/product/browser/Windows/Ubuntu proof and classified residuals. No automatic saving/loading, Core/server storage, structural authoring, File Manager, canonical .process, network sync or deployment is included.
+
+## Station S4 WP4 applied size history
+
+The Composition Editor route and Station window use one ephemeral history wrapper around the current EditorSession. Undo and Redo restore up to 50 applied changed size edits, retain the selected layer and accepted baseline, and increment draft revision; returning to the accepted baseline is clean. Changed branching clears redo; no-op/rejected edits retain it. Source topology and public artifact format remain unchanged.
+
+Use Undo/Redo or Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z and Ctrl+Y while focus is on editor controls or Layers. Inputs, textareas, selects, contenteditable text and IME retain native text undo. Unapplied Inspector values and pending file/catalog replacement block graph history; apply the fields or restore their applied values and finish/cancel the pending operation first. Polite feedback explains blocked/empty/rejected operations; aria-disabled reflects availability while keeping controls focusable.
+
+Successful Save changes, Save locally, Discard changes or open/switch starts an empty stack. Failed saving/opening, cancellation and Save As download preserve history. Minimize/restore preserves the mounted history; close/reopen or reload clears it. Neither artifacts nor layout preferences store history. Origin/file retention and version semantics remain WP3 rules.
+
+Construction B expands the existing Chromium suite from 21 to 29 journeys, adding convergence, branch/no-op/rejection, native-input shortcuts, checkpoints, cancellation/failure/export, successful replacement/reload, Station lifecycle and the actual 51-edit/50-undo limit. Pure engine tests use both real installed compositions and existing projections/codec. No generic structural authoring, persistent history or full Component Editor is claimed.
