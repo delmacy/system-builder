@@ -14,3 +14,7 @@ App-local normalized Composition Editor manifest registered independently of M1 
 ## TASK-649 checkpoint
 
 Station registry consumes the app-local editor manifest; desktop renders the workbench in an ordinary WindowFrame. Minimized instances remain mounted but display:none, while closed instances unmount. Actual browser tests cover launcher, edit/minimize/restore, close/reopen, negative descriptor bound, dirty switch cancellation and presentation-only layout storage; existing ten route regressions remain. Final exact-head verification, screenshot artifact and integration pending.
+
+## CI correction
+
+Initial TASK-649 browser 9/9 omitted three A regressions; correction 3fcbb164 restored all 12 and browser run 38062491125 passed (artifact 11673098769; restored window screenshot inspected). Exact verify on 3fcbb164 rejected an old source-assertion requiring OPEN-only rendering; bounded task path change 2d3eb28 admits updating that assertion to the mounted minimized model. Final gates still pending.

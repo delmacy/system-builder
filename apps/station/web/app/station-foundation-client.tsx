@@ -12,7 +12,8 @@ import { M1_UTILITY_APPS, StationAppRegistry } from "../../../../packages/statio
 import { WindowFrame, createWindowPresentationCommands, createWindowRuntimeState, loadWindowPresentationLayout, reduceWindowRuntime, resetWindowPresentationLayout, saveWindowPresentationLayout, type WindowAction, type WindowDefinition, type WindowInstance } from "../../../../packages/station-windowing/index";
 import { DEFAULT_STATION_PRESENTATION_STATE, createBrowserLocalPresentationStorage, updateStationPresentationState, type StationPresentationPatch, type StationPresentationState } from "../../../../packages/station-settings/index";
 
-const registry = new StationAppRegistry([...M1_UTILITY_APPS, STATION_EDITOR_APP]);
+const registry = new StationAppRegistry(M1_UTILITY_APPS);
+registry.register(STATION_EDITOR_APP);
 const welcome = registry.launch("app:welcome");
 const definitions = registry.list().flatMap((app) => registry.launch(app.id).windowDefinitions);
 const initialBounds = Object.freeze({ width: 1280, height: 672 });

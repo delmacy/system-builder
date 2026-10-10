@@ -24,7 +24,9 @@ test("Station visual foundation composes the committed M1 substrate", () => {
   assert.match(source, /windows=\{taskbarWindows\}/);
   assert.match(source, /onLauncherOpenChange=\{setLauncherOpen\}/);
   assert.match(source, /instance\.lifecycle === "MINIMIZED"/);
-  assert.match(source, /openWindows\.map/);
+  assert.match(source, /visibleWindows\.map/);
+  assert.match(source, /registry\.register\(STATION_EDITOR_APP\)/);
+  assert.match(source, /<StationEditorWorkbench/);
   assert.match(source, /no Core truth is inferred/);
 });
 
