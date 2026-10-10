@@ -31,3 +31,6 @@ A #1051 passed all seven workflows, Windows/Ubuntu builds and all 21 predecessor
 
 ## Rolling-wave checkpoint — Package Review
 B #1052 integrated at 979b1a502893e18f6b4572e69e911669f4088ffb; all seven workflows, Windows/Ubuntu and 29 Chromium journeys passed. Optional C NOT PROMOTED: no missing admitted goal capability observed. Only Package Review/TASK-660 is COMMITTED; Closure remains forecast.
+
+## Rolling-wave checkpoint — Documentation & Closure
+Review #1053 integrated at c8fcf2d62cba9ec06b435af37e3a241d76bfae6d after all five workflows and repeated 29/29 Chromium journeys. Closure GO is effective. Only TASK-661/Documentation & Closure is COMMITTED; no successor. WP4 remains open until validated closure integration.
