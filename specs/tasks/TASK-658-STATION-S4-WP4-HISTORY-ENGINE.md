@@ -1,7 +1,7 @@
 ---
 id: TASK-658
 title: Station S4 WP4 HISTORY-ENGINE
-status: ready
+status: completed
 priority: 658
 milestone: STATION-S4-WP4-EDIT-HISTORY
 model_tier: architecture
@@ -84,3 +84,6 @@ One authoritative TASK commit, Sprint report, one PR; observed declared local va
 
 ## Escalation
 Stop for conflicting authority, worker collision, forbidden path, undeclared L3/L4/dependency change or proof requiring scope relaxation. Preserve unrelated PRs and legacy ledger.
+
+## Implementation checkpoint
+Pure history and eight real-catalog tests implemented on this Sprint branch. Exact-head Actions and validated integration remain required; B is not yet committed.
