@@ -128,3 +128,76 @@ test("root is read-only, expansion preserves selection, and narrow layout remain
   await expect(page.getByLabel("Columns", { exact: true })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
+
+test("minimum and maximum spans accept; immediately outside bounds reject atomically", async ({ page }) => {
+  await page.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+  await span(page, "1", "1");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "8");
+  await expect(preview(page)).toHaveAttribute("data-column-span", "1");
+  await span(page, "4", "2");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "9");
+  await expect(preview(page)).toHaveAttribute("data-column-span", "4");
+  await expect(preview(page)).toHaveAttribute("data-row-span", "2");
+  for (const [columns, rows] of [["0", "2"], ["5", "2"], ["4", "0"], ["4", "3"]]) {
+    await span(page, columns!, rows!);
+    await expect(editor(page)).toHaveAttribute("data-draft-revision", "9");
+    await expect(preview(page)).toHaveAttribute("data-column-span", "4");
+    await expect(preview(page)).toHaveAttribute("data-row-span", "2");
+    await expect(preview(page, "Button 2")).toHaveAttribute("data-column-span", "2");
+    await expect(page.getByRole("status")).toContainText("unchanged");
+  }
+  await span(page, "3", "1");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "10");
+  await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+  await expect(page.getByLabel("Columns", { exact: true })).toHaveAttribute("aria-invalid", "false");
+});
+
+test("clean save/discard and equivalent edit preserve revision, selection and focus", async ({ page }) => {
+  const first = page.getByRole("treeitem", { name: "Button 1", exact: true });
+  await first.click();
+  await span(page, "2", "1");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
+  await expect(page.getByRole("status")).toHaveText("The size is already applied.");
+  for (const [name, message] of [["Save changes", "No changes to save."], ["Discard changes", "No changes to discard."]]) {
+    const control = page.getByRole("button", { name, exact: true });
+    await expect(control).toHaveAttribute("aria-disabled", "true");
+    await tabTo(page, control);
+    await page.keyboard.press("Enter");
+    await expect(control).toBeFocused();
+    await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
+    await expect(first).toHaveAttribute("aria-selected", "true");
+    await expect(preview(page)).toHaveAttribute("data-selected", "true");
+    await expect(page.getByRole("status")).toHaveText(message);
+  }
+});
+
+test("switching nodes isolates applied edits and unapplied fields; reload resets session", async ({ page }) => {
+  const first = page.getByRole("treeitem", { name: "Button 1", exact: true });
+  const second = page.getByRole("treeitem", { name: "Button 2", exact: true });
+  await first.click();
+  await span(page, "3", "1");
+  await page.getByLabel("Columns", { exact: true }).fill("999");
+  await second.click();
+  await expect(page.getByLabel("Columns", { exact: true })).toHaveValue("2");
+  await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+  await expect(preview(page)).toHaveAttribute("data-selected", "false");
+  await span(page, "4", "2");
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "9");
+  await first.click();
+  await expect(page.getByLabel("Columns", { exact: true })).toHaveValue("3");
+  await expect(page.getByLabel("Rows", { exact: true })).toHaveValue("1");
+  await page.getByRole("button", { name: "Save changes", exact: true }).click();
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "10");
+  await span(page, "1");
+  await page.getByRole("button", { name: "Discard changes", exact: true }).click();
+  await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+  await expect(preview(page, "Button 2")).toHaveAttribute("data-column-span", "4");
+  await expect(preview(page, "Button 2")).toHaveAttribute("data-row-span", "2");
+  await expect(page.getByText("Changes are kept for this session. Reloading starts a new example.", { exact: true })).toBeVisible();
+  await page.reload();
+  await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
+  await expect(preview(page)).toHaveAttribute("data-column-span", "2");
+  await expect(preview(page, "Button 2")).toHaveAttribute("data-column-span", "2");
+  await expect(page.getByLabel("Columns", { exact: true })).toBeDisabled();
+  await expect(first).toHaveAttribute("aria-selected", "false");
+});
