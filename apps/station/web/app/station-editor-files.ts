@@ -1,4 +1,4 @@
-import { ARTIFACT_LIMITS, encodeCompositionArtifact, type ArtifactResult, type CompositionArtifact } from "../../../../packages/station-editor/index.js";
+import { ARTIFACT_LIMITS, compositionPayloadVersion, encodeCompositionArtifact, type ArtifactResult, type CompositionArtifact } from "../../../../packages/station-editor/index.js";
 import type { CompositionGraph } from "../../../../packages/station-composition/index.js";
 import { resolveEditorCatalogEntry } from "./station-editor-catalog.js";
 import { exportCatalogArtifact, importCatalogArtifact } from "./station-editor-artifact.js";
@@ -21,7 +21,9 @@ export function prepareEditorArtifact(ref: string, graph: CompositionGraph, prev
   if (!newIdentity && sameEditorArtifactGraph(previous.payload.graph, graph)) return encodeCompositionArtifact(previous, resolveEditorCatalogEntry);
   const components = previous.artifactVersion.split(/[+-]/)[0]!.split(".");
   const artifactVersion = newIdentity ? "1.0.0" : `${components[0]}.${components[1]}.${BigInt(components[2]!) + 1n}`;
-  return encodeCompositionArtifact({ ...previous, artifactVersion, artifactId: newIdentity ? operation.artifactId : previous.artifactId,
+  const source = resolveEditorCatalogEntry(ref);
+  if (!source) return { accepted: false, reason: "unknown-composition" };
+  return encodeCompositionArtifact({ ...previous, schema: { ...previous.schema, version: compositionPayloadVersion(graph, source) }, artifactVersion, artifactId: newIdentity ? operation.artifactId : previous.artifactId,
     provenance: { ...previous.provenance, createdAt: operation.createdAt,
       inputs: [...previous.provenance.inputs as unknown[], { artifactType: previous.artifactType, artifactId: previous.artifactId, artifactVersion: previous.artifactVersion }] },
     payload: { ...previous.payload, graph } }, resolveEditorCatalogEntry);
