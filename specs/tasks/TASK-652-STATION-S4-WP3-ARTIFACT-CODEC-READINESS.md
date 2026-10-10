@@ -56,3 +56,35 @@ Define and then implement a safe, versioned, portable **composition artifact** c
 
 ## Delivery gates
 Planning approval -> separately bounded codec implementation commit -> unit tests -> Chromium proof where relevant -> review/merge. Do not advertise durable Save/Open until an independent WP3 Construction B explicitly implements and proves it.
+
+## Objective
+Prepare a versioned portable composition codec under an explicitly reviewed future contract; this task changes documentation only.
+
+## Context
+WP2 and WP3 planning are integrated, but the editor Save remains session-only and accepts source-owned catalog entries.
+
+## Current behavior
+Graph editing uses admitted composition descriptors and does not import external files. Window settings intentionally exclude editor data.
+
+## Required change
+Inventory resource/file contracts and define validation, migration and security gates before implementation in a separate bounded construction task.
+
+## Inputs / contracts
+WP3 planning baseline, Station composition graph and editor session APIs, existing resource/file format contracts, and document authority.
+
+## Outputs / contracts
+A readiness checkpoint and test requirements, not a new accepted schema, importer, or persistence API.
+
+## Acceptance criteria
+- Existing resource and composition contracts are inventoried before implementation.
+- Strict schema, bounded size, identities, revision, versioning and fail-closed recovery are specified.
+- Exact-head and current merge-candidate checks succeed before integration.
+
+## Non-goals
+Product code, durable storage, Core changes, app deployments, external execution, unrelated window preferences or complete Studio functionality.
+
+## Evidence expected
+Reviewed TASK commit, deterministic CI and browser regression, PR integration trace.
+
+## Escalation
+Stop for forbidden-file changes, shared contract drift, worker collision, or insufficiently specified import trust boundary.
