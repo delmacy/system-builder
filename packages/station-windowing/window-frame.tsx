@@ -105,8 +105,6 @@ export function WindowFrame({
     dispatch({ type: "SET_GEOMETRY", windowRef: instance.windowRef, geometry: next });
   };
 
-  if (instance.lifecycle !== "OPEN") return null;
-
   return (
     <section
       aria-label={definition.title}

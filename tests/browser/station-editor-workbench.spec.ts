@@ -279,3 +279,71 @@ test("clean catalog switching resets sessions and retains accessible keyboard tr
   await expect(first).toHaveAttribute("aria-selected", "false");
   await expect(preview(page, "Group Button 1")).toHaveAttribute("data-column-span", "2");
 });
+
+test.describe("Station launcher and window lifecycle", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Open applications" }).click();
+    await page.locator('[data-app-ref="app:composition-editor"]').click();
+  });
+
+  test("editor draft survives minimize and restore, then close/reopen starts fresh", async ({ page }, testInfo) => {
+    const window = page.getByRole("dialog", { name: "Composition Editor", exact: true });
+    await expect(window).toBeVisible();
+    const workbench = window.getByRole("region", { name: "Composition editor", exact: true });
+    await workbench.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+    await workbench.getByLabel("Columns", { exact: true }).fill("3");
+    await workbench.getByRole("button", { name: "Apply size" }).click();
+    await expect(workbench).toHaveAttribute("data-draft-revision", "8");
+    await workbench.getByLabel("Columns", { exact: true }).fill("999");
+    await window.getByRole("button", { name: "Minimize window" }).click();
+    await expect(window).toHaveCount(0);
+    const taskbar = page.locator('[data-slot="taskbar-windows"]').getByRole("button", { name: "Composition Editor" });
+    await expect(taskbar).toHaveAttribute("data-window-lifecycle", "MINIMIZED");
+    await taskbar.click();
+    await expect(window).toBeVisible();
+    await expect(workbench).toHaveAttribute("data-draft-revision", "8");
+    await expect(workbench.getByLabel("Columns", { exact: true })).toHaveValue("999");
+    await expect(workbench.getByRole("treeitem", { name: "Button 1" })).toHaveAttribute("aria-selected", "true");
+    await expect(workbench.getByRole("img", { name: "Button 1 preview" })).toHaveAttribute("data-column-span", "3");
+    await page.screenshot({ path: testInfo.outputPath("station-editor-restored.png"), fullPage: true });
+    await window.getByRole("button", { name: "Close window" }).click();
+    await expect(window).toHaveCount(0);
+    await expect(taskbar).toHaveCount(0);
+    await page.getByRole("button", { name: "Open applications" }).click();
+    await page.locator('[data-app-ref="app:composition-editor"]').click();
+    await expect(window).toBeVisible();
+    await expect(workbench).toHaveAttribute("data-draft-revision", "7");
+    await expect(workbench.getByLabel("Columns", { exact: true })).toBeDisabled();
+    await expect(workbench.getByRole("img", { name: "Button 1 preview" })).toHaveAttribute("data-column-span", "2");
+  });
+
+  test("catalog switching and window layout store never become durable editor data", async ({ page }) => {
+    const window = page.getByRole("dialog", { name: "Composition Editor", exact: true });
+    const workbench = window.getByRole("region", { name: "Composition editor", exact: true });
+    await workbench.getByLabel("Composition", { exact: true }).selectOption("composition:button-group");
+    await workbench.getByRole("treeitem", { name: "Group Button 1" }).click();
+    await workbench.getByLabel("Rows", { exact: true }).fill("2");
+    await workbench.getByRole("button", { name: "Apply size" }).click();
+    await expect(workbench).toHaveAttribute("data-draft-revision", "7");
+    await expect(workbench.getByRole("status")).toContainText("unchanged");
+    await workbench.getByLabel("Rows", { exact: true }).fill("1");
+    await workbench.getByLabel("Columns", { exact: true }).fill("3");
+    await workbench.getByRole("button", { name: "Apply size" }).click();
+    await expect(workbench).toHaveAttribute("data-draft-revision", "8");
+    await workbench.getByLabel("Composition", { exact: true }).selectOption("composition:example");
+    await expect(workbench.getByRole("group", { name: "Unsaved composition switch" })).toBeVisible();
+    await workbench.getByRole("button", { name: "Cancel switch" }).click();
+    await expect(workbench.getByLabel("Composition", { exact: true })).toHaveValue("composition:button-group");
+    const stored = await page.evaluate(() => localStorage.getItem("system-builder.station.layout.v1"));
+    expect(stored).toBeTruthy();
+    expect(stored).not.toContain("composition:button-group");
+    expect(stored).not.toContain("layer:button-1");
+    expect(stored).not.toContain("draft");
+    await page.reload();
+    const restored = page.getByRole("dialog", { name: "Composition Editor", exact: true });
+    await expect(restored).toBeVisible();
+    await expect(restored.getByLabel("Composition", { exact: true })).toHaveValue("composition:example");
+    await expect(restored.getByRole("region", { name: "Composition editor", exact: true })).toHaveAttribute("data-draft-revision", "7");
+  });
+});
