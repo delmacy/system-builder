@@ -28,3 +28,6 @@ Every Sprint runs npm run verify; construction also station:build and real Chrom
 
 ## Rolling-wave checkpoint — Construction B
 A #1051 passed all seven workflows, Windows/Ubuntu builds and all 21 predecessor Chromium journeys and integrated. Fresh-main B/TASK-659 only is COMMITTED; optional C/review/closure remain forecast. Earlier planning labels are historical checkpoints.
+
+## Rolling-wave checkpoint — Package Review
+B #1052 integrated at 979b1a502893e18f6b4572e69e911669f4088ffb; all seven workflows, Windows/Ubuntu and 29 Chromium journeys passed. Optional C NOT PROMOTED: no missing admitted goal capability observed. Only Package Review/TASK-660 is COMMITTED; Closure remains forecast.
