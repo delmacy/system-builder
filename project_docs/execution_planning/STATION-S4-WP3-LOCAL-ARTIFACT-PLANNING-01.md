@@ -2,7 +2,7 @@
 
 Date: 2026-10-10
 Predecessor: WP2 CLOSED through PR #1039, merge 9768c06e0eeabdf89ee0c3eeeada63908a3fb000.
-State: admitted bounded scope via #1043; Construction A materialized on validated readiness-resolution integration; no implementation or WP3 closure.
+State: bounded goal IMPLEMENTED / PROVEN / INTEGRATED through A #1046 and B #1047; Package Review on Sprint branch; closure remains forecast. Historical planning forecasts below are not live authority.
 
 ## Goal and arrival milestone
 
@@ -46,3 +46,6 @@ Planning -> approved scope/readiness -> separate construction PRs and TASK commi
 
 ## Rolling-wave checkpoint — 2026-10-10
 Construction A #1046 integrated at 1c39ee81 with seven passing workflows. Construction B materialized under TASK-654/RESOLUTION-02: explicit origin-local artifacts separate from preferences and portable file download/open. Only B is now COMMITTED; optional C/review/closure remain forecast. Historical conditional/planning labels above describe prior checkpoints, not live execution.
+
+## Rolling-wave checkpoint — Package Review
+Construction B #1047 integrated at 4a749f6b4c18fe769d30c1c034280f134fb6b79d with seven passing final-head workflows, 21 Chromium journeys and Windows/Ubuntu builds. Optional C is not promoted: no missing bounded goal capability observed. Only Package Review/TASK-655 is now COMMITTED under full WP3 owner authorization. Documentation & Closure remains forecast; WP3 remains open.
