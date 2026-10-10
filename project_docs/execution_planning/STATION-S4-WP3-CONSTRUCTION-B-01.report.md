@@ -1,0 +1,19 @@
+# Station S4 WP3 Construction B Report 01
+
+Date: 2026-10-10
+TASK: TASK-654
+Base: main@1c39ee81dfa5f46861c6239fd3b4c35a22510c7e
+State: IMPLEMENTED_ON_SPRINT_BRANCH; exact-head Actions/PR integration pending
+
+## Integrated increment
+Separate origin-local artifact provider with whole-document setItem and expected-text conflict detection; explicit Save locally/Open saved, Save As file/Open file; real codec/source registry before replacement. Dirty/applied/session-accepted/unapplied fields receive explicit replacement confirmation, with cancellation/focus restoration and read-sequence/session guards. Local failure preserves prior saved bytes and dirty session. Unchanged identity/version/inert metadata is retained; changed meaning advances caller patch/provenance; Save As forks a new identity and does not clean the draft or claim a disk receipt.
+
+## Observed local proof
+node --import tsx --test tests/product/station-editor-artifact-files.test.ts tests/product/station-editor-artifact-codec.test.ts passed 13/13. Final focused lint and typecheck passed, including all browser additions. Actual public codec/editor/store APIs exercise two independent source entries, recovery/conflict/quota/corruption/versioning/file-size/read failures. Nine actual-browser journeys extend twelve WP2 cases (21 total), using actual downloaded bytes; Actions must establish their pass result.
+
+Local npm run verify is invoked but tsx CLI IPC binding is restricted in this environment; its result is not represented as a pass. Chromium installation failed with a truncated archive; no local browser pass is claimed. Local npm run station:build passed. The declared browser command reached all 21 cases but each was blocked at launch by the missing Chromium executable. Generated build/browser outputs were moved outside the repository before the clean verify attempt; clean verify passed lint/typecheck then failed at tsx IPC (EPERM). Earlier generated-output lint failures are environmental and not pass evidence; exact-head Windows/Ubuntu builds and Chromium artifact remain the required proof.
+
+## Boundaries and residual limits
+Nine implementation paths only, after separate B materialization commit. No shared codec/schema/ADR/settings/composition/workflow changes. Origin storage is explicit/disposable, separate from window layout; no automatic saving/loading. Expected text detects stale reads but does not provide transactional multi-tab synchronization. Download request is not proof of filesystem retention. No Core, network upload, File Manager, structural authoring, .process or deployment.
+
+After all exact-head/current-base workflows pass and B integrates, reconstruct fresh main to decide optional C from bounded unmet goal evidence, then materialize Package Review and Documentation & Closure separately. WP3 remains open.

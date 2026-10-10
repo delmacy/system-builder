@@ -5,3 +5,4 @@ export * from "./edit.js";
 export * from "./preview.js";
 export * from "./draft-boundary.js";
 export * from "./artifact-codec.js";
+export * from "./artifact-store.js";

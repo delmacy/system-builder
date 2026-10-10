@@ -1,7 +1,7 @@
 ---
 id: TASK-654
 title: Station S4 WP3 File and Local Artifact Journey
-status: draft
+status: verification
 priority: 654
 milestone: STATION-S4-WP3-LOCAL-ARTIFACT
 model_tier: architecture
@@ -82,3 +82,6 @@ Server/Core storage, cross-device sync, automatic persistence, structural graph 
 
 ## Evidence / escalation
 One authoritative TASK commit, Sprint report and one B PR, retained Chromium screenshots/download/regression evidence. Stop for forbidden path, worker collision, required contract/ADR changes or failing no-data-loss guarantee. Optional C is promoted only from fresh evidence after B integrates.
+
+## Implementation checkpoint
+IMPLEMENTED_ON_SPRINT_BRANCH; focused codec/store/workflow tests passed 13/13 locally. Final exact-head Actions/build/Chromium proof and integration required.

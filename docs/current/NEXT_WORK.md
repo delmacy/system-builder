@@ -2,7 +2,7 @@
 
 Date: 2026-10-10
 Base: main@5300763aafa3aac162d1a3e59535bc8a256545ac
-Status: Construction A INTEGRATED #1046; Construction B COMMITTED, implementation pending
+Status: Construction A INTEGRATED #1046; Construction B IMPLEMENTED_ON_SPRINT_BRANCH, exact-head validation/integration pending
 
 ## Authority
 - AGENTS.md and docs/DOCUMENT_AUTHORITY.md.
@@ -24,4 +24,4 @@ Construction A #1046 merged at 1c39ee81 with all seven exact-head workflows pass
 
 Execute TASK-654 on sprint/station-s4-wp3-construction-b, confirming all nine allowed paths, forbidden paths, dependency TASK-653 and declared validations before code. Run npm run verify, npm run station:build and npx playwright test --config tests/browser/station-editor.playwright.config.ts; require exact-head/current-base CI and build/browser evidence before merge. Extend real codec proof through actual downloads, reload/Open saved, dirty cancellation, corrupt input, metadata versioning and storage failure. Shared Windows worktree was not changed and local locks are not claimed inspected. Preserve other PRs/history; no force/reset/direct main writes.
 
-B implementation/integration is pending. Optional C, Package Review and Documentation & Closure remain FORECAST until predecessor gates pass. Save still session-only until B integrates; no WP3 completion is claimed.
+B implementation is on its Sprint branch; integration is pending. Optional C, Package Review and Documentation & Closure remain FORECAST until predecessor gates pass. Save still session-only until B integrates; no WP3 completion is claimed.
