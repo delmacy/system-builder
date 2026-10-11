@@ -1761,3 +1761,84 @@ test.describe("WP14 shared context projections",()=>{
   await expect(ctx(page).getByRole("status")).toContainText("Unable to import");await expect(explorer(page).getByRole("button")).toHaveCount(17);
  });
 });
+
+test.describe("WP15 technical Workflow Studio", () => {
+  const studio = (page: Page) => page.getByRole("region", { name: "Workflow Studio", exact: true });
+  const wb = (page: Page, name: string) => studio(page).getByRole("button", { name, exact: true });
+  const tools = (page: Page) => studio(page).getByRole("region", { name: "Workflow Tools", exact: true });
+  async function createTechnical(page: Page) {
+    await page.goto("/workflow-studio");
+    await studio(page).getByText("Create workflow or add process", { exact: true }).click();
+    for (const [name, value] of [["Process name", "Ticket"], ["Process id", "ticket"], ["Analysis reference", "analysis:1"], ["Recipe reference", "recipe:1"], ["Requirement reference", "req:1"]]) await studio(page).getByLabel(name!, { exact: true }).fill(value!);
+    await wb(page, "Create workflow").click(); await expect(studio(page)).toHaveAttribute("data-artifact-version", "1.0.0");
+  }
+  async function actualCandidate(page: Page) {
+    await createTechnical(page);
+    await studio(page).getByLabel("New state id", { exact: true }).fill("closed"); await wb(page, "Add state").click();
+    await studio(page).getByLabel("New transition id", { exact: true }).fill("close"); await wb(page, "Add transition").click();
+    await wb(page, "Select transition close").click();
+    await studio(page).getByLabel("Transition target", { exact: true }).selectOption("closed"); await wb(page, "Apply transition").click();
+    await wb(page, "Save new workflow revision").click(); await expect(studio(page)).toHaveAttribute("data-artifact-version", "1.0.1");
+    const download = page.waitForEvent("download"); await wb(page, "Export workflow").click(); const file = await (await download).path(); if (!file) throw Error("download"); return readFile(file);
+  }
+  async function importWorkflow(page: Page, bytes: Buffer) { await studio(page).getByLabel("Import workflow file", { exact: true }).setInputFiles({ name: "ticket.workflow.json", mimeType: "application/json", buffer: bytes }); }
+  test("actual coordinated Tools author, save, compare, download and reopen immutable revisions", async ({ page }, testInfo) => {
+    const bytes = await actualCandidate(page); const d = JSON.parse(bytes.toString()); expect(d.payload.processes[0].transitions[0]).toEqual({ id: "close", from: "open", to: "closed" });
+    const stored = await page.evaluate(() => JSON.parse(localStorage.getItem("station:workflow-candidates:v1")!)); expect(stored.revisions).toHaveLength(2); expect(JSON.parse(stored.revisions[0]).payload.processes[0].states).toEqual(["open"]);
+    await expect(studio(page).getByRole("region", { name: "Workflow revision comparison", exact: true })).toContainText("Workflow changed");
+    await wb(page, "Select transition close").click(); const identity = await tools(page).getAttribute("data-selected-ref");
+    await wb(page, "Workflow table").click(); await expect(tools(page)).toHaveAttribute("data-selected-ref", identity!); await expect(studio(page).getByRole("region", { name: "Workflow Inspector", exact: true })).toHaveAttribute("data-item-ref", identity!);
+    await page.reload(); await studio(page).getByLabel("Retained workflow revision", { exact: true }).selectOption("1"); await wb(page, "Open workflow revision").click();
+    await expect(wb(page, "Inspect state closed")).toBeVisible(); await expect(tools(page)).toHaveAttribute("data-selected-ref", "");
+    await studio(page).getByLabel("Retained workflow revision", { exact: true }).selectOption("0"); await wb(page, "Open workflow revision").click(); await expect(wb(page, "Inspect state closed")).toHaveCount(0);
+    await importWorkflow(page, bytes); await expect(wb(page, "Inspect state closed")).toBeVisible();
+    await page.screenshot({ path: testInfo.outputPath("wp15-workflow-studio.png"), fullPage: true });
+  });
+  test("invalid deletion, duplicate state and history stay atomic; self-loop transitions remain valid", async ({ page }) => {
+    await createTechnical(page); await wb(page, "Select state open").click(); await wb(page, "Remove state").click(); await expect(studio(page).getByRole("status")).toContainText("rejected"); await expect(studio(page)).toHaveAttribute("data-draft-revision", "0");
+    await studio(page).getByLabel("New state id", { exact: true }).fill("open"); await wb(page, "Add state").click(); await expect(studio(page)).toHaveAttribute("data-draft-revision", "0");
+    await studio(page).getByLabel("New state id", { exact: true }).fill("closed"); await wb(page, "Add state").click(); await wb(page, "Undo workflow").click(); await expect(wb(page, "Inspect state closed")).toHaveCount(0); await wb(page, "Redo workflow").click(); await expect(wb(page, "Inspect state closed")).toBeVisible();
+    await studio(page).getByLabel("New transition id", { exact: true }).fill("loop"); await wb(page, "Add transition").click(); await expect(wb(page, "Inspect transition loop")).toContainText("open → open");
+    await wb(page, "Validate workflow").click(); await expect(studio(page).getByRole("status")).toContainText("rules valid"); await expect(studio(page)).toContainText("Upstream references unresolved");
+  });
+  test("dirty and unapplied fields survive cancelled import; confirmed replacement resets history", async ({ page }) => {
+    const bytes = await actualCandidate(page); await studio(page).getByLabel("New state id", { exact: true }).fill("review"); await wb(page, "Add state").click(); await studio(page).getByLabel("New state id", { exact: true }).fill("pending");
+    await importWorkflow(page, bytes); await expect(studio(page).getByRole("dialog", { name: "Replace workflow draft", exact: true })).toBeVisible(); await wb(page, "Cancel workflow replacement").click();
+    await expect(studio(page).getByLabel("New state id", { exact: true })).toHaveValue("pending"); await expect(wb(page, "Inspect state review")).toBeVisible();
+    await importWorkflow(page, bytes); await wb(page, "Discard workflow and open").click(); await expect(wb(page, "Inspect state review")).toHaveCount(0); await expect(wb(page, "Undo workflow")).toBeDisabled();
+  });
+  test("malformed/incompatible input and obsolete asynchronous import preserve current draft", async ({ page }) => {
+    const bytes = await actualCandidate(page); const revision = await studio(page).getAttribute("data-artifact-version");
+    for (const bad of ['{"__proto__":{}}', JSON.stringify({ ...JSON.parse(bytes.toString()), requiredExtensions: ["org.example.required"] })]) { await importWorkflow(page, Buffer.from(bad)); await expect(studio(page).getByRole("status")).toContainText("Unable to import"); await expect(studio(page)).toHaveAttribute("data-artifact-version", revision!); }
+    await page.evaluate(() => { const original = File.prototype.text; File.prototype.text = function() { return new Promise(resolve => { (window as unknown as { finishWorkflowRead: () => void }).finishWorkflowRead = () => { void original.call(this).then(resolve); }; }); }; });
+    await importWorkflow(page, bytes); await studio(page).getByLabel("New state id", { exact: true }).fill("newer input"); await page.evaluate(() => (window as unknown as { finishWorkflowRead: () => void }).finishWorkflowRead());
+    await expect(studio(page).getByLabel("New state id", { exact: true })).toHaveValue("newer input"); await expect(studio(page).getByRole("dialog", { name: "Replace workflow draft", exact: true })).toHaveCount(0);
+  });
+  test("quota failure and stale local snapshot preserve revisions; deliberate refresh permits recovery", async ({ page }) => {
+    await createTechnical(page);
+    await page.evaluate(() => { const original = Storage.prototype.setItem; (window as unknown as { restoreWorkflowStorage: () => void }).restoreWorkflowStorage = () => { Storage.prototype.setItem = original; }; Storage.prototype.setItem = function(k, v) { if (k === "station:workflow-candidates:v1") throw new DOMException("quota", "QuotaExceededError"); original.call(this, k, v); }; });
+    await wb(page, "Save new workflow revision").click(); await expect(studio(page).getByRole("status")).toContainText("Unable to save"); await expect(studio(page)).toHaveAttribute("data-artifact-version", "1.0.0");
+    await page.evaluate(() => (window as unknown as { restoreWorkflowStorage: () => void }).restoreWorkflowStorage()); await wb(page, "Refresh workflow storage").click(); await wb(page, "Save new workflow revision").click();
+    await expect(studio(page)).toHaveAttribute("data-artifact-version", "1.0.1");
+    const other = await page.context().newPage(); await createTechnical(other); await wb(other, "Save new workflow revision").click(); const before = await other.evaluate(() => localStorage.getItem("station:workflow-candidates:v1")); await other.close();
+    await studio(page).getByLabel("New state id", { exact: true }).fill("review"); await wb(page, "Add state").click(); await wb(page, "Save new workflow revision").click(); await expect(studio(page).getByRole("status")).toContainText("storage-conflict"); expect(await page.evaluate(() => localStorage.getItem("station:workflow-candidates:v1"))).toBe(before);
+    await expect(wb(page, "Inspect state review")).toBeVisible(); await wb(page, "Refresh workflow storage").click(); await wb(page, "Save new workflow revision").click(); await expect(studio(page)).toHaveAttribute("data-artifact-version", "1.0.2");
+  });
+  test("keyboard/narrow and launcher window minimize/restore retain draft; close requires explicit reopen", async ({ page }) => {
+    const bytes = await actualCandidate(page); await page.goto("/"); await page.setViewportSize({ width: 390, height: 860 });
+    await page.getByRole("button", { name: "Open applications", exact: true }).click(); await page.locator('[data-app-ref="app:workflow-studio"]').click(); await importWorkflow(page, bytes);
+    const choose = wb(page, "Select state closed"); await tabTo(page, choose); await choose.press("Enter"); const identity = await tools(page).getAttribute("data-selected-ref");
+    await wb(page, "Workflow table").click(); expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    const win = page.getByRole("dialog", { name: "Workflow Studio", exact: true }); await win.getByRole("button", { name: "Minimize window", exact: true }).click();
+    await page.locator('[data-slot="taskbar-windows"]').getByRole("button", { name: "Workflow Studio", exact: true }).click(); await expect(tools(page)).toHaveAttribute("data-selected-ref", identity!);
+    await win.getByRole("button", { name: "Close window", exact: true }).click(); await page.getByRole("button", { name: "Open applications", exact: true }).click(); await page.locator('[data-app-ref="app:workflow-studio"]').click();
+    await expect(studio(page)).toContainText("No workflow is open"); await studio(page).getByLabel("Retained workflow revision", { exact: true }).selectOption("1"); await wb(page, "Open workflow revision").click(); await expect(tools(page)).toHaveAttribute("data-selected-ref", "");
+  });
+  test("add process preserves existing workflow and its explicit references", async ({ page }) => {
+    await createTechnical(page);
+    for (const [name, value] of [["Process name", "Review"], ["Process id", "review"], ["Requirement reference", "req:2"]]) await studio(page).getByLabel(name!, { exact: true }).fill(value!);
+    await wb(page, "Add process").click(); await expect(studio(page).getByLabel("Workflow process", { exact: true })).toHaveValue("review"); await expect(wb(page, "Inspect state open")).toBeVisible();
+    await studio(page).getByLabel("Workflow process", { exact: true }).selectOption("ticket"); await expect(wb(page, "Inspect state open")).toBeVisible(); await wb(page, "Save new workflow revision").click();
+    const saved = await page.evaluate(() => JSON.parse(localStorage.getItem("station:workflow-candidates:v1")!)); const d = JSON.parse(saved.revisions[1]); expect(d.payload.processes).toHaveLength(2); expect(d.payload.processes[0].requirementRefs).toEqual(["req:1"]); expect(d.payload.processes[1].requirementRefs).toEqual(["req:2"]);
+  });
+});

@@ -8,6 +8,8 @@ import { StationCommandSurface, StationNavbar, StationTaskbar, type CommandSurfa
 import { PresentationCommandRegistry, createCollectionIndex, emptySelection, focusTarget, interactionContext, selectedItem, selectionContext, type CollectionItem, type SelectionState } from "../../../../packages/station-interaction/index";
 import { STATION_EDITOR_APP } from "./station-editor-app";
 import { StationEditorWorkbench, type EditorArtifactOpenRequest } from "./station-editor-workbench";
+import { STATION_WORKFLOW_APP } from "./station-workflow-app";
+import { StationWorkflowWorkbench } from "./station-workflow-workbench";
 import { STATION_PROCESS_CONTEXT_APP } from "./station-process-context-app";
 import { StationProcessContextWorkbench } from "./station-process-context-workbench";
 import { STATION_FILE_MANAGER_APP } from "./station-file-manager-app";
@@ -20,6 +22,7 @@ const registry = new StationAppRegistry(M1_UTILITY_APPS);
 registry.register(STATION_EDITOR_APP);
 registry.register(STATION_FILE_MANAGER_APP);
 registry.register(STATION_PROCESS_CONTEXT_APP);
+registry.register(STATION_WORKFLOW_APP);
 const welcome = registry.launch("app:welcome");
 const definitions = registry.list().flatMap((app) => registry.launch(app.id).windowDefinitions);
 const initialBounds = Object.freeze({ width: 1280, height: 672 });
@@ -101,6 +104,7 @@ export function StationFoundationClient() {
   const discardLabDraft = () => { setLabDraft((current) => discardCompositionDraft(current)); setLabRejectedFindings([]); };
   const settingButton = (label: string, value: string, onClick: () => void) => <Button onClick={onClick} variant="outline">{label}: {value}</Button>;
   const renderWindowBody = (definition: WindowDefinition) => {
+    if (definition.id === "workflow-studio") return <div className="p-4"><StationWorkflowWorkbench /></div>;
     if (definition.id === "composition-editor") return <div className="p-4"><StationEditorWorkbench artifactRequest={artifactRequest} onArtifactRequestConsumed={consumeArtifactRequest} /></div>;
     if (definition.id === "process-context") return <div className="p-4"><StationProcessContextWorkbench onOpen={text => {
       setArtifactRequest({ id: ++artifactSequence.current, text }); openApp("app:composition-editor");

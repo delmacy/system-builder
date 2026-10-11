@@ -82,7 +82,7 @@ function workflowRules(payload: WorkflowDocument["payload"]): void {
   for (const p of payload.processes) {
     requireValue(!processIds.has(p.id), "invalid-workflow"); processIds.add(p.id);
     const states = new Set(p.states); const transitions = p.transitions ?? [];
-    requireValue(states.size === p.states.length && p.states.length <= WORKFLOW_LIMITS.states && transitions.length <= WORKFLOW_LIMITS.transitions, "invalid-workflow");
+    requireValue(states.size === p.states.length, "invalid-workflow");
     requireValue(p.initialState === undefined || states.has(p.initialState), "invalid-workflow");
     const ids = new Set<string>();
     for (const t of transitions) {
@@ -122,6 +122,7 @@ export function createWorkflow(input: WorkflowStarter): ReturnType<typeof encode
     provenance: { createdAt: input.createdAt, producer: { id: "urn:system-builder:station:workflow-studio", version: "1.0.0" }, inputs: [] },
     payload: { definition: "SystemDefinition", analysisRef: input.analysisRef, recipeRef: input.recipeRef, entities: [], processes: [input.process], actions: [], capabilities: [], views: [], permissions: [], policies: [], integrations: [], environmentRequirements: [] } });
 }
+export function isWorkflowProcessEditable(p: WorkflowProcess): boolean { return p.states.length <= WORKFLOW_LIMITS.states && (p.transitions?.length ?? 0) <= WORKFLOW_LIMITS.transitions; }
 export interface WorkflowSession { readonly base: WorkflowDocument; readonly document: WorkflowDocument; readonly revision: number; readonly past: readonly WorkflowDocument[]; readonly future: readonly WorkflowDocument[]; readonly dirty: boolean; readonly upstreamStatus: "unresolved" }
 export function openWorkflow(input: unknown): WorkflowResult<{ session: WorkflowSession }> {
   const r = encodeWorkflow(input); return r.accepted ? freeze({ accepted: true, session: { base: r.document, document: r.document, revision: 0, past: [], future: [], dirty: false, upstreamStatus: "unresolved" } }) : r;
@@ -149,7 +150,7 @@ export function applyWorkflowCommand(s: WorkflowSession, expectedRevision: numbe
     if (command.kind === "add-process") draft.payload.processes.push(JSON.parse(workflowCanonicalText(command.process)) as typeof draft.payload.processes[number]);
     else {
       requireValue("processId" in command, "invalid-command");
-      const p = draft.payload.processes.find(p => p.id === command.processId); requireValue(p, "unknown-process");
+      const p = draft.payload.processes.find(p => p.id === command.processId); requireValue(p, "unknown-process"); requireValue(isWorkflowProcessEditable(p), "invalid-workflow");
       if (command.kind === "add-state") p.states.push(command.state);
       else if (command.kind === "remove-state") { requireValue(p.states.includes(command.state), "unknown-element"); p.states = p.states.filter(v => v !== command.state); }
       else if (command.kind === "set-initial") p.initialState = command.state;
@@ -159,6 +160,8 @@ export function applyWorkflowCommand(s: WorkflowSession, expectedRevision: numbe
       else throw new Rejection("invalid-command");
     }
     const r = encodeWorkflow(draft); if (!r.accepted) return r;
+    const editedId = command.kind === "add-process" ? command.process.id : "processId" in command ? command.processId : "";
+    requireValue(isWorkflowProcessEditable(r.document.payload.processes.find(p => p.id === editedId)!), "invalid-workflow");
     if (r.text === workflowCanonicalText(s.document)) return { accepted: true, session: s, changed: false };
     return { accepted: true, session: newSession(s, r.document, [...s.past, s.document].slice(-WORKFLOW_LIMITS.history), []), changed: true };
   } catch (e) { return { accepted: false, reason: e instanceof Rejection ? e.reason : "invalid-command" }; }

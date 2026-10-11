@@ -242,3 +242,11 @@ Local validation is workflow/schema validity only; upstream references unresolve
 Complete schema/envelope admission preserves unrelated data; compiler/runtime projection not imported.
 64 states/128 transitions/1MiB/depth32/history50; full-document/history copying bounded but latency/memory
 not universally certified. Browser/store/C10 proof remains B/Review; inherited residuals retained.
+
+## WP15 Construction B
+One actual immutable draft/command engine drives Explorer/diagram-table/Inspector; selection qualified by
+artifact/process/kind/id. Portable candidate remains local/unpublished and upstream unresolved.
+Separate origin-local store16 revisions/4MiB; immutable tuples, best-effort expected text, no cross-tab CAS.
+Quota/corruption/stale/import sequencing preserve drafts; explicit refresh/open/retry, no auto-repair.
+State diagram uses deterministic grid plus declared transition connections, no free layout or simulation.
+History50/64states/128transitions caps remain; broader browser/screen-reader/performance proof unproven.
