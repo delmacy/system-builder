@@ -3,6 +3,7 @@ import test from "node:test";
 import { ARTIFACT_LIMITS, openStoredArtifact, saveStoredArtifact, compositionArtifactKey,
   initializeEditorSession, applyEditorSessionMutation, type ArtifactStore, type CompositionArtifact } from "../../packages/station-editor/index.js";
 import { resolveEditorCatalogEntry } from "../../apps/station/web/app/station-editor-catalog.js";
+import { importCatalogArtifact } from "../../apps/station/web/app/station-editor-artifact.js";
 import { prepareEditorArtifact, readEditorArtifact } from "../../apps/station/web/app/station-editor-files.js";
 
 const operation = { artifactId: "urn:uuid:5ba6c0a6-098f-412a-9c9e-35b9393a2da0", createdAt: "2026-10-10T18:00:00Z" };
@@ -88,4 +89,26 @@ test("file size preflight avoids reading oversized data; read/codec failures lea
   const valid = await readEditorArtifact({ size: new TextEncoder().encode(text).length, text: async () => text });
   assert.ok(valid.accepted); if (!valid.accepted) throw new Error("rejection"); assert.deepEqual(valid.document, doc);
   assert.equal(JSON.stringify(doc), text);
+});
+
+test("WP5 updating retained v1 to authored v2 advances artifact version and preserves opaque metadata", () => {
+  const source = resolveEditorCatalogEntry("composition:example")!;
+  const first = prepareEditorArtifact(source.compositionRef, source.composition, null,
+    { artifactId: "urn:uuid:wp5-retain", createdAt: "2026-10-10T21:00:00Z" });
+  if (!first.accepted) throw Error("first");
+  const previous = { ...first.document, extensions: { "com.example.keep": { value: "inert" } } };
+  const graph = { ...source.composition, nodes: [...source.composition.nodes, {
+    ref: "node:added-3", componentRef: "component:button",
+    placement: { parentRef: source.composition.rootRef, slotRef: "content", columnSpan: 2, rowSpan: 1 },
+  }] };
+  const next = prepareEditorArtifact(source.compositionRef, graph, previous,
+    { artifactId: "urn:uuid:unused", createdAt: "2026-10-10T21:01:00Z" });
+  assert.ok(next.accepted); if (!next.accepted) return;
+  assert.equal(next.document.schema.version, "2.0.0"); assert.equal(next.document.artifactId, previous.artifactId);
+  assert.equal(next.document.artifactVersion, "1.0.1"); assert.deepEqual(next.document.extensions, previous.extensions);
+  const reopened = importCatalogArtifact(next.text); assert.ok(reopened.accepted);
+  if (reopened.accepted) assert.deepEqual(reopened.document.payload.graph, graph);
+  const unchanged = prepareEditorArtifact(source.compositionRef, graph, next.document,
+    { artifactId: "urn:uuid:unused2", createdAt: "2026-10-10T21:02:00Z" });
+  assert.deepEqual(unchanged, next);
 });

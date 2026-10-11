@@ -1,6 +1,5 @@
-# Next Work — Station S4 WP5
+# Next Work — Station S4 WP5 Construction B
 Date: 2026-10-10
-Status: Planning validation/integration; A/TASK-663 COMMITTED only after validated Planning merge
-Authority: AGENTS.md, docs/DOCUMENT_AUTHORITY.md, docs/contracts/CONTRACT_INDEX.md, docs/contracts/006-station-structural-authoring/ADDENDUM.md, project_docs/execution_planning/STATION-S4-WP5-PLAN-01.md, project_docs/execution_planning/STATION-S4-WP5-CONSTRUCTION-A-01.md, specs/tasks/TASK-663-STATION-S4-WP5-STRUCTURAL-ENGINE.md
-Predecessor: WP4 CLOSED via #1054 a0da8620; all earlier packages preserved.
-Owner authorized complete WP5, including existing commit/merge authority. Fresh main/open PRs revalidated. Eight-path Planning only; after passing integration reconstruct main and execute only eight-path pure A. B/optional C/review/closure remain forecast. See WP5 Plan for declared L3 payload v2 compatibility, WBS, growing proof, limits and stop gates. No structural UI implemented yet. File Manager/.process/Core/server/sync/Studios/AI/deployment remain separately gated.
+State: B/TASK-664 COMMITTED after A #1056 f54cc33c integrated with seven passing workflows/Windows/Ubuntu/29 Chromium cases
+Authority: AGENTS.md, docs/DOCUMENT_AUTHORITY.md, docs/contracts/CONTRACT_INDEX.md, docs/contracts/006-station-structural-authoring/ADDENDUM.md, project_docs/execution_planning/STATION-S4-WP5-PLAN-01.md, project_docs/execution_planning/STATION-S4-WP5-CONSTRUCTION-B-01.md, specs/tasks/TASK-664-STATION-S4-WP5-STRUCTURAL-UI.md
+Only five-path UI/file/browser integration scope. Reuse validated pure A engine; preserve source root/installed registry and v1/v2 compatibility. Owner authorizes bounded WP5 and deterministic intermediate integrations after passing checks. Optional C/review/closure remain forecast; fresh-main revalidation required before promotion. File Manager/.process/Core/server/sync/Studio/AI/deployment excluded.

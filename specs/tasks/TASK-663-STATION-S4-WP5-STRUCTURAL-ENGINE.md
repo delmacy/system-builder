@@ -1,7 +1,7 @@
 ---
 id: TASK-663
 title: Station S4 WP5 STRUCTURAL ENGINE
-status: ready
+status: completed
 priority: 663
 milestone: STATION-S4-WP5-STRUCTURAL-AUTHORING
 model_tier: architecture
@@ -73,3 +73,5 @@ Stop for collision, conflicting authority, forbidden paths, undeclared L3/L4 or 
 
 ## Bounded operational change control
 Real regression exposed three assertions for the superseded alphabetical/array-order-independent projection behavior. Addendum 006 explicitly makes node array order meaningful. Permit only the two affected predecessor test files to assert authored sibling order while preserving identity/selection/ancestry/immutability proof. No new capability or architecture change.
+
+Integrated through #1056 f54cc33c after seven passing workflows, Windows/Ubuntu builds and 29/29 Chromium journeys.

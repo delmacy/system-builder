@@ -19,3 +19,6 @@ Each Sprint: one authoritative TASK commit and one PR, npm run verify and exact-
 
 ## Risks
 Array order changes existing alphabetical projection behavior intentionally; retain predecessor order on installed examples. Full snapshots up to 256 nodes/50 entries require bounded measurement; no latency certification. JSON depth/byte budget may cap deep trees before node count. Old readers reject new structural payloads; unchanged topology remains v1. Non-root subtree removal explicit and reversible; pending edits block structural operations. Source labels/descriptors cannot be imported.
+
+## Construction B checkpoint
+Planning #1055 and A #1056 integrated. A seven workflows/Windows/Ubuntu and 29/29 Chromium PASS. Fresh main f54cc33c revalidated; only B/TASK-664 COMMITTED, optional C/review/closure FORECAST.
