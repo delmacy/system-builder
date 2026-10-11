@@ -151,3 +151,19 @@ WP11-L1/L2/D1 remain accepted limitations, not resolved by documentation. Valida
 adds no new product behavior, storage guarantee, profiling or generic provider certification.
 Inherited window restoration may read File Manager metadata, but graph opening remains explicit.
 No bounded-goal blocker after actual68 journeys and independent Review; own closure gated.
+
+## Station S4 WP12 bounded revision review — 2026-10-11 UTC
+WP12-L1: revisions consume unchanged48-file/4MiB origin-local workspace and existing1MiB/per-file
+codec caps; browser quota/denial/clearing and provenance growth remain. Export independent files.
+WP12-L2: retention head follows same-ID/type snapshot order, not greatest SemVer/publication. Imports
+can select older versions; stable patch allocation and duplicate-tuple rejection require explicit
+refresh/reselection. No rename/delete/overwrite/publication/branch semantics.
+WP12-L3: expected snapshot/head/re-read is best-effort, not cross-tab CAS. Conflict preserves draft
+and history; refreshed deliberate retry may retain the user's whole applied graph after explicit
+comparison. Both prior records stay immutable; no auto-merge or synchronization guarantee.
+WP12-D1: whole-workspace codec and full-envelope diff with512-path cap bound data/output but do not
+prove max-bound/cold/long-session/retained-memory/latency or universal browser/accessibility quality.
+All inherited WP3–WP11/unrelated residuals retained; WP11 independent copies now have an explicitly
+admitted optional revision operation, without resolving its storage/ownership limitations.
+No bounded-goal blocker after integrated75 actual Chromium journeys/seven construction workflows.
+C unnecessary, Review own gates control GO Closure; no WP13 or whole WBS/H2/S4 promotion.
