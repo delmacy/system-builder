@@ -48,3 +48,14 @@ review cases and61 actual Chromium journeys including real demo, seven construct
 Windows/Ubuntu/frontend quality. Bounded WP10 CLOSED effective on validated TASK691 integration.
 No whole-item/WBS/S4/ComponentEditor/H1 certification, cross-composition templates, collaboration,
 File Manager/process/Studio/Core or successor construction is promoted by this bounded disposition.
+
+
+## Station S4 WP11 bounded workspace disposition
+Addendum011 admits only logical composition identity versus folder/file location metadata
+(30.1.1/30.1.3), actual portable import/export and replaceable origin-local retention adapter
+(bounded30.2.1/30.2.2), existing lossless codec/fresh-session reopen (21.3.1/21.3.2).
+Planning#1086/A#1087/B#1088 and independent Review integrated;159 local combined product cases,
+68 actual Chromium journeys, seven construction workflows/Windows-Ubuntu/frontend quality.
+Bounded WP11 CLOSED effective on validated TASK696 integration. No whole-item/WBS/H2/S4 promotion;
+versions/hashes, lifecycle/delete/archive, arbitrary files, access controls, audit/telemetry,
+server/Core/host providers, migration implementation, sync/CAS and .process remain future work.

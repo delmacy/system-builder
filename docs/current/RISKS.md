@@ -145,3 +145,9 @@ retained-memory and wider browser/accessibility profiling remains unproven. No l
 Corrupted workspace remains untouched; failed refresh preserves previous visible snapshot and blocks
 mutation/open until valid refresh. Portable files provide independent retention, no automatic recovery.
 All WP3–WP10/unrelated residuals retained. No bounded-goal blocker after integrated actual browser proof.
+
+## WP11 closure disposition
+WP11-L1/L2/D1 remain accepted limitations, not resolved by documentation. Validated closure
+adds no new product behavior, storage guarantee, profiling or generic provider certification.
+Inherited window restoration may read File Manager metadata, but graph opening remains explicit.
+No bounded-goal blocker after actual68 journeys and independent Review; own closure gated.
