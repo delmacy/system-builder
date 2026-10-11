@@ -1,12 +1,8 @@
-# Next work — WP12 documentation closure gate
-Sole live pointer. Review#1094 integrated 2cfabbeb86a538975baf577ca727ac4814942cde; five workflows PASS and75 actual Chromium journeys.
-Only Closure/TASK701 COMMITTED on11 exact documentation paths. Authority Addendum012/011/ADR0009,
-WP12 PLAN, Closure manifest/TASK701 context_paths and Sprint policies. Whole WP12 authorized.
-Final npm run verify and all triggered exact-head/current-base/heavy/handoff/browser gates required.
-WP12 bounded goal becomes CLOSED only upon independently validated TASK701 integration. After that
-merge no active WP12 TASK/Sprint or committed successor remains; optional C unnecessary.
-Next candidate is Station WP13 Planning from fresh main: read STATION-REMAINING-SCOPE-WBS-01 and
-revalidate process semantic ownership/contracts, references, readiness, scope admission and ADR
-need before construction. WP13 remains FORECAST and outside WP12 execution authorization.
-No full WBS/H2/S4 certification; retained WP12-L1/L2/L3/D1 and inherited residuals are in RISKS.
-PROJECT_STATE/CURRENT_MILESTONE archive snapshots remain historical, never a competing scheduler.
+# Next work — WP13 Planning gate
+Sole live pointer. WP12 closure #1095 integrated at4a545d1f0b4d1db976bcf6132e3817492ae44d76.
+Owner authorizes Station WP13. Planning/TASK702 on eight documentation paths only.
+Authority Addendum013/ADR0009, WP13 PLAN, Sprint policies and canonical process-versioning identity.
+Planning must pass independent exact-head/current-base CI before Addendum013 admission and A703.
+After validated Planning merge, reconstruct fresh main and materialize A manifest before product edits.
+B/C/Review/Closure remain forecast. Preserve inherited limits/debt; no live semantic service assumed.
+WP14-16 remain forecast; no whole WBS/H3/S4 or historical G2-WP-13 certification.
