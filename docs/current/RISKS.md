@@ -217,3 +217,13 @@ truth. request-open is a presentation affordance only; both handoffs re-resolve 
 ordinary editor guards. Minimize retains selection; replacement/close/reload clear it. Labels are inert.
 WP14-L1 remains two installed descriptors/17 items/ephemeral selection. WP14-D1 full workspace scans and
 long-session memory/latency/broader accessibility remain unproven. Inherited WP13 residuals retained.
+
+## WP14 review dispositions
+Integrated A/B and88 actual Chromium journeys prove admitted shared-reference goal; optional C unnecessary.
+WP14-L1: two installed descriptors/17items/ephemeral selection, no arbitrary models or C10 authoring.
+WP14-L2: no live semantic owner and separately retained portable parts; inherited WP13 limitations.
+WP14-L3: Chromium/keyboard/narrow proof does not certify all browsers/screen-readers.
+WP14-D1: whole-context admission and per-view workspace scans, plus fresh click resolution, remain bounded
+but max-bound/cold/long-session retained-memory/latency unproven. WP14-D2: original compatible reference list
+duplicates rendering over the same model; future cleanup should retain predecessor tests. No second truth.
+All inherited WP13/predecessor/unrelated residuals retained. Own Review gates control GO Closure.
