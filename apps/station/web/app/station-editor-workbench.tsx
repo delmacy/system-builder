@@ -4,7 +4,7 @@ import { useEffect, useReducer, useRef, useState, type KeyboardEvent, type React
 import { Button } from "../../../../packages/ui-core/index";
 import { DEFAULT_COMPOSITION_REF, initializeCatalogEditorSession, listEditorCatalog, resolveEditorCatalogEntry, type EditorCatalogEntry } from "./station-editor-catalog";
 import { prepareEditorArtifact, readEditorArtifact, requestArtifactDownload, sameEditorArtifactGraph } from "./station-editor-files";
-import { supportsButtonDisplayText } from "../../../../packages/station-composition/index";
+import { supportsButtonDisplayText, type ButtonProperties } from "../../../../packages/station-composition/index";
 import type { EditorLayer } from "../../../../packages/station-editor/index";
 import {
   projectEditorLayers, selectEditorLayer,
@@ -17,15 +17,15 @@ import {
 type State = Readonly<{
   entry: EditorCatalogEntry; history: EditorHistory; selection: LayersSelection;
   pendingRef: string | null;
-  columns: string; rows: string; buttonText: string; message: string; invalid: boolean;
+  columns: string; rows: string; buttonText: string; propertyVariant: string; propertyDisabled: string; message: string; invalid: boolean;
   document: CompositionArtifact | null; savedText: string | null;
   pendingArtifact: Readonly<{ document: CompositionArtifact; savedText: string | null }> | null;
 }>;
 type Action =
   | { type: "structure"; operation: "add-node" | "remove-subtree" | "reorder-node"; componentRef?: string; parentRef?: string; slotRef?: string; direction?: "before" | "after" }
   | { type: "select"; ref: string }
-  | { type: "field"; field: "columns" | "rows" | "buttonText"; value: string }
-  | { type: "apply" | "save" | "discard" | "undo" | "redo" | "apply-text" | "reset-text" | "restore-fields" }
+  | { type: "field"; field: "columns" | "rows" | "buttonText" | "propertyVariant" | "propertyDisabled"; value: string }
+  | { type: "apply" | "save" | "discard" | "undo" | "redo" | "apply-text" | "reset-text" | "apply-properties" | "reset-properties" | "restore-fields" }
   | { type: "request-switch"; ref: string }
   | { type: "cancel-switch" | "confirm-switch" }
   | { type: "feedback"; message: string; invalid: boolean; expectedSession: EditorSession }
@@ -37,13 +37,13 @@ function fields(session: EditorSession, selection: LayersSelection) {
   const result = projectEditorInspector(session, selection, session.draftRevision);
   const placement = result.accepted && result.snapshot.kind === "node" ? result.snapshot.placement : null;
   const node = session.transaction.draft.nodes.find(item => item.ref === selection.selectedRef);
-  return { buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
+  return { propertyVariant: node?.properties?.variant ?? "default", propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
 }
 function initialState(ref: string): State | null {
   const result = initializeCatalogEditorSession(ref, "session:visual-workbench");
   if (!result.accepted) return null;
   return { entry: result.entry, history: createEditorHistory(result.session), selection: { selectedRef: null },
-    columns: "", rows: "", buttonText: "", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
+    columns: "", rows: "", buttonText: "", propertyVariant: "default", propertyDisabled: "false", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
     document: null, savedText: null, pendingArtifact: null };
 }
 function replaceArtifact(state: State, candidate: { document: CompositionArtifact; savedText: string | null }): State {
@@ -68,7 +68,11 @@ function sizeHelp(state: State): string {
 function historyBlocked(state: State): boolean {
   const applied = fields(state.history.session, state.selection);
   return state.pendingArtifact !== null || state.pendingRef !== null ||
-    state.columns !== applied.columns || state.rows !== applied.rows || state.buttonText !== applied.buttonText;
+    state.columns !== applied.columns || state.rows !== applied.rows || state.buttonText !== applied.buttonText || propertiesPending(state);
+}
+function propertiesPending(state: State): boolean {
+  const applied = fields(state.history.session, state.selection);
+  return state.propertyVariant !== applied.propertyVariant || state.propertyDisabled !== applied.propertyDisabled;
 }
 function textPending(state: State): boolean {
   return state.buttonText !== fields(state.history.session, state.selection).buttonText;
@@ -96,7 +100,7 @@ function reducer(state: State | null, action: Action): State | null {
     if (action.expectedSession !== state.history.session) return state;
     const candidate = { document: action.document, savedText: action.savedText };
     const currentFields = fields(state.history.session, state.selection);
-    return state.history.session.transaction.dirty || state.columns !== currentFields.columns || state.rows !== currentFields.rows || state.buttonText !== currentFields.buttonText ||
+    return state.history.session.transaction.dirty || state.columns !== currentFields.columns || state.rows !== currentFields.rows || state.buttonText !== currentFields.buttonText || propertiesPending(state) ||
       !sameEditorArtifactGraph(state.history.session.transaction.draft, state.document?.payload.graph ?? state.entry.composition)
       ? { ...state, pendingArtifact: candidate, pendingRef: null }
       : replaceArtifact(state, candidate);
@@ -125,7 +129,25 @@ function reducer(state: State | null, action: Action): State | null {
   }
   if (action.type === "field") return { ...state, [action.field]: action.value, invalid: false };
   if (action.type === "restore-fields") return { ...state, ...fields(state.history.session, state.selection), invalid: false, message: "Inspector fields restored." };
+  if (action.type === "apply-properties" || action.type === "reset-properties") {
+    const applied = fields(state.history.session, state.selection);
+    if (state.pendingArtifact !== null || state.pendingRef !== null || textPending(state) ||
+        state.columns !== applied.columns || state.rows !== applied.rows)
+      return { ...state, invalid: false, message: "Apply or restore the other Inspector fields and finish the pending open before editing properties." };
+    const nodeRef = state.selection.selectedRef;
+    if (!nodeRef) return { ...state, invalid: true, message: "Select a button to edit properties." };
+    const common = { sessionRef: state.history.session.sessionRef, compositionRef: state.entry.compositionRef,
+      expectedDraftRevision: state.history.session.draftRevision, nodeRef };
+    const intent = action.type === "apply-properties" ? { ...common, type: "set-properties" as const,
+      properties: { variant: state.propertyVariant as ButtonProperties["variant"], disabled: state.propertyDisabled === "true" } }
+      : { ...common, type: "reset-properties" as const };
+    const result = applyEditorHistoryStructure(state.history, intent, state.entry.registry);
+    if (!result.accepted) return { ...state, invalid: true, message: "These button properties are invalid. The composition is unchanged." };
+    return { ...state, history: result.history, ...fields(result.history.session, state.selection), invalid: false,
+      message: result.changed ? "Button properties updated. Save or discard your changes." : "The properties are already applied." };
+  }
   if (action.type === "apply-text" || action.type === "reset-text") {
+    if (propertiesPending(state)) return { ...state, invalid: false, message: "Apply or restore the property fields before editing text." };
     const applied = fields(state.history.session, state.selection);
     if (state.pendingArtifact !== null || state.pendingRef !== null || state.columns !== applied.columns || state.rows !== applied.rows)
       return { ...state, invalid: false, message: "Apply or restore the size fields and finish the pending open before editing text." };
@@ -141,6 +163,7 @@ function reducer(state: State | null, action: Action): State | null {
       message: result.changed ? "Button text updated. Save or discard your changes." : "The text is already applied." };
   }
   if (action.type === "select") {
+    if (propertiesPending(state)) return { ...state, invalid: false, message: "Apply or restore the property fields before selecting another layer." };
     if (textPending(state)) return { ...state, invalid: false, message: "Apply or restore the text field before selecting another layer." };
     const result = selectEditorLayer(projectEditorLayers(state.history.session), state.selection, action.ref);
     if (!result.accepted) return { ...state, message: "This layer is unavailable.", invalid: true };
@@ -175,6 +198,7 @@ function reducer(state: State | null, action: Action): State | null {
       message: result.changed ? (action.type === "undo" ? "Change undone." : "Change redone.") : "No changes to " + action.type + "." };
   }
   if (action.type === "apply") {
+    if (propertiesPending(state)) return { ...state, invalid: false, message: "Apply or restore the property fields before editing size." };
     if (textPending(state)) return { ...state, invalid: false, message: "Apply or restore the text field before editing size." };
     const proposal = createEditorSetSpanIntent(state.history.session, state.selection, state.history.session.draftRevision,
       { columnSpan: Number(state.columns), rowSpan: Number(state.rows) });
@@ -312,16 +336,23 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     const container = layout === "grid" ? "grid grid-cols-12 auto-rows-[3rem] gap-2" :
       layout === "row" ? "flex flex-wrap gap-2" : "flex flex-col gap-2";
     if (node.kind === "root") return <div data-root-ref={node.nodeRef} className={container}>{children}</div>;
+    const properties = node.properties;
+    const variant = properties?.variant ?? "default";
+    const appearance = variant === "outline" ? "bg-transparent border-foreground/50" :
+      variant === "ghost" ? "bg-transparent border-transparent" : "bg-primary/15 border-primary/40";
     const parent = byPreviewRef.get(node.parentRef);
     const parentLayout = parent && state.entry.registry.get(parent.componentRef)?.layout;
     return <div key={node.nodeRef} role={children.length ? "group" : "img"} aria-label={layerName(state, node.nodeRef) + " preview"}
       data-node-ref={node.nodeRef} data-parent-ref={node.parentRef} data-slot-ref={node.slotRef}
       data-column-span={node.columnSpan} data-row-span={node.rowSpan}
       data-selected={node.selected ? "true" : "false"}
+      data-button-variant={supportsButtonDisplayText(node.componentRef) ? variant : undefined}
+      aria-disabled={properties?.disabled ?? undefined}
       style={parentLayout === "grid" ? { gridColumn: `span ${node.columnSpan}`, gridRow: `span ${node.rowSpan}` } :
         parentLayout === "row" ? { flexBasis: `${node.columnSpan / 12 * 100}%` } : undefined}
       className={"flex min-h-12 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md border px-2 text-sm " +
-        (node.selected ? "border-primary bg-primary/10 ring-2 ring-primary/30" : "bg-card")}>
+        (supportsButtonDisplayText(node.componentRef) ? appearance : "bg-card") +
+        (node.selected ? " ring-2 ring-primary/30" : "") + (properties?.disabled ? " opacity-50" : "")}>
       <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>{children.length ? <div className={container + " w-full"}>{children}</div> : null}
     </div>;
   };
@@ -360,14 +391,14 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
           className="rounded-md border bg-background p-2">{listEditorCatalog().map(item =>
             <option key={item.compositionRef} value={item.compositionRef}>{item.title}</option>)}</select></div>
       <span data-testid="draft-state" className="text-sm text-muted-foreground">
-        {textPending(state) ? "Unapplied text" : state.history.session.transaction.dirty ? "Unsaved changes" : "All changes saved"}
+        {propertiesPending(state) ? "Unapplied properties" : textPending(state) ? "Unapplied text" : state.history.session.transaction.dirty ? "Unsaved changes" : "All changes saved"}
       </span>
       <Button variant="outline" aria-disabled={!canUndo} aria-keyshortcuts="Control+z Meta+z"
         onClick={() => dispatch({ type: "undo" })}>Undo</Button>
       <Button variant="outline" aria-disabled={!canRedo} aria-keyshortcuts="Control+Shift+z Meta+Shift+z Control+y"
         onClick={() => dispatch({ type: "redo" })}>Redo</Button>
       <Button aria-disabled={blocked || !state.history.session.transaction.dirty} onClick={() => dispatch({ type: "save" })}>Save changes</Button>
-      <Button variant="outline" aria-disabled={!textPending(state) && !state.history.session.transaction.dirty} onClick={() => dispatch({ type: "discard" })}>Discard changes</Button>
+      <Button variant="outline" aria-disabled={!propertiesPending(state) && !textPending(state) && !state.history.session.transaction.dirty} onClick={() => dispatch({ type: "discard" })}>Discard changes</Button>
       <Button variant="outline" aria-disabled={blocked} onClick={saveLocal} disabled={state.pendingArtifact !== null}>Save locally</Button>
       <Button variant="outline" data-artifact-open="saved" onClick={openSaved} disabled={state.pendingArtifact !== null}>Open saved</Button>
       <Button variant="outline" aria-disabled={blocked} onClick={saveFile}>Save As file</Button>
@@ -442,6 +473,20 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
             <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-text" })}>Reset text</Button>
           </div>
         </form> : null}
+        {textEditable ? <form onSubmit={event => { event.preventDefault(); dispatch({ type: "apply-properties" }); }} className="mt-5 space-y-3 border-t pt-4">
+          <label htmlFor="editor-button-variant" className="block text-sm">Button variant</label>
+          <select id="editor-button-variant" value={state.propertyVariant}
+            onChange={event => dispatch({ type: "field", field: "propertyVariant", value: event.target.value })}
+            aria-describedby="properties-help editor-feedback" className="w-full rounded-md border bg-background p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring">
+            <option value="default">Default</option><option value="outline">Outline</option><option value="ghost">Ghost</option>
+          </select>
+          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={state.propertyDisabled === "true"}
+            onChange={event => dispatch({ type: "field", field: "propertyDisabled", value: String(event.target.checked) })}
+            aria-describedby="properties-help" />Disabled preview</label>
+          <p id="properties-help" className="text-xs text-muted-foreground">Presentation only. Reset restores the original appearance.</p>
+          <div className="flex flex-wrap gap-2"><Button type="submit" variant="outline">Apply properties</Button>
+            <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-properties" })}>Reset properties</Button></div>
+        </form> : null}
         {editable ? <Button variant="outline" className="mt-3" onClick={() => dispatch({ type: "restore-fields" })}>Restore fields</Button> : null}
         <div role="group" aria-label="Composition structure" className="mt-5 space-y-3 border-t pt-4">
           <h3 className="font-semibold">Build composition</h3>
@@ -480,7 +525,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     </div>
     <footer className="border-t p-4">
       <p id="editor-feedback" role="status" aria-live="polite" aria-atomic="true" className="text-sm">{state.message}</p>
-      <p className="mt-2 text-xs text-muted-foreground">Undo/Redo keeps up to 50 applied size, text or structure edits in this session. Saving, discarding or opening a composition clears history.</p>
+      <p className="mt-2 text-xs text-muted-foreground">Undo/Redo keeps up to 50 applied size, text, property or structure edits in this session. Saving, discarding or opening a composition clears history.</p>
       <p className="text-xs text-muted-foreground">Save changes accepts this session. Save locally retains a separate copy in this browser; use Open saved after reload.</p>
       <p className="text-xs text-muted-foreground">Save As file requests a portable download. Browser storage can be cleared; keep exported files for retention.</p>
     </footer>

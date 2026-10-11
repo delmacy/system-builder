@@ -142,3 +142,25 @@ test("WP7 real portable preparation/local retention/read/fresh session retains e
   const fresh = initializeEditorSession({ sessionRef: "session:wp7-local-file", base: { applicationRef: source.applicationRef, compositionRef: source.compositionRef, revision: source.revision, currentness: "current" }, composition: read.document.payload.graph }, source.registry);
   assert.ok(fresh.accepted); if (fresh.accepted) assert.equal(fresh.session.transaction.draft.nodes[1]!.text, "<b>Plain text</b>");
 });
+
+test("WP8 property-only retention preserves identity/version, defaults presence and fresh round-trip", async () => {
+  const source = resolveEditorCatalogEntry("composition:example")!; const previous = artifact();
+  const graph = { ...source.composition, nodes: source.composition.nodes.map((node, index) => index === 1
+    ? { ...node, properties: { variant: "outline" as const, disabled: true } } : node) };
+  const next = prepareEditorArtifact(source.compositionRef, graph, previous, operation); assert.ok(next.accepted); if (!next.accepted) return;
+  assert.equal(next.document.artifactId, previous.artifactId); assert.equal(next.document.artifactVersion, "1.0.1");
+  assert.equal(next.document.schema.version, "4.0.0");
+  assert.deepEqual(prepareEditorArtifact(source.compositionRef, graph, next.document, operation), next);
+  const { store } = memory(); const saved = saveStoredArtifact(store, next.document, null, resolveEditorCatalogEntry); assert.ok(saved.accepted);
+  const opened = openStoredArtifact(store, source.compositionRef, resolveEditorCatalogEntry); assert.ok(opened.accepted);
+  const read = await readEditorArtifact({ size: Buffer.byteLength(next.text), async text() { return next.text; } }); assert.ok(read.accepted);
+  if (!opened.accepted || !read.accepted) return;
+  assert.deepEqual(opened.document.payload.graph, read.document.payload.graph);
+  const fresh = initializeEditorSession({ sessionRef: "session:wp8-retention", base: { applicationRef: source.applicationRef, compositionRef: source.compositionRef, revision: source.revision, currentness: "current" }, composition: read.document.payload.graph }, source.registry);
+  assert.ok(fresh.accepted); if (fresh.accepted) assert.deepEqual(fresh.session.transaction.draft.nodes[1]!.properties, { variant: "outline", disabled: true });
+  const reset = prepareEditorArtifact(source.compositionRef, source.composition, next.document, operation); assert.ok(reset.accepted);
+  if (reset.accepted) { assert.equal(reset.document.artifactVersion, "1.0.2"); assert.equal(reset.document.schema.version, "1.0.0"); }
+  const explicit = { ...source.composition, nodes: source.composition.nodes.map((node, index) => index === 1 ? { ...node, properties: { variant: "default" as const, disabled: false } } : node) };
+  const e = prepareEditorArtifact(source.compositionRef, explicit, previous, operation); assert.ok(e.accepted);
+  if (e.accepted) { assert.equal(e.document.schema.version, "4.0.0"); assert.equal(e.document.artifactVersion, "1.0.1"); }
+});
