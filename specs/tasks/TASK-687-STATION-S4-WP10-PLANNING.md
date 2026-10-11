@@ -4,7 +4,7 @@
   "title": "Station S4 WP10 PLANNING",
   "status": "completed",
   "priority": 687,
-  "milestone": "STATION-S4-WP10-REUSABLE-CATALOG",
+  "milestone": "STATION-S4-WP10-REPARENTING",
   "model_tier": "architecture",
   "risk": "medium",
   "architecture_impact": false,

@@ -27,3 +27,9 @@ A#1082 integrated after seven PASS gates. Only B/TASK689 committed; C/Review/Clo
 B#1083 integrated after all seven PASS gates;61 actual Chromium cases including demo.
 Fresh main validates complete admitted goal; no necessary construction gap, C skipped.
 Only Review/TASK690 committed. Closure and WP11 remain forecast, independently gated.
+
+## Closure promotion and final horizon
+Review#1084 passed own five gates/integrated. Goal proven; C not needed, five sprints match forecast.
+Only Documentation & Closure/TASK691 committed,13 exact docs paths. Effective bounded CLOSED on
+own full passing gates and merge. No product changes or committed successor. WP11 is future fresh
+Planning/admission; demo delivered separately from final real browser recording after closure.

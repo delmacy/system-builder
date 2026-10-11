@@ -39,3 +39,12 @@ existing lossless codec and fresh-session reopen (21.3.1/21.3.2). Planning#1076/
 Review#1079;149 editor/composition cases,55 Chromium journeys, Windows/Ubuntu/frontend proof.
 Bounded WP9 CLOSED effective only on validated TASK686 integration. No whole-WBS/S4/ComponentEditor
 completion, template subtree insertion, reparenting, File Manager/process/Studio/Core promotion.
+
+## Station S4 WP10 compatible movement disposition
+Addendum010 extends only installed compatible non-root reparenting (21.2.1), atomic full graph
+admission (21.2.3), lossless existing payloads (21.3.1) and actual fresh-session local/file reopen
+(21.3.2). Planning#1081/A#1082/B#1083/Review#1084;121 construction editor cases,151 combined
+review cases and61 actual Chromium journeys including real demo, seven construction gates and
+Windows/Ubuntu/frontend quality. Bounded WP10 CLOSED effective on validated TASK691 integration.
+No whole-item/WBS/S4/ComponentEditor/H1 certification, cross-composition templates, collaboration,
+File Manager/process/Studio/Core or successor construction is promoted by this bounded disposition.

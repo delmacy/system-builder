@@ -254,7 +254,7 @@ See `project_docs/execution_planning/STATION-S4-WP2-DOCUMENTATION-CLOSURE-01.rep
 
 ## Station S4 WP3 portable composition operation (historical v1 scope)
 
-Addendum 004/RESOLUTION-01/02 use the existing ADR-0009 public envelope with a strict composition payload. The installed application/composition/baseRevision and source registry own identities/topology/order/labels; imported files are inert data and may change only admitted spans. The initial two catalog entries each have three nodes. JSON payloads reject malformed/version/schema/identity/revision/source/script fields and unsafe keys before replacement. Limits are inclusive 1,048,576 UTF-8 bytes, 256 nodes, 32 container levels and 256 code points per graph token; no URI/extension is executed or fetched.
+Addendum 004/RESOLUTION-01/02 use the existing ADR-0009 public envelope with a strict composition payload. The installed application/composition/baseRevision and source registry own identities/topology/order/labels; imported files are inert data and may change only admitted spans. The initial two catalog entries each have three nodes. JSON payloads reject malformed/version/schema/identity/revision/source/script fields and unsafe keys before replacement. Limits are inclusive 1,048,576 UTF-8 bytes, 256 nodes, 32 JSON nesting levels and 256 code points per graph token; no URI/extension is executed or fetched.
 
 1. Open the Station Composition Editor or `/component-editor`; choose a composition and layer, edit Columns/Rows and choose Apply size. Text still in the Inspector is unapplied until Apply size succeeds.
 2. Save changes accepts only the mounted session; the saved/unsaved indicator describes that session. Save locally retains the complete validated applied graph/envelope under the separate `station:composition-artifact:v1:` namespace and accepts the session only after retention succeeds. Window layout preferences never hold the artifact. Reload/close starts a fresh session; explicitly choose Open saved to restore the entry's retained artifact. Catalog entries have independent keys.
@@ -344,3 +344,32 @@ Same launch/build/start/browser commands above apply; suite now55 Chromium journ
 plus five WP9). Actual B run38133778952/job114453326488:55 passed46.1s, seven CI gates PASS.
 149 editor/composition cases (114+35) and Windows/Ubuntu/frontend quality proof. Review/Closure
 reports retain exact traceability and bounded WP9-L1/L2/D1; no universal accessibility/scale claim.
+
+## Station S4 WP10 compatible movement — current operation
+Select a non-root node in Layers. Move to container lists existing containers; Move to slot selects
+that container's installed slot. Choose Move component to request atomic typed movement. An
+incompatible family/layout/occupied slot, root/self/descendant cycle or unknown/stale target rejects
+without changing graph/history. Fields pending in Inspector must be applied or Restore fields;
+pending replacement also protects movement. Destination ancestors expand, selected identity remains.
+The moved node preserves spans, text/properties and component identity. Moving a container carries
+its entire subtree: descendants retain their parent references. Graph array order stays unchanged;
+destination sibling order follows it, while Move before/after remains a separate sibling operation.
+Choosing its existing container/slot is a no-op preserving session revision, history and redo.
+Changed movement advances once and shares existing50-entry mixed history; Undo/Redo restore exact
+placements. Save changes accepts the mounted session. Save locally/Open saved or actual Save As
+file/Open file retain applied topology explicitly. Close/reload starts a new session, explicit reopen
+rehydrates it; minimized mounted windows keep their in-memory draft. Native file/local failure and
+conflict/replacement protections remain. A requested download is not an automatic filesystem receipt.
+Payload1/2/3/4 and minimal schema selection remain: changed topology emitsv2 unless text/properties
+requirev3/v4. Existing legacy readers/current exact admission semantics and source-root/revision/
+identity/provenance rules remain. Caps:1MiB UTF-8,256 nodes,32 JSON nesting levels,256 graph-token
+code points and50 history snapshots. Flat graph ancestry has no independent32-level cap; full
+acyclic rooted connectivity is admitted before mutation. Fixed-span preview can clip undersized
+nested content; full labels remain in Inspector/Layers/title. No automatic sizing promise.
+Production build/run/browser commands above remain. Suite61 actual Chromium journeys (55 inherited,
+six WP10 including a short Portuguese-captioned real shell/editor/retention/window video). Browser
+recording is test harness presentation only, not product code.121 construction editor cases and151
+combined review editor/composition cases, plus seven construction gates/Windows-Ubuntu/frontend
+proof. Addendum010 and WP10 review/closure reports trace exact heads/runs; effective closure requires
+validated TASK691 merge. WP10-L1/L2/D1 and inherited debt remain. No cross-composition copying,
+templates, wider user/remote catalog, arbitrary CSS/actions, File Manager/process/Studio/Core/server.
