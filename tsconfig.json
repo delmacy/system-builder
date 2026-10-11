@@ -58,6 +58,12 @@
       ],
       "@system-builder/station-process-context": [
         "packages/station-process-context/index.ts"
+      ],
+      "@system-builder/contracts/system-definition": [
+        "packages/contracts/system-definition/index.ts"
+      ],
+      "@system-builder/station-workflow-authoring": [
+        "packages/station-workflow-authoring/index.ts"
       ]
     },
     "strict": true,
