@@ -801,3 +801,108 @@ test.describe("WP5 bounded structural authoring", () => {
     await expect(button(page, "Undo")).toHaveAttribute("aria-disabled", "true");
   });
 });
+
+test.describe("WP7 bounded button text", () => {
+  const input = (page: Page) => page.getByLabel("Button text", { exact: true });
+  const button = (page: Page, name: string) => page.getByRole("button", { name, exact: true });
+  async function applyText(page: Page, text: string) {
+    await input(page).fill(text); await button(page, "Apply text").click();
+  }
+  test("literal Unicode/markup text converges projections, undo/redo/reset and discard", async ({ page }, testInfo) => {
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+    const label = '<img src=x> Confirmar 🧭';
+    await applyText(page, label);
+    await expect(page.getByRole("treeitem", { name: label, exact: true })).toHaveAttribute("aria-selected", "true");
+    await expect(preview(page, label)).toBeVisible();
+    await expect(preview(page, label).locator("img")).toHaveCount(0);
+    await button(page, "Undo").click(); await expect(preview(page)).toBeVisible();
+    await button(page, "Redo").click(); await expect(input(page)).toHaveValue(label);
+    await button(page, "Reset text").click(); await expect(preview(page)).toBeVisible();
+    await expect(input(page)).toHaveValue("");
+    await button(page, "Undo").click(); await expect(preview(page, label)).toBeVisible();
+    await page.screenshot({ path: testInfo.outputPath("wp7-button-text.png"), fullPage: true });
+    await button(page, "Discard changes").click(); await expect(preview(page)).toBeVisible();
+    await expect(button(page, "Undo")).toHaveAttribute("aria-disabled", "true");
+  });
+  test("blank and overlimit text preserve draft; restore fields permits root and second catalog", async ({ page }) => {
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+    for (const value of ["   ", "x".repeat(257)]) {
+      await applyText(page, value);
+      await expect(editor(page).getByRole("status")).toContainText("1–256");
+      await expect(input(page)).toHaveAttribute("aria-invalid", "true");
+      await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
+      await expect(preview(page)).toBeVisible();
+    }
+    await button(page, "Restore fields").click(); await expect(input(page)).toHaveValue("");
+    const longest = "x".repeat(256);
+    await applyText(page, longest);
+    await expect(preview(page, longest).getByText(longest, { exact: true })).toHaveAttribute("title", longest);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    await button(page, "Reset text").click();
+    await page.getByRole("treeitem", { name: "Grid", exact: true }).click(); await expect(input(page)).toHaveCount(0);
+    await page.getByLabel("Composition", { exact: true }).selectOption("composition:button-group");
+    await page.getByRole("treeitem", { name: "Group Button 1", exact: true }).click();
+    await applyText(page, "Group action"); await expect(preview(page, "Group action")).toBeVisible();
+  });
+  test("text/span/structure produces downloaded v3 that reopens in a fresh origin", async ({ page, browser }) => {
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+    await applyText(page, "Confirmar"); await span(page, "3");
+    await button(page, "Add component").click();
+    const bytes = await downloadedComposition(page);
+    const doc = JSON.parse(bytes.toString()); expect(doc.schema.version).toBe("3.0.0"); expect(doc.payload.graph.nodes).toHaveLength(4);
+    const context = await browser.newContext();
+    try {
+      const other = await context.newPage(); await other.goto(page.url());
+      await other.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "wp7.composition.json", mimeType: "application/json", buffer: bytes });
+      await expect(preview(other, "Confirmar")).toHaveAttribute("data-column-span", "3");
+      await expect(other.getByRole("treeitem", { name: "Confirmar", exact: true })).toBeVisible();
+      await expect(other.getByTestId("draft-state")).toHaveText("All changes saved");
+    } finally { await context.close(); }
+  });
+  test("local reopening retains text; text-only second save updates bytes and checkpoint", async ({ page }) => {
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await applyText(page, "First text");
+    await button(page, "Save locally").click(); await page.reload(); await button(page, "Open saved").click();
+    await page.getByRole("treeitem", { name: "First text", exact: true }).click();
+    await applyText(page, "Second text"); await button(page, "Save locally").click();
+    await expect(button(page, "Undo")).toHaveAttribute("aria-disabled", "true");
+    await page.reload(); await button(page, "Open saved").click(); await expect(preview(page, "Second text")).toBeVisible();
+  });
+  test("pending text blocks mutation/save/export/selection; switch cancel and discard preserve explicit choice", async ({ page }) => {
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await applyText(page, "Applied");
+    await input(page).fill("Pending");
+    for (const name of ["Undo", "Remove subtree", "Save changes", "Save locally", "Save As file"]) {
+      await button(page, name).click({ force: true }); await expect(editor(page)).toHaveAttribute("data-draft-revision", "8");
+    }
+    await page.getByRole("treeitem", { name: "Button 2", exact: true }).click(); await expect(input(page)).toHaveValue("Pending");
+    await page.getByLabel("Composition", { exact: true }).selectOption("composition:button-group");
+    await expect(page.getByRole("group", { name: "Unsaved composition switch" })).toBeVisible();
+    await button(page, "Cancel switch").click(); await expect(input(page)).toHaveValue("Pending");
+    await button(page, "Discard changes").click(); await expect(preview(page)).toBeVisible(); await expect(input(page)).toHaveValue("");
+  });
+  test("pending-only text warns before file open; cancel keeps input and explicit open replaces it", async ({ page }) => {
+    const bytes = await downloadedComposition(page);
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await input(page).fill("Pending only");
+    await page.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "original.composition.json", mimeType: "application/json", buffer: bytes });
+    await expect(button(page, "Discard changes and open file")).toBeVisible();
+    await button(page, "Cancel open").click(); await expect(input(page)).toHaveValue("Pending only");
+    await page.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "original.composition.json", mimeType: "application/json", buffer: bytes });
+    await button(page, "Discard changes and open file").click(); await expect(input(page)).toHaveValue("");
+    await expect(preview(page)).toBeVisible();
+  });
+  test("keyboard submit and native input undo remain separate; Station window retains text on restore", async ({ page }) => {
+    await page.goto("/"); await button(page, "Open applications").click();
+    await page.locator('[data-app-ref="app:composition-editor"]').click();
+    const window = page.getByRole("dialog", { name: "Composition Editor", exact: true });
+    await window.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+    await input(page).fill("Keyboard action"); await input(page).press("Enter");
+    await expect(preview(page, "Keyboard action")).toBeVisible();
+    await input(page).fill("Pending input"); await input(page).press("Control+z");
+    await expect(editor(page)).toHaveAttribute("data-draft-revision", "8");
+    await button(page, "Restore fields").click();
+    await window.getByRole("button", { name: "Minimize window" }).click();
+    await page.locator('[data-slot="taskbar-windows"]').getByRole("button", { name: "Composition Editor", exact: true }).click();
+    await expect(input(page)).toHaveValue("Keyboard action");
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(input(page)).toBeVisible();
+  });
+});

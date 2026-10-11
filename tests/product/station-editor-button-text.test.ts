@@ -111,3 +111,14 @@ test("WP7 text is rejected in legacy payloads and malformed v3; tampered snapsho
     rejected(moveEditorHistory(bad, "undo", h.session.draftRevision, entry.registry), bad);
   }
 });
+
+test("WP7 v3 consumer accepts optional text omission while producer keeps minimum version", () => {
+  const { entry, h } = setup();
+  const produced = createCompositionArtifact(h.session.transaction.draft, entry, metadata); assert.ok(produced.accepted);
+  if (!produced.accepted) return;
+  assert.equal(produced.document.schema.version, "1.0.0");
+  const v3 = encodeCompositionArtifact({ ...produced.document, schema: { ...produced.document.schema, version: "3.0.0" } }, resolveEditorCatalogEntry);
+  assert.ok(v3.accepted); if (!v3.accepted) return;
+  const read = decodeCompositionArtifact(v3.text, resolveEditorCatalogEntry); assert.ok(read.accepted);
+  if (read.accepted) assert.deepEqual(read.document.payload.graph, entry.composition);
+});

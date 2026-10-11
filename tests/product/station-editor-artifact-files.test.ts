@@ -112,3 +112,33 @@ test("WP5 updating retained v1 to authored v2 advances artifact version and pres
     { artifactId: "urn:uuid:unused2", createdAt: "2026-10-10T21:02:00Z" });
   assert.deepEqual(unchanged, next);
 });
+
+test("WP7 caller file workflow notices text-only changes and advances retained artifact version", () => {
+  const source = resolveEditorCatalogEntry("composition:example")!;
+  const previous = artifact();
+  const graph = { ...source.composition, nodes: source.composition.nodes.map((node, index) => index === 1 ? { ...node, text: "Confirmar 🧭" } : node) };
+  const next = prepareEditorArtifact(source.compositionRef, graph, previous, operation);
+  assert.ok(next.accepted); if (!next.accepted) return;
+  assert.equal(next.document.schema.version, "3.0.0");
+  assert.equal(next.document.artifactId, previous.artifactId);
+  assert.equal(next.document.artifactVersion, "1.0.1");
+  assert.equal(next.document.payload.graph.nodes[1]!.text, "Confirmar 🧭");
+  const unchanged = prepareEditorArtifact(source.compositionRef, graph, next.document, operation); assert.deepEqual(unchanged, next);
+  const reset = prepareEditorArtifact(source.compositionRef, source.composition, next.document, operation);
+  assert.ok(reset.accepted); if (!reset.accepted) return;
+  assert.equal(reset.document.schema.version, "1.0.0"); assert.equal(reset.document.artifactVersion, "1.0.2");
+});
+
+test("WP7 real portable preparation/local retention/read/fresh session retains escaped display text", async () => {
+  const source = resolveEditorCatalogEntry("composition:example")!;
+  const graph = { ...source.composition, nodes: source.composition.nodes.map((node, index) => index === 1 ? { ...node, text: "<b>Plain text</b>" } : node) };
+  const prepared = prepareEditorArtifact(source.compositionRef, graph, null, operation); assert.ok(prepared.accepted);
+  if (!prepared.accepted) return;
+  const { store } = memory(); const saved = saveStoredArtifact(store, prepared.document, null, resolveEditorCatalogEntry); assert.ok(saved.accepted);
+  const opened = openStoredArtifact(store, source.compositionRef, resolveEditorCatalogEntry); assert.ok(opened.accepted);
+  const read = await readEditorArtifact({ size: Buffer.byteLength(prepared.text), async text() { return prepared.text; } }); assert.ok(read.accepted);
+  if (!opened.accepted || !read.accepted) return;
+  assert.deepEqual(opened.document.payload.graph, read.document.payload.graph);
+  const fresh = initializeEditorSession({ sessionRef: "session:wp7-local-file", base: { applicationRef: source.applicationRef, compositionRef: source.compositionRef, revision: source.revision, currentness: "current" }, composition: read.document.payload.graph }, source.registry);
+  assert.ok(fresh.accepted); if (fresh.accepted) assert.equal(fresh.session.transaction.draft.nodes[1]!.text, "<b>Plain text</b>");
+});

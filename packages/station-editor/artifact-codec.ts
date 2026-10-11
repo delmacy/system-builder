@@ -153,12 +153,7 @@ function checkGraph(value: unknown, source: ArtifactSource, schemaVersion: strin
   requireValue(validateCompositionGraph(value as unknown as CompositionGraph, source.registry).length === 0, "invalid-graph");
   const sourceRoot = source.composition.nodes.find(node => node.ref === source.composition.rootRef);
   requireValue(value.rootRef === source.composition.rootRef && root.componentRef === sourceRoot?.componentRef, "incompatible-source");
-  if (schemaVersion === "3.0.0") {
-    // The v3 feature marker is meaningful only when the graph carries an override.
-    requireValue(value.nodes.some((node: Record<string, unknown>) => Object.hasOwn(node, "text")), "unsupported-version");
-    return;
-  }
-  if (schemaVersion === "2.0.0") return;
+  if (schemaVersion === "2.0.0" || schemaVersion === "3.0.0") return;
   requireValue(value.nodes.length === source.composition.nodes.length, "incompatible-source");
   value.nodes.forEach((node: Record<string, unknown>, index: number) => {
     const expected = source.composition.nodes[index]!;
