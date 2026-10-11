@@ -1,13 +1,14 @@
 # Addendum011 — Station local artifact workspace / File Manager
 Date: 2026-10-11 UTC
-Status: ACCEPTED effective on validated WP11 Planning integration
+Status: ACCEPTED via Planning #1086; bounded WP11 CLOSED effective on validated TASK696 integration
 Admission: owner authorizes WP11 after WP10#1085, with bounded Explorer/Inspector/editor integration.
 
 ## Ownership and trust
 Station owns an explicitly origin-local composition workspace, through a replaceable getItem/setItem
 adapter. One separate key station:artifact-workspace:v1 stores a full validated workspace snapshot;
-not window preferences, existing composition slots or Core truth. Closing/reload needs explicit user
-opening/refresh of File Manager, never automatically loads a graph into the editor.
+not window preferences, existing composition slots or Core truth. Inherited window preferences may
+restore a previously opened File Manager and read its workspace metadata after reload. Opening a
+composition graph in the editor always requires explicit user action; no handoff is replayed.
 Workspace locations (entry/folder refs, parent and literal filename) are separate from ADR0009
 artifact identity/version/provenance. Folder/file refs are opaque Station locations, not OS paths.
 Folders navigate metadata only; no URI/path executes or fetches. Composition envelopes use the
@@ -56,3 +57,10 @@ corrupt/quota/stale tests, keyboard/narrow/window focus lifecycle. No fake downs
 Bounded WBS30.1.1/30.1.3/30.2.1/30.2.2 and21.3.1/21.3.2 slices only. No complete WBS/S4.
 Git-like version history, .process, arbitrary binary/system files, access policies, server/Core/host,
 sync/multi-tab CAS, hashes/audit and folder lifecycle remain future admitted packages.
+
+## Validated delivery disposition
+Planning #1086, Construction A #1087, B #1088 and independent Review integrated.159 combined
+local product cases;68 actual Chromium journeys (61 inherited, seven new), seven construction
+workflows including Windows/Ubuntu and frontend quality. Exact proof in WP11 review/closure reports.
+TASK696 independently gated before effective closure. WP11-L1/L2/D1 and inherited debt retained.
+No full WBS/S4/H2 promotion; WP12 only fresh-main Planning/readiness/admission.

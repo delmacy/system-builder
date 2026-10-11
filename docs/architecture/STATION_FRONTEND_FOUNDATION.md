@@ -373,3 +373,32 @@ combined review editor/composition cases, plus seven construction gates/Windows-
 proof. Addendum010 and WP10 review/closure reports trace exact heads/runs; effective closure requires
 validated TASK691 merge. WP10-L1/L2/D1 and inherited debt remain. No cross-composition copying,
 templates, wider user/remote catalog, arbitrary CSS/actions, File Manager/process/Studio/Core/server.
+
+## Station S4 WP11 artifact workspace — current operation
+Launch File Manager from Open applications. Create folders with New folder name/Create folder;
+select a folder to navigate. Folder contents lists named compositions and type; selecting a file
+shows its logical identity/version/source/schema/component count in the read-only File Inspector.
+Editor Artifact workspace has a folder selector, Workspace copy name and Save to workspace.
+Apply or Restore pending fields first. A save appends a separately identified version1.0.0 copy;
+it preserves the current draft/history and existing per-composition slots. Refresh workspace folders
+after another view changes storage; stale snapshots reject instead of silently replacing files.
+File Manager Import composition reads a real .composition.json file and validates extension,
+native size/read and full installed-source envelope. Export composition downloads the selected
+full envelope. Open in editor re-reads the snapshot, decodes the retained file and launches/focuses
+the ordinary editor. Dirty/unapplied drafts require Cancel or Discard changes and open. A successful
+open initializes the actual fresh source session; close/reopen never replays a consumed handoff.
+Refresh failures preserve previous visible contents and block mutation/open until valid refresh.
+Corrupt/quota/denied/stale input preserves stored bytes. Navigation/refresh/unmount cancels obsolete
+async import targets. Browser-origin key station:artifact-workspace:v1 is separate from window
+preferences and legacy slots. Previously opened window preferences can restore File Manager and
+read metadata on reload; composition graph opening remains explicit. Portable copies support
+independent retention; browser storage can still be cleared, denied or quota-limited.
+Caps16 folders including root,48 files,8 folder levels,4MiB total encoded snapshot; each composition
+retains1MiB/256 nodes/32 JSON nesting/token256/history50. Whole snapshot/per-file admission is bounded,
+not a latency guarantee. Atomic native setItem plus raw-text re-read is best-effort stale detection,
+not cross-tab transactional CAS. Append-only: no rename/move/delete/overwrite/Git-like revisions.
+Existing production build/start/browser commands apply.159 combined local product cases and68 actual
+Chromium journeys (61 inherited +7 workspace), seven construction gates and Windows/Ubuntu/frontend
+quality proof. Addendum011/review/closure trace exact heads/runs; TASK696 independently gated.
+Bounded WBS30.1.1/30.1.3/30.2.1/30.2.2 and21.3.1/21.3.2 only; WP11-L1/L2/D1 retained.
+No server/Core/host filesystem, sync/CAS, generic binary/provider, .process or whole WBS/S4 completion.
