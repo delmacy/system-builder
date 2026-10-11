@@ -36,3 +36,6 @@ No new properties/catalog/registry, reparenting, persistent history, File Manage
 
 ## Construction A checkpoint
 Planning #1060 integrated; five workflows and 37/37 Chromium passed (37.1 s). Fresh main 0fbd63a3 revalidated; only TASK-668 COMMITTED. Four exact paths; all later Sprints remain forecast.
+
+## Construction B checkpoint
+A #1061 integrated at dc4e7b80fa1c1f0514fc052a0176d045ce0388e0 after seven passing workflows, Windows/Ubuntu/frontend quality and 37/37 actual Chromium journeys (34.7 s). Fresh main revalidated; only B/TASK-669 COMMITTED. Optional C/review/closure remain forecast.
