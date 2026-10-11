@@ -19,3 +19,6 @@ No universal accessibility/latency/retained-memory certification. No successor a
 
 ## B checkpoint
 A#1072 integrated after seven passing workflows; only B/TASK679 committed. C/review/closure forecast.
+
+## Review checkpoint
+B#1073 integrated after seven passing workflows/all50 Chromium journeys. Only Review/TASK680 committed. C not required; Closure forecast.

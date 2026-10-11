@@ -1,14 +1,13 @@
-# Next work — Station WP8 Construction B
+# Next work — WP8 Integration & Review
 Date: 2026-10-11 UTC
-Sole live execution pointer. WP7 closed #1069; forecast #1070 integrated before this Planning.
-WP8 owner-authorized: bounded button variant/disabled preview Addendum008.
-Planning/TASK677/#1071 integrated at168ef31af8e5d637a47f92880a58cf2f06a530ba; five workflows passed.
-A/TASK678/#1072 integrated; seven workflows PASS. Only B/TASK679 committed after fresh-main revalidation.
-C/Review/Closure remain forecast; no other WP committed.
-Authority: AGENTS.md; docs/DOCUMENT_AUTHORITY.md; docs/contracts/CONTRACT_INDEX.md;
+Sole live execution pointer. Planning#1071/A#1072/B#1073 integrated; bounded properties goal built.
+Only Review/TASK680 committed; Closure forecast. Optional C not promoted: goal/proof complete.
+B has107 editor cases,50 actual Chromium journeys and seven passing workflows/platform/frontend.
+Authority: AGENTS; docs/DOCUMENT_AUTHORITY.md; docs/contracts/CONTRACT_INDEX.md;
 docs/contracts/008-station-button-properties/ADDENDUM.md;
 project_docs/execution_planning/STATION-S4-WP8-PLAN-01.md;
-project_docs/execution_planning/STATION-S4-WP8-CONSTRUCTION-B-01.md;
+project_docs/execution_planning/STATION-S4-WP8-INTEGRATION-REVIEW-01.md;
 project_docs/schedule/SPRINT_MODE.md; project_docs/schedule/SPRINT_GENERATION_POLICY.md.
-Require npm run verify/all triggered CI before merge. Local full verify remains tsx IPC restricted;
-CI supplies observed complete validation. WP8 is not broad property/catalog/Studio/Core admission.
+Require npm run verify/all triggered CI before merge. Local tsx IPC EPERM limits full verify;
+connected CI supplies observed full verification. No general property/catalog/Core/Studio scope.
+WP8-L1/L2/D1 and inherited debt preserved. No successor committed.

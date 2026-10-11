@@ -87,3 +87,9 @@ Planning#1065/A#1066/B#1067 integrated; B seven workflows PASS,44 actual Chromiu
 
 ## WP7 closure disposition — current bounded horizon
 Review#1068 integrated with five passing workflows and44 Chromium cases34.1s; admitted text goal met. TASK-676 reconciles12 exact documentation paths and closes WP7 only on independent passing integration. No active WP7 task or committed successor remains after that integration. WP7-L1/L2/D1 and all inherited WP3–WP6/unrelated historical debt remain nonblocking limits/future planning; old readers rejectv3, no broad editor/catalog/retained-memory/latency/accessibility certification. NEXT_WORK remains the sole scheduler.
+
+## Station WP8 bounded properties residuals — 2026-10-11 UTC
+- WP8-L1: only two properties of installed buttons; general schema/property/catalog authoring remains future admitted scope.
+- WP8-L2: Chromium keyboard/focus/narrow/shell proof does not establish universal screen-reader or cross-browser certification.
+- WP8-D1: nested immutable copies preserve history safety; long-session memory/broad-catalog cost unprofiled, inherited WP6 debt retained.
+- B procedure helper/import failure briefly preceded durable manifest creation; reconciled before publication, no extra scope. Use fail-closed dependent commands.
