@@ -1,16 +1,9 @@
-# Next work — WP9 bounded reusable catalog closed
+# Next work — WP10 Planning
 Date: 2026-10-11 UTC
-Sole live execution pointer. WP9 CLOSED effective only after validated TASK686 closure integration;
-branch-only closure prose remains conditional. Planning#1076/A#1077/B#1078/Review#1079 integrated.
-Delivered two installed layout descriptors, one nested Action panel composition and searchable
-catalog/guarded source-session installation. Existing graph/properties/history/strict payload1/2/3/4,
-identity/root/revision, local/file retention and caps reused.149 editor/composition cases,55 actual
-Chromium journeys and Windows/Ubuntu/frontend quality proof. Classified WP9-L1/L2/D1 retained.
-Closure manifest/report: project_docs/execution_planning/STATION-S4-WP9-DOCUMENTATION-CLOSURE-01.md
-and .report.md; own npm verify and all triggered final exact-head/current-base/heavy/handoff/browser
-CI required before merge. Local full verify known tsx IPC EPERM, observed full proof via connected CI.
-After validated closure no active WP9 TASK or committed successor remains. Next eligible work:
-fresh-main WP10 Planning for bounded compatible reparenting, with explicit scope/addendum/contracts.
-EAP is forecast, not construction authority. No template insertion/user/remote catalog/File Manager/
-process/Studio/Core/server/sync/deploy automatically promoted.
-Authority: AGENTS/DOCUMENT_AUTHORITY/CONTRACT_INDEX/Addendum009/WP9 PLAN/Sprint policies.
+Sole live pointer. Fresh main6e0108b49a2de6c4688822a1bc5bb03c413e6756; WP9#1080 validated CLOSED.
+Active Planning/TASK687: admit Addendum010 and materialize only A/TASK688, eligible after Planning
+CI/merge and fresh-main reconstruction. B/C/Review/Closure forecast. No product code in Planning.
+Authority: AGENTS/DOCUMENT_AUTHORITY/CONTRACT_INDEX/Addendum010/WP10 PLAN/A manifest/TASK688/
+Sprint Mode and Generation Policy. No cross-composition/templates/Core/server/deploy scope.
+Existing strict payload1/2/3/4/caps/history reused. Local verify IPC limit requires full connected CI.
+Owner requests actual short Station video after WP10 closure; B records real journey proof.
