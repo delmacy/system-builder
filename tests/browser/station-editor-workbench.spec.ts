@@ -1536,3 +1536,120 @@ test.describe("WP12 immutable revisions and explicit conflict decisions", () => 
     await expect(workspace(page).getByLabel("Retained revision", { exact: true }).locator("option")).toHaveCount(2);
   });
 });
+
+test.describe("WP13 portable process context", () => {
+  const contextView = (page: Page) => page.getByRole("region", { name: "Process context", exact: true });
+  const button = (page: Page, name: string) => contextView(page).getByRole("button", { name, exact: true });
+  async function launchContext(page: Page, name = "Process Context") {
+    await page.getByRole("button", { name: "Open applications", exact: true }).click();
+    await page.locator(name === "Process Context" ? '[data-app-ref="app:process-context"]' : '[data-app-ref="app:composition-editor"]').click();
+  }
+  async function actualCopies(page: Page) {
+    await editor(page).getByLabel("Workspace copy name", { exact: true }).fill("first.composition.json");
+    await editor(page).getByRole("button", { name: "Save to workspace", exact: true }).click();
+    await expect(editor(page).getByRole("status")).toContainText("Workspace copy saved");
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page,"3");
+    await editor(page).getByRole("button", { name: "Refresh revision targets", exact: true }).click();
+    const ws = await page.evaluate(() => JSON.parse(localStorage.getItem("station:artifact-workspace:v1")!));
+    await editor(page).getByLabel("Revision target", { exact: true }).selectOption(ws.files[0].ref);
+    await editor(page).getByLabel("Revision file name", { exact: true }).fill("second.composition.json");
+    await editor(page).getByRole("button", { name: "Save workspace revision", exact: true }).click();
+    await expect(editor(page).getByRole("status")).toContainText("revision saved");
+  }
+  async function form(page: Page,title="Orders") {
+    await contextView(page).getByText("Create context from references",{exact:true}).click();
+    await contextView(page).getByLabel("Context title",{exact:true}).fill(title);
+    await contextView(page).getByLabel("Process identity",{exact:true}).fill("process:orders");
+    await contextView(page).getByLabel("Process revision identity",{exact:true}).fill("revision:orders-1");
+  }
+  async function actualContext(page: Page) {
+    await actualCopies(page); await page.goto("/process-context"); await form(page);
+    await contextView(page).getByRole("checkbox",{name:"first.composition.json (v1.0.0)",exact:true}).check();
+    await contextView(page).getByRole("checkbox",{name:"second.composition.json (v1.0.1)",exact:true}).check();
+    await button(page,"Create context").click(); await expect(contextView(page).getByRole("heading",{name:"Orders",exact:true})).toBeVisible();
+    const download = page.waitForEvent("download"); await button(page,"Export context").click();
+    const file = await (await download).path(); if (!file) throw Error("download"); return readFile(file);
+  }
+  async function importContext(page: Page, bytes: Buffer) {
+    await contextView(page).getByLabel("Import process context file",{exact:true}).setInputFiles({name:"orders.process.json",mimeType:"application/json",buffer:bytes});
+  }
+  test("actual editor revisions -> context file -> local reload -> pinned composition and untouched semantic anchor", async ({page}) => {
+    const bytes=await actualContext(page), doc=JSON.parse(bytes.toString());
+    expect(doc.payload.views.map((v:{composition:{artifactVersion:string}})=>v.composition.artifactVersion)).toEqual(["1.0.0","1.0.1"]);
+    await expect(contextView(page).getByTestId("process-owner-status")).toContainText("unavailable");
+    await button(page,"Save context locally").click(); await page.reload();
+    await expect(contextView(page)).toContainText("No process context is open");
+    await button(page,"Open retained context").click(); await expect(contextView(page)).toContainText("Context retained locally");
+    const prior=await page.evaluate(()=>localStorage.getItem("station:process-context:v1"));
+    await contextView(page).getByRole("listitem",{name:"first.composition.json",exact:true}).getByRole("button").click();
+    await expect(preview(page)).toHaveAttribute("data-column-span","2");
+    await contextView(page).getByRole("listitem",{name:"second.composition.json",exact:true}).getByRole("button").click();
+    await expect(preview(page)).toHaveAttribute("data-column-span","3");
+    await page.getByRole("treeitem",{name:"Button 1",exact:true}).click();await span(page,"4");
+    expect(await page.evaluate(()=>localStorage.getItem("station:process-context:v1"))).toBe(prior);
+    expect(JSON.parse(prior!).payload.processRevision).toEqual(doc.payload.processRevision);
+  });
+  test("shell context requests ordinary editor confirmation and cancellation preserves dirty fields", async ({page}) => {
+    const bytes=await actualContext(page);await page.goto("/");await launchContext(page,"Composition Editor");
+    await page.getByRole("treeitem",{name:"Button 1",exact:true}).click();await span(page,"4");
+    await launchContext(page);await importContext(page,bytes);
+    const open=contextView(page).getByRole("listitem",{name:"first.composition.json",exact:true}).getByRole("button");await open.click();
+    await expect(editor(page).getByRole("button",{name:"Discard changes and open file",exact:true})).toBeVisible();
+    await editor(page).getByRole("button",{name:"Cancel open",exact:true}).click();await expect(preview(page)).toHaveAttribute("data-column-span","4");
+    await launchContext(page);await open.click();await editor(page).getByRole("button",{name:"Discard changes and open file",exact:true}).click();
+    await expect(preview(page)).toHaveAttribute("data-column-span","2");
+  });
+  test("absent/stale references and corrupt workspace stay explicit without replacing exact versions", async ({page}) => {
+    const bytes=await actualContext(page),doc=JSON.parse(bytes.toString());await page.reload();
+    doc.payload.views[0].composition.artifactVersion="1.0.9";doc.payload.views[1].composition.artifactId="urn:uuid:missing";
+    await importContext(page,Buffer.from(JSON.stringify(doc)));
+    await expect(contextView(page).getByTestId("context-reference-status").nth(0)).toHaveText("stale");
+    await expect(contextView(page).getByTestId("context-reference-status").nth(1)).toHaveText("missing");
+    for(const b of await contextView(page).getByRole("button",{name:"Open referenced composition",exact:true}).all())await expect(b).toBeDisabled();
+    await page.evaluate(()=>localStorage.setItem("station:artifact-workspace:v1","corrupt"));await button(page,"Refresh references").click();
+    await expect(contextView(page).getByTestId("context-reference-status").nth(0)).toHaveText("invalid");
+    await expect(contextView(page).getByRole("heading",{name:"Orders",exact:true})).toBeVisible();
+  });
+  test("malformed files preserve open context and valid replacement protects pending form", async ({page}) => {
+    const bytes=await actualContext(page);
+    await contextView(page).getByLabel("Import process context file",{exact:true}).setInputFiles({name:"bad.process.json",mimeType:"application/json",buffer:Buffer.from('{"__proto__":{}}')});
+    await expect(contextView(page).getByRole("status")).toContainText("Unable to import");
+    await contextView(page).getByLabel("Context title",{exact:true}).fill("Pending form");await importContext(page,bytes);
+    await expect(contextView(page).getByRole("dialog",{name:"Replace process context",exact:true})).toBeVisible();
+    await button(page,"Cancel context replacement").click();await expect(contextView(page).getByLabel("Context title",{exact:true})).toHaveValue("Pending form");
+    await expect(button(page,"Save context locally")).toBeDisabled();await importContext(page,bytes);await button(page,"Discard context and open").click();
+    await expect(contextView(page).getByLabel("Context title",{exact:true})).toHaveValue("");
+  });
+  test("quota and stale local save preserve bytes, explicit refresh recovers", async ({page}) => {
+    const bytes=await actualContext(page);
+    await page.evaluate(()=>{const original=Storage.prototype.setItem;(window as unknown as {restoreContextStorage:()=>void}).restoreContextStorage=()=>{Storage.prototype.setItem=original;};Storage.prototype.setItem=function(k,v){if(k==="station:process-context:v1")throw new DOMException("quota","QuotaExceededError");original.call(this,k,v);};});
+    await button(page,"Save context locally").click();await expect(contextView(page).getByRole("status")).toContainText("Unable to save");
+    expect(await page.evaluate(()=>localStorage.getItem("station:process-context:v1"))).toBeNull();
+    await page.evaluate(()=>{(window as unknown as {restoreContextStorage:()=>void}).restoreContextStorage();});await button(page,"Refresh context storage").click();
+    const other=await page.context().newPage();await other.goto("/process-context");await form(other,"Other");await button(other,"Create context").click();await button(other,"Save context locally").click();
+    const retained=await other.evaluate(()=>localStorage.getItem("station:process-context:v1"));await other.close();
+    await button(page,"Save context locally").click();await expect(contextView(page).getByRole("status")).toContainText("Context storage changed");
+    expect(await page.evaluate(()=>localStorage.getItem("station:process-context:v1"))).toBe(retained);
+    await button(page,"Refresh context storage").click();await button(page,"Save context locally").click();
+    expect(JSON.parse((await page.evaluate(()=>localStorage.getItem("station:process-context:v1")))!).payload.title).toBe(JSON.parse(bytes.toString()).payload.title);
+  });
+  test("keyboard/narrow shell minimize retains context and close does not replay retained opening", async ({page}) => {
+    const bytes=await actualContext(page);await page.goto("/");await page.setViewportSize({width:390,height:860});await launchContext(page);await importContext(page,bytes);
+    await tabTo(page,button(page,"Save context locally"));await button(page,"Save context locally").press("Enter");
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+    const win=page.getByRole("dialog",{name:"Process Context",exact:true});await win.getByRole("button",{name:"Minimize window",exact:true}).click();
+    await page.locator('[data-slot="taskbar-windows"]').getByRole("button",{name:"Process Context",exact:true}).click();
+    await expect(contextView(page).getByRole("heading",{name:"Orders",exact:true})).toBeVisible();
+    await win.getByRole("button",{name:"Close window",exact:true}).click();await launchContext(page);
+    await expect(contextView(page)).toContainText("No process context is open");await button(page,"Open retained context").click();
+    await expect(contextView(page).getByRole("heading",{name:"Orders",exact:true})).toBeVisible();
+  });
+  test("obsolete asynchronous import cannot replace context after form changes", async ({page}) => {
+    const bytes=await actualContext(page);
+    await page.evaluate(()=>{(window as unknown as {finishContextRead?:()=>void}).finishContextRead=undefined;const original=File.prototype.text;File.prototype.text=function(){return new Promise(resolve=>{(window as unknown as {finishContextRead:()=>void}).finishContextRead=()=>{void original.call(this).then(resolve);};});};});
+    await importContext(page,bytes);await contextView(page).getByLabel("Context title",{exact:true}).fill("New form");
+    await page.evaluate(()=>{(window as unknown as {finishContextRead:()=>void}).finishContextRead();});
+    await expect(contextView(page).getByLabel("Context title",{exact:true})).toHaveValue("New form");
+    await expect(contextView(page).getByRole("dialog",{name:"Replace process context",exact:true})).toHaveCount(0);
+  });
+});
