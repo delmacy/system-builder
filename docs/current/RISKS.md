@@ -104,3 +104,9 @@ no universal cross-browser/screen-reader/accessibility or broad catalogue certif
 WP9-D1: five-node source probe passes; wider catalogs/cold/max-bound/token-heavy/long-session
 retained-memory profiling remains future work. Existing WP6/WP8 debt and data/history limits remain.
 No blocker within Addendum009 goal; optional C not promoted. Closure still independently gated.
+
+## WP9 closure disposition
+Admitted goal reviewed with no blocker; five sprints, C unnecessary. TASK686 closure remains
+conditional on own complete CI and merge. WP9-L1/L2/D1 and inherited WP3–WP8/unrelated debt retained.
+No active WP9 task or committed successor remains after validated closure. WP10 requires fresh
+Planning/admission for reparenting; it is not admitted by this closure or general EAP forecast.

@@ -321,3 +321,26 @@ or portable file workflow, not a business/server persistence receipt. Existing l
 Local107 editor+35 composition cases and actual50 Chromium journeys support this bounded result;
 CI also supplies full repository/platform/frontend proof. Broad accessibility and retained-memory
 certification remain unproven. Closure effective only on validated TASK681 integration.
+
+## Station S4 WP9 installed reusable catalog — current operation
+Addendum009 extends installed catalog to three entries, preserving Example composition and Station
+button group, and adding Reusable action panel. The new source definition has five nodes: grid,
+self-owned column Action panel, self-owned Action row and two existing buttons. Panel content
+accepts atomic/none and layout-container/row; row actions accepts atomic/none only.
+Use Search installed compositions and Composition to install, then Install composition. Search
+matches literal title/ref, case-insensitively, with256-character bound; no remote query. Original
+Composition selector always exposes installed entries, including current composition when filtered.
+Installation opens an independent editable source session; it never inserts a subtree into the
+current document. Pending/dirty work uses the existing Cancel switch/Discard changes and open
+choice. Installation of the already current source is disabled; explicit Discard restores baseline.
+In Layers select Action panel then ArrowRight to expand; repeat for Action row to reach its
+buttons. Inspector size/text/properties and Add component/Container/Slot reuse current APIs.
+Incompatible family/layout/slot additions fail without graph mutation. Containers have no button
+properties/action behavior. Preview remains inert; row/column layout and source labels are projections.
+Save locally/Open saved and actual Save As file/Open file retain/reopen applied nested edits
+with unchanged exact payload1/2/3/4, identity/revision/source-root and data/history caps. No remote
+catalog, template subtree insertion, user descriptor authoring, reparenting or action execution.
+Same launch/build/start/browser commands above apply; suite now55 Chromium journeys (50 inherited
+plus five WP9). Actual B run38133778952/job114453326488:55 passed46.1s, seven CI gates PASS.
+149 editor/composition cases (114+35) and Windows/Ubuntu/frontend quality proof. Review/Closure
+reports retain exact traceability and bounded WP9-L1/L2/D1; no universal accessibility/scale claim.
