@@ -44,3 +44,6 @@ A #1061 integrated at dc4e7b80fa1c1f0514fc052a0176d045ce0388e0 after seven passi
 B #1062 integrated at 9d0221e54b043b1ad928d7797fc1d7ca26a1f76c; five passing workflows and 37/37 actual Chromium (34.5 s). Matched paired benchmark exceeds 2x in every max-bound warm Undo/Redo batch. Optional C NOT PROMOTED: no missing goal increment. Only Review/TASK-670 COMMITTED; Closure remains forecast.
 
 Review TASK-670: bounded goal met; optional C unnecessary. Closure GO subject to this Review's own passing gates/merge. WP6-L1/L2/D1 and inherited dispositions retained in RISKS/review report.
+
+## Documentation & Closure checkpoint
+Review #1063 integrated at 640dec55ec3eab7e624b7d71e534ded6e1690607 after five passing workflows and 37/37 Chromium (33.8 s). Only Closure/TASK-671 COMMITTED after fresh-main revalidation. Ten exact documentation paths; WP6 not closed until this Sprint independently validates/integrates. Optional C not promoted.
