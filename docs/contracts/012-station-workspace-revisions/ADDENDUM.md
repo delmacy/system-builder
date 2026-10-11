@@ -1,6 +1,6 @@
 # Addendum012 — Station workspace revisions, comparison and conflicts
 Date: 2026-10-11 UTC
-Status: ACCEPTED effective on validated Planning integration.
+Status: ACCEPTED through Planning #1091; bounded WP12 CLOSED effective on validated TASK701 integration.
 Admission: owner requests full WP12 after validated WP11 closure #1090/main1c8f744b.
 
 ## Scope, ownership and compatibility
@@ -42,3 +42,14 @@ All68 actual browser predecessors regress. Unit adversarial codec/source/identit
 stale/second-read/quota/corrupt/limits/diff metadata and recovery proof.512 path cap explicit.
 Bounded WBS21.3.1/21.3.2/21.3.3 and versions/references portion30.1.2 only; no integrity hashes,
 collaboration, automatic merge, provider/server/Core/host authority, .process, whole H2/S4 certification.
+
+## Delivery disposition
+Planning697/#1091, engine698/#1092, UI699/#1093 and independent Review700/#1094 integrated.
+Actual editor/codec -> initial copy -> two same-identity patch revisions -> full-envelope diff ->
+historical/latest export and guarded ordinary opening; two-view conflict preserves bytes/draft/history
+and explicit refreshed retry. Construction seven gates include Windows/Ubuntu/frontend quality;
+Review five gates and75 actual Chromium journeys pass. Review166 direct product cases PASS.
+Five-sprint delivery, C unnecessary. Documentation701 adds no behavior or schema/ownership change;
+bounded closure effective only on its own complete gates/merge. WP12-L1/L2/L3/D1 remain explicit,
+no whole WBS/H2/S4/collaboration/integrity-hash/provider or WP13 promotion. Exact identities and
+limits: WP12 PLAN, Integration Review report and Documentation Closure report.
