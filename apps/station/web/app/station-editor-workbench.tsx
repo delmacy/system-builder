@@ -22,7 +22,7 @@ type State = Readonly<{
   pendingArtifact: Readonly<{ document: CompositionArtifact; savedText: string | null }> | null;
 }>;
 type Action =
-  | { type: "structure"; operation: "add-node" | "remove-subtree" | "reorder-node"; componentRef?: string; parentRef?: string; slotRef?: string; direction?: "before" | "after" }
+  | { type: "structure"; operation: "add-node" | "remove-subtree" | "reorder-node" | "reparent-node"; componentRef?: string; parentRef?: string; slotRef?: string; direction?: "before" | "after" }
   | { type: "select"; ref: string }
   | { type: "field"; field: "columns" | "rows" | "buttonText" | "propertyVariant" | "propertyDisabled"; value: string }
   | { type: "apply" | "save" | "discard" | "undo" | "redo" | "apply-text" | "reset-text" | "apply-properties" | "reset-properties" | "restore-fields" }
@@ -181,13 +181,14 @@ function reducer(state: State | null, action: Action): State | null {
     const intent = action.operation === "add-node"
       ? { ...common, type: "add-node" as const, nodeRef: `node:added-${sequence}`, componentRef: action.componentRef ?? "",
         parentRef: action.parentRef ?? "", slotRef: action.slotRef ?? "" }
+      : action.operation === "reparent-node" ? { ...common, type: "reparent-node" as const, nodeRef, parentRef: action.parentRef ?? "", slotRef: action.slotRef ?? "" }
       : action.operation === "remove-subtree" ? { ...common, type: "remove-subtree" as const, nodeRef }
       : { ...common, type: "reorder-node" as const, nodeRef, direction: action.direction ?? "before" };
     const result = applyEditorHistoryStructure(state.history, intent, state.entry.registry);
     if (!result.accepted) return { ...state, invalid: true, message: "This component cannot be placed here. Check the container and slot. Your composition is unchanged." };
     return { ...state, history: result.history,
       ...repaired(state, result.history.session, action.operation === "add-node" ? intent.nodeRef : state.selection.selectedRef),
-      invalid: false, message: result.changed ? "Composition updated. Save or discard your changes." : "The component is already at this position." };
+      invalid: false, message: result.changed ? "Composition updated. Save or discard your changes." : action.operation === "reparent-node" ? "The component is already in this container and slot." : "The component is already at this position." };
   }
   if (action.type === "undo" || action.type === "redo") {
     if (historyBlocked(state)) return { ...state, invalid: false,
@@ -235,6 +236,8 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const [paletteRef, setPaletteRef] = useState(() => state.entry.registry.list()[0]?.id ?? "");
   const [parentRef, setParentRef] = useState(state.history.session.transaction.draft.rootRef);
   const [slotRef, setSlotRef] = useState("");
+  const [moveParentRef, setMoveParentRef] = useState("");
+  const [moveSlotRef, setMoveSlotRef] = useState("");
   const [focusedRef, setFocusedRef] = useState(state.history.session.transaction.draft.rootRef);
   const items = useRef(new Map<string, HTMLButtonElement>());
   const fileInput = useRef<HTMLInputElement>(null);
@@ -366,7 +369,15 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const activeParent = parents.find(node => node.ref === parentRef) ?? parents[0];
   const slots = activeParent ? state.entry.registry.get(activeParent.componentRef)?.slots.filter(slot => slot.childPolicy !== "none") ?? [] : [];
   const activeSlot = slots.find(slot => slot.id === slotRef)?.id ?? slots[0]?.id ?? "";
+  const expandParent = (parent: string) => setExpanded(previous => {
+    const next = new Set(previous); let ref: string | undefined = parent; const seen = new Set<string>();
+    while (ref && !seen.has(ref)) { next.add(ref); seen.add(ref); ref = graph.nodes.find(node => node.ref === ref)?.placement?.parentRef; }
+    return next;
+  });
   const selectedNode = graph.nodes.find(node => node.ref === state.selection.selectedRef);
+  const moveParent = parents.find(node => node.ref === moveParentRef) ?? parents.find(node => node.ref === selectedNode?.placement?.parentRef) ?? parents[0];
+  const moveSlots = moveParent ? state.entry.registry.get(moveParent.componentRef)?.slots.filter(slot => slot.childPolicy !== "none") ?? [] : [];
+  const moveSlot = moveSlots.find(slot => slot.id === moveSlotRef)?.id ?? moveSlots.find(slot => slot.id === selectedNode?.placement?.slotRef)?.id ?? moveSlots[0]?.id ?? "";
   const textEditable = !!selectedNode?.placement && supportsButtonDisplayText(selectedNode.componentRef);
   const siblings = selectedNode?.placement ? graph.nodes.filter(node => node.placement?.parentRef === selectedNode.placement!.parentRef &&
     node.placement?.slotRef === selectedNode.placement!.slotRef) : [];
@@ -533,6 +544,23 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
                 return next;
               });
               dispatch({ type: "structure", operation: "add-node", componentRef: paletteRef, parentRef: activeParent?.ref ?? "", slotRef: activeSlot }); }}>Add component</Button>
+          <div role="group" aria-label="Move selected component" className="space-y-3 border-t pt-3">
+            <h4 className="font-medium">Move selected component</h4>
+            <div><label htmlFor="editor-move-parent" className="mb-1 block text-sm">Destination container</label>
+              <select id="editor-move-parent" value={moveParent?.ref ?? ""} disabled={blocked || !selectedNode?.placement}
+                onChange={event => { setMoveParentRef(event.target.value); setMoveSlotRef(""); }} className="w-full rounded-md border bg-background p-2">
+                {parents.map(node => <option key={node.ref} value={node.ref}>{layerName(state, node.ref)}</option>)}
+              </select></div>
+            <div><label htmlFor="editor-move-slot" className="mb-1 block text-sm">Destination slot</label>
+              <select id="editor-move-slot" value={moveSlot} disabled={blocked || !selectedNode?.placement}
+                onChange={event => setMoveSlotRef(event.target.value)} className="w-full rounded-md border bg-background p-2">
+                {moveSlots.map(slot => <option key={slot.id} value={slot.id}>{slot.id === "content" ? "Content" : slot.id.replace("button-", "Button ")}</option>)}
+              </select></div>
+            <Button variant="outline" disabled={blocked || !selectedNode?.placement || !moveParent || !moveSlot}
+              onClick={() => { if (moveParent) expandParent(moveParent.ref);
+                dispatch({ type: "structure", operation: "reparent-node", parentRef: moveParent?.ref ?? "", slotRef: moveSlot }); }}>Move component</Button>
+            <p className="text-xs text-muted-foreground">Keeps size, identity and children. Incompatible slots and cycles are rejected. Undo restores the previous container.</p>
+          </div>
           <div className="flex flex-wrap gap-2">
             <Button variant="outline" disabled={!canRemove} onClick={() => dispatch({ type: "structure", operation: "remove-subtree" })}>Remove subtree</Button>
             <Button variant="outline" disabled={blocked || siblingIndex <= 0} onClick={() => dispatch({ type: "structure", operation: "reorder-node", direction: "before" })}>Move earlier</Button>

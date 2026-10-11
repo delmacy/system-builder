@@ -19,3 +19,6 @@ Risks: cycles, occupied slots, descendant loss, reordered graph, pending overwri
 codec/source mismatch and max-depth growth. Data/history caps unchanged; no scale/memory guarantee.
 WP11 only future Planning/admission, not automatic construction. Video is separate delivered file
 from final product browser recording, not an implementation prerequisite beyond browser proof.
+
+## B promotion
+A#1082 integrated after seven PASS gates. Only B/TASK689 committed; C/Review/Closure forecast.

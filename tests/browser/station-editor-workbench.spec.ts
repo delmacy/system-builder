@@ -9,7 +9,8 @@ async function span(page: Page, columns: string, rows = "1") {
   await page.getByRole("button", { name: "Apply size", exact: true }).click();
 }
 async function tabTo(page: Page, target: Locator) {
-  for (let count = 0; count < 20; count++) {
+  const candidates = await page.locator("button, input, select, textarea, a[href], [tabindex]").count();
+  for (let count = 0; count <= candidates; count++) {
     if (await target.evaluate(element => element === element.ownerDocument.activeElement)) return;
     await page.keyboard.press("Tab");
   }
@@ -1088,5 +1089,122 @@ test.describe("WP9 reusable installed catalog", () => {
     await expect(b(page, "Undo")).toHaveAttribute("aria-disabled", "false");
     await win.getByRole("button", { name: "Close window" }).click(); await b(page, "Open applications").click(); await page.locator('[data-app-ref="app:composition-editor"]').click();
     await expect(page.getByLabel("Composition", { exact: true })).toHaveValue("composition:example");
+  });
+});
+
+test.describe("WP10 compatible movement", () => {
+  const b = (page: Page, name: string) => page.getByRole("button", { name, exact: true });
+  const layer = (page: Page, name: string) => page.getByRole("treeitem", { name, exact: true });
+  async function panel(page: Page) {
+    await page.getByLabel("Composition", { exact: true }).selectOption("composition:action-panel");
+    await layer(page, "Action panel").click(); await layer(page, "Action panel").press("ArrowRight");
+    await layer(page, "Action row").click(); await layer(page, "Action row").press("ArrowRight");
+  }
+  async function move(page: Page, parent: string, slot = "content") {
+    await page.getByLabel("Destination container", { exact: true }).selectOption(parent);
+    await page.getByLabel("Destination slot", { exact: true }).selectOption(slot); await b(page, "Move component").click();
+  }
+  test("leaf move retains fields/selection; undo/redo and no-op preserve topology", async ({ page }) => {
+    await panel(page); await layer(page, "Primary action").click();
+    await page.getByLabel("Button text", { exact: true }).fill("Mover confirmar"); await b(page, "Apply text").click();
+    await page.getByLabel("Button variant", { exact: true }).selectOption("outline"); await b(page, "Apply properties").click();
+    await move(page, "panel:root"); await expect(preview(page, "Mover confirmar")).toHaveAttribute("data-parent-ref", "panel:root");
+    await expect(preview(page, "Mover confirmar")).toHaveAttribute("data-button-variant", "outline");
+    await expect(layer(page, "Mover confirmar")).toHaveAttribute("aria-selected", "true");
+    await b(page, "Undo").click(); await expect(preview(page, "Mover confirmar")).toHaveAttribute("data-parent-ref", "panel:actions");
+    await move(page, "panel:actions", "actions"); await expect(b(page, "Redo")).toHaveAttribute("aria-disabled", "false");
+    await expect(page.getByRole("status")).toContainText("already in this container");
+    await b(page, "Redo").click(); await expect(preview(page, "Mover confirmar")).toHaveAttribute("data-parent-ref", "panel:root");
+  });
+  test("container move keeps actual subtree and expands destination with visible selection", async ({ page }) => {
+    await panel(page); await page.getByLabel("Component to add", { exact: true }).selectOption("component:action-panel");
+    await b(page, "Add component").click(); await layer(page, "Action row").click();
+    await move(page, "node:added-3");
+    await expect(page.getByRole("group", { name: "Action row preview", exact: true })).toHaveAttribute("data-parent-ref", "node:added-3");
+    await expect(preview(page, "Primary action")).toHaveAttribute("data-parent-ref", "panel:actions");
+    await expect(layer(page, "Action row")).toBeVisible(); await expect(layer(page, "Action row")).toHaveAttribute("aria-selected", "true");
+    await expect(layer(page, "Action Panel 3")).toHaveAttribute("aria-expanded", "true");
+    await b(page, "Undo").click(); await expect(page.getByRole("group", { name: "Action row preview", exact: true })).toHaveAttribute("data-parent-ref", "panel:container");
+    await b(page, "Redo").click(); await expect(preview(page, "Secondary action")).toHaveAttribute("data-parent-ref", "panel:actions");
+  });
+  test("root/self cycle and occupied slots reject; freed slot movement recovers", async ({ page }) => {
+    await page.getByLabel("Component to add", { exact: true }).selectOption("component:grid"); await b(page, "Add component").click();
+    await move(page, "node:added-3"); await expect(editor(page)).toHaveAttribute("data-draft-revision", "8");
+    await expect(page.getByRole("status")).toContainText("cannot be placed");
+    await layer(page, "Grid").click(); await expect(b(page, "Move component")).toBeDisabled();
+    await page.getByLabel("Composition", { exact: true }).selectOption("composition:button-group"); await b(page, "Discard changes and open").click();
+    await layer(page, "Group Button 1").click(); await move(page, "layer:button-group", "button-2");
+    await expect(editor(page)).toHaveAttribute("data-draft-revision", "7"); await expect(preview(page, "Group Button 1")).toHaveAttribute("data-slot-ref", "button-1");
+    await layer(page, "Group Button 2").click(); await b(page, "Remove subtree").click(); await layer(page, "Group Button 1").click();
+    await move(page, "layer:button-group", "button-2"); await expect(preview(page, "Group Button 1")).toHaveAttribute("data-slot-ref", "button-2");
+  });
+  test("actual moved file/local roundtrip and corrupt cycle import preserve retained work", async ({ page }) => {
+    await panel(page); await layer(page, "Primary action").click(); await move(page, "panel:root");
+    const bytes = await downloadedComposition(page); const doc = JSON.parse(bytes.toString()); expect(doc.schema.version).toBe("2.0.0");
+    await b(page, "Save locally").click(); await page.reload(); await page.getByLabel("Composition", { exact: true }).selectOption("composition:action-panel");
+    await b(page, "Open saved").click(); await expect(preview(page, "Primary action")).toHaveAttribute("data-parent-ref", "panel:root");
+    const other = await page.context().newPage(); try {
+      await other.goto("/component-editor"); await other.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "moved.json", mimeType: "application/json", buffer: bytes });
+      await expect(preview(other, "Primary action")).toHaveAttribute("data-parent-ref", "panel:root");
+      doc.payload.graph.nodes.find((n: { ref: string }) => n.ref === "panel:container").placement.parentRef = "panel:actions";
+      await other.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "cycle.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(doc)) });
+      await expect(preview(other, "Primary action")).toHaveAttribute("data-parent-ref", "panel:root"); await expect(other.getByRole("status")).toContainText("Unable to open");
+    } finally { await other.close(); }
+  });
+  test("pending fields block movement; keyboard/narrow apply restores movable selection", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 }); await panel(page); await layer(page, "Primary action").click();
+    await page.getByLabel("Button text", { exact: true }).fill("Pending move"); await expect(b(page, "Move component")).toBeDisabled();
+    await expect(page.getByLabel("Destination container", { exact: true })).toBeDisabled();
+    await b(page, "Restore fields").click(); await page.getByLabel("Destination container", { exact: true }).selectOption("panel:root");
+    await b(page, "Move component").focus(); await page.keyboard.press("Enter");
+    await expect(layer(page, "Primary action")).toHaveAttribute("aria-selected", "true");
+    await expect(preview(page, "Primary action")).toHaveAttribute("data-parent-ref", "panel:root");
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  });
+  test("Station actual demonstration video: launch, move, history, save/reopen and window lifecycle", async ({ browser }, testInfo) => {
+    test.setTimeout(60_000);
+    const context = await browser.newContext({ viewport: { width: 1440, height: 1000 },
+      recordVideo: { dir: testInfo.outputPath("station-demo"), size: { width: 1440, height: 1000 } } });
+    const page = await context.newPage(); const recording = page.video()!;
+    const caption = async (text: string, hold = 1300) => {
+      await page.evaluate(text => {
+        let note = document.querySelector<HTMLDivElement>("#station-demo-caption");
+        if (!note) { note = document.createElement("div"); note.id = "station-demo-caption";
+          Object.assign(note.style, { position: "fixed", bottom: "64px", left: "50%", transform: "translateX(-50%)", padding: "16px 28px", borderRadius: "16px", color: "#fff", background: "rgba(15,23,42,.94)", font: "600 22px system-ui", boxShadow: "0 8px 40px #0005", zIndex: "2147483647", pointerEvents: "none", textAlign: "center", maxWidth: "1000px", width: "max-content" }); document.body.append(note); }
+        note.textContent = text;
+      }, text); await page.waitForTimeout(hold);
+    };
+    try {
+      await page.goto("http://127.0.0.1:3100/"); await caption("Station • desktop e ferramentas compartilhadas", 1800);
+      await b(page, "Open applications").click(); await caption("Abrir o editor pela barra de aplicações");
+      await page.locator('[data-app-ref="app:composition-editor"]').click();
+      const win = page.getByRole("dialog", { name: "Composition Editor", exact: true });
+      await win.getByRole("button", { name: "Maximize window" }).click(); await caption("Um editor: Layers, Inspector e Preview sincronizados");
+      await panel(page); await caption("Instalar uma composição reutilizável", 1500);
+      await layer(page, "Primary action").click(); await page.getByLabel("Button text", { exact: true }).fill("Confirmar"); await b(page, "Apply text").click();
+      await page.getByLabel("Button variant", { exact: true }).selectOption("outline"); await b(page, "Apply properties").click();
+      await preview(page, "Confirmar").scrollIntoViewIfNeeded(); await caption("Editar texto e aparência com propriedades tipadas", 1700);
+      await page.getByLabel("Destination container", { exact: true }).selectOption("panel:root");
+      await page.getByLabel("Destination slot", { exact: true }).selectOption("content"); await b(page, "Move component").scrollIntoViewIfNeeded();
+      await caption("WP10 • mover para outro contêiner compatível", 1500); await b(page, "Move component").click();
+      await expect(preview(page, "Confirmar")).toHaveAttribute("data-parent-ref", "panel:root");
+      await preview(page, "Confirmar").scrollIntoViewIfNeeded(); await caption("Identidade, tamanho e propriedades preservados", 1700);
+      await b(page, "Undo").click(); await expect(preview(page, "Confirmar")).toHaveAttribute("data-parent-ref", "panel:actions");
+      await preview(page, "Confirmar").scrollIntoViewIfNeeded(); await caption("Desfazer restaura o contêiner anterior", 1700);
+      await b(page, "Redo").click(); await expect(preview(page, "Confirmar")).toHaveAttribute("data-parent-ref", "panel:root");
+      await preview(page, "Confirmar").scrollIntoViewIfNeeded(); await caption("Refazer recupera a movimentação", 1600);
+      await b(page, "Save locally").click(); await expect(page.getByRole("status")).toContainText("saved locally"); await caption("Salvar explicitamente o artefato local", 1500);
+      await move(page, "panel:actions", "actions"); await b(page, "Open saved").click();
+      await caption("Reabrir a versão salva com confirmação explícita", 1300);
+      await b(page, "Discard changes and open file").click();
+      await expect(preview(page, "Confirmar")).toHaveAttribute("data-parent-ref", "panel:root"); await preview(page, "Confirmar").scrollIntoViewIfNeeded();
+      await caption("Reabrir o artefato validado, com a estrutura preservada", 1700);
+      await win.getByRole("button", { name: "Minimize window" }).click(); await caption("Minimizar preserva a sessão da ferramenta", 1500);
+      await page.locator('[data-slot="taskbar-windows"]').getByRole("button", { name: "Composition Editor", exact: true }).click();
+      await expect(preview(page, "Confirmar")).toHaveAttribute("data-parent-ref", "panel:root"); await preview(page, "Confirmar").scrollIntoViewIfNeeded();
+      await caption("Station • WP10 integrado: compor, mover e retomar", 2300);
+    } finally { await context.close(); }
+    const video = testInfo.outputPath("station-wp10-demo.webm"); await recording.saveAs(video);
+    await testInfo.attach("Station WP10 demonstração real", { path: video, contentType: "video/webm" });
   });
 });
