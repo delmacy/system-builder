@@ -1,0 +1,5 @@
+# STATION-S4-WP7-INTEGRATION-REVIEW-01
+Goal: independently review the integrated bounded Addendum007 outcome, not add features.
+Base/branch: main@9d7ede76f939ba75904d6682f460a6f0ee7c5dc2 -> sprint/station-s4-wp7-integration-review
+Committed TASK-675 only;9 exact paths confirmed, product/tests/scripts forbidden. B#1067 exact head02b2d0c2a7e6db75f09f075fc687ddaa16606434 integrated after seven workflows PASS; Chromium44/44 in39.8s, Windows/Ubuntu and frontend quality. Optional C NOT PROMOTED: no missing goal increment. Closure remains forecast.
+Growing proof: regress actual engine/history/codec/catalog/file/store/projections and44 browser journeys; audit declared L3 compatibility, no L4 boundary change, data/markup trust, pending-field lifecycle, identity/version allocation, performance/debt/readiness. Validation npm run verify plus all triggered exact-head/current-base/heavy/handoff/browser gates. Escalate unresolved missing capability/authority/security/forbidden paths; no weakening proof.
