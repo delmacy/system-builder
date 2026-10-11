@@ -1,7 +1,7 @@
 ---
 id: TASK-672
 title: Station S4 WP7 PLANNING
-status: ready
+status: completed
 priority: 672
 milestone: STATION-S4-WP7-BUTTON-TEXT
 model_tier: architecture

@@ -2,7 +2,7 @@
 
 Date: 2026-10-11 UTC
 
-Horizon note: older Station review/closure gate narratives are historical evidence; the latest integrated WP6 disposition below controls the horizon. R1–R12 retain older P13 risk evidence; their task/sprint directives are historical context and do not select current work. No old risk/debt closure is implied. NEXT_WORK is the sole execution pointer.
+Horizon note: older Station review/closure gate narratives are historical evidence; the WP7 disposition below controls the bounded Station horizon after validated closure integration. R1–R12 retain older P13 risk evidence; their task/sprint directives are historical context and do not select current work. No old risk/debt closure is implied. NEXT_WORK is the sole execution pointer.
 
 This register tracks risks that are materially current for the integrated repository horizon. Historical bootstrap/AgentFactory risks belong in historical evidence, not in this current-state document.
 
@@ -84,3 +84,6 @@ WP5-D1 mitigated for tested warm installed/max-bound histories; current/caller d
 
 ## Station S4 WP7 bounded text review — 2026-10-11 UTC
 Planning#1065/A#1066/B#1067 integrated; B seven workflows PASS,44 actual Chromium cases39.8s,98 editor tests. Bounded text goal met; optional C not necessary. WP7-L1: only two installed button identities, non-root plain display text1–256 Unicode code points; fixed-grid preview uses ellipsis with full title/accessible name. WP7-L2: text exports payloadv3; old readers reject it explicitly, current readers preservev1/v2/v3. Existing history/caps/local retention limits remain. WP7-D1: broader property/catalog design and inherited token-heavy/retained-memory/long-session profiling require new planning; no latency/universal accessibility certification. All inherited WP3–WP6 and unrelated historical debt remains. Review/Closure own final-head gates still govern closure; no successor promoted.
+
+## WP7 closure disposition — current bounded horizon
+Review#1068 integrated with five passing workflows and44 Chromium cases34.1s; admitted text goal met. TASK-676 reconciles12 exact documentation paths and closes WP7 only on independent passing integration. No active WP7 task or committed successor remains after that integration. WP7-L1/L2/D1 and all inherited WP3–WP6/unrelated historical debt remain nonblocking limits/future planning; old readers rejectv3, no broad editor/catalog/retained-memory/latency/accessibility certification. NEXT_WORK remains the sole scheduler.
