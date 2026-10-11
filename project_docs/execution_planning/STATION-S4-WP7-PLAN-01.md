@@ -10,3 +10,6 @@ Risks: text lost by projection/copy, legacy artifact mislabeling, pending field 
 
 ## B checkpoint
 Planning#1065 and A#1066 integrated. A mergef7549be4c9b4471851c69b24ec997d2d0f71c063, seven workflows PASS and Chromium37/37 in34.1s. Only B/TASK-674 now committed; C/review/closure remain forecast.
+
+## Review checkpoint
+B#1067 integrated at9d7ede76f939ba75904d6682f460a6f0ee7c5dc2; seven workflows PASS,44 actual Chromium journeys39.8s. Only Review/TASK-675 committed. Optional C not promoted: bounded goal complete. Closure forecast; no successor scope.
