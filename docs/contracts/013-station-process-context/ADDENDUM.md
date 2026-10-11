@@ -1,6 +1,6 @@
 # Addendum013 — Station portable process context
 Date: 2026-10-11 UTC
-Status: PROPOSED; accepted on independently validated Planning integration.
+Status: ACCEPTED via Planning#1096; bounded WP13 CLOSED effective on validated TASK706 integration.
 Admission: owner explicitly requests execution of Station WP13 after WP12 closure #1095.
 
 ## Bounded outcome and ownership
@@ -46,3 +46,14 @@ Regress all75 predecessor Chromium journeys; keyboard/narrow-layout and lifecycl
 WBS21.1.1/21.1.2/21.3.1/21.3.2 bounded reference/projection portions only.
 No live business service, semantic model editor, generic multi-Studio framework (WP14), C10/Studio,
 server/Core/host/filesystem, collaboration/CAS, auto-merge, deploy or whole WBS/H3/S4 completion.
+
+## Accepted delivery and limits
+Planning#1096/A#1097/B#1098/Review#1099 integrated. Separate strict context codec/store, ordinary
+Process Context app and /process-context route, creation/import/export/local reopen, read-only
+anchor/status and guarded pinned composition opening proven.82 actual Chromium journeys (75 inherited
++7 new), seven construction workflows and independent five Review gates;193 direct Review tests PASS.
+Same retained context type/id/version cannot acquire different canonical content; identical re-save
+allowed, distinct new identity explicit replacement allowed. Corrupt storage never silently repaired.
+No live semantic service connected; portable parts separately retained. One origin slot, best-effort
+reread detection, caps unchanged; WP13-L1/L2/L3/D1 and inherited debt retained. No CAS, latency or
+universal browser/accessibility promise. Closure own gates mandatory; no whole WBS/H3/S4 promotion.

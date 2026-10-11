@@ -438,3 +438,33 @@ Windows/Ubuntu/frontend quality; Review166 direct product cases PASS. Closure ha
 Addendum012/WP12 PLAN/Review and Closure reports trace exact identities. WP12-L1/L2/L3/D1 and inherited
 debt remain. No process/Core/server/host/integrity hashes, whole WBS/H2/S4 or broad browser/accessibility
 certification. Bounded WP12 CLOSED only on independently validated TASK701 integration.
+
+## Station S4 WP13 process context — current operation
+Launch Process Context from Open applications, or visit /process-context. Refresh composition choices
+reads the actual retained workspace. Enter Context title, Process identity, Process revision
+identity, Process revision number and Previous process revision where applicable; select up to16 retained
+compositions, then Create context. This records a canonical process identity and pinned composition
+references; it does not validate business rules or make the process owner available.
+The anchor is read-only. Process owner: unavailable remains explicit because no live semantic service
+is connected. Each reference shows available/missing/stale/invalid/unavailable; Refresh references
+re-reads storage. Only available exact type/id/version can Open referenced composition. Opening
+re-resolves and requests the ordinary editor; dirty/unapplied drafts retain Cancel/Discard protection.
+Historical references never select latest silently. A corrupt workspace blocks resolution/opening.
+Save context locally explicitly retains one context under station:process-context:v1, independently
+of unchanged workspace and legacy composition slots. Open retained context explicitly reopens it.
+Refresh context storage permits deliberate recovery after another view's update. Same logical context
+tuple with changed content rejects; identical re-save allowed and a distinct new identity can explicitly
+replace. Invalid/quota/denied/corrupt/stale saves preserve stored bytes; corruption has no hidden repair.
+Export context downloads .process.json; Import context validates native extension/size/read and strict
+inert codec. Keep pinned composition parts separately: the manifest does not embed or transport them.
+Replacement confirms pending/current unretained context loss, Cancel preserves form/context, obsolete
+async reads are cancelled. Minimize retains mounted state; close/reload require explicit context reopen.
+Caps1MiB UTF8/32JSON depth/16views/ref256/title80 codepoints; one browser-origin slot may clear/deny/quota.
+Raw snapshot/re-read detection is best effort, not cross-tab CAS. Per-view bounded whole workspace scan
+and codec copies do not establish max-bound latency/memory or universal accessibility certification.
+Existing station:build/start and browser configuration apply. B82 actual Chromium journeys1.9m and
+independent Review82 journeys1.7m include all75 predecessors and seven new context cases; seven
+construction workflows include Windows/Ubuntu/frontend quality, Review193 direct product tests PASS.
+Addendum013/PLAN/Review/Closure reports trace evidence. WP13-L1/L2/L3/D1 and inherited debt retained.
+Bounded WP13 CLOSED only on independently validated TASK706 merge. No semantic business authoring,
+generic multiview Studio (WP14), C10 (WP15), real service journey (WP16), Core/server/host or whole S4.

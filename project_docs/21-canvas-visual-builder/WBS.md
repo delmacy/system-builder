@@ -71,3 +71,15 @@ Bounded WP12 CLOSED effective only on validated TASK701 integration. No whole-it
 certification: integrity hashes, publication/branches, auto-merge, CAS/sync/collaboration, generic
 provider/server/Core/host/.process, broader lifecycle/access/audit remain separately gated.
 WP12-L1/L2/L3/D1 and all inherited residuals retained. WP13 forecast requires fresh Planning/admission.
+
+## Station S4 WP13 bounded reference-context disposition
+Addendum013 admits canonical process revision anchor and named pinned composition projections
+(only reference/panel portions21.1.1/21.1.2), lossless inert portable context and explicit reopen
+(21.3.1/21.3.2). Station presentation remains distinct from semantic model; canonical process identity
+owner retained, no live semantic owner availability inferred. Layout cannot mutate business meaning.
+Planning#1096/A#1097/B#1098/Review#1099 integrated;82 actual Chromium journeys include75 predecessors
+and seven new cases. Seven construction gates include Windows/Ubuntu/frontend quality; independent
+Review five gates and193 direct tests PASS. Five sprints, C unnecessary; bounded closure only on
+validated TASK706 integration. WP13-L1/L2/L3/D1 and inherited debt retained. No whole-item/WBS/H3/S4
+certification, semantic authoring, monolithic .process, generic multiview, C10 Studio/service journey,
+Core/server/provider/host/CAS. WP14–WP16 remain forecast and require their own fresh admission.
