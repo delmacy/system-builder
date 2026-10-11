@@ -8,6 +8,7 @@ export type EditorPreviewNode =
       readonly kind: "root";
       readonly nodeRef: string;
       readonly componentRef: string;
+      readonly text?: string;
       readonly parentRef: null;
       readonly slotRef: null;
       readonly columnSpan: null;
@@ -18,6 +19,7 @@ export type EditorPreviewNode =
       readonly kind: "node";
       readonly nodeRef: string;
       readonly componentRef: string;
+      readonly text?: string;
       readonly parentRef: string;
       readonly slotRef: string;
       readonly columnSpan: number;
@@ -83,7 +85,7 @@ export function projectEditorPreview(
     const byRef = new Map<string, (typeof graph.nodes)[number]>();
     for (const node of graph.nodes) {
       if (!node || !validRef(node.ref) || !validRef(node.componentRef) ||
-          !exactFields(node, node.ref === graph.rootRef ? ["ref", "componentRef"] : ["ref", "componentRef", "placement"])) {
+          !exactFields(node, node.ref === graph.rootRef ? ["ref", "componentRef"] : ["ref", "componentRef", "placement", ...(Object.hasOwn(node, "text") ? ["text"] : [])])) {
         return reject("invalid-hierarchy");
       }
       if (node.ref !== graph.rootRef) {
@@ -125,6 +127,7 @@ export function projectEditorPreview(
         const placement = node.placement!;
         nodes.push(Object.freeze({
           kind: "node", nodeRef: node.ref, componentRef: node.componentRef,
+          ...(node.text === undefined ? {} : { text: node.text }),
           parentRef: placement.parentRef, slotRef: placement.slotRef,
           columnSpan: placement.columnSpan, rowSpan: placement.rowSpan, selected,
         }));

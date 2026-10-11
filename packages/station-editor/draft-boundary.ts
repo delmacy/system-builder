@@ -36,7 +36,7 @@ function validGraph(graph: CompositionGraph, registry: ComponentRegistry, sessio
   for (const node of graph.nodes) {
     if (!node || typeof node !== "object" || !ref(node.ref) || !ref(node.componentRef) ||
         !fields(node, node.ref === graph.rootRef ? ["ref", "componentRef"] :
-          ["ref", "componentRef", "placement"])) return false;
+          ["ref", "componentRef", "placement", ...(Object.hasOwn(node, "text") ? ["text"] : [])])) return false;
     if (node.ref !== graph.rootRef) {
       const placement = node.placement;
       if (!placement || typeof placement !== "object" ||

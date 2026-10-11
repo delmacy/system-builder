@@ -17,6 +17,7 @@ export interface ResponsivePlacementOverride {
 export interface ResponsiveProjectionNode {
   readonly ref: CompositionNodeRef;
   readonly componentRef: string;
+  readonly text?: string;
   readonly semanticOrder: number;
   readonly placement?: CompositionNodePlacement;
 }
@@ -76,7 +77,7 @@ export function projectResponsiveComposition(
       if (parent === null || child === null) throw new Error(`responsive placement owner is unresolved for node: ${node.ref}`);
       validateCompositionPlacement({ parent, child, slotId: placement.slotRef, columnSpan: placement.columnSpan, rowSpan: placement.rowSpan });
     }
-    return Object.freeze({ ref: node.ref, componentRef: node.componentRef, semanticOrder, ...(placement === undefined ? {} : { placement: Object.freeze({ ...placement }) }) });
+    return Object.freeze({ ref: node.ref, componentRef: node.componentRef, semanticOrder, ...(node.text === undefined ? {} : { text: node.text }), ...(placement === undefined ? {} : { placement: Object.freeze({ ...placement }) }) });
   });
 
   return Object.freeze({ rootRef: graph.rootRef, nodes: Object.freeze(nodes) });

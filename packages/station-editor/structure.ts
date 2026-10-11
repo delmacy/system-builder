@@ -1,10 +1,12 @@
-import { createCompositionDraftTransaction, type ComponentRegistry, type CompositionGraph } from "@system-builder/station-composition";
+import { supportsButtonDisplayText, validButtonDisplayText, createCompositionDraftTransaction, type ComponentRegistry, type CompositionGraph } from "@system-builder/station-composition";
 import { createCompositionArtifact } from "./artifact-codec.js";
 import { acceptEditorDraft } from "./draft-boundary.js";
 import type { EditorSession } from "./session.js";
 
 export type EditorStructureIntent = Readonly<{ expectedDraftRevision: number; sessionRef: string; compositionRef: string }> & (
   | Readonly<{ type: "add-node"; nodeRef: string; componentRef: string; parentRef: string; slotRef: string }>
+  | Readonly<{ type: "set-text"; nodeRef: string; text: string }>
+  | Readonly<{ type: "reset-text"; nodeRef: string }>
   | Readonly<{ type: "remove-subtree"; nodeRef: string }>
   | Readonly<{ type: "reorder-node"; nodeRef: string; direction: "before" | "after" }>);
 export type EditorStructureResult =
@@ -21,13 +23,17 @@ export function applyEditorStructure(session: EditorSession, intent: EditorStruc
   const reject = (reason: "invalid-edit" | "stale-draft-revision" | "revision-overflow"): EditorStructureResult =>
     Object.freeze({ accepted: false, reason, session });
   try {
-    if (!intent || intent.sessionRef !== session.sessionRef || intent.compositionRef !== session.base.compositionRef) return reject("invalid-edit");
+    if (!intent || typeof intent !== "object" || Reflect.ownKeys(intent).some(key => {
+      const descriptor = Object.getOwnPropertyDescriptor(intent, key);
+      return typeof key !== "string" || !descriptor || !("value" in descriptor) || !descriptor.enumerable;
+    }) || intent.sessionRef !== session.sessionRef || intent.compositionRef !== session.base.compositionRef) return reject("invalid-edit");
     if (intent.expectedDraftRevision !== session.draftRevision) return reject("stale-draft-revision");
     if (!acceptEditorDraft(session, session.draftRevision, registry).accepted ||
         !validateEditorAuthoredGraph(session.transaction.draft, session, registry)) return reject("invalid-edit");
     const common = ["type", "expectedDraftRevision", "sessionRef", "compositionRef", "nodeRef"];
     const expected = intent.type === "add-node" ? [...common, "componentRef", "parentRef", "slotRef"] :
-      intent.type === "reorder-node" ? [...common, "direction"] : intent.type === "remove-subtree" ? common : [];
+      intent.type === "reorder-node" ? [...common, "direction"] : intent.type === "set-text" ? [...common, "text"] :
+      intent.type === "remove-subtree" || intent.type === "reset-text" ? common : [];
     if (Reflect.ownKeys(intent).length !== expected.length || !expected.every(key => Object.hasOwn(intent, key))) return reject("invalid-edit");
     const graph = session.transaction.draft;
     let nodes = [...graph.nodes]; let selectedRef = intent.nodeRef;
@@ -41,7 +47,16 @@ export function applyEditorStructure(session: EditorSession, intent: EditorStruc
     } else {
       const node = nodes.find(item => item.ref === intent.nodeRef);
       if (!node?.placement || node.ref === graph.rootRef) return reject("invalid-edit");
-      if (intent.type === "remove-subtree") {
+      if (intent.type === "set-text" || intent.type === "reset-text") {
+        if (!supportsButtonDisplayText(node.componentRef) ||
+            (intent.type === "set-text" && !validButtonDisplayText(intent.text))) return reject("invalid-edit");
+        if (intent.type === "set-text" ? node.text === intent.text : !Object.hasOwn(node, "text"))
+          return Object.freeze({ accepted: true, changed: false, session, selectedRef });
+        const replacement = { ...node };
+        if (intent.type === "set-text") replacement.text = intent.text;
+        else delete replacement.text;
+        nodes = nodes.map(item => item.ref === node.ref ? replacement : item);
+      } else if (intent.type === "remove-subtree") {
         const removed = new Set([node.ref]);
         for (let count = 0; count < nodes.length; count++) {
           let changed = false;

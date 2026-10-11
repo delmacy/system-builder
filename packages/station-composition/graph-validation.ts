@@ -1,5 +1,5 @@
 import type { ComponentRegistry } from "./registry.js";
-import type { CompositionGraph, CompositionNode } from "./graph.js";
+import { validButtonDisplayText, supportsButtonDisplayText, type CompositionGraph, type CompositionNode } from "./graph.js";
 import { validateCompositionPlacement } from "./validation.js";
 
 export type CompositionGraphFindingCode =
@@ -8,7 +8,8 @@ export type CompositionGraphFindingCode =
   | "root-has-placement"
   | "unknown-component-ref"
   | "dangling-parent-ref"
-  | "invalid-placement";
+  | "invalid-placement"
+  | "invalid-display-text";
 
 export interface CompositionGraphFinding {
   readonly code: CompositionGraphFindingCode;
@@ -36,6 +37,10 @@ export function validateCompositionGraph(graph: CompositionGraph, registry: Comp
   else if (root.placement !== undefined) findings.push(finding("root-has-placement", root.ref, `composition root must not have parent placement: ${root.ref}`));
 
   for (const node of [...graph.nodes].sort((a, b) => a.ref.localeCompare(b.ref) || a.componentRef.localeCompare(b.componentRef))) {
+    if (Object.hasOwn(node, "text") && (node.ref === graph.rootRef ||
+        !supportsButtonDisplayText(node.componentRef) || !validButtonDisplayText(node.text))) {
+      findings.push(finding("invalid-display-text", node.ref, "invalid button display text"));
+    }
     const child = registry.get(node.componentRef);
     if (child === null) {
       findings.push(finding("unknown-component-ref", node.ref, `unknown component ref: ${node.componentRef}`));
