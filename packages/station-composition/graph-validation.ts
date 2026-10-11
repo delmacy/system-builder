@@ -1,5 +1,5 @@
 import type { ComponentRegistry } from "./registry.js";
-import { validButtonDisplayText, supportsButtonDisplayText, type CompositionGraph, type CompositionNode } from "./graph.js";
+import { validButtonProperties, validButtonDisplayText, supportsButtonDisplayText, type CompositionGraph, type CompositionNode } from "./graph.js";
 import { validateCompositionPlacement } from "./validation.js";
 
 export type CompositionGraphFindingCode =
@@ -9,7 +9,8 @@ export type CompositionGraphFindingCode =
   | "unknown-component-ref"
   | "dangling-parent-ref"
   | "invalid-placement"
-  | "invalid-display-text";
+  | "invalid-display-text"
+  | "invalid-button-properties";
 
 export interface CompositionGraphFinding {
   readonly code: CompositionGraphFindingCode;
@@ -40,6 +41,10 @@ export function validateCompositionGraph(graph: CompositionGraph, registry: Comp
     if (Object.hasOwn(node, "text") && (node.ref === graph.rootRef ||
         !supportsButtonDisplayText(node.componentRef) || !validButtonDisplayText(node.text))) {
       findings.push(finding("invalid-display-text", node.ref, "invalid button display text"));
+    }
+    if (Object.hasOwn(node, "properties") && (node.ref === graph.rootRef ||
+        !supportsButtonDisplayText(node.componentRef) || !validButtonProperties(node.properties))) {
+      findings.push(finding("invalid-button-properties", node.ref, "invalid button properties"));
     }
     const child = registry.get(node.componentRef);
     if (child === null) {

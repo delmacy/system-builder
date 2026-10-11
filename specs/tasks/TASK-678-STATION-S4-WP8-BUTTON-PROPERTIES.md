@@ -2,7 +2,7 @@
 {
   "id": "TASK-678",
   "title": "Station S4 WP8 BUTTON-PROPERTIES",
-  "status": "ready",
+  "status": "completed",
   "priority": 678,
   "milestone": "STATION-S4-WP8-BUTTON-PROPERTIES",
   "model_tier": "architecture",
@@ -44,7 +44,8 @@
     "project_docs/execution_planning/STATION-S4-WP8-CONSTRUCTION-A-01.md",
     "project_docs/execution_planning/STATION-S4-WP8-CONSTRUCTION-A-01.report.md",
     "specs/tasks/TASK-678-STATION-S4-WP8-BUTTON-PROPERTIES.md",
-    "docs/current/NEXT_WORK.md"
+    "docs/current/NEXT_WORK.md",
+    "tests/product/station-editor-structure.test.ts"
   ],
   "forbidden_paths": [
     "docs/adr/**",
@@ -54,7 +55,7 @@
     "runtime/**",
     "deploy/**"
   ],
-  "max_files": 18,
+  "max_files": 19,
   "validation": [
     "npm run verify"
   ]
@@ -90,3 +91,6 @@ Actual commands, tests and CI IDs; distinguish local IPC limitation from complet
 
 ## Escalation
 Stop for conflicting authority, forbidden paths, undeclared L3/L4 or failing proof; repair bounded defects inside scope.
+
+## Bounded operational change control
+Legacy WP5 unknown-major test uses now-admitted v4. Add its exact test path to move rejection to v5; v4 optional omission has new positive proof. No product scope expansion.

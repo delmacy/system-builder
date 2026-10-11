@@ -1,10 +1,12 @@
-import { supportsButtonDisplayText, validButtonDisplayText, createCompositionDraftTransaction, type ComponentRegistry, type CompositionGraph } from "@system-builder/station-composition";
+import { validButtonProperties, type ButtonProperties, supportsButtonDisplayText, validButtonDisplayText, createCompositionDraftTransaction, type ComponentRegistry, type CompositionGraph } from "@system-builder/station-composition";
 import { createCompositionArtifact } from "./artifact-codec.js";
 import { acceptEditorDraft } from "./draft-boundary.js";
 import type { EditorSession } from "./session.js";
 
 export type EditorStructureIntent = Readonly<{ expectedDraftRevision: number; sessionRef: string; compositionRef: string }> & (
   | Readonly<{ type: "add-node"; nodeRef: string; componentRef: string; parentRef: string; slotRef: string }>
+  | Readonly<{ type: "set-properties"; nodeRef: string; properties: ButtonProperties }>
+  | Readonly<{ type: "reset-properties"; nodeRef: string }>
   | Readonly<{ type: "set-text"; nodeRef: string; text: string }>
   | Readonly<{ type: "reset-text"; nodeRef: string }>
   | Readonly<{ type: "remove-subtree"; nodeRef: string }>
@@ -32,6 +34,8 @@ export function applyEditorStructure(session: EditorSession, intent: EditorStruc
         !validateEditorAuthoredGraph(session.transaction.draft, session, registry)) return reject("invalid-edit");
     const common = ["type", "expectedDraftRevision", "sessionRef", "compositionRef", "nodeRef"];
     const expected = intent.type === "add-node" ? [...common, "componentRef", "parentRef", "slotRef"] :
+      intent.type === "set-properties" ? [...common, "properties"] :
+      intent.type === "reset-properties" ? common :
       intent.type === "reorder-node" ? [...common, "direction"] : intent.type === "set-text" ? [...common, "text"] :
       intent.type === "remove-subtree" || intent.type === "reset-text" ? common : [];
     if (Reflect.ownKeys(intent).length !== expected.length || !expected.every(key => Object.hasOwn(intent, key))) return reject("invalid-edit");
@@ -47,7 +51,17 @@ export function applyEditorStructure(session: EditorSession, intent: EditorStruc
     } else {
       const node = nodes.find(item => item.ref === intent.nodeRef);
       if (!node?.placement || node.ref === graph.rootRef) return reject("invalid-edit");
-      if (intent.type === "set-text" || intent.type === "reset-text") {
+      if (intent.type === "set-properties" || intent.type === "reset-properties") {
+        if (!supportsButtonDisplayText(node.componentRef) ||
+            (intent.type === "set-properties" && !validButtonProperties(intent.properties))) return reject("invalid-edit");
+        if (intent.type === "set-properties" ? node.properties?.variant === intent.properties.variant &&
+            node.properties?.disabled === intent.properties.disabled : !Object.hasOwn(node, "properties"))
+          return Object.freeze({ accepted: true, changed: false, session, selectedRef });
+        const replacement = { ...node };
+        if (intent.type === "set-properties") replacement.properties = Object.freeze({ ...intent.properties });
+        else delete replacement.properties;
+        nodes = nodes.map(item => item.ref === node.ref ? replacement : item);
+      } else if (intent.type === "set-text" || intent.type === "reset-text") {
         if (!supportsButtonDisplayText(node.componentRef) ||
             (intent.type === "set-text" && !validButtonDisplayText(intent.text))) return reject("invalid-edit");
         if (intent.type === "set-text" ? node.text === intent.text : !Object.hasOwn(node, "text"))
