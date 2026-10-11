@@ -30,3 +30,6 @@ WP5-L1: installed catalog/typed slots, fixed root, sibling-only reorder and exis
 WP5-L2: structurally changed v2 files require a v2-capable reader; original v1 source topology remains supported.
 Inherited WP3 storage/quota/stale-write/download-receipt limits and WP4 ephemeral history/native-text limits remain. Frontend quality and keyboard journeys are scoped evidence, not universal accessibility certification.
 No blocker or security-boundary relaxation observed. Closure must reconcile current pointers, bounded WBS/contract delivery metadata and all integration evidence without expanding product scope.
+
+## Validated review integration
+TASK-665 head 61d7197cf192f281a46ccb3789afdc9d01b9c90f integrated through #1058 at e5abb70ca7e81772fbb582aa4fbf3dd03f84226f. All five exact-head workflows passed: 38099725032 handoff, 38099725125 heavy, 38099725228 browser, 38099725060 merge candidate, 38099725136 deterministic. Actual Chromium 37/37 in 35.1 s, job 114352973796. Closure GO now effective; only TASK-666 promoted. Product/platform quality evidence remains the unchanged B head's seven workflows.

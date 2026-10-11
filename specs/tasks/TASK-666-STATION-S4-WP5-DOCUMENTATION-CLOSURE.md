@@ -1,7 +1,7 @@
 ---
 id: TASK-666
 title: Station S4 WP5 DOCUMENTATION CLOSURE
-status: ready
+status: completed
 priority: 666
 milestone: STATION-S4-WP5-STRUCTURAL-AUTHORING
 model_tier: cheap
@@ -57,7 +57,7 @@ Deliver the declared bounded WP5 Sprint goal.
 ## Context
 Fresh integrated WP4 and owner WP5 authorization; Addendum 006 governs.
 ## Current behavior
-Installed span editor/history and v1 fixed-topology artifacts.
+Integrated WP5 structural authoring and reviewed v1/v2 artifacts; documentation closure remains conditional on validation and integration.
 ## Required change
 Execute only the allowed paths and manifested Sprint goal above.
 ## Inputs / contracts

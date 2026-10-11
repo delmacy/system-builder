@@ -1,6 +1,6 @@
 # Addendum 006 — Station bounded structural authoring
 Date: 2026-10-10
-State: ACCEPTED effective only on validated Planning integration
+State: ACCEPTED via #1055; bounded WP5 CLOSED effective on validated TASK-666 closure merge
 Source: owner explicitly authorized WP5 after proposal to add/remove/reorder installed components with save/open/history integration.
 
 ## Admitted scope and explicit supersession
@@ -15,3 +15,6 @@ ADR-0009 envelope remains unchanged. Payload schema 1.0.0 retains exact source t
 ## Proof and exclusions
 Real catalog -> structural command -> history -> Layers/Inspector/Preview -> portable round trip -> fresh session; negative malformed/stale/root/cycle/cardinality/foreign component/version/budget proof. Browser actual add/remove/reorder, undo/redo, checkpoint/discard, file/local reopening, cancellation/failure, narrow/keyboard and Station window lifecycle; retain all 29 predecessor journeys.
 WBS 21.2.1/21.2.3 and bounded 21.3.1/21.3.2 only. File Manager/.process/Core/server/sync/Studio/AI/publishing/deployment remain separately gated. No full Component Editor claim.
+
+## Delivery traceability
+Planning #1055, engine #1056, structural workbench/portable workflow #1057 and package review #1058. Closure report: project_docs/execution_planning/STATION-S4-WP5-DOCUMENTATION-CLOSURE-01.report.md. 37 actual browser journeys; all bounds, exclusions and v1/v2 rules above remain.

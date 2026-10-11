@@ -13,3 +13,6 @@
 - **21.3.1** Serializar sem perda para contrato canônico.
 - **21.3.2** Reidratar Canvas a partir do contrato.
 - **21.3.3** Exibir diff/conflicts/version context quando necessário.
+
+## Station S4 WP5 bounded delivery disposition
+Addendum 006 implements only Station installed component add/remove-subtree/sibling-reorder controls (21.2.1), complete graph validation before retention (21.2.3), bounded inert composition serialization (21.3.1) and rehydration (21.3.2). Planning #1055, engine #1056, UI #1057, review #1058; 37 actual browser journeys and Windows/Ubuntu proof. Delivery becomes CLOSED on validated TASK-666 closure integration. No whole-item/whole-WBS completion claim; semantic models, handoffs, collaboration, generic Studio and other baseline outcomes remain separately gated.
