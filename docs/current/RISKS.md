@@ -95,3 +95,12 @@ Review#1068 integrated with five passing workflows and44 Chromium cases34.1s; ad
 - B procedure helper/import failure briefly preceded durable manifest creation; reconciled before publication, no extra scope. Use fail-closed dependent commands.
 
 WP8 closure disposition: no blocker within admitted two-field goal; WP8-L1/L2/D1 and all inherited debt retained. No automatic WP9 or broader scope.
+
+## WP9 bounded reusable catalog review — 2026-10-11 UTC
+WP9-L1: exactly three installed compositions, two new layouts and source-copy installation.
+Template subtree insertion, user/remote catalog authoring and reparenting remain separately gated.
+WP9-L2:55 Chromium journeys, keyboard/narrow/window and frontend quality proof are bounded;
+no universal cross-browser/screen-reader/accessibility or broad catalogue certification.
+WP9-D1: five-node source probe passes; wider catalogs/cold/max-bound/token-heavy/long-session
+retained-memory profiling remains future work. Existing WP6/WP8 debt and data/history limits remain.
+No blocker within Addendum009 goal; optional C not promoted. Closure still independently gated.

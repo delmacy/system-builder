@@ -19,3 +19,6 @@ Next package WP10 remains forecast, no automatic promotion.
 
 ## B promotion
 A#1077 integrated after seven PASS gates; only B/TASK684 committed. C/Review/Closure forecast.
+
+## Review promotion
+B#1078 integrated after seven PASS gates and55 actual Chromium cases46.1s; only Review/TASK685 committed. C not necessary, Closure forecast.
