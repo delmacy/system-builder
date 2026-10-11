@@ -1,7 +1,7 @@
 # Station S4 WP6 — History Hardening Plan 01
 Date: 2026-10-11 UTC (2026-10-10 America/Sao_Paulo)
 Base: main@c1a9660920f22602d125dde2a8f764c5967255da, validated WP5 closure #1059
-State: Planning; A eligibility effective only on validated TASK-667 integration
+State: bounded WP6 CLOSED effective only on validated TASK-671 closure merge; earlier checkpoints/forecasts are historical
 Authority: existing Addendum 006 and WP5-D1; bounded maintenance, no new scope admission
 Owner continuation at Planning: next planning step after WP5. Subsequent explicit owner authorization covers implementation through full WP6 closure.
 
@@ -44,3 +44,11 @@ A #1061 integrated at dc4e7b80fa1c1f0514fc052a0176d045ce0388e0 after seven passi
 B #1062 integrated at 9d0221e54b043b1ad928d7797fc1d7ca26a1f76c; five passing workflows and 37/37 actual Chromium (34.5 s). Matched paired benchmark exceeds 2x in every max-bound warm Undo/Redo batch. Optional C NOT PROMOTED: no missing goal increment. Only Review/TASK-670 COMMITTED; Closure remains forecast.
 
 Review TASK-670: bounded goal met; optional C unnecessary. Closure GO subject to this Review's own passing gates/merge. WP6-L1/L2/D1 and inherited dispositions retained in RISKS/review report.
+
+## Documentation & Closure checkpoint
+Review #1063 integrated at 640dec55ec3eab7e624b7d71e534ded6e1690607 after five passing workflows and 37/37 Chromium (33.8 s). Only Closure/TASK-671 COMMITTED after fresh-main revalidation. Ten exact documentation paths; WP6 not closed until this Sprint independently validates/integrates. Optional C not promoted.
+
+## Final disposition and actual cadence
+Five Sprints as forecast: Planning/TASK-667/#1060, A/TASK-668/#1061, B/TASK-669/#1062, Review/TASK-670/#1063, Closure/TASK-671. Optional Construction C not promoted: all paired max-bound warm Undo/Redo medians exceed 2x and regressions/trust proof pass. One authoritative TASK commit per Sprint with separate materialization.
+Review integrated at 640dec55ec3eab7e624b7d71e534ded6e1690607 after five passing workflows and 37 Chromium journeys (33.8 s). A seven workflows/Windows-Ubuntu/frontend quality and B 89 editor cases/paired measurement prove unchanged product. Complete median/p95/heap tables remain in B report; no portable latency/retained-memory guarantee or broad catalog readiness.
+Closure reconciles ten exact documentation paths, no product behavior. WP5-D1 mitigated for tested warm bounded history; WP6-L1/L2/D1 and inherited debt retained. Closure's independently passing exact-head/full CI and actual 37-journey merge determine effectiveness; next package requires fresh-main planning/admitted owner scope. No active WP6 task or automatic successor after validated closure.

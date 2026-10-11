@@ -18,3 +18,6 @@ WBS 21.2.1/21.2.3 and bounded 21.3.1/21.3.2 only. File Manager/.process/Core/ser
 
 ## Delivery traceability
 Planning #1055, engine #1056, structural workbench/portable workflow #1057 and package review #1058. Closure report: project_docs/execution_planning/STATION-S4-WP5-DOCUMENTATION-CLOSURE-01.report.md. 37 actual browser journeys; all bounds, exclusions and v1/v2 rules above remain.
+
+## Internal maintenance delivery traceability — WP6
+The existing admitted behavior is preserved by WP6 history-validation maintenance: Planning #1060, engine hardening #1061, reproducible/bound proof #1062 and package review #1063. No new admission, payload/envelope/API/dependency or cap change. Retained internally produced immutable snapshots can reuse successful validation only with matching authority context; current/caller/mutable/changing-context data retains full validation. All acceptance/rejection/lifecycle obligations above remain. Complete paired evidence and non-guarantees are in the WP6 B/review reports. Bounded maintenance closure is effective only on validated TASK-671 integration; no wider authoring scope is promoted.

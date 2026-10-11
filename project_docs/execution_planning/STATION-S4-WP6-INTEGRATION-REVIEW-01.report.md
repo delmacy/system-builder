@@ -39,3 +39,6 @@ WP6-L2: ephemeral 50-entry/256-node and existing data caps remain; no persistent
 WP6-D1: larger catalog/token-heavy/long-session cold-path and retained-memory profiling must be revalidated before wider scope. Allocation deltas alone cannot close it.
 Inherited WP3 origin/quota/stale-write/download-receipt and WP4 native text/ephemeral history limits, WP5 fixed-root/typed-slot/sibling/v2-reader limits and unrelated debt remain.
 No bounded-goal blocker or authority weakening found. GO for Documentation & Closure after this review validates/integrates; documentation only, no implicit feature/optimization successor.
+
+## Validated review integration
+TASK-670 head f6299b7988accad12aa12434454e967ce130c783 integrated via #1063 at 640dec55ec3eab7e624b7d71e534ded6e1690607. Five exact-head workflows PASS: handoff 38106843012, heavy 38106842990, browser 38106843049, merge candidate 38106842996, deterministic 38106843018. Actual Chromium 37/37 in 33.8 s, job 114374061905. Closure GO now effective; only TASK-671 promoted after fresh-main revalidation. All residual limits above remain.

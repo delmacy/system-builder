@@ -2,7 +2,7 @@
 
 Date: 2026-10-11 UTC
 
-Horizon note: R1–R12 retain older P13 risk evidence; their task/sprint directives are historical context and do not select current work. No old risk/debt closure is implied. NEXT_WORK is the sole execution pointer.
+Horizon note: older Station review/closure gate narratives are historical evidence; the latest integrated WP6 disposition below controls the horizon. R1–R12 retain older P13 risk evidence; their task/sprint directives are historical context and do not select current work. No old risk/debt closure is implied. NEXT_WORK is the sole execution pointer.
 
 This register tracks risks that are materially current for the integrated repository horizon. Historical bootstrap/AgentFactory risks belong in historical evidence, not in this current-state document.
 
@@ -77,3 +77,7 @@ Review #1058 integrated with five passing workflows and 37 actual Chromium cases
 ## Station S4 WP6 package review — 2026-10-11 UTC
 A #1061/B #1062 integrated with 89 editor tests and actual 37-journey regression; A has seven passing workflows/Windows-Ubuntu/frontend quality, B five. Paired same-environment 30-sample/three-batch max-bound warm Undo median improved 29.86–38.13x and Redo 18.99–21.85x; full comparison/p95/allocation observations in B report. WP5-D1 is mitigated for tested trusted warm histories, without broader catalog readiness or portable latency guarantee.
 WP6-L1: mutable/caller histories, custom/changed registry contexts and initial source/current graph retain full validation cost; cold max-bound copies still approximately 129–231 ms. WP6-L2: unchanged ephemeral 50-entry/256-node/data caps and no cross-session/persistent validation authority. WP6-D1: wider catalog/token-heavy/long-session/cold-path and retained-memory profiling remains a nonblocking future requirement; heap allocation deltas are not leak/retention certification. All inherited limits/debts remain. Review and closure own exact-head gates still govern declaration; no WP7/new scope is promoted.
+
+## WP6 closure disposition — current horizon
+Review #1063 integrated with five passing workflows and 37 actual Chromium cases; admitted maintenance goal met. TASK-671 reconciles operational/WBS/contract-delivery/report/current-pointer evidence and closes WP6 only on its independently validated merge. No active WP6 work or committed successor remains after that integration.
+WP5-D1 mitigated for tested warm installed/max-bound histories; current/caller data still receives full proof. WP6-L1/L2/D1 remain explicit nonblocking limits/future profiling: cold/custom/mutable context work, unchanged caps/lifecycle and wider-token/catalog/long-session retained-memory measurement. Existing WP3/WP4/WP5 and unrelated historical debt remains. No portable performance/retained-memory/accessibility certification, larger catalog or WP7 promotion.
