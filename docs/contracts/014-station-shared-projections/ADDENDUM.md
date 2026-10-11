@@ -1,6 +1,6 @@
 # Addendum 014 — Station shared model projections
 Date: 2026-10-11 UTC
-Status: ACCEPTED via Planning#1101; whole-WP14 implementation authorized 2026-10-11.
+Status: ACCEPTED via Planning#1101; bounded WP14 CLOSED effective on validated TASK711 integration.
 Admission: owner requests WP13 closure and WP14 planning. This admits a bounded planning
 increment. Subsequent owner instruction explicitly authorizes bounded whole-WP14 implementation,
 including Review/Closure after independently validated predecessors.
@@ -67,3 +67,13 @@ A#1102 integrated after seven workflows PASS; existing context API alias added f
 architecture gate. B adds shared Explorer/Inspector/two projection surfaces over one actual A state;
 host document and status derive from that state, with fresh exact opening and existing dirty protection.
 No codec/key/public owner schema change. B requires complete independent gates before integration.
+
+## Accepted delivery and limits
+Planning#1101/A#1102/B#1103/Review#1104 integrated; seven construction gates PASS and independent Review
+five gates PASS. Real Chromium88 journeys include all82 predecessors and six new shared-projection cases.
+One admitted host model drives Explorer/outline/table/Inspector; exact selected-reference opening
+re-resolves through original adapter and ordinary dirty editor guards. No portable/storage/owner schema
+change; ephemeral qualified selection only. Seven focused pure model tests plus full repository verify.
+Five-sprint bounded delivery; optional C unnecessary. Closure requires own complete CI and merge.
+WP14-L1/L2/L3/D1/D2 and all inherited debt retained. No live semantic owner, arbitrary models/C10,
+runtime/deploy, CAS, latency/universal accessibility or whole WBS/H3/S4 certification.
