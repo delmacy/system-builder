@@ -481,3 +481,12 @@ Refresh references preserves selected identity while updating status; context re
 Minimize preserves mounted state, close/reload resets it and context reopening remains explicit.
 No portable envelope/context/workspace schema/key changes or persisted selection. Two source-owned
 descriptors/17 items maximum; no remote renderers, timers, generic domain models or C10 Studio.
+
+WP14 delivery evidence: Planning#1101/A#1102/B#1103/Review#1104 integrated; seven construction workflows
+include Windows/Ubuntu/frontend quality; independent Review five gates and88 actual Chromium journeys2.1m.
+Seven focused model regressions and connected full repository verification passed. Existing production
+station:build/start and browser config apply; launch Process Context or visit /process-context.
+WP14-L1/L2/L3/D1/D2 retain bounded family/ephemeral selection/inherited storage/service/broad-accessibility
+and repeated-scan/cold/max-bound/long-session memory/performance limits. See WP14 PLAN/Review/Closure.
+Bounded WP14 CLOSED effective only on independently validated TASK711 integration. First specialized
+Studio/domain/C10 and real owner-service journey remain WP15/WP16 forecast, not automatic promotion.

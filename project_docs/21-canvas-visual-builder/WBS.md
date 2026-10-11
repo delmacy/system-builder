@@ -83,3 +83,13 @@ Review five gates and193 direct tests PASS. Five sprints, C unnecessary; bounded
 validated TASK706 integration. WP13-L1/L2/L3/D1 and inherited debt retained. No whole-item/WBS/H3/S4
 certification, semantic authoring, monolithic .process, generic multiview, C10 Studio/service journey,
 Core/server/provider/host/CAS. WP14–WP16 remain forecast and require their own fresh admission.
+
+## Station S4 WP14 bounded shared-projection disposition
+Addendum014 delivers deterministic reference-context rendering (bounded21.1.3) and reference-inspection
+portions21.2.1/21.2.2: two installed complementary projections, shared qualified selection/Explorer/
+read-only Inspector and ordinary exact guarded composition opening. Semantic/layout owners remain separate.
+Planning#1101/A#1102/B#1103/Review#1104 integrated;7 focused pure model cases,88 actual Chromium journeys
+(82 inherited +6 new), seven construction workflows/Windows-Ubuntu/frontend, five independent Review gates.
+Five sprints, C unnecessary. Bounded WP14 CLOSED only on validated TASK711 integration.
+No whole-item/WBS/H3/S4 certification, arbitrary models/semantic authoring/C10/live service/Core/runtime/
+deploy/storage/CAS. WP14-L1/L2/L3/D1/D2 and inherited limits/debt retained; WP15/WP16 forecast.
