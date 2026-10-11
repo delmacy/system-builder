@@ -31,3 +31,11 @@ journeys and Windows/Ubuntu/frontend quality proof. Typed fields share existing 
 explicit checkpoints and portable/local lifecycle. Bounded delivery CLOSED becomes effective
 on validated TASK681 closure integration. No full WBS/ComponentEditor/S4 completion; broader
 properties/catalog, File Manager, process/Studio/Core and collaboration remain separately gated.
+
+## Station S4 WP9 reusable catalog disposition
+Addendum009 adds only two installed layout descriptors, one reusable source composition and
+catalog navigation/guarded source-copy installation (21.2.1), typed graph admission (21.2.3),
+existing lossless codec and fresh-session reopen (21.3.1/21.3.2). Planning#1076/A#1077/B#1078/
+Review#1079;149 editor/composition cases,55 Chromium journeys, Windows/Ubuntu/frontend proof.
+Bounded WP9 CLOSED effective only on validated TASK686 integration. No whole-WBS/S4/ComponentEditor
+completion, template subtree insertion, reparenting, File Manager/process/Studio/Core promotion.

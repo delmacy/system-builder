@@ -27,6 +27,8 @@ Six allowed doc paths, no product corrections or delayed construction hidden in 
 Closure forecast until Review independently passes and integrates.
 
 ## Integrated predecessor exact-head evidence
-Planning#1076: heade68cf03ab0205e2bf8cb01fa2237f0c7b16636ec; merge5cf10d8940fa78ba79da4cf4bd50ea33f7497242; Deterministic CI:38133214457 null; Station Editor Browser Journey:38133214490 null; Merge Candidate CI:38133214405 null; Automation Handoff State Machine:38133214381 success; Heavy Product Tests:38133214386 success
+Planning#1076: heade68cf03ab0205e2bf8cb01fa2237f0c7b16636ec; merge5cf10d8940fa78ba79da4cf4bd50ea33f7497242; Deterministic CI:38133214457 success; Station Editor Browser Journey:38133214490 success; Merge Candidate CI:38133214405 success; Automation Handoff State Machine:38133214381 success; Heavy Product Tests:38133214386 success
 Construction A#1077: head1b127cdcc490eed42fabe1b80bcca9c272ae6f36; mergec17ebed991daccb9215bda375f949680939c2dd7; Deterministic CI:38133500566 success; Automation Handoff State Machine:38133500489 success; Heavy Product Tests:38133500529 success; Station Cross-Platform Build:38133500567 success; Station Frontend Quality:38133500517 success; Merge Candidate CI:38133500507 success; Station Editor Browser Journey:38133500540 success
 Construction B#1078: head43ad3a300e67f25ece7c56f14e15823bfe14c330; mergebf96dda077f29c6ea84b5f840922b3562624a331; Automation Handoff State Machine:38133778917 success; Heavy Product Tests:38133778914 success; Station Cross-Platform Build:38133779011 success; Station Frontend Quality:38133778904 success; Station Editor Browser Journey:38133778952 success; Merge Candidate CI:38133778898 success; Deterministic CI:38133778927 success
+
+Closure reconciliation: early Planning snapshot above replaced with final observed success; same run IDs, no gate waived.

@@ -1,6 +1,6 @@
 # Addendum009 — Station reusable installed catalog
 Date: 2026-10-11 UTC
-Status: ACCEPTED effective on validated WP9 Planning integration
+Status: ACCEPTED via #1076 / bounded WP9 CLOSED effective only on validated TASK686 integration
 Admission: owner explicitly requests execution of WP09 after WP8 closure #1075.
 
 ## Admitted scope
@@ -34,3 +34,10 @@ malformed import preservation, pending cancellation and replacement, keyboard an
 Universal/remote/user catalog; template subgraph insertion; reparenting; executable actions;
 new atomic/property families; arbitrary CSS; File Manager/process/Studio/server/sync/deploy.
 Bounded WBS21.2.1/21.2.3/21.3.1/21.3.2 only, not whole ComponentEditor/S4 completion.
+
+## Delivery lifecycle
+Planning#1076/A#1077/B#1078/Review#1079 integrated. Two layouts and one installed panel,
+search/guarded installation, typed editing/history and real portable/local reopen are delivered.
+149 editor/composition tests and55 actual Chromium journeys, Windows/Ubuntu/frontend quality.
+Closure effective only after TASK686 own verification/all triggered CI and merge.
+WP9-L1/L2/D1 and inherited limits remain; no successor construction automatically promoted.
