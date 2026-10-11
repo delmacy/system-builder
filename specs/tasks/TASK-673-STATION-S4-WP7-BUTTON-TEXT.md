@@ -1,7 +1,7 @@
 ---
 id: TASK-673
 title: Station S4 WP7 BUTTON TEXT
-status: ready
+status: completed
 priority: 673
 milestone: STATION-S4-WP7-BUTTON-TEXT
 model_tier: architecture
@@ -24,6 +24,10 @@ context_paths:
 - docs/architecture/STATION_FRONTEND_FOUNDATION.md
 - docs/current/RISKS.md
 allowed_paths:
+- packages/station-editor/draft-boundary.ts
+- packages/station-editor/layers.ts
+- packages/station-editor/inspector.ts
+- packages/station-editor/preview.ts
 - packages/station-composition/graph.ts
 - packages/station-composition/graph-validation.ts
 - packages/station-composition/responsive-projection.ts
@@ -41,7 +45,7 @@ forbidden_paths:
 - provider/**
 - runtime/**
 - deploy/**
-max_files: 10
+max_files: 14
 validation:
 - npm run verify
 ---
@@ -66,3 +70,6 @@ Addendum007 and WP7 plan govern; strict declared paths, unchanged boundaries, pr
 Addendum007 and WP7 plan govern; strict declared paths, unchanged boundaries, predecessor regression, full declared verification and exact-head CI. Record unobserved local checks honestly; stop on conflicting authority or missing proof.
 ## Escalation
 Addendum007 and WP7 plan govern; strict declared paths, unchanged boundaries, predecessor regression, full declared verification and exact-head CI. Record unobserved local checks honestly; stop on conflicting authority or missing proof.
+
+## Bounded operational change control
+Strict draft-boundary and Preview node shapes reject the admitted text field. Extend four owning projections/boundaries within the same declared text goal before changing those files. Fourteen exact paths; no forbidden path or extra capability. Carry text in Layers/Inspector/Preview and retain malformed field rejection.

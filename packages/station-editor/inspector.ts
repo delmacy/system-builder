@@ -20,6 +20,7 @@ export type InspectorSnapshot =
       readonly draftRevision: number;
       readonly nodeRef: CompositionNodeRef;
       readonly componentRef: string;
+      readonly text?: string;
       readonly placement: Readonly<CompositionNodePlacement> | null;
       readonly editable: boolean;
     };
@@ -122,6 +123,7 @@ export function projectEditorInspector(
       draftRevision: expectedDraftRevision,
       nodeRef: node.ref,
       componentRef: node.componentRef,
+      ...(node.text === undefined ? {} : { text: node.text }),
       placement: node.placement ? Object.freeze({ ...node.placement }) : null,
       editable: node.ref !== session.transaction.draft.rootRef,
     }),
