@@ -2,7 +2,7 @@
 {
   "id": "TASK-713",
   "title": "Station S4 WP15 local workflow authoring engine",
-  "status": "draft",
+  "status": "completed",
   "priority": 713,
   "milestone": "STATION-S4-WP15-WORKFLOW-STUDIO",
   "model_tier": "architecture",
@@ -61,7 +61,7 @@
 Implement complete local candidate codec and immutable workflow draft engine under Addendum015.
 
 ## Context
-PREPARED ONLY. Promote after Planning integration, fresh-main review and explicit construction authorization.
+COMMITTED from main@ac66474bd10219806c7c1741038820e5444ab088 after Planning#1106 integration. Owner now authorizes whole WP15, including eligible Review/Closure after independent gates.
 
 ## Current behavior
 No lossless workflow authoring API; compiler projection is execution-only.

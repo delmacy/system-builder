@@ -236,3 +236,9 @@ WP14-L1/L2/L3/D1/D2 and all inherited residuals remain accepted limits/debt; no 
 generic arbitrary models/C10, broader storage/performance/accessibility or whole WBS/H3/S4 certification.
 After validated integration no active WP14 or committed successor. WP15 first Studio/domain/C10 and
 WP16 real service journey require fresh separate Planning/admission/readiness/authorization.
+
+## WP15 local draft Construction A
+Local validation is workflow/schema validity only; upstream references unresolved, not canonical authorization.
+Complete schema/envelope admission preserves unrelated data; compiler/runtime projection not imported.
+64 states/128 transitions/1MiB/depth32/history50; full-document/history copying bounded but latency/memory
+not universally certified. Browser/store/C10 proof remains B/Review; inherited residuals retained.
