@@ -2,7 +2,7 @@
 {
   "id": "TASK-708",
   "title": "Station S4 WP14 shared projection model",
-  "status": "draft",
+  "status": "completed",
   "priority": 708,
   "milestone": "STATION-S4-WP14-SHARED-PROJECTIONS",
   "model_tier": "architecture",
@@ -41,7 +41,8 @@
     "docs/current/RISKS.md",
     "project_docs/execution_planning/STATION-S4-WP14-CONSTRUCTION-A-01.md",
     "project_docs/execution_planning/STATION-S4-WP14-CONSTRUCTION-A-01.report.md",
-    "specs/tasks/TASK-708-STATION-S4-WP14-CONSTRUCTION-A.md"
+    "specs/tasks/TASK-708-STATION-S4-WP14-CONSTRUCTION-A.md",
+    "tsconfig.json"
   ],
   "forbidden_paths": [
     "docs/adr/**",
@@ -51,7 +52,7 @@
     "runtime/**",
     "deploy/**"
   ],
-  "max_files": 7,
+  "max_files": 8,
   "validation": [
     "npm run verify"
   ]
@@ -62,8 +63,8 @@
 Implement Addendum014 pure bounded model/registry and context-qualified shared selection.
 
 ## Context
-PREPARED, NOT COMMITTED. Requires integrated TASK707 and explicit owner construction authorization,
-fresh-main predecessor revalidation and active A manifest before any product edit.
+COMMITTED from 5fe1ba77dd06624d366a0612ba3ce3ee921a32dd; TASK707/#1101 integrated. Owner authorizes whole WP14 implementation,
+including Review/Closure after independent validated gates. A manifest governs seven exact paths.
 
 ## Current behavior
 WP13 exposes decoded context and exact reference adapters. station-interaction owns collection/selection.
@@ -101,3 +102,10 @@ validated A integration; next B remains forecast until fresh-main/authorization.
 ## Escalation
 Authority/path/L3 outside Addendum014/L4/semantic ownership or unresolved proof failures.
 Do not modify existing interaction, owner contract, workspace/context codec or workflow paths.
+
+## Bounded operational correction admitted before edit
+The architecture gate requires package-name imports even for public sibling indexes. Existing context
+package has no root TypeScript alias. Add tsconfig.json as eighth exact path (max_files8) solely for
+@system-builder/station-process-context -> existing public index; no new dependency/contract/owner,
+workflow or architecture exemption. Reuse existing station-interaction alias. This is necessary to
+prove the already admitted A goal and stays L1 resolution plumbing under whole-WP14 authorization.

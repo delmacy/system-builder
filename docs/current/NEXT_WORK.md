@@ -1,17 +1,8 @@
-# Next work — WP14 planned; construction awaits authorization
-Sole live pointer. Bounded Station S4 WP13 CLOSED via TASK706/#1100 merge 577fd601fdda1f93c2b96577093298d3b0d3d402;
-all five closure workflows PASS. Review193 direct product cases and82 actual Chromium journeys.
-WP13-L1/L2/L3/D1 and inherited limits/debt retained; no live semantic service or whole WBS/H3/S4 claim.
-
-Owner requested WP14 Planning only. TASK707 Planning branch prepares Addendum014 shared projections,
-WP14 PLAN/PLANNING report and first eligible A manifest/TASK708; acceptance depends on own complete
-independent CI and integration. No product capability is implemented in this Planning.
-After validated Planning integration TASK708 remains PREPARED / NOT COMMITTED pending owner
-construction authorization and fresh-main promotion. No active product sprint or automatic successor.
-Authority: docs/contracts/014-station-shared-projections/ADDENDUM.md,
-project_docs/execution_planning/STATION-S4-WP14-PLAN-01.md and PLANNING-01.md,
-TASK707/TASK708 context_paths, ADR0009/0017 and Sprint policies.
-Goal: two complementary source-owned projections, shared context-qualified selection/read-only
-Inspector and ordinary guarded exact-composition handoff. Existing codecs/storage keys unchanged.
-B/optional C/Review/Closure forecast; WP15 Studio/domain choice and WP16 real service journey forecast.
-Archived PROJECT_STATE/CURRENT_MILESTONE remain historical, not competing live schedulers.
+# Next work — WP14 Construction A
+Sole live pointer. Planning#1101 integrated 5fe1ba77dd06624d366a0612ba3ce3ee921a32dd; owner now authorizes full WP14 including
+eligible construction/Review/Closure after validated predecessor gates. Addendum014 accepted via Planning.
+TASK708 COMMITTED, eight exact paths; A manifest/TASK context_paths and Sprint policies govern.
+Real WP13 codec/WP12 references/interaction selection reused; no UI/schema/storage/owner mutation in A.
+Final npm run verify, station:build and every triggered independent gate required before merge.
+B/C/Review/Closure forecast until fresh-main promotion. ADR0009/0017 retained; WP15/16 not authorized.
+Authority Addendum014, WP14 PLAN, A manifest/TASK708. No live semantic service/whole H3/S4 certification.
