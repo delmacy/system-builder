@@ -16,3 +16,6 @@
 
 ## Station S4 WP5 bounded delivery disposition
 Addendum 006 implements only Station installed component add/remove-subtree/sibling-reorder controls (21.2.1), complete graph validation before retention (21.2.3), bounded inert composition serialization (21.3.1) and rehydration (21.3.2). Planning #1055, engine #1056, UI #1057, review #1058; 37 actual browser journeys and Windows/Ubuntu proof. Delivery becomes CLOSED on validated TASK-666 closure integration. No whole-item/whole-WBS completion claim; semantic models, handoffs, collaboration, generic Studio and other baseline outcomes remain separately gated.
+
+## Station S4 WP6 maintenance disposition
+Existing Addendum 006 scope receives internal validation-work reduction and measured/regression proof for the already bounded 21.2.3/21.3.1/21.3.2 slices. Planning #1060, A #1061, B #1062 and Review #1063; 89 editor product tests, 37 actual browser journeys and paired same-environment max-bound history measurements. No new WBS outcome, broad catalog, collaboration or whole-item completion is admitted. Maintenance delivery closes only on validated TASK-671 integration; wider-scope profiling remains future work.

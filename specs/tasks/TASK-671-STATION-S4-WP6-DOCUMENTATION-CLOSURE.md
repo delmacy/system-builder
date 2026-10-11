@@ -1,7 +1,7 @@
 ---
 id: TASK-671
 title: Station S4 WP6 DOCUMENTATION CLOSURE
-status: ready
+status: completed
 priority: 671
 milestone: STATION-S4-WP6-HISTORY-HARDENING
 model_tier: cheap
