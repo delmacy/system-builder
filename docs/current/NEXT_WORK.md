@@ -1,6 +1,6 @@
-# Next work — WP12 Planning
-Sole live pointer. WP11 closed by#1090 at1c8f744b; owner explicitly authorizes whole WP12.
-Only Planning697 committed on sprint/STATION-S4-WP12-PLANNING-01, eight exact docs paths.
-Addendum012/PLAN/TASK697/Sprint policies/ADR0009 govern. npm run verify and all triggered gates.
-A698 materialized ready only after own Planning PASS/merge/fresh main; B/C/Review/Closure forecast.
-No product scope beyond revisions/diff/conflict local context; WP13 forecast only.
+# Next work — WP12 Construction A
+Sole live pointer. Planning#1091 merged81bb3e2 with all five exact-head workflows PASS.
+Only A/TASK698 COMMITTED; six declared paths, no UI/workflows/ADRs/contracts-packages/providers.
+Authority Addendum012/WP12 PLAN/A manifest/TASK698/Sprint policies/ADR0009 and listed context_paths.
+Owner authorizes whole WP12. npm run verify and all triggered gates; construction production build.
+B/C/Review/Closure remain forecast until integrated predecessor/fresh main. WP13 forecast only.

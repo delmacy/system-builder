@@ -2,7 +2,7 @@
 {
   "id": "TASK-698",
   "title": "Station S4 WP12 CONSTRUCTION-A",
-  "status": "ready",
+  "status": "completed",
   "priority": 698,
   "milestone": "STATION-S4-WP12-REVISIONS",
   "model_tier": "architecture",
