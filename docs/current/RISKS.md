@@ -167,3 +167,14 @@ All inherited WP3–WP11/unrelated residuals retained; WP11 independent copies n
 admitted optional revision operation, without resolving its storage/ownership limitations.
 No bounded-goal blocker after integrated75 actual Chromium journeys/seven construction workflows.
 C unnecessary, Review own gates control GO Closure; no WP13 or whole WBS/H2/S4 promotion.
+
+## WP12 closure disposition
+Independent Review#1094 integrated with five PASS workflows and75 actual Chromium journeys1.7m.
+No blocker inside admitted revision/diff/explicit-conflict goal; five sprints, optional C unnecessary.
+TASK701 reconciles11 exact documentation paths, adds no behavior, and closes bounded WP12 only on
+its own complete CI/merge. After integration no active WP12 work or committed successor remains.
+WP12-L1/L2/L3/D1 and all inherited storage/history/performance/accessibility/unrelated residuals
+remain explicit nonblocking limits/debt. Older imported retention heads can block duplicate patch
+allocation; explicit copy/export is available, no silent version jump/rebase. No larger capacities,
+CAS/auto-merge/provider/latency or whole WBS/H2/S4 certification. WP13 requires fresh Planning,
+semantic owners/contracts and admission; outside current package execution authorization.

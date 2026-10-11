@@ -396,9 +396,45 @@ independent retention; browser storage can still be cleared, denied or quota-lim
 Caps16 folders including root,48 files,8 folder levels,4MiB total encoded snapshot; each composition
 retains1MiB/256 nodes/32 JSON nesting/token256/history50. Whole snapshot/per-file admission is bounded,
 not a latency guarantee. Atomic native setItem plus raw-text re-read is best-effort stale detection,
-not cross-tab transactional CAS. Append-only: no rename/move/delete/overwrite/Git-like revisions.
+not cross-tab transactional CAS. Append-only: no rename/move/delete/overwrite; WP12 below adds named revisions without Git branches/merges.
 Existing production build/start/browser commands apply.159 combined local product cases and68 actual
 Chromium journeys (61 inherited +7 workspace), seven construction gates and Windows/Ubuntu/frontend
 quality proof. Addendum011/review/closure trace exact heads/runs; TASK696 independently gated.
 Bounded WBS30.1.1/30.1.3/30.2.1/30.2.2 and21.3.1/21.3.2 only; WP11-L1/L2/D1 retained.
 No server/Core/host filesystem, sync/CAS, generic binary/provider, .process or whole WBS/S4 completion.
+
+## Station S4 WP12 workspace revisions — current operation
+The editor's Save workspace revision section appends a new named file under an explicitly chosen
+retained logical identity. Apply or Restore pending fields first. Refresh revision targets reads
+the actual workspace and clears the old selection/comparison; choose Revision target (the last
+retained file for that source-compatible identity). Set Revision file name, optionally Compare
+draft with revision, then Save workspace revision. A successful append retains the chosen ID/source/
+metadata, advances stable patch version and records predecessor provenance; earlier files remain
+immutable. Save preserves applied draft, accepted checkpoint, Undo/Redo and legacy local slots.
+Repeated saving requires another refresh/reselection. Save to workspace remains an independent
+new identity; portable Save As file remains an independent retained copy/download.
+Revision target follows storage order, not greatest SemVer. Explicit import can change it even to
+an older version. Invalid/unstable predecessor, unchanged graph, reused version tuple, provenance/
+source/identity/metadata mismatch, name/capacity/quota/corrupt/stale failures do not append. Conflict
+feedback preserves current draft/history: refresh targets, choose actual head, compare and deliberately
+retry, or keep an independent workspace copy/portable file. Retrying does not automatically merge
+competing graphs; it prepares the current applied graph against the explicitly selected predecessor.
+File Manager File Inspector includes Retained revision and Comparison base. Select a historical or
+latest retained file and optionally another same-identity base; comparison shows full-envelope JSON
+pointer changes with Before/After literal data. Object keys sort, arrays compare by authored index;
+512 changed paths display at most, with explicit truncation. Export both files for complete external
+inspection. Selecting/navigation/refresh clears obsolete comparisons. Export composition and Open
+in editor use the actual selected revision; dirty/pending Cancel/Discard protection still applies.
+New draft/target/replacement invalidates editor comparison. Minimize preserves mounted choices,
+close resets them; opening consumes its one-shot handoff. Failed refresh preserves prior visible
+snapshot and blocks further mutations/open until valid refresh. Labels and values are inert text.
+Original schema1/key,16 folders/48 files/8 folder levels/4MiB snapshot and per-file1MiB/256nodes/
+32JSON nesting/token256/history50 caps remain. Native expected-text/head/re-read detects stale
+updates best-effort, without transactional cross-tab CAS, synchronization, automatic merge or latency
+guarantee. Browser data can be cleared/denied/quota-limited; retain independent portable files.
+Production station:build/start and browser config unchanged. Final Construction B and independent
+Review both observed75 Chromium journeys (68 predecessors +7 new), seven construction gates and
+Windows/Ubuntu/frontend quality; Review166 direct product cases PASS. Closure has its own CI gate.
+Addendum012/WP12 PLAN/Review and Closure reports trace exact identities. WP12-L1/L2/L3/D1 and inherited
+debt remain. No process/Core/server/host/integrity hashes, whole WBS/H2/S4 or broad browser/accessibility
+certification. Bounded WP12 CLOSED only on independently validated TASK701 integration.

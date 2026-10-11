@@ -23,3 +23,15 @@ Planning#1086/A#1087/B#1088 and independent Review integrated;159 local combined
 Bounded WP11 CLOSED effective on validated TASK696 integration. No whole-item/WBS/H2/S4 promotion;
 versions/hashes, lifecycle/delete/archive, arbitrary files, access controls, audit/telemetry,
 server/Core/host providers, migration implementation, sync/CAS and .process remain future work.
+
+## Station S4 WP12 bounded revision disposition
+Addendum012 extends only lossless canonical round-trip/fresh rehydration (21.3.1/21.3.2), full
+validated-envelope diff/version/conflict context (21.3.3), and immutable logical version/predecessor
+references portion of30.1.2. Existing origin-local location metadata/store/codec remain unchanged.
+Planning#1091/A#1092/B#1093/Review#1094 integrated;75 actual Chromium journeys include all68
+predecessors and seven new cases. Seven construction gates include Windows/Ubuntu/frontend quality;
+independent Review five gates and166 direct product tests PASS. C unnecessary.
+Bounded WP12 CLOSED effective only on validated TASK701 integration. No whole-item/WBS/H2/S4
+certification: integrity hashes, publication/branches, auto-merge, CAS/sync/collaboration, generic
+provider/server/Core/host/.process, broader lifecycle/access/audit remain separately gated.
+WP12-L1/L2/L3/D1 and all inherited residuals retained. WP13 forecast requires fresh Planning/admission.
