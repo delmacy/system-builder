@@ -1379,3 +1379,160 @@ test.describe("WP11 real artifact workspace", () => {
     expect(await page.evaluate(() => JSON.parse(localStorage.getItem("station:artifact-workspace:v1")!).files.length)).toBe(0);
   });
 });
+
+test.describe("WP12 immutable revisions and explicit conflict decisions", () => {
+  const b = (page: Page, name: string) => page.getByRole("button", { name, exact: true });
+  const revision = (page: Page) => editor(page).getByRole("region", { name: "Save workspace revision", exact: true });
+  const workspace = (page: Page) => page.getByRole("region", { name: "Artifact workspace", exact: true });
+  const launch = async (page: Page, name: string) => {
+    await b(page, "Open applications").click();
+    await page.locator(name === "File Manager" ? '[data-app-ref="app:file-manager"]' : '[data-app-ref="app:composition-editor"]').click();
+  };
+  const copy = async (page: Page, name = "first.composition.json") => {
+    await editor(page).getByLabel("Workspace copy name", { exact: true }).fill(name);
+    await b(page, "Save to workspace").click(); await expect(editor(page).getByRole("status")).toContainText("Workspace copy saved");
+  };
+  const choose = async (page: Page, label: string) => {
+    await revision(page).getByRole("button", { name: "Refresh revision targets", exact: true }).click();
+    await revision(page).getByLabel("Revision target", { exact: true }).selectOption({ label });
+  };
+  const save = async (page: Page, name: string) => {
+    await revision(page).getByLabel("Revision file name", { exact: true }).fill(name);
+    await revision(page).getByRole("button", { name: "Save workspace revision", exact: true }).click();
+    await expect(editor(page).getByRole("status")).toContainText("Workspace revision saved");
+  };
+  const retained = (page: Page) => page.evaluate(() => JSON.parse(localStorage.getItem("station:artifact-workspace:v1")!));
+  async function two(page: Page) {
+    await copy(page); await choose(page, "first.composition.json (v1.0.0)");
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3");
+    await save(page, "second.composition.json");
+  }
+  test("real mixed edits append two revisions, compare full metadata and preserve draft/history", async ({ page }) => {
+    await copy(page); await choose(page, "first.composition.json (v1.0.0)");
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+    await page.getByLabel("Button text", { exact: true }).fill("Confirmar revisão"); await b(page, "Apply text").click();
+    await b(page, "Compare draft with revision").click();
+    await expect(revision(page).getByRole("region", { name: "Revision comparison", exact: true })).toContainText("/payload/graph/nodes/1/text");
+    await save(page, "second.composition.json"); await expect(b(page, "Undo")).toHaveAttribute("aria-disabled", "false");
+    await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+    await expect(b(page, "Save workspace revision")).toBeDisabled();
+    await choose(page, "second.composition.json (v1.0.1)");
+    await page.getByLabel("Button variant", { exact: true }).selectOption("outline"); await b(page, "Apply properties").click();
+    await save(page, "third.composition.json");
+    const ws = await retained(page), docs = ws.files.map((f: { text: string }) => JSON.parse(f.text));
+    expect(docs.map((d: { artifactVersion: string }) => d.artifactVersion)).toEqual(["1.0.0", "1.0.1", "1.0.2"]);
+    expect(new Set(docs.map((d: { artifactId: string }) => d.artifactId)).size).toBe(1);
+    expect(docs[0].payload.graph.nodes[1].text).toBeUndefined(); expect(docs[1].payload.graph.nodes[1].properties).toBeUndefined();
+    expect(docs[2].payload.graph.nodes[1].properties.variant).toBe("outline");
+    expect(docs[2].provenance.inputs.at(-1).artifactVersion).toBe("1.0.1");
+    await b(page, "Undo").click(); await expect(preview(page, "Confirmar revisão")).toHaveAttribute("data-button-variant", "default");
+    expect(await retained(page)).toEqual(ws);
+    expect(await page.evaluate(() => Object.keys(localStorage).filter(k => k.startsWith("station:composition-artifact:v1:")).length)).toBe(0);
+  });
+  test("File Manager comparison/export and guarded historical/latest reopen use actual retained revisions", async ({ page }, testInfo) => {
+    await two(page); const ws = await retained(page);
+    await page.goto("/"); await launch(page, "File Manager");
+    await workspace(page).getByRole("button", { name: "second.composition.json", exact: true }).click();
+    await workspace(page).getByLabel("Comparison base", { exact: true }).selectOption(ws.files[0].ref);
+    const diff = workspace(page).getByRole("region", { name: "Revision comparison", exact: true });
+    await expect(diff).toContainText("/artifactVersion"); await expect(diff).toContainText("/payload/graph/nodes/1/placement/columnSpan");
+    await expect(diff).toContainText("Before: 2"); await expect(diff).toContainText("After: 3");
+    await workspace(page).getByLabel("Retained revision", { exact: true }).selectOption(ws.files[0].ref);
+    await expect(diff).toHaveCount(0);
+    const wait = page.waitForEvent("download"); await workspace(page).getByRole("button", { name: "Export composition", exact: true }).click();
+    const downloaded = await wait; expect(JSON.parse((await readFile((await downloaded.path())!)).toString())).toEqual(JSON.parse(ws.files[0].text));
+    await workspace(page).getByRole("button", { name: "Open in editor", exact: true }).click();
+    await expect(preview(page)).toHaveAttribute("data-column-span", "2");
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "4");
+    await launch(page, "File Manager"); await workspace(page).getByLabel("Retained revision", { exact: true }).selectOption(ws.files[1].ref);
+    await workspace(page).getByRole("button", { name: "Open in editor", exact: true }).click();
+    await b(page, "Cancel open").click(); await expect(preview(page)).toHaveAttribute("data-column-span", "4");
+    await launch(page, "File Manager"); await workspace(page).getByRole("button", { name: "Open in editor", exact: true }).click();
+    await b(page, "Discard changes and open file").click(); await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+    await expect(b(page, "Undo")).toHaveAttribute("aria-disabled", "true");
+    await page.screenshot({ path: testInfo.outputPath("wp12-revision-reopened.png"), fullPage: true });
+  });
+  test("two actual views detect stale revision without lost bytes and explicit refresh/retry retains both changes", async ({ page }) => {
+    await copy(page); await choose(page, "first.composition.json (v1.0.0)");
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3");
+    const other = await page.context().newPage();
+    try {
+      await other.goto("http://127.0.0.1:3100/component-editor"); await choose(other, "first.composition.json (v1.0.0)");
+      await other.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(other, "4");
+      await save(other, "other.composition.json"); const prior = await retained(page);
+      await revision(page).getByLabel("Revision file name", { exact: true }).fill("mine.composition.json");
+      await b(page, "Save workspace revision").click(); await expect(editor(page).getByRole("status")).toContainText("Revision conflict");
+      await expect(preview(page)).toHaveAttribute("data-column-span", "3"); await expect(b(page, "Undo")).toHaveAttribute("aria-disabled", "false");
+      expect(await retained(page)).toEqual(prior); await expect(b(page, "Save workspace revision")).toBeDisabled();
+      await choose(page, "other.composition.json (v1.0.1)"); await b(page, "Compare draft with revision").click();
+      await expect(revision(page).getByRole("region", { name: "Revision comparison", exact: true })).toContainText("Before: 4");
+      await save(page, "mine.composition.json"); const saved = await retained(page);
+      expect(saved.files).toHaveLength(3); expect(saved.files[1].text).toBe(prior.files[1].text);
+      expect(JSON.parse(saved.files[2].text).payload.graph.nodes[1].placement.columnSpan).toBe(3);
+    } finally { await other.close(); }
+  });
+  test("pending fields, unchanged draft and invalid filenames reject without retaining; comparison expires on new edit", async ({ page }) => {
+    await copy(page); await choose(page, "first.composition.json (v1.0.0)");
+    await b(page, "Save workspace revision").click(); await expect(editor(page).getByRole("status")).toContainText("No changed graph");
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click();
+    await page.getByLabel("Columns", { exact: true }).fill("3"); await expect(b(page, "Save workspace revision")).toBeDisabled();
+    await expect(b(page, "Compare draft with revision")).toBeDisabled(); await b(page, "Apply size").click();
+    await b(page, "Compare draft with revision").click(); await expect(revision(page).getByRole("region", { name: "Revision comparison", exact: true })).toBeVisible();
+    await span(page, "4"); await expect(revision(page).getByRole("region", { name: "Revision comparison", exact: true })).toHaveCount(0);
+    const prior = await retained(page); await revision(page).getByLabel("Revision file name", { exact: true }).fill("../bad.composition.json");
+    await b(page, "Save workspace revision").click(); await expect(editor(page).getByRole("status")).toContainText("Unable to save revision");
+    expect(await retained(page)).toEqual(prior); await expect(preview(page)).toHaveAttribute("data-column-span", "4");
+    await save(page, "valid.composition.json");
+  });
+  test("quota and corrupt refresh preserve old revisions and current draft, restoring storage allows explicit recovery", async ({ page }) => {
+    await copy(page); await choose(page, "first.composition.json (v1.0.0)");
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3");
+    const prior = await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"));
+    await page.evaluate(() => {
+      const original = Storage.prototype.setItem;
+      (window as unknown as { restoreRevisionStorage: () => void }).restoreRevisionStorage = () => { Storage.prototype.setItem = original; };
+      Storage.prototype.setItem = function(key, value) { if (key === "station:artifact-workspace:v1") throw new DOMException("quota", "QuotaExceededError"); original.call(this, key, value); };
+    });
+    await b(page, "Save workspace revision").click(); await expect(editor(page).getByRole("status")).toContainText("Unable to save revision");
+    expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe(prior);
+    await page.evaluate(() => { (window as unknown as { restoreRevisionStorage: () => void }).restoreRevisionStorage(); localStorage.setItem("station:artifact-workspace:v1", "broken"); });
+    await b(page, "Refresh revision targets").click(); await expect(editor(page).getByRole("status")).toContainText("unavailable");
+    await expect(b(page, "Save workspace revision")).toBeDisabled(); await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+    expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe("broken");
+    await page.evaluate(text => localStorage.setItem("station:artifact-workspace:v1", text!), prior);
+    await choose(page, "first.composition.json (v1.0.0)"); await save(page, "recovered.composition.json");
+  });
+  test("keyboard and narrow layout retain revision target through minimize and reset consumed historical open after close", async ({ page }) => {
+    await two(page); const ws = await retained(page); await page.goto("/"); await page.setViewportSize({ width: 390, height: 860 });
+    await launch(page, "File Manager"); await workspace(page).getByRole("button", { name: "second.composition.json", exact: true }).click();
+    const base = workspace(page).getByLabel("Comparison base", { exact: true }); await tabTo(page, base); await base.selectOption(ws.files[0].ref);
+    await expect(workspace(page).getByRole("region", { name: "Revision comparison", exact: true })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    const open = workspace(page).getByRole("button", { name: "Open in editor", exact: true }); await tabTo(page, open); await open.press("Enter");
+    await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+    await choose(page, "second.composition.json (v1.0.1)");
+    const win = page.getByRole("dialog", { name: "Composition Editor", exact: true }); await win.getByRole("button", { name: "Minimize window", exact: true }).click();
+    await page.locator('[data-slot="taskbar-windows"]').getByRole("button", { name: "Composition Editor", exact: true }).click();
+    await expect(revision(page).getByLabel("Revision target", { exact: true })).toHaveValue(ws.files[1].ref);
+    await win.getByRole("button", { name: "Close window", exact: true }).click(); await launch(page, "Composition Editor");
+    await expect(preview(page)).toHaveAttribute("data-column-span", "2");
+    await expect(revision(page).getByLabel("Revision target", { exact: true })).toHaveValue("");
+  });
+  test("imported complete envelopes display literal metadata and explicit truncated comparison", async ({ page }) => {
+    const bytes = await downloadedComposition(page), a = JSON.parse(bytes.toString());
+    a.extensions = { "org.example.diff": Object.fromEntries(Array.from({ length: 513 }, (_, i) => ["value" + i, "<script>" + i])) };
+    const c = { ...a, artifactVersion: "1.0.1", extensions: { "org.example.diff": Object.fromEntries(Array.from({ length: 513 }, (_, i) => ["value" + i, "<button>" + i])) } };
+    await page.goto("/"); await launch(page, "File Manager");
+    const input = workspace(page).getByLabel("Import workspace composition", { exact: true });
+    await input.setInputFiles({ name: "a.composition.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(a)) });
+    await expect(workspace(page).getByRole("status")).toHaveText("Composition imported.");
+    await input.setInputFiles({ name: "b.composition.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(c)) });
+    await expect(workspace(page).getByRole("status")).toHaveText("Composition imported.");
+    const ws = await retained(page); await workspace(page).getByRole("button", { name: "b.composition.json", exact: true }).click();
+    await workspace(page).getByLabel("Comparison base", { exact: true }).selectOption(ws.files[0].ref);
+    const diff = workspace(page).getByRole("region", { name: "Revision comparison", exact: true });
+    await expect(diff).toContainText("Comparison truncated at 512 paths"); await expect(diff.getByRole("listitem")).toHaveCount(512);
+    await expect(diff).toContainText("<script>"); expect(await diff.locator("script").count()).toBe(0);
+    await expect(workspace(page).getByLabel("Retained revision", { exact: true }).locator("option")).toHaveCount(2);
+  });
+});

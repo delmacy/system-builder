@@ -1,6 +1,6 @@
-# Next work — WP12 Construction A
-Sole live pointer. Planning#1091 merged81bb3e2 with all five exact-head workflows PASS.
-Only A/TASK698 COMMITTED; six declared paths, no UI/workflows/ADRs/contracts-packages/providers.
-Authority Addendum012/WP12 PLAN/A manifest/TASK698/Sprint policies/ADR0009 and listed context_paths.
-Owner authorizes whole WP12. npm run verify and all triggered gates; construction production build.
-B/C/Review/Closure remain forecast until integrated predecessor/fresh main. WP13 forecast only.
+# Next work — WP12 Construction B
+Sole live pointer. A#1092 integratedfb4234aebb55c55f70c2be338ea683c16361f207; seven gates PASS and68 actual Chromium journeys.
+Only B/TASK699 COMMITTED, nine exact declared paths; no ADR/codec/engine/workflow/provider changes.
+Authority Addendum012/WP12 PLAN/B manifest/TASK699/Sprint policies/ADR0009 and context_paths.
+Owner authorizes whole WP12; npm run verify, production build and all triggered gates required.
+C optional only if fresh evidence proves necessary; Review/Closure forecast; WP13 forecast only.

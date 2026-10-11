@@ -6,6 +6,7 @@ import { DEFAULT_COMPOSITION_REF, initializeCatalogEditorSession, listEditorCata
 import { prepareEditorArtifact, readEditorArtifact, requestArtifactDownload, sameEditorArtifactGraph } from "./station-editor-files";
 import { importCatalogArtifact } from "./station-editor-artifact";
 import { StationWorkspaceSave } from "./station-workspace-save";
+import { StationWorkspaceRevisionSave } from "./station-workspace-revision-save";
 import { supportsButtonDisplayText, type ButtonProperties } from "../../../../packages/station-composition/index";
 import type { EditorLayer } from "../../../../packages/station-editor/index";
 import {
@@ -453,6 +454,10 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     </div>
     <StationWorkspaceSave blocked={historyBlocked(state)}
       prepare={() => prepareEditorArtifact(state.entry.compositionRef, state.history.session.transaction.draft, state.document, operation(), true)}
+      feedback={feedback} />
+    <StationWorkspaceRevisionSave key={state.document ? `${state.document.artifactId}:${state.document.artifactVersion}` : state.entry.compositionRef}
+      blocked={historyBlocked(state)} compositionRef={state.entry.compositionRef} draftRevision={state.history.session.draftRevision}
+      prepare={previous => prepareEditorArtifact(state.entry.compositionRef, state.history.session.transaction.draft, previous, operation())}
       feedback={feedback} />
     {state.pendingArtifact ? <div className="flex flex-wrap items-center gap-3 border-b p-4" role="group" aria-label="Unsaved artifact open">
       <p>Unsaved changes. Discard them and open this composition artifact?</p>
