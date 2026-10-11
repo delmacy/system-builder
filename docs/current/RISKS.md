@@ -110,3 +110,18 @@ Admitted goal reviewed with no blocker; five sprints, C unnecessary. TASK686 clo
 conditional on own complete CI and merge. WP9-L1/L2/D1 and inherited WP3–WP8/unrelated debt retained.
 No active WP9 task or committed successor remains after validated closure. WP10 requires fresh
 Planning/admission for reparenting; it is not admitted by this closure or general EAP forecast.
+
+## WP10 bounded compatible movement review — 2026-10-11 UTC
+WP10-L1: existing installed composition only, existing compatible containers/slots, fixed source
+root and graph array order. No cross-composition copy, free drag or template insertion.
+WP10-L2: responsive fixed-span nested preview can clip undersized children; full labels remain in
+Inspector/Layers/title. This inherited geometry constraint is not a new resizing/layout promise.
+WP10-D1: whole-graph admission and bounded50-entry snapshots reuse existing caps/costs; broader
+catalog/token-heavy/cold/max-bound/long-session retained-memory profiling remains unproven.
+61 actual Chromium journeys include keyboard/narrow/window/retention and a real short recording;
+no universal cross-browser/screen-reader or production latency certification. All WP3–WP9 and
+unrelated debt retained. Review own gates control GO Closure. No bounded-goal blocker observed.
+A testing finding: depth32 limits JSON nesting, not flat graph ancestor count; node cap256 governs
+graph size and full validation rejects cycles. Closure reconciles misleading operational wording.
+Unmerged B trial had two inherited fixed20-Tab helper failures; six new journeys passed. Final B
+uses DOM-bounded real traversal and all61 pass, with no skip/timeout/workflow weakening.
