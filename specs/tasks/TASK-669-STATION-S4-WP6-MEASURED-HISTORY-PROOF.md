@@ -1,7 +1,7 @@
 ---
 id: TASK-669
 title: Station S4 WP6 MEASURED HISTORY PROOF
-status: ready
+status: completed
 priority: 669
 milestone: STATION-S4-WP6-HISTORY-HARDENING
 model_tier: architecture
@@ -69,3 +69,5 @@ Separate materialization, one authoritative TASK commit, Sprint report and one P
 Stop for unsafe validation reuse, undeclared L3/L4, forbidden paths, conflicting authority, dependency collision or missing proof. Record findings rather than weaken checks.
 
 Owner explicitly authorizes WP6 through closure; B requires its own observed validation and merge before successors.
+
+Observed paired benchmark matched runtime/protocol/fixture digests and exceeded 2x max-bound warm Undo/Redo target in every batch. 89 editor tests and Station build passed; full local verify remains IPC-blocked. CI and validated merge still required.
