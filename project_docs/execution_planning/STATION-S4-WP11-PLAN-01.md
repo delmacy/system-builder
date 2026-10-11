@@ -18,3 +18,6 @@ Risks: quota/cleared origin, stale snapshot, corrupted retained content, guarded
 case/name collisions, asynchronous import race, large snapshot validation; no CAS/latency guarantee.
 Version history/Git-like operations, .process, rename/move/delete/overwrite, Core/server/host/sync and
 arbitrary binaries remain excluded. WP12 requires fresh planning/admission, not automatic execution.
+
+## B promotion
+A#1087 seven PASS gates integrated. Only B/TASK694 materialized, later forecast.
