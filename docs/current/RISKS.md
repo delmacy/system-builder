@@ -178,3 +178,19 @@ remain explicit nonblocking limits/debt. Older imported retention heads can bloc
 allocation; explicit copy/export is available, no silent version jump/rebase. No larger capacities,
 CAS/auto-merge/provider/latency or whole WBS/H2/S4 certification. WP13 requires fresh Planning,
 semantic owners/contracts and admission; outside current package execution authorization.
+
+## Station S4 WP13 bounded process context review — 2026-10-11 UTC
+WP13-L1: process reference syntax is canonical identity, not semantic availability. No live process
+owner service is connected; unavailable is explicit. Available responses must match the full anchor.
+Manifest portability requires separately retained pinned composition parts; no monolithic .process,
+semantic business authoring, generic multiview Studio or whole WBS/H3/S4 certification.
+WP13-L2: one origin-local context slot;1MiB/depth32/16views/ref256/title80 caps. Storage may clear,
+deny or exhaust quota. Expected text/re-read is best-effort detection, not transactional cross-tab CAS.
+Same identity/version with different content rejects; a distinct new identity permits explicit replacement.
+WP13-L3: missing/stale/invalid/unavailable projections never silently choose the newest revision.
+Explicit opening re-resolves the exact tuple and uses existing Cancel/Discard editor protection.
+WP13-D1: bounded codec/deep-copy and full workspace admission repeat per view. Max-bound/cold/
+long-session retained-memory/latency and universal browser/accessibility profiling remain unproven.
+Small duplicated inert-envelope admission helpers remain scoped; no shared-contract refactor implied.
+All inherited WP3–WP12/unrelated residuals retained. No bounded-goal blocker after B's seven PASS
+workflows and82 actual Chromium journeys. C unnecessary; own Review gates control GO Closure.
