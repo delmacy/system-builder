@@ -468,3 +468,16 @@ construction workflows include Windows/Ubuntu/frontend quality, Review193 direct
 Addendum013/PLAN/Review/Closure reports trace evidence. WP13-L1/L2/L3/D1 and inherited debt retained.
 Bounded WP13 CLOSED only on independently validated TASK706 merge. No semantic business authoring,
 generic multiview Studio (WP14), C10 (WP15), real service journey (WP16), Core/server/host or whole S4.
+
+## Station S4 WP14 shared projections — operation
+Process Context uses one admitted context model for Explorer, Context outline/Reference table and Inspector.
+Select a process anchor or authored composition reference using Explorer or the active projection;
+switching projections preserves qualified selection. Inspector displays read-only logical identity,
+pinned revision and current status. Process anchor remains unavailable without a live semantic owner.
+Only available composition selections enable Open selected composition; clicking freshly resolves exact
+revision through the WP13 adapter before ordinary editor Cancel/Discard protection. Original reference
+list remains compatible and derives the same model. No newest-version substitution or semantic mutation.
+Refresh references preserves selected identity while updating status; context replacement clears selection.
+Minimize preserves mounted state, close/reload resets it and context reopening remains explicit.
+No portable envelope/context/workspace schema/key changes or persisted selection. Two source-owned
+descriptors/17 items maximum; no remote renderers, timers, generic domain models or C10 Studio.

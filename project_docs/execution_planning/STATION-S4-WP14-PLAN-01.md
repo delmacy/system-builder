@@ -58,3 +58,10 @@ Construction also requires station production build, Windows/Ubuntu/frontend che
 actual Chromium proof. Preserve workflow/test assertions and timeouts; no waiver.
 One sprint/<SPRINT-ID> branch, one authoritative commit per TASK, one PR per sprint.
 NEXT_WORK remains sole live scheduler. WP15/WP16 and construction beyond prepared A remain forecast.
+
+## Authorized execution update
+Owner now explicitly requests full WP14 implementation, including eligible Review/Closure transitions.
+A#1102 integrated b0efe2f06a219006469a75dc152cb9f4af6b9c70 after seven exact-head/current-base/construction workflows PASS.
+Necessary eighth-path TypeScript alias correction preserves architecture gate and accepted scope.
+TASK709 B COMMITTED on twelve exact paths; six focused browser journeys extend all82 predecessors.
+C remains conditional; assess only after B integration. No automatic WP15/16 materialization.

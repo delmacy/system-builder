@@ -210,3 +210,10 @@ models reuse existing interaction primitives. Unresolved refresh preserves ident
 B must freshly resolve exact references before ordinary dirty editor handoff. No semantic owner change.
 WP14-L1 two source-owned descriptors/17 items/ephemeral mounted selection. WP14-D1 inherited bounded
 codec/workspace scans, long-session memory/performance/accessibility remain unproven. WP13 debt retained.
+
+## WP14 Construction B
+One codec-admitted immutable model supplies context/status/selection to all surfaces; no second canonical
+truth. request-open is a presentation affordance only; both handoffs re-resolve exact tuple and preserve
+ordinary editor guards. Minimize retains selection; replacement/close/reload clear it. Labels are inert.
+WP14-L1 remains two installed descriptors/17 items/ephemeral selection. WP14-D1 full workspace scans and
+long-session memory/latency/broader accessibility remain unproven. Inherited WP13 residuals retained.

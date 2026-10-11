@@ -1,8 +1,9 @@
 # Addendum 014 — Station shared model projections
 Date: 2026-10-11 UTC
-Status: PROPOSED; accepted only on independently validated Planning integration.
+Status: ACCEPTED via Planning#1101; whole-WP14 implementation authorized 2026-10-11.
 Admission: owner requests WP13 closure and WP14 planning. This admits a bounded planning
-increment; it does not authorize product construction or automatic successor execution.
+increment. Subsequent owner instruction explicitly authorizes bounded whole-WP14 implementation,
+including Review/Closure after independently validated predecessors.
 
 ## Outcome and boundary
 Extend the accepted WP13 reference-context slice with reusable Explorer/Inspector projections,
@@ -60,3 +61,9 @@ malformed/unsafe/unknown descriptors and selections, changed/missing/stale/corru
 keyboard/narrow layout and dirty handoff cancellation. Preserve all 82 predecessor browser journeys.
 No semantic authoring, generic arbitrary schema editor, remote registry, C10/Studio, live service,
 Core/server/host, collaboration/CAS, runtime/deploy or whole WBS/H3/S4 certification.
+
+## Construction disposition
+A#1102 integrated after seven workflows PASS; existing context API alias added for unchanged package
+architecture gate. B adds shared Explorer/Inspector/two projection surfaces over one actual A state;
+host document and status derive from that state, with fresh exact opening and existing dirty protection.
+No codec/key/public owner schema change. B requires complete independent gates before integration.
