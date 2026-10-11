@@ -1,6 +1,6 @@
 # Current Risks
 
-Date: 2026-10-10
+Date: 2026-10-11 UTC
 
 Horizon note: R1–R12 retain older P13 risk evidence; their task/sprint directives are historical context and do not select current work. No old risk/debt closure is implied. NEXT_WORK is the sole execution pointer.
 
@@ -67,3 +67,6 @@ A #1051 and B #1052 passed seven workflows, Windows/Ubuntu and actual Chromium p
 
 ## WP4 closure disposition
 A/B/review integrated and bounded goal proven; WP4 closes only when Documentation & Closure validates/integrates. All WP4-L1/L2/D1/D2 and WP3 dispositions above remain explicit nonblocking limits/backlog. No active WP4 work remains after validated closure merge; no successor scope is inferred from historical tokens.
+
+## Station S4 WP5 package review — 2026-10-11 UTC
+Construction A/B integrated through #1056/#1057; B has seven passing workflows and 37 actual browser journeys. No bounded-goal blocker observed; optional C is not promoted. WP5-L1: installed catalog, typed slots, fixed root and sibling-only reorder with existing caps. WP5-L2: changed structural topology/order emits composition payload v2 and requires a v2 reader; original source topology v1 remains supported. WP5-D1: max-bound whole-snapshot validation cost was measured (undo approximately 133–236 ms across the sampled 256-node shapes) and remains optimization debt before wider catalogs, without latency guarantee. WP4-D2 gains measurement evidence, not a claim of optimization. All other inherited WP3/WP4 and historical debt remains. Review/closure exact-head gates control package closure; local execution is offline on resumption and CI provides observed full verification.

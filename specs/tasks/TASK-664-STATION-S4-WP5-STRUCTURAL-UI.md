@@ -1,7 +1,7 @@
 ---
 id: TASK-664
 title: Station S4 WP5 STRUCTURAL UI
-status: ready
+status: completed
 priority: 664
 milestone: STATION-S4-WP5-STRUCTURAL-AUTHORING
 model_tier: architecture
@@ -65,3 +65,5 @@ External components, reparenting, free drag, Core/server/File Manager/.process/s
 One authoritative TASK commit, Sprint report, one PR and observed exact-head/current-base checks.
 ## Escalation
 Stop for collision, conflicting authority, forbidden paths, undeclared L3/L4 or security weakening.
+
+Integrated #1057 at 09a8c74d227b1a19809020d806f724d0cd1b7886; corrected head 727ec9602cf8493682c28a1d935bca83a6061d75 passed seven workflows and 37/37 Chromium. First truncated publication was never merged.
