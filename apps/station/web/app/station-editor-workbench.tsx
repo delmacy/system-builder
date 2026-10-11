@@ -4,6 +4,8 @@ import { useEffect, useReducer, useRef, useState, type KeyboardEvent, type React
 import { Button } from "../../../../packages/ui-core/index";
 import { DEFAULT_COMPOSITION_REF, initializeCatalogEditorSession, listEditorCatalog, resolveEditorCatalogEntry, type EditorCatalogEntry } from "./station-editor-catalog";
 import { prepareEditorArtifact, readEditorArtifact, requestArtifactDownload, sameEditorArtifactGraph } from "./station-editor-files";
+import { importCatalogArtifact } from "./station-editor-artifact";
+import { StationWorkspaceSave } from "./station-workspace-save";
 import { supportsButtonDisplayText, type ButtonProperties } from "../../../../packages/station-composition/index";
 import type { EditorLayer } from "../../../../packages/station-editor/index";
 import {
@@ -224,9 +226,21 @@ function reducer(state: State | null, action: Action): State | null {
       : (result.changed ? "Changes discarded." : "No changes to discard.") };
 }
 
-export function StationEditorWorkbench({ initialCompositionRef = DEFAULT_COMPOSITION_REF }: { initialCompositionRef?: string }) {
+export interface EditorArtifactOpenRequest { readonly id: number; readonly text: string }
+export function StationEditorWorkbench({ initialCompositionRef = DEFAULT_COMPOSITION_REF, artifactRequest = null, onArtifactRequestConsumed }: {
+  initialCompositionRef?: string; artifactRequest?: EditorArtifactOpenRequest | null; onArtifactRequestConsumed?: (id: number) => void;
+}) {
   const [state, dispatch] = useReducer(reducer, initialCompositionRef, initialState);
   const catalogSelect = useRef<HTMLSelectElement>(null);
+  const consumed = useRef<number | null>(null);
+  useEffect(() => {
+    if (!artifactRequest || !state || consumed.current === artifactRequest.id) return;
+    consumed.current = artifactRequest.id;
+    const result = importCatalogArtifact(artifactRequest.text);
+    if (result.accepted) dispatch({ type: "request-open", document: result.document, savedText: null, expectedSession: state.history.session });
+    else dispatch({ type: "feedback", message: "Unable to open this workspace file. Your session is unchanged.", invalid: true, expectedSession: state.history.session });
+    onArtifactRequestConsumed?.(artifactRequest.id);
+  }, [artifactRequest, state, onArtifactRequestConsumed]);
   if (!state) return <section aria-label="Composition editor"><p role="alert">Composition unavailable.</p></section>;
   return <ActiveWorkbench key={state.entry.compositionRef} state={state} dispatch={dispatch} catalogSelect={catalogSelect} />;
 }
@@ -437,6 +451,9 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
         onClick={() => { if (catalogChoice) dispatch({ type: "request-switch", ref: catalogChoice.compositionRef }); }}>Install composition</Button>
       <p className="w-full text-xs text-muted-foreground" aria-live="polite">{catalogMatches.length} installed composition{catalogMatches.length === 1 ? "" : "s"} found. Installation opens an editable source copy.</p>
     </div>
+    <StationWorkspaceSave blocked={historyBlocked(state)}
+      prepare={() => prepareEditorArtifact(state.entry.compositionRef, state.history.session.transaction.draft, state.document, operation(), true)}
+      feedback={feedback} />
     {state.pendingArtifact ? <div className="flex flex-wrap items-center gap-3 border-b p-4" role="group" aria-label="Unsaved artifact open">
       <p>Unsaved changes. Discard them and open this composition artifact?</p>
       <Button variant="outline" onClick={() => { restoreOpenFocus.current = true; dispatch({ type: "cancel-open" }); }}>Cancel open</Button>

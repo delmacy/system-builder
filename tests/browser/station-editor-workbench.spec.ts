@@ -1208,3 +1208,174 @@ test.describe("WP10 compatible movement", () => {
     await testInfo.attach("Station WP10 demonstração real", { path: video, contentType: "video/webm" });
   });
 });
+
+test.describe("WP11 real artifact workspace", () => {
+  const workspace = (page: Page) => page.getByRole("region", { name: "Artifact workspace", exact: true });
+  const launch = async (page: Page, name: string) => {
+    await page.getByRole("button", { name: "Open applications", exact: true }).click();
+    await page.locator(name === "File Manager" ? '[data-app-ref="app:file-manager"]' : '[data-app-ref="app:composition-editor"]').click();
+  };
+  const folder = async (page: Page, name: string) => {
+    await workspace(page).getByLabel("New folder name", { exact: true }).fill(name);
+    await workspace(page).getByRole("button", { name: "Create folder", exact: true }).click();
+    await expect(workspace(page).getByRole("status")).toHaveText("Folder created.");
+  };
+  const saveCopy = async (page: Page, name: string) => {
+    await editor(page).getByLabel("Workspace copy name", { exact: true }).fill(name);
+    await editor(page).getByRole("button", { name: "Save to workspace", exact: true }).click();
+    await expect(editor(page).getByRole("status")).toContainText("Workspace copy saved");
+  };
+  const portable = async (page: Page) => {
+    const wait = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Save As file", exact: true }).click();
+    const download = await wait; const path = await download.path(); expect(path).not.toBeNull();
+    return readFile(path!);
+  };
+
+  test("nested folders + editor-produced copy + Inspector + guarded singleton reopening", async ({ page }, testInfo) => {
+    await page.goto("/"); await launch(page, "File Manager");
+    await folder(page, "Design"); await workspace(page).getByRole("button", { name: "Folder: Design", exact: true }).click();
+    await folder(page, "Screens"); await workspace(page).getByRole("button", { name: "Folder: Screens", exact: true }).click();
+    await launch(page, "Composition Editor");
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3");
+    await editor(page).getByRole("button", { name: "Refresh workspace folders", exact: true }).click();
+    await editor(page).getByRole("combobox", { name: "Workspace folder", exact: true }).selectOption({ label: "Workspace / Design / Screens" });
+    await saveCopy(page, "screen.composition.json");
+    await expect(editor(page).getByTestId("draft-state")).toHaveText("Unsaved changes");
+    await launch(page, "File Manager"); await workspace(page).getByRole("button", { name: "Refresh workspace", exact: true }).click();
+    await expect(workspace(page).getByLabel("Current workspace folder", { exact: true })).toHaveText("Workspace / Design / Screens");
+    await workspace(page).getByRole("button", { name: "screen.composition.json", exact: true }).click();
+    const inspector = workspace(page).getByRole("complementary", { name: "File Inspector", exact: true });
+    await expect(inspector).toContainText("composition:example"); await expect(inspector).toContainText("1.0.0");
+    await inspector.getByRole("button", { name: "Open in editor", exact: true }).click();
+    await expect(editor(page).getByRole("group", { name: "Unsaved artifact open", exact: true })).toBeVisible();
+    await editor(page).getByRole("button", { name: "Cancel open", exact: true }).click();
+    await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+    await launch(page, "File Manager"); await inspector.getByRole("button", { name: "Open in editor", exact: true }).click();
+    await editor(page).getByRole("button", { name: "Discard changes and open file", exact: true }).click();
+    await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+    await expect(editor(page).getByRole("button", { name: "Undo", exact: true })).toHaveAttribute("aria-disabled", "true");
+    expect(await page.evaluate(() => Object.keys(localStorage).filter(k => k.startsWith("station:composition-artifact:v1:")).length)).toBe(0);
+    await page.screenshot({ path: testInfo.outputPath("wp11-editor-workspace-reopened.png"), fullPage: true });
+  });
+
+  test("independent named copies and actual export/import in a fresh browser context preserve identity", async ({ page }, testInfo) => {
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3");
+    await saveCopy(page, "copy-a.composition.json"); await span(page, "4"); await saveCopy(page, "copy-b.composition.json");
+    const retained = await page.evaluate(() => JSON.parse(localStorage.getItem("station:artifact-workspace:v1")!));
+    expect(retained.files).toHaveLength(2);
+    const first = JSON.parse(retained.files[0].text), second = JSON.parse(retained.files[1].text);
+    expect(first.artifactId).not.toBe(second.artifactId); expect(first.payload.graph.nodes[1].placement.columnSpan).toBe(3);
+    expect(second.payload.graph.nodes[1].placement.columnSpan).toBe(4);
+    await page.goto("/"); await launch(page, "File Manager");
+    await workspace(page).getByRole("button", { name: "copy-a.composition.json", exact: true }).click();
+    const wait = page.waitForEvent("download"); await workspace(page).getByRole("button", { name: "Export composition", exact: true }).click();
+    const download = await wait, path = await download.path(), bytes = await readFile(path!);
+    expect(JSON.parse(bytes.toString())).toEqual(first);
+    const context = await page.context().browser()!.newContext();
+    try {
+      const other = await context.newPage(); await other.goto("http://127.0.0.1:3100/"); await launch(other, "File Manager");
+      await workspace(other).getByLabel("Import workspace composition", { exact: true }).setInputFiles({ name: "imported.composition.json", mimeType: "application/json", buffer: bytes });
+      await expect(workspace(other).getByRole("status")).toHaveText("Composition imported.");
+      await workspace(other).getByRole("button", { name: "imported.composition.json", exact: true }).click();
+      await expect(workspace(other).getByRole("complementary", { name: "File Inspector", exact: true })).toContainText(first.artifactId);
+      await workspace(other).getByRole("button", { name: "Open in editor", exact: true }).click();
+      await expect(preview(other)).toHaveAttribute("data-column-span", "3");
+      await other.screenshot({ path: testInfo.outputPath("wp11-independent-file-import.png"), fullPage: true });
+    } finally { await context.close(); }
+  });
+
+  test("unapplied fields block workspace saving; external open cancel preserves input and confirm installs file", async ({ page }) => {
+    await page.goto("/"); await launch(page, "Composition Editor");
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await saveCopy(page, "original.composition.json");
+    await editor(page).getByLabel("Columns", { exact: true }).fill("3");
+    await expect(editor(page).getByRole("button", { name: "Save to workspace", exact: true })).toBeDisabled();
+    await launch(page, "File Manager"); await workspace(page).getByRole("button", { name: "original.composition.json", exact: true }).click();
+    await workspace(page).getByRole("button", { name: "Open in editor", exact: true }).click();
+    await editor(page).getByRole("button", { name: "Cancel open", exact: true }).click();
+    await expect(editor(page).getByLabel("Columns", { exact: true })).toHaveValue("3");
+    await expect(preview(page)).toHaveAttribute("data-column-span", "2");
+    await launch(page, "File Manager"); await workspace(page).getByRole("button", { name: "Open in editor", exact: true }).click();
+    await editor(page).getByRole("button", { name: "Discard changes and open file", exact: true }).click();
+    await expect(editor(page).getByLabel("Columns", { exact: true })).toHaveValue("2");
+    await expect(editor(page).getByRole("button", { name: "Save to workspace", exact: true })).toBeEnabled();
+  });
+
+  test("actual file preflight, corrupt workspace refresh and quota failure preserve prior files", async ({ page }) => {
+    const bytes = await portable(page); await page.goto("/"); await launch(page, "File Manager");
+    const input = workspace(page).getByLabel("Import workspace composition", { exact: true });
+    await input.setInputFiles({ name: "script.txt", mimeType: "application/json", buffer: bytes });
+    await expect(workspace(page).getByRole("status")).toContainText("Unable to import");
+    await input.setInputFiles({ name: "broken.composition.json", mimeType: "application/json", buffer: Buffer.from("{}") });
+    await expect(workspace(page).getByRole("status")).toContainText("Unable to import");
+    expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBeNull();
+    await input.setInputFiles({ name: "retained.composition.json", mimeType: "application/json", buffer: bytes });
+    await expect(workspace(page).getByRole("status")).toHaveText("Composition imported.");
+    const prior = await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"));
+    await page.evaluate(() => localStorage.setItem("station:artifact-workspace:v1", "corrupt"));
+    await workspace(page).getByRole("button", { name: "Refresh workspace", exact: true }).click();
+    await expect(workspace(page).getByRole("button", { name: "retained.composition.json", exact: true })).toBeVisible();
+    await expect(workspace(page).getByRole("button", { name: "Create folder", exact: true })).toBeDisabled();
+    expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe("corrupt");
+    await page.evaluate(text => localStorage.setItem("station:artifact-workspace:v1", text!), prior);
+    await workspace(page).getByRole("button", { name: "Refresh workspace", exact: true }).click();
+    await page.evaluate(() => { const set = Storage.prototype.setItem; Storage.prototype.setItem = function(key, value) {
+      if (key === "station:artifact-workspace:v1") throw new DOMException("quota", "QuotaExceededError"); set.call(this, key, value);
+    }; });
+    await workspace(page).getByLabel("New folder name", { exact: true }).fill("Denied");
+    await workspace(page).getByRole("button", { name: "Create folder", exact: true }).click();
+    await expect(workspace(page).getByRole("status")).toContainText("Unable to store");
+    expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe(prior);
+  });
+
+  test("stale saved-copy and selected-file snapshots require refresh without overwriting or opening", async ({ page }) => {
+    await saveCopy(page, "a.composition.json"); const other = await page.context().newPage();
+    try {
+      await other.goto("http://127.0.0.1:3100/component-editor"); await saveCopy(other, "b.composition.json");
+      await editor(page).getByLabel("Workspace copy name", { exact: true }).fill("c.composition.json");
+      await editor(page).getByRole("button", { name: "Save to workspace", exact: true }).click();
+      await expect(editor(page).getByRole("status")).toContainText("Workspace changed");
+      expect(await page.evaluate(() => JSON.parse(localStorage.getItem("station:artifact-workspace:v1")!).files.length)).toBe(2);
+      await editor(page).getByRole("button", { name: "Refresh workspace folders", exact: true }).click(); await saveCopy(page, "c.composition.json");
+      await page.goto("/"); await launch(page, "File Manager"); await workspace(page).getByRole("button", { name: "a.composition.json", exact: true }).click();
+      await editor(other).getByRole("button", { name: "Refresh workspace folders", exact: true }).click(); await saveCopy(other, "d.composition.json");
+      await workspace(page).getByRole("button", { name: "Open in editor", exact: true }).click();
+      await expect(workspace(page).getByRole("status")).toContainText("Workspace changed");
+      await expect(page.getByRole("dialog", { name: "Composition Editor", exact: true })).toHaveCount(0);
+      await workspace(page).getByRole("button", { name: "Refresh workspace", exact: true }).click();
+      await workspace(page).getByRole("button", { name: "a.composition.json", exact: true }).click();
+      await workspace(page).getByRole("button", { name: "Open in editor", exact: true }).click(); await expect(preview(page)).toBeVisible();
+    } finally { await other.close(); }
+  });
+
+  test("keyboard narrow workspace/window lifecycle and consumed handoff does not replay after close", async ({ page }) => {
+    await page.getByRole("treeitem", { name: "Button 1", exact: true }).click(); await span(page, "3"); await saveCopy(page, "keyboard.composition.json");
+    await page.goto("/"); await page.setViewportSize({ width: 390, height: 860 }); await launch(page, "File Manager");
+    const file = workspace(page).getByRole("button", { name: "keyboard.composition.json", exact: true }); await tabTo(page, file); await file.press("Enter");
+    const open = workspace(page).getByRole("button", { name: "Open in editor", exact: true }); await tabTo(page, open); await open.press("Enter");
+    await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+    const window = page.getByRole("dialog", { name: "Composition Editor", exact: true });
+    await window.getByRole("button", { name: "Minimize window", exact: true }).click();
+    await page.locator('[data-slot="taskbar-windows"]').getByRole("button", { name: "Composition Editor", exact: true }).click();
+    await expect(preview(page)).toHaveAttribute("data-column-span", "3");
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await window.getByRole("button", { name: "Close window", exact: true }).click(); await launch(page, "Composition Editor");
+    await expect(preview(page)).toHaveAttribute("data-column-span", "2");
+  });
+
+  test("asynchronous actual import superseded by folder navigation never installs in an obsolete target", async ({ page }) => {
+    const bytes = await portable(page); await page.goto("/"); await launch(page, "File Manager"); await folder(page, "Target");
+    await page.evaluate(() => {
+      const read = File.prototype.text;
+      File.prototype.text = function() { return new Promise<string>(resolve => {
+        (window as unknown as { finishWorkspaceRead: () => Promise<void> }).finishWorkspaceRead = () => read.call(this).then(resolve);
+      }); };
+    });
+    await workspace(page).getByLabel("Import workspace composition", { exact: true }).setInputFiles({ name: "delayed.composition.json", mimeType: "application/json", buffer: bytes });
+    await page.waitForFunction(() => typeof (window as unknown as { finishWorkspaceRead?: unknown }).finishWorkspaceRead === "function");
+    await workspace(page).getByRole("button", { name: "Folder: Target", exact: true }).click();
+    await page.evaluate(() => (window as unknown as { finishWorkspaceRead: () => Promise<void> }).finishWorkspaceRead());
+    await expect(workspace(page).getByRole("region", { name: "Folder contents", exact: true })).toContainText("This folder is empty");
+    expect(await page.evaluate(() => JSON.parse(localStorage.getItem("station:artifact-workspace:v1")!).files.length)).toBe(0);
+  });
+});
