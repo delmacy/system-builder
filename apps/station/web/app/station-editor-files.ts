@@ -8,6 +8,7 @@ export function sameEditorArtifactGraph(left: CompositionGraph, right: Compositi
   return left.rootRef === right.rootRef && left.nodes.length === right.nodes.length && left.nodes.every((node, i) => {
     const other = right.nodes[i]!;
     return node.ref === other.ref && node.componentRef === other.componentRef &&
+      node.text === other.text && Object.hasOwn(node, "text") === Object.hasOwn(other, "text") &&
       node.placement?.parentRef === other.placement?.parentRef && node.placement?.slotRef === other.placement?.slotRef &&
       node.placement?.columnSpan === other.placement?.columnSpan && node.placement?.rowSpan === other.placement?.rowSpan;
   });
