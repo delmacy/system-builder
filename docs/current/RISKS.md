@@ -132,3 +132,16 @@ goal. Five sprints match forecast, C unnecessary. Closure becomes effective only
 complete CI/merge. WP10-L1/L2/D1 and all inherited WP3–WP9/unrelated limits/debt remain explicit.
 No active WP10 work or committed successor after that merge. Future WP11 planning must admit its
 own scope and retention/ownership contracts; no remote catalog/File Manager/Core/server promotion.
+
+## WP11 bounded workspace review — 2026-10-11 UTC
+WP11-L1: browser-origin retention can be cleared/denied/quota-limited. Workspace16 folders/48 files/
+8 folder levels/4MiB remains bounded; each composition retains existing codec/node/token limits.
+Named files append independent copies; rename/move/delete/overwrite and Git-like history unimplemented.
+WP11-L2: native setItem is atomic with best-effort expected text/re-read detection, not cross-tab CAS.
+Save copy preserves current draft/history; explicit editor opening still uses Cancel/Discard protection.
+Window layout may restore File Manager and read workspace metadata; no graph opens without user action.
+WP11-D1: whole workspace admission invokes actual codec for each file; max-bound/cold/long-session/
+retained-memory and wider browser/accessibility profiling remains unproven. No latency/certification.
+Corrupted workspace remains untouched; failed refresh preserves previous visible snapshot and blocks
+mutation/open until valid refresh. Portable files provide independent retention, no automatic recovery.
+All WP3–WP10/unrelated residuals retained. No bounded-goal blocker after integrated actual browser proof.
