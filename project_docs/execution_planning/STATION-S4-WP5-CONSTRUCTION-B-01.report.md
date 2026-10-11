@@ -16,3 +16,6 @@ Optional C only if actual integrated browser proof identifies missing goal capab
 
 ## Publication correction
 First PR head failed lint/browser parsing because a transport-truncated test file was published. No merge occurred. Republish complete Git blobs, compare every SHA to the intended content, and require all gates on the corrected head. Bounded UI hardening uses the first available node identity, reveals parent ancestors on add and displays hierarchy indentation. These remain within the five-path TASK scope.
+
+## Corrected validated integration
+TASK-664 corrected head 727ec9602cf8493682c28a1d935bca83a6061d75 integrated via #1057 at 09a8c74d227b1a19809020d806f724d0cd1b7886. All ten published blobs verified after safe republication. Seven workflows passed: 38099415564/554/526/530/536/577/538, including Windows/Ubuntu/frontend quality. Actual Chromium 37/37 passed in 27.3 s (job 114352055683); discovery-only wording above describes pre-CI state. Artifact 11686039452, GitHub-reported sha256:da4c71418602313f972bd06989d65960b292f1f3833898cc0c78db96b23e25a3, expiry 2026-10-25T00:45:02Z. No manual screenshot inspection is claimed. The failed initial publication never merged.

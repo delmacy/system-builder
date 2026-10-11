@@ -252,7 +252,7 @@ To run the integrated UI locally with Node 24 and npm 11: `npm ci`, `npm run sta
 See `project_docs/execution_planning/STATION-S4-WP2-DOCUMENTATION-CLOSURE-01.report.md` for integrated PR/CI traceability and residual limits. The M1 foundation and diagrams above remain historical design context.
 
 
-## Station S4 WP3 portable composition operation
+## Station S4 WP3 portable composition operation (historical v1 scope)
 
 Addendum 004/RESOLUTION-01/02 use the existing ADR-0009 public envelope with a strict composition payload. The installed application/composition/baseRevision and source registry own identities/topology/order/labels; imported files are inert data and may change only admitted spans. The initial two catalog entries each have three nodes. JSON payloads reject malformed/version/schema/identity/revision/source/script fields and unsafe keys before replacement. Limits are inclusive 1,048,576 UTF-8 bytes, 256 nodes, 32 container levels and 256 code points per graph token; no URI/extension is executed or fetched.
 
@@ -265,7 +265,7 @@ Addendum 004/RESOLUTION-01/02 use the existing ADR-0009 public envelope with a s
 
 The package review and closure reports under project_docs/execution_planning/STATION-S4-WP3-* map accepted delivery to actual API/product/browser/Windows/Ubuntu proof and classified residuals. No automatic saving/loading, Core/server storage, structural authoring, File Manager, canonical .process, network sync or deployment is included.
 
-## Station S4 WP4 applied size history
+## Station S4 WP4 applied size history (historical scope)
 
 The Composition Editor route and Station window use one ephemeral history wrapper around the current EditorSession. Undo and Redo restore up to 50 applied changed size edits, retain the selected layer and accepted baseline, and increment draft revision; returning to the accepted baseline is clean. Changed branching clears redo; no-op/rejected edits retain it. Source topology and public artifact format remain unchanged.
 
@@ -276,3 +276,12 @@ Successful Save changes, Save locally, Discard changes or open/switch starts an 
 Construction B expands the existing Chromium suite from 21 to 29 journeys, adding convergence, branch/no-op/rejection, native-input shortcuts, checkpoints, cancellation/failure/export, successful replacement/reload, Station lifecycle and the actual 51-edit/50-undo limit. Pure engine tests use both real installed compositions and existing projections/codec. No generic structural authoring, persistent history or full Component Editor is claimed.
 
 WP4 delivery traceability: engine #1051, actual route/window #1052 and package review #1053 validated/integrated; 29 real Chromium journeys and Windows/Ubuntu production builds. Documentation & Closure reconciles memory without product change. To inspect locally after pulling main, use Node 24/npm 11, `npm ci`, then `npm run station:dev`; open the Station launcher Composition Editor or `/component-editor`. For production proof use the build/start/browser commands above. Undo/Redo affects only applied span edits; subsequent structural component authoring remains separately gated.
+
+## Station S4 WP5 bounded structural authoring — current operation
+Addendum 006 extends the editor's installed catalog with add, non-root subtree removal and sibling reorder. Choose an existing container and slot, choose an installed component and add it with recommended spans. Layers, Inspector and Preview use the same draft and authored array order. Select a non-root node to remove its subtree; move earlier/later changes only siblings in that parent/slot. Root identity is fixed; external descriptors, reparenting and free drag are excluded. Incompatible/occupied slots or exceeded bounds reject without changing the draft. New references use the first available node:added-N identity.
+
+Structural commands and applied span edits share the 50-entry ephemeral Undo/Redo history. Pending Inspector fields or replacement dialogs block graph changes; native input undo stays separate. Removal, undo and discard repair selection to a surviving ancestor/root. Save changes/local, successful open/switch and discard establish fresh history checkpoints. Minimize retains mounted state; close/reload resets history. Artifacts/preferences never persist history.
+
+Save locally/Save As/Open saved/Open file operate on the validated applied graph. Changed topology/order uses composition payload schema 2.0.0; exact source topology/order remains 1.0.0. Both are readable by the integrated codec, while older readers explicitly reject v2. Updating retained v1 to structural v2 preserves artifact identity, advances caller patch/provenance and retains inert extensions. ADR-0009 envelope and installed source identity remain unchanged. WP3's origin/quota/conflict/download-receipt limits still apply. Historical WP3/WP4 fixed-topology statements above describe those predecessors and are superseded only within Addendum 006's admitted scope.
+
+The same production build/start and Playwright commands above now execute **37 browser journeys**: 29 retained WP2/WP3/WP4 cases plus eight structural/history/file/local/keyboard/window cases. Engine #1056, workbench #1057 and review #1058 integrate bounded WBS 21.2.1/21.2.3/21.3.1/21.3.2 slices. See WP5 review/closure reports for exact-head CI and residuals. This does not complete the full ComponentEditor, whole WBS 21 or deployment. Quantitative max-bound snapshot validation remains optimization debt, not a latency guarantee.

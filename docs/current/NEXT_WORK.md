@@ -1,5 +1,10 @@
-# Next Work — Station S4 WP5 Package Review
+# Next work — WP5 bounded delivery closed
 Date: 2026-10-11 UTC
-Status: Package Review/TASK-665 COMMITTED; WP5 not yet closed
-Authority: AGENTS.md, docs/DOCUMENT_AUTHORITY.md, docs/contracts/CONTRACT_INDEX.md, docs/contracts/006-station-structural-authoring/ADDENDUM.md, project_docs/execution_planning/STATION-S4-WP5-PLAN-01.md, project_docs/execution_planning/STATION-S4-WP5-INTEGRATION-REVIEW-01.md, specs/tasks/TASK-665-STATION-S4-WP5-PACKAGE-REVIEW.md
-Planning #1055, A #1056 and B #1057 integrated; B 09a8c74d227b1a19809020d806f724d0cd1b7886 has seven passing workflows/Windows/Ubuntu and 37/37 Chromium. Optional C unnecessary and not promoted. Review must regress full admitted goal, check declared payload v1/v2/ADR boundaries, trust/dependencies/performance/debt and closure readiness. Four documentation paths only; no overflow product construction. Owner's complete WP5 authorization covers review/closure after fresh-main passing gates. Closure remains forecast; File Manager/.process/Core/server/sync/Studios/AI/deployment remain excluded.
+This is the sole live execution pointer. WP5 closure becomes effective only on validated integration of TASK-666; branch-only text is conditional.
+
+## Integrated horizon
+Addendum 006's bounded structural-authoring goal is delivered: installed add, non-root subtree removal and sibling reorder; shared ephemeral history and synchronized projections; explicit composition payload v1/v2 portable/local round trips. Planning #1055, A #1056, B #1057 and Review #1058 integrated. Closure manifest/report: project_docs/execution_planning/STATION-S4-WP5-DOCUMENTATION-CLOSURE-01.md and .report.md. Review integrated at e5abb70ca7e81772fbb582aa4fbf3dd03f84226f, five passing workflows and actual Chromium 37/37. Closure independently requires npm run verify and all triggered exact-head/current-base/heavy/handoff/browser checks before merge.
+
+## Current handoff after validated closure
+No active WP5 TASK or committed successor remains. Next eligible action is fresh-main baseline planning with explicit owner scope and accepted contracts; no WP6, File Manager, .process, Studio, Core/server/sync/deployment or full ComponentEditor is auto-promoted. Review/closure reports and docs/current/RISKS.md retain WP5-L1/L2/D1 and inherited WP3/WP4 limits/debt. Unrelated open PRs are preserved.
+Authority: AGENTS.md; docs/DOCUMENT_AUTHORITY.md; docs/contracts/CONTRACT_INDEX.md; Addendum 006; project_docs/schedule/SPRINT_MODE.md and SPRINT_GENERATION_POLICY.md. Historical plans/status tokens are evidence, not execution instructions. Local executor was offline during resumed review/closure; connected CI is the observed gate evidence.

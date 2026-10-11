@@ -13,3 +13,6 @@ Payload v1 remains exact-topology/order and readable; producer chooses v2 only f
 
 ## Residual / successor
 UI remains unchanged. B must materialize installed palette/parent/slot and command controls, repair selection after deletion/history/discard, choose payload major when updating a previously retained document, preserve pending fields/cancel/failure/window lifecycle and prove actual round trips. Full snapshot work is bounded but larger-catalog performance remains a measured review item; no latency guarantee.
+
+## Integrated outcome
+TASK-663 integrated via #1056 at f54cc33c97b42b4cb12ce46abf5438d21fe502b5. Exact head 970f8debffa2cec977babe4430597634bfc350c6 passed seven workflows including Windows/Ubuntu/frontend quality, and 29 actual Chromium journeys in 28.2 s. Local execution caveats above remain historical observations. Successor B integrated via #1057; full package traceability is in the WP5 review/closure reports.

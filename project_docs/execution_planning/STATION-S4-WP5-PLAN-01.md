@@ -2,7 +2,7 @@
 Date: 2026-10-10
 Base: main@a0da862000383e1ebc171c177de6b76f16c0994a (#1054)
 Authority: Addendum 006; AGENTS/document authority; WBS 21.2.1/21.2.3/21.3.1/21.3.2 slices
-State: PLANNING; construction effective only after validated planning merge
+State: bounded WP5 CLOSED effective only on validated TASK-666 closure merge; earlier checkpoints below are historical
 Goal: maintainer can build/reorganize a valid installed composition through synchronized UI and retain/reopen it safely.
 
 ## Rolling wave and arrival proofs
@@ -27,3 +27,10 @@ Planning #1055 and A #1056 integrated. A seven workflows/Windows/Ubuntu and 29/2
 B #1057 integrated at 09a8c74d227b1a19809020d806f724d0cd1b7886 after seven workflows/Windows/Ubuntu and 37/37 actual Chromium journeys. Optional C NOT PROMOTED: admitted goal delivered; bounded performance debt does not add a missing capability. Only Package Review/TASK-665 COMMITTED; Closure remains forecast.
 
 Review TASK-665: bounded goal met; optional C not required; closure GO subject to this Sprint's successful checks and integration. Residuals WP5-L1/L2/D1 recorded in RISKS and review report.
+
+## Documentation & Closure checkpoint
+Review #1058 integrated with five passing workflows and 37 actual Chromium journeys (35.1 s). Only Closure/TASK-666 COMMITTED after fresh main revalidation; package not closed until validated closure merge.
+
+## Final actual-versus-forecast disposition
+Five Sprints delivered as forecast: Planning TASK-662/#1055, A TASK-663/#1056, B TASK-664/#1057, Review TASK-665/#1058, Closure TASK-666. Optional third Construction Sprint not required. Review merged at e5abb70ca7e81772fbb582aa4fbf3dd03f84226f after five passing workflows and 37 Chromium journeys in 35.1 s. One authoritative TASK commit per Sprint plus separate materialization/change-control where recorded. B's initial unmerged transport truncation required safe republication and fresh gates; no failed head merged.
+Bounded WBS 21.2.1/21.2.3/21.3.1/21.3.2 goal met. WP5-L1/L2/D1 and inherited residuals retained. Closure reconciles twelve documentation paths, no product additions. Next package requires fresh-main planning and admitted scope; no automatic successor. Closure's exact-head full CI/37-journey checks and successful integration determine effectiveness; no resumed local test pass claimed.
