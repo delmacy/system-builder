@@ -115,3 +115,6 @@ Milliseconds; speedup is baseline median / optimized median. Values rounded for 
 | chain | 1 | 9d419c3f14892b2c495875f58697d7fced463095fc7715b24f7db3835d1af97b | -30103000 | -49259128 |
 | chain | 2 | 9d419c3f14892b2c495875f58697d7fced463095fc7715b24f7db3835d1af97b | -24449360 | 35893240 |
 | chain | 3 | 9d419c3f14892b2c495875f58697d7fced463095fc7715b24f7db3835d1af97b | -25772704 | -43523360 |
+
+## Validated integration
+TASK-669 head 7b84e4bc95c4db3fb1389e0c6ea2a3fad1770042 integrated via #1062 at 9d0221e54b043b1ad928d7797fc1d7ca26a1f76c. Five workflows passed: deterministic 38106506621, merge candidate 38106506628, heavy 38106506651, handoff 38106506615, browser 38106506641. Actual Chromium 37/37 (34.5 s), job 114373066973. Product history remains unchanged from A's seven-workflow/platform-quality head. Only Review promoted; no optional C.

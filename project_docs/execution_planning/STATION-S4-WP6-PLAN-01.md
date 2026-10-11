@@ -39,3 +39,6 @@ Planning #1060 integrated; five workflows and 37/37 Chromium passed (37.1 s). Fr
 
 ## Construction B checkpoint
 A #1061 integrated at dc4e7b80fa1c1f0514fc052a0176d045ce0388e0 after seven passing workflows, Windows/Ubuntu/frontend quality and 37/37 actual Chromium journeys (34.7 s). Fresh main revalidated; only B/TASK-669 COMMITTED. Optional C/review/closure remain forecast.
+
+## Package Review checkpoint
+B #1062 integrated at 9d0221e54b043b1ad928d7797fc1d7ca26a1f76c; five passing workflows and 37/37 actual Chromium (34.5 s). Matched paired benchmark exceeds 2x in every max-bound warm Undo/Redo batch. Optional C NOT PROMOTED: no missing goal increment. Only Review/TASK-670 COMMITTED; Closure remains forecast.
