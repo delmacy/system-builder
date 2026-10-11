@@ -1,14 +1,13 @@
-# Next work — WP14 closed on validated closure integration
-Sole live pointer. Planning#1101/A#1102/B#1103/Review#1104 integrated; TASK711 documentation closure
-closes bounded Station S4 WP14 only after its own complete independent CI and merge. After that
-integration no active WP14 task/sprint or committed successor remains. Five sprints, C unnecessary.
-Delivered shared context-qualified selection, Explorer, two installed projections/read-only Inspector
-and fresh exact composition handoff through ordinary editor guards;88 actual Chromium journeys,
-seven new focused model cases and complete connected repository verification.
-Authority Addendum014, WP14 PLAN/Review/Closure reports; ADR0009/0017 and semantic owners retained.
-WP14-L1/L2/L3/D1/D2 and inherited WP13/predecessor/unrelated residuals explicit; no live semantic service,
-arbitrary model authoring, C10 Studio or whole WBS/H3/S4 certification.
-Next candidate WP15 first specialized Studio requires fresh Planning, explicit domain/C10 admission,
-owner interfaces/readiness and execution authorization. WP15/WP16 remain forecast: two candidate
-packages within the16-package Station horizon, not all System Builder. None materialized automatically.
-Archived PROJECT_STATE/CURRENT_MILESTONE remain historical, not competing live schedulers.
+# Next work — WP15 technical Workflow Studio prepared
+Sole live scheduler. WP14 bounded closure#1105 integrated at d0f777fac47fd46cc70114026b9064a58551cbbc; its limits/debt retained.
+TASK712 WP15 Planning is the only committed task until its independently validated integration.
+Authority: Addendum015 and STATION-S4-WP15-PLAN-01; ADR0009/0017 unchanged.
+Owner selected technical states/transitions authorship. Goal: unpublished local SystemDefinition
+candidate with one draft command owner, coordinated Tools, validation, immutable revisions and reopen.
+TASK713 Construction A is prepared/draft, not committed: fresh Planning integration and explicit
+construction authorization required. B/C/Review/Closure forecast; C conditional. No product code yet.
+Existing SystemDefinition schema and Runtime proof do not provide a lossless authoring service.
+Local draft adapter is planned; no canonical Core/Design ownership or live service availability inferred.
+WP16 remains forecast, requiring real owner API/transport/currentness and browser/API/data/response proof.
+No C10 certification until actual package exit; no BusinessRecipe/compile/deploy/runtime/whole WBS claim.
+Archived state snapshots remain historical, not competing schedulers.
