@@ -2,9 +2,9 @@
 Date: 2026-10-11 UTC
 Sprint: STATION-S4-WP11-CONSTRUCTION-A-01
 Branch: sprint/STATION-S4-WP11-CONSTRUCTION-A-01
-Base: d5423b94542ac6a7fa934a5759e057d5fb8a8555
+Base: 2665036ce9ac1972b4952cd9997e83ae78fa07b4
 Status: COMMITTED after validated predecessor; execution before own merge remains branch-only.
-Goal: Strict workspace snapshot/retention APIs, no UI
+Goal: Strict workspace retention and real codec proof, no UI
 TASK set: TASK-693, depends TASK-692, one authoritative commit/PR.
 Scope: Addendum011, TASK exact allowed/forbidden paths/max_files.
 Growing proof: real editor artifact → strict workspace retention → Explorer/Inspector → guarded editor reopen.
