@@ -906,3 +906,108 @@ test.describe("WP7 bounded button text", () => {
     await expect(input(page)).toBeVisible();
   });
 });
+
+test.describe("WP8 typed button properties", () => {
+  const b = (page: Page, name: string) => page.getByRole("button", { name, exact: true });
+  const variant = (page: Page) => page.getByLabel("Button variant", { exact: true });
+  const disabled = (page: Page) => page.getByLabel("Disabled preview", { exact: true });
+  const layer = (page: Page, name = "Button 1") => page.getByRole("treeitem", { name, exact: true });
+  const key = "station:composition-artifact:v1:composition%3Aexample";
+  async function apply(page: Page, value = "outline", off = true) {
+    await variant(page).selectOption(value); await disabled(page).setChecked(off); await b(page, "Apply properties").click();
+  }
+  test("enum/boolean preview converges with history, reset, root and second installed family", async ({ page }, testInfo) => {
+    await layer(page).click(); await apply(page);
+    await expect(preview(page)).toHaveAttribute("data-button-variant", "outline");
+    await expect(preview(page)).toHaveAttribute("aria-disabled", "true");
+    await b(page, "Undo").click(); await expect(variant(page)).toHaveValue("default"); await expect(disabled(page)).not.toBeChecked();
+    await b(page, "Redo").click(); await expect(disabled(page)).toBeChecked();
+    await b(page, "Reset properties").click(); await expect(preview(page)).toHaveAttribute("data-button-variant", "default");
+    await b(page, "Undo").click(); await page.screenshot({ path: testInfo.outputPath("wp8-button-properties.png"), fullPage: true });
+    await b(page, "Discard changes").click(); await layer(page, "Grid").click(); await expect(variant(page)).toHaveCount(0);
+    await page.getByLabel("Composition", { exact: true }).selectOption("composition:button-group");
+    await layer(page, "Group Button 1").click(); await apply(page, "ghost", false);
+    await expect(preview(page, "Group Button 1")).toHaveAttribute("data-button-variant", "ghost");
+  });
+  test("properties/text/span/structure download v4 reopens in a real fresh session", async ({ page, browser }) => {
+    await layer(page).click(); await apply(page, "ghost", true);
+    await page.getByLabel("Button text", { exact: true }).fill("Confirmar WP8"); await b(page, "Apply text").click();
+    await span(page, "3"); await b(page, "Add component").click();
+    const bytes = await downloadedComposition(page); const doc = JSON.parse(bytes.toString());
+    expect(doc.schema.version).toBe("4.0.0"); expect(doc.payload.graph.nodes[1].properties).toEqual({ variant: "ghost", disabled: true });
+    const context = await browser.newContext();
+    try {
+      const other = await context.newPage(); await other.goto(page.url());
+      await other.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "wp8.json", mimeType: "application/json", buffer: bytes });
+      await expect(preview(other, "Confirmar WP8")).toHaveAttribute("data-column-span", "3");
+      await expect(preview(other, "Confirmar WP8")).toHaveAttribute("aria-disabled", "true");
+      await layer(other, "Confirmar WP8").click(); await expect(variant(other)).toHaveValue("ghost");
+      await expect(b(other, "Undo")).toHaveAttribute("aria-disabled", "true");
+    } finally { await context.close(); }
+  });
+  test("property-only local revisions preserve identity and explicit default presence; reset returns legacy", async ({ page }) => {
+    await b(page, "Save locally").click(); const original = await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), key);
+    await layer(page).click(); await apply(page); await b(page, "Save locally").click();
+    const retained = await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), key);
+    expect(retained.artifactId).toBe(original.artifactId); expect(retained.artifactVersion).toBe("1.0.1"); expect(retained.schema.version).toBe("4.0.0");
+    await page.reload(); await b(page, "Open saved").click(); await layer(page).click(); await expect(disabled(page)).toBeChecked();
+    await apply(page, "default", false); await b(page, "Save locally").click();
+    const explicit = await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), key);
+    expect(explicit.artifactVersion).toBe("1.0.2"); expect(explicit.schema.version).toBe("4.0.0");
+    await b(page, "Reset properties").click(); await b(page, "Save locally").click();
+    const cleared = await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), key);
+    expect(cleared.artifactVersion).toBe("1.0.3"); expect(cleared.schema.version).toBe("1.0.0");
+  });
+  test("pending properties block retention, history, structure, selection and other fields; restore/discard recover", async ({ page }) => {
+    await layer(page).click(); await variant(page).selectOption("outline");
+    await expect(page.getByTestId("draft-state")).toHaveText("Unapplied properties");
+    for (const name of ["Save changes", "Save locally", "Save As file"]) {
+      await expect(b(page, name)).toHaveAttribute("aria-disabled", "true");
+      await b(page, name).click({ force: true });
+      await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
+    }
+    expect(await page.evaluate(key => localStorage.getItem(key), key)).toBeNull();
+    await layer(page, "Button 2").click(); await expect(layer(page)).toHaveAttribute("aria-selected", "true");
+    await b(page, "Apply size").click(); await b(page, "Apply text").click();
+    await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
+    await expect(b(page, "Add component")).toBeDisabled(); await expect(b(page, "Undo")).toHaveAttribute("aria-disabled", "true");
+    await page.getByLabel("Composition", { exact: true }).selectOption("composition:button-group");
+    await b(page, "Cancel switch").click(); await expect(variant(page)).toHaveValue("outline");
+    await b(page, "Restore fields").click(); await expect(variant(page)).toHaveValue("default");
+    await disabled(page).check(); await b(page, "Discard changes").click(); await expect(disabled(page)).not.toBeChecked();
+    await expect(page.getByTestId("draft-state")).toHaveText("All changes saved");
+  });
+  test("pending file replacement cancels safely; malformed and legacy properties fail before mutation", async ({ page }) => {
+    const bytes = await downloadedComposition(page); await layer(page).click(); await variant(page).selectOption("ghost");
+    const file = page.getByLabel("Composition file", { exact: true });
+    await file.setInputFiles({ name: "original.json", mimeType: "application/json", buffer: bytes });
+    await b(page, "Cancel open").click(); await expect(variant(page)).toHaveValue("ghost");
+    await file.setInputFiles({ name: "original.json", mimeType: "application/json", buffer: bytes });
+    await b(page, "Discard changes and open file").click(); await expect(variant(page)).toHaveValue("default");
+    await apply(page); const authored = await downloadedComposition(page); const doc = JSON.parse(authored.toString());
+    for (const version of ["3.0.0", "5.0.0"]) {
+      await file.setInputFiles({ name: "bad-version.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify({ ...doc, schema: { ...doc.schema, version } })) });
+      await expect(preview(page)).toHaveAttribute("aria-disabled", "true"); await expect(editor(page).getByRole("status")).toContainText("unchanged");
+    }
+    doc.payload.graph.nodes[1].properties.disabled = "true";
+    await file.setInputFiles({ name: "bad-type.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(doc)) });
+    await expect(b(page, "Undo")).toHaveAttribute("aria-disabled", "false");
+  });
+  test("keyboard/narrow controls and Station minimize restore preserve properties; close clears them", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 }); await layer(page).click();
+    await variant(page).focus(); await page.keyboard.press("ArrowDown");
+    await expect(variant(page)).toHaveValue("outline"); await disabled(page).focus(); await page.keyboard.press("Space");
+    await b(page, "Apply properties").focus(); await page.keyboard.press("Enter");
+    await expect(preview(page)).toHaveAttribute("aria-disabled", "true");
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.goto("/"); await b(page, "Open applications").click(); await page.locator('[data-app-ref="app:composition-editor"]').click();
+    await layer(page).click(); await apply(page);
+    const win = page.getByRole("dialog", { name: "Composition Editor", exact: true });
+    await win.getByRole("button", { name: "Minimize window" }).click();
+    await page.locator('[data-slot="taskbar-windows"]').getByRole("button", { name: "Composition Editor", exact: true }).click();
+    await expect(disabled(page)).toBeChecked(); await expect(b(page, "Undo")).toHaveAttribute("aria-disabled", "false");
+    await win.getByRole("button", { name: "Close window" }).click(); await b(page, "Open applications").click();
+    await page.locator('[data-app-ref="app:composition-editor"]').click(); await layer(page).click();
+    await expect(variant(page)).toHaveValue("default"); await expect(disabled(page)).not.toBeChecked();
+  });
+});

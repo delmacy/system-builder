@@ -16,3 +16,6 @@ Local verify must be attempted; known tsx IPC EPERM means full observed verifica
 Risks: nested alias mutation, legacy silent property loss, pending fields overwritten, source
 identity or artifact version not updated, projection divergence. Require actual tests, no inferred pass.
 No universal accessibility/latency/retained-memory certification. No successor automatic execution.
+
+## B checkpoint
+A#1072 integrated after seven passing workflows; only B/TASK679 committed. C/review/closure forecast.
