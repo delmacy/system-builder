@@ -300,3 +300,24 @@ Installed Example composition and Station button group buttons expose Button tex
 Only1–256 nonblank Unicode code points without control/unpaired surrogate values are admitted for the two installed button refs. Root/container identities/actions remain unchanged. Labels are literal React text; preview uses one-line ellipsis and full title/accessible name to preserve discrete grid geometry. Layers/Inspector wrap long tokens;256-character no-overflow browser proof is recorded.
 Payloadv3 retains optional text and authored topology. Readers acceptv1/v2/v3; text fields are forbidden inv1/v2. Producers usev3 when an override exists, otherwise retainv1/v2 selection; v3 readers also accept omission. Text-only retained changes preserve artifact identity and advance artifact version. Save/open remains explicit browser-local or portable file operations, not server/business persistence. Existing artifact/node/depth/token/history limits remain.
 Existing npm run station:build/start and Playwright commands execute44 actual journeys (37 predecessors plus7 text cases). API98 editor cases, review133 editor/composition cases and B seven workflows/platform/frontend evidence support the bounded goal. Closure effective only on validated TASK-676 integration; all WP7-L1/L2/D1 and inherited debt remain. No general properties/catalog, File Manager/Studio/Core/server/sync/deploy, broad accessibility or performance certification is claimed.
+
+## Station S4 WP8 typed button-properties operations — 2026-10-11 UTC
+Select an installed Example composition or Station button group button. Button variant offers
+Default/Outline/Ghost; Disabled preview is a presentation-only checkbox. Apply properties commits
+both typed fields atomically; Reset properties removes only the properties override. Text/placement
+remain. Preview shows the variant and disabled appearance without executing or authorizing actions.
+Restore fields abandons pending input; Discard changes restores the accepted session baseline.
+Pending properties protect selection, text/size/structure/history/save/export and explicit open/switch
+replacements. Cancel retains input; confirmed replacement clears it. Native select/input shortcuts
+remain native; keyboard submit, narrow layout and shell minimize/restore/close are proven.
+Only non-root component:button/component:lab-button accept exact {variant,disabled} data. Both fields
+are required when properties exists; no coercion/unknown/accessor/symbol fields. Nested snapshots
+copy/freeze data and do not freeze or retain mutable caller-owned objects.
+Current payload readers accept exactv1/v2/v3/v4. v4 allows optional properties/text omission; older
+payloads reject properties. Producer choosesv4 whenever a node owns properties, otherwise minimum
+v1/v2/v3. Reset can return a legacy schema. Property-only changes and explicit default presence
+advance retained artifact version while preserving identity. Save/open remains explicit browser-local
+or portable file workflow, not a business/server persistence receipt. Existing limits remain.
+Local107 editor+35 composition cases and actual50 Chromium journeys support this bounded result;
+CI also supplies full repository/platform/frontend proof. Broad accessibility and retained-memory
+certification remain unproven. Closure effective only on validated TASK681 integration.

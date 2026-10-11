@@ -1,6 +1,6 @@
 # Addendum008 — Station bounded button properties
 Date: 2026-10-11 UTC
-Status: ACCEPTED effective on validated WP8 Planning integration
+Status: ACCEPTED via #1071 / bounded WP8 CLOSED effective on validated TASK-681 integration
 Admission: owner explicitly authorized integration of forecast and execution of WP8.
 Predecessor: WP7 integrated through #1069; remaining-scope forecast #1070.
 
@@ -37,3 +37,6 @@ Station remains presentation-only; no architecture boundary changed, no L4/ADR n
 No new component family, arbitrary properties/styles, actions, reparenting, server/sync/storage
 provider, persistent history, generic File Manager/Studio, Core commands or deployment.
 This increments only bounded21.2.1/21.2.3/21.3.1/21.3.2 slices; no whole-WBS/S4 completion.
+
+## Delivery lifecycle
+Planning#1071/A#1072/B#1073/Review#1074 integrated. Installed properties goal reviewed,107 editor tests,50 actual Chromium journeys and platform/frontend quality proof. Closure is effective only after its own final head passes declared verification/CI and integrates; WP8-L1/L2/D1 remain.

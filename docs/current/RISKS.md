@@ -93,3 +93,5 @@ Review#1068 integrated with five passing workflows and44 Chromium cases34.1s; ad
 - WP8-L2: Chromium keyboard/focus/narrow/shell proof does not establish universal screen-reader or cross-browser certification.
 - WP8-D1: nested immutable copies preserve history safety; long-session memory/broad-catalog cost unprofiled, inherited WP6 debt retained.
 - B procedure helper/import failure briefly preceded durable manifest creation; reconciled before publication, no extra scope. Use fail-closed dependent commands.
+
+WP8 closure disposition: no blocker within admitted two-field goal; WP8-L1/L2/D1 and all inherited debt retained. No automatic WP9 or broader scope.

@@ -22,3 +22,12 @@ Existing Addendum 006 scope receives internal validation-work reduction and meas
 
 ## Station S4 WP7 bounded text disposition
 Addendum007 extends only installed non-root button text editing (21.2.1), strict graph validation (21.2.3), lossless portable payloadv3 (21.3.1) and fresh-session rehydration (21.3.2). Planning#1065, engine#1066, workbench#1067, Review#1068;98 editor tests and44 actual browser journeys, Windows/Ubuntu/frontend quality. Bound text shares existing span/structure history/checkpoint lifecycle. Delivery closes only on validated TASK-676 integration. No full item/WBS/ComponentEditor/S4 completion: semantic models, broader properties/catalog, collaboration/File Manager/Studio and other baseline outcomes remain separately gated.
+
+## Station S4 WP8 bounded properties disposition
+Addendum008 extends only installed non-root button variant/disabled-preview fields (21.2.1),
+strict validation (21.2.3), lossless payloadv4 (21.3.1) and fresh-session rehydration (21.3.2).
+Planning#1071/engine#1072/workbench#1073/Review#1074;107 editor cases,50 actual Chromium
+journeys and Windows/Ubuntu/frontend quality proof. Typed fields share existing mixed history,
+explicit checkpoints and portable/local lifecycle. Bounded delivery CLOSED becomes effective
+on validated TASK681 closure integration. No full WBS/ComponentEditor/S4 completion; broader
+properties/catalog, File Manager, process/Studio/Core and collaboration remain separately gated.
