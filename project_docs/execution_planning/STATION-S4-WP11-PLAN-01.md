@@ -21,3 +21,6 @@ arbitrary binaries remain excluded. WP12 requires fresh planning/admission, not 
 
 ## B promotion
 A#1087 seven PASS gates integrated. Only B/TASK694 materialized, later forecast.
+
+## Review promotion
+B#1088 seven PASS gates and68 actual browser journeys integrated. C unnecessary; only Review695 committed. Closure forecast.
