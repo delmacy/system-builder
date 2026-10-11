@@ -2,9 +2,9 @@
 Date: 2026-10-11 UTC
 Sprint ID: STATION-S4-WP6-CONSTRUCTION-A-01
 Intended branch: sprint/station-s4-wp6-construction-a
-Base: fresh main after validated TASK-667 Planning integration
+Base: main@0fbd63a3966230924f20191ef7ed90bba55ae9d6 after validated TASK-667 #1060
 TASK set: TASK-668 only; depends on TASK-667
-State: materialized first eligible Construction; execution blocked until predecessor integration and explicit Sprint execution
+State: COMMITTED after #1060 integration; owner explicitly authorizes complete WP6 execution
 Goal: bounded internal validation-work reduction with identical public history/trust behavior.
 Four exact paths declared in TASK-668; no codec/session/shared-composition/registry/public shape changes. No new dependency or contract.
 Proof: actual installed APIs, existing product regressions, malformed/mutable/context-substitution/unknown-field attacks and unchanged 50/256/budget/checkpoint semantics. All 37 actual browser journeys remain required.
