@@ -37,9 +37,23 @@ const groupButton = normalizeComponentDescriptor({
   constraints: { ...button.constraints, maxRows: 1, recommendedRows: 1 },
 });
 
+const panel = normalizeComponentDescriptor({
+  id: "component:action-panel", family: "layout-container", layout: "column", layoutOwnership: "self",
+  childPolicy: "multiple", constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 6,
+    minRows: 1, maxRows: 12, recommendedRows: 2 },
+  slots: [{ id: "content", childPolicy: "multiple", acceptsFamilies: ["atomic", "layout-container"],
+    acceptsLayouts: ["none", "row"] }],
+});
+const actionRow = normalizeComponentDescriptor({
+  id: "component:action-row", family: "layout-container", layout: "row", layoutOwnership: "self",
+  childPolicy: "multiple", constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 6,
+    minRows: 1, maxRows: 2, recommendedRows: 1 },
+  slots: [{ id: "actions", childPolicy: "multiple", acceptsFamilies: ["atomic"], acceptsLayouts: ["none"] }],
+});
+
 function frozenGraph(graph: CompositionGraph): CompositionGraph {
   return Object.freeze({ rootRef: graph.rootRef, nodes: Object.freeze(graph.nodes.map(node =>
-    Object.freeze({ ...node, ...(node.placement ? { placement: Object.freeze({ ...node.placement }) } : {}) }))) });
+    Object.freeze({ ...node, ...(node.properties ? { properties: Object.freeze({ ...node.properties }) } : {}), ...(node.placement ? { placement: Object.freeze({ ...node.placement }) } : {}) }))) });
 }
 const sources: readonly EditorCatalogDefinition[] = Object.freeze([
   Object.freeze({
@@ -67,6 +81,24 @@ const sources: readonly EditorCatalogDefinition[] = Object.freeze([
     ] })),
     labels: Object.freeze({ "layer:button-group": "Button Group",
       "layer:button-1": "Group Button 1", "layer:button-2": "Group Button 2" }),
+  }),
+
+  Object.freeze({
+    compositionRef: "composition:action-panel", applicationRef: "app:composition-editor",
+    title: "Reusable action panel", revision: 7, descriptors: Object.freeze([grid, panel, actionRow, button]),
+    composition: frozenGraph(defineCompositionGraph({ rootRef: "panel:root", nodes: [
+      { ref: "panel:root", componentRef: grid.id },
+      { ref: "panel:container", componentRef: panel.id,
+        placement: { parentRef: "panel:root", slotRef: "content", columnSpan: 6, rowSpan: 2 } },
+      { ref: "panel:actions", componentRef: actionRow.id,
+        placement: { parentRef: "panel:container", slotRef: "content", columnSpan: 6, rowSpan: 1 } },
+      { ref: "panel:primary", componentRef: button.id,
+        placement: { parentRef: "panel:actions", slotRef: "actions", columnSpan: 2, rowSpan: 1 } },
+      { ref: "panel:secondary", componentRef: button.id,
+        placement: { parentRef: "panel:actions", slotRef: "actions", columnSpan: 2, rowSpan: 1 } },
+    ] })),
+    labels: Object.freeze({ "panel:root": "Panel grid", "panel:container": "Action panel",
+      "panel:actions": "Action row", "panel:primary": "Primary action", "panel:secondary": "Secondary action" }),
   }),
 ]);
 

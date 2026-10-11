@@ -3,9 +3,9 @@ Date: 2026-10-11 UTC
 Status: COMMITTED after validated predecessor integration; execution before own merge remains branch-only.
 Sprint: STATION-S4-WP9-CONSTRUCTION-A-01
 Branch: sprint/STATION-S4-WP9-CONSTRUCTION-A-01
-Base: Planning integration SHA to be revalidated before execution
+Base: 5cf10d8940fa78ba79da4cf4bd50ea33f7497242
 TASK set: TASK-683; one authoritative commit, one PR.
-Goal: Installed descriptors/composition and API proof
+Goal: Two installed source layouts and reusable nested panel; real engine proof
 Scope: Addendum009; TASK allowed/forbidden paths and max_files govern.
 Predecessor: TASK-682 validated and integrated; reconstruct fresh main.
 Growing proof: real catalog installation → typed placement/edits/history → portable/local reopening; inherit all previous journeys.

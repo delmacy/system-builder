@@ -9,7 +9,7 @@ import { projectEditorLayers, projectEditorInspector, projectEditorPreview, sele
 
 test("TASK-646 both admitted graphs initialize deterministically through real editor APIs", () => {
   const entries = listEditorCatalog();
-  assert.deepEqual(entries.map(item => item.compositionRef), [DEFAULT_COMPOSITION_REF, "composition:button-group"]);
+  assert.deepEqual(entries.map(item => item.compositionRef), [DEFAULT_COMPOSITION_REF, "composition:button-group", "composition:action-panel"]);
   for (const entry of entries) {
     const first = initializeCatalogEditorSession(entry.compositionRef, "session:catalog-test");
     const second = initializeCatalogEditorSession(entry.compositionRef, "session:catalog-test");
