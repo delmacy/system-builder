@@ -3,7 +3,7 @@ Date: 2026-10-11 UTC (2026-10-10 America/Sao_Paulo)
 Base: main@c1a9660920f22602d125dde2a8f764c5967255da, validated WP5 closure #1059
 State: Planning; A eligibility effective only on validated TASK-667 integration
 Authority: existing Addendum 006 and WP5-D1; bounded maintenance, no new scope admission
-Owner continuation: next planning step after WP5, not automatic full-package construction
+Owner continuation at Planning: next planning step after WP5. Subsequent explicit owner authorization covers implementation through full WP6 closure.
 
 ## Goal and baseline
 Reduce repeated validation work in existing bounded edit history while preserving exact acceptance/rejection, snapshot integrity, source/registry authority, monotonic revision, baseline dirty, selection and checkpoint semantics. This hardens bounded WBS 21.2.3/21.3.1/21.3.2 delivery; no full WBS completion or broad catalog promotion.
@@ -33,3 +33,6 @@ Preserve all 37 actual Chromium predecessor journeys on every Sprint; extend onl
 WP5 #1059 closed; no active construction collision. Unrelated open #1027/#1015/#974/#971/#955/#832/#823 remain preserved. Isolated worktree protects old local modified/generated outputs. No nested AGENTS in affected paths. Existing Addendum 006 and ADR-0009 behavior unchanged; L1/L2 internal maintenance only, no 007/L3/L4 invented.
 Main risk: falsely treating shallow freezing or registry identity as immutable authority. Additional risks: warm-only benchmark bias, cross-machine comparisons, unbounded cache retention or stale baseline reuse. Require private nonretaining ownership/context design, cold/failure samples and independent Review. WP5-L1/L2 and all other WP3/WP4 residuals remain.
 No new properties/catalog/registry, reparenting, persistent history, File Manager/.process/Studio/Core/server/sync/deploy or full ComponentEditor claim.
+
+## Construction A checkpoint
+Planning #1060 integrated; five workflows and 37/37 Chromium passed (37.1 s). Fresh main 0fbd63a3 revalidated; only TASK-668 COMMITTED. Four exact paths; all later Sprints remain forecast.
