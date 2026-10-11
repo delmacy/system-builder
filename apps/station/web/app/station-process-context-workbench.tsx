@@ -1,21 +1,24 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Input } from "../../../../packages/ui-core/index";
-import { createProcessContext, encodeProcessContext, resolveProcessAnchor, type ProcessContextDocument, type ProcessContextView } from "../../../../packages/station-process-context/index";
+import { createProcessContext, encodeProcessContext, type ProcessContextDocument, type ProcessContextView, type CompositionReference } from "../../../../packages/station-process-context/index";
 import { normalizeProcessRevisionIdentity } from "@system-builder/contracts/process-versioning";
-import { loadProcessContext, saveProcessContext, readProcessContextFile, resolveContextComposition, type CompositionResolution } from "./station-process-context-store";
+import { loadProcessContext, saveProcessContext, readProcessContextFile, resolveContextComposition } from "./station-process-context-store";
 import { loadArtifactWorkspace, workspaceDocument, type ArtifactWorkspace } from "./station-artifact-workspace";
 import { StationEditorWorkbench, type EditorArtifactOpenRequest } from "./station-editor-workbench";
+import { createProjectionState, refreshProjectionState, selectProjectionItem, switchProjection, type ProjectionState } from "../../../../packages/station-model-projections/index";
+import { StationContextProjections } from "./station-context-projections";
+const resolveReference=(reference:CompositionReference)=>{try{return resolveContextComposition(window.localStorage,reference);}catch{return {status:"unavailable" as const};}};
 const emptyFields = { title: "", process: "", revision: "", number: "1", previous: "" };
 export function StationProcessContextWorkbench({ onOpen }: { onOpen: (text: string) => void }) {
-  const [document, setDocument] = useState<ProcessContextDocument | null>(null);
+  const [projection, setProjection] = useState<ProjectionState | null>(null);
+  const document = projection?.document ?? null;
   const [dirty, setDirty] = useState(false);
   const [expected, setExpected] = useState<string | null>(null);
   const [storageReady, setStorageReady] = useState(false);
   const [workspace, setWorkspace] = useState<{ data: ArtifactWorkspace; text: string | null } | null>(null);
   const [fields, setFields] = useState(emptyFields);
   const [selected, setSelected] = useState<string[]>([]);
-  const [resolutions, setResolutions] = useState<Record<string, CompositionResolution>>({});
   const [pending, setPending] = useState<{ document: ProcessContextDocument; retained: boolean } | null>(null);
   const [message, setMessage] = useState("Choose a retained context or create explicit references.");
   const sequence = useRef(0), input = useRef<HTMLInputElement>(null);
@@ -37,19 +40,16 @@ export function StationProcessContextWorkbench({ onOpen }: { onOpen: (text: stri
     } catch { setWorkspace(null); setMessage("Workspace unavailable. Context is preserved."); }
   }, []);
   useEffect(() => { refreshStorage(); refreshWorkspace(); return () => { sequence.current++; }; }, [refreshStorage, refreshWorkspace]);
-  const refreshReferences = (context = document) => {
-    if (!context) return;
-    const next: Record<string, CompositionResolution> = {};
-    for (const view of context.payload.views) {
-      try { next[view.ref] = resolveContextComposition(window.localStorage, view.composition); }
-      catch { next[view.ref] = { status: "unavailable" }; }
-    }
-    setResolutions(next);
+  const refreshReferences = () => {
+    if (!projection) return;
+    const result=refreshProjectionState(projection,projection.document,resolveReference);
+    if(result.accepted)setProjection(result.state);
   };
   const formPending = selected.length > 0 || Object.keys(fields).some(key => fields[key as keyof typeof fields] !== emptyFields[key as keyof typeof fields]);
   const install = (next: ProcessContextDocument, retained = false) => {
-    sequence.current++; setDocument(next); setDirty(!retained); setFields(emptyFields); setSelected([]); setPending(null);
-    refreshReferences(next); setMessage(retained ? "Retained context opened." : "Context opened. Save locally or export a portable copy.");
+    const result=createProjectionState(next,resolveReference);
+    if(!result.accepted){setMessage("Invalid context. Current context preserved.");return;}
+    sequence.current++; setProjection(result.state); setDirty(!retained); setFields(emptyFields); setSelected([]); setPending(null); setMessage(retained ? "Retained context opened." : "Context opened. Save locally or export a portable copy.");
   };
   const requestInstall = (next: ProcessContextDocument, retained = false) => {
     if (dirty || formPending) { setPending({ document: next, retained }); setMessage("Confirm replacement or Cancel to preserve the current context and form."); }
@@ -111,12 +111,31 @@ export function StationProcessContextWorkbench({ onOpen }: { onOpen: (text: stri
   };
   const openView = (view: ProcessContextView) => {
     sequence.current++;
+    if(!projection||pending)return;
+    const item=projection.items.find(candidate=>candidate.viewRef===view.ref);
+    if(!item)return;
+    const selectedResult=selectProjectionItem(projection,item.ref);
+    if(!selectedResult.accepted)return;
+    const refreshed=refreshProjectionState(selectedResult.state,projection.document,resolveReference);
+    if(refreshed.accepted)setProjection(refreshed.state);
     try {
-      const result = resolveContextComposition(window.localStorage, view.composition);
-      setResolutions(current => ({ ...current, [view.ref]: result }));
-      if (result.status !== "available") { setMessage("Reference is " + result.status + ". Editor unchanged."); return; }
-      onOpen(result.text); setMessage("Open requested. Finish any pending confirmation in the editor.");
-    } catch { setMessage("Reference unavailable. Editor unchanged."); }
+      const result=resolveContextComposition(window.localStorage,view.composition);
+      if(result.status!=="available"){setMessage("Reference is "+result.status+". Editor unchanged.");return;}
+      onOpen(result.text);setMessage("Open requested. Finish any pending confirmation in the editor.");
+    } catch {setMessage("Reference unavailable. Editor unchanged.");}
+  };
+  const selectReference=(ref:string)=>{
+    sequence.current++;if(!projection||pending)return;
+    const result=selectProjectionItem(projection,ref);if(result.accepted)setProjection(result.state);
+  };
+  const chooseProjection=(id:string)=>{
+    sequence.current++;if(!projection||pending)return;
+    const result=switchProjection(projection,id);if(result.accepted)setProjection(result.state);
+  };
+  const openSelected=()=>{
+    const item=projection?.items.find(candidate=>candidate.ref===projection.selectedRef);
+    const view=document?.payload.views.find(candidate=>candidate.ref===item?.viewRef);
+    if(view)openView(view);
   };
   const field = (key: keyof typeof fields, value: string) => { sequence.current++; setFields(current => ({ ...current, [key]: value })); };
   return <section aria-label="Process context" className="min-w-0 space-y-4 overflow-hidden rounded-xl border bg-background p-4">
@@ -150,9 +169,10 @@ export function StationProcessContextWorkbench({ onOpen }: { onOpen: (text: stri
         <Button variant="outline" onClick={()=>{sequence.current++;refreshReferences();setMessage("Reference statuses refreshed.");}}>Refresh references</Button>
       </div>
       <dl className="grid gap-2 break-all text-sm sm:grid-cols-2"><div><dt>Process identity</dt><dd>{document.payload.processRevision.artifactRef}</dd></div><div><dt>Process revision</dt><dd>{document.payload.processRevision.revisionRef} · {document.payload.processRevision.revisionNumber}</dd></div><div><dt>Context identity</dt><dd>{document.artifactId}</dd></div></dl>
-      <p data-testid="process-owner-status" className="text-sm">Process owner: {resolveProcessAnchor(document.payload.processRevision).status}. Semantic rules are not loaded or edited here.</p>
-      <ul className="space-y-2">{document.payload.views.map(view => <li key={view.ref} aria-label={view.title} className="rounded-lg border p-3"><div className="flex flex-wrap items-center gap-2"><span className="mr-auto break-all font-medium">{view.title}</span><span data-testid="context-reference-status">{resolutions[view.ref]?.status ?? "unavailable"}</span>
-        <Button variant="outline" disabled={!!pending||resolutions[view.ref]?.status!=="available"} onClick={()=>openView(view)}>Open referenced composition</Button></div><p className="mt-2 break-all text-xs text-muted-foreground">{view.composition.artifactId} · v{view.composition.artifactVersion}</p></li>)}</ul>
+      <p data-testid="process-owner-status" className="text-sm">Process owner: {projection?.items[0]?.status??"unavailable"}. Semantic rules are not loaded or edited here.</p>
+      {projection ? <StationContextProjections state={projection} blocked={!!pending} onSelect={selectReference} onProjection={chooseProjection} onOpen={openSelected} /> : null}
+      <ul className="space-y-2">{document.payload.views.map(view => <li key={view.ref} aria-label={view.title} className="rounded-lg border p-3"><div className="flex flex-wrap items-center gap-2"><span className="mr-auto break-all font-medium">{view.title}</span><span data-testid="context-reference-status">{projection?.items.find(item=>item.viewRef===view.ref)?.status ?? "unavailable"}</span>
+        <Button variant="outline" disabled={!!pending||projection?.items.find(item=>item.viewRef===view.ref)?.status!=="available"} onClick={()=>openView(view)}>Open referenced composition</Button></div><p className="mt-2 break-all text-xs text-muted-foreground">{view.composition.artifactId} · v{view.composition.artifactVersion}</p></li>)}</ul>
     </section> : <p className="text-sm">No process context is open.</p>}
     <p role="status" className="break-words text-sm">{message}</p>
   </section>;

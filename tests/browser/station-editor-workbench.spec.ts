@@ -1653,3 +1653,111 @@ test.describe("WP13 portable process context", () => {
     await expect(contextView(page).getByRole("dialog",{name:"Replace process context",exact:true})).toHaveCount(0);
   });
 });
+
+test.describe("WP14 shared context projections",()=>{
+ const ctx=(page:Page)=>page.getByRole("region",{name:"Process context",exact:true});
+ const shared=(page:Page)=>page.getByRole("region",{name:"Shared context projections",exact:true});
+ const explorer=(page:Page)=>shared(page).getByRole("region",{name:"Context Explorer",exact:true});
+ const inspect=(page:Page)=>shared(page).getByRole("region",{name:"Context Inspector",exact:true});
+ const cb=(page:Page,name:string)=>ctx(page).getByRole("button",{name,exact:true});
+ async function actual(page:Page){
+  await editor(page).getByLabel("Workspace copy name",{exact:true}).fill("first.composition.json");
+  await editor(page).getByRole("button",{name:"Save to workspace",exact:true}).click();
+  await expect(editor(page).getByRole("status")).toContainText("Workspace copy saved");
+  await page.getByRole("treeitem",{name:"Button 1",exact:true}).click();await span(page,"3");
+  await editor(page).getByRole("button",{name:"Refresh revision targets",exact:true}).click();
+  const ws=await page.evaluate(()=>JSON.parse(localStorage.getItem("station:artifact-workspace:v1")!));
+  await editor(page).getByLabel("Revision target",{exact:true}).selectOption(ws.files[0].ref);
+  await editor(page).getByLabel("Revision file name",{exact:true}).fill("second.composition.json");
+  await editor(page).getByRole("button",{name:"Save workspace revision",exact:true}).click();
+  await expect(editor(page).getByRole("status")).toContainText("revision saved");
+  await page.goto("/process-context");await ctx(page).getByText("Create context from references",{exact:true}).click();
+  await ctx(page).getByLabel("Context title",{exact:true}).fill("Orders");
+  await ctx(page).getByLabel("Process identity",{exact:true}).fill("process:orders");
+  await ctx(page).getByLabel("Process revision identity",{exact:true}).fill("revision:orders-1");
+  await ctx(page).getByRole("checkbox",{name:"first.composition.json (v1.0.0)",exact:true}).check();
+  await ctx(page).getByRole("checkbox",{name:"second.composition.json (v1.0.1)",exact:true}).check();
+  await cb(page,"Create context").click();await cb(page,"Save context locally").click();
+  const download=page.waitForEvent("download");await cb(page,"Export context").click();
+  const file=await (await download).path();if(!file)throw Error("download");return readFile(file);
+ }
+ async function importDoc(page:Page,bytes:Buffer){
+  await ctx(page).getByLabel("Import process context file",{exact:true}).setInputFiles({name:"orders.process.json",mimeType:"application/json",buffer:bytes});
+ }
+ test("Explorer/outline/table/Inspector share qualified selection and reopen exact historical/latest revisions",async({page},testInfo)=>{
+  const bytes=await actual(page),before=await page.evaluate(()=>localStorage.getItem("station:process-context:v1"));
+  await explorer(page).getByRole("button",{name:"Select first.composition.json",exact:true}).click();
+  const identity=await shared(page).getAttribute("data-selected-ref");
+  await cb(page,"Reference table").click();await expect(shared(page)).toHaveAttribute("data-selected-ref",identity!);
+  await expect(inspect(page)).toHaveAttribute("data-item-ref",identity!);await expect(inspect(page)).toContainText("1.0.0");
+  await inspect(page).getByRole("button",{name:"Open selected composition",exact:true}).click();
+  await expect(preview(page)).toHaveAttribute("data-column-span","2");
+  await shared(page).getByRole("region",{name:"Reference table",exact:true}).getByRole("button",{name:"Inspect second.composition.json",exact:true}).click();
+  await expect(explorer(page).getByRole("button",{name:"Select second.composition.json",exact:true})).toHaveAttribute("aria-pressed","true");
+  await inspect(page).getByRole("button",{name:"Open selected composition",exact:true}).click();
+  await expect(preview(page)).toHaveAttribute("data-column-span","3");
+  expect(await page.evaluate(()=>localStorage.getItem("station:process-context:v1"))).toBe(before);
+  expect(JSON.parse(bytes.toString()).payload.processRevision.revisionNumber).toBe(1);
+  await page.screenshot({path:testInfo.outputPath("wp14-shared-projections.png"),fullPage:true});
+ });
+ test("cached available selection re-resolves changed workspace; unresolved refresh keeps identity",async({page})=>{
+  await actual(page);await explorer(page).getByRole("button",{name:"Select first.composition.json",exact:true}).click();
+  const identity=await shared(page).getAttribute("data-selected-ref");
+  await page.evaluate(()=>{const ws=JSON.parse(localStorage.getItem("station:artifact-workspace:v1")!);ws.files=ws.files.slice(1);localStorage.setItem("station:artifact-workspace:v1",JSON.stringify(ws));});
+  await inspect(page).getByRole("button",{name:"Open selected composition",exact:true}).click();
+  await expect(ctx(page).getByRole("status")).toContainText("stale");await expect(editor(page)).toHaveCount(0);
+  await expect(shared(page)).toHaveAttribute("data-selected-ref",identity!);await expect(inspect(page).getByTestId("inspector-reference-status")).toHaveText("stale");
+  await expect(inspect(page).getByRole("button",{name:"Open selected composition",exact:true})).toBeDisabled();
+  await page.evaluate(()=>localStorage.setItem("station:artifact-workspace:v1","corrupt"));await cb(page,"Refresh references").click();
+  await expect(inspect(page).getByTestId("inspector-reference-status")).toHaveText("invalid");
+  await expect(shared(page)).toHaveAttribute("data-selected-ref",identity!);
+ });
+ test("shared Inspector handoff preserves ordinary dirty editor cancellation",async({page})=>{
+  const bytes=await actual(page);await page.goto("/");
+  await page.getByRole("button",{name:"Open applications",exact:true}).click();await page.locator('[data-app-ref="app:composition-editor"]').click();
+  await page.getByRole("treeitem",{name:"Button 1",exact:true}).click();await span(page,"4");
+  await page.getByRole("button",{name:"Open applications",exact:true}).click();await page.locator('[data-app-ref="app:process-context"]').click();
+  await importDoc(page,bytes);await explorer(page).getByRole("button",{name:"Select first.composition.json",exact:true}).click();
+  await inspect(page).getByRole("button",{name:"Open selected composition",exact:true}).click();
+  await editor(page).getByRole("button",{name:"Cancel open",exact:true}).click();await expect(preview(page)).toHaveAttribute("data-column-span","4");
+  await page.getByRole("button",{name:"Open applications",exact:true}).click();await page.locator('[data-app-ref="app:process-context"]').click();
+  await inspect(page).getByRole("button",{name:"Open selected composition",exact:true}).click();
+  await editor(page).getByRole("button",{name:"Discard changes and open file",exact:true}).click();await expect(preview(page)).toHaveAttribute("data-column-span","2");
+ });
+ test("duplicate titles and same composition tuple stay distinct; confirmed context revision replacement resets selection",async({page})=>{
+  const bytes=await actual(page),doc=JSON.parse(bytes.toString());await page.reload();
+  doc.payload.views=[{...doc.payload.views[0],ref:"view:a",title:"Same"},{...doc.payload.views[0],ref:"view:b",title:"Same"}];
+  await importDoc(page,Buffer.from(JSON.stringify(doc)));
+  const choices=explorer(page).getByRole("button",{name:"Select Same",exact:true});await choices.nth(1).click();
+  await expect(inspect(page)).toContainText("view:b");const identity=await shared(page).getAttribute("data-selected-ref");
+  await cb(page,"Reference table").click();await expect(shared(page)).toHaveAttribute("data-selected-ref",identity!);
+  doc.artifactVersion="1.0.1";await importDoc(page,Buffer.from(JSON.stringify(doc)));await cb(page,"Cancel context replacement").click();
+  await expect(shared(page)).toHaveAttribute("data-selected-ref",identity!);
+  await importDoc(page,Buffer.from(JSON.stringify(doc)));await cb(page,"Discard context and open").click();
+  await expect(shared(page)).toHaveAttribute("data-selected-ref","");await expect(inspect(page)).toContainText("Select a context reference");
+ });
+ test("keyboard/narrow layout and shell minimize retain selection; close/reopen starts empty",async({page})=>{
+  const bytes=await actual(page);await page.goto("/");await page.setViewportSize({width:390,height:860});
+  await page.getByRole("button",{name:"Open applications",exact:true}).click();await page.locator('[data-app-ref="app:process-context"]').click();await importDoc(page,bytes);
+  const choose=explorer(page).getByRole("button",{name:"Select second.composition.json",exact:true});await tabTo(page,choose);await choose.press("Enter");
+  const identity=await shared(page).getAttribute("data-selected-ref");await cb(page,"Reference table").click();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  const win=page.getByRole("dialog",{name:"Process Context",exact:true});await win.getByRole("button",{name:"Minimize window",exact:true}).click();
+  await page.locator('[data-slot="taskbar-windows"]').getByRole("button",{name:"Process Context",exact:true}).click();
+  await expect(shared(page)).toHaveAttribute("data-selected-ref",identity!);
+  await cb(page,"Save context locally").click();await win.getByRole("button",{name:"Close window",exact:true}).click();
+  await page.getByRole("button",{name:"Open applications",exact:true}).click();await page.locator('[data-app-ref="app:process-context"]').click();await cb(page,"Open retained context").click();
+  await expect(shared(page)).toHaveAttribute("data-selected-ref","");await expect(cb(page,"Context outline")).toHaveAttribute("aria-pressed","true");
+ });
+ test("empty/max contexts stay bounded and process anchor remains read-only and unavailable",async({page})=>{
+  const bytes=await actual(page),doc=JSON.parse(bytes.toString());await page.reload();doc.payload.views=[];
+  await importDoc(page,Buffer.from(JSON.stringify(doc)));await explorer(page).getByRole("button",{name:"Select Orders",exact:true}).click();
+  await expect(inspect(page).getByTestId("inspector-reference-status")).toHaveText("unavailable");
+  await expect(inspect(page).getByRole("button",{name:"Open selected composition",exact:true})).toHaveCount(0);
+  await cb(page,"Reference table").click();await expect(shared(page).getByRole("row")).toHaveCount(2);
+  await page.reload();const original=JSON.parse(bytes.toString());original.payload.views=Array.from({length:16},(_,i)=>({...original.payload.views[0],ref:"view:"+i,title:"Reference "+i}));
+  await importDoc(page,Buffer.from(JSON.stringify(original)));await expect(explorer(page).getByRole("button")).toHaveCount(17);
+  original.payload.views.push({...original.payload.views[0],ref:"overflow"});await importDoc(page,Buffer.from(JSON.stringify(original)));
+  await expect(ctx(page).getByRole("status")).toContainText("Unable to import");await expect(explorer(page).getByRole("button")).toHaveCount(17);
+ });
+});

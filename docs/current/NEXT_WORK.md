@@ -1,8 +1,8 @@
-# Next work — WP14 Construction A
-Sole live pointer. Planning#1101 integrated 5fe1ba77dd06624d366a0612ba3ce3ee921a32dd; owner now authorizes full WP14 including
-eligible construction/Review/Closure after validated predecessor gates. Addendum014 accepted via Planning.
-TASK708 COMMITTED, eight exact paths; A manifest/TASK context_paths and Sprint policies govern.
-Real WP13 codec/WP12 references/interaction selection reused; no UI/schema/storage/owner mutation in A.
-Final npm run verify, station:build and every triggered independent gate required before merge.
-B/C/Review/Closure forecast until fresh-main promotion. ADR0009/0017 retained; WP15/16 not authorized.
-Authority Addendum014, WP14 PLAN, A manifest/TASK708. No live semantic service/whole H3/S4 certification.
+# Next work — WP14 Construction B
+Sole live pointer. A#1102 integrated b0efe2f06a219006469a75dc152cb9f4af6b9c70 with all seven construction workflows PASS.
+TASK709 COMMITTED on twelve exact paths, B manifest/TASK context_paths govern. Whole WP14 authorized.
+Shared Explorer/Inspector/two installed projections reuse actual A model and existing guarded editor.
+Final npm run verify/station:build and all triggered construction/browser/platform/frontend gates.
+Optional C/Review/Closure forecast pending actual B proof and fresh-main revalidation.
+Authority Addendum014/WP14 PLAN/B manifest/TASK709, ADR0009/0017 and Sprint policies.
+WP13 limits/debt retained; no live semantic service, C10/Studio or whole WBS/H3/S4 certification.
