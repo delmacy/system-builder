@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { initializeCatalogEditorSession, resolveEditorCatalogEntry, validateEditorCatalogDefinition } from "../../apps/station/web/app/station-editor-catalog.js";
+import { initializeCatalogEditorSession, listEditorCatalog, resolveEditorCatalogEntry, validateEditorCatalogDefinition } from "../../apps/station/web/app/station-editor-catalog.js";
 import { validateCompositionGraph, projectResponsiveComposition } from "../../packages/station-composition/index.js";
 import { createEditorHistory, applyEditorHistoryStructure, moveEditorHistory, projectEditorLayers, projectEditorInspector,
   projectEditorPreview, initializeEditorSession, saveStoredArtifact, openStoredArtifact,
@@ -71,4 +71,13 @@ test("WP9 malformed source/imported nested slots reject without replacing instal
     assert.equal((await readEditorArtifact({ size: text.length, text: async () => text })).accepted, false);
   }
   assert.equal(JSON.stringify(entry.composition), before); assert.deepEqual(setup().h.session.transaction.draft, entry.composition);
+});
+
+
+test("WP9 installed navigation filters literal title/ref without changing catalog truth", () => {
+  const before = listEditorCatalog();
+  assert.deepEqual(listEditorCatalog("  ACTION PANEL ").map(n => n.compositionRef), [ref]);
+  assert.deepEqual(listEditorCatalog("COMPOSITION:ACTION-PANEL").map(n => n.compositionRef), [ref]);
+  for (const query of ["not-installed", "../", "<script>"]) assert.deepEqual(listEditorCatalog(query), []);
+  assert.deepEqual(listEditorCatalog(), before); assert.ok(Object.isFrozen(listEditorCatalog("panel")));
 });

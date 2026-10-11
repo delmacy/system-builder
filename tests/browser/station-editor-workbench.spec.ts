@@ -1011,3 +1011,82 @@ test.describe("WP8 typed button properties", () => {
     await expect(variant(page)).toHaveValue("default"); await expect(disabled(page)).not.toBeChecked();
   });
 });
+
+test.describe("WP9 reusable installed catalog", () => {
+  const b = (page: Page, name: string) => page.getByRole("button", { name, exact: true });
+  const layer = (page: Page, name: string) => page.getByRole("treeitem", { name, exact: true });
+  async function install(page: Page) {
+    await page.getByLabel("Search installed compositions", { exact: true }).fill("action panel");
+    await expect(page.getByLabel("Composition to install", { exact: true })).toHaveValue("composition:action-panel");
+    await b(page, "Install composition").click();
+    await expect(page.getByLabel("Composition", { exact: true })).toHaveValue("composition:action-panel");
+  }
+  async function expand(page: Page) {
+    await layer(page, "Action panel").click(); await layer(page, "Action panel").press("ArrowRight");
+    await layer(page, "Action row").click(); await layer(page, "Action row").press("ArrowRight");
+  }
+  test("search/keyboard installation edits real nested source and undo restores it", async ({ page }) => {
+    const search = page.getByLabel("Search installed compositions", { exact: true });
+    await search.fill("not installed"); await expect(b(page, "Install composition")).toBeDisabled();
+    await expect(layer(page, "Button 1")).toBeVisible();
+    await search.fill("COMPOSITION:ACTION-PANEL"); await b(page, "Install composition").focus(); await page.keyboard.press("Enter");
+    await expect(page.getByLabel("Composition", { exact: true })).toHaveValue("composition:action-panel");
+    await expand(page); await layer(page, "Primary action").click();
+    await page.getByLabel("Button text", { exact: true }).fill("Confirmar painel"); await b(page, "Apply text").click();
+    await page.getByLabel("Button variant", { exact: true }).selectOption("outline"); await b(page, "Apply properties").click();
+    await expect(preview(page, "Confirmar painel")).toHaveAttribute("data-button-variant", "outline");
+    await b(page, "Undo").click(); await expect(preview(page, "Confirmar painel")).toHaveAttribute("data-button-variant", "default");
+    await b(page, "Undo").click(); await expect(preview(page, "Primary action")).toBeVisible();
+    await b(page, "Redo").click(); await expect(preview(page, "Confirmar painel")).toBeVisible();
+  });
+  test("pending text and dirty installation require cancel or explicit replacement", async ({ page }) => {
+    await layer(page, "Button 1").click(); await page.getByLabel("Button text", { exact: true }).fill("Pending original");
+    await page.getByLabel("Search installed compositions", { exact: true }).fill("action panel"); await b(page, "Install composition").click();
+    await b(page, "Cancel switch").click(); await expect(page.getByLabel("Button text", { exact: true })).toHaveValue("Pending original");
+    await expect(preview(page)).toBeVisible(); await expect(page.getByLabel("Composition", { exact: true })).toBeFocused();
+    await b(page, "Restore fields").click(); await span(page, "3"); await b(page, "Install composition").click();
+    await expect(preview(page)).toHaveAttribute("data-column-span", "3"); await b(page, "Discard changes and open").click();
+    await expect(page.getByLabel("Composition", { exact: true })).toHaveValue("composition:action-panel");
+    await expect(b(page, "Undo")).toHaveAttribute("aria-disabled", "true"); await expect(preview(page, "Primary action")).toBeVisible();
+  });
+  test("new composition saves locally and actual downloaded file reopens independent session", async ({ page }) => {
+    await install(page); await expand(page); await layer(page, "Secondary action").click();
+    await page.getByLabel("Button text", { exact: true }).fill("Voltar ao painel"); await b(page, "Apply text").click();
+    await page.getByLabel("Button variant", { exact: true }).selectOption("ghost"); await b(page, "Apply properties").click();
+    const bytes = await downloadedComposition(page); const doc = JSON.parse(bytes.toString());
+    expect(doc.payload.compositionRef).toBe("composition:action-panel"); expect(doc.schema.version).toBe("4.0.0");
+    await b(page, "Save locally").click(); await expect(page.getByRole("status")).toContainText("saved locally");
+    await page.reload(); await page.getByLabel("Composition", { exact: true }).selectOption("composition:action-panel"); await b(page, "Open saved").click();
+    await expect(preview(page, "Voltar ao painel")).toHaveAttribute("data-button-variant", "ghost");
+    const other = await page.context().newPage(); try {
+      await other.goto("/component-editor"); await other.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "wp9.json", mimeType: "application/json", buffer: bytes });
+      await expect(other.getByLabel("Composition", { exact: true })).toHaveValue("composition:action-panel");
+      await expect(preview(other, "Voltar ao painel")).toHaveAttribute("data-button-variant", "ghost");
+      await expect(b(other, "Undo")).toHaveAttribute("aria-disabled", "true");
+    } finally { await other.close(); }
+  });
+  test("incompatible row placement and corrupt nested import preserve draft, valid add recovers", async ({ page }) => {
+    await install(page); await page.getByLabel("Container", { exact: true }).selectOption("panel:actions");
+    await page.getByLabel("Component to add", { exact: true }).selectOption("component:action-panel"); await b(page, "Add component").click();
+    await expect(editor(page)).toHaveAttribute("data-draft-revision", "7"); await expect(page.getByRole("status")).toContainText("cannot be placed");
+    await page.getByLabel("Component to add", { exact: true }).selectOption("component:button"); await b(page, "Add component").click();
+    await expect(preview(page, "Button 3")).toHaveAttribute("data-slot-ref", "actions");
+    const bytes = await downloadedComposition(page); const doc = JSON.parse(bytes.toString());
+    doc.payload.graph.nodes.find((n: { ref: string }) => n.ref === "node:added-3").placement.slotRef = "missing";
+    await page.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "bad.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(doc)) });
+    await expect(preview(page, "Button 3")).toBeVisible(); await expect(editor(page)).toHaveAttribute("data-draft-revision", "8");
+    await b(page, "Undo").click(); await expect(preview(page, "Button 3")).toHaveCount(0);
+  });
+  test("narrow catalog and Station minimize/restore retain installed editable panel", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 }); await install(page);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.goto("/"); await b(page, "Open applications").click(); await page.locator('[data-app-ref="app:composition-editor"]').click();
+    await install(page); await expand(page); await layer(page, "Primary action").click(); await span(page, "3");
+    const win = page.getByRole("dialog", { name: "Composition Editor", exact: true }); await win.getByRole("button", { name: "Minimize window" }).click();
+    await page.locator('[data-slot="taskbar-windows"]').getByRole("button", { name: "Composition Editor", exact: true }).click();
+    await expect(preview(page, "Primary action")).toHaveAttribute("data-column-span", "3");
+    await expect(b(page, "Undo")).toHaveAttribute("aria-disabled", "false");
+    await win.getByRole("button", { name: "Close window" }).click(); await b(page, "Open applications").click(); await page.locator('[data-app-ref="app:composition-editor"]').click();
+    await expect(page.getByLabel("Composition", { exact: true })).toHaveValue("composition:example");
+  });
+});

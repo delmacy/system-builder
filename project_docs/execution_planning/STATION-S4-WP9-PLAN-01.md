@@ -16,3 +16,6 @@ requires observed complete connected CI, never an inferred pass. Existing data/h
 Risks: incompatible nested slots, source mutation/aliasing, pending overwrite, filtered current entry,
 wrong catalog identity on reopen, long-session memory. No universal accessibility/scale certification.
 Next package WP10 remains forecast, no automatic promotion.
+
+## B promotion
+A#1077 integrated after seven PASS gates; only B/TASK684 committed. C/Review/Closure forecast.

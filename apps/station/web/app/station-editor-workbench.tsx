@@ -327,6 +327,10 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     if (target) focus(target);
   };
 
+  const [catalogQuery, setCatalogQuery] = useState("");
+  const [catalogCandidate, setCatalogCandidate] = useState("");
+  const catalogMatches = listEditorCatalog(catalogQuery);
+  const catalogChoice = catalogMatches.find(item => item.compositionRef === catalogCandidate) ?? catalogMatches[0];
   const byPreviewRef = new Map(preview.accepted ? preview.snapshot.nodes.map(node => [node.nodeRef, node] as const) : []);
   const renderPreview = (layer: EditorLayer): ReactNode => {
     const node = byPreviewRef.get(layer.nodeRef);
@@ -406,6 +410,22 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       <input ref={fileInput} type="file" accept=".composition.json,.json,application/json" aria-label="Composition file" className="sr-only"
         onChange={event => { const file = event.target.files?.[0]; event.target.value = ""; if (file) void openFile(file); }} />
     </header>
+    <div role="group" aria-label="Installed composition catalog" className="flex flex-wrap items-end gap-3 border-b p-4">
+      <div className="min-w-0 flex-1"><label htmlFor="editor-catalog-search" className="mb-1 block text-sm">Search installed compositions</label>
+        <input id="editor-catalog-search" type="search" maxLength={256} value={catalogQuery}
+          onChange={event => setCatalogQuery(event.target.value)} className="w-full rounded-md border bg-background p-2" /></div>
+      <div className="min-w-0 flex-1"><label htmlFor="editor-catalog-choice" className="mb-1 block text-sm">Composition to install</label>
+        <select id="editor-catalog-choice" value={catalogChoice?.compositionRef ?? ""}
+          disabled={!catalogChoice || state.pendingArtifact !== null || state.pendingRef !== null}
+          onChange={event => setCatalogCandidate(event.target.value)} className="w-full rounded-md border bg-background p-2">
+          {catalogMatches.length ? catalogMatches.map(item => <option key={item.compositionRef} value={item.compositionRef}>{item.title}</option>) :
+            <option value="">No matching compositions</option>}
+        </select></div>
+      <Button variant="outline" disabled={!catalogChoice || catalogChoice.compositionRef === state.entry.compositionRef ||
+        state.pendingArtifact !== null || state.pendingRef !== null}
+        onClick={() => { if (catalogChoice) dispatch({ type: "request-switch", ref: catalogChoice.compositionRef }); }}>Install composition</Button>
+      <p className="w-full text-xs text-muted-foreground" aria-live="polite">{catalogMatches.length} installed composition{catalogMatches.length === 1 ? "" : "s"} found. Installation opens an editable source copy.</p>
+    </div>
     {state.pendingArtifact ? <div className="flex flex-wrap items-center gap-3 border-b p-4" role="group" aria-label="Unsaved artifact open">
       <p>Unsaved changes. Discard them and open this composition artifact?</p>
       <Button variant="outline" onClick={() => { restoreOpenFocus.current = true; dispatch({ type: "cancel-open" }); }}>Cancel open</Button>
