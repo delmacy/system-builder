@@ -125,3 +125,10 @@ A testing finding: depth32 limits JSON nesting, not flat graph ancestor count; n
 graph size and full validation rejects cycles. Closure reconciles misleading operational wording.
 Unmerged B trial had two inherited fixed20-Tab helper failures; six new journeys passed. Final B
 uses DOM-bounded real traversal and all61 pass, with no skip/timeout/workflow weakening.
+
+## WP10 closure disposition
+Review#1084 independently passed and integrated; no blocker inside admitted compatible movement
+goal. Five sprints match forecast, C unnecessary. Closure becomes effective only on TASK691's own
+complete CI/merge. WP10-L1/L2/D1 and all inherited WP3–WP9/unrelated limits/debt remain explicit.
+No active WP10 work or committed successor after that merge. Future WP11 planning must admit its
+own scope and retention/ownership contracts; no remote catalog/File Manager/Core/server promotion.

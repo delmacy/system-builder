@@ -1,6 +1,6 @@
 # Addendum010 — Station compatible reparenting
 Date: 2026-10-11 UTC
-Status: ACCEPTED effective on validated WP10 Planning integration
+Status: ACCEPTED via Planning#1081; bounded WP10 CLOSED effective on validated TASK691 integration
 Admission: owner requests WP10 completion and a small Station demonstration video after WP9#1080.
 
 ## Admitted scope and semantics
@@ -40,3 +40,12 @@ captions in test harness only. Deliver video after validated package closure; no
 Cross-composition move/copy, templates insertion, user/remote catalog, actions/arbitrary CSS,
 File Manager/revisions/process/Studio/Core/server/sync/deploy. Only bounded WBS21.2.1/21.2.3/
 21.3.1/21.3.2 slices; no whole-WBS/ComponentEditor/S4 completion.
+
+## Delivered bounded outcome and compatibility clarification
+Planning#1081/engine#1082/workbench#1083/Review#1084 implement the admitted goal; own closure
+must independently pass and integrate.121 editor cases in construction,151 combined editor/
+composition cases in review and61 actual Chromium journeys, seven construction gates and
+Windows/Ubuntu/frontend quality proof. Video is recorded actual UI, not a mocked product.
+Inherited depth32 is JSON object/array nesting. Graph ancestry is represented by flat references,
+limited by node cap256 and full connectivity/cycle validation; no32-ancestor limit is introduced.
+Existing strict payload1/2/3/4, ADR0009 envelope and registry/caps/history authority remain.
