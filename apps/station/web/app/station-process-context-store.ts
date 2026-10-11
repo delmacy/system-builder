@@ -21,6 +21,11 @@ export function saveProcessContext(store: ArtifactStore, input: unknown, expecte
   try {
     const prior = loadProcessContext(store);
     if (!prior.accepted) return prior;
+    if (prior.document && prior.document.artifactType === result.document.artifactType &&
+        prior.document.artifactId === result.document.artifactId && prior.document.artifactVersion === result.document.artifactVersion) {
+      const retained = encodeProcessContext(prior.document);
+      if (!retained.accepted || retained.text !== result.text) return { accepted: false, reason: "storage-conflict" };
+    }
     if (prior.storedText !== expectedText || store.getItem(PROCESS_CONTEXT_KEY) !== expectedText) return { accepted: false, reason: "storage-conflict" };
     store.setItem(PROCESS_CONTEXT_KEY, result.text);
     return { accepted: true, document: result.document, storedText: result.text };

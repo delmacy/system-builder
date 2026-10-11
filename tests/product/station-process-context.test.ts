@@ -144,3 +144,13 @@ test("WP13 actual file size/extension/read checks precede decode, failures remai
   assert.deepEqual(await readProcessContextFile({...file,text:async()=>{throw Error("read");}}),{accepted:false,reason:"file-read-failed"});
   assert.equal((await readProcessContextFile({...file,text:async()=>"{}"})).accepted,false);
 });
+
+test("WP13 retained logical tuple cannot change content; explicit new identity may replace context slot", () => {
+  const m = setup(); assert.ok(saveProcessContext(m.store,m.context,null).accepted);
+  const prior=m.store.getItem(PROCESS_CONTEXT_KEY),writes=m.writes();
+  const changed=clone(m.context);changed.payload.title="Changed";
+  assert.deepEqual(saveProcessContext(m.store,changed,prior),{accepted:false,reason:"storage-conflict"});
+  assert.equal(m.store.getItem(PROCESS_CONTEXT_KEY),prior);assert.equal(m.writes(),writes);
+  assert.ok(saveProcessContext(m.store,m.context,prior).accepted);
+  changed.artifactId="urn:uuid:other-context";assert.ok(saveProcessContext(m.store,changed,prior).accepted);
+});
