@@ -1,6 +1,7 @@
-# Next work — WP15 Construction A
-Sole live scheduler. Planning#1106 integrated. Owner authorizes whole WP15 including eligible Review/Closure.
-TASK713 COMMITTED from ac66474bd10219806c7c1741038820e5444ab088; eight exact paths, Addendum015.
-Local full-envelope workflow draft engine on sprint branch; own complete independent CI governs integration.
-B remains forecast until validated A merge and fresh main. No Core/Design authority or live service inferred.
-Authority: STATION-S4-WP15-PLAN-01 and A manifest; ADR0009/0017 unchanged; predecessor debts retained.
+# Next work — WP15 Construction B
+Sole live scheduler. A#1107 integrated06accc2a55ba73dbabff2fe83c31953985d87aa8 after seven PASS workflows/88 Chromium journeys.
+TASK714 COMMITTED on14 exact paths. Actual local engine drives shared Tools, separate candidate store,
+portable files and launcher/window/standalone Workflow Studio; seven new Chromium journeys planned.
+Owner authorizes whole WP15 including eligible Review/Closure. B own independent gates govern merge.
+C conditional only after fresh B evidence; Review/Closure forecast. No Core authority/live service inferred.
+Addendum015/PLAN/A/B manifests govern; ADR0009/0017 unchanged. Inherited limits/debt retained.
