@@ -55,6 +55,9 @@
       ],
       "@system-builder/station-composition": [
         "packages/station-composition/index.ts"
+      ],
+      "@system-builder/station-process-context": [
+        "packages/station-process-context/index.ts"
       ]
     },
     "strict": true,

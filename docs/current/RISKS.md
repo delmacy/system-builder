@@ -203,3 +203,10 @@ WP13-L1/L2/L3/D1 and all inherited residuals remain explicit accepted limits/deb
 service, monolithic process bundle, broader Studio/Core authority or storage/performance certification.
 After validated integration no active WP13 or committed successor. WP14 needs fresh Planning and
 projection/capability/selection contracts; remaining WP14–WP16 forecast does not authorize execution.
+
+## WP14 Construction A
+Qualified context/kind/authored-view identity prevents label/location collisions. Immutable codec-admitted
+models reuse existing interaction primitives. Unresolved refresh preserves identity while blocking open;
+B must freshly resolve exact references before ordinary dirty editor handoff. No semantic owner change.
+WP14-L1 two source-owned descriptors/17 items/ephemeral mounted selection. WP14-D1 inherited bounded
+codec/workspace scans, long-session memory/performance/accessibility remain unproven. WP13 debt retained.
