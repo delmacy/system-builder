@@ -1,4 +1,4 @@
-import { validButtonDisplayText, supportsButtonDisplayText } from "@system-builder/station-composition";
+import { validButtonProperties, validButtonDisplayText, supportsButtonDisplayText } from "@system-builder/station-composition";
 import type { CompositionGraph, CompositionNodeRef } from "@system-builder/station-composition";
 import type { EditorSession } from "./session.js";
 
@@ -6,6 +6,7 @@ export interface EditorLayer {
   readonly nodeRef: CompositionNodeRef;
   readonly componentRef: string;
   readonly text?: string;
+  readonly properties?: import("@system-builder/station-composition").ButtonProperties;
   readonly parentRef: CompositionNodeRef | null;
   readonly children: readonly EditorLayer[];
 }
@@ -34,6 +35,8 @@ export function projectEditorLayers(session: EditorSession): LayersProjectionRes
     if (!node || typeof node.ref !== "string" || !node.ref.trim() || typeof node.componentRef !== "string" || !node.componentRef.trim() || nodes.has(node.ref)) return invalid();
     if (Object.hasOwn(node, "text") && (node.ref === graph.rootRef ||
         !supportsButtonDisplayText(node.componentRef) || !validButtonDisplayText(node.text))) return invalid();
+    if (Object.hasOwn(node, "properties") && (node.ref === graph.rootRef ||
+        !supportsButtonDisplayText(node.componentRef) || !validButtonProperties(node.properties))) return invalid();
     nodes.set(node.ref, node);
     children.set(node.ref, []);
   }
@@ -63,6 +66,7 @@ export function projectEditorLayers(session: EditorSession): LayersProjectionRes
       nodeRef: ref,
       componentRef: node.componentRef,
       ...(node.text === undefined ? {} : { text: node.text }),
+      ...(node.properties === undefined ? {} : { properties: Object.freeze({ ...node.properties }) }),
       parentRef: node.placement?.parentRef ?? null,
       children: Object.freeze(descendants),
     });

@@ -16,6 +16,8 @@ export interface CompositionNode {
   readonly componentRef: ComponentRef;
   /** Inert display override for admitted installed buttons; never action/HTML authority. */
   readonly text?: string;
+  /** Typed inert button presentation only; never action/authorization. */
+  readonly properties?: ButtonProperties;
   readonly placement?: CompositionNodePlacement;
 }
 
@@ -35,4 +37,23 @@ export function validButtonDisplayText(value: unknown): value is string {
 }
 export function supportsButtonDisplayText(componentRef: string): boolean {
   return componentRef === "component:button" || componentRef === "component:lab-button";
+}
+
+export interface ButtonProperties {
+  readonly variant: "default" | "outline" | "ghost";
+  readonly disabled: boolean;
+}
+/** Check descriptors before values: hostile nested accessors must never run. */
+export function validButtonProperties(value: unknown): value is ButtonProperties {
+  try {
+    if (!value || typeof value !== "object" || Array.isArray(value) ||
+        ![Object.prototype, null].includes(Object.getPrototypeOf(value))) return false;
+    const keys = Reflect.ownKeys(value);
+    if (keys.length !== 2 || !keys.includes("variant") || !keys.includes("disabled")) return false;
+    const variant = Object.getOwnPropertyDescriptor(value, "variant");
+    const disabled = Object.getOwnPropertyDescriptor(value, "disabled");
+    return !!variant && !!disabled && variant.enumerable === true && disabled.enumerable === true &&
+      "value" in variant && "value" in disabled &&
+      ["default", "outline", "ghost"].includes(variant.value as string) && typeof disabled.value === "boolean";
+  } catch { return false; }
 }

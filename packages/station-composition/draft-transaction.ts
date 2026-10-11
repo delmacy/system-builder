@@ -1,5 +1,5 @@
 import type { ComponentRegistry } from "./registry.js";
-import type { CompositionGraph, CompositionNode } from "./graph.js";
+import { validButtonProperties, type CompositionGraph, type CompositionNode } from "./graph.js";
 import { validateCompositionGraph, type CompositionGraphFinding } from "./graph-validation.js";
 
 export interface CompositionDraftTransaction {
@@ -18,7 +18,12 @@ export type CompositionDraftMutationResult =
   | { readonly ok: false; readonly transaction: CompositionDraftTransaction; readonly findings: readonly CompositionGraphFinding[] };
 
 function snapshot(graph: CompositionGraph): CompositionGraph {
-  return Object.freeze({ rootRef: graph.rootRef, nodes: Object.freeze(graph.nodes.map((node) => Object.freeze({ ...node, ...(node.placement === undefined ? {} : { placement: Object.freeze({ ...node.placement }) }) }))) });
+  return Object.freeze({ rootRef: graph.rootRef, nodes: Object.freeze(graph.nodes.map(node => Object.freeze({
+    ...node,
+    ...(node.properties === undefined ? {} : { properties: validButtonProperties(node.properties)
+      ? Object.freeze({ ...node.properties }) : node.properties }),
+    ...(node.placement === undefined ? {} : { placement: Object.freeze({ ...node.placement }) }),
+  }))) });
 }
 
 function sameGraph(left: CompositionGraph, right: CompositionGraph): boolean {
