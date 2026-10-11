@@ -16,3 +16,6 @@ All triggered exact-head/current-base/heavy/handoff/browser/Windows-Ubuntu/front
 
 ## Successor/risk
 B remains forecast until A validates/integrates and fresh main is reconstructed. It must prove max-bound lifecycle/authority recovery and measure cold/warm undo/redo/changed/rejected/checkpoint behavior against pre-optimization main on the same runtime/machine. Private weak caches are an optimization, never new admission authority. No goal/scope expansion or full editor claim.
+
+## Validated integration
+Head c4232c481e53689de547b6cc5c338e71cb4482a0 integrated through #1061 at dc4e7b80fa1c1f0514fc052a0176d045ce0388e0. All seven workflows passed: deterministic 38105739415, merge candidate 38105739437, heavy 38105739475, handoff 38105739524, browser 38105739440, cross-platform 38105739424, frontend quality 38105739452. Actual Chromium 37/37 in 34.7 s. B only now promoted; quantitative improvement remains unclaimed until its observed proof.
