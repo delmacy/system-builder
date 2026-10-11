@@ -137,8 +137,12 @@ export function validateEditorCatalogDefinition(definition: EditorCatalogDefinit
 }
 
 export const DEFAULT_COMPOSITION_REF = "composition:example";
-export function listEditorCatalog(): readonly Readonly<{ compositionRef: string; title: string }>[] {
-  return Object.freeze(sources.map(({ compositionRef, title }) => Object.freeze({ compositionRef, title })));
+export function listEditorCatalog(query = ""): readonly Readonly<{ compositionRef: string; title: string }>[] {
+  if (typeof query !== "string") return Object.freeze([]);
+  const needle = query.trim().slice(0, 256).toLocaleLowerCase("en");
+  return Object.freeze(sources.filter(item => !needle ||
+    item.title.toLocaleLowerCase("en").includes(needle) || item.compositionRef.toLocaleLowerCase("en").includes(needle))
+    .map(({ compositionRef, title }) => Object.freeze({ compositionRef, title })));
 }
 export function resolveEditorCatalogEntry(ref: string): EditorCatalogEntry | null {
   if (typeof ref !== "string" || !ref.trim()) return null;
