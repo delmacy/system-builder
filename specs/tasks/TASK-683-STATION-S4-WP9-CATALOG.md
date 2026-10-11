@@ -2,7 +2,7 @@
 {
   "id": "TASK-683",
   "title": "Station S4 WP9 CATALOG",
-  "status": "ready",
+  "status": "completed",
   "priority": 683,
   "milestone": "STATION-S4-WP9-REUSABLE-CATALOG",
   "model_tier": "architecture",
@@ -33,7 +33,8 @@
     "project_docs/execution_planning/STATION-S4-WP9-CONSTRUCTION-A-01.md",
     "project_docs/execution_planning/STATION-S4-WP9-CONSTRUCTION-A-01.report.md",
     "specs/tasks/TASK-683-STATION-S4-WP9-CATALOG.md",
-    "docs/current/NEXT_WORK.md"
+    "docs/current/NEXT_WORK.md",
+    "tests/product/station-editor-history.test.ts"
   ],
   "forbidden_paths": [
     "docs/adr/**",
@@ -43,7 +44,7 @@
     "runtime/**",
     "deploy/**"
   ],
-  "max_files": 7,
+  "max_files": 8,
   "validation": [
     "npm run verify"
   ]
@@ -79,3 +80,7 @@ Observed commands, test results and exact CI identities; local tsx IPC limitatio
 
 ## Escalation
 Conflicting authority, forbidden paths, undeclared L3/L4 or unresolved proof failure. Bounded corrections remain in scope.
+
+
+## Bounded change control
+Generalize predecessor catalog-loop span assertions to the actual source baseline; new panel has span6, not the old universal2. No product scope expansion.

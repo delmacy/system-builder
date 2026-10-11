@@ -38,14 +38,14 @@ for (const { compositionRef } of listEditorCatalog()) {
     let h = ok(edit(original, 3, compositionRef));
     const applied = h;
     h = ok(move(h, "undo", compositionRef));
-    assert.equal(columns(h), 2); assert.equal(h.session.transaction.dirty, false);
+    assert.equal(columns(h), columns(original)); assert.equal(h.session.transaction.dirty, false);
     assert.equal(h.session.draftRevision, original.session.draftRevision + 2);
     h = ok(move(h, "redo", compositionRef));
     assert.equal(columns(h), 3); assert.equal(h.session.transaction.dirty, true);
     assert.equal(h.session.draftRevision, original.session.draftRevision + 3);
     assert.strictEqual(h.session.base, original.session.base);
     assert.strictEqual(h.session.transaction.base, original.session.transaction.base);
-    assert.equal(columns(original), 2); assert.equal(columns(applied), 3);
+    assert.equal(columns(original), entry.composition.nodes[1]!.placement!.columnSpan); assert.equal(columns(applied), 3);
     assert.equal(projectEditorLayers(h.session).accepted, true);
     const inspector = projectEditorInspector(h.session, selection, h.session.draftRevision);
     assert.equal(inspector.accepted, true);
