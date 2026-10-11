@@ -22,3 +22,8 @@ from final product browser recording, not an implementation prerequisite beyond 
 
 ## B promotion
 A#1082 integrated after seven PASS gates. Only B/TASK689 committed; C/Review/Closure forecast.
+
+## Review promotion
+B#1083 integrated after all seven PASS gates;61 actual Chromium cases including demo.
+Fresh main validates complete admitted goal; no necessary construction gap, C skipped.
+Only Review/TASK690 committed. Closure and WP11 remain forecast, independently gated.
