@@ -16,3 +16,9 @@ Risks: browser quota/clearing, imported retention head order, bounded validation
 stale detection only, explicit refresh may change target. No SemVer-head/publication/merge guarantee.
 WBS21.3.1-3 and versions/references portion30.1.2 only; hashes/provider lifecycle/wholeH2 excluded.
 WP13 remains forecast only; process semantic ownership/readiness/admission required before construction.
+
+## Integrated construction and Review materialization
+Planning#1091/A#1092/B#1093 integrated through697d2461987acb653e3b48a84deb5ec34edfe5a9. B seven workflows PASS,75 actual Chromium
+journeys1.7m. Admitted goal achieved, optional C skipped. Fresh-main Review/TASK700 COMMITTED on
+six exact documentation paths; audit no product overflow, classify limits/debt and conditional GO
+Closure. Closure forecast until own passing integration; WP13 remains forecast only.
