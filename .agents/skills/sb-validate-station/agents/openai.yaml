@@ -1,0 +1,4 @@
+interface:
+  display_name: "SB — Validar Station"
+  short_description: "Verificar jornadas reais e registrar provas"
+  default_prompt: "Use $sb-validate-station para validar as jornadas do Station no incremento atual."

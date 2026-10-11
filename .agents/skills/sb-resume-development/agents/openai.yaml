@@ -1,0 +1,4 @@
+interface:
+  display_name: "SB — Retomar desenvolvimento"
+  short_description: "Recuperar estado e retomar trabalho com evidências"
+  default_prompt: "Use $sb-resume-development para verificar onde o System Builder parou e retomar o trabalho autorizado."

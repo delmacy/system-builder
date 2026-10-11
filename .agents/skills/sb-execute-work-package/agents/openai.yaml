@@ -1,0 +1,4 @@
+interface:
+  display_name: "SB — Executar Work Package"
+  short_description: "Executar WPs com escopo, testes e integração"
+  default_prompt: "Use $sb-execute-work-package para executar o WP autorizado do System Builder até o encerramento."
