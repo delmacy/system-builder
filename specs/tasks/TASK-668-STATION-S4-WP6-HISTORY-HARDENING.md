@@ -1,7 +1,7 @@
 ---
 id: TASK-668
 title: Station S4 WP6 HISTORY HARDENING
-status: ready
+status: completed
 priority: 668
 milestone: STATION-S4-WP6-HISTORY-HARDENING
 model_tier: architecture
@@ -66,3 +66,5 @@ New catalog/components/properties, reparenting, arbitrary code, persistent histo
 Separate materialization, one authoritative TASK commit, Sprint report and one PR; never claim unobserved execution.
 ## Escalation
 Stop for unsafe validation reuse, undeclared L3/L4, forbidden paths, conflicting authority, dependency collision or missing proof. Record findings rather than weaken checks.
+
+Implementation complete on Sprint branch. Four exact paths; owner explicitly authorizes entire WP6 through closure. Independent exact-head CI and merge still required; no local full verify pass claimed.
