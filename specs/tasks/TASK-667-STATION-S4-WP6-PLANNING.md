@@ -1,7 +1,7 @@
 ---
 id: TASK-667
 title: Station S4 WP6 PLANNING
-status: ready
+status: completed
 priority: 667
 milestone: STATION-S4-WP6-HISTORY-HARDENING
 model_tier: architecture
