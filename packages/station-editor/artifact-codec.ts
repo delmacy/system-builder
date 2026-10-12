@@ -91,7 +91,7 @@ function checkEnvelope(input: unknown): asserts input is CompositionArtifact {
     ["envelopeVersion", "artifactType", "artifactId", "artifactVersion", "schema", "provenance", "payload", "requiredExtensions", "extensions"].includes(key)), "invalid-envelope");
   requireValue(input.artifactType === COMPOSITION_ARTIFACT_TYPE, "invalid-envelope");
   requireValue(object(input.schema) && Object.keys(input.schema).length === 2 &&
-    input.schema.id === COMPOSITION_PAYLOAD_SCHEMA && ["1.0.0", "2.0.0", "3.0.0", "4.0.0"].includes(input.schema.version as string), "unsupported-version");
+    input.schema.id === COMPOSITION_PAYLOAD_SCHEMA && ["1.0.0", "2.0.0", "3.0.0", "4.0.0", "5.0.0"].includes(input.schema.version as string), "unsupported-version");
   if (input.requiredExtensions !== undefined) {
     requireValue(Array.isArray(input.requiredExtensions) && input.requiredExtensions.every(nonblank) &&
       new Set(input.requiredExtensions).size === input.requiredExtensions.length, "invalid-envelope");
@@ -118,9 +118,11 @@ function checkGraph(value: unknown, source: ArtifactSource, schemaVersion: strin
   const nodes = new Map<string, Record<string, unknown>>();
   const occupancy = new Map<string, number>(); const parentCount = new Map<string, number>();
   for (const node of value.nodes) {
-    keys(node, ["ref", "componentRef"], schemaVersion === "4.0.0" ? ["placement", "text", "properties"] : schemaVersion === "3.0.0" ? ["placement", "text"] : ["placement"]); token(node.ref); token(node.componentRef);
+    keys(node, ["ref", "componentRef"], ["4.0.0", "5.0.0"].includes(schemaVersion) ? ["placement", "text", "properties"] : schemaVersion === "3.0.0" ? ["placement", "text"] : ["placement"]); token(node.ref); token(node.componentRef);
     requireValue(!nodes.has(node.ref), "invalid-graph"); nodes.set(node.ref, node);
     requireValue(source.registry.get(node.componentRef), "invalid-graph");
+    if (schemaVersion !== "5.0.0" && object(node.properties))
+      requireValue(!Object.hasOwn(node.properties, "presentation"), "invalid-graph");
     if (node.placement !== undefined) {
       keys(node.placement, ["parentRef", "slotRef", "columnSpan", "rowSpan"]);
       token(node.placement.parentRef); token(node.placement.slotRef);
@@ -153,7 +155,7 @@ function checkGraph(value: unknown, source: ArtifactSource, schemaVersion: strin
   requireValue(validateCompositionGraph(value as unknown as CompositionGraph, source.registry).length === 0, "invalid-graph");
   const sourceRoot = source.composition.nodes.find(node => node.ref === source.composition.rootRef);
   requireValue(value.rootRef === source.composition.rootRef && root.componentRef === sourceRoot?.componentRef, "incompatible-source");
-  if (schemaVersion === "2.0.0" || schemaVersion === "3.0.0" || schemaVersion === "4.0.0") return;
+  if (schemaVersion === "2.0.0" || schemaVersion === "3.0.0" || schemaVersion === "4.0.0" || schemaVersion === "5.0.0") return;
   requireValue(value.nodes.length === source.composition.nodes.length, "incompatible-source");
   value.nodes.forEach((node: Record<string, unknown>, index: number) => {
     const expected = source.composition.nodes[index]!;
@@ -205,7 +207,8 @@ export function decodeCompositionArtifact(text: string, resolve: ArtifactSourceR
 }
 
 /** Choose a payload major explicitly; envelope/version metadata remains caller-owned. */
-export function compositionPayloadVersion(graph: CompositionGraph, source: ArtifactSource): "1.0.0" | "2.0.0" | "3.0.0" | "4.0.0" {
+export function compositionPayloadVersion(graph: CompositionGraph, source: ArtifactSource): "1.0.0" | "2.0.0" | "3.0.0" | "4.0.0" | "5.0.0" {
+  if (graph.nodes.some(node => node.properties && Object.hasOwn(node.properties, "presentation"))) return "5.0.0";
   if (graph.nodes.some(node => Object.hasOwn(node, "properties"))) return "4.0.0";
   if (graph.nodes.some(node => Object.hasOwn(node, "text"))) return "3.0.0";
   const original = source.composition;

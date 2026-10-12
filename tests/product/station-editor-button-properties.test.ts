@@ -103,7 +103,8 @@ test("WP8 owned nested snapshots isolate caller mutation and remain deeply froze
 test("WP8 v4 accepts omission; older/unknown schemas and malformed imported properties reject", () => {
   const { h, entry } = setup(); const changed = ok(set(h, { variant: "outline", disabled: true }));
   const encoded = createCompositionArtifact(changed.session.transaction.draft, entry, metadata); assert.ok(encoded.accepted); if (!encoded.accepted) return;
-  for (const version of ["1.0.0", "2.0.0", "3.0.0", "4.0.1", "5.0.0"]) assert.equal(encodeCompositionArtifact({ ...encoded.document, schema: { ...encoded.document.schema, version } }, resolveEditorCatalogEntry).accepted, false);
+  for (const version of ["1.0.0", "2.0.0", "3.0.0", "4.0.1", "6.0.0"]) assert.equal(encodeCompositionArtifact({ ...encoded.document, schema: { ...encoded.document.schema, version } }, resolveEditorCatalogEntry).accepted, false);
+  assert.ok(encodeCompositionArtifact({ ...encoded.document, schema: { ...encoded.document.schema, version: "5.0.0" } }, resolveEditorCatalogEntry).accepted);
   for (const properties of [{ variant: "bad", disabled: false }, null, { variant: "outline", disabled: "true" }]) {
     const graph: unknown = { ...encoded.document.payload.graph, nodes: encoded.document.payload.graph.nodes.map(n => n.ref === "node:button-1" ? { ...n, properties } : n) };
     assert.equal(encodeCompositionArtifact({ ...encoded.document, payload: { ...encoded.document.payload, graph } }, resolveEditorCatalogEntry).accepted, false);

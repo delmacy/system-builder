@@ -1,4 +1,4 @@
-import { validButtonProperties, type ButtonProperties, supportsButtonDisplayText, validButtonDisplayText, createCompositionDraftTransaction, type ComponentRegistry, type CompositionGraph } from "@system-builder/station-composition";
+import { freezeButtonProperties, validButtonProperties, type ButtonProperties, supportsButtonDisplayText, validButtonDisplayText, createCompositionDraftTransaction, type ComponentRegistry, type CompositionGraph } from "@system-builder/station-composition";
 import { createCompositionArtifact } from "./artifact-codec.js";
 import { acceptEditorDraft } from "./draft-boundary.js";
 import type { EditorSession } from "./session.js";
@@ -64,11 +64,10 @@ export function applyEditorStructure(session: EditorSession, intent: EditorStruc
       } else if (intent.type === "set-properties" || intent.type === "reset-properties") {
         if (!supportsButtonDisplayText(node.componentRef) ||
             (intent.type === "set-properties" && !validButtonProperties(intent.properties))) return reject("invalid-edit");
-        if (intent.type === "set-properties" ? node.properties?.variant === intent.properties.variant &&
-            node.properties?.disabled === intent.properties.disabled : !Object.hasOwn(node, "properties"))
+        if (intent.type === "set-properties" ? node.properties !== undefined && JSON.stringify(freezeButtonProperties(node.properties)) === JSON.stringify(freezeButtonProperties(intent.properties)) : !Object.hasOwn(node, "properties"))
           return Object.freeze({ accepted: true, changed: false, session, selectedRef });
         const replacement = { ...node };
-        if (intent.type === "set-properties") replacement.properties = Object.freeze({ ...intent.properties });
+        if (intent.type === "set-properties") replacement.properties = freezeButtonProperties(intent.properties);
         else delete replacement.properties;
         nodes = nodes.map(item => item.ref === node.ref ? replacement : item);
       } else if (intent.type === "set-text" || intent.type === "reset-text") {

@@ -45,3 +45,6 @@ A completion depends on own fullCI/merge; rawgeneratedchunks686748bytes,not comp
 
 ## UI Foundation coordinated successor readiness
 Addendum021/UIFoundationPlanning#1137 integrated. ICONA providesstableasset/semantic/publicAPI withoutui-core/globalCSS edits. BeforeBmaterialization,reconcileToolbarprimitives andcompositionicon/schemaownershipwithFoundationD/F; one sharedimplementation,no secondregistry/editor. DconsumesqualifiedICONAcontract andICONB integratesusabletoolbar/chooser/persistenceprooffromqualifiedowner; no cycle requiringwholeICONClosurebeforeitsownintegration.
+
+## Coordinated Foundation F portable bridge (TASK763)
+Revalidated main94da5ae2 and only openPR1144 head8e2012e1. Foundation F owns bounded ButtonProperties/payload5/editor projection admission using existing catalogVersion/assetRef shape; ICON retains all library assets, public resolution and complete chooser/toolbar WP acceptance. No parallel schema/icon pack or second editor. ICON B consumes qualified bridge; whole F/ICON closure is not a prerequisite cycle. Malformed refs reject; unavailable/unsupported refs retain portable data with honest UI fallback. UI integration and qualified CI remain required; this materialization does not close ICON or F.

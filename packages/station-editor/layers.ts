@@ -1,4 +1,4 @@
-import { validButtonProperties, validButtonDisplayText, supportsButtonDisplayText } from "@system-builder/station-composition";
+import { freezeButtonProperties, validButtonProperties, validButtonDisplayText, supportsButtonDisplayText } from "@system-builder/station-composition";
 import type { CompositionGraph, CompositionNodeRef } from "@system-builder/station-composition";
 import type { EditorSession } from "./session.js";
 
@@ -66,7 +66,7 @@ export function projectEditorLayers(session: EditorSession): LayersProjectionRes
       nodeRef: ref,
       componentRef: node.componentRef,
       ...(node.text === undefined ? {} : { text: node.text }),
-      ...(node.properties === undefined ? {} : { properties: Object.freeze({ ...node.properties }) }),
+      ...(node.properties === undefined ? {} : { properties: freezeButtonProperties(node.properties) }),
       parentRef: node.placement?.parentRef ?? null,
       children: Object.freeze(descendants),
     });

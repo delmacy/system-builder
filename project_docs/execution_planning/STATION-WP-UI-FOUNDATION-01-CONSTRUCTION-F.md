@@ -75,3 +75,12 @@ TASK761 observed heada97953ef: six workflows PASS, browser126 PASS/1 failure (ho
 Seven exact allowed paths; depends on qualified TASK761. Source-owned start/end placement, strict validation, expanded label order and real Lab browser proof. ui-icons/editor/composition/workflows/current pointer forbidden; no portable schema or readiness promotion.
 
 TASK762 local evidence: three presentation SSR contracts PASS, typecheck/lint/docs PASS,754 task specs and architecture PASS. Browser journey asserts actual trailing glyph order for icon-text and expanded icon-only controls while retaining all hover/focus/Escape/action/focus assertions. Exact-head CI pending; source-only portable status unchanged.
+
+## TASK763 coordinated portable-property admission
+Fresh main94da5ae2 / sole open1144 qualified8e2012e1. Eleven exact paths. Foundation owns inert ButtonProperties/codec5/editor projection bridge; ICON owns assets, reference shape and resolution via existing public loader. No ICON asset edits or duplicate renderer/catalog. New presentation={mode,placement,icon:{catalogVersion,assetRef}} uses existing shape; label remains node.text/source label. Unknown/missing/version references remain portable and require honest fallback; malformed refs reject. Legacy1–4 preserved and cannot hide new fields. ICON B consumes qualified bridge without depending on whole F closure; F does not depend on whole ICON closure. Actual UI chooser/preview/save/reopen is successor task, not kernel readiness.
+
+TASK763 pre-edit scope reconciliation: thirteen paths include responsive nested snapshots and old v4 unknown-version regression. Version5 is now admitted; unknown-version negative becomes6, with explicit v5 predecessor acceptance, not removed assertions.
+
+TASK763 before legacy-regression edits: sixteen paths include three predecessor suites that explicitly used5 as unknown version. Preserve their rejection assertion with6 now unknown, add v5 compatibility separately; no assertion deletion.
+
+TASK763 local source evidence:131 full editor contracts PASS, including nested presentation immutability/history/v5 roundtrip and atomic hostile accessor rejection. Legacy unknown-version tests move explicit unsupported major to6; v4 remains readable and new fields reject on downgrade. Lint/types/docs/task/architecture PASS; UI successor still required.

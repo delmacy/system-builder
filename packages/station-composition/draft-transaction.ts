@@ -1,5 +1,5 @@
 import type { ComponentRegistry } from "./registry.js";
-import { validButtonProperties, type CompositionGraph, type CompositionNode } from "./graph.js";
+import { freezeButtonProperties, validButtonProperties, type CompositionGraph, type CompositionNode } from "./graph.js";
 import { validateCompositionGraph, type CompositionGraphFinding } from "./graph-validation.js";
 
 export interface CompositionDraftTransaction {
@@ -21,7 +21,7 @@ function snapshot(graph: CompositionGraph): CompositionGraph {
   return Object.freeze({ rootRef: graph.rootRef, nodes: Object.freeze(graph.nodes.map(node => Object.freeze({
     ...node,
     ...(node.properties === undefined ? {} : { properties: validButtonProperties(node.properties)
-      ? Object.freeze({ ...node.properties }) : node.properties }),
+      ? freezeButtonProperties(node.properties) : node.properties }),
     ...(node.placement === undefined ? {} : { placement: Object.freeze({ ...node.placement }) }),
   }))) });
 }
