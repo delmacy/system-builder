@@ -8,7 +8,11 @@ test("collection table filters, selects with keyboard, and handles empty results
   await win.getByRole("button", { name: "Maximize window", exact: true }).click();
   const lab = page.getByRole("region", { name: "Collection foundation reference" });
   await expect(lab).toBeVisible();
-  await expect(lab.getByRole("table", { name: "Reference assets" }).getByRole("row")).toHaveCount(4);
+  await expect(lab.getByRole("table", { name: "Reference assets" }).getByRole("row")).toHaveCount(3);
+  await expect(lab.getByRole("navigation", { name: "Collection pages" })).toContainText("Page 1 of 2");
+  await lab.getByRole("button", { name: "Next page" }).click();
+  await expect(lab.getByRole("navigation", { name: "Collection pages" })).toContainText("Page 2 of 2");
+  await lab.getByRole("button", { name: "Previous page" }).click();
   const sortName = lab.getByRole("button", { name: "Sort by Name" });
   await sortName.click();
   await expect(lab.getByRole("columnheader", { name: "Name" })).toHaveAttribute("aria-sort", "descending");
