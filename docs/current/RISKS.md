@@ -250,3 +250,13 @@ Separate origin-local store16 revisions/4MiB; immutable tuples, best-effort expe
 Quota/corruption/stale/import sequencing preserve drafts; explicit refresh/open/retry, no auto-repair.
 State diagram uses deterministic grid plus declared transition connections, no free layout or simulation.
 History50/64states/128transitions caps remain; broader browser/screen-reader/performance proof unproven.
+
+## WP15 review dispositions
+WP15-L1 local/unpublished, upstream unresolved; no actual Core/Design service. WP15-L2 bounded artifact/
+selected-process/history/store, larger unrelated workflows read-only, best-effort snapshot not CAS.
+WP15-L3 static grid/connections/table, no rename/action/entity editing/simulation; WP15-L4 Chromium proof
+not universal accessibility. WP15-D1 full copies/history/storage/pretty render, max/cold/long-session
+memory/latency unmeasured. WP15-D2 restricted existing-schema vocabulary evaluator needs future schema
+requalification. WP15-D3 coarse pending-form dirty state; wider multi-form recovery polish deferred.
+95 actual Chromium journeys/seven construction gates prove bounded goal; C unnecessary. Own Review
+CI/integration controls GO Closure. All inherited residuals retained, no whole WBS/C10/Core promotion.
