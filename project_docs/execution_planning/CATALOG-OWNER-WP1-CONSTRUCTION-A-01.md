@@ -1,0 +1,4 @@
+# Catalog owner Construction A manifest — materialized
+TASK736 only; branch sprint/CATALOG-OWNER-WP1-CONSTRUCTION-A-01; basevalidatedPlanningintegrationresolvefreshmain. DependencyTASK735integrated.
+Goal strict publicDTO/ownerauth+sourceports and atomicPGresultrepository; preservelegacyCatalogconsumerAPI.11exactpaths/max11 perTASK736, noUI/Design/CI/runtimechange. Growingpositive/negative/canonicalpredecessor+actualPGconcurrency/restart/readback/resultproof. npmverify/alltriggeredCI mandatorybeforemerge.
+PromoteonlyBafterAallgatesfreshmain underownerexplicitpackageauthority; nofutureproductTASKoutsideA.
