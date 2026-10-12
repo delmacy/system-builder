@@ -63,3 +63,8 @@ TASK760 pre-edit clarification: eleven paths include candidate manifest/test. Al
 
 ### TASK759 qualified source / TASK760 checkpoint
 Source6005d862 all seven workflows PASS,126 actual Chromium journeys PASS (run38292031625, artifact11766971745). Screenshot reviewed: nested Primary/Secondary action labels readable at390px, Card authored spans8/4 preserved. TASK760 preserves unmodified PNGs, reconciles Button INSERTABLE census and updates only independent UI lane. Final checkpoint needs own CI; F and PR1144 remain open/unmerged. Consolidated factual report: STATION-WP-UI-FOUNDATION-01-CONSTRUCTION-F.report.md.
+
+## TASK761 owner refinement / shared-path ownership
+Fresh main94da5ae2 and F1144 fc5d9b13. Foundation owns PresentationButton source composed from existing Button/AccessibleTooltip; ICON owns tokens/assets and future versioned portable icon reference. Three modes and controlled expansion implemented first as reusable SOURCE_ONLY control in actual Lab; persistence remains a separate coordinated migration, no hidden icon fields in codec1–4. Eight exact allowed paths.
+
+TASK761 local source: two SSR contracts PASS; lint/typecheck/docs/753 task specs PASS. Architecture initially rejected relative cross-package icon import; corrected to public @system-builder/ui-icons and gate PASS. Expansion retains Tooltip root/trigger DOM and disables tooltip when text is visible, preserving focus. Actual hover/focus/Escape/keyboard action/expansion browser journey added; current codec/registry untouched. Exact-head browser/CI still required.

@@ -8,3 +8,5 @@ export * from "./primitives.js";
 export * from "./overlays.js";
 export * from "./industrial.js";
 export * from "./data-table.js";
+
+export * from "./presentation-button.js";
