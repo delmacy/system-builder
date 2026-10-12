@@ -24,3 +24,6 @@ Session and complete context must match configured binding; context.workspaceRef
 Command actionRef design.candidate.submit, targetRef exact candidate.artifactId, expectedRevisionRef prior owner revision or null; payload.candidate full document.
 Queries parameters.operation exact/head/result; exact also parameters.artifactVersion, resourceRef artifact ID; result resourceRef commandRef. Projection payload.result is explicit found/absent/denied/unavailable/invalid-request. CURRENT only means exact technical owner lookup, not upstream business currentness. No event subscription support in this bounded service.
 Safe fixed HTTP diagnostics do not expose tokens/database URL. Test isolation uses unique scoped identities, no destructive cleanup.
+
+## Integrated construction evidence
+A#1113/B#1114 independently integrated after seven workflows each PASS. Actual heavy104 tests0skip include PostgreSQL/HTTP/child process restart and committed-before-loss result recovery;95 Chromium predecessors/builds preserved. Independent Review/Closure still required before owner readiness handoff. Limits above are qualifications, no production claim.

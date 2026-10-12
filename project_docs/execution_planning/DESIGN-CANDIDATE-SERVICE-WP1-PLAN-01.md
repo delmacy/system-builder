@@ -35,3 +35,6 @@ broad owner changes. Missing functionality returns to construction, not hidden i
 
 ## Accepted execution update — 2026-10-12 UTC
 Owner explicitly accepts ADR0018/Addendum017 and authorizes complete Design prerequisite followed by WP16, including eligible Review/Closure. A promoted from validated #1112 base e23a4c9e1d6a899287b7b9ec6428954b70974e7f. Future sprints remain forecast until independent predecessor gates.
+
+## Integrated Construction / Review update
+A#1113 and B#1114 integrated ab41f634292b6349b13234f0cd5337f97500e483 after all seven checks eachPASS. Actual heavy104 tests0skip, authored candidate/HTTP/PostgreSQL/process restart and recovery;95 inherited browsers/builds preserved. TASK722 independent Review materialized on eight exact docs paths; no indispensable C gap. GOClosure conditional on own gates; no premature WP16 readiness.

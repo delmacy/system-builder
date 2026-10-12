@@ -274,3 +274,6 @@ Accepted ADR0018/Addendum017. Shared candidate admission evaluates only checked-
 
 ## Design B explicit local profile limits
 PostgreSQL candidate/head/ledger transaction locks globally serialize writes; qualification is bounded single-operator loopback only. Existing Station protocol retained, exact session/context binding and server verified actor evidence. Configuration/revocation changes require restart, expiry live per request; no production Keycloak/OpenFGA/multi-tenant/TLS/remote certification. Heavy actual PostgreSQL/HTTP/process restart and replay/concurrency/denial/lost-response evidence required before readiness. No event subscription support or upstream business currentness claim.
+
+## Design WP1 Review disposition
+A#1113/B#1114 validated/integrated, actual heavy104 tests0skip and95 Chromium predecessors. Review no indispensable C gap; local-only D1–D5 documented in Review/operations. GOClosure remains conditional on independent Review gates; WP16 awaits validated owner Closure/fresh-readiness. No productionIAM/TLS/multitenancy/events/globalscale/business-approval claim.
