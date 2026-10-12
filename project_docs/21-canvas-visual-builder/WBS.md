@@ -106,3 +106,7 @@ Larger unrelated workflows preserve data read-only; existing owner schemas/ADR/C
 WP15-L1/L2/L3/L4/D1/D2/D3/inherited residuals retained. No whole-item/WBS/H3/S4/general C10, live service,
 canonical publication/approval, runtime execution, CAS/collaboration or universal quality certification.
 WP16 requires fresh separate owner API/service readiness/Planning/authorization; no automatic promotion.
+
+## Station S4 WP16 bounded connected Studio disposition
+Add016 consumes independentlyclosedactualDesignowner(#1116) underADR0016, preserving21.1.2 semantic/layoutseparation and21.2.3/21.3.1–21.3.3 verifiedroundtrip/context/conflicts. A#1117/B#1118/C#1119 eachsevenchecksPASS; actual111heavy0skip/103productionChromium inclbrowser/API/PG/processrestart/fresh-empty-localstore/exactreopen/metadata/recovery/denial/stale/native/largeescaping. IndependentReview#1120 integrated8ce89f387098dba1ac8e50b96fe9707e5daf5c3a, no blocker.
+Bounded CLOSED onlyonvalidatedTASK727integration; R4.2/H4localtechjourney proven. No wholeitem/wholeWBS/S4/Design/universalH4/productioncertification. OtherStudios, richerDesign/businessauthority/publication/runtimeautomation andallinheritedL/DremainoutsideWP16. Nextseparateall12suiteStudiosphase Planning/EAP/WPs explicitlyrequested.
