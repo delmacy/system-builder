@@ -64,6 +64,18 @@
       ],
       "@system-builder/station-workflow-authoring": [
         "packages/station-workflow-authoring/index.ts"
+      ],
+      "@system-builder/contracts/design-candidate": [
+        "packages/contracts/design-candidate/index.ts"
+      ],
+      "@system-builder/contracts/identity-authorization": [
+        "packages/contracts/identity-authorization/index.ts"
+      ],
+      "@system-builder/contracts/semantic-substrate": [
+        "packages/contracts/semantic-substrate/index.ts"
+      ],
+      "@system-builder/design": [
+        "packages/design/index.ts"
       ]
     },
     "strict": true,

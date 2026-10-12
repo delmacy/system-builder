@@ -1,6 +1,6 @@
 # ADR-0018 — Design candidate owner service
 Date2026-10-12 UTC
-Status: PROPOSED — requires explicit owner acceptance before product construction.
+Status: ACCEPTED — explicit owner acceptance 2026-10-12 UTC; full Design prerequisite then WP16 execution authorized.
 Change level: L4-adjacent public owner/service materialization; no authority inferred from this proposal.
 Predecessor ADR0016/0017/0009/0015, Blueprint SB04 Design and WP16 owner readiness.
 
@@ -11,7 +11,7 @@ explicitly exclude creating that owner service inside Station integration. The n
 must be materialized in the SB04 Design bounded context before WP16 can honestly satisfy its exit.
 This decision must not promote the in-memory workflow.rename fixture or turn Gateway into canonical truth.
 
-## Proposed decision
+## Accepted decision
 Implement packages/design as the reference SB04 owner for RECEIVED technical candidate revisions only.
 It owns the authoritative fact that exact candidate bytes were retained, the candidate revision lineage,
 expected-revision conflict decision and command result ledger. It does not approve recipe/analysis,
@@ -69,7 +69,7 @@ Do not expose the service to the public internet under a test identity or defaul
 | Make Station localStorage canonical | rejected: second truth, incompatible with ADR0016 |
 | Store candidates as Release artifact payloads | rejected: wrong lifecycle/owner |
 | Implement Design service inside TASK718 | rejected: forbidden owner/backend scope |
-| Separate SB04 reference owner with public contract and PostgreSQL adapter | proposed, bounded prerequisite |
+| Separate SB04 reference owner with public contract and PostgreSQL adapter | accepted, bounded prerequisite |
 
 ## Proof and consequences
 Actual WP15-authored candidate -> public contract -> actual Design transaction -> Gateway HTTP receipt ->
@@ -78,4 +78,4 @@ Prove no write on invalid/denied/stale command, two writers, immutable conflict,
 of response after commit with durable command-result lookup. Memory tests are insufficient exit proof.
 No new Station business authority or Runtime dependency. Design receives a replaceable real backend
 slice; WP16 remains an integration package and becomes eligible only after independently reviewed O1–O4.
-This proposal does not authorize code. Acceptance must name ADR0018/Addendum017 and service execution.
+Owner explicitly accepted ADR0018/Addendum017 and complete service execution on 2026-10-12 UTC. Acceptance does not waive declared validation or readiness gates.
