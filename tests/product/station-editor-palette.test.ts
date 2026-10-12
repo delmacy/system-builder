@@ -30,3 +30,14 @@ test("a restricted action slot exposes atomic buttons and rejects layout contain
   const { session, entry } = fixture("composition:action-panel");
   assert.deepEqual(listInsertableEditorComponents(session, entry.registry, "panel:actions", "actions").map(item => item.id), ["component:button"]);
 });
+
+test("human labels and categories search admitted components without expanding eligibility", () => {
+  const { session, entry } = fixture("composition:action-panel");
+  const ids = (parent: string, slot: string, query: string) => listInsertableEditorComponents(session, entry.registry, parent, slot, query).map(item => item.id);
+  assert.deepEqual(ids("panel:root", "content", " AcTION panel "), ["component:action-panel"]);
+  assert.deepEqual(ids("panel:root", "content", "Display"), ["component:card"]);
+  assert.deepEqual(ids("panel:root", "content", "Actions"), ["component:button"]);
+  assert.deepEqual(ids("panel:root", "content", "Layouts"), ["component:action-panel", "component:action-row", "component:grid"]);
+  assert.deepEqual(ids("panel:actions", "actions", "Display"), []);
+  assert.deepEqual(ids("panel:root", "content", "Forms"), []);
+});

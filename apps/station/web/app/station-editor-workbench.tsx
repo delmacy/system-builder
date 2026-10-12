@@ -1,7 +1,7 @@
 "use client";
 import { EditorCardPreview } from "./station-editor-card-preview.js";
 import { EditorButtonPreview } from "./station-editor-button-preview.js";
-import { listInsertableEditorComponents, resolveEditorPaletteSelection } from "./station-editor-palette.js";
+import { editorPaletteCategory, editorPaletteLabel, listInsertableEditorComponents, resolveEditorPaletteSelection } from "./station-editor-palette.js";
 
 import { useEffect, useReducer, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Button } from "../../../../packages/ui-core/index";
@@ -551,10 +551,10 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
         {editable ? <Button variant="outline" className="mt-3" onClick={() => dispatch({ type: "restore-fields" })}>Restore fields</Button> : null}
         <div role="group" aria-label="Composition structure" className="mt-5 space-y-3 border-t pt-4">
           <h3 className="font-semibold">Build composition</h3>
-          <div><label htmlFor="editor-palette-search" className="mb-1 block text-sm">Search insertable components</label><input id="editor-palette-search" type="search" value={paletteQuery} onChange={event => setPaletteQuery(event.target.value)} className="mb-2 w-full rounded-md border bg-background p-2" /><p className="mb-1 text-xs text-muted-foreground">{matchingDescriptors.length} compatible catalog descriptors available in this composition. Other foundation controls are source-only.</p><label htmlFor="editor-component" className="mb-1 block text-sm">Component to add</label>
+          <div><label htmlFor="editor-palette-search" className="mb-1 block text-sm">Search insertable components</label><input id="editor-palette-search" type="search" placeholder="Name or category" value={paletteQuery} onChange={event => setPaletteQuery(event.target.value)} className="mb-2 w-full rounded-md border bg-background p-2" /><p className="mb-1 text-xs text-muted-foreground">{matchingDescriptors.length} compatible catalog descriptors available in this composition. Other foundation controls are source-only.</p><label htmlFor="editor-component" className="mb-1 block text-sm">Component to add</label>
             <select id="editor-component" value={activePaletteRef} disabled={blocked || matchingDescriptors.length === 0} onChange={event => setPaletteRef(event.target.value)}
               className="w-full rounded-md border bg-background p-2">
-              {matchingDescriptors.map(component => <option key={component.id} value={component.id}>{componentName(component.id)}</option>)}
+              {matchingDescriptors.map(component => <option key={component.id} value={component.id}>{editorPaletteLabel(component)} · {editorPaletteCategory(component)}</option>)}
             </select></div>
           <div><label htmlFor="editor-parent" className="mb-1 block text-sm">Container</label>
             <select id="editor-parent" value={activeParent?.ref ?? ""} disabled={blocked} onChange={event => { setParentRef(event.target.value); setSlotRef(""); }}

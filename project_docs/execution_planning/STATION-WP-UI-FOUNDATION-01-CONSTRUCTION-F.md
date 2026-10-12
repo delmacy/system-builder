@@ -40,3 +40,12 @@ TASK757 admission clarification before census edit: nine paths including candida
 Card registered in existing action-panel registry, actual Card/Header/Title/Content preview and content slot composed using current editor/codec2. 130 inherited editor/candidate/renderer contracts PASS; lint/typecheck/docs and749 task specs PASS. Negative row/unknown slot, invalid ButtonProperties on Card and corrupted nested import reject. Source mappings and INSERTABLE census stage added; new browser insert/span/nest/export/fresh reopen/narrow screenshot journey awaits actual CI. No arbitrary Card title/style/variant properties admitted.
 
 TASK756 historical head86978404: six workflows PASS, browser124 PASS /1 fail: legacy 256-character preview full-label title absent on actual Button. Fix restores title=label and escaped SSR assertion without weakening browser test. TASK757 Station production Next build PASS locally; generated build output removed after verification.
+
+## TASK758 materialization: admitted palette discoverability
+Six paths. Restore spaced human-name search and category lookup; consume the Card candidate mapping, supported Button identity contract, and layout-family fallback. Taxonomy never grants eligibility; existing structural admission remains authoritative.
+
+### Qualified source head / pending integration
+Head0c3fc48e94cddb47a509f136ac9cbc5c518f1867: all seven workflows PASS, actual browser126/126 PASS (run38290668638). Artifact11765162778 includes native Button fresh v4 reopen and Card insert/span/nested content/fresh codec2 reopen/narrow screenshot, expires2026-10-26. This qualifies the bounded source slice, not F or main integration; PR1144 remains draft.
+
+### TASK758 local implementation
+131 focused editor/candidate/renderer contracts PASS; lint/typecheck/docs/750 task specs PASS, root TypeScript build and Station production build PASS. Palette searches readable labels, IDs and actual presentation category while structural admission remains authoritative. Category labels displayed in actual options; Card browser journey now locates Display and nested Actions. Exact new-head CI required.

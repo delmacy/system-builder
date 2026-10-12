@@ -2161,10 +2161,10 @@ test("insertable palette searches actual registry without claiming source-only c
   await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
 });
 
- test("shared Card supports actual insert, span Inspector, nested content and fresh file reopen", async ({ page, browser }, testInfo) => {
+ test("shared Card category supports actual insert, span Inspector, nested content and fresh file reopen", async ({ page, browser }, testInfo) => {
   await page.getByLabel("Composition", { exact: true }).selectOption("composition:action-panel");
   const search = page.getByRole("searchbox", { name: "Search insertable components" });
-  await search.fill("card");
+  await search.fill("Display");
   await expect(page.getByLabel("Component to add")).toHaveValue("component:card");
   await page.getByRole("button", { name: "Add component", exact: true }).click();
   await span(page, "8", "4");
@@ -2173,7 +2173,7 @@ test("insertable palette searches actual registry without claiming source-only c
   await expect(card).toHaveAttribute("data-column-span", "8");
   await expect(card).toHaveAttribute("data-row-span", "4");
   await page.getByLabel("Container", { exact: true }).selectOption("node:added-3");
-  await search.fill("button");
+  await search.fill("Actions");
   await page.getByRole("button", { name: "Add component", exact: true }).click();
   await expect(card.locator('[data-node-ref="node:added-4"]')).toHaveAttribute("data-slot-ref", "content");
   const bytes = await downloadedComposition(page);
