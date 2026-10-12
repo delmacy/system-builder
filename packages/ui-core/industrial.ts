@@ -95,7 +95,7 @@ export function ToolbarToggleGroup({ label, value, options, onValueChange, class
   if (options.length === 0 || options.some(option => !option.value.trim() || !option.label.trim()) ||
       new Set(options.map(option => option.value)).size !== options.length) throw new Error("ToolbarToggleGroup requires unique nonempty options");
   if (!options.some(option => option.value === value)) throw new Error("ToolbarToggleGroup requires known selected value");
-  return createElement(ToolbarGroup, { ...props, label, "data-slot": "toolbar-toggle-group", className },
+  return createElement("div", { ...props, role: "group", "aria-label": label, "data-slot": "toolbar-toggle-group", className: cn("inline-flex items-center gap-0.5", className) },
     options.map(option => createElement(ToolbarButton, {
       key: option.value, label: option.label, icon: option.icon, disabled: option.disabled,
       pressed: value === option.value,
