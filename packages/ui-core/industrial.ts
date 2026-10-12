@@ -125,3 +125,22 @@ export function SelectField({ label, options, className, ...props }: SelectField
     createElement("select", { ...props, "aria-label": label, className: cn("h-[var(--sb-control-height)] rounded-[var(--sb-radius-control)] border border-input bg-background px-2 text-sm disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-ring", className) },
       options.map(option => createElement("option", { key: option.value, value: option.value, disabled: option.disabled }, option.label))));
 }
+
+/** Split action composition: primary command plus caller-owned accessible menu trigger.
+ * Pass a DropdownMenuTrigger/Content from overlays; never clone menu focus behavior here.
+ */
+export type SplitButtonProps = HTMLAttributes<HTMLDivElement> & Readonly<{
+  label: string;
+  primaryLabel: string;
+  onPrimaryAction: () => void;
+  menuTrigger: ReactNode;
+  disabled?: boolean;
+  icon?: ReactNode;
+}>;
+export function SplitButton({ label, primaryLabel, onPrimaryAction, menuTrigger, disabled = false, icon, className, ...props }: SplitButtonProps) {
+  if (!label.trim() || !primaryLabel.trim()) throw new Error("SplitButton requires nonempty accessible labels");
+  return createElement("div", { ...props, role: "group", "aria-label": label, "data-slot": "split-button", className: cn("inline-flex items-stretch overflow-hidden rounded-[var(--sb-radius-control)] border border-border", className) },
+    createElement("button", { type: "button", "aria-label": primaryLabel, "data-slot": "split-button-primary", disabled, onClick: onPrimaryAction,
+      className: "inline-flex h-[var(--sb-control-height)] items-center gap-1 px-2 text-sm hover:bg-accent disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" }, icon, primaryLabel),
+    createElement("span", { "data-slot": "split-button-menu", className: "inline-flex items-stretch border-l border-border" }, menuTrigger));
+}
