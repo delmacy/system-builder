@@ -2,7 +2,7 @@
 {
   "id": "TASK-739",
   "title": "Close qualified Catalog owner package and hand off Studio readiness",
-  "status": "ready",
+  "status": "completed",
   "priority": 739,
   "milestone": "CATALOG-OWNER-WP1",
   "model_tier": "architecture",

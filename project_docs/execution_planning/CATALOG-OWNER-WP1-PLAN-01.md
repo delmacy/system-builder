@@ -15,3 +15,6 @@ O1/O2 semantics declared, constructionmustprove. O3 actualPG/HTTP/profile notrea
 
 ## Integration review
 A #1130 and B #1131 integrated; B seven own workflows PASS. TASK-738 reviews public contracts, real PostgreSQL/HTTP/restart, source trust, compatibility and limits. No indispensable C gap found. GO Closure remains conditional on independent Review CI/merge; Station UI/client not yet implemented.
+
+## Closure disposition
+Bounded owner WP1 CLOSED effective only on validated TASK-739 merge after independent Review #1132. Local public contracts/transactional PostgreSQL/server authorization/trusted source/Gateway/process restart are qualified; no Station client or UI claim. Standard Planning/A/B/Review/Closure completed without C. Source and performance/production limits stay explicit. Next Station WP02 fresh readiness/materialization under existing owner authorization.
