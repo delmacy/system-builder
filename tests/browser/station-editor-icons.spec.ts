@@ -28,7 +28,9 @@ test("actual icon configuration guards history and survives local save and fresh
   await page.getByRole("button", { name: "Undo", exact: true }).click(); await expect(native(page)).toHaveText("Button 1");
   await page.getByRole("button", { name: "Redo", exact: true }).click(); await expect(native(page)).toHaveAttribute("data-icon-status", "ready");
   await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  await page.getByLabel("Icon position", { exact: true }).selectOption("start");
   await page.getByRole("button", { name: "Open saved", exact: true }).click();
+  await expect(page.getByRole("group", { name: "Unsaved artifact open", exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Discard changes and open file", exact: true }).click();
   await expect(page.getByLabel("Button display", { exact: true })).toHaveValue("icon");
   const bytes = await download(page); const doc = JSON.parse(bytes.toString());
