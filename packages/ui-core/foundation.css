@@ -144,6 +144,7 @@
 @media (prefers-reduced-motion: reduce) {
   :root { --sb-motion-duration: 0ms; }
 }
+@layer components {
 :where([data-slot="button"], [data-slot="input"], [data-slot="select"], [data-slot="toggle"]) {
   font-family: var(--sb-font-body);
   font-size: var(--sb-text-sm);
@@ -158,3 +159,4 @@
 }
 :where([data-slot="toggle"])[data-state="on"] { background-color: var(--sb-selection); }
 [data-slot="panel"] { border-radius: var(--sb-radius-panel); box-shadow: var(--sb-elevation-panel); }
+}

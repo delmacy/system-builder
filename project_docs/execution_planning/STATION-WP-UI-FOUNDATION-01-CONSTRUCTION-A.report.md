@@ -15,3 +15,5 @@ Bounded factual audit correction: inventory initially counted helpers/type expor
 A is not qualified until all own exact-head CI and integration; B remains forecast and requires fresh materialization. Retain ICON/WP02 pointer; no successor auto-commit.
 
 React review: extracted top-level Lab component, stable keyed bounded swatches, native labeled controls and described validation, typed existing appearance callbacks, one ephemeral selection state; no new effects/listeners/network/storage owner or provider dependency. Reuses existing versioned presentation store. Barrel import follows repository public boundary (no internal provider imports). Generated Next/Playwright outputs removed before repository lint, retaining only declared sources.
+
+Review correction: shared recipes live in Tailwind components layer so consumer utility variants still override them (small text/custom radius/height preserved). Core control/panel radii and control elevation use semantic variables directly. Station predecessor regression:314 PASS/4 fixture skips/0 failures locally; no fixture-complete claim.
