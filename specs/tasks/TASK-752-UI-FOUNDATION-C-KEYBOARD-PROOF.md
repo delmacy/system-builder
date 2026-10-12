@@ -2,7 +2,7 @@
 {
   "id": "TASK-752",
   "title": "Correct provider keyboard proof and narrow navigation layout",
-  "status": "ready",
+  "status": "verification",
   "priority": 752,
   "milestone": "WP-UI-FOUNDATION-01",
   "model_tier": "cheap",

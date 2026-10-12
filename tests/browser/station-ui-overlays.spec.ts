@@ -46,17 +46,24 @@ test("alert requires explicit action; popover dismisses outside and tooltip work
   await expect(page.getByText("Nonmodal local presentation", { exact: true })).toBeVisible();
   await lab.getByRole("heading", { name: "Overlays and navigation" }).click();
   await expect(page.getByText("Nonmodal local presentation", { exact: true })).not.toBeVisible();
-  await lab.getByRole("button", { name: "Tooltip reference target" }).focus();
+  await lab.getByRole("button", { name: "Open reference popover" }).focus();
+  await page.keyboard.press("Tab");
+  await expect(lab.getByRole("button", { name: "Tooltip reference target" })).toBeFocused();
   await expect(page.getByRole("tooltip")).toContainText("Reference keyboard help");
   await page.keyboard.press("Escape"); await expect(page.getByRole("tooltip")).not.toBeVisible();
 });
 
-test("menus skip disabled commands, handle submenu/context/menubar and restore focus", async ({ page }) => {
+test("menus reject disabled commands, handle submenu/context/menubar and restore focus", async ({ page }) => {
   const lab = await openLab(page);
   const trigger = lab.getByRole("button", { name: "Reference actions", exact: true });
   await trigger.focus(); await page.keyboard.press("ArrowDown");
   await expect(page.getByRole("menuitem", { name: "Save reference", exact: true })).toBeFocused();
   await expect(page.getByRole("menuitem", { name: "Unavailable reference", exact: true })).toHaveAttribute("aria-disabled", "true");
+  await page.keyboard.press("ArrowDown");
+  await expect(page.getByRole("menuitem", { name: "Unavailable reference", exact: true })).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(lab.getByLabel("Overlay reference state")).toContainText("Command: None");
+  await expect(page.getByRole("menuitem", { name: "Save reference", exact: true })).toBeVisible();
   await page.keyboard.press("ArrowDown");
   await expect(page.getByRole("menuitem", { name: "More reference actions", exact: true })).toBeFocused();
   await page.keyboard.press("ArrowRight");
@@ -76,6 +83,9 @@ test("navigation keyboard and disclosure states survive theme/density and compac
   const lab = await openLab(page);
   const overview = lab.getByRole("tab", { name: "Reference overview", exact: true });
   await overview.focus(); await page.keyboard.press("ArrowRight");
+  await expect(lab.getByRole("tab", { name: "Reference details", exact: true })).toBeFocused();
+  await expect(overview).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("Enter");
   await expect(lab.getByRole("tab", { name: "Reference details", exact: true })).toHaveAttribute("aria-selected", "true");
   await expect(lab.getByText("Details reference content", { exact: true })).toBeVisible();
   await expect(lab.getByRole("tab", { name: "Disabled reference tab", exact: true })).toBeDisabled();

@@ -61,7 +61,7 @@ export const ContextMenu = ProviderContextMenu.Root;
 export function ContextMenuTrigger(props: ComponentProps<typeof ProviderContextMenu.Trigger>) { return <ProviderContextMenu.Trigger data-slot="context-menu-trigger" {...props} />; }
 export function Menubar(props: ComponentProps<typeof ProviderMenubar>) { return <ProviderMenubar data-slot="menubar" className="flex flex-wrap gap-1 rounded-md border p-1" {...props} />; }
 export const Tabs = ProviderTabs.Root;
-export function TabsList(props: ComponentProps<typeof ProviderTabs.List>) { return <ProviderTabs.List data-slot="tabs-list" className="flex gap-1 rounded-md bg-muted p-1" {...props} />; }
+export function TabsList(props: ComponentProps<typeof ProviderTabs.List>) { return <ProviderTabs.List data-slot="tabs-list" className="flex flex-wrap gap-1 rounded-md bg-muted p-1" {...props} />; }
 export function TabsTrigger(props: ComponentProps<typeof ProviderTabs.Tab>) { return <ProviderTabs.Tab data-slot="tabs-trigger" className={`${control} border-transparent bg-transparent data-[active]:bg-background data-[active]:shadow-sm`} {...props} />; }
 export function TabsContent(props: ComponentProps<typeof ProviderTabs.Panel>) { return <ProviderTabs.Panel data-slot="tabs-content" className="p-3 outline-none focus-visible:ring-2 focus-visible:ring-ring" {...props} />; }
 export const Accordion = ProviderAccordion.Root;
