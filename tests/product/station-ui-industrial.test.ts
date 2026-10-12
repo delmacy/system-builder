@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, PaneHeader, StatusBar, PropertySection, PropertyField, ToolbarToggleGroup, SearchField, SelectField } from "../../packages/ui-core/index.js";
+import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, PaneHeader, StatusBar, PropertySection, PropertyField, ToolbarToggleGroup, SearchField, SelectField, SplitButton } from "../../packages/ui-core/index.js";
 
 const render = (node: ReturnType<typeof createElement>) => renderToStaticMarkup(node);
 
@@ -87,4 +87,13 @@ test("workstation search and native select preserve labels, escaped options and 
   assert.match(select, /&lt;wide&gt;/);
   assert.throws(() => render(createElement(SearchField, { label: "" })), /nonempty/);
   assert.throws(() => render(createElement(SelectField, { label: "Density", options: [] })), /unique nonempty/);
+});
+
+test("split button keeps primary action semantic and menu trigger independent", () => {
+  const html = render(createElement(SplitButton, { label: "Save actions", primaryLabel: "Save", onPrimaryAction: () => {},
+    menuTrigger: createElement("button", { type: "button", "aria-label": "More save options" }, "▼") }));
+  assert.match(html, /data-slot="split-button-primary"/);
+  assert.match(html, /data-slot="split-button-menu"/);
+  assert.match(html, /aria-label="More save options"/);
+  assert.throws(() => render(createElement(SplitButton, { label: "", primaryLabel: "Save", onPrimaryAction: () => {}, menuTrigger: null })), /nonempty/);
 });
