@@ -2,7 +2,7 @@
 {
   "id": "TASK-732",
   "title": "Review shared Studio foundation integrated journey and boundaries",
-  "status": "ready",
+  "status": "completed",
   "priority": 732,
   "milestone": "STATION-STUDIOS-WP01",
   "model_tier": "cheap",
