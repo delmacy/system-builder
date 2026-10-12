@@ -1,0 +1,41 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator } from "../../packages/ui-core/index.js";
+
+const render = (node: ReturnType<typeof createElement>) => renderToStaticMarkup(node);
+
+test("industrial toolbar exports labelled, themed and composable anatomy", () => {
+  const html = render(createElement(Toolbar, { label: "Document tools" },
+    createElement(ToolbarGroup, { label: "Alignment" },
+      createElement(ToolbarButton, { label: "Align left", pressed: true }, "Left"),
+      createElement(ToolbarSeparator, {}),
+      createElement(ToolbarButton, { label: "Save", disabled: true }, "Save"))));
+  for (const slot of ["toolbar", "toolbar-group", "toolbar-button", "toolbar-separator"]) assert.ok(html.includes(`data-slot="${slot}"`));
+  assert.match(html, /role="toolbar"/);
+  assert.match(html, /aria-label="Document tools"/);
+  assert.match(html, /aria-label="Alignment"/);
+  assert.match(html, /aria-pressed="true"/);
+  assert.match(html, /disabled=""/);
+});
+
+test("toolbar action vs toggle semantics stay distinct and labels are required", () => {
+  const action = render(createElement(ToolbarButton, { label: "Save", type: "submit" }));
+  assert.match(action, /type="submit"/);
+  assert.doesNotMatch(action, /aria-pressed/);
+  const toggle = render(createElement(ToolbarButton, { label: "Show rulers", pressed: false }));
+  assert.match(toggle, /aria-pressed="false"/);
+  for (const invalid of [
+    createElement(Toolbar, { label: " " }),
+    createElement(ToolbarGroup, { label: "" }),
+    createElement(ToolbarButton, { label: " " }),
+  ]) assert.throws(() => render(invalid), /nonempty accessible label/);
+});
+
+test("escaped names cannot inject toolbar markup", () => {
+  const html = render(createElement(ToolbarButton, { label: '<img src=x onerror=alert(1)>' }, '<b>Save</b>'));
+  assert.doesNotMatch(html, /<img/);
+  assert.match(html, /&lt;img/);
+  assert.match(html, /&lt;b&gt;Save&lt;\/b&gt;/);
+});
