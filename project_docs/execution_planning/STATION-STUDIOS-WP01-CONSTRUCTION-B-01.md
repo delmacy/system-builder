@@ -1,0 +1,3 @@
+# WP01 Construction B — materialized successor
+TASK731 only; branch sprint/STATION-STUDIOS-WP01-CONSTRUCTION-B-01; intended base validated A integration, reconstruct freshmain before edits.
+Goal shared installed UI, actual two model callbacks/qualified selection and context/draft retention; direct /studios and launcher. DependencyTASK730/allownA checksPASS.12exactpaths/max12 per TASK731, no backend/schema/CI/providerchange. Growingproof real UI creator/save/reopen and actualexistingDesignowner/auth/PG/readback/disconnect plus103predecessors. Validationnpmverify/alltriggeredgates. Stop newL3/L4/privateowner/forbiddenpath/securityweakened. Review only promoted after B integrated and Cnecessitydecided.

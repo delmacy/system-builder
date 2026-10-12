@@ -2,7 +2,7 @@
 {
   "id": "TASK-730",
   "title": "Build shared installed Studio presentation registry and scoped state",
-  "status": "ready",
+  "status": "completed",
   "priority": 730,
   "milestone": "STATION-STUDIOS-WP01",
   "model_tier": "cheap",
