@@ -1,0 +1,4 @@
+# Catalog owner Construction B — materialized successor
+TASK737only; branch sprint/CATALOG-OWNER-WP1-CONSTRUCTION-B-01; intendedbase validatedAintegration resolvefreshmain; dependencyTASK736/allowngatesPASS.
+13exactpaths/max13. Goal scopedexplicitlocalCatalogauth/profile/readonlytrustedsource/actualGatewayHTTP/configuredCLI andrealPG/HTTP/sourcefile/restart/denied/source/context/Originproof. PreserveDesignserver/protocol/publicsoftwareconsumers. npmverify/alltriggeredheavy/browser/currentbase gates. No Businessapprovalcreation; profiletrustexplicitlocalpreexistingmetadataonly.
+ReviewfuturepromotedafterqualifiedB andCnecessityfreshmain. NoStationproductimplementation yet.

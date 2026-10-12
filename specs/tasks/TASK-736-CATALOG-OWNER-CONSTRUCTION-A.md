@@ -2,7 +2,7 @@
 {
   "id": "TASK-736",
   "title": "Build public Catalog owner contract and atomic immutable registration",
-  "status": "ready",
+  "status": "completed",
   "priority": 736,
   "milestone": "CATALOG-OWNER-WP1",
   "model_tier": "architecture",
@@ -45,7 +45,8 @@
     "specs/tasks/TASK-736-CATALOG-OWNER-CONSTRUCTION-A.md",
     "project_docs/execution_planning/CATALOG-OWNER-WP1-CONSTRUCTION-B-01.md",
     "specs/tasks/TASK-737-CATALOG-OWNER-CONSTRUCTION-B.md",
-    "docs/current/NEXT_WORK.md"
+    "docs/current/NEXT_WORK.md",
+    "tsconfig.json"
   ],
   "forbidden_paths": [
     ".github/**",
@@ -53,7 +54,7 @@
     "runtime/**",
     "deploy/**"
   ],
-  "max_files": 11,
+  "max_files": 12,
   "validation": [
     "npm run verify"
   ]
@@ -81,3 +82,6 @@ Positive/negative/predecessor pure and actualPG/HTTP cases, exacthead/currentbas
 ## Escalation
 Missing trusted input must failclosed; unaccepted new owner/architecture/scope or forbidden paths block successor. No mock-success/readiness certificate.
 
+
+## Bounded operational change control
+CI proved public alias wiring indispensable: suite-modules-use-public-package-imports rejects cross-package relative imports, and newalias is not mapped. Add exactly tsconfig.json, max12, before its edit; new Catalog contract/service/repository public entries only. No validator/CI weakening or scope/architecture expansion. Existingbuild extends thisconfig.
