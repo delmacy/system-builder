@@ -1,4 +1,5 @@
 "use client";
+import { EditorButtonPreview } from "./station-editor-button-preview.js";
 import { listInsertableEditorComponents, resolveEditorPaletteSelection } from "./station-editor-palette.js";
 
 import { useEffect, useReducer, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
@@ -362,8 +363,6 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     if (node.kind === "root") return <div data-root-ref={node.nodeRef} className={container}>{children}</div>;
     const properties = node.properties;
     const variant = properties?.variant ?? "default";
-    const appearance = variant === "outline" ? "bg-transparent border-foreground/50" :
-      variant === "ghost" ? "bg-transparent border-transparent" : "bg-primary/15 border-primary/40";
     const parent = byPreviewRef.get(node.parentRef);
     const parentLayout = parent && state.entry.registry.get(parent.componentRef)?.layout;
     return <div key={node.nodeRef} role={children.length ? "group" : "img"} aria-label={layerName(state, node.nodeRef) + " preview"}
@@ -375,9 +374,9 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       style={parentLayout === "grid" ? { gridColumn: `span ${node.columnSpan}`, gridRow: `span ${node.rowSpan}` } :
         parentLayout === "row" ? { flexBasis: `${node.columnSpan / 12 * 100}%` } : undefined}
       className={"flex min-h-12 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md border px-2 text-sm " +
-        (supportsButtonDisplayText(node.componentRef) ? appearance : "bg-card") +
-        (node.selected ? " ring-2 ring-primary/30" : "") + (properties?.disabled ? " opacity-50" : "")}>
-      <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>{children.length ? <div className={container + " w-full"}>{children}</div> : null}
+        "bg-card" +
+        (node.selected ? " ring-2 ring-primary/30" : "") + ""}>
+      {supportsButtonDisplayText(node.componentRef) ? <EditorButtonPreview label={layerName(state, node.nodeRef)} properties={properties} /> : <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>}{children.length ? <div className={container + " w-full"}>{children}</div> : null}
     </div>;
   };
   const blocked = historyBlocked(state);
