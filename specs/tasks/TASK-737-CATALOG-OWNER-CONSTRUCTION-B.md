@@ -2,7 +2,7 @@
 {
   "id": "TASK-737",
   "title": "Qualify actual Catalog authenticated Gateway and trusted source profile",
-  "status": "ready",
+  "status": "completed",
   "priority": 737,
   "milestone": "CATALOG-OWNER-WP1",
   "model_tier": "architecture",
