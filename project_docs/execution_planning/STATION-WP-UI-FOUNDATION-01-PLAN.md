@@ -107,3 +107,6 @@ TASK-745 owns admission correction/census; TASK-746 owns first C0 construction o
 
 ## 9. Qualified A / promoted B
 A qualified/integratedPR1138 b50a550f, seven exact-head workflows and113 browser journeys PASS. TASK747 materializes B on fresh base; TASK748 native primitives only. Active B manifest STATION-WP-UI-FOUNDATION-01-CONSTRUCTION-B.md. C–Z forecast. NEXT_WORK primary ICON pointer preserved because openICON PR1139 owns it; the cited UI plan supplies bounded lane progression after qualifiedA. Toolbar/icon/schema coordination stays required.
+
+## 10. Qualified B / promoted C
+B qualified exact head5d8c95e (seven applicable workflows PASS) and integratedPR1140 at17a9a4da. TASK749 materializes provider-backed overlay/navigation TASK750 in ConstructionC; Command/combobox candidates remain explicit residual construction. Existing source-only vs editor-ready distinction and ICON path ownership remain. D-Z forecast.
