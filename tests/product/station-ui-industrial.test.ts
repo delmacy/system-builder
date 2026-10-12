@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, PaneHeader, StatusBar, PropertySection, PropertyField, ToolbarToggleGroup, SearchField, SelectField, SplitButton } from "../../packages/ui-core/index.js";
+import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, PaneHeader, StatusBar, PropertySection, PropertyField, ToolbarToggleGroup, SearchField, SelectField, SplitButton, TabStrip } from "../../packages/ui-core/index.js";
 
 const render = (node: ReturnType<typeof createElement>) => renderToStaticMarkup(node);
 
@@ -96,4 +96,15 @@ test("split button keeps primary action semantic and menu trigger independent", 
   assert.match(html, /data-slot="split-button-menu"/);
   assert.match(html, /aria-label="More save options"/);
   assert.throws(() => render(createElement(SplitButton, { label: "", primaryLabel: "Save", onPrimaryAction: () => {}, menuTrigger: null })), /nonempty/);
+});
+
+test("controlled workstation tab strip renders selection and separate close action", () => {
+  const tabs = [{id:"one",label:"Overview",closable:true},{id:"two",label:"Settings",disabled:true}];
+  const html = render(createElement(TabStrip,{label:"Document tabs",activeId:"one",tabs,onActiveChange:()=>{},onClose:()=>{}}));
+  assert.match(html,/data-slot="tab-strip"/);
+  assert.match(html,/aria-current="page"/);
+  assert.match(html,/aria-label="Close Overview"/);
+  assert.match(html,/disabled=""/);
+  assert.throws(()=>render(createElement(TabStrip,{label:"Document tabs",activeId:"missing",tabs,onActiveChange:()=>{}})),/enabled active tab/);
+  assert.throws(()=>render(createElement(TabStrip,{label:"Document tabs",activeId:"one",tabs:[tabs[0]!,tabs[0]!],onActiveChange:()=>{}})),/unique nonempty/);
 });
