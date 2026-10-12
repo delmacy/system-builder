@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator } from "../../packages/ui-core/index.js";
+import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, PaneHeader, StatusBar, PropertySection, PropertyField } from "../../packages/ui-core/index.js";
 
 const render = (node: ReturnType<typeof createElement>) => renderToStaticMarkup(node);
 
@@ -38,4 +38,29 @@ test("escaped names cannot inject toolbar markup", () => {
   assert.doesNotMatch(html, /<img/);
   assert.match(html, /&lt;img/);
   assert.match(html, /&lt;b&gt;Save&lt;\/b&gt;/);
+});
+
+test("workstation panes and inspector compounds expose accessible source-owned slots", () => {
+  const html = render(createElement("div", {},
+    createElement(PaneHeader, { title: "Explorer", subtitle: "Projects", actions: createElement("button", { type: "button" }, "Refresh") }),
+    createElement(PropertySection, { title: "Geometry", description: "Canvas dimensions" },
+      createElement(PropertyField, { label: "Width", hint: "Pixels", control: createElement("input", { type: "number", "aria-label": "Width" }) })),
+    createElement(StatusBar, { label: "File manager status", trailing: "2 selected" }, "Ready")));
+  for (const slot of ["pane-header", "pane-title", "pane-actions", "property-section", "property-field", "status-bar"]) {
+    assert.ok(html.includes(`data-slot="${slot}"`));
+  }
+  assert.match(html, /role="status"/);
+  assert.match(html, /aria-label="Geometry"/);
+  assert.match(html, /aria-label="Width"/);
+  assert.match(html, /2 selected/);
+});
+test("industrial compound labels reject blank names and escape external text", () => {
+  for (const element of [
+    createElement(StatusBar, { label: "" }, "Ready"),
+    createElement(PropertySection, { title: " " }),
+    createElement(PropertyField, { label: " ", control: createElement("input") }),
+  ]) assert.throws(() => render(element), /nonempty/);
+  const html = render(createElement(PaneHeader, { title: "<script>bad</script>" }));
+  assert.match(html, /&lt;script&gt;bad&lt;\/script&gt;/);
+  assert.doesNotMatch(html, /<script>/);
 });
