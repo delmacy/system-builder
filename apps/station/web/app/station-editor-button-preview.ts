@@ -9,7 +9,7 @@ export function EditorButtonPreview({ label, properties }: Readonly<{ label: str
     variant: properties?.variant ?? "default", disabled: properties?.disabled ?? false,
     type: "button", title: label, tabIndex: -1, "aria-hidden": true,
     "data-preview-variant": properties?.variant ?? "default",
-    className: "pointer-events-none max-w-full truncate",
+    className: "pointer-events-none min-w-0 max-w-full",
   };
-  return createElement(Button, props, label);
+  return createElement(Button, props, createElement("span", { className: "min-w-0 truncate", title: label }, label));
 }

@@ -2191,6 +2191,10 @@ test("insertable palette searches actual registry without claiming source-only c
     await expect(other.getByLabel("Columns", { exact: true })).toHaveValue("8");
     await expect(other.getByLabel("Rows", { exact: true })).toHaveValue("4");
     await other.setViewportSize({ width: 390, height: 860 });
+    const action = preview(other, "Primary action").locator('button[data-slot="button"]');
+    expect(await action.evaluate(element => element.getBoundingClientRect().width)).toBeGreaterThan(90);
+    await expect(action.locator("span")).toHaveText("Primary action");
+    await expect(reopened).toHaveAttribute("data-column-span", "8");
     expect(await other.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await other.screenshot({ path: testInfo.outputPath("foundation-card-fresh-reopen.png"), fullPage: true });
   } finally { await context.close(); }

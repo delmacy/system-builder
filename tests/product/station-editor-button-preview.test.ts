@@ -16,6 +16,7 @@ test("admitted preview renders actual shared Button recipes, escaped text and in
   assert.match(html, /aria-hidden="true"/);
   assert.match(html, /&lt;Confirmar&gt;/);
   assert.match(html, /title="&lt;Confirmar&gt;"/);
+  assert.match(html, /<span class="min-w-0 truncate" title="&lt;Confirmar&gt;">&lt;Confirmar&gt;<\/span>/);
   assert.doesNotMatch(html, /onclick|<Confirmar>/);
 });
 test("absent properties render legacy default and unsupported property shapes reject", () => {

@@ -49,3 +49,9 @@ Head0c3fc48e94cddb47a509f136ac9cbc5c518f1867: all seven workflows PASS, actual b
 
 ### TASK758 local implementation
 131 focused editor/candidate/renderer contracts PASS; lint/typecheck/docs/750 task specs PASS, root TypeScript build and Station production build PASS. Palette searches readable labels, IDs and actual presentation category while structural admission remains authoritative. Category labels displayed in actual options; Card browser journey now locates Display and nested Actions. Exact new-head CI required.
+
+## TASK759 screenshot-driven preview hardening
+Six paths. Actual Card mobile screenshot shows nested controls compressed into unreadable fragments despite126 browser PASS. Bounded presentation-only stacking at narrow widths and nested truncating label span preserve authored geometry, inert preview and full-title contract. Add direct label-room browser assertion.
+
+### TASK759 local implementation
+131 inherited contracts PASS; lint/typecheck/docs and751 task specs PASS. Narrow grid preview uses a stacked CSS projection and row items occupy available width; authored spans and Inspector remain untouched. Button labels use a truncating inner span with full title retained on both span and native control. Browser Card reopen now checks readable native Primary action width above90px and preserved authored8columns; actual screenshot review/new exact-head CI remain gates.

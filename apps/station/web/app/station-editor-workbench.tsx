@@ -359,7 +359,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     if (!node) return null;
     const layout = state.entry.registry.get(node.componentRef)?.layout;
     const children = layer.children.map(child => renderPreview(child));
-    const container = layout === "grid" ? "grid grid-cols-12 auto-rows-[3rem] gap-2" :
+    const container = layout === "grid" ? "grid grid-cols-12 auto-rows-[3rem] gap-2 max-sm:flex max-sm:flex-col" :
       layout === "row" ? "flex flex-wrap gap-2" : "flex flex-col gap-2";
     if (node.kind === "root") return <div data-root-ref={node.nodeRef} className={container}>{children}</div>;
     const properties = node.properties;
@@ -380,7 +380,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
         parentLayout === "row" ? { flexBasis: `${node.columnSpan / 12 * 100}%` } : undefined}
       className={"flex min-h-12 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md border px-2 text-sm " +
         "bg-card" +
-        (node.selected ? " ring-2 ring-primary/30" : "") + ""}>
+        (node.selected ? " ring-2 ring-primary/30" : "") + (parentLayout === "row" ? " max-sm:basis-full!" : "")}>
       {supportsButtonDisplayText(node.componentRef) ? <EditorButtonPreview label={layerName(state, node.nodeRef)} properties={properties} /> : <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>}{children.length ? <div className={container + " w-full"}>{children}</div> : null}
     </div>;
   };
@@ -499,6 +499,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       </section>
       <section aria-labelledby="preview-heading" className="min-w-0 border-b p-5 lg:border-b-0">
         <h2 id="preview-heading" className="mb-4 font-semibold">Preview</h2>
+        <p className="mb-3 text-xs text-muted-foreground sm:hidden">Compact preview stacks components. Saved sizes are preserved.</p>
         {preview.accepted ? <div className="rounded-lg border bg-muted/30 p-3" aria-label="Composition preview">
           {layers.accepted ? renderPreview(layers.root) : null}
         </div> : <p role="alert">Preview unavailable. Your composition has been preserved.</p>}
