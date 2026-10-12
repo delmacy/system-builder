@@ -2,7 +2,7 @@
 {
   "id": "TASK-750",
   "title": "Implement provider-backed overlay and navigation foundation",
-  "status": "ready",
+  "status": "verification",
   "priority": 750,
   "milestone": "WP-UI-FOUNDATION-01",
   "model_tier": "cheap",

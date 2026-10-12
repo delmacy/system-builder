@@ -5,3 +5,4 @@ export * from "./property-inspector.js";
 export * from "./editor-shell.js";
 
 export * from "./primitives.js";
+export * from "./overlays.js";
