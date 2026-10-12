@@ -5,7 +5,7 @@
   "status": "completed",
   "priority": 740,
   "milestone": "STATION-STUDIOS-WP02",
-  "model_tier": "execution",
+  "model_tier": "cheap",
   "risk": "medium",
   "architecture_impact": false,
   "executor_preference": "any",
