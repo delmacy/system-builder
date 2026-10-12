@@ -26,6 +26,6 @@ export function PresentationButton({ label, mode = "text", icon, expanded, ...bu
   if (mode !== "icon") return button;
   return createElement(AccessibleTooltipProvider, { delay: 150 },
     createElement(AccessibleTooltip, { disabled: !compact },
-      createElement(AccessibleTooltipTrigger, { render: button }),
-      createElement(AccessibleTooltipContent, null, label)));
+      createElement(AccessibleTooltipTrigger, { render: button, className: "" }),
+      createElement(AccessibleTooltipContent, { "aria-label": label, className: "max-w-xs rounded-md bg-foreground px-2 py-1 text-xs text-background shadow-md" }, label)));
 }
