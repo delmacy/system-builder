@@ -1,6 +1,6 @@
-import type { IconToken } from "./index.js";
+import type { LegacyIconToken } from "./index.js";
 
-export type LucideShapeTag = "path" | "circle" | "line" | "rect" | "polyline";
+export type LucideShapeTag = "path" | "circle" | "line" | "rect" | "polyline" | "ellipse" | "polygon";
 export type LucideShape = readonly [
   LucideShapeTag,
   Readonly<Record<string, string | number>>,
@@ -8,6 +8,7 @@ export type LucideShape = readonly [
 
 export type LucideIconDefinition = Readonly<{
   name: string;
+  provider?: "lucide" | "station";
   shapes: readonly LucideShape[];
 }>;
 
@@ -25,7 +26,7 @@ function icon(name: string, shapes: readonly LucideShape[]): LucideIconDefinitio
  * License: ISC; some glyphs are derived from Feather and retain MIT terms.
  * See THIRD_PARTY.md in this package.
  */
-export const LUCIDE_ICON_DEFINITIONS: Readonly<Record<IconToken, LucideIconDefinition>> =
+export const LUCIDE_ICON_DEFINITIONS: Readonly<Record<LegacyIconToken, LucideIconDefinition>> =
   Object.freeze({
     "shell.home": icon("house", [
       ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" }],
@@ -83,3 +84,4 @@ export const LUCIDE_ICON_DEFINITIONS: Readonly<Record<IconToken, LucideIconDefin
     "studio.release": icon("package", [["path",{"d":"M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"}],["path",{"d":"M12 22V12"}],["polyline",{"points":"3.29 7 12 12 20.71 7"}],["path",{"d":"m7.5 4.27 9 5.15"}]]),
     "studio.observe": icon("activity", [["path",{"d":"M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"}]]),
   });
+

@@ -1,0 +1,6 @@
+import type { LucideIconDefinition } from './lucide-adapter.js';
+/** Station-owned directional mirroring glyphs; theme-compatible geometry, not Lucide source. */
+export const CUSTOM_ICON_DEFINITIONS:Readonly<Record<string,LucideIconDefinition>>=Object.freeze({
+"object-flip-horizontal": Object.freeze({name:"object-flip-horizontal",assetRef:"glyph:object-flip-horizontal",catalogVersion:"1.0.0",provider:"station",digest:"fb477e0cbcf29cb278cc0c788b94ea28956ee3a86403276c15dcb273faf48455",shapes:Object.freeze(([["path",{"d":"M3 5h5l2 14H3z"}],["path",{"d":"M21 5h-5l-2 14h7z"}],["path",{"d":"M12 3v18"}],["path",{"d":"m5 12 2-2m-2 2 2 2m12-2-2-2m2 2-2 2"}]] as const).map(([tag,attrs])=>Object.freeze([tag,Object.freeze({...attrs})] as const)))}),
+"object-flip-vertical": Object.freeze({name:"object-flip-vertical",assetRef:"glyph:object-flip-vertical",catalogVersion:"1.0.0",provider:"station",digest:"638a84793d9b3e96004e695086a68f77df5e8328d3a268c20fcbd445054ece29",shapes:Object.freeze(([["path",{"d":"M5 3h14l-2 7H7z"}],["path",{"d":"M5 21h14l-2-7H7z"}],["path",{"d":"M3 12h18"}],["path",{"d":"m12 5-2 2m2-2 2 2m-2 12-2-2m2 2 2-2"}]] as const).map(([tag,attrs])=>Object.freeze([tag,Object.freeze({...attrs})] as const)))})
+});
