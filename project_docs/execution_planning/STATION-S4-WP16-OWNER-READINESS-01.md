@@ -34,3 +34,6 @@ Independent Design Review TASK722 GOClosure conditional on own gates; owner Clos
 Independent Design Review#1115 integratedb52d3e686b8c2b3303aac187abd0ac624c33416f with all five own checksPASS; no indispensable C gap.
 TASK723 bounded Closure is current. O1–O4 READY_LOCAL effective only after validated Closure integration; scope explicit local single-operator authenticated loopback PostgreSQL/Gateway profile. Read docs/operations/DESIGN_CANDIDATE_SERVICE.md for actual routes/actions/config and limits. No production IAM/remoteTLS/events or upstream business currentness claim.
 TASK718 may then be promoted on freshmain with actual public contracts/transport/heavy proof and revised exact paths; existing draft blocked status is historical until promotion, no service implementation inside Station task.
+
+## Fresh WP16 Construction A promotion
+Design Closure#1116 headccf6a952e350ce3fe4b66991467f14944f9026bc integratedeb0ebc87406280fed98600e2951879d6131cb02c after all five own workflowsPASS. O1–O4 READY_LOCAL actual closed reference service; all104 heavy provider/process tests0skip and95browser predecessors. TASK718 now promoted/COMMITTED on13 exact allowed paths with actual public contracts, unchanged forbidden backend/schema/ADR/CI/runtime paths. Full owner execution explicit. Historical blocked census is superseded by this fresh disposition.

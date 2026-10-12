@@ -1,6 +1,6 @@
 # Addendum016 — Station real owner-service journey
 Date2026-10-12 UTC
-Status: planning admission effective on validated integration; no construction authorization.
+Status: ACCEPTED — Planning#1111 integrated; owner explicitly authorizes full WP16 execution after independently closed Design readiness #1116.
 Provenance: owner requests a WP15 sample video then WP16 planning after bounded WP15 closure#1110.
 Admits only a bounded L3 connection/transport/projection journey through existing ADR0016 responsibilities.
 No new Core/Design semantic owner, schema, authority, database or service is created by this admission.
@@ -52,3 +52,6 @@ owner rejection, stale baseline, two writers, loss of response after commit, exp
 disconnect/reconnect and dirty open cancellation. No hand-authored successful downstream fixture.
 Preserve all95 predecessor Chromium journeys and public protocol/Core autonomy proof.
 Service absence keeps Construction A BLOCKED; Planning can integrate honestly without product claims.
+
+## Actual owner / Construction A admission
+DesignWP1 closed through #1113–#1116 after independent construction/review/closure gates; actual local authenticated PostgreSQL/Gateway/owner commands/query/result/restart proof. O1–O4 READY_LOCAL. TASK718 promoted on freshmain with13 exact paths/public actual contracts and no backend/schema changes. Owner full execution authorization covers A/B/eligibleReview/Closure. No production/currentness/business approval inference.

@@ -1,6 +1,7 @@
-# Next work — Design Closure, then WP16 actual owner connection
-Sole live scheduler. Active DESIGN-CANDIDATE-SERVICE-WP1-DOCUMENTATION-CLOSURE-01 / TASK723, base b52d3e686b8c2b3303aac187abd0ac624c33416f; independent Review#1115 five checksPASS integrated.
-Authority acceptedADR0018/Addendum017, DesignWP1 plan, active Closure manifest/TASK723 and WP16 plan/readiness. DesignWP1 bounded CLOSED effective only on validated Closure integration.
-Then next eligible user-authorized STATION-S4-WP16-CONSTRUCTION-A-01 / TASK718: freshmain revalidate O1–O4, revise exact allowed paths/context to actual public Design/local HTTP contract, commit only current A. No owner backend/schema creation in WP16.
-O1 commands/exact/head/result/revisions; O2 actualPG/schema/serverauth; O3 actual boundedloopbackHTTP/session/context/processrestart; O4 acceptedADR/addendum/full execution met local single-operator. Actualheavy104 tests0skip,95browser predecessors. Limits D1–D5/inherited retained.
-After WP16 A/B/independentReview/Closure, prepare next-phase all12 suite Studios plus Design tools, EAP/WBS/WPs as user requested; no future product construction inferred.
+# Next work — WP16 Construction A actual owner connection
+Sole live scheduler. Active STATION-S4-WP16-CONSTRUCTION-A-01 / TASK718; baseeb0ebc87406280fed98600e2951879d6131cb02c, DesignWP1 independent Closure#1116 integrated after all five checksPASS.
+Authority Add016/ADR0016/0017/0009, acceptedDesignADR0018/Add017, WP16 plan/readiness, activeA manifest/TASK718. O1–O4 READY_LOCAL explicit single-operator authenticated loopback PostgreSQL/Gateway; full WP16 execution authorized.
+A bounded SDK HTTP+WorkflowOwnerConnection implements actual command/exact readback/digest/context/source/owner revision/result recovery and response-generation guards.13 exact allowed paths; no backend/schema/ADR/CI changes. Actual API-heavy tests classified and every triggered CI/build/browser gate required before integration.
+B forecast Studio connection/send/readback/exactreopen/reconcile UI plus actualbrowser/API/PostgreSQL journey and95 predecessor regression. Only fresh A integration promotes B.
+Then independentReview/Closure; afterWP16 prepare all12 suite Studios plus Design tools phase goal/EAP/WBS/WPs. Future construction remains uncommitted.
+Local-only D1–D5/inherited limits remain; retained!=business-approved/published/upstream-resolved.
