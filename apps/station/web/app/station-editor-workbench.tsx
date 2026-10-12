@@ -1,4 +1,5 @@
 "use client";
+import { listInsertableEditorComponents, resolveEditorPaletteSelection } from "./station-editor-palette.js";
 
 import { useEffect, useReducer, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Button } from "../../../../packages/ui-core/index";
@@ -250,7 +251,6 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const [expanded, setExpanded] = useState(() => new Set([state.history.session.transaction.draft.rootRef]));
   const [paletteRef, setPaletteRef] = useState(() => state.entry.registry.list()[0]?.id ?? "");
   const [paletteQuery, setPaletteQuery] = useState("");
-  const matchingDescriptors = state.entry.registry.list().filter(component => componentName(component.id).toLowerCase().includes(paletteQuery.trim().toLowerCase()) || component.id.toLowerCase().includes(paletteQuery.trim().toLowerCase()));
   const [parentRef, setParentRef] = useState(state.history.session.transaction.draft.rootRef);
   const [slotRef, setSlotRef] = useState("");
   const [moveParentRef, setMoveParentRef] = useState("");
@@ -386,6 +386,8 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const activeParent = parents.find(node => node.ref === parentRef) ?? parents[0];
   const slots = activeParent ? state.entry.registry.get(activeParent.componentRef)?.slots.filter(slot => slot.childPolicy !== "none") ?? [] : [];
   const activeSlot = slots.find(slot => slot.id === slotRef)?.id ?? slots[0]?.id ?? "";
+  const matchingDescriptors = listInsertableEditorComponents(state.history.session, state.entry.registry, activeParent?.ref ?? "", activeSlot, paletteQuery);
+  const activePaletteRef = resolveEditorPaletteSelection(matchingDescriptors, paletteRef);
   const expandParent = (parent: string) => setExpanded(previous => {
     const next = new Set(previous); let ref: string | undefined = parent; const seen = new Set<string>();
     while (ref && !seen.has(ref)) { next.add(ref); seen.add(ref); ref = graph.nodes.find(node => node.ref === ref)?.placement?.parentRef; }
@@ -546,7 +548,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
         <div role="group" aria-label="Composition structure" className="mt-5 space-y-3 border-t pt-4">
           <h3 className="font-semibold">Build composition</h3>
           <div><label htmlFor="editor-palette-search" className="mb-1 block text-sm">Search insertable components</label><input id="editor-palette-search" type="search" value={paletteQuery} onChange={event => setPaletteQuery(event.target.value)} className="mb-2 w-full rounded-md border bg-background p-2" /><p className="mb-1 text-xs text-muted-foreground">{matchingDescriptors.length} compatible catalog descriptors available in this composition. Other foundation controls are source-only.</p><label htmlFor="editor-component" className="mb-1 block text-sm">Component to add</label>
-            <select id="editor-component" value={paletteRef} disabled={blocked} onChange={event => setPaletteRef(event.target.value)}
+            <select id="editor-component" value={activePaletteRef} disabled={blocked || matchingDescriptors.length === 0} onChange={event => setPaletteRef(event.target.value)}
               className="w-full rounded-md border bg-background p-2">
               {matchingDescriptors.map(component => <option key={component.id} value={component.id}>{componentName(component.id)}</option>)}
             </select></div>
@@ -560,14 +562,14 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
               className="w-full rounded-md border bg-background p-2">
               {slots.map(slot => <option key={slot.id} value={slot.id}>{slot.id === "content" ? "Content" : slot.id.replace("button-", "Button ")}</option>)}
             </select></div>
-          <Button variant="outline" disabled={blocked || !activeParent || !activeSlot || !paletteRef || !matchingDescriptors.some(item => item.id === paletteRef)}
+          <Button variant="outline" disabled={blocked || !activeParent || !activeSlot || !activePaletteRef}
             onClick={() => { if (activeParent) setExpanded(previous => {
                 const next = new Set(previous); let ref: string | undefined = activeParent.ref;
                 const seen = new Set<string>();
                 while (ref && !seen.has(ref)) { next.add(ref); seen.add(ref); ref = graph.nodes.find(node => node.ref === ref)?.placement?.parentRef; }
                 return next;
               });
-              dispatch({ type: "structure", operation: "add-node", componentRef: paletteRef, parentRef: activeParent?.ref ?? "", slotRef: activeSlot }); }}>Add component</Button>
+              dispatch({ type: "structure", operation: "add-node", componentRef: activePaletteRef, parentRef: activeParent?.ref ?? "", slotRef: activeSlot }); }}>Add component</Button>
           <div role="group" aria-label="Move selected component" className="space-y-3 border-t pt-3">
             <h4 className="font-medium">Move selected component</h4>
             <div><label htmlFor="editor-move-parent" className="mb-1 block text-sm">Destination container</label>

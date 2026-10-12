@@ -14,3 +14,11 @@ F4: browser proofs, exact-head all-seven CI, acceptance evidence, guarded merge 
 
 ## Start condition and acceptance
 Only the manifest inventory/contract is materialized here. Editor-ready demands actual UI-driven insert→inspect→save→reopen and equivalent rendered result, not a descriptor or Lab-only demo. Test exact current base and preserve other workers' paths. No claims of F closure at materialization.
+
+## Bounded F2 admission task
+TASK-755 materialized on fresh main94da5ae2 / draftPR1144 head3da9159. Allowed six paths, no package/codec/icon/operational-pointer edits. Reuse actual structural admission for palette eligibility, then synchronous selection fallback and focused negative/browser proof. Remaining F2/F3 component registration/property/persistence work is not complete.
+
+### TASK-755 local implementation evidence
+Compatible palette now probes existing applyEditorStructure without changing the session, so actual slot/cardinality/codec admission governs options. Selection falls back synchronously after search or container changes. Five focused candidate/admission contracts PASS; lint/typecheck/docs PASS; 747 task specs validated. Browser filtered insertion journey added but not yet observed locally. Full verification and exact-head CI are still gates, and F remains open. No new component promoted Editor-ready.
+
+Expanded existing editor/candidate regression: 126/126 PASS via node --import tsx. npm run verify ran lint/typecheck then failed at tsx IPC listen EPERM (/tmp/tsx-0/*.pipe); no full local verification claim. GitHub CI required.

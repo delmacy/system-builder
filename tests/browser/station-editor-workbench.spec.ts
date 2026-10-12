@@ -2142,3 +2142,12 @@ test("insertable palette searches actual registry without claiming source-only c
   await search.clear();
   await expect(page.getByLabel("Component to add").locator("option").first()).toBeAttached();
 });
+
+ test("filtered palette resolves selection and inserts using the existing editor", async ({ page }) => {
+  await page.getByRole("searchbox", { name: "Search insertable components" }).fill("button");
+  await expect(page.getByLabel("Component to add")).toHaveValue("component:button");
+  const count = await page.getByRole("treeitem").count();
+  await page.getByRole("button", { name: "Add component", exact: true }).click();
+  await expect(page.getByRole("treeitem")).toHaveCount(count + 1);
+  await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+});
