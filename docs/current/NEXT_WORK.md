@@ -1,7 +1,7 @@
-# Next work — WP15 Construction B
-Sole live scheduler. A#1107 integrated06accc2a55ba73dbabff2fe83c31953985d87aa8 after seven PASS workflows/88 Chromium journeys.
-TASK714 COMMITTED on14 exact paths. Actual local engine drives shared Tools, separate candidate store,
-portable files and launcher/window/standalone Workflow Studio; seven new Chromium journeys planned.
-Owner authorizes whole WP15 including eligible Review/Closure. B own independent gates govern merge.
-C conditional only after fresh B evidence; Review/Closure forecast. No Core authority/live service inferred.
-Addendum015/PLAN/A/B manifests govern; ADR0009/0017 unchanged. Inherited limits/debt retained.
+# Next work — WP15 Integration and Review
+Sole live scheduler. Planning#1106/A#1107/B#1108 integrated; B95 Chromium journeys/seven PASS workflows.
+TASK715 Review COMMITTED from c5916b77d0eef611a3adf8872f435ad3ee93dcfa; six exact documentation paths, own independent gates.
+Authority Addendum015/PLAN/Review manifest; owner authorizes eligible Review/Closure; C unnecessary.
+Bounded local Workflow Studio proof delivered; no real Core service/publication/execution inferred.
+GO Documentation and Closure requires own complete CI/merge; Closure forecast until that integration.
+WP15-L1/L2/L3/L4/D1/D2/D3 and inherited residuals explicit in Review report; WP16 separate gated forecast.

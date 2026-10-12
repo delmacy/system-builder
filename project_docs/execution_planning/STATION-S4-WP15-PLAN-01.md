@@ -56,3 +56,10 @@ actual Chromium proof. Every triggered exact-head/current-base/heavy/handoff/bro
 PASS before merge; no workflow/test weakening or unobserved local PASS.
 One sprint branch, one authoritative commit/TASK, one PR/sprint; NEXT_WORK sole scheduler.
 Unexpected L3 outside Addendum015, L4, required forbidden paths or unresolved failures stop construction.
+
+## Authorized integrated execution update
+Owner subsequently authorizes complete WP15 including eligible Review/Closure. A#1107 merged06accc2a55ba73dbabff2fe83c31953985d87aa8;
+B#1108 mergedc5916b77d0eef611a3adf8872f435ad3ee93dcfa, each seven independent PASS workflows; B95 actual Chromium journeys1.7m.
+B14th-path before-edit correction preserves larger unrelated workflows read-only while selected edit caps
+remain. Existing schema/ADR/Core authority unchanged. TASK715 Review COMMITTED on six docs paths;
+C unnecessary. Independent own gates control GO Closure. WP15 limits/debt explicit; WP16 forecast.
