@@ -26,9 +26,9 @@ test("missing parent, unknown slot, occupied single slot and unavailable source 
   const group = fixture("composition:button-group");
   assert.equal(listInsertableEditorComponents(group.session, group.entry.registry, "layer:button-group", "button-1").length, 0);
 });
-test("a restricted action slot exposes atomic buttons and rejects layout containers", () => {
+test("a restricted action slot exposes registered atomic controls and rejects layout containers", () => {
   const { session, entry } = fixture("composition:action-panel");
-  assert.deepEqual(listInsertableEditorComponents(session, entry.registry, "panel:actions", "actions").map(item => item.id), ["component:button"]);
+  assert.deepEqual(listInsertableEditorComponents(session, entry.registry, "panel:actions", "actions").map(item => item.id), ["component:button", "component:input"]);
 });
 
 test("human labels and categories search admitted components without expanding eligibility", () => {
@@ -39,5 +39,5 @@ test("human labels and categories search admitted components without expanding e
   assert.deepEqual(ids("panel:root", "content", "Actions"), ["component:button"]);
   assert.deepEqual(ids("panel:root", "content", "Layouts"), ["component:action-panel", "component:action-row", "component:grid"]);
   assert.deepEqual(ids("panel:actions", "actions", "Display"), []);
-  assert.deepEqual(ids("panel:root", "content", "Forms"), []);
+  assert.deepEqual(ids("panel:root", "content", "Forms"), ["component:input"]);
 });
