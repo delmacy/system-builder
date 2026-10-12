@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { StationIcon } from "@system-builder/ui-icons";
 import { Button, Input, PropertyInspector } from "@system-builder/ui-core";
 import { createCollectionIndex, selectedItem, selectKnownRef, type SelectionState } from "@system-builder/station-interaction";
 import { workflowSelectionKey, type WorkflowSession, type WorkflowCommand, type WorkflowTransition } from "@system-builder/station-workflow-authoring";
@@ -35,14 +36,14 @@ export function StationWorkflowProjections({ session, processId, selection, onSe
   return <section aria-label="Workflow Tools" data-selected-ref={selected?.ref ?? ""} className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1.2fr)]">
     <section aria-label="Workflow Explorer" className="min-w-0 space-y-3 rounded-lg border p-3">
       <h2 className="font-semibold">Explorer</h2>
-      <ul className="space-y-1">{collection.items.map(item => <li key={item.ref}><Button className="h-auto w-full justify-start whitespace-normal break-all text-left" variant="ghost" disabled={blocked} aria-pressed={selection.selectedRef === item.ref} onClick={() => choose(item.ref)} aria-label={`Select ${item.payload.kind} ${item.payload.id}`}>{item.payload.kind === "state" ? "State" : "Transition"}: {item.payload.id}</Button></li>)}</ul>
+      <ul className="space-y-1">{collection.items.map(item => <li key={item.ref}><Button className="h-auto w-full justify-start whitespace-normal break-all text-left" variant="ghost" disabled={blocked} aria-pressed={selection.selectedRef === item.ref} onClick={() => choose(item.ref)} aria-label={`Select ${item.payload.kind} ${item.payload.id}`}><StationIcon token={item.payload.kind === "state" ? "window.maximize" : "studio.workflow"} className="shrink-0" />{item.payload.kind === "state" ? "State" : "Transition"}: {item.payload.id}</Button></li>)}</ul>
       <label className="block text-sm">New state id<Input value={stateId} onChange={e => { onFormChange(); setStateId(e.target.value); }} disabled={blocked} /></label>
       <Button disabled={blocked} onClick={() => { if (onCommand({ kind: "add-state", processId, state: stateId })) setStateId(""); }}>Add state</Button>
       <label className="block text-sm">New transition id<Input value={transitionId} onChange={e => { onFormChange(); setTransitionId(e.target.value); }} disabled={blocked} /></label>
       <Button disabled={blocked || !p.initialState} onClick={() => { if (onCommand({ kind: "add-transition", processId, transition: { id: transitionId, from: p.initialState!, to: p.initialState! } })) setTransitionId(""); }}>Add transition</Button>
     </section>
     <section aria-label="Workflow visualization" className="min-w-0 space-y-3 rounded-lg border p-3">
-      <div className="flex flex-wrap gap-2"><h2 className="mr-auto font-semibold">{p.name}</h2><Button variant="outline" aria-pressed={view === "diagram"} onClick={() => setView("diagram")}>Workflow diagram</Button><Button variant="outline" aria-pressed={view === "table"} onClick={() => setView("table")}>Workflow table</Button></div>
+      <div className="flex flex-wrap gap-2"><h2 className="mr-auto font-semibold">{p.name}</h2><Button variant="outline" aria-pressed={view === "diagram"} onClick={() => setView("diagram")}><StationIcon token="studio.workflow" />Workflow diagram</Button><Button variant="outline" aria-pressed={view === "table"} onClick={() => setView("table")}><StationIcon token="view.list" />Workflow table</Button></div>
       {view === "diagram" ? <div aria-label="Workflow state diagram" className="space-y-4">
         <div className="grid gap-2 sm:grid-cols-2">{p.states.map(id => <Button key={id} className="h-auto min-h-16 whitespace-normal break-all rounded-xl" variant="outline" aria-pressed={selected?.payload.kind === "state" && selected.payload.id === id} aria-label={`Inspect state ${id}`} disabled={blocked} onClick={() => choose(workflowSelectionKey(session.document, processId, "state", id))}>{id}{p.initialState === id ? " · Initial" : ""}</Button>)}</div>
         <ul className="space-y-2">{(p.transitions ?? []).map(t => <li key={t.id}><Button className="h-auto w-full whitespace-normal break-all" variant="outline" aria-label={`Inspect transition ${t.id}`} aria-pressed={selected?.payload.kind === "transition" && selected.payload.id === t.id} disabled={blocked} onClick={() => choose(workflowSelectionKey(session.document, processId, "transition", t.id))}>{t.from} → {t.to} · {t.id}</Button></li>)}</ul>

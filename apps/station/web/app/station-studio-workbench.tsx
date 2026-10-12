@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useRef, useState } from "react";
+import { StationIcon } from "@system-builder/ui-icons";
 import { Button, PropertyInspector, type PropertyGroupDefinition } from "@system-builder/ui-core";
 import { createStudioFoundation, INSTALLED_STUDIO_AREAS, switchStudioArea, updateStudioSnapshot, type StudioAreaId, type StudioSnapshot } from "./station-studio-foundation";
 import { StationWorkflowWorkbench } from "./station-workflow-workbench";
@@ -45,9 +46,9 @@ export function StationStudioWorkbench({ onOpenComposition }: { onOpenCompositio
     ],
   }];
   return <section aria-label="Studio foundation" className="min-w-0 space-y-4" data-active-area={state.active}>
-    <header className="space-y-2"><h1 className="text-xl font-semibold">Studios</h1><p className="text-sm text-muted-foreground">Switch between installed areas. Each area keeps its draft, references and selection. Close or reload requires explicit retained revision reopening.</p></header>
+    <header className="space-y-2"><h1 className="flex items-center gap-2 text-xl font-semibold"><StationIcon token="view.grid" size={22} className="text-primary" />Studios</h1><p className="text-sm text-muted-foreground">Switch between installed areas. Each area keeps its draft, references and selection. Close or reload requires explicit retained revision reopening.</p></header>
     <nav aria-label="Studio areas" className="flex flex-wrap gap-2">{INSTALLED_STUDIO_AREAS.map(area =>
-      <Button key={area.id} aria-pressed={state.active === area.id} aria-controls={"studio-area-" + area.id} variant={state.active === area.id ? "default" : "outline"} onClick={() => setPresentation(current => ({ ...current, state: switchStudioArea(current.state, area.id).state }))}>{area.title}</Button>)}</nav>
+      <Button key={area.id} aria-pressed={state.active === area.id} aria-controls={"studio-area-" + area.id} variant={state.active === area.id ? "default" : "outline"} onClick={() => setPresentation(current => ({ ...current, state: switchStudioArea(current.state, area.id).state }))}><StationIcon token={area.id === "process-context" ? "studio.process-context" : "studio.workflow"} className="shrink-0" />{area.title}</Button>)}</nav>
     <p role="status" className="text-sm">{active.title} active. {unavailable ? "Shared snapshot unavailable; inspect the owning workbench. Draft preserved." : "Selection and draft stay scoped to this area."}</p>
     <div className="grid min-w-0 items-start gap-4 xl:grid-cols-[minmax(0,1fr)_20rem]">
       <div className="min-w-0">

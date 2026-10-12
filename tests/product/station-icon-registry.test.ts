@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 
 import {
   ICON_TOKENS,
+  SUITE_STUDIO_ICONS,
   StationIcon,
   isIconToken,
   resolveIcon,
@@ -48,4 +49,18 @@ test("consumer semantics remain provider-neutral", () => {
   assert.ok(ICON_TOKENS.includes("window.close"));
   assert.ok(ICON_TOKENS.includes("settings"));
   assert.equal(ICON_TOKENS.some((token) => token.startsWith("lucide.")), false);
+});
+
+
+test("shared Suite identifiers cover all twelve areas without installing future Studios", () => {
+  assert.deepEqual(Object.keys(SUITE_STUDIO_ICONS).sort(), ["mirror", "recipe", "analysis", "design", "catalog", "assembly", "validation", "compiler", "release", "deploy", "observe", "support"].sort());
+  assert.ok(Object.isFrozen(SUITE_STUDIO_ICONS));
+  for (const token of Object.values(SUITE_STUDIO_ICONS)) {
+    assert.equal(isIconToken(token), true);
+    const svg = renderToStaticMarkup(StationIcon({ token }));
+    assert.match(svg, /stroke="currentColor"/);
+    assert.match(svg, /aria-hidden="true"/);
+    assert.doesNotMatch(svg, /aria-label=/);
+    for (const [, attributes] of resolveIcon(token).shapes) assert.ok(Object.isFrozen(attributes));
+  }
 });

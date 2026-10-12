@@ -2062,3 +2062,72 @@ test.describe("Studios WP01 shared foundation", () => {
     await expect(workflow(page).getByLabel("Process name", { exact: true })).toHaveValue("");
   });
 });
+
+
+test.describe("Studios WP02 shared icons", () => {
+  const workspace = (page: Page) => page.getByRole("region", { name: "Artifact workspace", exact: true });
+  async function launchFiles(page: Page) {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Open applications", exact: true }).click();
+    const app = page.locator('[data-app-ref="app:file-manager"]');
+    await expect(app.locator('[data-icon-token="workspace.folder-open"]')).toHaveAttribute("aria-hidden", "true");
+    await app.click();
+    await expect(workspace(page).getByRole("status")).toHaveText("Workspace refreshed.");
+  }
+  test("actual editor-produced file keeps selection, Inspector and pending name across icon/list views", async ({ page }, testInfo) => {
+    await editor(page).getByLabel("Workspace copy name", { exact: true }).fill("icons-demo.composition.json");
+    await editor(page).getByRole("button", { name: "Save to workspace", exact: true }).click();
+    await expect(editor(page).getByRole("status")).toContainText("Workspace copy saved");
+    await launchFiles(page);
+    const ws = workspace(page), file = ws.getByRole("button", { name: "icons-demo.composition.json", exact: true });
+    await expect(ws).toHaveAttribute("data-content-view", "grid");
+    await expect(file.locator('[data-icon-token="artifact.composition"]')).toHaveAttribute("aria-hidden", "true");
+    await file.click();
+    await ws.getByLabel("New folder name", { exact: true }).fill("Pending folder");
+    const retained = await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"));
+    await ws.getByRole("button", { name: "List view", exact: true }).click();
+    await expect(ws).toHaveAttribute("data-content-view", "list");
+    await expect(file).toHaveAttribute("aria-pressed", "true");
+    await expect(ws.getByRole("complementary", { name: "File Inspector", exact: true })).toContainText("Composition");
+    await expect(ws.getByLabel("New folder name", { exact: true })).toHaveValue("Pending folder");
+    await ws.getByRole("button", { name: "Icon view", exact: true }).click();
+    await expect(ws).toHaveAttribute("data-content-view", "grid");
+    await expect(file).toHaveAttribute("aria-pressed", "true");
+    expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe(retained);
+    await page.screenshot({ path: testInfo.outputPath("wp02-file-manager-shared-icons.png"), fullPage: true });
+  });
+  test("folder icons preserve keyboard navigation and view mode on a narrow viewport", async ({ page }) => {
+    await launchFiles(page);
+    const ws = workspace(page);
+    await ws.getByLabel("New folder name", { exact: true }).fill("Design");
+    await ws.getByRole("button", { name: "Create folder", exact: true }).click();
+    const folder = ws.getByRole("button", { name: "Folder: Design", exact: true });
+    await expect(folder.locator('[data-icon-token="workspace.folder"]')).toHaveAttribute("aria-hidden", "true");
+    await tabTo(page, folder); await folder.press("Enter");
+    await expect(ws.getByLabel("Current workspace folder", { exact: true })).toHaveText("Workspace / Design");
+    await ws.getByRole("button", { name: "List view", exact: true }).click();
+    await ws.getByLabel("New folder name", { exact: true }).fill("Still pending");
+    await page.setViewportSize({ width: 390, height: 860 });
+    const up = ws.getByRole("button", { name: "Up one folder", exact: true });
+    await tabTo(page, up); await up.press("Enter");
+    await expect(ws.getByLabel("Current workspace folder", { exact: true })).toHaveText("Workspace");
+    await expect(ws).toHaveAttribute("data-content-view", "list");
+    await expect(ws.getByLabel("New folder name", { exact: true })).toHaveValue("Still pending");
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  });
+  test("shared Studio area icons retain accessible names and pending workflow form", async ({ page }) => {
+    await page.goto("/studios");
+    const nav = page.getByRole("navigation", { name: "Studio areas", exact: true });
+    const workflow = nav.getByRole("button", { name: "Workflow", exact: true });
+    const context = nav.getByRole("button", { name: "Process Context", exact: true });
+    await expect(workflow.locator('[data-icon-token="studio.workflow"]')).toHaveAttribute("aria-hidden", "true");
+    await expect(context.locator('[data-icon-token="studio.process-context"]')).toHaveAttribute("aria-hidden", "true");
+    await workflow.click();
+    await page.getByText("Create workflow or add process", { exact: true }).click();
+    await page.getByLabel("Process name", { exact: true }).fill("Unapplied icon proof");
+    await tabTo(page, context); await context.press("Enter");
+    await tabTo(page, workflow); await workflow.press("Enter");
+    await expect(page.getByLabel("Process name", { exact: true })).toHaveValue("Unapplied icon proof");
+    await expect(workflow).toHaveAttribute("aria-pressed", "true");
+  });
+});

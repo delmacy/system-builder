@@ -19,9 +19,44 @@ export const ICON_TOKENS = Object.freeze([
   "status.warning",
   "status.success",
   "navigation.expand",
+  "workspace.folder",
+  "workspace.folder-open",
+  "workspace.new-folder",
+  "artifact.composition",
+  "artifact.document",
+  "view.grid",
+  "view.list",
+  "action.refresh",
+  "navigation.parent",
+  "action.import",
+  "action.export",
+  "studio.process-context",
+  "studio.workflow",
+  "studio.catalog",
+  "studio.analysis",
+  "studio.assembly",
+  "studio.release",
+  "studio.observe",
 ] as const);
 
 export type IconToken = (typeof ICON_TOKENS)[number];
+
+/** Shared visual identifiers only; they do not install or authorize a Studio. */
+export const SUITE_STUDIO_ICONS = Object.freeze({
+  "mirror": "shell.search",
+  "recipe": "artifact.document",
+  "analysis": "studio.analysis",
+  "design": "view.grid",
+  "catalog": "studio.catalog",
+  "assembly": "studio.assembly",
+  "validation": "status.success",
+  "compiler": "artifact.composition",
+  "release": "studio.release",
+  "deploy": "action.import",
+  "observe": "studio.observe",
+  "support": "settings"
+}) satisfies Readonly<Record<string, IconToken>>;
+export type SuiteStudioId = keyof typeof SUITE_STUDIO_ICONS;
 
 const ICON_TOKEN_SET: ReadonlySet<string> = new Set(ICON_TOKENS);
 

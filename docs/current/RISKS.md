@@ -305,8 +305,5 @@ A#1124/B#1125 allsevenownchecksPASS integrated;107actualChromium/111heavy0skip/4
 ## Studios WP01 bounded closure
 Review#1126 fiveownchecksPASS integrated; WP01boundedCLOSED onlyonvalidatedTASK733integration.107Chromium/111heavy0skip/4foundationtests andallconstructiongatesPASS. WP01-L1–L3/D1/inheritedlimits maintained; twoinstalledmodelsqualifyfoundationonly. Operations includesexplicitretainedreopen andephemeralownerprofile, nosharedcredential/domainauthority. CatalogPlanningnexteligible, currentownerreadiness/auth/service/lifecycle/publication independentlyqualify; other21WPsforecast.
 
-## Catalog owner independent review
-A #1130/B #1131 integrated; B seven own workflows PASS. C-L1/L2 and C-D1/D2/D3 in Review report remain explicit local-profile/source/throughput/version/client qualification limits. No indispensable C required for owner slice. Station SDK/browser still separately gated. Existing bounded Lucide registry lacks requested folder/file/menu/tab coverage; materialize visual task scope before edits.
-
-## Catalog owner closure handoff
-Owner bounded slice closes only on TASK-739 own qualified merge, following Review #1132. O1–O4 READY_LOCAL then; O5 operator-attested source only. No Station SDK/UI delivery or production qualification. Preserve C-L1/L2/C-D1/D2/D3 and all inherited limits. Icons request admitted as user direction; exact Station construction scope still required.
+## Studios WP02 shared icons Construction A
+Explicit owner requires reusable icons before WP02 closure. Existing Lucide registry extended to28 semantic tokens plus12 Suite visual identifiers; existing10 stable. Identifier does not mean Studio installed or authorized. UI uses current theme/currentColor and decorative-hidden SVG; names/keyboard/disabled/state/storage/editor guards preserved. Three actual Chromium journeys required in own CI before qualification. Broader screen-reader/browser/theme contrast/performance unproven. File Manager grid/list is presentation-only, not new filesystem permission or artifact schema. Full Catalog client/UI remains required; WP02 stays open.
