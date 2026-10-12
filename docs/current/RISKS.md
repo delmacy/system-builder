@@ -310,3 +310,6 @@ Explicit owner requires reusable icons before WP02 closure. Existing Lucide regi
 
 ## WP-ICON-01 admitted scope
 Ownerrejects28basics;Add020/newWP prioritized beforeWP02closure. Reference1877assets/235roles/19categories planned,notinstalled.2flipglyphs requireownvectors. Fullbundle mustnotbloatinitialshellor1877DOMnodes;measurebytes/chunks/profile. Strictsourcegeometry/no scripts/foreignURLs,licensing/pin/identity/version. Icons do notimplementcommands;realtoolbars respectavailability/permission/model. Currentgraphpropertiesvariant+disabled/schema1–4;BrequiresL3version/legacy/history/roundtrip,notmetadatahack. Gallery/countalonecannotcloseWP. Inheritedowner/storage/qualitylimits retained.
+
+## WP-ICON-01 A qualification
+Libraryfoundation implemented1879assets/235roles/261semantics/16localchunks;1877sourcehashes verified. Exactgenerator/localpureprobes observed;actualReact/regression/CI pendingownintegration. Legacy28geometry/theme/rendersemantics retained. Rawchunks686748bytes notbrowsercompressed budget;fullchooser/performance/keyboard/a11y/toolbar/portableiconref remainBqualifiedproof. No Core/permission/command readiness from assets. WholeICON/WP02OPEN.
