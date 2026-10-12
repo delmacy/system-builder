@@ -1,5 +1,6 @@
-# Next work — WP16 Closure, then all-Studios phase Planning
-Sole live scheduler. Active STATION-S4-WP16-DOCUMENTATION-CLOSURE-01 / TASK727; base8ce89f387098dba1ac8e50b96fe9707e5daf5c3a; independentReview#1120 fivechecksPASS integrated.
-Authority acceptedAdd016/ADR0016/closedDesignADR0018/Add017, WP16plan/review/readiness, activeClosuremanifest/TASK727.
-WP16 bounded CLOSED effective only after ownvalidatedintegration. Actual111heavy0skip/103Chromium andallconstruction/reviewgatesPASS; localR4.2/H4techcandidatejourney proven. L1–L4/D1–D2/inheritedlimits retained, no wholeS4/Design/globalproductioncertificate.
-AftervalidatedClosure, nextuserauthorized Planning: STATION-SUITE-STUDIOS-PHASE-01 goalcoversall12SuiteMapmodules andDesignspecializedtools; thenEAP/WBS/WorkPackages/dependency/readiness/milestones. ReadSuiteMap/Blueprint/InterfaceMap andmodule01–12scope/WBS, WBSMethod/Dictionary. Newplanningonly; firstStudioWPconstructionnotcommitted.
+# Next work — Suite Studios baseline, then first WP Planning
+Sole live scheduler. STATION-SUITE-STUDIOS-PLANNING-01 / TASK728 macroPlanning CLOSED effective only on own validated integration; base5f14c94314e15cebb6484b8498bc30ded626439c; WP16Closure#1121 allfivechecksPASS integrated. WP16boundedlocalCLOSED,111heavy0skip/103Chromium.
+Authority acceptedAddendum018, SuiteMap/Blueprint/module01–12scope/WBS, phasegoal STATION-SUITE-STUDIOS-PHASE-01, phaseWBS/WORK-PACKAGES/READINESS, currentPlanningmanifest/TASK728.
+Ownerrequestsall12SuiteStudios+sevenDesigntoolgroups goal→EAP/WBS→WPs.22candidateWPs/110standardforecasts,6phasearrivalmilestones andartifactDAG; no calendar orreadyownerapis inferred. OnlythisPlanningCOMMITTED.
+Afterallownchecks/validatedintegration, noactiveSprint/Construction and nofutureproductTASKcommitted. Nexteligible STUDIOS-WP01Planning(sharedStudiofoundation), thenCatalog/readinesswaves; freshscope/owner/contracts/auth/provider/proof requiredperWP. Futureconstruction execution notauthorized/materializedbythismacroplanning.
+AllWP16/local-only/inheritedlimitsretained. Retained≠approved/published; otherownergrants/servicegapsnotgeneralizedfromDesign. Missingowner→ownedprerequisitePlanningPackage, notfakeUI/backend.
