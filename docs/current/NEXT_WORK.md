@@ -1,14 +1,11 @@
-# Next work — WP15 closed on validated closure integration
-Sole live scheduler. Planning#1106/A#1107/B#1108/Review#1109 integrated. TASK716 Documentation and Closure
-closes bounded Station S4 WP15 only on its own complete independent CI and merge. Five sprints; C unnecessary.
-Delivered local technical Workflow Studio: one immutable draft command owner, coordinated Explorer/
-state-grid/connections/table/Inspector, validation/history, immutable candidates/compare/file/fresh reopen.
-12 focused engine/store cases and95 actual Chromium journeys (88 inherited+7), Windows/Ubuntu/frontend.
-Authority Addendum015/PLAN/Review/Closure reports; ADR0009/0017 and canonical Core/domain owners retained.
-WP15-L1/L2/L3/L4/D1/D2/D3 and inherited residuals explicit. Local unpublished candidate validity is not
-business approval, resolved upstream availability, canonical publication or Runtime execution.
-After validated closure integration no active WP15 or committed successor. WP16 real service journey
-requires fresh Planning, actual owner command/query/currentness API readiness, SDK/Gateway transport
-and browser/API/data/response proof plus separate execution authorization; no automatic materialization.
-Archived PROJECT_STATE/CURRENT_MILESTONE historical, not competing live schedulers. No whole WBS/H3/S4/
-general C10/standards/accessibility or performance certification inferred from bounded Studio delivery.
+# Next work — WP16 planned; owner-service readiness prerequisite
+Sole live scheduler. WP15#1110 integrated at 92a3006735cf051d74ceddd8ed2d73f980f6c29f; bounded local Studio closed,95 Chromium journeys.
+TASK717 WP16 Planning only committed until its own validated integration; Addendum016/PLAN/readiness census.
+SDK/protocol/delegating Gateway ready; actual SystemDefinition owner API/durable retention/network ingress
+not ready. TASK718 Construction A prepared BLOCKED; no construction or new owner authorized.
+Next dependency work is separate SB04 Design owner-service Planning/admission/ADR/contracts/readiness,
+not hidden WP16 integration construction. No package/task IDs or backend provider silently assigned.
+O1–O4 and explicit execution authorization govern A promotion after fresh-main/public owner API review.
+B/C/Review/Closure forecast; C cannot absorb owner backend. Preserve local WP15 editing/export/history.
+No live connection, business approval/publication/Runtime execution or H4/whole WBS certification claimed.
+Inherited limits/debt remain. Archived snapshots historical; no competing scheduler.
