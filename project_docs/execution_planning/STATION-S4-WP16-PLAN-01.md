@@ -53,3 +53,8 @@ handoff/browser workflow must PASS before merge. No weakening assertions/timeout
 One branch per Sprint, one authoritative commit/TASK, one PR/Sprint; NEXT_WORK sole scheduler.
 Undeclared L3/L4/owner change requires explicit admission/ADR; missing service cannot be implemented
 inside an integration task, Review or Closure. WBS H4 remains unproven until connected exit.
+
+## Actual readiness / integrated A and promoted B
+DesignWP1 independently closed #1113–#1116; O1–O4 READY_LOCAL. Owner full WP16 execution authorized. A#1117 head27e1a555c57607300e07440541d66507ce5ff130 integratedfa096d618172a6a828a81403dfb24d559f13ad40 after all seven workflowsPASS; actual client/provider109 heavy tests0skip, all95 browsers/builds preserved.
+TASK724 Construction B now COMMITTED on11 exact paths/max_files11. Explicit connected Studio and actual browser/API/PG/process restart proof with isolated fixture; no backend/schema/ADR/CI changes. Seven new connected cases added; final102 Chromium plus full own gates required before integration.
+Next fresh-main revalidation must check escaped-document response-size boundary and any indispensable admitted integration gap; C promoted only on evidence, before independent Review/Closure. No delayed implementation hidden in Review. Local/production/upstream exclusions retained.

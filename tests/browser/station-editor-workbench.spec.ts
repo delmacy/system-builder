@@ -1,5 +1,7 @@
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { readFile } from "node:fs/promises";
+import { startDesignOwnerHarness, type DesignOwnerHarness } from "./design-owner-harness";
+import type { DesignCandidateDocument } from "../../packages/contracts/design-candidate/index.js";
 
 const editor = (page: Page) => page.getByRole("region", { name: "Composition editor", exact: true });
 const preview = (page: Page, name = "Button 1") => page.getByRole("img", { name: name + " preview", exact: true });
@@ -1840,5 +1842,112 @@ test.describe("WP15 technical Workflow Studio", () => {
     await wb(page, "Add process").click(); await expect(studio(page).getByLabel("Workflow process", { exact: true })).toHaveValue("review"); await expect(wb(page, "Inspect state open")).toBeVisible();
     await studio(page).getByLabel("Workflow process", { exact: true }).selectOption("ticket"); await expect(wb(page, "Inspect state open")).toBeVisible(); await wb(page, "Save new workflow revision").click();
     const saved = await page.evaluate(() => JSON.parse(localStorage.getItem("station:workflow-candidates:v1")!)); const d = JSON.parse(saved.revisions[1]); expect(d.payload.processes).toHaveLength(2); expect(d.payload.processes[0].requirementRefs).toEqual(["req:1"]); expect(d.payload.processes[1].requirementRefs).toEqual(["req:2"]);
+  });
+});
+
+
+test.describe("WP16 actual owner-connected Workflow Studio",()=>{
+  let owner:DesignOwnerHarness;
+  const studio=(page:Page)=>page.getByRole("region",{name:"Workflow Studio",exact:true});
+  const panel=(page:Page)=>studio(page).getByRole("region",{name:"Workflow owner connection",exact:true});
+  const button=(page:Page,name:string)=>studio(page).getByRole("button",{name,exact:true});
+  const status=(page:Page)=>panel(page).getByTestId("workflow-owner-status");
+  test.beforeAll(async()=>{test.setTimeout(120000);owner=await startDesignOwnerHarness("http://127.0.0.1:3100");});
+  test.afterAll(async()=>{if(owner)await owner.stop();});
+  async function connect(page:Page,credential=owner.token,actor=owner.fields.actorRef){
+    if(!await panel(page).isVisible())await studio(page).getByText("Design owner connection",{exact:true}).click();
+    for(const [label,value] of [["Owner endpoint",owner.url],["Owner access token",credential],["Owner Core reference",owner.fields.coreRef],["Owner Station reference",owner.fields.stationRef],["Owner session reference",owner.fields.sessionRef],["Owner workspace reference",owner.fields.scopeRef],["Owner actor reference",actor],["Owner actor revision",owner.fields.actorRevisionRef]] as const)await panel(page).getByLabel(label,{exact:true}).fill(value);
+    await button(page,"Connect owner").click();
+  }
+  async function create(page:Page,metadata=false){
+    await page.goto("/workflow-studio");await studio(page).getByText("Create workflow or add process",{exact:true}).click();
+    for(const [label,value] of [["Process name","Ticket"],["Process id","ticket"],["Analysis reference","analysis:unresolved"],["Recipe reference","recipe:unresolved"],["Requirement reference","req:1"]] as const)await studio(page).getByLabel(label,{exact:true}).fill(value);
+    await button(page,"Create workflow").click();
+    if(metadata){
+      const downloaded=page.waitForEvent("download");await button(page,"Export workflow").click();const download=await downloaded,path=await download.path();expect(path).not.toBeNull();
+      const document=JSON.parse((await readFile(path!)).toString());document.extensions={"org.example.metadata":{opaque:["preserve",42]}};document.provenance.operation={note:"preserve"};document.payload.sessionPolicy={lifetimeSeconds:300};document.payload.processes.push({id:"other",name:"Other",requirementRefs:["req:2"],states:["only"]});
+      await studio(page).getByLabel("Import workflow file",{exact:true}).setInputFiles({name:"actual.workflow.json",mimeType:"application/json",buffer:Buffer.from(JSON.stringify(document))});
+      await expect(studio(page).locator("pre")).toContainText('"org.example.metadata"');
+    }
+    await studio(page).getByLabel("New state id",{exact:true}).fill("closed");await button(page,"Add state").click();await expect(button(page,"Select state closed")).toBeVisible();await button(page,"Save new workflow revision").click();
+    await expect(studio(page)).toHaveAttribute("data-artifact-version","1.0.1");
+    const text=await page.evaluate(()=>{const value=JSON.parse(localStorage.getItem("station:workflow-candidates:v1")!) as {revisions:string[]};return value.revisions.at(-1)!;});
+    return{text,document:JSON.parse(text) as DesignCandidateDocument};
+  }
+  async function read(page:Page,id:string,version:string){
+    await panel(page).getByLabel("Owner artifact ID",{exact:true}).fill(id);await panel(page).getByLabel("Owner artifact version",{exact:true}).fill(version);await button(page,"Read exact owner revision").click();
+  }
+  async function retain(page:Page){await button(page,"Send candidate to owner").click();await expect(status(page)).toContainText("Owner retained exact technical candidate");}
+  async function snapshot(page:Page){
+    const detail=studio(page).locator("details").filter({has:page.getByText("Complete definition snapshot",{exact:true})});
+    if(!await detail.locator("pre").isVisible())await detail.locator("summary").click();
+    return JSON.parse((await detail.locator("pre").textContent())!) as DesignCandidateDocument;
+  }
+  test("actual authored full candidate is retained, owner restarts, fresh browser with empty local store reopens exact data",async({page,browser})=>{
+    const candidate=await create(page,true);expect(candidate.document.extensions).toEqual({"org.example.metadata":{opaque:["preserve",42]}});expect(candidate.document.provenance.operation).toEqual({note:"preserve"});await connect(page);await expect(status(page)).toContainText("Owner connected");await retain(page);
+    expect(await page.evaluate(()=>JSON.stringify({...localStorage}))).not.toContain(owner.token);
+    await owner.restart();
+    const context=await browser.newContext({baseURL:"http://127.0.0.1:3100"});try{
+      const fresh=await context.newPage();await fresh.goto("/workflow-studio");await expect(studio(fresh)).toContainText("No workflow is open");
+      expect(await fresh.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"))).toBeNull();
+      await connect(fresh);await read(fresh,candidate.document.artifactId,candidate.document.artifactVersion);await expect(status(fresh)).toContainText("Exact owner revision verified");
+      await button(fresh,"Open owner revision").click();await expect(studio(fresh)).toHaveAttribute("data-artifact-version","1.0.1");
+      expect(await snapshot(fresh)).toEqual(candidate.document);await expect(studio(fresh)).toContainText("Upstream references unresolved");await expect(studio(fresh)).toContainText("Clean local candidate");
+      await read(fresh,candidate.document.artifactId,"9.0.0");await expect(status(fresh)).toContainText("Exact owner revision absent");await expect(studio(fresh)).toHaveAttribute("data-artifact-version","1.0.1");
+    }finally{await context.close();}
+  });
+  test("real committed response loss stays unknown until durable result recovery; credentials never enter storage",async({page})=>{
+    const candidate=await create(page);await connect(page);const before=await page.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"));
+    await page.route(owner.url+"/station/command",async route=>{const response=await route.fetch();expect((await response.json()).value.status).toBe("ACCEPTED");await route.abort("failed");});
+    await button(page,"Send candidate to owner").click();await expect(status(page)).toContainText("Owner result unknown");await expect(button(page,"Send candidate to owner")).toBeDisabled();
+    expect(await page.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"))).toBe(before);expect((await snapshot(page)).artifactId).toBe(candidate.document.artifactId);
+    await page.unroute(owner.url+"/station/command");await button(page,"Recover owner result").click();await expect(status(page)).toContainText("Owner retained exact technical candidate");
+    expect(await snapshot(page)).toEqual(candidate.document);expect(await page.evaluate(()=>JSON.stringify({...localStorage}))).not.toContain(owner.token);
+  });
+  test("two browser candidates detect changed owner revision without overwriting the other draft",async({page,browser})=>{
+    const candidate=await create(page);await connect(page);await retain(page);
+    const context=await browser.newContext({baseURL:"http://127.0.0.1:3100"});try{
+      const other=await context.newPage();await other.goto("/workflow-studio");await connect(other);await read(other,candidate.document.artifactId,"1.0.1");await expect(status(other)).toContainText("Exact owner revision verified");await button(other,"Open owner revision").click();
+      await studio(other).getByLabel("New state id",{exact:true}).fill("waiting");await button(other,"Add state").click();await studio(other).getByLabel("New workflow version",{exact:true}).fill("1.0.3");await button(other,"Save new workflow revision").click();
+      const before=await other.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"));
+      await studio(page).getByLabel("New state id",{exact:true}).fill("review");await button(page,"Add state").click();await button(page,"Save new workflow revision").click();await retain(page);
+      await button(other,"Send candidate to owner").click();await expect(status(other)).toContainText("Owner revision changed");await expect(studio(other)).toHaveAttribute("data-artifact-version","1.0.3");
+      expect(await other.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"))).toBe(before);
+      await read(other,candidate.document.artifactId,"1.0.3");await expect(status(other)).toContainText("Exact owner revision absent");
+    }finally{await context.close();}
+  });
+  test("owner reopen uses dirty and pending-field Cancel/Discard; local draft remains independent",async({page})=>{
+    await create(page);await connect(page);await retain(page);
+    await studio(page).getByLabel("New state id",{exact:true}).fill("review");await button(page,"Add state").click();await expect(button(page,"Send candidate to owner")).toBeDisabled();
+    await button(page,"Open owner revision").click();await expect(studio(page).getByRole("dialog",{name:"Replace workflow draft",exact:true})).toBeVisible();
+    await button(page,"Cancel workflow replacement").click();await expect(button(page,"Select state review")).toBeVisible();
+    await button(page,"Open owner revision").click();await button(page,"Discard workflow and open").click();await expect(button(page,"Select state review")).toHaveCount(0);
+    await studio(page).getByLabel("New state id",{exact:true}).fill("pending");await button(page,"Open owner revision").click();await button(page,"Cancel workflow replacement").click();
+    await expect(studio(page).getByLabel("New state id",{exact:true})).toHaveValue("pending");await button(page,"Reset pending fields").click();await expect(studio(page)).toContainText("Clean local candidate");
+  });
+  test("denied identity and owner outage preserve candidate; explicit reconnect resumes actual retention",async({page})=>{
+    const candidate=await create(page);await connect(page,"wrong-token");await expect(status(page)).toContainText("Cannot connect");await expect(button(page,"Send candidate to owner")).toBeDisabled();
+    await connect(page,owner.token,"actor:forged");await expect(status(page)).toContainText("Owner connected");await button(page,"Send candidate to owner").click();await expect(status(page)).toContainText("Owner rejected");
+    await button(page,"Disconnect owner").click();await button(page,"Reset owner connection").click();await connect(page);
+    const before=await page.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"));await owner.stopOwner();
+    try{await button(page,"Send candidate to owner").click();await expect(status(page)).toContainText("Owner head unavailable");expect(await page.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"))).toBe(before);}
+    finally{await owner.restart();}
+    await button(page,"Disconnect owner").click();await button(page,"Connect owner").click();await expect(status(page)).toContainText("Owner connected");await retain(page);expect(await snapshot(page)).toEqual(candidate.document);
+  });
+  test("late actual owner read is ignored after local draft generation changes",async({page})=>{
+    const candidate=await create(page);await connect(page);await retain(page);
+    let release!:()=>void,ready!:()=>void;const held=new Promise<void>(resolve=>release=resolve),started=new Promise<void>(resolve=>ready=resolve);
+    await page.route(owner.url+"/station/query",async route=>{const input=route.request().postDataJSON() as {parameters:{operation:string}};if(input.parameters.operation!=="exact"){await route.continue();return;}const response=await route.fetch();ready();await held;await route.fulfill({response});});
+    await button(page,"Read exact owner revision").click();await started;
+    await studio(page).getByLabel("New state id",{exact:true}).fill("late");await button(page,"Add state").click();release();
+    await expect(status(page)).toContainText("Response not applied");await expect(button(page,"Select state late")).toBeVisible();await expect(studio(page)).toHaveAttribute("data-artifact-version",candidate.document.artifactVersion);await expect(studio(page)).toContainText("Unsaved workflow changes");
+  });
+  test("configured connection remains keyboard accessible and fits narrow viewport",async({page})=>{
+    await create(page);await page.setViewportSize({width:390,height:860});
+    await studio(page).getByText("Design owner connection",{exact:true}).click();
+    for(const [label,value] of [["Owner endpoint",owner.url],["Owner access token",owner.token],["Owner Core reference",owner.fields.coreRef],["Owner Station reference",owner.fields.stationRef],["Owner session reference",owner.fields.sessionRef],["Owner workspace reference",owner.fields.scopeRef],["Owner actor reference",owner.fields.actorRef],["Owner actor revision",owner.fields.actorRevisionRef]] as const)await panel(page).getByLabel(label,{exact:true}).fill(value);
+    await tabTo(page,button(page,"Connect owner"));await button(page,"Connect owner").press("Enter");await expect(status(page)).toContainText("Owner connected");
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+    await tabTo(page,button(page,"Disconnect owner"));await button(page,"Disconnect owner").press("Enter");await expect(status(page)).toContainText("Owner disconnected");
   });
 });
