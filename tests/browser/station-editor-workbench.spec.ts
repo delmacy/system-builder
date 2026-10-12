@@ -1959,3 +1959,106 @@ test.describe("WP16 actual owner-connected Workflow Studio",()=>{
   });
 
 });
+
+test.describe("Studios WP01 shared foundation", () => {
+  let owner: DesignOwnerHarness;
+  const foundation = (page: Page) => page.getByRole("region", { name: "Studio foundation", exact: true });
+  const workflow = (page: Page) => page.getByRole("region", { name: "Workflow Studio", exact: true });
+  const context = (page: Page) => page.getByRole("region", { name: "Process context", exact: true });
+  const inspector = (page: Page) => page.getByRole("complementary", { name: "Shared Studio Inspector", exact: true });
+  const nav = (page: Page, name: string) => page.getByRole("navigation", { name: "Studio areas", exact: true }).getByRole("button", { name, exact: true });
+  const wb = (page: Page, name: string) => workflow(page).getByRole("button", { name, exact: true });
+  test.beforeAll(async () => { test.setTimeout(120000); owner = await startDesignOwnerHarness("http://127.0.0.1:3100"); });
+  test.afterAll(async () => { if (owner) await owner.stop(); });
+  async function createWorkflowInArea(page: Page) {
+    await nav(page, "Workflow").click();
+    await workflow(page).getByText("Create workflow or add process", { exact: true }).click();
+    for (const [label, value] of [["Process name", "Shared Ticket"], ["Process id", "ticket"], ["Analysis reference", "analysis:unresolved"], ["Recipe reference", "recipe:unresolved"], ["Requirement reference", "req:shared"]] as const) await workflow(page).getByLabel(label, { exact: true }).fill(value);
+    await wb(page, "Create workflow").click();
+    await expect(workflow(page)).toHaveAttribute("data-artifact-version", "1.0.0");
+  }
+  async function connectShared(page: Page, token = owner.token) {
+    await workflow(page).getByText("Design owner connection", { exact: true }).click();
+    const panel = workflow(page).getByRole("region", { name: "Workflow owner connection", exact: true });
+    for (const [label, value] of [["Owner endpoint", owner.url], ["Owner access token", token], ["Owner Core reference", owner.fields.coreRef], ["Owner Station reference", owner.fields.stationRef], ["Owner session reference", owner.fields.sessionRef], ["Owner workspace reference", owner.fields.scopeRef], ["Owner actor reference", owner.fields.actorRef], ["Owner actor revision", owner.fields.actorRevisionRef]] as const) await panel.getByLabel(label, { exact: true }).fill(value);
+    await wb(page, "Connect owner").click(); return panel;
+  }
+  test("two actual areas preserve draft, pending fields and qualified selection with independent Inspector", async ({ page }) => {
+    await page.goto("/studios");
+    await context(page).getByText("Create context from references", { exact: true }).click();
+    await context(page).getByLabel("Context title", { exact: true }).fill("Context pending independently");
+    await createWorkflowInArea(page);
+    await workflow(page).getByLabel("New state id", { exact: true }).fill("review"); await wb(page, "Add state").click();
+    await wb(page, "Select state review").click();
+    const selected = await workflow(page).getByRole("region", { name: "Workflow Tools", exact: true }).getAttribute("data-selected-ref");
+    await expect(inspector(page).locator('[data-property-id="selection"]')).toContainText(selected!);
+    await workflow(page).getByLabel("New state id", { exact: true }).fill("pending-state");
+    await expect(inspector(page)).toContainText("Unsaved changes or pending fields");
+    await nav(page, "Process Context").click();
+    await expect(workflow(page)).toHaveCount(0);
+    await expect(context(page).getByLabel("Context title", { exact: true })).toHaveValue("Context pending independently");
+    await expect(inspector(page)).toContainText("ProcessContext");
+    await expect(inspector(page).locator('[data-property-id="selection"]')).toContainText("None");
+    await expect(inspector(page)).not.toContainText("technical-process:ticket");
+    await nav(page, "Workflow").click();
+    await expect(wb(page, "Select state review")).toBeVisible();
+    await expect(workflow(page).getByLabel("New state id", { exact: true })).toHaveValue("pending-state");
+    await expect(inspector(page).locator('[data-property-id="selection"]')).toContainText(selected!);
+    await expect(inspector(page)).toContainText("technical-process:ticket");
+    await expect(inspector(page).locator('[data-property-row], [data-slot="property-row"]').first()).toHaveAttribute("data-read-only", "true");
+  });
+  test("retained reference context stays separate from technical process identity", async ({ page }) => {
+    // Actual context creator/codec produces the reference artifact; no hand-authored downstream context.
+    await page.goto("/process-context");
+    await context(page).getByText("Create context from references", { exact: true }).click();
+    for (const [label, value] of [["Context title", "Shared process"], ["Process identity", "process:shared"], ["Process revision identity", "revision:shared:1"]] as const) await context(page).getByLabel(label, { exact: true }).fill(value);
+    await context(page).getByRole("button", { name: "Create context", exact: true }).click();
+    await expect(context(page)).toContainText("process:shared");
+    await context(page).getByRole("button", { name: "Save context locally", exact: true }).click();
+    await page.goto("/studios"); await context(page).getByRole("button", { name: "Open retained context", exact: true }).click();
+    await expect(inspector(page)).toContainText("process:shared @ revision:shared:1");
+    await expect(context(page).getByTestId("process-owner-status")).toContainText("unavailable");
+    await createWorkflowInArea(page); await expect(inspector(page)).toContainText("technical-process:ticket");
+    await nav(page, "Process Context").click(); await expect(inspector(page)).toContainText("process:shared @ revision:shared:1");
+    await expect(inspector(page)).not.toContainText("technical-process:ticket");
+  });
+  test("actual owner retention, denied credential and outage preserve model across area navigation", async ({ page }) => {
+    await page.goto("/studios"); await createWorkflowInArea(page);
+    const panel = await connectShared(page, "wrong-token");
+    await expect(panel.getByTestId("workflow-owner-status")).toContainText("Cannot connect");
+    await expect(wb(page, "Send candidate to owner")).toBeDisabled();
+    await panel.getByLabel("Owner access token", { exact: true }).fill(owner.token); await wb(page, "Connect owner").click();
+    await expect(panel.getByTestId("workflow-owner-status")).toContainText("Owner connected");
+    await wb(page, "Send candidate to owner").click(); await expect(panel.getByTestId("workflow-owner-status")).toContainText("Readback verified");
+    const artifact = await panel.getByLabel("Owner artifact ID", { exact: true }).inputValue();
+    await nav(page, "Process Context").click(); await expect(inspector(page)).not.toContainText(artifact);
+    await nav(page, "Workflow").click(); await expect(panel.getByTestId("workflow-owner-status")).toContainText("Readback verified");
+    await owner.stopOwner();
+    try { await wb(page, "Read exact owner revision").click(); await expect(panel.getByTestId("workflow-owner-status")).toContainText("unavailable"); await expect(workflow(page)).toHaveAttribute("data-artifact-version", "1.0.0"); }
+    finally { await owner.restart(); }
+    await wb(page, "Disconnect owner").click(); await wb(page, "Connect owner").click();
+    await expect(panel.getByTestId("workflow-owner-status")).toContainText("Owner connected");
+    await wb(page, "Read exact owner revision").click(); await expect(panel.getByTestId("workflow-owner-status")).toContainText("Exact owner revision verified");
+    await expect(inspector(page)).not.toContainText(owner.token);
+    expect(await page.evaluate(() => Object.values(localStorage).join("")).then(text => text.includes(owner.token))).toBe(false);
+  });
+  test("keyboard narrow navigation and singleton window minimize restore preserve pending draft", async ({ page }) => {
+    await page.goto("/"); await page.getByRole("button", { name: "Open applications", exact: true }).click(); await page.locator('[data-app-ref="app:studios"]').click();
+    await page.setViewportSize({ width: 390, height: 860 });
+    await tabTo(page, nav(page, "Workflow")); await nav(page, "Workflow").press("Enter");
+    await workflow(page).getByText("Create workflow or add process", { exact: true }).click();
+    await workflow(page).getByLabel("Process name", { exact: true }).fill("Unapplied form");
+    await tabTo(page, nav(page, "Process Context")); await nav(page, "Process Context").press("Enter");
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await nav(page, "Workflow").click();
+    const win = page.getByRole("dialog", { name: "Studios", exact: true });
+    await win.getByRole("button", { name: "Minimize window", exact: true }).click();
+    await page.locator('[data-slot="taskbar-windows"]').getByRole("button", { name: "Studios", exact: true }).click();
+    await expect(workflow(page).getByLabel("Process name", { exact: true })).toHaveValue("Unapplied form");
+    await expect(foundation(page)).toHaveAttribute("data-active-area", "workflow");
+    await win.getByRole("button", { name: "Close window", exact: true }).click();
+    await page.getByRole("button", { name: "Open applications", exact: true }).click(); await page.locator('[data-app-ref="app:studios"]').click();
+    await nav(page, "Workflow").click(); await workflow(page).getByText("Create workflow or add process", { exact: true }).click();
+    await expect(workflow(page).getByLabel("Process name", { exact: true })).toHaveValue("");
+  });
+});

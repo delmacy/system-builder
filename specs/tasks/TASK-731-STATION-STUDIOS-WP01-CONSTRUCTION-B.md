@@ -2,7 +2,7 @@
 {
   "id": "TASK-731",
   "title": "Integrate shared Studio workbench with actual model and owner journeys",
-  "status": "ready",
+  "status": "completed",
   "priority": 731,
   "milestone": "STATION-STUDIOS-WP01",
   "model_tier": "cheap",
