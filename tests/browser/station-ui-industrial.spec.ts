@@ -41,6 +41,8 @@ test("workstation controls retain live state in compact dark mode and tab switch
 
 test("compact semantic buttons expose labels on hover and keyboard, and reveal them on expansion", async ({ page }, info) => {
   const lab = await openIndustrial(page);
+  const labeled = lab.getByRole("button", { name: "Save with label", exact: true });
+  await expect(labeled.locator("span + svg")).toHaveCount(1);
   const compact = lab.getByRole("button", { name: "Compact save", exact: true });
   await expect(compact).toHaveAttribute("data-label-visible", "false");
   await expect(compact).not.toContainText("Compact save");
@@ -61,6 +63,7 @@ test("compact semantic buttons expose labels on hover and keyboard, and reveal t
   await expand.click(); await expect(expand).toHaveAttribute("aria-expanded", "true");
   await expect(expand).toBeFocused();
   await expect(expand).toContainText("Expand tools");
+  await expect(expand.locator("span + svg")).toHaveCount(1);
   await expand.press("Space"); await expect(expand).toHaveAttribute("aria-expanded", "false");
   await expect(expand).toBeFocused();
   await expect(expand).not.toContainText("Expand tools");

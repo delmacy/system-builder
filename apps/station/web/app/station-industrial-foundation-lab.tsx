@@ -28,9 +28,9 @@ export function StationIndustrialFoundationLab() {
     </Toolbar>
     <Toolbar label="Button presentation modes">
       <PresentationButton label="Text action" onClick={() => setPresentationCount(n => n + 1)} />
-      <PresentationButton label="Save with label" mode="icon-text" icon="file.save" onClick={() => setPresentationCount(n => n + 1)} />
+      <PresentationButton label="Save with label" iconPlacement="end" mode="icon-text" icon="file.save" onClick={() => setPresentationCount(n => n + 1)} />
       <PresentationButton label="Compact save" mode="icon" icon="file.save" onClick={() => setPresentationCount(n => n + 1)} />
-      <PresentationButton label="Expand tools" mode="icon" icon="navigation.expand" expanded={expanded} onClick={() => setExpanded(value => !value)} />
+      <PresentationButton label="Expand tools" iconPlacement="end" mode="icon" icon="navigation.expand" expanded={expanded} onClick={() => setExpanded(value => !value)} />
       <PresentationButton label="Unavailable action" mode="icon" icon="file.save" disabled />
     </Toolbar>
     <p aria-live="polite" data-testid="presentation-actions">{presentationCount} presentation actions</p>

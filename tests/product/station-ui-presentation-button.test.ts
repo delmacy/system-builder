@@ -19,3 +19,16 @@ test("controlled expansion reveals label and invalid contracts reject", () => {
   for (const props of [{label:" "}, {label:"Missing",mode:"icon"}, {label:"Unknown",mode:"arbitrary"}])
     assert.throws(() => render(props as PresentationButtonProps));
 });
+
+test("icon placement preserves label order across compact and expanded modes", () => {
+  for (const iconPlacement of ["start", "end"] as const) {
+    for (const presentation of [{ mode: "icon-text" as const }, { mode: "icon" as const, expanded: true }]) {
+      const markup = render({ label: "Tools", icon: "navigation.expand", iconPlacement, ...presentation });
+      assert.equal(markup.indexOf("<svg") < markup.indexOf("<span"), iconPlacement === "start");
+      assert.match(markup, /aria-label="Tools"/);
+    }
+    const compact = render({ label: "Tools", icon: "navigation.expand", mode: "icon", iconPlacement });
+    assert.match(compact, /<svg/); assert.doesNotMatch(compact, /<span/);
+  }
+  assert.throws(() => render({ label: "Invalid", iconPlacement: "middle" } as unknown as PresentationButtonProps), /Unsupported icon placement/);
+});
