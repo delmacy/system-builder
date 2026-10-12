@@ -14,8 +14,11 @@ test("actual icon configuration guards history and survives local save and fresh
   await page.getByLabel("Button icon", { exact: true }).selectOption("glyph:save");
   await page.getByLabel("Button display", { exact: true }).selectOption("icon");
   await page.getByLabel("Icon position", { exact: true }).selectOption("end");
-  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  const guardedSave = page.getByRole("button", { name: "Save locally", exact: true });
+  await expect(guardedSave).toBeDisabled();
+  await guardedSave.focus(); await guardedSave.press("Enter");
   await expect(editor(page).locator("#editor-feedback")).toContainText("Apply or restore");
+  await expect(native(page)).toHaveAttribute("data-display-mode", "text");
   await page.getByRole("button", { name: "Apply properties", exact: true }).click();
   await expect(native(page)).toHaveAttribute("data-icon-status", "ready");
   await expect(native(page)).toHaveAttribute("data-label-visible", "false");
@@ -40,6 +43,8 @@ test("actual icon configuration guards history and survives local save and fresh
     await fresh.getByRole("treeitem", { name: "Button 1", exact: true }).click();
     await expect(fresh.getByLabel("Button icon", { exact: true })).toHaveValue("glyph:save");
     await expect(fresh.getByLabel("Icon position", { exact: true })).toHaveValue("end");
+    await fresh.setViewportSize({ width: 390, height: 860 });
+    await info.attach("editor-icon-only-fresh-reopen", { body: await fresh.screenshot({ fullPage: true }), contentType: "image/png" });
     await fresh.getByLabel("Button display", { exact: true }).selectOption("icon-text"); await fresh.getByRole("button", { name: "Apply properties", exact: true }).click();
     await expect(native(fresh).locator("span + svg")).toHaveCount(1);
     await fresh.setViewportSize({ width: 390, height: 860 });
