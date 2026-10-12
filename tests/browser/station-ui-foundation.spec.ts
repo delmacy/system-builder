@@ -77,6 +77,9 @@ for (const theme of ["light", "dark"] as const) {
       expect(contrast, `${theme} ${label}`).toBeGreaterThanOrEqual(4.5);
     }
     const input = lab.getByLabel("Reference input", { exact: true });
+    const invalid = lab.getByLabel("Invalid reference", { exact: true });
+    expect(await invalid.evaluate(element => getComputedStyle(element).borderTopColor))
+      .not.toEqual(await input.evaluate(element => getComputedStyle(element).borderTopColor));
     await input.focus();
     expect(await input.evaluate(element => parseFloat(getComputedStyle(element).outlineWidth))).toBeGreaterThanOrEqual(2);
     await page.keyboard.press("Tab");
