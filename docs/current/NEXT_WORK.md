@@ -1,5 +1,6 @@
-# Next work — Station Studios WP01 Documentation & Closure
-Sole live scheduler. ReviewTASK732 complete effectiveonlyonvalidatedownintegration; base47c446c13190dc92f739bfe020d5d04e9b3c45d8, B#1125 allsevenchecksPASS integrated.107actualChromium/111heavy0skip/4foundationtests.
-AuthorityAdd018executionresolution, project_docs/execution_planning/STATION-STUDIOS-WP01-PLAN-01.md, Reviewreport, Closuremanifest/TASK733. ExplicitownerWP01execution coversClosuretransitionaftergates/freshmain.
-OnlyClosurematerialized; no productmutation. ConstructionCNOT_NEEDED fromtwoareas/independentcontext/draft-selection/actualowner/narrowkeyboardproof. PreserveL1–L3/D1/inheritedtechnicalauth/upstream/production/browserlimits.
-After ownvalidatedClosure, nexteligible STUDIOS-WP02 CatalogPlanning; currentpublicops/readiness/auth/service/upstream mustrecensus. NofutureConstructionorownergrantassumed.
+# Next work — Studios WP01 closed, Catalog Planning eligible
+Sole live scheduler. STATION-STUDIOS-WP01/TASK733 boundedCLOSED effectiveonlyafterownallgatesPASS andvalidatedintegration; base30d332690a4dbbad24d73d1dfb65a8bb957ff2fd, Review#1126 fiveownchecksPASS integrated.
+Authority acceptedAdd018+WP01EXECUTIONresolution, project_docs/execution_planning/STATION-STUDIOS-WP01-PLAN-01.md/Closurereport, phaseWORK-PACKAGES/READINESS, SuiteMap and Catalogscope/WBS/publiccontracts.
+OwnerauthorizedWP01complete. ActualPlanning#1123/A#1124/B#1125/Review#1126 ownallgatesPASS;107actualChromium/111heavy0skip/4foundationtests. TwoinstalledProcessContext/Workflowareas, readonlyqualifiedInspector and independentdraft/forms/selection, actualDesignownerproof. FiveSprints,CNOT_NEEDED.
+AfterownvalidatedClosure: noactiveSprint/Construction; no futureproductTASKcommitted. NexteligibleSTUDIOS-WP02CatalogPlanning mustfreshcensuspublicBusiness/Softwarecatalogoperations/query/eligibility/auth/durability/ingress/upstream/contracts andmaterializeonlyfirstdependency-safeConstruction. Ownergap→explicitownedprerequisite, notfakeUI/backend. Futureexecutionrequiresownmaterialization/authorization.
+WP01-L1–L3/D1 andallWP16/inheritedlimits retained: reference-onlynotsemanticapproval, technicalretainnotpublication,localprofile/upstreamunresolved,512summarybound,unsavedclose/reloadnotpromised; notwholeS4/twelveStudios/production/universalqualitycertificate.

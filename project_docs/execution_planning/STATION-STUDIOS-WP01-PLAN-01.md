@@ -20,3 +20,6 @@ Two installed areas retained in memory while navigating; explicit window close/r
 
 ## Integrated construction/review disposition
 Planning#1123,A#1124,B#1125 all own required checksPASS integrated.107actualChromiumjourneys(103+4),111heavy0skip,4foundationpurecases. Twoinstalledsharedareas/readonlyInspector and qualifiedselection/draft retention achieved; technicalowner/readback/outage proof actual. CNOT_NEEDED; GOClosure effective only on validated ownTASK732integration. WP01-L1–L3/D1/inheritedlimits in Reviewreport; no widerStudio/phasecompleteclaim. NextCatalogPlanning after boundedClosure.
+
+## Canonical bounded closure
+TASK733 closes WP01 only on validated own integration. Planning#1123,A#1124,B#1125,Review#1126 integrated after allrequired5/7/7/5checks.107actualChromium/111heavy0skip/4foundationtests; fiveSprints,CNOT_NEEDED. SharedexistingProcessContext/Workflowareas and readonlyqualifiedInspector/draftretention/actualOwnerproof delivered. WP01-L1–L3/D1/allinheritedlimits retained; operations docs/operations/STATION-STUDIOS-WP01.md. NoactiveConstruction afterClosure. NextCatalogPlanning; remaining21WPsforecast/publicownerreadinessindependent.

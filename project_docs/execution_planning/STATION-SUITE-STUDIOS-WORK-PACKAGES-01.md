@@ -1,6 +1,6 @@
 # Work Packages e dependências — Studios da suíte
 Fase STATION-SUITE-STUDIOS-PHASE-01; base5f14c94314e15cebb6484b8498bc30ded626439c; Addendum018. Data2026-10-12 UTC.
-22 candidatos FORECAST/PLANNED, não WPs anteriores WP1–WP16 renumerados. Alias amigável STUDIOS-WPnn; identificador formal por parent WBS e sequência conforme WBS_DICTIONARY.
+22 pacotes: WP01 bounded CLOSED effective on validated TASK733 integration;21 candidatos FORECAST/PLANNED. Não são WPs anteriores WP1–WP16 renumerados. Alias amigável STUDIOS-WPnn; identificador formal por parent WBS e sequência conforme WBS_DICTIONARY.
 
 ## Mapa e DAG de capabilities
 | Alias | Identificador formal | Entrega | Predecessores de capability/artifact | Prova de saída |
@@ -48,7 +48,7 @@ Uma branch/sprint, um commit/TASK, umPR/sprint; exacthead/currentbase/alltrigger
   "work_package": "WP-21.1.1-STUDIOS-A",
   "parent_wbs": "21.1.1",
   "name": "Fundação compartilhada dos Studios",
-  "status": "PLANNED",
+  "status": "CLOSED",
   "objective": "Abrir duas áreas de domínio mantendo referências/seleção, alternar contexto sem misturar autoridade; owner indisponível preserva draft",
   "in_scope": [
     "Registro de Studios/ferramentas, contexto, seleção, draft/revisões, contratos SDK e qualificação de acesso"
@@ -1710,5 +1710,8 @@ Uma branch/sprint, um commit/TASK, umPR/sprint; exacthead/currentbase/alltrigger
 }
 ```
 
-## Primeira wave
-Próximo candidato STUDIOS-WP01 Planning deve revalidar endpoints/context/auth/sourceownership, ferramentas/projeções compartilhadas e adequação dos componentes já entregues; medir reuso e lacunas, não copiar engine nem inventar schemas. WP02 Catalog vem após foundation e contrato real ready. Demais sóforecast; nenhumconstructionTASK criado por esteplanejamento.
+## Primeira wave — disposition after WP01
+WP01sharedfoundation delivered with existingProcessContext/Workflow, scopedselection/context/readonlyInspector andactualDesignownerproof; closureeffectiveonlyonvalidatedTASK733integration. NexteligibleCatalogWP02Planningrevalidatesbusiness/softwarepubliccontracts/service/query/actions/auth/durable/elegibility/upstreamreadiness; no constructionmaterialized. Alllaterpackagesforecast, no inventedowner/backend.
+
+## WP01 bounded closure disposition
+STUDIOS-WP01 actual Planning#1123/A#1124/B#1125/Review#1126, ClosureTASK733 effective only on ownvalidatedintegration.107actualChromium/111heavy0skip/4foundationtests; CNOT_NEEDED. ExistingProcessContext+technicalWorkflowareasininstalledsharedworkbench/scopedreadonlyInspector/draftselectionpreservation/actualOwnerproof. No additionalsemanticStudio/backenddelivered. WP01-L1–L3/D1/inheritedlimits retained; docs/operations/STATION-STUDIOS-WP01.md. RemainingWP02–22 stillforecast; nexteligibleCatalogPlanningneedsfreshpublicownerreadiness.

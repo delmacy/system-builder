@@ -70,4 +70,7 @@ Nomes SS-M não renumeram H1–H4/M1/M2 históricos. Marco é estado verificáve
 
 ## Resíduos e planning packages
 Readiness de cada dono/serviço, semantic schemas/versions, amplitude das regras/actions/conectores, publicação, perfil auth e matriz de operação são refinados na Planning. Se acceptance/interface não puder ser definida, criar PlanningPackage/ARCHITECTURAL_HOOK, nunca inventar backend dentro da UI.
-Próximo elegível WP01 Planning conforme NEXT_WORK, sem tarefas product futuras comprometidas.
+Após WP01 boundedclosure, próximo elegível CatalogWP02Planning conforme NEXT_WORK, sem tarefas product futuras comprometidas.
+
+## SS.1.1 bounded arrival disposition
+WP01foundation actualsharedtwoexistingareas achieved viaPlanning#1123/A#1124/B#1125/Review#1126;107Chromium/111heavy0skip/4foundationtests. BoundedCLOSED effectiveonvalidatedTASK733integration, CNOT_NEEDED. Sharedcontextsummariesnotdomainauthority; no newsemanticmodel/otherStudio/wholechaptercompletion. WP01L1–L3/D1/inheritedlimits retained. SS-M1 stillrequiresCatalogWP02 anditsfreshpublicreadiness. Allotherleafsforecast; phase/twelveStudiosnotclosed.
