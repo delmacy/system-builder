@@ -1,6 +1,6 @@
-# Addendum 020 — Station UI Foundation Backfill
+# Addendum 021 — Station UI Foundation Backfill
 
-Status: PROPOSED FOR ADMISSION (owner authorized planning 2026-10-12)
+Status: ACCEPTED BY OWNER 2026-10-12; effective for construction after qualified admission PR integration
 Predecessors: ADR-0017; contract 001 grammar; contract 002 visual factory; contract 018 Studio suite.
 Related independent work: WP-ICON-01 (shared semantic icon inventory).
 
@@ -25,3 +25,6 @@ Do not create a second editor engine, alter canonical process/owner semantics, i
 This document is a proposed scope increment awaiting normal repository admission/integration; the branch/PR and planning do not themselves authorize uncontrolled implementation. Each promoted component requires inventory/provenance, typed contract and ownership, visual test surface, accessibility/keyboard/state profile, composition eligibility, save/readback evidence, and a status of PROVEN/FAILED/UNPROVEN/NOT-APPLICABLE. Tests green for other paths are not evidence for missing UI coverage.
 
 Do not alter docs/current/NEXT_WORK.md or displace in-flight Studios WP02 until a coordinated dependency handoff. Plan implementation after admission, gated by fresh-main checks and unrelated workers' locks.
+
+## Execution authorization and coordinated admission
+Owner explicitly authorized all eleven named sprints, implementation, commits and qualified intermediate PR integration on 2026-10-12. This is an explicit cadence exception to the default five/six-sprint policy, not eleven automatically committed sprints. Only P and first eligible A are materialized. B–Z remain forecasts. UI Foundation receives increment 021 because integrated WP-ICON-01 owns 020. C0 construction has independent ownership of ui-core tokens, global theme CSS and dedicated tests; it may proceed alongside icon A under PARALLELISM_POLICY. Icon-dependent commands and artifact schema work wait for coordinated fresh-main materialization. Preserve ICON as primary live pointer; the same NEXT_WORK records this bounded independent lane.

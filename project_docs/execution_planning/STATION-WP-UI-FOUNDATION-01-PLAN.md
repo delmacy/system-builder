@@ -1,7 +1,7 @@
 # WP-UI-FOUNDATION-01 — Station Visual Component Foundation
 Date: 2026-10-12
-Status: PLANNING / PROPOSED (not implementation-complete)
-Proposed authority: docs/contracts/020-station-ui-foundation/ADDENDUM.md
+Status: OWNER-AUTHORIZED; Planning materialization on admission PR, not implementation-complete
+Proposed authority: docs/contracts/021-station-ui-foundation/ADDENDUM.md
 Existing references: ADR-0017; 001 component grammar; 002 visual factory; station-composition/registry; ui-core; Studio WP02 Catalog; WP-ICON-01.
 
 ## 1. Objective and baseline
@@ -101,3 +101,6 @@ R7 icon scope duplication => consume accepted WP-ICON-01 registry, no parallel i
 
 ## 7. First executable action after plan admission
 Produce P census matrix from fresh main, enumerate exact shipped shadcn reference inventory and actual Station registration/UI visibility, mark each as working, partially implemented or absent. Materialize TASKs and independent per-sprint PRs only after baseline, authority and locks are checked.
+
+## 8. Current materialization
+TASK-745 owns admission correction/census; TASK-746 owns first C0 construction only. Detailed inventory: STATION-WP-UI-FOUNDATION-01-INVENTORY.md. Eleven-sprint cadence explicitly requested by owner; accepted as bounded exception. No product writes on this planning branch. Subsequent sprints retain rolling-wave promotion and exact-head integration gates.

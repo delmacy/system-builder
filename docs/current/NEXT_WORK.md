@@ -1,7 +1,7 @@
-# Next work — Studios WP02 Catalog client/UI readiness
+# Next work — WP-ICON-01 Planning
+Userexplicitlyrequests dedicatedcompleteWP-ICON-01 after28icons provedinsufficient. AuthorityacceptedAddendum020,WP-ICON-01plan/WBS/coverage/sourceManifest,PlanningTASK742/report,ConstructionAmanifest/TASK743.
+FirstPlanning;AeligibleonlyafterownqualifiedPlanningmerge/freshmain. Reference1877Lucideassets pinned70562c1ee1c4fdcf736fe97bc893fb8511927934,235roles/19categories,2customrequired. Inventory/planning,notshippingcompletion. Existing28#1135remainintegrated/110browser.
+Fullgoal requiresbundle+chooser+toolbars+actualcompositionpersistenceandreuse. WP02staysOPENandreprioritizedafterICONqualifiedClosure;itsclosure needscompleteICONoutcome/consumption,not#1135alone. OtherStudiosforecast. FirstAforbidsUI/codecs/domainwrites;Bexplicitvisualschema/compatibilityauthority,L4unexpectedADR. No duplicatescheduler/futuretaskautocommit.
 
-TASK741 shared-icon Construction A implemented; completion effective only after its own all-triggered exact-head CI and validated merge. Authority Addendum018/WP02-EXECUTION, WP02 plan/readiness, A manifest/TASK741/report. Resumed Planning #1134 five own checks PASS, integrated 17cc285d7eaed34d613a37599b37f9fbe7c5bbbe.
-
-Shared bounded icon registry,12 Suite identifiers, File Manager icon/list view and existing Studio/Workflow/app manifest consumers are included. WP02 cannot close until reusable icons integrated AND actual Catalog client/UI exact-version reuse/readback/recovery/server authorization/browser→Gateway→owner→PostgreSQL proof completed. Catalog owner independently closed #1133; local/source limitations stay explicit.
-
-Next eligible step after A own validated integration and fresh main: materialize Catalog Construction B task paths/proofs from actual public contracts; missing indispensable construction may promote C after fresh evidence. No Catalog UI or later Studio is silently committed here. User authorized icons, Catalog prerequisite and WP02 execution; no repeat ADR approval for admitted scope.
+## Independent UI Foundation lane — coordinated admission
+Owner authorizes WP-UI-FOUNDATION-01/Addendum021 with eleven named sprints. PR#1137 corrects duplicate020 allocation, admits scope and materializes Planning TASK745 plus first C0 TASK746. After its own qualified integration/fresh-main, sprint/STATION-WP-UI-FOUNDATION-01-CONSTRUCTION-A owns only ui-core token vocabulary, global theme CSS and dedicated token/browser proof. ICON A does not write those paths; ICON primary pointer and WP02 dependencies above are preserved. No second editor/registry and no icon duplication. Successor B requires qualified A; D/F schema/icon consumption waits for coordinated ICON public contracts.

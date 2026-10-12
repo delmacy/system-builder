@@ -74,3 +74,7 @@ Após WP01 boundedclosure, próximo elegível CatalogWP02Planning conforme NEXT_
 
 ## SS.1.1 bounded arrival disposition
 WP01foundation actualsharedtwoexistingareas achieved viaPlanning#1123/A#1124/B#1125/Review#1126;107Chromium/111heavy0skip/4foundationtests. BoundedCLOSED effectiveonvalidatedTASK733integration, CNOT_NEEDED. Sharedcontextsummariesnotdomainauthority; no newsemanticmodel/otherStudio/wholechaptercompletion. WP01L1–L3/D1/inheritedlimits retained. SS-M1 stillrequiresCatalogWP02 anditsfreshpublicreadiness. Allotherleafsforecast; phase/twelveStudiosnotclosed.
+
+## Admitted transversal package — Addendum020
+SS.1.3/WP-ICON-01:completeiconcatalog/semanticroles/toolbar/chooser/portablecompositionintegration. Parent21.1.3/21.2.1/21.2.3/21.3.1/21.3.2.1877sourceassets/235roles/19categories+28legacycompat;actualtoolbar/composition/reuseproofrequired.
+Adds1crosscuttingWPto22originals (23total;still12modules). AllStudiosreuse;mandatoryWP02Closuredependency. WP02OPEN;ICONfirst. No oldWPrenumbering orSS-Mmeaningchange. OwnWBS/DAG/Planning/A governsserialexecution.

@@ -1,0 +1,6 @@
+# TASK742 Planning report
+Base7650d06e06d17bb32e6fec16f426d9a5c7c3143f;#1135integrated/7gatesPASS/110Chromium;noPRsopen. Authoritychain,currenticons/UIprimitives/graphproperties/realcodecread.
+Ownerrejects28basics andrequests owncompleteWP. Addendum020admitsbundle/toolbars/chooser/compositioniconpresentation. Catalogownerindependentlyclosed;WP02openandreprioritized.
+PinnedLucide tree1877SVG/762249bytes.235roles/19categories checkedagainstactualfilenames;233sources+2customflip-directions required,notwronggenericarrows. Save/page/textalignment/fontincrease/layerorder explicitly mapped. FullmanifestgitblobSHAs retained;noinstalledfullbundleclaim.
+UIcorehasIconButton/Toggle/Separator/Tooltip but lacksfullrovingtoolbar/chooser. GraphButtonPropertiesexactvariant/disabled;codecpayload1–4;portableiconfieldabsent. BmustexplicitversionvisualL3/backwardsread/history/save/reopen. AforbidsUI/codecs.
+17exactdocs/max17;TASK743firstA 37exactpaths/max37 with16generatedchunks. B/C/Review/Closureforecast only. Count/galery alonecannotcloseWP. No localfullverifyclaim;ownCIneeded. Phase+1transversalWP,not13thStudio.

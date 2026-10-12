@@ -22,3 +22,6 @@ npm run verify and all triggered exact-head/heavy/browser/platform/merge-candida
 
 ## Construction A outcome
 TASK741 implements shared28-token vocabulary/12 Suite identifiers, File Manager icon/list presentation and existing Studio/Workflow/app manifest consumers. Completion is conditional on own all-triggered CI and validated merge. No Catalog client/UI delivered by A; B must be freshly scoped and materialized. Shared icons are mandatory integrated evidence for final WP02 Review/Closure, not grounds to close the package alone.
+
+## Owner scope correction — WP-ICON-01 prerequisite
+2026-10-12 ownerrejects28incrementasinsufficient andrequestsseparatecompleteWP-ICON-01. #1135remainsbasicdelivery,notfullrequirement. WP02OPENatCatalogclient/UIreadiness;ICONnextpriority. WP02Review/Closure requirequalifiedICONoutcomeandlibrary/primitivesconsumption. ExistingCataloggoal/authority/authorizationunchanged. No newCatalogConstructioncommittedhere.
