@@ -2,7 +2,7 @@
 {
   "id": "TASK-738",
   "title": "Review qualified Catalog owner integration and trust boundaries",
-  "status": "ready",
+  "status": "completed",
   "priority": 738,
   "milestone": "CATALOG-OWNER-WP1",
   "model_tier": "architecture",

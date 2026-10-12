@@ -12,3 +12,6 @@ C only indispensable actualgap. Review independentwholegoal/compat/trust/limits/
 New sb_catalog_owner_v1 entries/heads/results tables with global advisorytransactionlock; completecommandfingerprint includes actor/revision/expected/entry, immutable tuple/family/scope; request snapshotbeforeawait. Record+head+result atomicallycommit, rejectedcommandresultdurable; samefingerprintidempotent, changedcommandconflict. Neverreuselegacycache/upsertasownerACK. OldSoftwareCatalogRegistry/storage/APIunchanged. Results actor-bound; list/exact/source read gate beforeoutbound; no unavailableproof promoted.
 ## Readiness
 O1/O2 semantics declared, constructionmustprove. O3 actualPG/HTTP/profile notreadyuntilB. O5 localtrustedpublishedmetadatareferenceprofileonly; externalapprovalsource readinessexplicitnotcertified. No reset/provision customerDB; operatorprovidesURL/localprofile/sourcepath. StationconstructiononlyafterownedReviewClosure/fullgates.
+
+## Integration review
+A #1130 and B #1131 integrated; B seven own workflows PASS. TASK-738 reviews public contracts, real PostgreSQL/HTTP/restart, source trust, compatibility and limits. No indispensable C gap found. GO Closure remains conditional on independent Review CI/merge; Station UI/client not yet implemented.
