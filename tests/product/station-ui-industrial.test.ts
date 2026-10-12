@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, PaneHeader, StatusBar, PropertySection, PropertyField, ToolbarToggleGroup } from "../../packages/ui-core/index.js";
+import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, PaneHeader, StatusBar, PropertySection, PropertyField, ToolbarToggleGroup, SearchField, SelectField } from "../../packages/ui-core/index.js";
 
 const render = (node: ReturnType<typeof createElement>) => renderToStaticMarkup(node);
 
@@ -74,4 +74,17 @@ test("toolbar toggle group retains exclusive selection and rejects malformed cho
   assert.match(html, /disabled=""/);
   assert.throws(() => render(createElement(ToolbarToggleGroup, { label: "Alignment", options, value: "missing" })), /known selected value/);
   assert.throws(() => render(createElement(ToolbarToggleGroup, { label: "Alignment", options: [...options, options[0]], value: "left" })), /unique nonempty/);
+});
+
+test("workstation search and native select preserve labels, escaped options and rejection", () => {
+  const search = render(createElement(SearchField, { label: "Find controls", defaultValue: "<script>" }));
+  assert.match(search, /type="search"/);
+  assert.match(search, /aria-label="Find controls"/);
+  assert.match(search, /&lt;script&gt;/);
+  const select = render(createElement(SelectField, { label: "Density", defaultValue: "compact",
+    options: [{ value: "compact", label: "Compact" }, { value: "comfortable", label: "<wide>" }] }));
+  assert.match(select, /data-slot="select-field"/);
+  assert.match(select, /&lt;wide&gt;/);
+  assert.throws(() => render(createElement(SearchField, { label: "" })), /nonempty/);
+  assert.throws(() => render(createElement(SelectField, { label: "Density", options: [] })), /unique nonempty/);
 });
