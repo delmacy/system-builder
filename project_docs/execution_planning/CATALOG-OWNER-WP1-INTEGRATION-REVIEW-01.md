@@ -1,0 +1,2 @@
+# Catalog owner Integration & Review — materialized successor
+TASK738 only; branch sprint/CATALOG-OWNER-WP1-INTEGRATION-REVIEW-01; intendedbase validatedB resolvefreshmain. Goal wholequalifiedpubliccontract/actualauth/file/PG/HTTP/restart/legacycompatibility/trust/limits/debt review, no newproductimplementation.7docs/max7. DependencyTASK737allgatesPASS; missingcapability returnsConstruction. CNOTNEEDEDonlyafteractualproof. Ownnpmverify/alltriggeredexacthead/currentbase/heavy/browser/handoffbeforemerge; Closurefutureconditionalownerreadiness.
