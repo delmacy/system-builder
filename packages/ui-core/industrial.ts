@@ -82,3 +82,23 @@ export function PropertyField({ label, hint, control, className, ...props }: Pro
       hint == null ? null : createElement("div", { className: "text-muted-foreground" }, hint)),
     createElement("div", { className: "min-w-0" }, control));
 }
+
+/** A controlled group of mutually exclusive toolbar modes. */
+export type ToolbarToggleGroupProps = HTMLAttributes<HTMLDivElement> & Readonly<{
+  label: string;
+  value: string;
+  options: readonly Readonly<{ value: string; label: string; icon?: ReactNode; disabled?: boolean }>[];
+  onValueChange?: (value: string) => void;
+}>;
+export function ToolbarToggleGroup({ label, value, options, onValueChange, className, ...props }: ToolbarToggleGroupProps) {
+  if (!label.trim()) throw new Error("ToolbarToggleGroup requires a nonempty accessible label");
+  if (options.length === 0 || options.some(option => !option.value.trim() || !option.label.trim()) ||
+      new Set(options.map(option => option.value)).size !== options.length) throw new Error("ToolbarToggleGroup requires unique nonempty options");
+  if (!options.some(option => option.value === value)) throw new Error("ToolbarToggleGroup requires known selected value");
+  return createElement(ToolbarGroup, { ...props, label, "data-slot": "toolbar-toggle-group", className },
+    options.map(option => createElement(ToolbarButton, {
+      key: option.value, label: option.label, icon: option.icon, disabled: option.disabled,
+      pressed: value === option.value,
+      onClick: () => { if (!option.disabled && option.value !== value) onValueChange?.(option.value); },
+    })));
+}
