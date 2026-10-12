@@ -1,6 +1,5 @@
-# Next work — Catalog owner contract decision before WP02 Construction
-Solelive scheduler. TASK734/STATION-STUDIOS-WP02-PLANNING-01 Planningimplemented, completedonlyonownvalidatedintegration; base94146158bd0ad45f3ee764aab01c254b02d740ec, WP01Closure#1127 integrated.
-Authority Add018+WP02EXECUTIONresolution, STATION-STUDIOS-WP02-PLAN-01/READINESS/report, Catalogscope/WBS/publicfoundations. OwnerrequestsWP02implementation, but no productConstructioncommitted.
-Required concrete decision: proposed docs/adr/ADR-0019-catalog-owner-service.md and CATALOG-OWNER-WP1-PLAN-01. ExistingSoftware registry/PG andBusinesspromotion/processadmissiondo not qualify authenticatedtwofamilyregister/list/exact/result/trustedupstream/atomicdurableowner. Catalogcoremoduleexists; interface/servicequalificationgap, not secondUIbackend.
-Afteracceptance/revision, fresh separatelyownedCatalogPlanning materializes firstdependency-safeConstruction with exactpubliccontracts/paths/auth/durability/upstreamproof. StationA/BremainFORECAST/BLOCKEDuntilownerintegration. Do not fabricateBusinessapproval/publication or reuseDesigngrant.
-WP01boundedclosed107Chromium/111heavy0skip/4foundationtests andallinheritedlimits retained. No activeproductSprint, no readyfutureTASK; remainingStudioforecastnotreadinesscertificate.
+# Next work — accepted Catalog owner prerequisite Construction A
+Solelive scheduler. TASK735Planningcompletedonlyonownvalidatedintegration; base321809f279c6cbdc2df010974fea782276426083, TASK734#1128allfivechecksPASS integrated. OwneracceptsADR0019andseparateprerequisite+StationWP02execution.
+Authority acceptedADR0019/Add019, CATALOG-OWNER-WP1-PLAN-01, Amanifest/TASK736. FirstAonlymaterializedafterPlanninggates/integration; B/C/Review/Closureforecast.
+Businessfirstfamilyusesexplicitoperator-trustedpreexistingpublishedProcessRevisionmetadatafromserverreadonlysourceport/profile, canonicalP18admission/active/identity/contentverified; notremoteapprovalcertificate orCatalogpublication. Clientcannotinjectproof; absent/invalidsourcefailclosed. Softwaredomainregistryunchanged.
+NewownedatomicPG/results/auth/ingressmustactualprovebeforeStationWP02eligible. No fakeUI/backend, Designgrantreuse orproductionIAM. Allownverify/heavy/browser/currentbasegates beforemerge. ExistingWP01/WP16limits/predecessorproof107/111 retained.
