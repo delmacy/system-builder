@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, PaneHeader, StatusBar, PropertySection, PropertyField } from "../../packages/ui-core/index.js";
+import { Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator, PaneHeader, StatusBar, PropertySection, PropertyField, ToolbarToggleGroup } from "../../packages/ui-core/index.js";
 
 const render = (node: ReturnType<typeof createElement>) => renderToStaticMarkup(node);
 
@@ -63,4 +63,15 @@ test("industrial compound labels reject blank names and escape external text", (
   const html = render(createElement(PaneHeader, { title: "<script>bad</script>" }));
   assert.match(html, /&lt;script&gt;bad&lt;\/script&gt;/);
   assert.doesNotMatch(html, /<script>/);
+});
+
+test("toolbar toggle group retains exclusive selection and rejects malformed choices", () => {
+  const options = [{ value: "left", label: "Align left" }, { value: "right", label: "Align right", disabled: true }];
+  const html = render(createElement(ToolbarToggleGroup, { label: "Alignment", options, value: "left" }));
+  assert.match(html, /data-slot="toolbar-toggle-group"/);
+  assert.equal((html.match(/aria-pressed="true"/g) ?? []).length, 1);
+  assert.equal((html.match(/aria-pressed="false"/g) ?? []).length, 1);
+  assert.match(html, /disabled=""/);
+  assert.throws(() => render(createElement(ToolbarToggleGroup, { label: "Alignment", options, value: "missing" })), /known selected value/);
+  assert.throws(() => render(createElement(ToolbarToggleGroup, { label: "Alignment", options: [...options, options[0]], value: "left" })), /unique nonempty/);
 });
