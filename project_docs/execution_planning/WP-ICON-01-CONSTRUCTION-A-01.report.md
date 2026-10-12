@@ -8,3 +8,6 @@ Limits:rawbytes notcompressed/browsermetric;fullgalleryDOM/interactive performan
 
 ## Fresh-main coordination
 Base advanced to952fc4129d4607be3a417f46683bda32ce2bf2c5 afterUIFoundationPlanning#1137. ReadAdd021/PARALLELISM_POLICY; addeddocs/registry/subsection only,noiconcodeoverlap. Preserve independentlaneinNEXT. TASK746/PR1138 owns ui-core/globalCSS/lab andnoticonpaths. ICONB remainsunmaterializedpendingexplicittoolbar/schemaownershipreconciliationwithFoundationD/F; no duplicateimplementationorcyclicwholeICONClosuredependency.
+
+## Combined current-base qualification
+UI FoundationA#1138 integratedb50a550f4e821a7175b6636b02ac87a9e5be56d7;13changedpaths,zerooverlapwithICON34. PriorICONheadall7workflowsPASS,sixnewcoretestsactualfullsource/parser/React/search/negative/cachePASS. MergecurrentmainintoICONbranchwithoutrewritinghistory,thenallownchecksrepeatforactualcombinedbase. Preservethemes/density/lab/browserconfiguration. NoindependentUIworkdiscarded.
