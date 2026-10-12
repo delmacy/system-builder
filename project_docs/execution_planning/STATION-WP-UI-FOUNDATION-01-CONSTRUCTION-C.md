@@ -8,3 +8,6 @@ Proof grows from B native controls/C0 theme into real modal focus/return, nested
 
 ## Observed browser remediation
 Initial PR1141 head56f6759d: six workflows PASS; browser117passed/3failed. TASK751 materializes TASK752 in the same sprint, dependency750->751->752. Exact planning3paths / correction5paths. No scope expansion; keyboard modality/manual activation/disabled discovery assumptions corrected with real negative assertions, narrow tab layout retained. Gates unchanged.
+
+## Tooltip semantics remediation
+Correctedhead9fb778b7: six workflowsPASS/browser119pass1fail. Actual artifact confirms tooltip opens but lacks accessible role/description. TASK753 materializes TASK754 before code; planning3paths, implementation6paths, dependency752->753->754. Stable SB tooltip context ID + role/description association, existing assertions retained. Gates unchanged.
