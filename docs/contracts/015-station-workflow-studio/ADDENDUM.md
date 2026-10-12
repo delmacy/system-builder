@@ -1,6 +1,8 @@
 # Addendum 015 — bounded technical Workflow Studio
 Date: 2026-10-11 UTC
-Status: planning admission, effective on validated Planning integration; construction not authorized.
+Status: ACCEPTED via Planning#1106; bounded WP15 CLOSED effective on validated TASK716 integration.
+Initial request authorized preparation; subsequent owner request authorized complete WP15 including
+eligible Construction/Review/Closure after independent validated predecessors.
 Provenance: owner requests preparation of WP15 after WP14 closure and chooses technical flows
 (states/transitions), rather than business-process discovery. L3 local draft API scope is explicit.
 ADR-0009/0017, BusinessRecipe != SystemDefinition and canonical Core/domain authority remain unchanged.
@@ -63,3 +65,19 @@ C10 evidence, trust, compatibility, debt, max-size behavior and accessibility li
 No BusinessRecipe authoring, business approvals, action/entity editing, generic schema editor, simulation,
 Core service integration, compile/release/deploy/runtime execution or universal accessibility claim.
 New semantic authority/public owner schema/L4 boundary requires explicit ADR/change control before code.
+
+## Accepted bounded delivery and traceability
+Planning712/#1106, A713/#1107, B714/#1108 and independent Review715/#1109 integrated.
+A six engine tests, B six actual-engine store tests,95 actual Chromium journeys (88 inherited+7).
+Seven construction workflows include Windows/Ubuntu/frontend; independent Review five PASS workflows
+and repeated95 journeys2.1m. Optional C unnecessary; five-sprint standard cadence.
+One actual session/command history drives Explorer/grid-transitions/table/Inspector; complete envelopes
+preserve nonedited fields. B before-edit14th-path correction moves edit caps to selected process;
+larger unrelated workflows preserve lossless data read-only. No owner schema/ADR/dependency/CI mutation.
+New candidates retain predecessor provenance and immutable prior local revisions; actual export/import/
+fresh reopen, explicit comparison, quota/stale/dirty/import sequencing and window lifecycle tested.
+Only bounded local Studio/C10 proof is accepted; no universal grammar/taxonomy/WBS/H3/S4 promotion.
+WP15-L1/L2/L3/L4/D1/D2/D3 and all inherited residuals remain in Review report/RISKS; no live Core owner,
+publication/execution, CAS, broader compatibility/accessibility/memory/latency promise.
+Closure requires its own complete CI/merge. After integration no active WP15 or committed successor.
+WP16 real owner API/service journey requires separate fresh Planning/readiness and execution authorization.

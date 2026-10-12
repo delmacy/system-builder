@@ -93,3 +93,16 @@ Planning#1101/A#1102/B#1103/Review#1104 integrated;7 focused pure model cases,88
 Five sprints, C unnecessary. Bounded WP14 CLOSED only on validated TASK711 integration.
 No whole-item/WBS/H3/S4 certification, arbitrary models/semantic authoring/C10/live service/Core/runtime/
 deploy/storage/CAS. WP14-L1/L2/L3/D1/D2 and inherited limits/debt retained; WP15/WP16 forecast.
+
+## Station S4 WP15 bounded technical Workflow Studio disposition
+Addendum015 delivers selected states/transition panels21.1.1, semantic/presentation separation21.1.2,
+deterministic grid/connections/table21.1.3, schema-aware process/state/transition authorship21.2.1/21.2.2,
+local validation21.2.3 and full-envelope candidate serialization/reopen/revision comparison21.3.1–21.3.3.
+Planning#1106/A#1107/B#1108/Review#1109 integrated;12 focused engine/store cases and95 actual Chromium
+journeys (all88 predecessors+7). Seven construction workflows/Windows-Ubuntu/frontend; independent
+Review five gates PASS and95 journeys2.1m. Five sprints, C unnecessary; bounded closure only on
+validated TASK716 integration. One local draft/session command owner; upstream references unresolved.
+Larger unrelated workflows preserve data read-only; existing owner schemas/ADR/Core authority unchanged.
+WP15-L1/L2/L3/L4/D1/D2/D3/inherited residuals retained. No whole-item/WBS/H3/S4/general C10, live service,
+canonical publication/approval, runtime execution, CAS/collaboration or universal quality certification.
+WP16 requires fresh separate owner API/service readiness/Planning/authorization; no automatic promotion.
