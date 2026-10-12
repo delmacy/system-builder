@@ -79,6 +79,15 @@
       ],
       "@system-builder/station-workflow-connection": [
         "packages/station-workflow-connection/index.ts"
+      ],
+      "@system-builder/contracts/catalog-owner": [
+        "packages/contracts/catalog-owner/index.ts"
+      ],
+      "@system-builder/catalog/owner": [
+        "packages/catalog/owner-service.ts"
+      ],
+      "@system-builder/catalog/owner-postgres": [
+        "packages/catalog/owner-postgres.ts"
       ]
     },
     "strict": true,
