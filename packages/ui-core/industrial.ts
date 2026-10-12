@@ -102,3 +102,26 @@ export function ToolbarToggleGroup({ label, value, options, onValueChange, class
       onClick: () => { if (!option.disabled && option.value !== value) onValueChange?.(option.value); },
     })));
 }
+
+/** Native search control; caller owns query state, filtering and submission. */
+export type SearchFieldProps = Omit<import("react").InputHTMLAttributes<HTMLInputElement>, "type"> & Readonly<{ label: string }>;
+export function SearchField({ label, className, ...props }: SearchFieldProps) {
+  if (!label.trim()) throw new Error("SearchField requires a nonempty accessible label");
+  return createElement("input", { ...props, type: "search", "aria-label": label, "data-slot": "search-field",
+    className: cn("h-[var(--sb-control-height)] min-w-0 rounded-[var(--sb-radius-control)] border border-input bg-background px-[var(--sb-control-padding)] text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50", className) });
+}
+
+/** Native select control with an owned visible label and explicit option identity. */
+export type SelectFieldProps = Omit<import("react").SelectHTMLAttributes<HTMLSelectElement>, "children"> & Readonly<{
+  label: string;
+  options: readonly Readonly<{ value: string; label: string; disabled?: boolean }>[];
+}>;
+export function SelectField({ label, options, className, ...props }: SelectFieldProps) {
+  if (!label.trim()) throw new Error("SelectField requires a nonempty accessible label");
+  if (!options.length || options.some(option => !option.value.trim() || !option.label.trim()) ||
+      new Set(options.map(option => option.value)).size !== options.length) throw new Error("SelectField requires unique nonempty options");
+  return createElement("label", { "data-slot": "select-field", className: "inline-grid min-w-0 gap-1 text-xs" },
+    createElement("span", {}, label),
+    createElement("select", { ...props, "aria-label": label, className: cn("h-[var(--sb-control-height)] rounded-[var(--sb-radius-control)] border border-input bg-background px-2 text-sm disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-ring", className) },
+      options.map(option => createElement("option", { key: option.value, value: option.value, disabled: option.disabled }, option.label))));
+}
