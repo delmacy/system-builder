@@ -2,7 +2,7 @@
 {
   "id": "TASK-741",
   "title": "Build shared Station icons and apply reusable File Manager/Studio navigation",
-  "status": "ready",
+  "status": "completed",
   "priority": 741,
   "milestone": "STATION-STUDIOS-WP02",
   "model_tier": "cheap",
