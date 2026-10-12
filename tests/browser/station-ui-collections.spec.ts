@@ -9,6 +9,9 @@ test("collection table filters, selects with keyboard, and handles empty results
   const lab = page.getByRole("region", { name: "Collection foundation reference" });
   await expect(lab).toBeVisible();
   await expect(lab.getByRole("table", { name: "Reference assets" }).getByRole("row")).toHaveCount(4);
+  const sortName = lab.getByRole("button", { name: "Sort by Name" });
+  await sortName.click();
+  await expect(lab.getByRole("columnheader", { name: "Name" })).toHaveAttribute("aria-sort", "descending");
   const search = lab.getByRole("searchbox", { name: "Search collection assets" });
   await search.fill("Workspace");
   await expect(lab.getByRole("table").getByRole("row")).toHaveCount(2);
