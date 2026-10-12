@@ -4,7 +4,11 @@ import { UI_FOUNDATION_CATALOG_CANDIDATES, findUIFoundationCandidates } from "..
 
 test("foundation candidate census has stable unique source identifiers and no editor-ready overclaim", () => {
   assert.equal(new Set(UI_FOUNDATION_CATALOG_CANDIDATES.map(x => x.id)).size, UI_FOUNDATION_CATALOG_CANDIDATES.length);
-  assert.ok(UI_FOUNDATION_CATALOG_CANDIDATES.every(x => x.stage === "SOURCE_ONLY"));
+  assert.ok(UI_FOUNDATION_CATALOG_CANDIDATES.filter(x => x.id !== "ui:card").every(x => x.stage === "SOURCE_ONLY"));
+  const card = UI_FOUNDATION_CATALOG_CANDIDATES.find(x => x.id === "ui:card");
+  assert.equal(card?.stage, "INSERTABLE");
+  assert.equal(card?.componentRef, "component:card");
+  assert.equal(card?.compositionRef, "composition:action-panel");
   assert.ok(UI_FOUNDATION_CATALOG_CANDIDATES.every(x => x.id.trim() && x.sourceExport.trim()));
 });
 test("palette candidate search supports category, export and case-insensitivity", () => {

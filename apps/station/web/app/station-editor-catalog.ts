@@ -44,6 +44,13 @@ const panel = normalizeComponentDescriptor({
   slots: [{ id: "content", childPolicy: "multiple", acceptsFamilies: ["atomic", "layout-container"],
     acceptsLayouts: ["none", "row"] }],
 });
+const card = normalizeComponentDescriptor({
+  id: "component:card", family: "layout-container", layout: "column", layoutOwnership: "self",
+  childPolicy: "multiple", constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 6,
+    minRows: 1, maxRows: 12, recommendedRows: 3 },
+  slots: [{ id: "content", childPolicy: "multiple", acceptsFamilies: ["atomic", "layout-container"],
+    acceptsLayouts: ["none", "row", "column", "grid"] }],
+});
 const actionRow = normalizeComponentDescriptor({
   id: "component:action-row", family: "layout-container", layout: "row", layoutOwnership: "self",
   childPolicy: "multiple", constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 6,
@@ -85,7 +92,7 @@ const sources: readonly EditorCatalogDefinition[] = Object.freeze([
 
   Object.freeze({
     compositionRef: "composition:action-panel", applicationRef: "app:composition-editor",
-    title: "Reusable action panel", revision: 7, descriptors: Object.freeze([grid, panel, actionRow, button]),
+    title: "Reusable action panel", revision: 7, descriptors: Object.freeze([grid, panel, actionRow, button, card]),
     composition: frozenGraph(defineCompositionGraph({ rootRef: "panel:root", nodes: [
       { ref: "panel:root", componentRef: grid.id },
       { ref: "panel:container", componentRef: panel.id,

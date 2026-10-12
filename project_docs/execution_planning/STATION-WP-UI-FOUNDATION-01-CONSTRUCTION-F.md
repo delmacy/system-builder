@@ -28,3 +28,15 @@ After TASK755, replace the existing Button preview approximation with source-own
 
 ### TASK-756 local source evidence
 Both admitted button IDs now render ui-core Button with the existing default/outline/ghost properties. The existing named preview image retains projection semantics; the inner visual snapshot is aria-hidden, untabbable, pointer-inert and invokes no command. Native disabled/text/recipe checked in SSR. 128 editor/candidate/renderer contracts PASS, lint/docs/tasks PASS. Initial typecheck found exact optional-property and custom data-attribute typing errors; fixed with explicit optional undefined and typed ButtonProps intersection, then typecheck PASS. Browser fresh v4 file reopen asserts actual native Button and captures screenshot. Older browser negative-placement journeys now assert incompatible options excluded and occupied slots disable insertion, preserving unchanged revision and valid-slot recovery. F remains unqualified.
+
+## TASK-757 materialization: actual Card composition
+Eight paths, existing action-panel registry only; Card column/content slot plus existing span Inspector, default presentation, derived immutable title. No codec change or arbitrary properties. Source candidate remains unqualified until actual UI insert/edit/nest/export/fresh-reopen and exact-head CI. Existing compositions/identities/revision remain unchanged.
+
+TASK755 historical head ea796036: six workflows PASS, browser123 PASS /2 failures in old tests attempting now-excluded options. TASK756 updates those assertions to prove exclusion/disabled occupied slot and recovery; head86978404 rerun pending. No passing-browser claim for ea796036.
+
+TASK757 admission clarification before census edit: nine paths including candidate contract test. Card census explicitly maps registry component:card and composition:action-panel, stage INSERTABLE reflecting locally proven structural admission; EDITOR_READY remains forbidden until qualified browser. Six prior candidates remain SOURCE_ONLY.
+
+### TASK757 local source evidence
+Card registered in existing action-panel registry, actual Card/Header/Title/Content preview and content slot composed using current editor/codec2. 130 inherited editor/candidate/renderer contracts PASS; lint/typecheck/docs and749 task specs PASS. Negative row/unknown slot, invalid ButtonProperties on Card and corrupted nested import reject. Source mappings and INSERTABLE census stage added; new browser insert/span/nest/export/fresh reopen/narrow screenshot journey awaits actual CI. No arbitrary Card title/style/variant properties admitted.
+
+TASK756 historical head86978404: six workflows PASS, browser124 PASS /1 fail: legacy 256-character preview full-label title absent on actual Button. Fix restores title=label and escaped SSR assertion without weakening browser test. TASK757 Station production Next build PASS locally; generated build output removed after verification.

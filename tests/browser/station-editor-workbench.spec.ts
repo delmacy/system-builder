@@ -2160,3 +2160,38 @@ test("insertable palette searches actual registry without claiming source-only c
   await expect(page.getByRole("treeitem")).toHaveCount(count + 1);
   await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
 });
+
+ test("shared Card supports actual insert, span Inspector, nested content and fresh file reopen", async ({ page, browser }, testInfo) => {
+  await page.getByLabel("Composition", { exact: true }).selectOption("composition:action-panel");
+  const search = page.getByRole("searchbox", { name: "Search insertable components" });
+  await search.fill("card");
+  await expect(page.getByLabel("Component to add")).toHaveValue("component:card");
+  await page.getByRole("button", { name: "Add component", exact: true }).click();
+  await span(page, "8", "4");
+  const card = page.getByRole("group", { name: "Card 3 preview", exact: true });
+  await expect(card).toHaveAttribute("data-slot", "card");
+  await expect(card).toHaveAttribute("data-column-span", "8");
+  await expect(card).toHaveAttribute("data-row-span", "4");
+  await page.getByLabel("Container", { exact: true }).selectOption("node:added-3");
+  await search.fill("button");
+  await page.getByRole("button", { name: "Add component", exact: true }).click();
+  await expect(card.locator('[data-node-ref="node:added-4"]')).toHaveAttribute("data-slot-ref", "content");
+  const bytes = await downloadedComposition(page);
+  expect(JSON.parse(bytes.toString()).schema.version).toBe("2.0.0");
+  const context = await browser.newContext();
+  try {
+    const other = await context.newPage(); await other.goto("/component-editor");
+    await other.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "foundation-card.json", mimeType: "application/json", buffer: bytes });
+    const reopened = other.getByRole("group", { name: "Card 3 preview", exact: true });
+    await expect(reopened).toHaveAttribute("data-slot", "card");
+    await expect(reopened).toHaveAttribute("data-column-span", "8");
+    await expect(reopened).toHaveAttribute("data-row-span", "4");
+    await expect(reopened.locator('[data-slot="card-content"] button[data-slot="button"]')).toHaveText("Button 4");
+    await other.getByRole("treeitem", { name: "Card 3", exact: true }).click();
+    await expect(other.getByLabel("Columns", { exact: true })).toHaveValue("8");
+    await expect(other.getByLabel("Rows", { exact: true })).toHaveValue("4");
+    await other.setViewportSize({ width: 390, height: 860 });
+    expect(await other.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await other.screenshot({ path: testInfo.outputPath("foundation-card-fresh-reopen.png"), fullPage: true });
+  } finally { await context.close(); }
+});

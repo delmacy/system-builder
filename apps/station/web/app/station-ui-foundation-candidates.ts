@@ -6,6 +6,7 @@ export const UI_FOUNDATION_CATALOG_CANDIDATES = Object.freeze([
   { id: "ui:checkbox", label: "Checkbox", category: "Forms", sourceExport: "Checkbox", stage: "SOURCE_ONLY" },
   { id: "ui:dialog", label: "Dialog", category: "Overlays", sourceExport: "Dialog", stage: "SOURCE_ONLY" },
   { id: "ui:toolbar", label: "Toolbar", category: "Workstation", sourceExport: "Toolbar", stage: "SOURCE_ONLY" },
+  { id: "ui:card", label: "Card", category: "Display", sourceExport: "Card", stage: "INSERTABLE", componentRef: "component:card", compositionRef: "composition:action-panel" },
   { id: "ui:data-table", label: "Data table", category: "Collections", sourceExport: "DataTable", stage: "SOURCE_ONLY" },
 ] as const);
 export type UIFoundationCandidate = typeof UI_FOUNDATION_CATALOG_CANDIDATES[number];

@@ -1,4 +1,5 @@
 "use client";
+import { EditorCardPreview } from "./station-editor-card-preview.js";
 import { EditorButtonPreview } from "./station-editor-button-preview.js";
 import { listInsertableEditorComponents, resolveEditorPaletteSelection } from "./station-editor-palette.js";
 
@@ -365,6 +366,10 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     const variant = properties?.variant ?? "default";
     const parent = byPreviewRef.get(node.parentRef);
     const parentLayout = parent && state.entry.registry.get(parent.componentRef)?.layout;
+    if (node.componentRef === "component:card") return <EditorCardPreview key={node.nodeRef}
+      node={node} label={layerName(state, node.nodeRef)}
+      style={parentLayout === "grid" ? { gridColumn: `span ${node.columnSpan}`, gridRow: `span ${node.rowSpan}` } :
+        parentLayout === "row" ? { flexBasis: `${node.columnSpan / 12 * 100}%` } : undefined}>{children}</EditorCardPreview>;
     return <div key={node.nodeRef} role={children.length ? "group" : "img"} aria-label={layerName(state, node.nodeRef) + " preview"}
       data-node-ref={node.nodeRef} data-parent-ref={node.parentRef} data-slot-ref={node.slotRef}
       data-column-span={node.columnSpan} data-row-span={node.rowSpan}
