@@ -2131,3 +2131,14 @@ test.describe("Studios WP02 shared icons", () => {
     await expect(workflow).toHaveAttribute("aria-pressed", "true");
   });
 });
+
+test("insertable palette searches actual registry without claiming source-only components", async ({ page }) => {
+  const search = page.getByRole("searchbox", { name: "Search insertable components" });
+  await search.fill("button");
+  await expect(page.getByLabel("Component to add")).toContainText("Button");
+  await search.fill("data-table");
+  await expect(page.getByLabel("Component to add").locator("option")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Add component" })).toBeDisabled();
+  await search.clear();
+  await expect(page.getByLabel("Component to add").locator("option").first()).toBeAttached();
+});
