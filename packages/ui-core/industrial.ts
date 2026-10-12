@@ -144,3 +144,27 @@ export function SplitButton({ label, primaryLabel, onPrimaryAction, menuTrigger,
       className: "inline-flex h-[var(--sb-control-height)] items-center gap-1 px-2 text-sm hover:bg-accent disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" }, icon, primaryLabel),
     createElement("span", { "data-slot": "split-button-menu", className: "inline-flex items-stretch border-l border-border" }, menuTrigger));
 }
+
+/** Controlled workstation tab strip. Panels use the existing accessible Tabs provider separately. */
+export type TabStripProps = HTMLAttributes<HTMLDivElement> & Readonly<{
+  label: string;
+  activeId: string;
+  tabs: readonly Readonly<{ id: string; label: string; disabled?: boolean; closable?: boolean }>[];
+  onActiveChange: (id: string) => void;
+  onClose?: (id: string) => void;
+}>;
+export function TabStrip({ label, activeId, tabs, onActiveChange, onClose, className, ...props }: TabStripProps) {
+  if (!label.trim() || tabs.length === 0 || tabs.some(tab => !tab.id.trim() || !tab.label.trim()) ||
+      new Set(tabs.map(tab => tab.id)).size !== tabs.length) throw new Error("TabStrip requires unique nonempty tabs and label");
+  if (!tabs.some(tab => tab.id === activeId && !tab.disabled)) throw new Error("TabStrip requires enabled active tab");
+  return createElement("div", { ...props, "data-slot": "tab-strip", "aria-label": label, role: "group",
+    className: cn("flex min-w-0 items-stretch gap-1 overflow-x-auto border-b border-border", className) },
+    tabs.map(tab => createElement("div", { key: tab.id, "data-slot": "tab-strip-item", "data-active": tab.id === activeId,
+      className: "inline-flex shrink-0 items-stretch rounded-t-[var(--sb-radius-control)] border border-b-0 border-border data-[active=true]:bg-accent" },
+      createElement("button", { type: "button", disabled: tab.disabled, "aria-current": tab.id === activeId ? "page" : undefined,
+        "aria-label": tab.label, onClick: () => { if (!tab.disabled) onActiveChange(tab.id); },
+        className: "px-3 py-1.5 text-xs focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50" }, tab.label),
+      tab.closable && onClose ? createElement("button", { type: "button", disabled: tab.disabled,
+        "aria-label": `Close ${tab.label}`, onClick: () => onClose(tab.id),
+        className: "px-1.5 text-xs hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring" }, "×") : null)));
+}
