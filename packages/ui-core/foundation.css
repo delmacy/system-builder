@@ -1,0 +1,162 @@
+/* SB-owned visual grammar; shadcn source/design baseline (ADR-0017). */
+:root, [data-theme="light"], [data-theme="system"] {
+  color-scheme: light;
+  --radius: 0.625rem;
+
+  --background: oklch(0.985 0.004 255);
+  --foreground: oklch(0.205 0.015 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.205 0.015 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.205 0.015 255);
+  --primary: oklch(0.235 0.02 255);
+  --primary-foreground: oklch(0.985 0.004 255);
+  --secondary: oklch(0.955 0.009 255);
+  --secondary-foreground: oklch(0.235 0.02 255);
+  --muted: oklch(0.955 0.009 255);
+  --muted-foreground: oklch(0.51 0.02 255);
+  --accent: oklch(0.94 0.018 247);
+  --accent-foreground: oklch(0.235 0.02 255);
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: oklch(0.985 0.004 255);
+  --border: oklch(0.9 0.012 255);
+  --input: oklch(0.9 0.012 255);
+  --ring: oklch(0.62 0.13 245);
+
+  --sb-desktop: oklch(0.965 0.008 255);
+  --sb-window: var(--card);
+  --sb-window-titlebar: oklch(0.975 0.006 255);
+  --sb-taskbar: oklch(0.985 0.004 255 / 0.94);
+  --sb-toolbar: oklch(0.99 0.003 255 / 0.96);
+  --sb-selection: oklch(0.9 0.055 245);
+  --sb-current: oklch(0.64 0.15 150);
+  --sb-stale: oklch(0.72 0.14 70);
+  --sb-unknown: oklch(0.58 0.02 255);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]), [data-theme="system"] {
+    color-scheme: dark;
+    --background: oklch(0.17 0.012 255);
+    --foreground: oklch(0.96 0.006 255);
+    --card: oklch(0.215 0.014 255);
+    --card-foreground: oklch(0.96 0.006 255);
+    --popover: oklch(0.215 0.014 255);
+    --popover-foreground: oklch(0.96 0.006 255);
+    --primary: oklch(0.92 0.012 255);
+    --primary-foreground: oklch(0.205 0.015 255);
+    --secondary: oklch(0.285 0.014 255);
+    --secondary-foreground: oklch(0.96 0.006 255);
+    --muted: oklch(0.285 0.014 255);
+    --muted-foreground: oklch(0.7 0.018 255);
+    --accent: oklch(0.31 0.025 245);
+    --accent-foreground: oklch(0.96 0.006 255);
+    --destructive: oklch(0.65 0.2 25);
+    --destructive-foreground: oklch(0.17 0.012 255);
+    --border: oklch(1 0 0 / 0.12);
+    --input: oklch(1 0 0 / 0.15);
+    --ring: oklch(0.68 0.11 245);
+
+    --sb-desktop: oklch(0.145 0.012 255);
+    --sb-window: var(--card);
+    --sb-window-titlebar: oklch(0.195 0.012 255);
+    --sb-taskbar: oklch(0.18 0.012 255 / 0.94);
+    --sb-toolbar: oklch(0.19 0.012 255 / 0.96);
+    --sb-selection: oklch(0.36 0.07 245);
+    --sb-current: oklch(0.72 0.15 150);
+    --sb-stale: oklch(0.78 0.14 70);
+    --sb-unknown: oklch(0.66 0.02 255);
+  }
+}
+
+:root[data-theme="dark"], [data-theme="dark"] {
+    color-scheme: dark;
+    --background: oklch(0.17 0.012 255);
+    --foreground: oklch(0.96 0.006 255);
+    --card: oklch(0.215 0.014 255);
+    --card-foreground: oklch(0.96 0.006 255);
+    --popover: oklch(0.215 0.014 255);
+    --popover-foreground: oklch(0.96 0.006 255);
+    --primary: oklch(0.92 0.012 255);
+    --primary-foreground: oklch(0.205 0.015 255);
+    --secondary: oklch(0.285 0.014 255);
+    --secondary-foreground: oklch(0.96 0.006 255);
+    --muted: oklch(0.285 0.014 255);
+    --muted-foreground: oklch(0.7 0.018 255);
+    --accent: oklch(0.31 0.025 245);
+    --accent-foreground: oklch(0.96 0.006 255);
+    --destructive: oklch(0.65 0.2 25);
+    --destructive-foreground: oklch(0.17 0.012 255);
+    --border: oklch(1 0 0 / 0.12);
+    --input: oklch(1 0 0 / 0.15);
+    --ring: oklch(0.68 0.11 245);
+
+    --sb-desktop: oklch(0.145 0.012 255);
+    --sb-window: var(--card);
+    --sb-window-titlebar: oklch(0.195 0.012 255);
+    --sb-taskbar: oklch(0.18 0.012 255 / 0.94);
+    --sb-toolbar: oklch(0.19 0.012 255 / 0.96);
+    --sb-selection: oklch(0.36 0.07 245);
+    --sb-current: oklch(0.72 0.15 150);
+    --sb-stale: oklch(0.78 0.14 70);
+    --sb-unknown: oklch(0.66 0.02 255);
+  }
+
+/* Semantic scales inherit through the existing Station presentation boundary. */
+:root {
+  --sb-font-body: ui-sans-serif, system-ui, sans-serif;
+  --sb-font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --sb-text-xs: 0.75rem;
+  --sb-text-sm: 0.875rem;
+  --sb-text-base: 1rem;
+  --sb-text-title: 1.25rem;
+  --sb-leading-body: 1.5;
+  --sb-space-1: 0.25rem;
+  --sb-space-2: 0.5rem;
+  --sb-space-3: 0.75rem;
+  --sb-space-4: 1rem;
+  --sb-space-6: 1.5rem;
+  --sb-radius-control: 0.375rem;
+  --sb-radius-panel: 0.75rem;
+  --sb-elevation-control: 0 1px 2px rgb(0 0 0 / 0.05);
+  --sb-elevation-panel: 0 2px 8px rgb(0 0 0 / 0.08);
+  --sb-elevation-overlay: 0 8px 24px rgb(0 0 0 / 0.16);
+  --sb-opacity-disabled: 0.5;
+  --sb-focus-width: 2px;
+  --sb-focus-offset: 2px;
+  --sb-motion-duration: 150ms;
+}
+:root, [data-density="comfortable"] {
+  --sb-control-height: 2.25rem;
+  --sb-control-height-sm: 2rem;
+  --sb-control-height-lg: 2.5rem;
+  --sb-control-padding: 0.75rem;
+  --sb-control-gap: 0.5rem;
+}
+[data-density="compact"] {
+  --sb-control-height: 1.875rem;
+  --sb-control-height-sm: 1.625rem;
+  --sb-control-height-lg: 2.125rem;
+  --sb-control-padding: 0.5rem;
+  --sb-control-gap: 0.25rem;
+}
+[data-motion="reduced"] { --sb-motion-duration: 0ms; }
+@media (prefers-reduced-motion: reduce) {
+  :root { --sb-motion-duration: 0ms; }
+}
+@layer components {
+:where([data-slot="button"], [data-slot="input"], [data-slot="select"], [data-slot="toggle"]) {
+  font-family: var(--sb-font-body);
+  font-size: var(--sb-text-sm);
+  border-radius: var(--sb-radius-control);
+  transition-duration: var(--sb-motion-duration);
+}
+:where([data-slot="input"], [data-slot="select"])[aria-invalid="true"] {
+  border-color: var(--destructive);
+}
+:where([data-slot="button"], [data-slot="input"], [data-slot="select"], [data-slot="toggle"]):disabled {
+  opacity: var(--sb-opacity-disabled);
+}
+:where([data-slot="toggle"])[data-state="on"] { background-color: var(--sb-selection); }
+[data-slot="panel"] { border-radius: var(--sb-radius-panel); box-shadow: var(--sb-elevation-panel); }
+}

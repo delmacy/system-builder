@@ -2,7 +2,7 @@
 {
   "id": "TASK-746",
   "title": "Complete source-owned semantic scales, theme parity and density/state recipes with actual Component Lab proof; no registry/codec claims.",
-  "status": "ready",
+  "status": "verification",
   "priority": 746,
   "milestone": "WP-UI-FOUNDATION-01",
   "model_tier": "cheap",
@@ -29,6 +29,8 @@
     "apps/station/web/app/globals.css"
   ],
   "allowed_paths": [
+    "project_docs/execution_planning/STATION-WP-UI-FOUNDATION-01-INVENTORY.md",
+    "project_docs/execution_planning/STATION-WP-UI-FOUNDATION-01-PLANNING.report.md",
     "packages/ui-core/tokens.ts",
     "packages/ui-core/foundation.css",
     "packages/ui-core/components.ts",
@@ -52,7 +54,7 @@
     "runtime/**",
     "deploy/**"
   ],
-  "max_files": 11,
+  "max_files": 13,
   "validation": [
     "npm run verify"
   ]
@@ -78,3 +80,6 @@ New primitives, overlays, catalog/schema changes, toolbar/icon ownership, Core/o
 Repository verify; A dedicated product/browser tests and screenshots; observed outputs only.
 ## Escalation
 Unexpected contracts, conflicting path ownership or required forbidden paths block affected work; routine bounded fixes autonomous.
+
+## Bounded audit correction
+Source recount excludes cn/class helpers and type exports: components.ts has12 components, plus5 from other ui-core sources =17. Correct factual counts in inventory/planning report within same TASK, not new scope. Max13 exact paths.
