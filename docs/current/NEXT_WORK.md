@@ -1,7 +1,7 @@
-# Next work — Catalog owner Documentation & Closure
+# Next work — Studios WP02 construction readiness
 
-TASK-738 Review prepared from integrated A #1130 and B #1131 (86cb01247e62eabda0a12909bf1aea5488abcba4); B seven triggered workflows PASS. Closure TASK-739 becomes eligible only after Review own gates and validated merge, then fresh main. Authority: accepted ADR-0019/Addendum019, owned plan, Review report and Closure manifest/spec.
+Catalog owner WP1 is CLOSED only upon this Closure's own validated integration. Authority: accepted ADR-0019 and Addendum019, Catalog owner plan, independent Review/Closure reports, Addendum018 and existing Studios WP02 Planning. A #1130/B #1131 integrated; Review #1132 five own workflows PASS, merged 3728426781802dfbc876a79693b0b993356e52f1.
 
-Qualified profile: two-family Catalog service with server authorization, pinned operator-attested published Business references, atomic PostgreSQL retention/result ledger and real Gateway/HTTP/process restart proof. No independent Business approval, remote/production IAM, events or full catalog certification.
+Next eligible work: fresh Station WP02 readiness reconciliation and materialization of Construction A with exact TASK paths and proof. No product construction is silently committed here. Reuse actual public Catalog owner contracts and SDK/Gateway; independently prove complete responses, exact readback, explicit selected version, recovery and actual browser→owner→PostgreSQL flow. User authorization covers Catalog prerequisite and WP02 execution; no renewed ADR approval is required for admitted scope.
 
-Station WP02 remains gated on owner Closure and its own client/UI proof. User-authorized visual direction: extend existing Lucide icons for folders/files/menu/tabs with theme colors; materialize bounded Station scope before product edits. Other Studios remain forecast.
+Retain Business/Software separation and operator-attested local source boundary. User visual direction: extend existing Lucide registry for folders/files/menu/tabs and Linux File Manager interactions, preserve theme colors and accessible names. Commit bounded Station task authority before those product edits. Other Studios remain forecast.

@@ -307,3 +307,6 @@ Review#1126 fiveownchecksPASS integrated; WP01boundedCLOSED onlyonvalidatedTASK7
 
 ## Catalog owner independent review
 A #1130/B #1131 integrated; B seven own workflows PASS. C-L1/L2 and C-D1/D2/D3 in Review report remain explicit local-profile/source/throughput/version/client qualification limits. No indispensable C required for owner slice. Station SDK/browser still separately gated. Existing bounded Lucide registry lacks requested folder/file/menu/tab coverage; materialize visual task scope before edits.
+
+## Catalog owner closure handoff
+Owner bounded slice closes only on TASK-739 own qualified merge, following Review #1132. O1–O4 READY_LOCAL then; O5 operator-attested source only. No Station SDK/UI delivery or production qualification. Preserve C-L1/L2/C-D1/D2/D3 and all inherited limits. Icons request admitted as user direction; exact Station construction scope still required.
