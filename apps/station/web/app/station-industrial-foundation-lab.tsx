@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { PaneHeader, PropertyField, PropertySection, StatusBar, Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator, ToolbarToggleGroup, Input, SearchField, SelectField } from "../../../../packages/ui-core/index";
+import { PaneHeader, PropertyField, PropertySection, StatusBar, Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator, ToolbarToggleGroup, Input, SearchField, SelectField, TabStrip } from "../../../../packages/ui-core/index";
 import { StationIcon } from "../../../../packages/ui-icons/index";
 
 /** Construction D proof surface; commands are local demo state, not editor mutation. */
@@ -10,8 +10,10 @@ export function StationIndustrialFoundationLab() {
   const [width, setWidth] = useState("240");
   const [query, setQuery] = useState("");
   const [density, setDensity] = useState("compact");
+  const [activeTab, setActiveTab] = useState("inspector");
   return <section className="space-y-3 rounded-lg border p-4" aria-label="Industrial toolbar foundation" data-slot="industrial-foundation-lab">
     <PaneHeader title="Workstation components" subtitle="Construction D · source-owned presentation" />
+    <TabStrip label="Workspace views" activeId={activeTab} onActiveChange={setActiveTab} tabs={[{id:"inspector",label:"Inspector"},{id:"assets",label:"Assets"}]} />
     <Toolbar label="Document toolbar">
       <ToolbarGroup label="File commands">
         <ToolbarButton label="Save" icon={<StationIcon token="file.save" />} onClick={() => setSaved(true)} />
