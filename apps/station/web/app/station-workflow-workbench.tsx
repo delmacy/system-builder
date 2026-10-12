@@ -5,6 +5,7 @@ import { emptySelection, type SelectionState } from "@system-builder/station-int
 import { applyWorkflowCommand, isWorkflowProcessEditable, compareWorkflows, createWorkflow, encodeWorkflow, materializeWorkflow, openWorkflow, type WorkflowCommand, type WorkflowDocument, type WorkflowSession } from "@system-builder/station-workflow-authoring";
 import { StationWorkflowProjections, workflowItems } from "./station-workflow-projections";
 import { loadWorkflowCandidates, readWorkflowFile, saveWorkflowCandidates, type WorkflowStoreResult } from "./station-workflow-store";
+import { StationWorkflowConnectionPanel } from "./station-workflow-connection-panel";
 const initialFields = { name: "", processId: "", analysisRef: "", recipeRef: "", requirementRef: "", state: "open" };
 const nextPatch = (version: string) => { const [major, minor, patch] = version.split(/[+-]/)[0]!.split("."); return `${major}.${minor}.${BigInt(patch!) + 1n}`; };
 export function StationWorkflowWorkbench() {
@@ -80,7 +81,7 @@ export function StationWorkflowWorkbench() {
     <header className="flex flex-wrap items-center gap-2"><h1 className="mr-auto text-lg font-semibold">Workflow Studio</h1><Button variant="outline" onClick={refresh}>Refresh workflow storage</Button><Button variant="outline" disabled={!!pending} onClick={() => input.current?.click()}>Import workflow</Button>
       <input ref={input} className="sr-only" type="file" aria-label="Import workflow file" accept=".workflow.json,application/json" onChange={e => { const file = e.target.files?.[0]; e.target.value = ""; if (file) void importFile(file); }} />
     </header>
-    <p className="text-sm text-muted-foreground">Technical SystemDefinition candidate · Local and unpublished · Core disconnected · Upstream references unresolved</p>
+    <p className="text-sm text-muted-foreground">Technical SystemDefinition candidate · Local and unpublished · Owner connection is explicit below · Upstream references unresolved</p>
     <details className="rounded-lg border p-3"><summary className="cursor-pointer font-medium">Create workflow or add process</summary>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">{([ ["name", "Process name"], ["processId", "Process id"], ["analysisRef", "Analysis reference"], ["recipeRef", "Recipe reference"], ["requirementRef", "Requirement reference"], ["state", "First state id"] ] as const).map(([key, label]) => <label key={key} className="block text-sm">{label}<Input value={fields[key]} onChange={e => field(key, e.target.value)} disabled={!!pending} /></label>)}</div>
       <div className="mt-3 flex flex-wrap gap-2"><Button disabled={!!pending} onClick={create}>Create workflow</Button>{session ? <Button variant="outline" disabled={!!pending} onClick={() => command({ kind: "add-process", process: { id: fields.processId, name: fields.name, requirementRefs: [fields.requirementRef], states: [fields.state], initialState: fields.state } })}>Add process</Button> : null}</div>
@@ -95,6 +96,7 @@ export function StationWorkflowWorkbench() {
       <section aria-label="Workflow revision comparison" className="space-y-2 rounded-lg border p-3"><h2 className="font-semibold">Revision comparison</h2><label className="block text-sm">Compare with revision<select aria-label="Compare with revision" className="mt-1 w-full rounded-md border p-2" value={comparison} onChange={e => setComparison(e.target.value)}><option value="">Current draft base</option>{documents.map((d, i) => <option key={i} value={i}>{d.artifactId} · v{d.artifactVersion}</option>)}</select></label><p className="break-all text-sm">v{compared?.baseVersion} → v{compared?.candidateVersion} · {compared?.processesChanged ? "Workflow changed" : "Workflow unchanged"}</p></section>
       <details className="rounded-lg border p-3"><summary>Complete definition snapshot</summary><pre className="mt-3 max-h-80 overflow-auto whitespace-pre-wrap break-all text-xs">{JSON.stringify(session.document, null, 2)}</pre></details>
     </> : <p className="text-sm">No workflow is open. Retained revisions are opened explicitly.</p>}
+    <StationWorkflowConnectionPanel document={session?.document ?? null} submitBlocked={!!pending || formDirty || !!session?.dirty} replacementBlocked={!!pending} getGeneration={() => sequence.current} onOpen={requestInstall} />
     <p role="status" className="break-words text-sm">{message}</p>
   </section>;
 }
