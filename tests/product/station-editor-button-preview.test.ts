@@ -26,3 +26,10 @@ test("absent properties render legacy default and unsupported property shapes re
   assert.doesNotMatch(html, /disabled=""/);
   assert.throws(() => renderToStaticMarkup(createElement(EditorButtonPreview, { label: "Bad", properties: { variant: "destructive", disabled: false } as unknown as ButtonProperties })), /Invalid admitted/);
 });
+
+test("portable compact preview keeps label while owner asset is pending", () => {
+  const html = renderToStaticMarkup(createElement(EditorButtonPreview, { label: "Save", properties: { variant: "outline", disabled: false,
+    presentation: { mode: "icon", placement: "end", icon: { assetRef: "glyph:save", catalogVersion: "1.0.0" } } } }));
+  assert.match(html, /data-display-mode="icon"/); assert.match(html, /data-icon-status="loading"/);
+  assert.match(html, />Save</); assert.match(html, /tabindex="-1"/); assert.doesNotMatch(html, /<svg/);
+});

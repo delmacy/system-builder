@@ -1,4 +1,5 @@
 "use client";
+import { EditorIconFields } from "./station-editor-icon-fields.js";
 import { EditorCardPreview } from "./station-editor-card-preview.js";
 import { EditorButtonPreview } from "./station-editor-button-preview.js";
 import { editorPaletteCategory, editorPaletteLabel, listInsertableEditorComponents, resolveEditorPaletteSelection } from "./station-editor-palette.js";
@@ -23,14 +24,14 @@ import {
 type State = Readonly<{
   entry: EditorCatalogEntry; history: EditorHistory; selection: LayersSelection;
   pendingRef: string | null;
-  columns: string; rows: string; buttonText: string; propertyVariant: string; propertyDisabled: string; message: string; invalid: boolean;
+  columns: string; rows: string; buttonText: string; propertyVariant: string; propertyDisabled: string; propertyMode: string; propertyPlacement: string; propertyAsset: string; propertyCatalog: string; message: string; invalid: boolean;
   document: CompositionArtifact | null; savedText: string | null;
   pendingArtifact: Readonly<{ document: CompositionArtifact; savedText: string | null }> | null;
 }>;
 type Action =
   | { type: "structure"; operation: "add-node" | "remove-subtree" | "reorder-node" | "reparent-node"; componentRef?: string; parentRef?: string; slotRef?: string; direction?: "before" | "after" }
   | { type: "select"; ref: string }
-  | { type: "field"; field: "columns" | "rows" | "buttonText" | "propertyVariant" | "propertyDisabled"; value: string }
+  | { type: "field"; field: "columns" | "rows" | "buttonText" | "propertyVariant" | "propertyDisabled" | "propertyMode" | "propertyPlacement" | "propertyAsset" | "propertyCatalog"; value: string }
   | { type: "apply" | "save" | "discard" | "undo" | "redo" | "apply-text" | "reset-text" | "apply-properties" | "reset-properties" | "restore-fields" }
   | { type: "request-switch"; ref: string }
   | { type: "cancel-switch" | "confirm-switch" }
@@ -43,13 +44,13 @@ function fields(session: EditorSession, selection: LayersSelection) {
   const result = projectEditorInspector(session, selection, session.draftRevision);
   const placement = result.accepted && result.snapshot.kind === "node" ? result.snapshot.placement : null;
   const node = session.transaction.draft.nodes.find(item => item.ref === selection.selectedRef);
-  return { propertyVariant: node?.properties?.variant ?? "default", propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
+  return { propertyMode: node?.properties?.presentation?.mode ?? "text", propertyPlacement: node?.properties?.presentation?.placement ?? "start", propertyAsset: node?.properties?.presentation?.icon.assetRef ?? "", propertyCatalog: node?.properties?.presentation?.icon.catalogVersion ?? "", propertyVariant: node?.properties?.variant ?? "default", propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
 }
 function initialState(ref: string): State | null {
   const result = initializeCatalogEditorSession(ref, "session:visual-workbench");
   if (!result.accepted) return null;
   return { entry: result.entry, history: createEditorHistory(result.session), selection: { selectedRef: null },
-    columns: "", rows: "", buttonText: "", propertyVariant: "default", propertyDisabled: "false", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
+    columns: "", rows: "", buttonText: "", propertyVariant: "default", propertyDisabled: "false", propertyMode: "text", propertyPlacement: "start", propertyAsset: "", propertyCatalog: "", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
     document: null, savedText: null, pendingArtifact: null };
 }
 function replaceArtifact(state: State, candidate: { document: CompositionArtifact; savedText: string | null }): State {
@@ -78,7 +79,7 @@ function historyBlocked(state: State): boolean {
 }
 function propertiesPending(state: State): boolean {
   const applied = fields(state.history.session, state.selection);
-  return state.propertyVariant !== applied.propertyVariant || state.propertyDisabled !== applied.propertyDisabled;
+  return state.propertyVariant !== applied.propertyVariant || state.propertyDisabled !== applied.propertyDisabled || state.propertyMode !== applied.propertyMode || state.propertyPlacement !== applied.propertyPlacement || state.propertyAsset !== applied.propertyAsset || state.propertyCatalog !== applied.propertyCatalog;
 }
 function textPending(state: State): boolean {
   return state.buttonText !== fields(state.history.session, state.selection).buttonText;
@@ -145,7 +146,8 @@ function reducer(state: State | null, action: Action): State | null {
     const common = { sessionRef: state.history.session.sessionRef, compositionRef: state.entry.compositionRef,
       expectedDraftRevision: state.history.session.draftRevision, nodeRef };
     const intent = action.type === "apply-properties" ? { ...common, type: "set-properties" as const,
-      properties: { variant: state.propertyVariant as ButtonProperties["variant"], disabled: state.propertyDisabled === "true" } }
+      properties: { variant: state.propertyVariant as ButtonProperties["variant"], disabled: state.propertyDisabled === "true",
+        ...(state.propertyAsset || state.propertyMode !== "text" ? { presentation: { mode: state.propertyMode as NonNullable<ButtonProperties["presentation"]>["mode"], placement: state.propertyPlacement as NonNullable<ButtonProperties["presentation"]>["placement"], icon: { assetRef: state.propertyAsset, catalogVersion: state.propertyCatalog } } } : {}) } }
       : { ...common, type: "reset-properties" as const };
     const result = applyEditorHistoryStructure(state.history, intent, state.entry.registry);
     if (!result.accepted) return { ...state, invalid: true, message: "These button properties are invalid. The composition is unchanged." };
@@ -371,6 +373,8 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       style={parentLayout === "grid" ? { gridColumn: `span ${node.columnSpan}`, gridRow: `span ${node.rowSpan}` } :
         parentLayout === "row" ? { flexBasis: `${node.columnSpan / 12 * 100}%` } : undefined}>{children}</EditorCardPreview>;
     return <div key={node.nodeRef} role={children.length ? "group" : "img"} aria-label={layerName(state, node.nodeRef) + " preview"}
+      title={layerName(state, node.nodeRef)}
+      tabIndex={properties?.presentation?.mode === "icon" ? 0 : undefined}
       data-node-ref={node.nodeRef} data-parent-ref={node.parentRef} data-slot-ref={node.slotRef}
       data-column-span={node.columnSpan} data-row-span={node.rowSpan}
       data-selected={node.selected ? "true" : "false"}
@@ -545,6 +549,8 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
           <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={state.propertyDisabled === "true"}
             onChange={event => dispatch({ type: "field", field: "propertyDisabled", value: String(event.target.checked) })}
             aria-describedby="properties-help" />Disabled preview</label>
+          <EditorIconFields mode={state.propertyMode} placement={state.propertyPlacement} assetRef={state.propertyAsset} catalogVersion={state.propertyCatalog}
+            change={(field, value) => dispatch({ type: "field", field, value })} />
           <p id="properties-help" className="text-xs text-muted-foreground">Presentation only. Reset restores the original appearance.</p>
           <div className="flex flex-wrap gap-2"><Button type="submit" variant="outline">Apply properties</Button>
             <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-properties" })}>Reset properties</Button></div>

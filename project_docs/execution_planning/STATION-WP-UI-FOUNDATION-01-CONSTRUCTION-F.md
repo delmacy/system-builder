@@ -84,3 +84,12 @@ TASK763 pre-edit scope reconciliation: thirteen paths include responsive nested 
 TASK763 before legacy-regression edits: sixteen paths include three predecessor suites that explicitly used5 as unknown version. Preserve their rejection assertion with6 now unknown, add v5 compatibility separately; no assertion deletion.
 
 TASK763 local source evidence:131 full editor contracts PASS, including nested presentation immutability/history/v5 roundtrip and atomic hostile accessor rejection. Legacy unknown-version tests move explicit unsupported major to6; v4 remains readable and new fields reject on downgrade. Lint/types/docs/task/architecture PASS; UI successor still required.
+
+## TASK764 actual editor icon journey materialization
+Seven exact paths, dependency TASK763 local131 editor contracts PASS. Public lazy ICON search/load plus StationGlyph renderer; three-mode/placement Inspector over same reducer/history/dirty guards. Read-only preview does not execute commands. Reference-key and cancelled effects prevent stale assets; missing/unsupported fallback keeps full label and portable reference. Actual local/file fresh-reopen browser proof required before availability claim.
+
+TASK764 pre-edit browser admission: eight paths include existing Playwright testMatch config to run new real icon journey; no workflow edits or weakened assertions.
+
+TASK764 pre-edit predecessor browser reconciliation: nine paths include old unknown-version negative using5. Unknown-version case becomes6, preserving rejection/unchanged-state assertions; v5 success is tested by new actual journey. Local Open saved explicitly exercises existing dirty-replacement confirmation instead of skipping the guard.
+
+TASK764 local implementation:132 full editor contracts PASS; lint/typecheck/docs/756 task specs/architecture/root TypeScript build and Station production build PASS. React review: lazy public owner library, bounded48-result chooser, unconditional local hooks, cancellation and reference-key match, native labelled controls, no new command/state authority. Compact read-only snapshot preserves full label via existing named preview, hover title and keyboard-focusable preview wrapper; interactive shared PresentationButton retains qualified hover/focus tooltip. Exact-head browser129 expected journeys and screenshots remain pending until observed.
