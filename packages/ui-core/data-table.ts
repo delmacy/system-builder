@@ -7,7 +7,7 @@ export interface DataTableColumn<Row> {
   readonly cell: (row: Row) => ReactNode;
   readonly sortable?: boolean;
 }
-export type DataTableProps<Row> = Omit<HTMLAttributes<HTMLTableElement>, "children"> & Readonly<{
+export type DataTableProps<Row> = Omit<HTMLAttributes<HTMLTableElement>, "children" | "onSelect"> & Readonly<{
   label: string;
   rows: readonly Row[];
   columns: readonly DataTableColumn<Row>[];
