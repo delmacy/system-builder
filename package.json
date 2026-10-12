@@ -40,7 +40,8 @@
     "factory:bootstrap": "tsx scripts/factory-operator-bootstrap.ts",
     "station:dev": "next dev apps/station/web --webpack",
     "station:build": "next build apps/station/web --webpack",
-    "station:start": "next start apps/station/web"
+    "station:start": "next start apps/station/web",
+    "design:local": "tsx apps/station-gateway/local-server.ts"
   },
   "dependencies": {
     "yaml": "^2.8.1",

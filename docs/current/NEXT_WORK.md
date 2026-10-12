@@ -1,10 +1,8 @@
-# Next work — accepted Design prerequisite Construction A
-Sole live scheduler. Owner explicitly accepted ADR0018/Addendum017 and authorized complete Design service then WP16, including eligible Review/Closure, 2026-10-12 UTC.
-Active DESIGN-CANDIDATE-SERVICE-WP1-CONSTRUCTION-A-01 / TASK720, base e23a4c9e1d6a899287b7b9ec6428954b70974e7f, predecessor Planning#1112.
-Authority: docs/adr/ADR-0018-design-candidate-owner-service.md; docs/contracts/017-design-candidate-owner-service/ADDENDUM.md; project_docs/execution_planning/DESIGN-CANDIDATE-SERVICE-WP1-PLAN-01.md; active A manifest and TASK720.
-A public portable codec/domain/verified authorization/repository ports preserve WP15 behavior. Isolated memory model is not durable readiness.
-B forecast: actual additive PostgreSQL transaction, bounded authenticated Gateway HTTP ingress, restart/lost-response/negative proof. Promote only after validated A integration and fresh-main task/path review.
-Then independent Design Review/Closure and O1–O4 revalidation before WP16 TASK718 promotion.
-WP16 Planning#1111 integrated c2de4529c234d82897570dde5f7ebde524fc3b9e. TASK718 still BLOCKED by actual owner readiness; no general permission blocker.
-Design receipt means candidate retained, never business approval/upstream resolution/publication.
-No production IAM/currentness/security/H4 certification; inherited residuals retained. Archived snapshots historical.
+# Next work — Design service Construction B
+Sole scheduler. Accepted ADR0018/Addendum017/full owner authorization then WP16 and next-phase all-Studios planning.
+A TASK720/#1113 integrated a3a968343660af0b1c6da2a13ed7de0e1f2e9f77 after seven workflows PASS (exact head0f53a340618dc6169667d89e67d99fa253bb5381).
+Active DESIGN-CANDIDATE-SERVICE-WP1-CONSTRUCTION-B-01 / TASK721. Authority ADR0018, Addendum017, DESIGN-CANDIDATE-SERVICE-WP1-PLAN-01, active B manifest and TASK721.
+Actual PostgreSQL atomic candidate/head/result ledger plus bounded explicit local authenticated Gateway HTTP. Heavy actual predecessor/process/restart proof required before integration. No production IAM or readiness claim based on memory.
+After validated B, fresh independent Design Review, conditional C only indispensable gap, then Closure/O1–O4 revalidation. WP16 TASK718 remains blocked until ready actual owner independently closed.
+After WP16 closure, owner requests next-phase planning covering all suite Studios, WBS/EAP and WPs; not automatic construction of all modules. Use12-module Suite Map plus Design tools; contracts and owner prerequisites explicit.
+Inherited limits/debt retained; no wholeSB04/S4/H4/production certification.

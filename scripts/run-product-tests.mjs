@@ -4,6 +4,7 @@ import { readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const HEAVY = new Set([
+  "design-owner-http-postgres.test.ts",
   "active-runtime-promotion.test.ts",
   "artifact-store-postgres.test.ts",
   "capability-runtime-e2e.test.ts",
