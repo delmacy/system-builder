@@ -1,4 +1,7 @@
 import fs from 'node:fs';
+import process from 'node:process';
+import { Buffer } from 'node:buffer';
+import { log } from 'node:console';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -31,8 +34,8 @@ const metadata=Object.values(definitions).map(d=>({assetRef:d.assetRef,name:d.na
 write('packages/ui-icons/catalog-metadata.ts',`export const ICON_CATALOG_VERSION='1.0.0' as const;\nexport const ICON_CATALOG_METADATA=Object.freeze(${JSON.stringify(metadata)}.map(row=>Object.freeze({...row,roles:Object.freeze(row.roles.map(role=>Object.freeze(role)))})));\nexport type IconCatalogMetadata=(typeof ICON_CATALOG_METADATA)[number];\nexport const ICON_CATALOG_CATEGORIES=Object.freeze(${JSON.stringify([...new Set(roles.map(r=>r.category))])} as const);\n`);
 write('packages/ui-icons/custom-definitions.ts',`import type { LucideIconDefinition } from './lucide-adapter.js';\n/** Station-owned directional mirroring glyphs; theme-compatible geometry, not Lucide source. */\nexport const CUSTOM_ICON_DEFINITIONS:Readonly<Record<string,LucideIconDefinition>>=Object.freeze({\n`+Object.keys(custom).map(name=>JSON.stringify(name)+': '+defLiteral(definitions[name])).join(',\n')+'\n});\n');
 write('packages/ui-icons/vendor/lucide-snapshot.json',JSON.stringify(snapshot)+'\n');
-write('packages/ui-icons/vendor/source-manifest.json',JSON.stringify({catalogVersion:'1.0.0',revision:snapshot.revision,upstreamCount:snapshot.assets.length,totalCount:metadata.length,sourceDigest:digest(JSON.stringify(snapshot)),assets:snapshot.assets.map(({svg,...a})=>a),custom:Object.keys(custom)},null,2)+'\n');
-console.log(JSON.stringify({upstream:snapshot.assets.length,total:metadata.length,semantic:roles.length,shards:16,sourceDigest:digest(JSON.stringify(snapshot)),generatedBytes:fs.readdirSync(root+'/packages/ui-icons/generated').reduce((n,f)=>n+fs.statSync(root+'/packages/ui-icons/generated/'+f).size,0)}));
+write('packages/ui-icons/vendor/source-manifest.json',JSON.stringify({catalogVersion:'1.0.0',revision:snapshot.revision,upstreamCount:snapshot.assets.length,totalCount:metadata.length,sourceDigest:digest(JSON.stringify(snapshot)),assets:snapshot.assets.map(a=>({name:a.name,sourcePath:a.sourcePath,gitBlobSha:a.gitBlobSha,bytes:a.bytes})),custom:Object.keys(custom)},null,2)+'\n');
+log(JSON.stringify({upstream:snapshot.assets.length,total:metadata.length,semantic:roles.length,shards:16,sourceDigest:digest(JSON.stringify(snapshot)),generatedBytes:fs.readdirSync(root+'/packages/ui-icons/generated').reduce((n,f)=>n+fs.statSync(root+'/packages/ui-icons/generated/'+f).size,0)}));
 }
 export {geometry};
 if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url))generate();
