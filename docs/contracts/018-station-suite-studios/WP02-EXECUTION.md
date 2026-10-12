@@ -1,0 +1,4 @@
+# Addendum018 — WP02 execution request and readiness resolution
+2026-10-12. Owner explicitly requests nextWP02 and “Ok pode implementar”. Accepts bounded CatalogStudio execution intent following WP01Closure#1127.
+Current execution is PlanningTASK734 only; backend/publiccontract/owner qualification required before Station product Construction. Proposed ADR0019/CATALOG-OWNER-WP1 is not accepted by thisrecord. No new API/schema/architecture/approval authority is silently admitted.
+Station objective Business/Software query/register/exactversionreuse matches existing phase/WBS. Actualreadiness review identifies unqualified public twofamily ingress/auth/atomicdurable commandresult/trustedupstream. Required decision is concrete ADR0019 and separately owned prerequisite before firstConstruction. Current107browser/111heavy0skip is predecessor proof, not Catalogdelivery.
