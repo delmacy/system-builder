@@ -1,0 +1,3 @@
+# Studios WP02 Construction A — shared icons
+
+Sprint STATION-STUDIOS-WP02-CONSTRUCTION-A-01. Branch sprint/STATION-STUDIOS-WP02-CONSTRUCTION-A-01. TASK741 only. Predecessor TASK740 Planning all own gates PASS/integrated and fresh-main validation. Goal bounded shared icon vocabulary/current consumers and File Manager grid/list without state loss.18 declared paths/max18; owner/gateway/contracts/runtime/CI forbidden. Growing proof registry/accessibility + actual folder navigation/view preservation, Studio buttons and launcher/titlebar identity + all predecessor journeys. npm run verify and all triggered exact-head heavy/browser/platform gates before merge. Does not close WP02; Catalog client/UI remains successor forecast.

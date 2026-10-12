@@ -1,12 +1,5 @@
-# Catalog Studio readiness census
-Base94146158bd0ad45f3ee764aab01c254b02d740ec; code/public tests/architecture/currentauthority examined. WP01closed#1127.
-| Surface | Factual evidence | Gap / disposition |
-|---|---|---|
-| Software domain registry/resolution | packages/catalog/index.ts, catalog-registry/resolution and actualAssembly consumers | REUSE public domain functions; not server authority |
-| Software storage | packages/catalog/storage.ts/postgres.ts, P6 durable proof | REUSE compatibility; cache+queuedflush/upsert not atomic command/immutable owner guarantee |
-| Business promotion | knowledge-promotion-preadmission/admission; canonical knowledge-boundary/human-decision | REUSE admission; no generic approved boolean or new human authority |
-| Process revision | process-revision-admission, canonical process-versioning | REUSE identity/lineage/immutable evidence; not a durable searchable Business registry alone |
-| Network/SDK | StationGateway/StationCorePort/SDK and actualDesignport | Existing protocol retained; no Catalog authenticated operation binding found in reviewed surfaces |
-| Authorization/durable results | identity-authorization public baseline; Design localprofile separate | Catalog-specific operation/resource/scope grants and atomic immutable/idempotent ledger notqualified |
-| Business upstream | canonical admission inputs required | Actual trusted source/evidence resolver readiness must bequalified, no hand-authored success |
-Owner prerequisite statusPROPOSED; ADR0019PROPOSED; Station A/BFORECAST/BLOCKED. PlanningTASK734 onlyCOMMITTED/completedonownvalidatedintegration. No mock/localStorageCatalog implementation silently substitutes service.
+# Catalog Studio readiness — resumed
+
+Catalog owner #1133 CLOSED after five own gates; ADR0019 accepted. Public two-family contracts, atomic PostgreSQL entry/head/result, scoped local authorization, Gateway HTTP, trusted source and process restart/replay qualified in #1130/#1131/#1132.
+O1–O4 READY_LOCAL; O5 operator-attested published ProcessRevision metadata only. Production/remote approval remains unqualified. Station client/UI proof still pending.
+Existing Lucide provider/semantic token registry and current-theme renderer READY for bounded extension. Shared icons required by owner before WP02 closure. Only TASK-741 shared-icon Construction A materialized after Planning validated merge. Other Catalog UI construction forecast.

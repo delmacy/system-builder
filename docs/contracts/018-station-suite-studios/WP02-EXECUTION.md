@@ -1,4 +1,7 @@
-# Addendum018 — WP02 execution request and readiness resolution
-2026-10-12. Owner explicitly requests nextWP02 and “Ok pode implementar”. Accepts bounded CatalogStudio execution intent following WP01Closure#1127.
-Current execution is PlanningTASK734 only; backend/publiccontract/owner qualification required before Station product Construction. Proposed ADR0019/CATALOG-OWNER-WP1 is not accepted by thisrecord. No new API/schema/architecture/approval authority is silently admitted.
-Station objective Business/Software query/register/exactversionreuse matches existing phase/WBS. Actualreadiness review identifies unqualified public twofamily ingress/auth/atomicdurable commandresult/trustedupstream. Required decision is concrete ADR0019 and separately owned prerequisite before firstConstruction. Current107browser/111heavy0skip is predecessor proof, not Catalogdelivery.
+# Addendum018 — WP02 execution and shared icon direction
+
+2026-10-12: owner explicitly authorizes Catalog Studio WP02; accepts ADR0019 and separate Catalog prerequisite. Owner then directs: implement icons before WP02 closure because other Studios will reuse them.
+
+Catalog owner qualified/closed #1133. Resumed Station construction includes reusable semantic UI icons and bounded File Manager/Studio/workflow navigation presentation, preserving theme colors and accessible names. Existing Lucide registry/provider and AppManifest icon field are extended; no new domain/owner/artifact schema, architecture or installed future Studio is admitted by an icon identifier.
+
+Planning TASK740 materializes shared-icon Construction A TASK741 only after validated merge. Subsequent Catalog client/UI and package Review/Closure stay dependency-gated under existing WP02 authorization. WP02 cannot close without integrated shared icons AND actual Catalog Studio growing proof. No repeat owner approval required within this admitted scope.
