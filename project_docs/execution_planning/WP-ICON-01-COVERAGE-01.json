@@ -1,0 +1,2361 @@
+{
+  "work_package": "WP-ICON-01",
+  "state": "planning-baseline",
+  "provider_source_count": 1877,
+  "semantic_role_count": 235,
+  "categories": 19,
+  "roles": [
+    {
+      "category": "files",
+      "token": "file.new",
+      "label_pt": "Novo arquivo",
+      "glyph": "file-plus",
+      "sourcePath": "icons/file-plus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.open",
+      "label_pt": "Abrir",
+      "glyph": "folder-open",
+      "sourcePath": "icons/folder-open.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.save",
+      "label_pt": "Salvar",
+      "glyph": "save",
+      "sourcePath": "icons/save.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.save-as",
+      "label_pt": "Salvar como",
+      "glyph": "save-pen",
+      "sourcePath": "icons/save-pen.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.save-all",
+      "label_pt": "Salvar tudo",
+      "glyph": "save-all",
+      "sourcePath": "icons/save-all.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.close",
+      "label_pt": "Fechar arquivo",
+      "glyph": "file-x",
+      "sourcePath": "icons/file-x.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.print",
+      "label_pt": "Imprimir",
+      "glyph": "printer",
+      "sourcePath": "icons/printer.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.import",
+      "label_pt": "Importar",
+      "glyph": "file-input",
+      "sourcePath": "icons/file-input.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.export",
+      "label_pt": "Exportar",
+      "glyph": "file-output",
+      "sourcePath": "icons/file-output.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.download",
+      "label_pt": "Baixar",
+      "glyph": "download",
+      "sourcePath": "icons/download.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.upload",
+      "label_pt": "Enviar arquivo",
+      "glyph": "upload",
+      "sourcePath": "icons/upload.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.folder-new",
+      "label_pt": "Nova pasta",
+      "glyph": "folder-plus",
+      "sourcePath": "icons/folder-plus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.properties",
+      "label_pt": "Propriedades",
+      "glyph": "file-cog",
+      "sourcePath": "icons/file-cog.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.history",
+      "label_pt": "Histórico do arquivo",
+      "glyph": "file-clock",
+      "sourcePath": "icons/file-clock.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.search",
+      "label_pt": "Buscar arquivo",
+      "glyph": "file-search",
+      "sourcePath": "icons/file-search.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "files",
+      "token": "file.archive",
+      "label_pt": "Arquivar",
+      "glyph": "file-archive",
+      "sourcePath": "icons/file-archive.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.undo",
+      "label_pt": "Desfazer",
+      "glyph": "undo",
+      "sourcePath": "icons/undo.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.redo",
+      "label_pt": "Refazer",
+      "glyph": "redo",
+      "sourcePath": "icons/redo.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.cut",
+      "label_pt": "Recortar",
+      "glyph": "scissors",
+      "sourcePath": "icons/scissors.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.copy",
+      "label_pt": "Copiar",
+      "glyph": "copy",
+      "sourcePath": "icons/copy.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.paste",
+      "label_pt": "Colar",
+      "glyph": "clipboard-paste",
+      "sourcePath": "icons/clipboard-paste.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.duplicate",
+      "label_pt": "Duplicar",
+      "glyph": "copy-plus",
+      "sourcePath": "icons/copy-plus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.delete",
+      "label_pt": "Excluir",
+      "glyph": "trash",
+      "sourcePath": "icons/trash.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.find",
+      "label_pt": "Localizar",
+      "glyph": "search",
+      "sourcePath": "icons/search.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.replace",
+      "label_pt": "Substituir",
+      "glyph": "replace",
+      "sourcePath": "icons/replace.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.select-all",
+      "label_pt": "Selecionar tudo",
+      "glyph": "square-dashed-mouse-pointer",
+      "sourcePath": "icons/square-dashed-mouse-pointer.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.deselect",
+      "label_pt": "Limpar seleção",
+      "glyph": "square-dashed-x",
+      "sourcePath": "icons/square-dashed-x.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.confirm",
+      "label_pt": "Aplicar",
+      "glyph": "check",
+      "sourcePath": "icons/check.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "editing",
+      "token": "edit.cancel",
+      "label_pt": "Cancelar",
+      "glyph": "x",
+      "sourcePath": "icons/x.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.bold",
+      "label_pt": "Negrito",
+      "glyph": "bold",
+      "sourcePath": "icons/bold.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.italic",
+      "label_pt": "Itálico",
+      "glyph": "italic",
+      "sourcePath": "icons/italic.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.underline",
+      "label_pt": "Sublinhado",
+      "glyph": "underline",
+      "sourcePath": "icons/underline.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.strikethrough",
+      "label_pt": "Tachado",
+      "glyph": "strikethrough",
+      "sourcePath": "icons/strikethrough.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.superscript",
+      "label_pt": "Sobrescrito",
+      "glyph": "superscript",
+      "sourcePath": "icons/superscript.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.subscript",
+      "label_pt": "Subscrito",
+      "glyph": "subscript",
+      "sourcePath": "icons/subscript.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "font.family",
+      "label_pt": "Família da fonte",
+      "glyph": "type",
+      "sourcePath": "icons/type.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "font.size",
+      "label_pt": "Tamanho da fonte",
+      "glyph": "a-large-small",
+      "sourcePath": "icons/a-large-small.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "font.increase",
+      "label_pt": "Aumentar fonte",
+      "glyph": "a-arrow-up",
+      "sourcePath": "icons/a-arrow-up.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "font.decrease",
+      "label_pt": "Diminuir fonte",
+      "glyph": "a-arrow-down",
+      "sourcePath": "icons/a-arrow-down.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.color",
+      "label_pt": "Cor do texto",
+      "glyph": "baseline",
+      "sourcePath": "icons/baseline.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.highlight",
+      "label_pt": "Realçar texto",
+      "glyph": "highlighter",
+      "sourcePath": "icons/highlighter.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.clear-format",
+      "label_pt": "Limpar formatação",
+      "glyph": "remove-formatting",
+      "sourcePath": "icons/remove-formatting.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.heading",
+      "label_pt": "Título",
+      "glyph": "heading",
+      "sourcePath": "icons/heading.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.case",
+      "label_pt": "Maiúsculas e minúsculas",
+      "glyph": "case-sensitive",
+      "sourcePath": "icons/case-sensitive.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "typography",
+      "token": "text.spacing",
+      "label_pt": "Espaçamento de texto",
+      "glyph": "space",
+      "sourcePath": "icons/space.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.align-left",
+      "label_pt": "Alinhar texto à esquerda",
+      "glyph": "text-align-start",
+      "sourcePath": "icons/text-align-start.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.align-center",
+      "label_pt": "Centralizar texto",
+      "glyph": "text-align-center",
+      "sourcePath": "icons/text-align-center.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.align-right",
+      "label_pt": "Alinhar texto à direita",
+      "glyph": "text-align-end",
+      "sourcePath": "icons/text-align-end.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.justify",
+      "label_pt": "Justificar",
+      "glyph": "text-align-justify",
+      "sourcePath": "icons/text-align-justify.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.indent",
+      "label_pt": "Aumentar recuo",
+      "glyph": "list-indent-increase",
+      "sourcePath": "icons/list-indent-increase.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.outdent",
+      "label_pt": "Diminuir recuo",
+      "glyph": "list-indent-decrease",
+      "sourcePath": "icons/list-indent-decrease.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.bullets",
+      "label_pt": "Marcadores",
+      "glyph": "list",
+      "sourcePath": "icons/list.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.numbering",
+      "label_pt": "Numeração",
+      "glyph": "list-ordered",
+      "sourcePath": "icons/list-ordered.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.checklist",
+      "label_pt": "Lista de tarefas",
+      "glyph": "list-checks",
+      "sourcePath": "icons/list-checks.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.quote",
+      "label_pt": "Citação",
+      "glyph": "text-quote",
+      "sourcePath": "icons/text-quote.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.wrap",
+      "label_pt": "Quebra de texto",
+      "glyph": "text-wrap",
+      "sourcePath": "icons/text-wrap.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "paragraph",
+      "token": "text.line-spacing",
+      "label_pt": "Espaçamento de parágrafo",
+      "glyph": "list-collapse",
+      "sourcePath": "icons/list-collapse.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "alignment",
+      "token": "object.align-left",
+      "label_pt": "Alinhar objetos à esquerda",
+      "glyph": "align-start-vertical",
+      "sourcePath": "icons/align-start-vertical.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "alignment",
+      "token": "object.align-center",
+      "label_pt": "Centralizar objetos horizontalmente",
+      "glyph": "align-center-vertical",
+      "sourcePath": "icons/align-center-vertical.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "alignment",
+      "token": "object.align-right",
+      "label_pt": "Alinhar objetos à direita",
+      "glyph": "align-end-vertical",
+      "sourcePath": "icons/align-end-vertical.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "alignment",
+      "token": "object.align-top",
+      "label_pt": "Alinhar objetos no topo",
+      "glyph": "align-start-horizontal",
+      "sourcePath": "icons/align-start-horizontal.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "alignment",
+      "token": "object.align-middle",
+      "label_pt": "Centralizar objetos verticalmente",
+      "glyph": "align-center-horizontal",
+      "sourcePath": "icons/align-center-horizontal.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "alignment",
+      "token": "object.align-bottom",
+      "label_pt": "Alinhar objetos na base",
+      "glyph": "align-end-horizontal",
+      "sourcePath": "icons/align-end-horizontal.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "alignment",
+      "token": "object.distribute-horizontal",
+      "label_pt": "Distribuir horizontalmente",
+      "glyph": "align-horizontal-distribute-center",
+      "sourcePath": "icons/align-horizontal-distribute-center.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "alignment",
+      "token": "object.distribute-vertical",
+      "label_pt": "Distribuir verticalmente",
+      "glyph": "align-vertical-distribute-center",
+      "sourcePath": "icons/align-vertical-distribute-center.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "alignment",
+      "token": "object.space-horizontal",
+      "label_pt": "Espaçamento horizontal",
+      "glyph": "align-horizontal-space-between",
+      "sourcePath": "icons/align-horizontal-space-between.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "alignment",
+      "token": "object.space-vertical",
+      "label_pt": "Espaçamento vertical",
+      "glyph": "align-vertical-space-between",
+      "sourcePath": "icons/align-vertical-space-between.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.panel",
+      "label_pt": "Camadas",
+      "glyph": "layers",
+      "sourcePath": "icons/layers.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.add",
+      "label_pt": "Adicionar camada",
+      "glyph": "layers-plus",
+      "sourcePath": "icons/layers-plus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.remove",
+      "label_pt": "Remover camada",
+      "glyph": "layers-minus",
+      "sourcePath": "icons/layers-minus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.bring-front",
+      "label_pt": "Trazer para frente",
+      "glyph": "bring-to-front",
+      "sourcePath": "icons/bring-to-front.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.send-back",
+      "label_pt": "Enviar para trás",
+      "glyph": "send-to-back",
+      "sourcePath": "icons/send-to-back.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.raise",
+      "label_pt": "Subir uma camada",
+      "glyph": "layers-arrow-up",
+      "sourcePath": "icons/layers-arrow-up.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.lower",
+      "label_pt": "Descer uma camada",
+      "glyph": "layers-arrow-down",
+      "sourcePath": "icons/layers-arrow-down.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.group",
+      "label_pt": "Agrupar",
+      "glyph": "group",
+      "sourcePath": "icons/group.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.ungroup",
+      "label_pt": "Desagrupar",
+      "glyph": "ungroup",
+      "sourcePath": "icons/ungroup.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.lock",
+      "label_pt": "Bloquear",
+      "glyph": "lock",
+      "sourcePath": "icons/lock.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.unlock",
+      "label_pt": "Desbloquear",
+      "glyph": "lock-open",
+      "sourcePath": "icons/lock-open.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.show",
+      "label_pt": "Mostrar",
+      "glyph": "eye",
+      "sourcePath": "icons/eye.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layers",
+      "token": "layer.hide",
+      "label_pt": "Ocultar",
+      "glyph": "eye-off",
+      "sourcePath": "icons/eye-off.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.move",
+      "label_pt": "Mover",
+      "glyph": "move",
+      "sourcePath": "icons/move.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.resize",
+      "label_pt": "Redimensionar",
+      "glyph": "scaling",
+      "sourcePath": "icons/scaling.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.rotate-left",
+      "label_pt": "Girar à esquerda",
+      "glyph": "rotate-ccw",
+      "sourcePath": "icons/rotate-ccw.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.rotate-right",
+      "label_pt": "Girar à direita",
+      "glyph": "rotate-cw",
+      "sourcePath": "icons/rotate-cw.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.flip-horizontal",
+      "label_pt": "Inverter horizontalmente",
+      "glyph": null,
+      "sourcePath": null,
+      "status": "custom-required",
+      "implementation": "Construction A source-owned glyph required",
+      "commandBehavior": "owner-bound; icon presence is not command implementation",
+      "requiredMeaning": "direction-specific object mirroring; do not substitute unrelated arrows"
+    },
+    {
+      "category": "transform",
+      "token": "object.flip-vertical",
+      "label_pt": "Inverter verticalmente",
+      "glyph": null,
+      "sourcePath": null,
+      "status": "custom-required",
+      "implementation": "Construction A source-owned glyph required",
+      "commandBehavior": "owner-bound; icon presence is not command implementation",
+      "requiredMeaning": "direction-specific object mirroring; do not substitute unrelated arrows"
+    },
+    {
+      "category": "transform",
+      "token": "object.crop",
+      "label_pt": "Cortar imagem",
+      "glyph": "crop",
+      "sourcePath": "icons/crop.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.position",
+      "label_pt": "Posição",
+      "glyph": "move-diagonal",
+      "sourcePath": "icons/move-diagonal.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.aspect-ratio",
+      "label_pt": "Proporção",
+      "glyph": "ratio",
+      "sourcePath": "icons/ratio.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.fit",
+      "label_pt": "Ajustar tamanho",
+      "glyph": "maximize",
+      "sourcePath": "icons/maximize.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.combine",
+      "label_pt": "Unir formas",
+      "glyph": "squares-unite",
+      "sourcePath": "icons/squares-unite.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.subtract",
+      "label_pt": "Subtrair formas",
+      "glyph": "squares-subtract",
+      "sourcePath": "icons/squares-subtract.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.intersect",
+      "label_pt": "Interseção",
+      "glyph": "squares-intersect",
+      "sourcePath": "icons/squares-intersect.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "transform",
+      "token": "object.exclude",
+      "label_pt": "Excluir interseção",
+      "glyph": "squares-exclude",
+      "sourcePath": "icons/squares-exclude.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.document",
+      "label_pt": "Página",
+      "glyph": "file",
+      "sourcePath": "icons/file.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.add",
+      "label_pt": "Adicionar página",
+      "glyph": "file-plus",
+      "sourcePath": "icons/file-plus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.duplicate",
+      "label_pt": "Duplicar página",
+      "glyph": "files",
+      "sourcePath": "icons/files.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.remove",
+      "label_pt": "Remover página",
+      "glyph": "file-minus",
+      "sourcePath": "icons/file-minus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.setup",
+      "label_pt": "Configurar página",
+      "glyph": "file-cog",
+      "sourcePath": "icons/file-cog.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.orientation",
+      "label_pt": "Orientação da página",
+      "glyph": "rectangle-horizontal",
+      "sourcePath": "icons/rectangle-horizontal.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.margins",
+      "label_pt": "Margens",
+      "glyph": "ruler",
+      "sourcePath": "icons/ruler.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.columns",
+      "label_pt": "Colunas",
+      "glyph": "columns-2",
+      "sourcePath": "icons/columns-2.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.break",
+      "label_pt": "Quebra de página",
+      "glyph": "separator-horizontal",
+      "sourcePath": "icons/separator-horizontal.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.background",
+      "label_pt": "Fundo da página",
+      "glyph": "paint-bucket",
+      "sourcePath": "icons/paint-bucket.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.header",
+      "label_pt": "Cabeçalho",
+      "glyph": "panel-top",
+      "sourcePath": "icons/panel-top.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.footer",
+      "label_pt": "Rodapé",
+      "glyph": "panel-bottom",
+      "sourcePath": "icons/panel-bottom.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "pages",
+      "token": "page.template",
+      "label_pt": "Modelo de página",
+      "glyph": "layout-template",
+      "sourcePath": "icons/layout-template.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layout",
+      "token": "layout.grid",
+      "label_pt": "Grade",
+      "glyph": "grid-3x3",
+      "sourcePath": "icons/grid-3x3.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layout",
+      "token": "layout.guides",
+      "label_pt": "Guias",
+      "glyph": "ruler-dimension-line",
+      "sourcePath": "icons/ruler-dimension-line.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layout",
+      "token": "layout.snap",
+      "label_pt": "Encaixar na grade",
+      "glyph": "magnet",
+      "sourcePath": "icons/magnet.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layout",
+      "token": "layout.row",
+      "label_pt": "Linha",
+      "glyph": "rows-2",
+      "sourcePath": "icons/rows-2.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layout",
+      "token": "layout.column",
+      "label_pt": "Coluna",
+      "glyph": "columns-2",
+      "sourcePath": "icons/columns-2.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layout",
+      "token": "layout.panel",
+      "label_pt": "Painel",
+      "glyph": "panel-left",
+      "sourcePath": "icons/panel-left.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layout",
+      "token": "layout.tabs",
+      "label_pt": "Abas",
+      "glyph": "panels-top-left",
+      "sourcePath": "icons/panels-top-left.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layout",
+      "token": "layout.split",
+      "label_pt": "Dividir painéis",
+      "glyph": "square-split-horizontal",
+      "sourcePath": "icons/square-split-horizontal.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layout",
+      "token": "layout.sidebar",
+      "label_pt": "Barra lateral",
+      "glyph": "panel-left-open",
+      "sourcePath": "icons/panel-left-open.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "layout",
+      "token": "layout.preview",
+      "label_pt": "Pré-visualização",
+      "glyph": "panels-top-left",
+      "sourcePath": "icons/panels-top-left.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.select",
+      "label_pt": "Selecionar",
+      "glyph": "mouse-pointer-2",
+      "sourcePath": "icons/mouse-pointer-2.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.marquee",
+      "label_pt": "Seleção retangular",
+      "glyph": "square-dashed",
+      "sourcePath": "icons/square-dashed.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.lasso",
+      "label_pt": "Seleção livre",
+      "glyph": "lasso-select",
+      "sourcePath": "icons/lasso-select.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.wand",
+      "label_pt": "Seleção automática",
+      "glyph": "wand-sparkles",
+      "sourcePath": "icons/wand-sparkles.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.pen",
+      "label_pt": "Caneta",
+      "glyph": "pen-tool",
+      "sourcePath": "icons/pen-tool.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.pencil",
+      "label_pt": "Lápis",
+      "glyph": "pencil",
+      "sourcePath": "icons/pencil.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.brush",
+      "label_pt": "Pincel",
+      "glyph": "paintbrush",
+      "sourcePath": "icons/paintbrush.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.eraser",
+      "label_pt": "Borracha",
+      "glyph": "eraser",
+      "sourcePath": "icons/eraser.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.fill",
+      "label_pt": "Preenchimento",
+      "glyph": "paint-bucket",
+      "sourcePath": "icons/paint-bucket.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.pipette",
+      "label_pt": "Conta-gotas",
+      "glyph": "pipette",
+      "sourcePath": "icons/pipette.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.line",
+      "label_pt": "Linha",
+      "glyph": "minus",
+      "sourcePath": "icons/minus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.rectangle",
+      "label_pt": "Retângulo",
+      "glyph": "square",
+      "sourcePath": "icons/square.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.circle",
+      "label_pt": "Círculo",
+      "glyph": "circle",
+      "sourcePath": "icons/circle.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.triangle",
+      "label_pt": "Triângulo",
+      "glyph": "triangle",
+      "sourcePath": "icons/triangle.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.star",
+      "label_pt": "Estrela",
+      "glyph": "star",
+      "sourcePath": "icons/star.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.color",
+      "label_pt": "Paleta de cores",
+      "glyph": "palette",
+      "sourcePath": "icons/palette.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.stroke",
+      "label_pt": "Contorno",
+      "glyph": "pencil-ruler",
+      "sourcePath": "icons/pencil-ruler.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.opacity",
+      "label_pt": "Opacidade",
+      "glyph": "blend",
+      "sourcePath": "icons/blend.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "drawing",
+      "token": "draw.mask",
+      "label_pt": "Máscara",
+      "glyph": "scan-eye",
+      "sourcePath": "icons/scan-eye.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "view",
+      "token": "view.zoom-in",
+      "label_pt": "Ampliar",
+      "glyph": "zoom-in",
+      "sourcePath": "icons/zoom-in.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "view",
+      "token": "view.zoom-out",
+      "label_pt": "Reduzir",
+      "glyph": "zoom-out",
+      "sourcePath": "icons/zoom-out.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "view",
+      "token": "view.fit-page",
+      "label_pt": "Ajustar página",
+      "glyph": "scan",
+      "sourcePath": "icons/scan.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "view",
+      "token": "view.fit-selection",
+      "label_pt": "Ajustar seleção",
+      "glyph": "focus",
+      "sourcePath": "icons/focus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "view",
+      "token": "view.fullscreen",
+      "label_pt": "Tela inteira",
+      "glyph": "fullscreen",
+      "sourcePath": "icons/fullscreen.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "view",
+      "token": "view.pan",
+      "label_pt": "Mover visualização",
+      "glyph": "hand",
+      "sourcePath": "icons/hand.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "view",
+      "token": "view.refresh",
+      "label_pt": "Atualizar",
+      "glyph": "refresh-cw",
+      "sourcePath": "icons/refresh-cw.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "view",
+      "token": "view.list",
+      "label_pt": "Lista",
+      "glyph": "list",
+      "sourcePath": "icons/list.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "view",
+      "token": "view.grid",
+      "label_pt": "Ícones",
+      "glyph": "layout-grid",
+      "sourcePath": "icons/layout-grid.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "view",
+      "token": "view.settings",
+      "label_pt": "Preferências de visualização",
+      "glyph": "sliders-horizontal",
+      "sourcePath": "icons/sliders-horizontal.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.insert",
+      "label_pt": "Inserir tabela",
+      "glyph": "table",
+      "sourcePath": "icons/table.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.properties",
+      "label_pt": "Propriedades da tabela",
+      "glyph": "table-properties",
+      "sourcePath": "icons/table-properties.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.row-add",
+      "label_pt": "Adicionar linha",
+      "glyph": "list-plus",
+      "sourcePath": "icons/list-plus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.row-remove",
+      "label_pt": "Remover linha",
+      "glyph": "list-minus",
+      "sourcePath": "icons/list-minus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.column-add",
+      "label_pt": "Adicionar coluna",
+      "glyph": "columns-3",
+      "sourcePath": "icons/columns-3.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.merge",
+      "label_pt": "Mesclar células",
+      "glyph": "table-cells-merge",
+      "sourcePath": "icons/table-cells-merge.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.split",
+      "label_pt": "Dividir células",
+      "glyph": "table-cells-split",
+      "sourcePath": "icons/table-cells-split.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.rows-split",
+      "label_pt": "Dividir linhas",
+      "glyph": "table-rows-split",
+      "sourcePath": "icons/table-rows-split.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.columns-split",
+      "label_pt": "Dividir colunas",
+      "glyph": "table-columns-split",
+      "sourcePath": "icons/table-columns-split.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.borders",
+      "label_pt": "Bordas",
+      "glyph": "grid-2x2",
+      "sourcePath": "icons/grid-2x2.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.sort-ascending",
+      "label_pt": "Ordenar crescente",
+      "glyph": "arrow-up-narrow-wide",
+      "sourcePath": "icons/arrow-up-narrow-wide.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.sort-descending",
+      "label_pt": "Ordenar decrescente",
+      "glyph": "arrow-down-wide-narrow",
+      "sourcePath": "icons/arrow-down-wide-narrow.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.filter",
+      "label_pt": "Filtrar",
+      "glyph": "funnel",
+      "sourcePath": "icons/funnel.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.sum",
+      "label_pt": "Soma",
+      "glyph": "sigma",
+      "sourcePath": "icons/sigma.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "tables",
+      "token": "table.formula",
+      "label_pt": "Fórmula",
+      "glyph": "square-function",
+      "sourcePath": "icons/square-function.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.image",
+      "label_pt": "Imagem",
+      "glyph": "image",
+      "sourcePath": "icons/image.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.image-add",
+      "label_pt": "Inserir imagem",
+      "glyph": "image-plus",
+      "sourcePath": "icons/image-plus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.images",
+      "label_pt": "Galeria",
+      "glyph": "images",
+      "sourcePath": "icons/images.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.video",
+      "label_pt": "Vídeo",
+      "glyph": "video",
+      "sourcePath": "icons/video.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.audio",
+      "label_pt": "Áudio",
+      "glyph": "music",
+      "sourcePath": "icons/music.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.play",
+      "label_pt": "Reproduzir",
+      "glyph": "play",
+      "sourcePath": "icons/play.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.pause",
+      "label_pt": "Pausar",
+      "glyph": "pause",
+      "sourcePath": "icons/pause.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.stop",
+      "label_pt": "Parar",
+      "glyph": "square",
+      "sourcePath": "icons/square.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.record",
+      "label_pt": "Gravar",
+      "glyph": "circle-dot",
+      "sourcePath": "icons/circle-dot.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.volume",
+      "label_pt": "Volume",
+      "glyph": "volume-2",
+      "sourcePath": "icons/volume-2.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "media",
+      "token": "media.mute",
+      "label_pt": "Silenciar",
+      "glyph": "volume-x",
+      "sourcePath": "icons/volume-x.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "links",
+      "token": "link.add",
+      "label_pt": "Adicionar vínculo",
+      "glyph": "link",
+      "sourcePath": "icons/link.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "links",
+      "token": "link.remove",
+      "label_pt": "Remover vínculo",
+      "glyph": "unlink",
+      "sourcePath": "icons/unlink.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "links",
+      "token": "link.external",
+      "label_pt": "Abrir link externo",
+      "glyph": "external-link",
+      "sourcePath": "icons/external-link.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "links",
+      "token": "link.attach",
+      "label_pt": "Anexar",
+      "glyph": "paperclip",
+      "sourcePath": "icons/paperclip.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "links",
+      "token": "link.comment",
+      "label_pt": "Comentar",
+      "glyph": "message-square",
+      "sourcePath": "icons/message-square.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "links",
+      "token": "link.comment-add",
+      "label_pt": "Novo comentário",
+      "glyph": "message-square-plus",
+      "sourcePath": "icons/message-square-plus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "links",
+      "token": "link.bookmark",
+      "label_pt": "Favorito",
+      "glyph": "bookmark",
+      "sourcePath": "icons/bookmark.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "links",
+      "token": "link.reference",
+      "label_pt": "Referência",
+      "glyph": "notebook",
+      "sourcePath": "icons/notebook.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "charts",
+      "token": "chart.column",
+      "label_pt": "Gráfico de colunas",
+      "glyph": "chart-column",
+      "sourcePath": "icons/chart-column.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "charts",
+      "token": "chart.bar",
+      "label_pt": "Gráfico de barras",
+      "glyph": "chart-bar",
+      "sourcePath": "icons/chart-bar.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "charts",
+      "token": "chart.line",
+      "label_pt": "Gráfico de linhas",
+      "glyph": "chart-line",
+      "sourcePath": "icons/chart-line.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "charts",
+      "token": "chart.pie",
+      "label_pt": "Gráfico de setores",
+      "glyph": "chart-pie",
+      "sourcePath": "icons/chart-pie.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "charts",
+      "token": "chart.area",
+      "label_pt": "Gráfico de áreas",
+      "glyph": "chart-area",
+      "sourcePath": "icons/chart-area.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "charts",
+      "token": "chart.scatter",
+      "label_pt": "Gráfico de dispersão",
+      "glyph": "chart-scatter",
+      "sourcePath": "icons/chart-scatter.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "charts",
+      "token": "chart.gantt",
+      "label_pt": "Gráfico de Gantt",
+      "glyph": "chart-gantt",
+      "sourcePath": "icons/chart-gantt.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "charts",
+      "token": "chart.dashboard",
+      "label_pt": "Dashboard",
+      "glyph": "layout-dashboard",
+      "sourcePath": "icons/layout-dashboard.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "data",
+      "token": "data.database",
+      "label_pt": "Banco de dados",
+      "glyph": "database",
+      "sourcePath": "icons/database.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "data",
+      "token": "data.add",
+      "label_pt": "Nova entidade",
+      "glyph": "database-plus",
+      "sourcePath": "icons/database-plus.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "data",
+      "token": "data.search",
+      "label_pt": "Consultar dados",
+      "glyph": "database-search",
+      "sourcePath": "icons/database-search.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "data",
+      "token": "data.import",
+      "label_pt": "Importar dados",
+      "glyph": "database-arrow-up",
+      "sourcePath": "icons/database-arrow-up.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "data",
+      "token": "data.export",
+      "label_pt": "Exportar dados",
+      "glyph": "database-arrow-down",
+      "sourcePath": "icons/database-arrow-down.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "data",
+      "token": "data.backup",
+      "label_pt": "Backup",
+      "glyph": "database-backup",
+      "sourcePath": "icons/database-backup.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "data",
+      "token": "data.schema",
+      "label_pt": "Estrutura de dados",
+      "glyph": "network",
+      "sourcePath": "icons/network.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "data",
+      "token": "data.field",
+      "label_pt": "Campo",
+      "glyph": "text-cursor-input",
+      "sourcePath": "icons/text-cursor-input.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "data",
+      "token": "data.key",
+      "label_pt": "Chave",
+      "glyph": "key",
+      "sourcePath": "icons/key.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "data",
+      "token": "data.relationship",
+      "label_pt": "Relacionamento",
+      "glyph": "git-fork",
+      "sourcePath": "icons/git-fork.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.process",
+      "label_pt": "Processo",
+      "glyph": "workflow",
+      "sourcePath": "icons/workflow.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.node",
+      "label_pt": "Estado ou nó",
+      "glyph": "circle",
+      "sourcePath": "icons/circle.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.edge",
+      "label_pt": "Transição",
+      "glyph": "arrow-right",
+      "sourcePath": "icons/arrow-right.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.branch",
+      "label_pt": "Decisão ou ramificação",
+      "glyph": "git-branch",
+      "sourcePath": "icons/git-branch.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.connect",
+      "label_pt": "Conectar",
+      "glyph": "plug",
+      "sourcePath": "icons/plug.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.disconnect",
+      "label_pt": "Desconectar",
+      "glyph": "unplug",
+      "sourcePath": "icons/unplug.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.run",
+      "label_pt": "Executar",
+      "glyph": "play",
+      "sourcePath": "icons/play.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.pause",
+      "label_pt": "Pausar execução",
+      "glyph": "pause",
+      "sourcePath": "icons/pause.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.stop",
+      "label_pt": "Parar execução",
+      "glyph": "square",
+      "sourcePath": "icons/square.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.validate",
+      "label_pt": "Validar",
+      "glyph": "circle-check",
+      "sourcePath": "icons/circle-check.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.error",
+      "label_pt": "Erro",
+      "glyph": "triangle-alert",
+      "sourcePath": "icons/triangle-alert.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.job",
+      "label_pt": "Agendamento",
+      "glyph": "calendar-clock",
+      "sourcePath": "icons/calendar-clock.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.event",
+      "label_pt": "Evento",
+      "glyph": "zap",
+      "sourcePath": "icons/zap.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.rule",
+      "label_pt": "Regra",
+      "glyph": "list-check",
+      "sourcePath": "icons/list-check.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "workflow",
+      "token": "workflow.action",
+      "label_pt": "Ação",
+      "glyph": "mouse-pointer-click",
+      "sourcePath": "icons/mouse-pointer-click.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.code",
+      "label_pt": "Código",
+      "glyph": "code",
+      "sourcePath": "icons/code.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.terminal",
+      "label_pt": "Terminal",
+      "glyph": "terminal",
+      "sourcePath": "icons/terminal.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.build",
+      "label_pt": "Compilar",
+      "glyph": "hammer",
+      "sourcePath": "icons/hammer.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.package",
+      "label_pt": "Pacote",
+      "glyph": "package",
+      "sourcePath": "icons/package.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.release",
+      "label_pt": "Release",
+      "glyph": "package-check",
+      "sourcePath": "icons/package-check.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.deploy",
+      "label_pt": "Implantar",
+      "glyph": "rocket",
+      "sourcePath": "icons/rocket.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.server",
+      "label_pt": "Servidor",
+      "glyph": "server",
+      "sourcePath": "icons/server.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.bug",
+      "label_pt": "Depurar",
+      "glyph": "bug",
+      "sourcePath": "icons/bug.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.monitor",
+      "label_pt": "Monitorar",
+      "glyph": "activity",
+      "sourcePath": "icons/activity.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.metrics",
+      "label_pt": "Métricas",
+      "glyph": "gauge",
+      "sourcePath": "icons/gauge.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.version",
+      "label_pt": "Versões",
+      "glyph": "git-compare",
+      "sourcePath": "icons/git-compare.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "technical",
+      "token": "technical.merge",
+      "label_pt": "Conciliar versões",
+      "glyph": "git-merge",
+      "sourcePath": "icons/git-merge.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "security",
+      "token": "security.lock",
+      "label_pt": "Protegido",
+      "glyph": "lock",
+      "sourcePath": "icons/lock.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "security",
+      "token": "security.unlock",
+      "label_pt": "Desbloqueado",
+      "glyph": "lock-open",
+      "sourcePath": "icons/lock-open.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "security",
+      "token": "security.permission",
+      "label_pt": "Permissões",
+      "glyph": "shield-check",
+      "sourcePath": "icons/shield-check.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "security",
+      "token": "security.denied",
+      "label_pt": "Acesso negado",
+      "glyph": "shield-ban",
+      "sourcePath": "icons/shield-ban.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "security",
+      "token": "security.user",
+      "label_pt": "Usuário",
+      "glyph": "user",
+      "sourcePath": "icons/user.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "security",
+      "token": "security.users",
+      "label_pt": "Equipe",
+      "glyph": "users",
+      "sourcePath": "icons/users.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "security",
+      "token": "security.role",
+      "label_pt": "Papel",
+      "glyph": "user-cog",
+      "sourcePath": "icons/user-cog.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "security",
+      "token": "security.secret",
+      "label_pt": "Credencial",
+      "glyph": "key-round",
+      "sourcePath": "icons/key-round.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "security",
+      "token": "security.policy",
+      "label_pt": "Política",
+      "glyph": "shield",
+      "sourcePath": "icons/shield.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    },
+    {
+      "category": "security",
+      "token": "security.audit",
+      "label_pt": "Auditoria",
+      "glyph": "clipboard-check",
+      "sourcePath": "icons/clipboard-check.svg",
+      "status": "available-source",
+      "implementation": "forecast",
+      "commandBehavior": "owner-bound; icon presence is not command implementation"
+    }
+  ]
+}
