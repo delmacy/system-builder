@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, type ComponentProps, type ReactNode } from "react";
+import { createContext, useContext, useId, type ComponentProps, type ReactNode } from "react";
 import { Dialog as ProviderDialog } from "@base-ui/react/dialog";
 import { AlertDialog as ProviderAlertDialog } from "@base-ui/react/alert-dialog";
 import { Popover as ProviderPopover } from "@base-ui/react/popover";
@@ -43,10 +43,19 @@ export function PopoverContent({ sideOffset = 6, ...props }: ComponentProps<type
   return <ProviderPopover.Portal container={useContext(PortalContainer)}><ProviderPopover.Positioner sideOffset={sideOffset} className="z-50"><ProviderPopover.Popup data-slot="popover-content" className={popup} {...props} /></ProviderPopover.Positioner></ProviderPopover.Portal>;
 }
 export const AccessibleTooltipProvider = ProviderTooltip.Provider;
-export const AccessibleTooltip = ProviderTooltip.Root;
-export function AccessibleTooltipTrigger(props: ComponentProps<typeof ProviderTooltip.Trigger>) { return <ProviderTooltip.Trigger data-slot="accessible-tooltip-trigger" className={control} {...props} />; }
-export function AccessibleTooltipContent(props: ComponentProps<typeof ProviderTooltip.Popup>) {
-  return <ProviderTooltip.Portal container={useContext(PortalContainer)}><ProviderTooltip.Positioner sideOffset={6} className="z-50"><ProviderTooltip.Popup data-slot="accessible-tooltip-content" className={popup} {...props} /></ProviderTooltip.Positioner></ProviderTooltip.Portal>;
+const TooltipDescription = createContext<string | undefined>(undefined);
+export function AccessibleTooltip(props: ComponentProps<typeof ProviderTooltip.Root>) {
+  const id = useId();
+  return <TooltipDescription.Provider value={`sb-tooltip-${id}`}><ProviderTooltip.Root {...props} /></TooltipDescription.Provider>;
+}
+export function AccessibleTooltipTrigger(props: ComponentProps<typeof ProviderTooltip.Trigger>) {
+  const id = useContext(TooltipDescription);
+  const describedBy = [props["aria-describedby"], id].filter(Boolean).join(" ") || undefined;
+  return <ProviderTooltip.Trigger data-slot="accessible-tooltip-trigger" className={control} {...props} aria-describedby={describedBy} />;
+}
+export function AccessibleTooltipContent(props: Omit<ComponentProps<typeof ProviderTooltip.Popup>, "id" | "role">) {
+  const id = useContext(TooltipDescription);
+  return <ProviderTooltip.Portal container={useContext(PortalContainer)}><ProviderTooltip.Positioner sideOffset={6} className="z-50"><ProviderTooltip.Popup data-slot="accessible-tooltip-content" className={popup} {...props} id={id} role="tooltip" /></ProviderTooltip.Positioner></ProviderTooltip.Portal>;
 }
 export const DropdownMenu = ProviderMenu.Root;
 export function DropdownMenuTrigger(props: ComponentProps<typeof ProviderMenu.Trigger>) { return <ProviderMenu.Trigger data-slot="dropdown-menu-trigger" className={control} {...props} />; }

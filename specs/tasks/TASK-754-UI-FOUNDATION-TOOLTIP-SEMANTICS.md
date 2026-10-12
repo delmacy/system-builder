@@ -2,7 +2,7 @@
 {
   "id": "TASK-754",
   "title": "Associate accessible tooltip role and trigger description",
-  "status": "ready",
+  "status": "verification",
   "priority": 754,
   "milestone": "WP-UI-FOUNDATION-01",
   "model_tier": "cheap",

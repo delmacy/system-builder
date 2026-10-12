@@ -49,7 +49,11 @@ test("alert requires explicit action; popover dismisses outside and tooltip work
   await lab.getByRole("button", { name: "Open reference popover" }).focus();
   await page.keyboard.press("Tab");
   await expect(lab.getByRole("button", { name: "Tooltip reference target" })).toBeFocused();
-  await expect(page.getByRole("tooltip")).toContainText("Reference keyboard help");
+  const tooltip = page.getByRole("tooltip");
+  await expect(tooltip).toContainText("Reference keyboard help");
+  const tooltipId = await tooltip.getAttribute("id");
+  expect(tooltipId).toBeTruthy();
+  await expect(lab.getByRole("button", { name: "Tooltip reference target" })).toHaveAttribute("aria-describedby", tooltipId!);
   await page.keyboard.press("Escape"); await expect(page.getByRole("tooltip")).not.toBeVisible();
 });
 

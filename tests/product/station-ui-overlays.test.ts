@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createElement as h } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, Dialog, DialogTrigger, DropdownMenu, DropdownMenuTrigger, Tabs, TabsContent, TabsList, TabsTrigger } from "../../packages/ui-core/index.js";
+import { AccessibleTooltip, AccessibleTooltipTrigger, Accordion, AccordionContent, AccordionItem, AccordionTrigger, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, Dialog, DialogTrigger, DropdownMenu, DropdownMenuTrigger, Tabs, TabsContent, TabsList, TabsTrigger } from "../../packages/ui-core/index.js";
 
 const render = (node: Parameters<typeof renderToStaticMarkup>[0]) => renderToStaticMarkup(node);
 test("closed dialog trigger has semantic state and disabled behavior without popup", () => {
@@ -29,4 +29,13 @@ test("accordion controlled expansion names its content and escapes text", () => 
 test("breadcrumb distinguishes navigation link and current page", () => {
   const html = render(h(Breadcrumb, { children: [h(BreadcrumbItem, { key: "link", children: h(BreadcrumbLink, { href: "/", children: "Station" }) }), h(BreadcrumbItem, { key: "page", children: h(BreadcrumbPage, { children: "Lab" }) })] }));
   assert.match(html, /aria-label="Breadcrumb"/); assert.match(html, /aria-current="page"/); assert.match(html, /href="\/"/);
+});
+
+test("tooltip trigger preserves caller description and allocates independent stable associations", () => {
+  const html = render(h("div", { children: [h(AccessibleTooltip, { key: "one", children: h(AccessibleTooltipTrigger, { "aria-describedby": "existing-help", children: "One" }) }), h(AccessibleTooltip, { key: "two", children: h(AccessibleTooltipTrigger, { children: "Two" }) })] }));
+  const associations = [...html.matchAll(/aria-describedby="([^"]+)"/g)].map(match => match[1]);
+  assert.equal(associations.length, 2);
+  assert.match(associations[0]!, /^existing-help sb-tooltip-/);
+  assert.match(associations[1]!, /^sb-tooltip-/);
+  assert.notEqual(associations[0]!.split(" ").at(-1), associations[1]);
 });
