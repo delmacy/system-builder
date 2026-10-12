@@ -1,0 +1,2 @@
+# Design service Documentation/Closure — COMMITTED before edits
+TASK723 only; branch sprint/DESIGN-CANDIDATE-SERVICE-WP1-DOCUMENTATION-CLOSURE-01; base b52d3e686b8c2b3303aac187abd0ac624c33416f. Independent Review#1115 head16ca4707ae8ea5e1f9c08f666c8ddcb9f00e9973 five checksPASS integrated.10 exact docs paths/max_files10, forbidden product/CI paths confirmed. Close bounded candidate retention slice, readiness local-only and next eligible WP16 A. Validation npm run verify plus every triggered exact-head/current-base/heavy/handoff/browser gate before merge. No new product.

@@ -13,3 +13,5 @@
 - **4.3.1** Declarar capabilities e requisitos de ambiente.
 - **4.3.2** Validar consistência e completude lógica.
 - **4.3.3** Publicar SystemDefinition versionada.
+## Bounded candidate owner service — DesignWP1
+ADR0018/Addendum017 admit candidate retention/reference consistency under4.1.2/4.3.2, not publication4.3.3 or whole module. A#1113/B#1114 actual public codec/domain/PG atomic immutable retention/head/result+local authenticated GatewayHTTP;104 heavy tests0skip,95browser predecessors/WindowsUbuntu/frontendPASS. Independent Review#1115 integratedb52d3e686b8c2b3303aac187abd0ac624c33416f; no C needed, D1–D5 qualified. Bounded CLOSED only effective on validated TASK723 integration. O1–O4 READY_LOCAL then hands to WP16; business approval/upstream resolution/publication/productionIAM/remoteTLS/multitenancy/events/globalscale excluded.
