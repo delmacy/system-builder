@@ -268,3 +268,6 @@ ten docs paths add no behavior; closure effective only on its own complete indep
 WP15-L1/L2/L3/L4/D1/D2/D3 and all inherited residuals retained; no live owner/Core integration,
 publication/execution, distributed CAS or broader memory/latency/accessibility/compatibility claims.
 After validated closure no active WP15/committed successor; WP16 actual owner-service readiness separately gated.
+
+## Design candidate service A qualification
+Accepted ADR0018/Addendum017. Shared candidate admission evaluates only checked-in schema vocabulary and preserves complete portable metadata. A memory repository proves command semantics only; no actual durable/network owner readiness O1–O4 until B real PostgreSQL/HTTP/restart proofs and independent Review/Closure. Authorization is server-port normalized identity/evidence/policy with exact actor revision/scope/action/resource and live horizon; production identity remains unqualified.

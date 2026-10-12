@@ -2,7 +2,7 @@
 {
   "id": "TASK-720",
   "title": "Design candidate contract and owner command foundation",
-  "status": "draft",
+  "status": "completed",
   "priority": 720,
   "milestone": "DESIGN-CANDIDATE-SERVICE-WP1",
   "model_tier": "architecture",
@@ -28,7 +28,14 @@
     "project_docs/execution_planning/STATION-S4-WP16-OWNER-READINESS-01.md",
     "project_docs/schedule/SPRINT_MODE.md",
     "project_docs/schedule/SPRINT_GENERATION_POLICY.md",
-    "packages/postgres/index.ts"
+    "packages/postgres/index.ts",
+    "packages/contracts/identity-authorization/index.ts",
+    "packages/contracts/semantic-substrate/index.ts",
+    "packages/contracts/system-definition/index.ts",
+    "packages/contracts/system-definition/system-definition.schema.json",
+    "specs/contracts/artifact-envelope/artifact-envelope.schema.json",
+    "packages/station-workflow-authoring/index.ts",
+    "tests/product/station-workflow-authoring.test.ts"
   ],
   "allowed_paths": [
     "packages/contracts/design-candidate/index.ts",
@@ -41,7 +48,11 @@
     "docs/current/RISKS.md",
     "project_docs/execution_planning/DESIGN-CANDIDATE-SERVICE-WP1-CONSTRUCTION-A-01.md",
     "project_docs/execution_planning/DESIGN-CANDIDATE-SERVICE-WP1-CONSTRUCTION-A-01.report.md",
-    "specs/tasks/TASK-720-DESIGN-CANDIDATE-SERVICE-CONSTRUCTION-A.md"
+    "specs/tasks/TASK-720-DESIGN-CANDIDATE-SERVICE-CONSTRUCTION-A.md",
+    "docs/adr/ADR-0018-design-candidate-owner-service.md",
+    "docs/contracts/017-design-candidate-owner-service/ADDENDUM.md",
+    "docs/contracts/CONTRACT_INDEX.md",
+    "project_docs/execution_planning/DESIGN-CANDIDATE-SERVICE-WP1-PLAN-01.md"
   ],
   "forbidden_paths": [
     ".github/**",
@@ -50,7 +61,7 @@
     "runtime/**",
     "deploy/**"
   ],
-  "max_files": 11,
+  "max_files": 15,
   "validation": [
     "npm run verify"
   ]
@@ -61,13 +72,13 @@
 Implement accepted provider-neutral candidate contract/validation and SB04 owner command ports.
 
 ## Context
-PREPARED ONLY. Explicit owner acceptance of proposed ADR0018/Addendum017 and execution authorization required, followed by fresh-main exact path/contract review.
+COMMITTED from e23a4c9e1d6a899287b7b9ec6428954b70974e7f. Owner explicitly accepts ADR0018/Addendum017 and authorizes the complete Design prerequisite followed by WP16, including eligible Review/Closure.
 
 ## Current behavior
 No owner candidate service; local Station codec exists but cannot become canonical owner validation by private import.
 
 ## Required change
-Candidate11 exact paths; public contract admission/validation, immutable submit/exact-query/head/result APIs, verified actor eligibility and repository ports. Shared codec extraction only via accepted public boundary.
+Fifteen exact paths; public contract admission/validation, immutable submit/exact-query/head/result APIs, verified actor eligibility and repository ports. Shared codec extraction only via accepted public boundary.
 
 ## Inputs / contracts
 ADR0018/Addendum017 after acceptance, existing schema/envelope, actual WP15 predecessor and existing public authority interfaces revalidated before code.
@@ -86,3 +97,8 @@ Accepted authority first; focused actual predecessor tests, report/one task comm
 
 ## Escalation
 Absent acceptance, undeclared scope/owner/L4/forbidden paths or unresolved tests; no direct canonical effect from Station.
+
+## Before-edit acceptance and path materialization
+Fifteen exact paths/max_files15 include four authority acceptance records. Accepted by explicit owner reply
+2026-10-12 UTC. Shared codec moves behind public contract; existing identity-authorization is reused.
+No product behavior beyond accepted A foundation; actual durable/network proof remains B.

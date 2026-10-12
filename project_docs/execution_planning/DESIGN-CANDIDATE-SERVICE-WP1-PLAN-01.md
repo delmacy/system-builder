@@ -32,3 +32,6 @@ HTTP/PostgreSQL tests/classification. Every triggered exact-head/current-base/he
 One branch/commit per TASK/PR per sprint; NEXT_WORK sole scheduler. No undeclared L3/L4/forbidden paths.
 Do not implement until ADR acceptance; acceptance does not waive actual readiness/tests or authorize
 broad owner changes. Missing functionality returns to construction, not hidden in Review/Closure.
+
+## Accepted execution update — 2026-10-12 UTC
+Owner explicitly accepts ADR0018/Addendum017 and authorizes complete Design prerequisite followed by WP16, including eligible Review/Closure. A promoted from validated #1112 base e23a4c9e1d6a899287b7b9ec6428954b70974e7f. Future sprints remain forecast until independent predecessor gates.

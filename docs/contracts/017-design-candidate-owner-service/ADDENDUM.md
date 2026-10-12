@@ -1,6 +1,6 @@
-# Addendum017 — proposed Design candidate owner-service prerequisite
+# Addendum017 — accepted Design candidate owner-service prerequisite
 Date2026-10-12 UTC
-Status: PROPOSED / NOT ADMITTED for construction until explicit owner acceptance of ADR0018.
+Status: ACCEPTED / ADMITTED — owner explicit acceptance of ADR0018 and complete service/WP16 execution 2026-10-12 UTC.
 Provenance: owner requests WP16 execution; necessary missing dependency identified in validated WP16
 Planning#1111. Scope presented concretely for acceptance, not silently absorbed by WP16.
 Outcome: SB04 reference candidate retain/query/head/result service, immutable revisions/idempotency,
@@ -12,4 +12,4 @@ is expressly excluded. Initial construction A public contracts/domain/repository
 and auth/restart proof; C conditional only if necessary, then independent Review and Closure.
 Separate owner package must pass WP16 readiness O1–O4 before TASK718 fresh-main promotion.
 Owner implementation cannot import Station UI/session engines as canonical validation authority.
-Planning may integrate proposed documents; neither merge nor generic commit authorization accepts ADR.
+Planning integrated the proposal in #1112. Subsequent explicit owner acceptance admits this bounded increment; architecture/readiness gates remain mandatory.
