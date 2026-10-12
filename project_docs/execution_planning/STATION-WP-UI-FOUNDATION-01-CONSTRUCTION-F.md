@@ -100,3 +100,8 @@ TASK764 test protocol review before checkpoint: Save locally accepts/cleans the 
 
 ## TASK764 qualified source / TASK765 evidence checkpoint
 a5fe5469 all seven workflows PASS,129 actual Chromium journeys PASS (run38313440257, artifact11775149822). Actual compact/icon-text fresh-reopen PNGs reviewed and retained unchanged with hashes in report; pointer preserves primary ICON/WP02 prefix byte-for-byte. TASK765 reconciles qualified portable property ownership and next form-control admission without F/ICON/WP closure or G promotion. Final checkpoint requires its own exact-head CI.
+
+## TASK766 Input contract materialization
+Fresh main94da5ae2 / sole1144 qualified3843d80b. Nineteen exact paths; Add021 forms scope. Existing ComponentProperties union and component-aware validation; Input presentation only (kind/inputType/placeholder/disabled/readOnly), plain accessible text. Explicit6 for any Input node, backward1–5 preserved and icon5 unchanged; unknown-version negative now7. No values/domain state. Kernel precedes actual registry/Inspector/preview/save/reopen TASK767; shared workbench/catalog paths serial within this sprint. No ICON asset/core/workflow/pointer writes.
+
+TASK766 local kernel evidence:135 full editor contracts PASS, three new Input contract tests cover version6 default/properties/text/roundtrip, hostile shape/getters/value/cross-component rejection, Unicode256/257, immutable caller copy, no-op/reset/history. Lint/typecheck/docs/758 task specs/architecture PASS. UI Input admission still pending TASK767; publish both ordered authoritative commits together after successor checks to avoid presenting kernel-only availability.

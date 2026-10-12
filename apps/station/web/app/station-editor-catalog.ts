@@ -1,5 +1,5 @@
 import {
-  BUTTON_GROUP_DESCRIPTOR, COMPONENT_FAMILIES, ComponentRegistry,
+  freezeComponentProperties, BUTTON_GROUP_DESCRIPTOR, COMPONENT_FAMILIES, ComponentRegistry,
   defineCompositionGraph, normalizeComponentDescriptor, validateCompositionGraph,
   type ComponentDescriptor, type CompositionGraph,
 } from "../../../../packages/station-composition/index.js";
@@ -60,7 +60,7 @@ const actionRow = normalizeComponentDescriptor({
 
 function frozenGraph(graph: CompositionGraph): CompositionGraph {
   return Object.freeze({ rootRef: graph.rootRef, nodes: Object.freeze(graph.nodes.map(node =>
-    Object.freeze({ ...node, ...(node.properties ? { properties: Object.freeze({ ...node.properties }) } : {}), ...(node.placement ? { placement: Object.freeze({ ...node.placement }) } : {}) }))) });
+    Object.freeze({ ...node, ...(node.properties ? { properties: freezeComponentProperties(node.properties) } : {}), ...(node.placement ? { placement: Object.freeze({ ...node.placement }) } : {}) }))) });
 }
 const sources: readonly EditorCatalogDefinition[] = Object.freeze([
   Object.freeze({

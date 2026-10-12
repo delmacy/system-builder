@@ -103,7 +103,7 @@ test("WP7 text is rejected in legacy payloads and malformed v3; tampered snapsho
   const h = ok(text(initial, "Confirm"));
   const encoded = createCompositionArtifact(h.session.transaction.draft, entry, metadata); assert.ok(encoded.accepted);
   if (!encoded.accepted) return;
-  for (const version of ["1.0.0", "2.0.0", "3.0.1", "6.0.0"]) assert.equal(encodeCompositionArtifact({ ...encoded.document, schema: { ...encoded.document.schema, version } }, resolveEditorCatalogEntry).accepted, false);
+  for (const version of ["1.0.0", "2.0.0", "3.0.1", "7.0.0"]) assert.equal(encodeCompositionArtifact({ ...encoded.document, schema: { ...encoded.document.schema, version } }, resolveEditorCatalogEntry).accepted, false);
   for (const invalid of ["", "x".repeat(257), 7, null]) {
     const graph: typeof encoded.document.payload.graph = { ...encoded.document.payload.graph, nodes: encoded.document.payload.graph.nodes.map(n => n.ref === "node:button-1" ? { ...n, text: invalid as string } : n) };
     assert.equal(encodeCompositionArtifact({ ...encoded.document, payload: { ...encoded.document.payload, graph } }, resolveEditorCatalogEntry).accepted, false);

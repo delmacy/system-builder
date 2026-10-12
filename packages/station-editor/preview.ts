@@ -1,4 +1,4 @@
-import { freezeButtonProperties } from "@system-builder/station-composition";
+import { freezeComponentProperties } from "@system-builder/station-composition";
 import { validateCompositionGraph, type ComponentRegistry } from "@system-builder/station-composition";
 import { projectEditorInspector } from "./inspector.js";
 import { projectEditorLayers, type EditorLayer, type LayersSelection } from "./layers.js";
@@ -10,7 +10,7 @@ export type EditorPreviewNode =
       readonly nodeRef: string;
       readonly componentRef: string;
       readonly text?: string;
-      readonly properties?: import("@system-builder/station-composition").ButtonProperties;
+      readonly properties?: import("@system-builder/station-composition").ComponentProperties;
       readonly parentRef: null;
       readonly slotRef: null;
       readonly columnSpan: null;
@@ -22,7 +22,7 @@ export type EditorPreviewNode =
       readonly nodeRef: string;
       readonly componentRef: string;
       readonly text?: string;
-      readonly properties?: import("@system-builder/station-composition").ButtonProperties;
+      readonly properties?: import("@system-builder/station-composition").ComponentProperties;
       readonly parentRef: string;
       readonly slotRef: string;
       readonly columnSpan: number;
@@ -131,7 +131,7 @@ export function projectEditorPreview(
         nodes.push(Object.freeze({
           kind: "node", nodeRef: node.ref, componentRef: node.componentRef,
           ...(node.text === undefined ? {} : { text: node.text }),
-          ...(node.properties === undefined ? {} : { properties: freezeButtonProperties(node.properties) }),
+          ...(node.properties === undefined ? {} : { properties: freezeComponentProperties(node.properties) }),
           parentRef: placement.parentRef, slotRef: placement.slotRef,
           columnSpan: placement.columnSpan, rowSpan: placement.rowSpan, selected,
         }));

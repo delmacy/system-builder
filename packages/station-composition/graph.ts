@@ -14,10 +14,10 @@ export interface CompositionNodePlacement {
 export interface CompositionNode {
   readonly ref: CompositionNodeRef;
   readonly componentRef: ComponentRef;
-  /** Inert display override for admitted installed buttons; never action/HTML authority. */
+  /** Inert display override for admitted installed controls; never action/HTML authority. */
   readonly text?: string;
-  /** Typed inert button presentation only; never action/authorization. */
-  readonly properties?: ButtonProperties;
+  /** Typed inert component presentation only; never action/authorization. */
+  readonly properties?: ComponentProperties;
   readonly placement?: CompositionNodePlacement;
 }
 
@@ -45,6 +45,10 @@ export interface ButtonIconPresentation {
   readonly icon: Readonly<{ catalogVersion: string; assetRef: string }>;
 }
 export interface ButtonProperties {
+  readonly kind?: never;
+  readonly inputType?: never;
+  readonly placeholder?: never;
+  readonly readOnly?: never;
   readonly variant: "default" | "outline" | "ghost";
   readonly disabled: boolean;
   readonly presentation?: ButtonIconPresentation;
@@ -100,4 +104,38 @@ export function freezeButtonProperties(value: ButtonProperties): ButtonPropertie
     ...(value.presentation === undefined ? {} : { presentation: Object.freeze({ mode: value.presentation.mode,
       placement: value.presentation.placement, icon: Object.freeze({ catalogVersion: value.presentation.icon.catalogVersion,
         assetRef: value.presentation.icon.assetRef }) }) }) });
+}
+
+export interface InputProperties {
+  readonly kind: "input";
+  readonly inputType: "text" | "email" | "search";
+  readonly placeholder: string;
+  readonly disabled: boolean;
+  readonly readOnly: boolean;
+  /** Type refinements exclude legacy Button keys; these are never wire fields. */
+  readonly variant?: never;
+  readonly presentation?: never;
+}
+export type ComponentProperties = ButtonProperties | InputProperties;
+export function supportsComponentDisplayText(componentRef: string): boolean {
+  return supportsButtonDisplayText(componentRef) || componentRef === "component:input";
+}
+export function validInputProperties(value: unknown): value is InputProperties {
+  try {
+    const fields = inertFields(value, ["kind", "inputType", "placeholder", "disabled", "readOnly"]);
+    return !!fields && fields.kind === "input" && ["text", "email", "search"].includes(fields.inputType as string) &&
+      typeof fields.placeholder === "string" && [...fields.placeholder].length <= 256 &&
+      !/[\p{Cc}\uD800-\uDFFF]/u.test(fields.placeholder) &&
+      typeof fields.disabled === "boolean" && typeof fields.readOnly === "boolean";
+  } catch { return false; }
+}
+export function validComponentProperties(value: unknown, componentRef: string): value is ComponentProperties {
+  return supportsButtonDisplayText(componentRef) ? validButtonProperties(value) :
+    componentRef === "component:input" && validInputProperties(value);
+}
+export function freezeComponentProperties(value: ComponentProperties): ComponentProperties {
+  if (validButtonProperties(value)) return freezeButtonProperties(value);
+  if (!validInputProperties(value)) throw new Error("Invalid component properties");
+  return Object.freeze({ kind: "input", inputType: value.inputType, placeholder: value.placeholder,
+    disabled: value.disabled, readOnly: value.readOnly });
 }

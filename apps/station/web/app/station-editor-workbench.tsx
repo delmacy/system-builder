@@ -11,7 +11,7 @@ import { prepareEditorArtifact, readEditorArtifact, requestArtifactDownload, sam
 import { importCatalogArtifact } from "./station-editor-artifact";
 import { StationWorkspaceSave } from "./station-workspace-save";
 import { StationWorkspaceRevisionSave } from "./station-workspace-revision-save";
-import { supportsButtonDisplayText, type ButtonProperties } from "../../../../packages/station-composition/index";
+import { validButtonProperties, supportsButtonDisplayText, type ButtonProperties } from "../../../../packages/station-composition/index";
 import type { EditorLayer } from "../../../../packages/station-editor/index";
 import {
   projectEditorLayers, selectEditorLayer,
@@ -385,7 +385,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       className={"flex min-h-12 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md border px-2 text-sm " +
         "bg-card" +
         (node.selected ? " ring-2 ring-primary/30" : "") + (parentLayout === "row" ? " max-sm:basis-full!" : "")}>
-      {supportsButtonDisplayText(node.componentRef) ? <EditorButtonPreview label={layerName(state, node.nodeRef)} properties={properties} /> : <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>}{children.length ? <div className={container + " w-full"}>{children}</div> : null}
+      {supportsButtonDisplayText(node.componentRef) ? <EditorButtonPreview label={layerName(state, node.nodeRef)} properties={properties === undefined || validButtonProperties(properties) ? properties : undefined} /> : <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>}{children.length ? <div className={container + " w-full"}>{children}</div> : null}
     </div>;
   };
   const blocked = historyBlocked(state);
