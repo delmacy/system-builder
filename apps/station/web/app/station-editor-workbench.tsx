@@ -249,6 +249,8 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   catalogSelect: React.RefObject<HTMLSelectElement | null> }) {
   const [expanded, setExpanded] = useState(() => new Set([state.history.session.transaction.draft.rootRef]));
   const [paletteRef, setPaletteRef] = useState(() => state.entry.registry.list()[0]?.id ?? "");
+  const [paletteQuery, setPaletteQuery] = useState("");
+  const matchingDescriptors = state.entry.registry.list().filter(component => componentName(component.id).toLowerCase().includes(paletteQuery.trim().toLowerCase()) || component.id.toLowerCase().includes(paletteQuery.trim().toLowerCase()));
   const [parentRef, setParentRef] = useState(state.history.session.transaction.draft.rootRef);
   const [slotRef, setSlotRef] = useState("");
   const [moveParentRef, setMoveParentRef] = useState("");
@@ -543,10 +545,10 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
         {editable ? <Button variant="outline" className="mt-3" onClick={() => dispatch({ type: "restore-fields" })}>Restore fields</Button> : null}
         <div role="group" aria-label="Composition structure" className="mt-5 space-y-3 border-t pt-4">
           <h3 className="font-semibold">Build composition</h3>
-          <div><label htmlFor="editor-component" className="mb-1 block text-sm">Component to add</label>
+          <div><label htmlFor="editor-palette-search" className="mb-1 block text-sm">Search insertable components</label><input id="editor-palette-search" type="search" value={paletteQuery} onChange={event => setPaletteQuery(event.target.value)} className="mb-2 w-full rounded-md border bg-background p-2" /><p className="mb-1 text-xs text-muted-foreground">{matchingDescriptors.length} compatible catalog descriptors available in this composition. Other foundation controls are source-only.</p><label htmlFor="editor-component" className="mb-1 block text-sm">Component to add</label>
             <select id="editor-component" value={paletteRef} disabled={blocked} onChange={event => setPaletteRef(event.target.value)}
               className="w-full rounded-md border bg-background p-2">
-              {state.entry.registry.list().map(component => <option key={component.id} value={component.id}>{componentName(component.id)}</option>)}
+              {matchingDescriptors.map(component => <option key={component.id} value={component.id}>{componentName(component.id)}</option>)}
             </select></div>
           <div><label htmlFor="editor-parent" className="mb-1 block text-sm">Container</label>
             <select id="editor-parent" value={activeParent?.ref ?? ""} disabled={blocked} onChange={event => { setParentRef(event.target.value); setSlotRef(""); }}
@@ -558,7 +560,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
               className="w-full rounded-md border bg-background p-2">
               {slots.map(slot => <option key={slot.id} value={slot.id}>{slot.id === "content" ? "Content" : slot.id.replace("button-", "Button ")}</option>)}
             </select></div>
-          <Button variant="outline" disabled={blocked || !activeParent || !activeSlot || !paletteRef}
+          <Button variant="outline" disabled={blocked || !activeParent || !activeSlot || !paletteRef || !matchingDescriptors.some(item => item.id === paletteRef)}
             onClick={() => { if (activeParent) setExpanded(previous => {
                 const next = new Set(previous); let ref: string | undefined = activeParent.ref;
                 const seen = new Set<string>();
