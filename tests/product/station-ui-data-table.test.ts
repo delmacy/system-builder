@@ -23,3 +23,11 @@ test("data table rejects malformed column and row identities",()=>{
  assert.throws(()=>draw({rows:[...rows,...rows]}),/unique nonempty row keys/);
  assert.throws(()=>draw({selectedKey:"missing"}),/selectedKey must exist/);
 });
+
+test("controlled sorting declares column semantics and rejects unqualified columns",()=>{
+  const sortableColumns=[{...columns[0]!,sortable:true}];
+  const html=draw({columns:sortableColumns,sort:{columnId:"name",direction:"asc"},onSortChange:()=>{}});
+  assert.match(html,/aria-sort="ascending"/);
+  assert.match(html,/aria-label="Sort by Name"/);
+  assert.throws(()=>draw({sort:{columnId:"name",direction:"asc"}}),/sortable column/);
+});
