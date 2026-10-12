@@ -1,0 +1,62 @@
+# Workflow Studio — local technical candidate authoring
+Status: bounded WP15 delivery; closure effective on validated TASK716 integration.
+Authority: Addendum015 and WP15 Review. This edits technical SystemDefinition candidates,
+not BusinessRecipe or canonical Core truth.
+
+## Open and create
+Update main and run npm run station:dev. Open Workflow Studio from Station launcher, or
+http://localhost:3000/workflow-studio. It works with no Core attached.
+Expand Create workflow or add process. Enter process name/id, explicit analysis/recipe/requirement
+references and first state id. Create workflow produces an unpublished local definition candidate.
+References are recorded but unresolved; local validation does not approve business meaning.
+Alternatively Import workflow accepts an inert complete supported .workflow.json definition envelope.
+
+## Author through coordinated Tools
+Select a process. Explorer lists states/transitions; diagram/grid and table share the same qualified
+selection and Inspector. Add state with a stable unique id. Select a state to set initial or remove it.
+Deleting initial/referenced/last state rejects; correct initial/transition references first.
+Add transition with id (initially a self-loop), select it, choose source/target/declared optional action
+and Apply transition. Select transition to remove. Cycles/self-loops are supported.
+Add process uses explicit id/name/requirement/first-state fields and preserves existing processes.
+State rename and action/entity editing are excluded. Imported actions are selectable references only.
+Undo/redo shares one bounded editing history; it does not compensate a business action.
+Apply or Reset pending fields before changing selection/saving. Import/open dirty draft offers Cancel
+(preserve applied draft and pending inputs) or explicit Discard workflow and open.
+
+## Retain, compare and exchange
+Validate workflow checks current local schema/workflow rules; it is not release validation.
+Enter a distinct new artifact version and Save new workflow revision. The original base and candidate
+are retained independently, with predecessor provenance; saving never overwrites a tuple.
+Default next patch is a convenience, not an automatic migration/compatibility judgment. Choose an
+unused version if an earlier imported revision would collide with a retained version.
+Save checkpoints the new local candidate and clears ephemeral history/selection. Compare with revision
+shows explicit original/new workflow change status. Complete definition snapshot is read-only.
+Retained workflow revision selection + Open workflow revision reopens exactly the chosen version.
+Refresh reads candidate storage without silently opening/replacing the current draft.
+Export workflow downloads a clean candidate as definition.workflow.json. Save changed meaning into
+a new candidate before export; Import validates before replacing. Portable files carry the full envelope,
+unrelated payload fields/optional extensions and references; keep files independently of browser storage.
+After reload or window close, opening is explicit. Minimize/restore preserves mounted draft/selection.
+
+## Recovery and bounds
+Quota/denial/corruption/stale expected snapshot or changed duplicate tuple blocks save and preserves
+the draft/retained revisions. Refresh, review retained choices and deliberately retry with unused version.
+No auto-repair/rebase/overwrite/merge or cross-tab CAS. Do not clear storage to recover without exporting.
+Candidate store is separate station:workflow-candidates:v1, max16 revisions/4MiB; composition workspace,
+Process Context keys/codecs and File Manager composition semantics remain unchanged.
+Artifact cap1MiB/depth32; selected editable process64 states/128 transitions; history50.
+Larger unrelated valid workflows import/preserve read-only; no truncation. Exact supported
+envelope/schema1.0.0; required unknown extensions/incompatible documents reject explicitly.
+Chromium/keyboard/narrow journeys are proven; universal browsers/screen-readers, max-bound cold/
+long-session memory/latency, broader graph layout and simultaneous-form recovery are not certified.
+Real Core/Design authoring service, SDK transport/currentness, publication and execution are WP16 or
+separately admitted owner work. Local Studio success must not be presented as live owner integration.
+
+## Public local draft API
+packages/station-workflow-authoring exports encode/decode/create/open, applyWorkflowCommand,
+materializeWorkflow, isWorkflowProcessEditable, qualified selection and bounded comparison helpers.
+The existing public SystemDefinition schema is reused without schema mutation. Commands require expected
+session revision and return explicit accepted/reason; no-op/rejection preserves draft/history.
+Materialization requires distinct version/date and produces a fully validated candidate plus canonical
+text. API result means local candidate validity only; upstreamStatus remains unresolved.
+Use public package aliases; do not import compiler/runtime/test/harness internals for authoring.
