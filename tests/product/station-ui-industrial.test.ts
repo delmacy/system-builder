@@ -73,7 +73,7 @@ test("toolbar toggle group retains exclusive selection and rejects malformed cho
   assert.equal((html.match(/aria-pressed="false"/g) ?? []).length, 1);
   assert.match(html, /disabled=""/);
   assert.throws(() => render(createElement(ToolbarToggleGroup, { label: "Alignment", options, value: "missing" })), /known selected value/);
-  assert.throws(() => render(createElement(ToolbarToggleGroup, { label: "Alignment", options: [...options, options[0]], value: "left" })), /unique nonempty/);
+  assert.throws(() => render(createElement(ToolbarToggleGroup, { label: "Alignment", options: [...options, options[0]!], value: "left" })), /unique nonempty/);
 });
 
 test("workstation search and native select preserve labels, escaped options and rejection", () => {
