@@ -1,0 +1,7 @@
+# Construction C — overlay/navigation foundation
+Sprint STATION-WP-UI-FOUNDATION-01-CONSTRUCTION-C; branch sprint/STATION-WP-UI-FOUNDATION-01-CONSTRUCTION-C; base 17a9a4da4d06120cfd12757455027e5e79ec467f.
+Goal: qualified provider-backed overlays/navigation in shared ui-core and the existing Component Lab.
+Committed TASK749 -> TASK750; durable TASK749 materialization before product writes. TASK749 four paths; TASK750 twelve paths. Addendum021 eleven-sprint exception governs.
+Predecessor: PR1140 merged; exact head5d8c95e seven applicable workflows PASS (Deterministic, Merge Candidate, Heavy, Frontend Quality, Cross-Platform, Browser Journey, Handoff). No open PR or observed exclusive lock. ICON remains independent; no toolbar/chooser/schema writes.
+Provider candidate verified from official mui/base-ui release v1.9.0, published2026-10-09; npm metadata reports MIT. Pin exact package and lock; SB owns styling/public names, provider owns headless focus/dismiss behavior. Preserve existing legacy surfaces.
+Proof grows from B native controls/C0 theme into real modal focus/return, nested overlays, menu keyboard/disabled/dismiss, tabs and accordion plus all116 inherited browser journeys. Final npm run verify, station build/browser and all applicable exact-head CI. Stop for dependency/license/ownership conflict or undeclared L3/L4. Command/combobox candidate implementation deferred to a separate bounded increment; document residuals. No general editor insertion claim beforeF; D-Z forecast.
