@@ -2,7 +2,7 @@
 {
   "id": "TASK-748",
   "title": "Implement shared native form and feedback primitives",
-  "status": "ready",
+  "status": "verification",
   "priority": 748,
   "milestone": "WP-UI-FOUNDATION-01",
   "model_tier": "cheap",
