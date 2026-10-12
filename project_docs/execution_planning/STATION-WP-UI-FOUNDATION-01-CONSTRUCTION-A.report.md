@@ -21,3 +21,5 @@ Review correction: shared recipes live in Tailwind components layer so consumer 
 CI35e2b8a: six workflows PASS; browser112 PASS/1 FAILED at dark secondary contrast during actual color transition. Steady dark pair is foreground0.96/background0.285; test now awaits actual subtree animation completion before measuring, retaining WCAG4.5 threshold and all113 journeys. Requalification required on correction head. Artifact11747885051/run38248040685 records failure transparently.
 
 Failure screenshot visually inspected: coherent dark shell/reference hierarchy; invalid-border recipe needed explicit aria-invalid utility precedence over border-input. Corrected Input/Select and added browser negative comparison against normal border. No theme palette weakening.
+
+Qualified integration: PR1138 headcfc4f864 seven workflowsPASS; browserrun38248940339 all113PASS. Artifact11747951254 with five new reference captures. Merge b50a550f4e821a7175b6636b02ac87a9e5be56d7. ConstructionA CLOSED/INTEGRATED for bounded C0 scope; no broader component/catalog certification.
