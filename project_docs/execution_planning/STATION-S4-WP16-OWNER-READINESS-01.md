@@ -37,3 +37,6 @@ TASK718 may then be promoted on freshmain with actual public contracts/transport
 
 ## Fresh WP16 Construction A promotion
 Design Closure#1116 headccf6a952e350ce3fe4b66991467f14944f9026bc integratedeb0ebc87406280fed98600e2951879d6131cb02c after all five own workflowsPASS. O1–O4 READY_LOCAL actual closed reference service; all104 heavy provider/process tests0skip and95browser predecessors. TASK718 now promoted/COMMITTED on13 exact allowed paths with actual public contracts, unchanged forbidden backend/schema/ADR/CI/runtime paths. Full owner execution explicit. Historical blocked census is superseded by this fresh disposition.
+
+## Actual connected package evidence
+A#1117/B#1118/C#1119 integrateddd38884f27b36e3709a73f305d17c19fd45caacf, allsevenconstructionchecksPASS each. OwnerreadylocalconsumedbyactualStudio/client/HTTP/PG/browser;111heavy0skip and103Chromium passed. Actualownerprocessrestart+freshbrowser emptylocalstore exactreopen, committed-responseloss resultrecovery, concurrency/denial/late/defaultnative/largeescaping. O1–O4 remainREADY_LOCAL; WP16independentReview/Closure owngatesstillrequired. No broaderupstream/productioncurrentnessorH4universal claim.

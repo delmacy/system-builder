@@ -74,3 +74,6 @@ Qualification remains explicit local single-operator authenticated loopback. Rem
 
 ## WP16 bounded C response/native qualification
 Fresh integrated B#1118 actual102 Chromium and109 heavy0skip. Actual WP15 create/open/edit/materialize probe admitted800937-byte candidate, escaped record alone1601073 bytes, exceeding old1114112-byte client response limit. C now raises bounded stream cap to2162688 bytes (2xraw1MiB+64KiB envelope), overflow remains fail-closed, and standard fetch bound to global realm. UI caller workaround removed. Actual large escaped provider and production-browser/native-default proofs required before Review; no backend/schema change or general scale certification.
+
+## Validated connected construction / package review
+A#1117/B#1118/C#1119 independently integrated with seven checks eachPASS.111 heavy0skip and103 productionChromium (95old+8connected) passed, including nativeSDKdefault/largeescaped metadata, ownerrestart/fresh-empty-localstore/fullreadback and failure recovery. Independent Review TASK726 finds boundedlocal journey complete; Closure not effective until own validated integration. WP16-L1–L4/D1–D2 and inherited limits remain explicit in Review; no businessapproval/publication/productionIAM/remote service/globalcertification.
