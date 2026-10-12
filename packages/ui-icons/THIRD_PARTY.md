@@ -40,3 +40,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 ## WP02 shared icon extension — 2026-10-12
 
 Additional bounded geometry retrieved from Lucide commit `70562c1ee1c4fdcf736fe97bc893fb8511927934`: `folder`, `folder-open`, `folder-plus`, `file-code`, `file-text`, `layout-grid`, `list`, `refresh-cw`, `arrow-up`, `upload`, `download`, `network`, `workflow`, `library`, `chart-column`, `boxes`, `package`, `activity`. Source: https://github.com/lucide-icons/lucide/tree/70562c1ee1c4fdcf736fe97bc893fb8511927934/icons. ISC/MIT notices above retained. Added glyphs also retain Feather MIT terms wherever derived; no upstream attribution is removed. SVG is vendored source, with no external icon font, CDN, raster or runtime fetch.
+
+## WP-ICON-01 full pinned corpus — 2026-10-12
+All1877SVG assets from lucide-icons/lucide commit70562c1ee1c4fdcf736fe97bc893fb8511927934 are included as controlled geometry and source snapshot. Source https://github.com/lucide-icons/lucide/tree/70562c1ee1c4fdcf736fe97bc893fb8511927934/icons ; complete paths/gitblobSHAs in vendor/source-manifest.json. Existing ISC and Feather MIT notices above apply to the vendored corpus as appropriate; no attribution removed.
+The two object-flip-horizontal/object-flip-vertical glyphs are Station-owned drawings with provider station; they are not attributed to Lucide. Prior28 geometry/provenance remains unchanged. No proprietary toolbar artwork is bundled.

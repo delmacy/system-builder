@@ -2,7 +2,7 @@
 {
   "id": "TASK-743",
   "title": "Build complete pinned icon asset catalog and semantic toolbar vocabulary",
-  "status": "ready",
+  "status": "completed",
   "priority": 743,
   "milestone": "WP-ICON-01",
   "model_tier": "cheap",

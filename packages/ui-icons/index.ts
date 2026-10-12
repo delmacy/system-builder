@@ -3,12 +3,14 @@ import {
   type SVGAttributes,
 } from "react";
 
+import { SEMANTIC_ICON_DEFINITIONS, SEMANTIC_ICON_TOKENS, type SemanticIconToken } from "./semantic-catalog.js";
+
 import {
   LUCIDE_ICON_DEFINITIONS,
   type LucideIconDefinition,
 } from "./lucide-adapter.js";
 
-export const ICON_TOKENS = Object.freeze([
+export const LEGACY_ICON_TOKENS = Object.freeze([
   "shell.home",
   "shell.search",
   "shell.command",
@@ -39,7 +41,12 @@ export const ICON_TOKENS = Object.freeze([
   "studio.observe",
 ] as const);
 
-export type IconToken = (typeof ICON_TOKENS)[number];
+export type LegacyIconToken = (typeof LEGACY_ICON_TOKENS)[number];
+export type IconToken = LegacyIconToken | SemanticIconToken;
+export const ICON_TOKENS = Object.freeze([...new Set<IconToken>([...LEGACY_ICON_TOKENS, ...SEMANTIC_ICON_TOKENS])]);
+export { SEMANTIC_ICON_CATALOG, SEMANTIC_ICON_TOKENS } from "./semantic-catalog.js";
+/** Defer the full asset metadata and geometry modules until the library is used. */
+export async function getIconLibrary() { return import("./catalog-runtime.js"); }
 
 /** Shared visual identifiers only; they do not install or authorize a Studio. */
 export const SUITE_STUDIO_ICONS = Object.freeze({
@@ -69,7 +76,9 @@ export function resolveIcon(token: string): LucideIconDefinition {
     throw new Error(`unknown Station icon token: ${token}`);
   }
 
-  const definition = LUCIDE_ICON_DEFINITIONS[token];
+  const definition = Object.hasOwn(LUCIDE_ICON_DEFINITIONS, token)
+    ? LUCIDE_ICON_DEFINITIONS[token as LegacyIconToken]
+    : SEMANTIC_ICON_DEFINITIONS[token as SemanticIconToken];
   if (definition === undefined) {
     throw new Error(`Station icon token has no provider mapping: ${token}`);
   }
@@ -83,14 +92,14 @@ export type StationIconProps = Omit<SVGAttributes<SVGSVGElement>, "children"> & 
   size?: number;
 }>;
 
-export function StationIcon({
+export function StationGlyph({
+  definition,
   token,
   label,
   size = 16,
   className,
   ...props
-}: StationIconProps) {
-  const definition = resolveIcon(token);
+}: Omit<StationIconProps, "token"> & { readonly definition: LucideIconDefinition; readonly token?: string }) {
   const accessibility =
     label === undefined
       ? { "aria-hidden": true as const }
@@ -103,7 +112,7 @@ export function StationIcon({
       ...accessibility,
       "data-slot": "icon",
       "data-icon-token": token,
-      "data-icon-provider": "lucide",
+      "data-icon-provider": definition.provider ?? "lucide",
       className,
       width: size,
       height: size,
@@ -122,3 +131,7 @@ export function StationIcon({
 }
 
 export type { LucideIconDefinition } from "./lucide-adapter.js";
+
+/** Semantic toolbar roles and legacy tokens share one renderer. */
+export function StationIcon({ token, ...props }: StationIconProps) { return StationGlyph({ ...props, token, definition: resolveIcon(token) }); }
+
