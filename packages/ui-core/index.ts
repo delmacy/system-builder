@@ -6,3 +6,4 @@ export * from "./editor-shell.js";
 
 export * from "./primitives.js";
 export * from "./overlays.js";
+export * from "./industrial.js";
