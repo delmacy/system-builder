@@ -101,3 +101,5 @@ export class StationClient {
     return success(assertMonotonicStationEvents(result.value, subscription.subscriptionRef, subscription.afterSequence));
   }
 }
+
+export { StationHttpTransport, type StationHttpOptions } from "./http-transport.js";

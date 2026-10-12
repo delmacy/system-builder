@@ -76,6 +76,9 @@
       ],
       "@system-builder/design": [
         "packages/design/index.ts"
+      ],
+      "@system-builder/station-workflow-connection": [
+        "packages/station-workflow-connection/index.ts"
       ]
     },
     "strict": true,

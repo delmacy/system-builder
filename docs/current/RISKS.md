@@ -280,3 +280,6 @@ A#1113/B#1114 validated/integrated, actual heavy104 tests0skip and95 Chromium pr
 
 ## DesignWP1 bounded Closure
 Independent Review#1115 own five checksPASS integrated. Bounded candidate owner slice CLOSED effective on validated TASK723 integration. O1–O4 READY_LOCAL then WP16 actual connection; D1–D5/local-only/inherited limits unchanged. No broadSB04/S4/H4/globalproduction certification.
+
+## WP16 A connection qualification
+DesignWP1 independently closed #1116, local O1–O4 ready. SDK HTTP requires explicit trusted config (loopbackHTTP/trustedHTTPS), bounded responses/deadline/no redirects and ephemeral credential; never artifact endpoint. Connection correlates request/context/source/owner tuple/revision/hash/fulltext; accepted receipt alone unproven until exact readback. Unknown pending command must be recovered/retried with identical request; late/disconnected/partial/tampered responses never install. Actual client/provider heavy proof required. No UI/wholeH4/S4/productionIAM/remote service qualification claim in A.

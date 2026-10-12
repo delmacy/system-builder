@@ -2,7 +2,7 @@
 {
   "id": "TASK-718",
   "title": "Station S4 WP16 actual workflow owner connection",
-  "status": "blocked",
+  "status": "completed",
   "priority": 718,
   "milestone": "STATION-S4-WP16-OWNER-SERVICE-JOURNEY",
   "model_tier": "architecture",
@@ -10,7 +10,8 @@
   "architecture_impact": false,
   "executor_preference": "any",
   "depends_on": [
-    "TASK-717"
+    "TASK-717",
+    "TASK-723"
   ],
   "context_paths": [
     "AGENTS.md",
@@ -30,7 +31,18 @@
     "apps/station-gateway/index.ts",
     "packages/station-sdk/index.ts",
     "packages/contracts/station-core/index.ts",
-    "tests/product/station-core-e2e.test.ts"
+    "tests/product/station-core-e2e.test.ts",
+    "docs/adr/ADR-0018-design-candidate-owner-service.md",
+    "docs/contracts/017-design-candidate-owner-service/ADDENDUM.md",
+    "docs/operations/DESIGN_CANDIDATE_SERVICE.md",
+    "packages/contracts/design-candidate/index.ts",
+    "packages/design/index.ts",
+    "packages/design/postgres.ts",
+    "packages/design/local-authorization.ts",
+    "apps/station-gateway/http.ts",
+    "apps/station-gateway/design-owner.ts",
+    "tests/product/design-owner-http-postgres.test.ts",
+    "project_docs/execution_planning/DESIGN-CANDIDATE-SERVICE-WP1-DOCUMENTATION-CLOSURE-01.report.md"
   ],
   "allowed_paths": [
     "packages/station-sdk/http-transport.ts",
@@ -42,7 +54,10 @@
     "docs/current/RISKS.md",
     "project_docs/execution_planning/STATION-S4-WP16-CONSTRUCTION-A-01.md",
     "project_docs/execution_planning/STATION-S4-WP16-CONSTRUCTION-A-01.report.md",
-    "specs/tasks/TASK-718-STATION-S4-WP16-CONSTRUCTION-A.md"
+    "specs/tasks/TASK-718-STATION-S4-WP16-CONSTRUCTION-A.md",
+    "scripts/run-product-tests.mjs",
+    "docs/contracts/016-station-owner-service-journey/ADDENDUM.md",
+    "project_docs/execution_planning/STATION-S4-WP16-OWNER-READINESS-01.md"
   ],
   "forbidden_paths": [
     "docs/adr/**",
@@ -55,7 +70,7 @@
     "runtime/**",
     "deploy/**"
   ],
-  "max_files": 10,
+  "max_files": 13,
   "validation": [
     "npm run verify",
     "npm run station:build"
@@ -64,31 +79,31 @@
 ---
 
 ## Objective
-Bind ready actual owner service to existing SDK/Gateway over qualified network transport.
+Bind actual independently closed Design owner through SDK HTTP transport and verified workflow connection.
 
 ## Context
-PREPARED/BLOCKED. O1–O4 actual owner API/durable provider/ingress/accepted contracts and construction authorization required before fresh-main promotion. Missing owner not implementable here.
+DesignWP1 #1113–#1116 independently integrated; freshmain eb0ebc87406280fed98600e2951879d6131cb02c. O1–O4 READY_LOCAL, explicit full user execution authorization.13 exact allowed paths/max_files13 and forbidden paths confirmed before edits; actual owner public routes/actions/records/auth/query proof read. No owner implementation inside Station.
 
 ## Current behavior
-StationCorePort implementations discovered only in tests; no actual SystemDefinition owner network contract.
+Generic SDK/client and actual Design Gateway service exist; Studio not connected before this A.
 
 ## Required change
-Candidate ten exact paths; revalidate/revise against ready actual owner contracts before commitment. Typed transport/binding, correlation, rejection/stale/unknown and owner-qualified reconciliation.
+Bounded trusted-config HTTP transport and portable workflow connection: handshake, correlation, exact owner readback/hash/full metadata, distinct owner revision and stable unknown-command result recovery. Guard stale/reordered/disconnected/partial/mismatched replies.
 
 ## Inputs / contracts
-Addendum016/ADR0016 and unchanged protocol. Actual accepted owner contract must be added to context before promotion; no guessed routes/actions/authority.
+AcceptedAdd016/ADR0016 and unchanged station-core1.0.0; acceptedDesignADR0018/Add017 public candidate contract and actual local owner operations.
 
 ## Outputs / contracts
-Public client transport/binding only, actual owner HTTP/data/receipt/query proof; Station owns no canonical retention or server validation.
+Public SDK transport/WorkflowOwnerConnection only; no backend/schema/business authority. Actual immutable candidate owner result remains authoritative.
 
 ## Acceptance criteria
-Real WP15-generated candidate retained/queryable by actual owner with restart/denial/stale/two-writer/lost-receipt/idempotency proof. No mocked success substitute. Full npm verify/build/independent CI.
+Actual WP15 -> SDK/client -> GatewayHTTP -> Design/PostgreSQL -> exact readback; concurrent stale, denied/forged/unknown/late/malformed/partial/tampered/hash/source failures and committed response loss recovered with same command. All inherited browser/build/full verification preserved.
 
 ## Non-goals
-Create owner API/backend/database/semantic authority, UI construction, publication/runtime/deploy, generic federation or collaboration.
+Owner/backend/database creation, server validation/auth changes, UI construction, publication/runtime/deploy, generic federation/collaboration.
 
 ## Evidence expected
-Owner readiness evidence first; then actual API-heavy tests, report/one commit/validated A integration. No fake ready status.
+Actual heavy client/provider tests, report/one TASK commit/independent full npmverify+stationbuild and every triggered exact-head/current-base/heavy/handoff/browser/WindowsUbuntu/frontend CI before merge. No local full verify claim.
 
 ## Escalation
-Unmet readiness/new owner/public schema/L4/forbidden paths or unresolved proof failure.
+Unmet readiness, undeclared owner/public schema/L4/forbidden paths or unresolved proof failure. No fake ready/success.
