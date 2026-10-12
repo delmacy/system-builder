@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { DataTable, type DataTableProps } from "../../packages/ui-core/index.js";
 const columns = [{ id: "name", label: "Name", cell: (r: {id:string;name:string}) => r.name }];
