@@ -1859,13 +1859,13 @@ test.describe("WP16 actual owner-connected Workflow Studio",()=>{
     for(const [label,value] of [["Owner endpoint",owner.url],["Owner access token",credential],["Owner Core reference",owner.fields.coreRef],["Owner Station reference",owner.fields.stationRef],["Owner session reference",owner.fields.sessionRef],["Owner workspace reference",owner.fields.scopeRef],["Owner actor reference",actor],["Owner actor revision",owner.fields.actorRevisionRef]] as const)await panel(page).getByLabel(label,{exact:true}).fill(value);
     await button(page,"Connect owner").click();
   }
-  async function create(page:Page,metadata=false){
+  async function create(page:Page,metadata=false,escaped=0){
     await page.goto("/workflow-studio");await studio(page).getByText("Create workflow or add process",{exact:true}).click();
     for(const [label,value] of [["Process name","Ticket"],["Process id","ticket"],["Analysis reference","analysis:unresolved"],["Recipe reference","recipe:unresolved"],["Requirement reference","req:1"]] as const)await studio(page).getByLabel(label,{exact:true}).fill(value);
     await button(page,"Create workflow").click();
     if(metadata){
       const downloaded=page.waitForEvent("download");await button(page,"Export workflow").click();const download=await downloaded,path=await download.path();expect(path).not.toBeNull();
-      const document=JSON.parse((await readFile(path!)).toString());document.extensions={"org.example.metadata":{opaque:["preserve",42]}};document.provenance.operation={note:"preserve"};document.payload.sessionPolicy={lifetimeSeconds:300};document.payload.processes.push({id:"other",name:"Other",requirementRefs:["req:2"],states:["only"]});
+      const document=JSON.parse((await readFile(path!)).toString());document.extensions={"org.example.metadata":{opaque:["preserve",42],...(escaped?{escaped:"\\".repeat(escaped)}:{})}};document.provenance.operation={note:"preserve"};document.payload.sessionPolicy={lifetimeSeconds:300};document.payload.processes.push({id:"other",name:"Other",requirementRefs:["req:2"],states:["only"]});
       await studio(page).getByLabel("Import workflow file",{exact:true}).setInputFiles({name:"actual.workflow.json",mimeType:"application/json",buffer:Buffer.from(JSON.stringify(document))});
       await expect(studio(page).locator("pre")).toContainText('"org.example.metadata"');
     }
@@ -1950,4 +1950,12 @@ test.describe("WP16 actual owner-connected Workflow Studio",()=>{
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
     await tabTo(page,button(page,"Disconnect owner"));await button(page,"Disconnect owner").press("Enter");await expect(status(page)).toContainText("Owner disconnected");
   });
+  test("large escaped metadata uses native SDK default and returns exact complete owner document",async({page} )=>{
+    const candidate=await create(page,true,300000);await connect(page);await expect(status(page)).toContainText("Owner connected");await retain(page);
+    expect(new TextEncoder().encode(candidate.text).length).toBeLessThan(1048576);
+    expect(new TextEncoder().encode(JSON.stringify({record:{text:candidate.text}})).length).toBeGreaterThan(1048576+65536);
+    await button(page,"Read exact owner revision").click();await expect(status(page)).toContainText("Exact owner revision verified");await button(page,"Open owner revision").click();
+    expect((await snapshot(page)).extensions).toEqual(candidate.document.extensions);await expect(studio(page)).toContainText("Clean local candidate");
+  });
+
 });

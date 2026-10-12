@@ -1,0 +1,3 @@
+# WP16 bounded Construction C — COMMITTED before code
+TASK725 only; branch sprint/STATION-S4-WP16-CONSTRUCTION-C-01; basecac8866bb983fdfac1b2e55c0e1041fe557d548b. B#1118 seven checksPASS/102 Chromium/109heavy0skip. Fresh actual WP15 escaped candidate probe proves admitted raw~801KB expands beyond current response cap; native receiver requirement observedfirstB trace and caller workaround qualifiedfinalB. C necessary before Review; no new owner/scope.
+11 exact allowedpaths/max_files11, forbidden backend/contracts/ADR/CI/runtime confirmed. SDK2x raw1MiB+64KiB bounded response, standardfetch boundglobalrealm, removeUIworkaround, actual largeescaped provider/browser+overflow/native regressions. npmverify/stationbuild/all triggered gates required; Review/Closure forecast.

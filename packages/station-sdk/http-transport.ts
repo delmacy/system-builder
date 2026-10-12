@@ -1,7 +1,8 @@
 import { normalizeStationCommandReceipt, normalizeStationDiagnostic, normalizeStationProjection, assertMonotonicStationEvents, negotiateStationProtocol, type StationCommand, type StationDiagnostic, type StationHello, type StationQuery, type StationSubscription } from "@system-builder/contracts/station-core";
 import type { StationTransport, StationTransportResult } from "./index.js";
 export interface StationHttpOptions { readonly baseUrl: string; readonly token: string; readonly timeoutMs?: number; readonly fetch?: typeof fetch }
-const MAX_RESPONSE=1_048_576+65_536;
+// A raw 1MiB candidate may double when its canonical text is JSON-escaped in a record.
+const MAX_RESPONSE=2_097_152+65_536;
 const object=(v:unknown):v is Record<string,unknown>=>v!==null&&typeof v==="object"&&!Array.isArray(v);
 const unavailable=():StationDiagnostic=>({code:"STATION_CORE_UNAVAILABLE",detail:"Owner connection unavailable or response invalid",retryable:true,reconcileRequired:true});
 export class StationHttpTransport implements StationTransport {
@@ -11,7 +12,7 @@ export class StationHttpTransport implements StationTransport {
     const url=new URL(options.baseUrl);
     if(url.username||url.password||url.search||url.hash||url.pathname!=="/"||!(url.protocol==="https:"||url.protocol==="http:"&&["127.0.0.1","localhost","[::1]"].includes(url.hostname)))throw new Error("STATION_TRUSTED_ENDPOINT_INVALID");
     if(!options.token || options.token.length>4096 || [...options.token].some(c=>c.charCodeAt(0)<32))throw new Error("STATION_CREDENTIAL_INVALID");
-    this.#baseUrl=url.origin;this.#token=options.token;this.#fetch=options.fetch??fetch;this.#timeout=options.timeoutMs??10000;
+    this.#baseUrl=url.origin;this.#token=options.token;this.#fetch=(options.fetch??fetch).bind(globalThis);this.#timeout=options.timeoutMs??10000;
     if(!Number.isInteger(this.#timeout)||this.#timeout<100||this.#timeout>30000)throw new Error("STATION_TIMEOUT_INVALID");
   }
   cancel():void{for(const controller of this.#active)controller.abort();this.#active.clear();}

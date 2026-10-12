@@ -27,7 +27,7 @@ export function StationWorkflowConnectionPanel(props:Props){
     try{
       const key=JSON.stringify(fields);
       if(!connection.current||connection.current.key!==key){
-        const transport=new StationHttpTransport({baseUrl:fields.endpoint,token:fields.token,fetch:(input,init)=>window.fetch(input,init)});
+        const transport=new StationHttpTransport({baseUrl:fields.endpoint,token:fields.token});
         const {endpoint: _endpoint,token: _token,...options}=fields;
         // Endpoint and credential remain only in ephemeral connection state.
         void _endpoint;void _token;

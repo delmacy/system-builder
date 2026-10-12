@@ -4,7 +4,7 @@ import { randomUUID } from "node:crypto";
 import { WorkflowOwnerConnection, type WorkflowConnectionOptions } from "../../packages/station-workflow-connection/index.js";
 import { StationHttpTransport } from "../../packages/station-sdk/index.js";
 import { openConfiguredLocalDesignServer } from "../../apps/station-gateway/local-server.js";
-import { createWorkflow, openWorkflow, applyWorkflowCommand, materializeWorkflow } from "../../packages/station-workflow-authoring/index.js";
+import { createWorkflow, openWorkflow, applyWorkflowCommand, materializeWorkflow, encodeWorkflow } from "../../packages/station-workflow-authoring/index.js";
 import type { StationProjection } from "../../packages/contracts/station-core/index.js";
 const postgresUrl=process.env.SYSTEM_BUILDER_TEST_POSTGRES_URL;
 const token=randomUUID()+randomUUID();
@@ -69,7 +69,7 @@ test("actual owner replies with wrong correlation/source/currentness/completenes
 test("malformed/oversized/unavailable transport, endpoint credentials and timeout fail closed",async()=>{
   assert.throws(()=>new StationHttpTransport({baseUrl:"http://example.com",token}),/ENDPOINT_INVALID/);
   assert.throws(()=>new StationHttpTransport({baseUrl:"http://user:secret@127.0.0.1",token}),/ENDPOINT_INVALID/);
-  for(const response of [()=>json({ok:true,hello:{}}),()=>json({...hello,extra:"wrong"}),()=>new Response("x".repeat(1_200_000),{headers:{"content-type":"application/json"}}),()=>new Response("denied",{status:401})]){
+  for(const response of [()=>json({ok:true,hello:{}}),()=>json({...hello,extra:"wrong"}),()=>new Response("x".repeat(2_400_000),{headers:{"content-type":"application/json"}}),()=>new Response("denied",{status:401})]){
     const connection=new WorkflowOwnerConnection(options,new StationHttpTransport({baseUrl:"http://127.0.0.1:1",token,fetch:async()=>response()}));assert.equal(await connection.connect(),false);
   }
   const transport=new StationHttpTransport({baseUrl:"http://127.0.0.1:1",token,timeoutMs:100,fetch:(_input,init)=>new Promise<Response>((_resolve,reject)=>init?.signal?.addEventListener("abort",()=>reject(new Error("timeout")),{once:true}))});
@@ -79,4 +79,18 @@ test("late handshake cannot disconnect a newer successful connection",async()=>{
   let release!:()=>void,ready!:()=>void,calls=0;const held=new Promise<void>(resolve=>release=resolve),started=new Promise<void>(resolve=>ready=resolve);
   const connection=new WorkflowOwnerConnection(options,new StationHttpTransport({baseUrl:"http://127.0.0.1:1",token,fetch:async()=>{if(++calls===1){ready();await held;}return json(hello);}}));
   const first=connection.connect();await started;assert.equal(await connection.connect(),true);release();assert.equal(await first,false);assert.equal(connection.connected,true);
+});
+
+test("admitted large escaped authored candidate survives actual SDK/HTTP/owner/PostgreSQL readback", {skip:postgresUrl===undefined?"SYSTEM_BUILDER_TEST_POSTGRES_URL not configured":false},async()=>{
+  const endpoint=await server();try{
+    const source=authored(),candidate={...source.document,extensions:{"org.example.metadata":{opaque:["preserve",42],escaped:"\\".repeat(450000)}}},encoded=encodeWorkflow(candidate);assert.ok(encoded.accepted);
+    assert.ok(new TextEncoder().encode(encoded.text).length<1048576);
+    assert.ok(new TextEncoder().encode(JSON.stringify({record:{text:encoded.text}})).length>1048576+65536);
+    const connection=new WorkflowOwnerConnection(options,new StationHttpTransport({baseUrl:endpoint.url,token}));assert.equal(await connection.connect(),true);
+    const result=await connection.submit(encoded.document,null);assert.equal(result.status,"retained");if(result.status==="retained"){assert.equal(result.record.text,encoded.text);assert.deepEqual(result.document.extensions,candidate.extensions);}
+  }finally{await endpoint.close();}
+});
+test("fetch provider is invoked in the standard global realm rather than transport instance",async()=>{
+  let called=false;const transport=new StationHttpTransport({baseUrl:"http://127.0.0.1:1",token,fetch:async function(this:unknown){assert.equal(this,globalThis);called=true;return json(hello);}});
+  assert.equal(await new WorkflowOwnerConnection(options,transport).connect(),true);assert.equal(called,true);
 });
