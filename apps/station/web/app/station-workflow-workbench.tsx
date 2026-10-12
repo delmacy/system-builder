@@ -6,9 +6,10 @@ import { applyWorkflowCommand, isWorkflowProcessEditable, compareWorkflows, crea
 import { StationWorkflowProjections, workflowItems } from "./station-workflow-projections";
 import { loadWorkflowCandidates, readWorkflowFile, saveWorkflowCandidates, type WorkflowStoreResult } from "./station-workflow-store";
 import { StationWorkflowConnectionPanel } from "./station-workflow-connection-panel";
+import type { StudioSnapshot } from "./station-studio-foundation";
 const initialFields = { name: "", processId: "", analysisRef: "", recipeRef: "", requirementRef: "", state: "open" };
 const nextPatch = (version: string) => { const [major, minor, patch] = version.split(/[+-]/)[0]!.split("."); return `${major}.${minor}.${BigInt(patch!) + 1n}`; };
-export function StationWorkflowWorkbench() {
+export function StationWorkflowWorkbench({ onSnapshot }: { onSnapshot?: (snapshot: StudioSnapshot) => void } = {}) {
   const [session, setSession] = useState<WorkflowSession | null>(null);
   const [processId, setProcessId] = useState("");
   const [selection, setSelection] = useState<SelectionState>(emptySelection);
@@ -20,7 +21,15 @@ export function StationWorkflowWorkbench() {
   const [retained, setRetained] = useState(""); const [comparison, setComparison] = useState("");
   const [version, setVersion] = useState("");
   const [message, setMessage] = useState("Create a technical workflow or import a complete definition.");
-  const input = useRef<HTMLInputElement>(null), sequence = useRef(0);
+  const input = useRef<HTMLInputElement>(null), sequence = useRef(0), snapshotGeneration = useRef(0);
+  useEffect(() => {
+    if (!onSnapshot) return;
+    const identity = session ? { artifactId: session.document.artifactId, artifactVersion: session.document.artifactVersion } : null;
+    onSnapshot({ area: "workflow", generation: ++snapshotGeneration.current, identity,
+      selection: identity && selection.selectedRef ? { ...identity, ref: selection.selectedRef } : null,
+      contextRef: identity && processId ? "technical-process:" + processId : null,
+      dirty: !!session?.dirty || formDirty, pending: !!pending });
+  }, [onSnapshot, session, selection.selectedRef, processId, formDirty, pending]);
   const refresh = useCallback(() => {
     sequence.current++;
     try { const result = loadWorkflowCandidates(window.localStorage); setStorage(result); setRetained(""); setComparison(""); setMessage(result.accepted ? "Candidate storage refreshed. Opening is explicit." : "Candidate storage unavailable or invalid. Draft preserved."); }

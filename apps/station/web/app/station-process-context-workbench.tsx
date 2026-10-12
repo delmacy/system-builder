@@ -8,9 +8,10 @@ import { loadArtifactWorkspace, workspaceDocument, type ArtifactWorkspace } from
 import { StationEditorWorkbench, type EditorArtifactOpenRequest } from "./station-editor-workbench";
 import { createProjectionState, refreshProjectionState, selectProjectionItem, switchProjection, type ProjectionState } from "../../../../packages/station-model-projections/index";
 import { StationContextProjections } from "./station-context-projections";
+import type { StudioSnapshot } from "./station-studio-foundation";
 const resolveReference=(reference:CompositionReference)=>{try{return resolveContextComposition(window.localStorage,reference);}catch{return {status:"unavailable" as const};}};
 const emptyFields = { title: "", process: "", revision: "", number: "1", previous: "" };
-export function StationProcessContextWorkbench({ onOpen }: { onOpen: (text: string) => void }) {
+export function StationProcessContextWorkbench({ onOpen, onSnapshot }: { onOpen: (text: string) => void; onSnapshot?: (snapshot: StudioSnapshot) => void }) {
   const [projection, setProjection] = useState<ProjectionState | null>(null);
   const document = projection?.document ?? null;
   const [dirty, setDirty] = useState(false);
@@ -21,7 +22,7 @@ export function StationProcessContextWorkbench({ onOpen }: { onOpen: (text: stri
   const [selected, setSelected] = useState<string[]>([]);
   const [pending, setPending] = useState<{ document: ProcessContextDocument; retained: boolean } | null>(null);
   const [message, setMessage] = useState("Choose a retained context or create explicit references.");
-  const sequence = useRef(0), input = useRef<HTMLInputElement>(null);
+  const sequence = useRef(0), input = useRef<HTMLInputElement>(null), snapshotGeneration = useRef(0);
   const refreshStorage = useCallback(() => {
     sequence.current++;
     try {
@@ -46,6 +47,14 @@ export function StationProcessContextWorkbench({ onOpen }: { onOpen: (text: stri
     if(result.accepted)setProjection(result.state);
   };
   const formPending = selected.length > 0 || Object.keys(fields).some(key => fields[key as keyof typeof fields] !== emptyFields[key as keyof typeof fields]);
+  useEffect(() => {
+    if (!onSnapshot) return;
+    const identity = document ? { artifactId: document.artifactId, artifactVersion: document.artifactVersion } : null;
+    onSnapshot({ area: "process-context", generation: ++snapshotGeneration.current, identity,
+      selection: identity && projection?.selectedRef ? { ...identity, ref: projection.selectedRef } : null,
+      contextRef: document ? document.payload.processRevision.artifactRef + " @ " + document.payload.processRevision.revisionRef : null,
+      dirty: dirty || formPending, pending: !!pending });
+  }, [onSnapshot, document, projection?.selectedRef, dirty, formPending, pending]);
   const install = (next: ProcessContextDocument, retained = false) => {
     const result=createProjectionState(next,resolveReference);
     if(!result.accepted){setMessage("Invalid context. Current context preserved.");return;}
