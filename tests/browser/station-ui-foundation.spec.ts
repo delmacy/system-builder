@@ -53,6 +53,10 @@ for (const theme of ["light", "dark"] as const) {
   test(`reference ${theme}: readable text, focus, narrow layout and screenshot`, async ({ page }, info) => {
     const lab = await openLab(page);
     await lab.getByLabel("Reference theme", { exact: true }).selectOption(theme);
+    // Theme changes animate actual control colors; measure settled colors, not an intermediate frame.
+    await lab.evaluate(async element => {
+      await Promise.all(element.getAnimations({ subtree: true }).map(animation => animation.finished.catch(() => undefined)));
+    });
     for (const label of ["Primary reference", "Secondary reference", "Destructive reference"]) {
       const button = lab.getByRole("button", { name: label, exact: true });
       const contrast = await button.evaluate(element => {
