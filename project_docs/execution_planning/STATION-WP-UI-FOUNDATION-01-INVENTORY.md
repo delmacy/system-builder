@@ -4,7 +4,7 @@ Date: 2026-10-12. Baseline main@8e6f9fe1ffc68cfa24495eafecc35e8ce1e914b9. Source
 ## Method and factual baseline
 Read ui-core public exports/implementation, global CSS, actual installed editor catalog, graph properties/codec, existing tests and R1/R2/R3 proof census. Reproduce with `rg 'export (function|const)' packages/ui-core` and `rg 'id: "component:|compositionRef:' apps/station/web/app/station-editor-catalog.ts`. No exclusive resource/lock manifest found in current docs/schedule; path separation is enforced at task admission. Open PR1137 owns docs only; ICON task743 excludes ui-core/apps/editor. Future ICON B ownership must be freshly checked.
 
-16 exported components in components.ts; additional Tree, PropertyRow, PropertyGroup, PropertyInspector, EditorShell (21 total). Three installed compositions; six distinct descriptors (grid, button, lab-button, button-group, action-panel, action-row). These are not a general primitive palette. Button properties admit variant/disabled only; payload versions1–4, plain button text. Preview is generic styled div, not arbitrary ui-core rendering. New properties cannot be smuggled into existing codec.
+12 exported components in components.ts; additional Tree, PropertyRow, PropertyGroup, PropertyInspector, EditorShell (17 total). Three installed compositions; six distinct descriptors (grid, button, lab-button, button-group, action-panel, action-row). These are not a general primitive palette. Button properties admit variant/disabled only; payload versions1–4, plain button text. Preview is generic styled div, not arbitrary ui-core rendering. New properties cannot be smuggled into existing codec.
 
 ## Implementation matrix
 | C | Family / items | Actual evidence | Baseline status | Delivery / exit obligation |
