@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { LEGACY_ICON_TOKENS, ICON_TOKENS, SEMANTIC_ICON_CATALOG, StationIcon, StationGlyph } from '../../packages/ui-icons/index.js';
 import { ICON_CATALOG_METADATA } from '../../packages/ui-icons/catalog-metadata.js';
 import { createIconAssetLoader, loadIconAsset, normalizeIconReference, searchIconCatalog, iconAssetMetadata } from '../../packages/ui-icons/catalog-runtime.js';
-const geometry=(createRequire(import.meta.url)('../../scripts/generate-station-icon-library.mjs') as {geometry:(svg:string)=>readonly unknown[]}).geometry;
+const geometry=(createRequire(__filename)('../../scripts/generate-station-icon-library.mjs') as {geometry:(svg:string)=>readonly unknown[]}).geometry;
 const sha=(s:string)=>createHash('sha256').update(s).digest('hex');
 test('all pinned source assets and generated geometry match actual upstream blobs and render through shared React glyph',async()=>{
  const snapshot=JSON.parse(await readFile('packages/ui-icons/vendor/lucide-snapshot.json','utf8')) as {revision:string;assets:readonly {name:string;svg:string;gitBlobSha:string;bytes:number}[]};
