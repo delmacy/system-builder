@@ -104,3 +104,6 @@ Produce P census matrix from fresh main, enumerate exact shipped shadcn referenc
 
 ## 8. Current materialization
 TASK-745 owns admission correction/census; TASK-746 owns first C0 construction only. Detailed inventory: STATION-WP-UI-FOUNDATION-01-INVENTORY.md. Eleven-sprint cadence explicitly requested by owner; accepted as bounded exception. No product writes on this planning branch. Subsequent sprints retain rolling-wave promotion and exact-head integration gates.
+
+## 9. Qualified A / promoted B
+A qualified/integratedPR1138 b50a550f, seven exact-head workflows and113 browser journeys PASS. TASK747 materializes B on fresh base; TASK748 native primitives only. Active B manifest STATION-WP-UI-FOUNDATION-01-CONSTRUCTION-B.md. C–Z forecast. NEXT_WORK primary ICON pointer preserved because openICON PR1139 owns it; the cited UI plan supplies bounded lane progression after qualifiedA. Toolbar/icon/schema coordination stays required.

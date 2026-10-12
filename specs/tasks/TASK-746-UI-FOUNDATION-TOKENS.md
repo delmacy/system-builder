@@ -2,7 +2,7 @@
 {
   "id": "TASK-746",
   "title": "Complete source-owned semantic scales, theme parity and density/state recipes with actual Component Lab proof; no registry/codec claims.",
-  "status": "verification",
+  "status": "completed",
   "priority": 746,
   "milestone": "WP-UI-FOUNDATION-01",
   "model_tier": "cheap",
