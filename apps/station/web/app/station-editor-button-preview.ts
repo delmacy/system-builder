@@ -7,7 +7,7 @@ export function EditorButtonPreview({ label, properties }: Readonly<{ label: str
   if (properties !== undefined && !validButtonProperties(properties)) throw new Error("Invalid admitted button preview properties");
   const props: ButtonProps & { "data-preview-variant": ButtonProperties["variant"] } = {
     variant: properties?.variant ?? "default", disabled: properties?.disabled ?? false,
-    type: "button", tabIndex: -1, "aria-hidden": true,
+    type: "button", title: label, tabIndex: -1, "aria-hidden": true,
     "data-preview-variant": properties?.variant ?? "default",
     className: "pointer-events-none max-w-full truncate",
   };
