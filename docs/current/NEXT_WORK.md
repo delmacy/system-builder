@@ -1,6 +1,5 @@
-# Next work — WP16 Construction B actual connected Studio
-Sole scheduler. Active STATION-S4-WP16-CONSTRUCTION-B-01 / TASK724; basefa096d618172a6a828a81403dfb24d559f13ad40, A#1117 independently integrated after all seven workflowsPASS;109 heavy tests0skip and95 browser predecessors.
-Authority acceptedAdd016/ADR0016, closedDesignADR0018/Add017/operations/readiness, WP16 plan, active B manifest/TASK724. Full user execution authorized; O1–O4 qualifiedlocal.
-B explicit ephemeral-credential connection/send/exactread/open/recover/retry UI, confirmed dirty Cancel/Discard and generation/disconnect guards. Actual browser harness own isolated testPostgres/Docker+actual ownerprocess/restart; no workflow/backend/schema/ADR changes.11 exact paths.
-Require102 Chromium (95inherited+7connected) plus fullverify/build and every triggered gate before integration. Then fresh-main response-size/escaping boundary and remaining exit gap revalidation; C only indispensable admitted integration gap. IndependentReview/Closure afterward.
-AfterWP16 complete, prepare all12 suite Studios plus Design tools phase/EAP/WBS/WPs as authorized; future product construction not committed.
+# Next work — WP16 bounded Construction C
+Sole scheduler. Active STATION-S4-WP16-CONSTRUCTION-C-01 / TASK725; basecac8866bb983fdfac1b2e55c0e1041fe557d548b, B#1118 seven workflowsPASS/102 Chromium/109 heavy0skip.
+Authority acceptedAdd016/closedDesign contracts, WP16 plan, activeC manifest/TASK725. Fresh actual probe valid800937 bytes->escaped record1601073 bytes exceeded old1114112 response cap; native browser receiver workaround observed/qualified inB. C indispensable bounded integration fix, no newowner/schema/ADR/CI.
+C bounded2162688 responsecap, correctglobalrealmfetchdefault, UIworkaround removed; actuallargeescaped provider/browser+native/overflowregression.11 exactpaths. Requireall103 Chromium/111 heavy and every triggered verify/build/CI beforeintegration.
+Then independentReview/Closure; afterWP16 all12SuiteStudios+Design tools phase/EAP/WBS/WPs planning, no futureconstruction committed. Local-only/inheritedlimits remain; retained!=published/approved/upstreamresolved.
